@@ -1,8 +1,8 @@
 ; tend law image ME, Maine
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561
-; image sha256  4a781f1048188251d460e437dce629c67b333ddc25ce4f0f9136930de0cc182b
-; 45 rules, 14 sources, 27 proofs, 2 ints, 267 strings
+; image sha256  acd9c63afff42d7698f54693682057a56ccd1762e0b56c2946e3ec0b53383508
+; 45 rules, 14 sources, 26 proofs, 2 ints, 269 strings
 ; item program: 177 instructions, 580 bytes, max stack 2
 ; aggregate program: 88 instructions, 278 bytes, max stack 3, 2 loops
 
@@ -27,9 +27,9 @@
     R17   ME-PROS-1             covered       other                                         5 M.R.S. 3360(4)
     R18   ME-FUN-1              expense_cap   funeral               per claim               Maine AG Victims' Compensation page, What Expenses Are Covered?
     R19   ME-EXCL-1             excluded      property_replacement                          Maine AG Victims' Compensation page, What Expenses Are Covered?
-    R20   ME-EXCL-2             excluded      property_replacement                          Maine AG Program Law and History, What Is an Eligible Expense?
-    R21   ME-DEAD-1             deadline      -                                             5 M.R.S. 3360-C(1)(B)
-    R22   ME-DEAD-2             deadline      -                                             5 M.R.S. 3360-C(1)(B)
+    R20   ME-EXCL-2             info          -                     excluded_expense        Maine AG Program Law and History, What Is an Eligible Expense?
+    R21   ME-DEAD-1             deadline      -                     from crime              5 M.R.S. 3360-C(1)(B)
+    R22   ME-DEAD-2             deadline      -                     from discovery          5 M.R.S. 3360-C(1)(B)
     R23   ME-DEAD-3             info          -                     filing_deadline         5 M.R.S. 3360-C(3)
     R24   ME-REP-1              reporting     -                                             5 M.R.S. 3360-C(1)(A)
     R25   ME-REP-2              reporting     -                                             5 M.R.S. 3360-C(1)
@@ -88,17 +88,16 @@
     P13   (ME-SEC-1, ME-COLL-1)
     P14   (ME-CLEAN-1)
     P15   (ME-CLEAN-1, ME-COLL-1)
-    P16   (ME-EXCL-1, ME-EXCL-2)
-    P17   (ME-EXCL-2)
-    P18   (ME-DENT-1)
-    P19   (ME-DENT-1, ME-COLL-1)
-    P20   (ME-FUN-1)
-    P21   (ME-FUN-1, ME-COLL-1)
-    P22   (ME-PROS-1)
-    P23   (ME-PROS-1, ME-COLL-1)
-    P24   (ME-DEAD-1, ME-DEAD-2)
-    P25   (ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3)
-    P26   (ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1)
+    P16   (ME-EXCL-1)
+    P17   (ME-DENT-1)
+    P18   (ME-DENT-1, ME-COLL-1)
+    P19   (ME-FUN-1)
+    P20   (ME-FUN-1, ME-COLL-1)
+    P21   (ME-PROS-1)
+    P22   (ME-PROS-1, ME-COLL-1)
+    P23   (ME-DEAD-1, ME-DEAD-2)
+    P24   (ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3)
+    P25   (ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1)
 
 .ints
     K0    450000        ; $4,500.00
@@ -262,7 +261,6 @@
   018b        seta     collateral, R27              ; ME-COLL-1
   018f        ret
               ; ME-EXCL-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Expenses NOT covered: property losses, compensation for pain and..."
-              ; ME-EXCL-2  Maine AG Program Law and History, What Is an Eligible Expense?  "No property losses are covered other than replacement costs of..."
   0190  L17:  push     0
   0195        str      r0
   0197        ldi      tags
@@ -278,20 +276,20 @@
                         case 0                     -> L20
                         case 1                     -> L19
   01be  L19:  push     0
-  01c3        decide   excluded, P16                ; ME-EXCL-1, ME-EXCL-2
+  01c3        decide   excluded, P16                ; ME-EXCL-1
   01c7        ret
   01c8  L20:  push     0
-  01cd        decide   excluded, P17                ; ME-EXCL-2
+  01cd        decide   unknown_rule, P0             ; (none)
   01d1        ret
               ; ME-DENT-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Dental charges and replacement of dentures"
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
   01d2  L21:  ldi      confirmed
   01d4        jnz      L22
   01d9        push     0
-  01de        decide   needs_confirmation, P18      ; ME-DENT-1
+  01de        decide   needs_confirmation, P17      ; ME-DENT-1
   01e2        ret
   01e3  L22:  ldi      amount_cents
-  01e5        decide   eligible, P19                ; ME-DENT-1, ME-COLL-1
+  01e5        decide   eligible, P18                ; ME-DENT-1, ME-COLL-1
   01e9        lda
   01ea        ldi      insurance_paid_cents
   01ec        subs
@@ -304,10 +302,10 @@
   01f8  L23:  ldi      confirmed
   01fa        jnz      L24
   01ff        push     0
-  0204        decide   needs_confirmation, P20      ; ME-FUN-1
+  0204        decide   needs_confirmation, P19      ; ME-FUN-1
   0208        ret
   0209  L24:  ldi      amount_cents
-  020b        decide   eligible, P21                ; ME-FUN-1, ME-COLL-1
+  020b        decide   eligible, P20                ; ME-FUN-1, ME-COLL-1
   020f        lda
   0210        ldi      insurance_paid_cents
   0212        subs
@@ -320,10 +318,10 @@
   021e  L25:  ldi      confirmed
   0220        jnz      L26
   0225        push     0
-  022a        decide   needs_confirmation, P22      ; ME-PROS-1
+  022a        decide   needs_confirmation, P21      ; ME-PROS-1
   022e        ret
   022f  L26:  ldi      amount_cents
-  0231        decide   eligible, P23                ; ME-PROS-1, ME-COLL-1
+  0231        decide   eligible, P22                ; ME-PROS-1, ME-COLL-1
   0235        lda
   0236        ldi      insurance_paid_cents
   0238        subs
@@ -408,7 +406,7 @@
   00c8        push     0
   00cd        jmp      L11
   00d2  L10:  push     1                            ; late
-  00d7  L11:  check    deadline, P24                ; ME-DEAD-1, ME-DEAD-2
+  00d7  L11:  check    deadline, P23                ; ME-DEAD-1, ME-DEAD-2
               ; ME-EXAM-3  5 M.R.S. 3360-M(3)  "The victim is not required to report the offense to a law..."
               ; ME-REP-1  5 M.R.S. 3360-C(1)(A)  "A. The crime was reported to a law enforcement officer within 5..."
               ; ME-REP-2  5 M.R.S. 3360-C(1)  "an unrestricted report of sexual assault made to the Maine..."
@@ -426,7 +424,8 @@
   00ff  L12:  push     1
   0104        jmp      L14
   0109  L13:  push     0                            ; satisfied
-  010e  L14:  check    reporting, P25               ; ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3
+  010e  L14:  check    reporting, P24               ; ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3
+              ; ME-EXCL-2  Maine AG Program Law and History, What Is an Eligible Expense?  "No property losses are covered other than replacement costs of..."
               ; ME-DEAD-3  5 M.R.S. 3360-C(3)  "The board may waive the time requirements of subsection 1 for..."
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
               ; ME-COND-1  5 M.R.S. 3360-C(2)(B)  "B. To or on behalf of any person who violated a criminal law..."
@@ -446,6 +445,6 @@
               ; ME-DOC-COUNSEL  AG Mental Health Counseling Guidelines  "Your case cannot go before the Board without the completed..."
               ; ME-ACP-1  5 M.R.S. 90-B(2)  "The Address Confidentiality Program is established to protect..."
               ; ME-RECCONF-1  5 M.R.S. 3360-D(4)  "All records and information obtained by or in the possession of..."
-  0112        info     P26                          ; ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1
+  0112        info     P25                          ; ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1
   0115        ret
 

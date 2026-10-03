@@ -1,9 +1,9 @@
 ; tend law image CT, Connecticut
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 85b9830e195e3e3df4525d4d7a82ca2aefb639ef768ac0eb16b60b0301c9d24e
-; image sha256  58c1fa4eeae7b6e92c35627754979baf23de2099acd8ac71fbb7665488a4752b
-; 45 rules, 7 sources, 26 proofs, 1 ints, 227 strings
-; item program: 316 instructions, 1125 bytes, max stack 2
+; image sha256  3ecc4a033cf63711cf4c1d1d66d4a73199673d5ec7963617257948e267103970
+; 45 rules, 7 sources, 26 proofs, 1 ints, 228 strings
+; item program: 327 instructions, 1153 bytes, max stack 2
 ; aggregate program: 117 instructions, 367 bytes, max stack 3, 3 loops
 
 .rules
@@ -23,10 +23,10 @@
     R13   CT-COV-8              covered       clothing_bedding                              JD-VS-47, Crime Scene Clean-up and Security Systems
     R14   CT-COV-9              covered       crime_scene_cleanup                           JD-VS-47, Crime Scene Clean-up and Security Systems
     R15   CT-EXCL-1             excluded      property_replacement                          JDP-VS-10 brochure, Eligible Expenses Continued
-    R16   CT-EXCL-2             excluded      transportation                                JDP-VS-10 brochure, Eligible Expenses Continued
+    R16   CT-EXCL-2             info          -                     excluded_expense        JDP-VS-10 brochure, Eligible Expenses Continued
     R17   CT-EXCL-3             excluded      -                                             Conn. Gen. Stat. 54-211(c)
-    R18   CT-DEADLINE-1         deadline      -                                             Conn. Gen. Stat. 54-211(a)(1)(A)
-    R19   CT-DEADLINE-2         deadline      -                                             Conn. Gen. Stat. 54-211(a)(2)
+    R18   CT-DEADLINE-1         deadline      -                     from crime              Conn. Gen. Stat. 54-211(a)(1)(A)
+    R19   CT-DEADLINE-2         deadline      -                     from crime              Conn. Gen. Stat. 54-211(a)(2)
     R20   CT-REPORT-1           reporting     -                                             Conn. Gen. Stat. 54-211(a)(1)(C)
     R21   CT-REPORT-2           reporting     -                                             Conn. Gen. Stat. 54-209(d)(1)(K)
     R22   CT-REPORT-3           reporting     -                                             Conn. Gen. Stat. 54-209(d)(2)
@@ -74,8 +74,8 @@
     P6    (CT-COV-2, CT-COLL-1, CT-COLL-2)
     P7    (CT-COV-5)
     P8    (CT-COV-5, CT-COLL-1, CT-COLL-2)
-    P9    (CT-EXCL-2, CT-EXCL-3)
-    P10   (CT-EXCL-2)
+    P9    (CT-COV-6)
+    P10   (CT-COV-6, CT-COLL-1, CT-COLL-2)
     P11   (CT-CAP-3, CT-COV-7)
     P12   (CT-CAP-3, CT-COV-7, CT-COLL-1, CT-COLL-2)
     P13   (CT-CAP-5, CT-COV-9)
@@ -90,7 +90,7 @@
     P22   (CT-COV-3, CT-COLL-1, CT-COLL-2)
     P23   (CT-DEADLINE-1, CT-DEADLINE-2)
     P24   (CT-REPORT-1, CT-REPORT-2, CT-REPORT-3)
-    P25   (CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1)
+    P25   (CT-EXCL-2, CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1)
 
 .ints
     K0    100000        ; $1,000.00
@@ -105,26 +105,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L21
+  0016        switch   19, default L22
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L7
                         case lost_wages            -> L12
                         case transportation        -> L17
-                        case relocation            -> L21
-                        case temporary_housing     -> L21
-                        case security              -> L25
-                        case crime_scene_cleanup   -> L30
-                        case childcare             -> L21
-                        case property_replacement  -> L35
-                        case clothing_bedding      -> L42
-                        case prescription          -> L47
-                        case dental                -> L52
-                        case funeral               -> L21
-                        case legal                 -> L21
-                        case tuition               -> L21
-                        case other                 -> L21
-                        case unknown               -> L21
+                        case relocation            -> L22
+                        case temporary_housing     -> L22
+                        case security              -> L26
+                        case crime_scene_cleanup   -> L31
+                        case childcare             -> L22
+                        case property_replacement  -> L36
+                        case clothing_bedding      -> L43
+                        case prescription          -> L48
+                        case dental                -> L53
+                        case funeral               -> L22
+                        case legal                 -> L22
+                        case tuition               -> L22
+                        case other                 -> L22
+                        case unknown               -> L22
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -240,7 +240,6 @@
   0191        seta     collateral, R23              ; CT-COLL-1
   0195        ret
               ; CT-COV-6  JDP-VS-10 brochure, Eligible Expenses Continued  "For physical injury and homicide cases, lost wages and travel..."
-              ; CT-EXCL-2  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
@@ -259,248 +258,259 @@
                         case 0                     -> L20
                         case 1                     -> L19
   01c4  L19:  push     0
-  01c9        decide   excluded, P9                 ; CT-EXCL-2, CT-EXCL-3
+  01c9        decide   excluded, P2                 ; CT-EXCL-3
   01cd        ret
-  01ce  L20:  push     0
-  01d3        decide   excluded, P10                ; CT-EXCL-2
-  01d7        ret
+  01ce  L20:  ldi      confirmed
+  01d0        jnz      L21
+  01d5        push     0
+  01da        decide   needs_confirmation, P9       ; CT-COV-6
+  01de        ret
+  01df  L21:  ldi      amount_cents
+  01e1        decide   eligible, P10                ; CT-COV-6, CT-COLL-1, CT-COLL-2
+  01e5        lda
+  01e6        ldi      insurance_paid_cents
+  01e8        subs
+  01e9        push     0
+  01ee        max
+  01ef        seta     collateral, R23              ; CT-COLL-1
+  01f3        ret
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
-  01d8  L21:  push     0
-  01dd        str      r0
-  01df        ldi      tags
-  01e1        push     2
-  01e6        and
-  01e7        jz       L22
-  01ec        ldr      r0
-  01ee        push     1
-  01f3        or
-  01f4        str      r0
-  01f6  L22:  ldr      r0
-  01f8        switch   2, default L24
-                        case 0                     -> L24
-                        case 1                     -> L23
-  0206  L23:  push     0
-  020b        decide   excluded, P2                 ; CT-EXCL-3
-  020f        ret
-  0210  L24:  push     0
-  0215        decide   unknown_rule, P0             ; (none)
-  0219        ret
+  01f4  L22:  push     0
+  01f9        str      r0
+  01fb        ldi      tags
+  01fd        push     2
+  0202        and
+  0203        jz       L23
+  0208        ldr      r0
+  020a        push     1
+  020f        or
+  0210        str      r0
+  0212  L23:  ldr      r0
+  0214        switch   2, default L25
+                        case 0                     -> L25
+                        case 1                     -> L24
+  0222  L24:  push     0
+  0227        decide   excluded, P2                 ; CT-EXCL-3
+  022b        ret
+  022c  L25:  push     0
+  0231        decide   unknown_rule, P0             ; (none)
+  0235        ret
               ; CT-CAP-3  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
               ; CT-COV-7  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
-  021a  L25:  push     0
-  021f        str      r0
-  0221        ldi      tags
-  0223        push     2
-  0228        and
-  0229        jz       L26
-  022e        ldr      r0
-  0230        push     1
-  0235        or
-  0236        str      r0
-  0238  L26:  ldr      r0
-  023a        switch   2, default L28
-                        case 0                     -> L28
-                        case 1                     -> L27
-  0248  L27:  push     0
-  024d        decide   excluded, P2                 ; CT-EXCL-3
-  0251        ret
-  0252  L28:  ldi      confirmed
-  0254        jnz      L29
-  0259        push     0
-  025e        decide   needs_confirmation, P11      ; CT-CAP-3, CT-COV-7
-  0262        ret
-  0263  L29:  ldi      amount_cents
-  0265        decide   eligible, P12                ; CT-CAP-3, CT-COV-7, CT-COLL-1, CT-COLL-2
-  0269        lda
-  026a        ldi      insurance_paid_cents
-  026c        subs
-  026d        push     0
-  0272        max
-  0273        seta     collateral, R23              ; CT-COLL-1
-  0277        ret
+  0236  L26:  push     0
+  023b        str      r0
+  023d        ldi      tags
+  023f        push     2
+  0244        and
+  0245        jz       L27
+  024a        ldr      r0
+  024c        push     1
+  0251        or
+  0252        str      r0
+  0254  L27:  ldr      r0
+  0256        switch   2, default L29
+                        case 0                     -> L29
+                        case 1                     -> L28
+  0264  L28:  push     0
+  0269        decide   excluded, P2                 ; CT-EXCL-3
+  026d        ret
+  026e  L29:  ldi      confirmed
+  0270        jnz      L30
+  0275        push     0
+  027a        decide   needs_confirmation, P11      ; CT-CAP-3, CT-COV-7
+  027e        ret
+  027f  L30:  ldi      amount_cents
+  0281        decide   eligible, P12                ; CT-CAP-3, CT-COV-7, CT-COLL-1, CT-COLL-2
+  0285        lda
+  0286        ldi      insurance_paid_cents
+  0288        subs
+  0289        push     0
+  028e        max
+  028f        seta     collateral, R23              ; CT-COLL-1
+  0293        ret
               ; CT-CAP-5  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
               ; CT-COV-9  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
-  0278  L30:  push     0
-  027d        str      r0
-  027f        ldi      tags
-  0281        push     2
-  0286        and
-  0287        jz       L31
-  028c        ldr      r0
-  028e        push     1
-  0293        or
-  0294        str      r0
-  0296  L31:  ldr      r0
-  0298        switch   2, default L33
-                        case 0                     -> L33
-                        case 1                     -> L32
-  02a6  L32:  push     0
-  02ab        decide   excluded, P2                 ; CT-EXCL-3
-  02af        ret
-  02b0  L33:  ldi      confirmed
-  02b2        jnz      L34
-  02b7        push     0
-  02bc        decide   needs_confirmation, P13      ; CT-CAP-5, CT-COV-9
-  02c0        ret
-  02c1  L34:  ldi      amount_cents
-  02c3        decide   eligible, P14                ; CT-CAP-5, CT-COV-9, CT-COLL-1, CT-COLL-2
-  02c7        lda
-  02c8        ldi      insurance_paid_cents
-  02ca        subs
-  02cb        push     0
-  02d0        max
-  02d1        seta     collateral, R23              ; CT-COLL-1
-  02d5        ret
+  0294  L31:  push     0
+  0299        str      r0
+  029b        ldi      tags
+  029d        push     2
+  02a2        and
+  02a3        jz       L32
+  02a8        ldr      r0
+  02aa        push     1
+  02af        or
+  02b0        str      r0
+  02b2  L32:  ldr      r0
+  02b4        switch   2, default L34
+                        case 0                     -> L34
+                        case 1                     -> L33
+  02c2  L33:  push     0
+  02c7        decide   excluded, P2                 ; CT-EXCL-3
+  02cb        ret
+  02cc  L34:  ldi      confirmed
+  02ce        jnz      L35
+  02d3        push     0
+  02d8        decide   needs_confirmation, P13      ; CT-CAP-5, CT-COV-9
+  02dc        ret
+  02dd  L35:  ldi      amount_cents
+  02df        decide   eligible, P14                ; CT-CAP-5, CT-COV-9, CT-COLL-1, CT-COLL-2
+  02e3        lda
+  02e4        ldi      insurance_paid_cents
+  02e6        subs
+  02e7        push     0
+  02ec        max
+  02ed        seta     collateral, R23              ; CT-COLL-1
+  02f1        ret
               ; CT-EXCL-1  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
-  02d6  L35:  push     0
-  02db        str      r0
-  02dd        ldi      tags
-  02df        push     1
-  02e4        and
-  02e5        jz       L36
-  02ea        ldr      r0
-  02ec        push     1
-  02f1        or
-  02f2        str      r0
-  02f4  L36:  ldi      tags
-  02f6        push     2
-  02fb        and
-  02fc        jz       L37
-  0301        ldr      r0
-  0303        push     2
-  0308        or
-  0309        str      r0
-  030b  L37:  ldr      r0
-  030d        switch   4, default L41
-                        case 0                     -> L41
-                        case 1                     -> L38
-                        case 2                     -> L39
-                        case 3                     -> L40
-  0323  L38:  push     0
-  0328        decide   excluded, P15                ; CT-EXCL-1
-  032c        ret
-  032d  L39:  push     0
-  0332        decide   excluded, P2                 ; CT-EXCL-3
-  0336        ret
-  0337  L40:  push     0
-  033c        decide   excluded, P16                ; CT-EXCL-1, CT-EXCL-3
-  0340        ret
-  0341  L41:  push     0
-  0346        decide   unknown_rule, P0             ; (none)
-  034a        ret
+  02f2  L36:  push     0
+  02f7        str      r0
+  02f9        ldi      tags
+  02fb        push     1
+  0300        and
+  0301        jz       L37
+  0306        ldr      r0
+  0308        push     1
+  030d        or
+  030e        str      r0
+  0310  L37:  ldi      tags
+  0312        push     2
+  0317        and
+  0318        jz       L38
+  031d        ldr      r0
+  031f        push     2
+  0324        or
+  0325        str      r0
+  0327  L38:  ldr      r0
+  0329        switch   4, default L42
+                        case 0                     -> L42
+                        case 1                     -> L39
+                        case 2                     -> L40
+                        case 3                     -> L41
+  033f  L39:  push     0
+  0344        decide   excluded, P15                ; CT-EXCL-1
+  0348        ret
+  0349  L40:  push     0
+  034e        decide   excluded, P2                 ; CT-EXCL-3
+  0352        ret
+  0353  L41:  push     0
+  0358        decide   excluded, P16                ; CT-EXCL-1, CT-EXCL-3
+  035c        ret
+  035d  L42:  push     0
+  0362        decide   unknown_rule, P0             ; (none)
+  0366        ret
               ; CT-CAP-4  JDP-VS-10 brochure, Examples of Eligible Expenses  "Up to $1,000 for crime scene cleanup, security systems, or..."
               ; CT-COV-8  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
-  034b  L42:  push     0
-  0350        str      r0
-  0352        ldi      tags
-  0354        push     2
-  0359        and
-  035a        jz       L43
-  035f        ldr      r0
-  0361        push     1
-  0366        or
-  0367        str      r0
-  0369  L43:  ldr      r0
-  036b        switch   2, default L45
-                        case 0                     -> L45
-                        case 1                     -> L44
-  0379  L44:  push     0
-  037e        decide   excluded, P2                 ; CT-EXCL-3
-  0382        ret
-  0383  L45:  ldi      confirmed
-  0385        jnz      L46
-  038a        push     0
-  038f        decide   needs_confirmation, P17      ; CT-CAP-4, CT-COV-8
-  0393        ret
-  0394  L46:  ldi      amount_cents
-  0396        decide   eligible, P18                ; CT-CAP-4, CT-COV-8, CT-COLL-1, CT-COLL-2
-  039a        lda
-  039b        ldi      insurance_paid_cents
-  039d        subs
-  039e        push     0
-  03a3        max
-  03a4        seta     collateral, R23              ; CT-COLL-1
-  03a8        ret
+  0367  L43:  push     0
+  036c        str      r0
+  036e        ldi      tags
+  0370        push     2
+  0375        and
+  0376        jz       L44
+  037b        ldr      r0
+  037d        push     1
+  0382        or
+  0383        str      r0
+  0385  L44:  ldr      r0
+  0387        switch   2, default L46
+                        case 0                     -> L46
+                        case 1                     -> L45
+  0395  L45:  push     0
+  039a        decide   excluded, P2                 ; CT-EXCL-3
+  039e        ret
+  039f  L46:  ldi      confirmed
+  03a1        jnz      L47
+  03a6        push     0
+  03ab        decide   needs_confirmation, P17      ; CT-CAP-4, CT-COV-8
+  03af        ret
+  03b0  L47:  ldi      amount_cents
+  03b2        decide   eligible, P18                ; CT-CAP-4, CT-COV-8, CT-COLL-1, CT-COLL-2
+  03b6        lda
+  03b7        ldi      insurance_paid_cents
+  03b9        subs
+  03ba        push     0
+  03bf        max
+  03c0        seta     collateral, R23              ; CT-COLL-1
+  03c4        ret
               ; CT-COV-4  JD-VS-47, Medical Expenses  "Hospital, doctor, cosmetic, and dental fees; co-pays and other..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
-  03a9  L47:  push     0
-  03ae        str      r0
-  03b0        ldi      tags
-  03b2        push     2
-  03b7        and
-  03b8        jz       L48
-  03bd        ldr      r0
-  03bf        push     1
-  03c4        or
-  03c5        str      r0
-  03c7  L48:  ldr      r0
-  03c9        switch   2, default L50
-                        case 0                     -> L50
-                        case 1                     -> L49
-  03d7  L49:  push     0
-  03dc        decide   excluded, P2                 ; CT-EXCL-3
-  03e0        ret
-  03e1  L50:  ldi      confirmed
-  03e3        jnz      L51
-  03e8        push     0
-  03ed        decide   needs_confirmation, P19      ; CT-COV-4
-  03f1        ret
-  03f2  L51:  ldi      amount_cents
-  03f4        decide   eligible, P20                ; CT-COV-4, CT-COLL-1, CT-COLL-2
-  03f8        lda
-  03f9        ldi      insurance_paid_cents
-  03fb        subs
-  03fc        push     0
-  0401        max
-  0402        seta     collateral, R23              ; CT-COLL-1
-  0406        ret
+  03c5  L48:  push     0
+  03ca        str      r0
+  03cc        ldi      tags
+  03ce        push     2
+  03d3        and
+  03d4        jz       L49
+  03d9        ldr      r0
+  03db        push     1
+  03e0        or
+  03e1        str      r0
+  03e3  L49:  ldr      r0
+  03e5        switch   2, default L51
+                        case 0                     -> L51
+                        case 1                     -> L50
+  03f3  L50:  push     0
+  03f8        decide   excluded, P2                 ; CT-EXCL-3
+  03fc        ret
+  03fd  L51:  ldi      confirmed
+  03ff        jnz      L52
+  0404        push     0
+  0409        decide   needs_confirmation, P19      ; CT-COV-4
+  040d        ret
+  040e  L52:  ldi      amount_cents
+  0410        decide   eligible, P20                ; CT-COV-4, CT-COLL-1, CT-COLL-2
+  0414        lda
+  0415        ldi      insurance_paid_cents
+  0417        subs
+  0418        push     0
+  041d        max
+  041e        seta     collateral, R23              ; CT-COLL-1
+  0422        ret
               ; CT-COV-3  JD-VS-47, Medical Expenses  "Hospital, doctor, cosmetic, and dental fees; co-pays and other..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
-  0407  L52:  push     0
-  040c        str      r0
-  040e        ldi      tags
-  0410        push     2
-  0415        and
-  0416        jz       L53
-  041b        ldr      r0
-  041d        push     1
-  0422        or
-  0423        str      r0
-  0425  L53:  ldr      r0
-  0427        switch   2, default L55
-                        case 0                     -> L55
-                        case 1                     -> L54
-  0435  L54:  push     0
-  043a        decide   excluded, P2                 ; CT-EXCL-3
-  043e        ret
-  043f  L55:  ldi      confirmed
-  0441        jnz      L56
-  0446        push     0
-  044b        decide   needs_confirmation, P21      ; CT-COV-3
-  044f        ret
-  0450  L56:  ldi      amount_cents
-  0452        decide   eligible, P22                ; CT-COV-3, CT-COLL-1, CT-COLL-2
-  0456        lda
-  0457        ldi      insurance_paid_cents
-  0459        subs
-  045a        push     0
-  045f        max
-  0460        seta     collateral, R23              ; CT-COLL-1
-  0464        ret
+  0423  L53:  push     0
+  0428        str      r0
+  042a        ldi      tags
+  042c        push     2
+  0431        and
+  0432        jz       L54
+  0437        ldr      r0
+  0439        push     1
+  043e        or
+  043f        str      r0
+  0441  L54:  ldr      r0
+  0443        switch   2, default L56
+                        case 0                     -> L56
+                        case 1                     -> L55
+  0451  L55:  push     0
+  0456        decide   excluded, P2                 ; CT-EXCL-3
+  045a        ret
+  045b  L56:  ldi      confirmed
+  045d        jnz      L57
+  0462        push     0
+  0467        decide   needs_confirmation, P21      ; CT-COV-3
+  046b        ret
+  046c  L57:  ldi      amount_cents
+  046e        decide   eligible, P22                ; CT-COV-3, CT-COLL-1, CT-COLL-2
+  0472        lda
+  0473        ldi      insurance_paid_cents
+  0475        subs
+  0476        push     0
+  047b        max
+  047c        seta     collateral, R23              ; CT-COLL-1
+  0480        ret
 
 .aggregate
               ; CT-CAP-3  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
@@ -626,6 +636,7 @@
   015d        jmp      L19
   0162  L18:  push     0                            ; satisfied
   0167  L19:  check    reporting, P24               ; CT-REPORT-1, CT-REPORT-2, CT-REPORT-3
+              ; CT-EXCL-2  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
               ; CT-CONDUCT-1  Conn. Gen. Stat. 54-208(c)  "shall consider all circumstances determined to be relevant..."
@@ -646,6 +657,6 @@
               ; CT-DOC-9  JD-VS-8PI, Section 10  "Applications that are not signed will be returned for signature."
               ; CT-ACP-1  Conn. Gen. Stat. sec. 54-240a(a)  "There shall be an address confidentiality program established in..."
               ; CT-RECCONF-1  Conn. Gen. Stat. sec. 54-204(b)  "Any information received which is confidential in accordance..."
-  016b        info     P25                          ; CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1
+  016b        info     P25                          ; CT-EXCL-2, CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1
   016e        ret
 

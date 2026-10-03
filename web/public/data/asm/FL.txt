@@ -1,10 +1,10 @@
 ; tend law image FL, Florida
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 dcfe24d4d301a829fe50d8d1ba0eb88378ccebd6ac8241db07011a131f9935e6
-; image sha256  de2821c86c0ea48daf0f63ad0c97c1f8617aab361fcd1a910a7f3d8b009f7c55
-; 49 rules, 24 sources, 19 proofs, 5 ints, 307 strings
+; image sha256  ec5ffe2f426bb8491f4cdb165ba03571b5edc4f6823822611200be6de6815a81
+; 49 rules, 24 sources, 19 proofs, 5 ints, 308 strings
 ; item program: 209 instructions, 757 bytes, max stack 2
-; aggregate program: 227 instructions, 697 bytes, max stack 3, 7 loops
+; aggregate program: 223 instructions, 688 bytes, max stack 3, 7 loops
 
 .rules
     R0    FL-EXAM-1             exam_no_bill  -                                             Fla. Stat. 960.28(1)
@@ -24,9 +24,9 @@
     R14   FL-COV-5              covered       medical                                       Fla. Admin. Code R. 2A-2.2002(2)(e)2.
     R15   FL-COV-6              covered       relocation                                    Fla. Stat. 960.199(2)(c)-(e)
     R16   FL-EXC-1              excluded      -                                             Fla. Admin. Code R. 2A-2.2002(3)(g)
-    R17   FL-DEADLINE-1         deadline      -                                             Fla. Stat. 960.07(2)(b)1.
-    R18   FL-DEADLINE-3         deadline      -                                             Fla. Stat. 960.07(2)(b)2.-3.
-    R19   FL-DEADLINE-2         deadline      -                                             Fla. Stat. 960.07(3)(c)
+    R17   FL-DEADLINE-1         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)1.
+    R18   FL-DEADLINE-3         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)2.-3.
+    R19   FL-DEADLINE-2         info          -                     filing_deadline         Fla. Stat. 960.07(3)(c)
     R20   FL-REPORT-1           reporting     -                                             Fla. Stat. 960.13(1)(b)2.
     R21   FL-REPORT-2           reporting     -                                             Fla. Admin. Code R. 2A-2.2001(9)
     R22   FL-COLLATERAL-1       collateral    -                                             Fla. Stat. 960.13(3)
@@ -102,9 +102,9 @@
     P13   (FL-CAP-6, FL-COV-6, FL-COLLATERAL-1)
     P14   (FL-CAP-7)
     P15   (FL-CAP-7, FL-COLLATERAL-1)
-    P16   (FL-DEADLINE-1, FL-DEADLINE-3, FL-DEADLINE-2)
+    P16   (FL-DEADLINE-1, FL-DEADLINE-3)
     P17   (FL-REPORT-1, FL-REPORT-2)
-    P18   (FL-COLLATERAL-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1)
+    P18   (FL-DEADLINE-2, FL-COLLATERAL-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1)
 
 .ints
     K0    100000        ; $1,000.00
@@ -592,36 +592,32 @@
   0251        push     1826
   0256        adds
   0257        max
-              ; FL-DEADLINE-2  Fla. Stat. 960.07(3)(c)  "(c) For a claim arising from a crime occurring on or after..."
-  0258        ldx      incident_date
-  025a        push     1095
-  025f        adds
-  0260        max
-  0261        dup
-  0262        setdate
-  0263        ldx      as_of_date
-  0265        ge
-  0266        jz       L35
-  026b        push     0
-  0270        jmp      L36
-  0275  L35:  push     1                            ; late
-  027a  L36:  check    deadline, P16                ; FL-DEADLINE-1, FL-DEADLINE-3, FL-DEADLINE-2
+  0258        dup
+  0259        setdate
+  025a        ldx      as_of_date
+  025c        ge
+  025d        jz       L35
+  0262        push     0
+  0267        jmp      L36
+  026c  L35:  push     1                            ; late
+  0271  L36:  check    deadline, P16                ; FL-DEADLINE-1, FL-DEADLINE-3
               ; FL-REPORT-1  Fla. Stat. 960.13(1)(b)2.  "2. Five days after the occurrence of such crime, if the crime..."
               ; FL-REPORT-2  Fla. Admin. Code R. 2A-2.2001(9)  ""Proper authorities" means state and federal law enforcement..."
-  027e        ldx      police_report
-  0280        push     1                            ; yes
-  0285        eq
-  0286        jnz      L38
-  028b        ldx      police_report
-  028d        push     0                            ; no
-  0292        eq
-  0293        jnz      L37
-  0298        push     3
-  029d        jmp      L39
-  02a2  L37:  push     1
-  02a7        jmp      L39
-  02ac  L38:  push     0                            ; satisfied
-  02b1  L39:  check    reporting, P17               ; FL-REPORT-1, FL-REPORT-2
+  0275        ldx      police_report
+  0277        push     1                            ; yes
+  027c        eq
+  027d        jnz      L38
+  0282        ldx      police_report
+  0284        push     0                            ; no
+  0289        eq
+  028a        jnz      L37
+  028f        push     3
+  0294        jmp      L39
+  0299  L37:  push     1
+  029e        jmp      L39
+  02a3  L38:  push     0                            ; satisfied
+  02a8  L39:  check    reporting, P17               ; FL-REPORT-1, FL-REPORT-2
+              ; FL-DEADLINE-2  Fla. Stat. 960.07(3)(c)  "(c) For a claim arising from a crime occurring on or after..."
               ; FL-COLLATERAL-1  Fla. Stat. 960.13(3)  "Payment made in accordance with this section shall be considered..."
               ; FL-CONDUCT-1  Fla. Stat. 960.13(7)  "In determining the amount of an award, the department shall..."
               ; FL-CONDUCT-2  Fla. Admin. Code R. 2A-2.2002(1)(b)2.  "Penalty assessments, if imposed, based on contribution will be..."
@@ -647,6 +643,6 @@
               ; FL-DOC-11  Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations  "A standard housing contract or a No fica on of Residen al..."
               ; FL-ACP-1  Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465  "the Address Confidentiality Program (ACP) provides a substitute..."
               ; FL-RECORDS-1  Fla. Stat. 119.071(2)(j)1.b.(I)  "Any portion of a public record which reveals the identity..."
-  02b5        info     P18                          ; FL-COLLATERAL-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1
-  02b8        ret
+  02ac        info     P18                          ; FL-DEADLINE-2, FL-COLLATERAL-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1
+  02af        ret
 

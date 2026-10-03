@@ -1,10 +1,10 @@
 ; tend law image ID, Idaho
-; format 1.1, compiled by tendc 1.1.0
-; source sha256 c7a8684f704d3d7869f36a2c60e60b86f9eb1bc98297fa32fe5d98d11ae3d91d
-; image sha256  ea74b4021fcba6093dd3d2c4fb3f39291cb81e44229fc662f396adbdb1378165
-; 52 rules, 17 sources, 27 proofs, 5 ints, 316 strings
-; item program: 295 instructions, 1072 bytes, max stack 2
-; aggregate program: 154 instructions, 483 bytes, max stack 3, 5 loops
+; format 1.2, compiled by tendc 1.2.0
+; source sha256 b75cf25c5fdb343bac8121147ed24ae96473b7d9b0e4ffcb57110119fd6fa6ce
+; image sha256  0bd690c327ed7a14273d0291b23ab1cb2c95f68b6889c3f243174a9918fdb84d
+; 52 rules, 17 sources, 25 proofs, 5 ints, 317 strings
+; item program: 299 instructions, 1062 bytes, max stack 2
+; aggregate program: 160 instructions, 502 bytes, max stack 3, 5 loops
 
 .rules
     R0    ID-EXAM-1             exam_payment  -                                             Idaho Code 19-5303
@@ -27,10 +27,10 @@
     R17   ID-COV-7              covered       prescription                                  CVCP FAQ, What benefits are offered by CVCP? (Medical)
     R18   ID-EXCL-1             excluded      property_replacement                          Idaho Code 72-1019(6)
     R19   ID-EXCL-2             excluded      -                                             Idaho Code 72-1019(6)
-    R20   ID-EXCL-3             excluded      counseling                                    CVCP FAQ, Mental Health
-    R21   ID-EXCL-4             excluded      transportation                                IDAPA 17.10.01.013.06
-    R22   ID-EXCL-5             excluded      crime_scene_cleanup                           CVCP FAQ, What is Restitution?
-    R23   ID-DEADLINE-1         deadline      -                                             Idaho Code 72-1016(1)
+    R20   ID-EXCL-3             info          -                     excluded_expense        CVCP FAQ, Mental Health
+    R21   ID-EXCL-4             info          -                     excluded_expense        IDAPA 17.10.01.013.06
+    R22   ID-EXCL-5             info          -                     excluded_expense        CVCP FAQ, What is Restitution?
+    R23   ID-DEADLINE-1         deadline      -                     from crime              Idaho Code 72-1016(1)
     R24   ID-REPORT-1           reporting     -                                             Idaho Code 72-1016(3)
     R25   ID-REPORT-2           info          -                     reporting_requirement   Adult Sexual Assault Forensic Examination Reimbursement Application, page 1
     R26   ID-REPORT-3           reporting     -                                             Idaho Code 72-1016(4)
@@ -63,12 +63,12 @@
 .tags   phone=bit0, pain_suffering=bit1
 
 .sources
-    S0    ID-S1       sha256 8f37e1b0c1814d3c  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1003
-    S1    ID-S2       sha256 854494c00bbdf4d5  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016
-    S2    ID-S3       sha256 382df1a72c489f66  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1017
-    S3    ID-S4       sha256 5cd6bc576c133cc7  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019
-    S4    ID-S5       sha256 5e73736c68d0fb0f  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1026
-    S5    ID-S6       sha256 6a453ef22d849ec0  https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH53/SECT19-5303
+    S0    ID-S1       sha256 4060afc57fb1e651  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1003
+    S1    ID-S2       sha256 e0270a8ab1f59a88  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016
+    S2    ID-S3       sha256 4906cbde63c3db0c  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1017
+    S3    ID-S4       sha256 45187b34c5e7f615  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019
+    S4    ID-S5       sha256 ff437fae8bfb1809  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1026
+    S5    ID-S6       sha256 aea91b2abc830a22  https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH53/SECT19-5303
     S6    ID-S7       sha256 8b2df84ea15fd1ca  https://adminrules.idaho.gov/rules/current/17/171001.pdf
     S7    ID-S8       sha256 c660b2ab88a370db  https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/
     S8    ID-S9       sha256 6a668b4a61477a01  https://crimevictimcomp.idaho.gov/frequently-asked-questions/
@@ -76,10 +76,10 @@
     S10   ID-S11      sha256 3dcce5f912ecc40e  https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/06/CVCP-Application-for-Compensation_20260630.pdf
     S11   ID-S12      sha256 6e72368a85c85e45  https://crimevictimcomp.idaho.gov/benefits/
     S12   ID-S13      sha256 362087d213892705  https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/04/SAE-Reimbursement-Form-4-14-26.pdf
-    S13   ID-S14      sha256 095ab9451ba40121  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1007
-    S14   ID-S15      sha256 a7dd514c693f62c2  https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH57/SECT19-5703
+    S13   ID-S14      sha256 0c318dd23d77c215  https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1007
+    S14   ID-S15      sha256 1e5eb0c002fa598c  https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH57/SECT19-5703
     S15   ID-S16      sha256 93196e499d0d9fd0  https://sos.idaho.gov/acp/
-    S16   ID-S17      sha256 7694246d29438838  https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH57/SECT19-5701
+    S16   ID-S17      sha256 a78bc19cb7f5c38c  https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH57/SECT19-5701
 
 .proofs
     P0    ()
@@ -87,28 +87,26 @@
     P2    (ID-EXCL-2)
     P3    (ID-COV-1)
     P4    (ID-COV-1, ID-COLL-1)
-    P5    (ID-EXCL-2, ID-EXCL-3)
-    P6    (ID-EXCL-3)
+    P5    (ID-CAP-2, ID-COV-2)
+    P6    (ID-CAP-2, ID-COV-2, ID-COLL-1)
     P7    (ID-CAP-5)
     P8    (ID-CAP-4, ID-CAP-6)
     P9    (ID-CAP-4, ID-CAP-6, ID-COLL-1)
-    P10   (ID-EXCL-2, ID-EXCL-4)
-    P11   (ID-EXCL-4)
-    P12   (ID-EXCL-2, ID-EXCL-5)
-    P13   (ID-EXCL-5)
-    P14   (ID-EXCL-1)
-    P15   (ID-EXCL-1, ID-EXCL-2)
-    P16   (ID-COV-7)
-    P17   (ID-COV-7, ID-COLL-1)
-    P18   (ID-COV-6)
-    P19   (ID-COV-6, ID-COLL-1)
-    P20   (ID-CAP-7)
-    P21   (ID-CAP-7, ID-COLL-1)
-    P22   (ID-COV-5)
-    P23   (ID-COV-5, ID-COLL-1)
-    P24   (ID-DEADLINE-1)
-    P25   (ID-REPORT-1, ID-REPORT-3)
-    P26   (ID-REPORT-2, ID-COLL-1, ID-CONDUCT-1, ID-CONDUCT-2, ID-CONDUCT-3, ID-EMERG-1, ID-CRIME-1, ID-CRIME-2, ID-CRIME-3, ID-RES-1, ID-SUBMIT-1, ID-SUBMIT-2, ID-SUBMIT-3, ID-DOC-1, ID-DOC-2, ID-DOC-3, ID-DOC-4, ID-DOC-5, ID-DOC-6, ID-DOC-7, ID-DOC-8, ID-TIME-1, ID-ACP-1, ID-REC-1)
+    P10   (ID-COV-3)
+    P11   (ID-COV-3, ID-COLL-1)
+    P12   (ID-EXCL-1)
+    P13   (ID-EXCL-1, ID-EXCL-2)
+    P14   (ID-COV-7)
+    P15   (ID-COV-7, ID-COLL-1)
+    P16   (ID-COV-6)
+    P17   (ID-COV-6, ID-COLL-1)
+    P18   (ID-CAP-7)
+    P19   (ID-CAP-7, ID-COLL-1)
+    P20   (ID-COV-5)
+    P21   (ID-COV-5, ID-COLL-1)
+    P22   (ID-DEADLINE-1)
+    P23   (ID-REPORT-1, ID-REPORT-3)
+    P24   (ID-EXCL-3, ID-EXCL-4, ID-EXCL-5, ID-REPORT-2, ID-COLL-1, ID-CONDUCT-1, ID-CONDUCT-2, ID-CONDUCT-3, ID-EMERG-1, ID-CRIME-1, ID-CRIME-2, ID-CRIME-3, ID-RES-1, ID-SUBMIT-1, ID-SUBMIT-2, ID-SUBMIT-3, ID-DOC-1, ID-DOC-2, ID-DOC-3, ID-DOC-4, ID-DOC-5, ID-DOC-6, ID-DOC-7, ID-DOC-8, ID-TIME-1, ID-ACP-1, ID-REC-1)
 
 .ints
     K0    17500         ; $175.00
@@ -127,26 +125,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L20
+  0016        switch   19, default L22
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L7
-                        case lost_wages            -> L11
-                        case transportation        -> L16
-                        case relocation            -> L20
-                        case temporary_housing     -> L20
-                        case security              -> L20
-                        case crime_scene_cleanup   -> L24
-                        case childcare             -> L20
-                        case property_replacement  -> L28
-                        case clothing_bedding      -> L20
-                        case prescription          -> L35
-                        case dental                -> L40
-                        case funeral               -> L45
-                        case legal                 -> L20
-                        case tuition               -> L20
-                        case other                 -> L50
-                        case unknown               -> L20
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L22
+                        case temporary_housing     -> L22
+                        case security              -> L22
+                        case crime_scene_cleanup   -> L22
+                        case childcare             -> L22
+                        case property_replacement  -> L26
+                        case clothing_bedding      -> L22
+                        case prescription          -> L33
+                        case dental                -> L38
+                        case funeral               -> L43
+                        case legal                 -> L22
+                        case tuition               -> L22
+                        case other                 -> L48
+                        case unknown               -> L22
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -195,7 +193,6 @@
               ; ID-CAP-2  Idaho Code 72-1019(5)(b)  "payments for mental health treatment received as a result of the..."
               ; ID-COV-2  Idaho Code 72-1019(2)  "The commission may order payment of reasonable expenses actually..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
-              ; ID-EXCL-3  CVCP FAQ, Mental Health  "CVCP will not reimburse for cancellation or missed appointment..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
   00da  L7:   push     0
   00df        str      r0
@@ -212,450 +209,458 @@
                         case 0                     -> L10
                         case 1                     -> L9
   0108  L9:   push     0
-  010d        decide   excluded, P5                 ; ID-EXCL-2, ID-EXCL-3
+  010d        decide   excluded, P2                 ; ID-EXCL-2
   0111        ret
-  0112  L10:  push     0
-  0117        decide   excluded, P6                 ; ID-EXCL-3
-  011b        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; ID-CAP-2, ID-COV-2
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; ID-CAP-2, ID-COV-2, ID-COLL-1
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R27              ; ID-COLL-1
+  0137        ret
               ; ID-CAP-4  Idaho Code 72-1019(1)  "The weekly benefit amount is sixty-six and two-thirds percent..."
               ; ID-CAP-6  Idaho Code 72-1019(7)(c)  "Compensation payable to a victim or a victim's dependents under..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
-  011c  L11:  push     0
-  0121        str      r0
-  0123        ldi      tags
-  0125        push     2
-  012a        and
-  012b        jz       L12
-  0130        ldr      r0
-  0132        push     1
-  0137        or
-  0138        str      r0
-  013a  L12:  ldr      r0
-  013c        switch   2, default L14
-                        case 0                     -> L14
-                        case 1                     -> L13
-  014a  L13:  push     0
-  014f        decide   excluded, P2                 ; ID-EXCL-2
-  0153        ret
-  0154  L14:  alts     P7                           ; ID-CAP-5
-  0157        ldi      confirmed
-  0159        jnz      L15
-  015e        push     0
-  0163        decide   needs_confirmation, P8       ; ID-CAP-4, ID-CAP-6
-  0167        ret
-  0168  L15:  ldi      amount_cents
-  016a        decide   eligible, P9                 ; ID-CAP-4, ID-CAP-6, ID-COLL-1
-  016e        lda
-  016f        ldi      insurance_paid_cents
-  0171        subs
-  0172        push     0
-  0177        max
-  0178        seta     collateral, R27              ; ID-COLL-1
-  017c        ret
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     2
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; ID-EXCL-2
+  016f        ret
+  0170  L15:  alts     P7                           ; ID-CAP-5
+  0173        ldi      confirmed
+  0175        jnz      L16
+  017a        push     0
+  017f        decide   needs_confirmation, P8       ; ID-CAP-4, ID-CAP-6
+  0183        ret
+  0184  L16:  ldi      amount_cents
+  0186        decide   eligible, P9                 ; ID-CAP-4, ID-CAP-6, ID-COLL-1
+  018a        lda
+  018b        ldi      insurance_paid_cents
+  018d        subs
+  018e        push     0
+  0193        max
+  0194        seta     collateral, R27              ; ID-COLL-1
+  0198        ret
               ; ID-COV-3  Idaho Code 72-1019(10)  "A claimant or a spouse, parent, child or sibling of a claimant..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
-              ; ID-EXCL-4  IDAPA 17.10.01.013.06  "Reimbursement is limited to one (1) round trip per day. The..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
-  017d  L16:  push     0
-  0182        str      r0
-  0184        ldi      tags
-  0186        push     2
-  018b        and
-  018c        jz       L17
-  0191        ldr      r0
-  0193        push     1
-  0198        or
-  0199        str      r0
-  019b  L17:  ldr      r0
-  019d        switch   2, default L19
-                        case 0                     -> L19
-                        case 1                     -> L18
-  01ab  L18:  push     0
-  01b0        decide   excluded, P10                ; ID-EXCL-2, ID-EXCL-4
-  01b4        ret
-  01b5  L19:  push     0
-  01ba        decide   excluded, P11                ; ID-EXCL-4
-  01be        ret
-              ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
-  01bf  L20:  push     0
-  01c4        str      r0
-  01c6        ldi      tags
-  01c8        push     2
-  01cd        and
-  01ce        jz       L21
-  01d3        ldr      r0
-  01d5        push     1
-  01da        or
-  01db        str      r0
-  01dd  L21:  ldr      r0
-  01df        switch   2, default L23
-                        case 0                     -> L23
-                        case 1                     -> L22
-  01ed  L22:  push     0
-  01f2        decide   excluded, P2                 ; ID-EXCL-2
+  0199  L17:  push     0
+  019e        str      r0
+  01a0        ldi      tags
+  01a2        push     2
+  01a7        and
+  01a8        jz       L18
+  01ad        ldr      r0
+  01af        push     1
+  01b4        or
+  01b5        str      r0
+  01b7  L18:  ldr      r0
+  01b9        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c7  L19:  push     0
+  01cc        decide   excluded, P2                 ; ID-EXCL-2
+  01d0        ret
+  01d1  L20:  ldi      confirmed
+  01d3        jnz      L21
+  01d8        push     0
+  01dd        decide   needs_confirmation, P10      ; ID-COV-3
+  01e1        ret
+  01e2  L21:  ldi      amount_cents
+  01e4        decide   eligible, P11                ; ID-COV-3, ID-COLL-1
+  01e8        lda
+  01e9        ldi      insurance_paid_cents
+  01eb        subs
+  01ec        push     0
+  01f1        max
+  01f2        seta     collateral, R27              ; ID-COLL-1
   01f6        ret
-  01f7  L23:  push     0
-  01fc        decide   unknown_rule, P0             ; (none)
-  0200        ret
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
-              ; ID-EXCL-5  CVCP FAQ, What is Restitution?  "A victim may request the criminal court to order the offender to..."
-  0201  L24:  push     0
-  0206        str      r0
-  0208        ldi      tags
-  020a        push     2
-  020f        and
-  0210        jz       L25
-  0215        ldr      r0
-  0217        push     1
-  021c        or
-  021d        str      r0
-  021f  L25:  ldr      r0
-  0221        switch   2, default L27
-                        case 0                     -> L27
-                        case 1                     -> L26
-  022f  L26:  push     0
-  0234        decide   excluded, P12                ; ID-EXCL-2, ID-EXCL-5
+  01f7  L22:  push     0
+  01fc        str      r0
+  01fe        ldi      tags
+  0200        push     2
+  0205        and
+  0206        jz       L23
+  020b        ldr      r0
+  020d        push     1
+  0212        or
+  0213        str      r0
+  0215  L23:  ldr      r0
+  0217        switch   2, default L25
+                        case 0                     -> L25
+                        case 1                     -> L24
+  0225  L24:  push     0
+  022a        decide   excluded, P2                 ; ID-EXCL-2
+  022e        ret
+  022f  L25:  push     0
+  0234        decide   unknown_rule, P0             ; (none)
   0238        ret
-  0239  L27:  push     0
-  023e        decide   excluded, P13                ; ID-EXCL-5
-  0242        ret
               ; ID-EXCL-1  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
-  0243  L28:  push     0
-  0248        str      r0
-  024a        ldi      tags
-  024c        push     1
-  0251        and
-  0252        jz       L29
-  0257        ldr      r0
-  0259        push     1
-  025e        or
-  025f        str      r0
-  0261  L29:  ldi      tags
-  0263        push     2
-  0268        and
-  0269        jz       L30
-  026e        ldr      r0
-  0270        push     2
-  0275        or
-  0276        str      r0
-  0278  L30:  ldr      r0
-  027a        switch   4, default L34
-                        case 0                     -> L34
-                        case 1                     -> L31
-                        case 2                     -> L32
-                        case 3                     -> L33
-  0290  L31:  push     0
-  0295        decide   excluded, P14                ; ID-EXCL-1
+  0239  L26:  push     0
+  023e        str      r0
+  0240        ldi      tags
+  0242        push     1
+  0247        and
+  0248        jz       L27
+  024d        ldr      r0
+  024f        push     1
+  0254        or
+  0255        str      r0
+  0257  L27:  ldi      tags
+  0259        push     2
+  025e        and
+  025f        jz       L28
+  0264        ldr      r0
+  0266        push     2
+  026b        or
+  026c        str      r0
+  026e  L28:  ldr      r0
+  0270        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  0286  L29:  push     0
+  028b        decide   excluded, P12                ; ID-EXCL-1
+  028f        ret
+  0290  L30:  push     0
+  0295        decide   excluded, P2                 ; ID-EXCL-2
   0299        ret
-  029a  L32:  push     0
-  029f        decide   excluded, P2                 ; ID-EXCL-2
+  029a  L31:  push     0
+  029f        decide   excluded, P13                ; ID-EXCL-1, ID-EXCL-2
   02a3        ret
-  02a4  L33:  push     0
-  02a9        decide   excluded, P15                ; ID-EXCL-1, ID-EXCL-2
+  02a4  L32:  push     0
+  02a9        decide   unknown_rule, P0             ; (none)
   02ad        ret
-  02ae  L34:  push     0
-  02b3        decide   unknown_rule, P0             ; (none)
-  02b7        ret
               ; ID-COV-7  CVCP FAQ, What benefits are offered by CVCP? (Medical)  "Examples include medical, surgical, dental, vision, hearing..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
-  02b8  L35:  push     0
-  02bd        str      r0
-  02bf        ldi      tags
-  02c1        push     2
-  02c6        and
-  02c7        jz       L36
-  02cc        ldr      r0
-  02ce        push     1
-  02d3        or
-  02d4        str      r0
-  02d6  L36:  ldr      r0
-  02d8        switch   2, default L38
-                        case 0                     -> L38
-                        case 1                     -> L37
-  02e6  L37:  push     0
-  02eb        decide   excluded, P2                 ; ID-EXCL-2
-  02ef        ret
-  02f0  L38:  ldi      confirmed
-  02f2        jnz      L39
-  02f7        push     0
-  02fc        decide   needs_confirmation, P16      ; ID-COV-7
-  0300        ret
-  0301  L39:  ldi      amount_cents
-  0303        decide   eligible, P17                ; ID-COV-7, ID-COLL-1
-  0307        lda
-  0308        ldi      insurance_paid_cents
-  030a        subs
-  030b        push     0
-  0310        max
-  0311        seta     collateral, R27              ; ID-COLL-1
-  0315        ret
+  02ae  L33:  push     0
+  02b3        str      r0
+  02b5        ldi      tags
+  02b7        push     2
+  02bc        and
+  02bd        jz       L34
+  02c2        ldr      r0
+  02c4        push     1
+  02c9        or
+  02ca        str      r0
+  02cc  L34:  ldr      r0
+  02ce        switch   2, default L36
+                        case 0                     -> L36
+                        case 1                     -> L35
+  02dc  L35:  push     0
+  02e1        decide   excluded, P2                 ; ID-EXCL-2
+  02e5        ret
+  02e6  L36:  ldi      confirmed
+  02e8        jnz      L37
+  02ed        push     0
+  02f2        decide   needs_confirmation, P14      ; ID-COV-7
+  02f6        ret
+  02f7  L37:  ldi      amount_cents
+  02f9        decide   eligible, P15                ; ID-COV-7, ID-COLL-1
+  02fd        lda
+  02fe        ldi      insurance_paid_cents
+  0300        subs
+  0301        push     0
+  0306        max
+  0307        seta     collateral, R27              ; ID-COLL-1
+  030b        ret
               ; ID-COV-6  CVCP FAQ, What benefits are offered by CVCP? (Medical)  "Examples include medical, surgical, dental, vision, hearing..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
-  0316  L40:  push     0
-  031b        str      r0
-  031d        ldi      tags
-  031f        push     2
-  0324        and
-  0325        jz       L41
-  032a        ldr      r0
-  032c        push     1
-  0331        or
-  0332        str      r0
-  0334  L41:  ldr      r0
-  0336        switch   2, default L43
-                        case 0                     -> L43
-                        case 1                     -> L42
-  0344  L42:  push     0
-  0349        decide   excluded, P2                 ; ID-EXCL-2
-  034d        ret
-  034e  L43:  ldi      confirmed
-  0350        jnz      L44
-  0355        push     0
-  035a        decide   needs_confirmation, P18      ; ID-COV-6
-  035e        ret
-  035f  L44:  ldi      amount_cents
-  0361        decide   eligible, P19                ; ID-COV-6, ID-COLL-1
-  0365        lda
-  0366        ldi      insurance_paid_cents
-  0368        subs
-  0369        push     0
-  036e        max
-  036f        seta     collateral, R27              ; ID-COLL-1
-  0373        ret
+  030c  L38:  push     0
+  0311        str      r0
+  0313        ldi      tags
+  0315        push     2
+  031a        and
+  031b        jz       L39
+  0320        ldr      r0
+  0322        push     1
+  0327        or
+  0328        str      r0
+  032a  L39:  ldr      r0
+  032c        switch   2, default L41
+                        case 0                     -> L41
+                        case 1                     -> L40
+  033a  L40:  push     0
+  033f        decide   excluded, P2                 ; ID-EXCL-2
+  0343        ret
+  0344  L41:  ldi      confirmed
+  0346        jnz      L42
+  034b        push     0
+  0350        decide   needs_confirmation, P16      ; ID-COV-6
+  0354        ret
+  0355  L42:  ldi      amount_cents
+  0357        decide   eligible, P17                ; ID-COV-6, ID-COLL-1
+  035b        lda
+  035c        ldi      insurance_paid_cents
+  035e        subs
+  035f        push     0
+  0364        max
+  0365        seta     collateral, R27              ; ID-COLL-1
+  0369        ret
               ; ID-CAP-7  Idaho Code 72-1019(4)  "Reasonable funeral and burial or cremation expenses of the..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
-  0374  L45:  push     0
-  0379        str      r0
-  037b        ldi      tags
-  037d        push     2
-  0382        and
-  0383        jz       L46
-  0388        ldr      r0
-  038a        push     1
-  038f        or
-  0390        str      r0
-  0392  L46:  ldr      r0
-  0394        switch   2, default L48
-                        case 0                     -> L48
-                        case 1                     -> L47
-  03a2  L47:  push     0
-  03a7        decide   excluded, P2                 ; ID-EXCL-2
-  03ab        ret
-  03ac  L48:  ldi      confirmed
-  03ae        jnz      L49
-  03b3        push     0
-  03b8        decide   needs_confirmation, P20      ; ID-CAP-7
-  03bc        ret
-  03bd  L49:  ldi      amount_cents
-  03bf        decide   eligible, P21                ; ID-CAP-7, ID-COLL-1
-  03c3        lda
-  03c4        ldi      insurance_paid_cents
-  03c6        subs
-  03c7        push     0
-  03cc        max
-  03cd        seta     collateral, R27              ; ID-COLL-1
-  03d1        ret
+  036a  L43:  push     0
+  036f        str      r0
+  0371        ldi      tags
+  0373        push     2
+  0378        and
+  0379        jz       L44
+  037e        ldr      r0
+  0380        push     1
+  0385        or
+  0386        str      r0
+  0388  L44:  ldr      r0
+  038a        switch   2, default L46
+                        case 0                     -> L46
+                        case 1                     -> L45
+  0398  L45:  push     0
+  039d        decide   excluded, P2                 ; ID-EXCL-2
+  03a1        ret
+  03a2  L46:  ldi      confirmed
+  03a4        jnz      L47
+  03a9        push     0
+  03ae        decide   needs_confirmation, P18      ; ID-CAP-7
+  03b2        ret
+  03b3  L47:  ldi      amount_cents
+  03b5        decide   eligible, P19                ; ID-CAP-7, ID-COLL-1
+  03b9        lda
+  03ba        ldi      insurance_paid_cents
+  03bc        subs
+  03bd        push     0
+  03c2        max
+  03c3        seta     collateral, R27              ; ID-COLL-1
+  03c7        ret
               ; ID-COV-5  CVCP Sexual Assault Forensics Examinations page, Billing  "CVCP cannot pay Property Damages. However, the Program can pay..."
               ; ID-EXCL-2  Idaho Code 72-1019(6)  "Compensation benefits are not payable for pain and suffering or..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
-  03d2  L50:  push     0
-  03d7        str      r0
-  03d9        ldi      tags
-  03db        push     2
-  03e0        and
-  03e1        jz       L51
-  03e6        ldr      r0
-  03e8        push     1
-  03ed        or
-  03ee        str      r0
-  03f0  L51:  ldr      r0
-  03f2        switch   2, default L53
-                        case 0                     -> L53
-                        case 1                     -> L52
-  0400  L52:  push     0
-  0405        decide   excluded, P2                 ; ID-EXCL-2
-  0409        ret
-  040a  L53:  ldi      confirmed
-  040c        jnz      L54
-  0411        push     0
-  0416        decide   needs_confirmation, P22      ; ID-COV-5
-  041a        ret
-  041b  L54:  ldi      amount_cents
-  041d        decide   eligible, P23                ; ID-COV-5, ID-COLL-1
-  0421        lda
-  0422        ldi      insurance_paid_cents
-  0424        subs
-  0425        push     0
-  042a        max
-  042b        seta     collateral, R27              ; ID-COLL-1
-  042f        ret
+  03c8  L48:  push     0
+  03cd        str      r0
+  03cf        ldi      tags
+  03d1        push     2
+  03d6        and
+  03d7        jz       L49
+  03dc        ldr      r0
+  03de        push     1
+  03e3        or
+  03e4        str      r0
+  03e6  L49:  ldr      r0
+  03e8        switch   2, default L51
+                        case 0                     -> L51
+                        case 1                     -> L50
+  03f6  L50:  push     0
+  03fb        decide   excluded, P2                 ; ID-EXCL-2
+  03ff        ret
+  0400  L51:  ldi      confirmed
+  0402        jnz      L52
+  0407        push     0
+  040c        decide   needs_confirmation, P20      ; ID-COV-5
+  0410        ret
+  0411  L52:  ldi      amount_cents
+  0413        decide   eligible, P21                ; ID-COV-5, ID-COLL-1
+  0417        lda
+  0418        ldi      insurance_paid_cents
+  041a        subs
+  041b        push     0
+  0420        max
+  0421        seta     collateral, R27              ; ID-COLL-1
+  0425        ret
 
 .aggregate
               ; ID-CAP-4  Idaho Code 72-1019(1)  "The weekly benefit amount is sixty-six and two-thirds percent..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $175.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R8                 ; ID-CAP-4
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R8                           ; rate_unverified ID-CAP-4
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $175.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R8                 ; ID-CAP-4
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R8                           ; rate_unverified ID-CAP-4
+  0040  L3:   next     L0
               ; ID-CAP-2  Idaho Code 72-1019(5)(b)  "payments for mental health treatment received as a result of the..."
-  0032  L4:   push     0
-  0037        str      r0
-  0039        push     0
-  003e        str      r1
-  0040        each     counseling, L9
-  0046  L5:   ldr      r1
-  0048        jnz      L7
-  004d        ldr      r0
-  004f        lda
-  0050        adds
-  0051        ldk      K1                           ; $2,500.00
-  0054        gt
-  0055        jz       L6
-  005a        ldk      K1                           ; $2,500.00
-  005d        ldr      r0
-  005f        subs
-  0060        cap      expense_cap, R7              ; ID-CAP-2
-  0064        push     1
-  0069        str      r1
-  006b  L6:   ldr      r0
-  006d        lda
-  006e        adds
-  006f        str      r0
-  0071        jmp      L8
-  0076  L7:   push     0
-  007b        cap      expense_cap, R7              ; ID-CAP-2
-  007f  L8:   next     L5
+  0045  L4:   push     0
+  004a        str      r0
+  004c        push     0
+  0051        str      r1
+  0053        each     counseling, L9
+  0059  L5:   ldr      r1
+  005b        jnz      L7
+  0060        ldr      r0
+  0062        lda
+  0063        adds
+  0064        ldk      K1                           ; $2,500.00
+  0067        gt
+  0068        jz       L6
+  006d        ldk      K1                           ; $2,500.00
+  0070        ldr      r0
+  0072        subs
+  0073        cap      expense_cap, R7              ; ID-CAP-2
+  0077        push     1
+  007c        str      r1
+  007e  L6:   ldr      r0
+  0080        lda
+  0081        adds
+  0082        str      r0
+  0084        jmp      L8
+  0089  L7:   push     0
+  008e        cap      expense_cap, R7              ; ID-CAP-2
+  0092  L8:   next     L5
               ; ID-CAP-6  Idaho Code 72-1019(7)(c)  "Compensation payable to a victim or a victim's dependents under..."
-  0084  L9:   push     0
-  0089        str      r0
-  008b        push     0
-  0090        str      r1
-  0092        each     lost_wages, L14
-  0098  L10:  ldr      r1
-  009a        jnz      L12
-  009f        ldr      r0
-  00a1        lda
-  00a2        adds
-  00a3        ldk      K2                           ; $20,000.00
-  00a6        gt
-  00a7        jz       L11
-  00ac        ldk      K2                           ; $20,000.00
-  00af        ldr      r0
-  00b1        subs
-  00b2        cap      expense_cap, R9              ; ID-CAP-6
-  00b6        push     1
-  00bb        str      r1
-  00bd  L11:  ldr      r0
-  00bf        lda
-  00c0        adds
-  00c1        str      r0
-  00c3        jmp      L13
-  00c8  L12:  push     0
-  00cd        cap      expense_cap, R9              ; ID-CAP-6
-  00d1  L13:  next     L10
+  0097  L9:   push     0
+  009c        str      r0
+  009e        push     0
+  00a3        str      r1
+  00a5        each     lost_wages, L14
+  00ab  L10:  ldr      r1
+  00ad        jnz      L12
+  00b2        ldr      r0
+  00b4        lda
+  00b5        adds
+  00b6        ldk      K2                           ; $20,000.00
+  00b9        gt
+  00ba        jz       L11
+  00bf        ldk      K2                           ; $20,000.00
+  00c2        ldr      r0
+  00c4        subs
+  00c5        cap      expense_cap, R9              ; ID-CAP-6
+  00c9        push     1
+  00ce        str      r1
+  00d0  L11:  ldr      r0
+  00d2        lda
+  00d3        adds
+  00d4        str      r0
+  00d6        jmp      L13
+  00db  L12:  push     0
+  00e0        cap      expense_cap, R9              ; ID-CAP-6
+  00e4  L13:  next     L10
               ; ID-CAP-7  Idaho Code 72-1019(4)  "Reasonable funeral and burial or cremation expenses of the..."
-  00d6  L14:  push     0
-  00db        str      r0
-  00dd        push     0
-  00e2        str      r1
-  00e4        each     funeral, L19
-  00ea  L15:  ldr      r1
-  00ec        jnz      L17
-  00f1        ldr      r0
-  00f3        lda
-  00f4        adds
-  00f5        ldk      K3                           ; $5,000.00
-  00f8        gt
-  00f9        jz       L16
-  00fe        ldk      K3                           ; $5,000.00
-  0101        ldr      r0
-  0103        subs
-  0104        cap      expense_cap, R10             ; ID-CAP-7
-  0108        push     1
-  010d        str      r1
-  010f  L16:  ldr      r0
-  0111        lda
-  0112        adds
-  0113        str      r0
-  0115        jmp      L18
-  011a  L17:  push     0
-  011f        cap      expense_cap, R10             ; ID-CAP-7
-  0123  L18:  next     L15
+  00e9  L14:  push     0
+  00ee        str      r0
+  00f0        push     0
+  00f5        str      r1
+  00f7        each     funeral, L19
+  00fd  L15:  ldr      r1
+  00ff        jnz      L17
+  0104        ldr      r0
+  0106        lda
+  0107        adds
+  0108        ldk      K3                           ; $5,000.00
+  010b        gt
+  010c        jz       L16
+  0111        ldk      K3                           ; $5,000.00
+  0114        ldr      r0
+  0116        subs
+  0117        cap      expense_cap, R10             ; ID-CAP-7
+  011b        push     1
+  0120        str      r1
+  0122  L16:  ldr      r0
+  0124        lda
+  0125        adds
+  0126        str      r0
+  0128        jmp      L18
+  012d  L17:  push     0
+  0132        cap      expense_cap, R10             ; ID-CAP-7
+  0136  L18:  next     L15
               ; ID-CAP-1  Idaho Code 72-1019(5)(a)  "Compensation payable to a victim and all of the victim's..."
-  0128  L19:  push     0
-  012d        str      r0
-  012f        push     0
-  0134        str      r1
-  0136        each     all, L24
-  013c  L20:  ldr      r1
-  013e        jnz      L22
-  0143        ldr      r0
-  0145        lda
-  0146        adds
-  0147        ldk      K4                           ; $25,000.00
-  014a        gt
-  014b        jz       L21
-  0150        ldk      K4                           ; $25,000.00
-  0153        ldr      r0
-  0155        subs
-  0156        cap      total_cap, R5                ; ID-CAP-1
-  015a        push     1
-  015f        str      r1
-  0161  L21:  ldr      r0
-  0163        lda
-  0164        adds
-  0165        str      r0
-  0167        jmp      L23
-  016c  L22:  push     0
-  0171        cap      total_cap, R5                ; ID-CAP-1
-  0175  L23:  next     L20
-  017a  L24:  push     0                            ; met
-  017f        check    minimum_loss, P0             ; (none)
+  013b  L19:  push     0
+  0140        str      r0
+  0142        push     0
+  0147        str      r1
+  0149        each     all, L24
+  014f  L20:  ldr      r1
+  0151        jnz      L22
+  0156        ldr      r0
+  0158        lda
+  0159        adds
+  015a        ldk      K4                           ; $25,000.00
+  015d        gt
+  015e        jz       L21
+  0163        ldk      K4                           ; $25,000.00
+  0166        ldr      r0
+  0168        subs
+  0169        cap      total_cap, R5                ; ID-CAP-1
+  016d        push     1
+  0172        str      r1
+  0174  L21:  ldr      r0
+  0176        lda
+  0177        adds
+  0178        str      r0
+  017a        jmp      L23
+  017f  L22:  push     0
+  0184        cap      total_cap, R5                ; ID-CAP-1
+  0188  L23:  next     L20
+  018d  L24:  push     0                            ; met
+  0192        check    minimum_loss, P0             ; (none)
               ; ID-DEADLINE-1  Idaho Code 72-1016(1)  "Compensation may not be awarded unless the claim is filed with..."
-  0183        ldx      incident_date
-  0185        push     365
-  018a        adds
-  018b        dup
-  018c        setdate
-  018d        ldx      as_of_date
-  018f        ge
-  0190        jz       L25
-  0195        push     0
-  019a        jmp      L26
-  019f  L25:  push     1                            ; late
-  01a4  L26:  check    deadline, P24                ; ID-DEADLINE-1
+  0196        ldx      incident_date
+  0198        push     365
+  019d        adds
+  019e        dup
+  019f        setdate
+  01a0        ldx      as_of_date
+  01a2        ge
+  01a3        jz       L25
+  01a8        push     0
+  01ad        jmp      L26
+  01b2  L25:  push     1                            ; late
+  01b7  L26:  check    deadline, P22                ; ID-DEADLINE-1
               ; ID-REPORT-1  Idaho Code 72-1016(3)  "Compensation may not be awarded unless the criminally injurious..."
               ; ID-REPORT-3  Idaho Code 72-1016(4)  "In order to be entitled to benefits under this chapter, a..."
-  01a8        ldx      police_report
-  01aa        push     1                            ; yes
-  01af        eq
-  01b0        jnz      L28
-  01b5        ldx      police_report
-  01b7        push     0                            ; no
-  01bc        eq
-  01bd        jnz      L27
-  01c2        push     3
-  01c7        jmp      L29
-  01cc  L27:  push     1
-  01d1        jmp      L29
-  01d6  L28:  push     0                            ; satisfied
-  01db  L29:  check    reporting, P25               ; ID-REPORT-1, ID-REPORT-3
+  01bb        ldx      police_report
+  01bd        push     1                            ; yes
+  01c2        eq
+  01c3        jnz      L28
+  01c8        ldx      police_report
+  01ca        push     0                            ; no
+  01cf        eq
+  01d0        jnz      L27
+  01d5        push     3
+  01da        jmp      L29
+  01df  L27:  push     1
+  01e4        jmp      L29
+  01e9  L28:  push     0                            ; satisfied
+  01ee  L29:  check    reporting, P23               ; ID-REPORT-1, ID-REPORT-3
+              ; ID-EXCL-3  CVCP FAQ, Mental Health  "CVCP will not reimburse for cancellation or missed appointment..."
+              ; ID-EXCL-4  IDAPA 17.10.01.013.06  "Reimbursement is limited to one (1) round trip per day. The..."
+              ; ID-EXCL-5  CVCP FAQ, What is Restitution?  "A victim may request the criminal court to order the offender to..."
               ; ID-REPORT-2  Adult Sexual Assault Forensic Examination Reimbursement Application, page 1  "This application should be used by victims who did not or do not..."
               ; ID-COLL-1  Idaho Code 72-1016(5)  "Subject to the limitations on payments for the costs of forensic..."
               ; ID-CONDUCT-1  Idaho Code 72-1016(7)(a)  "Compensation may be denied or reduced if the victim contributed..."
@@ -680,6 +685,6 @@
               ; ID-TIME-1  FAQ, What happens after my application is received?  "The next step of the process involves a thorough review of your..."
               ; ID-ACP-1  Address Confidentiality Program page, introduction; Idaho Code 19-5701 and 19-5703  "If you move to a new location to escape domestic violence..."
               ; ID-REC-1  Idaho Code 72-1007  "The information and records the commission maintains in its..."
-  01df        info     P26                          ; ID-REPORT-2, ID-COLL-1, ID-CONDUCT-1, ID-CONDUCT-2, ID-CONDUCT-3, ID-EMERG-1, ID-CRIME-1, ID-CRIME-2, ID-CRIME-3, ID-RES-1, ID-SUBMIT-1, ID-SUBMIT-2, ID-SUBMIT-3, ID-DOC-1, ID-DOC-2, ID-DOC-3, ID-DOC-4, ID-DOC-5, ID-DOC-6, ID-DOC-7, ID-DOC-8, ID-TIME-1, ID-ACP-1, ID-REC-1
-  01e2        ret
+  01f2        info     P24                          ; ID-EXCL-3, ID-EXCL-4, ID-EXCL-5, ID-REPORT-2, ID-COLL-1, ID-CONDUCT-1, ID-CONDUCT-2, ID-CONDUCT-3, ID-EMERG-1, ID-CRIME-1, ID-CRIME-2, ID-CRIME-3, ID-RES-1, ID-SUBMIT-1, ID-SUBMIT-2, ID-SUBMIT-3, ID-DOC-1, ID-DOC-2, ID-DOC-3, ID-DOC-4, ID-DOC-5, ID-DOC-6, ID-DOC-7, ID-DOC-8, ID-TIME-1, ID-ACP-1, ID-REC-1
+  01f5        ret
 

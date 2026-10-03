@@ -1,10 +1,10 @@
 ; tend law image MT, Montana
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 4bd25991fd25c229b72d87000aa0ea36a5320ff21fbff1e3a0601a3dff6b0bac
-; image sha256  a4d9767ea578f4f473ba3f173efee5bf7d3bd68b5be7bfcaccea48c9149bcadd
-; 41 rules, 16 sources, 28 proofs, 3 ints, 259 strings
-; item program: 287 instructions, 1056 bytes, max stack 2
-; aggregate program: 115 instructions, 360 bytes, max stack 3, 3 loops
+; image sha256  ced31d6ce3fa2c12de40ce6f170ba5cdcad3d6de5572bd3310ca730f8e677df6
+; 41 rules, 16 sources, 26 proofs, 3 ints, 260 strings
+; item program: 280 instructions, 1018 bytes, max stack 2
+; aggregate program: 111 instructions, 351 bytes, max stack 2, 3 loops
 
 .rules
     R0    MT-EXAM-1             exam_no_bill  -                                             MCA 46-15-406(2)
@@ -22,16 +22,16 @@
     R12   MT-COV-4              covered       dental                                        Montana DOJ, Crime Victim Compensation page, Medical Costs
     R13   MT-COV-5              covered       lost_wages                                    MCA 53-9-128(1)
     R14   MT-COV-6              covered       transportation                                MCA 53-9-128(9)(c)
-    R15   MT-EXC-1              excluded      property_replacement                          Montana DOJ, CVC FAQ
+    R15   MT-EXC-1              info          -                     excluded_expense        Montana DOJ, CVC FAQ
     R16   MT-EXC-2              excluded      clothing_bedding                              Montana DOJ, Crime Victim Compensation page, Ineligible Benefits
     R17   MT-EXC-3              excluded      temporary_housing                             Montana DOJ, Crime Victim Compensation page, Ineligible Benefits
     R18   MT-EXC-4              excluded      transportation                                Montana DOJ, Crime Victim Compensation page, Ineligible Benefits
     R19   MT-EXC-5              excluded      legal                                         Montana DOJ, Crime Victim Compensation page, Ineligible Benefits
     R20   MT-EXC-6              excluded      -                                             MCA 53-9-128(6)
-    R21   MT-EXC-7              excluded      lost_wages                                    Montana DOJ, Crime Victim Compensation page, Wage Loss
+    R21   MT-EXC-7              info          -                     excluded_expense        Montana DOJ, Crime Victim Compensation page, Wage Loss
     R22   MT-EXC-8              info          -                     excluded_expense        Montana DOJ, Crime Victim Compensation page, Ineligible Benefits
-    R23   MT-DEAD-1             deadline      -                                             MCA 53-9-125(1)
-    R24   MT-DEAD-2             deadline      -                                             MCA 53-9-125(1)
+    R23   MT-DEAD-1             deadline      -                     from crime              MCA 53-9-125(1)
+    R24   MT-DEAD-2             info          -                     filing_deadline         MCA 53-9-125(1)
     R25   MT-REP-1              reporting     -                                             MCA 53-9-125(3)
     R26   MT-COL-1              collateral    -                                             MCA 53-9-125(5)
     R27   MT-COL-2              collateral    -                                             Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources
@@ -77,27 +77,25 @@
     P4    (MT-COV-1, MT-COL-1, MT-COL-2)
     P5    (MT-CAP-2, MT-COV-2)
     P6    (MT-CAP-2, MT-COV-2, MT-COL-1, MT-COL-2)
-    P7    (MT-EXC-6, MT-EXC-7)
-    P8    (MT-EXC-7)
+    P7    (MT-COV-5)
+    P8    (MT-COV-5, MT-COL-1, MT-COL-2)
     P9    (MT-EXC-4, MT-EXC-6)
     P10   (MT-EXC-4)
     P11   (MT-EXC-3, MT-EXC-6)
     P12   (MT-EXC-3)
-    P13   (MT-EXC-1, MT-EXC-6)
-    P14   (MT-EXC-1)
-    P15   (MT-EXC-2, MT-EXC-6)
-    P16   (MT-EXC-2)
-    P17   (MT-COV-3)
-    P18   (MT-COV-3, MT-COL-1, MT-COL-2)
-    P19   (MT-COV-4)
-    P20   (MT-COV-4, MT-COL-1, MT-COL-2)
-    P21   (MT-CAP-3)
-    P22   (MT-CAP-3, MT-COL-1, MT-COL-2)
-    P23   (MT-EXC-5, MT-EXC-6)
-    P24   (MT-EXC-5)
-    P25   (MT-DEAD-1, MT-DEAD-2)
-    P26   (MT-REP-1)
-    P27   (MT-EXC-8, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1)
+    P13   (MT-EXC-2, MT-EXC-6)
+    P14   (MT-EXC-2)
+    P15   (MT-COV-3)
+    P16   (MT-COV-3, MT-COL-1, MT-COL-2)
+    P17   (MT-COV-4)
+    P18   (MT-COV-4, MT-COL-1, MT-COL-2)
+    P19   (MT-CAP-3)
+    P20   (MT-CAP-3, MT-COL-1, MT-COL-2)
+    P21   (MT-EXC-5, MT-EXC-6)
+    P22   (MT-EXC-5)
+    P23   (MT-DEAD-1)
+    P24   (MT-REP-1)
+    P25   (MT-EXC-1, MT-EXC-7, MT-EXC-8, MT-DEAD-2, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1)
 
 .ints
     K0    500000        ; $5,000.00
@@ -114,26 +112,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L20
+  0016        switch   19, default L21
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L7
                         case lost_wages            -> L12
-                        case transportation        -> L16
-                        case relocation            -> L20
-                        case temporary_housing     -> L24
-                        case security              -> L20
-                        case crime_scene_cleanup   -> L20
-                        case childcare             -> L20
-                        case property_replacement  -> L28
-                        case clothing_bedding      -> L32
-                        case prescription          -> L36
-                        case dental                -> L41
-                        case funeral               -> L46
-                        case legal                 -> L51
-                        case tuition               -> L20
-                        case other                 -> L20
-                        case unknown               -> L20
+                        case transportation        -> L17
+                        case relocation            -> L21
+                        case temporary_housing     -> L25
+                        case security              -> L21
+                        case crime_scene_cleanup   -> L21
+                        case childcare             -> L21
+                        case property_replacement  -> L21
+                        case clothing_bedding      -> L29
+                        case prescription          -> L33
+                        case dental                -> L38
+                        case funeral               -> L43
+                        case legal                 -> L48
+                        case tuition               -> L21
+                        case other                 -> L21
+                        case unknown               -> L21
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -219,7 +217,6 @@
   0137        ret
               ; MT-COV-5  MCA 53-9-128(1)  "A claimant is entitled to weekly compensation benefits when the..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
-              ; MT-EXC-7  Montana DOJ, Crime Victim Compensation page, Wage Loss  "CVC does not cover missed work due to mental impairment."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
   0138  L12:  push     0
@@ -237,250 +234,239 @@
                         case 0                     -> L15
                         case 1                     -> L14
   0166  L14:  push     0
-  016b        decide   excluded, P7                 ; MT-EXC-6, MT-EXC-7
+  016b        decide   excluded, P2                 ; MT-EXC-6
   016f        ret
-  0170  L15:  push     0
-  0175        decide   excluded, P8                 ; MT-EXC-7
-  0179        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; MT-COV-5
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; MT-COV-5, MT-COL-1, MT-COL-2
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R26              ; MT-COL-1
+  0195        ret
               ; MT-COV-6  MCA 53-9-128(9)(c)  "the parent or guardian of a minor who is a victim of criminally..."
               ; MT-EXC-4  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "Non-medical expenses, like clothing, motels , travel expenses..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
-  017a  L16:  push     0
-  017f        str      r0
-  0181        ldi      tags
-  0183        push     1
-  0188        and
-  0189        jz       L17
-  018e        ldr      r0
-  0190        push     1
-  0195        or
-  0196        str      r0
-  0198  L17:  ldr      r0
-  019a        switch   2, default L19
-                        case 0                     -> L19
-                        case 1                     -> L18
-  01a8  L18:  push     0
-  01ad        decide   excluded, P9                 ; MT-EXC-4, MT-EXC-6
-  01b1        ret
-  01b2  L19:  push     0
-  01b7        decide   excluded, P10                ; MT-EXC-4
-  01bb        ret
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     1
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P9                 ; MT-EXC-4, MT-EXC-6
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   excluded, P10                ; MT-EXC-4
+  01d7        ret
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
-  01bc  L20:  push     0
-  01c1        str      r0
-  01c3        ldi      tags
-  01c5        push     1
-  01ca        and
-  01cb        jz       L21
-  01d0        ldr      r0
-  01d2        push     1
-  01d7        or
-  01d8        str      r0
-  01da  L21:  ldr      r0
-  01dc        switch   2, default L23
-                        case 0                     -> L23
-                        case 1                     -> L22
-  01ea  L22:  push     0
-  01ef        decide   excluded, P2                 ; MT-EXC-6
-  01f3        ret
-  01f4  L23:  push     0
-  01f9        decide   unknown_rule, P0             ; (none)
-  01fd        ret
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     1
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; MT-EXC-6
+  020f        ret
+  0210  L24:  push     0
+  0215        decide   unknown_rule, P0             ; (none)
+  0219        ret
               ; MT-EXC-3  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "Non-medical expenses, like clothing, motels , travel expenses..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
-  01fe  L24:  push     0
-  0203        str      r0
-  0205        ldi      tags
-  0207        push     1
-  020c        and
-  020d        jz       L25
-  0212        ldr      r0
-  0214        push     1
-  0219        or
-  021a        str      r0
-  021c  L25:  ldr      r0
-  021e        switch   2, default L27
-                        case 0                     -> L27
-                        case 1                     -> L26
-  022c  L26:  push     0
-  0231        decide   excluded, P11                ; MT-EXC-3, MT-EXC-6
-  0235        ret
-  0236  L27:  push     0
-  023b        decide   excluded, P12                ; MT-EXC-3
-  023f        ret
-              ; MT-EXC-1  Montana DOJ, CVC FAQ  "No, the CVC program cannot pay for stolen, damaged, or destroyed..."
-              ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
-  0240  L28:  push     0
-  0245        str      r0
-  0247        ldi      tags
-  0249        push     1
-  024e        and
-  024f        jz       L29
-  0254        ldr      r0
-  0256        push     1
-  025b        or
-  025c        str      r0
-  025e  L29:  ldr      r0
-  0260        switch   2, default L31
-                        case 0                     -> L31
-                        case 1                     -> L30
-  026e  L30:  push     0
-  0273        decide   excluded, P13                ; MT-EXC-1, MT-EXC-6
-  0277        ret
-  0278  L31:  push     0
-  027d        decide   excluded, P14                ; MT-EXC-1
-  0281        ret
+  021a  L25:  push     0
+  021f        str      r0
+  0221        ldi      tags
+  0223        push     1
+  0228        and
+  0229        jz       L26
+  022e        ldr      r0
+  0230        push     1
+  0235        or
+  0236        str      r0
+  0238  L26:  ldr      r0
+  023a        switch   2, default L28
+                        case 0                     -> L28
+                        case 1                     -> L27
+  0248  L27:  push     0
+  024d        decide   excluded, P11                ; MT-EXC-3, MT-EXC-6
+  0251        ret
+  0252  L28:  push     0
+  0257        decide   excluded, P12                ; MT-EXC-3
+  025b        ret
               ; MT-EXC-2  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "Non-medical expenses, like clothing, motels , travel expenses..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
-  0282  L32:  push     0
-  0287        str      r0
-  0289        ldi      tags
-  028b        push     1
-  0290        and
-  0291        jz       L33
-  0296        ldr      r0
-  0298        push     1
-  029d        or
-  029e        str      r0
-  02a0  L33:  ldr      r0
-  02a2        switch   2, default L35
-                        case 0                     -> L35
-                        case 1                     -> L34
-  02b0  L34:  push     0
-  02b5        decide   excluded, P15                ; MT-EXC-2, MT-EXC-6
-  02b9        ret
-  02ba  L35:  push     0
-  02bf        decide   excluded, P16                ; MT-EXC-2
-  02c3        ret
+  025c  L29:  push     0
+  0261        str      r0
+  0263        ldi      tags
+  0265        push     1
+  026a        and
+  026b        jz       L30
+  0270        ldr      r0
+  0272        push     1
+  0277        or
+  0278        str      r0
+  027a  L30:  ldr      r0
+  027c        switch   2, default L32
+                        case 0                     -> L32
+                        case 1                     -> L31
+  028a  L31:  push     0
+  028f        decide   excluded, P13                ; MT-EXC-2, MT-EXC-6
+  0293        ret
+  0294  L32:  push     0
+  0299        decide   excluded, P14                ; MT-EXC-2
+  029d        ret
               ; MT-COV-3  Montana DOJ, Crime Victim Compensation page, Medical Costs  "Prescription drugs Ambulance charges Dental treatment"
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
-  02c4  L36:  push     0
-  02c9        str      r0
-  02cb        ldi      tags
-  02cd        push     1
-  02d2        and
-  02d3        jz       L37
-  02d8        ldr      r0
-  02da        push     1
-  02df        or
-  02e0        str      r0
-  02e2  L37:  ldr      r0
-  02e4        switch   2, default L39
-                        case 0                     -> L39
-                        case 1                     -> L38
-  02f2  L38:  push     0
-  02f7        decide   excluded, P2                 ; MT-EXC-6
+  029e  L33:  push     0
+  02a3        str      r0
+  02a5        ldi      tags
+  02a7        push     1
+  02ac        and
+  02ad        jz       L34
+  02b2        ldr      r0
+  02b4        push     1
+  02b9        or
+  02ba        str      r0
+  02bc  L34:  ldr      r0
+  02be        switch   2, default L36
+                        case 0                     -> L36
+                        case 1                     -> L35
+  02cc  L35:  push     0
+  02d1        decide   excluded, P2                 ; MT-EXC-6
+  02d5        ret
+  02d6  L36:  ldi      confirmed
+  02d8        jnz      L37
+  02dd        push     0
+  02e2        decide   needs_confirmation, P15      ; MT-COV-3
+  02e6        ret
+  02e7  L37:  ldi      amount_cents
+  02e9        decide   eligible, P16                ; MT-COV-3, MT-COL-1, MT-COL-2
+  02ed        lda
+  02ee        ldi      insurance_paid_cents
+  02f0        subs
+  02f1        push     0
+  02f6        max
+  02f7        seta     collateral, R26              ; MT-COL-1
   02fb        ret
-  02fc  L39:  ldi      confirmed
-  02fe        jnz      L40
-  0303        push     0
-  0308        decide   needs_confirmation, P17      ; MT-COV-3
-  030c        ret
-  030d  L40:  ldi      amount_cents
-  030f        decide   eligible, P18                ; MT-COV-3, MT-COL-1, MT-COL-2
-  0313        lda
-  0314        ldi      insurance_paid_cents
-  0316        subs
-  0317        push     0
-  031c        max
-  031d        seta     collateral, R26              ; MT-COL-1
-  0321        ret
               ; MT-COV-4  Montana DOJ, Crime Victim Compensation page, Medical Costs  "Prescription drugs Ambulance charges Dental treatment"
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
-  0322  L41:  push     0
-  0327        str      r0
-  0329        ldi      tags
-  032b        push     1
-  0330        and
-  0331        jz       L42
-  0336        ldr      r0
-  0338        push     1
-  033d        or
-  033e        str      r0
-  0340  L42:  ldr      r0
-  0342        switch   2, default L44
-                        case 0                     -> L44
-                        case 1                     -> L43
-  0350  L43:  push     0
-  0355        decide   excluded, P2                 ; MT-EXC-6
+  02fc  L38:  push     0
+  0301        str      r0
+  0303        ldi      tags
+  0305        push     1
+  030a        and
+  030b        jz       L39
+  0310        ldr      r0
+  0312        push     1
+  0317        or
+  0318        str      r0
+  031a  L39:  ldr      r0
+  031c        switch   2, default L41
+                        case 0                     -> L41
+                        case 1                     -> L40
+  032a  L40:  push     0
+  032f        decide   excluded, P2                 ; MT-EXC-6
+  0333        ret
+  0334  L41:  ldi      confirmed
+  0336        jnz      L42
+  033b        push     0
+  0340        decide   needs_confirmation, P17      ; MT-COV-4
+  0344        ret
+  0345  L42:  ldi      amount_cents
+  0347        decide   eligible, P18                ; MT-COV-4, MT-COL-1, MT-COL-2
+  034b        lda
+  034c        ldi      insurance_paid_cents
+  034e        subs
+  034f        push     0
+  0354        max
+  0355        seta     collateral, R26              ; MT-COL-1
   0359        ret
-  035a  L44:  ldi      confirmed
-  035c        jnz      L45
-  0361        push     0
-  0366        decide   needs_confirmation, P19      ; MT-COV-4
-  036a        ret
-  036b  L45:  ldi      amount_cents
-  036d        decide   eligible, P20                ; MT-COV-4, MT-COL-1, MT-COL-2
-  0371        lda
-  0372        ldi      insurance_paid_cents
-  0374        subs
-  0375        push     0
-  037a        max
-  037b        seta     collateral, R26              ; MT-COL-1
-  037f        ret
               ; MT-CAP-3  MCA 53-9-128(4)  "Reasonable funeral and burial expenses of the victim, not..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
-  0380  L46:  push     0
-  0385        str      r0
-  0387        ldi      tags
-  0389        push     1
-  038e        and
-  038f        jz       L47
-  0394        ldr      r0
-  0396        push     1
-  039b        or
-  039c        str      r0
-  039e  L47:  ldr      r0
-  03a0        switch   2, default L49
-                        case 0                     -> L49
-                        case 1                     -> L48
-  03ae  L48:  push     0
-  03b3        decide   excluded, P2                 ; MT-EXC-6
+  035a  L43:  push     0
+  035f        str      r0
+  0361        ldi      tags
+  0363        push     1
+  0368        and
+  0369        jz       L44
+  036e        ldr      r0
+  0370        push     1
+  0375        or
+  0376        str      r0
+  0378  L44:  ldr      r0
+  037a        switch   2, default L46
+                        case 0                     -> L46
+                        case 1                     -> L45
+  0388  L45:  push     0
+  038d        decide   excluded, P2                 ; MT-EXC-6
+  0391        ret
+  0392  L46:  ldi      confirmed
+  0394        jnz      L47
+  0399        push     0
+  039e        decide   needs_confirmation, P19      ; MT-CAP-3
+  03a2        ret
+  03a3  L47:  ldi      amount_cents
+  03a5        decide   eligible, P20                ; MT-CAP-3, MT-COL-1, MT-COL-2
+  03a9        lda
+  03aa        ldi      insurance_paid_cents
+  03ac        subs
+  03ad        push     0
+  03b2        max
+  03b3        seta     collateral, R26              ; MT-COL-1
   03b7        ret
-  03b8  L49:  ldi      confirmed
-  03ba        jnz      L50
-  03bf        push     0
-  03c4        decide   needs_confirmation, P21      ; MT-CAP-3
-  03c8        ret
-  03c9  L50:  ldi      amount_cents
-  03cb        decide   eligible, P22                ; MT-CAP-3, MT-COL-1, MT-COL-2
-  03cf        lda
-  03d0        ldi      insurance_paid_cents
-  03d2        subs
-  03d3        push     0
-  03d8        max
-  03d9        seta     collateral, R26              ; MT-COL-1
-  03dd        ret
               ; MT-EXC-5  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "Non-medical expenses, like clothing, motels , travel expenses..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
-  03de  L51:  push     0
-  03e3        str      r0
-  03e5        ldi      tags
-  03e7        push     1
-  03ec        and
-  03ed        jz       L52
-  03f2        ldr      r0
-  03f4        push     1
-  03f9        or
-  03fa        str      r0
-  03fc  L52:  ldr      r0
-  03fe        switch   2, default L54
-                        case 0                     -> L54
-                        case 1                     -> L53
-  040c  L53:  push     0
-  0411        decide   excluded, P23                ; MT-EXC-5, MT-EXC-6
-  0415        ret
-  0416  L54:  push     0
-  041b        decide   excluded, P24                ; MT-EXC-5
-  041f        ret
+  03b8  L48:  push     0
+  03bd        str      r0
+  03bf        ldi      tags
+  03c1        push     1
+  03c6        and
+  03c7        jz       L49
+  03cc        ldr      r0
+  03ce        push     1
+  03d3        or
+  03d4        str      r0
+  03d6  L49:  ldr      r0
+  03d8        switch   2, default L51
+                        case 0                     -> L51
+                        case 1                     -> L50
+  03e6  L50:  push     0
+  03eb        decide   excluded, P21                ; MT-EXC-5, MT-EXC-6
+  03ef        ret
+  03f0  L51:  push     0
+  03f5        decide   excluded, P22                ; MT-EXC-5
+  03f9        ret
 
 .aggregate
               ; MT-CAP-2  MCA 53-9-128(9)(e)  "Total payments made under subsections (9)(a) through (9)(d) may..."
@@ -573,36 +559,34 @@
   00ff        ldx      incident_date
   0101        push     365
   0106        adds
-              ; MT-DEAD-2  MCA 53-9-125(1)  "Compensation in cases involving sexual offenses against minors..."
-  0107        ldx      incident_date
-  0109        push     365
-  010e        adds
-  010f        max
-  0110        dup
-  0111        setdate
-  0112        ldx      as_of_date
-  0114        ge
-  0115        jz       L15
-  011a        push     0
-  011f        jmp      L16
-  0124  L15:  push     1                            ; late
-  0129  L16:  check    deadline, P25                ; MT-DEAD-1, MT-DEAD-2
+  0107        dup
+  0108        setdate
+  0109        ldx      as_of_date
+  010b        ge
+  010c        jz       L15
+  0111        push     0
+  0116        jmp      L16
+  011b  L15:  push     1                            ; late
+  0120  L16:  check    deadline, P23                ; MT-DEAD-1
               ; MT-REP-1  MCA 53-9-125(3)  "Compensation may not be awarded unless the criminally injurious..."
-  012d        ldx      police_report
-  012f        push     1                            ; yes
-  0134        eq
-  0135        jnz      L18
-  013a        ldx      police_report
-  013c        push     0                            ; no
-  0141        eq
-  0142        jnz      L17
-  0147        push     3
-  014c        jmp      L19
-  0151  L17:  push     1
-  0156        jmp      L19
-  015b  L18:  push     0                            ; satisfied
-  0160  L19:  check    reporting, P26               ; MT-REP-1
+  0124        ldx      police_report
+  0126        push     1                            ; yes
+  012b        eq
+  012c        jnz      L18
+  0131        ldx      police_report
+  0133        push     0                            ; no
+  0138        eq
+  0139        jnz      L17
+  013e        push     3
+  0143        jmp      L19
+  0148  L17:  push     1
+  014d        jmp      L19
+  0152  L18:  push     0                            ; satisfied
+  0157  L19:  check    reporting, P24               ; MT-REP-1
+              ; MT-EXC-1  Montana DOJ, CVC FAQ  "No, the CVC program cannot pay for stolen, damaged, or destroyed..."
+              ; MT-EXC-7  Montana DOJ, Crime Victim Compensation page, Wage Loss  "CVC does not cover missed work due to mental impairment."
               ; MT-EXC-8  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "In-patient psychiatric care or chemical dependency counseling"
+              ; MT-DEAD-2  MCA 53-9-125(1)  "Compensation in cases involving sexual offenses against minors..."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
               ; MT-CON-1  MCA 53-9-125(7)  "Compensation may be denied or reduced if the victim contributed..."
@@ -618,6 +602,6 @@
               ; MT-PROC-1  CVC FAQ, How long will it take to receive a decision on compensation benefits?  "The goal of the CVC program is to determine eligibility on a..."
               ; MT-ACP-1  Address Confidentiality Program page, eligibility list  "Be a victim of partner or family member assault, sexual assault..."
               ; MT-CONF-1  MCA 53-9-107(3)(a)  "the following public records of the office are exempt from..."
-  0164        info     P27                          ; MT-EXC-8, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1
-  0167        ret
+  015b        info     P25                          ; MT-EXC-1, MT-EXC-7, MT-EXC-8, MT-DEAD-2, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1
+  015e        ret
 

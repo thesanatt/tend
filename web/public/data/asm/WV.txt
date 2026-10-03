@@ -1,8 +1,8 @@
 ; tend law image WV, West Virginia
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a
-; image sha256  d21533a4ea873a4b24d02ed9eae8e4db1385b1c39adbc6ff827c806f07b0c6a4
-; 33 rules, 16 sources, 19 proofs, 2 ints, 228 strings
+; image sha256  ef60e746ca3a1d565566664448020a966cc1e44c9e5120a2773793a831b6a72a
+; 33 rules, 16 sources, 18 proofs, 2 ints, 229 strings
 ; item program: 121 instructions, 428 bytes, max stack 2
 ; aggregate program: 86 instructions, 276 bytes, max stack 2, 2 loops
 
@@ -21,8 +21,8 @@
     R11   WV-COV-5              covered       lost_wages                                    W. Va. Code 14-2A-3(g)
     R12   WV-COV-6              covered       dental                                        Eligibility page, Reimbursable Expenses
     R13   WV-EXCL-1             excluded      property_replacement                          Application packet, information page
-    R14   WV-EXCL-2             excluded      property_replacement                          Eligibility page, Types of Losses Not Covered
-    R15   WV-DEAD-1             deadline      -                                             W. Va. Code 14-2A-10(b)
+    R14   WV-EXCL-2             info          -                     excluded_expense        Eligibility page, Types of Losses Not Covered
+    R15   WV-DEAD-1             deadline      -                     from crime              W. Va. Code 14-2A-10(b)
     R16   WV-REP-1              reporting     -                                             W. Va. Code 14-2A-14(b)
     R17   WV-REP-2              info          -                     reporting_requirement   W. Va. Code 14-2A-18
     R18   WV-COLL-1             collateral    -                                             W. Va. Code 14-2A-14(f)
@@ -74,13 +74,12 @@
     P9    (WV-COV-3, WV-COLL-1)
     P10   (WV-CAP-2)
     P11   (WV-CAP-2, WV-COLL-1)
-    P12   (WV-EXCL-1, WV-EXCL-2)
-    P13   (WV-EXCL-2)
-    P14   (WV-COV-6)
-    P15   (WV-COV-6, WV-COLL-1)
-    P16   (WV-DEAD-1)
-    P17   (WV-REP-1)
-    P18   (WV-EXAM-4, WV-CAP-3, WV-REP-2, WV-COLL-1, WV-COND-1, WV-COND-2, WV-CRIME-1, WV-RES-1, WV-SUBMIT-1, WV-SUBMIT-2, WV-DOC-1, WV-DOC-2, WV-DOC-3, WV-DOC-4, WV-TIME-1, WV-TIME-2, WV-ACP-1, WV-RECCONF-1)
+    P12   (WV-EXCL-1)
+    P13   (WV-COV-6)
+    P14   (WV-COV-6, WV-COLL-1)
+    P15   (WV-DEAD-1)
+    P16   (WV-REP-1)
+    P17   (WV-EXAM-4, WV-CAP-3, WV-EXCL-2, WV-REP-2, WV-COLL-1, WV-COND-1, WV-COND-2, WV-CRIME-1, WV-RES-1, WV-SUBMIT-1, WV-SUBMIT-2, WV-DOC-1, WV-DOC-2, WV-DOC-3, WV-DOC-4, WV-TIME-1, WV-TIME-2, WV-ACP-1, WV-RECCONF-1)
 
 .ints
     K0    450000        ; $4,500.00
@@ -210,7 +209,6 @@
   013f        decide   unknown_rule, P0             ; (none)
   0143        ret
               ; WV-EXCL-1  Application packet, information page  "No. Damaged or stolen property, including money, is NOT..."
-              ; WV-EXCL-2  Eligibility page, Types of Losses Not Covered  "Personal property (except medically necessary items such as..."
   0144  L13:  push     0
   0149        str      r0
   014b        ldi      tags
@@ -226,20 +224,20 @@
                         case 0                     -> L16
                         case 1                     -> L15
   0172  L15:  push     0
-  0177        decide   excluded, P12                ; WV-EXCL-1, WV-EXCL-2
+  0177        decide   excluded, P12                ; WV-EXCL-1
   017b        ret
   017c  L16:  push     0
-  0181        decide   excluded, P13                ; WV-EXCL-2
+  0181        decide   unknown_rule, P0             ; (none)
   0185        ret
               ; WV-COV-6  Eligibility page, Reimbursable Expenses  "Medical/Dental Mental Health Counseling by a Licensed Counselor..."
               ; WV-COLL-1  W. Va. Code 14-2A-14(f)  "The commissioner shall reduce an award of compensation or deny a..."
   0186  L17:  ldi      confirmed
   0188        jnz      L18
   018d        push     0
-  0192        decide   needs_confirmation, P14      ; WV-COV-6
+  0192        decide   needs_confirmation, P13      ; WV-COV-6
   0196        ret
   0197  L18:  ldi      amount_cents
-  0199        decide   eligible, P15                ; WV-COV-6, WV-COLL-1
+  0199        decide   eligible, P14                ; WV-COV-6, WV-COLL-1
   019d        lda
   019e        ldi      insurance_paid_cents
   01a0        subs
@@ -319,7 +317,7 @@
   00bf        push     0
   00c4        jmp      L11
   00c9  L10:  push     1                            ; late
-  00ce  L11:  check    deadline, P16                ; WV-DEAD-1
+  00ce  L11:  check    deadline, P15                ; WV-DEAD-1
               ; WV-REP-1  W. Va. Code 14-2A-14(b)  "The commissioner may not approve an award of compensation if the..."
   00d2        ldx      police_report
   00d4        push     1                            ; yes
@@ -336,9 +334,10 @@
   00fd  L12:  push     1
   0102        jmp      L14
   0107  L13:  push     0                            ; satisfied
-  010c  L14:  check    reporting, P17               ; WV-REP-1
+  010c  L14:  check    reporting, P16               ; WV-REP-1
               ; WV-EXAM-4  W. Va. Code 61-8B-16(c)  "Nothing in this section shall be construed to require an alleged..."
               ; WV-CAP-3  W. Va. Code 14-2A-3(f)(4)  "Reasonable travel expenses not to exceed $5,000 for a claimant..."
+              ; WV-EXCL-2  Eligibility page, Types of Losses Not Covered  "Personal property (except medically necessary items such as..."
               ; WV-REP-2  W. Va. Code 14-2A-18  "The filing of a criminal charge shall be a prerequisite for..."
               ; WV-COLL-1  W. Va. Code 14-2A-14(f)  "The commissioner shall reduce an award of compensation or deny a..."
               ; WV-COND-1  W. Va. Code 14-2A-14(f)  "or if the reduction or denial is determined to be reasonable..."
@@ -355,6 +354,6 @@
               ; WV-TIME-2  Rules of Practice and Procedure, Rule 5(d)-(e)  "(d) After the expiration of the 30-day period, the Clerk shall..."
               ; WV-ACP-1  WV Secretary of State ACP page; program created by W. Va. Code 48-28A-103(a)  "The West Virginia Address Confidentiality Program (ACP) is a..."
               ; WV-RECCONF-1  W. Va. Code 14-2A-11a(b)  "All crime victims’ compensation fund records and proceedings..."
-  0110        info     P18                          ; WV-EXAM-4, WV-CAP-3, WV-REP-2, WV-COLL-1, WV-COND-1, WV-COND-2, WV-CRIME-1, WV-RES-1, WV-SUBMIT-1, WV-SUBMIT-2, WV-DOC-1, WV-DOC-2, WV-DOC-3, WV-DOC-4, WV-TIME-1, WV-TIME-2, WV-ACP-1, WV-RECCONF-1
+  0110        info     P17                          ; WV-EXAM-4, WV-CAP-3, WV-EXCL-2, WV-REP-2, WV-COLL-1, WV-COND-1, WV-COND-2, WV-CRIME-1, WV-RES-1, WV-SUBMIT-1, WV-SUBMIT-2, WV-DOC-1, WV-DOC-2, WV-DOC-3, WV-DOC-4, WV-TIME-1, WV-TIME-2, WV-ACP-1, WV-RECCONF-1
   0113        ret
 

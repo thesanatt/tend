@@ -1,10 +1,10 @@
 ; tend law image GA, Georgia
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 b55212cc7a08dd9af9055b33c04fe5774c33941dd135fa694ca23e605acc91b8
-; image sha256  1205ef9aa1dfc4179785b2f234aa47433ba297209be2de40a749cd82a2a64c12
-; 52 rules, 23 sources, 21 proofs, 7 ints, 306 strings
-; item program: 138 instructions, 476 bytes, max stack 2
-; aggregate program: 225 instructions, 695 bytes, max stack 3, 7 loops
+; image sha256  1f3e2264bfdc8a653780e268f877b721e18d1f6051086879cddf37778d93fc17
+; 52 rules, 23 sources, 20 proofs, 7 ints, 307 strings
+; item program: 135 instructions, 466 bytes, max stack 2
+; aggregate program: 221 instructions, 686 bytes, max stack 2, 7 loops
 
 .rules
     R0    GA-EXAM-1             exam_no_bill  -                                             O.C.G.A. 17-5-72
@@ -26,9 +26,9 @@
     R16   GA-COV-WAGES          covered       lost_wages                                    CJCC What Our Programs Cover
     R17   GA-COV-CLEAN          covered       crime_scene_cleanup                           CJCC What Our Programs Cover
     R18   GA-EXCL-PROP          excluded      property_replacement                          O.C.G.A. 17-15-7(g)
-    R19   GA-EXCL-LEGAL         excluded      legal                                         Ga. Comp. R. & Regs. 144-4-.06(9)(b)3
-    R20   GA-DEADLINE-1         deadline      -                                             O.C.G.A. 17-15-5(b)(1)
-    R21   GA-DEADLINE-2         deadline      -                                             O.C.G.A. 17-15-5(b)(1)
+    R19   GA-EXCL-LEGAL         info          -                     excluded_expense        Ga. Comp. R. & Regs. 144-4-.06(9)(b)3
+    R20   GA-DEADLINE-1         deadline      -                     from crime              O.C.G.A. 17-15-5(b)(1)
+    R21   GA-DEADLINE-2         info          -                     filing_deadline         O.C.G.A. 17-15-5(b)(1)
     R22   GA-REPORT-1           reporting     -                                             O.C.G.A. 17-15-8(a)(3)
     R23   GA-REPORT-2           reporting     -                                             CJCC Victims Compensation FAQ
     R24   GA-REPORT-3           reporting     -                                             Application and Instructions, Please Note
@@ -105,10 +105,9 @@
     P14   (GA-COV-DENTAL, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3)
     P15   (GA-CAP-FUNERAL)
     P16   (GA-CAP-FUNERAL, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3)
-    P17   (GA-EXCL-LEGAL)
-    P18   (GA-DEADLINE-1, GA-DEADLINE-2)
-    P19   (GA-REPORT-1, GA-REPORT-2, GA-REPORT-3)
-    P20   (GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3, GA-CONDUCT-1, GA-CONDUCT-2, GA-CRIME-1, GA-CRIME-2, GA-CRIME-3, GA-RES-1, GA-RES-2, GA-SUBMIT-1, GA-SUBMIT-2, GA-DOC-APP, GA-DOC-POLICE, GA-DOC-EXAM, GA-DOC-BILLS, GA-DOC-RX, GA-DOC-RELEASE, GA-DOC-COUNS, GA-DOC-WAGES-1, GA-DOC-WAGES-2, GA-DOC-WORK, GA-DOC-W9, GA-DOC-DEATH, GA-PROC-1, GA-ACP-1, GA-RECCONF-1)
+    P17   (GA-DEADLINE-1)
+    P18   (GA-REPORT-1, GA-REPORT-2, GA-REPORT-3)
+    P19   (GA-EXCL-LEGAL, GA-DEADLINE-2, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3, GA-CONDUCT-1, GA-CONDUCT-2, GA-CRIME-1, GA-CRIME-2, GA-CRIME-3, GA-RES-1, GA-RES-2, GA-SUBMIT-1, GA-SUBMIT-2, GA-DOC-APP, GA-DOC-POLICE, GA-DOC-EXAM, GA-DOC-BILLS, GA-DOC-RX, GA-DOC-RELEASE, GA-DOC-COUNS, GA-DOC-WAGES-1, GA-DOC-WAGES-2, GA-DOC-WORK, GA-DOC-W9, GA-DOC-DEATH, GA-PROC-1, GA-ACP-1, GA-RECCONF-1)
 
 .ints
     K0    100000        ; $1,000.00
@@ -145,7 +144,7 @@
                         case prescription          -> L15
                         case dental                -> L17
                         case funeral               -> L19
-                        case legal                 -> L21
+                        case legal                 -> L8
                         case tuition               -> L8
                         case other                 -> L8
                         case unknown               -> L8
@@ -314,10 +313,6 @@
   01cc        max
   01cd        seta     collateral, R25              ; GA-COLLAT-1
   01d1        ret
-              ; GA-EXCL-LEGAL  Ga. Comp. R. & Regs. 144-4-.06(9)(b)3  "if a claimant chooses to be represented by an attorney, that..."
-  01d2  L21:  push     0
-  01d7        decide   excluded, P17                ; GA-EXCL-LEGAL
-  01db        ret
 
 .aggregate
               ; GA-EXAM-4  CJCC Forensic Medical Examinations page  "The sexual assault must have occurred in Georgia on or after..."
@@ -522,39 +517,36 @@
   0247        ldx      incident_date
   0249        push     1095
   024e        adds
-              ; GA-DEADLINE-2  O.C.G.A. 17-15-5(b)(1)  "if such victim was a minor at the time of the commission of the..."
-  024f        ldx      incident_date
-  0251        push     1095
-  0256        adds
-  0257        max
-  0258        dup
-  0259        setdate
-  025a        ldx      as_of_date
-  025c        ge
-  025d        jz       L35
-  0262        push     0
-  0267        jmp      L36
-  026c  L35:  push     1                            ; late
-  0271  L36:  check    deadline, P18                ; GA-DEADLINE-1, GA-DEADLINE-2
+  024f        dup
+  0250        setdate
+  0251        ldx      as_of_date
+  0253        ge
+  0254        jz       L35
+  0259        push     0
+  025e        jmp      L36
+  0263  L35:  push     1                            ; late
+  0268  L36:  check    deadline, P17                ; GA-DEADLINE-1
               ; GA-REPORT-1  O.C.G.A. 17-15-8(a)(3)  "In no case may an award be made where the police records..."
               ; GA-REPORT-2  CJCC Victims Compensation FAQ  "If the sexual assault occurred after May 12, 2008 you are not..."
               ; GA-REPORT-3  Application and Instructions, Please Note  "While the incident must be reported to law enforcement or an..."
-  0275        ldx      police_report
-  0277        push     1                            ; yes
-  027c        eq
-  027d        jnz      L38
-  0282        ldx      forensic_exam
-  0284        jnz      L38
-  0289        ldx      police_report
-  028b        push     0                            ; no
-  0290        eq
-  0291        jnz      L37
-  0296        push     3
-  029b        jmp      L39
-  02a0  L37:  push     1
-  02a5        jmp      L39
-  02aa  L38:  push     0                            ; satisfied
-  02af  L39:  check    reporting, P19               ; GA-REPORT-1, GA-REPORT-2, GA-REPORT-3
+  026c        ldx      police_report
+  026e        push     1                            ; yes
+  0273        eq
+  0274        jnz      L38
+  0279        ldx      forensic_exam
+  027b        jnz      L38
+  0280        ldx      police_report
+  0282        push     0                            ; no
+  0287        eq
+  0288        jnz      L37
+  028d        push     3
+  0292        jmp      L39
+  0297  L37:  push     1
+  029c        jmp      L39
+  02a1  L38:  push     0                            ; satisfied
+  02a6  L39:  check    reporting, P18               ; GA-REPORT-1, GA-REPORT-2, GA-REPORT-3
+              ; GA-EXCL-LEGAL  Ga. Comp. R. & Regs. 144-4-.06(9)(b)3  "if a claimant chooses to be represented by an attorney, that..."
+              ; GA-DEADLINE-2  O.C.G.A. 17-15-5(b)(1)  "if such victim was a minor at the time of the commission of the..."
               ; GA-COLLAT-1  O.C.G.A. 17-15-8(f)  "Any award made pursuant to this chapter may be reduced by or set..."
               ; GA-COLLAT-2  Ga. Comp. R. & Regs. 144-4-.06(5)(b)  "No award will be made until the claimant has exhausted all other..."
               ; GA-COLLAT-3  Application and Instructions, Please Note  "If you are not the primary policyholder and are a victim of..."
@@ -582,6 +574,6 @@
               ; GA-PROC-1  CJCC Victims Compensation FAQ, How Soon Will I Get My Reimbursement Check?  "Once a claim is awarded, please allow up to eight weeks for a..."
               ; GA-ACP-1  Program Services; O.C.G.A. 50-18-150 et seq.  "The Georgia Safe at Home Program is an address confidentiality..."
               ; GA-RECCONF-1  O.C.G.A. 17-15-4(a)(2)  "provided, however, that the board shall preserve the..."
-  02b3        info     P20                          ; GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3, GA-CONDUCT-1, GA-CONDUCT-2, GA-CRIME-1, GA-CRIME-2, GA-CRIME-3, GA-RES-1, GA-RES-2, GA-SUBMIT-1, GA-SUBMIT-2, GA-DOC-APP, GA-DOC-POLICE, GA-DOC-EXAM, GA-DOC-BILLS, GA-DOC-RX, GA-DOC-RELEASE, GA-DOC-COUNS, GA-DOC-WAGES-1, GA-DOC-WAGES-2, GA-DOC-WORK, GA-DOC-W9, GA-DOC-DEATH, GA-PROC-1, GA-ACP-1, GA-RECCONF-1
-  02b6        ret
+  02aa        info     P19                          ; GA-EXCL-LEGAL, GA-DEADLINE-2, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3, GA-CONDUCT-1, GA-CONDUCT-2, GA-CRIME-1, GA-CRIME-2, GA-CRIME-3, GA-RES-1, GA-RES-2, GA-SUBMIT-1, GA-SUBMIT-2, GA-DOC-APP, GA-DOC-POLICE, GA-DOC-EXAM, GA-DOC-BILLS, GA-DOC-RX, GA-DOC-RELEASE, GA-DOC-COUNS, GA-DOC-WAGES-1, GA-DOC-WAGES-2, GA-DOC-WORK, GA-DOC-W9, GA-DOC-DEATH, GA-PROC-1, GA-ACP-1, GA-RECCONF-1
+  02ad        ret
 

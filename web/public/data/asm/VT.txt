@@ -1,10 +1,10 @@
 ; tend law image VT, Vermont
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66
-; image sha256  dd6dad80b75376c4d99a3c9b38c4cde0f2d8a78f34bd36d3058ad7d4138e6d11
+; image sha256  df90652434fa1357e66720ae1a08358ae9e41c1e848315515bdbac48f5acaa1d
 ; 45 rules, 20 sources, 22 proofs, 5 ints, 293 strings
 ; item program: 256 instructions, 917 bytes, max stack 2
-; aggregate program: 169 instructions, 515 bytes, max stack 3, 6 loops
+; aggregate program: 187 instructions, 572 bytes, max stack 3, 6 loops
 
 .rules
     R0    VT-EXAM-1             exam_payment  -                                             32 V.S.A. § 1407(b)
@@ -446,179 +446,197 @@
 .aggregate
               ; VT-COUNSEL-1  CCVS Mental Health Policy, Guidelines 1 (Fee Schedule)  "One-hour individual or family sessions will be paid at a maximum..."
   0000        each     counseling, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $100.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R5                 ; VT-COUNSEL-1
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R5                           ; rate_unverified VT-COUNSEL-1
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     1                            ; session
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $100.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R5                 ; VT-COUNSEL-1
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R5                           ; rate_unverified VT-COUNSEL-1
+  0040  L3:   next     L0
               ; VT-WAGES-1  CCVS Policy for Reimbursement of Lost Wages, para. 5b  "5b) For Compensation claim filed on or after 9/8/2025: the..."
-  0032  L4:   push     12
-  0037        str      r3
-  0039        each     lost_wages, L9
-  003f  L5:   ldi      units
-  0041        jz       L7
-  0046        ldi      units
-  0048        ldr      r3
-  004a        min
-  004b        str      r4
-  004d        ldr      r3
-  004f        ldr      r4
-  0051        subs
-  0052        str      r3
-  0054        ldk      K1                           ; $750.00
-  0057        ldr      r4
-  0059        muls
-  005a        dup
-  005b        lda
-  005c        lt
-  005d        jz       L6
-  0062        cap      unit_cap, R8                 ; VT-WAGES-1
-  0066        jmp      L8
-  006b  L6:   pop
-  006c        jmp      L8
-  0071  L7:   flag     R8                           ; rate_unverified VT-WAGES-1
-  0074  L8:   next     L5
+  0045  L4:   push     12
+  004a        str      r3
+  004c        each     lost_wages, L9
+  0052  L5:   ldi      unit
+  0054        push     2                            ; week
+  0059        eq
+  005a        jz       L7
+  005f        ldi      units
+  0061        push     0
+  0066        gt
+  0067        jz       L7
+  006c        ldi      units
+  006e        ldr      r3
+  0070        min
+  0071        str      r4
+  0073        ldr      r3
+  0075        ldr      r4
+  0077        subs
+  0078        str      r3
+  007a        ldk      K1                           ; $750.00
+  007d        ldr      r4
+  007f        muls
+  0080        dup
+  0081        lda
+  0082        lt
+  0083        jz       L6
+  0088        cap      unit_cap, R8                 ; VT-WAGES-1
+  008c        jmp      L8
+  0091  L6:   pop
+  0092        jmp      L8
+  0097  L7:   flag     R8                           ; rate_unverified VT-WAGES-1
+  009a  L8:   next     L5
               ; VT-RELOC-2  CCVS Policy for Housing and Relocation, Emergency Housing  "Emergency housing will be paid at a maximum of $100.00 per..."
-  0079  L9:   push     7
-  007e        str      r3
-  0080        each     temporary_housing, L14
-  0086  L10:  ldi      units
-  0088        jz       L12
-  008d        ldi      units
-  008f        ldr      r3
-  0091        min
-  0092        str      r4
-  0094        ldr      r3
-  0096        ldr      r4
-  0098        subs
-  0099        str      r3
-  009b        ldk      K0                           ; $100.00
-  009e        ldr      r4
-  00a0        muls
-  00a1        dup
-  00a2        lda
-  00a3        lt
-  00a4        jz       L11
-  00a9        cap      unit_cap, R11                ; VT-RELOC-2
-  00ad        jmp      L13
-  00b2  L11:  pop
-  00b3        jmp      L13
-  00b8  L12:  flag     R11                          ; rate_unverified VT-RELOC-2
-  00bb  L13:  next     L10
+  009f  L9:   push     7
+  00a4        str      r3
+  00a6        each     temporary_housing, L14
+  00ac  L10:  ldi      unit
+  00ae        push     5                            ; day
+  00b3        eq
+  00b4        jz       L12
+  00b9        ldi      units
+  00bb        push     0
+  00c0        gt
+  00c1        jz       L12
+  00c6        ldi      units
+  00c8        ldr      r3
+  00ca        min
+  00cb        str      r4
+  00cd        ldr      r3
+  00cf        ldr      r4
+  00d1        subs
+  00d2        str      r3
+  00d4        ldk      K0                           ; $100.00
+  00d7        ldr      r4
+  00d9        muls
+  00da        dup
+  00db        lda
+  00dc        lt
+  00dd        jz       L11
+  00e2        cap      unit_cap, R11                ; VT-RELOC-2
+  00e6        jmp      L13
+  00eb  L11:  pop
+  00ec        jmp      L13
+  00f1  L12:  flag     R11                          ; rate_unverified VT-RELOC-2
+  00f4  L13:  next     L10
               ; VT-RELOC-1  CCVS Policy for Housing and Relocation, Relocation Costs  "Relocation costs could include the following: rental trucks..."
-  00c0  L14:  push     0
-  00c5        str      r0
-  00c7        push     0
-  00cc        str      r1
-  00ce        each     relocation, L19
-  00d4  L15:  ldr      r1
-  00d6        jnz      L17
-  00db        ldr      r0
-  00dd        lda
-  00de        adds
-  00df        ldk      K2                           ; $1,500.00
-  00e2        gt
-  00e3        jz       L16
-  00e8        ldk      K2                           ; $1,500.00
-  00eb        ldr      r0
-  00ed        subs
-  00ee        cap      expense_cap, R10             ; VT-RELOC-1
-  00f2        push     1
-  00f7        str      r1
-  00f9  L16:  ldr      r0
-  00fb        lda
-  00fc        adds
-  00fd        str      r0
-  00ff        jmp      L18
-  0104  L17:  push     0
-  0109        cap      expense_cap, R10             ; VT-RELOC-1
-  010d  L18:  next     L15
+  00f9  L14:  push     0
+  00fe        str      r0
+  0100        push     0
+  0105        str      r1
+  0107        each     relocation, L19
+  010d  L15:  ldr      r1
+  010f        jnz      L17
+  0114        ldr      r0
+  0116        lda
+  0117        adds
+  0118        ldk      K2                           ; $1,500.00
+  011b        gt
+  011c        jz       L16
+  0121        ldk      K2                           ; $1,500.00
+  0124        ldr      r0
+  0126        subs
+  0127        cap      expense_cap, R10             ; VT-RELOC-1
+  012b        push     1
+  0130        str      r1
+  0132  L16:  ldr      r0
+  0134        lda
+  0135        adds
+  0136        str      r0
+  0138        jmp      L18
+  013d  L17:  push     0
+  0142        cap      expense_cap, R10             ; VT-RELOC-1
+  0146  L18:  next     L15
               ; VT-TRAVEL-1  CCVS Policy for Reimbursement of Travel Expenses  "For all non-homicide criminal cases there is a $2,000.00 travel..."
-  0112  L19:  push     0
-  0117        str      r0
-  0119        push     0
-  011e        str      r1
-  0120        each     transportation, L24
-  0126  L20:  ldr      r1
-  0128        jnz      L22
-  012d        ldr      r0
-  012f        lda
-  0130        adds
-  0131        ldk      K3                           ; $2,000.00
-  0134        gt
-  0135        jz       L21
-  013a        ldk      K3                           ; $2,000.00
-  013d        ldr      r0
-  013f        subs
-  0140        cap      expense_cap, R13             ; VT-TRAVEL-1
-  0144        push     1
-  0149        str      r1
-  014b  L21:  ldr      r0
-  014d        lda
-  014e        adds
-  014f        str      r0
-  0151        jmp      L23
-  0156  L22:  push     0
-  015b        cap      expense_cap, R13             ; VT-TRAVEL-1
-  015f  L23:  next     L20
+  014b  L19:  push     0
+  0150        str      r0
+  0152        push     0
+  0157        str      r1
+  0159        each     transportation, L24
+  015f  L20:  ldr      r1
+  0161        jnz      L22
+  0166        ldr      r0
+  0168        lda
+  0169        adds
+  016a        ldk      K3                           ; $2,000.00
+  016d        gt
+  016e        jz       L21
+  0173        ldk      K3                           ; $2,000.00
+  0176        ldr      r0
+  0178        subs
+  0179        cap      expense_cap, R13             ; VT-TRAVEL-1
+  017d        push     1
+  0182        str      r1
+  0184  L21:  ldr      r0
+  0186        lda
+  0187        adds
+  0188        str      r0
+  018a        jmp      L23
+  018f  L22:  push     0
+  0194        cap      expense_cap, R13             ; VT-TRAVEL-1
+  0198  L23:  next     L20
               ; VT-CAP-1  13 V.S.A. § 5356(a)  "the Board shall authorize cash payments, not to exceed..."
-  0164  L24:  push     0
-  0169        str      r0
-  016b        push     0
-  0170        str      r1
-  0172        each     all, L29
-  0178  L25:  ldr      r1
-  017a        jnz      L27
-  017f        ldr      r0
-  0181        lda
-  0182        adds
-  0183        ldk      K4                           ; $10,000.00
-  0186        gt
-  0187        jz       L26
-  018c        ldk      K4                           ; $10,000.00
-  018f        ldr      r0
-  0191        subs
-  0192        cap      total_cap, R4                ; VT-CAP-1
-  0196        push     1
-  019b        str      r1
-  019d  L26:  ldr      r0
-  019f        lda
-  01a0        adds
-  01a1        str      r0
-  01a3        jmp      L28
-  01a8  L27:  push     0
-  01ad        cap      total_cap, R4                ; VT-CAP-1
-  01b1  L28:  next     L25
-  01b6  L29:  push     0                            ; met
-  01bb        check    minimum_loss, P0             ; (none)
-  01bf        push     2                            ; unknown
-  01c4        check    deadline, P0                 ; (none)
+  019d  L24:  push     0
+  01a2        str      r0
+  01a4        push     0
+  01a9        str      r1
+  01ab        each     all, L29
+  01b1  L25:  ldr      r1
+  01b3        jnz      L27
+  01b8        ldr      r0
+  01ba        lda
+  01bb        adds
+  01bc        ldk      K4                           ; $10,000.00
+  01bf        gt
+  01c0        jz       L26
+  01c5        ldk      K4                           ; $10,000.00
+  01c8        ldr      r0
+  01ca        subs
+  01cb        cap      total_cap, R4                ; VT-CAP-1
+  01cf        push     1
+  01d4        str      r1
+  01d6  L26:  ldr      r0
+  01d8        lda
+  01d9        adds
+  01da        str      r0
+  01dc        jmp      L28
+  01e1  L27:  push     0
+  01e6        cap      total_cap, R4                ; VT-CAP-1
+  01ea  L28:  next     L25
+  01ef  L29:  push     0                            ; met
+  01f4        check    minimum_loss, P0             ; (none)
+  01f8        push     2                            ; unknown
+  01fd        check    deadline, P0                 ; (none)
               ; VT-REPORT-1  13 V.S.A. § 5353(a)(1)  "(1) a law enforcement official has filed a report concluding..."
               ; VT-REPORT-2  CCVS Sexual Assault Program page, Who is eligible?  "The victim does not have to report the crime to the police to be..."
-  01c8        ldx      police_report
-  01ca        push     1                            ; yes
-  01cf        eq
-  01d0        jnz      L31
-  01d5        ldx      police_report
-  01d7        push     0                            ; no
-  01dc        eq
-  01dd        jnz      L30
-  01e2        push     3
-  01e7        jmp      L32
-  01ec  L30:  push     1
-  01f1        jmp      L32
-  01f6  L31:  push     0                            ; satisfied
-  01fb  L32:  check    reporting, P20               ; VT-REPORT-1, VT-REPORT-2
+  0201        ldx      police_report
+  0203        push     1                            ; yes
+  0208        eq
+  0209        jnz      L31
+  020e        ldx      police_report
+  0210        push     0                            ; no
+  0215        eq
+  0216        jnz      L30
+  021b        push     3
+  0220        jmp      L32
+  0225  L30:  push     1
+  022a        jmp      L32
+  022f  L31:  push     0                            ; satisfied
+  0234  L32:  check    reporting, P20               ; VT-REPORT-1, VT-REPORT-2
               ; VT-EXCL-1  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Expenses for lost, stolen or damaged property (except medically..."
               ; VT-DEADLINE-1  13 V.S.A. § 5355(b)(1)  "(1) The application was not made within the period of time..."
               ; VT-DEADLINE-2  13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)  "(a) Prosecutions for aggravated sexual assault, aggravated..."
@@ -641,6 +659,6 @@
               ; VT-DOC-7  CCVS Sexual Assault Program page, How to access the Program?  "The signed Sexual Assault Billing Form serves as the application..."
               ; VT-ACP-1  Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160  "Safe at Home provides an address confidentiality service and a..."
               ; VT-REC-1  13 V.S.A. § 5358a(a)  "(a) All documents reviewed by the Victims Compensation Board for..."
-  01ff        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
-  0202        ret
+  0238        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
+  023b        ret
 

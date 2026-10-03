@@ -1,16 +1,16 @@
 ; tend law image HI, Hawaii
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 fce39036f6be5f4fb752b90045bb1e1936595efc6e32c2b79f25bd0ff8997570
-; image sha256  a3ddc1e368d0b03b8750e2d26e8294709262842d4035ee16212631406e316091
-; 39 rules, 17 sources, 23 proofs, 1 ints, 233 strings
+; image sha256  0c0399340fb7cbc8223262f55581becd760ad8d6f0f3bdb740794e95f80fc1f4
+; 39 rules, 17 sources, 23 proofs, 1 ints, 234 strings
 ; item program: 145 instructions, 476 bytes, max stack 2
 ; aggregate program: 61 instructions, 196 bytes, max stack 3, 1 loops
 
 .rules
     R0    HI-EXAM-1             exam_no_bill  -                                             Dept. of the Attorney General, HSART Program page, "Who We Are and What We Do"
     R1    HI-CAP-1              total_cap     -                                             HRS 351-62(b)
-    R2    HI-DEADLINE-1         deadline      -                                             HRS 351-62(a)
-    R3    HI-DEADLINE-2         deadline      -                                             Haw. Admin. R. 23-605-2 (definition of "Good cause")
+    R2    HI-DEADLINE-1         deadline      -                     from crime              HRS 351-62(a)
+    R3    HI-DEADLINE-2         deadline      -                     from crime              Haw. Admin. R. 23-605-2 (definition of "Good cause")
     R4    HI-REPORT-1           reporting     -                                             HRS 351-31(d)
     R5    HI-REPORT-2           reporting     -                                             Haw. Admin. R. 23-605-2 (definition of "Undue delay")
     R6    HI-COLLATERAL-1       collateral    -                                             HRS 351-63(a)

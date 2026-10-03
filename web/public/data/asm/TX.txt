@@ -1,10 +1,10 @@
 ; tend law image TX, Texas
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 e3ef520f93df5b01a54d8f81390efb457f3d54bac1a1f39620478677fc61b530
-; image sha256  b3fb2e0f304fafd72ac7754dee6ab4fa286bde8aa2afd43ac80271306a463bd3
-; 44 rules, 21 sources, 25 proofs, 7 ints, 284 strings
+; image sha256  b160d01bd5b80b488c830390035b60dca3b123a5c38f782ed8b70bc32e691171
+; 44 rules, 21 sources, 25 proofs, 7 ints, 285 strings
 ; item program: 159 instructions, 514 bytes, max stack 2
-; aggregate program: 199 instructions, 622 bytes, max stack 3, 7 loops
+; aggregate program: 211 instructions, 660 bytes, max stack 3, 7 loops
 
 .rules
     R0    TX-EXAM-1             exam_no_bill  -                                             Tex. Code Crim. Proc. art. 56A.304(f)
@@ -28,7 +28,7 @@
     R18   TX-EXCL-1             info          -                     excluded_expense        OAG CVC Covered Costs page, Costs Not Covered
     R19   TX-EXCL-2             info          -                     excluded_expense        OAG CVC Covered Costs page, Costs Not Covered
     R20   TX-EXCL-3             info          -                     excluded_expense        OAG Mental Health Care Expenses page
-    R21   TX-DEADLINE-1         deadline      -                                             OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)
+    R21   TX-DEADLINE-1         deadline      -                     from crime              OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)
     R22   TX-REPORT-1           reporting     -                                             Tex. Code Crim. Proc. art. 56B.053(a)
     R23   TX-REPORT-2           reporting     -                                             OAG CVC Eligibility page, Basic requirements
     R24   TX-COLLAT-1           collateral    -                                             Tex. Code Crim. Proc. art. 56B.103(b)
@@ -321,211 +321,223 @@
 .aggregate
               ; TX-WAGES-1  1 Tex. Admin. Code 61.402(h)(5)  "On or after July 15, 2016, the maximum amount of an award for..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $700.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R5                 ; TX-WAGES-1
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R5                           ; rate_unverified TX-WAGES-1
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $700.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R5                 ; TX-WAGES-1
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R5                           ; rate_unverified TX-WAGES-1
+  0040  L3:   next     L0
               ; TX-CHILD-1  1 Tex. Admin. Code 61.405(b)(6)(B)  "On or after July 15, 2016, $300 per week for each child or..."
-  0032  L4:   each     childcare, L9
-  0038  L5:   ldi      units
-  003a        jz       L7
-  003f        ldk      K1                           ; $300.00
-  0042        ldi      units
-  0044        muls
-  0045        dup
-  0046        lda
-  0047        lt
-  0048        jz       L6
-  004d        cap      unit_cap, R14                ; TX-CHILD-1
-  0051        jmp      L8
-  0056  L6:   pop
-  0057        jmp      L8
-  005c  L7:   flag     R14                          ; rate_unverified TX-CHILD-1
-  005f  L8:   next     L5
+  0045  L4:   each     childcare, L9
+  004b  L5:   ldi      unit
+  004d        push     2                            ; week
+  0052        eq
+  0053        jz       L7
+  0058        ldi      units
+  005a        push     0
+  005f        gt
+  0060        jz       L7
+  0065        ldk      K1                           ; $300.00
+  0068        ldi      units
+  006a        muls
+  006b        dup
+  006c        lda
+  006d        lt
+  006e        jz       L6
+  0073        cap      unit_cap, R14                ; TX-CHILD-1
+  0077        jmp      L8
+  007c  L6:   pop
+  007d        jmp      L8
+  0082  L7:   flag     R14                          ; rate_unverified TX-CHILD-1
+  0085  L8:   next     L5
               ; TX-EXAM-3  Tex. Code Crim. Proc. art. 56A.305(b)  "The attorney general shall make a payment under Subsection (a)..."
-  0064  L9:   push     0
-  0069        str      r0
-  006b        push     0
-  0070        str      r1
-  0072        each     medical, L14
-  0078  L10:  ldr      r1
-  007a        jnz      L12
-  007f        ldr      r0
-  0081        lda
-  0082        adds
-  0083        ldk      K2                           ; $25,000.00
-  0086        gt
-  0087        jz       L11
-  008c        ldk      K2                           ; $25,000.00
-  008f        ldr      r0
-  0091        subs
-  0092        cap      expense_cap, R2              ; TX-EXAM-3
-  0096        push     1
-  009b        str      r1
-  009d  L11:  ldr      r0
-  009f        lda
-  00a0        adds
-  00a1        str      r0
-  00a3        jmp      L13
-  00a8  L12:  push     0
-  00ad        cap      expense_cap, R2              ; TX-EXAM-3
-  00b1  L13:  next     L10
+  008a  L9:   push     0
+  008f        str      r0
+  0091        push     0
+  0096        str      r1
+  0098        each     medical, L14
+  009e  L10:  ldr      r1
+  00a0        jnz      L12
+  00a5        ldr      r0
+  00a7        lda
+  00a8        adds
+  00a9        ldk      K2                           ; $25,000.00
+  00ac        gt
+  00ad        jz       L11
+  00b2        ldk      K2                           ; $25,000.00
+  00b5        ldr      r0
+  00b7        subs
+  00b8        cap      expense_cap, R2              ; TX-EXAM-3
+  00bc        push     1
+  00c1        str      r1
+  00c3  L11:  ldr      r0
+  00c5        lda
+  00c6        adds
+  00c7        str      r0
+  00c9        jmp      L13
+  00ce  L12:  push     0
+  00d3        cap      expense_cap, R2              ; TX-EXAM-3
+  00d7  L13:  next     L10
               ; TX-RELO-2  Tex. Code Crim. Proc. art. 56B.106(c-3)  "A victim or claimant may not receive more than $5,000 in the..."
-  00b6  L14:  push     0
-  00bb        str      r0
-  00bd        push     0
-  00c2        str      r1
-  00c4        each     relocation, L19
-  00ca  L15:  ldr      r1
-  00cc        jnz      L17
-  00d1        ldr      r0
-  00d3        lda
-  00d4        adds
-  00d5        ldk      K3                           ; $5,000.00
-  00d8        gt
-  00d9        jz       L16
-  00de        ldk      K3                           ; $5,000.00
-  00e1        ldr      r0
-  00e3        subs
-  00e4        cap      expense_cap, R7              ; TX-RELO-2
-  00e8        push     1
-  00ed        str      r1
-  00ef  L16:  ldr      r0
-  00f1        lda
-  00f2        adds
-  00f3        str      r0
-  00f5        jmp      L18
-  00fa  L17:  push     0
-  00ff        cap      expense_cap, R7              ; TX-RELO-2
-  0103  L18:  next     L15
+  00dc  L14:  push     0
+  00e1        str      r0
+  00e3        push     0
+  00e8        str      r1
+  00ea        each     relocation, L19
+  00f0  L15:  ldr      r1
+  00f2        jnz      L17
+  00f7        ldr      r0
+  00f9        lda
+  00fa        adds
+  00fb        ldk      K3                           ; $5,000.00
+  00fe        gt
+  00ff        jz       L16
+  0104        ldk      K3                           ; $5,000.00
+  0107        ldr      r0
+  0109        subs
+  010a        cap      expense_cap, R7              ; TX-RELO-2
+  010e        push     1
+  0113        str      r1
+  0115  L16:  ldr      r0
+  0117        lda
+  0118        adds
+  0119        str      r0
+  011b        jmp      L18
+  0120  L17:  push     0
+  0125        cap      expense_cap, R7              ; TX-RELO-2
+  0129  L18:  next     L15
               ; TX-CLEAN-1  1 Tex. Admin. Code 61.405(d)(2)  "for criminally injurious conduct that occurs on or after July..."
-  0108  L19:  push     0
-  010d        str      r0
-  010f        push     0
-  0114        str      r1
-  0116        each     crime_scene_cleanup, L24
-  011c  L20:  ldr      r1
-  011e        jnz      L22
-  0123        ldr      r0
-  0125        lda
-  0126        adds
-  0127        ldk      K4                           ; $2,250.00
-  012a        gt
-  012b        jz       L21
-  0130        ldk      K4                           ; $2,250.00
-  0133        ldr      r0
-  0135        subs
-  0136        cap      expense_cap, R15             ; TX-CLEAN-1
-  013a        push     1
-  013f        str      r1
-  0141  L21:  ldr      r0
-  0143        lda
-  0144        adds
-  0145        str      r0
-  0147        jmp      L23
-  014c  L22:  push     0
-  0151        cap      expense_cap, R15             ; TX-CLEAN-1
-  0155  L23:  next     L20
+  012e  L19:  push     0
+  0133        str      r0
+  0135        push     0
+  013a        str      r1
+  013c        each     crime_scene_cleanup, L24
+  0142  L20:  ldr      r1
+  0144        jnz      L22
+  0149        ldr      r0
+  014b        lda
+  014c        adds
+  014d        ldk      K4                           ; $2,250.00
+  0150        gt
+  0151        jz       L21
+  0156        ldk      K4                           ; $2,250.00
+  0159        ldr      r0
+  015b        subs
+  015c        cap      expense_cap, R15             ; TX-CLEAN-1
+  0160        push     1
+  0165        str      r1
+  0167  L21:  ldr      r0
+  0169        lda
+  016a        adds
+  016b        str      r0
+  016d        jmp      L23
+  0172  L22:  push     0
+  0177        cap      expense_cap, R15             ; TX-CLEAN-1
+  017b  L23:  next     L20
               ; TX-SEIZED-2  1 Tex. Admin. Code 61.405(e)(2)  "Under Texas Code of Criminal Procedure Article 56.32(a)(9)(G)..."
-  015a  L24:  push     0
-  015f        str      r0
-  0161        push     0
-  0166        str      r1
-  0168        each     clothing_bedding, L29
-  016e  L25:  ldr      r1
-  0170        jnz      L27
-  0175        ldr      r0
-  0177        lda
-  0178        adds
-  0179        ldk      K5                           ; $1,000.00
-  017c        gt
-  017d        jz       L26
-  0182        ldk      K5                           ; $1,000.00
-  0185        ldr      r0
-  0187        subs
-  0188        cap      expense_cap, R17             ; TX-SEIZED-2
-  018c        push     1
-  0191        str      r1
-  0193  L26:  ldr      r0
-  0195        lda
-  0196        adds
-  0197        str      r0
-  0199        jmp      L28
-  019e  L27:  push     0
-  01a3        cap      expense_cap, R17             ; TX-SEIZED-2
-  01a7  L28:  next     L25
+  0180  L24:  push     0
+  0185        str      r0
+  0187        push     0
+  018c        str      r1
+  018e        each     clothing_bedding, L29
+  0194  L25:  ldr      r1
+  0196        jnz      L27
+  019b        ldr      r0
+  019d        lda
+  019e        adds
+  019f        ldk      K5                           ; $1,000.00
+  01a2        gt
+  01a3        jz       L26
+  01a8        ldk      K5                           ; $1,000.00
+  01ab        ldr      r0
+  01ad        subs
+  01ae        cap      expense_cap, R17             ; TX-SEIZED-2
+  01b2        push     1
+  01b7        str      r1
+  01b9  L26:  ldr      r0
+  01bb        lda
+  01bc        adds
+  01bd        str      r0
+  01bf        jmp      L28
+  01c4  L27:  push     0
+  01c9        cap      expense_cap, R17             ; TX-SEIZED-2
+  01cd  L28:  next     L25
               ; TX-CAP-1  Tex. Code Crim. Proc. art. 56B.106(a)  "Except as otherwise provided by this article, awards payable to..."
-  01ac  L29:  push     0
-  01b1        str      r0
-  01b3        push     0
-  01b8        str      r1
-  01ba        each     all, L34
-  01c0  L30:  ldr      r1
-  01c2        jnz      L32
-  01c7        ldr      r0
-  01c9        lda
-  01ca        adds
-  01cb        ldk      K6                           ; $50,000.00
-  01ce        gt
-  01cf        jz       L31
-  01d4        ldk      K6                           ; $50,000.00
-  01d7        ldr      r0
-  01d9        subs
-  01da        cap      total_cap, R4                ; TX-CAP-1
-  01de        push     1
-  01e3        str      r1
-  01e5  L31:  ldr      r0
-  01e7        lda
-  01e8        adds
-  01e9        str      r0
-  01eb        jmp      L33
-  01f0  L32:  push     0
-  01f5        cap      total_cap, R4                ; TX-CAP-1
-  01f9  L33:  next     L30
-  01fe  L34:  push     0                            ; met
-  0203        check    minimum_loss, P0             ; (none)
-              ; TX-DEADLINE-1  OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)  "You're applying within 3 years of the crime (unless good cause..."
-  0207        ldx      incident_date
-  0209        push     1095
+  01d2  L29:  push     0
+  01d7        str      r0
+  01d9        push     0
+  01de        str      r1
+  01e0        each     all, L34
+  01e6  L30:  ldr      r1
+  01e8        jnz      L32
+  01ed        ldr      r0
+  01ef        lda
+  01f0        adds
+  01f1        ldk      K6                           ; $50,000.00
+  01f4        gt
+  01f5        jz       L31
+  01fa        ldk      K6                           ; $50,000.00
+  01fd        ldr      r0
+  01ff        subs
+  0200        cap      total_cap, R4                ; TX-CAP-1
+  0204        push     1
+  0209        str      r1
+  020b  L31:  ldr      r0
+  020d        lda
   020e        adds
-  020f        dup
-  0210        setdate
-  0211        ldx      as_of_date
-  0213        ge
-  0214        jz       L35
-  0219        push     0
-  021e        jmp      L36
-  0223  L35:  push     1                            ; late
-  0228  L36:  check    deadline, P22                ; TX-DEADLINE-1
+  020f        str      r0
+  0211        jmp      L33
+  0216  L32:  push     0
+  021b        cap      total_cap, R4                ; TX-CAP-1
+  021f  L33:  next     L30
+  0224  L34:  push     0                            ; met
+  0229        check    minimum_loss, P0             ; (none)
+              ; TX-DEADLINE-1  OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)  "You're applying within 3 years of the crime (unless good cause..."
+  022d        ldx      incident_date
+  022f        push     1095
+  0234        adds
+  0235        dup
+  0236        setdate
+  0237        ldx      as_of_date
+  0239        ge
+  023a        jz       L35
+  023f        push     0
+  0244        jmp      L36
+  0249  L35:  push     1                            ; late
+  024e  L36:  check    deadline, P22                ; TX-DEADLINE-1
               ; TX-REPORT-1  Tex. Code Crim. Proc. art. 56B.053(a)  "a claimant or victim may not file an application unless the..."
               ; TX-REPORT-2  OAG CVC Eligibility page, Basic requirements  "Special rules apply for sexual assault Emergency Medical Care..."
-  022c        ldx      police_report
-  022e        push     1                            ; yes
-  0233        eq
-  0234        jnz      L38
-  0239        ldx      forensic_exam
-  023b        jnz      L38
-  0240        ldx      police_report
-  0242        push     0                            ; no
-  0247        eq
-  0248        jnz      L37
-  024d        push     3
-  0252        jmp      L39
-  0257  L37:  push     1
-  025c        jmp      L39
-  0261  L38:  push     0                            ; satisfied
-  0266  L39:  check    reporting, P23               ; TX-REPORT-1, TX-REPORT-2
+  0252        ldx      police_report
+  0254        push     1                            ; yes
+  0259        eq
+  025a        jnz      L38
+  025f        ldx      forensic_exam
+  0261        jnz      L38
+  0266        ldx      police_report
+  0268        push     0                            ; no
+  026d        eq
+  026e        jnz      L37
+  0273        push     3
+  0278        jmp      L39
+  027d  L37:  push     1
+  0282        jmp      L39
+  0287  L38:  push     0                            ; satisfied
+  028c  L39:  check    reporting, P23               ; TX-REPORT-1, TX-REPORT-2
               ; TX-EXCL-1  OAG CVC Covered Costs page, Costs Not Covered  "The CVC Program cannot make payments for the following: Property..."
               ; TX-EXCL-2  OAG CVC Covered Costs page, Costs Not Covered  "The CVC Program cannot make payments for the following: Property..."
               ; TX-EXCL-3  OAG Mental Health Care Expenses page  "The CVC Program will not pay for: Pre-existing psychological..."
@@ -548,6 +560,6 @@
               ; TX-DOC-9  OAG Rent and Relocation page, How to apply  "Relocation and Rental Assistance Acknowledgement Relocation..."
               ; TX-ACP-1  Tex. Code Crim. Proc. art. 58.052(a), (b)(1)  "(a)  The attorney general shall establish an address..."
               ; TX-RECORDS-1  Tex. Code Crim. Proc. art. 56B.058(b)  "An application for compensation under this chapter and any..."
-  026a        info     P24                          ; TX-EXCL-1, TX-EXCL-2, TX-EXCL-3, TX-COLLAT-1, TX-CONDUCT-1, TX-CONDUCT-2, TX-EMERG-1, TX-CRIME-1, TX-RES-1, TX-SUBMIT-1, TX-SUBMIT-2, TX-DOC-1, TX-DOC-2, TX-DOC-3, TX-DOC-4, TX-DOC-5, TX-DOC-6, TX-DOC-7, TX-DOC-8, TX-DOC-9, TX-ACP-1, TX-RECORDS-1
-  026d        ret
+  0290        info     P24                          ; TX-EXCL-1, TX-EXCL-2, TX-EXCL-3, TX-COLLAT-1, TX-CONDUCT-1, TX-CONDUCT-2, TX-EMERG-1, TX-CRIME-1, TX-RES-1, TX-SUBMIT-1, TX-SUBMIT-2, TX-DOC-1, TX-DOC-2, TX-DOC-3, TX-DOC-4, TX-DOC-5, TX-DOC-6, TX-DOC-7, TX-DOC-8, TX-DOC-9, TX-ACP-1, TX-RECORDS-1
+  0293        ret
 

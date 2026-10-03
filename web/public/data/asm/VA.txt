@@ -1,10 +1,10 @@
 ; tend law image VA, Virginia
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 14ab5946eb7ddc4551e8c3bcf22d707ef6446cd1cb5594cd5f6a84abedb809e9
-; image sha256  c46785c2721bc075e25fe3a60b38b800cdd05651bd0433072f29a3b28a61976b
-; 54 rules, 21 sources, 29 proofs, 4 ints, 332 strings
-; item program: 345 instructions, 1219 bytes, max stack 2
-; aggregate program: 137 instructions, 411 bytes, max stack 3, 4 loops
+; image sha256  b4cc744877d3e19a2f3129aadac07b3a216486ee615d3e13669d6db144cc658e
+; 54 rules, 21 sources, 27 proofs, 4 ints, 333 strings
+; item program: 327 instructions, 1153 bytes, max stack 2
+; aggregate program: 133 instructions, 402 bytes, max stack 3, 4 loops
 
 .rules
     R0    VA-EXAM-1             exam_payment  -                                             Va. Code § 19.2-368.11:1(F)
@@ -28,12 +28,12 @@
     R18   VA-TRANS-1            covered       transportation                                VVF Eligibility page, Requirement #4: Expense Stipulations
     R19   VA-CLOTH-1            covered       clothing_bedding                              VVF How Compensation Works, Non-Eligible Expenses
     R20   VA-EXCL-1             excluded      property_replacement                          VVF How Compensation Works, Non-Eligible Expenses
-    R21   VA-EXCL-2             excluded      legal                                         VVF Policies, Criteria for an Award (E)
+    R21   VA-EXCL-2             info          -                     excluded_expense        VVF Policies, Criteria for an Award (E)
     R22   VA-EXCL-3             excluded      -                                             VVF How Compensation Works, Payer of Last Resort
-    R23   VA-DEADLINE-1         deadline      -                                             Va. Code § 19.2-368.5(B)
-    R24   VA-DEADLINE-2         deadline      -                                             VVF Eligibility page, Requirement #5: Filing Timeline Stipulations
-    R25   VA-DEADLINE-3         deadline      -                                             VVF Eligibility page, Requirement #5: Filing Timeline Stipulations
-    R26   VA-DEADLINE-4         deadline      -                                             Va. Code § 19.2-368.5(B)(iii)
+    R23   VA-DEADLINE-1         deadline      -                     from crime              Va. Code § 19.2-368.5(B)
+    R24   VA-DEADLINE-2         deadline      -                     from crime              VVF Eligibility page, Requirement #5: Filing Timeline Stipulations
+    R25   VA-DEADLINE-3         deadline      -                     from crime              VVF Eligibility page, Requirement #5: Filing Timeline Stipulations
+    R26   VA-DEADLINE-4         info          -                     filing_deadline         Va. Code § 19.2-368.5(B)(iii)
     R27   VA-REPORT-1           reporting     -                                             Va. Code § 19.2-368.10(3)
     R28   VA-REPORT-2           reporting     -                                             Va. Code § 19.2-368.11:1(F)
     R29   VA-COLL-1             collateral    -                                             Va. Code § 19.2-368.11:1(G)
@@ -111,12 +111,10 @@
     P20   (VA-CLOTH-1, VA-COLL-1)
     P21   (VA-RX-1, VA-RX-2)
     P22   (VA-RX-1, VA-RX-2, VA-COLL-1)
-    P23   (VA-EXCL-2, VA-EXCL-3)
-    P24   (VA-EXCL-2)
-    P25   (VA-MIN-1)
-    P26   (VA-DEADLINE-1, VA-DEADLINE-2, VA-DEADLINE-3, VA-DEADLINE-4)
-    P27   (VA-REPORT-1, VA-REPORT-2)
-    P28   (VA-COLL-1, VA-CONDUCT-1, VA-EMERG-1, VA-CRIME-1, VA-CRIME-2, VA-RES-1, VA-RES-2, VA-SUBMIT-1, VA-SUBMIT-2, VA-SUBMIT-3, VA-SUBMIT-4, VA-DOC-1, VA-DOC-2, VA-DOC-3, VA-DOC-4, VA-DOC-5, VA-DOC-6, VA-DOC-7, VA-DOC-8, VA-DOC-9, VA-DOC-10, VA-DOC-11, VA-DOC-12, VA-ACP-1, VA-RECCONF-1)
+    P23   (VA-MIN-1)
+    P24   (VA-DEADLINE-1, VA-DEADLINE-2, VA-DEADLINE-3)
+    P25   (VA-REPORT-1, VA-REPORT-2)
+    P26   (VA-EXCL-2, VA-DEADLINE-4, VA-COLL-1, VA-CONDUCT-1, VA-EMERG-1, VA-CRIME-1, VA-CRIME-2, VA-RES-1, VA-RES-2, VA-SUBMIT-1, VA-SUBMIT-2, VA-SUBMIT-3, VA-SUBMIT-4, VA-DOC-1, VA-DOC-2, VA-DOC-3, VA-DOC-4, VA-DOC-5, VA-DOC-6, VA-DOC-7, VA-DOC-8, VA-DOC-9, VA-DOC-10, VA-DOC-11, VA-DOC-12, VA-ACP-1, VA-RECCONF-1)
 
 .ints
     K0    200000        ; $2,000.00
@@ -150,7 +148,7 @@
                         case prescription          -> L53
                         case dental                -> L37
                         case funeral               -> L37
-                        case legal                 -> L58
+                        case legal                 -> L37
                         case tuition               -> L37
                         case other                 -> L37
                         case unknown               -> L37
@@ -534,28 +532,6 @@
   047b        max
   047c        seta     collateral, R29              ; VA-COLL-1
   0480        ret
-              ; VA-EXCL-2  VVF Policies, Criteria for an Award (E)  "The Commission lacks authority to award attorneys’ fees."
-              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
-  0481  L58:  push     0
-  0486        str      r0
-  0488        ldi      tags
-  048a        push     8
-  048f        and
-  0490        jz       L59
-  0495        ldr      r0
-  0497        push     1
-  049c        or
-  049d        str      r0
-  049f  L59:  ldr      r0
-  04a1        switch   2, default L61
-                        case 0                     -> L61
-                        case 1                     -> L60
-  04af  L60:  push     0
-  04b4        decide   excluded, P23                ; VA-EXCL-2, VA-EXCL-3
-  04b8        ret
-  04b9  L61:  push     0
-  04be        decide   excluded, P24                ; VA-EXCL-2
-  04c2        ret
 
 .aggregate
               ; VA-MOVE-1  Va. Code § 19.2-368.11:1(E)(vi)  "reasonable and necessary moving expenses, not to exceed $2,000..."
@@ -642,6 +618,7 @@
   00e8  L12:  push     0
   00ed        cap      total_cap, R7                ; VA-CAP-1
   00f1  L13:  next     L10
+              ; VA-MIN-1  Va. Code § 19.2-368.11:1(H)  "To qualify for an award under this chapter, a claim must have a..."
   00f6  L14:  push     0
   00fb        str      r0
   00fd        each     all, L16
@@ -655,14 +632,14 @@
               ; VA-MIN-1  Va. Code § 19.2-368.11:1(H)  "To qualify for an award under this chapter, a claim must have a..."
   0115        ldr      r0
   0117        ldk      K3                           ; $100.00
-  011a        lt
-  011b        jz       L17
-  0120        push     3
+  011a        ge
+  011b        jnz      L17
+  0120        push     4
   0125        ldr      r2
   0127        max
   0128        str      r2
   012a  L17:  ldr      r2
-  012c        check    minimum_loss, P25            ; VA-MIN-1
+  012c        check    minimum_loss, P23            ; VA-MIN-1
               ; VA-DEADLINE-1  Va. Code § 19.2-368.5(B)  "A claim shall be filed by the claimant not later than three..."
   0130        ldx      incident_date
   0132        push     1095
@@ -677,32 +654,29 @@
   0143        push     365
   0148        adds
   0149        max
-              ; VA-DEADLINE-4  Va. Code § 19.2-368.5(B)(iii)  "in cases involving claims of sexual abuse of a minor, the claim..."
-  014a        ldx      incident_date
-  014c        push     3652
-  0151        adds
-  0152        max
-  0153        dup
-  0154        setdate
-  0155        ldx      as_of_date
-  0157        ge
-  0158        jz       L18
-  015d        push     0
-  0162        jmp      L19
-  0167  L18:  push     1                            ; late
-  016c  L19:  check    deadline, P26                ; VA-DEADLINE-1, VA-DEADLINE-2, VA-DEADLINE-3, VA-DEADLINE-4
+  014a        dup
+  014b        setdate
+  014c        ldx      as_of_date
+  014e        ge
+  014f        jz       L18
+  0154        push     0
+  0159        jmp      L19
+  015e  L18:  push     1                            ; late
+  0163  L19:  check    deadline, P24                ; VA-DEADLINE-1, VA-DEADLINE-2, VA-DEADLINE-3
               ; VA-REPORT-1  Va. Code § 19.2-368.10(3)  "The provisions of this subdivision shall not apply to claims of..."
               ; VA-REPORT-2  Va. Code § 19.2-368.11:1(F)  "Any individual that submits to and completes any such..."
-  0170        ldx      police_report
-  0172        push     1                            ; yes
-  0177        eq
-  0178        jnz      L20
-  017d        ldx      forensic_exam
-  017f        jnz      L20
-  0184        push     2
-  0189        jmp      L21
-  018e  L20:  push     0                            ; satisfied
-  0193  L21:  check    reporting, P27               ; VA-REPORT-1, VA-REPORT-2
+  0167        ldx      police_report
+  0169        push     1                            ; yes
+  016e        eq
+  016f        jnz      L20
+  0174        ldx      forensic_exam
+  0176        jnz      L20
+  017b        push     2
+  0180        jmp      L21
+  0185  L20:  push     0                            ; satisfied
+  018a  L21:  check    reporting, P25               ; VA-REPORT-1, VA-REPORT-2
+              ; VA-EXCL-2  VVF Policies, Criteria for an Award (E)  "The Commission lacks authority to award attorneys’ fees."
+              ; VA-DEADLINE-4  Va. Code § 19.2-368.5(B)(iii)  "in cases involving claims of sexual abuse of a minor, the claim..."
               ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
               ; VA-CONDUCT-1  Va. Code § 19.2-368.12(C)  "the Commission shall determine whether, because of his conduct..."
               ; VA-EMERG-1  Va. Code § 19.2-368.9  "the amount of such emergency award shall not exceed $3,000"
@@ -728,6 +702,6 @@
               ; VA-DOC-12  VVF Claim Form (English, 08/12/2025), Applicant Responsibilities & Authorizations, application p. 4  "Applications are not accepted unless this form is signed by the..."
               ; VA-ACP-1  Va. Code § 2.2-515.2(B)  "to protect victims of domestic violence, stalking, child..."
               ; VA-RECCONF-1  VVF Confidentiality page, Your Claim is Confidential  "All Virginia Victims Fund (VVF) applications and related..."
-  0197        info     P28                          ; VA-COLL-1, VA-CONDUCT-1, VA-EMERG-1, VA-CRIME-1, VA-CRIME-2, VA-RES-1, VA-RES-2, VA-SUBMIT-1, VA-SUBMIT-2, VA-SUBMIT-3, VA-SUBMIT-4, VA-DOC-1, VA-DOC-2, VA-DOC-3, VA-DOC-4, VA-DOC-5, VA-DOC-6, VA-DOC-7, VA-DOC-8, VA-DOC-9, VA-DOC-10, VA-DOC-11, VA-DOC-12, VA-ACP-1, VA-RECCONF-1
-  019a        ret
+  018e        info     P26                          ; VA-EXCL-2, VA-DEADLINE-4, VA-COLL-1, VA-CONDUCT-1, VA-EMERG-1, VA-CRIME-1, VA-CRIME-2, VA-RES-1, VA-RES-2, VA-SUBMIT-1, VA-SUBMIT-2, VA-SUBMIT-3, VA-SUBMIT-4, VA-DOC-1, VA-DOC-2, VA-DOC-3, VA-DOC-4, VA-DOC-5, VA-DOC-6, VA-DOC-7, VA-DOC-8, VA-DOC-9, VA-DOC-10, VA-DOC-11, VA-DOC-12, VA-ACP-1, VA-RECCONF-1
+  0191        ret
 

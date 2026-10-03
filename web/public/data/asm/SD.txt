@@ -1,8 +1,8 @@
 ; tend law image SD, South Dakota
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 21f25a578dc391727b10c37b3ed360bf0d33471f996118ab60c71100dc6ce169
-; image sha256  4b899d3270f2497ec3c42af5326a42d21a12a88046af195d67fa8581b1996bec
-; 50 rules, 10 sources, 26 proofs, 4 ints, 280 strings
+; image sha256  7d217f83f80695b7c1cccb02a2e0bf5599656f80cfdac68e0d0f9a7caf038aee
+; 50 rules, 10 sources, 26 proofs, 4 ints, 281 strings
 ; item program: 435 instructions, 1546 bytes, max stack 2
 ; aggregate program: 138 instructions, 433 bytes, max stack 2, 4 loops
 
@@ -28,7 +28,7 @@
     R18   SD-EXCL-1             excluded      -                                             ARSD 67:55:04:12
     R19   SD-EXCL-2             excluded      -                                             SD DPS CVC page, Requirements & Limitations
     R20   SD-EXCL-3             info          -                     excluded_expense        Primary Application Instructions, Section IX
-    R21   SD-DEAD-1             deadline      -                                             SDCL 23A-28B-25(1)
+    R21   SD-DEAD-1             deadline      -                     from crime              SDCL 23A-28B-25(1)
     R22   SD-REPORT-1           reporting     -                                             SDCL 23A-28B-25(1)
     R23   SD-REPORT-2           reporting     -                                             Primary Application, Eligibility
     R24   SD-REPORT-3           reporting     -                                             SDCL 23A-28B-25(2)(c)

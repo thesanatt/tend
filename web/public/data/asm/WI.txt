@@ -1,9 +1,9 @@
 ; tend law image WI, Wisconsin
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 1353629fd0a655498943871d5449d2edcd293b01c1c1bfe95393ea151b255232
-; image sha256  2d5eec97fb68cb22bd02e00e250472f6f346c9797e7ab52a63a86b99500b98d9
-; 50 rules, 11 sources, 26 proofs, 5 ints, 271 strings
-; item program: 276 instructions, 1003 bytes, max stack 2
+; image sha256  1287858565a7ecbb2bc5a48ac644401d326faf9f97811685f56648127872c776
+; 50 rules, 11 sources, 25 proofs, 5 ints, 272 strings
+; item program: 281 instructions, 996 bytes, max stack 2
 ; aggregate program: 196 instructions, 606 bytes, max stack 3, 6 loops
 
 .rules
@@ -25,12 +25,12 @@
     R15   WI-COV-4              covered       lost_wages                                    Wis. Stat. 949.06(1)(b)4.
     R16   WI-COV-5              covered       property_replacement                          Wis. Stat. 949.06(1)(cg)
     R17   WI-EXCL-1             excluded      property_replacement                          Application DJ-CVC-1, Application Information
-    R18   WI-EXCL-2             excluded      property_replacement                          Wisconsin DOJ CVC Program page
-    R19   WI-EXCL-3             excluded      transportation                                Wisconsin DOJ CVC FAQs, Compensation
+    R18   WI-EXCL-2             info          -                     excluded_expense        Wisconsin DOJ CVC Program page
+    R19   WI-EXCL-3             info          -                     excluded_expense        Wisconsin DOJ CVC FAQs, Compensation
     R20   WI-EXCL-4             excluded      -                                             Wisconsin DOJ CVC FAQs, Compensation
-    R21   WI-EXCL-5             excluded      counseling                                    Wis. Admin. Code Jus 11.06(3)(c)
-    R22   WI-DEADLINE-1         deadline      -                                             Wis. Stat. 949.08(1)
-    R23   WI-DEADLINE-2         deadline      -                                             Wisconsin DOJ CVC FAQs, Applying and Eligibility
+    R21   WI-EXCL-5             info          -                     excluded_expense        Wis. Admin. Code Jus 11.06(3)(c)
+    R22   WI-DEADLINE-1         deadline      -                     from crime              Wis. Stat. 949.08(1)
+    R23   WI-DEADLINE-2         deadline      -                     from crime              Wisconsin DOJ CVC FAQs, Applying and Eligibility
     R24   WI-REPORT-1           reporting     -                                             Wis. Stat. 949.08(1)
     R25   WI-REPORT-3           reporting     -                                             Wis. Stat. 949.08(2)(d)
     R26   WI-REPORT-4           reporting     -                                             Wis. Admin. Code Jus 11.07(5)(e)
@@ -79,27 +79,26 @@
     P2    (WI-EXCL-4)
     P3    (WI-COV-1, WI-COV-2)
     P4    (WI-COV-1, WI-COV-2, WI-COLL-1, WI-COLL-2)
-    P5    (WI-EXCL-4, WI-EXCL-5)
-    P6    (WI-EXCL-5)
+    P5    (WI-COV-3)
+    P6    (WI-COV-3, WI-COLL-1, WI-COLL-2)
     P7    (WI-COV-4)
     P8    (WI-COV-4, WI-COLL-1, WI-COLL-2)
-    P9    (WI-EXCL-3, WI-EXCL-4)
-    P10   (WI-EXCL-3)
-    P11   (WI-CAP-6)
-    P12   (WI-CAP-6, WI-COLL-1, WI-COLL-2)
-    P13   (WI-EXCL-1, WI-EXCL-2)
-    P14   (WI-EXCL-2, WI-EXCL-4)
-    P15   (WI-EXCL-1, WI-EXCL-2, WI-EXCL-4)
-    P16   (WI-EXCL-2)
-    P17   (WI-CAP-3)
-    P18   (WI-CAP-3, WI-COLL-1, WI-COLL-2)
-    P19   (WI-CAP-8)
-    P20   (WI-CAP-8, WI-COLL-1, WI-COLL-2)
-    P21   (WI-CAP-7)
-    P22   (WI-CAP-7, WI-COLL-1, WI-COLL-2)
-    P23   (WI-DEADLINE-1, WI-DEADLINE-2)
-    P24   (WI-REPORT-2, WI-REPORT-1, WI-REPORT-3, WI-REPORT-4)
-    P25   (WI-COLL-1, WI-COLL-2, WI-CONDUCT-1, WI-CRIME-1, WI-CRIME-2, WI-RES-1, WI-RES-2, WI-SUB-1, WI-SUB-2, WI-SUB-3, WI-DOC-1, WI-DOC-2, WI-DOC-3, WI-DOC-4, WI-DOC-5, WI-DOC-6, WI-DOC-7, WI-DOC-8, WI-TIME-1, WI-ACP-1, WI-RECCONF-1)
+    P9    (WI-CAP-6)
+    P10   (WI-CAP-6, WI-COLL-1, WI-COLL-2)
+    P11   (WI-EXCL-1)
+    P12   (WI-EXCL-1, WI-EXCL-4)
+    P13   (WI-CAP-4)
+    P14   (WI-CAP-2, WI-COV-5)
+    P15   (WI-CAP-2, WI-COV-5, WI-COLL-1, WI-COLL-2)
+    P16   (WI-CAP-3)
+    P17   (WI-CAP-3, WI-COLL-1, WI-COLL-2)
+    P18   (WI-CAP-8)
+    P19   (WI-CAP-8, WI-COLL-1, WI-COLL-2)
+    P20   (WI-CAP-7)
+    P21   (WI-CAP-7, WI-COLL-1, WI-COLL-2)
+    P22   (WI-DEADLINE-1, WI-DEADLINE-2)
+    P23   (WI-REPORT-2, WI-REPORT-1, WI-REPORT-3, WI-REPORT-4)
+    P24   (WI-EXCL-2, WI-EXCL-3, WI-EXCL-5, WI-COLL-1, WI-COLL-2, WI-CONDUCT-1, WI-CRIME-1, WI-CRIME-2, WI-RES-1, WI-RES-2, WI-SUB-1, WI-SUB-2, WI-SUB-3, WI-DOC-1, WI-DOC-2, WI-DOC-3, WI-DOC-4, WI-DOC-5, WI-DOC-6, WI-DOC-7, WI-DOC-8, WI-TIME-1, WI-ACP-1, WI-RECCONF-1)
 
 .ints
     K0    20000         ; $200.00
@@ -118,26 +117,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L20
+  0016        switch   19, default L17
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L7
-                        case lost_wages            -> L11
-                        case transportation        -> L16
-                        case relocation            -> L20
-                        case temporary_housing     -> L20
-                        case security              -> L20
-                        case crime_scene_cleanup   -> L24
-                        case childcare             -> L20
-                        case property_replacement  -> L29
-                        case clothing_bedding      -> L36
-                        case prescription          -> L20
-                        case dental                -> L20
-                        case funeral               -> L41
-                        case legal                 -> L20
-                        case tuition               -> L20
-                        case other                 -> L46
-                        case unknown               -> L20
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L17
+                        case temporary_housing     -> L17
+                        case security              -> L17
+                        case crime_scene_cleanup   -> L21
+                        case childcare             -> L17
+                        case property_replacement  -> L26
+                        case clothing_bedding      -> L34
+                        case prescription          -> L17
+                        case dental                -> L17
+                        case funeral               -> L39
+                        case legal                 -> L17
+                        case tuition               -> L17
+                        case other                 -> L44
+                        case unknown               -> L17
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -187,7 +186,6 @@
   00d9        ret
               ; WI-COV-3  Wis. Admin. Code Jus 11.06(2)(b)  "(b) Outpatient psychotherapy services."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
-              ; WI-EXCL-5  Wis. Admin. Code Jus 11.06(3)(c)  "(c) Court appearances or evaluations are not eligible services."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
   00da  L7:   push     0
@@ -205,272 +203,272 @@
                         case 0                     -> L10
                         case 1                     -> L9
   0108  L9:   push     0
-  010d        decide   excluded, P5                 ; WI-EXCL-4, WI-EXCL-5
+  010d        decide   excluded, P2                 ; WI-EXCL-4
   0111        ret
-  0112  L10:  push     0
-  0117        decide   excluded, P6                 ; WI-EXCL-5
-  011b        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; WI-COV-3
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; WI-COV-3, WI-COLL-1, WI-COLL-2
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R27              ; WI-COLL-1
+  0137        ret
               ; WI-COV-4  Wis. Stat. 949.06(1)(b)4.  "4. The department may award each victim, parent of a victim, or..."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
-  011c  L11:  push     0
-  0121        str      r0
-  0123        ldi      tags
-  0125        push     2
-  012a        and
-  012b        jz       L12
-  0130        ldr      r0
-  0132        push     1
-  0137        or
-  0138        str      r0
-  013a  L12:  ldr      r0
-  013c        switch   2, default L14
-                        case 0                     -> L14
-                        case 1                     -> L13
-  014a  L13:  push     0
-  014f        decide   excluded, P2                 ; WI-EXCL-4
-  0153        ret
-  0154  L14:  ldi      confirmed
-  0156        jnz      L15
-  015b        push     0
-  0160        decide   needs_confirmation, P7       ; WI-COV-4
-  0164        ret
-  0165  L15:  ldi      amount_cents
-  0167        decide   eligible, P8                 ; WI-COV-4, WI-COLL-1, WI-COLL-2
-  016b        lda
-  016c        ldi      insurance_paid_cents
-  016e        subs
-  016f        push     0
-  0174        max
-  0175        seta     collateral, R27              ; WI-COLL-1
-  0179        ret
-              ; WI-EXCL-3  Wisconsin DOJ CVC FAQs, Compensation  "The Program cannot reimburse for mileage or for time off of work..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     2
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; WI-EXCL-4
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; WI-COV-4
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; WI-COV-4, WI-COLL-1, WI-COLL-2
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R27              ; WI-COLL-1
+  0195        ret
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
-  017a  L16:  push     0
-  017f        str      r0
-  0181        ldi      tags
-  0183        push     2
-  0188        and
-  0189        jz       L17
-  018e        ldr      r0
-  0190        push     1
-  0195        or
-  0196        str      r0
-  0198  L17:  ldr      r0
-  019a        switch   2, default L19
-                        case 0                     -> L19
-                        case 1                     -> L18
-  01a8  L18:  push     0
-  01ad        decide   excluded, P9                 ; WI-EXCL-3, WI-EXCL-4
-  01b1        ret
-  01b2  L19:  push     0
-  01b7        decide   excluded, P10                ; WI-EXCL-3
-  01bb        ret
-              ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
-  01bc  L20:  push     0
-  01c1        str      r0
-  01c3        ldi      tags
-  01c5        push     2
-  01ca        and
-  01cb        jz       L21
-  01d0        ldr      r0
-  01d2        push     1
-  01d7        or
-  01d8        str      r0
-  01da  L21:  ldr      r0
-  01dc        switch   2, default L23
-                        case 0                     -> L23
-                        case 1                     -> L22
-  01ea  L22:  push     0
-  01ef        decide   excluded, P2                 ; WI-EXCL-4
-  01f3        ret
-  01f4  L23:  push     0
-  01f9        decide   unknown_rule, P0             ; (none)
-  01fd        ret
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     2
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P2                 ; WI-EXCL-4
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   unknown_rule, P0             ; (none)
+  01d7        ret
               ; WI-CAP-6  Wis. Stat. 949.06(1)(f)  "(f) Reasonable and necessary costs associated with securing and..."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
-  01fe  L24:  push     0
-  0203        str      r0
-  0205        ldi      tags
-  0207        push     2
-  020c        and
-  020d        jz       L25
-  0212        ldr      r0
-  0214        push     1
-  0219        or
-  021a        str      r0
-  021c  L25:  ldr      r0
-  021e        switch   2, default L27
-                        case 0                     -> L27
-                        case 1                     -> L26
-  022c  L26:  push     0
-  0231        decide   excluded, P2                 ; WI-EXCL-4
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     2
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; WI-EXCL-4
+  020f        ret
+  0210  L24:  ldi      confirmed
+  0212        jnz      L25
+  0217        push     0
+  021c        decide   needs_confirmation, P9       ; WI-CAP-6
+  0220        ret
+  0221  L25:  ldi      amount_cents
+  0223        decide   eligible, P10                ; WI-CAP-6, WI-COLL-1, WI-COLL-2
+  0227        lda
+  0228        ldi      insurance_paid_cents
+  022a        subs
+  022b        push     0
+  0230        max
+  0231        seta     collateral, R27              ; WI-COLL-1
   0235        ret
-  0236  L27:  ldi      confirmed
-  0238        jnz      L28
-  023d        push     0
-  0242        decide   needs_confirmation, P11      ; WI-CAP-6
-  0246        ret
-  0247  L28:  ldi      amount_cents
-  0249        decide   eligible, P12                ; WI-CAP-6, WI-COLL-1, WI-COLL-2
-  024d        lda
-  024e        ldi      insurance_paid_cents
-  0250        subs
-  0251        push     0
-  0256        max
-  0257        seta     collateral, R27              ; WI-COLL-1
-  025b        ret
               ; WI-CAP-2  Wis. Stat. 949.06(1)(cg)  "(cg) Reasonable replacement value of any computer or mobile..."
               ; WI-COV-5  Wis. Stat. 949.06(1)(cg)  "Reasonable replacement value of any computer or mobile telephone..."
               ; WI-EXCL-1  Application DJ-CVC-1, Application Information  "Personal property losses including cash and “pain and..."
-              ; WI-EXCL-2  Wisconsin DOJ CVC Program page  "Please note: Property loss or damage is not covered other than..."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
-  025c  L29:  push     0
-  0261        str      r0
-  0263        ldi      tags
-  0265        push     3
-  026a        and
-  026b        jz       L30
-  0270        ldr      r0
-  0272        push     1
-  0277        or
-  0278        str      r0
-  027a  L30:  ldi      tags
-  027c        push     2
-  0281        and
-  0282        jz       L31
-  0287        ldr      r0
-  0289        push     2
-  028e        or
-  028f        str      r0
-  0291  L31:  ldr      r0
-  0293        switch   4, default L35
-                        case 0                     -> L35
-                        case 1                     -> L32
-                        case 2                     -> L33
-                        case 3                     -> L34
-  02a9  L32:  push     0
-  02ae        decide   excluded, P13                ; WI-EXCL-1, WI-EXCL-2
-  02b2        ret
-  02b3  L33:  push     0
-  02b8        decide   excluded, P14                ; WI-EXCL-2, WI-EXCL-4
-  02bc        ret
-  02bd  L34:  push     0
-  02c2        decide   excluded, P15                ; WI-EXCL-1, WI-EXCL-2, WI-EXCL-4
-  02c6        ret
-  02c7  L35:  push     0
-  02cc        decide   excluded, P16                ; WI-EXCL-2
-  02d0        ret
+  0236  L26:  push     0
+  023b        str      r0
+  023d        ldi      tags
+  023f        push     3
+  0244        and
+  0245        jz       L27
+  024a        ldr      r0
+  024c        push     1
+  0251        or
+  0252        str      r0
+  0254  L27:  ldi      tags
+  0256        push     2
+  025b        and
+  025c        jz       L28
+  0261        ldr      r0
+  0263        push     2
+  0268        or
+  0269        str      r0
+  026b  L28:  ldr      r0
+  026d        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  0283  L29:  push     0
+  0288        decide   excluded, P11                ; WI-EXCL-1
+  028c        ret
+  028d  L30:  push     0
+  0292        decide   excluded, P2                 ; WI-EXCL-4
+  0296        ret
+  0297  L31:  push     0
+  029c        decide   excluded, P12                ; WI-EXCL-1, WI-EXCL-4
+  02a0        ret
+  02a1  L32:  alts     P13                          ; WI-CAP-4
+  02a4        ldi      confirmed
+  02a6        jnz      L33
+  02ab        push     0
+  02b0        decide   needs_confirmation, P14      ; WI-CAP-2, WI-COV-5
+  02b4        ret
+  02b5  L33:  ldi      amount_cents
+  02b7        decide   eligible, P15                ; WI-CAP-2, WI-COV-5, WI-COLL-1, WI-COLL-2
+  02bb        lda
+  02bc        ldi      insurance_paid_cents
+  02be        subs
+  02bf        push     0
+  02c4        max
+  02c5        seta     collateral, R27              ; WI-COLL-1
+  02c9        ret
               ; WI-CAP-3  Wis. Stat. 949.06(1)(c)  "(c) Reasonable replacement value of any clothing and bedding..."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
-  02d1  L36:  push     0
-  02d6        str      r0
-  02d8        ldi      tags
-  02da        push     2
-  02df        and
-  02e0        jz       L37
-  02e5        ldr      r0
-  02e7        push     1
-  02ec        or
-  02ed        str      r0
-  02ef  L37:  ldr      r0
-  02f1        switch   2, default L39
-                        case 0                     -> L39
-                        case 1                     -> L38
-  02ff  L38:  push     0
-  0304        decide   excluded, P2                 ; WI-EXCL-4
-  0308        ret
-  0309  L39:  ldi      confirmed
-  030b        jnz      L40
-  0310        push     0
-  0315        decide   needs_confirmation, P17      ; WI-CAP-3
-  0319        ret
-  031a  L40:  ldi      amount_cents
-  031c        decide   eligible, P18                ; WI-CAP-3, WI-COLL-1, WI-COLL-2
-  0320        lda
-  0321        ldi      insurance_paid_cents
-  0323        subs
-  0324        push     0
-  0329        max
-  032a        seta     collateral, R27              ; WI-COLL-1
-  032e        ret
+  02ca  L34:  push     0
+  02cf        str      r0
+  02d1        ldi      tags
+  02d3        push     2
+  02d8        and
+  02d9        jz       L35
+  02de        ldr      r0
+  02e0        push     1
+  02e5        or
+  02e6        str      r0
+  02e8  L35:  ldr      r0
+  02ea        switch   2, default L37
+                        case 0                     -> L37
+                        case 1                     -> L36
+  02f8  L36:  push     0
+  02fd        decide   excluded, P2                 ; WI-EXCL-4
+  0301        ret
+  0302  L37:  ldi      confirmed
+  0304        jnz      L38
+  0309        push     0
+  030e        decide   needs_confirmation, P16      ; WI-CAP-3
+  0312        ret
+  0313  L38:  ldi      amount_cents
+  0315        decide   eligible, P17                ; WI-CAP-3, WI-COLL-1, WI-COLL-2
+  0319        lda
+  031a        ldi      insurance_paid_cents
+  031c        subs
+  031d        push     0
+  0322        max
+  0323        seta     collateral, R27              ; WI-COLL-1
+  0327        ret
               ; WI-CAP-8  Wis. Stat. 949.06(1)(d)  "(d) Reasonable funeral and burial expenses, not to exceed..."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
-  032f  L41:  push     0
-  0334        str      r0
-  0336        ldi      tags
-  0338        push     2
-  033d        and
-  033e        jz       L42
-  0343        ldr      r0
-  0345        push     1
-  034a        or
-  034b        str      r0
-  034d  L42:  ldr      r0
-  034f        switch   2, default L44
-                        case 0                     -> L44
-                        case 1                     -> L43
-  035d  L43:  push     0
-  0362        decide   excluded, P2                 ; WI-EXCL-4
-  0366        ret
-  0367  L44:  ldi      confirmed
-  0369        jnz      L45
-  036e        push     0
-  0373        decide   needs_confirmation, P19      ; WI-CAP-8
-  0377        ret
-  0378  L45:  ldi      amount_cents
-  037a        decide   eligible, P20                ; WI-CAP-8, WI-COLL-1, WI-COLL-2
-  037e        lda
-  037f        ldi      insurance_paid_cents
-  0381        subs
-  0382        push     0
-  0387        max
-  0388        seta     collateral, R27              ; WI-COLL-1
-  038c        ret
+  0328  L39:  push     0
+  032d        str      r0
+  032f        ldi      tags
+  0331        push     2
+  0336        and
+  0337        jz       L40
+  033c        ldr      r0
+  033e        push     1
+  0343        or
+  0344        str      r0
+  0346  L40:  ldr      r0
+  0348        switch   2, default L42
+                        case 0                     -> L42
+                        case 1                     -> L41
+  0356  L41:  push     0
+  035b        decide   excluded, P2                 ; WI-EXCL-4
+  035f        ret
+  0360  L42:  ldi      confirmed
+  0362        jnz      L43
+  0367        push     0
+  036c        decide   needs_confirmation, P18      ; WI-CAP-8
+  0370        ret
+  0371  L43:  ldi      amount_cents
+  0373        decide   eligible, P19                ; WI-CAP-8, WI-COLL-1, WI-COLL-2
+  0377        lda
+  0378        ldi      insurance_paid_cents
+  037a        subs
+  037b        push     0
+  0380        max
+  0381        seta     collateral, R27              ; WI-COLL-1
+  0385        ret
               ; WI-CAP-7  Wis. Stat. 949.06(1)(br)  "reasonable and necessary housing accessibility adaptations, but..."
               ; WI-EXCL-4  Wisconsin DOJ CVC FAQs, Compensation  "The Crime Victim Compensation Program does not pay for pain and..."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
-  038d  L46:  push     0
-  0392        str      r0
-  0394        ldi      tags
-  0396        push     2
-  039b        and
-  039c        jz       L47
-  03a1        ldr      r0
-  03a3        push     1
-  03a8        or
-  03a9        str      r0
-  03ab  L47:  ldr      r0
-  03ad        switch   2, default L49
-                        case 0                     -> L49
-                        case 1                     -> L48
-  03bb  L48:  push     0
-  03c0        decide   excluded, P2                 ; WI-EXCL-4
-  03c4        ret
-  03c5  L49:  ldi      confirmed
-  03c7        jnz      L50
-  03cc        push     0
-  03d1        decide   needs_confirmation, P21      ; WI-CAP-7
-  03d5        ret
-  03d6  L50:  ldi      amount_cents
-  03d8        decide   eligible, P22                ; WI-CAP-7, WI-COLL-1, WI-COLL-2
-  03dc        lda
-  03dd        ldi      insurance_paid_cents
-  03df        subs
-  03e0        push     0
-  03e5        max
-  03e6        seta     collateral, R27              ; WI-COLL-1
-  03ea        ret
+  0386  L44:  push     0
+  038b        str      r0
+  038d        ldi      tags
+  038f        push     2
+  0394        and
+  0395        jz       L45
+  039a        ldr      r0
+  039c        push     1
+  03a1        or
+  03a2        str      r0
+  03a4  L45:  ldr      r0
+  03a6        switch   2, default L47
+                        case 0                     -> L47
+                        case 1                     -> L46
+  03b4  L46:  push     0
+  03b9        decide   excluded, P2                 ; WI-EXCL-4
+  03bd        ret
+  03be  L47:  ldi      confirmed
+  03c0        jnz      L48
+  03c5        push     0
+  03ca        decide   needs_confirmation, P20      ; WI-CAP-7
+  03ce        ret
+  03cf  L48:  ldi      amount_cents
+  03d1        decide   eligible, P21                ; WI-CAP-7, WI-COLL-1, WI-COLL-2
+  03d5        lda
+  03d6        ldi      insurance_paid_cents
+  03d8        subs
+  03d9        push     0
+  03de        max
+  03df        seta     collateral, R27              ; WI-COLL-1
+  03e3        ret
 
 .aggregate
               ; WI-CAP-2  Wis. Stat. 949.06(1)(cg)  "(cg) Reasonable replacement value of any computer or mobile..."
@@ -660,7 +658,7 @@
   0210        push     0
   0215        jmp      L31
   021a  L30:  push     1                            ; late
-  021f  L31:  check    deadline, P23                ; WI-DEADLINE-1, WI-DEADLINE-2
+  021f  L31:  check    deadline, P22                ; WI-DEADLINE-1, WI-DEADLINE-2
               ; WI-REPORT-2  Wis. Stat. 949.26(3)  "The department may not refuse to make an award under this..."
               ; WI-REPORT-1  Wis. Stat. 949.08(1)  "the personal injury or death was the result of an incident or..."
               ; WI-REPORT-3  Wis. Stat. 949.08(2)(d)  "(d) Has not cooperated with appropriate law enforcement..."
@@ -678,7 +676,10 @@
   0247  L32:  push     1
   024c        jmp      L34
   0251  L33:  push     0                            ; satisfied
-  0256  L34:  check    reporting, P24               ; WI-REPORT-2, WI-REPORT-1, WI-REPORT-3, WI-REPORT-4
+  0256  L34:  check    reporting, P23               ; WI-REPORT-2, WI-REPORT-1, WI-REPORT-3, WI-REPORT-4
+              ; WI-EXCL-2  Wisconsin DOJ CVC Program page  "Please note: Property loss or damage is not covered other than..."
+              ; WI-EXCL-3  Wisconsin DOJ CVC FAQs, Compensation  "The Program cannot reimburse for mileage or for time off of work..."
+              ; WI-EXCL-5  Wis. Admin. Code Jus 11.06(3)(c)  "(c) Court appearances or evaluations are not eligible services."
               ; WI-COLL-1  Wis. Stat. 949.06(3)  "Any award made under this section shall be reduced by the amount..."
               ; WI-COLL-2  Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling  "Do I have to submit bills to my insurance? Yes, this Program is..."
               ; WI-CONDUCT-1  Wis. Stat. 949.08(2)(a)  "(a) Engaged in conduct which substantially contributed to the..."
@@ -700,6 +701,6 @@
               ; WI-TIME-1  Wisconsin DOJ Crime Victim Compensation Program page, How will my claim be processed?  "Due to the high volume of applications received, the intake..."
               ; WI-ACP-1  Wisconsin DOJ, Safe at Home Address Confidentiality Program page, program description; Wis. Stat. 165.68  "Safe at Home is an address confidentiality program that provides..."
               ; WI-RECCONF-1  Wis. Stat. 949.05(2)(a)  "any personally identifiable information, as defined in s. 19.62..."
-  025a        info     P25                          ; WI-COLL-1, WI-COLL-2, WI-CONDUCT-1, WI-CRIME-1, WI-CRIME-2, WI-RES-1, WI-RES-2, WI-SUB-1, WI-SUB-2, WI-SUB-3, WI-DOC-1, WI-DOC-2, WI-DOC-3, WI-DOC-4, WI-DOC-5, WI-DOC-6, WI-DOC-7, WI-DOC-8, WI-TIME-1, WI-ACP-1, WI-RECCONF-1
+  025a        info     P24                          ; WI-EXCL-2, WI-EXCL-3, WI-EXCL-5, WI-COLL-1, WI-COLL-2, WI-CONDUCT-1, WI-CRIME-1, WI-CRIME-2, WI-RES-1, WI-RES-2, WI-SUB-1, WI-SUB-2, WI-SUB-3, WI-DOC-1, WI-DOC-2, WI-DOC-3, WI-DOC-4, WI-DOC-5, WI-DOC-6, WI-DOC-7, WI-DOC-8, WI-TIME-1, WI-ACP-1, WI-RECCONF-1
   025d        ret
 

@@ -1,10 +1,10 @@
 ; tend law image NY, New York
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 d11f0846735bb38cbd6f80f7466000d16c07307695d87a44893b7bac390bb6c8
-; image sha256  c0a14a0413dc3fb6bf8c55432d775f8b2032e5da555e00761eed29eb4c2da8b8
-; 59 rules, 18 sources, 26 proofs, 7 ints, 348 strings
-; item program: 154 instructions, 520 bytes, max stack 2
-; aggregate program: 240 instructions, 740 bytes, max stack 3, 9 loops
+; image sha256  1a43e0b8d8ffebd262fdbd52f83d45bf820c91b94a8144ba17c961f9fcd81349
+; 59 rules, 18 sources, 28 proofs, 7 ints, 349 strings
+; item program: 176 instructions, 576 bytes, max stack 2
+; aggregate program: 258 instructions, 797 bytes, max stack 3, 9 loops
 
 .rules
     R0    NY-EXAM-1             exam_no_bill  -                                             N.Y. Exec. Law 631(13)(b)
@@ -31,11 +31,11 @@
     R21   NY-CAP-8              expense_cap   clothing_bedding      per item                9 NYCRR 525.12(n)(1)(i)
     R22   NY-CAP-10             expense_cap   clothing_bedding      per claim               9 NYCRR 525.12(n)(2)(i)
     R23   NY-CAP-12             expense_cap   legal                 per claim               N.Y. Exec. Law 626(1)
-    R24   NY-EXCL-1             excluded      security                                      9 NYCRR 525.12(g)(3)
-    R25   NY-EXCL-2             excluded      transportation                                9 NYCRR 525.3(d)(2)
+    R24   NY-EXCL-1             info          -                     excluded_expense        9 NYCRR 525.12(g)(3)
+    R25   NY-EXCL-2             info          -                     excluded_expense        9 NYCRR 525.3(d)(2)
     R26   NY-EXCL-3             excluded      transportation                                N.Y. Exec. Law 621(25) (employment-related transportation)
-    R27   NY-DEADLINE-1         deadline      -                                             N.Y. Exec. Law 625(2)
-    R28   NY-DEADLINE-2         deadline      -                                             OVS Compensation Program Updates for Victims and Survivors, Timely Filing
+    R27   NY-DEADLINE-1         deadline      -                     from crime              N.Y. Exec. Law 625(2)
+    R28   NY-DEADLINE-2         deadline      -                     from crime              OVS Compensation Program Updates for Victims and Survivors, Timely Filing
     R29   NY-REPORT-1           reporting     -                                             N.Y. Exec. Law 631(1)(a)(iii)
     R30   NY-REPORT-2           reporting     -                                             N.Y. Exec. Law 631(1)(c)(i)
     R31   NY-REPORT-3           reporting     -                                             N.Y. Exec. Law 631(1)(c)(ii)
@@ -98,24 +98,26 @@
     P5    (NY-COVER-3, NY-COLLAT-1, NY-COLLAT-2)
     P6    (NY-CAP-1, NY-CAP-2)
     P7    (NY-CAP-1, NY-CAP-2, NY-COLLAT-1, NY-COLLAT-2)
-    P8    (NY-EXCL-2, NY-EXCL-3)
-    P9    (NY-EXCL-2)
-    P10   (NY-COVER-7, NY-CAP-3)
-    P11   (NY-COVER-7, NY-CAP-3, NY-COLLAT-1, NY-COLLAT-2)
-    P12   (NY-EXCL-1)
-    P13   (NY-CAP-5)
-    P14   (NY-CAP-5, NY-COLLAT-1, NY-COLLAT-2)
-    P15   (NY-CAP-7, NY-CAP-6)
-    P16   (NY-CAP-13, NY-CAP-14)
-    P17   (NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2)
-    P18   (NY-CAP-9, NY-CAP-11)
-    P19   (NY-CAP-8, NY-CAP-10)
-    P20   (NY-CAP-8, NY-CAP-10, NY-COLLAT-1, NY-COLLAT-2)
-    P21   (NY-CAP-12)
-    P22   (NY-CAP-12, NY-COLLAT-1, NY-COLLAT-2)
-    P23   (NY-DEADLINE-1, NY-DEADLINE-2)
-    P24   (NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5)
-    P25   (NY-CAP-4, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1)
+    P8    (NY-EXCL-3)
+    P9    (NY-COVER-4, NY-COVER-5)
+    P10   (NY-COVER-4, NY-COVER-5, NY-COLLAT-1, NY-COLLAT-2)
+    P11   (NY-COVER-7, NY-CAP-3)
+    P12   (NY-COVER-7, NY-CAP-3, NY-COLLAT-1, NY-COLLAT-2)
+    P13   (NY-COVER-6)
+    P14   (NY-COVER-6, NY-COLLAT-1, NY-COLLAT-2)
+    P15   (NY-CAP-5)
+    P16   (NY-CAP-5, NY-COLLAT-1, NY-COLLAT-2)
+    P17   (NY-CAP-7, NY-CAP-6)
+    P18   (NY-CAP-13, NY-CAP-14)
+    P19   (NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2)
+    P20   (NY-CAP-9, NY-CAP-11)
+    P21   (NY-CAP-8, NY-CAP-10)
+    P22   (NY-CAP-8, NY-CAP-10, NY-COLLAT-1, NY-COLLAT-2)
+    P23   (NY-CAP-12)
+    P24   (NY-CAP-12, NY-COLLAT-1, NY-COLLAT-2)
+    P25   (NY-DEADLINE-1, NY-DEADLINE-2)
+    P26   (NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5)
+    P27   (NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1)
 
 .ints
     K0    60000         ; $600.00
@@ -136,26 +138,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L14
+  0016        switch   19, default L15
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L4
                         case lost_wages            -> L6
                         case transportation        -> L8
-                        case relocation            -> L12
-                        case temporary_housing     -> L14
-                        case security              -> L15
-                        case crime_scene_cleanup   -> L16
-                        case childcare             -> L14
-                        case property_replacement  -> L18
-                        case clothing_bedding      -> L20
-                        case prescription          -> L14
-                        case dental                -> L14
-                        case funeral               -> L14
-                        case legal                 -> L22
-                        case tuition               -> L14
-                        case other                 -> L14
-                        case unknown               -> L14
+                        case relocation            -> L13
+                        case temporary_housing     -> L15
+                        case security              -> L16
+                        case crime_scene_cleanup   -> L18
+                        case childcare             -> L15
+                        case property_replacement  -> L20
+                        case clothing_bedding      -> L22
+                        case prescription          -> L15
+                        case dental                -> L15
+                        case funeral               -> L15
+                        case legal                 -> L24
+                        case tuition               -> L15
+                        case other                 -> L15
+                        case unknown               -> L15
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -223,7 +225,6 @@
   00ed        ret
               ; NY-COVER-4  9 NYCRR 525.3(d)(2)  "medical expenses shall also include the reasonable..."
               ; NY-COVER-5  N.Y. Exec. Law 631(10)  "an award shall include reasonable transportation expenses..."
-              ; NY-EXCL-2  9 NYCRR 525.3(d)(2)  "Meals shall not be considered a related transportation expense."
               ; NY-EXCL-3  N.Y. Exec. Law 621(25) (employment-related transportation)  "Such costs shall not include the purchase, lease or rental of a..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
@@ -242,368 +243,409 @@
                         case 0                     -> L11
                         case 1                     -> L10
   011c  L10:  push     0
-  0121        decide   excluded, P8                 ; NY-EXCL-2, NY-EXCL-3
+  0121        decide   excluded, P8                 ; NY-EXCL-3
   0125        ret
-  0126  L11:  push     0
-  012b        decide   excluded, P9                 ; NY-EXCL-2
-  012f        ret
+  0126  L11:  ldi      confirmed
+  0128        jnz      L12
+  012d        push     0
+  0132        decide   needs_confirmation, P9       ; NY-COVER-4, NY-COVER-5
+  0136        ret
+  0137  L12:  ldi      amount_cents
+  0139        decide   eligible, P10                ; NY-COVER-4, NY-COVER-5, NY-COLLAT-1, NY-COLLAT-2
+  013d        lda
+  013e        ldi      insurance_paid_cents
+  0140        subs
+  0141        push     0
+  0146        max
+  0147        seta     collateral, R34              ; NY-COLLAT-1
+  014b        ret
               ; NY-COVER-7  N.Y. Exec. Law 621(23)  ""Relocation expenses" shall mean the cost of relocating a crime..."
               ; NY-CAP-3  N.Y. Exec. Law 631(2)  "reasonable relocation expenses not exceeding twenty-five hundred..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
-  0130  L12:  ldi      confirmed
-  0132        jnz      L13
-  0137        push     0
-  013c        decide   needs_confirmation, P10      ; NY-COVER-7, NY-CAP-3
-  0140        ret
-  0141  L13:  ldi      amount_cents
-  0143        decide   eligible, P11                ; NY-COVER-7, NY-CAP-3, NY-COLLAT-1, NY-COLLAT-2
-  0147        lda
-  0148        ldi      insurance_paid_cents
-  014a        subs
-  014b        push     0
-  0150        max
-  0151        seta     collateral, R34              ; NY-COLLAT-1
-  0155        ret
-  0156  L14:  push     0
-  015b        decide   unknown_rule, P0             ; (none)
-  015f        ret
+  014c  L13:  ldi      confirmed
+  014e        jnz      L14
+  0153        push     0
+  0158        decide   needs_confirmation, P11      ; NY-COVER-7, NY-CAP-3
+  015c        ret
+  015d  L14:  ldi      amount_cents
+  015f        decide   eligible, P12                ; NY-COVER-7, NY-CAP-3, NY-COLLAT-1, NY-COLLAT-2
+  0163        lda
+  0164        ldi      insurance_paid_cents
+  0166        subs
+  0167        push     0
+  016c        max
+  016d        seta     collateral, R34              ; NY-COLLAT-1
+  0171        ret
+  0172  L15:  push     0
+  0177        decide   unknown_rule, P0             ; (none)
+  017b        ret
               ; NY-COVER-6  9 NYCRR 525.12(g)(3)  "In order for the costs associated with new or enhanced security..."
-              ; NY-EXCL-1  9 NYCRR 525.12(g)(3)  "Compensable costs shall be limited to the devices themselves and..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
-  0160  L15:  push     0
-  0165        decide   excluded, P12                ; NY-EXCL-1
-  0169        ret
+  017c  L16:  ldi      confirmed
+  017e        jnz      L17
+  0183        push     0
+  0188        decide   needs_confirmation, P13      ; NY-COVER-6
+  018c        ret
+  018d  L17:  ldi      amount_cents
+  018f        decide   eligible, P14                ; NY-COVER-6, NY-COLLAT-1, NY-COLLAT-2
+  0193        lda
+  0194        ldi      insurance_paid_cents
+  0196        subs
+  0197        push     0
+  019c        max
+  019d        seta     collateral, R34              ; NY-COLLAT-1
+  01a1        ret
               ; NY-CAP-5  N.Y. Exec. Law 631(2)  "the costs of crime scene cleanup and securing of a crime scene..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
-  016a  L16:  ldi      confirmed
-  016c        jnz      L17
-  0171        push     0
-  0176        decide   needs_confirmation, P13      ; NY-CAP-5
-  017a        ret
-  017b  L17:  ldi      amount_cents
-  017d        decide   eligible, P14                ; NY-CAP-5, NY-COLLAT-1, NY-COLLAT-2
-  0181        lda
-  0182        ldi      insurance_paid_cents
-  0184        subs
-  0185        push     0
-  018a        max
-  018b        seta     collateral, R34              ; NY-COLLAT-1
-  018f        ret
+  01a2  L18:  ldi      confirmed
+  01a4        jnz      L19
+  01a9        push     0
+  01ae        decide   needs_confirmation, P15      ; NY-CAP-5
+  01b2        ret
+  01b3  L19:  ldi      amount_cents
+  01b5        decide   eligible, P16                ; NY-CAP-5, NY-COLLAT-1, NY-COLLAT-2
+  01b9        lda
+  01ba        ldi      insurance_paid_cents
+  01bc        subs
+  01bd        push     0
+  01c2        max
+  01c3        seta     collateral, R34              ; NY-COLLAT-1
+  01c7        ret
               ; NY-CAP-13  9 NYCRR 525.12(n)(4)  "All awards made pursuant to Executive Law article 22 and this..."
               ; NY-CAP-14  N.Y. Exec. Law 631(9)(a)  "In the case of medically necessary life-sustaining equipment..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
-  0190  L18:  alts     P15                          ; NY-CAP-7, NY-CAP-6
-  0193        ldi      confirmed
-  0195        jnz      L19
-  019a        push     0
-  019f        decide   needs_confirmation, P16      ; NY-CAP-13, NY-CAP-14
-  01a3        ret
-  01a4  L19:  ldi      amount_cents
-  01a6        decide   eligible, P17                ; NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2
-  01aa        lda
-  01ab        ldi      insurance_paid_cents
-  01ad        subs
-  01ae        push     0
-  01b3        max
-  01b4        seta     collateral, R34              ; NY-COLLAT-1
-  01b8        ret
+  01c8  L20:  alts     P17                          ; NY-CAP-7, NY-CAP-6
+  01cb        ldi      confirmed
+  01cd        jnz      L21
+  01d2        push     0
+  01d7        decide   needs_confirmation, P18      ; NY-CAP-13, NY-CAP-14
+  01db        ret
+  01dc  L21:  ldi      amount_cents
+  01de        decide   eligible, P19                ; NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2
+  01e2        lda
+  01e3        ldi      insurance_paid_cents
+  01e5        subs
+  01e6        push     0
+  01eb        max
+  01ec        seta     collateral, R34              ; NY-COLLAT-1
+  01f0        ret
               ; NY-CAP-8  9 NYCRR 525.12(n)(1)(i)  "Items of outerwear, suits and footwear shall be the receipted..."
               ; NY-CAP-10  9 NYCRR 525.12(n)(2)(i)  "Mattress and platform or box spring shall be the receipted..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
-  01b9  L20:  alts     P18                          ; NY-CAP-9, NY-CAP-11
-  01bc        ldi      confirmed
-  01be        jnz      L21
-  01c3        push     0
-  01c8        decide   needs_confirmation, P19      ; NY-CAP-8, NY-CAP-10
-  01cc        ret
-  01cd  L21:  ldi      amount_cents
-  01cf        decide   eligible, P20                ; NY-CAP-8, NY-CAP-10, NY-COLLAT-1, NY-COLLAT-2
-  01d3        lda
-  01d4        ldi      insurance_paid_cents
-  01d6        subs
-  01d7        push     0
-  01dc        max
-  01dd        seta     collateral, R34              ; NY-COLLAT-1
-  01e1        ret
+  01f1  L22:  alts     P20                          ; NY-CAP-9, NY-CAP-11
+  01f4        ldi      confirmed
+  01f6        jnz      L23
+  01fb        push     0
+  0200        decide   needs_confirmation, P21      ; NY-CAP-8, NY-CAP-10
+  0204        ret
+  0205  L23:  ldi      amount_cents
+  0207        decide   eligible, P22                ; NY-CAP-8, NY-CAP-10, NY-COLLAT-1, NY-COLLAT-2
+  020b        lda
+  020c        ldi      insurance_paid_cents
+  020e        subs
+  020f        push     0
+  0214        max
+  0215        seta     collateral, R34              ; NY-COLLAT-1
+  0219        ret
               ; NY-CAP-12  N.Y. Exec. Law 626(1)  "the cost of reasonable attorneys' fees for representation before..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
-  01e2  L22:  ldi      confirmed
-  01e4        jnz      L23
-  01e9        push     0
-  01ee        decide   needs_confirmation, P21      ; NY-CAP-12
-  01f2        ret
-  01f3  L23:  ldi      amount_cents
-  01f5        decide   eligible, P22                ; NY-CAP-12, NY-COLLAT-1, NY-COLLAT-2
-  01f9        lda
-  01fa        ldi      insurance_paid_cents
-  01fc        subs
-  01fd        push     0
-  0202        max
-  0203        seta     collateral, R34              ; NY-COLLAT-1
-  0207        ret
+  021a  L24:  ldi      confirmed
+  021c        jnz      L25
+  0221        push     0
+  0226        decide   needs_confirmation, P23      ; NY-CAP-12
+  022a        ret
+  022b  L25:  ldi      amount_cents
+  022d        decide   eligible, P24                ; NY-CAP-12, NY-COLLAT-1, NY-COLLAT-2
+  0231        lda
+  0232        ldi      insurance_paid_cents
+  0234        subs
+  0235        push     0
+  023a        max
+  023b        seta     collateral, R34              ; NY-COLLAT-1
+  023f        ret
 
 .aggregate
               ; NY-CAP-2  N.Y. Exec. Law 631(3)  "no such award shall exceed six hundred dollars for each week of..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $600.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R15                ; NY-CAP-2
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R15                          ; rate_unverified NY-CAP-2
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $600.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R15                ; NY-CAP-2
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R15                          ; rate_unverified NY-CAP-2
+  0040  L3:   next     L0
               ; NY-CAP-13  9 NYCRR 525.12(n)(4)  "All awards made pursuant to Executive Law article 22 and this..."
-  0032  L4:   each     property_replacement, L9
-  0038  L5:   ldi      units
-  003a        jz       L7
-  003f        ldk      K1                           ; $2,500.00
-  0042        ldi      units
-  0044        muls
-  0045        dup
-  0046        lda
-  0047        lt
-  0048        jz       L6
-  004d        cap      unit_cap, R19                ; NY-CAP-13
-  0051        jmp      L8
-  0056  L6:   pop
-  0057        jmp      L8
-  005c  L7:   flag     R19                          ; rate_unverified NY-CAP-13
-  005f  L8:   next     L5
+  0045  L4:   each     property_replacement, L9
+  004b  L5:   ldi      unit
+  004d        push     7                            ; item
+  0052        eq
+  0053        jz       L7
+  0058        ldi      units
+  005a        push     0
+  005f        gt
+  0060        jz       L7
+  0065        ldk      K1                           ; $2,500.00
+  0068        ldi      units
+  006a        muls
+  006b        dup
+  006c        lda
+  006d        lt
+  006e        jz       L6
+  0073        cap      unit_cap, R19                ; NY-CAP-13
+  0077        jmp      L8
+  007c  L6:   pop
+  007d        jmp      L8
+  0082  L7:   flag     R19                          ; rate_unverified NY-CAP-13
+  0085  L8:   next     L5
               ; NY-CAP-8  9 NYCRR 525.12(n)(1)(i)  "Items of outerwear, suits and footwear shall be the receipted..."
-  0064  L9:   each     clothing_bedding, L14
-  006a  L10:  ldi      units
-  006c        jz       L12
-  0071        ldk      K2                           ; $500.00
-  0074        ldi      units
-  0076        muls
-  0077        dup
-  0078        lda
-  0079        lt
-  007a        jz       L11
-  007f        cap      unit_cap, R21                ; NY-CAP-8
-  0083        jmp      L13
-  0088  L11:  pop
-  0089        jmp      L13
-  008e  L12:  flag     R21                          ; rate_unverified NY-CAP-8
-  0091  L13:  next     L10
+  008a  L9:   each     clothing_bedding, L14
+  0090  L10:  ldi      unit
+  0092        push     7                            ; item
+  0097        eq
+  0098        jz       L12
+  009d        ldi      units
+  009f        push     0
+  00a4        gt
+  00a5        jz       L12
+  00aa        ldk      K2                           ; $500.00
+  00ad        ldi      units
+  00af        muls
+  00b0        dup
+  00b1        lda
+  00b2        lt
+  00b3        jz       L11
+  00b8        cap      unit_cap, R21                ; NY-CAP-8
+  00bc        jmp      L13
+  00c1  L11:  pop
+  00c2        jmp      L13
+  00c7  L12:  flag     R21                          ; rate_unverified NY-CAP-8
+  00ca  L13:  next     L10
               ; NY-CAP-1  N.Y. Exec. Law 631(2)  "loss of earnings or support resulting from such injury not to..."
-  0096  L14:  push     0
-  009b        str      r0
-  009d        push     0
-  00a2        str      r1
-  00a4        each     lost_wages, L19
-  00aa  L15:  ldr      r1
-  00ac        jnz      L17
-  00b1        ldr      r0
-  00b3        lda
-  00b4        adds
-  00b5        ldk      K3                           ; $30,000.00
-  00b8        gt
-  00b9        jz       L16
-  00be        ldk      K3                           ; $30,000.00
-  00c1        ldr      r0
-  00c3        subs
-  00c4        cap      expense_cap, R14             ; NY-CAP-1
-  00c8        push     1
-  00cd        str      r1
-  00cf  L16:  ldr      r0
-  00d1        lda
-  00d2        adds
-  00d3        str      r0
-  00d5        jmp      L18
-  00da  L17:  push     0
-  00df        cap      expense_cap, R14             ; NY-CAP-1
-  00e3  L18:  next     L15
+  00cf  L14:  push     0
+  00d4        str      r0
+  00d6        push     0
+  00db        str      r1
+  00dd        each     lost_wages, L19
+  00e3  L15:  ldr      r1
+  00e5        jnz      L17
+  00ea        ldr      r0
+  00ec        lda
+  00ed        adds
+  00ee        ldk      K3                           ; $30,000.00
+  00f1        gt
+  00f2        jz       L16
+  00f7        ldk      K3                           ; $30,000.00
+  00fa        ldr      r0
+  00fc        subs
+  00fd        cap      expense_cap, R14             ; NY-CAP-1
+  0101        push     1
+  0106        str      r1
+  0108  L16:  ldr      r0
+  010a        lda
+  010b        adds
+  010c        str      r0
+  010e        jmp      L18
+  0113  L17:  push     0
+  0118        cap      expense_cap, R14             ; NY-CAP-1
+  011c  L18:  next     L15
               ; NY-CAP-3  N.Y. Exec. Law 631(2)  "reasonable relocation expenses not exceeding twenty-five hundred..."
-  00e8  L19:  push     0
-  00ed        str      r0
-  00ef        push     0
-  00f4        str      r1
-  00f6        each     relocation, L24
-  00fc  L20:  ldr      r1
-  00fe        jnz      L22
-  0103        ldr      r0
-  0105        lda
-  0106        adds
-  0107        ldk      K1                           ; $2,500.00
-  010a        gt
-  010b        jz       L21
-  0110        ldk      K1                           ; $2,500.00
-  0113        ldr      r0
-  0115        subs
-  0116        cap      expense_cap, R16             ; NY-CAP-3
-  011a        push     1
-  011f        str      r1
-  0121  L21:  ldr      r0
-  0123        lda
-  0124        adds
-  0125        str      r0
-  0127        jmp      L23
-  012c  L22:  push     0
-  0131        cap      expense_cap, R16             ; NY-CAP-3
-  0135  L23:  next     L20
+  0121  L19:  push     0
+  0126        str      r0
+  0128        push     0
+  012d        str      r1
+  012f        each     relocation, L24
+  0135  L20:  ldr      r1
+  0137        jnz      L22
+  013c        ldr      r0
+  013e        lda
+  013f        adds
+  0140        ldk      K1                           ; $2,500.00
+  0143        gt
+  0144        jz       L21
+  0149        ldk      K1                           ; $2,500.00
+  014c        ldr      r0
+  014e        subs
+  014f        cap      expense_cap, R16             ; NY-CAP-3
+  0153        push     1
+  0158        str      r1
+  015a  L21:  ldr      r0
+  015c        lda
+  015d        adds
+  015e        str      r0
+  0160        jmp      L23
+  0165  L22:  push     0
+  016a        cap      expense_cap, R16             ; NY-CAP-3
+  016e  L23:  next     L20
               ; NY-CAP-5  N.Y. Exec. Law 631(2)  "the costs of crime scene cleanup and securing of a crime scene..."
-  013a  L24:  push     0
-  013f        str      r0
-  0141        push     0
-  0146        str      r1
-  0148        each     crime_scene_cleanup, L29
-  014e  L25:  ldr      r1
-  0150        jnz      L27
-  0155        ldr      r0
-  0157        lda
-  0158        adds
-  0159        ldk      K1                           ; $2,500.00
-  015c        gt
-  015d        jz       L26
-  0162        ldk      K1                           ; $2,500.00
-  0165        ldr      r0
-  0167        subs
-  0168        cap      expense_cap, R18             ; NY-CAP-5
-  016c        push     1
-  0171        str      r1
-  0173  L26:  ldr      r0
-  0175        lda
-  0176        adds
-  0177        str      r0
-  0179        jmp      L28
-  017e  L27:  push     0
-  0183        cap      expense_cap, R18             ; NY-CAP-5
-  0187  L28:  next     L25
+  0173  L24:  push     0
+  0178        str      r0
+  017a        push     0
+  017f        str      r1
+  0181        each     crime_scene_cleanup, L29
+  0187  L25:  ldr      r1
+  0189        jnz      L27
+  018e        ldr      r0
+  0190        lda
+  0191        adds
+  0192        ldk      K1                           ; $2,500.00
+  0195        gt
+  0196        jz       L26
+  019b        ldk      K1                           ; $2,500.00
+  019e        ldr      r0
+  01a0        subs
+  01a1        cap      expense_cap, R18             ; NY-CAP-5
+  01a5        push     1
+  01aa        str      r1
+  01ac  L26:  ldr      r0
+  01ae        lda
+  01af        adds
+  01b0        str      r0
+  01b2        jmp      L28
+  01b7  L27:  push     0
+  01bc        cap      expense_cap, R18             ; NY-CAP-5
+  01c0  L28:  next     L25
               ; NY-CAP-14  N.Y. Exec. Law 631(9)(a)  "In the case of medically necessary life-sustaining equipment..."
-  018c  L29:  push     0
-  0191        str      r0
-  0193        push     0
-  0198        str      r1
-  019a        each     property_replacement, L34
-  01a0  L30:  ldr      r1
-  01a2        jnz      L32
-  01a7        ldr      r0
-  01a9        lda
-  01aa        adds
-  01ab        ldk      K4                           ; $10,000.00
-  01ae        gt
-  01af        jz       L31
-  01b4        ldk      K4                           ; $10,000.00
-  01b7        ldr      r0
-  01b9        subs
-  01ba        cap      expense_cap, R20             ; NY-CAP-14
-  01be        push     1
-  01c3        str      r1
-  01c5  L31:  ldr      r0
-  01c7        lda
-  01c8        adds
-  01c9        str      r0
-  01cb        jmp      L33
-  01d0  L32:  push     0
-  01d5        cap      expense_cap, R20             ; NY-CAP-14
-  01d9  L33:  next     L30
+  01c5  L29:  push     0
+  01ca        str      r0
+  01cc        push     0
+  01d1        str      r1
+  01d3        each     property_replacement, L34
+  01d9  L30:  ldr      r1
+  01db        jnz      L32
+  01e0        ldr      r0
+  01e2        lda
+  01e3        adds
+  01e4        ldk      K4                           ; $10,000.00
+  01e7        gt
+  01e8        jz       L31
+  01ed        ldk      K4                           ; $10,000.00
+  01f0        ldr      r0
+  01f2        subs
+  01f3        cap      expense_cap, R20             ; NY-CAP-14
+  01f7        push     1
+  01fc        str      r1
+  01fe  L31:  ldr      r0
+  0200        lda
+  0201        adds
+  0202        str      r0
+  0204        jmp      L33
+  0209  L32:  push     0
+  020e        cap      expense_cap, R20             ; NY-CAP-14
+  0212  L33:  next     L30
               ; NY-CAP-10  9 NYCRR 525.12(n)(2)(i)  "Mattress and platform or box spring shall be the receipted..."
-  01de  L34:  push     0
-  01e3        str      r0
-  01e5        push     0
-  01ea        str      r1
-  01ec        each     clothing_bedding, L39
-  01f2  L35:  ldr      r1
-  01f4        jnz      L37
-  01f9        ldr      r0
-  01fb        lda
-  01fc        adds
-  01fd        ldk      K5                           ; $2,000.00
-  0200        gt
-  0201        jz       L36
-  0206        ldk      K5                           ; $2,000.00
-  0209        ldr      r0
-  020b        subs
-  020c        cap      expense_cap, R22             ; NY-CAP-10
-  0210        push     1
-  0215        str      r1
-  0217  L36:  ldr      r0
-  0219        lda
-  021a        adds
-  021b        str      r0
-  021d        jmp      L38
-  0222  L37:  push     0
-  0227        cap      expense_cap, R22             ; NY-CAP-10
-  022b  L38:  next     L35
+  0217  L34:  push     0
+  021c        str      r0
+  021e        push     0
+  0223        str      r1
+  0225        each     clothing_bedding, L39
+  022b  L35:  ldr      r1
+  022d        jnz      L37
+  0232        ldr      r0
+  0234        lda
+  0235        adds
+  0236        ldk      K5                           ; $2,000.00
+  0239        gt
+  023a        jz       L36
+  023f        ldk      K5                           ; $2,000.00
+  0242        ldr      r0
+  0244        subs
+  0245        cap      expense_cap, R22             ; NY-CAP-10
+  0249        push     1
+  024e        str      r1
+  0250  L36:  ldr      r0
+  0252        lda
+  0253        adds
+  0254        str      r0
+  0256        jmp      L38
+  025b  L37:  push     0
+  0260        cap      expense_cap, R22             ; NY-CAP-10
+  0264  L38:  next     L35
               ; NY-CAP-12  N.Y. Exec. Law 626(1)  "the cost of reasonable attorneys' fees for representation before..."
-  0230  L39:  push     0
-  0235        str      r0
-  0237        push     0
-  023c        str      r1
-  023e        each     legal, L44
-  0244  L40:  ldr      r1
-  0246        jnz      L42
-  024b        ldr      r0
-  024d        lda
-  024e        adds
-  024f        ldk      K6                           ; $1,000.00
-  0252        gt
-  0253        jz       L41
-  0258        ldk      K6                           ; $1,000.00
-  025b        ldr      r0
-  025d        subs
-  025e        cap      expense_cap, R23             ; NY-CAP-12
-  0262        push     1
-  0267        str      r1
-  0269  L41:  ldr      r0
-  026b        lda
-  026c        adds
-  026d        str      r0
-  026f        jmp      L43
-  0274  L42:  push     0
-  0279        cap      expense_cap, R23             ; NY-CAP-12
-  027d  L43:  next     L40
-  0282  L44:  push     0                            ; met
-  0287        check    minimum_loss, P0             ; (none)
+  0269  L39:  push     0
+  026e        str      r0
+  0270        push     0
+  0275        str      r1
+  0277        each     legal, L44
+  027d  L40:  ldr      r1
+  027f        jnz      L42
+  0284        ldr      r0
+  0286        lda
+  0287        adds
+  0288        ldk      K6                           ; $1,000.00
+  028b        gt
+  028c        jz       L41
+  0291        ldk      K6                           ; $1,000.00
+  0294        ldr      r0
+  0296        subs
+  0297        cap      expense_cap, R23             ; NY-CAP-12
+  029b        push     1
+  02a0        str      r1
+  02a2  L41:  ldr      r0
+  02a4        lda
+  02a5        adds
+  02a6        str      r0
+  02a8        jmp      L43
+  02ad  L42:  push     0
+  02b2        cap      expense_cap, R23             ; NY-CAP-12
+  02b6  L43:  next     L40
+  02bb  L44:  push     0                            ; met
+  02c0        check    minimum_loss, P0             ; (none)
               ; NY-DEADLINE-1  N.Y. Exec. Law 625(2)  "A claim must be filed by the claimant not later than three years..."
-  028b        ldx      incident_date
-  028d        push     1095
-  0292        adds
+  02c4        ldx      incident_date
+  02c6        push     1095
+  02cb        adds
               ; NY-DEADLINE-2  OVS Compensation Program Updates for Victims and Survivors, Timely Filing  "Please keep in mind that even if it has been more than three..."
-  0293        ldx      incident_date
-  0295        push     1095
-  029a        adds
-  029b        max
-  029c        dup
-  029d        setdate
-  029e        ldx      as_of_date
-  02a0        ge
-  02a1        jz       L45
-  02a6        push     0
-  02ab        jmp      L46
-  02b0  L45:  push     1                            ; late
-  02b5  L46:  check    deadline, P23                ; NY-DEADLINE-1, NY-DEADLINE-2
+  02cc        ldx      incident_date
+  02ce        push     1095
+  02d3        adds
+  02d4        max
+  02d5        dup
+  02d6        setdate
+  02d7        ldx      as_of_date
+  02d9        ge
+  02da        jz       L45
+  02df        push     0
+  02e4        jmp      L46
+  02e9  L45:  push     1                            ; late
+  02ee  L46:  check    deadline, P25                ; NY-DEADLINE-1, NY-DEADLINE-2
               ; NY-REPORT-1  N.Y. Exec. Law 631(1)(a)(iii)  "the records of a support agency for survivors of crime or the..."
               ; NY-REPORT-2  N.Y. Exec. Law 631(1)(c)(i)  "any medical facility established under the laws of the state..."
               ; NY-REPORT-3  N.Y. Exec. Law 631(1)(c)(ii)  "in cases involving any sex offense or family offense a support..."
               ; NY-REPORT-4  OVS Compensation Program Updates for Victims and Survivors, Reporting a Crime  "Starting December 31, 2025, instead of filing a report with law..."
               ; NY-REPORT-5  N.Y. Exec. Law 631(1)(c)(iii)  "in cases where a physically injured claimant and/or victim is..."
-  02b9        ldx      police_report
-  02bb        push     1                            ; yes
-  02c0        eq
-  02c1        jnz      L47
-  02c6        ldx      forensic_exam
-  02c8        jnz      L47
-  02cd        push     2
-  02d2        jmp      L48
-  02d7  L47:  push     0                            ; satisfied
-  02dc  L48:  check    reporting, P24               ; NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5
+  02f2        ldx      police_report
+  02f4        push     1                            ; yes
+  02f9        eq
+  02fa        jnz      L47
+  02ff        ldx      forensic_exam
+  0301        jnz      L47
+  0306        push     2
+  030b        jmp      L48
+  0310  L47:  push     0                            ; satisfied
+  0315  L48:  check    reporting, P26               ; NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5
               ; NY-CAP-4  N.Y. Exec. Law 631(2)  "reasonable employment-related transportation expenses, not..."
+              ; NY-EXCL-1  9 NYCRR 525.12(g)(3)  "Compensable costs shall be limited to the devices themselves and..."
+              ; NY-EXCL-2  9 NYCRR 525.3(d)(2)  "Meals shall not be considered a related transportation expense."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
               ; NY-CONDUCT-1  N.Y. Exec. Law 631(5)(a)  "the office shall determine whether, because of such victim's..."
@@ -625,6 +667,6 @@
               ; NY-DOC-8  OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability  "If the victim has coverage through either Worker's Compensation..."
               ; NY-ACP-1  N.Y. Exec. Law 108 (preamble)  "There is created in the office of the secretary of state a..."
               ; NY-REC-1  N.Y. Exec. Law 633(1)  "Records maintained by the office and proceedings by the office..."
-  02e0        info     P25                          ; NY-CAP-4, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1
-  02e3        ret
+  0319        info     P27                          ; NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1
+  031c        ret
 

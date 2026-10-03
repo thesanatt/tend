@@ -1,10 +1,10 @@
 ; tend law image MO, Missouri
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 7ebc1144d4f9bbc9b1a5dd577ddce33b87192057cfd62ffdfcd32f9a8025eb32
-; image sha256  50fdd95c9c1f09e674befaa7f041ae5af7877da7209416c674d0556d87457f3a
-; 39 rules, 20 sources, 22 proofs, 3 ints, 250 strings
-; item program: 133 instructions, 468 bytes, max stack 2
-; aggregate program: 102 instructions, 326 bytes, max stack 3, 3 loops
+; image sha256  183dd4f9d7fbeb5d12d5c37125431e1320f208fbc7d4884bb040f7f240140176
+; 39 rules, 20 sources, 20 proofs, 3 ints, 251 strings
+; item program: 127 instructions, 448 bytes, max stack 2
+; aggregate program: 108 instructions, 345 bytes, max stack 3, 3 loops
 
 .rules
     R0    MO-EXAM-1             exam_no_bill  -                                             Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section
@@ -19,10 +19,10 @@
     R9    MO-RX-1               covered       prescription                                  CVC Brochure (Rev. 1/2024), Benefit Payments
     R10   MO-EXCL-1             excluded      property_replacement                          CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
     R11   MO-EXCL-2             excluded      relocation                                    CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R12   MO-EXCL-3             excluded      other                                         CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R12   MO-EXCL-3             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
     R13   MO-EXCL-4             excluded      tuition                                       CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R14   MO-EXCL-5             excluded      clothing_bedding                              CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R15   MO-DEAD-1             deadline      -                                             RSMo 595.025.2
+    R14   MO-EXCL-5             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R15   MO-DEAD-1             deadline      -                     from crime              RSMo 595.025.2
     R16   MO-REP-1              reporting     -                                             RSMo 595.030.1
     R17   MO-REP-2              reporting     -                                             RSMo 595.030.1
     R18   MO-COLL-1             collateral    -                                             RSMo 595.035.2
@@ -82,18 +82,16 @@
     P7    (MO-WAGE-1, MO-WAGE-2, MO-COLL-1, MO-COLL-2)
     P8    (MO-EXCL-2)
     P9    (MO-EXCL-1)
-    P10   (MO-EXCL-5)
-    P11   (MO-RX-1)
-    P12   (MO-RX-1, MO-COLL-1, MO-COLL-2)
-    P13   (MO-DENT-1)
-    P14   (MO-DENT-1, MO-COLL-1, MO-COLL-2)
-    P15   (MO-FUN-1)
-    P16   (MO-FUN-1, MO-COLL-1, MO-COLL-2)
-    P17   (MO-EXCL-4)
-    P18   (MO-EXCL-3)
-    P19   (MO-DEAD-1)
-    P20   (MO-REP-1, MO-REP-2)
-    P21   (MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1)
+    P10   (MO-RX-1)
+    P11   (MO-RX-1, MO-COLL-1, MO-COLL-2)
+    P12   (MO-DENT-1)
+    P13   (MO-DENT-1, MO-COLL-1, MO-COLL-2)
+    P14   (MO-FUN-1)
+    P15   (MO-FUN-1, MO-COLL-1, MO-COLL-2)
+    P16   (MO-EXCL-4)
+    P17   (MO-DEAD-1)
+    P18   (MO-REP-1, MO-REP-2)
+    P19   (MO-EXCL-3, MO-EXCL-5, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1)
 
 .ints
     K0    40000         ; $400.00
@@ -122,13 +120,13 @@
                         case crime_scene_cleanup   -> L8
                         case childcare             -> L8
                         case property_replacement  -> L10
-                        case clothing_bedding      -> L14
-                        case prescription          -> L15
-                        case dental                -> L17
-                        case funeral               -> L19
+                        case clothing_bedding      -> L8
+                        case prescription          -> L14
+                        case dental                -> L16
+                        case funeral               -> L18
                         case legal                 -> L8
-                        case tuition               -> L21
-                        case other                 -> L22
+                        case tuition               -> L20
+                        case other                 -> L8
                         case unknown               -> L8
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
@@ -218,177 +216,177 @@
   013a  L13:  push     0
   013f        decide   unknown_rule, P0             ; (none)
   0143        ret
-              ; MO-EXCL-5  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Food/Clothing Costs"
-  0144  L14:  push     0
-  0149        decide   excluded, P10                ; MO-EXCL-5
-  014d        ret
               ; MO-RX-1  CVC Brochure (Rev. 1/2024), Benefit Payments  "Medical expenses, including prescriptions"
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
               ; MO-COLL-2  CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund  "However, if a claimant has a health insurance but still has..."
-  014e  L15:  ldi      confirmed
-  0150        jnz      L16
-  0155        push     0
-  015a        decide   needs_confirmation, P11      ; MO-RX-1
-  015e        ret
-  015f  L16:  ldi      amount_cents
-  0161        decide   eligible, P12                ; MO-RX-1, MO-COLL-1, MO-COLL-2
-  0165        lda
-  0166        ldi      insurance_paid_cents
-  0168        subs
-  0169        push     0
-  016e        max
-  016f        seta     collateral, R18              ; MO-COLL-1
-  0173        ret
+  0144  L14:  ldi      confirmed
+  0146        jnz      L15
+  014b        push     0
+  0150        decide   needs_confirmation, P10      ; MO-RX-1
+  0154        ret
+  0155  L15:  ldi      amount_cents
+  0157        decide   eligible, P11                ; MO-RX-1, MO-COLL-1, MO-COLL-2
+  015b        lda
+  015c        ldi      insurance_paid_cents
+  015e        subs
+  015f        push     0
+  0164        max
+  0165        seta     collateral, R18              ; MO-COLL-1
+  0169        ret
               ; MO-DENT-1  CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview  "If the eligibility requirements are met, potential benefits may..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
               ; MO-COLL-2  CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund  "However, if a claimant has a health insurance but still has..."
-  0174  L17:  ldi      confirmed
-  0176        jnz      L18
-  017b        push     0
-  0180        decide   needs_confirmation, P13      ; MO-DENT-1
-  0184        ret
-  0185  L18:  ldi      amount_cents
-  0187        decide   eligible, P14                ; MO-DENT-1, MO-COLL-1, MO-COLL-2
-  018b        lda
-  018c        ldi      insurance_paid_cents
-  018e        subs
-  018f        push     0
-  0194        max
-  0195        seta     collateral, R18              ; MO-COLL-1
-  0199        ret
+  016a  L16:  ldi      confirmed
+  016c        jnz      L17
+  0171        push     0
+  0176        decide   needs_confirmation, P12      ; MO-DENT-1
+  017a        ret
+  017b  L17:  ldi      amount_cents
+  017d        decide   eligible, P13                ; MO-DENT-1, MO-COLL-1, MO-COLL-2
+  0181        lda
+  0182        ldi      insurance_paid_cents
+  0184        subs
+  0185        push     0
+  018a        max
+  018b        seta     collateral, R18              ; MO-COLL-1
+  018f        ret
               ; MO-FUN-1  RSMo 595.030.4  "In the event of death of the victim, an award may be made for..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
               ; MO-COLL-2  CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund  "However, if a claimant has a health insurance but still has..."
-  019a  L19:  ldi      confirmed
-  019c        jnz      L20
-  01a1        push     0
-  01a6        decide   needs_confirmation, P15      ; MO-FUN-1
-  01aa        ret
-  01ab  L20:  ldi      amount_cents
-  01ad        decide   eligible, P16                ; MO-FUN-1, MO-COLL-1, MO-COLL-2
-  01b1        lda
-  01b2        ldi      insurance_paid_cents
-  01b4        subs
-  01b5        push     0
-  01ba        max
-  01bb        seta     collateral, R18              ; MO-COLL-1
-  01bf        ret
+  0190  L18:  ldi      confirmed
+  0192        jnz      L19
+  0197        push     0
+  019c        decide   needs_confirmation, P14      ; MO-FUN-1
+  01a0        ret
+  01a1  L19:  ldi      amount_cents
+  01a3        decide   eligible, P15                ; MO-FUN-1, MO-COLL-1, MO-COLL-2
+  01a7        lda
+  01a8        ldi      insurance_paid_cents
+  01aa        subs
+  01ab        push     0
+  01b0        max
+  01b1        seta     collateral, R18              ; MO-COLL-1
+  01b5        ret
               ; MO-EXCL-4  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Tuition Reimbursement"
-  01c0  L21:  push     0
-  01c5        decide   excluded, P17                ; MO-EXCL-4
-  01c9        ret
-              ; MO-EXCL-3  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Rent/Mortgage/Utilities"
-  01ca  L22:  push     0
-  01cf        decide   excluded, P18                ; MO-EXCL-3
-  01d3        ret
+  01b6  L20:  push     0
+  01bb        decide   excluded, P16                ; MO-EXCL-4
+  01bf        ret
 
 .aggregate
               ; MO-WAGE-1  RSMo 595.030.5  "Any compensation for loss of earnings or support from gainful..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $400.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R4                 ; MO-WAGE-1
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R4                           ; rate_unverified MO-WAGE-1
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $400.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R4                 ; MO-WAGE-1
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R4                           ; rate_unverified MO-WAGE-1
+  0040  L3:   next     L0
               ; MO-FUN-1  RSMo 595.030.4  "In the event of death of the victim, an award may be made for..."
-  0032  L4:   push     0
-  0037        str      r0
-  0039        push     0
-  003e        str      r1
-  0040        each     funeral, L9
-  0046  L5:   ldr      r1
-  0048        jnz      L7
-  004d        ldr      r0
-  004f        lda
-  0050        adds
-  0051        ldk      K1                           ; $5,000.00
-  0054        gt
-  0055        jz       L6
-  005a        ldk      K1                           ; $5,000.00
-  005d        ldr      r0
-  005f        subs
-  0060        cap      expense_cap, R6              ; MO-FUN-1
-  0064        push     1
-  0069        str      r1
-  006b  L6:   ldr      r0
-  006d        lda
-  006e        adds
-  006f        str      r0
-  0071        jmp      L8
-  0076  L7:   push     0
-  007b        cap      expense_cap, R6              ; MO-FUN-1
-  007f  L8:   next     L5
+  0045  L4:   push     0
+  004a        str      r0
+  004c        push     0
+  0051        str      r1
+  0053        each     funeral, L9
+  0059  L5:   ldr      r1
+  005b        jnz      L7
+  0060        ldr      r0
+  0062        lda
+  0063        adds
+  0064        ldk      K1                           ; $5,000.00
+  0067        gt
+  0068        jz       L6
+  006d        ldk      K1                           ; $5,000.00
+  0070        ldr      r0
+  0072        subs
+  0073        cap      expense_cap, R6              ; MO-FUN-1
+  0077        push     1
+  007c        str      r1
+  007e  L6:   ldr      r0
+  0080        lda
+  0081        adds
+  0082        str      r0
+  0084        jmp      L8
+  0089  L7:   push     0
+  008e        cap      expense_cap, R6              ; MO-FUN-1
+  0092  L8:   next     L5
               ; MO-CAP-1  RSMo 595.030.5  "no award pursuant to sections 595.010 to 595.075 shall exceed..."
-  0084  L9:   push     0
-  0089        str      r0
-  008b        push     0
-  0090        str      r1
-  0092        each     all, L14
-  0098  L10:  ldr      r1
-  009a        jnz      L12
-  009f        ldr      r0
-  00a1        lda
-  00a2        adds
-  00a3        ldk      K2                           ; $25,000.00
-  00a6        gt
-  00a7        jz       L11
-  00ac        ldk      K2                           ; $25,000.00
-  00af        ldr      r0
-  00b1        subs
-  00b2        cap      total_cap, R3                ; MO-CAP-1
-  00b6        push     1
-  00bb        str      r1
-  00bd  L11:  ldr      r0
-  00bf        lda
-  00c0        adds
-  00c1        str      r0
-  00c3        jmp      L13
-  00c8  L12:  push     0
-  00cd        cap      total_cap, R3                ; MO-CAP-1
-  00d1  L13:  next     L10
-  00d6  L14:  push     0                            ; met
-  00db        check    minimum_loss, P0             ; (none)
+  0097  L9:   push     0
+  009c        str      r0
+  009e        push     0
+  00a3        str      r1
+  00a5        each     all, L14
+  00ab  L10:  ldr      r1
+  00ad        jnz      L12
+  00b2        ldr      r0
+  00b4        lda
+  00b5        adds
+  00b6        ldk      K2                           ; $25,000.00
+  00b9        gt
+  00ba        jz       L11
+  00bf        ldk      K2                           ; $25,000.00
+  00c2        ldr      r0
+  00c4        subs
+  00c5        cap      total_cap, R3                ; MO-CAP-1
+  00c9        push     1
+  00ce        str      r1
+  00d0  L11:  ldr      r0
+  00d2        lda
+  00d3        adds
+  00d4        str      r0
+  00d6        jmp      L13
+  00db  L12:  push     0
+  00e0        cap      total_cap, R3                ; MO-CAP-1
+  00e4  L13:  next     L10
+  00e9  L14:  push     0                            ; met
+  00ee        check    minimum_loss, P0             ; (none)
               ; MO-DEAD-1  RSMo 595.025.2  "A claim shall be filed not later than two years after the..."
-  00df        ldx      incident_date
-  00e1        push     730
-  00e6        adds
-  00e7        dup
-  00e8        setdate
-  00e9        ldx      as_of_date
-  00eb        ge
-  00ec        jz       L15
-  00f1        push     0
-  00f6        jmp      L16
-  00fb  L15:  push     1                            ; late
-  0100  L16:  check    deadline, P19                ; MO-DEAD-1
+  00f2        ldx      incident_date
+  00f4        push     730
+  00f9        adds
+  00fa        dup
+  00fb        setdate
+  00fc        ldx      as_of_date
+  00fe        ge
+  00ff        jz       L15
+  0104        push     0
+  0109        jmp      L16
+  010e  L15:  push     1                            ; late
+  0113  L16:  check    deadline, P17                ; MO-DEAD-1
               ; MO-REP-1  RSMo 595.030.1  "In the case of a sexual offense, filing a report of the offense..."
               ; MO-REP-2  RSMo 595.030.1  "In lieu of other records the claimant may provide a sworn..."
-  0104        ldx      police_report
-  0106        push     1                            ; yes
-  010b        eq
-  010c        jnz      L18
-  0111        ldx      forensic_exam
-  0113        jnz      L18
-  0118        ldx      police_report
-  011a        push     0                            ; no
-  011f        eq
-  0120        jnz      L17
-  0125        push     3
-  012a        jmp      L19
-  012f  L17:  push     1
-  0134        jmp      L19
-  0139  L18:  push     0                            ; satisfied
-  013e  L19:  check    reporting, P20               ; MO-REP-1, MO-REP-2
+  0117        ldx      police_report
+  0119        push     1                            ; yes
+  011e        eq
+  011f        jnz      L18
+  0124        ldx      forensic_exam
+  0126        jnz      L18
+  012b        ldx      police_report
+  012d        push     0                            ; no
+  0132        eq
+  0133        jnz      L17
+  0138        push     3
+  013d        jmp      L19
+  0142  L17:  push     1
+  0147        jmp      L19
+  014c  L18:  push     0                            ; satisfied
+  0151  L19:  check    reporting, P18               ; MO-REP-1, MO-REP-2
+              ; MO-EXCL-3  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Rent/Mortgage/Utilities"
+              ; MO-EXCL-5  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Food/Clothing Costs"
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
               ; MO-COLL-2  CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund  "However, if a claimant has a health insurance but still has..."
               ; MO-COND-1  RSMo 595.035.3  "the department of public safety shall determine whether, because..."
@@ -410,6 +408,6 @@
               ; MO-DOC-SUPPORT  CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims  "If you are applying for loss of support, please provide a copy..."
               ; MO-ACP-1  RSMo 589.663 (preamble)  "There is created in the office of the secretary of state a..."
               ; MO-REC-1  RSMo 595.037.1(2)  "A claim in which the offense allegedly perpetrated against the..."
-  0142        info     P21                          ; MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1
-  0145        ret
+  0155        info     P19                          ; MO-EXCL-3, MO-EXCL-5, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1
+  0158        ret
 

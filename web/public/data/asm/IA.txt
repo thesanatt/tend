@@ -1,8 +1,8 @@
 ; tend law image IA, Iowa
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 b32cb0ab99cd81eb5d98653c4381f27fa7d310bd9792d57f29b6689973030a32
-; image sha256  ca5dbc62cd5bd80cad7fee2505c4c3070f593677acbd8d5f5f52278f05721c8f
-; 56 rules, 14 sources, 34 proofs, 8 ints, 293 strings
+; image sha256  87e2eabba0e1bab7b41ed2b07b8872504a36a95dcce63a7398a26410f398d11a
+; 56 rules, 14 sources, 34 proofs, 8 ints, 294 strings
 ; item program: 391 instructions, 1362 bytes, max stack 2
 ; aggregate program: 329 instructions, 1014 bytes, max stack 2, 11 loops
 
@@ -36,7 +36,7 @@
     R26   IA-EXCL-2             excluded      legal                                         Iowa AG, Crime Victim Compensation Facts page
     R27   IA-EXCL-3             excluded      -                                             Iowa AG, Crime Victim Compensation Facts page
     R28   IA-EXCL-4             info          -                     excluded_expense        Iowa Admin. Code r. 61-9.35(1)(f)
-    R29   IA-DEADLINE-1         deadline      -                                             Iowa Code 915.84(1)
+    R29   IA-DEADLINE-1         deadline      -                     from crime              Iowa Code 915.84(1)
     R30   IA-REPORT-1           reporting     -                                             Iowa Code 915.84(3)
     R31   IA-REPORT-2           reporting     -                                             Iowa Admin. Code r. 61-9.29(4)(c)
     R32   IA-COLL-1             collateral    -                                             Iowa Code 915.87(1)

@@ -1,9 +1,9 @@
 ; tend law image AZ, Arizona
-; format 1.1, compiled by tendc 1.1.0
-; source sha256 4ef3a426b94bf1d0aeccc65f664a680654b4c9cbdcbbe43f7ba9fff1873ac993
-; image sha256  80e7faae96b06cc448b689845dcd42187e5b9e6cff7931cc8b4a3cc85c5f6ff7
-; 53 rules, 13 sources, 19 proofs, 4 ints, 276 strings
-; item program: 109 instructions, 382 bytes, max stack 2
+; format 1.2, compiled by tendc 1.2.0
+; source sha256 60ab6e078f58b7e21045d2ede23450a41e58aea39ee91adcf109fe74d28add4d
+; image sha256  ef433632ab60b9be0894d1e5a411f01c0e3e6fc30982192cff5f7431717ba407
+; 53 rules, 13 sources, 18 proofs, 4 ints, 277 strings
+; item program: 106 instructions, 372 bytes, max stack 2
 ; aggregate program: 165 instructions, 515 bytes, max stack 2, 5 loops
 
 .rules
@@ -23,9 +23,9 @@
     R13   AZ-COV-6              covered       crime_scene_cleanup                           A.A.C. R10-4-101(8)(b); covered for sexual assault under R10-4-108(C)(5)
     R14   AZ-COV-7              covered       transportation                                A.A.C. R10-4-108(C)(6)(e)
     R15   AZ-COV-8              covered       medical                                       A.A.C. R10-4-108(C)(1)(a)(i)
-    R16   AZ-EXC-1              excluded      property_replacement                          ACJC Victim Compensation brochure
+    R16   AZ-EXC-1              info          -                     excluded_expense        ACJC Victim Compensation brochure
     R17   AZ-EXC-2              excluded      legal                                         A.A.C. R10-4-108(J)
-    R18   AZ-DEAD-1             deadline      -                                             A.A.C. R10-4-106(A)(7)
+    R18   AZ-DEAD-1             deadline      -                     from discovery          A.A.C. R10-4-106(A)(7)
     R19   AZ-REP-1              reporting     -                                             A.A.C. R10-4-106(A)(4)
     R20   AZ-REP-2              reporting     -                                             A.A.C. R10-4-106(B)
     R21   AZ-COLL-1             collateral    -                                             A.A.C. R10-4-108(F)(1)
@@ -70,11 +70,11 @@
     S5    AZ-S7       sha256 269fd549bf7ef2f8  https://www.azcjc.gov/Portals/0/Documents/pubs/VC_APP_June_2015_FINAL.pdf
     S6    AZ-S8       sha256 cfb5ee2d6d9d3b91  https://www.azleg.gov/ars/36/00420-02.htm
     S7    AZ-S9       sha256 87ef846dfc223c3c  https://www.azcjc.gov/Portals/0/Documents/pubs/Victim_Comp_Contact_List.pdf
-    S8    AZ-S10      sha256 300ee91a33192bf8  https://maricopacountyattorney.org/182/Victim-Related-Information
+    S8    AZ-S10      sha256 fa6880798f58a2a5  https://maricopacountyattorney.org/182/Victim-Related-Information
     S9    AZ-S11      sha256 792c75aa41d8adb0  https://maricopacountyattorney.org/DocumentCenter/View/120
     S10   AZ-S12      sha256 cf8035b2a260e73b  https://azsos.gov/services/address-confidentiality-program/eligibility-enrollment
     S11   AZ-S13      sha256 c114ddf575419446  https://azsos.gov/services/address-confidentiality-program/about-acp
-    S12   AZ-S14      sha256 5fbc679d37c9c4cc  https://www.pinal.gov/1709/Crime-Victim-Compensation-Board-Meetings
+    S12   AZ-S14      sha256 20923b8bee194d9e  https://www.pinal.gov/1709/Crime-Victim-Compensation-Board-Meetings
 
 .proofs
     P0    ()
@@ -89,13 +89,12 @@
     P9    (AZ-CAP-4, AZ-COV-4, AZ-COV-7, AZ-COLL-1)
     P10   (AZ-CAP-5, AZ-COV-5, AZ-COV-6)
     P11   (AZ-CAP-5, AZ-COV-5, AZ-COV-6, AZ-COLL-1)
-    P12   (AZ-EXC-1)
-    P13   (AZ-CAP-6)
-    P14   (AZ-CAP-6, AZ-COLL-1)
-    P15   (AZ-EXC-2)
-    P16   (AZ-DEAD-1)
-    P17   (AZ-REP-1, AZ-REP-2)
-    P18   (AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1)
+    P12   (AZ-CAP-6)
+    P13   (AZ-CAP-6, AZ-COLL-1)
+    P14   (AZ-EXC-2)
+    P15   (AZ-DEAD-1)
+    P16   (AZ-REP-1, AZ-REP-2)
+    P17   (AZ-EXC-1, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1)
 
 .ints
     K0    500000        ; $5,000.00
@@ -124,12 +123,12 @@
                         case security              -> L10
                         case crime_scene_cleanup   -> L11
                         case childcare             -> L10
-                        case property_replacement  -> L13
+                        case property_replacement  -> L10
                         case clothing_bedding      -> L10
                         case prescription          -> L10
                         case dental                -> L10
-                        case funeral               -> L14
-                        case legal                 -> L16
+                        case funeral               -> L13
+                        case legal                 -> L15
                         case tuition               -> L10
                         case other                 -> L10
                         case unknown               -> L10
@@ -231,30 +230,26 @@
   013e        max
   013f        seta     collateral, R21              ; AZ-COLL-1
   0143        ret
-              ; AZ-EXC-1  ACJC Victim Compensation brochure  "The Program cannot consider claims for: • Attorney Fees •..."
-  0144  L13:  push     0
-  0149        decide   excluded, P12                ; AZ-EXC-1
-  014d        ret
               ; AZ-CAP-6  A.A.C. R10-4-108(D)(6)  "For funeral expenses, $10,000;"
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
-  014e  L14:  ldi      confirmed
-  0150        jnz      L15
-  0155        push     0
-  015a        decide   needs_confirmation, P13      ; AZ-CAP-6
-  015e        ret
-  015f  L15:  ldi      amount_cents
-  0161        decide   eligible, P14                ; AZ-CAP-6, AZ-COLL-1
-  0165        lda
-  0166        ldi      insurance_paid_cents
-  0168        subs
-  0169        push     0
-  016e        max
-  016f        seta     collateral, R21              ; AZ-COLL-1
-  0173        ret
+  0144  L13:  ldi      confirmed
+  0146        jnz      L14
+  014b        push     0
+  0150        decide   needs_confirmation, P12      ; AZ-CAP-6
+  0154        ret
+  0155  L14:  ldi      amount_cents
+  0157        decide   eligible, P13                ; AZ-CAP-6, AZ-COLL-1
+  015b        lda
+  015c        ldi      insurance_paid_cents
+  015e        subs
+  015f        push     0
+  0164        max
+  0165        seta     collateral, R21              ; AZ-COLL-1
+  0169        ret
               ; AZ-EXC-2  A.A.C. R10-4-108(J)  "The Board shall not make a compensation award to pay attorney's..."
-  0174  L16:  push     0
-  0179        decide   excluded, P15                ; AZ-EXC-2
-  017d        ret
+  016a  L15:  push     0
+  016f        decide   excluded, P14                ; AZ-EXC-2
+  0173        ret
 
 .aggregate
               ; AZ-CAP-2  A.A.C. R10-4-108(D)(5)  "For mental health counseling and care expenses, $5,000 per..."
@@ -411,7 +406,7 @@
   01b5        push     0
   01ba        jmp      L26
   01bf  L25:  push     1                            ; late
-  01c4  L26:  check    deadline, P16                ; AZ-DEAD-1
+  01c4  L26:  check    deadline, P15                ; AZ-DEAD-1
               ; AZ-REP-1  A.A.C. R10-4-106(A)(4)  "The criminally injurious conduct was reported to an appropriate..."
               ; AZ-REP-2  A.A.C. R10-4-106(B)  "The Board shall extend the time limits under subsections (A)(4)..."
   01c8        ldx      police_report
@@ -427,7 +422,8 @@
   01ec  L27:  push     1
   01f1        jmp      L29
   01f6  L28:  push     0                            ; satisfied
-  01fb  L29:  check    reporting, P17               ; AZ-REP-1, AZ-REP-2
+  01fb  L29:  check    reporting, P16               ; AZ-REP-1, AZ-REP-2
+              ; AZ-EXC-1  ACJC Victim Compensation brochure  "The Program cannot consider claims for: • Attorney Fees •..."
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
               ; AZ-COND-1  A.A.C. R10-4-108(G)  "The Board shall deny or reduce a compensation award under..."
               ; AZ-EMER-1  A.A.C. R10-4-111(A)-(C)  "An operational unit that makes an emergency compensation award..."
@@ -459,6 +455,6 @@
               ; AZ-DOC-8  A.A.C. R10-4-107(E)(3)  "Any documentation required by the operational unit to fully..."
               ; AZ-TIME-1  A.A.C. R10-4-108(A)  "The Board shall make a decision within 60 days after the..."
               ; AZ-ACP-1  Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169  "The Arizona Address Confidentiality Program (ACP) is a program..."
-  01ff        info     P18                          ; AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1
+  01ff        info     P17                          ; AZ-EXC-1, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1
   0202        ret
 

@@ -1,10 +1,10 @@
 ; tend law image OR, Oregon
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 47f8340db72b669fff5ec10809609f11882a2d998da51fbdab5eafa98e45e3ef
-; image sha256  89ecade9731de77d2b7e72d360e526807991fa329f60f13bc9c154a4345fe930
-; 57 rules, 13 sources, 23 proofs, 6 ints, 327 strings
+; image sha256  13610eb82dbf4602035fd334673f75855e15f7aefdc5d340ce6ceb67647a7d93
+; 57 rules, 13 sources, 23 proofs, 6 ints, 328 strings
 ; item program: 125 instructions, 426 bytes, max stack 2
-; aggregate program: 241 instructions, 745 bytes, max stack 3, 8 loops
+; aggregate program: 247 instructions, 764 bytes, max stack 3, 8 loops
 
 .rules
     R0    OR-EXAM-1             exam_no_bill  -                                             ORS 147.397(4)
@@ -30,8 +30,8 @@
     R20   OR-EXCL-PROP-2        info          -                     excluded_expense        CVC brochure (2024)
     R21   OR-EXCL-RELO          excluded      relocation                                    Compensation for Victims of Crime page
     R22   OR-EXCL-SAVE          info          -                     excluded_expense        OAR 137-084-0030(1)
-    R23   OR-DEADLINE-1         deadline      -                                             ORS 147.015(1)(e)
-    R24   OR-DEADLINE-2         deadline      -                                             OAR 137-076-0030(2)
+    R23   OR-DEADLINE-1         deadline      -                     from crime              ORS 147.015(1)(e)
+    R24   OR-DEADLINE-2         deadline      -                     from crime              OAR 137-076-0030(2)
     R25   OR-REPORT-1           reporting     -                                             ORS 147.015(1)(b)
     R26   OR-REPORT-2           reporting     -                                             ORS 147.015(2)(a)(E), (2)(b), (2)(c)
     R27   OR-REPORT-5           reporting     -                                             ORS 147.015(2)(a)(B)
@@ -303,258 +303,264 @@
 .aggregate
               ; OR-CAP-WAGE-WK  ORS 147.035(2)(b)  "Loss of the victim's earnings, at a maximum rate of $600 per..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $600.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R9                 ; OR-CAP-WAGE-WK
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R9                           ; rate_unverified OR-CAP-WAGE-WK
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $600.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R9                 ; OR-CAP-WAGE-WK
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R9                           ; rate_unverified OR-CAP-WAGE-WK
+  0040  L3:   next     L0
               ; OR-CAP-MED  ORS 147.035(2)(a)  "The victim's reasonable medical and hospital expenses, including..."
-  0032  L4:   push     0
-  0037        str      r0
-  0039        push     0
-  003e        str      r1
-  0040        each     medical, L9
-  0046  L5:   ldr      r1
-  0048        jnz      L7
-  004d        ldr      r0
-  004f        lda
-  0050        adds
-  0051        ldk      K1                           ; $20,000.00
-  0054        gt
-  0055        jz       L6
-  005a        ldk      K1                           ; $20,000.00
-  005d        ldr      r0
-  005f        subs
-  0060        cap      expense_cap, R6              ; OR-CAP-MED
-  0064        push     1
-  0069        str      r1
-  006b  L6:   ldr      r0
-  006d        lda
-  006e        adds
-  006f        str      r0
-  0071        jmp      L8
-  0076  L7:   push     0
-  007b        cap      expense_cap, R6              ; OR-CAP-MED
-  007f  L8:   next     L5
+  0045  L4:   push     0
+  004a        str      r0
+  004c        push     0
+  0051        str      r1
+  0053        each     medical, L9
+  0059  L5:   ldr      r1
+  005b        jnz      L7
+  0060        ldr      r0
+  0062        lda
+  0063        adds
+  0064        ldk      K1                           ; $20,000.00
+  0067        gt
+  0068        jz       L6
+  006d        ldk      K1                           ; $20,000.00
+  0070        ldr      r0
+  0072        subs
+  0073        cap      expense_cap, R6              ; OR-CAP-MED
+  0077        push     1
+  007c        str      r1
+  007e  L6:   ldr      r0
+  0080        lda
+  0081        adds
+  0082        str      r0
+  0084        jmp      L8
+  0089  L7:   push     0
+  008e        cap      expense_cap, R6              ; OR-CAP-MED
+  0092  L8:   next     L5
               ; OR-CAP-COUNS  ORS 147.035(2)(a)  "The victim's reasonable medical and hospital expenses, including..."
-  0084  L9:   push     0
-  0089        str      r0
-  008b        push     0
-  0090        str      r1
-  0092        each     counseling, L14
-  0098  L10:  ldr      r1
-  009a        jnz      L12
-  009f        ldr      r0
-  00a1        lda
-  00a2        adds
-  00a3        ldk      K1                           ; $20,000.00
-  00a6        gt
-  00a7        jz       L11
-  00ac        ldk      K1                           ; $20,000.00
-  00af        ldr      r0
-  00b1        subs
-  00b2        cap      expense_cap, R7              ; OR-CAP-COUNS
-  00b6        push     1
-  00bb        str      r1
-  00bd  L11:  ldr      r0
-  00bf        lda
-  00c0        adds
-  00c1        str      r0
-  00c3        jmp      L13
-  00c8  L12:  push     0
-  00cd        cap      expense_cap, R7              ; OR-CAP-COUNS
-  00d1  L13:  next     L10
+  0097  L9:   push     0
+  009c        str      r0
+  009e        push     0
+  00a3        str      r1
+  00a5        each     counseling, L14
+  00ab  L10:  ldr      r1
+  00ad        jnz      L12
+  00b2        ldr      r0
+  00b4        lda
+  00b5        adds
+  00b6        ldk      K1                           ; $20,000.00
+  00b9        gt
+  00ba        jz       L11
+  00bf        ldk      K1                           ; $20,000.00
+  00c2        ldr      r0
+  00c4        subs
+  00c5        cap      expense_cap, R7              ; OR-CAP-COUNS
+  00c9        push     1
+  00ce        str      r1
+  00d0  L11:  ldr      r0
+  00d2        lda
+  00d3        adds
+  00d4        str      r0
+  00d6        jmp      L13
+  00db  L12:  push     0
+  00e0        cap      expense_cap, R7              ; OR-CAP-COUNS
+  00e4  L13:  next     L10
               ; OR-CAP-WAGE  ORS 147.035(2)(b)  "Loss of the victim's earnings, at a maximum rate of $600 per..."
-  00d6  L14:  push     0
-  00db        str      r0
-  00dd        push     0
-  00e2        str      r1
-  00e4        each     lost_wages, L19
-  00ea  L15:  ldr      r1
-  00ec        jnz      L17
-  00f1        ldr      r0
-  00f3        lda
-  00f4        adds
-  00f5        ldk      K1                           ; $20,000.00
-  00f8        gt
-  00f9        jz       L16
-  00fe        ldk      K1                           ; $20,000.00
-  0101        ldr      r0
-  0103        subs
-  0104        cap      expense_cap, R10             ; OR-CAP-WAGE
-  0108        push     1
-  010d        str      r1
-  010f  L16:  ldr      r0
-  0111        lda
-  0112        adds
-  0113        str      r0
-  0115        jmp      L18
-  011a  L17:  push     0
-  011f        cap      expense_cap, R10             ; OR-CAP-WAGE
-  0123  L18:  next     L15
+  00e9  L14:  push     0
+  00ee        str      r0
+  00f0        push     0
+  00f5        str      r1
+  00f7        each     lost_wages, L19
+  00fd  L15:  ldr      r1
+  00ff        jnz      L17
+  0104        ldr      r0
+  0106        lda
+  0107        adds
+  0108        ldk      K1                           ; $20,000.00
+  010b        gt
+  010c        jz       L16
+  0111        ldk      K1                           ; $20,000.00
+  0114        ldr      r0
+  0116        subs
+  0117        cap      expense_cap, R10             ; OR-CAP-WAGE
+  011b        push     1
+  0120        str      r1
+  0122  L16:  ldr      r0
+  0124        lda
+  0125        adds
+  0126        str      r0
+  0128        jmp      L18
+  012d  L17:  push     0
+  0132        cap      expense_cap, R10             ; OR-CAP-WAGE
+  0136  L18:  next     L15
               ; OR-CAP-TRANS  ORS 147.035(2)(g)  "Expenses related to transportation for the victim's medical care..."
-  0128  L19:  push     0
-  012d        str      r0
-  012f        push     0
-  0134        str      r1
-  0136        each     transportation, L24
-  013c  L20:  ldr      r1
-  013e        jnz      L22
-  0143        ldr      r0
-  0145        lda
-  0146        adds
-  0147        ldk      K2                           ; $3,000.00
-  014a        gt
-  014b        jz       L21
-  0150        ldk      K2                           ; $3,000.00
-  0153        ldr      r0
-  0155        subs
-  0156        cap      expense_cap, R13             ; OR-CAP-TRANS
-  015a        push     1
-  015f        str      r1
-  0161  L21:  ldr      r0
-  0163        lda
-  0164        adds
-  0165        str      r0
-  0167        jmp      L23
-  016c  L22:  push     0
-  0171        cap      expense_cap, R13             ; OR-CAP-TRANS
-  0175  L23:  next     L20
+  013b  L19:  push     0
+  0140        str      r0
+  0142        push     0
+  0147        str      r1
+  0149        each     transportation, L24
+  014f  L20:  ldr      r1
+  0151        jnz      L22
+  0156        ldr      r0
+  0158        lda
+  0159        adds
+  015a        ldk      K2                           ; $3,000.00
+  015d        gt
+  015e        jz       L21
+  0163        ldk      K2                           ; $3,000.00
+  0166        ldr      r0
+  0168        subs
+  0169        cap      expense_cap, R13             ; OR-CAP-TRANS
+  016d        push     1
+  0172        str      r1
+  0174  L21:  ldr      r0
+  0176        lda
+  0177        adds
+  0178        str      r0
+  017a        jmp      L23
+  017f  L22:  push     0
+  0184        cap      expense_cap, R13             ; OR-CAP-TRANS
+  0188  L23:  next     L20
               ; OR-CAP-REHAB  ORS 147.035(2)(c)  "The victim's rehabilitation expenses, up to a maximum amount of..."
-  017a  L24:  push     0
-  017f        str      r0
-  0181        push     0
-  0186        str      r1
-  0188        each     other, L29
-  018e  L25:  ldr      r1
-  0190        jnz      L27
-  0195        ldr      r0
-  0197        lda
-  0198        adds
-  0199        ldk      K3                           ; $4,000.00
-  019c        gt
-  019d        jz       L26
-  01a2        ldk      K3                           ; $4,000.00
-  01a5        ldr      r0
-  01a7        subs
-  01a8        cap      expense_cap, R15             ; OR-CAP-REHAB
-  01ac        push     1
-  01b1        str      r1
-  01b3  L26:  ldr      r0
-  01b5        lda
-  01b6        adds
-  01b7        str      r0
-  01b9        jmp      L28
-  01be  L27:  push     0
-  01c3        cap      expense_cap, R15             ; OR-CAP-REHAB
-  01c7  L28:  next     L25
+  018d  L24:  push     0
+  0192        str      r0
+  0194        push     0
+  0199        str      r1
+  019b        each     other, L29
+  01a1  L25:  ldr      r1
+  01a3        jnz      L27
+  01a8        ldr      r0
+  01aa        lda
+  01ab        adds
+  01ac        ldk      K3                           ; $4,000.00
+  01af        gt
+  01b0        jz       L26
+  01b5        ldk      K3                           ; $4,000.00
+  01b8        ldr      r0
+  01ba        subs
+  01bb        cap      expense_cap, R15             ; OR-CAP-REHAB
+  01bf        push     1
+  01c4        str      r1
+  01c6  L26:  ldr      r0
+  01c8        lda
+  01c9        adds
+  01ca        str      r0
+  01cc        jmp      L28
+  01d1  L27:  push     0
+  01d6        cap      expense_cap, R15             ; OR-CAP-REHAB
+  01da  L28:  next     L25
               ; OR-CAP-CLEAN  ORS 147.035(2)(d)  "Reasonable cleaning expenses, up to a maximum of $2,500"
-  01cc  L29:  push     0
-  01d1        str      r0
-  01d3        push     0
-  01d8        str      r1
-  01da        each     crime_scene_cleanup, L34
-  01e0  L30:  ldr      r1
-  01e2        jnz      L32
-  01e7        ldr      r0
-  01e9        lda
-  01ea        adds
-  01eb        ldk      K4                           ; $2,500.00
-  01ee        gt
-  01ef        jz       L31
-  01f4        ldk      K4                           ; $2,500.00
-  01f7        ldr      r0
-  01f9        subs
-  01fa        cap      expense_cap, R16             ; OR-CAP-CLEAN
-  01fe        push     1
-  0203        str      r1
-  0205  L31:  ldr      r0
-  0207        lda
-  0208        adds
-  0209        str      r0
-  020b        jmp      L33
-  0210  L32:  push     0
-  0215        cap      expense_cap, R16             ; OR-CAP-CLEAN
-  0219  L33:  next     L30
+  01df  L29:  push     0
+  01e4        str      r0
+  01e6        push     0
+  01eb        str      r1
+  01ed        each     crime_scene_cleanup, L34
+  01f3  L30:  ldr      r1
+  01f5        jnz      L32
+  01fa        ldr      r0
+  01fc        lda
+  01fd        adds
+  01fe        ldk      K4                           ; $2,500.00
+  0201        gt
+  0202        jz       L31
+  0207        ldk      K4                           ; $2,500.00
+  020a        ldr      r0
+  020c        subs
+  020d        cap      expense_cap, R16             ; OR-CAP-CLEAN
+  0211        push     1
+  0216        str      r1
+  0218  L31:  ldr      r0
+  021a        lda
+  021b        adds
+  021c        str      r0
+  021e        jmp      L33
+  0223  L32:  push     0
+  0228        cap      expense_cap, R16             ; OR-CAP-CLEAN
+  022c  L33:  next     L30
               ; OR-CAP-1  ORS 147.035(1)(b)  "The maximum amount of compensation that may be awarded, in..."
-  021e  L34:  push     0
-  0223        str      r0
-  0225        push     0
-  022a        str      r1
-  022c        each     all, L39
-  0232  L35:  ldr      r1
-  0234        jnz      L37
-  0239        ldr      r0
-  023b        lda
-  023c        adds
-  023d        ldk      K5                           ; $47,000.00
-  0240        gt
-  0241        jz       L36
-  0246        ldk      K5                           ; $47,000.00
-  0249        ldr      r0
-  024b        subs
-  024c        cap      total_cap, R5                ; OR-CAP-1
-  0250        push     1
-  0255        str      r1
-  0257  L36:  ldr      r0
-  0259        lda
-  025a        adds
-  025b        str      r0
-  025d        jmp      L38
-  0262  L37:  push     0
-  0267        cap      total_cap, R5                ; OR-CAP-1
-  026b  L38:  next     L35
-  0270  L39:  push     0                            ; met
-  0275        check    minimum_loss, P0             ; (none)
+  0231  L34:  push     0
+  0236        str      r0
+  0238        push     0
+  023d        str      r1
+  023f        each     all, L39
+  0245  L35:  ldr      r1
+  0247        jnz      L37
+  024c        ldr      r0
+  024e        lda
+  024f        adds
+  0250        ldk      K5                           ; $47,000.00
+  0253        gt
+  0254        jz       L36
+  0259        ldk      K5                           ; $47,000.00
+  025c        ldr      r0
+  025e        subs
+  025f        cap      total_cap, R5                ; OR-CAP-1
+  0263        push     1
+  0268        str      r1
+  026a  L36:  ldr      r0
+  026c        lda
+  026d        adds
+  026e        str      r0
+  0270        jmp      L38
+  0275  L37:  push     0
+  027a        cap      total_cap, R5                ; OR-CAP-1
+  027e  L38:  next     L35
+  0283  L39:  push     0                            ; met
+  0288        check    minimum_loss, P0             ; (none)
               ; OR-DEADLINE-1  ORS 147.015(1)(e)  "Within one year of the date of the injury to the victim; or (B)..."
-  0279        ldx      incident_date
-  027b        push     365
-  0280        adds
+  028c        ldx      incident_date
+  028e        push     365
+  0293        adds
               ; OR-DEADLINE-2  OAR 137-076-0030(2)  ""Good cause" for failure to file an application for compensation..."
-  0281        ldx      incident_date
-  0283        push     365
-  0288        adds
-  0289        max
-  028a        dup
-  028b        setdate
-  028c        ldx      as_of_date
-  028e        ge
-  028f        jz       L40
-  0294        push     0
-  0299        jmp      L41
-  029e  L40:  push     1                            ; late
-  02a3  L41:  check    deadline, P20                ; OR-DEADLINE-1, OR-DEADLINE-2
+  0294        ldx      incident_date
+  0296        push     365
+  029b        adds
+  029c        max
+  029d        dup
+  029e        setdate
+  029f        ldx      as_of_date
+  02a1        ge
+  02a2        jz       L40
+  02a7        push     0
+  02ac        jmp      L41
+  02b1  L40:  push     1                            ; late
+  02b6  L41:  check    deadline, P20                ; OR-DEADLINE-1, OR-DEADLINE-2
               ; OR-REPORT-1  ORS 147.015(1)(b)  "The appropriate law enforcement officials were notified of the..."
               ; OR-REPORT-2  ORS 147.015(2)(a)(E), (2)(b), (2)(c)  "(E) A medical assessment, as defined in ORS 147.395, for sexual..."
               ; OR-REPORT-5  ORS 147.015(2)(a)(B)  "A sexual abuse restraining order under ORS 163.760 to 163.777"
               ; OR-REPORT-3  CVC brochure (2024), Reporting Requirements  "You may report your crime in one of the following ways: •..."
               ; OR-REPORT-4  OAR 137-076-0016(4)  "Notification of the perpetration of the crime as required by ORS..."
-  02a7        ldx      police_report
-  02a9        push     1                            ; yes
-  02ae        eq
-  02af        jnz      L43
-  02b4        ldx      forensic_exam
-  02b6        jnz      L43
-  02bb        ldx      police_report
-  02bd        push     0                            ; no
-  02c2        eq
-  02c3        jnz      L42
-  02c8        push     3
-  02cd        jmp      L44
-  02d2  L42:  push     1
-  02d7        jmp      L44
-  02dc  L43:  push     0                            ; satisfied
-  02e1  L44:  check    reporting, P21               ; OR-REPORT-1, OR-REPORT-2, OR-REPORT-5, OR-REPORT-3, OR-REPORT-4
+  02ba        ldx      police_report
+  02bc        push     1                            ; yes
+  02c1        eq
+  02c2        jnz      L43
+  02c7        ldx      forensic_exam
+  02c9        jnz      L43
+  02ce        ldx      police_report
+  02d0        push     0                            ; no
+  02d5        eq
+  02d6        jnz      L42
+  02db        push     3
+  02e0        jmp      L44
+  02e5  L42:  push     1
+  02ea        jmp      L44
+  02ef  L43:  push     0                            ; satisfied
+  02f4  L44:  check    reporting, P21               ; OR-REPORT-1, OR-REPORT-2, OR-REPORT-5, OR-REPORT-3, OR-REPORT-4
               ; OR-EXCL-PROP-2  CVC brochure (2024)  "The CVC Program cannot pay for lost items or property damage."
               ; OR-EXCL-SAVE  OAR 137-084-0030(1)  "Examples of services not covered by the Fund include, but are..."
               ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
@@ -582,6 +588,6 @@
               ; OR-TIME-DECISION  CVC Application (2026), page i, What happens next?  "We will contact you again in 60 to 90 days to tell you if we..."
               ; OR-ACP-1  Oregon DOJ ACP page, 'Protecting Addresses for Victims'; program established by ORS 192.822  "It helps survivors of domestic violence, sexual assault..."
               ; OR-REC-1  ORS 147.115(1)(b)  "All information submitted to the Department of Justice by an..."
-  02e5        info     P22                          ; OR-EXCL-PROP-2, OR-EXCL-SAVE, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3, OR-CONDUCT-1, OR-EMERG-1, OR-CRIME-1, OR-CRIME-2, OR-RES-1, OR-RES-2, OR-RES-3, OR-SUBMIT-ONLINE, OR-SUBMIT-EMAIL, OR-SUBMIT-MAIL, OR-SUBMIT-INPERSON, OR-DOC-SIGNED-RELEASE, OR-DOC-WAGE, OR-DOC-WAGE-SELF, OR-DOC-WORK-RELEASE, OR-DOC-BILLS, OR-DOC-EOB, OR-DOC-RECEIPT, OR-TIME-ACK, OR-TIME-DECISION, OR-ACP-1, OR-REC-1
-  02e8        ret
+  02f8        info     P22                          ; OR-EXCL-PROP-2, OR-EXCL-SAVE, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3, OR-CONDUCT-1, OR-EMERG-1, OR-CRIME-1, OR-CRIME-2, OR-RES-1, OR-RES-2, OR-RES-3, OR-SUBMIT-ONLINE, OR-SUBMIT-EMAIL, OR-SUBMIT-MAIL, OR-SUBMIT-INPERSON, OR-DOC-SIGNED-RELEASE, OR-DOC-WAGE, OR-DOC-WAGE-SELF, OR-DOC-WORK-RELEASE, OR-DOC-BILLS, OR-DOC-EOB, OR-DOC-RECEIPT, OR-TIME-ACK, OR-TIME-DECISION, OR-ACP-1, OR-REC-1
+  02fb        ret
 

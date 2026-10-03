@@ -1,10 +1,10 @@
 ; tend law image WY, Wyoming
-; format 1.1, compiled by tendc 1.1.0
-; source sha256 9a00800ffac187eba86824241df7d01d985150dfa184b1f3086751dd44d83759
-; image sha256  62ba95315705becb487fc9afd9dc4b19a8f2967ae902d30dfe0008ec3e1a1d75
-; 56 rules, 12 sources, 32 proofs, 8 ints, 288 strings
-; item program: 206 instructions, 672 bytes, max stack 2
-; aggregate program: 235 instructions, 729 bytes, max stack 3, 8 loops
+; format 1.2, compiled by tendc 1.2.0
+; source sha256 047a61a66c768f24553908d6abaa5d2832ee3428a3925e31a0f1c261a9cbd338
+; image sha256  fc0511eda5312c18024126253bfac2a01d203c355590aaefc3ddda6cfb16f686
+; 56 rules, 12 sources, 30 proofs, 8 ints, 289 strings
+; item program: 205 instructions, 669 bytes, max stack 2
+; aggregate program: 241 instructions, 748 bytes, max stack 3, 8 loops
 
 .rules
     R0    WY-EXAM-1             exam_payment  -                                             W.S. 6-2-309(g)
@@ -33,9 +33,9 @@
     R23   WY-COV-11             covered       clothing_bedding                              WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence
     R24   WY-EXC-1              excluded      property_replacement                          WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence, Exemptions
     R25   WY-EXC-2              excluded      property_replacement                          WY DVS Primary Victim Compensation Application Instructions, General Information
-    R26   WY-EXC-3              excluded      property_replacement                          WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence
+    R26   WY-EXC-3              info          -                     excluded_expense        WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence
     R27   WY-EXC-4              info          -                     excluded_expense        WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses, Ineligible Expenses
-    R28   WY-DEAD-1             deadline      -                                             W.S. 1-40-106(a)(v)
+    R28   WY-DEAD-1             deadline      -                     from crime              W.S. 1-40-106(a)(v)
     R29   WY-REP-1              reporting     -                                             W.S. 1-40-106(a)(iv)
     R30   WY-REP-3              reporting     -                                             WY DVS Compensation FAQ, Does There Have To Be An Arrest Or Conviction
     R31   WY-COL-1              collateral    -                                             W.S. 1-40-110(d)
@@ -67,13 +67,13 @@
 .tags   phone=bit0, pain_suffering=bit1
 
 .sources
-    S0    WY-S1       sha256 941703d88ce5fa2f  https://dvs.wyo.gov/compensation
+    S0    WY-S1       sha256 4329f90e9179aa71  https://dvs.wyo.gov/compensation
     S1    WY-S2       sha256 89841d6a350b661d  https://drive.google.com/uc?export=download&id=1-x-HQqDPsqpMzT8duGeEbhfoN0EPeqqk
     S2    WY-S3       sha256 80e8155016bfb315  https://drive.google.com/uc?export=download&id=1Zvzf8VC9HEhB-phGvVFadXOoyJGJDWVq
     S3    WY-S4       sha256 e1a29c3a29b6cef9  https://drive.google.com/uc?export=download&id=1y7VFwJ3Bff_OKLiN7cIhfCR4tc29roNe
     S4    WY-S5       sha256 fac2c77e253150a4  https://drive.google.com/uc?export=download&id=1pJpd5eewW_q_IzO-dCup5lAKbua4j8Mr
     S5    WY-S6       sha256 738e3aca3c94068f  https://drive.google.com/uc?export=download&id=1r3tb2JHkQ5qfkUBgTluYxci9bXRgC42P
-    S6    WY-S7       sha256 0ea02d7e497767e0  https://dvs.wyo.gov/sane
+    S6    WY-S7       sha256 2e07479d1f85d018  https://dvs.wyo.gov/sane
     S7    WY-S8       sha256 1413d5914ebde444  https://law.justia.com/codes/wyoming/title-6/chapter-2/article-3/section-6-2-309/
     S8    WY-S9       sha256 acfdfb17188eabc5  https://law.justia.com/codes/wyoming/title-1/chapter-40/article-1/section-1-40-109/
     S9    WY-S10      sha256 8c01ce0ff0a44a9d  https://law.justia.com/codes/wyoming/title-1/chapter-40/article-1/section-1-40-106/
@@ -82,37 +82,35 @@
 
 .proofs
     P0    ()
-    P1    (WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7)
-    P2    (WY-COV-1, WY-COV-2)
-    P3    (WY-COV-1, WY-COV-2, WY-COL-1, WY-COL-2, WY-COL-3)
-    P4    (WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6)
-    P5    (WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6, WY-COL-1, WY-COL-2, WY-COL-3)
-    P6    (WY-COV-7, WY-COV-8)
-    P7    (WY-COV-7, WY-COV-8, WY-COL-1, WY-COL-2, WY-COL-3)
-    P8    (WY-COV-9)
-    P9    (WY-COV-9, WY-COL-1, WY-COL-2, WY-COL-3)
-    P10   (WY-CAP-9)
-    P11   (WY-CAP-4, WY-COV-10)
-    P12   (WY-CAP-4, WY-COV-10, WY-COL-1, WY-COL-2, WY-COL-3)
-    P13   (WY-CAP-6)
-    P14   (WY-CAP-6, WY-COL-1, WY-COL-2, WY-COL-3)
-    P15   (WY-EXC-1, WY-EXC-3)
-    P16   (WY-EXC-2, WY-EXC-3)
-    P17   (WY-EXC-1, WY-EXC-2, WY-EXC-3)
-    P18   (WY-EXC-3)
-    P19   (WY-CAP-5, WY-COV-11)
-    P20   (WY-CAP-5, WY-COV-11, WY-COL-1, WY-COL-2, WY-COL-3)
-    P21   (WY-COV-4)
-    P22   (WY-COV-4, WY-COL-1, WY-COL-2, WY-COL-3)
-    P23   (WY-COV-3)
-    P24   (WY-COV-3, WY-COL-1, WY-COL-2, WY-COL-3)
-    P25   (WY-CAP-7)
-    P26   (WY-CAP-7, WY-COL-1, WY-COL-2, WY-COL-3)
-    P27   (WY-CAP-8)
-    P28   (WY-CAP-8, WY-COL-1, WY-COL-2, WY-COL-3)
-    P29   (WY-DEAD-1)
-    P30   (WY-REP-1, WY-REP-3)
-    P31   (WY-EXC-4, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1)
+    P1    (WY-COV-1, WY-COV-2)
+    P2    (WY-COV-1, WY-COV-2, WY-COL-1, WY-COL-2, WY-COL-3)
+    P3    (WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6)
+    P4    (WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6, WY-COL-1, WY-COL-2, WY-COL-3)
+    P5    (WY-COV-7, WY-COV-8)
+    P6    (WY-COV-7, WY-COV-8, WY-COL-1, WY-COL-2, WY-COL-3)
+    P7    (WY-COV-9)
+    P8    (WY-COV-9, WY-COL-1, WY-COL-2, WY-COL-3)
+    P9    (WY-CAP-9)
+    P10   (WY-CAP-4, WY-COV-10)
+    P11   (WY-CAP-4, WY-COV-10, WY-COL-1, WY-COL-2, WY-COL-3)
+    P12   (WY-CAP-6)
+    P13   (WY-CAP-6, WY-COL-1, WY-COL-2, WY-COL-3)
+    P14   (WY-EXC-1)
+    P15   (WY-EXC-2)
+    P16   (WY-EXC-1, WY-EXC-2)
+    P17   (WY-CAP-5, WY-COV-11)
+    P18   (WY-CAP-5, WY-COV-11, WY-COL-1, WY-COL-2, WY-COL-3)
+    P19   (WY-COV-4)
+    P20   (WY-COV-4, WY-COL-1, WY-COL-2, WY-COL-3)
+    P21   (WY-COV-3)
+    P22   (WY-COV-3, WY-COL-1, WY-COL-2, WY-COL-3)
+    P23   (WY-CAP-7)
+    P24   (WY-CAP-7, WY-COL-1, WY-COL-2, WY-COL-3)
+    P25   (WY-CAP-8)
+    P26   (WY-CAP-8, WY-COL-1, WY-COL-2, WY-COL-3)
+    P27   (WY-DEAD-1)
+    P28   (WY-REP-1, WY-REP-3)
+    P29   (WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7, WY-EXC-3, WY-EXC-4, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1)
 
 .ints
     K0    8500          ; $85.00
@@ -157,32 +155,27 @@
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
-              ; WY-EXAM-1  W.S. 6-2-309(g)  "the costs of any examination relating to the investigation or..."
-              ; WY-EXAM-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), SANE Exam Payment Policy: Anonymous Reporting of Sexual Assault  "the Division of Victim Services (DVS) is required to cover the..."
-              ; WY-EXAM-5  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), SANE Exam Payment Policy  "DVS can only pay for the evidence collection examination, STD..."
-              ; WY-EXAM-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Law Enforcement Reporting of Sexual Assault  "ONLY costs associated with the SANE Exam and associated evidence..."
-  0072  L1:   push     0
-  0077        decide   held, P1                     ; WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7
-  007b        ret
+  0072  L1:   setexp   medical
+  0074        jmp      L2
               ; WY-COV-1  W.S. 1-40-102(a)(vi)  ""Medical expense" includes the cost of all medical and dental..."
               ; WY-COV-2  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Sexual assault emergency room expenses (see SANE Exam policy if..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  007c  L2:   ldi      confirmed
-  007e        jnz      L3
-  0083        push     0
-  0088        decide   needs_confirmation, P2       ; WY-COV-1, WY-COV-2
-  008c        ret
-  008d  L3:   ldi      amount_cents
-  008f        decide   eligible, P3                 ; WY-COV-1, WY-COV-2, WY-COL-1, WY-COL-2, WY-COL-3
-  0093        lda
-  0094        ldi      insurance_paid_cents
-  0096        subs
-  0097        push     0
-  009c        max
-  009d        seta     collateral, R31              ; WY-COL-1
-  00a1        ret
+  0079  L2:   ldi      confirmed
+  007b        jnz      L3
+  0080        push     0
+  0085        decide   needs_confirmation, P1       ; WY-COV-1, WY-COV-2
+  0089        ret
+  008a  L3:   ldi      amount_cents
+  008c        decide   eligible, P2                 ; WY-COV-1, WY-COV-2, WY-COL-1, WY-COL-2, WY-COL-3
+  0090        lda
+  0091        ldi      insurance_paid_cents
+  0093        subs
+  0094        push     0
+  0099        max
+  009a        seta     collateral, R31              ; WY-COL-1
+  009e        ret
               ; WY-CAP-2  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses  "The initial counseling visit shall be paid in full. Thereafter..."
               ; WY-CAP-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Payment Threshold on Associated Victim Claims  "Associated victims may be eligible for compensation with regard..."
               ; WY-COV-5  W.S. 1-40-109(d)  "However, the division may extend the twenty-four (24) month..."
@@ -190,474 +183,484 @@
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  00a2  L4:   ldi      confirmed
-  00a4        jnz      L5
-  00a9        push     0
-  00ae        decide   needs_confirmation, P4       ; WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6
-  00b2        ret
-  00b3  L5:   ldi      amount_cents
-  00b5        decide   eligible, P5                 ; WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6, WY-COL-1, WY-COL-2, WY-COL-3
-  00b9        lda
-  00ba        ldi      insurance_paid_cents
-  00bc        subs
-  00bd        push     0
-  00c2        max
-  00c3        seta     collateral, R31              ; WY-COL-1
-  00c7        ret
+  009f  L4:   ldi      confirmed
+  00a1        jnz      L5
+  00a6        push     0
+  00ab        decide   needs_confirmation, P3       ; WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6
+  00af        ret
+  00b0  L5:   ldi      amount_cents
+  00b2        decide   eligible, P4                 ; WY-CAP-2, WY-CAP-3, WY-COV-5, WY-COV-6, WY-COL-1, WY-COL-2, WY-COL-3
+  00b6        lda
+  00b7        ldi      insurance_paid_cents
+  00b9        subs
+  00ba        push     0
+  00bf        max
+  00c0        seta     collateral, R31              ; WY-COL-1
+  00c4        ret
               ; WY-COV-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Loss of Earnings, Financial Limits  "Maximum amount must not exceed the federal minimum hourly wage..."
               ; WY-COV-8  W.S. 1-40-109(b)  "Loss of earnings and loss of future earnings shall be determined..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  00c8  L6:   ldi      confirmed
-  00ca        jnz      L7
-  00cf        push     0
-  00d4        decide   needs_confirmation, P6       ; WY-COV-7, WY-COV-8
-  00d8        ret
-  00d9  L7:   ldi      amount_cents
-  00db        decide   eligible, P7                 ; WY-COV-7, WY-COV-8, WY-COL-1, WY-COL-2, WY-COL-3
-  00df        lda
-  00e0        ldi      insurance_paid_cents
-  00e2        subs
-  00e3        push     0
-  00e8        max
-  00e9        seta     collateral, R31              ; WY-COL-1
-  00ed        ret
+  00c5  L6:   ldi      confirmed
+  00c7        jnz      L7
+  00cc        push     0
+  00d1        decide   needs_confirmation, P5       ; WY-COV-7, WY-COV-8
+  00d5        ret
+  00d6  L7:   ldi      amount_cents
+  00d8        decide   eligible, P6                 ; WY-COV-7, WY-COV-8, WY-COL-1, WY-COL-2, WY-COL-3
+  00dc        lda
+  00dd        ldi      insurance_paid_cents
+  00df        subs
+  00e0        push     0
+  00e5        max
+  00e6        seta     collateral, R31              ; WY-COL-1
+  00ea        ret
               ; WY-COV-9  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Travel Expenses  "Expenses incurred when required to travel at least ten (10)..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  00ee  L8:   ldi      confirmed
-  00f0        jnz      L9
-  00f5        push     0
-  00fa        decide   needs_confirmation, P8       ; WY-COV-9
-  00fe        ret
-  00ff  L9:   ldi      amount_cents
-  0101        decide   eligible, P9                 ; WY-COV-9, WY-COL-1, WY-COL-2, WY-COL-3
-  0105        lda
-  0106        ldi      insurance_paid_cents
-  0108        subs
-  0109        push     0
-  010e        max
-  010f        seta     collateral, R31              ; WY-COL-1
-  0113        ret
+  00eb  L8:   ldi      confirmed
+  00ed        jnz      L9
+  00f2        push     0
+  00f7        decide   needs_confirmation, P7       ; WY-COV-9
+  00fb        ret
+  00fc  L9:   ldi      amount_cents
+  00fe        decide   eligible, P8                 ; WY-COV-9, WY-COL-1, WY-COL-2, WY-COL-3
+  0102        lda
+  0103        ldi      insurance_paid_cents
+  0105        subs
+  0106        push     0
+  010b        max
+  010c        seta     collateral, R31              ; WY-COL-1
+  0110        ret
               ; WY-CAP-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Financial Limits  "$1,200.00 per claim $500.00 maximum award for persons not safe..."
               ; WY-COV-10  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Requirements  "Victim may need to relocate if the crime scene was the home of..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  0114  L10:  alts     P10                          ; WY-CAP-9
-  0117        ldi      confirmed
-  0119        jnz      L11
-  011e        push     0
-  0123        decide   needs_confirmation, P11      ; WY-CAP-4, WY-COV-10
-  0127        ret
-  0128  L11:  ldi      amount_cents
-  012a        decide   eligible, P12                ; WY-CAP-4, WY-COV-10, WY-COL-1, WY-COL-2, WY-COL-3
-  012e        lda
-  012f        ldi      insurance_paid_cents
-  0131        subs
-  0132        push     0
-  0137        max
-  0138        seta     collateral, R31              ; WY-COL-1
-  013c        ret
-  013d  L12:  push     0
-  0142        decide   unknown_rule, P0             ; (none)
-  0146        ret
+  0111  L10:  alts     P9                           ; WY-CAP-9
+  0114        ldi      confirmed
+  0116        jnz      L11
+  011b        push     0
+  0120        decide   needs_confirmation, P10      ; WY-CAP-4, WY-COV-10
+  0124        ret
+  0125  L11:  ldi      amount_cents
+  0127        decide   eligible, P11                ; WY-CAP-4, WY-COV-10, WY-COL-1, WY-COL-2, WY-COL-3
+  012b        lda
+  012c        ldi      insurance_paid_cents
+  012e        subs
+  012f        push     0
+  0134        max
+  0135        seta     collateral, R31              ; WY-COL-1
+  0139        ret
+  013a  L12:  push     0
+  013f        decide   unknown_rule, P0             ; (none)
+  0143        ret
               ; WY-CAP-6  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Crime Scene Cleanup  "Licensed professional cleanup of the crime scene with..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  0147  L13:  ldi      confirmed
-  0149        jnz      L14
-  014e        push     0
-  0153        decide   needs_confirmation, P13      ; WY-CAP-6
-  0157        ret
-  0158  L14:  ldi      amount_cents
-  015a        decide   eligible, P14                ; WY-CAP-6, WY-COL-1, WY-COL-2, WY-COL-3
-  015e        lda
-  015f        ldi      insurance_paid_cents
-  0161        subs
-  0162        push     0
-  0167        max
-  0168        seta     collateral, R31              ; WY-COL-1
-  016c        ret
+  0144  L13:  ldi      confirmed
+  0146        jnz      L14
+  014b        push     0
+  0150        decide   needs_confirmation, P12      ; WY-CAP-6
+  0154        ret
+  0155  L14:  ldi      amount_cents
+  0157        decide   eligible, P13                ; WY-CAP-6, WY-COL-1, WY-COL-2, WY-COL-3
+  015b        lda
+  015c        ldi      insurance_paid_cents
+  015e        subs
+  015f        push     0
+  0164        max
+  0165        seta     collateral, R31              ; WY-COL-1
+  0169        ret
               ; WY-EXC-1  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence, Exemptions  "Cell phones, laptops, tablets, and any other elective electronic..."
               ; WY-EXC-2  WY DVS Primary Victim Compensation Application Instructions, General Information  "The law does not allow compensation for property loss or pain..."
-              ; WY-EXC-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence  "Items destroyed or damaged during the crime are not eligible."
-  016d  L15:  push     0
-  0172        str      r0
-  0174        ldi      tags
-  0176        push     1
-  017b        and
-  017c        jz       L16
-  0181        ldr      r0
-  0183        push     1
-  0188        or
-  0189        str      r0
-  018b  L16:  ldi      tags
-  018d        push     2
-  0192        and
-  0193        jz       L17
-  0198        ldr      r0
-  019a        push     2
-  019f        or
-  01a0        str      r0
-  01a2  L17:  ldr      r0
-  01a4        switch   4, default L21
+  016a  L15:  push     0
+  016f        str      r0
+  0171        ldi      tags
+  0173        push     1
+  0178        and
+  0179        jz       L16
+  017e        ldr      r0
+  0180        push     1
+  0185        or
+  0186        str      r0
+  0188  L16:  ldi      tags
+  018a        push     2
+  018f        and
+  0190        jz       L17
+  0195        ldr      r0
+  0197        push     2
+  019c        or
+  019d        str      r0
+  019f  L17:  ldr      r0
+  01a1        switch   4, default L21
                         case 0                     -> L21
                         case 1                     -> L18
                         case 2                     -> L19
                         case 3                     -> L20
-  01ba  L18:  push     0
-  01bf        decide   excluded, P15                ; WY-EXC-1, WY-EXC-3
-  01c3        ret
-  01c4  L19:  push     0
-  01c9        decide   excluded, P16                ; WY-EXC-2, WY-EXC-3
-  01cd        ret
-  01ce  L20:  push     0
-  01d3        decide   excluded, P17                ; WY-EXC-1, WY-EXC-2, WY-EXC-3
-  01d7        ret
-  01d8  L21:  push     0
-  01dd        decide   excluded, P18                ; WY-EXC-3
-  01e1        ret
+  01b7  L18:  push     0
+  01bc        decide   excluded, P14                ; WY-EXC-1
+  01c0        ret
+  01c1  L19:  push     0
+  01c6        decide   excluded, P15                ; WY-EXC-2
+  01ca        ret
+  01cb  L20:  push     0
+  01d0        decide   excluded, P16                ; WY-EXC-1, WY-EXC-2
+  01d4        ret
+  01d5  L21:  push     0
+  01da        decide   unknown_rule, P0             ; (none)
+  01de        ret
               ; WY-CAP-5  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence  "Up to a maximum award of $500.00 per claim deducted from the..."
               ; WY-COV-11  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence  "All items under sexual assault cases are eligible even if they..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  01e2  L22:  ldi      confirmed
-  01e4        jnz      L23
-  01e9        push     0
-  01ee        decide   needs_confirmation, P19      ; WY-CAP-5, WY-COV-11
-  01f2        ret
-  01f3  L23:  ldi      amount_cents
-  01f5        decide   eligible, P20                ; WY-CAP-5, WY-COV-11, WY-COL-1, WY-COL-2, WY-COL-3
-  01f9        lda
-  01fa        ldi      insurance_paid_cents
-  01fc        subs
-  01fd        push     0
-  0202        max
-  0203        seta     collateral, R31              ; WY-COL-1
-  0207        ret
+  01df  L22:  ldi      confirmed
+  01e1        jnz      L23
+  01e6        push     0
+  01eb        decide   needs_confirmation, P17      ; WY-CAP-5, WY-COV-11
+  01ef        ret
+  01f0  L23:  ldi      amount_cents
+  01f2        decide   eligible, P18                ; WY-CAP-5, WY-COV-11, WY-COL-1, WY-COL-2, WY-COL-3
+  01f6        lda
+  01f7        ldi      insurance_paid_cents
+  01f9        subs
+  01fa        push     0
+  01ff        max
+  0200        seta     collateral, R31              ; WY-COL-1
+  0204        ret
               ; WY-COV-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Prescriptions needed as a result of the crime."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  0208  L24:  ldi      confirmed
-  020a        jnz      L25
-  020f        push     0
-  0214        decide   needs_confirmation, P21      ; WY-COV-4
-  0218        ret
-  0219  L25:  ldi      amount_cents
-  021b        decide   eligible, P22                ; WY-COV-4, WY-COL-1, WY-COL-2, WY-COL-3
-  021f        lda
-  0220        ldi      insurance_paid_cents
-  0222        subs
-  0223        push     0
-  0228        max
-  0229        seta     collateral, R31              ; WY-COL-1
-  022d        ret
+  0205  L24:  ldi      confirmed
+  0207        jnz      L25
+  020c        push     0
+  0211        decide   needs_confirmation, P19      ; WY-COV-4
+  0215        ret
+  0216  L25:  ldi      amount_cents
+  0218        decide   eligible, P20                ; WY-COV-4, WY-COL-1, WY-COL-2, WY-COL-3
+  021c        lda
+  021d        ldi      insurance_paid_cents
+  021f        subs
+  0220        push     0
+  0225        max
+  0226        seta     collateral, R31              ; WY-COL-1
+  022a        ret
               ; WY-COV-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Dental services directly related to the crime."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  022e  L26:  ldi      confirmed
-  0230        jnz      L27
-  0235        push     0
-  023a        decide   needs_confirmation, P23      ; WY-COV-3
-  023e        ret
-  023f  L27:  ldi      amount_cents
-  0241        decide   eligible, P24                ; WY-COV-3, WY-COL-1, WY-COL-2, WY-COL-3
-  0245        lda
-  0246        ldi      insurance_paid_cents
-  0248        subs
-  0249        push     0
-  024e        max
-  024f        seta     collateral, R31              ; WY-COL-1
-  0253        ret
+  022b  L26:  ldi      confirmed
+  022d        jnz      L27
+  0232        push     0
+  0237        decide   needs_confirmation, P21      ; WY-COV-3
+  023b        ret
+  023c  L27:  ldi      amount_cents
+  023e        decide   eligible, P22                ; WY-COV-3, WY-COL-1, WY-COL-2, WY-COL-3
+  0242        lda
+  0243        ldi      insurance_paid_cents
+  0245        subs
+  0246        push     0
+  024b        max
+  024c        seta     collateral, R31              ; WY-COL-1
+  0250        ret
               ; WY-CAP-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Funeral/Burial Expenses  "Up to a maximum award of $7,000.00 per claim and is deducted..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  0254  L28:  ldi      confirmed
-  0256        jnz      L29
-  025b        push     0
-  0260        decide   needs_confirmation, P25      ; WY-CAP-7
-  0264        ret
-  0265  L29:  ldi      amount_cents
-  0267        decide   eligible, P26                ; WY-CAP-7, WY-COL-1, WY-COL-2, WY-COL-3
-  026b        lda
-  026c        ldi      insurance_paid_cents
-  026e        subs
-  026f        push     0
-  0274        max
-  0275        seta     collateral, R31              ; WY-COL-1
-  0279        ret
+  0251  L28:  ldi      confirmed
+  0253        jnz      L29
+  0258        push     0
+  025d        decide   needs_confirmation, P23      ; WY-CAP-7
+  0261        ret
+  0262  L29:  ldi      amount_cents
+  0264        decide   eligible, P24                ; WY-CAP-7, WY-COL-1, WY-COL-2, WY-COL-3
+  0268        lda
+  0269        ldi      insurance_paid_cents
+  026b        subs
+  026c        push     0
+  0271        max
+  0272        seta     collateral, R31              ; WY-COL-1
+  0276        ret
               ; WY-CAP-8  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Replacement of eyeglasses. o not to exceed $300.00."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
-  027a  L30:  ldi      confirmed
-  027c        jnz      L31
-  0281        push     0
-  0286        decide   needs_confirmation, P27      ; WY-CAP-8
-  028a        ret
-  028b  L31:  ldi      amount_cents
-  028d        decide   eligible, P28                ; WY-CAP-8, WY-COL-1, WY-COL-2, WY-COL-3
-  0291        lda
-  0292        ldi      insurance_paid_cents
-  0294        subs
-  0295        push     0
-  029a        max
-  029b        seta     collateral, R31              ; WY-COL-1
-  029f        ret
+  0277  L30:  ldi      confirmed
+  0279        jnz      L31
+  027e        push     0
+  0283        decide   needs_confirmation, P25      ; WY-CAP-8
+  0287        ret
+  0288  L31:  ldi      amount_cents
+  028a        decide   eligible, P26                ; WY-CAP-8, WY-COL-1, WY-COL-2, WY-COL-3
+  028e        lda
+  028f        ldi      insurance_paid_cents
+  0291        subs
+  0292        push     0
+  0297        max
+  0298        seta     collateral, R31              ; WY-COL-1
+  029c        ret
 
 .aggregate
               ; WY-CAP-2  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses  "The initial counseling visit shall be paid in full. Thereafter..."
   0000        each     counseling, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $85.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R6                 ; WY-CAP-2
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R6                           ; rate_unverified WY-CAP-2
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     3                            ; hour
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $85.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R6                 ; WY-CAP-2
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R6                           ; rate_unverified WY-CAP-2
+  0040  L3:   next     L0
               ; WY-CAP-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Payment Threshold on Associated Victim Claims  "Associated victims may be eligible for compensation with regard..."
-  0032  L4:   push     0
-  0037        str      r0
-  0039        push     0
-  003e        str      r1
-  0040        each     counseling, L9
-  0046  L5:   ldr      r1
-  0048        jnz      L7
-  004d        ldr      r0
-  004f        lda
-  0050        adds
-  0051        ldk      K1                           ; $4,500.00
-  0054        gt
-  0055        jz       L6
-  005a        ldk      K1                           ; $4,500.00
-  005d        ldr      r0
-  005f        subs
-  0060        cap      expense_cap, R7              ; WY-CAP-3
-  0064        push     1
-  0069        str      r1
-  006b  L6:   ldr      r0
-  006d        lda
-  006e        adds
-  006f        str      r0
-  0071        jmp      L8
-  0076  L7:   push     0
-  007b        cap      expense_cap, R7              ; WY-CAP-3
-  007f  L8:   next     L5
+  0045  L4:   push     0
+  004a        str      r0
+  004c        push     0
+  0051        str      r1
+  0053        each     counseling, L9
+  0059  L5:   ldr      r1
+  005b        jnz      L7
+  0060        ldr      r0
+  0062        lda
+  0063        adds
+  0064        ldk      K1                           ; $4,500.00
+  0067        gt
+  0068        jz       L6
+  006d        ldk      K1                           ; $4,500.00
+  0070        ldr      r0
+  0072        subs
+  0073        cap      expense_cap, R7              ; WY-CAP-3
+  0077        push     1
+  007c        str      r1
+  007e  L6:   ldr      r0
+  0080        lda
+  0081        adds
+  0082        str      r0
+  0084        jmp      L8
+  0089  L7:   push     0
+  008e        cap      expense_cap, R7              ; WY-CAP-3
+  0092  L8:   next     L5
               ; WY-CAP-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Financial Limits  "$1,200.00 per claim $500.00 maximum award for persons not safe..."
-  0084  L9:   push     0
-  0089        str      r0
-  008b        push     0
-  0090        str      r1
-  0092        each     relocation, L14
-  0098  L10:  ldr      r1
-  009a        jnz      L12
-  009f        ldr      r0
-  00a1        lda
-  00a2        adds
-  00a3        ldk      K2                           ; $1,200.00
-  00a6        gt
-  00a7        jz       L11
-  00ac        ldk      K2                           ; $1,200.00
-  00af        ldr      r0
-  00b1        subs
-  00b2        cap      expense_cap, R8              ; WY-CAP-4
-  00b6        push     1
-  00bb        str      r1
-  00bd  L11:  ldr      r0
-  00bf        lda
-  00c0        adds
-  00c1        str      r0
-  00c3        jmp      L13
-  00c8  L12:  push     0
-  00cd        cap      expense_cap, R8              ; WY-CAP-4
-  00d1  L13:  next     L10
+  0097  L9:   push     0
+  009c        str      r0
+  009e        push     0
+  00a3        str      r1
+  00a5        each     relocation, L14
+  00ab  L10:  ldr      r1
+  00ad        jnz      L12
+  00b2        ldr      r0
+  00b4        lda
+  00b5        adds
+  00b6        ldk      K2                           ; $1,200.00
+  00b9        gt
+  00ba        jz       L11
+  00bf        ldk      K2                           ; $1,200.00
+  00c2        ldr      r0
+  00c4        subs
+  00c5        cap      expense_cap, R8              ; WY-CAP-4
+  00c9        push     1
+  00ce        str      r1
+  00d0  L11:  ldr      r0
+  00d2        lda
+  00d3        adds
+  00d4        str      r0
+  00d6        jmp      L13
+  00db  L12:  push     0
+  00e0        cap      expense_cap, R8              ; WY-CAP-4
+  00e4  L13:  next     L10
               ; WY-CAP-5  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence  "Up to a maximum award of $500.00 per claim deducted from the..."
-  00d6  L14:  push     0
-  00db        str      r0
-  00dd        push     0
-  00e2        str      r1
-  00e4        each     clothing_bedding, L19
-  00ea  L15:  ldr      r1
-  00ec        jnz      L17
-  00f1        ldr      r0
-  00f3        lda
-  00f4        adds
-  00f5        ldk      K3                           ; $500.00
-  00f8        gt
-  00f9        jz       L16
-  00fe        ldk      K3                           ; $500.00
-  0101        ldr      r0
-  0103        subs
-  0104        cap      expense_cap, R9              ; WY-CAP-5
-  0108        push     1
-  010d        str      r1
-  010f  L16:  ldr      r0
-  0111        lda
-  0112        adds
-  0113        str      r0
-  0115        jmp      L18
-  011a  L17:  push     0
-  011f        cap      expense_cap, R9              ; WY-CAP-5
-  0123  L18:  next     L15
+  00e9  L14:  push     0
+  00ee        str      r0
+  00f0        push     0
+  00f5        str      r1
+  00f7        each     clothing_bedding, L19
+  00fd  L15:  ldr      r1
+  00ff        jnz      L17
+  0104        ldr      r0
+  0106        lda
+  0107        adds
+  0108        ldk      K3                           ; $500.00
+  010b        gt
+  010c        jz       L16
+  0111        ldk      K3                           ; $500.00
+  0114        ldr      r0
+  0116        subs
+  0117        cap      expense_cap, R9              ; WY-CAP-5
+  011b        push     1
+  0120        str      r1
+  0122  L16:  ldr      r0
+  0124        lda
+  0125        adds
+  0126        str      r0
+  0128        jmp      L18
+  012d  L17:  push     0
+  0132        cap      expense_cap, R9              ; WY-CAP-5
+  0136  L18:  next     L15
               ; WY-CAP-6  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Crime Scene Cleanup  "Licensed professional cleanup of the crime scene with..."
-  0128  L19:  push     0
-  012d        str      r0
-  012f        push     0
-  0134        str      r1
-  0136        each     crime_scene_cleanup, L24
-  013c  L20:  ldr      r1
-  013e        jnz      L22
-  0143        ldr      r0
-  0145        lda
-  0146        adds
-  0147        ldk      K4                           ; $2,500.00
-  014a        gt
-  014b        jz       L21
-  0150        ldk      K4                           ; $2,500.00
-  0153        ldr      r0
-  0155        subs
-  0156        cap      expense_cap, R10             ; WY-CAP-6
-  015a        push     1
-  015f        str      r1
-  0161  L21:  ldr      r0
-  0163        lda
-  0164        adds
-  0165        str      r0
-  0167        jmp      L23
-  016c  L22:  push     0
-  0171        cap      expense_cap, R10             ; WY-CAP-6
-  0175  L23:  next     L20
+  013b  L19:  push     0
+  0140        str      r0
+  0142        push     0
+  0147        str      r1
+  0149        each     crime_scene_cleanup, L24
+  014f  L20:  ldr      r1
+  0151        jnz      L22
+  0156        ldr      r0
+  0158        lda
+  0159        adds
+  015a        ldk      K4                           ; $2,500.00
+  015d        gt
+  015e        jz       L21
+  0163        ldk      K4                           ; $2,500.00
+  0166        ldr      r0
+  0168        subs
+  0169        cap      expense_cap, R10             ; WY-CAP-6
+  016d        push     1
+  0172        str      r1
+  0174  L21:  ldr      r0
+  0176        lda
+  0177        adds
+  0178        str      r0
+  017a        jmp      L23
+  017f  L22:  push     0
+  0184        cap      expense_cap, R10             ; WY-CAP-6
+  0188  L23:  next     L20
               ; WY-CAP-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Funeral/Burial Expenses  "Up to a maximum award of $7,000.00 per claim and is deducted..."
-  017a  L24:  push     0
-  017f        str      r0
-  0181        push     0
-  0186        str      r1
-  0188        each     funeral, L29
-  018e  L25:  ldr      r1
-  0190        jnz      L27
-  0195        ldr      r0
-  0197        lda
-  0198        adds
-  0199        ldk      K5                           ; $7,000.00
-  019c        gt
-  019d        jz       L26
-  01a2        ldk      K5                           ; $7,000.00
-  01a5        ldr      r0
-  01a7        subs
-  01a8        cap      expense_cap, R11             ; WY-CAP-7
-  01ac        push     1
-  01b1        str      r1
-  01b3  L26:  ldr      r0
-  01b5        lda
-  01b6        adds
-  01b7        str      r0
-  01b9        jmp      L28
-  01be  L27:  push     0
-  01c3        cap      expense_cap, R11             ; WY-CAP-7
-  01c7  L28:  next     L25
+  018d  L24:  push     0
+  0192        str      r0
+  0194        push     0
+  0199        str      r1
+  019b        each     funeral, L29
+  01a1  L25:  ldr      r1
+  01a3        jnz      L27
+  01a8        ldr      r0
+  01aa        lda
+  01ab        adds
+  01ac        ldk      K5                           ; $7,000.00
+  01af        gt
+  01b0        jz       L26
+  01b5        ldk      K5                           ; $7,000.00
+  01b8        ldr      r0
+  01ba        subs
+  01bb        cap      expense_cap, R11             ; WY-CAP-7
+  01bf        push     1
+  01c4        str      r1
+  01c6  L26:  ldr      r0
+  01c8        lda
+  01c9        adds
+  01ca        str      r0
+  01cc        jmp      L28
+  01d1  L27:  push     0
+  01d6        cap      expense_cap, R11             ; WY-CAP-7
+  01da  L28:  next     L25
               ; WY-CAP-8  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Replacement of eyeglasses. o not to exceed $300.00."
-  01cc  L29:  push     0
-  01d1        str      r0
-  01d3        push     0
-  01d8        str      r1
-  01da        each     other, L34
-  01e0  L30:  ldr      r1
-  01e2        jnz      L32
-  01e7        ldr      r0
-  01e9        lda
-  01ea        adds
-  01eb        ldk      K6                           ; $300.00
-  01ee        gt
-  01ef        jz       L31
-  01f4        ldk      K6                           ; $300.00
-  01f7        ldr      r0
-  01f9        subs
-  01fa        cap      expense_cap, R12             ; WY-CAP-8
-  01fe        push     1
-  0203        str      r1
-  0205  L31:  ldr      r0
-  0207        lda
-  0208        adds
-  0209        str      r0
-  020b        jmp      L33
-  0210  L32:  push     0
-  0215        cap      expense_cap, R12             ; WY-CAP-8
-  0219  L33:  next     L30
+  01df  L29:  push     0
+  01e4        str      r0
+  01e6        push     0
+  01eb        str      r1
+  01ed        each     other, L34
+  01f3  L30:  ldr      r1
+  01f5        jnz      L32
+  01fa        ldr      r0
+  01fc        lda
+  01fd        adds
+  01fe        ldk      K6                           ; $300.00
+  0201        gt
+  0202        jz       L31
+  0207        ldk      K6                           ; $300.00
+  020a        ldr      r0
+  020c        subs
+  020d        cap      expense_cap, R12             ; WY-CAP-8
+  0211        push     1
+  0216        str      r1
+  0218  L31:  ldr      r0
+  021a        lda
+  021b        adds
+  021c        str      r0
+  021e        jmp      L33
+  0223  L32:  push     0
+  0228        cap      expense_cap, R12             ; WY-CAP-8
+  022c  L33:  next     L30
               ; WY-CAP-1  W.S. 1-40-109(d)  "the maximum individual award of compensation paid to any victim..."
-  021e  L34:  push     0
-  0223        str      r0
-  0225        push     0
-  022a        str      r1
-  022c        each     all, L39
-  0232  L35:  ldr      r1
-  0234        jnz      L37
-  0239        ldr      r0
-  023b        lda
-  023c        adds
-  023d        ldk      K7                           ; $15,000.00
-  0240        gt
-  0241        jz       L36
-  0246        ldk      K7                           ; $15,000.00
-  0249        ldr      r0
-  024b        subs
-  024c        cap      total_cap, R5                ; WY-CAP-1
-  0250        push     1
-  0255        str      r1
-  0257  L36:  ldr      r0
-  0259        lda
-  025a        adds
-  025b        str      r0
-  025d        jmp      L38
-  0262  L37:  push     0
-  0267        cap      total_cap, R5                ; WY-CAP-1
-  026b  L38:  next     L35
-  0270  L39:  push     0                            ; met
-  0275        check    minimum_loss, P0             ; (none)
+  0231  L34:  push     0
+  0236        str      r0
+  0238        push     0
+  023d        str      r1
+  023f        each     all, L39
+  0245  L35:  ldr      r1
+  0247        jnz      L37
+  024c        ldr      r0
+  024e        lda
+  024f        adds
+  0250        ldk      K7                           ; $15,000.00
+  0253        gt
+  0254        jz       L36
+  0259        ldk      K7                           ; $15,000.00
+  025c        ldr      r0
+  025e        subs
+  025f        cap      total_cap, R5                ; WY-CAP-1
+  0263        push     1
+  0268        str      r1
+  026a  L36:  ldr      r0
+  026c        lda
+  026d        adds
+  026e        str      r0
+  0270        jmp      L38
+  0275  L37:  push     0
+  027a        cap      total_cap, R5                ; WY-CAP-1
+  027e  L38:  next     L35
+  0283  L39:  push     0                            ; met
+  0288        check    minimum_loss, P0             ; (none)
               ; WY-DEAD-1  W.S. 1-40-106(a)(v)  "The application for compensation is filed with the division..."
-  0279        ldx      incident_date
-  027b        push     365
-  0280        adds
-  0281        dup
-  0282        setdate
-  0283        ldx      as_of_date
-  0285        ge
-  0286        jz       L40
-  028b        push     0
-  0290        jmp      L41
-  0295  L40:  push     1                            ; late
-  029a  L41:  check    deadline, P29                ; WY-DEAD-1
+  028c        ldx      incident_date
+  028e        push     365
+  0293        adds
+  0294        dup
+  0295        setdate
+  0296        ldx      as_of_date
+  0298        ge
+  0299        jz       L40
+  029e        push     0
+  02a3        jmp      L41
+  02a8  L40:  push     1                            ; late
+  02ad  L41:  check    deadline, P27                ; WY-DEAD-1
               ; WY-REP-1  W.S. 1-40-106(a)(iv)  "The appropriate law enforcement authorities were notified of the..."
               ; WY-REP-3  WY DVS Compensation FAQ, Does There Have To Be An Arrest Or Conviction  "No arrest, prosecution, nor conviction is necessary to be..."
-  029e        ldx      police_report
-  02a0        push     1                            ; yes
-  02a5        eq
-  02a6        jnz      L43
-  02ab        ldx      police_report
-  02ad        push     0                            ; no
-  02b2        eq
-  02b3        jnz      L42
-  02b8        push     3
-  02bd        jmp      L44
-  02c2  L42:  push     1
-  02c7        jmp      L44
-  02cc  L43:  push     0                            ; satisfied
-  02d1  L44:  check    reporting, P30               ; WY-REP-1, WY-REP-3
+  02b1        ldx      police_report
+  02b3        push     1                            ; yes
+  02b8        eq
+  02b9        jnz      L43
+  02be        ldx      police_report
+  02c0        push     0                            ; no
+  02c5        eq
+  02c6        jnz      L42
+  02cb        push     3
+  02d0        jmp      L44
+  02d5  L42:  push     1
+  02da        jmp      L44
+  02df  L43:  push     0                            ; satisfied
+  02e4  L44:  check    reporting, P28               ; WY-REP-1, WY-REP-3
+              ; WY-EXAM-1  W.S. 6-2-309(g)  "the costs of any examination relating to the investigation or..."
+              ; WY-EXAM-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), SANE Exam Payment Policy: Anonymous Reporting of Sexual Assault  "the Division of Victim Services (DVS) is required to cover the..."
+              ; WY-EXAM-5  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), SANE Exam Payment Policy  "DVS can only pay for the evidence collection examination, STD..."
+              ; WY-EXAM-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Law Enforcement Reporting of Sexual Assault  "ONLY costs associated with the SANE Exam and associated evidence..."
+              ; WY-EXC-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence  "Items destroyed or damaged during the crime are not eligible."
               ; WY-EXC-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses, Ineligible Expenses  "Substance use/abuse treatment is not eligible for reimbursement."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
@@ -681,6 +684,6 @@
               ; WY-DOC-9  Application, checklist before sending  "Sign/date following authorization page"
               ; WY-DOC-10  Application, Request for Taxpayer Identification Number & Certification  "IN ORDER TO RECEIVE APPROVED BENEFITS, THIS FORM MUST BE..."
               ; WY-RECORDS-1  W.S. 1-40-107(d)  "Information contained in the claim files and records of victims..."
-  02d5        info     P31                          ; WY-EXC-4, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1
-  02d8        ret
+  02e8        info     P29                          ; WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7, WY-EXC-3, WY-EXC-4, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1
+  02eb        ret
 

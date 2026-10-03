@@ -1,8 +1,8 @@
 ; tend law image OK, Oklahoma
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 e2fb4c696a03f37663c15226e3e396737d32f87c52c5d29633dcb7fb40d8dbf4
-; image sha256  2b292e50f5083bff8c2bbb4710e443405b123902f2e8ca2eb91d483c99b784c5
-; 55 rules, 16 sources, 25 proofs, 7 ints, 324 strings
+; image sha256  586a05cf02095be2c2f6b1ad9240404ec5a1ba2149ef2811b97e671f7ef9e6f1
+; 55 rules, 16 sources, 25 proofs, 7 ints, 325 strings
 ; item program: 164 instructions, 545 bytes, max stack 2
 ; aggregate program: 221 instructions, 686 bytes, max stack 2, 7 loops
 
@@ -26,7 +26,7 @@
     R16   OK-COV-5              covered       transportation                                OCVC home page, eligible expenses
     R17   OK-COV-6              covered       dental                                        OCVC home page, eligible expenses
     R18   OK-EXCL-1             excluded      property_replacement                          OCVC Fund Eligibility page
-    R19   OK-DEAD-1             deadline      -                                             21 O.S. 142.10(A)(1)
+    R19   OK-DEAD-1             deadline      -                     from crime              21 O.S. 142.10(A)(1)
     R20   OK-DEAD-2             info          -                     filing_deadline         21 O.S. 142.10(A)(1)
     R21   OK-RPT-1              reporting     -                                             21 O.S. 142.10(A)(4)
     R22   OK-RPT-2              reporting     -                                             21 O.S. 142.10(C)

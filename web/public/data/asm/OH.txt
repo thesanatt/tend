@@ -1,8 +1,8 @@
 ; tend law image OH, Ohio
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 5de0c6cc0c699a47c942ef3deeaf37bb4ce117de9958a62bd07b6cdb200b0511
-; image sha256  dc24e8da6a5bb2fba04218e2f18d1ba7bc031429d78fb0fe0e233116fc0a9352
-; 45 rules, 17 sources, 29 proofs, 6 ints, 288 strings
+; image sha256  e017cd710deb9cfd3d4b90b29ef568870c5c042d1af0ce6f5169cdc170465c70
+; 45 rules, 17 sources, 29 proofs, 6 ints, 289 strings
 ; item program: 478 instructions, 1691 bytes, max stack 2
 ; aggregate program: 210 instructions, 646 bytes, max stack 2, 7 loops
 
@@ -28,7 +28,7 @@
     R18   OH-COV-6              covered       childcare                                     Application for Crime Victim Compensation, Section 4; see ORC 2743.51(H)
     R19   OH-EXCL-1             excluded      -                                             Application for Crime Victim Compensation, program overview (Are there limits on compensation?)
     R20   OH-EXCL-2             excluded      -                                             ORC 2743.51(E)
-    R21   OH-DEADLINE-1         deadline      -                                             ORC 2743.56(B); ORC 2743.60(A)(2)(d)
+    R21   OH-DEADLINE-1         deadline      -                     from crime              ORC 2743.56(B); ORC 2743.60(A)(2)(d)
     R22   OH-DEADLINE-2         info          -                     filing_deadline         ORC 2743.60(A)(2)(b)
     R23   OH-REPORT-1           reporting     -                                             ORC 2743.60(A)(1)
     R24   OH-REPORT-2           reporting     -                                             Court of Claims FAQ: Do I need to File a police report in order to qualify for the program?
@@ -885,6 +885,7 @@
   01de  L27:  push     0
   01e3        cap      total_cap, R7                ; OH-CAP-1
   01e7  L28:  next     L25
+              ; OH-MIN-1  ORC 2743.191(B)(1)  "The attorney general shall provide for payment of the claimant..."
   01ec  L29:  push     0
   01f1        str      r0
   01f3        each     all, L31
@@ -898,9 +899,9 @@
               ; OH-MIN-1  ORC 2743.191(B)(1)  "The attorney general shall provide for payment of the claimant..."
   020b        ldr      r0
   020d        ldk      K5                           ; $50.00
-  0210        lt
-  0211        jz       L32
-  0216        push     3
+  0210        ge
+  0211        jnz      L32
+  0216        push     4
   021b        ldr      r2
   021d        max
   021e        str      r2

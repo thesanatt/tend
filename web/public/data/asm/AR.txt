@@ -1,10 +1,10 @@
 ; tend law image AR, Arkansas
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6
-; image sha256  39562c8c74282fe591cfcd17d592478b52867a9d934c7d07f29dee4c6e75f951
-; 44 rules, 18 sources, 26 proofs, 3 ints, 272 strings
+; image sha256  a3c67163b97c35a6ae1f51536aa96693801d129eb1dde5c762f7ad7b1fb28918
+; 44 rules, 18 sources, 26 proofs, 3 ints, 273 strings
 ; item program: 313 instructions, 1102 bytes, max stack 2
-; aggregate program: 142 instructions, 442 bytes, max stack 3, 4 loops
+; aggregate program: 138 instructions, 433 bytes, max stack 2, 4 loops
 
 .rules
     R0    AR-EXAM-1             exam_no_bill  -                                             A.C.A. 12-12-403(b)(1)
@@ -20,8 +20,8 @@
     R10   AR-CAP-4              expense_cap   medical               per claim               16 CAR 60-210(a)(1)
     R11   AR-CAP-5              expense_cap   funeral               per claim               16 CAR 60-205(b)(1)
     R12   AR-EMER-1             info          -                     emergency_award         16 CAR 60-207(b)(1)
-    R13   AR-DEAD-1             deadline      -                                             A.C.A. 16-90-712(a)(1)(A), as amended by Act 666 of 2025
-    R14   AR-DEAD-2             deadline      -                                             A.C.A. 16-90-712(a)(1)(B), as amended by Act 666 of 2025
+    R13   AR-DEAD-1             deadline      -                     from crime              A.C.A. 16-90-712(a)(1)(A), as amended by Act 666 of 2025
+    R14   AR-DEAD-2             info          -                     filing_deadline         A.C.A. 16-90-712(a)(1)(B), as amended by Act 666 of 2025
     R15   AR-REPORT-1           reporting     -                                             A.C.A. 16-90-712(a)(6)
     R16   AR-REPORT-2           reporting     -                                             16 CAR 60-203(c)(2)
     R17   AR-COLL-1             collateral    -                                             A.C.A. 16-90-712(b)(1)
@@ -98,9 +98,9 @@
     P20   (AR-COV-8, AR-EXAM-5, AR-COLL-1)
     P21   (AR-CAP-5)
     P22   (AR-CAP-5, AR-EXAM-5, AR-COLL-1)
-    P23   (AR-DEAD-1, AR-DEAD-2)
+    P23   (AR-DEAD-1)
     P24   (AR-EXAM-4, AR-REPORT-1, AR-REPORT-2)
-    P25   (AR-EXAM-5, AR-EMER-1, AR-COLL-1, AR-COND-1, AR-ELIG-1, AR-ELIG-2, AR-RES-1, AR-EXCL-2, AR-SUBMIT-1, AR-SUBMIT-2, AR-DOC-1, AR-DOC-2, AR-DOC-3, AR-DOC-4, AR-DOC-5, AR-DOC-6, AR-DOC-7, AR-ACP-1, AR-RECCONF-1)
+    P25   (AR-EXAM-5, AR-EMER-1, AR-DEAD-2, AR-COLL-1, AR-COND-1, AR-ELIG-1, AR-ELIG-2, AR-RES-1, AR-EXCL-2, AR-SUBMIT-1, AR-SUBMIT-2, AR-DOC-1, AR-DOC-2, AR-DOC-3, AR-DOC-4, AR-DOC-5, AR-DOC-6, AR-DOC-7, AR-ACP-1, AR-RECCONF-1)
 
 .ints
     K0    250000        ; $2,500.00
@@ -628,39 +628,35 @@
   0151        ldx      incident_date
   0153        push     1826
   0158        adds
-              ; AR-DEAD-2  A.C.A. 16-90-712(a)(1)(B), as amended by Act 666 of 2025  "If the victim is a minor, the claim is filed within five (5)..."
-  0159        ldx      incident_date
-  015b        push     1826
-  0160        adds
-  0161        max
-  0162        dup
-  0163        setdate
-  0164        ldx      as_of_date
-  0166        ge
-  0167        jz       L20
-  016c        push     0
-  0171        jmp      L21
-  0176  L20:  push     1                            ; late
-  017b  L21:  check    deadline, P23                ; AR-DEAD-1, AR-DEAD-2
+  0159        dup
+  015a        setdate
+  015b        ldx      as_of_date
+  015d        ge
+  015e        jz       L20
+  0163        push     0
+  0168        jmp      L21
+  016d  L20:  push     1                            ; late
+  0172  L21:  check    deadline, P23                ; AR-DEAD-1
               ; AR-EXAM-4  A.C.A. 12-12-403(b)(2)(A)  "This subsection does not require a victim of sexual assault to..."
               ; AR-REPORT-1  A.C.A. 16-90-712(a)(6)  "Unless the criminally injurious conduct resulting in injury or..."
               ; AR-REPORT-2  16 CAR 60-203(c)(2)  "Good cause shall include, but not be limited to, the: (A)..."
-  017f        ldx      police_report
-  0181        push     1                            ; yes
-  0186        eq
-  0187        jnz      L23
-  018c        ldx      police_report
-  018e        push     0                            ; no
-  0193        eq
-  0194        jnz      L22
-  0199        push     3
-  019e        jmp      L24
-  01a3  L22:  push     1
-  01a8        jmp      L24
-  01ad  L23:  push     0                            ; satisfied
-  01b2  L24:  check    reporting, P24               ; AR-EXAM-4, AR-REPORT-1, AR-REPORT-2
+  0176        ldx      police_report
+  0178        push     1                            ; yes
+  017d        eq
+  017e        jnz      L23
+  0183        ldx      police_report
+  0185        push     0                            ; no
+  018a        eq
+  018b        jnz      L22
+  0190        push     3
+  0195        jmp      L24
+  019a  L22:  push     1
+  019f        jmp      L24
+  01a4  L23:  push     0                            ; satisfied
+  01a9  L24:  check    reporting, P24               ; AR-EXAM-4, AR-REPORT-1, AR-REPORT-2
               ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
               ; AR-EMER-1  16 CAR 60-207(b)(1)  "The amount of such advance (emergency) award shall not exceed..."
+              ; AR-DEAD-2  A.C.A. 16-90-712(a)(1)(B), as amended by Act 666 of 2025  "If the victim is a minor, the claim is filed within five (5)..."
               ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
               ; AR-COND-1  A.C.A. 16-90-712(b)(2)  "Of the degree of responsibility for the cause of the injury or..."
               ; AR-ELIG-1  A.C.A. 16-90-703(10)  "“Personal injury” means actual bodily harm, including..."
@@ -678,6 +674,6 @@
               ; AR-DOC-7  Application, Section G, Request for Assistance with Crime Scene Clean Up  "Receipts or supporting documentation must be attached to this..."
               ; AR-ACP-1  DFA Address Confidentiality Program page, Program Description  "The Address Confidentiality Program is a free program..."
               ; AR-RECCONF-1  A.C.A. 16-90-711  "When submitted to the Crime Victims Reparations Board as part of..."
-  01b6        info     P25                          ; AR-EXAM-5, AR-EMER-1, AR-COLL-1, AR-COND-1, AR-ELIG-1, AR-ELIG-2, AR-RES-1, AR-EXCL-2, AR-SUBMIT-1, AR-SUBMIT-2, AR-DOC-1, AR-DOC-2, AR-DOC-3, AR-DOC-4, AR-DOC-5, AR-DOC-6, AR-DOC-7, AR-ACP-1, AR-RECCONF-1
-  01b9        ret
+  01ad        info     P25                          ; AR-EXAM-5, AR-EMER-1, AR-DEAD-2, AR-COLL-1, AR-COND-1, AR-ELIG-1, AR-ELIG-2, AR-RES-1, AR-EXCL-2, AR-SUBMIT-1, AR-SUBMIT-2, AR-DOC-1, AR-DOC-2, AR-DOC-3, AR-DOC-4, AR-DOC-5, AR-DOC-6, AR-DOC-7, AR-ACP-1, AR-RECCONF-1
+  01b0        ret
 

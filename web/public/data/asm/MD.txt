@@ -1,8 +1,8 @@
 ; tend law image MD, Maryland
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 a9697257fb43c68132cd4fde765e08356d52dd3953007ba7756317411868d43c
-; image sha256  262f5872a24544601566f2fa0a0c1a751f9f4dfc195bd241868d8acc0a3136ce
-; 49 rules, 16 sources, 24 proofs, 5 ints, 291 strings
+; image sha256  42ed384bd16e5eaa64e2aa4ef966559fea5f8679709cdd644fdbf5aa02d11a06
+; 49 rules, 16 sources, 24 proofs, 5 ints, 293 strings
 ; item program: 145 instructions, 476 bytes, max stack 2
 ; aggregate program: 208 instructions, 632 bytes, max stack 3, 7 loops
 
@@ -27,8 +27,8 @@
     R17   MD-COV-7              covered       property_replacement                          Md. Code, Crim. Proc. 11-810(d)(1)(v)
     R18   MD-COV-8              covered       security                                      Md. Code, Crim. Proc. 11-811(b)(5)
     R19   MD-COV-9              covered       medical                                       Md. Code, Crim. Proc. 11-810(d)(1)(ii)
-    R20   MD-DEADLINE-1         deadline      -                                             Md. Code, Crim. Proc. 11-809(a)(1)
-    R21   MD-DEADLINE-2         deadline      -                                             Md. Code, Crim. Proc. 11-809(a)(3)
+    R20   MD-DEADLINE-1         deadline      -                     from discovery          Md. Code, Crim. Proc. 11-809(a)(1)
+    R21   MD-DEADLINE-2         deadline      -                     from crime              Md. Code, Crim. Proc. 11-809(a)(3)
     R22   MD-DEADLINE-3         info          -                     filing_deadline         Md. Code, Crim. Proc. 11-809(a)(4)
     R23   MD-REPORT-1           reporting     -                                             Md. Code, Crim. Proc. 11-810(b)
     R24   MD-REPORT-2           reporting     -                                             Md. Code, Crim. Proc. 11-801(g)(3)
@@ -480,6 +480,7 @@
   01de  L27:  push     0
   01e3        cap      total_cap, R5                ; MD-CAP-1
   01e7  L28:  next     L25
+              ; MD-MIN-1  Md. Code, Crim. Proc. 11-810(d)  "The Board may make an award only if the claimant, as a result of..."
   01ec  L29:  push     0
   01f1        str      r0
   01f3        each     all, L31
@@ -493,9 +494,9 @@
               ; MD-MIN-1  Md. Code, Crim. Proc. 11-810(d)  "The Board may make an award only if the claimant, as a result of..."
   020b        ldr      r0
   020d        ldk      K4                           ; $100.00
-  0210        lt
-  0211        jz       L32
-  0216        push     3
+  0210        ge
+  0211        jnz      L32
+  0216        push     4
   021b        ldr      r2
   021d        max
   021e        str      r2

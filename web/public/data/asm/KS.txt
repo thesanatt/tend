@@ -1,10 +1,10 @@
 ; tend law image KS, Kansas
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 c2651dca2238df54a9bbb393caa43b949979de3d35988554ed147d11e14fa534
-; image sha256  5a6ba4a6e59a136cb74863b9e1f1fa42a9432c8f7c454e6699597cb7a793ea08
-; 46 rules, 15 sources, 25 proofs, 6 ints, 271 strings
+; image sha256  646874e871bb7c306ecc1024120acb2ab8f448764541295a5e3c03eb04274dc2
+; 46 rules, 15 sources, 25 proofs, 6 ints, 273 strings
 ; item program: 299 instructions, 1062 bytes, max stack 2
-; aggregate program: 178 instructions, 544 bytes, max stack 3, 6 loops
+; aggregate program: 187 instructions, 575 bytes, max stack 3, 6 loops
 
 .rules
     R0    KS-EXAM-1             exam_no_bill  -                                             K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1
@@ -24,10 +24,10 @@
     R14   KS-EXC-1              excluded      property_replacement                          Kansas AG Crime Victims Compensation page, overview
     R15   KS-EXC-2              excluded      -                                             Application, Eligible and Ineligible Expenses
     R16   KS-EXC-3              info          -                     excluded_expense        K.A.R. 20-2-9(d)
-    R17   KS-DEAD-1             deadline      -                                             K.S.A. 74-7305(b)(2)(A)-(B)
-    R18   KS-DEAD-2             deadline      -                                             K.S.A. 74-7305(b)(2)(C)(ii)(a)
-    R19   KS-DEAD-3             deadline      -                                             K.S.A. 74-7305(b)(2)(C)(ii)(b)
-    R20   KS-DEAD-4             deadline      -                                             K.S.A. 74-7305(b)(1)
+    R17   KS-DEAD-1             deadline      -                     from crime              K.S.A. 74-7305(b)(2)(A)-(B)
+    R18   KS-DEAD-2             deadline      -                     from crime              K.S.A. 74-7305(b)(2)(C)(ii)(a)
+    R19   KS-DEAD-3             info          -                     filing_deadline         K.S.A. 74-7305(b)(2)(C)(ii)(b)
+    R20   KS-DEAD-4             deadline      -                     from report             K.S.A. 74-7305(b)(1)
     R21   KS-REP-1              reporting     -                                             K.S.A. 74-7305(f)
     R22   KS-REP-2              info          -                     reporting_requirement   K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1
     R23   KS-CON-3              info          -                     conduct_reduction       K.S.A. 74-7305(g)
@@ -96,9 +96,9 @@
     P19   (KS-COV-4, KS-COL-1)
     P20   (KS-CAP-7)
     P21   (KS-CAP-7, KS-COL-1)
-    P22   (KS-DEAD-1, KS-DEAD-2, KS-DEAD-3, KS-DEAD-4)
+    P22   (KS-DEAD-1, KS-DEAD-2, KS-DEAD-4)
     P23   (KS-REP-1)
-    P24   (KS-EXC-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1)
+    P24   (KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1)
 
 .ints
     K0    80000         ; $800.00
@@ -485,192 +485,201 @@
 .aggregate
               ; KS-CAP-2  K.S.A. 74-7305(h)  "Compensation for work loss, replacement services loss..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $800.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R5                 ; KS-CAP-2
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R5                           ; rate_unverified KS-CAP-2
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $800.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R5                 ; KS-CAP-2
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R5                           ; rate_unverified KS-CAP-2
+  0040  L3:   next     L0
               ; KS-CAP-4  K.A.R. 20-2-3(f)(1)  "Individual and family mental health counseling in a nonmedical..."
-  0032  L4:   each     counseling, L9
-  0038  L5:   ldi      units
-  003a        jz       L7
-  003f        ldk      K1                           ; $90.00
-  0042        ldi      units
-  0044        muls
-  0045        dup
-  0046        lda
-  0047        lt
-  0048        jz       L6
-  004d        cap      unit_cap, R7                 ; KS-CAP-4
-  0051        jmp      L8
-  0056  L6:   pop
-  0057        jmp      L8
-  005c  L7:   flag     R7                           ; rate_unverified KS-CAP-4
-  005f  L8:   next     L5
+  0045  L4:   each     counseling, L9
+  004b  L5:   ldi      unit
+  004d        push     3                            ; hour
+  0052        eq
+  0053        jz       L7
+  0058        ldi      units
+  005a        push     0
+  005f        gt
+  0060        jz       L7
+  0065        ldk      K1                           ; $90.00
+  0068        ldi      units
+  006a        muls
+  006b        dup
+  006c        lda
+  006d        lt
+  006e        jz       L6
+  0073        cap      unit_cap, R7                 ; KS-CAP-4
+  0077        jmp      L8
+  007c  L6:   pop
+  007d        jmp      L8
+  0082  L7:   flag     R7                           ; rate_unverified KS-CAP-4
+  0085  L8:   next     L5
               ; KS-CAP-3  K.A.R. 20-2-3(a)  "Any victim of a crime may be considered for up to a $5,000..."
-  0064  L9:   push     0
-  0069        str      r0
-  006b        push     0
-  0070        str      r1
-  0072        each     counseling, L14
-  0078  L10:  ldr      r1
-  007a        jnz      L12
-  007f        ldr      r0
-  0081        lda
-  0082        adds
-  0083        ldk      K2                           ; $5,000.00
-  0086        gt
-  0087        jz       L11
-  008c        ldk      K2                           ; $5,000.00
-  008f        ldr      r0
-  0091        subs
-  0092        cap      expense_cap, R6              ; KS-CAP-3
-  0096        push     1
-  009b        str      r1
-  009d  L11:  ldr      r0
-  009f        lda
-  00a0        adds
-  00a1        str      r0
-  00a3        jmp      L13
-  00a8  L12:  push     0
-  00ad        cap      expense_cap, R6              ; KS-CAP-3
-  00b1  L13:  next     L10
+  008a  L9:   push     0
+  008f        str      r0
+  0091        push     0
+  0096        str      r1
+  0098        each     counseling, L14
+  009e  L10:  ldr      r1
+  00a0        jnz      L12
+  00a5        ldr      r0
+  00a7        lda
+  00a8        adds
+  00a9        ldk      K2                           ; $5,000.00
+  00ac        gt
+  00ad        jz       L11
+  00b2        ldk      K2                           ; $5,000.00
+  00b5        ldr      r0
+  00b7        subs
+  00b8        cap      expense_cap, R6              ; KS-CAP-3
+  00bc        push     1
+  00c1        str      r1
+  00c3  L11:  ldr      r0
+  00c5        lda
+  00c6        adds
+  00c7        str      r0
+  00c9        jmp      L13
+  00ce  L12:  push     0
+  00d3        cap      expense_cap, R6              ; KS-CAP-3
+  00d7  L13:  next     L10
               ; KS-CAP-6  K.S.A. 74-7301(a)  ""Allowance expense" includes a total charge not in excess of..."
-  00b6  L14:  push     0
-  00bb        str      r0
-  00bd        push     0
-  00c2        str      r1
-  00c4        each     crime_scene_cleanup, L19
-  00ca  L15:  ldr      r1
-  00cc        jnz      L17
-  00d1        ldr      r0
-  00d3        lda
-  00d4        adds
-  00d5        ldk      K3                           ; $2,500.00
-  00d8        gt
-  00d9        jz       L16
-  00de        ldk      K3                           ; $2,500.00
-  00e1        ldr      r0
-  00e3        subs
-  00e4        cap      expense_cap, R8              ; KS-CAP-6
-  00e8        push     1
-  00ed        str      r1
-  00ef  L16:  ldr      r0
-  00f1        lda
-  00f2        adds
-  00f3        str      r0
-  00f5        jmp      L18
-  00fa  L17:  push     0
-  00ff        cap      expense_cap, R8              ; KS-CAP-6
-  0103  L18:  next     L15
+  00dc  L14:  push     0
+  00e1        str      r0
+  00e3        push     0
+  00e8        str      r1
+  00ea        each     crime_scene_cleanup, L19
+  00f0  L15:  ldr      r1
+  00f2        jnz      L17
+  00f7        ldr      r0
+  00f9        lda
+  00fa        adds
+  00fb        ldk      K3                           ; $2,500.00
+  00fe        gt
+  00ff        jz       L16
+  0104        ldk      K3                           ; $2,500.00
+  0107        ldr      r0
+  0109        subs
+  010a        cap      expense_cap, R8              ; KS-CAP-6
+  010e        push     1
+  0113        str      r1
+  0115  L16:  ldr      r0
+  0117        lda
+  0118        adds
+  0119        str      r0
+  011b        jmp      L18
+  0120  L17:  push     0
+  0125        cap      expense_cap, R8              ; KS-CAP-6
+  0129  L18:  next     L15
               ; KS-CAP-7  K.S.A. 74-7301(a)  ""Allowance expense" includes a total charge not in excess of..."
-  0108  L19:  push     0
-  010d        str      r0
-  010f        push     0
-  0114        str      r1
-  0116        each     funeral, L24
-  011c  L20:  ldr      r1
-  011e        jnz      L22
-  0123        ldr      r0
-  0125        lda
-  0126        adds
-  0127        ldk      K4                           ; $7,500.00
-  012a        gt
-  012b        jz       L21
-  0130        ldk      K4                           ; $7,500.00
-  0133        ldr      r0
-  0135        subs
-  0136        cap      expense_cap, R9              ; KS-CAP-7
-  013a        push     1
-  013f        str      r1
-  0141  L21:  ldr      r0
-  0143        lda
-  0144        adds
-  0145        str      r0
-  0147        jmp      L23
-  014c  L22:  push     0
-  0151        cap      expense_cap, R9              ; KS-CAP-7
-  0155  L23:  next     L20
+  012e  L19:  push     0
+  0133        str      r0
+  0135        push     0
+  013a        str      r1
+  013c        each     funeral, L24
+  0142  L20:  ldr      r1
+  0144        jnz      L22
+  0149        ldr      r0
+  014b        lda
+  014c        adds
+  014d        ldk      K4                           ; $7,500.00
+  0150        gt
+  0151        jz       L21
+  0156        ldk      K4                           ; $7,500.00
+  0159        ldr      r0
+  015b        subs
+  015c        cap      expense_cap, R9              ; KS-CAP-7
+  0160        push     1
+  0165        str      r1
+  0167  L21:  ldr      r0
+  0169        lda
+  016a        adds
+  016b        str      r0
+  016d        jmp      L23
+  0172  L22:  push     0
+  0177        cap      expense_cap, R9              ; KS-CAP-7
+  017b  L23:  next     L20
               ; KS-CAP-1  K.S.A. 74-7305(i)  "Compensation payable to a victim and to all other claimants..."
-  015a  L24:  push     0
-  015f        str      r0
-  0161        push     0
-  0166        str      r1
-  0168        each     all, L29
-  016e  L25:  ldr      r1
-  0170        jnz      L27
-  0175        ldr      r0
-  0177        lda
-  0178        adds
-  0179        ldk      K5                           ; $25,000.00
-  017c        gt
-  017d        jz       L26
-  0182        ldk      K5                           ; $25,000.00
-  0185        ldr      r0
-  0187        subs
-  0188        cap      total_cap, R4                ; KS-CAP-1
-  018c        push     1
-  0191        str      r1
-  0193  L26:  ldr      r0
-  0195        lda
-  0196        adds
-  0197        str      r0
-  0199        jmp      L28
-  019e  L27:  push     0
-  01a3        cap      total_cap, R4                ; KS-CAP-1
-  01a7  L28:  next     L25
-  01ac  L29:  push     0                            ; met
-  01b1        check    minimum_loss, P0             ; (none)
-              ; KS-DEAD-1  K.S.A. 74-7305(b)(2)(A)-(B)  "(A) The claim has been filed with the division within five years..."
-  01b5        ldx      incident_date
-  01b7        push     1826
+  0180  L24:  push     0
+  0185        str      r0
+  0187        push     0
+  018c        str      r1
+  018e        each     all, L29
+  0194  L25:  ldr      r1
+  0196        jnz      L27
+  019b        ldr      r0
+  019d        lda
+  019e        adds
+  019f        ldk      K5                           ; $25,000.00
+  01a2        gt
+  01a3        jz       L26
+  01a8        ldk      K5                           ; $25,000.00
+  01ab        ldr      r0
+  01ad        subs
+  01ae        cap      total_cap, R4                ; KS-CAP-1
+  01b2        push     1
+  01b7        str      r1
+  01b9  L26:  ldr      r0
+  01bb        lda
   01bc        adds
+  01bd        str      r0
+  01bf        jmp      L28
+  01c4  L27:  push     0
+  01c9        cap      total_cap, R4                ; KS-CAP-1
+  01cd  L28:  next     L25
+  01d2  L29:  push     0                            ; met
+  01d7        check    minimum_loss, P0             ; (none)
+              ; KS-DEAD-1  K.S.A. 74-7305(b)(2)(A)-(B)  "(A) The claim has been filed with the division within five years..."
+  01db        ldx      incident_date
+  01dd        push     1826
+  01e2        adds
               ; KS-DEAD-2  K.S.A. 74-7305(b)(2)(C)(ii)(a)  "a victim of a sexually violent crime as defined in K.S.A...."
-  01bd        ldx      incident_date
-  01bf        push     3652
-  01c4        adds
-  01c5        max
-              ; KS-DEAD-3  K.S.A. 74-7305(b)(2)(C)(ii)(b)  "the victim was less than 18 years of age at the time such crime..."
-  01c6        ldx      incident_date
-  01c8        push     3652
-  01cd        adds
-  01ce        max
+  01e3        ldx      incident_date
+  01e5        push     3652
+  01ea        adds
+  01eb        max
               ; KS-DEAD-4  K.S.A. 74-7305(b)(1)  "Compensation may not be awarded unless an application has been..."
-  01cf        ldx      incident_date
-  01d1        push     730
-  01d6        adds
-  01d7        max
-  01d8        dup
-  01d9        setdate
-  01da        ldx      as_of_date
-  01dc        ge
-  01dd        jz       L30
-  01e2        push     0
-  01e7        jmp      L31
-  01ec  L30:  push     1                            ; late
-  01f1  L31:  check    deadline, P22                ; KS-DEAD-1, KS-DEAD-2, KS-DEAD-3, KS-DEAD-4
+  01ec        ldx      incident_date
+  01ee        push     730
+  01f3        adds
+  01f4        max
+  01f5        dup
+  01f6        setdate
+  01f7        ldx      as_of_date
+  01f9        ge
+  01fa        jz       L30
+  01ff        push     0
+  0204        jmp      L31
+  0209  L30:  push     1
+  020e  L31:  note     deadline_from_report
+  0210        check    deadline, P22                ; KS-DEAD-1, KS-DEAD-2, KS-DEAD-4
               ; KS-REP-1  K.S.A. 74-7305(f)  "Compensation may not be awarded unless: (1) The criminally..."
-  01f5        ldx      police_report
-  01f7        push     1                            ; yes
-  01fc        eq
-  01fd        jnz      L32
-  0202        ldx      forensic_exam
-  0204        jnz      L32
-  0209        push     2
-  020e        jmp      L33
-  0213  L32:  push     0                            ; satisfied
-  0218  L33:  check    reporting, P23               ; KS-REP-1
+  0214        ldx      police_report
+  0216        push     1                            ; yes
+  021b        eq
+  021c        jnz      L32
+  0221        ldx      forensic_exam
+  0223        jnz      L32
+  0228        push     2
+  022d        jmp      L33
+  0232  L32:  push     0                            ; satisfied
+  0237  L33:  check    reporting, P23               ; KS-REP-1
               ; KS-EXC-3  K.A.R. 20-2-9(d)  "Meal costs shall not be deemed allowable expenses."
+              ; KS-DEAD-3  K.S.A. 74-7305(b)(2)(C)(ii)(b)  "the victim was less than 18 years of age at the time such crime..."
               ; KS-REP-2  K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1  "refusal of the victim to report the alleged offense to law..."
               ; KS-CON-3  K.S.A. 74-7305(g)  "The board, upon finding that the claimant or victim has not..."
               ; KS-COL-1  K.S.A. 74-7305(d)(1)(A)  "Economic loss upon which the claimant's claim is based is..."
@@ -694,6 +703,6 @@
               ; KS-TIME-1  Application, How to File Your Application for Compensation  "The complete application/investigation process may take..."
               ; KS-ACP-1  How Safe at Home Works, Eligibility Criteria  "Anyone who is a victim of domestic violence, sexual assault..."
               ; KS-CONF-1  K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)  "All records and information given to the board and the crime..."
-  021c        info     P24                          ; KS-EXC-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1
-  021f        ret
+  023b        info     P24                          ; KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1
+  023e        ret
 

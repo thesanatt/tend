@@ -1,10 +1,10 @@
 ; tend law image MS, Mississippi
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 706056643c418206090ef1e852768f8d9a9d851a7cf0694568df0a0a20f58408
-; image sha256  f65aded7264d8c888734e8dc5ad346eeea0a9b7b2cd8d19980ac4d77d06a9f12
-; 63 rules, 11 sources, 30 proofs, 8 ints, 323 strings
-; item program: 197 instructions, 638 bytes, max stack 2
-; aggregate program: 326 instructions, 996 bytes, max stack 3, 11 loops
+; image sha256  b9656a65e891c31e3a676a100f656f569dc43bcd3028526f5aeb05860ff0ca26
+; 63 rules, 11 sources, 28 proofs, 8 ints, 324 strings
+; item program: 191 instructions, 618 bytes, max stack 2
+; aggregate program: 332 instructions, 1015 bytes, max stack 3, 11 loops
 
 .rules
     R0    MS-EXAM-1             exam_no_bill  -                                             Miss. Code Ann. 99-37-25(1)(a)
@@ -32,10 +32,10 @@
     R22   MS-COV-SECURITY       covered       security                                      3 Miss. Admin. Code Pt. 1, R. 300(2)(l)
     R23   MS-COV-CLEAN          covered       crime_scene_cleanup                           3 Miss. Admin. Code Pt. 1, R. 300(2)(j)
     R24   MS-COV-TUITION        covered       tuition                                       3 Miss. Admin. Code Pt. 1, R. 300(2)(n)
-    R25   MS-EXCL-PROP          excluded      property_replacement                          3 Miss. Admin. Code Pt. 1, R. 314(1)
-    R26   MS-EXCL-LEGAL         excluded      legal                                         3 Miss. Admin. Code Pt. 1, R. 314(1)
+    R25   MS-EXCL-PROP          info          -                     excluded_expense        3 Miss. Admin. Code Pt. 1, R. 314(1)
+    R26   MS-EXCL-LEGAL         info          -                     excluded_expense        3 Miss. Admin. Code Pt. 1, R. 314(1)
     R27   MS-EXCL-PAIN          excluded      other                                         3 Miss. Admin. Code Pt. 1, R. 314(1)
-    R28   MS-DEADLINE-1         deadline      -                                             Miss. Code Ann. 99-41-17(1)(b)
+    R28   MS-DEADLINE-1         deadline      -                     from crime              Miss. Code Ann. 99-41-17(1)(b)
     R29   MS-REPORT-1           reporting     -                                             Miss. Code Ann. 99-41-17(1)(e)
     R30   MS-REPORT-2           reporting     -                                             3 Miss. Admin. Code Pt. 1, R. 202(4)(c)
     R31   MS-COLLAT-1           collateral    -                                             Miss. Code Ann. 99-41-17(2)(a)
@@ -103,20 +103,18 @@
     P13   (MS-CAP-SECURITY, MS-COV-SECURITY, MS-COLLAT-1, MS-COLLAT-2)
     P14   (MS-CAP-CLEAN, MS-COV-CLEAN)
     P15   (MS-CAP-CLEAN, MS-COV-CLEAN, MS-COLLAT-1, MS-COLLAT-2)
-    P16   (MS-EXCL-PROP)
-    P17   (MS-COV-RX)
-    P18   (MS-COV-RX, MS-COLLAT-1, MS-COLLAT-2)
-    P19   (MS-COV-DENTAL)
-    P20   (MS-COV-DENTAL, MS-COLLAT-1, MS-COLLAT-2)
-    P21   (MS-CAP-FUNERAL)
-    P22   (MS-CAP-FUNERAL, MS-COLLAT-1, MS-COLLAT-2)
-    P23   (MS-EXCL-LEGAL)
-    P24   (MS-CAP-TUITION, MS-COV-TUITION)
-    P25   (MS-CAP-TUITION, MS-COV-TUITION, MS-COLLAT-1, MS-COLLAT-2)
-    P26   (MS-EXCL-PAIN)
-    P27   (MS-DEADLINE-1)
-    P28   (MS-REPORT-1, MS-REPORT-2)
-    P29   (MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-RES-2, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1)
+    P16   (MS-COV-RX)
+    P17   (MS-COV-RX, MS-COLLAT-1, MS-COLLAT-2)
+    P18   (MS-COV-DENTAL)
+    P19   (MS-COV-DENTAL, MS-COLLAT-1, MS-COLLAT-2)
+    P20   (MS-CAP-FUNERAL)
+    P21   (MS-CAP-FUNERAL, MS-COLLAT-1, MS-COLLAT-2)
+    P22   (MS-CAP-TUITION, MS-COV-TUITION)
+    P23   (MS-CAP-TUITION, MS-COV-TUITION, MS-COLLAT-1, MS-COLLAT-2)
+    P24   (MS-EXCL-PAIN)
+    P25   (MS-DEADLINE-1)
+    P26   (MS-REPORT-1, MS-REPORT-2)
+    P27   (MS-EXCL-PROP, MS-EXCL-LEGAL, MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-RES-2, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1)
 
 .ints
     K0    60000         ; $600.00
@@ -149,14 +147,14 @@
                         case security              -> L13
                         case crime_scene_cleanup   -> L15
                         case childcare             -> L8
-                        case property_replacement  -> L17
+                        case property_replacement  -> L8
                         case clothing_bedding      -> L8
-                        case prescription          -> L18
-                        case dental                -> L20
-                        case funeral               -> L22
-                        case legal                 -> L24
-                        case tuition               -> L25
-                        case other                 -> L27
+                        case prescription          -> L17
+                        case dental                -> L19
+                        case funeral               -> L21
+                        case legal                 -> L8
+                        case tuition               -> L23
+                        case other                 -> L25
                         case unknown               -> L8
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
@@ -297,444 +295,444 @@
   018a        max
   018b        seta     collateral, R31              ; MS-COLLAT-1
   018f        ret
-              ; MS-EXCL-PROP  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
-  0190  L17:  push     0
-  0195        decide   excluded, P16                ; MS-EXCL-PROP
-  0199        ret
               ; MS-COV-RX  3 Miss. Admin. Code Pt. 1, R. 301(1)  "Some examples of medical expenses include, but are not limited..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; MS-COLLAT-2  Application, General Eligibility Guidelines  "All other sources of payment such as insurance, Medicaid..."
-  019a  L18:  ldi      confirmed
-  019c        jnz      L19
-  01a1        push     0
-  01a6        decide   needs_confirmation, P17      ; MS-COV-RX
-  01aa        ret
-  01ab  L19:  ldi      amount_cents
-  01ad        decide   eligible, P18                ; MS-COV-RX, MS-COLLAT-1, MS-COLLAT-2
-  01b1        lda
-  01b2        ldi      insurance_paid_cents
-  01b4        subs
-  01b5        push     0
-  01ba        max
-  01bb        seta     collateral, R31              ; MS-COLLAT-1
-  01bf        ret
+  0190  L17:  ldi      confirmed
+  0192        jnz      L18
+  0197        push     0
+  019c        decide   needs_confirmation, P16      ; MS-COV-RX
+  01a0        ret
+  01a1  L18:  ldi      amount_cents
+  01a3        decide   eligible, P17                ; MS-COV-RX, MS-COLLAT-1, MS-COLLAT-2
+  01a7        lda
+  01a8        ldi      insurance_paid_cents
+  01aa        subs
+  01ab        push     0
+  01b0        max
+  01b1        seta     collateral, R31              ; MS-COLLAT-1
+  01b5        ret
               ; MS-COV-DENTAL  3 Miss. Admin. Code Pt. 1, R. 301(3)  "dental care and services may be eligible if treatment is..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; MS-COLLAT-2  Application, General Eligibility Guidelines  "All other sources of payment such as insurance, Medicaid..."
-  01c0  L20:  ldi      confirmed
-  01c2        jnz      L21
-  01c7        push     0
-  01cc        decide   needs_confirmation, P19      ; MS-COV-DENTAL
-  01d0        ret
-  01d1  L21:  ldi      amount_cents
-  01d3        decide   eligible, P20                ; MS-COV-DENTAL, MS-COLLAT-1, MS-COLLAT-2
-  01d7        lda
-  01d8        ldi      insurance_paid_cents
-  01da        subs
-  01db        push     0
-  01e0        max
-  01e1        seta     collateral, R31              ; MS-COLLAT-1
-  01e5        ret
+  01b6  L19:  ldi      confirmed
+  01b8        jnz      L20
+  01bd        push     0
+  01c2        decide   needs_confirmation, P18      ; MS-COV-DENTAL
+  01c6        ret
+  01c7  L20:  ldi      amount_cents
+  01c9        decide   eligible, P19                ; MS-COV-DENTAL, MS-COLLAT-1, MS-COLLAT-2
+  01cd        lda
+  01ce        ldi      insurance_paid_cents
+  01d0        subs
+  01d1        push     0
+  01d6        max
+  01d7        seta     collateral, R31              ; MS-COLLAT-1
+  01db        ret
               ; MS-CAP-FUNERAL  Miss. Code Ann. 99-41-5(a)(iii)  "Expenses related to funeral, cremation or burial, but not to..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; MS-COLLAT-2  Application, General Eligibility Guidelines  "All other sources of payment such as insurance, Medicaid..."
-  01e6  L22:  ldi      confirmed
-  01e8        jnz      L23
-  01ed        push     0
-  01f2        decide   needs_confirmation, P21      ; MS-CAP-FUNERAL
-  01f6        ret
-  01f7  L23:  ldi      amount_cents
-  01f9        decide   eligible, P22                ; MS-CAP-FUNERAL, MS-COLLAT-1, MS-COLLAT-2
-  01fd        lda
-  01fe        ldi      insurance_paid_cents
-  0200        subs
-  0201        push     0
-  0206        max
-  0207        seta     collateral, R31              ; MS-COLLAT-1
-  020b        ret
-              ; MS-EXCL-LEGAL  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
-  020c  L24:  push     0
-  0211        decide   excluded, P23                ; MS-EXCL-LEGAL
-  0215        ret
+  01dc  L21:  ldi      confirmed
+  01de        jnz      L22
+  01e3        push     0
+  01e8        decide   needs_confirmation, P20      ; MS-CAP-FUNERAL
+  01ec        ret
+  01ed  L22:  ldi      amount_cents
+  01ef        decide   eligible, P21                ; MS-CAP-FUNERAL, MS-COLLAT-1, MS-COLLAT-2
+  01f3        lda
+  01f4        ldi      insurance_paid_cents
+  01f6        subs
+  01f7        push     0
+  01fc        max
+  01fd        seta     collateral, R31              ; MS-COLLAT-1
+  0201        ret
               ; MS-CAP-TUITION  3 Miss. Admin. Code Pt. 1, R. 312(5)(e)  "Compensation for tuition loss may not exceed Two Thousand..."
               ; MS-COV-TUITION  3 Miss. Admin. Code Pt. 1, R. 300(2)(n)  "Tuition Loss – Tuition reimbursement for a victim/claimant..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; MS-COLLAT-2  Application, General Eligibility Guidelines  "All other sources of payment such as insurance, Medicaid..."
-  0216  L25:  ldi      confirmed
-  0218        jnz      L26
+  0202  L23:  ldi      confirmed
+  0204        jnz      L24
+  0209        push     0
+  020e        decide   needs_confirmation, P22      ; MS-CAP-TUITION, MS-COV-TUITION
+  0212        ret
+  0213  L24:  ldi      amount_cents
+  0215        decide   eligible, P23                ; MS-CAP-TUITION, MS-COV-TUITION, MS-COLLAT-1, MS-COLLAT-2
+  0219        lda
+  021a        ldi      insurance_paid_cents
+  021c        subs
   021d        push     0
-  0222        decide   needs_confirmation, P24      ; MS-CAP-TUITION, MS-COV-TUITION
-  0226        ret
-  0227  L26:  ldi      amount_cents
-  0229        decide   eligible, P25                ; MS-CAP-TUITION, MS-COV-TUITION, MS-COLLAT-1, MS-COLLAT-2
-  022d        lda
-  022e        ldi      insurance_paid_cents
-  0230        subs
-  0231        push     0
-  0236        max
-  0237        seta     collateral, R31              ; MS-COLLAT-1
-  023b        ret
+  0222        max
+  0223        seta     collateral, R31              ; MS-COLLAT-1
+  0227        ret
               ; MS-EXCL-PAIN  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
-  023c  L27:  push     0
-  0241        str      r0
-  0243        ldi      tags
-  0245        push     1
-  024a        and
-  024b        jz       L28
-  0250        ldr      r0
-  0252        push     1
-  0257        or
-  0258        str      r0
-  025a  L28:  ldr      r0
-  025c        switch   2, default L30
-                        case 0                     -> L30
-                        case 1                     -> L29
-  026a  L29:  push     0
-  026f        decide   excluded, P26                ; MS-EXCL-PAIN
-  0273        ret
-  0274  L30:  push     0
-  0279        decide   unknown_rule, P0             ; (none)
-  027d        ret
+  0228  L25:  push     0
+  022d        str      r0
+  022f        ldi      tags
+  0231        push     1
+  0236        and
+  0237        jz       L26
+  023c        ldr      r0
+  023e        push     1
+  0243        or
+  0244        str      r0
+  0246  L26:  ldr      r0
+  0248        switch   2, default L28
+                        case 0                     -> L28
+                        case 1                     -> L27
+  0256  L27:  push     0
+  025b        decide   excluded, P24                ; MS-EXCL-PAIN
+  025f        ret
+  0260  L28:  push     0
+  0265        decide   unknown_rule, P0             ; (none)
+  0269        ret
 
 .aggregate
               ; MS-CAP-WAGES  Miss. Code Ann. 99-41-23(1)  "Compensation for work loss may not exceed Six Hundred Dollars..."
   0000        push     52
   0005        str      r3
   0007        each     lost_wages, L4
-  000d  L0:   ldi      units
-  000f        jz       L2
-  0014        ldi      units
-  0016        ldr      r3
-  0018        min
-  0019        str      r4
-  001b        ldr      r3
-  001d        ldr      r4
-  001f        subs
-  0020        str      r3
-  0022        ldk      K0                           ; $600.00
-  0025        ldr      r4
-  0027        muls
-  0028        dup
-  0029        lda
-  002a        lt
-  002b        jz       L1
-  0030        cap      unit_cap, R8                 ; MS-CAP-WAGES
-  0034        jmp      L3
-  0039  L1:   pop
-  003a        jmp      L3
-  003f  L2:   flag     R8                           ; rate_unverified MS-CAP-WAGES
-  0042  L3:   next     L0
+  000d  L0:   ldi      unit
+  000f        push     2                            ; week
+  0014        eq
+  0015        jz       L2
+  001a        ldi      units
+  001c        push     0
+  0021        gt
+  0022        jz       L2
+  0027        ldi      units
+  0029        ldr      r3
+  002b        min
+  002c        str      r4
+  002e        ldr      r3
+  0030        ldr      r4
+  0032        subs
+  0033        str      r3
+  0035        ldk      K0                           ; $600.00
+  0038        ldr      r4
+  003a        muls
+  003b        dup
+  003c        lda
+  003d        lt
+  003e        jz       L1
+  0043        cap      unit_cap, R8                 ; MS-CAP-WAGES
+  0047        jmp      L3
+  004c  L1:   pop
+  004d        jmp      L3
+  0052  L2:   flag     R8                           ; rate_unverified MS-CAP-WAGES
+  0055  L3:   next     L0
               ; MS-EXAM-5  3 Miss. Admin. Code Pt. 1, R. 604(1)  "The Office of the Attorney General will pay up to $1,000.00 per..."
-  0047  L4:   push     0
-  004c        str      r0
-  004e        push     0
-  0053        str      r1
-  0055        each     forensic_exam, L9
-  005b  L5:   ldr      r1
-  005d        jnz      L7
-  0062        ldr      r0
-  0064        lda
-  0065        adds
-  0066        ldk      K1                           ; $1,000.00
-  0069        gt
-  006a        jz       L6
-  006f        ldk      K1                           ; $1,000.00
-  0072        ldr      r0
-  0074        subs
-  0075        cap      expense_cap, R4              ; MS-EXAM-5
-  0079        push     1
-  007e        str      r1
-  0080  L6:   ldr      r0
-  0082        lda
-  0083        adds
-  0084        str      r0
-  0086        jmp      L8
-  008b  L7:   push     0
-  0090        cap      expense_cap, R4              ; MS-EXAM-5
-  0094  L8:   next     L5
+  005a  L4:   push     0
+  005f        str      r0
+  0061        push     0
+  0066        str      r1
+  0068        each     forensic_exam, L9
+  006e  L5:   ldr      r1
+  0070        jnz      L7
+  0075        ldr      r0
+  0077        lda
+  0078        adds
+  0079        ldk      K1                           ; $1,000.00
+  007c        gt
+  007d        jz       L6
+  0082        ldk      K1                           ; $1,000.00
+  0085        ldr      r0
+  0087        subs
+  0088        cap      expense_cap, R4              ; MS-EXAM-5
+  008c        push     1
+  0091        str      r1
+  0093  L6:   ldr      r0
+  0095        lda
+  0096        adds
+  0097        str      r0
+  0099        jmp      L8
+  009e  L7:   push     0
+  00a3        cap      expense_cap, R4              ; MS-EXAM-5
+  00a7  L8:   next     L5
               ; MS-CAP-MED  Miss. Code Ann. 99-41-5(a)(i)  "medical care, rehabilitation, rehabilitative occupational..."
-  0099  L9:   push     0
-  009e        str      r0
-  00a0        push     0
-  00a5        str      r1
-  00a7        each     medical, L14
-  00ad  L10:  ldr      r1
-  00af        jnz      L12
-  00b4        ldr      r0
-  00b6        lda
-  00b7        adds
-  00b8        ldk      K2                           ; $15,000.00
-  00bb        gt
-  00bc        jz       L11
-  00c1        ldk      K2                           ; $15,000.00
-  00c4        ldr      r0
-  00c6        subs
-  00c7        cap      expense_cap, R6              ; MS-CAP-MED
-  00cb        push     1
-  00d0        str      r1
-  00d2  L11:  ldr      r0
-  00d4        lda
-  00d5        adds
-  00d6        str      r0
-  00d8        jmp      L13
-  00dd  L12:  push     0
-  00e2        cap      expense_cap, R6              ; MS-CAP-MED
-  00e6  L13:  next     L10
+  00ac  L9:   push     0
+  00b1        str      r0
+  00b3        push     0
+  00b8        str      r1
+  00ba        each     medical, L14
+  00c0  L10:  ldr      r1
+  00c2        jnz      L12
+  00c7        ldr      r0
+  00c9        lda
+  00ca        adds
+  00cb        ldk      K2                           ; $15,000.00
+  00ce        gt
+  00cf        jz       L11
+  00d4        ldk      K2                           ; $15,000.00
+  00d7        ldr      r0
+  00d9        subs
+  00da        cap      expense_cap, R6              ; MS-CAP-MED
+  00de        push     1
+  00e3        str      r1
+  00e5  L11:  ldr      r0
+  00e7        lda
+  00e8        adds
+  00e9        str      r0
+  00eb        jmp      L13
+  00f0  L12:  push     0
+  00f5        cap      expense_cap, R6              ; MS-CAP-MED
+  00f9  L13:  next     L10
               ; MS-CAP-COUNS  Miss. Code Ann. 99-41-5(a)(ii)  "Mental health counseling and care not to exceed Three Thousand..."
-  00eb  L14:  push     0
-  00f0        str      r0
-  00f2        push     0
-  00f7        str      r1
-  00f9        each     counseling, L19
-  00ff  L15:  ldr      r1
-  0101        jnz      L17
-  0106        ldr      r0
-  0108        lda
-  0109        adds
-  010a        ldk      K3                           ; $3,500.00
-  010d        gt
-  010e        jz       L16
-  0113        ldk      K3                           ; $3,500.00
-  0116        ldr      r0
-  0118        subs
-  0119        cap      expense_cap, R7              ; MS-CAP-COUNS
-  011d        push     1
-  0122        str      r1
-  0124  L16:  ldr      r0
-  0126        lda
-  0127        adds
-  0128        str      r0
-  012a        jmp      L18
-  012f  L17:  push     0
-  0134        cap      expense_cap, R7              ; MS-CAP-COUNS
-  0138  L18:  next     L15
+  00fe  L14:  push     0
+  0103        str      r0
+  0105        push     0
+  010a        str      r1
+  010c        each     counseling, L19
+  0112  L15:  ldr      r1
+  0114        jnz      L17
+  0119        ldr      r0
+  011b        lda
+  011c        adds
+  011d        ldk      K3                           ; $3,500.00
+  0120        gt
+  0121        jz       L16
+  0126        ldk      K3                           ; $3,500.00
+  0129        ldr      r0
+  012b        subs
+  012c        cap      expense_cap, R7              ; MS-CAP-COUNS
+  0130        push     1
+  0135        str      r1
+  0137  L16:  ldr      r0
+  0139        lda
+  013a        adds
+  013b        str      r0
+  013d        jmp      L18
+  0142  L17:  push     0
+  0147        cap      expense_cap, R7              ; MS-CAP-COUNS
+  014b  L18:  next     L15
               ; MS-CAP-RELOC  3 Miss. Admin. Code Pt. 1, R. 307(13)(b)  "Compensation for relocation assistance may not exceed Two..."
-  013d  L19:  push     0
-  0142        str      r0
-  0144        push     0
-  0149        str      r1
-  014b        each     relocation, L24
-  0151  L20:  ldr      r1
-  0153        jnz      L22
-  0158        ldr      r0
-  015a        lda
-  015b        adds
-  015c        ldk      K4                           ; $2,000.00
-  015f        gt
-  0160        jz       L21
-  0165        ldk      K4                           ; $2,000.00
-  0168        ldr      r0
-  016a        subs
-  016b        cap      expense_cap, R9              ; MS-CAP-RELOC
-  016f        push     1
-  0174        str      r1
-  0176  L21:  ldr      r0
-  0178        lda
-  0179        adds
-  017a        str      r0
-  017c        jmp      L23
-  0181  L22:  push     0
-  0186        cap      expense_cap, R9              ; MS-CAP-RELOC
-  018a  L23:  next     L20
+  0150  L19:  push     0
+  0155        str      r0
+  0157        push     0
+  015c        str      r1
+  015e        each     relocation, L24
+  0164  L20:  ldr      r1
+  0166        jnz      L22
+  016b        ldr      r0
+  016d        lda
+  016e        adds
+  016f        ldk      K4                           ; $2,000.00
+  0172        gt
+  0173        jz       L21
+  0178        ldk      K4                           ; $2,000.00
+  017b        ldr      r0
+  017d        subs
+  017e        cap      expense_cap, R9              ; MS-CAP-RELOC
+  0182        push     1
+  0187        str      r1
+  0189  L21:  ldr      r0
+  018b        lda
+  018c        adds
+  018d        str      r0
+  018f        jmp      L23
+  0194  L22:  push     0
+  0199        cap      expense_cap, R9              ; MS-CAP-RELOC
+  019d  L23:  next     L20
               ; MS-CAP-HOUSING  3 Miss. Admin. Code Pt. 1, R. 306(11)(a)  "Compensation for temporary housing assistance may not exceed..."
-  018f  L24:  push     0
-  0194        str      r0
-  0196        push     0
-  019b        str      r1
-  019d        each     temporary_housing, L29
-  01a3  L25:  ldr      r1
-  01a5        jnz      L27
-  01aa        ldr      r0
-  01ac        lda
-  01ad        adds
-  01ae        ldk      K5                           ; $500.00
-  01b1        gt
-  01b2        jz       L26
-  01b7        ldk      K5                           ; $500.00
-  01ba        ldr      r0
-  01bc        subs
-  01bd        cap      expense_cap, R10             ; MS-CAP-HOUSING
-  01c1        push     1
-  01c6        str      r1
-  01c8  L26:  ldr      r0
-  01ca        lda
-  01cb        adds
-  01cc        str      r0
-  01ce        jmp      L28
-  01d3  L27:  push     0
-  01d8        cap      expense_cap, R10             ; MS-CAP-HOUSING
-  01dc  L28:  next     L25
+  01a2  L24:  push     0
+  01a7        str      r0
+  01a9        push     0
+  01ae        str      r1
+  01b0        each     temporary_housing, L29
+  01b6  L25:  ldr      r1
+  01b8        jnz      L27
+  01bd        ldr      r0
+  01bf        lda
+  01c0        adds
+  01c1        ldk      K5                           ; $500.00
+  01c4        gt
+  01c5        jz       L26
+  01ca        ldk      K5                           ; $500.00
+  01cd        ldr      r0
+  01cf        subs
+  01d0        cap      expense_cap, R10             ; MS-CAP-HOUSING
+  01d4        push     1
+  01d9        str      r1
+  01db  L26:  ldr      r0
+  01dd        lda
+  01de        adds
+  01df        str      r0
+  01e1        jmp      L28
+  01e6  L27:  push     0
+  01eb        cap      expense_cap, R10             ; MS-CAP-HOUSING
+  01ef  L28:  next     L25
               ; MS-CAP-SECURITY  3 Miss. Admin. Code Pt. 1, R. 310(7)  "Compensation for repair and/or replacement costs may not exceed..."
-  01e1  L29:  push     0
-  01e6        str      r0
-  01e8        push     0
-  01ed        str      r1
-  01ef        each     security, L34
-  01f5  L30:  ldr      r1
-  01f7        jnz      L32
-  01fc        ldr      r0
-  01fe        lda
-  01ff        adds
-  0200        ldk      K1                           ; $1,000.00
-  0203        gt
-  0204        jz       L31
-  0209        ldk      K1                           ; $1,000.00
-  020c        ldr      r0
-  020e        subs
-  020f        cap      expense_cap, R11             ; MS-CAP-SECURITY
-  0213        push     1
-  0218        str      r1
-  021a  L31:  ldr      r0
-  021c        lda
-  021d        adds
-  021e        str      r0
-  0220        jmp      L33
-  0225  L32:  push     0
-  022a        cap      expense_cap, R11             ; MS-CAP-SECURITY
-  022e  L33:  next     L30
+  01f4  L29:  push     0
+  01f9        str      r0
+  01fb        push     0
+  0200        str      r1
+  0202        each     security, L34
+  0208  L30:  ldr      r1
+  020a        jnz      L32
+  020f        ldr      r0
+  0211        lda
+  0212        adds
+  0213        ldk      K1                           ; $1,000.00
+  0216        gt
+  0217        jz       L31
+  021c        ldk      K1                           ; $1,000.00
+  021f        ldr      r0
+  0221        subs
+  0222        cap      expense_cap, R11             ; MS-CAP-SECURITY
+  0226        push     1
+  022b        str      r1
+  022d  L31:  ldr      r0
+  022f        lda
+  0230        adds
+  0231        str      r0
+  0233        jmp      L33
+  0238  L32:  push     0
+  023d        cap      expense_cap, R11             ; MS-CAP-SECURITY
+  0241  L33:  next     L30
               ; MS-CAP-CLEAN  3 Miss. Admin. Code Pt. 1, R. 308(7)(e)  "Compensation for crime scene cleanup may not exceed One Thousand..."
-  0233  L34:  push     0
-  0238        str      r0
-  023a        push     0
-  023f        str      r1
-  0241        each     crime_scene_cleanup, L39
-  0247  L35:  ldr      r1
-  0249        jnz      L37
-  024e        ldr      r0
-  0250        lda
-  0251        adds
-  0252        ldk      K1                           ; $1,000.00
-  0255        gt
-  0256        jz       L36
-  025b        ldk      K1                           ; $1,000.00
-  025e        ldr      r0
-  0260        subs
-  0261        cap      expense_cap, R12             ; MS-CAP-CLEAN
-  0265        push     1
-  026a        str      r1
-  026c  L36:  ldr      r0
-  026e        lda
-  026f        adds
-  0270        str      r0
-  0272        jmp      L38
-  0277  L37:  push     0
-  027c        cap      expense_cap, R12             ; MS-CAP-CLEAN
-  0280  L38:  next     L35
+  0246  L34:  push     0
+  024b        str      r0
+  024d        push     0
+  0252        str      r1
+  0254        each     crime_scene_cleanup, L39
+  025a  L35:  ldr      r1
+  025c        jnz      L37
+  0261        ldr      r0
+  0263        lda
+  0264        adds
+  0265        ldk      K1                           ; $1,000.00
+  0268        gt
+  0269        jz       L36
+  026e        ldk      K1                           ; $1,000.00
+  0271        ldr      r0
+  0273        subs
+  0274        cap      expense_cap, R12             ; MS-CAP-CLEAN
+  0278        push     1
+  027d        str      r1
+  027f  L36:  ldr      r0
+  0281        lda
+  0282        adds
+  0283        str      r0
+  0285        jmp      L38
+  028a  L37:  push     0
+  028f        cap      expense_cap, R12             ; MS-CAP-CLEAN
+  0293  L38:  next     L35
               ; MS-CAP-TUITION  3 Miss. Admin. Code Pt. 1, R. 312(5)(e)  "Compensation for tuition loss may not exceed Two Thousand..."
-  0285  L39:  push     0
-  028a        str      r0
-  028c        push     0
-  0291        str      r1
-  0293        each     tuition, L44
-  0299  L40:  ldr      r1
-  029b        jnz      L42
-  02a0        ldr      r0
-  02a2        lda
-  02a3        adds
-  02a4        ldk      K4                           ; $2,000.00
-  02a7        gt
-  02a8        jz       L41
-  02ad        ldk      K4                           ; $2,000.00
-  02b0        ldr      r0
-  02b2        subs
-  02b3        cap      expense_cap, R13             ; MS-CAP-TUITION
-  02b7        push     1
-  02bc        str      r1
-  02be  L41:  ldr      r0
-  02c0        lda
-  02c1        adds
-  02c2        str      r0
-  02c4        jmp      L43
-  02c9  L42:  push     0
-  02ce        cap      expense_cap, R13             ; MS-CAP-TUITION
-  02d2  L43:  next     L40
+  0298  L39:  push     0
+  029d        str      r0
+  029f        push     0
+  02a4        str      r1
+  02a6        each     tuition, L44
+  02ac  L40:  ldr      r1
+  02ae        jnz      L42
+  02b3        ldr      r0
+  02b5        lda
+  02b6        adds
+  02b7        ldk      K4                           ; $2,000.00
+  02ba        gt
+  02bb        jz       L41
+  02c0        ldk      K4                           ; $2,000.00
+  02c3        ldr      r0
+  02c5        subs
+  02c6        cap      expense_cap, R13             ; MS-CAP-TUITION
+  02ca        push     1
+  02cf        str      r1
+  02d1  L41:  ldr      r0
+  02d3        lda
+  02d4        adds
+  02d5        str      r0
+  02d7        jmp      L43
+  02dc  L42:  push     0
+  02e1        cap      expense_cap, R13             ; MS-CAP-TUITION
+  02e5  L43:  next     L40
               ; MS-CAP-FUNERAL  Miss. Code Ann. 99-41-5(a)(iii)  "Expenses related to funeral, cremation or burial, but not to..."
-  02d7  L44:  push     0
-  02dc        str      r0
-  02de        push     0
-  02e3        str      r1
-  02e5        each     funeral, L49
-  02eb  L45:  ldr      r1
-  02ed        jnz      L47
-  02f2        ldr      r0
-  02f4        lda
-  02f5        adds
-  02f6        ldk      K6                           ; $6,500.00
-  02f9        gt
-  02fa        jz       L46
-  02ff        ldk      K6                           ; $6,500.00
-  0302        ldr      r0
-  0304        subs
-  0305        cap      expense_cap, R14             ; MS-CAP-FUNERAL
-  0309        push     1
-  030e        str      r1
-  0310  L46:  ldr      r0
-  0312        lda
-  0313        adds
-  0314        str      r0
-  0316        jmp      L48
-  031b  L47:  push     0
-  0320        cap      expense_cap, R14             ; MS-CAP-FUNERAL
-  0324  L48:  next     L45
+  02ea  L44:  push     0
+  02ef        str      r0
+  02f1        push     0
+  02f6        str      r1
+  02f8        each     funeral, L49
+  02fe  L45:  ldr      r1
+  0300        jnz      L47
+  0305        ldr      r0
+  0307        lda
+  0308        adds
+  0309        ldk      K6                           ; $6,500.00
+  030c        gt
+  030d        jz       L46
+  0312        ldk      K6                           ; $6,500.00
+  0315        ldr      r0
+  0317        subs
+  0318        cap      expense_cap, R14             ; MS-CAP-FUNERAL
+  031c        push     1
+  0321        str      r1
+  0323  L46:  ldr      r0
+  0325        lda
+  0326        adds
+  0327        str      r0
+  0329        jmp      L48
+  032e  L47:  push     0
+  0333        cap      expense_cap, R14             ; MS-CAP-FUNERAL
+  0337  L48:  next     L45
               ; MS-CAP-1  Miss. Code Ann. 99-41-23(4)  "Compensation payable to a victim and to all other claimants..."
-  0329  L49:  push     0
-  032e        str      r0
-  0330        push     0
-  0335        str      r1
-  0337        each     all, L54
-  033d  L50:  ldr      r1
-  033f        jnz      L52
-  0344        ldr      r0
-  0346        lda
-  0347        adds
-  0348        ldk      K7                           ; $20,000.00
-  034b        gt
-  034c        jz       L51
-  0351        ldk      K7                           ; $20,000.00
-  0354        ldr      r0
-  0356        subs
-  0357        cap      total_cap, R5                ; MS-CAP-1
-  035b        push     1
-  0360        str      r1
-  0362  L51:  ldr      r0
-  0364        lda
-  0365        adds
-  0366        str      r0
-  0368        jmp      L53
-  036d  L52:  push     0
-  0372        cap      total_cap, R5                ; MS-CAP-1
-  0376  L53:  next     L50
-  037b  L54:  push     0                            ; met
-  0380        check    minimum_loss, P0             ; (none)
+  033c  L49:  push     0
+  0341        str      r0
+  0343        push     0
+  0348        str      r1
+  034a        each     all, L54
+  0350  L50:  ldr      r1
+  0352        jnz      L52
+  0357        ldr      r0
+  0359        lda
+  035a        adds
+  035b        ldk      K7                           ; $20,000.00
+  035e        gt
+  035f        jz       L51
+  0364        ldk      K7                           ; $20,000.00
+  0367        ldr      r0
+  0369        subs
+  036a        cap      total_cap, R5                ; MS-CAP-1
+  036e        push     1
+  0373        str      r1
+  0375  L51:  ldr      r0
+  0377        lda
+  0378        adds
+  0379        str      r0
+  037b        jmp      L53
+  0380  L52:  push     0
+  0385        cap      total_cap, R5                ; MS-CAP-1
+  0389  L53:  next     L50
+  038e  L54:  push     0                            ; met
+  0393        check    minimum_loss, P0             ; (none)
               ; MS-DEADLINE-1  Miss. Code Ann. 99-41-17(1)(b)  "Unless the claim has been filed with the director within..."
-  0384        ldx      incident_date
-  0386        push     1080
-  038b        adds
-  038c        dup
-  038d        setdate
-  038e        ldx      as_of_date
-  0390        ge
-  0391        jz       L55
-  0396        push     0
-  039b        jmp      L56
-  03a0  L55:  push     1                            ; late
-  03a5  L56:  check    deadline, P27                ; MS-DEADLINE-1
+  0397        ldx      incident_date
+  0399        push     1080
+  039e        adds
+  039f        dup
+  03a0        setdate
+  03a1        ldx      as_of_date
+  03a3        ge
+  03a4        jz       L55
+  03a9        push     0
+  03ae        jmp      L56
+  03b3  L55:  push     1                            ; late
+  03b8  L56:  check    deadline, P25                ; MS-DEADLINE-1
               ; MS-REPORT-1  Miss. Code Ann. 99-41-17(1)(e)  "Unless the criminally injurious conduct resulting in injury or..."
               ; MS-REPORT-2  3 Miss. Admin. Code Pt. 1, R. 202(4)(c)  "The psychological state and any compelling health or safety..."
-  03a9        ldx      police_report
-  03ab        push     1                            ; yes
-  03b0        eq
-  03b1        jnz      L58
-  03b6        ldx      police_report
-  03b8        push     0                            ; no
-  03bd        eq
-  03be        jnz      L57
-  03c3        push     3
-  03c8        jmp      L59
-  03cd  L57:  push     1
-  03d2        jmp      L59
-  03d7  L58:  push     0                            ; satisfied
-  03dc  L59:  check    reporting, P28               ; MS-REPORT-1, MS-REPORT-2
+  03bc        ldx      police_report
+  03be        push     1                            ; yes
+  03c3        eq
+  03c4        jnz      L58
+  03c9        ldx      police_report
+  03cb        push     0                            ; no
+  03d0        eq
+  03d1        jnz      L57
+  03d6        push     3
+  03db        jmp      L59
+  03e0  L57:  push     1
+  03e5        jmp      L59
+  03ea  L58:  push     0                            ; satisfied
+  03ef  L59:  check    reporting, P26               ; MS-REPORT-1, MS-REPORT-2
+              ; MS-EXCL-PROP  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
+              ; MS-EXCL-LEGAL  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; MS-COLLAT-2  Application, General Eligibility Guidelines  "All other sources of payment such as insurance, Medicaid..."
               ; MS-CONDUCT-1  Miss. Code Ann. 99-41-17(2)(b)  "Of the degree of responsibility for the cause of injury or death..."
@@ -761,6 +759,6 @@
               ; MS-PROCESS-1  Victim Compensation FAQ, What Happens After I Mail in my Application?  "A decision about whether the victim or claimant is eligible is..."
               ; MS-ACP-1  Miss. Admin. Code Title 3, Part 1, Chapter 07, Rules 700 and 703; statutory basis Miss. Code Ann. 99-47-1  "The Address Confidentiality Program helps victims keep their..."
               ; MS-RECCONF-1  Miss. Code Ann. 99-41-31  "The records, papers, files and communications of the division..."
-  03e0        info     P29                          ; MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-RES-2, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1
-  03e3        ret
+  03f3        info     P27                          ; MS-EXCL-PROP, MS-EXCL-LEGAL, MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-RES-2, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1
+  03f6        ret
 

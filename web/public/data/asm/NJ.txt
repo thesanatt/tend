@@ -1,10 +1,10 @@
 ; tend law image NJ, New Jersey
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 d2ef5124e4b5144f017ce0ae9a5fba06a98351690d9ec247676abe65d880a969
-; image sha256  2e9b46596a9cd44baf58180b10ad74181e7e9ea30d4938b54cff909db0d29775
-; 54 rules, 17 sources, 36 proofs, 9 ints, 294 strings
+; image sha256  26d1f43ce2fcef72325fc16bc52d6ee21b385c2cdc1080d8d2c2c2721f70e71a
+; 54 rules, 17 sources, 37 proofs, 10 ints, 296 strings
 ; item program: 650 instructions, 2271 bytes, max stack 2
-; aggregate program: 313 instructions, 961 bytes, max stack 3, 11 loops
+; aggregate program: 339 instructions, 1039 bytes, max stack 3, 12 loops
 
 .rules
     R0    NJ-EXAM-1             exam_no_bill  -                                             N.J.S.A. 52:4B-52(k)
@@ -30,13 +30,13 @@
     R20   NJ-COV-CLOTH          covered       clothing_bedding                              N.J.A.C. 13:75-4.12(d)1
     R21   NJ-EXCL-PROP          excluded      -                                             N.J.A.C. 13:75-4.1(f)
     R22   NJ-EXCL-PAIN          excluded      -                                             N.J.A.C. 13:75-4.1(e)
-    R23   NJ-FILE-1             deadline      -                                             N.J.S.A. 52:4B-18
-    R24   NJ-FILE-2             deadline      -                                             N.J.S.A. 52:4B-18
-    R25   NJ-FILE-3             deadline      -                                             N.J.A.C. 13:75-3.1(a)3
+    R23   NJ-FILE-1             deadline      -                     from crime              N.J.S.A. 52:4B-18
+    R24   NJ-FILE-2             info          -                     filing_deadline         N.J.S.A. 52:4B-18
+    R25   NJ-FILE-3             deadline      -                     from discovery          N.J.A.C. 13:75-3.1(a)3
     R26   NJ-REPORT-1           reporting     -                                             N.J.S.A. 52:4B-18
     R27   NJ-REPORT-2           reporting     -                                             N.J.A.C. 13:75-3.1(b)
     R28   NJ-REPORT-3           reporting     -                                             AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam
-    R29   NJ-MINLOSS-1          info          -                     minimum_loss            NJ VCCO Eligibility page, Preconditions for Eligibility
+    R29   NJ-MINLOSS-1          minimum_loss  -                                             NJ VCCO Eligibility page, Preconditions for Eligibility
     R30   NJ-COLL-1             collateral    -                                             NJ VCCO Eligibility page, Moneys from other Sources
     R31   NJ-COLL-2             collateral    -                                             N.J.A.C. 13:75-9.1(a)
     R32   NJ-CONDUCT-1          info          -                     conduct_reduction       N.J.S.A. 52:4B-18
@@ -117,9 +117,10 @@
     P30   (NJ-LEGAL-1, NJ-COLL-1, NJ-COLL-2)
     P31   (NJ-DOMHELP-1)
     P32   (NJ-DOMHELP-1, NJ-COLL-1, NJ-COLL-2)
-    P33   (NJ-FILE-1, NJ-FILE-2, NJ-FILE-3)
-    P34   (NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3)
-    P35   (NJ-TRANS-2, NJ-MINLOSS-1, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1)
+    P33   (NJ-MINLOSS-1)
+    P34   (NJ-FILE-1, NJ-FILE-3)
+    P35   (NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3)
+    P36   (NJ-TRANS-2, NJ-FILE-2, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1)
 
 .ints
     K0    60000         ; $600.00
@@ -131,6 +132,7 @@
     K6    1000000       ; $10,000.00
     K7    750000        ; $7,500.00
     K8    2500000       ; $25,000.00
+    K9    0             ; $0.00
 
 .item
   0000        ldi      date
@@ -943,334 +945,361 @@
 .aggregate
               ; NJ-WAGES-1  N.J.A.C. 13:75-4.5(h)  "(h) The weekly maximum reimbursement for loss of earnings or..."
   0000        each     lost_wages, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $600.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R5                 ; NJ-WAGES-1
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R5                           ; rate_unverified NJ-WAGES-1
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     2                            ; week
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $600.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R5                 ; NJ-WAGES-1
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R5                           ; rate_unverified NJ-WAGES-1
+  0040  L3:   next     L0
               ; NJ-TRANS-1  N.J.A.C. 13:75-4.8(a)  "(a) Maximum reimbursement for transportation expenses incurred..."
-  0032  L4:   each     transportation, L9
-  0038  L5:   ldi      units
-  003a        jz       L7
-  003f        ldk      K1                           ; $10.00
-  0042        ldi      units
-  0044        muls
-  0045        dup
-  0046        lda
-  0047        lt
-  0048        jz       L6
-  004d        cap      unit_cap, R8                 ; NJ-TRANS-1
-  0051        jmp      L8
-  0056  L6:   pop
-  0057        jmp      L8
-  005c  L7:   flag     R8                           ; rate_unverified NJ-TRANS-1
-  005f  L8:   next     L5
+  0045  L4:   each     transportation, L9
+  004b  L5:   ldi      unit
+  004d        push     5                            ; day
+  0052        eq
+  0053        jz       L7
+  0058        ldi      units
+  005a        push     0
+  005f        gt
+  0060        jz       L7
+  0065        ldk      K1                           ; $10.00
+  0068        ldi      units
+  006a        muls
+  006b        dup
+  006c        lda
+  006d        lt
+  006e        jz       L6
+  0073        cap      unit_cap, R8                 ; NJ-TRANS-1
+  0077        jmp      L8
+  007c  L6:   pop
+  007d        jmp      L8
+  0082  L7:   flag     R8                           ; rate_unverified NJ-TRANS-1
+  0085  L8:   next     L5
               ; NJ-COUNSEL-1  N.J.A.C. 13:75-4.4(b)  "(b) Except for cases determined to be catastrophic in nature..."
-  0064  L9:   push     0
-  0069        str      r0
-  006b        push     0
-  0070        str      r1
-  0072        each     counseling, L14
-  0078  L10:  ldr      r1
-  007a        jnz      L12
-  007f        ldr      r0
-  0081        lda
-  0082        adds
-  0083        ldk      K2                           ; $20,000.00
-  0086        gt
-  0087        jz       L11
-  008c        ldk      K2                           ; $20,000.00
-  008f        ldr      r0
-  0091        subs
-  0092        cap      expense_cap, R4              ; NJ-COUNSEL-1
-  0096        push     1
-  009b        str      r1
-  009d  L11:  ldr      r0
-  009f        lda
-  00a0        adds
-  00a1        str      r0
-  00a3        jmp      L13
-  00a8  L12:  push     0
-  00ad        cap      expense_cap, R4              ; NJ-COUNSEL-1
-  00b1  L13:  next     L10
+  008a  L9:   push     0
+  008f        str      r0
+  0091        push     0
+  0096        str      r1
+  0098        each     counseling, L14
+  009e  L10:  ldr      r1
+  00a0        jnz      L12
+  00a5        ldr      r0
+  00a7        lda
+  00a8        adds
+  00a9        ldk      K2                           ; $20,000.00
+  00ac        gt
+  00ad        jz       L11
+  00b2        ldk      K2                           ; $20,000.00
+  00b5        ldr      r0
+  00b7        subs
+  00b8        cap      expense_cap, R4              ; NJ-COUNSEL-1
+  00bc        push     1
+  00c1        str      r1
+  00c3  L11:  ldr      r0
+  00c5        lda
+  00c6        adds
+  00c7        str      r0
+  00c9        jmp      L13
+  00ce  L12:  push     0
+  00d3        cap      expense_cap, R4              ; NJ-COUNSEL-1
+  00d7  L13:  next     L10
               ; NJ-RELOC-1  N.J.A.C. 13:75-4.7(d)  "(d) Maximum reimbursement for moving expenses shall be $ 3,000."
-  00b6  L14:  push     0
-  00bb        str      r0
-  00bd        push     0
-  00c2        str      r1
-  00c4        each     relocation, L19
-  00ca  L15:  ldr      r1
-  00cc        jnz      L17
-  00d1        ldr      r0
-  00d3        lda
-  00d4        adds
-  00d5        ldk      K3                           ; $3,000.00
-  00d8        gt
-  00d9        jz       L16
-  00de        ldk      K3                           ; $3,000.00
-  00e1        ldr      r0
-  00e3        subs
-  00e4        cap      expense_cap, R6              ; NJ-RELOC-1
-  00e8        push     1
-  00ed        str      r1
-  00ef  L16:  ldr      r0
-  00f1        lda
-  00f2        adds
-  00f3        str      r0
-  00f5        jmp      L18
-  00fa  L17:  push     0
-  00ff        cap      expense_cap, R6              ; NJ-RELOC-1
-  0103  L18:  next     L15
+  00dc  L14:  push     0
+  00e1        str      r0
+  00e3        push     0
+  00e8        str      r1
+  00ea        each     relocation, L19
+  00f0  L15:  ldr      r1
+  00f2        jnz      L17
+  00f7        ldr      r0
+  00f9        lda
+  00fa        adds
+  00fb        ldk      K3                           ; $3,000.00
+  00fe        gt
+  00ff        jz       L16
+  0104        ldk      K3                           ; $3,000.00
+  0107        ldr      r0
+  0109        subs
+  010a        cap      expense_cap, R6              ; NJ-RELOC-1
+  010e        push     1
+  0113        str      r1
+  0115  L16:  ldr      r0
+  0117        lda
+  0118        adds
+  0119        str      r0
+  011b        jmp      L18
+  0120  L17:  push     0
+  0125        cap      expense_cap, R6              ; NJ-RELOC-1
+  0129  L18:  next     L15
               ; NJ-SEC-1  N.J.A.C. 13:75-4.7(d)2  "In the event a victim is unable to relocate due to home..."
-  0108  L19:  push     0
-  010d        str      r0
-  010f        push     0
-  0114        str      r1
-  0116        each     security, L24
-  011c  L20:  ldr      r1
-  011e        jnz      L22
-  0123        ldr      r0
-  0125        lda
-  0126        adds
-  0127        ldk      K3                           ; $3,000.00
-  012a        gt
-  012b        jz       L21
-  0130        ldk      K3                           ; $3,000.00
-  0133        ldr      r0
-  0135        subs
-  0136        cap      expense_cap, R7              ; NJ-SEC-1
-  013a        push     1
-  013f        str      r1
-  0141  L21:  ldr      r0
-  0143        lda
-  0144        adds
-  0145        str      r0
-  0147        jmp      L23
-  014c  L22:  push     0
-  0151        cap      expense_cap, R7              ; NJ-SEC-1
-  0155  L23:  next     L20
+  012e  L19:  push     0
+  0133        str      r0
+  0135        push     0
+  013a        str      r1
+  013c        each     security, L24
+  0142  L20:  ldr      r1
+  0144        jnz      L22
+  0149        ldr      r0
+  014b        lda
+  014c        adds
+  014d        ldk      K3                           ; $3,000.00
+  0150        gt
+  0151        jz       L21
+  0156        ldk      K3                           ; $3,000.00
+  0159        ldr      r0
+  015b        subs
+  015c        cap      expense_cap, R7              ; NJ-SEC-1
+  0160        push     1
+  0165        str      r1
+  0167  L21:  ldr      r0
+  0169        lda
+  016a        adds
+  016b        str      r0
+  016d        jmp      L23
+  0172  L22:  push     0
+  0177        cap      expense_cap, R7              ; NJ-SEC-1
+  017b  L23:  next     L20
               ; NJ-CHILD-1  N.J.A.C. 13:75-4.11(a)2  "2. Except for cases determined to be catastrophic in nature..."
-  015a  L24:  push     0
-  015f        str      r0
-  0161        push     0
-  0166        str      r1
-  0168        each     childcare, L29
-  016e  L25:  ldr      r1
-  0170        jnz      L27
-  0175        ldr      r0
-  0177        lda
-  0178        adds
-  0179        ldk      K4                           ; $6,500.00
-  017c        gt
-  017d        jz       L26
-  0182        ldk      K4                           ; $6,500.00
-  0185        ldr      r0
-  0187        subs
-  0188        cap      expense_cap, R10             ; NJ-CHILD-1
-  018c        push     1
-  0191        str      r1
-  0193  L26:  ldr      r0
-  0195        lda
-  0196        adds
-  0197        str      r0
-  0199        jmp      L28
-  019e  L27:  push     0
-  01a3        cap      expense_cap, R10             ; NJ-CHILD-1
-  01a7  L28:  next     L25
+  0180  L24:  push     0
+  0185        str      r0
+  0187        push     0
+  018c        str      r1
+  018e        each     childcare, L29
+  0194  L25:  ldr      r1
+  0196        jnz      L27
+  019b        ldr      r0
+  019d        lda
+  019e        adds
+  019f        ldk      K4                           ; $6,500.00
+  01a2        gt
+  01a3        jz       L26
+  01a8        ldk      K4                           ; $6,500.00
+  01ab        ldr      r0
+  01ad        subs
+  01ae        cap      expense_cap, R10             ; NJ-CHILD-1
+  01b2        push     1
+  01b7        str      r1
+  01b9  L26:  ldr      r0
+  01bb        lda
+  01bc        adds
+  01bd        str      r0
+  01bf        jmp      L28
+  01c4  L27:  push     0
+  01c9        cap      expense_cap, R10             ; NJ-CHILD-1
+  01cd  L28:  next     L25
               ; NJ-CLEAN-1  N.J.A.C. 13:75-4.12(f)  "(f) An award of compensation for crime scene clean-up shall not..."
-  01ac  L29:  push     0
-  01b1        str      r0
-  01b3        push     0
-  01b8        str      r1
-  01ba        each     crime_scene_cleanup, L34
-  01c0  L30:  ldr      r1
-  01c2        jnz      L32
-  01c7        ldr      r0
-  01c9        lda
-  01ca        adds
-  01cb        ldk      K5                           ; $4,000.00
-  01ce        gt
-  01cf        jz       L31
-  01d4        ldk      K5                           ; $4,000.00
-  01d7        ldr      r0
-  01d9        subs
-  01da        cap      expense_cap, R11             ; NJ-CLEAN-1
-  01de        push     1
-  01e3        str      r1
-  01e5  L31:  ldr      r0
-  01e7        lda
-  01e8        adds
-  01e9        str      r0
-  01eb        jmp      L33
-  01f0  L32:  push     0
-  01f5        cap      expense_cap, R11             ; NJ-CLEAN-1
-  01f9  L33:  next     L30
+  01d2  L29:  push     0
+  01d7        str      r0
+  01d9        push     0
+  01de        str      r1
+  01e0        each     crime_scene_cleanup, L34
+  01e6  L30:  ldr      r1
+  01e8        jnz      L32
+  01ed        ldr      r0
+  01ef        lda
+  01f0        adds
+  01f1        ldk      K5                           ; $4,000.00
+  01f4        gt
+  01f5        jz       L31
+  01fa        ldk      K5                           ; $4,000.00
+  01fd        ldr      r0
+  01ff        subs
+  0200        cap      expense_cap, R11             ; NJ-CLEAN-1
+  0204        push     1
+  0209        str      r1
+  020b  L31:  ldr      r0
+  020d        lda
+  020e        adds
+  020f        str      r0
+  0211        jmp      L33
+  0216  L32:  push     0
+  021b        cap      expense_cap, R11             ; NJ-CLEAN-1
+  021f  L33:  next     L30
               ; NJ-LEGAL-1  N.J.A.C. 13:75-4.10(b)  "(b) The Office may allow payment of an attorney fee, including..."
-  01fe  L34:  push     0
-  0203        str      r0
-  0205        push     0
-  020a        str      r1
-  020c        each     legal, L39
-  0212  L35:  ldr      r1
-  0214        jnz      L37
-  0219        ldr      r0
-  021b        lda
-  021c        adds
-  021d        ldk      K6                           ; $10,000.00
-  0220        gt
-  0221        jz       L36
-  0226        ldk      K6                           ; $10,000.00
-  0229        ldr      r0
-  022b        subs
-  022c        cap      expense_cap, R12             ; NJ-LEGAL-1
-  0230        push     1
-  0235        str      r1
-  0237  L36:  ldr      r0
-  0239        lda
-  023a        adds
-  023b        str      r0
-  023d        jmp      L38
-  0242  L37:  push     0
-  0247        cap      expense_cap, R12             ; NJ-LEGAL-1
-  024b  L38:  next     L35
+  0224  L34:  push     0
+  0229        str      r0
+  022b        push     0
+  0230        str      r1
+  0232        each     legal, L39
+  0238  L35:  ldr      r1
+  023a        jnz      L37
+  023f        ldr      r0
+  0241        lda
+  0242        adds
+  0243        ldk      K6                           ; $10,000.00
+  0246        gt
+  0247        jz       L36
+  024c        ldk      K6                           ; $10,000.00
+  024f        ldr      r0
+  0251        subs
+  0252        cap      expense_cap, R12             ; NJ-LEGAL-1
+  0256        push     1
+  025b        str      r1
+  025d  L36:  ldr      r0
+  025f        lda
+  0260        adds
+  0261        str      r0
+  0263        jmp      L38
+  0268  L37:  push     0
+  026d        cap      expense_cap, R12             ; NJ-LEGAL-1
+  0271  L38:  next     L35
               ; NJ-FUNERAL-1  N.J.A.C. 13:75-4.9  "In claims involving the death of a victim, the maximum..."
-  0250  L39:  push     0
-  0255        str      r0
-  0257        push     0
-  025c        str      r1
-  025e        each     funeral, L44
-  0264  L40:  ldr      r1
-  0266        jnz      L42
-  026b        ldr      r0
-  026d        lda
-  026e        adds
-  026f        ldk      K7                           ; $7,500.00
-  0272        gt
-  0273        jz       L41
-  0278        ldk      K7                           ; $7,500.00
-  027b        ldr      r0
-  027d        subs
-  027e        cap      expense_cap, R13             ; NJ-FUNERAL-1
-  0282        push     1
-  0287        str      r1
-  0289  L41:  ldr      r0
-  028b        lda
-  028c        adds
-  028d        str      r0
-  028f        jmp      L43
-  0294  L42:  push     0
-  0299        cap      expense_cap, R13             ; NJ-FUNERAL-1
-  029d  L43:  next     L40
+  0276  L39:  push     0
+  027b        str      r0
+  027d        push     0
+  0282        str      r1
+  0284        each     funeral, L44
+  028a  L40:  ldr      r1
+  028c        jnz      L42
+  0291        ldr      r0
+  0293        lda
+  0294        adds
+  0295        ldk      K7                           ; $7,500.00
+  0298        gt
+  0299        jz       L41
+  029e        ldk      K7                           ; $7,500.00
+  02a1        ldr      r0
+  02a3        subs
+  02a4        cap      expense_cap, R13             ; NJ-FUNERAL-1
+  02a8        push     1
+  02ad        str      r1
+  02af  L41:  ldr      r0
+  02b1        lda
+  02b2        adds
+  02b3        str      r0
+  02b5        jmp      L43
+  02ba  L42:  push     0
+  02bf        cap      expense_cap, R13             ; NJ-FUNERAL-1
+  02c3  L43:  next     L40
               ; NJ-DOMHELP-1  N.J.A.C. 13:75-4.11(b)2  "Except for cases determined to be catastrophic in nature, the..."
-  02a2  L44:  push     0
-  02a7        str      r0
-  02a9        push     0
-  02ae        str      r1
-  02b0        each     other, L49
-  02b6  L45:  ldr      r1
-  02b8        jnz      L47
-  02bd        ldr      r0
-  02bf        lda
-  02c0        adds
-  02c1        ldk      K4                           ; $6,500.00
-  02c4        gt
-  02c5        jz       L46
-  02ca        ldk      K4                           ; $6,500.00
-  02cd        ldr      r0
-  02cf        subs
-  02d0        cap      expense_cap, R14             ; NJ-DOMHELP-1
-  02d4        push     1
-  02d9        str      r1
-  02db  L46:  ldr      r0
-  02dd        lda
-  02de        adds
-  02df        str      r0
-  02e1        jmp      L48
-  02e6  L47:  push     0
-  02eb        cap      expense_cap, R14             ; NJ-DOMHELP-1
-  02ef  L48:  next     L45
+  02c8  L44:  push     0
+  02cd        str      r0
+  02cf        push     0
+  02d4        str      r1
+  02d6        each     other, L49
+  02dc  L45:  ldr      r1
+  02de        jnz      L47
+  02e3        ldr      r0
+  02e5        lda
+  02e6        adds
+  02e7        ldk      K4                           ; $6,500.00
+  02ea        gt
+  02eb        jz       L46
+  02f0        ldk      K4                           ; $6,500.00
+  02f3        ldr      r0
+  02f5        subs
+  02f6        cap      expense_cap, R14             ; NJ-DOMHELP-1
+  02fa        push     1
+  02ff        str      r1
+  0301  L46:  ldr      r0
+  0303        lda
+  0304        adds
+  0305        str      r0
+  0307        jmp      L48
+  030c  L47:  push     0
+  0311        cap      expense_cap, R14             ; NJ-DOMHELP-1
+  0315  L48:  next     L45
               ; NJ-CAP-1  N.J.S.A. 52:4B-18  "compensation shall not be awarded under P.L.1971, c.317..."
-  02f4  L49:  push     0
-  02f9        str      r0
-  02fb        push     0
-  0300        str      r1
-  0302        each     all, L54
-  0308  L50:  ldr      r1
-  030a        jnz      L52
-  030f        ldr      r0
-  0311        lda
-  0312        adds
-  0313        ldk      K8                           ; $25,000.00
-  0316        gt
-  0317        jz       L51
-  031c        ldk      K8                           ; $25,000.00
-  031f        ldr      r0
-  0321        subs
-  0322        cap      total_cap, R3                ; NJ-CAP-1
-  0326        push     1
-  032b        str      r1
-  032d  L51:  ldr      r0
-  032f        lda
-  0330        adds
-  0331        str      r0
-  0333        jmp      L53
-  0338  L52:  push     0
-  033d        cap      total_cap, R3                ; NJ-CAP-1
-  0341  L53:  next     L50
-  0346  L54:  push     0                            ; met
-  034b        check    minimum_loss, P0             ; (none)
-              ; NJ-FILE-1  N.J.S.A. 52:4B-18  "unless the application has been made within five years after the..."
-  034f        ldx      incident_date
-  0351        push     1826
+  031a  L49:  push     0
+  031f        str      r0
+  0321        push     0
+  0326        str      r1
+  0328        each     all, L54
+  032e  L50:  ldr      r1
+  0330        jnz      L52
+  0335        ldr      r0
+  0337        lda
+  0338        adds
+  0339        ldk      K8                           ; $25,000.00
+  033c        gt
+  033d        jz       L51
+  0342        ldk      K8                           ; $25,000.00
+  0345        ldr      r0
+  0347        subs
+  0348        cap      total_cap, R3                ; NJ-CAP-1
+  034c        push     1
+  0351        str      r1
+  0353  L51:  ldr      r0
+  0355        lda
   0356        adds
-              ; NJ-FILE-2  N.J.S.A. 52:4B-18  "If the victim is under 18 years of age, the five-year limit on..."
-  0357        ldx      incident_date
-  0359        push     1826
-  035e        adds
-  035f        max
+  0357        str      r0
+  0359        jmp      L53
+  035e  L52:  push     0
+  0363        cap      total_cap, R3                ; NJ-CAP-1
+  0367  L53:  next     L50
+              ; NJ-MINLOSS-1  NJ VCCO Eligibility page, Preconditions for Eligibility  "There are no minimum loss requirements for incidents occurring..."
+  036c  L54:  push     0
+  0371        str      r0
+  0373        each     all, L56
+  0379  L55:  ldr      r0
+  037b        lda
+  037c        adds
+  037d        str      r0
+  037f        next     L55
+  0384  L56:  push     0
+  0389        str      r2
+              ; NJ-MINLOSS-1  NJ VCCO Eligibility page, Preconditions for Eligibility  "There are no minimum loss requirements for incidents occurring..."
+  038b        ldr      r0
+  038d        ldk      K9                           ; $0.00
+  0390        ge
+  0391        jnz      L57
+  0396        push     4
+  039b        ldr      r2
+  039d        max
+  039e        str      r2
+  03a0  L57:  ldr      r2
+  03a2        check    minimum_loss, P33            ; NJ-MINLOSS-1
+              ; NJ-FILE-1  N.J.S.A. 52:4B-18  "unless the application has been made within five years after the..."
+  03a6        ldx      incident_date
+  03a8        push     1826
+  03ad        adds
               ; NJ-FILE-3  N.J.A.C. 13:75-3.1(a)3  "In the case of child sexual abuse, defined as an act of sexual..."
-  0360        ldx      incident_date
-  0362        push     1826
-  0367        adds
-  0368        max
-  0369        dup
-  036a        setdate
-  036b        ldx      as_of_date
-  036d        ge
-  036e        jz       L55
-  0373        push     0
-  0378        jmp      L56
-  037d  L55:  push     1                            ; late
-  0382  L56:  check    deadline, P33                ; NJ-FILE-1, NJ-FILE-2, NJ-FILE-3
+  03ae        ldx      incident_date
+  03b0        push     1826
+  03b5        adds
+  03b6        max
+  03b7        dup
+  03b8        setdate
+  03b9        ldx      as_of_date
+  03bb        ge
+  03bc        jz       L58
+  03c1        push     0
+  03c6        jmp      L59
+  03cb  L58:  push     1                            ; late
+  03d0  L59:  check    deadline, P34                ; NJ-FILE-1, NJ-FILE-3
               ; NJ-REPORT-1  N.J.S.A. 52:4B-18  "which had been reported to the police or other appropriate law..."
               ; NJ-REPORT-2  N.J.A.C. 13:75-3.1(b)  "The Office reserves the right to, upon determination that good..."
               ; NJ-REPORT-3  AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam  "Victims shall be informed that VCCO benefits are only eligible..."
-  0386        ldx      police_report
-  0388        push     1                            ; yes
-  038d        eq
-  038e        jnz      L58
-  0393        ldx      police_report
-  0395        push     0                            ; no
-  039a        eq
-  039b        jnz      L57
-  03a0        push     3
-  03a5        jmp      L59
-  03aa  L57:  push     1
-  03af        jmp      L59
-  03b4  L58:  push     0                            ; satisfied
-  03b9  L59:  check    reporting, P34               ; NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3
+  03d4        ldx      police_report
+  03d6        push     1                            ; yes
+  03db        eq
+  03dc        jnz      L61
+  03e1        ldx      police_report
+  03e3        push     0                            ; no
+  03e8        eq
+  03e9        jnz      L60
+  03ee        push     3
+  03f3        jmp      L62
+  03f8  L60:  push     1
+  03fd        jmp      L62
+  0402  L61:  push     0                            ; satisfied
+  0407  L62:  check    reporting, P35               ; NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3
               ; NJ-TRANS-2  N.J.A.C. 13:75-4.8(a)1  "All non-medically related transportation costs are excluded..."
-              ; NJ-MINLOSS-1  NJ VCCO Eligibility page, Preconditions for Eligibility  "There are no minimum loss requirements for incidents occurring..."
+              ; NJ-FILE-2  N.J.S.A. 52:4B-18  "If the victim is under 18 years of age, the five-year limit on..."
               ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
               ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
               ; NJ-CONDUCT-1  N.J.S.A. 52:4B-18  "In determining the amount of an award, the office shall..."
@@ -1294,6 +1323,6 @@
               ; NJ-TIME-2  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II  "the turn around time for processing a claim is 3 months of..."
               ; NJ-ACP-1  N.J.S.A. 47:4-2  "to enable interagency cooperation with the Director of the..."
               ; NJ-REC-1  N.J.A.C. 13:75-1.6(b)  "The files maintained by the Office that relate directly to the..."
-  03bd        info     P35                          ; NJ-TRANS-2, NJ-MINLOSS-1, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1
-  03c0        ret
+  040b        info     P36                          ; NJ-TRANS-2, NJ-FILE-2, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1
+  040e        ret
 

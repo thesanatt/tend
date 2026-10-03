@@ -1,10 +1,10 @@
 ; tend law image AK, Alaska
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 2849e46f17a18c0fc91d9474145cab264be08c3be1491fde4674448bae38f1dd
-; image sha256  7b3e7387c5605bc814af4b6b2e7c56dc450779190b2fb491ff9127c1c7e1b6e4
-; 56 rules, 10 sources, 29 proofs, 11 ints, 299 strings
-; item program: 167 instructions, 540 bytes, max stack 2
-; aggregate program: 345 instructions, 1044 bytes, max stack 3, 12 loops
+; image sha256  02350105f309c922b00af29e5549510dda227d93f0f554b87558e42bfa36f967
+; 56 rules, 10 sources, 31 proofs, 11 ints, 300 strings
+; item program: 189 instructions, 596 bytes, max stack 2
+; aggregate program: 363 instructions, 1101 bytes, max stack 3, 12 loops
 
 .rules
     R0    AK-EXAM-1             exam_no_bill  -                                             AS 18.68.040
@@ -12,8 +12,8 @@
     R2    AK-ELIG-1             info          -                     eligible_crime          AS 18.67.101(2)(F)-(G)
     R3    AK-RES-1              info          -                     residency               VCCB Application, Claim Application and Instructions, eligibility requirements
     R4    AK-CAP-1              total_cap     -                                             AS 18.67.130(c)
-    R5    AK-DEADLINE-1         deadline      -                                             AS 18.67.130(a)(1)
-    R6    AK-DEADLINE-2         deadline      -                                             VCCB home page, When to request compensation?
+    R5    AK-DEADLINE-1         deadline      -                     from crime              AS 18.67.130(a)(1)
+    R6    AK-DEADLINE-2         deadline      -                     from crime              VCCB home page, When to request compensation?
     R7    AK-REPORT-1           reporting     -                                             AS 18.67.130(a)(2)
     R8    AK-REPORT-2           reporting     -                                             AS 18.67.130(a)(3)
     R9    AK-REPORT-3           reporting     -                                             AS 18.67.080(d)
@@ -25,7 +25,7 @@
     R15   AK-EMERG-1            info          -                     emergency_award         AS 18.67.120(1)
     R16   AK-COUNSEL-1          expense_cap   counseling            per session             VCCB Benefits at a Glance, Mental Health Therapy, Payment Maximums
     R17   AK-WAGES-1            expense_cap   lost_wages            per claim               VCCB Benefits at a Glance, Loss of Earnings
-    R18   AK-WAGES-2            excluded      lost_wages                                    VCCB Application, Section 7: Lost Wage Information
+    R18   AK-WAGES-2            info          -                     excluded_expense        VCCB Application, Section 7: Lost Wage Information
     R19   AK-RELOC-1            expense_cap   relocation            per claim               VCCB Request for Relocation Assistance, Estimated or Actual Relocation Expenses
     R20   AK-RELOC-2            covered       relocation                                    VCCB Application and Forms, Relocation
     R21   AK-HOUSING-1          expense_cap   temporary_housing     per day                 VCCB Benefits at a Glance, Relocation, Payment Maximums
@@ -44,7 +44,7 @@
     R34   AK-COV-6              covered       crime_scene_cleanup                           VCCB Application, Claim Application and Instructions, covered expenses
     R35   AK-COV-7              covered       childcare                                     VCCB Application, Claim Application and Instructions, covered expenses
     R36   AK-CHILD-1            expense_cap   childcare             per claim               VCCB Benefits at a Glance, Childcare, Payment Maximums
-    R37   AK-EXCL-1             excluded      property_replacement                          VCCB Application and Forms, Property Replacement
+    R37   AK-EXCL-1             info          -                     excluded_expense        VCCB Application and Forms, Property Replacement
     R38   AK-SUBMIT-1           info          -                     submission              VCCB Application page, How to Apply, Mail
     R39   AK-SUBMIT-2           info          -                     submission              VCCB Application page, How to Apply, Fax
     R40   AK-SUBMIT-3           info          -                     submission              Application (05/2026), contact block on page 1 and on the Claim Application and Instructions page
@@ -83,29 +83,31 @@
     P3    (AK-COV-1, AK-COLL-1, AK-COLL-2)
     P4    (AK-COUNSEL-1, AK-COV-2)
     P5    (AK-COUNSEL-1, AK-COV-2, AK-COLL-1, AK-COLL-2)
-    P6    (AK-WAGES-2)
-    P7    (AK-TRANS-2, AK-COV-4)
-    P8    (AK-TRANS-2, AK-COV-4, AK-COLL-1, AK-COLL-2)
-    P9    (AK-RELOC-1, AK-RELOC-2)
-    P10   (AK-RELOC-1, AK-RELOC-2, AK-COLL-1, AK-COLL-2)
-    P11   (AK-HOUSING-1)
-    P12   (AK-HOUSING-1, AK-COLL-1, AK-COLL-2)
-    P13   (AK-SEC-1)
-    P14   (AK-SEC-2, AK-COV-5)
-    P15   (AK-SEC-2, AK-COV-5, AK-COLL-1, AK-COLL-2)
-    P16   (AK-CLEAN-1, AK-COV-6)
-    P17   (AK-CLEAN-1, AK-COV-6, AK-COLL-1, AK-COLL-2)
-    P18   (AK-COV-7, AK-CHILD-1)
-    P19   (AK-COV-7, AK-CHILD-1, AK-COLL-1, AK-COLL-2)
-    P20   (AK-EXCL-1)
-    P21   (AK-EVID-1)
-    P22   (AK-EVID-1, AK-COLL-1, AK-COLL-2)
-    P23   (AK-MED-1)
-    P24   (AK-RENT-1)
-    P25   (AK-RENT-1, AK-COLL-1, AK-COLL-2)
-    P26   (AK-DEADLINE-1, AK-DEADLINE-2)
-    P27   (AK-REPORT-1, AK-REPORT-2, AK-REPORT-3)
-    P28   (AK-ELIG-1, AK-RES-1, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1)
+    P6    (AK-WAGES-1, AK-COV-3)
+    P7    (AK-WAGES-1, AK-COV-3, AK-COLL-1, AK-COLL-2)
+    P8    (AK-TRANS-2, AK-COV-4)
+    P9    (AK-TRANS-2, AK-COV-4, AK-COLL-1, AK-COLL-2)
+    P10   (AK-RELOC-1, AK-RELOC-2)
+    P11   (AK-RELOC-1, AK-RELOC-2, AK-COLL-1, AK-COLL-2)
+    P12   (AK-HOUSING-1)
+    P13   (AK-HOUSING-1, AK-COLL-1, AK-COLL-2)
+    P14   (AK-SEC-1)
+    P15   (AK-SEC-2, AK-COV-5)
+    P16   (AK-SEC-2, AK-COV-5, AK-COLL-1, AK-COLL-2)
+    P17   (AK-CLEAN-1, AK-COV-6)
+    P18   (AK-CLEAN-1, AK-COV-6, AK-COLL-1, AK-COLL-2)
+    P19   (AK-COV-7, AK-CHILD-1)
+    P20   (AK-COV-7, AK-CHILD-1, AK-COLL-1, AK-COLL-2)
+    P21   (AK-PHONE-1, AK-PHONE-2)
+    P22   (AK-PHONE-1, AK-PHONE-2, AK-COLL-1, AK-COLL-2)
+    P23   (AK-EVID-1)
+    P24   (AK-EVID-1, AK-COLL-1, AK-COLL-2)
+    P25   (AK-MED-1)
+    P26   (AK-RENT-1)
+    P27   (AK-RENT-1, AK-COLL-1, AK-COLL-2)
+    P28   (AK-DEADLINE-1, AK-DEADLINE-2)
+    P29   (AK-REPORT-1, AK-REPORT-2, AK-REPORT-3)
+    P30   (AK-ELIG-1, AK-RES-1, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-WAGES-2, AK-EXCL-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1)
 
 .ints
     K0    20000         ; $200.00
@@ -130,26 +132,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L22
+  0016        switch   19, default L24
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L4
                         case lost_wages            -> L6
-                        case transportation        -> L7
-                        case relocation            -> L9
-                        case temporary_housing     -> L11
-                        case security              -> L13
-                        case crime_scene_cleanup   -> L15
-                        case childcare             -> L17
-                        case property_replacement  -> L19
-                        case clothing_bedding      -> L20
-                        case prescription          -> L22
-                        case dental                -> L22
-                        case funeral               -> L22
-                        case legal                 -> L22
-                        case tuition               -> L22
-                        case other                 -> L23
-                        case unknown               -> L22
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L12
+                        case security              -> L14
+                        case crime_scene_cleanup   -> L16
+                        case childcare             -> L18
+                        case property_replacement  -> L20
+                        case clothing_bedding      -> L22
+                        case prescription          -> L24
+                        case dental                -> L24
+                        case funeral               -> L24
+                        case legal                 -> L24
+                        case tuition               -> L24
+                        case other                 -> L25
+                        case unknown               -> L24
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -196,527 +198,565 @@
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-WAGES-1  VCCB Benefits at a Glance, Loss of Earnings  "Up to $10,000 Compensation is reimbursed at a rate of 85% of..."
-              ; AK-WAGES-2  VCCB Application, Section 7: Lost Wage Information  "Compensation is limited to leave without pay."
               ; AK-COV-3  VCCB Application, Claim Application and Instructions, covered expenses  "Lost wages"
-  00c8  L6:   push     0
-  00cd        decide   excluded, P6                 ; AK-WAGES-2
-  00d1        ret
+  00c8  L6:   ldi      confirmed
+  00ca        jnz      L7
+  00cf        push     0
+  00d4        decide   needs_confirmation, P6       ; AK-WAGES-1, AK-COV-3
+  00d8        ret
+  00d9  L7:   ldi      amount_cents
+  00db        decide   eligible, P7                 ; AK-WAGES-1, AK-COV-3, AK-COLL-1, AK-COLL-2
+  00df        lda
+  00e0        ldi      insurance_paid_cents
+  00e2        subs
+  00e3        push     0
+  00e8        max
+  00e9        seta     collateral, R10              ; AK-COLL-1
+  00ed        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-TRANS-2  VCCB Benefits at a Glance, Transportation  "Car rental: Up to $50 per day."
               ; AK-COV-4  VCCB Application, Claim Application and Instructions, covered expenses  "Travel/transportation"
-  00d2  L7:   ldi      confirmed
-  00d4        jnz      L8
-  00d9        push     0
-  00de        decide   needs_confirmation, P7       ; AK-TRANS-2, AK-COV-4
-  00e2        ret
-  00e3  L8:   ldi      amount_cents
-  00e5        decide   eligible, P8                 ; AK-TRANS-2, AK-COV-4, AK-COLL-1, AK-COLL-2
-  00e9        lda
-  00ea        ldi      insurance_paid_cents
-  00ec        subs
-  00ed        push     0
-  00f2        max
-  00f3        seta     collateral, R10              ; AK-COLL-1
-  00f7        ret
+  00ee  L8:   ldi      confirmed
+  00f0        jnz      L9
+  00f5        push     0
+  00fa        decide   needs_confirmation, P8       ; AK-TRANS-2, AK-COV-4
+  00fe        ret
+  00ff  L9:   ldi      amount_cents
+  0101        decide   eligible, P9                 ; AK-TRANS-2, AK-COV-4, AK-COLL-1, AK-COLL-2
+  0105        lda
+  0106        ldi      insurance_paid_cents
+  0108        subs
+  0109        push     0
+  010e        max
+  010f        seta     collateral, R10              ; AK-COLL-1
+  0113        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-RELOC-1  VCCB Request for Relocation Assistance, Estimated or Actual Relocation Expenses  "Household limit is $7,500 (reduced to $4,000 for limited..."
               ; AK-RELOC-2  VCCB Application and Forms, Relocation  "Relocation may only be eligible specific instances, such as when..."
-  00f8  L9:   ldi      confirmed
-  00fa        jnz      L10
-  00ff        push     0
-  0104        decide   needs_confirmation, P9       ; AK-RELOC-1, AK-RELOC-2
-  0108        ret
-  0109  L10:  ldi      amount_cents
-  010b        decide   eligible, P10                ; AK-RELOC-1, AK-RELOC-2, AK-COLL-1, AK-COLL-2
-  010f        lda
-  0110        ldi      insurance_paid_cents
-  0112        subs
-  0113        push     0
-  0118        max
-  0119        seta     collateral, R10              ; AK-COLL-1
-  011d        ret
+  0114  L10:  ldi      confirmed
+  0116        jnz      L11
+  011b        push     0
+  0120        decide   needs_confirmation, P10      ; AK-RELOC-1, AK-RELOC-2
+  0124        ret
+  0125  L11:  ldi      amount_cents
+  0127        decide   eligible, P11                ; AK-RELOC-1, AK-RELOC-2, AK-COLL-1, AK-COLL-2
+  012b        lda
+  012c        ldi      insurance_paid_cents
+  012e        subs
+  012f        push     0
+  0134        max
+  0135        seta     collateral, R10              ; AK-COLL-1
+  0139        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-HOUSING-1  VCCB Benefits at a Glance, Relocation, Payment Maximums  "Motel/Hotel: Up to 5 days (up to $225 per night, including tax..."
-  011e  L11:  ldi      confirmed
-  0120        jnz      L12
-  0125        push     0
-  012a        decide   needs_confirmation, P11      ; AK-HOUSING-1
-  012e        ret
-  012f  L12:  ldi      amount_cents
-  0131        decide   eligible, P12                ; AK-HOUSING-1, AK-COLL-1, AK-COLL-2
-  0135        lda
-  0136        ldi      insurance_paid_cents
-  0138        subs
-  0139        push     0
-  013e        max
-  013f        seta     collateral, R10              ; AK-COLL-1
-  0143        ret
+  013a  L12:  ldi      confirmed
+  013c        jnz      L13
+  0141        push     0
+  0146        decide   needs_confirmation, P12      ; AK-HOUSING-1
+  014a        ret
+  014b  L13:  ldi      amount_cents
+  014d        decide   eligible, P13                ; AK-HOUSING-1, AK-COLL-1, AK-COLL-2
+  0151        lda
+  0152        ldi      insurance_paid_cents
+  0154        subs
+  0155        push     0
+  015a        max
+  015b        seta     collateral, R10              ; AK-COLL-1
+  015f        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-SEC-2  VCCB Benefits at a Glance, Security Measures  "Securing doors, windows, and locks: Up to $4,000."
               ; AK-COV-5  VCCB Application, Claim Application and Instructions, covered expenses  "Security measures"
-  0144  L13:  alts     P13                          ; AK-SEC-1
-  0147        ldi      confirmed
-  0149        jnz      L14
-  014e        push     0
-  0153        decide   needs_confirmation, P14      ; AK-SEC-2, AK-COV-5
-  0157        ret
-  0158  L14:  ldi      amount_cents
-  015a        decide   eligible, P15                ; AK-SEC-2, AK-COV-5, AK-COLL-1, AK-COLL-2
-  015e        lda
-  015f        ldi      insurance_paid_cents
-  0161        subs
-  0162        push     0
-  0167        max
-  0168        seta     collateral, R10              ; AK-COLL-1
-  016c        ret
+  0160  L14:  alts     P14                          ; AK-SEC-1
+  0163        ldi      confirmed
+  0165        jnz      L15
+  016a        push     0
+  016f        decide   needs_confirmation, P15      ; AK-SEC-2, AK-COV-5
+  0173        ret
+  0174  L15:  ldi      amount_cents
+  0176        decide   eligible, P16                ; AK-SEC-2, AK-COV-5, AK-COLL-1, AK-COLL-2
+  017a        lda
+  017b        ldi      insurance_paid_cents
+  017d        subs
+  017e        push     0
+  0183        max
+  0184        seta     collateral, R10              ; AK-COLL-1
+  0188        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-CLEAN-1  VCCB Benefits at a Glance, Crime Scene Clean-up  "Up to $7,000 The police report will be key to verify damage to..."
               ; AK-COV-6  VCCB Application, Claim Application and Instructions, covered expenses  "Crime scene cleanup"
-  016d  L15:  ldi      confirmed
-  016f        jnz      L16
-  0174        push     0
-  0179        decide   needs_confirmation, P16      ; AK-CLEAN-1, AK-COV-6
-  017d        ret
-  017e  L16:  ldi      amount_cents
-  0180        decide   eligible, P17                ; AK-CLEAN-1, AK-COV-6, AK-COLL-1, AK-COLL-2
-  0184        lda
-  0185        ldi      insurance_paid_cents
-  0187        subs
-  0188        push     0
-  018d        max
-  018e        seta     collateral, R10              ; AK-COLL-1
-  0192        ret
+  0189  L16:  ldi      confirmed
+  018b        jnz      L17
+  0190        push     0
+  0195        decide   needs_confirmation, P17      ; AK-CLEAN-1, AK-COV-6
+  0199        ret
+  019a  L17:  ldi      amount_cents
+  019c        decide   eligible, P18                ; AK-CLEAN-1, AK-COV-6, AK-COLL-1, AK-COLL-2
+  01a0        lda
+  01a1        ldi      insurance_paid_cents
+  01a3        subs
+  01a4        push     0
+  01a9        max
+  01aa        seta     collateral, R10              ; AK-COLL-1
+  01ae        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-COV-7  VCCB Application, Claim Application and Instructions, covered expenses  "Childcare"
               ; AK-CHILD-1  VCCB Benefits at a Glance, Childcare, Payment Maximums  "Reimbursements will be provided based on receipts provided. Up..."
-  0193  L17:  ldi      confirmed
-  0195        jnz      L18
-  019a        push     0
-  019f        decide   needs_confirmation, P18      ; AK-COV-7, AK-CHILD-1
-  01a3        ret
-  01a4  L18:  ldi      amount_cents
-  01a6        decide   eligible, P19                ; AK-COV-7, AK-CHILD-1, AK-COLL-1, AK-COLL-2
-  01aa        lda
-  01ab        ldi      insurance_paid_cents
-  01ad        subs
-  01ae        push     0
-  01b3        max
-  01b4        seta     collateral, R10              ; AK-COLL-1
-  01b8        ret
+  01af  L18:  ldi      confirmed
+  01b1        jnz      L19
+  01b6        push     0
+  01bb        decide   needs_confirmation, P19      ; AK-COV-7, AK-CHILD-1
+  01bf        ret
+  01c0  L19:  ldi      amount_cents
+  01c2        decide   eligible, P20                ; AK-COV-7, AK-CHILD-1, AK-COLL-1, AK-COLL-2
+  01c6        lda
+  01c7        ldi      insurance_paid_cents
+  01c9        subs
+  01ca        push     0
+  01cf        max
+  01d0        seta     collateral, R10              ; AK-COLL-1
+  01d4        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-PHONE-1  VCCB Benefits at a Glance, Security Measures  "Destroyed/damaged cell phone: Up to $1,000."
               ; AK-PHONE-2  VCCB Application, Claim Application and Instructions, covered expenses  "Cell phone (damaged or taken for evidence)"
-              ; AK-EXCL-1  VCCB Application and Forms, Property Replacement  "Note: VCCB does not generally cover property loss or damage..."
-  01b9  L19:  push     0
-  01be        decide   excluded, P20                ; AK-EXCL-1
-  01c2        ret
+  01d5  L20:  ldi      confirmed
+  01d7        jnz      L21
+  01dc        push     0
+  01e1        decide   needs_confirmation, P21      ; AK-PHONE-1, AK-PHONE-2
+  01e5        ret
+  01e6  L21:  ldi      amount_cents
+  01e8        decide   eligible, P22                ; AK-PHONE-1, AK-PHONE-2, AK-COLL-1, AK-COLL-2
+  01ec        lda
+  01ed        ldi      insurance_paid_cents
+  01ef        subs
+  01f0        push     0
+  01f5        max
+  01f6        seta     collateral, R10              ; AK-COLL-1
+  01fa        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-EVID-1  VCCB Benefits at a Glance, Items Taken as Evidence  "Up to $1,500 Cell phone: Up to $1,000 (not included in $1500 max..."
-  01c3  L20:  ldi      confirmed
-  01c5        jnz      L21
-  01ca        push     0
-  01cf        decide   needs_confirmation, P21      ; AK-EVID-1
-  01d3        ret
-  01d4  L21:  ldi      amount_cents
-  01d6        decide   eligible, P22                ; AK-EVID-1, AK-COLL-1, AK-COLL-2
-  01da        lda
-  01db        ldi      insurance_paid_cents
-  01dd        subs
-  01de        push     0
-  01e3        max
-  01e4        seta     collateral, R10              ; AK-COLL-1
-  01e8        ret
-  01e9  L22:  push     0
-  01ee        decide   unknown_rule, P0             ; (none)
-  01f2        ret
+  01fb  L22:  ldi      confirmed
+  01fd        jnz      L23
+  0202        push     0
+  0207        decide   needs_confirmation, P23      ; AK-EVID-1
+  020b        ret
+  020c  L23:  ldi      amount_cents
+  020e        decide   eligible, P24                ; AK-EVID-1, AK-COLL-1, AK-COLL-2
+  0212        lda
+  0213        ldi      insurance_paid_cents
+  0215        subs
+  0216        push     0
+  021b        max
+  021c        seta     collateral, R10              ; AK-COLL-1
+  0220        ret
+  0221  L24:  push     0
+  0226        decide   unknown_rule, P0             ; (none)
+  022a        ret
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-RENT-1  VCCB Benefits at a Glance, Rent  "Up to $4,000 or 2 months (whichever is less)"
-  01f3  L23:  alts     P23                          ; AK-MED-1
-  01f6        ldi      confirmed
-  01f8        jnz      L24
-  01fd        push     0
-  0202        decide   needs_confirmation, P24      ; AK-RENT-1
-  0206        ret
-  0207  L24:  ldi      amount_cents
-  0209        decide   eligible, P25                ; AK-RENT-1, AK-COLL-1, AK-COLL-2
-  020d        lda
-  020e        ldi      insurance_paid_cents
-  0210        subs
-  0211        push     0
-  0216        max
-  0217        seta     collateral, R10              ; AK-COLL-1
-  021b        ret
+  022b  L25:  alts     P25                          ; AK-MED-1
+  022e        ldi      confirmed
+  0230        jnz      L26
+  0235        push     0
+  023a        decide   needs_confirmation, P26      ; AK-RENT-1
+  023e        ret
+  023f  L26:  ldi      amount_cents
+  0241        decide   eligible, P27                ; AK-RENT-1, AK-COLL-1, AK-COLL-2
+  0245        lda
+  0246        ldi      insurance_paid_cents
+  0248        subs
+  0249        push     0
+  024e        max
+  024f        seta     collateral, R10              ; AK-COLL-1
+  0253        ret
 
 .aggregate
               ; AK-COUNSEL-1  VCCB Benefits at a Glance, Mental Health Therapy, Payment Maximums  "Counseling – Direct Victims: Initial maximum award is 24..."
   0000        push     24
   0005        str      r3
   0007        each     counseling, L4
-  000d  L0:   ldi      units
-  000f        jz       L2
-  0014        ldi      units
-  0016        ldr      r3
-  0018        min
-  0019        str      r4
-  001b        ldr      r3
-  001d        ldr      r4
-  001f        subs
-  0020        str      r3
-  0022        ldk      K0                           ; $200.00
-  0025        ldr      r4
-  0027        muls
-  0028        dup
-  0029        lda
-  002a        lt
-  002b        jz       L1
-  0030        cap      unit_cap, R16                ; AK-COUNSEL-1
-  0034        jmp      L3
-  0039  L1:   pop
-  003a        jmp      L3
-  003f  L2:   flag     R16                          ; rate_unverified AK-COUNSEL-1
-  0042  L3:   next     L0
+  000d  L0:   ldi      unit
+  000f        push     1                            ; session
+  0014        eq
+  0015        jz       L2
+  001a        ldi      units
+  001c        push     0
+  0021        gt
+  0022        jz       L2
+  0027        ldi      units
+  0029        ldr      r3
+  002b        min
+  002c        str      r4
+  002e        ldr      r3
+  0030        ldr      r4
+  0032        subs
+  0033        str      r3
+  0035        ldk      K0                           ; $200.00
+  0038        ldr      r4
+  003a        muls
+  003b        dup
+  003c        lda
+  003d        lt
+  003e        jz       L1
+  0043        cap      unit_cap, R16                ; AK-COUNSEL-1
+  0047        jmp      L3
+  004c  L1:   pop
+  004d        jmp      L3
+  0052  L2:   flag     R16                          ; rate_unverified AK-COUNSEL-1
+  0055  L3:   next     L0
               ; AK-HOUSING-1  VCCB Benefits at a Glance, Relocation, Payment Maximums  "Motel/Hotel: Up to 5 days (up to $225 per night, including tax..."
-  0047  L4:   push     5
-  004c        str      r3
-  004e        each     temporary_housing, L9
-  0054  L5:   ldi      units
-  0056        jz       L7
-  005b        ldi      units
-  005d        ldr      r3
-  005f        min
-  0060        str      r4
-  0062        ldr      r3
-  0064        ldr      r4
-  0066        subs
-  0067        str      r3
-  0069        ldk      K1                           ; $225.00
-  006c        ldr      r4
-  006e        muls
-  006f        dup
-  0070        lda
-  0071        lt
-  0072        jz       L6
-  0077        cap      unit_cap, R21                ; AK-HOUSING-1
-  007b        jmp      L8
-  0080  L6:   pop
-  0081        jmp      L8
-  0086  L7:   flag     R21                          ; rate_unverified AK-HOUSING-1
-  0089  L8:   next     L5
+  005a  L4:   push     5
+  005f        str      r3
+  0061        each     temporary_housing, L9
+  0067  L5:   ldi      unit
+  0069        push     5                            ; day
+  006e        eq
+  006f        jz       L7
+  0074        ldi      units
+  0076        push     0
+  007b        gt
+  007c        jz       L7
+  0081        ldi      units
+  0083        ldr      r3
+  0085        min
+  0086        str      r4
+  0088        ldr      r3
+  008a        ldr      r4
+  008c        subs
+  008d        str      r3
+  008f        ldk      K1                           ; $225.00
+  0092        ldr      r4
+  0094        muls
+  0095        dup
+  0096        lda
+  0097        lt
+  0098        jz       L6
+  009d        cap      unit_cap, R21                ; AK-HOUSING-1
+  00a1        jmp      L8
+  00a6  L6:   pop
+  00a7        jmp      L8
+  00ac  L7:   flag     R21                          ; rate_unverified AK-HOUSING-1
+  00af  L8:   next     L5
               ; AK-TRANS-2  VCCB Benefits at a Glance, Transportation  "Car rental: Up to $50 per day."
-  008e  L9:   each     transportation, L14
-  0094  L10:  ldi      units
-  0096        jz       L12
-  009b        ldk      K2                           ; $50.00
-  009e        ldi      units
-  00a0        muls
-  00a1        dup
-  00a2        lda
-  00a3        lt
-  00a4        jz       L11
-  00a9        cap      unit_cap, R22                ; AK-TRANS-2
-  00ad        jmp      L13
-  00b2  L11:  pop
-  00b3        jmp      L13
-  00b8  L12:  flag     R22                          ; rate_unverified AK-TRANS-2
-  00bb  L13:  next     L10
+  00b4  L9:   each     transportation, L14
+  00ba  L10:  ldi      unit
+  00bc        push     5                            ; day
+  00c1        eq
+  00c2        jz       L12
+  00c7        ldi      units
+  00c9        push     0
+  00ce        gt
+  00cf        jz       L12
+  00d4        ldk      K2                           ; $50.00
+  00d7        ldi      units
+  00d9        muls
+  00da        dup
+  00db        lda
+  00dc        lt
+  00dd        jz       L11
+  00e2        cap      unit_cap, R22                ; AK-TRANS-2
+  00e6        jmp      L13
+  00eb  L11:  pop
+  00ec        jmp      L13
+  00f1  L12:  flag     R22                          ; rate_unverified AK-TRANS-2
+  00f4  L13:  next     L10
               ; AK-WAGES-1  VCCB Benefits at a Glance, Loss of Earnings  "Up to $10,000 Compensation is reimbursed at a rate of 85% of..."
-  00c0  L14:  push     0
-  00c5        str      r0
-  00c7        push     0
-  00cc        str      r1
-  00ce        each     lost_wages, L19
-  00d4  L15:  ldr      r1
-  00d6        jnz      L17
-  00db        ldr      r0
-  00dd        lda
-  00de        adds
-  00df        ldk      K3                           ; $10,000.00
-  00e2        gt
-  00e3        jz       L16
-  00e8        ldk      K3                           ; $10,000.00
-  00eb        ldr      r0
-  00ed        subs
-  00ee        cap      expense_cap, R17             ; AK-WAGES-1
-  00f2        push     1
-  00f7        str      r1
-  00f9  L16:  ldr      r0
-  00fb        lda
-  00fc        adds
-  00fd        str      r0
-  00ff        jmp      L18
-  0104  L17:  push     0
-  0109        cap      expense_cap, R17             ; AK-WAGES-1
-  010d  L18:  next     L15
+  00f9  L14:  push     0
+  00fe        str      r0
+  0100        push     0
+  0105        str      r1
+  0107        each     lost_wages, L19
+  010d  L15:  ldr      r1
+  010f        jnz      L17
+  0114        ldr      r0
+  0116        lda
+  0117        adds
+  0118        ldk      K3                           ; $10,000.00
+  011b        gt
+  011c        jz       L16
+  0121        ldk      K3                           ; $10,000.00
+  0124        ldr      r0
+  0126        subs
+  0127        cap      expense_cap, R17             ; AK-WAGES-1
+  012b        push     1
+  0130        str      r1
+  0132  L16:  ldr      r0
+  0134        lda
+  0135        adds
+  0136        str      r0
+  0138        jmp      L18
+  013d  L17:  push     0
+  0142        cap      expense_cap, R17             ; AK-WAGES-1
+  0146  L18:  next     L15
               ; AK-RELOC-1  VCCB Request for Relocation Assistance, Estimated or Actual Relocation Expenses  "Household limit is $7,500 (reduced to $4,000 for limited..."
-  0112  L19:  push     0
-  0117        str      r0
-  0119        push     0
-  011e        str      r1
-  0120        each     relocation, L24
-  0126  L20:  ldr      r1
-  0128        jnz      L22
-  012d        ldr      r0
-  012f        lda
-  0130        adds
-  0131        ldk      K4                           ; $7,500.00
-  0134        gt
-  0135        jz       L21
-  013a        ldk      K4                           ; $7,500.00
-  013d        ldr      r0
-  013f        subs
-  0140        cap      expense_cap, R19             ; AK-RELOC-1
-  0144        push     1
-  0149        str      r1
-  014b  L21:  ldr      r0
-  014d        lda
-  014e        adds
-  014f        str      r0
-  0151        jmp      L23
-  0156  L22:  push     0
-  015b        cap      expense_cap, R19             ; AK-RELOC-1
-  015f  L23:  next     L20
+  014b  L19:  push     0
+  0150        str      r0
+  0152        push     0
+  0157        str      r1
+  0159        each     relocation, L24
+  015f  L20:  ldr      r1
+  0161        jnz      L22
+  0166        ldr      r0
+  0168        lda
+  0169        adds
+  016a        ldk      K4                           ; $7,500.00
+  016d        gt
+  016e        jz       L21
+  0173        ldk      K4                           ; $7,500.00
+  0176        ldr      r0
+  0178        subs
+  0179        cap      expense_cap, R19             ; AK-RELOC-1
+  017d        push     1
+  0182        str      r1
+  0184  L21:  ldr      r0
+  0186        lda
+  0187        adds
+  0188        str      r0
+  018a        jmp      L23
+  018f  L22:  push     0
+  0194        cap      expense_cap, R19             ; AK-RELOC-1
+  0198  L23:  next     L20
               ; AK-SEC-2  VCCB Benefits at a Glance, Security Measures  "Securing doors, windows, and locks: Up to $4,000."
-  0164  L24:  push     0
-  0169        str      r0
-  016b        push     0
-  0170        str      r1
-  0172        each     security, L29
-  0178  L25:  ldr      r1
-  017a        jnz      L27
-  017f        ldr      r0
-  0181        lda
-  0182        adds
-  0183        ldk      K5                           ; $4,000.00
-  0186        gt
-  0187        jz       L26
-  018c        ldk      K5                           ; $4,000.00
-  018f        ldr      r0
-  0191        subs
-  0192        cap      expense_cap, R23             ; AK-SEC-2
-  0196        push     1
-  019b        str      r1
-  019d  L26:  ldr      r0
-  019f        lda
-  01a0        adds
-  01a1        str      r0
-  01a3        jmp      L28
-  01a8  L27:  push     0
-  01ad        cap      expense_cap, R23             ; AK-SEC-2
-  01b1  L28:  next     L25
+  019d  L24:  push     0
+  01a2        str      r0
+  01a4        push     0
+  01a9        str      r1
+  01ab        each     security, L29
+  01b1  L25:  ldr      r1
+  01b3        jnz      L27
+  01b8        ldr      r0
+  01ba        lda
+  01bb        adds
+  01bc        ldk      K5                           ; $4,000.00
+  01bf        gt
+  01c0        jz       L26
+  01c5        ldk      K5                           ; $4,000.00
+  01c8        ldr      r0
+  01ca        subs
+  01cb        cap      expense_cap, R23             ; AK-SEC-2
+  01cf        push     1
+  01d4        str      r1
+  01d6  L26:  ldr      r0
+  01d8        lda
+  01d9        adds
+  01da        str      r0
+  01dc        jmp      L28
+  01e1  L27:  push     0
+  01e6        cap      expense_cap, R23             ; AK-SEC-2
+  01ea  L28:  next     L25
               ; AK-PHONE-1  VCCB Benefits at a Glance, Security Measures  "Destroyed/damaged cell phone: Up to $1,000."
-  01b6  L29:  push     0
-  01bb        str      r0
-  01bd        push     0
-  01c2        str      r1
-  01c4        each     property_replacement, L34
-  01ca  L30:  ldr      r1
-  01cc        jnz      L32
-  01d1        ldr      r0
-  01d3        lda
-  01d4        adds
-  01d5        ldk      K6                           ; $1,000.00
-  01d8        gt
-  01d9        jz       L31
-  01de        ldk      K6                           ; $1,000.00
-  01e1        ldr      r0
-  01e3        subs
-  01e4        cap      expense_cap, R24             ; AK-PHONE-1
-  01e8        push     1
-  01ed        str      r1
-  01ef  L31:  ldr      r0
-  01f1        lda
-  01f2        adds
-  01f3        str      r0
-  01f5        jmp      L33
-  01fa  L32:  push     0
-  01ff        cap      expense_cap, R24             ; AK-PHONE-1
-  0203  L33:  next     L30
+  01ef  L29:  push     0
+  01f4        str      r0
+  01f6        push     0
+  01fb        str      r1
+  01fd        each     property_replacement, L34
+  0203  L30:  ldr      r1
+  0205        jnz      L32
+  020a        ldr      r0
+  020c        lda
+  020d        adds
+  020e        ldk      K6                           ; $1,000.00
+  0211        gt
+  0212        jz       L31
+  0217        ldk      K6                           ; $1,000.00
+  021a        ldr      r0
+  021c        subs
+  021d        cap      expense_cap, R24             ; AK-PHONE-1
+  0221        push     1
+  0226        str      r1
+  0228  L31:  ldr      r0
+  022a        lda
+  022b        adds
+  022c        str      r0
+  022e        jmp      L33
+  0233  L32:  push     0
+  0238        cap      expense_cap, R24             ; AK-PHONE-1
+  023c  L33:  next     L30
               ; AK-EVID-1  VCCB Benefits at a Glance, Items Taken as Evidence  "Up to $1,500 Cell phone: Up to $1,000 (not included in $1500 max..."
-  0208  L34:  push     0
-  020d        str      r0
-  020f        push     0
-  0214        str      r1
-  0216        each     clothing_bedding, L39
-  021c  L35:  ldr      r1
-  021e        jnz      L37
-  0223        ldr      r0
-  0225        lda
-  0226        adds
-  0227        ldk      K7                           ; $1,500.00
-  022a        gt
-  022b        jz       L36
-  0230        ldk      K7                           ; $1,500.00
-  0233        ldr      r0
-  0235        subs
-  0236        cap      expense_cap, R26             ; AK-EVID-1
-  023a        push     1
-  023f        str      r1
-  0241  L36:  ldr      r0
-  0243        lda
-  0244        adds
-  0245        str      r0
-  0247        jmp      L38
-  024c  L37:  push     0
-  0251        cap      expense_cap, R26             ; AK-EVID-1
-  0255  L38:  next     L35
+  0241  L34:  push     0
+  0246        str      r0
+  0248        push     0
+  024d        str      r1
+  024f        each     clothing_bedding, L39
+  0255  L35:  ldr      r1
+  0257        jnz      L37
+  025c        ldr      r0
+  025e        lda
+  025f        adds
+  0260        ldk      K7                           ; $1,500.00
+  0263        gt
+  0264        jz       L36
+  0269        ldk      K7                           ; $1,500.00
+  026c        ldr      r0
+  026e        subs
+  026f        cap      expense_cap, R26             ; AK-EVID-1
+  0273        push     1
+  0278        str      r1
+  027a  L36:  ldr      r0
+  027c        lda
+  027d        adds
+  027e        str      r0
+  0280        jmp      L38
+  0285  L37:  push     0
+  028a        cap      expense_cap, R26             ; AK-EVID-1
+  028e  L38:  next     L35
               ; AK-CLEAN-1  VCCB Benefits at a Glance, Crime Scene Clean-up  "Up to $7,000 The police report will be key to verify damage to..."
-  025a  L39:  push     0
-  025f        str      r0
-  0261        push     0
-  0266        str      r1
-  0268        each     crime_scene_cleanup, L44
-  026e  L40:  ldr      r1
-  0270        jnz      L42
-  0275        ldr      r0
-  0277        lda
-  0278        adds
-  0279        ldk      K8                           ; $7,000.00
-  027c        gt
-  027d        jz       L41
-  0282        ldk      K8                           ; $7,000.00
-  0285        ldr      r0
-  0287        subs
-  0288        cap      expense_cap, R27             ; AK-CLEAN-1
-  028c        push     1
-  0291        str      r1
-  0293  L41:  ldr      r0
-  0295        lda
-  0296        adds
-  0297        str      r0
-  0299        jmp      L43
-  029e  L42:  push     0
-  02a3        cap      expense_cap, R27             ; AK-CLEAN-1
-  02a7  L43:  next     L40
+  0293  L39:  push     0
+  0298        str      r0
+  029a        push     0
+  029f        str      r1
+  02a1        each     crime_scene_cleanup, L44
+  02a7  L40:  ldr      r1
+  02a9        jnz      L42
+  02ae        ldr      r0
+  02b0        lda
+  02b1        adds
+  02b2        ldk      K8                           ; $7,000.00
+  02b5        gt
+  02b6        jz       L41
+  02bb        ldk      K8                           ; $7,000.00
+  02be        ldr      r0
+  02c0        subs
+  02c1        cap      expense_cap, R27             ; AK-CLEAN-1
+  02c5        push     1
+  02ca        str      r1
+  02cc  L41:  ldr      r0
+  02ce        lda
+  02cf        adds
+  02d0        str      r0
+  02d2        jmp      L43
+  02d7  L42:  push     0
+  02dc        cap      expense_cap, R27             ; AK-CLEAN-1
+  02e0  L43:  next     L40
               ; AK-RENT-1  VCCB Benefits at a Glance, Rent  "Up to $4,000 or 2 months (whichever is less)"
-  02ac  L44:  push     0
-  02b1        str      r0
-  02b3        push     0
-  02b8        str      r1
-  02ba        each     other, L49
-  02c0  L45:  ldr      r1
-  02c2        jnz      L47
-  02c7        ldr      r0
-  02c9        lda
-  02ca        adds
-  02cb        ldk      K5                           ; $4,000.00
-  02ce        gt
-  02cf        jz       L46
-  02d4        ldk      K5                           ; $4,000.00
-  02d7        ldr      r0
-  02d9        subs
-  02da        cap      expense_cap, R28             ; AK-RENT-1
-  02de        push     1
-  02e3        str      r1
-  02e5  L46:  ldr      r0
-  02e7        lda
-  02e8        adds
-  02e9        str      r0
-  02eb        jmp      L48
-  02f0  L47:  push     0
-  02f5        cap      expense_cap, R28             ; AK-RENT-1
-  02f9  L48:  next     L45
+  02e5  L44:  push     0
+  02ea        str      r0
+  02ec        push     0
+  02f1        str      r1
+  02f3        each     other, L49
+  02f9  L45:  ldr      r1
+  02fb        jnz      L47
+  0300        ldr      r0
+  0302        lda
+  0303        adds
+  0304        ldk      K5                           ; $4,000.00
+  0307        gt
+  0308        jz       L46
+  030d        ldk      K5                           ; $4,000.00
+  0310        ldr      r0
+  0312        subs
+  0313        cap      expense_cap, R28             ; AK-RENT-1
+  0317        push     1
+  031c        str      r1
+  031e  L46:  ldr      r0
+  0320        lda
+  0321        adds
+  0322        str      r0
+  0324        jmp      L48
+  0329  L47:  push     0
+  032e        cap      expense_cap, R28             ; AK-RENT-1
+  0332  L48:  next     L45
               ; AK-CHILD-1  VCCB Benefits at a Glance, Childcare, Payment Maximums  "Reimbursements will be provided based on receipts provided. Up..."
-  02fe  L49:  push     0
-  0303        str      r0
-  0305        push     0
-  030a        str      r1
-  030c        each     childcare, L54
-  0312  L50:  ldr      r1
-  0314        jnz      L52
-  0319        ldr      r0
-  031b        lda
-  031c        adds
-  031d        ldk      K9                           ; $2,000.00
-  0320        gt
-  0321        jz       L51
-  0326        ldk      K9                           ; $2,000.00
-  0329        ldr      r0
-  032b        subs
-  032c        cap      expense_cap, R36             ; AK-CHILD-1
-  0330        push     1
-  0335        str      r1
-  0337  L51:  ldr      r0
-  0339        lda
-  033a        adds
-  033b        str      r0
-  033d        jmp      L53
-  0342  L52:  push     0
-  0347        cap      expense_cap, R36             ; AK-CHILD-1
-  034b  L53:  next     L50
+  0337  L49:  push     0
+  033c        str      r0
+  033e        push     0
+  0343        str      r1
+  0345        each     childcare, L54
+  034b  L50:  ldr      r1
+  034d        jnz      L52
+  0352        ldr      r0
+  0354        lda
+  0355        adds
+  0356        ldk      K9                           ; $2,000.00
+  0359        gt
+  035a        jz       L51
+  035f        ldk      K9                           ; $2,000.00
+  0362        ldr      r0
+  0364        subs
+  0365        cap      expense_cap, R36             ; AK-CHILD-1
+  0369        push     1
+  036e        str      r1
+  0370  L51:  ldr      r0
+  0372        lda
+  0373        adds
+  0374        str      r0
+  0376        jmp      L53
+  037b  L52:  push     0
+  0380        cap      expense_cap, R36             ; AK-CHILD-1
+  0384  L53:  next     L50
               ; AK-CAP-1  AS 18.67.130(c)  "Compensation may not be awarded under this chapter in an amount..."
-  0350  L54:  push     0
-  0355        str      r0
-  0357        push     0
-  035c        str      r1
-  035e        each     all, L59
-  0364  L55:  ldr      r1
-  0366        jnz      L57
-  036b        ldr      r0
-  036d        lda
-  036e        adds
-  036f        ldk      K10                          ; $40,000.00
-  0372        gt
-  0373        jz       L56
-  0378        ldk      K10                          ; $40,000.00
-  037b        ldr      r0
-  037d        subs
-  037e        cap      total_cap, R4                ; AK-CAP-1
-  0382        push     1
-  0387        str      r1
-  0389  L56:  ldr      r0
-  038b        lda
-  038c        adds
-  038d        str      r0
-  038f        jmp      L58
-  0394  L57:  push     0
-  0399        cap      total_cap, R4                ; AK-CAP-1
-  039d  L58:  next     L55
-  03a2  L59:  push     0                            ; met
-  03a7        check    minimum_loss, P0             ; (none)
+  0389  L54:  push     0
+  038e        str      r0
+  0390        push     0
+  0395        str      r1
+  0397        each     all, L59
+  039d  L55:  ldr      r1
+  039f        jnz      L57
+  03a4        ldr      r0
+  03a6        lda
+  03a7        adds
+  03a8        ldk      K10                          ; $40,000.00
+  03ab        gt
+  03ac        jz       L56
+  03b1        ldk      K10                          ; $40,000.00
+  03b4        ldr      r0
+  03b6        subs
+  03b7        cap      total_cap, R4                ; AK-CAP-1
+  03bb        push     1
+  03c0        str      r1
+  03c2  L56:  ldr      r0
+  03c4        lda
+  03c5        adds
+  03c6        str      r0
+  03c8        jmp      L58
+  03cd  L57:  push     0
+  03d2        cap      total_cap, R4                ; AK-CAP-1
+  03d6  L58:  next     L55
+  03db  L59:  push     0                            ; met
+  03e0        check    minimum_loss, P0             ; (none)
               ; AK-DEADLINE-1  AS 18.67.130(a)(1)  "the application has been made within two years after the date of..."
-  03ab        ldx      incident_date
-  03ad        push     730
-  03b2        adds
+  03e4        ldx      incident_date
+  03e6        push     730
+  03eb        adds
               ; AK-DEADLINE-2  VCCB home page, When to request compensation?  "Even if you do not know all related expenses, it is important to..."
-  03b3        ldx      incident_date
-  03b5        push     730
-  03ba        adds
-  03bb        max
-  03bc        dup
-  03bd        setdate
-  03be        ldx      as_of_date
-  03c0        ge
-  03c1        jz       L60
-  03c6        push     0
-  03cb        jmp      L61
-  03d0  L60:  push     1                            ; late
-  03d5  L61:  check    deadline, P26                ; AK-DEADLINE-1, AK-DEADLINE-2
+  03ec        ldx      incident_date
+  03ee        push     730
+  03f3        adds
+  03f4        max
+  03f5        dup
+  03f6        setdate
+  03f7        ldx      as_of_date
+  03f9        ge
+  03fa        jz       L60
+  03ff        push     0
+  0404        jmp      L61
+  0409  L60:  push     1                            ; late
+  040e  L61:  check    deadline, P28                ; AK-DEADLINE-1, AK-DEADLINE-2
               ; AK-REPORT-1  AS 18.67.130(a)(2)  "the personal injury or death was the result of an incident or..."
               ; AK-REPORT-2  AS 18.67.130(a)(3)  "in the discretion of the board, the applicant has cooperated..."
               ; AK-REPORT-3  AS 18.67.080(d)  "An order may be made under this section whether or not a person..."
-  03d9        ldx      police_report
-  03db        push     1                            ; yes
-  03e0        eq
-  03e1        jnz      L63
-  03e6        ldx      police_report
-  03e8        push     0                            ; no
-  03ed        eq
-  03ee        jnz      L62
-  03f3        push     3
-  03f8        jmp      L64
-  03fd  L62:  push     1
-  0402        jmp      L64
-  0407  L63:  push     0                            ; satisfied
-  040c  L64:  check    reporting, P27               ; AK-REPORT-1, AK-REPORT-2, AK-REPORT-3
+  0412        ldx      police_report
+  0414        push     1                            ; yes
+  0419        eq
+  041a        jnz      L63
+  041f        ldx      police_report
+  0421        push     0                            ; no
+  0426        eq
+  0427        jnz      L62
+  042c        push     3
+  0431        jmp      L64
+  0436  L62:  push     1
+  043b        jmp      L64
+  0440  L63:  push     0                            ; satisfied
+  0445  L64:  check    reporting, P29               ; AK-REPORT-1, AK-REPORT-2, AK-REPORT-3
               ; AK-ELIG-1  AS 18.67.101(2)(F)-(G)  "(F) sexual assault in any degree; (G) sexual abuse of a minor;"
               ; AK-RES-1  VCCB Application, Claim Application and Instructions, eligibility requirements  "The crime occurred in Alaska."
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
@@ -725,6 +765,8 @@
               ; AK-CONDUCT-2  AS 18.67.080(c)(4)  "if a claim is based on a crime involving domestic violence or on..."
               ; AK-CONDUCT-3  AS 18.67.130(b)(3)  "violated a penal law of the state, which violation caused or..."
               ; AK-EMERG-1  AS 18.67.120(1)  "the amount of the emergency compensation may not exceed $5,000"
+              ; AK-WAGES-2  VCCB Application, Section 7: Lost Wage Information  "Compensation is limited to leave without pay."
+              ; AK-EXCL-1  VCCB Application and Forms, Property Replacement  "Note: VCCB does not generally cover property loss or damage..."
               ; AK-SUBMIT-1  VCCB Application page, How to Apply, Mail  "You may fill out and send in the application by mail. 4300..."
               ; AK-SUBMIT-2  VCCB Application page, How to Apply, Fax  "You may fill out and fax in the application. fax: (907) 465-2379"
               ; AK-SUBMIT-3  Application (05/2026), contact block on page 1 and on the Claim Application and Instructions page  "Email: VCCB@alaska.gov"
@@ -741,6 +783,6 @@
               ; AK-DOC-10  VCCB Application page, Additional Forms, Rental Assistance  "Request for Rental Assistance must be filled out along with..."
               ; AK-ACP-1  AS 44.21.022(b)(2) to (c)(1), enacted by sec. 75 of Chapter 9 SLA 26 (HB 239), effective July 1, 2026 under sec. 94; agencies must accept the address under AS 44.21.022(e)  "(2) designate a post office box as a substitute mailing address..."
               ; AK-RECORDS-1  AS 18.67.030(c)  "An application for compensation and personally identifying..."
-  0410        info     P28                          ; AK-ELIG-1, AK-RES-1, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1
-  0413        ret
+  0449        info     P30                          ; AK-ELIG-1, AK-RES-1, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-WAGES-2, AK-EXCL-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1
+  044c        ret
 

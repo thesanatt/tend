@@ -1,18 +1,18 @@
 ; tend law image RI, Rhode Island
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 6ba35ab46e4720a58b86d7dfdbc360f503ca7acb9ca560b5b073c8b918925330
-; image sha256  a3c709818a56827aea9289e4f63e22f881534c7be0d5e24319c23c8cfc240afa
-; 43 rules, 15 sources, 23 proofs, 3 ints, 258 strings
-; item program: 256 instructions, 917 bytes, max stack 2
-; aggregate program: 133 instructions, 417 bytes, max stack 3, 4 loops
+; image sha256  be2e1e6a99d7193754679fead67b4120b518ec0e979fcb042775e621e23c84e9
+; 43 rules, 15 sources, 20 proofs, 3 ints, 259 strings
+; item program: 237 instructions, 848 bytes, max stack 2
+; aggregate program: 135 instructions, 427 bytes, max stack 3, 4 loops
 
 .rules
     R0    RI-EXAM-1             exam_payment  -                                             Sexual Assault Victims Bill of Rights (R.I. Gen. Laws § 23-98-5), "Your right to obtain a medical examination"
     R1    RI-CRIME-1            info          -                     eligible_crime          R.I. Gen. Laws § 12-25-20(11)
     R2    RI-CRIME-2            info          -                     eligible_crime          R.I. Gen. Laws § 12-25-17(8)
     R3    RI-CAP-1              total_cap     -                                             R.I. Gen. Laws § 12-25-22(b)
-    R4    RI-DEADLINE-1         deadline      -                                             R.I. Gen. Laws § 12-25-22(a)
-    R5    RI-DEADLINE-2         deadline      -                                             120-RICR-00-00-2.7(A)(1)(a)
+    R4    RI-DEADLINE-1         deadline      -                     from crime              R.I. Gen. Laws § 12-25-22(a)
+    R5    RI-DEADLINE-2         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(a)
     R6    RI-DEADLINE-3         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(c)
     R7    RI-REPORT-1           reporting     -                                             R.I. Gen. Laws § 12-25-22(a)
     R8    RI-REPORT-2           reporting     -                                             120-RICR-00-00-2.7(A)(2)(c)
@@ -32,7 +32,7 @@
     R22   RI-TRAVEL-1           expense_cap   transportation        per claim               120-RICR-00-00-2.8(A)(14)(a)(1)
     R23   RI-RELOC-1            covered       relocation                                    120-RICR-00-00-2.8(A)(12)
     R24   RI-SECURITY-1         expense_cap   security              per claim               R.I. Gen. Laws § 12-25-21.1(f)
-    R25   RI-EXCL-1             excluded      property_replacement                          120-RICR-00-00-2.8(A)(1)(h)
+    R25   RI-EXCL-1             info          -                     excluded_expense        120-RICR-00-00-2.8(A)(1)(h)
     R26   RI-EXCL-2             excluded      -                                             120-RICR-00-00-2.8(A)(8)
     R27   RI-RES-1              info          -                     residency               R.I. Gen. Laws § 12-25-19(a)(1)
     R28   RI-RES-2              info          -                     residency               R.I. Gen. Laws § 12-25-19(a)(3)
@@ -72,28 +72,25 @@
 
 .proofs
     P0    ()
-    P1    (RI-EXAM-1)
-    P2    (RI-EXCL-2)
-    P3    (RI-MED-1, RI-MED-2)
-    P4    (RI-MED-1, RI-MED-2, RI-COLLATERAL-1)
-    P5    (RI-COUNSEL-3, RI-COUNSEL-4)
-    P6    (RI-COUNSEL-1, RI-COUNSEL-2)
-    P7    (RI-COUNSEL-1, RI-COUNSEL-2, RI-COLLATERAL-1)
-    P8    (RI-WAGES-1, RI-WAGES-2)
-    P9    (RI-WAGES-1, RI-WAGES-2, RI-COLLATERAL-1)
-    P10   (RI-TRAVEL-1)
-    P11   (RI-TRAVEL-1, RI-COLLATERAL-1)
-    P12   (RI-RELOC-1)
-    P13   (RI-RELOC-1, RI-COLLATERAL-1)
-    P14   (RI-SECURITY-1)
-    P15   (RI-SECURITY-1, RI-COLLATERAL-1)
-    P16   (RI-EXCL-1, RI-EXCL-2)
-    P17   (RI-EXCL-1)
-    P18   (RI-DENTAL-1)
-    P19   (RI-DENTAL-1, RI-COLLATERAL-1)
-    P20   (RI-DEADLINE-1, RI-DEADLINE-2)
-    P21   (RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5)
-    P22   (RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-3, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1)
+    P1    (RI-EXCL-2)
+    P2    (RI-MED-1, RI-MED-2)
+    P3    (RI-MED-1, RI-MED-2, RI-COLLATERAL-1)
+    P4    (RI-COUNSEL-3, RI-COUNSEL-4)
+    P5    (RI-COUNSEL-1, RI-COUNSEL-2)
+    P6    (RI-COUNSEL-1, RI-COUNSEL-2, RI-COLLATERAL-1)
+    P7    (RI-WAGES-1, RI-WAGES-2)
+    P8    (RI-WAGES-1, RI-WAGES-2, RI-COLLATERAL-1)
+    P9    (RI-TRAVEL-1)
+    P10   (RI-TRAVEL-1, RI-COLLATERAL-1)
+    P11   (RI-RELOC-1)
+    P12   (RI-RELOC-1, RI-COLLATERAL-1)
+    P13   (RI-SECURITY-1)
+    P14   (RI-SECURITY-1, RI-COLLATERAL-1)
+    P15   (RI-DENTAL-1)
+    P16   (RI-DENTAL-1, RI-COLLATERAL-1)
+    P17   (RI-DEADLINE-1)
+    P18   (RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5)
+    P19   (RI-EXAM-1, RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-2, RI-DEADLINE-3, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-EXCL-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1)
 
 .ints
     K0    13000         ; $130.00
@@ -121,10 +118,10 @@
                         case security              -> L31
                         case crime_scene_cleanup   -> L27
                         case childcare             -> L27
-                        case property_replacement  -> L36
+                        case property_replacement  -> L27
                         case clothing_bedding      -> L27
                         case prescription          -> L27
-                        case dental                -> L40
+                        case dental                -> L36
                         case funeral               -> L27
                         case legal                 -> L27
                         case tuition               -> L27
@@ -133,445 +130,425 @@
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
-              ; RI-EXAM-1  Sexual Assault Victims Bill of Rights (R.I. Gen. Laws § 23-98-5), "Your right to obtain a medical examination"  "Victims are eligible to receive compensation for the cost of..."
-  0072  L1:   push     0
-  0077        decide   held, P1                     ; RI-EXAM-1
-  007b        ret
+  0072  L1:   setexp   medical
+  0074        jmp      L2
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-MED-1  R.I. Gen. Laws § 12-25-17(7)(i)(A)  "Medical expenses (including psychiatric care) for which the..."
               ; RI-MED-2  R.I. Gen. Laws § 12-25-19(h)  "Medical service providers shall be required to accept these..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  007c  L2:   push     0
-  0081        str      r0
-  0083        ldi      tags
-  0085        push     1
-  008a        and
-  008b        jz       L3
-  0090        ldr      r0
-  0092        push     1
-  0097        or
-  0098        str      r0
-  009a  L3:   ldr      r0
-  009c        switch   2, default L5
+  0079  L2:   push     0
+  007e        str      r0
+  0080        ldi      tags
+  0082        push     1
+  0087        and
+  0088        jz       L3
+  008d        ldr      r0
+  008f        push     1
+  0094        or
+  0095        str      r0
+  0097  L3:   ldr      r0
+  0099        switch   2, default L5
                         case 0                     -> L5
                         case 1                     -> L4
-  00aa  L4:   push     0
-  00af        decide   excluded, P2                 ; RI-EXCL-2
-  00b3        ret
-  00b4  L5:   ldi      confirmed
-  00b6        jnz      L6
-  00bb        push     0
-  00c0        decide   needs_confirmation, P3       ; RI-MED-1, RI-MED-2
-  00c4        ret
-  00c5  L6:   ldi      amount_cents
-  00c7        decide   eligible, P4                 ; RI-MED-1, RI-MED-2, RI-COLLATERAL-1
-  00cb        lda
-  00cc        ldi      insurance_paid_cents
-  00ce        subs
-  00cf        push     0
-  00d4        max
-  00d5        seta     collateral, R12              ; RI-COLLATERAL-1
-  00d9        ret
+  00a7  L4:   push     0
+  00ac        decide   excluded, P1                 ; RI-EXCL-2
+  00b0        ret
+  00b1  L5:   ldi      confirmed
+  00b3        jnz      L6
+  00b8        push     0
+  00bd        decide   needs_confirmation, P2       ; RI-MED-1, RI-MED-2
+  00c1        ret
+  00c2  L6:   ldi      amount_cents
+  00c4        decide   eligible, P3                 ; RI-MED-1, RI-MED-2, RI-COLLATERAL-1
+  00c8        lda
+  00c9        ldi      insurance_paid_cents
+  00cb        subs
+  00cc        push     0
+  00d1        max
+  00d2        seta     collateral, R12              ; RI-COLLATERAL-1
+  00d6        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-COUNSEL-1  120-RICR-00-00-2.8(A)(3)(a)  "A victim shall be eligible for compensation for reasonable and..."
               ; RI-COUNSEL-2  120-RICR-00-00-2.8(A)(3)(e)(1)  "$130 per hour is reimbursed for individual services provided by..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  00da  L7:   push     0
-  00df        str      r0
-  00e1        ldi      tags
-  00e3        push     1
-  00e8        and
-  00e9        jz       L8
-  00ee        ldr      r0
-  00f0        push     1
-  00f5        or
-  00f6        str      r0
-  00f8  L8:   ldr      r0
-  00fa        switch   2, default L10
+  00d7  L7:   push     0
+  00dc        str      r0
+  00de        ldi      tags
+  00e0        push     1
+  00e5        and
+  00e6        jz       L8
+  00eb        ldr      r0
+  00ed        push     1
+  00f2        or
+  00f3        str      r0
+  00f5  L8:   ldr      r0
+  00f7        switch   2, default L10
                         case 0                     -> L10
                         case 1                     -> L9
-  0108  L9:   push     0
-  010d        decide   excluded, P2                 ; RI-EXCL-2
-  0111        ret
-  0112  L10:  alts     P5                           ; RI-COUNSEL-3, RI-COUNSEL-4
-  0115        ldi      confirmed
-  0117        jnz      L11
-  011c        push     0
-  0121        decide   needs_confirmation, P6       ; RI-COUNSEL-1, RI-COUNSEL-2
-  0125        ret
-  0126  L11:  ldi      amount_cents
-  0128        decide   eligible, P7                 ; RI-COUNSEL-1, RI-COUNSEL-2, RI-COLLATERAL-1
-  012c        lda
-  012d        ldi      insurance_paid_cents
-  012f        subs
-  0130        push     0
-  0135        max
-  0136        seta     collateral, R12              ; RI-COLLATERAL-1
-  013a        ret
+  0105  L9:   push     0
+  010a        decide   excluded, P1                 ; RI-EXCL-2
+  010e        ret
+  010f  L10:  alts     P4                           ; RI-COUNSEL-3, RI-COUNSEL-4
+  0112        ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; RI-COUNSEL-1, RI-COUNSEL-2
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; RI-COUNSEL-1, RI-COUNSEL-2, RI-COLLATERAL-1
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R12              ; RI-COLLATERAL-1
+  0137        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-WAGES-1  R.I. Gen. Laws § 12-25-17(7)(i)(C)  "Loss of past earnings for which the victim is not compensated by..."
               ; RI-WAGES-2  120-RICR-00-00-2.8(A)(4)(b)  "All net earnings for injuries occurring on or after January 1..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  013b  L12:  push     0
-  0140        str      r0
-  0142        ldi      tags
-  0144        push     1
-  0149        and
-  014a        jz       L13
-  014f        ldr      r0
-  0151        push     1
-  0156        or
-  0157        str      r0
-  0159  L13:  ldr      r0
-  015b        switch   2, default L15
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     1
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
                         case 0                     -> L15
                         case 1                     -> L14
-  0169  L14:  push     0
-  016e        decide   excluded, P2                 ; RI-EXCL-2
-  0172        ret
-  0173  L15:  ldi      confirmed
-  0175        jnz      L16
-  017a        push     0
-  017f        decide   needs_confirmation, P8       ; RI-WAGES-1, RI-WAGES-2
-  0183        ret
-  0184  L16:  ldi      amount_cents
-  0186        decide   eligible, P9                 ; RI-WAGES-1, RI-WAGES-2, RI-COLLATERAL-1
-  018a        lda
-  018b        ldi      insurance_paid_cents
-  018d        subs
-  018e        push     0
-  0193        max
-  0194        seta     collateral, R12              ; RI-COLLATERAL-1
-  0198        ret
+  0166  L14:  push     0
+  016b        decide   excluded, P1                 ; RI-EXCL-2
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; RI-WAGES-1, RI-WAGES-2
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; RI-WAGES-1, RI-WAGES-2, RI-COLLATERAL-1
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R12              ; RI-COLLATERAL-1
+  0195        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-TRAVEL-1  120-RICR-00-00-2.8(A)(14)(a)(1)  "An award for reasonable and necessary travel expenses and..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  0199  L17:  push     0
-  019e        str      r0
-  01a0        ldi      tags
-  01a2        push     1
-  01a7        and
-  01a8        jz       L18
-  01ad        ldr      r0
-  01af        push     1
-  01b4        or
-  01b5        str      r0
-  01b7  L18:  ldr      r0
-  01b9        switch   2, default L20
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     1
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
                         case 0                     -> L20
                         case 1                     -> L19
-  01c7  L19:  push     0
-  01cc        decide   excluded, P2                 ; RI-EXCL-2
-  01d0        ret
-  01d1  L20:  ldi      confirmed
-  01d3        jnz      L21
-  01d8        push     0
-  01dd        decide   needs_confirmation, P10      ; RI-TRAVEL-1
-  01e1        ret
-  01e2  L21:  ldi      amount_cents
-  01e4        decide   eligible, P11                ; RI-TRAVEL-1, RI-COLLATERAL-1
-  01e8        lda
-  01e9        ldi      insurance_paid_cents
-  01eb        subs
-  01ec        push     0
-  01f1        max
-  01f2        seta     collateral, R12              ; RI-COLLATERAL-1
-  01f6        ret
+  01c4  L19:  push     0
+  01c9        decide   excluded, P1                 ; RI-EXCL-2
+  01cd        ret
+  01ce  L20:  ldi      confirmed
+  01d0        jnz      L21
+  01d5        push     0
+  01da        decide   needs_confirmation, P9       ; RI-TRAVEL-1
+  01de        ret
+  01df  L21:  ldi      amount_cents
+  01e1        decide   eligible, P10                ; RI-TRAVEL-1, RI-COLLATERAL-1
+  01e5        lda
+  01e6        ldi      insurance_paid_cents
+  01e8        subs
+  01e9        push     0
+  01ee        max
+  01ef        seta     collateral, R12              ; RI-COLLATERAL-1
+  01f3        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-RELOC-1  120-RICR-00-00-2.8(A)(12)  "The Administrator may issue an award for expenses resulting from..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  01f7  L22:  push     0
-  01fc        str      r0
-  01fe        ldi      tags
-  0200        push     1
-  0205        and
-  0206        jz       L23
-  020b        ldr      r0
-  020d        push     1
-  0212        or
-  0213        str      r0
-  0215  L23:  ldr      r0
-  0217        switch   2, default L25
+  01f4  L22:  push     0
+  01f9        str      r0
+  01fb        ldi      tags
+  01fd        push     1
+  0202        and
+  0203        jz       L23
+  0208        ldr      r0
+  020a        push     1
+  020f        or
+  0210        str      r0
+  0212  L23:  ldr      r0
+  0214        switch   2, default L25
                         case 0                     -> L25
                         case 1                     -> L24
-  0225  L24:  push     0
-  022a        decide   excluded, P2                 ; RI-EXCL-2
-  022e        ret
-  022f  L25:  ldi      confirmed
-  0231        jnz      L26
-  0236        push     0
-  023b        decide   needs_confirmation, P12      ; RI-RELOC-1
-  023f        ret
-  0240  L26:  ldi      amount_cents
-  0242        decide   eligible, P13                ; RI-RELOC-1, RI-COLLATERAL-1
-  0246        lda
-  0247        ldi      insurance_paid_cents
-  0249        subs
-  024a        push     0
-  024f        max
-  0250        seta     collateral, R12              ; RI-COLLATERAL-1
-  0254        ret
+  0222  L24:  push     0
+  0227        decide   excluded, P1                 ; RI-EXCL-2
+  022b        ret
+  022c  L25:  ldi      confirmed
+  022e        jnz      L26
+  0233        push     0
+  0238        decide   needs_confirmation, P11      ; RI-RELOC-1
+  023c        ret
+  023d  L26:  ldi      amount_cents
+  023f        decide   eligible, P12                ; RI-RELOC-1, RI-COLLATERAL-1
+  0243        lda
+  0244        ldi      insurance_paid_cents
+  0246        subs
+  0247        push     0
+  024c        max
+  024d        seta     collateral, R12              ; RI-COLLATERAL-1
+  0251        ret
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  0255  L27:  push     0
-  025a        str      r0
-  025c        ldi      tags
-  025e        push     1
-  0263        and
-  0264        jz       L28
-  0269        ldr      r0
-  026b        push     1
-  0270        or
-  0271        str      r0
-  0273  L28:  ldr      r0
-  0275        switch   2, default L30
+  0252  L27:  push     0
+  0257        str      r0
+  0259        ldi      tags
+  025b        push     1
+  0260        and
+  0261        jz       L28
+  0266        ldr      r0
+  0268        push     1
+  026d        or
+  026e        str      r0
+  0270  L28:  ldr      r0
+  0272        switch   2, default L30
                         case 0                     -> L30
                         case 1                     -> L29
-  0283  L29:  push     0
-  0288        decide   excluded, P2                 ; RI-EXCL-2
-  028c        ret
-  028d  L30:  push     0
-  0292        decide   unknown_rule, P0             ; (none)
-  0296        ret
+  0280  L29:  push     0
+  0285        decide   excluded, P1                 ; RI-EXCL-2
+  0289        ret
+  028a  L30:  push     0
+  028f        decide   unknown_rule, P0             ; (none)
+  0293        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-SECURITY-1  R.I. Gen. Laws § 12-25-21.1(f)  "An award for expenses associated with reasonable modifications..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  0297  L31:  push     0
-  029c        str      r0
-  029e        ldi      tags
-  02a0        push     1
-  02a5        and
-  02a6        jz       L32
-  02ab        ldr      r0
-  02ad        push     1
-  02b2        or
-  02b3        str      r0
-  02b5  L32:  ldr      r0
-  02b7        switch   2, default L34
+  0294  L31:  push     0
+  0299        str      r0
+  029b        ldi      tags
+  029d        push     1
+  02a2        and
+  02a3        jz       L32
+  02a8        ldr      r0
+  02aa        push     1
+  02af        or
+  02b0        str      r0
+  02b2  L32:  ldr      r0
+  02b4        switch   2, default L34
                         case 0                     -> L34
                         case 1                     -> L33
-  02c5  L33:  push     0
-  02ca        decide   excluded, P2                 ; RI-EXCL-2
-  02ce        ret
-  02cf  L34:  ldi      confirmed
-  02d1        jnz      L35
-  02d6        push     0
-  02db        decide   needs_confirmation, P14      ; RI-SECURITY-1
-  02df        ret
-  02e0  L35:  ldi      amount_cents
-  02e2        decide   eligible, P15                ; RI-SECURITY-1, RI-COLLATERAL-1
-  02e6        lda
-  02e7        ldi      insurance_paid_cents
-  02e9        subs
-  02ea        push     0
-  02ef        max
-  02f0        seta     collateral, R12              ; RI-COLLATERAL-1
-  02f4        ret
-              ; RI-EXCL-1  120-RICR-00-00-2.8(A)(1)(h)  "Property losses are not compensable expenses."
-              ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  02f5  L36:  push     0
-  02fa        str      r0
-  02fc        ldi      tags
-  02fe        push     1
-  0303        and
-  0304        jz       L37
-  0309        ldr      r0
-  030b        push     1
-  0310        or
-  0311        str      r0
-  0313  L37:  ldr      r0
-  0315        switch   2, default L39
-                        case 0                     -> L39
-                        case 1                     -> L38
-  0323  L38:  push     0
-  0328        decide   excluded, P16                ; RI-EXCL-1, RI-EXCL-2
-  032c        ret
-  032d  L39:  push     0
-  0332        decide   excluded, P17                ; RI-EXCL-1
-  0336        ret
+  02c2  L33:  push     0
+  02c7        decide   excluded, P1                 ; RI-EXCL-2
+  02cb        ret
+  02cc  L34:  ldi      confirmed
+  02ce        jnz      L35
+  02d3        push     0
+  02d8        decide   needs_confirmation, P13      ; RI-SECURITY-1
+  02dc        ret
+  02dd  L35:  ldi      amount_cents
+  02df        decide   eligible, P14                ; RI-SECURITY-1, RI-COLLATERAL-1
+  02e3        lda
+  02e4        ldi      insurance_paid_cents
+  02e6        subs
+  02e7        push     0
+  02ec        max
+  02ed        seta     collateral, R12              ; RI-COLLATERAL-1
+  02f1        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-DENTAL-1  CVCP FAQ, "What expenses are eligible for reimbursement?"  "Medical, dental and counseling expenses"
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
-  0337  L40:  push     0
-  033c        str      r0
-  033e        ldi      tags
-  0340        push     1
-  0345        and
-  0346        jz       L41
-  034b        ldr      r0
-  034d        push     1
-  0352        or
-  0353        str      r0
-  0355  L41:  ldr      r0
-  0357        switch   2, default L43
-                        case 0                     -> L43
-                        case 1                     -> L42
-  0365  L42:  push     0
-  036a        decide   excluded, P2                 ; RI-EXCL-2
-  036e        ret
-  036f  L43:  ldi      confirmed
-  0371        jnz      L44
-  0376        push     0
-  037b        decide   needs_confirmation, P18      ; RI-DENTAL-1
-  037f        ret
-  0380  L44:  ldi      amount_cents
-  0382        decide   eligible, P19                ; RI-DENTAL-1, RI-COLLATERAL-1
-  0386        lda
-  0387        ldi      insurance_paid_cents
-  0389        subs
-  038a        push     0
-  038f        max
-  0390        seta     collateral, R12              ; RI-COLLATERAL-1
-  0394        ret
+  02f2  L36:  push     0
+  02f7        str      r0
+  02f9        ldi      tags
+  02fb        push     1
+  0300        and
+  0301        jz       L37
+  0306        ldr      r0
+  0308        push     1
+  030d        or
+  030e        str      r0
+  0310  L37:  ldr      r0
+  0312        switch   2, default L39
+                        case 0                     -> L39
+                        case 1                     -> L38
+  0320  L38:  push     0
+  0325        decide   excluded, P1                 ; RI-EXCL-2
+  0329        ret
+  032a  L39:  ldi      confirmed
+  032c        jnz      L40
+  0331        push     0
+  0336        decide   needs_confirmation, P15      ; RI-DENTAL-1
+  033a        ret
+  033b  L40:  ldi      amount_cents
+  033d        decide   eligible, P16                ; RI-DENTAL-1, RI-COLLATERAL-1
+  0341        lda
+  0342        ldi      insurance_paid_cents
+  0344        subs
+  0345        push     0
+  034a        max
+  034b        seta     collateral, R12              ; RI-COLLATERAL-1
+  034f        ret
 
 .aggregate
               ; RI-COUNSEL-2  120-RICR-00-00-2.8(A)(3)(e)(1)  "$130 per hour is reimbursed for individual services provided by..."
   0000        each     counseling, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $130.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R19                ; RI-COUNSEL-2
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R19                          ; rate_unverified RI-COUNSEL-2
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     3                            ; hour
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $130.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R19                ; RI-COUNSEL-2
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R19                          ; rate_unverified RI-COUNSEL-2
+  0040  L3:   next     L0
               ; RI-TRAVEL-1  120-RICR-00-00-2.8(A)(14)(a)(1)  "An award for reasonable and necessary travel expenses and..."
-  0032  L4:   push     0
-  0037        str      r0
-  0039        push     0
-  003e        str      r1
-  0040        each     transportation, L9
-  0046  L5:   ldr      r1
-  0048        jnz      L7
-  004d        ldr      r0
-  004f        lda
-  0050        adds
-  0051        ldk      K1                           ; $1,000.00
-  0054        gt
-  0055        jz       L6
-  005a        ldk      K1                           ; $1,000.00
-  005d        ldr      r0
-  005f        subs
-  0060        cap      expense_cap, R22             ; RI-TRAVEL-1
-  0064        push     1
-  0069        str      r1
-  006b  L6:   ldr      r0
-  006d        lda
-  006e        adds
-  006f        str      r0
-  0071        jmp      L8
-  0076  L7:   push     0
-  007b        cap      expense_cap, R22             ; RI-TRAVEL-1
-  007f  L8:   next     L5
+  0045  L4:   push     0
+  004a        str      r0
+  004c        push     0
+  0051        str      r1
+  0053        each     transportation, L9
+  0059  L5:   ldr      r1
+  005b        jnz      L7
+  0060        ldr      r0
+  0062        lda
+  0063        adds
+  0064        ldk      K1                           ; $1,000.00
+  0067        gt
+  0068        jz       L6
+  006d        ldk      K1                           ; $1,000.00
+  0070        ldr      r0
+  0072        subs
+  0073        cap      expense_cap, R22             ; RI-TRAVEL-1
+  0077        push     1
+  007c        str      r1
+  007e  L6:   ldr      r0
+  0080        lda
+  0081        adds
+  0082        str      r0
+  0084        jmp      L8
+  0089  L7:   push     0
+  008e        cap      expense_cap, R22             ; RI-TRAVEL-1
+  0092  L8:   next     L5
               ; RI-SECURITY-1  R.I. Gen. Laws § 12-25-21.1(f)  "An award for expenses associated with reasonable modifications..."
-  0084  L9:   push     0
-  0089        str      r0
-  008b        push     0
-  0090        str      r1
-  0092        each     security, L14
-  0098  L10:  ldr      r1
-  009a        jnz      L12
-  009f        ldr      r0
-  00a1        lda
-  00a2        adds
-  00a3        ldk      K1                           ; $1,000.00
-  00a6        gt
-  00a7        jz       L11
-  00ac        ldk      K1                           ; $1,000.00
-  00af        ldr      r0
-  00b1        subs
-  00b2        cap      expense_cap, R24             ; RI-SECURITY-1
-  00b6        push     1
-  00bb        str      r1
-  00bd  L11:  ldr      r0
-  00bf        lda
-  00c0        adds
-  00c1        str      r0
-  00c3        jmp      L13
-  00c8  L12:  push     0
-  00cd        cap      expense_cap, R24             ; RI-SECURITY-1
-  00d1  L13:  next     L10
+  0097  L9:   push     0
+  009c        str      r0
+  009e        push     0
+  00a3        str      r1
+  00a5        each     security, L14
+  00ab  L10:  ldr      r1
+  00ad        jnz      L12
+  00b2        ldr      r0
+  00b4        lda
+  00b5        adds
+  00b6        ldk      K1                           ; $1,000.00
+  00b9        gt
+  00ba        jz       L11
+  00bf        ldk      K1                           ; $1,000.00
+  00c2        ldr      r0
+  00c4        subs
+  00c5        cap      expense_cap, R24             ; RI-SECURITY-1
+  00c9        push     1
+  00ce        str      r1
+  00d0  L11:  ldr      r0
+  00d2        lda
+  00d3        adds
+  00d4        str      r0
+  00d6        jmp      L13
+  00db  L12:  push     0
+  00e0        cap      expense_cap, R24             ; RI-SECURITY-1
+  00e4  L13:  next     L10
               ; RI-CAP-1  R.I. Gen. Laws § 12-25-22(b)  "No compensation shall be awarded under this chapter to the..."
-  00d6  L14:  push     0
-  00db        str      r0
-  00dd        push     0
-  00e2        str      r1
-  00e4        each     all, L19
-  00ea  L15:  ldr      r1
-  00ec        jnz      L17
-  00f1        ldr      r0
-  00f3        lda
-  00f4        adds
-  00f5        ldk      K2                           ; $25,000.00
-  00f8        gt
-  00f9        jz       L16
-  00fe        ldk      K2                           ; $25,000.00
-  0101        ldr      r0
-  0103        subs
-  0104        cap      total_cap, R3                ; RI-CAP-1
-  0108        push     1
-  010d        str      r1
-  010f  L16:  ldr      r0
-  0111        lda
-  0112        adds
-  0113        str      r0
-  0115        jmp      L18
-  011a  L17:  push     0
-  011f        cap      total_cap, R3                ; RI-CAP-1
-  0123  L18:  next     L15
-  0128  L19:  push     0                            ; met
-  012d        check    minimum_loss, P0             ; (none)
+  00e9  L14:  push     0
+  00ee        str      r0
+  00f0        push     0
+  00f5        str      r1
+  00f7        each     all, L19
+  00fd  L15:  ldr      r1
+  00ff        jnz      L17
+  0104        ldr      r0
+  0106        lda
+  0107        adds
+  0108        ldk      K2                           ; $25,000.00
+  010b        gt
+  010c        jz       L16
+  0111        ldk      K2                           ; $25,000.00
+  0114        ldr      r0
+  0116        subs
+  0117        cap      total_cap, R3                ; RI-CAP-1
+  011b        push     1
+  0120        str      r1
+  0122  L16:  ldr      r0
+  0124        lda
+  0125        adds
+  0126        str      r0
+  0128        jmp      L18
+  012d  L17:  push     0
+  0132        cap      total_cap, R3                ; RI-CAP-1
+  0136  L18:  next     L15
+  013b  L19:  push     0                            ; met
+  0140        check    minimum_loss, P0             ; (none)
               ; RI-DEADLINE-1  R.I. Gen. Laws § 12-25-22(a)  "Actions for compensation under this chapter shall be commenced..."
-  0131        ldx      incident_date
-  0133        push     1095
-  0138        adds
-              ; RI-DEADLINE-2  120-RICR-00-00-2.7(A)(1)(a)  "If the personal injury to the minor victim or secondary victim..."
-  0139        ldx      incident_date
-  013b        push     1095
-  0140        adds
-  0141        max
-  0142        dup
-  0143        setdate
-  0144        ldx      as_of_date
-  0146        ge
-  0147        jz       L20
-  014c        push     0
-  0151        jmp      L21
-  0156  L20:  push     1                            ; late
-  015b  L21:  check    deadline, P20                ; RI-DEADLINE-1, RI-DEADLINE-2
+  0144        ldx      incident_date
+  0146        push     1095
+  014b        adds
+  014c        dup
+  014d        setdate
+  014e        ldx      as_of_date
+  0150        ge
+  0151        jz       L20
+  0156        push     0
+  015b        jmp      L21
+  0160  L20:  push     1                            ; late
+  0165  L21:  check    deadline, P17                ; RI-DEADLINE-1
               ; RI-REPORT-1  R.I. Gen. Laws § 12-25-22(a)  "no compensation shall be awarded for an injury or death..."
               ; RI-REPORT-2  120-RICR-00-00-2.7(A)(2)(c)  "The reporting of a crime to a court through a citizen..."
               ; RI-REPORT-3  120-RICR-00-00-2.7(A)(2)(d)  "Reports to private security personnel, rape crisis centers..."
               ; RI-REPORT-4  120-RICR-00-00-2.7(A)(3)(b)  "Good cause for delay shall include, but not be limited to, delay..."
               ; RI-REPORT-5  120-RICR-00-00-2.7(A)(2)(b)  "Crimes involving minor victims may be reported to the Department..."
-  015f        ldx      police_report
-  0161        push     1                            ; yes
-  0166        eq
-  0167        jnz      L23
-  016c        ldx      forensic_exam
-  016e        jnz      L23
-  0173        ldx      police_report
-  0175        push     0                            ; no
-  017a        eq
-  017b        jnz      L22
-  0180        push     3
-  0185        jmp      L24
-  018a  L22:  push     1
+  0169        ldx      police_report
+  016b        push     1                            ; yes
+  0170        eq
+  0171        jnz      L23
+  0176        ldx      forensic_exam
+  0178        jnz      L23
+  017d        ldx      police_report
+  017f        push     0                            ; no
+  0184        eq
+  0185        jnz      L22
+  018a        push     3
   018f        jmp      L24
-  0194  L23:  push     0                            ; satisfied
-  0199  L24:  check    reporting, P21               ; RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5
+  0194  L22:  push     1
+  0199        jmp      L24
+  019e  L23:  push     0                            ; satisfied
+  01a3  L24:  check    reporting, P18               ; RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5
+              ; RI-EXAM-1  Sexual Assault Victims Bill of Rights (R.I. Gen. Laws § 23-98-5), "Your right to obtain a medical examination"  "Victims are eligible to receive compensation for the cost of..."
               ; RI-CRIME-1  R.I. Gen. Laws § 12-25-20(11)  "First or second degree sexual assault;"
               ; RI-CRIME-2  R.I. Gen. Laws § 12-25-17(8)  "“Personal injury” means actual bodily harm, mental or..."
+              ; RI-DEADLINE-2  120-RICR-00-00-2.7(A)(1)(a)  "If the personal injury to the minor victim or secondary victim..."
               ; RI-DEADLINE-3  120-RICR-00-00-2.7(A)(1)(c)  "office may allow an application for compensation to be filed..."
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-CONDUCT-1  R.I. Gen. Laws § 12-25-19(d)(1)(iv)  "The behavior of the victim, including past behavior, that..."
               ; RI-EMERG-1  R.I. Gen. Laws § 12-25-21.1(a)  "The office may award emergency compensation under this chapter..."
+              ; RI-EXCL-1  120-RICR-00-00-2.8(A)(1)(h)  "Property losses are not compensable expenses."
               ; RI-RES-1  R.I. Gen. Laws § 12-25-19(a)(1)  "Within the physical confines of the state of Rhode Island;"
               ; RI-RES-2  R.I. Gen. Laws § 12-25-19(a)(3)  "Outside the state of Rhode Island to any victim who has his or..."
               ; RI-SUBMIT-1  CVCP Application, page 2, return address  "Return completed Application to: CRIME VICTIM COMPENSATION..."
@@ -586,6 +563,6 @@
               ; RI-DOC-7  120-RICR-00-00-2.8(A)(4)(a)  "Upon request by the office, the victim must submit a disability..."
               ; RI-ACP-1  ACP page, program description  "The goal of the Address Confidentiality Program (ACP/Program) is..."
               ; RI-RECCONF-1  120-RICR-00-00-2.13  "All medical records, mental health counseling records..."
-  019d        info     P22                          ; RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-3, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1
-  01a0        ret
+  01a7        info     P19                          ; RI-EXAM-1, RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-2, RI-DEADLINE-3, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-EXCL-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1
+  01aa        ret
 

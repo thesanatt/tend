@@ -1,10 +1,10 @@
 ; tend law image MI, Michigan
-; format 1.1, compiled by tendc 1.1.0
+; format 1.2, compiled by tendc 1.2.0
 ; source sha256 3dcdc6b4b2ad99b860267e12a539c1a74ac7d8027232bfbee2755b2b134fda68
-; image sha256  f637945577b85907e2a39db22ba4e7075c77e3bdfa5dacb52bd68057ad6c1fd7
-; 83 rules, 23 sources, 33 proofs, 7 ints, 471 strings
+; image sha256  54f9809e186676b66f499a7ccb87cba8c76a4bf001149365dee2422d60327771
+; 83 rules, 23 sources, 33 proofs, 7 ints, 473 strings
 ; item program: 207 instructions, 662 bytes, max stack 2
-; aggregate program: 252 instructions, 779 bytes, max stack 3, 9 loops
+; aggregate program: 294 instructions, 898 bytes, max stack 3, 10 loops
 
 .rules
     R0    MI-EXAM-1             exam_no_bill  -                                             MCL 18.355a(2)
@@ -34,8 +34,8 @@
     R24   MI-EXCL-2             info          -                     excluded_expense        MDHHS What Costs May Be Covered, Costs that are NOT Covered
     R25   MI-EXCL-3             info          -                     excluded_expense        MDHHS What Costs May Be Covered, Costs that are NOT Covered
     R26   MI-EXCL-4             info          -                     excluded_expense        MDHHS What Costs May Be Covered, Costs that are NOT Covered
-    R27   MI-FILE-1             deadline      -                                             MCL 18.355(2)
-    R28   MI-FILE-2             deadline      -                                             MCL 18.355(2)(a)
+    R27   MI-FILE-1             deadline      -                     from crime              MCL 18.355(2)
+    R28   MI-FILE-2             deadline      -                     from report             MCL 18.355(2)(a)
     R29   MI-FILE-3             info          -                     filing_deadline         MCL 18.355(3)
     R30   MI-REPORT-1           reporting     -                                             MCL 18.355a(10)
     R31   MI-REPORT-2           reporting     -                                             MCL 18.360(c)
@@ -454,268 +454,311 @@
 .aggregate
               ; MI-CAP-3  MCL 18.361(6)  "except that the maximum hourly reimbursement rate must not..."
   0000        each     counseling, L4
-  0006  L0:   ldi      units
-  0008        jz       L2
-  000d        ldk      K0                           ; $125.00
-  0010        ldi      units
-  0012        muls
-  0013        dup
-  0014        lda
-  0015        lt
-  0016        jz       L1
-  001b        cap      unit_cap, R6                 ; MI-CAP-3
-  001f        jmp      L3
-  0024  L1:   pop
-  0025        jmp      L3
-  002a  L2:   flag     R6                           ; rate_unverified MI-CAP-3
-  002d  L3:   next     L0
+  0006  L0:   ldi      unit
+  0008        push     1                            ; session
+  000d        eq
+  000e        jz       L2
+  0013        ldi      units
+  0015        push     0
+  001a        gt
+  001b        jz       L2
+  0020        ldk      K0                           ; $125.00
+  0023        ldi      units
+  0025        muls
+  0026        dup
+  0027        lda
+  0028        lt
+  0029        jz       L1
+  002e        cap      unit_cap, R6                 ; MI-CAP-3
+  0032        jmp      L3
+  0037  L1:   pop
+  0038        jmp      L3
+  003d  L2:   flag     R6                           ; rate_unverified MI-CAP-3
+  0040  L3:   next     L0
               ; MI-CAP-5  MCL 18.361(4)  "An award must not exceed $1,000.00 for each week of lost..."
-  0032  L4:   each     lost_wages, L9
-  0038  L5:   ldi      units
-  003a        jz       L7
-  003f        ldk      K1                           ; $1,000.00
-  0042        ldi      units
-  0044        muls
-  0045        dup
-  0046        lda
-  0047        lt
-  0048        jz       L6
-  004d        cap      unit_cap, R7                 ; MI-CAP-5
-  0051        jmp      L8
-  0056  L6:   pop
-  0057        jmp      L8
-  005c  L7:   flag     R7                           ; rate_unverified MI-CAP-5
-  005f  L8:   next     L5
+  0045  L4:   each     lost_wages, L9
+  004b  L5:   ldi      unit
+  004d        push     2                            ; week
+  0052        eq
+  0053        jz       L7
+  0058        ldi      units
+  005a        push     0
+  005f        gt
+  0060        jz       L7
+  0065        ldk      K1                           ; $1,000.00
+  0068        ldi      units
+  006a        muls
+  006b        dup
+  006c        lda
+  006d        lt
+  006e        jz       L6
+  0073        cap      unit_cap, R7                 ; MI-CAP-5
+  0077        jmp      L8
+  007c  L6:   pop
+  007d        jmp      L8
+  0082  L7:   flag     R7                           ; rate_unverified MI-CAP-5
+  0085  L8:   next     L5
               ; MI-CAP-6  MCL 18.361(2)(c)  "An award for expenses under this subdivision may not exceed..."
-  0064  L9:   push     0
-  0069        str      r0
-  006b        push     0
-  0070        str      r1
-  0072        each     relocation, L14
-  0078  L10:  ldr      r1
-  007a        jnz      L12
-  007f        ldr      r0
-  0081        lda
-  0082        adds
-  0083        ldk      K2                           ; $3,800.00
-  0086        gt
-  0087        jz       L11
-  008c        ldk      K2                           ; $3,800.00
-  008f        ldr      r0
-  0091        subs
-  0092        cap      expense_cap, R8              ; MI-CAP-6
-  0096        push     1
-  009b        str      r1
-  009d  L11:  ldr      r0
-  009f        lda
-  00a0        adds
-  00a1        str      r0
-  00a3        jmp      L13
-  00a8  L12:  push     0
-  00ad        cap      expense_cap, R8              ; MI-CAP-6
-  00b1  L13:  next     L10
+  008a  L9:   push     0
+  008f        str      r0
+  0091        push     0
+  0096        str      r1
+  0098        each     relocation, L14
+  009e  L10:  ldr      r1
+  00a0        jnz      L12
+  00a5        ldr      r0
+  00a7        lda
+  00a8        adds
+  00a9        ldk      K2                           ; $3,800.00
+  00ac        gt
+  00ad        jz       L11
+  00b2        ldk      K2                           ; $3,800.00
+  00b5        ldr      r0
+  00b7        subs
+  00b8        cap      expense_cap, R8              ; MI-CAP-6
+  00bc        push     1
+  00c1        str      r1
+  00c3  L11:  ldr      r0
+  00c5        lda
+  00c6        adds
+  00c7        str      r0
+  00c9        jmp      L13
+  00ce  L12:  push     0
+  00d3        cap      expense_cap, R8              ; MI-CAP-6
+  00d7  L13:  next     L10
               ; MI-CAP-8  MCL 18.361(2)(e)(ii)  "(ii) If the expense is for travel that meets 1 or more of the..."
-  00b6  L14:  push     0
-  00bb        str      r0
-  00bd        push     0
-  00c2        str      r1
-  00c4        each     transportation, L19
-  00ca  L15:  ldr      r1
-  00cc        jnz      L17
-  00d1        ldr      r0
-  00d3        lda
-  00d4        adds
-  00d5        ldk      K3                           ; $5,000.00
-  00d8        gt
-  00d9        jz       L16
-  00de        ldk      K3                           ; $5,000.00
-  00e1        ldr      r0
-  00e3        subs
-  00e4        cap      expense_cap, R9              ; MI-CAP-8
-  00e8        push     1
-  00ed        str      r1
-  00ef  L16:  ldr      r0
-  00f1        lda
-  00f2        adds
-  00f3        str      r0
-  00f5        jmp      L18
-  00fa  L17:  push     0
-  00ff        cap      expense_cap, R9              ; MI-CAP-8
-  0103  L18:  next     L15
+  00dc  L14:  push     0
+  00e1        str      r0
+  00e3        push     0
+  00e8        str      r1
+  00ea        each     transportation, L19
+  00f0  L15:  ldr      r1
+  00f2        jnz      L17
+  00f7        ldr      r0
+  00f9        lda
+  00fa        adds
+  00fb        ldk      K3                           ; $5,000.00
+  00fe        gt
+  00ff        jz       L16
+  0104        ldk      K3                           ; $5,000.00
+  0107        ldr      r0
+  0109        subs
+  010a        cap      expense_cap, R9              ; MI-CAP-8
+  010e        push     1
+  0113        str      r1
+  0115  L16:  ldr      r0
+  0117        lda
+  0118        adds
+  0119        str      r0
+  011b        jmp      L18
+  0120  L17:  push     0
+  0125        cap      expense_cap, R9              ; MI-CAP-8
+  0129  L18:  next     L15
               ; MI-CAP-9  MCL 18.361(2)(f)  "(f) Reasonable costs of not more than $1,000.00 per residence..."
-  0108  L19:  push     0
-  010d        str      r0
-  010f        push     0
-  0114        str      r1
-  0116        each     security, L24
-  011c  L20:  ldr      r1
-  011e        jnz      L22
-  0123        ldr      r0
-  0125        lda
-  0126        adds
-  0127        ldk      K1                           ; $1,000.00
-  012a        gt
-  012b        jz       L21
-  0130        ldk      K1                           ; $1,000.00
-  0133        ldr      r0
-  0135        subs
-  0136        cap      expense_cap, R10             ; MI-CAP-9
-  013a        push     1
-  013f        str      r1
-  0141  L21:  ldr      r0
-  0143        lda
-  0144        adds
-  0145        str      r0
-  0147        jmp      L23
-  014c  L22:  push     0
-  0151        cap      expense_cap, R10             ; MI-CAP-9
-  0155  L23:  next     L20
+  012e  L19:  push     0
+  0133        str      r0
+  0135        push     0
+  013a        str      r1
+  013c        each     security, L24
+  0142  L20:  ldr      r1
+  0144        jnz      L22
+  0149        ldr      r0
+  014b        lda
+  014c        adds
+  014d        ldk      K1                           ; $1,000.00
+  0150        gt
+  0151        jz       L21
+  0156        ldk      K1                           ; $1,000.00
+  0159        ldr      r0
+  015b        subs
+  015c        cap      expense_cap, R10             ; MI-CAP-9
+  0160        push     1
+  0165        str      r1
+  0167  L21:  ldr      r0
+  0169        lda
+  016a        adds
+  016b        str      r0
+  016d        jmp      L23
+  0172  L22:  push     0
+  0177        cap      expense_cap, R10             ; MI-CAP-9
+  017b  L23:  next     L20
               ; MI-CAP-10  MCL 18.361(2)(j)  "(j) Replacement costs of not more than $250.00 for clothing or..."
-  015a  L24:  push     0
-  015f        str      r0
-  0161        push     0
-  0166        str      r1
-  0168        each     clothing_bedding, L29
-  016e  L25:  ldr      r1
-  0170        jnz      L27
-  0175        ldr      r0
-  0177        lda
-  0178        adds
-  0179        ldk      K4                           ; $250.00
-  017c        gt
-  017d        jz       L26
-  0182        ldk      K4                           ; $250.00
-  0185        ldr      r0
-  0187        subs
-  0188        cap      expense_cap, R11             ; MI-CAP-10
-  018c        push     1
-  0191        str      r1
-  0193  L26:  ldr      r0
-  0195        lda
-  0196        adds
-  0197        str      r0
-  0199        jmp      L28
-  019e  L27:  push     0
-  01a3        cap      expense_cap, R11             ; MI-CAP-10
-  01a7  L28:  next     L25
+  0180  L24:  push     0
+  0185        str      r0
+  0187        push     0
+  018c        str      r1
+  018e        each     clothing_bedding, L29
+  0194  L25:  ldr      r1
+  0196        jnz      L27
+  019b        ldr      r0
+  019d        lda
+  019e        adds
+  019f        ldk      K4                           ; $250.00
+  01a2        gt
+  01a3        jz       L26
+  01a8        ldk      K4                           ; $250.00
+  01ab        ldr      r0
+  01ad        subs
+  01ae        cap      expense_cap, R11             ; MI-CAP-10
+  01b2        push     1
+  01b7        str      r1
+  01b9  L26:  ldr      r0
+  01bb        lda
+  01bc        adds
+  01bd        str      r0
+  01bf        jmp      L28
+  01c4  L27:  push     0
+  01c9        cap      expense_cap, R11             ; MI-CAP-10
+  01cd  L28:  next     L25
               ; MI-CAP-11  MCL 18.361(2)(i)  "the crime scene cleanup services resulting from a crime for that..."
-  01ac  L29:  push     0
-  01b1        str      r0
-  01b3        push     0
-  01b8        str      r1
-  01ba        each     crime_scene_cleanup, L34
-  01c0  L30:  ldr      r1
-  01c2        jnz      L32
-  01c7        ldr      r0
-  01c9        lda
-  01ca        adds
-  01cb        ldk      K3                           ; $5,000.00
-  01ce        gt
-  01cf        jz       L31
-  01d4        ldk      K3                           ; $5,000.00
-  01d7        ldr      r0
-  01d9        subs
-  01da        cap      expense_cap, R12             ; MI-CAP-11
-  01de        push     1
-  01e3        str      r1
-  01e5  L31:  ldr      r0
-  01e7        lda
-  01e8        adds
-  01e9        str      r0
-  01eb        jmp      L33
-  01f0  L32:  push     0
-  01f5        cap      expense_cap, R12             ; MI-CAP-11
-  01f9  L33:  next     L30
+  01d2  L29:  push     0
+  01d7        str      r0
+  01d9        push     0
+  01de        str      r1
+  01e0        each     crime_scene_cleanup, L34
+  01e6  L30:  ldr      r1
+  01e8        jnz      L32
+  01ed        ldr      r0
+  01ef        lda
+  01f0        adds
+  01f1        ldk      K3                           ; $5,000.00
+  01f4        gt
+  01f5        jz       L31
+  01fa        ldk      K3                           ; $5,000.00
+  01fd        ldr      r0
+  01ff        subs
+  0200        cap      expense_cap, R12             ; MI-CAP-11
+  0204        push     1
+  0209        str      r1
+  020b  L31:  ldr      r0
+  020d        lda
+  020e        adds
+  020f        str      r0
+  0211        jmp      L33
+  0216  L32:  push     0
+  021b        cap      expense_cap, R12             ; MI-CAP-11
+  021f  L33:  next     L30
               ; MI-CAP-1  MCL 18.361(1)  "The aggregate award under this act must not exceed $45,000.00..."
-  01fe  L34:  push     0
-  0203        str      r0
-  0205        push     0
-  020a        str      r1
-  020c        each     all, L39
-  0212  L35:  ldr      r1
-  0214        jnz      L37
-  0219        ldr      r0
-  021b        lda
-  021c        adds
-  021d        ldk      K5                           ; $45,000.00
-  0220        gt
-  0221        jz       L36
-  0226        ldk      K5                           ; $45,000.00
-  0229        ldr      r0
-  022b        subs
-  022c        cap      total_cap, R5                ; MI-CAP-1
-  0230        push     1
-  0235        str      r1
-  0237  L36:  ldr      r0
-  0239        lda
-  023a        adds
-  023b        str      r0
-  023d        jmp      L38
-  0242  L37:  push     0
-  0247        cap      total_cap, R5                ; MI-CAP-1
-  024b  L38:  next     L35
-  0250  L39:  push     0
-  0255        str      r0
-  0257        each     all, L41
-  025d  L40:  ldr      r0
+  0224  L34:  push     0
+  0229        str      r0
+  022b        push     0
+  0230        str      r1
+  0232        each     all, L39
+  0238  L35:  ldr      r1
+  023a        jnz      L37
+  023f        ldr      r0
+  0241        lda
+  0242        adds
+  0243        ldk      K5                           ; $45,000.00
+  0246        gt
+  0247        jz       L36
+  024c        ldk      K5                           ; $45,000.00
+  024f        ldr      r0
+  0251        subs
+  0252        cap      total_cap, R5                ; MI-CAP-1
+  0256        push     1
+  025b        str      r1
+  025d  L36:  ldr      r0
   025f        lda
   0260        adds
   0261        str      r0
-  0263        next     L40
-  0268  L41:  push     0
-  026d        str      r2
+  0263        jmp      L38
+  0268  L37:  push     0
+  026d        cap      total_cap, R5                ; MI-CAP-1
+  0271  L38:  next     L35
               ; MI-MIN-1  MCL 18.354(3)  "An award must not be made on a claim unless the claimant has..."
-  026f        ldr      r0
-  0271        ldk      K6                           ; $200.00
-  0274        lt
-  0275        jz       L44
-  027a        ldx      forensic_exam
-  027c        jz       L42
-  0281        push     2
-  0286        jmp      L43
-  028b  L42:  push     3
-  0290  L43:  ldr      r2
-  0292        max
-  0293        str      r2
-  0295  L44:  ldr      r2
-  0297        check    minimum_loss, P29            ; MI-MIN-1
+  0276  L39:  push     0
+  027b        str      r0
+  027d        each     all, L41
+  0283  L40:  ldr      r0
+  0285        lda
+  0286        adds
+  0287        str      r0
+  0289        next     L40
+  028e  L41:  push     0
+  0293        str      r5
+  0295        push     0
+  029a        str      r6
+  029c        each     lost_wages, L45
+  02a2  L42:  ldi      unit
+  02a4        push     2                            ; week
+  02a9        eq
+  02aa        jz       L43
+  02af        ldr      r5
+  02b1        ldi      units
+  02b3        adds
+  02b4        str      r5
+  02b6        jmp      L44
+  02bb  L43:  ldi      unit
+  02bd        push     5                            ; day
+  02c2        eq
+  02c3        jz       L44
+  02c8        ldr      r6
+  02ca        ldi      units
+  02cc        adds
+  02cd        str      r6
+  02cf  L44:  next     L42
+  02d4  L45:  ldr      r5
+  02d6        push     5
+  02db        muls
+  02dc        ldr      r6
+  02de        adds
+  02df        str      r1
+  02e1        push     0
+  02e6        str      r2
+              ; MI-MIN-1  MCL 18.354(3)  "An award must not be made on a claim unless the claimant has..."
+  02e8        ldr      r0
+  02ea        ldk      K6                           ; $200.00
+  02ed        ge
+  02ee        jnz      L46
+  02f3        ldr      r1
+  02f5        push     5
+  02fa        ge
+  02fb        jnz      L46
+  0300        push     3
+  0305        ldr      r2
+  0307        max
+  0308        str      r2
+  030a  L46:  ldr      r2
+  030c        check    minimum_loss, P29            ; MI-MIN-1
               ; MI-FILE-1  MCL 18.355(2)  "a claim must be filed by the claimant not later than 5 years..."
-  029b        ldx      incident_date
-  029d        push     1826
-  02a2        adds
+  0310        ldx      incident_date
+  0312        push     1826
+  0317        adds
               ; MI-FILE-2  MCL 18.355(2)(a)  "a claim based on the crime of criminal sexual conduct in the..."
-  02a3        ldx      incident_date
-  02a5        push     1826
-  02aa        adds
-  02ab        max
-  02ac        dup
-  02ad        setdate
-  02ae        ldx      as_of_date
-  02b0        ge
-  02b1        jz       L45
-  02b6        push     0
-  02bb        jmp      L46
-  02c0  L45:  push     1                            ; late
-  02c5  L46:  check    deadline, P30                ; MI-FILE-1, MI-FILE-2
+  0318        ldx      incident_date
+  031a        push     1826
+  031f        adds
+  0320        max
+  0321        dup
+  0322        setdate
+  0323        ldx      as_of_date
+  0325        ge
+  0326        jz       L47
+  032b        push     0
+  0330        jmp      L48
+  0335  L47:  push     1
+  033a  L48:  note     deadline_from_report
+  033c        check    deadline, P30                ; MI-FILE-1, MI-FILE-2
               ; MI-REPORT-1  MCL 18.355a(10)  "For payments authorized under this section or for payments made..."
               ; MI-REPORT-2  MCL 18.360(c)  "(c) Police records show that the crime was reported to the..."
               ; MI-REPORT-3  MDHHS Do I Qualify?, Eligibility Requirements  "The crime must be reported to law enforcement (waivers may..."
-  02c9        ldx      police_report
-  02cb        push     1                            ; yes
-  02d0        eq
-  02d1        jnz      L48
-  02d6        ldx      forensic_exam
-  02d8        jnz      L48
-  02dd        ldx      police_report
-  02df        push     0                            ; no
-  02e4        eq
-  02e5        jnz      L47
-  02ea        push     3
-  02ef        jmp      L49
-  02f4  L47:  push     1
-  02f9        jmp      L49
-  02fe  L48:  push     0                            ; satisfied
-  0303  L49:  check    reporting, P31               ; MI-REPORT-1, MI-REPORT-2, MI-REPORT-3
+  0340        ldx      police_report
+  0342        push     1                            ; yes
+  0347        eq
+  0348        jnz      L50
+  034d        ldx      forensic_exam
+  034f        jnz      L50
+  0354        ldx      police_report
+  0356        push     0                            ; no
+  035b        eq
+  035c        jnz      L49
+  0361        push     3
+  0366        jmp      L51
+  036b  L49:  push     1
+  0370        jmp      L51
+  0375  L50:  push     0                            ; satisfied
+  037a  L51:  check    reporting, P31               ; MI-REPORT-1, MI-REPORT-2, MI-REPORT-3
               ; MI-EXCL-2  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Pain, suffering, or emotional distress damages."
               ; MI-EXCL-3  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Costs of participating in a trial."
               ; MI-EXCL-4  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Expenses paid by other sources (public or private health..."
@@ -766,6 +809,6 @@
               ; MI-DOC-30  Application Checklist, Loss of Earnings or Support, item 6  "If you are applying for loss of support, provide a copy of the..."
               ; MI-ACP-1  ACP Applicants page, program description  "The Program (ACP) was created to conceal the addresses of..."
               ; MI-RECCONF-1  MCL 18.363  "The record of a proceeding before the commission is a public..."
-  0307        info     P32                          ; MI-EXCL-2, MI-EXCL-3, MI-EXCL-4, MI-FILE-3, MI-COLL-1, MI-COLL-2, MI-COLL-3, MI-CONDUCT-1, MI-CONDUCT-2, MI-EMERG-1, MI-ELIG-1, MI-ELIG-2, MI-RES-1, MI-RES-2, MI-RES-3, MI-SUBMIT-1, MI-SUBMIT-2, MI-SUBMIT-3, MI-DOC-1, MI-DOC-2, MI-DOC-3, MI-DOC-4, MI-DOC-5, MI-DOC-6, MI-DOC-7, MI-DOC-8, MI-DOC-9, MI-DOC-10, MI-DOC-11, MI-DOC-12, MI-DOC-13, MI-DOC-14, MI-DOC-15, MI-DOC-16, MI-DOC-17, MI-DOC-18, MI-DOC-19, MI-DOC-20, MI-DOC-21, MI-DOC-22, MI-DOC-23, MI-DOC-24, MI-DOC-25, MI-DOC-26, MI-DOC-27, MI-DOC-28, MI-DOC-29, MI-DOC-30, MI-ACP-1, MI-RECCONF-1
-  030a        ret
+  037e        info     P32                          ; MI-EXCL-2, MI-EXCL-3, MI-EXCL-4, MI-FILE-3, MI-COLL-1, MI-COLL-2, MI-COLL-3, MI-CONDUCT-1, MI-CONDUCT-2, MI-EMERG-1, MI-ELIG-1, MI-ELIG-2, MI-RES-1, MI-RES-2, MI-RES-3, MI-SUBMIT-1, MI-SUBMIT-2, MI-SUBMIT-3, MI-DOC-1, MI-DOC-2, MI-DOC-3, MI-DOC-4, MI-DOC-5, MI-DOC-6, MI-DOC-7, MI-DOC-8, MI-DOC-9, MI-DOC-10, MI-DOC-11, MI-DOC-12, MI-DOC-13, MI-DOC-14, MI-DOC-15, MI-DOC-16, MI-DOC-17, MI-DOC-18, MI-DOC-19, MI-DOC-20, MI-DOC-21, MI-DOC-22, MI-DOC-23, MI-DOC-24, MI-DOC-25, MI-DOC-26, MI-DOC-27, MI-DOC-28, MI-DOC-29, MI-DOC-30, MI-ACP-1, MI-RECCONF-1
+  0381        ret
 
