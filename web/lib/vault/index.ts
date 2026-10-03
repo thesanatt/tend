@@ -233,6 +233,9 @@ export function createVault(config: VaultConfig = {}): TendVault {
           wipe(secret);
         }
       }
+      // Exit or delete pressed while the key was being made: write nothing, so no vault appears
+      // on the device after the person asked for it to be gone.
+      if (startedAt !== epoch) throw new VaultError("locked", "Tend stopped saving because the page was locked.");
       await storage(() => store().put(META, meta));
       await install(raw, startedAt);
     } finally {
@@ -338,14 +341,20 @@ export function createVault(config: VaultConfig = {}): TendVault {
     async set<T>(name: string, value: T) {
       if (value === undefined) return vault.delete(name);
       const k = current();
+      const at = epoch;
       const slot = await slotFor(k.names, name);
       const box = await sealBytes(k.enc, utf8(JSON.stringify(value)), RECORD + name);
+      // A save that was still encrypting when the vault locked or was deleted must not land: after
+      // destroy() it would bring the database back.
+      if (at !== epoch) throw new VaultError("locked", "Your saved work is locked. Open it to continue.");
       await storage(() => store().put(slot, box));
     },
 
     async delete(name: string) {
       const k = current();
+      const at = epoch;
       const slot = await slotFor(k.names, name);
+      if (at !== epoch) throw new VaultError("locked", "Your saved work is locked. Open it to continue.");
       await storage(() => store().delete(slot));
     },
 

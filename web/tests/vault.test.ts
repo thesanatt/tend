@@ -206,6 +206,30 @@ describe("vault with a passphrase", () => {
     expect(await pending).toBe(false);
     expect(vault.isUnlocked()).toBe(false);
   });
+
+  it("a save still encrypting when the vault is deleted does not bring the database back", async () => {
+    const idb = fakeIndexedDB();
+    const vault = createVault({ store: idbStore("tend-vault", () => idb.factory), iterations: FAST, idleMs: 0 });
+    await vault.create({ passphrase: "maple river 42" });
+    await vault.set("answers", SECRET);
+    const late = vault.set("answers", { ...SECRET, more: true });
+    const gone = vault.destroy();
+    await expect(late).rejects.toMatchObject({ code: "locked" });
+    await gone;
+    expect(idb.databases()).toEqual([]);
+    expect(await vault.exists()).toBe(false);
+    expect(idb.databases()).toEqual([]);
+  });
+
+  it("a delete pressed while a vault is being made leaves no vault behind", async () => {
+    const store = memoryStore();
+    const vault = createVault({ store, iterations: FAST, idleMs: 0 });
+    const making = vault.create({ passphrase: "maple river 42" });
+    await vault.destroy();
+    await expect(making).rejects.toMatchObject({ code: "locked" });
+    expect(store.records.size).toBe(0);
+    expect(await vault.exists()).toBe(false);
+  });
 });
 
 describe("auto-lock after inactivity", () => {
