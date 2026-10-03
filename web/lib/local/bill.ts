@@ -91,6 +91,7 @@ function reading(
     .sort();
   if (!sumsMatch && lines.length)
     warnings.push("The lines on this bill do not add up to its total, so Tend will not use its numbers.");
+  if (!lines.length && !warnings.length) warnings.push("No itemized lines were found on this bill.");
   return {
     status: sumsMatch ? "ok" : "unreliable",
     provider: bill.provider,

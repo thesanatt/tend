@@ -249,6 +249,16 @@ describe("bill photos go to Gemini Nano on the device", () => {
     expect(got.warnings[0]).toMatch(/not ready/);
   });
 
+  it("says so when the model finds no lines", async () => {
+    install(new FakeLanguageModel({ answer: () => JSON.stringify({ amount_due: "", totals: [], lines: [] }) }));
+    const got = await readBill(photo());
+    expect(got).toMatchObject({
+      status: "unreliable",
+      lines: [],
+      warnings: ["No itemized lines were found on this bill."],
+    });
+  });
+
   it("works with no LanguageModel at all", async () => {
     const got = await readBill(photo());
     expect(got.status).toBe("unreliable");
