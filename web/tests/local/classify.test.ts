@@ -470,6 +470,30 @@ describe("cloud Gemini only with consent", () => {
     expect(sent.description.length).toBe(2 * CLOUD_LIMITS.description);
   });
 
+  it("says so when the server has no cloud model and sorts nothing", async () => {
+    // What POST /api/ai/classify answers when cloud AI is off on the server: rules only.
+    const fetch = vi.fn(async (_url: string, init: RequestInit) => {
+      const body = JSON.parse(String(init.body)) as { txns: { id: string }[] };
+      return reply({
+        source: "cloud_ai",
+        model: null,
+        cloud_used: false,
+        model_ok: true,
+        labels: body.txns.map((t) => label(t.id, "unresolved")),
+        items: [],
+        note: null,
+      });
+    });
+    const report = await classifyDetailed(unclear(2), ctx, {
+      cloudConsent: true,
+      deviceAi: false,
+      fetch: asFetch(fetch),
+    });
+    expect(report.counts.unresolved).toBe(2);
+    expect(report.cloud.errors).toEqual(["cloud model is not set up on the server"]);
+    expect(report.warnings).toContain("Cloud sorting did not answer, so some rows are left for you to check.");
+  });
+
   it("takes only the model's labels from the answer", async () => {
     const report = await classifyDetailed(unclear(1), ctx, {
       cloudConsent: true,

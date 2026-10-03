@@ -112,10 +112,18 @@ export async function cloudClassify(
     }
   }
   const failed = body.model_ok === false;
+  // A server with no cloud model set up answers with rules only; the rows stay unsorted, so say so.
+  const idle = body.cloud_used === false && !answers.length;
   return {
     answers,
     model: typeof body.model === "string" ? body.model : null,
-    note: failed ? (typeof body.note === "string" ? body.note : "cloud model did not answer") : null,
+    note: failed
+      ? typeof body.note === "string"
+        ? body.note
+        : "cloud model did not answer"
+      : idle
+        ? "cloud model is not set up on the server"
+        : null,
   };
 }
 
