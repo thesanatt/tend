@@ -1,846 +1,848 @@
 {
-  "jurisdiction": "AZ",
-  "name": "Arizona",
-  "program": {
-    "program_name": "Crime Victim Compensation Program",
-    "agency": "Arizona Criminal Justice Commission (ACJC), Crime Victim Services; claims are processed by the County Attorney's office in the county where the crime occurred",
-    "website": "https://www.azcjc.gov/Programs/Victim-Services/Compensation-Program",
-    "apply_url": "https://acjc.hostedbykarpel.com/",
-    "application_pdf_url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_APP_June_2015_FINAL.pdf",
-    "phone": "877-668-2252",
-    "phone_source_id": "AZ-S6",
-    "statute_citation": "A.R.S. 41-2407; A.A.C. R10-4-101 to R10-4-111",
-    "application_form": {
-      "source_id": "AZ-S7",
-      "fillable": false,
-      "field_count": 0
-    }
+ "jurisdiction": "AZ",
+ "name": "Arizona",
+ "program": {
+  "program_name": "Crime Victim Compensation Program",
+  "agency": "Arizona Criminal Justice Commission (ACJC), Crime Victim Services; claims are processed by the County Attorney's office in the county where the crime occurred",
+  "website": "https://www.azcjc.gov/Programs/Victim-Services/Compensation-Program",
+  "apply_url": "https://acjc.hostedbykarpel.com/",
+  "application_pdf_url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_APP_June_2015_FINAL.pdf",
+  "phone": "877-668-2252",
+  "phone_source_id": "AZ-S6",
+  "statute_citation": "A.R.S. 41-2407; A.A.C. R10-4-101 to R10-4-111",
+  "application_form": {
+   "source_id": "AZ-S7",
+   "fillable": false,
+   "field_count": 0
+  }
+ },
+ "sources": [
+  {
+   "id": "AZ-S1",
+   "title": "A.R.S. 41-2407 (victim compensation and assistance fund; provider billing)",
+   "url": "https://www.azleg.gov/ars/41/02407.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:23Z",
+   "raw_path": "rules/sources/AZ/AZ-S1.html",
+   "text_path": "rules/sources/AZ/AZ-S1.txt",
+   "sha256": "362f1cceb99da2a3ab03eab69ec8dd10a3fbf004d809deb7a56c41155f39ed66"
   },
-  "sources": [
-    {
-      "id": "AZ-S1",
-      "title": "A.R.S. 41-2407 (victim compensation and assistance fund; provider billing)",
-      "url": "https://www.azleg.gov/ars/41/02407.htm",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:51:23Z",
-      "raw_path": "rules/sources/AZ/AZ-S1.html",
-      "text_path": "rules/sources/AZ/AZ-S1.txt",
-      "sha256": "362f1cceb99da2a3ab03eab69ec8dd10a3fbf004d809deb7a56c41155f39ed66"
-    },
-    {
-      "id": "AZ-S2",
-      "title": "A.R.S. 13-1414 (expenses of investigation; forensic exams paid by county)",
-      "url": "https://www.azleg.gov/ars/13/01414.htm",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:51:23Z",
-      "raw_path": "rules/sources/AZ/AZ-S2.html",
-      "text_path": "rules/sources/AZ/AZ-S2.txt",
-      "sha256": "a9ca5d250ca062f9bc47982f9e1af765c4d9decac01c932dab9deb52c1b9b835"
-    },
-    {
-      "id": "AZ-S3",
-      "title": "A.A.C. Title 10, Chapter 4 (Arizona Criminal Justice Commission), Article 1 Crime Victim Compensation Program, Supp. 26-1",
-      "url": "https://apps.azsos.gov/public_services/Title_10/10-04.pdf",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:51:29Z",
-      "raw_path": "rules/sources/AZ/AZ-S3.pdf",
-      "text_path": "rules/sources/AZ/AZ-S3.txt",
-      "sha256": "a69cf44aa5e4d5ed582500c4251fb2a87959e8d4a5f7d60f3b4b7c42f4c74384"
-    },
-    {
-      "id": "AZ-S4",
-      "title": "ACJC Crime Victim Compensation Program page",
-      "url": "https://www.azcjc.gov/Programs/Victim-Services/Compensation-Program",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:51:54Z",
-      "raw_path": "rules/sources/AZ/AZ-S4.html",
-      "text_path": "rules/sources/AZ/AZ-S4.txt",
-      "sha256": "70dbc27b83e347b521e27304037e0474ba64003560c053ebfa4cb08b1e73cdb2"
-    },
-    {
-      "id": "AZ-S6",
-      "title": "ACJC Victim Compensation brochure (English)",
-      "url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_English_Brochure.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T18:52:14Z",
-      "raw_path": "rules/sources/AZ/AZ-S6.pdf",
-      "text_path": "rules/sources/AZ/AZ-S6.txt",
-      "sha256": "85267c26e39fc9ce9d00963215e94ba65ba360879ff63fe0e12017b730136926"
-    },
-    {
-      "id": "AZ-S7",
-      "title": "ACJC Victim Compensation application (June 2015)",
-      "url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_APP_June_2015_FINAL.pdf",
-      "kind": "application_form",
-      "retrieved_at": "2026-10-03T18:52:16Z",
-      "raw_path": "rules/sources/AZ/AZ-S7.pdf",
-      "text_path": "rules/sources/AZ/AZ-S7.txt",
-      "sha256": "269fd549bf7ef2f8d589bff96849e965184b83b0e44cd5bf7ccb968de7b558f7"
-    },
-    {
-      "id": "AZ-S8",
-      "title": "A.R.S. 36-420.02 (no extra charges or balance bills for forensic exams)",
-      "url": "https://www.azleg.gov/ars/36/00420-02.htm",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:52:49Z",
-      "raw_path": "rules/sources/AZ/AZ-S8.html",
-      "text_path": "rules/sources/AZ/AZ-S8.txt",
-      "sha256": "cfb5ee2d6d9d3b914196a9fe8fe2b590a46844cd5b288f806e516349800530be"
-    },
-    {
-      "id": "AZ-S9",
-      "title": "ACJC Victim Compensation county program contact list",
-      "url": "https://www.azcjc.gov/Portals/0/Documents/pubs/Victim_Comp_Contact_List.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T19:38:01Z",
-      "raw_path": "rules/sources/AZ/AZ-S9.pdf",
-      "text_path": "rules/sources/AZ/AZ-S9.txt",
-      "sha256": "87ef846dfc223c3c37a932493d95219572fa86881191d756d26b37d957ebb6e7"
-    },
-    {
-      "id": "AZ-S10",
-      "title": "Maricopa County Attorney's Office, Victim Related Information page (Victim Compensation section)",
-      "url": "https://maricopacountyattorney.org/182/Victim-Related-Information",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T19:38:27Z",
-      "raw_path": "rules/sources/AZ/AZ-S10.html",
-      "text_path": "rules/sources/AZ/AZ-S10.txt",
-      "sha256": "300ee91a33192bf86dafc4934efea932b17a70a7c75ee33c9354b179f5515bbc"
-    },
-    {
-      "id": "AZ-S11",
-      "title": "ACJC Victim Compensation application, Maricopa County edition (Rev. 06/2015, county mailing address filled in)",
-      "url": "https://maricopacountyattorney.org/DocumentCenter/View/120",
-      "kind": "application_form",
-      "retrieved_at": "2026-10-03T19:38:59Z",
-      "raw_path": "rules/sources/AZ/AZ-S11.pdf",
-      "text_path": "rules/sources/AZ/AZ-S11.txt",
-      "sha256": "792c75aa41d8adb023139c350653442a36a3813b75bc8723c202919231d088e9"
-    },
-    {
-      "id": "AZ-S12",
-      "title": "Arizona Secretary of State: Address Confidentiality Program, Eligibility & Enrollment",
-      "url": "https://azsos.gov/services/address-confidentiality-program/eligibility-enrollment",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T19:57:29Z",
-      "raw_path": "rules/sources/AZ/AZ-S12.html",
-      "text_path": "rules/sources/AZ/AZ-S12.txt",
-      "sha256": "cf8035b2a260e73b3834f9714dba51449fd08265e4defb56f073a0f5c226d5c8"
-    },
-    {
-      "id": "AZ-S13",
-      "title": "Arizona Secretary of State: About ACP (Address Confidentiality Program)",
-      "url": "https://azsos.gov/services/address-confidentiality-program/about-acp",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T19:57:33Z",
-      "raw_path": "rules/sources/AZ/AZ-S13.html",
-      "text_path": "rules/sources/AZ/AZ-S13.txt",
-      "sha256": "c114ddf57541944671cf83b9991458520b96c6453d17923a9cb1816dd28f643c"
-    },
-    {
-      "id": "AZ-S14",
-      "title": "Pinal County Attorney: Crime Victim Compensation Board Meetings",
-      "url": "https://www.pinal.gov/1709/Crime-Victim-Compensation-Board-Meetings",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T19:58:01Z",
-      "raw_path": "rules/sources/AZ/AZ-S14.html",
-      "text_path": "rules/sources/AZ/AZ-S14.txt",
-      "sha256": "5fbc679d37c9c4cc0b74bf05498a84faa43292ad1b05d135faa02e8145829773"
-    }
-  ],
-  "rules": [
-    {
-      "id": "AZ-EXAM-1",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "County where the offense occurred"
-      },
-      "summary": "The county where the offense happened pays the medical or forensic exam costs to collect evidence of a sexual offense.",
-      "quote": "Any medical or forensic interview or examination expenses arising out of the need to secure evidence that a person has been the victim of a dangerous crime against children as defined in section 13-705 or a sexual offense pursuant to section 13-1404, 13-1405, 13-1406 or 13-3212 shall be paid by the county in which the offense occurred",
-      "source_id": "AZ-S2",
-      "pinpoint": "A.R.S. 13-1414(A)"
-    },
-    {
-      "id": "AZ-EXAM-2",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "A hospital or provider may not send the patient a balance bill for a county-paid forensic exam. The statute does not say whether the patient's insurance may be billed.",
-      "quote": "A health care institution or health care provider may not issue, either directly or through its billing company, any additional balance bill to a patient relating to a medical or forensic interview or examination for which the county is required to pay pursuant to section 13-1414.",
-      "source_id": "AZ-S8",
-      "pinpoint": "A.R.S. 36-420.02(B)"
-    },
-    {
-      "id": "AZ-EXAM-3",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "A health care institution may not charge the patient intake, consultation, facility, or other fees as part of a county-paid forensic exam.",
-      "quote": "A health care institution may not charge an intake, consultation, facility or other fee to a patient as part of a medical or forensic interview or examination for which the county is required to pay pursuant to section 13-1414.",
-      "source_id": "AZ-S8",
-      "pinpoint": "A.R.S. 36-420.02(A)"
-    },
-    {
-      "id": "AZ-CAP-1",
-      "category": "total_cap",
-      "params": {
-        "amount_cents": 2500000
-      },
-      "summary": "The maximum award is $25,000 per claim for all economic loss from one incident; each eligible person files a separate claim.",
-      "quote": "Twenty-five thousand dollars for all economic loss submitted under a claim as a result of an incident of criminally injurious conduct;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(D)(1)"
-    },
-    {
-      "id": "AZ-CAP-2",
-      "category": "expense_cap",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling",
-        "amount_cents": 500000,
-        "per": "claim"
-      },
-      "summary": "Mental health counseling and care is capped at $5,000 per victim or derivative victim.",
-      "quote": "For mental health counseling and care expenses, $5,000 per victim or derivative victim;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(D)(5)"
-    },
-    {
-      "id": "AZ-CAP-3",
-      "category": "expense_cap",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages",
-        "amount_cents": null,
-        "per": "week",
-        "hours_per_week": 40
-      },
-      "summary": "Work loss is limited each calendar week to 40 hours at the current minimum wage, within the overall award maximum.",
-      "quote": "are limited to an amount per calendar week equal to 40 hours at the current minimum wage",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(D)(4)(a)"
-    },
-    {
-      "id": "AZ-CAP-4",
-      "category": "expense_cap",
-      "expense": "transportation",
-      "params": {
-        "expense": "transportation",
-        "amount_cents": 200000,
-        "per": "claim"
-      },
-      "summary": "Transportation costs are capped at $2,000 per victim or derivative victim, paid as reimbursement of actual costs.",
-      "quote": "For transportation costs, $2,000 per victim or derivative victim paid as reimbursement of actual transportation expenses.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(D)(8)"
-    },
-    {
-      "id": "AZ-CAP-5",
-      "category": "expense_cap",
-      "expense": "crime_scene_cleanup",
-      "params": {
-        "expense": "crime_scene_cleanup",
-        "amount_cents": 200000,
-        "per": "claim"
-      },
-      "summary": "Crime scene cleanup is capped at $2,000 for professional cleanup, of which up to $500 may go to cleanup not done by a professional service.",
-      "quote": "For crime scene cleanup expenses, $2,000 for cleanup provided by a professional service, of which $500 may be for crime scene cleanup not provided by a professional service",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(D)(7)"
-    },
-    {
-      "id": "AZ-CAP-6",
-      "category": "expense_cap",
-      "expense": "funeral",
-      "params": {
-        "expense": "funeral",
-        "amount_cents": 1000000,
-        "per": "claim"
-      },
-      "summary": "Funeral expenses are capped at $10,000.",
-      "quote": "For funeral expenses, $10,000;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(D)(6)"
-    },
-    {
-      "id": "AZ-COV-1",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "Reasonable and customary medical expenses from the victim's injury or condition are covered.",
-      "quote": "Reasonable and customary medical expenses due to the victim's physical injury, medical condition, mental health condition, or death.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(1)"
-    },
-    {
-      "id": "AZ-COV-2",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling"
-      },
-      "summary": "Mental health counseling and care for the victim's or derivative victim's mental distress from the crime is covered, from a licensed or authorized provider.",
-      "quote": "Reasonable and customary mental health counseling and care expenses due to a victim's or derivative victim's mental distress resulting from the criminally injurious conduct",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(4)"
-    },
-    {
-      "id": "AZ-COV-3",
-      "category": "covered_expense",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages"
-      },
-      "summary": "Work loss is covered when the crime's physical injury, mental distress, or medical condition reduces the victim's ability to work.",
-      "quote": "A victim whose ability to work is reduced due to physical injury, mental distress, or medical condition resulting from the criminally injurious conduct;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(2)(a)"
-    },
-    {
-      "id": "AZ-COV-4",
-      "category": "covered_expense",
-      "expense": "transportation",
-      "params": {
-        "expense": "transportation"
-      },
-      "summary": "Transportation to get a medical forensic exam or forensic interview is covered.",
-      "quote": "The victim obtaining a medical forensic examination or participating in a medical forensic interview",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(6)(d)"
-    },
-    {
-      "id": "AZ-COV-5",
-      "category": "covered_expense",
-      "expense": "crime_scene_cleanup",
-      "params": {
-        "expense": "crime_scene_cleanup"
-      },
-      "summary": "Crime scene cleanup is covered for sexual assault, homicide, and aggravated assault.",
-      "quote": "Reasonable and customary crime scene cleanup expenses due to a victim's homicide, aggravated assault, or sexual assault",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(5)"
-    },
-    {
-      "id": "AZ-COV-6",
-      "category": "covered_expense",
-      "expense": "crime_scene_cleanup",
-      "params": {
-        "expense": "crime_scene_cleanup"
-      },
-      "summary": "Crime scene cleanup includes repairing or replacing exterior doors, locks, or windows damaged by the crime at a residence.",
-      "quote": "Repairing or replacing exterior doors, locks, or windows damaged as a direct result of criminally injurious conduct occurring within a residence or the surrounding curtilage.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-101(8)(b); covered for sexual assault under R10-4-108(C)(5)"
-    },
-    {
-      "id": "AZ-COV-7",
-      "category": "covered_expense",
-      "expense": "transportation",
-      "params": {
-        "expense": "transportation"
-      },
-      "summary": "Transportation costs for responding to a substantiated threat to the victim's safety or well-being are covered, within the transportation cap.",
-      "quote": "Responding to a substantiated threat to the safety or well-being of the victim or a derivative victim",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(6)(e)"
-    },
-    {
-      "id": "AZ-COV-8",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "Medical expense includes repairing a victim's prosthetic device, eyeglasses or corrective lenses, or dental device.",
-      "quote": "Repair of damage to a victim's prosthetic device, eyeglasses or other corrective lenses, or a dental device",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(C)(1)(a)(i)"
-    },
-    {
-      "id": "AZ-EXC-1",
-      "category": "excluded_expense",
-      "params": {
-        "item": "Property loss or repair",
-        "expense": "property_replacement"
-      },
-      "summary": "The brochure says property loss or repair is not covered, nor are attorney fees or pain and suffering. The current rules still pay to repair a victim's eyeglasses, prosthetic or dental device (as medical) and damaged exterior doors, locks or windows at a residence (as crime scene cleanup).",
-      "quote": "The Program cannot consider claims for: • Attorney Fees • Property Loss or Repair • Pain and Suffering",
-      "source_id": "AZ-S6",
-      "pinpoint": "ACJC Victim Compensation brochure",
-      "expense": "property_replacement"
-    },
-    {
-      "id": "AZ-EXC-2",
-      "category": "excluded_expense",
-      "expense": "legal",
-      "params": {
-        "expense": "legal"
-      },
-      "summary": "Attorney's fees are not paid.",
-      "quote": "The Board shall not make a compensation award to pay attorney's fees incurred by a victim or claimant.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(J)"
-    },
-    {
-      "id": "AZ-DEAD-1",
-      "category": "filing_deadline",
-      "params": {
-        "years": 2,
-        "from": "discovery",
-        "extension": "The Board shall extend the deadline for good cause (R10-4-106(B))."
-      },
-      "summary": "The claim must be submitted within two years after the crime is discovered; the Board extends this for good cause.",
-      "quote": "A claim, as described in R10-4-107, was submitted to the operational unit within two years after discovery of the criminally injurious conduct.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-106(A)(7)"
-    },
-    {
-      "id": "AZ-REP-1",
-      "category": "reporting_requirement",
-      "params": {
-        "required": true,
-        "alternatives": [],
-        "within_hours": 72
-      },
-      "summary": "The crime must be reported to law enforcement within 72 hours after discovery. The rules list no alternative to a police report for sexual assault.",
-      "quote": "The criminally injurious conduct was reported to an appropriate law enforcement authority within 72 hours after its discovery;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-106(A)(4)"
-    },
-    {
-      "id": "AZ-REP-2",
-      "category": "reporting_requirement",
-      "params": {
-        "required": true,
-        "alternatives": [],
-        "extension": "good cause"
-      },
-      "summary": "The Board must extend both the reporting time limit and the filing deadline when there is good cause for the delay.",
-      "quote": "The Board shall extend the time limits under subsections (A)(4) and (A)(7) if the Board determines there is good cause for a delay.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-106(B)"
-    },
-    {
-      "id": "AZ-COLL-1",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "The award is denied or reduced when the loss was or can be recovered from insurance, a government benefit, or another collateral source.",
-      "quote": "The Board shall deny or reduce a compensation award to a claimant if: 1. The victim or claimant has recouped or is eligible to recoup the economic loss from an obtainable and accessible collateral source, including benefits from a federal or federally financed program;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(F)(1)"
-    },
-    {
-      "id": "AZ-COND-1",
-      "category": "conduct_reduction",
-      "params": {},
-      "summary": "An award may be denied or reduced in proportion to how much the Board finds the victim responsible for the incident.",
-      "quote": "The Board shall deny or reduce a compensation award under subsection (F)(3) in proportion to the degree to which the Board determines the victim is responsible for the incident of criminally injurious conduct that is the subject of the claim.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(G)"
-    },
-    {
-      "id": "AZ-EMER-1",
-      "category": "emergency_award",
-      "params": {
-        "amount_cents": 100000
-      },
-      "summary": "A county program may grant one emergency award of up to $1,000 for serious hardship; it is deducted from the final award.",
-      "quote": "An operational unit that makes an emergency compensation award shall ensure that the emergency compensation award does not exceed $1,000.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-111(A)-(C)"
-    },
-    {
-      "id": "AZ-ELIG-1",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "Any state or federal crime that poses a substantial threat of injury, mental distress, or death qualifies, whether or not the offender is caught, charged, or convicted.",
-      "quote": "Constitutes a crime as defined by state or federal law regardless of whether the perpetrator of the conduct is apprehended, charged, or convicted;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-101(9)(a)"
-    },
-    {
-      "id": "AZ-RES-1",
-      "category": "residency",
-      "params": {
-        "rule": "Crimes in Arizona qualify for anyone; Arizona residents hurt outside Arizona qualify only where no accessible compensation program exists."
-      },
-      "summary": "The crime must have happened in Arizona, or outside Arizona to an Arizona resident in a place without an accessible compensation program.",
-      "quote": "Occurred in Arizona; or b. Occurred outside of Arizona in an area without an accessible crime compensation program and affected a resident;",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-106(A)(1)"
-    },
-    {
-      "id": "AZ-SUB-1",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Apache County Attorney's Office P.O. Box 637 St. Johns, AZ 85936",
-        "county": "Apache"
-      },
-      "summary": "For a crime in Apache County, the paper application goes to the Apache County victim compensation program at this address.",
-      "quote": "Apache County Attorney's Office P.O. Box 637 St. Johns, AZ 85936",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Apache County entry"
-    },
-    {
-      "id": "AZ-SUB-2",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Mohave County Attorney's Office Crime Victim Compensation Program P.O. Box 7000 Kingman, AZ 86402-7000",
-        "county": "Mohave"
-      },
-      "summary": "For a crime in Mohave County, the paper application goes to the Mohave County victim compensation program at this address.",
-      "quote": "Mohave County Attorney's Office Crime Victim Compensation Program P.O. Box 7000 Kingman, AZ 86402-7000",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Mohave County entry"
-    },
-    {
-      "id": "AZ-SUB-3",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Cochise County Attorney's Office Victims Witness Program P.O. Drawer CA Bisbee, AZ 85603",
-        "county": "Cochise"
-      },
-      "summary": "For a crime in Cochise County, the paper application goes to the Cochise County victim compensation program at this address.",
-      "quote": "Cochise County Attorney's Office Victims Witness Program P.O. Drawer CA Bisbee, AZ 85603",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Cochise County entry"
-    },
-    {
-      "id": "AZ-SUB-4",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Navajo County Attorney's Office Navajo County Victims Services P.O. Box 668 Holbrook, AZ 86025",
-        "county": "Navajo"
-      },
-      "summary": "For a crime in Navajo County, the paper application goes to the Navajo County victim compensation program at this address.",
-      "quote": "Navajo County Attorney's Office Navajo County Victims Services P.O. Box 668 Holbrook, AZ 86025",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Navajo County entry"
-    },
-    {
-      "id": "AZ-SUB-5",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Victim/Witness Services for Coconino County Coconino County Crime Victim Compensation Board 201 E. Birch, Suite 4 Flagstaff, AZ 86001",
-        "county": "Coconino"
-      },
-      "summary": "For a crime in Coconino County, the paper application goes to the Coconino County victim compensation program at this address.",
-      "quote": "Victim/Witness Services for Coconino County Coconino County Crime Victim Compensation Board 201 E. Birch, Suite 4 Flagstaff, AZ 86001",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Coconino County entry"
-    },
-    {
-      "id": "AZ-SUB-6",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Pima County Attorney's Office Pima County Crime Victim Compensation Program 32 N. Stone Ave., 14th Floor Tucson, AZ 85701",
-        "county": "Pima"
-      },
-      "summary": "For a crime in Pima County, the paper application goes to the Pima County victim compensation program at this address.",
-      "quote": "Pima County Attorney's Office Pima County Crime Victim Compensation Program 32 N. Stone Ave., 14th Floor Tucson, AZ 85701",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Pima County entry"
-    },
-    {
-      "id": "AZ-SUB-7",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Gila County Attorney's Office Victim Services Unit 1400 E. Ash Street Globe, AZ 85501",
-        "county": "Gila"
-      },
-      "summary": "For a crime in Gila County, the paper application goes to the Gila County victim compensation program at this address.",
-      "quote": "Gila County Attorney's Office Victim Services Unit 1400 E. Ash Street Globe, AZ 85501",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Gila County entry"
-    },
-    {
-      "id": "AZ-SUB-8",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Pinal County Attorney's Office Pinal County Crime Victim Compensation Program P.O. Box 1798 Florence, AZ 85132",
-        "county": "Pinal"
-      },
-      "summary": "For a crime in Pinal County, the paper application goes to the Pinal County victim compensation program at this address.",
-      "quote": "Pinal County Attorney's Office Pinal County Crime Victim Compensation Program P.O. Box 1798 Florence, AZ 85132",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Pinal County entry"
-    },
-    {
-      "id": "AZ-SUB-9",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Graham County Attorney's Office Victim/Witness Program 800 West Main Street Safford, AZ 85546",
-        "county": "Graham"
-      },
-      "summary": "For a crime in Graham County, the paper application goes to the Graham County victim compensation program at this address.",
-      "quote": "Graham County Attorney's Office Victim/Witness Program 800 West Main Street Safford, AZ 85546",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Graham County entry"
-    },
-    {
-      "id": "AZ-SUB-10",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Santa Cruz County Attorney's Office 2150 N. Congress Dr., Suite 201 Nogales, AZ 85621",
-        "county": "Santa Cruz"
-      },
-      "summary": "For a crime in Santa Cruz County, the paper application goes to the Santa Cruz County victim compensation program at this address.",
-      "quote": "Santa Cruz County Attorney's Office 2150 N. Congress Dr., Suite 201 Nogales, AZ 85621",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Santa Cruz County entry"
-    },
-    {
-      "id": "AZ-SUB-11",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Greenlee County Attorney's Office P.O. Box 1717 Clifton, AZ 85533",
-        "county": "Greenlee"
-      },
-      "summary": "For a crime in Greenlee County, the paper application goes to the Greenlee County victim compensation program at this address.",
-      "quote": "Greenlee County Attorney's Office P.O. Box 1717 Clifton, AZ 85533",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Greenlee County entry"
-    },
-    {
-      "id": "AZ-SUB-12",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Yavapai County Attorney's Office Victim Compensation 255 E. Gurley St., 1st Floor Prescott, AZ 86301",
-        "county": "Yavapai"
-      },
-      "summary": "For a crime in Yavapai County, the paper application goes to the Yavapai County victim compensation program at this address.",
-      "quote": "Yavapai County Attorney's Office Victim Compensation 255 E. Gurley St., 1st Floor Prescott, AZ 86301",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Yavapai County entry"
-    },
-    {
-      "id": "AZ-SUB-13",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "La Paz County Attorney's Office 1320 Kofa Avenue Parker, AZ 85344",
-        "county": "La Paz"
-      },
-      "summary": "For a crime in La Paz County, the paper application goes to the La Paz County victim compensation program at this address.",
-      "quote": "La Paz County Attorney's Office 1320 Kofa Avenue Parker, AZ 85344",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, La Paz County entry"
-    },
-    {
-      "id": "AZ-SUB-14",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Yuma County Attorney's Office Yuma Victim Services Division 250 W. 2nd Street, Suite G Yuma, AZ 85364",
-        "county": "Yuma"
-      },
-      "summary": "For a crime in Yuma County, the paper application goes to the Yuma County victim compensation program at this address.",
-      "quote": "Yuma County Attorney's Office Yuma Victim Services Division 250 W. 2nd Street, Suite G Yuma, AZ 85364",
-      "source_id": "AZ-S9",
-      "pinpoint": "ACJC county contact list, Yuma County entry"
-    },
-    {
-      "id": "AZ-SUB-15",
-      "category": "submission",
-      "params": {
-        "method": "mail",
-        "target": "Maricopa County Attorney's Office Victim Compensation Program 225 West Madison Street Phoenix, AZ 85003",
-        "county": "Maricopa"
-      },
-      "summary": "For a crime in Maricopa County, the Maricopa edition of the application says to mail it to the Victim Compensation Program at 225 West Madison Street, Phoenix, AZ 85003.",
-      "quote": "Please sign and date sections 9-12 on pages 4 and 5 mail to / Favor poner la fecha, firmar las secciones 9-12 en\nlas páginas 4 y 5 envíe:\nFor more information or to find your county program, call /\nPara más información, o para determinar cual es el programa\nde su condado llame a:\nMaricopa County Attorney’s Office\nVictim Compensation Program\n225 West Madison Street\nPhoenix, AZ 85003",
-      "source_id": "AZ-S11",
-      "pinpoint": "Application, page 3 (mail-to box)"
-    },
-    {
-      "id": "AZ-SUB-16",
-      "category": "submission",
-      "params": {
-        "method": "online",
-        "target": "https://acjc.hostedbykarpel.com/"
-      },
-      "summary": "The application can be filed online through the statewide ACJC Victim Compensation Application Portal.",
-      "quote": "Apply Online: https://acjc.hostedbykarpel.com/",
-      "source_id": "AZ-S10",
-      "pinpoint": "Victim Compensation section, Application for Crime Victim Compensation"
-    },
-    {
-      "id": "AZ-DOC-1",
-      "category": "required_document",
-      "params": {
-        "document": "itemized_bill",
-        "note": "copies of all bills for each expense claimed"
-      },
-      "summary": "Send a copy of every bill for each expense being claimed along with the claim form.",
-      "quote": "A copy of all bills, contracts, receipts, and insurance statements relating to each expense claimed under subsection (D)(6)",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-107(E)(1)"
-    },
-    {
-      "id": "AZ-DOC-2",
-      "category": "required_document",
-      "params": {
-        "document": "receipts",
-        "note": "copies of receipts for each expense claimed"
-      },
-      "summary": "Send copies of receipts for each expense being claimed.",
-      "quote": "A copy of all bills, contracts, receipts, and insurance statements relating to each expense claimed under subsection (D)(6)",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-107(E)(1)"
-    },
-    {
-      "id": "AZ-DOC-3",
-      "category": "required_document",
-      "params": {
-        "document": "insurance_statement",
-        "note": "copies of insurance statements for each expense claimed"
-      },
-      "summary": "Send copies of insurance statements for each expense being claimed, since the program pays only after other sources.",
-      "quote": "A copy of all bills, contracts, receipts, and insurance statements relating to each expense claimed under subsection (D)(6)",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-107(E)(1)"
-    },
-    {
-      "id": "AZ-DOC-4",
-      "category": "required_document",
-      "params": {
-        "document": "wage_verification",
-        "note": "signed statement on employer letterhead verifying work loss (only if claiming lost wages)"
-      },
-      "summary": "If claiming lost wages, include a signed statement on the employer's official letterhead verifying the work loss.",
-      "quote": "If work loss expenses are claimed, a signed statement on official letterhead: a. From the claimant’s employer verifying the information provided under subsection (D)(6)(c)",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-107(E)(2)(a)"
-    },
-    {
-      "id": "AZ-DOC-5",
-      "category": "required_document",
-      "params": {
-        "document": "other",
-        "note": "written statement from a doctor or mental health therapist that the victim could not work (only if claiming lost wages)"
-      },
-      "summary": "If claiming lost wages, a doctor or mental health therapist must also confirm in writing that the victim could not work because of crime-related injuries.",
-      "quote": "Written verification must also be provided by a doctor or mental health therapist stating the victim was unable to work as a result of crime related injuries.",
-      "source_id": "AZ-S7",
-      "pinpoint": "Application, Section 4, Work Loss Requirement"
-    },
-    {
-      "id": "AZ-DOC-6",
-      "category": "required_document",
-      "params": {
-        "document": "other",
-        "note": "detailed travel log with dates, mileage, and fares or fees paid (only if claiming travel)"
-      },
-      "summary": "If asking for travel costs, attach a detailed log with travel dates, mileage, and any fares or fees; gas, food, and lodging are not included.",
-      "quote": "If this box is checked, please attach a detailed log of travel expenses including travel dates, mileage and any fares or fees paid. Gas, food, or lodging expenses may not be included.",
-      "source_id": "AZ-S7",
-      "pinpoint": "Application, Section 3, travel expenses box"
-    },
-    {
-      "id": "AZ-DOC-7",
-      "category": "required_document",
-      "params": {
-        "document": "other",
-        "note": "signed and dated Sections 9 to 12 (repayment promise, information release, HIPAA authorization, certification)"
-      },
-      "summary": "Sign and date the repayment promise, information release, health information authorization, and certification sections at the end of the application.",
-      "quote": "Please sign and date sections 9-12 on pages 4 and 5 mail to",
-      "source_id": "AZ-S7",
-      "pinpoint": "Application, page 3"
-    },
-    {
-      "id": "AZ-DOC-8",
-      "category": "required_document",
-      "params": {
-        "document": "other",
-        "note": "any other documentation the county program asks for to investigate the claim"
-      },
-      "summary": "The county program can ask for more documentation to confirm eligibility and each expense.",
-      "quote": "Any documentation required by the operational unit to fully investigate and substantiate claimant eligibility and all claim expense requests.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-107(E)(3)"
-    },
-    {
-      "id": "AZ-TIME-1",
-      "category": "processing_time",
-      "params": {
-        "days": 60
-      },
-      "summary": "The county board must decide within 60 days after the county program receives a complete claim, unless there is good cause for delay.",
-      "quote": "The Board shall make a decision within 60 days after the operational unit receives a complete and actionable claim under R10-4-107 unless good cause for delay exists.",
-      "source_id": "AZ-S3",
-      "pinpoint": "A.A.C. R10-4-108(A)"
-    },
-    {
-      "id": "AZ-ACP-1",
-      "category": "address_confidentiality",
-      "params": {
-        "program_name": "Arizona Address Confidentiality Program (ACP)",
-        "agency": "Arizona Secretary of State",
-        "covers_sexual_assault": true,
-        "enroll": "Applicants do not enroll or apply directly with the Arizona Address Confidentiality Program. Any person interested in applying to the program must meet in person with a registered Application Assistant."
-      },
-      "summary": "The Secretary of State's Address Confidentiality Program gives survivors of sexual offenses, domestic violence, and stalking a substitute address and free mail forwarding so the person they fear cannot find them through public records. Eligible applicants include victims of a sexual offense such as rape or sexual assault. Enrollment is only through an in-person meeting with a registered Application Assistant at a victim services agency.",
-      "quote": "The Arizona Address Confidentiality Program (ACP) is a program that helps victims of domestic violence, sexual offenses, and/or stalking from being located by the person they are seeking safety from through public records. The program provides a substitute address and confidential mail forwarding services to individuals and families across Arizona.",
-      "source_id": "AZ-S13",
-      "pinpoint": "Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169"
-    }
-  ],
-  "coverage": {
-    "found": [
-      "exam_payment",
-      "exam_no_bill",
-      "total_cap",
-      "expense_cap",
-      "covered_expense",
-      "excluded_expense",
-      "filing_deadline",
-      "reporting_requirement",
-      "collateral_source",
-      "conduct_reduction",
-      "emergency_award",
-      "eligible_crime",
-      "residency",
-      "submission",
-      "required_document",
-      "processing_time",
-      "address_confidentiality"
-    ],
-    "not_found": [
-      "minimum_loss",
-      "expense_cap:relocation",
-      "covered_expense:relocation",
-      "covered_expense:security",
-      "expense_cap:medical (separate from the $25,000 overall maximum)",
-      "reporting_requirement:alternatives for sexual assault (forensic exam, advocate, protective order)",
-      "exam_no_bill:insurance_billing",
-      "submission:email",
-      "submission:fax",
-      "submission:in_person",
-      "required_document:police_report",
-      "record_confidentiality"
-    ],
-    "notes": "Arizona's caps and eligibility rules are in the administrative code (A.A.C. R10-4-101 to R10-4-111, final rules effective July 3, 2024; snapshot is Supp. 26-1, March 31, 2026), not the statute. No minimum loss is set in the rules. The rules list no relocation or home security expense; transportation for responding to a substantiated safety threat is covered under R10-4-108(C)(6)(e), and crime scene cleanup (sexual assault included) covers repairing exterior doors, locks, or windows damaged in the crime at a residence (R10-4-101(8)(b)). No statewide alternative to the 72-hour police report was found for sexual assault; the only relief is the Board's good-cause extension. A.R.S. 36-420.02 bars extra fees and balance bills to the patient for county-paid forensic exams but does not address billing the patient's insurance. The lost-wage cap has no fixed dollar amount (40 hours a week at the current minimum wage), so amount_cents is null. The ACJC program page body text sits inside a form element that the snapshot extractor drops, so no rule quotes it; the apply link (acjc.hostedbykarpel.com) comes from that page's HTML. Privacy (added Oct 3): the Address Confidentiality Program is run by the Secretary of State under A.R.S. 41-161 to 41-169 (AZ-S13). No statute, rule, or official program page was found that makes compensation claims or applicant records confidential or exempt from public records law."
+  {
+   "id": "AZ-S2",
+   "title": "A.R.S. 13-1414 (expenses of investigation; forensic exams paid by county)",
+   "url": "https://www.azleg.gov/ars/13/01414.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:23Z",
+   "raw_path": "rules/sources/AZ/AZ-S2.html",
+   "text_path": "rules/sources/AZ/AZ-S2.txt",
+   "sha256": "a9ca5d250ca062f9bc47982f9e1af765c4d9decac01c932dab9deb52c1b9b835"
   },
-  "confidence": "high",
-  "researcher_notes": "Sources disagree on the filing clock: the undated ACJC brochure says to apply within two years of the crime, while A.A.C. R10-4-106(A)(7) says two years after discovery; the rule wins and is what this file uses. The application PDF linked from the ACJC page is dated June 2015 and predates the 2023/2024 rule rewrite; online filing is at acjc.hostedbykarpel.com. The program is county-run: each County Attorney's office has its own board and coordinator, and awards depend on money available to that county (R10-4-108(D)(2), (I)). A.R.S. 41-2407(E) and (F) also bar a provider who accepts program payment from billing the victim for the same service (unless the program cannot pay in full) and bar debt collection on bills included in a pending claim. Statute 13-1414 covers exams for offenses under 13-1404, 13-1405, 13-1406 and 13-3212 and dangerous crimes against children. Not used: the 2018 ACJC desk manual (predates current rules). Reviewer: the brochure also says the crime must be reported within 72 hours \"of the crime\"; R10-4-106(A)(4) says within 72 hours after discovery, and the rule wins. The brochure's blanket exclusion of property loss or repair is older and broader than the current rules, which pay for eyeglass/prosthetic/dental device repair (R10-4-108(C)(1)(a)(i)) and door, lock and window repair at a residence as crime scene cleanup (R10-4-101(8)(b)). R10-4-108(H)(1) requires denial for failure to cooperate with law enforcement unless the failure was due to a substantial medical, mental health, or safety risk. The forensic exam statute (A.R.S. 13-1414) covers only exam expenses arising from the need to secure evidence; follow-up medical treatment goes through the compensation claim. Filing (added Oct 3): claims go to the county program where the crime happened (A.A.C. R10-4-107(D)). Mailing addresses come from the ACJC county contact list PDF (AZ-S9), which the program page links; its 14 non-Maricopa addresses match the live program page, though several phone numbers on the PDF are older. For Maricopa the PDF lists 301 W. Jefferson, 9th Floor, but the live ACJC page and the Maricopa edition of the application (AZ-S11) say 225 West Madison Street, so the Maricopa mail rule quotes AZ-S11. The online portal (acjc.hostedbykarpel.com) is a login app that the snapshot tool cannot read, so the online rule quotes the Maricopa County Attorney page (AZ-S10), which links it for all applicants. No official source gives an email, fax, or in-person filing option. The ACJC page body (dropped by the extractor) says coordinators collect police reports, but the application and rules only ask for the report number, not a copy, so police_report is not listed as a required document. The statewide application PDF (AZ-S7, Rev. 06/2015, still the newest version) is a flat PDF with 0 AcroForm fields, and its mail-to box is a blank placeholder; the Maricopa edition is the same form with the county address filled in. Processing time is the Board's 60-day decision deadline from the rules, not a payment time. Address confidentiality (added Oct 3): the SOS eligibility page (AZ-S12) lists victims of a 'sexual offense (such as rape, sexual assault, molestation)' as eligible, plus fear for safety, a recent or planned move within Arizona to a place unknown to the perpetrator, and one piece of supporting documentation. Applications go only through a registered Application Assistant met in person (call 602-542-1653 to find one); approved participants are certified for five years and may not use the substitute address until the welcome packet and authorization card arrive. The ACP laws themselves (A.R.S. 41-161 to 41-169) were not snapshotted; the rule quotes the SOS program page. Record confidentiality: not found. A.A.C. R10-4-101 to R10-4-111 (AZ-S3) have no confidentiality section, and A.R.S. 41-2407 (AZ-S1) is silent. The application's release form (AZ-S7) says the opposite of a protection: information disclosed to the program is no longer subject to HIPAA, and the program may disclose non-identifying information for statistical purposes. County boards decide claims at open public meetings (Pinal, AZ-S14: 'The meetings are open to members of the public'; Maricopa says meeting recordings and documents are available for inspection, AZ-S10), so Tend should not tell Arizona users their claim details are confidential by law."
+  {
+   "id": "AZ-S3",
+   "title": "A.A.C. Title 10, Chapter 4 (Arizona Criminal Justice Commission), Article 1 Crime Victim Compensation Program, Supp. 26-1",
+   "url": "https://apps.azsos.gov/public_services/Title_10/10-04.pdf",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:51:29Z",
+   "raw_path": "rules/sources/AZ/AZ-S3.pdf",
+   "text_path": "rules/sources/AZ/AZ-S3.txt",
+   "sha256": "a69cf44aa5e4d5ed582500c4251fb2a87959e8d4a5f7d60f3b4b7c42f4c74384"
+  },
+  {
+   "id": "AZ-S4",
+   "title": "ACJC Crime Victim Compensation Program page",
+   "url": "https://www.azcjc.gov/Programs/Victim-Services/Compensation-Program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:54Z",
+   "raw_path": "rules/sources/AZ/AZ-S4.html",
+   "text_path": "rules/sources/AZ/AZ-S4.txt",
+   "sha256": "70dbc27b83e347b521e27304037e0474ba64003560c053ebfa4cb08b1e73cdb2"
+  },
+  {
+   "id": "AZ-S6",
+   "title": "ACJC Victim Compensation brochure (English)",
+   "url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_English_Brochure.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:52:14Z",
+   "raw_path": "rules/sources/AZ/AZ-S6.pdf",
+   "text_path": "rules/sources/AZ/AZ-S6.txt",
+   "sha256": "85267c26e39fc9ce9d00963215e94ba65ba360879ff63fe0e12017b730136926"
+  },
+  {
+   "id": "AZ-S7",
+   "title": "ACJC Victim Compensation application (June 2015)",
+   "url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_APP_June_2015_FINAL.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:52:16Z",
+   "raw_path": "rules/sources/AZ/AZ-S7.pdf",
+   "text_path": "rules/sources/AZ/AZ-S7.txt",
+   "sha256": "269fd549bf7ef2f8d589bff96849e965184b83b0e44cd5bf7ccb968de7b558f7"
+  },
+  {
+   "id": "AZ-S8",
+   "title": "A.R.S. 36-420.02 (no extra charges or balance bills for forensic exams)",
+   "url": "https://www.azleg.gov/ars/36/00420-02.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:49Z",
+   "raw_path": "rules/sources/AZ/AZ-S8.html",
+   "text_path": "rules/sources/AZ/AZ-S8.txt",
+   "sha256": "cfb5ee2d6d9d3b914196a9fe8fe2b590a46844cd5b288f806e516349800530be"
+  },
+  {
+   "id": "AZ-S9",
+   "title": "ACJC Victim Compensation county program contact list",
+   "url": "https://www.azcjc.gov/Portals/0/Documents/pubs/Victim_Comp_Contact_List.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:38:01Z",
+   "raw_path": "rules/sources/AZ/AZ-S9.pdf",
+   "text_path": "rules/sources/AZ/AZ-S9.txt",
+   "sha256": "87ef846dfc223c3c37a932493d95219572fa86881191d756d26b37d957ebb6e7"
+  },
+  {
+   "id": "AZ-S10",
+   "title": "Maricopa County Attorney's Office, Victim Related Information page (Victim Compensation section)",
+   "url": "https://maricopacountyattorney.org/182/Victim-Related-Information",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:38:27Z",
+   "raw_path": "rules/sources/AZ/AZ-S10.html",
+   "text_path": "rules/sources/AZ/AZ-S10.txt",
+   "sha256": "1b69133d1ea08092be39945eb98081b2527f6d57057bc7a35a0a0807b313b5c2",
+   "note": "Third-party API keys embedded in the page were redacted before publishing; sha256 is of the redacted file."
+  },
+  {
+   "id": "AZ-S11",
+   "title": "ACJC Victim Compensation application, Maricopa County edition (Rev. 06/2015, county mailing address filled in)",
+   "url": "https://maricopacountyattorney.org/DocumentCenter/View/120",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T19:38:59Z",
+   "raw_path": "rules/sources/AZ/AZ-S11.pdf",
+   "text_path": "rules/sources/AZ/AZ-S11.txt",
+   "sha256": "792c75aa41d8adb023139c350653442a36a3813b75bc8723c202919231d088e9"
+  },
+  {
+   "id": "AZ-S12",
+   "title": "Arizona Secretary of State: Address Confidentiality Program, Eligibility & Enrollment",
+   "url": "https://azsos.gov/services/address-confidentiality-program/eligibility-enrollment",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:57:29Z",
+   "raw_path": "rules/sources/AZ/AZ-S12.html",
+   "text_path": "rules/sources/AZ/AZ-S12.txt",
+   "sha256": "cf8035b2a260e73b3834f9714dba51449fd08265e4defb56f073a0f5c226d5c8"
+  },
+  {
+   "id": "AZ-S13",
+   "title": "Arizona Secretary of State: About ACP (Address Confidentiality Program)",
+   "url": "https://azsos.gov/services/address-confidentiality-program/about-acp",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:57:33Z",
+   "raw_path": "rules/sources/AZ/AZ-S13.html",
+   "text_path": "rules/sources/AZ/AZ-S13.txt",
+   "sha256": "c114ddf57541944671cf83b9991458520b96c6453d17923a9cb1816dd28f643c"
+  },
+  {
+   "id": "AZ-S14",
+   "title": "Pinal County Attorney: Crime Victim Compensation Board Meetings",
+   "url": "https://www.pinal.gov/1709/Crime-Victim-Compensation-Board-Meetings",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:58:01Z",
+   "raw_path": "rules/sources/AZ/AZ-S14.html",
+   "text_path": "rules/sources/AZ/AZ-S14.txt",
+   "sha256": "771db2f9e6c961fcee64bfb3c67dbeceae2d94e240357fa388501d0305ea2f81",
+   "note": "Third-party API keys embedded in the page were redacted before publishing; sha256 is of the redacted file."
+  }
+ ],
+ "rules": [
+  {
+   "id": "AZ-EXAM-1",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "County where the offense occurred"
+   },
+   "summary": "The county where the offense happened pays the medical or forensic exam costs to collect evidence of a sexual offense.",
+   "quote": "Any medical or forensic interview or examination expenses arising out of the need to secure evidence that a person has been the victim of a dangerous crime against children as defined in section 13-705 or a sexual offense pursuant to section 13-1404, 13-1405, 13-1406 or 13-3212 shall be paid by the county in which the offense occurred",
+   "source_id": "AZ-S2",
+   "pinpoint": "A.R.S. 13-1414(A)"
+  },
+  {
+   "id": "AZ-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A hospital or provider may not send the patient a balance bill for a county-paid forensic exam. The statute does not say whether the patient's insurance may be billed.",
+   "quote": "A health care institution or health care provider may not issue, either directly or through its billing company, any additional balance bill to a patient relating to a medical or forensic interview or examination for which the county is required to pay pursuant to section 13-1414.",
+   "source_id": "AZ-S8",
+   "pinpoint": "A.R.S. 36-420.02(B)"
+  },
+  {
+   "id": "AZ-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A health care institution may not charge the patient intake, consultation, facility, or other fees as part of a county-paid forensic exam.",
+   "quote": "A health care institution may not charge an intake, consultation, facility or other fee to a patient as part of a medical or forensic interview or examination for which the county is required to pay pursuant to section 13-1414.",
+   "source_id": "AZ-S8",
+   "pinpoint": "A.R.S. 36-420.02(A)"
+  },
+  {
+   "id": "AZ-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000
+   },
+   "summary": "The maximum award is $25,000 per claim for all economic loss from one incident; each eligible person files a separate claim.",
+   "quote": "Twenty-five thousand dollars for all economic loss submitted under a claim as a result of an incident of criminally injurious conduct;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(D)(1)"
+  },
+  {
+   "id": "AZ-CAP-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Mental health counseling and care is capped at $5,000 per victim or derivative victim.",
+   "quote": "For mental health counseling and care expenses, $5,000 per victim or derivative victim;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(D)(5)"
+  },
+  {
+   "id": "AZ-CAP-3",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": null,
+    "per": "week",
+    "hours_per_week": 40
+   },
+   "summary": "Work loss is limited each calendar week to 40 hours at the current minimum wage, within the overall award maximum.",
+   "quote": "are limited to an amount per calendar week equal to 40 hours at the current minimum wage",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(D)(4)(a)"
+  },
+  {
+   "id": "AZ-CAP-4",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Transportation costs are capped at $2,000 per victim or derivative victim, paid as reimbursement of actual costs.",
+   "quote": "For transportation costs, $2,000 per victim or derivative victim paid as reimbursement of actual transportation expenses.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(D)(8)"
+  },
+  {
+   "id": "AZ-CAP-5",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleanup is capped at $2,000 for professional cleanup, of which up to $500 may go to cleanup not done by a professional service.",
+   "quote": "For crime scene cleanup expenses, $2,000 for cleanup provided by a professional service, of which $500 may be for crime scene cleanup not provided by a professional service",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(D)(7)"
+  },
+  {
+   "id": "AZ-CAP-6",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Funeral expenses are capped at $10,000.",
+   "quote": "For funeral expenses, $10,000;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(D)(6)"
+  },
+  {
+   "id": "AZ-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Reasonable and customary medical expenses from the victim's injury or condition are covered.",
+   "quote": "Reasonable and customary medical expenses due to the victim's physical injury, medical condition, mental health condition, or death.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(1)"
+  },
+  {
+   "id": "AZ-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling and care for the victim's or derivative victim's mental distress from the crime is covered, from a licensed or authorized provider.",
+   "quote": "Reasonable and customary mental health counseling and care expenses due to a victim's or derivative victim's mental distress resulting from the criminally injurious conduct",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(4)"
+  },
+  {
+   "id": "AZ-COV-3",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Work loss is covered when the crime's physical injury, mental distress, or medical condition reduces the victim's ability to work.",
+   "quote": "A victim whose ability to work is reduced due to physical injury, mental distress, or medical condition resulting from the criminally injurious conduct;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(2)(a)"
+  },
+  {
+   "id": "AZ-COV-4",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Transportation to get a medical forensic exam or forensic interview is covered.",
+   "quote": "The victim obtaining a medical forensic examination or participating in a medical forensic interview",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(6)(d)"
+  },
+  {
+   "id": "AZ-COV-5",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Crime scene cleanup is covered for sexual assault, homicide, and aggravated assault.",
+   "quote": "Reasonable and customary crime scene cleanup expenses due to a victim's homicide, aggravated assault, or sexual assault",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(5)"
+  },
+  {
+   "id": "AZ-COV-6",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Crime scene cleanup includes repairing or replacing exterior doors, locks, or windows damaged by the crime at a residence.",
+   "quote": "Repairing or replacing exterior doors, locks, or windows damaged as a direct result of criminally injurious conduct occurring within a residence or the surrounding curtilage.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-101(8)(b); covered for sexual assault under R10-4-108(C)(5)"
+  },
+  {
+   "id": "AZ-COV-7",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Transportation costs for responding to a substantiated threat to the victim's safety or well-being are covered, within the transportation cap.",
+   "quote": "Responding to a substantiated threat to the safety or well-being of the victim or a derivative victim",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(6)(e)"
+  },
+  {
+   "id": "AZ-COV-8",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical expense includes repairing a victim's prosthetic device, eyeglasses or corrective lenses, or dental device.",
+   "quote": "Repair of damage to a victim's prosthetic device, eyeglasses or other corrective lenses, or a dental device",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(C)(1)(a)(i)"
+  },
+  {
+   "id": "AZ-EXC-1",
+   "category": "excluded_expense",
+   "params": {
+    "item": "Property loss or repair",
+    "expense": "property_replacement"
+   },
+   "summary": "The brochure says property loss or repair is not covered, nor are attorney fees or pain and suffering. The current rules still pay to repair a victim's eyeglasses, prosthetic or dental device (as medical) and damaged exterior doors, locks or windows at a residence (as crime scene cleanup).",
+   "quote": "The Program cannot consider claims for: • Attorney Fees • Property Loss or Repair • Pain and Suffering",
+   "source_id": "AZ-S6",
+   "pinpoint": "ACJC Victim Compensation brochure",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "AZ-EXC-2",
+   "category": "excluded_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal"
+   },
+   "summary": "Attorney's fees are not paid.",
+   "quote": "The Board shall not make a compensation award to pay attorney's fees incurred by a victim or claimant.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(J)"
+  },
+  {
+   "id": "AZ-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "discovery",
+    "extension": "The Board shall extend the deadline for good cause (R10-4-106(B))."
+   },
+   "summary": "The claim must be submitted within two years after the crime is discovered; the Board extends this for good cause.",
+   "quote": "A claim, as described in R10-4-107, was submitted to the operational unit within two years after discovery of the criminally injurious conduct.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-106(A)(7)"
+  },
+  {
+   "id": "AZ-REP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [],
+    "within_hours": 72
+   },
+   "summary": "The crime must be reported to law enforcement within 72 hours after discovery. The rules list no alternative to a police report for sexual assault.",
+   "quote": "The criminally injurious conduct was reported to an appropriate law enforcement authority within 72 hours after its discovery;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-106(A)(4)"
+  },
+  {
+   "id": "AZ-REP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [],
+    "extension": "good cause"
+   },
+   "summary": "The Board must extend both the reporting time limit and the filing deadline when there is good cause for the delay.",
+   "quote": "The Board shall extend the time limits under subsections (A)(4) and (A)(7) if the Board determines there is good cause for a delay.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-106(B)"
+  },
+  {
+   "id": "AZ-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The award is denied or reduced when the loss was or can be recovered from insurance, a government benefit, or another collateral source.",
+   "quote": "The Board shall deny or reduce a compensation award to a claimant if: 1. The victim or claimant has recouped or is eligible to recoup the economic loss from an obtainable and accessible collateral source, including benefits from a federal or federally financed program;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(F)(1)"
+  },
+  {
+   "id": "AZ-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "An award may be denied or reduced in proportion to how much the Board finds the victim responsible for the incident.",
+   "quote": "The Board shall deny or reduce a compensation award under subsection (F)(3) in proportion to the degree to which the Board determines the victim is responsible for the incident of criminally injurious conduct that is the subject of the claim.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(G)"
+  },
+  {
+   "id": "AZ-EMER-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "A county program may grant one emergency award of up to $1,000 for serious hardship; it is deducted from the final award.",
+   "quote": "An operational unit that makes an emergency compensation award shall ensure that the emergency compensation award does not exceed $1,000.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-111(A)-(C)"
+  },
+  {
+   "id": "AZ-ELIG-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Any state or federal crime that poses a substantial threat of injury, mental distress, or death qualifies, whether or not the offender is caught, charged, or convicted.",
+   "quote": "Constitutes a crime as defined by state or federal law regardless of whether the perpetrator of the conduct is apprehended, charged, or convicted;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-101(9)(a)"
+  },
+  {
+   "id": "AZ-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in Arizona qualify for anyone; Arizona residents hurt outside Arizona qualify only where no accessible compensation program exists."
+   },
+   "summary": "The crime must have happened in Arizona, or outside Arizona to an Arizona resident in a place without an accessible compensation program.",
+   "quote": "Occurred in Arizona; or b. Occurred outside of Arizona in an area without an accessible crime compensation program and affected a resident;",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-106(A)(1)"
+  },
+  {
+   "id": "AZ-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Apache County Attorney's Office P.O. Box 637 St. Johns, AZ 85936",
+    "county": "Apache"
+   },
+   "summary": "For a crime in Apache County, the paper application goes to the Apache County victim compensation program at this address.",
+   "quote": "Apache County Attorney's Office P.O. Box 637 St. Johns, AZ 85936",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Apache County entry"
+  },
+  {
+   "id": "AZ-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Mohave County Attorney's Office Crime Victim Compensation Program P.O. Box 7000 Kingman, AZ 86402-7000",
+    "county": "Mohave"
+   },
+   "summary": "For a crime in Mohave County, the paper application goes to the Mohave County victim compensation program at this address.",
+   "quote": "Mohave County Attorney's Office Crime Victim Compensation Program P.O. Box 7000 Kingman, AZ 86402-7000",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Mohave County entry"
+  },
+  {
+   "id": "AZ-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Cochise County Attorney's Office Victims Witness Program P.O. Drawer CA Bisbee, AZ 85603",
+    "county": "Cochise"
+   },
+   "summary": "For a crime in Cochise County, the paper application goes to the Cochise County victim compensation program at this address.",
+   "quote": "Cochise County Attorney's Office Victims Witness Program P.O. Drawer CA Bisbee, AZ 85603",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Cochise County entry"
+  },
+  {
+   "id": "AZ-SUB-4",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Navajo County Attorney's Office Navajo County Victims Services P.O. Box 668 Holbrook, AZ 86025",
+    "county": "Navajo"
+   },
+   "summary": "For a crime in Navajo County, the paper application goes to the Navajo County victim compensation program at this address.",
+   "quote": "Navajo County Attorney's Office Navajo County Victims Services P.O. Box 668 Holbrook, AZ 86025",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Navajo County entry"
+  },
+  {
+   "id": "AZ-SUB-5",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Victim/Witness Services for Coconino County Coconino County Crime Victim Compensation Board 201 E. Birch, Suite 4 Flagstaff, AZ 86001",
+    "county": "Coconino"
+   },
+   "summary": "For a crime in Coconino County, the paper application goes to the Coconino County victim compensation program at this address.",
+   "quote": "Victim/Witness Services for Coconino County Coconino County Crime Victim Compensation Board 201 E. Birch, Suite 4 Flagstaff, AZ 86001",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Coconino County entry"
+  },
+  {
+   "id": "AZ-SUB-6",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Pima County Attorney's Office Pima County Crime Victim Compensation Program 32 N. Stone Ave., 14th Floor Tucson, AZ 85701",
+    "county": "Pima"
+   },
+   "summary": "For a crime in Pima County, the paper application goes to the Pima County victim compensation program at this address.",
+   "quote": "Pima County Attorney's Office Pima County Crime Victim Compensation Program 32 N. Stone Ave., 14th Floor Tucson, AZ 85701",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Pima County entry"
+  },
+  {
+   "id": "AZ-SUB-7",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Gila County Attorney's Office Victim Services Unit 1400 E. Ash Street Globe, AZ 85501",
+    "county": "Gila"
+   },
+   "summary": "For a crime in Gila County, the paper application goes to the Gila County victim compensation program at this address.",
+   "quote": "Gila County Attorney's Office Victim Services Unit 1400 E. Ash Street Globe, AZ 85501",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Gila County entry"
+  },
+  {
+   "id": "AZ-SUB-8",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Pinal County Attorney's Office Pinal County Crime Victim Compensation Program P.O. Box 1798 Florence, AZ 85132",
+    "county": "Pinal"
+   },
+   "summary": "For a crime in Pinal County, the paper application goes to the Pinal County victim compensation program at this address.",
+   "quote": "Pinal County Attorney's Office Pinal County Crime Victim Compensation Program P.O. Box 1798 Florence, AZ 85132",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Pinal County entry"
+  },
+  {
+   "id": "AZ-SUB-9",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Graham County Attorney's Office Victim/Witness Program 800 West Main Street Safford, AZ 85546",
+    "county": "Graham"
+   },
+   "summary": "For a crime in Graham County, the paper application goes to the Graham County victim compensation program at this address.",
+   "quote": "Graham County Attorney's Office Victim/Witness Program 800 West Main Street Safford, AZ 85546",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Graham County entry"
+  },
+  {
+   "id": "AZ-SUB-10",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Santa Cruz County Attorney's Office 2150 N. Congress Dr., Suite 201 Nogales, AZ 85621",
+    "county": "Santa Cruz"
+   },
+   "summary": "For a crime in Santa Cruz County, the paper application goes to the Santa Cruz County victim compensation program at this address.",
+   "quote": "Santa Cruz County Attorney's Office 2150 N. Congress Dr., Suite 201 Nogales, AZ 85621",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Santa Cruz County entry"
+  },
+  {
+   "id": "AZ-SUB-11",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Greenlee County Attorney's Office P.O. Box 1717 Clifton, AZ 85533",
+    "county": "Greenlee"
+   },
+   "summary": "For a crime in Greenlee County, the paper application goes to the Greenlee County victim compensation program at this address.",
+   "quote": "Greenlee County Attorney's Office P.O. Box 1717 Clifton, AZ 85533",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Greenlee County entry"
+  },
+  {
+   "id": "AZ-SUB-12",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Yavapai County Attorney's Office Victim Compensation 255 E. Gurley St., 1st Floor Prescott, AZ 86301",
+    "county": "Yavapai"
+   },
+   "summary": "For a crime in Yavapai County, the paper application goes to the Yavapai County victim compensation program at this address.",
+   "quote": "Yavapai County Attorney's Office Victim Compensation 255 E. Gurley St., 1st Floor Prescott, AZ 86301",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Yavapai County entry"
+  },
+  {
+   "id": "AZ-SUB-13",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "La Paz County Attorney's Office 1320 Kofa Avenue Parker, AZ 85344",
+    "county": "La Paz"
+   },
+   "summary": "For a crime in La Paz County, the paper application goes to the La Paz County victim compensation program at this address.",
+   "quote": "La Paz County Attorney's Office 1320 Kofa Avenue Parker, AZ 85344",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, La Paz County entry"
+  },
+  {
+   "id": "AZ-SUB-14",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Yuma County Attorney's Office Yuma Victim Services Division 250 W. 2nd Street, Suite G Yuma, AZ 85364",
+    "county": "Yuma"
+   },
+   "summary": "For a crime in Yuma County, the paper application goes to the Yuma County victim compensation program at this address.",
+   "quote": "Yuma County Attorney's Office Yuma Victim Services Division 250 W. 2nd Street, Suite G Yuma, AZ 85364",
+   "source_id": "AZ-S9",
+   "pinpoint": "ACJC county contact list, Yuma County entry"
+  },
+  {
+   "id": "AZ-SUB-15",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Maricopa County Attorney's Office Victim Compensation Program 225 West Madison Street Phoenix, AZ 85003",
+    "county": "Maricopa"
+   },
+   "summary": "For a crime in Maricopa County, the Maricopa edition of the application says to mail it to the Victim Compensation Program at 225 West Madison Street, Phoenix, AZ 85003.",
+   "quote": "Please sign and date sections 9-12 on pages 4 and 5 mail to / Favor poner la fecha, firmar las secciones 9-12 en\nlas páginas 4 y 5 envíe:\nFor more information or to find your county program, call /\nPara más información, o para determinar cual es el programa\nde su condado llame a:\nMaricopa County Attorney’s Office\nVictim Compensation Program\n225 West Madison Street\nPhoenix, AZ 85003",
+   "source_id": "AZ-S11",
+   "pinpoint": "Application, page 3 (mail-to box)"
+  },
+  {
+   "id": "AZ-SUB-16",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://acjc.hostedbykarpel.com/"
+   },
+   "summary": "The application can be filed online through the statewide ACJC Victim Compensation Application Portal.",
+   "quote": "Apply Online: https://acjc.hostedbykarpel.com/",
+   "source_id": "AZ-S10",
+   "pinpoint": "Victim Compensation section, Application for Crime Victim Compensation"
+  },
+  {
+   "id": "AZ-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "copies of all bills for each expense claimed"
+   },
+   "summary": "Send a copy of every bill for each expense being claimed along with the claim form.",
+   "quote": "A copy of all bills, contracts, receipts, and insurance statements relating to each expense claimed under subsection (D)(6)",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-107(E)(1)"
+  },
+  {
+   "id": "AZ-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "copies of receipts for each expense claimed"
+   },
+   "summary": "Send copies of receipts for each expense being claimed.",
+   "quote": "A copy of all bills, contracts, receipts, and insurance statements relating to each expense claimed under subsection (D)(6)",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-107(E)(1)"
+  },
+  {
+   "id": "AZ-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "copies of insurance statements for each expense claimed"
+   },
+   "summary": "Send copies of insurance statements for each expense being claimed, since the program pays only after other sources.",
+   "quote": "A copy of all bills, contracts, receipts, and insurance statements relating to each expense claimed under subsection (D)(6)",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-107(E)(1)"
+  },
+  {
+   "id": "AZ-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "signed statement on employer letterhead verifying work loss (only if claiming lost wages)"
+   },
+   "summary": "If claiming lost wages, include a signed statement on the employer's official letterhead verifying the work loss.",
+   "quote": "If work loss expenses are claimed, a signed statement on official letterhead: a. From the claimant’s employer verifying the information provided under subsection (D)(6)(c)",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-107(E)(2)(a)"
+  },
+  {
+   "id": "AZ-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "written statement from a doctor or mental health therapist that the victim could not work (only if claiming lost wages)"
+   },
+   "summary": "If claiming lost wages, a doctor or mental health therapist must also confirm in writing that the victim could not work because of crime-related injuries.",
+   "quote": "Written verification must also be provided by a doctor or mental health therapist stating the victim was unable to work as a result of crime related injuries.",
+   "source_id": "AZ-S7",
+   "pinpoint": "Application, Section 4, Work Loss Requirement"
+  },
+  {
+   "id": "AZ-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "detailed travel log with dates, mileage, and fares or fees paid (only if claiming travel)"
+   },
+   "summary": "If asking for travel costs, attach a detailed log with travel dates, mileage, and any fares or fees; gas, food, and lodging are not included.",
+   "quote": "If this box is checked, please attach a detailed log of travel expenses including travel dates, mileage and any fares or fees paid. Gas, food, or lodging expenses may not be included.",
+   "source_id": "AZ-S7",
+   "pinpoint": "Application, Section 3, travel expenses box"
+  },
+  {
+   "id": "AZ-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed and dated Sections 9 to 12 (repayment promise, information release, HIPAA authorization, certification)"
+   },
+   "summary": "Sign and date the repayment promise, information release, health information authorization, and certification sections at the end of the application.",
+   "quote": "Please sign and date sections 9-12 on pages 4 and 5 mail to",
+   "source_id": "AZ-S7",
+   "pinpoint": "Application, page 3"
+  },
+  {
+   "id": "AZ-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "any other documentation the county program asks for to investigate the claim"
+   },
+   "summary": "The county program can ask for more documentation to confirm eligibility and each expense.",
+   "quote": "Any documentation required by the operational unit to fully investigate and substantiate claimant eligibility and all claim expense requests.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-107(E)(3)"
+  },
+  {
+   "id": "AZ-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 60
+   },
+   "summary": "The county board must decide within 60 days after the county program receives a complete claim, unless there is good cause for delay.",
+   "quote": "The Board shall make a decision within 60 days after the operational unit receives a complete and actionable claim under R10-4-107 unless good cause for delay exists.",
+   "source_id": "AZ-S3",
+   "pinpoint": "A.A.C. R10-4-108(A)"
+  },
+  {
+   "id": "AZ-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Arizona Address Confidentiality Program (ACP)",
+    "agency": "Arizona Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Applicants do not enroll or apply directly with the Arizona Address Confidentiality Program. Any person interested in applying to the program must meet in person with a registered Application Assistant."
+   },
+   "summary": "The Secretary of State's Address Confidentiality Program gives survivors of sexual offenses, domestic violence, and stalking a substitute address and free mail forwarding so the person they fear cannot find them through public records. Eligible applicants include victims of a sexual offense such as rape or sexual assault. Enrollment is only through an in-person meeting with a registered Application Assistant at a victim services agency.",
+   "quote": "The Arizona Address Confidentiality Program (ACP) is a program that helps victims of domestic violence, sexual offenses, and/or stalking from being located by the person they are seeking safety from through public records. The program provides a substitute address and confidential mail forwarding services to individuals and families across Arizona.",
+   "source_id": "AZ-S13",
+   "pinpoint": "Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_payment",
+   "exam_no_bill",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time",
+   "address_confidentiality"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "expense_cap:relocation",
+   "covered_expense:relocation",
+   "covered_expense:security",
+   "expense_cap:medical (separate from the $25,000 overall maximum)",
+   "reporting_requirement:alternatives for sexual assault (forensic exam, advocate, protective order)",
+   "exam_no_bill:insurance_billing",
+   "submission:email",
+   "submission:fax",
+   "submission:in_person",
+   "required_document:police_report",
+   "record_confidentiality"
+  ],
+  "notes": "Arizona's caps and eligibility rules are in the administrative code (A.A.C. R10-4-101 to R10-4-111, final rules effective July 3, 2024; snapshot is Supp. 26-1, March 31, 2026), not the statute. No minimum loss is set in the rules. The rules list no relocation or home security expense; transportation for responding to a substantiated safety threat is covered under R10-4-108(C)(6)(e), and crime scene cleanup (sexual assault included) covers repairing exterior doors, locks, or windows damaged in the crime at a residence (R10-4-101(8)(b)). No statewide alternative to the 72-hour police report was found for sexual assault; the only relief is the Board's good-cause extension. A.R.S. 36-420.02 bars extra fees and balance bills to the patient for county-paid forensic exams but does not address billing the patient's insurance. The lost-wage cap has no fixed dollar amount (40 hours a week at the current minimum wage), so amount_cents is null. The ACJC program page body text sits inside a form element that the snapshot extractor drops, so no rule quotes it; the apply link (acjc.hostedbykarpel.com) comes from that page's HTML. Privacy (added Oct 3): the Address Confidentiality Program is run by the Secretary of State under A.R.S. 41-161 to 41-169 (AZ-S13). No statute, rule, or official program page was found that makes compensation claims or applicant records confidential or exempt from public records law."
+ },
+ "confidence": "high",
+ "researcher_notes": "Sources disagree on the filing clock: the undated ACJC brochure says to apply within two years of the crime, while A.A.C. R10-4-106(A)(7) says two years after discovery; the rule wins and is what this file uses. The application PDF linked from the ACJC page is dated June 2015 and predates the 2023/2024 rule rewrite; online filing is at acjc.hostedbykarpel.com. The program is county-run: each County Attorney's office has its own board and coordinator, and awards depend on money available to that county (R10-4-108(D)(2), (I)). A.R.S. 41-2407(E) and (F) also bar a provider who accepts program payment from billing the victim for the same service (unless the program cannot pay in full) and bar debt collection on bills included in a pending claim. Statute 13-1414 covers exams for offenses under 13-1404, 13-1405, 13-1406 and 13-3212 and dangerous crimes against children. Not used: the 2018 ACJC desk manual (predates current rules). Reviewer: the brochure also says the crime must be reported within 72 hours \"of the crime\"; R10-4-106(A)(4) says within 72 hours after discovery, and the rule wins. The brochure's blanket exclusion of property loss or repair is older and broader than the current rules, which pay for eyeglass/prosthetic/dental device repair (R10-4-108(C)(1)(a)(i)) and door, lock and window repair at a residence as crime scene cleanup (R10-4-101(8)(b)). R10-4-108(H)(1) requires denial for failure to cooperate with law enforcement unless the failure was due to a substantial medical, mental health, or safety risk. The forensic exam statute (A.R.S. 13-1414) covers only exam expenses arising from the need to secure evidence; follow-up medical treatment goes through the compensation claim. Filing (added Oct 3): claims go to the county program where the crime happened (A.A.C. R10-4-107(D)). Mailing addresses come from the ACJC county contact list PDF (AZ-S9), which the program page links; its 14 non-Maricopa addresses match the live program page, though several phone numbers on the PDF are older. For Maricopa the PDF lists 301 W. Jefferson, 9th Floor, but the live ACJC page and the Maricopa edition of the application (AZ-S11) say 225 West Madison Street, so the Maricopa mail rule quotes AZ-S11. The online portal (acjc.hostedbykarpel.com) is a login app that the snapshot tool cannot read, so the online rule quotes the Maricopa County Attorney page (AZ-S10), which links it for all applicants. No official source gives an email, fax, or in-person filing option. The ACJC page body (dropped by the extractor) says coordinators collect police reports, but the application and rules only ask for the report number, not a copy, so police_report is not listed as a required document. The statewide application PDF (AZ-S7, Rev. 06/2015, still the newest version) is a flat PDF with 0 AcroForm fields, and its mail-to box is a blank placeholder; the Maricopa edition is the same form with the county address filled in. Processing time is the Board's 60-day decision deadline from the rules, not a payment time. Address confidentiality (added Oct 3): the SOS eligibility page (AZ-S12) lists victims of a 'sexual offense (such as rape, sexual assault, molestation)' as eligible, plus fear for safety, a recent or planned move within Arizona to a place unknown to the perpetrator, and one piece of supporting documentation. Applications go only through a registered Application Assistant met in person (call 602-542-1653 to find one); approved participants are certified for five years and may not use the substitute address until the welcome packet and authorization card arrive. The ACP laws themselves (A.R.S. 41-161 to 41-169) were not snapshotted; the rule quotes the SOS program page. Record confidentiality: not found. A.A.C. R10-4-101 to R10-4-111 (AZ-S3) have no confidentiality section, and A.R.S. 41-2407 (AZ-S1) is silent. The application's release form (AZ-S7) says the opposite of a protection: information disclosed to the program is no longer subject to HIPAA, and the program may disclose non-identifying information for statistical purposes. County boards decide claims at open public meetings (Pinal, AZ-S14: 'The meetings are open to members of the public'; Maricopa says meeting recordings and documents are available for inspection, AZ-S10), so Tend should not tell Arizona users their claim details are confidential by law."
 }
