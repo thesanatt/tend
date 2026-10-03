@@ -45,9 +45,12 @@ def test_reset_undoes_demo_writes(client, seeded):
     client.create_withdrawal(checking, amount_cents=118_00, date="2026-10-03", description="Riverbend [tend:demo]")
     client.update_bill(bill_id, status="completed", amount_cents=325_00)
     client.create_deposit(cushion, amount_cents=1_000_00, date="2026-10-03", description="demo state payment")
+    client.create_bill(cushion, payee="Stray", nickname="demo", amount_cents=5_00, payment_date="2026-10-20",
+                       recurring_date=20)
     reset = Seeder(client, persona, **QUIET)
     reset.run()
-    assert (reset.stats.created, reset.stats.updated, reset.stats.deleted) == (0, 1, 2)
+    assert (reset.stats.created, reset.stats.updated, reset.stats.deleted) == (0, 1, 3)
+    assert client.list_bills(cushion) == []
     bill = client.get_bill(bill_id)
     assert (bill.status, bill.amount_cents) == ("pending", 443_00)
     assert client.find_txns(checking, "withdrawal", "[tend:demo]") == []

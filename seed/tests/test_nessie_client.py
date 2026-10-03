@@ -225,6 +225,7 @@ def test_find_txns_by_marker(client):
     client.create_withdrawal(checking.id, amount_cents=40_00, date="2026-10-03", description="ATM")
     found = client.find_txns(checking.id, "withdrawal", "[tend:n1]")
     assert [t.amount_cents for t in found] == [118_00]
+    assert found[0].display_description == "Riverbend"
 
 
 def test_balance_is_computed_because_nessie_never_moves_it(client):

@@ -39,6 +39,7 @@ _DATE_FIELD = {"purchase": "purchase_date", "deposit": "transaction_date",
                "withdrawal": "transaction_date", "transfer": "transaction_date"}
 
 _PAYEE_TAG = re.compile(r"\s*\[payee:([0-9A-Za-z-]+)\]")
+_ANY_TAG = re.compile(r"\s*\[[a-z_]+:[^\]]*\]", re.IGNORECASE)  # [payee:...], [tend:<action id>], ...
 _ISO_DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
@@ -130,7 +131,7 @@ class Txn:
 
     @property
     def display_description(self) -> str:
-        return _PAYEE_TAG.sub("", self.description).strip()
+        return _ANY_TAG.sub("", self.description).strip()
 
 
 @dataclass(frozen=True)

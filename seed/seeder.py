@@ -11,7 +11,8 @@ usage (run from seed/):
 Seeding converges rather than appends. Records are matched by content (date, amount, description,
 merchant), missing ones are created, and anything else on the persona's accounts is deleted.
 Customers and merchants cannot be deleted in Nessie, so they are found and reused.
-Keys come from the environment or the nearest .env above this folder (TEND_ENV_FILE overrides).
+Keys come from the nearest .env above this folder and override the shell; TEND_ENV_FILE picks
+another file.
 """
 from __future__ import annotations
 
@@ -193,18 +194,19 @@ class Seeder:
 
     def _bill(self, accounts: dict[str, Account]) -> Bill:
         plan = RIVERBEND_BILL
-        account = accounts[plan.account]
         keep = None
-        for bill in self.client.list_bills(account.id):
-            usable = bill.recurring_date == plan.recurring_date and bill.upcoming_payment_date
-            if keep is None and usable and (bill.payee, bill.nickname) == (plan.payee, plan.nickname):
-                keep = bill
-            else:
-                self.client.delete_bill(bill.id)
-                self.stats.deleted += 1
+        for key, account in accounts.items():
+            for bill in self.client.list_bills(account.id):
+                usable = bill.recurring_date == plan.recurring_date and bill.upcoming_payment_date
+                planned = key == plan.account and (bill.payee, bill.nickname) == (plan.payee, plan.nickname)
+                if keep is None and usable and planned:
+                    keep = bill
+                else:
+                    self.client.delete_bill(bill.id)
+                    self.stats.deleted += 1
         if keep is None:
             self.stats.created += 1
-            return self.client.create_bill(account.id, payee=plan.payee, nickname=plan.nickname,
+            return self.client.create_bill(accounts[plan.account].id, payee=plan.payee, nickname=plan.nickname,
                                            amount_cents=plan.amount_cents, payment_date=plan.payment_date,
                                            recurring_date=plan.recurring_date, status=plan.status)
         if (keep.status, keep.amount_cents, keep.payment_date) != (plan.status, plan.amount_cents, plan.payment_date):
