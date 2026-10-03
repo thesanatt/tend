@@ -1,0 +1,536 @@
+{
+  "jurisdiction": "ZZ",
+  "name": "Synthetic Test State",
+  "program": {
+    "program_name": "Synthetic Victim Compensation Program (test fixture)",
+    "agency": "None. ZZ is a synthetic jurisdiction for engine tests.",
+    "website": "https://example.org/zz",
+    "apply_url": "https://example.org/zz/apply",
+    "application_pdf_url": null,
+    "phone": "000-000-0000",
+    "phone_source_id": "ZZ-S1",
+    "statute_citation": "ZZ Test Code 1.1 to 1.74"
+  },
+  "sources": [
+    {
+      "id": "ZZ-S1",
+      "title": "ZZ Test Code (synthetic)",
+      "url": "https://example.org/zz/code",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T00:00:00Z",
+      "raw_path": "refengine/tests/fixtures/ZZ-S1.txt",
+      "text_path": "refengine/tests/fixtures/ZZ-S1.txt",
+      "sha256": "b60a5d86b53bbe792929a6bd5100ce47c1ed171f33a413b1105ccdf41e3787ef"
+    }
+  ],
+  "rules": [
+    {
+      "id": "ZZ-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "prohibited"
+      },
+      "summary": "A provider may not bill the survivor for any part of the forensic exam.",
+      "quote": "A health care provider shall not bill a victim for any part of a sexual assault forensic examination.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.1"
+    },
+    {
+      "id": "ZZ-EXAM-2",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "State examination fund"
+      },
+      "summary": "The state examination fund pays for the forensic exam.",
+      "quote": "The state examination fund pays the full cost of a sexual assault forensic examination.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.2"
+    },
+    {
+      "id": "ZZ-EXAM-3",
+      "category": "exam_payment",
+      "expense": "medical",
+      "params": {
+        "payer": "County, for injury treatment within 72 hours"
+      },
+      "summary": "The county pays for injury treatment given within 72 hours; this is medical care, not the exam.",
+      "quote": "The county pays for treatment of physical injuries given within 72 hours after the victim first arrives for care.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.3"
+    },
+    {
+      "id": "ZZ-CAP-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000
+      },
+      "summary": "The total award is capped at $25,000.",
+      "quote": "The total award on a claim shall not exceed $25,000.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.4"
+    },
+    {
+      "id": "ZZ-CAP-2",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 3000000
+      },
+      "summary": "No award under the title may exceed $30,000.",
+      "quote": "No award under any program in this title shall exceed $30,000.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.5"
+    },
+    {
+      "id": "ZZ-CAP-3",
+      "category": "expense_cap",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 8000,
+        "per": "session",
+        "count_limit": 40
+      },
+      "summary": "Counseling is paid at up to $80 per session, for up to 40 sessions.",
+      "quote": "Counseling is reimbursed at not more than $80 per session, for up to 40 sessions.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.6"
+    },
+    {
+      "id": "ZZ-CAP-4",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 300000,
+        "per": "claim"
+      },
+      "summary": "Counseling on one claim is capped at $3,000.",
+      "quote": "Counseling costs on a claim shall not exceed $3,000.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.7"
+    },
+    {
+      "id": "ZZ-CAP-5",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "amount_cents": 40000,
+        "per": "week"
+      },
+      "summary": "Lost wages are paid at up to $400 per week.",
+      "quote": "Lost wages are paid at not more than $400 per week.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.8"
+    },
+    {
+      "id": "ZZ-CAP-6",
+      "category": "expense_cap",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation",
+        "amount_cents": 200000,
+        "per": "claim"
+      },
+      "summary": "Relocation is capped at $2,000.",
+      "quote": "Relocation costs shall not exceed $2,000.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.9"
+    },
+    {
+      "id": "ZZ-CAP-7",
+      "category": "expense_cap",
+      "expense": "security",
+      "params": {
+        "amount_cents": 100000,
+        "per": "residence"
+      },
+      "summary": "Residential security is capped at $1,000 per residence.",
+      "quote": "Residential security costs shall not exceed $1,000 per residence.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.10"
+    },
+    {
+      "id": "ZZ-CAP-8",
+      "category": "expense_cap",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation",
+        "amount_cents": 50,
+        "per": "mile"
+      },
+      "summary": "Transportation to treatment is paid at $0.50 per mile.",
+      "quote": "Transportation to treatment is reimbursed at $0.50 per mile.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.11"
+    },
+    {
+      "id": "ZZ-CAP-9",
+      "category": "expense_cap",
+      "expense": "temporary_housing",
+      "params": {
+        "expense": "temporary_housing",
+        "per": "claim",
+        "count_limit": 30
+      },
+      "summary": "Temporary housing is covered for up to 30 days.",
+      "quote": "Temporary housing is covered for up to 30 days.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.12"
+    },
+    {
+      "id": "ZZ-CAP-10",
+      "category": "expense_cap",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup",
+        "amount_cents": 500000,
+        "per": "crime_scene"
+      },
+      "summary": "Crime scene cleanup is capped at $5,000 per crime scene.",
+      "quote": "Crime scene cleanup shall not exceed $5,000 per crime scene.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.13"
+    },
+    {
+      "id": "ZZ-CAP-11",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 1500,
+        "per": "hour"
+      },
+      "summary": "Peer counseling is paid up to $15 an hour.",
+      "quote": "Counseling by a peer counselor is reimbursed at not more than $15 per hour.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.14"
+    },
+    {
+      "id": "ZZ-COV-1",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Medical expenses are covered.",
+      "quote": "The program may pay reasonable medical expenses.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.20"
+    },
+    {
+      "id": "ZZ-COV-2",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Counseling is covered.",
+      "quote": "The program may pay for counseling.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.21"
+    },
+    {
+      "id": "ZZ-COV-3",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Lost wages are covered.",
+      "quote": "The program may pay lost wages.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.22"
+    },
+    {
+      "id": "ZZ-COV-4",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "Transportation to treatment is covered.",
+      "quote": "The program may pay for transportation to treatment.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.23"
+    },
+    {
+      "id": "ZZ-COV-5",
+      "category": "covered_expense",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation"
+      },
+      "summary": "Relocation is covered.",
+      "quote": "The program may pay relocation costs.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.24"
+    },
+    {
+      "id": "ZZ-COV-6",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription"
+      },
+      "summary": "Prescriptions are covered.",
+      "quote": "The program may pay for prescriptions.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.25"
+    },
+    {
+      "id": "ZZ-COV-7",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "Dental costs are covered.",
+      "quote": "The program may pay dental costs.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.26"
+    },
+    {
+      "id": "ZZ-COV-8",
+      "category": "covered_expense",
+      "expense": "childcare",
+      "params": {
+        "expense": "childcare"
+      },
+      "summary": "Childcare is covered.",
+      "quote": "The program may pay childcare costs.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.27"
+    },
+    {
+      "id": "ZZ-COV-9",
+      "category": "covered_expense",
+      "params": {
+        "item": "replacement eyeglasses"
+      },
+      "summary": "Replacement eyeglasses are covered.",
+      "quote": "The program may pay for replacement eyeglasses.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.28"
+    },
+    {
+      "id": "ZZ-EXCL-1",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement"
+      },
+      "summary": "Lost or damaged personal property is not covered.",
+      "quote": "The program shall not pay for lost or damaged personal property.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.30"
+    },
+    {
+      "id": "ZZ-EXCL-2",
+      "category": "excluded_expense",
+      "params": {
+        "item": "pain and suffering"
+      },
+      "summary": "Pain and suffering is not covered.",
+      "quote": "The program shall not pay for pain and suffering.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.31"
+    },
+    {
+      "id": "ZZ-EXCL-3",
+      "category": "excluded_expense",
+      "expense": "childcare",
+      "params": {
+        "expense": "childcare"
+      },
+      "summary": "Childcare is not covered for an adult claimant.",
+      "quote": "The program shall not pay childcare costs for a claimant who is an adult.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.32"
+    },
+    {
+      "id": "ZZ-DEAD-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 3,
+        "from": "crime"
+      },
+      "summary": "File within 3 years of the crime.",
+      "quote": "A claim shall be filed within 3 years after the crime.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.40"
+    },
+    {
+      "id": "ZZ-DEAD-2",
+      "category": "filing_deadline",
+      "params": {
+        "days": 180,
+        "from": "discovery"
+      },
+      "summary": "File within 180 days of discovering the injury.",
+      "quote": "A claim shall be filed within 180 days after the victim discovers the injury.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.41"
+    },
+    {
+      "id": "ZZ-DEAD-3",
+      "category": "filing_deadline",
+      "params": {
+        "years": 10,
+        "from": "age_18"
+      },
+      "summary": "A victim who was a minor may file within 10 years after turning eighteen.",
+      "quote": "A victim who was a minor may file within 10 years after turning eighteen.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.42"
+    },
+    {
+      "id": "ZZ-DEAD-4",
+      "category": "filing_deadline",
+      "params": {
+        "extension": "good cause"
+      },
+      "summary": "The board may extend the deadline for good cause.",
+      "quote": "The board may extend a filing deadline for good cause.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.43"
+    },
+    {
+      "id": "ZZ-DEAD-5",
+      "category": "filing_deadline",
+      "params": {
+        "years": 2,
+        "from": "report"
+      },
+      "summary": "A sexual assault claim can be filed up to 2 years after the police report.",
+      "quote": "A claim based on a sexual assault may be filed within 2 years after the crime is reported to law enforcement.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.44"
+    },
+    {
+      "id": "ZZ-REPORT-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "within_days": 30,
+        "alternatives": [
+          "forensic_exam"
+        ]
+      },
+      "summary": "Report to law enforcement within 30 days, unless the survivor had a forensic exam.",
+      "quote": "The crime shall be reported to law enforcement within 30 days, unless the victim had a sexual assault forensic examination.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.50"
+    },
+    {
+      "id": "ZZ-REPORT-2",
+      "category": "reporting_requirement",
+      "expense": "forensic_exam",
+      "params": {
+        "required": false,
+        "alternatives": []
+      },
+      "summary": "No police report is needed to get a forensic exam.",
+      "quote": "A victim does not need to report to law enforcement to receive a forensic examination.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.51"
+    },
+    {
+      "id": "ZZ-MIN-1",
+      "category": "minimum_loss",
+      "params": {
+        "amount_cents": 10000,
+        "waived_for": [
+          "sexual_assault"
+        ]
+      },
+      "summary": "A claim needs at least $100 of loss, except for a victim of sexual assault.",
+      "quote": "A claim requires an out-of-pocket loss of at least $100, which does not apply to a victim of sexual assault.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.60"
+    },
+    {
+      "id": "ZZ-MIN-2",
+      "category": "minimum_loss",
+      "params": {
+        "days_lost": 5
+      },
+      "summary": "Lost wages count after 5 missed working days.",
+      "quote": "Lost wages are paid only when the victim misses at least 5 working days.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.61"
+    },
+    {
+      "id": "ZZ-COLL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The program pays after insurance and other sources.",
+      "quote": "The program pays only after insurance and other collateral sources.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.70"
+    },
+    {
+      "id": "ZZ-CONDUCT-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "An award may be reduced for the victim's conduct (shown as information only).",
+      "quote": "An award may be reduced if the victim's conduct contributed to the injury.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.71"
+    },
+    {
+      "id": "ZZ-EMERG-1",
+      "category": "emergency_award",
+      "params": {
+        "amount_cents": 100000
+      },
+      "summary": "An emergency award of up to $1,000 is available.",
+      "quote": "The board may grant an emergency award of up to $1,000.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.72"
+    },
+    {
+      "id": "ZZ-ELIG-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Sexual assault is a covered crime.",
+      "quote": "Sexual assault is a crime covered by this title.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.73"
+    },
+    {
+      "id": "ZZ-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "Residents, and anyone injured by a crime in ZZ"
+      },
+      "summary": "Residents and people hurt by a crime in ZZ may apply.",
+      "quote": "Residents of ZZ and people injured by a crime in ZZ may apply.",
+      "source_id": "ZZ-S1",
+      "pinpoint": "ZZ Test Code 1.74"
+    }
+  ],
+  "coverage": {
+    "found": [
+      "exam_no_bill",
+      "exam_payment",
+      "total_cap",
+      "expense_cap",
+      "covered_expense",
+      "excluded_expense",
+      "filing_deadline",
+      "reporting_requirement",
+      "minimum_loss",
+      "collateral_source",
+      "conduct_reduction",
+      "emergency_award",
+      "eligible_crime",
+      "residency"
+    ],
+    "not_found": [],
+    "notes": "Synthetic fixture. Every category appears at least once, with edge cases for each engine step."
+  },
+  "confidence": "high",
+  "researcher_notes": "Synthetic jurisdiction for refengine tests and the differential test. Not a real program; the quotes were written for testing and are not law."
+}

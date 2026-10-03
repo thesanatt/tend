@@ -39,8 +39,8 @@ shopt -s nullglob
 ir_files=("$ir"/*.json)
 if [ ${#ir_files[@]} -gt 0 ]; then
   ./scripts/build_laws.sh "$ir" "$verified" "$out/laws" || echo "build_wasm: some jurisdictions were not compiled (listed above)"
-  node scripts/laws_index.mjs "$out/laws" > "$out/laws/index.json"
+  node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/laws_index.mjs "$out/laws" > "$out/laws/index.json"
   echo "build_wasm: $(ls "$out"/laws/*.tlaw | wc -l | tr -d ' ') law images in $out/laws"
 fi
 
-node tests/wasm_smoke.mjs "$out" build/laws/ZZ.tlaw tests/fixtures/ZZ_claim.json tests/golden/ZZ_claim.out.json
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/wasm_smoke.mjs "$out" build/laws/ZZ.tlaw tests/fixtures/ZZ_claim.json tests/golden/ZZ_claim.out.json

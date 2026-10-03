@@ -45,8 +45,34 @@ export async function loadTend(moduleOptions = {}) {
     });
   }
 
+  // Claim bytes in, result bytes out: exactly what the C ABI returns, for
+  // checks that compare the WASM and native engines byte for byte.
+  function evaluateBytes(image, input) {
+    const bytes = input instanceof Uint8Array ? input : new TextEncoder().encode(input);
+    return withImage(image, (ptr, len) => {
+      const inPtr = M._malloc(bytes.length + 1);
+      if (!inPtr) throw new Error('tend: out of memory');
+      try {
+        M.HEAPU8.set(bytes, inPtr);
+        M.HEAPU8[inPtr + bytes.length] = 0;
+        const out = M._tend_eval_json(ptr, len, inPtr);
+        if (!out) throw new Error('tend: out of memory');
+        try {
+          let end = out;
+          while (M.HEAPU8[end] !== 0) end++;
+          return M.HEAPU8.slice(out, end);
+        } finally {
+          M._tend_free(out);
+        }
+      } finally {
+        M._free(inPtr);
+      }
+    });
+  }
+
   return {
     version: () => M.UTF8ToString(M._tend_version()),
+    evaluateBytes,
     // Returns the engine output, or {error: {code, message}}.
     evaluate: (image, claim) => JSON.parse(evaluateRaw(image, typeof claim === 'string' ? claim : JSON.stringify(claim))),
     evaluateRaw,

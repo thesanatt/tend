@@ -1,0 +1,251 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "ZZ",
+ "name": "Synthetic Test State",
+ "program": {
+  "program_name": "Synthetic Victim Compensation Program (test fixture)",
+  "agency": "None. ZZ is a synthetic jurisdiction for engine tests.",
+  "website": "https://example.org/zz",
+  "apply_url": "https://example.org/zz/apply",
+  "application_pdf_url": null,
+  "phone": "000-000-0000",
+  "phone_source_id": "ZZ-S1",
+  "statute_citation": "ZZ Test Code 1.1 to 1.74"
+ },
+ "source_sha256": "2ee8c85821717e9f530e8d91277410a22950ad8e3523958a8ddb17ba18236df3",
+ "rules": [
+  {
+   "id": "ZZ-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ZZ-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ZZ-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ZZ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ZZ-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 3000000
+  },
+  {
+   "id": "ZZ-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 8000,
+   "per": "unit",
+   "unit": "session",
+   "count_limit": 40
+  },
+  {
+   "id": "ZZ-CAP-4",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-CAP-5",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 40000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "ZZ-CAP-6",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-CAP-7",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-CAP-8",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 50,
+   "per": "unit",
+   "unit": "mile"
+  },
+  {
+   "id": "ZZ-CAP-10",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-CAP-11",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 1500,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "ZZ-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ZZ-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ZZ-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ZZ-COV-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ZZ-COV-5",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "ZZ-COV-6",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "ZZ-COV-7",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ZZ-COV-8",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "ZZ-COV-9",
+   "kind": "info",
+   "category": "covered_expense"
+  },
+  {
+   "id": "ZZ-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "ZZ-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ZZ-EXCL-3",
+   "kind": "excluded",
+   "expense": "childcare"
+  },
+  {
+   "id": "ZZ-DEAD-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "ZZ-DEAD-2",
+   "kind": "deadline",
+   "days": 180,
+   "from": "discovery"
+  },
+  {
+   "id": "ZZ-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "ZZ-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "ZZ-DEAD-5",
+   "kind": "deadline",
+   "days": 730,
+   "from": "report"
+  },
+  {
+   "id": "ZZ-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ],
+   "within_days": 30
+  },
+  {
+   "id": "ZZ-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "ZZ-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "automatic",
+   "waiver_for_sexual_assault": true,
+   "cap_cents": 10000
+  },
+  {
+   "id": "ZZ-MIN-2",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "days_lost": 5
+  },
+  {
+   "id": "ZZ-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ZZ-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ZZ-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "ZZ-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ZZ-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "ZZ-CAP-9",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "ZY",
+ "name": "Synthetic Sparse State",
+ "program": {
+  "program_name": "Synthetic Sparse Program (test fixture)",
+  "agency": "None. ZY is a synthetic jurisdiction for engine tests.",
+  "website": "https://example.org/zy",
+  "apply_url": "https://example.org/zy/apply",
+  "application_pdf_url": null,
+  "phone": "000-000-0000",
+  "phone_source_id": "ZY-S1",
+  "statute_citation": "ZY Test Code 2.1 to 2.7"
+ },
+ "source_sha256": "8c775387e4a27c3f31d674bca87cfee5cd2be7afa3c0782bbba690e50a55ee9d",
+ "rules": [
+  {
+   "id": "ZY-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ZY-CAP-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 9000,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "ZY-CAP-2",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 5000,
+   "per": "claim"
+  },
+  {
+   "id": "ZY-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ZY-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "days_lost": 7
+  },
+  {
+   "id": "ZY-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "ZY-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

@@ -1,10 +1,10 @@
 ; tend law image ZZ, Zedland (fictional test jurisdiction)
-; format 1.1, compiled by tendc 1.1.0
-; source sha256 2aaf3744efd7e7a79d3bfae2d80f1e0ae706277bd5dff3a847daa7fd1cbe3800
-; image sha256  2e27f0b2b28830584f0b7dd68601911f86946a18704feddba289f8b8179e5004
-; 34 rules, 2 sources, 32 proofs, 9 ints, 172 strings
+; format 1.2, compiled by tendc 1.2.0
+; source sha256 9c880106e3fd50a5377314b8335f891191d3e80c5e1b9c8120699ca99dfb5e23
+; image sha256  291b758b56b0f50e94d5d7cf9ff32a820564a809e3f2840f9c0bc9b69f86fd6b
+; 36 rules, 2 sources, 32 proofs, 9 ints, 183 strings
 ; item program: 357 instructions, 1250 bytes, max stack 2
-; aggregate program: 251 instructions, 768 bytes, max stack 3, 9 loops
+; aggregate program: 307 instructions, 925 bytes, max stack 3, 10 loops
 
 .rules
     R0    ZZ-EXAM-1             exam_no_bill  -                                             ZC 4-110(2)
@@ -25,22 +25,24 @@
     R15   ZZ-PROPERTY-CAP-1     expense_cap   property_replacement  per claim               Program Guide, Evidence
     R16   ZZ-PAIN-1             excluded      -                                             ZC 4-116(2)
     R17   ZZ-TUITION-1          excluded      tuition                                       ZC 4-116(3)
-    R18   ZZ-DEADLINE-1         deadline      -                                             ZC 4-130(1)
-    R19   ZZ-DEADLINE-2         deadline      -                                             ZC 4-130(2)
+    R18   ZZ-DEADLINE-1         deadline      -                     from crime              ZC 4-130(1)
+    R19   ZZ-DEADLINE-2         deadline      -                     from discovery          ZC 4-130(2)
     R20   ZZ-DEADLINE-3         info          -                     filing_deadline         ZC 4-130(3)
-    R21   ZZ-REPORT-1           reporting     -                                             ZC 4-131
-    R22   ZZ-MINLOSS-1          minimum_loss  -                                             ZC 4-132
-    R23   ZZ-COLLATERAL-1       collateral    -                                             ZC 4-133
-    R24   ZZ-CONDUCT-1          info          -                     conduct_reduction       ZC 4-134
-    R25   ZZ-EMERGENCY-1        info          -                     emergency_award         ZC 4-135
-    R26   ZZ-CRIME-1            info          -                     eligible_crime          ZC 4-102(5)
-    R27   ZZ-RESIDENCY-1        info          -                     residency               ZC 4-103
-    R28   ZZ-SUBMIT-1           info          -                     submission              Program Guide, How to apply
-    R29   ZZ-RX-1               covered       prescription                                  ZC 4-115(1)(d)
-    R30   ZZ-CHILDCARE-1        covered       childcare                                     Program Guide, Child care
-    R31   ZZ-COUNSEL-FAMILY-1   skipped       -                     expense_cap             ZC 4-121(5)  ; applies_to "family members of the victim"
-    R32   ZZ-DENTAL-CAP-1       skipped       -                     expense_cap             Program Guide, Dental  ; expense_cap without amount or expense
-    R33   ZZ-COUNSEL-CAP-3      skipped       -                     expense_cap             Program Guide, Counseling rates  ; less generous duplicate of ZZ-COUNSEL-CAP-1
+    R21   ZZ-DEADLINE-4         deadline      -                     from report             ZC 4-130(4)
+    R22   ZZ-REPORT-1           reporting     -                                             ZC 4-131
+    R23   ZZ-MINLOSS-1          minimum_loss  -                                             ZC 4-132
+    R24   ZZ-MINLOSS-2          minimum_loss  -                                             ZC 4-132(2)
+    R25   ZZ-COLLATERAL-1       collateral    -                                             ZC 4-133
+    R26   ZZ-CONDUCT-1          info          -                     conduct_reduction       ZC 4-134
+    R27   ZZ-EMERGENCY-1        info          -                     emergency_award         ZC 4-135
+    R28   ZZ-CRIME-1            info          -                     eligible_crime          ZC 4-102(5)
+    R29   ZZ-RESIDENCY-1        info          -                     residency               ZC 4-103
+    R30   ZZ-SUBMIT-1           info          -                     submission              Program Guide, How to apply
+    R31   ZZ-RX-1               covered       prescription                                  ZC 4-115(1)(d)
+    R32   ZZ-CHILDCARE-1        covered       childcare                                     Program Guide, Child care
+    R33   ZZ-COUNSEL-FAMILY-1   skipped       -                     expense_cap             ZC 4-121(5)  ; applies_to "family members of the victim"
+    R34   ZZ-DENTAL-CAP-1       skipped       -                     expense_cap             Program Guide, Dental  ; expense_cap without amount or expense
+    R35   ZZ-COUNSEL-CAP-3      skipped       -                     expense_cap             Program Guide, Counseling rates  ; less generous duplicate of ZZ-COUNSEL-CAP-1
 
 .tags   phone=bit0, purse=bit1, pain_suffering=bit2
 
@@ -77,8 +79,8 @@
     P25   (ZZ-DENTAL-1, ZZ-COLLATERAL-1)
     P26   (ZZ-PAIN-1, ZZ-TUITION-1)
     P27   (ZZ-TUITION-1)
-    P28   (ZZ-MINLOSS-1)
-    P29   (ZZ-DEADLINE-1, ZZ-DEADLINE-2)
+    P28   (ZZ-MINLOSS-1, ZZ-MINLOSS-2)
+    P29   (ZZ-DEADLINE-1, ZZ-DEADLINE-2, ZZ-DEADLINE-4)
     P30   (ZZ-REPORT-1)
     P31   (ZZ-DEADLINE-3, ZZ-COLLATERAL-1, ZZ-CONDUCT-1, ZZ-EMERGENCY-1, ZZ-CRIME-1, ZZ-RESIDENCY-1, ZZ-SUBMIT-1)
 
@@ -163,7 +165,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  00d5        seta     collateral, R25              ; ZZ-COLLATERAL-1
   00d9        ret
               ; ZZ-COUNSEL-1  ZC 4-115(1)(b)  "Mental health counseling for the victim is compensable."
               ; ZZ-COUNSEL-CAP-1  Program Guide, Counseling  "Counseling shall be paid at no more than $90 per session, for no..."
@@ -200,7 +202,7 @@
   012f        subs
   0130        push     0
   0135        max
-  0136        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  0136        seta     collateral, R25              ; ZZ-COLLATERAL-1
   013a        ret
               ; ZZ-WAGES-1  ZC 4-115(1)(c)  "Loss of earnings resulting from the crime is compensable."
               ; ZZ-WAGES-CAP-1  ZC 4-121(2)  "Lost wages shall not exceed $600 per week."
@@ -235,7 +237,7 @@
   018d        subs
   018e        push     0
   0193        max
-  0194        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  0194        seta     collateral, R25              ; ZZ-COLLATERAL-1
   0198        ret
               ; ZZ-TRANSPORT-CAP-1  Program Guide, Travel  "Travel to treatment is reimbursed at $0.50 per mile."
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
@@ -269,7 +271,7 @@
   01eb        subs
   01ec        push     0
   01f1        max
-  01f2        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  01f2        seta     collateral, R25              ; ZZ-COLLATERAL-1
   01f6        ret
               ; ZZ-RELOC-CAP-1  ZC 4-121(3)  "Relocation expenses shall not exceed $2,000."
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
@@ -303,7 +305,7 @@
   0249        subs
   024a        push     0
   024f        max
-  0250        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  0250        seta     collateral, R25              ; ZZ-COLLATERAL-1
   0254        ret
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
   0255  L27:  push     0
@@ -358,7 +360,7 @@
   02e9        subs
   02ea        push     0
   02ef        max
-  02f0        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  02f0        seta     collateral, R25              ; ZZ-COLLATERAL-1
   02f4        ret
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
               ; ZZ-COLLATERAL-1  ZC 4-133  "An award shall be reduced by any amount paid by insurance or..."
@@ -392,7 +394,7 @@
   0347        subs
   0348        push     0
   034d        max
-  034e        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  034e        seta     collateral, R25              ; ZZ-COLLATERAL-1
   0352        ret
               ; ZZ-PROPERTY-1  ZC 4-116(1)  "Replacement of a lost or stolen cell phone or wallet is not..."
               ; ZZ-PROPERTY-CAP-1  Program Guide, Evidence  "Property held as evidence may be replaced up to $500."
@@ -443,7 +445,7 @@
   03d8        subs
   03d9        push     0
   03de        max
-  03df        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  03df        seta     collateral, R25              ; ZZ-COLLATERAL-1
   03e3        ret
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
               ; ZZ-COLLATERAL-1  ZC 4-133  "An award shall be reduced by any amount paid by insurance or..."
@@ -477,7 +479,7 @@
   0436        subs
   0437        push     0
   043c        max
-  043d        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  043d        seta     collateral, R25              ; ZZ-COLLATERAL-1
   0441        ret
               ; ZZ-DENTAL-1  ZC 4-115(1)(e)  "Dental care needed because of the crime is compensable."
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
@@ -511,7 +513,7 @@
   0494        subs
   0495        push     0
   049a        max
-  049b        seta     collateral, R23              ; ZZ-COLLATERAL-1
+  049b        seta     collateral, R25              ; ZZ-COLLATERAL-1
   049f        ret
               ; ZZ-PAIN-1  ZC 4-116(2)  "Pain and suffering is not compensable."
               ; ZZ-TUITION-1  ZC 4-116(3)  "Tuition and school fees are not compensable."
@@ -541,263 +543,323 @@
   0000        push     3
   0005        str      r3
   0007        each     counseling, L4
-  000d  L0:   ldi      units
-  000f        jz       L2
-  0014        ldi      units
-  0016        ldr      r3
-  0018        min
-  0019        str      r4
-  001b        ldr      r3
-  001d        ldr      r4
-  001f        subs
-  0020        str      r3
-  0022        ldk      K0                           ; $90.00
-  0025        ldr      r4
-  0027        muls
-  0028        dup
-  0029        lda
-  002a        lt
-  002b        jz       L1
-  0030        cap      unit_cap, R6                 ; ZZ-COUNSEL-CAP-1
-  0034        jmp      L3
-  0039  L1:   pop
-  003a        jmp      L3
-  003f  L2:   flag     R6                           ; rate_unverified ZZ-COUNSEL-CAP-1
-  0042  L3:   next     L0
+  000d  L0:   ldi      unit
+  000f        push     1                            ; session
+  0014        eq
+  0015        jz       L2
+  001a        ldi      units
+  001c        push     0
+  0021        gt
+  0022        jz       L2
+  0027        ldi      units
+  0029        ldr      r3
+  002b        min
+  002c        str      r4
+  002e        ldr      r3
+  0030        ldr      r4
+  0032        subs
+  0033        str      r3
+  0035        ldk      K0                           ; $90.00
+  0038        ldr      r4
+  003a        muls
+  003b        dup
+  003c        lda
+  003d        lt
+  003e        jz       L1
+  0043        cap      unit_cap, R6                 ; ZZ-COUNSEL-CAP-1
+  0047        jmp      L3
+  004c  L1:   pop
+  004d        jmp      L3
+  0052  L2:   flag     R6                           ; rate_unverified ZZ-COUNSEL-CAP-1
+  0055  L3:   next     L0
               ; ZZ-WAGES-CAP-1  ZC 4-121(2)  "Lost wages shall not exceed $600 per week."
-  0047  L4:   each     lost_wages, L9
-  004d  L5:   ldi      units
-  004f        jz       L7
-  0054        ldk      K1                           ; $600.00
-  0057        ldi      units
-  0059        muls
-  005a        dup
-  005b        lda
-  005c        lt
-  005d        jz       L6
-  0062        cap      unit_cap, R9                 ; ZZ-WAGES-CAP-1
-  0066        jmp      L8
-  006b  L6:   pop
-  006c        jmp      L8
-  0071  L7:   flag     R9                           ; rate_unverified ZZ-WAGES-CAP-1
-  0074  L8:   next     L5
+  005a  L4:   each     lost_wages, L9
+  0060  L5:   ldi      unit
+  0062        push     2                            ; week
+  0067        eq
+  0068        jz       L7
+  006d        ldi      units
+  006f        push     0
+  0074        gt
+  0075        jz       L7
+  007a        ldk      K1                           ; $600.00
+  007d        ldi      units
+  007f        muls
+  0080        dup
+  0081        lda
+  0082        lt
+  0083        jz       L6
+  0088        cap      unit_cap, R9                 ; ZZ-WAGES-CAP-1
+  008c        jmp      L8
+  0091  L6:   pop
+  0092        jmp      L8
+  0097  L7:   flag     R9                           ; rate_unverified ZZ-WAGES-CAP-1
+  009a  L8:   next     L5
               ; ZZ-TRANSPORT-CAP-1  Program Guide, Travel  "Travel to treatment is reimbursed at $0.50 per mile."
-  0079  L9:   each     transportation, L14
-  007f  L10:  ldi      units
-  0081        jz       L12
-  0086        ldk      K2                           ; $0.50
-  0089        ldi      units
-  008b        muls
-  008c        dup
-  008d        lda
-  008e        lt
-  008f        jz       L11
-  0094        cap      unit_cap, R10                ; ZZ-TRANSPORT-CAP-1
-  0098        jmp      L13
-  009d  L11:  pop
-  009e        jmp      L13
-  00a3  L12:  flag     R10                          ; rate_unverified ZZ-TRANSPORT-CAP-1
-  00a6  L13:  next     L10
+  009f  L9:   each     transportation, L14
+  00a5  L10:  ldi      unit
+  00a7        push     4                            ; mile
+  00ac        eq
+  00ad        jz       L12
+  00b2        ldi      units
+  00b4        push     0
+  00b9        gt
+  00ba        jz       L12
+  00bf        ldk      K2                           ; $0.50
+  00c2        ldi      units
+  00c4        muls
+  00c5        dup
+  00c6        lda
+  00c7        lt
+  00c8        jz       L11
+  00cd        cap      unit_cap, R10                ; ZZ-TRANSPORT-CAP-1
+  00d1        jmp      L13
+  00d6  L11:  pop
+  00d7        jmp      L13
+  00dc  L12:  flag     R10                          ; rate_unverified ZZ-TRANSPORT-CAP-1
+  00df  L13:  next     L10
               ; ZZ-COUNSEL-CAP-2  ZC 4-121(1)  "Counseling payments shall not exceed $3,000 per claim."
-  00ab  L14:  push     0
-  00b0        str      r0
-  00b2        push     0
-  00b7        str      r1
-  00b9        each     counseling, L19
-  00bf  L15:  ldr      r1
-  00c1        jnz      L17
-  00c6        ldr      r0
-  00c8        lda
-  00c9        adds
-  00ca        ldk      K3                           ; $3,000.00
-  00cd        gt
-  00ce        jz       L16
-  00d3        ldk      K3                           ; $3,000.00
-  00d6        ldr      r0
-  00d8        subs
-  00d9        cap      expense_cap, R7              ; ZZ-COUNSEL-CAP-2
-  00dd        push     1
-  00e2        str      r1
-  00e4  L16:  ldr      r0
-  00e6        lda
-  00e7        adds
-  00e8        str      r0
-  00ea        jmp      L18
-  00ef  L17:  push     0
-  00f4        cap      expense_cap, R7              ; ZZ-COUNSEL-CAP-2
-  00f8  L18:  next     L15
+  00e4  L14:  push     0
+  00e9        str      r0
+  00eb        push     0
+  00f0        str      r1
+  00f2        each     counseling, L19
+  00f8  L15:  ldr      r1
+  00fa        jnz      L17
+  00ff        ldr      r0
+  0101        lda
+  0102        adds
+  0103        ldk      K3                           ; $3,000.00
+  0106        gt
+  0107        jz       L16
+  010c        ldk      K3                           ; $3,000.00
+  010f        ldr      r0
+  0111        subs
+  0112        cap      expense_cap, R7              ; ZZ-COUNSEL-CAP-2
+  0116        push     1
+  011b        str      r1
+  011d  L16:  ldr      r0
+  011f        lda
+  0120        adds
+  0121        str      r0
+  0123        jmp      L18
+  0128  L17:  push     0
+  012d        cap      expense_cap, R7              ; ZZ-COUNSEL-CAP-2
+  0131  L18:  next     L15
               ; ZZ-RELOC-CAP-1  ZC 4-121(3)  "Relocation expenses shall not exceed $2,000."
-  00fd  L19:  push     0
-  0102        str      r0
-  0104        push     0
-  0109        str      r1
-  010b        each     relocation, L24
-  0111  L20:  ldr      r1
-  0113        jnz      L22
-  0118        ldr      r0
-  011a        lda
-  011b        adds
-  011c        ldk      K4                           ; $2,000.00
-  011f        gt
-  0120        jz       L21
-  0125        ldk      K4                           ; $2,000.00
-  0128        ldr      r0
-  012a        subs
-  012b        cap      expense_cap, R11             ; ZZ-RELOC-CAP-1
-  012f        push     1
-  0134        str      r1
-  0136  L21:  ldr      r0
-  0138        lda
-  0139        adds
-  013a        str      r0
-  013c        jmp      L23
-  0141  L22:  push     0
-  0146        cap      expense_cap, R11             ; ZZ-RELOC-CAP-1
-  014a  L23:  next     L20
+  0136  L19:  push     0
+  013b        str      r0
+  013d        push     0
+  0142        str      r1
+  0144        each     relocation, L24
+  014a  L20:  ldr      r1
+  014c        jnz      L22
+  0151        ldr      r0
+  0153        lda
+  0154        adds
+  0155        ldk      K4                           ; $2,000.00
+  0158        gt
+  0159        jz       L21
+  015e        ldk      K4                           ; $2,000.00
+  0161        ldr      r0
+  0163        subs
+  0164        cap      expense_cap, R11             ; ZZ-RELOC-CAP-1
+  0168        push     1
+  016d        str      r1
+  016f  L21:  ldr      r0
+  0171        lda
+  0172        adds
+  0173        str      r0
+  0175        jmp      L23
+  017a  L22:  push     0
+  017f        cap      expense_cap, R11             ; ZZ-RELOC-CAP-1
+  0183  L23:  next     L20
               ; ZZ-SECURITY-CAP-1  ZC 4-121(4)  "Security devices shall not exceed $400 per residence."
-  014f  L24:  push     0
-  0154        str      r0
-  0156        push     0
-  015b        str      r1
-  015d        each     security, L29
-  0163  L25:  ldr      r1
-  0165        jnz      L27
-  016a        ldr      r0
-  016c        lda
-  016d        adds
-  016e        ldk      K5                           ; $400.00
-  0171        gt
-  0172        jz       L26
-  0177        ldk      K5                           ; $400.00
-  017a        ldr      r0
-  017c        subs
-  017d        cap      expense_cap, R12             ; ZZ-SECURITY-CAP-1
-  0181        push     1
-  0186        str      r1
-  0188  L26:  ldr      r0
-  018a        lda
-  018b        adds
-  018c        str      r0
-  018e        jmp      L28
-  0193  L27:  push     0
-  0198        cap      expense_cap, R12             ; ZZ-SECURITY-CAP-1
-  019c  L28:  next     L25
+  0188  L24:  push     0
+  018d        str      r0
+  018f        push     0
+  0194        str      r1
+  0196        each     security, L29
+  019c  L25:  ldr      r1
+  019e        jnz      L27
+  01a3        ldr      r0
+  01a5        lda
+  01a6        adds
+  01a7        ldk      K5                           ; $400.00
+  01aa        gt
+  01ab        jz       L26
+  01b0        ldk      K5                           ; $400.00
+  01b3        ldr      r0
+  01b5        subs
+  01b6        cap      expense_cap, R12             ; ZZ-SECURITY-CAP-1
+  01ba        push     1
+  01bf        str      r1
+  01c1  L26:  ldr      r0
+  01c3        lda
+  01c4        adds
+  01c5        str      r0
+  01c7        jmp      L28
+  01cc  L27:  push     0
+  01d1        cap      expense_cap, R12             ; ZZ-SECURITY-CAP-1
+  01d5  L28:  next     L25
               ; ZZ-PROPERTY-CAP-1  Program Guide, Evidence  "Property held as evidence may be replaced up to $500."
-  01a1  L29:  push     0
-  01a6        str      r0
-  01a8        push     0
-  01ad        str      r1
-  01af        each     property_replacement, L34
-  01b5  L30:  ldr      r1
-  01b7        jnz      L32
-  01bc        ldr      r0
-  01be        lda
-  01bf        adds
-  01c0        ldk      K6                           ; $500.00
-  01c3        gt
-  01c4        jz       L31
-  01c9        ldk      K6                           ; $500.00
-  01cc        ldr      r0
-  01ce        subs
-  01cf        cap      expense_cap, R15             ; ZZ-PROPERTY-CAP-1
-  01d3        push     1
-  01d8        str      r1
-  01da  L31:  ldr      r0
-  01dc        lda
-  01dd        adds
-  01de        str      r0
-  01e0        jmp      L33
-  01e5  L32:  push     0
-  01ea        cap      expense_cap, R15             ; ZZ-PROPERTY-CAP-1
-  01ee  L33:  next     L30
+  01da  L29:  push     0
+  01df        str      r0
+  01e1        push     0
+  01e6        str      r1
+  01e8        each     property_replacement, L34
+  01ee  L30:  ldr      r1
+  01f0        jnz      L32
+  01f5        ldr      r0
+  01f7        lda
+  01f8        adds
+  01f9        ldk      K6                           ; $500.00
+  01fc        gt
+  01fd        jz       L31
+  0202        ldk      K6                           ; $500.00
+  0205        ldr      r0
+  0207        subs
+  0208        cap      expense_cap, R15             ; ZZ-PROPERTY-CAP-1
+  020c        push     1
+  0211        str      r1
+  0213  L31:  ldr      r0
+  0215        lda
+  0216        adds
+  0217        str      r0
+  0219        jmp      L33
+  021e  L32:  push     0
+  0223        cap      expense_cap, R15             ; ZZ-PROPERTY-CAP-1
+  0227  L33:  next     L30
               ; ZZ-TOTAL-1  ZC 4-120(1)  "The total award for a claim shall not exceed $25,000."
-  01f3  L34:  push     0
-  01f8        str      r0
-  01fa        push     0
-  01ff        str      r1
-  0201        each     all, L39
-  0207  L35:  ldr      r1
-  0209        jnz      L37
-  020e        ldr      r0
-  0210        lda
-  0211        adds
-  0212        ldk      K7                           ; $25,000.00
-  0215        gt
-  0216        jz       L36
-  021b        ldk      K7                           ; $25,000.00
-  021e        ldr      r0
-  0220        subs
-  0221        cap      total_cap, R2                ; ZZ-TOTAL-1
-  0225        push     1
-  022a        str      r1
-  022c  L36:  ldr      r0
-  022e        lda
-  022f        adds
-  0230        str      r0
-  0232        jmp      L38
-  0237  L37:  push     0
-  023c        cap      total_cap, R2                ; ZZ-TOTAL-1
-  0240  L38:  next     L35
-  0245  L39:  push     0
-  024a        str      r0
-  024c        each     all, L41
-  0252  L40:  ldr      r0
-  0254        lda
-  0255        adds
-  0256        str      r0
-  0258        next     L40
-  025d  L41:  push     0
-  0262        str      r2
+  022c  L34:  push     0
+  0231        str      r0
+  0233        push     0
+  0238        str      r1
+  023a        each     all, L39
+  0240  L35:  ldr      r1
+  0242        jnz      L37
+  0247        ldr      r0
+  0249        lda
+  024a        adds
+  024b        ldk      K7                           ; $25,000.00
+  024e        gt
+  024f        jz       L36
+  0254        ldk      K7                           ; $25,000.00
+  0257        ldr      r0
+  0259        subs
+  025a        cap      total_cap, R2                ; ZZ-TOTAL-1
+  025e        push     1
+  0263        str      r1
+  0265  L36:  ldr      r0
+  0267        lda
+  0268        adds
+  0269        str      r0
+  026b        jmp      L38
+  0270  L37:  push     0
+  0275        cap      total_cap, R2                ; ZZ-TOTAL-1
+  0279  L38:  next     L35
               ; ZZ-MINLOSS-1  ZC 4-132  "A claimant shall have a minimum loss of $100; this requirement..."
-  0264        ldr      r0
-  0266        ldk      K8                           ; $100.00
-  0269        lt
-  026a        jz       L44
-  026f        ldx      forensic_exam
-  0271        jz       L42
-  0276        push     1
-  027b        jmp      L43
-  0280  L42:  push     3
-  0285  L43:  ldr      r2
-  0287        max
-  0288        str      r2
-  028a  L44:  ldr      r2
-  028c        check    minimum_loss, P28            ; ZZ-MINLOSS-1
+              ; ZZ-MINLOSS-2  ZC 4-132(2)  "Lost wages are paid only when the victim misses at least 5..."
+  027e  L39:  push     0
+  0283        str      r0
+  0285        each     all, L41
+  028b  L40:  ldr      r0
+  028d        lda
+  028e        adds
+  028f        str      r0
+  0291        next     L40
+  0296  L41:  push     0
+  029b        str      r5
+  029d        push     0
+  02a2        str      r6
+  02a4        each     lost_wages, L45
+  02aa  L42:  ldi      unit
+  02ac        push     2                            ; week
+  02b1        eq
+  02b2        jz       L43
+  02b7        ldr      r5
+  02b9        ldi      units
+  02bb        adds
+  02bc        str      r5
+  02be        jmp      L44
+  02c3  L43:  ldi      unit
+  02c5        push     5                            ; day
+  02ca        eq
+  02cb        jz       L44
+  02d0        ldr      r6
+  02d2        ldi      units
+  02d4        adds
+  02d5        str      r6
+  02d7  L44:  next     L42
+  02dc  L45:  ldr      r5
+  02de        push     5
+  02e3        muls
+  02e4        ldr      r6
+  02e6        adds
+  02e7        str      r1
+  02e9        push     0
+  02ee        str      r2
+              ; ZZ-MINLOSS-1  ZC 4-132  "A claimant shall have a minimum loss of $100; this requirement..."
+  02f0        ldr      r0
+  02f2        ldk      K8                           ; $100.00
+  02f5        ge
+  02f6        jnz      L46
+  02fb        push     1
+  0300        ldr      r2
+  0302        max
+  0303        str      r2
+              ; ZZ-MINLOSS-2  ZC 4-132(2)  "Lost wages are paid only when the victim misses at least 5..."
+  0305  L46:  ldr      r1
+  0307        push     5
+  030c        ge
+  030d        jnz      L47
+  0312        push     2
+  0317        ldr      r2
+  0319        max
+  031a        str      r2
+  031c  L47:  ldr      r2
+  031e        check    minimum_loss, P28            ; ZZ-MINLOSS-1, ZZ-MINLOSS-2
               ; ZZ-DEADLINE-1  ZC 4-130(1)  "A claim shall be filed within 3 years after the crime."
-  0290        ldx      incident_date
-  0292        push     1095
-  0297        adds
+  0322        ldx      incident_date
+  0324        push     1095
+  0329        adds
               ; ZZ-DEADLINE-2  ZC 4-130(2)  "A claim may be filed within 400 days after discovery of the..."
-  0298        ldx      incident_date
-  029a        push     400
-  029f        adds
-  02a0        max
-  02a1        dup
-  02a2        setdate
-  02a3        ldx      as_of_date
-  02a5        ge
-  02a6        jz       L45
-  02ab        push     0
-  02b0        jmp      L46
-  02b5  L45:  push     1                            ; late
-  02ba  L46:  check    deadline, P29                ; ZZ-DEADLINE-1, ZZ-DEADLINE-2
+  032a        ldx      incident_date
+  032c        push     400
+  0331        adds
+  0332        max
+              ; ZZ-DEADLINE-4  ZC 4-130(4)  "A claim based on a sexual assault may be filed within 548 days..."
+  0333        ldx      incident_date
+  0335        push     548
+  033a        adds
+  033b        max
+  033c        dup
+  033d        setdate
+  033e        ldx      as_of_date
+  0340        ge
+  0341        jz       L48
+  0346        push     0
+  034b        jmp      L49
+  0350  L48:  push     1
+  0355  L49:  note     deadline_from_report
+  0357        check    deadline, P29                ; ZZ-DEADLINE-1, ZZ-DEADLINE-2, ZZ-DEADLINE-4
               ; ZZ-REPORT-1  ZC 4-131  "The crime shall be reported to law enforcement within 5 days..."
-  02be        ldx      police_report
-  02c0        push     1                            ; yes
-  02c5        eq
-  02c6        jnz      L48
-  02cb        ldx      forensic_exam
-  02cd        jnz      L48
-  02d2        ldx      police_report
-  02d4        push     0                            ; no
-  02d9        eq
-  02da        jnz      L47
-  02df        push     3
-  02e4        jmp      L49
-  02e9  L47:  push     1
-  02ee        jmp      L49
-  02f3  L48:  push     0                            ; satisfied
-  02f8  L49:  check    reporting, P30               ; ZZ-REPORT-1
+  035b        ldx      police_report
+  035d        push     1                            ; yes
+  0362        eq
+  0363        jnz      L51
+  0368        ldx      forensic_exam
+  036a        jnz      L51
+  036f        ldx      police_report
+  0371        push     0                            ; no
+  0376        eq
+  0377        jnz      L50
+  037c        push     3
+  0381        jmp      L52
+  0386  L50:  push     1
+  038b        jmp      L52
+  0390  L51:  push     0                            ; satisfied
+  0395  L52:  check    reporting, P30               ; ZZ-REPORT-1
               ; ZZ-DEADLINE-3  ZC 4-130(3)  "The board may extend the filing period for good cause."
               ; ZZ-COLLATERAL-1  ZC 4-133  "An award shall be reduced by any amount paid by insurance or..."
               ; ZZ-CONDUCT-1  ZC 4-134  "The board may reduce an award for the victim's contributory..."
@@ -805,6 +867,6 @@
               ; ZZ-CRIME-1  ZC 4-102(5)  "Sexual assault is a compensable crime."
               ; ZZ-RESIDENCY-1  ZC 4-103  "A victim of a crime committed in Zedland may apply regardless of..."
               ; ZZ-SUBMIT-1  Program Guide, How to apply  "Mail the completed application to the Victim Services Board, 1..."
-  02fc        info     P31                          ; ZZ-DEADLINE-3, ZZ-COLLATERAL-1, ZZ-CONDUCT-1, ZZ-EMERGENCY-1, ZZ-CRIME-1, ZZ-RESIDENCY-1, ZZ-SUBMIT-1
-  02ff        ret
+  0399        info     P31                          ; ZZ-DEADLINE-3, ZZ-COLLATERAL-1, ZZ-CONDUCT-1, ZZ-EMERGENCY-1, ZZ-CRIME-1, ZZ-RESIDENCY-1, ZZ-SUBMIT-1
+  039c        ret
 

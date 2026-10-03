@@ -185,7 +185,12 @@ static void mutate_json(nlohmann::json& doc, Rng& r) {
       "reporting_requirement", "covered_expense", "excluded_expense", "collateral_source", "2026-02-29", "2024-02-29",
       "9999-12-31", "0001-01-01", "2026-06-14", "yes", "no", true, false, nullptr, json::array(), json::object(),
       json::array({"forensic_exam", "advocate"}), json::array({"sexual_assault"}), "\xC3\xA9\\u0000\"",
-      std::string(300, 'x')};
+      std::string(300, 'x'),
+      // SPEC v1.2: typed units, deadline anchors, waivers, and the edges of the integer range.
+      "hour", "day", "mile", "item", "fortnight", "unit", "report", "crime", "discovery", "age_18", "automatic",
+      "discretionary", "days_lost", "count_limit", "deadline_from_report", "pain_suffering", "phone",
+      9007199254740991LL, 9007199254740992LL, -9007199254740991LL, -9007199254740992LL, 4000000, 4000001, 1000001,
+      json::array({"phone", "cash"}), json::array({json::array({json::array()})})};
   std::vector<json::json_pointer> paths;
   std::vector<json::json_pointer> stack = {json::json_pointer()};
   while (!stack.empty() && paths.size() < 4000) {

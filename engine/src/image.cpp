@@ -81,7 +81,8 @@ bool Loader::header(uint32_t flags) {
   if (std::memcmp(d_, kMagic, 4) != 0) return fail("bad magic (not a .tlaw image)");
   law_.major = rd16(d_ + 4);
   law_.minor = rd16(d_ + 6);
-  // 1.0 images predate the law IR and cannot be read as 1.1.
+  // Each minor version changed the semantics the compiler emits (1.1: law IR,
+  // 1.2: typed units, notes, SPEC v1.2), so only the current one is read.
   if (law_.major != kFormatMajor || law_.minor != kFormatMinor)
     return fail("unsupported format version " + std::to_string(law_.major) + "." +
                 std::to_string(law_.minor));
@@ -334,6 +335,7 @@ bool Loader::program(Span s, int which, Program& prog) {
       case OP_FLAG: ok = in.b < nrules; break;
       case OP_CHECK: ok = in.a < CK_COUNT && in.b < nproofs; break;
       case OP_INFO: ok = in.b < nproofs; break;
+      case OP_NOTE: ok = in.a < CN_COUNT; break;
       default: break;
     }
     if (!ok) return fail(at(pc) + info.name + " has an operand out of range");
