@@ -1,0 +1,573 @@
+{
+ "jurisdiction": "WI",
+ "name": "Wisconsin",
+ "program": {
+  "program_name": "Crime Victim Compensation Program",
+  "agency": "Wisconsin Department of Justice, Office of Crime Victim Services",
+  "website": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-program.aspx",
+  "apply_url": "https://victimcompensation.wisdoj.gov/",
+  "application_pdf_url": "https://www.wisdoj.gov/Crime%20Victims%20Services/cvcapp-english-print.pdf",
+  "phone": "800-446-6564",
+  "phone_source_id": "WI-S3",
+  "statute_citation": "Wis. Stat. ch. 949, subch. I (ss. 949.001 to 949.18); SAFE Fund: subch. II (ss. 949.20 to 949.38); Wis. Admin. Code ch. Jus 11"
+ },
+ "sources": [
+  {
+   "id": "WI-S1",
+   "title": "Wis. Stat. ch. 949, Awards for the Victims of Crimes (subch. I crime victim compensation; subch. II sexual assault forensic examination compensation)",
+   "url": "https://docs.legis.wisconsin.gov/statutes/statutes/949.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:26Z",
+   "raw_path": "rules/sources/WI/WI-S1.pdf",
+   "text_path": "rules/sources/WI/WI-S1.txt",
+   "sha256": "22aa313b42b1d914b41c191479e4c9c249e95ed76260750b0f33494e4a1ef640"
+  },
+  {
+   "id": "WI-S2",
+   "title": "Wis. Admin. Code ch. Jus 11, Awards for Victims of Crime",
+   "url": "https://docs.legis.wisconsin.gov/code/admin_code/jus/11.pdf",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:47:35Z",
+   "raw_path": "rules/sources/WI/WI-S2.pdf",
+   "text_path": "rules/sources/WI/WI-S2.txt",
+   "sha256": "5077942b78d715b170c09dbbeccfc3e3407a038d4f4308e1da023b2526f5d04b"
+  },
+  {
+   "id": "WI-S3",
+   "title": "Wisconsin DOJ: Crime Victim Compensation Program",
+   "url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-program.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:35Z",
+   "raw_path": "rules/sources/WI/WI-S3.html",
+   "text_path": "rules/sources/WI/WI-S3.txt",
+   "sha256": "48fd3e342743ba00267d1e46542a11449c80a697ec8f465f00ba2e33c8366c93"
+  },
+  {
+   "id": "WI-S4",
+   "title": "Wisconsin DOJ: Crime Victim Compensation FAQs",
+   "url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:36Z",
+   "raw_path": "rules/sources/WI/WI-S4.html",
+   "text_path": "rules/sources/WI/WI-S4.txt",
+   "sha256": "bc5978b02aa7c3a63b3f4a009c002e242097b85b81f29ebe5b7f4e2dd35c6d52"
+  },
+  {
+   "id": "WI-S5",
+   "title": "Wisconsin DOJ: Crime Victim Compensation Application",
+   "url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-application.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:37Z",
+   "raw_path": "rules/sources/WI/WI-S5.html",
+   "text_path": "rules/sources/WI/WI-S5.txt",
+   "sha256": "6806477078224f9d713c4b5b92677217656f5cc532df764f19e4af19100d457a"
+  },
+  {
+   "id": "WI-S6",
+   "title": "Wisconsin DOJ: Crime Victims Compensable Crimes",
+   "url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victims-compensable-crimes.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:38Z",
+   "raw_path": "rules/sources/WI/WI-S6.html",
+   "text_path": "rules/sources/WI/WI-S6.txt",
+   "sha256": "2fea02558732cc1f12c4aa5ac7a7ad18af343b90643e6b3964e7c386410d317e"
+  },
+  {
+   "id": "WI-S7",
+   "title": "Wisconsin DOJ: Sexual Assault Forensic Exam (SAFE) Fund",
+   "url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/sexual-assault-forensic-exam-fund.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:38Z",
+   "raw_path": "rules/sources/WI/WI-S7.html",
+   "text_path": "rules/sources/WI/WI-S7.txt",
+   "sha256": "4cc48468d2cfed09bdfa8119d4d66bf0a2f99f16c572ee379b4332930b61cc69"
+  },
+  {
+   "id": "WI-S8",
+   "title": "Crime Victim Compensation Application, DJ-CVC-1 (Rev. 10/2024), English",
+   "url": "https://www.wisdoj.gov/Crime%20Victims%20Services/cvcapp-english-print.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:52Z",
+   "raw_path": "rules/sources/WI/WI-S8.pdf",
+   "text_path": "rules/sources/WI/WI-S8.txt",
+   "sha256": "999dc4a9321e2d1ead067d69ffc33420fed5ebc4c49eab4d3fc38aa3c6312a31"
+  }
+ ],
+ "rules": [
+  {
+   "id": "WI-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "A health care provider that seeks payment from the state SAFE Fund may not bill the survivor (or the survivor's guardian) for any sexual assault forensic exam costs, and may bill insurance only if the survivor authorizes it.",
+   "quote": "A health care provider seeking an award under this section may not seek payment for any examination costs from the victim or any guardian of the victim.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.26(2)(a)"
+  },
+  {
+   "id": "WI-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "A provider seeking a SAFE Fund award may not bill the survivor's insurance or any other payer for exam costs unless the survivor or guardian authorizes it.",
+   "quote": "may not seek payment for any examination costs from insurance or another available source of payment unless the victim or any guardian of the victim authorizes the health care provider to seek payment.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.26(2)(b)"
+  },
+  {
+   "id": "WI-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "If a survivor gets a bill for a sexual assault nurse exam, the program says to contact the provider and ask them to send the bill to the SAFE Fund instead.",
+   "quote": "The health care provider may not bill the victim or the family of the victim for the cost of a SANE exam. Should a victim receive a bill for a SANE exam, they must contact the health care provider immediately and ask them to submit the bill to the SAFE Fund.",
+   "source_id": "WI-S7",
+   "pinpoint": "Wisconsin DOJ SAFE Fund page",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/sexual-assault-forensic-exam-fund.aspx#:~:text=The%20health%20care%20provider%20may,bill%20to%20the%20SAFE%20Fund."
+  },
+  {
+   "id": "WI-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Wisconsin Department of Justice SAFE Fund (Wis. Stat. ch. 949 subch. II), paid directly to the health care provider, unless the survivor both authorizes insurance billing and cooperates with law enforcement"
+   },
+   "summary": "The Wisconsin Department of Justice pays exam costs directly to the health care provider through the Sexual Assault Forensic Examination (SAFE) Fund. Exam costs cover the evidence exam plus STD testing and prevention, HIV prophylaxis and STD medication given during the exam; the fund does not cover follow-up medical treatment. The fund does not pay if the survivor both authorizes insurance billing and cooperates with police.",
+   "quote": "the department shall make an award under this section to a health care provider who conducts an examination to gather evidence regarding a sex offense to reimburse the health care provider only for the examination costs",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.26(1)"
+  },
+  {
+   "id": "WI-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Not the SAFE Fund when the survivor (or guardian) authorizes insurance billing and also cooperates with law enforcement; otherwise the SAFE Fund pays (949.26(1))"
+   },
+   "summary": "The SAFE Fund does not pay when the survivor or guardian both lets the provider bill insurance and cooperates with police. If the survivor does not authorize insurance billing, the fund pays the exam costs whether or not they report; if they authorize insurance but do not cooperate with police, the fund pays what insurance does not.",
+   "quote": "The department may not make an award under this section if, under sub. (2) (b), the health care provider is authorized to seek payment and the victim, or any guardian of the victim, cooperates with a law enforcement agency.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.26(1m)"
+  },
+  {
+   "id": "WI-REPORT-2",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false,
+    "alternatives": []
+   },
+   "summary": "For the forensic exam, no police report is needed: the SAFE Fund may not refuse payment because the survivor does not cooperate with law enforcement or because there is no investigation or prosecution.",
+   "quote": "The department may not refuse to make an award under this section because the victim or the guardian of the victim does not cooperate with a law enforcement agency regarding the sex offense, or due to lack of an investigation or prosecution of the sex offense.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.26(3)"
+  },
+  {
+   "id": "WI-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 4000000
+   },
+   "summary": "The most the program can award for one injury is $40,000, and it cannot pay expenses incurred more than 4 years after the injury (child victims follow a different timing rule).",
+   "quote": "the department may not make an award of more than $40,000 for any one injury or death and the department may not make any award for expenses incurred after 4 years from the date of the injury or death.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.08(1m)(a)"
+  },
+  {
+   "id": "WI-CAP-2",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 20000,
+    "per": "claim",
+    "item": "computer or mobile telephone held as evidence"
+   },
+   "summary": "A computer or mobile phone held as evidence can be replaced up to $200.",
+   "quote": "(cg) Reasonable replacement value of any computer or mobile telephone that is held for evidentiary purposes, but not to exceed $200.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(cg)"
+  },
+  {
+   "id": "WI-CAP-3",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 30000,
+    "per": "claim"
+   },
+   "summary": "Clothing and bedding held as evidence can be replaced up to $300.",
+   "quote": "(c) Reasonable replacement value of any clothing and bedding that is held for evidentiary purposes, but not to exceed $300.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(c)"
+  },
+  {
+   "id": "WI-CAP-4",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 20000,
+    "per": "claim",
+    "item": "other evidence property rendered unusable by crime lab testing"
+   },
+   "summary": "Other property held as evidence and made unusable by crime lab testing can be replaced up to $200.",
+   "quote": "Reasonable replacement value for property, other than clothing and bedding under par. (c), that is held for evidentiary purposes and is rendered unusable as a result of crime laboratory testing, but not to exceed $200.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(cm)"
+  },
+  {
+   "id": "WI-CAP-5",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 300000,
+    "per": "claim",
+    "item": "parent of a minor victim: own mental health treatment and work loss combined",
+    "applies_to": "each parent of a victim under 18"
+   },
+   "summary": "Each parent of a minor victim can receive up to $3,000 total for the parent's own mental health treatment and lost work combined. This limit is for parents only; it does not cap the victim's own counseling.",
+   "quote": "(bg) The department may award each parent of a victim not more than $3,000 total for reimbursement of expenses under par. (a) related to mental health treatment and for work loss under par. (b).",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(bg)"
+  },
+  {
+   "id": "WI-CAP-6",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Securing and cleaning up a crime scene is covered up to $1,000.",
+   "quote": "(f) Reasonable and necessary costs associated with securing and cleaning up a crime scene, not to exceed $1,000.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(f)"
+  },
+  {
+   "id": "WI-CAP-7",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 500000,
+    "per": "claim",
+    "item": "housing accessibility adaptations for a protracted disability"
+   },
+   "summary": "If the crime caused a protracted disability, housing accessibility changes are covered up to $5,000.",
+   "quote": "reasonable and necessary housing accessibility adaptations, but not to exceed $5,000.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(br)"
+  },
+  {
+   "id": "WI-CAP-8",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Funeral and burial expenses are covered up to $5,000.",
+   "quote": "(d) Reasonable funeral and burial expenses, not to exceed $5,000.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(d)"
+  },
+  {
+   "id": "WI-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical treatment the program can pay includes medical, hospital, psychiatric, psychological and dental care and prescription medications.",
+   "quote": "“Medical treatment” includes medical, surgical, psychiatric, psychological, dental, optometric, chiropractic, podiatric and hospital care; prescription medications;",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.01(4)"
+  },
+  {
+   "id": "WI-COV-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "The program pays for medical treatment caused by the crime.",
+   "quote": "(a) Medical treatment, subject to the limits set forth under par. (bg).",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(a)"
+  },
+  {
+   "id": "WI-COV-3",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Outpatient psychotherapy (counseling) is an eligible mental health service. The provider must be licensed (psychiatrist, psychologist, marriage and family therapist, professional counselor, or clinical social worker) or a supervised treatment trainee, and must submit an authorization request to the program.",
+   "quote": "(b) Outpatient psychotherapy services.",
+   "source_id": "WI-S2",
+   "pinpoint": "Wis. Admin. Code Jus 11.06(2)(b)"
+  },
+  {
+   "id": "WI-COV-4",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages are covered. Up to 2 weeks can be paid without a doctor's proof of disability; longer periods need a physician's determination.",
+   "quote": "4. The department may award each victim, parent of a victim, or in the case of a homicide, family member of a victim not more than 2 weeks of lost wages without requiring proof of disability from a physician.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(b)4."
+  },
+  {
+   "id": "WI-COV-5",
+   "category": "covered_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "A phone or computer kept by police as evidence can be partly replaced (see the cap rule).",
+   "quote": "Reasonable replacement value of any computer or mobile telephone that is held for evidentiary purposes",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(1)(cg)"
+  },
+  {
+   "id": "WI-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "personal property losses including cash; pain and suffering"
+   },
+   "summary": "Personal property losses, including cash, and pain and suffering are not paid. Evidence items (clothing, bedding, phones, computers, lab-damaged property) are the only property exceptions, up to their caps.",
+   "quote": "Personal property losses including cash and “pain and suffering” cannot be reimbursed by the Program.",
+   "source_id": "WI-S8",
+   "pinpoint": "Application DJ-CVC-1, Application Information"
+  },
+  {
+   "id": "WI-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "property loss or damage other than evidence items"
+   },
+   "summary": "Property loss or damage is not covered beyond the listed evidence items, so a phone that was stolen or broken (not held as evidence) is not covered.",
+   "quote": "Please note: Property loss or damage is not covered other than those items described above. A victim is not eligible for Crime Victim Compensation if only property damage or loss occurred.",
+   "source_id": "WI-S3",
+   "pinpoint": "Wisconsin DOJ CVC Program page",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-program.aspx#:~:text=Please%20note%3A%20Property%20loss%20or,property%20damage%20or%20loss%20occurred."
+  },
+  {
+   "id": "WI-EXCL-3",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "item": "mileage and time off work for scheduled appointments or court appearances"
+   },
+   "summary": "Mileage and time off work for scheduled appointments or court dates are not paid.",
+   "quote": "The Program cannot reimburse for mileage or for time off of work for scheduled appointments or court appearances.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ CVC FAQs, Compensation",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=The%20Program%20cannot%20reimburse%20for,scheduled%20appointments%20or%20court%20appearances."
+  },
+  {
+   "id": "WI-EXCL-4",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering"
+   },
+   "summary": "Pain and suffering is not paid.",
+   "quote": "The Crime Victim Compensation Program does not pay for pain and suffering.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ CVC FAQs, Compensation",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=The%20Crime%20Victim%20Compensation%20Program,pay%20for%20pain%20and%20suffering."
+  },
+  {
+   "id": "WI-EXCL-5",
+   "category": "excluded_expense",
+   "expense": "counseling",
+   "params": {
+    "item": "court appearances or evaluations by mental health providers"
+   },
+   "summary": "Mental health providers' court appearances or evaluations are not paid as counseling.",
+   "quote": "(c) Court appearances or evaluations are not eligible services.",
+   "source_id": "WI-S2",
+   "pinpoint": "Wis. Admin. Code Jus 11.06(3)(c)"
+  },
+  {
+   "id": "WI-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "crime",
+    "extension": "Waivable in the interest of justice (949.08(1)). Adults who were victims as children may apply; for a child victim, eligible expenses up to 1 year before the application can be considered (949.08(1m)(b))."
+   },
+   "summary": "Apply within 1 year of the injury. The department may waive this in the interest of justice; if late, attach a written explanation of the delay.",
+   "quote": "No order for the payment of an award may be made unless the application was made within 1 year after the date of the personal injury or death",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.08(1)"
+  },
+  {
+   "id": "WI-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "crime",
+    "extension": "waiver request with written statement"
+   },
+   "summary": "If more than 1 year has passed, the program still accepts an application with a written statement explaining the delay.",
+   "quote": "If the application is not filed within 1 year, attach a written statement explaining the reason for the delay.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ CVC FAQs, Applying and Eligibility",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=If%20the%20application%20is%20not,the%20reason%20for%20the%20delay."
+  },
+  {
+   "id": "WI-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_days": 5,
+    "alternatives": []
+   },
+   "summary": "For compensation (beyond the exam), the crime must be reported to police within 5 days, or within 5 days of when it could reasonably be reported. The department may waive this in the interest of justice. No sexual-assault-specific alternative to a police report was found.",
+   "quote": "the personal injury or death was the result of an incident or offense which had been reported to the police within 5 days of its occurrence or, if the incident or offense could not reasonably have been reported within such period, within 5 days of the time when a report could reasonably have been made. The department may waive the requirements under this subsection in the interest of justice.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.08(1)"
+  },
+  {
+   "id": "WI-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "No compensation award may be made if the victim has not cooperated with law enforcement. The administrative rules let the department waive the prosecution-cooperation part for a compelling health or safety reason.",
+   "quote": "(d) Has not cooperated with appropriate law enforcement agencies.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.08(2)(d)"
+  },
+  {
+   "id": "WI-REPORT-4",
+   "category": "reporting_requirement",
+   "expense": null,
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "For compensation claims, the department may waive the duty to cooperate in the prosecution if the victim shows good cause that not cooperating is due to a compelling health or safety reason. The police report itself is still expected.",
+   "quote": "The department may waive the provisions of this paragraph upon good cause shown by the victim that the failure to cooperate in the prosecution is due to a compelling health or safety reason.",
+   "source_id": "WI-S2",
+   "pinpoint": "Wis. Admin. Code Jus 11.07(5)(e)"
+  },
+  {
+   "id": "WI-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Awards are reduced by payments from the offender, insurance (including workers' compensation and unemployment), public funds, liable third parties, and any SAFE Fund exam award.",
+   "quote": "Any award made under this section shall be reduced by the amount of any payment received, or to be received, as a result of the injury or death:",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.06(3)"
+  },
+  {
+   "id": "WI-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program is the payer of last resort: insurance and public programs such as Medical Assistance, BadgerCare and Medicare must be billed first. It may pay co-pays and costs insurance denies.",
+   "quote": "Do I have to submit bills to my insurance? Yes, this Program is considered the last payer, by law.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ CVC FAQs, Medical Treatment/Counseling",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=Do%20I%20have%20to%20submit,the%20last%20payer%2C%20by%20law."
+  },
+  {
+   "id": "WI-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The statute bars an award (not just a reduction) if the victim's own conduct substantially contributed to the injury. Shown for information only.",
+   "quote": "(a) Engaged in conduct which substantially contributed to the infliction of the victim’s injury or death or in which the victim could have reasonably foreseen could lead to the injury or death.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.08(2)(a)"
+  },
+  {
+   "id": "WI-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault (s. 940.225) is a compensable crime. Child sexual assault, sexual exploitation by a therapist, trafficking, and sexual extortion are also on the list.",
+   "quote": "940.225 Sexual Assault",
+   "source_id": "WI-S6",
+   "pinpoint": "Wisconsin DOJ Compensable Crimes list (Wis. Stat. 949.03(2))",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victims-compensable-crimes.aspx#:~:text=940.225%20Sexual%20Assault"
+  },
+  {
+   "id": "WI-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Injury includes pregnancy and mental or psychological trauma, not only physical harm.",
+   "quote": "“Personal injury” means actual bodily harm and includes pregnancy and mental or psychological trauma.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.01(5)"
+  },
+  {
+   "id": "WI-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime must occur in Wisconsin; any person may apply"
+   },
+   "summary": "The crime must have happened in Wisconsin; any person may apply, so victims who live out of state are not excluded by the statute.",
+   "quote": "“Crime” means an act committed in this state which would constitute a crime as defined in s. 939.12 if committed by a competent adult who has no legal defense for the act.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.01(1)"
+  },
+  {
+   "id": "WI-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Wisconsin residents injured out of state may apply only if that jurisdiction has no covering compensation law"
+   },
+   "summary": "A Wisconsin resident hurt outside the state can apply only if the place where it happened has no compensation law covering the injury.",
+   "quote": "If a Wisconsin resident suffers injury or death in a situation described in s. 949.03 except that the act occurred outside this state, the resident has the same rights under this subchapter as if the act had occurred in this state upon a showing that the state, territory, country or political subdivision of a country in which the act occurred does not have a compensation of victims of crimes law which covers the injury or death suffered by the person.",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.035(1)"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "emergency_award",
+   "relocation",
+   "temporary_housing",
+   "security",
+   "transportation",
+   "counseling cap for the victim",
+   "lost_wages cap",
+   "reporting alternatives for sexual assault (compensation claims)"
+  ],
+  "notes": "No minimum loss amount appears in current Wis. Stat. ch. 949 or Jus 11. No emergency or advance award provision was found (the FAQ mentions only that 'Some exceptions may be made for emergency situations' when waiting on insurance or lawsuits). No relocation, temporary housing, or home security expense category was found; 'securing' a crime scene is part of the $1,000 crime scene cleanup cap, not personal security. The FAQ says mileage for appointments and court is not paid; no covered transportation rule was found. No separate cap on the victim's own counseling or lost wages was found beyond the $40,000 total. For compensation claims, the police report rule (5 days, waivable in the interest of justice) has no sexual-assault-specific alternative in the statute or rules; the forensic exam itself is paid by the SAFE Fund with no report required."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is the LRB 2023-24 Wis. Stats. PDF published 10-1-26 (updated through 2025 Wis. Act 247). Jus 11 is the Register November 2024 PDF; its text extraction renders curly quotes and apostrophes as X/Y/[ so quotes from it avoid those characters. The wisdoj.gov SharePoint pages wrap the whole body in a <form>, which the standard fetch tool strips, so WI-S3 to WI-S7 were saved with the same plain HTTP fetch and the same text extraction except that form content is kept; raw HTML and sha256 are the real bytes. Those pages contain zero-width spaces, so quotes were chosen from spans without them. SAFE Fund provider reimbursement is two-thirds of billed eligible services up to $1,200 per exam in Jus 11.16(4), inflation-adjusted yearly; the SAFE Fund page lists the current maximum as $1,621.22. That limit is on the provider's reimbursement, not on the survivor; the no-bill rule in 949.26(2)(a) applies to providers who seek a SAFE Fund award. The SAFE Fund page says it can reimburse when a victim does not want to report, cooperate, or bill insurance. Older DOJ addresses (doj.state.wi.us) still appear on the application PDF; the program phone 800-446-6564 matches the OVC directory and the program page. 949.08(2)(a) bars rather than reduces an award for contributing conduct, and does not apply to people injured aiding victims or police. Reviewer: 949.26(1m) bars a SAFE Fund award when the provider is authorized to bill insurance and the victim cooperates with law enforcement, so the SAFE Fund no-bill rule in 949.26(2) is tied to providers seeking a fund award; a survivor who reports and authorizes insurance billing falls outside it (CVC awards are then reduced by any SAFE award under 949.06(3)(f)). The SAFE Fund pays the provider two-thirds of billed eligible services up to the yearly cap, and the provider may not bill the survivor for the rest. 949.06(4)(a) also says an award may be made whether or not anyone is prosecuted or convicted."
+}

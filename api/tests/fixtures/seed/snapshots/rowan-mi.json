@@ -1,0 +1,43 @@
+{
+  "persona_id": "rowan-mi",
+  "fictional": true,
+  "label": "Fictional demo persona. Bank records come from Capital One's Nessie sandbox, a mock bank.",
+  "display_name": "Rowan Example",
+  "jurisdiction": "MI",
+  "context": {
+    "incident_date": "2026-06-14",
+    "as_of_date": "2026-10-03",
+    "police_report": "unknown",
+    "forensic_exam": true
+  },
+  "itemized_bill": "bills/riverbend-2026-06.txt",
+  "customer": {"_id": "cust-rowan-0001", "first_name": "Rowan", "last_name": "Example"},
+  "accounts": [
+    {"_id": "acct-checking-0001", "type": "Checking", "nickname": "Checking", "customer_id": "cust-rowan-0001"},
+    {"_id": "acct-cushion-0001", "type": "Savings", "nickname": "Cushion", "customer_id": "cust-rowan-0001"}
+  ],
+  "merchants": [
+    {"_id": "m-grocer", "name": "Corner Grocer (fictional)", "category": ["food"]},
+    {"_id": "m-counsel", "name": "Northside Counseling (fictional)", "category": ["health"]},
+    {"_id": "m-ride", "name": "CityRide (fictional)", "category": ["transport"]},
+    {"_id": "m-lock", "name": "Lakeside Locksmith (fictional)", "category": ["home"]},
+    {"_id": "m-phone", "name": "PhoneMart (fictional)", "category": ["electronics"]},
+    {"_id": "m-pharm", "name": "Elm Street Pharmacy (fictional)", "category": ["health"]}
+  ],
+  "purchases": [
+    {"_id": "p-0001", "merchant_id": "m-grocer", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-02", "amount_cents": 5410, "description": "groceries"},
+    {"_id": "p-0002", "merchant_id": "m-pharm", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-15", "amount_cents": 2450, "description": "pharmacy"},
+    {"_id": "p-0003", "merchant_id": "m-lock", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-16", "amount_cents": 18900, "description": "lock change"},
+    {"_id": "p-0004", "merchant_id": "m-phone", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-18", "amount_cents": 29900, "description": "new phone"},
+    {"_id": "p-0005", "merchant_id": "m-counsel", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-20", "amount_cents": 15000, "description": "counseling session"},
+    {"_id": "p-0006", "merchant_id": "m-ride", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-20", "amount_cents": 1200, "description": "ride"},
+    {"_id": "p-0007", "merchant_id": "m-counsel", "payer_id": "acct-checking-0001", "purchase_date": "2026-06-27", "amount_cents": 15000, "description": "counseling session"}
+  ],
+  "bills": [
+    {"_id": "b-riverbend-0001", "payee": "Riverbend General Hospital (fictional)", "nickname": "Riverbend General", "status": "pending",
+     "creation_date": "2026-07-02", "payment_amount_cents": 44300, "account_id": "acct-checking-0001"}
+  ],
+  "deposits": [
+    {"_id": "d-0001", "payee_id": "acct-checking-0001", "transaction_date": "2026-06-05", "amount_cents": 41200, "description": "payroll"}
+  ]
+}
