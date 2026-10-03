@@ -1,0 +1,157 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "MO",
+ "name": "Missouri",
+ "program": {
+  "program_name": "Crime Victims' Compensation Program (CVC)",
+  "agency": "Missouri Department of Public Safety, Office for Victims of Crime",
+  "website": "https://dps.mo.gov/dir/programs/cvc/",
+  "apply_url": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php",
+  "application_pdf_url": "https://dps.mo.gov/dir/programs/cvc/documents/CVC_App_Instructions.pdf",
+  "phone": "573-526-6006",
+  "phone_source_id": "MO-S2",
+  "statute_citation": "RSMo 595.010 to 595.075; forensic exams RSMo 595.220"
+ },
+ "source_sha256": "6804643229ee112f046b5f3fc513bd4a211d647a5766ee26e08cdc6639a740bc",
+ "rules": [
+  {
+   "id": "MO-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MO-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MO-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MO-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "MO-WAGE-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 40000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "MO-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MO-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "MO-COUN-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MO-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "MO-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "MO-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "vehicle"
+   ]
+  },
+  {
+   "id": "MO-EXCL-2",
+   "kind": "excluded",
+   "expense": "relocation"
+  },
+  {
+   "id": "MO-EXCL-3",
+   "kind": "excluded",
+   "expense": "other"
+  },
+  {
+   "id": "MO-EXCL-4",
+   "kind": "excluded",
+   "expense": "tuition"
+  },
+  {
+   "id": "MO-EXCL-5",
+   "kind": "excluded",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "MO-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "MO-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "MO-REP-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "MO-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MO-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MO-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MO-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MO-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MO-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MO-RES-3",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

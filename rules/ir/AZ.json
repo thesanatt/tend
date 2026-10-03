@@ -1,0 +1,163 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "AZ",
+ "name": "Arizona",
+ "program": {
+  "program_name": "Crime Victim Compensation Program",
+  "agency": "Arizona Criminal Justice Commission (ACJC), Crime Victim Services; claims are processed by the County Attorney's office in the county where the crime occurred",
+  "website": "https://www.azcjc.gov/Programs/Victim-Services/Compensation-Program",
+  "apply_url": "https://acjc.hostedbykarpel.com/",
+  "application_pdf_url": "https://www.azcjc.gov/Portals/0/Documents/pubs/VC_APP_June_2015_FINAL.pdf",
+  "phone": "877-668-2252",
+  "phone_source_id": "AZ-S6",
+  "statute_citation": "A.R.S. 41-2407; A.A.C. R10-4-101 to R10-4-111"
+ },
+ "source_sha256": "884fb681f57e36c2813e67c256a7dfc8391f78452b493e3efaa278a18c9610dd",
+ "rules": [
+  {
+   "id": "AZ-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AZ-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AZ-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AZ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "AZ-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "AZ-CAP-4",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "AZ-CAP-5",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "AZ-CAP-6",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "AZ-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "AZ-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "AZ-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "AZ-COV-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "AZ-COV-5",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "AZ-COV-6",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "AZ-COV-7",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "AZ-COV-8",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "AZ-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "AZ-EXC-2",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "AZ-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "discovery"
+  },
+  {
+   "id": "AZ-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 3
+  },
+  {
+   "id": "AZ-REP-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AZ-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "AZ-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AZ-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "AZ-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "AZ-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "AZ-CAP-3",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

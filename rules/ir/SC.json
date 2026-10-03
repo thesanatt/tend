@@ -1,0 +1,231 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "SC",
+ "name": "South Carolina",
+ "program": {
+  "program_name": "Crime Victim Compensation (South Carolina Victim Compensation Fund)",
+  "agency": "Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation (DCVC)",
+  "website": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/",
+  "apply_url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/",
+  "application_pdf_url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
+  "phone": "803-734-1900",
+  "phone_source_id": "SC-S2",
+  "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360"
+ },
+ "source_sha256": "28b53cedb8be74fb5426a8d96d5a8920d82f5074963a771fe871396e5319c87e",
+ "rules": [
+  {
+   "id": "SC-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "SC-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "SC-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SC-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SC-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "SC-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SC-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "SC-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "SC-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "SC-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "SC-FUN-1",
+   "kind": "covered",
+   "expense": "funeral"
+  },
+  {
+   "id": "SC-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "SC-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "SC-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "SC-TRANS-2",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "SC-TRANS-3",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "SC-RELO-1",
+   "kind": "excluded",
+   "expense": "relocation"
+  },
+  {
+   "id": "SC-HOUSE-1",
+   "kind": "excluded",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "SC-PROP-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "SC-PROP-2",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "SC-PROP-3",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "SC-EXCL-2",
+   "kind": "excluded",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "SC-EXCL-3",
+   "kind": "excluded",
+   "expense": "childcare"
+  },
+  {
+   "id": "SC-EXCL-4",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "SC-EXCL-5",
+   "kind": "excluded",
+   "expense": "other"
+  },
+  {
+   "id": "SC-EXCL-6",
+   "kind": "excluded",
+   "expense": "other",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "SC-DEAD-1",
+   "kind": "deadline",
+   "days": 180,
+   "from": "crime"
+  },
+  {
+   "id": "SC-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "SC-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "SC-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "SC-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "SC-MIN-2",
+   "kind": "minimum_loss",
+   "waiver": "discretionary",
+   "waiver_for_sexual_assault": true,
+   "cap_cents": 10000
+  },
+  {
+   "id": "SC-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "SC-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "SC-COLL-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "SC-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "SC-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "SC-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SC-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "SC-COUNS-1",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "SC-WAGE-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

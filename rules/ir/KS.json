@@ -1,0 +1,203 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "KS",
+ "name": "Kansas",
+ "program": {
+  "program_name": "Crime Victims Compensation",
+  "agency": "Office of the Kansas Attorney General, Division of Crime Victims Compensation (Crime Victims Compensation Board)",
+  "website": "https://www.ag.ks.gov/reports-resources/affiliated-organizations/crime-victims-compensation-board",
+  "apply_url": "https://www.ag.ks.gov/reports-resources/affiliated-organizations/crime-victims-compensation-board",
+  "application_pdf_url": "https://www.ag.ks.gov/home/showpublisheddocument/10146/638816895575900000",
+  "phone": "785-296-2359",
+  "phone_source_id": "KS-S1",
+  "statute_citation": "K.S.A. 74-7301 et seq."
+ },
+ "source_sha256": "11dd37d3a8b7e2dd050a2b795ef2064111b6a32b6511b2c63c76b0c93a800236",
+ "rules": [
+  {
+   "id": "KS-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KS-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KS-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KS-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KS-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "KS-CAP-2",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 80000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "KS-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "KS-CAP-4",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 9000,
+   "per": "unit",
+   "unit": "hour",
+   "alt_rule_ids": [
+    "KS-CAP-5"
+   ]
+  },
+  {
+   "id": "KS-CAP-6",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "KS-CAP-7",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "KS-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "KS-COV-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "KS-COV-3",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "KS-COV-4",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "KS-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "KS-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "KS-EXC-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "KS-DEAD-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "KS-DEAD-2",
+   "kind": "deadline",
+   "days": 3652,
+   "from": "crime"
+  },
+  {
+   "id": "KS-DEAD-3",
+   "kind": "deadline",
+   "days": 3652,
+   "from": "age_18"
+  },
+  {
+   "id": "KS-DEAD-4",
+   "kind": "deadline",
+   "days": 730,
+   "from": "report"
+  },
+  {
+   "id": "KS-REP-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other"
+   ]
+  },
+  {
+   "id": "KS-REP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "KS-CON-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KS-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "KS-CON-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KS-CON-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KS-EMR-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "KS-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "KS-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KS-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "KS-CAP-5",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of KS-CAP-4"
+  }
+ ]
+}

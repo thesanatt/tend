@@ -1,0 +1,163 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "CA",
+ "name": "California",
+ "program": {
+  "program_name": "California Victim Compensation Program",
+  "agency": "California Victim Compensation Board (CalVCB)",
+  "website": "https://victims.ca.gov",
+  "apply_url": "https://victims.ca.gov/for-victims/how-compensation-works/",
+  "application_pdf_url": "https://victims.ca.gov/uploads/2021/01/victimcompensationapp_eng.pdf",
+  "phone": "800-777-9229",
+  "phone_source_id": "CA-S12",
+  "statute_citation": "Cal. Gov. Code 13950 to 13966; Cal. Code Regs. tit. 2, 649 et seq.; Cal. Penal Code 13823.95"
+ },
+ "source_sha256": "f9b28d66f8d91b9c7f3b766ca0a6fc02eb5b75d43bd12e69be8ab3cca2fb775c",
+ "rules": [
+  {
+   "id": "CA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CA-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 7000000
+  },
+  {
+   "id": "CA-COUNSEL-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 1000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "CA-COUNSEL-3"
+   ]
+  },
+  {
+   "id": "CA-COUNSEL-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 1500,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "CA-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 341800,
+   "per": "claim"
+  },
+  {
+   "id": "CA-SECURITY-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CA-MEDICAL-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "CA-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "CA-TRANSPORT-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "CA-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "CA-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "CA-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "CA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 2556,
+   "from": "crime"
+  },
+  {
+   "id": "CA-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "CA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate",
+    "medical_provider",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "CA-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "CA-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "CA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CA-EMERGENCY-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "CA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "CA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "CA-RESIDENCY-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "CA-COUNSEL-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of CA-COUNSEL-1"
+  }
+ ]
+}

@@ -1,0 +1,139 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "CO",
+ "name": "Colorado",
+ "program": {
+  "program_name": "Crime Victim Compensation",
+  "agency": "Colorado Department of Public Safety, Division of Criminal Justice, Office for Victims Programs (claims are decided by the crime victim compensation board in each judicial district)",
+  "website": "https://dcj.colorado.gov/dcj-offices/ovp/crime-victim-compensation",
+  "apply_url": "https://dcj.colorado.gov/how-to-file-a-claim-for-victim-compensation",
+  "application_pdf_url": "https://cdpsdocs.state.co.us/ovp/Vic_Comp/VC_English_Application_2_18_16.pdf",
+  "phone": "303-239-5719",
+  "phone_source_id": "CO-S12",
+  "statute_citation": "C.R.S. 24-4.1-100.1 to 24-4.1-124"
+ },
+ "source_sha256": "ea3d9344599a7ee23972027f1e3c78063ac102a542d301f13c5fced12a45e910",
+ "rules": [
+  {
+   "id": "CO-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CO-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3000000
+  },
+  {
+   "id": "CO-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "CO-COV-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "CO-COV-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "CO-COV-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "CO-COV-5",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "CO-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "CO-COV-7",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "CO-COV-8",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "CO-COV-9",
+   "kind": "covered",
+   "expense": "funeral"
+  },
+  {
+   "id": "CO-EXC-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "CO-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "vehicle"
+   ]
+  },
+  {
+   "id": "CO-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "CO-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "CO-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CO-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "CO-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "CO-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

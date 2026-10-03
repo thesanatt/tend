@@ -1,0 +1,264 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "NH",
+ "name": "New Hampshire",
+ "program": {
+  "program_name": "New Hampshire Victims' Compensation Program",
+  "agency": "New Hampshire Department of Justice, Office of the Attorney General (Victims' Assistance Commission)",
+  "website": "https://www.doj.nh.gov/bureaus/victims-compensation-program",
+  "apply_url": "https://www.doj.nh.gov/bureaus/victims-compensation-program",
+  "application_pdf_url": "https://mm.nh.gov/files/uploads/doj/remote-docs/victims-compensation-application-form.pdf",
+  "phone": "1-800-300-4500",
+  "phone_source_id": "NH-S1",
+  "statute_citation": "RSA 21-M:8-c; RSA 21-M:8-g to 21-M:8-k; N.H. Admin. Rules Jus 600"
+ },
+ "source_sha256": "0fd699dc390e734022bc1ad52abcd412d233d42730e2837a8bc828603c3bbb63",
+ "rules": [
+  {
+   "id": "NH-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NH-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NH-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NH-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NH-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NH-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NH-EXAM-7",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NH-EXAM-8",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NH-EXAM-9",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NH-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "NH-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 400000,
+   "per": "claim",
+   "count_limit": 40
+  },
+  {
+   "id": "NH-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 7500,
+   "per": "unit",
+   "unit": "session"
+  },
+  {
+   "id": "NH-CAP-4",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NH-CAP-5",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "NH-CAP-6",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "NH-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NH-COV-2",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NH-COV-3",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NH-COV-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NH-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NH-COV-6",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NH-COV-7",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "NH-COV-8",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "NH-COV-9",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NH-COV-10",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "NH-COV-11",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "NH-COV-12",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NH-COV-13",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NH-EXC-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NH-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "NH-EXC-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NH-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NH-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ],
+   "within_days": 5
+  },
+  {
+   "id": "NH-REP-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "NH-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "NH-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NH-COL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NH-CON-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NH-CON-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NH-EMG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NH-EMG-2",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NH-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NH-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NH-ELIG-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NH-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NH-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

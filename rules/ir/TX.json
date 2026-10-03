@@ -1,0 +1,190 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "TX",
+ "name": "Texas",
+ "program": {
+  "program_name": "Crime Victims' Compensation Program",
+  "agency": "Office of the Attorney General of Texas, Crime Victim Services Division",
+  "website": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program",
+  "apply_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/apply-crime-victims-compensation",
+  "application_pdf_url": "https://www.texasattorneygeneral.gov/sites/default/files/files/divisions/crime-victims/Printed%20CVC%20Application.pdf",
+  "phone": "800-983-9933",
+  "phone_source_id": "TX-S4",
+  "statute_citation": "Tex. Code Crim. Proc. ch. 56B; forensic exams under ch. 56A, subch. G (arts. 56A.301 to 56A.309); 1 Tex. Admin. Code ch. 61"
+ },
+ "source_sha256": "4bf4e0043ed3468eecd5548da003397962c20a06d04bb075fdec111d04c5ca48",
+ "rules": [
+  {
+   "id": "TX-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TX-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "TX-EXAM-3",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 2500000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TX-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "TX-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 70000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "TX-RELO-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "TX-RELO-2",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-RELO-3",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "TX-TRAVEL-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "TX-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TX-MED-2",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "TX-COUNSEL-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "TX-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "TX-CHILD-1",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 30000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "TX-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 225000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-SEIZED-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "TX-SEIZED-2",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TX-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TX-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TX-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "TX-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "TX-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "TX-COLLAT-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "TX-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "TX-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "TX-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "TX-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "TX-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "TX-COUNSEL-1",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

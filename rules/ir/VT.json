@@ -1,0 +1,209 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "VT",
+ "name": "Vermont",
+ "program": {
+  "program_name": "Vermont Victims Compensation Program",
+  "agency": "Vermont Center for Crime Victim Services (Victims Compensation Board)",
+  "website": "https://www.ccvs.vermont.gov/victims-compensation",
+  "apply_url": "https://www.ccvs.vermont.gov/victims-compensation/application-forms",
+  "application_pdf_url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/English%20Victims%20Compensation%20Application.pdf",
+  "phone": "800-750-1213 (Vermont only) or 802-241-1250",
+  "phone_source_id": "VT-S7",
+  "statute_citation": "13 V.S.A. §§ 5351 to 5358a; 32 V.S.A. § 1407; Code Vt. R. 80-220-001"
+ },
+ "source_sha256": "0c295c80948f471827438b55f8ed5962999adc0f456b6b8b7dee9ee60f4e314f",
+ "rules": [
+  {
+   "id": "VT-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VT-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VT-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VT-EXAM-4",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "VT-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1000000
+  },
+  {
+   "id": "VT-COUNSEL-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 10000,
+   "per": "unit",
+   "unit": "session",
+   "alt_rule_ids": [
+    "VT-COUNSEL-2"
+   ]
+  },
+  {
+   "id": "VT-COUNSEL-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "VT-COUNSEL-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "VT-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 75000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 12
+  },
+  {
+   "id": "VT-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VT-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "VT-RELOC-2",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 10000,
+   "per": "unit",
+   "unit": "day",
+   "count_limit": 7
+  },
+  {
+   "id": "VT-RELOC-3",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "VT-TRAVEL-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "VT-TRAVEL-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "VT-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VT-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VT-SEC-1",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "VT-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "VT-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "VT-EXCL-3",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "VT-DEADLINE-1",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "VT-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "medical_provider"
+   ]
+  },
+  {
+   "id": "VT-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "VT-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "VT-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "VT-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "VT-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VT-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "VT-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "VT-COUNSEL-2",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of VT-COUNSEL-1"
+  }
+ ]
+}

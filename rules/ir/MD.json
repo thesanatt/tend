@@ -1,0 +1,216 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "MD",
+ "name": "Maryland",
+ "program": {
+  "program_name": "Criminal Injuries Compensation Board (CICB)",
+  "agency": "Governor's Office of Crime Prevention and Policy, Criminal Injuries Compensation Board",
+  "website": "https://gocpp.maryland.gov/victim-services/cicb/",
+  "apply_url": "https://gocpp.maryland.gov/victim-services/cicb/",
+  "application_pdf_url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
+  "phone": "410-585-3010",
+  "phone_source_id": "MD-S9",
+  "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007"
+ },
+ "source_sha256": "1d7e1fdaf1aa518683201ef88b097ed61d62d2ae3564ebe5bdea678388c43b3f",
+ "rules": [
+  {
+   "id": "MD-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MD-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MD-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MD-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MD-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MD-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4500000
+  },
+  {
+   "id": "MD-CAP-2",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 4500000,
+   "per": "claim"
+  },
+  {
+   "id": "MD-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 4500000,
+   "per": "claim"
+  },
+  {
+   "id": "MD-CAP-5",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 2500000,
+   "per": "claim"
+  },
+  {
+   "id": "MD-CAP-6",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "MD-CAP-7",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "MD-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MD-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MD-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MD-COV-4",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "MD-COV-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "MD-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "MD-COV-7",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "MD-COV-8",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "MD-COV-9",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MD-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1461,
+   "from": "discovery"
+  },
+  {
+   "id": "MD-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1461,
+   "from": "crime"
+  },
+  {
+   "id": "MD-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "MD-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "MD-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "MD-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "MD-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MD-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MD-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MD-EMERG-2",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MD-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MD-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MD-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MD-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "MD-COV-10",
+   "category": "covered_expense",
+   "reason": "applies_to \"household family members of an injured victim (parent, child, domestic partner, dependent, or spouse living with the victim), not the victim\""
+  },
+  {
+   "id": "MD-COV-11",
+   "category": "covered_expense",
+   "reason": "applies_to \"parent or guardian living with a child victim\""
+  }
+ ]
+}

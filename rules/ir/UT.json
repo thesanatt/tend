@@ -1,0 +1,244 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "UT",
+ "name": "Utah",
+ "program": {
+  "program_name": "Crime Victim Reparations (Victim Compensation)",
+  "agency": "Utah Office for Victims of Crime (UOVC)",
+  "website": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/",
+  "apply_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/",
+  "application_pdf_url": "https://crimevictim.utah.gov/wp-content/uploads/UOVC-Application-English.pdf",
+  "phone": "801-238-2360",
+  "phone_source_id": "UT-S3",
+  "statute_citation": "Utah Code 75E-5-101 to 75E-5-314 (formerly 63M-7-501 to 63M-7-525); Utah Admin. Code R270-1"
+ },
+ "source_sha256": "c50ce8467898d8385e35a889235e573b184e4f1b83297766e882d00626861169",
+ "rules": [
+  {
+   "id": "UT-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "UT-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "UT-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "UT-EXAM-5",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "UT-EXAM-6",
+   "kind": "collateral"
+  },
+  {
+   "id": "UT-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "UT-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "UT-CAP-1",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 5000000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-4",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-5",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-6",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-7",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-8",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1400000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-COV-3",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "UT-COV-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "UT-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "UT-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "UT-COV-7",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "UT-COV-8",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-COV-9",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "UT-COV-10",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-EXCL-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "UT-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "UT-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "UT-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "UT-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "UT-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "UT-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "UT-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "UT-EMERG-2",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "UT-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "UT-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "UT-ELIG-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "UT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "UT-CAP-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "UT-CAP-3",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

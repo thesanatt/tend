@@ -1,0 +1,186 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "LA",
+ "name": "Louisiana",
+ "program": {
+  "program_name": "Crime Victims' Compensation (formerly Crime Victims Reparations)",
+  "agency": "Louisiana Commission on Law Enforcement and Administration of Criminal Justice (LCLE), Crime Victims' Compensation Board",
+  "website": "https://lcle.la.gov/programs/cvr/",
+  "apply_url": "https://lcle.la.gov/programs/cvr/cvr-downloads/",
+  "application_pdf_url": "https://lcle.la.gov/wp-content/uploads/2025/02/01-CVR-APPLICATION-02-19-2025.pdf",
+  "phone": "888-684-2846",
+  "phone_source_id": "LA-S1",
+  "statute_citation": "La. R.S. 46:1801 to 46:1822 (Crime Victims' Compensation Act, as amended by Acts 2026, No. 684, effective Aug. 1, 2026); La. R.S. 40:1216.1; LAC 22:XIII"
+ },
+ "source_sha256": "42edbea938232c3dc34cb256f41047c3b46fa58b907a73e0c6085e3422edd3c7",
+ "rules": [
+  {
+   "id": "LA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "LA-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "LA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "LA-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "LA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "LA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "LA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "LA-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "LA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "LA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "LA-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "LA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "LA-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "LA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "LA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "LA-COUNS-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "LA-COUNS-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 11000,
+   "per": "unit",
+   "unit": "session",
+   "alt_rule_ids": [
+    "LA-COUNS-3"
+   ]
+  },
+  {
+   "id": "LA-COUNS-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "LA-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "LA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "LA-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "LA-RELO-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "LA-HOUSING-1",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "LA-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "LA-CLOTH-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "LA-CHILD-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "LA-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "LA-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "LA-EXCL-2",
+   "kind": "excluded",
+   "expense": "legal"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "LA-COUNS-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of LA-COUNS-2"
+  }
+ ]
+}

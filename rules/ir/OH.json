@@ -1,0 +1,199 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "OH",
+ "name": "Ohio",
+ "program": {
+  "program_name": "Ohio Victims of Crime Compensation Program",
+  "agency": "Ohio Attorney General, Crime Victim Services Section",
+  "website": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation",
+  "apply_url": "https://cvonlinecompensationapp.ohioattorneygeneral.gov/",
+  "application_pdf_url": "https://www.ohioattorneygeneral.gov/Files/Individuals-and-Families/Victims/Crime-Victim-Comp-Form.aspx",
+  "phone": "614-466-5610",
+  "phone_source_id": "OH-S9",
+  "statute_citation": "ORC 2743.51 to 2743.72; ORC 2907.28; OAC 109:7-1-02"
+ },
+ "source_sha256": "58df4913ea3276530d5269131505d26c3e0e1c23dc9fcb9daa1a176fb78c9425",
+ "rules": [
+  {
+   "id": "OH-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OH-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "OH-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "OH-CAP-3",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 75000,
+   "per": "claim"
+  },
+  {
+   "id": "OH-CAP-4",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 75000,
+   "per": "claim"
+  },
+  {
+   "id": "OH-CAP-5",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "OH-CAP-6",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "OH-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OH-COV-2",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "OH-COV-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OH-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OH-COV-5",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "OH-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "OH-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "OH-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "OH-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "OH-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "OH-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "OH-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "OH-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 5000
+  },
+  {
+   "id": "OH-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "OH-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "OH-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "OH-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "OH-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "OH-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OH-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OH-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

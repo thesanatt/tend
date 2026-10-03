@@ -1,0 +1,187 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "NM",
+ "name": "New Mexico",
+ "program": {
+  "program_name": "Crime Victims Reparation (Victim Compensation)",
+  "agency": "New Mexico Crime Victims Reparation Commission",
+  "website": "https://www.cvrc.nm.gov/",
+  "apply_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/",
+  "application_pdf_url": "https://www.cvrc.nm.gov/wp-content/uploads/2025/02/Compensation-Application-in-English-Fillable-022025-1.pdf",
+  "phone": "800-306-6262",
+  "phone_source_id": "NM-S1",
+  "statute_citation": "NMSA 1978, Sections 31-22-1 to 31-22-24 (Crime Victims Reparation Act); 10.40.2 NMAC"
+ },
+ "source_sha256": "171345654c11d9bac79e17bf525dc1d9eff7c0e89c309dfcaf2f5043827a336a",
+ "rules": [
+  {
+   "id": "NM-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NM-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NM-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NM-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2000000
+  },
+  {
+   "id": "NM-CAP-3",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "NM-CAP-5",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 300000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "NM-CAP-4"
+   ]
+  },
+  {
+   "id": "NM-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NM-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NM-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NM-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NM-COV-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NM-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NM-COV-7",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "NM-COV-8",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NM-COV-9",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NM-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "NM-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NM-EXC-3",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "NM-EXC-4",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "NM-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NM-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "NM-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "NM-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NM-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NM-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NM-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NM-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NM-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NM-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "NM-CAP-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "NM-CAP-4",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of NM-CAP-5"
+  }
+ ]
+}

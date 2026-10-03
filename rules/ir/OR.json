@@ -1,0 +1,261 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "OR",
+ "name": "Oregon",
+ "program": {
+  "program_name": "Crime Victims' Compensation (CVC) Program",
+  "agency": "Oregon Department of Justice, Crime Victim and Survivor Services Division",
+  "website": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/compensation-for-victims-of-crime/",
+  "apply_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/cvc-portal/",
+  "application_pdf_url": "https://www.doj.state.or.us/wp-content/uploads/2026/01/CVC-Application-English-2026-fillable.pdf",
+  "phone": "503-378-5348",
+  "phone_source_id": "OR-S2",
+  "statute_citation": "ORS 147.005 to 147.367 (compensation); ORS 147.395 to 147.399 (SAVE Fund); OAR 137-076 and 137-084"
+ },
+ "source_sha256": "5fa669f2e9d1cbec79d5b85c2c779439540673539432c372e5923804ab4aa376",
+ "rules": [
+  {
+   "id": "OR-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OR-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OR-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OR-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OR-EXAM-6",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OR-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4700000
+  },
+  {
+   "id": "OR-CAP-MED",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 2000000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-CAP-COUNS",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 2000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "OR-CAP-COUNS-LTD"
+   ]
+  },
+  {
+   "id": "OR-COUNS-SESS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OR-CAP-WAGE-WK",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "OR-CAP-WAGE",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 2000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "OR-CAP-WAGE-PARENT"
+   ]
+  },
+  {
+   "id": "OR-WAGE-RATE",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OR-WAGE-DOC",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OR-CAP-TRANS",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-TRANS-RATE",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "OR-CAP-REHAB",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 400000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-CAP-CLEAN",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-COV-DEVICES",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OR-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "OR-EXCL-PROP",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "OR-EXCL-PROP-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "OR-EXCL-RELO",
+   "kind": "excluded",
+   "expense": "relocation"
+  },
+  {
+   "id": "OR-EXCL-SAVE",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "OR-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "OR-DEADLINE-2",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "OR-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "OR-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "OR-REPORT-5",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "OR-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "OR-REPORT-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "OR-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "OR-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "OR-COLLATERAL-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "OR-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "OR-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "OR-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OR-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OR-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OR-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OR-RES-3",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "OR-CAP-COUNS-LTD",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of OR-CAP-COUNS"
+  },
+  {
+   "id": "OR-CAP-WAGE-PARENT",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of OR-CAP-WAGE"
+  }
+ ]
+}

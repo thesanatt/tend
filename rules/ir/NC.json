@@ -1,0 +1,166 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "NC",
+ "name": "North Carolina",
+ "program": {
+  "program_name": "Victim Compensation Program",
+  "agency": "North Carolina Department of Public Safety, Office of Victim Compensation Services (Crime Victims Compensation Commission)",
+  "website": "https://www.ncdps.gov/dps-services/office-victim-compensation-services",
+  "apply_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services",
+  "application_pdf_url": "https://www.ncdps.gov/division/victim-compensation-services/victim-compensation-application-english/download?attachment",
+  "phone": "800-826-6200",
+  "phone_source_id": "NC-S6",
+  "statute_citation": "N.C. Gen. Stat. 15B-1 to 15B-26; forensic exams: N.C. Gen. Stat. 143B-1200"
+ },
+ "source_sha256": "1762e2933d53b81046d4bf6a2f4501f4fea294bf3f66ab1d0a01e5383504329d",
+ "rules": [
+  {
+   "id": "NC-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NC-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NC-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NC-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4500000
+  },
+  {
+   "id": "NC-WAGE-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 40000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 26
+  },
+  {
+   "id": "NC-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NC-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "NC-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NC-COUN-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NC-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NC-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NC-CLEAN-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "NC-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "NC-EXCL-2",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "NC-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NC-EXCL-4",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NC-EXCL-5",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "NC-REPL-1",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 20000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 26
+  },
+  {
+   "id": "NC-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NC-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NC-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NC-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NC-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NC-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NC-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NC-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NC-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

@@ -1,0 +1,150 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "HI",
+ "name": "Hawaii",
+ "program": {
+  "program_name": "Crime Victim Compensation Commission",
+  "agency": "Hawaii Department of Corrections and Rehabilitation, Crime Victim Compensation Commission",
+  "website": "https://dcr.hawaii.gov/cvcc/",
+  "apply_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/",
+  "application_pdf_url": "https://dcr.hawaii.gov/cvcc/wp-content/uploads/sites/2/2026/06/Compensation_Application_2026-Fillable-06092026.pdf",
+  "phone": "808-587-1143",
+  "phone_source_id": "HI-S3",
+  "statute_citation": "Haw. Rev. Stat. ch. 351; Haw. Admin. R. ch. 23-605"
+ },
+ "source_sha256": "bb08e45502a5c8d2c72d5d05cf8852acfe330856f8d2011f3c4c0c1a0a63f772",
+ "rules": [
+  {
+   "id": "HI-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "HI-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1000000
+  },
+  {
+   "id": "HI-DEADLINE-1",
+   "kind": "deadline",
+   "days": 540,
+   "from": "crime"
+  },
+  {
+   "id": "HI-DEADLINE-2",
+   "kind": "deadline",
+   "days": 540,
+   "from": "crime"
+  },
+  {
+   "id": "HI-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "HI-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "HI-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "HI-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "HI-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "HI-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "HI-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "HI-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "HI-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "HI-COVER-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "HI-COVER-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "HI-COVER-GLASSES-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "HI-COVER-COUNSEL-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "HI-COVER-DENTAL-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "HI-COVER-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "HI-COVER-PAIN-1",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "HI-COVER-EVIDENCE-1",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "HI-COVER-CLEANUP-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "HI-COVER-CHILDCARE-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "HI-EXCL-PROPERTY-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "HI-EXCL-JAIL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "HI-EXCL-NOSHOW-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  }
+ ],
+ "skipped": []
+}

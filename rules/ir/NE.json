@@ -1,0 +1,168 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "NE",
+ "name": "Nebraska",
+ "program": {
+  "program_name": "Crime Victim's Reparations (CVR)",
+  "agency": "Nebraska Commission on Law Enforcement and Criminal Justice (Nebraska Crime Commission)",
+  "website": "https://ncc.nebraska.gov/crime-victim-reparations",
+  "apply_url": "https://ncc.nebraska.gov/crime-victim-reparations",
+  "application_pdf_url": "https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf",
+  "phone": "402-471-2828",
+  "phone_source_id": "NE-S14",
+  "statute_citation": "Neb. Rev. Stat. 81-1801 to 81-1842 (Nebraska Crime Victim's Reparations Act); 81-1429.03 (forensic exam payment); 80 Neb. Admin. Code chs. 1 to 5"
+ },
+ "source_sha256": "cba1936d117e74ed75f202d41319f813d866a558d70e48bc4f73cb39019af71e",
+ "rules": [
+  {
+   "id": "NE-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NE-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NE-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NE-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NE-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NE-CAP-3",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NE-CAP-4",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "NE-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NE-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NE-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NE-COV-4",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NE-COV-5",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NE-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "NE-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NE-WAGE-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "days_lost": 7
+  },
+  {
+   "id": "NE-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NE-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "NE-REP-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "NE-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NE-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NE-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NE-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NE-COND-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NE-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NE-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NE-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NE-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

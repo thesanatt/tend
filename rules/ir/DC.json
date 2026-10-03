@@ -1,0 +1,222 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "DC",
+ "name": "District of Columbia",
+ "program": {
+  "program_name": "Crime Victims Compensation Program (CVCP)",
+  "agency": "Superior Court of the District of Columbia",
+  "website": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program",
+  "apply_url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application",
+  "application_pdf_url": "https://www.dccourts.gov/sites/default/files/CVCP_Application_New_Code_Changes_2023.pdf",
+  "phone": "202-879-4216",
+  "phone_source_id": "DC-S1",
+  "statute_citation": "D.C. Code §§ 4-501 to 4-518; D.C. Super. Ct. CVCP Rules; D.C. Code §§ 4-561.03 and 23-1908 (PERK)"
+ },
+ "source_sha256": "7b888094fd632977b11c3114b689001bfc5532ce11088820db5e26dbb4f1fbd8",
+ "rules": [
+  {
+   "id": "DC-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DC-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DC-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "DC-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-3",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-4",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-5",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-6",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 60000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-7",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-8",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 10000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-9",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-10",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 20000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "DC-CAP-11",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-12",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-13",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DC-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DC-COV-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "DC-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "DC-COV-5",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "DC-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "DC-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "DC-EXC-2",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "DC-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "DC-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 7
+  },
+  {
+   "id": "DC-REP-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "DC-REP-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "DC-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "DC-COL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "DC-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "DC-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "DC-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "DC-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "DC-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

@@ -1,0 +1,212 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "VA",
+ "name": "Virginia",
+ "program": {
+  "program_name": "Virginia Victims Fund (Criminal Injuries Compensation Fund)",
+  "agency": "Virginia Workers' Compensation Commission",
+  "website": "https://vvf.virginia.gov",
+  "apply_url": "https://vvf.virginia.gov/forms/vvf-claim-form",
+  "application_pdf_url": "https://vvf.virginia.gov/sites/default/files/Forms/VVF-Claim-Form-English-08122025.pdf",
+  "phone": "800-552-4007",
+  "phone_source_id": "VA-S15",
+  "statute_citation": "Va. Code §§ 19.2-368.1 to 19.2-368.18; exam payment § 19.2-165.1"
+ },
+ "source_sha256": "7dd1efca1f7b253191cd69aa5ba24e9fa9b529064ea5a48cc3168f9d95f36687",
+ "rules": [
+  {
+   "id": "VA-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VA-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "VA-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "VA-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VA-MOVE-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "VA-SEC-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "VA-HOUSE-1",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "VA-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VA-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "VA-RX-2",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "VA-COUNSEL-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "VA-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "VA-CLOTH-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "VA-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash",
+    "phone",
+    "vehicle"
+   ]
+  },
+  {
+   "id": "VA-EXCL-2",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "VA-EXCL-3",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "VA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-3",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-4",
+   "kind": "deadline",
+   "days": 3652,
+   "from": "age_18"
+  },
+  {
+   "id": "VA-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "VA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "VA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "VA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "VA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "VA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "VA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

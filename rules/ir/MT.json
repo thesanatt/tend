@@ -1,0 +1,185 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "MT",
+ "name": "Montana",
+ "program": {
+  "program_name": "Crime Victim Compensation Program (CVC)",
+  "agency": "Montana Department of Justice, Office of Victim Services",
+  "website": "https://dojmt.gov/victim-services/crime-victim-compensation/",
+  "apply_url": "https://dojmt.gov/victim-services/crime-victim-compensation/request-claim-form/",
+  "application_pdf_url": "https://dojmt.gov/wp-content/uploads/2025/12/Crime-Victim-Compensation-Claim-Form-12-25.pdf",
+  "phone": "406-444-3653",
+  "phone_source_id": "MT-S1",
+  "statute_citation": "MCA 53-9-101 to 53-9-133"
+ },
+ "source_sha256": "45b4747f300c1b28f0a982ee61df54473bd1a90be28e58f301144722eb1882c9",
+ "rules": [
+  {
+   "id": "MT-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MT-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MT-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "MT-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "MT-CAP-3",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "MT-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MT-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MT-COV-3",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "MT-COV-4",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "MT-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MT-COV-6",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "MT-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "MT-EXC-2",
+   "kind": "excluded",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "MT-EXC-3",
+   "kind": "excluded",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "MT-EXC-4",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "MT-EXC-5",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "MT-EXC-6",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "MT-EXC-7",
+   "kind": "excluded",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MT-EXC-8",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MT-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "MT-DEAD-2",
+   "kind": "deadline",
+   "days": 365,
+   "from": "age_18"
+  },
+  {
+   "id": "MT-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MT-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MT-COL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MT-CON-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MT-CON-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MT-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MT-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

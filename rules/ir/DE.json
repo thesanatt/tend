@@ -1,0 +1,202 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "DE",
+ "name": "Delaware",
+ "program": {
+  "program_name": "Victims' Compensation Assistance Program (VCAP)",
+  "agency": "Delaware Department of Justice",
+  "website": "https://attorneygeneral.delaware.gov/vcap/",
+  "apply_url": "https://ccvcde.org",
+  "application_pdf_url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf",
+  "phone": "302-255-1770",
+  "phone_source_id": "DE-S2",
+  "statute_citation": "11 Del. C. §§ 9001 to 9025"
+ },
+ "source_sha256": "d88db02fca35bfd4b1e63f80ae0f8a06c0a8b6e700eff462c913a948abe057db",
+ "rules": [
+  {
+   "id": "DE-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DE-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DE-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "DE-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "DE-CAP-2",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-3",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-4",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-5",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-6",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-7",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DE-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "DE-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "DE-COV-4",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "DE-COV-5",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "DE-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "DE-COV-7",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DE-COV-8",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "DE-COV-9",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "DE-COV-10",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "DE-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "DE-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "DE-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "DE-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "DE-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "DE-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 2500
+  },
+  {
+   "id": "DE-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "DE-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "DE-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "DE-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "DE-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "DE-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "DE-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

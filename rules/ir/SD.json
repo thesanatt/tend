@@ -1,0 +1,196 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "SD",
+ "name": "South Dakota",
+ "program": {
+  "program_name": "Crime Victims' Compensation Program",
+  "agency": "South Dakota Department of Public Safety",
+  "website": "https://www.sd.gov/dps?id=cs_kb_article_view&sysparm_article=KB0043174&sys_kb_id=04f8056d1b54cb54f6142062f54bcb14&spa=1",
+  "apply_url": "https://www.sd.gov/dps?id=cs_kb_article_view&sysparm_article=KB0043175",
+  "application_pdf_url": "https://www.sd.gov/sys_attachment.do?sys_id=a70d268987104754a086bae9cebb3534",
+  "phone": "605-773-6317",
+  "phone_source_id": "SD-S4",
+  "statute_citation": "SDCL 23A-28B-1 to 23A-28B-44; ARSD 67:55"
+ },
+ "source_sha256": "920ed135d6c02220a3f85dc74763be1f5577be103fa77a557930104d60b36523",
+ "rules": [
+  {
+   "id": "SD-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SD-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "SD-EXAM-3",
+   "kind": "excluded",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "SD-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "SD-CAP-2",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "SD-CAP-3",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 800000,
+   "per": "claim"
+  },
+  {
+   "id": "SD-CAP-4",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "SD-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "SD-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "SD-COUNS-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "SD-COUNS-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "SD-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "SD-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "SD-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "SD-TRANS-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "SD-SEC-1",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "SD-CLOTH-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "SD-CHILD-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "SD-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "SD-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "SD-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "SD-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "SD-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "SD-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "SD-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "SD-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "SD-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "SD-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "SD-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "SD-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SD-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SD-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SD-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

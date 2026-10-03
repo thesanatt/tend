@@ -1,0 +1,298 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "NY",
+ "name": "New York",
+ "program": {
+  "program_name": "Victim Compensation",
+  "agency": "New York State Office of Victim Services (OVS)",
+  "website": "https://ovs.ny.gov/victim-compensation",
+  "apply_url": "https://ovscompass.ovs.ny.gov/ovs/applicant/signIn",
+  "application_pdf_url": "https://ovs.ny.gov/system/files/documents/2026/02/fillable-ovs-compensation-application-02.12.26.pdf",
+  "phone": "1-800-247-8035",
+  "phone_source_id": "NY-S1",
+  "statute_citation": "N.Y. Executive Law Article 22 (sections 620 to 635); 9 NYCRR Part 525; Public Health Law 2805-i"
+ },
+ "source_sha256": "402f50a4051c803e3969b94387a1ece63514eb122df2ab00d0c334694af9d574",
+ "rules": [
+  {
+   "id": "NY-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NY-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NY-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NY-EXAM-6",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NY-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NY-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NY-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NY-COVER-1",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "NY-COVER-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NY-COVER-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NY-COVER-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NY-COVER-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NY-COVER-6",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "NY-COVER-7",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "NY-CAP-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 3000000,
+   "per": "claim"
+  },
+  {
+   "id": "NY-CAP-2",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "NY-CAP-3",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "NY-CAP-4",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
+   "id": "NY-CAP-5",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "NY-CAP-13",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 250000,
+   "per": "unit",
+   "unit": "item",
+   "alt_rule_ids": [
+    "NY-CAP-7"
+   ]
+  },
+  {
+   "id": "NY-CAP-14",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 1000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "NY-CAP-6"
+   ]
+  },
+  {
+   "id": "NY-CAP-8",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 50000,
+   "per": "unit",
+   "unit": "item",
+   "alt_rule_ids": [
+    "NY-CAP-9"
+   ]
+  },
+  {
+   "id": "NY-CAP-10",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 200000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "NY-CAP-11"
+   ]
+  },
+  {
+   "id": "NY-CAP-12",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "NY-EXCL-1",
+   "kind": "excluded",
+   "expense": "security"
+  },
+  {
+   "id": "NY-EXCL-2",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "NY-EXCL-3",
+   "kind": "excluded",
+   "expense": "transportation",
+   "tags": [
+    "vehicle"
+   ]
+  },
+  {
+   "id": "NY-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "NY-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "NY-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other"
+   ]
+  },
+  {
+   "id": "NY-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "NY-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "NY-REPORT-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate",
+    "medical_provider"
+   ]
+  },
+  {
+   "id": "NY-REPORT-5",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate",
+    "medical_provider",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "NY-COLLAT-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NY-COLLAT-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NY-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NY-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NY-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NY-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NY-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NY-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "NY-CAP-6",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of NY-CAP-14"
+  },
+  {
+   "id": "NY-CAP-7",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of NY-CAP-13"
+  },
+  {
+   "id": "NY-CAP-9",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of NY-CAP-8"
+  },
+  {
+   "id": "NY-CAP-11",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of NY-CAP-10"
+  }
+ ]
+}

@@ -1,0 +1,237 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "ND",
+ "name": "North Dakota",
+ "program": {
+  "program_name": "Crime Victims Compensation Program",
+  "agency": "North Dakota Department of Corrections and Rehabilitation, Division of Adult Services",
+  "website": "https://www.docr.nd.gov/crime-victims-compensation",
+  "apply_url": "https://portalapps.nd.gov/docr/cvc-application/",
+  "application_pdf_url": null,
+  "phone": "701-328-6195",
+  "phone_source_id": "ND-S2",
+  "statute_citation": "N.D.C.C. ch. 54-23.4; N.D. Admin. Code art. 94-03; N.D.C.C. 12.1-34-07 (exam costs)"
+ },
+ "source_sha256": "8fdcd085e22635560dd10ca998f9b4877af8eb35f98075047e02d2d2984724b9",
+ "rules": [
+  {
+   "id": "ND-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ND-EXAM-CHILD",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ND-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ND-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ND-CAP-COUNSEL-MINOR",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 480000,
+   "per": "claim",
+   "count_limit": 40,
+   "alt_rule_ids": [
+    "ND-CAP-COUNSEL-ADULT",
+    "ND-CAP-COUNSEL-EXTRA"
+   ]
+  },
+  {
+   "id": "ND-CAP-WAGES-WEEK",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 30000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "ND-CAP-WAGES-TOTAL",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 480000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-TRAVEL",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-RX",
+   "kind": "expense_cap",
+   "expense": "prescription",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-DENTAL",
+   "kind": "expense_cap",
+   "expense": "dental",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-REPLACE",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ND-COV-COUNSEL",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ND-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ND-COV-TRAVEL",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ND-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ND-COV-DEPCARE",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "ND-EXCL-PROPERTY",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "ND-EXCL-NONECON",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ND-EXCL-FEES",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ND-EXCL-ATTY",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "ND-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "report"
+  },
+  {
+   "id": "ND-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-REPORT-GOODCAUSE",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-REPORT-GOODCAUSE-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-REPORT-CHILD",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ND-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "ND-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-CONDUCT-4",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-EMERGENCY-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "ND-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ND-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ND-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "ND-CAP-COUNSEL-ADULT",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ND-CAP-COUNSEL-MINOR"
+  },
+  {
+   "id": "ND-CAP-COUNSEL-EXTRA",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ND-CAP-COUNSEL-MINOR"
+  }
+ ]
+}

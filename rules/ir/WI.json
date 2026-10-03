@@ -1,0 +1,219 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "WI",
+ "name": "Wisconsin",
+ "program": {
+  "program_name": "Crime Victim Compensation Program",
+  "agency": "Wisconsin Department of Justice, Office of Crime Victim Services",
+  "website": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-program.aspx",
+  "apply_url": "https://victimcompensation.wisdoj.gov/",
+  "application_pdf_url": "https://www.wisdoj.gov/Crime%20Victims%20Services/cvcapp-english-print.pdf",
+  "phone": "800-446-6564",
+  "phone_source_id": "WI-S3",
+  "statute_citation": "Wis. Stat. ch. 949, subch. I (ss. 949.001 to 949.18); SAFE Fund: subch. II (ss. 949.20 to 949.38); Wis. Admin. Code ch. Jus 11"
+ },
+ "source_sha256": "f954b66e130541f00f383c7607b7f82dd7dad03ca5a253ed01379bc937114d87",
+ "rules": [
+  {
+   "id": "WI-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WI-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WI-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WI-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WI-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WI-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "WI-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4000000
+  },
+  {
+   "id": "WI-CAP-2",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 20000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "WI-CAP-4"
+   ]
+  },
+  {
+   "id": "WI-CAP-3",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 30000,
+   "per": "claim"
+  },
+  {
+   "id": "WI-CAP-6",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "WI-CAP-7",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "WI-CAP-8",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "WI-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WI-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WI-COV-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WI-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WI-COV-5",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "WI-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash",
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "WI-EXCL-2",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "WI-EXCL-3",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "WI-EXCL-4",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "WI-EXCL-5",
+   "kind": "excluded",
+   "expense": "counseling"
+  },
+  {
+   "id": "WI-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "WI-DEADLINE-2",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "WI-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "WI-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WI-REPORT-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WI-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "WI-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "WI-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WI-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WI-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WI-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "WI-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "WI-CAP-5",
+   "category": "expense_cap",
+   "reason": "applies_to \"each parent of a victim under 18\""
+  },
+  {
+   "id": "WI-CAP-4",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of WI-CAP-2"
+  }
+ ]
+}

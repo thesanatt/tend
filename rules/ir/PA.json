@@ -1,0 +1,271 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "PA",
+ "name": "Pennsylvania",
+ "program": {
+  "program_name": "Victims Compensation Assistance Program (VCAP)",
+  "agency": "Pennsylvania Commission on Crime and Delinquency (PCCD), Office of Victims' Services",
+  "website": "https://www.pa.gov/services/pcv/apply-for-victims-compensation",
+  "apply_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation",
+  "application_pdf_url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/vcap%20long%20claim%20form%20july%202024.pdf",
+  "phone": "800-233-2339",
+  "phone_source_id": "PA-S4",
+  "statute_citation": "Crime Victims Act, 18 P.S. 11.101 et seq. (compensation: 18 P.S. 11.701 to 11.710); 37 Pa. Code Chapter 411"
+ },
+ "source_sha256": "f024a6e7b7cba93099834aa22cacf9587b8e0c690d1d68d5b063c85727161278",
+ "rules": [
+  {
+   "id": "PA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "PA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "PA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "PA-EXAM-6",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "PA-EXAM-7",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-EXAM-8",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "PA-COUNSEL-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 1000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "PA-COUNSEL-1",
+    "PA-COUNSEL-5"
+   ]
+  },
+  {
+   "id": "PA-COUNSEL-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "PA-COUNSEL-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "PA-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "PA-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "PA-RELOC-3",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "PA-RELOC-4",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 7500,
+   "per": "unit",
+   "unit": "day"
+  },
+  {
+   "id": "PA-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "PA-TRANS-2",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 3000,
+   "per": "unit",
+   "unit": "day",
+   "alt_rule_ids": [
+    "PA-TRANS-3"
+   ]
+  },
+  {
+   "id": "PA-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "PA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "PA-MED-3",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-CHILD-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "PA-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "PA-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "PA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "discovery"
+  },
+  {
+   "id": "PA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "PA-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "PA-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "PA-REPORT-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "PA-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 5000
+  },
+  {
+   "id": "PA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "PA-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "PA-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "PA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "PA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "PA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "PA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "PA-COUNSEL-1",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of PA-COUNSEL-2"
+  },
+  {
+   "id": "PA-COUNSEL-5",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of PA-COUNSEL-2"
+  },
+  {
+   "id": "PA-TRANS-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of PA-TRANS-2"
+  }
+ ]
+}

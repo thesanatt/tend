@@ -1,0 +1,211 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "GA",
+ "name": "Georgia",
+ "program": {
+  "program_name": "Georgia Crime Victims Compensation Program",
+  "agency": "Criminal Justice Coordinating Council (CJCC), Victims Compensation Division",
+  "website": "https://cjcc.georgia.gov/victims-compensation",
+  "apply_url": "https://victimscompportal.cjcc.ga.gov",
+  "application_pdf_url": "https://cjcc.georgia.gov/document/document/application-victim-compensation-program-english/download",
+  "phone": "404-657-2222",
+  "phone_source_id": "GA-S10",
+  "statute_citation": "O.C.G.A. 17-15-1 to 17-15-17; forensic exam: O.C.G.A. 17-5-72 and 17-15-15; rules: Ga. Comp. R. & Regs. 144-4-.06 and 144-4-.08"
+ },
+ "source_sha256": "1ae4097121d77927717971772e408bbcf8fd86b525a2a61886d98efae28c47c9",
+ "rules": [
+  {
+   "id": "GA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "GA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "GA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "GA-EXAM-4",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "GA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "GA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "GA-CAP-MED",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-COUNS",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-CLEAN",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "GA-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "GA-COV-RX",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "GA-COV-COUNS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "GA-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "GA-COV-CLEAN",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "GA-EXCL-PROP",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "GA-EXCL-LEGAL",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "GA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "GA-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "age_18"
+  },
+  {
+   "id": "GA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "GA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "GA-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "GA-COLLAT-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "GA-COLLAT-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "GA-COLLAT-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "GA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "GA-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "GA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "GA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "GA-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "GA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "GA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

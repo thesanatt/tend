@@ -1,0 +1,242 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "MN",
+ "name": "Minnesota",
+ "program": {
+  "program_name": "Minnesota Crime Victims Reimbursement Program",
+  "agency": "Minnesota Department of Public Safety, Office of Justice Programs, Crime Victims Reimbursement Board",
+  "website": "https://dps.mn.gov/divisions/ojp/for-crime-victims/crime-victim-resources/financial-help/mn-crime-victims-reimbursement-program",
+  "apply_url": "https://svcportal.dps.mn.gov/vsp/Account/Login",
+  "application_pdf_url": "https://assets.dps.mn.gov/files/ojp/Reimbursement%20claim%20form%20%28English%29.pdf",
+  "phone": "651-201-7300",
+  "phone_source_id": "MN-S8",
+  "statute_citation": "Minn. Stat. 611A.51 to 611A.68; Minn. Stat. 609.35 (exam costs); Minn. R. ch. 3050"
+ },
+ "source_sha256": "04e806008e59964ae8126600754be1f1977f014905d2757a3cd1cf9a315673e5",
+ "rules": [
+  {
+   "id": "MN-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MN-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MN-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MN-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MN-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "MN-CAP-COUNSELING",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-CAP-COUNSELING-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MN-CAP-RELOCATION",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-CAP-CLEANUP",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-CAP-CHILDCARE",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 300,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "MN-CAP-HEALING",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MN-COV-COUNSELING",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MN-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MN-COV-TRANSPORT",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "MN-COV-CHILDCARE",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "MN-EXC-PROPERTY",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash",
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "MN-EXC-PROPERTY-2",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "MN-EXC-SECURITY",
+   "kind": "excluded",
+   "expense": "security"
+  },
+  {
+   "id": "MN-EXC-CLOTHING",
+   "kind": "excluded",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "MN-EXC-LEGAL",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "MN-EXC-TUITION",
+   "kind": "excluded",
+   "expense": "tuition"
+  },
+  {
+   "id": "MN-EXC-LEAVE",
+   "kind": "excluded",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MN-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "MN-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "report"
+  },
+  {
+   "id": "MN-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 30
+  },
+  {
+   "id": "MN-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MN-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MN-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 5000
+  },
+  {
+   "id": "MN-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MN-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MN-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MN-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MN-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MN-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MN-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MN-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MN-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MN-RES-3",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "MN-CAP-WAGES",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "MN-CAP-WAGES-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

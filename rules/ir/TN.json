@@ -1,0 +1,188 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "TN",
+ "name": "Tennessee",
+ "program": {
+  "program_name": "Criminal Injuries Compensation Program (Criminal Injuries Compensation Fund)",
+  "agency": "Tennessee Department of Treasury, Division of Claims and Risk Management",
+  "website": "https://treasury.tn.gov/Services/Claims-and-Risk-Management/Criminal-Injuries-Compensation",
+  "apply_url": "https://treasury.tn.gov/Services/Claims-and-Risk-Management/Criminal-Injuries-Compensation",
+  "application_pdf_url": null,
+  "phone": "833-867-3891",
+  "phone_source_id": "TN-S1",
+  "statute_citation": "T.C.A. 29-13-101 to 29-13-119; forensic exams T.C.A. 29-13-118; Tenn. Comp. R. & Regs. 0300-02-.07"
+ },
+ "source_sha256": "0b199812b7f2529ea9c560897cdb9ae7642f7cdabb9725959d02fee0c920a23f",
+ "rules": [
+  {
+   "id": "TN-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TN-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TN-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "TN-EXAM-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "TN-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "TN-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3410000
+  },
+  {
+   "id": "TN-PAIN-1",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "TN-PAIN-2",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TN-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "TN-MOVE-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "TN-CLEAN-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "TN-CLEAN-2",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-TRAVEL-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 125000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-TRAVEL-2",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "TN-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-PROP-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "TN-PROP-2",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "TN-EXCL-1",
+   "kind": "excluded",
+   "expense": "other"
+  },
+  {
+   "id": "TN-EXCL-2",
+   "kind": "excluded",
+   "expense": "other"
+  },
+  {
+   "id": "TN-FILE-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "TN-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 15
+  },
+  {
+   "id": "TN-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "TN-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "TN-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "TN-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "TN-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "TN-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "TN-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "TN-COUNS-1",
+   "category": "expense_cap",
+   "reason": "applies_to \"family members and others listed in 29-13-105(a)(3), (a)(6), (a)(7), not the victim\""
+  },
+  {
+   "id": "TN-COUNS-2",
+   "category": "covered_expense",
+   "reason": "applies_to \"sibling or non-offending custodial parent of a victim under 18\""
+  }
+ ]
+}

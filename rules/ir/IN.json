@@ -1,0 +1,207 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "IN",
+ "name": "Indiana",
+ "program": {
+  "program_name": "Indiana Violent Crime Victim Compensation Program",
+  "agency": "Indiana Criminal Justice Institute, Victim Services Division (Victim Compensation Division)",
+  "website": "https://www.in.gov/cji/victim-compensation/",
+  "apply_url": "https://www.in.gov/cji/victim-compensation/",
+  "application_pdf_url": "https://www.in.gov/cji/victim-compensation/files/23776-fill-in-R14-10-21.pdf",
+  "phone": "1-800-353-1484",
+  "phone_source_id": "IN-S1",
+  "statute_citation": "IC 5-2-6.1; IC 16-21-8; 203 IAC 1"
+ },
+ "source_sha256": "edbb2970eb74a81e75d4de92dc9b45b7d41570db6a702e860aadf7ad2c75c236",
+ "rules": [
+  {
+   "id": "IN-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "IN-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "IN-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "IN-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IN-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "IN-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "IN-CAP-3",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "IN-CAP-4",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "IN-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "IN-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "IN-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "IN-COV-4",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "IN-COV-5",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "IN-COV-6",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "IN-COV-7",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "IN-COV-8",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "IN-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "IN-EXCL-2",
+   "kind": "excluded",
+   "expense": "relocation"
+  },
+  {
+   "id": "IN-EXCL-3",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "IN-EXCL-4",
+   "kind": "excluded",
+   "expense": "other",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "IN-EXCL-5",
+   "kind": "excluded",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "IN-DEADLINE-1",
+   "kind": "deadline",
+   "days": 180,
+   "from": "crime"
+  },
+  {
+   "id": "IN-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "IN-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "IN-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "IN-REPORT-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "IN-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "discretionary",
+   "waiver_for_sexual_assault": true,
+   "cap_cents": 10000
+  },
+  {
+   "id": "IN-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "IN-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IN-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IN-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "IN-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "IN-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "IN-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

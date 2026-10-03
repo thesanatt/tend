@@ -1,0 +1,242 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "NJ",
+ "name": "New Jersey",
+ "program": {
+  "program_name": "Victims of Crime Compensation Office (VCCO)",
+  "agency": "New Jersey Office of the Attorney General, Department of Law and Public Safety, Victims of Crime Compensation Office",
+  "website": "https://www.njoag.gov/vcco/",
+  "apply_url": "https://www.njvictims.org",
+  "application_pdf_url": "https://www.nj.gov/oag/njvictims/pdfs/VCCO-Application-Instructions.pdf",
+  "phone": "973-648-2107",
+  "phone_source_id": "NJ-S2",
+  "statute_citation": "N.J.S.A. 52:4B-1 et seq. (Criminal Injuries Compensation Act of 1971); N.J.A.C. 13:75"
+ },
+ "source_sha256": "05fc2addff9afb4d7326396c5ab2cb5e9bfa8107df484a7db0e7e612ad00d027",
+ "rules": [
+  {
+   "id": "NJ-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NJ-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NJ-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NJ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NJ-COUNSEL-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 2000000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "NJ-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-SEC-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-TRANS-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 1000,
+   "per": "unit",
+   "unit": "day"
+  },
+  {
+   "id": "NJ-TRANS-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NJ-CHILD-1",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 650000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 400000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-LEGAL-1",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-FUNERAL-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-DOMHELP-1",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 650000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NJ-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NJ-COV-COUNSEL",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NJ-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NJ-COV-RX",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NJ-COV-CLOTH",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "NJ-EXCL-PROP",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "NJ-EXCL-PAIN",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NJ-FILE-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "NJ-FILE-2",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "age_18"
+  },
+  {
+   "id": "NJ-FILE-3",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "discovery"
+  },
+  {
+   "id": "NJ-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NJ-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NJ-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NJ-MINLOSS-1",
+   "kind": "info",
+   "category": "minimum_loss"
+  },
+  {
+   "id": "NJ-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NJ-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NJ-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NJ-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NJ-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NJ-EMERG-2",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NJ-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NJ-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "NJ-WAGES-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

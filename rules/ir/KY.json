@@ -1,0 +1,180 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "KY",
+ "name": "Kentucky",
+ "program": {
+  "program_name": "Crime Victims Compensation Fund Program",
+  "agency": "Public Protection Cabinet, Office of Claims and Appeals, Crime Victims Compensation Board",
+  "website": "https://kycc.ky.gov/newstatic_info.aspx?static_id=158",
+  "apply_url": "https://kycc.ky.gov/CVOnline/home",
+  "application_pdf_url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
+  "phone": "502-782-8255",
+  "phone_source_id": "KY-S19",
+  "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060"
+ },
+ "source_sha256": "148c7de4eaa1f89239a5122568ec7b677a286249944bd192d2c87ab5b8da1306",
+ "rules": [
+  {
+   "id": "KY-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-PAY-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KY-CAP-TOTAL",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "KY-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 50000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "KY-CAP-RELOCATION",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-HOUSING",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-SECURITY",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-CLEANUP",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-COV-COUNSELING",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "KY-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "KY-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "KY-COV-SEIZED",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "KY-COV-GLASSES",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "KY-COV-WELLNESS",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "KY-COV-COURT",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "KY-COV-LUMPSUM",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "KY-EXCL-PROPERTY",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "KY-EXCL-PAIN",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "KY-COLLATERAL",
+   "kind": "collateral"
+  },
+  {
+   "id": "KY-CONDUCT",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KY-EMERGENCY",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "KY-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "KY-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "KY-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KY-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KY-RES-3",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

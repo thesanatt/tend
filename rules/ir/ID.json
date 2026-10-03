@@ -1,0 +1,225 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "ID",
+ "name": "Idaho",
+ "program": {
+  "program_name": "Crime Victims Compensation Program",
+  "agency": "Idaho Industrial Commission, Crime Victims Compensation Program",
+  "website": "https://crimevictimcomp.idaho.gov/",
+  "apply_url": "https://crimevictimcomp.idaho.gov/file-a-claim/",
+  "application_pdf_url": "https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/06/CVCP-Application-for-Compensation_20260630.pdf",
+  "phone": "208-334-6080",
+  "phone_source_id": "ID-S8",
+  "statute_citation": "Idaho Code 72-1001 to 72-1026; Idaho Code 19-5303; IDAPA 17.10.01"
+ },
+ "source_sha256": "94338253856f28d893a80082f4f524b3ee5f28ec22e36c910ee575950bdf86dc",
+ "rules": [
+  {
+   "id": "ID-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ID-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ID-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ID-CAP-1B",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ID-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "ID-CAP-4",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 17500,
+   "per": "unit",
+   "unit": "week",
+   "alt_rule_ids": [
+    "ID-CAP-5"
+   ]
+  },
+  {
+   "id": "ID-CAP-6",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 2000000,
+   "per": "claim"
+  },
+  {
+   "id": "ID-CAP-7",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ID-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ID-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ID-COV-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ID-COV-4",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "ID-COV-5",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "ID-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ID-COV-7",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "ID-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "ID-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ID-EXCL-3",
+   "kind": "excluded",
+   "expense": "counseling"
+  },
+  {
+   "id": "ID-EXCL-4",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "ID-EXCL-5",
+   "kind": "excluded",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "ID-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "ID-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 3
+  },
+  {
+   "id": "ID-REPORT-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "ID-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ID-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ID-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ID-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ID-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ID-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "ID-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ID-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ID-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ID-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "ID-CAP-3",
+   "category": "expense_cap",
+   "reason": "applies_to \"family members of the victim (spouse, parent, grandparent, child, grandchild, sibling)\""
+  },
+  {
+   "id": "ID-CAP-5",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ID-CAP-4"
+  }
+ ]
+}

@@ -1,0 +1,203 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "ME",
+ "name": "Maine",
+ "program": {
+  "program_name": "Maine Crime Victims' Compensation Program",
+  "agency": "Office of the Maine Attorney General, Victims' Compensation Board",
+  "website": "https://www.maine.gov/ag/crime-victims/victims-compensation",
+  "apply_url": "https://mainevcp.heart4victims.org/",
+  "application_pdf_url": null,
+  "phone": "207-624-7882",
+  "phone_source_id": "ME-S5",
+  "statute_citation": "5 M.R.S. 3360 to 3360-M (Title 5, chapter 316-A)"
+ },
+ "source_sha256": "0482608678f502132fedd834e0d5b4f23da36a25e1508d7ece3487cfed3440c1",
+ "rules": [
+  {
+   "id": "ME-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ME-EXAM-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "ME-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ME-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "ME-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "ME-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ME-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ME-COUNS-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ME-COUNS-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ME-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ME-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ME-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ME-SEC-1",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "ME-RELO-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "ME-CLEAN-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "ME-PROS-1",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "ME-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 450000,
+   "per": "claim"
+  },
+  {
+   "id": "ME-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ME-EXCL-2",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "ME-DEAD-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "ME-DEAD-2",
+   "kind": "deadline",
+   "days": 60,
+   "from": "discovery"
+  },
+  {
+   "id": "ME-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "ME-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "ME-REP-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "ME-REP-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ME-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ME-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ME-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ME-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ME-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ME-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ME-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "ME-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

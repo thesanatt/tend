@@ -1,0 +1,139 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "WV",
+ "name": "West Virginia",
+ "program": {
+  "program_name": "Crime Victims Compensation Fund",
+  "agency": "West Virginia Legislative Claims Commission",
+  "website": "https://www.wvlegislature.gov/Joint/victims.cfm",
+  "apply_url": "https://www.wvlegislature.gov/Joint/Victims/claim.cfm",
+  "application_pdf_url": "https://www.wvlegislature.gov/Joint/Victims/crime_victim_application.pdf",
+  "phone": "304-347-4850",
+  "phone_source_id": "WV-S8",
+  "statute_citation": "W. Va. Code 14-2A-1 to 14-2A-29; forensic exam payment at W. Va. Code 61-8B-16"
+ },
+ "source_sha256": "07ad2a9c278735294331cf7b9d6230db29fcc8aaf64c206d7b94e03991073a87",
+ "rules": [
+  {
+   "id": "WV-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WV-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WV-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WV-EXAM-4",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "WV-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "WV-CAP-2",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 450000,
+   "per": "claim"
+  },
+  {
+   "id": "WV-CAP-3",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
+   "id": "WV-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WV-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WV-COV-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "WV-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WV-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WV-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "WV-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "WV-EXCL-2",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "WV-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "WV-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "WV-REP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "WV-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "WV-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WV-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WV-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WV-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": []
+}

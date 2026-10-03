@@ -1,0 +1,200 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "OK",
+ "name": "Oklahoma",
+ "program": {
+  "program_name": "Oklahoma Crime Victims Compensation",
+  "agency": "Oklahoma District Attorneys Council, Victim Services Division, Crime Victims Compensation Board",
+  "website": "https://www.okvictimscomp.com/",
+  "apply_url": "https://ocvcapp.okvictimscomp.com",
+  "application_pdf_url": "https://www.okvictimscomp.com/wp-content/uploads/2019-Official-Claim-Form-EN_1.pdf",
+  "phone": "800-745-6098",
+  "phone_source_id": "OK-S1",
+  "statute_citation": "21 O.S. 142.1 to 142.20"
+ },
+ "source_sha256": "d02d8f108f31be9b4e755a225837d42af6dd1cfe361e8545ab505a509a4115b2",
+ "rules": [
+  {
+   "id": "OK-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OK-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OK-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OK-EXAM-4",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 80000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-EXAM-5",
+   "kind": "expense_cap",
+   "expense": "prescription",
+   "cap_cents": 10000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OK-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "OK-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-CAP-3",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 2000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "OK-CAP-4"
+   ]
+  },
+  {
+   "id": "OK-CAP-5",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-CAP-6",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OK-COV-1B",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OK-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OK-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OK-COV-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OK-COV-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "OK-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "OK-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "OK-DEAD-1",
+   "kind": "deadline",
+   "days": 900,
+   "from": "crime"
+  },
+  {
+   "id": "OK-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "OK-RPT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "other"
+   ],
+   "within_days": 3
+  },
+  {
+   "id": "OK-RPT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "OK-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "OK-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "OK-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "OK-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OK-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OK-EXAM-7",
+   "kind": "collateral"
+  },
+  {
+   "id": "OK-EXAM-8",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OK-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "OK-CAP-4",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of OK-CAP-3"
+  }
+ ]
+}

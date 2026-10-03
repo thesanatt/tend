@@ -1,0 +1,198 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "CT",
+ "name": "Connecticut",
+ "program": {
+  "program_name": "Victim Compensation Program",
+  "agency": "State of Connecticut Judicial Branch, Office of Victim Services",
+  "website": "https://www.jud.ct.gov/crimevictim/compensation.htm",
+  "apply_url": "https://www.jud.ct.gov/crimevictim/compensation.htm",
+  "application_pdf_url": "https://www.jud.ct.gov/webforms/forms/vs008PI.pdf",
+  "phone": "1-888-286-7347",
+  "phone_source_id": "CT-S5",
+  "statute_citation": "Conn. Gen. Stat. 54-201 to 54-218"
+ },
+ "source_sha256": "e32ab7b5e6f0274d6c489eb1de6589083bed5f53211611217244263d840cd153",
+ "rules": [
+  {
+   "id": "CT-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CT-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CT-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CT-CAP-3",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CT-CAP-4",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CT-CAP-5",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CT-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "CT-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "CT-COV-3",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "CT-COV-4",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "CT-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "CT-COV-6",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "CT-COV-7",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "CT-COV-8",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "CT-COV-9",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "CT-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "CT-EXCL-2",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "CT-EXCL-3",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "CT-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "CT-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "CT-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate",
+    "forensic_exam",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "CT-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "CT-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "CT-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "CT-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "CT-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CT-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CT-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "CT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "CT-CAP-1",
+   "category": "total_cap",
+   "reason": "applies_to \"personal_injury\""
+  },
+  {
+   "id": "CT-CAP-2",
+   "category": "total_cap",
+   "reason": "applies_to \"emotional_harm_only\""
+  }
+ ]
+}

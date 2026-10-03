@@ -1,0 +1,278 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "MS",
+ "name": "Mississippi",
+ "program": {
+  "program_name": "Mississippi Crime Victim Compensation Program",
+  "agency": "Office of the Mississippi Attorney General, Bureau of Victim Assistance, Crime Victim Compensation Division",
+  "website": "https://attorneygenerallynnfitch.com/divisions/bureau-of-victim-assistance/",
+  "apply_url": "https://portal.ago.ms.gov/public/?q=node/428",
+  "application_pdf_url": "https://attorneygenerallynnfitch.com/wp-content/uploads/2026/01/Victim-Compensation-Application-12.9.2025-1.pdf",
+  "phone": "800-829-6766",
+  "phone_source_id": "MS-S1",
+  "statute_citation": "Miss. Code Ann. 99-41-1 to 99-41-31 (Mississippi Crime Victims' Compensation Act); forensic exam: Miss. Code Ann. 99-37-25; rules: 3 Miss. Admin. Code Pt. 1"
+ },
+ "source_sha256": "af172c5e06f40772b76412948d6a677da158fc3ccc48ca742fbb1d91d687614a",
+ "rules": [
+  {
+   "id": "MS-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MS-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MS-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MS-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MS-EXAM-5",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2000000
+  },
+  {
+   "id": "MS-CAP-MED",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-COUNS",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 350000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 52
+  },
+  {
+   "id": "MS-CAP-RELOC",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-HOUSING",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-SECURITY",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-CLEAN",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-TUITION",
+   "kind": "expense_cap",
+   "expense": "tuition",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 650000,
+   "per": "claim"
+  },
+  {
+   "id": "MS-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MS-COV-RX",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "MS-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "MS-COV-COUNS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MS-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MS-COV-RELOC",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "MS-COV-HOUSING",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "MS-COV-SECURITY",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "MS-COV-CLEAN",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "MS-COV-TUITION",
+   "kind": "covered",
+   "expense": "tuition"
+  },
+  {
+   "id": "MS-EXCL-PROP",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "MS-EXCL-LEGAL",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "MS-EXCL-PAIN",
+   "kind": "excluded",
+   "expense": "other",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "MS-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1080,
+   "from": "crime"
+  },
+  {
+   "id": "MS-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 3
+  },
+  {
+   "id": "MS-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MS-COLLAT-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MS-COLLAT-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MS-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MS-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MS-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MS-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MS-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MS-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MS-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MS-RES-2",
+   "kind": "info",
+   "category": "residency"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "MS-CAP-TRANS",
+   "category": "expense_cap",
+   "reason": "applies_to \"travel to medical and mental health counseling appointments\""
+  },
+  {
+   "id": "MS-CAP-COURT",
+   "category": "expense_cap",
+   "reason": "applies_to \"travel to criminal justice proceedings\""
+  },
+  {
+   "id": "MS-COV-TRANS",
+   "category": "covered_expense",
+   "reason": "applies_to \"medical and counseling appointments at least 45 miles one way\""
+  },
+  {
+   "id": "MS-COV-COURT",
+   "category": "covered_expense",
+   "reason": "applies_to \"travel to criminal justice proceedings\""
+  },
+  {
+   "id": "MS-DEADLINE-2",
+   "category": "filing_deadline",
+   "reason": "applies_to \"child sexual abuse\""
+  },
+  {
+   "id": "MS-REPORT-3",
+   "category": "reporting_requirement",
+   "reason": "applies_to \"forensic_exam_payment_only\""
+  }
+ ]
+}
