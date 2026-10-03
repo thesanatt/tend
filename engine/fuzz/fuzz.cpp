@@ -7,7 +7,7 @@
 //   image     raw image bytes -> load, list, inspect, evaluate
 //   resealed  same, with the checksum recomputed so mutations reach the verifier
 //   input     claim JSON against a valid law image
-//   compile   law JSON -> tendc; anything that compiles must load and evaluate
+//   compile   law IR -> tendc; anything that compiles must load and evaluate
 //             without a VM trap
 // Every output document must be valid JSON. Crashes, sanitizer reports, and
 // property violations write the input to <corpus>/crash-*.bin.
@@ -344,7 +344,7 @@ int main(int argc, char** argv) {
     else if (a == "--seed-input") seed_input.push_back(next());
     else if (a == "--seed-json-dir") seed_dirs.push_back(next());
     else {
-      std::fprintf(stderr, "usage: tend_fuzz [--seconds N] [--seed N] [--corpus DIR] --seed-json LAW.json --seed-input CLAIM.json [--seed-json-dir DIR]\n");
+      std::fprintf(stderr, "usage: tend_fuzz [--seconds N] [--seed N] [--corpus DIR] --seed-json LAW_IR.json --seed-input CLAIM.json [--seed-json-dir IR_DIR]\n");
       return 2;
     }
   }

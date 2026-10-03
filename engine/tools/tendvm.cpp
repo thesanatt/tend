@@ -249,6 +249,23 @@ int cmd_bench(const Args& a) {
   char extra[96];
   std::snprintf(extra, sizeof extra, "   (in %.1f MB, out %.1f MB)", double(input.size()) / 1e6, double(out_bytes) / 1e6);
   report("json in -> json out", e2e, a.items, extra);
+
+  // Where the end-to-end time goes.
+  auto parse = time_runs(runs, [&] {
+    tend::Input in;
+    ok = ok && tend::parse_input(input.data(), input.size(), law, in, err);
+  });
+  ok = ok && tend::run_vm(law, s.ctx, s.items, ev, err, true);  // render a traced evaluation
+  auto render = time_runs(runs, [&] {
+    tend::OutBuf out;
+    tend::render_output(law, s.items, ev, out);
+  });
+  if (!ok) {
+    std::fprintf(stderr, "tendvm: %s\n", err.c_str());
+    return 1;
+  }
+  std::printf("  breakdown (best): parse %.4f s, vm %.4f s, render %.4f s\n", parse.front(), vm_trace.front(),
+              render.front());
   return 0;
 }
 

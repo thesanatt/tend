@@ -9,10 +9,30 @@
 namespace tend {
 namespace {
 
+// Where a value sits in the input. Rendered only when reporting an error, so
+// the happy path never builds strings like "items[123].amount_cents".
+struct Path {
+  const char* scope;  // "", "context", or "items"
+  int64_t index;      // item index, or -1
+  const char* field;  // nullptr for the scope itself
+
+  std::string str() const {
+    std::string s = scope;
+    if (index >= 0) s += "[" + std::to_string(index) + "]";
+    if (field) {
+      if (!s.empty()) s += '.';
+      s += field;
+    }
+    return s;
+  }
+};
+
 class InputParser {
  public:
   InputParser(const char* json, size_t len, const Law& law, Input& in, std::string& err)
-      : r_(json, len), law_(law), in_(in), err_(err) {}
+      : r_(json, len), law_(law), in_(in), err_(err) {
+    in_.items.reserve(len / 256);
+  }
 
   bool run() {
     if (!r_.begin_object()) return json_error();
@@ -26,7 +46,7 @@ class InputParser {
           continue;
         }
         std::string_view s;
-        if (!r_.read_string(s)) return field_error("jurisdiction", "expected a string");
+        if (!r_.read_string(s)) return field_error({"", -1, "jurisdiction"}, "expected a string");
         in_.jurisdiction.assign(s);
         in_.has_jurisdiction = true;
       } else if (key == "context") {
@@ -49,49 +69,53 @@ class InputParser {
     return false;
   }
   // Prefers the reader's message: it says what was wrong with the JSON itself.
-  bool field_error(const std::string& path, const char* what) {
-    if (err_.empty()) err_ = path + ": " + (r_.failed() ? r_.error() : what);
+  bool field_error(const Path& p, const char* what) {
+    if (err_.empty()) err_ = p.str() + ": " + (r_.failed() ? r_.error() : what);
     return false;
   }
-  bool semantic(const std::string& msg) {
+  bool missing(const Path& p) {
+    if (err_.empty()) err_ = p.str() + " is required";
+    return false;
+  }
+  bool semantic(const char* msg) {
     if (err_.empty()) err_ = msg;
     return false;
   }
   bool is_null() { return r_.peek() == JsonReader::kNull; }
 
-  bool date_field(const std::string& path, int64_t& day) {
+  bool date_field(const Path& p, int64_t& day) {
     std::string_view s;
-    if (!r_.read_string(s)) return field_error(path, "expected a date string");
-    if (!parse_date(s, day)) return field_error(path, "expected a date as YYYY-MM-DD");
+    if (!r_.read_string(s)) return field_error(p, "expected a date string");
+    if (!parse_date(s, day)) return field_error(p, "expected a date as YYYY-MM-DD");
     return true;
   }
-  bool bool_field(const std::string& path, int64_t& v) {
+  bool bool_field(const Path& p, int64_t& v) {
     if (is_null()) {
       v = 0;
       return r_.skip();
     }
     bool b;
-    if (!r_.read_bool(b)) return field_error(path, "expected true or false");
+    if (!r_.read_bool(b)) return field_error(p, "expected true or false");
     v = b;
     return true;
   }
-  bool cents_field(const std::string& path, int64_t& v) {
-    if (!r_.read_int64(v)) return field_error(path, "expected an integer");
-    if (v < 0) return field_error(path, "must not be negative");
+  bool count_field(const Path& p, int64_t& v) {
+    if (!r_.read_int64(v)) return field_error(p, "expected an integer");
+    if (v < 0) return field_error(p, "must not be negative");
     return true;
   }
 
   bool context() {
-    if (!r_.begin_object()) return field_error("context", "expected an object");
+    if (!r_.begin_object()) return field_error({"context", -1, nullptr}, "expected an object");
     bool incident = false, as_of = false;
     std::string_view key;
     int k;
     while ((k = r_.next_key(key)) == 1) {
       if (key == "incident_date") {
-        if (!date_field("context.incident_date", in_.ctx.field[CX_INCIDENT_DATE])) return false;
+        if (!date_field({"context", -1, "incident_date"}, in_.ctx.field[CX_INCIDENT_DATE])) return false;
         incident = true;
       } else if (key == "as_of_date") {
-        if (!date_field("context.as_of_date", in_.ctx.field[CX_AS_OF_DATE])) return false;
+        if (!date_field({"context", -1, "as_of_date"}, in_.ctx.field[CX_AS_OF_DATE])) return false;
         as_of = true;
       } else if (key == "police_report") {
         if (is_null()) {
@@ -100,38 +124,38 @@ class InputParser {
           continue;
         }
         std::string_view s;
-        if (!r_.read_string(s)) return field_error("context.police_report", "expected a string");
+        Path p{"context", -1, "police_report"};
+        if (!r_.read_string(s)) return field_error(p, "expected a string");
         if (s == "yes") in_.ctx.field[CX_POLICE_REPORT] = PR_YES;
         else if (s == "no") in_.ctx.field[CX_POLICE_REPORT] = PR_NO;
         else if (s == "unknown") in_.ctx.field[CX_POLICE_REPORT] = PR_UNKNOWN;
-        else return field_error("context.police_report", "expected yes, no, or unknown");
+        else return field_error(p, "expected yes, no, or unknown");
       } else if (key == "forensic_exam") {
-        if (!bool_field("context.forensic_exam", in_.ctx.field[CX_FORENSIC_EXAM])) return false;
+        if (!bool_field({"context", -1, "forensic_exam"}, in_.ctx.field[CX_FORENSIC_EXAM])) return false;
       } else if (!r_.skip()) {
         return json_error();
       }
     }
     if (k < 0) return json_error();
-    if (!incident) return semantic("context.incident_date is required");
-    if (!as_of) return semantic("context.as_of_date is required");
+    if (!incident) return missing({"context", -1, "incident_date"});
+    if (!as_of) return missing({"context", -1, "as_of_date"});
     return true;
   }
 
   bool items() {
     if (is_null()) return r_.skip() || json_error();
-    if (!r_.begin_array()) return field_error("items", "expected an array");
+    if (!r_.begin_array()) return field_error({"items", -1, nullptr}, "expected an array");
     int k;
     while ((k = r_.next_element()) == 1) {
       if (in_.items.size() >= (1u << 31)) return semantic("too many items");
-      if (!item(in_.items.size())) return false;
+      if (!item(int64_t(in_.items.size()))) return false;
     }
     if (k < 0) return json_error();
     return true;
   }
 
-  bool item(size_t index) {
-    std::string base = "items[" + std::to_string(index) + "]";
-    if (!r_.begin_object()) return field_error(base, "expected an object");
+  bool item(int64_t i) {
+    if (!r_.begin_object()) return field_error({"items", i, nullptr}, "expected an object");
     Item it;
     bool have_id = false, have_date = false, have_amount = false;
     std::string_view key;
@@ -140,8 +164,8 @@ class InputParser {
       if (key == "item_id") {
         std::string_view s;
         bool scratch = false;
-        if (!r_.read_string(s, &scratch)) return field_error(base + ".item_id", "expected a string");
-        if (s.empty()) return field_error(base + ".item_id", "must not be empty");
+        if (!r_.read_string(s, &scratch)) return field_error({"items", i, "item_id"}, "expected a string");
+        if (s.empty()) return field_error({"items", i, "item_id"}, "must not be empty");
         if (scratch) {
           in_.arena.emplace_back(new char[s.size()]);
           std::memcpy(in_.arena.back().get(), s.data(), s.size());
@@ -150,10 +174,10 @@ class InputParser {
         it.id = s;
         have_id = true;
       } else if (key == "date") {
-        if (!date_field(base + ".date", it.field[IF_DATE])) return false;
+        if (!date_field({"items", i, "date"}, it.field[IF_DATE])) return false;
         have_date = true;
       } else if (key == "amount_cents") {
-        if (!cents_field(base + ".amount_cents", it.field[IF_AMOUNT])) return false;
+        if (!count_field({"items", i, "amount_cents"}, it.field[IF_AMOUNT])) return false;
         have_amount = true;
       } else if (key == "expense") {
         if (is_null()) {
@@ -162,47 +186,47 @@ class InputParser {
           continue;
         }
         std::string_view s;
-        if (!r_.read_string(s)) return field_error(base + ".expense", "expected a string");
+        if (!r_.read_string(s)) return field_error({"items", i, "expense"}, "expected a string");
         uint8_t e;
         it.field[IF_EXPENSE] = parse_expense(s, e) ? e : EXP_UNKNOWN;
       } else if (key == "confirmed") {
-        if (!bool_field(base + ".confirmed", it.field[IF_CONFIRMED])) return false;
-      } else if (key == "is_bill") {
-        if (!bool_field(base + ".is_bill", it.field[IF_IS_BILL])) return false;
+        if (!bool_field({"items", i, "confirmed"}, it.field[IF_CONFIRMED])) return false;
       } else if (key == "insurance_paid_cents") {
         if (is_null()) {
           if (!r_.skip()) return json_error();
           continue;
         }
-        if (!cents_field(base + ".insurance_paid_cents", it.field[IF_INSURANCE_PAID])) return false;
-      } else if (key == "tags") {
-        if (!tags_field(base + ".tags", it.field[IF_TAGS])) return false;
+        if (!count_field({"items", i, "insurance_paid_cents"}, it.field[IF_INSURANCE_PAID])) return false;
+      } else if (key == "is_bill") {
+        if (!bool_field({"items", i, "is_bill"}, it.field[IF_IS_BILL])) return false;
       } else if (key == "units") {
         if (is_null()) {
           if (!r_.skip()) return json_error();
           continue;
         }
-        if (!cents_field(base + ".units", it.field[IF_UNITS])) return false;
+        if (!count_field({"items", i, "units"}, it.field[IF_UNITS])) return false;
+      } else if (key == "tags") {
+        if (!tags_field({"items", i, "tags"}, it.field[IF_TAGS])) return false;
       } else if (!r_.skip()) {
         return json_error();
       }
     }
     if (k < 0) return json_error();
-    if (!have_id) return semantic(base + ".item_id is required");
-    if (!have_date) return semantic(base + ".date is required");
-    if (!have_amount) return semantic(base + ".amount_cents is required");
+    if (!have_id) return missing({"items", i, "item_id"});
+    if (!have_date) return missing({"items", i, "date"});
+    if (!have_amount) return missing({"items", i, "amount_cents"});
     in_.items.push_back(it);
     return true;
   }
 
-  bool tags_field(const std::string& path, int64_t& mask) {
+  bool tags_field(const Path& p, int64_t& mask) {
     mask = 0;
     if (is_null()) return r_.skip() || json_error();
-    if (!r_.begin_array()) return field_error(path, "expected a list of strings");
+    if (!r_.begin_array()) return field_error(p, "expected a list of strings");
     int k;
     while ((k = r_.next_element()) == 1) {
       std::string_view s;
-      if (!r_.read_string(s)) return field_error(path, "expected a list of strings");
+      if (!r_.read_string(s)) return field_error(p, "expected a list of strings");
       for (size_t i = 0; i < law_.tags.size(); i++) {
         if (law_.tags[i] == s) mask |= int64_t(1) << i;
       }

@@ -557,7 +557,7 @@ TEST_CASE("input validation") {
 TEST_CASE("escaped item ids survive the round trip") {
   std::vector<uint8_t> img = th::compile(law({kMed}));
   std::string input = R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"},"items":[)"
-                      R"({"item_id":"q\"uote\\backé😀\n","date":"2026-07-01","amount_cents":5,"expense":"medical","confirmed":true}]})";
+                      R"({"item_id":"q\"uote\\back\u00e9\ud83d\ude00\n","date":"2026-07-01","amount_cents":5,"expense":"medical","confirmed":true}]})";
   json out = json::parse(th::eval_raw(img, input));
   CHECK(out["lines"][0]["item_id"] == "q\"uote\\back\xC3\xA9\xF0\x9F\x98\x80\n");
   CHECK(out["trace"][0]["item_id"] == out["lines"][0]["item_id"]);
