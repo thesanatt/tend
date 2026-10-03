@@ -34,7 +34,7 @@ export {
 } from "./forms";
 export { fetchLawLoader, LawBook, LawNotFoundError, type LawLoader } from "./law";
 export { buildLetters, LETTER_KINDS } from "./letters";
-export { isDemo, TOTAL_LINE } from "./summary";
+export { isDemo, TOTAL_LINE } from "./specs";
 
 export interface PacketDeps {
   loadLaw?: LawLoader;

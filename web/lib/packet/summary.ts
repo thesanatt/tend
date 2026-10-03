@@ -7,11 +7,9 @@ import { expenseLabel, expenseRank } from "../expenses";
 import { formatCents } from "../money";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, LineStatus, Rule } from "../types";
 import { METHOD_LABEL, privacyNotes } from "./filing";
-import type { FormSpec } from "./forms";
 import { param, type LawBook } from "./law";
 import { CONTENT_W, MARGIN, Pdf, type ColorKey, type Run } from "./pdf";
-
-export const TOTAL_LINE = "Amount you can ask for. The program decides.";
+import { isDemo, TOTAL_LINE, type FormSpec } from "./specs";
 
 export interface SummaryInput {
   law: LawBook;
@@ -37,11 +35,6 @@ const STATUS_TITLE: Record<LineStatus, string> = {
 const STATUS_COLOR: Partial<Record<LineStatus, ColorKey>> = { eligible: "green", held: "clay" };
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
-
-// Demo data comes from Capital One's Nessie sandbox; its records carry "nessie:" ids.
-export function isDemo(input: EngineInput): boolean {
-  return input.items.some((i) => i.item_id.startsWith("nessie:"));
-}
 
 class Writer {
   constructor(
