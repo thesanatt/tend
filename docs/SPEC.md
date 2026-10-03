@@ -163,3 +163,63 @@ the same decisions in the same order, so traces can be diffed.
 Rowan (Michigan) is the main demo. The same transaction history is also seeded for New York,
 California, and Texas personas so the demo can switch jurisdiction and show the claim recompute
 under each state's law.
+
+## v1.1: the law IR (supersedes the engine input section where they differ)
+
+The verified corpus is faithful to 51 different legal systems, so its params vary. A Python front
+end, `rules/tools/normalize.py`, turns each `rules/verified/ST.json` into a canonical
+`rules/ir/ST.json`. Both engines read ONLY the IR: the C++ compiler `tendc` compiles IR to a .tlaw
+image, and the Python reference interprets IR directly. Differential tests therefore compare two
+independent back ends on identical input.
+
+IR shape (all money in integer cents, all durations in days):
+
+```json
+{
+  "ir_version": 1, "jurisdiction": "MI", "source_sha256": "<sha256 of verified/MI.json>",
+  "rules": [
+    {"id": "MI-CAP-2", "kind": "expense_cap", "expense": "counseling",
+     "cap_cents": 8000, "per": "unit", "unit": "session", "count_limit": 35},
+    {"id": "MI-CAP-1", "kind": "total_cap", "cap_cents": 4500000},
+    {"id": "MI-EXAM-1", "kind": "exam_no_bill"},
+    {"id": "MI-EXCL-1", "kind": "excluded", "expense": "property_replacement", "tags": ["phone"]},
+    {"id": "MI-COVER-3", "kind": "covered", "expense": "transportation"},
+    {"id": "MI-FILE-1", "kind": "deadline", "days": 1826, "from": "crime"},
+    {"id": "MI-REPORT-1", "kind": "reporting", "required": true, "alternatives": ["forensic_exam"]},
+    {"id": "MI-MIN-1", "kind": "minimum_loss", "cap_cents": 20000, "days_lost": 5, "waiver": "discretionary", "waiver_for_sexual_assault": true},
+    {"id": "MI-COLL-1", "kind": "info", "category": "collateral_source"}
+  ],
+  "skipped": [{"id": "MD-COV-10", "reason": "applies_to: household family members, not the survivor"}]
+}
+```
+
+Normalization rules (the front end owns these; engines never see raw params):
+- `per`: claim, residence, crime_scene -> "claim". week, session, hour, mile, day, month, item ->
+  "unit" with that unit name. Unknown -> rule goes to `skipped` with the reason.
+- Rules with `applies_to` naming anyone other than the victim/claimant -> `skipped`.
+- Deadlines: years -> days (365*years + leap days approximated as years*365 + years//4),
+  months -> 30*months, days kept. No duration -> `info`.
+- `excluded_expense` with an `item` text: map to tags with a fixed keyword table (phone, cell phone,
+  mobile -> "phone"; purse, wallet, handbag -> "purse"; jewelry -> "jewelry"; cash, money ->
+  "cash"; car, vehicle -> "vehicle"; pain and suffering -> "pain_suffering"). An excluded rule
+  matches an item when expense matches (if given) AND (no tags OR the item carries one of the tags).
+  Unmapped item text -> `info`.
+- `minimum_loss` waiver: "automatic" only if the quote says the requirement does not apply to
+  sexual assault victims; otherwise "discretionary" when waived_for mentions sexual assault,
+  criminal sexual conduct, or forensic exam. Engines report `may_be_waived`, never `waived`, for
+  discretionary waivers.
+- `reporting`: required flag plus alternatives as given; within_hours -> within_days rounded up.
+- Several caps on the same (expense, per, unit): keep the most generous and add the others to the
+  line's `alt_cap_rule_ids` (the program decides which provider rate applies).
+- Everything else that is not decision-relevant (residency, eligible_crime, conduct_reduction,
+  emergency_award, exam_payment, collateral_source) -> `info` with its category. collateral_source
+  info still triggers the insurance subtraction in step 6.
+
+Engine semantics changes from v1.0:
+- Items may carry `tags` (classifier-set, e.g. ["phone"]).
+- Step 6 uses `unit` caps: allowed = min(allowed, cap_cents * units) when units > 0, and a
+  `count_limit` caps units at that count across the claim (in item order).
+- Minimum loss statuses: met, not_met, may_be_waived, unknown.
+- Reporting status: satisfied if police_report == yes, or forensic_exam is true and ANY reporting
+  rule lists forensic_exam; required if some rule has required=true and nothing satisfies it;
+  not_required if every rule has required=false; else unknown.
