@@ -1,0 +1,343 @@
+// Statement rows to engine items, on the device. Order: the rules ported from the API (registry,
+// keywords), then Gemini Nano on this device for what is left, then cloud Gemini only when the
+// caller passes the survivor's consent. Then rides are linked to same-day care and lost pay is
+// inferred from paychecks. Models only pick a label from a fixed list and never see amounts;
+// eligibility, caps and totals belong to the law engine.
+import type { Classifier, DeviceAi, Source, StatementTxn, Unit } from "../contracts";
+import { isIsoDay } from "../dates";
+import type { ItemExpense } from "../types";
+import { cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
+import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson } from "./deviceai";
+import { inferPayDips } from "./paydip";
+import {
+  classifyDeterministic,
+  contentKey,
+  displayDescription,
+  fromModelAnswer,
+  isTendPayment,
+  ITEMIZED_REASON,
+  linkCareRides,
+  MODEL_LABELS,
+  PROMPT_VERSION,
+  setAside,
+  stripTags,
+  TEND_PAYMENT_REASON,
+  unresolved,
+  type Anchor,
+  type Classification,
+  type FactKind,
+  type TxnFacts,
+} from "./rules";
+import type { ClassifyContext, ClassifyOptions, ClassifyReport, LocalClassifiedItem, LocalTxn } from "./types";
+
+export const DEVICE_BATCH = 6;
+export const DEVICE_TIMEOUT_MS = 5000;
+export const CLOUD_BATCH = 25;
+export const DEVICE_MODEL = "gemini-nano";
+
+// api/tend_api/classify.py SYSTEM_PROMPT, word for word, so device, cloud and server agree.
+export const SYSTEM_PROMPT = `You sort bank transactions for a tool that helps crime survivors find costs their state's
+victim compensation program may cover. For each transaction choose the one expense type it most likely is.
+Choose "unknown" for ordinary spending (food, household basics, entertainment) and whenever you cannot tell.
+Judge only from the merchant, its category, and the description. Do not mention amounts or numbers.
+Give a plain reason under 20 words that says what the purchase is. Never say whether it is covered,
+eligible, or reimbursable; the program's rules decide that, not you.
+
+Expense types:
+medical: hospital, clinic, doctor, ambulance, or lab charges
+forensic_exam: a sexual assault medical forensic exam
+counseling: therapy, counseling, or other mental health care
+lost_wages: pay lost from missed work (never a purchase)
+transportation: rides, transit, parking, or mileage
+relocation: moving costs, or a deposit or first month's rent on a new home
+temporary_housing: hotel or other short-term lodging
+security: locks, door hardware, alarms, cameras, or lighting that makes a home safer
+crime_scene_cleanup: cleaning a home or vehicle after a crime
+childcare: child care or babysitting
+property_replacement: replacing personal property such as a phone, laptop, or purse
+clothing_bedding: replacement clothing, sheets, pillows, or other bedding
+prescription: prescription medicine (over-the-counter items are not prescriptions)
+dental: dentist or dental care
+funeral: funeral or burial
+legal: attorney or legal services
+tuition: school tuition or fees
+other: eyeglasses, hearing aids, or other prescribed devices
+unknown: everyday spending, or not clear`;
+
+export function responseSchema(refs: string[]): object {
+  return {
+    type: "object",
+    properties: {
+      results: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            ref: { type: "string", enum: refs },
+            expense: { type: "string", enum: [...MODEL_LABELS] },
+            reason: { type: "string" },
+          },
+          required: ["ref", "expense", "reason"],
+          additionalProperties: false,
+        },
+      },
+    },
+    required: ["results"],
+    additionalProperties: false,
+  };
+}
+
+const FACT_KINDS = new Set<FactKind>(["purchase", "withdrawal", "deposit", "transfer", "bill"]);
+
+// What the rules may look at. Rows from a file carry no merchant, so the description does the work.
+export function toFacts(t: LocalTxn): TxnFacts {
+  const kind: FactKind = t.kind && FACT_KINDS.has(t.kind) ? t.kind : t.amount_cents < 0 ? "deposit" : "purchase";
+  return {
+    ref: t.id,
+    kind,
+    merchant_name: t.merchant ?? "",
+    merchant_category: t.category ?? "",
+    description: displayDescription(t.description ?? ""),
+    // A bank bill's dates are bookkeeping, so it never anchors a ride (classify.py does the same).
+    date: kind === "bill" ? "" : t.date,
+  };
+}
+
+const TAG_WORDS: [RegExp, string][] = [
+  [/\b(cell phone|mobile phone|phone|iphone|smartphone)\b/i, "phone"],
+  [/\b(purse|wallet|handbag)\b/i, "purse"],
+  [/\b(jewelry|jewellery)\b/i, "jewelry"],
+  [/\b(cash|money)\b/i, "cash"],
+  [/\b(vehicle|car)\b/i, "vehicle"],
+];
+
+// The law's exclusion tags (rules/tools/normalize.py TAG_WORDS), set only on replaced property, so
+// a state that excludes phones can show a new phone as excluded instead of guessing.
+export function tagsFor(expense: string, text: string): string[] {
+  if (expense !== "property_replacement") return [];
+  return TAG_WORDS.filter(([re]) => re.test(text))
+    .map(([, tag]) => tag)
+    .sort();
+}
+
+const slice200 = (s: string) => Array.from(s).slice(0, 200).join("");
+
+function sourceOf(c: Classification, modelSource: Map<string, Source>): Source {
+  return c.method === "model" ? (modelSource.get(c.ref) ?? "device_ai") : "rule";
+}
+
+export function toItem(t: LocalTxn, c: Classification, source: Source): LocalClassifiedItem | null {
+  if (!c.candidate || t.amount_cents < 0) return null;
+  const isBill = t.kind === "bill";
+  const perSession = c.expense === "counseling" && !isBill; // each counseling charge is one session
+  const text = isBill ? (t.merchant ?? t.description) : [t.merchant, t.description].filter(Boolean).join(" ");
+  const unit: Unit | null = perSession ? "session" : null;
+  return {
+    item_id: t.id,
+    date: t.date,
+    amount_cents: t.amount_cents,
+    expense: c.expense as ItemExpense,
+    confirmed: c.confirmed,
+    insurance_paid_cents: 0,
+    is_bill: isBill,
+    units: perSession ? 1 : 0,
+    unit,
+    tags: tagsFor(c.expense, text),
+    description: slice200(text),
+    source,
+    reason: c.reason,
+    confidence: c.confidence,
+    method: c.method,
+    linked_item_ids: [...c.linked_refs],
+  };
+}
+
+function modelRow(ref: string, f: TxnFacts): ModelRow {
+  return { ref, kind: f.kind, merchant: f.merchant_name, category: f.merchant_category, description: stripTags(f.description) };
+}
+
+type Answers = Map<string, { expense: string; reason: string; model: string; source: Source }>;
+
+function takeAnswers(answers: ModelAnswer[], refs: Map<string, string>, into: Answers, model: string, source: Source): number {
+  let n = 0;
+  for (const a of answers) {
+    const key = refs.get(String(a?.ref));
+    if (key === undefined || into.has(key) || !MODEL_LABELS.includes(String(a.expense))) continue;
+    into.set(key, { expense: String(a.expense), reason: String(a.reason ?? ""), model, source });
+    n++;
+  }
+  return n;
+}
+
+async function askDevice(pending: Map<string, TxnFacts>, answers: Answers, report: ClassifyReport, signal?: AbortSignal) {
+  const started = Date.now();
+  let base;
+  try {
+    base = await baseSession(SYSTEM_PROMPT, "text");
+  } catch (err) {
+    report.device.errors.push(`start: ${(err as Error).message}`);
+    return;
+  }
+  const keys = [...pending.keys()];
+  let timeouts = 0;
+  for (let start = 0; start < keys.length; start += DEVICE_BATCH) {
+    if (signal?.aborted) break;
+    const batch = keys.slice(start, start + DEVICE_BATCH);
+    const refs = new Map(batch.map((key, i) => [`t${i + 1}`, key]));
+    const rows = [...refs].map(([ref, key]) => modelRow(ref, pending.get(key)!));
+    const prompt = `Sort each of these bank transactions. Answer with one result per ref.\n${JSON.stringify(rows)}`;
+    report.device.batches++;
+    try {
+      const out = (await promptJson(base, prompt, responseSchema([...refs.keys()]), DEVICE_TIMEOUT_MS, signal)) as {
+        results?: ModelAnswer[];
+      };
+      takeAnswers(Array.isArray(out?.results) ? out.results : [], refs, answers, DEVICE_MODEL, "device_ai");
+      timeouts = 0;
+    } catch (err) {
+      report.device.errors.push(err instanceof DeviceAiTimeout ? `batch ${report.device.batches}: timed out` : `batch ${report.device.batches}: ${(err as Error).message}`);
+      if (err instanceof DeviceAiTimeout) {
+        // Two slow batches in a row means the device is busy; leave the rest for review or cloud.
+        if (++timeouts >= 2) break;
+      } else if (!(err instanceof SyntaxError)) {
+        forgetSessions();
+        break;
+      }
+    }
+  }
+  report.device.used = true;
+  report.device.ms += Date.now() - started;
+}
+
+async function askCloud(pending: Map<string, TxnFacts>, answers: Answers, report: ClassifyReport, opts: ClassifyOptions) {
+  const started = Date.now();
+  const keys = [...pending.keys()].filter((k) => !answers.has(k));
+  for (let start = 0; start < keys.length; start += CLOUD_BATCH) {
+    const batch = keys.slice(start, start + CLOUD_BATCH);
+    const refs = new Map(batch.map((key, i) => [`t${i + 1}`, key]));
+    const rows = [...refs].map(([ref, key]) => modelRow(ref, pending.get(key)!));
+    report.cloud.batches++;
+    try {
+      const { answers: got, model } = await cloudClassify(rows, { fetch: opts.fetch, signal: opts.signal, promptVersion: PROMPT_VERSION });
+      takeAnswers(got, refs, answers, model ?? "cloud", "cloud_ai");
+    } catch (err) {
+      report.cloud.errors.push((err as Error).message);
+      break;
+    }
+  }
+  report.cloud.used = true;
+  report.cloud.ms += Date.now() - started;
+}
+
+export async function classifyDetailed(
+  input: StatementTxn[],
+  ctx: ClassifyContext,
+  opts: ClassifyOptions = {},
+): Promise<ClassifyReport> {
+  if (!isIsoDay(ctx.incident_date)) throw new Error(`incident_date must be YYYY-MM-DD, got ${ctx.incident_date}`);
+  const report: ClassifyReport = {
+    items: [],
+    all: [],
+    counts: { rows: input.length, items: 0, rule: 0, device_ai: 0, cloud_ai: 0, unresolved: 0, pay_dips: 0 },
+    device: { status: "unavailable", used: false, batches: 0, ms: 0, errors: [] },
+    cloud: { used: false, batches: 0, ms: 0, errors: [] },
+    warnings: [],
+  };
+
+  // One row per id; a repeated id is the same record listed twice.
+  const txns: LocalTxn[] = [];
+  const ids = new Set<string>();
+  for (const t of input as LocalTxn[]) {
+    if (ids.has(t.id)) {
+      report.warnings.push(`A record was listed twice and counted once.`);
+      continue;
+    }
+    ids.add(t.id);
+    txns.push(t);
+  }
+  const facts = txns.map(toFacts);
+
+  // 1. Rules.
+  const done = new Map<string, Classification>();
+  const pending = new Map<string, TxnFacts>(); // content key -> first row with that content
+  for (const f of facts) {
+    const hit = classifyDeterministic(f);
+    if (hit) done.set(f.ref, hit);
+    else if (!pending.has(contentKey(f))) pending.set(contentKey(f), f);
+  }
+
+  // 2. Gemini Nano on this device, when it is ready. 3. Cloud Gemini, only with consent.
+  const answers: Answers = new Map();
+  if (pending.size && opts.deviceAi !== false) {
+    report.device.status = await deviceAiStatus("text");
+    if (report.device.status === "available") await askDevice(pending, answers, report, opts.signal);
+  }
+  if (pending.size > answers.size && opts.cloudConsent === true) await askCloud(pending, answers, report, opts);
+
+  const modelSource = new Map<string, Source>();
+  let results = facts.map((f) => {
+    const hit = done.get(f.ref);
+    if (hit) return hit;
+    const a = answers.get(contentKey(f));
+    if (!a) return unresolved(f);
+    modelSource.set(f.ref, a.source);
+    return fromModelAnswer(f, a.expense, a.reason, a.model);
+  });
+
+  // Rows whose dollars are offered another way: a bank bill with an itemized statement (its
+  // lines are read instead) and a payment Tend made (it paid lines that are already offered).
+  const byRef = new Map(txns.map((t) => [t.id, t]));
+  results = results.map((r) => {
+    const t = byRef.get(r.ref)!;
+    if (t.itemized) return setAside(r, ITEMIZED_REASON);
+    if (isTendPayment(t.description ?? "")) return setAside(r, TEND_PAYMENT_REASON);
+    return r;
+  });
+
+  // The itemized bill's service date is care on that day, so a ride then is travel to care.
+  const anchors: Anchor[] = [...(opts.anchors ?? [])];
+  const known = new Set(anchors.map((a) => `${a.date}|${a.ref}`));
+  for (const t of txns) {
+    const day = t.itemized?.service_date;
+    if (day && !known.has(`${day}|${t.id}`)) anchors.push({ date: day, ref: t.id, expense: "medical" });
+  }
+  results = linkCareRides(facts, results, anchors);
+  report.all = results;
+
+  for (const r of results) {
+    const source = sourceOf(r, modelSource);
+    if (r.method === "unresolved") report.counts.unresolved++;
+    else if (source === "rule") report.counts.rule++;
+    else report.counts[source === "cloud_ai" ? "cloud_ai" : "device_ai"]++;
+    const item = toItem(byRef.get(r.ref)!, r, source);
+    if (item) report.items.push(item);
+  }
+
+  if (opts.payDips !== false) {
+    const dips = inferPayDips(txns, ctx.incident_date).filter((d) => !ids.has(d.item_id));
+    report.items.push(...dips);
+    report.counts.pay_dips = dips.length;
+  }
+  report.counts.items = report.items.length;
+  if (report.device.errors.length && report.device.used)
+    report.warnings.push("The on-device model could not sort some rows, so they are left for you to check.");
+  if (report.cloud.errors.length) report.warnings.push("Cloud sorting did not answer, so some rows are left for you to check.");
+  return report;
+}
+
+export const classifier: Classifier & {
+  classify(txns: StatementTxn[], ctx: ClassifyContext, opts?: ClassifyOptions): Promise<LocalClassifiedItem[]>;
+  classifyDetailed: typeof classifyDetailed;
+  prewarm(): Promise<DeviceAi>;
+} = {
+  deviceAi: () => deviceAiStatus("text"),
+  async classify(txns: StatementTxn[], ctx: ClassifyContext, opts?: ClassifyOptions) {
+    return (await classifyDetailed(txns, ctx, opts)).items;
+  },
+  classifyDetailed,
+  // Loads the on-device model ahead of time (the first load can take several seconds). Never downloads.
+  async prewarm() {
+    const status = await deviceAiStatus("text");
+    if (status === "available") await baseSession(SYSTEM_PROMPT, "text").catch(() => undefined);
+    return status;
+  },
+};
