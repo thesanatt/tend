@@ -136,6 +136,36 @@
    "raw_path": "rules/sources/MN/MN-S12.pdf",
    "text_path": "rules/sources/MN/MN-S12.txt",
    "sha256": "f5971349d8d8f334f0ccca7883585106d0ddc477aa8cdcf48848880de9079ea3"
+  },
+  {
+   "id": "MN-S13",
+   "title": "Minn. Stat. 5B.02 (Safe at Home definitions)",
+   "url": "https://www.revisor.mn.gov/statutes/cite/5B.02",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:45Z",
+   "raw_path": "rules/sources/MN/MN-S13.html",
+   "text_path": "rules/sources/MN/MN-S13.txt",
+   "sha256": "f8364cede92b3735c8f71177f8638723db0ccf3a400775d1be76d482801765f9"
+  },
+  {
+   "id": "MN-S14",
+   "title": "Minn. Stat. 5B.03 (address confidentiality program)",
+   "url": "https://www.revisor.mn.gov/statutes/cite/5B.03",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:45Z",
+   "raw_path": "rules/sources/MN/MN-S14.html",
+   "text_path": "rules/sources/MN/MN-S14.txt",
+   "sha256": "0753c5671f290d09830457a33a6d3f1a0b48e438aed22fc31501a344ea2cb47e"
+  },
+  {
+   "id": "MN-S15",
+   "title": "Minnesota Secretary of State: Safe at Home",
+   "url": "https://www.sos.state.mn.us/safe-at-home/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:58:00Z",
+   "raw_path": "rules/sources/MN/MN-S15.html",
+   "text_path": "rules/sources/MN/MN-S15.txt",
+   "sha256": "eacc15599389ca9278390d44fa83b288f5424222b870f81f7c525624a712778b"
   }
  ],
  "rules": [
@@ -777,6 +807,29 @@
    "quote": "A mileage form will be sent to claimant after receipt of application. Or, it is available on the OJP website.",
    "source_id": "MN-S12",
    "pinpoint": "CVRB training slides (10/4/2025), slide 39, Application Instructions"
+  },
+  {
+   "id": "MN-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home",
+    "agency": "Minnesota Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "If you are eligible, you can enroll in the Safe at Home Program with the help of an Application Assistant."
+   },
+   "summary": "Safe at Home, run by the Minnesota Secretary of State, gives survivors of sexual assault, domestic violence, stalking, and others who fear for their safety a PO Box address and forwards their mail to their real address, so the home address stays confidential.",
+   "quote": "Safe at Home is a statewide address confidentiality program administered by the Office of the Minnesota Secretary of State. It is designed to help survivors of domestic violence, sexual assault, stalking, or others who fear for their safety maintain a confidential address.",
+   "source_id": "MN-S15",
+   "pinpoint": "Secretary of State, Safe at Home page, program description"
+  },
+  {
+   "id": "MN-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Reimbursement claims and their supporting documents and reports are investigative data while the claim is open, and private data on individuals once it is paid, denied, withdrawn, or abandoned; the board may still forward them to local law enforcement for restitution purposes.",
+   "quote": "Following the payment, denial, withdrawal, or abandonment of a claim, the claim and supporting documents and reports are private data on individuals as defined in section 13.02, subdivision 12",
+   "source_id": "MN-S4",
+   "pinpoint": "Minn. Stat. 611A.57, subd. 6"
   }
  ],
  "coverage": {
@@ -796,7 +849,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap:medical",
@@ -809,5 +864,5 @@
   "notes": "Program pages on dps.mn.gov load their FAQ accordion text by script, so the saved page snapshot has only headings, phone, and history; rules lean on the statute, Minn. R. 3050.3200, the brochure, the application form, the mileage form, and the program's own October 2025 training slides. The exam statute caps state payment to the provider at $1,400 adjusted annually for inflation since January 1, 2024; that is a provider payment cap, not a survivor limit, so it is not recorded as an expense_cap. Not found: no dollar cap on medical (the board sets a payment percentage each fiscal year under Minn. R. 3050.3700 and 3050.3800); transportation is paid at the federal mileage rate with no dollar cap found; no coverage for security found (slides list security systems as not covered); the statute sets no emergency award amount; the counseling limit appears only in the training slides, not in a published fee schedule. How to file: the application form (MN-S10, Rev. 5/24, still the live version) lists the mailing address, fax, and email; the program page links the online Victim Services Portal. No in-person filing method and no processing time or decision deadline was found in the statute or program sources."
  },
  "confidence": "high",
- "researcher_notes": "Disagreement: Minn. Stat. 611A.52, subd. 8(b)(7) covers moving, storage, and phone and utility installation fees up to $1,000 per claim when a move is needed for safety, but the program's 2025 training slides (MN-S12, slide 33) list moving expenses as non-covered (the slides' non-covered list is recorded as MN-EXC-SECURITY, MN-EXC-CLOTHING, and MN-EXC-LEGAL; moving is deliberately not recorded as excluded). The statute wins per SCHEMA rule 3, so MN-CAP-RELOCATION is kept; the survivor should confirm with the board. The counseling $7,500 limit, crime scene cleanup $10,000 limit, misconduct waiver for sexual assault, and residency statement come only from the 2025 training slides, whose PDF text extraction is partly garbled; the quoted strings were checked as clean. Minn. R. 3050.3800 says the board resets counseling and medical limits each fiscal year. The slides also say evidentiary exams are not paid by the reimbursement program because the Sexual Assault Exam Payment Program pays them. The OVC directory still uses the old name, Crime Victims Reparations Board (renamed Reimbursement Board in 2023). Phones: 651-201-7300 and toll free 888-622-8799. Review pass: MN-REPORT-3 is a cooperation rule, not an alternative to the police report, so its alternatives list is empty. The counseling, cleanup, and alternative healing limits come from the slides and are treated as per claim; the slides do not say per claim or per victim. The slides also say counseling is paid at 70 percent, dental at 90 percent, and medical at 60 percent of the bill with the provider writing off the rest. The application form says the 30-day report has exceptions for child abuse and sexual assault. Packet step: MN-S10 is the current application PDF (same size as the live file, last modified March 2026); it has 53 fillable AcroForm fields. The mail, fax, and email rules quote the form's 'Complete and submit to' box. The online rule quotes the program page's link text; the URL itself is the href on that page, not printed in the snapshot text. The program page's accordion (in the raw HTML only) says the signed application may be mailed, faxed, or emailed. The Board itself obtains the police report and medical records using the signed releases, so those are not recorded as documents the survivor must include."
+ "researcher_notes": "Disagreement: Minn. Stat. 611A.52, subd. 8(b)(7) covers moving, storage, and phone and utility installation fees up to $1,000 per claim when a move is needed for safety, but the program's 2025 training slides (MN-S12, slide 33) list moving expenses as non-covered (the slides' non-covered list is recorded as MN-EXC-SECURITY, MN-EXC-CLOTHING, and MN-EXC-LEGAL; moving is deliberately not recorded as excluded). The statute wins per SCHEMA rule 3, so MN-CAP-RELOCATION is kept; the survivor should confirm with the board. The counseling $7,500 limit, crime scene cleanup $10,000 limit, misconduct waiver for sexual assault, and residency statement come only from the 2025 training slides, whose PDF text extraction is partly garbled; the quoted strings were checked as clean. Minn. R. 3050.3800 says the board resets counseling and medical limits each fiscal year. The slides also say evidentiary exams are not paid by the reimbursement program because the Sexual Assault Exam Payment Program pays them. The OVC directory still uses the old name, Crime Victims Reparations Board (renamed Reimbursement Board in 2023). Phones: 651-201-7300 and toll free 888-622-8799. Review pass: MN-REPORT-3 is a cooperation rule, not an alternative to the police report, so its alternatives list is empty. The counseling, cleanup, and alternative healing limits come from the slides and are treated as per claim; the slides do not say per claim or per victim. The slides also say counseling is paid at 70 percent, dental at 90 percent, and medical at 60 percent of the bill with the provider writing off the rest. The application form says the 30-day report has exceptions for child abuse and sexual assault. Packet step: MN-S10 is the current application PDF (same size as the live file, last modified March 2026); it has 53 fillable AcroForm fields. The mail, fax, and email rules quote the form's 'Complete and submit to' box. The online rule quotes the program page's link text; the URL itself is the href on that page, not printed in the snapshot text. The program page's accordion (in the raw HTML only) says the signed application may be mailed, faxed, or emailed. The Board itself obtains the police report and medical records using the signed releases, so those are not recorded as documents the survivor must include. Privacy step: Safe at Home (Minn. Stat. ch. 5B, Secretary of State) is the address confidentiality program; the SOS page (MN-S15) names sexual assault survivors, and Minn. Stat. 5B.02(e) (MN-S13) defines an eligible person to include a victim of sexual assault, with Minnesota residency or intent to reside within 60 days and excluding registered predatory offenders. The SOS page says enrollment goes through an Application Assistant; the statute (5B.03, MN-S14) says applications are filed with the secretary of state, certification lasts four years, and the secretary designates one mailing address for participants. Record confidentiality: Minn. Stat. 611A.57, subd. 6 makes claims investigative data under section 13.39 while open and private data on individuals after the claim closes, but the board may forward claim forms and reports to local law enforcement under 611A.67. Separately, Minn. Stat. 609.35(d) (MN-S5) makes sexual assault exam payment requests private data. The application form (MN-S10) also tells applicants their claim is confidential."
 }

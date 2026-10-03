@@ -17,7 +17,7 @@
    "field_count": 168
   }
  },
- "source_sha256": "796d2ad80553fd2f06ca655c34e20aa5b56f690106eeeae425e703aaacbbf497",
+ "source_sha256": "2849e46f17a18c0fc91d9474145cab264be08c3be1491fde4674448bae38f1dd",
  "rules": [
   {
    "id": "AK-EXAM-1",
@@ -313,6 +313,16 @@
    "id": "AK-DOC-10",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "AK-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "AK-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

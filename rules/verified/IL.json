@@ -86,6 +86,26 @@
    "raw_path": "rules/sources/IL/IL-S7.pdf",
    "text_path": "rules/sources/IL/IL-S7.txt",
    "sha256": "ffa43cf9df25b3310d11b5a62cec5282c6e1c38a7c7cc9e8466c17606bc4954a"
+  },
+  {
+   "id": "IL-S8",
+   "title": "Address Confidentiality for Victims of Domestic Violence, Sexual Assault, Human Trafficking, or Stalking Act, 750 ILCS 61 (full act, ILGA)",
+   "url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2101&ChapterID=59",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:12Z",
+   "raw_path": "rules/sources/IL/IL-S8.html",
+   "text_path": "rules/sources/IL/IL-S8.txt",
+   "sha256": "fb312bc7feefc48cfc561f19aeb579124a45c54583407a18224d34153441bae5"
+  },
+  {
+   "id": "IL-S9",
+   "title": "Illinois Attorney General: Illinois Address Confidentiality Program (ACP)",
+   "url": "https://illinoisattorneygeneral.gov/safer-communities/supporting-victims-of-crime/address-confidentiality-program/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:13Z",
+   "raw_path": "rules/sources/IL/IL-S9.html",
+   "text_path": "rules/sources/IL/IL-S9.txt",
+   "sha256": "8b442c5fb782a06f04b65f9fb37d6c8a2ba36e2214475a2019ec5b8b01fb681d"
   }
  ],
  "rules": [
@@ -792,6 +812,31 @@
    "quote": "If yes, please explain and provide documentation for all complaints, proceedings or settlements",
    "source_id": "IL-S5",
    "pinpoint": "Application (Rev. 12/2024), Section 2, Use of Force Claims"
+  },
+  {
+   "id": "IL-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Illinois Address Confidentiality Program (ACP)",
+    "agency": "Office of the Illinois Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "Complete the secure online application below or download and complete the PDF version of the ACP Application. The PDF application contains instructions on how to submit the application."
+   },
+   "summary": "The Attorney General's Address Confidentiality Program gives survivors of sexual assault, domestic violence, human trafficking, and stalking a substitute address to use with State and local government agencies instead of their home, school, or work address.",
+   "quote": "The Address Confidentiality Program (ACP) provides a substitute address for victims of domestic violence, sexual assault, human trafficking, and stalking to use instead of their home, school, or work addresses when interacting with State and local government agencies.",
+   "source_id": "IL-S9",
+   "pinpoint": "Illinois AG ACP page, opening paragraph; statutory basis 750 ILCS 61/11 and 61/15",
+   "fragment_url": "https://illinoisattorneygeneral.gov/safer-communities/supporting-victims-of-crime/address-confidentiality-program/#:~:text=The%20Address%20Confidentiality%20Program%20%28ACP%29,State%20and%20local%20government%20agencies."
+  },
+  {
+   "id": "IL-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Records the Attorney General's office gets to process a compensation application, including the application, documents, and photographs, are exempt from disclosure under the Freedom of Information Act.",
+   "quote": "Any records obtained by the Attorney General's office to process the application, including but not limited to applications, documents, and photographs, shall be exempt from disclosure by the Attorney General's office under the Freedom of Information Act.",
+   "source_id": "IL-S1",
+   "pinpoint": "740 ILCS 45/4.2",
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=Any%20records%20obtained%20by%20the,the%20Freedom%20of%20Information%20Act."
   }
  ],
  "coverage": {
@@ -810,7 +855,9 @@
    "residency",
    "total_cap",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -823,8 +870,8 @@
    "administrative_rules",
    "processing_time"
   ],
-  "notes": "No minimum loss or deductible appears in the current Act. The Act sets no dollar caps for counseling, relocation, transportation, medical, or locks/doors/windows; those are limited only by the overall award cap. The emergency award has no stated dollar amount. I did not find Illinois administrative rules (Court of Claims or Attorney General) setting compensation caps or rates and did not save any. The OVC directory lists the Illinois Court of Claims (217-782-7101) as the VOCA compensation contact, but applications go to the Attorney General. Reviewer added the funeral ($10,000) and towing ($1,000) caps, the SASETA follow-up healthcare voucher rules, dental and prosthetic/eyeglasses coverage, the FAQ's exclusion of unlicensed counselors, and the cooperation rule for minors. Not encoded: replacement services loss and dependents replacement services loss, capped at $1,250 per month each (740 ILCS 45/2(h)(11)-(12)), because the schema's per list has no month value. How to file: no official source states a processing time for a decision or payment, so processing_time is not encoded (the 45-day window is the applicant's deadline to send proof of losses, not a processing time)."
+  "notes": "No minimum loss or deductible appears in the current Act. The Act sets no dollar caps for counseling, relocation, transportation, medical, or locks/doors/windows; those are limited only by the overall award cap. The emergency award has no stated dollar amount. I did not find Illinois administrative rules (Court of Claims or Attorney General) setting compensation caps or rates and did not save any. The OVC directory lists the Illinois Court of Claims (217-782-7101) as the VOCA compensation contact, but applications go to the Attorney General. Reviewer added the funeral ($10,000) and towing ($1,000) caps, the SASETA follow-up healthcare voucher rules, dental and prosthetic/eyeglasses coverage, the FAQ's exclusion of unlicensed counselors, and the cooperation rule for minors. Not encoded: replacement services loss and dependents replacement services loss, capped at $1,250 per month each (740 ILCS 45/2(h)(11)-(12)), because the schema's per list has no month value. How to file: no official source states a processing time for a decision or payment, so processing_time is not encoded (the 45-day window is the applicant's deadline to send proof of losses, not a processing time). Privacy (added): Illinois has an Address Confidentiality Program run by the Attorney General under 750 ILCS 61; sexual assault survivors are eligible, and no police report or protective order is required to enroll. The Crime Victims Compensation Act (740 ILCS 45/4.2) makes compensation application records exempt from FOIA disclosure by the Attorney General's office."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from ILGA and shows two versions of Sections 6.1, 7.1, 8.1, and 10.2: the text in effect now and the text after P.A. 104-563, which takes effect January 1, 2027. Rules marked 'text in effect before P.A. 104-563' quote the current version. Per the ILGA text, starting 1-1-27 the 7-day police notification rule for sexual offenses is replaced by a 30-day notification window for all crimes, mental health provider evaluations count as notice more broadly, mental health providers who certify a claim are limited to Medicare-approved rates, and emergency awards may cover funeral costs that have been quoted and relocation expenses due to be incurred; re-check these rules after that date. Disagreement: the AG sexual assault FAQ (IL-S7) says relocation covers 'the first month's rent', while the statute (740 ILCS 45/2(h)(7)) says 'the first 2 months' rent'; the statute controls and IL-COV-RELO follows it. The Court of Claims page (IL-S6) still says report within 72 hours without the 7-day sexual assault rule; the statute controls. Late applications may be accepted for good cause (740 ILCS 45/6.1(a-1)); it is not encoded as a rule because it has no fixed time. Expense cap for lost wages uses per='month' because the cap is monthly; the schema's per list has no month value. SASETA: the survivor's insurance is billed but the survivor owes nothing for outpatient exam/treatment; inpatient services may be billed. Insurance-billing param for IL-EXAM-1 is 'allowed' because 410 ILCS 70/7(a)(2) directs billing the survivor's insurer, with an opt-out for survivors who are not the policyholder (7.5(a-5)). Reviewer: the FAQ (IL-S7) also says good cause for a late application will be found when the delay came from a delay in testing a sexual assault kit or matching its DNA profile; the statute (6.1(a-1)) only says 'good cause', so this is not encoded. After the AG finds a claim eligible, the applicant gets 45 days from the letter to submit proof of losses (IL-S4, IL-S7); procedural, not encoded. The general police notification window for non-sexual crimes is 72 hours today (6.1(b)); the 7-day window in IL-REPORT-1 applies to the listed sexual offenses and trafficking. How to file (added): submission methods are online (preferred per the AG page), email of the fillable PDF to CVA@ilag.gov, and mail. The application PDF (IL-S5, Rev. 12/2024) gives two slightly different mailing names at the same address: page 1 says 'Crime Victim Compensation Bureau' and page 10 says 'Crime Victims Services Bureau', both at 115 South LaSalle Street, Chicago, IL 60603; IL-SUBMIT-MAIL uses the page 1 instructions. No fax or in-person filing is stated. The application PDF is fillable with 297 AcroForm fields. Documents are 'if available' at filing; the AG requests the police report itself and asks for proof of losses within 45 days after an eligibility letter."
+ "researcher_notes": "Statute text is from ILGA and shows two versions of Sections 6.1, 7.1, 8.1, and 10.2: the text in effect now and the text after P.A. 104-563, which takes effect January 1, 2027. Rules marked 'text in effect before P.A. 104-563' quote the current version. Per the ILGA text, starting 1-1-27 the 7-day police notification rule for sexual offenses is replaced by a 30-day notification window for all crimes, mental health provider evaluations count as notice more broadly, mental health providers who certify a claim are limited to Medicare-approved rates, and emergency awards may cover funeral costs that have been quoted and relocation expenses due to be incurred; re-check these rules after that date. Disagreement: the AG sexual assault FAQ (IL-S7) says relocation covers 'the first month's rent', while the statute (740 ILCS 45/2(h)(7)) says 'the first 2 months' rent'; the statute controls and IL-COV-RELO follows it. The Court of Claims page (IL-S6) still says report within 72 hours without the 7-day sexual assault rule; the statute controls. Late applications may be accepted for good cause (740 ILCS 45/6.1(a-1)); it is not encoded as a rule because it has no fixed time. Expense cap for lost wages uses per='month' because the cap is monthly; the schema's per list has no month value. SASETA: the survivor's insurance is billed but the survivor owes nothing for outpatient exam/treatment; inpatient services may be billed. Insurance-billing param for IL-EXAM-1 is 'allowed' because 410 ILCS 70/7(a)(2) directs billing the survivor's insurer, with an opt-out for survivors who are not the policyholder (7.5(a-5)). Reviewer: the FAQ (IL-S7) also says good cause for a late application will be found when the delay came from a delay in testing a sexual assault kit or matching its DNA profile; the statute (6.1(a-1)) only says 'good cause', so this is not encoded. After the AG finds a claim eligible, the applicant gets 45 days from the letter to submit proof of losses (IL-S4, IL-S7); procedural, not encoded. The general police notification window for non-sexual crimes is 72 hours today (6.1(b)); the 7-day window in IL-REPORT-1 applies to the listed sexual offenses and trafficking. How to file (added): submission methods are online (preferred per the AG page), email of the fillable PDF to CVA@ilag.gov, and mail. The application PDF (IL-S5, Rev. 12/2024) gives two slightly different mailing names at the same address: page 1 says 'Crime Victim Compensation Bureau' and page 10 says 'Crime Victims Services Bureau', both at 115 South LaSalle Street, Chicago, IL 60603; IL-SUBMIT-MAIL uses the page 1 instructions. No fax or in-person filing is stated. The application PDF is fillable with 297 AcroForm fields. Documents are 'if available' at filing; the AG requests the police report itself and asks for proof of losses within 45 days after an eligibility letter. Privacy (added): IL-ACP-1 quotes the AG program page (IL-S9); the statute (IL-S8, 750 ILCS 61/11) says the Attorney General 'shall administer an address confidentiality program for victims of domestic violence, sexual assault, human trafficking, or stalking', and 61/15 requires a sworn statement that the applicant has good reason to believe they are a victim and fears for their safety. The AG page says the ACP does not require a police report or protective order and cannot keep property records confidential. The ILGA text also shows a version of 750 ILCS 61 as amended by P.A. 104-837, effective 1-1-27, which keeps sexual assault eligibility and adds household members; re-check after that date. IL-RECCONF-1 quotes 740 ILCS 45/4.2 (identical in the text before and after P.A. 104-563); the same section also bars the AG's office from disclosing law enforcement reports and other documentation obtained to investigate a claim to the public."
 }

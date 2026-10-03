@@ -17,7 +17,7 @@
    "field_count": 296
   }
  },
- "source_sha256": "6a3157535067cc5f5c97ebe4afa89da6a0fcae4c7a1ae67ab8947c999624d6c5",
+ "source_sha256": "85b9830e195e3e3df4525d4d7a82ca2aefb639ef768ac0eb16b60b0301c9d24e",
  "rules": [
   {
    "id": "CT-EXAM-1",
@@ -246,6 +246,16 @@
    "id": "CT-DOC-9",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "CT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "CT-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

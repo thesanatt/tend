@@ -17,7 +17,7 @@
    "field_count": 207
   }
  },
- "source_sha256": "cfb0cd256a15a589ff65d8a4dbeff72943e817e1c46dc1f2a467769fcb51e557",
+ "source_sha256": "2d7d1307f1a948cea8af46d94c8d999bfe48b8ee6bbfc66a11afa3ed79329497",
  "rules": [
   {
    "id": "CA-EXAM-1",
@@ -221,6 +221,16 @@
    "id": "CA-TIME-2",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "CA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "CA-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

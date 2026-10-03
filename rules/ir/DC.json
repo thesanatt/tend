@@ -17,7 +17,7 @@
    "field_count": 443
   }
  },
- "source_sha256": "9d5b4749cfacc2c4627c1e3fe1f75e0ac2555dcbb45783a27cadac3f0d1c6094",
+ "source_sha256": "2dd795bfd3403e3a00d6ee1e3911c94b684da394c4a748877feb85b6fc5732a1",
  "rules": [
   {
    "id": "DC-EXAM-1",
@@ -316,6 +316,16 @@
    "id": "DC-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "DC-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "DC-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

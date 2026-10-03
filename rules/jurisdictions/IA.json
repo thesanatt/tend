@@ -116,6 +116,46 @@
    "raw_path": "rules/sources/IA/IA-S10.html",
    "text_path": "rules/sources/IA/IA-S10.txt",
    "sha256": "3a367f92873b10a2476b3a57992be2c18e979d4c7517213223c8a052701200f0"
+  },
+  {
+   "id": "IA-S11",
+   "title": "Iowa Code 2026, chapter 9E (Address Confidentiality Program)",
+   "url": "https://www.legis.iowa.gov/docs/code/9E.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:17Z",
+   "raw_path": "rules/sources/IA/IA-S11.pdf",
+   "text_path": "rules/sources/IA/IA-S11.txt",
+   "sha256": "64f327a513c1707e8a20c71f6176d1f04bc879723499226c5c4d7566563eb737"
+  },
+  {
+   "id": "IA-S12",
+   "title": "Iowa Code 2026, section 22.7 (Confidential records)",
+   "url": "https://www.legis.iowa.gov/docs/code/22.7.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:17Z",
+   "raw_path": "rules/sources/IA/IA-S12.pdf",
+   "text_path": "rules/sources/IA/IA-S12.txt",
+   "sha256": "6f00cfe984624142fef5d837ad6cd056d9323d819e7f6a9b9f0d018405575d85"
+  },
+  {
+   "id": "IA-S13",
+   "title": "Iowa Safe at Home (Iowa Secretary of State address confidentiality program home page)",
+   "url": "https://safeathome.iowa.gov/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:00:06Z",
+   "raw_path": "rules/sources/IA/IA-S13.html",
+   "text_path": "rules/sources/IA/IA-S13.txt",
+   "sha256": "0de84f5285934603144e4ed7a2efe80bd0a075e6194e0055862b1d4cfdb8e337"
+  },
+  {
+   "id": "IA-S14",
+   "title": "Apply (Iowa Safe at Home application page)",
+   "url": "https://safeathome.iowa.gov/apply/apply.html",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:00:09Z",
+   "raw_path": "rules/sources/IA/IA-S14.html",
+   "text_path": "rules/sources/IA/IA-S14.txt",
+   "sha256": "6462c68d1c95249dd1e860c08df9d381801f7af371944c22cf5d4da674b48985"
   }
  ],
  "rules": [
@@ -752,6 +792,29 @@
    "quote": "Eligibility determination may take eight weeks.",
    "source_id": "IA-S2",
    "pinpoint": "Quick Facts"
+  },
+  {
+   "id": "IA-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home",
+    "agency": "Iowa Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Download and complete the application, then mail it to Safe At Home, P.O. Box 959, Des Moines, IA 50304. Questions: safeathome@iowa.gov or 515-725-7233."
+   },
+   "summary": "Iowa's Safe at Home program, run by the Secretary of State, gives survivors of sexual assault, domestic violence, trafficking, stalking, and assault a substitute address and mail forwarding so their real address stays off public records. It also offers confidential voter registration and absentee voting.",
+   "quote": "Safe at Home is an address confidentiality program that provides participants with a substitute address. Who Survivors of domestic violence, sexual assault, trafficking, stalking, and assault.",
+   "source_id": "IA-S13",
+   "pinpoint": "Safe at Home home page, program description (Who)"
+  },
+  {
+   "id": "IA-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Confidential information the compensation program collects to process a claim, such as medical and counseling records that are confidential under Iowa's public records law, stays confidential in the program's hands. Iowa law does not say the claim file as a whole is exempt from public records requests.",
+   "quote": "Information and records which are confidential under section 22.7 and information or records received from the confidential information or records remain confidential under this section.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.90(1)"
   }
  ],
  "coverage": {
@@ -770,14 +833,16 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "total_cap",
    "minimum_loss"
   ],
-  "notes": "Iowa sets per-category limits in Iowa Code 915.86 and no overall maximum award was found in the statute, rules, or program pages, so total_cap is left out. No minimum out-of-pocket loss was found. Housing assistance (915.86(17)) is in the statute but the program facts page lists it as currently unavailable."
+  "notes": "Iowa sets per-category limits in Iowa Code 915.86 and no overall maximum award was found in the statute, rules, or program pages, so total_cap is left out. No minimum out-of-pocket loss was found. Housing assistance (915.86(17)) is in the statute but the program facts page lists it as currently unavailable. Address confidentiality: Iowa's Safe at Home program (Iowa Code chapter 9E, IA-S11) is run by the Secretary of State; the program page (IA-S13) lists survivors of sexual assault and 9E.1 and 9E.2 name sexual abuse victims as eligible. Record confidentiality: Iowa Code 915.90 keeps confidential records the program receives confidential; no statute making the whole claim file exempt from public records was found."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is the Iowa Code 2026 chapter 915 PDF from legis.iowa.gov; rules are 61 IAC ch. 9 (IAC 2/5/25, ARC 8358C effective 12/18/24). Exam payment: 61 IAC 9.83(2) pays qualified providers a $400 provider fee plus a $300 facility fee for exams within 30 days; the exam program has no application for the survivor. Survivor-relevant extras not encoded as rules: 61 IAC 9.30(4) says a sexual abuse victim is deemed to have reasonably cooperated with law enforcement if the victim undergoes a sexual abuse evidentiary examination; Iowa Code 915.84(4) exempts certain child and dependent adult sexual abuse victims from police reporting when the abuse was reported to and verified by HHS; the quick guide says criminal charges do not have to be filed. 61 IAC 9.35(3) pays up to 12 counseling sessions in full with a treatment plan, after which preexisting issues can reduce payment; this is not a hard session cap, so it is not encoded as count_limit. Iowa Code 915.86(18) allows up to $5,000 per person of additional compensation for undue hardship or new events beyond category limits (not for relocation, housing, or loss of support); not encoded. The program facts page and 61 IAC 9.35(8) say lost wages beyond two weeks need a disability statement. Phones and other personal property: not covered (property loss excluded), but medical devices and medication taken, lost, or destroyed in the crime can be replaced under 61 IAC 9.35(1)(g). The Capitol program phone 515-281-5044 also appears on the exam page (IA-S3). Facts page IA-S2 contains the same quick facts as program page IA-S1. Reviewer: Iowa Code 915.84(2) lets the department waive the 30-day emergency relocation window for good cause. Iowa Code 915.86(1)(b) says a medical provider that accepts the program's full payment at the established rate must hold the victim harmless for the rest. IA-COUNS-2 ($2,000) and IA-WAGES-2 ($1,000) are caps for secondary victims and for court or investigation time, not the primary victim's main counseling or lost-wage caps (IA-COUNS-1, IA-WAGES-1). Housing assistance (IA-HOUSING-1) has no matching benefit category in 61 IAC 9.35 and the facts page says it is currently unavailable, so treat it as not currently paid. How to file (added Oct 3): the English primary victim application (IA-S5, 2023 brochure, PDF dated Aug 15 2023) is still the one linked from the program and printable-applications pages; it is a flat print-and-sign PDF with no form fields. The online application page (IA-S8) links to the portal at ccvcia.org (IA-S10), where you must create an account to file. Mailing address conflict: the 2023 brochure's contact panel lists the Lucas State Office Building, Ground Floor, 321 East 12th Street, and its business reply panel is addressed to the State Capitol, 1015 E Grand Ave, Des Moines IA 50319-9903; the current portal and every AG page list the Hoover Building, 1305 E Walnut Street, so IA-SUBMIT-2 uses Hoover. No source says the application can be faxed or emailed: fax 515-281-8199 appears only as a contact number and crimevictiminfo@ag.iowa.gov only 'for help', so neither is encoded as a submission method. Filing by phone at 1-800-373-5044 is allowed (61 IAC 9.28, facts page) but phone is not a schema submission method. No source asks the applicant to attach a police report; the application asks for the law enforcement agency and case number instead, and 61 IAC 9.33 refers to a law enforcement verification form the program sends to police."
+ "researcher_notes": "Statute text is the Iowa Code 2026 chapter 915 PDF from legis.iowa.gov; rules are 61 IAC ch. 9 (IAC 2/5/25, ARC 8358C effective 12/18/24). Exam payment: 61 IAC 9.83(2) pays qualified providers a $400 provider fee plus a $300 facility fee for exams within 30 days; the exam program has no application for the survivor. Survivor-relevant extras not encoded as rules: 61 IAC 9.30(4) says a sexual abuse victim is deemed to have reasonably cooperated with law enforcement if the victim undergoes a sexual abuse evidentiary examination; Iowa Code 915.84(4) exempts certain child and dependent adult sexual abuse victims from police reporting when the abuse was reported to and verified by HHS; the quick guide says criminal charges do not have to be filed. 61 IAC 9.35(3) pays up to 12 counseling sessions in full with a treatment plan, after which preexisting issues can reduce payment; this is not a hard session cap, so it is not encoded as count_limit. Iowa Code 915.86(18) allows up to $5,000 per person of additional compensation for undue hardship or new events beyond category limits (not for relocation, housing, or loss of support); not encoded. The program facts page and 61 IAC 9.35(8) say lost wages beyond two weeks need a disability statement. Phones and other personal property: not covered (property loss excluded), but medical devices and medication taken, lost, or destroyed in the crime can be replaced under 61 IAC 9.35(1)(g). The Capitol program phone 515-281-5044 also appears on the exam page (IA-S3). Facts page IA-S2 contains the same quick facts as program page IA-S1. Reviewer: Iowa Code 915.84(2) lets the department waive the 30-day emergency relocation window for good cause. Iowa Code 915.86(1)(b) says a medical provider that accepts the program's full payment at the established rate must hold the victim harmless for the rest. IA-COUNS-2 ($2,000) and IA-WAGES-2 ($1,000) are caps for secondary victims and for court or investigation time, not the primary victim's main counseling or lost-wage caps (IA-COUNS-1, IA-WAGES-1). Housing assistance (IA-HOUSING-1) has no matching benefit category in 61 IAC 9.35 and the facts page says it is currently unavailable, so treat it as not currently paid. How to file (added Oct 3): the English primary victim application (IA-S5, 2023 brochure, PDF dated Aug 15 2023) is still the one linked from the program and printable-applications pages; it is a flat print-and-sign PDF with no form fields. The online application page (IA-S8) links to the portal at ccvcia.org (IA-S10), where you must create an account to file. Mailing address conflict: the 2023 brochure's contact panel lists the Lucas State Office Building, Ground Floor, 321 East 12th Street, and its business reply panel is addressed to the State Capitol, 1015 E Grand Ave, Des Moines IA 50319-9903; the current portal and every AG page list the Hoover Building, 1305 E Walnut Street, so IA-SUBMIT-2 uses Hoover. No source says the application can be faxed or emailed: fax 515-281-8199 appears only as a contact number and crimevictiminfo@ag.iowa.gov only 'for help', so neither is encoded as a submission method. Filing by phone at 1-800-373-5044 is allowed (61 IAC 9.28, facts page) but phone is not a schema submission method. No source asks the applicant to attach a police report; the application asks for the law enforcement agency and case number instead, and 61 IAC 9.33 refers to a law enforcement verification form the program sends to police. Privacy (added Oct 3): Safe at Home, Iowa Code chapter 9E (IA-S11), run by the Secretary of State. Iowa Code 9E.2(6)(a)(1) makes eligible a victim of sexual abuse as evidenced by a petition under 236.3 or a criminal complaint or information under 708.1, 708.2A, 708.11, 710A.2, or any chapter 709 violation, but 9E.3(1)(b)(1) lets the applicant instead state good reason to believe the person is a victim of sexual abuse or fears for their safety, and the program page (IA-S13) lists survivors of sexual assault without mentioning a complaint; check this with the program before telling a survivor who has not reported that they qualify. Certification lasts four years (9E.3(3)). Iowa Code 9E.7 makes information the Secretary holds about applicants and participants confidential. Applications are mailed to Safe at Home, P.O. Box 959, Des Moines, IA 50304 (IA-S13, IA-S14); phone 515-725-7233. Record confidentiality: Iowa Code 915.90(1) says records confidential under 22.7 (which covers hospital, medical, and counselor records, IA-S12 22.7(2)) and information received from them remain confidential when the program obtains them. The application's release form (IA-S5) also says 'Iowa and federal law requires the CVC Program to keep confidential all confidential information received' and that mental health, drug or alcohol treatment, and HIV screening records are kept confidential. No Iowa statute or rule was found that makes the claim itself or the applicant's identity exempt from public records requests; 22.7 has no victim compensation entry."
 }

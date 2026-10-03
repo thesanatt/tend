@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "83edc662816f64d79761a7a129f52acdad9c26abd05f646214883a636176058a",
+ "source_sha256": "b32cb0ab99cd81eb5d98653c4381f27fa7d310bd9792d57f29b6689973030a32",
  "rules": [
   {
    "id": "IA-EXAM-1",
@@ -310,6 +310,16 @@
    "id": "IA-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "IA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "IA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

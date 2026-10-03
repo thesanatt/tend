@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "a18ee3de5c077c8f9d6a99c48a3ff8d895ece1a53f0535d561245a41272bfc9d",
+ "source_sha256": "f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418",
  "rules": [
   {
    "id": "ND-EXAM-1",
@@ -315,6 +315,11 @@
    "id": "ND-DOC-16",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "ND-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

@@ -17,7 +17,7 @@
    "field_count": 552
   }
  },
- "source_sha256": "c957ef2650f3d15ca27451832e0ebac2021b04fed664a5ac5715e82c82145ae0",
+ "source_sha256": "d11f0846735bb38cbd6f80f7466000d16c07307695d87a44893b7bac390bb6c8",
  "rules": [
   {
    "id": "NY-EXAM-1",
@@ -331,6 +331,16 @@
    "id": "NY-DOC-8",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "NY-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NY-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

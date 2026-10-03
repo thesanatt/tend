@@ -17,7 +17,7 @@
    "field_count": 116
   }
  },
- "source_sha256": "1b0b90e10653692ddfcc0101bb3bfd04df987a96cf9299a9fe0feb586c011071",
+ "source_sha256": "5ac3957e483ba6cf4fab08a0ef3888955958a6d15b7b83ec4bdc6569ae3943f3",
  "rules": [
   {
    "id": "NC-EXAM-1",
@@ -220,6 +220,21 @@
    "id": "NC-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "NC-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NC-ACP-2",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NC-CONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

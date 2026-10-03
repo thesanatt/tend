@@ -1,0 +1,502 @@
+    <!-- #region Login -->
+    <!-- #endregion -->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head id="Head1">
+		    <title>&#167; 2.2-515.2. Address confidentiality program established; victims of domestic violence, stalking, child abduction, sexual violence, or human trafficking; application; disclosure of records</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<link rel="apple-touch-icon" href="./images/favicon-law16.png" sizes="16x16" />
+		<link rel="apple-touch-icon" href="./images/favicon-law32.png" sizes="32x32" />
+        <script src="/Scripts/session.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="/Content/base.css" type="text/css" media="all" />
+		<!--[if lt IE 9 ]><link rel="stylesheet" href="./Content/720_grid.css" type="text/css" /><![endif]-->
+		<link rel="stylesheet" href="/Content/720_grid.css" type="text/css" media="screen and (min-width: 720px)" />
+		<link rel="stylesheet" href="/Content/986_grid.css" type="text/css" media="screen and (min-width: 986px)" />
+		<link rel="stylesheet" href="/Content/1236_grid.css" media="screen and (min-width: 1236px)" />
+		<link rel="stylesheet" href="/Content/font-awesome.min.css" />
+		<link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css' />
+		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT Serif:r,i,400,700" />
+		
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,300,300italic,400italic,700italic' rel='stylesheet' type='text/css' />
+		<link rel="stylesheet" href="/Content/jquery.fancybox.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="/Content/jquery.qtip.min.css" type="text/css" media="all" />
+		
+		<meta name='docid' content='3470' /><meta name='title' content='Title 2.2. Administration of Government' /><meta name='COVtitle' content='Title 2.2. Administration of Government' /><meta name='subject' content='' /><meta name='subject' content='' />
+
+		<style type="text/css">.fancybox-margin {margin-right: 0px;}</style>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-F6YYKCXH17"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F6YYKCXH17');
+        </script>
+        <script src="/Scripts/jquery.min.js" type="text/javascript"></script>
+        <script src="/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $('document').ready(function () {
+                $('#print').attr("aria-label", "Print Button");
+                $('#txtsearch-in').attr("aria-label", "Search within the current selection");
+                
+                $("#mobile-menu-toggle").click(function () {
+                    $("#section-menu").toggleClass("open");
+                    $(".mobile-overlay").toggleClass("open");
+                });
+
+                $(".mobile-overlay").click(function () {
+                    $("#section-menu").removeClass("open");
+                    $(".mobile-overlay").removeClass("open");
+                });
+            });
+        </script>
+        <script>
+            $(function () {
+                var searchList = document.getElementById("searchList");
+                if (!searchList.length) {
+                    return;
+                }
+
+                var path = (window.location.pathname || "").toLowerCase();
+                var selectedValue = "all";
+                document.getElementById("searchList").value = "LAW";
+
+                if (path.includes("/admincode")) {
+                    selectedValue = "admin";
+                    document.getElementById("searchBtn").value = "Administrative_Code";
+                } else if (path.includes("/constitution")) {
+                    selectedValue = "constitution";
+                    document.getElementById("searchBtn").value = "Constitution";
+                } else if (path.includes("/vacode")) {
+                    selectedValue = "code";
+                    document.getElementById("searchBtn").value = "Code_of_Virginia";
+                } else if (path.includes("/charters")) {
+                    selectedValue = "charters";
+                    document.getElementById("searchBtn").value = "Charters";
+                } else if (path.includes("/authorities")) {
+                    selectedValue = "authorities";
+                    document.getElementById("searchBtn").value = "Authorities";
+                } else if (path.includes("/compacts")) {
+                    selectedValue = "compacts";
+                    document.getElementById("searchBtn").value = "Compacts";
+                } else if (path.includes("/uncodifiedacts")) {
+                    selectedValue = "uncodified";
+                    document.getElementById("searchBtn").value = "Uncodified_Acts";
+                }
+
+                searchList.querySelectorAll("option").forEach(function(option) {
+                    option.selected = false;
+                });
+                var selectedOption = searchList.querySelector('option[value="' + selectedValue + '"]');
+                if (selectedOption) {
+                    selectedOption.selected = true;
+                }
+            });
+        </script>
+	</head>
+
+<body>
+    <input aria-hidden="true" type="text" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0" /> 
+    <input aria-hidden="true" type="password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0" />
+    <input aria-hidden="true" type="hidden" id="hidSignIn" value="0" />
+    
+    
+    <div class="mobile-overlay"></div>
+    <div class="top-bar"></div>
+    <header>
+        <nav>
+            <div class="lis-links-content full">
+                <ul>
+                    <li><a href="https://virginiageneralassembly.gov/">Virginia General Assembly</a> /</li>
+                    <li><a href="https://help.lis.virginia.gov">LIS Learning Center</a> /</li>
+                    <li><a href="https://lis.virginia.gov/privacy">Privacy Policy</a> /</li>
+                    <li><a href="https://lis.virginia.gov">LIS home</a> /</li>
+                    <li><a href="https://lis.virginia.gov/register-account">Register Account</a> /</li>
+                    <li><a href="https://lis.virginia.gov/login">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="grid-wrapper one-and-three halves">
+        
+			<a href="https://lis.virginia.gov" id="logo-link">
+				<img alt="LIS Logo" src="/images/lis_logo.png" /> 
+			</a>
+		
+        <div class="portal-links">
+            <ul>
+                <li>
+                    <a class="txt-blue" href="https://lis.virginia.gov">Session Information</a>
+                </li>
+                <li>
+                    <a class="txt-dark-blue" href="https://lis.virginia.gov/bill-search">Bills & Resolutions</a>
+                </li>
+                <li>
+                    <a class="txt-green" href="https://budget.lis.virginia.gov/default/2025/1">State Budget</a>
+                </li>
+                <li>
+                    <a class="txt-light-green" href="https://law.lis.virginia.gov/">Virginia Law</a>
+                </li>
+                <li>
+                    <a class="txt-orange" href="https://rga.lis.virginia.gov/">Reports to the General Assembly</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mobile-menu">
+            <i id="mobile-menu-toggle" class="fa fa-bars"></i>
+        </div>
+    </div>
+        
+        
+        <div class="va-law">
+            <div class="grid">
+                <div class="row">
+                    <div class="slot-0-1-2">
+                        <h1><a href="https://law.lis.virginia.gov">Virginia Law</a></h1>
+                    </div>
+                    <div class="slot-3-4-5">
+                        <div class="input-group .search-comp ">
+                            <div class="input-group-btn">
+                                <label for="searchList" class="sr-only">Select Search Type</label>
+                                <select id="searchList" name="searchTypeSelect" class="btn input-sm btn-default dropdown-toggle" aria-label="Select Search Type">
+                                    <option value="all">All</option>
+                                    <option value="code">Code of Virginia</option>
+                                    <option value="admin">Administrative Code</option>
+                                    <option value="constitution">Constitution</option>
+                                    <option value="charters">Charters</option>
+                                    <option value="authorities">Authorities</option>
+                                    <option value="compacts">Compacts</option>
+                                    <option value="uncodified">Uncodified Acts</option>
+                                </select>
+                            </div>
+                            <input aria-label="search input" type="text" id="txtSearch" class="form-control input-sm" placeholder="Search" />
+                            <span class="input-group-btn">
+                                <button aria-label="search button" class="btn btn-sm btn-default" id="searchBtn" type="submit" value="LAW">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="grid">
+            <!-- #region Variables -->
+<!-- #endregion -->
+<!-- #region Highlights -->
+<!-- #endregion -->
+<!-- #region Build Pages -->
+<!-- #endregion -->
+
+
+<body class="flipcol ">
+	<input type="hidden" id="hidST" />
+	<input type="hidden" id="hidToC" value="1" />
+	<input type="hidden" id="hidID" />
+	<input type="hidden" id="hidNote"/>
+	<input type="hidden" id="hidBiP" value="false" />
+	<input type="hidden" id="hidReport" value="0" />
+	<input type="hidden" id="hidSegments" value="2.2-515.2" />
+    <input type="hidden" id="hidPage" value="vacode" />
+	<div class="grid">
+		<div class="row">
+			<div class="slot-6-7-8">
+				<section id="pageTitle"><h2 class='pg-title'>Code of Virginia</h2></section>
+				<section class="breadcrumbs" id="breadcrumbs"><p><a href='/vacode/'>Table of Contents</a> &raquo; <a href='/vacode/title2.2/'>Title 2.2. Administration of Government</a> &raquo; <a href='/vacode/title2.2#subtitleI/'>Subtitle I. Organization of State Government</a>  &raquo; <a href='/vacode/title2.2#subtitleIpartB/'>Part B. Department of Law</a>  &raquo; <a href='/vacode/title2.2/chapter5/'>Chapter 5. Department of Law</a>  &raquo; <a href='/vacode/title2.2/chapter5#article1/'>Article 1. General Provisions</a>  &raquo; <span class='breadcrumb-inactive'>§ 2.2-515.2. Address confidentiality program established; victims of domestic violence, stalking, child abduction, sexual violence, or human trafficking; application; disclosure of records</span></p></section>
+				<section class="content-header-menu" id="menucontainer">
+					<nav class="content-header-menu-left"><ul><li><a title='§ 2.2-515.1. Statewide Facilitator for Victims of Domestic Violence' href='/vacode/title2.2/chapter5/section2.2-515.1/''><i class='fa fa-long-arrow-left'></i></a> Section <a title='§ 2.2-516. Annual report' href='/vacode/title2.2/chapter5/section2.2-516/''><i class='fa fa-long-arrow-right'></i></a></li></ul></nav>
+					<a href="#" class="scroll_top" aria-hidden="true"><i class="fa fa-arrow-up"></i></a>
+					<nav class="content-header-menu-middle"><ul><li><span id='printNorm'><a title='Print page' id='print' href='' ><i class='fa fa-print'></i> Print</a></span></li><li><a id='A3' data-section='vacode/2.2-515.2' title ='Download PDF' href=''><i class='fa fa-file-text'></i> PDF</a></li><li><a class='fancybox fancybox.iframe' href='/emailForm'><i class='fa fa-envelope'></i> email</a></li></ul></nav>
+							<nav class="content-header-menu-right"></nav>
+
+				</section>
+				<p class="sidenote alert rptCheckbox"><strong>Creating a Report:</strong> Check the sections you'd like to appear in the report, then use the "Create Report" button at the bottom of the page to generate your report. Once the report is generated you'll then have the option to download it as a pdf, print or email the report.</p>
+				<article id="vacode" class="content">
+					<div id="printStuff"><div id='printHeader'>Code of Virginia<br/>Title 2.2. Administration of Government<br/>Chapter 5. Department of Law</div><div id='printDate'>10/3/2026</div></div>
+					<span id='va_code' class="content"><!--googleon: index--><h2> <span id='v0'>§ 2.2-515.2</span>. Address confidentiality program established; victims of domestic violence, stalking, child abduction, sexual violence, or human trafficking; application; disclosure of records.</h2><section class='body editable' id='edit40457' data-table='CoV' data-field='body'><p>A. As used in this section:</p><p>"Address" means a residential street address, school address, or work address of a person as specified on the person's application to be a program participant.</p><p>"Applicant" means a person who is a victim of domestic violence, stalking, child abduction, or sexual violence or is a parent or guardian of a minor child or incapacitated person who is the victim of domestic violence, stalking, child abduction, or sexual violence.</p><p>"Child abduction" means conduct that is prohibited under § <a href='/vacode/18.2-47/'>18.2-47</a>, <a href='/vacode/18.2-48/'>18.2-48</a>, <a href='/vacode/18.2-48.1/'>18.2-48.1</a>, or <a href='/vacode/18.2-49/'>18.2-49</a> when such prohibited conduct is committed against a minor.</p><p>"Domestic violence" means an act as defined in § <a href='/vacode/38.2-508/'>38.2-508</a> and includes threat of such acts committed against an individual in a domestic situation, regardless of whether these acts or threats have been reported to law-enforcement officers. Such threat must be a threat of force which would place any person in reasonable apprehension of death or bodily injury.</p><p>"Program participant" means a person certified by the Office of the Attorney General as eligible to participate in the Address Confidentiality Program.</p><p>"Sexual or domestic violence programs" means public and not-for-profit agencies the primary mission of which is to provide services to victims of sexual or domestic violence, or stalking. Such programs may also include specialized services for victims of human trafficking.</p><p>"Sexual violence" means conduct that is prohibited under clause (ii), (iii), (iv), or (v) of § <a href='/vacode/18.2-48/'>18.2-48</a>, or § <a href='/vacode/18.2-61/'>18.2-61</a>, <a href='/vacode/18.2-63/'>18.2-63</a>, <a href='/vacode/18.2-64.1/'>18.2-64.1</a>, <a href='/vacode/18.2-67.1/'>18.2-67.1</a>, <a href='/vacode/18.2-67.2/'>18.2-67.2</a>, <a href='/vacode/18.2-67.3/'>18.2-67.3</a>, <a href='/vacode/18.2-67.4/'>18.2-67.4</a>, <a href='/vacode/18.2-67.5/'>18.2-67.5</a>, <a href='/vacode/18.2-348/'>18.2-348</a>, <a href='/vacode/18.2-348.1/'>18.2-348.1</a>, <a href='/vacode/18.2-349/'>18.2-349</a>, <a href='/vacode/18.2-355/'>18.2-355</a>, <a href='/vacode/18.2-356/'>18.2-356</a>, <a href='/vacode/18.2-357/'>18.2-357</a>, <a href='/vacode/18.2-357.1/'>18.2-357.1</a>, or <a href='/vacode/18.2-368/'>18.2-368</a>, regardless of whether the conduct has been reported to a law-enforcement officer or the assailant has been charged with or convicted of the alleged violation.</p><p>"Stalking" means conduct that is prohibited under § <a href='/vacode/18.2-60.3/'>18.2-60.3</a>, regardless of whether the conduct has been reported to a law-enforcement officer or the assailant has been charged with or convicted for the alleged violation.</p><p>B. The Statewide Facilitator for Victims of Domestic Violence shall establish a program to be known as the "Address Confidentiality Program" to protect victims of domestic violence, stalking, child abduction, or sexual violence by authorizing the use of designated addresses for such victims. An individual who is at least 18 years of age, a parent or guardian acting on behalf of a minor, a guardian acting on behalf of an incapacitated person, or an emancipated minor may apply in person at (i) sexual or domestic violence programs that have been accredited by the Virginia Sexual and Domestic Violence Program Professional Standards Committee established pursuant to § <a href='/vacode/9.1-116.3/'>9.1-116.3</a> and are qualified to (a) assist the eligible person in determining whether the address confidentiality program should be part of such person's overall safety plan, (b) explain the address confidentiality program services and limitations, (c) explain the program participant's responsibilities, and (d) assist the person eligible for participation with the completion of application materials or (ii) crime victim and witness assistance programs. The Office of the Attorney General shall approve an application if it is filed in the manner and on the form prescribed by the Attorney General and if the application contains the following:</p><p>1. A sworn statement by the applicant declaring to be true and correct under penalty of perjury that the applicant has good reason to believe that:</p><p>a. The applicant, or the minor or incapacitated individual on whose behalf the application is made, is a victim of domestic violence, stalking, child abduction, or sexual violence;</p><p>b. The applicant fears further acts of violence, stalking, retribution, or intimidation from the applicant's assailant, abuser, or trafficker; and</p><p>c. The applicant is not on active parole or probation supervision requirements under federal, state, or local law;</p><p>2. A designation of the Office of the Attorney General as agent for the purpose of receiving mail on behalf of the applicant;</p><p>3. The applicant's actual address to which mail can be forwarded and a telephone number where the applicant can be called;</p><p>4. A listing of any minor children residing at the applicant's actual address, each minor child's date of birth, and each minor child's relationship to the applicant; and</p><p>5. The signature of the applicant and any person who assisted in the preparation of the application and the date.</p><p>C. Upon approval of a completed application, the Office of the Attorney General shall certify the applicant as a program participant. An applicant shall be certified for three years following the date of the approval, unless the certification is withdrawn or invalidated before that date. A program participant may apply to be recertified every three years.</p><p>D. Upon receipt of first-class mail addressed to a program participant, the Attorney General or his designee shall forward the mail to the actual address of the program participant. The actual address of a program participant shall be available only to the Attorney General, to those employees involved in the operation of the Address Confidentiality Program, and to law-enforcement officers. A program participant's actual address may be entered into the Virginia Criminal Information Network (VCIN) system so that it may be made known to law-enforcement officers accessing the VCIN system for law-enforcement purposes.</p><p>E. The Office of the Attorney General may cancel a program participant's certification if:</p><p>1. The program participant requests withdrawal from the program;</p><p>2. The program participant obtains a name change through an order of the court and does not provide notice and a copy of the order to the Office of the Attorney General within seven days after entry of the order;</p><p>3. The program participant changes his residence address and does not provide seven days' notice to the Office of the Attorney General prior to the change of address;</p><p>4. The mail forwarded by the Office of the Attorney General to the address provided by the program participant is returned as undeliverable;</p><p>5. Any information contained in the application is false;</p><p>6. The program participant has been placed on parole or probation while a participant in the address confidentiality program; or</p><p>7. The applicant is required to register with the Sex Offender and Crimes Against Minors Registry pursuant to Chapter 9 (§ <a href='/vacode/9.1-900/'>9.1-900</a> et seq.) of Title 9.1.</p><p>For purposes of the address confidentiality program, residents of temporary housing for 30 days or less are not eligible to enroll in the address confidentiality program until a permanent residential address is obtained.</p><p>The application form shall contain a statement notifying each applicant of the provisions of this subsection.</p><p>F. A program participant may request that any state or local agency use the address designated by the Office of the Attorney General as the program participant's address, except when the program participant is purchasing a firearm from a dealer in firearms. The agency shall accept the address designated by the Office of the Attorney General as a program participant's address, unless the agency has received a written exemption from the Office of the Attorney General demonstrating to the satisfaction of the Attorney General that:</p><p>1. The agency has a bona fide statutory basis for requiring the program participant to disclose to it the actual location of the program participant; and</p><p>2. The disclosed confidential address of the program participant will be used only for that statutory purpose and will not be disclosed or made available in any way to any other person or agency.</p><p>A state agency may request an exemption by providing in writing to the Office of the Attorney General identification of the statute or administrative rule that demonstrates the agency's bona fide requirement and authority for the use of the actual address of an individual. A request for a waiver from an agency may be for an individual program participant, a class of program participants, or all program participants. The denial of an agency's exemption request shall be in writing and include a statement of the specific reasons for the denial. Acceptance or denial of an agency's exemption request shall constitute final agency action.</p><p>Any state or local agency that discloses the program participant's confidential address provided by the Office of the Attorney General shall be immune from civil liability unless the agency acted with gross negligence or willful misconduct.</p><p>A program participant's actual address shall be disclosed pursuant to a court order.</p><p>G. Records submitted to or provided by the Office of the Attorney General in accordance with this section shall be exempt from disclosure under the Virginia Freedom of Information Act (§ <a href='/vacode/2.2-3700/'>2.2-3700</a> et seq.) to the extent such records contain information identifying a past or current program participant, including such person's name, actual and designated address, telephone number, and any email address. However, access shall not be denied to the person who is the subject thereof, or the parent or legal guardian of a program participant in cases where the program participant is a minor child or an incapacitated person, except when the parent or legal guardian is named as the program participant's assailant.</p><p>H. Neither the Office of the Attorney General, its officers or employees, or others who have a responsibility to a program participant under this section shall have any liability nor shall any cause of action arise against them in their official or personal capacity from the failure of a program participant to receive any first class mail forwarded to him by the Office of the Attorney General pursuant to this section. Nor shall any such liability or cause of action arise from the failure of a program participant to timely receive any first class mail forwarded by the Office of the Attorney General pursuant to this section.</p><p>2007, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?071+ful+CHAP0599'>599</a>; 2008, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?081+ful+CHAP0649'>649</a>; 2011, cc. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?111+ful+CHAP0097'>97</a>, <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?111+ful+CHAP0172'>172</a>; 2014, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?141+ful+CHAP0439'>439</a>; 2017, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?171+ful+CHAP0498'>498</a>; 2019, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?191+ful+CHAP0458'>458</a>; 2020, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?201+ful+CHAP0829'>829</a>; 2024, c. <a href='http://LegacyLIS.virginia.gov/cgi-bin/legp604.exe?241+ful+CHAP0413'>413</a>.</p></section><input type='hidden' class='dataType' id='dataTable' value='CoV'/><input type='hidden' class='dataType' id='dataMember' value='id'/><input type='hidden' class='dataType' id='dataField' value='body'/><!--googleoff: index--></span>
+
+
+
+				</article>
+				<div id="HistoryNote"><p class='sidenote'>The chapters of the acts of assembly referenced in the historical citation at the end of this section may not constitute a comprehensive list of such chapters and may exclude chapters whose provisions have expired.</p></div>
+						<nav class="content-footer-menu"><ul><li><a title='§ 2.2-515.1. Statewide Facilitator for Victims of Domestic Violence' href='/vacode/title2.2/chapter5/section2.2-515.1/''><i class='fa fa-long-arrow-left'></i></a> Section <a title='§ 2.2-516. Annual report' href='/vacode/title2.2/chapter5/section2.2-516/''><i class='fa fa-long-arrow-right'></i></a></li></ul></nav>
+
+			</div>
+			<div class="slot-9">
+				<nav id="section-menu">
+					<ul class="section-header-menu">
+						<li class="selected" aria-label="Currently selected page">
+							<a href="/vacode">Code of Virginia</a>
+						</li>
+						<li class="sub-menu">
+							<a href="/vacodepopularnames">Popular Names</a>
+						</li>
+						<li id="covUpdates" class="sub-menu">
+							<a  href='/vacodeupdates/'>2026 Updates</a>
+						</li>
+						<li id='search-box' class="sub-menu">
+							<label class="form-title" for="search-text">Section Look Up</label>
+						
+						
+							<div action='/search' id='search-form' method='get' target='_top'>
+								<input aria-label="Section look up input" title="Section look up input" type="text" id='search-text' name='q' placeholder='ex.  2.2-4007.01' readonly onfocus="if (this.hasAttribute('readonly')) {this.removeAttribute('readonly'); this.blur(); this.focus(); }"/>
+								<button aria-label="Section look up button" title="Section look up button" id='search-button' type='submit'>Go</button>
+							</div>
+						</li>
+						<li>
+							<a href="/admincode">Administrative Code</a>
+						</li>
+						<li>
+							<a href="/constitution">Constitution of Virginia</a>
+						</li>
+						<li>
+							<a href="/charters">Charters</a>
+						</li>
+						<li>
+							<a href="/authorities">Authorities</a>
+						</li>
+						<li>
+							<a href="/compacts">Compacts</a>
+						</li>
+						<li>
+							<a href="/uncodifiedacts">Uncodified Acts</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript">var siteurl = 'https://law.lis.virginia.gov';</script>
+	<script src="/Scripts/jquery.min.js" type="text/javascript"></script>
+	<script src="/Scripts/responsive.js" type="text/javascript"></script>
+	<script src="/Scripts/modernizer.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/Scripts/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/Scripts/jquery.fancybox.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/Scripts/fancybox/jquery.easing-1.3.pack.js" type="text/javascript"></script>
+	<script src="/Scripts/fancybox/jquery.mousewheel-3.0.4.pack.js" type="text/javascript"></script>
+	<script src="/Scripts/jquery.floatThead.min.js" type="text/javascript"></script>
+	<script src="/Scripts/printThisCoV.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+	<script src="/Scripts/search.js" type="text/javascript"></script>
+	<script src="/Scripts/searchCoV.js" type="text/javascript"></script>
+	<script src="/Scripts/isFontFaceSupported.js" type="text/javascript"></script>
+	<script src="/Scripts/jquery.qtip.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="/Content/msgBoxLight.css" />
+	<script src="/Scripts/jquery.msgBox.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/Scripts/tinymce/tinymce.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/Scripts/edit.js" type="text/javascript"></script>
+	<script src="/Scripts/CoVInit.js" type="text/javascript"></script>
+	
+	<script src="/Scripts/report.js" type="text/javascript"></script>
+	<script src="/Scripts/default.js" type="text/javascript"></script>
+	<script src="/Scripts/pdf.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		    $('document').ready(function () {
+		        $('#print').click(function () {
+		            $("#vacode").printThis();
+		            return (false);
+		        });
+
+		        var val = parseInt($.browser.version);
+		        if ($.browser.msie || (val > 7 && val <= 11)) {
+		            //stuff here (like adding an IE10 class to the body or html tag
+		            $(".input-sm").css("margin-top", "1px");
+		        }
+
+		        $('a.fancybox').fancybox({
+		            type: "iframe",
+		            'width': 650,
+		            'height': 520
+		        });
+
+		        $("a.single_image").fancybox({
+		            type: "iframe",
+		            'width': 650,
+		            'height': 720
+		        });
+
+		        $('.fancybox').attr('href', "/emailForm?parent=vacode/" + $('#hidSegments').val());
+
+		        $('.hdr-read-text a').fancybox({
+		            type: "iframe",
+		            'width': 650,
+		            'height': 701,
+		            'autoDimensions': false,
+		            'autoSize': false,
+		            afterClose: function (event, ui) {
+		                //parent.document.getElementById("hidBiP").value = "false";
+		                parent.$("#hidBiP").val("false");
+		            }
+		        });
+
+		        var _hidVal = $('#hidBiP').val();
+		        if (_hidVal == 'true') {
+		            $('.hdr-read-text a').click();
+		        }
+
+		        if (isFontFaceSupported() == false) {
+		            $('.fa').iconfontFallback();
+		        }
+
+		        $('p.hdr-read-text a').qtip({
+		            content: 'Bills currently before the General Assembly',
+		            style: {
+		                textAlign: 'center',
+		                tip: true,
+		                classes: 'qtip-rounded qtip-shadow',
+		            },
+		            position: {
+		                my: 'top center',
+		                at: 'bottom center'
+		            }
+		        });
+
+				$('#reportClick').attr("aria-label", "Create a report based on the current selection");
+				$('.number-descrip-list > dt > input').each(function () {
+					$(this).attr('aria-label', $(this).attr("id") + " checkbox");
+		    	});
+				$('.parentCheck').attr('aria-label', "Select all children in selection checkbox")
+				$('.va-law-footer').attr('style', "padding-top: 20px;");
+				$('.reportClick.rptCheckbox').attr('aria-label', "Cancel Report");
+				$('.reportClick.rptCheckbox').attr('name', "Cancel Report");
+				$('.fancybox-iframe').attr('title', "Email form" );
+
+			});
+
+		    function PrintPreview() {
+		        $('table').floatThead('reflow');
+		        $('table').floatThead('reflow');
+		        printWindow = window.open("", "", "location=1,status=1,scrollbars=1,width=650,height=600");
+		        printWindow.document.write('<!DOCTYPE html><html><head>');
+		        printWindow.document.write('<link rel="stylesheet" href="./css/base.css" type="text/css" media="all" />');
+		        printWindow.document.write('<link rel="stylesheet" href="./css/720_grid.css" type="text/css" media="all" />');
+		        printWindow.document.write('<style type="text/css">@media print{.no-print, .no-print *{display: none !important;}h6{display:none !important;}#printPages{display:none !important;}}#printDate {display:none !important;}</style>');
+		        printWindow.document.write('<style type="text/css">#printHeader{display:block;font-size:1em;line-height:1.3em;text-align:left;margin-bottom:.8em;}</style>');
+
+		        printWindow.document.write('<style type="text/css">body{color:#444;font-family:"PT Serif",Georgia,serif;line-height:1.3em;font-size: .95em;}h2{margin:0 0 .1em 0;font-weight:normal;line-height:1.2em;font-size:1.4em;letter-spacing:.01em;padding:0 .35em 0 0.25em;}');
+		        printWindow.document.write('.hdr-read-text,.read-text,.rptCheckbox{display:none;}ul .outline{margin-bottom:1em;}ul{list-style:none;}.outline ul{margin-left:1em;}a, a:link{color:#1a73ae;text-decoration:none;}');
+		        printWindow.document.write('b{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;}.number-descrip-list{line-height:1.55em;margin-bottom:1em;height:auto;}');
+		        printWindow.document.write('.number-descrip-list dt {clear: left;float: left;display: table-cell;font-weight: bold;width: 6.75em;}.number-descrip-list dd {padding-bottom: .125em;display: table-cell;}');
+		        printWindow.document.write('.number-descrip-list-outline{margin-left:1em;line-height:1.55em;}.number-descrip-list-outline dt{width:7em;font-weight:bold;}');
+		        printWindow.document.write('.number-descrip-list-outline dd{display:table-cell;padding-bottom:0;}</style>');
+
+		        printWindow.document.write('<style type="text/css">h6 {font-family: "Lato", Helvetica, Arial, sans-serif;font-size: 14px;border-bottom: 1px solid #ddd;padding-bottom: 15px;}');
+		        printWindow.document.write('table{border-collapse: collapse;border-spacing: 0;margin-bottom: 15px;}.printButtons {width: 100%;text-align: right;position: absolute;right: 10px;top: 28px;}</style>');
+		        printWindow.document.write('<style>#printPages{position:absolute;left: 120px;top: 30px;}.hiddenTable {display: none !important;}</style>');
+
+		        printWindow.document.write('</head><body>');
+		        printWindow.document.write('<h6>Print Preview</h6><span id="printPages"></span>')
+		        printWindow.document.write('<div class="printButtons">');
+
+		        //Print and cancel button
+		        printWindow.document.write('<input type="button" id="btnPrint" value="Print" class="no-print" onclick="window.print();window.onfocus=function(){window.close();}" />');
+		        printWindow.document.write('<input type="button" id="btnCancel" value="Cancel" class="no-print" onclick="window.close()" />');
+
+		        printWindow.document.write('</div>');
+
+		        //You can include any data this way.
+		        var _page = '<div id="va_code" class="va_code">' + $('#printStuff').html() + $('#va_code').html() + '</div>';
+		        printWindow.document.write(_page);
+		        printWindow.document.write('<scr' + 'ipt type="text/javascript">var divHeight;var obj = document.getElementById("va_code");if(obj.offsetHeight){divHeight=obj.offsetHeight;}else if(obj.style.pixelHeight){divHeight=obj.style.pixelHeight;}document.getElementById("printPages").innerHTML="Approximate Number of Pages: " + Math.ceil(divHeight / 850);</sc' + 'ript>');
+		        printWindow.document.write('</body></html>');
+		        printWindow.document.close();
+		        printWindow.focus();
+		    }
+	</script>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+</body>
+        </div>
+        
+        
+            <div class="va-law-footer" id="valawfooter">
+                <div class="grid">
+                    <div class="row">
+                        <div class="slot-6 foot-callout">
+                            <h4><i class="fa fa-book"></i> Virginia Law Library</h4>
+                            
+                            <p>The Code of Virginia, Constitution of Virginia, Charters, Authorities, Compacts and Uncodified Acts are available in both PDF and CSV formats. <a aria-label="Virginia Law Library" class="more" href="/law-library"><i class="fa fa-arrow-circle-right"></i></a></p>
+                        </div>
+                        <div class="slot-7 foot-callout">
+                            <h4><i class="fa fa-question-circle"></i> Helpful Resources</h4>
+                            <ul>
+                                <li><a href="http://codecommission.dls.virginia.gov/">Virginia Code Commission</a></li>
+                                <li><a href="http://register.dls.virginia.gov/">Virginia Register of Regulations</a></li>
+                                <li><a href="https://www.archives.gov/exhibits/charters/constitution_transcript.html">U.S. Constitution</a></li>
+                            </ul>
+                        </div>
+                        <div class="slot-8 foot-callout">
+                            <h4 href="/developers"><i class="fa fa-wrench"></i> For Developers</h4>
+                            <p>The Virginia Law website data is available via a web service. <a aria-label="For Developers" class="more" href="/developers"><i class="fa fa-arrow-circle-right"></i></a></p>
+                        </div>
+                        <div class="slot-9 foot-callout">
+                            
+                            
+                            <div style="height: 4px;"></div>
+                            <img id="ga-seal" src="/images/ga_seal_lis.png" alt="virginia general assembly seal" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="footer">
+            <nav class="footer-links" style="line-height: 1.4;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div aria-hidden="true" id='generic_login_div' style="display:none;z-index:9999;padding:10px;" class="corners dropshadow">
+                            <h3>Sign In</h3>
+                            <div class='form-row'>
+                                <label id='lblusername' for='username'>Username:&nbsp; </label>
+                                <input type='text' class="user" name='username' placeholder="Username" id='username' />
+                                <label id="userError"></label>
+                            </div>
+                            <div class='form-row'>
+                                <label id='lblpassword' for='password'>Password:&nbsp; </label>
+                                <input type='password' class="pass" name='password' placeholder="Password" id='password' />
+                                <label id="passError"></label>
+                            </div>
+                            <div class='submit-row'>
+                                <input type='button' id="btnLogin" class="button" value='Login' />
+                                <a onclick='hideLogin()' class="hover">Cancel</a>
+                            </div>
+                        </div>
+                        <div id="dialog-modal" style="display:none;"></div>
+                        <span class="col-xs-12 text-center">
+                            <ul>
+                                <li><a href="https://lis.virginia.gov">LIS Home</a></li>
+                                <li><a id="aLIAB" href="https://lis.virginia.gov/register-account">Lobbyist-in-a-Box</a></li>
+                                <li><a href="https://lis.virginia.gov/privacy">Privacy Policy</a></li>
+                                
+                            </ul>
+                            <p>
+                                © Copyright Commonwealth of Virginia,
+                                <script>document.write(new Date().getFullYear())</script>. All rights reserved. Site developed by the <a href="http://dlas.virginia.gov">Division of Legislative Automated Systems (DLAS)</a>.
+                                <a aria-hidden="true" href="" id="signin" onclick="showLogin();return false;">Sign In</a>
+                                
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        
+</body>
+</html>
+
+<!--[if lt IE 10 ]><script async src="<%: FriendlyUrl.Href("~/Scripts/placeHolder.js" type="text/javascript"></script><![endif]-->
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="~/Scripts/html5shiv.js"></script>
+<script src="~/Scripts/respond.js"></script>
+<![endif]-->
+
+<script src="/Scripts/SwitchMode.js" type="text/javascript"></script>

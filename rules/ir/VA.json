@@ -17,7 +17,7 @@
    "field_count": 175
   }
  },
- "source_sha256": "8afb7754b12ab13c2836bb9e2c3811857409fefb86e566d6850e11b023cd47ec",
+ "source_sha256": "14ab5946eb7ddc4551e8c3bcf22d707ef6446cd1cb5594cd5f6a84abedb809e9",
  "rules": [
   {
    "id": "VA-EXAM-1",
@@ -291,6 +291,16 @@
    "id": "VA-DOC-12",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "VA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "VA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

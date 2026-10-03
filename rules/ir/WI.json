@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "6c9012ba97ca2d81c4197cb989eb021aa180d8a472b4470ad5720bba2c04d2f5",
+ "source_sha256": "1353629fd0a655498943871d5449d2edcd293b01c1c1bfe95393ea151b255232",
  "rules": [
   {
    "id": "WI-EXAM-1",
@@ -267,6 +267,16 @@
    "id": "WI-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "WI-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "WI-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

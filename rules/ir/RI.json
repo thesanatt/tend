@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "0743c4a5a589a8cf4614d2994c476c51156ab46b93a07f86abb87a397b269799",
+ "source_sha256": "6ba35ab46e4720a58b86d7dfdbc360f503ca7acb9ca560b5b073c8b918925330",
  "rules": [
   {
    "id": "RI-EXAM-1",
@@ -238,6 +238,16 @@
    "id": "RI-DOC-7",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "RI-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "RI-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

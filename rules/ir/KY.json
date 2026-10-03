@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "90443bcb6025d26e6a945ca40a01a54ac31b5b5617c4359ad8973b365530e376",
+ "source_sha256": "9d8a7a76fe2dee8bb1ccb9b68818f1eb0664d1d6523f047401e57083d7ae3a3a",
  "rules": [
   {
    "id": "KY-EXAM-1",
@@ -264,6 +264,16 @@
    "id": "KY-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "KY-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "KY-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

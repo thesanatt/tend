@@ -1,858 +1,903 @@
 {
- "jurisdiction": "DC",
- "name": "District of Columbia",
- "program": {
-  "program_name": "Crime Victims Compensation Program (CVCP)",
-  "agency": "Superior Court of the District of Columbia",
-  "website": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program",
-  "apply_url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application",
-  "application_pdf_url": "https://www.dccourts.gov/sites/default/files/CVCP_Application_New_Code_Changes_2023.pdf",
-  "phone": "202-879-4216",
-  "phone_source_id": "DC-S1",
-  "statute_citation": "D.C. Code \u00a7\u00a7 4-501 to 4-518; D.C. Super. Ct. CVCP Rules; D.C. Code \u00a7\u00a7 4-561.03 and 23-1908 (PERK)",
-  "application_form": {
-   "source_id": "DC-S6",
-   "fillable": true,
-   "field_count": 443
-  }
- },
- "sources": [
-  {
-   "id": "DC-S1",
-   "title": "D.C. Superior Court, Crime Victims Compensation Program overview page",
-   "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:50:57Z",
-   "raw_path": "rules/sources/DC/DC-S1.html",
-   "text_path": "rules/sources/DC/DC-S1.txt",
-   "sha256": "6524e70d4b744547195c0a7fc73f3f045485869387ecee6a29353343df34df42"
-  },
-  {
-   "id": "DC-S2",
-   "title": "D.C. Superior Court, CVCP Eligibility page",
-   "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/eligibility",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:51:07Z",
-   "raw_path": "rules/sources/DC/DC-S2.html",
-   "text_path": "rules/sources/DC/DC-S2.txt",
-   "sha256": "64e7af0f6e978cdaf763baf96f1de782308adce8617f7d791f6ff1fe3ed1e7bd"
-  },
-  {
-   "id": "DC-S3",
-   "title": "D.C. Superior Court, CVCP Compensable Costs page",
-   "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/compensable-costs",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:51:08Z",
-   "raw_path": "rules/sources/DC/DC-S3.html",
-   "text_path": "rules/sources/DC/DC-S3.txt",
-   "sha256": "4eae274abb906eacec2a49591e7c47d3e0ea6b668c0a7b1f896f77456672f4cb"
-  },
-  {
-   "id": "DC-S4",
-   "title": "D.C. Superior Court, CVCP Application page",
-   "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:51:09Z",
-   "raw_path": "rules/sources/DC/DC-S4.html",
-   "text_path": "rules/sources/DC/DC-S4.txt",
-   "sha256": "d924b4169753a7c623c63f127922f197638edf81254fdfbe253fd717567f17ea"
-  },
-  {
-   "id": "DC-S5",
-   "title": "CVCP Information Brochure (English)",
-   "url": "https://www.dccourts.gov/sites/default/files/matters-docs/CVCP-Information-Brochure.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:51:10Z",
-   "raw_path": "rules/sources/DC/DC-S5.pdf",
-   "text_path": "rules/sources/DC/DC-S5.txt",
-   "sha256": "194680f685bb6214eb20b0aee98d355eb0cb6a7a0c4b6d4b56d4118ed9d6d002"
-  },
-  {
-   "id": "DC-S6",
-   "title": "CVCP Application (revised 4/21/23)",
-   "url": "https://www.dccourts.gov/sites/default/files/CVCP_Application_New_Code_Changes_2023.pdf",
-   "kind": "application_form",
-   "retrieved_at": "2026-10-03T18:51:17Z",
-   "raw_path": "rules/sources/DC/DC-S6.pdf",
-   "text_path": "rules/sources/DC/DC-S6.txt",
-   "sha256": "6a15cc784df7c1e04962b7a9cb9ada601688a28b39788ff358b188cf4f8b68f4"
-  },
-  {
-   "id": "DC-S7",
-   "title": "D.C. Superior Court Rules for the Crime Victims Compensation Program",
-   "url": "https://www.dccourts.gov/sites/default/files/superior-rules/Crime%20Victim%20Compensation%20Program%20Rules.pdf",
-   "kind": "regulation",
-   "retrieved_at": "2026-10-03T18:51:18Z",
-   "raw_path": "rules/sources/DC/DC-S7.pdf",
-   "text_path": "rules/sources/DC/DC-S7.txt",
-   "sha256": "7c993fad7104b7af80d766a98b91a272ce7b08c8587482406df9030fd0ded438"
-  },
-  {
-   "id": "DC-S8",
-   "title": "D.C. Code \u00a7 4-501, Definitions",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-501",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:30Z",
-   "raw_path": "rules/sources/DC/DC-S8.html",
-   "text_path": "rules/sources/DC/DC-S8.txt",
-   "sha256": "66f2d34bbb257883af9e58adb92e3a0994658ac04059414f58692072ac3eb88b"
-  },
-  {
-   "id": "DC-S9",
-   "title": "D.C. Code \u00a7 4-506, Eligibility for compensation",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-506",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:31Z",
-   "raw_path": "rules/sources/DC/DC-S9.html",
-   "text_path": "rules/sources/DC/DC-S9.txt",
-   "sha256": "c1d6ec06ebda1e61715dd984e79e9592d58ff194e12b56726dded421bc1731d0"
-  },
-  {
-   "id": "DC-S10",
-   "title": "D.C. Code \u00a7 4-507, Awards of compensation",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-507",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:31Z",
-   "raw_path": "rules/sources/DC/DC-S10.html",
-   "text_path": "rules/sources/DC/DC-S10.txt",
-   "sha256": "99037530ac17520b5b75d99da31ef88bb46f5ccc21f09ff8ff312eb73ba907b7"
-  },
-  {
-   "id": "DC-S11",
-   "title": "D.C. Code \u00a7 4-508, Disqualifications and reductions",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-508",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:31Z",
-   "raw_path": "rules/sources/DC/DC-S11.html",
-   "text_path": "rules/sources/DC/DC-S11.txt",
-   "sha256": "d06b3d0d97be843ca228ae4ec82be9ee9d2db91e768bb38a9af2b359ce6383ad"
-  },
-  {
-   "id": "DC-S12",
-   "title": "D.C. Code \u00a7 4-510, Emergency awards",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-510",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:31Z",
-   "raw_path": "rules/sources/DC/DC-S12.html",
-   "text_path": "rules/sources/DC/DC-S12.txt",
-   "sha256": "8cf8a75037ed0fba193f5e53d8a1c57c46482efcc5b331088de966cc250324aa"
-  },
-  {
-   "id": "DC-S13",
-   "title": "D.C. Code \u00a7 4-512, Procedures for filing claims",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-512",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:31Z",
-   "raw_path": "rules/sources/DC/DC-S13.html",
-   "text_path": "rules/sources/DC/DC-S13.txt",
-   "sha256": "bf06692e8c6ce4258bc21af67e43a91492c5091ff0fe27e987396bc1ff44e948"
-  },
-  {
-   "id": "DC-S14",
-   "title": "D.C. Code \u00a7 4-561.03, Payment for PERKs",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-561.03",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:50Z",
-   "raw_path": "rules/sources/DC/DC-S14.html",
-   "text_path": "rules/sources/DC/DC-S14.txt",
-   "sha256": "ab6d79dc705699a2c398b2f74fe10bed2188cfbdd613e93e3538698405736a1a"
-  },
-  {
-   "id": "DC-S15",
-   "title": "D.C. Code \u00a7 23-1908, Sexual assault victims' rights",
-   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/23-1908",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:51:50Z",
-   "raw_path": "rules/sources/DC/DC-S15.html",
-   "text_path": "rules/sources/DC/DC-S15.txt",
-   "sha256": "9e8e25141045d44fe601ff92d6e300b7c2de355db6d2ab379b8f681674c84655"
-  },
-  {
-   "id": "DC-S16",
-   "title": "D.C. Courts Forms Help Online, Crime Victims (guided online CVCP application)",
-   "url": "https://www.probono.net/dccourts/crimevictims/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T19:42:20Z",
-   "raw_path": "rules/sources/DC/DC-S16.html",
-   "text_path": "rules/sources/DC/DC-S16.txt",
-   "sha256": "28a60f35f0e30b85873fc03c63c2f4d44a07069db87ba487c65da6e5467e6be3"
-  }
- ],
- "rules": [
-  {
-   "id": "DC-EXAM-1",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "unspecified"
-   },
-   "summary": "The hospital may not bill a sexual assault survivor for the evidence kit (PERK), including the kit itself, its administration, and processing of the kit or any biological specimens. The statute does not say whether the survivor's insurance may be billed.",
-   "quote": "The hospital shall not bill a sexual assault victim for costs associated with a PERK, including the costs of the PERK, its administration, and the processing of the PERK or any biological specimens.",
-   "source_id": "DC-S14",
-   "pinpoint": "D.C. Code \u00a7 4-561.03"
-  },
-  {
-   "id": "DC-EXAM-2",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "unspecified"
-   },
-   "summary": "A sexual assault survivor has the right to have a PERK (evidence kit) performed at no cost.",
-   "quote": "a sexual assault victim shall have the right to have: (1) A PERK performed at no cost;",
-   "source_id": "DC-S15",
-   "pinpoint": "D.C. Code \u00a7 23-1908(a)(1)"
-  },
-  {
-   "id": "DC-CAP-1",
-   "category": "total_cap",
-   "params": {
-    "amount_cents": 2500000
-   },
-   "summary": "The program may not award more than $25,000 per victimization. A victim who cares for more than 2 children living with them may get up to $5,000 more per child, starting with the third child.",
-   "quote": "The Court shall not award compensation in an amount exceeding $25,000 per victimization; except, that: (1) If the victim is or was the parent, guardian, custodian, or primary caregiver to more than 2 children who reside or resided with the victim, the Court may award additional compensation to the claimant of up to $5,000 for each child who resides with the claimant, beginning with the third child",
-   "source_id": "DC-S10",
-   "pinpoint": "D.C. Code \u00a7 4-507(b)"
-  },
-  {
-   "id": "DC-CAP-2",
-   "category": "expense_cap",
-   "expense": "counseling",
-   "params": {
-    "expense": "counseling",
-    "amount_cents": 300000,
-    "per": "claim"
-   },
-   "summary": "Mental health counseling is capped at $3,000 for adults and $6,000 for minor children.",
-   "quote": "Compensation for mental health expenses shall not exceed $ 3,000 for adults and $ 6,000 for minor children.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 24(d)"
-  },
-  {
-   "id": "DC-CAP-3",
-   "category": "expense_cap",
-   "expense": "lost_wages",
-   "params": {
-    "expense": "lost_wages",
-    "amount_cents": 1000000,
-    "per": "claim"
-   },
-   "summary": "Lost earnings can be paid for up to 52 weeks after the crime, capped at the lesser of 80% of the victim's net pay or $10,000.",
-   "quote": "Loss of earnings may be compensated for a total period of up to 52 weeks after the date of the crime, in an amount not to exceed the lesser of 80 % of the victim's net pay or $10,000.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 28"
-  },
-  {
-   "id": "DC-CAP-4",
-   "category": "expense_cap",
-   "expense": "relocation",
-   "params": {
-    "expense": "relocation",
-    "amount_cents": 150000,
-    "per": "claim"
-   },
-   "summary": "Moving expenses of up to $1,500 may be paid when needed for health or safety, on referral from a prosecutor, police officer, judicial officer, medical or mental health provider, or victim advocate.",
-   "quote": "Upon referral by a prosecutor, law enforcement officer, judicial officer, medical or mental health services provider, or victims advocate, compensation of up to $1,500 may be awarded for reasonable moving expenses where necessary for health or safety.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 34"
-  },
-  {
-   "id": "DC-CAP-5",
-   "category": "expense_cap",
-   "expense": "temporary_housing",
-   "params": {
-    "expense": "temporary_housing",
-    "amount_cents": 300000,
-    "per": "claim"
-   },
-   "summary": "Temporary emergency housing is capped at $3,000, for a period of up to 120 days, on referral from a prosecutor, police officer, judicial officer, or victim advocate.",
-   "quote": "Upon referral by a prosecutor, law enforcement officer, judicial officer, or victims advocate, the cost of temporary emergency food and housing for a period of up to 120 days may be awarded. The maximum award for temporary emergency housing shall be $3,000.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 29"
-  },
-  {
-   "id": "DC-CAP-6",
-   "category": "expense_cap",
-   "expense": "transportation",
-   "params": {
-    "expense": "transportation",
-    "amount_cents": 60000,
-    "per": "claim"
-   },
-   "summary": "Transportation is capped at $500 for necessary out-of-state travel and $100 for local transportation, with a $600 total per claim. It covers trips to court, to take part in the investigation or prosecution, to get medical care, and to get other services needed because of the crime.",
-   "quote": "Up to $500 for necessary out of state travel and up to $100 for all local transportation, not to exceed a total of $600 per claim, may be awarded for reasonable transportation expenses incurred by the victim or secondary victim",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 35"
-  },
-  {
-   "id": "DC-CAP-7",
-   "category": "expense_cap",
-   "expense": "security",
-   "params": {
-    "expense": "security",
-    "amount_cents": 100000,
-    "per": "claim"
-   },
-   "summary": "Up to $1,000 may be paid to replace doors, windows, locks, or other items needed to secure the victim's home. Guard dogs, other animals, and guns or other weapons are not covered.",
-   "quote": "Compensation of up to $1,000 may be awarded for the reasonable cost of replacement of doors, windows, locks or other items necessary to secure the victim's home or other place of residence, except that the costs of guard dogs, other animals, guns or other weapons shall not be awarded.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 32"
-  },
-  {
-   "id": "DC-CAP-8",
-   "category": "expense_cap",
-   "expense": "clothing_bedding",
-   "params": {
-    "expense": "clothing_bedding",
-    "amount_cents": 10000,
-    "per": "claim"
-   },
-   "summary": "Up to $100 may be paid to replace a living victim's clothing held by police as evidence.",
-   "quote": "Reasonable compensation up to $100 may be awarded for the replacement value of clothing of a living victim which is held by law enforcement officials for evidentiary purposes.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 27"
-  },
-  {
-   "id": "DC-CAP-9",
-   "category": "expense_cap",
-   "expense": "crime_scene_cleanup",
-   "params": {
-    "expense": "crime_scene_cleanup",
-    "amount_cents": 100000,
-    "per": "claim"
-   },
-   "summary": "Up to $1,000 may be paid for reasonable crime scene clean-up costs.",
-   "quote": "Compensation of up to $1000 may be awarded to claimants for reasonable costs associated with cleaning up the crime scene.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 26"
-  },
-  {
-   "id": "DC-CAP-10",
-   "category": "expense_cap",
-   "expense": "childcare",
-   "params": {
-    "expense": "childcare",
-    "amount_cents": 20000,
-    "per": "week"
-   },
-   "summary": "Loss of services, meaning replacement services such as child care or housekeeping the victim can no longer provide because of the injury or death, is paid at no more than the D.C. minimum hourly wage, up to $200 per week and $2,500 per victimization.",
-   "quote": "Compensation for loss of services shall be limited to the minimum hourly wage for the District of Columbia, and shall not exceed $ 200 per week and $ 2,500 per victimization.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 31"
-  },
-  {
-   "id": "DC-CAP-11",
-   "category": "expense_cap",
-   "expense": "other",
-   "params": {
-    "expense": "other",
-    "amount_cents": 200000,
-    "per": "claim"
-   },
-   "summary": "Up to $2,000 may be paid for a rental car while the victim's car is held by police as evidence. The current statute describes this cost as alternate transportation, including a rental car or rideshare.",
-   "quote": "Compensation of up to $2,000 may be awarded for the reasonable cost of a rental car for the period of time that a victim or secondary victim's automobile is being held by the police as evidence or to collect evidence.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 33"
-  },
-  {
-   "id": "DC-CAP-12",
-   "category": "expense_cap",
-   "expense": "childcare",
-   "params": {
-    "expense": "childcare",
-    "amount_cents": 250000,
-    "per": "claim"
-   },
-   "summary": "Loss of services (replacement child care, housekeeping, and similar services the victim can no longer provide) is capped at $2,500 per victimization, on top of the $200 weekly limit.",
-   "quote": "Compensation for loss of services shall be limited to the minimum hourly wage for the District of Columbia, and shall not exceed $ 200 per week and $ 2,500 per victimization.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 31"
-  },
-  {
-   "id": "DC-CAP-13",
-   "category": "expense_cap",
-   "expense": "funeral",
-   "params": {
-    "expense": "funeral",
-    "amount_cents": 1000000,
-    "per": "claim"
-   },
-   "summary": "Funeral and burial expenses are capped at $10,000. An older court rule gives a lower figure, but the statute controls.",
-   "quote": "Reasonable funeral and burial expenses, including the reasonable cost of embalming, burial containers, cremation, and the chosen method of interment; provided, that a claimant's economic loss under this sub-subparagraph shall not exceed $10,000",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(7)(A)(ii)"
-  },
-  {
-   "id": "DC-COV-1",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "Reasonable medical expenses are covered, whether the care was provided in D.C. or elsewhere.",
-   "quote": "Reasonable medical expenses incurred, whether provided in the District or elsewhere;",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(7)(A)(i)"
-  },
-  {
-   "id": "DC-COV-2",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "Costs from a pregnancy resulting from a sexual assault are covered, including an abortion or prenatal care and delivery, but not the cost of raising the child.",
-   "quote": "Compensation may be awarded for costs incurred for pregnancy resulting from a sexual assault. This includes the cost of an abortion, or prenatal care and delivery, but not the cost of raising a child conceived through sexual assault.",
-   "source_id": "DC-S7",
-   "pinpoint": "D.C. Super. Ct. CVCP Rule 24(c)"
-  },
-  {
-   "id": "DC-COV-3",
-   "category": "covered_expense",
-   "expense": "counseling",
-   "params": {
-    "expense": "counseling"
-   },
-   "summary": "Out-patient mental health counseling needed because of the crime is covered when provided by a licensed psychiatrist, psychologist, social worker, marriage, family, or child counselor, or a counselor licensed by the Board of Professional Counseling.",
-   "quote": "Out-patient mental health counseling expenses which became necessary as a direct result of the crime and which are provided by a: (i) Licensed psychiatrist or psychologist; (ii) Licensed social worker; (iii) Licensed marriage, family, or child counselor practicing within the scope of licensure; or (iv) Individual licensed by the Board of Professional Counseling",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(9)(D)"
-  },
-  {
-   "id": "DC-COV-4",
-   "category": "covered_expense",
-   "expense": "lost_wages",
-   "params": {
-    "expense": "lost_wages"
-   },
-   "summary": "Lost income incurred as a direct or indirect result of the injury is covered.",
-   "quote": "Loss of income or support incurred as a direct or indirect result of an injury or death;",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(7)(A)(iv)"
-  },
-  {
-   "id": "DC-COV-5",
-   "category": "covered_expense",
-   "expense": "relocation",
-   "params": {
-    "expense": "relocation"
-   },
-   "summary": "Reasonable moving expenses are covered when needed for health or safety.",
-   "quote": "Reasonable moving expenses where necessary for health or safety;",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(7)(A)(xii)"
-  },
-  {
-   "id": "DC-COV-6",
-   "category": "covered_expense",
-   "expense": "dental",
-   "params": {
-    "expense": "dental"
-   },
-   "summary": "Dental care is part of covered medical expenses.",
-   "quote": "Ambulance, hospital, surgical, medical, nursing, dental, optometric, ophthalmologic, chiropractic, podiatric, in-patient mental health, and pregnancy-related care;",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(9)(A)"
-  },
-  {
-   "id": "DC-EXC-1",
-   "category": "excluded_expense",
-   "expense": "property_replacement",
-   "params": {
-    "expense": "property_replacement"
-   },
-   "summary": "Pain and suffering, and the value of property damaged or taken during the crime (for example a phone or other belongings), are not economic loss and are not paid.",
-   "quote": "\u201cEconomic loss\u201d does not mean: (i) Pain and suffering; (ii) The value of any property damaged or taken during the crime;",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(7)(B)"
-  },
-  {
-   "id": "DC-EXC-2",
-   "category": "excluded_expense",
-   "expense": "legal",
-   "params": {
-    "expense": "legal"
-   },
-   "summary": "The program cannot pay attorney's fees for help filing an application. A fee may be awarded only for an appeal.",
-   "quote": "The Crime Victims Compensation Program cannot pay attorney's fees for assisting a victim with the filing of a compensation application.",
-   "source_id": "DC-S4",
-   "pinpoint": "CVCP Application page, Information on Attorneys"
-  },
-  {
-   "id": "DC-DEAD-1",
-   "category": "filing_deadline",
-   "params": {
-    "years": 1,
-    "from": "crime",
-    "extension": "one year from learning of the program if the delay in learning of it was reasonable"
-   },
-   "summary": "A claim must be filed within one year after the crime, or within one year after learning of the program if the delay in learning of it was reasonable. Other one-year windows run from certain post-conviction filings.",
-   "quote": "The claimant filed a claim under this subchapter within one year after: (A) The crime occurred; (B) Learning of the Program, with an adequate showing that the delay in learning of the Program was reasonable;",
-   "source_id": "DC-S9",
-   "pinpoint": "D.C. Code \u00a7 4-506(a)(1)"
-  },
-  {
-   "id": "DC-REP-1",
-   "category": "reporting_requirement",
-   "params": {
-    "required": true,
-    "within_days": 7
-   },
-   "summary": "Generally the crime must be reported to law enforcement within 7 days, or within 7 days of when a report could reasonably be made.",
-   "quote": "The crime was reported to a law enforcement office within 7 days after its occurrence or, if the crime could not be reasonably reported within that time period, within 7 days from the time a report can reasonably be made.",
-   "source_id": "DC-S9",
-   "pinpoint": "D.C. Code \u00a7 4-506(a)(2)"
-  },
-  {
-   "id": "DC-REP-2",
-   "category": "reporting_requirement",
-   "params": {
-    "required": false,
-    "alternatives": [
-     "forensic_exam",
-     "protective_order",
-     "other"
-    ]
-   },
-   "summary": "A sexual assault survivor can meet the reporting requirement without a police report by getting a temporary or final civil protection order or a forensic medical exam, or by reporting to law enforcement any time before the statute of limitations runs out.",
-   "quote": "In the case of a sexual assault victim: (A) Obtaining a: (i) Temporary civil protection order or civil protection order from the Court; or (ii) Forensic medical examination; or (B) Reporting the offense to a law enforcement office before expiration of the applicable statute of limitations for that offense",
-   "source_id": "DC-S9",
-   "pinpoint": "D.C. Code \u00a7 4-506(c)(3)"
-  },
-  {
-   "id": "DC-REP-3",
-   "category": "reporting_requirement",
-   "params": {
-    "required": false,
-    "alternatives": [
-     "medical_provider",
-     "other"
-    ]
-   },
-   "summary": "If the program finds a victim's ability to report was affected by age, physical condition, psychological state, cultural or language barriers, or a health or safety concern, the victim can instead submit a court order, law enforcement records, or records from a medical professional.",
-   "quote": "if the Program determines that the claimant's ability to report the crime may be impacted due to the claimant's age, physical condition, psychological state, cultural or linguistic barriers, or any other health or safety concern that jeopardizes the claimant's well-being",
-   "source_id": "DC-S9",
-   "pinpoint": "D.C. Code \u00a7 4-506(c)(5)"
-  },
-  {
-   "id": "DC-COL-1",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "The award equals the claimant's economic loss minus the amount available from collateral sources.",
-   "quote": "The Court shall award compensation in an amount equal to the claimant\u2019s economic loss, decreased by the amount available to the claimant from collateral sources.",
-   "source_id": "DC-S10",
-   "pinpoint": "D.C. Code \u00a7 4-507(a)"
-  },
-  {
-   "id": "DC-COL-2",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "If the victim is a dependent on someone else's insurance policy, that policy does not count as a collateral source unless the victim chooses to use it.",
-   "quote": "if a victim or secondary victim is a dependent on a primary insurance holder's insurance policy, the primary insurance holder's insurance policy shall not constitute a collateral source for the purposes of subsection (a) of this section, unless the victim or secondary victim chooses to avail themselves of the benefits or compensation from the primary insurance holder's insurance policy.",
-   "source_id": "DC-S10",
-   "pinpoint": "D.C. Code \u00a7 4-507(a-1)"
-  },
-  {
-   "id": "DC-COND-1",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "An application may be denied in whole or in part because of the nature of the victim's involvement in the events leading to the crime.",
-   "quote": "An application for assistance may be denied, in whole or in part, if the Court finds: (1) Denial is appropriate due to the nature of the victim\u2019s or secondary victim\u2019s involvement in the events leading to the relevant crime;",
-   "source_id": "DC-S11",
-   "pinpoint": "D.C. Code \u00a7 4-508(b)"
-  },
-  {
-   "id": "DC-COND-2",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "An application may be denied in whole or in part if the victim did not reasonably cooperate with law enforcement, unless the cooperation was affected by the factors in 4-506(c) (for example the sexual assault reporting alternatives, or age, condition, trauma, language, or safety concerns).",
-   "quote": "(A) The victim failed to reasonably cooperate with law enforcement; and (B) The victim's cooperation was not impacted by the factors described in \u00a7 4-506(c)",
-   "source_id": "DC-S11",
-   "pinpoint": "D.C. Code \u00a7 4-508(b)(2)"
-  },
-  {
-   "id": "DC-EMER-1",
-   "category": "emergency_award",
-   "params": {
-    "amount_cents": 100000
-   },
-   "summary": "An emergency award of up to $1,000 may be made before the final decision if an award is likely and the claimant would face undue financial or emotional hardship without immediate help. It is deducted from the final award.",
-   "quote": "If it appears likely that a final award will be made and that the claimant will suffer undue financial or emotional hardship if immediate financial assistance is not granted, an emergency award not exceeding $1,000 may be made prior to the final determination.",
-   "source_id": "DC-S12",
-   "pinpoint": "D.C. Code \u00a7 4-510(a)"
-  },
-  {
-   "id": "DC-CRIME-1",
-   "category": "eligible_crime",
-   "params": {},
-   "summary": "First degree sexual abuse is a covered crime. The same statutory list also covers second, third, and fourth degree sexual abuse, misdemeanor sexual abuse, and child sexual abuse offenses.",
-   "quote": "First degree sexual abuse, as described in section 201 of the Anti-Sexual Abuse Act of 1994",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(6)(KK)"
-  },
-  {
-   "id": "DC-RES-1",
-   "category": "residency",
-   "params": {
-    "rule": "Anyone injured in D.C.; D.C. residents injured abroad by terrorism or mass violence, or in a state without a VOCA-eligible compensation program"
-   },
-   "summary": "Anyone injured by a crime in D.C. can apply. D.C. residents injured outside D.C. qualify only for terrorism or mass violence abroad, or when the state where it happened has no federally funded compensation program.",
-   "quote": "\u201cVictim\u201d means a person who suffers personal injury or death in the District, a person who is a resident of the District and suffers personal injury or death as a result of a terrorist act or act of mass violence committed outside of the United States, or a person who is a resident of the District and who suffers personal injury or death outside the District in a state that does not have a crime victims compensation program",
-   "source_id": "DC-S8",
-   "pinpoint": "D.C. Code \u00a7 4-501(14)"
-  },
-  {
-   "id": "DC-SUB-1",
-   "category": "submission",
-   "params": {
-    "method": "email",
-    "target": "CVCPapplications@dcsc.gov"
-   },
-   "summary": "Email the completed application and supporting documents to CVCPapplications@dcsc.gov.",
-   "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
-  },
-  {
-   "id": "DC-SUB-2",
-   "category": "submission",
-   "params": {
-    "method": "mail",
-    "target": "515 5th Street, NW #109, Washington, D.C. 20001"
-   },
-   "summary": "Mail the completed application to the CVCP office at 515 5th Street, NW #109, Washington, D.C. 20001.",
-   "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
-  },
-  {
-   "id": "DC-SUB-3",
-   "category": "submission",
-   "params": {
-    "method": "in_person",
-    "target": "515 5th Street, NW #109, Washington, D.C. 20001"
-   },
-   "summary": "Drop off the completed application in person at the CVCP office, 515 5th Street, NW #109, Washington, D.C. 20001, or at a remote site.",
-   "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
-  },
-  {
-   "id": "DC-SUB-4",
-   "category": "submission",
-   "params": {
-    "method": "fax",
-    "target": "202-879-4230"
-   },
-   "summary": "The application page also lists fax as a way to submit: 202-879-4230.",
-   "quote": "Fax: 202-879-4230",
-   "source_id": "DC-S4",
-   "pinpoint": "CVCP Application page, ways to submit"
-  },
-  {
-   "id": "DC-SUB-5",
-   "category": "submission",
-   "params": {
-    "method": "online",
-    "target": "https://lawhelpinteractive.org/Interview/GenerateInterview/8116/engine"
-   },
-   "summary": "Apply online through the self-guided interactive interview linked from the D.C. Courts.",
-   "quote": "OR ONLINE AT Self-Guided Interactive Interview Application https://lawhelpinteractive.org/Interview/Gene rateInterview/8116/engine",
-   "source_id": "DC-S5",
-   "pinpoint": "CVCP Information Brochure, Where can I get an application?"
-  },
-  {
-   "id": "DC-DOC-1",
-   "category": "required_document",
-   "params": {
-    "document": "photo_id",
-    "note": "If no ID is provided, staff will contact you for another way to confirm identity."
-   },
-   "summary": "Include a valid photo ID with the application.",
-   "quote": "DOCUMENTS NEEDED \u2022 CVCP Application \u2022 Valid Photo ID",
-   "source_id": "DC-S5",
-   "pinpoint": "CVCP Information Brochure, Documents Needed"
-  },
-  {
-   "id": "DC-DOC-2",
-   "category": "required_document",
-   "params": {
-    "document": "police_report",
-    "note": "Or a DC civil protection order; the application page says temporary restraining orders are not accepted, while the 2023 form also lists anti-stalking orders and a forensic medical exam as crime documentation."
-   },
-   "summary": "Include a copy of the DC police report or DC civil protection order, plus any bills or receipts you want reimbursed.",
-   "quote": "submit it along with a copy of your DC police report or DC civil protection order (the program does not accept temporary restraining orders), any bills or receipts that you would like to have reimbursed by the program.",
-   "source_id": "DC-S4",
-   "pinpoint": "CVCP Application page"
-  },
-  {
-   "id": "DC-DOC-3",
-   "category": "required_document",
-   "params": {
-    "document": "exam_record",
-    "note": "Listed on the application as one accepted form of crime documentation (at least one must be selected)."
-   },
-   "summary": "A forensic medical examination is one of the crime documentation options on the application.",
-   "quote": "Forensic medical examination",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.2, Documentation of Crime"
-  },
-  {
-   "id": "DC-DOC-4",
-   "category": "required_document",
-   "params": {
-    "document": "receipts",
-    "note": "Bills or receipts for every expense you want reimbursed."
-   },
-   "summary": "Send any bills or receipts you want the program to reimburse.",
-   "quote": "any bills or receipts that you would like to have reimbursed by the program.",
-   "source_id": "DC-S4",
-   "pinpoint": "CVCP Application page"
-  },
-  {
-   "id": "DC-DOC-5",
-   "category": "required_document",
-   "params": {
-    "document": "itemized_bill",
-    "note": "Medical, dental, and mental health bills."
-   },
-   "summary": "Submit copies of all medical, dental, or mental health bills received so far.",
-   "quote": "Submit copies of all available bills received to date.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
-  },
-  {
-   "id": "DC-DOC-6",
-   "category": "required_document",
-   "params": {
-    "document": "insurance_statement"
-   },
-   "summary": "Attach all insurance payment statements and denials for treatment costs.",
-   "quote": "Attach all insurance payment statements and rejections.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
-  },
-  {
-   "id": "DC-DOC-7",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Authorization and release forms for medical, wage, support, and collateral-source records."
-   },
-   "summary": "The program will ask you to complete authorization and release forms.",
-   "quote": "YOU WILL BE REQUIRED TO COMPLETE AUTHORIZATION AND RELEASE FORMS",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
-  },
-  {
-   "id": "DC-DOC-8",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Disability statement from the doctor, only if claiming lost wages."
-   },
-   "summary": "For lost wages, submit a disability statement from the doctor who can verify how long you could not work.",
-   "quote": "(Please submit disability statement from the verifying doctor)",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.4, Section 4"
-  },
-  {
-   "id": "DC-DOC-9",
-   "category": "required_document",
-   "params": {
-    "document": "wage_verification",
-    "note": "Only if self-employed: federal income tax returns."
-   },
-   "summary": "If you are self-employed and claiming lost wages, attach your federal income tax returns for the 12 months before the crime.",
-   "quote": "If yes, you must attach a copy of your Federal Income Tax Returns for the last 12 months preceding crime.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.4, Section 4"
-  },
-  {
-   "id": "DC-DOC-10",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Copy of the lease and a referral form, only if requesting temporary housing or moving expenses."
-   },
-   "summary": "For temporary housing or moving expenses, submit a copy of the lease and a referral form.",
-   "quote": "If yes, submit a copy of lease. A referral form must also be submitted.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 1"
-  },
-  {
-   "id": "DC-DOC-11",
-   "category": "required_document",
-   "params": {
-    "document": "receipts",
-    "note": "Transportation receipts, only if your car was held as evidence."
-   },
-   "summary": "If your car was held as evidence, submit copies of your alternate transportation receipts.",
-   "quote": "Please submit copy of transportation receipts.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.6, Section 12"
-  },
-  {
-   "id": "DC-DOC-12",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Birth certificates for children, only when listing secondary victims or dependents."
-   },
-   "summary": "When listing dependents or secondary victims, submit copies of the children's birth certificates.",
-   "quote": "Submit copies of birth certificates for children.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.5, Section 6"
-  },
-  {
-   "id": "DC-DOC-13",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Confidential Information form, attached at the end of the online interview when applying online."
-   },
-   "summary": "If you apply online, complete the Confidential Information form and attach it at the end of the online interview.",
-   "quote": "Please click here to complete a Confidential Information form. Once completed, you can attach it at the end of the online interactive interview that you are completing, such as the Crime Victims Compensation Form.",
-   "source_id": "DC-S16",
-   "pinpoint": "D.C. Courts Forms Help Online, Crime Victims"
-  },
-  {
-   "id": "DC-TIME-1",
-   "category": "processing_time",
-   "params": {
-    "days": 5,
-    "note": "Business days for staff to review the application; this is not the time to a decision."
-   },
-   "summary": "Allow 5 business days for a CVCP team member to review the application.",
-   "quote": "Please allow 5 business days for a CVCP team member to review your compensation application.",
-   "source_id": "DC-S6",
-   "pinpoint": "CVCP Application (rev. 4/21/23), p.7"
-  }
- ],
- "coverage": {
-  "found": [
-   "collateral_source",
-   "conduct_reduction",
-   "covered_expense",
-   "eligible_crime",
-   "emergency_award",
-   "exam_no_bill",
-   "excluded_expense",
-   "expense_cap",
-   "filing_deadline",
-   "processing_time",
-   "reporting_requirement",
-   "required_document",
-   "residency",
-   "submission",
-   "total_cap"
+  "jurisdiction": "DC",
+  "name": "District of Columbia",
+  "program": {
+    "program_name": "Crime Victims Compensation Program (CVCP)",
+    "agency": "Superior Court of the District of Columbia",
+    "website": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program",
+    "apply_url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application",
+    "application_pdf_url": "https://www.dccourts.gov/sites/default/files/CVCP_Application_New_Code_Changes_2023.pdf",
+    "phone": "202-879-4216",
+    "phone_source_id": "DC-S1",
+    "statute_citation": "D.C. Code §§ 4-501 to 4-518; D.C. Super. Ct. CVCP Rules; D.C. Code §§ 4-561.03 and 23-1908 (PERK)",
+    "application_form": {
+      "source_id": "DC-S6",
+      "fillable": true,
+      "field_count": 443
+    }
+  },
+  "sources": [
+    {
+      "id": "DC-S1",
+      "title": "D.C. Superior Court, Crime Victims Compensation Program overview page",
+      "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:50:57Z",
+      "raw_path": "rules/sources/DC/DC-S1.html",
+      "text_path": "rules/sources/DC/DC-S1.txt",
+      "sha256": "6524e70d4b744547195c0a7fc73f3f045485869387ecee6a29353343df34df42"
+    },
+    {
+      "id": "DC-S2",
+      "title": "D.C. Superior Court, CVCP Eligibility page",
+      "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/eligibility",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:07Z",
+      "raw_path": "rules/sources/DC/DC-S2.html",
+      "text_path": "rules/sources/DC/DC-S2.txt",
+      "sha256": "64e7af0f6e978cdaf763baf96f1de782308adce8617f7d791f6ff1fe3ed1e7bd"
+    },
+    {
+      "id": "DC-S3",
+      "title": "D.C. Superior Court, CVCP Compensable Costs page",
+      "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/compensable-costs",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:08Z",
+      "raw_path": "rules/sources/DC/DC-S3.html",
+      "text_path": "rules/sources/DC/DC-S3.txt",
+      "sha256": "4eae274abb906eacec2a49591e7c47d3e0ea6b668c0a7b1f896f77456672f4cb"
+    },
+    {
+      "id": "DC-S4",
+      "title": "D.C. Superior Court, CVCP Application page",
+      "url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:09Z",
+      "raw_path": "rules/sources/DC/DC-S4.html",
+      "text_path": "rules/sources/DC/DC-S4.txt",
+      "sha256": "d924b4169753a7c623c63f127922f197638edf81254fdfbe253fd717567f17ea"
+    },
+    {
+      "id": "DC-S5",
+      "title": "CVCP Information Brochure (English)",
+      "url": "https://www.dccourts.gov/sites/default/files/matters-docs/CVCP-Information-Brochure.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:51:10Z",
+      "raw_path": "rules/sources/DC/DC-S5.pdf",
+      "text_path": "rules/sources/DC/DC-S5.txt",
+      "sha256": "194680f685bb6214eb20b0aee98d355eb0cb6a7a0c4b6d4b56d4118ed9d6d002"
+    },
+    {
+      "id": "DC-S6",
+      "title": "CVCP Application (revised 4/21/23)",
+      "url": "https://www.dccourts.gov/sites/default/files/CVCP_Application_New_Code_Changes_2023.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:51:17Z",
+      "raw_path": "rules/sources/DC/DC-S6.pdf",
+      "text_path": "rules/sources/DC/DC-S6.txt",
+      "sha256": "6a15cc784df7c1e04962b7a9cb9ada601688a28b39788ff358b188cf4f8b68f4"
+    },
+    {
+      "id": "DC-S7",
+      "title": "D.C. Superior Court Rules for the Crime Victims Compensation Program",
+      "url": "https://www.dccourts.gov/sites/default/files/superior-rules/Crime%20Victim%20Compensation%20Program%20Rules.pdf",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:51:18Z",
+      "raw_path": "rules/sources/DC/DC-S7.pdf",
+      "text_path": "rules/sources/DC/DC-S7.txt",
+      "sha256": "7c993fad7104b7af80d766a98b91a272ce7b08c8587482406df9030fd0ded438"
+    },
+    {
+      "id": "DC-S8",
+      "title": "D.C. Code § 4-501, Definitions",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-501",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:30Z",
+      "raw_path": "rules/sources/DC/DC-S8.html",
+      "text_path": "rules/sources/DC/DC-S8.txt",
+      "sha256": "66f2d34bbb257883af9e58adb92e3a0994658ac04059414f58692072ac3eb88b"
+    },
+    {
+      "id": "DC-S9",
+      "title": "D.C. Code § 4-506, Eligibility for compensation",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-506",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:31Z",
+      "raw_path": "rules/sources/DC/DC-S9.html",
+      "text_path": "rules/sources/DC/DC-S9.txt",
+      "sha256": "c1d6ec06ebda1e61715dd984e79e9592d58ff194e12b56726dded421bc1731d0"
+    },
+    {
+      "id": "DC-S10",
+      "title": "D.C. Code § 4-507, Awards of compensation",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-507",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:31Z",
+      "raw_path": "rules/sources/DC/DC-S10.html",
+      "text_path": "rules/sources/DC/DC-S10.txt",
+      "sha256": "99037530ac17520b5b75d99da31ef88bb46f5ccc21f09ff8ff312eb73ba907b7"
+    },
+    {
+      "id": "DC-S11",
+      "title": "D.C. Code § 4-508, Disqualifications and reductions",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-508",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:31Z",
+      "raw_path": "rules/sources/DC/DC-S11.html",
+      "text_path": "rules/sources/DC/DC-S11.txt",
+      "sha256": "d06b3d0d97be843ca228ae4ec82be9ee9d2db91e768bb38a9af2b359ce6383ad"
+    },
+    {
+      "id": "DC-S12",
+      "title": "D.C. Code § 4-510, Emergency awards",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-510",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:31Z",
+      "raw_path": "rules/sources/DC/DC-S12.html",
+      "text_path": "rules/sources/DC/DC-S12.txt",
+      "sha256": "8cf8a75037ed0fba193f5e53d8a1c57c46482efcc5b331088de966cc250324aa"
+    },
+    {
+      "id": "DC-S13",
+      "title": "D.C. Code § 4-512, Procedures for filing claims",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-512",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:31Z",
+      "raw_path": "rules/sources/DC/DC-S13.html",
+      "text_path": "rules/sources/DC/DC-S13.txt",
+      "sha256": "bf06692e8c6ce4258bc21af67e43a91492c5091ff0fe27e987396bc1ff44e948"
+    },
+    {
+      "id": "DC-S14",
+      "title": "D.C. Code § 4-561.03, Payment for PERKs",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-561.03",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:50Z",
+      "raw_path": "rules/sources/DC/DC-S14.html",
+      "text_path": "rules/sources/DC/DC-S14.txt",
+      "sha256": "ab6d79dc705699a2c398b2f74fe10bed2188cfbdd613e93e3538698405736a1a"
+    },
+    {
+      "id": "DC-S15",
+      "title": "D.C. Code § 23-1908, Sexual assault victims' rights",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/23-1908",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:50Z",
+      "raw_path": "rules/sources/DC/DC-S15.html",
+      "text_path": "rules/sources/DC/DC-S15.txt",
+      "sha256": "9e8e25141045d44fe601ff92d6e300b7c2de355db6d2ab379b8f681674c84655"
+    },
+    {
+      "id": "DC-S16",
+      "title": "D.C. Courts Forms Help Online, Crime Victims (guided online CVCP application)",
+      "url": "https://www.probono.net/dccourts/crimevictims/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:42:20Z",
+      "raw_path": "rules/sources/DC/DC-S16.html",
+      "text_path": "rules/sources/DC/DC-S16.txt",
+      "sha256": "28a60f35f0e30b85873fc03c63c2f4d44a07069db87ba487c65da6e5467e6be3"
+    },
+    {
+      "id": "DC-S17",
+      "title": "D.C. Code § 4-511, Confidentiality",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-511",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T20:01:27Z",
+      "raw_path": "rules/sources/DC/DC-S17.html",
+      "text_path": "rules/sources/DC/DC-S17.txt",
+      "sha256": "d723d81aa5119644b44df4fb803d263a5bb567a1e5fb2db762edd15c5e2ce73e"
+    },
+    {
+      "id": "DC-S18",
+      "title": "Office of Victim Services and Justice Grants, Address Confidentiality Program page",
+      "url": "https://ovsjg.dc.gov/acp",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T20:01:35Z",
+      "raw_path": "rules/sources/DC/DC-S18.html",
+      "text_path": "rules/sources/DC/DC-S18.txt",
+      "sha256": "2c157f5a324716e21549a291f54c7ff32ed04ea1621ec8732d7d7585367451f5"
+    }
   ],
-  "not_found": [
-   "minimum_loss",
-   "exam_payment"
+  "rules": [
+    {
+      "id": "DC-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "The hospital may not bill a sexual assault survivor for the evidence kit (PERK), including the kit itself, its administration, and processing of the kit or any biological specimens. The statute does not say whether the survivor's insurance may be billed.",
+      "quote": "The hospital shall not bill a sexual assault victim for costs associated with a PERK, including the costs of the PERK, its administration, and the processing of the PERK or any biological specimens.",
+      "source_id": "DC-S14",
+      "pinpoint": "D.C. Code § 4-561.03"
+    },
+    {
+      "id": "DC-EXAM-2",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "A sexual assault survivor has the right to have a PERK (evidence kit) performed at no cost.",
+      "quote": "a sexual assault victim shall have the right to have: (1) A PERK performed at no cost;",
+      "source_id": "DC-S15",
+      "pinpoint": "D.C. Code § 23-1908(a)(1)"
+    },
+    {
+      "id": "DC-CAP-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000
+      },
+      "summary": "The program may not award more than $25,000 per victimization. A victim who cares for more than 2 children living with them may get up to $5,000 more per child, starting with the third child.",
+      "quote": "The Court shall not award compensation in an amount exceeding $25,000 per victimization; except, that: (1) If the victim is or was the parent, guardian, custodian, or primary caregiver to more than 2 children who reside or resided with the victim, the Court may award additional compensation to the claimant of up to $5,000 for each child who resides with the claimant, beginning with the third child",
+      "source_id": "DC-S10",
+      "pinpoint": "D.C. Code § 4-507(b)"
+    },
+    {
+      "id": "DC-CAP-2",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 300000,
+        "per": "claim"
+      },
+      "summary": "Mental health counseling is capped at $3,000 for adults and $6,000 for minor children.",
+      "quote": "Compensation for mental health expenses shall not exceed $ 3,000 for adults and $ 6,000 for minor children.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 24(d)"
+    },
+    {
+      "id": "DC-CAP-3",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "amount_cents": 1000000,
+        "per": "claim"
+      },
+      "summary": "Lost earnings can be paid for up to 52 weeks after the crime, capped at the lesser of 80% of the victim's net pay or $10,000.",
+      "quote": "Loss of earnings may be compensated for a total period of up to 52 weeks after the date of the crime, in an amount not to exceed the lesser of 80 % of the victim's net pay or $10,000.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 28"
+    },
+    {
+      "id": "DC-CAP-4",
+      "category": "expense_cap",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation",
+        "amount_cents": 150000,
+        "per": "claim"
+      },
+      "summary": "Moving expenses of up to $1,500 may be paid when needed for health or safety, on referral from a prosecutor, police officer, judicial officer, medical or mental health provider, or victim advocate.",
+      "quote": "Upon referral by a prosecutor, law enforcement officer, judicial officer, medical or mental health services provider, or victims advocate, compensation of up to $1,500 may be awarded for reasonable moving expenses where necessary for health or safety.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 34"
+    },
+    {
+      "id": "DC-CAP-5",
+      "category": "expense_cap",
+      "expense": "temporary_housing",
+      "params": {
+        "expense": "temporary_housing",
+        "amount_cents": 300000,
+        "per": "claim"
+      },
+      "summary": "Temporary emergency housing is capped at $3,000, for a period of up to 120 days, on referral from a prosecutor, police officer, judicial officer, or victim advocate.",
+      "quote": "Upon referral by a prosecutor, law enforcement officer, judicial officer, or victims advocate, the cost of temporary emergency food and housing for a period of up to 120 days may be awarded. The maximum award for temporary emergency housing shall be $3,000.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 29"
+    },
+    {
+      "id": "DC-CAP-6",
+      "category": "expense_cap",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation",
+        "amount_cents": 60000,
+        "per": "claim"
+      },
+      "summary": "Transportation is capped at $500 for necessary out-of-state travel and $100 for local transportation, with a $600 total per claim. It covers trips to court, to take part in the investigation or prosecution, to get medical care, and to get other services needed because of the crime.",
+      "quote": "Up to $500 for necessary out of state travel and up to $100 for all local transportation, not to exceed a total of $600 per claim, may be awarded for reasonable transportation expenses incurred by the victim or secondary victim",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 35"
+    },
+    {
+      "id": "DC-CAP-7",
+      "category": "expense_cap",
+      "expense": "security",
+      "params": {
+        "expense": "security",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Up to $1,000 may be paid to replace doors, windows, locks, or other items needed to secure the victim's home. Guard dogs, other animals, and guns or other weapons are not covered.",
+      "quote": "Compensation of up to $1,000 may be awarded for the reasonable cost of replacement of doors, windows, locks or other items necessary to secure the victim's home or other place of residence, except that the costs of guard dogs, other animals, guns or other weapons shall not be awarded.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 32"
+    },
+    {
+      "id": "DC-CAP-8",
+      "category": "expense_cap",
+      "expense": "clothing_bedding",
+      "params": {
+        "expense": "clothing_bedding",
+        "amount_cents": 10000,
+        "per": "claim"
+      },
+      "summary": "Up to $100 may be paid to replace a living victim's clothing held by police as evidence.",
+      "quote": "Reasonable compensation up to $100 may be awarded for the replacement value of clothing of a living victim which is held by law enforcement officials for evidentiary purposes.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 27"
+    },
+    {
+      "id": "DC-CAP-9",
+      "category": "expense_cap",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Up to $1,000 may be paid for reasonable crime scene clean-up costs.",
+      "quote": "Compensation of up to $1000 may be awarded to claimants for reasonable costs associated with cleaning up the crime scene.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 26"
+    },
+    {
+      "id": "DC-CAP-10",
+      "category": "expense_cap",
+      "expense": "childcare",
+      "params": {
+        "expense": "childcare",
+        "amount_cents": 20000,
+        "per": "week"
+      },
+      "summary": "Loss of services, meaning replacement services such as child care or housekeeping the victim can no longer provide because of the injury or death, is paid at no more than the D.C. minimum hourly wage, up to $200 per week and $2,500 per victimization.",
+      "quote": "Compensation for loss of services shall be limited to the minimum hourly wage for the District of Columbia, and shall not exceed $ 200 per week and $ 2,500 per victimization.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 31"
+    },
+    {
+      "id": "DC-CAP-11",
+      "category": "expense_cap",
+      "expense": "other",
+      "params": {
+        "expense": "other",
+        "amount_cents": 200000,
+        "per": "claim"
+      },
+      "summary": "Up to $2,000 may be paid for a rental car while the victim's car is held by police as evidence. The current statute describes this cost as alternate transportation, including a rental car or rideshare.",
+      "quote": "Compensation of up to $2,000 may be awarded for the reasonable cost of a rental car for the period of time that a victim or secondary victim's automobile is being held by the police as evidence or to collect evidence.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 33"
+    },
+    {
+      "id": "DC-CAP-12",
+      "category": "expense_cap",
+      "expense": "childcare",
+      "params": {
+        "expense": "childcare",
+        "amount_cents": 250000,
+        "per": "claim"
+      },
+      "summary": "Loss of services (replacement child care, housekeeping, and similar services the victim can no longer provide) is capped at $2,500 per victimization, on top of the $200 weekly limit.",
+      "quote": "Compensation for loss of services shall be limited to the minimum hourly wage for the District of Columbia, and shall not exceed $ 200 per week and $ 2,500 per victimization.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 31"
+    },
+    {
+      "id": "DC-CAP-13",
+      "category": "expense_cap",
+      "expense": "funeral",
+      "params": {
+        "expense": "funeral",
+        "amount_cents": 1000000,
+        "per": "claim"
+      },
+      "summary": "Funeral and burial expenses are capped at $10,000. An older court rule gives a lower figure, but the statute controls.",
+      "quote": "Reasonable funeral and burial expenses, including the reasonable cost of embalming, burial containers, cremation, and the chosen method of interment; provided, that a claimant's economic loss under this sub-subparagraph shall not exceed $10,000",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(7)(A)(ii)"
+    },
+    {
+      "id": "DC-COV-1",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Reasonable medical expenses are covered, whether the care was provided in D.C. or elsewhere.",
+      "quote": "Reasonable medical expenses incurred, whether provided in the District or elsewhere;",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(7)(A)(i)"
+    },
+    {
+      "id": "DC-COV-2",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Costs from a pregnancy resulting from a sexual assault are covered, including an abortion or prenatal care and delivery, but not the cost of raising the child.",
+      "quote": "Compensation may be awarded for costs incurred for pregnancy resulting from a sexual assault. This includes the cost of an abortion, or prenatal care and delivery, but not the cost of raising a child conceived through sexual assault.",
+      "source_id": "DC-S7",
+      "pinpoint": "D.C. Super. Ct. CVCP Rule 24(c)"
+    },
+    {
+      "id": "DC-COV-3",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Out-patient mental health counseling needed because of the crime is covered when provided by a licensed psychiatrist, psychologist, social worker, marriage, family, or child counselor, or a counselor licensed by the Board of Professional Counseling.",
+      "quote": "Out-patient mental health counseling expenses which became necessary as a direct result of the crime and which are provided by a: (i) Licensed psychiatrist or psychologist; (ii) Licensed social worker; (iii) Licensed marriage, family, or child counselor practicing within the scope of licensure; or (iv) Individual licensed by the Board of Professional Counseling",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(9)(D)"
+    },
+    {
+      "id": "DC-COV-4",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Lost income incurred as a direct or indirect result of the injury is covered.",
+      "quote": "Loss of income or support incurred as a direct or indirect result of an injury or death;",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(7)(A)(iv)"
+    },
+    {
+      "id": "DC-COV-5",
+      "category": "covered_expense",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation"
+      },
+      "summary": "Reasonable moving expenses are covered when needed for health or safety.",
+      "quote": "Reasonable moving expenses where necessary for health or safety;",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(7)(A)(xii)"
+    },
+    {
+      "id": "DC-COV-6",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "Dental care is part of covered medical expenses.",
+      "quote": "Ambulance, hospital, surgical, medical, nursing, dental, optometric, ophthalmologic, chiropractic, podiatric, in-patient mental health, and pregnancy-related care;",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(9)(A)"
+    },
+    {
+      "id": "DC-EXC-1",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement"
+      },
+      "summary": "Pain and suffering, and the value of property damaged or taken during the crime (for example a phone or other belongings), are not economic loss and are not paid.",
+      "quote": "“Economic loss” does not mean: (i) Pain and suffering; (ii) The value of any property damaged or taken during the crime;",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(7)(B)"
+    },
+    {
+      "id": "DC-EXC-2",
+      "category": "excluded_expense",
+      "expense": "legal",
+      "params": {
+        "expense": "legal"
+      },
+      "summary": "The program cannot pay attorney's fees for help filing an application. A fee may be awarded only for an appeal.",
+      "quote": "The Crime Victims Compensation Program cannot pay attorney's fees for assisting a victim with the filing of a compensation application.",
+      "source_id": "DC-S4",
+      "pinpoint": "CVCP Application page, Information on Attorneys"
+    },
+    {
+      "id": "DC-DEAD-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 1,
+        "from": "crime",
+        "extension": "one year from learning of the program if the delay in learning of it was reasonable"
+      },
+      "summary": "A claim must be filed within one year after the crime, or within one year after learning of the program if the delay in learning of it was reasonable. Other one-year windows run from certain post-conviction filings.",
+      "quote": "The claimant filed a claim under this subchapter within one year after: (A) The crime occurred; (B) Learning of the Program, with an adequate showing that the delay in learning of the Program was reasonable;",
+      "source_id": "DC-S9",
+      "pinpoint": "D.C. Code § 4-506(a)(1)"
+    },
+    {
+      "id": "DC-REP-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "within_days": 7
+      },
+      "summary": "Generally the crime must be reported to law enforcement within 7 days, or within 7 days of when a report could reasonably be made.",
+      "quote": "The crime was reported to a law enforcement office within 7 days after its occurrence or, if the crime could not be reasonably reported within that time period, within 7 days from the time a report can reasonably be made.",
+      "source_id": "DC-S9",
+      "pinpoint": "D.C. Code § 4-506(a)(2)"
+    },
+    {
+      "id": "DC-REP-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam",
+          "protective_order",
+          "other"
+        ]
+      },
+      "summary": "A sexual assault survivor can meet the reporting requirement without a police report by getting a temporary or final civil protection order or a forensic medical exam, or by reporting to law enforcement any time before the statute of limitations runs out.",
+      "quote": "In the case of a sexual assault victim: (A) Obtaining a: (i) Temporary civil protection order or civil protection order from the Court; or (ii) Forensic medical examination; or (B) Reporting the offense to a law enforcement office before expiration of the applicable statute of limitations for that offense",
+      "source_id": "DC-S9",
+      "pinpoint": "D.C. Code § 4-506(c)(3)"
+    },
+    {
+      "id": "DC-REP-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "medical_provider",
+          "other"
+        ]
+      },
+      "summary": "If the program finds a victim's ability to report was affected by age, physical condition, psychological state, cultural or language barriers, or a health or safety concern, the victim can instead submit a court order, law enforcement records, or records from a medical professional.",
+      "quote": "if the Program determines that the claimant's ability to report the crime may be impacted due to the claimant's age, physical condition, psychological state, cultural or linguistic barriers, or any other health or safety concern that jeopardizes the claimant's well-being",
+      "source_id": "DC-S9",
+      "pinpoint": "D.C. Code § 4-506(c)(5)"
+    },
+    {
+      "id": "DC-COL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The award equals the claimant's economic loss minus the amount available from collateral sources.",
+      "quote": "The Court shall award compensation in an amount equal to the claimant’s economic loss, decreased by the amount available to the claimant from collateral sources.",
+      "source_id": "DC-S10",
+      "pinpoint": "D.C. Code § 4-507(a)"
+    },
+    {
+      "id": "DC-COL-2",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "If the victim is a dependent on someone else's insurance policy, that policy does not count as a collateral source unless the victim chooses to use it.",
+      "quote": "if a victim or secondary victim is a dependent on a primary insurance holder's insurance policy, the primary insurance holder's insurance policy shall not constitute a collateral source for the purposes of subsection (a) of this section, unless the victim or secondary victim chooses to avail themselves of the benefits or compensation from the primary insurance holder's insurance policy.",
+      "source_id": "DC-S10",
+      "pinpoint": "D.C. Code § 4-507(a-1)"
+    },
+    {
+      "id": "DC-COND-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "An application may be denied in whole or in part because of the nature of the victim's involvement in the events leading to the crime.",
+      "quote": "An application for assistance may be denied, in whole or in part, if the Court finds: (1) Denial is appropriate due to the nature of the victim’s or secondary victim’s involvement in the events leading to the relevant crime;",
+      "source_id": "DC-S11",
+      "pinpoint": "D.C. Code § 4-508(b)"
+    },
+    {
+      "id": "DC-COND-2",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "An application may be denied in whole or in part if the victim did not reasonably cooperate with law enforcement, unless the cooperation was affected by the factors in 4-506(c) (for example the sexual assault reporting alternatives, or age, condition, trauma, language, or safety concerns).",
+      "quote": "(A) The victim failed to reasonably cooperate with law enforcement; and (B) The victim's cooperation was not impacted by the factors described in § 4-506(c)",
+      "source_id": "DC-S11",
+      "pinpoint": "D.C. Code § 4-508(b)(2)"
+    },
+    {
+      "id": "DC-EMER-1",
+      "category": "emergency_award",
+      "params": {
+        "amount_cents": 100000
+      },
+      "summary": "An emergency award of up to $1,000 may be made before the final decision if an award is likely and the claimant would face undue financial or emotional hardship without immediate help. It is deducted from the final award.",
+      "quote": "If it appears likely that a final award will be made and that the claimant will suffer undue financial or emotional hardship if immediate financial assistance is not granted, an emergency award not exceeding $1,000 may be made prior to the final determination.",
+      "source_id": "DC-S12",
+      "pinpoint": "D.C. Code § 4-510(a)"
+    },
+    {
+      "id": "DC-CRIME-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "First degree sexual abuse is a covered crime. The same statutory list also covers second, third, and fourth degree sexual abuse, misdemeanor sexual abuse, and child sexual abuse offenses.",
+      "quote": "First degree sexual abuse, as described in section 201 of the Anti-Sexual Abuse Act of 1994",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(6)(KK)"
+    },
+    {
+      "id": "DC-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "Anyone injured in D.C.; D.C. residents injured abroad by terrorism or mass violence, or in a state without a VOCA-eligible compensation program"
+      },
+      "summary": "Anyone injured by a crime in D.C. can apply. D.C. residents injured outside D.C. qualify only for terrorism or mass violence abroad, or when the state where it happened has no federally funded compensation program.",
+      "quote": "“Victim” means a person who suffers personal injury or death in the District, a person who is a resident of the District and suffers personal injury or death as a result of a terrorist act or act of mass violence committed outside of the United States, or a person who is a resident of the District and who suffers personal injury or death outside the District in a state that does not have a crime victims compensation program",
+      "source_id": "DC-S8",
+      "pinpoint": "D.C. Code § 4-501(14)"
+    },
+    {
+      "id": "DC-SUB-1",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "CVCPapplications@dcsc.gov"
+      },
+      "summary": "Email the completed application and supporting documents to CVCPapplications@dcsc.gov.",
+      "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
+    },
+    {
+      "id": "DC-SUB-2",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "515 5th Street, NW #109, Washington, D.C. 20001"
+      },
+      "summary": "Mail the completed application to the CVCP office at 515 5th Street, NW #109, Washington, D.C. 20001.",
+      "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
+    },
+    {
+      "id": "DC-SUB-3",
+      "category": "submission",
+      "params": {
+        "method": "in_person",
+        "target": "515 5th Street, NW #109, Washington, D.C. 20001"
+      },
+      "summary": "Drop off the completed application in person at the CVCP office, 515 5th Street, NW #109, Washington, D.C. 20001, or at a remote site.",
+      "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
+    },
+    {
+      "id": "DC-SUB-4",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "202-879-4230"
+      },
+      "summary": "The application page also lists fax as a way to submit: 202-879-4230.",
+      "quote": "Fax: 202-879-4230",
+      "source_id": "DC-S4",
+      "pinpoint": "CVCP Application page, ways to submit"
+    },
+    {
+      "id": "DC-SUB-5",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://lawhelpinteractive.org/Interview/GenerateInterview/8116/engine"
+      },
+      "summary": "Apply online through the self-guided interactive interview linked from the D.C. Courts.",
+      "quote": "OR ONLINE AT Self-Guided Interactive Interview Application https://lawhelpinteractive.org/Interview/Gene rateInterview/8116/engine",
+      "source_id": "DC-S5",
+      "pinpoint": "CVCP Information Brochure, Where can I get an application?"
+    },
+    {
+      "id": "DC-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "photo_id",
+        "note": "If no ID is provided, staff will contact you for another way to confirm identity."
+      },
+      "summary": "Include a valid photo ID with the application.",
+      "quote": "DOCUMENTS NEEDED • CVCP Application • Valid Photo ID",
+      "source_id": "DC-S5",
+      "pinpoint": "CVCP Information Brochure, Documents Needed"
+    },
+    {
+      "id": "DC-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Or a DC civil protection order; the application page says temporary restraining orders are not accepted, while the 2023 form also lists anti-stalking orders and a forensic medical exam as crime documentation."
+      },
+      "summary": "Include a copy of the DC police report or DC civil protection order, plus any bills or receipts you want reimbursed.",
+      "quote": "submit it along with a copy of your DC police report or DC civil protection order (the program does not accept temporary restraining orders), any bills or receipts that you would like to have reimbursed by the program.",
+      "source_id": "DC-S4",
+      "pinpoint": "CVCP Application page"
+    },
+    {
+      "id": "DC-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "exam_record",
+        "note": "Listed on the application as one accepted form of crime documentation (at least one must be selected)."
+      },
+      "summary": "A forensic medical examination is one of the crime documentation options on the application.",
+      "quote": "Forensic medical examination",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.2, Documentation of Crime"
+    },
+    {
+      "id": "DC-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Bills or receipts for every expense you want reimbursed."
+      },
+      "summary": "Send any bills or receipts you want the program to reimburse.",
+      "quote": "any bills or receipts that you would like to have reimbursed by the program.",
+      "source_id": "DC-S4",
+      "pinpoint": "CVCP Application page"
+    },
+    {
+      "id": "DC-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Medical, dental, and mental health bills."
+      },
+      "summary": "Submit copies of all medical, dental, or mental health bills received so far.",
+      "quote": "Submit copies of all available bills received to date.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
+    },
+    {
+      "id": "DC-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement"
+      },
+      "summary": "Attach all insurance payment statements and denials for treatment costs.",
+      "quote": "Attach all insurance payment statements and rejections.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
+    },
+    {
+      "id": "DC-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Authorization and release forms for medical, wage, support, and collateral-source records."
+      },
+      "summary": "The program will ask you to complete authorization and release forms.",
+      "quote": "YOU WILL BE REQUIRED TO COMPLETE AUTHORIZATION AND RELEASE FORMS",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
+    },
+    {
+      "id": "DC-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Disability statement from the doctor, only if claiming lost wages."
+      },
+      "summary": "For lost wages, submit a disability statement from the doctor who can verify how long you could not work.",
+      "quote": "(Please submit disability statement from the verifying doctor)",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.4, Section 4"
+    },
+    {
+      "id": "DC-DOC-9",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "Only if self-employed: federal income tax returns."
+      },
+      "summary": "If you are self-employed and claiming lost wages, attach your federal income tax returns for the 12 months before the crime.",
+      "quote": "If yes, you must attach a copy of your Federal Income Tax Returns for the last 12 months preceding crime.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.4, Section 4"
+    },
+    {
+      "id": "DC-DOC-10",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Copy of the lease and a referral form, only if requesting temporary housing or moving expenses."
+      },
+      "summary": "For temporary housing or moving expenses, submit a copy of the lease and a referral form.",
+      "quote": "If yes, submit a copy of lease. A referral form must also be submitted.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 1"
+    },
+    {
+      "id": "DC-DOC-11",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Transportation receipts, only if your car was held as evidence."
+      },
+      "summary": "If your car was held as evidence, submit copies of your alternate transportation receipts.",
+      "quote": "Please submit copy of transportation receipts.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.6, Section 12"
+    },
+    {
+      "id": "DC-DOC-12",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Birth certificates for children, only when listing secondary victims or dependents."
+      },
+      "summary": "When listing dependents or secondary victims, submit copies of the children's birth certificates.",
+      "quote": "Submit copies of birth certificates for children.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.5, Section 6"
+    },
+    {
+      "id": "DC-DOC-13",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Confidential Information form, attached at the end of the online interview when applying online."
+      },
+      "summary": "If you apply online, complete the Confidential Information form and attach it at the end of the online interview.",
+      "quote": "Please click here to complete a Confidential Information form. Once completed, you can attach it at the end of the online interactive interview that you are completing, such as the Crime Victims Compensation Form.",
+      "source_id": "DC-S16",
+      "pinpoint": "D.C. Courts Forms Help Online, Crime Victims"
+    },
+    {
+      "id": "DC-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "days": 5,
+        "note": "Business days for staff to review the application; this is not the time to a decision."
+      },
+      "summary": "Allow 5 business days for a CVCP team member to review the application.",
+      "quote": "Please allow 5 business days for a CVCP team member to review your compensation application.",
+      "source_id": "DC-S6",
+      "pinpoint": "CVCP Application (rev. 4/21/23), p.7"
+    },
+    {
+      "id": "DC-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Address Confidentiality Program (ACP)",
+        "agency": "Office of Victim Services and Justice Grants (OVSJG)",
+        "covers_sexual_assault": true,
+        "enroll": "Application assistants are available in several agencies across the District to answer questions, verify eligibility, and accept applications. To learn more about the ACP or submit an application, reach out to an application assistant on the list below."
+      },
+      "summary": "D.C.'s Address Confidentiality Program, run by the Office of Victim Services and Justice Grants, gives eligible D.C. residents who fear for their safety and have experienced sexual assault, domestic violence, stalking, or human trafficking a legal substitute address that District agencies must accept, plus forwarding of first-class, certified, and registered mail. Applicants must also have moved recently, plan to move soon, or have kept their current address off public records, and apply through an application assistant.",
+      "quote": "The District’s Address Confidentiality Program (ACP), administered by the Office of Victim Services and Justice Grants (OVSJG), provides a legal substitute address for eligible DC residents to maintain the confidentiality of her or his actual address.",
+      "source_id": "DC-S18",
+      "pinpoint": "OVSJG Address Confidentiality Program page, program description"
+    },
+    {
+      "id": "DC-RECCONF-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "Information, records, and hearing transcripts in compensation claim files are confidential and not open to public inspection; only the claimant, a representative with the claimant's signed authorization, treating or advising physicians at the Court's discretion, and people assisting the Court with administering the claim may see them. The annual report to the D.C. Council leaves out claimant names unless the claimant agrees.",
+      "quote": "Information, records, and transcripts of hearings contained in the claims files under the provisions of this chapter are confidential and not open to public inspection",
+      "source_id": "DC-S17",
+      "pinpoint": "D.C. Code § 4-511(a)"
+    }
   ],
-  "notes": "D.C. Code 4-506(d) lets the program waive its time limits for good cause, including compelling health or safety concerns (not encoded as a separate deadline rule). No minimum-loss threshold appears in D.C. Code 4-501 to 4-512 or the CVCP Rules. D.C. Code 4-561.03 bars the hospital from billing the survivor for a PERK, but no official source I saved names who pays the hospital or says whether the survivor's private insurance may be billed, so exam_payment is left out and insurance_billing is unspecified. Processing time: the 2023 application asks applicants to allow 5 business days for staff review of the application; no official source states a time to a decision or payment."
- },
- "confidence": "high",
- "researcher_notes": "Dollar sub-limits come from the D.C. Superior Court CVCP Rules (DC-S7); the statute (4-501(7)) lists covered costs but sets only the $10,000 funeral cap and the $25,000 total. The Rules PDF is older than the 2023 amendments (D.C. Law 24-341) in places: Rule 25 says funeral up to $6,000, while statute 4-501(7)(A)(ii), the program's Compensable Costs page, and the 2023 application all say $10,000 (statute wins). Rule 7(b) lists only a sexual assault exam as the reporting alternative; statute 4-506(c)(3) is broader (protective order, forensic exam, or a report before the statute of limitations), and the statute is used here. The Application page (DC-S4) says to submit a DC police report or DC civil protection order and that temporary restraining orders are not accepted, while the 2023 application form (DC-S6) lists forensic medical examination as crime documentation; Tend should follow the statute and tell survivors to call the program if documentation is questioned. 4-506(a-2) also says arrest, prosecution, or conviction of the offender is not required, and being a family or household member of the offender does not by itself make a claimant ineligible. Federal OVC directory confirmed the program website and phone 202-879-4216. Reviewer pass: added the statutory $10,000 funeral cap (4-501(7)(A)(ii)) as its own rule, the $2,500 per-victimization limit on loss of services alongside the $200 weekly limit, and the 4-508(b)(2) law-enforcement cooperation ground for denial. Rule 33 covers only a rental car, while the 2023 statute covers alternate transportation including rideshare; the $2,000 figure comes from the Rules, the Compensable Costs page, and the 2023 application. The CVCP Rules PDF carries no adoption date; its dollar sub-limits other than funeral match the current Compensable Costs page and the 2023 application form. No official source found names who pays the hospital for the PERK exam. How to file: the 2023 application (DC-S6, 443 AcroForm fields, the version linked from the program's Application page) says to submit by email to CVCPapplications@dcsc.gov or by mail or in person at 515 5th Street, NW #109, or at remote sites; the brochure (DC-S5) lists five Balance and Restorative Justice Center remote sites for pick-up and drop-off. The Application page (DC-S4) adds fax 202-879-4230 and shows the email address obfuscated, so the email rule quotes the application form. D.C. Code 4-512(a) confirms filing in person, by mail, online, or by email. The online target comes from the brochure, where a PDF line break splits the URL ('Gene rateInterview'); the joined URL is the same link the D.C. Courts Forms Help Online page (DC-S16) uses for its Start Your Online Interview button and it returned HTTP 200 on Oct 3. The application asks for a photo ID but says staff will confirm identity another way if none is attached."
+  "coverage": {
+    "found": [
+      "address_confidentiality",
+      "collateral_source",
+      "conduct_reduction",
+      "covered_expense",
+      "eligible_crime",
+      "emergency_award",
+      "exam_no_bill",
+      "excluded_expense",
+      "expense_cap",
+      "filing_deadline",
+      "processing_time",
+      "record_confidentiality",
+      "reporting_requirement",
+      "required_document",
+      "residency",
+      "submission",
+      "total_cap"
+    ],
+    "not_found": [
+      "minimum_loss",
+      "exam_payment"
+    ],
+    "notes": "D.C. Code 4-506(d) lets the program waive its time limits for good cause, including compelling health or safety concerns (not encoded as a separate deadline rule). No minimum-loss threshold appears in D.C. Code 4-501 to 4-512 or the CVCP Rules. D.C. Code 4-561.03 bars the hospital from billing the survivor for a PERK, but no official source I saved names who pays the hospital or says whether the survivor's private insurance may be billed, so exam_payment is left out and insurance_billing is unspecified. Processing time: the 2023 application asks applicants to allow 5 business days for staff review of the application; no official source states a time to a decision or payment. Address confidentiality: D.C.'s ACP (Address Confidentiality Act of 2018, D.C. Law 22-118) is run by OVSJG; the OVSJG ACP page (DC-S18) lists sexual assault among qualifying experiences. Record confidentiality: D.C. Code 4-511 (DC-S17) makes claim files confidential and not open to public inspection."
+  },
+  "confidence": "high",
+  "researcher_notes": "Dollar sub-limits come from the D.C. Superior Court CVCP Rules (DC-S7); the statute (4-501(7)) lists covered costs but sets only the $10,000 funeral cap and the $25,000 total. The Rules PDF is older than the 2023 amendments (D.C. Law 24-341) in places: Rule 25 says funeral up to $6,000, while statute 4-501(7)(A)(ii), the program's Compensable Costs page, and the 2023 application all say $10,000 (statute wins). Rule 7(b) lists only a sexual assault exam as the reporting alternative; statute 4-506(c)(3) is broader (protective order, forensic exam, or a report before the statute of limitations), and the statute is used here. The Application page (DC-S4) says to submit a DC police report or DC civil protection order and that temporary restraining orders are not accepted, while the 2023 application form (DC-S6) lists forensic medical examination as crime documentation; Tend should follow the statute and tell survivors to call the program if documentation is questioned. 4-506(a-2) also says arrest, prosecution, or conviction of the offender is not required, and being a family or household member of the offender does not by itself make a claimant ineligible. Federal OVC directory confirmed the program website and phone 202-879-4216. Reviewer pass: added the statutory $10,000 funeral cap (4-501(7)(A)(ii)) as its own rule, the $2,500 per-victimization limit on loss of services alongside the $200 weekly limit, and the 4-508(b)(2) law-enforcement cooperation ground for denial. Rule 33 covers only a rental car, while the 2023 statute covers alternate transportation including rideshare; the $2,000 figure comes from the Rules, the Compensable Costs page, and the 2023 application. The CVCP Rules PDF carries no adoption date; its dollar sub-limits other than funeral match the current Compensable Costs page and the 2023 application form. No official source found names who pays the hospital for the PERK exam. How to file: the 2023 application (DC-S6, 443 AcroForm fields, the version linked from the program's Application page) says to submit by email to CVCPapplications@dcsc.gov or by mail or in person at 515 5th Street, NW #109, or at remote sites; the brochure (DC-S5) lists five Balance and Restorative Justice Center remote sites for pick-up and drop-off. The Application page (DC-S4) adds fax 202-879-4230 and shows the email address obfuscated, so the email rule quotes the application form. D.C. Code 4-512(a) confirms filing in person, by mail, online, or by email. The online target comes from the brochure, where a PDF line break splits the URL ('Gene rateInterview'); the joined URL is the same link the D.C. Courts Forms Help Online page (DC-S16) uses for its Start Your Online Interview button and it returned HTTP 200 on Oct 3. The application asks for a photo ID but says staff will confirm identity another way if none is attached. Address confidentiality: the OVSJG ACP page (DC-S18) says an applicant may qualify if they fear for their safety, currently (or will soon) reside in D.C., and have experienced domestic violence, sexual assault, stalking, or human trafficking; they must also have moved within the past 60 days, plan to move within 30 days, or have kept their current address off online and public records. The substitute address binds District agencies only; the page says non-government entities may still require the actual address and the program does not forward packages or magazines. The program is created by D.C. Law 22-118 (Address Confidentiality Act of 2018); the statute itself was not saved, so the rule quotes the official program page. Record confidentiality: D.C. Code 4-511(a) (DC-S17) is the statute; CVCP Rule 4 (DC-S7) and the Application page (DC-S4) say the same thing. 4-511(a) lets the claimant, an authorized representative, physicians at the Court's discretion, and people assisting the Court see the file, and 4-507(f) lets the Court tell the sentencing judge the award amount, so Tend should not say no one outside the program ever sees the claim."
 }

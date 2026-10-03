@@ -17,7 +17,7 @@
    "field_count": 135
   }
  },
- "source_sha256": "78e9c66844d6b1eaa09f973d3d2593811e8e4938d42079f86b5b6bce4eefd6a7",
+ "source_sha256": "a9697257fb43c68132cd4fde765e08356d52dd3953007ba7756317411868d43c",
  "rules": [
   {
    "id": "MD-EXAM-1",
@@ -264,6 +264,11 @@
    "id": "MD-DOC-WORKNOTE",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "MD-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
   }
  ],
  "skipped": [

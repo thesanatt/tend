@@ -146,6 +146,36 @@
    "raw_path": "rules/sources/MD/MD-S13.html",
    "text_path": "rules/sources/MD/MD-S13.txt",
    "sha256": "a1c2c05865b2d26153d4199235b03fb96434c9673a71e5a1e775ac44a635ac8a"
+  },
+  {
+   "id": "MD-S14",
+   "title": "Md. Code, State Government 7-303 (Address Confidentiality Program)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gsg&section=7-303&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:58:17Z",
+   "raw_path": "rules/sources/MD/MD-S14.html",
+   "text_path": "rules/sources/MD/MD-S14.txt",
+   "sha256": "e23d0d52597ab373bd0b20f830f8630bf6edcbcb2c4469a47af7ee7542c8b17e"
+  },
+  {
+   "id": "MD-S15",
+   "title": "Maryland Secretary of State: Apply to ACP (Address Confidentiality Program)",
+   "url": "https://sos.maryland.gov/ACP/Pages/Apply-to-ACP.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:58:22Z",
+   "raw_path": "rules/sources/MD/MD-S15.html",
+   "text_path": "rules/sources/MD/MD-S15.txt",
+   "sha256": "88467ed77e3499f307883c0b4e264c115e01ec9cea084e71bdce0f7457e3d6eb"
+  },
+  {
+   "id": "MD-S16",
+   "title": "Md. Code, Criminal Procedure 11-806 (records of Board proceedings)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-806&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:30Z",
+   "raw_path": "rules/sources/MD/MD-S16.html",
+   "text_path": "rules/sources/MD/MD-S16.txt",
+   "sha256": "027177d7799f7f09e2a3fbcc8fb74fbb56e374af30be8918e2b41cf0f5e95418"
   }
  ],
  "rules": [
@@ -723,6 +753,20 @@
    "quote": "letter from a doctor certifying inability to work",
    "source_id": "MD-S9",
    "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (Maryland Safe at Home)",
+    "agency": "Maryland Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Applications are available through Application Assistants, professional victim service providers registered with the Office of the Secretary of State. An Application Assistant will help you develop a safety plan and determine if participation in the ACP is a good fit. Please call the ACP at 410.260.3875 if you do not qualify for traditional victim services but would like to apply to the Address Confidentiality Program, or if you have trouble connecting with an Application Assistant."
+   },
+   "summary": "Maryland's Address Confidentiality Program, run by the Secretary of State, gives survivors of sexual assault, domestic violence, stalking, harassment or human trafficking a substitute address designated by the Secretary of State, so agencies can answer public records requests without revealing where they live.",
+   "quote": "The Secretary of State shall establish and administer an Address Confidentiality Program for survivors of threatened, attempted, or actual domestic violence, sexual assault, stalking, harassment, or human trafficking.",
+   "source_id": "MD-S14",
+   "pinpoint": "Md. Code, State Gov't 7-303"
   }
  ],
  "coverage": {
@@ -740,7 +784,8 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality"
   ],
   "not_found": [
    "conduct_reduction",
@@ -748,10 +793,11 @@
    "expense_cap:relocation",
    "expense_cap:transportation",
    "expense_cap:security (separate from the $2,000 property cap)",
-   "processing_time"
+   "processing_time",
+   "record_confidentiality"
   ],
-  "notes": "conduct_reduction: the 2024 Victim Compensation Reform Act (Ch. 705, HB 575, MD-S12, Section 1 effective July 1, 2025) struck the old contributory-conduct reduction and the provocation bar from 11-810; the current 11-801 to 11-819 text has no conduct reduction. The program page (MD-S8) and 2021 application (MD-S9) still describe contributory conduct as a ground for ineligibility, so no rule was written. excluded_expense: the only exclusion list found is in the 2021 application instructions, and most of it (property loss, lock changes, relocation, child care, mileage) is contradicted by current statute, so it was not used. No dollar caps were found for relocation or transportation. Exam insurance billing: the statute (11-1007) does not mention insurance, but COMAR 10.12.02.05A(2)-(3) (MD-S13) bars billing the victim, family, or private insurance for any difference and requires providers to accept state payment in full, so insurance_billing is prohibited in MD-EXAM-5. processing_time: no saved source states a time for a decision or payment; 11-809(b)(2) only requires the Board to notify the claimant within 10 days after receiving a claim, which is an acknowledgment, not a decision, so no rule was written."
+  "notes": "conduct_reduction: the 2024 Victim Compensation Reform Act (Ch. 705, HB 575, MD-S12, Section 1 effective July 1, 2025) struck the old contributory-conduct reduction and the provocation bar from 11-810; the current 11-801 to 11-819 text has no conduct reduction. The program page (MD-S8) and 2021 application (MD-S9) still describe contributory conduct as a ground for ineligibility, so no rule was written. excluded_expense: the only exclusion list found is in the 2021 application instructions, and most of it (property loss, lock changes, relocation, child care, mileage) is contradicted by current statute, so it was not used. No dollar caps were found for relocation or transportation. Exam insurance billing: the statute (11-1007) does not mention insurance, but COMAR 10.12.02.05A(2)-(3) (MD-S13) bars billing the victim, family, or private insurance for any difference and requires providers to accept state payment in full, so insurance_billing is prohibited in MD-EXAM-5. processing_time: no saved source states a time for a decision or payment; 11-809(b)(2) only requires the Board to notify the claimant within 10 days after receiving a claim, which is an acknowledgment, not a decision, so no rule was written. record_confidentiality: no law makes CICB claims confidential. Criminal Procedure 11-806(a) (MD-S16) says the opposite: 'the record of a proceeding before the Board or a Board member is a public record'; 11-806(b) only keeps confidential a record or report the Board obtains whose confidentiality is already protected by other law (for example medical records). COMAR 12.01.01.12 (MD-S11) only subjects non-claimant review to Public Information Act limits, requires secure handling of documents about children, and bars disclosing full Social Security, driver's license and similar numbers. No rule was written."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from the Maryland General Assembly site, which reflects HB 575 (2024 Ch. 705). Per Sections 3 and 4 of Ch. 705 (MD-S12), Section 1 (the 11-801 to 11-819 amendments, including the struck 48-hour report, cooperation, and contributory-conduct rules and the new caps) took effect July 1, 2025; only Section 2 took effect July 1, 2024. Claims tied to crimes or decisions before July 1, 2025 may have been handled under the old rules. Several agency materials are out of date and statutes win: (1) Filing deadline: statute 11-809 says 4 years; the 2021 application (MD-S9) says three years. (2) Police report: the old 48-hour reporting and full-cooperation requirements were struck by HB 575 (MD-S12); current 11-810(b) makes a police report one of several accepted kinds of evidence. The program page (MD-S8) and the application still say to report within 48 hours and list a police report for all claims, so a survivor may still be asked for one in practice. (3) Emergency award: statute 11-813 says up to $10,000; COMAR 12.01 (MD-S11) still says $2,000 per claim and asks for a police report for an emergency award. (4) Covered expenses: statute now covers one-time relocation, child care for care visits, travel to care, and property repair or replacement including locks; the 2021 application lists these as not covered. (5) Phone: OVC directory and the application list 410-585-3010 for CICB; the program page lists 410-697-9338 under the CICB address. The application also names the agency the Governor's Office of Crime Prevention and Policy; the website domain is gocpp.maryland.gov. MD-CAP-5 maps lost earnings to the disability-related cap because 11-811(a) pays lost earnings under the workers' compensation disability schedule (two-thirds of average wage). (6) Exam regulation: COMAR 10.12.02 (MD-S13) still names the Maryland Department of Health as payer and was last amended in 2008; the statute now names GOCPP, and the SARU page (MD-S10) says SARU operates under COMAR 10.12.02. COMAR 10.12.02.03B says a forensic exam is performed within 120 hours with a police report or property-held number, while statute 11-1007(c)(1) covers exams within 15 days; the statute wins, and SARU FAQ says the exam is covered without a police report. (7) Counseling caps: the $10,000 per claimant / $20,000 per incident counseling cap in 11-811(b)(6) applies only to household family members of an injured victim, so it is recorded as MD-COV-10 (covered_expense with applies_to) rather than an expense_cap, to keep it from capping the victim's own counseling at $10,000. The victim's own counseling falls under the $45,000 cap in MD-CAP-3. (8) How to file: the linked application (MD-S9, rev. Nov 2021, still the English application linked from the program page on Oct 3 2026) is a fillable PDF with 135 AcroForm fields. Its instruction sheet says to mail, email, or deliver the completed application to the CICB office, which gives the mail, email, and in-person rules; statute 11-809(b)(1) (MD-S3) also allows filing in person, by mail, or electronically, and COMAR 12.01 (MD-S11) still says in person or by regular mail. The application header lists a fax number, (410) 764-3815, but no source says applications may be faxed, so no fax rule was written. There is no online submission portal; the 'fillable Online Application' in the instructions is the fillable PDF. Address conflict: the application prints Ste. 206, while the current program page footer (MD-S8) lists Suite 209 at the same street address with phone 410-697-9338; the submission rules use the application's address because that is the document that gives the filing instruction, and a survivor may want to confirm the suite by phone. Required documents come from the instruction sheet's Benefits & Required Documentation list; the police report item predates HB 575 (see note 2). The application does not ask for a photo ID, proof of residency, or the forensic exam record."
+ "researcher_notes": "Statute text is from the Maryland General Assembly site, which reflects HB 575 (2024 Ch. 705). Per Sections 3 and 4 of Ch. 705 (MD-S12), Section 1 (the 11-801 to 11-819 amendments, including the struck 48-hour report, cooperation, and contributory-conduct rules and the new caps) took effect July 1, 2025; only Section 2 took effect July 1, 2024. Claims tied to crimes or decisions before July 1, 2025 may have been handled under the old rules. Several agency materials are out of date and statutes win: (1) Filing deadline: statute 11-809 says 4 years; the 2021 application (MD-S9) says three years. (2) Police report: the old 48-hour reporting and full-cooperation requirements were struck by HB 575 (MD-S12); current 11-810(b) makes a police report one of several accepted kinds of evidence. The program page (MD-S8) and the application still say to report within 48 hours and list a police report for all claims, so a survivor may still be asked for one in practice. (3) Emergency award: statute 11-813 says up to $10,000; COMAR 12.01 (MD-S11) still says $2,000 per claim and asks for a police report for an emergency award. (4) Covered expenses: statute now covers one-time relocation, child care for care visits, travel to care, and property repair or replacement including locks; the 2021 application lists these as not covered. (5) Phone: OVC directory and the application list 410-585-3010 for CICB; the program page lists 410-697-9338 under the CICB address. The application also names the agency the Governor's Office of Crime Prevention and Policy; the website domain is gocpp.maryland.gov. MD-CAP-5 maps lost earnings to the disability-related cap because 11-811(a) pays lost earnings under the workers' compensation disability schedule (two-thirds of average wage). (6) Exam regulation: COMAR 10.12.02 (MD-S13) still names the Maryland Department of Health as payer and was last amended in 2008; the statute now names GOCPP, and the SARU page (MD-S10) says SARU operates under COMAR 10.12.02. COMAR 10.12.02.03B says a forensic exam is performed within 120 hours with a police report or property-held number, while statute 11-1007(c)(1) covers exams within 15 days; the statute wins, and SARU FAQ says the exam is covered without a police report. (7) Counseling caps: the $10,000 per claimant / $20,000 per incident counseling cap in 11-811(b)(6) applies only to household family members of an injured victim, so it is recorded as MD-COV-10 (covered_expense with applies_to) rather than an expense_cap, to keep it from capping the victim's own counseling at $10,000. The victim's own counseling falls under the $45,000 cap in MD-CAP-3. (8) How to file: the linked application (MD-S9, rev. Nov 2021, still the English application linked from the program page on Oct 3 2026) is a fillable PDF with 135 AcroForm fields. Its instruction sheet says to mail, email, or deliver the completed application to the CICB office, which gives the mail, email, and in-person rules; statute 11-809(b)(1) (MD-S3) also allows filing in person, by mail, or electronically, and COMAR 12.01 (MD-S11) still says in person or by regular mail. The application header lists a fax number, (410) 764-3815, but no source says applications may be faxed, so no fax rule was written. There is no online submission portal; the 'fillable Online Application' in the instructions is the fillable PDF. Address conflict: the application prints Ste. 206, while the current program page footer (MD-S8) lists Suite 209 at the same street address with phone 410-697-9338; the submission rules use the application's address because that is the document that gives the filing instruction, and a survivor may want to confirm the suite by phone. Required documents come from the instruction sheet's Benefits & Required Documentation list; the police report item predates HB 575 (see note 2). The application does not ask for a photo ID, proof of residency, or the forensic exam record. (9) Address confidentiality: the program is set up by State Gov't 7-301 to 7-312; 7-302 (purpose) says participants use an address designated by the Office of the Secretary of State as a substitute address, and 7-304 lets an applicant qualify with their own statement of fear (no police report needed). The enroll text comes from the Secretary of State's Apply to ACP page (MD-S15). That page is built on SharePoint and its body sits inside a form element, so the fetch tool's .txt snapshot holds only the translation disclaimer; the enroll wording was read from the saved raw HTML (rules/sources/MD/MD-S15.html). The same page says the ACP serves people who have recently relocated or will relocate within 30 days and cannot redact an address that is already public, and that applying may take up to 10 business days. The older Safe at Home brochure on sos.maryland.gov still describes the program as only for domestic violence and human trafficking victims; the statute (7-303, MD-S14) and the current Apply page both include sexual assault. (10) Record confidentiality: Maryland treats the record of a CICB proceeding as a public record (11-806(a), MD-S16); only records already confidential under other law stay confidential (11-806(b)). Survivors should not assume their claim file is closed to the public; the ACP substitute address can keep the home address off it."
 }

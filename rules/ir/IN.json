@@ -17,7 +17,7 @@
    "field_count": 89
   }
  },
- "source_sha256": "fa9aeb62f04a027d0a7ef20508d5f0897f03ccbb3876f64fc36c362258d62233",
+ "source_sha256": "66ecfc7fc55f5ca7c9ae979a1ea3e2beb2a1f05ffa778e78aab9178de3c8b719",
  "rules": [
   {
    "id": "IN-EXAM-1",
@@ -261,6 +261,16 @@
    "id": "IN-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "IN-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "IN-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

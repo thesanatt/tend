@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "57bbc03d2b1fed12455b17e5d00c716f19c413c9469e21545eeaf3c3fe70c994",
+ "source_sha256": "706056643c418206090ef1e852768f8d9a9d851a7cf0694568df0a0a20f58408",
  "rules": [
   {
    "id": "MS-EXAM-1",
@@ -316,6 +316,16 @@
    "id": "MS-PROCESS-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "MS-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MS-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

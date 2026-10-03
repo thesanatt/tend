@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "d47492b3a30fd08a10221462476472bd187cbf4177be09fa2b96d3287272b0c0",
+ "source_sha256": "4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561",
  "rules": [
   {
    "id": "ME-EXAM-1",
@@ -242,6 +242,16 @@
    "id": "ME-DOC-COUNSEL",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "ME-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "ME-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

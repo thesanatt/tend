@@ -17,7 +17,7 @@
    "field_count": 107
   }
  },
- "source_sha256": "953e2a144db5e3cf6200b34e1d2f226e3bcc75257d698b4335efc19e4edd289d",
+ "source_sha256": "0be711d80cbbfe9d51d405ec14235474d8aaf4537159540ebef6438dd58306e0",
  "rules": [
   {
    "id": "MA-EXAM-1",
@@ -292,6 +292,16 @@
    "id": "MA-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "MA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MA-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

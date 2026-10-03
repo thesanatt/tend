@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "95027480cce052ea4453253c80dfff368463a53755aa1dc69a944bd2583a677c",
+ "source_sha256": "21f25a578dc391727b10c37b3ed360bf0d33471f996118ab60c71100dc6ce169",
  "rules": [
   {
    "id": "SD-EXAM-1",
@@ -270,6 +270,16 @@
    "id": "SD-DOC-12",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "SD-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "SD-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

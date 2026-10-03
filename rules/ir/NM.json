@@ -17,7 +17,7 @@
    "field_count": 135
   }
  },
- "source_sha256": "2e0a85a849a21054987d05c688ee82dae7b4ef10f214a9fe08ff2424805e8246",
+ "source_sha256": "4bc2a5eae1decc2b1cefaeac64be243580c2a40ba71059c0cf72ab24c5917b77",
  "rules": [
   {
    "id": "NM-EXAM-1",
@@ -240,6 +240,16 @@
    "id": "NM-PROC-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "NM-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NM-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

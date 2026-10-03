@@ -146,6 +146,46 @@
    "raw_path": "rules/sources/HI/HI-S14.html",
    "text_path": "rules/sources/HI/HI-S14.txt",
    "sha256": "950663a79470572f5942a4d381760a63d358d6836bbcbf6d8c36383e83bea37d"
+  },
+  {
+   "id": "HI-S15",
+   "title": "HRS 801G-1 Definitions (Address Confidentiality Program)",
+   "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0801G/HRS_0801G-0001.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:49Z",
+   "raw_path": "rules/sources/HI/HI-S15.html",
+   "text_path": "rules/sources/HI/HI-S15.txt",
+   "sha256": "be91c4f20064308de721830a0aeff60a8edb65ee0fac610fefcd5ab846909c01"
+  },
+  {
+   "id": "HI-S16",
+   "title": "HRS 801G-2 Address confidentiality program; established",
+   "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0801G/HRS_0801G-0002.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:49Z",
+   "raw_path": "rules/sources/HI/HI-S16.html",
+   "text_path": "rules/sources/HI/HI-S16.txt",
+   "sha256": "7f74d88927ef3980bab358d56b46a66a84249ec144bcaee5b535327c6dae19e3"
+  },
+  {
+   "id": "HI-S17",
+   "title": "HRS 801G-3 Filing and certification of applications; authorization card",
+   "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0801G/HRS_0801G-0003.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:50Z",
+   "raw_path": "rules/sources/HI/HI-S17.html",
+   "text_path": "rules/sources/HI/HI-S17.txt",
+   "sha256": "3d62c44d678ca8a3ffd18f8498e46535dd9f6442fc0ef31ef2385dfd9f036498"
+  },
+  {
+   "id": "HI-S18",
+   "title": "Department of Law Enforcement: Hawaii Address Confidentiality Program (ACP)",
+   "url": "https://law.hawaii.gov/resources/hawaii-address-confidentiality-program-acp/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:06Z",
+   "raw_path": "rules/sources/HI/HI-S18.html",
+   "text_path": "rules/sources/HI/HI-S18.txt",
+   "sha256": "099d89cbc011158330c38444dae0485b2d666e9251f4fabbfef278b24744fc67"
   }
  ],
  "rules": [
@@ -583,6 +623,20 @@
    "quote": "APPLICATIONS SUBMITTED FOR CHILD VICTIMS UNDER THE AGE OF 18 MUST BE COMPLETED AND SIGNED BY THE CHILD'S PARENT OR LEGAL GUARDIAN",
    "source_id": "HI-S7",
    "pinpoint": "Application Form, page 2, submission block"
+  },
+  {
+   "id": "HI-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Hawaii Address Confidentiality Program (ACP)",
+    "agency": "Hawaii Department of Law Enforcement",
+    "covers_sexual_assault": true,
+    "enroll": "Applicants do not apply directly with DLE. Applicants must meet with a designated application assistant from an ACP certified victim services organization. Application assistants will discuss ACP guidelines, help applicants complete a program application, and send completed applications to ACP."
+   },
+   "summary": "Hawaii's Address Confidentiality Program, run by the Department of Law Enforcement, is free and lets survivors of domestic abuse, sexual offenses, or stalking use a substitute address instead of their home, work, and school addresses with state and county agencies. It also forwards mail and accepts legal service for participants. Survivors apply through an application assistant at a certified victim services organization, not directly with the Department.",
+   "quote": "The Hawaii Address Confidentiality Program is a free resource that helps to protect survivors of domestic abuse, sexual offenses, and stalking. The program enables participants to use a substitute address in place of their residential, work, and school addresses with state and county government agencies.",
+   "source_id": "HI-S18",
+   "pinpoint": "Dept. of Law Enforcement, Hawaii ACP page, \"What is Hawaii ACP?\"; see HRS 801G-1, 801G-2, 801G-3"
   }
  ],
  "coverage": {
@@ -598,7 +652,8 @@
    "covered_expense",
    "excluded_expense",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality"
   ],
   "not_found": [
    "exam_payment",
@@ -612,10 +667,11 @@
    "temporary_housing",
    "counseling cap",
    "lost_wages cap",
-   "processing_time"
+   "processing_time",
+   "record_confidentiality"
   ],
-  "notes": "No Hawaii statute was found that says who pays for a sexual assault forensic exam or whether insurance may be billed; the only official statement found is the Attorney General HSART program page saying police are to ensure free exams regardless of reporting. No per-expense caps, minimum loss, or emergency award were found in HRS ch. 351 or HAR ch. 23-605; HAR 23-605-15 says administrative award guidelines may be set by the commission, but none were found published. No police-report alternative for sexual assault was found: HRS 351-31(d) requires an arrest or a police report without undue delay (72 hours under HAR 23-605-2, with a good cause exception). The 18 month filing deadline is stored as params.months because the schema has only years or days."
+  "notes": "No Hawaii statute was found that says who pays for a sexual assault forensic exam or whether insurance may be billed; the only official statement found is the Attorney General HSART program page saying police are to ensure free exams regardless of reporting. No per-expense caps, minimum loss, or emergency award were found in HRS ch. 351 or HAR ch. 23-605; HAR 23-605-15 says administrative award guidelines may be set by the commission, but none were found published. No police-report alternative for sexual assault was found: HRS 351-31(d) requires an arrest or a police report without undue delay (72 hours under HAR 23-605-2, with a good cause exception). The 18 month filing deadline is stored as params.months because the schema has only years or days. No statute, rule, or official program statement was found that makes Crime Victim Compensation Commission records, claims, or applicant information confidential: HRS ch. 351 and HAR ch. 23-605 as saved contain no such provision, and the CVCC pages and application form do not state one."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text is from capitol.hawaii.gov (HRS current). HAR ch. 23-605 is an OCR'd 2001 PDF hosted by the Department of Corrections and Rehabilitation; quotes were taken only from clean stretches, and garbled passages (the four-day lost earnings limit without a medical certificate in 23-605-12(c), and the therapy exclusions in 23-605-10(c)) were left out. HAR 23-605-6(a) limits out-of-state claims by Hawaii residents to states without an eligible compensation program, which HRS 351-31(a) does not say; the statute was used. The CVCC brochure PDF (Compensation_Brochure_2026c.pdf) extracts as font-encoded garbage, so it was not saved or quoted; its deadline sentence could not be read. The $10,000 cap in HRS 351-62(b) is the current statute text as retrieved; the medical-expense exception raises it to at most $20,000. The Acknowledgement Award on the CVCC page cites HRS 351-33(4) (pain and suffering). The Sex Abuse Treatment Center (a Hawaii Pacific Health program, not a state agency) states its medical forensic exam is free; it was not used as a rule source. Reviewer (Oct 3): HI-EXAM-1 rests only on the AG HSART page's description of the police role; a search and a check of Act 113 (2018) and HRS 844D-24 found no Hawaii statute saying who pays for the forensic exam or barring bills to the victim or insurer. The 18 month deadline is stored as params.months (not a schema key); the engine must read it. The 72 hour police-report window is stored without within_days because the source states hours, not days. HAR 23-605-12(c) appears to limit lost earnings to four days without a medical certificate, but the OCR is garbled so it is not quoted. How to file (Oct 3): the How to Apply page (HI-S3) says to mail or drop off the signed application at 1164 Bishop St, Suite 1530, Honolulu; the June 2026 fillable English application (HI-S7, still the form linked from that page, 112 AcroForm fields) also lists a fax number and email under 'SUBMIT THE ORIGINALLY SIGNED APPLICATION TO'. HAR 23-605-4(b) says an original signed application must also be submitted when documents are sent electronically, so fax and email do not replace the signed original. No online portal was found. The Commission requests the police report itself, so it is stored as a police_report rule with a note that it does not go in the packet. No processing time is stated: the FAQ (HI-S4) says only that case processing time varies. The supporting documents list on HI-S3 says 'bills', not itemized bills; it is stored as itemized_bill with that note."
+ "researcher_notes": "Statute text is from capitol.hawaii.gov (HRS current). HAR ch. 23-605 is an OCR'd 2001 PDF hosted by the Department of Corrections and Rehabilitation; quotes were taken only from clean stretches, and garbled passages (the four-day lost earnings limit without a medical certificate in 23-605-12(c), and the therapy exclusions in 23-605-10(c)) were left out. HAR 23-605-6(a) limits out-of-state claims by Hawaii residents to states without an eligible compensation program, which HRS 351-31(a) does not say; the statute was used. The CVCC brochure PDF (Compensation_Brochure_2026c.pdf) extracts as font-encoded garbage, so it was not saved or quoted; its deadline sentence could not be read. The $10,000 cap in HRS 351-62(b) is the current statute text as retrieved; the medical-expense exception raises it to at most $20,000. The Acknowledgement Award on the CVCC page cites HRS 351-33(4) (pain and suffering). The Sex Abuse Treatment Center (a Hawaii Pacific Health program, not a state agency) states its medical forensic exam is free; it was not used as a rule source. Reviewer (Oct 3): HI-EXAM-1 rests only on the AG HSART page's description of the police role; a search and a check of Act 113 (2018) and HRS 844D-24 found no Hawaii statute saying who pays for the forensic exam or barring bills to the victim or insurer. The 18 month deadline is stored as params.months (not a schema key); the engine must read it. The 72 hour police-report window is stored without within_days because the source states hours, not days. HAR 23-605-12(c) appears to limit lost earnings to four days without a medical certificate, but the OCR is garbled so it is not quoted. How to file (Oct 3): the How to Apply page (HI-S3) says to mail or drop off the signed application at 1164 Bishop St, Suite 1530, Honolulu; the June 2026 fillable English application (HI-S7, still the form linked from that page, 112 AcroForm fields) also lists a fax number and email under 'SUBMIT THE ORIGINALLY SIGNED APPLICATION TO'. HAR 23-605-4(b) says an original signed application must also be submitted when documents are sent electronically, so fax and email do not replace the signed original. No online portal was found. The Commission requests the police report itself, so it is stored as a police_report rule with a note that it does not go in the packet. No processing time is stated: the FAQ (HI-S4) says only that case processing time varies. The supporting documents list on HI-S3 says 'bills', not itemized bills; it is stored as itemized_bill with that note. Privacy (Oct 3): Hawaii's Address Confidentiality Program is established by HRS ch. 801G (Act 115, 2018) in the Department of Law Enforcement (HRS 801G-1 defines \"Department\" as the department of law enforcement; HRS 801G-2(a) says the program protects the actual address of a victim of domestic abuse, a sexual offense, or stalking and assigns a substitute address used by agencies). HRS 801G-1 defines \"sexual offense\" by listing Penal Code sections and makes a victim of a sexual offense a primary applicant. HRS 801G-3(a) requires a primary applicant to be assisted by an application assistant, matching the DLE page. The DLE page also lists HAR ch. 24-1000, which was not saved. record_confidentiality: none found. An Office of Information Practices opinion letter (Op. Ltr. 03-02, files.hawaii.gov/oip) addressed CVCC records under the UIPA (HRS ch. 92F): it says the Commission may withhold applicant information whose disclosure would be a clearly unwarranted invasion of personal privacy or would frustrate its function, and it was partially overruled by Op. Ltr. 05-03 to the extent it implied the privacy exception mandates confidentiality. That letter is an opinion, not a statute or program statement, and it does not make the records confidential, so it was not saved or used as a rule."
 }

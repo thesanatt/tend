@@ -156,6 +156,36 @@
       "raw_path": "rules/sources/NM/NM-S14.html",
       "text_path": "rules/sources/NM/NM-S14.txt",
       "sha256": "3955ea85f6ddbb37269addb24aba33ad47344b632ce0e6c6824de12439e7c237"
+    },
+    {
+      "id": "NM-S15",
+      "title": "Secretary of State: Safe at Home program page",
+      "url": "https://www.sos.nm.gov/safe-at-home/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T20:00:09Z",
+      "raw_path": "rules/sources/NM/NM-S15.html",
+      "text_path": "rules/sources/NM/NM-S15.txt",
+      "sha256": "4c4869abaeef117b0d2f2889295ffadf63c65f9c024693748245f83c92807e79"
+    },
+    {
+      "id": "NM-S16",
+      "title": "Secretary of State: Safe at Home Eligibility, FAQs & Resources",
+      "url": "https://www.sos.nm.gov/safe-at-home/safe-at-home-eligibility-faqs-and-resources/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T20:00:11Z",
+      "raw_path": "rules/sources/NM/NM-S16.html",
+      "text_path": "rules/sources/NM/NM-S16.txt",
+      "sha256": "0e25bd40a6b73d437798e54000d605e5426b140c76df404680711dc2523ae1ec"
+    },
+    {
+      "id": "NM-S17",
+      "title": "NMSA 40-13B-3 Confidential substitute address program; application (Justia 2025)",
+      "url": "https://law.justia.com/codes/new-mexico/chapter-40/article-13b/section-40-13b-3/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T20:00:14Z",
+      "raw_path": "rules/sources/NM/NM-S17.html",
+      "text_path": "rules/sources/NM/NM-S17.txt",
+      "sha256": "958bc73a9e548c2df6c6bef444b411c4edbb77034b3bf5d46930b1e4d98b91ea"
     }
   ],
   "rules": [
@@ -676,6 +706,29 @@
       "quote": "A decision about whether the victim/claimant is eligible is usually made within 120 days.",
       "source_id": "NM-S1",
       "pinpoint": "Compensation Application page, What happens after I send my application?"
+    },
+    {
+      "id": "NM-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Safe at Home (formerly the Confidential Address Program)",
+        "agency": "New Mexico Secretary of State",
+        "covers_sexual_assault": true,
+        "enroll": "Survivors who wish to enroll in the Safe at Home Program, must apply to the program by filling out the forms included in the Safe at Home Application Packet while in the presence of an application assistant. An application assistant is a person who works or volunteers for a domestic violence or sexual assault program in New Mexico. The forms must then be notarized by a Notary Public in the presence of the applicant and application assistant. The application assistant will then submit the forms to the Secretary of State’s Office."
+      },
+      "summary": "New Mexico's Safe at Home program, run by the Secretary of State, lets survivors of domestic violence, sexual assault, attempted sexual assault or stalking use the Secretary of State's address as a substitute address with state and local agencies, with mail forwarded to their real address. Applicants fill out the application packet with an application assistant from a domestic violence or sexual assault program, and the forms are notarized.",
+      "quote": "The Secretary of State’s Safe at Home program (formerly known as the Confidential Address Program) allows survivors of domestic violence, sexual assault or stalking to receive mail using the Secretary of State’s address as a substitute for their own, while keeping their actual address confidential.",
+      "source_id": "NM-S15",
+      "pinpoint": "Safe at Home program page, program description; enrollment steps from the Eligibility, FAQs & Resources page (NM-S16), How to Apply"
+    },
+    {
+      "id": "NM-RECCONF-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "Crime Victims Reparation Commission application files that contain confidential medical and police records are confidential, and the information in them may not be publicly disclosed.",
+      "quote": "Application files which contain confidential medical and police records shall be considered confidential. No public disclosure of the information contained within shall be made.",
+      "source_id": "NM-S12",
+      "pinpoint": "10.40.2.14 NMAC, Confidentiality"
     }
   ],
   "coverage": {
@@ -695,7 +748,9 @@
       "total_cap",
       "submission",
       "required_document",
-      "processing_time"
+      "processing_time",
+      "address_confidentiality",
+      "record_confidentiality"
     ],
     "not_found": [
       "minimum_loss",
@@ -709,8 +764,8 @@
       "emergency_award amount (statute sets none)",
       "exam insurance billing rule (statute silent)"
     ],
-    "notes": "Relocation, security and temporary housing are not named in the statute, the rules, or the program FAQ. Section 31-22-9(C) allows 'any other pecuniary loss' the commission finds reasonable and proper, but I did not treat that as coverage for any specific item. No minimum loss amount was found."
+    "notes": "Relocation, security and temporary housing are not named in the statute, the rules, or the program FAQ. Section 31-22-9(C) allows 'any other pecuniary loss' the commission finds reasonable and proper, but I did not treat that as coverage for any specific item. No minimum loss amount was found. Address confidentiality: New Mexico's Safe at Home program (Confidential Substitute Address Act, NMSA 40-13B) is run by the Secretary of State; the SOS program and eligibility pages (NM-S15, NM-S16) name survivors of sexual assault and attempted sexual assault as eligible. Record confidentiality: 10.40.2.14 NMAC makes CVRC application files containing confidential medical and police records confidential with no public disclosure; no separate statute in 31-22 NMSA was found."
   },
   "confidence": "medium",
-  "researcher_notes": "Statute text is from Justia's 2025 New Mexico Statutes (the CVRC site links NMOneSource, which did not load for scripts); 2026 session changes were not checked. 10.40.2 NMAC (State Records Center copy) was last amended 08/31/2006 and predates the 2019 amendment (Laws 2019, ch. 211) to 31-22-7 and 31-22-14. 10.40.2.9 NMAC still says sexual assault victims must report to law enforcement within 180 days; the 2019 statute removed the police-reporting deadline and allows a report to a licensed medical, mental health or counseling provider, or tribal health provider. Statute wins, so the 180-day rule is NOT encoded. The 2019 amendment also deleted the statutory good-cause extension for late applications, but the CVRC FAQ still says 'Some exceptions may be allowed for good cause'; the extension field reflects both. The 10/2025 brochure says an application must be filed 'within a reasonable time' (its PDF text extraction is garbled, so it is not quoted). The CVRC FAQ says the cap is $50,000 in cases of permanent physical disability; the statute says $20,000 plus up to $30,000 more for catastrophic injury resulting in permanent total disability. Forensic exam payment: NMSA 29-11-7 assigns free exams to the 'administrator', which 29-11-3 defines as the director of the mental health division of the Department of Health or a designee. I could not verify from an official source which office administers exam payment today. The transportation rate (twenty cents per mile) is in the summary and quote only, because the params schema stores money as dollars. Reviewer: the CVRC FAQ and the 10/2025 brochure both say 'The crime must have occurred in New Mexico', but 31-22-3(I)(2)-(3) also covers New Mexico residents injured in a state with no eligible compensation program and residents injured by international terrorism; the statute is encoded. 10.40.2.10(L) NMAC still says the victim must cooperate with law enforcement in the prosecution; the 2019 statute lets the commission accept that the victim acted reasonably instead, so the statute is encoded. The 'mental health division of the department of health' named in 29-11-3 was last renamed in 1995; whether that office still exists or pays exams today was not confirmed. How to file: the CVRC application page links the online portal at https://cvcapp.cvrc.nm.gov (the link target, saved as NM-S14). No official source says to email the application, so no email rule was added even though the form header and contact pages list cvrc@cvrc.nm.gov (and the contact page and brochure list cvrc.office@cvrc.nm.gov). 10.40.2.8(B) NMAC says a paper application counts when 'postmarked delivered or faxed' to the commission's offices; 'delivered' is not clearly in-person filing, so no in_person rule was added. The current English application (Reviewed 02/2025, NM-S3) is the one linked from the Documents to Download page; it is fillable with 135 AcroForm fields. Document requirements for receipts, lost wages and counseling come from 10.40.2.10 NMAC (2006); the application itself asks only for a police report if available, a death certificate or power of attorney where relevant, and the signed authorization. The 10/2025 brochure says bills or records can be uploaded in the online application, but its PDF text is garbled, so it is not quoted."
+  "researcher_notes": "Statute text is from Justia's 2025 New Mexico Statutes (the CVRC site links NMOneSource, which did not load for scripts); 2026 session changes were not checked. 10.40.2 NMAC (State Records Center copy) was last amended 08/31/2006 and predates the 2019 amendment (Laws 2019, ch. 211) to 31-22-7 and 31-22-14. 10.40.2.9 NMAC still says sexual assault victims must report to law enforcement within 180 days; the 2019 statute removed the police-reporting deadline and allows a report to a licensed medical, mental health or counseling provider, or tribal health provider. Statute wins, so the 180-day rule is NOT encoded. The 2019 amendment also deleted the statutory good-cause extension for late applications, but the CVRC FAQ still says 'Some exceptions may be allowed for good cause'; the extension field reflects both. The 10/2025 brochure says an application must be filed 'within a reasonable time' (its PDF text extraction is garbled, so it is not quoted). The CVRC FAQ says the cap is $50,000 in cases of permanent physical disability; the statute says $20,000 plus up to $30,000 more for catastrophic injury resulting in permanent total disability. Forensic exam payment: NMSA 29-11-7 assigns free exams to the 'administrator', which 29-11-3 defines as the director of the mental health division of the Department of Health or a designee. I could not verify from an official source which office administers exam payment today. The transportation rate (twenty cents per mile) is in the summary and quote only, because the params schema stores money as dollars. Reviewer: the CVRC FAQ and the 10/2025 brochure both say 'The crime must have occurred in New Mexico', but 31-22-3(I)(2)-(3) also covers New Mexico residents injured in a state with no eligible compensation program and residents injured by international terrorism; the statute is encoded. 10.40.2.10(L) NMAC still says the victim must cooperate with law enforcement in the prosecution; the 2019 statute lets the commission accept that the victim acted reasonably instead, so the statute is encoded. The 'mental health division of the department of health' named in 29-11-3 was last renamed in 1995; whether that office still exists or pays exams today was not confirmed. How to file: the CVRC application page links the online portal at https://cvcapp.cvrc.nm.gov (the link target, saved as NM-S14). No official source says to email the application, so no email rule was added even though the form header and contact pages list cvrc@cvrc.nm.gov (and the contact page and brochure list cvrc.office@cvrc.nm.gov). 10.40.2.8(B) NMAC says a paper application counts when 'postmarked delivered or faxed' to the commission's offices; 'delivered' is not clearly in-person filing, so no in_person rule was added. The current English application (Reviewed 02/2025, NM-S3) is the one linked from the Documents to Download page; it is fillable with 135 AcroForm fields. Document requirements for receipts, lost wages and counseling come from 10.40.2.10 NMAC (2006); the application itself asks only for a police report if available, a death certificate or power of attorney where relevant, and the signed authorization. The 10/2025 brochure says bills or records can be uploaded in the online application, but its PDF text is garbled, so it is not quoted. Safe at Home: NMSA 40-13B-3 (NM-S17, Justia 2025) describes the program as protecting 'a victim of domestic violence'; the statutory definition section (40-13B-2) was not saved, so covers_sexual_assault rests on the Secretary of State pages, which list survivors of domestic violence, sexual assault, attempted sexual assault and stalking. The SOS eligibility page also says applicants must have recently relocated or plan to move, certification lasts three years, and program records are confidential and not subject to the Inspection of Public Records Act. The enroll text is copied from the SOS eligibility page (NM-S16), not from the rule's quoted source. Record confidentiality comes from the 2006 administrative rule (10.40.2.14 NMAC); it covers application files that contain confidential medical and police records, and I did not find a statute in the Crime Victims Reparation Act declaring all claim records confidential."
 }

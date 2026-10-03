@@ -17,7 +17,7 @@
    "field_count": 192
   }
  },
- "source_sha256": "b70cb43b8845c7da25424a15bdcd2c7fb70607fe64fdd183c21e92a3c303c280",
+ "source_sha256": "7ebc1144d4f9bbc9b1a5dd577ddce33b87192057cfd62ffdfcd32f9a8025eb32",
  "rules": [
   {
    "id": "MO-EXAM-1",
@@ -216,6 +216,16 @@
    "id": "MO-DOC-SUPPORT",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "MO-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MO-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

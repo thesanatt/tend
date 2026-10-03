@@ -17,7 +17,7 @@
    "field_count": 103
   }
  },
- "source_sha256": "493fdb08806f84db7083566e3e6c640034904aa58ba8e6e85a871c26452f5c78",
+ "source_sha256": "7dacdf2f17b6b2a7d6bdcd2424aa2eb105f503a15f96c228e6116d02e6e39976",
  "rules": [
   {
    "id": "SC-EXAM-1",
@@ -264,6 +264,16 @@
    "id": "SC-DOC-8",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "SC-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "SC-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

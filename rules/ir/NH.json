@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "8ce24ef79c3e9aa451f70593eeb7ab0e9c8c12345421e570b45130b3839a30e1",
+ "source_sha256": "e8fb64c36bfa3e41318dc1f176896e53e693ebaf430a908008cf15c398ecd9c5",
  "rules": [
   {
    "id": "NH-EXAM-1",
@@ -333,6 +333,16 @@
    "id": "NH-PROC-2",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "NH-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NH-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

@@ -116,6 +116,36 @@
    "raw_path": "rules/sources/OR/OR-S10.html",
    "text_path": "rules/sources/OR/OR-S10.txt",
    "sha256": "2b20bf516b41f336ea39eefd2948f9aff3aa2b65247f67e1b3ee8b25d6099d04"
+  },
+  {
+   "id": "OR-S11",
+   "title": "Oregon DOJ: Address Confidentiality Program (ACP)",
+   "url": "https://www.doj.state.or.us/crime-victims/victims-services/address-confidentiality-program-acp/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:00:07Z",
+   "raw_path": "rules/sources/OR/OR-S11.html",
+   "text_path": "rules/sources/OR/OR-S11.txt",
+   "sha256": "f2b533b47cd9730bc39f49228955957a1b9c697744b3627fe260e021b66c3c3e"
+  },
+  {
+   "id": "OR-S12",
+   "title": "ORS Chapter 192 (Records; Address Confidentiality Program, ORS 192.820 to 192.868)",
+   "url": "https://www.oregonlegislature.gov/bills_laws/ors/ors192.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:00Z",
+   "raw_path": "rules/sources/OR/OR-S12.html",
+   "text_path": "rules/sources/OR/OR-S12.txt",
+   "sha256": "e55541579a41150f989609ba03454411c2c44cf3570bbc9038563d960ab385b8"
+  },
+  {
+   "id": "OR-S13",
+   "title": "Oregon DOJ: Address Confidentiality Program FAQ",
+   "url": "https://www.doj.state.or.us/crime-victims/victims-services/address-confidentiality-program-acp/frequently-asked-questions/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:00:08Z",
+   "raw_path": "rules/sources/OR/OR-S13.html",
+   "text_path": "rules/sources/OR/OR-S13.txt",
+   "sha256": "e0bc9f87f79e4ee0f07886955fe384f0d79c5694cf9750c99b3460635aab2d53"
   }
  ],
  "rules": [
@@ -800,6 +830,31 @@
    "quote": "We will contact you again in 60 to 90 days to tell you if we have accepted your\napplication.",
    "source_id": "OR-S7",
    "pinpoint": "CVC Application (2026), page i, What happens next?"
+  },
+  {
+   "id": "OR-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Oregon Department of Justice, Crime Victim and Survivor Services Division",
+    "covers_sexual_assault": true,
+    "enroll": "To apply to the Address Confidentiality Program, you must work with a victim advocate who has been designated as an Application Assistant by the Attorney General."
+   },
+   "summary": "Oregon DOJ's Address Confidentiality Program is a free mail forwarding service that gives survivors of sexual assault, domestic violence, stalking, human trafficking, and bias crimes a substitute address to use instead of their real one.",
+   "quote": "It helps survivors of domestic violence, sexual assault, stalking, human trafficking, bias crimes or bias incidents shield their physical address. Health care providers who provide physical and behavioral reproductive and gender-affirming health care also can participate in ACP. Program participants are provided with a substitute address to use instead of their real address.",
+   "source_id": "OR-S11",
+   "pinpoint": "Oregon DOJ ACP page, 'Protecting Addresses for Victims'; program established by ORS 192.822",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/victims-services/address-confidentiality-program-acp/#:~:text=It%20helps%20survivors%20of%20domestic,instead%20of%20their%20real%20address."
+  },
+  {
+   "id": "OR-REC-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Information an applicant gives the DOJ is open to the public by default, but the department may keep it confidential when the crime is rape, sodomy, sexual abuse, trafficking, or domestic violence and the victim's interests require it. The statute does not make the whole claim file confidential.",
+   "quote": "All information submitted to the Department of Justice by an applicant and\nall hearings of the Workers’ Compensation Board under ORS 147.005 to 147.367\nshall be open to the public unless the department or board determines that the\ninformation shall be kept confidential or that a closed hearing shall be held\nbecause: (a) The alleged\nassailant has not been brought to trial and disclosure of the information or a\npublic hearing would adversely affect either the apprehension or the trial of\nthe alleged assailant; (b) The offense\nallegedly perpetrated against the victim is rape, sodomy, sexual abuse,\ntrafficking in persons or a crime involving domestic violence as defined in ORS\n135.230, and the interests of the victim or of the victim’s dependents require\nthat the information be kept confidential or that the public be excluded from\nthe hearing;",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.115(1)(b)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=All%20information%20submitted%20to%20the,be%20excluded%20from%20the%20hearing%3B"
   }
  ],
  "coverage": {
@@ -819,7 +874,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -828,8 +885,8 @@
    "covered_expense:temporary_housing",
    "expense_cap:relocation"
   ],
-  "notes": "No minimum out-of-pocket loss appears in ORS 147.005 to 147.367 or OAR 137-076, so minimum_loss is left out rather than assumed to be zero. No security (locks, alarms) or temporary housing benefit was found. Relocation is listed as excluded on the program page, so there is no relocation cap."
+  "notes": "No minimum out-of-pocket loss appears in ORS 147.005 to 147.367 or OAR 137-076, so minimum_loss is left out rather than assumed to be zero. No security (locks, alarms) or temporary housing benefit was found. Relocation is listed as excluded on the program page, so there is no relocation cap. Oregon has no statute that makes compensation records confidential by default: ORS 147.115(1) makes applicant information public unless the department decides to keep it confidential, so record_confidentiality is recorded as conditional."
  },
  "confidence": "high",
- "researcher_notes": "Statute and rule text come from oregonlegislature.gov (ORS ch. 147, current edition with 2025 notes) and the Secretary of State OARD site (OAR 137-076 and 137-084, saved through the browser). Conflicts: (1) ORS 147.055 allows an emergency award up to $1,000, but the program page says CVC is unable to provide immediate financial assistance; the rule is kept because the statute governs, but in practice the program may not offer one. (2) OAR 137-084-0010(4) requires a complete SAFE Kit assessment within 84 hours of the assault for SAVE Fund payment, while the DOJ provider page lists 120 hours; the victim SAVE page says within seven days (matches the 168-hour partial assessment). (3) Statute sets transportation coverage when care is more than 30 miles away; agency pages say 60 miles roundtrip (consistent). OAR 137-076-0019(1)(e) states the rate as '.50 cents per mile'; the brochure says 50 cents per mile. (4) The FAQ says loss of support rose to $800/week; that applies to dependents of deceased victims only. Claims expire three years after the determination order (or at age 21 for minors), ORS 147.035(8). Toll-free number 1-800-503-7983 appears in the brochure. Under the SAVE FAQ, a survivor may choose to bill insurance instead of the SAVE Fund, in which case leftover copays go to a CVC application rather than the Fund. The limited counseling award ($5,000) is the path for survivors who never report and never get an exam or order. Strangulation (SKIT) exams are paid under ORS 147.035(2)(e) with a $5,000 maximum and are billed to insurance first, so they are not modeled as exam_no_bill. Reviewer: the SAVE Fund's $475 maximum (OAR 137-084-0020(1)(a)) is what the Fund pays the provider for an exam plus SAFE Kit collection, not a limit on what the survivor gets, and the provider cannot bill the survivor or insurance for the rest; it is therefore not modeled as an expense_cap. The limited counseling award (OR-CAP-COUNS-LTD, $5,000) and the parent lost wages cap (OR-CAP-WAGE-PARENT, $5,000) are conditional caps for applicants who do not meet eligibility and for parents of minor victims, not general caps on the victim's counseling or lost wages. How to file (added Oct 3): submission methods, documents, and timing come mainly from the 2026 fillable English application (OR-S7, 140 AcroForm fields), which is the newest version linked from the apply page. The apply page FAQ (OR-S5) gives the mailing address as '1162 Court St SE', but the 2026 application, the brochure, and the program page all say 1162 Court Street NE, so the mail rule uses NE. Page 2 of the application still lists the old email domain cvssd@doj.state.or.us; the instructions page uses cvssd@doj.oregon.gov, which is used here. The program page and brochure list fax 503-378-5738 as contact information but no source says to fax the application, so no fax submission rule was added. Decision timing differs by source: the 2026 application says 60 to 90 days, the FAQ says applicants are usually notified within 70 days, and the 2024 brochure says 45 to 60 days; the newest (application) is used. The application does not ask the survivor to attach a police report or medical records: it asks for the report number and provider details, and CVC requests medical records and police reports itself. Bills are submitted after the claim is accepted."
+ "researcher_notes": "Statute and rule text come from oregonlegislature.gov (ORS ch. 147, current edition with 2025 notes) and the Secretary of State OARD site (OAR 137-076 and 137-084, saved through the browser). Conflicts: (1) ORS 147.055 allows an emergency award up to $1,000, but the program page says CVC is unable to provide immediate financial assistance; the rule is kept because the statute governs, but in practice the program may not offer one. (2) OAR 137-084-0010(4) requires a complete SAFE Kit assessment within 84 hours of the assault for SAVE Fund payment, while the DOJ provider page lists 120 hours; the victim SAVE page says within seven days (matches the 168-hour partial assessment). (3) Statute sets transportation coverage when care is more than 30 miles away; agency pages say 60 miles roundtrip (consistent). OAR 137-076-0019(1)(e) states the rate as '.50 cents per mile'; the brochure says 50 cents per mile. (4) The FAQ says loss of support rose to $800/week; that applies to dependents of deceased victims only. Claims expire three years after the determination order (or at age 21 for minors), ORS 147.035(8). Toll-free number 1-800-503-7983 appears in the brochure. Under the SAVE FAQ, a survivor may choose to bill insurance instead of the SAVE Fund, in which case leftover copays go to a CVC application rather than the Fund. The limited counseling award ($5,000) is the path for survivors who never report and never get an exam or order. Strangulation (SKIT) exams are paid under ORS 147.035(2)(e) with a $5,000 maximum and are billed to insurance first, so they are not modeled as exam_no_bill. Reviewer: the SAVE Fund's $475 maximum (OAR 137-084-0020(1)(a)) is what the Fund pays the provider for an exam plus SAFE Kit collection, not a limit on what the survivor gets, and the provider cannot bill the survivor or insurance for the rest; it is therefore not modeled as an expense_cap. The limited counseling award (OR-CAP-COUNS-LTD, $5,000) and the parent lost wages cap (OR-CAP-WAGE-PARENT, $5,000) are conditional caps for applicants who do not meet eligibility and for parents of minor victims, not general caps on the victim's counseling or lost wages. How to file (added Oct 3): submission methods, documents, and timing come mainly from the 2026 fillable English application (OR-S7, 140 AcroForm fields), which is the newest version linked from the apply page. The apply page FAQ (OR-S5) gives the mailing address as '1162 Court St SE', but the 2026 application, the brochure, and the program page all say 1162 Court Street NE, so the mail rule uses NE. Page 2 of the application still lists the old email domain cvssd@doj.state.or.us; the instructions page uses cvssd@doj.oregon.gov, which is used here. The program page and brochure list fax 503-378-5738 as contact information but no source says to fax the application, so no fax submission rule was added. Decision timing differs by source: the 2026 application says 60 to 90 days, the FAQ says applicants are usually notified within 70 days, and the 2024 brochure says 45 to 60 days; the newest (application) is used. The application does not ask the survivor to attach a police report or medical records: it asks for the report number and provider details, and CVC requests medical records and police reports itself. Bills are submitted after the claim is accepted. Privacy (added Oct 3): Oregon's Address Confidentiality Program is run by the Oregon DOJ (not the Secretary of State) under ORS 192.820 to 192.868; ORS 192.822(1)(a) and 192.826(3) name victims of a sexual offense as eligible, and the DOJ page names survivors of sexual assault. Enrollment is only through a certified Application Assistant (a victim advocate designated by the Attorney General); the ACP FAQ says applicants must live in Oregon, be 18 or older (parents or guardians may apply for minors), and currently live at an address unknown to the perpetrator, so a recent confidential relocation is required, and participation lasts four years. ACP contact: P.O. Box 1108, Salem, OR 97308; 503-373-1323; toll-free in Oregon 1-888-559-9090; ACP@doj.oregon.gov. Record confidentiality is weak in Oregon: ORS 147.115(1) says applicant information is open to the public unless the department determines it should be confidential, with sexual offenses (rape, sodomy, sexual abuse) as one listed ground, and ORS 147.115(3) says board hearing records are public records. The 2026 application itself warns that 'this application may be subject to disclosure under public record law' (OR-S7, page 2), so Tend should tell Oregon survivors to ask CVC to keep their claim confidential under the sexual offense ground and avoid putting extra detail in the free-text field. Separately, ORS 147.397(5)(a) requires SAVE Fund exam providers to keep confidential the identity of victims who have not reported to police."
 }

@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "411d3741d45cf7987f7fcf6f45c13bcbc023396cd464f472c7a37124cd4285d8",
+ "source_sha256": "d2ef5124e4b5144f017ce0ae9a5fba06a98351690d9ec247676abe65d880a969",
  "rules": [
   {
    "id": "NJ-EXAM-1",
@@ -300,6 +300,16 @@
    "id": "NJ-TIME-2",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "NJ-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NJ-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

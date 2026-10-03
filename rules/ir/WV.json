@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e40d26bb5c489e156551428e6920ea54f20941e15dbddbd48400d9f59a7c51ef",
+ "source_sha256": "853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a",
  "rules": [
   {
    "id": "WV-EXAM-1",
@@ -178,6 +178,16 @@
    "id": "WV-TIME-2",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "WV-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "WV-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

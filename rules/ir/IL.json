@@ -17,7 +17,7 @@
    "field_count": 297
   }
  },
- "source_sha256": "d8b7a145d9674cdf54f21b3c414ecf8ee886d1ac636fa2c3f94b26f83c08c64b",
+ "source_sha256": "25ec26f6bb3249da3636545e7b6dd8baabe355bd7ec45977d5a66c16489b6f69",
  "rules": [
   {
    "id": "IL-EXAM-1",
@@ -315,6 +315,16 @@
    "id": "IL-DOC-USEFORCE",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "IL-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "IL-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

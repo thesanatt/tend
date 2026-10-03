@@ -1,721 +1,776 @@
 {
- "jurisdiction": "NE",
- "name": "Nebraska",
- "program": {
-  "program_name": "Crime Victim's Reparations (CVR)",
-  "agency": "Nebraska Commission on Law Enforcement and Criminal Justice (Nebraska Crime Commission)",
-  "website": "https://ncc.nebraska.gov/crime-victim-reparations",
-  "apply_url": "https://ncc.nebraska.gov/crime-victim-reparations",
-  "application_pdf_url": "https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf",
-  "phone": "402-471-2828",
-  "phone_source_id": "NE-S14",
-  "statute_citation": "Neb. Rev. Stat. 81-1801 to 81-1842 (Nebraska Crime Victim's Reparations Act); 81-1429.03 (forensic exam payment); 80 Neb. Admin. Code chs. 1 to 5",
-  "application_form": {
-   "source_id": "NE-S15",
-   "fillable": false,
-   "field_count": 0
-  }
- },
- "sources": [
-  {
-   "id": "NE-S1",
-   "title": "Nebraska Crime Commission: Crime Victim Reparations program page",
-   "url": "https://ncc.nebraska.gov/crime-victim-reparations",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:23Z",
-   "raw_path": "rules/sources/NE/NE-S1.html",
-   "text_path": "rules/sources/NE/NE-S1.txt",
-   "sha256": "c16b9f79ee68f7b4fc1786122d973f209547096694e7c9e179401fb02bc1fee8"
+  "jurisdiction": "NE",
+  "name": "Nebraska",
+  "program": {
+    "program_name": "Crime Victim's Reparations (CVR)",
+    "agency": "Nebraska Commission on Law Enforcement and Criminal Justice (Nebraska Crime Commission)",
+    "website": "https://ncc.nebraska.gov/crime-victim-reparations",
+    "apply_url": "https://ncc.nebraska.gov/crime-victim-reparations",
+    "application_pdf_url": "https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf",
+    "phone": "402-471-2828",
+    "phone_source_id": "NE-S14",
+    "statute_citation": "Neb. Rev. Stat. 81-1801 to 81-1842 (Nebraska Crime Victim's Reparations Act); 81-1429.03 (forensic exam payment); 80 Neb. Admin. Code chs. 1 to 5",
+    "application_form": {
+      "source_id": "NE-S15",
+      "fillable": false,
+      "field_count": 0
+    }
   },
-  {
-   "id": "NE-S2",
-   "title": "Neb. Rev. Stat. 81-1807",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1807",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:57Z",
-   "raw_path": "rules/sources/NE/NE-S2.html",
-   "text_path": "rules/sources/NE/NE-S2.txt",
-   "sha256": "1bb83990f017c834224762dd8f10a47d9826d03c808c26f6ee5175e6aa226226"
-  },
-  {
-   "id": "NE-S3",
-   "title": "Neb. Rev. Stat. 81-1816",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1816",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:57Z",
-   "raw_path": "rules/sources/NE/NE-S3.html",
-   "text_path": "rules/sources/NE/NE-S3.txt",
-   "sha256": "0fe6456dd106bbc432c437c1b64154af2a21702be4256afdf1b08985379b3c2e"
-  },
-  {
-   "id": "NE-S4",
-   "title": "Neb. Rev. Stat. 81-1817",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1817",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:58Z",
-   "raw_path": "rules/sources/NE/NE-S4.html",
-   "text_path": "rules/sources/NE/NE-S4.txt",
-   "sha256": "0febd743e416681cfb7d13ef023c577b7fdd48202d05388bdf9a111857eb89c7"
-  },
-  {
-   "id": "NE-S5",
-   "title": "Neb. Rev. Stat. 81-1819",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1819",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:58Z",
-   "raw_path": "rules/sources/NE/NE-S5.html",
-   "text_path": "rules/sources/NE/NE-S5.txt",
-   "sha256": "d0479e74a91dd50fc1e41c87c3c5a507e0906982c9f54f72dc286b07d6b2916d"
-  },
-  {
-   "id": "NE-S6",
-   "title": "Neb. Rev. Stat. 81-1820",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1820",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:59Z",
-   "raw_path": "rules/sources/NE/NE-S6.html",
-   "text_path": "rules/sources/NE/NE-S6.txt",
-   "sha256": "7b74608b1e7cd6ef9bf949e56120ec3f48c289fb7bc4cc9e1ffdf36d20c3805d"
-  },
-  {
-   "id": "NE-S7",
-   "title": "Neb. Rev. Stat. 81-1821",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1821",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:59Z",
-   "raw_path": "rules/sources/NE/NE-S7.html",
-   "text_path": "rules/sources/NE/NE-S7.txt",
-   "sha256": "08423fe91ee6ebf15b0340d1fdc65c4740067e3feaad525f6a3695ee3c1b56df"
-  },
-  {
-   "id": "NE-S8",
-   "title": "Neb. Rev. Stat. 81-1822",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1822",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:48:00Z",
-   "raw_path": "rules/sources/NE/NE-S8.html",
-   "text_path": "rules/sources/NE/NE-S8.txt",
-   "sha256": "5a1a368f3bcef1db26521552e5969ba18b942d17764a9277b374953312a069be"
-  },
-  {
-   "id": "NE-S9",
-   "title": "Neb. Rev. Stat. 81-1823",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1823",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:48:00Z",
-   "raw_path": "rules/sources/NE/NE-S9.html",
-   "text_path": "rules/sources/NE/NE-S9.txt",
-   "sha256": "5249f7533688e4de35145e070f9ae8ab23ac5580b83e1802cf90ea28b99a8339"
-  },
-  {
-   "id": "NE-S10",
-   "title": "Neb. Rev. Stat. 81-1429.03 (Sexual Assault Payment Program)",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1429.03",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:48:01Z",
-   "raw_path": "rules/sources/NE/NE-S10.html",
-   "text_path": "rules/sources/NE/NE-S10.txt",
-   "sha256": "e35eba643ece3a05972270b6578225a9a4fd51702b09736c761f5c594b44bd83"
-  },
-  {
-   "id": "NE-S11",
-   "title": "Neb. Rev. Stat. 81-1801 (definitions)",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1801",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:48:01Z",
-   "raw_path": "rules/sources/NE/NE-S11.html",
-   "text_path": "rules/sources/NE/NE-S11.txt",
-   "sha256": "aae502bd6e78a18bc69b058e6237857d94222abda0d2b76dcb9919516ff36eda"
-  },
-  {
-   "id": "NE-S12",
-   "title": "Neb. Rev. Stat. 81-1818",
-   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1818",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:48:02Z",
-   "raw_path": "rules/sources/NE/NE-S12.html",
-   "text_path": "rules/sources/NE/NE-S12.txt",
-   "sha256": "85ea7945d6fba0bce09d758267d5fdff20230359986d2f0305b8ceb8f1688c23"
-  },
-  {
-   "id": "NE-S13",
-   "title": "CVR Frequently Asked Questions (updated 4-5-2023)",
-   "url": "https://ncc.nebraska.gov/sites/default/files/doc/Frequently%20Asked%20Questions.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:15Z",
-   "raw_path": "rules/sources/NE/NE-S13.pdf",
-   "text_path": "rules/sources/NE/NE-S13.txt",
-   "sha256": "ac759d0c53a9ebd6f63a88a316e33179d7c0f6c97c7f47abeddc20db73716b87"
-  },
-  {
-   "id": "NE-S14",
-   "title": "Nebraska Crime Victim's Reparations Program pamphlet (English)",
-   "url": "https://ncc.nebraska.gov/sites/default/files/doc/57844_78_Nebraska%20Crime%20Victim_s%20Reparations%20New%20Brochure%20-%20Statute%20spelled%20correctly.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:16Z",
-   "raw_path": "rules/sources/NE/NE-S14.pdf",
-   "text_path": "rules/sources/NE/NE-S14.txt",
-   "sha256": "de945a9f54868ca3d67f88c503c2130d907417000cff54470f7b1e198e9b8a50"
-  },
-  {
-   "id": "NE-S15",
-   "title": "CVR Claim Application (October 2023)",
-   "url": "https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf",
-   "kind": "application_form",
-   "retrieved_at": "2026-10-03T18:48:16Z",
-   "raw_path": "rules/sources/NE/NE-S15.pdf",
-   "text_path": "rules/sources/NE/NE-S15.txt",
-   "sha256": "504843f36be9f07450789f357a32df67f2ebea7026be1af40a1297c46c0baf20"
-  },
-  {
-   "id": "NE-S17",
-   "title": "CVR: Innocence and Contributory Conduct",
-   "url": "https://ncc.nebraska.gov/sites/default/files/doc/Innocence%20and%20Contributory%20Conduct.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:17Z",
-   "raw_path": "rules/sources/NE/NE-S17.pdf",
-   "text_path": "rules/sources/NE/NE-S17.txt",
-   "sha256": "3272d6eab9fc2e99439a8269fe11ba2ed18c75e61f1f2e8b83eab311f940816a"
-  },
-  {
-   "id": "NE-S20",
-   "title": "80 Neb. Admin. Code ch. 3, 003 (Award of Compensation), via Cornell LII",
-   "url": "https://www.law.cornell.edu/regulations/nebraska/80-Neb-Admin-Code-ch-3-SS-003",
-   "kind": "regulation",
-   "retrieved_at": "2026-10-03T18:48:53Z",
-   "raw_path": "rules/sources/NE/NE-S20.html",
-   "text_path": "rules/sources/NE/NE-S20.txt",
-   "sha256": "aab55034367d0711548dd52d37026432848928941da3f287fe596f2eacab32a6"
-  },
-  {
-   "id": "NE-S21",
-   "title": "80 Neb. Admin. Code ch. 3, 004 (Reduction of Award and Exceptions), via Cornell LII",
-   "url": "https://www.law.cornell.edu/regulations/nebraska/80-Neb-Admin-Code-ch-3-SS-004",
-   "kind": "regulation",
-   "retrieved_at": "2026-10-03T18:48:53Z",
-   "raw_path": "rules/sources/NE/NE-S21.html",
-   "text_path": "rules/sources/NE/NE-S21.txt",
-   "sha256": "efc25ab9a66aee177d95b6ec0f65708075c85251c2368fca9f5578aeec2a8bc3"
-  },
-  {
-   "id": "NE-S22",
-   "title": "CVR Claims Process",
-   "url": "https://ncc.nebraska.gov/sites/default/files/doc/Claims%20Process.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T19:40:49Z",
-   "raw_path": "rules/sources/NE/NE-S22.pdf",
-   "text_path": "rules/sources/NE/NE-S22.txt",
-   "sha256": "2fe24d94f109452f9a888aea9654356cba4e741c41c4299c36e90d190d55a56e"
-  }
- ],
- "rules": [
-  {
-   "id": "NE-EXAM-1",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "prohibited"
-   },
-   "summary": "A sexual assault forensic medical exam may not be sent to the survivor or the survivor's insurance for payment.",
-   "quote": "A report of a forensic medical examination shall not be remitted to the patient or his or her insurance for payment.",
-   "source_id": "NE-S10",
-   "pinpoint": "Neb. Rev. Stat. 81-1429.03(1)"
-  },
-  {
-   "id": "NE-EXAM-2",
-   "category": "exam_payment",
-   "expense": "forensic_exam",
-   "params": {
-    "payer": "Sexual Assault Payment Program Cash Fund or the Victim's Compensation Fund (state)"
-   },
-   "summary": "The full out-of-pocket cost that could be charged to a survivor for a sexual assault forensic medical exam is paid from the state's Sexual Assault Payment Program Cash Fund or the Victim's Compensation Fund.",
-   "quote": "The full out-of-pocket cost or expense that may be charged to a sexual assault victim in connection with a forensic medical examination shall be paid from the Sexual Assault Payment Program Cash Fund or the Victim's Compensation Fund.",
-   "source_id": "NE-S10",
-   "pinpoint": "Neb. Rev. Stat. 81-1429.03(1)"
-  },
-  {
-   "id": "NE-MED-1",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "With the survivor's permission, a health care provider can apply to the program directly for treatment or exam costs from a sexual assault that insurance, Medicaid, the Sexual Assault Payment Program, or another source will not pay.",
-   "quote": "a health care provider may, with the permission of the victim, apply for reimbursement for health care costs incurred by the provider that are otherwise to be paid for by a victim of sexual assault, domestic assault, or child abuse and for which the provider will not otherwise receive reimbursement from private insurance, the medical assistance program established pursuant to the Medical Assistance Act, the Sexual Assault Payment Program, or any other entity, source, or fund, whether public or private.",
-   "source_id": "NE-S2",
-   "pinpoint": "Neb. Rev. Stat. 81-1807(2)(a)"
-  },
-  {
-   "id": "NE-CAP-1",
-   "category": "total_cap",
-   "params": {
-    "amount_cents": 2500000
-   },
-   "summary": "The most the program will award is $25,000 per applicant per incident.",
-   "quote": "no compensation shall be awarded under the Nebraska Crime Victim's Reparations Act from the Victim's Compensation Fund in an amount in excess of twenty-five thousand dollars for each applicant per incident.",
-   "source_id": "NE-S9",
-   "pinpoint": "Neb. Rev. Stat. 81-1823"
-  },
-  {
-   "id": "NE-CAP-2",
-   "category": "expense_cap",
-   "expense": "counseling",
-   "params": {
-    "expense": "counseling",
-    "amount_cents": 500000,
-    "per": "claim"
-   },
-   "summary": "Counseling or therapy is capped at $5,000, per the program's current web page.",
-   "quote": "Counseling | Therapy (Maximum of $5,000)",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
-  },
-  {
-   "id": "NE-CAP-3",
-   "category": "expense_cap",
-   "expense": "crime_scene_cleanup",
-   "params": {
-    "expense": "crime_scene_cleanup",
-    "amount_cents": 500000,
-    "per": "claim"
-   },
-   "summary": "Crime scene cleanup is capped at $5,000, per the program's current web page.",
-   "quote": "Crime-scene clean-up (Maximum of $5,000)",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
-  },
-  {
-   "id": "NE-CAP-4",
-   "category": "expense_cap",
-   "expense": "funeral",
-   "params": {
-    "expense": "funeral",
-    "amount_cents": 1000000,
-    "per": "claim"
-   },
-   "summary": "Funeral expenses are capped at $10,000, per the program's current web page.",
-   "quote": "Funeral expenses (Maximum of $10,000)",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
-  },
-  {
-   "id": "NE-COV-1",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "Medical expenses are covered, including hospital, doctor, dental, prescriptions, and x-rays.",
-   "quote": "Medical expenses (hospital, doctor, dental, prescriptions, x-rays, etc.)",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
-  },
-  {
-   "id": "NE-COV-2",
-   "category": "covered_expense",
-   "expense": "counseling",
-   "params": {
-    "expense": "counseling"
-   },
-   "summary": "Expenses reasonably incurred because of the injury are covered, including mental health counseling and care.",
-   "quote": "Expenses actually and reasonably incurred as a result of the personal injury or death of the victim, including expenses for mental health counseling and care",
-   "source_id": "NE-S5",
-   "pinpoint": "Neb. Rev. Stat. 81-1819(1)"
-  },
-  {
-   "id": "NE-COV-3",
-   "category": "covered_expense",
-   "expense": "lost_wages",
-   "params": {
-    "expense": "lost_wages"
-   },
-   "summary": "Lost wages and lost future earning capacity from the victim's total or partial incapacity are covered, plus reasonable job retraining.",
-   "quote": "Loss of wages and future earning capacity as a result of total or partial incapacity of the victim and reasonable expenses of job retraining or similar employment-oriented rehabilitative services for the victim",
-   "source_id": "NE-S5",
-   "pinpoint": "Neb. Rev. Stat. 81-1819(2)"
-  },
-  {
-   "id": "NE-COV-4",
-   "category": "covered_expense",
-   "expense": "dental",
-   "params": {
-    "expense": "dental"
-   },
-   "summary": "Dental and prescription costs are listed as covered medical expenses.",
-   "quote": "Medical expenses (hospital, doctor, dental, prescriptions, x-rays, etc.)",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
-  },
-  {
-   "id": "NE-COV-5",
-   "category": "covered_expense",
-   "expense": "prescription",
-   "params": {
-    "expense": "prescription"
-   },
-   "summary": "Prescriptions are listed as covered medical expenses.",
-   "quote": "Medical expenses (hospital, doctor, dental, prescriptions, x-rays, etc.)",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
-  },
-  {
-   "id": "NE-EXCL-1",
-   "category": "excluded_expense",
-   "expense": "property_replacement",
-   "params": {
-    "expense": "property_replacement",
-    "item": "property crime, property loss, and property damage"
-   },
-   "summary": "Lost or damaged property is not covered.",
-   "quote": "The program does not cover property crime, property loss, property damage or pain and suffering.",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Limitations"
-  },
-  {
-   "id": "NE-EXCL-2",
-   "category": "excluded_expense",
-   "params": {
-    "item": "pain and suffering"
-   },
-   "summary": "Pain and suffering is not paid.",
-   "quote": "The program does not cover property crime, property loss, property damage or pain and suffering.",
-   "source_id": "NE-S1",
-   "pinpoint": "NCC Crime Victim Reparations page, Limitations"
-  },
-  {
-   "id": "NE-WAGE-1",
-   "category": "minimum_loss",
-   "expense": "lost_wages",
-   "params": {
-    "days_lost": 7,
-    "expense": "lost_wages"
-   },
-   "summary": "Lost wages are considered only when the victim missed more than 7 consecutive days of work. This applies to wage claims only, not to other expenses.",
-   "quote": "Loss of Wage will only be considered if more than seven (7) consecutive days are missed from work.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Section 6"
-  },
-  {
-   "id": "NE-DEAD-1",
-   "category": "filing_deadline",
-   "params": {
-    "years": 2,
-    "from": "crime",
-    "extension": "The committee may accept a late application for good cause (81-1821(3)). A victim under nineteen at the time of injury may apply on or before their twenty-second birthday (81-1821(2)(c))."
-   },
-   "summary": "A victim who was 19 or older at the time of the injury must apply within 2 years of the injury.",
-   "quote": "For a victim who was nineteen years of age or older at the time of the personal injury or death, within two years after the date of the personal injury or death",
-   "source_id": "NE-S7",
-   "pinpoint": "Neb. Rev. Stat. 81-1821(2)(a)"
-  },
-  {
-   "id": "NE-REP-1",
-   "category": "reporting_requirement",
-   "params": {
-    "required": true,
-    "within_days": 5
-   },
-   "summary": "Generally the crime must be reported to police within 5 days, or within 5 days of when a report could reasonably be made.",
-   "quote": "The personal injury or death was the result of an incident or offense which had been reported to the police within five days of its occurrence or, if the incident or offense could not reasonably have been reported within that period, within five days of the time when a report could reasonably have been made.",
-   "source_id": "NE-S7",
-   "pinpoint": "Neb. Rev. Stat. 81-1821(1)(b)"
-  },
-  {
-   "id": "NE-REP-2",
-   "category": "reporting_requirement",
-   "params": {
-    "required": false,
-    "alternatives": [
-     "forensic_exam",
-     "protective_order",
-     "other"
-    ]
-   },
-   "summary": "For sexual assault, the 5-day police report rule does not apply if, before applying, the crime was reported to police at any time, a protection order was obtained, or the victim had a forensic medical exam.",
-   "quote": "An application submitted by or for a victim of sexual assault, domestic assault, child abuse, or sex trafficking is not subject to the five-day reporting requirement in subsection (1) of this section if, prior to submitting the application the: (a) Applicant or victim has reported such crime to the police; (b) Applicant or victim has obtained a protection order related to such incident or offense; or (c) Victim has presented for a forensic medical exam.",
-   "source_id": "NE-S7",
-   "pinpoint": "Neb. Rev. Stat. 81-1821(4)"
-  },
-  {
-   "id": "NE-COLL-1",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "The program pays last: awards are reduced by insurance and other payments, except life insurance and social security.",
-   "quote": "Any award will be reduced by the amounts of any payments received or to be received from any contract of insurance or any other source of compensation except life insurance proceeds or social security payments.",
-   "source_id": "NE-S21",
-   "pinpoint": "80 Neb. Admin. Code ch. 3, 004"
-  },
-  {
-   "id": "NE-COLL-2",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "The program is the payor of last resort.",
-   "quote": "The Crime Victim's Reparations program is the payor of last resort.",
-   "source_id": "NE-S21",
-   "pinpoint": "80 Neb. Admin. Code ch. 3, 004"
-  },
-  {
-   "id": "NE-COND-1",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "The hearing officer considers whether the victim's own behavior contributed to the injury.",
-   "quote": "the committee or hearing officer shall consider all circumstances determined to be relevant, including, but not limited to, provocation, consent, or any other behavior of the victim which directly or indirectly contributed to his or her injury or death.",
-   "source_id": "NE-S3",
-   "pinpoint": "Neb. Rev. Stat. 81-1816(1)"
-  },
-  {
-   "id": "NE-COND-2",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "The program says contributory conduct is never used when screening sexual assault, domestic violence, or human trafficking claims.",
-   "quote": "contributory conduct is never used in screening claims involving domestic violence, sexual assault, or human trafficking.",
-   "source_id": "NE-S17",
-   "pinpoint": "NCC: Innocence and Contributory Conduct"
-  },
-  {
-   "id": "NE-COND-3",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "No award is made if the victim broke a state criminal law and that violation caused or contributed to the injury.",
-   "quote": "If the victim violated a criminal law of the state, which violation caused or contributed to his or her injuries or death",
-   "source_id": "NE-S8",
-   "pinpoint": "Neb. Rev. Stat. 81-1822(3)"
-  },
-  {
-   "id": "NE-EMER-1",
-   "category": "emergency_award",
-   "params": {
-    "amount_cents": 50000
-   },
-   "summary": "An emergency award of up to $500 is possible when compensation is probable and waiting would cause undue hardship; it is deducted from the final award.",
-   "quote": "The amount of the emergency compensation shall not exceed five hundred dollars",
-   "source_id": "NE-S6",
-   "pinpoint": "Neb. Rev. Stat. 81-1820(1)(a)"
-  },
-  {
-   "id": "NE-ELIG-1",
-   "category": "eligible_crime",
-   "params": {},
-   "summary": "Compensation covers personal injury from a criminal act committed or attempted in Nebraska by someone else, which includes sexual assault.",
-   "quote": "The commission or attempt on the part of one other than the applicant of an unlawful criminal act committed or attempted in the State of Nebraska.",
-   "source_id": "NE-S12",
-   "pinpoint": "Neb. Rev. Stat. 81-1818(2)"
-  },
-  {
-   "id": "NE-ELIG-2",
-   "category": "eligible_crime",
-   "params": {},
-   "summary": "The statute names sexual assault victims directly, including a special police-report rule for them.",
-   "quote": "An application submitted by or for a victim of sexual assault, domestic assault, child abuse, or sex trafficking",
-   "source_id": "NE-S7",
-   "pinpoint": "Neb. Rev. Stat. 81-1821(4)"
-  },
-  {
-   "id": "NE-RES-1",
-   "category": "residency",
-   "params": {
-    "rule": "Crimes committed in Nebraska; residents and nonresidents are treated the same."
-   },
-   "summary": "Residents and nonresidents who are victims of crimes in Nebraska are treated the same.",
-   "quote": "Residents and nonresidents of Nebraska who are victims of crimes committed in Nebraska shall be treated similarly in determining compensation awards under the act.",
-   "source_id": "NE-S2",
-   "pinpoint": "Neb. Rev. Stat. 81-1807(1)"
-  },
-  {
-   "id": "NE-SUBMIT-1",
-   "category": "submission",
-   "params": {
-    "method": "mail",
-    "target": "Nebraska Crime Victim's Reparations Program PO Box 94946 Lincoln, NE 68509-4946"
-   },
-   "summary": "Mail the completed, signed application and documentation to the Nebraska Crime Victim's Reparations Program, PO Box 94946, Lincoln, NE 68509-4946.",
-   "quote": "Return the completed/signed application and documentation to the below address: Nebraska Crime Victim’s Reparations Program PO Box 94946 Lincoln, NE 68509-4946",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), cover page"
-  },
-  {
-   "id": "NE-SUBMIT-2",
-   "category": "submission",
-   "params": {
-    "method": "email",
-    "target": "ncc.cvr@nebraska.gov"
-   },
-   "summary": "Email the claim application and the supporting documentation requested to ncc.cvr@nebraska.gov.",
-   "quote": "Submit, along with supporting documentation requested, by email or mailing to: CVR Claim → ncc.cvr@nebraska.gov",
-   "source_id": "NE-S1",
-   "pinpoint": "Crime Victim Reparations program page, Apply"
-  },
-  {
-   "id": "NE-SUBMIT-3",
-   "category": "submission",
-   "params": {
-    "method": "fax",
-    "target": "402.471.2837"
-   },
-   "summary": "The application's return-to block also lists the program's fax number, 402.471.2837.",
-   "quote": "Phone: 402.471.2828 Fax: 402.471.2837",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), cover page"
-  },
-  {
-   "id": "NE-DOC-1",
-   "category": "required_document",
-   "expense": "medical",
-   "params": {
-    "document": "itemized_bill"
-   },
-   "summary": "Include itemized copies of all medical bills related to the incident.",
-   "quote": "Submit itemized copies of all medical bills relating to the incident.",
-   "source_id": "NE-S13",
-   "pinpoint": "FAQ, What must I do to apply for compensation?"
-  },
-  {
-   "id": "NE-DOC-2",
-   "category": "required_document",
-   "params": {
-    "document": "receipts",
-    "note": "Copies of crime-related bills plus any paid receipts."
-   },
-   "summary": "Attach copies of crime-related bills and any receipts for bills you already paid.",
-   "quote": "Attach copies of crime related bills and any paid receipts.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Section 4: Expenses"
-  },
-  {
-   "id": "NE-DOC-3",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Signed and dated Authorization to Release Information (page 5 of the application)."
-   },
-   "summary": "Sign and date the Authorization to Release Information; no action is taken on the claim until it is signed.",
-   "quote": "This authorization is an integral part of your application and must be signed and dated by the victim or claimant before any action will be taken on your claim.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Authorization to Release Information"
-  },
-  {
-   "id": "NE-DOC-4",
-   "category": "required_document",
-   "params": {
-    "document": "other",
-    "note": "Signed United States Citizenship Attestation; a qualified alien also provides a copy of USCIS documentation."
-   },
-   "summary": "Complete the citizenship attestation; if you attest as a qualified alien, you agree to provide a copy of your USCIS documentation.",
-   "quote": "I am a qualified alien under the federal Immigration and Nationality Act and I agree to provide a copy of my USCIS documentation.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), United States Citizenship Attestation"
-  },
-  {
-   "id": "NE-DOC-5",
-   "category": "required_document",
-   "expense": "lost_wages",
-   "params": {
-    "document": "wage_verification",
-    "note": "Pay stubs or an earning statement for the missed pay periods."
-   },
-   "summary": "For lost wages, include pay stubs or an earning statement for the pay periods of work missed because of the incident.",
-   "quote": "Copy of pay stubs or an earning statement for the pay period(s) for missed work as a result of the incident.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information"
-  },
-  {
-   "id": "NE-DOC-6",
-   "category": "required_document",
-   "expense": "lost_wages",
-   "params": {
-    "document": "wage_verification",
-    "note": "If self-employed: most recent federal tax returns with Schedule C, plus estimates, bids, or contracts."
-   },
-   "summary": "For lost wages when self-employed, include your most recent federal tax returns with Schedule C and copies of estimates, bids, or contracts.",
-   "quote": "If Self-Employed: submit the most recent federal tax returns including the schedule C form, Copies of Estimates, Bids, and/or Contracts.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information"
-  },
-  {
-   "id": "NE-DOC-7",
-   "category": "required_document",
-   "expense": "lost_wages",
-   "params": {
-    "document": "medical_records",
-    "note": "A doctor's release back to work."
-   },
-   "summary": "For lost wages, include a doctor's release back to work.",
-   "quote": "A Doctor’s release back to work.",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information"
-  },
-  {
-   "id": "NE-DOC-8",
-   "category": "required_document",
-   "expense": "funeral",
-   "params": {
-    "document": "other",
-    "note": "Copy of the death certificate, for funeral or burial expenses."
-   },
-   "summary": "For funeral or burial expenses, a copy of the death certificate is needed.",
-   "quote": "Funeral or Burial Expenses (A copy of the death certificate will need to be provided.)",
-   "source_id": "NE-S15",
-   "pinpoint": "CVR Claim Application (Oct 2023), Section 4: Expenses"
-  },
-  {
-   "id": "NE-TIME-1",
-   "category": "processing_time",
-   "params": {
-    "days": 180,
-    "from": "receipt of all required information"
-   },
-   "summary": "By statute, a hearing officer rules on an application within 180 days after receiving all required information; the clock does not start until the file is complete.",
-   "quote": "A hearing officer shall consider and rule upon any application made under the Nebraska Crime Victim's Reparations Act within one hundred eighty days after receipt of all required information related to the crime.",
-   "source_id": "NE-S22",
-   "pinpoint": "Claims Process, quoting Neb. Rev. Stat. 81-1809(1)"
-  },
-  {
-   "id": "NE-TIME-2",
-   "category": "processing_time",
-   "params": {
-    "months": 9,
-    "note": "typically 6 to 9 months to be fully processed"
-   },
-   "summary": "The program says claims are typically fully processed within 6 to 9 months.",
-   "quote": "CVR program applications take time, typically claims are fully processed within 6-9 months.",
-   "source_id": "NE-S14",
-   "pinpoint": "CVR pamphlet (English), back panel"
-  }
- ],
- "coverage": {
-  "found": [
-   "exam_no_bill",
-   "exam_payment",
-   "total_cap",
-   "expense_cap",
-   "covered_expense",
-   "excluded_expense",
-   "minimum_loss",
-   "filing_deadline",
-   "reporting_requirement",
-   "collateral_source",
-   "conduct_reduction",
-   "emergency_award",
-   "eligible_crime",
-   "residency",
-   "submission",
-   "required_document",
-   "processing_time"
+  "sources": [
+    {
+      "id": "NE-S1",
+      "title": "Nebraska Crime Commission: Crime Victim Reparations program page",
+      "url": "https://ncc.nebraska.gov/crime-victim-reparations",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:23Z",
+      "raw_path": "rules/sources/NE/NE-S1.html",
+      "text_path": "rules/sources/NE/NE-S1.txt",
+      "sha256": "c16b9f79ee68f7b4fc1786122d973f209547096694e7c9e179401fb02bc1fee8"
+    },
+    {
+      "id": "NE-S2",
+      "title": "Neb. Rev. Stat. 81-1807",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1807",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:57Z",
+      "raw_path": "rules/sources/NE/NE-S2.html",
+      "text_path": "rules/sources/NE/NE-S2.txt",
+      "sha256": "1bb83990f017c834224762dd8f10a47d9826d03c808c26f6ee5175e6aa226226"
+    },
+    {
+      "id": "NE-S3",
+      "title": "Neb. Rev. Stat. 81-1816",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1816",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:57Z",
+      "raw_path": "rules/sources/NE/NE-S3.html",
+      "text_path": "rules/sources/NE/NE-S3.txt",
+      "sha256": "0fe6456dd106bbc432c437c1b64154af2a21702be4256afdf1b08985379b3c2e"
+    },
+    {
+      "id": "NE-S4",
+      "title": "Neb. Rev. Stat. 81-1817",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1817",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:58Z",
+      "raw_path": "rules/sources/NE/NE-S4.html",
+      "text_path": "rules/sources/NE/NE-S4.txt",
+      "sha256": "0febd743e416681cfb7d13ef023c577b7fdd48202d05388bdf9a111857eb89c7"
+    },
+    {
+      "id": "NE-S5",
+      "title": "Neb. Rev. Stat. 81-1819",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1819",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:58Z",
+      "raw_path": "rules/sources/NE/NE-S5.html",
+      "text_path": "rules/sources/NE/NE-S5.txt",
+      "sha256": "d0479e74a91dd50fc1e41c87c3c5a507e0906982c9f54f72dc286b07d6b2916d"
+    },
+    {
+      "id": "NE-S6",
+      "title": "Neb. Rev. Stat. 81-1820",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1820",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:59Z",
+      "raw_path": "rules/sources/NE/NE-S6.html",
+      "text_path": "rules/sources/NE/NE-S6.txt",
+      "sha256": "7b74608b1e7cd6ef9bf949e56120ec3f48c289fb7bc4cc9e1ffdf36d20c3805d"
+    },
+    {
+      "id": "NE-S7",
+      "title": "Neb. Rev. Stat. 81-1821",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1821",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:59Z",
+      "raw_path": "rules/sources/NE/NE-S7.html",
+      "text_path": "rules/sources/NE/NE-S7.txt",
+      "sha256": "08423fe91ee6ebf15b0340d1fdc65c4740067e3feaad525f6a3695ee3c1b56df"
+    },
+    {
+      "id": "NE-S8",
+      "title": "Neb. Rev. Stat. 81-1822",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1822",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:48:00Z",
+      "raw_path": "rules/sources/NE/NE-S8.html",
+      "text_path": "rules/sources/NE/NE-S8.txt",
+      "sha256": "5a1a368f3bcef1db26521552e5969ba18b942d17764a9277b374953312a069be"
+    },
+    {
+      "id": "NE-S9",
+      "title": "Neb. Rev. Stat. 81-1823",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1823",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:48:00Z",
+      "raw_path": "rules/sources/NE/NE-S9.html",
+      "text_path": "rules/sources/NE/NE-S9.txt",
+      "sha256": "5249f7533688e4de35145e070f9ae8ab23ac5580b83e1802cf90ea28b99a8339"
+    },
+    {
+      "id": "NE-S10",
+      "title": "Neb. Rev. Stat. 81-1429.03 (Sexual Assault Payment Program)",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1429.03",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:48:01Z",
+      "raw_path": "rules/sources/NE/NE-S10.html",
+      "text_path": "rules/sources/NE/NE-S10.txt",
+      "sha256": "e35eba643ece3a05972270b6578225a9a4fd51702b09736c761f5c594b44bd83"
+    },
+    {
+      "id": "NE-S11",
+      "title": "Neb. Rev. Stat. 81-1801 (definitions)",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1801",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:48:01Z",
+      "raw_path": "rules/sources/NE/NE-S11.html",
+      "text_path": "rules/sources/NE/NE-S11.txt",
+      "sha256": "aae502bd6e78a18bc69b058e6237857d94222abda0d2b76dcb9919516ff36eda"
+    },
+    {
+      "id": "NE-S12",
+      "title": "Neb. Rev. Stat. 81-1818",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1818",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:48:02Z",
+      "raw_path": "rules/sources/NE/NE-S12.html",
+      "text_path": "rules/sources/NE/NE-S12.txt",
+      "sha256": "85ea7945d6fba0bce09d758267d5fdff20230359986d2f0305b8ceb8f1688c23"
+    },
+    {
+      "id": "NE-S13",
+      "title": "CVR Frequently Asked Questions (updated 4-5-2023)",
+      "url": "https://ncc.nebraska.gov/sites/default/files/doc/Frequently%20Asked%20Questions.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:15Z",
+      "raw_path": "rules/sources/NE/NE-S13.pdf",
+      "text_path": "rules/sources/NE/NE-S13.txt",
+      "sha256": "ac759d0c53a9ebd6f63a88a316e33179d7c0f6c97c7f47abeddc20db73716b87"
+    },
+    {
+      "id": "NE-S14",
+      "title": "Nebraska Crime Victim's Reparations Program pamphlet (English)",
+      "url": "https://ncc.nebraska.gov/sites/default/files/doc/57844_78_Nebraska%20Crime%20Victim_s%20Reparations%20New%20Brochure%20-%20Statute%20spelled%20correctly.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:16Z",
+      "raw_path": "rules/sources/NE/NE-S14.pdf",
+      "text_path": "rules/sources/NE/NE-S14.txt",
+      "sha256": "de945a9f54868ca3d67f88c503c2130d907417000cff54470f7b1e198e9b8a50"
+    },
+    {
+      "id": "NE-S15",
+      "title": "CVR Claim Application (October 2023)",
+      "url": "https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:48:16Z",
+      "raw_path": "rules/sources/NE/NE-S15.pdf",
+      "text_path": "rules/sources/NE/NE-S15.txt",
+      "sha256": "504843f36be9f07450789f357a32df67f2ebea7026be1af40a1297c46c0baf20"
+    },
+    {
+      "id": "NE-S17",
+      "title": "CVR: Innocence and Contributory Conduct",
+      "url": "https://ncc.nebraska.gov/sites/default/files/doc/Innocence%20and%20Contributory%20Conduct.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:17Z",
+      "raw_path": "rules/sources/NE/NE-S17.pdf",
+      "text_path": "rules/sources/NE/NE-S17.txt",
+      "sha256": "3272d6eab9fc2e99439a8269fe11ba2ed18c75e61f1f2e8b83eab311f940816a"
+    },
+    {
+      "id": "NE-S20",
+      "title": "80 Neb. Admin. Code ch. 3, 003 (Award of Compensation), via Cornell LII",
+      "url": "https://www.law.cornell.edu/regulations/nebraska/80-Neb-Admin-Code-ch-3-SS-003",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:48:53Z",
+      "raw_path": "rules/sources/NE/NE-S20.html",
+      "text_path": "rules/sources/NE/NE-S20.txt",
+      "sha256": "aab55034367d0711548dd52d37026432848928941da3f287fe596f2eacab32a6"
+    },
+    {
+      "id": "NE-S21",
+      "title": "80 Neb. Admin. Code ch. 3, 004 (Reduction of Award and Exceptions), via Cornell LII",
+      "url": "https://www.law.cornell.edu/regulations/nebraska/80-Neb-Admin-Code-ch-3-SS-004",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:48:53Z",
+      "raw_path": "rules/sources/NE/NE-S21.html",
+      "text_path": "rules/sources/NE/NE-S21.txt",
+      "sha256": "efc25ab9a66aee177d95b6ec0f65708075c85251c2368fca9f5578aeec2a8bc3"
+    },
+    {
+      "id": "NE-S22",
+      "title": "CVR Claims Process",
+      "url": "https://ncc.nebraska.gov/sites/default/files/doc/Claims%20Process.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:40:49Z",
+      "raw_path": "rules/sources/NE/NE-S22.pdf",
+      "text_path": "rules/sources/NE/NE-S22.txt",
+      "sha256": "2fe24d94f109452f9a888aea9654356cba4e741c41c4299c36e90d190d55a56e"
+    },
+    {
+      "id": "NE-S23",
+      "title": "Nebraska Secretary of State: Address Confidentiality Program page",
+      "url": "https://sos.nebraska.gov/business-services/address-confidentiality-program",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T20:00:16Z",
+      "raw_path": "rules/sources/NE/NE-S23.html",
+      "text_path": "rules/sources/NE/NE-S23.txt",
+      "sha256": "ad580a82d8018359c4f58c1972347cdd7044eccc25bdd00147df85a487f0c3e4"
+    },
+    {
+      "id": "NE-S24",
+      "title": "Neb. Rev. Stat. 42-1203 (Address Confidentiality Act definitions)",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=42-1203",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T20:00:16Z",
+      "raw_path": "rules/sources/NE/NE-S24.html",
+      "text_path": "rules/sources/NE/NE-S24.txt",
+      "sha256": "cb8449f16f3e63fcfe5427798596d5d5b7c02c44ae7cc437147b0fd4e0381f4e"
+    },
+    {
+      "id": "NE-S25",
+      "title": "Neb. Rev. Stat. 81-1842 (sexual assault victim; records; confidential)",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1842",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T20:00:24Z",
+      "raw_path": "rules/sources/NE/NE-S25.html",
+      "text_path": "rules/sources/NE/NE-S25.txt",
+      "sha256": "dc730cdcfc2cd8ee695bfc7b462e7703405fab8463cf0706437a6e6610c21245"
+    }
   ],
-  "not_found": [
-   "expense_cap:lost_wages (dollar figure)",
-   "expense_cap:relocation",
-   "expense_cap:transportation",
-   "expense_cap:medical",
-   "expense_cap:security",
-   "covered_expense:relocation",
-   "covered_expense:transportation",
-   "covered_expense:security",
-   "minimum_loss (dollar amount)",
-   "residency (out-of-state crimes, conflicting statutes)"
+  "rules": [
+    {
+      "id": "NE-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "prohibited"
+      },
+      "summary": "A sexual assault forensic medical exam may not be sent to the survivor or the survivor's insurance for payment.",
+      "quote": "A report of a forensic medical examination shall not be remitted to the patient or his or her insurance for payment.",
+      "source_id": "NE-S10",
+      "pinpoint": "Neb. Rev. Stat. 81-1429.03(1)"
+    },
+    {
+      "id": "NE-EXAM-2",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Sexual Assault Payment Program Cash Fund or the Victim's Compensation Fund (state)"
+      },
+      "summary": "The full out-of-pocket cost that could be charged to a survivor for a sexual assault forensic medical exam is paid from the state's Sexual Assault Payment Program Cash Fund or the Victim's Compensation Fund.",
+      "quote": "The full out-of-pocket cost or expense that may be charged to a sexual assault victim in connection with a forensic medical examination shall be paid from the Sexual Assault Payment Program Cash Fund or the Victim's Compensation Fund.",
+      "source_id": "NE-S10",
+      "pinpoint": "Neb. Rev. Stat. 81-1429.03(1)"
+    },
+    {
+      "id": "NE-MED-1",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "With the survivor's permission, a health care provider can apply to the program directly for treatment or exam costs from a sexual assault that insurance, Medicaid, the Sexual Assault Payment Program, or another source will not pay.",
+      "quote": "a health care provider may, with the permission of the victim, apply for reimbursement for health care costs incurred by the provider that are otherwise to be paid for by a victim of sexual assault, domestic assault, or child abuse and for which the provider will not otherwise receive reimbursement from private insurance, the medical assistance program established pursuant to the Medical Assistance Act, the Sexual Assault Payment Program, or any other entity, source, or fund, whether public or private.",
+      "source_id": "NE-S2",
+      "pinpoint": "Neb. Rev. Stat. 81-1807(2)(a)"
+    },
+    {
+      "id": "NE-CAP-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000
+      },
+      "summary": "The most the program will award is $25,000 per applicant per incident.",
+      "quote": "no compensation shall be awarded under the Nebraska Crime Victim's Reparations Act from the Victim's Compensation Fund in an amount in excess of twenty-five thousand dollars for each applicant per incident.",
+      "source_id": "NE-S9",
+      "pinpoint": "Neb. Rev. Stat. 81-1823"
+    },
+    {
+      "id": "NE-CAP-2",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 500000,
+        "per": "claim"
+      },
+      "summary": "Counseling or therapy is capped at $5,000, per the program's current web page.",
+      "quote": "Counseling | Therapy (Maximum of $5,000)",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
+    },
+    {
+      "id": "NE-CAP-3",
+      "category": "expense_cap",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup",
+        "amount_cents": 500000,
+        "per": "claim"
+      },
+      "summary": "Crime scene cleanup is capped at $5,000, per the program's current web page.",
+      "quote": "Crime-scene clean-up (Maximum of $5,000)",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
+    },
+    {
+      "id": "NE-CAP-4",
+      "category": "expense_cap",
+      "expense": "funeral",
+      "params": {
+        "expense": "funeral",
+        "amount_cents": 1000000,
+        "per": "claim"
+      },
+      "summary": "Funeral expenses are capped at $10,000, per the program's current web page.",
+      "quote": "Funeral expenses (Maximum of $10,000)",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
+    },
+    {
+      "id": "NE-COV-1",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Medical expenses are covered, including hospital, doctor, dental, prescriptions, and x-rays.",
+      "quote": "Medical expenses (hospital, doctor, dental, prescriptions, x-rays, etc.)",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
+    },
+    {
+      "id": "NE-COV-2",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Expenses reasonably incurred because of the injury are covered, including mental health counseling and care.",
+      "quote": "Expenses actually and reasonably incurred as a result of the personal injury or death of the victim, including expenses for mental health counseling and care",
+      "source_id": "NE-S5",
+      "pinpoint": "Neb. Rev. Stat. 81-1819(1)"
+    },
+    {
+      "id": "NE-COV-3",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Lost wages and lost future earning capacity from the victim's total or partial incapacity are covered, plus reasonable job retraining.",
+      "quote": "Loss of wages and future earning capacity as a result of total or partial incapacity of the victim and reasonable expenses of job retraining or similar employment-oriented rehabilitative services for the victim",
+      "source_id": "NE-S5",
+      "pinpoint": "Neb. Rev. Stat. 81-1819(2)"
+    },
+    {
+      "id": "NE-COV-4",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "Dental and prescription costs are listed as covered medical expenses.",
+      "quote": "Medical expenses (hospital, doctor, dental, prescriptions, x-rays, etc.)",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
+    },
+    {
+      "id": "NE-COV-5",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription"
+      },
+      "summary": "Prescriptions are listed as covered medical expenses.",
+      "quote": "Medical expenses (hospital, doctor, dental, prescriptions, x-rays, etc.)",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Types of Expenses"
+    },
+    {
+      "id": "NE-EXCL-1",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement",
+        "item": "property crime, property loss, and property damage"
+      },
+      "summary": "Lost or damaged property is not covered.",
+      "quote": "The program does not cover property crime, property loss, property damage or pain and suffering.",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Limitations"
+    },
+    {
+      "id": "NE-EXCL-2",
+      "category": "excluded_expense",
+      "params": {
+        "item": "pain and suffering"
+      },
+      "summary": "Pain and suffering is not paid.",
+      "quote": "The program does not cover property crime, property loss, property damage or pain and suffering.",
+      "source_id": "NE-S1",
+      "pinpoint": "NCC Crime Victim Reparations page, Limitations"
+    },
+    {
+      "id": "NE-WAGE-1",
+      "category": "minimum_loss",
+      "expense": "lost_wages",
+      "params": {
+        "days_lost": 7,
+        "expense": "lost_wages"
+      },
+      "summary": "Lost wages are considered only when the victim missed more than 7 consecutive days of work. This applies to wage claims only, not to other expenses.",
+      "quote": "Loss of Wage will only be considered if more than seven (7) consecutive days are missed from work.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Section 6"
+    },
+    {
+      "id": "NE-DEAD-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 2,
+        "from": "crime",
+        "extension": "The committee may accept a late application for good cause (81-1821(3)). A victim under nineteen at the time of injury may apply on or before their twenty-second birthday (81-1821(2)(c))."
+      },
+      "summary": "A victim who was 19 or older at the time of the injury must apply within 2 years of the injury.",
+      "quote": "For a victim who was nineteen years of age or older at the time of the personal injury or death, within two years after the date of the personal injury or death",
+      "source_id": "NE-S7",
+      "pinpoint": "Neb. Rev. Stat. 81-1821(2)(a)"
+    },
+    {
+      "id": "NE-REP-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "within_days": 5
+      },
+      "summary": "Generally the crime must be reported to police within 5 days, or within 5 days of when a report could reasonably be made.",
+      "quote": "The personal injury or death was the result of an incident or offense which had been reported to the police within five days of its occurrence or, if the incident or offense could not reasonably have been reported within that period, within five days of the time when a report could reasonably have been made.",
+      "source_id": "NE-S7",
+      "pinpoint": "Neb. Rev. Stat. 81-1821(1)(b)"
+    },
+    {
+      "id": "NE-REP-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam",
+          "protective_order",
+          "other"
+        ]
+      },
+      "summary": "For sexual assault, the 5-day police report rule does not apply if, before applying, the crime was reported to police at any time, a protection order was obtained, or the victim had a forensic medical exam.",
+      "quote": "An application submitted by or for a victim of sexual assault, domestic assault, child abuse, or sex trafficking is not subject to the five-day reporting requirement in subsection (1) of this section if, prior to submitting the application the: (a) Applicant or victim has reported such crime to the police; (b) Applicant or victim has obtained a protection order related to such incident or offense; or (c) Victim has presented for a forensic medical exam.",
+      "source_id": "NE-S7",
+      "pinpoint": "Neb. Rev. Stat. 81-1821(4)"
+    },
+    {
+      "id": "NE-COLL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The program pays last: awards are reduced by insurance and other payments, except life insurance and social security.",
+      "quote": "Any award will be reduced by the amounts of any payments received or to be received from any contract of insurance or any other source of compensation except life insurance proceeds or social security payments.",
+      "source_id": "NE-S21",
+      "pinpoint": "80 Neb. Admin. Code ch. 3, 004"
+    },
+    {
+      "id": "NE-COLL-2",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The program is the payor of last resort.",
+      "quote": "The Crime Victim's Reparations program is the payor of last resort.",
+      "source_id": "NE-S21",
+      "pinpoint": "80 Neb. Admin. Code ch. 3, 004"
+    },
+    {
+      "id": "NE-COND-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "The hearing officer considers whether the victim's own behavior contributed to the injury.",
+      "quote": "the committee or hearing officer shall consider all circumstances determined to be relevant, including, but not limited to, provocation, consent, or any other behavior of the victim which directly or indirectly contributed to his or her injury or death.",
+      "source_id": "NE-S3",
+      "pinpoint": "Neb. Rev. Stat. 81-1816(1)"
+    },
+    {
+      "id": "NE-COND-2",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "The program says contributory conduct is never used when screening sexual assault, domestic violence, or human trafficking claims.",
+      "quote": "contributory conduct is never used in screening claims involving domestic violence, sexual assault, or human trafficking.",
+      "source_id": "NE-S17",
+      "pinpoint": "NCC: Innocence and Contributory Conduct"
+    },
+    {
+      "id": "NE-COND-3",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "No award is made if the victim broke a state criminal law and that violation caused or contributed to the injury.",
+      "quote": "If the victim violated a criminal law of the state, which violation caused or contributed to his or her injuries or death",
+      "source_id": "NE-S8",
+      "pinpoint": "Neb. Rev. Stat. 81-1822(3)"
+    },
+    {
+      "id": "NE-EMER-1",
+      "category": "emergency_award",
+      "params": {
+        "amount_cents": 50000
+      },
+      "summary": "An emergency award of up to $500 is possible when compensation is probable and waiting would cause undue hardship; it is deducted from the final award.",
+      "quote": "The amount of the emergency compensation shall not exceed five hundred dollars",
+      "source_id": "NE-S6",
+      "pinpoint": "Neb. Rev. Stat. 81-1820(1)(a)"
+    },
+    {
+      "id": "NE-ELIG-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Compensation covers personal injury from a criminal act committed or attempted in Nebraska by someone else, which includes sexual assault.",
+      "quote": "The commission or attempt on the part of one other than the applicant of an unlawful criminal act committed or attempted in the State of Nebraska.",
+      "source_id": "NE-S12",
+      "pinpoint": "Neb. Rev. Stat. 81-1818(2)"
+    },
+    {
+      "id": "NE-ELIG-2",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "The statute names sexual assault victims directly, including a special police-report rule for them.",
+      "quote": "An application submitted by or for a victim of sexual assault, domestic assault, child abuse, or sex trafficking",
+      "source_id": "NE-S7",
+      "pinpoint": "Neb. Rev. Stat. 81-1821(4)"
+    },
+    {
+      "id": "NE-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "Crimes committed in Nebraska; residents and nonresidents are treated the same."
+      },
+      "summary": "Residents and nonresidents who are victims of crimes in Nebraska are treated the same.",
+      "quote": "Residents and nonresidents of Nebraska who are victims of crimes committed in Nebraska shall be treated similarly in determining compensation awards under the act.",
+      "source_id": "NE-S2",
+      "pinpoint": "Neb. Rev. Stat. 81-1807(1)"
+    },
+    {
+      "id": "NE-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "Nebraska Crime Victim's Reparations Program PO Box 94946 Lincoln, NE 68509-4946"
+      },
+      "summary": "Mail the completed, signed application and documentation to the Nebraska Crime Victim's Reparations Program, PO Box 94946, Lincoln, NE 68509-4946.",
+      "quote": "Return the completed/signed application and documentation to the below address: Nebraska Crime Victim’s Reparations Program PO Box 94946 Lincoln, NE 68509-4946",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), cover page"
+    },
+    {
+      "id": "NE-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "ncc.cvr@nebraska.gov"
+      },
+      "summary": "Email the claim application and the supporting documentation requested to ncc.cvr@nebraska.gov.",
+      "quote": "Submit, along with supporting documentation requested, by email or mailing to: CVR Claim → ncc.cvr@nebraska.gov",
+      "source_id": "NE-S1",
+      "pinpoint": "Crime Victim Reparations program page, Apply"
+    },
+    {
+      "id": "NE-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "402.471.2837"
+      },
+      "summary": "The application's return-to block also lists the program's fax number, 402.471.2837.",
+      "quote": "Phone: 402.471.2828 Fax: 402.471.2837",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), cover page"
+    },
+    {
+      "id": "NE-DOC-1",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "itemized_bill"
+      },
+      "summary": "Include itemized copies of all medical bills related to the incident.",
+      "quote": "Submit itemized copies of all medical bills relating to the incident.",
+      "source_id": "NE-S13",
+      "pinpoint": "FAQ, What must I do to apply for compensation?"
+    },
+    {
+      "id": "NE-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Copies of crime-related bills plus any paid receipts."
+      },
+      "summary": "Attach copies of crime-related bills and any receipts for bills you already paid.",
+      "quote": "Attach copies of crime related bills and any paid receipts.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Section 4: Expenses"
+    },
+    {
+      "id": "NE-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Signed and dated Authorization to Release Information (page 5 of the application)."
+      },
+      "summary": "Sign and date the Authorization to Release Information; no action is taken on the claim until it is signed.",
+      "quote": "This authorization is an integral part of your application and must be signed and dated by the victim or claimant before any action will be taken on your claim.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Authorization to Release Information"
+    },
+    {
+      "id": "NE-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Signed United States Citizenship Attestation; a qualified alien also provides a copy of USCIS documentation."
+      },
+      "summary": "Complete the citizenship attestation; if you attest as a qualified alien, you agree to provide a copy of your USCIS documentation.",
+      "quote": "I am a qualified alien under the federal Immigration and Nationality Act and I agree to provide a copy of my USCIS documentation.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), United States Citizenship Attestation"
+    },
+    {
+      "id": "NE-DOC-5",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Pay stubs or an earning statement for the missed pay periods."
+      },
+      "summary": "For lost wages, include pay stubs or an earning statement for the pay periods of work missed because of the incident.",
+      "quote": "Copy of pay stubs or an earning statement for the pay period(s) for missed work as a result of the incident.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information"
+    },
+    {
+      "id": "NE-DOC-6",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "If self-employed: most recent federal tax returns with Schedule C, plus estimates, bids, or contracts."
+      },
+      "summary": "For lost wages when self-employed, include your most recent federal tax returns with Schedule C and copies of estimates, bids, or contracts.",
+      "quote": "If Self-Employed: submit the most recent federal tax returns including the schedule C form, Copies of Estimates, Bids, and/or Contracts.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information"
+    },
+    {
+      "id": "NE-DOC-7",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "medical_records",
+        "note": "A doctor's release back to work."
+      },
+      "summary": "For lost wages, include a doctor's release back to work.",
+      "quote": "A Doctor’s release back to work.",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information"
+    },
+    {
+      "id": "NE-DOC-8",
+      "category": "required_document",
+      "expense": "funeral",
+      "params": {
+        "document": "other",
+        "note": "Copy of the death certificate, for funeral or burial expenses."
+      },
+      "summary": "For funeral or burial expenses, a copy of the death certificate is needed.",
+      "quote": "Funeral or Burial Expenses (A copy of the death certificate will need to be provided.)",
+      "source_id": "NE-S15",
+      "pinpoint": "CVR Claim Application (Oct 2023), Section 4: Expenses"
+    },
+    {
+      "id": "NE-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "days": 180,
+        "from": "receipt of all required information"
+      },
+      "summary": "By statute, a hearing officer rules on an application within 180 days after receiving all required information; the clock does not start until the file is complete.",
+      "quote": "A hearing officer shall consider and rule upon any application made under the Nebraska Crime Victim's Reparations Act within one hundred eighty days after receipt of all required information related to the crime.",
+      "source_id": "NE-S22",
+      "pinpoint": "Claims Process, quoting Neb. Rev. Stat. 81-1809(1)"
+    },
+    {
+      "id": "NE-TIME-2",
+      "category": "processing_time",
+      "params": {
+        "months": 9,
+        "note": "typically 6 to 9 months to be fully processed"
+      },
+      "summary": "The program says claims are typically fully processed within 6 to 9 months.",
+      "quote": "CVR program applications take time, typically claims are fully processed within 6-9 months.",
+      "source_id": "NE-S14",
+      "pinpoint": "CVR pamphlet (English), back panel"
+    },
+    {
+      "id": "NE-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Address Confidentiality Program",
+        "agency": "Nebraska Secretary of State",
+        "covers_sexual_assault": true,
+        "enroll": "Application for ACP is made in person at one of the designated victim assistance centers located throughout the state. Applications will not be accepted at the Secretary of State’s Office."
+      },
+      "summary": "Nebraska's Address Confidentiality Program, run by the Secretary of State, gives eligible victims of abuse, sexual assault or stalking a substitute address for state and local agencies and forwards their mail; you apply in person at a designated victim assistance center, not at the Secretary of State's office.",
+      "quote": "To be eligible for ACP, an individual must be (1) a victim of abuse, sexual assault or stalking who fears for his or her safety",
+      "source_id": "NE-S23",
+      "pinpoint": "Program eligibility"
+    },
+    {
+      "id": "NE-RECORDS-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "By statute, the name of a sexual assault victim in the reparations committee's records when applying for compensation may not be made public. The statute protects the name; it does not say the whole claim file is confidential.",
+      "quote": "The name of any victim of a sexual assault appearing in information or records of the Crime Victim's Reparations Committee when the victim is applying for compensation under the Nebraska Crime Victim's Reparations Act shall not be made public.",
+      "source_id": "NE-S25",
+      "pinpoint": "Neb. Rev. Stat. 81-1842"
+    }
   ],
-  "notes": "Lost wages are capped by regulation at the average weekly wage under the Nebraska Workers' Compensation Act (80 NAC ch. 3, 003.04), but no dollar figure is stated in the saved sources, so no lost_wages expense_cap rule was written. The regulation sets counseling, funeral, crime scene cleanup and direct medical provider limits by an Annual Rate Schedule set by the Committee, which I could not find online; the counseling cap of $5,000 comes from the program's current web page. No source mentions relocation, transportation, or home security as covered expenses. No dollar minimum loss was found; the only threshold is the more-than-seven-consecutive-days rule for wage loss on the application form."
- },
- "confidence": "medium",
- "researcher_notes": "Statute and agency sources disagree in places. (1) Police report window: 81-1821(1)(b) and the Oct 2023 application say five days; the FAQ PDF (updated 4-5-2023) still says three days. Statute wins. (2) Counseling cap: program web page and pamphlet say $5,000; the 2023 FAQ says $2,000; the regulation defers to an unpublished Annual Rate Schedule. Funeral: web page and pamphlet say $10,000, FAQ says $5,000. I used the current web page. (3) Out-of-state crimes: 81-1807(1) lets a Nebraska resident claim for a crime in a state with no program for which they are eligible, but 81-1824 says no order shall be made for offenses occurring outside the state. Left out of rules because of the conflict. (4) 81-1801(8) defines personal injury as actual bodily harm, while the program page describes victims as people physically or emotionally injured; worth a reviewer check for survivors without physical injury. (5) Forensic exam: 81-1429.03(5) lets the Sexual Assault Payment Program pay up to $200 for the examiner fee and $300 for the facility fee, with more payable on documentation; these are provider payment limits, not survivor caps, so they are not encoded. (6) 80 NAC ch. 3, 003.09 says a medical provider that accepts CVR payment accepts it as payment in full and is barred from collecting from the victim (saved in NE-S20). (7) The application requires a U.S. citizenship or qualified alien attestation under Neb. Rev. Stat. 4-108 to 4-114. (8) Regulations were saved from Cornell LII because rules.nebraska.gov is a JavaScript app and the old nebraska.gov PDF links redirect to it. Reviewer (Oct 3): added funeral ($10,000) and crime-scene cleanup ($5,000) caps from the current program page; the regulation (80 NAC ch. 3, 003.06 and 003.08, amended 11/10/2024) sets both by the unpublished Annual Rate Schedule, so these page figures may change. Split pain and suffering into its own excluded_expense rule and removed an example (a phone) that no source states. Added 81-1822(3) (no award if the victim's own criminal violation caused or contributed to the injury) as information only; the program says contributory conduct is never used to screen sexual assault claims (NE-S17). The wage rule NE-WAGE-1 is 'more than seven' consecutive days, so 7 days exactly does not qualify; it appears only on the Oct 2023 application form, not in the statute or regulation. 81-1823's $25,000 cap is 'Except as provided in section 81-1813', which was not saved. How to file (Oct 3): the Oct 2023 CVR Claim Application (NE-S15) is still the version linked from the program page; it is a flat PDF with no AcroForm fields (0 fields), so it must be printed or filled by hand. Submission is by mail or email per the program page and pamphlet; the fax number appears only in the application's return-to block next to the phone number, so NE-SUBMIT-3 is a reasonable reading rather than an explicit instruction. The program page lists the mailing address as Nebraska Crime Commission, 301 Centennial Mall South, P.O. Box 94946, Lincoln, NE 68509-4946; the application uses the shorter PO Box address, which I used. No online portal or in-person filing is stated. The 2023 FAQ (NE-S13) asks for 3 payroll stubs from just before the incident and an employer statement, while the Oct 2023 application asks for pay stubs for the missed periods and says CVR contacts the employer itself; I followed the application. Processing time: 81-1809(1), quoted in the saved Claims Process PDF (NE-S22; the statute itself was not saved), gives 180 days after all required information is received; the pamphlet says 6 to 9 months typically."
+  "coverage": {
+    "found": [
+      "exam_no_bill",
+      "exam_payment",
+      "total_cap",
+      "expense_cap",
+      "covered_expense",
+      "excluded_expense",
+      "minimum_loss",
+      "filing_deadline",
+      "reporting_requirement",
+      "collateral_source",
+      "conduct_reduction",
+      "emergency_award",
+      "eligible_crime",
+      "residency",
+      "submission",
+      "required_document",
+      "processing_time",
+      "address_confidentiality",
+      "record_confidentiality"
+    ],
+    "not_found": [
+      "expense_cap:lost_wages (dollar figure)",
+      "expense_cap:relocation",
+      "expense_cap:transportation",
+      "expense_cap:medical",
+      "expense_cap:security",
+      "covered_expense:relocation",
+      "covered_expense:transportation",
+      "covered_expense:security",
+      "minimum_loss (dollar amount)",
+      "residency (out-of-state crimes, conflicting statutes)"
+    ],
+    "notes": "Lost wages are capped by regulation at the average weekly wage under the Nebraska Workers' Compensation Act (80 NAC ch. 3, 003.04), but no dollar figure is stated in the saved sources, so no lost_wages expense_cap rule was written. The regulation sets counseling, funeral, crime scene cleanup and direct medical provider limits by an Annual Rate Schedule set by the Committee, which I could not find online; the counseling cap of $5,000 comes from the program's current web page. No source mentions relocation, transportation, or home security as covered expenses. No dollar minimum loss was found; the only threshold is the more-than-seven-consecutive-days rule for wage loss on the application form."
+  },
+  "confidence": "medium",
+  "researcher_notes": "Statute and agency sources disagree in places. (1) Police report window: 81-1821(1)(b) and the Oct 2023 application say five days; the FAQ PDF (updated 4-5-2023) still says three days. Statute wins. (2) Counseling cap: program web page and pamphlet say $5,000; the 2023 FAQ says $2,000; the regulation defers to an unpublished Annual Rate Schedule. Funeral: web page and pamphlet say $10,000, FAQ says $5,000. I used the current web page. (3) Out-of-state crimes: 81-1807(1) lets a Nebraska resident claim for a crime in a state with no program for which they are eligible, but 81-1824 says no order shall be made for offenses occurring outside the state. Left out of rules because of the conflict. (4) 81-1801(8) defines personal injury as actual bodily harm, while the program page describes victims as people physically or emotionally injured; worth a reviewer check for survivors without physical injury. (5) Forensic exam: 81-1429.03(5) lets the Sexual Assault Payment Program pay up to $200 for the examiner fee and $300 for the facility fee, with more payable on documentation; these are provider payment limits, not survivor caps, so they are not encoded. (6) 80 NAC ch. 3, 003.09 says a medical provider that accepts CVR payment accepts it as payment in full and is barred from collecting from the victim (saved in NE-S20). (7) The application requires a U.S. citizenship or qualified alien attestation under Neb. Rev. Stat. 4-108 to 4-114. (8) Regulations were saved from Cornell LII because rules.nebraska.gov is a JavaScript app and the old nebraska.gov PDF links redirect to it. Reviewer (Oct 3): added funeral ($10,000) and crime-scene cleanup ($5,000) caps from the current program page; the regulation (80 NAC ch. 3, 003.06 and 003.08, amended 11/10/2024) sets both by the unpublished Annual Rate Schedule, so these page figures may change. Split pain and suffering into its own excluded_expense rule and removed an example (a phone) that no source states. Added 81-1822(3) (no award if the victim's own criminal violation caused or contributed to the injury) as information only; the program says contributory conduct is never used to screen sexual assault claims (NE-S17). The wage rule NE-WAGE-1 is 'more than seven' consecutive days, so 7 days exactly does not qualify; it appears only on the Oct 2023 application form, not in the statute or regulation. 81-1823's $25,000 cap is 'Except as provided in section 81-1813', which was not saved. How to file (Oct 3): the Oct 2023 CVR Claim Application (NE-S15) is still the version linked from the program page; it is a flat PDF with no AcroForm fields (0 fields), so it must be printed or filled by hand. Submission is by mail or email per the program page and pamphlet; the fax number appears only in the application's return-to block next to the phone number, so NE-SUBMIT-3 is a reasonable reading rather than an explicit instruction. The program page lists the mailing address as Nebraska Crime Commission, 301 Centennial Mall South, P.O. Box 94946, Lincoln, NE 68509-4946; the application uses the shorter PO Box address, which I used. No online portal or in-person filing is stated. The 2023 FAQ (NE-S13) asks for 3 payroll stubs from just before the incident and an employer statement, while the Oct 2023 application asks for pay stubs for the missed periods and says CVR contacts the employer itself; I followed the application. Processing time: 81-1809(1), quoted in the saved Claims Process PDF (NE-S22; the statute itself was not saved), gives 180 days after all required information is received; the pamphlet says 6 to 9 months typically. Privacy (Oct 3): Nebraska's Address Confidentiality Program is run by the Secretary of State under the Address Confidentiality Act (Neb. Rev. Stat. 42-1201 and following). The program page (NE-S23) says it gives a substitute address for state and local agencies plus free first-class mail forwarding, and eligibility covers victims of abuse, sexual assault or stalking who fear for their safety and have recently moved or plan to move to a place unknown to the abuser. 42-1203(6) (NE-S24) defines sexual assault by reference to 28-319, 28-319.01, 28-320, 28-320.01 and 28-386, and the Act also covers trafficking victims (42-1203(8)). Enrollment is in person at a designated victim assistance center only; the program page says the Secretary of State's office does not accept applications. ACP contact per the page: (402) 471-3568 or toll free (866) 227-6327. Record confidentiality: 81-1842 (NE-S25) bars making public the name of a sexual assault victim in the committee's records when applying for compensation. It covers the name only; no saved source says the rest of the claim file is exempt from public records law. The Oct 2023 application (NE-S15) separately says its federal demographic data is used for statistical purposes only and kept confidential."
 }

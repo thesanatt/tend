@@ -156,6 +156,36 @@
       "raw_path": "rules/sources/NJ/NJ-S19.html",
       "text_path": "rules/sources/NJ/NJ-S19.txt",
       "sha256": "f793d944b093d042e4e8856065779f9f1193d0aad64a55b002b3891a713aecbb"
+    },
+    {
+      "id": "NJ-S20",
+      "title": "NJ DCF Division on Women: Address Confidentiality Program page",
+      "url": "https://www.nj.gov/dcf/divisions-offices/dow/acp.shtml",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:56:10Z",
+      "raw_path": "rules/sources/NJ/NJ-S20.html",
+      "text_path": "rules/sources/NJ/NJ-S20.txt",
+      "sha256": "2695364dae840504fbeab1096cfbacb0b022c101d4ff01eaf881168c1afc9b2c"
+    },
+    {
+      "id": "NJ-S21",
+      "title": "N.J.A.C. 3A:71-3.1 Requirements for participation in the ACP (Cornell LII)",
+      "url": "https://www.law.cornell.edu/regulations/new-jersey/N-J-A-C-3A-71-3-1",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T19:56:26Z",
+      "raw_path": "rules/sources/NJ/NJ-S21.html",
+      "text_path": "rules/sources/NJ/NJ-S21.txt",
+      "sha256": "63253bc5001aee647b44d9a8d01798cefc6a989c9322f234d46ed79ea78eebac"
+    },
+    {
+      "id": "NJ-S22",
+      "title": "N.J.S.A. 47:4-2 Address confidentiality for certain individuals (Justia 2025)",
+      "url": "https://law.justia.com/codes/new-jersey/title-47/section-47-4-2/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:56:34Z",
+      "raw_path": "rules/sources/NJ/NJ-S22.html",
+      "text_path": "rules/sources/NJ/NJ-S22.txt",
+      "sha256": "cdaefa241b09919f943a050caf04e5223df0c6c77dca818e833166da1e4001b2"
     }
   ],
   "rules": [
@@ -777,6 +807,29 @@
       "quote": "the turn around time for processing a claim is 3 months of receipt of\nall documentation.",
       "source_id": "NJ-S16",
       "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II"
+    },
+    {
+      "id": "NJ-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Address Confidentiality Program",
+        "agency": "Division on Women, New Jersey Department of Children and Families",
+        "covers_sexual_assault": true,
+        "enroll": "Each applicant shall complete an application, which may be obtained from a local domestic violence program, sexual violence agency, or other agencies, as designated by the Division on Women. Information about how to contact the aforementioned programs can be obtained by contacting the New Jersey Address Confidentiality Program at 1-877-218-9133."
+      },
+      "summary": "New Jersey's Address Confidentiality Program, run by the Division on Women in the Department of Children and Families, gives victims of domestic violence, stalking and sexual assault a substitute mailing address that public agencies must accept, so public records do not reveal where they live.",
+      "quote": "to enable interagency cooperation with the Director of the Division on Women in the Department of Children and Families in providing address confidentiality for victims of domestic violence, stalking, and sexual assault, and reproductive health service patients and providers, and to enable public agencies to accept a program participant's use of an address designated by the director as a substitute mailing address.",
+      "source_id": "NJ-S22",
+      "pinpoint": "N.J.S.A. 47:4-2"
+    },
+    {
+      "id": "NJ-REC-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "VCCO claim files are confidential and are not government records open under the Open Public Records Act; nobody may inspect a victim's or claimant's file unless the law or a court order allows it.",
+      "quote": "The files maintained by the Office that relate directly to the handling of any claim for compensation filed by a victim or claimant are not government records subject to disclosure under the Open Public Records Act and shall be considered confidential.",
+      "source_id": "NJ-S9",
+      "pinpoint": "N.J.A.C. 13:75-1.6(b)"
     }
   ],
   "coverage": {
@@ -796,7 +849,9 @@
       "residency",
       "submission",
       "required_document",
-      "processing_time"
+      "processing_time",
+      "address_confidentiality",
+      "record_confidentiality"
     ],
     "not_found": [
       "exam_payment",
@@ -808,5 +863,5 @@
     "notes": "No source names which agency pays providers for the forensic exam, and none says whether a hospital may bill the survivor's insurance for it; the statute (52:4B-52(k), echoed in 52:4B-22(b)) bars charging the victim a fee for exam services, and the AG SART standards say care beyond the exam can be billed under hospital policy. Statute and regulation require a police or law enforcement report within nine months, with a good-cause exception for late reports; the AG SART standards also tell survivors that VCCO benefits require a report to law enforcement. No protective-order, advocate or exam-only alternative was found in law."
   },
   "confidence": "medium",
-  "researcher_notes": "Statute text: N.J.S.A. 52:4B-18 and 52:4B-52 from Justia's 2025 edition (the legislature site was not used); other sections from the OAG compilation dated 8/1/2020, which may predate later amendments (the 2024 VCCO FAQ mentions new covered crime types such as harassment and criminal mischief that are not in that compilation). The OAG administrative code copy has no visible adoption date but reflects post-August 2020 changes. The 2024 FAQ (NJ-S4) says a crime 'must have been reported to law enforcement within 9 months of the crime, filing of a restraining order or sexual violence protective order'; the statute (52:4B-18) says only police or law enforcement, so I did not record a protective-order alternative. The AG SART Standards (NJ-S13, 2018) say emergency care beyond the scope of the forensic exam may be charged under hospital policy, so the no-fee rule covers exam services only. The VCCO Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order and lists (973) 648-2107; the Contact page and OVC directory still list 877-658-2221. Counseling also has per-session rate caps by provider type in N.J.A.C. 13:75-4.4(a), not encoded. Catastrophic injury claims can get supplemental rehabilitative compensation beyond $25,000 (not encoded). Reviewer (Oct 3): moved NJ-CRIME-1 to Justia's 2025 text of 52:4B-11 (NJ-S18, amended through P.L.2023, c.101); the sexual assault offenses are unchanged and harassment and criminal mischief are not in that text, so the 2024 FAQ's mention of them is unconfirmed in statute. Changed the program phone to (973) 648-2107 because the Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order; the Contact page still lists both. Emergency award statute text (52:4B-10.1, NJ-S8) is from the 8/1/2020 compilation; its $7,500 per-award cap matches N.J.A.C. 13:75-5.1(c). The $3,000 security rule (NJ-SEC-1) is the same $3,000 as relocation, not an additional amount; an engine must not add them. N.J.A.C. 13:75-4.4(c) says a provider who accepts VCCO payment must accept the VCCO rate as payment in full and not seek more from other sources (not encoded; it is not exam-specific). Catastrophically injured victims can get up to $35,000 more for rehabilitative services under N.J.A.C. 13:75-6.3(a) (not encoded). How to file (Oct 3): the paper application (NJ-S16, rev. 8/25/20, effective 8/1/20) is still the version linked from the VCCO Paper Application page (NJ-S19); it has no AcroForm fields (field_count 0), so it is print-and-fill. Filing methods from the Contact page (NJ-S6): online at www.njvictims.org, fax 973-648-3937, or mail; the instructions give the mail address as VCCO, 50 Park Place, 5th floor, Newark, NJ 07102 (line breaks shown as commas in the target). The 2024 FAQ (NJ-S4) describes filing as completing the online application, so online is the main path. Email (njvictims@njvictims.org) is given only for status questions and appointment requests, not for filing, so no email submission rule; walk-ins are mentioned only in a closure notice, so no in_person rule. Claimants with an active claim and PIN can upload documents online; documents sent later should include the claim number (NJ-S6). The 90-day decision time in N.J.A.C. 13:75-4.2(c) (NJ-TIME-1) runs from acknowledgment of a complete application and can be extended for good cause; the instructions' 3 months (NJ-TIME-2) runs from receipt of all documentation. The Paper Application page also says to call if no receipt letter arrives within four weeks (not encoded). Most documents are 'if available'; the VCCO will request the police report itself if the survivor does not have one. Homicide-only documents (victim's tax returns for loss of support) were not encoded."
+  "researcher_notes": "Statute text: N.J.S.A. 52:4B-18 and 52:4B-52 from Justia's 2025 edition (the legislature site was not used); other sections from the OAG compilation dated 8/1/2020, which may predate later amendments (the 2024 VCCO FAQ mentions new covered crime types such as harassment and criminal mischief that are not in that compilation). The OAG administrative code copy has no visible adoption date but reflects post-August 2020 changes. The 2024 FAQ (NJ-S4) says a crime 'must have been reported to law enforcement within 9 months of the crime, filing of a restraining order or sexual violence protective order'; the statute (52:4B-18) says only police or law enforcement, so I did not record a protective-order alternative. The AG SART Standards (NJ-S13, 2018) say emergency care beyond the scope of the forensic exam may be charged under hospital policy, so the no-fee rule covers exam services only. The VCCO Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order and lists (973) 648-2107; the Contact page and OVC directory still list 877-658-2221. Counseling also has per-session rate caps by provider type in N.J.A.C. 13:75-4.4(a), not encoded. Catastrophic injury claims can get supplemental rehabilitative compensation beyond $25,000 (not encoded). Reviewer (Oct 3): moved NJ-CRIME-1 to Justia's 2025 text of 52:4B-11 (NJ-S18, amended through P.L.2023, c.101); the sexual assault offenses are unchanged and harassment and criminal mischief are not in that text, so the 2024 FAQ's mention of them is unconfirmed in statute. Changed the program phone to (973) 648-2107 because the Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order; the Contact page still lists both. Emergency award statute text (52:4B-10.1, NJ-S8) is from the 8/1/2020 compilation; its $7,500 per-award cap matches N.J.A.C. 13:75-5.1(c). The $3,000 security rule (NJ-SEC-1) is the same $3,000 as relocation, not an additional amount; an engine must not add them. N.J.A.C. 13:75-4.4(c) says a provider who accepts VCCO payment must accept the VCCO rate as payment in full and not seek more from other sources (not encoded; it is not exam-specific). Catastrophically injured victims can get up to $35,000 more for rehabilitative services under N.J.A.C. 13:75-6.3(a) (not encoded). How to file (Oct 3): the paper application (NJ-S16, rev. 8/25/20, effective 8/1/20) is still the version linked from the VCCO Paper Application page (NJ-S19); it has no AcroForm fields (field_count 0), so it is print-and-fill. Filing methods from the Contact page (NJ-S6): online at www.njvictims.org, fax 973-648-3937, or mail; the instructions give the mail address as VCCO, 50 Park Place, 5th floor, Newark, NJ 07102 (line breaks shown as commas in the target). The 2024 FAQ (NJ-S4) describes filing as completing the online application, so online is the main path. Email (njvictims@njvictims.org) is given only for status questions and appointment requests, not for filing, so no email submission rule; walk-ins are mentioned only in a closure notice, so no in_person rule. Claimants with an active claim and PIN can upload documents online; documents sent later should include the claim number (NJ-S6). The 90-day decision time in N.J.A.C. 13:75-4.2(c) (NJ-TIME-1) runs from acknowledgment of a complete application and can be extended for good cause; the instructions' 3 months (NJ-TIME-2) runs from receipt of all documentation. The Paper Application page also says to call if no receipt letter arrives within four weeks (not encoded). Most documents are 'if available'; the VCCO will request the police report itself if the survivor does not have one. Homicide-only documents (victim's tax returns for loss of support) were not encoded. Privacy (Oct 3): NJ-ACP-1 quotes the ACP purpose clause in N.J.S.A. 47:4-2 (Justia 2025, NJ-S22, amended 2019, c.175), which names victims of sexual assault; the DCF ACP page (NJ-S20) says the program gives a legal substitute address to survivors of domestic violence, stalking, sexual violence and reproductive health patients and providers, and that all state and local government agencies must accept it. The enroll text is copied from N.J.A.C. 3A:71-3.1(b) (Cornell LII, NJ-S21, amended effective 6/3/2024). Eligibility limits that matter for anonymity: the DCF page says applicants must have experienced fear or threat of abuse and must relocate, and ACP cannot remove addresses already publicly recorded; N.J.A.C. 3A:71-3.1(b)1iii requires a sworn statement that the abuse was reported to a law enforcement agency and/or court or that the applicant applied for an order under N.J.S.A. 2C:14-13 et seq. (a sexual assault protective order), so ACP is not available to a survivor who has made no report and sought no order. The DCF 'How to Apply' link is a video, not text, so it was not used. NJ-REC-1 is N.J.A.C. 13:75-1.6(b) from the OAG administrative code copy already saved (NJ-S9); the next sentence adds that victim and claimant files shall not be open to inspection by any person unless authorized by law or court order. I did not look for a separate statute on VCCO record confidentiality."
 }

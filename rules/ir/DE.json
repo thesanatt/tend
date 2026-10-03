@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e6daf969c815cad65d4ba0b701490bd5b80100edaa02fe9d37c14d33823fd998",
+ "source_sha256": "c4ac295785e3b60960e5cbebf3c49ad02c65d34e4cff9a1dc291f73a1f86698e",
  "rules": [
   {
    "id": "DE-EXAM-1",
@@ -256,6 +256,16 @@
    "id": "DE-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "DE-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "DE-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

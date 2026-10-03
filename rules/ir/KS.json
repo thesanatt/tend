@@ -17,7 +17,7 @@
    "field_count": 202
   }
  },
- "source_sha256": "9cce9dfececedb8e9421775c76db58d302780724b198edec14f62d72b205faf5",
+ "source_sha256": "c2651dca2238df54a9bbb393caa43b949979de3d35988554ed147d11e14fa534",
  "rules": [
   {
    "id": "KS-EXAM-1",
@@ -256,6 +256,16 @@
    "id": "KS-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "KS-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "KS-CONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

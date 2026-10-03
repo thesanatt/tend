@@ -17,7 +17,7 @@
    "field_count": 90
   }
  },
- "source_sha256": "d896650294a76a0fca7dd8de1b021e005c14d8c84505a84e84c60760fddf52cd",
+ "source_sha256": "85b5515ec22785f09e9f3374b10d7613e5a028e5e2efae59039bae52a149f9b2",
  "rules": [
   {
    "id": "UT-EXAM-1",
@@ -292,6 +292,16 @@
    "id": "UT-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "UT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "UT-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

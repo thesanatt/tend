@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "915b95c13a400ffc3ec2e7cbef4f40026d62af0429077106b598a07c1e966844",
+ "source_sha256": "c7a8684f704d3d7869f36a2c60e60b86f9eb1bc98297fa32fe5d98d11ae3d91d",
  "rules": [
   {
    "id": "ID-EXAM-1",
@@ -273,6 +273,16 @@
    "id": "ID-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "ID-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "ID-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

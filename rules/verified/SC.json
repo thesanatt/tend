@@ -136,6 +136,26 @@
    "raw_path": "rules/sources/SC/SC-S12.pdf",
    "text_path": "rules/sources/SC/SC-S12.txt",
    "sha256": "049ce8d0ac58eecc747834c320bf240254598235e18516299dec2d27825bb36c"
+  },
+  {
+   "id": "SC-S13",
+   "title": "SC Attorney General, Address Confidentiality Program (ACP)",
+   "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/address-confidentiality-program-acp/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:58:05Z",
+   "raw_path": "rules/sources/SC/SC-S13.html",
+   "text_path": "rules/sources/SC/SC-S13.txt",
+   "sha256": "14a80be7e0098b97b8976de22bcc052b5e9ef2a7171c2b6bba8ba5d359f9b308"
+  },
+  {
+   "id": "SC-S14",
+   "title": "S.C. Code Title 16, Chapter 25 (incl. 16-25-130, Victim address confidentiality program)",
+   "url": "https://www.scstatehouse.gov/code/t16c025.php",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:58:05Z",
+   "raw_path": "rules/sources/SC/SC-S14.html",
+   "text_path": "rules/sources/SC/SC-S14.txt",
+   "sha256": "c23269d2209d867606aa3782b9fc9c805511241e0d3c2597bb7bb03208054bb4"
   }
  ],
  "rules": [
@@ -762,6 +782,31 @@
    "source_id": "SC-S3",
    "pinpoint": "FAQ, resident victimized in another country",
    "fragment_url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-compensation-faqs/#:~:text=The%20victim%20may%20apply%20to,and%20submit%20proof%20of%20residency."
+  },
+  {
+   "id": "SC-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "South Carolina Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "If you are interested in enrolling in the Address Confidentiality Program, please contact the ACP at [email address obfuscated in saved page] or 803-734-4517 to be connected with an Application Assistant in your area. (Statute: Upon the recommendation of an application assistant, an individual, or a parent, guardian, or other appropriate adult for a minor, may apply to the Attorney General for assignation of a designated address.)"
+   },
+   "summary": "South Carolina's Address Confidentiality Program, run by the Attorney General, gives victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses a designated substitute address that state and local agencies and courts must use, plus forwarding of first-class, certified, and registered mail. Applicants apply through an application assistant; there is no fee.",
+   "quote": "The address confidentiality program is established to protect victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses by authorizing the use of designated addresses for such victims. The program is administered by the Attorney General",
+   "source_id": "SC-S14",
+   "pinpoint": "S.C. Code 16-25-130(B)",
+   "fragment_url": "https://www.scstatehouse.gov/code/t16c025.php#:~:text=The%20address%20confidentiality%20program%20is,administered%20by%20the%20Attorney%20General"
+  },
+  {
+   "id": "SC-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Information about people applying for or receiving compensation may not be disclosed except to run the fund or with the applicant's written consent, and the program's records and files are confidential and exempt from the Freedom of Information Act.",
+   "quote": "The records, papers, files, and communications of the board, its panel, and the director and his staff must be regarded as confidential information and privileged and not subject to disclosure under the Freedom of Information Act as contained in Chapter 4, Title 30.",
+   "source_id": "SC-S1",
+   "pinpoint": "S.C. Code 16-3-1240",
+   "fragment_url": "https://www.scstatehouse.gov/code/t16c003.php#:~:text=The%20records%2C%20papers%2C%20files%2C%20and,in%20Chapter%204%2C%20Title%2030."
   }
  ],
  "coverage": {
@@ -781,7 +826,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap for medical (only the $15,000 overall cap applies)",
@@ -794,5 +841,5 @@
   "notes": "Relocation is expressly not covered (FAQ). Toll-free line for victims is 1-800-220-5370 (SC-S2). The application is mailed to DCVC; apply_url is the How to Apply page. Reviewer: the application (SC-S7) says DCVC can pay 'up to 40 counseling sessions or 180 days of counseling sessions, whichever is greater', which reads more generously than the statute (20 sessions or 180 days, plus up to 20 more on request); the statute is encoded. The provider guide (SC-S12) describes the anonymous route for victims 18 and older and lists 'Victim's health insurance paid the bill(s)' as an exam denial reason."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from scstatehouse.gov (Title 16, Chapter 3, Article 13); history shows last amendments in 2017. Exam billing: the statute (16-3-1350(A)) says the victim must not bear the cost but does not mention insurance; the program's Feb 2018 provider billing guide (SC-S12, still linked from the current provider portal) says neither the victim nor their insurance, including Medicaid and Medicare, may be billed. That guide is older and lists staff contacts and fee amounts that may be out of date; only its general rules are used. The anonymous filing route for sexual assault (SC-REPORT-2/3) is described only in program materials; the application says to contact DCVC for details on anonymous reporting. Disagreement: the statute caps burial at $4,000 (16-3-1180(A)(5)) but the FAQ says up to $6,500; burial is not encoded. Residency: statute 16-3-1210 also lets South Carolina residents victimized in another state file, but program pages and the application say the crime must occur in South Carolina. Reporting: 48 hours is in the statute; the schema field within_days was left out because the statute states hours, not days. Lost wages also require missing two consecutive weeks (statute) and being under a treating physician's care (At A Glance). Reviewer changes: SC-PROP-2 no longer names phones or clothing (the source says only 'Items Taken as Evidence'); mortgage/rent moved from temporary_housing to other (SC-EXCL-5); SC-EXAM-5 recategorized from exam_payment to exam_no_bill since it states the exam is at no cost to the victim; SC-EXCL-1 summary no longer says the exam covers 'evidence collection only' (the guide also lists lab work, medications, ER and physician fees billed to DCVC). Added SC-EXAM-6 (no-kit exam paid), SC-FUN-1, SC-TRANS-3, SC-EXCL-6. SC-S12 is a 2018 guide that still lists the old www.sova.sc.gov domain and staff contacts; no names are used in rules. How-to-file: the How to Apply page (SC-S8) names mail as the only way to submit; no online portal, email, or fax submission for applicants is stated (the fax number on the At A Glance sheet is for providers sending bills, and the contact email is obfuscated in the saved pages). The application PDF linked from How to Apply (/media/fexpbtym/...) is byte-identical (same sha256) to SC-S7, so SC-S7 is the current form; it is fillable with 103 AcroForm fields. No processing time is stated; the application says to call if no letter arrives after four weeks, which is not encoded."
+ "researcher_notes": "Statute text is from scstatehouse.gov (Title 16, Chapter 3, Article 13); history shows last amendments in 2017. Exam billing: the statute (16-3-1350(A)) says the victim must not bear the cost but does not mention insurance; the program's Feb 2018 provider billing guide (SC-S12, still linked from the current provider portal) says neither the victim nor their insurance, including Medicaid and Medicare, may be billed. That guide is older and lists staff contacts and fee amounts that may be out of date; only its general rules are used. The anonymous filing route for sexual assault (SC-REPORT-2/3) is described only in program materials; the application says to contact DCVC for details on anonymous reporting. Disagreement: the statute caps burial at $4,000 (16-3-1180(A)(5)) but the FAQ says up to $6,500; burial is not encoded. Residency: statute 16-3-1210 also lets South Carolina residents victimized in another state file, but program pages and the application say the crime must occur in South Carolina. Reporting: 48 hours is in the statute; the schema field within_days was left out because the statute states hours, not days. Lost wages also require missing two consecutive weeks (statute) and being under a treating physician's care (At A Glance). Reviewer changes: SC-PROP-2 no longer names phones or clothing (the source says only 'Items Taken as Evidence'); mortgage/rent moved from temporary_housing to other (SC-EXCL-5); SC-EXAM-5 recategorized from exam_payment to exam_no_bill since it states the exam is at no cost to the victim; SC-EXCL-1 summary no longer says the exam covers 'evidence collection only' (the guide also lists lab work, medications, ER and physician fees billed to DCVC). Added SC-EXAM-6 (no-kit exam paid), SC-FUN-1, SC-TRANS-3, SC-EXCL-6. SC-S12 is a 2018 guide that still lists the old www.sova.sc.gov domain and staff contacts; no names are used in rules. How-to-file: the How to Apply page (SC-S8) names mail as the only way to submit; no online portal, email, or fax submission for applicants is stated (the fax number on the At A Glance sheet is for providers sending bills, and the contact email is obfuscated in the saved pages). The application PDF linked from How to Apply (/media/fexpbtym/...) is byte-identical (same sha256) to SC-S7, so SC-S7 is the current form; it is fillable with 103 AcroForm fields. No processing time is stated; the application says to call if no letter arrives after four weeks, which is not encoded. Privacy: the Address Confidentiality Program is in S.C. Code 16-25-130 (added by a 2024 Act; the AG announced the launch in July 2025), so older national lists saying South Carolina has no ACP are out of date. The statute defines 'sexual offense' as acts in Articles 7 and 8, Chapter 3, Title 16, and 16-25-130(F) keeps ACP applications out of FOIA. The program page (SC-S13) says participants must be 18 or older (or a parent/guardian for a minor), live in South Carolina or plan to move there within 90 days, and pay no fee; the ACP contact email is obfuscated in the saved page. Record confidentiality (SC-RECCONF-1) comes from 16-3-1240, which also makes it unlawful to disclose information about applicants or recipients without their written consent except for administering the fund."
 }

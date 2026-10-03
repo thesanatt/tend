@@ -116,6 +116,16 @@
    "raw_path": "rules/sources/MS/MS-S10.html",
    "text_path": "rules/sources/MS/MS-S10.txt",
    "sha256": "0a7681ec99a0487432080616fa1dfa5f15a7e977b986a37a89f22b41b47fd02b"
+  },
+  {
+   "id": "MS-S11",
+   "title": "Miss. Code Ann. 99-41-31 (2025): Disclosure of records as to claims; confidentiality of records",
+   "url": "https://law.justia.com/codes/mississippi/title-99/chapter-41/section-99-41-31/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:06Z",
+   "raw_path": "rules/sources/MS/MS-S11.html",
+   "text_path": "rules/sources/MS/MS-S11.txt",
+   "sha256": "54a656df0d48d300a5bbb1364c490e5bf5caf3dd9d6af093e94ff64c93da22a0"
   }
  ],
  "rules": [
@@ -882,6 +892,30 @@
    "quote": "A decision about whether the victim or claimant is eligible is usually made within 90 days.",
    "source_id": "MS-S2",
    "pinpoint": "Victim Compensation FAQ, What Happens After I Mail in my Application?"
+  },
+  {
+   "id": "MS-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Office of the Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "Complete the Address Confidentiality Program application form(s); and submit the completed application form(s) to the Office of the Attorney General, Victim Compensation Division."
+   },
+   "summary": "The Attorney General's Address Confidentiality Program gives Mississippi residents who are victims of domestic violence, sexual assault, or stalking a substitute address and mail forwarding to use with state and local agencies, so the person they fear cannot find them. Applicants send the program application to the Attorney General's Victim Compensation Division; the assault does not have to have happened in Mississippi.",
+   "quote": "The Address Confidentiality Program helps victims keep their location confidential by providing them with a substitute address and a mail forwarding service for use when interacting with state and local agencies.",
+   "source_id": "MS-S6",
+   "pinpoint": "Miss. Admin. Code Title 3, Part 1, Chapter 07, Rules 700 and 703; statutory basis Miss. Code Ann. 99-47-1"
+  },
+  {
+   "id": "MS-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "By statute, the compensation division's records, files and communications are confidential and privileged and cannot be released under the Mississippi Public Records Act of 1983, and no one may disclose information about applicants or recipients without the claimant's written consent except to run the program.",
+   "quote": "The records, papers, files and communications of the division, director, staff and agents must be regarded as confidential information and privileged and not subject to disclosure under any condition including the Mississippi Public Records Act of 1983.",
+   "source_id": "MS-S11",
+   "pinpoint": "Miss. Code Ann. 99-41-31",
+   "fragment_url": "https://law.justia.com/codes/mississippi/title-99/chapter-41/section-99-41-31/#:~:text=The%20records%2C%20papers%2C%20files%20and,Public%20Records%20Act%20of%201983."
   }
  ],
  "coverage": {
@@ -912,7 +946,9 @@
    "expense_cap:funeral",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -922,5 +958,5 @@
   "notes": "No minimum dollar loss appears in Miss. Code Ann. 99-41 sections read or in the administrative rules; the rules only say a claimant must show an economic loss. No source covers childcare or clothing/bedding replacement, and none expressly excludes them, so they are not found rather than excluded. Relocation and temporary housing are limited to domestic violence victims in imminent danger; the rules define domestic violence to include rape and sexual battery between current or former spouses or partners, dating partners, household or family members, so a survivor assaulted by a stranger or acquaintance would not qualify for those two benefits. The statute (99-41-23) and the 2025 program materials set no expense caps for relocation, housing, transportation, security or cleanup; those amounts come from the administrative rules."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from Justia's 2025 Mississippi Code because Mississippi does not host its own code; the 2025 brochure and Dec 2025 application match it. Conflict: the administrative rules (R. 104) still say a child sexual abuse claim must be filed by the child's twenty-first birthday, but the current text of Miss. Code Ann. 99-41-17(1)(b) (Justia 2025) says twenty-fifth, and the 2020 FAQ, 2025 brochure and Dec 2025 application all agree with the statute, so the statute is used. The administrative rules say they reflect legislation through the 2008 session, so they predate later statutory amendments; every rule-based cap used here (transportation $500, court travel $1,000, relocation $2,000, temporary housing $500, security repairs $1,000, cleanup $1,000) is repeated in the 2025 brochure and Dec 2025 application, except tuition ($2,000, also in the 2020 FAQ; the application lists tuition loss without an amount) and the advance award ($500, only in the rules). The forensic exam statute (99-37-25) says the survivor may still be billed for further medical services not needed for the investigation; those may be claimed through compensation if the claim is otherwise eligible (R. 301(9)). The exam payment rules say survivors covered by Medicaid, Medicare, Tricare, VA or CHIP are billed to that program first, and the provider may not pass any remaining balance to the survivor (R. 602(2), 604(6)). Exam payment caps per the rules: $350 medical personnel, $450 facility, $200 labs, within $1,000 per case. The exam payment does not require a police report, but a compensation claim does require a report within 72 hours or good cause. The 2020 FAQ (MS-S2) is older; its caps match the 2025 brochure except it lists tuition loss and execution travel, which the rules also cover. The phone 800-829-6766 is confirmed by the OVC state directory and the program pages; local number is 601-359-6766. Funeral cap ($6,500, 99-41-5(a)(iii)) added in review; funeral transportation ($800) is a separate limit in the same clause and is not encoded. How to file: the program page (MS-S1) links an online application on the AG portal (portal.ago.ms.gov, which blocked automated saving, so the target URL comes from the link on MS-S1); the Dec 2025 paper application (MS-S4) says to mail it to the letterhead address, P.O. Box 220 Jackson, MS 39205, and the 2025 brochure (MS-S3) says it can be mailed or faxed using the form's details (fax 601.576.4445). The brochure also says notarization is no longer necessary. The victimassistance@ago.ms.gov email is for questions, not for filing, so no email submission rule. The application PDF has no AcroForm fields (field_count 0), so it must be printed and filled by hand. No police report copy is required from the applicant: the form asks for the law enforcement agency and police incident report number, and the FAQ says the office requests the full offense report from law enforcement. Documents only for deceased victims (itemized funeral and burial expenses, tax return and proof of dependency) are not encoded. The 90-day decision time is from the 2020 FAQ (MS-S2); no newer source states a processing time."
+ "researcher_notes": "Statute text is from Justia's 2025 Mississippi Code because Mississippi does not host its own code; the 2025 brochure and Dec 2025 application match it. Conflict: the administrative rules (R. 104) still say a child sexual abuse claim must be filed by the child's twenty-first birthday, but the current text of Miss. Code Ann. 99-41-17(1)(b) (Justia 2025) says twenty-fifth, and the 2020 FAQ, 2025 brochure and Dec 2025 application all agree with the statute, so the statute is used. The administrative rules say they reflect legislation through the 2008 session, so they predate later statutory amendments; every rule-based cap used here (transportation $500, court travel $1,000, relocation $2,000, temporary housing $500, security repairs $1,000, cleanup $1,000) is repeated in the 2025 brochure and Dec 2025 application, except tuition ($2,000, also in the 2020 FAQ; the application lists tuition loss without an amount) and the advance award ($500, only in the rules). The forensic exam statute (99-37-25) says the survivor may still be billed for further medical services not needed for the investigation; those may be claimed through compensation if the claim is otherwise eligible (R. 301(9)). The exam payment rules say survivors covered by Medicaid, Medicare, Tricare, VA or CHIP are billed to that program first, and the provider may not pass any remaining balance to the survivor (R. 602(2), 604(6)). Exam payment caps per the rules: $350 medical personnel, $450 facility, $200 labs, within $1,000 per case. The exam payment does not require a police report, but a compensation claim does require a report within 72 hours or good cause. The 2020 FAQ (MS-S2) is older; its caps match the 2025 brochure except it lists tuition loss and execution travel, which the rules also cover. The phone 800-829-6766 is confirmed by the OVC state directory and the program pages; local number is 601-359-6766. Funeral cap ($6,500, 99-41-5(a)(iii)) added in review; funeral transportation ($800) is a separate limit in the same clause and is not encoded. How to file: the program page (MS-S1) links an online application on the AG portal (portal.ago.ms.gov, which blocked automated saving, so the target URL comes from the link on MS-S1); the Dec 2025 paper application (MS-S4) says to mail it to the letterhead address, P.O. Box 220 Jackson, MS 39205, and the 2025 brochure (MS-S3) says it can be mailed or faxed using the form's details (fax 601.576.4445). The brochure also says notarization is no longer necessary. The victimassistance@ago.ms.gov email is for questions, not for filing, so no email submission rule. The application PDF has no AcroForm fields (field_count 0), so it must be printed and filled by hand. No police report copy is required from the applicant: the form asks for the law enforcement agency and police incident report number, and the FAQ says the office requests the full offense report from law enforcement. Documents only for deceased victims (itemized funeral and burial expenses, tax return and proof of dependency) are not encoded. The 90-day decision time is from the 2020 FAQ (MS-S2); no newer source states a processing time. The Address Confidentiality Program (Miss. Code Ann. 99-47-1) is run by the Attorney General's office and is described in Chapter 07 of the same administrative rules (MS-S6): Rule 700 says it serves residents who are victims of domestic violence, sexual assault, or stalking, and Rule 703 says applicants submit the application to the Office of the Attorney General, Victim Compensation Division, and that the assault need not have occurred in Mississippi. Registered sex offenders are not eligible. Compensation records are confidential under Miss. Code Ann. 99-41-31 (MS-S11), which also bars disclosing information about applicants without their written consent; the compensation application (MS-S4) cites the same section."
 }

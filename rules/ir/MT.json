@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "a88217b6007aae8c45a305953ff878edeaca8c552e3a61d238314ce5eadb31cd",
+ "source_sha256": "4bd25991fd25c229b72d87000aa0ea36a5320ff21fbff1e3a0601a3dff6b0bac",
  "rules": [
   {
    "id": "MT-EXAM-1",
@@ -214,6 +214,16 @@
    "id": "MT-PROC-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "MT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MT-CONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

@@ -17,7 +17,7 @@
    "field_count": 53
   }
  },
- "source_sha256": "d5778859fe38bb812287d086416e8b5ccb51741929e3c8ffafa5a1bd3f9d34a1",
+ "source_sha256": "57f177bbc5710e337e75e436fea9481fc808c1c9b04cdb1498a538f41c0c7a54",
  "rules": [
   {
    "id": "MN-EXAM-1",
@@ -295,6 +295,16 @@
    "id": "MN-DOC-MILEAGE",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "MN-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MN-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

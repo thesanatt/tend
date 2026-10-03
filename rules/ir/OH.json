@@ -17,7 +17,7 @@
    "field_count": 207
   }
  },
- "source_sha256": "8b5353e7c2dce0759f7a66a92ba8eca8e361df3916bb55bfcac53828517250c3",
+ "source_sha256": "5de0c6cc0c699a47c942ef3deeaf37bb4ce117de9958a62bd07b6cdb200b0511",
  "rules": [
   {
    "id": "OH-EXAM-1",
@@ -243,6 +243,16 @@
    "id": "OH-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "OH-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "OH-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

@@ -146,6 +146,26 @@
    "raw_path": "rules/sources/PA/PA-S13.pdf",
    "text_path": "rules/sources/PA/PA-S13.txt",
    "sha256": "63edd5946d7bec1f6dc50cc439dc7e421a5b830f7c561fe28555fa12acc1823d"
+  },
+  {
+   "id": "PA-S14",
+   "title": "PA Office of Victim Advocate: Address Confidentiality Program (ACP)",
+   "url": "https://www.pa.gov/agencies/ova/address-confidentiality",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:05Z",
+   "raw_path": "rules/sources/PA/PA-S14.html",
+   "text_path": "rules/sources/PA/PA-S14.txt",
+   "sha256": "20e1124ba3cccd46cea1f12d6c0bf735db7ca04b734b29ec0cdabdd943237900"
+  },
+  {
+   "id": "PA-S15",
+   "title": "23 Pa.C.S. Chapter 67: Domestic and Sexual Violence Victim Address Confidentiality Act",
+   "url": "https://www.palegis.us/statutes/consolidated/view-statute?txtType=PDF&ttl=23&div=0&chpt=67",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:16Z",
+   "raw_path": "rules/sources/PA/PA-S15.pdf",
+   "text_path": "rules/sources/PA/PA-S15.txt",
+   "sha256": "57d5ec4778640611742ae63ee44331e48fc370c8d15a6aaf0b97c4c09334f42b"
   }
  ],
  "rules": [
@@ -844,10 +864,34 @@
    "quote": "Payments owed to the victim/claimant that total $5,000.00 or less are released within 2 business days of being approved.",
    "source_id": "PA-S13",
    "pinpoint": "VCAP Claim Process flyer (11/2023)"
+  },
+  {
+   "id": "PA-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Pennsylvania Office of Victim Advocate (OVA)",
+    "covers_sexual_assault": true,
+    "enroll": "Complete an online ACP application; Visit your local Victim Service Program to complete an ACP Application; Call OVA at 800-563-6399. Online applications are returned to OVA by email (RA-PMOVA-ACPPROGRAM@pa.gov) or mail (Office of Victim Advocate, 1101 S. Front St, Suite 5200, Harrisburg, PA 17112)."
+   },
+   "summary": "Pennsylvania's Address Confidentiality Program, run by the Office of Victim Advocate, gives survivors of sexual assault, domestic violence, stalking, human trafficking, or child abduction an alternate mailing address to keep their address out of public records.",
+   "quote": "The ACP can provide you with an alternate mailing address to keep your address out of public records if you are a victim of domestic violence, sexual assault, stalking, human trafficking, or child abduction.",
+   "source_id": "PA-S14",
+   "pinpoint": "OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)"
+  },
+  {
+   "id": "PA-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Everything VCAP obtains or produces while processing a claim is confidential and privileged, is not subject to subpoena or discovery, and may be used only to process the claim; disclosure needs the victim's written consent except as the law provides.",
+   "quote": "All reports, records or other information\nobtained or produced by the Office of Victims' Services during\nthe processing or investigation of a claim shall be confidential\nand privileged, shall not be subject to subpoena or discovery,\nshall be used for no purpose other than the processing of a\nclaim",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.709(a)"
   }
  ],
  "coverage": {
   "found": [
+   "address_confidentiality",
    "collateral_source",
    "conduct_reduction",
    "covered_expense",
@@ -860,6 +904,7 @@
    "filing_deadline",
    "minimum_loss",
    "processing_time",
+   "record_confidentiality",
    "reporting_requirement",
    "required_document",
    "residency",
@@ -874,5 +919,5 @@
   "notes": "No source found that covers home security costs (locks, alarms, cameras); treat security as not covered unless the program confirms. Phones are not named anywhere; the general property loss/damage exclusion applies. The statute's emergency award limit is 'a rate set by the Office of Victims' Services'; the $5,000 figure comes from 37 Pa. Code 411.17 and matches the 2025 manual. Relocation lodging is $75 per day (PA-RELOC-4); relocation vehicle rental is $30 per day (37 Pa. Code 411.42(f)), not encoded separately. Travel caps (car rental $30/day, meals $28/day for trips of 50+ miles) are taken from the 2025 manual because the matching list in 37 Pa. Code 411.42(g) is introduced by a clause about death and funeral travel and reads ambiguously. Filing: the claim form (July 2024, the version linked from the PA.gov apply page) lists the mailing address, email, and the DAVE online portal; the PA.gov page also lists the Crime Victims App for online filing. The form's fax number (717-787-4306) is listed only as contact info and the manual mentions fax only for advocates sending supplemental bills, so no fax submission rule was added. No in-person filing method is stated."
  },
  "confidence": "high",
- "researcher_notes": "Act 77 of 2022 changes (5-year filing deadline, 'promptly' reporting instead of 72 hours, $50 minimum loss, 701.1 counseling claims, conduct not considered for counseling) apply to crimes on or after 9/8/2022; for older crimes the program says to contact it (2-year deadline and 72-hour reporting applied before). 37 Pa. Code Chapter 411 was last amended in 2009 and still references some pre-2022 limits (for example a 1-year FRE provider deadline that is consistent with the 2024 FRE protocol); where regulations and statute differ the statute controls. The PA.gov page says 'The crime must have occurred in Pennsylvania', while the statute's definitions (18 P.S. 11.103) also cover Pennsylvania residents harmed outside the state when the other location's program is ineligible under VOCA; the manual narrows this to foreign countries without a program and international terrorism. Insurance: providers must bill the survivor's insurance first for the exam unless the survivor (or person responsible) asks that insurance not be billed (18 P.S. 11.707(h)(1); FRE protocol B.2), so insurance_billing is recorded as 'allowed' with a survivor opt-out. The PA.gov transportation flyer says 'A maximum payment of $35,000 per direct victim can be reimbursed for transportation expenses'; that is just the overall cap and is not encoded. The English VCAP brochure PDF is image-only and was not saved. Counseling for a minor whose insurance is held by the alleged perpetrator or a non-supportive caretaker may be paid without billing that insurance (18 P.S. 11.707(b)(4.1)(i)). Reviewer: the PA.gov page says the claim must be filed 'within 5 years of the crime'; the statute (18 P.S. 11.702(b)(1)) runs it from discovery, which the rule follows. The 37 Pa. Code 411.42(d) health-item limit says 'each' device and 'will not exceed $1,000'; encoded per claim, but it may be read per item. FRE FAQ: if the survivor declines evidence collection the hospital may bill the survivor's insurance (Q14), and medications without an exam are not paid on the FRE claim (Q11); both can go on a standard claim. Application form: PA-S6 (VCAP long claim form, July 2024) is a flat PDF with no AcroForm fields (0 fields), so it is not fillable; a short claim form and a separate FRE claim form also exist but were not saved. The 2025 manual cover gives the PO Box ZIP as 17110-1167, while the claim form and the manual's own sample letters use 17108-1167; the submission rule follows the claim form. The applicant does not need to attach a police report: the claim process flyer says VCAP obtains the police report itself and sends verification forms to providers and employers; the form asks for the police department and incident number. The 12-week figure is from the PA.gov FAQ ('Most organizations process claims in 12 weeks or less'), not the statute. Payments to providers are released 2 to 4 weeks after approval (PA-S13)."
+ "researcher_notes": "Act 77 of 2022 changes (5-year filing deadline, 'promptly' reporting instead of 72 hours, $50 minimum loss, 701.1 counseling claims, conduct not considered for counseling) apply to crimes on or after 9/8/2022; for older crimes the program says to contact it (2-year deadline and 72-hour reporting applied before). 37 Pa. Code Chapter 411 was last amended in 2009 and still references some pre-2022 limits (for example a 1-year FRE provider deadline that is consistent with the 2024 FRE protocol); where regulations and statute differ the statute controls. The PA.gov page says 'The crime must have occurred in Pennsylvania', while the statute's definitions (18 P.S. 11.103) also cover Pennsylvania residents harmed outside the state when the other location's program is ineligible under VOCA; the manual narrows this to foreign countries without a program and international terrorism. Insurance: providers must bill the survivor's insurance first for the exam unless the survivor (or person responsible) asks that insurance not be billed (18 P.S. 11.707(h)(1); FRE protocol B.2), so insurance_billing is recorded as 'allowed' with a survivor opt-out. The PA.gov transportation flyer says 'A maximum payment of $35,000 per direct victim can be reimbursed for transportation expenses'; that is just the overall cap and is not encoded. The English VCAP brochure PDF is image-only and was not saved. Counseling for a minor whose insurance is held by the alleged perpetrator or a non-supportive caretaker may be paid without billing that insurance (18 P.S. 11.707(b)(4.1)(i)). Reviewer: the PA.gov page says the claim must be filed 'within 5 years of the crime'; the statute (18 P.S. 11.702(b)(1)) runs it from discovery, which the rule follows. The 37 Pa. Code 411.42(d) health-item limit says 'each' device and 'will not exceed $1,000'; encoded per claim, but it may be read per item. FRE FAQ: if the survivor declines evidence collection the hospital may bill the survivor's insurance (Q14), and medications without an exam are not paid on the FRE claim (Q11); both can go on a standard claim. Application form: PA-S6 (VCAP long claim form, July 2024) is a flat PDF with no AcroForm fields (0 fields), so it is not fillable; a short claim form and a separate FRE claim form also exist but were not saved. The 2025 manual cover gives the PO Box ZIP as 17110-1167, while the claim form and the manual's own sample letters use 17108-1167; the submission rule follows the claim form. The applicant does not need to attach a police report: the claim process flyer says VCAP obtains the police report itself and sends verification forms to providers and employers; the form asks for the police department and incident number. The 12-week figure is from the PA.gov FAQ ('Most organizations process claims in 12 weeks or less'), not the statute. Payments to providers are released 2 to 4 weeks after approval (PA-S13). Address confidentiality: the OVA ACP page (PA-S14) lists sexual assault victims as eligible and says enrollment is online, through a local victim service program, or by calling OVA; the statute (23 Pa.C.S. 6703(a)) says eligible persons 'shall receive a confidential substitute address provided by the Office of Victim Advocate'. The statute's definition of 'victim of sexual assault' (23 Pa.C.S. 6702) lists specific offenses (18 Pa.C.S. 3121 rape, 3133, 4302, 6312, 6318, 6320) and 6704(2) requires an affidavit that the applicant fears future violent acts by the perpetrator, so eligibility under the statute is narrower than the agency page wording; OVA decides. ACP records, including applications and actual addresses, are confidential and exempt from the Right-to-Know Law (23 Pa.C.S. 6703(d)). Participants renew every 3 years per the OVA page. Record confidentiality: 18 P.S. 11.709(b) bars disclosure without the written consent of the direct victim or intervenor, except as otherwise provided by law; 11.709(c) still allows use in OVS appeal hearings, in enforcing section 1303, and in talking with the prosecutor about restitution. The Act 77 flyer (PA-S7) restates this."
 }

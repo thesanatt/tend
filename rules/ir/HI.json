@@ -17,7 +17,7 @@
    "field_count": 112
   }
  },
- "source_sha256": "45a2511c5da7cb2f877de529304efce97831666063df8b411c7b8dd191bc2d76",
+ "source_sha256": "fce39036f6be5f4fb752b90045bb1e1936595efc6e32c2b79f25bd0ff8997570",
  "rules": [
   {
    "id": "HI-EXAM-1",
@@ -209,6 +209,11 @@
    "id": "HI-DOC-8",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "HI-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
   }
  ],
  "skipped": []

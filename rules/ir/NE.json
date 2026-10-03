@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "a8a754ee5943b1227f3b92a5014fbd720fced1cd679aa5c56f3030e1173b20fb",
+ "source_sha256": "cbe76153dd8e4a957913c1b63d0fe3163823f55580e6f41697008b7ab0899dca",
  "rules": [
   {
    "id": "NE-EXAM-1",
@@ -232,6 +232,16 @@
    "id": "NE-TIME-2",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "NE-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NE-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

@@ -1,776 +1,821 @@
 {
- "jurisdiction": "SC",
- "name": "South Carolina",
- "program": {
-  "program_name": "Crime Victim Compensation (South Carolina Victim Compensation Fund)",
-  "agency": "Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation (DCVC)",
-  "website": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/",
-  "apply_url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/",
-  "application_pdf_url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
-  "phone": "803-734-1900",
-  "phone_source_id": "SC-S2",
-  "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360",
-  "application_form": {
-   "source_id": "SC-S7",
-   "fillable": true,
-   "field_count": 103
-  }
- },
- "sources": [
-  {
-   "id": "SC-S1",
-   "title": "S.C. Code Title 16, Chapter 3 (Articles 13, Victim Compensation, incl. 16-3-1110 to 16-3-1360)",
-   "url": "https://www.scstatehouse.gov/code/t16c003.php",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:21Z",
-   "raw_path": "rules/sources/SC/SC-S1.html",
-   "text_path": "rules/sources/SC/SC-S1.txt",
-   "sha256": "82a306a5970665b533de102087d0d16158a74bac52bc91dcd2ee4d8ee06b0fd2"
+  "jurisdiction": "SC",
+  "name": "South Carolina",
+  "program": {
+    "program_name": "Crime Victim Compensation (South Carolina Victim Compensation Fund)",
+    "agency": "Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation (DCVC)",
+    "website": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/",
+    "apply_url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/",
+    "application_pdf_url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
+    "phone": "803-734-1900",
+    "phone_source_id": "SC-S2",
+    "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360",
+    "application_form": {
+      "source_id": "SC-S7",
+      "fillable": true,
+      "field_count": 103
+    }
   },
-  {
-   "id": "SC-S2",
-   "title": "SC Attorney General, Crime Victim Compensation (program page)",
-   "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:42Z",
-   "raw_path": "rules/sources/SC/SC-S2.html",
-   "text_path": "rules/sources/SC/SC-S2.txt",
-   "sha256": "29c55a5de4904ebe4173e5fe07197f39ba753785272c88d92ba40896e9dd88f6"
-  },
-  {
-   "id": "SC-S3",
-   "title": "SC Attorney General, Crime Victim Compensation FAQs",
-   "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-compensation-faqs/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:43Z",
-   "raw_path": "rules/sources/SC/SC-S3.html",
-   "text_path": "rules/sources/SC/SC-S3.txt",
-   "sha256": "d2d1a1b17e5c2b8050ff7629bdf7e8f2943dc7fa3ebd5f3f0375e4b6a9d3f7dc"
-  },
-  {
-   "id": "SC-S4",
-   "title": "SC Attorney General, Crime Victim Forms & Applications",
-   "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-forms-applications/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:43Z",
-   "raw_path": "rules/sources/SC/SC-S4.html",
-   "text_path": "rules/sources/SC/SC-S4.txt",
-   "sha256": "741fbd1254d1313f6c9d5f53ec46a9b56200c5afd9c060fad494e40f7deb5632"
-  },
-  {
-   "id": "SC-S5",
-   "title": "SC Attorney General, DCVC Eligibility",
-   "url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/eligibility/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:43Z",
-   "raw_path": "rules/sources/SC/SC-S5.html",
-   "text_path": "rules/sources/SC/SC-S5.txt",
-   "sha256": "74899c1f9fc8299731f2bb3d6392d9b1adb3572ad65d313b1ea1d5977fa72e2c"
-  },
-  {
-   "id": "SC-S6",
-   "title": "DCVC Payments and Reimbursements At A Glance (Rev 8/2021)",
-   "url": "https://www.scag.gov/media/2vwlzisd/dcvc-payment-and-reimbursement-at-a-glance-new-ag-seal-2021.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:47:50Z",
-   "raw_path": "rules/sources/SC/SC-S6.pdf",
-   "text_path": "rules/sources/SC/SC-S6.txt",
-   "sha256": "18b62e2005383be4c740a1a0fa5ab66a86faa88e88ed3c2e29f21044a06a1ad5"
-  },
-  {
-   "id": "SC-S7",
-   "title": "DCVC Crime Victims' Compensation Application (Rev 08/21)",
-   "url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
-   "kind": "application_form",
-   "retrieved_at": "2026-10-03T18:47:51Z",
-   "raw_path": "rules/sources/SC/SC-S7.pdf",
-   "text_path": "rules/sources/SC/SC-S7.txt",
-   "sha256": "18dfa4f32c474709a2f917a7314e7cdaf6fcca4ecdd31d3978f0cfac9220822b"
-  },
-  {
-   "id": "SC-S8",
-   "title": "SC Attorney General, How to Apply for Compensation",
-   "url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:51Z",
-   "raw_path": "rules/sources/SC/SC-S8.html",
-   "text_path": "rules/sources/SC/SC-S8.txt",
-   "sha256": "5bd27a523be4b9f8fd309976b727ac75c5f2729a32eb2c4762fa049ba1c57a1d"
-  },
-  {
-   "id": "SC-S9",
-   "title": "DCVC brochure: Compensation Benefits for Victims of Sexual Assault",
-   "url": "https://www.scag.gov/media/dc3d1a0t/sexual-assault-brochure-ag-pdf.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:13Z",
-   "raw_path": "rules/sources/SC/SC-S9.pdf",
-   "text_path": "rules/sources/SC/SC-S9.txt",
-   "sha256": "43a32e5dd94b39707af0a892aae8d5be1f2c0857053babb9229a5fca31d09a82"
-  },
-  {
-   "id": "SC-S10",
-   "title": "DCVC brochure: What is Crime Victim Compensation?",
-   "url": "https://www.scag.gov/media/j00l2fio/compensation-brochure-ag-new-logo-2021.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:13Z",
-   "raw_path": "rules/sources/SC/SC-S10.pdf",
-   "text_path": "rules/sources/SC/SC-S10.txt",
-   "sha256": "763162ea431e434a39c24f5af30ce801986212a0bd33bcb077db943defc34bdc"
-  },
-  {
-   "id": "SC-S11",
-   "title": "SC Attorney General, Crime Victim Compensation Portal for Providers",
-   "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-compensation-portal-for-providers/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:48:13Z",
-   "raw_path": "rules/sources/SC/SC-S11.html",
-   "text_path": "rules/sources/SC/SC-S11.txt",
-   "sha256": "8c342b65afd824c0ea25c62e51e78741e3edb7790cc835b7d9ac0b80818f9035"
-  },
-  {
-   "id": "SC-S12",
-   "title": "DCVC Sexual Assault Program: Instructions for Reimbursement of Hospital Billing by DCVC (Feb 2018 provider guide)",
-   "url": "https://www.scag.gov/documents/eblasts/FINAL%20SAP%20CAP%20hospital%20%20billing%20022818RB%20(002)%20(002).pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:14Z",
-   "raw_path": "rules/sources/SC/SC-S12.pdf",
-   "text_path": "rules/sources/SC/SC-S12.txt",
-   "sha256": "049ce8d0ac58eecc747834c320bf240254598235e18516299dec2d27825bb36c"
-  }
- ],
- "rules": [
-  {
-   "id": "SC-EXAM-1",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "unspecified"
-   },
-   "summary": "State law says a victim of criminal sexual conduct or child sexual abuse must not bear the cost of the routine medicolegal (forensic) exam.",
-   "quote": "The State must ensure that a victim of criminal sexual conduct in any degree, criminal sexual conduct with a minor in any degree, or child sexual abuse must not bear the cost of his or her routine medicolegal exam following the assault.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1350(A)"
-  },
-  {
-   "id": "SC-EXAM-2",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "prohibited"
-   },
-   "summary": "The program's hospital billing instructions say neither the victim nor the victim's insurance, including Medicaid and Medicare, may be billed for the medicolegal exam.",
-   "quote": "Neither the victim nor their insurance, including Medicaid and Medicare, may be billed for the medicolegal examination.",
-   "source_id": "SC-S12",
-   "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination"
-  },
-  {
-   "id": "SC-EXAM-3",
-   "category": "exam_payment",
-   "expense": "forensic_exam",
-   "params": {
-    "payer": "South Carolina Department of Crime Victim Compensation (Victim Compensation Fund), billed directly by the health care facility"
-   },
-   "summary": "The hospital or licensed health care facility files the exam claim directly with the Department of Crime Victim Compensation, which reimburses the facility from the fund, when the offense happened in South Carolina.",
-   "quote": "may file a claim for reimbursement directly to the Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation if the offense occurred in South Carolina.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1350(C)"
-  },
-  {
-   "id": "SC-EXAM-4",
-   "category": "exam_payment",
-   "expense": "forensic_exam",
-   "params": {
-    "payer": "South Carolina Department of Crime Victim Compensation (DCVC)"
-   },
-   "summary": "The program says it is the only payer for forensic medical exams in South Carolina; providers bill it directly and its fee-schedule payment is payment in full.",
-   "quote": "Sexual Assault Program: DCVC is the Sole Reimbursement Provider for Forensic Medical Examinations in S.C. Health Care Providers will bill DCVC directly; all reimbursements are from a fee schedule and are considered payment in full.",
-   "source_id": "SC-S9",
-   "pinpoint": "DCVC sexual assault brochure, Sexual Assault Program"
-  },
-  {
-   "id": "SC-EXAM-5",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "unspecified"
-   },
-   "summary": "The program says a sexual assault victim can ask for a forensic exam at no cost whether or not they involve law enforcement.",
-   "quote": "victims of assault in the State of South Carolina may request, at no cost to them, a forensic examination for sexual assault, regardless of their involvement with law enforcement.",
-   "source_id": "SC-S9",
-   "pinpoint": "DCVC sexual assault brochure, Legislation"
-  },
-  {
-   "id": "SC-EXAM-6",
-   "category": "exam_payment",
-   "expense": "forensic_exam",
-   "params": {
-    "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
-   },
-   "summary": "The program's provider guide says a medical forensic exam with no evidence kit collected (NKC) is also paid, so a victim who declines the rape kit is still covered.",
-   "quote": "This expense covers victims who decline the rape kit.",
-   "source_id": "SC-S12",
-   "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
-  },
-  {
-   "id": "SC-EXCL-1",
-   "category": "excluded_expense",
-   "params": {
-    "item": "charges beyond evidence collection during the forensic exam, such as follow-up care (the victim can claim them through a compensation application)"
-   },
-   "summary": "The Sexual Assault Program pays for the evidence collection exam on its fee schedule. Fees beyond evidence collection, such as follow-up care, are the victim's responsibility, but the victim can file a regular compensation application to ask the fund to pay them.",
-   "quote": "Any fees beyond the actual collection of evidence during a forensic examination are the responsibility of the victim. A Victim may submit a Compensation application for payment consideration to the Victims' Compensation Fund for these additional costs.",
-   "source_id": "SC-S12",
-   "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination"
-  },
-  {
-   "id": "SC-TOTAL-1",
-   "category": "total_cap",
-   "params": {
-    "amount_cents": 1500000
-   },
-   "summary": "Total awards for a victim are capped at $15,000, or up to $25,000 if the advisory board (by a two-thirds vote) and the director agree extraordinary circumstances exist.",
-   "quote": "The aggregate of award to and on behalf of victims may not exceed fifteen thousand dollars unless the Crime Victim Advisory Board, by two-thirds vote, and the director concur that extraordinary circumstances exist. In this case, the award may not exceed twenty-five thousand dollars.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1180(C)"
-  },
-  {
-   "id": "SC-COUNS-1",
-   "category": "expense_cap",
-   "expense": "counseling",
-   "params": {
-    "expense": "counseling",
-    "per": "session",
-    "count_limit": 40
-   },
-   "summary": "Mental health counseling from a licensed professional is covered for the greater of 20 sessions or the sessions in the 180 days after the first session; victims who use up 20 sessions can ask for up to 20 more, for a total of 40.",
-   "quote": "Payment for mental health counseling is limited to the number of sessions during a one hundred eighty-day period beginning on the date of the first counseling session or twenty sessions, whichever is greater. Upon recommendation of the director, the board may allow victims who max out the current benefit of twenty mental health counseling sessions to request up to an additional twenty sessions for a total of forty sessions;",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1180(A)(1)"
-  },
-  {
-   "id": "SC-MED-1",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "Reasonable and customary charges for medical services, including mental health counseling, needed because of the crime injury are covered when a licensed professional provides them.",
-   "quote": "reasonable and customary charges as periodically determined by the board for medical services, including mental health counseling, required and rendered as a direct result of the injury on which the claim is based, as long as these services are rendered by a licensed professional.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1180(A)(1)"
-  },
-  {
-   "id": "SC-DENT-1",
-   "category": "covered_expense",
-   "expense": "dental",
-   "params": {
-    "expense": "dental"
-   },
-   "summary": "The program lists dental and orthodontic services as expenses it may consider.",
-   "quote": "Dental or Orthodontic Services",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
-  },
-  {
-   "id": "SC-FUN-1",
-   "category": "covered_expense",
-   "expense": "funeral",
-   "params": {
-    "expense": "funeral"
-   },
-   "summary": "Funeral and burial costs of a deceased victim are covered for the claimant who took on the debt. The dollar cap differs between the statute and the FAQ, so no cap is encoded.",
-   "quote": "Funeral/burial of a deceased victim. The claimant must incur the debt for the funeral/burial",
-   "source_id": "SC-S2",
-   "pinpoint": "SC Attorney General, Crime Victim Compensation program page"
-  },
-  {
-   "id": "SC-RX-1",
-   "category": "covered_expense",
-   "expense": "prescription",
-   "params": {
-    "expense": "prescription"
-   },
-   "summary": "The program lists doctor-ordered medicine, equipment, and supplies as expenses it may consider.",
-   "quote": "Doctor ordered medicine, equipment, supplies",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
-  },
-  {
-   "id": "SC-WAGE-1",
-   "category": "covered_expense",
-   "expense": "lost_wages",
-   "params": {
-    "expense": "lost_wages"
-   },
-   "summary": "Lost earnings or support are covered if the claimant lost that income for at least two weeks in a row, it is not reimbursed elsewhere, and it stays under the workers' compensation maximum rate in Section 42-1-50; these conditions can be waived in severe hardship cases.",
-   "quote": "loss of earning or support, provided that: (a) claimant is deprived of that income for at least two consecutive weeks; (b) the loss is not reimbursable; (c) the amount may not exceed the maximum rate provided in Section 42-1-50; (d) conditions (a), (b), and (c) may be waived in severe hardship cases;",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1180(A)(3)"
-  },
-  {
-   "id": "SC-WAGE-2",
-   "category": "expense_cap",
-   "expense": "lost_wages",
-   "params": {
-    "expense": "lost_wages",
-    "per": "claim"
-   },
-   "summary": "The program limits lost wage payments to half of the overall award and a 12 month disability period.",
-   "quote": "Payment for lost wage benefits are limited to one half of the overall compensation award amount and a 12 month disability period.",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Crime Related Lost Wages"
-  },
-  {
-   "id": "SC-TRANS-1",
-   "category": "covered_expense",
-   "expense": "transportation",
-   "params": {
-    "expense": "transportation"
-   },
-   "summary": "Mileage is covered only for medical or psychological treatment, with a minimum of 5 miles one way.",
-   "quote": "Mileage for medical and or psychological treatment only (min. 5 miles one way)",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
-  },
-  {
-   "id": "SC-TRANS-2",
-   "category": "excluded_expense",
-   "expense": "transportation",
-   "params": {
-    "expense": "transportation",
-    "item": "mileage for court appearances"
-   },
-   "summary": "Mileage for court appearances is not covered.",
-   "quote": "Mileage for court appearances",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
-  },
-  {
-   "id": "SC-TRANS-3",
-   "category": "excluded_expense",
-   "expense": "transportation",
-   "params": {
-    "expense": "transportation",
-    "item": "public transportation"
-   },
-   "summary": "Public transportation is listed as not covered.",
-   "quote": "Public transportation",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
-  },
-  {
-   "id": "SC-RELO-1",
-   "category": "excluded_expense",
-   "expense": "relocation",
-   "params": {
-    "expense": "relocation"
-   },
-   "summary": "The program does not pay relocation expenses.",
-   "quote": "No, DCVC will not assist with any relocation expenses.",
-   "source_id": "SC-S3",
-   "pinpoint": "DCVC FAQs, relocation"
-  },
-  {
-   "id": "SC-HOUSE-1",
-   "category": "excluded_expense",
-   "expense": "temporary_housing",
-   "params": {
-    "expense": "temporary_housing",
-    "item": "hotel accommodations"
-   },
-   "summary": "Hotel stays are listed as not covered.",
-   "quote": "Hotel accommodations",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
-  },
-  {
-   "id": "SC-PROP-1",
-   "category": "excluded_expense",
-   "expense": "property_replacement",
-   "params": {
-    "expense": "property_replacement"
-   },
-   "summary": "Property loss or replacement is not covered.",
-   "quote": "Property Loss or Replacement",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, What DCVC Does Not Consider For Payment"
-  },
-  {
-   "id": "SC-PROP-2",
-   "category": "excluded_expense",
-   "expense": "property_replacement",
-   "params": {
-    "expense": "property_replacement",
-    "item": "items taken as evidence"
-   },
-   "summary": "Items taken as evidence are listed as not covered.",
-   "quote": "Items Taken as Evidence",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, What DCVC Does Not Consider For Payment"
-  },
-  {
-   "id": "SC-PROP-3",
-   "category": "excluded_expense",
-   "expense": "property_replacement",
-   "params": {
-    "expense": "property_replacement",
-    "item": "personal property"
-   },
-   "summary": "Personal property is listed as not covered.",
-   "quote": "Personal Property",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
-  },
-  {
-   "id": "SC-EXCL-2",
-   "category": "excluded_expense",
-   "expense": "crime_scene_cleanup",
-   "params": {
-    "expense": "crime_scene_cleanup"
-   },
-   "summary": "The program does not pay for crime scene clean-up.",
-   "quote": "Crime Scene Clean-up",
-   "source_id": "SC-S3",
-   "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
-  },
-  {
-   "id": "SC-EXCL-3",
-   "category": "excluded_expense",
-   "expense": "childcare",
-   "params": {
-    "expense": "childcare",
-    "item": "babysitting"
-   },
-   "summary": "The program does not pay babysitting expenses.",
-   "quote": "Babysitting Expenses",
-   "source_id": "SC-S3",
-   "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
-  },
-  {
-   "id": "SC-EXCL-4",
-   "category": "excluded_expense",
-   "expense": "legal",
-   "params": {
-    "expense": "legal",
-    "item": "attorney fees"
-   },
-   "summary": "The program does not pay attorney fees.",
-   "quote": "Attorney fees",
-   "source_id": "SC-S3",
-   "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
-  },
-  {
-   "id": "SC-EXCL-5",
-   "category": "excluded_expense",
-   "expense": "other",
-   "params": {
-    "expense": "other",
-    "item": "mortgage or rent"
-   },
-   "summary": "Mortgage or rent payments are listed as not covered.",
-   "quote": "Mortgage or Rent",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
-  },
-  {
-   "id": "SC-EXCL-6",
-   "category": "excluded_expense",
-   "expense": "other",
-   "params": {
-    "expense": "other",
-    "item": "pain and suffering"
-   },
-   "summary": "The program does not pay for pain and suffering.",
-   "quote": "Pain and Suffering",
-   "source_id": "SC-S3",
-   "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
-  },
-  {
-   "id": "SC-DEAD-1",
-   "category": "filing_deadline",
-   "params": {
-    "days": 180,
-    "from": "crime",
-    "extension": "good cause, up to four years after the crime, diagnosed manifestation, or death"
-   },
-   "summary": "A claim must be filed within 180 days of the latest qualifying event (usually the crime). For good cause the deadline can be extended, but not past four years after the crime, diagnosed manifestation, or death.",
-   "quote": "A claim must be filed by the claimant not later than one hundred eighty days after the latest of the following events: (1) the occurrence of the crime upon which the claim is based; (2) the death of the victim; (3) the discovery by the law enforcement agency that the occurrence was the result of crime; or (4) the manifestation of a mental or physical injury is diagnosed as a result of a crime committed against a minor. (C) Upon good cause shown, the time for filing may be extended for a period not to exceed four years after the occurrence, diagnosed manifestation, or death.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1230(B), (C)"
-  },
-  {
-   "id": "SC-REPORT-1",
-   "category": "reporting_requirement",
-   "params": {
-    "required": true
-   },
-   "summary": "The crime must be reported to the proper authority promptly; a report more than 48 hours after the crime is not prompt unless special circumstances justify the delay.",
-   "quote": "For the purposes of subsection (A)(3), a crime reported more than forty-eight hours after its occurrence is not \"promptly reported\", absent a showing of special circumstances or causes which justify the delay.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1170(A)(3), (B)"
-  },
-  {
-   "id": "SC-REPORT-2",
-   "category": "reporting_requirement",
-   "params": {
-    "required": false,
-    "alternatives": [
-     "forensic_exam"
-    ]
-   },
-   "summary": "For sexual assault, the program says law enforcement is involved in processing a compensation application unless the victim files anonymously.",
-   "quote": "Please Note: Law enforcement will be involved as the crime victim compensation application is processed, unless the victim files anonymously.",
-   "source_id": "SC-S9",
-   "pinpoint": "DCVC sexual assault brochure, Sexual Assault Program"
-  },
-  {
-   "id": "SC-REPORT-3",
-   "category": "reporting_requirement",
-   "params": {
-    "required": false,
-    "alternatives": [
-     "forensic_exam"
-    ]
-   },
-   "summary": "For the anonymous route, an eligible sexual assault exam claim must be on file and DCVC must receive a compensation application with \"Anonymous\" written in section 4 within 180 days of the forensic exam.",
-   "quote": "DCVC received a Compensation Application with \"Anonymous\" written in section 4, within 180 days from the date of forensic medical examination.",
-   "source_id": "SC-S12",
-   "pinpoint": "DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria"
-  },
-  {
-   "id": "SC-MIN-1",
-   "category": "minimum_loss",
-   "params": {
-    "amount_cents": 10000,
-    "waived_for": [
-     "claimant age 65 or older",
-     "interest of justice"
-    ]
-   },
-   "summary": "An award is made only for compensable loss over $100; this can be waived in the interest of justice and must be waived for claimants 65 or older.",
-   "quote": "An award may be made only if and to the extent that the amount of compensable loss exceeds one hundred dollars; however, this limitation may be waived in the interest of justice and must be waived upon a showing that the claimant is at least sixty-five years old.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1180(D)"
-  },
-  {
-   "id": "SC-MIN-2",
-   "category": "minimum_loss",
-   "params": {
-    "amount_cents": 10000,
-    "waived_for": [
-     "forensic_exam"
-    ]
-   },
-   "summary": "The $100 deductible is waived for the sexual assault exam.",
-   "quote": "For the purpose of this particular exam, the one hundred dollar deductible is waived for award eligibility under the fund.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1350(D)"
-  },
-  {
-   "id": "SC-COLL-1",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "An award can be reduced by payments from the offender or any other private or public source, such as workers' compensation, but not by gifts from family or charitable donations.",
-   "quote": "Any award made pursuant to this article may be reduced by or set off by the amount of any payments received or to be received as a result of the injury (a) from or on behalf of the person who committed the crime, (b) from any other private or public source, including an award of workers' compensation pursuant to the laws of this State or (c) as an emergency award pursuant to Section 16-3-1150; provided, that private sources shall not include contributions received from family members, or persons or private organizations making charitable donations to a victim.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1190"
-  },
-  {
-   "id": "SC-COLL-2",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "Insurance must be billed first. If the victim has insurance and chooses not to use it, the program will not cover the cost.",
-   "quote": "Payer of Last Resort: Insurance must be filed first if a victim has private or public insurance. DCVC is the payer of last resort. If the victim has insurance, and the victim elects not to use his/her insurance, DCVC will not cover the cost.",
-   "source_id": "SC-S6",
-   "pinpoint": "DCVC Payments and Reimbursements At A Glance, Payer of Last Resort"
-  },
-  {
-   "id": "SC-COLL-3",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "Private or public insurance is used first, and the program can pay deductibles and co-pays if otherwise eligible.",
-   "quote": "DCVC is the payer of last resort (Victims' private/public insurance must be used first. DCVC can pay deductibles and co-pays if otherwise eligible)",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
-  },
-  {
-   "id": "SC-CONDUCT-1",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "The program may reduce or reject an award if it finds the victim's own conduct contributed to the injury.",
-   "quote": "In determining the amount of an award, the Deputy Director, the Board, or its panel shall determine whether because of his conduct the victim or intervenor of such crime contributed to the infliction of his injury, and the Deputy Director, the Board, or its panel may reduce the amount of the award or reject the claim altogether in accordance with such determination;",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1200"
-  },
-  {
-   "id": "SC-EMERG-1",
-   "category": "emergency_award",
-   "params": {
-    "amount_cents": 100000
-   },
-   "summary": "If an award is likely and waiting would cause undue hardship, emergency awards of up to $500 each, and $1,000 total, can be paid before the final decision and are deducted from the final award.",
-   "quote": "(1) the amount of each emergency award shall not exceed five hundred dollars; (2) the total amount of such emergency awards shall not exceed one thousand dollars; (3) the amount of such emergency awards must be deducted from any final award made to the claimant;",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1150"
-  },
-  {
-   "id": "SC-CRIME-1",
-   "category": "eligible_crime",
-   "params": {},
-   "summary": "Criminal sexual assault is one of the crimes the program lists as eligible.",
-   "quote": "Criminal Sexual Assault",
-   "source_id": "SC-S10",
-   "pinpoint": "DCVC compensation brochure, Types of Crimes DCVC May Consider For Eligibility and Payment"
-  },
-  {
-   "id": "SC-RES-1",
-   "category": "residency",
-   "params": {
-    "rule": "Crimes committed in South Carolina; also South Carolina residents victimized in another state (reduced by the other state's award). The program's own pages say the crime must occur in South Carolina."
-   },
-   "summary": "A victim can file if the offense happened in South Carolina, or if the victim was a South Carolina resident when the crime happened in another state; any amount paid by the other state's program is subtracted.",
-   "quote": "(a) the offense was committed in this State; or (b) the victim was a resident of this State when the crime was committed in either another state or outside the United States if the crime is terrorism.",
-   "source_id": "SC-S1",
-   "pinpoint": "S.C. Code 16-3-1210"
-  },
-  {
-   "id": "SC-SUBMIT-1",
-   "category": "submission",
-   "params": {
-    "method": "mail",
-    "target": "Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201"
-   },
-   "summary": "Fill out the whole application, print it, and mail it to DCVC at the Edgar A. Brown Building in Columbia. A local victim advocate can help.",
-   "quote": "Please complete the application in its entirety, print and mail the application to DCVC: Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201",
-   "source_id": "SC-S8",
-   "pinpoint": "How to Apply for Compensation page"
-  },
-  {
-   "id": "SC-DOC-1",
-   "category": "required_document",
-   "params": {
-    "document": "police_report",
-    "note": "Law enforcement incident report; free copy from the agency the crime was reported to. Anonymous sexual assault filings write \"Anonymous\" in section 4 instead."
-   },
-   "summary": "Attach a copy of the law enforcement incident report to the application.",
-   "quote": "Complete this section in its entirety and attach a copy of the law enforcement incident report.",
-   "source_id": "SC-S7",
-   "pinpoint": "Application, Section 4 Crime Information"
-  },
-  {
-   "id": "SC-DOC-2",
-   "category": "required_document",
-   "params": {
-    "document": "itemized_bill",
-    "note": "Detailed bills, UB92 or HCFA 1500; more bills can be sent later."
-   },
-   "summary": "Attach copies of itemized bills for crime-related care.",
-   "quote": "Attach copies of itemized bills (detailed bills, UB92 or HCFA 1500).",
-   "source_id": "SC-S7",
-   "pinpoint": "Application, Section 5 Crime-Related Expense Information"
-  },
-  {
-   "id": "SC-DOC-3",
-   "category": "required_document",
-   "params": {
-    "document": "receipts",
-    "note": "Itemized receipts; pharmacy receipts must show patient name, date, total, medication, RX number, pharmacy and doctor."
-   },
-   "summary": "Include itemized receipts with the application along with bills, insurance statements, and the incident report.",
-   "quote": "Also include as much related information (i.e. itemized receipts, bills, insurance statements, and incident report) as possible.",
-   "source_id": "SC-S7",
-   "pinpoint": "Application instructions, If I want to apply now, what should I do?"
-  },
-  {
-   "id": "SC-DOC-4",
-   "category": "required_document",
-   "params": {
-    "document": "insurance_statement",
-    "note": "Insurance statements or Explanation of Benefits; insurance must be billed first."
-   },
-   "summary": "Include insurance statements, since DCVC pays after insurance.",
-   "quote": "Also include as much related information (i.e. itemized receipts, bills, insurance statements, and incident report) as possible.",
-   "source_id": "SC-S7",
-   "pinpoint": "Application instructions, If I want to apply now, what should I do?"
-  },
-  {
-   "id": "SC-DOC-5",
-   "category": "required_document",
-   "params": {
-    "document": "wage_verification",
-    "note": "Employed: last two pay stubs, the DCVC Employer's Report, and the Physician's Disability Report."
-   },
-   "summary": "To claim lost wages as an employee, send your last two pay stubs, the Employer's Report, and the Physician's Disability Report.",
-   "quote": "If you were employed, you must submit your last two pay stubs, the Employer’s Report and the Physician’s Disability Report.",
-   "source_id": "SC-S7",
-   "pinpoint": "Application, Section 7 Lost Wages / Support Information"
-  },
-  {
-   "id": "SC-DOC-6",
-   "category": "required_document",
-   "params": {
-    "document": "wage_verification",
-    "note": "Self-employed: IRS Tax Return Transcripts, the Self-Employment Verification Form, and the Physician's Disability Report."
-   },
-   "summary": "To claim lost wages when self-employed, send your most recent IRS tax return transcripts, the Self-Employment Verification Form, and the Physician's Disability Report.",
-   "quote": "If you were self- employed, you must submit your most recent Tax Return Transcripts from the IRS, the Self-Employment Verification Form, and the Physician’s Disability Report.",
-   "source_id": "SC-S7",
-   "pinpoint": "Application, Section 7 Lost Wages / Support Information"
-  },
-  {
-   "id": "SC-DOC-7",
-   "category": "required_document",
-   "params": {
-    "document": "counseling_statement",
-    "note": "DCVC Mental Health Counselor's Report, plus the Additional Counseling Request Form for more sessions."
-   },
-   "summary": "For counseling costs, the counselor completes the DCVC Mental Health Counselor's Report.",
-   "quote": "DCVC Mental Health Counselor’s Report\nDCVC Additional Counseling Request Form",
-   "source_id": "SC-S6",
-   "pinpoint": "Payments and Reimbursements At A Glance, Crime Related Counseling Expenses"
-  },
-  {
-   "id": "SC-DOC-8",
-   "category": "required_document",
-   "params": {
-    "document": "proof_of_residency",
-    "note": "Only for South Carolina residents victimized in another country without a compensation program."
-   },
-   "summary": "A South Carolina resident hurt in another country without a compensation program must submit proof of residency.",
-   "quote": "The victim may apply to DCVC for eligibility consideration as outlined in Section 16-3-1210, providing they have and submit proof of residency.",
-   "source_id": "SC-S3",
-   "pinpoint": "FAQ, resident victimized in another country"
-  }
- ],
- "coverage": {
-  "found": [
-   "exam_no_bill",
-   "exam_payment",
-   "total_cap",
-   "expense_cap",
-   "covered_expense",
-   "excluded_expense",
-   "filing_deadline",
-   "reporting_requirement",
-   "minimum_loss",
-   "collateral_source",
-   "conduct_reduction",
-   "emergency_award",
-   "eligible_crime",
-   "residency",
-   "submission",
-   "required_document"
+  "sources": [
+    {
+      "id": "SC-S1",
+      "title": "S.C. Code Title 16, Chapter 3 (Articles 13, Victim Compensation, incl. 16-3-1110 to 16-3-1360)",
+      "url": "https://www.scstatehouse.gov/code/t16c003.php",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:21Z",
+      "raw_path": "rules/sources/SC/SC-S1.html",
+      "text_path": "rules/sources/SC/SC-S1.txt",
+      "sha256": "82a306a5970665b533de102087d0d16158a74bac52bc91dcd2ee4d8ee06b0fd2"
+    },
+    {
+      "id": "SC-S2",
+      "title": "SC Attorney General, Crime Victim Compensation (program page)",
+      "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:42Z",
+      "raw_path": "rules/sources/SC/SC-S2.html",
+      "text_path": "rules/sources/SC/SC-S2.txt",
+      "sha256": "29c55a5de4904ebe4173e5fe07197f39ba753785272c88d92ba40896e9dd88f6"
+    },
+    {
+      "id": "SC-S3",
+      "title": "SC Attorney General, Crime Victim Compensation FAQs",
+      "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-compensation-faqs/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:43Z",
+      "raw_path": "rules/sources/SC/SC-S3.html",
+      "text_path": "rules/sources/SC/SC-S3.txt",
+      "sha256": "d2d1a1b17e5c2b8050ff7629bdf7e8f2943dc7fa3ebd5f3f0375e4b6a9d3f7dc"
+    },
+    {
+      "id": "SC-S4",
+      "title": "SC Attorney General, Crime Victim Forms & Applications",
+      "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-forms-applications/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:43Z",
+      "raw_path": "rules/sources/SC/SC-S4.html",
+      "text_path": "rules/sources/SC/SC-S4.txt",
+      "sha256": "741fbd1254d1313f6c9d5f53ec46a9b56200c5afd9c060fad494e40f7deb5632"
+    },
+    {
+      "id": "SC-S5",
+      "title": "SC Attorney General, DCVC Eligibility",
+      "url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/eligibility/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:43Z",
+      "raw_path": "rules/sources/SC/SC-S5.html",
+      "text_path": "rules/sources/SC/SC-S5.txt",
+      "sha256": "74899c1f9fc8299731f2bb3d6392d9b1adb3572ad65d313b1ea1d5977fa72e2c"
+    },
+    {
+      "id": "SC-S6",
+      "title": "DCVC Payments and Reimbursements At A Glance (Rev 8/2021)",
+      "url": "https://www.scag.gov/media/2vwlzisd/dcvc-payment-and-reimbursement-at-a-glance-new-ag-seal-2021.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:47:50Z",
+      "raw_path": "rules/sources/SC/SC-S6.pdf",
+      "text_path": "rules/sources/SC/SC-S6.txt",
+      "sha256": "18b62e2005383be4c740a1a0fa5ab66a86faa88e88ed3c2e29f21044a06a1ad5"
+    },
+    {
+      "id": "SC-S7",
+      "title": "DCVC Crime Victims' Compensation Application (Rev 08/21)",
+      "url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:47:51Z",
+      "raw_path": "rules/sources/SC/SC-S7.pdf",
+      "text_path": "rules/sources/SC/SC-S7.txt",
+      "sha256": "18dfa4f32c474709a2f917a7314e7cdaf6fcca4ecdd31d3978f0cfac9220822b"
+    },
+    {
+      "id": "SC-S8",
+      "title": "SC Attorney General, How to Apply for Compensation",
+      "url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:51Z",
+      "raw_path": "rules/sources/SC/SC-S8.html",
+      "text_path": "rules/sources/SC/SC-S8.txt",
+      "sha256": "5bd27a523be4b9f8fd309976b727ac75c5f2729a32eb2c4762fa049ba1c57a1d"
+    },
+    {
+      "id": "SC-S9",
+      "title": "DCVC brochure: Compensation Benefits for Victims of Sexual Assault",
+      "url": "https://www.scag.gov/media/dc3d1a0t/sexual-assault-brochure-ag-pdf.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:13Z",
+      "raw_path": "rules/sources/SC/SC-S9.pdf",
+      "text_path": "rules/sources/SC/SC-S9.txt",
+      "sha256": "43a32e5dd94b39707af0a892aae8d5be1f2c0857053babb9229a5fca31d09a82"
+    },
+    {
+      "id": "SC-S10",
+      "title": "DCVC brochure: What is Crime Victim Compensation?",
+      "url": "https://www.scag.gov/media/j00l2fio/compensation-brochure-ag-new-logo-2021.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:13Z",
+      "raw_path": "rules/sources/SC/SC-S10.pdf",
+      "text_path": "rules/sources/SC/SC-S10.txt",
+      "sha256": "763162ea431e434a39c24f5af30ce801986212a0bd33bcb077db943defc34bdc"
+    },
+    {
+      "id": "SC-S11",
+      "title": "SC Attorney General, Crime Victim Compensation Portal for Providers",
+      "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/crime-victim-compensation/crime-victim-compensation-portal-for-providers/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:48:13Z",
+      "raw_path": "rules/sources/SC/SC-S11.html",
+      "text_path": "rules/sources/SC/SC-S11.txt",
+      "sha256": "8c342b65afd824c0ea25c62e51e78741e3edb7790cc835b7d9ac0b80818f9035"
+    },
+    {
+      "id": "SC-S12",
+      "title": "DCVC Sexual Assault Program: Instructions for Reimbursement of Hospital Billing by DCVC (Feb 2018 provider guide)",
+      "url": "https://www.scag.gov/documents/eblasts/FINAL%20SAP%20CAP%20hospital%20%20billing%20022818RB%20(002)%20(002).pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:14Z",
+      "raw_path": "rules/sources/SC/SC-S12.pdf",
+      "text_path": "rules/sources/SC/SC-S12.txt",
+      "sha256": "049ce8d0ac58eecc747834c320bf240254598235e18516299dec2d27825bb36c"
+    },
+    {
+      "id": "SC-S13",
+      "title": "SC Attorney General, Address Confidentiality Program (ACP)",
+      "url": "https://www.scag.gov/inside-the-office/crime-victim-services-division/address-confidentiality-program-acp/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:58:05Z",
+      "raw_path": "rules/sources/SC/SC-S13.html",
+      "text_path": "rules/sources/SC/SC-S13.txt",
+      "sha256": "14a80be7e0098b97b8976de22bcc052b5e9ef2a7171c2b6bba8ba5d359f9b308"
+    },
+    {
+      "id": "SC-S14",
+      "title": "S.C. Code Title 16, Chapter 25 (incl. 16-25-130, Victim address confidentiality program)",
+      "url": "https://www.scstatehouse.gov/code/t16c025.php",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:58:05Z",
+      "raw_path": "rules/sources/SC/SC-S14.html",
+      "text_path": "rules/sources/SC/SC-S14.txt",
+      "sha256": "c23269d2209d867606aa3782b9fc9c805511241e0d3c2597bb7bb03208054bb4"
+    }
   ],
-  "not_found": [
-   "expense_cap for medical (only the $15,000 overall cap applies)",
-   "expense_cap for transportation (no dollar or per-mile rate published)",
-   "expense_cap for lost_wages as a dollar figure (statute ties it to the Section 42-1-50 workers' compensation maximum rate, which was not saved)",
-   "covered_expense or expense_cap for security (not mentioned in any saved source)",
-   "administrative regulations setting caps or rates (none found)",
-   "processing_time (no official decision or payment time; the application only says to call DCVC if no letter arrives after four weeks)"
+  "rules": [
+    {
+      "id": "SC-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "State law says a victim of criminal sexual conduct or child sexual abuse must not bear the cost of the routine medicolegal (forensic) exam.",
+      "quote": "The State must ensure that a victim of criminal sexual conduct in any degree, criminal sexual conduct with a minor in any degree, or child sexual abuse must not bear the cost of his or her routine medicolegal exam following the assault.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1350(A)"
+    },
+    {
+      "id": "SC-EXAM-2",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "prohibited"
+      },
+      "summary": "The program's hospital billing instructions say neither the victim nor the victim's insurance, including Medicaid and Medicare, may be billed for the medicolegal exam.",
+      "quote": "Neither the victim nor their insurance, including Medicaid and Medicare, may be billed for the medicolegal examination.",
+      "source_id": "SC-S12",
+      "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination"
+    },
+    {
+      "id": "SC-EXAM-3",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "South Carolina Department of Crime Victim Compensation (Victim Compensation Fund), billed directly by the health care facility"
+      },
+      "summary": "The hospital or licensed health care facility files the exam claim directly with the Department of Crime Victim Compensation, which reimburses the facility from the fund, when the offense happened in South Carolina.",
+      "quote": "may file a claim for reimbursement directly to the Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation if the offense occurred in South Carolina.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1350(C)"
+    },
+    {
+      "id": "SC-EXAM-4",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "South Carolina Department of Crime Victim Compensation (DCVC)"
+      },
+      "summary": "The program says it is the only payer for forensic medical exams in South Carolina; providers bill it directly and its fee-schedule payment is payment in full.",
+      "quote": "Sexual Assault Program: DCVC is the Sole Reimbursement Provider for Forensic Medical Examinations in S.C. Health Care Providers will bill DCVC directly; all reimbursements are from a fee schedule and are considered payment in full.",
+      "source_id": "SC-S9",
+      "pinpoint": "DCVC sexual assault brochure, Sexual Assault Program"
+    },
+    {
+      "id": "SC-EXAM-5",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "The program says a sexual assault victim can ask for a forensic exam at no cost whether or not they involve law enforcement.",
+      "quote": "victims of assault in the State of South Carolina may request, at no cost to them, a forensic examination for sexual assault, regardless of their involvement with law enforcement.",
+      "source_id": "SC-S9",
+      "pinpoint": "DCVC sexual assault brochure, Legislation"
+    },
+    {
+      "id": "SC-EXAM-6",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
+      },
+      "summary": "The program's provider guide says a medical forensic exam with no evidence kit collected (NKC) is also paid, so a victim who declines the rape kit is still covered.",
+      "quote": "This expense covers victims who decline the rape kit.",
+      "source_id": "SC-S12",
+      "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
+    },
+    {
+      "id": "SC-EXCL-1",
+      "category": "excluded_expense",
+      "params": {
+        "item": "charges beyond evidence collection during the forensic exam, such as follow-up care (the victim can claim them through a compensation application)"
+      },
+      "summary": "The Sexual Assault Program pays for the evidence collection exam on its fee schedule. Fees beyond evidence collection, such as follow-up care, are the victim's responsibility, but the victim can file a regular compensation application to ask the fund to pay them.",
+      "quote": "Any fees beyond the actual collection of evidence during a forensic examination are the responsibility of the victim. A Victim may submit a Compensation application for payment consideration to the Victims' Compensation Fund for these additional costs.",
+      "source_id": "SC-S12",
+      "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination"
+    },
+    {
+      "id": "SC-TOTAL-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 1500000
+      },
+      "summary": "Total awards for a victim are capped at $15,000, or up to $25,000 if the advisory board (by a two-thirds vote) and the director agree extraordinary circumstances exist.",
+      "quote": "The aggregate of award to and on behalf of victims may not exceed fifteen thousand dollars unless the Crime Victim Advisory Board, by two-thirds vote, and the director concur that extraordinary circumstances exist. In this case, the award may not exceed twenty-five thousand dollars.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1180(C)"
+    },
+    {
+      "id": "SC-COUNS-1",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "per": "session",
+        "count_limit": 40
+      },
+      "summary": "Mental health counseling from a licensed professional is covered for the greater of 20 sessions or the sessions in the 180 days after the first session; victims who use up 20 sessions can ask for up to 20 more, for a total of 40.",
+      "quote": "Payment for mental health counseling is limited to the number of sessions during a one hundred eighty-day period beginning on the date of the first counseling session or twenty sessions, whichever is greater. Upon recommendation of the director, the board may allow victims who max out the current benefit of twenty mental health counseling sessions to request up to an additional twenty sessions for a total of forty sessions;",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1180(A)(1)"
+    },
+    {
+      "id": "SC-MED-1",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Reasonable and customary charges for medical services, including mental health counseling, needed because of the crime injury are covered when a licensed professional provides them.",
+      "quote": "reasonable and customary charges as periodically determined by the board for medical services, including mental health counseling, required and rendered as a direct result of the injury on which the claim is based, as long as these services are rendered by a licensed professional.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1180(A)(1)"
+    },
+    {
+      "id": "SC-DENT-1",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "The program lists dental and orthodontic services as expenses it may consider.",
+      "quote": "Dental or Orthodontic Services",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
+    },
+    {
+      "id": "SC-FUN-1",
+      "category": "covered_expense",
+      "expense": "funeral",
+      "params": {
+        "expense": "funeral"
+      },
+      "summary": "Funeral and burial costs of a deceased victim are covered for the claimant who took on the debt. The dollar cap differs between the statute and the FAQ, so no cap is encoded.",
+      "quote": "Funeral/burial of a deceased victim. The claimant must incur the debt for the funeral/burial",
+      "source_id": "SC-S2",
+      "pinpoint": "SC Attorney General, Crime Victim Compensation program page"
+    },
+    {
+      "id": "SC-RX-1",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription"
+      },
+      "summary": "The program lists doctor-ordered medicine, equipment, and supplies as expenses it may consider.",
+      "quote": "Doctor ordered medicine, equipment, supplies",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
+    },
+    {
+      "id": "SC-WAGE-1",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Lost earnings or support are covered if the claimant lost that income for at least two weeks in a row, it is not reimbursed elsewhere, and it stays under the workers' compensation maximum rate in Section 42-1-50; these conditions can be waived in severe hardship cases.",
+      "quote": "loss of earning or support, provided that: (a) claimant is deprived of that income for at least two consecutive weeks; (b) the loss is not reimbursable; (c) the amount may not exceed the maximum rate provided in Section 42-1-50; (d) conditions (a), (b), and (c) may be waived in severe hardship cases;",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1180(A)(3)"
+    },
+    {
+      "id": "SC-WAGE-2",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "per": "claim"
+      },
+      "summary": "The program limits lost wage payments to half of the overall award and a 12 month disability period.",
+      "quote": "Payment for lost wage benefits are limited to one half of the overall compensation award amount and a 12 month disability period.",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Crime Related Lost Wages"
+    },
+    {
+      "id": "SC-TRANS-1",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "Mileage is covered only for medical or psychological treatment, with a minimum of 5 miles one way.",
+      "quote": "Mileage for medical and or psychological treatment only (min. 5 miles one way)",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
+    },
+    {
+      "id": "SC-TRANS-2",
+      "category": "excluded_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation",
+        "item": "mileage for court appearances"
+      },
+      "summary": "Mileage for court appearances is not covered.",
+      "quote": "Mileage for court appearances",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
+    },
+    {
+      "id": "SC-TRANS-3",
+      "category": "excluded_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation",
+        "item": "public transportation"
+      },
+      "summary": "Public transportation is listed as not covered.",
+      "quote": "Public transportation",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
+    },
+    {
+      "id": "SC-RELO-1",
+      "category": "excluded_expense",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation"
+      },
+      "summary": "The program does not pay relocation expenses.",
+      "quote": "No, DCVC will not assist with any relocation expenses.",
+      "source_id": "SC-S3",
+      "pinpoint": "DCVC FAQs, relocation"
+    },
+    {
+      "id": "SC-HOUSE-1",
+      "category": "excluded_expense",
+      "expense": "temporary_housing",
+      "params": {
+        "expense": "temporary_housing",
+        "item": "hotel accommodations"
+      },
+      "summary": "Hotel stays are listed as not covered.",
+      "quote": "Hotel accommodations",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
+    },
+    {
+      "id": "SC-PROP-1",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement"
+      },
+      "summary": "Property loss or replacement is not covered.",
+      "quote": "Property Loss or Replacement",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, What DCVC Does Not Consider For Payment"
+    },
+    {
+      "id": "SC-PROP-2",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement",
+        "item": "items taken as evidence"
+      },
+      "summary": "Items taken as evidence are listed as not covered.",
+      "quote": "Items Taken as Evidence",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, What DCVC Does Not Consider For Payment"
+    },
+    {
+      "id": "SC-PROP-3",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement",
+        "item": "personal property"
+      },
+      "summary": "Personal property is listed as not covered.",
+      "quote": "Personal Property",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
+    },
+    {
+      "id": "SC-EXCL-2",
+      "category": "excluded_expense",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup"
+      },
+      "summary": "The program does not pay for crime scene clean-up.",
+      "quote": "Crime Scene Clean-up",
+      "source_id": "SC-S3",
+      "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
+    },
+    {
+      "id": "SC-EXCL-3",
+      "category": "excluded_expense",
+      "expense": "childcare",
+      "params": {
+        "expense": "childcare",
+        "item": "babysitting"
+      },
+      "summary": "The program does not pay babysitting expenses.",
+      "quote": "Babysitting Expenses",
+      "source_id": "SC-S3",
+      "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
+    },
+    {
+      "id": "SC-EXCL-4",
+      "category": "excluded_expense",
+      "expense": "legal",
+      "params": {
+        "expense": "legal",
+        "item": "attorney fees"
+      },
+      "summary": "The program does not pay attorney fees.",
+      "quote": "Attorney fees",
+      "source_id": "SC-S3",
+      "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
+    },
+    {
+      "id": "SC-EXCL-5",
+      "category": "excluded_expense",
+      "expense": "other",
+      "params": {
+        "expense": "other",
+        "item": "mortgage or rent"
+      },
+      "summary": "Mortgage or rent payments are listed as not covered.",
+      "quote": "Mortgage or Rent",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Non-covered Expenses"
+    },
+    {
+      "id": "SC-EXCL-6",
+      "category": "excluded_expense",
+      "expense": "other",
+      "params": {
+        "expense": "other",
+        "item": "pain and suffering"
+      },
+      "summary": "The program does not pay for pain and suffering.",
+      "quote": "Pain and Suffering",
+      "source_id": "SC-S3",
+      "pinpoint": "DCVC FAQs, What doesn't DCVC pay?"
+    },
+    {
+      "id": "SC-DEAD-1",
+      "category": "filing_deadline",
+      "params": {
+        "days": 180,
+        "from": "crime",
+        "extension": "good cause, up to four years after the crime, diagnosed manifestation, or death"
+      },
+      "summary": "A claim must be filed within 180 days of the latest qualifying event (usually the crime). For good cause the deadline can be extended, but not past four years after the crime, diagnosed manifestation, or death.",
+      "quote": "A claim must be filed by the claimant not later than one hundred eighty days after the latest of the following events: (1) the occurrence of the crime upon which the claim is based; (2) the death of the victim; (3) the discovery by the law enforcement agency that the occurrence was the result of crime; or (4) the manifestation of a mental or physical injury is diagnosed as a result of a crime committed against a minor. (C) Upon good cause shown, the time for filing may be extended for a period not to exceed four years after the occurrence, diagnosed manifestation, or death.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1230(B), (C)"
+    },
+    {
+      "id": "SC-REPORT-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true
+      },
+      "summary": "The crime must be reported to the proper authority promptly; a report more than 48 hours after the crime is not prompt unless special circumstances justify the delay.",
+      "quote": "For the purposes of subsection (A)(3), a crime reported more than forty-eight hours after its occurrence is not \"promptly reported\", absent a showing of special circumstances or causes which justify the delay.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1170(A)(3), (B)"
+    },
+    {
+      "id": "SC-REPORT-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam"
+        ]
+      },
+      "summary": "For sexual assault, the program says law enforcement is involved in processing a compensation application unless the victim files anonymously.",
+      "quote": "Please Note: Law enforcement will be involved as the crime victim compensation application is processed, unless the victim files anonymously.",
+      "source_id": "SC-S9",
+      "pinpoint": "DCVC sexual assault brochure, Sexual Assault Program"
+    },
+    {
+      "id": "SC-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam"
+        ]
+      },
+      "summary": "For the anonymous route, an eligible sexual assault exam claim must be on file and DCVC must receive a compensation application with \"Anonymous\" written in section 4 within 180 days of the forensic exam.",
+      "quote": "DCVC received a Compensation Application with \"Anonymous\" written in section 4, within 180 days from the date of forensic medical examination.",
+      "source_id": "SC-S12",
+      "pinpoint": "DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria"
+    },
+    {
+      "id": "SC-MIN-1",
+      "category": "minimum_loss",
+      "params": {
+        "amount_cents": 10000,
+        "waived_for": [
+          "claimant age 65 or older",
+          "interest of justice"
+        ]
+      },
+      "summary": "An award is made only for compensable loss over $100; this can be waived in the interest of justice and must be waived for claimants 65 or older.",
+      "quote": "An award may be made only if and to the extent that the amount of compensable loss exceeds one hundred dollars; however, this limitation may be waived in the interest of justice and must be waived upon a showing that the claimant is at least sixty-five years old.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1180(D)"
+    },
+    {
+      "id": "SC-MIN-2",
+      "category": "minimum_loss",
+      "params": {
+        "amount_cents": 10000,
+        "waived_for": [
+          "forensic_exam"
+        ]
+      },
+      "summary": "The $100 deductible is waived for the sexual assault exam.",
+      "quote": "For the purpose of this particular exam, the one hundred dollar deductible is waived for award eligibility under the fund.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1350(D)"
+    },
+    {
+      "id": "SC-COLL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "An award can be reduced by payments from the offender or any other private or public source, such as workers' compensation, but not by gifts from family or charitable donations.",
+      "quote": "Any award made pursuant to this article may be reduced by or set off by the amount of any payments received or to be received as a result of the injury (a) from or on behalf of the person who committed the crime, (b) from any other private or public source, including an award of workers' compensation pursuant to the laws of this State or (c) as an emergency award pursuant to Section 16-3-1150; provided, that private sources shall not include contributions received from family members, or persons or private organizations making charitable donations to a victim.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1190"
+    },
+    {
+      "id": "SC-COLL-2",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "Insurance must be billed first. If the victim has insurance and chooses not to use it, the program will not cover the cost.",
+      "quote": "Payer of Last Resort: Insurance must be filed first if a victim has private or public insurance. DCVC is the payer of last resort. If the victim has insurance, and the victim elects not to use his/her insurance, DCVC will not cover the cost.",
+      "source_id": "SC-S6",
+      "pinpoint": "DCVC Payments and Reimbursements At A Glance, Payer of Last Resort"
+    },
+    {
+      "id": "SC-COLL-3",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "Private or public insurance is used first, and the program can pay deductibles and co-pays if otherwise eligible.",
+      "quote": "DCVC is the payer of last resort (Victims' private/public insurance must be used first. DCVC can pay deductibles and co-pays if otherwise eligible)",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
+    },
+    {
+      "id": "SC-CONDUCT-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "The program may reduce or reject an award if it finds the victim's own conduct contributed to the injury.",
+      "quote": "In determining the amount of an award, the Deputy Director, the Board, or its panel shall determine whether because of his conduct the victim or intervenor of such crime contributed to the infliction of his injury, and the Deputy Director, the Board, or its panel may reduce the amount of the award or reject the claim altogether in accordance with such determination;",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1200"
+    },
+    {
+      "id": "SC-EMERG-1",
+      "category": "emergency_award",
+      "params": {
+        "amount_cents": 100000
+      },
+      "summary": "If an award is likely and waiting would cause undue hardship, emergency awards of up to $500 each, and $1,000 total, can be paid before the final decision and are deducted from the final award.",
+      "quote": "(1) the amount of each emergency award shall not exceed five hundred dollars; (2) the total amount of such emergency awards shall not exceed one thousand dollars; (3) the amount of such emergency awards must be deducted from any final award made to the claimant;",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1150"
+    },
+    {
+      "id": "SC-CRIME-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Criminal sexual assault is one of the crimes the program lists as eligible.",
+      "quote": "Criminal Sexual Assault",
+      "source_id": "SC-S10",
+      "pinpoint": "DCVC compensation brochure, Types of Crimes DCVC May Consider For Eligibility and Payment"
+    },
+    {
+      "id": "SC-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "Crimes committed in South Carolina; also South Carolina residents victimized in another state (reduced by the other state's award). The program's own pages say the crime must occur in South Carolina."
+      },
+      "summary": "A victim can file if the offense happened in South Carolina, or if the victim was a South Carolina resident when the crime happened in another state; any amount paid by the other state's program is subtracted.",
+      "quote": "(a) the offense was committed in this State; or (b) the victim was a resident of this State when the crime was committed in either another state or outside the United States if the crime is terrorism.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1210"
+    },
+    {
+      "id": "SC-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201"
+      },
+      "summary": "Fill out the whole application, print it, and mail it to DCVC at the Edgar A. Brown Building in Columbia. A local victim advocate can help.",
+      "quote": "Please complete the application in its entirety, print and mail the application to DCVC: Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201",
+      "source_id": "SC-S8",
+      "pinpoint": "How to Apply for Compensation page"
+    },
+    {
+      "id": "SC-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Law enforcement incident report; free copy from the agency the crime was reported to. Anonymous sexual assault filings write \"Anonymous\" in section 4 instead."
+      },
+      "summary": "Attach a copy of the law enforcement incident report to the application.",
+      "quote": "Complete this section in its entirety and attach a copy of the law enforcement incident report.",
+      "source_id": "SC-S7",
+      "pinpoint": "Application, Section 4 Crime Information"
+    },
+    {
+      "id": "SC-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Detailed bills, UB92 or HCFA 1500; more bills can be sent later."
+      },
+      "summary": "Attach copies of itemized bills for crime-related care.",
+      "quote": "Attach copies of itemized bills (detailed bills, UB92 or HCFA 1500).",
+      "source_id": "SC-S7",
+      "pinpoint": "Application, Section 5 Crime-Related Expense Information"
+    },
+    {
+      "id": "SC-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Itemized receipts; pharmacy receipts must show patient name, date, total, medication, RX number, pharmacy and doctor."
+      },
+      "summary": "Include itemized receipts with the application along with bills, insurance statements, and the incident report.",
+      "quote": "Also include as much related information (i.e. itemized receipts, bills, insurance statements, and incident report) as possible.",
+      "source_id": "SC-S7",
+      "pinpoint": "Application instructions, If I want to apply now, what should I do?"
+    },
+    {
+      "id": "SC-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Insurance statements or Explanation of Benefits; insurance must be billed first."
+      },
+      "summary": "Include insurance statements, since DCVC pays after insurance.",
+      "quote": "Also include as much related information (i.e. itemized receipts, bills, insurance statements, and incident report) as possible.",
+      "source_id": "SC-S7",
+      "pinpoint": "Application instructions, If I want to apply now, what should I do?"
+    },
+    {
+      "id": "SC-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "Employed: last two pay stubs, the DCVC Employer's Report, and the Physician's Disability Report."
+      },
+      "summary": "To claim lost wages as an employee, send your last two pay stubs, the Employer's Report, and the Physician's Disability Report.",
+      "quote": "If you were employed, you must submit your last two pay stubs, the Employer’s Report and the Physician’s Disability Report.",
+      "source_id": "SC-S7",
+      "pinpoint": "Application, Section 7 Lost Wages / Support Information"
+    },
+    {
+      "id": "SC-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "Self-employed: IRS Tax Return Transcripts, the Self-Employment Verification Form, and the Physician's Disability Report."
+      },
+      "summary": "To claim lost wages when self-employed, send your most recent IRS tax return transcripts, the Self-Employment Verification Form, and the Physician's Disability Report.",
+      "quote": "If you were self- employed, you must submit your most recent Tax Return Transcripts from the IRS, the Self-Employment Verification Form, and the Physician’s Disability Report.",
+      "source_id": "SC-S7",
+      "pinpoint": "Application, Section 7 Lost Wages / Support Information"
+    },
+    {
+      "id": "SC-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "counseling_statement",
+        "note": "DCVC Mental Health Counselor's Report, plus the Additional Counseling Request Form for more sessions."
+      },
+      "summary": "For counseling costs, the counselor completes the DCVC Mental Health Counselor's Report.",
+      "quote": "DCVC Mental Health Counselor’s Report\nDCVC Additional Counseling Request Form",
+      "source_id": "SC-S6",
+      "pinpoint": "Payments and Reimbursements At A Glance, Crime Related Counseling Expenses"
+    },
+    {
+      "id": "SC-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "proof_of_residency",
+        "note": "Only for South Carolina residents victimized in another country without a compensation program."
+      },
+      "summary": "A South Carolina resident hurt in another country without a compensation program must submit proof of residency.",
+      "quote": "The victim may apply to DCVC for eligibility consideration as outlined in Section 16-3-1210, providing they have and submit proof of residency.",
+      "source_id": "SC-S3",
+      "pinpoint": "FAQ, resident victimized in another country"
+    },
+    {
+      "id": "SC-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Address Confidentiality Program (ACP)",
+        "agency": "South Carolina Attorney General",
+        "covers_sexual_assault": true,
+        "enroll": "If you are interested in enrolling in the Address Confidentiality Program, please contact the ACP at [email address obfuscated in saved page] or 803-734-4517 to be connected with an Application Assistant in your area. (Statute: Upon the recommendation of an application assistant, an individual, or a parent, guardian, or other appropriate adult for a minor, may apply to the Attorney General for assignation of a designated address.)"
+      },
+      "summary": "South Carolina's Address Confidentiality Program, run by the Attorney General, gives victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses a designated substitute address that state and local agencies and courts must use, plus forwarding of first-class, certified, and registered mail. Applicants apply through an application assistant; there is no fee.",
+      "quote": "The address confidentiality program is established to protect victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses by authorizing the use of designated addresses for such victims. The program is administered by the Attorney General",
+      "source_id": "SC-S14",
+      "pinpoint": "S.C. Code 16-25-130(B)"
+    },
+    {
+      "id": "SC-RECCONF-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "Information about people applying for or receiving compensation may not be disclosed except to run the fund or with the applicant's written consent, and the program's records and files are confidential and exempt from the Freedom of Information Act.",
+      "quote": "The records, papers, files, and communications of the board, its panel, and the director and his staff must be regarded as confidential information and privileged and not subject to disclosure under the Freedom of Information Act as contained in Chapter 4, Title 30.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1240"
+    }
   ],
-  "notes": "Relocation is expressly not covered (FAQ). Toll-free line for victims is 1-800-220-5370 (SC-S2). The application is mailed to DCVC; apply_url is the How to Apply page. Reviewer: the application (SC-S7) says DCVC can pay 'up to 40 counseling sessions or 180 days of counseling sessions, whichever is greater', which reads more generously than the statute (20 sessions or 180 days, plus up to 20 more on request); the statute is encoded. The provider guide (SC-S12) describes the anonymous route for victims 18 and older and lists 'Victim's health insurance paid the bill(s)' as an exam denial reason."
- },
- "confidence": "high",
- "researcher_notes": "Statute text is from scstatehouse.gov (Title 16, Chapter 3, Article 13); history shows last amendments in 2017. Exam billing: the statute (16-3-1350(A)) says the victim must not bear the cost but does not mention insurance; the program's Feb 2018 provider billing guide (SC-S12, still linked from the current provider portal) says neither the victim nor their insurance, including Medicaid and Medicare, may be billed. That guide is older and lists staff contacts and fee amounts that may be out of date; only its general rules are used. The anonymous filing route for sexual assault (SC-REPORT-2/3) is described only in program materials; the application says to contact DCVC for details on anonymous reporting. Disagreement: the statute caps burial at $4,000 (16-3-1180(A)(5)) but the FAQ says up to $6,500; burial is not encoded. Residency: statute 16-3-1210 also lets South Carolina residents victimized in another state file, but program pages and the application say the crime must occur in South Carolina. Reporting: 48 hours is in the statute; the schema field within_days was left out because the statute states hours, not days. Lost wages also require missing two consecutive weeks (statute) and being under a treating physician's care (At A Glance). Reviewer changes: SC-PROP-2 no longer names phones or clothing (the source says only 'Items Taken as Evidence'); mortgage/rent moved from temporary_housing to other (SC-EXCL-5); SC-EXAM-5 recategorized from exam_payment to exam_no_bill since it states the exam is at no cost to the victim; SC-EXCL-1 summary no longer says the exam covers 'evidence collection only' (the guide also lists lab work, medications, ER and physician fees billed to DCVC). Added SC-EXAM-6 (no-kit exam paid), SC-FUN-1, SC-TRANS-3, SC-EXCL-6. SC-S12 is a 2018 guide that still lists the old www.sova.sc.gov domain and staff contacts; no names are used in rules. How-to-file: the How to Apply page (SC-S8) names mail as the only way to submit; no online portal, email, or fax submission for applicants is stated (the fax number on the At A Glance sheet is for providers sending bills, and the contact email is obfuscated in the saved pages). The application PDF linked from How to Apply (/media/fexpbtym/...) is byte-identical (same sha256) to SC-S7, so SC-S7 is the current form; it is fillable with 103 AcroForm fields. No processing time is stated; the application says to call if no letter arrives after four weeks, which is not encoded."
+  "coverage": {
+    "found": [
+      "exam_no_bill",
+      "exam_payment",
+      "total_cap",
+      "expense_cap",
+      "covered_expense",
+      "excluded_expense",
+      "filing_deadline",
+      "reporting_requirement",
+      "minimum_loss",
+      "collateral_source",
+      "conduct_reduction",
+      "emergency_award",
+      "eligible_crime",
+      "residency",
+      "submission",
+      "required_document",
+      "address_confidentiality",
+      "record_confidentiality"
+    ],
+    "not_found": [
+      "expense_cap for medical (only the $15,000 overall cap applies)",
+      "expense_cap for transportation (no dollar or per-mile rate published)",
+      "expense_cap for lost_wages as a dollar figure (statute ties it to the Section 42-1-50 workers' compensation maximum rate, which was not saved)",
+      "covered_expense or expense_cap for security (not mentioned in any saved source)",
+      "administrative regulations setting caps or rates (none found)",
+      "processing_time (no official decision or payment time; the application only says to call DCVC if no letter arrives after four weeks)"
+    ],
+    "notes": "Relocation is expressly not covered (FAQ). Toll-free line for victims is 1-800-220-5370 (SC-S2). The application is mailed to DCVC; apply_url is the How to Apply page. Reviewer: the application (SC-S7) says DCVC can pay 'up to 40 counseling sessions or 180 days of counseling sessions, whichever is greater', which reads more generously than the statute (20 sessions or 180 days, plus up to 20 more on request); the statute is encoded. The provider guide (SC-S12) describes the anonymous route for victims 18 and older and lists 'Victim's health insurance paid the bill(s)' as an exam denial reason."
+  },
+  "confidence": "high",
+  "researcher_notes": "Statute text is from scstatehouse.gov (Title 16, Chapter 3, Article 13); history shows last amendments in 2017. Exam billing: the statute (16-3-1350(A)) says the victim must not bear the cost but does not mention insurance; the program's Feb 2018 provider billing guide (SC-S12, still linked from the current provider portal) says neither the victim nor their insurance, including Medicaid and Medicare, may be billed. That guide is older and lists staff contacts and fee amounts that may be out of date; only its general rules are used. The anonymous filing route for sexual assault (SC-REPORT-2/3) is described only in program materials; the application says to contact DCVC for details on anonymous reporting. Disagreement: the statute caps burial at $4,000 (16-3-1180(A)(5)) but the FAQ says up to $6,500; burial is not encoded. Residency: statute 16-3-1210 also lets South Carolina residents victimized in another state file, but program pages and the application say the crime must occur in South Carolina. Reporting: 48 hours is in the statute; the schema field within_days was left out because the statute states hours, not days. Lost wages also require missing two consecutive weeks (statute) and being under a treating physician's care (At A Glance). Reviewer changes: SC-PROP-2 no longer names phones or clothing (the source says only 'Items Taken as Evidence'); mortgage/rent moved from temporary_housing to other (SC-EXCL-5); SC-EXAM-5 recategorized from exam_payment to exam_no_bill since it states the exam is at no cost to the victim; SC-EXCL-1 summary no longer says the exam covers 'evidence collection only' (the guide also lists lab work, medications, ER and physician fees billed to DCVC). Added SC-EXAM-6 (no-kit exam paid), SC-FUN-1, SC-TRANS-3, SC-EXCL-6. SC-S12 is a 2018 guide that still lists the old www.sova.sc.gov domain and staff contacts; no names are used in rules. How-to-file: the How to Apply page (SC-S8) names mail as the only way to submit; no online portal, email, or fax submission for applicants is stated (the fax number on the At A Glance sheet is for providers sending bills, and the contact email is obfuscated in the saved pages). The application PDF linked from How to Apply (/media/fexpbtym/...) is byte-identical (same sha256) to SC-S7, so SC-S7 is the current form; it is fillable with 103 AcroForm fields. No processing time is stated; the application says to call if no letter arrives after four weeks, which is not encoded. Privacy: the Address Confidentiality Program is in S.C. Code 16-25-130 (added by a 2024 Act; the AG announced the launch in July 2025), so older national lists saying South Carolina has no ACP are out of date. The statute defines 'sexual offense' as acts in Articles 7 and 8, Chapter 3, Title 16, and 16-25-130(F) keeps ACP applications out of FOIA. The program page (SC-S13) says participants must be 18 or older (or a parent/guardian for a minor), live in South Carolina or plan to move there within 90 days, and pay no fee; the ACP contact email is obfuscated in the saved page. Record confidentiality (SC-RECCONF-1) comes from 16-3-1240, which also makes it unlawful to disclose information about applicants or recipients without their written consent except for administering the fund."
 }

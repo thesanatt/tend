@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "13de61bdbfeaf64622e1f602187318227efae47d4ff85a56a494307354847d58",
+ "source_sha256": "e2fb4c696a03f37663c15226e3e396737d32f87c52c5d29633dcb7fb40d8dbf4",
  "rules": [
   {
    "id": "OK-EXAM-1",
@@ -298,6 +298,16 @@
    "id": "OK-TIME-4",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "OK-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "OK-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

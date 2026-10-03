@@ -166,6 +166,76 @@
       "raw_path": "rules/sources/TN/TN-S16.pdf",
       "text_path": "rules/sources/TN/TN-S16.txt",
       "sha256": "43ab51a556b3377160fef6a44cd815d8571b6b54bdfde5abb29841119c2dac6c"
+    },
+    {
+      "id": "TN-S17",
+      "title": "T.C.A. 40-38-601 (Home Address Confidentiality Program definitions), 2025 via Justia",
+      "url": "https://law.justia.com/codes/tennessee/title-40/chapter-38/part-6/section-40-38-601/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:57:40Z",
+      "raw_path": "rules/sources/TN/TN-S17.html",
+      "text_path": "rules/sources/TN/TN-S17.txt",
+      "sha256": "20611e110a69c27f3ef2facd7f25f71ac63e91ab266bf2fdc45a142acdd07aef"
+    },
+    {
+      "id": "TN-S18",
+      "title": "T.C.A. 40-38-602 (crime victim address confidentiality program; substitute address; records not public), 2025 via Justia",
+      "url": "https://law.justia.com/codes/tennessee/title-40/chapter-38/part-6/section-40-38-602/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:57:43Z",
+      "raw_path": "rules/sources/TN/TN-S18.html",
+      "text_path": "rules/sources/TN/TN-S18.txt",
+      "sha256": "ff7bb875bc11506febca04100f34763b2b3368a8c15b1d19bf6c603a40ae373d"
+    },
+    {
+      "id": "TN-S19",
+      "title": "T.C.A. 40-38-603 (persons not eligible for the address confidentiality program), 2025 via Justia",
+      "url": "https://law.justia.com/codes/tennessee/title-40/chapter-38/part-6/section-40-38-603/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:57:46Z",
+      "raw_path": "rules/sources/TN/TN-S19.html",
+      "text_path": "rules/sources/TN/TN-S19.txt",
+      "sha256": "bbbe02e1de02a76f3e7c82d745f8de74e8c5030d6326056cd2a0861d5a6f0e24"
+    },
+    {
+      "id": "TN-S20",
+      "title": "T.C.A. 40-38-604 (application to the address confidentiality program), 2025 via Justia",
+      "url": "https://law.justia.com/codes/tennessee/title-40/chapter-38/part-6/section-40-38-604/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:57:58Z",
+      "raw_path": "rules/sources/TN/TN-S20.html",
+      "text_path": "rules/sources/TN/TN-S20.txt",
+      "sha256": "f8e6f7fd1d366f2cc73db5f45ea4df9919a1906e7d0321c4cbc5f582c65559b1"
+    },
+    {
+      "id": "TN-S21",
+      "title": "Tennessee Secretary of State, Safe at Home FAQ: What is the Safe at Home Address Confidentiality Program?",
+      "url": "https://sos.tn.gov/safeathome/faqs/what-is-the-safe-at-home-address-confidentiality-program",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:58:16Z",
+      "raw_path": "rules/sources/TN/TN-S21.html",
+      "text_path": "rules/sources/TN/TN-S21.txt",
+      "sha256": "b4b947f3d442aace4641eb54e77543439d5248a21edd9120e4f64fad3820584c"
+    },
+    {
+      "id": "TN-S22",
+      "title": "Tennessee Comptroller, Office of Open Records Counsel, Statutory Exceptions to the Tennessee Public Records Act (January 2018)",
+      "url": "https://comptroller.tn.gov/content/dam/cot/orc/documents/oorc/2018-01-19_ExceptionstotheTennesseePublicRecordsActFinal.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:58:38Z",
+      "raw_path": "rules/sources/TN/TN-S22.pdf",
+      "text_path": "rules/sources/TN/TN-S22.txt",
+      "sha256": "b881e7d6ae2e06b3d3d41e745635da18226b4e73a7565aec580222e09b0090c5"
+    },
+    {
+      "id": "TN-S23",
+      "title": "T.C.A. 10-7-504 (confidential records; (k) Criminal Injuries Compensation Act applicants), 2025 via Justia",
+      "url": "https://law.justia.com/codes/tennessee/title-10/chapter-7/part-5/section-10-7-504/",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:58:54Z",
+      "raw_path": "rules/sources/TN/TN-S23.html",
+      "text_path": "rules/sources/TN/TN-S23.txt",
+      "sha256": "738b8adee7868d4a9ae67718962062ef68a9df4f3b01081bff6e9a64382e43b5"
     }
   ],
   "rules": [
@@ -656,10 +726,34 @@
       "quote": "the division shall investigate every claim for compensation and shall make every effort to honor or deny each claim within ninety (90) days of receipt of the claim",
       "source_id": "TN-S9",
       "pinpoint": "T.C.A. 29-13-108(d)"
+    },
+    {
+      "id": "TN-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Safe at Home Address Confidentiality Program",
+        "agency": "Tennessee Secretary of State",
+        "covers_sexual_assault": true,
+        "enroll": "an adult person, or a parent or fiduciary acting on behalf of a minor or person with a disability, may apply to the secretary of state with the assistance of an application assistant to have an address designated by the secretary of state serve as the person's substitute address, or the substitute address of the minor or person with a disability on whose behalf the application is filed, where the applicant, or the individual on whose behalf the application is filed, resides at an address not previously identified in any public record as the person's address, or has relocated to a new residence within the preceding thirty (30) calendar days or presently intends to relocate to a new residence within ninety (90) calendar days from the date of the application. The application shall be made on a form prescribed by the secretary of state and filed in the office of the secretary of state in the manner prescribed by the secretary of state."
+      },
+      "summary": "Safe at Home, run by the Tennessee Secretary of State, is free and open to survivors of rape, sexual battery, or any other sexual offense (plus domestic abuse, stalking, and human trafficking). An approved participant gets a substitute address to use as the official mailing address for state and local government purposes, with a few exceptions. Applying takes an application assistant at a partner agency.",
+      "quote": "The Safe at Home Address Confidentiality Program is a statewide address confidentiality program administered by the Office of the Tennessee Secretary of State. It is open to all victims of domestic abuse, stalking, human trafficking, rape, sexual battery, or any other sexual offense who satisfy eligibility and application requirements at no cost. Once a participant has been approved, they are provided with a 'substitute' address that can be used by them and their children as their official mailing address for all state and local government purposes",
+      "source_id": "TN-S21",
+      "pinpoint": "Secretary of State, Safe at Home FAQ 'What is the Safe at Home Address Confidentiality Program?'; statute T.C.A. 40-38-601 to 40-38-604 (enroll text from 40-38-604(a))"
+    },
+    {
+      "id": "TN-RECORDS-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "For victims who apply for compensation, Tennessee law makes the home address, home and personal cell phone numbers, Social Security number, and the crime the victim is being compensated for confidential and closed to public inspection. The statute does not list the victim's name or the rest of the claim file.",
+      "quote": "The following information regarding victims who apply for compensation under the Criminal Injuries Compensation Act, compiled in title 29, chapter 13, shall be treated as confidential and shall not be open for inspection by members of the public: (1) Residential information, including the street address, city, state and zip code; (2) Home telephone and personal cell phone numbers; (3) Social security number; and (4) The criminal offense from which the victim is receiving compensation.",
+      "source_id": "TN-S23",
+      "pinpoint": "T.C.A. 10-7-504(k)"
     }
   ],
   "coverage": {
     "found": [
+      "address_confidentiality",
       "collateral_source",
       "conduct_reduction",
       "covered_expense",
@@ -672,6 +766,7 @@
       "filing_deadline",
       "minimum_loss",
       "processing_time",
+      "record_confidentiality",
       "reporting_requirement",
       "required_document",
       "residency",
@@ -692,5 +787,5 @@
     "notes": "No security expense rule and no dollar cap on medical, relocation, or lost wages appears in T.C.A. 29-13-101 to 29-13-119 or the saved Treasury PDFs; lost wages are a rate (85 percent of average weekly wage on the workers' compensation schedule) and relocation is limited to 2 moves. The statute and the SAFE provider page do not say whether a survivor's health insurance may be billed for the forensic exam, so insurance_billing is 'unspecified'. The 15-day report to authorities is still required for compensation (good cause can excuse delay, and sexual assault is a listed good cause); no report is needed for the forensic exam alone. The program's own web page (treasury.tn.gov, a DNN page whose content sits inside a form element) could not be saved by fetch_source.py, so its statements (victim counseling covered up to the maximum, police report or other official document) are not quoted. The application is online only; there is no application PDF. Update (Oct 3, 2026): the program page was saved as TN-S15 from a plain HTTPS fetch, with text extracted without dropping the form element; the how-to-file rules quote it."
   },
   "confidence": "medium",
-  "researcher_notes": "Statute text is the 2025 Tennessee Code via Justia (legislature/Lexis site not used). Total cap disagreement: T.C.A. 29-13-106(e) states $30,000 'except as provided in subsection (h)', and (h) indexes the cap to 105 percent of the national average, published by the State Treasurer on the Treasury website (not a rule, effective July 1). The Treasury's Maximum Expense Amounts PDF (June 2025) and program page list $34,100 for crimes on or after July 1, 2025, $32,900 for 7/1/24 to 6/30/25, and $32,000 for 7/1/17 to 6/30/24. Tenn. Comp. R. & Regs. 0300-02-.07 (rev. May 2025, TN-S14) says $34,200 for crimes on or after July 1, 2025 and contains a typo ('thirty-two thousand dollars ($32,900.00)'). The program page FAQ also still says $32,900. The lower, later Treasury-published $34,100 is recorded; confirm with the program. Medical and medical-related bills are paid at 75 percent of billed charges (T.C.A. 29-13-107(7)); a provider paid 75 percent must accept it as payment in full. Forensic exam reimbursement to the provider is capped at $1,000 and is full payment (29-13-118(d)); the provider files within 1 year of the exam. The SAFE provider page says medical treatment for injury may be billed to the patient, who may then claim compensation. Cooperation with police and prosecutors is required (29-13-109(f)) with an exception when cooperation is affected by age, psychological state, fear of retaliation, or other safety concerns (29-13-103(a)(4)). An arrest or conviction is not required (29-13-109(f)). Statute 29-13-108(b) says claims are filed in person or by mail; the Treasury says to apply through its online portal (linked as 'File a Claim' on the program page). Phone 833-867-3891 is the program's; the OVC directory lists 615-741-2734 for the Division of Claims and Risk Management. Reviewer (Oct 3, 2026): T.C.A. 29-13-106(h)(4)-(5) makes the Treasurer's website publication the operative cap and says it is not a rule, which supports $34,100 over the $34,200 in Rule 0300-02-.07. The live program page checked in Chrome on Oct 3, 2026 lists $34,100 for crimes on or after July 1, 2025 and shows no separate figure for July 1, 2026, even though (h)(2) calls for an annual comparison starting January 1, 2026; if a 2026 adjustment is published later, CAP-1 needs a new source. The same page says counseling 'may be considered for the victim up to the maximum award' (not saved; fetch_source.py --chrome returned 'blocked or empty'). T.C.A. 29-13-105(c) bars an award to a victim who was a member of the offender's family only if a benefit would go to the offender, and says it does not automatically disqualify such a victim. How to file (Oct 3, 2026): the Treasury takes claims online only (resource guide TN-S1 and program page TN-S15, whose File a Claim link goes to an Origami Risk incident-entry portal); there is no paper or PDF application, so program.application_form is {source_id: null, fillable: false, field_count: 0}. T.C.A. 29-13-108(b) still says claims are filed 'in person or by mail', but no saved source gives a mailing or walk-in address for claims, so no mail or in_person submission rule was added. The only address published is on the Employer's Statement (TN-S16, RDA-1178, a fillable PDF with 60 AcroForm fields): 502 Deaderick Street, Nashville, TN 37243-0202, where the employer sends that form. The online form must be finished in one session; supporting documents are uploaded as PDF or Word files. Criminal.Injury@tn.gov is published for advocates, not as a claim submission address. TN-S15 was saved by hand because fetch_source.py strips form elements and this DNN page sits inside one; raw bytes are the server's HTML and the sha256 matches."
+  "researcher_notes": "Statute text is the 2025 Tennessee Code via Justia (legislature/Lexis site not used). Total cap disagreement: T.C.A. 29-13-106(e) states $30,000 'except as provided in subsection (h)', and (h) indexes the cap to 105 percent of the national average, published by the State Treasurer on the Treasury website (not a rule, effective July 1). The Treasury's Maximum Expense Amounts PDF (June 2025) and program page list $34,100 for crimes on or after July 1, 2025, $32,900 for 7/1/24 to 6/30/25, and $32,000 for 7/1/17 to 6/30/24. Tenn. Comp. R. & Regs. 0300-02-.07 (rev. May 2025, TN-S14) says $34,200 for crimes on or after July 1, 2025 and contains a typo ('thirty-two thousand dollars ($32,900.00)'). The program page FAQ also still says $32,900. The lower, later Treasury-published $34,100 is recorded; confirm with the program. Medical and medical-related bills are paid at 75 percent of billed charges (T.C.A. 29-13-107(7)); a provider paid 75 percent must accept it as payment in full. Forensic exam reimbursement to the provider is capped at $1,000 and is full payment (29-13-118(d)); the provider files within 1 year of the exam. The SAFE provider page says medical treatment for injury may be billed to the patient, who may then claim compensation. Cooperation with police and prosecutors is required (29-13-109(f)) with an exception when cooperation is affected by age, psychological state, fear of retaliation, or other safety concerns (29-13-103(a)(4)). An arrest or conviction is not required (29-13-109(f)). Statute 29-13-108(b) says claims are filed in person or by mail; the Treasury says to apply through its online portal (linked as 'File a Claim' on the program page). Phone 833-867-3891 is the program's; the OVC directory lists 615-741-2734 for the Division of Claims and Risk Management. Reviewer (Oct 3, 2026): T.C.A. 29-13-106(h)(4)-(5) makes the Treasurer's website publication the operative cap and says it is not a rule, which supports $34,100 over the $34,200 in Rule 0300-02-.07. The live program page checked in Chrome on Oct 3, 2026 lists $34,100 for crimes on or after July 1, 2025 and shows no separate figure for July 1, 2026, even though (h)(2) calls for an annual comparison starting January 1, 2026; if a 2026 adjustment is published later, CAP-1 needs a new source. The same page says counseling 'may be considered for the victim up to the maximum award' (not saved; fetch_source.py --chrome returned 'blocked or empty'). T.C.A. 29-13-105(c) bars an award to a victim who was a member of the offender's family only if a benefit would go to the offender, and says it does not automatically disqualify such a victim. How to file (Oct 3, 2026): the Treasury takes claims online only (resource guide TN-S1 and program page TN-S15, whose File a Claim link goes to an Origami Risk incident-entry portal); there is no paper or PDF application, so program.application_form is {source_id: null, fillable: false, field_count: 0}. T.C.A. 29-13-108(b) still says claims are filed 'in person or by mail', but no saved source gives a mailing or walk-in address for claims, so no mail or in_person submission rule was added. The only address published is on the Employer's Statement (TN-S16, RDA-1178, a fillable PDF with 60 AcroForm fields): 502 Deaderick Street, Nashville, TN 37243-0202, where the employer sends that form. The online form must be finished in one session; supporting documents are uploaded as PDF or Word files. Criminal.Injury@tn.gov is published for advocates, not as a claim submission address. TN-S15 was saved by hand because fetch_source.py strips form elements and this DNN page sits inside one; raw bytes are the server's HTML and the sha256 matches. Address confidentiality: Tennessee's program is Safe at Home, run by the Secretary of State under T.C.A. 40-38-601 to 40-38-614 (statute calls it the address confidentiality program). 40-38-602(a) opens it to victims of rape, sexual battery, or another sexual offense at no cost; 40-38-602(b) gives a substitute address and bars disclosure of the participant's file; 40-38-602(f) and (j) make the participant's file and application not public records. The substitute address may not be used for property tax or recorded real property documents (40-38-602(d)). Registered sex, animal abuse, vulnerable-adult abuse, and drug offenders are ineligible (40-38-603). Under 40-38-604(a)-(b) the application is filed with an application assistant and needs either documentary evidence of a criminal case, an order of protection in effect, or a notarized statement from a licensed professional (attorney, social worker, therapist) that the applicant is in danger, plus a sworn statement, notarized signatures, and an address not in any public record or a move within 30 days before or 90 days after applying. A survivor who has not reported can still qualify through the professional's statement. Record confidentiality: T.C.A. 10-7-504(k) closes only four items about compensation applicants to the public (residential address, home and personal cell numbers, SSN, and the offense being compensated); the victim's name and other claim contents are not listed there, and no confidentiality section was found in T.C.A. 29-13-101 to 29-13-119. The Comptroller's 2018 list of Public Records Act exceptions (TN-S22) lists 10-7-504(k) as the Criminal Injuries Compensation Act exception."
 }

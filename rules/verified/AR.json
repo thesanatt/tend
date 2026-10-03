@@ -166,6 +166,36 @@
    "raw_path": "rules/sources/AR/AR-S15.html",
    "text_path": "rules/sources/AR/AR-S15.txt",
    "sha256": "b1fde4d8e89e8c8a224fa7d5157d8e17c9a68ff706cdd4981e87e2f5004d6021"
+  },
+  {
+   "id": "AR-S16",
+   "title": "Arkansas DFA Office of Driver Services, Address Confidentiality Program page",
+   "url": "https://www.dfa.arkansas.gov/office/driver-services/address-confidentiality-program/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:21Z",
+   "raw_path": "rules/sources/AR/AR-S16.html",
+   "text_path": "rules/sources/AR/AR-S16.txt",
+   "sha256": "f7ff5c9f73fda9423b884dae690abc21c0458200db38e7d53124167ae35a8ede"
+  },
+  {
+   "id": "AR-S17",
+   "title": "A.C.A. 27-16-811 (2025), Exception to disclosing residence address, Address confidentiality program",
+   "url": "https://law.justia.com/codes/arkansas/title-27/subtitle-2/chapter-16/subchapter-8/section-27-16-811/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:25Z",
+   "raw_path": "rules/sources/AR/AR-S17.html",
+   "text_path": "rules/sources/AR/AR-S17.txt",
+   "sha256": "61378b551a49db3fadca867fc1766ae5daea625be4b3cf4e228c62b3e4cc0267"
+  },
+  {
+   "id": "AR-S18",
+   "title": "Arkansas DFA Office of Driver Services, Address Confidentiality Program (ACP) Affidavit (Rev. 10/2021)",
+   "url": "https://www.dfa.arkansas.gov/wp-content/uploads/ACP_Affidavit-2.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T19:59:35Z",
+   "raw_path": "rules/sources/AR/AR-S18.pdf",
+   "text_path": "rules/sources/AR/AR-S18.txt",
+   "sha256": "e0b3f3a5ca66f1e0f75c88a9a8e55fc25c22f33b61bfcb95f640e783a72b56ee"
   }
  ],
  "rules": [
@@ -684,6 +714,31 @@
    "quote": "Receipts or supporting documentation must be attached to this application.",
    "source_id": "AR-S8",
    "pinpoint": "Application, Section G, Request for Assistance with Crime Scene Clean Up"
+  },
+  {
+   "id": "AR-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Arkansas Department of Finance and Administration, Office of Driver Services",
+    "covers_sexual_assault": false,
+    "enroll": "Presents a valid order of protection issued under the Domestic Abuse Act of 1991, § 9-15-101 et seq. (2) Completes this ACP affidavit; and (3) Agrees to the terms of participation in the ACP.",
+    "note": "Driver's license and ID card only, not a general substitute address for government records or mail. Eligibility is limited to victims of domestic violence and their dependents; sexual abuse counts only when caused by a family or household member or a dating partner (A.C.A. 27-16-811(a)(1)(C)), and the affidavit also lists a valid order of protection."
+   },
+   "summary": "Arkansas's Address Confidentiality Program, run by the DFA Office of Driver Services, is free and puts a post office box on the driver's license or ID card instead of the home address. It is limited to domestic violence victims and their dependents, so most sexual assault survivors do not qualify unless the abuser was a family or household member or dating partner.",
+   "quote": "The Address Confidentiality Program is a free program administered by the Office of Driver Services. Participants in tis program will be issued a driver’s license or identification card that displays a post office box in lieu of a residential address.",
+   "source_id": "AR-S16",
+   "pinpoint": "DFA Address Confidentiality Program page, Program Description",
+   "fragment_url": "https://www.dfa.arkansas.gov/office/driver-services/address-confidentiality-program/#:~:text=The%20Address%20Confidentiality%20Program%20is,lieu%20of%20a%20residential%20address."
+  },
+  {
+   "id": "AR-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Medical treatment documents a claimant submits with a reparations application are confidential by statute, and so are law enforcement investigative reports if another law makes them confidential. The statute does not make the whole claim file or the applicant's identity confidential.",
+   "quote": "When submitted to the Crime Victims Reparations Board as part of an application, the following information shall be confidential: (1) Documents submitted by a claimant which relate to medical treatment; and (2) Law enforcement investigative reports, if confidential under any other law.",
+   "source_id": "AR-S6",
+   "pinpoint": "A.C.A. 16-90-711"
   }
  ],
  "coverage": {
@@ -702,7 +757,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -713,10 +770,12 @@
    "covered_expense:relocation",
    "reporting_requirement:alternatives",
    "exam_no_bill:insurance_billing",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality:general_substitute_address",
+   "address_confidentiality:sexual_assault"
   ],
-  "notes": "No minimum loss appears in A.C.A. 16-90-701 to 16-90-720 or 16 CAR Part 60 (the $500 figures in 16-90-719 belong to a property-repair labor program, not a minimum loss). No per-expense cap was found for lost wages, transportation, or security, and relocation is not mentioned as covered or excluded. For compensation, the 72-hour police report rule has only a good-cause exception (16 CAR 60-203(c)(2) lists physical incapacity, mental incompetence, age, and an injury not reasonably discoverable); no sexual-assault-specific alternative such as an exam or advocate report was found. The exam statute does not say whether the survivor's insurance may be billed; 16 CAR 60-303 reduces exam payments by collateral sources, recorded as AR-EXAM-5, so insurance_billing is left 'unspecified'. Crime scene cleanup is an allowable expense in 16-90-703(1)(A)(iv), but the application (Section G) limits it to survivors or dependents of homicide victims, so it is not recorded as covered for sexual assault survivors. No official source states how long a decision or payment takes; 16 CAR 60-206(h)(2) only says the claimant is mailed notice within fifteen calendar days after the staff decision, so no processing_time rule is recorded."
+  "notes": "No minimum loss appears in A.C.A. 16-90-701 to 16-90-720 or 16 CAR Part 60 (the $500 figures in 16-90-719 belong to a property-repair labor program, not a minimum loss). No per-expense cap was found for lost wages, transportation, or security, and relocation is not mentioned as covered or excluded. For compensation, the 72-hour police report rule has only a good-cause exception (16 CAR 60-203(c)(2) lists physical incapacity, mental incompetence, age, and an injury not reasonably discoverable); no sexual-assault-specific alternative such as an exam or advocate report was found. The exam statute does not say whether the survivor's insurance may be billed; 16 CAR 60-303 reduces exam payments by collateral sources, recorded as AR-EXAM-5, so insurance_billing is left 'unspecified'. Crime scene cleanup is an allowable expense in 16-90-703(1)(A)(iv), but the application (Section G) limits it to survivors or dependents of homicide victims, so it is not recorded as covered for sexual assault survivors. No official source states how long a decision or payment takes; 16 CAR 60-206(h)(2) only says the claimant is mailed notice within fifteen calendar days after the staff decision, so no processing_time rule is recorded. Arkansas has no general address confidentiality program with a substitute mailing address (the AZ SOS national ACP list calls Arkansas 'Confidentiality ONLY'); the only program is the DFA driver's license Address Confidentiality Program under A.C.A. 27-16-811, limited to domestic violence victims and dependents, recorded as AR-ACP-1 with covers_sexual_assault false. Record confidentiality under A.C.A. 16-90-711 covers only medical treatment documents and law enforcement reports already confidential under other law, not the full claim file."
  },
  "confidence": "medium",
- "researcher_notes": "Filing deadline conflict: Act 666 of 2025 (SB 430, approved 4/16/25, saved as AR-S14) changed A.C.A. 16-90-712(a)(1) from one year to five years, plus five years after age 18 for minors. The statute wins, so the rules record five years. The board's rules (16 CAR 60-203(d)(1), both the DPS January 2026 copy AR-S7 and the BLR 03/22/2026 copy AR-S13), the DPS criteria page (AR-S3), and the DPS statute compilation (AR-S6, current only through 2023) still say one year. Act 666 has no emergency clause, and I did not verify its effective date or whether it reaches older crimes, so the app should tell survivors past one year to still apply and ask the program. Statute text for 16-90-703, 712, 716 and 12-12-403 is from Justia's 2025 Arkansas Code (Act 666 itself is from the legislature's site); it matches the DPS compilation except for the 2025 change to 712. Other notes: the cooperation requirement in 16-90-712(c) does not apply to human trafficking victims or minor victims of a sex offense. 16 CAR 60-211(b)(3) lets the board waive the $2,500 counseling maximum for documented special need. 16 CAR 60-210(b)-(c) says a provider that accepts the 65% medical payment agrees not to sue the victim for the balance, and A.C.A. 16-90-720 has the board pay healthcare at the workers' compensation fee schedule. 16 CAR 60-304 sets provider reimbursement maximums for exams (facility fee, SANE nurse fee, labs, colposcope); these are provider limits, not survivor caps, and are not recorded as rules. Exam bills must reach the board within three months of the exam (16 CAR 60-302(b)), a provider obligation. 12-12-402 says no provider may require an adult victim to report in order to get treatment. The application PDF lists the board at 1 State Police Plaza Drive, Little Rock, while the DPS site lists 322 South Main Street, Suite 615; the phone 501-682-1020 is the same on both and on the OVC directory. The DPS pages name the program administrator; no person is named here. Reviewer: an advance (emergency) award must be repaid if the claimant later does not follow through with prosecution or another program requirement (16 CAR 60-207(b)(4)); the rules also require cooperation with law enforcement (60-203(f)), while the statute exempts minor victims of a sex offense from the cooperation rule (16-90-712(c)(2)). The application warns that, until the board decides, the victim/claimant is responsible to service providers for expenses (the exam is the exception under 12-12-403(c)). How to file: the DPS home page offers an online application (AR-S1) and the Documents and Forms page calls it preferred (AR-S5); the online form at crimevictims.dps.arkansas.gov is a JavaScript form whose text could not be saved, so the target URL is taken from the link on AR-S1. The paper application (AR-S8, CVRB-Application_10-6-2023.pdf, the only version linked from the DPS forms page) has no fillable AcroForm fields (0 fields), so it must be printed and filled by hand. No official source states a mailing, fax, or email submission instruction in so many words: AR-S4 says to submit the application to the reparations office and lists 322 South Main Street, Suite 615, Little Rock, AR 72201, while the application header and the Arkansas.gov portal page (AR-S15) list 1 State Police Plaza Drive, Little Rock, AR 72209 and fax 501-682-5313. I recorded mail to the DPS site address (the newer source) and no fax rule; the app should tell survivors to call 501-682-1020 to confirm where to send paper copies. The application also requires the signed Authorization to Release Information and the applicant's signature, and 16 CAR 60-206(b) requires the form be complete and come with an itemized statement and the police report or other official documentation from the reporting agency."
+ "researcher_notes": "Filing deadline conflict: Act 666 of 2025 (SB 430, approved 4/16/25, saved as AR-S14) changed A.C.A. 16-90-712(a)(1) from one year to five years, plus five years after age 18 for minors. The statute wins, so the rules record five years. The board's rules (16 CAR 60-203(d)(1), both the DPS January 2026 copy AR-S7 and the BLR 03/22/2026 copy AR-S13), the DPS criteria page (AR-S3), and the DPS statute compilation (AR-S6, current only through 2023) still say one year. Act 666 has no emergency clause, and I did not verify its effective date or whether it reaches older crimes, so the app should tell survivors past one year to still apply and ask the program. Statute text for 16-90-703, 712, 716 and 12-12-403 is from Justia's 2025 Arkansas Code (Act 666 itself is from the legislature's site); it matches the DPS compilation except for the 2025 change to 712. Other notes: the cooperation requirement in 16-90-712(c) does not apply to human trafficking victims or minor victims of a sex offense. 16 CAR 60-211(b)(3) lets the board waive the $2,500 counseling maximum for documented special need. 16 CAR 60-210(b)-(c) says a provider that accepts the 65% medical payment agrees not to sue the victim for the balance, and A.C.A. 16-90-720 has the board pay healthcare at the workers' compensation fee schedule. 16 CAR 60-304 sets provider reimbursement maximums for exams (facility fee, SANE nurse fee, labs, colposcope); these are provider limits, not survivor caps, and are not recorded as rules. Exam bills must reach the board within three months of the exam (16 CAR 60-302(b)), a provider obligation. 12-12-402 says no provider may require an adult victim to report in order to get treatment. The application PDF lists the board at 1 State Police Plaza Drive, Little Rock, while the DPS site lists 322 South Main Street, Suite 615; the phone 501-682-1020 is the same on both and on the OVC directory. The DPS pages name the program administrator; no person is named here. Reviewer: an advance (emergency) award must be repaid if the claimant later does not follow through with prosecution or another program requirement (16 CAR 60-207(b)(4)); the rules also require cooperation with law enforcement (60-203(f)), while the statute exempts minor victims of a sex offense from the cooperation rule (16-90-712(c)(2)). The application warns that, until the board decides, the victim/claimant is responsible to service providers for expenses (the exam is the exception under 12-12-403(c)). How to file: the DPS home page offers an online application (AR-S1) and the Documents and Forms page calls it preferred (AR-S5); the online form at crimevictims.dps.arkansas.gov is a JavaScript form whose text could not be saved, so the target URL is taken from the link on AR-S1. The paper application (AR-S8, CVRB-Application_10-6-2023.pdf, the only version linked from the DPS forms page) has no fillable AcroForm fields (0 fields), so it must be printed and filled by hand. No official source states a mailing, fax, or email submission instruction in so many words: AR-S4 says to submit the application to the reparations office and lists 322 South Main Street, Suite 615, Little Rock, AR 72201, while the application header and the Arkansas.gov portal page (AR-S15) list 1 State Police Plaza Drive, Little Rock, AR 72209 and fax 501-682-5313. I recorded mail to the DPS site address (the newer source) and no fax rule; the app should tell survivors to call 501-682-1020 to confirm where to send paper copies. The application also requires the signed Authorization to Release Information and the applicant's signature, and 16 CAR 60-206(b) requires the form be complete and come with an itemized statement and the police report or other official documentation from the reporting agency. Address confidentiality: Arkansas's only Address Confidentiality Program is a driver's license/ID program run by the DFA Office of Driver Services (A.C.A. 27-16-811, AR-S17; program page AR-S16; affidavit AR-S18). It shows a PO box on the license instead of the home address; it does not give a substitute address for other government records or forward mail. It covers victims of domestic violence and their dependents only; the statute's definition of domestic violence includes sexual abuse by a family or household member or dating partner, but not sexual assault by anyone else, so covers_sexual_assault is false. The statute and affidavit list a valid order of protection under the Domestic Abuse Act of 1991, an affidavit, and agreement to program terms; the affidavit must be imaged to the license account, which suggests enrolling at a revenue/driver services office, but no source says so in words. Record confidentiality: A.C.A. 16-90-711 (quoted from the DPS statute compilation AR-S6; same text in AR-S7) makes medical treatment documents and confidential law enforcement reports submitted with an application confidential; no source says the whole claim file or the applicant's identity is exempt from the Arkansas FOIA, and 16 CAR Part 60 has no separate confidentiality rule."
 }

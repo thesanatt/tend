@@ -96,6 +96,36 @@
    "raw_path": "rules/sources/NC/NC-S8.pdf",
    "text_path": "rules/sources/NC/NC-S8.txt",
    "sha256": "5d16fc082844430139b1352404d9006474c2b012ad3a88224113df1e2c5b4e72"
+  },
+  {
+   "id": "NC-S9",
+   "title": "N.C. Gen. Stat. 15C-2 (Address Confidentiality Program definitions)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15C/GS_15C-2.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:03Z",
+   "raw_path": "rules/sources/NC/NC-S9.html",
+   "text_path": "rules/sources/NC/NC-S9.txt",
+   "sha256": "b9d2b22c84cb943ea10f825c20e838e5cdc081c935672f560699295567408de4"
+  },
+  {
+   "id": "NC-S10",
+   "title": "N.C. Gen. Stat. 15C-4 (Filing and certification of applications; authorization card)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15C/GS_15C-4.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:04Z",
+   "raw_path": "rules/sources/NC/NC-S10.html",
+   "text_path": "rules/sources/NC/NC-S10.txt",
+   "sha256": "2b2bb167052276ac8c5288769e468ff7f50393b738e2201952bd44c055f06fb5"
+  },
+  {
+   "id": "NC-S11",
+   "title": "N.C. Gen. Stat. 15B-8.1 (Privilege and records of the Commission)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-8.1.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:25Z",
+   "raw_path": "rules/sources/NC/NC-S11.html",
+   "text_path": "rules/sources/NC/NC-S11.txt",
+   "sha256": "99a113febc1856f5ee35575e85854d4020913f6de525f02d12d06d5000e22ba1"
   }
  ],
  "rules": [
@@ -542,6 +572,43 @@
    "quote": "From the time an application is received, the average processing time is between three to six months.",
    "source_id": "NC-S5",
    "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What happens after I submit my application?'"
+  },
+  {
+   "id": "NC-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "North Carolina Office of the Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "File an application with the Attorney General with the assistance of an application assistant."
+   },
+   "summary": "North Carolina's Address Confidentiality Program, run by the Attorney General, gives relocated victims of domestic violence, sexual offense, or stalking a substitute address so assailants cannot find them through public records.",
+   "quote": "A program in the Office of the Attorney General to protect the confidentiality of the address of a relocated victim of domestic violence, sexual offense, or stalking to prevent the victim's assailants or potential assailants from finding the victim through public records.",
+   "source_id": "NC-S9",
+   "pinpoint": "N.C. Gen. Stat. 15C-2(2)"
+  },
+  {
+   "id": "NC-ACP-2",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "North Carolina Office of the Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "An individual who wants to participate in the Address Confidentiality Program shall file an application with the Attorney General with the assistance of an application assistant."
+   },
+   "summary": "To enroll, the survivor files an application with the Attorney General with help from a designated application assistant (an advocate at a victim services agency or nonprofit).",
+   "quote": "An individual who wants to participate in the Address Confidentiality Program shall file an application with the Attorney General with the assistance of an application assistant.",
+   "source_id": "NC-S10",
+   "pinpoint": "N.C. Gen. Stat. 15C-4(a)"
+  },
+  {
+   "id": "NC-CONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Victims' and claimants' personal information and all information about how claims were decided (except the total amount awarded) are held confidential by the Commission and Director; medical and law enforcement records are also confidential.",
+   "quote": "All personal information, as that term is defined in 18 U.S.C. § 2725(3), of victims and claimants and all information concerning the disposition of claims for compensation, except for the total amount awarded a victim or claimant, shall be held confidential by the Commission and Director.",
+   "source_id": "NC-S11",
+   "pinpoint": "N.C. Gen. Stat. 15B-8.1(b)"
   }
  ],
  "coverage": {
@@ -560,7 +627,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -580,5 +649,5 @@
   "notes": "No minimum loss: the old minimum in G.S. 15B-11(e) was repealed in 1998 and nothing replaced it in the saved text. No emergency award found in Chapter 15B or 14B NCAC 09 Section .0300 (only partial payments under 14B NCAC 09 .0305). The statute gives no police-report alternative for sexual assault; it allows a report after six months only for good cause. Relocation and security are not listed as accepted or excluded. The $3,000 per-family counseling cap in G.S. 15B-2(1) applies only to immediate family members of child victims of rape, sexual assault, or domestic violence (and homicide families), so it is not recorded as a cap on the survivor's own counseling. Locks, doors, and windows appear only as part of crime scene cleanup on the agency page (NC-CLEAN-1), so no separate security rule is recorded."
  },
  "confidence": "high",
- "researcher_notes": "Statutes pulled from ncleg.gov (current through Session Laws 2026-53 per section history). Medical, counseling, and remedial care are paid at 66 2/3% of the provider's usual charge, which the provider must accept as payment in full (G.S. 15B-2(1)). Economic loss must be incurred within one year of the crime (two years for victims 18 or younger, with an exception for new medical or counseling costs), G.S. 15B-11(a)(2). The agency FAQ (NC-S5) says the two-year filing deadline has exceptions for the unreported sexual assault of a minor child and for missing persons later found to be homicide victims; I did not find that exception in the saved statute text, so it is not encoded. The Rape Victim Assistance Program pays providers up to $1,500 per exam (physician or SANE $600, facility $500, other $400) under G.S. 143B-1200(d); that is a payment limit to providers, not a cost to the survivor, so it is not encoded as a survivor cap. Administrative rules (14B NCAC 09 .0301-.0305) set procedure only, no caps or rates. The agency 'Not Accepted' list includes 'Travel', recorded as excluded transportation. How to file: the agency page (NC-S5) gives an online portal and a mail address; the online start point is recorded as ncdps.gov/4victims because that is the address written in the saved text (the 'Start an Application' and log-in links in NC-S5.html point to https://victim-comp.ncdps.gov/users/sign_in, which does not appear as text). The paper application (NC-S8, the January 2026 version at program.application_pdf_url) ends with 'Please mail to' the same 4232 Mail Service Center address and lists a fax number, 919-715-4209, as contact information; it does not say applications may be faxed, so no fax submission rule is recorded. NC-S8 is a fillable AcroForm with 116 fields. The application also asks warrant-based cases to submit a copy of the warrant, which is covered by NC-DOC-2 (report or warrant). No photo ID or proof of residency is asked for; non-residents can apply for crimes in North Carolina."
+ "researcher_notes": "Statutes pulled from ncleg.gov (current through Session Laws 2026-53 per section history). Medical, counseling, and remedial care are paid at 66 2/3% of the provider's usual charge, which the provider must accept as payment in full (G.S. 15B-2(1)). Economic loss must be incurred within one year of the crime (two years for victims 18 or younger, with an exception for new medical or counseling costs), G.S. 15B-11(a)(2). The agency FAQ (NC-S5) says the two-year filing deadline has exceptions for the unreported sexual assault of a minor child and for missing persons later found to be homicide victims; I did not find that exception in the saved statute text, so it is not encoded. The Rape Victim Assistance Program pays providers up to $1,500 per exam (physician or SANE $600, facility $500, other $400) under G.S. 143B-1200(d); that is a payment limit to providers, not a cost to the survivor, so it is not encoded as a survivor cap. Administrative rules (14B NCAC 09 .0301-.0305) set procedure only, no caps or rates. The agency 'Not Accepted' list includes 'Travel', recorded as excluded transportation. How to file: the agency page (NC-S5) gives an online portal and a mail address; the online start point is recorded as ncdps.gov/4victims because that is the address written in the saved text (the 'Start an Application' and log-in links in NC-S5.html point to https://victim-comp.ncdps.gov/users/sign_in, which does not appear as text). The paper application (NC-S8, the January 2026 version at program.application_pdf_url) ends with 'Please mail to' the same 4232 Mail Service Center address and lists a fax number, 919-715-4209, as contact information; it does not say applications may be faxed, so no fax submission rule is recorded. NC-S8 is a fillable AcroForm with 116 fields. The application also asks warrant-based cases to submit a copy of the warrant, which is covered by NC-DOC-2 (report or warrant). No photo ID or proof of residency is asked for; non-residents can apply for crimes in North Carolina. Address confidentiality: North Carolina's Address Confidentiality Program is in the Office of the Attorney General (G.S. Chapter 15C). G.S. 15C-2(2) names victims of 'sexual offense' as covered, and G.S. 15C-2 defines a victim of a sexual offense by reference to Article 7B of Chapter 14, so covers_sexual_assault is true. The program is for victims who have or will confidentially relocate in North Carolina (G.S. 15C-4(c)(4)), and the application must be made with an application assistant. Record confidentiality: G.S. 15B-8.1(b) makes personal information, claim disposition information (except the total award), medical information, and law enforcement records confidential; other Division records are open to public inspection, and the total amount awarded is not confidential."
 }

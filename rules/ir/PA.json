@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "ccdae57e969784e978514344e5634b86a4d23ad3256909e785023d615c61fef4",
+ "source_sha256": "cce617988cd5dd33fb3ea12d7f077595f82747ee58e26ac0ac97a66ec39eb61a",
  "rules": [
   {
    "id": "PA-EXAM-1",
@@ -324,6 +324,16 @@
    "id": "PA-TIME-2",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "PA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "PA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

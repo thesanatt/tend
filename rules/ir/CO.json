@@ -17,7 +17,7 @@
    "field_count": 152
   }
  },
- "source_sha256": "a920761ec95a82cfac9e413508eaa55336a22307d10af7d2124936317e86a23e",
+ "source_sha256": "4ba52aedd7ecdec6f748bb32e86de240f91ab711ac57bdda5230575598bd7a8e",
  "rules": [
   {
    "id": "CO-EXAM-1",
@@ -178,6 +178,16 @@
    "id": "CO-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "CO-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "CO-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

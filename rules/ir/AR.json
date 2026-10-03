@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "9f1549352a7065760e4852ce201a00bb6df1829f670753536c8fa037377df24b",
+ "source_sha256": "3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6",
  "rules": [
   {
    "id": "AR-EXAM-1",
@@ -234,6 +234,16 @@
    "id": "AR-DOC-7",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "AR-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "AR-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

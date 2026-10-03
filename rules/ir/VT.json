@@ -17,7 +17,7 @@
    "field_count": 180
   }
  },
- "source_sha256": "f22ca5492b548b61f148cd8485a7c64d2d292c67605d773bcdd0960324c336a1",
+ "source_sha256": "8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66",
  "rules": [
   {
    "id": "VT-EXAM-1",
@@ -247,6 +247,16 @@
    "id": "VT-DOC-7",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "VT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "VT-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

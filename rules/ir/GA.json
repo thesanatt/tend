@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "681795b380a10e0e1a82b6b43d674a982baae7bc72985fb2be09e862f8b98f39",
+ "source_sha256": "b55212cc7a08dd9af9055b33c04fe5774c33941dd135fa694ca23e605acc91b8",
  "rules": [
   {
    "id": "GA-EXAM-1",
@@ -285,6 +285,16 @@
    "id": "GA-PROC-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "GA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "GA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

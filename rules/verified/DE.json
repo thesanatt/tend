@@ -76,6 +76,36 @@
    "raw_path": "rules/sources/DE/DE-S6.html",
    "text_path": "rules/sources/DE/DE-S6.txt",
    "sha256": "c52ec30e17f701e16d25c974118287100a35540eba0679abf212e4273ac09e75"
+  },
+  {
+   "id": "DE-S7",
+   "title": "29 Del. C. ch. 100, Freedom of Information Act",
+   "url": "https://delcode.delaware.gov/title29/c100/index.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:10Z",
+   "raw_path": "rules/sources/DE/DE-S7.html",
+   "text_path": "rules/sources/DE/DE-S7.txt",
+   "sha256": "c33a848089a7bd562ee697c91b9297122e5b4b5df54c31f63a895b66146553bd"
+  },
+  {
+   "id": "DE-S8",
+   "title": "11 Del. C. ch. 96, subch. II, Address Confidentiality Act (sections 9611 to 9619)",
+   "url": "https://delcode.delaware.gov/title11/c096/sc02/index.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:24Z",
+   "raw_path": "rules/sources/DE/DE-S8.html",
+   "text_path": "rules/sources/DE/DE-S8.txt",
+   "sha256": "ab9d6b9d327f1ed5bf448d5474bd341a6882d5a4c8b9778cefcc89052f1a44e3"
+  },
+  {
+   "id": "DE-S9",
+   "title": "Delaware DOJ, Criminal Division page (Address Confidentiality Program contact)",
+   "url": "https://attorneygeneral.delaware.gov/criminal/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:48Z",
+   "raw_path": "rules/sources/DE/DE-S9.html",
+   "text_path": "rules/sources/DE/DE-S9.txt",
+   "sha256": "7fec584f41c85e1331d0265de126dbbe296661b92f6019db87f6da91f046eaeb"
   }
  ],
  "rules": [
@@ -641,6 +671,31 @@
    "quote": "It can take up to 60 days to make a decision on your claim. In rare cases, it can take longer.",
    "source_id": "DE-S5",
    "pinpoint": "VCAP brochure (English), What can I expect next?"
+  },
+  {
+   "id": "DE-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Delaware Department of Justice",
+    "covers_sexual_assault": true,
+    "enroll": "A person shall file an application with the Program in a manner prescribed by the Program. (11 Del. C. § 9614) For Address Confidentiality Program information please contact DOJ_ACP@delaware.gov. (Delaware DOJ Criminal Division page)"
+   },
+   "summary": "Delaware's Address Confidentiality Program, run by the Department of Justice, gives certified participants a substitute address and forwards their mail. Victims of sexual assault can apply if they have filed for a protection from abuse order or are named as a victim in a criminal or delinquency case, and they state that they fear future violence from the perpetrator.",
+   "quote": "All of the following persons are eligible to apply to become program participants: (1) A victim of domestic violence, sexual assault, human trafficking, kidnapping, or stalking who has filed for a protection from abuse order or who is or was named as a victim in any criminal or delinquency proceeding",
+   "source_id": "DE-S8",
+   "pinpoint": "11 Del. C. § 9613(1); substitute address under § 9612(a)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c096/sc02/index.html#:~:text=All%20of%20the%20following%20persons,any%20criminal%20or%20delinquency%20proceeding"
+  },
+  {
+   "id": "DE-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Under Delaware's Freedom of Information Act, the investigative files the Victims' Compensation Assistance Program compiles or maintains are not public records.",
+   "quote": "(14) Investigative files compiled or maintained by the Victims’ Compensation Assistance Program",
+   "source_id": "DE-S7",
+   "pinpoint": "29 Del. C. § 10002(o)(14) (records not deemed public)",
+   "fragment_url": "https://delcode.delaware.gov/title29/c100/index.html#:~:text=%2814%29%20Investigative%20files%20compiled%20or,the%20Victims%E2%80%99%20Compensation%20Assistance%20Program"
   }
  ],
  "coverage": {
@@ -661,7 +716,9 @@
    "total_cap",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap:counseling (no general adult counseling cap found; see notes)",
@@ -674,5 +731,5 @@
   "notes": "Statute text is from the official Delaware Code Online. Counseling: the only counseling limits found are $1,200 per child victim for psychological assessment and short-term counseling under the Child Victim Counseling and Assessment Program (1 Del. Admin. Code 301-26.0, 11 Del. C. § 9024) and a 50-session limit that applies only to reopened claims under § 9009(13); neither is encoded as a general counseling cap. Medical, mental health, and dental providers paid by VCAP must accept the VCAP payment as payment in full and may not bill the victim the balance (Rules 28.1, 29.1, 30.1); VCAP pays 80% of usual and customary charges (Rules 28.2, 29.2, 30.2). The printable application PDF is an image scan with no extractable text, so no rules were drawn from it. No separate SANE or forensic exam payment policy beyond 11 Del. C. § 9023 was located."
  },
  "confidence": "high",
- "researcher_notes": "Sources disagree in a few places and the statute controls: (1) the regulation sets the funeral and burial cap at $5,000 (Rule 25.0) while 11 Del. C. § 9002(10)s. sets $7,500; funeral is not encoded. (2) The program FAQ states the 72-hour police report requirement without exceptions, but § 9010(a)(5) waives it for, among other things, a protection from abuse order or cooperation with law enforcement or an appropriate government agency in sexual assault cases. (3) Rule 13.2 says reconsideration must be requested within 15 days; § 9012(b) says 30 days. (4) The statute measures the filing deadline from the personal injury and Rule 11.1 from the date of the crime; for sexual assault these are normally the same day. Additional sexual-assault-specific provisions: § 9009(11) lets a victim of a crime that occurred before age 18 claim counseling up to the 20th birthday, and that age limit does not apply to sexual assault or abuse; § 9009(12) bars statute of limitations limits on claims from child sexual assault or abuse; § 9010(d) bars denial solely because a child sexual assault victim delayed reporting or applying. Forensic exam payment flows provider to insurance to the fund under § 9023, so insurance_billing is recorded as allowed (the provider must bill insurance) while the survivor owes nothing out of pocket. Reviewer: the brochure lists attorneys fees as not eligible, but 11 Del. C. § 9013 and Rule 19.0 let the Appeals Board award fees for representation before it (up to $1,000 or 15% of the award, whichever is less, in addition to compensation); the statute controls, so the brochure exclusion was replaced by that cap (DE-CAP-6). Housing-related costs (rent, security deposit, furniture) under § 9002(10)h. are capped at 3 times the monthly prospective housing cost, which is not a fixed dollar amount and so is not encoded. Rule 27.1 says life insurance proceeds are not deducted from the award. Filing info (added Oct 3): the brochure lists mail, fax, and online (https://ccvcde.org) as the ways to submit a claim. Email (VCAP@delaware.gov) appears only as contact info, not as a filing method, so no email submission rule was added. The brochure mailing address reads '900 N. King Street, 4th Floor' while the DOJ page, the online portal (DE-S6), and the claim form header read '900 North King St., Suite 4', both Wilmington, DE 19801; the brochure is the only text source that names it as the place to mail claims, so it is encoded as written and the reviewer may want to confirm. The printable application (DE-S4, title 'DE VCAP CLAIM FORM 12-09', footer 'VCAP Claim Form (1/10)') is a 3-page image scan with no text layer and no AcroForm fields, so nothing is quoted from it; visually it says 'Complete and submit to' the Suite 4 address, asks the applicant to attach any medical bills received, lists the police complaint number, and requires the claimant's signature to be witnessed by an adult over 18 plus a signed HIPAA authorization. Those form items are not encoded because they cannot be verified against extracted text. Processing time comes from the brochure (up to 60 days for a decision); 11 Del. C. § 9012(a) separately says the Agency starts its investigation within 30 days of filing."
+ "researcher_notes": "Sources disagree in a few places and the statute controls: (1) the regulation sets the funeral and burial cap at $5,000 (Rule 25.0) while 11 Del. C. § 9002(10)s. sets $7,500; funeral is not encoded. (2) The program FAQ states the 72-hour police report requirement without exceptions, but § 9010(a)(5) waives it for, among other things, a protection from abuse order or cooperation with law enforcement or an appropriate government agency in sexual assault cases. (3) Rule 13.2 says reconsideration must be requested within 15 days; § 9012(b) says 30 days. (4) The statute measures the filing deadline from the personal injury and Rule 11.1 from the date of the crime; for sexual assault these are normally the same day. Additional sexual-assault-specific provisions: § 9009(11) lets a victim of a crime that occurred before age 18 claim counseling up to the 20th birthday, and that age limit does not apply to sexual assault or abuse; § 9009(12) bars statute of limitations limits on claims from child sexual assault or abuse; § 9010(d) bars denial solely because a child sexual assault victim delayed reporting or applying. Forensic exam payment flows provider to insurance to the fund under § 9023, so insurance_billing is recorded as allowed (the provider must bill insurance) while the survivor owes nothing out of pocket. Reviewer: the brochure lists attorneys fees as not eligible, but 11 Del. C. § 9013 and Rule 19.0 let the Appeals Board award fees for representation before it (up to $1,000 or 15% of the award, whichever is less, in addition to compensation); the statute controls, so the brochure exclusion was replaced by that cap (DE-CAP-6). Housing-related costs (rent, security deposit, furniture) under § 9002(10)h. are capped at 3 times the monthly prospective housing cost, which is not a fixed dollar amount and so is not encoded. Rule 27.1 says life insurance proceeds are not deducted from the award. Filing info (added Oct 3): the brochure lists mail, fax, and online (https://ccvcde.org) as the ways to submit a claim. Email (VCAP@delaware.gov) appears only as contact info, not as a filing method, so no email submission rule was added. The brochure mailing address reads '900 N. King Street, 4th Floor' while the DOJ page, the online portal (DE-S6), and the claim form header read '900 North King St., Suite 4', both Wilmington, DE 19801; the brochure is the only text source that names it as the place to mail claims, so it is encoded as written and the reviewer may want to confirm. The printable application (DE-S4, title 'DE VCAP CLAIM FORM 12-09', footer 'VCAP Claim Form (1/10)') is a 3-page image scan with no text layer and no AcroForm fields, so nothing is quoted from it; visually it says 'Complete and submit to' the Suite 4 address, asks the applicant to attach any medical bills received, lists the police complaint number, and requires the claimant's signature to be witnessed by an adult over 18 plus a signed HIPAA authorization. Those form items are not encoded because they cannot be verified against extracted text. Processing time comes from the brochure (up to 60 days for a decision); 11 Del. C. § 9012(a) separately says the Agency starts its investigation within 30 days of filing. Privacy (added Oct 3): Delaware's Address Confidentiality Program is run by the Department of Justice, not the Secretary of State (11 Del. C. § 9611(6), § 9612(a): 'Upon application and certification, persons eligible pursuant to this subchapter shall be provided a substitute address by the Program.'). Sexual assault victims qualify under § 9613(1) only if they have filed for a protection from abuse order or are named as a victim in a criminal or delinquency proceeding, and they must also state that they fear future violent acts by the perpetrator; § 9611(15) defines victim of sexual assault by reference to §§ 768 through 780 and 787. Certification lasts 3 years (§ 9614). ACP application records and actual addresses are confidential and exempt from FOIA (§ 9612(d)). The statute leaves the application method to the Program, and no official DOJ page describing the application steps was found; the DOJ Criminal Division page gives only the contact DOJ_ACP@delaware.gov. Record confidentiality: 29 Del. C. § 10002(o)(14) excludes VCAP investigative files from public records. VCAP Rule 12.0 says VCAP, the Advisory Council, and the Appeals Board shall maintain confidentiality of records under FOIA, and Rule 9.4 governs public access to crime victims' case files under FOIA; both rules cite older FOIA subsection letters (§10002(g)(14) and §1004(g)(7)) that now correspond to § 10002(o)(14). Under § 10004(h)(8) the VCAP Appeals Board may close a meeting when the claim derives from a sexual offense."
 }

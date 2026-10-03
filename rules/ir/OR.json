@@ -17,7 +17,7 @@
    "field_count": 140
   }
  },
- "source_sha256": "d7a6705233d4a319b30da0ae0db468a4c13d9adad5acc8f966d0b4a8787f709c",
+ "source_sha256": "47f8340db72b669fff5ec10809609f11882a2d998da51fbdab5eafa98e45e3ef",
  "rules": [
   {
    "id": "OR-EXAM-1",
@@ -314,6 +314,16 @@
    "id": "OR-TIME-DECISION",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "OR-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "OR-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

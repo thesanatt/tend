@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "401e2a9588218819f60ce80a1e972c0307daebb1cd041baffebceb0fdca12602",
+ "source_sha256": "4ef3a426b94bf1d0aeccc65f664a680654b4c9cbdcbbe43f7ba9fff1873ac993",
  "rules": [
   {
    "id": "AZ-EXAM-1",
@@ -281,6 +281,11 @@
    "id": "AZ-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "AZ-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
   }
  ],
  "skipped": [

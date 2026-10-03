@@ -66,6 +66,36 @@
    "raw_path": "rules/sources/NH/NH-S6.html",
    "text_path": "rules/sources/NH/NH-S6.txt",
    "sha256": "b28b4df641301269529d7181f970f36be8e2a68a72c8ff3bf50d590e45929229"
+  },
+  {
+   "id": "NH-S7",
+   "title": "RSA 7:41, Address Confidentiality Program: Findings and Purpose",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/I/7/7-41.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:48Z",
+   "raw_path": "rules/sources/NH/NH-S7.html",
+   "text_path": "rules/sources/NH/NH-S7.txt",
+   "sha256": "bdea4e11fd30ae27729ef940f02f3752934b9640873f4a0c08f7a740abb5af7c"
+  },
+  {
+   "id": "NH-S8",
+   "title": "RSA 7:43, Address Confidentiality Program: application",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/I/7/7-43.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:51Z",
+   "raw_path": "rules/sources/NH/NH-S8.html",
+   "text_path": "rules/sources/NH/NH-S8.txt",
+   "sha256": "02ddd7c0e614024c1dcd89c5bef5bf03ccf78d76d9f8a90e0e19b2c25a842724"
+  },
+  {
+   "id": "NH-S9",
+   "title": "New Hampshire DOJ, Address Confidentiality Program page and FAQ",
+   "url": "https://www.doj.nh.gov/bureaus/office-victimwitness-assistance/address-confidentiality-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:00Z",
+   "raw_path": "rules/sources/NH/NH-S9.html",
+   "text_path": "rules/sources/NH/NH-S9.txt",
+   "sha256": "85f2434325c3d7faf7c1283ac5fc728e6b0486b569e575a094f02103634db5b7"
   }
  ],
  "rules": [
@@ -800,6 +830,31 @@
    "source_id": "NH-S4",
    "pinpoint": "Jus 603.03(f)",
    "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=In%20no%20case%20shall%20placement,be%20made%20by%20the%20commission."
+  },
+  {
+   "id": "NH-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "New Hampshire Department of Justice, Office of the Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "Contact a New Hampshire crisis center first for consultation and assistance, which the law requires; the application is then filed with the attorney general on the form the attorney general prescribes, with a sworn statement that the applicant is a victim of domestic violence, stalking, or sexual assault and fears for their safety. A restraining order, pending charges, or a police report are not required."
+   },
+   "summary": "New Hampshire's Address Confidentiality Program, run by the Attorney General, gives survivors of sexual assault, domestic violence, or stalking a substitute address to use on state and local records, with first class mail forwarded to their real address. Survivors apply through a crisis center advocate, and no police report or restraining order is needed.",
+   "quote": "Any adult person, a parent or guardian acting on behalf of a minor or guardian acting on behalf of an incapacitated person, may apply to the program if they are a victim of domestic violence, sexual assault or stalking and meet the eligibility guidelines.",
+   "source_id": "NH-S9",
+   "pinpoint": "DOJ ACP page, FAQ: What are the eligibility guidelines?",
+   "fragment_url": "https://www.doj.nh.gov/bureaus/office-victimwitness-assistance/address-confidentiality-program#:~:text=Any%20adult%20person%2C%20a%20parent,and%20meet%20the%20eligibility%20guidelines."
+  },
+  {
+   "id": "NH-REC-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Everything the compensation program receives or keeps about a claim is confidential and may not be released to anyone unless the claimant authorizes it or another law allows it.",
+   "quote": "All information received, obtained, or maintained by the program in connection with any claim for victims' compensation shall be maintained as confidential material, and shall not be released or disclosed to any person or entity whatsoever, except as authorized by the claimant or as otherwise provided by law.",
+   "source_id": "NH-S4",
+   "pinpoint": "Jus 603.02(i)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=All%20information%20received%2C%20obtained%2C%20or,as%20otherwise%20provided%20by%20law."
   }
  ],
  "coverage": {
@@ -820,7 +875,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap for medical (no separate medical cap found; medical is limited only by the total cap and Medicaid fee-for-service rates)",
@@ -830,5 +887,5 @@
   "notes": "The toll-free number 1-800-300-4500 works in New Hampshire only; out-of-state callers use (603) 271-1284 (both on NH-S1). The brochure PDF linked from the program page is an image-only file with no extractable text, so it was not saved. The total cap differs between sources: RSA 21-M:8-h, V says $50,000 per claimant per incident, while the program page says $40,000 per primary victim; the statute is used."
  },
  "confidence": "high",
- "researcher_notes": "Statute vs program page: RSA 21-M:8-h, V (most recently amended 2022) sets a $50,000 maximum; the DOJ web page still says $40,000. The rule uses the statute. Reporting: Jus 605.02(c) requires a report within 5 days unless good cause is shown, and the application asks the same; the web FAQ only says to report unless there is a reasonable explanation. Jus 605.13(h) deems a sexual assault survivor who sought the exam or treatment to have reported to law enforcement. Exam billing: RSA 21-M:8-c covers any physical exam of a victim of an alleged sexual offense, while Jus 605.13 uses the words felonious sexual assault. Under Jus 605.13(c)(3), a survivor covered by Medicaid or Medicare whose kit is not anonymous is billed to Medicaid or Medicare by the provider; private insurance is billed only if the survivor chooses, and deductibles and co-pays are paid or reimbursed by the department. Hospital care: Jus 605.03(e)(2)-(3) bars hospital-care awards for an insured victim unless free or reduced-fee care has been denied. Relocation (Jus 605.07) requires a continuing credible threat and either a police report plus restraining order, or an advocate letter, and the move must happen within 6 months of the award. The program page and Jus 606.07 list different mailing addresses (1 Granite Place South vs 33 Capitol Street); the application form uses 33 Capitol Street. Jus 600 was readopted effective 12-9-19 (#12938). Reviewer additions: Jus 605.13(a) exam and treatment no-charge rule, 605.13(a) follow-up care, 605.13(c)(3) Medicaid/Medicare billing exception, 605.13(f) HIV prophylaxis voucher, 605.03(d)(4) replacement of assistive devices such as eyeglasses, and 605.03(e)(2) hospital-care limit for insured victims. Jus 605.13(e): if the exam is sought within 10 days the survivor agrees to evidence collection; an anonymous kit is kept 60 days for the survivor to decide whether to report, then destroyed. The $50,000 statutory cap was rechecked against the current gc.nh.gov text of RSA 21-M:8-h, V. How to file: the application (NH-S2, rev. 02/11/2021, the version linked from the program page today; Jus 604.01 still names an older 8/23/19 revision) is a flat PDF with no fillable fields, to be printed, signed, and mailed. The form's only stated filing method is mail to 33 Capitol Street; the program page's contact block lists 1 Granite Place South, so both are kept as mail rules and a survivor should confirm by phone. The program page lists a fax number and the victimcomp@doj.nh.gov email as contact details only; no source says applications may be filed by fax, email, online, or in person, so no rules were added for those methods. Police reports are not a survivor document: program staff request them from law enforcement (NH-S1, Jus 604.04(b)). Processing: first contact within 2 weeks (program page) and a decision no more than 60 days after a completed application reaches the agenda (Jus 603.03(f)); the program page also says it may take several months or longer."
+ "researcher_notes": "Statute vs program page: RSA 21-M:8-h, V (most recently amended 2022) sets a $50,000 maximum; the DOJ web page still says $40,000. The rule uses the statute. Reporting: Jus 605.02(c) requires a report within 5 days unless good cause is shown, and the application asks the same; the web FAQ only says to report unless there is a reasonable explanation. Jus 605.13(h) deems a sexual assault survivor who sought the exam or treatment to have reported to law enforcement. Exam billing: RSA 21-M:8-c covers any physical exam of a victim of an alleged sexual offense, while Jus 605.13 uses the words felonious sexual assault. Under Jus 605.13(c)(3), a survivor covered by Medicaid or Medicare whose kit is not anonymous is billed to Medicaid or Medicare by the provider; private insurance is billed only if the survivor chooses, and deductibles and co-pays are paid or reimbursed by the department. Hospital care: Jus 605.03(e)(2)-(3) bars hospital-care awards for an insured victim unless free or reduced-fee care has been denied. Relocation (Jus 605.07) requires a continuing credible threat and either a police report plus restraining order, or an advocate letter, and the move must happen within 6 months of the award. The program page and Jus 606.07 list different mailing addresses (1 Granite Place South vs 33 Capitol Street); the application form uses 33 Capitol Street. Jus 600 was readopted effective 12-9-19 (#12938). Reviewer additions: Jus 605.13(a) exam and treatment no-charge rule, 605.13(a) follow-up care, 605.13(c)(3) Medicaid/Medicare billing exception, 605.13(f) HIV prophylaxis voucher, 605.03(d)(4) replacement of assistive devices such as eyeglasses, and 605.03(e)(2) hospital-care limit for insured victims. Jus 605.13(e): if the exam is sought within 10 days the survivor agrees to evidence collection; an anonymous kit is kept 60 days for the survivor to decide whether to report, then destroyed. The $50,000 statutory cap was rechecked against the current gc.nh.gov text of RSA 21-M:8-h, V. How to file: the application (NH-S2, rev. 02/11/2021, the version linked from the program page today; Jus 604.01 still names an older 8/23/19 revision) is a flat PDF with no fillable fields, to be printed, signed, and mailed. The form's only stated filing method is mail to 33 Capitol Street; the program page's contact block lists 1 Granite Place South, so both are kept as mail rules and a survivor should confirm by phone. The program page lists a fax number and the victimcomp@doj.nh.gov email as contact details only; no source says applications may be filed by fax, email, online, or in person, so no rules were added for those methods. Police reports are not a survivor document: program staff request them from law enforcement (NH-S1, Jus 604.04(b)). Processing: first contact within 2 weeks (program page) and a decision no more than 60 days after a completed application reaches the agenda (Jus 603.03(f)); the program page also says it may take several months or longer. Privacy: the Address Confidentiality Program is created by RSA 7:41 to 7:51 and run by the Attorney General (RSA 7:41 purpose, NH-S7; RSA 7:43 application, sworn statement, and 4-year certification, NH-S8). The DOJ ACP page (NH-S9) says applicants must first go through one of the state's crisis centers, that participants use the substitute address for state and local services with first class mail (not packages) forwarded, and that a restraining order, charges, or a police report are not required; ACP phone (603) 271-8710, sexual assault line 1-800-277-5570. The ACP only works for a new address not yet on any state or local record. Record confidentiality comes from Jus 603.02(i); the sexual assault exam billing forms are separately kept confidential like medical records under RSA 21-M:8-c (NH-S6)."
 }

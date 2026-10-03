@@ -17,7 +17,7 @@
    "field_count": 202
   }
  },
- "source_sha256": "6e51aabe1d4006da7a41295b514098232cdab8942e648f82a39e8cb3b1bd343b",
+ "source_sha256": "3dcdc6b4b2ad99b860267e12a539c1a74ac7d8027232bfbee2755b2b134fda68",
  "rules": [
   {
    "id": "MI-EXAM-1",
@@ -439,6 +439,16 @@
    "id": "MI-DOC-30",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "MI-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MI-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

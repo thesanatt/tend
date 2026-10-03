@@ -17,7 +17,7 @@
    "field_count": 176
   }
  },
- "source_sha256": "c26b4a10a15b19033052c30f290fed062fe89fb705113677c9d80393b767a6c2",
+ "source_sha256": "94391c3018caf9d981b4667df9fdd0f1108a9080fdd2736105d362400dec509f",
  "rules": [
   {
    "id": "NV-EXAM-1",
@@ -366,6 +366,16 @@
    "id": "NV-PROC-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "NV-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NV-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": []

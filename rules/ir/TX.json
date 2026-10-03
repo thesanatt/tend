@@ -17,7 +17,7 @@
    "field_count": 245
   }
  },
- "source_sha256": "8db36217f481a03a88f4213cb7a6a4efea4bf3a1455c3993fe1c778e45605c63",
+ "source_sha256": "e3ef520f93df5b01a54d8f81390efb457f3d54bac1a1f39620478677fc61b530",
  "rules": [
   {
    "id": "TX-EXAM-1",
@@ -238,6 +238,16 @@
    "id": "TX-DOC-9",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "TX-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "TX-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

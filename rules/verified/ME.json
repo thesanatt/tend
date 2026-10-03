@@ -146,6 +146,16 @@
    "raw_path": "rules/sources/ME/ME-S13.html",
    "text_path": "rules/sources/ME/ME-S13.txt",
    "sha256": "b44dba82527f339006b6191558569c21e56468235f029607f472ef720964599b"
+  },
+  {
+   "id": "ME-S14",
+   "title": "5 M.R.S. 90-B (Address Confidentiality Program)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec90-B.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:55Z",
+   "raw_path": "rules/sources/ME/ME-S14.html",
+   "text_path": "rules/sources/ME/ME-S14.txt",
+   "sha256": "1bede3834635e947c8e573407b7dd28757cec0a213aa6396d4f309edf30ee792"
   }
  ],
  "rules": [
@@ -671,10 +681,36 @@
    "source_id": "ME-S5",
    "pinpoint": "AG Mental Health Counseling Guidelines",
    "fragment_url": "https://www.maine.gov/ag/crime-victims/victims-compensation/mental-health-counseling-guidelines#:~:text=Your%20case%20cannot%20go%20before,without%20the%20completed%20treatment%20plan."
+  },
+  {
+   "id": "ME-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Maine Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Upon recommendation of an application assistant, an adult person, a parent or guardian acting on behalf of a minor or a guardian acting on behalf of an incapacitated person may apply to the secretary to have a designated address assigned by the secretary to serve as the person's address or the address of the minor or incapacitated person."
+   },
+   "summary": "The Secretary of State runs an Address Confidentiality Program that gives victims of sexual assault, domestic violence, stalking or human trafficking a designated substitute address, which state and local agencies and courts must use instead of the real one. A survivor applies with the help of a registered application assistant, usually at a victim services program.",
+   "quote": "The Address Confidentiality Program is established to protect victims of domestic violence, sexual assault, stalking or human trafficking; minor victims of kidnapping; and reproductive or gender-affirming health care services practitioners by authorizing the use of designated addresses for such victims and practitioners.",
+   "source_id": "ME-S14",
+   "pinpoint": "5 M.R.S. 90-B(2)",
+   "fragment_url": "https://legislature.maine.gov/statutes/5/title5sec90-B.html#:~:text=The%20Address%20Confidentiality%20Program%20is,for%20such%20victims%20and%20practitioners."
+  },
+  {
+   "id": "ME-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Everything the Attorney General's office holds about a compensation application or award is confidential and stays confidential with the Board. The Attorney General may still share it, at its discretion, with law enforcement, courts and Corrections for restitution, a claimant in a hearing or appeal, or others to carry out the program.",
+   "quote": "All records and information obtained by or in the possession of the Department of the Attorney General concerning an application for or an award of compensation under this chapter are confidential and may not be disclosed.",
+   "source_id": "ME-S9",
+   "pinpoint": "5 M.R.S. 3360-D(4)",
+   "fragment_url": "https://legislature.maine.gov/statutes/5/title5sec3360-D.html#:~:text=All%20records%20and%20information%20obtained,and%20may%20not%20be%20disclosed."
   }
  ],
  "coverage": {
   "found": [
+   "address_confidentiality",
    "collateral_source",
    "conduct_reduction",
    "covered_expense",
@@ -684,6 +720,7 @@
    "excluded_expense",
    "expense_cap",
    "filing_deadline",
+   "record_confidentiality",
    "reporting_requirement",
    "required_document",
    "residency",
@@ -704,5 +741,5 @@
   "notes": "No minimum loss, emergency award, or per-expense dollar caps for counseling, lost wages, relocation, transportation or security were found in the statute (5 M.R.S. ch. 316-A), the Board rules (26-550 ch. 3, 6, 8), or the AG program pages. The only per-expense limits found are funeral ($4,500 plus $500 marker), medical (usually 75% of charges), and the forensic exam payment. Applications are filed online through the AG's portal; no current downloadable application PDF was found on maine.gov."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from legislature.maine.gov (page says data extracted 10/23/2025, so it includes PL 2025 c. 109 and c. 171). Relocation was added to eligible expenses by PL 2025 c. 171. The AG's Program Law and History page (ME-S4) still mentions an older $500 forensic exam maximum; the statute (3360-M(2)) and the current SAFE page both say $750, so the rules use $750. The exam payment covers only the exam and related testing and treatment; the SAFE page says hospitals may bill the survivor or insurer for unrelated charges such as x-rays, which can then be claimed through a regular application (police report required). Board rule 26-550 ch. 8 (2000) also still says $500 and covers only gross sexual assault, while the statute now covers any Title 17-A chapter 11 crime; statute wins. Board rule 26-550 ch. 6 sets the 75% medical guideline and requires exhausting insurance first; the rule files are .doc and could not be saved with the fetch tool, so the 75% rule is quoted from the AG page instead. Toll-free victim line on ME-S5: 1-800-903-7882. Separate from this program, Maine has a Victims' Property Compensation Fund (5 M.R.S. 3360-S, saved as ME-S13) that can pay up to $1,000 for unreimbursed property losses from a crime occurring on or after Jan 1, 2022, with its own 5-day report and 3-year filing rules; it is not encoded as a rule here because the main program excludes property, but a survivor whose phone or belongings were taken or damaged may want to apply there. The 3-year filing clock runs from the injury or compensable loss, encoded as from=crime. Reviewer (Oct 3): ME-EXAM-3 recategorized from exam_payment to reporting_requirement (required=false, expense forensic_exam), matching how other states encode 'no report needed for the exam'. Added ME-EXAM-5 from the SAFE page: direct billing applies only when a sexual assault evidence kit is used; without a kit the provider bills normally, so the no-bill protection depends on a kit being used. ME-EXAM-4 quote extended to include that unrelated charges such as x-rays may be billed. The SAFE page's provider notice still says 'gross sexual assault', while 3360-M(1) now covers any Title 17-A chapter 11 crime; statute wins. How to file (Oct 3): Maine has no downloadable paper application; the AG program page links only to the online portal (https://mainevcp.heart4victims.org/), and the AG 'Apply for Victim's Compensation' online-services page is just a link with no text, so program.application_form is set to source_id null, fillable false, field_count 0. The portal is a script-only app and could not be saved. The Program Law and History page (ME-S4) says a paper form is available from the program office and District Attorneys' Victim Witness Advocate Programs and must be signed and sent to the Board, but no mailing address, fax, or email for the program is published on the saved pages (the AG contact page lists only the office's general address and the program phone numbers), so no mail, fax, or email submission rule was added. Required documents come from 5 M.R.S. 3360-D(1)(B)-(D) and the counseling guidelines. No processing time is stated; ME-S4 only says a complete claim is reviewed at the Board's next monthly meeting, which is not encoded as a number."
+ "researcher_notes": "Statute text is from legislature.maine.gov (page says data extracted 10/23/2025, so it includes PL 2025 c. 109 and c. 171). Relocation was added to eligible expenses by PL 2025 c. 171. The AG's Program Law and History page (ME-S4) still mentions an older $500 forensic exam maximum; the statute (3360-M(2)) and the current SAFE page both say $750, so the rules use $750. The exam payment covers only the exam and related testing and treatment; the SAFE page says hospitals may bill the survivor or insurer for unrelated charges such as x-rays, which can then be claimed through a regular application (police report required). Board rule 26-550 ch. 8 (2000) also still says $500 and covers only gross sexual assault, while the statute now covers any Title 17-A chapter 11 crime; statute wins. Board rule 26-550 ch. 6 sets the 75% medical guideline and requires exhausting insurance first; the rule files are .doc and could not be saved with the fetch tool, so the 75% rule is quoted from the AG page instead. Toll-free victim line on ME-S5: 1-800-903-7882. Separate from this program, Maine has a Victims' Property Compensation Fund (5 M.R.S. 3360-S, saved as ME-S13) that can pay up to $1,000 for unreimbursed property losses from a crime occurring on or after Jan 1, 2022, with its own 5-day report and 3-year filing rules; it is not encoded as a rule here because the main program excludes property, but a survivor whose phone or belongings were taken or damaged may want to apply there. The 3-year filing clock runs from the injury or compensable loss, encoded as from=crime. Reviewer (Oct 3): ME-EXAM-3 recategorized from exam_payment to reporting_requirement (required=false, expense forensic_exam), matching how other states encode 'no report needed for the exam'. Added ME-EXAM-5 from the SAFE page: direct billing applies only when a sexual assault evidence kit is used; without a kit the provider bills normally, so the no-bill protection depends on a kit being used. ME-EXAM-4 quote extended to include that unrelated charges such as x-rays may be billed. The SAFE page's provider notice still says 'gross sexual assault', while 3360-M(1) now covers any Title 17-A chapter 11 crime; statute wins. How to file (Oct 3): Maine has no downloadable paper application; the AG program page links only to the online portal (https://mainevcp.heart4victims.org/), and the AG 'Apply for Victim's Compensation' online-services page is just a link with no text, so program.application_form is set to source_id null, fillable false, field_count 0. The portal is a script-only app and could not be saved. The Program Law and History page (ME-S4) says a paper form is available from the program office and District Attorneys' Victim Witness Advocate Programs and must be signed and sent to the Board, but no mailing address, fax, or email for the program is published on the saved pages (the AG contact page lists only the office's general address and the program phone numbers), so no mail, fax, or email submission rule was added. Required documents come from 5 M.R.S. 3360-D(1)(B)-(D) and the counseling guidelines. No processing time is stated; ME-S4 only says a complete claim is reviewed at the Board's next monthly meeting, which is not encoded as a number. Privacy (Oct 3): Maine's Address Confidentiality Program is in 5 M.R.S. 90-B (saved as ME-S14), run by the Secretary of State; it covers victims of sexual assault, and applications go through a registered application assistant, and the participant's application and supporting materials are not public records (90-B(7)). Certification lasts 4 years. Compensation records are confidential under 5 M.R.S. 3360-D(4) (ME-S9), but the AG may disclose them at its discretion to law enforcement, courts and Corrections for restitution, a claimant in a hearing or appeal, or others to carry out the chapter; Tend should tell survivors their file is not fully sealed from police. 3360-S (ME-S13) has a parallel confidentiality clause for the Victims' Property Compensation Fund."
 }

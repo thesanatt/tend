@@ -226,6 +226,46 @@
       "raw_path": "rules/sources/WA/WA-S21.pdf",
       "text_path": "rules/sources/WA/WA-S21.txt",
       "sha256": "9aecd1f237dcfac2c113a3e8c720098cf9fd2e87730e8036f72645b1106f34a4"
+    },
+    {
+      "id": "WA-S22",
+      "title": "RCW 7.68.140 (confidentiality of victim claim files and records)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.140",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:57:15Z",
+      "raw_path": "rules/sources/WA/WA-S22.html",
+      "text_path": "rules/sources/WA/WA-S22.txt",
+      "sha256": "1dfea8a64f4b7201aa0c06b83224a84cb6461c5bb39cbd19456b82fa71179df8"
+    },
+    {
+      "id": "WA-S23",
+      "title": "RCW 40.24.030 (address confidentiality program, application and certification)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=40.24.030",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:57:16Z",
+      "raw_path": "rules/sources/WA/WA-S23.html",
+      "text_path": "rules/sources/WA/WA-S23.txt",
+      "sha256": "53865238c4059c2af5d9c878dba04526cebd141085d4fdec9cbacbdcbafb881b"
+    },
+    {
+      "id": "WA-S24",
+      "title": "Washington Secretary of State: Address Confidentiality Program (ACP)",
+      "url": "https://www.sos.wa.gov/statewide-programs/address-confidentiality-program-acp",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:57:39Z",
+      "raw_path": "rules/sources/WA/WA-S24.html",
+      "text_path": "rules/sources/WA/WA-S24.txt",
+      "sha256": "917619aa8187f3c5dd3db5aa425b7e93df53f252804a80844502cf14a8a4ad97"
+    },
+    {
+      "id": "WA-S25",
+      "title": "Washington Secretary of State: ACP Application Process",
+      "url": "https://www.sos.wa.gov/statewide-programs/address-confidentiality-program-acp/application-process",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:57:40Z",
+      "raw_path": "rules/sources/WA/WA-S25.html",
+      "text_path": "rules/sources/WA/WA-S25.txt",
+      "sha256": "2885a8f5a6efcc94cbdbbbaadebddc6eec79ecf500379a5265fbe31e30f7bb07"
     }
   ],
   "rules": [
@@ -884,6 +924,29 @@
       "quote": "You will hear from us within 5-7 days regarding receipt of your application and in most cases within 15-18 days regarding the outcome of your application.",
       "source_id": "WA-S14",
       "pinpoint": "L&I Apply for Crime Victim Benefits page, after the filing instructions"
+    },
+    {
+      "id": "WA-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Washington Address Confidentiality Program (ACP)",
+        "agency": "Washington Secretary of State",
+        "covers_sexual_assault": true,
+        "enroll": "Interested people meet with an advocate who has been designated as an Application Assistant (AA) to create or review their safety plan and threat assessment before completing and application to apply for the program."
+      },
+      "summary": "The Secretary of State's Address Confidentiality Program gives survivors of domestic violence, sexual assault, stalking, or trafficking a substitute mailing address that Washington state, county, and city agencies accept instead of a residential address.",
+      "quote": "The Washington Address Confidentiality Program (ACP) offers survivors of domestic violence, sexual assault, stalking, or trafficking, and Criminal Justice Affiliates, Election Officials, and Protected Health Care Workers who are a target for threats or harassment, a substitute address to receive first class mail.",
+      "source_id": "WA-S24",
+      "pinpoint": "WA Secretary of State ACP page, opening paragraph; enrollment through an Application Assistant per the How to Apply section and the Application Process page (WA-S25); statutory basis chapter 40.24 RCW (RCW 40.24.030, WA-S23)"
+    },
+    {
+      "id": "WA-RECCONF-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "Information in crime victim claim files and records is confidential and not open to public inspection; it can be shared with public employees doing official duties, or with a claimant's representative who has the claimant's signed authorization.",
+      "quote": "Information contained in the claim files and records of victims, under the provisions of this chapter, shall be deemed confidential and shall not be open to public inspection",
+      "source_id": "WA-S22",
+      "pinpoint": "RCW 7.68.140"
     }
   ],
   "coverage": {
@@ -902,7 +965,9 @@
       "total_cap",
       "submission",
       "required_document",
-      "processing_time"
+      "processing_time",
+      "address_confidentiality",
+      "record_confidentiality"
     ],
     "not_found": [
       "emergency_award",
@@ -913,8 +978,8 @@
       "covered_expense:security",
       "reporting_requirement alternatives for sexual assault (compensation claims)"
     ],
-    "notes": "No emergency or advance award, minimum loss, relocation, or security benefit was found in chapter 7.68 RCW, chapter 296-30 WAC, or the L&I program pages that were saved. For compensation claims the crime must be reported to law enforcement within 12 months (RCW 7.68.060(1)(b)); no sexual-assault alternative to a police report was found for compensation claims. The police report is not required for the sexual assault exam itself, which the program pays for directly (RCW 7.68.170, WAC 296-30-170). Mental health sessions beyond the first six need prior authorization per the Mental Health Fee Schedule (F800-105-000); that is an authorization step, not a dollar cap, so it is not encoded as a rule. Reviewer changes (Oct 3): the $40,000 limit in RCW 7.68.070(1) applies to all non-medical benefits, so it is encoded as an expense_cap (expense \"other\") instead of a second total_cap; the only total_cap is the L&I per-claim maximum of $190,000. The 60 percent wage rule is a covered_expense note, not a dollar cap. Exam payment does not apply when the victim was confined in a jail or institution at the time of the assault (F800-100-000). HIV PEP (up to a 28-day supply from a WA hospital ED) is covered. Minor victims of sex trafficking or commercial sexual abuse of a minor may apply at any time (RCW 7.68.060(6)(b))."
+    "notes": "No emergency or advance award, minimum loss, relocation, or security benefit was found in chapter 7.68 RCW, chapter 296-30 WAC, or the L&I program pages that were saved. For compensation claims the crime must be reported to law enforcement within 12 months (RCW 7.68.060(1)(b)); no sexual-assault alternative to a police report was found for compensation claims. The police report is not required for the sexual assault exam itself, which the program pays for directly (RCW 7.68.170, WAC 296-30-170). Mental health sessions beyond the first six need prior authorization per the Mental Health Fee Schedule (F800-105-000); that is an authorization step, not a dollar cap, so it is not encoded as a rule. Reviewer changes (Oct 3): the $40,000 limit in RCW 7.68.070(1) applies to all non-medical benefits, so it is encoded as an expense_cap (expense \"other\") instead of a second total_cap; the only total_cap is the L&I per-claim maximum of $190,000. The 60 percent wage rule is a covered_expense note, not a dollar cap. Exam payment does not apply when the victim was confined in a jail or institution at the time of the assault (F800-100-000). HIV PEP (up to a 28-day supply from a WA hospital ED) is covered. Minor victims of sex trafficking or commercial sexual abuse of a minor may apply at any time (RCW 7.68.060(6)(b)). Privacy (Oct 3): RCW 7.68.140 makes victim claim files and records confidential and not open to public inspection, with exceptions for public employees doing official duties, a claimant's signed authorization, treating or advising physicians, and others assisting the department. The Secretary of State runs the Address Confidentiality Program under chapter 40.24 RCW; survivors of sexual assault are eligible."
   },
   "confidence": "high",
-  "researcher_notes": "Federal OVC directory lists the WA compensation program as the Department of Labor & Industries, phone 800-762-3716, website lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits. The L&I apply page said on Oct 3, 2026 that the online application portal was down and to email or fax the PDF form. Cap structure: RCW 7.68.070(1) caps non-medical benefits at $40,000 per injury, and RCW 7.68.085 separately caps medical benefits at $150,000; the L&I page states the combined per-claim maximum as $190,000 and groups medical and mental health under the $150,000. The burial cap in statute ($6,170) is inflation-adjusted every three years and the L&I page shows $7,990; funeral is not encoded. The minor filing rule (within two years of the 18th birthday) comes from the L&I page; it was not found in the text of RCW 7.68.060, which instead has a discovery rule for adult victims of childhood crimes. Exam insurance billing is marked unspecified: RCW 7.68.170 bars billing or charging the victim directly or indirectly and WAC 296-30-170 makes the program the primary payer, and the L&I page says patients are not required to use their own insurance, but no source expressly says whether a provider may bill the survivor's insurer. RCW 7.68.060(2)(a) consent/provocation/incitement is a full eligibility bar, not a reduction; it is recorded as conduct_reduction for information only. RCW 7.68.080 has a version effective until June 30, 2027 and one effective June 30, 2027; the quoted subsections read the same in both. Reviewer: RCW 7.68.060(1)(a) also says the 3-year clock runs from the report date; the L&I minors rule (two years after the 18th birthday) is not in RCW 7.68.060 and may come from a rule or policy that was not saved, so treat it as agency guidance. The exam billing manual (F800-100-000) calls the program the primary payer for the initial exam and covers prophylaxis, emergency contraception, hepatitis B immune globulin, tetanus vaccine, and up to 28 days of HIV medication with the exam; treatment of injuries needs a compensation application. How-to-file (Oct 3): the injury application F800-042-000 (07-2017, saved as WA-S15) is the current version linked from the L&I apply and forms pages; it has 112 AcroForm fields over 5 pages. The apply page says the online portal is down for repair, so no online submission rule is encoded; the page says to email or fax the PDF instead, and its FAQ says printed applications can go by mail or fax. The mail rule uses the PO Box printed on the form. The police report and medical reports come from the FAQ about sending supporting documentation (write the claim number on each page); no source lists a full checklist of attachments."
+  "researcher_notes": "Federal OVC directory lists the WA compensation program as the Department of Labor & Industries, phone 800-762-3716, website lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits. The L&I apply page said on Oct 3, 2026 that the online application portal was down and to email or fax the PDF form. Cap structure: RCW 7.68.070(1) caps non-medical benefits at $40,000 per injury, and RCW 7.68.085 separately caps medical benefits at $150,000; the L&I page states the combined per-claim maximum as $190,000 and groups medical and mental health under the $150,000. The burial cap in statute ($6,170) is inflation-adjusted every three years and the L&I page shows $7,990; funeral is not encoded. The minor filing rule (within two years of the 18th birthday) comes from the L&I page; it was not found in the text of RCW 7.68.060, which instead has a discovery rule for adult victims of childhood crimes. Exam insurance billing is marked unspecified: RCW 7.68.170 bars billing or charging the victim directly or indirectly and WAC 296-30-170 makes the program the primary payer, and the L&I page says patients are not required to use their own insurance, but no source expressly says whether a provider may bill the survivor's insurer. RCW 7.68.060(2)(a) consent/provocation/incitement is a full eligibility bar, not a reduction; it is recorded as conduct_reduction for information only. RCW 7.68.080 has a version effective until June 30, 2027 and one effective June 30, 2027; the quoted subsections read the same in both. Reviewer: RCW 7.68.060(1)(a) also says the 3-year clock runs from the report date; the L&I minors rule (two years after the 18th birthday) is not in RCW 7.68.060 and may come from a rule or policy that was not saved, so treat it as agency guidance. The exam billing manual (F800-100-000) calls the program the primary payer for the initial exam and covers prophylaxis, emergency contraception, hepatitis B immune globulin, tetanus vaccine, and up to 28 days of HIV medication with the exam; treatment of injuries needs a compensation application. How-to-file (Oct 3): the injury application F800-042-000 (07-2017, saved as WA-S15) is the current version linked from the L&I apply and forms pages; it has 112 AcroForm fields over 5 pages. The apply page says the online portal is down for repair, so no online submission rule is encoded; the page says to email or fax the PDF instead, and its FAQ says printed applications can go by mail or fax. The mail rule uses the PO Box printed on the form. The police report and medical reports come from the FAQ about sending supporting documentation (write the claim number on each page); no source lists a full checklist of attachments. Address confidentiality (Oct 3): the Washington ACP is run by the Secretary of State under chapter 40.24 RCW. RCW 40.24.030 (WA-S23) requires a sworn statement that the applicant is a victim of domestic violence, sexual assault, trafficking, or stalking and fears for their safety. Applicants enroll through a designated Application Assistant at an advocacy agency, who forwards the application; the Application Process page (WA-S25) says certified participants are enrolled for four years and get an authorization card. The enroll param is copied as written on the ACP page, including its typo (\"completing and application\"). The first URL tried for the ACP page returned a 404, so WA-S24 was re-saved from the correct statewide-programs URL. Record confidentiality: RCW 7.68.140 (WA-S22)."
 }

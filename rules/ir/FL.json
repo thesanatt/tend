@@ -17,7 +17,7 @@
    "field_count": 138
   }
  },
- "source_sha256": "f8a7eb397ea7adef1e8f978a4d7c60d81c52623160369124ad39e1fa50c68450",
+ "source_sha256": "dcfe24d4d301a829fe50d8d1ba0eb88378ccebd6ac8241db07011a131f9935e6",
  "rules": [
   {
    "id": "FL-EXAM-1",
@@ -263,6 +263,16 @@
    "id": "FL-DOC-11",
    "kind": "info",
    "category": "required_document"
+  },
+  {
+   "id": "FL-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "FL-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

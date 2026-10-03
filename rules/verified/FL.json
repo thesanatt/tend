@@ -196,6 +196,66 @@
    "raw_path": "rules/sources/FL/FL-S19.pdf",
    "text_path": "rules/sources/FL/FL-S19.txt",
    "sha256": "4686aa8c80d206b0f48016b7e9725f50c6ea4d48d2d2a937578b9398a777d8c7"
+  },
+  {
+   "id": "FL-S20",
+   "title": "Fla. Stat. 741.403 (Address confidentiality program; application; certification)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0700-0799/0741/Sections/0741.403.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:55:56Z",
+   "raw_path": "rules/sources/FL/FL-S20.html",
+   "text_path": "rules/sources/FL/FL-S20.txt",
+   "sha256": "2edbd0a8d01e30ad7c0c9c5a9491a392a5b0edd181c8c497e77e7c45a2516ee0"
+  },
+  {
+   "id": "FL-S21",
+   "title": "Fla. Stat. 960.15 (Records)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.15.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:55:57Z",
+   "raw_path": "rules/sources/FL/FL-S21.html",
+   "text_path": "rules/sources/FL/FL-S21.txt",
+   "sha256": "8927cb399f226b89110339b9cf1d0832b2d0d7899ced99f9a36ef082a02e9969"
+  },
+  {
+   "id": "FL-S22",
+   "title": "Fla. Stat. 741.4651 (Public records exemption; victims of stalking or aggravated stalking)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0700-0799/0741/Sections/0741.4651.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:05Z",
+   "raw_path": "rules/sources/FL/FL-S22.html",
+   "text_path": "rules/sources/FL/FL-S22.txt",
+   "sha256": "d56720e9d84abda4ab8cd1030379e9faee6f35ca2c22180eb1b780e76ea280eb"
+  },
+  {
+   "id": "FL-S23",
+   "title": "Office of the Attorney General, Address Confidentiality Program page (Florida Crime Prevention Training Institute site)",
+   "url": "https://www.fcpti.com/fcpti.nsf/pages/AddressConfidentialityProgram",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:38Z",
+   "raw_path": "rules/sources/FL/FL-S23.html",
+   "text_path": "rules/sources/FL/FL-S23.txt",
+   "sha256": "21b3cac88feddf3ab3b4b02f64aaa1c388ad0f32cbe45bec392e2543958f01f6"
+  },
+  {
+   "id": "FL-S24",
+   "title": "Fla. Stat. 741.402 (Definitions; ss. 741.401-741.409)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0700-0799/0741/Sections/0741.402.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:45Z",
+   "raw_path": "rules/sources/FL/FL-S24.html",
+   "text_path": "rules/sources/FL/FL-S24.txt",
+   "sha256": "2fe87cb197ace67e0e5934a216d62c772f77a6c4f648b795d2babd7df809b774"
+  },
+  {
+   "id": "FL-S25",
+   "title": "Fla. Stat. 119.071 (General exemptions from inspection or copying of public records)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0119/Sections/0119.071.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:53Z",
+   "raw_path": "rules/sources/FL/FL-S25.html",
+   "text_path": "rules/sources/FL/FL-S25.txt",
+   "sha256": "90f046ac00227b8b1a92c99c8c40cb71542ba0f1e97a14da169cdfb60e95cfa2"
   }
  ],
  "rules": [
@@ -790,6 +850,31 @@
    "quote": "A standard housing contract or a No fica on of Residen al Agreement (BVC110) is required at the me of applica on.",
    "source_id": "FL-S18",
    "pinpoint": "Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations"
+  },
+  {
+   "id": "FL-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Office of the Attorney General of Florida",
+    "covers_sexual_assault": false,
+    "enroll": "Contact the Attorney General's switchboard at (850) 414-3300 and ask to be connected to the Address Confidentiality Program; applications are filed with the Office of the Attorney General and there is no application fee."
+   },
+   "summary": "Florida's Address Confidentiality Program gives a substitute mailing address to relocated victims of domestic violence (and, by statute, dating violence and stalking), with the Attorney General's office accepting mail and service of process for them. Survivors of sexual assault qualify only when it was domestic or dating violence; there is no general sexual assault eligibility.",
+   "quote": "the Address Confidentiality Program (ACP) provides a substitute mailing address for relocated victims of domestic violence, with this office serving as legal agent for receipt of mail and service of process. If you require information regarding the Address Confidentiality Program, please contact the switchboard at (850) 414-3300. Once you call, please request to be connected to the Address Confidentiality Program, and you will be transferred to the appropriate personnel who can assist you further.",
+   "source_id": "FL-S23",
+   "pinpoint": "Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465",
+   "fragment_url": "https://www.fcpti.com/fcpti.nsf/pages/AddressConfidentialityProgram#:~:text=the%20Address%20Confidentiality%20Program%20%28ACP%29,who%20can%20assist%20you%20further."
+  },
+  {
+   "id": "FL-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Any part of a public record held by an agency that regularly receives information about crime victims, such as the Bureau of Victim Compensation, that reveals a victim's name, phone, address, or assets, or anything that could be used to locate or harass the victim, is exempt from Florida's public records law.",
+   "quote": "Any portion of a public record which reveals the identity, including the name or personal identification number, home or employment telephone number, home or employment address, or personal assets, of a victim, or any other information that could be used to locate, intimidate, harass, or abuse the victim, which identifies that person as the victim of a crime, and which is a public record that is generated or received by any agency that regularly generates or receives information from or concerning the victims of crime is exempt from s. 119.07 (1) and s. 24(a), Art. I of the State Constitution.",
+   "source_id": "FL-S25",
+   "pinpoint": "Fla. Stat. 119.071(2)(j)1.b.(I)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0119/Sections/0119.071.html#:~:text=Any%20portion%20of%20a%20public,I%20of%20the%20State%20Constitution."
   }
  ],
  "coverage": {
@@ -808,7 +893,9 @@
    "residency",
    "total_cap",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -818,8 +905,8 @@
    "reporting_requirement:alternatives_for_sexual_assault",
    "processing_time"
   ],
-  "notes": "No minimum dollar loss exists; instead Fla. Stat. 960.13(8) says the department shall deny an award if the claimant will not suffer serious financial hardship, considering all the claimant's financial resources. No transportation cap and no security or lock-replacement expense were found in the statute, rules, or program publications. No alternative to a police report was found for compensation claims: Fla. Admin. Code R. 2A-2.2001(9)-(10) limit proof of crime to law enforcement and prosecutors (including form BVC430). The separate forensic exam payment under 960.28 does not require reporting or cooperation. Phones and other personal property: Florida reimburses tangible property loss only through the Property Loss program for elderly persons or disabled adults (960.195); R. 2A-2.2002(3)(f) lists a telephone as an example of compensable property for that program. A typical adult survivor under the elderly or disabled criteria has no property benefit. 960.28 says the forensic exam is paid regardless of insurance and the victim may not be required to pay directly or indirectly, but it does not say whether the provider may bill the victim's insurer, so insurance_billing is 'unspecified'. No official source found states a processing time for a decision or payment."
+  "notes": "No minimum dollar loss exists; instead Fla. Stat. 960.13(8) says the department shall deny an award if the claimant will not suffer serious financial hardship, considering all the claimant's financial resources. No transportation cap and no security or lock-replacement expense were found in the statute, rules, or program publications. No alternative to a police report was found for compensation claims: Fla. Admin. Code R. 2A-2.2001(9)-(10) limit proof of crime to law enforcement and prosecutors (including form BVC430). The separate forensic exam payment under 960.28 does not require reporting or cooperation. Phones and other personal property: Florida reimburses tangible property loss only through the Property Loss program for elderly persons or disabled adults (960.195); R. 2A-2.2002(3)(f) lists a telephone as an example of compensable property for that program. A typical adult survivor under the elderly or disabled criteria has no property benefit. 960.28 says the forensic exam is paid regardless of insurance and the victim may not be required to pay directly or indirectly, but it does not say whether the provider may bill the victim's insurer, so insurance_billing is 'unspecified'. No official source found states a processing time for a decision or payment. Address confidentiality: Florida's ACP (Fla. Stat. 741.401-741.465, run by the Attorney General) is limited to victims of domestic violence and dating violence (741.403(1)(a)), extended to victims of stalking or aggravated stalking by 741.4651. A sexual assault or sexual battery survivor qualifies only when the act counts as domestic violence or dating violence (741.402(2) lists sexual assault and sexual battery within dating violence when committed by a romantic or intimate partner), so covers_sexual_assault is false."
  },
  "confidence": "high",
- "researcher_notes": "Statute vs rule: 960.13(9)(a) sets a $25,000 total ceiling and $10,000 for treatment, but 960.13(9)(b) lets the department set lower limits by rule, and R. 2A-2.2003 (Schedule of Benefits) caps a living, non-catastrophic victim at $15,000 per claim. I used the rule/schedule figures because they are what the program applies; both are consistent. Schedule caps are taken from the official Schedule of Benefits PDF (FL-S16) because the Cornell LII copy of R. 2A-2.2003 (FL-S12) prints dollar amounts as '$15, 000.00', which breaks number matching; the amounts are identical. Provider payments for medical and mental health are at a rate of 50% or less depending on funds, while victim out-of-pocket reimbursement is at 100 percent (R. 2A-2.2002(2)(e)2.). Older crimes (before October 1, 2019) have a 72-hour reporting rule and 1-year filing deadline (2 years with good cause); the rules here cover crimes on or after that date. The brochure and claim form state reporting within 120 hours, matching the statutory five days. Domestic violence relocation discrepancy: Fla. Stat. 960.198 (amended by ch. 2026-86) now allows up to $2,500 per claim and $5,000 lifetime, while R. 2A-2.2003 and the Schedule of Benefits still list $1,500 and $3,000. Statute governs; not encoded as a rule because it is DV-specific. Sexual battery relocation (960.199) matches the rule at $1,500 and $3,000. Relocation assistance types (DV, sexual battery, human trafficking) are mutually exclusive for the same incident. LII copies of R. 2A-2.2001 and 2A-2.2002 were cross-checked against the current Word versions on flrules.org for every quoted passage. Medical providers must submit the forensic exam claim (BVC100SB) within 120 days of the exam; this binds providers, not survivors. Reviewer additions: The Schedule of Benefits caps (FL-S16) apply to crimes on or after January 6, 2022; the program page links a separate schedule for earlier crime dates, and the LII notes say the rule amendment took effect 1/9/2022. FL-CAP-8 quotes the Schedule PDF, whose two-column text extraction puts the $10,000 figure for the 'Minor Victim Mental Injury' row ahead of the $5,000 figure for the 'Adult or Minor Victim of Forcible Felony (non injury)' row; the LII copy of R. 2A-2.2003 (FL-S12) lists the rows in order and confirms $5,000 at 50%, one year, for the non-injury forcible felony row. FL-DEADLINE-3 is the good-cause extension ceiling (5 years), not the base deadline; the base deadline is FL-DEADLINE-1 (3 years). Compensation also requires cooperation with law enforcement and the state attorney (960.13(1)(b)), which the department can use to deny, reduce, or withdraw an award; the separate forensic exam payment does not. For minors, 960.07(3) says good cause can extend the paragraph (c) period 'for an additional period not to exceed 2 years', and kit testing or DNA matching delays can waive any filing deadline; this is described in FL-DEADLINE-2's extension text rather than quoted, to keep the quote short. How to file (added Oct 3): the claim form BVC100 (08/24), saved as FL-S18 and still the form linked from the program page, has 138 fillable AcroForm fields. Section One, instruction 4 says to submit the application and documents via email, fax, or mail; the address, email, and fax come from the form's page 1 header. Fla. Stat. 960.07(5) also allows filing in person at the Tallahassee office. No online method is encoded: the VANext portal is described on the program page and brochure as for advocates and providers (the brochure says victim service practitioners can register for access to the online claims submission portal), not survivors. The FL-S18 text extraction drops the 'ti', 'tt', and 'ft' ligatures (for example 'applica on', 'A ach'), so quotes from that source keep those gaps to stay verbatim; the brochure (FL-S17) is used where it states the same requirement in clean text."
+ "researcher_notes": "Statute vs rule: 960.13(9)(a) sets a $25,000 total ceiling and $10,000 for treatment, but 960.13(9)(b) lets the department set lower limits by rule, and R. 2A-2.2003 (Schedule of Benefits) caps a living, non-catastrophic victim at $15,000 per claim. I used the rule/schedule figures because they are what the program applies; both are consistent. Schedule caps are taken from the official Schedule of Benefits PDF (FL-S16) because the Cornell LII copy of R. 2A-2.2003 (FL-S12) prints dollar amounts as '$15, 000.00', which breaks number matching; the amounts are identical. Provider payments for medical and mental health are at a rate of 50% or less depending on funds, while victim out-of-pocket reimbursement is at 100 percent (R. 2A-2.2002(2)(e)2.). Older crimes (before October 1, 2019) have a 72-hour reporting rule and 1-year filing deadline (2 years with good cause); the rules here cover crimes on or after that date. The brochure and claim form state reporting within 120 hours, matching the statutory five days. Domestic violence relocation discrepancy: Fla. Stat. 960.198 (amended by ch. 2026-86) now allows up to $2,500 per claim and $5,000 lifetime, while R. 2A-2.2003 and the Schedule of Benefits still list $1,500 and $3,000. Statute governs; not encoded as a rule because it is DV-specific. Sexual battery relocation (960.199) matches the rule at $1,500 and $3,000. Relocation assistance types (DV, sexual battery, human trafficking) are mutually exclusive for the same incident. LII copies of R. 2A-2.2001 and 2A-2.2002 were cross-checked against the current Word versions on flrules.org for every quoted passage. Medical providers must submit the forensic exam claim (BVC100SB) within 120 days of the exam; this binds providers, not survivors. Reviewer additions: The Schedule of Benefits caps (FL-S16) apply to crimes on or after January 6, 2022; the program page links a separate schedule for earlier crime dates, and the LII notes say the rule amendment took effect 1/9/2022. FL-CAP-8 quotes the Schedule PDF, whose two-column text extraction puts the $10,000 figure for the 'Minor Victim Mental Injury' row ahead of the $5,000 figure for the 'Adult or Minor Victim of Forcible Felony (non injury)' row; the LII copy of R. 2A-2.2003 (FL-S12) lists the rows in order and confirms $5,000 at 50%, one year, for the non-injury forcible felony row. FL-DEADLINE-3 is the good-cause extension ceiling (5 years), not the base deadline; the base deadline is FL-DEADLINE-1 (3 years). Compensation also requires cooperation with law enforcement and the state attorney (960.13(1)(b)), which the department can use to deny, reduce, or withdraw an award; the separate forensic exam payment does not. For minors, 960.07(3) says good cause can extend the paragraph (c) period 'for an additional period not to exceed 2 years', and kit testing or DNA matching delays can waive any filing deadline; this is described in FL-DEADLINE-2's extension text rather than quoted, to keep the quote short. How to file (added Oct 3): the claim form BVC100 (08/24), saved as FL-S18 and still the form linked from the program page, has 138 fillable AcroForm fields. Section One, instruction 4 says to submit the application and documents via email, fax, or mail; the address, email, and fax come from the form's page 1 header. Fla. Stat. 960.07(5) also allows filing in person at the Tallahassee office. No online method is encoded: the VANext portal is described on the program page and brochure as for advocates and providers (the brochure says victim service practitioners can register for access to the online claims submission portal), not survivors. The FL-S18 text extraction drops the 'ti', 'tt', and 'ft' ligatures (for example 'applica on', 'A ach'), so quotes from that source keep those gaps to stay verbatim; the brochure (FL-S17) is used where it states the same requirement in clean text. Privacy protections (added Oct 3): FL-ACP-1 quotes the Attorney General's ACP page, which the Bureau of Criminal Justice Programs page links to on fcpti.com (the AG's Florida Crime Prevention Training Institute site); no ACP page exists on myfloridalegal.com. The enroll text combines the page's switchboard instruction with 741.403(2) (FL-S20): 'Applications must be filed with the Office of the Attorney General. An application fee may not be charged.' Certification lasts 4 years (741.403(3)). The statute's full program name is 'Address Confidentiality Program for Victims of Domestic and Dating Violence' (741.4651, FL-S22). covers_sexual_assault is false because no quote makes sexual assault survivors eligible as such: 741.403(1)(a) requires a sworn statement that the applicant is a victim of domestic violence or dating violence, and 741.402(2) (FL-S24) defines dating violence to include sexual assault and sexual battery only when committed by someone with a romantic or intimate relationship with the victim; stalking victims are added by 741.4651. A survivor of non-partner sexual assault who is also being stalked may qualify through 741.4651. Record confidentiality: FL-RECORDS-1 relies on Fla. Stat. 119.071(2)(j)1.b.(I), which exempts victim-identifying information in records of any agency that regularly receives information concerning crime victims; the quote does not name the compensation bureau, but the bureau is such an agency. The compensation chapter itself has only Fla. Stat. 960.15 (FL-S21): 'Any record or report obtained by the department or a hearing officer that is confidential or exempt from the provisions of s. 119.07 (1) shall retain that status and shall not be subject to public disclosure.' That keeps already-confidential records (for example medical records) confidential but does not make the whole claim file confidential. Separately, 119.071(2)(h)1.b. makes information that may reveal the identity of a victim of any sexual offense confidential and exempt, but only within criminal intelligence or investigative information. 119.071(2)(j)1.b. is set to sunset on October 2, 2031 unless reenacted, reverting to a narrower 'any document' exemption with similar coverage. No official program statement on confidentiality was found in the brochure, claim form, or program page."
 }

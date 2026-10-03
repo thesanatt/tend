@@ -206,6 +206,46 @@
       "raw_path": "rules/sources/MI/MI-S19.pdf",
       "text_path": "rules/sources/MI/MI-S19.txt",
       "sha256": "9d78afbc2a88c32efe2880d16f0db922c157bbf296a951b3b10e3d4c7865e8e1"
+    },
+    {
+      "id": "MI-S20",
+      "title": "Michigan Department of Attorney General: Address Confidentiality Program",
+      "url": "https://www.michigan.gov/ag/initiatives/address-confidentiality-program",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:56:14Z",
+      "raw_path": "rules/sources/MI/MI-S20.html",
+      "text_path": "rules/sources/MI/MI-S20.txt",
+      "sha256": "9911a3cafeeff558b111976d97d2ec18cd3bdd406c388eceb8835a859e2b22ab"
+    },
+    {
+      "id": "MI-S21",
+      "title": "Michigan Department of Attorney General: ACP Applicants",
+      "url": "https://www.michigan.gov/ag/initiatives/address-confidentiality-program/acp-applicants",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:56:15Z",
+      "raw_path": "rules/sources/MI/MI-S21.html",
+      "text_path": "rules/sources/MI/MI-S21.txt",
+      "sha256": "1e30777c0e48ef4dbbe2df55fff978d19acc12b89e6d5141656f4511bd7e3084"
+    },
+    {
+      "id": "MI-S22",
+      "title": "MCL 780.855 (Address Confidentiality Program Act: eligibility; application)",
+      "url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-780-855",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:56:37Z",
+      "raw_path": "rules/sources/MI/MI-S22.html",
+      "text_path": "rules/sources/MI/MI-S22.txt",
+      "sha256": "2d90109e5959114f259a9d10e2bdba9bba376b80f7e00c029c9c77b0a0995ceb"
+    },
+    {
+      "id": "MI-S23",
+      "title": "MCL 18.363 (record of proceeding; claimant's file exempt from FOIA; confidentiality)",
+      "url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-363",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T19:56:44Z",
+      "raw_path": "rules/sources/MI/MI-S23.html",
+      "text_path": "rules/sources/MI/MI-S23.txt",
+      "sha256": "684787b6cd67da84cadd78ca56e5e4fdb458881ccfc4be90cac23090f79ef5b1"
     }
   ],
   "rules": [
@@ -1181,6 +1221,29 @@
       "quote": "If you are applying for loss of support, provide a copy of the victim's most recent Federal and State Income Tax Returns and W-2 forms.",
       "source_id": "MI-S18",
       "pinpoint": "Application Checklist, Loss of Earnings or Support, item 6"
+    },
+    {
+      "id": "MI-ACP-1",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Address Confidentiality Program (ACP)",
+        "agency": "Michigan Department of Attorney General",
+        "covers_sexual_assault": true,
+        "enroll": "To submit an application, you must first contact a victim advocate or application assistant. This application must be completed with the assistant of an Application Assistant or Victim Advocate. Completed application and notarized statement can be submitted by mail or email to the ACP (see the application for details)."
+      },
+      "summary": "Michigan's Address Confidentiality Program, run by the Department of Attorney General, gives victims of sexual assault, domestic violence, stalking, and human trafficking a designated substitute address to use instead of their real one on public records, plus free mail forwarding. Applicants must be planning to move and must apply with a certified application assistant or victim advocate.",
+      "quote": "The Program (ACP) was created to conceal the addresses of victims of stalking, domestic violence, sexual assault, human trafficking, and of individuals at risk of being threatened or physically harmed from being located by their perpetrators through public records. ACP provides victims with a designated (substitute) address that can be used instead of their real address.",
+      "source_id": "MI-S21",
+      "pinpoint": "ACP Applicants page, program description"
+    },
+    {
+      "id": "MI-RECCONF-1",
+      "category": "record_confidentiality",
+      "params": {},
+      "summary": "A claimant's file and testimony before the Crime Victim Services Commission are exempt from disclosure under Michigan's Freedom of Information Act, and records the commission obtains that other laws keep confidential stay confidential.",
+      "quote": "The record of a proceeding before the commission is a public record, except that a claimant's file and his or her testimony before the commission is exempt from disclosure under the freedom of information act",
+      "source_id": "MI-S23",
+      "pinpoint": "MCL 18.363"
     }
   ],
   "coverage": {
@@ -1200,7 +1263,9 @@
       "eligible_crime",
       "residency",
       "submission",
-      "required_document"
+      "required_document",
+      "address_confidentiality",
+      "record_confidentiality"
     ],
     "not_found": [
       "reporting_requirement.within_days",
@@ -1208,8 +1273,8 @@
       "administrative rules setting caps or rates (none saved)",
       "processing_time"
     ],
-    "notes": "No statutory time limit for reporting to police was found in MCL 18.360 or the program pages saved here, so within_days is left out. Michigan administrative rules were not searched or saved; all caps come from MCL 18.361, 18.359, and 18.355a. Counseling has two hourly rates (therapist/counselor vs psychologist/physician), recorded as separate expense_cap rules. No processing time is stated in the saved program pages, application, checklist, or reference guide; the checklist only says timely submission of documents may reduce processing time, so no processing_time rule was added."
+    "notes": "No statutory time limit for reporting to police was found in MCL 18.360 or the program pages saved here, so within_days is left out. Michigan administrative rules were not searched or saved; all caps come from MCL 18.361, 18.359, and 18.355a. Counseling has two hourly rates (therapist/counselor vs psychologist/physician), recorded as separate expense_cap rules. No processing time is stated in the saved program pages, application, checklist, or reference guide; the checklist only says timely submission of documents may reduce processing time, so no processing_time rule was added. Address confidentiality: Michigan's ACP (Address Confidentiality Program Act, 2020 PA 301, MCL 780.851 et seq.) is run by the Department of Attorney General; MCL 780.855 (MI-S22) and the AG pages (MI-S20, MI-S21) name sexual assault victims as eligible. Record confidentiality: MCL 18.363 makes a claimant's file and testimony exempt from FOIA, though the record of a commission proceeding is otherwise a public record."
   },
   "confidence": "high",
-  "researcher_notes": "Statute text is from legislature.mi.gov (current through 2022 PA 77 and 78, effective Aug. 12, 2023). The MDHHS SAFE Response page says that for injuries other than the forensic exam, a victim 'would have to' report to police to get compensation, while MCL 18.355a(10) says a forensic exam satisfies prompt reporting and cooperation for payments under section 6, and the MDHHS Do I Qualify page says an exam may be used in lieu of a police report. The statute wins; Tend should rely on MI-REPORT-1. MCL 18.355a(10) also says a survivor cannot be required to participate in the criminal justice system or cooperate with law enforcement to receive a forensic exam. The minimum-loss waiver for criminal sexual conduct is discretionary ('may waive'). Security cap is per residence and crime scene cleanup cap is per crime scene, so params.per uses 'residence' and 'crime_scene', which are not in the schema's per list. The FAQ and brochure say the program does not cover pain and suffering; the forensic exam payment to providers is capped at $1,200 (with up to $700 of that for facility and exam fees) and is separate from the victim's own compensation claim. The federal OVC directory lists the compensation office line as 517-241-7373; the victims-only toll-free line 877-251-7373 is on the MDHHS program page. Reviewer: the saved sources do not say whether the $45,000 aggregate cap and the 2022 PA 77 caps apply to crimes that happened before Aug. 12, 2023 (the agency page says the limit was recently raised from $25,000). MI-CAP-4 (agency table) matches the statutory 35-session and 20-family-session limits in MCL 18.361(6). Filing: the Applying for Compensation page says applications should be submitted electronically when possible, by email (MDHHS-MichiganCrimeVictim@Michigan.gov) or fax (517-335-2439), and can still be mailed; there is no online portal and no in-person drop-off is stated. The application PDF (DCH-0560, Rev. 1-26, MI-S15) is fillable with 202 AcroForm fields and says the previous edition may be used. Required documents come from the English Application Checklist (Revised 02/2025, MI-S18); several apply only to specific benefits (relocation, lost earnings, funeral, loss of support), so each required_document rule carries an expense or note saying when it applies. The checklist also lists two cost estimates and a prescription for rehabilitative equipment if disabled by the injury; that item was not added as a separate rule."
+  "researcher_notes": "Statute text is from legislature.mi.gov (current through 2022 PA 77 and 78, effective Aug. 12, 2023). The MDHHS SAFE Response page says that for injuries other than the forensic exam, a victim 'would have to' report to police to get compensation, while MCL 18.355a(10) says a forensic exam satisfies prompt reporting and cooperation for payments under section 6, and the MDHHS Do I Qualify page says an exam may be used in lieu of a police report. The statute wins; Tend should rely on MI-REPORT-1. MCL 18.355a(10) also says a survivor cannot be required to participate in the criminal justice system or cooperate with law enforcement to receive a forensic exam. The minimum-loss waiver for criminal sexual conduct is discretionary ('may waive'). Security cap is per residence and crime scene cleanup cap is per crime scene, so params.per uses 'residence' and 'crime_scene', which are not in the schema's per list. The FAQ and brochure say the program does not cover pain and suffering; the forensic exam payment to providers is capped at $1,200 (with up to $700 of that for facility and exam fees) and is separate from the victim's own compensation claim. The federal OVC directory lists the compensation office line as 517-241-7373; the victims-only toll-free line 877-251-7373 is on the MDHHS program page. Reviewer: the saved sources do not say whether the $45,000 aggregate cap and the 2022 PA 77 caps apply to crimes that happened before Aug. 12, 2023 (the agency page says the limit was recently raised from $25,000). MI-CAP-4 (agency table) matches the statutory 35-session and 20-family-session limits in MCL 18.361(6). Filing: the Applying for Compensation page says applications should be submitted electronically when possible, by email (MDHHS-MichiganCrimeVictim@Michigan.gov) or fax (517-335-2439), and can still be mailed; there is no online portal and no in-person drop-off is stated. The application PDF (DCH-0560, Rev. 1-26, MI-S15) is fillable with 202 AcroForm fields and says the previous edition may be used. Required documents come from the English Application Checklist (Revised 02/2025, MI-S18); several apply only to specific benefits (relocation, lost earnings, funeral, loss of support), so each required_document rule carries an expense or note saying when it applies. The checklist also lists two cost estimates and a prescription for rehabilitative equipment if disabled by the injury; that item was not added as a separate rule. ACP: eligibility also requires that the applicant be changing residence (MCL 780.855(2); 'Planning to move' on the AG page) and not be on the sex offender registry; applications must be made with a certified application assistant or victim advocate and include a notarized statement. The AG page's enrollment text says 'with the assistant of' (a typo in the source); the enroll param keeps it as written. MCL 18.363 says the record of a proceeding before the commission is a public record; only the claimant's file and testimony are FOIA-exempt, so Tend should not describe the whole proceeding as confidential."
 }

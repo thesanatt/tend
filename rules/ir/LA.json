@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "2cea4ea3a1295cca8f771f50727c8b2edf0a84c12bcab2680b61a054a328c3ce",
+ "source_sha256": "8b26225a92270c86fe715b0502d499d4d18867d341fe314661ff5c7b48236990",
  "rules": [
   {
    "id": "LA-EXAM-1",
@@ -264,6 +264,16 @@
    "id": "LA-TIME-1",
    "kind": "info",
    "category": "processing_time"
+  },
+  {
+   "id": "LA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "LA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
   }
  ],
  "skipped": [

@@ -166,6 +166,16 @@
    "raw_path": "rules/sources/OK/OK-S25.html",
    "text_path": "rules/sources/OK/OK-S25.txt",
    "sha256": "e2682481a9837f8a179b21ce33164de76abd8ee64240d1ce94380aef0c830d27"
+  },
+  {
+   "id": "OK-S26",
+   "title": "Oklahoma Attorney General Address Confidentiality Program (ACP) page",
+   "url": "https://oklahoma.gov/oag/about/divisions/victim-advocacy-and-services-unit/acp.html",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:58:51Z",
+   "raw_path": "rules/sources/OK/OK-S26.html",
+   "text_path": "rules/sources/OK/OK-S26.txt",
+   "sha256": "0b8eb7eab2b064683c66c690572da743282a803231e5ff82ad708caf0e19a82e"
   }
  ],
  "rules": [
@@ -861,6 +871,31 @@
    "source_id": "OK-S13",
    "pinpoint": "Sexual Assault Examination Fund page",
    "fragment_url": "https://oklahoma.gov/dac/victims/sexual-assault-fund.html#:~:text=Payment%20is%20usually%20made%20within,application%20by%20the%20Compensation%20Program."
+  },
+  {
+   "id": "OK-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Oklahoma Office of the Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "Victims do not apply directly to the Oklahoma Address Confidentiality Program. Application is made in person at one of the designated victim assistance programs located throughout the state. Designated programs are state or local agencies or nonprofit agencies that provide counseling and shelter services to victims of domestic violence, sexual assault or stalking and have ACP trained staff."
+   },
+   "summary": "Oklahoma's Address Confidentiality Program, run by the Office of the Attorney General, gives victims of domestic violence, sexual assault, stalking, human trafficking, and child abduction who have moved somewhere unknown to their abuser a substitute address to use with state and local agencies, plus free mail forwarding. Applicants apply in person through a designated victim assistance program with an ACP-trained application assistant.",
+   "quote": "The ACP aids in protecting the physical address of victims of domestic violence, sexual assault, stalking, human trafficking, and child abduction from disclosure. ACP contributes to the safety of victims by denying abusers the opportunity to use public records to violate the rights of others. Victims who have moved to a new location unknown to their abuser are provided with a substitute address when interacting with state and local agencies.",
+   "source_id": "OK-S26",
+   "pinpoint": "OAG ACP page, program description",
+   "fragment_url": "https://oklahoma.gov/oag/about/divisions/victim-advocacy-and-services-unit/acp.html#:~:text=The%20ACP%20aids%20in%20protecting,with%20state%20and%20local%20agencies."
+  },
+  {
+   "id": "OK-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "All records and information given to the Crime Victims Compensation Board to process a claim are confidential and generally cannot be obtained through discovery in a civil or criminal case, with narrow exceptions for an appeal of a Board decision or a strict showing to a court.",
+   "quote": "All records and information given to the Board to process a claim on behalf of a crime victim shall be confidential.",
+   "source_id": "OK-S6",
+   "pinpoint": "21 O.S. 142.9(G)",
+   "fragment_url": "https://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=440161#:~:text=All%20records%20and%20information%20given,crime%20victim%20shall%20be%20confidential."
   }
  ],
  "coverage": {
@@ -880,7 +915,9 @@
    "total_cap",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -893,8 +930,8 @@
    "covered_expense:security",
    "covered_expense:temporary_housing"
   ],
-  "notes": "No dollar minimum loss was found; program pages only say there must be economic loss. Relocation, security, and temporary housing are not listed as allowable expenses in 21 O.S. 142.3 or on the program pages, and no cap for the victim's own lost wages was found beyond the overall cap. Medical services are limited to 80% of cost rather than a dollar cap. No statute was found that expressly bars a provider from billing the survivor for exam charges above the $800 fund limit."
+  "notes": "No dollar minimum loss was found; program pages only say there must be economic loss. Relocation, security, and temporary housing are not listed as allowable expenses in 21 O.S. 142.3 or on the program pages, and no cap for the victim's own lost wages was found beyond the overall cap. Medical services are limited to 80% of cost rather than a dollar cap. No statute was found that expressly bars a provider from billing the survivor for exam charges above the $800 fund limit. Address confidentiality comes from the Attorney General's ACP page (statutory basis 22 O.S. 60.14, not saved here); record confidentiality comes from 21 O.S. 142.9(G)."
  },
  "confidence": "high",
- "researcher_notes": "Statutes (OSCN, 21 O.S. as amended by SB 420, eff. Nov 1, 2023) win over program pages. Conflicts: the DAC page and the 2019 claim form say the total cap is $20,000 ($40,000 with the wage add-on) and the filing deadline is one year; current 142.13(B) says $25,000 ($50,000) and 142.10(A)(1) says thirty months. The OCVC eligibility page says caregiver work loss is $2,000 but 142.13(A) and (K) say $3,000. 142.10(A)(1) still has a leftover phrase about extending 'beyond one (1) year' next to the new 30-month period. The Board may grant up to $25,000 beyond the base cap for wages or loss of support, with a hard ceiling of $50,000 under 142.13(B). The application PDF is the 2019 form and predates the 2023 changes; the online claim at ocvcapp.okvictimscomp.com is the primary route. OAC 185:10-1-4 still says one year and was not used. The filing_deadline rule uses a 'months' param because the schema only lists years or days. Exam: OAC 185:15-1-6(d) treats Medicaid or other federal programs as a collateral source that must deny first; private insurance is optional for the survivor and any insurance payment goes back to the fund (185:15-1-6(c)). Providers must stop debt collection once notified of a pending claim (21 O.S. 142.9(H)). Reviewer: the OCVC home page still says a claim should be filed within one year, and the eligibility page says 'within one (30) months'; the statute's 30 months controls. 142.3 on OSCN lists amendments only through 2007 even though its text mentions vehicle impound fees, so its history note may be incomplete. Vehicle impound fees are capped at $750 (142.13(L)) and homicide family crisis counseling at $3,000 (142.13(G)); neither was added as a rule because neither applies to a living sexual assault survivor. The DAC exam page says the $800 limit applies to assaults on or after November 1, 2023, so older assaults may fall under an earlier, lower limit that was not researched. How to file: the online portal (ocvcapp.okvictimscomp.com) is the main route; its page says written applications go by mail or fax, while the 2019 claim form says to print, sign, and then fax, email, or mail it, so email comes only from the form. The current printable application is still the June 2019 claim form (OK-S12), which the portal links; it is a flat PDF with no fillable fields (pypdf found 0), and the DAC page still links older 2016/2017 forms that were not used. No in-person filing method is stated. The police report is requested by the DA's Victim-Witness Coordinator, not attached by the survivor. Processing times come from program pages, not statute: the FAQ says 4 to 12 months overall, the DAC page says claims are docketed within 30 days of full documentation and paid within three weeks of approval."
+ "researcher_notes": "Statutes (OSCN, 21 O.S. as amended by SB 420, eff. Nov 1, 2023) win over program pages. Conflicts: the DAC page and the 2019 claim form say the total cap is $20,000 ($40,000 with the wage add-on) and the filing deadline is one year; current 142.13(B) says $25,000 ($50,000) and 142.10(A)(1) says thirty months. The OCVC eligibility page says caregiver work loss is $2,000 but 142.13(A) and (K) say $3,000. 142.10(A)(1) still has a leftover phrase about extending 'beyond one (1) year' next to the new 30-month period. The Board may grant up to $25,000 beyond the base cap for wages or loss of support, with a hard ceiling of $50,000 under 142.13(B). The application PDF is the 2019 form and predates the 2023 changes; the online claim at ocvcapp.okvictimscomp.com is the primary route. OAC 185:10-1-4 still says one year and was not used. The filing_deadline rule uses a 'months' param because the schema only lists years or days. Exam: OAC 185:15-1-6(d) treats Medicaid or other federal programs as a collateral source that must deny first; private insurance is optional for the survivor and any insurance payment goes back to the fund (185:15-1-6(c)). Providers must stop debt collection once notified of a pending claim (21 O.S. 142.9(H)). Reviewer: the OCVC home page still says a claim should be filed within one year, and the eligibility page says 'within one (30) months'; the statute's 30 months controls. 142.3 on OSCN lists amendments only through 2007 even though its text mentions vehicle impound fees, so its history note may be incomplete. Vehicle impound fees are capped at $750 (142.13(L)) and homicide family crisis counseling at $3,000 (142.13(G)); neither was added as a rule because neither applies to a living sexual assault survivor. The DAC exam page says the $800 limit applies to assaults on or after November 1, 2023, so older assaults may fall under an earlier, lower limit that was not researched. How to file: the online portal (ocvcapp.okvictimscomp.com) is the main route; its page says written applications go by mail or fax, while the 2019 claim form says to print, sign, and then fax, email, or mail it, so email comes only from the form. The current printable application is still the June 2019 claim form (OK-S12), which the portal links; it is a flat PDF with no fillable fields (pypdf found 0), and the DAC page still links older 2016/2017 forms that were not used. No in-person filing method is stated. The police report is requested by the DA's Victim-Witness Coordinator, not attached by the survivor. Processing times come from program pages, not statute: the FAQ says 4 to 12 months overall, the DAC page says claims are docketed within 30 days of full documentation and paid within three weeks of approval. Privacy: the Oklahoma Attorney General runs the Address Confidentiality Program (OK-S26); its page lists sexual assault among covered crimes and says applicants must have recently relocated or be planning to move, and apply in person through a designated victim assistance program with an application assistant (no direct applications). Certification lasts four years per the page. The program's statutory basis is 22 O.S. 60.14, which was not saved. Claim records are confidential under 21 O.S. 142.9(G) (OK-S6), with discovery exceptions only for an APA appeal of a Board decision or a strict showing to a court. OAC 185:15-1-6(b) (OK-S20) also lets exam-fund survivors skip employment and insurance information to keep anonymity."
 }

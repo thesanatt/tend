@@ -126,6 +126,46 @@
    "raw_path": "rules/sources/KS/KS-S11.html",
    "text_path": "rules/sources/KS/KS-S11.txt",
    "sha256": "0ea408f0f4537c0ba76c1cf98057b84f0dbe9464cedf7030e49f04caf34ed400"
+  },
+  {
+   "id": "KS-S12",
+   "title": "Kansas Attorney General: Safe at Home program page",
+   "url": "https://www.ag.ks.gov/divisions/victim-services/safe-at-home",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:41Z",
+   "raw_path": "rules/sources/KS/KS-S12.html",
+   "text_path": "rules/sources/KS/KS-S12.txt",
+   "sha256": "34bf1e49cbe018bb08be07da47fab982ee8589d24b349308b903a23042bf100a"
+  },
+  {
+   "id": "KS-S13",
+   "title": "K.S.A. 74-7308 (confidentiality of records given to the Crime Victims Compensation Board)",
+   "url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0008_section/074_073_0008_k/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:42Z",
+   "raw_path": "rules/sources/KS/KS-S13.html",
+   "text_path": "rules/sources/KS/KS-S13.txt",
+   "sha256": "7aaffba9794eb7b9d4dd130fb47c58a318417542b6c6de349d1dc96b08b9e16b"
+  },
+  {
+   "id": "KS-S14",
+   "title": "How Safe at Home Works (Kansas Address Confidentiality Program)",
+   "url": "https://www.ag.ks.gov/home/showpublisheddocument/10320/638460265912970000",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:59:58Z",
+   "raw_path": "rules/sources/KS/KS-S14.pdf",
+   "text_path": "rules/sources/KS/KS-S14.txt",
+   "sha256": "6ecd3a83263668ceec514edba2db3a3deae4795e17873b0d95a38abd658b9736"
+  },
+  {
+   "id": "KS-S15",
+   "title": "K.S.A. 75-455 (Safe at Home: use of substitute address; forwarding mail)",
+   "url": "https://www.kslegislature.gov/b2025_26/laws/075_000_0000_chapter/075_004_0000_article/075_004_0055_section/075_004_0055_k/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:04Z",
+   "raw_path": "rules/sources/KS/KS-S15.html",
+   "text_path": "rules/sources/KS/KS-S15.txt",
+   "sha256": "665d00badb217c9721c08fe9289e16beb1615668084a14f626098820b5f9bbc5"
   }
  ],
  "rules": [
@@ -659,6 +699,29 @@
    "quote": "The complete application/investigation process may take approximately 3 months.",
    "source_id": "KS-S2",
    "pinpoint": "Application, How to File Your Application for Compensation"
+  },
+  {
+   "id": "KS-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home",
+    "agency": "Office of the Kansas Attorney General, Victim Services Division",
+    "covers_sexual_assault": true,
+    "enroll": "All victims must go through a certified enrolling assistant to apply to participate in the program. A person seeking enrollment cannot apply directly to the Attorney General's office."
+   },
+   "summary": "Kansas's Safe at Home address confidentiality program, run by the Attorney General's Victim Services Division, lets survivors of sexual assault, domestic violence, stalking, and human trafficking use a substitute address on state and local public records and get free forwarding of first-class mail. Survivors apply through a certified enrolling assistant, not directly to the Attorney General.",
+   "quote": "Anyone who is a victim of domestic violence, sexual assault, trafficking, or stalking and fears for their safety may apply to Safe at Home.",
+   "source_id": "KS-S14",
+   "pinpoint": "How Safe at Home Works, Eligibility Criteria"
+  },
+  {
+   "id": "KS-CONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "All records and information given to the Crime Victims Compensation Board and division to process a claim are confidential, and the records gathered to evaluate a claim cannot be obtained through discovery in a civil or criminal case except in narrow, listed situations.",
+   "quote": "All records and information given to the board and the crime victims compensation division created by K.S.A. 75-773, and amendments thereto, to process a claim on behalf of a crime victim shall be confidential.",
+   "source_id": "KS-S13",
+   "pinpoint": "K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)"
   }
  ],
  "coverage": {
@@ -678,7 +741,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -688,8 +753,8 @@
    "expense_cap:medical",
    "covered_expense:security"
   ],
-  "notes": "No minimum-loss threshold was found. Instead K.S.A. 74-7305(e) requires the board to find financial stress (the claimant cannot keep their customary level of health, safety and education without undue financial hardship), judged on dependents, living expenses, special needs, income, resources and other factors. Moving costs are allowed by K.A.R. 20-2-9(b) but no dollar cap was found. No security-measure coverage was found. Inpatient mental health care is capped per instance at 10 days or $10,000, whichever is less (K.A.R. 20-2-3(e)); not encoded because the schema has no per-instance unit. The application says unpaid medical bills assigned to a provider are paid at 80% of allowable charges as payment in full. A mental health evaluation is paid up to $350 on top of the $5,000 counseling limit (K.A.R. 20-2-3(a)(3)); not encoded as a separate cap."
+  "notes": "No minimum-loss threshold was found. Instead K.S.A. 74-7305(e) requires the board to find financial stress (the claimant cannot keep their customary level of health, safety and education without undue financial hardship), judged on dependents, living expenses, special needs, income, resources and other factors. Moving costs are allowed by K.A.R. 20-2-9(b) but no dollar cap was found. No security-measure coverage was found. Inpatient mental health care is capped per instance at 10 days or $10,000, whichever is less (K.A.R. 20-2-3(e)); not encoded because the schema has no per-instance unit. The application says unpaid medical bills assigned to a provider are paid at 80% of allowable charges as payment in full. A mental health evaluation is paid up to $350 on top of the $5,000 counseling limit (K.A.R. 20-2-3(a)(3)); not encoded as a separate cap. Address confidentiality: Kansas's Safe at Home program (K.S.A. 75-451 through 75-458) moved from the Secretary of State to the Attorney General's Victim Services Division in 2021 (KS-S12); the How Safe at Home Works sheet (KS-S14) names sexual assault victims as eligible. Record confidentiality: K.S.A. 74-7308(e) makes claim records confidential."
  },
  "confidence": "high",
- "researcher_notes": "The compiled K.S.A. 65-448(h) on the legislature site (KS-S7) still says the county pays the exam fee, but the page flags 2026 HB 2613 as an enacted measure affecting the section. The enrolled HB 2613 (KS-S8) moves the fee to the Crime Victims Compensation Board, and the AG page (KS-S1) and SAFE invoice (KS-S3) say the program pays for exams from July 1, 2026. The rules use the newer law for the payer; the no-billing sentence is the same in both versions. The enrolled-bill PDF text mixes struck and inserted words, so quotes from it are limited to new text that reads cleanly. K.A.R. 20-2-6 (1993) still lists only a 72-hour police report; it was not used because the later statute, K.S.A. 74-7305(f), adds the forensic exam alternative. The ten-year deadline in 74-7305(b)(2)(C)(ii) applies to a 'sexually violent crime as defined in K.S.A. 22-3717'. Reviewer fetched 22-3717 (KS-S11): (d)(5) lists rape (21-5503), aggravated criminal sodomy, criminal sodomy under 21-5504(a)(3)-(4) only, aggravated sexual battery (21-5505(b)), child sex offenses, aggravated incest and attempts. Plain sexual battery (21-5505(a)) is not on the list, so those survivors get the general five-year limit. The SAFE invoice also tells providers survivors may apply whether or not they report to law enforcement. The OVC state directory lists the same phone (785-296-2359) and website. Reviewer: the 74-7301 page (KS-S5) lists 2026 HB 2780 (terramation) as an enacted measure affecting that section; it likely touches the funeral wording in 74-7301(a), and the amended text was not fetched, so KS-CAP-7 reflects the compiled pre-amendment text. The no-billing rule now cites the enrolled HB 2613 text (KS-S8) instead of the superseded compiled 65-448 (KS-S7); the sentence is identical. How to file: the application (KS-S2, revised May 2025, the version linked from the board page) has 202 fillable AcroForm fields but no mail-to address, online portal, email or fax instruction. The only filing destination in the official sources is the Contact block on the board page (KS-S1), so KS-SUBMIT-1 uses that mailing address. The same block lists a fax number, (785) 296-0652, and a generic 'Send us an email' form; neither is stated as a way to file an application, so no fax or email submission rule was added. The SAFE invoice (KS-S3) also lists that fax, but its submission instructions are for exam providers, not survivors. No online application was found. No photo ID or police report copy is requested; the form asks only for the police report number."
+ "researcher_notes": "The compiled K.S.A. 65-448(h) on the legislature site (KS-S7) still says the county pays the exam fee, but the page flags 2026 HB 2613 as an enacted measure affecting the section. The enrolled HB 2613 (KS-S8) moves the fee to the Crime Victims Compensation Board, and the AG page (KS-S1) and SAFE invoice (KS-S3) say the program pays for exams from July 1, 2026. The rules use the newer law for the payer; the no-billing sentence is the same in both versions. The enrolled-bill PDF text mixes struck and inserted words, so quotes from it are limited to new text that reads cleanly. K.A.R. 20-2-6 (1993) still lists only a 72-hour police report; it was not used because the later statute, K.S.A. 74-7305(f), adds the forensic exam alternative. The ten-year deadline in 74-7305(b)(2)(C)(ii) applies to a 'sexually violent crime as defined in K.S.A. 22-3717'. Reviewer fetched 22-3717 (KS-S11): (d)(5) lists rape (21-5503), aggravated criminal sodomy, criminal sodomy under 21-5504(a)(3)-(4) only, aggravated sexual battery (21-5505(b)), child sex offenses, aggravated incest and attempts. Plain sexual battery (21-5505(a)) is not on the list, so those survivors get the general five-year limit. The SAFE invoice also tells providers survivors may apply whether or not they report to law enforcement. The OVC state directory lists the same phone (785-296-2359) and website. Reviewer: the 74-7301 page (KS-S5) lists 2026 HB 2780 (terramation) as an enacted measure affecting that section; it likely touches the funeral wording in 74-7301(a), and the amended text was not fetched, so KS-CAP-7 reflects the compiled pre-amendment text. The no-billing rule now cites the enrolled HB 2613 text (KS-S8) instead of the superseded compiled 65-448 (KS-S7); the sentence is identical. How to file: the application (KS-S2, revised May 2025, the version linked from the board page) has 202 fillable AcroForm fields but no mail-to address, online portal, email or fax instruction. The only filing destination in the official sources is the Contact block on the board page (KS-S1), so KS-SUBMIT-1 uses that mailing address. The same block lists a fax number, (785) 296-0652, and a generic 'Send us an email' form; neither is stated as a way to file an application, so no fax or email submission rule was added. The SAFE invoice (KS-S3) also lists that fax, but its submission instructions are for exam providers, not survivors. No online application was found. No photo ID or police report copy is requested; the form asks only for the police report number. Safe at Home: the AG program page (KS-S12) says the program gives a substitute address for use with state and local agencies and free first-class mail forwarding; K.S.A. 75-455 (KS-S15) requires state and local agencies to accept the substitute address unless the AG finds a bona fide statutory need for the real one. Eligibility (KS-S14) also requires being 18 or older (or a parent or guardian applying for a minor or incapacitated person), living at or moving to an address unknown to the perpetrator, and naming the AG as agent for service of process and mail. Certification lasts four years. Banks and private utilities do not have to accept the substitute address. The enroll param keeps the source's wording except that the curly apostrophe in 'Attorney General's' was written as ASCII. Record confidentiality: the compiled 74-7308 (KS-S13) does not yet show 2026 HB 2613; the enrolled bill (KS-S8, sec. 3) keeps the same confidentiality sentence as (e)(1) and adds discovery and disclosure exceptions: the board may share records with law enforcement, county or district attorneys, and the Kansas Department for Children and Families to help a child abuse or neglect investigation, and with law enforcement when it finds records false or fraudulent; those two exceptions expire July 1, 2031 unless reenacted. Existing exceptions remain for appeals, in-camera court review after a strict showing, and board orders granting or denying compensation. The application (KS-S2) also says all information provided is confidential under K.S.A. 74-7308."
 }
