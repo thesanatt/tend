@@ -43,14 +43,17 @@ class Services:
     agent: AgentService
 
 
-def law_image_info(native: NativeEngine) -> ImageFn:
-    """For the loader: the sha256 and size of each state's compiled image, from the native engine build."""
+def law_image_info(native: NativeEngine, problems: list[str] | None = None) -> ImageFn:
+    """For the loader: the sha256 and size of each state's compiled image, from the native engine build.
+    A state the build cannot compile gets no row; its reason goes into problems."""
 
     def images(st: str) -> list[dict[str, Any]]:
         try:
             image, _ = native.law_image(st)
             return [{"image_sha256": sha256_hex(image), "engine_version": native.version(), "bytes": len(image)}]
-        except (EngineUnavailable, EngineError, OSError):
+        except (EngineUnavailable, EngineError, OSError) as exc:
+            if problems is not None:
+                problems.append(f"{st}: {exc}")
             return []
 
     return images

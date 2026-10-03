@@ -154,6 +154,7 @@ class CloudAI:
                 "merchant": t.merchant or "",
                 "category": t.category or "",
                 **({"kind": t.kind} if t.kind else {}),
+                **({"tend_action": t.tend_action} if t.tend_action else {}),
             }
             for t in req.txns
         ]
@@ -199,31 +200,27 @@ class CloudAI:
         if len(data) > MAX_BILL_BYTES:
             raise AiError("This file is too large. The limit is 10 MB.", 413)
         sha = sha256_hex(data)
-        partial = None  # what the text layer showed, when its lines do not add up
         if req.mime in ("application/pdf", "text/plain"):
             try:
                 bill = extract_bill(data, "pdf" if req.mime == "application/pdf" else "text")
             except Exception:  # no text layer, an unreadable amount, or a file the parser cannot open
                 bill = None
             if bill is not None:
+                # A text layer settles it without the model. If its own lines and totals disagree, the
+                # bill itself is inconsistent, and no model reading can make it reliable.
                 try:
                     balance_checks(bill)
                     return self._from_text(bill, sha, ok=True)
                 except BillRefused:
-                    partial = self._from_text(bill, sha, ok=False)
+                    return self._from_text(bill, sha, ok=False)
         reader = self._bill_model or (gemini_bill_reader(self.api_key) if self.api_key else None)
         if reader is None:
-            if partial is not None:
-                return partial
             raise AiError("Cloud AI is not set up on this server, so Tend could not read this bill.", 503)
         try:
             answer, model = reader(data, req.mime)
         except Exception as exc:
-            if partial is not None:
-                return partial
             raise AiError("Cloud AI did not answer. Nothing was kept. Try again, or type the lines in.", 502) from exc
-        reading = self._reading(answer, model, sha)
-        return partial if partial is not None and reading["status"] != "ok" and not reading["lines"] else reading
+        return self._reading(answer, model, sha)
 
     @staticmethod
     def _from_text(bill: Any, sha: str, ok: bool) -> dict[str, Any]:

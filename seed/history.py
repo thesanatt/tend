@@ -23,6 +23,7 @@ AS_OF_DATE = date(2026, 10, 3)
 EMPLOYER = "Fernway Books"
 # Biweekly pay: steady before the incident, three short checks after it, then back to normal.
 PAYCHECKS = (412, 398, 419, 412, 406, 412, 236, 236, 236, 404, 412, 397, 418, 412)
+SHORT_PAY = 236  # each short check is $176 under the usual $412: two weeks of lost pay apiece
 
 
 @dataclass(frozen=True)
@@ -127,6 +128,7 @@ RIVERBEND_BILL = PlannedBill(
 # None means ordinary spending, income, or money moving between Rowan's own accounts.
 EXPECTED: dict[str, tuple[str | None, bool]] = {
     "payroll": (None, False),
+    "short_payroll": ("lost_wages", True),  # SPEC v1.2: the dip is offered as lost pay, in weeks
     "savings_transfer": (None, False),
     "atm": (None, False),
     "groceries": (None, False),
@@ -174,7 +176,8 @@ def build_history() -> list[PlannedTxn]:
                      "description": description, "merchant": merchant, "payee_account": payee, "label": label})
 
     for day, dollars in zip(paydays(), PAYCHECKS, strict=True):
-        add("checking", "deposit", day, dollars, f"{EMPLOYER} payroll", label="payroll")
+        short = day > INCIDENT_DATE and dollars == SHORT_PAY
+        add("checking", "deposit", day, dollars, f"{EMPLOYER} payroll", label="short_payroll" if short else "payroll")
         if day < INCIDENT_DATE:
             add("checking", "transfer", day, 40, "Save to Cushion", payee="cushion", label="savings_transfer")
     add("cushion", "transfer", date(2026, 7, 2), 300, "Move to checking", payee="checking", label="savings_transfer")

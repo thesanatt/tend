@@ -23,7 +23,8 @@ April 1 to October 2, 2026. The demo incident date is 2026-06-14.
 - Checking opens at $2,850 and Cushion savings at $900.
 - 190 records across 13 merchants: 162 purchases, 14 payroll deposits, 8 transfers, 6 ATM withdrawals.
 - Payroll from Fernway Books every other Friday: $398 to $419 before the incident (median $412),
-  three checks of $236 after it, then back to about $412.
+  three checks of $236 after it, then back to about $412. The plan labels those three
+  `short_payroll`: each is $176 of lost pay over a two-week period.
 - Clearwater Counseling Group: 16 weekly sessions at $150, Wednesdays from June 17.
 - Wayfare Rides: 14 rides on counseling days ($12 to $14) and 13 on other days.
 - After the incident: locksmith $185, sheets and pillows $96, door chain and motion light $64,
@@ -42,10 +43,14 @@ uv sync
 uv run python seeder.py plan            # what will be seeded; no network
 uv run python seeder.py seed all        # create or converge in Nessie, then refresh snapshots
 uv run python seeder.py reset rowan-mi  # undo demo writes such as the $118 payment (about 2 s)
-uv run python seeder.py snapshot all    # re-read live Nessie into snapshots/
+uv run python seeder.py snapshot all    # re-read live Nessie into snapshots/ (read-only)
 uv run python seeder.py classify all    # score classification against the plan's labels
+uv run python seeder.py items all       # write classified/: the statement's ClassifiedItems; offline
 uv run pytest                           # offline; TEND_LIVE=1 also checks live Nessie
 ```
+
+Snapshots were last read from live Nessie on Oct 3 at about 5:25 PM Detroit time: 190 records per
+persona, checking computed at $803, the bill pending at $443, the same records as the plan.
 
 Keys come from the nearest `.env` above this folder, and that file wins over the shell.
 
@@ -70,6 +75,29 @@ The client redacts the API key from httpx's request log. New cache entries keep 
 reason, and model unless the cache is opened with `record_text=True`, which only the seeder does
 for the fictional personas.
 
+## Items (SPEC v1.2)
+
+Each label carries the shape of its engine item, and `snapshot_items` or `classify_statement`
+turns labels into ClassifiedItems (web/lib/contracts.ts):
+
+- a counseling charge is one session: `unit: "session"`, `units: 1`
+- a paycheck that came in at least $20 and a tenth under the usual one, after the date it
+  happened, is lost pay: `expense: "lost_wages"`, the shortfall as the amount, `unit: "week"`,
+  and the pay period in weeks as `units` (biweekly checks are 2). The usual amount is the median
+  of at least three checks before the date.
+- a ride has no unit; short-term lodging counts days (`unit: "day"`, nights read from the text
+  when they are there)
+- a replaced phone, purse, or other property is tagged with the normalizer's own keyword table,
+  so `["phone"]` meets an excluded rule that names phones; nothing else is tagged
+- only a direct match (a known merchant or a keyword) may start confirmed. A model pick, a ride
+  linked to care, a pay gap, and anything unresolved always start unconfirmed.
+
+`classified/<persona>.json` (format `tend-classified/1`) holds those items for each persona's
+checking statement, built offline from the snapshot and the committed cache. Rowan has 43: 16
+counseling sessions, 14 rides to care, 4 prescriptions, 3 pay gaps of $176, 2 moving costs,
+2 security, bedding, and the phone. `tests/test_classified.py` fails when a file falls behind
+the classifier, and checks that the statement path and the snapshot path agree.
+
 ## Snapshot format
 
 `snapshots/<persona>.json`, format `tend-bank-snapshot/1`. All money is integer cents; engine item
@@ -88,5 +116,5 @@ ids are `nessie:<id>`.
 ## Files
 
 - `personas.py`, `history.py` (the plan and its ground-truth labels), `seeder.py`, `bill_pdf.py`
-- `snapshots/`, `bills/`, `cache/classify_cache.json` (the model's answers): committed
+- `snapshots/`, `classified/`, `bills/`, `cache/classify_cache.json` (the model's answers): committed
 - `.manifest/`: Nessie ids from the last seed, gitignored

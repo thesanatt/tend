@@ -246,6 +246,7 @@ class AiTxn(Strict):
     amount_cents: Annotated[int, Field(strict=True, ge=-MAX_CENTS, le=MAX_CENTS)] | None = None
     kind: Literal["purchase", "withdrawal", "deposit", "transfer", "bill"] | None = None
     origin: Literal["csv", "ofx", "pdf", "nessie"] | None = None
+    tend_action: Annotated[str, Field(max_length=40)] | None = None  # set by the relay on a payment Tend made
 
 
 class AiClassifyRequest(Strict):

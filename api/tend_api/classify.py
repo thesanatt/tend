@@ -645,7 +645,8 @@ def label_statement(rows: Sequence[dict], incident_date: str | None = None, clas
     what is left, rides linked to care, Tend's own payments set aside, and pay gaps after incident_date."""
     facts = statement_facts(rows)
     results = (classifier or Classifier()).classify(facts)
-    results = [_set_aside(r, TEND_PAYMENT_REASON) if _TEND_ACTION.search(str(row.get("description") or "")) else r
+    results = [_set_aside(r, TEND_PAYMENT_REASON)
+               if row.get("tend_action") or _TEND_ACTION.search(str(row.get("description") or "")) else r
                for r, row in zip(results, rows, strict=True)]
     deposits = [(f.ref, f.date, -int(row["amount_cents"]), f.description) for f, row in zip(facts, rows, strict=True)
                 if f.kind == "deposit" and isinstance(row.get("amount_cents"), int)]

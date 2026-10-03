@@ -13,6 +13,7 @@ import json
 import re
 import secrets
 import time
+import weakref
 from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
 from typing import Any
@@ -33,6 +34,7 @@ RULE_COLUMNS = (
     " s.title AS source_title, s.url AS source_url, s.sha256 AS source_sha256"
 )
 FINISHED_KEEP = dt.timedelta(days=1)
+FRESH_S = 30.0  # a pooled connection used this recently is trusted without a round trip to check it
 
 
 def _plain(row: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -54,12 +56,14 @@ class PostgresRepository:
             raise ValueError(f"not a safe schema name: {schema!r}")
         self.schema = schema
         self.migrate_url = migrate_url or url
+        self._used: weakref.WeakKeyDictionary[psycopg.Connection, float] = weakref.WeakKeyDictionary()
         self._pool = ConnectionPool(
             url,
             min_size=0,
             max_size=pool_size,
-            kwargs={"row_factory": dict_row, "prepare_threshold": None, "connect_timeout": 15},
-            check=ConnectionPool.check_connection,
+            # Autocommit: a read is one round trip; writes open their own transaction explicitly.
+            kwargs={"row_factory": dict_row, "prepare_threshold": None, "connect_timeout": 15, "autocommit": True},
+            check=self._check,
             max_idle=120,
             timeout=30,
             open=True,
@@ -68,17 +72,31 @@ class PostgresRepository:
         if migrate:
             self.migrate()
 
+    def _check(self, conn: psycopg.Connection) -> None:
+        # Neon drops idle connections when its compute sleeps; one quiet for a while is checked before use.
+        if time.monotonic() - self._used.get(conn, 0.0) > FRESH_S:
+            ConnectionPool.check_connection(conn)
+
     @contextmanager
     def _tx(self) -> Iterator[psycopg.Connection]:
         with self._pool.connection() as conn:
-            with conn.transaction():
-                if self.schema != "public":
-                    conn.execute(sql.SQL("SET LOCAL search_path TO {}").format(sql.Identifier(self.schema)))
-                yield conn
+            try:
+                with conn.transaction():
+                    if self.schema != "public":
+                        conn.execute(sql.SQL("SET LOCAL search_path TO {}").format(sql.Identifier(self.schema)))
+                    yield conn
+            finally:
+                self._used[conn] = time.monotonic()
 
     def _all(self, query: str, args: dict[str, Any] | tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-        with self._tx() as c:
-            return [_plain(r) for r in c.execute(query, args).fetchall()]
+        if self.schema != "public":  # a test schema is set per transaction
+            with self._tx() as c:
+                return [_plain(r) for r in c.execute(query, args).fetchall()]
+        with self._pool.connection() as conn:
+            try:
+                return [_plain(r) for r in conn.execute(query, args).fetchall()]
+            finally:
+                self._used[conn] = time.monotonic()
 
     def _one(self, query: str, args: dict[str, Any] | tuple[Any, ...] = ()) -> dict[str, Any] | None:
         rows = self._all(query, args)

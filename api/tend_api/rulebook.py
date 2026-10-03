@@ -36,6 +36,24 @@ class Rulebook:
         self.ir = ir
         self.images = images
         self._names: list[tuple[str, str]] | None = None
+        # Jurisdiction rows and sources change only when the corpus is loaded, so they are kept in memory
+        # until then: an answer costs two queries instead of four.
+        self._rows: dict[str, dict[str, Any] | None] = {}
+        self._sources: dict[tuple[str, str], dict[str, Any] | None] = {}
+
+    def jurisdiction(self, st: str) -> dict[str, Any] | None:
+        if st not in self._rows:
+            row = self.repo.jurisdiction(st)
+            if row is None:
+                return None  # not cached: the loader may fill it in a moment
+            self._rows[st] = row
+        return self._rows[st]
+
+    def source(self, st: str, source_id: str) -> dict[str, Any] | None:
+        key = (st, source_id)
+        if key not in self._sources:
+            self._sources[key] = self.repo.source(st, source_id)
+        return self._sources[key]
 
     # keeping the database in step with rules/verified and rules/ir
 
@@ -55,7 +73,10 @@ class Rulebook:
 
     def load(self, states: list[str] | None = None, force: bool = False) -> dict[str, Any]:
         bundles = read_bundles(self.rules.rules_dir, self.ir.ir_dir, states, self.images)
-        return self.repo.load_corpus(bundles, force=force)
+        result = self.repo.load_corpus(bundles, force=force)
+        self._rows.clear()
+        self._sources.clear()
+        return result
 
     def ensure_loaded(self) -> dict[str, Any] | None:
         """Load whatever changed on disk. Cheap when nothing did: one query and the file hashes."""
@@ -69,7 +90,7 @@ class Rulebook:
     # search
 
     def _require(self, st: str) -> dict[str, Any]:
-        row = self.repo.jurisdiction(st)
+        row = self.jurisdiction(st)
         if row is None:
             if self.rules.get(st) is None:
                 raise RulebookError(f"No verified rules for {st}.", 404)
@@ -79,7 +100,7 @@ class Rulebook:
     def _query(self, text: str, st: str | None) -> Query:
         drop: set[str] = set()
         if st:
-            name = (self.repo.jurisdiction(st) or {}).get("name") or ""
+            name = (self.jurisdiction(st) or {}).get("name") or ""
             drop = set(re.findall(r"[a-z]+", name.lower()))
         return parse_query(text, drop)
 
@@ -116,7 +137,7 @@ class Rulebook:
         return None
 
     def _contact(self, st: str, program: dict[str, Any]) -> dict[str, Any]:
-        source = self.repo.source(st, program.get("phone_source_id") or "") if program.get("phone_source_id") else None
+        source = self.source(st, program.get("phone_source_id") or "") if program.get("phone_source_id") else None
         return {
             "phone": program.get("phone"),
             "website": program.get("website"),

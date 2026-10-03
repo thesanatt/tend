@@ -6,7 +6,9 @@ from history import (ACCOUNTS, EXPECTED, INCIDENT_DATE, MERCHANTS, RIVERBEND_BIL
                      fingerprint, running_balances)
 
 # Pinned so an accidental change to the story (or to Python's random) is noticed, not shipped.
-FINGERPRINT = "3a7c4d83f7ea1e69f82fc13851563f06c9f27b8e182620b167f64071c231bd9c"
+# Changed in wave 2 when the three short paychecks got their own label (short_payroll); the records
+# in Nessie are the same, so only the snapshots' meta was regenerated.
+FINGERPRINT = "4bcd0f8676c635d06d1bb6ef0610427d8723f0bab3f308b7276b0003c15d8d55"
 INCIDENT = INCIDENT_DATE.isoformat()
 
 
@@ -35,7 +37,7 @@ def test_every_amount_is_whole_dollars():
 
 
 def test_payroll_dips_for_three_checks_after_the_incident():
-    pay = by_label("payroll")
+    pay = sorted(by_label("payroll") + by_label("short_payroll"), key=lambda t: t.date)
     assert len(pay) == 14
     assert all(date.fromisoformat(t.date).weekday() == 4 for t in pay)
     before = [t.amount_cents for t in pay if t.date < INCIDENT]
@@ -43,6 +45,7 @@ def test_payroll_dips_for_three_checks_after_the_incident():
     assert median(before) == 412_00
     assert after[:3] == [236_00] * 3
     assert median(after[3:]) == 412_00
+    assert [t.amount_cents for t in by_label("short_payroll")] == [236_00] * 3  # the plan names the dip as lost pay
 
 
 def test_counseling_is_weekly_after_the_incident():

@@ -45,12 +45,12 @@ def main(argv: list[str] | None = None) -> int:
 
     rules = RulesStore(settings.rules_dir)
     ir = LawIR(settings.ir_dir, rules)
-    images = None
+    images, problems = None, []
     if not args.no_images:
         native = NativeEngine(settings.engine_lib, settings.law_dirs, settings.tendc, rules, settings.cache_dir, ir)
         status = native.status()
         if status["available"]:
-            images = law_image_info(native)
+            images = law_image_info(native, problems)
             print(f"engine: {status['version']}")
         else:
             print(f"engine: not available, so no image hashes this run ({status['reason'][:120]})")
@@ -60,6 +60,8 @@ def main(argv: list[str] | None = None) -> int:
     counts = result["counts"]
     print(f"loaded {len(result['loaded'])} jurisdictions, unchanged {len(result['unchanged'])}")
     print("rows: " + ", ".join(f"{table} {n}" for table, n in counts.items()))
+    if problems:
+        print(f"law images: {len(problems)} states could not be compiled by this engine build, for example {problems[0][:160]}")
     stale = book.stale()
     print(f"stale after load: {', '.join(stale) if stale else 'none'}; {time.monotonic() - started:.1f} s")
     repo.close()

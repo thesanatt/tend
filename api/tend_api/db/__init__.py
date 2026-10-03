@@ -34,7 +34,7 @@ def describe_url(url: str) -> str:
     """Where the data lives, without the password."""
     if is_postgres(url):
         host = url.split("@", 1)[-1].split("/", 1)[0].split("?", 1)[0]
-        return f"postgres ({host.split('.', 1)[0]}...{'.pooler' if '-pooler' in host else ''})"
+        return f"postgres ({host.split('.', 1)[0]})"
     return f"sqlite ({sqlite_path(url)})"
 
 

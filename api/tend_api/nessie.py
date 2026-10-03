@@ -41,6 +41,7 @@ _DATE_FIELD = {"purchase": "purchase_date", "deposit": "transaction_date",
 
 _PAYEE_TAG = re.compile(r"\s*\[payee:([0-9A-Za-z-]+)\]")
 _ANY_TAG = re.compile(r"\s*\[[a-z_]+:[^\]]*\]", re.IGNORECASE)  # [payee:...], [tend:<action id>], ...
+_TEND_TAG = re.compile(r"\[tend:([^\]]+)\]", re.IGNORECASE)
 _ISO_DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 _KEY_PARAM = re.compile(r"([?&]key=)[^&\s\"']+")
 
@@ -663,6 +664,10 @@ class BankSnapshot:
                 continue
             row = {"id": t.item_id, "date": t.date, "amount_cents": sign * t.amount_cents,
                    "description": t.display_description, "origin": "nessie", "kind": t.kind}
+            action = _TEND_TAG.search(t.description)
+            if action:
+                # A payment Tend made: the tag is not shown, but the classifier must still set it aside.
+                row["tend_action"] = action.group(1)
             merchant = self.merchant(t.merchant_id)
             if merchant is not None:
                 row["merchant"] = merchant.name
