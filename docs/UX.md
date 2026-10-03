@@ -4,6 +4,19 @@ Usability beats features. A survivor uses Tend on a phone, possibly late at nigh
 shared device, after the worst week of their life. Every screen has one next action. Nothing asks
 what happened, who did it, or where.
 
+## Stay Jane Doe (the principle behind every screen)
+No account, no name, no story. Everything happens on the device. The survivor's name appears only
+on the state's own form at the very end, typed by them. Tend surfaces the legal protections that
+keep them anonymous with the state itself: the address confidentiality program (a substitute
+address for government forms) and the law that keeps compensation records confidential, both
+cited like every other rule.
+
+## Share cards (awareness, the biggest barrier)
+Every jurisdiction gets a public page and a share card generated only from verified rules, e.g.
+"If you're Jane Doe in Michigan: you can ask for up to $45,000, and you don't need a police report
+if you had an exam. youreowed.tech/mi". Anyone can post it, so posting it reveals nothing about the
+person sharing. No tracking on these pages.
+
 ## The three steps
 
 ### 1. Check (about 2 minutes, nothing shared)
