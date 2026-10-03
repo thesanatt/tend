@@ -51,6 +51,8 @@ def load_env() -> Path | None:
         if candidate.is_file():
             for line in candidate.read_text().splitlines():
                 line = line.strip()
+                if line.startswith("export "):
+                    line = line[len("export "):].lstrip()
                 if line and not line.startswith("#") and "=" in line:
                     key, value = line.split("=", 1)
                     os.environ[key.strip()] = value.strip().strip("'\"")
@@ -328,15 +330,15 @@ def cmd_plan(persona_ids: list[str]) -> None:
 
 
 def cmd_classify(persona_ids: list[str], use_model: bool) -> int:
-    from tend_api.classify import Classifier, classify_snapshot
+    from tend_api.classify import DEFAULT_CACHE_PATH, ClassificationCache, Classifier, classify_snapshot
 
-    classifier = Classifier(use_model=use_model)
+    # Fictional data only, so the committed cache keeps the text next to each answer for review.
+    classifier = Classifier(cache=ClassificationCache(DEFAULT_CACHE_PATH, record_text=True), use_model=use_model)
     failures = 0
     for pid in persona_ids:
         snapshot = BankSnapshot.load(SNAPSHOT_DIR / f"{pid}.json")
         labels = labels_for(snapshot)
-        anchors = [(d["service_date"], d["bill_id"], "medical") for d in snapshot.meta.get("documents", [])]
-        results = classify_snapshot(snapshot, classifier, extra_anchors=anchors)
+        results = classify_snapshot(snapshot, classifier)
         right = 0
         misses = Counter()
         for txn_id, label in labels.items():

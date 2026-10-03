@@ -7,6 +7,7 @@ dollars and silently truncates decimals, so writes refuse amounts that are not w
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 from collections.abc import Callable, Iterable
@@ -41,6 +42,20 @@ _DATE_FIELD = {"purchase": "purchase_date", "deposit": "transaction_date",
 _PAYEE_TAG = re.compile(r"\s*\[payee:([0-9A-Za-z-]+)\]")
 _ANY_TAG = re.compile(r"\s*\[[a-z_]+:[^\]]*\]", re.IGNORECASE)  # [payee:...], [tend:<action id>], ...
 _ISO_DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
+_KEY_PARAM = re.compile(r"([?&]key=)[^&\s\"']+")
+
+
+class _RedactKey(logging.Filter):
+    # httpx logs every request URL at INFO, and Nessie's key travels in the query string.
+    def filter(self, record: logging.LogRecord) -> bool:
+        message = record.getMessage()
+        if "key=" in message:
+            record.msg, record.args = _KEY_PARAM.sub(r"\1REDACTED", message), None
+        return True
+
+
+if not any(isinstance(f, _RedactKey) for f in logging.getLogger("httpx").filters):
+    logging.getLogger("httpx").addFilter(_RedactKey())
 
 
 class NessieError(RuntimeError):
@@ -291,6 +306,10 @@ def computed_balance_cents(account: Account, txns: Iterable[Txn], as_of: str | N
     for t in txns:
         if t.status == "cancelled" or (as_of and t.date > as_of):
             continue
+        if t.medium == "rewards":
+            continue  # paid from rewards points, not from the balance
+        if t.kind == "transfer" and t.account_id == t.payee_account_id:
+            continue  # a transfer to the same account moves nothing
         if t.account_id == account.id:
             total += t.amount_cents if t.kind == "deposit" else -t.amount_cents
         elif t.kind == "transfer" and t.payee_account_id == account.id:
@@ -360,6 +379,12 @@ class NessieClient:
             raise NessieUnavailable(method, path, status, data, maybe_applied=method != "GET")
         raise NessieError(method, path, status, data)
 
+    def _get(self, path: str) -> dict:
+        data = self._request("GET", path)
+        if not isinstance(data, dict):
+            raise NessieError("GET", path, 200, data, "expected an object")
+        return data
+
     def _list(self, path: str) -> list[dict]:
         data = self._request("GET", path, missing_is_empty=True)
         if not isinstance(data, list):
@@ -382,7 +407,7 @@ class NessieClient:
         return [parse_customer(o) for o in self._list("/customers")]
 
     def get_customer(self, customer_id: str) -> Customer:
-        return parse_customer(self._request("GET", f"/customers/{customer_id}"))
+        return parse_customer(self._get(f"/customers/{customer_id}"))
 
     def create_customer(self, first_name: str, last_name: str, address: Address) -> Customer:
         body = {"first_name": first_name, "last_name": last_name, "address": asdict(address)}
@@ -402,7 +427,7 @@ class NessieClient:
         return [parse_account(o) for o in self._list(f"/customers/{customer_id}/accounts")]
 
     def get_account(self, account_id: str) -> Account:
-        return parse_account(self._request("GET", f"/accounts/{account_id}"))
+        return parse_account(self._get(f"/accounts/{account_id}"))
 
     def create_account(self, customer_id: str, type: str, nickname: str, opening_balance_cents: int = 0,
                        rewards: int = 0) -> Account:
@@ -425,7 +450,7 @@ class NessieClient:
         return [parse_merchant(o) for o in self._list("/merchants")]
 
     def get_merchant(self, merchant_id: str) -> Merchant:
-        return parse_merchant(self._request("GET", f"/merchants/{merchant_id}"))
+        return parse_merchant(self._get(f"/merchants/{merchant_id}"))
 
     def create_merchant(self, name: str, category: str, address: Address | None = None,
                         lat: float | None = None, lng: float | None = None) -> Merchant:
@@ -437,6 +462,12 @@ class NessieClient:
         obj = self._create("/merchants", body, lambda: self._list("/merchants"),
                            lambda o: o.get("name") == name and _address(o.get("address")) == address)
         return parse_merchant(obj)
+
+    def _merchant_or_none(self, merchant_id: str) -> Merchant | None:
+        try:
+            return self.get_merchant(merchant_id)
+        except NessieNotFound:
+            return None
 
     def update_merchant(self, merchant_id: str, **fields: Any) -> Merchant:
         obj = _unwrap(self._request("PUT", f"/merchants/{merchant_id}", fields))
@@ -453,7 +484,7 @@ class NessieClient:
         return sorted(txns, key=lambda t: (t.date, t.kind, t.id))
 
     def get_txn(self, kind: TxnKind, txn_id: str, account_id: str | None = None) -> Txn:
-        return parse_txn(kind, self._request("GET", _SINGLE[kind].format(txn_id)), account_id)
+        return parse_txn(kind, self._get(_SINGLE[kind].format(txn_id)), account_id)
 
     def find_txns(self, account_id: str, kind: TxnKind, marker: str) -> list[Txn]:
         return [t for t in self.list_txns(account_id, kind) if marker in t.description]
@@ -524,7 +555,7 @@ class NessieClient:
         return [parse_bill(o) for o in self._list(f"/customers/{customer_id}/bills")]
 
     def get_bill(self, bill_id: str) -> Bill:
-        return parse_bill(self._request("GET", f"/bills/{bill_id}"))
+        return parse_bill(self._get(f"/bills/{bill_id}"))
 
     def create_bill(self, account_id: str, *, payee: str, nickname: str, amount_cents: int,
                     payment_date: str | _date, recurring_date: int, status: str = "pending") -> Bill:
@@ -576,7 +607,12 @@ class NessieClient:
             txns = sorted((t for group in txn_lists for t in group), key=lambda t: (t.date, t.kind, t.id))
             bills = sorted((b for group in bill_lists for b in group), key=lambda b: b.id)
             wanted = {t.merchant_id for t in txns if t.merchant_id}
-            merchants = sorted((m for m in all_merchants.result() if m.id in wanted), key=lambda m: (m.name, m.id))
+            found = [m for m in all_merchants.result() if m.id in wanted]
+            # /merchants lists only this key's merchants; fetch any others by id so the
+            # classifier still sees a name for every purchase.
+            missing = sorted(wanted - {m.id for m in found})
+            found += [m for m in pool.map(self._merchant_or_none, missing) if m]
+            merchants = sorted(found, key=lambda m: (m.name, m.id))
         return BankSnapshot(customer, accounts, merchants, txns, bills, dict(meta or {}))
 
 
@@ -678,5 +714,5 @@ def read_persona(persona_id: str, client: NessieClient | None = None,
         return PersonaRead(saved, "snapshot")
     try:
         return PersonaRead(client.snapshot(saved.customer.id, saved.meta), "live")
-    except (NessieError, ValueError) as exc:
+    except Exception as exc:  # any live failure, including odd payloads, falls back to the saved copy
         return PersonaRead(saved, "snapshot", f"{type(exc).__name__}: {exc}")

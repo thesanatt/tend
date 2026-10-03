@@ -273,22 +273,33 @@ def gemini_backend(api_key: str, primary: str = PRIMARY_MODEL, fallback: str = F
 
 
 class ClassificationCache:
-    """Model answers keyed by content hash, so a merchant and description are sent at most once."""
+    """Model answers keyed by content hash, so a merchant and description are sent at most once.
 
-    def __init__(self, path: Path | str | None):
+    The file is committed with the fictional seed, so by default a new entry keeps only the label,
+    reason and model. record_text=True also keeps the merchant and description for review; only
+    the seeder sets it, so a real customer's transaction text is never written to disk.
+    """
+
+    def __init__(self, path: Path | str | None, record_text: bool = False):
         self.path = Path(path) if path else None
+        self.record_text = record_text
         self._lock = threading.Lock()
         self._entries: dict[str, dict] = {}
         self._dirty = False
         if self.path and self.path.exists():
-            data = json.loads(self.path.read_text())
-            if data.get("prompt_version") == PROMPT_VERSION:
+            try:
+                data = json.loads(self.path.read_text())
+            except (OSError, ValueError):
+                data = {}  # an unreadable cache only costs model calls
+            if isinstance(data, dict) and data.get("prompt_version") == PROMPT_VERSION:
                 self._entries = data.get("entries", {})
 
     def get(self, key: str) -> dict | None:
         return self._entries.get(key)
 
     def put(self, key: str, entry: dict) -> None:
+        if not self.record_text:
+            entry = {k: v for k, v in entry.items() if k in ("expense", "reason", "model", "kind")}
         with self._lock:
             self._entries[key] = entry
             self._dirty = True
@@ -426,8 +437,34 @@ def facts_from_snapshot(snapshot: BankSnapshot) -> list[TxnFacts]:
     return facts
 
 
+_TEND_ACTION = re.compile(r"\[tend:[^\]]+\]", re.IGNORECASE)
+ITEMIZED_REASON = "Itemized statement on file, so its lines are reviewed one by one instead"
+TEND_PAYMENT_REASON = "Payment made through Tend, so the bill lines it paid are reviewed instead"
+
+
+def _set_aside(r: Classification, reason: str) -> Classification:
+    return replace(r, candidate=False, confirmed=False, linked_refs=(), reason=reason)
+
+
 def classify_snapshot(snapshot: BankSnapshot, classifier: Classifier | None = None,
                       extra_anchors: Iterable[tuple[str, str, str]] = ()) -> dict[str, Classification]:
+    """Nessie id -> Classification for every transaction and bill in the snapshot.
+
+    Two kinds of record are set aside so no dollar is offered twice: a Nessie bill that has an
+    itemized document (its lines, which the scan reads from the PDF, carry the expenses, and one
+    of them may be a forensic exam the engine holds), and a payment Tend made (its description
+    carries [tend:<action id>]; it pays bill lines that are already offered).
+    """
     facts = facts_from_snapshot(snapshot)
     results = (classifier or Classifier()).classify(facts)
-    return {r.ref: r for r in link_care_rides(facts, results, extra_anchors)}
+    documents = [d for d in snapshot.meta.get("documents", []) if d.get("bill_id")]
+    itemized = {d["bill_id"] for d in documents}
+    tend_paid = {t.id for t in snapshot.txns if _TEND_ACTION.search(t.description)}
+    results = [_set_aside(r, ITEMIZED_REASON) if r.ref in itemized
+               else _set_aside(r, TEND_PAYMENT_REASON) if r.ref in tend_paid else r for r in results]
+    anchors = list(extra_anchors)
+    known = {(day, ref) for day, ref, _ in anchors}
+    # The itemized bill's service date is care on that day, so a ride then is travel to care.
+    anchors += [(d["service_date"], d["bill_id"], "medical") for d in documents
+                if d.get("service_date") and (d["service_date"], d["bill_id"]) not in known]
+    return {r.ref: r for r in link_care_rides(facts, results, anchors)}

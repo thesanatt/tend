@@ -275,3 +275,46 @@ def test_bill_update_restores_fields(client):
     assert (back.status, back.amount_cents) == ("pending", 443_00)
     with pytest.raises(ValueError):
         client.update_bill(bill.id)
+
+
+def test_api_key_never_reaches_the_logs(caplog):
+    import logging
+
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=[]))
+    with caplog.at_level(logging.INFO, logger="httpx"), \
+            NessieClient("secret-key-123", "https://nessie.test", transport=transport) as c:
+        c.list_customers()
+    assert caplog.records, "httpx should still log the request"
+    assert "secret-key-123" not in caplog.text and "key=REDACTED" in caplog.text
+
+
+def test_single_reads_that_are_not_objects_are_errors():
+    # A captive portal answers 200 with an HTML page instead of JSON.
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, text="<html>Sign in to Wi-Fi</html>"))
+    with NessieClient("k", "https://nessie.test", transport=transport) as c:
+        with pytest.raises(NessieError, match="expected an object"):
+            c.get_customer("abc")
+
+
+def test_balance_skips_rewards_and_self_transfers():
+    from tend_api.nessie import Account, Txn
+
+    acct = Account("a", "c", "Checking", "Checking", 100_00)
+    txns = [Txn("1", "purchase", "a", "2026-05-01", 20_00, "completed", "points", medium="rewards"),
+            Txn("2", "transfer", "a", "2026-05-02", 30_00, "completed", "loop [payee:a]", payee_account_id="a"),
+            Txn("3", "purchase", "a", "2026-05-03", 5_00, "completed", "coffee", medium="balance")]
+    assert computed_balance_cents(acct, txns) == 95_00
+
+
+def test_snapshot_fetches_merchants_the_key_does_not_list(client, fake):
+    _, checking, _, merchant = make_world(client)
+    client.create_purchase(checking.id, merchant_id=merchant.id, amount_cents=9_00, date="2026-05-01",
+                           description="x")
+    client.create_purchase(checking.id, merchant_id="gone", amount_cents=4_00, date="2026-05-02", description="y")
+    listed = client.list_merchants
+    client.list_merchants = lambda: []
+    try:
+        snap = client.snapshot(checking.customer_id)
+    finally:
+        client.list_merchants = listed
+    assert [m.id for m in snap.merchants] == [merchant.id]

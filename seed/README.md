@@ -60,6 +60,16 @@ with NessieClient.from_env() as client:
 labels = classify_snapshot(read.snapshot)   # Nessie id -> Classification
 ```
 
+`classify_snapshot` sets two kinds of record aside (candidate and confirmed both false) so no
+dollar is offered twice. The first is a Nessie bill that has an itemized document in
+`meta.documents`: the scan reads its lines from the PDF, and the forensic exam line is the one
+the engine holds. The second is a payment Tend made, which carries `[tend:<action id>]` in its
+description. The document's service date also counts as a care day when rides are linked.
+
+The client redacts the API key from httpx's request log. New cache entries keep only the label,
+reason, and model unless the cache is opened with `record_text=True`, which only the seeder does
+for the fictional personas.
+
 ## Snapshot format
 
 `snapshots/<persona>.json`, format `tend-bank-snapshot/1`. All money is integer cents; engine item

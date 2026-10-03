@@ -265,3 +265,58 @@ def test_read_only_cache_location_does_not_break_classification(tmp_path):
         assert results[0].expense == "security"
     finally:
         locked.chmod(stat.S_IRWXU)
+
+
+def test_new_cache_entries_keep_no_transaction_text_by_default(tmp_path):
+    path = tmp_path / "c.json"
+    Classifier(cache=path, model=FakeModel()).classify(
+        [TxnFacts("b", "purchase", "Northside Hardware", "hardware", "door chain, motion sensor light")])
+    entry = next(iter(json.loads(path.read_text())["entries"].values()))
+    assert set(entry) == {"expense", "reason", "model", "kind"}
+    reviewed = tmp_path / "r.json"
+    Classifier(cache=ClassificationCache(reviewed, record_text=True), model=FakeModel()).classify(
+        [TxnFacts("b", "purchase", "Northside Hardware", "hardware", "door chain, motion sensor light")])
+    entry = next(iter(json.loads(reviewed.read_text())["entries"].values()))
+    assert entry["merchant"] == "Northside Hardware"
+
+
+def test_unreadable_cache_starts_empty(tmp_path):
+    path = tmp_path / "c.json"
+    path.write_text("<<<<<<< HEAD\n{")
+    assert len(ClassificationCache(path)) == 0
+
+
+def test_itemized_bill_is_set_aside_so_its_dollars_are_not_offered_twice(rowan, committed_cache):
+    results = classify_snapshot(rowan, offline(committed_cache))
+    bill = results[rowan.bills[0].id]
+    assert bill.expense == "medical" and not bill.candidate and not bill.confirmed
+    assert "Itemized" in bill.reason
+
+
+def test_tend_payment_is_set_aside_and_anchors_no_ride(rowan, committed_cache):
+    from dataclasses import replace as dc_replace
+
+    from tend_api.nessie import Txn
+
+    checking = rowan.account_by_type("Checking").id
+    payment = Txn("pay-1", "withdrawal", checking, "2026-10-03", 118_00, "completed",
+                  "Riverbend General Hospital payment [tend:act-7]")
+    ride = Txn("ride-1", "purchase", checking, "2026-10-03", 12_00, "completed", "trip",
+               merchant_id=next(m.id for m in rowan.merchants if m.name == "Wayfare Rides"))
+    snap = dc_replace(rowan, txns=[*rowan.txns, payment, ride])
+    results = classify_snapshot(snap, offline(committed_cache))
+    assert results["pay-1"].expense == "medical"
+    assert (results["pay-1"].candidate, results["pay-1"].confirmed) == (False, False)
+    assert not results["ride-1"].candidate
+
+
+def test_document_service_date_anchors_rides_without_passing_it(rowan, committed_cache):
+    from dataclasses import replace as dc_replace
+
+    from tend_api.nessie import Txn
+
+    checking = rowan.account_by_type("Checking").id
+    ride = Txn("ride-14", "purchase", checking, "2026-06-14", 15_00, "completed", "trip",
+               merchant_id=next(m.id for m in rowan.merchants if m.name == "Wayfare Rides"))
+    results = classify_snapshot(dc_replace(rowan, txns=[*rowan.txns, ride]), offline(committed_cache))
+    assert results["ride-14"].candidate and results["ride-14"].linked_refs == (rowan.bills[0].id,)

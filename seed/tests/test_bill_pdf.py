@@ -49,3 +49,12 @@ def test_money_format():
     assert money(443_00) == "$443.00"
     assert money(1_180_00) == "$1,180.00"
     assert money(5) == "$0.05"
+
+
+def test_a_line_whose_parts_do_not_add_up_is_refused(tmp_path):
+    from dataclasses import replace
+
+    lines = list(RIVERBEND_BILL.lines)
+    lines[0] = replace(lines[0], insurance_paid_cents=lines[0].insurance_paid_cents - 1_00)
+    with pytest.raises(ValueError, match="line 1"):
+        write_bill_pdf(PERSONAS["rowan-mi"], replace(RIVERBEND_BILL, lines=tuple(lines)), tmp_path / "bad.pdf")

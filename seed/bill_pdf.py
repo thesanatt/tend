@@ -45,6 +45,9 @@ def bill_pdf_path(root: Path, persona: Persona) -> Path:
 def write_bill_pdf(persona: Persona, bill: PlannedBill, path: Path) -> str:
     if sum(line.patient_cents for line in bill.lines) != bill.amount_cents:
         raise ValueError("bill lines do not add up to the bill total")
+    for line in bill.lines:
+        if line.charge_cents - line.insurance_paid_cents - line.adjustment_cents != line.patient_cents:
+            raise ValueError(f"line {line.line}: charge less insurance and adjustments is not what the patient owes")
     path.parent.mkdir(parents=True, exist_ok=True)
     pdf = canvas.Canvas(str(path), pagesize=letter, invariant=1)
     pdf.setTitle(f"{bill.payee} statement (fictional demo)")

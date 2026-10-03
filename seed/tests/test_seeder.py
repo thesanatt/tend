@@ -134,3 +134,24 @@ def test_read_persona_falls_back_to_the_snapshot(tmp_path):
         result = read_persona("rowan-mi", offline_client)
     assert result.source == "snapshot" and "ConnectError" in result.error
     assert len(result.snapshot.txns) == len(build_history())
+
+
+def test_read_persona_falls_back_on_a_payload_it_cannot_read(seeded, client, tmp_path):
+    persona, _, _ = seeded
+    take_snapshot(client, persona, root=tmp_path)
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, text="<html>portal</html>"))
+    with NessieClient("k", "https://nessie.test", transport=transport) as odd:
+        got = read_persona(persona.id, odd, tmp_path / "snapshots")
+    assert got.source == "snapshot" and "expected an object" in got.error
+
+
+def test_load_env_lets_the_file_win_and_reads_export_lines(tmp_path, monkeypatch):
+    from seeder import load_env
+
+    env = tmp_path / ".env"
+    env.write_text("# keys\nexport NESSIE_API_KEY='from-file'\nGEMINI_API_KEY=\"g\"\n")
+    monkeypatch.setenv("TEND_ENV_FILE", str(env))
+    monkeypatch.setenv("NESSIE_API_KEY", "from-shell")
+    assert load_env() == env
+    import os
+    assert (os.environ["NESSIE_API_KEY"], os.environ["GEMINI_API_KEY"]) == ("from-file", "g")
