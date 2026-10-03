@@ -1,0 +1,100 @@
+{
+ "jurisdiction": "ZY",
+ "name": "Synthetic Sparse State",
+ "program": {
+  "program_name": "Synthetic Sparse Program (test fixture)",
+  "agency": "None. ZY is a synthetic jurisdiction for engine tests.",
+  "website": "https://example.org/zy",
+  "apply_url": "https://example.org/zy/apply",
+  "application_pdf_url": null,
+  "phone": "000-000-0000",
+  "phone_source_id": "ZY-S1",
+  "statute_citation": "ZY Test Code 2.1 to 2.7"
+ },
+ "sources": [
+  {
+   "id": "ZY-S1",
+   "title": "ZY Test Code (synthetic)",
+   "url": "https://example.org/zy/code",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T00:00:00Z",
+   "raw_path": "refengine/tests/fixtures/ZY-S1.txt",
+   "text_path": "refengine/tests/fixtures/ZY-S1.txt",
+   "sha256": "189d38dfac4ed19ab64508dda29119a05e126fa8be428ee5221ca8975f289a1d"
+  }
+ ],
+ "rules": [
+  {
+   "id": "ZY-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {"expense": "medical"},
+   "summary": "Medical expenses are covered.",
+   "quote": "The program may pay reasonable medical expenses.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.1"
+  },
+  {
+   "id": "ZY-CAP-1",
+   "category": "expense_cap",
+   "params": {"expense": "counseling", "amount_cents": 9000, "per": "hour"},
+   "summary": "Counseling is covered at up to $90 per hour.",
+   "quote": "The program may pay for counseling at not more than $90 per hour.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.2"
+  },
+  {
+   "id": "ZY-CAP-2",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {"amount_cents": 5000},
+   "summary": "Transportation to treatment is covered up to $50 in total.",
+   "quote": "The program may pay for transportation to treatment, up to $50 in total.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.3"
+  },
+  {
+   "id": "ZY-EXCL-1",
+   "category": "excluded_expense",
+   "params": {"item": "pain and suffering"},
+   "summary": "Pain and suffering is not covered.",
+   "quote": "The program shall not pay for pain and suffering.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.4"
+  },
+  {
+   "id": "ZY-MIN-1",
+   "category": "minimum_loss",
+   "params": {"days_lost": 7},
+   "summary": "A claim needs at least 7 days of lost work.",
+   "quote": "A claim requires that the victim lost at least 7 days of work.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.5"
+  },
+  {
+   "id": "ZY-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {"required": true, "alternatives": ["advocate", "protective_order"]},
+   "summary": "Report to police or a victim advocate, or have a protective order.",
+   "quote": "The crime shall be reported to law enforcement, or to a victim advocate, or be the subject of a protective order.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.6"
+  },
+  {
+   "id": "ZY-RES-1",
+   "category": "residency",
+   "params": {"rule": "Residents of ZY"},
+   "summary": "Residents of ZY may apply.",
+   "quote": "Residents of ZY may apply.",
+   "source_id": "ZY-S1",
+   "pinpoint": "ZY Test Code 2.7"
+  }
+ ],
+ "coverage": {
+  "found": ["covered_expense", "expense_cap", "excluded_expense", "minimum_loss", "reporting_requirement", "residency"],
+  "not_found": ["exam_no_bill", "exam_payment", "total_cap", "filing_deadline", "collateral_source", "conduct_reduction", "emergency_award", "eligible_crime"],
+  "notes": "Synthetic fixture with most categories missing, so the engines' fallbacks get tested."
+ },
+ "confidence": "high",
+ "researcher_notes": "Synthetic jurisdiction for refengine tests and the differential test. Not a real program; the quotes were written for testing and are not law."
+}

@@ -1,0 +1,28 @@
+{
+  "jurisdiction": "ZZ",
+  "context": {
+    "incident_date": "2026-06-14",
+    "as_of_date": "2026-10-03",
+    "police_report": "no",
+    "forensic_exam": true
+  },
+  "items": [
+    {"item_id": "a17", "date": "2026-10-03", "amount_cents": 250000, "expense": "relocation", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Moving truck rental"},
+    {"item_id": "a1", "date": "2026-06-10", "amount_cents": 5000, "expense": "medical", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Clinic visit before the incident"},
+    {"item_id": "a3", "date": "2026-06-14", "amount_cents": 120000, "expense": "medical", "confirmed": true, "insurance_paid_cents": 20000, "is_bill": true, "units": 0, "description": "Emergency department visit"},
+    {"item_id": "a2", "date": "2026-06-14", "amount_cents": 32500, "expense": "forensic_exam", "confirmed": true, "insurance_paid_cents": 0, "is_bill": true, "units": 0, "description": "Medical forensic exam, facility fee"},
+    {"item_id": "a4", "date": "2026-06-20", "amount_cents": 15000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 2, "description": "Counseling session"},
+    {"item_id": "a5", "date": "2026-07-01", "amount_cents": 20000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Counseling session"},
+    {"item_id": "a6", "date": "2026-07-08", "amount_cents": 300000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 10, "description": "Counseling, ten sessions"},
+    {"item_id": "a7", "date": "2026-07-15", "amount_cents": 200000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 25, "description": "Counseling, 25 sessions"},
+    {"item_id": "a8", "date": "2026-07-22", "amount_cents": 9000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 1, "description": "Counseling session"},
+    {"item_id": "a9", "date": "2026-07-29", "amount_cents": 12000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 12000, "is_bill": false, "units": 2, "description": "Counseling, paid by insurance"},
+    {"item_id": "a11", "date": "2026-08-01", "amount_cents": 50000, "expense": "tuition", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Tuition, withdrawn term"},
+    {"item_id": "a10", "date": "2026-08-01", "amount_cents": 40000, "expense": "property_replacement", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Phone replacement"},
+    {"item_id": "a12", "date": "2026-08-02", "amount_cents": 7000, "expense": "childcare", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Daycare, extra days"},
+    {"item_id": "a13", "date": "2026-08-03", "amount_cents": 4000, "expense": "transportation", "confirmed": false, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Rideshare to clinic"},
+    {"item_id": "a15", "date": "2026-08-05", "amount_cents": 3000, "expense": "unknown", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Online payment"},
+    {"item_id": "a14", "date": "2026-08-05", "amount_cents": 2400000, "expense": "lost_wages", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Unpaid leave, payroll gap"},
+    {"item_id": "a16", "date": "2026-10-04", "amount_cents": 9999, "expense": "medical", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Visit after the as-of date"}
+  ]
+}
