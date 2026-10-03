@@ -62,7 +62,10 @@ export function ruleUse(ir: IrRule | undefined, skip: IrSkip | undefined): RuleU
       return { use: "decides", text: "Decides: listed with a held exam bill as who should pay instead." };
     case "total_cap": {
       const m = money(ir.cap_cents);
-      return { use: "decides", text: m ? `Decides: the total for the claim stops at ${m}.` : "Decides: a total limit." };
+      return {
+        use: "decides",
+        text: m ? `Decides: the total for the claim stops at ${m}.` : "Decides: a total limit.",
+      };
     }
     case "expense_cap": {
       const m = money(ir.cap_cents);
@@ -71,7 +74,8 @@ export function ruleUse(ir: IrRule | undefined, skip: IrSkip | undefined): RuleU
         ir.per === "unit" && ir.unit
           ? `Decides: ${what} is limited to ${m ?? "a set amount"} per ${UNIT_WORD[ir.unit] ?? ir.unit}`
           : `Decides: ${what} is limited to ${m ?? "a set amount"} in total`;
-      if (typeof ir.count_limit === "number") text += `, for up to ${ir.count_limit} ${UNIT_WORD[ir.unit ?? ""] ?? "unit"}s`;
+      if (typeof ir.count_limit === "number")
+        text += `, for up to ${ir.count_limit} ${UNIT_WORD[ir.unit ?? ""] ?? "unit"}s`;
       text += ".";
       if (ir.alt_rule_ids?.length) text += ` Lower limits kept beside it: ${ir.alt_rule_ids.join(", ")}.`;
       return { use: "decides", text };

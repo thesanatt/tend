@@ -60,7 +60,12 @@ describe("listing lines", () => {
     expect(head.counts).toMatch(/^\d+ rules, \d+ sources/);
     expect(head.programs).toHaveLength(2);
     // Every line rebuilds exactly from its pieces.
-    for (const line of text.split("\n")) expect(asmLine(line, ids).map((s) => s.t).join("")).toBe(line);
+    for (const line of text.split("\n"))
+      expect(
+        asmLine(line, ids)
+          .map((s) => s.t)
+          .join(""),
+      ).toBe(line);
   });
 });
 
@@ -84,28 +89,39 @@ describe("plain words for what the engine does with a rule", () => {
         },
         undefined,
       ).text,
-    ).toBe("Decides: counseling is limited to $125 per session, for up to 35 sessions. Lower limits kept beside it: MI-CAP-2.");
-    expect(ruleUse({ id: "a", kind: "expense_cap", expense: "relocation", cap_cents: 380000, per: "claim" }, undefined).text).toBe(
-      "Decides: moving is limited to $3,800 in total.",
+    ).toBe(
+      "Decides: counseling is limited to $125 per session, for up to 35 sessions. Lower limits kept beside it: MI-CAP-2.",
     );
+    expect(
+      ruleUse({ id: "a", kind: "expense_cap", expense: "relocation", cap_cents: 380000, per: "claim" }, undefined).text,
+    ).toBe("Decides: moving is limited to $3,800 in total.");
     expect(ruleUse({ id: "a", kind: "covered", expense: "transportation" }, undefined).text).toBe(
       "Decides: travel counts as a covered cost.",
     );
-    expect(ruleUse({ id: "a", kind: "excluded", expense: "property_replacement", tags: ["phone", "purse"] }, undefined).text).toBe(
-      "Decides: replacing belongings is not covered when it is a phone or purse.",
-    );
+    expect(
+      ruleUse({ id: "a", kind: "excluded", expense: "property_replacement", tags: ["phone", "purse"] }, undefined).text,
+    ).toBe("Decides: replacing belongings is not covered when it is a phone or purse.");
     expect(ruleUse({ id: "a", kind: "deadline", days: 1826, from: "crime" }, undefined).text).toBe(
       "Decides: the filing deadline, 1,826 days after the crime.",
     );
-    expect(ruleUse({ id: "a", kind: "reporting", required: true, alternatives: ["forensic_exam"] }, undefined).text).toBe(
-      "Decides: a police report is required, and a forensic exam can count instead.",
-    );
+    expect(
+      ruleUse({ id: "a", kind: "reporting", required: true, alternatives: ["forensic_exam"] }, undefined).text,
+    ).toBe("Decides: a police report is required, and a forensic exam can count instead.");
     expect(
       ruleUse(
-        { id: "a", kind: "minimum_loss", cap_cents: 20000, days_lost: 5, waiver: "discretionary", waiver_for_sexual_assault: true },
+        {
+          id: "a",
+          kind: "minimum_loss",
+          cap_cents: 20000,
+          days_lost: 5,
+          waiver: "discretionary",
+          waiver_for_sexual_assault: true,
+        },
         undefined,
       ).text,
-    ).toBe("Decides: the minimum loss, at least $200 in costs or 5 days of lost pay. The program may waive it after a sexual assault.");
+    ).toBe(
+      "Decides: the minimum loss, at least $200 in costs or 5 days of lost pay. The program may waive it after a sexual assault.",
+    );
     expect(ruleUse({ id: "a", kind: "collateral" }, undefined).use).toBe("decides");
     expect(ruleUse({ id: "a", kind: "info", category: "residency" }, undefined)).toEqual({
       use: "info",
@@ -195,7 +211,10 @@ describe("scripts/build-asm.mjs", () => {
     laws = path.join(tmp, "laws");
     mkdirSync(path.join(data, "ir"), { recursive: true });
     mkdirSync(laws, { recursive: true });
-    writeFileSync(path.join(data, "jurisdictions.json"), JSON.stringify([{ st: "MI", name: "Michigan", sha256: lawSha }]));
+    writeFileSync(
+      path.join(data, "jurisdictions.json"),
+      JSON.stringify([{ st: "MI", name: "Michigan", sha256: lawSha }]),
+    );
     const ir: IrSummary = {
       ir_version: 2,
       jurisdiction: "MI",
@@ -231,7 +250,9 @@ describe("scripts/build-asm.mjs", () => {
     server = createServer((req, res) => {
       if (req.url === "/api/jurisdictions/MI/asm") {
         res.setHeader("content-type", "application/json");
-        res.end(JSON.stringify({ listing: listing.replace("tendc 1.1.0", "tendc 9.9.9"), engine_version: "tend 9.9.9" }));
+        res.end(
+          JSON.stringify({ listing: listing.replace("tendc 1.1.0", "tendc 9.9.9"), engine_version: "tend 9.9.9" }),
+        );
       } else {
         res.statusCode = 404;
         res.end();

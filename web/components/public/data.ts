@@ -37,7 +37,10 @@ export function loadLaw(st: string): { law: Jurisdiction; sha256: string } | nul
   const file = path.join(DATA, "law", `${st}.json`);
   if (!existsSync(file)) return null;
   const raw = readFileSync(file);
-  return { law: JSON.parse(raw.toString("utf8")) as Jurisdiction, sha256: createHash("sha256").update(raw).digest("hex") };
+  return {
+    law: JSON.parse(raw.toString("utf8")) as Jurisdiction,
+    sha256: createHash("sha256").update(raw).digest("hex"),
+  };
 }
 
 export function loadIr(st: string): IrSummary | null {
@@ -62,9 +65,8 @@ export interface Corpus {
 
 // Counts for the home page, computed when the site is built.
 export function loadCorpus(): Corpus {
-  const jurisdictions = readJson<(JurisdictionSummary & { set_aside?: number })[]>(
-    path.join(DATA, "jurisdictions.json"),
-  ) ?? [];
+  const jurisdictions =
+    readJson<(JurisdictionSummary & { set_aside?: number })[]>(path.join(DATA, "jurisdictions.json")) ?? [];
   return {
     jurisdictions,
     rules: jurisdictions.reduce((n, j) => n + j.rules, 0),

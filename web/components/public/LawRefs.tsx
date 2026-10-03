@@ -7,12 +7,12 @@ interface LawRefsProps {
   ids: string[];
   rules: Map<string, Rule>;
   sources: Map<string, Source>;
-  // The visible text already is the rule's summary, so the panel shows only the quote.
-  summaryShown?: boolean;
+  // Rules whose summaries are already on the page; the panel shows only their quotes.
+  shown?: string[];
 }
 
 // The exact words behind one line, one tap away. A native <details>, so it works without JavaScript.
-export default function LawRefs({ st, ids, rules, sources, summaryShown = false }: LawRefsProps) {
+export default function LawRefs({ st, ids, rules, sources, shown: shownIds = [] }: LawRefsProps) {
   const refs = ids.map((id) => ({ id, rule: rules.get(id), source: rules.has(id) ? undefined : sources.get(id) }));
   const shown = refs.filter((r) => r.rule || r.source);
   if (!shown.length) return null;
@@ -36,7 +36,7 @@ export default function LawRefs({ st, ids, rules, sources, summaryShown = false 
                   {rule.id}
                 </a>
               </p>
-              {summaryShown && shown.length === 1 ? null : <p className={styles.refSummary}>{rule.summary}</p>}
+              {shownIds.includes(rule.id) ? null : <p className={styles.refSummary}>{rule.summary}</p>}
               <blockquote className={styles.quote} cite={sources.get(rule.source_id)?.url}>
                 <p>
                   <mark>{rule.quote}</mark>

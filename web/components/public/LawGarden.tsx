@@ -24,8 +24,8 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
         <div className={styles.headText}>
           <h2 id="garden-title">The law garden</h2>
           <p>
-            One plant for each program. A plant grows as Tend verifies more of that state&apos;s rules, and a rule counts
-            only when its quote matches the saved law word for word. Pick a state to see what it promises.
+            One plant for each program. A plant grows as Tend verifies more of that state&apos;s rules, and a rule
+            counts only when its quote matches the saved law word for word. Pick a state to see what it promises.
           </p>
         </div>
         <div className={styles.toggle} role="group" aria-label="Show the garden as">
@@ -52,7 +52,12 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
                     onMouseEnter={() => setSelected(st)}
                     onFocus={() => setSelected(st)}
                   >
-                    <Plant stage={lawStage(rules)} growth={lawGrowth(rules)} seedKey={st} className={styles.tilePlant} />
+                    <Plant
+                      stage={lawStage(rules)}
+                      growth={lawGrowth(rules)}
+                      seedKey={st}
+                      className={styles.tilePlant}
+                    />
                     {/* The visible abbreviation stays in the accessible name, so voice control can say "MI". */}
                     <span className={styles.abbr}>{st}</span>{" "}
                     {/* The space sits outside the hidden span, so the name reads "MI Michigan", not "MIMichigan". */}
@@ -129,9 +134,7 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map((s) => (
                   <tr key={s.st}>
-                    <th scope="row">
-                      {s.rules > 0 ? <Link href={`/${s.st.toLowerCase()}`}>{s.name}</Link> : s.name}
-                    </th>
+                    <th scope="row">{s.rules > 0 ? <Link href={`/${s.st.toLowerCase()}`}>{s.name}</Link> : s.name}</th>
                     <td>{s.program ?? "Not verified yet"}</td>
                     <td className={styles.num}>{s.rules}</td>
                     <td className={styles.num}>{s.sources}</td>

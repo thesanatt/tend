@@ -4,7 +4,6 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   buildStateSummary,
-  capText,
   citedIds,
   duration,
   joinWords,
@@ -42,7 +41,9 @@ function amounts(rules: Rule[]): Set<string> {
 
 const DOLLARS = /\$\d[\d,]*(?:\.\d\d)?/g;
 // en dash, em dash, curly quotes, bullet: built from code points so this file stays ASCII
-const TYPOGRAPHIC = new RegExp(`[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2022].map((c) => String.fromCharCode(c)).join("")}]`);
+const TYPOGRAPHIC = new RegExp(
+  `[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2022].map((c) => String.fromCharCode(c)).join("")}]`,
+);
 
 function allText(s: StateSummary): string[] {
   return [
@@ -79,7 +80,8 @@ describe("state summaries for every jurisdiction", () => {
     const rules = new Map(law.rules.map((r) => [r.id, r]));
     const check = (text: string, cites: string[], where: string) => {
       const allowed = amounts(cites.map((id) => rules.get(id)).filter((r): r is Rule => !!r));
-      for (const m of text.match(DOLLARS) ?? []) expect(allowed.has(m), `${st} ${where}: ${m} not in params`).toBe(true);
+      for (const m of text.match(DOLLARS) ?? [])
+        expect(allowed.has(m), `${st} ${where}: ${m} not in params`).toBe(true);
     };
     for (const section of summary.sections) {
       for (const f of section.facts) {
@@ -89,6 +91,11 @@ describe("state summaries for every jurisdiction", () => {
           expect(f.text.replace(/\.$/, "")).toBe(rules.get(f.cites[0])!.summary.trim().replace(/\.$/, ""));
         } else if (f.kind === "law") {
           check(f.text, f.cites, f.key);
+        }
+        // Lines under a cost are the summaries of rules the line cites.
+        for (const d of f.details ?? []) {
+          expect(f.cites).toContain(d.cite);
+          expect(d.text.replace(/\.$/, "")).toBe(rules.get(d.cite)!.summary.trim().replace(/\.$/, ""));
         }
       }
     }
@@ -127,7 +134,9 @@ describe("state summaries for every jurisdiction", () => {
       (r) =>
         r.category === "reporting_requirement" &&
         r.params?.required === true &&
-        ([] as string[]).concat((r.params?.alternatives as string[] | string | undefined) ?? []).includes("forensic_exam"),
+        ([] as string[])
+          .concat((r.params?.alternatives as string[] | string | undefined) ?? [])
+          .includes("forensic_exam"),
     );
     expect(Boolean(report)).toBe(strong);
   });
@@ -161,10 +170,14 @@ describe("Michigan, the demo state", () => {
     ]);
   });
 
-  it("states counseling with the generous rate, the session limit, and the lower rate", () => {
+  it("shows each counseling limit with its own conditions", () => {
     const counseling = facts.find((f) => f.label === "Counseling")!;
-    expect(counseling.text).toBe("Up to $125 a session, for up to 35 sessions. A lower limit of $80 a session can apply.");
     expect(counseling.cites).toEqual(["MI-COV-2", "MI-CAP-2", "MI-CAP-3", "MI-CAP-4"]);
+    expect(counseling.details!.map((d) => d.cite)).toEqual(["MI-CAP-2", "MI-CAP-3", "MI-CAP-4"]);
+    expect(counseling.details![0].text).toMatch(/therapist or counselor .* \$80 per hourly session/);
+    expect(counseling.details![1].text).toMatch(/psychologist or physician .* \$125 per hourly session/);
+    // A cost with no limit is just named.
+    expect(facts.find((f) => f.label === "Medical care")).toMatchObject({ text: "", cites: ["MI-COV-1"] });
   });
 
   it("cites the program phone to the page it came from", () => {
@@ -224,15 +237,37 @@ describe("other states", () => {
 
 // A small made-up jurisdiction for the edges the corpus does not show cleanly.
 function rule(id: string, category: string, params: Record<string, unknown>, summary = `${id} summary`): Rule {
-  return { id, category: category as Rule["category"], params, summary, quote: `${id} quote`, source_id: "ZZ-S1", pinpoint: id };
+  return {
+    id,
+    category: category as Rule["category"],
+    params,
+    summary,
+    quote: `${id} quote`,
+    source_id: "ZZ-S1",
+    pinpoint: id,
+  };
 }
 
 function zz(rules: Rule[], ir: IrSummary | null = null) {
   const law: Jurisdiction = {
     jurisdiction: "ZZ",
     name: "Zedland",
-    program: { program_name: "Zedland Victim Fund", agency: "Zedland Board", website: "https://example.org", phone: null },
-    sources: [{ id: "ZZ-S1", title: "Zedland Act", url: "https://example.org/act", kind: "statute", retrieved_at: "2026-10-03T00:00:00Z", sha256: "0".repeat(64) }],
+    program: {
+      program_name: "Zedland Victim Fund",
+      agency: "Zedland Board",
+      website: "https://example.org",
+      phone: null,
+    },
+    sources: [
+      {
+        id: "ZZ-S1",
+        title: "Zedland Act",
+        url: "https://example.org/act",
+        kind: "statute",
+        retrieved_at: "2026-10-03T00:00:00Z",
+        sha256: "0".repeat(64),
+      },
+    ],
     rules,
     coverage: { found: [], not_found: [] },
     confidence: "high",
@@ -264,7 +299,12 @@ describe("summary rules on a made-up jurisdiction", () => {
       rule("ZZ-C1", "covered_expense", { expense: "counseling" }),
       rule("ZZ-K1", "expense_cap", { expense: "counseling", amount_cents: 10000, per: "session" }),
       rule("ZZ-K2", "expense_cap", { expense: "counseling", amount_cents: 6000, per: "session" }),
-      rule("ZZ-K3", "expense_cap", { expense: "counseling", amount_cents: 99900, per: "session", applies_to: "siblings" }),
+      rule("ZZ-K3", "expense_cap", {
+        expense: "counseling",
+        amount_cents: 99900,
+        per: "session",
+        applies_to: "siblings",
+      }),
     ];
     const ir: IrSummary = {
       ir_version: 2,
@@ -281,11 +321,15 @@ describe("summary rules on a made-up jurisdiction", () => {
         { id: "ZZ-K3", reason: 'applies_to "siblings"' },
       ],
     };
-    const row = zz(rules, ir).sections.flatMap((s) => s.facts).find((f) => f.label === "Counseling")!;
-    expect(row.text).toBe("Up to $100 a session. A lower limit of $60 a session can apply.");
+    const row = zz(rules, ir)
+      .sections.flatMap((s) => s.facts)
+      .find((f) => f.label === "Counseling")!;
+    expect(row.details!.map((d) => d.text)).toEqual(["ZZ-K1 summary.", "ZZ-K2 summary."]);
     expect(row.cites).toEqual(["ZZ-C1", "ZZ-K1", "ZZ-K2"]);
     // Without an IR, applies_to alone sets a rule aside.
-    const noIr = zz(rules).sections.flatMap((s) => s.facts).find((f) => f.label === "Counseling")!;
+    const noIr = zz(rules)
+      .sections.flatMap((s) => s.facts)
+      .find((f) => f.label === "Counseling")!;
     expect(noIr.cites).not.toContain("ZZ-K3");
   });
 
@@ -299,18 +343,18 @@ describe("summary rules on a made-up jurisdiction", () => {
     expect(s.sections.find((x) => x.id === "not-covered")!.facts.map((f) => f.cites[0])).toEqual(["ZZ-X1"]);
   });
 
-  it("phrases cap groups and lists", () => {
+  it("joins words and names a cost from its limits alone", () => {
     expect(joinWords(["a"])).toBe("a");
     expect(joinWords(["a", "b"])).toBe("a and b");
     expect(joinWords(["a", "b", "c"], "or")).toBe("a, b, or c");
-    expect(capText([])).toBe("");
     const weekly = zz([
       rule("ZZ-W1", "expense_cap", { expense: "lost_wages", amount_cents: 60000, per: "week" }),
       rule("ZZ-W2", "expense_cap", { expense: "lost_wages", amount_cents: 3000000, per: "claim" }),
+      rule("ZZ-W3", "expense_cap", { expense: "lost_wages", per: "week" }),
     ]);
-    expect(weekly.sections.flatMap((s) => s.facts).find((f) => f.label === "Lost pay")!.text).toBe(
-      "Up to $600 a week and $30,000 in total.",
-    );
+    const row = weekly.sections.flatMap((s) => s.facts).find((f) => f.label === "Lost pay")!;
+    // A limit with no amount says nothing to show.
+    expect(row.details!.map((d) => d.cite)).toEqual(["ZZ-W1", "ZZ-W2"]);
   });
 
   it("falls back to covered costs for the card when there is no total cap", () => {
@@ -358,7 +402,7 @@ describe("reading level of Tend's own sentences", () => {
   );
 
   it("keeps each templated sentence at grade 9 or below, and the average under grade 6", () => {
-    expect(templated.length).toBeGreaterThan(300);
+    expect(templated.length).toBeGreaterThan(200);
     for (const t of templated) expect(grade(t), t).toBeLessThanOrEqual(9);
     const mean = templated.reduce((n, t) => n + grade(t), 0) / templated.length;
     expect(mean).toBeLessThanOrEqual(6);

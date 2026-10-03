@@ -5,7 +5,14 @@ import AsmListing from "@/components/law/AsmListing";
 import Plant from "@/components/Plant";
 import { loadAsm, loadIr, loadLaw, stateFromParam } from "@/components/public/data";
 import { count } from "@/components/public/format";
-import { AsmView, groupRules, lawCategoryLabel, RuleEntry, SetAsideList, SourceList } from "@/components/public/LawParts";
+import {
+  AsmView,
+  groupRules,
+  lawCategoryLabel,
+  RuleEntry,
+  SetAsideList,
+  SourceList,
+} from "@/components/public/LawParts";
 import styles from "@/components/public/law.module.css";
 import { LAW_STAGES, lawGrowth, lawStage } from "@/lib/garden";
 import STATES from "@/lib/states.json";
@@ -69,9 +76,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
             The verified rules for {law.program.program_name}, run by {law.program.agency}. Each rule shows its exact
             quote, where it was saved from, and what the law engine does with it.
           </p>
-          {law.program.statute_citation ? (
-            <p className="meta">Statute: {law.program.statute_citation}</p>
-          ) : null}
+          {law.program.statute_citation ? <p className="meta">Statute: {law.program.statute_citation}</p> : null}
           <ul className={styles.links} aria-label="Related pages and data">
             <li>
               <Link href={`/${lower}`}>What {law.name} promises, in plain words</Link>
@@ -142,8 +147,8 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
             quote.
           </li>
           <li>
-            A normalizer turns the rules into the law IR. Rules about someone other than the survivor, or with nothing to
-            compute, are set aside with a reason.
+            A normalizer turns the rules into the law IR. Rules about someone other than the survivor, or with nothing
+            to compute, are set aside with a reason.
           </li>
           <li>
             The compiler turns the IR into bytecode. The listing below is that bytecode, with each block commented with

@@ -39,12 +39,13 @@ describe("state page /mi", () => {
   it("opens with the Jane Doe heading, the program phone, and four cited key facts", () => {
     expect(page).toContain("If you&#x27;re Jane Doe in Michigan</h1>");
     expect(page).toContain('href="tel:8772517373"');
-    for (const pin of ["MCL 18.361(1)", "MCL 18.355(2)", "MCL 18.355a(10)", "MCL 18.355a(2)"]) expect(page).toContain(pin);
+    for (const pin of ["MCL 18.361(1)", "MCL 18.355(2)", "MCL 18.355a(10)", "MCL 18.355a(2)"])
+      expect(page).toContain(pin);
   });
 
   it("gives every line a disclosure with the quote and a link to the rule", () => {
     const doc = new DOMParser().parseFromString(page, "text/html");
-    const facts = [...doc.querySelectorAll("section li")];
+    const facts = [...doc.querySelectorAll("section > ul > li")];
     expect(facts.length).toBeGreaterThan(40);
     for (const li of facts) {
       const details = li.querySelector("details");
@@ -200,7 +201,14 @@ describe("share buttons", () => {
 describe("state finder", () => {
   it("asks for a state before it goes anywhere, then opens that state's page", () => {
     push.mockClear();
-    render(<StateFinder states={[{ st: "MI", name: "Michigan" }, { st: "NY", name: "New York" }]} />);
+    render(
+      <StateFinder
+        states={[
+          { st: "MI", name: "Michigan" },
+          { st: "NY", name: "New York" },
+        ]}
+      />,
+    );
     fireEvent.click(screen.getByRole("button", { name: "See what it promises" }));
     expect(screen.getByRole("alert").textContent).toBe("Choose a state first.");
     expect(push).not.toHaveBeenCalled();

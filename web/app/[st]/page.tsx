@@ -71,14 +71,25 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
       <p className={`${styles.factText} ${f.kind === "note" ? styles.note : ""}`}>
         {f.label ? <span className={styles.factLabel}>{f.label}</span> : null}
         {f.label && (f.text || f.href) ? " " : null}
-        {f.href ? (
-          <a href={f.href}>{f.text}</a>
-        ) : (
-          <Linkified text={f.text} st={ref.st} ids={ids} />
-        )}
+        {f.href ? <a href={f.href}>{f.text}</a> : <Linkified text={f.text} st={ref.st} ids={ids} />}
       </p>
+      {f.details ? (
+        <ul className={styles.details}>
+          {f.details.map((d) => (
+            <li key={d.cite}>
+              <Linkified text={d.text} st={ref.st} ids={ids} />
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {f.cites.length ? (
-        <LawRefs st={ref.st} ids={f.cites} rules={rules} sources={sources} summaryShown={f.verbatimSummary} />
+        <LawRefs
+          st={ref.st}
+          ids={f.cites}
+          rules={rules}
+          sources={sources}
+          shown={f.verbatimSummary ? f.cites : (f.details ?? []).map((d) => d.cite)}
+        />
       ) : null}
     </li>
   );
@@ -134,11 +145,11 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
         <ul>
           {summary.sections.map((s) => (
             <li key={s.id}>
-              <a href={`#${s.id}`}>{s.title}</a>
+              <a href={`#${s.id}`}>{s.nav}</a>
             </li>
           ))}
           <li>
-            <a href="#share">Share this page</a>
+            <a href="#share">Share</a>
           </li>
         </ul>
       </nav>

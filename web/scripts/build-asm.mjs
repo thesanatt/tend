@@ -27,8 +27,7 @@ export function parseArgs(argv) {
     else if (a === "--quiet") opts.quiet = true;
     else if (["--tdis", "--laws", "--api", "--only", "--data"].includes(a) && i + 1 < argv.length) {
       opts[a.slice(2)] = argv[++i];
-    }
-    else throw new Error(`unknown argument: ${a}`);
+    } else throw new Error(`unknown argument: ${a}`);
   }
   return opts;
 }
@@ -115,7 +114,14 @@ async function main() {
   const dataDir = path.resolve(opts.data || path.join(webDir, "public", "data"));
   const outDir = path.join(dataDir, "asm");
   const states = JSON.parse(readFileSync(path.join(webDir, "lib", "states.json"), "utf8")).map((s) => s.st);
-  const only = opts.only ? new Set(opts.only.toUpperCase().split(/[\s,]+/).filter(Boolean)) : null;
+  const only = opts.only
+    ? new Set(
+        opts.only
+          .toUpperCase()
+          .split(/[\s,]+/)
+          .filter(Boolean),
+      )
+    : null;
 
   const tdis = path.resolve(opts.tdis || process.env.TEND_TDIS || path.join(repoDir, "engine", "build", "tdis"));
   const haveTdis = existsSync(tdis) && executable(tdis);
@@ -133,9 +139,7 @@ async function main() {
   const index = {};
   const counts = { tdis: 0, api: 0, kept: 0, missing: 0 };
   const missing = [];
-  const lawShas = new Map(
-    readJson(path.join(dataDir, "jurisdictions.json"), []).map((j) => [j.st, j.sha256]),
-  );
+  const lawShas = new Map(readJson(path.join(dataDir, "jurisdictions.json"), []).map((j) => [j.st, j.sha256]));
 
   for (const st of states) {
     const target = path.join(outDir, `${st}.txt`);
@@ -225,7 +229,11 @@ async function main() {
     }
   }
 
-  const ordered = Object.fromEntries(Object.keys(index).sort().map((k) => [k, index[k]]));
+  const ordered = Object.fromEntries(
+    Object.keys(index)
+      .sort()
+      .map((k) => [k, index[k]]),
+  );
   writeFileSync(indexFile, JSON.stringify({ states: ordered }, null, 1) + "\n");
   // The summary prints even with --quiet, so a build log shows where the listings came from.
   console.log(

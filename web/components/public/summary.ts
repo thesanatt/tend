@@ -18,12 +18,16 @@ export interface Fact {
   kind: FactKind;
   // True when text is a rule's own summary (the disclosure then shows only the quote).
   verbatimSummary?: boolean;
+  // Rule summaries shown under the line, e.g. each limit on a kind of cost with its conditions.
+  details?: { text: string; cite: string }[];
   href?: string;
 }
 
 export interface Section {
   id: string;
   title: string;
+  // Short name for the page's jump links.
+  nav: string;
   facts: Fact[];
 }
 
@@ -79,28 +83,6 @@ export function expenseName(expense: string): string {
   return EXPENSE_LABEL[expense] ?? capitalize(expense.replace(/_/g, " "));
 }
 
-const CLAIM_PER = new Set(["claim", "residence", "crime_scene"]);
-const PER_PHRASE: Record<string, string> = {
-  claim: "in total",
-  residence: "for each home",
-  crime_scene: "for each scene",
-  week: "a week",
-  session: "a session",
-  hour: "an hour",
-  day: "a day",
-  month: "a month",
-  mile: "a mile",
-  item: "for each item",
-};
-const UNIT_NOUN: Record<string, [string, string]> = {
-  week: ["week", "weeks"],
-  session: ["session", "sessions"],
-  hour: ["hour", "hours"],
-  day: ["day", "days"],
-  month: ["month", "months"],
-  mile: ["mile", "miles"],
-  item: ["item", "items"],
-};
 const ALTERNATIVE_PHRASE: Record<string, string> = {
   forensic_exam: "a forensic exam",
   protective_order: "a protective order",
@@ -224,60 +206,6 @@ class Corpus {
   }
 }
 
-interface CapGroup {
-  phrase: string;
-  max: number;
-  lower: number | null;
-  countLimit: number | null;
-  unit: string | null;
-  rules: Rule[];
-}
-
-function capGroups(caps: Rule[]): CapGroup[] {
-  const groups = new Map<string, Rule[]>();
-  for (const r of caps) {
-    const per = String(params(r).per ?? "");
-    const amount = num(r, "amount_cents");
-    if (!PER_PHRASE[per] || amount === null || amount <= 0) continue;
-    groups.set(per, [...(groups.get(per) ?? []), r]);
-  }
-  const out: CapGroup[] = [];
-  for (const [per, rules] of groups) {
-    const amounts = rules.map((r) => num(r, "amount_cents")!);
-    const max = Math.max(...amounts);
-    const lowerAmounts = amounts.filter((a) => a < max);
-    const counts = CLAIM_PER.has(per)
-      ? []
-      : rules.map((r) => num(r, "count_limit")).filter((c): c is number => c !== null && c > 0);
-    out.push({
-      phrase: PER_PHRASE[per],
-      max,
-      lower: lowerAmounts.length ? Math.max(...lowerAmounts) : null,
-      countLimit: counts.length ? Math.max(...counts) : null,
-      unit: CLAIM_PER.has(per) ? null : per,
-      rules,
-    });
-  }
-  // Per-unit rates first (they say the most), then totals.
-  return out.sort((a, b) => Number(Boolean(b.unit)) - Number(Boolean(a.unit)) || b.max - a.max);
-}
-
-// "Up to $125 a session, for up to 35 sessions. A lower limit of $80 a session can apply."
-// "Up to $600 a week and $30,000 in total."
-export function capText(groups: CapGroup[]): string {
-  if (!groups.length) return "";
-  const parts = groups.map((g) => {
-    let s = `${money(g.max)} ${g.phrase}`;
-    if (g.countLimit && g.unit && UNIT_NOUN[g.unit]) s += `, for up to ${plural(g.countLimit, UNIT_NOUN[g.unit])}`;
-    return s;
-  });
-  const lower = groups.filter((g) => g.lower !== null);
-  let text = `Up to ${joinWords(parts)}.`;
-  if (groups.length === 1 && lower.length) text += ` A lower limit of ${money(lower[0].lower!)} ${lower[0].phrase} can apply.`;
-  else if (lower.length) text += " Lower limits can apply.";
-  return text;
-}
-
 function summaryFacts(rules: Rule[], keyPrefix: string): Fact[] {
   return rules.map((r) => ({
     key: `${keyPrefix}-${r.id}`,
@@ -299,7 +227,12 @@ function totalSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: 
   const cites = lead.map((r) => r.id);
   return {
     facts: [
-      { key: "total", text: `The most the program can pay for all costs together is ${money(min)}.`, cites, kind: "law" },
+      {
+        key: "total",
+        text: `The most the program can pay for all costs together is ${money(min)}.`,
+        cites,
+        kind: "law",
+      },
       ...summaryFacts(rest, "total"),
     ],
     key: { id: "total", big: money(min), small: "the most you can ask for in total", cites },
@@ -311,7 +244,9 @@ interface CoveredRow {
   expense: string;
   label: string;
   covered: Rule[];
-  caps: CapGroup[];
+  // Limits with an amount. Each is shown with its own summary, because a limit often holds only
+  // for one kind of provider or trip (a peer counselor's hourly rate is not a therapist's).
+  caps: Rule[];
 }
 
 function coveredRows(c: Corpus): CoveredRow[] {
@@ -336,9 +271,9 @@ function coveredRows(c: Corpus): CoveredRow[] {
   const caps = c.of("expense_cap").filter((r) => !c.setAside(r));
   for (const e of new Set(caps.map(expenseOf).filter((x): x is string => Boolean(x)))) {
     if (e === "forensic_exam" || e === "other") continue;
-    const mine = caps.filter((r) => expenseOf(r) === e);
+    const mine = caps.filter((r) => expenseOf(r) === e && (num(r, "amount_cents") ?? 0) > 0);
     const row = rows.get(e) ?? { expense: e, label: expenseName(e), covered: [], caps: [] };
-    row.caps = capGroups(mine);
+    row.caps = mine;
     // A cap with an amount names the cost as payable, the same way the engine reads it.
     if (row.covered.length || row.caps.length) rows.set(e, row);
   }
@@ -352,11 +287,12 @@ function coveredRows(c: Corpus): CoveredRow[] {
 function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[] } {
   const rows = coveredRows(c);
   const facts: Fact[] = rows.map((row) => ({
-    key: `covered-${row.expense}-${row.covered[0]?.id ?? row.caps[0]?.rules[0]?.id}`,
+    key: `covered-${row.expense}-${row.covered[0]?.id ?? row.caps[0]?.id}`,
     label: row.label,
-    text: capText(row.caps),
-    cites: [...row.covered, ...row.caps.flatMap((g) => g.rules)].map((r) => r.id),
+    text: "",
+    cites: [...row.covered, ...row.caps].map((r) => r.id),
     kind: "law",
+    details: row.caps.length ? row.caps.map((r) => ({ text: sentence(r.summary), cite: r.id })) : undefined,
   }));
   return { facts, rows };
 }
@@ -530,7 +466,11 @@ function contactFacts(law: Jurisdiction, c: Corpus): { phone: Fact | null; facts
   const submissions = c
     .of("submission")
     .filter((r) => !c.setAside(r))
-    .map((r) => ({ r, method: String(params(r).method ?? ""), target: plainMarks(String(params(r).target ?? "").trim()) }))
+    .map((r) => ({
+      r,
+      method: String(params(r).method ?? ""),
+      target: plainMarks(String(params(r).target ?? "").trim()),
+    }))
     .filter((x) => METHOD_LABEL[x.method] && x.target)
     .sort((a, b) => METHOD_ORDER.indexOf(a.method) - METHOD_ORDER.indexOf(b.method));
   for (const { r, method, target } of submissions) {
@@ -579,27 +519,42 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
   // Tend's own notes say what it could not verify. They carry no citation and are styled apart.
   const note = (key: string, text: string): Fact[] => [{ key, text, cites: [], kind: "note" }];
   const all: Section[] = [
-    { id: "costs", title: "What the program can pay for", facts: [...total.facts, ...covered.facts] },
-    { id: "not-covered", title: "What it does not pay for", facts: summaryFacts(excluded, "excluded") },
-    { id: "exam", title: "The forensic exam", facts: exam.facts },
-    { id: "police", title: "Police report", facts: report.facts },
+    { id: "costs", title: "What the program can pay for", nav: "Costs", facts: [...total.facts, ...covered.facts] },
+    {
+      id: "not-covered",
+      title: "What it does not pay for",
+      nav: "Not covered",
+      facts: summaryFacts(excluded, "excluded"),
+    },
+    { id: "exam", title: "The forensic exam", nav: "Exam", facts: exam.facts },
+    { id: "police", title: "Police report", nav: "Police report", facts: report.facts },
     {
       id: "deadline",
       title: "Deadline to apply",
+      nav: "Deadline",
       facts: deadline.facts.length
         ? deadline.facts
-        : note("deadline-none", `Tend has not verified a filing deadline for ${law.name}. Ask the program before you wait.`),
+        : note(
+            "deadline-none",
+            `Tend has not verified a filing deadline for ${law.name}. Ask the program before you wait.`,
+          ),
     },
     {
       id: "privacy",
       title: "Keeping your name and address private",
+      nav: "Privacy",
       facts: privacy.length
         ? summaryFacts(privacy, "privacy")
         : note("privacy-none", `Tend has not verified an address or records privacy law for ${law.name} yet.`),
     },
-    { id: "apply", title: "How to apply", facts: contact.facts },
-    { id: "urgent", title: "If you need money soon", facts: summaryFacts(urgent, "urgent") },
-    { id: "before", title: "Good to know before you apply", facts: summaryFacts(before, "before") },
+    { id: "apply", title: "How to apply", nav: "How to apply", facts: contact.facts },
+    { id: "urgent", title: "If you need money soon", nav: "Urgent money", facts: summaryFacts(urgent, "urgent") },
+    {
+      id: "before",
+      title: "Good to know before you apply",
+      nav: "Good to know",
+      facts: summaryFacts(before, "before"),
+    },
   ];
   const sections = all.filter((s) => s.facts.length);
 

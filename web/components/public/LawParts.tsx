@@ -204,7 +204,9 @@ export function AsmView({
   const meta = asm.meta;
   const rulesMatch = head.rules_sha256 === lawSha;
   const how =
-    meta?.via === "api" ? "the law engine on the Tend server (tdis)" : "the engine's disassembler, tdis, when the site was built";
+    meta?.via === "api"
+      ? "the law engine on the Tend server (tdis)"
+      : "the engine's disassembler, tdis, when the site was built";
   return (
     <div className={styles.asm}>
       <dl className={styles.asmFacts}>

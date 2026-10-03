@@ -19,15 +19,19 @@ describe("share card image", () => {
     expect(dynamicParams).toBe(false);
   });
 
-  it.each(["mi", "il", "dc", "ny"])("renders %s as a 1200 x 630 PNG", async (st) => {
-    const res = await get(st);
-    expect(res.status).toBe(200);
-    expect(res.headers.get("content-type")).toBe("image/png");
-    const bytes = new Uint8Array(await res.arrayBuffer());
-    expect([...bytes.slice(1, 4)].map((b) => String.fromCharCode(b)).join("")).toBe("PNG");
-    expect(pngSize(bytes)).toEqual({ width: 1200, height: 630 });
-    expect(bytes.length).toBeGreaterThan(20_000);
-  }, 30_000);
+  it.each(["mi", "il", "dc", "ny"])(
+    "renders %s as a 1200 x 630 PNG",
+    async (st) => {
+      const res = await get(st);
+      expect(res.status).toBe(200);
+      expect(res.headers.get("content-type")).toBe("image/png");
+      const bytes = new Uint8Array(await res.arrayBuffer());
+      expect([...bytes.slice(1, 4)].map((b) => String.fromCharCode(b)).join("")).toBe("PNG");
+      expect(pngSize(bytes)).toEqual({ width: 1200, height: 630 });
+      expect(bytes.length).toBeGreaterThan(20_000);
+    },
+    30_000,
+  );
 
   it("answers 404 for anything that is not a lowercase state code", async () => {
     expect((await get("MI")).status).toBe(404);

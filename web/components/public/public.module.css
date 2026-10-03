@@ -196,6 +196,19 @@
   font-weight: 700;
 }
 
+.details {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.details li::marker {
+  color: var(--ink-3);
+}
+
 .note {
   color: var(--ink-2);
   font-style: italic;
