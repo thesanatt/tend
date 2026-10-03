@@ -22,6 +22,7 @@ import {
   setAside,
   stripTags,
   TEND_PAYMENT_REASON,
+  UNKNOWN,
   unresolved,
   type Anchor,
   type Classification,
@@ -254,6 +255,17 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
   };
 }
 
+// Two labels a model may suggest but code never takes from it (this goes further than the API's
+// classifier, on purpose). A forensic exam is named only by the words on the row, because the law
+// engine holds an exam line and tells the survivor not to pay it: that must never rest on a guess,
+// as the bill reader already ensures. Lost pay comes only from paychecks, and a model only ever
+// sees money going out, so its "lost_wages" is always wrong. Its reason is dropped with the label.
+export function modelLabel(expense: string): string {
+  if (expense === "forensic_exam") return "medical";
+  if (expense === "lost_wages") return UNKNOWN;
+  return expense;
+}
+
 export const REFUND_REASON = "The same amount came back later, so check whether it was refunded";
 const REFUND_WORDS = /\b(refunds?|returns?|returned|credits?|reversals?|reversed|adjustments?)\b/g;
 const refundKey = (t: LocalTxn) =>
@@ -448,7 +460,8 @@ export async function classifyDetailed(
     const a = answers.get(contentKey(f));
     if (!a) return unresolved(f);
     modelSource.set(f.ref, a.source);
-    return fromModelAnswer(f, a.expense, a.reason, a.model);
+    const allowed = modelLabel(a.expense);
+    return fromModelAnswer(f, allowed, allowed === a.expense ? a.reason : "", a.model);
   });
 
   // Rows whose dollars are offered another way: a bank bill with an itemized statement (its

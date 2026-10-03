@@ -5,6 +5,7 @@ import {
   classifier,
   classifyDetailed,
   DEVICE_BATCH,
+  modelLabel,
   REFUND_REASON,
   refundedPurchases,
   responseSchema,
@@ -270,6 +271,34 @@ describe("Gemini Nano on the device", () => {
     const report = await classifyDetailed(unclear(1), ctx, { deviceAi: false });
     expect(fake.prompts).toEqual([]);
     expect(report.counts.unresolved).toBe(1);
+  });
+
+  it("never takes a forensic exam or lost pay from a model", async () => {
+    // Seen in Chrome 154: Gemini Nano labeled a phone bill payment lost_wages.
+    install(answering((row) => (row.description.endsWith("A") ? "forensic_exam" : "lost_wages")));
+    const report = await classifyDetailed(unclear(2), ctx);
+    expect(report.all.map((c) => [c.expense, c.candidate, c.confirmed, c.reason])).toEqual([
+      ["medical", true, false, "Looks like medical care"],
+      ["unknown", false, false, "Looks like ordinary spending"],
+    ]);
+    expect(report.items.map((i) => i.expense)).toEqual(["medical"]);
+    expect(modelLabel("security")).toBe("security");
+  });
+
+  it("the same guard applies to cloud answers", async () => {
+    const fetch = vi.fn(async (_url: string, init: RequestInit) => {
+      const body = JSON.parse(String(init.body)) as { txns: { id: string }[] };
+      const labels = body.txns.map((t) => ({ id: t.id, expense: "forensic_exam", method: "model", reason: "Exam" }));
+      return new Response(JSON.stringify({ model_ok: true, cloud_used: true, labels }), {
+        headers: { "content-type": "application/json" },
+      });
+    });
+    const report = await classifyDetailed(unclear(1), ctx, {
+      cloudConsent: true,
+      deviceAi: false,
+      fetch: fetch as unknown as typeof globalThis.fetch,
+    });
+    expect(report.items.map((i) => [i.expense, i.source])).toEqual([["medical", "cloud_ai"]]);
   });
 
   it("a model's ride guess still waits for a same-day care charge", async () => {
