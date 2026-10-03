@@ -104,8 +104,8 @@ const UNIT_NOUN: Record<string, [string, string]> = {
 const ALTERNATIVE_PHRASE: Record<string, string> = {
   forensic_exam: "a forensic exam",
   protective_order: "a protective order",
-  medical_provider: "records from a doctor, nurse, or counselor",
-  advocate: "a statement from a victim advocate",
+  medical_provider: "medical or counseling records",
+  advocate: "an advocate's statement",
 };
 const ALTERNATIVE_ORDER = ["forensic_exam", "protective_order", "medical_provider", "advocate"];
 const METHOD_LABEL: Record<string, string> = {
@@ -361,12 +361,13 @@ function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[] } {
   return { facts, rows };
 }
 
-function coveredClause(c: Corpus, place: string, rows: CoveredRow[]): ShareClause | null {
-  const pick = rows.filter((r) => r.expense !== "other" && r.covered.length).slice(0, 3);
+function coveredClause(rows: CoveredRow[]): ShareClause | null {
+  // Two costs keep the card's one sentence short enough to read at a glance.
+  const pick = rows.filter((r) => r.expense !== "other" && r.covered.length).slice(0, 2);
   if (!pick.length) return null;
   return {
     id: "covered",
-    text: `you can ask ${place} to pay back costs like ${joinWords(pick.map((r) => r.label.toLowerCase()))}`,
+    text: `you can ask to be paid back for costs like ${joinWords(pick.map((r) => r.label.toLowerCase()))}`,
     cites: pick.flatMap((r) => r.covered.map((x) => x.id)),
   };
 }
@@ -445,18 +446,20 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
     };
   }
 
-  // One plain line before the rules themselves, from params only.
+  // One plain line before the rules themselves, from params only. Two examples at most keep it
+  // short; the rules below list every one.
   const alts = ALTERNATIVE_ORDER.filter((a) => rules.some((r) => list(r, "alternatives").includes(a)));
   const altRules = rules.filter((r) => list(r, "alternatives").some((a) => alts.includes(a)));
+  const like = joinWords(
+    alts.slice(0, 2).map((a) => ALTERNATIVE_PHRASE[a]),
+    "or",
+  );
   let lead: Fact | null = null;
   if (!required.length) {
     lead = {
       key: "report-lead",
       text: alts.length
-        ? `A police report is not required. Other records can count, like ${joinWords(
-            alts.map((a) => ALTERNATIVE_PHRASE[a]),
-            "or",
-          )}.`
+        ? `A police report is not required. Other records can count, like ${like}.`
         : "A police report is not required.",
       cites: rules.map((r) => r.id),
       kind: "law",
@@ -464,10 +467,7 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
   } else if (alts.length) {
     lead = {
       key: "report-lead",
-      text: `The program asks for a police report. The rules below say when ${joinWords(
-        alts.map((a) => ALTERNATIVE_PHRASE[a]),
-        "or",
-      )} can count instead.`,
+      text: `The program asks for a police report. The rules below say when other records can count instead, like ${like}.`,
       cites: [...new Set([...required, ...altRules].map((r) => r.id))],
       kind: "law",
     };
@@ -514,6 +514,15 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
   return { facts, key, clause };
 }
 
+// Filing targets are kept as the program wrote them; only typographic marks become plain ASCII.
+export function plainMarks(text: string): string {
+  return text
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2013\u2014]/g, "-")
+    .replace(/\s*\u2022\s*/g, ", ");
+}
+
 function contactFacts(law: Jurisdiction, c: Corpus): { phone: Fact | null; facts: Fact[] } {
   const { program } = law;
   const sources = new Map(law.sources.map((s) => [s.id, s]));
@@ -521,7 +530,7 @@ function contactFacts(law: Jurisdiction, c: Corpus): { phone: Fact | null; facts
   const submissions = c
     .of("submission")
     .filter((r) => !c.setAside(r))
-    .map((r) => ({ r, method: String(params(r).method ?? ""), target: String(params(r).target ?? "").trim() }))
+    .map((r) => ({ r, method: String(params(r).method ?? ""), target: plainMarks(String(params(r).target ?? "").trim()) }))
     .filter((x) => METHOD_LABEL[x.method] && x.target)
     .sort((a, b) => METHOD_ORDER.indexOf(a.method) - METHOD_ORDER.indexOf(b.method));
   for (const { r, method, target } of submissions) {
@@ -597,7 +606,7 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
   const keyFacts = [total.key, deadline.key, report.key, exam.key].filter((k): k is KeyFact => k !== null);
 
   // "If you're Jane Doe in Michigan: <money>, and <one protection>."
-  const first = total.clause ?? coveredClause(c, place, covered.rows);
+  const first = total.clause ?? coveredClause(covered.rows);
   const second = report.clause ?? exam.clause ?? deadline.clause;
   const clauses = [first, second].filter((x): x is ShareClause => x !== null);
   const text = `If you're Jane Doe in ${place}: ${clauses.map((x) => x.text).join(", and ")}.`;

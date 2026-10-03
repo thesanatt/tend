@@ -54,9 +54,9 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
                   >
                     <Plant stage={lawStage(rules)} growth={lawGrowth(rules)} seedKey={st} className={styles.tilePlant} />
                     {/* The visible abbreviation stays in the accessible name, so voice control can say "MI". */}
-                    <span className={styles.abbr}>{st}</span>
+                    <span className={styles.abbr}>{st}</span>{" "}
+                    {/* The space sits outside the hidden span, so the name reads "MI Michigan", not "MIMichigan". */}
                     <span className="visually-hidden">
-                      {" "}
                       {name}, {rules} rules verified, {stageLabel(rules).toLowerCase()}
                     </span>
                   </Link>

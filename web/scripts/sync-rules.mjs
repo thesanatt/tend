@@ -1,6 +1,7 @@
 // Copies the verified rules corpus and the law IR summaries into public/data, so the web app and
 // its public pages build without the API.
-// usage: node scripts/sync-rules.mjs [path/to/rules]   (default: ../rules, or $TEND_RULES_DIR)
+// usage: node scripts/sync-rules.mjs [path/to/rules] [--out DIR]
+//   rules default: ../rules, or $TEND_RULES_DIR. Output default: public/data.
 //
 // Writes:
 //   public/data/law/ST.json        byte-for-byte copy of rules/verified/ST.json (its sha256 matches the corpus)
@@ -12,7 +13,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const webDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const rulesDir = path.resolve(process.argv[2] || process.env.TEND_RULES_DIR || path.join(webDir, "..", "rules"));
+const args = process.argv.slice(2);
+const outAt = args.indexOf("--out");
+const outArg = outAt >= 0 ? args.splice(outAt, 2)[1] : null;
+const rulesDir = path.resolve(args[0] || process.env.TEND_RULES_DIR || path.join(webDir, "..", "rules"));
 const verifiedDir = path.join(rulesDir, "verified");
 const irDir = path.join(rulesDir, "ir");
 
@@ -23,7 +27,7 @@ if (!existsSync(verifiedDir)) {
 
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const states = JSON.parse(readFileSync(path.join(webDir, "lib", "states.json"), "utf8"));
-const outDir = path.join(webDir, "public", "data");
+const outDir = path.resolve(outArg || path.join(webDir, "public", "data"));
 const lawDir = path.join(outDir, "law");
 const irOut = path.join(outDir, "ir");
 mkdirSync(lawDir, { recursive: true });

@@ -2,6 +2,7 @@
 // public/data/asm/index.json, so the "How Tend decides" pages render it at build time.
 //
 // usage: node scripts/build-asm.mjs [--tdis PATH] [--laws DIR] [--api URL] [--only MI,NY] [--strict] [--quiet]
+//                                    [--data DIR]   (default public/data; listings go to DIR/asm)
 //
 // Per jurisdiction, the first that works:
 //   1. tdis on the law image. tdis: --tdis, $TEND_TDIS, or ../engine/build/tdis. Image: --laws or
@@ -17,15 +18,16 @@ import { fileURLToPath } from "node:url";
 
 const webDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const repoDir = path.resolve(webDir, "..");
-const outDir = path.join(webDir, "public", "data", "asm");
 
 export function parseArgs(argv) {
-  const opts = { tdis: null, laws: null, api: null, only: null, strict: false, quiet: false };
+  const opts = { tdis: null, laws: null, api: null, only: null, data: null, strict: false, quiet: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--strict") opts.strict = true;
     else if (a === "--quiet") opts.quiet = true;
-    else if (["--tdis", "--laws", "--api", "--only"].includes(a) && i + 1 < argv.length) opts[a.slice(2)] = argv[++i];
+    else if (["--tdis", "--laws", "--api", "--only", "--data"].includes(a) && i + 1 < argv.length) {
+      opts[a.slice(2)] = argv[++i];
+    }
     else throw new Error(`unknown argument: ${a}`);
   }
   return opts;
@@ -110,6 +112,8 @@ async function fromApi(api, st) {
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
   const log = (...a) => opts.quiet || console.log(...a);
+  const dataDir = path.resolve(opts.data || path.join(webDir, "public", "data"));
+  const outDir = path.join(dataDir, "asm");
   const states = JSON.parse(readFileSync(path.join(webDir, "lib", "states.json"), "utf8")).map((s) => s.st);
   const only = opts.only ? new Set(opts.only.toUpperCase().split(/[\s,]+/).filter(Boolean)) : null;
 
@@ -130,13 +134,13 @@ async function main() {
   const counts = { tdis: 0, api: 0, kept: 0, missing: 0 };
   const missing = [];
   const lawShas = new Map(
-    readJson(path.join(webDir, "public", "data", "jurisdictions.json"), []).map((j) => [j.st, j.sha256]),
+    readJson(path.join(dataDir, "jurisdictions.json"), []).map((j) => [j.st, j.sha256]),
   );
 
   for (const st of states) {
     const target = path.join(outDir, `${st}.txt`);
     const lawSha = lawShas.get(st);
-    const ir = readJson(path.join(webDir, "public", "data", "ir", `${st}.json`), null);
+    const ir = readJson(path.join(dataDir, "ir", `${st}.json`), null);
     if (only && !only.has(st)) {
       if (previous[st]) index[st] = previous[st];
       continue;
@@ -223,11 +227,17 @@ async function main() {
 
   const ordered = Object.fromEntries(Object.keys(index).sort().map((k) => [k, index[k]]));
   writeFileSync(indexFile, JSON.stringify({ states: ordered }, null, 1) + "\n");
-  log(
-    `listings: ${counts.tdis} from tdis, ${counts.api} from the API, ${counts.kept} kept, ${counts.missing} missing` +
-      (haveTdis ? "" : ` (no tdis at ${path.relative(repoDir, tdis)})`),
+  // The summary prints even with --quiet, so a build log shows where the listings came from.
+  console.log(
+    `build-asm: ${counts.tdis} listings from tdis, ${counts.api} from the API, ${counts.kept} kept, ` +
+      `${counts.missing} missing` +
+      (!haveTdis
+        ? ` (no tdis at ${path.relative(repoDir, tdis) || tdis})`
+        : counts.tdis === 0
+          ? " (tdis is here, but no law images were found)"
+          : ""),
   );
-  if (missing.length) log(`missing: ${missing.join(", ")}`);
+  if (missing.length) console.log(`build-asm: missing ${missing.join(", ")}`);
   if (opts.strict && missing.length) process.exit(1);
 }
 

@@ -21,7 +21,7 @@ export default function StateFinder({ states }: { states: { st: string; name: st
   }
 
   return (
-    <form className={styles.finder} onSubmit={open} aria-label="Find your state">
+    <form className={styles.finder} onSubmit={open}>
       <label htmlFor={id} className={styles.label}>
         Find your state
       </label>
