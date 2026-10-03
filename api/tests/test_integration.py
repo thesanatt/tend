@@ -2,12 +2,17 @@
 
 They stay offline: the classifier answers from its committed cache, the relay reads the committed
 snapshots, and no key is set. The native test skips until the engine build can compile this IR.
+TEND_TEST_ENGINE_BUILD and TEND_TEST_REFENGINE_DIR point them at another build, e.g. one in a worktree:
+
+TEND_TEST_ENGINE_BUILD=../engine/build TEND_TEST_REFENGINE_DIR=../refengine uv run pytest tests/test_integration.py
 """
 
 from __future__ import annotations
 
 import importlib.util
+import os
 import sys
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -19,11 +24,12 @@ from tend_api.forms import MI, filled_fields
 
 REPO = API_DIR.parent
 SEED = REPO / "seed"
-ENGINE = REPO / "engine" / "build"
+ENGINE = Path(os.environ.get("TEND_TEST_ENGINE_BUILD") or REPO / "engine" / "build").resolve()
+REFENGINE = Path(os.environ.get("TEND_TEST_REFENGINE_DIR") or REPO / "refengine").resolve()
 LIB = ENGINE / ("libtend.dylib" if sys.platform == "darwin" else "libtend.so")
 
 has_seed = (SEED / "snapshots" / "rowan-mi.json").is_file() and importlib.util.find_spec("tend_api.classify") is not None
-has_reference = (REPO / "refengine" / "tend_ref").is_dir()
+has_reference = (REFENGINE / "tend_ref").is_dir()
 
 pytestmark = pytest.mark.skipif(not (has_seed and has_reference), reason="seed/ and refengine/ are not in this checkout")
 
@@ -36,7 +42,7 @@ def real(tmp_path):
         engine_lib=LIB,
         law_dirs=(ENGINE / "laws",),
         tendc=ENGINE / "tendc",
-        refengine_dir=REPO / "refengine",
+        refengine_dir=REFENGINE,
         forms_dir=API_DIR / "forms",
         cache_dir=tmp_path / "cache",
         database_url=str(tmp_path / "tend.sqlite3"),
@@ -109,7 +115,9 @@ def test_native_and_reference_agree(real, persona, st):
     native = real.post("/api/claim", params={"engine": "native"}, json=body)
     assert native.status_code == 200, f"native engine could not evaluate {st}: {native.text}"
     reference = real.post("/api/claim", params={"engine": "reference"}, json=body).json()
-    differ = [key for key in ("lines", "totals", "checks", "info_rule_ids") if native.json()[key] != reference[key]]
+    # The whole document, trace and law hash included: the reference is labeled with the image native ran.
+    keys = ("lines", "totals", "checks", "info_rule_ids", "trace", "law_image_sha256")
+    differ = [key for key in keys if native.json().get(key) != reference.get(key)]
     if differ and real.app.state.services.engines.reference._reads == "verified":
         pytest.xfail(f"tend_ref still reads rules/verified while tendc compiles rules/ir; differ in {differ}")
     assert differ == []
