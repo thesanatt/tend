@@ -14,7 +14,7 @@ Needs a C++20 compiler (Apple clang 21 and GCC 13 are fine). Emscripten only for
 
 ```
 make                 # build/libtend.a, build/libtend.dylib (.so on Linux), build/tendc, build/tdis, build/tendvm
-make test            # 67 doctest cases; pass IR=... VERIFIED=... to point the corpus test elsewhere
+make test            # 68 doctest cases; pass IR=... VERIFIED=... to point the corpus test elsewhere
 make test-san        # the same under AddressSanitizer and UBSan
 make fuzz FUZZ_SECONDS=300
 make bench           # 1M-item claim, single thread

@@ -98,7 +98,8 @@ TEST_CASE("line breaks inside a quote or pinpoint stay on the rule's comment lin
     CHECK(l.find('\r') == std::string::npos);
   }
   // inspect keeps the quote verbatim; only the listing flattens it.
-  for (const json& r : inspect(res.image)["rules"]) {
+  json info = inspect(res.image);
+  for (const json& r : info["rules"]) {
     if (r["id"] == "ZZ-EXAM-1") CHECK(r["quote"] == "Mail to:\n\nZZ Program\r\nP.O. Box 1\tCapital City");
   }
 }
