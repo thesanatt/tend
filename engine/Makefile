@@ -86,6 +86,8 @@ FUZZ_FLAGS := -std=c++20 -O1 -g -fno-omit-frame-pointer -Iinclude -Isrc -Ithird_
               -fsanitize=address,undefined -fno-sanitize-recover=all
 FUZZ_LIB_OBJS := $(RUNTIME_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o) $(COMPILER_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o)
 FUZZ_SEED_DIR := $(if $(wildcard $(IR)/*.json),--seed-json-dir $(IR))
+# A second claim with typed units, tags, and a total cap to cross.
+FUZZ_EXTRA_INPUT := $(if $(wildcard ../refengine/tests/golden/zz_mixed.input.json),--seed-input ../refengine/tests/golden/zz_mixed.input.json)
 
 $(FUZZ_DIR)/obj/%.o: %.cpp
 	@mkdir -p $(dir $@)
@@ -97,7 +99,7 @@ $(FUZZ_DIR)/tend_fuzz: fuzz/fuzz.cpp $(FUZZ_LIB_OBJS)
 
 fuzz: $(FUZZ_DIR)/tend_fuzz
 	./$(FUZZ_DIR)/tend_fuzz --seconds $(FUZZ_SECONDS) --corpus $(FUZZ_DIR)/corpus \
-	  --seed-json $(FIXTURE_IR) --seed-input $(FIXTURE_CLAIM) $(FUZZ_SEED_DIR)
+	  --seed-json $(FIXTURE_IR) --seed-input $(FIXTURE_CLAIM) $(FUZZ_EXTRA_INPUT) $(FUZZ_SEED_DIR)
 
 bench: $(BUILD)/tendc $(BUILD)/tendvm
 	@mkdir -p $(BUILD)/laws

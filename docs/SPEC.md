@@ -258,3 +258,15 @@ Engine semantics changes:
    {"error": {"code": "bad_input", "message": "..."}}.
 5. The trace vocabulary, flag formats, and every open choice listed in engine/FORMAT.md section 4
    are normative; refengine/README.md must point to them rather than restate them.
+
+Clarifications (wave 2, engines). Points 1, 3, and 4 and the deadline flag above left room; both
+engines read them this way, and engine/FORMAT.md sections 4 and 5 give the full detail:
+- `deadline_from_report` is a flag on the deadline check: `checks.deadline.flags` is
+  `["deadline_from_report"]` when any deadline rule counts from the report, else `[]`.
+- Lost-wage days add up across lines: 5 x the units of eligible lost_wages lines with unit week,
+  plus the units of those with unit day. Lines that are not eligible do not count.
+- A rule with only days_lost that the claim does not meet is `unknown`. Several minimum loss
+  rules combine to the most severe status: not_met, may_be_waived, unknown, waived, met.
+- The integer bounds apply to the integers the engine reads (amount_cents, insurance_paid_cents,
+  units), and all three must be >= 0. A known key written twice in one object is bad_input.
+- `count_limit` counts only units on lines the cap applies to (matching unit, units > 0).

@@ -43,13 +43,13 @@ enum ItemKey {
   KEY_TAGS,
   KEY_COUNT
 };
-constexpr const char* kItemKeys[KEY_COUNT] = {"item_id", "date",    "amount_cents", "expense", "confirmed",
-                                              "insurance_paid_cents", "is_bill", "units", "unit",    "tags"};
-constexpr const char* kContextKeys[4] = {"incident_date", "as_of_date", "police_report", "forensic_exam"};
-constexpr const char* kTopKeys[3] = {"jurisdiction", "context", "items"};
+constexpr std::string_view kItemKeys[KEY_COUNT] = {"item_id", "date",    "amount_cents", "expense", "confirmed",
+                                                   "insurance_paid_cents", "is_bill", "units", "unit", "tags"};
+constexpr std::string_view kContextKeys[4] = {"incident_date", "as_of_date", "police_report", "forensic_exam"};
+constexpr std::string_view kTopKeys[3] = {"jurisdiction", "context", "items"};
 
 template <size_t N>
-int key_index(std::string_view key, const char* const (&names)[N]) {
+int key_index(std::string_view key, const std::string_view (&names)[N]) {
   for (size_t i = 0; i < N; i++) {
     if (key == names[i]) return int(i);
   }
@@ -81,7 +81,7 @@ class InputParser {
         if (!r_.skip()) return json_error();
         continue;
       }
-      if (seen & (1u << which)) return semantic({"", -1, kTopKeys[which]}, "appears twice");
+      if (seen & (1u << which)) return semantic({"", -1, kTopKeys[which].data()}, "appears twice");
       seen |= 1u << which;
       bool ok = which == 0 ? jurisdiction() : which == 1 ? context() : items();
       if (!ok) return false;
@@ -224,7 +224,7 @@ class InputParser {
         if (!r_.skip()) return json_error();
         continue;
       }
-      Path p{"context", -1, kContextKeys[which]};
+      Path p{"context", -1, kContextKeys[which].data()};
       if (seen & (1u << which)) return semantic(p, "appears twice");
       seen |= 1u << which;
       bool ok = true;
@@ -290,7 +290,7 @@ class InputParser {
         if (!r_.skip()) return json_error();
         continue;
       }
-      Path p{"items", i, kItemKeys[which]};
+      Path p{"items", i, kItemKeys[which].data()};
       if (seen & (1u << which)) return semantic(p, "appears twice");
       seen |= 1u << which;
       bool ok = true;
