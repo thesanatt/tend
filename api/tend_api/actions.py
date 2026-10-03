@@ -40,6 +40,7 @@ class ActionService:
         secret: bytes,
         clock: Clock,
         accounts_for_scan: AccountsForScan | None = None,
+        live_accounts: Callable[[], set[str]] | None = None,
     ):
         self.repo = repo
         self.banks = banks
@@ -47,6 +48,7 @@ class ActionService:
         self.secret = secret
         self.clock = clock
         self.accounts_for_scan = accounts_for_scan or (lambda scan_id: None)
+        self.live_accounts = live_accounts or set
 
     def propose(self, req: ProposeRequest, channel: str = "app") -> dict[str, Any]:
         if req.claim_id is not None:
@@ -58,6 +60,9 @@ class ActionService:
         bank = self.banks["dry_run" if dry_run else "nessie"]
         if bank.whole_dollars and req.amount_cents % 100:
             raise ActionError("Nessie stores whole dollars, so a live payment has to be a whole-dollar amount.", 422)
+        # The API has no sign-in yet, so live writes are limited to the demo personas' own accounts.
+        if not dry_run and req.from_account not in self.live_accounts():
+            raise ActionError("Live payments can only come from a demo persona's account.", 403)
         action_id = f"act_{secrets.token_hex(10)}"
         code = f"{secrets.randbelow(1_000_000):06d}"
         now = self.clock()

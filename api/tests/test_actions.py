@@ -383,6 +383,15 @@ def test_live_payments_must_be_whole_dollars(settings, clock):
     assert client.post("/api/actions/propose", json={**PAYMENT, "amount_cents": 11850, "dry_run": True}).status_code == 200
 
 
+def test_live_payments_only_from_persona_accounts(settings, clock):
+    nessie = FakeNessieClient()
+    client = live_client(settings, clock, nessie)
+    r = client.post("/api/actions/propose", json={**PAYMENT, "from": "someone-elses-account"})
+    assert r.status_code == 403
+    assert client.post("/api/actions/propose", json={**PAYMENT, "from": "acct-cushion-0001"}).status_code == 200
+    assert nessie.stored == {}
+
+
 def test_dry_run_server_never_writes_live(client):
     action = propose(client, dry_run=False)
     assert action["dry_run"] is True

@@ -52,7 +52,7 @@ def build_services(
     banks = banks or {"dry_run": DryRunBank(), "nessie": NessieBank()}
     claims = ClaimService(repo, rules, engines, settings.seed_dir, clock)
     scans = ScanService(repo, settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory)
-    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, scans.accounts_for_scan)
+    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, scans.accounts_for_scan, scans.persona_accounts)
     shares = ShareService(repo, clock, settings.public_url)
     return Services(
         settings=settings,

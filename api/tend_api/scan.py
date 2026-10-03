@@ -254,6 +254,16 @@ class ScanService:
         self.live_scan = live_scan
         self.nessie_client_factory = nessie_client_factory
 
+    def persona_accounts(self) -> set[str]:
+        """Every account id in the seed personas: the only accounts a live payment may come from."""
+        accounts: set[str] = set()
+        for path in sorted(snapshot_dir(self.seed_dir).glob("*.json")):
+            try:
+                accounts |= account_ids(json.loads(path.read_text(encoding="utf-8")))
+            except (OSError, ValueError):
+                continue
+        return accounts
+
     def accounts_for_scan(self, scan_id: str) -> set[str] | None:
         """The persona's own account ids, when the scan came from a persona snapshot."""
         scan = self.repo.get_scan(scan_id)
