@@ -59,8 +59,8 @@ def fake_classifier(transactions: list[dict[str, Any]], st: str) -> list[dict[st
             continue
         items.append(
             {
-                "item_id": f"nessie:{t['_id']}",
-                "date": t.get("purchase_date") or t.get("transaction_date") or t.get("creation_date"),
+                "item_id": f"nessie:{t.get('id') or t['_id']}",
+                "date": t.get("date") or t.get("purchase_date") or t.get("transaction_date") or t.get("creation_date"),
                 "amount_cents": t.get("amount_cents", t.get("payment_amount_cents")),
                 "expense": match[1],
                 "confirmed": False,

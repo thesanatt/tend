@@ -36,16 +36,43 @@ class Engine(Protocol):
     def evaluate(self, payload: dict[str, Any]) -> dict[str, Any]: ...
 
 
+class LawIR:
+    """rules/ir/ST.json: the canonical law both engines read (SPEC v1.1), made by rules/tools/normalize.py."""
+
+    def __init__(self, ir_dir: Path | None, rules: RulesStore):
+        self.ir_dir = ir_dir
+        self.rules = rules
+
+    def path(self, st: str) -> Path | None:
+        if self.ir_dir is None:
+            return None
+        path = self.ir_dir / f"{st}.json"
+        return path if path.is_file() else None
+
+    def load(self, st: str) -> dict[str, Any] | None:
+        """The IR, or None when there is none. Refuses IR built from an older verified file."""
+        path = self.path(st)
+        if path is None:
+            return None
+        doc = json.loads(path.read_bytes())
+        if doc.get("source_sha256") != self.rules.file_sha256(st):
+            raise EngineUnavailable(f"The law IR for {st} is older than its verified rules. Run: python3 rules/tools/normalize.py {st}")
+        return doc
+
+
 class NativeEngine:
     """The C++ VM through its C ABI: tend_eval_json, tend_disasm, tend_version, tend_free."""
 
     name = "native"
 
-    def __init__(self, lib_path: Path, law_dirs: tuple[Path, ...], tendc: Path, rules: RulesStore, cache_dir: Path):
+    def __init__(
+        self, lib_path: Path, law_dirs: tuple[Path, ...], tendc: Path, rules: RulesStore, cache_dir: Path, ir: LawIR | None = None
+    ):
         self.lib_path = lib_path
         self.law_dirs = law_dirs
         self.tendc = tendc
         self.rules = rules
+        self.ir = ir or LawIR(None, rules)
         self.compiled_dir = cache_dir / "laws"
         self._lib: ctypes.CDLL | None = None
         self._images: dict[Path, tuple[float, bytes]] = {}
@@ -104,7 +131,7 @@ class NativeEngine:
         if not self.tendc.is_file():
             raise EngineUnavailable(f"No up-to-date law image for {st} and no compiler at {self.tendc}. Build it with: {BUILD_HINT}")
         out = self.compiled_dir / f"{st}.tlaw"
-        self._compile(rules_path, out)
+        self._compile(st, rules_path, out)
         image = self._read_image(out)
         if image is None:
             raise EngineUnavailable(f"tendc did not write {out}")
@@ -122,17 +149,23 @@ class NativeEngine:
         self._images[path] = (mtime, image)
         return image
 
-    def _compile(self, rules_path: Path, out: Path) -> None:
+    def _compile(self, st: str, rules_path: Path, out: Path) -> None:
+        ir_path = self.ir.path(st)
+        if ir_path is not None:
+            self.ir.load(st)  # say how to fix stale IR before tendc refuses it
+            args = [str(self.tendc), "--quiet", str(ir_path), "--verified", str(rules_path)]
+        else:
+            args = [str(self.tendc), "--quiet", str(rules_path)]  # compilers before the IR read the verified file
         out.parent.mkdir(parents=True, exist_ok=True)
         fd, tmp = tempfile.mkstemp(dir=out.parent, suffix=".tlaw.tmp")
         os.close(fd)
         try:
             try:
-                proc = subprocess.run([str(self.tendc), str(rules_path), "-o", tmp], capture_output=True, text=True, timeout=60)
+                proc = subprocess.run([*args, "-o", tmp], capture_output=True, text=True, timeout=60)
             except (OSError, subprocess.TimeoutExpired) as exc:
                 raise EngineUnavailable(f"could not run tendc: {exc}") from exc
             if proc.returncode != 0:
-                raise EngineUnavailable(f"tendc failed on {rules_path.name}: {(proc.stderr or proc.stdout).strip()[:500]}")
+                raise EngineUnavailable(f"tendc failed on {st}: {(proc.stderr or proc.stdout).strip()[:500]}")
             os.replace(tmp, out)
         finally:
             if os.path.exists(tmp):
@@ -198,10 +231,12 @@ class ReferenceEngine:
 
     name = "reference"
 
-    def __init__(self, refengine_dir: Path, rules: RulesStore, evaluate: Callable[..., Any] | None = None):
+    def __init__(self, refengine_dir: Path, rules: RulesStore, evaluate: Callable[..., Any] | None = None, ir: LawIR | None = None):
         self.refengine_dir = refengine_dir
         self.rules = rules
+        self.ir = ir or LawIR(None, rules)
         self._fn = evaluate
+        self._reads: str | None = None  # "ir" or "verified": which law document this tend_ref accepted
 
     def _function(self) -> Callable[..., Any]:
         if self._fn is None:
@@ -210,16 +245,36 @@ class ReferenceEngine:
 
     def evaluate(self, payload: dict[str, Any]) -> dict[str, Any]:
         fn = self._function()
-        law = self.rules.get(payload["jurisdiction"])
-        if law is None:
-            raise EngineError(f"no verified rules for {payload['jurisdiction']}")
-        try:
-            result = call_reference(fn, law, payload, law_sha256=self.rules.file_sha256(payload["jurisdiction"]))
-        except ValueError as exc:
-            raise EngineError(f"reference engine rejected the input: {exc}") from exc
-        if isinstance(result, dict):
-            return _parse_result(json.dumps(result, default=str))
-        return _parse_result(result)
+        st = payload["jurisdiction"]
+        verified = self.rules.get(st)
+        if verified is None:
+            raise EngineError(f"no verified rules for {st}")
+        # SPEC v1.1 references read the IR and v1.0 ones the verified file; offer the IR first and remember
+        # which one this tend_ref takes. Stale IR is never offered.
+        ir, ir_problem = None, None
+        if self._reads != "verified":
+            try:
+                ir = self.ir.load(st)
+            except EngineUnavailable as exc:
+                ir_problem = exc
+        attempts = ([("ir", ir)] if ir is not None else []) + ([("verified", verified)] if self._reads != "ir" else [])
+        if not attempts:
+            raise ir_problem or EngineUnavailable(f"No law IR for {st}. Run: python3 rules/tools/normalize.py {st}")
+        for i, (kind, doc) in enumerate(attempts):
+            try:
+                result = call_reference(fn, doc, payload, law_sha256=self.rules.file_sha256(st))
+            except ValueError as exc:
+                if self._reads is None and i + 1 < len(attempts):
+                    continue
+                if self._reads is None and ir_problem is not None:
+                    raise ir_problem from exc
+                raise EngineError(f"reference engine rejected the input: {exc}") from exc
+            if self._reads is None and len(attempts) > 1:
+                self._reads = kind
+            if isinstance(result, dict):
+                return _parse_result(json.dumps(result, default=str))
+            return _parse_result(result)
+        raise AssertionError("unreachable")
 
     def status(self) -> dict[str, Any]:
         try:

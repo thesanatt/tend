@@ -71,6 +71,7 @@ class Bill:
     provider: str | None = None
     statement_date: str | None = None
     bill_id: str | None = None
+    account_ref: str | None = None  # the provider's account number for this statement
     fictional: bool = False
     nessie_bill_id: str | None = None
     total_cents: int | None = None
@@ -131,6 +132,8 @@ def parse_text_bill(text: str, sha256: str, fmt: str = "text") -> Bill:
                     bill.statement_date = value
                 elif key == "bill id":
                     bill.bill_id = value
+                elif key in ("account", "account number"):
+                    bill.account_ref = value
             elif title is None and not _BANNER.search(line):
                 title = re.split(r"\s{2,}", line)[0]
             continue
@@ -281,6 +284,28 @@ def nessie_bill_check(bill: Bill, snapshot: dict[str, Any] | None) -> dict[str, 
     return {"name": "matches_nessie_bill", "ok": ok, "nessie_bill_id": bill.nessie_bill_id}
 
 
+def verify_bill(source: BillSource, snapshot: dict[str, Any] | None) -> tuple[Bill, list[dict[str, Any]]]:
+    """Extract the lines and run every check; any failure refuses the bill."""
+    bill = extract_bill(source.raw, source.format)
+    checks = balance_checks(bill)
+    if source.document is not None:
+        bill.nessie_bill_id = bill.nessie_bill_id or source.document.get("bill_id")
+        bill.statement_date = bill.statement_date or source.document.get("statement_date")
+        checks.append(document_check(bill, source.document))
+        if not checks[-1]["ok"]:
+            raise BillRefused("This file is not the bill recorded for this person.", {"checks": checks})
+    nessie = nessie_bill_check(bill, snapshot)
+    if nessie is not None:
+        checks.append(nessie)
+        if not nessie["ok"]:
+            raise BillRefused("The bill does not match the bill on record in the bank.", {"checks": checks})
+    return bill, checks
+
+
+def service_date(bill: Bill, document: dict[str, Any] | None) -> str:
+    return (document or {}).get("service_date") or min(line.date for line in bill.lines).isoformat()
+
+
 def snapshot_documents(snapshot: dict[str, Any] | None) -> list[dict[str, Any]]:
     snapshot = snapshot or {}
     docs = list((snapshot.get("meta") or {}).get("documents") or snapshot.get("documents") or [])
@@ -290,20 +315,28 @@ def snapshot_documents(snapshot: dict[str, Any] | None) -> list[dict[str, Any]]:
     return [d for d in docs if isinstance(d, dict) and d.get("kind", "itemized_bill") == "itemized_bill"]
 
 
+def load_document(seed_dir: Path, document: dict[str, Any]) -> BillSource | None:
+    path = _resolve_inside(seed_dir, str(document.get("path", "")))
+    return BillSource(path.read_bytes(), _format_of(path), document) if path is not None else None
+
+
 def find_bill(seed_dir: Path, bill_id: str | None, persona_id: str | None, snapshot: dict[str, Any] | None) -> BillSource:
-    """An explicit bill_id wins, then the persona's own itemized bill, then a bill file named after the persona."""
+    """A bill_id names a persona document (by its Nessie bill id) or a file; otherwise the persona's own itemized bill."""
+    documents = snapshot_documents(snapshot)
     if bill_id:
-        found = _find_named(seed_dir, bill_id)
-        if found is None:
-            raise BillRefused(f"No itemized bill named {bill_id!r} under {seed_dir}.", status_code=404)
-        return found
+        for doc in documents:
+            if doc.get("bill_id") == bill_id and (found := load_document(seed_dir, doc)) is not None:
+                return found
+        named = _find_named(seed_dir, bill_id)
+        if named is None:
+            raise BillRefused(f"No itemized bill {bill_id!r} for this person.", status_code=404)
+        return named
     inline = (snapshot or {}).get("itemized_bill")
     if isinstance(inline, dict):
         return BillSource(json.dumps(inline).encode("utf-8"), "json")
-    for doc in snapshot_documents(snapshot):
-        path = _resolve_inside(seed_dir, str(doc.get("path", "")))
-        if path is not None:
-            return BillSource(path.read_bytes(), _format_of(path), doc)
+    for doc in documents:
+        if (found := load_document(seed_dir, doc)) is not None:
+            return found
     if persona_id:
         for prefix in (persona_id, persona_id.split("-")[0]):
             for sub in BILL_DIRS[:3]:

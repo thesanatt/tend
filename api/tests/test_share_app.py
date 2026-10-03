@@ -68,6 +68,18 @@ def test_share_errors(client):
     assert client.get("/api/share/short").status_code == 422
     assert client.post("/api/share", json={"claim_id": "clm_missing"}).status_code == 404
     assert client.post("/api/share", json={"claim_id": make_claim(client), "ttl_hours": 500}).status_code == 422
+    assert client.post("/api/share", json={}).status_code == 422
+
+
+def test_device_claim_is_shared_as_the_server_computes_it(client):
+    scan = scan_rowan(client)
+    claim_input = confirm_all(scan["engine_input"])
+    honest = client.post("/api/claim", json=claim_input).json()
+    tampered = {**honest, "totals": {**honest["totals"], "allowed_cents": honest["totals"]["allowed_cents"] + 100_000}}
+    link = client.post("/api/share", json={"input": claim_input, "output": tampered}).json()
+    assert link["matches_client"] is False
+    view = client.get(link["api_path"]).json()
+    assert view["output"]["totals"] == honest["totals"]  # the advocate sees the server's numbers, not the device's
 
 
 def test_cors_exposes_the_engine_header(client):

@@ -12,7 +12,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from .bill import snapshot_documents
+from .bill import BillRefused, load_document, snapshot_documents, verify_bill
 from .clock import Clock, iso, local_today, parse_date
 from .errors import TendError
 from .models import Item, ScanRequest
@@ -56,8 +56,10 @@ def persona_info(snap: dict[str, Any]) -> dict[str, Any]:
     """Persona fields live under meta in tend-bank-snapshot/1 and at the top level in older fixtures."""
     meta = snap.get("meta") or {}
     context = {**(meta.get("demo_inputs") or {}), **(snap.get("context") or {})}
+    jurisdiction = meta.get("jurisdiction") or snap.get("jurisdiction")
     return {
         "persona_id": meta.get("persona_id") or snap.get("persona_id"),
+        "jurisdiction": jurisdiction.upper() if isinstance(jurisdiction, str) else None,
         "fictional": meta.get("fictional", snap.get("fictional")),
         "display_name": meta.get("display_name") or snap.get("display_name"),
         "label": meta.get("notice") or snap.get("label"),
@@ -67,6 +69,63 @@ def persona_info(snap: dict[str, Any]) -> dict[str, Any]:
 
 def account_ids(snap: dict[str, Any]) -> set[str]:
     return {str(_id(a)) for a in snap.get("accounts") or [] if _id(a)}
+
+
+def primary_account(snap: dict[str, Any]) -> dict[str, Any] | None:
+    """The account payments come from: the persona's checking account."""
+    accounts = snap.get("accounts") or []
+    key = ((snap.get("meta") or {}).get("account_keys") or {}).get("checking")
+    pick = (
+        next((a for a in accounts if key and _id(a) == key), None)
+        or next((a for a in accounts if str(a.get("type", "")).lower() == "checking"), None)
+        or (accounts[0] if accounts else None)
+    )
+    if pick is None:
+        return None
+    number = str(pick.get("account_number") or "")
+    return {"id": str(_id(pick)), "nickname": pick.get("nickname") or pick.get("type") or "Account", "mask": number[-4:] or None}
+
+
+def itemized_bill_items(seed_dir: Path, snap: dict[str, Any]) -> tuple[list[dict[str, Any]], set[str], list[dict[str, Any]]]:
+    """Each verified itemized bill becomes its lines, standing in for the single bank bill it explains."""
+    rows: list[dict[str, Any]] = []
+    replaced: set[str] = set()
+    errors: list[dict[str, Any]] = []
+    for doc in snapshot_documents(snap):
+        if not doc.get("bill_id"):
+            continue
+        source = load_document(seed_dir, doc)
+        if source is None:
+            errors.append({"bill_id": doc["bill_id"], "message": "The itemized bill file is missing."})
+            continue
+        try:
+            bill, _ = verify_bill(source, snap)
+        except BillRefused as exc:
+            errors.append({"bill_id": doc["bill_id"], **exc.detail})
+            continue
+        replaced.add(f"nessie:{doc['bill_id']}")
+        for line in bill.lines:
+            matched = f', matched on "{line.match}"' if line.match else ""
+            rows.append(
+                {
+                    "item_id": line.item_id,
+                    "date": line.date.isoformat(),
+                    "amount_cents": line.amount_cents,
+                    "expense": line.expense,
+                    # The provider's own itemized statement, not an inference, so the line starts confirmed.
+                    "confirmed": True,
+                    "is_bill": True,
+                    "units": 0,
+                    "description": (f"{bill.provider} - {line.description}" if bill.provider else line.description)[:200],
+                    "merchant": bill.provider,
+                    "source": "bill",
+                    "bill_id": doc["bill_id"],
+                    "confidence": 1.0,
+                    "method": "itemized_bill",
+                    "reason": f"Line {line.line_no} of the itemized bill{matched}",
+                }
+            )
+    return rows, replaced, errors
 
 
 def transactions_from_snapshot(snap: dict[str, Any]) -> list[dict[str, Any]]:
@@ -122,7 +181,11 @@ def items_from_classifications(snap: dict[str, Any], results: dict[str, Any]) ->
                 "is_bill": is_bill,
                 # Each counseling charge is one session, so per-session caps can apply.
                 "units": 1 if r.get("expense") == "counseling" and not is_bill else 0,
+                "tags": list(r.get("tags") or []),
                 "description": (description or "")[:200],
+                "merchant": txn.get("payee") if is_bill else merchant,
+                "source": txn.get("kind"),
+                "bill_id": ref if is_bill else None,
                 "confidence": r.get("confidence"),
                 "reason": r.get("reason"),
                 "method": r.get("method"),
@@ -191,6 +254,16 @@ class ScanService:
         self.live_scan = live_scan
         self.nessie_client_factory = nessie_client_factory
 
+    def accounts_for_scan(self, scan_id: str) -> set[str] | None:
+        """The persona's own account ids, when the scan came from a persona snapshot."""
+        scan = self.repo.get_scan(scan_id)
+        if not scan or not scan.get("persona_id"):
+            return None
+        try:
+            return account_ids(load_snapshot(self.seed_dir, scan["persona_id"])) or None
+        except ScanError:
+            return None
+
     def classify(self, snap: dict[str, Any], st: str) -> list[Any]:
         if self._classifier is not None:
             return list(self._classifier(transactions_from_snapshot(snap), st))
@@ -234,7 +307,9 @@ class ScanService:
         as_of = parse_date(context.get("as_of_date")) or local_today(now)
 
         transactions = transactions_from_snapshot(snap)
-        items, rows = normalize_items(self.classify(snap, req.st))
+        bill_rows, replaced, bill_errors = itemized_bill_items(self.seed_dir, snap)
+        classified = [r for r in self.classify(snap, req.st) if _as_dict(r).get("item_id") not in replaced]
+        items, rows = normalize_items(classified + bill_rows)
         forensic_exam = context.get("forensic_exam")
         if not isinstance(forensic_exam, bool):
             forensic_exam = any(i.expense == "forensic_exam" for i in items)
@@ -268,8 +343,13 @@ class ScanService:
             "label": info["label"] or (DEFAULT_LABEL if fictional else MOCK_BANK_LABEL),
             "display_name": display_name,
             "st": req.st,
+            "incident_date": incident_date.isoformat(),
+            "as_of_date": as_of.isoformat(),
+            "account": primary_account(snap),
             "accounts": sorted(account_ids(snap)),
+            "read_count": len(transactions),
             "documents": documents,
+            "bill_errors": bill_errors,
             "counts": {
                 "transactions": len(transactions),
                 "items": len(items),

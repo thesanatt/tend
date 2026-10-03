@@ -4,10 +4,9 @@ import datetime as dt
 import hashlib
 import re
 import secrets
-from pathlib import Path
 from typing import Any
 
-from .actions import ActionService
+from .actions import AccountsForScan, ActionService
 from .claims import HOLD_MESSAGE, ClaimService
 from .clock import Clock, iso, local_today, parse_iso
 from .engine import EngineError, EngineRouter, EngineUnavailable
@@ -15,7 +14,6 @@ from .errors import TendError
 from .models import AgentConfirmRequest, AgentPayRequest, ConfirmRequest, ProposeRequest
 from .money import format_cents, parse_cents
 from .rules import RulesStore, citation, rule_expense
-from .scan import ScanError, account_ids, load_snapshot
 from .share import ShareService
 from .storage import Repository
 
@@ -58,7 +56,7 @@ class AgentService:
         claims: ClaimService,
         actions: ActionService,
         shares: ShareService,
-        seed_dir: Path,
+        accounts_for_scan: AccountsForScan,
         clock: Clock,
     ):
         self.repo = repo
@@ -67,7 +65,7 @@ class AgentService:
         self.claims = claims
         self.actions = actions
         self.shares = shares
-        self.seed_dir = seed_dir
+        self.accounts_for_scan = accounts_for_scan
         self.clock = clock
 
     def checklist(self, st: str, incident_date: dt.date | None) -> dict[str, Any]:
@@ -232,12 +230,6 @@ class AgentService:
 
     def _check_account(self, claim: dict[str, Any], account_id: str) -> None:
         # When the claim came from a persona snapshot, the agent may only pay from that person's own accounts.
-        scan = self.repo.get_scan(claim["scan_id"]) if claim.get("scan_id") else None
-        if not scan or not scan.get("persona_id"):
-            return
-        try:
-            accounts = account_ids(load_snapshot(self.seed_dir, scan["persona_id"]))
-        except ScanError:
-            return
+        accounts = self.accounts_for_scan(claim["scan_id"]) if claim.get("scan_id") else None
         if accounts and account_id not in accounts:
             raise AgentError("The agent can only pay from your own accounts.", 403)

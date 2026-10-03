@@ -5,16 +5,7 @@ import secrets
 from pathlib import Path
 from typing import Any
 
-from .bill import (
-    INSURANCE_MENTION,
-    BillRefused,
-    BillSource,
-    balance_checks,
-    document_check,
-    extract_bill,
-    find_bill,
-    nessie_bill_check,
-)
+from .bill import INSURANCE_MENTION, BillSource, find_bill, service_date, verify_bill
 from .clock import Clock, iso, local_today, parse_date
 from .engine import EngineError, EngineRouter
 from .errors import TendError
@@ -134,8 +125,9 @@ class ClaimService:
         for ln in output.get("lines", []):
             item = items.get(ln["item_id"], {})
             ids = list(ln.get("rule_ids") or [])
-            if ln.get("cap_rule_id") and ln["cap_rule_id"] not in ids:
-                ids.append(ln["cap_rule_id"])
+            for extra in [ln.get("cap_rule_id"), *(ln.get("alt_cap_rule_ids") or [])]:
+                if extra and extra not in ids:
+                    ids.append(extra)
             lines.append(
                 {
                     **ln,
@@ -167,27 +159,19 @@ class ClaimService:
         }
 
     def audit_bill(self, req: BillAuditRequest, prefer: str = "auto") -> tuple[dict[str, Any], str]:
-        doc = self._require_jurisdiction(req.st)
         snapshot = load_snapshot(self.seed_dir, req.persona_id) if req.persona_id else None
+        info = persona_info(snapshot) if snapshot else {"context": {}, "jurisdiction": None}
+        st = req.st or info.get("jurisdiction")
+        if not st:
+            raise ClaimError("st is required when the bill is not tied to a persona.", 422)
+        doc = self._require_jurisdiction(st)
         if req.bill_text is not None:
             source = BillSource(req.bill_text.encode("utf-8"), "text")
         else:
             source = find_bill(self.seed_dir, req.bill_id, req.persona_id, snapshot)
-        bill = extract_bill(source.raw, source.format)
-        checks = balance_checks(bill)
-        if source.document is not None:
-            bill.nessie_bill_id = bill.nessie_bill_id or source.document.get("bill_id")
-            bill.statement_date = bill.statement_date or source.document.get("statement_date")
-            checks.append(document_check(bill, source.document))
-            if not checks[-1]["ok"]:
-                raise BillRefused("This file is not the bill recorded for this person.", {"checks": checks})
-        nessie_check = nessie_bill_check(bill, snapshot)
-        if nessie_check is not None:
-            checks.append(nessie_check)
-            if not nessie_check["ok"]:
-                raise BillRefused("The bill does not match the bill on record in the bank.", {"checks": checks})
+        bill, checks = verify_bill(source, snapshot)
 
-        persona_context = persona_info(snapshot)["context"] if snapshot else {}
+        persona_context = info["context"]
         incident = req.incident_date or parse_date(persona_context.get("incident_date"))
         if incident is None:
             raise ClaimError("incident_date is required to audit a bill.", 422)
@@ -203,21 +187,21 @@ class ClaimService:
                 date=line.date,
                 amount_cents=line.amount_cents,
                 expense=line.expense,
-                confirmed=False,
+                confirmed=True,  # lines of the provider's own statement, as in the scan
                 is_bill=True,
                 description=line.description[:200],
             )
             for line in bill.lines
         ]
-        payload = ClaimInput(jurisdiction=req.st, context=context, items=items).model_dump(mode="json")
+        payload = ClaimInput(jurisdiction=st, context=context, items=items).model_dump(mode="json")
         try:
             output, engine = self.engines.evaluate(payload, prefer)
         except EngineError as exc:
             raise ClaimError(str(exc), 422) from exc
         validate_output(output, payload)
 
-        rules = self.rules.rules_by_id(req.st)
-        sources = self.rules.sources_by_id(req.st)
+        rules = self.rules.rules_by_id(st)
+        sources = self.rules.sources_by_id(st)
         by_item = {ln["item_id"]: ln for ln in output["lines"]}
         lines, holds, flags = [], [], []
         for line in bill.lines:
@@ -245,6 +229,7 @@ class ClaimService:
                     "line_no": line.line_no,
                     "description": line.description,
                     "amount_cents": line.amount_cents,
+                    "rule_ids": result.get("rule_ids", []),
                     "message": HOLD_MESSAGE,
                     "citations": [citation(r, sources) for r in held_rules],
                     "payers": [
@@ -259,28 +244,29 @@ class ClaimService:
                 flags.append(flag)
 
         held_cents = sum(h["amount_cents"] for h in holds)
-        due = bill.due_cents
-        scan_id = self._register_bill_evidence(req, bill)
+        scan_id = self._register_bill_evidence(req, st, bill, [h["item_id"] for h in holds])
         result = {
-            "bill": {
-                "bill_id": bill.bill_id or req.bill_id,
-                "provider": bill.provider,
-                "statement_date": bill.statement_date,
-                "fictional": bill.fictional,
-                "format": bill.format,
-                "sha256": bill.sha256,
-                "nessie_bill_id": bill.nessie_bill_id,
-                "total_cents": bill.total_cents,
-                "amount_due_cents": bill.amount_due_cents,
-                "lines_sum_cents": bill.lines_sum_cents,
-                "adjustments": bill.adjustments,
-            },
-            "checks": checks,
+            # The shape the web reads first, then the proof behind it.
+            "bill_id": req.bill_id or bill.nessie_bill_id or bill.bill_id,
+            "provider": bill.provider,
+            "statement_date": bill.statement_date,
+            "service_date": service_date(bill, source.document),
+            "account_ref": bill.account_ref,
+            "total_cents": bill.due_cents,
+            "lines_sum_cents": bill.lines_sum_cents,
             "lines": lines,
             "holds": holds,
-            "flags": flags,
             "held_cents": held_cents,
-            "payable_cents": max(0, (due or 0) - held_cents),
+            "payable_cents": max(0, (bill.due_cents or 0) - held_cents),
+            "flags": flags,
+            "checks": checks,
+            "statement_id": bill.bill_id,
+            "nessie_bill_id": bill.nessie_bill_id,
+            "fictional": bill.fictional,
+            "format": bill.format,
+            "sha256": bill.sha256,
+            "amount_due_cents": bill.amount_due_cents,
+            "adjustments": bill.adjustments,
             # In a claim these lines stand in for the single bank bill they itemize.
             "replaces_item_id": f"nessie:{bill.nessie_bill_id}" if bill.nessie_bill_id else None,
             "engine_items": payload["items"],
@@ -290,7 +276,7 @@ class ClaimService:
         }
         return result, engine
 
-    def _register_bill_evidence(self, req: BillAuditRequest, bill: Any) -> str:
+    def _register_bill_evidence(self, req: BillAuditRequest, st: str, bill: Any, held: list[str]) -> str:
         evidence = [
             {"item_id": line.item_id, "amount_cents": line.amount_cents, "date": line.date.isoformat(), "source": "bill"}
             for line in bill.lines
@@ -298,21 +284,24 @@ class ClaimService:
         if req.scan_id is not None:
             if self.repo.get_scan(req.scan_id) is None:
                 raise ClaimError(f"scan {req.scan_id} not found", 404)
-            self.repo.add_evidence(req.scan_id, evidence)
-            return req.scan_id
-        scan_id = f"scan_{secrets.token_hex(10)}"
-        self.repo.save_scan(
-            {
-                "scan_id": scan_id,
-                "persona_id": req.persona_id,
-                "customer_id": None,
-                "jurisdiction": req.st,
-                "fictional": bill.fictional,
-                "display_name": None,
-                "created_at": iso(self.clock()),
-            },
-            evidence,
-        )
+            scan_id = req.scan_id
+            self.repo.add_evidence(scan_id, evidence)
+        else:
+            scan_id = f"scan_{secrets.token_hex(10)}"
+            self.repo.save_scan(
+                {
+                    "scan_id": scan_id,
+                    "persona_id": req.persona_id,
+                    "customer_id": None,
+                    "jurisdiction": st,
+                    "fictional": bill.fictional,
+                    "display_name": None,
+                    "created_at": iso(self.clock()),
+                },
+                evidence,
+            )
+        # Payments check this so a held line can never be paid, whichever screen asks.
+        self.repo.mark_held(scan_id, held)
         return scan_id
 
 

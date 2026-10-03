@@ -11,10 +11,13 @@ def test_scan_persona_offline(client):
     scan = scan_rowan(client)
     assert scan["fictional"] is True
     assert "mock bank" in scan["label"]
-    assert scan["counts"]["transactions"] == 9  # 7 purchases, 1 bill, 1 deposit
+    assert scan["counts"]["transactions"] == scan["read_count"] == 9  # 7 purchases, 1 deposit, 1 bill
+    assert scan["incident_date"] == "2026-06-14" and scan["as_of_date"] == "2026-10-03"
+    assert scan["account"] == {"id": "acct-checking-0001", "nickname": "Checking", "mask": "0011"}
     ids = {i["item_id"] for i in scan["items"]}
     assert "nessie:p-0001" not in ids  # groceries are not a claim candidate
-    assert all(i["confirmed"] is False for i in scan["items"])
+    inferred = [i for i in scan["items"] if i.get("source") != "bill"]
+    assert inferred and all(i["confirmed"] is False for i in inferred)
     assert all("confidence" in i and "reason" in i for i in scan["items"])
     ctx = scan["engine_input"]["context"]
     assert ctx == {"incident_date": "2026-06-14", "as_of_date": "2026-10-03", "police_report": "unknown", "forensic_exam": True}
@@ -28,7 +31,22 @@ def test_scan_persona_offline(client):
         "is_bill",
         "units",
         "description",
+        "tags",
     }
+
+
+def test_scan_itemizes_the_hospital_bill(client):
+    scan = scan_rowan(client)
+    ids = {i["item_id"] for i in scan["items"]}
+    assert "nessie:b-riverbend-0001" not in ids  # the bank bill is replaced by its verified lines
+    lines = [i for i in scan["items"] if i.get("source") == "bill"]
+    assert [ln["amount_cents"] for ln in lines] == [7500, 4300, 32500]
+    assert {ln["bill_id"] for ln in lines} == {"b-riverbend-0001"}
+    assert [ln["expense"] for ln in lines] == ["medical", "medical", "forensic_exam"]
+    assert all(ln["confirmed"] and ln["is_bill"] and ln["merchant"] for ln in lines)
+    assert scan["documents"][0]["bill_id"] == "b-riverbend-0001" and scan["bill_errors"] == []
+    audit = client.post("/api/bill/audit", json={"bill_id": lines[0]["bill_id"], "persona_id": "rowan-mi"}).json()
+    assert [ln["item_id"] for ln in audit["lines"]] == [ln["item_id"] for ln in lines]
 
 
 def test_scan_incident_date_override_and_state_switch(client):
@@ -57,7 +75,7 @@ class LiveClient:
 
 def test_live_scan_when_enabled(settings, clock):
     snap = json.loads((FIXTURES / "seed" / "snapshots" / "rowan-mi.json").read_text())
-    snap.pop("fictional")
+    snap["meta"].pop("fictional")
     live = dataclasses.replace(settings, live_scan=True)
     client = client_for(make_services(live, clock, nessie_client_factory=lambda: LiveClient(snapshot=snap)))
     data = client.post("/api/scan", json={"customer_id": "live-customer", "st": "MI"}).json()
@@ -126,8 +144,11 @@ def test_claim_statuses_follow_the_rules(client):
 def test_unconfirmed_lines_are_not_counted(client):
     scan = scan_rowan(client)
     claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=scan["engine_input"]).json()
-    assert claim["totals"]["allowed_cents"] == 0
-    assert {ln["status"] for ln in claim["lines"]} <= {"needs_confirmation", "excluded", "unknown_rule"}
+    bill_lines = {i["item_id"] for i in scan["items"] if i.get("source") == "bill"}
+    # Only the itemized bill's own lines count before the survivor says yes; the exam line is held, not counted.
+    assert claim["totals"]["allowed_cents"] == 7500 + 4300
+    others = {ln["status"] for ln in claim["lines"] if ln["item_id"] not in bill_lines}
+    assert others <= {"needs_confirmation", "excluded", "unknown_rule"}
 
 
 def test_made_up_line_is_refused_with_a_reason(client):

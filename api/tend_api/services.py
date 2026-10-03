@@ -10,7 +10,7 @@ from .bank import Bank, DryRunBank, NessieBank
 from .claims import ClaimService
 from .clock import Clock, utcnow
 from .config import Settings
-from .engine import EngineRouter, NativeEngine, ReferenceEngine
+from .engine import EngineRouter, LawIR, NativeEngine, ReferenceEngine
 from .rules import RulesStore
 from .scan import Classifier, ScanService
 from .share import ShareService
@@ -44,13 +44,15 @@ def build_services(
     rules = RulesStore(settings.rules_dir)
     repo = repo or SQLiteRepository(settings.db_path)
     secret = bytes.fromhex(settings.secret_hex) if settings.secret_hex else repo.secret()
+    ir = LawIR(settings.ir_dir, rules)
     engines = EngineRouter(
-        NativeEngine(settings.engine_lib, settings.law_dirs, settings.tendc, rules, settings.cache_dir),
-        ReferenceEngine(settings.refengine_dir, rules, reference_evaluate),
+        NativeEngine(settings.engine_lib, settings.law_dirs, settings.tendc, rules, settings.cache_dir, ir),
+        ReferenceEngine(settings.refengine_dir, rules, reference_evaluate, ir),
     )
     banks = banks or {"dry_run": DryRunBank(), "nessie": NessieBank()}
     claims = ClaimService(repo, rules, engines, settings.seed_dir, clock)
-    actions = ActionService(repo, banks, settings.bank_mode, secret, clock)
+    scans = ScanService(repo, settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory)
+    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, scans.accounts_for_scan)
     shares = ShareService(repo, clock, settings.public_url)
     return Services(
         settings=settings,
@@ -59,8 +61,8 @@ def build_services(
         repo=repo,
         engines=engines,
         claims=claims,
-        scans=ScanService(repo, settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory),
+        scans=scans,
         actions=actions,
         shares=shares,
-        agent=AgentService(repo, rules, engines, claims, actions, shares, settings.seed_dir, clock),
+        agent=AgentService(repo, rules, engines, claims, actions, shares, scans.accounts_for_scan, clock),
     )

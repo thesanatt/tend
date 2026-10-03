@@ -48,17 +48,18 @@ def real(tmp_path, monkeypatch):
 
 
 def rowan_claim(client: TestClient, persona: str = "rowan-mi", st: str = "MI") -> tuple[dict, dict, dict]:
+    # The web's flow: the scan already itemizes the hospital bill, and the audit names the same lines.
     scan = client.post("/api/scan", json={"persona_id": persona, "st": st}).json()
-    audit = client.post("/api/bill/audit", json={"st": st, "persona_id": persona, "scan_id": scan["scan_id"]}).json()
-    items = [i for i in scan["engine_input"]["items"] if i["item_id"] != audit["replaces_item_id"]] + audit["engine_items"]
-    context = {**scan["engine_input"]["context"], "forensic_exam": audit["engine_context"]["forensic_exam"]}
-    body = {"jurisdiction": st, "context": context, "items": [{**i, "confirmed": True} for i in items]}
+    bill_id = next(i["bill_id"] for i in scan["items"] if i.get("bill_id"))
+    audit = client.post("/api/bill/audit", json={"bill_id": bill_id, "persona_id": persona, "st": st}).json()
+    body = {**scan["engine_input"], "items": [{**i, "confirmed": True} for i in scan["engine_input"]["items"]]}
     return scan, audit, body
 
 
 def test_rowan_end_to_end(real):
     scan, audit, body = rowan_claim(real)
-    assert scan["fictional"] is True and scan["counts"]["items"] > 0
+    assert scan["fictional"] is True and scan["counts"]["items"] > 0 and scan["bill_errors"] == []
+    assert {ln["item_id"] for ln in audit["lines"]} <= {i["item_id"] for i in scan["items"]}
     assert [c["ok"] for c in audit["checks"]] == [True] * len(audit["checks"])
     assert {c["name"] for c in audit["checks"]} >= {"lines_equal_total", "matches_snapshot_document", "matches_nessie_bill"}
     assert audit["held_cents"] == 32500 and audit["payable_cents"] == 11800

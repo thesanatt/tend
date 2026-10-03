@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import Annotated, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import (
+    AliasChoices,
     BaseModel,
     ConfigDict,
     Field,
@@ -92,6 +93,7 @@ class Item(Strict):
     is_bill: StrictBool = False
     units: Annotated[int, Field(strict=True, ge=0, le=100_000)] = 0
     description: Annotated[str, Field(max_length=200)] = ""
+    tags: Annotated[list[Annotated[str, Field(pattern=r"^[a-z][a-z_]{0,31}$")]], Field(max_length=8)] = []  # e.g. ["phone"], SPEC v1.1
 
     @field_validator("description")
     @classmethod
@@ -138,7 +140,7 @@ class ScanRequest(Strict):
 
 
 class BillAuditRequest(Strict):
-    st: StateCode
+    st: StateCode | None = None  # defaults to the persona's jurisdiction
     bill_id: Slug | None = None
     persona_id: Slug | None = None
     bill_text: Annotated[str, Field(max_length=20_000)] | None = None
@@ -159,12 +161,18 @@ class BillAuditRequest(Strict):
         return self
 
 
+AccountId = Annotated[str, Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9\-_]+$")]
+
+
 class ProposeRequest(Strict):
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
-    from_account: Annotated[str, Field(alias="from", min_length=1, max_length=64, pattern=r"^[A-Za-z0-9\-_]+$")]
+    from_account: Annotated[AccountId, Field(validation_alias=AliasChoices("from", "from_account_id", "from_account"))]
     payee: Annotated[str, Field(min_length=1, max_length=80)]
     amount_cents: PositiveCents
+    kind: Literal["pay_bill"] | None = None
+    bill_id: Slug | None = None
+    item_ids: Annotated[list[ItemId], Field(max_length=200)] | None = None  # the bill lines this pays; amounts must add up
     claim_id: Slug | None = None
     item_id: ItemId | None = None
     dry_run: StrictBool | None = None
@@ -189,8 +197,18 @@ class ConfirmRequest(Strict):
 
 
 class ShareRequest(Strict):
-    claim_id: Slug
+    """Share a stored claim, or a claim computed on the device: the server evaluates input itself."""
+
+    claim_id: Slug | None = None
+    input: ClaimInput | None = None
+    output: dict[str, Any] | None = None
     ttl_hours: Annotated[int, Field(strict=True, ge=1, le=168)] = 72
+
+    @model_validator(mode="after")
+    def _one_claim(self) -> ShareRequest:
+        if (self.claim_id is None) == (self.input is None):
+            raise ValueError("send claim_id, or input (with the output the device computed)")
+        return self
 
 
 class AgentLinkRequest(Strict):

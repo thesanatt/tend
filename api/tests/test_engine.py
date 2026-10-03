@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 import hashlib
+import json
 import os
 import stat
 import sys
@@ -125,17 +126,107 @@ def test_stale_law_image_falls_back_to_reference(native_settings, clock):
     assert client.post("/api/claim", params={"engine": "native"}, json=EMPTY_CLAIM).status_code == 503
 
 
+FAKE_TENDC = """#!/bin/sh
+# Like tendc: [--quiet] INPUT [--verified FILE] -o OUT. Writes TLAW and the verified file's sha256.
+echo "$@" > "$(dirname "$0")/tendc.args"
+out=""; input=""; verified=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -o) out="$2"; shift 2 ;;
+    --verified) verified="$2"; shift 2 ;;
+    --quiet) shift ;;
+    *) input="$1"; shift ;;
+  esac
+done
+printf TLAW > "$out"
+shasum -a 256 "${verified:-$input}" | cut -c1-64 >> "$out"
+"""
+
+
+def fake_tendc(tmp_path):
+    tendc = tmp_path / "bin" / "tendc"
+    tendc.parent.mkdir()
+    tendc.write_text(FAKE_TENDC)
+    tendc.chmod(tendc.stat().st_mode | stat.S_IEXEC)
+    return tendc
+
+
+def write_ir(directory, source_sha256):
+    directory.mkdir(parents=True, exist_ok=True)
+    ir = {"ir_version": 1, "jurisdiction": "MI", "source_sha256": source_sha256, "rules": [{"id": "MI-EXAM-1", "kind": "exam_no_bill"}]}
+    (directory / "MI.json").write_text(json.dumps(ir))
+    return directory
+
+
 def test_missing_image_is_compiled_with_tendc(native_settings, clock, tmp_path):
     (native_settings.law_dirs[0] / "MI.tlaw").unlink()
-    tendc = tmp_path / "tendc"
-    tendc.write_text('#!/bin/sh\n# usage: tendc RULES.json -o OUT\nprintf TLAW > "$3"\nshasum -a 256 "$1" | cut -c1-64 >> "$3"\n')
-    tendc.chmod(tendc.stat().st_mode | stat.S_IEXEC)
-    settings = dataclasses.replace(native_settings, tendc=tendc)
+    settings = dataclasses.replace(native_settings, tendc=fake_tendc(tmp_path))
     client = client_for(make_services(settings, clock))
     r = client.post("/api/claim", json=EMPTY_CLAIM)
     assert r.status_code == 200, r.text
     assert r.headers["X-Tend-Engine"] == "native"
     assert (settings.cache_dir / "laws" / "MI.tlaw").read_bytes().startswith(b"TLAW")
+    assert "--verified" not in (tmp_path / "bin" / "tendc.args").read_text()  # no IR: the verified file is the input
+
+
+def test_image_is_compiled_from_the_law_ir(native_settings, clock, tmp_path):
+    (native_settings.law_dirs[0] / "MI.tlaw").unlink()
+    ir_dir = write_ir(tmp_path / "ir", hashlib.sha256(MI_RULES.read_bytes()).hexdigest())
+    settings = dataclasses.replace(native_settings, tendc=fake_tendc(tmp_path), ir_dir=ir_dir)
+    r = client_for(make_services(settings, clock)).post("/api/claim", json=EMPTY_CLAIM)
+    assert r.status_code == 200 and r.headers["X-Tend-Engine"] == "native"
+    args = (tmp_path / "bin" / "tendc.args").read_text().split()
+    assert args[args.index("--verified") + 1] == str(MI_RULES) and str(ir_dir / "MI.json") in args
+
+
+def test_stale_law_ir_is_never_compiled(native_settings, clock, tmp_path):
+    (native_settings.law_dirs[0] / "MI.tlaw").unlink()
+    settings = dataclasses.replace(native_settings, tendc=fake_tendc(tmp_path), ir_dir=write_ir(tmp_path / "ir", "0" * 64))
+    client = client_for(make_services(settings, clock))
+    forced = client.post("/api/claim", params={"engine": "native"}, json=EMPTY_CLAIM)
+    assert forced.status_code == 503
+    assert "rules/tools/normalize.py MI" in forced.json()["detail"]
+    assert not (tmp_path / "bin" / "tendc.args").exists()
+    # The v1.0-style fake reference reads the verified file, so the claim still gets an answer.
+    assert client.post("/api/claim", json=EMPTY_CLAIM).headers["X-Tend-Engine"] == "reference"
+
+
+def ir_reference(law, engine_input, *, law_sha256=None):
+    if law.get("ir_version") != 1:
+        raise ValueError("expected law IR")
+    return {**fake_ref.evaluate({"rules": []}, engine_input), "law_image_sha256": "ir"}
+
+
+def verified_reference(law, engine_input, *, law_sha256=None):
+    if any("category" not in r for r in law["rules"]):
+        raise ValueError("every rule needs a string id and category")
+    return fake_ref.evaluate(law, engine_input)
+
+
+def test_reference_that_reads_ir_gets_the_ir(settings, clock, tmp_path):
+    ir_dir = write_ir(tmp_path / "ir", hashlib.sha256(MI_RULES.read_bytes()).hexdigest())
+    services = make_services(dataclasses.replace(settings, ir_dir=ir_dir), clock, reference_evaluate=ir_reference)
+    r = client_for(services).post("/api/claim", json=ONE_ITEM)
+    assert r.status_code == 200 and r.json()["law_image_sha256"] == "ir"
+    assert services.engines.reference._reads == "ir"
+
+
+def test_reference_that_reads_verified_rules_falls_back_once(settings, clock, tmp_path):
+    ir_dir = write_ir(tmp_path / "ir", hashlib.sha256(MI_RULES.read_bytes()).hexdigest())
+    services = make_services(dataclasses.replace(settings, ir_dir=ir_dir), clock, reference_evaluate=verified_reference)
+    client = client_for(services)
+    assert client.post("/api/claim", json=ONE_ITEM).status_code == 200
+    assert services.engines.reference._reads == "verified"
+    assert client.post("/api/claim", json=ONE_ITEM).status_code == 200
+
+
+def test_ir_reading_reference_refuses_stale_ir(settings, clock, tmp_path):
+    services = make_services(
+        dataclasses.replace(settings, ir_dir=write_ir(tmp_path / "ir", "0" * 64)), clock, reference_evaluate=ir_reference
+    )
+    r = client_for(services).post("/api/claim", json=ONE_ITEM)
+    assert r.status_code == 503
+    assert "normalize.py MI" in r.json()["detail"]
 
 
 def test_engine_output_with_float_cents_is_rejected(settings, clock):

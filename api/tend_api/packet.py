@@ -41,8 +41,8 @@ STATUS_LABEL = {
 }
 CHECK_LABEL = {
     "deadline": {"ok": "On time", "late": "Past the filing deadline", "unknown": "Unknown"},
-    "minimum_loss": {"met": "Met", "not_met": "Not met yet", "waived": "Can be waived", "unknown": "Unknown"},
-    "reporting": {"satisfied": "Satisfied", "required": "Police report needed", "unknown": "Unknown"},
+    "minimum_loss": {"met": "Met", "not_met": "Not met yet", "waived": "Waived", "may_be_waived": "Can be waived", "unknown": "Unknown"},
+    "reporting": {"satisfied": "Satisfied", "required": "Police report needed", "not_required": "Not required", "unknown": "Unknown"},
 }
 CHECK_TITLE = {"deadline": "Filing deadline", "minimum_loss": "Minimum loss", "reporting": "Police report"}
 DOCS_BY_EXPENSE = {

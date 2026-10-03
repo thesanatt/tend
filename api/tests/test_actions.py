@@ -40,7 +40,7 @@ def test_propose_then_confirm_executes_once(client):
     r = confirm(client, action)
     assert r.status_code == 200, r.text
     done = r.json()
-    assert done["status"] == "executed"
+    assert done["status"] == "done"
     assert done["withdrawal_id"].startswith("dryrun-")
     assert done["readback"]["ok"] is True
     assert done["readback"]["checks"] == {"id": True, "tagged_with_action": True, "account": True, "amount": True}
@@ -88,7 +88,7 @@ def test_code_expires_after_ten_minutes(client, clock):
 def test_code_works_just_before_expiry(client, clock):
     action = propose(client)
     clock.advance(minutes=9, seconds=59)
-    assert confirm(client, action).json()["status"] == "executed"
+    assert confirm(client, action).json()["status"] == "done"
 
 
 @pytest.mark.parametrize("over", [{"amount_cents": 11900}, {"from": "acct-cushion-0001"}, {"payee": "Someone Else"}])
@@ -96,7 +96,7 @@ def test_confirmation_must_match_what_was_proposed(client, over):
     action = propose(client)
     r = confirm(client, action, **over)
     assert r.status_code == 409
-    assert confirm(client, action).json()["status"] == "executed"
+    assert confirm(client, action).json()["status"] == "done"
 
 
 def test_code_is_bound_to_the_stored_action(services, client):
@@ -126,6 +126,63 @@ def test_amount_must_be_positive_integer_cents(client, amount):
 
 def test_unknown_action_is_404(client):
     assert client.post("/api/actions/confirm", json={"action_id": "act_missing", "confirm_code": "123456"}).status_code == 404
+
+
+def bill_lines(client):
+    scan = scan_rowan(client)
+    audit = client.post("/api/bill/audit", json={"bill_id": "b-riverbend-0001", "persona_id": "rowan-mi"}).json()
+    held = {h["item_id"] for h in audit["holds"]}
+    return audit, [ln for ln in audit["lines"] if ln["item_id"] not in held], [ln for ln in audit["lines"] if ln["item_id"] in held], scan
+
+
+def pay_bill(client, lines, **over):
+    body = {
+        "kind": "pay_bill",
+        "bill_id": "b-riverbend-0001",
+        "item_ids": [ln["item_id"] for ln in lines],
+        "amount_cents": sum(ln["amount_cents"] for ln in lines),
+        "from_account_id": "acct-checking-0001",
+        "payee": "Riverbend General Hospital (fictional)",
+    }
+    return client.post("/api/actions/propose", json={**body, **over})
+
+
+def test_paying_bill_lines_records_what_was_paid(client):
+    _, payable, _, _ = bill_lines(client)
+    proposal = pay_bill(client, payable)
+    assert proposal.status_code == 200, proposal.text
+    body = proposal.json()
+    assert body["kind"] == "pay_bill" and body["item_ids"] == [ln["item_id"] for ln in payable] and body["amount_cents"] == 11800
+    result = confirm(client, body).json()
+    assert result["status"] == "done" and result["bill_id"] == "b-riverbend-0001" and result["item_ids"] == body["item_ids"]
+    assert "Dry run" in result["message"]
+    proposed_row = client.get("/api/audit").json()["rows"][0]
+    assert proposed_row["data"]["item_ids"] == body["item_ids"]
+
+
+def test_bill_payment_must_equal_its_lines(client):
+    _, payable, _, _ = bill_lines(client)
+    r = pay_bill(client, payable, amount_cents=12000)
+    assert r.status_code == 409
+    assert "$118.00" in r.json()["detail"]
+
+
+def test_held_bill_line_cannot_be_paid_even_without_a_claim(client):
+    _, payable, held, _ = bill_lines(client)
+    r = pay_bill(client, payable + held)
+    assert r.status_code == 409
+    assert "held" in r.json()["detail"]
+
+
+def test_unknown_bill_line_cannot_be_paid(client):
+    r = pay_bill(client, [{"item_id": "bill:0000000000000000:9", "amount_cents": 500}])
+    assert r.status_code == 404
+
+
+def test_bill_is_paid_only_from_the_persona_accounts(client):
+    _, payable, _, _ = bill_lines(client)
+    r = pay_bill(client, payable, from_account_id="acct-someone-else")
+    assert r.status_code == 403
 
 
 def test_held_line_cannot_be_paid(client):
@@ -192,7 +249,7 @@ def test_unanswered_payment_that_landed_is_found_by_its_label(settings, clock):
     client = client_for(make_services(settings, clock, banks={"dry_run": SilentBank(landed=True)}))
     done = confirm(client, propose(client))
     assert done.status_code == 200
-    assert done.json()["status"] == "executed" and done.json()["readback"]["ok"] is True
+    assert done.json()["status"] == "done" and done.json()["readback"]["ok"] is True
 
 
 def test_readback_mismatch_is_flagged_unverified(settings, clock):
@@ -233,7 +290,7 @@ def test_concurrent_confirms_execute_exactly_once(settings, clock):
         t.start()
     for t in threads:
         t.join()
-    assert sorted(outcomes) == ["ActionError:409"] * 3 + ["executed"]
+    assert sorted(outcomes) == ["ActionError:409"] * 3 + ["done"]
     assert bank.calls == 1
 
 
@@ -298,7 +355,7 @@ def test_live_mode_writes_through_the_nessie_client(settings, clock):
     action = propose(client)
     assert action["dry_run"] is False
     done = confirm(client, action).json()
-    assert done["status"] == "executed" and done["withdrawal_id"] == "nessie-w-1"
+    assert done["status"] == "done" and done["withdrawal_id"] == "nessie-w-1"
     assert done["readback"]["checks"] == {"id": True, "tagged_with_action": True, "account": True, "amount": True}
     stored = nessie.stored["nessie-w-1"]
     assert stored["amount"] == 118 and stored["transaction_date"] == "2026-10-03"

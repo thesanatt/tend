@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import dataclasses
 import io
+import shutil
 
 import pytest
-from helpers import FIXTURES, confirm_all, scan_rowan
+from helpers import FIXTURES, client_for, confirm_all, make_services, scan_rowan
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
@@ -78,7 +80,7 @@ def test_audit_holds_the_exam_line_and_pays_the_rest(client):
     assert r.status_code == 200, r.text
     assert r.headers["X-Tend-Engine"] == "reference"
     data = r.json()
-    assert data["bill"]["lines_sum_cents"] == data["bill"]["total_cents"] == 44300
+    assert data["lines_sum_cents"] == data["total_cents"] == 44300
     assert data["held_cents"] == 32500
     assert data["payable_cents"] == 11800
     [hold] = data["holds"]
@@ -90,13 +92,50 @@ def test_audit_holds_the_exam_line_and_pays_the_rest(client):
     [flag] = data["flags"]
     assert flag["kind"] == "insurance_billed_for_exam"
     assert {c["rule_id"] for c in flag["citations"]} == {"MI-EXAM-2"}  # the consent rule, MCL 18.355a(3)(a)
-    assert {ln["status"] for ln in data["lines"] if ln["expense"] == "medical"} == {"needs_confirmation"}
+    assert {ln["status"] for ln in data["lines"] if ln["expense"] == "medical"} == {"eligible"}
+    assert hold["rule_ids"] and "MI-EXAM-1" in hold["rule_ids"]
 
 
 def test_audit_finds_the_bill_from_the_persona(client):
     data = audit(client, persona_id="rowan-mi").json()
-    assert data["bill"]["bill_id"] == "RB-2026-0614"
+    assert data["statement_id"] == "RB-2026-0614"
+    assert data["bill_id"] == data["nessie_bill_id"] == "b-riverbend-0001"
+    assert data["replaces_item_id"] == "nessie:b-riverbend-0001"
     assert data["held_cents"] == 32500
+
+
+def test_audit_takes_the_web_request_shape(client):
+    # The web sends only the Nessie bill id and the persona; the state and dates come from the persona.
+    r = client.post("/api/bill/audit", json={"bill_id": "b-riverbend-0001", "persona_id": "rowan-mi"})
+    assert r.status_code == 200, r.text
+    data = r.json()
+    assert data["bill_id"] == "b-riverbend-0001"
+    assert data["provider"] == "Riverbend General Hospital (fictional)"
+    assert data["statement_date"] == "07/02/2026" and data["service_date"] == "2026-06-14"
+    assert data["total_cents"] == data["lines_sum_cents"] == 44300
+    assert [ln["line_no"] for ln in data["lines"]] == [1, 2, 3]
+    [hold] = data["holds"]
+    assert hold["item_id"] == data["lines"][2]["item_id"] and hold["amount_cents"] == 32500 and hold["rule_ids"]
+    checks = {c["name"]: c["ok"] for c in data["checks"]}
+    assert checks == {
+        "lines_equal_total": True,
+        "total_less_adjustments_equals_due": True,
+        "matches_snapshot_document": True,
+        "matches_nessie_bill": True,
+    }
+
+
+def test_tampered_bill_file_is_refused(tmp_path, settings, clock):
+    seed = tmp_path / "seed"
+    shutil.copytree(FIXTURES / "seed", seed)
+    bill = seed / "bills" / "riverbend-2026-06.txt"
+    bill.write_text(bill.read_text().replace("Laboratory panel", "Laboratory panel, rush"))
+    tampered = client_for(make_services(dataclasses.replace(settings, seed_dir=seed), clock))
+    r = tampered.post("/api/bill/audit", json={"bill_id": "b-riverbend-0001", "persona_id": "rowan-mi"})
+    assert r.status_code == 422
+    assert "not the bill recorded" in r.json()["detail"]["message"]
+    scan = tampered.post("/api/scan", json={"persona_id": "rowan-mi", "st": "MI"}).json()
+    assert scan["bill_errors"] and "nessie:b-riverbend-0001" in {i["item_id"] for i in scan["items"]}
 
 
 def test_structured_bill_is_checked_against_nessie(client):

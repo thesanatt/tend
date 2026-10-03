@@ -102,7 +102,7 @@ def test_agent_pays_only_after_the_typed_amount(client, session):
 
     done = client.post("/api/agent/confirm", headers=session["headers"], json={**base, "typed": "Confirm $118"})
     assert done.status_code == 200, done.text
-    assert done.json()["status"] == "executed"
+    assert done.json()["status"] == "done"
     again = client.post("/api/agent/confirm", headers=session["headers"], json={**base, "typed": "confirm 118.00"})
     assert again.status_code == 409
 

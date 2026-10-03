@@ -58,6 +58,7 @@ class Settings:
     public_url: str = ""
     cors_origins: tuple[str, ...] = ("http://localhost:3000", "http://127.0.0.1:3000")
     secret_hex: str = ""
+    ir_dir: Path | None = None  # rules/ir, the law IR both engines read (SPEC v1.1)
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -83,4 +84,5 @@ class Settings:
             public_url=os.environ.get("TEND_PUBLIC_URL", "").rstrip("/"),
             cors_origins=tuple(o.strip() for o in origins.split(",") if o.strip()) if origins else cls.cors_origins,
             secret_hex=os.environ.get("TEND_SECRET", ""),
+            ir_dir=_path("TEND_IR_DIR", REPO_ROOT / "rules" / "ir"),
         )

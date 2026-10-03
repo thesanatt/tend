@@ -23,6 +23,8 @@ class Repository(Protocol):
     def add_evidence(self, scan_id: str, evidence: list[dict[str, Any]]) -> None: ...
     def get_scan(self, scan_id: str) -> dict[str, Any] | None: ...
     def evidence(self, scan_id: str) -> dict[str, dict[str, Any]]: ...
+    def evidence_for(self, item_ids: list[str]) -> dict[str, dict[str, Any]]: ...
+    def mark_held(self, scan_id: str, item_ids: list[str]) -> None: ...
 
     def save_claim(self, claim: dict[str, Any]) -> None: ...
     def get_claim(self, claim_id: str) -> dict[str, Any] | None: ...
@@ -67,8 +69,10 @@ CREATE TABLE IF NOT EXISTS evidence (
     amount_cents INTEGER NOT NULL,
     date TEXT NOT NULL,
     source TEXT NOT NULL,
+    held INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (scan_id, item_id)
 );
+CREATE INDEX IF NOT EXISTS evidence_item ON evidence(item_id);
 CREATE TABLE IF NOT EXISTS claims (
     claim_id TEXT PRIMARY KEY,
     jurisdiction TEXT NOT NULL,
@@ -92,6 +96,8 @@ CREATE TABLE IF NOT EXISTS actions (
     item_id TEXT,
     code_mac TEXT NOT NULL,
     channel TEXT NOT NULL DEFAULT 'app',
+    bill_id TEXT,
+    item_ids_json TEXT,
     attempts INTEGER NOT NULL DEFAULT 0,
     dry_run INTEGER NOT NULL,
     created_at TEXT NOT NULL,
@@ -222,7 +228,8 @@ class SQLiteRepository:
     @staticmethod
     def _insert_evidence(c: sqlite3.Connection, scan_id: str, evidence: list[dict[str, Any]]) -> None:
         c.executemany(
-            "INSERT OR REPLACE INTO evidence (scan_id, item_id, amount_cents, date, source) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO evidence (scan_id, item_id, amount_cents, date, source) VALUES (?, ?, ?, ?, ?)"
+            " ON CONFLICT (scan_id, item_id) DO UPDATE SET amount_cents = excluded.amount_cents, date = excluded.date, source = excluded.source",
             [(scan_id, e["item_id"], e["amount_cents"], e["date"], e["source"]) for e in evidence],
         )
 
@@ -236,6 +243,26 @@ class SQLiteRepository:
         with self._lock:
             rows = self._conn.execute("SELECT * FROM evidence WHERE scan_id = ?", (scan_id,)).fetchall()
         return {r["item_id"]: dict(r) for r in rows}
+
+    def evidence_for(self, item_ids: list[str]) -> dict[str, dict[str, Any]]:
+        """The latest record of each item across scans; held if any audit held it."""
+        if not item_ids:
+            return {}
+        marks = ",".join("?" * len(item_ids))
+        with self._lock:
+            rows = self._conn.execute(
+                f"SELECT e.*, MAX(e.held) OVER (PARTITION BY e.item_id) AS ever_held FROM evidence e"
+                f" JOIN scans s ON s.scan_id = e.scan_id WHERE e.item_id IN ({marks}) ORDER BY s.created_at",
+                tuple(item_ids),
+            ).fetchall()
+        out: dict[str, dict[str, Any]] = {}
+        for r in rows:
+            out[r["item_id"]] = {**dict(r), "held": bool(r["ever_held"])}
+        return out
+
+    def mark_held(self, scan_id: str, item_ids: list[str]) -> None:
+        with self._tx() as c:
+            c.executemany("UPDATE evidence SET held = 1 WHERE scan_id = ? AND item_id = ?", [(scan_id, i) for i in item_ids])
 
     # claims
 
@@ -282,8 +309,8 @@ class SQLiteRepository:
     def insert_action(self, action: dict[str, Any]) -> None:
         with self._tx() as c:
             c.execute(
-                "INSERT INTO actions (action_id, status, amount_cents, from_account, payee, claim_id, item_id, code_mac, channel, dry_run,"
-                " created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO actions (action_id, status, amount_cents, from_account, payee, claim_id, item_id, code_mac, channel, bill_id,"
+                " item_ids_json, dry_run, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     action["action_id"],
                     action["status"],
@@ -294,6 +321,8 @@ class SQLiteRepository:
                     action.get("item_id"),
                     action["code_mac"],
                     action.get("channel", "app"),
+                    action.get("bill_id"),
+                    json.dumps(action.get("item_ids") or []),
                     int(action["dry_run"]),
                     action["created_at"],
                     action["expires_at"],
@@ -305,6 +334,7 @@ class SQLiteRepository:
         if row:
             row["dry_run"] = bool(row["dry_run"])
             row["readback"] = json.loads(row.pop("readback_json")) if row.get("readback_json") else None
+            row["item_ids"] = json.loads(row.pop("item_ids_json") or "[]")
         return row
 
     def count_failed_attempt(self, action_id: str, lock_at: int) -> int:
