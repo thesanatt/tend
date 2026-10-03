@@ -77,7 +77,7 @@ describe("Check summary for Michigan", () => {
 
   it("lists covered costs with the most generous caps, the way the engine keeps them", () => {
     const counseling = s.covered.find((c) => c.expense === "counseling")!;
-    expect(counseling.cap).toEqual({ cents: 12500, per: "session", countLimit: 35 });
+    expect(counseling.cap).toEqual({ cents: 12500, per: "session", countLimit: 35, countUnit: "session" });
     expect(s.covered.find((c) => c.expense === "lost_wages")!.cap).toMatchObject({ cents: 100000, per: "week" });
     expect(s.covered.find((c) => c.expense === "transportation")!.cap).toMatchObject({ cents: 500000, per: "claim" });
     expect(s.covered.find((c) => c.expense === "medical")!.cap).toBeNull();
@@ -109,6 +109,25 @@ describe("Check summary for Michigan", () => {
   });
 });
 
+describe("caps that only cover one kind of provider", () => {
+  it("prefers an overall limit to a rate that may cover one provider type (California counseling)", () => {
+    const ca = load("CA");
+    const counseling = buildCheckSummary(ca, output(ca), { ...answers, st: "CA" }, true).covered.find(
+      (c) => c.expense === "counseling",
+    )!;
+    // CA-COUNSEL-2 ($15 an hour) is for peer counseling only; the overall limit is $10,000.
+    expect(counseling.cap).toEqual({ cents: 1000000, per: "claim", countLimit: 60, countUnit: "session" });
+  });
+
+  it("says how many sessions when the law limits only the count (Texas counseling)", () => {
+    const tx = load("TX");
+    const counseling = buildCheckSummary(tx, output(tx), { ...answers, st: "TX" }, true).covered.find(
+      (c) => c.expense === "counseling",
+    )!;
+    expect(counseling.cap).toEqual({ cents: null, per: "session", countLimit: 60, countUnit: "session" });
+  });
+});
+
 describe("Check summary in every jurisdiction", () => {
   it.each(STATES)("%s: every cited rule exists, with the right category", (st) => {
     const law = load(st);
@@ -117,7 +136,8 @@ describe("Check summary in every jurisdiction", () => {
     for (const id of cited(s)) expect(byId.has(id), `${st} cites ${id}`).toBe(true);
     for (const c of s.covered) {
       for (const id of c.ruleIds) expect(["covered_expense", "expense_cap"]).toContain(byId.get(id)!.category);
-      if (c.cap) expect(Number.isSafeInteger(c.cap.cents) && c.cap.cents >= 0).toBe(true);
+      if (c.cap?.cents != null) expect(Number.isSafeInteger(c.cap.cents) && c.cap.cents >= 0).toBe(true);
+      if (c.cap?.cents == null && c.cap) expect(c.cap.countLimit).toBeGreaterThan(0);
     }
     for (const id of s.records) expect(byId.get(id)!.category).toBe("record_confidentiality");
     for (const id of s.acp?.ruleIds ?? []) expect(byId.get(id)!.category).toBe("address_confidentiality");

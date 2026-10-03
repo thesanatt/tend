@@ -1,14 +1,22 @@
 // The Check summary as data: every fact names the rules behind it. Dates and police-report status
 // come from the law engine's checks; lists, caps, and contacts come from the verified rules. The
 // component turns this into sentences in the survivor's language.
+import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
 
 export type Per = "claim" | "session" | "week" | "hour" | "mile" | "day" | "month" | "item" | "residence" | "scene";
 
+export interface CapFact {
+  cents: number | null; // null when the law limits only how many (sessions, weeks)
+  per: Per;
+  countLimit: number | null;
+  countUnit: Per | null;
+}
+
 export interface CoveredCost {
   expense: ItemExpense;
-  cap: { cents: number; per: Per; countLimit: number | null } | null;
+  cap: CapFact | null;
   ruleIds: string[];
 }
 
@@ -92,33 +100,41 @@ const WHOLE: Per[] = ["claim", "residence", "scene"];
 
 function covered(law: Jurisdiction): CoveredCost[] {
   const ruleIds = new Map<string, string[]>();
-  const caps = new Map<string, { cents: number; per: Per; countLimit: number | null }[]>();
+  const caps = new Map<string, { cents: number | null; per: Per; countLimit: number | null }[]>();
   for (const r of law.rules) {
     const expense = ruleExpense(r);
     if (!expense || !LIST_ORDER.includes(expense as ItemExpense)) continue;
     if (r.category !== "covered_expense" && r.category !== "expense_cap") continue;
     ruleIds.set(expense, [...(ruleIds.get(expense) ?? []), r.id]);
     const cents = num(r.params?.amount_cents);
+    const countLimit = num(r.params?.count_limit);
     const per = UNIT_PERS[String(r.params?.per ?? "")];
-    if (r.category === "expense_cap" && cents !== null && per) {
-      caps.set(expense, [...(caps.get(expense) ?? []), { cents, per, countLimit: num(r.params?.count_limit) }]);
+    if (r.category === "expense_cap" && per && (cents !== null || countLimit !== null)) {
+      caps.set(expense, [...(caps.get(expense) ?? []), { cents, per, countLimit }]);
     }
   }
   return LIST_ORDER.filter((e) => ruleIds.has(e)).map((expense) => {
-    // A rate per session or week says more than a lifetime cap. Among several, the most generous is
-    // shown, as the engine keeps it; the program decides which provider rate applies.
+    // A limit on the whole kind of cost applies to every provider; a rate per session or per week often
+    // covers one kind of provider, so it is shown only when there is no overall limit. Among several,
+    // the most generous is shown, as the engine keeps it; the program decides which one applies.
     const all = caps.get(expense) ?? [];
-    const perUnit = all.filter((c) => !WHOLE.includes(c.per));
-    const pool = perUnit.length ? perUnit : all;
+    const priced = all.filter((c): c is { cents: number; per: Per; countLimit: number | null } => c.cents !== null);
+    const whole = priced.filter((c) => WHOLE.includes(c.per));
+    const pool = whole.length ? whole : priced.filter((c) => !WHOLE.includes(c.per));
     const best = pool.reduce<(typeof pool)[number] | null>((a, c) => (!a || c.cents > a.cents ? c : a), null);
-    const limits = pool
-      .filter((c) => best && c.per === best.per && c.countLimit !== null)
+    const bestWhole = best ? WHOLE.includes(best.per) : true;
+    // How many sessions or weeks: the unit is the rate's own, or a counseling session for overall limits.
+    const countUnit: Per | null = best && !bestWhole ? best.per : expense === "counseling" ? "session" : null;
+    const limits = all
+      .filter((c) => c.countLimit !== null && (bestWhole ? WHOLE.includes(c.per) || c.per === countUnit : c.per === best!.per))
       .map((c) => c.countLimit as number);
-    return {
-      expense,
-      cap: best ? { cents: best.cents, per: best.per, countLimit: limits.length ? Math.max(...limits) : null } : null,
-      ruleIds: ruleIds.get(expense)!,
-    };
+    const countLimit = countUnit && limits.length ? Math.max(...limits) : null;
+    const cap: CapFact | null = best
+      ? { cents: best.cents, per: best.per, countLimit, countUnit }
+      : countLimit && countUnit
+        ? { cents: null, per: countUnit, countLimit, countUnit }
+        : null;
+    return { expense, cap, ruleIds: ruleIds.get(expense)! };
   });
 }
 
@@ -224,4 +240,24 @@ export function buildCheckSummary(
       : null,
     records: byCat("record_confidentiality").map((x) => x.id),
   };
+}
+
+// Sentences built from the data above, in the survivor's language.
+export function capText(cost: CoveredCost, t: Dict, f: Formatters): string | null {
+  const cap = cost.cap;
+  if (!cap) return null;
+  const parts = [
+    cap.cents !== null ? t.per[cap.per](f.moneyShort(cap.cents)) : null,
+    cap.countLimit && cap.countUnit ? t.countLimit(cap.countUnit, cap.countLimit) : null,
+  ].filter((p): p is string => Boolean(p));
+  return parts.length ? parts.join(", ") : null;
+}
+
+export function spanText(d: Extract<DeadlineFact, { kind: "span" }>, t: Dict, f: Formatters): string {
+  const parts = [
+    d.years ? t.units.years(d.years) : null,
+    d.months ? t.units.months(d.months) : null,
+    d.days ? t.units.days(d.days) : null,
+  ].filter((p): p is string => Boolean(p));
+  return f.and(parts);
 }

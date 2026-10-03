@@ -1,27 +1,11 @@
 "use client";
 
-import { useI18n, type Dict, type Formatters } from "@/lib/i18n";
+import { useI18n, type Dict } from "@/lib/i18n";
 import type { LawIndex } from "@/lib/useLaw";
-import type { CheckSummary, CoveredCost, DeadlineFact } from "../checkSummary";
+import { capText, spanText, type CheckSummary } from "../checkSummary";
 import Cite from "../Cite";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
-
-export function capText(cost: CoveredCost, t: Dict, f: Formatters): string | null {
-  if (!cost.cap) return null;
-  const amount = f.moneyShort(cost.cap.cents);
-  const base = t.per[cost.cap.per](amount);
-  return cost.cap.countLimit ? `${base}, ${t.countLimit(cost.cap.per, cost.cap.countLimit)}` : base;
-}
-
-export function spanText(d: Extract<DeadlineFact, { kind: "span" }>, t: Dict, f: Formatters): string {
-  const parts = [
-    d.years ? t.units.years(d.years) : null,
-    d.months ? t.units.months(d.months) : null,
-    d.days ? t.units.days(d.days) : null,
-  ].filter((p): p is string => Boolean(p));
-  return f.and(parts);
-}
 
 function host(url: string): string {
   try {
