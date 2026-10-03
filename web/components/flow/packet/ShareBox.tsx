@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import type { EngineInput, EngineOutput } from "@/lib/types";
 import { useFlow } from "../FlowProvider";
+import { shareProblem } from "../problems";
 import styles from "../flow.module.css";
 
 const HOURS = [24, 72, 168] as const;
@@ -24,15 +25,16 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
     setError(null);
     try {
       const created_at = new Date().toISOString();
-      const { url, id } = await services.share.seal(
+      const sealed: { url: string; id: string; expires_at?: string | null } = await services.share.seal(
         { st: state.check.st, created_at, input, output },
         { expires_hours: hours, once },
       );
-      const expires_at = new Date(Date.now() + hours * 3_600_000).toISOString();
-      dispatch({ type: "share", record: { id, url, expires_at, once, revoked: false } });
+      // The server's expiry when it gives one; the one asked for otherwise.
+      const expires_at = sealed.expires_at ?? new Date(Date.now() + hours * 3_600_000).toISOString();
+      dispatch({ type: "share", record: { id: sealed.id, url: sealed.url, expires_at, once, revoked: false } });
       logSent({ kind: "share" });
     } catch (err) {
-      setError(t.share.failed((err as Error).message));
+      setError(shareProblem(err, t));
     } finally {
       setBusy(false);
     }
@@ -43,8 +45,8 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
     try {
       await services.share.revoke(id);
       dispatch({ type: "revokeShare", id });
-    } catch (err) {
-      setError(t.share.revokeFailed((err as Error).message));
+    } catch {
+      setError(t.share.revokeFailed);
     }
   }
 

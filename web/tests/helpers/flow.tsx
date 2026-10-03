@@ -98,7 +98,7 @@ export function testServices(over: Partial<FlowServices> = {}): TestServices {
         at: "2026-10-03T17:00:00Z",
       };
     }),
-    passkeySupported: () => false,
+    passkeySupported: async () => false,
     ...over,
   } as TestServices;
 }

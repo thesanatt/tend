@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 import { hasProgress, useFlow } from "./FlowProvider";
+import { openProblem } from "./problems";
 import SaveSheet from "./SaveSheet";
 import styles from "./flow.module.css";
 
@@ -72,11 +73,14 @@ export function Steps() {
 // start over without it, or delete it.
 function Resume({ onSkip }: { onSkip: () => void }) {
   const { t } = useI18n();
-  const { openSaved, forget, services, vault } = useFlow();
+  const { openSaved, forget, vault } = useFlow();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const withPasskey = vault.methods ? vault.methods.passkey : vault.passkey === true;
+  const withPasscode = vault.methods ? vault.methods.passphrase : true;
 
   async function open(opts: { passkey?: boolean; passphrase?: string }) {
     setBusy(true);
@@ -85,7 +89,7 @@ function Resume({ onSkip }: { onSkip: () => void }) {
       const ok = await openSaved(opts);
       if (!ok) setError(opts.passkey ? t.vault.passkeyFailed : t.vault.wrong);
     } catch (err) {
-      setError(t.vault.openFailed((err as Error).message));
+      setError(openProblem(err, t));
     } finally {
       setBusy(false);
     }
@@ -101,32 +105,39 @@ function Resume({ onSkip }: { onSkip: () => void }) {
       <h1 id="resume-title">{t.vault.resumeTitle}</h1>
       {vault.idleLocked ? <p className={styles.note}>{t.vault.idle}</p> : null}
       <p className="lead">{t.vault.resumeLead}</p>
-      {services.passkeySupported() ? (
+      {withPasskey ? (
         <div className="btn-row">
           <button type="button" className="btn btn-primary" disabled={busy} onClick={() => open({ passkey: true })}>
             {t.vault.openPasskey}
           </button>
         </div>
       ) : null}
-      <form className={styles.stack} onSubmit={submit}>
-        <label htmlFor="resume-passcode" className={styles.fieldLabel}>
-          {t.vault.passcodeLabel}
-        </label>
-        <div className={styles.inline}>
-          <input
-            id="resume-passcode"
-            type="password"
-            autoComplete="current-password"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            className={styles.passcode}
-            aria-describedby={error ? "resume-error" : undefined}
-          />
-          <button type="submit" className="btn btn-secondary" disabled={busy || !code}>
-            {t.vault.open}
-          </button>
-        </div>
-      </form>
+      {withPasscode ? (
+        <form className={styles.stack} onSubmit={submit}>
+          <label htmlFor="resume-passcode" className={styles.fieldLabel}>
+            {t.vault.passcodeLabel}
+          </label>
+          <div className={styles.inline}>
+            <input
+              id="resume-passcode"
+              type="password"
+              autoComplete="current-password"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className={styles.passcode}
+              aria-describedby={error ? "resume-error" : undefined}
+            />
+            <button type="submit" className="btn btn-secondary" disabled={busy || !code}>
+              {t.vault.open}
+            </button>
+          </div>
+        </form>
+      ) : null}
+      {vault.methods && (!withPasskey || !withPasscode) ? (
+        <p className="meta">
+          {t.vault.savedOnly(vault.methods.passkey ? t.vault.methodPasskey : t.vault.methodPasscode)}
+        </p>
+      ) : null}
       {error ? (
         <p id="resume-error" role="alert" className={styles.problem}>
           {error}
@@ -180,6 +191,11 @@ export default function FlowFrame({ children }: { children: ReactNode }) {
   const { t } = useI18n();
   const { vault, state } = useFlow();
   const [skipped, setSkipped] = useState(false);
+  // Once progress is open again, a later lock (Lock now, or the quiet-time lock) offers it again.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (vault.status === "open") setSkipped(false);
+  }, [vault.status]);
   const locked = vault.status === "locked" && !hasProgress(state) && !skipped;
   useFocusHeadingOnStep();
 

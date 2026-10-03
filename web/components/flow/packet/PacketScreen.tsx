@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Money from "@/components/Money";
 import type { ChecklistItem, FilingRoute, Letter, LetterKind } from "@/lib/contracts";
-import { useI18n, type Dict } from "@/lib/i18n";
-import { useLaw } from "@/lib/useLaw";
+import { useI18n, useSummary, type Dict } from "@/lib/i18n";
+import { useLaw, type LawIndex } from "@/lib/useLaw";
 import Cite from "../Cite";
 import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
@@ -14,12 +14,44 @@ import { usePacket } from "../usePacket";
 import styles from "../flow.module.css";
 import ShareBox from "./ShareBox";
 
-// The template that helps get each document, when there is one.
+// The template that helps get each kind of document, when a letter does not name its rule itself.
 const TEMPLATE_FOR: Record<string, LetterKind> = {
   wage_verification: "employer_wages",
   counseling_statement: "provider_statement",
   itemized_bill: "itemized_bill_request",
 };
+
+// The kind of document a checklist line asks for, from its rule (photo_id, itemized_bill, other...).
+export function docType(item: ChecklistItem, law: LawIndex): string {
+  const fromRule = law.rule(item.rule_id)?.params?.document;
+  if (typeof fromRule === "string" && fromRule) return fromRule;
+  return /^[a-z_]+$/.test(item.document) ? item.document : "other";
+}
+
+// A letter that quotes this line's own rule fits best; otherwise the template for its kind.
+export function templateFor(item: ChecklistItem, type: string, letters: Letter[]): Letter | null {
+  return (
+    letters.find((l) => l.rule_ids.includes(item.rule_id)) ?? letters.find((l) => l.kind === TEMPLATE_FOR[type]) ?? null
+  );
+}
+
+// The program's own description of the document is English. In Spanish the kind of document comes
+// first, in Spanish, with the description under it (translated on the device when it can be).
+function DocName({ item, type }: { item: ChecklistItem; type: string }) {
+  const { t, lang } = useI18n();
+  const sentence = /^[a-z_]+$/.test(item.document) ? undefined : item.document;
+  const detail = useSummary(sentence);
+  if (!sentence) return <span>{docLabel(t, type)}</span>;
+  if (lang === "en") return <span>{sentence}</span>;
+  return (
+    <span>
+      {docLabel(t, type)}
+      <span className={styles.sub} lang={detail.original ? "en" : undefined}>
+        {detail.text}
+      </span>
+    </span>
+  );
+}
 
 function useBlobUrl(blob: Blob | null | undefined): string | null {
   const url = useMemo(
@@ -73,7 +105,6 @@ export default function PacketScreen() {
   const items = new Map(state.items.map((i) => [i.item_id, i]));
   const program = law.law?.program;
   const have = (c: ChecklistItem) => state.have[`${c.document}:${c.rule_id}`] ?? c.have_it;
-  const letterFor = (document: string) => pk.packet?.letters.find((l) => l.kind === TEMPLATE_FOR[document]) ?? null;
 
   return (
     <div className={styles.packet}>
@@ -101,7 +132,7 @@ export default function PacketScreen() {
       ) : null}
       {pk.status === "error" ? (
         <div role="alert" className={styles.problem}>
-          <p>{t.packet.buildFailed(pk.error ?? "")}</p>
+          <p>{t.packet.buildFailed}</p>
           <button type="button" className="link-button" onClick={pk.retry}>
             {t.common.tryAgain}
           </button>
@@ -188,7 +219,9 @@ export default function PacketScreen() {
             <ul className={styles.checklist}>
               {pk.packet.stillNeeded.map((c) => {
                 const key = `${c.document}:${c.rule_id}`;
-                const template = letterFor(c.document);
+                const type = docType(c, law);
+                const template = templateFor(c, type, pk.packet!.letters);
+                const name = docLabel(t, type);
                 return (
                   <li key={key}>
                     <label className={styles.checkLine}>
@@ -197,14 +230,14 @@ export default function PacketScreen() {
                         checked={have(c)}
                         onChange={(e) => dispatch({ type: "have", key, value: e.target.checked })}
                       />
-                      <span>{docLabel(t, c.document)}</span>
+                      <DocName item={c} type={type} />
                     </label>
                     <div className={styles.checkActions}>
-                      <Cite ruleIds={[c.rule_id]} law={law} subject={docLabel(t, c.document)} />
+                      <Cite ruleIds={[c.rule_id]} law={law} subject={name} />
                       {template ? (
                         <button type="button" className="link-button" onClick={() => setLetter(template)}>
                           {t.packet.template}
-                          <span className="visually-hidden">: {docLabel(t, c.document)}</span>
+                          <span className="visually-hidden">: {name}</span>
                         </button>
                       ) : null}
                     </div>

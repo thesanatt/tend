@@ -12,7 +12,16 @@ import {
   policeForEngine,
   questions,
 } from "@/components/flow/claim";
-import { initialState, isFlowState, reducer, type BillRecord, type FlowItem, type FlowState } from "@/components/flow/state";
+import {
+  initialState,
+  isFlowState,
+  newCosts,
+  recordOf,
+  reducer,
+  type BillRecord,
+  type FlowItem,
+  type FlowState,
+} from "@/components/flow/state";
 import { mockEngineOutput } from "@/lib/mocks/engine";
 import type { BillReading } from "@/lib/contracts";
 
@@ -173,6 +182,52 @@ describe("engine input", () => {
     expect(s.items).toHaveLength(1);
     expect(s.items[0].amount_cents).toBe(100);
     expect(s.sources).toHaveLength(1);
+  });
+});
+
+describe("the same account read twice", () => {
+  const ride = (id: string, over: Partial<FlowItem> = {}) => item(id, { date: "2026-06-17", amount_cents: 1200, ...over });
+
+  it("names the record each cost came from", () => {
+    expect(recordOf(ride("stmt:abc:csv:7"))).toBe("stmt:abc");
+    expect(recordOf(ride("nessie:rowan-7", { origin: "bank" }))).toBe("nessie");
+    expect(recordOf(ride("bill:def:2", { origin: "bill" }))).toBe("bill:def");
+  });
+
+  it("a statement and the bank showing the same ride count it once", () => {
+    const gathered = [ride("stmt:abc:csv:7")];
+    const fromBank = [ride("nessie:rowan-7", { origin: "bank", merchant: "Wayfare Rides" })];
+    expect(newCosts(gathered, fromBank)).toEqual({ fresh: [], already: 1 });
+  });
+
+  it("two real rides on one day still count twice, each matched once", () => {
+    const gathered = [ride("stmt:abc:csv:7"), ride("stmt:abc:csv:8")];
+    const fromBank = [
+      ride("nessie:r-7", { origin: "bank" }),
+      ride("nessie:r-8", { origin: "bank" }),
+      ride("nessie:r-9", { origin: "bank" }),
+    ];
+    const { fresh, already } = newCosts(gathered, fromBank);
+    expect(already).toBe(2);
+    expect(fresh.map((i) => i.item_id)).toEqual(["nessie:r-9"]);
+  });
+
+  it("keeps costs that differ in day, amount, kind, or merchant", () => {
+    const gathered = [ride("stmt:abc:csv:7", { merchant: "Wayfare Rides" })];
+    const other = [
+      ride("nessie:a", { origin: "bank", date: "2026-06-18" }),
+      ride("nessie:b", { origin: "bank", amount_cents: 1300 }),
+      ride("nessie:c", { origin: "bank", expense: "prescription" }),
+      ride("nessie:d", { origin: "bank", merchant: "Larkfield Cab Co" }),
+    ];
+    expect(newCosts(gathered, other)).toEqual({ fresh: other, already: 0 });
+  });
+
+  it("never folds costs inside one record, or bill lines, into each other", () => {
+    const gathered = [ride("stmt:abc:csv:7")];
+    expect(newCosts(gathered, [ride("stmt:abc:csv:9")]).already).toBe(0);
+    const line = ride("bill:def:1", { origin: "bill", is_bill: true });
+    expect(newCosts(gathered, [line]).fresh).toEqual([line]);
   });
 });
 

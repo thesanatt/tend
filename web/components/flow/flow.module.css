@@ -577,6 +577,10 @@
   font-size: var(--text-sm);
 }
 
+.already {
+  display: block;
+}
+
 .addMore {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -1339,6 +1343,17 @@
   justify-content: space-between;
   gap: 0 var(--space-4);
   border-bottom: 1px solid var(--line);
+}
+
+/* A program's own description can run to two lines; the box stays beside its first line. */
+.checklist .checkLine {
+  flex: 1 1 18rem;
+  align-items: flex-start;
+  padding-block: var(--space-2);
+}
+
+.checklist .checkLine input {
+  margin-top: 0.1em;
 }
 
 .checkActions {

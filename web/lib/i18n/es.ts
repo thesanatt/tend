@@ -120,16 +120,34 @@ export const es: Dict = {
     passcodeShort: (n: number) => `Usa al menos ${n} caracteres.`,
     savePasscode: "Guardar con este código",
     saving: "Guardando",
-    failed: (msg: string) =>
-      `No se pudo guardar en este navegador (${msg}). Tu progreso sigue aquí hasta que cierres la pestaña.`,
+    saveProblem: {
+      exists: "Ya hay progreso guardado en este dispositivo. Ábrelo o bórralo primero.",
+      no_method: "Elige Touch ID o un código para proteger tu progreso guardado.",
+      weak_passphrase: "Usa un código más largo.",
+      locked: "Se dejó de guardar porque Tend se bloqueó. Inténtalo de nuevo.",
+      damaged: "Tu progreso guardado está dañado y Tend no puede abrirlo. Puedes borrarlo y empezar de nuevo.",
+      passkey_unsupported: "Este dispositivo no puede proteger Tend con Touch ID o bloqueo de pantalla. Usa un código.",
+      passkey_cancelled: "Se detuvo Touch ID o el bloqueo de pantalla, así que no se guardó nada.",
+      storage:
+        "Este navegador no dejó que Tend guardara aquí. Las ventanas privadas suelen impedirlo. Tu progreso sigue aquí hasta que cierres la pestaña.",
+      other: "No se pudo guardar en este navegador. Tu progreso sigue aquí hasta que cierres la pestaña.",
+    },
     resumeTitle: "Sigue donde lo dejaste",
     resumeLead: "Tu progreso guardado está protegido en este dispositivo.",
-    idle: "Se bloqueó después de 10 minutos sin uso, para mantenerlo privado.",
+    idle: "Se bloqueó solo después de unos minutos sin uso, para mantenerlo privado.",
     openPasskey: "Abrir con Touch ID o bloqueo de pantalla",
     open: "Abrir",
     wrong: "Ese código no funcionó. Inténtalo de nuevo.",
     passkeyFailed: "No se pudo abrir. Inténtalo de nuevo o usa tu código.",
-    openFailed: (msg: string) => `Tend no pudo abrir tu progreso guardado (${msg}).`,
+    openProblem: {
+      damaged: "Tu progreso guardado está dañado y Tend no puede abrirlo. Puedes borrarlo y empezar de nuevo.",
+      passkey_unsupported: "Este dispositivo no puede abrirlo con Touch ID o bloqueo de pantalla. Usa tu código.",
+      storage: "Este navegador no dejó que Tend leyera lo que guardaste.",
+      other: "Tend no pudo abrir tu progreso guardado.",
+    },
+    savedOnly: (method: string) => `Se guardó con ${method}.`,
+    methodPasskey: "Touch ID o bloqueo de pantalla",
+    methodPasscode: "un código",
     startOver: "Empezar de nuevo sin él",
     delete: "Borrar el progreso guardado",
     deleteConfirm: "¿Borrar tu progreso guardado de este dispositivo? No se puede deshacer.",
@@ -396,6 +414,10 @@ export const es: Dict = {
       `${provider}: ${plural(n, "línea", "líneas")} que suman ${total}.`,
     billUnreliable: (label: string) => `${label}: Tend no pudo leerla con seguridad.`,
     warnings: (n: number) => `(${plural(n, "fila omitida", "filas omitidas")})`,
+    already: (n: number) =>
+      n === 1
+        ? "1 gasto ya estaba aquí por otro registro, así que cuenta una sola vez."
+        : `${n} gastos ya estaban aquí por otro registro, así que cuentan una sola vez.`,
     seeBill: "Ver la factura",
     addAnother: "Agregar otro registro",
     tallyLabel: "Tu solicitud hasta ahora",
@@ -543,7 +565,7 @@ export const es: Dict = {
     fromCosts: (n: number) => `Viene de ${plural(n, "gasto", "gastos")} que la ley cubre.`,
     held: (amount: string) => `Aparte de esto: ${amount} en una factura que no debes pagar.`,
     building: "Armando tu paquete en este dispositivo",
-    buildFailed: (msg: string) => `Tend no pudo armar el paquete: ${msg}`,
+    buildFailed: "Tend no pudo armar tu paquete en este dispositivo.",
     formTitle: "La solicitud del estado",
     formBody: (state: string) => `El formulario propio de ${state}, llenado solo con datos seguros.`,
     onlyYou:
@@ -590,8 +612,16 @@ export const es: Dict = {
     once: "Que se abra una sola vez",
     make: "Crear un enlace para compartir",
     making: "Protegiendo el paquete",
-    failed: (msg: string) => `Tend no pudo crear el enlace: ${msg}`,
-    revokeFailed: (msg: string) => `Tend no pudo desactivar el enlace: ${msg}`,
+    problem: {
+      unavailable: "Para compartir hace falta el servidor de Tend, y ahora no está conectado. No se creó ningún enlace.",
+      network: "Tend no pudo comunicarse con su servidor. Revisa tu conexión e inténtalo de nuevo. No se creó ningún enlace.",
+      too_large: "Esta solicitud es demasiado grande para compartirla con un enlace.",
+      bad_packet: "Faltan partes de esta solicitud, así que no se compartió.",
+      bad_options: "Un enlace puede durar de 1 hora a 7 días.",
+      server: "El servidor de Tend no pudo crear el enlace ahora. Inténtalo de nuevo en un minuto.",
+      other: "Tend no pudo crear el enlace.",
+    },
+    revokeFailed: "Tend no pudo desactivar el enlace. Inténtalo de nuevo en un minuto.",
   },
 
   docs: {

@@ -180,6 +180,7 @@ export default function AddRecords() {
               {s.kind === "bank" ? t.gather.bankRead(s.read, s.found) : t.gather.statementRead(s.label, s.read, s.found)}
               {s.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}
               {s.warnings.length ? <span className="meta"> {t.gather.warnings(s.warnings.length)}</span> : null}
+              {s.already ? <span className={`meta ${styles.already}`}>{t.gather.already(s.already)}</span> : null}
             </li>
           ))}
           {state.bills.map((b) => (

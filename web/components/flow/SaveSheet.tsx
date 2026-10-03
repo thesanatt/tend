@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useI18n } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
 import FlowSheet from "./FlowSheet";
+import { saveProblem } from "./problems";
 import styles from "./flow.module.css";
 
 export const MIN_PASSCODE = 6;
@@ -12,7 +13,7 @@ export const MIN_PASSCODE = 6;
 // passkey) or a passcode. Nothing is sent anywhere.
 export default function SaveSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const { save, services, vault } = useFlow();
+  const { save, vault } = useFlow();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState<"passkey" | "passcode" | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export default function SaveSheet({ open, onClose }: { open: boolean; onClose: (
       setCode("");
       onClose();
     } catch (err) {
-      setError(t.vault.failed((err as Error).message));
+      setError(saveProblem(err, t));
     } finally {
       setBusy(null);
     }
@@ -43,7 +44,7 @@ export default function SaveSheet({ open, onClose }: { open: boolean; onClose: (
     <FlowSheet open={open} onClose={onClose} title={t.vault.sheetTitle}>
       <p>{t.vault.sheetLead}</p>
       {vault.status === "locked" ? <p className={styles.note}>{t.vault.replaces}</p> : null}
-      {services.passkeySupported() ? (
+      {vault.passkey ? (
         <div className={styles.stack}>
           <button type="button" className="btn btn-primary" disabled={busy !== null} onClick={() => run("passkey")}>
             {busy === "passkey" ? t.vault.saving : t.vault.passkey}
@@ -53,7 +54,7 @@ export default function SaveSheet({ open, onClose }: { open: boolean; onClose: (
       ) : null}
       <form className={styles.stack} onSubmit={submit} noValidate>
         <label htmlFor="save-passcode" className={styles.fieldLabel}>
-          {services.passkeySupported() ? t.vault.orPasscode : t.vault.passcodeLabel}
+          {vault.passkey ? t.vault.orPasscode : t.vault.passcodeLabel}
         </label>
         <p id="save-passcode-hint" className="meta">
           {t.vault.passcodeHint(MIN_PASSCODE)}

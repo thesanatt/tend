@@ -194,7 +194,7 @@ describe("pause and resume", () => {
     fireEvent.click(within(sheet).getByRole("button", { name: "Save with this passcode" }));
     expect(await screen.findByText("Saved on this device")).toBeTruthy();
     await vi.advanceTimersByTimeAsync(IDLE_LOCK_MS + 20_000);
-    expect(await screen.findByText("It locked after 10 minutes without use, to keep it private.")).toBeTruthy();
+    expect(await screen.findByText("It locked by itself after a few minutes without use, to keep it private.")).toBeTruthy();
     expect(services.vault.isUnlocked()).toBe(false);
   });
 

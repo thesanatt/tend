@@ -17,6 +17,17 @@ type Status =
 type Group = "care" | "counseling" | "travel" | "home" | "work" | "other";
 type Stage = "sprout" | "leaf" | "bud" | "bloom";
 type Method = "mail" | "online" | "email" | "fax" | "in_person" | "phone";
+type VaultCode =
+  | "exists"
+  | "no_method"
+  | "weak_passphrase"
+  | "locked"
+  | "damaged"
+  | "passkey_unsupported"
+  | "passkey_cancelled"
+  | "storage"
+  | "other";
+type ShareCode = "unavailable" | "network" | "too_large" | "bad_packet" | "bad_options" | "server" | "other";
 
 const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
@@ -132,15 +143,34 @@ export const en = {
     passcodeShort: (n: number) => `Use at least ${n} characters.`,
     savePasscode: "Save with this passcode",
     saving: "Saving",
-    failed: (msg: string) => `Saving did not work in this browser (${msg}). Your progress stays here until you close the tab.`,
+    saveProblem: {
+      exists: "Saved progress is already on this device. Open it, or delete it first.",
+      no_method: "Choose Touch ID or a passcode to lock your saved progress.",
+      weak_passphrase: "Use a longer passcode.",
+      locked: "Saving stopped because Tend locked. Try again.",
+      damaged: "Your saved progress is damaged, so Tend cannot open it. You can delete it and start over.",
+      passkey_unsupported: "This device cannot lock Tend with Touch ID or screen lock. Use a passcode instead.",
+      passkey_cancelled: "Touch ID or screen lock was stopped, so nothing was saved.",
+      storage:
+        "This browser would not let Tend save here. Private windows often block saving. Your progress stays here until you close the tab.",
+      other: "Saving did not work in this browser. Your progress stays here until you close the tab.",
+    } as Record<VaultCode, string>,
     resumeTitle: "Pick up where you left off",
     resumeLead: "Your saved progress is locked on this device.",
-    idle: "It locked after 10 minutes without use, to keep it private.",
+    idle: "It locked by itself after a few minutes without use, to keep it private.",
     openPasskey: "Open with Touch ID or screen lock",
     open: "Open",
     wrong: "That passcode did not work. Try again.",
     passkeyFailed: "That did not open it. Try again, or use your passcode.",
-    openFailed: (msg: string) => `Tend could not open your saved progress (${msg}).`,
+    openProblem: {
+      damaged: "Your saved progress is damaged, so Tend cannot open it. You can delete it and start over.",
+      passkey_unsupported: "This device cannot open it with Touch ID or screen lock. Use your passcode.",
+      storage: "This browser would not let Tend read what you saved.",
+      other: "Tend could not open your saved progress.",
+    } as Record<"damaged" | "passkey_unsupported" | "storage" | "other", string>,
+    savedOnly: (method: string) => `It was saved with ${method}.`,
+    methodPasskey: "Touch ID or screen lock",
+    methodPasscode: "a passcode",
     startOver: "Start over without it",
     delete: "Delete saved progress",
     deleteConfirm: "Delete your saved progress from this device? This cannot be undone.",
@@ -404,6 +434,10 @@ export const en = {
       `${provider}: ${plural(n, "line", "lines")}, adding up to ${total}.`,
     billUnreliable: (label: string) => `${label}: Tend couldn't read this reliably.`,
     warnings: (n: number) => `(${plural(n, "row", "rows")} skipped)`,
+    already: (n: number) =>
+      n === 1
+        ? "1 cost was already here from another record, so it counts once."
+        : `${n} costs were already here from another record, so they count once.`,
     seeBill: "See the bill",
     addAnother: "Add another record",
     tallyLabel: "Your claim so far",
@@ -542,7 +576,7 @@ export const en = {
     fromCosts: (n: number) => `It comes from ${plural(n, "cost", "costs")} the law covers.`,
     held: (amount: string) => `Separate from this: ${amount} on a bill you should not pay.`,
     building: "Putting your packet together on this device",
-    buildFailed: (msg: string) => `Tend could not build the packet: ${msg}`,
+    buildFailed: "Tend could not put your packet together on this device.",
     formTitle: "The state's application",
     formBody: (state: string) => `${state}'s own form, filled in with safe details only.`,
     onlyYou:
@@ -588,8 +622,16 @@ export const en = {
     once: "Let it open only once",
     make: "Make a share link",
     making: "Locking the packet",
-    failed: (msg: string) => `Tend could not make the link: ${msg}`,
-    revokeFailed: (msg: string) => `Tend could not stop the link: ${msg}`,
+    problem: {
+      unavailable: "Sharing needs Tend's server, and it is not connected right now. No link was made.",
+      network: "Tend could not reach its server. Check your connection and try again. No link was made.",
+      too_large: "This claim is too large to share as a link.",
+      bad_packet: "Parts of this claim are missing, so it was not shared.",
+      bad_options: "A link can last from 1 hour to 7 days.",
+      server: "Tend's server could not make the link right now. Try again in a minute.",
+      other: "Tend could not make the link.",
+    } as Record<ShareCode, string>,
+    revokeFailed: "Tend could not stop the link. Try again in a minute.",
   },
 
   docs: {

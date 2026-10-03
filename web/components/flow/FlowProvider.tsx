@@ -27,6 +27,7 @@ import {
   hasProgress,
   initialState,
   isFlowState,
+  newCosts,
   reducer,
   type Action,
   type BillRecord,
@@ -37,7 +38,8 @@ import {
 } from "./state";
 
 export const VAULT_KEY = "tend.flow";
-export const IDLE_LOCK_MS = 10 * 60_000;
+// Used only with a vault that has no idle lock of its own (lib/vault locks itself after 5 minutes).
+export const IDLE_LOCK_MS = 5 * 60_000;
 
 export type ClaimStatus = "idle" | "computing" | "ready" | "error" | "needs_consent";
 export interface ClaimView {
@@ -47,6 +49,16 @@ export interface ClaimView {
 }
 
 export type VaultStatus = "checking" | "none" | "locked" | "open";
+export type VaultMethods = { passphrase: boolean; passkey: boolean };
+
+interface VaultView {
+  status: VaultStatus;
+  idleLocked: boolean;
+  // How the saved progress opens; null until known, or when the vault cannot say.
+  methods: VaultMethods | null;
+  // Whether this device can lock the vault with a passkey; null while checking.
+  passkey: boolean | null;
+}
 
 interface Flow {
   state: FlowState;
@@ -55,7 +67,7 @@ interface Flow {
   today: string;
   input: EngineInput | null;
   claim: ClaimView;
-  vault: { status: VaultStatus; idleLocked: boolean };
+  vault: VaultView;
   readStatement(file: File, sample?: boolean): Promise<SourceRecord>;
   connectBank(): Promise<SourceRecord>;
   readBill(file: File, sample?: boolean): Promise<BillRecord>;
@@ -108,6 +120,8 @@ export function FlowProvider({
   const [claim, setClaim] = useState<ClaimView>({ status: "idle", evaluation: null, error: null });
   const [vaultStatus, setVaultStatus] = useState<VaultStatus>("checking");
   const [idleLocked, setIdleLocked] = useState(false);
+  const [methods, setMethods] = useState<VaultMethods | null>(null);
+  const [passkey, setPasskey] = useState<boolean | null>(null);
   const [today] = useState(() => fixedToday ?? todayIso());
   const previews = useRef(new Map<string, string>());
   const run = useRef(0);
@@ -161,6 +175,10 @@ export function FlowProvider({
       .exists()
       .then((exists) => live && setVaultStatus(exists ? (services.vault.isUnlocked() ? "open" : "locked") : "none"))
       .catch(() => live && setVaultStatus("none"));
+    services
+      .passkeySupported()
+      .then((ok) => live && setPasskey(ok))
+      .catch(() => live && setPasskey(false));
     const onHide = () => services.vault.lock();
     window.addEventListener("pagehide", onHide);
     return () => {
@@ -202,9 +220,31 @@ export function FlowProvider({
     return () => window.removeEventListener("pageshow", onShow);
   }, [vaultStatus, services, lockNow]);
 
-  // On a shared device, an open vault locks itself after a quiet stretch.
+  // Which ways open the saved progress, so the resume screen offers only those.
   useEffect(() => {
-    if (vaultStatus !== "open") return;
+    if (vaultStatus !== "locked" || !services.vault.methods) return;
+    let live = true;
+    services.vault
+      .methods()
+      .then((m) => live && setMethods(m))
+      .catch(() => live && setMethods(null));
+    return () => {
+      live = false;
+    };
+  }, [vaultStatus, services]);
+
+  // The vault locks itself after a quiet stretch. The screen follows it, so nothing readable stays up
+  // on a shared device. Locks the flow asks for itself (Lock now, Exit, a new save) need nothing here.
+  useEffect(() => {
+    if (!services.vault.onLock) return;
+    return services.vault.onLock((reason) => {
+      if (reason === "idle") lockNow(true);
+    });
+  }, [services, lockNow]);
+
+  // A vault without its own idle lock gets this one.
+  useEffect(() => {
+    if (vaultStatus !== "open" || services.vault.onLock) return;
     let last = Date.now();
     const touch = () => {
       last = Date.now();
@@ -218,7 +258,7 @@ export function FlowProvider({
       for (const e of events) window.removeEventListener(e, touch);
       window.clearInterval(timer);
     };
-  }, [vaultStatus, lockNow]);
+  }, [vaultStatus, services, lockNow]);
 
   const value = useMemo<Flow>(() => {
     const ctxFor = (s: FlowState, txDates: string[]) => {
@@ -234,7 +274,7 @@ export function FlowProvider({
       today,
       input,
       claim,
-      vault: { status: vaultStatus, idleLocked },
+      vault: { status: vaultStatus, idleLocked, methods, passkey },
 
       async readStatement(file, sample = false) {
         const sha = shortHash(await fileSha(file));
@@ -248,16 +288,18 @@ export function FlowProvider({
           origin: "statement",
           merchant: raw(c.item_id)?.merchant,
         }));
+        const { fresh, already } = newCosts(stateRef.current.items, items);
         const source: SourceRecord = {
           id: `stmt:${sha}`,
           kind: "statement",
           label: file.name,
           read: txns.length,
-          found: items.length,
+          found: fresh.length,
+          already,
           warnings,
           sample,
         };
-        dispatch({ type: "addSource", source, items });
+        dispatch({ type: "addSource", source, items: fresh });
         return source;
       },
 
@@ -272,23 +314,27 @@ export function FlowProvider({
           const bankBill = Boolean(raw && billIds.includes(raw.id) && raw.amount_cents === c.amount_cents);
           return {
             ...c,
-            item_id: `bank:${c.item_id}`,
+            // Bank records carry the "nessie:" prefix (docs/SPEC.md item ids), which also tells the
+            // packet a bank charge apart from an itemized bill.
+            item_id: c.item_id.startsWith("nessie:") ? c.item_id : `nessie:${c.item_id}`,
             origin: "bank",
             merchant: raw?.merchant,
             is_bill: c.is_bill || bankBill,
             bill_id: bankBill ? raw!.id : undefined,
           };
         });
+        const { fresh, already } = newCosts(stateRef.current.items, items);
         const source: SourceRecord = {
           id: "bank",
           kind: "bank",
           label: account.nickname,
           read: txns.length,
-          found: items.length,
+          found: fresh.length,
+          already,
           warnings: [],
           sample: true,
         };
-        dispatch({ type: "addSource", source, items, account });
+        dispatch({ type: "addSource", source, items: fresh, account });
         return source;
       },
 
@@ -380,7 +426,7 @@ export function FlowProvider({
         setVaultStatus((v) => (v === "open" ? "locked" : v));
       },
     };
-  }, [state, services, today, input, claim, vaultStatus, idleLocked, logSent, lockNow, setLang]);
+  }, [state, services, today, input, claim, vaultStatus, idleLocked, methods, passkey, logSent, lockNow, setLang]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

@@ -31,6 +31,7 @@ export interface SourceRecord {
   label: string;
   read: number; // transactions read
   found: number; // costs proposed
+  already?: number; // costs another record already had, so they count once
   warnings: string[];
   sample: boolean;
 }
@@ -151,6 +152,46 @@ function mergeItems(existing: FlowItem[], incoming: FlowItem[]): FlowItem[] {
     out.push(it);
   }
   return out;
+}
+
+// Which record a cost was read from: "stmt:<file hash>", "nessie", or "bill:<file hash>".
+export function recordOf(item: FlowItem): string {
+  if (item.origin === "bank") return "nessie";
+  return item.item_id.split(":").slice(0, 2).join(":");
+}
+
+const merchantKey = (m: string | undefined) => (m ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+// The same account can arrive twice: a statement and the demo bank, or two statements that overlap.
+// A cost from another record with the same day, amount, and kind (and the same merchant, when both
+// name one) is the same cost, so it is left out. Each gathered cost can stand for one new one only,
+// so two real charges on one day still count twice.
+export function newCosts(existing: FlowItem[], incoming: FlowItem[]): { fresh: FlowItem[]; already: number } {
+  const key = (i: FlowItem) => `${i.date}|${i.amount_cents}|${i.expense}`;
+  const open = new Map<string, FlowItem[]>();
+  for (const it of existing) {
+    if (it.origin === "bill") continue;
+    open.set(key(it), [...(open.get(key(it)) ?? []), it]);
+  }
+  const ids = new Set(existing.map((i) => i.item_id));
+  const fresh: FlowItem[] = [];
+  let already = 0;
+  for (const it of incoming) {
+    if (ids.has(it.item_id)) continue;
+    const pool = open.get(key(it)) ?? [];
+    const at = pool.findIndex(
+      (e) =>
+        recordOf(e) !== recordOf(it) &&
+        (!e.merchant || !it.merchant || merchantKey(e.merchant) === merchantKey(it.merchant)),
+    );
+    if (it.origin !== "bill" && at >= 0) {
+      pool.splice(at, 1);
+      already += 1;
+      continue;
+    }
+    fresh.push(it);
+  }
+  return { fresh, already };
 }
 
 // An itemized bill explains a bank bill when the totals match exactly and the bank bill is not

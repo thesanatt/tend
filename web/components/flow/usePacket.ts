@@ -1,14 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { Packet } from "@/lib/contracts";
+import type { Packet, PacketBuilder } from "@/lib/contracts";
 import { useFlow } from "./FlowProvider";
 
-// One packet per claim content, built on the device by lib/packet when a screen needs it.
-const built = new Map<string, Promise<Packet>>();
+// One packet per claim content and builder, built on the device by lib/packet when a screen needs it.
+let built = new WeakMap<PacketBuilder, Map<string, Promise<Packet>>>();
 
 export function clearPacketCache() {
-  built.clear();
+  built = new WeakMap();
+}
+
+function cacheFor(builder: PacketBuilder): Map<string, Promise<Packet>> {
+  let cache = built.get(builder);
+  if (!cache) {
+    cache = new Map();
+    built.set(builder, cache);
+  }
+  return cache;
 }
 
 export function usePacket(enabled: boolean): {
@@ -27,11 +36,12 @@ export function usePacket(enabled: boolean): {
   useEffect(() => {
     if (!enabled || !key || !input || !output) return;
     let live = true;
-    let pending = built.get(key);
+    const cache = cacheFor(services.packetBuilder);
+    let pending = cache.get(key);
     if (!pending) {
       pending = services.packetBuilder.build(state.check.st, input, output);
-      built.set(key, pending);
-      pending.catch(() => built.delete(key));
+      cache.set(key, pending);
+      pending.catch(() => cache.delete(key));
     }
     pending
       .then((packet) => live && setResult({ key, packet, error: null }))
