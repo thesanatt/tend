@@ -161,11 +161,15 @@ def test_engine_output_cannot_invent_lines(settings, clock):
 
 
 def test_load_reference_from_refengine_dir(monkeypatch):
-    monkeypatch.delitem(sys.modules, "tend_ref", raising=False)
     monkeypatch.setattr(sys, "path", list(sys.path))
-    fn = load_reference(FIXTURES / "refengine")
-    assert callable(fn) and fn.__module__ == "tend_ref"
-    monkeypatch.delitem(sys.modules, "tend_ref", raising=False)
+    # setitem records whatever was there (or nothing) so teardown restores it; the fake never outlives this test.
+    monkeypatch.setitem(sys.modules, "tend_ref", None)
+    del sys.modules["tend_ref"]
+    try:
+        fn = load_reference(FIXTURES / "refengine")
+        assert callable(fn) and fn.__module__ == "tend_ref"
+    finally:
+        sys.modules.pop("tend_ref", None)
 
 
 def test_load_reference_missing(monkeypatch, tmp_path):

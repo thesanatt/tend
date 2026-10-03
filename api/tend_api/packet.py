@@ -12,7 +12,6 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.platypus import (
-    KeepTogether,
     Paragraph,
     SimpleDocTemplate,
     Spacer,
@@ -178,6 +177,8 @@ def _styles() -> dict[str, ParagraphStyle]:
         "cell": ParagraphStyle("cell", parent=base, fontSize=8.5, leading=11),
         "cellb": ParagraphStyle("cellb", parent=base, fontName="Helvetica-Bold", fontSize=8.5, leading=11),
         "banner": ParagraphStyle("banner", parent=base, fontSize=9, leading=12, textColor=CLAY),
+        # Transaction ids have no spaces, so let them break anywhere instead of running into the next column.
+        "id": ParagraphStyle("id", parent=base, fontName="Courier", fontSize=7, leading=9, textColor=MUTED, wordWrap="CJK"),
     }
 
 
@@ -197,6 +198,106 @@ def _quote_lines(citations: list[dict[str, Any]], st: dict[str, ParagraphStyle])
             )
         )
     return out
+
+
+GROUP_ORDER = ("eligible", "needs_confirmation", "held", "excluded", "unknown_rule", "out_of_window")
+GROUP_NOTE = {
+    "needs_confirmation": "Tend counts these after you confirm them.",
+    "held": "Hold this line. Ask billing to remove it first.",
+    "excluded": "The program lists this as not covered.",
+    "unknown_rule": "No rule for this expense was found. Ask a Navigator.",
+    "out_of_window": "Dated before the incident or after this packet was made.",
+}
+STATUS_COLOR = {"held": "#9a4a2c", "eligible": "#2f6b4f"}
+
+
+def _groups(lines: list[dict[str, Any]]) -> list[tuple[tuple[str, str], list[dict[str, Any]]]]:
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for ln in lines:
+        groups.setdefault((ln.get("status", ""), ln.get("expense", "")), []).append(ln)
+    order = {s: i for i, s in enumerate(GROUP_ORDER)}
+    return sorted(groups.items(), key=lambda kv: (order.get(kv[0][0], len(order)), kv[0][1]))
+
+
+def _unique_citations(group: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    seen: dict[str, dict[str, Any]] = {}
+    for ln in group:
+        for c in ln.get("citations", []):
+            seen.setdefault(c["rule_id"], c)
+    return list(seen.values())
+
+
+def _group_story(
+    status: str, expense: str, group: list[dict[str, Any]], rules_doc: dict[str, Any], st: dict[str, ParagraphStyle]
+) -> list[Any]:
+    requested = sum(ln.get("requested_cents", ln.get("amount_cents") or 0) for ln in group)
+    allowed = sum(ln.get("allowed_cents", 0) for ln in group)
+    detail = f"{len(group)} {'line' if len(group) == 1 else 'lines'}, {format_cents(requested)}"
+    if status == "eligible":
+        detail += f", {format_cents(allowed)} you can ask for"
+    color = STATUS_COLOR.get(status, "#5b665f")
+    out: list[Any] = [
+        Paragraph(
+            f"<b>{_text(expense.replace('_', ' ').capitalize())}</b>: <font color='{color}'>{_text(STATUS_LABEL.get(status, status))}</font>"
+            f" <font color='#5b665f'>({_text(detail)})</font>",
+            st["base"],
+        )
+    ]
+    if status in GROUP_NOTE:
+        out.append(Paragraph(f"<font color='{color}'>{_text(GROUP_NOTE[status])}</font>", st["base"]))
+    citations = _unique_citations(group)
+    if status == "held":
+        out += _quote_lines([c for c in citations if c.get("category") == "exam_no_bill"], st)
+        payers = [c for c in citations if c.get("category") == "exam_payment"]
+        if payers:
+            out.append(Paragraph("Who pays for the exam instead:", st["small"]))
+            out += _quote_lines(payers, st)
+        flags = [f for ln in group if (f := consent_flag(ln["item_id"], ln.get("description") or "", rules_doc, {}))]
+        if flags:
+            out.append(Paragraph(f"<font color='{color}'>{_text(flags[0]['message'])}</font>", st["base"]))
+    else:
+        out += _quote_lines(citations, st)
+    out.append(Spacer(1, 3))
+    out.append(_lines_table(group, st))
+    return out
+
+
+def _lines_table(group: list[dict[str, Any]], st: dict[str, ParagraphStyle]) -> Table:
+    rows: list[list[Any]] = [[Paragraph(h, st["cellb"]) for h in ("Date", "What", "Transaction", "Amount", "Can ask for")]]
+    # The group already quotes its rules; name them per line only when lines differ.
+    shared = all(ln.get("rule_ids") == group[0].get("rule_ids") for ln in group)
+    for ln in group:
+        notes = [] if shared else [", ".join(ln.get("rule_ids") or [])]
+        if ln.get("cap_rule_id"):
+            notes.append(f"capped by {ln['cap_rule_id']}")
+        if ln.get("flags"):
+            notes.append(", ".join(ln["flags"]))
+        what = _text(ln.get("description"))
+        sub = "; ".join(n for n in notes if n)
+        if sub:
+            what += f"<br/><font size='7' color='#5b665f'>{_text(sub)}</font>"
+        rows.append(
+            [
+                Paragraph(_text(ln.get("date")), st["cell"]),
+                Paragraph(what, st["cell"]),
+                Paragraph(_text(ln["item_id"]), st["id"]),
+                Paragraph(format_cents(ln.get("requested_cents", ln.get("amount_cents") or 0)), st["cell"]),
+                Paragraph(format_cents(ln.get("allowed_cents", 0)), st["cell"]),
+            ]
+        )
+    table = Table(rows, colWidths=[0.8 * inch, 2.55 * inch, 1.75 * inch, 0.85 * inch, 0.95 * inch], repeatRows=1)
+    table.setStyle(
+        TableStyle(
+            [
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LINEBELOW", (0, 0), (-1, 0), 0.6, INK),
+                ("LINEBELOW", (0, 1), (-1, -1), 0.3, LINE),
+                ("TOPPADDING", (0, 0), (-1, -1), 2),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+            ]
+        )
+    )
+    return table
 
 
 def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at: dt.datetime) -> bytes:
@@ -267,78 +368,19 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
         story.append(table)
 
     story.append(Paragraph("Every line, with the law behind it", st["h2"]))
-    header = [Paragraph(h, st["cellb"]) for h in ("Date", "What", "Amount", "Status", "Can ask for")]
-    data: list[list[Any]] = [header]
-    style = [
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LINEBELOW", (0, 0), (-1, 0), 0.8, INK),
-        ("TOPPADDING", (0, 0), (-1, -1), 3),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
-    ]
-    for ln in lines:
-        status = ln.get("status", "")
-        color = {"held": "#9a4a2c", "eligible": "#2f6b4f"}.get(status, "#5b665f")
-        data.append(
-            [
-                Paragraph(_text(ln.get("date")), st["cell"]),
-                Paragraph(f"<b>{_text(ln.get('expense', '').replace('_', ' '))}</b><br/>{_text(ln.get('description'))}", st["cell"]),
-                Paragraph(format_cents(ln.get("requested_cents", ln.get("amount_cents") or 0)), st["cell"]),
-                Paragraph(f"<font color='{color}'>{_text(STATUS_LABEL.get(status, status))}</font>", st["cell"]),
-                Paragraph(format_cents(ln.get("allowed_cents", 0)), st["cell"]),
-            ]
+    story.append(
+        Paragraph(
+            "Lines are grouped by expense. Each group quotes its law once, word for word; each line shows its transaction and rules.",
+            st["small"],
         )
-        proof = [
-            Paragraph(
-                f"Transaction <b>{_text(ln['item_id'])}</b>" + (f". Flags: {_text(', '.join(ln['flags']))}" if ln.get("flags") else ""),
-                st["small"],
-            )
-        ]
-        proof += _quote_lines(ln.get("citations", []), st) or [Paragraph("No rule names this expense.", st["small"])]
-        data.append([proof, "", "", "", ""])
-        row = len(data) - 1
-        style += [("SPAN", (0, row), (-1, row)), ("LINEBELOW", (0, row), (-1, row), 0.4, LINE), ("BOTTOMPADDING", (0, row), (-1, row), 7)]
-    lines_table = Table(data, colWidths=[0.85 * inch, 3.1 * inch, 0.9 * inch, 1.15 * inch, 1.0 * inch], repeatRows=1)
-    lines_table.setStyle(TableStyle(style))
-    story.append(lines_table)
+    )
+    for (status, expense), group in _groups(lines):
+        story.append(Spacer(1, 8))
+        story += _group_story(status, expense, group, rules_doc, st)
 
-    holds = [ln for ln in lines if ln.get("status") == "held"]
-    if holds:
-        story.append(Paragraph("Held lines", st["h2"]))
-        for ln in holds:
-            block = [
-                Paragraph(
-                    f"<b>{format_cents(ln.get('amount_cents') or 0)}</b> {_text(ln.get('description'))} "
-                    f"<font color='#5b665f'>(transaction {_text(ln['item_id'])})</font>",
-                    st["base"],
-                ),
-                Paragraph("<font color='#9a4a2c'>Hold this line. Ask billing to remove it first.</font>", st["base"]),
-            ]
-            block += _quote_lines([c for c in ln.get("citations", []) if c.get("category") == "exam_no_bill"], st)
-            payers = [c for c in ln.get("citations", []) if c.get("category") == "exam_payment"]
-            if payers:
-                block.append(Paragraph("Who pays for the exam instead:", st["small"]))
-                block += _quote_lines(payers, st)
-            flag = consent_flag(ln["item_id"], ln.get("description") or "", rules_doc, {})
-            if flag:
-                block.append(Paragraph(f"<font color='#9a4a2c'>{_text(flag['message'])}</font>", st["base"]))
-            block.append(Spacer(1, 6))
-            story.append(KeepTogether(block))
-
-    left_out = [ln for ln in lines if ln.get("status") in ("excluded", "unknown_rule", "out_of_window")]
     refused = view.get("refused") or []
-    if left_out or refused:
-        story.append(Paragraph("Not included", st["h2"]))
-        reasons = {
-            "excluded": "The program lists this as not covered.",
-            "unknown_rule": "No rule for this expense was found. Ask a Navigator.",
-            "out_of_window": "Dated before the incident or after this packet was made.",
-        }
-        for ln in left_out:
-            story.append(
-                Paragraph(
-                    f"{format_cents(ln.get('amount_cents') or 0)} {_text(ln.get('description'))}: {reasons[ln['status']]}", st["base"]
-                )
-            )
+    if refused:
+        story.append(Paragraph("Not counted: no matching transaction", st["h2"]))
         for r in refused:
             story.append(Paragraph(f"{format_cents(r['amount_cents'])} ({_text(r['item_id'])}): {_text(r['reason'])}", st["base"]))
 
