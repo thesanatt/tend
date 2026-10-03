@@ -23,6 +23,12 @@ interface PaySheetProps {
 
 type Phase = "proposing" | "ready" | "confirming" | "done" | "error";
 
+// The service names the account by id or by label; the survivor sees the label they know.
+export function fromLabel(from: ActionProposal["from"], account: AccountRef): string {
+  if (typeof from !== "string") return accountLabel(from);
+  return from === account.id ? accountLabel(account) : from;
+}
+
 // The confirm step shows the payment service's numbers, so they must be the ones the bill showed.
 export function proposalProblem(
   p: ActionProposal,
@@ -30,9 +36,14 @@ export function proposalProblem(
   payee: string,
   t: Dict,
   f: Formatters,
+  account?: AccountRef,
 ): string | null {
   if (p.amount_cents !== amountCents) return t.pay.amountMismatch(f.money(p.amount_cents), f.money(amountCents));
   if (p.payee !== payee) return t.pay.payeeMismatch(p.payee);
+  if (account) {
+    const from = typeof p.from === "string" ? p.from : p.from.id;
+    if (from !== account.id && from !== accountLabel(account)) return t.pay.accountMismatch;
+  }
   return null;
 }
 
@@ -65,7 +76,7 @@ export default function PaySheet(props: PaySheetProps) {
       .propose({ bill_id: p.billId, amount_cents: p.amountCents, from: p.account, payee: p.payee })
       .then((proposal) => {
         if (!live) return;
-        const problem = proposalProblem(proposal, p.amountCents, p.payee, t, f);
+        const problem = proposalProblem(proposal, p.amountCents, p.payee, t, f, p.account);
         if (problem) {
           setError(problem);
           setPhase("error");
@@ -92,7 +103,7 @@ export default function PaySheet(props: PaySheetProps) {
     setError(null);
     try {
       const r = await services.confirm(proposal.action_id, code);
-      const from = typeof proposal.from === "string" ? proposal.from : accountLabel(proposal.from);
+      const from = fromLabel(proposal.from, latest.current.account);
       const record: PaymentRecord = {
         action_id: r.action_id,
         bill_id: latest.current.billId,
@@ -171,7 +182,7 @@ export default function PaySheet(props: PaySheetProps) {
             </div>
             <div>
               <dt>{t.pay.from}</dt>
-              <dd>{typeof proposal.from === "string" ? proposal.from : accountLabel(proposal.from)}</dd>
+              <dd>{fromLabel(proposal.from, props.account)}</dd>
             </div>
             <div>
               <dt>{t.pay.to}</dt>

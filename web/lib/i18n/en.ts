@@ -529,6 +529,7 @@ export const en = {
     amountMismatch: (proposed: string, expected: string) =>
       `The payment service proposed ${proposed}, but the bill shows ${expected}. Nothing was sent.`,
     payeeMismatch: (payee: string) => `The payment service named a different payee (${payee}). Nothing was sent.`,
+    accountMismatch: "The payment service named a different account to pay from. Nothing was sent.",
     prepareFailed: (msg: string) => `Tend could not get this payment ready: ${msg}`,
     codeWrong: "That code does not match. Check the six digits and try again.",
     codeExpired: "This code has expired or was already used. Close this and start again for a new one.",
