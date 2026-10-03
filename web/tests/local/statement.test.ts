@@ -3,7 +3,9 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseAmount, parseCents, parseDate } from "@/lib/local/amounts";
 import { readRows, sniffDelimiter } from "@/lib/local/csv";
+import type { PdfLine } from "@/lib/local/pdf";
 import { statementParser } from "@/lib/local/statement";
+import { parseStatementLines } from "@/lib/local/statement-pdf";
 import type { LocalTxn, StatementResult } from "@/lib/local/types";
 
 const FIX = path.join(import.meta.dirname, "fixtures");
@@ -285,6 +287,7 @@ describe("PDF statements", () => {
   });
 
   it("table columns decide direction, wrapped lines join the description, balances are not amounts", async () => {
+    // Headings are compound ("Deposits/Additions"), and page 2 ends with a daily balance table.
     const r = await parse("statement-table.pdf");
     expect(r.layout).toBe("pdf_table");
     expect(rows(r)).toEqual([
@@ -298,6 +301,8 @@ describe("PDF statements", () => {
       ["2026-06-24", 15000, "purchase", "Card purchase CLEARWATER COUNSELING GROUP"],
       ["2026-06-26", -23600, "deposit", "Direct deposit FERNWAY BOOKS PAYROLL"],
       ["2026-06-29", 6000, "withdrawal", "ATM withdrawal 4400 STATE ST"],
+      // After the daily balance table, which is not read, comes a fees section.
+      ["2026-06-30", 200, "purchase", "Paper statement fee"],
     ]);
     expect(r.warnings).toEqual(["Line 25 skipped: it shows only a balance."]);
   });
@@ -354,5 +359,51 @@ describe("every fixture keeps money out positive and in integer cents", () => {
     const spending = r.txns.filter((t: LocalTxn) => /WAYFARE|COUNSELING/i.test(t.description));
     expect(spending.length).toBeGreaterThan(0);
     expect(spending.every((t) => t.amount_cents > 0)).toBe(true);
+  });
+});
+
+describe("PDF line heuristics on their own", () => {
+  // One segment per column, as pdf.js gives them; x positions only matter for continuations.
+  const lines = (...rows: string[][]): PdfLine[] =>
+    rows.map((cells, i) => ({
+      page: 1,
+      y: 700 - i * 14,
+      text: cells.join("  "),
+      segments: cells.map((text, j) => ({ text, x: 54 + j * 120, x2: 54 + j * 120 + text.length * 5 })),
+    }));
+
+  it("reads CR and DR marks, a Checks heading, and skips balance tables and rows with no words", () => {
+    const r = parseStatementLines(
+      lines(
+        ["Statement period 06/01/2026 - 06/30/2026"],
+        ["06/12", "ACME PAYROLL", "412.00 CR"],
+        ["06/13", "CORNER STORE", "8.25 DR"],
+        ["Checks"],
+        ["06/18", "CHECK 1043", "150.00"],
+        ["Daily ending balance"],
+        ["06/14", "3,239.00", "06/15", "3,214.00"],
+        ["Withdrawals"],
+        ["06/20", "1234", "9.00"],
+        ["06/21", "WAYFARE RIDES", "18.00"],
+      ),
+    );
+    expect(r.txns.map((t) => [t.date, t.amount_cents, t.description])).toEqual([
+      ["2026-06-12", -41200, "ACME PAYROLL"],
+      ["2026-06-13", 825, "CORNER STORE"],
+      ["2026-06-18", 15000, "CHECK 1043"],
+      ["2026-06-21", 1800, "WAYFARE RIDES"],
+    ]);
+    expect(r.warnings).toEqual(["Line 9 skipped: no description."]);
+  });
+
+  it("a dated line with no amount is reported, and a footer is not glued to a row", () => {
+    const r = parseStatementLines(
+      lines(["Withdrawals"], ["06/20", "PENDING HOLD"], ["06/21", "WAYFARE RIDES", "18.00"], ["Page 1 of 3"]),
+    );
+    expect(r.txns.map((t) => t.description)).toEqual(["WAYFARE RIDES"]);
+    expect(r.warnings).toEqual([
+      "The statement period was not found, so dates use this year.",
+      "Line 2 skipped: a dated line with no amount.",
+    ]);
   });
 });

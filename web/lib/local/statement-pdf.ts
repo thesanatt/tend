@@ -20,7 +20,9 @@ const SKIP_ROW =
 const SECTION_IN =
   /\b(deposits?|additions|credits|incoming|interest (paid|earned)|refunds?)\b|\bpayments?,? (and|&) (other )?credits\b/i;
 const SECTION_OUT =
-  /\b(withdrawals?|debits|purchases?|checks? paid|fees|charges|outgoing|payments? (sent|made)|card transactions|atm)\b/i;
+  /\b(withdrawals?|subtractions|debits|purchases?|checks? paid|fees|charges|outgoing|payments? (sent|made)|card transactions|atm)\b|^checks?$/i;
+// Tables of balances, not transactions: rows under these headings are not read.
+const SECTION_SKIP = /\b(daily (ending )?balances?|ending daily balances?|balance summary|account summary)\b/i;
 const SENTENCE = /\b(are|is|was|were|your|our|you|will|may|please|if|call)\b|\.$/i;
 const INCOME_WORDS =
   /payroll|direct dep|dir dep|salary|\bdeposit\b|refund|interest paid|payment thank you|thank you|\breturn\b/i;
@@ -28,12 +30,14 @@ const CARD_DOC = /credit card|card account|minimum payment|credit limit|new bala
 const FOOTER = /^page \d+|\bmember fdic\b|^continued\b/i;
 
 type Direction = "in" | "out";
+type Section = Direction | "skip" | null;
 type Column = "date" | "description" | "amount" | "debit" | "credit" | "balance";
 
+// Column headings, tested on short segments; compound ones such as "Deposits/Additions" count.
 const COLUMN_WORDS: [RegExp, Column][] = [
-  [/^(withdrawals?|debits?|charges|money out|paid out|amount debited)$/i, "debit"],
-  [/^(deposits?|credits?|payments?|money in|paid in|amount credited)$/i, "credit"],
-  [/^(balance|running balance|ending daily balance|daily balance)$/i, "balance"],
+  [/\bbalance\b/i, "balance"],
+  [/\b(withdrawals?|subtractions|debits?|charges|money out|paid out|amount debited)\b/i, "debit"],
+  [/\b(deposits?|additions|credits?|payments?|money in|paid in|amount credited)\b/i, "credit"],
   [/^(amount|amount \(\$\)|transaction amount)$/i, "amount"],
   [/^(description|transaction description|details|transaction)$/i, "description"],
   [/^(date|trans(action)? date|post(ing|ed)? date|tran date)$/i, "date"],
@@ -97,6 +101,7 @@ type Header = { column: Column; x: number; x2: number }[];
 function headerColumns(line: PdfLine): Header | null {
   const columns: Header = [];
   for (const s of line.segments) {
+    if (s.text.trim().length > 40) continue;
     const hit = COLUMN_WORDS.find(([re]) => re.test(s.text.trim()));
     if (hit) columns.push({ column: hit[1], x: s.x, x2: s.x2 });
   }
@@ -145,9 +150,10 @@ function nearestColumn(seg: PdfSegment, header: Header): Column | null {
 }
 
 // A short heading such as "Deposits and additions" sets which way the rows under it go.
-function sectionOf(text: string): Direction | null | undefined {
+function sectionOf(text: string): Section | undefined {
   if (text.length > 60 || text.split(/\s+/).length > 6 || SENTENCE.test(text) || ROW.test(text) || TRAILING.test(text))
     return undefined;
+  if (SECTION_SKIP.test(text)) return "skip";
   const isIn = SECTION_IN.test(text);
   const isOut = SECTION_OUT.test(text);
   if (isIn && !isOut) return "in";
@@ -165,7 +171,7 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
   const fallbackYear = years.length ? Math.max(...years) : new Date().getUTCFullYear();
   if (!period.end && !years.length) warnings.push("The statement period was not found, so dates use this year.");
 
-  let section: Direction | null = null;
+  let section: Section = null;
   let header: Header | null = null;
   let sawHeader = false;
   let guessed = 0;
@@ -190,6 +196,7 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
       last = null;
       continue;
     }
+    if (section === "skip") continue;
     const row = ROW.exec(t);
     const { tokens, rest } = trailingAmounts(row ? row.groups!.rest : t);
     if (!row) {
@@ -224,7 +231,7 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
       warnings.push(`Line ${lineNo} skipped: no date Tend could read.`);
       continue;
     }
-    if (!description) {
+    if (!/[A-Za-z]{2}/.test(description)) {
       warnings.push(`Line ${lineNo} skipped: no description.`);
       continue;
     }
@@ -261,7 +268,7 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
     if (a.marker) direction = a.marker === "cr" ? "in" : "out";
     else if (pick.column === "debit") direction = "out";
     else if (pick.column === "credit") direction = "in";
-    else if (section) direction = section;
+    else if (section === "in" || section === "out") direction = section;
     else if (a.explicit && a.negative) direction = card ? "in" : "out";
     else if (a.explicit) direction = card ? "out" : "in";
     else if (card)

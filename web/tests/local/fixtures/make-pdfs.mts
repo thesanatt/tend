@@ -108,9 +108,9 @@ async function statementTable() {
   const header = (c: Ctx, y: number) => {
     text(c, "Date", cols.date, y, { bold: true });
     text(c, "Description", cols.desc, y, { bold: true });
-    text(c, "Withdrawals", cols.out, y, { bold: true, right: true });
-    text(c, "Deposits", cols.in, y, { bold: true, right: true });
-    text(c, "Balance", cols.bal, y, { bold: true, right: true });
+    text(c, "Withdrawals/Subtractions", cols.out, y, { bold: true, right: true });
+    text(c, "Deposits/Additions", cols.in, y, { bold: true, right: true });
+    text(c, "Ending daily balance", cols.bal, y, { bold: true, right: true });
   };
   let c = addPage(doc, font, bold);
   text(c, "Harbor Light Credit Union", 54, 720, { size: 14, bold: true });
@@ -154,6 +154,22 @@ async function statementTable() {
   row("06/30/2026", "Service fee waived", 0, 0);
   text(c, "Ending balance", cols.desc, y);
   text(c, money(balance), cols.bal, y, { right: true });
+  y -= 30;
+  // A balance table after the activity: dates and amounts, but no transactions.
+  text(c, "Daily ending balance", 54, y, { bold: true });
+  y -= 16;
+  text(c, "06/14", 54, y);
+  text(c, "3,239.00", 160, y, { right: true });
+  text(c, "06/15", 200, y);
+  text(c, "3,214.00", 306, y, { right: true });
+  text(c, "06/16", 346, y);
+  text(c, "2,933.00", 452, y, { right: true });
+  y -= 30;
+  text(c, "Fees", 54, y, { bold: true });
+  y -= 16;
+  text(c, "06/30", cols.date, y);
+  text(c, "Paper statement fee", cols.desc, y);
+  text(c, "2.00", cols.out, y, { right: true });
   text(c, "Page 2 of 2", 290, 50, { size: 8 });
   await save(doc, "statement-table.pdf");
 }
