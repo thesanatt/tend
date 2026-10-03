@@ -6,6 +6,7 @@
 #   make bench        1M-item benchmark
 #   make laws         compile every jurisdiction in IR (rules/ir + rules/verified) to build/laws
 #   make wasm         Emscripten build into ../web/public/engine/
+#   make wasm-parity  WASM vs native, byte for byte, on the difftest claims
 
 BUILD ?= build
 OPT ?= -O2
@@ -39,7 +40,7 @@ TEST_OBJS := $(TEST_SRCS:%.cpp=$(OBJ)/%.o)
 FIXTURE_IR := tests/fixtures/ir/ZZ.json
 FIXTURE_CLAIM := tests/fixtures/ZZ_claim.json
 
-.PHONY: all test test-san fuzz bench laws wasm clean
+.PHONY: all test test-san fuzz bench laws wasm wasm-parity clean
 
 all: $(BUILD)/libtend.a $(SHLIB) $(BUILD)/tendc $(BUILD)/tdis $(BUILD)/tendvm
 
@@ -70,8 +71,13 @@ $(BUILD)/tendvm: $(OBJ)/tools/tendvm.o $(BUILD)/libtend.a
 $(BUILD)/tend_tests: $(TEST_OBJS) $(BUILD)/libtendc.a $(BUILD)/libtend.a
 	$(CXX) $(LDFLAGS) $^ -o $@
 
+# The law images the browser ships (web/public/engine/laws) must be what tendc
+# builds from the default corpus now; pointing IR or VERIFIED elsewhere, or a
+# checkout without web/, skips that check.
+SHIPPED ?= $(if $(and $(filter ../rules/ir,$(IR)),$(filter ../rules/verified,$(VERIFIED)),$(wildcard ../web/public/engine)),../web/public/engine)
+
 test: $(BUILD)/tend_tests $(BUILD)/tendc $(BUILD)/tendvm $(BUILD)/tdis
-	TEND_IR_DIR=$(IR) TEND_RULES_DIR=$(VERIFIED) TEND_BUILD_DIR=$(BUILD) ./$(BUILD)/tend_tests
+	TEND_IR_DIR=$(IR) TEND_RULES_DIR=$(VERIFIED) TEND_SHIPPED_DIR=$(SHIPPED) TEND_BUILD_DIR=$(BUILD) ./$(BUILD)/tend_tests
 
 test-san:
 	$(MAKE) BUILD=build/san OPT="-O1 -g -fno-omit-frame-pointer" \
@@ -85,6 +91,8 @@ FUZZ_FLAGS := -std=c++20 -O1 -g -fno-omit-frame-pointer -Iinclude -Isrc -Ithird_
               -fsanitize=address,undefined -fno-sanitize-recover=all
 FUZZ_LIB_OBJS := $(RUNTIME_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o) $(COMPILER_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o)
 FUZZ_SEED_DIR := $(if $(wildcard $(IR)/*.json),--seed-json-dir $(IR))
+# A second claim with typed units, tags, and a total cap to cross.
+FUZZ_EXTRA_INPUT := $(if $(wildcard ../refengine/tests/golden/zz_mixed.input.json),--seed-input ../refengine/tests/golden/zz_mixed.input.json)
 
 $(FUZZ_DIR)/obj/%.o: %.cpp
 	@mkdir -p $(dir $@)
@@ -96,7 +104,7 @@ $(FUZZ_DIR)/tend_fuzz: fuzz/fuzz.cpp $(FUZZ_LIB_OBJS)
 
 fuzz: $(FUZZ_DIR)/tend_fuzz
 	./$(FUZZ_DIR)/tend_fuzz --seconds $(FUZZ_SECONDS) --corpus $(FUZZ_DIR)/corpus \
-	  --seed-json $(FIXTURE_IR) --seed-input $(FIXTURE_CLAIM) $(FUZZ_SEED_DIR)
+	  --seed-json $(FIXTURE_IR) --seed-input $(FIXTURE_CLAIM) $(FUZZ_EXTRA_INPUT) $(FUZZ_SEED_DIR)
 
 bench: $(BUILD)/tendc $(BUILD)/tendvm
 	@mkdir -p $(BUILD)/laws
@@ -108,6 +116,15 @@ laws: $(BUILD)/tendc
 
 wasm:
 	./scripts/build_wasm.sh "$(CURDIR)/../web/public/engine" "$(abspath $(IR))" "$(abspath $(VERIFIED))"
+
+# The WASM build against the native engine on the difftest's claims (2,000 per
+# jurisdiction by default), byte for byte, using the shipped law images.
+PARITY_N ?= 2000
+PYTHON ?= uv run --project ../refengine --python 3.12 python
+wasm-parity: all
+	rm -rf build/wasm-corpus
+	$(PYTHON) ../refengine/difftest.py --n $(PARITY_N) --ir-dir $(IR) --verified-dir $(VERIFIED) --corpus build/wasm-corpus
+	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/wasm_parity.mjs build/wasm-corpus ../web/public/engine
 
 clean:
 	rm -rf build

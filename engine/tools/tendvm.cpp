@@ -144,6 +144,11 @@ void synthesize(size_t n, uint64_t seed, Synthetic& s) {
     it.field[IF_INSURANCE_PAID] = rnd() % 5 == 0 ? it.field[IF_AMOUNT] / 4 : 0;
     it.field[IF_IS_BILL] = rnd() % 3 == 0;
     it.field[IF_UNITS] = rnd() % 4 == 0 ? 0 : 1 + rnd() % 8;
+    // Most counted lines say what they count (SPEC v1.2 typed units).
+    uint8_t e = uint8_t(it.field[IF_EXPENSE]);
+    uint8_t unit = e == EXP_COUNSELING ? UNIT_SESSION : e == EXP_LOST_WAGES ? UNIT_WEEK
+                 : e == EXP_TRANSPORTATION ? UNIT_MILE : UNIT_NONE;
+    it.field[IF_UNIT] = it.field[IF_UNITS] && rnd() % 10 != 0 ? unit : UNIT_NONE;
   }
 }
 
@@ -181,6 +186,11 @@ std::string synth_json(const Synthetic& s, const char* jurisdiction) {
     out += ",\"is_bill\":";
     out += it.field[IF_IS_BILL] ? "true" : "false";
     out += ",\"units\":" + std::to_string(it.field[IF_UNITS]);
+    if (it.field[IF_UNIT] != UNIT_NONE) {
+      out += ",\"unit\":\"";
+      out += unit_name(uint8_t(it.field[IF_UNIT]));
+      out += '"';
+    }
     out += ",\"description\":\"synthetic benchmark line\"}";
   }
   out += "]}";

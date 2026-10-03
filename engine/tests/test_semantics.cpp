@@ -1,5 +1,5 @@
-// One group per step of the SPEC decision procedure (v1.1 law IR), with
-// hand-computed answers.
+// One group per step of the SPEC decision procedure (v1.2, law IR version 2),
+// with hand-computed answers.
 #include <algorithm>
 #include <climits>
 #include <string>
@@ -20,6 +20,8 @@ namespace {
 
 const json kMed = ir("T-MED", "covered", {{"expense", "medical"}});
 const json kCounsel = ir("T-COUNSEL", "covered", {{"expense", "counseling"}});
+const json kWages = ir("T-WAGES", "covered", {{"expense", "lost_wages"}});
+constexpr int64_t kMaxSafe = (int64_t(1) << 53) - 1;
 
 json cap(const std::string& id, const std::string& expense, int64_t cents, const std::string& unit = "",
          json extra = json::object()) {
@@ -33,6 +35,12 @@ json ids(std::initializer_list<const char*> v) {
   json a = json::array();
   for (auto s : v) a.push_back(s);
   return a;
+}
+
+// An item that counts `units` of `unit`.
+json counted(const std::string& id, const std::string& date, int64_t amount, const std::string& expense,
+             int64_t units, const std::string& unit) {
+  return item(id, date, amount, expense, {{"units", units}, {"unit", unit}});
 }
 
 int64_t trace_sum(const json& out) {
@@ -66,7 +74,7 @@ TEST_CASE("step 1: items outside [incident_date, as_of_date] are out of window")
   CHECK(out["totals"]["requested_cents"] == 500);
 }
 
-TEST_CASE("step 2: forensic exams are held when exam rules exist") {
+TEST_CASE("step 2: forensic exams are held only when an exam_no_bill rule exists") {
   json nobill = ir("T-EXAM-1", "exam_no_bill");
   json pay = ir("T-EXAM-2", "exam_payment");
   json exam = item("exam", "2026-06-14", 32500, "forensic_exam", {{"confirmed", false}, {"is_bill", true}, {"tags", {"phone"}}});
@@ -78,13 +86,23 @@ TEST_CASE("step 2: forensic exams are held when exam rules exist") {
   CHECK(out["totals"]["held_cents"] == 32500);
   CHECK(out["totals"]["allowed_cents"] == 0);
   CHECK(out["totals"]["requested_cents"] == 0);
+  CHECK(out["info_rule_ids"] == json::array());  // the payment rule is in the hold's proof
 
   CHECK(line(run(law({nobill}), claim({exam})), "exam")["rule_ids"] == ids({"T-EXAM-1"}));
-  CHECK(line(run(law({pay}), claim({exam})), "exam")["rule_ids"] == ids({"T-EXAM-2"}));
   CHECK(line(run(law({pay, nobill}), claim({exam})), "exam")["rule_ids"] == ids({"T-EXAM-1", "T-EXAM-2"}));
+
+  // A payment rule alone says who pays, not that the survivor may not be billed.
+  out = run(law({pay, kMed}), claim({item("exam", "2026-06-14", 32500, "forensic_exam")}));
+  CHECK(line(out, "exam")["status"] == "eligible");
+  CHECK(line(out, "exam")["expense"] == "medical");
+  CHECK(line(out, "exam")["rule_ids"] == ids({"T-MED"}));
+  CHECK(out["info_rule_ids"] == ids({"T-EXAM-2"}));
+  out = run(law({pay}), claim({exam}));
+  CHECK(line(out, "exam")["status"] == "unknown_rule");
+  CHECK(out["totals"]["held_cents"] == 0);
 }
 
-TEST_CASE("step 2: without exam rules an exam is treated as medical") {
+TEST_CASE("step 2: without exam_no_bill an exam is treated as medical") {
   json exam = item("exam", "2026-06-14", 32500, "forensic_exam");
   json out = run(law({kMed, ir("T-COLL", "collateral")}), claim({exam}));
   CHECK(line(out, "exam")["status"] == "eligible");
@@ -114,7 +132,7 @@ TEST_CASE("step 3: exclusions by expense and by tag") {
                            item("wallet", "2026-06-20", 3000, "property_replacement", {{"tags", {"purse", "cash"}}}),
                            item("shirt", "2026-06-20", 60000, "property_replacement", {{"tags", json::array()}}),
                            item("pain-med", "2026-06-21", 1000, "medical", {{"tags", {"pain_suffering"}}}),
-                           item("pain-unknown", "2026-06-21", 1000, "groceries", {{"tags", {"pain_suffering"}}}),
+                           item("pain-unknown", "2026-06-21", 1000, "unknown", {{"tags", {"pain_suffering"}}}),
                            item("phone-med", "2026-06-21", 500, "medical", {{"tags", {"phone", "unheard-of"}}}),
                            item("school", "2026-06-22", 900, "tuition", {{"tags", {"pain_suffering"}}})}));
   CHECK(line(out, "phone")["status"] == "excluded");
@@ -132,15 +150,17 @@ TEST_CASE("step 3: exclusions by expense and by tag") {
 
 TEST_CASE("step 4: expenses no rule names are unknown_rule") {
   json r = law({kMed, cap("T-RELO-CAP", "relocation", 100)});
-  json out = run(r, claim({item("u", "2026-06-20", 100, "unknown"), item("g", "2026-06-20", 200, "groceries"),
-                           item("t", "2026-06-20", 300, "tuition"), item("r", "2026-06-20", 50, "relocation"),
-                           json{{"item_id", "noexp"}, {"date", "2026-06-20"}, {"amount_cents", 7}, {"confirmed", true}}}));
+  json out = run(r, claim({item("u", "2026-06-20", 100, "unknown"), item("t", "2026-06-20", 300, "tuition"),
+                           item("r", "2026-06-20", 50, "relocation"),
+                           json{{"item_id", "noexp"}, {"date", "2026-06-20"}, {"amount_cents", 7}, {"confirmed", true}},
+                           item("nullexp", "2026-06-20", 8, "medical", {{"expense", nullptr}})}));
   CHECK(line(out, "u")["status"] == "unknown_rule");
-  CHECK(line(out, "g")["status"] == "unknown_rule");
-  CHECK(line(out, "g")["expense"] == "unknown");
+  CHECK(line(out, "u")["expense"] == "unknown");
   CHECK(line(out, "t")["status"] == "unknown_rule");
   CHECK(line(out, "t")["expense"] == "tuition");
   CHECK(line(out, "noexp")["status"] == "unknown_rule");
+  CHECK(line(out, "noexp")["expense"] == "unknown");
+  CHECK(line(out, "nullexp")["expense"] == "unknown");
   CHECK(line(out, "r")["status"] == "eligible");
   CHECK(line(out, "r")["rule_ids"] == ids({"T-RELO-CAP"}));
 }
@@ -236,37 +256,55 @@ TEST_CASE("step 7: several claim caps on one expense compose in rule order") {
   CHECK(cuts == std::vector<std::string>{"T-R1:-10000", "T-R2:-50000"});
 }
 
-TEST_CASE("step 7: per-unit caps need units, otherwise rate_unverified") {
+TEST_CASE("step 7: a per-unit cap applies only when the item counts the cap's unit") {
   json r = law({kCounsel, cap("T-SESSION", "counseling", 9000, "session"), cap("T-WEEK", "lost_wages", 60000, "week"),
                 cap("T-MILE", "transportation", 50, "mile"), cap("T-HOUR", "childcare", 1500, "hour"),
-                cap("T-MONTH", "temporary_housing", 10000, "month")});
-  json out = run(r, claim({item("s1", "2026-06-20", 15000, "counseling", {{"units", 1}}),
-                           item("s2", "2026-06-21", 15000, "counseling", {{"units", 2}}),
+                cap("T-MONTH", "temporary_housing", 10000, "month"), cap("T-DAY", "lost_wages", 7000, "day")});
+  json out = run(r, claim({counted("s1", "2026-06-20", 15000, "counseling", 1, "session"),
+                           counted("s2", "2026-06-21", 15000, "counseling", 2, "session"),
                            item("s0", "2026-06-22", 15000, "counseling"),
-                           item("w", "2026-06-23", 140000, "lost_wages", {{"units", 2}}),
-                           item("mi", "2026-06-24", 4000, "transportation", {{"units", 60}}),
-                           item("h", "2026-06-25", 5000, "childcare", {{"units", 3}}),
-                           item("mo", "2026-06-26", 25000, "temporary_housing", {{"units", 2}})}));
+                           counted("s-hours", "2026-06-22", 15000, "counseling", 3, "hour"),
+                           counted("s-zero", "2026-06-22", 15000, "counseling", 0, "session"),
+                           item("s-nounit", "2026-06-22", 15000, "counseling", {{"units", 4}}),
+                           counted("w", "2026-06-23", 140000, "lost_wages", 2, "week"),
+                           counted("mi", "2026-06-24", 4000, "transportation", 60, "mile"),
+                           counted("h", "2026-06-25", 5000, "childcare", 3, "hour"),
+                           counted("mo", "2026-06-26", 25000, "temporary_housing", 2, "month")}));
   CHECK(line(out, "s1")["allowed_cents"] == 9000);
   CHECK(line(out, "s1")["cap_rule_id"] == "T-SESSION");
+  CHECK(line(out, "s1")["flags"] == json::array());
   CHECK(line(out, "s2")["allowed_cents"] == 15000);
   CHECK(line(out, "s2")["cap_rule_id"].is_null());
-  CHECK(line(out, "s0")["allowed_cents"] == 15000);
-  CHECK(line(out, "s0")["flags"] == ids({"rate_unverified:T-SESSION"}));
+  for (const char* id : {"s0", "s-hours", "s-zero", "s-nounit"}) {
+    CAPTURE(id);
+    CHECK(line(out, id)["allowed_cents"] == 15000);  // the rate cannot be checked, so the amount stands
+    CHECK(line(out, id)["cap_rule_id"].is_null());
+    CHECK(line(out, id)["flags"] == ids({"rate_unverified:T-SESSION"}));
+  }
+  // Weeks of wages meet the weekly cap; the daily cap cannot measure them.
   CHECK(line(out, "w")["allowed_cents"] == 120000);
+  CHECK(line(out, "w")["cap_rule_id"] == "T-WEEK");
+  CHECK(line(out, "w")["flags"] == ids({"rate_unverified:T-DAY"}));
   CHECK(line(out, "mi")["allowed_cents"] == 3000);
   CHECK(line(out, "h")["allowed_cents"] == 4500);
   CHECK(line(out, "mo")["allowed_cents"] == 20000);
+  int flags = 0;
+  for (const auto& t : out["trace"]) flags += t["op"] == "rate_unverified";
+  CHECK(flags == 5);
 }
 
 TEST_CASE("step 7: a count limit pays units only until the count runs out") {
   json r = law({cap("T-SESSION", "counseling", 9000, "session", {{"count_limit", 3}})});
-  json out = run(r, claim({item("a", "2026-06-20", 15000, "counseling", {{"units", 1}}),
+  json out = run(r, claim({counted("a", "2026-06-20", 15000, "counseling", 1, "session"),
                            item("none", "2026-06-21", 15000, "counseling"),
-                           item("b", "2026-06-22", 30000, "counseling", {{"units", 4}}),
-                           item("c", "2026-06-23", 9000, "counseling", {{"units", 1}})}));
+                           counted("hours", "2026-06-21", 15000, "counseling", 5, "hour"),
+                           counted("b", "2026-06-22", 30000, "counseling", 4, "session"),
+                           counted("c", "2026-06-23", 9000, "counseling", 1, "session")}));
   CHECK(line(out, "a")["allowed_cents"] == 9000);
   CHECK(line(out, "none")["flags"] == ids({"rate_unverified:T-SESSION"}));
+  // Units the cap cannot measure do not use up the count.
+  CHECK(line(out, "hours")["flags"] == ids({"rate_unverified:T-SESSION"}));
+  CHECK(line(out, "hours")["allowed_cents"] == 15000);
   CHECK(line(out, "b")["allowed_cents"] == 18000);  // only 2 of its 4 sessions are left
   CHECK(line(out, "c")["allowed_cents"] == 0);
   CHECK(line(out, "c")["cap_rule_id"] == "T-SESSION");
@@ -274,9 +312,9 @@ TEST_CASE("step 7: a count limit pays units only until the count runs out") {
 
 TEST_CASE("step 7: unit caps run before claim caps") {
   json r = law({cap("T-CLAIM", "counseling", 10000), cap("T-SESSION", "counseling", 5000, "session")});
-  json out = run(r, claim({item("a", "2026-06-20", 8000, "counseling", {{"units", 1}}),
-                           item("b", "2026-06-21", 8000, "counseling", {{"units", 1}}),
-                           item("c", "2026-06-22", 8000, "counseling", {{"units", 1}})}));
+  json out = run(r, claim({counted("a", "2026-06-20", 8000, "counseling", 1, "session"),
+                           counted("b", "2026-06-21", 8000, "counseling", 1, "session"),
+                           counted("c", "2026-06-22", 8000, "counseling", 1, "session")}));
   CHECK(line(out, "a")["allowed_cents"] == 5000);
   CHECK(line(out, "b")["allowed_cents"] == 5000);
   CHECK(line(out, "c")["allowed_cents"] == 0);
@@ -324,7 +362,7 @@ TEST_CASE("step 8: the smallest total cap walks every eligible line") {
   CHECK(trace_sum(out) == 2500000);
 }
 
-TEST_CASE("step 9: minimum loss") {
+TEST_CASE("step 9: minimum loss by amount, with waivers that no longer depend on the exam") {
   json items = json::array({item("m", "2026-06-20", 5000, "medical")});
   auto status = [&](const std::vector<json>& rules, json ctx = json::object()) {
     return run(law(rules), claim(items, ctx))["checks"]["minimum_loss"];
@@ -336,19 +374,65 @@ TEST_CASE("step 9: minimum loss") {
   CHECK(status({kMed})["rule_ids"] == json::array());
   CHECK(status({kMed, min_rule("T-MIN", 5000)})["status"] == "met");
   CHECK(status({kMed, min_rule("T-MIN", 5001)})["status"] == "not_met");
+  CHECK(status({kMed, min_rule("T-MIN", 0)})["status"] == "met");  // "there is no minimum"
   CHECK(status({kMed, min_rule("T-MIN", 10000, "discretionary", true)})["status"] == "may_be_waived");
+  CHECK(status({kMed, min_rule("T-MIN", 10000, "discretionary", true)}, {{"forensic_exam", false}})["status"] ==
+        "may_be_waived");
   CHECK(status({kMed, min_rule("T-MIN", 10000, "automatic", true)})["status"] == "waived");
-  CHECK(status({kMed, min_rule("T-MIN", 10000, "automatic", true)}, {{"forensic_exam", false}})["status"] == "not_met");
-  CHECK(status({kMed, min_rule("T-MIN", 10000, "other", false)})["status"] == "not_met");
-  json days_only = ir("T-DAYS", "minimum_loss", {{"days_lost", 7}, {"waiver", "none"}, {"waiver_for_sexual_assault", false}});
-  CHECK(status({kMed, days_only})["status"] == "unknown");
-  CHECK(status({kMed, days_only})["rule_ids"] == ids({"T-DAYS"}));
-  CHECK(status({kMed, days_only, min_rule("T-A", 100)})["status"] == "met");
+  CHECK(status({kMed, min_rule("T-MIN", 10000, "automatic", true)}, {{"forensic_exam", false}})["status"] == "waived");
+  CHECK(status({kMed, min_rule("T-MIN", 10000, "automatic", false)})["status"] == "not_met");
+  CHECK(status({kMed, min_rule("T-MIN", 10000, "other", true)})["status"] == "not_met");
+  CHECK(status({kMed, min_rule("T-MIN", 10000, "none", false)})["status"] == "not_met");
   CHECK(status({kMed, min_rule("T-A", 100), min_rule("T-B", 10000, "automatic", true)})["status"] == "waived");
   CHECK(status({kMed, min_rule("T-B", 10000, "automatic", true), min_rule("T-C", 10000, "discretionary", true)})["status"] ==
         "may_be_waived");
   CHECK(status({kMed, min_rule("T-C", 10000, "discretionary", true), min_rule("T-D", 9000)})["status"] == "not_met");
-  CHECK(status({kMed, days_only, min_rule("T-A", 100)})["rule_ids"] == ids({"T-DAYS", "T-A"}));
+  CHECK(status({kMed, min_rule("T-B", 10000, "automatic", true), min_rule("T-C", 10000, "discretionary", true)})["rule_ids"] ==
+        ids({"T-B", "T-C"}));
+}
+
+TEST_CASE("step 9: minimum loss by lost-wage days") {
+  auto days_rule = [](const std::string& id, int64_t days, json extra = json::object()) {
+    json f = {{"days_lost", days}, {"waiver", "none"}, {"waiver_for_sexual_assault", false}};
+    for (auto& [k, v] : extra.items()) f[k] = v;
+    return ir(id, "minimum_loss", f);
+  };
+  auto status = [&](const std::vector<json>& rules, const std::vector<json>& items) {
+    return run(law(rules), claim(items))["checks"]["minimum_loss"]["status"].get<std::string>();
+  };
+  json r7 = days_rule("T-DAYS", 7);
+  CHECK(status({kWages, r7}, {}) == "unknown");
+  CHECK(status({kWages, r7}, {counted("d", "2026-06-20", 100, "lost_wages", 7, "day")}) == "met");
+  CHECK(status({kWages, r7}, {counted("d", "2026-06-20", 100, "lost_wages", 6, "day")}) == "unknown");
+  // A week is five working days; weeks and days add up.
+  CHECK(status({kWages, r7}, {counted("w", "2026-06-20", 100, "lost_wages", 1, "week")}) == "unknown");
+  CHECK(status({kWages, r7}, {counted("w", "2026-06-20", 100, "lost_wages", 2, "week")}) == "met");
+  CHECK(status({kWages, r7}, {counted("w", "2026-06-20", 100, "lost_wages", 1, "week"),
+                              counted("d", "2026-06-21", 100, "lost_wages", 2, "day")}) == "met");
+  // Only eligible lost-wage lines in weeks or days count.
+  CHECK(status({kWages, r7}, {counted("h", "2026-06-20", 100, "lost_wages", 80, "hour")}) == "unknown");
+  CHECK(status({kWages, r7}, {item("u", "2026-06-20", 100, "lost_wages", {{"units", 9}})}) == "unknown");
+  CHECK(status({kWages, r7}, {item("p", "2026-06-20", 100, "lost_wages", {{"units", 9}, {"unit", "day"}, {"confirmed", false}})}) ==
+        "unknown");
+  CHECK(status({kWages, r7}, {counted("old", "2026-01-20", 100, "lost_wages", 9, "day")}) == "unknown");
+  CHECK(status({r7}, {counted("nocov", "2026-06-20", 100, "lost_wages", 9, "day")}) == "unknown");
+  CHECK(status({kWages, kCounsel, r7}, {counted("c", "2026-06-20", 100, "counseling", 9, "day")}) == "unknown");
+
+  // "$200 or 5 days": either path meets it; below both, the waiver decides.
+  json mi = ir("T-MI", "minimum_loss", {{"cap_cents", 20000}, {"days_lost", 5}, {"waiver", "discretionary"},
+                                        {"waiver_for_sexual_assault", true}});
+  CHECK(status({kWages, mi}, {counted("w", "2026-06-20", 100, "lost_wages", 1, "week")}) == "met");
+  CHECK(status({kWages, mi}, {counted("w", "2026-06-20", 25000, "lost_wages", 0, "week")}) == "met");
+  CHECK(status({kWages, mi}, {counted("d", "2026-06-20", 100, "lost_wages", 4, "day")}) == "may_be_waived");
+  // Severity: not_met > may_be_waived > unknown > waived > met.
+  json disc = ir("T-D", "minimum_loss", {{"cap_cents", 100000}, {"waiver", "discretionary"}, {"waiver_for_sexual_assault", true}});
+  json autom = ir("T-A", "minimum_loss", {{"cap_cents", 100000}, {"waiver", "automatic"}, {"waiver_for_sexual_assault", true}});
+  json plain = ir("T-P", "minimum_loss", {{"cap_cents", 100000}, {"waiver", "none"}, {"waiver_for_sexual_assault", false}});
+  CHECK(status({kWages, r7, disc}, {}) == "may_be_waived");
+  CHECK(status({kWages, r7, autom}, {}) == "unknown");
+  CHECK(status({kWages, r7, plain}, {}) == "not_met");
+  CHECK(compile_error(law({ir("T-NONE", "minimum_loss", {{"waiver", "none"}})})) ==
+        "T-NONE: a minimum loss rule needs cap_cents or days_lost");
 }
 
 TEST_CASE("step 9: minimum loss uses the total after caps") {
@@ -356,16 +440,18 @@ TEST_CASE("step 9: minimum loss uses the total after caps") {
   CHECK(run(r, claim({item("m", "2026-06-20", 6000, "medical")}))["checks"]["minimum_loss"]["status"] == "not_met");
 }
 
-TEST_CASE("step 10: filing deadline in days, the longest wins") {
+TEST_CASE("step 10: filing deadline in days, the longest wins, report anchors flagged") {
   auto deadline = [](const std::vector<json>& rules, json ctx = json::object()) {
     return run(law(rules), claim({}, ctx))["checks"]["deadline"];
   };
   json three = ir("T-D3", "deadline", {{"days", 1095}, {"from", "crime"}});
   json short_one = ir("T-D400", "deadline", {{"days", 400}, {"from", "discovery"}});
+  json report = ir("T-DR", "deadline", {{"days", 365}, {"from", "report"}});
   json d = deadline({three});
   CHECK(d["status"] == "ok");
   CHECK(d["deadline_date"] == "2029-06-13");
   CHECK(d["rule_ids"] == ids({"T-D3"}));
+  CHECK(d["flags"] == json::array());
   CHECK(deadline({short_one})["deadline_date"] == "2027-07-19");
   d = deadline({short_one, three, ir("T-DX", "info", {{"category", "filing_deadline"}})});
   CHECK(d["deadline_date"] == "2029-06-13");
@@ -376,7 +462,24 @@ TEST_CASE("step 10: filing deadline in days, the longest wins") {
   CHECK(d["status"] == "unknown");
   CHECK(d["deadline_date"].is_null());
   CHECK(d["rule_ids"] == json::array());
+  CHECK(d["flags"] == json::array());
   CHECK(deadline({ir("T-D0", "deadline", {{"days", 0}})}, {{"as_of_date", "2026-06-14"}})["status"] == "ok");
+
+  // Counted from the report: dated from the incident, the earliest the report can be.
+  d = deadline({report});
+  CHECK(d["deadline_date"] == "2027-06-14");
+  CHECK(d["flags"] == ids({"deadline_from_report"}));
+  d = deadline({three, report}, {{"as_of_date", "2030-01-01"}});
+  CHECK(d["status"] == "late");
+  CHECK(d["deadline_date"] == "2029-06-13");
+  CHECK(d["flags"] == ids({"deadline_from_report"}));  // a later report could still leave time
+  for (const char* from : {"incident", "injury", "offense"}) {
+    CHECK(deadline({ir("T-DF", "deadline", {{"days", 10}, {"from", from}})})["flags"] == json::array());
+  }
+  CHECK(compile_error(law({ir("T-DA", "deadline", {{"days", 10}, {"from", "age_18"}})})) ==
+        "T-DA: from must be crime, incident, discovery, injury, offense, or report");
+  CHECK(compile_error(law({ir("T-DA", "deadline", {{"days", 10}, {"from", 3}})})) ==
+        "T-DA: from must be crime, incident, discovery, injury, offense, or report");
 }
 
 TEST_CASE("step 11: reporting") {
@@ -403,10 +506,12 @@ TEST_CASE("step 11: reporting") {
   CHECK(report({strict, exam_alt}, {{"police_report", "no"}})["rule_ids"] == ids({"T-REP", "T-REP-EXAM"}));
 }
 
-TEST_CASE("step 12: info and collateral rules are listed in rule order") {
+TEST_CASE("step 12: info, collateral, and unheld exam payment rules are listed in rule order") {
   json r = law({ir("T-RES", "info", {{"category", "residency"}}), kMed, ir("T-CONDUCT", "info", {{"category", "conduct_reduction"}}),
                 ir("T-COLL", "collateral"), ir("T-SUBMIT", "info", {{"category", "submission"}}),
                 ir("T-PAY", "exam_payment")});
+  CHECK(run(r, claim({}))["info_rule_ids"] == ids({"T-RES", "T-CONDUCT", "T-COLL", "T-SUBMIT", "T-PAY"}));
+  r["rules"].push_back(ir("T-NOBILL", "exam_no_bill"));
   CHECK(run(r, claim({}))["info_rule_ids"] == ids({"T-RES", "T-CONDUCT", "T-COLL", "T-SUBMIT"}));
   CHECK(run(law({kMed}), claim({}))["info_rule_ids"] == json::array());
 }
@@ -414,12 +519,14 @@ TEST_CASE("step 12: info and collateral rules are listed in rule order") {
 TEST_CASE("collateral and exam payment written as info rules behave like their own kinds") {
   json exam = item("exam", "2026-06-14", 32500, "forensic_exam");
   json er = item("er", "2026-06-15", 1000, "medical", {{"insurance_paid_cents", 400}});
-  json as_info = law({kMed, ir("T-COLL", "info", {{"category", "collateral_source"}}),
+  json nobill = ir("T-NB", "exam_no_bill");
+  json as_info = law({kMed, nobill, ir("T-COLL", "info", {{"category", "collateral_source"}}),
                       ir("T-PAY", "info", {{"category", "exam_payment"}})});
-  json as_kinds = law({kMed, ir("T-COLL", "collateral"), ir("T-PAY", "exam_payment")});
+  json as_kinds = law({kMed, nobill, ir("T-COLL", "collateral"), ir("T-PAY", "exam_payment")});
   json a = th::strip_sha(run(as_info, claim({exam, er})));
   CHECK(a == th::strip_sha(run(as_kinds, claim({exam, er}))));
   CHECK(line(a, "exam")["status"] == "held");
+  CHECK(line(a, "exam")["rule_ids"] == ids({"T-NB", "T-PAY"}));
   CHECK(line(a, "er")["allowed_cents"] == 600);
   CHECK(a["info_rule_ids"] == ids({"T-COLL"}));
 }
@@ -470,6 +577,7 @@ TEST_CASE("output shape matches the spec") {
   for (const char* k : {"requested_cents", "allowed_cents", "held_cents", "by_expense"}) CHECK(out["totals"].contains(k));
   for (const char* k : {"deadline", "minimum_loss", "reporting"}) CHECK(out["checks"][k].contains("status"));
   CHECK(out["checks"]["deadline"].contains("deadline_date"));
+  CHECK(out["checks"]["deadline"].contains("flags"));
   for (const auto& t : out["trace"]) {
     for (const char* k : {"op", "item_id", "rule_id", "delta_cents"}) CHECK(t.contains(k));
   }
@@ -478,25 +586,33 @@ TEST_CASE("output shape matches the spec") {
 TEST_CASE("saturating arithmetic never wraps") {
   const int64_t big = 1000000000000000;  // the compiler's largest allowed amount
   json r = law({kMed, cap("T-SESSION", "medical", big, "session")});
-  json out = run(r, claim({item("a", "2026-06-20", INT64_MAX, "medical", {{"units", 100000}}),
-                           item("b", "2026-06-21", INT64_MAX, "medical", {{"units", 1}})}));
-  CHECK(line(out, "a")["allowed_cents"] == INT64_MAX);  // cap * units saturates, so it does not bind
+  json out = run(r, claim({counted("a", "2026-06-20", kMaxSafe, "medical", kMaxSafe, "session"),
+                           counted("b", "2026-06-21", kMaxSafe, "medical", 1, "session")}));
+  CHECK(line(out, "a")["allowed_cents"] == kMaxSafe);  // cap * units saturates, so it does not bind
   CHECK(line(out, "b")["allowed_cents"] == big);
-  CHECK(out["totals"]["allowed_cents"] == INT64_MAX);
-  CHECK(out["totals"]["requested_cents"] == INT64_MAX);
+  CHECK(out["totals"]["allowed_cents"] == kMaxSafe + big);
   CHECK(compile_error(law({ir("T-BIG", "total_cap", {{"cap_cents", big + 1}})})) == "T-BIG: cap_cents is out of range");
+
+  // 1100 items at the largest amount add up past int64; totals stop at its maximum.
+  std::vector<json> many;
+  for (int i = 0; i < 1100; i++) many.push_back(item("m" + std::to_string(1000 + i), "2026-06-20", kMaxSafe, "medical"));
+  out = run(law({kMed}), claim(many));
+  CHECK(out["totals"]["requested_cents"] == INT64_MAX);
+  CHECK(out["totals"]["allowed_cents"] == INT64_MAX);
+  CHECK(out["totals"]["by_expense"]["medical"] == INT64_MAX);
 }
 
 TEST_CASE("the compiler rejects IR it cannot honor") {
-  CHECK(compile_error(json::object()) == "IR: ir_version must be 1");
-  CHECK(compile_error({{"ir_version", 2}, {"jurisdiction", "ZZ"}, {"rules", json::array()}}) == "IR: ir_version must be 1");
-  CHECK(compile_error({{"ir_version", 1}, {"jurisdiction", "zz"}, {"rules", json::array()}}).find("uppercase") != std::string::npos);
+  CHECK(compile_error(json::object()) == "IR: ir_version must be 2");
+  CHECK(compile_error({{"ir_version", 1}, {"jurisdiction", "ZZ"}, {"rules", json::array()}}) == "IR: ir_version must be 2");
+  CHECK(compile_error({{"ir_version", 2}, {"jurisdiction", "zz"}, {"rules", json::array()}}).find("uppercase") != std::string::npos);
   CHECK(compile_error(law({ir("T-1", "mystery")})) == "T-1: unknown kind 'mystery'");
   CHECK(compile_error(law({ir("T-1", "total_cap")})) == "T-1: cap_cents is required");
   CHECK(compile_error(law({ir("T-1", "expense_cap", {{"expense", "medical"}, {"cap_cents", 5}, {"per", "fortnight"}})})) ==
         "T-1: per must be claim or unit");
   CHECK(compile_error(law({ir("T-1", "expense_cap", {{"expense", "medical"}, {"cap_cents", 5}, {"per", "unit"}})})) ==
         "T-1: a per-unit cap needs a unit");
+  CHECK(compile_error(law({cap("T-1", "medical", 5, "fortnight")})) == "T-1: unknown unit 'fortnight'");
   CHECK(compile_error(law({ir("T-1", "covered", {{"expense", "groceries"}})})) == "T-1: unknown expense \"groceries\"");
   CHECK(compile_error(law({ir("T-1", "covered", {{"expense", "unknown"}})})) == "T-1: unknown expense \"unknown\"");
   CHECK(compile_error(law({ir("T-1", "covered")})) == "T-1: expense is required");
@@ -504,7 +620,9 @@ TEST_CASE("the compiler rejects IR it cannot honor") {
   CHECK(compile_error(law({ir("T-1", "deadline")})) == "T-1: days is required");
   CHECK(compile_error(law({ir("T-1", "deadline", {{"days", 1.5}})})) == "T-1: days must be an integer");
   CHECK(compile_error(law({ir("T-1", "reporting", {{"required", "yes"}})})) == "T-1: required must be true or false");
-  CHECK(compile_error(law({ir("T-1", "minimum_loss", {{"waiver", "sometimes"}})})) == "T-1: unknown waiver 'sometimes'");
+  CHECK(compile_error(law({ir("T-1", "minimum_loss", {{"cap_cents", 5}, {"waiver", "sometimes"}})})) ==
+        "T-1: unknown waiver 'sometimes'");
+  CHECK(compile_error(law({ir("T-1", "minimum_loss", {{"days_lost", -1}})})) == "T-1: days_lost is out of range");
   CHECK(compile_error(law({kMed, kMed})) == "IR: duplicate rule id T-MED");
   CHECK(compile_error(law({cap("T-1", "medical", 5, "", {{"alt_rule_ids", {"T-404"}}})})) == "T-1: alt rule T-404 is not in the IR");
   std::vector<json> many;
@@ -530,7 +648,7 @@ TEST_CASE("the compiler binds the IR to its verified file") {
   CHECK(compile_error(wrong, verified) == "the IR and the verified file are for different jurisdictions");
 }
 
-TEST_CASE("input validation") {
+TEST_CASE("input validation follows the document and names the field") {
   std::vector<uint8_t> img = th::compile(law({kMed, ir("T-X", "excluded", {{"tags", {"phone"}}})}));
   auto err = [&](const std::string& input) {
     json out = json::parse(th::eval_raw(img, input));
@@ -538,37 +656,87 @@ TEST_CASE("input validation") {
                                  : std::string("ok");
   };
   const std::string ctx = R"("context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"})";
+  auto with_item = [&](const std::string& fields) {
+    return err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01",)" + fields + "}]}");
+  };
   CHECK(err("{" + ctx + "}") == "ok");
   CHECK(err("{" + ctx + R"(,"items":null})") == "ok");
   CHECK(err(R"({"items":[]})") == "bad_input: context is required");
   CHECK(err(R"({"context":{"as_of_date":"2026-10-03"}})") == "bad_input: context.incident_date is required");
-  CHECK(err(R"({"context":{"incident_date":"2026-6-14","as_of_date":"2026-10-03"}})").find("YYYY-MM-DD") != std::string::npos);
-  CHECK(err("{" + ctx + R"(,"jurisdiction":"MI"})") == "jurisdiction_mismatch: input is for MI but the law image is ZZ");
-  CHECK(err("{" + ctx + R"(,"jurisdiction":null})") == "ok");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":-1}]})") ==
-        "bad_input: items[0].amount_cents: must not be negative");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":1.5}]})") ==
-        "bad_input: items[0].amount_cents: expected an integer");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01"}]})") == "bad_input: items[0].amount_cents is required");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"","date":"2026-07-01","amount_cents":1}]})") ==
-        "bad_input: items[0].item_id: must not be empty");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":1,"units":-2}]})") ==
-        "bad_input: items[0].units: must not be negative");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":1,"confirmed":"yes"}]})") ==
-        "bad_input: items[0].confirmed: expected true or false");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":1,"tags":"phone"}]})") ==
-        "bad_input: items[0].tags: expected an array");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":1,"tags":[1]}]})") ==
-        "bad_input: items[0].tags: expected a string");
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"a","date":"2026-07-01","amount_cents":1,"tags":null}]})") == "ok");
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14"}})") == "bad_input: context.as_of_date is required");
+  CHECK(err(R"({"context":{"incident_date":"2026-6-14","as_of_date":"2026-10-03"}})") ==
+        "bad_input: context.incident_date: expected a date as YYYY-MM-DD");
+  CHECK(err(R"({"context":{"incident_date":"2026-02-29","as_of_date":"2026-10-03"}})") ==
+        "bad_input: context.incident_date: expected a date as YYYY-MM-DD");
+  CHECK(err(R"({"context":{"incident_date":20260614,"as_of_date":"2026-10-03"}})") ==
+        "bad_input: context.incident_date: expected a date as YYYY-MM-DD");
+  CHECK(err(R"({"context":null})") == "bad_input: context: expected an object");
+  CHECK(err("{" + ctx + "," + ctx + "}") == "bad_input: context: appears twice");
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14","incident_date":"2026-06-15","as_of_date":"2026-10-03"}})") ==
+        "bad_input: context.incident_date: appears twice");
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03","forensic_exam":"yes"}})") ==
+        "bad_input: context.forensic_exam: expected true or false");
   CHECK(err(R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03","police_report":"maybe"}})") ==
         "bad_input: context.police_report: expected yes, no, or unknown");
-  CHECK(err("{" + ctx + "} trailing").find("trailing characters") != std::string::npos);
-  CHECK(err("[]").find("expected an object") != std::string::npos);
-  CHECK(err("").find("invalid JSON") != std::string::npos);
-  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"\ud800","date":"2026-07-01","amount_cents":1}]})").find("surrogate") !=
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03","police_report":true}})") ==
+        "bad_input: context.police_report: expected yes, no, or unknown");
+  CHECK(err("{" + ctx + R"(,"jurisdiction":"MI"})") == "jurisdiction_mismatch: input is for MI but the law image is ZZ");
+  CHECK(err("{" + ctx + R"(,"jurisdiction":null})") == "ok");
+  CHECK(err("{" + ctx + R"(,"jurisdiction":5})") == "bad_input: jurisdiction: expected a string");
+  CHECK(err("{" + ctx + R"(,"items":{}})") == "bad_input: items: expected an array");
+  CHECK(err("{" + ctx + R"(,"items":[7]})") == "bad_input: items[0]: expected an object");
+
+  CHECK(with_item(R"("amount_cents":-1)") == "bad_input: items[0].amount_cents: must not be negative");
+  CHECK(with_item(R"("amount_cents":1.5)") == "bad_input: items[0].amount_cents: expected an integer");
+  CHECK(with_item(R"("amount_cents":1e2)") == "bad_input: items[0].amount_cents: expected an integer");
+  CHECK(with_item(R"("amount_cents":"5")") == "bad_input: items[0].amount_cents: expected an integer");
+  CHECK(with_item(R"("amount_cents":null)") == "bad_input: items[0].amount_cents: expected an integer");
+  CHECK(with_item(R"("amount_cents":true)") == "bad_input: items[0].amount_cents: expected an integer");
+  CHECK(with_item(R"("amount_cents":9007199254740991)") == "ok");
+  CHECK(with_item(R"("amount_cents":9007199254740992)") == "bad_input: items[0].amount_cents: integer out of range");
+  CHECK(with_item(R"("amount_cents":-9007199254740991)") == "bad_input: items[0].amount_cents: must not be negative");
+  CHECK(with_item(R"("amount_cents":-9007199254740992)") == "bad_input: items[0].amount_cents: integer out of range");
+  CHECK(with_item(R"("amount_cents":123456789012345678901234567890)") ==
+        "bad_input: items[0].amount_cents: integer out of range");
+  CHECK(with_item(R"("amount_cents":1,"amount_cents":2)") == "bad_input: items[0].amount_cents: appears twice");
+  CHECK(with_item(R"("amount_cents":1,"insurance_paid_cents":-1)") ==
+        "bad_input: items[0].insurance_paid_cents: must not be negative");
+  CHECK(with_item(R"("amount_cents":1,"insurance_paid_cents":null,"units":null,"unit":null,"expense":null)") == "ok");
+  CHECK(with_item(R"("amount_cents":1,"units":-2)") == "bad_input: items[0].units: must not be negative");
+  CHECK(with_item(R"("amount_cents":1,"units":9007199254740992)") == "bad_input: items[0].units: integer out of range");
+  CHECK(with_item(R"("amount_cents":1,"confirmed":"yes")") == "bad_input: items[0].confirmed: expected true or false");
+  CHECK(with_item(R"("amount_cents":1,"is_bill":0)") == "bad_input: items[0].is_bill: expected true or false");
+  CHECK(with_item(R"("amount_cents":1,"expense":"groceries")") == "bad_input: items[0].expense: not a known expense");
+  CHECK(with_item(R"("amount_cents":1,"expense":"Medical")") == "bad_input: items[0].expense: not a known expense");
+  CHECK(with_item(R"("amount_cents":1,"expense":3)") == "bad_input: items[0].expense: expected a string");
+  CHECK(with_item(R"("amount_cents":1,"expense":"unknown")") == "ok");
+  CHECK(with_item(R"("amount_cents":1,"unit":"fortnight")") == "bad_input: items[0].unit: not a known unit");
+  CHECK(with_item(R"("amount_cents":1,"unit":"")") == "bad_input: items[0].unit: not a known unit");
+  CHECK(with_item(R"("amount_cents":1,"unit":["week"])") == "bad_input: items[0].unit: expected a string");
+  CHECK(with_item(R"("amount_cents":1,"unit":"month")") == "ok");
+  CHECK(with_item(R"("amount_cents":1,"tags":"phone")") == "bad_input: items[0].tags: expected a list of strings");
+  CHECK(with_item(R"("amount_cents":1,"tags":[1])") == "bad_input: items[0].tags: expected a list of strings");
+  CHECK(with_item(R"("amount_cents":1,"tags":null)") == "ok");
+  // The first problem in document order is the one reported.
+  CHECK(with_item(R"("units":-1,"amount_cents":-1)") == "bad_input: items[0].units: must not be negative");
+  CHECK(err(R"({"items":[{"item_id":"a","date":"2026-07-01","amount_cents":-1}]})") ==
+        "bad_input: items[0].amount_cents: must not be negative");
+
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"},"items":[{"item_id":"a","date":"2026-07-01"}]})") ==
+        "bad_input: items[0].amount_cents is required");
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"},"items":[{"item_id":"","date":"2026-07-01","amount_cents":1}]})") ==
+        "bad_input: items[0].item_id: must not be empty");
+  CHECK(err(R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"},"items":[{"item_id":7,"date":"2026-07-01","amount_cents":1}]})") ==
+        "bad_input: items[0].item_id: expected a string");
+  CHECK(err("[]") == "bad_input: input: expected an object");
+  CHECK(err("5") == "bad_input: input: expected an object");
+  // Malformed JSON text is reported as such.
+  CHECK(err("{" + ctx + "} trailing").find("bad_input: invalid JSON") == 0);
+  CHECK(err("").find("bad_input: invalid JSON at byte 0: expected a value") == 0);
+  CHECK(err("{" + ctx + R"(,"items":[{"item_id":"\ud800","date":"2026-07-01","amount_cents":1}]})").find("unpaired surrogate") !=
         std::string::npos);
   CHECK(err("{" + ctx + ",\"extra\":" + std::string(70, '[') + std::string(70, ']') + "}").find("too deep") != std::string::npos);
+  CHECK(err("{" + ctx + R"(,"extra":NaN})").find("bad_input: invalid JSON") == 0);
   json out = th::eval(img, claim({item("a", "2026-07-01", 1, "medical", {{"description", "SECRET-TEXT"}, {"note", {1, 2}}})}));
   CHECK(out.dump().find("SECRET-TEXT") == std::string::npos);
 }
@@ -576,7 +744,7 @@ TEST_CASE("input validation") {
 TEST_CASE("escaped item ids survive the round trip") {
   std::vector<uint8_t> img = th::compile(law({kMed}));
   std::string input = R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"},"items":[)"
-                      R"({"item_id":"q\"uote\\back\u00e9\ud83d\ude00\n","date":"2026-07-01","amount_cents":5,"expense":"medical","confirmed":true}]})";
+                      R"({"item_id":"q\"uote\\backé😀\n","date":"2026-07-01","amount_cents":5,"expense":"medical","confirmed":true}]})";
   json out = json::parse(th::eval_raw(img, input));
   CHECK(out["lines"][0]["item_id"] == "q\"uote\\back\xC3\xA9\xF0\x9F\x98\x80\n");
   CHECK(out["trace"][0]["item_id"] == out["lines"][0]["item_id"]);

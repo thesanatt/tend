@@ -1,18 +1,20 @@
-"""The synthetic fixtures follow rules/SCHEMA.md the way verify.py checks real files."""
+"""The synthetic fixtures follow rules/SCHEMA.md, and their IR is what rules/tools/normalize.py makes."""
 
 import hashlib
+import importlib.util
 import json
 import re
+import shutil
 
 import pytest
 
-from claims import FIXTURES
-from tend_ref.engine import EXPENSES
+from claims import FIXTURES, REPO
+from tend_ref.law import RULE_EXPENSES
 
 CATEGORIES = {"exam_no_bill", "exam_payment", "total_cap", "expense_cap", "covered_expense", "excluded_expense",
               "filing_deadline", "reporting_requirement", "minimum_loss", "collateral_source",
               "conduct_reduction", "emergency_award", "eligible_crime", "residency"}
-FILES = sorted(FIXTURES.glob("*.json"))
+FILES = sorted((FIXTURES / "verified").glob("*.json"))
 
 
 @pytest.mark.parametrize("path", FILES, ids=lambda p: p.stem)
@@ -30,7 +32,7 @@ def test_fixture_matches_the_schema(path):
     for rule in data["rules"]:
         assert rule["category"] in CATEGORIES
         expense = rule.get("expense") or rule["params"].get("expense")
-        assert expense is None or expense in EXPENSES
+        assert expense is None or expense in RULE_EXPENSES
         assert rule["quote"] in texts[rule["source_id"]], rule["id"]
         assert rule["pinpoint"]
         for key in ("amount_cents", "years", "days", "days_lost", "count_limit", "within_days"):
@@ -39,3 +41,15 @@ def test_fixture_matches_the_schema(path):
                 continue
             numbers = {float(n.replace(",", "")) for n in re.findall(r"\d[\d,]*(?:\.\d+)?", rule["quote"])}
             assert (value / 100 if key == "amount_cents" else value) in numbers, (rule["id"], key)
+
+
+@pytest.mark.parametrize("path", FILES, ids=lambda p: p.stem)
+def test_ir_fixture_is_what_normalize_makes(path, tmp_path):
+    spec = importlib.util.spec_from_file_location("normalize", REPO / "rules" / "tools" / "normalize.py")
+    normalize = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(normalize)
+    (tmp_path / "rules" / "verified").mkdir(parents=True)
+    shutil.copy(path, tmp_path / "rules" / "verified" / path.name)
+    normalize.ROOT = tmp_path
+    made = normalize.normalize(path.stem)
+    assert json.loads((FIXTURES / "ir" / path.name).read_text(encoding="utf-8")) == made

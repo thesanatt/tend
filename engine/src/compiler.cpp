@@ -29,9 +29,12 @@ struct IRule {
   uint8_t kind = 0;
   uint8_t expense = kNoExpense;
   uint8_t per = PER_NONE;
+  uint8_t unit_code = UNIT_NONE;  // per-unit caps
+  uint8_t anchor = FROM_CRIME;    // deadlines
   std::string unit, category, skip_reason;
   std::optional<int64_t> cap;  // cap_cents of caps and minimum loss
   std::optional<int64_t> count_limit;
+  std::optional<int64_t> days_lost;  // minimum loss
   std::vector<std::string> alt_ids;
   uint32_t tag_mask = 0;
   int64_t days = 0;
@@ -39,6 +42,7 @@ struct IRule {
   bool alt_exam = false;
   bool waiver_sa = false;
   bool waiver_automatic = false;
+  bool waiver_discretionary = false;
 };
 
 struct VerifiedRule {
@@ -163,6 +167,7 @@ IRule Compiler::parse_rule(const json& r, size_t index) {
         c.per = PER_UNIT;
         c.unit = str_field(r, "unit");
         if (c.unit.empty()) fail(where + ": a per-unit cap needs a unit");
+        if (!parse_unit(c.unit, c.unit_code)) fail(where + ": unknown unit '" + c.unit + "'");
       } else {
         fail(where + ": per must be claim or unit");
       }
@@ -199,6 +204,10 @@ IRule Compiler::parse_rule(const json& r, size_t index) {
       auto d = integer(r, "days", kMaxDays, where);
       if (!d) fail(where + ": days is required");
       c.days = *d;
+      auto from = r.find("from");
+      if (from != r.end() && !from->is_null() &&
+          (!from->is_string() || !parse_anchor(from->get<std::string>(), c.anchor)))
+        fail(where + ": from must be crime, incident, discovery, injury, offense, or report");
       break;
     }
     case K_REPORTING: {
@@ -216,16 +225,18 @@ IRule Compiler::parse_rule(const json& r, size_t index) {
     }
     case K_MINIMUM_LOSS: {
       c.cap = integer(r, "cap_cents", kMaxCents, where);
+      c.days_lost = integer(r, "days_lost", kMaxDays, where);
       std::string w = str_field(r, "waiver");
       if (!w.empty() && w != "none" && w != "other" && w != "discretionary" && w != "automatic")
         fail(where + ": unknown waiver '" + w + "'");
       c.waiver_automatic = w == "automatic";
+      c.waiver_discretionary = w == "discretionary";
       auto sa = r.find("waiver_for_sexual_assault");
       if (sa != r.end() && !sa->is_null()) {
         if (!sa->is_boolean()) fail(where + ": waiver_for_sexual_assault must be true or false");
         c.waiver_sa = sa->get<bool>();
       }
-      if (!c.cap) note(where + ": minimum loss without cap_cents makes the check unknown");
+      if (!c.cap && !c.days_lost) fail(where + ": a minimum loss rule needs cap_cents or days_lost");
       break;
     }
     default: break;
@@ -286,13 +297,14 @@ void Compiler::add_to_table(const IRule& r) {
   rec.category = b_.opt_str(category);
   if (r.kind == K_SKIPPED) rec.aux = b_.opt_str(r.skip_reason);
   else if (r.per == PER_UNIT) rec.aux = b_.str(r.unit);
+  else if (r.kind == K_DEADLINE) rec.aux = b_.str(anchor_name(r.anchor));
   b_.rule(rec);
 }
 
 void Compiler::parse(const json& ir) {
   if (!ir.is_object()) fail("IR: top level is not an object");
   auto v = ir.find("ir_version");
-  if (v == ir.end() || !v->is_number_integer() || v->get<int64_t>() != 1) fail("IR: ir_version must be 1");
+  if (v == ir.end() || !v->is_number_integer() || v->get<int64_t>() != 2) fail("IR: ir_version must be 2");
   std::string j = str_field(ir, "jurisdiction");
   if (j.empty() || j.size() > 8) fail("IR: jurisdiction must be a 1 to 8 character code");
   for (char ch : j) {
@@ -443,8 +455,12 @@ void Compiler::emit_block(Assembler& a, const Block& k, Label start) {
 // block whose outcome depends only on this jurisdiction's rules and the
 // item's tags and confirmation.
 void Compiler::item_program(Assembler& a) {
+  // SPEC v1.2: an exam is held only when a rule says the survivor may not be
+  // billed; the payment rules then join the proof.
   std::vector<uint16_t> exam = of_kind(K_EXAM_NO_BILL);
-  for (uint16_t r : of_kind(K_EXAM_PAYMENT)) exam.push_back(r);
+  if (!exam.empty()) {
+    for (uint16_t r : of_kind(K_EXAM_PAYMENT)) exam.push_back(r);
+  }
 
   std::map<Block, Label> labels;
   std::vector<std::pair<Block, Label>> order;
@@ -481,7 +497,7 @@ void Compiler::item_program(Assembler& a) {
   a.op(OP_RET);
 
   if (exam.empty()) {
-    // Step 2 fallback: no exam rules, so an exam is treated as medical.
+    // Step 2 fallback: no exam_no_bill rule, so an exam is treated as medical.
     a.bind(as_medical);
     a.u8op(OP_SETEXP, EXP_MEDICAL);
     a.jump(OP_JMP, by_expense[EXP_MEDICAL]);
@@ -496,20 +512,28 @@ void Compiler::item_program(Assembler& a) {
   for (const auto& [k, label] : order) emit_block(a, k, label);
 }
 
-// allowed = min(allowed, cap * units) when units > 0, else flag rate_unverified.
-// With a count limit, r3 holds the units still payable and r4 this item's share.
+// SPEC v1.2 typed units: when the item counts the cap's unit and units > 0,
+// allowed = min(allowed, cap * units); otherwise the line is flagged
+// rate_unverified and keeps its amount. With a count limit, r3 holds the units
+// still payable and r4 this item's share of them.
 void Compiler::unit_cap(Assembler& a, const IRule& r) {
-  Label end = a.label(), head = a.label(), no_units = a.label(), keep = a.label(), next = a.label();
+  Label end = a.label(), head = a.label(), unmeasured = a.label(), keep = a.label(), next = a.label();
   uint16_t k = b_.int_const(*r.cap);
   anno(1, a, {r.index});
   if (r.count_limit) {
-    a.push(int32_t(*r.count_limit));
+    a.push(int32_t(*r.count_limit));  // counts and days fit an immediate; ldk is for money
     a.u8op(OP_STR, 3);
   }
   a.each(r.expense, end);
   a.bind(head);
+  a.u8op(OP_LDI, IF_UNIT);
+  a.push(r.unit_code);
+  a.op(OP_EQ);
+  a.jump(OP_JZ, unmeasured);
   a.u8op(OP_LDI, IF_UNITS);
-  a.jump(OP_JZ, no_units);
+  a.push(0);
+  a.op(OP_GT);
+  a.jump(OP_JZ, unmeasured);
   if (r.count_limit) {
     a.u8op(OP_LDI, IF_UNITS);
     a.u8op(OP_LDR, 3);
@@ -535,7 +559,7 @@ void Compiler::unit_cap(Assembler& a, const IRule& r) {
   a.bind(keep);
   a.op(OP_POP);
   a.jump(OP_JMP, next);
-  a.bind(no_units);
+  a.bind(unmeasured);
   a.u16op(OP_FLAG, r.index);
   a.bind(next);
   a.jump(OP_NEXT, head);
@@ -582,53 +606,101 @@ void Compiler::walk_cap(Assembler& a, const IRule& r, uint8_t selector, uint8_t 
   a.bind(end);
 }
 
+// SPEC v1.2 step 9. Each rule is met when the total allowed reaches cap_cents
+// or the lost-wage days reach days_lost; otherwise it is waived, may_be_waived,
+// or not_met by its waiver (a days-only rule is unknown). The check keeps the
+// most severe status. Registers: r0 total allowed, r5 weeks and r6 days of
+// eligible lost wages, r1 lost-wage days, r2 the status so far.
 void Compiler::minimum_loss(Assembler& a) {
   std::vector<uint16_t> all = of_kind(K_MINIMUM_LOSS);
-  bool any_cap = false;
-  for (uint16_t i : all) any_cap = any_cap || rules_[i].cap.has_value();
-  if (all.empty() || !any_cap) {
-    anno(1, a, all);
-    a.push(all.empty() ? ML_MET : ML_UNKNOWN);
-    a.u8u16(OP_CHECK, CK_MINIMUM_LOSS, b_.proof(all));
+  anno(1, a, all);
+  if (all.empty()) {
+    a.push(ML_MET);
+    a.u8u16(OP_CHECK, CK_MINIMUM_LOSS, 0);
     return;
   }
-  // r0 = total allowed after caps; r2 = the worst status so far.
-  Label end = a.label(), head = a.label();
-  a.push(0);
-  a.u8op(OP_STR, 0);
-  a.each(kSelectAll, end);
-  a.bind(head);
-  a.u8op(OP_LDR, 0);
-  a.op(OP_LDA);
-  a.op(OP_ADDS);
-  a.u8op(OP_STR, 0);
-  a.jump(OP_NEXT, head);
-  a.bind(end);
+  bool any_cap = false, any_days = false;
+  for (uint16_t i : all) {
+    any_cap = any_cap || rules_[i].cap.has_value();
+    any_days = any_days || rules_[i].days_lost.has_value();
+  }
+  if (any_cap) {
+    Label end = a.label(), head = a.label();
+    a.push(0);
+    a.u8op(OP_STR, 0);
+    a.each(kSelectAll, end);
+    a.bind(head);
+    a.u8op(OP_LDR, 0);
+    a.op(OP_LDA);
+    a.op(OP_ADDS);
+    a.u8op(OP_STR, 0);
+    a.jump(OP_NEXT, head);
+    a.bind(end);
+  }
+  if (any_days) {
+    Label end = a.label(), head = a.label(), not_week = a.label(), next = a.label();
+    a.push(0);
+    a.u8op(OP_STR, 5);
+    a.push(0);
+    a.u8op(OP_STR, 6);
+    a.each(EXP_LOST_WAGES, end);
+    a.bind(head);
+    a.u8op(OP_LDI, IF_UNIT);
+    a.push(UNIT_WEEK);
+    a.op(OP_EQ);
+    a.jump(OP_JZ, not_week);
+    a.u8op(OP_LDR, 5);
+    a.u8op(OP_LDI, IF_UNITS);
+    a.op(OP_ADDS);
+    a.u8op(OP_STR, 5);
+    a.jump(OP_JMP, next);
+    a.bind(not_week);
+    a.u8op(OP_LDI, IF_UNIT);
+    a.push(UNIT_DAY);
+    a.op(OP_EQ);
+    a.jump(OP_JZ, next);
+    a.u8op(OP_LDR, 6);
+    a.u8op(OP_LDI, IF_UNITS);
+    a.op(OP_ADDS);
+    a.u8op(OP_STR, 6);
+    a.bind(next);
+    a.jump(OP_NEXT, head);
+    a.bind(end);
+    // Five working days to a week.
+    a.u8op(OP_LDR, 5);
+    a.push(5);
+    a.op(OP_MULS);
+    a.u8op(OP_LDR, 6);
+    a.op(OP_ADDS);
+    a.u8op(OP_STR, 1);
+  }
   a.push(ML_MET);
   a.u8op(OP_STR, 2);
   for (uint16_t i : all) {
     const IRule& r = rules_[i];
+    Label met = a.label();
     anno(1, a, {r.index});
-    if (!r.cap) continue;
-    Label skip = a.label(), combine = a.label();
-    a.u8op(OP_LDR, 0);
-    a.u16op(OP_LDK, b_.int_const(*r.cap));
-    a.op(OP_LT);
-    a.jump(OP_JZ, skip);
-    if (r.waiver_sa) {
-      Label not_met = a.label();
-      a.u8op(OP_LDX, CX_FORENSIC_EXAM);
-      a.jump(OP_JZ, not_met);
-      a.push(r.waiver_automatic ? ML_WAIVED : ML_MAY_BE_WAIVED);
-      a.jump(OP_JMP, combine);
-      a.bind(not_met);
+    if (r.cap) {
+      a.u8op(OP_LDR, 0);
+      a.u16op(OP_LDK, b_.int_const(*r.cap));
+      a.op(OP_GE);
+      a.jump(OP_JNZ, met);
     }
-    a.push(ML_NOT_MET);
-    a.bind(combine);
+    if (r.days_lost) {
+      a.u8op(OP_LDR, 1);
+      a.push(int32_t(*r.days_lost));
+      a.op(OP_GE);
+      a.jump(OP_JNZ, met);
+    }
+    uint8_t below = ML_UNKNOWN;
+    if (r.cap) {
+      below = !r.waiver_sa ? ML_NOT_MET : r.waiver_automatic ? ML_WAIVED : r.waiver_discretionary ? ML_MAY_BE_WAIVED : ML_NOT_MET;
+    }
+    a.push(below);
     a.u8op(OP_LDR, 2);
     a.op(OP_MAX);
     a.u8op(OP_STR, 2);
-    a.bind(skip);
+    a.bind(met);
   }
   a.u8op(OP_LDR, 2);
   a.u8u16(OP_CHECK, CK_MINIMUM_LOSS, b_.proof(all));
@@ -641,10 +713,13 @@ void Compiler::deadline(Assembler& a) {
     a.u8u16(OP_CHECK, CK_DEADLINE, 0);
     return;
   }
+  bool from_report = false;
   for (size_t i = 0; i < all.size(); i++) {
-    anno(1, a, {all[i]});
+    const IRule& r = rules_[all[i]];
+    anno(1, a, {r.index});
+    from_report = from_report || r.anchor == FROM_REPORT;
     a.u8op(OP_LDX, CX_INCIDENT_DATE);
-    a.push(int32_t(rules_[all[i]].days));
+    a.push(int32_t(r.days));
     a.op(OP_ADDS);
     if (i) a.op(OP_MAX);  // the longest deadline wins
   }
@@ -659,6 +734,9 @@ void Compiler::deadline(Assembler& a) {
   a.bind(late);
   a.push(DL_LATE);
   a.bind(done);
+  // A deadline counted from the police report is dated from the incident (the
+  // earliest the report can be), so the survivor may have longer.
+  if (from_report) a.u8op(OP_NOTE, CN_DEADLINE_FROM_REPORT);
   a.u8u16(OP_CHECK, CK_DEADLINE, b_.proof(all));
 }
 
@@ -720,10 +798,13 @@ void Compiler::aggregate_program(Assembler& a) {
   minimum_loss(a);  // step 9
   deadline(a);      // step 10
   reporting(a);     // step 11
-  // Step 12: rules listed for display only.
+  // Step 12: rules listed for display only. Exam payment rules are listed
+  // here when no exam_no_bill rule puts them in a hold's proof.
+  bool holds = !of_kind(K_EXAM_NO_BILL).empty();
   std::vector<uint16_t> info;
   for (size_t i = 0; i < ir_count_; i++) {
-    if (rules_[i].kind == K_INFO || rules_[i].kind == K_COLLATERAL) info.push_back(rules_[i].index);
+    uint8_t k = rules_[i].kind;
+    if (k == K_INFO || k == K_COLLATERAL || (k == K_EXAM_PAYMENT && !holds)) info.push_back(rules_[i].index);
   }
   anno(1, a, info);
   a.u16op(OP_INFO, b_.proof(info));

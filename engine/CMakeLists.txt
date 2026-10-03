@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(tend VERSION 1.1.0 LANGUAGES CXX)
+project(tend VERSION 1.2.0 LANGUAGES CXX)
 
 # Native:     cmake -S engine -B engine/build/cmake -G Ninja && cmake --build engine/build/cmake && ctest --test-dir engine/build/cmake
 # WebAssembly: emcmake cmake -S engine -B engine/build/wasm-cmake -G Ninja && cmake --build engine/build/wasm-cmake
@@ -62,4 +62,4 @@ add_executable(tend_tests ${TEND_TEST_SOURCES})
 target_link_libraries(tend_tests PRIVATE tendc_lib Threads::Threads)
 add_test(NAME tend_tests COMMAND tend_tests WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set_tests_properties(tend_tests PROPERTIES ENVIRONMENT
-  "TEND_IR_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../rules/ir;TEND_RULES_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../rules/verified;TEND_BUILD_DIR=${CMAKE_CURRENT_BINARY_DIR}")
+  "TEND_IR_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../rules/ir;TEND_RULES_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../rules/verified;TEND_SHIPPED_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../web/public/engine;TEND_BUILD_DIR=${CMAKE_CURRENT_BINARY_DIR}")

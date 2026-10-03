@@ -16,7 +16,7 @@ struct Context {
 };
 
 struct Item {
-  int64_t field[IF_COUNT] = {0, 0, EXP_UNKNOWN, 0, 0, 0, 0, 0};
+  int64_t field[IF_COUNT] = {0, 0, EXP_UNKNOWN, 0, 0, 0, 0, 0, UNIT_NONE};
   std::string_view id;
 };
 
@@ -51,6 +51,7 @@ struct Evaluation {
   CheckResult checks[CK_COUNT];
   bool has_info = false;
   uint32_t info_proof = 0;
+  uint32_t notes = 0;  // bit n set when the program attached CheckNote n
   uint64_t steps = 0;
 };
 

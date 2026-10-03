@@ -23,14 +23,18 @@ const rnd = () => {
 const start = Date.UTC(2026, 5, 14) / 86400000 - 3;
 const span = 117;
 const items = [];
+// Most counted lines say what they count (SPEC v1.2 typed units).
+const naturalUnit = { counseling: 'session', lost_wages: 'week', transportation: 'mile' };
 for (let i = 0; i < n; i++) {
   const day = new Date((start + Math.floor((i * span) / n)) * 86400000).toISOString().slice(0, 10);
   const amount = 1000 + (rnd() % 400000);
-  items.push({
+  const item = {
     item_id: `bench:${String(i).padStart(8, '0')}`, date: day, amount_cents: amount, expense: mix[rnd() % 20],
     confirmed: rnd() % 10 !== 0, insurance_paid_cents: rnd() % 5 === 0 ? Math.floor(amount / 4) : 0,
     is_bill: rnd() % 3 === 0, units: rnd() % 4 === 0 ? 0 : 1 + (rnd() % 8),
-  });
+  };
+  if (item.units && naturalUnit[item.expense] && rnd() % 10 !== 0) item.unit = naturalUnit[item.expense];
+  items.push(item);
 }
 const claim = JSON.stringify({
   jurisdiction, context: { incident_date: '2026-06-14', as_of_date: '2026-10-03', police_report: 'no', forensic_exam: true }, items,

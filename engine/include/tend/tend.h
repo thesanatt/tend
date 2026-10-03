@@ -20,7 +20,7 @@
 extern "C" {
 #endif
 
-/* "tend 1.1.0 (tlaw 1.1)". Static string; do not free. */
+/* "tend 1.2.0 (tlaw 1.2)". Static string; do not free. */
 TEND_API const char* tend_version(void);
 
 /* Evaluates a claim (engine input JSON, docs/SPEC.md) against a law image.

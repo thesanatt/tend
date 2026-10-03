@@ -1,19 +1,19 @@
-"""Properties every engine output must satisfy for any rules and input.
+"""Properties every engine output must satisfy for any law and valid input.
 
-These hold for the reference by construction and for the C++ engine if it is right, so the
-difftest runs them on every claim even when no C++ engine is built yet.
+They hold for the reference by construction and for the C++ engine if it is right, so the
+difftest checks them on every claim, and they still mean something when no C++ engine is built.
 """
 
 from __future__ import annotations
 
 from collections import defaultdict
-from datetime import date
 
-from .engine import STATUSES, UNIT_PERS, Law
+from .claim import read_claim
+from .engine import INT64_MAX, MINIMUM_LOSS_SEVERITY, STATUSES, format_day
+from .law import Law
 
 DEADLINE_STATUSES = {"ok", "late", "unknown"}
-MINIMUM_LOSS_STATUSES = {"met", "not_met", "waived", "unknown"}
-REPORTING_STATUSES = {"satisfied", "required", "unknown"}
+REPORTING_STATUSES = {"satisfied", "required", "not_required", "unknown"}
 
 
 def _non_int_numbers(value, path: str = "$"):
@@ -29,11 +29,10 @@ def _non_int_numbers(value, path: str = "$"):
 
 def invariant_errors(law: Law, engine_input: dict, out: dict) -> list[str]:
     errors: list[str] = []
-    err = errors.append
     try:
-        _check(law, engine_input, out, err)
-    except (KeyError, TypeError, ValueError, AttributeError) as e:
-        err(f"output has the wrong shape: {type(e).__name__}: {e}")
+        _check(law, engine_input, out, errors.append)
+    except (KeyError, TypeError, ValueError, AttributeError, IndexError) as e:
+        errors.append(f"output has the wrong shape: {type(e).__name__}: {e}")
     return errors
 
 
@@ -41,16 +40,16 @@ def _check(law: Law, engine_input: dict, out: dict, err) -> None:
     for path in _non_int_numbers(out):
         err(f"{path} is a float; money is integer cents")
 
-    ctx = engine_input["context"]
-    incident, as_of = date.fromisoformat(ctx["incident_date"]), date.fromisoformat(ctx["as_of_date"])
-    items = {it["item_id"]: it for it in engine_input.get("items") or []}
-    rule_ids = {r["id"] for r in law.rules}
+    claim = read_claim(engine_input, law)
+    ctx = claim.context
+    items = {it.item_id: it for it in claim.items}
+    known = set(law.by_id)
     lines = out["lines"]
 
     if sorted(line["item_id"] for line in lines) != sorted(items):
         err("lines do not match the input items one to one")
         return
-    order = [(items[line["item_id"]]["date"], line["item_id"]) for line in lines]
+    order = [(items[line["item_id"]].date, line["item_id"].encode()) for line in lines]
     if order != sorted(order):
         err("lines are not in (date, item_id) order")
 
@@ -61,83 +60,114 @@ def _check(law: Law, engine_input: dict, out: dict, err) -> None:
 
     for line in lines:
         item_id, status = line["item_id"], line["status"]
-        item = items[item_id]
+        it = items[item_id]
         where = f"line {item_id}"
         if status not in STATUSES:
             err(f"{where}: unknown status {status!r}")
-        if line["requested_cents"] != item["amount_cents"]:
-            err(f"{where}: requested_cents {line['requested_cents']} != amount_cents {item['amount_cents']}")
+        if line["requested_cents"] != it.amount_cents:
+            err(f"{where}: requested_cents {line['requested_cents']} != amount_cents {it.amount_cents}")
         if not 0 <= line["allowed_cents"] <= line["requested_cents"]:
             err(f"{where}: allowed_cents {line['allowed_cents']} outside [0, requested]")
         if status != "eligible" and line["allowed_cents"] != 0:
             err(f"{where}: {status} line allows {line['allowed_cents']}")
-        if status == "eligible" and law.collateral_ids:
-            net = max(0, item["amount_cents"] - (item.get("insurance_paid_cents") or 0))
-            if line["allowed_cents"] > net:
-                err(f"{where}: allows {line['allowed_cents']}, more than {net} left after insurance")
+        if status == "eligible" and law.collateral_ids and line["allowed_cents"] > max(0, it.amount_cents - it.insurance_paid_cents):
+            err(f"{where}: allows more than is left after insurance")
         if trace_sum[item_id] != line["allowed_cents"]:
             err(f"{where}: trace deltas sum to {trace_sum[item_id]}, line allows {line['allowed_cents']}")
-        in_window = incident <= date.fromisoformat(item["date"]) <= as_of
+        in_window = ctx.incident_date <= it.date <= ctx.as_of_date
         if (status == "out_of_window") == in_window:
             err(f"{where}: status {status} but the date is {'inside' if in_window else 'outside'} the window")
         if status in ("held", "excluded", "needs_confirmation", "eligible") and not line["rule_ids"]:
             err(f"{where}: {status} line has no proof")
         if status in ("out_of_window", "unknown_rule") and line["rule_ids"]:
             err(f"{where}: {status} line cites rules")
-        for rid in line["rule_ids"] + ([line["cap_rule_id"]] if line["cap_rule_id"] else []):
-            if rid not in rule_ids:
-                err(f"{where}: cites {rid}, which is not in the rules")
-        if status == "held" and item["expense"] != "forensic_exam":
-            err(f"{where}: held but the expense is {item['expense']}")
+        for rid in line["rule_ids"] + line["alt_cap_rule_ids"] + ([line["cap_rule_id"]] if line["cap_rule_id"] else []):
+            if rid not in known:
+                err(f"{where}: cites {rid}, which is not in the law")
+        if status == "held" and (it.expense != "forensic_exam" or not law.exam_no_bill):
+            err(f"{where}: held without an exam and an exam_no_bill rule")
+        if it.expense == "forensic_exam" and in_window and law.exam_no_bill and status != "held":
+            err(f"{where}: an exam the law says cannot be billed is not held")
+        expected_expense = "medical" if it.expense == "forensic_exam" and in_window and not law.exam_no_bill else it.expense
+        if line["expense"] != expected_expense:
+            err(f"{where}: expense {line['expense']}, expected {expected_expense}")
         if line["cap_rule_id"] is None and line["allowed_cents"] < line["requested_cents"] and status == "eligible" \
-                and not (law.collateral_ids and item.get("insurance_paid_cents")):
+                and not (law.collateral_ids and it.insurance_paid_cents):
             err(f"{where}: allowed is below requested with no cap and no insurance to explain it")
+        if status not in ("eligible", "needs_confirmation") and line["alt_cap_rule_ids"]:
+            err(f"{where}: {status} line lists alternate caps")
+        if status != "eligible" and line["flags"]:
+            err(f"{where}: {status} line has flags")
 
     eligible = [line for line in lines if line["status"] == "eligible"]
     totals = out["totals"]
-    if totals["requested_cents"] != sum(line["requested_cents"] for line in eligible):
-        err("totals.requested_cents is not the sum of eligible lines")
-    if totals["allowed_cents"] != sum(line["allowed_cents"] for line in eligible):
-        err("totals.allowed_cents is not the sum of eligible lines")
-    held = sum(line["requested_cents"] for line in lines if line["status"] == "held")
-    if totals["held_cents"] != held:
-        err(f"totals.held_cents {totals['held_cents']} != {held}")
-    by_expense: dict[str, int] = defaultdict(int)
-    for line in eligible:
-        by_expense[line["expense"]] += line["allowed_cents"]
-    if totals["by_expense"] != dict(by_expense):
-        err(f"totals.by_expense {totals['by_expense']} != {dict(by_expense)}")
 
-    for cap in law.claim_caps:
-        spent = sum(line["allowed_cents"] for line in eligible if line["expense"] == cap.expense)
-        if spent > cap.amount_cents:
-            err(f"{cap.rule_id}: {cap.expense} allows {spent}, over the {cap.amount_cents} cap")
-    if law.total_cap is not None and totals["allowed_cents"] > law.total_cap.amount_cents:
-        err(f"{law.total_cap.rule_id}: total {totals['allowed_cents']} is over the cap")
-    for cap in law.line_caps:
+    def total(values) -> int:
+        return min(sum(values), INT64_MAX)
+
+    if totals["requested_cents"] != total(line["requested_cents"] for line in eligible):
+        err("totals.requested_cents is not the sum of eligible lines")
+    if totals["allowed_cents"] != total(line["allowed_cents"] for line in eligible):
+        err("totals.allowed_cents is not the sum of eligible lines")
+    if totals["held_cents"] != total(line["requested_cents"] for line in lines if line["status"] == "held"):
+        err("totals.held_cents is not the sum of held lines")
+    by_expense: dict[str, list[int]] = defaultdict(list)
+    for line in eligible:
+        by_expense[line["expense"]].append(line["allowed_cents"])
+    if totals["by_expense"] != {e: total(v) for e, v in sorted(by_expense.items())}:
+        err(f"totals.by_expense {totals['by_expense']} does not match the eligible lines")
+    if list(totals["by_expense"]) != sorted(totals["by_expense"]):
+        err("totals.by_expense keys are not sorted")
+
+    for rule in law.claim_caps:
+        spent = sum(line["allowed_cents"] for line in eligible if line["expense"] == rule.expense)
+        if spent > rule.cap:
+            err(f"{rule.id}: {rule.expense} allows {spent}, over the {rule.cap} cap")
+    if law.total_cap is not None and sum(line["allowed_cents"] for line in eligible) > law.total_cap.cap:
+        err(f"{law.total_cap.id}: the total is over the cap")
+    for rule in law.unit_caps:
+        flag = f"rate_unverified:{rule.id}"
+        measured_total = 0
         for line in eligible:
-            if line["expense"] != cap.expense:
+            if line["expense"] != rule.expense:
                 continue
-            units = items[line["item_id"]].get("units") or 0
-            measured = cap.per in UNIT_PERS and units > 0
-            if measured and line["allowed_cents"] > cap.amount_cents * units:
-                err(f"line {line['item_id']}: {line['allowed_cents']} over {cap.rule_id} rate x {units} units")
-            if not measured and f"rate_unverified:{cap.rule_id}" not in line["flags"]:
-                err(f"line {line['item_id']}: {cap.rule_id} could not be applied but the line is not flagged")
+            it = items[line["item_id"]]
+            measured = it.unit == rule.unit and it.units > 0
+            if measured:
+                measured_total += line["allowed_cents"]
+                if line["allowed_cents"] > rule.cap * it.units:
+                    err(f"line {it.item_id}: {line['allowed_cents']} over {rule.id} rate x {it.units} {rule.unit}")
+            if measured == (flag in line["flags"]):
+                err(f"line {it.item_id}: {rule.id} {'applied' if measured else 'could not apply'} but the flag says otherwise")
+        if rule.count_limit is not None and measured_total > rule.cap * rule.count_limit:
+            err(f"{rule.id}: {measured_total} paid for more than {rule.count_limit} {rule.unit}s")
 
     checks = out["checks"]
     deadline = checks["deadline"]
     if deadline["status"] not in DEADLINE_STATUSES:
         err(f"deadline status {deadline['status']!r}")
-    if (deadline["status"] == "unknown") != (deadline["deadline_date"] is None):
-        err("deadline_date must be null exactly when the deadline is unknown")
-    if deadline["deadline_date"] is not None:
-        on_time = as_of <= date.fromisoformat(deadline["deadline_date"])
-        if deadline["status"] != ("ok" if on_time else "late"):
-            err(f"deadline {deadline['deadline_date']} vs as_of {as_of}: status {deadline['status']}")
-    if checks["minimum_loss"]["status"] not in MINIMUM_LOSS_STATUSES:
+    if (deadline["status"] == "unknown") != (deadline["deadline_date"] is None) or \
+            (deadline["status"] == "unknown") != (not law.deadlines):
+        err("deadline_date must be null exactly when there is no deadline rule")
+    if law.deadlines:
+        latest = max(ctx.incident_date + r.days for r in law.deadlines)
+        if deadline["deadline_date"] != format_day(latest):
+            err(f"deadline_date {deadline['deadline_date']} is not the latest period from the incident")
+        if deadline["status"] != ("ok" if ctx.as_of_date <= latest else "late"):
+            err(f"deadline status {deadline['status']} disagrees with the date")
+    report_anchored = any(r.anchor == "report" for r in law.deadlines)
+    if deadline["flags"] != (["deadline_from_report"] if report_anchored else []):
+        err(f"deadline flags {deadline['flags']}")
+    if checks["minimum_loss"]["status"] not in MINIMUM_LOSS_SEVERITY:
         err(f"minimum_loss status {checks['minimum_loss']['status']!r}")
+    if not law.minimum_loss and checks["minimum_loss"]["status"] != "met":
+        err("minimum_loss must be met when the law sets no minimum")
     if checks["reporting"]["status"] not in REPORTING_STATUSES:
         err(f"reporting status {checks['reporting']['status']!r}")
-    if ctx.get("police_report") == "yes" and checks["reporting"]["status"] != "satisfied":
+    if ctx.police_report == "yes" and checks["reporting"]["status"] != "satisfied":
         err("a police report was made but reporting is not satisfied")
+    for name, rules in (("deadline", law.deadlines), ("minimum_loss", law.minimum_loss), ("reporting", law.reporting)):
+        if checks[name]["rule_ids"] != [r.id for r in rules]:
+            err(f"checks.{name}.rule_ids do not list the law's {name} rules")
+    if out["info_rule_ids"] != law.info_ids:
+        err("info_rule_ids are not the law's info rules")

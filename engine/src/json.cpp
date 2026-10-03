@@ -263,6 +263,51 @@ bool JsonReader::read_int64(int64_t& v) {
   return true;
 }
 
+bool JsonReader::read_number(int64_t& v, NumberKind& kind) {
+  ws();
+  auto digit = [&] { return p_ < end_ && *p_ >= '0' && *p_ <= '9'; };
+  bool neg = false;
+  if (p_ < end_ && *p_ == '-') {
+    neg = true;
+    p_++;
+  }
+  if (!digit()) return fail("bad number");
+  uint64_t acc = 0;
+  bool overflow = false;
+  if (*p_ == '0') {
+    p_++;
+    if (digit()) return fail("leading zero");
+  } else {
+    while (digit()) {
+      uint64_t d = uint64_t(*p_ - '0');
+      if (acc > (UINT64_MAX - d) / 10) overflow = true;
+      else acc = acc * 10 + d;
+      p_++;
+    }
+  }
+  kind = kInt;
+  if (p_ < end_ && *p_ == '.') {
+    p_++;
+    if (!digit()) return fail("bad number");
+    while (digit()) p_++;
+    kind = kNotInt;
+  }
+  if (p_ < end_ && (*p_ == 'e' || *p_ == 'E')) {
+    p_++;
+    if (p_ < end_ && (*p_ == '+' || *p_ == '-')) p_++;
+    if (!digit()) return fail("bad number");
+    while (digit()) p_++;
+    kind = kNotInt;
+  }
+  if (kind == kNotInt) return true;
+  if (overflow || acc > (neg ? uint64_t(INT64_MAX) + 1 : uint64_t(INT64_MAX))) {
+    kind = kIntOutOfRange;
+    return true;
+  }
+  v = neg ? (acc == uint64_t(INT64_MAX) + 1 ? INT64_MIN : -int64_t(acc)) : int64_t(acc);
+  return true;
+}
+
 bool JsonReader::literal(const char* word, size_t n) {
   if (size_t(end_ - p_) < n || std::memcmp(p_, word, n) != 0) return fail("bad literal");
   p_ += n;

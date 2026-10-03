@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "ZZ",
  "name": "Zedland (fictional test jurisdiction)",
  "program": {
@@ -12,7 +12,7 @@
   "phone_source_id": "ZZ-S2",
   "statute_citation": "ZC 4-101 to 4-140 (fictional)"
  },
- "source_sha256": "2aaf3744efd7e7a79d3bfae2d80f1e0ae706277bd5dff3a847daa7fd1cbe3800",
+ "source_sha256": "9c880106e3fd50a5377314b8335f891191d3e80c5e1b9c8120699ca99dfb5e23",
  "rules": [
   {
    "id": "ZZ-EXAM-1",
@@ -147,6 +147,12 @@
    "category": "filing_deadline"
   },
   {
+   "id": "ZZ-DEADLINE-4",
+   "kind": "deadline",
+   "days": 548,
+   "from": "report"
+  },
+  {
    "id": "ZZ-REPORT-1",
    "kind": "reporting",
    "required": true,
@@ -161,6 +167,13 @@
    "waiver": "automatic",
    "waiver_for_sexual_assault": true,
    "cap_cents": 10000
+  },
+  {
+   "id": "ZZ-MINLOSS-2",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "days_lost": 5
   },
   {
    "id": "ZZ-COLLATERAL-1",
