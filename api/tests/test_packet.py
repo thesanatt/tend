@@ -7,20 +7,33 @@ from helpers import confirm_all, scan_rowan
 from pypdf import PdfReader
 
 from tend_api.config import API_DIR
-from tend_api.forms import FORBIDDEN, MI, FormGuardError, application_values, filled_fields, guard
+from tend_api.forms import FORBIDDEN, MI, FormGuardError, application_values, fill_application, filled_fields, guard
+from tend_api.models import ClaimInput
+from tend_api.packet import still_needed
 
 MI_FORM = API_DIR / "forms" / "MI" / "application.pdf"
 
 
-def make_claim(client, st="MI", scan_extra=None, with_scan=True):
-    scan = scan_rowan(client, **(scan_extra or {}))
-    audit = client.post("/api/bill/audit", json={"st": st, "persona_id": "rowan-mi", "scan_id": scan["scan_id"]}).json()
+def make_claim(client, st="MI"):
+    scan = scan_rowan(client)
+    audit = client.post("/api/bill/audit", json={"st": st, "persona_id": "rowan-mi"}).json()
     items = [i for i in scan["engine_input"]["items"] if not i["is_bill"]] + audit["engine_items"]
     body = confirm_all({**scan["engine_input"], "jurisdiction": st, "items": items})
-    params = {"scan_id": scan["scan_id"]} if with_scan else {}
-    r = client.post("/api/claim", params=params, json=body)
+    r = client.post("/api/claim", json=body)
     assert r.status_code == 200, r.text
-    return r.json()
+    return body, r.json()
+
+
+def packet(client, body, persona="rowan-mi"):
+    params = {"persona_id": persona} if persona else {}
+    r = client.post("/api/packet", params=params, json=body)
+    assert r.status_code == 200, r.text
+    return r
+
+
+def view_of(services, body, persona="rowan-mi"):
+    output, engine, payload = services.claims.evaluate(ClaimInput.model_validate(body))
+    return services.claims.view(payload, output, engine, persona)
 
 
 def pdf_text(data: bytes, pages: slice = slice(None)) -> str:
@@ -53,11 +66,11 @@ def test_guard_refuses_anything_outside_the_allowlist():
 
 
 def test_packet_cites_every_line_and_appends_the_application(client):
-    claim = make_claim(client)
-    r = client.get(f"/api/packet/{claim['claim_id']}.pdf")
-    assert r.status_code == 200
+    body, claim = make_claim(client)
+    r = packet(client, body)
     assert r.headers["content-type"] == "application/pdf"
     assert r.headers["cache-control"] == "no-store"
+    assert r.headers["x-tend-engine"] == "reference"
     reader = PdfReader(io.BytesIO(r.content))
     summary_pages = len(reader.pages) - 6
     assert summary_pages >= 2
@@ -66,7 +79,7 @@ def test_packet_cites_every_line_and_appends_the_application(client):
         "Amount you can ask for",
         "The program decides",
         "Demo packet",
-        "Hold this line. Ask billing to remove it first.",
+        "Don't pay this line. Ask billing to remove it first.",
         "MCL 18.355a(2)",
         "shall not submit a bill",
         "That needs your express written consent.",
@@ -87,11 +100,16 @@ def test_packet_cites_every_line_and_appends_the_application(client):
         assert name not in filled
 
 
-def test_application_fills_only_safe_fields(client):
-    claim = make_claim(client)
-    r = client.get(f"/api/packet/{claim['claim_id']}/application.pdf")
-    assert r.status_code == 200
-    filled = filled_fields(r.content)
+def test_packet_is_rendered_and_not_kept(client, services):
+    body, _ = make_claim(client)
+    first = packet(client, body)
+    assert packet(client, body).content == first.content  # same claim, same packet: nothing about it was stored
+    assert services.repo.audit_rows() == []
+
+
+def test_application_fills_only_safe_fields(client, services):
+    body, _ = make_claim(client)
+    filled = filled_fields(fill_application(services.settings.forms_dir, "MI", view_of(services, body)))
     assert set(filled) <= MI.allowlist
     assert {"Medical Expenses", "Psychological Counseling", "Transportation", "Residential Security"} <= set(filled)
     assert filled["Medical Expenses"] == "/On"
@@ -110,9 +128,9 @@ def test_application_fills_only_safe_fields(client):
         assert name not in filled
 
 
-def test_held_exam_is_not_requested_on_the_form(client):
-    claim = make_claim(client)
-    view = client.get(f"/api/claims/{claim['claim_id']}").json()
+def test_held_exam_is_not_requested_on_the_form(client, services):
+    body, _ = make_claim(client)
+    view = view_of(services, body)
     values = application_values(MI, view)
     held = sum(ln["amount_cents"] for ln in view["lines"] if ln["status"] == "held")
     assert held == 32500
@@ -120,26 +138,24 @@ def test_held_exam_is_not_requested_on_the_form(client):
     assert values["SECTION 6  Compensation Benefits"].endswith(f"${counted // 100:,}.{counted % 100:02d}")
 
 
-def test_unscanned_claim_leaves_the_name_blank(client):
-    claim = make_claim(client, with_scan=False)
-    filled = filled_fields(client.get(f"/api/packet/{claim['claim_id']}/application.pdf").content)
-    assert "1 Name of Victim" not in filled
-    text = pdf_text(client.get(f"/api/packet/{claim['claim_id']}.pdf").content, slice(0, 2))
-    assert "Demo packet" not in text
+def test_packet_without_a_persona_leaves_the_name_blank(client):
+    body, _ = make_claim(client)
+    r = packet(client, body, persona=None)
+    assert "1 Name of Victim" not in filled_fields(r.content)
+    assert "Demo packet" not in pdf_text(r.content, slice(0, 2))
 
 
-def test_state_without_a_form_gets_the_summary_only(client):
-    claim = make_claim(client, st="WI")
-    r = client.get(f"/api/packet/{claim['claim_id']}.pdf")
-    assert r.status_code == 200
+def test_state_without_a_form_gets_the_summary_only(client, services):
+    body, _ = make_claim(client, st="WI")
+    r = packet(client, body)
     assert filled_fields(r.content) == {}
     assert "Only you write this" not in pdf_text(r.content)
-    assert client.get(f"/api/packet/{claim['claim_id']}/application.pdf").status_code == 404
+    assert fill_application(services.settings.forms_dir, "WI", view_of(services, body)) is None
 
 
-def test_still_needed_documents_are_tied_to_reasons(client):
-    claim = make_claim(client)
-    needed = client.get(f"/api/packet/{claim['claim_id']}/needed").json()["needed"]
+def test_still_needed_documents_are_tied_to_reasons(client, services):
+    body, _ = make_claim(client)
+    needed = still_needed(view_of(services, body), services.rules.get("MI"))
     documents = [n["document"] for n in needed]
     assert any(d.startswith("Itemized bills from each medical provider") for d in documents)
     assert any(d.startswith("Insurance statements") for d in documents)
@@ -148,8 +164,9 @@ def test_still_needed_documents_are_tied_to_reasons(client):
     assert documents[-1] == "Your signature on the application"
 
 
-def test_packet_for_unknown_claim_is_404(client):
-    assert client.get("/api/packet/clm_missing.pdf").status_code == 404
+def test_packet_for_an_unknown_state_is_404(client):
+    body = {"jurisdiction": "ZZ", "context": {"incident_date": "2026-06-14", "as_of_date": "2026-10-03"}, "items": []}
+    assert client.post("/api/packet", json=body).status_code == 404
 
 
 def test_expense_labels_read_as_words():

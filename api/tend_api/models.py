@@ -54,6 +54,7 @@ Expense = Literal[
     "other",
     "unknown",
 ]
+Unit = Literal["session", "week", "hour", "mile", "day", "month", "item"]  # SPEC v1.2 typed units
 PoliceReport = Literal["yes", "no", "unknown"]
 
 MAX_CENTS = 100_000_000_00  # $100M; anything larger is a data error, not a claim
@@ -62,6 +63,12 @@ PositiveCents = Annotated[int, Field(strict=True, gt=0, le=MAX_CENTS)]
 StateCode = Annotated[str, Field(pattern=r"^[A-Z]{2}$")]
 ItemId = Annotated[str, Field(min_length=1, max_length=160, pattern=r"^[A-Za-z0-9][A-Za-z0-9:._\-]*$")]
 Slug = Annotated[str, Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9][A-Za-z0-9_\-]*$")]
+AccountId = Annotated[str, Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9\-_]+$")]
+ActionId = Annotated[str, Field(pattern=r"^act_[0-9a-f]{20}$")]
+ConfirmCode = Annotated[str, Field(pattern=r"^[0-9]{6}$")]
+# Display fields of a ClassifiedItem (web/lib/contracts.ts). The engine never reads them, so a
+# claim may carry them and they are dropped before evaluation.
+CLASSIFIED_EXTRAS = ("source", "reason", "confidence")
 
 
 def _upper_state(value: object) -> object:
@@ -92,8 +99,16 @@ class Item(Strict):
     insurance_paid_cents: Cents = 0
     is_bill: StrictBool = False
     units: Annotated[int, Field(strict=True, ge=0, le=100_000)] = 0
+    unit: Unit | None = None
     description: Annotated[str, Field(max_length=200)] = ""
-    tags: Annotated[list[Annotated[str, Field(pattern=r"^[a-z][a-z_]{0,31}$")]], Field(max_length=8)] = []  # e.g. ["phone"], SPEC v1.1
+    tags: Annotated[list[Annotated[str, Field(pattern=r"^[a-z][a-z_]{0,31}$")]], Field(max_length=8)] = []  # e.g. ["phone"]
+
+    @model_validator(mode="before")
+    @classmethod
+    def _drop_display_fields(cls, data: Any) -> Any:
+        if isinstance(data, dict) and any(k in data for k in CLASSIFIED_EXTRAS):
+            return {k: v for k, v in data.items() if k not in CLASSIFIED_EXTRAS}
+        return data
 
     @field_validator("description")
     @classmethod
@@ -140,11 +155,13 @@ class ScanRequest(Strict):
 
 
 class BillAuditRequest(Strict):
-    st: StateCode | None = None  # defaults to the persona's jurisdiction
-    bill_id: Slug | None = None
+    """A demo persona's itemized bill, which the server already holds (seed/bills)."""
+
     persona_id: Slug | None = None
-    bill_text: Annotated[str, Field(max_length=20_000)] | None = None
+    bill_id: Slug | None = None
+    # The label /scan returned, which the Fetch.ai agent sends back. Nothing is stored or looked up by it.
     scan_id: Slug | None = None
+    st: StateCode | None = None  # defaults to the persona's jurisdiction
     incident_date: dt.date | None = None
     as_of_date: dt.date | None = None
     police_report: PoliceReport | None = None
@@ -156,12 +173,16 @@ class BillAuditRequest(Strict):
 
     @model_validator(mode="after")
     def _has_bill(self) -> BillAuditRequest:
-        if not (self.bill_id or self.persona_id or self.bill_text):
-            raise ValueError("send bill_id, persona_id, or bill_text")
+        if not (self.bill_id or self.persona_id):
+            raise ValueError("send bill_id or persona_id")
         return self
 
 
-AccountId = Annotated[str, Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9\-_]+$")]
+def _clean_payee(v: str) -> str:
+    cleaned = _printable(v)
+    if not cleaned:
+        raise ValueError("payee is empty")
+    return cleaned
 
 
 class ProposeRequest(Strict):
@@ -170,83 +191,144 @@ class ProposeRequest(Strict):
     from_account: Annotated[AccountId, Field(validation_alias=AliasChoices("from", "from_account_id", "from_account"))]
     payee: Annotated[str, Field(min_length=1, max_length=80)]
     amount_cents: PositiveCents
-    kind: Literal["pay_bill"] | None = None
-    bill_id: Slug | None = None
-    item_ids: Annotated[list[ItemId], Field(max_length=200)] | None = None  # the bill lines this pays; amounts must add up
-    claim_id: Slug | None = None
-    item_id: ItemId | None = None
+    kind: Literal["pay_bill", "payment"] | None = None
+    bill_id: Slug | None = None  # the Nessie bill being paid
+    item_ids: Annotated[list[ItemId], Field(max_length=200)] | None = None  # the bill lines this pays
     dry_run: StrictBool | None = None
 
     @field_validator("payee")
     @classmethod
     def _payee(cls, v: str) -> str:
-        cleaned = _printable(v)
-        if not cleaned:
-            raise ValueError("payee is empty")
-        return cleaned
+        return _clean_payee(v)
 
     @model_validator(mode="after")
     def _bill_lines(self) -> ProposeRequest:
-        if self.kind == "pay_bill" and not self.item_ids:
-            raise ValueError("pay_bill needs item_ids: the bill lines this pays")
+        if self.kind == "pay_bill" and not self.bill_id:
+            raise ValueError("pay_bill needs bill_id: the bill being paid")
+        if self.item_ids and not self.bill_id:
+            raise ValueError("item_ids name lines of a bill, so bill_id is needed too")
         return self
 
 
 class ConfirmRequest(Strict):
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
-    action_id: Slug
-    confirm_code: Annotated[str, Field(pattern=r"^[0-9]{6}$")]
+    action_id: ActionId
+    confirm_code: ConfirmCode
     amount_cents: PositiveCents | None = None
     from_account: Annotated[str | None, Field(alias="from", max_length=64)] = None
     payee: Annotated[str | None, Field(max_length=80)] = None
 
 
 BASE64 = r"^[A-Za-z0-9+/_\-]+={0,2}$"
+# 2 MiB of ciphertext is 2,796,203 base64 characters; the service checks the decoded size exactly and
+# answers 413 above it. The field itself only stops what the 16 MiB request cap would stop anyway.
+MAX_SHARE_B64 = 2_796_204
+MAX_SHARE_FIELD = 16 * 1024 * 1024
 
 
-class ShareRequest(Strict):
-    """One of: ciphertext sealed in the browser (docs/PRIVACY.md), a stored claim_id, or a claim
-    computed on the device (input, which the server evaluates again)."""
+class ShareCreate(Strict):
+    """A packet sealed in the browser: ciphertext and IV only (docs/PRIVACY.md). Never a key."""
 
-    ciphertext: Annotated[str, Field(min_length=16, max_length=8_000_000, pattern=BASE64)] | None = None
-    nonce: Annotated[str, Field(min_length=8, max_length=64, pattern=BASE64)] | None = None
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    ciphertext: Annotated[str, Field(min_length=16, max_length=MAX_SHARE_FIELD, pattern=BASE64)]
+    iv: Annotated[str, Field(min_length=16, max_length=44, pattern=BASE64, validation_alias=AliasChoices("iv", "nonce"))]
+    expires_hours: Annotated[int, Field(strict=True, ge=1, le=168, validation_alias=AliasChoices("expires_hours", "ttl_hours"))] = 72
+    once: Annotated[StrictBool, Field(validation_alias=AliasChoices("once", "open_once"))] = False
     alg: Literal["AES-256-GCM"] = "AES-256-GCM"
-    open_once: StrictBool = False
-    claim_id: Slug | None = None
-    input: ClaimInput | None = None
-    output: dict[str, Any] | None = None
-    ttl_hours: Annotated[int, Field(strict=True, ge=1, le=168)] = 72
-
-    @model_validator(mode="after")
-    def _one_kind(self) -> ShareRequest:
-        if sum(x is not None for x in (self.ciphertext, self.claim_id, self.input)) != 1:
-            raise ValueError("send ciphertext (with nonce), claim_id, or input")
-        if (self.ciphertext is None) != (self.nonce is None):
-            raise ValueError("ciphertext and nonce go together")
-        if self.open_once and self.ciphertext is None:
-            raise ValueError("open_once applies to sealed shares")
-        return self
 
 
-class AgentLinkRequest(Strict):
-    claim_id: Slug
+class AiTxn(Strict):
+    """One statement line offered to cloud AI. The model sees the merchant and description, never the amount."""
+
+    id: ItemId
+    description: Annotated[str, Field(max_length=200)] = ""
+    merchant: Annotated[str, Field(max_length=120)] | None = None
+    category: Annotated[str, Field(max_length=80)] | None = None  # the merchant's category, when the bank gives one
+    date: dt.date | None = None
+    amount_cents: Annotated[int, Field(strict=True, ge=-MAX_CENTS, le=MAX_CENTS)] | None = None
+    kind: Literal["purchase", "withdrawal", "deposit", "transfer", "bill"] | None = None
+    origin: Literal["csv", "ofx", "pdf", "nessie"] | None = None
+    tend_action: Annotated[str, Field(max_length=40)] | None = None  # set by the relay on a payment Tend made
 
 
-class AgentRedeemRequest(Strict):
-    link_code: Annotated[str, Field(min_length=8, max_length=16)]
+class AiClassifyRequest(Strict):
+    consent: StrictBool
+    st: StateCode | None = None
+    incident_date: dt.date | None = None
+    txns: Annotated[list[AiTxn], Field(min_length=1, max_length=500, validation_alias=AliasChoices("txns", "transactions"))]
+
+    @field_validator("st", mode="before")
+    @classmethod
+    def _upper(cls, v: object) -> object:
+        return _upper_state(v)
+
+
+BillMime = Literal["application/pdf", "image/png", "image/jpeg", "image/webp", "image/heic", "text/plain"]
+MAX_BILL_B64 = 14_000_000  # about 10 MB of file
+
+
+class AiBillRequest(Strict):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    consent: StrictBool
+    file: Annotated[
+        str, Field(min_length=4, max_length=MAX_BILL_B64, pattern=BASE64, validation_alias=AliasChoices("file", "file_b64", "data"))
+    ]
+    mime: Annotated[BillMime, Field(validation_alias=AliasChoices("mime", "mime_type", "content_type"))]
+
+
+class AgentAnswerRequest(Strict):
+    question: Annotated[str, Field(min_length=2, max_length=500)]
+    st: StateCode | None = None
+
+    @field_validator("st", mode="before")
+    @classmethod
+    def _upper(cls, v: object) -> object:
+        return _upper_state(v) or None
+
+
+class AgentCheckRequest(Strict):
+    st: StateCode
+    incident_date: dt.date | None = None
+    forensic_exam: StrictBool | None = None  # None: not sure
+    police_report: Literal["yes", "no", "not_yet", "unknown"] = "unknown"
+
+    @field_validator("st", mode="before")
+    @classmethod
+    def _upper(cls, v: object) -> object:
+        return _upper_state(v)
 
 
 class AgentPayRequest(Strict):
+    """A payment the agent sets up. The survivor approves it by typing the amount back."""
+
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
-    from_account: Annotated[str, Field(alias="from", min_length=1, max_length=64, pattern=r"^[A-Za-z0-9\-_]+$")]
+    persona_id: Slug | None = None  # demo persona whose account pays
+    account: Literal["checking", "cushion"] = "checking"
+    from_account: Annotated[AccountId | None, Field(validation_alias=AliasChoices("from", "from_account"))] = None
     payee: Annotated[str, Field(min_length=1, max_length=80)]
     amount_cents: PositiveCents
-    item_id: ItemId | None = None
+    bill_id: Slug | None = None
+    item_ids: Annotated[list[ItemId], Field(max_length=200)] | None = None
+
+    @field_validator("payee")
+    @classmethod
+    def _payee(cls, v: str) -> str:
+        return _clean_payee(v)
+
+    @model_validator(mode="after")
+    def _one_account(self) -> AgentPayRequest:
+        if (self.persona_id is None) == (self.from_account is None):
+            raise ValueError("send persona_id (the demo persona whose account pays) or from (an account id)")
+        if self.item_ids and not self.bill_id:
+            raise ValueError("item_ids name lines of a bill, so bill_id is needed too")
+        return self
 
 
 class AgentConfirmRequest(Strict):
-    action_id: Slug
-    confirm_code: Annotated[str, Field(pattern=r"^[0-9]{6}$")]
+    action_id: ActionId
+    confirm_code: ConfirmCode
     typed: Annotated[str, Field(min_length=1, max_length=64, description='what the survivor typed, e.g. "confirm 118.00"')]

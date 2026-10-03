@@ -1,39 +1,70 @@
+"""What the Fetch.ai agent (an advocate's tool in ASI:One) can ask of Tend.
+
+answer: a cited answer about one state's program, or a refusal when no verified rule supports one.
+check: the Check summary for a state and four optional inputs, every sentence with its rule.
+pay and confirm: a payment the survivor approves by typing the amount back. Nothing is stored
+except the ten-minute proposal and, once confirmed, the payment's row in the audit log.
+"""
+
 from __future__ import annotations
 
 import datetime as dt
-import hashlib
 import re
-import secrets
 from typing import Any
 
-from .actions import AccountsForScan, ActionService
-from .claims import HOLD_MESSAGE, ClaimService
-from .clock import Clock, iso, local_today, parse_iso
-from .engine import EngineError, EngineRouter, EngineUnavailable
+from .actions import ActionService
+from .clock import Clock, local_today
+from .engine import EngineError, EngineRouter, EngineUnavailable, LawIR
 from .errors import TendError
-from .models import AgentConfirmRequest, AgentPayRequest, ConfirmRequest, ProposeRequest
+from .models import AgentCheckRequest, AgentConfirmRequest, AgentPayRequest, ConfirmRequest, ProposeRequest
 from .money import format_cents, parse_cents
+from .rulebook import Rulebook
 from .rules import RulesStore, citation, rule_expense
-from .share import ShareService
-from .storage import Repository
+from .scan import ScanService
 
-LINK_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"  # no 0/O, 1/I/L: the survivor reads it aloud or types it
-LINK_TTL = dt.timedelta(minutes=30)
-SESSION_TTL = dt.timedelta(hours=2)
 CONFIRM_PHRASE = re.compile(r"^\s*confirm\s+\$?(?P<amount>\d[\d,]*(?:\.\d{2})?)\s*$", re.I | re.A)
-NOT_INCLUDED = ("excluded", "unknown_rule", "out_of_window")
+NOTE = "Rules can have exceptions. The program decides."
+
+LABELS = {
+    "medical": "Medical care",
+    "forensic_exam": "Forensic exam",
+    "counseling": "Counseling",
+    "prescription": "Prescriptions",
+    "dental": "Dental care",
+    "transportation": "Rides and travel to care",
+    "lost_wages": "Lost pay",
+    "relocation": "Moving",
+    "temporary_housing": "Short-term housing",
+    "security": "Locks and home security",
+    "childcare": "Child care",
+    "clothing_bedding": "Clothing and bedding",
+    "property_replacement": "Replacing property",
+    "crime_scene_cleanup": "Cleanup",
+    "funeral": "Funeral costs",
+    "legal": "Legal help",
+    "tuition": "Tuition",
+    "other": "Other costs",
+}
+UNIT_WORDS = {
+    "session": "a session",
+    "week": "a week",
+    "hour": "an hour",
+    "mile": "a mile",
+    "day": "a day",
+    "month": "a month",
+    "item": "an item",
+}
+ALTERNATIVES = {
+    "forensic_exam": "a forensic exam",
+    "protective_order": "a protective order",
+    "advocate": "talking with a victim advocate",
+    "medical_provider": "a report to a medical provider",
+    "other": "other proof the program accepts",
+}
 
 
 class AgentError(TendError):
     pass
-
-
-def _hash(value: str) -> str:
-    return hashlib.sha256(value.encode("utf-8")).hexdigest()
-
-
-def normalize_link_code(code: str) -> str:
-    return re.sub(r"[^0-9A-Za-z]", "", code).upper()
 
 
 def confirm_phrase(amount_cents: int) -> str:
@@ -50,206 +81,363 @@ def typed_cents(typed: str) -> int | None:
         return None
 
 
-def _cite(c: dict[str, Any]) -> dict[str, Any]:
-    return {k: c.get(k) for k in ("rule_id", "pinpoint", "quote", "fragment_url")}
+def money(cents: int) -> str:
+    text = format_cents(cents)
+    return text[:-3] if text.endswith(".00") else text
+
+
+def long_date(day: str) -> str:
+    d = dt.date.fromisoformat(day)
+    return f"{d:%B} {d.day}, {d.year}"
+
+
+def span(days: int) -> str:
+    if days >= 365:
+        years = round(days / 365.25)
+        return f"{years} year{'s' if years != 1 else ''}"
+    if days >= 60:
+        months = round(days / 30)
+        return f"{months} months"
+    return f"{days} days"
+
+
+def join_words(words: list[str]) -> str:
+    if len(words) <= 2:
+        return " or ".join(words)
+    return ", ".join(words[:-1]) + f", or {words[-1]}"
+
+
+UNIT_PERS = frozenset(UNIT_WORDS)
+DEADLINE_FROM = frozenset({"crime", "incident", "discovery", "injury", "offense", "report"})
+
+
+def ir_from_verified(doc: dict[str, Any]) -> list[dict[str, Any]]:
+    """The few IR fields the Check summary reads, taken straight from verified params. Used only when the
+    IR is missing or older than the verified file; the summary then says law_ir: false."""
+    out: list[dict[str, Any]] = []
+    for r in doc.get("rules") or []:
+        p, cat, expense = r.get("params") or {}, r.get("category"), rule_expense(r)
+        cents = p.get("amount_cents") if isinstance(p.get("amount_cents"), int) else None
+        if cat == "covered_expense" and expense:
+            out.append({"id": r["id"], "kind": "covered", "expense": expense})
+        elif cat == "expense_cap" and expense and cents:
+            unit = p.get("per") if p.get("per") in UNIT_PERS else None
+            out.append(
+                {
+                    "id": r["id"],
+                    "kind": "expense_cap",
+                    "expense": expense,
+                    "cap_cents": cents,
+                    "per": "unit" if unit else "claim",
+                    "unit": unit,
+                    "count_limit": p.get("count_limit"),
+                }
+            )
+        elif cat == "total_cap" and cents:
+            out.append({"id": r["id"], "kind": "total_cap", "cap_cents": cents})
+        elif cat == "filing_deadline" and p.get("from", "crime") in DEADLINE_FROM and (p.get("days") or p.get("years")):
+            days = int(p["days"]) if p.get("days") else int(p["years"]) * 365 + int(p["years"]) // 4
+            out.append({"id": r["id"], "kind": "deadline", "days": days, "from": p.get("from", "crime")})
+        elif cat == "reporting_requirement":
+            out.append(
+                {"id": r["id"], "kind": "reporting", "required": bool(p.get("required")), "alternatives": list(p.get("alternatives") or [])}
+            )
+        elif cat == "minimum_loss":
+            sa = re.search(r"sexual|forensic", str(p.get("waived_for") or ""), re.I) is not None
+            out.append(
+                {
+                    "id": r["id"],
+                    "kind": "minimum_loss",
+                    "cap_cents": cents,
+                    "days_lost": p.get("days_lost"),
+                    "waiver": "discretionary" if sa else "none",
+                    "waiver_for_sexual_assault": sa,
+                }
+            )
+        elif cat == "excluded_expense" and expense and not p.get("item"):
+            out.append({"id": r["id"], "kind": "excluded", "expense": expense})
+    return out
 
 
 class AgentService:
-    """What the Fetch.ai agent can do: a public cited checklist, and, after the survivor links it with a
-    one-time code, a summary without bill text and payments that need a typed approval."""
-
     def __init__(
         self,
-        repo: Repository,
         rules: RulesStore,
+        ir: LawIR,
         engines: EngineRouter,
-        claims: ClaimService,
+        rulebook: Rulebook,
         actions: ActionService,
-        shares: ShareService,
-        accounts_for_scan: AccountsForScan,
+        scans: ScanService,
         clock: Clock,
     ):
-        self.repo = repo
         self.rules = rules
+        self.ir = ir
         self.engines = engines
-        self.claims = claims
+        self.rulebook = rulebook
         self.actions = actions
-        self.shares = shares
-        self.accounts_for_scan = accounts_for_scan
+        self.scans = scans
         self.clock = clock
 
-    def checklist(
-        self, st: str, incident_date: dt.date | None, forensic_exam: bool | None = None, police_report: str = "unknown"
-    ) -> dict[str, Any]:
+    # answers
+
+    def answer(self, question: str, st: str | None) -> dict[str, Any]:
+        return self.rulebook.answer(question, st)
+
+    # the Check summary
+
+    def _engine_checks(self, st: str, incident_date: dt.date, exam: bool, police: str) -> tuple[dict[str, Any], str | None]:
+        payload = {
+            "jurisdiction": st,
+            "context": {
+                "incident_date": incident_date.isoformat(),
+                "as_of_date": local_today(self.clock()).isoformat(),
+                "police_report": police,
+                "forensic_exam": exam,
+            },
+            "items": [],
+        }
+        try:
+            output, engine = self.engines.evaluate(payload)
+        except (EngineUnavailable, EngineError):
+            return {}, None
+        return output.get("checks") or {}, engine
+
+    def check(self, req: AgentCheckRequest) -> dict[str, Any]:
+        st = req.st
         doc = self.rules.get(st)
         if doc is None:
             raise AgentError(f"No verified rules for {st}.", 404)
+        name = doc.get("name") or st
+        place = f"the {name}" if name.startswith("District of") else name  # "apply in the District of Columbia"
+        opening = place[0].upper() + place[1:]  # the same words at the start of a sentence
+        by_id = self.rules.rules_by_id(st)
         sources = self.rules.sources_by_id(st)
+        try:
+            ir = self.ir.load(st) or {}
+        except EngineUnavailable:
+            ir = {}
+        law_ir = bool(ir.get("rules"))
+        ir_rules = ir.get("rules") if law_ir else ir_from_verified(doc)
 
-        def cites(*categories: str) -> list[dict[str, Any]]:
-            return [_cite(citation(r, sources)) for r in doc["rules"] if r.get("category") in categories]
+        def cite(ids: list[str]) -> list[dict[str, Any]]:
+            out = []
+            for rid in dict.fromkeys(ids):
+                if rid in by_id:
+                    c = citation(by_id[rid], sources)
+                    keys = ("rule_id", "summary", "pinpoint", "quote", "fragment_url", "source_title", "source_url")
+                    out.append({k: c.get(k) for k in keys})
+            return out
 
-        today = local_today(self.clock())
-        engine = None
+        def sentence(text: str, ids: list[str], **extra: Any) -> dict[str, Any]:
+            return {"text": text, "rule_ids": list(dict.fromkeys(ids)), "citations": cite(ids), **extra}
 
-        def run(exam: bool) -> dict[str, Any]:
-            nonlocal engine
-            if incident_date is None:
-                return {}
-            payload = {
-                "jurisdiction": st,
-                "context": {
-                    "incident_date": incident_date.isoformat(),
-                    "as_of_date": today.isoformat(),
-                    "police_report": police_report,
-                    "forensic_exam": exam,
-                },
-                "items": [],
-            }
-            try:
-                output, engine = self.engines.evaluate(payload)
-            except (EngineUnavailable, EngineError):
-                return {}
-            return output.get("checks") or {}
+        def of_category(*categories: str) -> list[dict[str, Any]]:
+            return [r for r in doc.get("rules") or [] if r.get("category") in categories]
 
-        # Never assume an exam: unless the survivor said, report both answers so the agent can ask.
-        checks = run(bool(forensic_exam))
-        rules_by_id = self.rules.rules_by_id(st)
+        police = {"yes": "yes", "no": "no", "not_yet": "no", "unknown": "unknown"}[req.police_report]
+        checks, engine = ({}, None)
+        if req.incident_date:
+            checks, engine = self._engine_checks(st, req.incident_date, bool(req.forensic_exam), police)
 
-        def check(name: str, category: str, found_in: dict[str, Any]) -> dict[str, Any]:
-            found = found_in.get(name)
-            if found is None:
-                return {"status": "unknown", "citations": cites(category)}
-            return {**found, "citations": [_cite(citation(rules_by_id[r], sources)) for r in found.get("rule_ids", []) if r in rules_by_id]}
+        # deadline
+        deadline_ids = [r["id"] for r in ir_rules if r.get("kind") == "deadline"] or [r["id"] for r in of_category("filing_deadline")]
+        found = checks.get("deadline") or {}
+        flags = list(found.get("flags") or [])
+        if found.get("status") == "ok" and found.get("deadline_date"):
+            text = f"Apply by {long_date(found['deadline_date'])}."
+            if "deadline_from_report" in flags:
+                text += " That date is measured from the day it happened. The law counts from your report, so you may have longer."
+            deadline = sentence(text, found.get("rule_ids") or deadline_ids, status="ok", deadline_date=found["deadline_date"], flags=flags)
+        elif found.get("status") == "late":
+            text = f"The usual deadline was {long_date(found['deadline_date'])}. Ask the program about exceptions."
+            if "deadline_from_report" in flags:
+                text += " That date is measured from the day it happened. The law counts from your report, so you may still have time."
+            deadline = sentence(
+                text,
+                found.get("rule_ids") or deadline_ids,
+                status="late",
+                deadline_date=found.get("deadline_date"),
+                flags=flags,
+            )
+        else:
+            # Without a date: the longest deadline (SPEC step 10), counted from the earliest day it could start.
+            # As in engine/FORMAT.md section 4, any deadline counted from the report earns the note.
+            dated = [r for r in ir_rules if r.get("kind") == "deadline" and r.get("days")]
+            longest = max(dated, key=lambda r: r["days"], default=None)
+            if longest is None:
+                text = f"Tend found no set filing deadline in {place}'s rules. Ask the program."
+            else:
+                text = f"You have about {span(longest['days'])} from the date it happened to apply."
+                if any(r.get("from") == "report" for r in dated) and "deadline_from_report" not in flags:
+                    text += " The law counts from your report, so you may have longer."
+                    flags.append("deadline_from_report")
+            deadline = sentence(text, deadline_ids, status="unknown", deadline_date=None, flags=flags)
 
-        covered: dict[str, list[dict[str, Any]]] = {}
-        for r in doc["rules"]:
-            if r.get("category") == "covered_expense" and rule_expense(r):
-                covered.setdefault(rule_expense(r), []).append(_cite(citation(r, sources)))
-        program = doc.get("program", {})
-        return {
-            "jurisdiction": st,
-            "name": doc.get("name"),
-            "program": {k: program.get(k) for k in ("program_name", "agency", "phone", "website", "apply_url", "statute_citation")},
-            "as_of_date": today.isoformat(),
-            "incident_date": incident_date.isoformat() if incident_date else None,
-            "engine": engine,
-            "forensic_exam": forensic_exam,
-            "police_report": police_report,
-            "deadline": check("deadline", "filing_deadline", checks),
-            "reporting": check("reporting", "reporting_requirement", checks),
-            "reporting_if_exam": check("reporting", "reporting_requirement", run(True)) if forensic_exam is None else None,
-            "exam_billing": {"protection": cites("exam_no_bill"), "who_pays": cites("exam_payment")},
-            "covered": [{"expense": e, "citations": c} for e, c in sorted(covered.items())],
-            "not_covered": cites("excluded_expense"),
-            "caps": cites("total_cap", "expense_cap"),
-            "note": "Rules can have exceptions. The program decides.",
-        }
+        # police report
+        reporting_rules = [r for r in ir_rules if r.get("kind") == "reporting"]
+        alternatives = sorted({a for r in reporting_rules for a in r.get("alternatives") or []})
+        report_ids = [r["id"] for r in reporting_rules] or [r["id"] for r in of_category("reporting_requirement")]
 
-    def create_link(self, claim_id: str) -> dict[str, Any]:
-        self.claims.get(claim_id)
-        raw = "".join(secrets.choice(LINK_ALPHABET) for _ in range(8))
-        now = self.clock()
-        expires_at = iso(now + LINK_TTL)
-        self.repo.insert_agent_link({"code_hash": _hash(raw), "claim_id": claim_id, "created_at": iso(now), "expires_at": expires_at})
-        code = f"{raw[:4]}-{raw[4:]}"
-        return {"link_code": code, "expires_at": expires_at, "say_to_agent": f"link {code}"}
+        def reporting_sentence(found_check: dict[str, Any], exam: bool) -> dict[str, Any]:
+            status = found_check.get("status", "unknown")
+            ids = found_check.get("rule_ids") or report_ids
+            if status == "satisfied":
+                text = (
+                    "Your police report meets this rule." if police == "yes" else "Your forensic exam counts in place of a police report."
+                )
+            elif status == "required":
+                text = f"{opening} asks for a police report."
+                if alternatives:
+                    text += f" These can count instead: {join_words([ALTERNATIVES.get(a, a) for a in alternatives])}."
+            elif status == "not_required":
+                text = f"{opening} does not require a police report."
+            else:
+                text = "Ask the program whether you need a police report."
+            return sentence(text, ids, status=status, alternatives=alternatives, assumes_exam=exam)
 
-    def redeem(self, link_code: str) -> dict[str, Any]:
-        code = normalize_link_code(link_code)
-        now = self.clock()
-        claim_id = self.repo.redeem_agent_link(_hash(code), iso(now)) if len(code) == 8 else None
-        if claim_id is None:
-            raise AgentError("That link code is not valid, was already used, or has expired. Ask Tend for a new one.", 404)
-        token = secrets.token_urlsafe(32)
-        expires_at = iso(now + SESSION_TTL)
-        self.repo.insert_agent_session({"token_hash": _hash(token), "claim_id": claim_id, "created_at": iso(now), "expires_at": expires_at})
-        share = self.shares.create(claim_id, ttl_hours=int(SESSION_TTL.total_seconds() // 3600))
-        return {
-            "agent_token": token,
-            "expires_at": expires_at,
-            "claim_id": claim_id,
-            "packet_path": f"{share['api_path']}/packet.pdf",
-            "share_path": share["path"],
-        }
+        reporting = reporting_sentence(checks.get("reporting") or {}, bool(req.forensic_exam))
+        if req.incident_date and req.forensic_exam is None:
+            other, _ = self._engine_checks(st, req.incident_date, True, police)
+            reporting_if_exam = reporting_sentence(other.get("reporting") or {}, True)
+        else:
+            reporting_if_exam = None
 
-    def session_claim(self, token: str) -> str:
-        session = self.repo.get_agent_session(_hash(token))
-        if session is None or parse_iso(session["expires_at"]) <= self.clock():
-            raise AgentError("This agent session is not valid or has expired. Ask Tend for a new link code.", 401)
-        return session["claim_id"]
+        # what is covered, with caps
+        covered: dict[str, dict[str, Any]] = {}
+        for r in ir_rules:
+            expense = r.get("expense")
+            if r.get("kind") in ("covered", "expense_cap") and expense:
+                entry = covered.setdefault(expense, {"expense": expense, "label": LABELS.get(expense, expense), "ids": [], "caps": []})
+                entry["ids"].append(r["id"])
+                if r.get("kind") == "expense_cap":
+                    entry["caps"].append(r)
+                    entry["ids"] += r.get("alt_rule_ids") or []
+        covered_list = []
+        for expense in [e for e in LABELS if e in covered]:
+            entry = covered[expense]
+            cap_text, cap_cents = None, None
+            if entry["caps"]:
+                cap = max(entry["caps"], key=lambda c: c.get("cap_cents") or 0)
+                cap_cents = cap.get("cap_cents")
+                if cap.get("per") == "unit" and cap.get("unit"):
+                    cap_text = f"up to {money(cap_cents)} {UNIT_WORDS.get(cap['unit'], 'each')}"
+                    if cap.get("count_limit"):
+                        count = int(cap["count_limit"])
+                        cap_text += f" for up to {count} {cap['unit']}{'s' if count != 1 else ''}"
+                elif cap_cents:
+                    cap_text = f"up to {money(cap_cents)}"
+            text = f"{entry['label']}, {cap_text}" if cap_text else entry["label"]
+            covered_list.append(sentence(text, entry["ids"], expense=expense, label=entry["label"], cap_cents=cap_cents))
 
-    def summary(self, claim_id: str) -> dict[str, Any]:
-        """Totals by expense with the rules behind them. No descriptions or bill text leave through the agent."""
-        view = self.claims.view(self.claims.get(claim_id))
-        by_expense: dict[str, dict[str, Any]] = {}
-        for ln in view["lines"]:
-            if ln["status"] != "eligible":
+        totals = [r for r in ir_rules if r.get("kind") == "total_cap" and r.get("cap_cents")]
+        total = min(totals, key=lambda r: r["cap_cents"]) if totals else None
+        total_cap = sentence(f"Up to {money(total['cap_cents'])} in all.", [total["id"]], cap_cents=total["cap_cents"]) if total else None
+
+        minimum = None
+        for r in ir_rules:
+            if r.get("kind") != "minimum_loss":
                 continue
-            entry = by_expense.setdefault(ln["expense"], {"expense": ln["expense"], "allowed_cents": 0, "lines": 0, "rules": {}})
-            entry["allowed_cents"] += ln["allowed_cents"]
-            entry["lines"] += 1
-            for c in ln["citations"]:
-                entry["rules"][c["rule_id"]] = _cite(c)
-        held = [
-            {
-                "item_id": ln["item_id"],
-                "amount_cents": ln["amount_cents"],
-                "message": HOLD_MESSAGE,
-                "rules": [_cite(c) for c in ln["citations"] if c.get("category") == "exam_no_bill"],
-            }
-            for ln in view["lines"]
-            if ln["status"] == "held"
+            cents = r.get("cap_cents")
+            if cents == 0:
+                text = "There is no minimum amount of costs."
+            elif cents:
+                text = f"The program asks for at least {money(cents)} in costs"
+                if r.get("days_lost"):
+                    text += f" or {r['days_lost']} days of missed work"
+                text += "."
+                if r.get("waiver_for_sexual_assault") and r.get("waiver") == "automatic":
+                    text = text[:-1] + ", but this does not apply to sexual assault survivors."
+                elif r.get("waiver_for_sexual_assault"):
+                    text += " It can be waived for sexual assault survivors."
+            else:
+                continue
+            minimum = sentence(text, [r["id"]])
+            break
+
+        exam_rules = of_category("exam_no_bill")
+        payers = of_category("exam_payment")
+        exam = sentence(exam_rules[0].get("summary") or "", [r["id"] for r in exam_rules + payers]) if exam_rules else None
+        # The same rules split the way the Fetch.ai agent shows them: the protection, then who pays instead.
+        exam_billing = {"protection": cite([r["id"] for r in exam_rules]), "who_pays": cite([r["id"] for r in payers])}
+        excluded_ids = {i["id"] for i in ir_rules if i.get("kind") == "excluded"}
+        # Without the IR, an exclusion that names only an item (a phone, a purse) is still worth showing.
+        not_covered = [
+            sentence(r.get("summary") or "", [r["id"]]) for r in of_category("excluded_expense") if r["id"] in excluded_ids or not law_ir
         ]
-        program = view.get("program") or {}
+        privacy = [
+            sentence(r.get("summary") or "", [r["id"]], category=r["category"])
+            for r in of_category("address_confidentiality", "record_confidentiality")
+        ]
+
+        eligible = [r["id"] for r in of_category("eligible_crime")]
+        if deadline["status"] == "late":
+            headline = sentence(f"The usual deadline in {place} may have passed. Ask the program about exceptions.", deadline["rule_ids"])
+        else:
+            headline = sentence(f"You can likely apply in {place}.", eligible)
+
+        program = doc.get("program") or {}
+        phone_source = sources.get(program.get("phone_source_id") or "")
         return {
-            "claim_id": claim_id,
-            "jurisdiction": view["jurisdiction"],
-            "fictional": view["fictional"],
-            "program": {k: program.get(k) for k in ("program_name", "agency", "phone", "website", "apply_url")},
-            "amount_you_can_ask_for_cents": view["totals"].get("allowed_cents", 0),
-            "by_expense": [{**e, "rules": list(e["rules"].values())} for e in sorted(by_expense.values(), key=lambda e: e["expense"])],
-            "held": held,
-            "held_cents": view["totals"].get("held_cents", 0),
-            "waiting_for_confirmation": sum(1 for ln in view["lines"] if ln["status"] == "needs_confirmation"),
-            "not_included": [
-                {"item_id": ln["item_id"], "amount_cents": ln["amount_cents"], "status": ln["status"]}
-                for ln in view["lines"]
-                if ln["status"] in NOT_INCLUDED
-            ],
-            "checks": {
-                name: {k: check.get(k) for k in ("status", "deadline_date") if k in check}
-                | {"rules": [_cite(c) for c in check["citations"]]}
-                for name, check in view["checks"].items()
+            "st": st,
+            "name": name,
+            "inputs": {
+                "incident_date": req.incident_date.isoformat() if req.incident_date else None,
+                "forensic_exam": req.forensic_exam,
+                "police_report": req.police_report,
             },
-            "note": "Amount you can ask for. The program decides.",
+            "headline": headline,
+            "deadline": deadline,
+            "reporting": reporting,
+            "reporting_if_exam": reporting_if_exam,
+            "covered": covered_list,
+            "total_cap": total_cap,
+            "minimum_loss": minimum,
+            "exam": exam,
+            "exam_billing": exam_billing,
+            "not_covered": not_covered,
+            "privacy": privacy,
+            "program": {
+                "program_name": program.get("program_name"),
+                "agency": program.get("agency"),
+                "phone": program.get("phone"),
+                "website": program.get("website"),
+                "apply_url": program.get("apply_url"),
+                "source": {k: phone_source.get(k) for k in ("id", "title", "url", "sha256")} if phone_source else None,
+            },
+            "engine": engine,
+            "law_ir": law_ir,
+            "note": NOTE,
         }
 
-    def pay(self, claim_id: str, req: AgentPayRequest) -> dict[str, Any]:
-        self._check_account(self.claims.get(claim_id), req.from_account)
-        proposed = self.actions.propose(
+    # payments the survivor approves by typing the amount
+
+    def pay(self, req: AgentPayRequest) -> dict[str, Any]:
+        if req.persona_id:
+            account = self.scans.persona_account(req.persona_id, req.account)["id"]
+        else:
+            account = req.from_account or ""
+        proposal = self.actions.propose(
             ProposeRequest(
-                from_account=req.from_account, payee=req.payee, amount_cents=req.amount_cents, claim_id=claim_id, item_id=req.item_id
+                from_account=account,
+                payee=req.payee,
+                amount_cents=req.amount_cents,
+                kind="pay_bill" if req.bill_id else None,
+                bill_id=req.bill_id,
+                item_ids=req.item_ids,
             ),
             channel="agent",
         )
         phrase = confirm_phrase(req.amount_cents)
         return {
-            **proposed,
+            **proposal,
             "confirm_phrase": phrase,
             "ask_user": f'Pay {format_cents(req.amount_cents)} to {req.payee}? Nothing moves until you type "{phrase}".',
         }
 
-    def confirm(self, claim_id: str, req: AgentConfirmRequest) -> dict[str, Any]:
-        action = self.repo.get_action(req.action_id)
-        if action is None or action["claim_id"] != claim_id:
-            raise AgentError("No payment with that id in this session.", 404)
+    def confirm(self, req: AgentConfirmRequest) -> dict[str, Any]:
+        action = self.actions.repo.get_action(req.action_id)
+        if action is None or action["channel"] != "agent":
+            raise AgentError("No agent payment with that id.", 404)
         if typed_cents(req.typed) != action["amount_cents"]:
             raise AgentError(f'Nothing was paid. To approve, type exactly: "{confirm_phrase(action["amount_cents"])}"', 409)
         return self.actions.confirm(ConfirmRequest(action_id=req.action_id, confirm_code=req.confirm_code), channel="agent")
-
-    def _check_account(self, claim: dict[str, Any], account_id: str) -> None:
-        # When the claim came from a persona snapshot, the agent may only pay from that person's own accounts.
-        accounts = self.accounts_for_scan(claim["scan_id"]) if claim.get("scan_id") else None
-        if accounts and account_id not in accounts:
-            raise AgentError("The agent can only pay from your own accounts.", 403)

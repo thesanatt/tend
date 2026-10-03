@@ -1,9 +1,13 @@
 """Map a bank transaction to an expense type from rules/SCHEMA.md.
 
 Order: a registry of known merchants, keyword rules over the merchant and description, then
-Gemini for whatever is left, then a pass that links rides to same-day care. The model only picks
-a label from a fixed list; it never sees or returns an amount, and its picks always start
-unconfirmed. Eligibility, caps and totals belong to the law engine, not to this module.
+Gemini for whatever is left, then a pass that links rides to same-day care, then a pass that
+reads lost pay from paychecks that dipped after the date it happened. The model only picks a
+label from a fixed list; it never sees or returns an amount, and its picks always start
+unconfirmed, as do rides linked to care and pay gaps. Each label also carries the SPEC v1.2
+shape of its item: a typed unit (a counseling charge is one session, a pay gap counts weeks,
+lodging counts days, a ride has no unit) and tags (a replaced phone is tagged "phone").
+Eligibility, caps and totals belong to the law engine, not to this module.
 """
 from __future__ import annotations
 
@@ -11,9 +15,11 @@ import hashlib
 import json
 import os
 import re
+import statistics
 import threading
 from collections.abc import Callable, Iterable, Sequence
 from dataclasses import asdict, dataclass, replace
+from datetime import date as _date
 from pathlib import Path
 
 from .nessie import BankSnapshot
@@ -67,6 +73,9 @@ class Classification:
     linked_refs: tuple[str, ...] = ()
     model: str | None = None
     cached: bool = False
+    unit: str | None = None  # SPEC v1.2: session, week, day, ... or None
+    units: int = 0  # how many of that unit; 0 when unknown
+    tags: tuple[str, ...] = ()  # e.g. ("phone",), which an excluded rule can name
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -131,6 +140,39 @@ def _norm(text: str) -> str:
     return re.sub(r"\s+", " ", _TAG.sub(" ", text or "")).strip().lower()
 
 
+# The same keyword table as rules/tools/normalize.py, so an excluded rule's tags and an item's meet.
+TAG_WORDS: tuple[tuple[tuple[str, ...], str], ...] = (
+    (("cell phone", "mobile phone", "phone"), "phone"),
+    (("purse", "wallet", "handbag"), "purse"),
+    (("jewelry", "jewellery"), "jewelry"),
+    (("cash", "money"), "cash"),
+    (("vehicle", "car "), "vehicle"),
+    (("pain and suffering",), "pain_suffering"),
+)
+SESSION_KINDS = frozenset({"purchase", "withdrawal", "bill_line"})  # one charge, one session; a whole bill may hold many
+_NIGHTS = re.compile(r"\b(\d{1,2})\s*-?\s*(?:nights?|days?)\b", re.IGNORECASE)
+
+
+def tags_for(text: str) -> tuple[str, ...]:
+    padded = f" {_norm(text)} "
+    return tuple(sorted({tag for words, tag in TAG_WORDS if any(w in padded for w in words)}))
+
+
+def item_shape(expense: str, kind: str, text: str) -> tuple[str | None, int, tuple[str, ...]]:
+    """(unit, units, tags) for an item of this expense, as SPEC v1.2 types them."""
+    if expense == "counseling":
+        return "session", 1 if kind in SESSION_KINDS else 0, ()
+    if expense == "temporary_housing":
+        nights = _NIGHTS.search(text or "")
+        return "day", int(nights.group(1)) if nights else 0, ()
+    if expense == "lost_wages":
+        return "week", 0, ()
+    if expense == "property_replacement":
+        # Tags only on replaced property: a rule that excludes phones must not catch a phone plan.
+        return None, 0, tags_for(text)
+    return None, 0, ()
+
+
 def content_key(facts: TxnFacts) -> str:
     payload = {"v": PROMPT_VERSION, "kind": facts.kind, "merchant": _norm(facts.merchant_name),
                "category": _norm(facts.merchant_category), "description": _norm(facts.description)}
@@ -143,7 +185,9 @@ def _made(facts: TxnFacts, expense: str | None, confidence: float, method: str, 
     if expense == "transportation":
         # A ride is only a recovery cost when it is travel to care; link_care_rides decides.
         return Classification(facts.ref, expense, False, confidence, method, reason, False)
-    return Classification(facts.ref, expense, True, confidence, method, reason, confidence >= CONFIRM_AT)
+    unit, units, tags = item_shape(expense, facts.kind, f"{facts.merchant_name} {facts.description}")
+    return Classification(facts.ref, expense, True, confidence, method, reason, confidence >= CONFIRM_AT,
+                          unit=unit, units=units, tags=tags)
 
 
 def classify_deterministic(facts: TxnFacts) -> Classification | None:
@@ -388,8 +432,9 @@ class Classifier:
         expense = entry["expense"] if entry.get("expense") in MODEL_LABELS else UNKNOWN
         candidate = expense not in (UNKNOWN, "transportation")  # rides wait for link_care_rides
         reason = clean_reason(entry.get("reason", ""), expense)  # again on read, in case the file was edited
+        unit, units, tags = item_shape(expense, f.kind, f"{f.merchant_name} {f.description}") if candidate else (None, 0, ())
         return Classification(f.ref, expense, candidate, MODEL_CONFIDENCE, "model", reason, False,
-                              model=entry.get("model"), cached=cached)
+                              model=entry.get("model"), cached=cached, unit=unit, units=units, tags=tags)
 
 
 def link_care_rides(facts: Sequence[TxnFacts], results: Sequence[Classification],
@@ -446,14 +491,79 @@ def _set_aside(r: Classification, reason: str) -> Classification:
     return replace(r, candidate=False, confirmed=False, linked_refs=(), reason=reason)
 
 
+# Lost pay. A paycheck from the same employer that comes in well under the usual amount after the
+# date it happened is offered as lost wages: an inference, so it always waits for the survivor's yes.
+PAY_WORDS = re.compile(r"payroll|salary|paycheck|direct dep|\bwages?\b|\bpay\b", re.IGNORECASE)
+GAP_MIN_CENTS = 20_00  # a dip must be at least $20 ...
+GAP_MIN_TENTHS = 1  # ... and at least a tenth of the usual check
+MIN_USUAL_CHECKS = 3  # checks before the date that set what "usual" means
+
+
+@dataclass(frozen=True)
+class WageGap:
+    ref: str  # the deposit that came in short
+    date: str
+    paid_cents: int
+    usual_cents: int
+    gap_cents: int
+    weeks: int  # the pay period, in weeks
+
+
+def wage_gaps(deposits: Iterable[tuple[str, str, int, str]], incident_date: str | None) -> dict[str, WageGap]:
+    """deposits are (ref, date, amount_cents, description), amounts positive. Ref -> the gap it shows."""
+    if not incident_date:
+        return {}
+    groups: dict[str, list[tuple[str, str, int]]] = {}
+    for ref, day, cents, description in deposits:
+        key = _norm(description)
+        if cents > 0 and day and PAY_WORDS.search(key):
+            groups.setdefault(key, []).append((day, ref, cents))
+    out: dict[str, WageGap] = {}
+    for rows in groups.values():
+        rows.sort()
+        before = [cents for day, _, cents in rows if day < incident_date]
+        if len(before) < MIN_USUAL_CHECKS:
+            continue
+        usual = statistics.median_low(before)  # an actual check amount, so integer cents
+        days = [_date.fromisoformat(day) for day, _, _ in rows]
+        spacing = [(b - a).days for a, b in zip(days, days[1:], strict=False) if (b - a).days > 0]
+        weeks = max(1, round(statistics.median_low(spacing) / 7)) if spacing else 1
+        for day, ref, cents in rows:
+            gap = usual - cents
+            if day >= incident_date and gap >= GAP_MIN_CENTS and gap * 10 >= usual * GAP_MIN_TENTHS:
+                out[ref] = WageGap(ref, day, cents, usual, gap, weeks)
+    return out
+
+
+def _dollars(cents: int) -> str:
+    return f"${cents // 100:,}" if cents % 100 == 0 else f"${cents // 100:,}.{cents % 100:02d}"
+
+
+def gap_classification(gap: WageGap) -> Classification:
+    reason = f"Paycheck was {_dollars(gap.paid_cents)}, {_dollars(gap.gap_cents)} below your usual {_dollars(gap.usual_cents)}"
+    return Classification(gap.ref, "lost_wages", True, 0.6, "inference", reason, False, unit="week", units=gap.weeks)
+
+
+def snapshot_incident_date(snapshot: BankSnapshot) -> str | None:
+    return (snapshot.meta.get("demo_inputs") or {}).get("incident_date")
+
+
+def snapshot_wage_gaps(snapshot: BankSnapshot, incident_date: str | None = None) -> dict[str, WageGap]:
+    deposits = [(t.id, t.date, t.amount_cents, t.display_description) for t in snapshot.txns
+                if t.kind == "deposit" and t.status != "cancelled"]
+    return wage_gaps(deposits, incident_date or snapshot_incident_date(snapshot))
+
+
 def classify_snapshot(snapshot: BankSnapshot, classifier: Classifier | None = None,
-                      extra_anchors: Iterable[tuple[str, str, str]] = ()) -> dict[str, Classification]:
+                      extra_anchors: Iterable[tuple[str, str, str]] = (),
+                      incident_date: str | None = None) -> dict[str, Classification]:
     """Nessie id -> Classification for every transaction and bill in the snapshot.
 
     Two kinds of record are set aside so no dollar is offered twice: a Nessie bill that has an
     itemized document (its lines, which the scan reads from the PDF, carry the expenses, and one
     of them may be a forensic exam the engine holds), and a payment Tend made (its description
-    carries [tend:<action id>]; it pays bill lines that are already offered).
+    carries [tend:<action id>]; it pays bill lines that are already offered). A paycheck that
+    dipped after incident_date (default: the snapshot's demo date) becomes a lost-wages label.
     """
     facts = facts_from_snapshot(snapshot)
     results = (classifier or Classifier()).classify(facts)
@@ -467,4 +577,96 @@ def classify_snapshot(snapshot: BankSnapshot, classifier: Classifier | None = No
     # The itemized bill's service date is care on that day, so a ride then is travel to care.
     anchors += [(d["service_date"], d["bill_id"], "medical") for d in documents
                 if d.get("service_date") and (d["service_date"], d["bill_id"]) not in known]
-    return {r.ref: r for r in link_care_rides(facts, results, anchors)}
+    gaps = snapshot_wage_gaps(snapshot, incident_date)
+    linked = link_care_rides(facts, results, anchors)
+    return {r.ref: gap_classification(gaps[r.ref]) if r.ref in gaps else r for r in linked}
+
+
+# Engine items. A ClassifiedItem (web/lib/contracts.ts) is an engine item plus unit, tags, source,
+# reason, and confidence. Only direct matches (a known merchant or a keyword) may start confirmed.
+DIRECT_METHODS = frozenset({"registry", "keyword"})
+
+
+def classified_item(item_id: str, day: str, amount_cents: int, description: str, r: Classification,
+                    is_bill: bool = False, model_source: str = "cloud_ai") -> dict:
+    return {
+        "item_id": item_id,
+        "date": day,
+        "amount_cents": amount_cents,
+        "expense": r.expense,
+        "confirmed": bool(r.confirmed) and r.method in DIRECT_METHODS,
+        "insurance_paid_cents": 0,
+        "is_bill": is_bill,
+        "units": r.units,
+        "unit": r.unit,
+        "description": " ".join(description.split())[:200],
+        "tags": list(r.tags),
+        "source": model_source if r.method == "model" else "rule",
+        "reason": r.reason,
+        "confidence": r.confidence,
+    }
+
+
+def snapshot_items(snapshot: BankSnapshot, results: dict[str, Classification],
+                   incident_date: str | None = None) -> list[dict]:
+    """ClassifiedItems for every candidate in the snapshot, in date order. Pay gaps claim the shortfall."""
+    gaps = snapshot_wage_gaps(snapshot, incident_date)
+    items = []
+    for t in sorted(snapshot.txns, key=lambda t: (t.date, t.id)):
+        r = results.get(t.id)
+        if r is None or not r.candidate:
+            continue
+        m = snapshot.merchant(t.merchant_id)
+        description = " ".join(filter(None, [m.name if m else "", t.display_description]))
+        amount = gaps[t.id].gap_cents if t.id in gaps else t.amount_cents
+        items.append(classified_item(t.item_id, t.date, amount, description, r))
+    for b in snapshot.bills:
+        r = results.get(b.id)
+        if r is not None and r.candidate:
+            day = b.creation_date or b.payment_date or ""
+            items.append(classified_item(b.item_id, day, b.amount_cents, b.payee, r, is_bill=True))
+    return items
+
+
+def statement_facts(rows: Sequence[dict]) -> list[TxnFacts]:
+    """TxnFacts for StatementTxn rows (web/lib/contracts.ts). Money in (a negative amount) reads as a deposit."""
+    facts = []
+    for row in rows:
+        cents = row.get("amount_cents")
+        kind = row.get("kind") or ("deposit" if isinstance(cents, int) and cents < 0 else "purchase")
+        facts.append(TxnFacts(str(row["id"]), kind, row.get("merchant") or "", row.get("category") or "",
+                              row.get("description") or "", str(row.get("date") or "")))
+    return facts
+
+
+def label_statement(rows: Sequence[dict], incident_date: str | None = None, classifier: Classifier | None = None,
+                    extra_anchors: Iterable[tuple[str, str, str]] = ()) -> tuple[list[Classification], dict[str, WageGap]]:
+    """One label per StatementTxn row, in row order, with the same steps as a snapshot: rules, the model for
+    what is left, rides linked to care, Tend's own payments set aside, and pay gaps after incident_date."""
+    facts = statement_facts(rows)
+    results = (classifier or Classifier()).classify(facts)
+    results = [_set_aside(r, TEND_PAYMENT_REASON)
+               if row.get("tend_action") or _TEND_ACTION.search(str(row.get("description") or "")) else r
+               for r, row in zip(results, rows, strict=True)]
+    deposits = [(f.ref, f.date, -int(row["amount_cents"]), f.description) for f, row in zip(facts, rows, strict=True)
+                if f.kind == "deposit" and isinstance(row.get("amount_cents"), int)]
+    gaps = wage_gaps(deposits, incident_date)
+    linked = link_care_rides(facts, results, extra_anchors)
+    return [gap_classification(gaps[r.ref]) if r.ref in gaps else r for r in linked], gaps
+
+
+def classify_statement(rows: Sequence[dict], incident_date: str | None = None, classifier: Classifier | None = None,
+                       extra_anchors: Iterable[tuple[str, str, str]] = (), model_source: str = "cloud_ai") -> list[dict]:
+    """ClassifiedItems for StatementTxn rows: id, date, amount_cents with money out positive, description,
+    merchant, and optionally kind and category. Rows without a date or an amount get no item."""
+    labels, gaps = label_statement(rows, incident_date, classifier, extra_anchors)
+    items = []
+    for f, r, row in zip(statement_facts(rows), labels, rows, strict=True):
+        cents = row.get("amount_cents")
+        if not r.candidate or not isinstance(cents, int) or not f.date:
+            continue
+        amount = gaps[f.ref].gap_cents if f.ref in gaps else abs(cents)
+        description = " ".join(filter(None, [f.merchant_name, _TAG.sub("", f.description).strip()]))
+        items.append(classified_item(f.ref, f.date, amount, description, r, is_bill=f.kind == "bill",
+                                     model_source=model_source))
+    return items

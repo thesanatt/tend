@@ -1,47 +1,32 @@
+"""Claims, evaluated and returned. Nothing about a claim is stored on the server.
+
+The device runs the same law engine in WebAssembly; this is the server-side fallback (native engine
+through ctypes, then the Python reference) and the source of the cited views a packet prints.
+"""
+
 from __future__ import annotations
 
 import re
-import secrets
 from pathlib import Path
 from typing import Any
 
-from .bill import INSURANCE_MENTION, BillSource, find_bill, service_date, verify_bill
-from .clock import Clock, iso, local_today, parse_date
+from .bill import INSURANCE_MENTION, find_bill, service_date, snapshot_documents, verify_bill
+from .clock import Clock, local_today, parse_date
 from .engine import EngineError, EngineRouter
 from .errors import TendError
 from .models import BillAuditRequest, ClaimInput, Context, Item
-from .money import assert_integer_cents, format_cents
+from .money import assert_integer_cents, canonical_json, sha256_hex
 from .rules import RulesStore, citation
-from .scan import load_snapshot, persona_info
-from .storage import Repository
+from .scan import account_ids, list_snapshots, load_snapshot, persona_info
 
-HOLD_MESSAGE = "Hold this line. Ask billing to remove it first."
+HOLD_MESSAGE = "Don't pay this line. Ask billing to remove it first."
 
 
 class ClaimError(TendError):
     pass
 
 
-def check_evidence(items: list[Item], evidence: dict[str, dict[str, Any]]) -> tuple[list[Item], list[dict[str, Any]]]:
-    """A claim line must point at a transaction or bill line from the scan, with the same amount and date."""
-    kept, refused = [], []
-    for item in items:
-        record = evidence.get(item.item_id)
-        reason = None
-        if record is None:
-            reason = "No transaction or bill line with this id is in your scan, so Tend will not count it."
-        elif record["amount_cents"] != item.amount_cents:
-            reason = f"The amount does not match the transaction on record ({format_cents(record['amount_cents'])})."
-        elif record["date"] != item.date.isoformat():
-            reason = f"The date does not match the transaction on record ({record['date']})."
-        if reason:
-            refused.append({"item_id": item.item_id, "amount_cents": item.amount_cents, "reason": reason})
-        else:
-            kept.append(item)
-    return kept, refused
-
-
-# SPEC statuses, v1.0 and v1.1 together.
+# SPEC statuses, v1.0 through v1.2.
 LINE_STATUSES = {"out_of_window", "held", "excluded", "unknown_rule", "needs_confirmation", "eligible"}
 CHECK_STATUSES = {
     "deadline": {"ok", "late", "unknown"},
@@ -97,9 +82,13 @@ def validate_output(output: dict[str, Any], payload: dict[str, Any]) -> None:
         raise ClaimError(f"engine output failed its own arithmetic, so Tend will not show it: {'; '.join(problems[:3])}", 500)
 
 
+def claim_reference(payload: dict[str, Any]) -> str:
+    """A label for a packet, derived from what was claimed. Nothing is looked up by it."""
+    return "T-" + sha256_hex(canonical_json(payload))[:12].upper()
+
+
 class ClaimService:
-    def __init__(self, repo: Repository, rules: RulesStore, engines: EngineRouter, seed_dir: Path, clock: Clock):
-        self.repo = repo
+    def __init__(self, rules: RulesStore, engines: EngineRouter, seed_dir: Path, clock: Clock):
         self.rules = rules
         self.engines = engines
         self.seed_dir = seed_dir
@@ -111,58 +100,20 @@ class ClaimService:
             raise ClaimError(f"No verified rules for {st}.", 404)
         return doc
 
-    def run(self, claim: ClaimInput, scan_id: str | None = None, prefer: str = "auto", store: bool = True) -> dict[str, Any]:
-        """Evaluate a claim into a record; store=False keeps nothing on the server."""
+    def evaluate(self, claim: ClaimInput, prefer: str = "auto") -> tuple[dict[str, Any], str, dict[str, Any]]:
+        """(engine output, which engine ran, the exact payload it read). Kept nowhere."""
         self._require_jurisdiction(claim.jurisdiction)
-        scan = None
-        items, refused = list(claim.items), []
-        if scan_id is not None:
-            scan = self.repo.get_scan(scan_id)
-            if scan is None:
-                raise ClaimError(f"scan {scan_id} not found", 404)
-            items, refused = check_evidence(items, self.repo.evidence(scan_id))
-        payload = claim.model_copy(update={"items": items}).model_dump(mode="json")
+        payload = claim.model_dump(mode="json")
         try:
             output, engine = self.engines.evaluate(payload, prefer)
         except EngineError as exc:
             raise ClaimError(str(exc), 422) from exc
         validate_output(output, payload)
-        record = {
-            "claim_id": f"clm_{secrets.token_hex(10)}",
-            "jurisdiction": claim.jurisdiction,
-            "scan_id": scan_id,
-            "persona_id": scan["persona_id"] if scan else None,
-            "fictional": bool(scan and scan["fictional"]),
-            "display_name": scan["display_name"] if scan else None,
-            "engine": engine,
-            "input": payload,
-            "output": output,
-            "refused": refused,
-            "created_at": iso(self.clock()),
-        }
-        if store:
-            self.repo.save_claim(record)
-        return record
+        return output, engine, payload
 
-    def evaluate(self, claim: ClaimInput, scan_id: str | None = None, prefer: str = "auto") -> tuple[dict[str, Any], str]:
-        record = self.run(claim, scan_id, prefer)
-        response = {
-            **record["output"],
-            "claim_id": record["claim_id"],
-            "refused": record["refused"],
-            "evidence": {"checked": scan_id is not None, "scan_id": scan_id},
-        }
-        return response, record["engine"]
-
-    def get(self, claim_id: str) -> dict[str, Any]:
-        claim = self.repo.get_claim(claim_id)
-        if claim is None:
-            raise ClaimError(f"claim {claim_id} not found", 404)
-        return claim
-
-    def view(self, claim: dict[str, Any]) -> dict[str, Any]:
-        """The claim with every line joined to its transaction and the verbatim law behind it."""
-        st = claim["jurisdiction"]
+    def view(self, payload: dict[str, Any], output: dict[str, Any], engine: str, persona_id: str | None = None) -> dict[str, Any]:
+        """The claim with every line joined to its item and the verbatim law behind it (for packets)."""
+        st = payload["jurisdiction"]
         doc = self.rules.get(st) or {}
         rules = self.rules.rules_by_id(st)
         sources = self.rules.sources_by_id(st)
@@ -170,8 +121,13 @@ class ClaimService:
         def cite(ids: list[str]) -> list[dict[str, Any]]:
             return [citation(rules[r], sources) for r in ids if r in rules]
 
-        items = {i["item_id"]: i for i in claim["input"]["items"]}
-        output = claim["output"]
+        persona = None
+        if persona_id:
+            try:
+                persona = persona_info(load_snapshot(self.seed_dir, persona_id))
+            except TendError:
+                persona = None
+        items = {i["item_id"]: i for i in payload["items"]}
         lines = []
         for ln in output.get("lines", []):
             item = items.get(ln["item_id"], {})
@@ -190,36 +146,36 @@ class ClaimService:
                 }
             )
         checks = {name: {**check, "citations": cite(check.get("rule_ids") or [])} for name, check in (output.get("checks") or {}).items()}
+        fictional = bool(persona and persona.get("fictional"))
         return {
-            "claim_id": claim["claim_id"],
+            "claim_id": claim_reference(payload),
             "jurisdiction": st,
             "name": doc.get("name"),
             "program": doc.get("program", {}),
-            "fictional": claim["fictional"],
-            "display_name": claim.get("display_name"),
-            "engine": claim["engine"],
-            "created_at": claim["created_at"],
-            "context": claim["input"].get("context", {}),
+            "fictional": fictional,
+            "display_name": persona.get("display_name") if fictional else None,
+            "engine": engine,
+            "context": payload.get("context", {}),
             "law_image_sha256": output.get("law_image_sha256"),
             "rules_sha256": self.rules.file_sha256(st),
             "totals": output.get("totals", {}),
             "checks": checks,
             "lines": lines,
-            "refused": claim.get("refused", []),
+            "refused": [],
             "info": cite(output.get("info_rule_ids") or []),
         }
 
     def audit_bill(self, req: BillAuditRequest, prefer: str = "auto") -> tuple[dict[str, Any], str]:
-        snapshot = load_snapshot(self.seed_dir, req.persona_id) if req.persona_id else None
+        """A demo persona's itemized bill: the lines must add up, the file must match the snapshot, and the
+        law engine decides which lines are held. Nothing is stored."""
+        persona_id = req.persona_id or (self.persona_for_bill(req.bill_id) if req.bill_id else None)
+        snapshot = load_snapshot(self.seed_dir, persona_id) if persona_id else None
         info = persona_info(snapshot) if snapshot else {"context": {}, "jurisdiction": None}
         st = req.st or info.get("jurisdiction")
         if not st:
             raise ClaimError("st is required when the bill is not tied to a persona.", 422)
         doc = self._require_jurisdiction(st)
-        if req.bill_text is not None:
-            source = BillSource(req.bill_text.encode("utf-8"), "text")
-        else:
-            source = find_bill(self.seed_dir, req.bill_id, req.persona_id, snapshot)
+        source = find_bill(self.seed_dir, req.bill_id, persona_id, snapshot)
         bill, checks = verify_bill(source, snapshot)
 
         persona_context = info["context"]
@@ -238,8 +194,10 @@ class ClaimService:
                 date=line.date,
                 amount_cents=line.amount_cents,
                 expense=line.expense,
-                confirmed=True,  # lines of the provider's own statement, as in the scan
+                confirmed=True,  # lines of the provider's own itemized statement
                 is_bill=True,
+                unit="session" if line.expense == "counseling" else None,
+                units=1 if line.expense == "counseling" else 0,
                 description=line.description[:200],
             )
             for line in bill.lines
@@ -295,10 +253,10 @@ class ClaimService:
                 flags.append(flag)
 
         held_cents = sum(h["amount_cents"] for h in holds)
-        scan_id = self._register_bill_evidence(req, st, bill, [h["item_id"] for h in holds])
         result = {
             # The shape the web reads first, then the proof behind it.
             "bill_id": req.bill_id or bill.nessie_bill_id or bill.bill_id,
+            "persona_id": persona_id,
             "provider": bill.provider,
             "statement_date": bill.statement_date,
             "service_date": service_date(bill, source.document),
@@ -309,6 +267,7 @@ class ClaimService:
             "holds": holds,
             "held_cents": held_cents,
             "payable_cents": max(0, (bill.due_cents or 0) - held_cents),
+            "payable_item_ids": [ln["item_id"] for ln in lines if ln["status"] != "held"],
             "flags": flags,
             "checks": checks,
             "statement_id": bill.bill_id,
@@ -323,37 +282,31 @@ class ClaimService:
             "engine_items": payload["items"],
             "engine_context": payload["context"],
             "engine_output": output,
-            "scan_id": scan_id,
         }
         return result, engine
 
-    def _register_bill_evidence(self, req: BillAuditRequest, st: str, bill: Any, held: list[str]) -> str:
-        evidence = [
-            {"item_id": line.item_id, "amount_cents": line.amount_cents, "date": line.date.isoformat(), "source": "bill"}
-            for line in bill.lines
-        ]
-        if req.scan_id is not None:
-            if self.repo.get_scan(req.scan_id) is None:
-                raise ClaimError(f"scan {req.scan_id} not found", 404)
-            scan_id = req.scan_id
-            self.repo.add_evidence(scan_id, evidence)
-        else:
-            scan_id = f"scan_{secrets.token_hex(10)}"
-            self.repo.save_scan(
-                {
-                    "scan_id": scan_id,
-                    "persona_id": req.persona_id,
-                    "customer_id": None,
-                    "jurisdiction": st,
-                    "fictional": bill.fictional,
-                    "display_name": None,
-                    "created_at": iso(self.clock()),
-                },
-                evidence,
-            )
-        # Payments check this, so a line is paid only after the law ran on it and never when it is held.
-        self.repo.mark_checked(scan_id, [line.item_id for line in bill.lines], held)
-        return scan_id
+    def persona_for_bill(self, bill_id: str) -> str | None:
+        """The demo persona whose snapshot records an itemized document for this Nessie bill."""
+        for persona_id, snap in list_snapshots(self.seed_dir):
+            if any(d.get("bill_id") == bill_id for d in snapshot_documents(snap)):
+                return persona_id
+        return None
+
+    def bill_review(self, bill_id: str) -> dict[str, Any] | None:
+        """What a payment needs to know about a bill Tend has read: each line with the engine's status,
+        and the accounts that may pay it. Recomputed on every call; nothing is kept."""
+        persona_id = self.persona_for_bill(bill_id)
+        if persona_id is None:
+            return None
+        audit, _ = self.audit_bill(BillAuditRequest(persona_id=persona_id, bill_id=bill_id))
+        return {
+            "bill_id": bill_id,
+            "persona_id": persona_id,
+            "accounts": account_ids(load_snapshot(self.seed_dir, persona_id)),
+            "payee": audit["provider"],
+            "lines": [{"item_id": ln["item_id"], "amount_cents": ln["amount_cents"], "status": ln["status"]} for ln in audit["lines"]],
+            "payable_cents": audit["payable_cents"],
+        }
 
 
 def consent_flag(item_id: str, description: str, doc: dict[str, Any], sources: dict[str, dict[str, Any]]) -> dict[str, Any] | None:

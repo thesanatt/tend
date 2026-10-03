@@ -7,6 +7,7 @@ usage (run from seed/):
   uv run python seeder.py snapshot PERSONA|all    rebuild snapshots/PERSONA.json from live Nessie
   uv run python seeder.py pdf PERSONA|all         write bills/PERSONA-riverbend.pdf
   uv run python seeder.py classify PERSONA|all    classify a snapshot and score it against the plan
+  uv run python seeder.py items PERSONA|all       write classified/PERSONA.json: the statement's ClassifiedItems
 
 Seeding converges rather than appends. Records are matched by content (date, amount, description,
 merchant), missing ones are created, and anything else on the persona's accounts is deleted.
@@ -39,6 +40,8 @@ from tend_api.nessie import (TXN_KINDS, Account, Address, BankSnapshot, Bill, Me
 
 MANIFEST_DIR = SEED_DIR / ".manifest"
 SNAPSHOT_DIR = SEED_DIR / "snapshots"
+CLASSIFIED_DIR = SEED_DIR / "classified"
+CLASSIFIED_FORMAT = "tend-classified/1"
 NOTICE = ("Fictional demo data on Capital One's Nessie mock bank. No real person, account, merchant, "
           "or hospital. Nessie stores whole dollars; amount_cents is dollars times 100.")
 
@@ -329,6 +332,41 @@ def cmd_plan(persona_ids: list[str]) -> None:
     print("personas:", ", ".join(f"{p.id} ({p.city}, {p.jurisdiction})" for p in map(get_persona, persona_ids)))
 
 
+def classified_doc(snapshot: BankSnapshot, classifier=None) -> dict:
+    """What the classifier makes of the persona's checking statement, as the device would see it: the
+    StatementTxn rows the bank relay serves, turned into ClassifiedItems (web/lib/contracts.ts)."""
+    from tend_api.classify import PROMPT_VERSION, Classifier, classify_statement
+
+    checking = snapshot.account_by_type("Checking")
+    rows = snapshot.statement(checking.id)
+    incident = snapshot.meta["demo_inputs"]["incident_date"]
+    # The itemized bill's service date is care on that day, as in the scan.
+    anchors = [(d["service_date"], d["bill_id"], "medical") for d in snapshot.meta.get("documents", [])
+               if d.get("service_date") and d.get("bill_id")]
+    items = classify_statement(rows, incident, classifier or Classifier(use_model=False), anchors)
+    return {
+        "format": CLASSIFIED_FORMAT,
+        "persona_id": snapshot.meta["persona_id"],
+        "jurisdiction": snapshot.meta["jurisdiction"],
+        "fictional": True,
+        "notice": NOTICE,
+        "history_fingerprint": fingerprint(),
+        "prompt_version": PROMPT_VERSION,
+        "incident_date": incident,
+        "account_id": checking.id,
+        "statement_rows": len(rows),
+        "by_expense": dict(sorted(Counter(i["expense"] for i in items).items())),
+        "items": items,
+    }
+
+
+def write_classified(persona_id: str) -> dict:
+    doc = classified_doc(BankSnapshot.load(SNAPSHOT_DIR / f"{persona_id}.json"))
+    CLASSIFIED_DIR.mkdir(exist_ok=True)
+    (CLASSIFIED_DIR / f"{persona_id}.json").write_text(json.dumps(doc, indent=1) + "\n")
+    return doc
+
+
 def cmd_classify(persona_ids: list[str], use_model: bool) -> int:
     from tend_api.classify import DEFAULT_CACHE_PATH, ClassificationCache, Classifier, classify_snapshot
 
@@ -360,7 +398,7 @@ def cmd_classify(persona_ids: list[str], use_model: bool) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("command", choices=["plan", "seed", "reset", "snapshot", "pdf", "classify"])
+    parser.add_argument("command", choices=["plan", "seed", "reset", "snapshot", "pdf", "classify", "items"])
     parser.add_argument("persona", nargs="?", default="all", help="persona id, or all")
     parser.add_argument("--no-model", action="store_true", help="classify: skip Gemini, use rules and cache only")
     args = parser.parse_args(argv)
@@ -372,6 +410,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "pdf":
         for pid in persona_ids:
             print(pid, write_pdf(get_persona(pid)))
+        return 0
+    if args.command == "items":
+        # Offline on purpose: the committed cache holds every model answer, so no key and no network.
+        for pid in persona_ids:
+            doc = write_classified(pid)
+            print(f"{pid}: {len(doc['items'])} items from {doc['statement_rows']} statement rows {doc['by_expense']}")
         return 0
     load_env()
     if args.command == "classify":

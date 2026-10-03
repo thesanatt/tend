@@ -6,6 +6,7 @@ import json
 import os
 import stat
 import sys
+from pathlib import Path
 
 import pytest
 from helpers import FIXTURES, MI_RULES, client_for, fake_ref, law_image, make_services
@@ -52,7 +53,8 @@ def test_claim_falls_back_to_reference_and_says_so(client):
     r = client.post("/api/claim", json=ONE_ITEM)
     assert r.status_code == 200, r.text
     assert r.headers["X-Tend-Engine"] == "reference"
-    assert r.headers["X-Tend-Claim-Id"] == r.json()["claim_id"]
+    # The body is the engine's output and nothing else: no claim id, because no claim is kept.
+    assert "claim_id" not in r.json() and r.json()["lines"][0]["item_id"] == "nessie:p-0005"
 
 
 def test_forcing_native_without_it_is_503(client):
@@ -112,6 +114,28 @@ def test_reference_gets_the_rules_file_hash():
 
     call_reference(evaluate, {"rules": []}, {"items": []}, law_sha256="abc")
     assert seen == {"law_sha256": "abc"}
+
+
+def test_reference_is_labeled_with_the_image_it_stands_in_for(settings, clock):
+    # Given the image's sha256, tend_ref writes the C++ engine's exact document (refengine/README.md), so a
+    # fallback names the same compiled law. Without an image for exactly these rules, the rules file's sha256.
+    def labeled(law, payload, *, law_sha256=None):
+        return {**fake_ref.evaluate(law, payload), "law_image_sha256": law_sha256}
+
+    laws = settings.law_dirs[0]
+    laws.mkdir(parents=True, exist_ok=True)
+    rules_sha = hashlib.sha256(MI_RULES.read_bytes()).hexdigest()
+
+    def label(image: bytes | None) -> str:
+        if image is not None:
+            (laws / "MI.tlaw").write_bytes(image)
+        r = client_for(make_services(settings, clock, reference_evaluate=labeled)).post("/api/claim", json=EMPTY_CLAIM)
+        assert r.status_code == 200 and r.headers["X-Tend-Engine"] == "reference", r.text
+        return r.json()["law_image_sha256"]
+
+    assert label(None) == rules_sha
+    assert label(law_image()) == hashlib.sha256(law_image()).hexdigest()  # no library to run it, but the image is there
+    assert label(b"TLAW" + hashlib.sha256(b"other rules").digest()) == rules_sha
 
 
 def test_stale_law_image_falls_back_to_reference(native_settings, clock):
@@ -252,7 +276,10 @@ def test_engine_output_cannot_invent_lines(settings, clock):
 
 
 def test_load_reference_from_refengine_dir(monkeypatch):
-    monkeypatch.setattr(sys, "path", list(sys.path))
+    # Other tests may have imported the real refengine; hide it so only the fixture can be found.
+    monkeypatch.setattr(sys, "path", [p for p in sys.path if not (Path(p) / "tend_ref").is_dir()])
+    for name in [m for m in sys.modules if m == "tend_ref" or m.startswith("tend_ref.")]:
+        monkeypatch.delitem(sys.modules, name)
     # setitem records whatever was there (or nothing) so teardown restores it; the fake never outlives this test.
     monkeypatch.setitem(sys.modules, "tend_ref", None)
     del sys.modules["tend_ref"]

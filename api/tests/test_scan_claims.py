@@ -2,9 +2,25 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import re
+import sqlite3
 import sys
 
 from helpers import FIXTURES, client_for, confirm_all, fake_classifier, make_services, scan_rowan
+
+ENGINE_FIELDS = {
+    "item_id",
+    "date",
+    "amount_cents",
+    "expense",
+    "confirmed",
+    "insurance_paid_cents",
+    "is_bill",
+    "units",
+    "unit",
+    "description",
+    "tags",
+}
 
 
 def test_scan_persona_offline(client):
@@ -14,39 +30,54 @@ def test_scan_persona_offline(client):
     assert scan["counts"]["transactions"] == scan["read_count"] == 9  # 7 purchases, 1 deposit, 1 bill
     assert scan["incident_date"] == "2026-06-14" and scan["as_of_date"] == "2026-10-03"
     assert scan["account"] == {"id": "acct-checking-0001", "nickname": "Checking", "mask": "0011"}
+    # A label made from what the scan found, for clients of the first API. Nothing is kept under it.
+    assert re.fullmatch(r"scan_[0-9a-f]{20}", scan["scan_id"]) and scan_rowan(client)["scan_id"] == scan["scan_id"]
     ids = {i["item_id"] for i in scan["items"]}
     assert "nessie:p-0001" not in ids  # groceries are not a claim candidate
-    inferred = [i for i in scan["items"] if i.get("source") != "bill"]
+    inferred = [i for i in scan["items"] if i.get("kind") != "bill_line"]
     assert inferred and all(i["confirmed"] is False for i in inferred)
     assert all("confidence" in i and "reason" in i for i in scan["items"])
     ctx = scan["engine_input"]["context"]
     assert ctx == {"incident_date": "2026-06-14", "as_of_date": "2026-10-03", "police_report": "unknown", "forensic_exam": True}
-    assert set(scan["engine_input"]["items"][0]) == {
-        "item_id",
-        "date",
-        "amount_cents",
-        "expense",
-        "confirmed",
-        "insurance_paid_cents",
-        "is_bill",
-        "units",
-        "description",
-        "tags",
-    }
+    assert set(scan["engine_input"]["items"][0]) == ENGINE_FIELDS
+
+
+def test_scan_items_carry_v12_units_and_tags(client):
+    items = {i["item_id"]: i for i in scan_rowan(client)["engine_input"]["items"]}
+    assert (items["nessie:p-0005"]["unit"], items["nessie:p-0005"]["units"]) == ("session", 1)  # one counseling charge
+    assert items["nessie:p-0004"]["tags"] == ["phone"]
 
 
 def test_scan_itemizes_the_hospital_bill(client):
     scan = scan_rowan(client)
     ids = {i["item_id"] for i in scan["items"]}
     assert "nessie:b-riverbend-0001" not in ids  # the bank bill is replaced by its verified lines
-    lines = [i for i in scan["items"] if i.get("source") == "bill"]
+    lines = [i for i in scan["items"] if i.get("kind") == "bill_line"]
     assert [ln["amount_cents"] for ln in lines] == [7500, 4300, 32500]
     assert {ln["bill_id"] for ln in lines} == {"b-riverbend-0001"}
     assert [ln["expense"] for ln in lines] == ["medical", "medical", "forensic_exam"]
-    assert all(ln["confirmed"] and ln["is_bill"] and ln["merchant"] for ln in lines)
+    assert all(ln["confirmed"] and ln["is_bill"] and ln["merchant"] and ln["source"] == "rule" for ln in lines)
     assert scan["documents"][0]["bill_id"] == "b-riverbend-0001" and scan["bill_errors"] == []
     audit = client.post("/api/bill/audit", json={"bill_id": lines[0]["bill_id"], "persona_id": "rowan-mi"}).json()
     assert [ln["item_id"] for ln in audit["lines"]] == [ln["item_id"] for ln in lines]
+
+
+def test_scan_with_the_real_classifier(settings, clock, monkeypatch):
+    # No classifier hook: tend_api.classify runs on the snapshot (rules and the committed cache). Even with a
+    # key in the environment, a scan never calls a model: that takes consent, at /api/ai/classify.
+    import tend_api.classify as classify
+
+    def refuse(*args, **kwargs):
+        raise AssertionError("a scan tried to build a model backend")
+
+    monkeypatch.setenv("GEMINI_API_KEY", "would-be-sent")
+    monkeypatch.setattr(classify, "gemini_backend", refuse)
+    scan = client_for(make_services(settings, clock, classifier=None)).post("/api/scan", json={"persona_id": "rowan-mi", "st": "MI"})
+    assert scan.status_code == 200, scan.text
+    items = {i["item_id"]: i for i in scan.json()["items"]}
+    counseling = items["nessie:p-0005"]
+    assert (counseling["expense"], counseling["unit"], counseling["units"], counseling["source"]) == ("counseling", "session", 1, "rule")
+    assert all(not i["confirmed"] for i in items.values() if i.get("method") in ("model", "link", "inference", "unresolved"))
 
 
 def test_scan_incident_date_override_and_state_switch(client):
@@ -85,7 +116,7 @@ def test_live_scan_when_enabled(settings, clock):
     broken = client_for(make_services(live, clock, nessie_client_factory=lambda: LiveClient(error=TimeoutError("timed out"))))
     r = broken.post("/api/scan", json={"customer_id": "live-customer", "st": "MI"})
     assert r.status_code == 502
-    assert "timed out" in r.json()["detail"]
+    assert "TimeoutError" in r.json()["detail"]
 
 
 def test_scan_errors(client):
@@ -112,23 +143,23 @@ def test_scan_rejects_float_money_from_classifier(settings, clock):
     assert r.status_code == 502
 
 
-def test_scan_keeps_certain_items_confirmed_only_at_full_confidence(settings, clock):
+def test_scan_keeps_direct_matches_confirmed_and_never_inferred_ones(settings, clock):
     def certain(transactions, st):
         items = fake_classifier(transactions, st)
-        items[0].update(confidence=1.0, confirmed=True)
-        items[1].update(confidence=0.95, confirmed=True)
+        items[0].update(confirmed=True, method="registry")
+        items[1].update(confirmed=True, method="model", source="cloud_ai")
+        items[2].update(confirmed=True, method="link")
         return items
 
     scan = (
         client_for(make_services(settings, clock, classifier=certain)).post("/api/scan", json={"persona_id": "rowan-mi", "st": "MI"}).json()
     )
-    assert scan["items"][0]["confirmed"] is True
-    assert scan["items"][1]["confirmed"] is False
+    assert [i["confirmed"] for i in scan["items"][:3]] == [True, False, False]
 
 
 def test_claim_statuses_follow_the_rules(client):
     scan = scan_rowan(client)
-    r = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=confirm_all(scan["engine_input"]))
+    r = client.post("/api/claim", json=confirm_all(scan["engine_input"]))
     assert r.status_code == 200, r.text
     claim = r.json()
     status = {ln["item_id"]: ln for ln in claim["lines"]}
@@ -138,42 +169,37 @@ def test_claim_statuses_follow_the_rules(client):
     counseling = status["nessie:p-0005"]
     assert counseling["status"] == "eligible"
     assert counseling["allowed_cents"] <= counseling["requested_cents"]
-    assert claim["evidence"] == {"checked": True, "scan_id": scan["scan_id"]}
 
 
 def test_unconfirmed_lines_are_not_counted(client):
     scan = scan_rowan(client)
-    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=scan["engine_input"]).json()
-    bill_lines = {i["item_id"] for i in scan["items"] if i.get("source") == "bill"}
+    claim = client.post("/api/claim", json=scan["engine_input"]).json()
+    bill_lines = {i["item_id"] for i in scan["items"] if i.get("kind") == "bill_line"}
     # Only the itemized bill's own lines count before the survivor says yes; the exam line is held, not counted.
     assert claim["totals"]["allowed_cents"] == 7500 + 4300
     others = {ln["status"] for ln in claim["lines"] if ln["item_id"] not in bill_lines}
     assert others <= {"needs_confirmation", "excluded", "unknown_rule"}
 
 
-def test_made_up_line_is_refused_with_a_reason(client):
+def test_claim_is_evaluated_and_never_stored(client, services):
     scan = scan_rowan(client)
-    claim_input = confirm_all(scan["engine_input"])
-    real = claim_input["items"][0]
-    claim_input["items"] = [
-        real,
-        {**real, "item_id": "nessie:made-up", "amount_cents": 50000},
-        {**claim_input["items"][1], "amount_cents": claim_input["items"][1]["amount_cents"] + 100},
-        {**claim_input["items"][2], "date": "2026-06-30"},
+    assert client.post("/api/claim", json=confirm_all(scan["engine_input"])).status_code == 200
+    conn = sqlite3.connect(services.settings.database_url)
+    tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type = 'table'")}
+    conn.close()
+    assert not tables & {"claims", "scans", "evidence", "shares", "agent_links", "agent_sessions"}
+    assert services.repo.audit_rows() == []
+
+
+def test_claim_accepts_classified_items_as_sent_by_the_device(client):
+    scan = scan_rowan(client)
+    # ClassifiedItem rows (engine fields plus source, reason, confidence) go straight to the engine.
+    items = [
+        {**{k: i[k] for k in ENGINE_FIELDS}, "source": i["source"] if "source" in i else "rule", "reason": "x", "confidence": 0.9}
+        for i in scan["items"]
     ]
-    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=claim_input).json()
-    refused = {r["item_id"]: r["reason"] for r in claim["refused"]}
-    assert "nessie:made-up" in refused and "No transaction" in refused["nessie:made-up"]
-    assert "amount does not match" in refused[claim_input["items"][2]["item_id"]]
-    assert "date does not match" in refused[claim_input["items"][3]["item_id"]]
-    assert [ln["item_id"] for ln in claim["lines"]] == [real["item_id"]]
-
-
-def test_claim_without_scan_is_marked_unchecked(client):
-    scan = scan_rowan(client)
-    claim = client.post("/api/claim", json=scan["engine_input"]).json()
-    assert claim["evidence"] == {"checked": False, "scan_id": None}
-    assert client.post("/api/claim", params={"scan_id": "scan_missing"}, json=scan["engine_input"]).status_code == 404
+    r = client.post("/api/claim", json={**scan["engine_input"], "items": items})
+    assert r.status_code == 200, r.text
 
 
 def test_claim_rejects_narrative_fields_and_float_money(client):
@@ -191,10 +217,12 @@ def test_claim_unknown_jurisdiction_is_404(client):
     assert client.post("/api/claim", json=body).status_code == 404
 
 
-def test_claim_view_joins_lines_to_verbatim_law(client):
+def test_claim_view_joins_lines_to_verbatim_law(client, services):
+    from tend_api.models import ClaimInput
+
     scan = scan_rowan(client)
-    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=confirm_all(scan["engine_input"])).json()
-    view = client.get(f"/api/claims/{claim['claim_id']}").json()
+    output, engine, payload = services.claims.evaluate(ClaimInput.model_validate(confirm_all(scan["engine_input"])))
+    view = services.claims.view(payload, output, engine, persona_id="rowan-mi")
     rules = {r["id"]: r for r in client.get("/api/jurisdictions/MI").json()["rules"]}
     phone = next(ln for ln in view["lines"] if ln["item_id"] == "nessie:p-0004")
     cite = phone["citations"][0]
@@ -202,4 +230,5 @@ def test_claim_view_joins_lines_to_verbatim_law(client):
     assert cite["source_sha256"] and cite["pinpoint"]
     assert phone["amount_cents"] == 29900 and phone["date"] == "2026-06-18"
     assert view["fictional"] is True and view["display_name"] == "Rowan Example"
-    assert client.get("/api/claims/clm_missing").status_code == 404
+    assert view["claim_id"].startswith("T-") and view["claim_id"] == services.claims.view(payload, output, engine)["claim_id"]
+    assert services.claims.view(payload, output, engine)["display_name"] is None  # no persona, no name

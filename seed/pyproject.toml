@@ -2,7 +2,7 @@
 name = "tend-seed"
 version = "0.1.0"
 description = "Fictional Nessie personas, the seeder, and the bank-layer tests for Tend"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "httpx>=0.27",
     "google-genai>=1.0",
