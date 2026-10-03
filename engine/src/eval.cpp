@@ -60,7 +60,7 @@ class InputParser {
     }
     if (k < 0 || !r_.finish()) return json_error();
     if (!have_context) return semantic("context is required");
-    return true;
+    return unique_ids();
   }
 
  private:
@@ -82,6 +82,30 @@ class InputParser {
     return false;
   }
   bool is_null() { return r_.peek() == JsonReader::kNull; }
+
+  // Every line and trace entry is keyed by item_id, so two items with one id
+  // would make the proof ambiguous and the output depend on input order.
+  bool unique_ids() {
+    const auto& items = in_.items;
+    size_t cap = 16;
+    while (cap < items.size() * 2) cap <<= 1;
+    std::vector<uint32_t> slots(cap, 0);  // open addressing; item index + 1, 0 = empty
+    for (size_t i = 0; i < items.size(); i++) {
+      std::string_view id = items[i].id;
+      uint64_t h = 1469598103934665603ULL;  // FNV-1a
+      for (char c : id) h = (h ^ uint8_t(c)) * 1099511628211ULL;
+      size_t s = size_t(h ^ (h >> 29)) & (cap - 1);
+      for (; slots[s]; s = (s + 1) & (cap - 1)) {
+        size_t first = slots[s] - 1;
+        if (items[first].id == id) {
+          err_ = Path{"items", int64_t(i), "item_id"}.str() + ": duplicate of items[" + std::to_string(first) + "]";
+          return false;
+        }
+      }
+      slots[s] = uint32_t(i + 1);
+    }
+    return true;
+  }
 
   bool date_field(const Path& p, int64_t& day) {
     std::string_view s;

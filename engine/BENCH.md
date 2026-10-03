@@ -13,14 +13,14 @@ confirmed, 20% with insurance, 75% with units. Best of 5 runs; medians were with
 
 | law | IR rules | instructions run | VM, trace on | VM, trace off | JSON in -> JSON out |
 |---|---|---|---|---|---|
-| MI (real Michigan IR) | 78 | 29.5M | **18.2M items/s** (55 ms) | 20.3M items/s (49 ms) | **2.58M items/s** (388 ms) |
-| ZZ (test fixture, tag checks on every expense) | 31 | 39.8M | 14.2M items/s (70 ms) | 15.8M items/s (63 ms) | 1.90M items/s (527 ms) |
+| MI (real Michigan IR) | 78 | 29.5M | **18.2M items/s** (55 ms) | 20.3M items/s (49 ms) | **2.33M items/s** (430 ms) |
+| ZZ (test fixture, tag checks on every expense) | 31 | 39.8M | 14.2M items/s (70 ms) | 15.8M items/s (63 ms) | 2.13M items/s (470 ms) |
 
-The end-to-end time for MI splits into parsing 203 MB of claim JSON (193 ms), the VM (55 ms),
+The end-to-end time for MI splits into parsing 203 MB of claim JSON and checking that item ids are unique (227 ms), the VM (55 ms),
 and writing 424 MB of result JSON with its 2.2M-entry trace (126 ms). So the law itself is
 about 15% of a bank-scale run; the rest is JSON.
 
-The WASM engine on the same MI claim: **0.81M items/s** end to end in Node (1.24 s for 1M items;
+The WASM engine on the same MI claim: **0.78M items/s** end to end in Node (1.29 s for 1M items;
 the time includes moving 162 MB in and 423 MB out across the JavaScript boundary), and 0.11 ms
 for the 21-item fixture claim, which is the size of a real survivor's claim.
 
@@ -42,4 +42,5 @@ make wasm && node scripts/wasm_bench.mjs ../web/public/engine build/laws/MI.tlaw
   Build with `-DTEND_NO_THREADED_DISPATCH` to compare. WASM always uses the switch.
 - The item program runs once per item without a call per item: `ret` moves to the next item.
 - Building error-path strings lazily (only when a field is wrong) cut JSON parsing from 296 ms
-  to 193 ms per million items.
+  to 193 ms per million items. The duplicate item_id check (an open-addressing table over the
+  parsed ids) added about 35 ms back.

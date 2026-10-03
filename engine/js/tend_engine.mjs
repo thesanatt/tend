@@ -15,6 +15,7 @@ export async function loadTend(moduleOptions = {}) {
   function withImage(image, fn) {
     const bytes = image instanceof Uint8Array ? image : new Uint8Array(image);
     const ptr = M._malloc(bytes.length || 1);
+    if (!ptr) throw new Error('tend: out of memory');
     try {
       M.HEAPU8.set(bytes, ptr);
       return fn(ptr, bytes.length);
@@ -35,6 +36,7 @@ export async function loadTend(moduleOptions = {}) {
   function evaluateRaw(image, inputJson) {
     return withImage(image, (ptr, len) => {
       const input = M.stringToNewUTF8(inputJson);
+      if (!input) throw new Error('tend: out of memory');
       try {
         return takeString(M._tend_eval_json(ptr, len, input));
       } finally {

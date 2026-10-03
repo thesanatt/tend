@@ -198,7 +198,8 @@ id, pinpoint, and the start of its quote. `switch` cases print on their own line
 
 ## 4. Semantics as compiled (SPEC v1.1)
 
-Items are processed in order of (date, item_id), byte order on item_id, stable for exact ties;
+Items are processed in order of (date, item_id), byte order on item_id (ids are unique, so the order
+is total);
 `lines` come out in that order. Every line reports `requested_cents` = its amount; only eligible
 lines carry a nonzero `allowed_cents`.
 
@@ -290,7 +291,8 @@ Errors come back as `{"error":{"code":...,"message":...}}` with code `bad_image`
 (the message names the field, for example `items[3].amount_cents: must not be negative`),
 `jurisdiction_mismatch`, or `vm_trap`.
 
-Input notes: dates are strict `YYYY-MM-DD`; amounts, insurance, and units are integers >= 0;
+Input notes: `item_id` is required, non-empty, and unique within the claim (a repeat is `bad_input`,
+for example `items[2].item_id: duplicate of items[0]`); dates are strict `YYYY-MM-DD`; amounts, insurance, and units are integers >= 0;
 `confirmed`, `is_bill`, `forensic_exam` default to false; `police_report` defaults to unknown;
 `expense` outside the enum becomes `unknown`; `tags` is a list of strings; `description` and any
 other field are ignored and never echoed.

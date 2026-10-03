@@ -107,7 +107,7 @@ laws: $(BUILD)/tendc
 	./scripts/build_laws.sh $(IR) $(VERIFIED) $(BUILD)/laws
 
 wasm:
-	./scripts/build_wasm.sh
+	./scripts/build_wasm.sh "$(CURDIR)/../web/public/engine" "$(abspath $(IR))" "$(abspath $(VERIFIED))"
 
 clean:
 	rm -rf build

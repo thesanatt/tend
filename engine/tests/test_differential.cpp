@@ -148,7 +148,8 @@ json random_claim(Rng& r) {
   int n = int(r.range(0, 40));
   for (int i = 0; i < n; i++) {
     int64_t amount = r.chance(2) ? INT64_MAX - r.range(0, 5) : money(r);
-    json it = {{"item_id", "i" + std::to_string(r.range(0, n))},
+    // Ids repeat their prefix so (date, id) ordering still sees shared prefixes; the suffix keeps them unique.
+    json it = {{"item_id", "i" + std::to_string(r.range(0, n)) + "-" + std::to_string(i)},
                {"date", date_of(incident + r.range(-15, std::max<int64_t>(as_of - incident, 0) + 15))},
                {"amount_cents", amount}};
     if (r.chance(95)) {

@@ -426,17 +426,36 @@ TEST_CASE("collateral and exam payment written as info rules behave like their o
 
 TEST_CASE("lines come out in (date, item_id) order whatever the input order") {
   std::vector<json> items = {item("b", "2026-06-20", 1, "medical"), item("a", "2026-06-20", 2, "medical"),
-                             item("c", "2026-06-15", 3, "medical"), item("dup", "2026-06-16", 4, "medical"),
-                             item("dup", "2026-06-16", 5, "medical"), item("\xC3\xA9", "2026-06-20", 6, "medical"),
+                             item("c", "2026-06-15", 3, "medical"), item("d2", "2026-06-16", 4, "medical"),
+                             item("d1", "2026-06-16", 5, "medical"), item("\xC3\xA9", "2026-06-20", 6, "medical"),
                              item("Z", "2026-06-20", 7, "medical")};
   json out = run(law({kMed}), claim(items));
   std::vector<std::string> order;
   for (const auto& l : out["lines"]) order.push_back(l["item_id"]);
-  CHECK(order == std::vector<std::string>{"c", "dup", "dup", "Z", "a", "b", "\xC3\xA9"});
-  CHECK(out["lines"][1]["requested_cents"] == 4);  // stable for exact ties
-  CHECK(out["lines"][2]["requested_cents"] == 5);
+  CHECK(order == std::vector<std::string>{"c", "d1", "d2", "Z", "a", "b", "\xC3\xA9"});
   std::vector<json> reordered = {items[6], items[5], items[3], items[4], items[2], items[1], items[0]};
   CHECK(th::strip_sha(run(law({kMed}), claim(reordered))) == th::strip_sha(out));
+}
+
+TEST_CASE("item ids must be unique, so every line and trace entry names one item") {
+  std::vector<uint8_t> img = th::compile(law({kMed}));
+  auto first_error = [&](const std::vector<json>& items) {
+    json out = json::parse(th::eval_raw(img, claim(items).dump()));
+    return out.contains("error") ? out["error"]["code"].get<std::string>() + ": " + out["error"]["message"].get<std::string>()
+                                 : std::string("ok");
+  };
+  CHECK(first_error({item("a", "2026-06-20", 1, "medical"), item("b", "2026-06-20", 2, "medical")}) == "ok");
+  CHECK(first_error({item("a", "2026-06-20", 1, "medical"), item("b", "2026-06-21", 2, "medical"),
+                     item("a", "2026-06-20", 3, "medical")}) == "bad_input: items[2].item_id: duplicate of items[0]");
+  // Same id on different dates would otherwise land on two separate lines.
+  CHECK(first_error({item("x", "2026-06-20", 1, "medical"), item("x", "2026-07-20", 1, "medical")}) ==
+        "bad_input: items[1].item_id: duplicate of items[0]");
+  // Ids compare after unescaping: an escaped id and its raw UTF-8 spelling are the same id.
+  std::string raw = R"({"context":{"incident_date":"2026-06-14","as_of_date":"2026-10-03"},"items":[)"
+                    R"({"item_id":"é","date":"2026-07-01","amount_cents":5},)"
+                    "{\"item_id\":\"\xC3\xA9\",\"date\":\"2026-07-02\",\"amount_cents\":6}]}";
+  json out = json::parse(th::eval_raw(img, raw));
+  CHECK(out["error"]["message"] == "items[1].item_id: duplicate of items[0]");
 }
 
 TEST_CASE("output shape matches the spec") {

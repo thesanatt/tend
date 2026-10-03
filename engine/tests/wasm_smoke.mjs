@@ -27,6 +27,13 @@ if (bad.error?.code !== 'bad_image') {
   console.error('wasm_smoke: a truncated image was not rejected');
   process.exit(1);
 }
+const doubled = JSON.parse(claim);
+doubled.items.push({ ...doubled.items[0] });
+const dup = tend.evaluate(image, doubled);
+if (dup.error?.message !== `items[${doubled.items.length - 1}].item_id: duplicate of items[0]`) {
+  console.error('wasm_smoke: a repeated item_id was not rejected');
+  process.exit(1);
+}
 const info = tend.inspect(image);
 const t0 = performance.now();
 for (let i = 0; i < 200; i++) tend.evaluateRaw(image, claim);
