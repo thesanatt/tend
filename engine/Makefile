@@ -6,6 +6,7 @@
 #   make bench        1M-item benchmark
 #   make laws         compile every jurisdiction in IR (rules/ir + rules/verified) to build/laws
 #   make wasm         Emscripten build into ../web/public/engine/
+#   make wasm-parity  WASM vs native, byte for byte, on the difftest claims
 
 BUILD ?= build
 OPT ?= -O2
@@ -39,7 +40,7 @@ TEST_OBJS := $(TEST_SRCS:%.cpp=$(OBJ)/%.o)
 FIXTURE_IR := tests/fixtures/ir/ZZ.json
 FIXTURE_CLAIM := tests/fixtures/ZZ_claim.json
 
-.PHONY: all test test-san fuzz bench laws wasm clean
+.PHONY: all test test-san fuzz bench laws wasm wasm-parity clean
 
 all: $(BUILD)/libtend.a $(SHLIB) $(BUILD)/tendc $(BUILD)/tdis $(BUILD)/tendvm
 
@@ -108,6 +109,14 @@ laws: $(BUILD)/tendc
 
 wasm:
 	./scripts/build_wasm.sh "$(CURDIR)/../web/public/engine" "$(abspath $(IR))" "$(abspath $(VERIFIED))"
+
+# The WASM build against the native engine on the difftest's claims (2,000 per
+# jurisdiction by default), byte for byte, using the shipped law images.
+PARITY_N ?= 2000
+wasm-parity: all
+	rm -rf build/wasm-corpus
+	python3 ../refengine/difftest.py --n $(PARITY_N) --ir-dir $(IR) --verified-dir $(VERIFIED) --corpus build/wasm-corpus
+	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/wasm_parity.mjs build/wasm-corpus ../web/public/engine
 
 clean:
 	rm -rf build
