@@ -1,0 +1,586 @@
+{
+  "jurisdiction": "ND",
+  "name": "North Dakota",
+  "program": {
+    "program_name": "Crime Victims Compensation Program",
+    "agency": "North Dakota Department of Corrections and Rehabilitation, Division of Adult Services",
+    "website": "https://www.docr.nd.gov/crime-victims-compensation",
+    "apply_url": "https://portalapps.nd.gov/docr/cvc-application/",
+    "application_pdf_url": null,
+    "phone": "701-328-6195",
+    "phone_source_id": "ND-S2",
+    "statute_citation": "N.D.C.C. ch. 54-23.4; N.D. Admin. Code art. 94-03; N.D.C.C. 12.1-34-07 (exam costs)"
+  },
+  "sources": [
+    {
+      "id": "ND-S1",
+      "title": "N.D.C.C. ch. 54-23.4 (Crime Victims Compensation)",
+      "url": "https://www.ndlegis.gov/cencode/t54c23-4.pdf",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:50:53Z",
+      "raw_path": "rules/sources/ND/ND-S1.pdf",
+      "text_path": "rules/sources/ND/ND-S1.txt",
+      "sha256": "88da8a9d21468105c829acb5c10deb19e567e8c12354fa9b5f1d45fa1bd4fa39"
+    },
+    {
+      "id": "ND-S2",
+      "title": "ND DOCR Crime Victims Compensation program page",
+      "url": "https://www.docr.nd.gov/crime-victims-compensation",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:50:53Z",
+      "raw_path": "rules/sources/ND/ND-S2.html",
+      "text_path": "rules/sources/ND/ND-S2.txt",
+      "sha256": "052366d93825268a2b1afe81e267362b487f9a633f0c2ebd2e59da525370198f"
+    },
+    {
+      "id": "ND-S3",
+      "title": "N.D. Admin. Code ch. 94-03-01 (general administration)",
+      "url": "https://ndlegis.gov/information/acdata/pdf/94-03-01.pdf",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:50:54Z",
+      "raw_path": "rules/sources/ND/ND-S3.pdf",
+      "text_path": "rules/sources/ND/ND-S3.txt",
+      "sha256": "163d5a8bae976a8d526ccbf37d77ee208a5ce2b58da4f123ef4e4ea4f8d4e9ce"
+    },
+    {
+      "id": "ND-S4",
+      "title": "N.D. Admin. Code ch. 94-03-02 (definitions)",
+      "url": "https://ndlegis.gov/information/acdata/pdf/94-03-02.pdf",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:50:54Z",
+      "raw_path": "rules/sources/ND/ND-S4.pdf",
+      "text_path": "rules/sources/ND/ND-S4.txt",
+      "sha256": "567856ed64d9ba70c7842d7949f801d8fe12765c00ef9246fb2f752c5819b641"
+    },
+    {
+      "id": "ND-S5",
+      "title": "N.D. Admin. Code ch. 94-03-03 (application for compensation)",
+      "url": "https://ndlegis.gov/information/acdata/pdf/94-03-03.pdf",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:50:54Z",
+      "raw_path": "rules/sources/ND/ND-S5.pdf",
+      "text_path": "rules/sources/ND/ND-S5.txt",
+      "sha256": "d8c38aba4b36053b6d81f2c3652e1bf87dcf4b2affa8c94438101d89a848ae3c"
+    },
+    {
+      "id": "ND-S6",
+      "title": "ND DOCR CVC Application Tips (PDF)",
+      "url": "https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Forms/CVC%20Application%20Tips.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:50:55Z",
+      "raw_path": "rules/sources/ND/ND-S6.pdf",
+      "text_path": "rules/sources/ND/ND-S6.txt",
+      "sha256": "a2b124e4870d02b07043ee3c402f269f87bb520b8a1c00cbab48e3d06ff64510"
+    },
+    {
+      "id": "ND-S7",
+      "title": "N.D.C.C. ch. 12.1-34 (incl. 12.1-34-07, forensic medical examination costs)",
+      "url": "https://www.ndlegis.gov/cencode/t12-1c34.pdf",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:09Z",
+      "raw_path": "rules/sources/ND/ND-S7.pdf",
+      "text_path": "rules/sources/ND/ND-S7.txt",
+      "sha256": "5140cf5ae2030a917f986a49d361dcdde4cf16213380e07599c378913f7db563"
+    },
+    {
+      "id": "ND-S8",
+      "title": "ND CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025)",
+      "url": "https://www.docr.nd.gov/sites/www/files/documents/victims/ND%20CVC%20MH%20Policy%20and%20Provider%20Form%20%5BFillable%5D.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:51:36Z",
+      "raw_path": "rules/sources/ND/ND-S8.pdf",
+      "text_path": "rules/sources/ND/ND-S8.txt",
+      "sha256": "736fd6282d231a99552ea538f970c8cbd2efc22effa8da6ae0548a9e338991d4"
+    }
+  ],
+  "rules": [
+    {
+      "id": "ND-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "prohibited"
+      },
+      "summary": "When an acute forensic medical exam is done for alleged criminal sexual conduct or domestic violence (within 120 hours unless good cause is shown for the delay), neither the exam nor any preliminary medical screening may be charged to the survivor, directly or through insurance or another third-party payer.",
+      "quote": "performed within one hundred twenty hours after the alleged crime unless good cause is shown for the delay in performing the examination. When an acute forensic medical examination is performed, the costs incurred by a health care facility or health care professional for performing the acute forensic medical examination or any preliminary medical screening examination may not be charged, either directly or through a third-party payer, to the alleged victim.",
+      "source_id": "ND-S7",
+      "pinpoint": "N.D.C.C. 12.1-34-07(1)"
+    },
+    {
+      "id": "ND-EXAM-CHILD",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "prohibited"
+      },
+      "summary": "For a child forensic exam after alleged sexual abuse, physical abuse, or neglect, neither the exam nor any preliminary medical screening may be charged to the child or the child's parent, guardian, or custodian, directly or through insurance or another third-party payer.",
+      "quote": "When a child forensic medical examination is performed, the costs incurred by a health care facility or health care professional for performing the child forensic medical examination or any preliminary medical screening examination may not be charged, either directly or through a third-party payer, to the alleged child victim or the child's parent, guardian, or custodian.",
+      "source_id": "ND-S7",
+      "pinpoint": "N.D.C.C. 12.1-34-07(2)"
+    },
+    {
+      "id": "ND-EXAM-2",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "North Dakota Attorney General, from the state general fund, reimburses the health care facility or professional"
+      },
+      "summary": "The Attorney General reimburses the hospital or provider for the reasonable cost of the medical screening and acute forensic exam, within the limits of legislative appropriations.",
+      "quote": "Upon submission of appropriate documentation, the attorney general, within the limits of legislative appropriations, shall reimburse from the general fund the health care facility or a health care professional for the reasonable costs incurred in performing the medical screening and acute forensic medical examination.",
+      "source_id": "ND-S7",
+      "pinpoint": "N.D.C.C. 12.1-34-07(3)"
+    },
+    {
+      "id": "ND-CAP-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000
+      },
+      "summary": "The total award for one victim and all claimants together may not exceed $25,000.",
+      "quote": "Compensation payable to a victim and to all other claimants sustaining economic loss because of injury to or death of that victim may not exceed twenty-five thousand dollars in the aggregate.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(8)"
+    },
+    {
+      "id": "ND-CAP-COUNSEL-ADULT",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 360000,
+        "per": "claim",
+        "count_limit": 30
+      },
+      "summary": "For adult victims, mental health counseling is limited to 30 sessions and $3,600 total (sessions must fall within the treatment window set by the rule).",
+      "quote": "For adult victims, no more than thirty sessions, and total compensation may not exceed three thousand six hundred dollars.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(b)(1)"
+    },
+    {
+      "id": "ND-CAP-COUNSEL-MINOR",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 480000,
+        "per": "claim",
+        "count_limit": 40
+      },
+      "summary": "For minor victims, mental health counseling is limited to 40 sessions and $4,800 total.",
+      "quote": "For minor victims, no more than forty sessions, and total compensation may not exceed four thousand eight hundred dollars.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(b)(2)"
+    },
+    {
+      "id": "ND-CAP-COUNSEL-EXTRA",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 120000,
+        "per": "claim",
+        "count_limit": 10
+      },
+      "summary": "If the provider shows a need, up to 10 more counseling sessions and up to $1,200 more may be allowed, still inside the same treatment window.",
+      "quote": "If a provider substantiates the need for additional sessions, the division may allow up to ten additional sessions and up to one thousand two hundred dollars total compensation for the additional sessions.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(b)(6)"
+    },
+    {
+      "id": "ND-CAP-WAGES-WEEK",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "amount_cents": 30000,
+        "per": "week"
+      },
+      "summary": "Work loss (and replacement services and dependent's losses) is paid at no more than $300 per week.",
+      "quote": "Compensation for work loss, replacement services loss, dependent's economic loss, and dependent's replacement services loss may not exceed three hundred dollars per week.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(7)"
+    },
+    {
+      "id": "ND-CAP-WAGES-TOTAL",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "amount_cents": 480000,
+        "per": "claim"
+      },
+      "summary": "Work loss is capped at $300 per week and $4,800 in total.",
+      "quote": "Payment for work loss may not exceed more than three hundred dollars per week up to a maximum of four thousand eight hundred dollars.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-13(2)(a)"
+    },
+    {
+      "id": "ND-CAP-TRAVEL",
+      "category": "expense_cap",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Reimbursement for crime-related lodging, meals, and mileage is capped at $1,000.",
+      "quote": "The maximum reimbursement for lodging, meals, and mileage is one thousand dollars.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-16(2)(d)"
+    },
+    {
+      "id": "ND-CAP-RX",
+      "category": "expense_cap",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "New prescription medications are covered up to $1,000.",
+      "quote": "The division may not pay more than one thousand dollars for new prescription medications.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-08(2)(b)"
+    },
+    {
+      "id": "ND-CAP-DENTAL",
+      "category": "expense_cap",
+      "expense": "dental",
+      "params": {
+        "expense": "dental",
+        "amount_cents": 500000,
+        "per": "claim"
+      },
+      "summary": "Dental services are covered up to $5,000.",
+      "quote": "The division may not pay more than five thousand dollars for dental services.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-09(2)(a)"
+    },
+    {
+      "id": "ND-CAP-FUNERAL",
+      "category": "expense_cap",
+      "expense": "funeral",
+      "params": {
+        "expense": "funeral",
+        "amount_cents": 500000,
+        "per": "claim"
+      },
+      "summary": "Funeral, cremation, and burial expenses are covered up to $5,000.",
+      "quote": "The term includes a total charge not in excess of five thousand dollars for expenses in any way related to funeral, cremation, and burial.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-01(7)(a)"
+    },
+    {
+      "id": "ND-CAP-REPLACE",
+      "category": "expense_cap",
+      "expense": "other",
+      "params": {
+        "expense": "other",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Replacement services loss (paying someone for household services the victim can no longer do) is capped at $1,000.",
+      "quote": "The division may not pay more than one thousand dollars for replacement services loss.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-15(2)"
+    },
+    {
+      "id": "ND-COV-MEDICAL",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Reasonable charges for needed medical care, rehabilitation, and other remedial treatment caused by the injury are allowable expenses.",
+      "quote": "\"Allowable expense\" means reasonable charges incurred for reasonably needed products, services, and accommodations required due to the injury, including those for medical care, rehabilitation, rehabilitative occupational training, and other remedial treatment and care.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-01(7)(a)"
+    },
+    {
+      "id": "ND-COV-COUNSEL",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Mental health assessment, diagnosis, and treatment, including individual or group counseling, is covered.",
+      "quote": "Assessment, diagnosis, and treatment, including individual or group counseling sessions.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(a)"
+    },
+    {
+      "id": "ND-COV-WAGES",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Work loss (income the victim would have earned if not injured) is a compensable economic loss.",
+      "quote": "\"Work loss\" means loss of income from work the victim would have performed if the victim had not been injured",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-01(7)(f)"
+    },
+    {
+      "id": "ND-COV-TRAVEL",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "The program may reimburse meals, lodging, and travel directly related to the crime.",
+      "quote": "The division may reimburse a claimant for meals, lodging, and travel expenses for travel directly related to the criminally injurious conduct.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-16"
+    },
+    {
+      "id": "ND-COV-DENTAL",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "Medical and dental expenses from the incident may be covered.",
+      "quote": "Medical/Dental benefits for the Victim – If the victim has medical or dental expenses from the incident, they may be eligible for medical/dental benefits.",
+      "source_id": "ND-S6",
+      "pinpoint": "CVC Application Tips, Section 4"
+    },
+    {
+      "id": "ND-COV-DEPCARE",
+      "category": "covered_expense",
+      "expense": "other",
+      "params": {
+        "expense": "other"
+      },
+      "summary": "The program's application guide lists dependent care benefits when the victim was the primary caregiver.",
+      "quote": "Dependent Care – If the victim was the primary caregiver, the family may be eligible for dependent care benefits.",
+      "source_id": "ND-S6",
+      "pinpoint": "CVC Application Tips, Section 4"
+    },
+    {
+      "id": "ND-EXCL-PROPERTY",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "item": "property loss or damage"
+      },
+      "summary": "Claims for property loss or damage are not covered.",
+      "quote": "Claims for property loss or damage.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-04(5)"
+    },
+    {
+      "id": "ND-EXCL-NONECON",
+      "category": "excluded_expense",
+      "params": {
+        "item": "noneconomic detriment (pain, suffering, inconvenience)"
+      },
+      "summary": "Noneconomic harm such as pain, suffering, and inconvenience is not a compensable loss by itself.",
+      "quote": "Noneconomic detriment is not loss.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-01(7)"
+    },
+    {
+      "id": "ND-EXCL-FEES",
+      "category": "excluded_expense",
+      "params": {
+        "item": "interest, finance, or collection fees"
+      },
+      "summary": "The program does not pay interest, finance charges, or collection fees on bills.",
+      "quote": "The division may not pay compensation for interest, finance, or collection fees.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-08(2)(g)"
+    },
+    {
+      "id": "ND-EXCL-ATTY",
+      "category": "excluded_expense",
+      "expense": "legal",
+      "params": {
+        "expense": "legal"
+      },
+      "summary": "Attorney's fees for help filing a claim are not paid.",
+      "quote": "Attorney's fees are not allowable for assisting a claimant in filing a claim.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-11"
+    },
+    {
+      "id": "ND-DEADLINE-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 1,
+        "from": "report",
+        "extension": "The division may extend the time for filing in the interests of justice. The admin rule lists a minor applicant, or the applicant's physical and psychological condition substantially contributing to the inability to file on time; attorney error or not knowing about the program does not count (N.D. Admin. Code 94-03-03-02(1))."
+      },
+      "summary": "File within one year from the date the crime was reported to law enforcement; the program may extend this when the interests of justice require.",
+      "quote": "A claim for compensation must be filed within one year from the date the criminally injurious conduct was reported to a law enforcement officer. The division may extend the time for filing if it determines that the interests of justice so require.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(2)"
+    },
+    {
+      "id": "ND-REPORT-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true
+      },
+      "summary": "The crime must be reported to law enforcement within ninety-six hours (96 hours) unless the program finds good cause for the delay. No sexual-assault-specific alternative to a police report was found.",
+      "quote": "Compensation may not be awarded unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within ninety-six hours after its occurrence or the division finds there was good cause for the failure to report within that time.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(4)"
+    },
+    {
+      "id": "ND-REPORT-GOODCAUSE",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true
+      },
+      "summary": "Good cause for a late report includes evidence, such as medical records or verifiable third-party reports, that reporting on time would have put the applicant's health or safety at risk.",
+      "quote": "Evidence, including medical records or verifiable reports from third parties, which substantiate the applicant's health or safety would have been jeopardized if the criminally injurious conduct had been reported in a timely manner.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-01(2)(a)"
+    },
+    {
+      "id": "ND-REPORT-GOODCAUSE-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true
+      },
+      "summary": "Good cause for a late report also includes law enforcement confirming that the victim feared retaliation.",
+      "quote": "Law enforcement substantiates there was a fear of retaliation.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-01(2)(b)"
+    },
+    {
+      "id": "ND-REPORT-CHILD",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true
+      },
+      "summary": "For child abuse or sexual molestation of a child, the report to law enforcement must be made within three years after the child reaches the age of majority.",
+      "quote": "In the case of child abuse or sexual molestation of a child, the criminally injurious conduct must be reported to a law enforcement officer within three years after the child reaches the age of majority.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(4)"
+    },
+    {
+      "id": "ND-COLLATERAL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "Awards are reduced or denied to the extent the loss is recouped from other sources, including insurance and other collateral sources.",
+      "quote": "To the extent the economic loss upon which the claim is based is recouped from other persons, including collateral sources;",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(6)(a)"
+    },
+    {
+      "id": "ND-COLLATERAL-2",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The fund pays only for losses not paid by other sources such as health insurance, Medicaid, employer-paid leave, and online fundraising.",
+      "quote": "The crime victims compensation fund is a secondary source for payment for economic losses not paid by other collateral sources, including disability benefits; employer-paid leave, including sick leave or annual leave; health insurance, including medical, vision, and dental benefits; life insurance; Medicare; medical assistance or Medicaid; motor vehicle insurance; personal and charity fundraising, including online fundraising;",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-06(1)"
+    },
+    {
+      "id": "ND-CONDUCT-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "An award may be reduced or denied to the extent the program deems reasonable because of the victim's contributory misconduct.",
+      "quote": "To the extent the division deems reasonable because of the contributory misconduct of the claimant or of a victim on whose behalf compensation is claimed;",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(6)(b)"
+    },
+    {
+      "id": "ND-CONDUCT-2",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "An award may be reduced or denied if the program finds the victim's intoxication was a factor causing the crime.",
+      "quote": "To the extent the division deems reasonable when it is determined that a victim was under the influence of an alcoholic beverage or a controlled substance at the time the criminally injurious conduct occurred and the victim's intoxication was a factor causing the criminally injurious conduct.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(6)(c)"
+    },
+    {
+      "id": "ND-CONDUCT-3",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "The program may deny, reconsider, or reduce an award if the claimant has not fully cooperated with law enforcement.",
+      "quote": "The division, upon finding that the claimant has not fully cooperated with appropriate law enforcement agencies, may deny, reconsider, or reduce an award of compensation.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(5)"
+    },
+    {
+      "id": "ND-CONDUCT-4",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "The admin rule requires denial when the claimant's conduct contributed substantially to the incident; the listed conduct includes intoxication that was a factor in the crime. Human trafficking victims are excluded from this rule.",
+      "quote": "The division shall deny compensation if the claimant's conduct contributed substantially to the incident.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-05"
+    },
+    {
+      "id": "ND-EMERGENCY-1",
+      "category": "emergency_award",
+      "params": {},
+      "summary": "A tentative award may be paid if the claimant would otherwise suffer financial hardship and a final award appears likely; it is deducted from the final award.",
+      "quote": "If the division determines that the claimant will suffer financial hardship unless a tentative award is made, and it appears likely that a final award will be made, an amount may be paid to the claimant which must be deducted from the final award",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-14"
+    },
+    {
+      "id": "ND-CRIME-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Victims who suffered physical or emotional injuries from a violent crime can qualify. The sources do not list crimes by name; bodily injury is defined to include pregnancy and nervous shock.",
+      "quote": "The victim suffered physical or emotional injuries as a result of a violent crime, drunk driving, or hit and run.",
+      "source_id": "ND-S2",
+      "pinpoint": "DOCR CVC page, What is Eligibility Criteria?"
+    },
+    {
+      "id": "ND-CRIME-2",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Bodily injury means harm that requires medical treatment and results in economic loss; it includes pregnancy and nervous shock.",
+      "quote": "\"Bodily injury\" means any harm that requires medical treatment and results in economic loss and includes pregnancy and nervous shock.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-01(1)"
+    },
+    {
+      "id": "ND-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "Covers crimes in North Dakota. A North Dakota resident hurt outside the state has the same rights if the place where the crime happened has no compensation law covering the injury."
+      },
+      "summary": "Crimes in North Dakota are covered; a North Dakota resident victimized elsewhere can apply if that place has no crime victims compensation law covering the injury.",
+      "quote": "If a resident of this state is a victim of criminally injurious conduct, but the criminally injurious conduct occurred outside the geographical boundaries of this state, the resident has the same rights under this chapter as if the criminally injurious conduct occurred within this state upon a showing that the state, territory, country, or political subdivision of the country in which the criminally injurious conduct occurred does not have a crime victims compensation law which covers the bodily injury or death of the victim.",
+      "source_id": "ND-S1",
+      "pinpoint": "N.D.C.C. 54-23.4-06(1)"
+    }
+  ],
+  "coverage": {
+    "found": [
+      "exam_no_bill",
+      "exam_payment",
+      "total_cap",
+      "expense_cap",
+      "covered_expense",
+      "excluded_expense",
+      "filing_deadline",
+      "reporting_requirement",
+      "collateral_source",
+      "conduct_reduction",
+      "emergency_award",
+      "eligible_crime",
+      "residency"
+    ],
+    "not_found": [
+      "minimum_loss",
+      "expense_cap:relocation",
+      "expense_cap:security",
+      "covered_expense:relocation",
+      "covered_expense:security",
+      "covered_expense:temporary_housing",
+      "expense_cap:medical (no overall medical cap; only item sub-caps)",
+      "application_pdf_url",
+      "reporting_requirement:alternatives for sexual assault"
+    ],
+    "notes": "No general minimum loss was found; the only threshold is that a claimant must be unable to work at least three days to get work loss benefits (N.D. Admin. Code 94-03-03-13(2)(c)). No relocation, security, or temporary housing benefit appears in the statute, rules, or program pages. No sexual-assault-specific alternative to the 96-hour police report was found; late reports can be excused only for good cause. The application is online only (portalapps.nd.gov); no application PDF was found, so application_pdf_url is null. Medical has no overall cap but sub-caps: eyeglasses $500, alternative medical services $1,000, chiropractic or massage $1,200, cosmetic reconstructive procedures $5,000 (94-03-03-08(2)), and medical and dental services must be provided within two years of the crime. Counseling must fall within a two-year period beginning on the date of the first session (94-03-03-10(3)(b)). Home health services are capped at $300 per week and $4,800 total and must be provided within four months of the crime (94-03-03-11); a service animal is capped at $1,000 (94-03-03-12). The program page says the crime must be reported within 96 hours 'of the crime or discovery of the crime'; the statute and rule count 96 hours from the occurrence, so the engine follows the statute."
+  },
+  "confidence": "high",
+  "researcher_notes": "Statute text is the official ndlegis.gov Century Code PDF; admin rules are the official ndlegis.gov Article 94-03 PDFs (effective January 1, 2017). The program page agrees with the statute on the $25,000 total cap, the $300 per week wage cap, the 96-hour report, and the one-year filing deadline; the page states the wage cap as 'up to 16 weeks' and the rule as a $4,800 maximum (same total). Filing deadline runs from the date of the police report, not the crime. Work loss is limited to four months from the crime and is not paid while sick or annual leave is available. Travel requires at least 150 miles round trip and vehicle rental is capped at $30 per day. If the claimant has no insurance or other collateral source, the program pays 80 percent of billed charges for eligible medical, dental, or mental health services (94-03-03-06(3)); the 2025 mental health policy form describes provider reimbursement at 80 percent of patient responsibility. Forensic exam: under N.D.C.C. 12.1-34-07 the acute exam (within 120 hours unless good cause) may not be charged to the survivor directly or through a third-party payer, and the Attorney General reimburses providers; the statute does not condition this on a police report. The program page notes crowdfunding may be treated as a collateral source and restitution or civil recovery must be repaid. Contributory misconduct rule 94-03-03-05 lists conduct that requires denial; Tend shows conduct rules as information only. Reviewer: N.D.C.C. 12.1-34-07(2) separately bars charging a child forensic exam (criminal sexual conduct, physical abuse, or neglect) to the child or parent, and is recorded as ND-EXAM-CHILD."
+}

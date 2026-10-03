@@ -1,0 +1,647 @@
+{
+ "jurisdiction": "NH",
+ "name": "New Hampshire",
+ "program": {
+  "program_name": "New Hampshire Victims' Compensation Program",
+  "agency": "New Hampshire Department of Justice, Office of the Attorney General (Victims' Assistance Commission)",
+  "website": "https://www.doj.nh.gov/bureaus/victims-compensation-program",
+  "apply_url": "https://www.doj.nh.gov/bureaus/victims-compensation-program",
+  "application_pdf_url": "https://mm.nh.gov/files/uploads/doj/remote-docs/victims-compensation-application-form.pdf",
+  "phone": "1-800-300-4500",
+  "phone_source_id": "NH-S1",
+  "statute_citation": "RSA 21-M:8-c; RSA 21-M:8-g to 21-M:8-k; N.H. Admin. Rules Jus 600"
+ },
+ "sources": [
+  {
+   "id": "NH-S1",
+   "title": "New Hampshire DOJ, Victims' Compensation Program page and FAQ",
+   "url": "https://www.doj.nh.gov/bureaus/victims-compensation-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:30Z",
+   "raw_path": "rules/sources/NH/NH-S1.html",
+   "text_path": "rules/sources/NH/NH-S1.txt",
+   "sha256": "92be8603b0ed452e230171c91fe92d06a960b59d2072a5399e7c3435653d4bde"
+  },
+  {
+   "id": "NH-S2",
+   "title": "New Hampshire Victims' Compensation Program Application Form (rev. 02/11/2021)",
+   "url": "https://mm.nh.gov/files/uploads/doj/remote-docs/victims-compensation-application-form.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:47:40Z",
+   "raw_path": "rules/sources/NH/NH-S2.pdf",
+   "text_path": "rules/sources/NH/NH-S2.txt",
+   "sha256": "b595d4c71d5ffcf33def3e0bfee2b261852f442e2c2309f06134c783442c999c"
+  },
+  {
+   "id": "NH-S4",
+   "title": "N.H. Admin. Rules, Chapter Jus 600, Victims' Compensation",
+   "url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:47:41Z",
+   "raw_path": "rules/sources/NH/NH-S4.html",
+   "text_path": "rules/sources/NH/NH-S4.txt",
+   "sha256": "0eb59816978704017909de3e8e10d63a61a59969caf139bec46adf1548d28b9a"
+  },
+  {
+   "id": "NH-S5",
+   "title": "RSA 21-M:8-h, Claimant Eligibility; Compensation",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:42Z",
+   "raw_path": "rules/sources/NH/NH-S5.html",
+   "text_path": "rules/sources/NH/NH-S5.txt",
+   "sha256": "4214894f99c623a79d9cd9ee1f96e984cc5d403df37174a423d2afa51c259a34"
+  },
+  {
+   "id": "NH-S6",
+   "title": "RSA 21-M:8-c, Victim of Alleged Sexual Offense",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-c.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:42Z",
+   "raw_path": "rules/sources/NH/NH-S6.html",
+   "text_path": "rules/sources/NH/NH-S6.txt",
+   "sha256": "b28b4df641301269529d7181f970f36be8e2a68a72c8ff3bf50d590e45929229"
+  }
+ ],
+ "rules": [
+  {
+   "id": "NH-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "A physician or hospital that examines a survivor to gather evidence must provide the exam without charge to the survivor. Private insurance is billed only if the survivor chooses to use it.",
+   "quote": "If a physician or a hospital provides any physical examination of a victim of an alleged sexual offense to gather information and evidence of the alleged crime, these services shall be provided without charge to the individual.",
+   "source_id": "NH-S6",
+   "pinpoint": "RSA 21-M:8-c",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-c.htm#:~:text=If%20a%20physician%20or%20a,without%20charge%20to%20the%20individual."
+  },
+  {
+   "id": "NH-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "The bill for a sexual assault medical exam may not be sent or given to the survivor or the survivor's family.",
+   "quote": "The bill for the medical examination of a sexual assault victim shall not be sent or given to the victim or the family of the victim.",
+   "source_id": "NH-S6",
+   "pinpoint": "RSA 21-M:8-c",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-c.htm#:~:text=The%20bill%20for%20the%20medical,the%20family%20of%20the%20victim."
+  },
+  {
+   "id": "NH-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "If a survivor with insurance chooses to bill it, the provider bills the insurer, and neither the survivor nor the department may be billed for anything above the coverage limit. Survivors on Medicaid or Medicare whose kit is not anonymous are billed to Medicaid or Medicare under a separate rule.",
+   "quote": "If the victim of a felonious sexual assault has insurance, and chooses to bill their healthcare insurance, the health provider shall seek payment from the patient's healthcare insurer. Neither the patient nor the department shall be billed for anything above the coverage limit",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(c)(2)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=If%20the%20victim%20of%20a,anything%20above%20the%20coverage%20limit"
+  },
+  {
+   "id": "NH-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "New Hampshire Department of Justice (or the provider writes off the charges)"
+   },
+   "summary": "If a survivor chooses to remain anonymous, the provider bills the Department of Justice or writes off the charges, even when the survivor has insurance.",
+   "quote": "If the victim of a felonious sexual assault chooses to remain anonymous, even if they have healthcare insurance, the health provider shall seek payment directly from the department or shall write off such charges",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(c)(1)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=If%20the%20victim%20of%20a,shall%20write%20off%20such%20charges"
+  },
+  {
+   "id": "NH-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "New Hampshire Department of Justice"
+   },
+   "summary": "The Department of Justice reimburses the physician or hospital for the exam to the extent the cost is not covered by health insurance or a similar third party.",
+   "quote": "Upon submission of appropriate documentation, the physician or hospital shall be reimbursed for the cost of such examination by the department of justice to the extent such costs are not the responsibility of a third party under a health insurance policy or similar third party obligation.",
+   "source_id": "NH-S6",
+   "pinpoint": "RSA 21-M:8-c",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-c.htm#:~:text=Upon%20submission%20of%20appropriate%20documentation%2C,or%20similar%20third%20party%20obligation."
+  },
+  {
+   "id": "NH-EXAM-6",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "New Hampshire Department of Justice (deductibles and co-payments)"
+   },
+   "summary": "If a survivor uses insurance for the exam, the Department of Justice pays or reimburses any deductible or co-payment.",
+   "quote": "If a person who claims to be a victim of a felonious sexual assault has health insurance, and opts to use their insurance, which requires the payment of a deductible or a co-payment for such services or examination, the department shall either reimburse the victim for such payment made or pay such deductible or co-payment directly.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(d)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=If%20a%20person%20who%20claims,such%20deductible%20or%20co%2Dpayment%20directly."
+  },
+  {
+   "id": "NH-EXAM-7",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "A person examined by a physician or hospital after a felonious sexual assault, for treatment or to gather evidence, may not be charged for services related to the assault or other crime-related injuries. Payments are at the fee for service Medicaid rate.",
+   "quote": "a person who claims to be a victim of a felonious sexual assault who is examined by a physician or hospital for the purpose of treatment, gathering information or evidence shall not be charged for such services or examination that relate to the sexual assault and any other crime-related injuries",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(a)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=a%20person%20who%20claims%20to,and%20any%20other%20crime%2Drelated%20injuries"
+  },
+  {
+   "id": "NH-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Medicaid or Medicare (survivor enrolled and kit not anonymous)"
+   },
+   "summary": "If the survivor is covered by Medicaid or Medicare and the kit is not anonymous, the provider bills Medicaid or Medicare directly. This is an exception to billing insurance only by choice.",
+   "quote": "If the victim of a felonious sexual assault is covered by Medicaid or Medicare and the reporting kit is not anonymous, the health provider shall seek payment directly from Medicaid or Medicare.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(c)(3)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=If%20the%20victim%20of%20a,directly%20from%20Medicaid%20or%20Medicare."
+  },
+  {
+   "id": "NH-EXAM-9",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "New Hampshire Department of Justice (follow-up care)"
+   },
+   "summary": "The Department of Justice also pays for follow-up services and exams related to the sexual assault, but not for other crime-related injuries under this rule.",
+   "quote": "The department shall also pay for follow-up services and examination related to the sexual assault only and shall not pay for such services or examinations for other crime-related injuries or expenses.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(a)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20department%20shall%20also%20pay,other%20crime%2Drelated%20injuries%20or%20expenses."
+  },
+  {
+   "id": "NH-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 5000000
+   },
+   "summary": "The statute caps recovery at $50,000 per claimant per incident. The program web page states a lower figure; the statute controls.",
+   "quote": "There shall be a $50,000 maximum recovery per claimant per incident.",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, V",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=There%20shall%20be%20a%20%2450%2C000,recovery%20per%20claimant%20per%20incident."
+  },
+  {
+   "id": "NH-CAP-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "amount_cents": 400000,
+    "per": "claim",
+    "count_limit": 40
+   },
+   "summary": "Counseling is covered up to $4,000 or 40 visits, whichever comes first.",
+   "quote": "The commission shall award compensation up to $4,000 in total expenses, or 40 visits, whichever comes first",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.04(e)(2)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20commission%20shall%20award%20compensation,40%20visits%2C%20whichever%20comes%20first"
+  },
+  {
+   "id": "NH-CAP-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "amount_cents": 7500,
+    "per": "session"
+   },
+   "summary": "Therapists who sign the program's treatment plan form agree to accept $75 per individual session and $35 per group session as payment in full.",
+   "quote": "I will accept the NH Victims' Compensation Program's reimbursement of $75 for an individual, crime-related, therapy session and $35 for a group, crime-related, therapy session as payment in full",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 604.08(c)(3)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=I%20will%20accept%20the%20NH,session%20as%20payment%20in%20full"
+  },
+  {
+   "id": "NH-CAP-4",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Relocation expenses are capped at $5,000, as a one-time benefit per claim.",
+   "quote": "Relocation expenses shall be capped at $5,000",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.07(e)(3)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Relocation%20expenses%20shall%20be%20capped%20at%20%245%2C000"
+  },
+  {
+   "id": "NH-CAP-5",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "amount_cents": 300000,
+    "per": "claim"
+   },
+   "summary": "Safety and security expenses are capped at $3,000.",
+   "quote": "Safety and security expenses shall be capped at $3,000.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.10(c)(5)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Safety%20and%20security%20expenses%20shall%20be%20capped%20at%20%243%2C000."
+  },
+  {
+   "id": "NH-CAP-6",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "amount_cents": 50000,
+    "per": "claim"
+   },
+   "summary": "Mileage for crime-related interviews, court proceedings, protective order hearings and parole is capped at $500.",
+   "quote": "A $500 cap for mileage reimbursement for travel to crime-related interviews, pre-trial, trial, sentencing, hearings for securing protective orders and parole.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.11(a)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=A%20%24500%20cap%20for%20mileage,securing%20protective%20orders%20and%20parole."
+  },
+  {
+   "id": "NH-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {},
+   "summary": "Reasonable and necessary medical treatment by licensed providers is covered after insurance and other sources are applied.",
+   "quote": "The actual cost of reasonable and necessary medical treatment provided by licensed health-care personnel, after first applying any available insurance or other available collateral financial source",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.03(d)(1)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20actual%20cost%20of%20reasonable,other%20available%20collateral%20financial%20source"
+  },
+  {
+   "id": "NH-COV-2",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {},
+   "summary": "The program lists medical and dental care among the costs it can pay.",
+   "quote": "Medical and dental care;",
+   "source_id": "NH-S1",
+   "pinpoint": "NH DOJ Victims' Compensation Program page, What Costs May Be Paid?",
+   "fragment_url": "https://www.doj.nh.gov/bureaus/victims-compensation-program#:~:text=Medical%20and%20dental%20care%3B"
+  },
+  {
+   "id": "NH-COV-3",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {},
+   "summary": "Prescription medications for the survivor's physical and mental health injuries are covered.",
+   "quote": "The portion of the cost of all prescription medications prescribed to treat the victim's physical and mental health injuries",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.03(d)(2)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20portion%20of%20the%20cost,physical%20and%20mental%20health%20injuries"
+  },
+  {
+   "id": "NH-COV-4",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {},
+   "summary": "Individual or group therapy by licensed mental health providers is covered for issues directly caused by the crime, after insurance.",
+   "quote": "The actual cost of treatment, whether individual, group, or both, provided by licensed mental health personnel, after first applying any available insurance or other available collateral financial source, for mental health issues that were directly caused by the crime",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.04(d)(1)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20actual%20cost%20of%20treatment%2C,directly%20caused%20by%20the%20crime"
+  },
+  {
+   "id": "NH-COV-5",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {},
+   "summary": "Lost wages are covered at up to 75% of pre-crime wages for up to 3 months, counting any workers' compensation or disability benefits.",
+   "quote": "The total compensation paid for lost wages shall not exceed 75% of the claimant's pre-crime wages, not to exceed 3 months, including any workers' compensation or disability benefits received.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.05(e)(3)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20total%20compensation%20paid%20for,compensation%20or%20disability%20benefits%20received."
+  },
+  {
+   "id": "NH-COV-6",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {},
+   "summary": "Lost wages can be paid even if the survivor used paid leave to cover the time off, including time for medical, counseling, police and court appointments.",
+   "quote": "Wages lost for any of the reasons listed under (c) above shall be compensable even if the claimant had leave time available from his or her employer and was paid by using such leave time.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.05(d)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Wages%20lost%20for%20any%20of,by%20using%20such%20leave%20time."
+  },
+  {
+   "id": "NH-COV-7",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {},
+   "summary": "Relocation can be paid when the offender poses a continuing threat; without a restraining order, a letter from a victim's advocate explaining why can stand in.",
+   "quote": "If the claimant does not have a restraining order against the abuser, the claimant shall present a letter from a victim's advocate setting forth the basis for not obtaining a protective order, which may include, among other reasons, safety concerns for the claimant",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.07(a)(2)b.",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=If%20the%20claimant%20does%20not,safety%20concerns%20for%20the%20claimant"
+  },
+  {
+   "id": "NH-COV-8",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {},
+   "summary": "Security costs are covered, including installing a home monitoring system, up to one year of monitoring, and locks for windows and doors.",
+   "quote": "Installation costs of a residential monitoring system; (2) Up to one year of residential monitoring; (3) Installation of locks and other devices to secure windows and doors in the residence",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.10(c)(1)-(3)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Installation%20costs%20of%20a%20residential,and%20doors%20in%20the%20residence"
+  },
+  {
+   "id": "NH-COV-9",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {},
+   "summary": "Mileage to medical appointments is paid at the Medicaid rate for trips over 10 miles round trip, capped at 100 miles round trip.",
+   "quote": "Mileage to and from appointments with licensed health care providers, at the rate used by Medicaid to compensate mileage. Mileage shall be paid for trips over 10 miles round trip and is capped at 100 miles round trip",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.03(d)(5)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Mileage%20to%20and%20from%20appointments,at%20100%20miles%20round%20trip"
+  },
+  {
+   "id": "NH-COV-10",
+   "category": "covered_expense",
+   "expense": "temporary_housing",
+   "params": {},
+   "summary": "Shelter for the survivor and family is one of the goods a crisis center can pay for from emergency funds, which the commission then reimburses to the crisis center.",
+   "quote": "The cost of shelter for the victim and the victim's family",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.09(d)(3)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20cost%20of%20shelter%20for,victim%20and%20the%20victim%27s%20family"
+  },
+  {
+   "id": "NH-COV-11",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {},
+   "summary": "As part of a relocation award, the cost of changing a cell phone number is covered.",
+   "quote": "The cost, as billed by the cellular provider, for changing a cell phone number.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.07(d)(8)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20cost%2C%20as%20billed%20by,changing%20a%20cell%20phone%20number."
+  },
+  {
+   "id": "NH-COV-12",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {},
+   "summary": "If the examining provider finds the survivor may have been exposed to HIV, the survivor is given a voucher for preventive medication.",
+   "quote": "If it is determined by the examining health care provider that the victim may have been exposed to HIV/AIDS as a result of the assault, a voucher for prophylactic medication(s) shall be given to the victim.",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(f)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=If%20it%20is%20determined%20by,be%20given%20to%20the%20victim."
+  },
+  {
+   "id": "NH-COV-13",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {},
+   "summary": "Under medical expenses, the program can replace lost or badly damaged assistive devices the survivor already had, such as hearing aids, dentures, wheelchairs, and prescription glasses or contact lenses.",
+   "quote": "Replacement of lost or badly damaged existing physically assistive devices such as: a. Hearing aids; b. Dentures; c. Prosthetic and other devices; d. Wheelchairs; e. Prescription eyeglasses and other corrective lenses, including contact lenses",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.03(d)(4)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Replacement%20of%20lost%20or%20badly,corrective%20lenses%2C%20including%20contact%20lenses"
+  },
+  {
+   "id": "NH-EXC-1",
+   "category": "excluded_expense",
+   "params": {
+    "item": "property loss; pain and suffering"
+   },
+   "summary": "The program cannot pay for property loss or for pain and suffering.",
+   "quote": "The program does not have authority to award money for property loss or pain and suffering.",
+   "source_id": "NH-S1",
+   "pinpoint": "NH DOJ Victims' Compensation Program page, What Costs May Be Paid?",
+   "fragment_url": "https://www.doj.nh.gov/bureaus/victims-compensation-program#:~:text=The%20program%20does%20not%20have,loss%20or%20pain%20and%20suffering."
+  },
+  {
+   "id": "NH-EXC-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "cable television, long-distance telephone and internet service after relocation"
+   },
+   "summary": "Relocation awards do not pay for cable television, long-distance phone service or internet service.",
+   "quote": "No compensation shall be awarded for cable television, long-distance telephone, internet service",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.07(e)(5)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=No%20compensation%20shall%20be%20awarded,television%2C%20long%2Ddistance%20telephone%2C%20internet%20service"
+  },
+  {
+   "id": "NH-EXC-3",
+   "category": "excluded_expense",
+   "expense": null,
+   "params": {
+    "item": "hospital care for an insured victim unless the hospital denied free or reduced-fee care"
+   },
+   "summary": "Hospital care is not paid if the victim had health insurance and the hospital has not denied free or reduced-fee care.",
+   "quote": "The commission shall not award compensation for hospital care if: a. The victim had health insurance at the time of treatment for injuries sustained as a direct result of the crime; and b. Free or reduced fee care has not been denied by the hospital",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.03(e)(2)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20commission%20shall%20not%20award,been%20denied%20by%20the%20hospital"
+  },
+  {
+   "id": "NH-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime",
+    "extension": "good cause; no deadline for a victim of sexual abuse or human trafficking who was a minor at the time"
+   },
+   "summary": "A claim must be filed within 2 years of the crime unless good cause is shown. A survivor of sexual abuse that happened when they were a minor may file at any time.",
+   "quote": "The claimant, guardian ad litem or child advocate, or parent may file a claim for compensation within 2 years of the crime, unless good cause is shown. A claimant who was the victim of sexual abuse or human trafficking under subparagraph I(a)(3), or a guardian ad litem, child advocate, or parent on behalf of such claimant, may file a claim at any time.",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, II",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=The%20claimant%2C%20guardian%20ad%20litem,a%20claim%20at%20any%20time."
+  },
+  {
+   "id": "NH-REP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_days": 5,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "A claim is denied if the crime was not reported within 5 days, unless good cause is shown, such as a medical condition, fear for safety, fear of retribution, or the survivor's emotional state or mental health.",
+   "quote": "The crime was not reported within 5 days of the crime unless good cause, which shall include but not be limited to the following, is shown",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.02(c)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20crime%20was%20not%20reported,to%20the%20following%2C%20is%20shown"
+  },
+  {
+   "id": "NH-REP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "A sexual assault survivor who sought a medical exam or treatment is treated as having reported to law enforcement and as having shown credible evidence of the crime.",
+   "quote": "A victim who has sought medical treatment pursuant to (a) and (d) above shall be deemed to: (1) Have made a report to law enforcement in compliance with Jus 605.02(c); and (2) Have presented credible evidence that an eligible crime has occurred",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.13(h)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=A%20victim%20who%20has%20sought,an%20eligible%20crime%20has%20occurred"
+  },
+  {
+   "id": "NH-MIN-1",
+   "category": "minimum_loss",
+   "params": {
+    "amount_cents": 10000
+   },
+   "summary": "No reimbursement is paid unless the claimant has at least $100 in reimbursable expenses.",
+   "quote": "No reimbursement shall be paid unless the claimant has incurred reimbursable expenses of at least $100.",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, V",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=No%20reimbursement%20shall%20be%20paid,expenses%20of%20at%20least%20%24100."
+  },
+  {
+   "id": "NH-COL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program is a payer of last resort: insurance and other sources are applied first.",
+   "quote": "help eligible victims of eligible crimes with the expenses that have been incurred as a direct result of the crime by acting as a payer of last resort",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 603.01",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=help%20eligible%20victims%20of%20eligible,a%20payer%20of%20last%20resort"
+  },
+  {
+   "id": "NH-COL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "If expenses the fund paid are later covered by insurance, a civil settlement, restitution or another source, the claimant must pay the fund back for the amount recovered.",
+   "quote": "If expenses paid through the victims' assistance program fund are later covered by insurance settlements, civil suit settlements, or restitution, or through any other source, the claimant shall reimburse the fund for the amount of expenses recovered.",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, V",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=If%20expenses%20paid%20through%20the,the%20amount%20of%20expenses%20recovered."
+  },
+  {
+   "id": "NH-CON-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The commission considers the victim's contributory fault when deciding eligibility and the award amount.",
+   "quote": "In determining eligibility and the amount of compensation to be awarded, the commission shall consider the contributory fault of the victim in causing his injury.",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, IV",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=In%20determining%20eligibility%20and%20the,victim%20in%20causing%20his%20injury."
+  },
+  {
+   "id": "NH-CON-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "Contributory fault is not considered in setting the award for a survivor of sexual abuse or human trafficking that happened when they were a minor.",
+   "quote": "The commission shall not consider contributory fault in determining the amount of compensation to be awarded if the claimant was a victim of sexual abuse or human trafficking under subparagraph I(a)(3).",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, IV",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=The%20commission%20shall%20not%20consider,human%20trafficking%20under%20subparagraph%20I%28a%29%283%29."
+  },
+  {
+   "id": "NH-EMG-1",
+   "category": "emergency_award",
+   "params": {},
+   "summary": "A crisis center can give a domestic violence or sexual assault victim 10-day emergency funds (food, clothing, shelter, transportation, locks, medications), and the commission reimburses the crisis center, not the victim. The crisis center must send a police report or a restraining order with its request.",
+   "quote": "the commission shall award compensation to a crisis center for payment of 10-day emergency funds by the crisis center to a victim of domestic violence or sexual assault",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.09(a)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=the%20commission%20shall%20award%20compensation,domestic%20violence%20or%20sexual%20assault"
+  },
+  {
+   "id": "NH-EMG-2",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "Emergency funds through a crisis center are limited to $1,000 per adult, not counting clothing.",
+   "quote": "The per-adult limit for the provision of all goods and services, except the purchase of clothing pursuant to (d)(2) and (e)(1) above, shall be $1,000",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 605.09(e)(2)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=The%20per%2Dadult%20limit%20for%20the,%28e%29%281%29%20above%2C%20shall%20be%20%241%2C000"
+  },
+  {
+   "id": "NH-ELIG-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Anyone who suffers personal injury from a felony or misdemeanor, including sexual assault, is an eligible victim.",
+   "quote": "Any person who sustains personal injury as a result of a felony or misdemeanor",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, I(a)(1)",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=Any%20person%20who%20sustains%20personal,of%20a%20felony%20or%20misdemeanor"
+  },
+  {
+   "id": "NH-ELIG-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Personal injury includes mental health harm, not only physical injury.",
+   "quote": "means death or corporeal or mental health damage suffered as a result of an eligible crime",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 602.23",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=means%20death%20or%20corporeal%20or,result%20of%20an%20eligible%20crime"
+  },
+  {
+   "id": "NH-ELIG-3",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "A person who was a victim of sexual abuse while under 18 is an eligible victim.",
+   "quote": "Any person who is a victim of sexual abuse or human trafficking and is under the age of 18 at the time of the offense",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, I(a)(3)",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=Any%20person%20who%20is%20a,the%20time%20of%20the%20offense"
+  },
+  {
+   "id": "NH-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime in New Hampshire (any victim), or crime elsewhere with no qualifying compensation program if the victim lived in New Hampshire"
+   },
+   "summary": "Victims of crimes in New Hampshire are eligible regardless of where they live. New Hampshire residents hurt in a place without a qualifying compensation program are also covered.",
+   "quote": "Any person who suffered personal injury or death as a direct result of an eligible crime occurring in either: (1) New Hampshire; or (2) Any other state or jurisdiction that does not have a crime compensation program meeting the requirements of 34 U.S.C. 20102(b), and such person was domiciled in New Hampshire at the time of the crime",
+   "source_id": "NH-S4",
+   "pinpoint": "N.H. Admin. Rules Jus 602.32(a)",
+   "fragment_url": "http://www.gc.nh.gov/rules/state_agencies/jus600.html#:~:text=Any%20person%20who%20suffered%20personal,the%20time%20of%20the%20crime"
+  },
+  {
+   "id": "NH-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Citizenship and immigration status are not required"
+   },
+   "summary": "Immigration status does not bar eligibility: non-citizens, with or without legal status, are eligible.",
+   "quote": "an individual who is not a citizen of the United States or who is not a legal alien shall be considered victims eligible for compensation under this section.",
+   "source_id": "NH-S5",
+   "pinpoint": "RSA 21-M:8-h, I(c)",
+   "fragment_url": "https://www.gencourt.state.nh.us/rsa/html/I/21-M/21-M-8-h.htm#:~:text=an%20individual%20who%20is%20not,for%20compensation%20under%20this%20section."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "minimum_loss",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency"
+  ],
+  "not_found": [
+   "expense_cap for medical (no separate medical cap found; medical is limited only by the total cap and Medicaid fee-for-service rates)",
+   "expense_cap for lost_wages as a dollar amount (only 75% of wages for up to 3 months)",
+   "explicit rule on replacing personal property such as phones beyond the general property-loss exclusion"
+  ],
+  "notes": "The toll-free number 1-800-300-4500 works in New Hampshire only; out-of-state callers use (603) 271-1284 (both on NH-S1). The brochure PDF linked from the program page is an image-only file with no extractable text, so it was not saved. The total cap differs between sources: RSA 21-M:8-h, V says $50,000 per claimant per incident, while the program page says $40,000 per primary victim; the statute is used."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute vs program page: RSA 21-M:8-h, V (most recently amended 2022) sets a $50,000 maximum; the DOJ web page still says $40,000. The rule uses the statute. Reporting: Jus 605.02(c) requires a report within 5 days unless good cause is shown, and the application asks the same; the web FAQ only says to report unless there is a reasonable explanation. Jus 605.13(h) deems a sexual assault survivor who sought the exam or treatment to have reported to law enforcement. Exam billing: RSA 21-M:8-c covers any physical exam of a victim of an alleged sexual offense, while Jus 605.13 uses the words felonious sexual assault. Under Jus 605.13(c)(3), a survivor covered by Medicaid or Medicare whose kit is not anonymous is billed to Medicaid or Medicare by the provider; private insurance is billed only if the survivor chooses, and deductibles and co-pays are paid or reimbursed by the department. Hospital care: Jus 605.03(e)(2)-(3) bars hospital-care awards for an insured victim unless free or reduced-fee care has been denied. Relocation (Jus 605.07) requires a continuing credible threat and either a police report plus restraining order, or an advocate letter, and the move must happen within 6 months of the award. The program page and Jus 606.07 list different mailing addresses (1 Granite Place South vs 33 Capitol Street); the application form uses 33 Capitol Street. Jus 600 was readopted effective 12-9-19 (#12938). Reviewer additions: Jus 605.13(a) exam and treatment no-charge rule, 605.13(a) follow-up care, 605.13(c)(3) Medicaid/Medicare billing exception, 605.13(f) HIV prophylaxis voucher, 605.03(d)(4) replacement of assistive devices such as eyeglasses, and 605.03(e)(2) hospital-care limit for insured victims. Jus 605.13(e): if the exam is sought within 10 days the survivor agrees to evidence collection; an anonymous kit is kept 60 days for the survivor to decide whether to report, then destroyed. The $50,000 statutory cap was rechecked against the current gc.nh.gov text of RSA 21-M:8-h, V."
+}

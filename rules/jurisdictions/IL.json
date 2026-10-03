@@ -1,0 +1,662 @@
+{
+  "jurisdiction": "IL",
+  "name": "Illinois",
+  "program": {
+    "program_name": "Crime Victims Compensation Program",
+    "agency": "Office of the Illinois Attorney General (receives and investigates applications); Illinois Court of Claims (approves and pays awards, hears appeals)",
+    "website": "https://www.illinoisattorneygeneral.gov/safer-communities/supporting-victims-of-crime/crime-victim-compensation/",
+    "apply_url": "https://forms.illinoisattorneygeneral.gov/Forms/CrimeVictims_CompensationRequest",
+    "application_pdf_url": "https://illinoisattorneygeneral.gov/Page-Attachments/CVApplicationEnglish.pdf",
+    "phone": "800-228-3368",
+    "phone_source_id": "IL-S3",
+    "statute_citation": "740 ILCS 45/1 et seq. (Crime Victims Compensation Act); exam billing: 410 ILCS 70/7 and 70/7.5 (Sexual Assault Survivors Emergency Treatment Act)"
+  },
+  "sources": [
+    {
+      "id": "IL-S1",
+      "title": "Crime Victims Compensation Act, 740 ILCS 45 (full act, ILGA)",
+      "url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:53Z",
+      "raw_path": "rules/sources/IL/IL-S1.html",
+      "text_path": "rules/sources/IL/IL-S1.txt",
+      "sha256": "b3a1f7f8b39f594e81c4a4b845fb907757c638edb33a2d37e5f2e29006c91fe5"
+    },
+    {
+      "id": "IL-S2",
+      "title": "Sexual Assault Survivors Emergency Treatment Act, 410 ILCS 70 (full act, ILGA)",
+      "url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:57Z",
+      "raw_path": "rules/sources/IL/IL-S2.html",
+      "text_path": "rules/sources/IL/IL-S2.txt",
+      "sha256": "fd34aef942798ccc63d41aebae48ea70bf559930ef1fdbb4b680a03a30fc9ac4"
+    },
+    {
+      "id": "IL-S3",
+      "title": "Illinois Attorney General: Crime Victim Compensation",
+      "url": "https://www.illinoisattorneygeneral.gov/safer-communities/supporting-victims-of-crime/crime-victim-compensation/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:48:48Z",
+      "raw_path": "rules/sources/IL/IL-S3.html",
+      "text_path": "rules/sources/IL/IL-S3.txt",
+      "sha256": "65434136c307eeccf7a732fbdd63e9c52e7a8887d94dab7e442619a717957218"
+    },
+    {
+      "id": "IL-S4",
+      "title": "Illinois Attorney General: Crime Victims Compensation Program guide (Rev. 11/24)",
+      "url": "https://illinoisattorneygeneral.gov/Page-Attachments/CVCompensationGuide.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:48Z",
+      "raw_path": "rules/sources/IL/IL-S4.pdf",
+      "text_path": "rules/sources/IL/IL-S4.txt",
+      "sha256": "a3cbbf29230e15ed5a7f490c681e20355700a9a0ec796f48a8640a503785b159"
+    },
+    {
+      "id": "IL-S5",
+      "title": "Illinois Attorney General: Crime Victims Compensation Application (English, Rev. 12/2024)",
+      "url": "https://illinoisattorneygeneral.gov/Page-Attachments/CVApplicationEnglish.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:48:49Z",
+      "raw_path": "rules/sources/IL/IL-S5.pdf",
+      "text_path": "rules/sources/IL/IL-S5.txt",
+      "sha256": "bb578393419b9247181c29bff79d89dfd011d07401f80b55179df29457277252"
+    },
+    {
+      "id": "IL-S6",
+      "title": "Illinois Court of Claims: Compensation for Victims of Violent Crimes",
+      "url": "https://www.ilsos.gov/departments/court-of-claims/victims.html",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:48:50Z",
+      "raw_path": "rules/sources/IL/IL-S6.html",
+      "text_path": "rules/sources/IL/IL-S6.txt",
+      "sha256": "48d7ffa9f5490d26025a10b4bd67965d4e4687cbc36d6a7770470f25ee32b007"
+    },
+    {
+      "id": "IL-S7",
+      "title": "Illinois Attorney General: Crime Victims Compensation FAQ by Sexual Assault Victims (Rev. 01/25)",
+      "url": "https://illinoisattorneygeneral.gov/Page-Attachments/CVFAQbySexualAssaultVictims.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:49:00Z",
+      "raw_path": "rules/sources/IL/IL-S7.pdf",
+      "text_path": "rules/sources/IL/IL-S7.txt",
+      "sha256": "ffa43cf9df25b3310d11b5a62cec5282c6e1c38a7c7cc9e8466c17606bc4954a"
+    }
+  ],
+  "rules": [
+    {
+      "id": "IL-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "allowed"
+      },
+      "summary": "A hospital or provider giving a sexual assault medical forensic exam, outpatient treatment, transport, follow-up care, or medication may not bill the survivor for any part of it, including insurance deductibles, co-pays, or denied claims. The survivor's insurance can still be billed, and inpatient services are an exception.",
+      "quote": "shall not: (1) charge or submit a bill for any portion of the costs of the services, transportation, or medications to the sexual assault survivor, including any insurance deductible, co-pay, co-insurance, denial of claim by an insurer, spenddown, or any other out-of-pocket expense",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/7.5(a)(1)"
+    },
+    {
+      "id": "IL-EXAM-2",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Survivor's health insurance or coverage program is billed first; leftover deductibles, co-pays, co-insurance, and denials go to the Illinois Sexual Assault Emergency Treatment Program (Department of Healthcare and Family Services)"
+      },
+      "summary": "If the survivor has health insurance or a coverage program, the provider bills that insurer or program, and the survivor's out-of-pocket share goes to the state Sexual Assault Emergency Treatment Program instead of the survivor.",
+      "quote": "the ambulance provider, hospital, approved pediatric health care facility, health care professional, laboratory, or pharmacy shall bill the insurance company or program. With respect to such insured patients, applicable deductible, co-pay, co-insurance, denial of claim, or any other out-of-pocket insurance-related expense may be submitted to the Illinois Sexual Assault Emergency Treatment Program of the Department of Healthcare and Family Services",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/7(a)(2)"
+    },
+    {
+      "id": "IL-EXAM-3",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Illinois Sexual Assault Emergency Treatment Program (Department of Healthcare and Family Services) for uninsured survivors and survivors who opt out of private insurance"
+      },
+      "summary": "When the survivor has no Medicaid or insurance, or has opted out of billing private insurance, the provider sends the bill to the state Sexual Assault Emergency Treatment Program.",
+      "quote": "the ambulance provider, hospital, approved pediatric health care facility, health care professional, laboratory, or pharmacy shall submit the request for reimbursement to the Illinois Sexual Assault Emergency Treatment Program under the Department of Healthcare and Family Services",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/7(a)(3)"
+    },
+    {
+      "id": "IL-EXAM-4",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Illinois Sexual Assault Emergency Treatment Program when a survivor who is not the policyholder opts out of private insurance"
+      },
+      "summary": "A survivor who is not the subscriber or primary policyholder on the insurance (for example, someone on a parent's or partner's plan) may opt out of billing that private insurance; the exam bill then goes to the state program.",
+      "quote": "a sexual assault survivor who is not the subscriber or primary policyholder of the sexual assault survivor's insurance policy may opt out of billing the sexual assault survivor's private insurance provider",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/7.5(a-5)"
+    },
+    {
+      "id": "IL-EXAM-5",
+      "category": "exam_payment",
+      "expense": "medical",
+      "params": {
+        "payer": "Survivor or survivor's insurance may be billed for inpatient services"
+      },
+      "summary": "The billing ban does not cover inpatient care: if the survivor is admitted to the hospital, the survivor or their insurance may be billed for inpatient services.",
+      "quote": "Nothing in this Section precludes a hospital, health care provider, ambulance provider, laboratory, or pharmacy from billing the sexual assault survivor or any applicable health insurance or coverage for inpatient services.",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/7.5(b)"
+    },
+    {
+      "id": "IL-EXAM-6",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Illinois Sexual Assault Emergency Treatment Program (Department of Healthcare and Family Services), billed with the sexual assault services voucher"
+      },
+      "summary": "Follow-up care, lab work, and prescriptions after the exam are billed to the state Sexual Assault Emergency Treatment Program when the survivor presents the sexual assault services voucher the hospital issues.",
+      "quote": "If a sexual assault survivor presents a sexual assault services voucher for follow-up healthcare, the healthcare professional, pediatric health care facility, or laboratory that provides follow-up healthcare or the pharmacy that dispenses prescribed medications to a sexual assault survivor shall submit the request for reimbursement for follow-up healthcare, pediatric health care facility, laboratory, or pharmacy services to the Illinois Sexual Assault Emergency Treatment Program under the Department of Healthcare and Family Services",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/7(a)(4)"
+    },
+    {
+      "id": "IL-EXAM-7",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Illinois Sexual Assault Emergency Treatment Program via the sexual assault services voucher, for follow-up healthcare"
+      },
+      "summary": "Follow-up healthcare covered this way means care related to the assault, including lab and pharmacy services, given within 180 days of the first visit.",
+      "quote": "\"Follow-up healthcare\" means healthcare services related to a sexual assault, including laboratory services and pharmacy services, rendered within 180 days of the initial visit as a result of the sexual assault.",
+      "source_id": "IL-S2",
+      "pinpoint": "410 ILCS 70/1a (text in effect before P.A. 104-837, eff. 1-1-27; definition unchanged in the amended text)"
+    },
+    {
+      "id": "IL-CAP-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 4500000,
+        "applies_to": "crimes committed on or after August 7, 2022"
+      },
+      "summary": "For a crime committed on or after August 7, 2022, the final award may not exceed $45,000 per victim.",
+      "quote": "or $45,000 per victim for a crime committed on or after August 7, 2022",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.1(f)"
+    },
+    {
+      "id": "IL-CAP-2",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2700000,
+        "applies_to": "crimes committed on or after August 7, 1998 and before August 7, 2022"
+      },
+      "summary": "For a crime committed on or after August 7, 1998 and before August 7, 2022, the final award may not exceed $27,000.",
+      "quote": "$27,000 for a crime committed on or after August 7, 1998 and prior to August 7, 2022",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.1(f)"
+    },
+    {
+      "id": "IL-WAGE-1",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "amount_cents": 240000,
+        "per": "month"
+      },
+      "summary": "Lost earnings are figured from the victim's average net monthly earnings for the 6 months before the injury, or $2,400 per month, whichever is less.",
+      "quote": "loss of earnings and loss of future earnings shall be determined on the basis of the victim's average net monthly earnings for the 6 months immediately preceding the date of the injury or on $2,400 per month, whichever is less",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(14)"
+    },
+    {
+      "id": "IL-LEGAL-1",
+      "category": "expense_cap",
+      "expense": "legal",
+      "params": {
+        "expense": "legal",
+        "amount_cents": 350000,
+        "per": "claim"
+      },
+      "summary": "Legal fees for proceedings needed solely because of the crime, such as getting an order of protection or no contact order, can be paid up to $3,500.",
+      "quote": "legal fees resulting from proceedings that became necessary solely because of the crime, including, but not limited to, establishing a legal guardian for the minor victim or the minor child of a victim, or obtaining a restraining order, no contact order, or order of protection, awarded up to a maximum of $3,500",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(19)"
+    },
+    {
+      "id": "IL-FUNERAL-1",
+      "category": "expense_cap",
+      "expense": "funeral",
+      "params": {
+        "expense": "funeral",
+        "amount_cents": 1000000,
+        "per": "claim"
+      },
+      "summary": "Funeral, burial, headstone, cremation, and related travel costs can be paid up to $10,000 for each victim.",
+      "quote": "in the case of death, expenses for reasonable funeral, burial, headstone, cremation, and travel and transport for survivors of homicide victims to secure bodies of deceased victims and to transport bodies for burial all of which may be awarded up to a maximum of $10,000 for each victim",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(16)"
+    },
+    {
+      "id": "IL-TOW-1",
+      "category": "expense_cap",
+      "expense": "other",
+      "params": {
+        "expense": "other",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Towing and storage of the victim's vehicle in connection with the crime can be paid up to $1,000.",
+      "quote": "expenses incurred for the towing and storage of a victim's vehicle in connection with a crime of violence, to a maximum of $1,000",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(4)"
+    },
+    {
+      "id": "IL-COV-MED",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Medical and hospital expenses from the injury are covered, including medical examinations, rehabilitation, and needed nursing care.",
+      "quote": "in the case of injury, appropriate medical expenses and hospital expenses including expenses of medical examinations, rehabilitation, medically required nursing care expenses",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(1)"
+    },
+    {
+      "id": "IL-COV-COUNS",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Counseling is covered when given by a psychiatrist or a licensed clinical psychologist, licensed clinical social worker, licensed professional counselor, or licensed clinical professional counselor. No dollar cap on counseling appears in the Act.",
+      "quote": "appropriate psychiatric care or psychiatric counseling expenses, appropriate expenses for care or counseling by a licensed clinical psychologist, licensed clinical social worker, licensed professional counselor, or licensed clinical professional counselor",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(1)"
+    },
+    {
+      "id": "IL-COV-TRANS",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "Travel to and from medical and counseling appointments is covered.",
+      "quote": "transportation expenses to and from medical and counseling treatment facilities",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(2)"
+    },
+    {
+      "id": "IL-COV-RELO",
+      "category": "covered_expense",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation"
+      },
+      "summary": "Temporary lodging or relocation needed because of the crime is covered, including the first 2 months' rent and the security deposit at the new home. The Act sets no dollar cap for it.",
+      "quote": "costs associated with temporary lodging or relocation necessary as a result of the crime, including, but not limited to, the first 2 months' rent and security deposit of the dwelling that the claimant relocated to and other reasonable relocation expenses incurred as a result of the violent crime",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(7)"
+    },
+    {
+      "id": "IL-COV-SEC",
+      "category": "covered_expense",
+      "expense": "security",
+      "params": {
+        "expense": "security"
+      },
+      "summary": "Locks, doors, or windows that are needed or were damaged because of the crime are covered.",
+      "quote": "locks, doors, or windows necessary or damaged as a result of the crime",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(8)"
+    },
+    {
+      "id": "IL-COV-CLOTH",
+      "category": "covered_expense",
+      "expense": "clothing_bedding",
+      "params": {
+        "expense": "clothing_bedding"
+      },
+      "summary": "Replacing clothing and bedding kept as evidence is covered.",
+      "quote": "replacement costs for clothing and bedding used as evidence",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(6)"
+    },
+    {
+      "id": "IL-COV-CLEAN",
+      "category": "covered_expense",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup"
+      },
+      "summary": "Crime scene clean-up is covered.",
+      "quote": "the costs of appropriate crime scene clean-up",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(10)"
+    },
+    {
+      "id": "IL-COV-TUIT",
+      "category": "covered_expense",
+      "expense": "tuition",
+      "params": {
+        "expense": "tuition"
+      },
+      "summary": "Lost tuition is covered when the victim was enrolled in school or college and cannot keep attending because of the crime.",
+      "quote": "loss of tuition paid to attend grammar school or high school when the victim had been enrolled as a student prior to the injury, or college or graduate school when the victim had been enrolled as a day or night student prior to the injury when the victim becomes unable to continue attendance at school as a result of the crime of violence",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(13)"
+    },
+    {
+      "id": "IL-COV-PROS",
+      "category": "covered_expense",
+      "expense": "other",
+      "params": {
+        "expense": "other"
+      },
+      "summary": "Prosthetic appliances, eyeglasses, and hearing aids that are needed or were damaged because of the crime are covered.",
+      "quote": "prosthetic appliances, eyeglasses, and hearing aids necessary or damaged as a result of the crime",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)(3)"
+    },
+    {
+      "id": "IL-COV-DENTAL",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "The program's sexual assault FAQ lists medical, hospital, and dental expenses as payable.",
+      "quote": "Medical, hospital, and dental expenses.",
+      "source_id": "IL-S7",
+      "pinpoint": "Crime Victims Compensation FAQ by Sexual Assault Victims, What types of expenses may the Crime Victims Compensation Program pay?"
+    },
+    {
+      "id": "IL-EXCL-1",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement",
+        "item": "pain and suffering; property loss or damage (for example a stolen or broken phone)"
+      },
+      "summary": "Pain and suffering and lost or damaged property are not covered, so a stolen or broken phone will not be replaced. The Act does separately cover locks, doors, and windows, eyeglasses, hearing aids, prosthetic appliances, and clothing and bedding taken as evidence.",
+      "quote": "\"Pecuniary loss\" does not include pain and suffering or property loss or damage.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(h)"
+    },
+    {
+      "id": "IL-EXCL-2",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement",
+        "item": "stolen, damaged or lost property, except locks, doors and windows"
+      },
+      "summary": "The program's sexual assault FAQ says stolen, damaged, or lost property cannot be paid, except locks, doors, and windows.",
+      "quote": "Stolen, damaged or lost property (except locks, doors and windows)",
+      "source_id": "IL-S7",
+      "pinpoint": "Crime Victims Compensation FAQ by Sexual Assault Victims, What types of expenses cannot be paid"
+    },
+    {
+      "id": "IL-EXCL-3",
+      "category": "excluded_expense",
+      "params": {
+        "item": "expenses not yet paid or billed by a vendor"
+      },
+      "summary": "The program guide says it does not pay for expenses that have not already been paid or billed by a vendor.",
+      "quote": "Compensation is not available for expenses that have not been previously paid or billed by a vendor.",
+      "source_id": "IL-S4",
+      "pinpoint": "Crime Victims Compensation Program guide, Do I get the money for compensation?"
+    },
+    {
+      "id": "IL-EXCL-4",
+      "category": "excluded_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "item": "counseling by an unlicensed person working with a licensed person"
+      },
+      "summary": "The program's sexual assault FAQ says counseling by an unlicensed person working under a licensed provider cannot be paid.",
+      "quote": "Services by an unlicensed person working with a licensed person cannot be paid.",
+      "source_id": "IL-S7",
+      "pinpoint": "Crime Victims Compensation FAQ by Sexual Assault Victims, What types of expenses may the Crime Victims Compensation Program pay?"
+    },
+    {
+      "id": "IL-DEAD-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 5,
+        "from": "crime",
+        "extension": "or within one year after a criminal charge"
+      },
+      "summary": "Apply within 5 years of the crime, or within one year after someone is criminally charged for it.",
+      "quote": "Within 5 years of the occurrence of the crime, or within one year after a criminal charge of a person for an offense, upon which the claim is based, the applicant presents an application",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(a)"
+    },
+    {
+      "id": "IL-DEAD-2",
+      "category": "filing_deadline",
+      "params": {
+        "years": 3,
+        "from": "age_18",
+        "extension": "also runs from removal of a legal disability; legal disability includes a PTSD diagnosis"
+      },
+      "summary": "A victim who was under 18 or under a legal disability can apply within 3 years after turning 18 or after the disability ends, and a posttraumatic stress disorder diagnosis counts as a legal disability.",
+      "quote": "he or she may present the application required by this subsection within 3 years after he or she attains the age of 18 years or the disability is removed, as the case may be. Legal disability includes a diagnosis of posttraumatic stress disorder.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(a)"
+    },
+    {
+      "id": "IL-REPORT-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "within_days": 7,
+        "alternatives": [
+          "forensic_exam",
+          "protective_order",
+          "medical_provider",
+          "other"
+        ]
+      },
+      "summary": "For sexual assault and sexual abuse offenses, law enforcement must be notified within 7 days, or later if the applicant shows the notice was timely under the circumstances. A medical visit, evidence collection, a protective order, or a mental health provider evaluation can stand in for the police report.",
+      "quote": "For victims of offenses defined in Sections 10-9, 11-1.20, 11-1.30, 11-1.40, 11-1.50, 11-1.60, 12-13, and 12-14 of the Criminal Code of 1961 or the Criminal Code of 2012, the appropriate law enforcement officials were notified within 7 days of the perpetration of the crime allegedly causing death or injury to the victim or, if the notification was made more than 7 days after the perpetration of the crime, the applicant establishes that the notice was timely under the circumstances.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(b) (text in effect before P.A. 104-563, eff. 1-1-27)"
+    },
+    {
+      "id": "IL-REPORT-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam",
+          "protective_order",
+          "medical_provider",
+          "other"
+        ]
+      },
+      "summary": "Instead of a police report, going to a medical facility for care or sexual assault evidence collection, getting an order of protection or no contact order, or getting an evaluation from a mental health provider counts as notice.",
+      "quote": "If, in lieu of a law enforcement report, the applicant or victim has obtained an order of protection, a civil no contact order, or a stalking no contact order, has presented to a medical facility for medical care or sexual assault evidence collection, has presented to a mental health provider for an independent medical evaluation, or is engaged in a legal proceeding involving a claim that the applicant or victim is a victim of human trafficking or law enforcement use of force, such action shall constitute appropriate notification under this Section.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(b-1) (text in effect before P.A. 104-563, eff. 1-1-27)"
+    },
+    {
+      "id": "IL-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam",
+          "medical_provider"
+        ]
+      },
+      "summary": "A survivor who uses a medical facility visit as notice does not have to name the offender to the medical provider.",
+      "quote": "except that the victim shall not be required to identify the offender to the medical provider",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)"
+    },
+    {
+      "id": "IL-REPORT-4",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "forensic_exam",
+          "protective_order",
+          "medical_provider",
+          "other"
+        ]
+      },
+      "summary": "The same steps (a protective order, a medical or evidence collection visit, or a mental health evaluation) also count as cooperating with law enforcement.",
+      "quote": "If the applicant or victim has obtained an order of protection, a civil no contact order, or a stalking no contact order, has presented to a medical facility for medical care or sexual assault evidence collection, obtained an independent medical examination from a mental health provider as described in subsection (b-4), has taken any of the actions described in subsection (b-3), or is engaged in a legal proceeding involving a claim that the applicant or victim is a victim of human trafficking, such action shall constitute cooperation under this subsection (c).",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(c) (text in effect before P.A. 104-563, eff. 1-1-27)"
+    },
+    {
+      "id": "IL-REPORT-5",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [
+          "other"
+        ]
+      },
+      "summary": "When the victim was under 18, cooperation is met if the applicant or victim files a police report, a mandated reporter reports the crime, or someone with firsthand knowledge reports it.",
+      "quote": "If the victim is under 18 years of age at the time of the commission of the offense, the following shall constitute cooperation under this subsection (c): (1) the applicant or the victim files a police report with a law enforcement agency; (2) a mandated reporter reports the crime to law enforcement; or (3) a person with firsthand knowledge of the crime reports the crime to law enforcement.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(c) (same text before and after P.A. 104-563, eff. 1-1-27)"
+    },
+    {
+      "id": "IL-COLL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The program pays only after other sources, such as health insurance, public aid, Medicare, or workers' compensation, have been used.",
+      "quote": "Compensation under this Act is a secondary source of compensation and the applicant must show that he or she has exhausted the benefits reasonably available under the Criminal Victims' Escrow Account Act or any governmental or medical or health insurance programs",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.1(g)"
+    },
+    {
+      "id": "IL-COLL-2",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "Money raised through crowdfunding does not count as another source of payment and does not reduce the award.",
+      "quote": "Crowdfunding resources available to applicants are not considered collateral sources of payment, regardless of any statements made about what expenses the crowdfunding resources will be used to pay.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.1(g)"
+    },
+    {
+      "id": "IL-CONDUCT-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "An award can be reduced or denied to the extent the victim's injury was caused by the victim's provocation or incitement or by the victim committing a criminal act.",
+      "quote": "an award shall be reduced or denied according to the extent to which the victim's injury or death was caused by provocation or incitement by the victim or the victim assisting, attempting, or committing a criminal act.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.1(d)"
+    },
+    {
+      "id": "IL-CONDUCT-2",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "A victim's criminal history or felony status does not prevent compensation.",
+      "quote": "A victim's criminal history or felony status shall not prevent compensation to that victim or the victim's family.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2.5"
+    },
+    {
+      "id": "IL-CONDUCT-3",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "No award is paid while the applicant is held in a correctional institution, though they can apply at any time.",
+      "quote": "No compensation may be granted to an applicant under this Act while the applicant is held in a correctional institution. An applicant who is held in a correctional institution may apply for assistance under this Act at any time",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2.5"
+    },
+    {
+      "id": "IL-CONDUCT-4",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "Compensation cannot be denied just because the victim is related to the offender or lived with the offender.",
+      "quote": "In no event shall an applicant be denied compensation solely because of the applicant's or the victim's familial relationship with the offender or because of the sharing of a dwelling by the victim or applicant and the offender.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.1(d-2)"
+    },
+    {
+      "id": "IL-EMERG-1",
+      "category": "emergency_award",
+      "params": {},
+      "summary": "If compensation is probable and waiting would cause undue hardship, an emergency award can be made before the final decision, but only for funeral and burial costs paid to a funeral home and for relocation expenses. It is deducted from the final award.",
+      "quote": "the Attorney General may recommend and the Court may make an emergency award of compensation to the applicant, pending a final decision in the case. Emergency awards may be issued to the applicant for the purpose of paying funeral and burial expenses directly to a funeral home and for relocation expenses incurred by an applicant.",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/10.2(a) (text in effect before P.A. 104-563, eff. 1-1-27)"
+    },
+    {
+      "id": "IL-CRIME-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Criminal sexual assault and aggravated criminal sexual abuse are listed among the violent crimes the program covers.",
+      "quote": "Aggravated Criminal Sexual Abuse • Criminal Sexual Assault",
+      "source_id": "IL-S4",
+      "pinpoint": "Crime Victims Compensation Program guide, What violent crimes are compensable (citing 740 ILCS 45/2(c))"
+    },
+    {
+      "id": "IL-CRIME-2",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "The program's sexual assault FAQ says a person who was sexually assaulted in Illinois is eligible.",
+      "quote": "A person who was sexually assaulted in Illinois.",
+      "source_id": "IL-S7",
+      "pinpoint": "Crime Victims Compensation FAQ by Sexual Assault Victims, Who is eligible?"
+    },
+    {
+      "id": "IL-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "A person injured in Illinois by a crime of violence is a victim; the Act states no Illinois residency requirement for crimes in Illinois. Illinois residents hurt outside Illinois are covered only as described in IL-RES-2."
+      },
+      "summary": "A person injured in Illinois as a result of a crime of violence counts as a victim.",
+      "quote": "a person killed or injured in this State as a result of a crime of violence perpetrated or attempted against him or her",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(d)(1)"
+    },
+    {
+      "id": "IL-RES-2",
+      "category": "residency",
+      "params": {
+        "rule": "Illinois residents victimized outside Illinois qualify only if the place where the crime happened has no compensation law the resident is eligible for."
+      },
+      "summary": "An Illinois resident hurt outside Illinois can apply only if the place where the crime happened has no victim compensation program they qualify for.",
+      "quote": "if the crime occurred outside this State, the resident has the same rights under this Act as if the crime had occurred in this State upon a showing that the state, territory, country, or political subdivision of a country in which the crime occurred does not have a compensation of victims of crimes law for which that Illinois resident is eligible",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/2(d)(6)"
+    }
+  ],
+  "coverage": {
+    "found": [
+      "collateral_source",
+      "conduct_reduction",
+      "covered_expense",
+      "eligible_crime",
+      "emergency_award",
+      "exam_no_bill",
+      "exam_payment",
+      "excluded_expense",
+      "expense_cap",
+      "filing_deadline",
+      "reporting_requirement",
+      "residency",
+      "total_cap"
+    ],
+    "not_found": [
+      "minimum_loss",
+      "expense_cap:counseling",
+      "expense_cap:relocation",
+      "expense_cap:transportation",
+      "expense_cap:medical",
+      "expense_cap:security",
+      "emergency_award:amount",
+      "administrative_rules"
+    ],
+    "notes": "No minimum loss or deductible appears in the current Act. The Act sets no dollar caps for counseling, relocation, transportation, medical, or locks/doors/windows; those are limited only by the overall award cap. The emergency award has no stated dollar amount. I did not find Illinois administrative rules (Court of Claims or Attorney General) setting compensation caps or rates and did not save any. The OVC directory lists the Illinois Court of Claims (217-782-7101) as the VOCA compensation contact, but applications go to the Attorney General. Reviewer added the funeral ($10,000) and towing ($1,000) caps, the SASETA follow-up healthcare voucher rules, dental and prosthetic/eyeglasses coverage, the FAQ's exclusion of unlicensed counselors, and the cooperation rule for minors. Not encoded: replacement services loss and dependents replacement services loss, capped at $1,250 per month each (740 ILCS 45/2(h)(11)-(12)), because the schema's per list has no month value."
+  },
+  "confidence": "high",
+  "researcher_notes": "Statute text is from ILGA and shows two versions of Sections 6.1, 7.1, 8.1, and 10.2: the text in effect now and the text after P.A. 104-563, which takes effect January 1, 2027. Rules marked 'text in effect before P.A. 104-563' quote the current version. Per the ILGA text, starting 1-1-27 the 7-day police notification rule for sexual offenses is replaced by a 30-day notification window for all crimes, mental health provider evaluations count as notice more broadly, mental health providers who certify a claim are limited to Medicare-approved rates, and emergency awards may cover funeral costs that have been quoted and relocation expenses due to be incurred; re-check these rules after that date. Disagreement: the AG sexual assault FAQ (IL-S7) says relocation covers 'the first month's rent', while the statute (740 ILCS 45/2(h)(7)) says 'the first 2 months' rent'; the statute controls and IL-COV-RELO follows it. The Court of Claims page (IL-S6) still says report within 72 hours without the 7-day sexual assault rule; the statute controls. Late applications may be accepted for good cause (740 ILCS 45/6.1(a-1)); it is not encoded as a rule because it has no fixed time. Expense cap for lost wages uses per='month' because the cap is monthly; the schema's per list has no month value. SASETA: the survivor's insurance is billed but the survivor owes nothing for outpatient exam/treatment; inpatient services may be billed. Insurance-billing param for IL-EXAM-1 is 'allowed' because 410 ILCS 70/7(a)(2) directs billing the survivor's insurer, with an opt-out for survivors who are not the policyholder (7.5(a-5)). Reviewer: the FAQ (IL-S7) also says good cause for a late application will be found when the delay came from a delay in testing a sexual assault kit or matching its DNA profile; the statute (6.1(a-1)) only says 'good cause', so this is not encoded. After the AG finds a claim eligible, the applicant gets 45 days from the letter to submit proof of losses (IL-S4, IL-S7); procedural, not encoded. The general police notification window for non-sexual crimes is 72 hours today (6.1(b)); the 7-day window in IL-REPORT-1 applies to the listed sexual offenses and trafficking."
+}

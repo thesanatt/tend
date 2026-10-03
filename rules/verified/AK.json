@@ -1,0 +1,638 @@
+{
+ "jurisdiction": "AK",
+ "name": "Alaska",
+ "program": {
+  "program_name": "Violent Crimes Compensation Board (VCCB)",
+  "agency": "Alaska Department of Public Safety, Violent Crimes Compensation Board",
+  "website": "https://vccb.alaska.gov/",
+  "apply_url": "https://application.vccb.alaska.gov/",
+  "application_pdf_url": "https://vccb.alaska.gov/wp-content/uploads/2026/05/Alaska-VCCB-Application.pdf",
+  "phone": "800-764-3040",
+  "phone_source_id": "AK-S7",
+  "statute_citation": "AS 18.67.010 to 18.67.180; AS 18.68.040"
+ },
+ "sources": [
+  {
+   "id": "AK-S1",
+   "title": "AS 18.67.010 to 18.67.180, Violent Crimes Compensation Board (Alaska Statutes, print view)",
+   "url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:04Z",
+   "raw_path": "rules/sources/AK/AK-S1.html",
+   "text_path": "rules/sources/AK/AK-S1.txt",
+   "sha256": "ce53ca7a41c30c2627ab6aa7bd3e42c59bb178d0f62d4503891b3d8dc676b9ab"
+  },
+  {
+   "id": "AK-S2",
+   "title": "AS 18.68.010 to 18.68.040, Sexual Assault Examinations (Alaska Statutes, print view)",
+   "url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.68.010&secEnd=18.68.990",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:09Z",
+   "raw_path": "rules/sources/AK/AK-S2.html",
+   "text_path": "rules/sources/AK/AK-S2.txt",
+   "sha256": "fb970bc38155561984713ac45af9c2e5b7823817b9d84967ac74dfc3a769ae30"
+  },
+  {
+   "id": "AK-S5",
+   "title": "Alaska VCCB, Application and Forms page",
+   "url": "https://vccb.alaska.gov/apply-for-compensation-for-crime-related-expenses/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:18Z",
+   "raw_path": "rules/sources/AK/AK-S5.html",
+   "text_path": "rules/sources/AK/AK-S5.txt",
+   "sha256": "0380835169ac29fc9fcb79dbcd4327055f94a0cfee89ea103568de8b2bbfa1b3"
+  },
+  {
+   "id": "AK-S6",
+   "title": "Alaska Department of Law, Victims' Rights Handbook",
+   "url": "https://law.alaska.gov/department/criminal/victims_assistHANDBOOK.html",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:52:59Z",
+   "raw_path": "rules/sources/AK/AK-S6.html",
+   "text_path": "rules/sources/AK/AK-S6.txt",
+   "sha256": "42edbd07af969ca8564abeb3b7f9fa565c7e97fdc6183e0699050d30d7a8cb27"
+  },
+  {
+   "id": "AK-S7",
+   "title": "Alaska Violent Crimes Compensation Board, home page",
+   "url": "https://vccb.alaska.gov/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:23Z",
+   "raw_path": "rules/sources/AK/AK-S7.html",
+   "text_path": "rules/sources/AK/AK-S7.txt",
+   "sha256": "2b805a19cd11548dbc4465ee6d295a7a2f149c6215b2d23e639d7dd07b036b59"
+  },
+  {
+   "id": "AK-S8",
+   "title": "Alaska VCCB Application for Crime Victim Compensation (05/2026)",
+   "url": "https://vccb.alaska.gov/wp-content/uploads/2026/05/Alaska-VCCB-Application.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:51:34Z",
+   "raw_path": "rules/sources/AK/AK-S8.pdf",
+   "text_path": "rules/sources/AK/AK-S8.txt",
+   "sha256": "a8e078ced459e9b1dea68672d6f5bbdf13a199b5394b800f0a5938fd4ab2f880"
+  },
+  {
+   "id": "AK-S10",
+   "title": "Alaska VCCB, Billing and Payments (providers)",
+   "url": "https://vccb.alaska.gov/billing-and-payments/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:39Z",
+   "raw_path": "rules/sources/AK/AK-S10.html",
+   "text_path": "rules/sources/AK/AK-S10.txt",
+   "sha256": "b6f6d500e94527f6e610844f40d5ac675944819905488ebee77c6abd33059780"
+  },
+  {
+   "id": "AK-S11",
+   "title": "Alaska VCCB, Benefits at a Glance (last revised July 2026)",
+   "url": "https://vccb.alaska.gov/wp-content/uploads/2026/07/Alaska-Benefits-at-a-Glance-F.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:52:13Z",
+   "raw_path": "rules/sources/AK/AK-S11.pdf",
+   "text_path": "rules/sources/AK/AK-S11.txt",
+   "sha256": "00ce07e05674d3a8e82cf68240a8be5fe6b7b52f0223fea6d9a6ddf117ffc79b"
+  },
+  {
+   "id": "AK-S13",
+   "title": "Alaska VCCB, Request for Crime-Related Relocation Assistance (04/2026)",
+   "url": "https://vccb.alaska.gov/wp-content/uploads/2026/06/Request-for-Relocation-Assistance.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:51:55Z",
+   "raw_path": "rules/sources/AK/AK-S13.pdf",
+   "text_path": "rules/sources/AK/AK-S13.txt",
+   "sha256": "4cd1ff948f83c7fd8e2972bfab955da5f82d9e4156a0ffb212bfa4b2a56e3e0c"
+  }
+ ],
+ "rules": [
+  {
+   "id": "AK-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "Police, a hospital, or anyone else may not make a sexual assault survivor age 16 or older pay for the evidence exam, directly or through their health insurance.",
+   "quote": "A law enforcement agency, health care facility, or other entity may not require a victim of sexual assault under AS 11.41.410 — 11.41.425 who is 16 years of age or older to pay, directly or indirectly, through health insurance or any other means, for the costs of examination of the victim necessary for (1) collecting evidence using the sexual assault examination kit under AS 18.68.010 or otherwise; or (2) determining whether a sexual assault has occurred.",
+   "source_id": "AK-S2",
+   "pinpoint": "AS 18.68.040",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.68.010&secEnd=18.68.990#:~:text=A%20law%20enforcement%20agency%2C%20health,a%20sexual%20assault%20has%20occurred."
+  },
+  {
+   "id": "AK-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "The Alaska Department of Law tells survivors that sexual assault exams are provided at no cost to them. This page does not address insurance billing; AK-EXAM-1 (the statute) does.",
+   "quote": "Victims of sexual assaults should obtain sexual assault examinations as soon as possible after the crime has occurred. These exams are provided at no cost to victims [AS 18.68.040].",
+   "source_id": "AK-S6",
+   "pinpoint": "Alaska Department of Law, Victims' Rights Handbook, Crimes of Sexual Assault",
+   "fragment_url": "https://law.alaska.gov/department/criminal/victims_assistHANDBOOK.html#:~:text=Victims%20of%20sexual%20assaults%20should,cost%20to%20victims%20%5BAS%2018.68.040%5D."
+  },
+  {
+   "id": "AK-ELIG-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault in any degree and sexual abuse of a minor are crimes the board can compensate.",
+   "quote": "(F) sexual assault in any degree; (G) sexual abuse of a minor;",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.101(2)(F)-(G)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=%28F%29%20sexual%20assault%20in%20any,sexual%20abuse%20of%20a%20minor%3B"
+  },
+  {
+   "id": "AK-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "The crime must have occurred in Alaska."
+   },
+   "summary": "The program covers crimes that happened in Alaska.",
+   "quote": "The crime occurred in Alaska.",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, eligibility requirements"
+  },
+  {
+   "id": "AK-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 4000000
+   },
+   "summary": "The most the board can award is $40,000 per victim per incident.",
+   "quote": "Compensation may not be awarded under this chapter in an amount in excess of $40,000 per victim per incident.",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.130(c)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=Compensation%20may%20not%20be%20awarded,%2440%2C000%20per%20victim%20per%20incident."
+  },
+  {
+   "id": "AK-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime"
+   },
+   "summary": "The application must be made within two years after the date of the injury.",
+   "quote": "the application has been made within two years after the date of the personal injury or death",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.130(a)(1)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=the%20application%20has%20been%20made,the%20personal%20injury%20or%20death"
+  },
+  {
+   "id": "AK-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime",
+    "extension": "Applicants past two years are asked to explain the delay; the statute itself sets two years."
+   },
+   "summary": "The program asks for an application within two years of the crime, and asks applicants who are past two years to explain the delay.",
+   "quote": "Even if you do not know all related expenses, it is important to open an application within two years of when the crime occurred. If the crime occurred more than two years ago, please provide an explanation as to why there was a delay in requesting financial assistance.",
+   "source_id": "AK-S7",
+   "pinpoint": "VCCB home page, When to request compensation?",
+   "fragment_url": "https://vccb.alaska.gov/#:~:text=Even%20if%20you%20do%20not,delay%20in%20requesting%20financial%20assistance."
+  },
+  {
+   "id": "AK-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_days": 5,
+    "alternatives": []
+   },
+   "summary": "The crime must be reported to police within five days, or within five days of when a report could reasonably have been made. The statute lists no alternative to a police report for sexual assault.",
+   "quote": "the personal injury or death was the result of an incident or offense listed in AS 18.67.101 that had been reported to the police within five days of its occurrence or, if the incident or offense could not reasonably have been reported within that period, within five days of the time when a report could reasonably have been made",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.130(a)(2)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=the%20personal%20injury%20or%20death,could%20reasonably%20have%20been%20made"
+  },
+  {
+   "id": "AK-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "The board may also look at whether the applicant cooperated with police and prosecutors where appropriate.",
+   "quote": "in the discretion of the board, the applicant has cooperated with law enforcement and prosecution officials to further prosecution of the offender if appropriate",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.130(a)(3)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=in%20the%20discretion%20of%20the,of%20the%20offender%20if%20appropriate"
+  },
+  {
+   "id": "AK-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "An award can be made even if no one is prosecuted or convicted.",
+   "quote": "An order may be made under this section whether or not a person is prosecuted or convicted of an offense arising out of the act that caused the injury or death involved in the application.",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.080(d)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=An%20order%20may%20be%20made,death%20involved%20in%20the%20application."
+  },
+  {
+   "id": "AK-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The board pays only for losses not already covered by the offender, a government, or a private source such as insurance.",
+   "quote": "the board may award compensation for losses and expenses allowable under AS 18.67.110 for which the applicant is not compensated by the offender or a person on behalf of the offender, or by the United States, a state, or any of its subdivisions or agencies, or a private source",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.090(a)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=the%20board%20may%20award%20compensation,agencies%2C%20or%20a%20private%20source"
+  },
+  {
+   "id": "AK-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays after insurance and other sources.",
+   "quote": "VCCB is a payor of last resort.",
+   "source_id": "AK-S10",
+   "pinpoint": "VCCB Billing and Payments",
+   "fragment_url": "https://vccb.alaska.gov/billing-and-payments/#:~:text=VCCB%20is%20a%20payor%20of%20last%20resort."
+  },
+  {
+   "id": "AK-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The board considers whether the victim's own behavior contributed to the injury.",
+   "quote": "In determining whether to make an order under this section, the board shall consider all circumstances determined to be relevant, including provocation, consent, or any other behavior of the victim that directly or indirectly contributed to the victim's injury or death",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.080(c)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=In%20determining%20whether%20to%20make,the%20victim%27s%20injury%20or%20death"
+  },
+  {
+   "id": "AK-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "In sexual assault claims, the board may not deny an award based on the victim's behavior, alcohol or drug use, or social history (the exact protection depends on whether the offender is convicted).",
+   "quote": "if a claim is based on a crime involving domestic violence or on a crime of sexual abuse of a minor or sexual assault and the offender is (A) convicted of one of those crimes, notwithstanding (1) — (3) of this subsection, the board may not deny an order based on considerations of provocation, the use of alcohol or drugs by the victim, or the prior social history of the victim; or (B) not convicted of one of those crimes, the board may not deny an order based on the involvement or behavior of the victim.",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.080(c)(4)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=if%20a%20claim%20is%20based,or%20behavior%20of%20the%20victim."
+  },
+  {
+   "id": "AK-CONDUCT-3",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "No award may be made if the victim broke a state criminal law in a way that caused or contributed to the injury.",
+   "quote": "violated a penal law of the state, which violation caused or contributed to the victim's injuries or death",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.130(b)(3)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=violated%20a%20penal%20law%20of,the%20victim%27s%20injuries%20or%20death"
+  },
+  {
+   "id": "AK-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 500000
+   },
+   "summary": "If compensation is probable and waiting would cause undue hardship, the board can make an emergency award of up to $5,000, which is deducted from the final award.",
+   "quote": "the amount of the emergency compensation may not exceed $5,000",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.120(1)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=the%20amount%20of%20the%20emergency%20compensation%20may%20not%20exceed%20%245%2C000"
+  },
+  {
+   "id": "AK-COUNSEL-1",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 20000,
+    "per": "session",
+    "count_limit": 24
+   },
+   "summary": "A direct victim's initial counseling award covers up to 24 sessions. The first evaluation and intake session is paid in full, and later sessions with a licensed mental health provider are paid up to $200 each. More sessions can be requested with a treatment plan.",
+   "quote": "Counseling – Direct Victims: Initial maximum award is 24 sessions. Secondary Victims: initial maximum 12 sessions VCCB will pay first evaluation and intake session in full. Payment after first session: $200/session for services provided by a licensed mental health provider",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Mental Health Therapy, Payment Maximums"
+  },
+  {
+   "id": "AK-WAGES-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Lost wages are paid at 85% of gross pay, up to $10,000.",
+   "quote": "Up to $10,000 Compensation is reimbursed at a rate of 85% of gross pay.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Loss of Earnings"
+  },
+  {
+   "id": "AK-WAGES-2",
+   "category": "excluded_expense",
+   "expense": "lost_wages",
+   "params": {
+    "item": "work time already covered by paid leave"
+   },
+   "summary": "Lost wage payments cover only leave without pay, not days already covered by paid leave.",
+   "quote": "Compensation is limited to leave without pay.",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Section 7: Lost Wage Information"
+  },
+  {
+   "id": "AK-RELOC-1",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 750000,
+    "per": "claim"
+   },
+   "summary": "Relocation is capped at $7,500 per household ($4,000 for limited income).",
+   "quote": "Household limit is $7,500 (reduced to $4,000 for limited income), subject to verification of actual expenses.",
+   "source_id": "AK-S13",
+   "pinpoint": "VCCB Request for Relocation Assistance, Estimated or Actual Relocation Expenses"
+  },
+  {
+   "id": "AK-RELOC-2",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "Relocation is covered when the survivor's health or safety is at risk because of the crime.",
+   "quote": "Relocation may only be eligible specific instances, such as when an individuals health or safety may be at risk as a direct result of the crime.",
+   "source_id": "AK-S5",
+   "pinpoint": "VCCB Application and Forms, Relocation",
+   "fragment_url": "https://vccb.alaska.gov/apply-for-compensation-for-crime-related-expenses/#:~:text=Relocation%20may%20only%20be%20eligible,direct%20result%20of%20the%20crime."
+  },
+  {
+   "id": "AK-HOUSING-1",
+   "category": "expense_cap",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 22500,
+    "per": "day",
+    "count_limit": 5
+   },
+   "summary": "As part of relocation, a motel or hotel stay is paid for up to 5 days at up to $225 per night, including tax and fees.",
+   "quote": "Motel/Hotel: Up to 5 days (up to $225 per night, including tax and fees).",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Relocation, Payment Maximums"
+  },
+  {
+   "id": "AK-TRANS-2",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 5000,
+    "per": "day"
+   },
+   "summary": "Car rental is paid up to $50 per day.",
+   "quote": "Car rental: Up to $50 per day.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Transportation"
+  },
+  {
+   "id": "AK-MED-1",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 350000,
+    "per": "claim",
+    "count_limit": 20
+   },
+   "summary": "Chiropractic care is covered for up to 20 visits within 12 months of the crime, up to $3,500. This is a limit on chiropractic only, not on medical care in general.",
+   "quote": "Chiropractic care: 20 visits within 12 months of crime. Up to $3,500.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Medical"
+  },
+  {
+   "id": "AK-SEC-1",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "A security system and monitoring are paid up to $1,500.",
+   "quote": "Security system and monitoring: Up to $1,500.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Security Measures"
+  },
+  {
+   "id": "AK-SEC-2",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 400000,
+    "per": "claim"
+   },
+   "summary": "Securing doors, windows, and locks is paid up to $4,000.",
+   "quote": "Securing doors, windows, and locks: Up to $4,000.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Security Measures"
+  },
+  {
+   "id": "AK-PHONE-1",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "A destroyed or damaged cell phone is paid up to $1,000.",
+   "quote": "Destroyed/damaged cell phone: Up to $1,000.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Security Measures"
+  },
+  {
+   "id": "AK-PHONE-2",
+   "category": "covered_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "A cell phone that was damaged or taken as evidence can be covered.",
+   "quote": "Cell phone (damaged or taken for evidence)",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-EVID-1",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Bedding, clothing, and other essential items taken by police as evidence are replaced up to $1,500; a phone is handled separately up to $1,000.",
+   "quote": "Up to $1,500 Cell phone: Up to $1,000 (not included in $1500 max – see security).",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Items Taken as Evidence"
+  },
+  {
+   "id": "AK-CLEAN-1",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 700000,
+    "per": "claim"
+   },
+   "summary": "Crime scene clean-up in a private residence is paid up to $7,000.",
+   "quote": "Up to $7,000 The police report will be key to verify damage to homes requiring clean-up.",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Crime Scene Clean-up"
+  },
+  {
+   "id": "AK-RENT-1",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 400000,
+    "per": "claim"
+   },
+   "summary": "Short-term rent help to stabilize housing after the crime is paid up to $4,000 or 2 months, whichever is less, directly to the landlord.",
+   "quote": "Up to $4,000 or 2 months (whichever is less)",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Rent"
+  },
+  {
+   "id": "AK-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical and dental costs can be covered.",
+   "quote": "Dental/medical",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Counseling and therapy can be covered.",
+   "quote": "Counseling/therapy",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-COV-3",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages can be covered.",
+   "quote": "Lost wages",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-COV-4",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel and transportation can be covered.",
+   "quote": "Travel/transportation",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-COV-5",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Security measures can be covered.",
+   "quote": "Security measures",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-COV-6",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Crime scene cleanup can be covered.",
+   "quote": "Crime scene cleanup",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-COV-7",
+   "category": "covered_expense",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare"
+   },
+   "summary": "Childcare can be covered.",
+   "quote": "Childcare",
+   "source_id": "AK-S8",
+   "pinpoint": "VCCB Application, Claim Application and Instructions, covered expenses"
+  },
+  {
+   "id": "AK-CHILD-1",
+   "category": "expense_cap",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Crime-related childcare, such as care needed to attend medical, counseling, or court appointments, is paid up to $2,000 based on receipts.",
+   "quote": "Reimbursements will be provided based on receipts provided. Up to $2,000*",
+   "source_id": "AK-S11",
+   "pinpoint": "VCCB Benefits at a Glance, Childcare, Payment Maximums"
+  },
+  {
+   "id": "AK-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "property loss or damage (general)"
+   },
+   "summary": "Property loss or damage is generally not covered; essential items taken as evidence (and phones) are limited exceptions.",
+   "quote": "Note: VCCB does not generally cover property loss or damage, these are limited exceptions.",
+   "source_id": "AK-S5",
+   "pinpoint": "VCCB Application and Forms, Property Replacement",
+   "fragment_url": "https://vccb.alaska.gov/apply-for-compensation-for-crime-related-expenses/#:~:text=Note%3A%20VCCB%20does%20not%20generally,damage%2C%20these%20are%20limited%20exceptions."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap"
+  ],
+  "not_found": [
+   "exam_payment",
+   "minimum_loss"
+  ],
+  "notes": "exam_payment: AS 18.68.040 bars charging survivors 16 and older (including through their insurance) but does not name who pays, and no official source I saved names the payer. minimum_loss: no minimum loss found in AS 18.67 or on the VCCB site. Reporting: AS 18.67.130(a)(2) requires a police report within five days (or five days after a report could reasonably be made); no anonymous-report, forensic-exam, or advocate alternative for compensation was found, even though AS 18.68.020 lets adults choose an anonymous report for the exam itself. No VCCB administrative regulations were found; the program's Statutes and Policies page cites only AS 18.67 and federal VOCA. Expense caps come from the VCCB Benefits at a Glance PDF (July 2026), which says it does not supplement or contradict the statutes. Transportation: Benefits at a Glance caps transportation at $5,000 per major event (funeral, trial, etc.); that cap is not stored as a rule because per-event is not one of the schema's per values."
+ },
+ "confidence": "high",
+ "researcher_notes": "Deadline disagreement: AS 18.67.130(a)(1) says two years after the injury; the application PDF says within 2 years of the crime or discovery of the crime, and the home page asks applicants past two years to explain the delay. The statute wins, so the rule uses two years from the crime. AS 18.68.040 covers survivors of sexual assault under AS 11.41.410 to 11.41.425 who are 16 or older; younger survivors are not addressed by that section. Benefits at a Glance caps were checked against the PDF's column layout (pdftotext -layout) so each amount is tied to the right expense row. The Benefits at a Glance funeral row mentions up to $10,000 in emergency consideration across two applications; the statute caps one emergency award at $5,000, which is what the rule uses. The OVC directory lists the program under the Alaska Department of Public Safety, phone 800-764-3040; the VCCB home page lists the same toll-free number. Lost wages: up to two weeks without a provider note, longer with medical justification (Benefits at a Glance). Reviewer: chiropractic's $3,500 limit is stored under expense 'other' so it is not read as the medical cap; Benefits at a Glance lists general medical expenses at up to $40,000, the same as the total cap. The application's eligibility list says reasonable exceptions may apply to its requirements (police report within 5 days, 2-year filing), but no source says what those exceptions are."
+}

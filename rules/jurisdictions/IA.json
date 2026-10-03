@@ -1,0 +1,622 @@
+{
+ "jurisdiction": "IA",
+ "name": "Iowa",
+ "program": {
+  "program_name": "Crime Victim Compensation Program",
+  "agency": "Iowa Department of Justice, Office of the Attorney General, Crime Victim Assistance Division (Victim Assistance Section)",
+  "website": "https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation",
+  "apply_url": "https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/online-crime-victim-compensation-application/",
+  "application_pdf_url": "https://www.iowaattorneygeneral.gov/media/cms/Compensation_Application_English_0E6E8B08B04B2.pdf",
+  "phone": "1-800-373-5044",
+  "phone_source_id": "IA-S2",
+  "statute_citation": "Iowa Code 915.80 to 915.94; Iowa Code 915.41 (exam costs); Iowa Admin. Code 61, ch. 9"
+ },
+ "sources": [
+  {
+   "id": "IA-S1",
+   "title": "Crime Victim Compensation (Iowa Attorney General program page)",
+   "url": "https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:49Z",
+   "raw_path": "rules/sources/IA/IA-S1.html",
+   "text_path": "rules/sources/IA/IA-S1.txt",
+   "sha256": "aab75cf2cb78eec43331997ede7edb864ce190edf937c5343c9bbfbc46eb7bb9"
+  },
+  {
+   "id": "IA-S2",
+   "title": "Crime Victim Compensation Facts (Iowa Attorney General FAQ page)",
+   "url": "https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/crime-victim-compensation-facts/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:58Z",
+   "raw_path": "rules/sources/IA/IA-S2.html",
+   "text_path": "rules/sources/IA/IA-S2.txt",
+   "sha256": "2f819783e623ad63afc5d88f069f51658b4690c7ac16546da5c3db6299afbad5"
+  },
+  {
+   "id": "IA-S3",
+   "title": "Sexual Assault Examination Payment Program (Iowa Attorney General page)",
+   "url": "https://www.iowaattorneygeneral.gov/for-crime-victims/sexual-assault-resources/sexual-assault-examination-payment/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:59Z",
+   "raw_path": "rules/sources/IA/IA-S3.html",
+   "text_path": "rules/sources/IA/IA-S3.txt",
+   "sha256": "228c181a167480c9064f2df90c90ea6cb0d0efb656e0fdb87f1a682903ff2708"
+  },
+  {
+   "id": "IA-S4",
+   "title": "Crime Victim Compensation Program Quick Reference Guide for Primary Victims (2023)",
+   "url": "https://www.iowaattorneygeneral.gov/media/cms/Quick_Guide_to_Crime_Victim_Compens_C2F74213F919D.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:50:59Z",
+   "raw_path": "rules/sources/IA/IA-S4.pdf",
+   "text_path": "rules/sources/IA/IA-S4.txt",
+   "sha256": "df2f5cca013e5454fa13ba11ea5dbbf03f9c1e3cdd1e54848a2d874d70ec6d74"
+  },
+  {
+   "id": "IA-S5",
+   "title": "Crime Victim Compensation Application (English)",
+   "url": "https://www.iowaattorneygeneral.gov/media/cms/Compensation_Application_English_0E6E8B08B04B2.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:50:59Z",
+   "raw_path": "rules/sources/IA/IA-S5.pdf",
+   "text_path": "rules/sources/IA/IA-S5.txt",
+   "sha256": "e61cb5e90549368ee778a243d6cd71d44bccb617594b83e3d30cfbb2c5add64e"
+  },
+  {
+   "id": "IA-S6",
+   "title": "Iowa Code 2026, chapter 915 (Victim Rights), including 915.41 and 915.80 to 915.94",
+   "url": "https://www.legis.iowa.gov/docs/code/915.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:00Z",
+   "raw_path": "rules/sources/IA/IA-S6.pdf",
+   "text_path": "rules/sources/IA/IA-S6.txt",
+   "sha256": "614bec15db736abbd4222d61c7f579449abbf1fe1c99280a05350080bf223043"
+  },
+  {
+   "id": "IA-S7",
+   "title": "Iowa Admin. Code 61, chapter 9 (Crime Victim Assistance Division), IAC 2/5/25",
+   "url": "https://www.legis.iowa.gov/docs/iac/chapter/61.9.pdf",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:51:13Z",
+   "raw_path": "rules/sources/IA/IA-S7.pdf",
+   "text_path": "rules/sources/IA/IA-S7.txt",
+   "sha256": "e509b798c13bd4ed4d400a95955be82d08b36990caaa7b961aaea29b36eb0fe7"
+  }
+ ],
+ "rules": [
+  {
+   "id": "IA-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "A provider may not bill the survivor or the survivor's insurance for any cost of a sexual abuse exam that the state program finds eligible.",
+   "quote": "A victim of sexual abuse is not responsible for the payment of the costs of a sexual abuse examination determined to be eligible for payment by the department. A medical provider must not submit any costs associated with a sexual abuse examination to a victim's insurance or to the sexual abuse victim.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.84"
+  },
+  {
+   "id": "IA-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "After the exam program pays, the provider may not send the survivor a bill for any leftover balance.",
+   "quote": "A medical provider must not submit any remaining balance to the sexual abuse victim after the sexual abuse examination program has determined payment.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.84"
+  },
+  {
+   "id": "IA-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Iowa Department of Justice, Crime Victim Compensation Fund (Sexual Abuse Examination Payment Program)"
+   },
+   "summary": "The state's crime victim compensation fund pays for the evidence-gathering exam and for treatment to prevent sexually transmitted infections.",
+   "quote": "The cost of a medical examination of a victim for the purpose of gathering evidence and the cost of treatment of a victim for the purpose of preventing venereal disease shall be paid from the fund established in section 915.94.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.41(1)"
+  },
+  {
+   "id": "IA-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "State of Iowa (Attorney General's Sexual Abuse Examination Payment Program)"
+   },
+   "summary": "The state pays for the exam even if the survivor does not report to police.",
+   "quote": "The State of Iowa pays for the sexual assault examination regardless of whether the victim reports the crime to law enforcement.",
+   "source_id": "IA-S3",
+   "pinpoint": "Iowa AG, Sexual Assault Examination Payment Program page"
+  },
+  {
+   "id": "IA-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Iowa Attorney General's Sexual Abuse Examination Payment Program"
+   },
+   "summary": "If a survivor was billed by mistake and paid for the evidence collection, the program pays the survivor back.",
+   "quote": "In the event that a victim is erroneously billed and pays for the cost of the evidence collection, the program will reimburse that victim.",
+   "source_id": "IA-S3",
+   "pinpoint": "Iowa AG, Sexual Assault Examination Payment Program page"
+  },
+  {
+   "id": "IA-MED-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "medical",
+    "amount_cents": 2500000,
+    "per": "claim"
+   },
+   "summary": "Medical care is covered up to $25,000.",
+   "quote": "Reasonable charges incurred for medical care not to exceed twenty-five thousand dollars.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(1)"
+  },
+  {
+   "id": "IA-MED-2",
+   "category": "covered_expense",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical costs of a pregnancy resulting from sexual abuse can be paid, counted under the medical benefit.",
+   "quote": "Compensation may be paid for medical care costs related to pregnancy resulting from the crime of sexual abuse.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(1)(f)"
+  },
+  {
+   "id": "IA-MED-3",
+   "category": "covered_expense",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Glasses, hearing aids, dentures, prosthetics, wheelchairs, and medication taken, lost, or destroyed in the crime can be replaced.",
+   "quote": "Compensation may be paid for the replacement of a medical device including but not limited to a sight or hearing device, dentures, a prosthetic device, a wheelchair, and medication that was taken, lost or destroyed during the crime.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(1)(g)"
+  },
+  {
+   "id": "IA-COUNS-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Mental health care for the victim is covered up to $5,000.",
+   "quote": "Reasonable charges incurred for mental health care not to exceed five thousand dollars",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(1)"
+  },
+  {
+   "id": "IA-COUNS-2",
+   "category": "expense_cap",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Mental health care for a secondary victim (spouse, child, parent, sibling, or household member) is covered up to $2,000 each.",
+   "quote": "The allowable charges under this subsection shall not exceed two thousand dollars per secondary victim.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(12)"
+  },
+  {
+   "id": "IA-WAGES-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 600000,
+    "per": "claim"
+   },
+   "summary": "Wages lost because of the injury are covered up to $6,000.",
+   "quote": "Loss of income from work the victim would have performed and for which the victim would have received remuneration if the victim had not been injured, not to exceed six thousand dollars.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(2)"
+  },
+  {
+   "id": "IA-WAGES-2",
+   "category": "expense_cap",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Wages lost to cooperate with the investigation or attend court are covered up to $1,000 per person.",
+   "quote": "Loss of income from work that the victim, the victim's parent or caretaker, or the survivor of a deceased victim would have performed and for which that person would have received remuneration, where the loss of income is a direct result of cooperation with the investigation and prosecution of the crime or attendance at criminal justice proceedings including the trial and sentencing in the case, or due to the planning of or attendance at a funeral, memorial, or burial service, not to exceed one thousand dollars per person.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(4)"
+  },
+  {
+   "id": "IA-WAGES-3",
+   "category": "covered_expense",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages are figured from gross pay for scheduled hours missed, then reduced by 25 percent.",
+   "quote": "Lost wages are computed as the gross rate of pay multiplied by the number of scheduled hours of work missed, decreased by 25 percent",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(7)(a)"
+  },
+  {
+   "id": "IA-WAGES-4",
+   "category": "covered_expense",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Wages lost in the first two weeks after the crime need no disability statement; longer periods need one from a licensed medical or mental health provider.",
+   "quote": "Compensation for lost wages or income incurred within the first two weeks following the crime shall be paid to an eligible crime victim without an authorized disability statement.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(8)"
+  },
+  {
+   "id": "IA-WAGES-5",
+   "category": "covered_expense",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Wages lost for up to 30 days because of health or safety concerns about going to work after the crime, stalking, or harassment can be paid.",
+   "quote": "Compensation for lost wages or income shall be paid to an eligible crime victim for up to 30 days following an event that compromises the health or safety of the victim including but not limited to the approved crime, stalking, or harassment.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(10)"
+  },
+  {
+   "id": "IA-TRANS-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Travel to medical care, counseling, or court is covered up to $1,000 per person.",
+   "quote": "Reasonable expenses incurred by the victim, a secondary victim, the parent or guardian of a victim, or a survivor of a deceased victim for transportation to medical or counseling services, criminal justice proceedings, or a funeral, memorial, or burial service, not to exceed one thousand dollars per person.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(15)"
+  },
+  {
+   "id": "IA-TRANS-2",
+   "category": "covered_expense",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Driving your own car is paid at the state employee mileage rate.",
+   "quote": "Use of a privately owned vehicle shall be paid at the per-mile rate established by the department of administrative services for state employees using a private vehicle for state business.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(17)(a)"
+  },
+  {
+   "id": "IA-RELOC-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Emergency relocation is covered up to $1,000 per person, once in a lifetime.",
+   "quote": "Reasonable charges incurred by a victim, a secondary victim, a survivor of a deceased victim, or by a victim service program on behalf of a victim, for emergency relocation expenses, not to exceed one thousand dollars per person per lifetime.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(16)"
+  },
+  {
+   "id": "IA-RELOC-2",
+   "category": "covered_expense",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "To count as emergency relocation, the move must happen within 30 days of the crime, its discovery, or when it could reasonably be reported, or within 30 days before or after the offender's release from incarceration.",
+   "quote": "\"Emergency relocation\" means a relocation that takes place within thirty days of the date of a crime or the discovery of a crime, or within thirty days after a crime could reasonably be reported. \"Emergency relocation\" also includes a relocation that takes place within the thirty days before or after an offender related to the crime is released from incarceration.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.80(5)"
+  },
+  {
+   "id": "IA-HOUSING-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "The statute allows up to 3 months of housing assistance, up to $2,000 per person per lifetime, but the program's facts page lists this benefit as currently unavailable.",
+   "quote": "Reasonable expenses incurred by a victim, or by a victim service program on behalf of a victim, for up to three months of housing assistance, not to exceed two thousand dollars per person per lifetime.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(17)"
+  },
+  {
+   "id": "IA-SEC-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "security",
+    "amount_cents": 50000,
+    "per": "claim"
+   },
+   "summary": "New or replacement locks, windows, and other home security items are covered up to $500 per residence.",
+   "quote": "Reasonable crime-related expenses incurred by a victim, the victim's parent or caretaker, or a survivor of a deceased victim to replace inadequate or damaged locks, windows, and other residential security items or install new locks, windows, and other residential security items, not to exceed five hundred dollars per residence.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(14)"
+  },
+  {
+   "id": "IA-SEC-2",
+   "category": "covered_expense",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Doors, locks, windows, security cameras, and security systems can be paid under the security benefit.",
+   "quote": "Compensation may be paid for doors, locks, windows, security cameras, security systems or devices, or other reasonable expenses that provide for the safety of the victim or the security of the residence.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(16)(b)"
+  },
+  {
+   "id": "IA-CLOTH-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 20000,
+    "per": "claim"
+   },
+   "summary": "Clothing kept as evidence is replaced up to $200.",
+   "quote": "Reasonable replacement value of clothing that is held for evidentiary purposes not to exceed two hundred dollars.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(5)"
+  },
+  {
+   "id": "IA-CLOTH-2",
+   "category": "covered_expense",
+   "params": {
+    "expense": "clothing_bedding"
+   },
+   "summary": "Clothing and bedding held as evidence by police can be paid for.",
+   "quote": "Compensation may be paid for clothing and bedding held as evidence by law enforcement.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(13)"
+  },
+  {
+   "id": "IA-CLEAN-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Cleaning the crime scene is covered up to $1,000 per scene.",
+   "quote": "Reasonable expenses incurred by the victim, secondary victim, or survivor of a deceased victim for cleaning the scene of a crime, not to exceed one thousand dollars per crime scene.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(11)"
+  },
+  {
+   "id": "IA-CHILD-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "childcare",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Child or dependent care while attending court, medical, or counseling appointments is covered up to $1,000 per person.",
+   "quote": "Reasonable dependent care expenses incurred by the victim, the victim's parent or caretaker, or the survivor of a deceased victim for the care of dependents while attending criminal justice proceedings, medical or counseling services, or funeral, burial, or memorial services, not to exceed one thousand dollars per person.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(13)"
+  },
+  {
+   "id": "IA-FUN-1",
+   "category": "expense_cap",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 750000,
+    "per": "claim"
+   },
+   "summary": "Funeral and burial costs are covered up to $7,500.",
+   "quote": "Reasonable funeral and burial expenses not to exceed seven thousand five hundred dollars.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.86(6)"
+  },
+  {
+   "id": "IA-EXCL-1",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "Lost or damaged property (for example a phone or other belongings) is not paid, nor are legal fees, phone bills, meals, or pain and suffering.",
+   "quote": "The program cannot pay for property loss, property repair, legal fees, phone bills, meals, or pain and suffering.",
+   "source_id": "IA-S2",
+   "pinpoint": "Iowa AG, Crime Victim Compensation Facts page"
+  },
+  {
+   "id": "IA-EXCL-2",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "legal"
+   },
+   "summary": "Legal fees are not covered.",
+   "quote": "The program does not cover property crime, property loss, legal fees, phone bills, meals, or pain and suffering.",
+   "source_id": "IA-S2",
+   "pinpoint": "Iowa AG, Crime Victim Compensation Facts page"
+  },
+  {
+   "id": "IA-EXCL-3",
+   "category": "excluded_expense",
+   "params": {
+    "item": "phone bills, meals, pain and suffering"
+   },
+   "summary": "Phone bills, meals, and pain and suffering are not covered.",
+   "quote": "The program does not cover property crime, property loss, legal fees, phone bills, meals, or pain and suffering.",
+   "source_id": "IA-S2",
+   "pinpoint": "Iowa AG, Crime Victim Compensation Facts page"
+  },
+  {
+   "id": "IA-EXCL-4",
+   "category": "excluded_expense",
+   "params": {
+    "item": "care of a newborn child"
+   },
+   "summary": "Pregnancy care for the victim is covered, but care for a newborn child is not.",
+   "quote": "Expenses incurred for the care of a newborn child are not compensable.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(1)(f)"
+  },
+  {
+   "id": "IA-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime",
+    "extension": "Two years may run from discovery of the crime; the department may waive the limit for good cause (61 IAC 9.28(2) lists age, physical condition, psychological state, cultural or linguistic barriers, and health or safety reasons)."
+   },
+   "summary": "Apply within two years of the crime or its discovery. The program can waive the deadline for good cause.",
+   "quote": "file the application with the department within two years after the date of the crime, the discovery of the crime, or the date of death of the victim. The department may waive the time limitation if good cause is shown.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.84(1)"
+  },
+  {
+   "id": "IA-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "The crime must be reported to police or the sheriff within 72 hours, or within 72 hours of when a report could reasonably be made. The program may waive this for good cause.",
+   "quote": "A person is not eligible for compensation unless the crime was reported to the local police department or county sheriff department within seventy-two hours of its occurrence. If the crime cannot reasonably be reported within that time period, the crime shall have been reported within seventy-two hours of the time a report can reasonably be made. The department may waive this requirement if good cause is shown.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.84(3)"
+  },
+  {
+   "id": "IA-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam",
+     "medical_provider",
+     "advocate",
+     "other"
+    ]
+   },
+   "summary": "For sexual abuse, the 72-hour police report rule may be waived for good cause if a forensic exam was done within 72 hours or the survivor told a medical provider, mental health professional, or victim service provider.",
+   "quote": "For a victim of sexual abuse, the 72-hour reporting requirement may be waived for good cause if a sexual abuse evidentiary examination was completed within 72 hours of the crime or if the crime was disclosed to another provider including but not limited to a licensed medical provider, a licensed mental health professional, or a designated victim service provider.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.29(4)(c)"
+  },
+  {
+   "id": "IA-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Awards are reduced by money from the offender, insurance (including workers' compensation or unemployment), public funds, or an earlier emergency award.",
+   "quote": "Compensation shall be reduced by the amount of any payment received, or to be received, as a result of the injury or death: a. From or on behalf of a person who committed the crime or who is otherwise responsible for damages resulting from the crime. b. From an insurance payment or program, including but not limited to workers' compensation or unemployment compensation. c. From public funds. d. As an emergency award under section 915.91.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.87(1)"
+  },
+  {
+   "id": "IA-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays only after insurance, other government programs, and other sources.",
+   "quote": "The program is the payer-of-last-resort after insurance, other government programs, and other sources.",
+   "source_id": "IA-S2",
+   "pinpoint": "Iowa AG, Crime Victim Compensation Facts page"
+  },
+  {
+   "id": "IA-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "No award is made when the injury was caused by the victim's consent, provocation, or incitement, or by the victim's own criminal act. The criminal-act bar does not apply to a minor involved in commercial sexual activity.",
+   "quote": "Compensation shall not be made when the bodily injury or death for which a benefit is sought was caused by any of the following: a. Consent, provocation, or incitement by the victim. b. The victim assisting, attempting, or committing a criminal act. This paragraph shall not apply to a victim under the age of eighteen involved in commercial sexual activity as defined in section 710A.1.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.87(2)"
+  },
+  {
+   "id": "IA-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The program may reduce or deny an award only when the victim's conduct had a causal relationship to the injury.",
+   "quote": "The program shall reduce or disqualify compensation when there is a causal relationship between the contributory conduct on the part of the victim and the victim's injury or death.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.31"
+  },
+  {
+   "id": "IA-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 50000
+   },
+   "summary": "An emergency payment of up to $500 is possible when waiting would cause undue hardship. It is later subtracted from the final award.",
+   "quote": "If the department determines that compensation may be made and that undue hardship may result to the person if partial immediate payment is not made, the department may order emergency compensation to be paid to the person, not to exceed five hundred dollars.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.91"
+  },
+  {
+   "id": "IA-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault is listed as a covered violent crime.",
+   "quote": "Homicide • Assault • Domestic Abuse • Sexual Assault",
+   "source_id": "IA-S4",
+   "pinpoint": "Iowa AG Quick Reference Guide, Who"
+  },
+  {
+   "id": "IA-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Injury includes emotional harm, not only physical harm, and includes pregnancy resulting from the crime.",
+   "quote": "\"Personal injury\" or \"injury\" means bodily harm or mental suffering and shall include a victim's pregnancy or miscarriage resulting from a crime.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.26"
+  },
+  {
+   "id": "IA-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes committed or attempted in Iowa, regardless of the victim's residence."
+   },
+   "summary": "The crime must have happened in Iowa. The victim does not need to be an Iowa resident.",
+   "quote": "\"Crime\" means conduct that occurs or is attempted in this state, poses a substantial threat of personal injury or death, and is punishable as a felony or misdemeanor",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.80(2)"
+  },
+  {
+   "id": "IA-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Iowa residents victimized in a state without an eligible VOCA compensation program."
+   },
+   "summary": "Under the statute, an Iowa resident hurt in another state can apply to Iowa if that state has no eligible compensation program. The program's administrative rules go further (see the next residency rule).",
+   "quote": "To a victim of an act committed outside this state who is a resident of this state, if the act would be compensable had it occurred within this state and the act occurred in a state that does not have an eligible crime victim compensation program",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.85(4)"
+  },
+  {
+   "id": "IA-RES-3",
+   "category": "residency",
+   "params": {
+    "rule": "Iowa residents victimized outside Iowa where there is no victim compensation program, where that program's benefits are insufficient or inadequate, or on an aircraft in flight or waters outside any state's jurisdiction."
+   },
+   "summary": "An Iowa resident hurt outside Iowa can apply if the place where it happened has no compensation program or one with insufficient or inadequate benefits, or if it happened on a plane in flight or on waters outside any state's jurisdiction.",
+   "quote": "A resident of Iowa who is the victim of an act that would be compensable had it occurred within the state of Iowa and any of the following apply: The act occurred in a state or foreign country that does not have a victim compensation program as defined in the federal law; The act occurred in a state or foreign country whose victim compensation program has insufficient or inadequate benefits; or The act occurred on an aircraft while in flight or occurred on waters outside of the jurisdiction of any particular state or country.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.26 (definition of \"Applicant\", item 3)"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency"
+  ],
+  "not_found": [
+   "total_cap",
+   "minimum_loss"
+  ],
+  "notes": "Iowa sets per-category limits in Iowa Code 915.86 and no overall maximum award was found in the statute, rules, or program pages, so total_cap is left out. No minimum out-of-pocket loss was found. Housing assistance (915.86(17)) is in the statute but the program facts page lists it as currently unavailable."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is the Iowa Code 2026 chapter 915 PDF from legis.iowa.gov; rules are 61 IAC ch. 9 (IAC 2/5/25, ARC 8358C effective 12/18/24). Exam payment: 61 IAC 9.83(2) pays qualified providers a $400 provider fee plus a $300 facility fee for exams within 30 days; the exam program has no application for the survivor. Survivor-relevant extras not encoded as rules: 61 IAC 9.30(4) says a sexual abuse victim is deemed to have reasonably cooperated with law enforcement if the victim undergoes a sexual abuse evidentiary examination; Iowa Code 915.84(4) exempts certain child and dependent adult sexual abuse victims from police reporting when the abuse was reported to and verified by HHS; the quick guide says criminal charges do not have to be filed. 61 IAC 9.35(3) pays up to 12 counseling sessions in full with a treatment plan, after which preexisting issues can reduce payment; this is not a hard session cap, so it is not encoded as count_limit. Iowa Code 915.86(18) allows up to $5,000 per person of additional compensation for undue hardship or new events beyond category limits (not for relocation, housing, or loss of support); not encoded. The program facts page and 61 IAC 9.35(8) say lost wages beyond two weeks need a disability statement. Phones and other personal property: not covered (property loss excluded), but medical devices and medication taken, lost, or destroyed in the crime can be replaced under 61 IAC 9.35(1)(g). The Capitol program phone 515-281-5044 also appears on the exam page (IA-S3). Facts page IA-S2 contains the same quick facts as program page IA-S1. Reviewer: Iowa Code 915.84(2) lets the department waive the 30-day emergency relocation window for good cause. Iowa Code 915.86(1)(b) says a medical provider that accepts the program's full payment at the established rate must hold the victim harmless for the rest. IA-COUNS-2 ($2,000) and IA-WAGES-2 ($1,000) are caps for secondary victims and for court or investigation time, not the primary victim's main counseling or lost-wage caps (IA-COUNS-1, IA-WAGES-1). Housing assistance (IA-HOUSING-1) has no matching benefit category in 61 IAC 9.35 and the facts page says it is currently unavailable, so treat it as not currently paid."
+}

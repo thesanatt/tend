@@ -1,0 +1,693 @@
+{
+ "jurisdiction": "PA",
+ "name": "Pennsylvania",
+ "program": {
+  "program_name": "Victims Compensation Assistance Program (VCAP)",
+  "agency": "Pennsylvania Commission on Crime and Delinquency (PCCD), Office of Victims' Services",
+  "website": "https://www.pa.gov/services/pcv/apply-for-victims-compensation",
+  "apply_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation",
+  "application_pdf_url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/vcap%20long%20claim%20form%20july%202024.pdf",
+  "phone": "800-233-2339",
+  "phone_source_id": "PA-S4",
+  "statute_citation": "Crime Victims Act, 18 P.S. 11.101 et seq. (compensation: 18 P.S. 11.701 to 11.710); 37 Pa. Code Chapter 411"
+ },
+ "sources": [
+  {
+   "id": "PA-S1",
+   "title": "Crime Victims Act (1998 Act 111), Chapter 7: Compensation (18 P.S. 11.701 to 11.710)",
+   "url": "https://www.palegis.us/statutes/unconsolidated/law-information/view-statute?txtType=PDF&SessYr=1998&SessInd=0&ActNum=0111.&chpt=7&subchpt=000.",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:38Z",
+   "raw_path": "rules/sources/PA/PA-S1.pdf",
+   "text_path": "rules/sources/PA/PA-S1.txt",
+   "sha256": "b3a8c4532d8dae24421e561294f62ea3c803aa695b8bf4d04a2742118d478d6e"
+  },
+  {
+   "id": "PA-S2",
+   "title": "Crime Victims Act (1998 Act 111), Chapter 1: Definitions (18 P.S. 11.103)",
+   "url": "https://www.palegis.us/statutes/unconsolidated/law-information/view-statute?txtType=PDF&SessYr=1998&SessInd=0&ActNum=0111.&chpt=1&subchpt=000.",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:46Z",
+   "raw_path": "rules/sources/PA/PA-S2.pdf",
+   "text_path": "rules/sources/PA/PA-S2.txt",
+   "sha256": "016a8d9bff46c06748a4d6b3829a1c272c592c4061dcdbd9687d53d991ea5236"
+  },
+  {
+   "id": "PA-S3",
+   "title": "37 Pa. Code Chapter 411: Crime Victims Compensation",
+   "url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:47:58Z",
+   "raw_path": "rules/sources/PA/PA-S3.html",
+   "text_path": "rules/sources/PA/PA-S3.txt",
+   "sha256": "1ff42d1c90e8427dcf34b80263ea84b0d2ccebc6420f05f23808024c96951eb6"
+  },
+  {
+   "id": "PA-S4",
+   "title": "PA.gov: Apply for Victims' Compensation (VCAP)",
+   "url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:20Z",
+   "raw_path": "rules/sources/PA/PA-S4.html",
+   "text_path": "rules/sources/PA/PA-S4.txt",
+   "sha256": "89af6ae0b6863490ddc3ca6f9e2fbe885c763041cbee7c13cfddc4fb7800f878"
+  },
+  {
+   "id": "PA-S5",
+   "title": "PCCD Manual for Compensation Assistance (VCAP Manual 2025)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/english/vcap%20manual%202025.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:32Z",
+   "raw_path": "rules/sources/PA/PA-S5.pdf",
+   "text_path": "rules/sources/PA/PA-S5.txt",
+   "sha256": "80e7a196a57f6e768a5c6fcb8b8d3169874a0672a4208a3e0fe4e77c1b606f78"
+  },
+  {
+   "id": "PA-S6",
+   "title": "VCAP Claim Form (long form, July 2024)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/vcap%20long%20claim%20form%20july%202024.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/PA/PA-S6.pdf",
+   "text_path": "rules/sources/PA/PA-S6.txt",
+   "sha256": "5240ed2269b5c68acc9c211014693d984941d89afc22b6fd25d391bde6adbf9d"
+  },
+  {
+   "id": "PA-S7",
+   "title": "VCAP brochure: Supporting Survivors of Sexual Assault",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/english/eligible-expenses-brochures/supporting_survivors_sa_pcv_vcap_brochure.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:34Z",
+   "raw_path": "rules/sources/PA/PA-S7.pdf",
+   "text_path": "rules/sources/PA/PA-S7.txt",
+   "sha256": "fcbface5b1a7e56cc5be54f87bd436845568e5130c7cf07a06c9544ec397dad2"
+  },
+  {
+   "id": "PA-S8",
+   "title": "VCAP flyer: Relocation Expenses (11/2023)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/english/relocation%20flyer.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:35Z",
+   "raw_path": "rules/sources/PA/PA-S8.pdf",
+   "text_path": "rules/sources/PA/PA-S8.txt",
+   "sha256": "b3abd08f6484bb6205e667cb16b6f9b1c9ae5c2c7fa68e425a7de7a1623e7331"
+  },
+  {
+   "id": "PA-S9",
+   "title": "VCAP flyer: Transportation Expenses (11/2023)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/english/eligible-expenses-brochures/transportation%20expenses.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:36Z",
+   "raw_path": "rules/sources/PA/PA-S9.pdf",
+   "text_path": "rules/sources/PA/PA-S9.txt",
+   "sha256": "3dfb67f5c93d1ddd19811a58b0da6b38b92070b99dcc9d34bfe690b1d42a9e3d"
+  },
+  {
+   "id": "PA-S10",
+   "title": "VCAP Protocol and Billing Procedures for Forensic Rape Examinations (2024)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/billing%20and%20protocol%20procedures%202024.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:38Z",
+   "raw_path": "rules/sources/PA/PA-S10.pdf",
+   "text_path": "rules/sources/PA/PA-S10.txt",
+   "sha256": "18cbf9dbadd86afc35c182cfdc165e5b488a837f7e1f984df4be1e766b2d5119"
+  },
+  {
+   "id": "PA-S11",
+   "title": "VCAP Forensic Rape Examination Frequently Asked Questions (September 2024)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/frequently%20asked%20questions%202024.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:39Z",
+   "raw_path": "rules/sources/PA/PA-S11.pdf",
+   "text_path": "rules/sources/PA/PA-S11.txt",
+   "sha256": "04e39eca36c9972f5b961acb002c10bf4ea4fb59e50de30457fbc3c834e98ef0"
+  },
+  {
+   "id": "PA-S12",
+   "title": "VCAP fact sheet: Sexual Assault Counseling Claims",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pccd/documents/victim-services/documents/sexual%20assault%20counseling%20claim%20fact%20sheet.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:40Z",
+   "raw_path": "rules/sources/PA/PA-S12.pdf",
+   "text_path": "rules/sources/PA/PA-S12.txt",
+   "sha256": "c543564e489c353303af5d7559e337551026d64e288d7bc16dc0f796b96cb2fe"
+  }
+ ],
+ "rules": [
+  {
+   "id": "PA-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "The cost of a forensic rape exam and the medications prescribed to the survivor may not be charged to the survivor. Insurance is billed first unless the survivor asks that it not be.",
+   "quote": "The cost of a forensic rape examination and the cost of medications prescribed to the direct victim shall not be charged to the victim.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(h)(2)"
+  },
+  {
+   "id": "PA-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Office of Victims' Services (VCAP), after insurance unless the survivor asks that insurance not be billed"
+   },
+   "summary": "The hospital or provider bills the state compensation program (Office of Victims' Services) for the exam when insurance does not cover it, or when the survivor asks that their insurance not be billed.",
+   "quote": "A hospital or other licensed health care provider may submit a claim for reimbursement for the cost of a forensic rape examination if the cost is not covered by insurance or if the victim requests that the insurance carrier not be billed.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(h)(1)"
+  },
+  {
+   "id": "PA-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims Compensation Assistance Program (VCAP)"
+   },
+   "summary": "The survivor does not have to report to police or talk to law enforcement for the program to pay for the exam.",
+   "quote": "The victim of a sexual offense does not need to 'report' the sexual offense or 'talk' to law enforcement in order for the costs to be paid by the Victims Compensation Assistance Program (VCAP).",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
+  },
+  {
+   "id": "PA-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "If the program pays the maximum and a balance remains, the provider still may not bill the survivor; the program payment is payment in full.",
+   "quote": "No. A health care provider must accept the payment in full for the costs of the forensic rape examination.",
+   "source_id": "PA-S11",
+   "pinpoint": "FRE FAQ, Question 7"
+  },
+  {
+   "id": "PA-EXAM-5",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "The provider must file the exam claim within one year of the crime or its discovery; if the provider misses that deadline, the survivor still cannot be billed.",
+   "quote": "The claim must be filed by a hospital or other licensed health care provider, within one year of the date of the crime or discovery of the crime. Failure to file within the prescribed time frame will result in non-payment of the claim and the victim cannot be billed for those costs.",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, A.4"
+  },
+  {
+   "id": "PA-EXAM-6",
+   "category": "covered_expense",
+   "expense": "forensic_exam",
+   "params": {
+    "expense": "forensic_exam"
+   },
+   "summary": "A survivor who was billed by mistake and paid for the forensic rape exam or related medications can be reimbursed, up to $1,000.",
+   "quote": "OVS will reimburse a direct victim who is erroneously billed and subsequently pays the cost of the forensic rape examination or medications directly related to the sexual offense. The reimbursement will be subject to the $1,000 monetary limitation.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(b)(3)(iv)"
+  },
+  {
+   "id": "PA-EXAM-7",
+   "category": "expense_cap",
+   "expense": "forensic_exam",
+   "params": {
+    "expense": "forensic_exam",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Payment for a forensic rape exam and related medications is capped at $1,000, and this sits outside the $35,000 total award cap.",
+   "quote": "In no case shall the total amount of an award exceed $35,000 except for payment of the following: (i) counseling, the maximum amount of which shall be in accordance with paragraph (4.1); (ii) forensic rape examination and medications directly related to the sexual assault or rape, the amount of which shall not exceed $1,000",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(1)(ii)"
+  },
+  {
+   "id": "PA-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Survivor or insurance for care beyond the forensic rape exam (for example x-rays or other treatment); a standard VCAP claim can be filed for it"
+   },
+   "summary": "The no-bill rule covers only the forensic rape exam costs and related medications. Providers must tell the survivor they may be billed for other care, such as x-rays or other medical treatment, which can be submitted on a standard VCAP claim.",
+   "quote": "They must inform the victim that they may be billed for services in instances where they have additional expenses beyond the forensic rape examination costs, such as x-rays or other medical treatment not associated with a forensic rape examination.",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
+  },
+  {
+   "id": "PA-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 3500000
+   },
+   "summary": "The total award is capped at $35,000, except that counseling, forensic rape exam costs, and crime scene cleanup are paid on top of that cap.",
+   "quote": "In no case shall the total amount of an award exceed $35,000 except for payment of the following",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(1)"
+  },
+  {
+   "id": "PA-COUNSEL-1",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Counseling for an adult direct victim is capped at $5,000, and a minor direct victim at $10,000; counseling is paid on top of the total award cap.",
+   "quote": "The amount of an award under paragraph (4)(i) shall not exceed $5,000 where the direct victim is an adult and shall not exceed $10,000 where the direct victim is a minor.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(4.1)(i)"
+  },
+  {
+   "id": "PA-COUNSEL-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Counseling for a direct victim who was a minor is capped at $10,000.",
+   "quote": "The amount of an award under paragraph (4)(i) shall not exceed $5,000 where the direct victim is an adult and shall not exceed $10,000 where the direct victim is a minor.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(4.1)(i)"
+  },
+  {
+   "id": "PA-COUNSEL-3",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "The program pays for counseling, and for the transportation to get to counseling, when done by or under a psychiatrist, psychologist, licensed professional counselor, or licensed social worker.",
+   "quote": "An award for counseling performed by or under the supervision of a psychiatrist, psychologist, licensed professional counselor or licensed social worker and reimbursement of associated transportation costs",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(4)"
+  },
+  {
+   "id": "PA-COUNSEL-4",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "A direct victim of sexual abuse in Pennsylvania can get counseling paid through a separate sexual assault counseling claim, paid directly to the provider.",
+   "quote": "The Office of Victims' Services shall provide funding for counseling services related to sexual abuse for an individual who is a direct victim of sexual abuse. Payment shall be made directly to the health care provider that provides the services from funding provided for the implementation of this section.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.701.1(a)"
+  },
+  {
+   "id": "PA-COUNSEL-5",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Sexual assault counseling claims are capped at $5,000 if the survivor was 18 or older at the time of the abuse, and $10,000 if under 18.",
+   "quote": "(1) Five thousand dollars if the individual was, at the time of the abuse, 18 years of age or older. (2) Ten thousand dollars if the individual was, at the time of the abuse, under 18 years of age.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.701.1(c)"
+  },
+  {
+   "id": "PA-WAGES-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 1500000,
+    "per": "claim"
+   },
+   "summary": "Lost earnings are capped at $15,000 in total, and this counts toward the overall award cap.",
+   "quote": "Except as set forth in subparagraph (iii), the aggregate award for the loss shall not exceed $15,000.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(2)(ii)"
+  },
+  {
+   "id": "PA-WAGES-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost earnings caused by the injury are covered, up to the state average weekly wage for each week, if not otherwise reimbursed.",
+   "quote": "OVS may make an award within the monetary limitations of the act to compensate a direct victim, intervenor or claimant for loss of earnings attributable to the injury not to exceed the average weekly wage if the claimant was not otherwise reimbursed for the loss.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.43(b)"
+  },
+  {
+   "id": "PA-RELOC-1",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Relocation for safety is capped at $1,000 per household for each direct victim.",
+   "quote": "This reimbursement will not exceed $1,000 per household for each direct victim for the following:",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(f)"
+  },
+  {
+   "id": "PA-RELOC-2",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "Temporary or permanent relocation is covered when there is an immediate need to protect the safety and health of the victim and household, verified by a medical provider, human services provider, or law enforcement.",
+   "quote": "expenses resulting from the temporary or permanent relocation of a direct victim and individuals residing in the household of the direct victim due to the incident forming the basis of the victim's claim when there is an immediate need to protect the safety and health of the victim and individuals residing in the household, as verified by a medical provider, human services provider or law enforcement",
+   "source_id": "PA-S2",
+   "pinpoint": "18 P.S. 11.103, \"Out-of-pocket loss\" (4)"
+  },
+  {
+   "id": "PA-RELOC-3",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "The move must happen within 120 days of the crime, or within 120 days of a new threat or sign of danger.",
+   "quote": "Relocation must occur within 120 days from the date of crime, or 120 days from the date the victim is threatened by any change of circumstance or indicator of danger.",
+   "source_id": "PA-S8",
+   "pinpoint": "VCAP Relocation Expenses flyer (11/2023)"
+  },
+  {
+   "id": "PA-RELOC-4",
+   "category": "expense_cap",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 7500,
+    "per": "day"
+   },
+   "summary": "Lodging while relocating for safety is reimbursed up to $75 per day, inside the $1,000 relocation limit.",
+   "quote": "This reimbursement will not exceed $1,000 per household for each direct victim for the following: (1)  Relocation expenses to be reimbursed are as follows: (i)   Lodging to a daily maximum of $75.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(f)(1)(i)"
+  },
+  {
+   "id": "PA-TRANS-1",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel to medical care or counseling, and to criminal justice or protection from abuse proceedings, is reimbursed.",
+   "quote": "OVS will reimburse expenses associated with travel necessary and reasonable as determined by OVS to obtain medical care or counseling, attend or participate in criminal justice or protection from abuse proceedings, and other circumstances when good cause is shown by the claimant.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(g)"
+  },
+  {
+   "id": "PA-TRANS-2",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 3000,
+    "per": "day"
+   },
+   "summary": "Car rental for crime-related travel (medical care, counseling, court) is reimbursed up to $30 per day.",
+   "quote": "Car rental, up to $30 a day.",
+   "source_id": "PA-S5",
+   "pinpoint": "VCAP Manual 2025, Transportation (p. 88)"
+  },
+  {
+   "id": "PA-TRANS-3",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 2800,
+    "per": "day"
+   },
+   "summary": "Meals are reimbursed up to $28 per day ($6 breakfast, $6 lunch, $16 dinner), but only when travel to a provider is 50 miles or more one way.",
+   "quote": "Additionally, if travel to a provider is 50 miles or more (one way) from the eligible person’s\nhome, the following is eligible for reimbursement:\n• Meals. Up to $28 a day, with no more than $6 for breakfast, $6 for lunch and $16 for\ndinner.",
+   "source_id": "PA-S5",
+   "pinpoint": "VCAP Manual 2025, Transportation (p. 89)"
+  },
+  {
+   "id": "PA-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Unreimbursed medical care and treatment caused by the crime are covered.",
+   "quote": "expenses for unreimbursed and unreimbursable expenses or indebtedness incurred for medical care, nonmedical remedial care and treatment as approved by the Office of Victims' Services or other services",
+   "source_id": "PA-S2",
+   "pinpoint": "18 P.S. 11.103, \"Out-of-pocket loss\" (1)"
+  },
+  {
+   "id": "PA-MED-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Once the program accepts a claim, the hospital or provider must take the program's payment as payment in full and may not collect more from the survivor.",
+   "quote": "If the Office of Victims' Services accepts a claim, the hospital or other licensed health care provider shall accept such payment as payment in full and may not attempt to collect from the victim any amount exceeding the amount of reimbursement made by the Office of Victims' Services.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.708(b)"
+  },
+  {
+   "id": "PA-MED-3",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Replacing eyeglasses, hearing aids, dental devices, prescription medications and similar health items stolen or damaged in the crime is capped at $1,000, with eyeglass frames limited to $200. This is not a cap on ordinary medical bills.",
+   "quote": "OVS will reimburse a claimant for costs for the replacement of each prosthetic device, wheelchair, cane, walker, hearing aid, eyeglasses or other corrective lenses, dental device or prescription medications. Reimbursement will not exceed $1,000 and will be subject to the following limitations: (1)  Two hundred dollars for eyeglass frames.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(d)"
+  },
+  {
+   "id": "PA-CHILD-1",
+   "category": "covered_expense",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare"
+   },
+   "summary": "Services needed because of the crime, such as child care, cleaning, laundry, and meal preparation, can be reimbursed.",
+   "quote": "The cost of obtaining services needed as a result of the crime such as laundering, cleaning, child care, administration of medication, food shopping and meal preparation.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(i)(2)"
+  },
+  {
+   "id": "PA-CLEAN-1",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 50000,
+    "per": "claim"
+   },
+   "summary": "Cleaning a crime scene at a private residence or privately owned vehicle is capped at $500, paid on top of the total award cap.",
+   "quote": "reasonable and necessary costs of cleaning the crime scene of a private residence or privately owned motor vehicle, the amount of which shall not exceed $500.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(b)(1)(iii)"
+  },
+  {
+   "id": "PA-EXCL-1",
+   "category": "excluded_expense",
+   "params": {
+    "item": "property damage; pain and suffering"
+   },
+   "summary": "Property damage and pain and suffering are not covered.",
+   "quote": "Except as otherwise provided, the term does not include property damage or pain and suffering.",
+   "source_id": "PA-S2",
+   "pinpoint": "18 P.S. 11.103, \"Out-of-pocket loss\""
+  },
+  {
+   "id": "PA-EXCL-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "property loss or damage (only certain medical equipment and supplies and, case by case, official documents are excepted; phones are not named)"
+   },
+   "summary": "Lost or damaged property is not paid, except certain medical equipment and supplies and, case by case, certain official documents such as a driver's license or passport.",
+   "quote": "Property - A claim cannot be paid for property loss or damage (except certain medical equipment and supplies; or certain official documents, i.e., driver's license, passport, etc. on case by case basis).",
+   "source_id": "PA-S5",
+   "pinpoint": "VCAP Manual 2025, Miscellaneous Eligibility Information (p. 10 to 11)"
+  },
+  {
+   "id": "PA-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 5,
+    "from": "discovery",
+    "extension": "Good cause can excuse a late filing (incapacity, victim was a minor, fear of retaliation, crime not readily apparent, other good cause; 18 P.S. 11.702(b)(2)(iii.1)). For a victim under 18 abused by a parent, caretaker, household member or parent's paramour, the period is tolled until age 21 and runs to the later of the criminal limitation period or the standard period. Sexual abuse counseling claims under 18 P.S. 11.701.1 are excepted from this deadline."
+   },
+   "summary": "A claim must be filed within five years after the crime is discovered, under the current law; the program may accept a late claim for good cause. Older crimes had a shorter deadline, so those survivors should call the program.",
+   "quote": "a claim must be filed not later than five years after the discovery of the occurrence of the crime upon which the claim is based",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.702(b)(1)"
+  },
+  {
+   "id": "PA-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "protective_order",
+     "forensic_exam"
+    ]
+   },
+   "summary": "The crime must have been promptly reported to the proper authorities; the statute sets no fixed number of hours. A protection order filing (statute) or a forensic rape exam (program policy) also counts.",
+   "quote": "The crime was promptly reported to the proper authorities.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(a)(3)"
+  },
+  {
+   "id": "PA-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "protective_order"
+    ]
+   },
+   "summary": "Filing for a sexual violence or intimidation protection order satisfies the reporting requirement, even without a police report.",
+   "quote": "may satisfy the eligibility requirement under subsection (a)(3) for reporting a crime to the proper authorities by commencing an action brought in accordance with 42 Pa.C.S. Ch. 62A (relating to protection of victims of sexual violence or intimidation)",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(a.2)"
+  },
+  {
+   "id": "PA-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "Having a forensic rape exam counts as reporting to the proper authorities, so a survivor who had the exam can file a standard claim without going to police.",
+   "quote": "Effective for crimes occurring on or after 9/8/2022, a forensic rape exam is considered acceptable for reporting to proper authorities. This change allows victims who have the FRE completed to be eligible for a standard claim without having to report the crime to law enforcement.",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
+  },
+  {
+   "id": "PA-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false
+   },
+   "summary": "A survivor of sexual abuse in Pennsylvania who did not or does not want to report can still file a counseling-only claim.",
+   "quote": "A direct victim of sexual abuse which occurred in Pennsylvania, who did not report or does not want to report the crime to authorities, is eligible to submit a claim for counseling services related to their abuse.",
+   "source_id": "PA-S4",
+   "pinpoint": "PA.gov VCAP page, Sexual Assault Counseling Claims"
+  },
+  {
+   "id": "PA-MIN-1",
+   "category": "minimum_loss",
+   "params": {
+    "amount_cents": 5000,
+    "waived_for": [
+     "victim or claimant age 60 or older"
+    ]
+   },
+   "summary": "The claimant must have at least $50 in out-of-pocket loss or lost earnings, unless the victim or claimant was 60 or older.",
+   "quote": "no award shall be made on a claim unless the claimant has incurred an aggregate minimum out-of-pocket loss, loss of earnings or loss of support of $50. (b) Exception.--Subsection (a) shall not apply if the direct victim or claimant was 60 years of age or older at the time the crime occurred.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.703"
+  },
+  {
+   "id": "PA-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The award is reduced by insurance, public funds, offender payments, settlements and similar payments; the program pays last.",
+   "quote": "an award made under this chapter shall be reduced by the amount of any payments received or to be received by the claimant as a result of the injury",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(e)"
+  },
+  {
+   "id": "PA-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "In general, the program may reduce or deny an award if the victim's conduct contributed to the injury.",
+   "quote": "The Office of Victims' Services may reduce the amount or deny the claim altogether in accordance with the determination.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(f)(1)"
+  },
+  {
+   "id": "PA-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "If the crime is rape or sexual assault, the victim's conduct may not be considered at all.",
+   "quote": "If the crime involved is rape or sexual assault, the conduct of the direct victim shall not be considered.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(f)(2)"
+  },
+  {
+   "id": "PA-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 500000
+   },
+   "summary": "An emergency award of up to $5,000 per claim is available for urgent financial need.",
+   "quote": "The total amount of an emergency award will not exceed $5,000 per claim.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.17(c)"
+  },
+  {
+   "id": "PA-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual offenses under Chapter 31 of the Pennsylvania Crimes Code (including rape and sexual assault) are personal injury crimes covered by the program.",
+   "quote": "18 Pa.C.S. Ch. 31 (relating to sexual offenses).",
+   "source_id": "PA-S2",
+   "pinpoint": "18 P.S. 11.103, \"Personal injury crime\""
+  },
+  {
+   "id": "PA-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime in Pennsylvania, regardless of the victim's residence; or a Pennsylvania resident injured or killed in a foreign country that has no compensation program; or an act of international terrorism. Exam claims have a wider rule (PA-RES-2)."
+   },
+   "summary": "The crime must have occurred in Pennsylvania, or be against a Pennsylvania resident in a foreign country with no compensation program, or be international terrorism.",
+   "quote": "The crime occurred in Pennsylvania, or to a Pennsylvania resident who is injured or killed in a foreign country that does not have a compensation program, or by an act of international terrorism.",
+   "source_id": "PA-S5",
+   "pinpoint": "VCAP Manual 2025, Requirements for receiving compensation, 1"
+  },
+  {
+   "id": "PA-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Exam claims: crime in Pennsylvania, or a Pennsylvania resident assaulted in another state who returns to Pennsylvania for the exam."
+   },
+   "summary": "A Pennsylvania resident sexually assaulted in another state who comes back to Pennsylvania for the exam can have the exam paid by the Pennsylvania program.",
+   "quote": "Any provider performing a forensic rape examination on a sexual assault victim may file a claim with VCAP if the crime occurred in Pennsylvania, OR if a Pennsylvania resident that is sexually assaulted in another state returns to Pennsylvania to have the exam done by a hospital or licensed health care provider as defined by the Crime Victims Act.",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, A.5"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "minimum_loss",
+   "reporting_requirement",
+   "residency",
+   "total_cap"
+  ],
+  "not_found": [
+   "expense_cap:security",
+   "covered_expense:security",
+   "excluded_expense:phones (no explicit statement; only general property exclusion)"
+  ],
+  "notes": "No source found that covers home security costs (locks, alarms, cameras); treat security as not covered unless the program confirms. Phones are not named anywhere; the general property loss/damage exclusion applies. The statute's emergency award limit is 'a rate set by the Office of Victims' Services'; the $5,000 figure comes from 37 Pa. Code 411.17 and matches the 2025 manual. Relocation lodging is $75 per day (PA-RELOC-4); relocation vehicle rental is $30 per day (37 Pa. Code 411.42(f)), not encoded separately. Travel caps (car rental $30/day, meals $28/day for trips of 50+ miles) are taken from the 2025 manual because the matching list in 37 Pa. Code 411.42(g) is introduced by a clause about death and funeral travel and reads ambiguously."
+ },
+ "confidence": "high",
+ "researcher_notes": "Act 77 of 2022 changes (5-year filing deadline, 'promptly' reporting instead of 72 hours, $50 minimum loss, 701.1 counseling claims, conduct not considered for counseling) apply to crimes on or after 9/8/2022; for older crimes the program says to contact it (2-year deadline and 72-hour reporting applied before). 37 Pa. Code Chapter 411 was last amended in 2009 and still references some pre-2022 limits (for example a 1-year FRE provider deadline that is consistent with the 2024 FRE protocol); where regulations and statute differ the statute controls. The PA.gov page says 'The crime must have occurred in Pennsylvania', while the statute's definitions (18 P.S. 11.103) also cover Pennsylvania residents harmed outside the state when the other location's program is ineligible under VOCA; the manual narrows this to foreign countries without a program and international terrorism. Insurance: providers must bill the survivor's insurance first for the exam unless the survivor (or person responsible) asks that insurance not be billed (18 P.S. 11.707(h)(1); FRE protocol B.2), so insurance_billing is recorded as 'allowed' with a survivor opt-out. The PA.gov transportation flyer says 'A maximum payment of $35,000 per direct victim can be reimbursed for transportation expenses'; that is just the overall cap and is not encoded. The English VCAP brochure PDF is image-only and was not saved. Counseling for a minor whose insurance is held by the alleged perpetrator or a non-supportive caretaker may be paid without billing that insurance (18 P.S. 11.707(b)(4.1)(i)). Reviewer: the PA.gov page says the claim must be filed 'within 5 years of the crime'; the statute (18 P.S. 11.702(b)(1)) runs it from discovery, which the rule follows. The 37 Pa. Code 411.42(d) health-item limit says 'each' device and 'will not exceed $1,000'; encoded per claim, but it may be read per item. FRE FAQ: if the survivor declines evidence collection the hospital may bill the survivor's insurance (Q14), and medications without an exam are not paid on the FRE claim (Q11); both can go on a standard claim."
+}

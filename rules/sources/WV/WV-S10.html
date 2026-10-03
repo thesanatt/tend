@@ -1,0 +1,520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"https://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<TITLE>Crime Victims - Rules</TITLE>
+<meta http-equiv="Expires" content="0">
+<link href="../../styletest1.css" rel="stylesheet" type="text/css">
+<LINK REL="SHORTCUT ICON" HREF="https://www.wvlegislature.gov/images/home_link.gif">
+<style type="text/css">
+#wrapper p {text-indent: 2em;}
+
+</style>
+</HEAD>
+<nav><meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://cse.google.com/cse.js?cx=5c3144a0752ec82d3"></script>
+<script type="text/javascript">
+
+function _autoLayers() {
+  var g,b,k,f,args=_autoLayers.arguments;a=parseInt(args[0]);if(isNaN(a))a=0;
+  if(!document.setc){c=new Array();document.setc=true;for(var u=0;u<10;u++){
+  c[u]=new Array();}}for(k=0;k<c[a].length;k++){if((g=MM_findObj(c[a][k]))!=null){
+  b=(document.layers)?g:g.style;b.visibility="hidden";}}for(k=1;k<args.length;k++){
+  if((g=MM_findObj(args[k]))!=null){b=(document.layers)?g:g.style;b.visibility="visible";f=false;
+  for(var j=0;j<c[a].length;j++){if(args[k]==c[a][j]) {f=true;}}
+  if(!f){c[a][c[a].length++]=args[k];}}}
+}
+
+function _hideDiv(evt) {
+  var b,relT,mT=false;
+  if(document.layers){b=evt.target;if(b.aHide){
+    b.visibility="hidden";}else{routeEvent(evt);}
+  }else if(document.all&&!window.opera){b=event.srcElement;
+    while(b!=null){if(b.tagName=="DIV" && b.ahD){mT=true;break;}b=b.parentElement;}
+    if(!b.contains(event.toElement)){b.style.visibility="hidden";}
+  }else if(document.getElementById){b=evt.currentTarget;relT=evt.relatedTarget;
+    while(relT!=null){if(b==relT){mT=true;break;}
+    relT=relT.parentNode;}if(!mT){b.style.visibility="hidden";}}
+}
+
+function _autoHide() {
+  var i,g,args=_autoHide.arguments;
+  for(i=0;i<args.length;i++){if((g=MM_findObj(args[i]))!=null){
+    g.aHide=true;if(document.layers){
+    g.captureEvents(Event.MOUSEOUT);}g.onmouseout=_hideDiv;g.ahD=true;}}
+}
+
+function MM_findObj(n, d) {
+  var p,i,x; if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() {
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+  if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function hideAllSubmenus() {
+  var ids = ['subs1','subs2','subs3','subs4','subs5','subs6','subs7','subs8'];
+  ids.forEach(function(id) {
+    var sub = document.getElementById(id);
+    if (sub) {
+      sub.style.visibility = 'hidden';
+      sub.querySelectorAll('a').forEach(function(a) {
+        a.setAttribute('tabindex', '-1');
+      });
+    }
+  });
+  document.querySelectorAll('#trigger1 a,#trigger2 a,#trigger3 a,#trigger4 a,#trigger5 a,#trigger6 a,#trigger7 a,#trigger8 a').forEach(function(t) {
+    t.setAttribute('aria-expanded', 'false');
+  });
+}
+
+function openMenu(triggerId, subsId) {
+  hideAllSubmenus();
+  var trigger = document.querySelector('#' + triggerId + ' a');
+  trigger.setAttribute('aria-expanded', 'true');
+  var sub = document.getElementById(subsId);
+  if (sub) {
+    sub.style.visibility = 'visible';
+    sub.querySelectorAll('a').forEach(function(a) {
+      a.setAttribute('tabindex', '0');
+    });
+  }
+}
+
+function toggleMenu(triggerId, subsId) {
+  var trigger = document.querySelector('#' + triggerId + ' a');
+  var isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+  hideAllSubmenus();
+  if (!isExpanded) {
+    trigger.setAttribute('aria-expanded', 'true');
+    var sub = document.getElementById(subsId);
+    if (sub) {
+      sub.style.visibility = 'visible';
+      sub.querySelectorAll('a').forEach(function(a) {
+        a.setAttribute('tabindex', '0');
+      });
+    }
+  }
+}
+
+function init() {
+  _autoHide('subs1','subs2','subs3','subs4','subs5','subs6','subs7','subs8');
+  document.querySelectorAll('.submenus a').forEach(function(a) {
+    a.setAttribute('tabindex', '-1');
+  });
+}
+
+window.onload = init;
+
+document.addEventListener('focusin', function(e) {
+  var triggerIds = ['trigger1','trigger2','trigger3','trigger4','trigger5','trigger6','trigger7','trigger8'];
+  var subIds     = ['subs1',  'subs2',  'subs3',  'subs4',  'subs5',  'subs6',  'subs7',  'subs8'];
+
+  // If focus landed on a trigger link â€” open that menu
+  for (var i = 0; i < triggerIds.length; i++) {
+    var triggerLink = document.querySelector('#' + triggerIds[i] + ' a');
+    if (e.target === triggerLink) {
+      openMenu(triggerIds[i], subIds[i]);
+      return;
+    }
+  }
+
+  // If focus is still inside a submenu â€” leave it alone
+  var inSub = e.target.closest('#subs1,#subs2,#subs3,#subs4,#subs5,#subs6,#subs7,#subs8');
+  if (inSub) return;
+
+  // Focus is outside nav entirely â€” close everything
+  hideAllSubmenus();
+});
+
+</script>
+
+
+<!-- Google tag (gtag.js) edited 12-11-2023 JDT//DO NOT TOUCH-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EED2LTLF4G "></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EED2LTLF4G ');
+</script>
+<!-- edited 12-11-2023 JDT//DO NOT TOUCH-->
+
+</head>
+<body>
+<div id="navskip"><a href="#main" name="begin">skip navigation</a></div>
+
+<div id="mainsearch">
+
+	
+		<div class="gcse-searchbox-only" data-resultsUrl="https://www.wvlegislature.gov/search.cfm" data-enableHistory="true"></div>
+
+</div>
+
+
+<div id="logo"><img src="/images/header.png" usemap="#m_header" alt="West Virginia Legislature" name="header" width="878" height="80" onMouseOver="_autoLayers(0)" >
+<map name="m_header"><area shape="rect" coords="0,0,1843,168" href="/index.cfm" alt="Return to West Virginia Legislature homepage"></map></div>
+
+<div id="trigger1"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger1','subs1'); return false;}" onMouseOver="toggleMenu('trigger1','subs1')" onclick="return false;">SENATE</a></div>
+<div id="subs1" class="submenus">
+<a href="/Senate1/president.cfm">PRESIDENT</a>
+<a href="/Senate1/roster.cfm">SENATORS</a>
+<a href="/committees/senate/main.cfm">COMMITTEES</a>
+<a href="/live.cfm">VIDEO/AUDIO</a>
+<a href="/redistricting.cfm">DISTRICT MAPS</a>
+<a href="/Senate1/clerk.cfm">SENATE CLERK</a>
+<a href="/Senate1/rules.cfm">SENATE RULES</a>
+</div>
+
+<div id="trigger2"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger2','subs2'); return false;}" onMouseOver="toggleMenu('trigger2','subs2')" onclick="return false;">HOUSE</a></div>
+
+<div id="subs2" class="submenus">
+<a href="/House/speaker.cfm">SPEAKER</a>
+<a href="/House/roster.cfm">DELEGATES</a>
+<a href="/committees/house/main.cfm">COMMITTEES</a>
+<a href="/live.cfm">VIDEO/AUDIO</a>
+<a href="/redistricting.cfm">DISTRICT MAPS</a>
+<a href="/House/clerk.cfm">HOUSE CLERK</a>
+<a href="/House/rules.cfm">HOUSE RULES</a>
+<a href="//house.wvlegislature.gov/">HOUSE STAFF</a>
+</div>
+
+<div id="trigger3"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger3','subs3'); return false;}" onMouseOver="toggleMenu('trigger3','subs3')" onclick="return false;">JOINT</a></div>
+
+<div id="subs3" class="submenus">
+<a href="/committees/interims/interims.cfm">INTERIM COMMITTEES</a>
+<a href="/Joint/administrator.cfm">LEGISLATIVE ADMINISTRATOR</a>
+<a href="/Joint/legis_services.cfm">LEGISLATIVE SERVICES DIVISION</a>
+<a href="/Joint/legisinfo.cfm">PUBLIC INFORMATION</a>
+<a href="/Joint/computercenter.cfm">LEGISLATIVE AUTOMATED SYSTEMS DIVISION</a>
+<a href="/Joint/legislative-auditor.cfm">LEGISLATIVE AUDITOR'S OFFICE</a>
+<a href="/Joint/perd.cfm">PERFORMANCE EVALUATION & RESEARCH DIVISION</a>
+<a href="/Joint/postaudit.cfm">POST AUDIT DIVISION</a>
+<a href="/Joint/budget.cfm">BUDGET DIVISION</a>
+<a href="/Joint/fiscal-regulatory.cfm">REGULATORY AND FISCAL AFFAIRS DIVISION</a>
+<a href="//claims.wvlegislature.gov/">CLAIMS COMMISSION</a>
+<a href="/Joint/victims.cfm">CRIME VICTIMS</a>
+<a href="/Joint/rule_making.cfm">RULE-MAKING REVIEW</a>
+<a href="/Joint/csi.cfm">SPECIAL INVESTIGATIONS</a>
+<a href="/Interims/judicial_comp.cfm">JUDICIAL COMP. COMMISSION</a>
+<a href="/Joint/rules.cfm">JOINT RULES</a>
+<a href="//staff.wvlegislature.gov/"><strong>STAFF INFO</strong></a></div>
+
+
+<div id="trigger4"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger4','subs4'); return false;}" onMouseOver="toggleMenu('trigger4','subs4')" onclick="return false;">BILL STATUS</a></div>
+
+<div id="subs4" class="submenus">
+<a href="/Bill_Status/bill_status.cfm">BILL STATUS</a>
+<a href="/bill-track/login.cfm">BILL TRACKING</a></div>
+
+<div id="trigger5"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger5','subs5'); return false;}" onMouseOver="toggleMenu('trigger5','subs5')" onclick="return false;">STATE LAW</a></div>
+
+<div id="subs5" class="submenus">
+
+<a href="//code.wvlegislature.gov">WEST VIRGINIA CODE</a>
+<a href="/Educational/publications.cfm#acts">ACTS OF THE LEGISLATURE</a>
+<a href="/Educational/publications/WVCode1931.cfm">CODE OF 1931</a>
+<a href="//home.wvlegislature.gov/constitution-of-west-virginia/">WV CONSTITUTION</a>
+<a href="//home.wvlegislature.gov/constitution-of-the-united-states/">US CONSTITUTION</a>
+</div>
+
+<div id="trigger6"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger6','subs6'); return false;}" onMouseOver="toggleMenu('trigger6','subs6')" onclick="return false;">REPORTS</a></div>
+
+<div id="subs6" class="submenus">
+<a href="/Reports/Agency_Reports/agencylist_all.cfm">AGENCY REPORTS</a>
+<a href="/SAGA/Agency.cfm">AGENCY GRANT AWARDS</a>
+<a href="/Joint/PERD/reports.cfm">PERFORMANCE EVALUATIONS</a>
+<a href="/Joint/Postaudit/reports.cfm">POST AUDITS</a>
+
+</div>
+
+<div id="trigger7"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger7','subs7'); return false;}" onMouseOver="toggleMenu('trigger7','subs7')" onclick="return false;">EDUCATIONAL</a></div>
+
+<div id="subs7" class="submenus">
+<a href="/Educational/citizens/guide.cfm">CITIZEN&#8217;S GUIDE</a>
+<a href="/Educational/internship.cfm">INTERNSHIP PROGRAM</a>
+<a href="//home.wvlegislature.gov/page-program/">PAGE PROGRAM</a>
+
+<a href="/Educational/publications.cfm">PUBLICATIONS</a>
+<a href="/photos" title="Visit the Legislature's Capitol Photo Gallery">PHOTO GALLERY</a>
+<a href="/Educational/Capitol_History/cap.cfm">CAPITOL HISTORY</a>
+<a href="/Educational/Bill_Becomes_Law/Bill_Becomes_Law.cfm">HOW A BILL BECOMES LAW</a>
+<!--<a href="/Educational/Kids_Page/kids.html">Kids&#8217; Page</a>--></div>
+
+<div id="trigger8"><a href="#" aria-haspopup="true" aria-expanded="false" onKeyDown="if(event.key==='Enter'||event.key===' '){toggleMenu('trigger8','subs8'); return false;}" onMouseOver="toggleMenu('trigger8','subs8')" onclick="return false;">CONTACT</a></div>
+
+<div id="subs8" class="submenus">
+<a href="/Senate1/roster.cfm">SENATE ROSTER</a>
+<a href="/House/roster.cfm">HOUSE ROSTER</a>
+<!--<a href="/Contact/capmail.cfm">All Members List</a>-->
+<a href="/Joint/legisinfo.cfm">PUBLIC INFO.</a>
+<a href="/News_release/news.cfm">NEWS RELEASES</a>
+<a href="/Contact/Links/links.cfm">HELPFUL LINKS</a></div>
+
+<div id="triggerhome">
+<img name="Home" src="/images/Home.gif" usemap="#m_Home" alt="home" height="21" width="26"></div>
+
+<map name="m_Home">
+<area shape="rect" coords="0,0,26,21" href="/index.cfm" alt="home" onMouseOut="MM_swapImage('Home','','/images/Home.gif',1);"  onMouseOver="MM_swapImage('Home','','/images/Home_f2.gif',1);_autoLayers(0)">
+</map>
+
+<a name="main" id="main"></a>
+</nav>
+<script>
+(function () {
+  var ua = navigator.userAgent;
+  if (ua.indexOf("Firefox") !== -1 && ua.indexOf("Windows") !== -1) {
+    document.documentElement.className += " windows-firefox";
+  }
+})();
+</script>
+
+<div id="wrapper">
+<h3>West Virginia Crime Victims Compensation Fund</h3>
+
+<H1>Rules of Practice and Procedure Under the West Virginia Crime Victims Compensation Act</H1>
+
+<br>
+              <A HREF="#rule1">RULE 1. Duties of clerk.</A><BR>
+
+              <A HREF="#rule2">RULE 2. Filing papers.</A><BR>
+
+              <A HREF="#rule3">RULE 3. Records.</A><BR>
+
+              <A HREF="#rule4">RULE 4. Form of claims.</A><BR>
+
+              <A HREF="#rule5">RULE 5. Processing of application.</A><BR>
+
+               <A HREF="#rule6">RULE 6. Hearings.</A><BR>
+
+               <A HREF="#rule7">RULE 7. Continuances; Dismissal for failure to prosecute.</A><BR>
+
+               <A HREF="#rule8">RULE 8. Withdrawal of application.</A><BR>
+
+               <A HREF="#rule9">RULE 9. Domestic abuse.</A><BR>
+
+               <A HREF="#rule10">RULE 10. False or fraudulent claims.</A><BR>
+
+               <A HREF="#rule11">RULE 11. Attorney legislators practice before the Court.</A><BR>
+               
+               <A HREF="#rule12">RULE 12.  Reduced awards.</A><BR>
+	</br>		   
+
+	
+
+<br><H1><A NAME="rule1"></A>RULE 1. Duties of clerk.</H1>
+
+<P>The Clerk shall be responsible for all papers and claims filed in this office, and will be required to file properly, any paper, pleading, document, or other writing filed in connection with any claim.  The Clerk shall also properly endorse all such papers and claim, showing the title of the claim, the number of the same, and such other data as may be necessary to connect and identify the document, writing, or claim.</P>
+
+
+
+
+
+<br><H1><A NAME="rule2"></A>RULE 2.  Filing papers.</H1>
+
+<P>    (a) Communications addressed to the Legislative Claims Commission or Clerk and all notices, petitions, answers and other pleadings, all reports, documents received or filed in the office kept by the Clerk of this Commission, shall be endorsed by the Clerk showing the date of the receipt or filing thereof.</P>
+<P>    (b) The Clerk, upon receipt of an application for an award of compensation, shall enter of record in the docket book indexed and kept for that purpose, the name of the claimant, whose name shall be used as the title of the case, and a case number shall be assigned accordingly.</P>
+<P>    (c) No paper, exclusive of exhibits and correspondence from claimants, shall be filed in any action or proceeding or be accepted by the Clerk for filing, nor any brief, deposition, pleading, order, decree, reporter’s transcript or other paper to be made a part of the record in any claim be received unless the same be upon paper measuring 8 ½ inches in width and 11 inches in length.</P>
+
+
+
+
+
+<br><H1><A NAME="rule3"></A>RULE 3.  Records.</H1>
+
+<P>     The Clerk shall keep the following record books, suitably indexed in the names of claimants and other subject matter:</P>
+<P>    (a) Order Book, in which shall be recorded at large, on the day of their filing, all orders made by the Commission in each case or proceeding.</P>
+<P>    (b) Docket Book, in which shall be entered each claim made and filed, with a file or case number corresponding to the number of the case, together with brief chronological notations of the proceedings had in each case.</P>
+<P>    (c) Financial Ledger, in which shall be entered chronologically all administrative expenditures of the Commission under suitable classifications.</P>
+
+
+
+
+
+<br><H1><A NAME="rule4"></A>RULE 4.  Form of claims.</H1>
+
+<P>     Within two years after the occurrence of the criminally injurious conduct that is the basis of a claim, an application for an award of compensation shall be filed by a claimant, in duplicate.  An application form may be obtained from the Clerk.</P>
+<P>     The application for an award of compensation shall contain the following information:</P>
+ <P>    (1) The name and address of the victim of the criminally injurious conduct, the name and address of the claimant, and the relationship of the claimant to the victim;</P>
+ <P>    (2) The nature of the criminally injurious conduct that is the basis for the claim, as well as the time, date, and place of the conduct;</P>
+  <P>   (3) The law-enforcement agency or officer to whom the criminally injurious conduct was reported and the time and date it was reported;</P>
+ <P>    (4) A release authorizing the Commission, the Commissioners and the claim investigator to obtain any report, document or information that relates to the determination of the claim for an award of compensation;</P>
+  <P>   (5) If the victim is deceased, the name and address of each dependent of the victim and the extent to which each is dependent upon the victim for care and support;</P>
+  <P>    (6) The nature and extent of the injuries that the victim sustained from the criminally injurious conduct, the name and address of any person who gave medical treatment to the victim for the injuries, the name and address of any hospital or similar institution where the victim received medical treatment for the injuries, and whether the victim died as a result of the injuries;</P>
+  <P>   (7) The total amount of the economic loss that the victim, a dependent or the claimant sustained or will sustain as a result of the criminally injurious conduct;</P>
+  <P>   (8) The amount of benefits or advantages that the victim, a dependent or other claimant has received or is entitled to receive from any collateral source for economic loss that resulted from the criminally injurious conduct, and the name of each collateral source; and</P>
+  <P>   (9) Any additional relevant information that the Commission may require.
+</P>
+
+
+
+
+
+<br><H1><A NAME="rule5"></A>RULE 5. Processing of application.</H1>
+
+<P>     (a) Within seven days of the receipt of an application for an award of compensation, the Clerk shall transmit a copy of the application to the claim investigator.</P>
+<P>     (b) The claim investigator, upon receipt of an application for an award of compensation from the Clerk, shall investigate the claim.  After completing the investigation, the claim investigator shall file with the Clerk a written finding of fact and recommendation concerning an award of compensation and all information and/or documents used in the investigation of the claim. The finding of fact shall be filed within six months, unless extended by the Commission, and a copy shall be sent to the claimant by the Clerk.</P>
+ <P>    (c) The claimant shall file any response to the finding of fact and recommendation of the claim investigator within 30 days of the date of the notice.</P>
+ <P>    (d) After the expiration of the 30-day period, the Clerk shall assign the claim to a Commissioner.</P>
+ <P>     (e) The Commissioner shall, within 45 days after assignment by the Clerk, file an opinion without a hearing and either deny the claim or approve an award to the claimant.</P>
+ <P>    (f) The Clerk shall notify the claim investigator and the claimant as soon as the opinion has been filed.</P>
+ <P>     (g) Within 21 days thereafter, if either the claim investigator or the claimant disagrees with the approval of an award or the denial of a claim by the Commissioner, the claim investigator or the claimant, or both, may file with the Clerk a request for a hearing.</P>
+  <P>    (h) Upon receipt of a request for hearing from either the claim investigator or the claimant, the Clerk shall place the claim upon the regular docket of the Commission for hearing.</P>
+
+
+
+
+
+<br><H1><A NAME="rule6"></A>RULE 6. Hearings.</H1>
+
+<P>     (a) It shall be the duty of the claimant, or his counsel, to negotiate with the claim investigator so that the claimant and the claim investigator may be ready at the beginning of the hearing of a claim to read, if reduced to writing, or to dictate orally into the record, if not reduced to writing, such stipulations, if any, as the parties may have been able to agree upon.</P>
+  <P>   (b) Claims shall be heard and considered by a single Commissioner to whom the claim has not been previously assigned.</P>
+ <P>    (c) Any claimant may appear in his own behalf or have his claim presented by counsel duly admitted to practice law in the State of West Virginia.</P>
+  <P>   (d) The Commission shall not be bound by the usual common law or statutory rules of evidence. The Commission may accept and weigh, in accordance with its evidential value, any information that will assist the Commission in determining the basis of the claim.</P>
+  <P>   (e) If a claimant or the claim investigator desires to obtain subpoenas for witnesses, such request shall be filed with the Clerk in writing, giving the style and number of the claim and setting forth the names of such witnesses, and thereupon such subpoenas shall be issued and delivered to the person making the request.</P>
+  <P>   (f) A request for subpoenas for witnesses shall be furnished to the Clerk well in advance of the hearing date so that such subpoenas may be issued in ample time before the hearing.</P>
+  <P>   (g) A deposition may be taken when a party desires the testimony of any person, including a claimant.  The deposition shall be upon oral examination or upon written interrogatory.  Depositions may be taken without leave of the Commission. The attendance of witnesses may be compelled by the use of subpoenas.</P>
+  <P>   (h) To take the deposition of any designated witness, reasonable notice of time and place shall be given the opposite party or counsel, and the party taking such deposition shall pay the costs thereof.</P>
+   <P>  (i) Depositions, interrogatories, requests for the production of documents, requests for admissions and answers and responses thereto are not to be filed with the Clerk of this Commission unless on specific order of this Commission; however, certificates of service are to be filed with the Clerk of this Commission.  The party obtaining any such material through discovery is responsible for its custody, preservation and delivery to the Commission if needed or so ordered, and such responsibility shall not terminate upon dismissal of any party while the claim is still pending. The custodial responsibility of the dismissed party may be discharged by agreement to transfer the custody of relevant discovery material to one or more of the remaining parties with a certificate filed with the Clerk of this Commission evidencing the transaction.</P>
+    <P> The original of all depositions upon oral examination and videotaped depositions shall be retained by the party taking such deposition.</P>
+    <P> Material obtained through discovery which is to be used in support of, or in opposition to, a motion to dismiss shall be filed with the Clerk of this Commission with the motion to dismiss.</P>
+    <P> If depositions, interrogatories, requests for the production of documents, requests for admissions, answers or responses thereto are to be used at trial or are necessary for a pre-trial conference or for a petition for rehearing, the portions to be used shall be filed with the Clerk of this Commission upon entry of the pre-trial order or at the time of the filing of the petition for rehearing insofar as their use can be reasonably anticipated by the parties having custody thereof.</P>
+   <P>  (j) The Commission may compel discovery and impose sanctions for failure of a party or parties to make discovery in accordance with the provisions of these Rules and Rule 37 of the West Virginia Rules of Civil Procedure; provided, however, that the Commission shall not find a person in contempt for failure to comply with an Order compelling discovery.
+</P>
+
+
+
+
+
+<br><H1><A NAME="rule7"></A>RULE 7. Continuances; Dismissal for failure to prosecute.</H1>
+
+<p> (a) After claims have been set for hearing, continuances are looked upon by the Commission with disfavor, but may be allowed when good cause is shown.</p>
+ <p>    (b) A party desiring a continuance shall file a motion showing good cause therefor at the earliest possible date.</p>
+ <p>    (c) Whenever any claim has been docketed for hearing for three regular terms of the Commission at which the claim might have been prosecuted, and the State shall have been ready to proceed with the trial thereof, the Commission may, upon its own motion or that of the State, dismiss the claim unless good cause appear or be shown by the claimant why such claim has not been prosecuted.</p>
+  <p>   (d) Whenever a claimant shall fail to appear and prosecute his claim on the day set for hearing and shall not have communicated with the Clerk prior thereto, advising of his inability to attend and the reason therefor, and if it further appear that the claimant or his counsel had sufficient notice of the docketing of the claim for hearing, the Commission may, upon its own motion or that of the State, dismiss the claim.</p>
+   <p>  (e) Within the discretion of the Commission, no order dismissing a claim under either of the two preceding sections of this rule shall be vacated nor the hearing of such claim be reopened except by a notice in writing filed no later than the end of the next regular term of Commission, supported by affidavits showing sufficient reason why the Order dismissing such claim should be vacated and the claim reinstated.</p>
+
+
+
+
+
+<br><H1><A NAME="rule8"></A>RULE 8. Withdrawal of application.</H1>
+
+<p>Any claimant may withdraw his application for an award of compensation.  Should the claimant later refile the claim, the Commission shall consider its former status, such as previous continuances and any other matter affecting its standing, and may redocket or refuse to redocket the claim, as in its judgment, justice and equity may require.</p>
+
+
+
+
+
+<br><H1><A NAME="rule9"></A>RULE 9. Domestic abuse.</H1>
+
+<p>a) The Commission shall determine the eligibility of claims for injuries sustained as the result of domestic abuse in the same manner as other claims.  No claim resulting from an incident of domestic abuse shall be denied based upon a finding that a claimant resides or has resided with the alleged offender of the crime for which the claim has been filed.  The Commission shall not deny payments to third party vendors based upon a finding that the victim and offender are maintaining a relationship.</P>
+  <p> (b) In considering an award, there shall be taken into account the extent to which a payment to a victim will support the offender by paying for the offender’s living expenses, including food, shelter, clothing, or entertainment, or the extent to which the payment will substitute for money that the offender otherwise normally would expend for the benefit of the household or its members, so as to avoid unjust enrichment of the offender.</p>
+
+
+
+
+
+<br><H1><A NAME="rule10"></A>RULE 10. False or fraudulent claims.</H1>
+
+<p>     The filing of a false or fraudulent claim or the misrepresentation or omission of a material fact shall be grounds for denial of a claim.</p>
+
+
+
+
+
+<br><H1><A NAME="rule11"></A>RULE 11. Attorney legislators practice before the Court.</H1>
+
+<P>     Henceforth from the date of the adoption of this Rule, attorneys who are also members of the West Virginia House of Delegates or of the West Virginia State Senate may not represent clients with claims filed with the Crime Victims Compensation Fund in the Legislative Claims Commission.  Consistent with Rule 1.10 of the Rules of Professional Conduct for attorneys, the proscription of this Rule applies to attorneys who practice in the same firm as the Attorney Legislator.</P>
+
+
+
+
+<br><H1><A NAME="rule12"></A>RULE 12.  Reduced awards.</H1>
+
+<P>	(a) The Commission shall determine the total of all outstanding balances due medical providers who have rendered services to a claimant as the result of criminally injurious conduct, less payments by all collateral sources, and shall award 50% of the remaining balance due each provider.</P>
+<P>	(b) Receipt by the medical providers of said 50% payment shall constitute payment in full of the claimant’s obligation.</P>
+<P>	(c) Reductions will not be made against any claimant. Reductions will not be applied to any provider of dental services, as said expenses are already reimbursed by the Commission pursuant to the Dental Customized Fee Analyzer.</P>
+<P>	(d) This Rule will be applicable to medical bills received on and after August 17, 2015.
+</P>
+
+
+
+
+
+<br><br><br>
+
+Adopted by Order of the Court of Claims, 1981.<BR>
+Amended October 20, 1983.<BR>
+Amended April 18, 1984.<BR>
+Amended July 1, 1985.<BR>
+Amended July 5, 1990.<BR>
+Amended November 18, 1992.<BR>
+Amended June 22, 1994.<BR>
+Amended September 22, 1994.<BR>
+Amended March 31, 2006.<BR>
+Amended March 8, 2014.<BR>
+Amended June 16, 2015.<BR><BR>
+ 
+Amended by Order of the Legislative Claims Commission, February 22, 2018.
+<BR><BR><BR><br>
+
+
+
+<A HREF="claim.cfm">File a Claim |</A>
+<A HREF="eligibility.cfm">Eligibility  |</A>
+<A HREF="request.cfm">Request Application |</A>
+<A HREF="../Court/judges.cfm">Judges |</A>
+<A HREF="rules.cfm">Rules |</A>
+<A HREF="../courtofclaims.cfm">Court of Claims |</A>
+<A HREF="../victims.cfm">CV Home</A>
+
+<BR>
+</div>
+<script src="/js/pdf-accessibility.js"></script>
+<footer><div id="footer">
+
+<div class="footerlinks">
+<a href="/bill_status/bill_status.cfm">Bill Status</a>&nbsp;&nbsp;|&nbsp;
+<a href="/bill-track/login.cfm">Bill Tracking</a>&nbsp;&nbsp;|&nbsp;
+<a href="/wvcodeentire.htm">Legacy WV Code</a>&nbsp;&nbsp;|&nbsp;
+<a href="https://www.wvlegislature.gov/Bulletin_Board/Bulletin_Board_menu.cfm">Bulletin Board</a>&nbsp;&nbsp;|&nbsp;
+<a href="/redistricting.cfm">District Maps</a>&nbsp;&nbsp;|&nbsp;
+<a href="/Senate1/roster.cfm">Senate Roster</a>&nbsp;&nbsp;|&nbsp;
+<a href="/House/roster.cfm">House Roster</a>&nbsp;&nbsp;|&nbsp;
+<a href="/live.cfm">Live</a>&nbsp;&nbsp;|&nbsp;
+<a href="//blog.wvlegislature.gov/">Blog</a>&nbsp;&nbsp;|&nbsp;
+<a href="//jobs.wvlegislature.gov/">Jobs</a>&nbsp;&nbsp;|&nbsp;
+<a href="/Contact/Links/links.cfm">Links</a>&nbsp;&nbsp;|&nbsp;
+<!--<a href="/FAQs/FAQ.cfm">FAQ</a>&nbsp;&nbsp;|&nbsp;
+<a href="/site_map.cfm">Site Map</a>&nbsp;&nbsp;|&nbsp;-->
+<a href="/index.cfm">Home</a>
+</div>
+<div class="social">
+<span>
+<a href="https://www.facebook.com/wvlegislature"><img src="/images/SOCIAL-ICON-SET/512x512/facebook.png" alt="Find on Facebook" width="24" height="24" style="vertical-align:middle" title="Find on Facebook"></a>
+<a href="https://twitter.com/wvlegislature"><img src="/images/SOCIAL-ICON-SET/512x512/twitter.png" alt="Follow on Twitter" width="24" height="24" style="vertical-align:middle" title="Follow on Twitter"></a>
+<a href="https://www.youtube.com/wvlegislature/"><img src="/images/SOCIAL-ICON-SET/512x512/utube.png" alt="Watch on YouTube" width="24" height="24" style="vertical-align:middle" title="Watch on YouTube"></a>
+</span>
+</div>
+</div>
+<div class="baseline">This Web site is maintained by the <a href="/Joint/legisinfo.cfm">West Virginia Legislature's Office of Reference &amp; Information.</a> &nbsp;|&nbsp; <a href="/termsofuse.cfm"> Terms of Use</a>  &nbsp;| &nbsp; <a href="mailto:webmaster@wvlegislature.gov"> <img src="/images/mail_icon.png" alt="Email Webmaster" style="vertical-align:top">Webmaster</a> &nbsp;  | &nbsp;  &copy; 2026 West Virginia Legislature  ** 
+</div><br /><br />
+<script>
+if (window.location.search.indexOf('sortby') !== -1) {
+  setTimeout(function() {
+    var target = document.getElementById('results');
+    if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
+  }, 300);
+}
+</script>
+</footer> 
+
+</BODY>
+</HTML>

@@ -1,0 +1,706 @@
+{
+ "jurisdiction": "IN",
+ "name": "Indiana",
+ "program": {
+  "program_name": "Indiana Violent Crime Victim Compensation Program",
+  "agency": "Indiana Criminal Justice Institute, Victim Services Division (Victim Compensation Division)",
+  "website": "https://www.in.gov/cji/victim-compensation/",
+  "apply_url": "https://www.in.gov/cji/victim-compensation/",
+  "application_pdf_url": "https://www.in.gov/cji/victim-compensation/files/23776-fill-in-R14-10-21.pdf",
+  "phone": "1-800-353-1484",
+  "phone_source_id": "IN-S1",
+  "statute_citation": "IC 5-2-6.1; IC 16-21-8; 203 IAC 1"
+ },
+ "sources": [
+  {
+   "id": "IN-S1",
+   "title": "ICJI Victim Compensation Division (program page)",
+   "url": "https://www.in.gov/cji/victim-compensation/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:53Z",
+   "raw_path": "rules/sources/IN/IN-S1.html",
+   "text_path": "rules/sources/IN/IN-S1.txt",
+   "sha256": "6c81abaf46b030094dd5bde8822d0eb87659b3b219568b94857df10e2e4a434a"
+  },
+  {
+   "id": "IN-S2",
+   "title": "ICJI Victim Compensation, Frequently Asked Questions",
+   "url": "https://www.in.gov/cji/victim-compensation/frequently-asked-questions/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:52:03Z",
+   "raw_path": "rules/sources/IN/IN-S2.html",
+   "text_path": "rules/sources/IN/IN-S2.txt",
+   "sha256": "98acdc7b56d9261216e484814c7f8df69d36537e050434bbba8fdb691877de11"
+  },
+  {
+   "id": "IN-S3",
+   "title": "Application for Benefits from Violent Crimes Compensation Fund, State Form 23776 (R14 / 9-21)",
+   "url": "https://www.in.gov/cji/victim-compensation/files/23776-fill-in-R14-10-21.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:52:04Z",
+   "raw_path": "rules/sources/IN/IN-S3.pdf",
+   "text_path": "rules/sources/IN/IN-S3.txt",
+   "sha256": "04bc844d429e7743dbc9417abf7eefd0ef8b02f286a14aebf03237d657e4022c"
+  },
+  {
+   "id": "IN-S4",
+   "title": "ICJI, Rights of Victims of Sexual Assault",
+   "url": "https://www.in.gov/cji/victim-compensation/rights-of-victims-of-sexual-assault/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:52:04Z",
+   "raw_path": "rules/sources/IN/IN-S4.html",
+   "text_path": "rules/sources/IN/IN-S4.txt",
+   "sha256": "a75e545312d0360fd2d1b4c5defa491f00d86561ca795c24f15ea0c5901eeb2d"
+  },
+  {
+   "id": "IN-S5",
+   "title": "IC 5-2-6.1-8 (violent crime) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-8/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:34Z",
+   "raw_path": "rules/sources/IN/IN-S5.html",
+   "text_path": "rules/sources/IN/IN-S5.txt",
+   "sha256": "6534612e7c0b1850cde318a56e716a420004ebe39b6b585a6d2a30aeba6eb99e"
+  },
+  {
+   "id": "IN-S6",
+   "title": "IC 5-2-6.1-12 (persons eligible) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-12/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:38Z",
+   "raw_path": "rules/sources/IN/IN-S6.html",
+   "text_path": "rules/sources/IN/IN-S6.txt",
+   "sha256": "8ca097c06ad39a629cdba51b200e2e6d3b49721bc9aeee1d1bd67a498e45134f"
+  },
+  {
+   "id": "IN-S7",
+   "title": "IC 5-2-6.1-13 (participants in criminal acts; exceptions) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-13/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:43Z",
+   "raw_path": "rules/sources/IN/IN-S7.html",
+   "text_path": "rules/sources/IN/IN-S7.txt",
+   "sha256": "4a385dd4b77ba7a41cb988aa63c9beb0270fa1985a8df84649c4510515bdf5dc"
+  },
+  {
+   "id": "IN-S8",
+   "title": "IC 5-2-6.1-16 (applications for assistance) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-16/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:46Z",
+   "raw_path": "rules/sources/IN/IN-S8.html",
+   "text_path": "rules/sources/IN/IN-S8.txt",
+   "sha256": "5b3221f27c1506f7bafd3e0a8bfcf790257a746498f86df2fc3646909067ad61"
+  },
+  {
+   "id": "IN-S9",
+   "title": "IC 5-2-6.1-17 (requirements for compensation) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-17/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:49Z",
+   "raw_path": "rules/sources/IN/IN-S9.html",
+   "text_path": "rules/sources/IN/IN-S9.txt",
+   "sha256": "9f3b1917e933853b15ebd5b69dcc4f41b1cc7416f5212b49efb7af8d18dd0582"
+  },
+  {
+   "id": "IN-S10",
+   "title": "IC 5-2-6.1-20 (suspension of reporting and cooperation requirements) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-20/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:53Z",
+   "raw_path": "rules/sources/IN/IN-S10.html",
+   "text_path": "rules/sources/IN/IN-S10.txt",
+   "sha256": "b889a25bd914806bd971dcb38f277dbda8da1a429c2bc0fffe5ebb9950d768a2"
+  },
+  {
+   "id": "IN-S11",
+   "title": "IC 5-2-6.1-21.1 (compensable losses) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:57Z",
+   "raw_path": "rules/sources/IN/IN-S11.html",
+   "text_path": "rules/sources/IN/IN-S11.txt",
+   "sha256": "b6eab18c88a8361e7ffb470aceae731bd53761e907c4d26c15e1d6a671fee545"
+  },
+  {
+   "id": "IN-S12",
+   "title": "IC 5-2-6.1-32 (reduction of awards; collateral sources) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-32/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:53:00Z",
+   "raw_path": "rules/sources/IN/IN-S12.html",
+   "text_path": "rules/sources/IN/IN-S12.txt",
+   "sha256": "7e61d5bebbe8292f29364dedd6086afdf296797d0113f791e1c2df3c975fbad9"
+  },
+  {
+   "id": "IN-S13",
+   "title": "IC 5-2-6.1-34 (victim's contributory conduct) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-34/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:53:04Z",
+   "raw_path": "rules/sources/IN/IN-S13.html",
+   "text_path": "rules/sources/IN/IN-S13.txt",
+   "sha256": "856b01a9365dbde931e0a81c68c0e0cb6ff7fa599068a8199407e8df749bb54e"
+  },
+  {
+   "id": "IN-S14",
+   "title": "IC 5-2-6.1-35 (amount of awards) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-35/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:53:07Z",
+   "raw_path": "rules/sources/IN/IN-S14.html",
+   "text_path": "rules/sources/IN/IN-S14.txt",
+   "sha256": "ccc046c433fc24c6655ec6d73aa9ca410cf48f751b4e5a9eac60c28b46a92dde"
+  },
+  {
+   "id": "IN-S15",
+   "title": "IC 5-2-6.1-39 (payment of forensic medical exams) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-39/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:53:11Z",
+   "raw_path": "rules/sources/IN/IN-S15.html",
+   "text_path": "rules/sources/IN/IN-S15.txt",
+   "sha256": "c254171281d93ecd3e15b30e44005bf3a40af8f972ac0f1663500d3bb2324d8a"
+  },
+  {
+   "id": "IN-S16",
+   "title": "IC 5-2-6.1-43 (computation and payment of awards) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-43/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:53:14Z",
+   "raw_path": "rules/sources/IN/IN-S16.html",
+   "text_path": "rules/sources/IN/IN-S16.txt",
+   "sha256": "7a97059cf2b10d07afdf6088554f9220911c992a90ea0d6eb5c9dae16da44696"
+  },
+  {
+   "id": "IN-S17",
+   "title": "IC 5-2-6.1-0.5 (bodily injury) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-0-5/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:53:56Z",
+   "raw_path": "rules/sources/IN/IN-S17.html",
+   "text_path": "rules/sources/IN/IN-S17.txt",
+   "sha256": "86d4e3292ca91a165f3e147c73717772f4e8b38c1a45372a7ffb08b441b20951"
+  },
+  {
+   "id": "IN-S18",
+   "title": "IC 16-21-8-5 (payment of forensic medical exams) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-5/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:54:03Z",
+   "raw_path": "rules/sources/IN/IN-S18.html",
+   "text_path": "rules/sources/IN/IN-S18.txt",
+   "sha256": "16c0238de5cff517e849433c3f7f9ffb4cb7bc6114299753075ae6eac1b324d3"
+  },
+  {
+   "id": "IN-S19",
+   "title": "IC 16-21-8-6 (services without charge; reimbursement) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-6/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:54:06Z",
+   "raw_path": "rules/sources/IN/IN-S19.html",
+   "text_path": "rules/sources/IN/IN-S19.txt",
+   "sha256": "9d2300c87f2d7225b6e86238b08a46eae354f30515b8deeb73596eab27821178"
+  },
+  {
+   "id": "IN-S20",
+   "title": "IC 16-21-8-1 (forensic medical exams; sex crimes) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-1/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:54:10Z",
+   "raw_path": "rules/sources/IN/IN-S20.html",
+   "text_path": "rules/sources/IN/IN-S20.txt",
+   "sha256": "7fc207a3ef97e4aa0d0442a0fbbf750517090687cafef39861ee6ea48d701a4d"
+  },
+  {
+   "id": "IN-S21",
+   "title": "203 IAC 1 (Victim Services Division administrative procedure), Indiana Administrative Code",
+   "url": "https://iar.iga.in.gov/latestArticle/203/1",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:54:23Z",
+   "raw_path": "rules/sources/IN/IN-S21.html",
+   "text_path": "rules/sources/IN/IN-S21.txt",
+   "sha256": "9254ec75017d29c36f2cdce04b10649c86c4c7d5975d5c7048a40c7cf94ef7f7"
+  },
+  {
+   "id": "IN-S22",
+   "title": "ICJI, Rights of Victims of Sexual Assault brochure (PDF)",
+   "url": "https://www.in.gov/cji/victim-compensation/files/Sexual-assault-victims-rights-revised-English.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:54:27Z",
+   "raw_path": "rules/sources/IN/IN-S22.pdf",
+   "text_path": "rules/sources/IN/IN-S22.txt",
+   "sha256": "5f5cc774e51f66b2a5ed1c00cefa6d8b56985642c17fce4fbe13ded76b57de3a"
+  }
+ ],
+ "rules": [
+  {
+   "id": "IN-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A provider that gives a forensic medical exam under Indiana's sex crime victim law may not charge the victim, even if the state is slow to reimburse.",
+   "quote": "A provider may not charge the victim for services required under this chapter despite delays in reimbursement from the division.",
+   "source_id": "IN-S19",
+   "pinpoint": "IC 16-21-8-6(f)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-6/#:~:text=A%20provider%20may%20not%20charge,in%20reimbursement%20from%20the%20division."
+  },
+  {
+   "id": "IN-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A licensed medical provider other than a hospital that chooses to do a forensic exam must also do it free and may not charge the victim.",
+   "quote": "A medical service provider may not charge the victim for a forensic medical exam required under this chapter even if there is a delay in receiving reimbursement from the division.",
+   "source_id": "IN-S15",
+   "pinpoint": "IC 5-2-6.1-39(d)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-39/#:~:text=A%20medical%20service%20provider%20may,receiving%20reimbursement%20from%20the%20division."
+  },
+  {
+   "id": "IN-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A provider that gives a forensic medical exam and additional forensic services to a sex crime victim must provide them without charge.",
+   "quote": "When a provider provides forensic medical exams and additional forensic services under this chapter to a victim, the provider shall furnish the services without charge.",
+   "source_id": "IN-S19",
+   "pinpoint": "IC 16-21-8-6(a)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-6/#:~:text=When%20a%20provider%20provides%20forensic,furnish%20the%20services%20without%20charge."
+  },
+  {
+   "id": "IN-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Indiana Criminal Justice Institute, Victim Services Division (violent crime compensation fund), paid to the provider"
+   },
+   "summary": "The state's Victim Services Division pays for the forensic medical exam. Payment for additional forensic services beyond the exam has extra conditions in the same section.",
+   "quote": "The division shall award compensation or reimbursement under this chapter for forensic medical exams.",
+   "source_id": "IN-S18",
+   "pinpoint": "IC 16-21-8-5(a)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-5/#:~:text=The%20division%20shall%20award%20compensation,chapter%20for%20forensic%20medical%20exams."
+  },
+  {
+   "id": "IN-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1500000
+   },
+   "summary": "An award may not exceed $15,000 and does not cover the first $100 of the claim.",
+   "quote": "(a) An award to a claimant under this chapter: (1) may not exceed fifteen thousand dollars ($15,000); and (2) may not cover the first one hundred dollars ($100) of the claim.",
+   "source_id": "IN-S14",
+   "pinpoint": "IC 5-2-6.1-35(a)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-35/#:~:text=%28a%29%20An%20award%20to%20a,dollars%20%28%24100%29%20of%20the%20claim."
+  },
+  {
+   "id": "IN-CAP-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 300000,
+    "per": "claim"
+   },
+   "summary": "Outpatient mental health counseling related to the crime is covered up to $3,000.",
+   "quote": "(7) Outpatient mental health counseling, not to exceed three thousand dollars ($3,000), concerning mental health issues related to the violent crime.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(7)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%287%29%20Outpatient%20mental%20health%20counseling%2C,related%20to%20the%20violent%20crime."
+  },
+  {
+   "id": "IN-CAP-3",
+   "category": "expense_cap",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Child care that replaces care the victim would have provided is covered up to $1,000.",
+   "quote": "(4) Expense incurred for child care, not to exceed one thousand dollars ($1,000), to replace child care the victim would have supplied had the victim not died or been injured.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(4)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%284%29%20Expense%20incurred%20for%20child,not%20died%20or%20been%20injured."
+  },
+  {
+   "id": "IN-CAP-4",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Funeral, burial, or cremation expenses are covered up to $5,000.",
+   "quote": "(6) Expenses incurred for funeral, burial, or cremation of the victim that do not exceed five thousand dollars ($5,000).",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(6)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%286%29%20Expenses%20incurred%20for%20funeral%2C,exceed%20five%20thousand%20dollars%20%28%245%2C000%29."
+  },
+  {
+   "id": "IN-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Necessary medical, hospital, dental, optometric, chiropractic and ambulance services, prescription drugs, and prosthetic devices are covered if incurred within 180 days of the crime.",
+   "quote": "the division may order the payment of compensation under this chapter for any of the following reasonable, documented expenses incurred within one hundred eighty (180) days after the date of the violent crime: (1) Necessary: (A) medical, chiropractic, hospital, dental, optometric, and ambulance services; (B) prescription drugs; and (C) prosthetic devices;",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(1)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=the%20division%20may%20order%20the,drugs%3B%20and%20%28C%29%20prosthetic%20devices%3B"
+  },
+  {
+   "id": "IN-COV-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "The director may extend the 180-day expense window up to 2 years after the crime when the victim asks and medical records support it.",
+   "quote": "The director may extend the one hundred eighty (180) day compensation period established by subsection (d) for a period not to exceed two (2) years after the date of the violent crime if: (1) the victim or the victim's representative requests the extension; and (2) medical records and other documentation provided by the attending medical providers indicate that an extension is appropriate.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(h)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=The%20director%20may%20extend%20the,that%20an%20extension%20is%20appropriate."
+  },
+  {
+   "id": "IN-COV-3",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost income is covered if the victim was employed at the time of the crime.",
+   "quote": "(2) Loss of income: (A) the victim would have earned had the victim not died or been injured, if the victim was employed at the time of the violent crime;",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(2)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%282%29%20Loss%20of%20income%3A%20%28A%29,time%20of%20the%20violent%20crime%3B"
+  },
+  {
+   "id": "IN-COV-4",
+   "category": "covered_expense",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing"
+   },
+   "summary": "Emergency shelter care to avoid contact with the offender is covered for up to 30 days of expenses.",
+   "quote": "(3) Emergency shelter care expenses, not to exceed the expenses for thirty (30) days, that are incurred for the claimant or a dependent of the claimant to avoid contact with a person who committed the violent crime.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(3)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%283%29%20Emergency%20shelter%20care%20expenses%2C,who%20committed%20the%20violent%20crime."
+  },
+  {
+   "id": "IN-COV-5",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Replacing windows or door locks is covered.",
+   "quote": "(9) Replacement of windows or door locks.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(9)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%289%29%20Replacement%20of%20windows%20or%20door%20locks."
+  },
+  {
+   "id": "IN-COV-6",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Cleanup of the crime scene is covered.",
+   "quote": "(10) Cleanup of the scene of a violent crime.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(10)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%2810%29%20Cleanup%20of%20the%20scene%20of%20a%20violent%20crime."
+  },
+  {
+   "id": "IN-COV-7",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Prescription drugs are covered as part of necessary medical expenses.",
+   "quote": "(B) prescription drugs; and (C) prosthetic devices;",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(d)(1)(B)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%28B%29%20prescription%20drugs%3B%20and%20%28C%29%20prosthetic%20devices%3B"
+  },
+  {
+   "id": "IN-COV-8",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Outpatient mental health counseling is covered, and the director may extend its 180-day expense window where justice requires, up to 2 years.",
+   "quote": "The director may extend the one hundred eighty (180) day compensation period established by subsection (d) for outpatient mental health counseling, established by subsection (d)(7) where justice requires, but for a period not to exceed two (2) years.",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(i)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=The%20director%20may%20extend%20the,to%20exceed%20two%20%282%29%20years."
+  },
+  {
+   "id": "IN-EXCL-1",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "property_replacement",
+    "item": "property damage other than windows or door locks; replacement of property or cash"
+   },
+   "summary": "The program does not pay for property damage, other than replacing windows or door locks, or for replacing property or cash, so replacing something like a phone is not covered.",
+   "quote": "Property damage (other than the replacement of windows or door locks) and replacement of property or cash.",
+   "source_id": "IN-S1",
+   "pinpoint": "ICJI program page, Non-eligible expenses",
+   "fragment_url": "https://www.in.gov/cji/victim-compensation/#:~:text=Property%20damage%20%28other%20than%20the,replacement%20of%20property%20or%20cash."
+  },
+  {
+   "id": "IN-EXCL-2",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "relocation",
+    "item": "moving, relocation, or daily living expenses"
+   },
+   "summary": "The program lists moving, relocation, and daily living expenses as not reimbursable.",
+   "quote": "Moving, relocation or daily living expenses.",
+   "source_id": "IN-S1",
+   "pinpoint": "ICJI program page, Non-eligible expenses",
+   "fragment_url": "https://www.in.gov/cji/victim-compensation/#:~:text=Moving%2C%20relocation%20or%20daily%20living%20expenses."
+  },
+  {
+   "id": "IN-EXCL-3",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "transportation",
+    "item": "rent, utilities, food, travel, or lodging"
+   },
+   "summary": "The program lists rent, utilities, food, travel, and lodging as not reimbursable (ambulance services are covered as medical).",
+   "quote": "Rent, utilities, food, travel, or lodging.",
+   "source_id": "IN-S1",
+   "pinpoint": "ICJI program page, Non-eligible expenses",
+   "fragment_url": "https://www.in.gov/cji/victim-compensation/#:~:text=Rent%2C%20utilities%2C%20food%2C%20travel%2C%20or%20lodging."
+  },
+  {
+   "id": "IN-EXCL-4",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "other",
+    "item": "pain and suffering"
+   },
+   "summary": "Pain and suffering is not compensated.",
+   "quote": "Pain and suffering.",
+   "source_id": "IN-S1",
+   "pinpoint": "ICJI program page, Non-eligible expenses",
+   "fragment_url": "https://www.in.gov/cji/victim-compensation/#:~:text=Pain%20and%20suffering."
+  },
+  {
+   "id": "IN-EXCL-5",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "lost_wages",
+    "item": "paid vacation, sick, or personal leave"
+   },
+   "summary": "Paid leave must be used first, and the program will not reimburse time covered by paid vacation, sick, or personal leave.",
+   "quote": "The division may not reimburse the claimant for the use of paid or otherwise compensated vacation leave, sick leave, personal leave, or other compensatory time.",
+   "source_id": "IN-S12",
+   "pinpoint": "IC 5-2-6.1-32(e)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-32/#:~:text=The%20division%20may%20not%20reimburse,leave%2C%20or%20other%20compensatory%20time."
+  },
+  {
+   "id": "IN-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "days": 180,
+    "from": "crime",
+    "extension": "good cause; no application accepted more than 2 years after the crime"
+   },
+   "summary": "The application must reach the division within 180 days of the crime; the division may extend this for good cause, but not past 2 years after the crime.",
+   "quote": "the application must be received by the division not more than one hundred eighty (180) days after the date the crime was committed. The division may grant an extension of time for good cause shown by the claimant. However, and except as provided in subsections (e) and (f), the division may not accept an application that is received more than two (2) years after the date the crime was committed.",
+   "source_id": "IN-S8",
+   "pinpoint": "IC 5-2-6.1-16(b)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-16/#:~:text=the%20application%20must%20be%20received,date%20the%20crime%20was%20committed."
+  },
+  {
+   "id": "IN-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "Except for child sex crime victims, the crime must be reported to law enforcement within 72 hours.",
+   "quote": "(a) Except for an alleged victim of a child sex crime, the division may not award compensation under this chapter unless the violent crime was reported to a law enforcement officer not more than seventy-two (72) hours after the occurrence of the crime.",
+   "source_id": "IN-S9",
+   "pinpoint": "IC 5-2-6.1-17(a)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-17/#:~:text=%28a%29%20Except%20for%20an%20alleged,the%20occurrence%20of%20the%20crime."
+  },
+  {
+   "id": "IN-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "The division may accept proof that evidence was collected in a forensic exam in place of the police report and cooperation requirements.",
+   "quote": "(d) The division may accept proof that evidence was collected through a forensic exam described in IC 16-21-8 as compliance with subsection (a) and as cooperation with law enforcement, as required by sections 18 and 19 of this chapter.",
+   "source_id": "IN-S9",
+   "pinpoint": "IC 5-2-6.1-17(d)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-17/#:~:text=%28d%29%20The%20division%20may%20accept,and%2019%20of%20this%20chapter."
+  },
+  {
+   "id": "IN-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "other"
+    ]
+   },
+   "summary": "The division may waive the reporting and cooperation requirements if it finds a compelling reason and justice requires.",
+   "quote": "the division finds a compelling reason for failure to report to or cooperate with law enforcement officials; and (2) justice requires; the division may suspend the requirements of section 17, 18, or 19 of this chapter.",
+   "source_id": "IN-S10",
+   "pinpoint": "IC 5-2-6.1-20",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-20/#:~:text=the%20division%20finds%20a%20compelling,or%2019%20of%20this%20chapter."
+  },
+  {
+   "id": "IN-REPORT-4",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false
+   },
+   "summary": "A hospital must give the forensic exam and additional forensic services whether or not the victim reports to or cooperates with police.",
+   "quote": "The provision of services may not be dependent on a victim's reporting to, or cooperating with, law enforcement.",
+   "source_id": "IN-S20",
+   "pinpoint": "IC 16-21-8-1(a)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-1/#:~:text=The%20provision%20of%20services%20may,or%20cooperating%20with%2C%20law%20enforcement."
+  },
+  {
+   "id": "IN-MIN-1",
+   "category": "minimum_loss",
+   "params": {
+    "amount_cents": 10000,
+    "waived_for": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "A claimant must have more than $100 in out-of-pocket expenses or more than $100 in lost income; this does not apply to forensic exam reimbursement.",
+   "quote": "(b) This section does not apply to reimbursement for forensic and evidence gathering services provided under section 39 of this chapter. (c) An award may not be made unless the claimant has incurred an out-of-pocket expense that exceeds one hundred dollars ($100) or has incurred loss of income that exceeds one hundred dollars ($100).",
+   "source_id": "IN-S11",
+   "pinpoint": "IC 5-2-6.1-21.1(b), (c)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/#:~:text=%28b%29%20This%20section%20does%20not,exceeds%20one%20hundred%20dollars%20%28%24100%29."
+  },
+  {
+   "id": "IN-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays last: awards are reduced or denied to the extent the loss is recovered from insurance or other collateral sources.",
+   "quote": "Compensation must be further reduced or denied to the extent that the claimant's loss is recouped from other collateral sources.",
+   "source_id": "IN-S12",
+   "pinpoint": "IC 5-2-6.1-32(a)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-32/#:~:text=Compensation%20must%20be%20further%20reduced,recouped%20from%20other%20collateral%20sources."
+  },
+  {
+   "id": "IN-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "If the division finds the victim contributed to the injury, it may deny the award.",
+   "quote": "If the division finds that the victim contributed to the infliction of the victim's injury or death, the division may deny an award.",
+   "source_id": "IN-S13",
+   "pinpoint": "IC 5-2-6.1-34(b)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-34/#:~:text=If%20the%20division%20finds%20that,division%20may%20deny%20an%20award."
+  },
+  {
+   "id": "IN-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The bar on benefits for a victim who was intoxicated and contributed to an unrelated felony does not apply to victims of sex crimes or domestic or family violence.",
+   "quote": "Benefits may be awarded to a person described in subsection (a)(4) who is the victim of a sex crime under IC 35-42-4 , a crime involving domestic or family violence",
+   "source_id": "IN-S7",
+   "pinpoint": "IC 5-2-6.1-13(c)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-13/#:~:text=Benefits%20may%20be%20awarded%20to,involving%20domestic%20or%20family%20violence"
+  },
+  {
+   "id": "IN-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 50000
+   },
+   "summary": "An emergency award of up to $500 may be made before the final decision if there is severe financial hardship.",
+   "quote": "An emergency award of not more than five hundred dollars ($500) may be made by the director or his or her designee prior to the determination of final award if it is determined by the director that a severe financial hardship exists.",
+   "source_id": "IN-S21",
+   "pinpoint": "203 IAC 1-1-9(k)",
+   "fragment_url": "https://iar.iga.in.gov/latestArticle/203/1#:~:text=An%20emergency%20award%20of%20not,a%20severe%20financial%20hardship%20exists."
+  },
+  {
+   "id": "IN-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault victims who had a forensic exam are eligible for compensation whether or not they involve the police.",
+   "quote": "victims of sexual assault who have had a forensic exam conducted are eligible for compensation, whether or not they choose to involve the police.",
+   "source_id": "IN-S1",
+   "pinpoint": "ICJI program page, Additional eligibility requirements",
+   "fragment_url": "https://www.in.gov/cji/victim-compensation/#:~:text=victims%20of%20sexual%20assault%20who,choose%20to%20involve%20the%20police."
+  },
+  {
+   "id": "IN-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "A covered violent crime is any felony or Class A misdemeanor that causes bodily injury or death.",
+   "quote": "A crime under the Indiana Code that is a felony of any kind or a Class A misdemeanor that results in bodily injury or death to the victim",
+   "source_id": "IN-S5",
+   "pinpoint": "IC 5-2-6.1-8(1)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-8/#:~:text=A%20crime%20under%20the%20Indiana,or%20death%20to%20the%20victim"
+  },
+  {
+   "id": "IN-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Indiana residents hurt in Indiana, or elsewhere if that place has no substantially similar program; nonresidents hurt in Indiana."
+   },
+   "summary": "Indiana residents can apply for crimes in Indiana, or in another place that has no similar program; nonresidents can apply for crimes committed in Indiana.",
+   "quote": "(1) A resident of Indiana who is a victim of a violent crime committed: (A) in Indiana; or (B) in a jurisdiction other than Indiana, including a foreign country, if the jurisdiction in which the violent crime occurs does not offer assistance to a victim of a violent crime that is substantially similar to the assistance offered under this chapter. (2) A nonresident of Indiana who is a victim of a violent crime committed in Indiana.",
+   "source_id": "IN-S6",
+   "pinpoint": "IC 5-2-6.1-12(a)(1), (2)",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-12/#:~:text=%281%29%20A%20resident%20of%20Indiana,violent%20crime%20committed%20in%20Indiana."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "minimum_loss",
+   "reporting_requirement",
+   "residency",
+   "total_cap"
+  ],
+  "not_found": [
+   "expense_cap:lost_wages",
+   "expense_cap:relocation",
+   "expense_cap:transportation",
+   "expense_cap:medical",
+   "expense_cap:security",
+   "covered_expense:relocation",
+   "covered_expense:transportation",
+   "exam_no_bill:insurance_billing",
+   "online_apply_url"
+  ],
+  "notes": "No separate dollar caps were found for lost wages, medical, security (windows and locks), or emergency shelter; those draw on the $15,000 total. Relocation and travel are listed as non-eligible on the program page, and no statute makes them covered, except emergency shelter care for up to 30 days. No source says whether an exam provider may bill the survivor's insurance; the statutes only bar charging the victim, so insurance_billing is unspecified. The program page links an online application portal but says it currently has problems and asks for written applications; no stable online apply URL was recorded, so apply_url points to the program page."
+ },
+ "confidence": "medium",
+ "researcher_notes": "Statute text is from Justia's 2025 Indiana Code (the official iga.in.gov code viewer is a script app); the administrative rule is from the official Indiana Administrative Register. Conflicts, statute wins in the rules: (1) Filing deadline: IC 5-2-6.1-16(b) requires the application within 180 days of the crime, extendable for good cause to no more than two years; the program page says applications must be filed no later than two years after the crime. (2) Total cap: IC 5-2-6.1-35 caps an award at $15,000; the FAQ describes $20,000 total ($15,000 plus an additional $5,000 for funeral costs). Funeral costs up to $5,000 are a listed expense in IC 5-2-6.1-21.1(d)(6). (3) Medical expense window: IC 5-2-6.1-21.1(d) covers expenses incurred within 180 days, extendable to two years; the program page says medical expenses must be incurred within two years. (4) The application form State Form 23776 (R14 / 9-21) predates the 2022 changes: it lists a 180-day deadline and a 72-hour report with no sexual assault exam alternative. (5) 203 IAC 1 (readopted 2023) still contains older figures superseded by statute: a 48-hour reporting rule, a $4,000 funeral cap, $1,000 or $1,500 counseling caps, and a 48-hour report condition for sex crime ER payment; it also says a provider may bill the patient or a collateral source if fund payment is denied (203 IAC 1-2-1(c)), which conflicts with IC 16-21-8-6(f) and IC 16-21-8-1(a) (exam services may not depend on reporting to or cooperating with law enforcement). Only the $500 emergency award is taken from 203 IAC 1, since no statute addresses emergency awards; the FAQ confirms emergency funding exists and that an application must be filed first. (6) The program page says crimes outside Indiana are not eligible; IC 5-2-6.1-12(a)(1)(B) lets Indiana residents apply for crimes in places without a substantially similar program. Other: victims of a child sex crime may apply until age 31 (IC 5-2-6.1-16(e)) and are exempt from the 72-hour report rule (IC 5-2-6.1-17(a)). IC 5-2-6.1-21.1(f) bars a health care provider that accepts division payment from charging the victim a copayment. Bodily injury includes emotional trauma that stems directly from a physical impairment, visible injury, or physical pain (IC 5-2-6.1-0.5). IN-S16 (IC 5-2-6.1-43, payment timing), IN-S20 (IC 16-21-8-1, list of sex crimes), and IN-S22 (rights brochure) are saved for context. Reviewer additions: 203 IAC 1-1-9(d) also says the total award may not exceed $15,000 per victim, which agrees with IC 5-2-6.1-35 against the FAQ's $20,000. IC 16-21-8-5(b) conditions payment for additional forensic services (not the exam itself) on the victim being 18 or older or, for a minor, a report to child protective services or law enforcement, the crime occurring in Indiana, and the provider starting the claim in the division's web system. IC 5-2-6.1-16(g) gives victims of battery on a child under 14 five years to apply."
+}

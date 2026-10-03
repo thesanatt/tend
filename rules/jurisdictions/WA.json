@@ -1,0 +1,768 @@
+{
+  "jurisdiction": "WA",
+  "name": "Washington",
+  "program": {
+    "program_name": "Crime Victims Compensation Program",
+    "agency": "Washington State Department of Labor & Industries",
+    "website": "https://lni.wa.gov/claims/crime-victim-claims/who-can-file-and-what-is-covered",
+    "apply_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits",
+    "application_pdf_url": "https://lni.wa.gov/forms-publications/F800-042-000.pdf",
+    "phone": "800-762-3716",
+    "phone_source_id": "WA-S14",
+    "statute_citation": "Chapter 7.68 RCW (RCW 7.68.170 for exam costs); chapter 296-30 WAC"
+  },
+  "sources": [
+    {
+      "id": "WA-S1",
+      "title": "RCW 7.68.020 (definitions)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.020",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:50:43Z",
+      "raw_path": "rules/sources/WA/WA-S1.html",
+      "text_path": "rules/sources/WA/WA-S1.txt",
+      "sha256": "c5850be29664e7f32292b370f87455298452bd282e4a7ca7cf895d19a81e8a2c"
+    },
+    {
+      "id": "WA-S2",
+      "title": "RCW 7.68.060 (applications for benefits, time limits, reporting, eligibility bars)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.060",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:50:44Z",
+      "raw_path": "rules/sources/WA/WA-S2.html",
+      "text_path": "rules/sources/WA/WA-S2.txt",
+      "sha256": "33ce243e1e3dcde3c317ff32f0cd2508375c8b2669ab83e615898b777976efda"
+    },
+    {
+      "id": "WA-S3",
+      "title": "RCW 7.68.070 (benefits, amounts, limitations)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.070",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:50:44Z",
+      "raw_path": "rules/sources/WA/WA-S3.html",
+      "text_path": "rules/sources/WA/WA-S3.txt",
+      "sha256": "6dc561c74f5dc9c1aed0f2c702ed04e056ae88af0c3df64c941e3bd7ce48194d"
+    },
+    {
+      "id": "WA-S4",
+      "title": "RCW 7.68.080 (transportation, medical services, counseling)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.080",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:50:45Z",
+      "raw_path": "rules/sources/WA/WA-S4.html",
+      "text_path": "rules/sources/WA/WA-S4.txt",
+      "sha256": "dda7a0b66c1937e82c94d4edf83779ea457da2517e422bd16aeada15f045fcdd"
+    },
+    {
+      "id": "WA-S5",
+      "title": "RCW 7.68.170 (examination costs of sexual assault victims paid by state)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.170",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:50:46Z",
+      "raw_path": "rules/sources/WA/WA-S5.html",
+      "text_path": "rules/sources/WA/WA-S5.txt",
+      "sha256": "7ba9096ef80beed3c2d2dbb0aa3c08236ad6ca4674a3ef365da07ccc3706be5d"
+    },
+    {
+      "id": "WA-S6",
+      "title": "RCW 7.68.085 (cap on medical benefits)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.085",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:03Z",
+      "raw_path": "rules/sources/WA/WA-S6.html",
+      "text_path": "rules/sources/WA/WA-S6.txt",
+      "sha256": "4d869e05b3906078e1474dc4e0892cd591be09b086d777e30dfc58f32d7dca86"
+    },
+    {
+      "id": "WA-S7",
+      "title": "RCW 7.68.130 (public or private insurance)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.130",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:03Z",
+      "raw_path": "rules/sources/WA/WA-S7.html",
+      "text_path": "rules/sources/WA/WA-S7.txt",
+      "sha256": "c8c450066f18766ba6016e312e2b4c7d36d7d168f7d8b9fab4770e9612c1184d"
+    },
+    {
+      "id": "WA-S8",
+      "title": "RCW 7.68.074 (loss of or damage to clothing or footwear), certified PDF",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.074&pdf=true",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:52:30Z",
+      "raw_path": "rules/sources/WA/WA-S8.pdf",
+      "text_path": "rules/sources/WA/WA-S8.txt",
+      "sha256": "f885b2347efa89345da04b8648289ab7a5f54509217f02516c3cb601e2fcf8c4"
+    },
+    {
+      "id": "WA-S9",
+      "title": "RCW 7.68.061 (who not entitled to compensation)",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.061",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:51:08Z",
+      "raw_path": "rules/sources/WA/WA-S9.html",
+      "text_path": "rules/sources/WA/WA-S9.txt",
+      "sha256": "fed921a573c5a9a69971cfa89b641c18629f44f71c5031f6b7a2f895727efe75"
+    },
+    {
+      "id": "WA-S10",
+      "title": "WAC 296-30-060 (who a victim reports the crime to)",
+      "url": "https://app.leg.wa.gov/WAC/default.aspx?cite=296-30-060",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:51:21Z",
+      "raw_path": "rules/sources/WA/WA-S10.html",
+      "text_path": "rules/sources/WA/WA-S10.txt",
+      "sha256": "ade5dee2e66785cdb7a0c4c9a2e97933e88786e39d0f4c0f815c407c137458f4"
+    },
+    {
+      "id": "WA-S11",
+      "title": "WAC 296-30-170 (who pays for sexual assault examinations)",
+      "url": "https://app.leg.wa.gov/WAC/default.aspx?cite=296-30-170",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:51:21Z",
+      "raw_path": "rules/sources/WA/WA-S11.html",
+      "text_path": "rules/sources/WA/WA-S11.txt",
+      "sha256": "1b0414ca1895d7fb9c3fd7b2d755d4ac9c4875b5a9943496c71295ec9d64cac8"
+    },
+    {
+      "id": "WA-S12",
+      "title": "WAC 296-30-087 (can a victim be billed for expenses related to their claim)",
+      "url": "https://app.leg.wa.gov/WAC/default.aspx?cite=296-30-087",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:51:22Z",
+      "raw_path": "rules/sources/WA/WA-S12.html",
+      "text_path": "rules/sources/WA/WA-S12.txt",
+      "sha256": "a2021be5a11f97b8d0f0c3be62b2b304a5aa5a3e902c96fe3784ae7e11e0d64d"
+    },
+    {
+      "id": "WA-S13",
+      "title": "WAC 296-30-080 (counseling for family members of sexual assault victims)",
+      "url": "https://app.leg.wa.gov/WAC/default.aspx?cite=296-30-080",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:51:22Z",
+      "raw_path": "rules/sources/WA/WA-S13.html",
+      "text_path": "rules/sources/WA/WA-S13.txt",
+      "sha256": "0a219cc49d32e0eaa1c57e5d78183fa7eb2325a6447de798f1f5253b7f40d16b"
+    },
+    {
+      "id": "WA-S14",
+      "title": "Apply for Crime Victim Benefits (L&I page)",
+      "url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:26Z",
+      "raw_path": "rules/sources/WA/WA-S14.html",
+      "text_path": "rules/sources/WA/WA-S14.txt",
+      "sha256": "4f571ec67230199d512e1cbcc109958ae8e7bbe43c81b1cefbd66af7d512c8a6"
+    },
+    {
+      "id": "WA-S15",
+      "title": "Crime Victim's Application for Benefits, Injury Claims (F800-042-000, 07-2017)",
+      "url": "https://lni.wa.gov/forms-publications/F800-042-000.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:51:29Z",
+      "raw_path": "rules/sources/WA/WA-S15.pdf",
+      "text_path": "rules/sources/WA/WA-S15.txt",
+      "sha256": "98ec4ebb83d17e23ff13a7b80b835a9ffe54230c0e155529b2c4e19d4ea93544"
+    },
+    {
+      "id": "WA-S16",
+      "title": "Who Can File and What is Covered (L&I page)",
+      "url": "https://lni.wa.gov/claims/crime-victim-claims/who-can-file-and-what-is-covered",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:37Z",
+      "raw_path": "rules/sources/WA/WA-S16.html",
+      "text_path": "rules/sources/WA/WA-S16.txt",
+      "sha256": "b573dfa36827d0b7b788c1ae925aa5aa1aa17eb52d49ad8b96cf3e4cbf285b4d"
+    },
+    {
+      "id": "WA-S17",
+      "title": "Sexual Assault Victims (L&I page)",
+      "url": "https://lni.wa.gov/claims/crime-victim-claims/sexual-assault-victims",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:51Z",
+      "raw_path": "rules/sources/WA/WA-S17.html",
+      "text_path": "rules/sources/WA/WA-S17.txt",
+      "sha256": "05b8506516bc1261bd752dfbcd6cc48fbcf6113eef48c72337512c7022ce7dc5"
+    },
+    {
+      "id": "WA-S18",
+      "title": "Forms & Publications: Crime Victims (L&I page)",
+      "url": "https://lni.wa.gov/claims/crime-victim-claims/crime-victims-forms-publications",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:51:51Z",
+      "raw_path": "rules/sources/WA/WA-S18.html",
+      "text_path": "rules/sources/WA/WA-S18.txt",
+      "sha256": "788850152c18823b6cd8b6a3abb4c2d87fb95b259437842579bb4f18c74c6891"
+    },
+    {
+      "id": "WA-S19",
+      "title": "Billing Guidelines for Sexual Assault & DV with Strangulation Examinations (F800-100-000)",
+      "url": "https://lni.wa.gov/forms-publications/F800-100-000.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:51:55Z",
+      "raw_path": "rules/sources/WA/WA-S19.pdf",
+      "text_path": "rules/sources/WA/WA-S19.txt",
+      "sha256": "a707a99bc107d084946a946de1aa91091f86cc22bac40d4aea9416b2926107e4"
+    },
+    {
+      "id": "WA-S20",
+      "title": "Mental Health Fee Schedule and Billing Guidelines (F800-105-000)",
+      "url": "https://lni.wa.gov/forms-publications/F800-105-000.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:52:21Z",
+      "raw_path": "rules/sources/WA/WA-S20.pdf",
+      "text_path": "rules/sources/WA/WA-S20.txt",
+      "sha256": "bf158f8adbc787551f8110e3aaf520865884dfadef77cf1c196be7c67096fc25"
+    },
+    {
+      "id": "WA-S21",
+      "title": "Crime Victims Travel Reimbursement Request (F800-049-000, 06-2022)",
+      "url": "https://lni.wa.gov/forms-publications/F800-049-000.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:52:21Z",
+      "raw_path": "rules/sources/WA/WA-S21.pdf",
+      "text_path": "rules/sources/WA/WA-S21.txt",
+      "sha256": "9aecd1f237dcfac2c113a3e8c720098cf9fd2e87730e8036f72645b1106f34a4"
+    }
+  ],
+  "rules": [
+    {
+      "id": "WA-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "A Washington hospital or emergency medical facility may not bill or charge the survivor, directly or indirectly, for an evidence-gathering sexual assault exam, whether the assault happened in or outside Washington. The state pays.",
+      "quote": "No costs incurred by a hospital or other emergency medical facility in Washington for the examination of the victim of a sexual assault, whether such assault occurred in or outside the state of Washington, when such examination is performed for the purposes of gathering evidence for possible prosecution, shall be billed or charged directly or indirectly to the victim of such assault.",
+      "source_id": "WA-S5",
+      "pinpoint": "RCW 7.68.170"
+    },
+    {
+      "id": "WA-EXAM-2",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "State of Washington, through the L&I Crime Victims Compensation Program"
+      },
+      "summary": "The exam costs are paid by the state under the crime victims compensation law.",
+      "quote": "Such costs shall be paid by the state pursuant to this chapter.",
+      "source_id": "WA-S5",
+      "pinpoint": "RCW 7.68.170"
+    },
+    {
+      "id": "WA-EXAM-3",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Crime Victims Compensation Program (primary payer)"
+      },
+      "summary": "Exam costs must be billed to the Crime Victims Compensation Program, which is the primary payer. The survivor does not have to file an application to get this benefit and may not be billed.",
+      "quote": "the costs of the examination must be billed to the crime victims compensation program. We are the primary payer of this benefit. The client is not required to file an application with us to receive this benefit and may not be billed for these costs.",
+      "source_id": "WA-S11",
+      "pinpoint": "WAC 296-30-170"
+    },
+    {
+      "id": "WA-EXAM-4",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "To get the exam, a patient does not have to pay, use their own insurance, report to police, or file a compensation application.",
+      "quote": "In order to receive an examination, patients are not required to: Pay for the examination Use their own insurance Report to police File a crime victim's application.",
+      "source_id": "WA-S17",
+      "pinpoint": "L&I Sexual Assault Victims page, Information for medical providers"
+    },
+    {
+      "id": "WA-EXAM-5",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "The program tells survivors they should not get any bill for the exam and to contact the program if one arrives.",
+      "quote": "You should not receive any bill for this examination. If you receive a bill contact us.",
+      "source_id": "WA-S17",
+      "pinpoint": "L&I Sexual Assault Victims page, Information for victims"
+    },
+    {
+      "id": "WA-EXAM-6",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Crime Victims Compensation Program; treatment and follow-up need a compensation application"
+      },
+      "summary": "If the exam includes treatment or the survivor needs follow-up care, a compensation application must be filed for those services to be considered.",
+      "quote": "If the examination includes treatment costs or the client will require follow-up treatment, an application for benefits must be filed with us for these services to be considered for payment.",
+      "source_id": "WA-S11",
+      "pinpoint": "WAC 296-30-170"
+    },
+    {
+      "id": "WA-EXAM-7",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "The jail, prison, or DSHS or Department of Corrections institution, when the victim was confined there at the time of the assault (not the program)"
+      },
+      "summary": "If the survivor was confined in a jail, prison, or a DSHS or Department of Corrections institution at the time of the assault, the program does not pay for the exam and providers bill the institution.",
+      "quote": "At the time of assault, if the victim was confined in any county or city jail, federal jail or prison or in any other federal institution, or any state correctional institution maintained and operated by the Department of Social and Health Services or the Department of Corrections or was confined or living in any other institution maintained and operated by the Department of Social and Health Services or the Department of Corrections Crime Victims Compensation Program is not responsible for payment.",
+      "source_id": "WA-S19",
+      "pinpoint": "F800-100-000, page 1 (general information)"
+    },
+    {
+      "id": "WA-TOTAL-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 19000000
+      },
+      "summary": "The program lists the maximum per claim as $190,000 (non-medical benefits plus medical and mental health treatment).",
+      "quote": "Maximum per claim: $190,000",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, How much we may pay"
+    },
+    {
+      "id": "WA-CAP-NONMEDICAL",
+      "category": "expense_cap",
+      "params": {
+        "expense": "other",
+        "amount_cents": 4000000,
+        "per": "claim"
+      },
+      "summary": "All benefits other than medical benefits (wage loss, funeral and the rest) share one cap of $40,000 for a single injury or death. Medical benefits have their own separate cap, so this is not the total award limit.",
+      "quote": "Except for medical benefits authorized under RCW 7.68.080 , no more than forty thousand dollars shall be granted as a result of a single injury or death.",
+      "source_id": "WA-S3",
+      "pinpoint": "RCW 7.68.070(1)",
+      "expense": "other"
+    },
+    {
+      "id": "WA-CAP-MEDICAL",
+      "category": "expense_cap",
+      "expense": "medical",
+      "params": {
+        "expense": "medical",
+        "amount_cents": 15000000,
+        "per": "claim"
+      },
+      "summary": "Medical benefits are capped at $150,000 per injury or death.",
+      "quote": "The director of labor and industries shall institute a cap on medical benefits of one hundred fifty thousand dollars per injury or death.",
+      "source_id": "WA-S6",
+      "pinpoint": "RCW 7.68.085"
+    },
+    {
+      "id": "WA-CAP-COUNSELING",
+      "category": "expense_cap",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "amount_cents": 15000000,
+        "per": "claim"
+      },
+      "summary": "The program groups medical and mental health treatment under one $150,000 maximum.",
+      "quote": "Medical/Mental Health treatment: $150,000 maximum",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, How much we may pay"
+    },
+    {
+      "id": "WA-CAP-WAGES",
+      "category": "expense_cap",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages",
+        "amount_cents": 1500000,
+        "per": "claim"
+      },
+      "summary": "Lost wage support for a temporary total disability may not exceed $15,000.",
+      "quote": "Benefits payable for temporary total disability that results in financial support for lost wages shall not exceed fifteen thousand dollars.",
+      "source_id": "WA-S3",
+      "pinpoint": "RCW 7.68.070(1)(a)"
+    },
+    {
+      "id": "WA-COV-WAGES-2",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Monthly wage loss payments are 60 percent of the victim's monthly wage, up to 100 percent of the state's average monthly wage.",
+      "quote": "sixty percent of the victim's monthly wage but no more than one hundred percent of the state's average monthly wage as defined in RCW 7.68.020",
+      "source_id": "WA-S3",
+      "pinpoint": "RCW 7.68.070(5)"
+    },
+    {
+      "id": "WA-COV-WAGES",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "A victim who was not working at the time of the crime gets no lost wage support unless they worked at least 12 weeks in the 6 months before the crime.",
+      "quote": "If the victim was not gainfully employed at the time of the criminal act, no financial support for lost wages will be paid to the victim or any beneficiaries, unless the victim was gainfully employed for a total of at least twelve weeks in the six months preceding the date of the criminal act.",
+      "source_id": "WA-S3",
+      "pinpoint": "RCW 7.68.070(2)"
+    },
+    {
+      "id": "WA-EXC-WAGES",
+      "category": "excluded_expense",
+      "expense": "lost_wages",
+      "params": {
+        "item": "lost wages when the employer keeps paying the victim's wages"
+      },
+      "summary": "If the employer keeps paying the victim's wages, no lost wage support is paid.",
+      "quote": "If a victim's employer continues to pay the victim's wages that he or she was earning at the time of the crime, the victim shall not receive any financial support for lost wages.",
+      "source_id": "WA-S3",
+      "pinpoint": "RCW 7.68.070(4)"
+    },
+    {
+      "id": "WA-COV-COUNSELING",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Sexual assault victims can receive counseling, with fees set by the department, and counseling may include immediate family members other than the perpetrator.",
+      "quote": "Victims of sexual assault are eligible to receive appropriate counseling. Fees for such counseling shall be determined by the department. Counseling services may include, if determined appropriate by the department, counseling of members of the victim's immediate family, other than the perpetrator of the assault.",
+      "source_id": "WA-S4",
+      "pinpoint": "RCW 7.68.080(5)"
+    },
+    {
+      "id": "WA-COV-COUNSELING-2",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Counseling for immediate family members is covered under the victim's sexual assault claim.",
+      "quote": "Counseling for immediate family members will be covered under the victim's sexual assault claim.",
+      "source_id": "WA-S13",
+      "pinpoint": "WAC 296-30-080(3)"
+    },
+    {
+      "id": "WA-COV-MEDICAL",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "The program may pay for medical and dental treatment, medication, mental health treatment, partial wage loss replacement, and costs other insurance does not cover such as co-pays and deductibles.",
+      "quote": "What we may pay for Medical/Dental treatment Medication Mental health treatment Grief counseling Partial wage loss replacement Funeral expenses Expenses not covered by other insurance (such as medical co-pays and medical deductibles)",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, What are the benefits?"
+    },
+    {
+      "id": "WA-COV-TRANSPORT",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "When an injury is serious enough that the victim must be taken for treatment, reasonable transportation to and from the nearest proper treatment is reimbursed as part of the claim.",
+      "quote": "When the injury to any victim is so serious as to require the victim being taken from the place of injury to a place of treatment, reasonable transportation costs to and from the nearest place of proper treatment to a reasonable location of the victim's choice shall be reimbursed by the department as part of the victim's total claim under RCW 7.68.070 (1).",
+      "source_id": "WA-S4",
+      "pinpoint": "RCW 7.68.080(1)"
+    },
+    {
+      "id": "WA-COV-TRANSPORT-2",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "Travel to treatment can be reimbursed only if it is more than 15 miles one way from home, and the first and last 15 miles are not paid. Travel must be preapproved by the claim manager.",
+      "quote": "The travel must be more than 15 miles one way from your home, and the first and last 15 miles of travel are not payable.",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, Travel Reimbursement"
+    },
+    {
+      "id": "WA-COV-TRANSPORT-3",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation"
+      },
+      "summary": "A travel reimbursement request must be made within 1 year of the trip.",
+      "quote": "Your request must be made within 1 year of the trip and must indicate the date, destination and reason for travel.",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, How to get reimbursed"
+    },
+    {
+      "id": "WA-COV-CLOTHING",
+      "category": "covered_expense",
+      "expense": "clothing_bedding",
+      "params": {
+        "expense": "clothing_bedding"
+      },
+      "summary": "Eligible victims may also claim the loss of or damage to their clothing or footwear during emergency medical treatment.",
+      "quote": "Victims otherwise eligible for compensation under this chapter may also claim compensation for loss of or damage to the victim's personal clothing or footwear incurred in the course of emergency medical treatment for injuries.",
+      "source_id": "WA-S8",
+      "pinpoint": "RCW 7.68.074"
+    },
+    {
+      "id": "WA-COV-PEP",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription"
+      },
+      "summary": "The program covers up to a 28-day supply of HIV post-exposure prophylaxis (PEP) drugs dispensed directly from a Washington hospital emergency department.",
+      "quote": "Crime Victims Compensation Programs will cover up to a 28-day supply of post-exposure prophylaxis (PEP) drugs for HIV when dispensed directly from a Washington State hospital emergency department for proper and necessary treatment of a crime victim.",
+      "source_id": "WA-S19",
+      "pinpoint": "F800-100-000, Post-exposure prophylaxis (PEP) drugs for HIV"
+    },
+    {
+      "id": "WA-COV-GLASSES",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Under the damaged personal property question, the program lists eyeglasses or contacts, prosthetics (including orthotics), hearing aids, and clothing or footwear as items that may be reimbursed.",
+      "quote": "Eligible items may include: Eye glasses/contacts. Prosthetics, including orthotics, or hearing aids Clothing/footwear.",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, Will I be reimbursed for damaged personal property?"
+    },
+    {
+      "id": "WA-EXC-PROPERTY",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "item": "loss or damage of personal property (eyeglasses or contacts, prosthetics, hearing aids, and clothing or footwear are listed exceptions); identity theft losses"
+      },
+      "summary": "The program does not pay for identity theft or loss or damage of personal property. Eyeglasses or contacts, prosthetics, hearing aids, and clothing or footwear are the listed exceptions.",
+      "quote": "We don't pay for the following Crime scene cleanup Identity theft Loss or damage of personal property",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, How much we may pay"
+    },
+    {
+      "id": "WA-EXC-CLEANUP",
+      "category": "excluded_expense",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup"
+      },
+      "summary": "The program does not pay for crime scene cleanup.",
+      "quote": "We don't pay for the following Crime scene cleanup Identity theft Loss or damage of personal property",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, How much we may pay"
+    },
+    {
+      "id": "WA-EXC-MEDICAID",
+      "category": "excluded_expense",
+      "expense": "medical",
+      "params": {
+        "item": "services covered by Medicaid (chapter 74.09 RCW or Title XIX)"
+      },
+      "summary": "Compensation does not pay for services covered by Medicaid.",
+      "quote": "Crime victims' compensation is not available to pay for services covered under chapter 74.09 RCW or Title XIX of the federal social security act.",
+      "source_id": "WA-S3",
+      "pinpoint": "RCW 7.68.070(12)"
+    },
+    {
+      "id": "WA-DEADLINE-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 3,
+        "from": "report",
+        "extension": "good cause, decided case by case; see the next rule for the outer limit"
+      },
+      "summary": "The application must be received within 3 years after the crime was reported to police or the sheriff, unless the director finds good cause to allow more time.",
+      "quote": "An application for benefits is not received by the department within three years after the date the criminal act was reported to a local police department or sheriff's office or the date the rights of beneficiaries accrued, unless the director has determined that \"good cause\" exists to expand the time permitted to receive the application.",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(1)(a)"
+    },
+    {
+      "id": "WA-DEADLINE-2",
+      "category": "filing_deadline",
+      "params": {
+        "years": 5,
+        "from": "report"
+      },
+      "summary": "Good cause can extend the application window to up to 5 years after the police report.",
+      "quote": "may extend the period of time in which an application can be received for up to five years after the date the criminal act was reported to a local police department or sheriff's office or the date the rights of beneficiaries accrued",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(1)(a)"
+    },
+    {
+      "id": "WA-DEADLINE-3",
+      "category": "filing_deadline",
+      "params": {
+        "from": "discovery"
+      },
+      "summary": "For adults who were victims of crimes as children, rights accrue when the victim discovers or reasonably should have discovered the elements of the crime.",
+      "quote": "the rights of adult victims of childhood criminal acts shall accrue at the time the victim discovers or reasonably should have discovered the elements of the crime.",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(5)"
+    },
+    {
+      "id": "WA-DEADLINE-4",
+      "category": "filing_deadline",
+      "params": {
+        "years": 2,
+        "from": "age_18"
+      },
+      "summary": "The program says a person who was a minor at the time of the crime must apply within 2 years of their 18th birthday.",
+      "quote": "For minors, at the time of the crime, the application must be filed within two years of their 18th birthday.",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, Do I qualify?"
+    },
+    {
+      "id": "WA-DEADLINE-5",
+      "category": "filing_deadline",
+      "params": {
+        "from": "crime",
+        "extension": "No deadline: may file at any time. Applies only to a minor identified as a victim of sex trafficking or commercial sexual abuse of a minor; the reporting rule and the consent and felony bars also do not apply."
+      },
+      "summary": "A minor identified as a victim of sex trafficking or commercial sexual abuse of a minor may apply at any time, and the application deadline, police report rule, and consent and felony bars do not apply to them.",
+      "quote": "A person identified under this subsection (6)(b) may file an application for benefits at any time, and the ineligibility factors of subsections (1) and (2) of this section do not apply to such a person.",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(6)(b)"
+    },
+    {
+      "id": "WA-REPORT-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "alternatives": []
+      },
+      "summary": "For a compensation claim, the crime must be reported to police or the sheriff within 12 months, or within 12 months of when it reasonably could have been reported. The exam itself does not require a report.",
+      "quote": "The criminal act is not reported by the victim or someone on his or her behalf to a local police department or sheriff's office within twelve months of its occurrence or, if it could not reasonably have been reported within that period, within twelve months of the time when a report could reasonably have been made.",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(1)(b)"
+    },
+    {
+      "id": "WA-REPORT-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "alternatives": []
+      },
+      "summary": "The report can go to local, state, federal, tribal, or military police, or to Child Protective Services when CPS has reported to local police.",
+      "quote": "The crime can be reported to any of the following: (1) Local law enforcement (city, county or state police agencies); (2) Federal police; (3) Indian tribal police; (4) Military police; or (5) Child protective services (CPS) when they have reported to local police.",
+      "source_id": "WA-S10",
+      "pinpoint": "WAC 296-30-060"
+    },
+    {
+      "id": "WA-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "alternatives": []
+      },
+      "summary": "A claimant who refuses reasonable cooperation with law enforcement is not eligible, unless the director finds cooperation may be affected by age, physical condition, psychological state, cultural or language barriers, or another health or safety concern.",
+      "quote": "has refused to give reasonable cooperation to state or local law enforcement agencies in their efforts to apprehend and convict the perpetrator of the criminal act which gave rise to the claim unless the director determines such cooperation may be impacted due to a victim's age, physical condition, psychological state, cultural or linguistic barriers, or any other health or safety concern that jeopardizes the victim's well-being.",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(3)"
+    },
+    {
+      "id": "WA-COLLATERAL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "Program payment is secondary to other insurance benefits, whatever any insurance contract or coverage says.",
+      "quote": "Payment by the department under this chapter shall be secondary to other insurance benefits, notwithstanding the provision of any contract or coverage to the contrary.",
+      "source_id": "WA-S7",
+      "pinpoint": "RCW 7.68.130(3)"
+    },
+    {
+      "id": "WA-COLLATERAL-2",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "Victims must use their private insurance before the program will consider paying.",
+      "quote": "Before payment of benefits will be considered victims shall use their private insurance coverage.",
+      "source_id": "WA-S7",
+      "pinpoint": "RCW 7.68.130(5)"
+    },
+    {
+      "id": "WA-COLLATERAL-3",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "On an allowed claim under the maximum benefit, the claimant should not pay; providers bill insurance first and then the department, and must refund the claimant if they collected while eligibility was pending.",
+      "quote": "If claim costs are under the maximum benefit, the claimant should not pay any expenses relating to an allowed claim. Providers must bill the claimant's public or private insurance first, and then bill the department.",
+      "source_id": "WA-S12",
+      "pinpoint": "WAC 296-30-087(1)"
+    },
+    {
+      "id": "WA-CONDUCT-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "By statute, benefits are barred when the injury resulted from the victim's consent, provocation, or incitement, or was sustained while the victim was committing a felony. Shown for information only.",
+      "quote": "The result of consent, provocation, or incitement by the victim, unless an injury resulting from a criminal act caused the death of the victim; (b) Sustained while the crime victim was engaged in the attempt to commit, or the commission of, a felony",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(2)(a)-(b)"
+    },
+    {
+      "id": "WA-CONDUCT-2",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "A victim is not eligible if convicted of a violent felony or crime against persons within the 5 years before the crime (or after it) and has not fully paid all legal financial obligations. Shown for information only.",
+      "quote": "Has been convicted of a felony offense within five years preceding the criminal act for which the victim is applying where the felony offense is a violent offense under RCW 9.94A.030 or a crime against persons under RCW 9.94A.411 , or is convicted of such a felony offense after the criminal act for which the victim is applying; and (b) Has not completely satisfied all legal financial obligations owed.",
+      "source_id": "WA-S2",
+      "pinpoint": "RCW 7.68.060(4)"
+    },
+    {
+      "id": "WA-CRIME-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "To qualify, the person must have a physical injury or mental health trauma from a gross misdemeanor or felony crime in Washington.",
+      "quote": "Sustained a physical injury or mental health trauma as a result of a gross misdemeanor or felony crime in Washington State.",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, Do I qualify?"
+    },
+    {
+      "id": "WA-CRIME-2",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "The statute specifically makes sexual assault victims eligible for counseling, and the application lists sexual assault as a crime type.",
+      "quote": "Victims of sexual assault are eligible to receive appropriate counseling.",
+      "source_id": "WA-S4",
+      "pinpoint": "RCW 7.68.080(5)"
+    },
+    {
+      "id": "WA-RESIDENCY-1",
+      "category": "residency",
+      "params": {
+        "rule": "Crimes committed in Washington; or crimes against a Washington resident committed in a state with no compensation program"
+      },
+      "summary": "A covered criminal act is one committed or attempted in Washington, or one committed outside Washington against a Washington resident in a state with no crime victims' compensation program.",
+      "quote": "an act committed outside the state of Washington against a resident of the state of Washington which would be compensable had it occurred inside this state and the crime occurred in a state which does not have a crime victims' compensation program",
+      "source_id": "WA-S1",
+      "pinpoint": "RCW 7.68.020(6)(c)"
+    },
+    {
+      "id": "WA-RESIDENCY-2",
+      "category": "residency",
+      "params": {
+        "rule": "Exam costs: paid for exams at Washington facilities whether the assault happened in or outside Washington"
+      },
+      "summary": "For the exam alone, the no-bill rule covers exams at Washington facilities whether the assault happened in or outside Washington.",
+      "quote": "whether such assault occurred in or outside the state of Washington",
+      "source_id": "WA-S5",
+      "pinpoint": "RCW 7.68.170"
+    }
+  ],
+  "coverage": {
+    "found": [
+      "collateral_source",
+      "conduct_reduction",
+      "covered_expense",
+      "eligible_crime",
+      "exam_no_bill",
+      "exam_payment",
+      "excluded_expense",
+      "expense_cap",
+      "filing_deadline",
+      "reporting_requirement",
+      "residency",
+      "total_cap"
+    ],
+    "not_found": [
+      "emergency_award",
+      "minimum_loss",
+      "expense_cap:relocation",
+      "expense_cap:security",
+      "covered_expense:relocation",
+      "covered_expense:security",
+      "reporting_requirement alternatives for sexual assault (compensation claims)"
+    ],
+    "notes": "No emergency or advance award, minimum loss, relocation, or security benefit was found in chapter 7.68 RCW, chapter 296-30 WAC, or the L&I program pages that were saved. For compensation claims the crime must be reported to law enforcement within 12 months (RCW 7.68.060(1)(b)); no sexual-assault alternative to a police report was found for compensation claims. The police report is not required for the sexual assault exam itself, which the program pays for directly (RCW 7.68.170, WAC 296-30-170). Mental health sessions beyond the first six need prior authorization per the Mental Health Fee Schedule (F800-105-000); that is an authorization step, not a dollar cap, so it is not encoded as a rule. Reviewer changes (Oct 3): the $40,000 limit in RCW 7.68.070(1) applies to all non-medical benefits, so it is encoded as an expense_cap (expense \"other\") instead of a second total_cap; the only total_cap is the L&I per-claim maximum of $190,000. The 60 percent wage rule is a covered_expense note, not a dollar cap. Exam payment does not apply when the victim was confined in a jail or institution at the time of the assault (F800-100-000). HIV PEP (up to a 28-day supply from a WA hospital ED) is covered. Minor victims of sex trafficking or commercial sexual abuse of a minor may apply at any time (RCW 7.68.060(6)(b))."
+  },
+  "confidence": "high",
+  "researcher_notes": "Federal OVC directory lists the WA compensation program as the Department of Labor & Industries, phone 800-762-3716, website lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits. The L&I apply page said on Oct 3, 2026 that the online application portal was down and to email or fax the PDF form. Cap structure: RCW 7.68.070(1) caps non-medical benefits at $40,000 per injury, and RCW 7.68.085 separately caps medical benefits at $150,000; the L&I page states the combined per-claim maximum as $190,000 and groups medical and mental health under the $150,000. The burial cap in statute ($6,170) is inflation-adjusted every three years and the L&I page shows $7,990; funeral is not encoded. The minor filing rule (within two years of the 18th birthday) comes from the L&I page; it was not found in the text of RCW 7.68.060, which instead has a discovery rule for adult victims of childhood crimes. Exam insurance billing is marked unspecified: RCW 7.68.170 bars billing or charging the victim directly or indirectly and WAC 296-30-170 makes the program the primary payer, and the L&I page says patients are not required to use their own insurance, but no source expressly says whether a provider may bill the survivor's insurer. RCW 7.68.060(2)(a) consent/provocation/incitement is a full eligibility bar, not a reduction; it is recorded as conduct_reduction for information only. RCW 7.68.080 has a version effective until June 30, 2027 and one effective June 30, 2027; the quoted subsections read the same in both. Reviewer: RCW 7.68.060(1)(a) also says the 3-year clock runs from the report date; the L&I minors rule (two years after the 18th birthday) is not in RCW 7.68.060 and may come from a rule or policy that was not saved, so treat it as agency guidance. The exam billing manual (F800-100-000) calls the program the primary payer for the initial exam and covers prophylaxis, emergency contraception, hepatitis B immune globulin, tetanus vaccine, and up to 28 days of HIV medication with the exam; treatment of injuries needs a compensation application."
+}
