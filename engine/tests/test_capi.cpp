@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <thread>
 #include <vector>
@@ -68,6 +69,38 @@ TEST_CASE("the listing comments each rule block with pinpoint and quote start") 
   CHECK(listing.find("less generous duplicate of ZZ-COUNSEL-CAP-1") != std::string::npos);
   CHECK(listing.find(".item") != std::string::npos);
   CHECK(listing.find(".aggregate") != std::string::npos);
+}
+
+TEST_CASE("line breaks inside a quote or pinpoint stay on the rule's comment line") {
+  // Mailing addresses on application forms are quoted with their line breaks.
+  json verified = json::parse(th::read_text(th::kFixtureVerified));
+  for (json& r : verified["rules"]) {
+    if (r["id"] == "ZZ-EXAM-1") {
+      r["quote"] = "Mail to:\n\nZZ Program\r\nP.O. Box 1\tCapital City";
+      r["pinpoint"] = "Form 1,\npage 2";
+    }
+  }
+  std::string verified_text = verified.dump(1);
+  uint8_t sha[32];
+  tend::sha256(verified_text.data(), verified_text.size(), sha);
+  json doc = json::parse(th::read_text(th::kFixtureIr));
+  doc["source_sha256"] = tend::to_hex(sha, 32);
+  tend::CompileResult res;
+  std::string err;
+  REQUIRE_MESSAGE(tend::compile_law(doc.dump(), verified_text, res, err), err);
+  std::string listing = disasm(res.image);
+  CHECK(listing.find("; ZZ-EXAM-1  Form 1, page 2  \"Mail to: ZZ Program P.O. Box 1 Capital City\"") != std::string::npos);
+  std::istringstream lines(listing);
+  for (std::string l; std::getline(lines, l);) {
+    INFO(l);
+    CHECK((l.empty() || l[0] == ' ' || l[0] == '.' || l[0] == ';'));
+    CHECK(l.find('\t') == std::string::npos);
+    CHECK(l.find('\r') == std::string::npos);
+  }
+  // inspect keeps the quote verbatim; only the listing flattens it.
+  for (const json& r : inspect(res.image)["rules"]) {
+    if (r["id"] == "ZZ-EXAM-1") CHECK(r["quote"] == "Mail to:\n\nZZ Program\r\nP.O. Box 1\tCapital City");
+  }
 }
 
 TEST_CASE("tend_inspect_json exposes the rule table") {

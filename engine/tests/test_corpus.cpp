@@ -91,8 +91,18 @@ TEST_CASE("corpus: real jurisdictions compile, verify, and match the oracle") {
 
     char* listing = tend_disasm(res.image.data(), res.image.size());
     REQUIRE(listing != nullptr);
-    CHECK(std::string(listing).rfind("; tend law image " + st, 0) == 0);
+    std::string text(listing);
     tend_free(listing);
+    CHECK(text.rfind("; tend law image " + st, 0) == 0);
+    // Real quotes carry line breaks (mailing addresses); none may break a listing line.
+    size_t bad_lines = 0;
+    for (size_t at = 0; at < text.size();) {
+      size_t nl = text.find('\n', at);
+      if (nl == std::string::npos) nl = text.size();
+      if (nl > at && text[at] != ' ' && text[at] != '.' && text[at] != ';') bad_lines++;
+      at = nl + 1;
+    }
+    CHECK_MESSAGE(bad_lines == 0, st << " listing has " << bad_lines << " stray lines");
     char* inspect = tend_inspect_json(res.image.data(), res.image.size());
     REQUIRE(inspect != nullptr);
     json info = json::parse(inspect);

@@ -49,9 +49,20 @@ class Lister {
   }
 
  private:
+  // Quotes and addresses copied from sources can hold line breaks and tabs;
+  // each run of control characters becomes one space so a quote never spills
+  // onto a line of its own.
   void line(const std::string& s) {
-    size_t end = s.find_last_not_of(' ');
-    out_.append(s, 0, end == std::string::npos ? 0 : end + 1);
+    size_t start = out_.size();
+    for (char c : s) {
+      unsigned char u = static_cast<unsigned char>(c);
+      if (u < 0x20 || u == 0x7F) {
+        if (out_.size() > start && out_.back() != ' ') out_ += ' ';
+      } else {
+        out_ += c;
+      }
+    }
+    while (out_.size() > start && out_.back() == ' ') out_.pop_back();
     out_ += '\n';
   }
 
