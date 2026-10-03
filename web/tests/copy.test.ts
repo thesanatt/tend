@@ -21,8 +21,8 @@ const sources = [
 const BANNED = new RegExp(
   `[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d].map((c) => String.fromCharCode(c)).join("")}]`,
 );
-const HYPE =
-  /\b(elevate|empower|unlock|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
+// "unlock" is not here on purpose: the vault is literally unlocked with Touch ID or a passcode.
+const HYPE = /\b(elevate|empower|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
 
 describe("user-facing copy", () => {
   it("has no em dashes, en dashes, or curly quotes in source", () => {
@@ -36,7 +36,10 @@ describe("user-facing copy", () => {
   });
 
   it("says the program decides wherever an amount is shown as askable", () => {
-    const claim = readFileSync(path.join(web, "app/claim/ClaimScreen.tsx"), "utf8");
-    expect(claim).toContain("Amount you can ask for. The program decides.");
+    for (const screen of ["components/flow/gather/GatherScreen.tsx", "components/flow/packet/PacketScreen.tsx"]) {
+      const source = readFileSync(path.join(web, screen), "utf8");
+      expect(source).toContain("t.common.askFor");
+      expect(source).toContain("t.common.programDecides");
+    }
   });
 });

@@ -1,7 +1,7 @@
 import Money from "@/components/Money";
 import { expenseLabel } from "@/lib/expenses";
 import type { Bed as BedData } from "@/lib/ledger";
-import type { Answer } from "@/lib/session";
+import type { Answer } from "@/lib/ledger";
 import type { LawIndex } from "@/lib/useLaw";
 import LedgerRow from "./LedgerRow";
 import styles from "./ledger.module.css";

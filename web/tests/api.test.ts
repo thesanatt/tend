@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { proposalProblem } from "@/components/bill/PaySheet";
+import { proposalProblem } from "@/components/flow/bills/PaySheet";
+import { DICTS, formatters } from "@/lib/i18n";
 import { ApiError, confirmPayment, normalizeSummaries, proposePayment, resetDataModeForTests } from "@/lib/api";
 
 const pay = {
@@ -75,6 +76,8 @@ describe("jurisdiction list from the API", () => {
 });
 
 describe("payment proposal check", () => {
+  const check = (p: Parameters<typeof proposalProblem>[0], amount: number, payee: string) =>
+    proposalProblem(p, amount, payee, DICTS.en, formatters("en"));
   const proposal = {
     action_id: "a1",
     amount_cents: 139400,
@@ -85,13 +88,13 @@ describe("payment proposal check", () => {
   };
 
   it("accepts a proposal that matches the bill screen", () => {
-    expect(proposalProblem(proposal, 139400, "Riverbend General Hospital")).toBeNull();
+    expect(check(proposal, 139400, "Riverbend General Hospital")).toBeNull();
   });
 
   it("refuses a proposal whose amount or payee differs from what the survivor saw", () => {
-    expect(proposalProblem({ ...proposal, amount_cents: 171900 }, 139400, "Riverbend General Hospital")).toMatch(
+    expect(check({ ...proposal, amount_cents: 171900 }, 139400, "Riverbend General Hospital")).toMatch(
       /\$1,719\.00.*\$1,394\.00.*Nothing was sent/,
     );
-    expect(proposalProblem(proposal, 139400, "Someone else")).toMatch(/different payee/);
+    expect(check(proposal, 139400, "Someone else")).toMatch(/different payee/);
   });
 });

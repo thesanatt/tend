@@ -1,0 +1,281 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import Money from "@/components/Money";
+import type { ChecklistItem, FilingRoute, Letter, LetterKind } from "@/lib/contracts";
+import { useI18n, type Dict } from "@/lib/i18n";
+import { useLaw } from "@/lib/useLaw";
+import Cite from "../Cite";
+import EngineNotice from "../EngineNotice";
+import { useFlow } from "../FlowProvider";
+import LetterSheet from "../LetterSheet";
+import { usePacket } from "../usePacket";
+import styles from "../flow.module.css";
+import ShareBox from "./ShareBox";
+
+// The template that helps get each document, when there is one.
+const TEMPLATE_FOR: Record<string, LetterKind> = {
+  wage_verification: "employer_wages",
+  counseling_statement: "provider_statement",
+  itemized_bill: "itemized_bill_request",
+};
+
+function useBlobUrl(blob: Blob | null | undefined): string | null {
+  const url = useMemo(
+    () => (blob && typeof URL.createObjectURL === "function" ? URL.createObjectURL(blob) : null),
+    [blob],
+  );
+  useEffect(() => () => (url ? URL.revokeObjectURL(url) : undefined), [url]);
+  return url;
+}
+
+export function docLabel(t: Dict, document: string): string {
+  return t.docs[document as keyof Dict["docs"]] ?? document.replace(/_/g, " ");
+}
+
+function Route({ route, t }: { route: FilingRoute; t: Dict }) {
+  const target = route.target.trim();
+  if (route.method === "online" && /^https?:\/\//i.test(target))
+    return (
+      <a href={target} target="_blank" rel="noopener noreferrer">
+        {target.replace(/^https?:\/\/(www\.)?/i, "").slice(0, 60)}
+        <span className="visually-hidden"> {t.common.newTab}</span>
+      </a>
+    );
+  if (route.method === "email" && /@/.test(target)) return <a href={`mailto:${target}`}>{target}</a>;
+  return <span className={route.method === "mail" ? styles.address : undefined}>{target}</span>;
+}
+
+export default function PacketScreen() {
+  const { t, f } = useI18n();
+  const { state, input, claim, dispatch, today } = useFlow();
+  const law = useLaw(state.check.st || null);
+  const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
+  const pk = usePacket(Boolean(output));
+  const formUrl = useBlobUrl(pk.packet?.formPdf);
+  const summaryUrl = useBlobUrl(pk.packet?.summaryPdf);
+  const [letter, setLetter] = useState<Letter | null>(null);
+
+  if (!state.check.st) {
+    return (
+      <section className={styles.needState}>
+        <h1>{t.packet.title}</h1>
+        <p className="lead">{t.gather.needState}</p>
+        <Link replace href="/check" className="btn btn-primary">
+          {t.gather.toCheck}
+        </Link>
+      </section>
+    );
+  }
+
+  const eligible = output?.lines.filter((l) => l.status === "eligible" && l.allowed_cents > 0) ?? [];
+  const items = new Map(state.items.map((i) => [i.item_id, i]));
+  const program = law.law?.program;
+  const have = (c: ChecklistItem) => state.have[`${c.document}:${c.rule_id}`] ?? c.have_it;
+  const letterFor = (document: string) => pk.packet?.letters.find((l) => l.kind === TEMPLATE_FOR[document]) ?? null;
+
+  return (
+    <div className={styles.packet}>
+      <header className={styles.screenHead}>
+        <h1>{t.packet.title}</h1>
+        <p className="lead">{t.packet.lead}</p>
+      </header>
+
+      <section className={styles.packetTotal} aria-live="polite">
+        <p className={styles.tallyLabel}>{t.common.askFor}</p>
+        <p className={styles.bigFigure}>{output ? <Money cents={output.totals.allowed_cents} face="inherit" /> : "..."}</p>
+        <p>
+          {t.common.programDecides} {output ? t.packet.fromCosts(eligible.length) : null}
+        </p>
+        {output && output.totals.held_cents > 0 ? (
+          <p className={styles.heldNote}>{t.packet.held(f.money(output.totals.held_cents))}</p>
+        ) : null}
+        <EngineNotice />
+      </section>
+
+      {pk.status === "building" ? (
+        <p className="meta" role="status">
+          {t.packet.building}
+        </p>
+      ) : null}
+      {pk.status === "error" ? (
+        <div role="alert" className={styles.problem}>
+          <p>{t.packet.buildFailed(pk.error ?? "")}</p>
+          <button type="button" className="link-button" onClick={pk.retry}>
+            {t.common.tryAgain}
+          </button>
+        </div>
+      ) : null}
+
+      <ol className={styles.packetParts}>
+        <li className={styles.part} aria-labelledby="part-form">
+          <h2 id="part-form">{t.packet.formTitle}</h2>
+          <p>{t.packet.formBody(law.law?.name ?? "")}</p>
+          <p className={styles.onlyYou}>{t.packet.onlyYou}</p>
+          {formUrl ? (
+            <a href={formUrl} download={`${state.check.st}-application.pdf`} className="btn btn-primary">
+              {t.packet.formDownload}
+            </a>
+          ) : pk.status === "ready" && program?.application_pdf_url ? (
+            <>
+              <p className="meta">{t.packet.formBlank}</p>
+              <a href={program.application_pdf_url} target="_blank" rel="noopener noreferrer">
+                {t.packet.formBlankLink}
+                <span className="visually-hidden"> {t.common.newTab}</span>
+              </a>
+            </>
+          ) : pk.status === "ready" ? (
+            <p className="meta">{t.packet.formNone}</p>
+          ) : null}
+        </li>
+
+        <li className={styles.part} aria-labelledby="part-summary">
+          <h2 id="part-summary">{t.packet.summaryTitle}</h2>
+          <p>{t.packet.summaryBody}</p>
+          {summaryUrl ? (
+            <a href={summaryUrl} download={`${state.check.st}-claim-summary.pdf`} className="btn btn-secondary">
+              {t.packet.summaryDownload}
+            </a>
+          ) : null}
+          {eligible.length ? (
+            <details className={styles.lines}>
+              <summary>{t.packet.summaryShow(eligible.length)}</summary>
+              <table className={styles.lineTable}>
+                <thead>
+                  <tr>
+                    <th scope="col">{t.packet.colCost}</th>
+                    <th scope="col">{t.packet.colLaw}</th>
+                    <th scope="col" className={styles.num}>
+                      {t.packet.colAmount}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {eligible.map((l) => {
+                    const it = items.get(l.item_id);
+                    const subject = it ? `${it.description}, ${f.date(it.date)}` : l.item_id;
+                    return (
+                      <tr key={l.item_id}>
+                        <td>
+                          {it?.description ?? l.item_id}
+                          <span className={styles.sub}>
+                            {t.expense[l.expense]}
+                            {it && it.origin !== "bill" ? `, ${f.date(it.date, "short")}` : ""}
+                          </span>
+                        </td>
+                        <td>
+                          <Cite ruleIds={[...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]} law={law} subject={subject} />
+                        </td>
+                        <td className={styles.num}>
+                          <Money cents={l.allowed_cents} />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </details>
+          ) : output ? (
+            <p className="meta">{t.packet.noLines}</p>
+          ) : null}
+        </li>
+
+        <li className={styles.part} aria-labelledby="part-needed">
+          <h2 id="part-needed">{t.packet.neededTitle}</h2>
+          <p>{t.packet.neededBody}</p>
+          {pk.packet?.stillNeeded.length ? (
+            <ul className={styles.checklist}>
+              {pk.packet.stillNeeded.map((c) => {
+                const key = `${c.document}:${c.rule_id}`;
+                const template = letterFor(c.document);
+                return (
+                  <li key={key}>
+                    <label className={styles.checkLine}>
+                      <input
+                        type="checkbox"
+                        checked={have(c)}
+                        onChange={(e) => dispatch({ type: "have", key, value: e.target.checked })}
+                      />
+                      <span>{docLabel(t, c.document)}</span>
+                    </label>
+                    <div className={styles.checkActions}>
+                      <Cite ruleIds={[c.rule_id]} law={law} subject={docLabel(t, c.document)} />
+                      {template ? (
+                        <button type="button" className="link-button" onClick={() => setLetter(template)}>
+                          {t.packet.template}
+                          <span className="visually-hidden">: {docLabel(t, c.document)}</span>
+                        </button>
+                      ) : null}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : pk.status === "ready" ? (
+            <p className="meta">{t.packet.neededNone}</p>
+          ) : null}
+        </li>
+
+        <li className={styles.part} aria-labelledby="part-file">
+          <h2 id="part-file">{t.packet.fileTitle}</h2>
+          {pk.packet?.filing.length ? (
+            <ul className={styles.routes}>
+              {pk.packet.filing.map((r) => (
+                <li key={`${r.method}-${r.rule_id}-${r.target}`}>
+                  <span className={styles.method}>{t.methods[r.method]}</span>
+                  <Route route={r} t={t} />
+                  <Cite ruleIds={[r.rule_id]} law={law} subject={t.methods[r.method]} />
+                </li>
+              ))}
+              {program?.phone ? (
+                <li>
+                  <span className={styles.method}>{t.methods.phone}</span>
+                  <a href={`tel:${program.phone.replace(/[^\d+]/g, "")}`}>{program.phone}</a>
+                </li>
+              ) : null}
+            </ul>
+          ) : pk.status === "ready" ? (
+            <p className="meta">{t.packet.fileNone}</p>
+          ) : null}
+        </li>
+
+        <li className={styles.part} aria-labelledby="part-share">
+          <h2 id="part-share">{t.packet.shareTitle}</h2>
+          <p>{t.packet.shareBody}</p>
+          {input && output ? <ShareBox input={input} output={output} /> : null}
+        </li>
+
+        <li className={styles.part} aria-labelledby="part-sent">
+          <h2 id="part-sent">{t.packet.sentTitle}</h2>
+          <p>{t.packet.sentBody}</p>
+          {state.filed_at ? (
+            <p className={styles.done}>
+              {t.packet.sentDone(f.date(state.filed_at))}{" "}
+              <button type="button" className="link-button" onClick={() => dispatch({ type: "filed", at: null })}>
+                {t.common.undo}
+              </button>
+            </p>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-secondary"
+              disabled={!eligible.length}
+              onClick={() => dispatch({ type: "filed", at: today })}
+            >
+              {t.packet.sentButton}
+            </button>
+          )}
+        </li>
+      </ol>
+
+      <div className={styles.nextRow}>
+        <Link href="/track" className="btn btn-primary">
+          {t.packet.toTrack}
+        </Link>
+      </div>
+
+      <LetterSheet open={letter !== null} onClose={() => setLetter(null)} letter={letter} law={law} />
+    </div>
+  );
+}
