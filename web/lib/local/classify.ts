@@ -8,9 +8,10 @@ import { isIsoDay } from "../dates";
 import type { ItemExpense } from "../types";
 import { cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
-import { inferPayDips } from "./paydip";
+import { inferPay } from "./paydip";
 import {
   classifyDeterministic,
+  norm,
   contentKey,
   displayDescription,
   fromModelAnswer,
@@ -18,7 +19,6 @@ import {
   ITEMIZED_REASON,
   linkCareRides,
   MODEL_LABELS,
-  PROMPT_VERSION,
   setAside,
   stripTags,
   TEND_PAYMENT_REASON,
@@ -39,7 +39,7 @@ import type {
 
 export const DEVICE_BATCH = 6;
 export const DEVICE_TIMEOUT_MS = 5000;
-export const CLOUD_BATCH = 25;
+export const CLOUD_BATCH = 100; // the API takes up to 500 rows a request
 export const DEVICE_MODEL = "gemini-nano";
 
 // api/tend_api/classify.py SYSTEM_PROMPT, word for word, so device, cloud and server agree.
@@ -185,25 +185,48 @@ export function toFacts(t: LocalTxn): TxnFacts {
   };
 }
 
-const TAG_WORDS: [RegExp, string][] = [
-  [/\b(cell phone|mobile phone|phone|iphone|smartphone)\b/i, "phone"],
-  [/\b(purse|wallet|handbag)\b/i, "purse"],
-  [/\b(jewelry|jewellery)\b/i, "jewelry"],
-  [/\b(cash|money)\b/i, "cash"],
-  [/\b(vehicle|car)\b/i, "vehicle"],
+// The keyword table of rules/tools/normalize.py, read the same way (words inside the padded text),
+// so an excluded rule's tags and an item's tags meet.
+const TAG_WORDS: [string[], string][] = [
+  [["cell phone", "mobile phone", "phone"], "phone"],
+  [["purse", "wallet", "handbag"], "purse"],
+  [["jewelry", "jewellery"], "jewelry"],
+  [["cash", "money"], "cash"],
+  [["vehicle", "car "], "vehicle"],
+  [["pain and suffering"], "pain_suffering"],
 ];
+const NIGHTS = /\b(\d{1,2})\s*-?\s*(?:nights?|days?)\b/i;
 
-// The law's exclusion tags (rules/tools/normalize.py TAG_WORDS), set only on replaced property, so
-// a state that excludes phones can show a new phone as excluded instead of guessing.
-export function tagsFor(expense: string, text: string): string[] {
-  if (expense !== "property_replacement") return [];
-  return TAG_WORDS.filter(([re]) => re.test(text))
+export function tagsFor(text: string): string[] {
+  const padded = ` ${norm(text)} `;
+  return TAG_WORDS.filter(([words]) => words.some((w) => padded.includes(w)))
     .map(([, tag]) => tag)
     .sort();
 }
 
+// SPEC v1.2's typed unit for an item: a counseling charge is one session, lodging counts the
+// nights it names, lost pay counts weeks, a ride has no unit. Tags go only on replaced property,
+// so a rule that excludes phones does not catch a phone plan.
+export function itemShape(
+  expense: string,
+  kind: string,
+  text: string,
+): { unit: Unit | null; units: number; tags: string[] } {
+  if (expense === "counseling")
+    return { unit: "session", units: kind === "purchase" || kind === "withdrawal" ? 1 : 0, tags: [] };
+  if (expense === "temporary_housing") {
+    const nights = NIGHTS.exec(text);
+    return { unit: "day", units: nights ? Number(nights[1]) : 0, tags: [] };
+  }
+  if (expense === "lost_wages") return { unit: "week", units: 0, tags: [] };
+  if (expense === "property_replacement") return { unit: null, units: 0, tags: tagsFor(text) };
+  return { unit: null, units: 0, tags: [] };
+}
+
 const slice200 = (s: string) => Array.from(s).slice(0, 200).join("");
 
+// A model's label is the model's; anything a rule decided last, including a ride linked to care,
+// is the rules'.
 function sourceOf(c: Classification, modelSource: Map<string, Source>): Source {
   return c.method === "model" ? (modelSource.get(c.ref) ?? "device_ai") : "rule";
 }
@@ -211,9 +234,8 @@ function sourceOf(c: Classification, modelSource: Map<string, Source>): Source {
 export function toItem(t: LocalTxn, c: Classification, source: Source): LocalClassifiedItem | null {
   if (!c.candidate || t.amount_cents < 0) return null;
   const isBill = t.kind === "bill";
-  const perSession = c.expense === "counseling" && !isBill; // each counseling charge is one session
   const text = isBill ? (t.merchant ?? t.description) : [t.merchant, t.description].filter(Boolean).join(" ");
-  const unit: Unit | null = perSession ? "session" : null;
+  const shape = itemShape(c.expense, toFacts(t).kind, [t.merchant, t.description].filter(Boolean).join(" "));
   return {
     item_id: t.id,
     date: t.date,
@@ -222,9 +244,7 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
     confirmed: c.confirmed,
     insurance_paid_cents: 0,
     is_bill: isBill,
-    units: perSession ? 1 : 0,
-    unit,
-    tags: tagsFor(c.expense, text),
+    ...shape,
     description: slice200(text),
     source,
     reason: c.reason,
@@ -327,12 +347,9 @@ async function askCloud(
     const rows = [...refs].map(([ref, key]) => modelRow(ref, pending.get(key)!));
     report.cloud.batches++;
     try {
-      const { answers: got, model } = await cloudClassify(rows, {
-        fetch: opts.fetch,
-        signal: opts.signal,
-        promptVersion: PROMPT_VERSION,
-      });
+      const { answers: got, model, note } = await cloudClassify(rows, { fetch: opts.fetch, signal: opts.signal });
       takeAnswers(got, refs, answers, model ?? "cloud", "cloud_ai");
+      if (note) report.cloud.errors.push(note);
     } catch (err) {
       report.cloud.errors.push((err as Error).message);
       break;
@@ -403,7 +420,7 @@ export async function classifyDetailed(
   results = results.map((r) => {
     const t = byRef.get(r.ref)!;
     if (t.itemized) return setAside(r, ITEMIZED_REASON);
-    if (isTendPayment(t.description ?? "")) return setAside(r, TEND_PAYMENT_REASON);
+    if (t.tend_payment || isTendPayment(t.description ?? "")) return setAside(r, TEND_PAYMENT_REASON);
     return r;
   });
 
@@ -415,6 +432,24 @@ export async function classifyDetailed(
     if (day && !known.has(`${day}|${t.id}`)) anchors.push({ date: day, ref: t.id, expense: "medical" });
   }
   results = linkCareRides(facts, results, anchors);
+
+  // A paycheck that came in short after the date becomes lost pay on its own id, as the API's
+  // wage gaps do; checks that never came are new lines.
+  const pay = opts.payDips === false ? { dips: new Map(), missed: [] } : inferPay(txns, ctx.incident_date);
+  results = results.map((r) => {
+    const dip = pay.dips.get(r.ref);
+    if (!dip) return r;
+    return {
+      ...r,
+      expense: "lost_wages",
+      candidate: true,
+      confirmed: false,
+      confidence: dip.confidence,
+      method: "inference",
+      reason: dip.reason,
+      linked_refs: [],
+    };
+  });
   report.all = results;
 
   for (const r of results) {
@@ -422,20 +457,18 @@ export async function classifyDetailed(
     if (r.method === "unresolved") report.counts.unresolved++;
     else if (source === "rule") report.counts.rule++;
     else report.counts[source === "cloud_ai" ? "cloud_ai" : "device_ai"]++;
-    const item = toItem(byRef.get(r.ref)!, r, source);
+    const item = pay.dips.get(r.ref) ?? toItem(byRef.get(r.ref)!, r, source);
     if (item) report.items.push(item);
   }
-
-  if (opts.payDips !== false) {
-    const dips = inferPayDips(txns, ctx.incident_date).filter((d) => !ids.has(d.item_id));
-    report.items.push(...dips);
-    report.counts.pay_dips = dips.length;
-  }
+  const missed = pay.missed.filter((m: LocalClassifiedItem) => !ids.has(m.item_id));
+  report.items.push(...missed);
+  report.counts.pay_dips = pay.dips.size + missed.length;
   report.counts.items = report.items.length;
   if (report.device.errors.length && report.device.used)
     report.warnings.push("The on-device model could not sort some rows, so they are left for you to check.");
   if (report.cloud.errors.length)
     report.warnings.push("Cloud sorting did not answer, so some rows are left for you to check.");
+  report.warnings = [...new Set(report.warnings)];
   return report;
 }
 

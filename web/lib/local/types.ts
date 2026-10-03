@@ -20,6 +20,8 @@ export interface LocalTxn extends StatementTxn {
   status?: string;
   // A bank bill that an itemized document explains: its lines are reviewed instead of the bill.
   itemized?: { service_date: string | null };
+  // A payment Tend made, which pays bill lines already offered (the relay may strip its tag).
+  tend_payment?: boolean;
   line?: number; // 1-based line or row in the source file
 }
 
@@ -34,6 +36,8 @@ export interface NessieResult extends StatementResult {
   fictional: boolean;
   label: string | null;
   source: string | null; // "live" or "snapshot" when the relay says
+  // Itemized bills the relay can serve, for billReader: fetch path, then read the file.
+  documents: { bill_id: string; item_id: string; path: string }[];
 }
 
 export interface ClassifyContext {
@@ -120,5 +124,8 @@ export interface LocalClassifier extends Classifier {
 }
 
 export interface LocalBillReader extends BillReader {
-  read(file: File | Blob, opts?: { signal?: AbortSignal }): Promise<LocalBillReading>;
+  read(
+    file: File | Blob,
+    opts?: { signal?: AbortSignal; cloudConsent?: boolean; fetch?: typeof fetch },
+  ): Promise<LocalBillReading>;
 }

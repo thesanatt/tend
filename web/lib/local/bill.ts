@@ -8,6 +8,7 @@ import type { Source } from "../contracts";
 import type { ItemExpense } from "../types";
 import { parseAmount, parseDate } from "./amounts";
 import { balanceChecks, BillReadError, matchExpense, parseTextBill, type TextBill } from "./billtext";
+import { cloudReadBill } from "./cloud";
 import { baseSession, deviceAiStatus, promptJson } from "./deviceai";
 import { sha256Hex } from "./hash";
 import { isPdf, linesToText, openPdf, pdfLines } from "./pdf";
@@ -245,12 +246,83 @@ async function renderFirstPage(bytes: Uint8Array): Promise<Blob | null> {
   }
 }
 
-export async function readBill(
-  file: Blob & { name?: string },
-  opts: { signal?: AbortSignal } = {},
-): Promise<LocalBillReading> {
+export interface ReadBillOptions {
+  signal?: AbortSignal;
+  // The survivor agreed to send this one file to cloud Gemini when the device cannot read it.
+  cloudConsent?: boolean;
+  fetch?: typeof fetch;
+}
+
+const MIME: Record<string, string> = {
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  webp: "image/webp",
+  heic: "image/heic",
+};
+
+function mimeOf(file: Blob & { name?: string }, bytes: Uint8Array): string {
+  if (isPdf(bytes)) return "application/pdf";
+  if (file.type && Object.values(MIME).includes(file.type)) return file.type;
+  const ext = (file.name ?? "").toLowerCase().split(".").pop() ?? "";
+  if (MIME[ext]) return MIME[ext];
+  return bytes[0] === 0xff && bytes[1] === 0xd8 ? "image/jpeg" : "image/png";
+}
+
+// The cloud's reading, checked again here: integer cents only, and the lines must add up.
+async function fromCloud(
+  bytes: Uint8Array,
+  mime: string,
+  sha: string,
+  format: LocalBillReading["format"],
+  opts: ReadBillOptions,
+) {
+  let got;
+  try {
+    got = await cloudReadBill(bytes, mime, { fetch: opts.fetch, signal: opts.signal });
+  } catch {
+    return unreadable(sha, format, "cloud_ai", "Cloud reading did not answer, so this bill is not used.");
+  }
+  const bill = emptyBill();
+  bill.provider = got.provider;
+  bill.amount_due_cents = Number.isSafeInteger(got.total_cents) ? got.total_cents : null;
+  bill.adjustments = got.adjustments.filter((a) => Number.isSafeInteger(a.amount_cents) && a.amount_cents >= 0);
+  let bad = 0;
+  for (const l of got.lines) {
+    if (!Number.isSafeInteger(l.amount_cents) || l.amount_cents < 0 || typeof l.description !== "string") {
+      bad++;
+      continue;
+    }
+    bill.lines.push({
+      line_no: bill.lines.length + 1,
+      date: "",
+      description: l.description,
+      amount_cents: l.amount_cents,
+      columns_cents: [l.amount_cents],
+    });
+  }
+  const out = reading(
+    bill,
+    sha,
+    format,
+    got.source === "rule" ? "rule" : "cloud_ai",
+    bad ? ["Some lines from the cloud reading could not be used."] : [],
+  );
+  if (bad || !got.sums_match) {
+    out.status = "unreliable";
+    out.sums_match = false;
+  }
+  return out;
+}
+
+export async function readBill(file: Blob & { name?: string }, opts: ReadBillOptions = {}): Promise<LocalBillReading> {
   const bytes = new Uint8Array(await file.arrayBuffer());
   const sha = await sha256Hex(bytes);
+  // A picture the device could not read goes to the cloud only with consent.
+  const orCloud = async (reading: LocalBillReading, format: LocalBillReading["format"]) =>
+    reading.status === "ok" || opts.cloudConsent !== true
+      ? reading
+      : fromCloud(bytes, mimeOf(file, bytes), sha, format, opts);
   if (isPdf(bytes)) {
     let text: string;
     try {
@@ -258,18 +330,17 @@ export async function readBill(
     } catch {
       return unreadable(sha, "pdf", "rule", "This PDF could not be opened.");
     }
+    // A text layer settles it: if its own lines and total disagree, no model can make it reliable.
     if (text.trim()) return fromText(text, sha, "pdf");
     const page = await renderFirstPage(bytes).catch(() => null);
     if (!page)
-      return unreadable(
-        sha,
+      return orCloud(
+        unreadable(sha, "pdf", "rule", "This PDF is a picture with no text, and it could not be read on this device."),
         "pdf",
-        "rule",
-        "This PDF is a picture with no text, and it could not be read on this device.",
       );
-    return fromImage(page, sha, "pdf", opts.signal);
+    return orCloud(await fromImage(page, sha, "pdf", opts.signal), "pdf");
   }
-  if (isImage(file, bytes)) return fromImage(file, sha, "image", opts.signal);
+  if (isImage(file, bytes)) return orCloud(await fromImage(file, sha, "image", opts.signal), "image");
   return fromText(new TextDecoder().decode(bytes), sha, "text");
 }
 

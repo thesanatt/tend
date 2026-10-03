@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { readBill } from "@/lib/local/bill";
 import parity from "./fixtures/classify-parity.json";
 import { FakeLanguageModel, install, uninstall } from "./fake-lm";
@@ -258,5 +258,110 @@ describe("bill photos go to Gemini Nano on the device", () => {
     install(new FakeLanguageModel({ answer: () => "Sure! Here is the bill:" }));
     const got = await readBill(photo());
     expect(got).toMatchObject({ status: "unreliable", source: "device_ai", lines: [] });
+  });
+});
+
+describe("cloud reading for a bill the device cannot read, only with consent", () => {
+  const photo = () => file(path.join(FIX, "bill-photo.png"), "image/png");
+  const reply = (body: object) =>
+    new Response(JSON.stringify(body), { headers: { "content-type": "application/json" } });
+  const cloudOk = {
+    status: "ok",
+    provider: "Lakeside Medical Center",
+    total_cents: 103500,
+    lines: [
+      { line_id: "bill:x:1", description: "Emergency department visit, copay", amount_cents: 5000, expense: "medical" },
+      {
+        line_id: "bill:x:2",
+        description: "Sexual assault medical forensic exam",
+        amount_cents: 90000,
+        expense: "forensic_exam",
+      },
+      { line_id: "bill:x:3", description: "Laboratory services", amount_cents: 4300, expense: "medical" },
+      { line_id: "bill:x:4", description: "Pharmacy, medication", amount_cents: 4200, expense: "medical" },
+    ],
+    adjustments: [],
+    sums_match: true,
+    source: "cloud_ai",
+    model: "gemini-cloud",
+    sha256: "x",
+  };
+  const asFetch = (f: unknown) => f as typeof globalThis.fetch;
+
+  it("never sends the file without consent", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const got = await readBill(photo(), { fetch: asFetch(fetch) });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(got.status).toBe("unreliable");
+  });
+
+  it("with consent, sends the file and checks the answer again on the device", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(fetch) });
+    const [url, init] = fetch.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe("/api/ai/bill");
+    const sent = JSON.parse(String(init.body));
+    expect(Object.keys(sent).sort()).toEqual(["consent", "file", "mime"]);
+    expect(sent).toMatchObject({ consent: true, mime: "image/png" });
+    expect(Buffer.from(sent.file, "base64").equals(readFileSync(path.join(FIX, "bill-photo.png")))).toBe(true);
+    expect(got).toMatchObject({ status: "ok", source: "cloud_ai", total_cents: 103500, lines_sum_cents: 103500 });
+    // Line ids come from this device's hash of the file, like every other reading.
+    expect(got.lines[1]).toMatchObject({ expense: "forensic_exam", line_id: `bill:${got.sha256.slice(0, 16)}:2` });
+  });
+
+  it("does not trust a cloud 'ok' whose lines do not add up", async () => {
+    const fetch = vi.fn(async () => reply({ ...cloudOk, total_cents: 99900 }));
+    const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(got).toMatchObject({ status: "unreliable", sums_match: false });
+  });
+
+  it("drops amounts that are not integer cents", async () => {
+    const lines = [...cloudOk.lines.slice(0, 3), { ...cloudOk.lines[3], amount_cents: 42.5 }];
+    const fetch = vi.fn(async () => reply({ ...cloudOk, lines }));
+    const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(got.status).toBe("unreliable");
+    expect(got.lines).toHaveLength(3);
+  });
+
+  it("says so when the cloud does not answer", async () => {
+    const fetch = vi.fn(async () => new Response("busy", { status: 503 }));
+    const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(got).toMatchObject({ status: "unreliable", source: "cloud_ai" });
+    expect(got.warnings[0]).toMatch(/did not answer/);
+  });
+
+  it("a PDF with a text layer never goes to the cloud, even with consent", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const got = await readBill(file(path.join(FIX, "bill-mismatch.pdf")), {
+      cloudConsent: true,
+      fetch: asFetch(fetch),
+    });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(got).toMatchObject({ status: "unreliable", source: "rule" });
+  });
+
+  it("a picture-only PDF goes to the cloud as a PDF", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    await readBill(file(path.join(FIX, "bill-scan-only.pdf")), { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(JSON.parse(String((fetch.mock.calls[0] as unknown as [string, RequestInit])[1].body)).mime).toBe(
+      "application/pdf",
+    );
+  });
+
+  it("an on-device reading that adds up is not sent anywhere", async () => {
+    install(
+      new FakeLanguageModel({
+        answer: () =>
+          JSON.stringify({
+            amount_due: "$120.00",
+            totals: ["$120.00"],
+            lines: [{ description: "Clinic visit", amounts: ["$120.00"] }],
+          }),
+      }),
+    );
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(got).toMatchObject({ status: "ok", source: "device_ai" });
   });
 });

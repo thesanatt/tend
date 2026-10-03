@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
+import { classifyDetailed } from "@/lib/local/classify";
 import { fetchNessie, fromNessieRelay } from "@/lib/local/nessie";
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
@@ -116,6 +117,96 @@ describe("Nessie relay rows", () => {
   it("an empty or odd body gives no rows, not an error", () => {
     expect(fromNessieRelay(null).txns).toEqual([]);
     expect(fromNessieRelay({ rows: [] }).txns).toEqual([]);
+  });
+});
+
+// What GET /api/bank/{persona}/transactions answers: statement rows for one account, money out
+// positive, tags removed from descriptions, and bills with a flag and a path for itemized ones.
+function relayBody(snap: ReturnType<typeof snapshot>) {
+  const checking = snap.meta.account_keys.checking;
+  const merchants = new Map(snap.merchants.map((m: { id: string }) => [m.id, m]));
+  const docs = new Set(snap.meta.documents.map((d: { bill_id: string }) => d.bill_id));
+  type T = {
+    id: string;
+    kind: string;
+    account_id: string;
+    date: string;
+    amount_cents: number;
+    description: string;
+    merchant_id: string | null;
+    payee_account_id: string | null;
+  };
+  const txns = (snap.transactions as T[])
+    .filter((t) => t.account_id === checking || (t.kind === "transfer" && t.payee_account_id === checking))
+    .map((t) => {
+      const sign = t.account_id === checking ? (t.kind === "deposit" ? -1 : 1) : -1;
+      const m = merchants.get(t.merchant_id ?? "") as { name: string; category: string } | undefined;
+      return {
+        id: `nessie:${t.id}`,
+        date: t.date,
+        amount_cents: sign * t.amount_cents,
+        description: t.description.replace(/\s*\[[a-z_]+:[^\]]*\]/gi, "").trim(),
+        origin: "nessie",
+        kind: t.kind,
+        ...(m ? { merchant: m.name, category: m.category } : {}),
+      };
+    });
+  const bills = snap.bills.map(
+    (b: { id: string; payee: string; amount_cents: number; status: string; payment_date: string }) => ({
+      id: `nessie:${b.id}`,
+      bill_id: b.id,
+      payee: b.payee,
+      amount_cents: b.amount_cents,
+      status: b.status,
+      due_date: b.payment_date,
+      itemized: docs.has(b.id),
+      document_path: docs.has(b.id) ? `/api/bank/rowan-mi/bills/${b.id}/document` : null,
+    }),
+  );
+  return {
+    persona_id: "rowan-mi",
+    fictional: true,
+    notice: snap.meta.notice,
+    source: "snapshot",
+    account: { id: checking },
+    count: txns.length,
+    txns,
+    bills,
+  };
+}
+
+describe("the relay's statement rows", () => {
+  it("reads signed rows without prefixing ids twice, and lists the itemized bill's file", () => {
+    const snap = snapshot();
+    const r = fromNessieRelay(relayBody(snap));
+    expect(r.layout).toBe("relay");
+    expect(r.source).toBe("snapshot");
+    expect(r.warnings).toEqual([]);
+    expect(r.txns.every((t) => /^nessie:[0-9a-f-]{36}$/.test(t.id))).toBe(true);
+    // Two moves from savings arrive in checking as money in.
+    const moves = r.txns.filter((t) => t.kind === "transfer" && t.amount_cents < 0);
+    expect(moves.map((t) => t.amount_cents)).toEqual([-30000, -25000]);
+    const bill = r.txns.find((t) => t.kind === "bill")!;
+    expect(bill).toMatchObject({
+      merchant: "Riverbend General Hospital",
+      amount_cents: 44300,
+      date: "2026-10-20",
+      itemized: { service_date: null },
+    });
+    expect(r.documents).toEqual([
+      { bill_id: bill.id.slice(7), item_id: bill.id, path: `/api/bank/rowan-mi/bills/${bill.id.slice(7)}/document` },
+    ]);
+  });
+
+  it("classifies to the same items as the snapshot itself", async () => {
+    const snap = snapshot();
+    const ctx = { st: "MI", incident_date: "2026-06-14" };
+    const fromRelay = await classifyDetailed(fromNessieRelay(relayBody(snap)).txns, ctx, { deviceAi: false });
+    const fromSnapshot = await classifyDetailed(fromNessieRelay(snap).txns, ctx, { deviceAi: false });
+    const key = (i: { item_id: string; expense: string; amount_cents: number; confirmed: boolean }) =>
+      [i.item_id, i.expense, i.amount_cents, i.confirmed].join("|");
+    expect(fromRelay.items.map(key).sort()).toEqual(fromSnapshot.items.map(key).sort());
+    expect(fromRelay.items.length).toBe(45);
   });
 });
 

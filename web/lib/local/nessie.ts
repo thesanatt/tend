@@ -1,7 +1,7 @@
 // Capital One's Nessie (a mock bank) through the API relay: GET /api/bank/{persona}/transactions.
-// The relay holds the key and stores nothing. It may answer with a seed snapshot
-// (tend-bank-snapshot/1), a list of rows, or raw Nessie records; all become statement rows here.
-// Nessie stores whole dollars; snapshots carry amount_cents. Money out is positive.
+// The relay holds the key and stores nothing. It answers with statement rows ({txns, bills}, money
+// out positive); a seed snapshot (tend-bank-snapshot/1) or raw Nessie records also read here, so a
+// demo works from a saved file too. Nessie stores whole dollars; rows carry amount_cents.
 import { parseAmount, parseDate } from "./amounts";
 import type { LocalTxn, NessieResult, TxnKind } from "./types";
 
@@ -11,7 +11,7 @@ const isObj = (v: unknown): v is Obj => typeof v === "object" && v !== null && !
 const str = (v: unknown): string => (typeof v === "string" ? v : typeof v === "number" ? String(v) : "");
 
 function idOf(o: Obj): string {
-  return str(o.id) || str(o._id) || str(o.item_id).replace(/^nessie:/, "");
+  return (str(o.id) || str(o._id) || str(o.item_id)).replace(/^nessie:/, "");
 }
 
 // amount_cents when present; otherwise Nessie's dollars, read as text so no float rounding happens.
@@ -64,12 +64,8 @@ export function fromNessieRelay(body: unknown): NessieResult {
     docs.set(str(d.bill_id), { bill_id: str(d.bill_id), service_date: parseDate(str(d.service_date)) });
   }
 
-  // Accounts that belong to this person, so a transfer into one of them counts as money in.
-  const own = new Set<string>();
-  for (const a of pickList("accounts")) if (isObj(a)) own.add(idOf(a));
-  const viewing = str(root.account_id);
-
   const txns: LocalTxn[] = [];
+  const documents: NessieResult["documents"] = [];
   const seen = new Set<string>();
   let cancelled = 0;
   const all = [...rows.map((r) => ({ r, bill: false })), ...bills.map((r) => ({ r, bill: true }))];
@@ -93,11 +89,19 @@ export function fromNessieRelay(body: unknown): NessieResult {
       cancelled++;
       return;
     }
-    const doc = kind === "bill" ? docs.get(id) : undefined;
+    // An itemized bill: named in the snapshot's documents, or flagged by the relay with a path to its file.
+    const doc =
+      kind === "bill"
+        ? (docs.get(id) ?? (r.itemized === true ? { bill_id: id, service_date: null } : undefined))
+        : undefined;
     const rawDate =
       kind === "bill"
         ? (doc?.service_date ??
-          (str(r.date) || str(r.creation_date) || str(r.payment_date) || str(r.upcoming_payment_date)))
+          (str(r.date) ||
+            str(r.creation_date) ||
+            str(r.payment_date) ||
+            str(r.due_date) ||
+            str(r.upcoming_payment_date)))
         : str(r.date) || str(r.purchase_date) || str(r.transaction_date) || str(r.creation_date);
     const date = parseDate(rawDate);
     if (!date) {
@@ -116,15 +120,15 @@ export function fromNessieRelay(body: unknown): NessieResult {
         ? str(r.payee)
         : str(merchant?.name) || str(r.merchant_name) || (typeof merchantRef === "string" ? merchantRef : "");
     const category = kind === "bill" ? "" : str(merchant?.category) || str(r.merchant_category);
-    // Deposits, and transfers into this person's other account when listed from it, are money in.
-    const payee = str(r.payee_account_id);
-    const into = kind === "transfer" && viewing !== "" && payee === viewing && own.has(payee);
-    const magnitude = Math.abs(cents);
+    // Relay rows are already signed (money in negative). Raw records are not: a deposit is money in.
+    const signed = cents < 0 ? cents : kind === "deposit" ? -cents : cents;
     seen.add(id);
+    if (kind === "bill" && str(r.document_path))
+      documents.push({ bill_id: id, item_id: `nessie:${id}`, path: str(r.document_path) });
     txns.push({
       id: `nessie:${id}`,
       date,
-      amount_cents: kind === "deposit" || into ? -magnitude : magnitude,
+      amount_cents: signed,
       description: kind === "bill" ? str(r.nickname) || str(r.description) : str(r.description),
       ...(merchantName ? { merchant: merchantName } : {}),
       origin: "nessie",
@@ -132,6 +136,7 @@ export function fromNessieRelay(body: unknown): NessieResult {
       ...(category ? { category } : {}),
       ...(str(r.status) ? { status: str(r.status) } : {}),
       ...(doc ? { itemized: { service_date: doc.service_date } } : {}),
+      ...(r.tend_payment === true || str(r.tend_action) ? { tend_payment: true } : {}),
       line,
     });
   });
@@ -142,10 +147,11 @@ export function fromNessieRelay(body: unknown): NessieResult {
     txns,
     warnings,
     format: "nessie",
-    layout: str(root.format) || "nessie",
+    layout: str(root.format) || (Array.isArray(root.txns) ? "relay" : "nessie"),
     fictional,
     label,
     source: str(root.source) || null,
+    documents,
   };
 }
 

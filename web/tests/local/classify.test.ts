@@ -282,49 +282,81 @@ describe("Gemini Nano on the device", () => {
 });
 
 describe("cloud Gemini only with consent", () => {
-  const okFetch = () =>
+  // The answer shape of POST /api/ai/classify: one label per row; the model's are method "model".
+  const label = (id: string, method = "model") => ({
+    id,
+    expense: method === "model" ? "childcare" : "unknown",
+    candidate: true,
+    confirmed: false,
+    confidence: 0.6,
+    method,
+    source: method === "model" ? "cloud_ai" : "rule",
+    reason: "Child care",
+    unit: null,
+    units: 0,
+    tags: [],
+  });
+  const reply = (body: object) =>
+    new Response(JSON.stringify(body), { headers: { "content-type": "application/json" } });
+  const okFetch = (method = "model") =>
     vi.fn(async (_url: string, init: RequestInit) => {
-      const body = JSON.parse(String(init.body)) as { rows: { ref: string }[] };
-      return new Response(
-        JSON.stringify({
-          model: "gemini-cloud",
-          results: body.rows.map((r) => ({ ref: r.ref, expense: "childcare", reason: "Child care" })),
-        }),
-        {
-          headers: { "content-type": "application/json" },
-        },
-      );
+      const body = JSON.parse(String(init.body)) as { txns: { id: string }[] };
+      return reply({
+        source: "cloud_ai",
+        model: "gemini-cloud",
+        model_ok: true,
+        labels: body.txns.map((t) => label(t.id, method)),
+        items: [],
+        note: null,
+      });
     });
+  const asFetch = (f: unknown) => f as typeof globalThis.fetch;
 
   it("never calls the cloud without consent", async () => {
     const fetch = okFetch();
-    const report = await classifyDetailed(unclear(2), ctx, { fetch: fetch as unknown as typeof globalThis.fetch });
+    const report = await classifyDetailed(unclear(2), ctx, { fetch: asFetch(fetch) });
     expect(fetch).not.toHaveBeenCalled();
     expect(report.cloud.used).toBe(false);
     expect(report.counts.unresolved).toBe(2);
   });
 
-  it("sends only kind, merchant, category and description under short refs", async () => {
+  it("sends consent and, per row, only kind, merchant, category and description under a short ref", async () => {
     const fetch = okFetch();
     const rows = unclear(2);
-    const report = await classifyDetailed(rows, ctx, {
-      cloudConsent: true,
-      fetch: fetch as unknown as typeof globalThis.fetch,
-    });
+    const report = await classifyDetailed(rows, ctx, { cloudConsent: true, fetch: asFetch(fetch) });
     expect(fetch).toHaveBeenCalledTimes(1);
     const [url, init] = fetch.mock.calls[0];
     expect(url).toBe("/api/ai/classify");
     const sent = JSON.parse(String(init.body));
-    expect(Object.keys(sent).sort()).toEqual(["prompt_version", "rows"]);
-    expect(sent.rows.map((r: object) => Object.keys(r).sort())).toEqual(
-      Array(2).fill(["category", "description", "kind", "merchant", "ref"]),
+    expect(Object.keys(sent).sort()).toEqual(["consent", "txns"]);
+    expect(sent.consent).toBe(true);
+    expect(sent.txns.map((r: object) => Object.keys(r).sort())).toEqual(
+      Array(2).fill(["category", "description", "id", "kind", "merchant"]),
     );
+    expect(sent.txns.map((r: { id: string }) => r.id)).toEqual(["t1", "t2"]);
     const text = String(init.body);
     for (const r of rows)
       for (const secret of [String(r.amount_cents), r.id, r.date]) expect(text).not.toContain(secret);
     expect(report.items.map((i) => [i.expense, i.source, i.confirmed])).toEqual(
       Array(2).fill(["childcare", "cloud_ai", false]),
     );
+  });
+
+  it("takes only the model's labels from the answer", async () => {
+    const report = await classifyDetailed(unclear(1), ctx, {
+      cloudConsent: true,
+      fetch: asFetch(okFetch("unresolved")),
+    });
+    expect(report.counts.unresolved).toBe(1);
+  });
+
+  it("still reads the older {results} answer", async () => {
+    const fetch = vi.fn(async (_url: string, init: RequestInit) => {
+      const body = JSON.parse(String(init.body)) as { txns: { id: string }[] };
+      return reply({ results: body.txns.map((t) => ({ ref: t.id, expense: "legal", reason: "Legal help" })) });
+    });
+    const report = await classifyDetailed(unclear(1), ctx, { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(report.items[0]).toMatchObject({ expense: "legal", source: "cloud_ai" });
   });
 
   it("asks the cloud only about what the device left", async () => {
@@ -335,24 +367,66 @@ describe("cloud Gemini only with consent", () => {
       }),
     );
     const fetch = okFetch();
-    const report = await classifyDetailed(unclear(3), ctx, {
-      cloudConsent: true,
-      fetch: fetch as unknown as typeof globalThis.fetch,
-    });
+    const report = await classifyDetailed(unclear(3), ctx, { cloudConsent: true, fetch: asFetch(fetch) });
     const sent = JSON.parse(String(fetch.mock.calls[0][1].body));
-    expect(sent.rows).toHaveLength(2);
+    expect(sent.txns).toHaveLength(2);
     expect(report.items.map((i) => i.source)).toEqual(["device_ai", "cloud_ai", "cloud_ai"]);
   });
 
   it("an error from the cloud leaves rows for review", async () => {
     const fetch = vi.fn(async () => new Response("nope", { status: 503 }));
-    const report = await classifyDetailed(unclear(1), ctx, {
-      cloudConsent: true,
-      fetch: fetch as unknown as typeof globalThis.fetch,
-    });
-    expect(report.cloud.errors).toEqual(["cloud classification answered 503"]);
+    const report = await classifyDetailed(unclear(1), ctx, { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(report.cloud.errors).toEqual(["cloud classify answered 503"]);
     expect(report.counts.unresolved).toBe(1);
     expect(report.warnings).toContain("Cloud sorting did not answer, so some rows are left for you to check.");
+  });
+
+  it("a cloud model that did not answer is reported, not guessed", async () => {
+    const fetch = vi.fn(async () =>
+      reply({ model: null, model_ok: false, labels: [label("t1", "unresolved")], note: "Cloud AI did not answer." }),
+    );
+    const report = await classifyDetailed(unclear(1), ctx, { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(report.cloud.errors).toEqual(["Cloud AI did not answer."]);
+    expect(report.counts.unresolved).toBe(1);
+  });
+});
+
+describe("item shape (SPEC v1.2 units and tags, as the API sets them)", () => {
+  it("lodging counts the nights it names; counseling is one session; property gets the law's tags", async () => {
+    const report = await classifyDetailed(
+      [
+        txn("DOWNTOWN HOTEL 2 nights", 27800),
+        txn("SAFE STAY MOTEL", 9900),
+        txn("BRIGHTLINE WIRELESS NEW PHONE", 29900),
+        txn("GADGET HUB NEW LAPTOP", 89900),
+        txn("CLEARWATER COUNSELING GROUP", 15000),
+      ],
+      ctx,
+    );
+    expect(report.items.map((i) => [i.expense, i.unit, i.units, i.tags])).toEqual([
+      ["temporary_housing", "day", 2, []],
+      ["temporary_housing", "day", 0, []],
+      ["property_replacement", null, 0, ["phone"]],
+      ["property_replacement", null, 0, []],
+      ["counseling", "session", 1, []],
+    ]);
+  });
+
+  it("a bank bill for counseling holds an unknown number of sessions", async () => {
+    const report = await classifyDetailed(
+      [txn("statement", 60000, { merchant: "Clearwater Counseling Group", kind: "bill" })],
+      ctx,
+    );
+    expect(report.items[0]).toMatchObject({ unit: "session", units: 0, is_bill: true });
+  });
+
+  it("the relay's flag sets a Tend payment aside even when its tag was stripped", async () => {
+    const report = await classifyDetailed(
+      [txn("Riverbend General Hospital payment", 11800, { kind: "withdrawal", tend_payment: true })],
+      ctx,
+    );
+    expect(report.items).toEqual([]);
+    expect(report.all[0].reason).toMatch(/^Payment made through Tend/);
   });
 });
 
@@ -365,11 +439,20 @@ describe("the demo persona on the device", () => {
     expect(by("counseling").every((i) => i.unit === "session" && i.units === 1 && i.confirmed)).toBe(true);
     expect(by("transportation")).toHaveLength(14);
     expect(by("transportation").every((i) => !i.confirmed && i.method === "link")).toBe(true);
-    expect(by("lost_wages").map((i) => [i.date, i.amount_cents, i.unit, i.units, i.confirmed])).toEqual([
-      ["2026-06-26", 17600, "week", 2, false],
-      ["2026-07-10", 17600, "week", 2, false],
-      ["2026-07-24", 17600, "week", 2, false],
+    expect(by("lost_wages").map((i) => [i.date, i.amount_cents, i.unit, i.units, i.confirmed, i.reason])).toEqual([
+      ["2026-06-26", 17600, "week", 2, false, "Paycheck was $236, $176 below your usual $412"],
+      ["2026-07-10", 17600, "week", 2, false, "Paycheck was $236, $176 below your usual $412"],
+      ["2026-07-24", 17600, "week", 2, false, "Paycheck was $236, $176 below your usual $412"],
     ]);
+    // Lost pay sits on the short deposit's own record, as the API's wage gaps do.
+    for (const item of by("lost_wages")) {
+      expect(txns.find((t) => t.id === item.item_id)?.kind).toBe("deposit");
+      expect(report.all.find((c) => c.ref === item.item_id)).toMatchObject({
+        expense: "lost_wages",
+        method: "inference",
+        candidate: true,
+      });
+    }
     expect(report.counts).toMatchObject({ rows: 191, pay_dips: 3, unresolved: 4 });
   });
 
