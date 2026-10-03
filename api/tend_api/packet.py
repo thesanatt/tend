@@ -65,10 +65,21 @@ DOCS_BY_EXPENSE = {
 INSURABLE = {"medical", "prescription", "dental", "counseling"}
 
 
+TYPOGRAPHY = (
+    ("\u2018", "'"),
+    ("\u2019", "'"),
+    ("\u201c", '"'),
+    ("\u201d", '"'),
+    ("\u2013", "-"),
+    ("\u2014", "-"),
+    ("\u00a0", " "),
+)
+
+
 def _text(value: Any) -> str:
     """Plain text the built-in PDF fonts can draw, escaped for reportlab markup."""
     s = unicodedata.normalize("NFKC", str(value if value is not None else ""))
-    for bad, good in (("‘", "'"), ("’", "'"), ("“", '"'), ("”", '"'), ("–", "-"), ("—", "-"), (" ", " ")):
+    for bad, good in TYPOGRAPHY:
         s = s.replace(bad, good)
     s = s.encode("cp1252", errors="replace").decode("cp1252")
     return escape(s)
