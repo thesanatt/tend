@@ -334,6 +334,29 @@ describe("text the standard PDF fonts cannot draw", () => {
     expect(await bytesOf(p.summaryPdf)).not.toBeNull();
   });
 
+  it("builds for a claim with no costs yet, and fills nothing on the form", async () => {
+    const input: EngineInput = { ...rowanInput(), items: [] };
+    const output: EngineOutput = {
+      ...rowanOutput(),
+      lines: [],
+      totals: { requested_cents: 0, allowed_cents: 0, held_cents: 0, by_expense: {} },
+    };
+    const p = await builderFor(webLaw).build("MI", input, output);
+    expect(p.transcript.join("\n")).toContain("$0.00");
+    expect(p.formFilled).toEqual([]);
+    expect(p.letters).toEqual([]);
+    expect((await PDFDocument.load((await bytesOf(p.summaryPdf))!)).getPageCount()).toBeGreaterThan(0);
+  });
+
+  it("renders a letter as a PDF that reads back word for word", async () => {
+    const builder = builderFor(webLaw);
+    const p = await builder.build("MI", rowanInput(), rowanOutput());
+    const text = await pdfText((await bytesOf(await builder.letterPdf(p.letters[0])))!);
+    expect(text).toContain("Letter to the billing office: remove the exam charge");
+    expect(text).toContain("A health care provider shall not submit a bill for any portion of the costs");
+    expect(text).toContain("[Your name]");
+  });
+
   it("keeps the file valid when a link has a stray parenthesis or backslash", async () => {
     const law = webLaw("MI");
     const odd = "https://example.org/statute(1\\a).pdf#:~:text=a)b";
