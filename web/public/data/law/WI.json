@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.wisdoj.gov/Crime%20Victims%20Services/cvcapp-english-print.pdf",
   "phone": "800-446-6564",
   "phone_source_id": "WI-S3",
-  "statute_citation": "Wis. Stat. ch. 949, subch. I (ss. 949.001 to 949.18); SAFE Fund: subch. II (ss. 949.20 to 949.38); Wis. Admin. Code ch. Jus 11"
+  "statute_citation": "Wis. Stat. ch. 949, subch. I (ss. 949.001 to 949.18); SAFE Fund: subch. II (ss. 949.20 to 949.38); Wis. Admin. Code ch. Jus 11",
+  "application_form": {
+   "source_id": "WI-S8",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -538,6 +543,162 @@
    "quote": "If a Wisconsin resident suffers injury or death in a situation described in s. 949.03 except that the act occurred outside this state, the resident has the same rights under this subchapter as if the act had occurred in this state upon a showing that the state, territory, country or political subdivision of a country in which the act occurred does not have a compensation of victims of crimes law which covers the injury or death suffered by the person.",
    "source_id": "WI-S1",
    "pinpoint": "Wis. Stat. 949.035(1)"
+  },
+  {
+   "id": "WI-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Wisconsin Crime Victim Compensation Program PO Box 7951 Madison, WI 53707-7951"
+   },
+   "summary": "Mail the completed paper application to the Wisconsin Crime Victim Compensation Program's PO box in Madison.",
+   "quote": "You may mail or fax your completed paper application. Mail to: Wisconsin Crime Victim Compensation Program PO Box 7951 Madison, WI 53707-7951",
+   "source_id": "WI-S5",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation Application page, Submit Your Completed Paper Application",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-application.aspx#:~:text=You%20may%20mail%20or%20fax,Box%207951%20Madison%2C%20WI%2053707%2D7951"
+  },
+  {
+   "id": "WI-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(608) 264-6368"
+   },
+   "summary": "The completed paper application can be faxed to the program instead of mailed.",
+   "quote": "OR Fax to: (608) 264-6368",
+   "source_id": "WI-S5",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation Application page, Submit Your Completed Paper Application",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-application.aspx#:~:text=OR%20Fax%20to%3A%20%28608%29%20264%2D6368"
+  },
+  {
+   "id": "WI-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://victimcompensation.wisdoj.gov/",
+    "note": "Recommended by the program. Requires an account created with a personal email; the portal also shows claim status and accepts bills and receipts later."
+   },
+   "summary": "Applying online is the program's recommended option; you create an account with a personal email, then apply, check status, and upload bills and receipts.",
+   "quote": "Option 1: Apply Online (Recommended) To apply, you must create an account with a personal email to log in and apply.",
+   "source_id": "WI-S5",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation Application page, Option 1 (Apply Online link)",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-application.aspx#:~:text=Option%201%3A%20Apply%20Online%20%28Recommended%29,to%20log%20in%20and%20apply."
+  },
+  {
+   "id": "WI-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of itemized crime-related medical bills; optional at filing per the FAQ, but the program requires bills to be itemized."
+   },
+   "summary": "Enclose copies of itemized crime-related medical bills, and send more as they arrive; the program only accepts itemized bills.",
+   "quote": "Enclose itemized copies of crime-related medical bills. Send copies of other itemized crime-related medical bills as they are received. This Program requires that the bills be itemized.",
+   "source_id": "WI-S8",
+   "pinpoint": "Crime Victim Compensation Application, DJ-CVC-1 (Rev. 10/2024), Application Information, What To Do"
+  },
+  {
+   "id": "WI-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Explanations of benefits (EOBs) from insurance or other payers, with the itemized bills."
+   },
+   "summary": "If insurance or another source covered expenses, attach copies of the itemized bills and the explanations of benefits.",
+   "quote": "Please attach copies of any crime-related itemized bills and explanations of benefits.",
+   "source_id": "WI-S8",
+   "pinpoint": "Crime Victim Compensation Application, DJ-CVC-1 (Rev. 10/2024), Section 6: Insurance and Benefit Information"
+  },
+  {
+   "id": "WI-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Written reason for the delay, only if the crime was reported late or the application is filed late."
+   },
+   "summary": "If the crime was reported late or the application is filed late, include a short written explanation of the delay.",
+   "quote": "If the crime was not reported within 5 days or the application was not filed within 1 year, include a brief but detailed written reason for the delay.",
+   "source_id": "WI-S8",
+   "pinpoint": "Crime Victim Compensation Application, DJ-CVC-1 (Rev. 10/2024), Eligibility Requirements"
+  },
+  {
+   "id": "WI-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Employer verification form, paycheck stubs, or income tax returns; only for lost wage claims."
+   },
+   "summary": "Lost wage claims must be backed by an employer verification form, pay stubs, or tax returns; cash pay without documentation is not covered.",
+   "quote": "all lost wage claims must be documented through an employer verification form, paycheck stubs or income tax returns.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation FAQs, Compensation",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=all%20lost%20wage%20claims%20must,stubs%20or%20income%20tax%20returns."
+  },
+  {
+   "id": "WI-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Physician certification of disability, only for wage loss beyond two weeks."
+   },
+   "summary": "Up to two weeks of lost wages need no doctor's note; longer wage loss must be certified as a disability by a physician.",
+   "quote": "The Program may cover up to two weeks of lost wages without a physician certifying the absence. Wage loss beyond two weeks must be documented as a disability by a physician.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation FAQs, Compensation",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=The%20Program%20may%20cover%20up,a%20disability%20by%20a%20physician."
+  },
+  {
+   "id": "WI-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Therapist completes the program's authorization form; an update form is needed if treatment goes past six months."
+   },
+   "summary": "For counseling to be paid, the therapist fills out the program's authorization form with a diagnosis, treatment plan, and expected length of treatment.",
+   "quote": "The Program requires that your therapist complete an authorization form, which gives a diagnosis, treatment plan and estimated length of treatment.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation FAQs, Medical Treatment/Counseling",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=The%20Program%20requires%20that%20your,and%20estimated%20length%20of%20treatment."
+  },
+  {
+   "id": "WI-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Only to be reimbursed for costs already paid out of pocket: canceled checks or itemized bills/receipts showing payment."
+   },
+   "summary": "To be paid back for costs you already paid yourself, send canceled checks or itemized bills or receipts showing the payments.",
+   "quote": "We may send reimbursement checks to applicants if they have paid costs out of pocket already and have documented their payments. They should send in canceled checks or itemized bills/receipts showing their payments.",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation FAQs, Medical Treatment/Counseling",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=We%20may%20send%20reimbursement%20checks,itemized%20bills%2Freceipts%20showing%20their%20payments."
+  },
+  {
+   "id": "WI-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Approved alternative payment agreement, only if the victim is on the Wisconsin Child Support Lien Docket."
+   },
+   "summary": "A victim listed on the state child support lien docket must provide a copy of an alternative payment agreement approved by the county child support agency.",
+   "quote": "If the victim is listed on the Wisconsin Child Support Lien Docket, the victim must provide a copy of his/her alternative payment agreement that has been approved by the county child support agency",
+   "source_id": "WI-S4",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation FAQs, Applying and Eligibility",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-faqs.aspx#:~:text=If%20the%20victim%20is%20listed,the%20county%20child%20support%20agency"
+  },
+  {
+   "id": "WI-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 120,
+    "min_days": 90,
+    "stage": "intake",
+    "note": "Stated as 90-120 days or longer because of high application volume."
+   },
+   "summary": "The program says intake can take 90 to 120 days or longer because of the volume of applications.",
+   "quote": "Due to the high volume of applications received, the intake process can take anywhere from 90-120 days or longer.",
+   "source_id": "WI-S3",
+   "pinpoint": "Wisconsin DOJ Crime Victim Compensation Program page, How will my claim be processed?",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-program.aspx#:~:text=Due%20to%20the%20high%20volume,from%2090%2D120%20days%20or%20longer."
   }
  ],
  "coverage": {
@@ -553,7 +714,10 @@
    "filing_deadline",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss",
@@ -569,5 +733,5 @@
   "notes": "No minimum loss amount appears in current Wis. Stat. ch. 949 or Jus 11. No emergency or advance award provision was found (the FAQ mentions only that 'Some exceptions may be made for emergency situations' when waiting on insurance or lawsuits). No relocation, temporary housing, or home security expense category was found; 'securing' a crime scene is part of the $1,000 crime scene cleanup cap, not personal security. The FAQ says mileage for appointments and court is not paid; no covered transportation rule was found. No separate cap on the victim's own counseling or lost wages was found beyond the $40,000 total. For compensation claims, the police report rule (5 days, waivable in the interest of justice) has no sexual-assault-specific alternative in the statute or rules; the forensic exam itself is paid by the SAFE Fund with no report required."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is the LRB 2023-24 Wis. Stats. PDF published 10-1-26 (updated through 2025 Wis. Act 247). Jus 11 is the Register November 2024 PDF; its text extraction renders curly quotes and apostrophes as X/Y/[ so quotes from it avoid those characters. The wisdoj.gov SharePoint pages wrap the whole body in a <form>, which the standard fetch tool strips, so WI-S3 to WI-S7 were saved with the same plain HTTP fetch and the same text extraction except that form content is kept; raw HTML and sha256 are the real bytes. Those pages contain zero-width spaces, so quotes were chosen from spans without them. SAFE Fund provider reimbursement is two-thirds of billed eligible services up to $1,200 per exam in Jus 11.16(4), inflation-adjusted yearly; the SAFE Fund page lists the current maximum as $1,621.22. That limit is on the provider's reimbursement, not on the survivor; the no-bill rule in 949.26(2)(a) applies to providers who seek a SAFE Fund award. The SAFE Fund page says it can reimburse when a victim does not want to report, cooperate, or bill insurance. Older DOJ addresses (doj.state.wi.us) still appear on the application PDF; the program phone 800-446-6564 matches the OVC directory and the program page. 949.08(2)(a) bars rather than reduces an award for contributing conduct, and does not apply to people injured aiding victims or police. Reviewer: 949.26(1m) bars a SAFE Fund award when the provider is authorized to bill insurance and the victim cooperates with law enforcement, so the SAFE Fund no-bill rule in 949.26(2) is tied to providers seeking a fund award; a survivor who reports and authorizes insurance billing falls outside it (CVC awards are then reduced by any SAFE award under 949.06(3)(f)). The SAFE Fund pays the provider two-thirds of billed eligible services up to the yearly cap, and the provider may not bill the survivor for the rest. 949.06(4)(a) also says an award may be made whether or not anyone is prosecuted or convicted."
+ "researcher_notes": "Statute text is the LRB 2023-24 Wis. Stats. PDF published 10-1-26 (updated through 2025 Wis. Act 247). Jus 11 is the Register November 2024 PDF; its text extraction renders curly quotes and apostrophes as X/Y/[ so quotes from it avoid those characters. The wisdoj.gov SharePoint pages wrap the whole body in a <form>, which the standard fetch tool strips, so WI-S3 to WI-S7 were saved with the same plain HTTP fetch and the same text extraction except that form content is kept; raw HTML and sha256 are the real bytes. Those pages contain zero-width spaces, so quotes were chosen from spans without them. SAFE Fund provider reimbursement is two-thirds of billed eligible services up to $1,200 per exam in Jus 11.16(4), inflation-adjusted yearly; the SAFE Fund page lists the current maximum as $1,621.22. That limit is on the provider's reimbursement, not on the survivor; the no-bill rule in 949.26(2)(a) applies to providers who seek a SAFE Fund award. The SAFE Fund page says it can reimburse when a victim does not want to report, cooperate, or bill insurance. Older DOJ addresses (doj.state.wi.us) still appear on the application PDF; the program phone 800-446-6564 matches the OVC directory and the program page. 949.08(2)(a) bars rather than reduces an award for contributing conduct, and does not apply to people injured aiding victims or police. Reviewer: 949.26(1m) bars a SAFE Fund award when the provider is authorized to bill insurance and the victim cooperates with law enforcement, so the SAFE Fund no-bill rule in 949.26(2) is tied to providers seeking a fund award; a survivor who reports and authorizes insurance billing falls outside it (CVC awards are then reduced by any SAFE award under 949.06(3)(f)). The SAFE Fund pays the provider two-thirds of billed eligible services up to the yearly cap, and the provider may not bill the survivor for the rest. 949.06(4)(a) also says an award may be made whether or not anyone is prosecuted or convicted. How to file: the application page (WI-S5) lists online (recommended) and mail or fax for the paper form. The paper application (WI-S8, DJ-CVC-1 Rev. 10/2024, byte-identical to the live PDF on Oct 3 2026) has no AcroForm fields, so it is print-and-fill only. Its return block also lists Email: ocvs@doj.state.wi.us and the old www.doj.state.wi.us domain; the current pages list ocvs@wisdoj.gov only as a contact address and say paper applications may be mailed or faxed, so no email submission rule was added. The FAQ says nothing has to be sent with the application (bills are optional at filing and the program follows up), and police reports are requested by the program directly from law enforcement, so no police_report document rule was added. No photo ID or proof of residency requirement was found. Processing time is the intake estimate on the program page (90-120 days or longer); no statutory decision deadline was recorded."
 }

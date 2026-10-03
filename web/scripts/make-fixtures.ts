@@ -1,7 +1,6 @@
 // Rebuilds the engine input/output fixtures from the Rowan scan fixture and the verified MI rules.
 // usage: npx tsx scripts/make-fixtures.ts
-// Outputs come from the preview evaluator; once engine/ ships, regenerate them with
-// `tendvm eval --law MI.tlaw --input fixtures/rowan-mi.input.json` and the fixture test will diff the two.
+// Outputs come from the preview evaluator, which tests/parity.test.ts holds to the reference engine.
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";

@@ -9,7 +9,12 @@
   "application_pdf_url": "https://acvcc.alabama.gov/wp-content/uploads/2025/10/english-application-2026-06-01.pdf",
   "phone": "334-290-4420",
   "phone_source_id": "AL-S30",
-  "statute_citation": "Ala. Code 15-23-1 to 15-23-23; Ala. Admin. Code ch. 262-X"
+  "statute_citation": "Ala. Code 15-23-1 to 15-23-23; Ala. Admin. Code ch. 262-X",
+  "application_form": {
+   "source_id": "AL-S8",
+   "fillable": true,
+   "field_count": 112
+  }
  },
  "sources": [
   {
@@ -734,6 +739,267 @@
    "source_id": "AL-S29",
    "pinpoint": "Ala. Admin. Code r. 262-X-4-.02(11)",
    "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.02#:~:text=A%20person%20must%20be%20a,order%20to%20receive%20compensation%20benefits."
+  },
+  {
+   "id": "AL-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Alabama Crime Victims Compensation Commission P.O. Box 231267 Montgomery, Alabama 36123-1267"
+   },
+   "summary": "Mail the completed application to the Alabama Crime Victims Compensation Commission, P.O. Box 231267, Montgomery, Alabama 36123-1267.",
+   "quote": "The completed application can be returned by: FAX: (334)290-4455 Email: info@acvcc.alabama.gov Mail: Alabama Crime Victims Compensation Commission P.O. Box 231267 Montgomery, Alabama 36123-1267",
+   "source_id": "AL-S5",
+   "pinpoint": "Compensation page, How Do I File A Claim?",
+   "fragment_url": "https://acvcc.alabama.gov/victims/compesation/#:~:text=The%20completed%20application%20can%20be,Box%20231267%20Montgomery%2C%20Alabama%2036123%2D1267"
+  },
+  {
+   "id": "AL-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "info@acvcc.alabama.gov"
+   },
+   "summary": "Email the completed application to info@acvcc.alabama.gov.",
+   "quote": "Please download the completed application and email it to info@acvcc.alabama.gov or fax it to 334-290-4455.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Claim Authorization page, submission box"
+  },
+  {
+   "id": "AL-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "334-290-4455"
+   },
+   "summary": "Fax the completed application to 334-290-4455.",
+   "quote": "Please download the completed application and email it to info@acvcc.alabama.gov or fax it to 334-290-4455.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Claim Authorization page, submission box"
+  },
+  {
+   "id": "AL-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed application; a fax or electronic signature is accepted."
+   },
+   "summary": "The application must be signed; a fax or electronic signature is accepted, but the Commission may ask for an original notarized signature.",
+   "quote": "The claimant must submit an application that has been signed by either facsimile signature or electronic signature.",
+   "source_id": "AL-S29",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.02(10)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.02#:~:text=The%20claimant%20must%20submit%20an,facsimile%20signature%20or%20electronic%20signature."
+  },
+  {
+   "id": "AL-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Proof of U.S. citizenship, legal presence, or eligible-alien status; ACVCC lists accepted documents at acvcc.alabama.gov/victims/who-is-eligible/legal-presence/."
+   },
+   "summary": "Include proof of U.S. citizenship or that you are an alien eligible for public benefits.",
+   "quote": "You must submit proof of US citizenship or that you are an alien eligible for public benefits.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Section 1 note"
+  },
+  {
+   "id": "AL-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Only if one is available."
+   },
+   "summary": "Include a copy of the police report if one is available.",
+   "quote": "Complete this section and, if one is available, provide a copy of the Police Report.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Section 5 (Crime Information)"
+  },
+  {
+   "id": "AL-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Bills or receipts directly related to each type of compensation requested."
+   },
+   "summary": "For each type of compensation you request, include the related bills or receipts.",
+   "quote": "Provide any corresponding and directly related bills/receipts.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Section 6 (Compensation Request)"
+  },
+  {
+   "id": "AL-DOC-5",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "other",
+    "note": "Signed and dated health information release (Patient Authorization page of the application), only if medical expenses are requested."
+   },
+   "summary": "If you are asking for medical expenses, the victim or a representative must sign and date the health information authorization in the application.",
+   "quote": "Either the patient (victim) or their representative must sign and date this authorization if consideration of medical expenses is being requested.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Patient Authorization for Use and Disclosure of Protected Health Information"
+  },
+  {
+   "id": "AL-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Written good cause, only if filing more than one year after the incident."
+   },
+   "summary": "If you file more than one year after the incident, explain the good cause in writing.",
+   "quote": "The claim must be filed within one (1) year of the incident, or good cause must be submitted in writing.",
+   "source_id": "AL-S9",
+   "pinpoint": "Application Form page, Additional Requirements",
+   "fragment_url": "https://acvcc.alabama.gov/victims/application-form/#:~:text=The%20claim%20must%20be%20filed,must%20be%20submitted%20in%20writing."
+  },
+  {
+   "id": "AL-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Written good cause, only if the crime was not reported to law enforcement within 72 hours."
+   },
+   "summary": "If the crime was not reported to law enforcement within 72 hours, explain the good cause in writing.",
+   "quote": "The crime must be reported to the proper law enforcement agency within 72 hours of the incident, or good cause must be submitted in writing.",
+   "source_id": "AL-S9",
+   "pinpoint": "Application Form page, Additional Requirements",
+   "fragment_url": "https://acvcc.alabama.gov/victims/application-form/#:~:text=The%20crime%20must%20be%20reported,must%20be%20submitted%20in%20writing."
+  },
+  {
+   "id": "AL-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Proof of authority to act for the victim, only if the claimant is someone other than the victim."
+   },
+   "summary": "If someone other than the victim signs as claimant, include documentation that they are legally authorized to act for the victim.",
+   "quote": "The claimant (if other than victim) must be the person legally authorized to act on the behalf of the victim. Documentation of this authority must be provided.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Claim Authorization page, signature note"
+  },
+  {
+   "id": "AL-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Proof of guardianship or conservatorship, only if the victim is 19 or older and incapacitated."
+   },
+   "summary": "If the victim is 19 or older but incapacitated, include proof of guardianship or conservatorship.",
+   "quote": "If the victim is 19 or older, but is incapacitated, you will have to provide proof of guardianship/conservatorship over the victim.",
+   "source_id": "AL-S8",
+   "pinpoint": "Application, Section 3 (Claimant Information)"
+  },
+  {
+   "id": "AL-DOC-10",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Written documentation from the employer or a W-2."
+   },
+   "summary": "For lost wages, include written documentation from your employer or a W-2.",
+   "quote": "Lost wages shall be verified by obtaining written documentation from the employer or by submission of a W-2 tax document.",
+   "source_id": "AL-S25",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(8)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=Lost%20wages%20shall%20be%20verified,of%20a%20W%2D2%20tax%20document."
+  },
+  {
+   "id": "AL-DOC-11",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "IRS tax transcript, only if self-employed."
+   },
+   "summary": "For lost wages, if you are self-employed, include a tax transcript from the IRS.",
+   "quote": "A tax transcript from the IRS is required if the person seeking reimbursement of his/her lost wages is self-employed.",
+   "source_id": "AL-S25",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(8)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=A%20tax%20transcript%20from%20the,his%2Fher%20lost%20wages%20is%20self%2Demployed."
+  },
+  {
+   "id": "AL-DOC-12",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "medical_records",
+    "note": "Doctor's excuse, only for sexual assault lost wages beyond two weeks."
+   },
+   "summary": "A sexual assault victim can claim up to two weeks of lost wages without a doctor's excuse; beyond two weeks, include a doctor's excuse.",
+   "quote": "A victim of sexual assault may be granted compensation for maximum of two weeks of lost wages without a doctor's excuse. A doctor's excuse must be provided for lost wages in excess of two weeks to be considered for reimbursement.",
+   "source_id": "AL-S25",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(28)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=A%20victim%20of%20sexual%20assault,to%20be%20considered%20for%20reimbursement."
+  },
+  {
+   "id": "AL-DOC-13",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Letter from the clinician certifying necessary therapy due to the victimization."
+   },
+   "summary": "For counseling, the Commission needs a letter from the clinician certifying that therapy is necessary because of the victimization.",
+   "quote": "ACVCC must receive a letter from the clinician certifying that the victim is engaged in necessary therapy due to his/her victimization.",
+   "source_id": "AL-S26",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.07(2)(a)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.07#:~:text=ACVCC%20must%20receive%20a%20letter,therapy%20due%20to%20his%2Fher%20victimization."
+  },
+  {
+   "id": "AL-DOC-14",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Quarterly updates from the clinician."
+   },
+   "summary": "For ongoing counseling, the clinician must send quarterly updates certifying the treatment is still necessary.",
+   "quote": "Quarterly updates from the clinician certifying that the treatment is necessary and the result of victimization must be submitted in order for payment to be considered.",
+   "source_id": "AL-S26",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.07(2)(b)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.07#:~:text=Quarterly%20updates%20from%20the%20clinician,for%20payment%20to%20be%20considered."
+  },
+  {
+   "id": "AL-DOC-15",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized bill for treatment sessions from the clinician."
+   },
+   "summary": "For counseling, the clinician must provide an itemized bill for the treatment sessions.",
+   "quote": "The clinician must provide an itemized bill for treatment sessions.",
+   "source_id": "AL-S26",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.07(2)(c)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.07#:~:text=The%20clinician%20must%20provide%20an%20itemized%20bill%20for%20treatment%20sessions."
+  },
+  {
+   "id": "AL-DOC-16",
+   "category": "required_document",
+   "expense": "relocation",
+   "params": {
+    "document": "receipts",
+    "note": "Written estimates and/or receipts for moving expenses."
+   },
+   "summary": "For moving expenses, include written estimates or receipts.",
+   "quote": "Written estimates and/or receipts are required for payment of moving expenses.",
+   "source_id": "AL-S25",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(14)(a)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=Written%20estimates%20and%2For%20receipts%20are,for%20payment%20of%20moving%20expenses."
+  },
+  {
+   "id": "AL-DOC-17",
+   "category": "required_document",
+   "expense": "temporary_housing",
+   "params": {
+    "document": "receipts",
+    "note": "Hotel bill, credit card receipt, or other verifiable document for temporary relocation."
+   },
+   "summary": "For temporary relocation, include a copy of the hotel bill, credit card receipt, or another verifiable document.",
+   "quote": "A copy of the hotel bill, credit card receipt, or other verifiable document is required for verification.",
+   "source_id": "AL-S25",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(14)(b)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=A%20copy%20of%20the%20hotel,document%20is%20required%20for%20verification."
   }
  ],
  "coverage": {
@@ -750,13 +1016,16 @@
    "filing_deadline",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document"
   ],
   "not_found": [
-   "minimum_loss"
+   "minimum_loss",
+   "processing_time"
   ],
-  "notes": "No minimum loss rule found in the statute or rules. No dollar cap found for security enhancement. No police-report alternative for sexual assault compensation claims was found; the 72-hour report rule has a good-cause exception. The exam payment program separately pays for adult 'Jane Doe' exams (r. 262-X-11-.01(4)(c)3), which suggests the exam itself does not need a police report for adults, but this is not a rule about compensation claims. For minors, the SANE facility must confirm a report to DHR or law enforcement before the exam is paid (r. 262-X-11-.01(4)(c)10)."
+  "notes": "No minimum loss rule found in the statute or rules. No dollar cap found for security enhancement. No police-report alternative for sexual assault compensation claims was found; the 72-hour report rule has a good-cause exception. The exam payment program separately pays for adult 'Jane Doe' exams (r. 262-X-11-.01(4)(c)3), which suggests the exam itself does not need a police report for adults, but this is not a rule about compensation claims. For minors, the SANE facility must confirm a report to DHR or law enforcement before the exam is paid (r. 262-X-11-.01(4)(c)10). No processing time for a decision or payment is stated in the saved sources; the rules say only that approved claims are paid in order of approval as funds become available (r. 262-X-4-.04(6))."
  },
  "confidence": "high",
- "researcher_notes": "Statute vs. rule on amounts: Ala. Code 15-23-15(b) sets a ceiling of $20,000 aggregate and 15-23-15(a) a $600/week ceiling for work loss; the Commission's rule (r. 262-X-4-.04, certified version effective Nov 13, 2023 on the official admin code site) sets the actual limits at $15,000 per claim and $400/week. The rule sits inside the statutory ceiling, so the rule numbers are used; the ACVCC website also says the maximum award is $15,000 (as of July 09, 2020). A July 14, 2025 notice of intended action (posted on acvcc.alabama.gov under Administrative Rule Updates) proposed raising lost wages to $500/week for up to 26 weeks ($13,000 max) and funeral to $6,000 for crimes on or after July 11, 2025; the official admin code site still showed the Nov 13, 2023 version when retrieved on 2026-10-03, so the proposal is not used. Recheck before relying on the lost-wage cap. Outstanding (unpaid) medical bills sent to providers may be paid at 30% of eligible charges up to $6,000 (r. 262-X-4-.04(3)); not modeled as a survivor-facing cap. The exam program pays providers flat fees ($400 exam without medication, $550 with medication, $300 off-base, $50 lab) per r. 262-X-11-.01(9); those are provider fee schedules, not survivor caps. The statute (15-23-121) allows providers to bill health insurance for the exam and the rule requires collateral sources first, so insurance_billing is 'allowed'. Toll-free number for victims: 1-800-541-9388 (ACVCC brochure and website footer). Statute text is from Justia (2025 Code of Alabama) because the legislature's code site is script-only. The contact, law, and admin code pages on acvcc.alabama.gov blocked automated fetches. Reviewer: the statute's 72-hour report rule is not stored as within_days because the quote says 72 hours, not days. The exam payment program pays only the initial forensic exam and STI prevention (r. 262-X-11-.01(6)); injury treatment and hospital admissions go through a regular compensation claim."
+ "researcher_notes": "Statute vs. rule on amounts: Ala. Code 15-23-15(b) sets a ceiling of $20,000 aggregate and 15-23-15(a) a $600/week ceiling for work loss; the Commission's rule (r. 262-X-4-.04, certified version effective Nov 13, 2023 on the official admin code site) sets the actual limits at $15,000 per claim and $400/week. The rule sits inside the statutory ceiling, so the rule numbers are used; the ACVCC website also says the maximum award is $15,000 (as of July 09, 2020). A July 14, 2025 notice of intended action (posted on acvcc.alabama.gov under Administrative Rule Updates) proposed raising lost wages to $500/week for up to 26 weeks ($13,000 max) and funeral to $6,000 for crimes on or after July 11, 2025; the official admin code site still showed the Nov 13, 2023 version when retrieved on 2026-10-03, so the proposal is not used. Recheck before relying on the lost-wage cap. Outstanding (unpaid) medical bills sent to providers may be paid at 30% of eligible charges up to $6,000 (r. 262-X-4-.04(3)); not modeled as a survivor-facing cap. The exam program pays providers flat fees ($400 exam without medication, $550 with medication, $300 off-base, $50 lab) per r. 262-X-11-.01(9); those are provider fee schedules, not survivor caps. The statute (15-23-121) allows providers to bill health insurance for the exam and the rule requires collateral sources first, so insurance_billing is 'allowed'. Toll-free number for victims: 1-800-541-9388 (ACVCC brochure and website footer). Statute text is from Justia (2025 Code of Alabama) because the legislature's code site is script-only. The contact, law, and admin code pages on acvcc.alabama.gov blocked automated fetches. Reviewer: the statute's 72-hour report rule is not stored as within_days because the quote says 72 hours, not days. The exam payment program pays only the initial forensic exam and STI prevention (r. 262-X-11-.01(6)); injury treatment and hospital admissions go through a regular compensation claim. How to file: the Compensation page (AL-S5) lists fax (334)290-4455, email info@acvcc.alabama.gov, and mail to P.O. Box 231267, Montgomery, Alabama 36123-1267; the application itself (AL-S8, MAR 2026, the PDF linked from the Application Form page) names email and fax, and r. 262-X-1-.01(3) also gives the PO Box and email. There is no online application; the Application Form page links to the PDF. The application PDF has 112 AcroForm fields. The ACVCC claims page (acvcc.alabama.gov/victims/claims/) blocked automated fetches on 2026-10-03, so any document checklist there was not captured."
 }

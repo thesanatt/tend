@@ -1,6 +1,6 @@
 {
   "jurisdiction": "MI",
-  "law_image_sha256": "6790929c6f0b2b7a2e79170529c00c6595c53ccaefd1f7e1990c5ff3f7d9bd8b",
+  "law_image_sha256": "6e51aabe1d4006da7a41295b514098232cdab8942e648f82a39e8cb3b1bd343b",
   "lines": [
     {
       "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a102",
@@ -221,6 +221,7 @@
       "status": "satisfied",
       "rule_ids": [
         "MI-REPORT-1",
+        "MI-REPORT-2",
         "MI-REPORT-3"
       ]
     }
@@ -240,7 +241,7 @@
   ],
   "trace": [
     {
-      "op": "window",
+      "op": "out_of_window",
       "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a102",
       "rule_id": null,
       "delta_cents": 0
@@ -264,7 +265,7 @@
       "delta_cents": 21400
     },
     {
-      "op": "hold",
+      "op": "held",
       "item_id": "rcpt:9c41e2a7:3",
       "rule_id": "MI-EXAM-1",
       "delta_cents": 0
@@ -276,7 +277,7 @@
       "delta_cents": 0
     },
     {
-      "op": "exclude",
+      "op": "excluded",
       "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1c7",
       "rule_id": "MI-EXCL-1",
       "delta_cents": 0

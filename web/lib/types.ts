@@ -78,12 +78,14 @@ export interface DeadlineCheck {
 }
 
 export interface MinimumLossCheck {
-  status: "met" | "not_met" | "waived" | "unknown";
+  // may_be_waived comes from engines built to SPEC v1.1 (discretionary waivers).
+  status: "met" | "not_met" | "waived" | "may_be_waived" | "unknown";
   rule_ids: string[];
 }
 
 export interface ReportingCheck {
-  status: "satisfied" | "required" | "unknown" | "none";
+  // not_required comes from engines built to SPEC v1.1.
+  status: "satisfied" | "required" | "not_required" | "unknown";
   rule_ids: string[];
 }
 
@@ -127,7 +129,10 @@ export type RuleCategory =
   | "conduct_reduction"
   | "emergency_award"
   | "eligible_crime"
-  | "residency";
+  | "residency"
+  | "submission"
+  | "required_document"
+  | "processing_time";
 
 export interface RuleParams {
   expense?: string;
@@ -141,9 +146,9 @@ export interface RuleParams {
   extension?: string;
   required?: boolean;
   within_days?: number;
-  alternatives?: string[];
+  alternatives?: string[] | string;
   days_lost?: number;
-  waived_for?: string[];
+  waived_for?: string[] | string;
   insurance_billing?: string;
   payer?: string;
   rule?: string;

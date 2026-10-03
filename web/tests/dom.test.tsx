@@ -4,7 +4,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Plant from "@/components/Plant";
 import QuickExit, { EXIT_URL, navigation, onPageShow } from "@/components/QuickExit";
 import StatusTag from "@/components/StatusTag";
+import LedgerRow from "@/components/ledger/LedgerRow";
 import { useJustChanged } from "@/lib/hooks";
+import type { Row } from "@/lib/ledger";
+import type { EngineLine, ScanItem } from "@/lib/types";
+import type { LawIndex } from "@/lib/useLaw";
 
 afterEach(() => cleanup());
 
@@ -122,5 +126,54 @@ describe("StatusTag", () => {
     for (const label of ["Eligible", "Held", "Excluded", "Needs confirmation", "Not included"]) {
       expect(screen.getByText(label)).toBeTruthy();
     }
+  });
+});
+
+describe("Ledger row", () => {
+  const law: LawIndex = {
+    law: null,
+    sha256: null,
+    rule: () => undefined,
+    source: () => undefined,
+    byCategory: () => [],
+  };
+  const exam: ScanItem = {
+    item_id: "rcpt:1",
+    date: "2026-06-14",
+    amount_cents: 32500,
+    expense: "forensic_exam",
+    confirmed: true,
+    insurance_paid_cents: 0,
+    is_bill: true,
+    units: 0,
+    description: "Forensic exam",
+  };
+  const line: EngineLine = {
+    item_id: "rcpt:1",
+    expense: "medical",
+    status: "eligible",
+    requested_cents: 32500,
+    allowed_cents: 32500,
+    rule_ids: [],
+    cap_rule_id: null,
+    flags: [],
+  };
+
+  it("explains an exam counted as medical care from the engine's expense, not a preview-only flag", () => {
+    const row: Row = { item: exam, line, answer: undefined, status: "eligible", bed: "medical" };
+    render(<LedgerRow row={row} law={law} onAnswer={() => {}} readOnly />);
+    expect(screen.getByText(/counts it as medical care/)).toBeTruthy();
+  });
+
+  it("says nothing extra for a medical bill", () => {
+    const row: Row = {
+      item: { ...exam, expense: "medical" },
+      line,
+      answer: undefined,
+      status: "eligible",
+      bed: "medical",
+    };
+    render(<LedgerRow row={row} law={law} onAnswer={() => {}} readOnly />);
+    expect(screen.queryByText(/counts it as medical care/)).toBeNull();
   });
 });

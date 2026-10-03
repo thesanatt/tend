@@ -51,12 +51,13 @@ type CheckCopy = Record<string, { label: string; tone: "good" | "warn" | "neutra
 export const DEADLINE: CheckCopy = {
   ok: { label: "On time", tone: "good" },
   late: { label: "Past the deadline", tone: "warn" },
-  unknown: { label: "No deadline found in the verified rules", tone: "neutral" },
+  unknown: { label: "Ask the program", tone: "neutral" },
 };
 
 export const MINIMUM_LOSS: CheckCopy = {
   met: { label: "Met", tone: "good" },
   waived: { label: "Waived", tone: "good" },
+  may_be_waived: { label: "May be waived", tone: "neutral" },
   not_met: { label: "Not met yet", tone: "warn" },
   unknown: { label: "Depends on days of work missed", tone: "neutral" },
 };
@@ -65,7 +66,7 @@ export const REPORTING: CheckCopy = {
   satisfied: { label: "Satisfied", tone: "good" },
   required: { label: "A police report is required", tone: "warn" },
   unknown: { label: "Depends on your answers", tone: "neutral" },
-  none: { label: "No reporting rule found", tone: "neutral" },
+  not_required: { label: "No police report needed", tone: "good" },
 };
 
 export function checkCopy(table: CheckCopy, status: string) {

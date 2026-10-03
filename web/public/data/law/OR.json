@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.doj.state.or.us/wp-content/uploads/2026/01/CVC-Application-English-2026-fillable.pdf",
   "phone": "503-378-5348",
   "phone_source_id": "OR-S2",
-  "statute_citation": "ORS 147.005 to 147.367 (compensation); ORS 147.395 to 147.399 (SAVE Fund); OAR 137-076 and 137-084"
+  "statute_citation": "ORS 147.005 to 147.367 (compensation); ORS 147.395 to 147.399 (SAVE Fund); OAR 137-076 and 137-084",
+  "application_form": {
+   "source_id": "OR-S7",
+   "fillable": true,
+   "field_count": 140
+  }
  },
  "sources": [
   {
@@ -629,6 +634,172 @@
    "quote": "CVC does not request or consider immigration status when determining eligibility for compensation.",
    "source_id": "OR-S7",
    "pinpoint": "CVC Application (2026), page 1"
+  },
+  {
+   "id": "OR-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "doj.state.or.us/cvcportal"
+   },
+   "summary": "Apply online through the CVC Portal, which also lets you upload documents and check claim status.",
+   "quote": "You can apply electronically through the Crime Victims’ Compensation Portal at\ndoj.state.or.us/cvcportal.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, How do I apply?"
+  },
+  {
+   "id": "OR-SUBMIT-EMAIL",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "cvssd@doj.oregon.gov"
+   },
+   "summary": "Email the completed, signed application to the program.",
+   "quote": "You can also submit your application by email: cvssd@doj.oregon.gov",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, How do I apply?"
+  },
+  {
+   "id": "OR-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Oregon Department of Justice Crime Victims’ Compensation Program 1162 Court Street NE Salem, OR 97301–4096"
+   },
+   "summary": "Mail the signed paper application to the DOJ Crime Victims' Compensation Program in Salem.",
+   "quote": "You can mail a paper application to:\nOregon Department of Justice\nCrime Victims’ Compensation Program\n1162 Court Street NE\nSalem, OR 97301–4096",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, How do I apply?"
+  },
+  {
+   "id": "OR-SUBMIT-INPERSON",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "your local District Attorney’s Office Victim Assistance Program or local community-based victim services agency"
+   },
+   "summary": "You can also apply in person through a county District Attorney's victim assistance program or a community-based victim services agency.",
+   "quote": "Apply at your local District Attorney’s Office Victim Assistance Program or local community-based victim services agency.",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024), How Do I Submit an Application?"
+  },
+  {
+   "id": "OR-DOC-SIGNED-RELEASE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed release on page 4 of the application; unsigned applications are returned."
+   },
+   "summary": "Sign the release in the application so CVC can verify your information; unsigned applications are returned.",
+   "quote": "You must sign this form to allow CVC to verify the information in your application. We will return any unsigned applications.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page 4, Required Release to Process Your Application"
+  },
+  {
+   "id": "OR-DOC-WAGE",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only for lost earnings: employer documentation of employment and time lost, plus the paystub just before the crime."
+   },
+   "summary": "For lost earnings, provide employer documentation of employment and time lost and your last paystub before the crime.",
+   "quote": "The following information must be provided to CVC: Documentation from your employer to verify employment and time loss. Your paystub just prior to the crime.",
+   "source_id": "OR-S3",
+   "pinpoint": "CVC FAQ, loss of earnings benefit",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/#:~:text=The%20following%20information%20must%20be,just%20prior%20to%20the%20crime."
+  },
+  {
+   "id": "OR-DOC-WAGE-SELF",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only for lost earnings if self-employed: the previous year's tax records."
+   },
+   "summary": "If you are self-employed and claim lost earnings, submit the previous year's tax records.",
+   "quote": "If you are self-employed, please submit the previous year tax records.",
+   "source_id": "OR-S3",
+   "pinpoint": "CVC FAQ, loss of earnings benefit",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/#:~:text=If%20you%20are%20self%2Demployed%2C%20please,the%20previous%20year%20tax%20records."
+  },
+  {
+   "id": "OR-DOC-WORK-RELEASE",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "other",
+    "note": "Work release from a doctor or mental health therapist, only if more than 2 weeks of work were missed."
+   },
+   "summary": "If you missed more than 2 weeks of work, a work release from your doctor is required.",
+   "quote": "A work release from a doctor is required beyond 2 weeks of missed work.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, Answers to Commonly Asked Questions"
+  },
+  {
+   "id": "OR-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized billing statements showing services, provider name, and date of service; submitted after the claim is accepted."
+   },
+   "summary": "Payment requests must be itemized billing statements listing the services, the provider's name, and the date of service.",
+   "quote": "Requests for payment of crime related expenses shall be submitted in the form of an itemized billing statement detailing the services provided, the provider’s name, the date of service",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0043(1)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Requests%20for%20payment%20of%20crime,name%2C%20the%20date%20of%20service"
+  },
+  {
+   "id": "OR-DOC-EOB",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance EOBs, combined with chart notes and bills in one portal upload."
+   },
+   "summary": "Insurance EOBs, chart notes, and bills can be combined into one upload in the CVC Portal.",
+   "quote": "EOB’s, chart notes, and bills can all be combined to one document and select bill as the category.",
+   "source_id": "OR-S5",
+   "pinpoint": "Applying for CVC, Crime Victims Portal FAQs, How do I upload documents?",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/cvc-portal/#:~:text=EOB%E2%80%99s%2C%20chart%20notes%2C%20and%20bills,select%20bill%20as%20the%20category."
+  },
+  {
+   "id": "OR-DOC-RECEIPT",
+   "category": "required_document",
+   "expense": "transportation",
+   "params": {
+    "document": "receipts",
+    "note": "Valid receipts for car rental, bus, train, or air fare used instead of mileage."
+   },
+   "summary": "If CVC pays for a car rental or bus, train, or air fare instead of mileage, it needs a valid receipt.",
+   "quote": "the Department may, at its discretion, reimburse reasonable and necessary round-trip car rental or bus, train, or air fare, upon submission of a valid receipt.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0019(2)(c)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=the%20Department%20may%2C%20at%20its,submission%20of%20a%20valid%20receipt."
+  },
+  {
+   "id": "OR-TIME-ACK",
+   "category": "processing_time",
+   "params": {
+    "days": 2,
+    "stage": "claim_number"
+   },
+   "summary": "CVC confirms receipt by mail or email and issues a claim number within 2 business days.",
+   "quote": "We will notify you by mail or email when we receive your application. You will receive a\nclaim number within 2 business days.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, What happens next?"
+  },
+  {
+   "id": "OR-TIME-DECISION",
+   "category": "processing_time",
+   "params": {
+    "days": 90,
+    "min_days": 60,
+    "stage": "decision"
+   },
+   "summary": "CVC says it will contact you in 60 to 90 days to tell you whether the application was accepted.",
+   "quote": "We will contact you again in 60 to 90 days to tell you if we have accepted your\napplication.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, What happens next?"
   }
  ],
  "coverage": {
@@ -645,7 +816,10 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss",
@@ -657,5 +831,5 @@
   "notes": "No minimum out-of-pocket loss appears in ORS 147.005 to 147.367 or OAR 137-076, so minimum_loss is left out rather than assumed to be zero. No security (locks, alarms) or temporary housing benefit was found. Relocation is listed as excluded on the program page, so there is no relocation cap."
  },
  "confidence": "high",
- "researcher_notes": "Statute and rule text come from oregonlegislature.gov (ORS ch. 147, current edition with 2025 notes) and the Secretary of State OARD site (OAR 137-076 and 137-084, saved through the browser). Conflicts: (1) ORS 147.055 allows an emergency award up to $1,000, but the program page says CVC is unable to provide immediate financial assistance; the rule is kept because the statute governs, but in practice the program may not offer one. (2) OAR 137-084-0010(4) requires a complete SAFE Kit assessment within 84 hours of the assault for SAVE Fund payment, while the DOJ provider page lists 120 hours; the victim SAVE page says within seven days (matches the 168-hour partial assessment). (3) Statute sets transportation coverage when care is more than 30 miles away; agency pages say 60 miles roundtrip (consistent). OAR 137-076-0019(1)(e) states the rate as '.50 cents per mile'; the brochure says 50 cents per mile. (4) The FAQ says loss of support rose to $800/week; that applies to dependents of deceased victims only. Claims expire three years after the determination order (or at age 21 for minors), ORS 147.035(8). Toll-free number 1-800-503-7983 appears in the brochure. Under the SAVE FAQ, a survivor may choose to bill insurance instead of the SAVE Fund, in which case leftover copays go to a CVC application rather than the Fund. The limited counseling award ($5,000) is the path for survivors who never report and never get an exam or order. Strangulation (SKIT) exams are paid under ORS 147.035(2)(e) with a $5,000 maximum and are billed to insurance first, so they are not modeled as exam_no_bill. Reviewer: the SAVE Fund's $475 maximum (OAR 137-084-0020(1)(a)) is what the Fund pays the provider for an exam plus SAFE Kit collection, not a limit on what the survivor gets, and the provider cannot bill the survivor or insurance for the rest; it is therefore not modeled as an expense_cap. The limited counseling award (OR-CAP-COUNS-LTD, $5,000) and the parent lost wages cap (OR-CAP-WAGE-PARENT, $5,000) are conditional caps for applicants who do not meet eligibility and for parents of minor victims, not general caps on the victim's counseling or lost wages."
+ "researcher_notes": "Statute and rule text come from oregonlegislature.gov (ORS ch. 147, current edition with 2025 notes) and the Secretary of State OARD site (OAR 137-076 and 137-084, saved through the browser). Conflicts: (1) ORS 147.055 allows an emergency award up to $1,000, but the program page says CVC is unable to provide immediate financial assistance; the rule is kept because the statute governs, but in practice the program may not offer one. (2) OAR 137-084-0010(4) requires a complete SAFE Kit assessment within 84 hours of the assault for SAVE Fund payment, while the DOJ provider page lists 120 hours; the victim SAVE page says within seven days (matches the 168-hour partial assessment). (3) Statute sets transportation coverage when care is more than 30 miles away; agency pages say 60 miles roundtrip (consistent). OAR 137-076-0019(1)(e) states the rate as '.50 cents per mile'; the brochure says 50 cents per mile. (4) The FAQ says loss of support rose to $800/week; that applies to dependents of deceased victims only. Claims expire three years after the determination order (or at age 21 for minors), ORS 147.035(8). Toll-free number 1-800-503-7983 appears in the brochure. Under the SAVE FAQ, a survivor may choose to bill insurance instead of the SAVE Fund, in which case leftover copays go to a CVC application rather than the Fund. The limited counseling award ($5,000) is the path for survivors who never report and never get an exam or order. Strangulation (SKIT) exams are paid under ORS 147.035(2)(e) with a $5,000 maximum and are billed to insurance first, so they are not modeled as exam_no_bill. Reviewer: the SAVE Fund's $475 maximum (OAR 137-084-0020(1)(a)) is what the Fund pays the provider for an exam plus SAFE Kit collection, not a limit on what the survivor gets, and the provider cannot bill the survivor or insurance for the rest; it is therefore not modeled as an expense_cap. The limited counseling award (OR-CAP-COUNS-LTD, $5,000) and the parent lost wages cap (OR-CAP-WAGE-PARENT, $5,000) are conditional caps for applicants who do not meet eligibility and for parents of minor victims, not general caps on the victim's counseling or lost wages. How to file (added Oct 3): submission methods, documents, and timing come mainly from the 2026 fillable English application (OR-S7, 140 AcroForm fields), which is the newest version linked from the apply page. The apply page FAQ (OR-S5) gives the mailing address as '1162 Court St SE', but the 2026 application, the brochure, and the program page all say 1162 Court Street NE, so the mail rule uses NE. Page 2 of the application still lists the old email domain cvssd@doj.state.or.us; the instructions page uses cvssd@doj.oregon.gov, which is used here. The program page and brochure list fax 503-378-5738 as contact information but no source says to fax the application, so no fax submission rule was added. Decision timing differs by source: the 2026 application says 60 to 90 days, the FAQ says applicants are usually notified within 70 days, and the 2024 brochure says 45 to 60 days; the newest (application) is used. The application does not ask the survivor to attach a police report or medical records: it asks for the report number and provider details, and CVC requests medical records and police reports itself. Bills are submitted after the claim is accepted."
 }

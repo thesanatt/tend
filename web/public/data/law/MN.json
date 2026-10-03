@@ -9,7 +9,12 @@
   "application_pdf_url": "https://assets.dps.mn.gov/files/ojp/Reimbursement%20claim%20form%20%28English%29.pdf",
   "phone": "651-201-7300",
   "phone_source_id": "MN-S8",
-  "statute_citation": "Minn. Stat. 611A.51 to 611A.68; Minn. Stat. 609.35 (exam costs); Minn. R. ch. 3050"
+  "statute_citation": "Minn. Stat. 611A.51 to 611A.68; Minn. Stat. 609.35 (exam costs); Minn. R. ch. 3050",
+  "application_form": {
+   "source_id": "MN-S10",
+   "fillable": true,
+   "field_count": 53
+  }
  },
  "sources": [
   {
@@ -642,6 +647,164 @@
    "source_id": "MN-S1",
    "pinpoint": "Minn. Stat. 611A.52, subd. 6(a)(1)",
    "fragment_url": "https://www.revisor.mn.gov/statutes/cite/611A.52#:~:text=occurs%20or%20is%20attempted%20anywhere,reservations%20and%20other%20trust%20lands"
+  },
+  {
+   "id": "MN-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Minnesota Crime Victims Reimbursement Board 445 Minnesota Street, Suite 2300 St. Paul MN 55101-1515"
+   },
+   "summary": "Mail the signed paper application to the Crime Victims Reimbursement Board in St. Paul.",
+   "quote": "Complete and submit to: Minnesota Crime Victims Reimbursement Board 445 Minnesota Street, Suite 2300 St. Paul MN 55101-1515 651.201.7300 or 1.888.622.8799 (Toll-Free) 651.296.5787 (Fax) 651.205.4827 (TTY) dps.justiceprograms@state.mn.us",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form (Rev. 5/24), page 1, 'Complete and submit to' box"
+  },
+  {
+   "id": "MN-SUBMIT-FAX",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "651.296.5787"
+   },
+   "summary": "The signed paper application can be faxed to the Board.",
+   "quote": "Complete and submit to: Minnesota Crime Victims Reimbursement Board 445 Minnesota Street, Suite 2300 St. Paul MN 55101-1515 651.201.7300 or 1.888.622.8799 (Toll-Free) 651.296.5787 (Fax) 651.205.4827 (TTY) dps.justiceprograms@state.mn.us",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form (Rev. 5/24), page 1, 'Complete and submit to' box"
+  },
+  {
+   "id": "MN-SUBMIT-EMAIL",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "dps.justiceprograms@state.mn.us"
+   },
+   "summary": "The signed paper application can be emailed to the Board.",
+   "quote": "Complete and submit to: Minnesota Crime Victims Reimbursement Board 445 Minnesota Street, Suite 2300 St. Paul MN 55101-1515 651.201.7300 or 1.888.622.8799 (Toll-Free) 651.296.5787 (Fax) 651.205.4827 (TTY) dps.justiceprograms@state.mn.us",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form (Rev. 5/24), page 1, 'Complete and submit to' box"
+  },
+  {
+   "id": "MN-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://svcportal.dps.mn.gov/vsp/Account/Login",
+    "note": "The quote's link text points to this URL on the program page; the brochure says applicants can also upload documents and check claim status in the portal."
+   },
+   "summary": "A survivor can apply online through the Victim Services Portal.",
+   "quote": "Apply for reimbursement through the Victim Services Portal",
+   "source_id": "MN-S8",
+   "pinpoint": "DPS OJP program page, Apply for reimbursement",
+   "fragment_url": "https://dps.mn.gov/divisions/ojp/for-crime-victims/crime-victim-resources/financial-help/mn-crime-victims-reimbursement-program#:~:text=Apply%20for%20reimbursement%20through%20the%20Victim%20Services%20Portal"
+  },
+  {
+   "id": "MN-DOC-EXPENSES",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Copies of medical bills, receipts, and insurance statements, if available; more can be sent later."
+   },
+   "summary": "Include copies of all crime-related expenses, such as medical bills, receipts, and insurance statements, if available.",
+   "quote": "Include copies of all expenses (medical bills, receipts, insurance statements), if available.",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Instructions"
+  },
+  {
+   "id": "MN-DOC-ITEMIZED",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized bills and receipts from every provider that treated crime-related injuries, including pharmacies, if available."
+   },
+   "summary": "Attach itemized bills and receipts from medical and dental providers, if available.",
+   "quote": "Attach itemized bills and receipts, if available.",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Section 10 (Medical and Dental Expenses)"
+  },
+  {
+   "id": "MN-DOC-EOB",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Explanation of benefits for every insurance payment or denial."
+   },
+   "summary": "Attach the insurance explanation of benefits for all payments and denials.",
+   "quote": "ATTACH INSURANCE EXPLANATION OF BENEFITS FOR ALL PAYMENTS AND/OR DENIALS",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Section 8 (Other Sources of Payment)"
+  },
+  {
+   "id": "MN-DOC-INSCARD",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Copy of the insurance card, or fill in the insurance details on the form."
+   },
+   "summary": "List other payment sources on the form or attach a copy of the insurance card.",
+   "quote": "Complete for all other sources available to pay for crime related expenses, or attach a copy of insurance card.",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Section 8 (Other Sources of Payment)"
+  },
+  {
+   "id": "MN-DOC-TAXRETURN",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only for lost wage claims when self-employed: most recent federal tax return. For employees, the Board contacts the employer."
+   },
+   "summary": "A self-employed survivor claiming lost wages attaches a copy of their most recent federal tax return.",
+   "quote": "If yes, attach a copy of your most recent federal tax return",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Section 9 (Loss of Earnings)"
+  },
+  {
+   "id": "MN-DOC-W9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Substitute Form W-9 (page 5 of the application) for whoever may receive a direct payment."
+   },
+   "summary": "Complete the W-9 on page 5 of the application for the person who may receive a direct payment.",
+   "quote": "Complete the W9 form (page 5) for the person who may receive a direct payment.",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Instructions"
+  },
+  {
+   "id": "MN-DOC-RELEASE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed and dated release form (page 6 of the application), covering the crime date through the last expected treatment date."
+   },
+   "summary": "Sign and date the release form on page 6 of the application.",
+   "quote": "Sign and date the release form (page 6). The time period in Section 15 should cover from the crime date through the last expected treatment date.",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Instructions"
+  },
+  {
+   "id": "MN-DOC-SIGNATURE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Victim's signature and date on the application; a claimant signs instead for a minor, deceased, or incapacitated victim."
+   },
+   "summary": "The victim must sign and date the application form.",
+   "quote": "The victim must sign and date the application form.",
+   "source_id": "MN-S10",
+   "pinpoint": "Application Form, Section 18 (Victim and Claimant Signatures)"
+  },
+  {
+   "id": "MN-DOC-MILEAGE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Mileage Reimbursement Request form for travel to medical or counseling appointments; the Board mails it after the application arrives."
+   },
+   "summary": "The Board sends a mileage form after it receives the application; the form is also on the program website.",
+   "quote": "A mileage form will be sent to claimant after receipt of application. Or, it is available on the OJP website.",
+   "source_id": "MN-S12",
+   "pinpoint": "CVRB training slides (10/4/2025), slide 39, Application Instructions"
   }
  ],
  "coverage": {
@@ -659,17 +822,20 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "expense_cap:medical",
    "expense_cap:transportation",
    "covered_expense:security",
    "emergency_award:amount",
-   "expense_cap:counseling (official fee schedule)"
+   "expense_cap:counseling (official fee schedule)",
+   "processing_time"
   ],
-  "notes": "Program pages on dps.mn.gov load their FAQ accordion text by script, so the saved page snapshot has only headings, phone, and history; rules lean on the statute, Minn. R. 3050.3200, the brochure, the application form, the mileage form, and the program's own October 2025 training slides. The exam statute caps state payment to the provider at $1,400 adjusted annually for inflation since January 1, 2024; that is a provider payment cap, not a survivor limit, so it is not recorded as an expense_cap. Not found: no dollar cap on medical (the board sets a payment percentage each fiscal year under Minn. R. 3050.3700 and 3050.3800); transportation is paid at the federal mileage rate with no dollar cap found; no coverage for security found (slides list security systems as not covered); the statute sets no emergency award amount; the counseling limit appears only in the training slides, not in a published fee schedule."
+  "notes": "Program pages on dps.mn.gov load their FAQ accordion text by script, so the saved page snapshot has only headings, phone, and history; rules lean on the statute, Minn. R. 3050.3200, the brochure, the application form, the mileage form, and the program's own October 2025 training slides. The exam statute caps state payment to the provider at $1,400 adjusted annually for inflation since January 1, 2024; that is a provider payment cap, not a survivor limit, so it is not recorded as an expense_cap. Not found: no dollar cap on medical (the board sets a payment percentage each fiscal year under Minn. R. 3050.3700 and 3050.3800); transportation is paid at the federal mileage rate with no dollar cap found; no coverage for security found (slides list security systems as not covered); the statute sets no emergency award amount; the counseling limit appears only in the training slides, not in a published fee schedule. How to file: the application form (MN-S10, Rev. 5/24, still the live version) lists the mailing address, fax, and email; the program page links the online Victim Services Portal. No in-person filing method and no processing time or decision deadline was found in the statute or program sources."
  },
  "confidence": "high",
- "researcher_notes": "Disagreement: Minn. Stat. 611A.52, subd. 8(b)(7) covers moving, storage, and phone and utility installation fees up to $1,000 per claim when a move is needed for safety, but the program's 2025 training slides (MN-S12, slide 33) list moving expenses as non-covered (the slides' non-covered list is recorded as MN-EXC-SECURITY, MN-EXC-CLOTHING, and MN-EXC-LEGAL; moving is deliberately not recorded as excluded). The statute wins per SCHEMA rule 3, so MN-CAP-RELOCATION is kept; the survivor should confirm with the board. The counseling $7,500 limit, crime scene cleanup $10,000 limit, misconduct waiver for sexual assault, and residency statement come only from the 2025 training slides, whose PDF text extraction is partly garbled; the quoted strings were checked as clean. Minn. R. 3050.3800 says the board resets counseling and medical limits each fiscal year. The slides also say evidentiary exams are not paid by the reimbursement program because the Sexual Assault Exam Payment Program pays them. The OVC directory still uses the old name, Crime Victims Reparations Board (renamed Reimbursement Board in 2023). Phones: 651-201-7300 and toll free 888-622-8799. Review pass: MN-REPORT-3 is a cooperation rule, not an alternative to the police report, so its alternatives list is empty. The counseling, cleanup, and alternative healing limits come from the slides and are treated as per claim; the slides do not say per claim or per victim. The slides also say counseling is paid at 70 percent, dental at 90 percent, and medical at 60 percent of the bill with the provider writing off the rest. The application form says the 30-day report has exceptions for child abuse and sexual assault."
+ "researcher_notes": "Disagreement: Minn. Stat. 611A.52, subd. 8(b)(7) covers moving, storage, and phone and utility installation fees up to $1,000 per claim when a move is needed for safety, but the program's 2025 training slides (MN-S12, slide 33) list moving expenses as non-covered (the slides' non-covered list is recorded as MN-EXC-SECURITY, MN-EXC-CLOTHING, and MN-EXC-LEGAL; moving is deliberately not recorded as excluded). The statute wins per SCHEMA rule 3, so MN-CAP-RELOCATION is kept; the survivor should confirm with the board. The counseling $7,500 limit, crime scene cleanup $10,000 limit, misconduct waiver for sexual assault, and residency statement come only from the 2025 training slides, whose PDF text extraction is partly garbled; the quoted strings were checked as clean. Minn. R. 3050.3800 says the board resets counseling and medical limits each fiscal year. The slides also say evidentiary exams are not paid by the reimbursement program because the Sexual Assault Exam Payment Program pays them. The OVC directory still uses the old name, Crime Victims Reparations Board (renamed Reimbursement Board in 2023). Phones: 651-201-7300 and toll free 888-622-8799. Review pass: MN-REPORT-3 is a cooperation rule, not an alternative to the police report, so its alternatives list is empty. The counseling, cleanup, and alternative healing limits come from the slides and are treated as per claim; the slides do not say per claim or per victim. The slides also say counseling is paid at 70 percent, dental at 90 percent, and medical at 60 percent of the bill with the provider writing off the rest. The application form says the 30-day report has exceptions for child abuse and sexual assault. Packet step: MN-S10 is the current application PDF (same size as the live file, last modified March 2026); it has 53 fillable AcroForm fields. The mail, fax, and email rules quote the form's 'Complete and submit to' box. The online rule quotes the program page's link text; the URL itself is the href on that page, not printed in the snapshot text. The program page's accordion (in the raw HTML only) says the signed application may be mailed, faxed, or emailed. The Board itself obtains the police report and medical records using the signed releases, so those are not recorded as documents the survivor must include."
 }

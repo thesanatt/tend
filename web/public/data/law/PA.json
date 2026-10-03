@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/vcap%20long%20claim%20form%20july%202024.pdf",
   "phone": "800-233-2339",
   "phone_source_id": "PA-S4",
-  "statute_citation": "Crime Victims Act, 18 P.S. 11.101 et seq. (compensation: 18 P.S. 11.701 to 11.710); 37 Pa. Code Chapter 411"
+  "statute_citation": "Crime Victims Act, 18 P.S. 11.101 et seq. (compensation: 18 P.S. 11.701 to 11.710); 37 Pa. Code Chapter 411",
+  "application_form": {
+   "source_id": "PA-S6",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -131,6 +136,16 @@
    "raw_path": "rules/sources/PA/PA-S12.pdf",
    "text_path": "rules/sources/PA/PA-S12.txt",
    "sha256": "c543564e489c353303af5d7559e337551026d64e288d7bc16dc0f796b96cb2fe"
+  },
+  {
+   "id": "PA-S13",
+   "title": "VCAP flyer: Claim Process (11/2023)",
+   "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/english/claim%20process%20flyer.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:36:30Z",
+   "raw_path": "rules/sources/PA/PA-S13.pdf",
+   "text_path": "rules/sources/PA/PA-S13.txt",
+   "sha256": "63edd5946d7bec1f6dc50cc439dc7e421a5b830f7c561fe28555fa12acc1823d"
   }
  ],
  "rules": [
@@ -671,6 +686,174 @@
    "quote": "Any provider performing a forensic rape examination on a sexual assault victim may file a claim with VCAP if the crime occurred in Pennsylvania, OR if a Pennsylvania resident that is sexually assaulted in another state returns to Pennsylvania to have the exam done by a hospital or licensed health care provider as defined by the Crime Victims Act.",
    "source_id": "PA-S10",
    "pinpoint": "VCAP Protocol and Billing Procedures for FREs, A.5"
+  },
+  {
+   "id": "PA-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "PO Box 1167 Harrisburg, PA 17108-1167"
+   },
+   "summary": "Mail the completed claim form to VCAP's mailing address, PO Box 1167, Harrisburg, PA 17108-1167.",
+   "quote": "Mailing Address PO Box 1167 Harrisburg, PA 17108-1167",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), back page contact block; PA.gov apply page step 4: 'Mail or email your claim'"
+  },
+  {
+   "id": "PA-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://www.dave.pa.gov"
+   },
+   "summary": "File the claim online through the DAVE portal (the Crime Victims App also files online).",
+   "quote": "File online at https://www.dave.pa.gov",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), back page footer"
+  },
+  {
+   "id": "PA-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "ra-davesupport@pa.gov"
+   },
+   "summary": "Email the completed claim form to VCAP at ra-davesupport@pa.gov.",
+   "quote": "Email ra-davesupport@pa.gov",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), back page contact block; PA.gov apply page step 4: 'Mail or email your claim'"
+  },
+  {
+   "id": "PA-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "medical bills, in the victim's name"
+   },
+   "summary": "Include itemized medical bills related to the crime, in the victim's name.",
+   "quote": "Provide all itemized medical bills related to the crime. Medical bills must be in the name of the victim.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Section 4: Medical Expenses"
+  },
+  {
+   "id": "PA-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "counseling bills"
+   },
+   "summary": "Include itemized counseling bills related to the crime.",
+   "quote": "Provide all itemized counseling bills related to the crime.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Section 5: Counseling Expenses"
+  },
+  {
+   "id": "PA-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "cancelled checks or receipts for bills already paid"
+   },
+   "summary": "Include copies of cancelled checks or receipts for any bills the victim or claimant already paid.",
+   "quote": "Provide copies of cancelled checks and/or receipts for any bills paid by the victim/claimant.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Sections 4 and 5"
+  },
+  {
+   "id": "PA-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "insurance payments or rejections for each bill"
+   },
+   "summary": "If insured, submit bills to insurance first and include the insurance statements showing payments or rejections.",
+   "quote": "Provide insurance statements of all payments and/or rejections for corresponding bills.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Sections 4 and 5"
+  },
+  {
+   "id": "PA-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "for loss of earnings: two pay stubs before the crime, W-2s, or latest tax return"
+   },
+   "summary": "For lost wages, include two pay stubs from right before the crime, W-2 statements, or the most recent tax return with all schedules.",
+   "quote": "Provide two pay stubs immediately prior to the crime incident, W-2 statements, or most recently filed IRS tax returns including all schedules.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Section 7: Loss of Earnings"
+  },
+  {
+   "id": "PA-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "provider certification of disability, for lost wages from crime injuries"
+   },
+   "summary": "For lost wages from crime injuries, a doctor, psychologist, or other listed provider must certify the disability.",
+   "quote": "If filing for loss of earnings due to crime-related injuries a physician verification certifying disability is needed.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Section 7: Loss of Earnings"
+  },
+  {
+   "id": "PA-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "proof of other pay received (sick, vacation, disability, unemployment, workers comp)"
+   },
+   "summary": "For lost wages, include proof of any sick, vacation, personal, or disability pay or other benefits received.",
+   "quote": "Provide documentation of any reimbursements received, such as sick, vacation, personal, or disability pay",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Section 7: Loss of Earnings"
+  },
+  {
+   "id": "PA-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "relocation verification letter from a human service agency, police, or medical provider"
+   },
+   "summary": "For relocation, include a letter from a human service agency, law enforcement, or a medical provider saying the move is needed for safety and health.",
+   "quote": "Please provide a verification letter explaining that the immediate need for relocation is necessary to protect the safety and health of the victim and individuals residing in the same household",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Section 10: Relocation"
+  },
+  {
+   "id": "PA-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed acknowledgement, authorization, and HIPAA release on the back of the form"
+   },
+   "summary": "Sign the Acknowledgement and Reimbursement Agreement and Authorization to Obtain Information (and the HIPAA release for medical or counseling expenses) before the claim can be processed.",
+   "quote": "The Acknowledgement and Reimbursement Agreement and Authorization to Obtain Information must be signed before a claim can be verified and processed for payment.",
+   "source_id": "PA-S6",
+   "pinpoint": "Claim form (July 2024), Acknowledgement & Reimbursement Agreements section"
+  },
+  {
+   "id": "PA-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "weeks": 12
+   },
+   "summary": "The program says most claims are processed in 12 weeks or less, though each claim differs.",
+   "quote": "Most organizations process claims in 12 weeks or less.",
+   "source_id": "PA-S4",
+   "pinpoint": "PA.gov apply page, FAQ: How long does it take the Program to make a decision?",
+   "fragment_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation#:~:text=Most%20organizations%20process%20claims%20in%2012%20weeks%20or%20less."
+  },
+  {
+   "id": "PA-TIME-2",
+   "category": "processing_time",
+   "params": {
+    "days": 2,
+    "note": "payment release after approval, for amounts owed to the victim/claimant up to $5,000; the rest in 2 to 4 weeks"
+   },
+   "summary": "Once approved, payments owed to the victim or claimant of $5,000 or less are released within 2 business days.",
+   "quote": "Payments owed to the victim/claimant that total $5,000.00 or less are released within 2 business days of being approved.",
+   "source_id": "PA-S13",
+   "pinpoint": "VCAP Claim Process flyer (11/2023)"
   }
  ],
  "coverage": {
@@ -686,8 +869,11 @@
    "expense_cap",
    "filing_deadline",
    "minimum_loss",
+   "processing_time",
    "reporting_requirement",
+   "required_document",
    "residency",
+   "submission",
    "total_cap"
   ],
   "not_found": [
@@ -695,8 +881,8 @@
    "covered_expense:security",
    "excluded_expense:phones (no explicit statement; only general property exclusion)"
   ],
-  "notes": "No source found that covers home security costs (locks, alarms, cameras); treat security as not covered unless the program confirms. Phones are not named anywhere; the general property loss/damage exclusion applies. The statute's emergency award limit is 'a rate set by the Office of Victims' Services'; the $5,000 figure comes from 37 Pa. Code 411.17 and matches the 2025 manual. Relocation lodging is $75 per day (PA-RELOC-4); relocation vehicle rental is $30 per day (37 Pa. Code 411.42(f)), not encoded separately. Travel caps (car rental $30/day, meals $28/day for trips of 50+ miles) are taken from the 2025 manual because the matching list in 37 Pa. Code 411.42(g) is introduced by a clause about death and funeral travel and reads ambiguously."
+  "notes": "No source found that covers home security costs (locks, alarms, cameras); treat security as not covered unless the program confirms. Phones are not named anywhere; the general property loss/damage exclusion applies. The statute's emergency award limit is 'a rate set by the Office of Victims' Services'; the $5,000 figure comes from 37 Pa. Code 411.17 and matches the 2025 manual. Relocation lodging is $75 per day (PA-RELOC-4); relocation vehicle rental is $30 per day (37 Pa. Code 411.42(f)), not encoded separately. Travel caps (car rental $30/day, meals $28/day for trips of 50+ miles) are taken from the 2025 manual because the matching list in 37 Pa. Code 411.42(g) is introduced by a clause about death and funeral travel and reads ambiguously. Filing: the claim form (July 2024, the version linked from the PA.gov apply page) lists the mailing address, email, and the DAVE online portal; the PA.gov page also lists the Crime Victims App for online filing. The form's fax number (717-787-4306) is listed only as contact info and the manual mentions fax only for advocates sending supplemental bills, so no fax submission rule was added. No in-person filing method is stated."
  },
  "confidence": "high",
- "researcher_notes": "Act 77 of 2022 changes (5-year filing deadline, 'promptly' reporting instead of 72 hours, $50 minimum loss, 701.1 counseling claims, conduct not considered for counseling) apply to crimes on or after 9/8/2022; for older crimes the program says to contact it (2-year deadline and 72-hour reporting applied before). 37 Pa. Code Chapter 411 was last amended in 2009 and still references some pre-2022 limits (for example a 1-year FRE provider deadline that is consistent with the 2024 FRE protocol); where regulations and statute differ the statute controls. The PA.gov page says 'The crime must have occurred in Pennsylvania', while the statute's definitions (18 P.S. 11.103) also cover Pennsylvania residents harmed outside the state when the other location's program is ineligible under VOCA; the manual narrows this to foreign countries without a program and international terrorism. Insurance: providers must bill the survivor's insurance first for the exam unless the survivor (or person responsible) asks that insurance not be billed (18 P.S. 11.707(h)(1); FRE protocol B.2), so insurance_billing is recorded as 'allowed' with a survivor opt-out. The PA.gov transportation flyer says 'A maximum payment of $35,000 per direct victim can be reimbursed for transportation expenses'; that is just the overall cap and is not encoded. The English VCAP brochure PDF is image-only and was not saved. Counseling for a minor whose insurance is held by the alleged perpetrator or a non-supportive caretaker may be paid without billing that insurance (18 P.S. 11.707(b)(4.1)(i)). Reviewer: the PA.gov page says the claim must be filed 'within 5 years of the crime'; the statute (18 P.S. 11.702(b)(1)) runs it from discovery, which the rule follows. The 37 Pa. Code 411.42(d) health-item limit says 'each' device and 'will not exceed $1,000'; encoded per claim, but it may be read per item. FRE FAQ: if the survivor declines evidence collection the hospital may bill the survivor's insurance (Q14), and medications without an exam are not paid on the FRE claim (Q11); both can go on a standard claim."
+ "researcher_notes": "Act 77 of 2022 changes (5-year filing deadline, 'promptly' reporting instead of 72 hours, $50 minimum loss, 701.1 counseling claims, conduct not considered for counseling) apply to crimes on or after 9/8/2022; for older crimes the program says to contact it (2-year deadline and 72-hour reporting applied before). 37 Pa. Code Chapter 411 was last amended in 2009 and still references some pre-2022 limits (for example a 1-year FRE provider deadline that is consistent with the 2024 FRE protocol); where regulations and statute differ the statute controls. The PA.gov page says 'The crime must have occurred in Pennsylvania', while the statute's definitions (18 P.S. 11.103) also cover Pennsylvania residents harmed outside the state when the other location's program is ineligible under VOCA; the manual narrows this to foreign countries without a program and international terrorism. Insurance: providers must bill the survivor's insurance first for the exam unless the survivor (or person responsible) asks that insurance not be billed (18 P.S. 11.707(h)(1); FRE protocol B.2), so insurance_billing is recorded as 'allowed' with a survivor opt-out. The PA.gov transportation flyer says 'A maximum payment of $35,000 per direct victim can be reimbursed for transportation expenses'; that is just the overall cap and is not encoded. The English VCAP brochure PDF is image-only and was not saved. Counseling for a minor whose insurance is held by the alleged perpetrator or a non-supportive caretaker may be paid without billing that insurance (18 P.S. 11.707(b)(4.1)(i)). Reviewer: the PA.gov page says the claim must be filed 'within 5 years of the crime'; the statute (18 P.S. 11.702(b)(1)) runs it from discovery, which the rule follows. The 37 Pa. Code 411.42(d) health-item limit says 'each' device and 'will not exceed $1,000'; encoded per claim, but it may be read per item. FRE FAQ: if the survivor declines evidence collection the hospital may bill the survivor's insurance (Q14), and medications without an exam are not paid on the FRE claim (Q11); both can go on a standard claim. Application form: PA-S6 (VCAP long claim form, July 2024) is a flat PDF with no AcroForm fields (0 fields), so it is not fillable; a short claim form and a separate FRE claim form also exist but were not saved. The 2025 manual cover gives the PO Box ZIP as 17110-1167, while the claim form and the manual's own sample letters use 17108-1167; the submission rule follows the claim form. The applicant does not need to attach a police report: the claim process flyer says VCAP obtains the police report itself and sends verification forms to providers and employers; the form asks for the police department and incident number. The 12-week figure is from the PA.gov FAQ ('Most organizations process claims in 12 weeks or less'), not the statute. Payments to providers are released 2 to 4 weeks after approval (PA-S13)."
 }

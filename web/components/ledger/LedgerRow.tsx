@@ -102,7 +102,7 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
           </p>
         ))}
 
-        {line?.flags.includes("exam_as_medical") ? (
+        {item.expense === "forensic_exam" && line?.expense === "medical" ? (
           <p className={styles.note}>This state has no separate exam rule, so Tend counts it as medical care.</p>
         ) : null}
 

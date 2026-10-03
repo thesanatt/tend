@@ -9,7 +9,12 @@
   "application_pdf_url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
   "phone": "410-585-3010",
   "phone_source_id": "MD-S9",
-  "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007"
+  "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007",
+  "application_form": {
+   "source_id": "MD-S9",
+   "fillable": true,
+   "field_count": 135
+  }
  },
  "sources": [
   {
@@ -609,6 +614,150 @@
    "source_id": "MD-S2",
    "pinpoint": "Md. Code, Crim. Proc. 11-808(b)",
    "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-808&enactments=false#:~:text=A%20resident%20of%20the%20State,which%20the%20victim%20is%20ineligible"
+  },
+  {
+   "id": "MD-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215"
+   },
+   "summary": "The instructions say to mail, email, or deliver the completed application to the CICB office; this is the office address printed on the application and instruction sheet.",
+   "quote": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet header and Application Instructions"
+  },
+  {
+   "id": "MD-SUBMIT-EMAIL",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "cicb.info@maryland.gov"
+   },
+   "summary": "The completed application can be emailed to the CICB office at cicb.info@maryland.gov. State law allows claims to be filed electronically under Board procedures.",
+   "quote": "Email: cicb.info@maryland.gov",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet header and Application Instructions"
+  },
+  {
+   "id": "MD-SUBMIT-INPERSON",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215"
+   },
+   "summary": "The completed application can also be delivered in person to the CICB office in Baltimore. State law lists in person, by mail, or electronically as the ways to file.",
+   "quote": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet header and Application Instructions"
+  },
+  {
+   "id": "MD-DOC-SIGN",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed authorizations on page 2 of the application; an unsigned application is sent back and not filed."
+   },
+   "summary": "Sign the authorizations on page 2 of the application. Without the signatures the application is returned and not filed.",
+   "quote": "Authorization Signatures on Page 2 of the application (Failure to sign will result in the application being returned and not filed)",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Application Instructions"
+  },
+  {
+   "id": "MD-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "The 2021 instructions ask for a police report or report number for all claims. Current statute (11-810(b), after HB 575) makes a police report one of several accepted kinds of evidence, so it is not strictly required."
+   },
+   "summary": "The application instructions ask for a police report or police report number for all claims; a report to a judicial authority may also be considered.",
+   "quote": "All claims: Police report or police report number. Report to judicial authority may also be considered.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "For medical or dental costs: itemized bills."
+   },
+   "summary": "For medical or dental costs, include itemized bills.",
+   "quote": "Medical/Dental: Itemized bills; letter from a doctor or medical documentation relating the injury to the crime and the treatment; treatment plan; & medical insurance.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-MEDICAL",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "For medical or dental costs: a doctor's letter or medical documentation tying the injury and treatment to the crime, plus a treatment plan."
+   },
+   "summary": "For medical or dental costs, include a doctor's letter or medical records linking the injury and treatment to the crime, and a treatment plan.",
+   "quote": "Medical/Dental: Itemized bills; letter from a doctor or medical documentation relating the injury to the crime and the treatment; treatment plan; & medical insurance.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Medical insurance information. With no private insurance, CICB requires the claimant to apply for Medicaid."
+   },
+   "summary": "Include medical insurance information. If the claimant has no private insurance, CICB requires an application for Medicaid.",
+   "quote": "& medical insurance. If the claimant has no private insurance, CICB requires the claimant to apply for Medicaid.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-COUNSEL",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "For counseling: a therapist's letter documenting crime-related treatment, plus itemized statements."
+   },
+   "summary": "For counseling, include a letter from the therapist documenting crime-related treatment and itemized statements.",
+   "quote": "Counseling: Letter from a therapist documenting treatment related to crime; itemized statements; receipts if paid out of pocket by claimant.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-RECEIPTS",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for anything the claimant paid out of pocket (named for counseling; crime scene clean-up also takes receipts)."
+   },
+   "summary": "Include receipts for costs the claimant paid out of pocket.",
+   "quote": "receipts if paid out of pocket by claimant",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages or disability: employer information and W-2 and/or pay stubs."
+   },
+   "summary": "For lost wages or disability, include employer information and W-2s or pay stubs.",
+   "quote": "Lost Wages/Disability: Employer information; W-2 and/or pay stubs; letter from a doctor certifying inability to work.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-WORKNOTE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For lost wages or disability: a doctor's letter certifying inability to work."
+   },
+   "summary": "For lost wages or disability, include a doctor's letter certifying the inability to work.",
+   "quote": "letter from a doctor certifying inability to work",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
   }
  ],
  "coverage": {
@@ -624,17 +773,20 @@
    "collateral_source",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "conduct_reduction",
    "excluded_expense",
    "expense_cap:relocation",
    "expense_cap:transportation",
-   "expense_cap:security (separate from the $2,000 property cap)"
+   "expense_cap:security (separate from the $2,000 property cap)",
+   "processing_time"
   ],
-  "notes": "conduct_reduction: the 2024 Victim Compensation Reform Act (Ch. 705, HB 575, MD-S12, Section 1 effective July 1, 2025) struck the old contributory-conduct reduction and the provocation bar from 11-810; the current 11-801 to 11-819 text has no conduct reduction. The program page (MD-S8) and 2021 application (MD-S9) still describe contributory conduct as a ground for ineligibility, so no rule was written. excluded_expense: the only exclusion list found is in the 2021 application instructions, and most of it (property loss, lock changes, relocation, child care, mileage) is contradicted by current statute, so it was not used. No dollar caps were found for relocation or transportation. Exam insurance billing: the statute (11-1007) does not mention insurance, but COMAR 10.12.02.05A(2)-(3) (MD-S13) bars billing the victim, family, or private insurance for any difference and requires providers to accept state payment in full, so insurance_billing is prohibited in MD-EXAM-5."
+  "notes": "conduct_reduction: the 2024 Victim Compensation Reform Act (Ch. 705, HB 575, MD-S12, Section 1 effective July 1, 2025) struck the old contributory-conduct reduction and the provocation bar from 11-810; the current 11-801 to 11-819 text has no conduct reduction. The program page (MD-S8) and 2021 application (MD-S9) still describe contributory conduct as a ground for ineligibility, so no rule was written. excluded_expense: the only exclusion list found is in the 2021 application instructions, and most of it (property loss, lock changes, relocation, child care, mileage) is contradicted by current statute, so it was not used. No dollar caps were found for relocation or transportation. Exam insurance billing: the statute (11-1007) does not mention insurance, but COMAR 10.12.02.05A(2)-(3) (MD-S13) bars billing the victim, family, or private insurance for any difference and requires providers to accept state payment in full, so insurance_billing is prohibited in MD-EXAM-5. processing_time: no saved source states a time for a decision or payment; 11-809(b)(2) only requires the Board to notify the claimant within 10 days after receiving a claim, which is an acknowledgment, not a decision, so no rule was written."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from the Maryland General Assembly site, which reflects HB 575 (2024 Ch. 705). Per Sections 3 and 4 of Ch. 705 (MD-S12), Section 1 (the 11-801 to 11-819 amendments, including the struck 48-hour report, cooperation, and contributory-conduct rules and the new caps) took effect July 1, 2025; only Section 2 took effect July 1, 2024. Claims tied to crimes or decisions before July 1, 2025 may have been handled under the old rules. Several agency materials are out of date and statutes win: (1) Filing deadline: statute 11-809 says 4 years; the 2021 application (MD-S9) says three years. (2) Police report: the old 48-hour reporting and full-cooperation requirements were struck by HB 575 (MD-S12); current 11-810(b) makes a police report one of several accepted kinds of evidence. The program page (MD-S8) and the application still say to report within 48 hours and list a police report for all claims, so a survivor may still be asked for one in practice. (3) Emergency award: statute 11-813 says up to $10,000; COMAR 12.01 (MD-S11) still says $2,000 per claim and asks for a police report for an emergency award. (4) Covered expenses: statute now covers one-time relocation, child care for care visits, travel to care, and property repair or replacement including locks; the 2021 application lists these as not covered. (5) Phone: OVC directory and the application list 410-585-3010 for CICB; the program page lists 410-697-9338 under the CICB address. The application also names the agency the Governor's Office of Crime Prevention and Policy; the website domain is gocpp.maryland.gov. MD-CAP-5 maps lost earnings to the disability-related cap because 11-811(a) pays lost earnings under the workers' compensation disability schedule (two-thirds of average wage). (6) Exam regulation: COMAR 10.12.02 (MD-S13) still names the Maryland Department of Health as payer and was last amended in 2008; the statute now names GOCPP, and the SARU page (MD-S10) says SARU operates under COMAR 10.12.02. COMAR 10.12.02.03B says a forensic exam is performed within 120 hours with a police report or property-held number, while statute 11-1007(c)(1) covers exams within 15 days; the statute wins, and SARU FAQ says the exam is covered without a police report. (7) Counseling caps: the $10,000 per claimant / $20,000 per incident counseling cap in 11-811(b)(6) applies only to household family members of an injured victim, so it is recorded as MD-COV-10 (covered_expense with applies_to) rather than an expense_cap, to keep it from capping the victim's own counseling at $10,000. The victim's own counseling falls under the $45,000 cap in MD-CAP-3."
+ "researcher_notes": "Statute text is from the Maryland General Assembly site, which reflects HB 575 (2024 Ch. 705). Per Sections 3 and 4 of Ch. 705 (MD-S12), Section 1 (the 11-801 to 11-819 amendments, including the struck 48-hour report, cooperation, and contributory-conduct rules and the new caps) took effect July 1, 2025; only Section 2 took effect July 1, 2024. Claims tied to crimes or decisions before July 1, 2025 may have been handled under the old rules. Several agency materials are out of date and statutes win: (1) Filing deadline: statute 11-809 says 4 years; the 2021 application (MD-S9) says three years. (2) Police report: the old 48-hour reporting and full-cooperation requirements were struck by HB 575 (MD-S12); current 11-810(b) makes a police report one of several accepted kinds of evidence. The program page (MD-S8) and the application still say to report within 48 hours and list a police report for all claims, so a survivor may still be asked for one in practice. (3) Emergency award: statute 11-813 says up to $10,000; COMAR 12.01 (MD-S11) still says $2,000 per claim and asks for a police report for an emergency award. (4) Covered expenses: statute now covers one-time relocation, child care for care visits, travel to care, and property repair or replacement including locks; the 2021 application lists these as not covered. (5) Phone: OVC directory and the application list 410-585-3010 for CICB; the program page lists 410-697-9338 under the CICB address. The application also names the agency the Governor's Office of Crime Prevention and Policy; the website domain is gocpp.maryland.gov. MD-CAP-5 maps lost earnings to the disability-related cap because 11-811(a) pays lost earnings under the workers' compensation disability schedule (two-thirds of average wage). (6) Exam regulation: COMAR 10.12.02 (MD-S13) still names the Maryland Department of Health as payer and was last amended in 2008; the statute now names GOCPP, and the SARU page (MD-S10) says SARU operates under COMAR 10.12.02. COMAR 10.12.02.03B says a forensic exam is performed within 120 hours with a police report or property-held number, while statute 11-1007(c)(1) covers exams within 15 days; the statute wins, and SARU FAQ says the exam is covered without a police report. (7) Counseling caps: the $10,000 per claimant / $20,000 per incident counseling cap in 11-811(b)(6) applies only to household family members of an injured victim, so it is recorded as MD-COV-10 (covered_expense with applies_to) rather than an expense_cap, to keep it from capping the victim's own counseling at $10,000. The victim's own counseling falls under the $45,000 cap in MD-CAP-3. (8) How to file: the linked application (MD-S9, rev. Nov 2021, still the English application linked from the program page on Oct 3 2026) is a fillable PDF with 135 AcroForm fields. Its instruction sheet says to mail, email, or deliver the completed application to the CICB office, which gives the mail, email, and in-person rules; statute 11-809(b)(1) (MD-S3) also allows filing in person, by mail, or electronically, and COMAR 12.01 (MD-S11) still says in person or by regular mail. The application header lists a fax number, (410) 764-3815, but no source says applications may be faxed, so no fax rule was written. There is no online submission portal; the 'fillable Online Application' in the instructions is the fillable PDF. Address conflict: the application prints Ste. 206, while the current program page footer (MD-S8) lists Suite 209 at the same street address with phone 410-697-9338; the submission rules use the application's address because that is the document that gives the filing instruction, and a survivor may want to confirm the suite by phone. Required documents come from the instruction sheet's Benefits & Required Documentation list; the police report item predates HB 575 (see note 2). The application does not ask for a photo ID, proof of residency, or the forensic exam record."
 }

@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.mass.gov/doc/victim-compensation-application-english/download",
   "phone": "617-586-1340",
   "phone_source_id": "MA-S1",
-  "statute_citation": "M.G.L. c. 258C, ss. 1 to 14; 124 CMR 2.00"
+  "statute_citation": "M.G.L. c. 258C, ss. 1 to 14; 124 CMR 2.00",
+  "application_form": {
+   "source_id": "MA-S4",
+   "fillable": true,
+   "field_count": 107
+  }
  },
  "sources": [
   {
@@ -653,6 +658,117 @@
    "quote": "The word \"crime\" shall also apply to an act which occurs against a resident of the Commonwealth in a state which does not have a crime victim compensation program for which a resident of the Commonwealth would be eligible.",
    "source_id": "MA-S11",
    "pinpoint": "124 CMR 2.03 (Crime)"
+  },
+  {
+   "id": "MA-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Massachusetts Office for Victim Assistance, One Ashburton Place, Suite 1310, Boston, MA 02108"
+   },
+   "summary": "The signed application can be mailed to the MOVA office in Boston.",
+   "quote": "Return signed and completed application via mail, fax, or email to:\n\nMassachusetts Office for Victim Assistance\nOne Ashburton Place, Suite 1310\nBoston, MA 02108",
+   "source_id": "MA-S4",
+   "pinpoint": "MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)"
+  },
+  {
+   "id": "MA-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(617) 742-6262"
+   },
+   "summary": "The signed application can be faxed to the MOVA Victim Compensation fax line.",
+   "quote": "Return signed and completed application via mail, fax, or email to:\n\nMassachusetts Office for Victim Assistance\nOne Ashburton Place, Suite 1310\nBoston, MA 02108\nPhone: (617) 586-1340 Fax: (617) 742-6262",
+   "source_id": "MA-S4",
+   "pinpoint": "MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)"
+  },
+  {
+   "id": "MA-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "VCCorrespondence@state.ma.us"
+   },
+   "summary": "The signed application can be emailed to the Victim Compensation correspondence address printed on the form.",
+   "quote": "Return signed and completed application via mail, fax, or email to:\n\nMassachusetts Office for Victim Assistance\nOne Ashburton Place, Suite 1310\nBoston, MA 02108\nPhone: (617) 586-1340 Fax: (617) 742-6262\nEmail: VCCorrespondence@state.ma.us",
+   "source_id": "MA-S4",
+   "pinpoint": "MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)"
+  },
+  {
+   "id": "MA-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "copies of receipts for each expense type checked in section 5"
+   },
+   "summary": "Attach copies of receipts for the expenses being claimed.",
+   "quote": "Please check types of expenses for which you seek compensation and attach copies of bills and/or receipts.",
+   "source_id": "MA-S4",
+   "pinpoint": "MOVA Application for Victim Compensation (2026, English), page 3, section 5 (Expenses)"
+  },
+  {
+   "id": "MA-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "copies of bills and other supporting documentation needed to verify the claim"
+   },
+   "summary": "The claim must come with copies of bills and other documents that verify it.",
+   "quote": "The claim must be accompanied by copies of bills and other supporting documentation necessary to verify the claim",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.08(1)(c)"
+  },
+  {
+   "id": "MA-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "only when the survivor declined the forensic exam kit or the assault was too long ago for a kit; otherwise a report is not required for exam costs"
+   },
+   "summary": "A survivor who declined the forensic exam kit, or was past the kit window, must send a copy of the police report with the application.",
+   "quote": "In these circumstances, patients must submit a copy of their police report with their Victim Compensation Application.",
+   "source_id": "MA-S13",
+   "pinpoint": "MA SANE Protocol, Section X (Patient declines MSAECK or patient ineligible for MSAECK)",
+   "fragment_url": "https://www.mass.gov/info-details/section-x-victim-compensation#:~:text=In%20these%20circumstances%2C%20patients%20must,with%20their%20Victim%20Compensation%20Application."
+  },
+  {
+   "id": "MA-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "only when claiming lost wages, and only when MOVA asks; employer verification of employment, dates absent, net weekly earnings and leave used"
+   },
+   "summary": "For lost wages, MOVA can ask for the employer's verification of employment, dates missed, net weekly pay and leave used.",
+   "quote": "verification from the victim's employer (or, if self-employed, from the victim's own\nrecords) that the victim was employed at the time of the crime",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(6)(f)1."
+  },
+  {
+   "id": "MA-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "disability letter from a treating health care provider, only when claiming lost wages and MOVA asks"
+   },
+   "summary": "For lost wages, MOVA can ask for a letter from a treating provider saying the victim cannot work, or can work only part time, because of the crime.",
+   "quote": "Upon request by the Agency, the victim must submit a disability letter from a treating health\ncare provider demonstrating that the victim is disabled from working full time, or limited to\nworking part time, as a direct result of the crime",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(6)(a)"
+  },
+  {
+   "id": "MA-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "months": 6,
+    "min_months": 4,
+    "basis": "general"
+   },
+   "summary": "MOVA says a decision generally comes 4 to 6 months after applying.",
+   "quote": "In general, you will receive a decision 4 to 6 months later.",
+   "source_id": "MA-S2",
+   "pinpoint": "Mass.gov, Applying for Victims of Violent Crime Assistance, 'To apply'",
+   "fragment_url": "https://www.mass.gov/info-details/applying-for-victims-of-violent-crime-assistance#:~:text=In%20general%2C%20you%20will%20receive,4%20to%206%20months%20later."
   }
  ],
  "coverage": {
@@ -668,7 +784,10 @@
    "filing_deadline",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss",
@@ -685,5 +804,5 @@
   "notes": "No minimum loss and no emergency or advance award appear in M.G.L. c. 258C or 124 CMR 2.00. Counseling, lost wages and medical have no separate dollar caps; they fall under the $25,000 total cap (124 CMR 2.06(5)(a) only allows the agency to ask for updated verification after six months or 30 sessions, which is not a cap). Relocation, temporary housing and childcare are not listed as compensable in the statute, the regulations, or the program page; the program page says other losses are not covered, so they are treated as not found rather than recorded as a rule."
  },
  "confidence": "high",
- "researcher_notes": "Administration moved from the Attorney General's Victim Compensation and Assistance Division to MOVA effective July 1, 2025 (St. 2025, c. 9); the statute pages show both versions and the quotes use the text effective July 1, 2025. 124 CMR 2.00 (effective 8/4/25, Mass. Register #1564) replaces the AG's former 940 CMR rules; a scanned 'emergency regulations' PDF linked from the program page had no extractable text and was not used. The exam billing guidance (MA-S12, 2018) and the SAECK brochure (MA-S14) still name the AG's office and an older 617-727-2200 number; current contact is MOVA at 617-586-1340. Exam rules come from regulation 124 CMR 2.06(15) and state agency guidance; I found no Massachusetts statute that by itself bars billing the survivor for the exam. Under the 2018 guidance, direct hospital billing applies to ED care when the assault occurred in Massachusetts and a kit was administered; ambulance, inpatient and follow-up care go through the survivor's own application. The DPH SANE page says patients who decline the kit must report to police within five days and attach the report. Claimants must also cooperate with law enforcement unless they have a reasonable excuse (c. 258C s. 2(c)); 124 CMR 2.05(6)(b) says the physical or psychological impact of the crime or reasonable fear for safety can be a reasonable excuse. M.G.L. c. 258C s. 14 and 124 CMR 2.10 bar health care providers with notice of a claim from debt collection while it is pending. The regulation's internal cross-references in 2.05 are misnumbered (subsections start at (4)); pinpoints use the numbering as printed. Reviewer note: 124 CMR 2.05(7)(b) adds a further minor-victim extension (if a criminal complaint or indictment issues after the victim turns 18, the filing period starts on that date); no schema 'from' value fits it, so it is recorded here and not as a rule. 124 CMR 2.05(5)(a) also counts a report as timely if made within five days of when the crime was discovered or reasonably should have been discovered."
+ "researcher_notes": "Administration moved from the Attorney General's Victim Compensation and Assistance Division to MOVA effective July 1, 2025 (St. 2025, c. 9); the statute pages show both versions and the quotes use the text effective July 1, 2025. 124 CMR 2.00 (effective 8/4/25, Mass. Register #1564) replaces the AG's former 940 CMR rules; a scanned 'emergency regulations' PDF linked from the program page had no extractable text and was not used. The exam billing guidance (MA-S12, 2018) and the SAECK brochure (MA-S14) still name the AG's office and an older 617-727-2200 number; current contact is MOVA at 617-586-1340. Exam rules come from regulation 124 CMR 2.06(15) and state agency guidance; I found no Massachusetts statute that by itself bars billing the survivor for the exam. Under the 2018 guidance, direct hospital billing applies to ED care when the assault occurred in Massachusetts and a kit was administered; ambulance, inpatient and follow-up care go through the survivor's own application. The DPH SANE page says patients who decline the kit must report to police within five days and attach the report. Claimants must also cooperate with law enforcement unless they have a reasonable excuse (c. 258C s. 2(c)); 124 CMR 2.05(6)(b) says the physical or psychological impact of the crime or reasonable fear for safety can be a reasonable excuse. M.G.L. c. 258C s. 14 and 124 CMR 2.10 bar health care providers with notice of a claim from debt collection while it is pending. The regulation's internal cross-references in 2.05 are misnumbered (subsections start at (4)); pinpoints use the numbering as printed. Reviewer note: 124 CMR 2.05(7)(b) adds a further minor-victim extension (if a criminal complaint or indictment issues after the victim turns 18, the filing period starts on that date); no schema 'from' value fits it, so it is recorded here and not as a rule. 124 CMR 2.05(5)(a) also counts a report as timely if made within five days of when the crime was discovered or reasonably should have been discovered. How to file (added Oct 3): the saved application MA-S4 is still the English form linked from the program page (same 237.85 KB file; PDF metadata 'Victim Comp App 2026_English', modified July 2026) and has 107 fillable AcroForm fields. The program pages (MA-S1, MA-S2) say completed applications must be submitted by email, fax, or mail; the address, fax and email come from the form's return block on page 4. Discrepancy: the form prints the email as VCCorrespondence@state.ma.us, while the program pages list the Victim Compensation email as VCCorrespondence@mass.gov; MA-SUB-3 follows the form, and a survivor emailing should know both are official. No online or in-person filing method is stated (a Northampton office exists at 403 Pleasant Street but no source says to file there). Documents: the form asks for copies of bills and/or receipts for each expense checked; the police report is needed only when the survivor declined the kit or was outside the kit window (DPH SANE protocol, which still names VCAD); employer wage verification and a provider disability letter are on request for lost wages. Homemaker, dependency and funeral claims have their own proof rules in 124 CMR 2.06 that are not encoded. Processing time: MOVA says decisions generally take 4 to 6 months; the range minimum is stored as min_months."
 }

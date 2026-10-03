@@ -9,7 +9,12 @@
   "application_pdf_url": "https://cjcc.georgia.gov/document/document/application-victim-compensation-program-english/download",
   "phone": "404-657-2222",
   "phone_source_id": "GA-S10",
-  "statute_citation": "O.C.G.A. 17-15-1 to 17-15-17; forensic exam: O.C.G.A. 17-5-72 and 17-15-15; rules: Ga. Comp. R. & Regs. 144-4-.06 and 144-4-.08"
+  "statute_citation": "O.C.G.A. 17-15-1 to 17-15-17; forensic exam: O.C.G.A. 17-5-72 and 17-15-15; rules: Ga. Comp. R. & Regs. 144-4-.06 and 144-4-.08",
+  "application_form": {
+   "source_id": "GA-S10",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -171,6 +176,36 @@
    "raw_path": "rules/sources/GA/GA-S18.pdf",
    "text_path": "rules/sources/GA/GA-S18.txt",
    "sha256": "8a9c4601f8facd76e7bc1ad83ad8e04d442f50d609ea295356fc9e2f40b11762"
+  },
+  {
+   "id": "GA-S19",
+   "title": "Investigative Document Requirements",
+   "url": "https://cjcc.georgia.gov/document/document/investigative-document-requirements/download",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:36:35Z",
+   "raw_path": "rules/sources/GA/GA-S19.pdf",
+   "text_path": "rules/sources/GA/GA-S19.txt",
+   "sha256": "c74739fb389103155be0d0804fe5b4a789f6c4c8d372456bdf9e1ec61edef848"
+  },
+  {
+   "id": "GA-S20",
+   "title": "Employment Verification Form for Lost Wages",
+   "url": "https://cjcc.georgia.gov/document/document/employment-verification-form-lost-wages/download",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:36:49Z",
+   "raw_path": "rules/sources/GA/GA-S20.pdf",
+   "text_path": "rules/sources/GA/GA-S20.txt",
+   "sha256": "054ebb771fbb7c4e3bfa14ed169d0f2167ded6ddb8f9dc069733020bf2e21e38"
+  },
+  {
+   "id": "GA-S21",
+   "title": "Documentation Request: Lost Wages (Victim)",
+   "url": "https://cjcc.georgia.gov/document/document/economic-support-enclosure-lw-victim-revisedpdf/download",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:37:08Z",
+   "raw_path": "rules/sources/GA/GA-S21.pdf",
+   "text_path": "rules/sources/GA/GA-S21.txt",
+   "sha256": "f8c80a8af8405f8792f1e7bf85d824754468973d7f899d8e04f5e44600487783"
   }
  ],
  "rules": [
@@ -614,6 +649,188 @@
    "source_id": "GA-S14",
    "pinpoint": "O.C.G.A. 17-15-2(3)(A)",
    "fragment_url": "https://law.justia.com/codes/georgia/title-17/chapter-15/section-17-15-2/#:~:text=An%20act%20which%20is%20committed,a%20resident%20of%20this%20state"
+  },
+  {
+   "id": "GA-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Criminal Justice Coordinating Council, Crime Victims Compensation Program 104 Marietta Street NW, Suite 400 Atlanta, GA 30303"
+   },
+   "summary": "Mail the complete application packet to the CJCC Crime Victims Compensation Program office in Atlanta.",
+   "quote": "Mail the complete application packet to Criminal Justice Coordinating Council, Crime Victims Compensation Program 104 Marietta Street NW, Suite 400 Atlanta, GA 30303",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Instructions item 4"
+  },
+  {
+   "id": "GA-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "victimscompportal.cjcc.ga.gov"
+   },
+   "summary": "A survivor can instead register and apply online through the Victims Comp Portal.",
+   "quote": "You can also register to apply online, by visiting victimscompportal.cjcc.ga.gov.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Instructions item 4"
+  },
+  {
+   "id": "GA-DOC-APP",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "completed application, signed everywhere a signature is requested (part of the Complete Application Packet)"
+   },
+   "summary": "Fill out the whole application and sign every place that asks for a signature.",
+   "quote": "Please complete the entire application, printing clearly. Sign every place where a signature is requested.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Instructions item 1"
+  },
+  {
+   "id": "GA-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "police or incident report naming the victim or witness with a summary; reports from DFCS, APS, schools, courts or medical authorities are accepted; the application can be filed without it and the program follows up"
+   },
+   "summary": "The packet should include a police or incident report that names the victim or witness and summarizes what happened.",
+   "quote": "Provide us with a police or incident report that lists the victim or witness name, and a summary of the incident.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Instructions item 2"
+  },
+  {
+   "id": "GA-DOC-EXAM",
+   "category": "required_document",
+   "params": {
+    "document": "exam_record",
+    "note": "for sexual assault, forensic medical exam documentation can be used in place of a police report"
+   },
+   "summary": "For a sexual assault after May 12, 2008, no police report is needed; the program may use forensic exam documentation instead.",
+   "quote": "If the sexual assault occurred after May 12, 2008 you are not required to have a police report to apply for the CVCP. The program may use documentation from the forensic medical exam which shows that a sexual assault occurred.",
+   "source_id": "GA-S3",
+   "pinpoint": "CJCC Victims Compensation FAQ, police report question",
+   "fragment_url": "https://cjcc.georgia.gov/victims-compensation/frequently-asked-questions#:~:text=If%20the%20sexual%20assault%20occurred,that%20a%20sexual%20assault%20occurred."
+  },
+  {
+   "id": "GA-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill"
+   },
+   "summary": "Itemized bills for the expenses being claimed must be submitted with the application.",
+   "quote": "Benefits received are based on actual eligible expenses and itemized bills must be submitted with your application for review.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Please Note"
+  },
+  {
+   "id": "GA-DOC-RX",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "prescriptions need an itemized summary and an itemized bill from the prescribing doctor"
+   },
+   "summary": "Prescription claims need an itemized summary and an itemized bill from the prescribing doctor.",
+   "quote": "Prescriptions must include an itemized summary and an itemized bill from the prescribing doctor.",
+   "source_id": "GA-S6",
+   "pinpoint": "CJCC What Our Programs Cover, Medical and Dental Expenses",
+   "fragment_url": "https://cjcc.georgia.gov/victims-compensation/victims/what-our-programs-cover#:~:text=Prescriptions%20must%20include%20an%20itemized,bill%20from%20the%20prescribing%20doctor."
+  },
+  {
+   "id": "GA-DOC-RELEASE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Medical/Information Authorization (medical release) form; optional, may speed processing of medical and counseling bills"
+   },
+   "summary": "A medical release is not required, but sending one with the packet may speed up processing later.",
+   "quote": "While not required, submitting a medical release with your completed application packet may expedite processing later, if needed.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Section 5"
+  },
+  {
+   "id": "GA-DOC-COUNS",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Psychological Service Report / treatment plan or counseling verification form, needed after the first visit"
+   },
+   "summary": "After the first counseling visit, the program pays only once a complete Psychological Service Report, treatment plan, or counseling verification form is submitted.",
+   "quote": "After the first visit, compensation will not be provided for counseling services without the submission of a complete Psychological Service Report (\"PSR\")/ treatment plan or counseling verification form.",
+   "source_id": "GA-S18",
+   "pinpoint": "Ga. Comp. R. & Regs. 144-4-.06(8)(a)"
+  },
+  {
+   "id": "GA-DOC-WAGES-1",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "lost wages claims: proof of income before the crime (pay stubs, payroll history, W-2, tax transcript)"
+   },
+   "summary": "Lost wages claims need proof of at least 60 days of income before the crime.",
+   "quote": "Proof of at least 60 days of income prior to the victimization.",
+   "source_id": "GA-S21",
+   "pinpoint": "Documentation Request: Lost Wages-Victim, Required Documents"
+  },
+  {
+   "id": "GA-DOC-WAGES-2",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "lost wages claims: proof of employment sent by the employer (Employment Verification Form with business card, or a letter on letterhead)"
+   },
+   "summary": "Lost wages claims need proof of employment, which the employer sends on the program's form or on letterhead.",
+   "quote": "Proof of employment. The employer may submit A) the enclosed Employment Verification Form along with their business card or B) a letter on business letterhead",
+   "source_id": "GA-S21",
+   "pinpoint": "Documentation Request: Lost Wages-Victim, Required Documents"
+  },
+  {
+   "id": "GA-DOC-WORK",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "lost wages claims over one week out: doctor's work release showing time out and return-to-work date"
+   },
+   "summary": "If the survivor missed more than a week of work, a doctor's release showing the time out and the return date is needed.",
+   "quote": "Proof of return to work. If you were out of work more than one (1) week, the doctor may submit the enclosed Work Release Form OR you need to submit a doctor’s release stating the length of time you were out of work and the date you were released to return back to work.",
+   "source_id": "GA-S21",
+   "pinpoint": "Documentation Request: Lost Wages-Victim, Required Documents"
+  },
+  {
+   "id": "GA-DOC-W9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "W-9 form; optional with the packet, but the State Accounting Office may request it before paying"
+   },
+   "summary": "Sending a completed W-9 with the packet helps speed up payment once a claim is approved.",
+   "quote": "Submitting a completed W-9 Form with your Complete Application Packet will assist with processing of your approved payments.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Instructions item 3"
+  },
+  {
+   "id": "GA-DOC-DEATH",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "death certificate, only for funeral benefits"
+   },
+   "summary": "Funeral benefit claims must include a death certificate.",
+   "quote": "A death certificate must be submitted with your application for funeral benefits.",
+   "source_id": "GA-S10",
+   "pinpoint": "GA application instructions (Revised Sept 2026), Benefits Covered footnote"
+  },
+  {
+   "id": "GA-PROC-1",
+   "category": "processing_time",
+   "params": {
+    "weeks": 8,
+    "stage": "payment after award"
+   },
+   "summary": "Once a claim is awarded, payment can take up to eight weeks to arrive from the GBI.",
+   "quote": "Once a claim is awarded, please allow up to eight weeks for a payment to be mailed/sent from the Georgia Bureau of Investigation (GBI).",
+   "source_id": "GA-S3",
+   "pinpoint": "CJCC Victims Compensation FAQ, How Soon Will I Get My Reimbursement Check?",
+   "fragment_url": "https://cjcc.georgia.gov/victims-compensation/frequently-asked-questions#:~:text=Once%20a%20claim%20is%20awarded%2C,Georgia%20Bureau%20of%20Investigation%20%28GBI%29."
   }
  ],
  "coverage": {
@@ -633,7 +850,10 @@
    "expense_cap:medical",
    "expense_cap:counseling",
    "expense_cap:lost_wages",
-   "expense_cap:forensic_exam"
+   "expense_cap:forensic_exam",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "expense_cap:relocation",
@@ -644,10 +864,13 @@
    "covered_expense:security",
    "covered_expense:temporary_housing",
    "minimum_loss",
-   "emergency_award"
+   "emergency_award",
+   "submission:email",
+   "submission:fax",
+   "submission:in_person"
   ],
-  "notes": "Georgia's statute and program pages list only medical/dental, lost wages, loss of support, funeral, counseling and crime scene sanitization as benefit categories. I found no source covering relocation, transportation, security, or temporary housing, and no source that expressly excludes them, so they are left as not found rather than marked excluded. No minimum loss amount and no emergency or advance award provision appear in O.C.G.A. 17-15 (section list checked) or the CJCC rules. Toll-free number 800-547-0060 is also listed on the application. The 1-year filing rule applies to crimes before July 1, 2014 (per the CJCC program page); the 3-year rule in O.C.G.A. 17-15-5 applies to later crimes."
+  "notes": "Georgia's statute and program pages list only medical/dental, lost wages, loss of support, funeral, counseling and crime scene sanitization as benefit categories. I found no source covering relocation, transportation, security, or temporary housing, and no source that expressly excludes them, so they are left as not found rather than marked excluded. No minimum loss amount and no emergency or advance award provision appear in O.C.G.A. 17-15 (section list checked) or the CJCC rules. Toll-free number 800-547-0060 is also listed on the application. The 1-year filing rule applies to crimes before July 1, 2014 (per the CJCC program page); the 3-year rule in O.C.G.A. 17-15-5 applies to later crimes. Filing: the application (Revised Sept 2026) names mail and the online portal as the two ways to file; it lists a fax number, (404) 463-7652, as contact information but does not say applications can be faxed, so no fax, email, or in-person submission rule was added. The only stated time is for payment after an award (up to eight weeks); no official source states how long a decision takes for a victim claim (the FAQ's under-30-days figure is for provider FME applications)."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from Justia's 2025 Georgia Code because Georgia does not host an official free O.C.G.A. text; the CJCC pages cite the same section. The CJCC 'What Our Programs Cover' page (GA-S6) shows one combined line, 'Loss of Income or Support Up to $20,000'; this reads as the two separate $10,000 statutory categories (lost wages and loss of support, O.C.G.A. 17-15-8(c)(2), also GA-S7, GA-S10, GA-S11) added together, so the lost wages cap is $10,000. Police report: the statute's 72-hour rule (O.C.G.A. 17-15-8(a)(3)) has a good cause exception, and the CJCC FAQ says sexual assaults after May 12, 2008 need no police report because exam documentation can be used; I did not find the statutory text behind the FAQ statement, so GA-REPORT-2 rests on the official FAQ. Counseling: Ga. Comp. R. & Regs. 144-4-.06(8)(a) requires a Psychological Service Report after the first visit, while GA-S6 says it is required beyond the fourth session. The forensic exam is paid by a separate CJCC Forensic Medical Examination Program (providers apply directly), not out of the survivor's $25,000 compensation award. The CJCC landing page and the 'How the Application Review Process Works' page could not be saved (the fetcher flagged them as blocked or empty). Reviewer additions: the $1,000 exam payment is a per-victimization total across all providers; if bills exceed it, the program splits $1,000 among providers (Ga. Comp. R. & Regs. 144-4-.08(2)(e)), and the FAQ calls the $1,000 the maximum for 'the collection of evidence for a FME'. The statutory FME definition (O.C.G.A. 17-15-2(6)) includes testing needed to collect evidence and provide treatment, but other follow-up medical care goes through the regular compensation claim. O.C.G.A. 17-15-8(a)(3) presumes good cause for a late report for trafficking victims under 17-15-7(a)(1)(D). The CJCC program page and the application still list a police or incident report as part of a Complete Application Packet; the application also says an applicant may submit without one and the program will follow up. The 72-hour reporting rule is not tied to sexual assault in the statute; only the FAQ (GA-S3) carves out sexual assault, so treat GA-REPORT-2 as program practice, not statute."
+ "researcher_notes": "Statute text is from Justia's 2025 Georgia Code because Georgia does not host an official free O.C.G.A. text; the CJCC pages cite the same section. The CJCC 'What Our Programs Cover' page (GA-S6) shows one combined line, 'Loss of Income or Support Up to $20,000'; this reads as the two separate $10,000 statutory categories (lost wages and loss of support, O.C.G.A. 17-15-8(c)(2), also GA-S7, GA-S10, GA-S11) added together, so the lost wages cap is $10,000. Police report: the statute's 72-hour rule (O.C.G.A. 17-15-8(a)(3)) has a good cause exception, and the CJCC FAQ says sexual assaults after May 12, 2008 need no police report because exam documentation can be used; I did not find the statutory text behind the FAQ statement, so GA-REPORT-2 rests on the official FAQ. Counseling: Ga. Comp. R. & Regs. 144-4-.06(8)(a) requires a Psychological Service Report after the first visit, while GA-S6 says it is required beyond the fourth session. The forensic exam is paid by a separate CJCC Forensic Medical Examination Program (providers apply directly), not out of the survivor's $25,000 compensation award. The CJCC landing page and the 'How the Application Review Process Works' page could not be saved (the fetcher flagged them as blocked or empty). Reviewer additions: the $1,000 exam payment is a per-victimization total across all providers; if bills exceed it, the program splits $1,000 among providers (Ga. Comp. R. & Regs. 144-4-.08(2)(e)), and the FAQ calls the $1,000 the maximum for 'the collection of evidence for a FME'. The statutory FME definition (O.C.G.A. 17-15-2(6)) includes testing needed to collect evidence and provide treatment, but other follow-up medical care goes through the regular compensation claim. O.C.G.A. 17-15-8(a)(3) presumes good cause for a late report for trafficking victims under 17-15-7(a)(1)(D). The CJCC program page and the application still list a police or incident report as part of a Complete Application Packet; the application also says an applicant may submit without one and the program will follow up. The 72-hour reporting rule is not tied to sexual assault in the statute; only the FAQ (GA-S3) carves out sexual assault, so treat GA-REPORT-2 as program practice, not statute. Packet step additions: the application PDF (GA-S10, Revised September 2026, newest on the CJCC forms page) is a flat, non-fillable PDF with 0 AcroForm fields, so it must be printed and filled by hand or the survivor can apply through the portal. GA-S7 also gives the mailing address as 'Georgia Crime Victims Compensation at 104 Marietta Street NW, Suite 400 Atlanta, GA 30303'; the rule uses the application's fuller addressee. The application says a signed application can be submitted without all documents (such as a police report) and the program will follow up. Lost wages documents come from the CJCC lost wages enclosure (GA-S21, Rev. 06/28/19); the employer's verification form (GA-S20) must be faxed or mailed by the employer, not the survivor. GA-S19 lists what an investigative report must contain (names, dates, summary, injuries) and is saved for reference."
 }

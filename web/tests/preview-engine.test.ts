@@ -96,8 +96,7 @@ describe("per-item decisions", () => {
   it("2. treats the exam as medical when the state has no exam rule", () => {
     const exam = item({ expense: "forensic_exam" });
     const line = lineOf(run([MEDICAL], [exam]), exam.item_id);
-    expect(line).toMatchObject({ status: "eligible", expense: "medical", rule_ids: ["COV-MED"] });
-    expect(line.flags).toContain("exam_as_medical");
+    expect(line).toMatchObject({ status: "eligible", expense: "medical", rule_ids: ["COV-MED"], flags: [] });
   });
 
   it("3. excludes an expense the law excludes, before asking for confirmation", () => {
@@ -112,20 +111,28 @@ describe("per-item decisions", () => {
     expect(lineOf(out, phone.item_id)).toMatchObject({ status: "excluded", rule_ids: ["EX-1"], allowed_cents: 0 });
   });
 
-  it("3. applies an exclusion to a whole kind of cost only when it says so plainly", () => {
+  it("3. reads a rule's expense the way both engines do (refengine reading 1)", () => {
     const care = item({ expense: "medical" });
     const rides = item({ expense: "transportation" });
-    const covered = [MEDICAL, rule("COV-T", "covered_expense", { expense: "transportation" })];
-    // item-level: a top-level expense plus a narrower item text, like "services covered by Medicaid"
-    const narrow = {
+    const rx = item({ expense: "prescription" });
+    const covered = [
+      MEDICAL,
+      rule("COV-T", "covered_expense", { expense: "transportation" }),
+      rule("COV-RX", "covered_expense", { expense: "prescription" }),
+    ];
+    // A top-level expense names that expense even when params.item narrows it in words.
+    const named = {
       ...rule("EX-MED", "excluded_expense", { item: "services covered by Medicaid" }),
       expense: "medical",
     };
-    // category-level: a top-level expense with no item, like "travel expenses"
-    const broad = { ...rule("EX-T", "excluded_expense", {}), expense: "transportation" };
-    const out = run([...covered, narrow, broad], [care, rides]);
-    expect(lineOf(out, care.item_id).status).toBe("eligible");
+    // rule.expense wins over params.expense.
+    const both = { ...rule("EX-T", "excluded_expense", { expense: "prescription" }), expense: "transportation" };
+    // Item text alone names no expense.
+    const textOnly = rule("EX-TXT", "excluded_expense", { item: "prescription drugs" });
+    const out = run([...covered, named, both, textOnly], [care, rides, rx]);
+    expect(lineOf(out, care.item_id)).toMatchObject({ status: "excluded", rule_ids: ["EX-MED"] });
     expect(lineOf(out, rides.item_id)).toMatchObject({ status: "excluded", rule_ids: ["EX-T"] });
+    expect(lineOf(out, rx.item_id)).toMatchObject({ status: "eligible", rule_ids: ["COV-RX"] });
   });
 
   it("4. leaves out costs no verified rule names, and unknown expenses", () => {
@@ -257,7 +264,7 @@ describe("aggregate phase", () => {
     });
   });
 
-  it("11. reporting: police report, exam alternative, required, unknown, none", () => {
+  it("11. reporting: police report, exam alternative, required, unknown, no rule", () => {
     const rules = [
       MEDICAL,
       rule("REP-1", "reporting_requirement", { required: true, alternatives: ["forensic_exam"] }),
@@ -270,11 +277,16 @@ describe("aggregate phase", () => {
     });
     expect(run(rules, one(), { police_report: "no", forensic_exam: true }).checks.reporting).toEqual({
       status: "satisfied",
-      rule_ids: ["REP-1"],
+      rule_ids: ["REP-1", "REP-2"],
     });
     expect(run(rules, one(), { police_report: "no" }).checks.reporting.status).toBe("required");
     expect(run(rules, one(), { police_report: "unknown" }).checks.reporting.status).toBe("unknown");
-    expect(run([MEDICAL], one()).checks.reporting).toEqual({ status: "none", rule_ids: [] });
+    // An advocate or protective order might still apply, so "no" alone cannot make it required.
+    const advocate = [MEDICAL, rule("REP-3", "reporting_requirement", { required: true, alternatives: ["advocate"] })];
+    expect(run(advocate, one(), { police_report: "no" }).checks.reporting.status).toBe("unknown");
+    const optional = [MEDICAL, rule("REP-4", "reporting_requirement", { required: false })];
+    expect(run(optional, one(), { police_report: "no" }).checks.reporting.status).toBe("unknown");
+    expect(run([MEDICAL], one()).checks.reporting).toEqual({ status: "satisfied", rule_ids: [] });
   });
 
   it("12. lists info rules in file order and never uses them to screen", () => {
@@ -287,11 +299,11 @@ describe("aggregate phase", () => {
   });
 
   it("orders lines by (date, item_id) and keeps integer cents everywhere", () => {
-    const late = item({ item_id: "b", date: "2026-07-01" });
+    const late = item({ item_id: "a", date: "2026-07-01" });
     const early2 = item({ item_id: "b", date: "2026-06-20" });
-    const early1 = item({ item_id: "a", date: "2026-06-20" });
+    const early1 = item({ item_id: "a2", date: "2026-06-20" });
     const out = run([MEDICAL], [late, early2, early1]);
-    expect(out.lines.map((l) => `${l.item_id}`)).toEqual(["a", "b", "b"]);
+    expect(out.lines.map((l) => `${l.item_id}`)).toEqual(["a2", "b", "a"]);
     for (const l of out.lines) {
       expect(Number.isSafeInteger(l.allowed_cents) && Number.isSafeInteger(l.requested_cents)).toBe(true);
     }
@@ -299,7 +311,88 @@ describe("aggregate phase", () => {
   });
 
   it("rejects fractional cents", () => {
-    expect(() => run([MEDICAL], [item({ amount_cents: 10.5 })])).toThrow(/integer cents/);
+    expect(() => run([MEDICAL], [item({ amount_cents: 10.5 })])).toThrow(/whole cents/);
+    expect(() => run([MEDICAL], [item({ amount_cents: -100 })])).toThrow(/whole cents/);
+    expect(() => run([MEDICAL], [item({ insurance_paid_cents: 0.1 })])).toThrow(/whole cents/);
+  });
+});
+
+describe("readings shared with the reference engine", () => {
+  it("minimum loss reads a string waived_for, and a rule with no threshold leaves nothing to fail", () => {
+    const small = () => [item({ amount_cents: 5000 })];
+    const str = [
+      MEDICAL,
+      rule("MIN-S", "minimum_loss", {
+        amount_cents: 10000,
+        waived_for: "sexual_assault victims" as unknown as string[],
+      }),
+    ];
+    expect(run(str, small(), { forensic_exam: true }).checks.minimum_loss.status).toBe("waived");
+    // MI-style prose never matches the exact entry, so the check stays not_met (refengine reading 11).
+    const prose = [
+      MEDICAL,
+      rule("MIN-P", "minimum_loss", { amount_cents: 10000, waived_for: ["criminal sexual conduct"] }),
+    ];
+    expect(run(prose, small(), { forensic_exam: true }).checks.minimum_loss.status).toBe("not_met");
+    expect(run([MEDICAL, rule("MIN-0", "minimum_loss", {})], small()).checks.minimum_loss).toEqual({
+      status: "met",
+      rule_ids: ["MIN-0"],
+    });
+    // Any unwaived shortfall wins over a waived one.
+    const two = [
+      MEDICAL,
+      rule("MIN-A", "minimum_loss", { amount_cents: 10000, waived_for: ["sexual_assault"] }),
+      rule("MIN-B", "minimum_loss", { amount_cents: 8000 }),
+    ];
+    expect(run(two, small(), { forensic_exam: true }).checks.minimum_loss.status).toBe("not_met");
+  });
+
+  it("deadline: years win over days on one rule", () => {
+    const rules = [MEDICAL, rule("FILE-1", "filing_deadline", { years: 1, days: 2000 })];
+    expect(run(rules, [item({})]).checks.deadline.deadline_date).toBe("2027-06-14");
+  });
+
+  it("a cap per something the engine cannot measure flags every line and cuts nothing", () => {
+    const move = item({ expense: "relocation", amount_cents: 500000, units: 3 });
+    const out = run(
+      [
+        rule("COV-R", "covered_expense", { expense: "relocation" }),
+        rule("CAP-R", "expense_cap", { expense: "relocation", amount_cents: 100000, per: "residence" }),
+      ],
+      [move],
+    );
+    expect(lineOf(out, move.item_id)).toMatchObject({
+      allowed_cents: 500000,
+      cap_rule_id: null,
+      flags: ["rate_unverified:CAP-R"],
+    });
+    expect(out.trace.map((t) => t.op)).toContain("rate_unverified");
+  });
+
+  it("a cap walk logs every line after the crossing, even one already at zero", () => {
+    const a = item({ amount_cents: 60000, date: "2026-07-01" });
+    const b = item({ amount_cents: 60000, date: "2026-07-02" });
+    const c = item({ amount_cents: 10000, insurance_paid_cents: 10000, date: "2026-07-03" });
+    const out = run(
+      [MEDICAL, rule("COLL", "collateral_source"), rule("TOT", "total_cap", { amount_cents: 100000 })],
+      [a, b, c],
+    );
+    const capOps = out.trace.filter((t) => t.op === "total_cap");
+    expect(capOps.map((t) => [t.item_id, t.delta_cents])).toEqual([
+      [b.item_id, -20000],
+      [c.item_id, 0],
+    ]);
+    expect(lineOf(out, c.item_id).cap_rule_id).toBe("TOT");
+  });
+
+  it("sorts ids by code point, rejects duplicate ids and fractional units, and maps odd expenses to unknown", () => {
+    const hi = item({ item_id: "\u{1F600}", date: "2026-06-20" });
+    const lo = item({ item_id: "\uFF5E", date: "2026-06-20" });
+    expect(run([MEDICAL], [hi, lo]).lines.map((l) => l.item_id)).toEqual(["\uFF5E", "\u{1F600}"]);
+    expect(() => run([MEDICAL], [item({ item_id: "x" }), item({ item_id: "x" })])).toThrow(/duplicate/);
+    expect(() => run([MEDICAL], [item({ units: 1.5 })])).toThrow(/units/);
+    const odd = item({ expense: "groceries" as never });
+    expect(lineOf(run([MEDICAL], [odd]), odd.item_id)).toMatchObject({ expense: "unknown", status: "unknown_rule" });
   });
 });
 

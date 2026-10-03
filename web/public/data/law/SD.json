@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.sd.gov/sys_attachment.do?sys_id=a70d268987104754a086bae9cebb3534",
   "phone": "605-773-6317",
   "phone_source_id": "SD-S4",
-  "statute_citation": "SDCL 23A-28B-1 to 23A-28B-44; ARSD 67:55"
+  "statute_citation": "SDCL 23A-28B-1 to 23A-28B-44; ARSD 67:55",
+  "application_form": {
+   "source_id": "SD-S6",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -514,6 +519,187 @@
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-2",
    "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=If%20a%20resident%20of%20South,death%20suffered%20by%20the%20resident."
+  },
+  {
+   "id": "SD-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Department of Public Safety Crime Victims' Compensation Program 118 West Capitol Avenue Pierre SD 57501"
+   },
+   "summary": "Mail the completed paper application to the Department of Public Safety, Crime Victims' Compensation Program, 118 West Capitol Avenue, Pierre SD 57501.",
+   "quote": "Please return completed application to:\nDepartment of Public Safety\nCrime Victims’ Compensation Program\n118 West Capitol Avenue\nPierre SD 57501",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), page 9, return box"
+  },
+  {
+   "id": "SD-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "VictimsServices@state.sd.us"
+   },
+   "summary": "The application can be emailed as a digital copy to VictimsServices@state.sd.us; the program's apply page says to mail the form or email a digital copy.",
+   "quote": "Email address: VictimsServices@state.sd.us",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), page 2, program contact block"
+  },
+  {
+   "id": "SD-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://mavis.intelligrants.com/module/sddss/login.aspx?APPTHEME=SDDSS",
+    "note": "The word MAVIS in the quote links to this URL on the program's apply page."
+   },
+   "summary": "A survivor can apply online through the state's MAVIS portal instead of filing the paper form.",
+   "quote": "You may apply online for Crime Victims' Compensation through MAVIS.",
+   "source_id": "SD-S5",
+   "pinpoint": "SD DPS Eligibility and Apply page, Apply section",
+   "fragment_url": "https://www.sd.gov/dps?id=cs_kb_article_view&sysparm_article=KB0043175#:~:text=You%20may%20apply%20online%20for%20Crime%20Victims%27%20Compensation%20through%20MAVIS."
+  },
+  {
+   "id": "SD-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of all medical bills related to the crime."
+   },
+   "summary": "Attach copies of all medical bills that apply to the request.",
+   "quote": "Attach copies of all bills, receipts, and insurance benefits statements received that apply to this request.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section VIII (Medical Bills)"
+  },
+  {
+   "id": "SD-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement"
+   },
+   "summary": "Attach copies of insurance benefits statements received for the claimed medical bills.",
+   "quote": "Attach copies of all bills, receipts, and insurance benefits statements received that apply to this request.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section VIII (Medical Bills)"
+  },
+  {
+   "id": "SD-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts or estimates for other expenses such as transportation, clothing, security, and child care."
+   },
+   "summary": "Attach receipts or estimates for non-medical expenses claimed in Section IX.",
+   "quote": "SECTION IX. Other Expenses or Losses as a result of the Crime\nAttach receipts or estimates.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section IX (Other Expenses or Losses)"
+  },
+  {
+   "id": "SD-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Self-employed applicants claiming lost wages include their most recent federal income tax return."
+   },
+   "summary": "A self-employed victim claiming lost wages includes a copy of the most recent federal income tax return.",
+   "quote": "Self-employed individuals need to include\na copy of most recent Federal Income Tax Return.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section VI (Lost Wages)"
+  },
+  {
+   "id": "SD-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Physician's disability statement when more than 40 hours of lost work are claimed."
+   },
+   "summary": "A physician's disability statement is required when more than 40 hours of lost work are requested.",
+   "quote": "A physician’s disability statement is required if over 40 hours are requested.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section VI (Lost Wages)"
+  },
+  {
+   "id": "SD-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Letter explaining a late police report (more than 5 days) or a decision not to cooperate."
+   },
+   "summary": "If the crime was not reported within 5 days or the victim did not cooperate, include a letter explaining why.",
+   "quote": "If the crime was not reported within 5 days of the\ndate that it occurred or if the victim did not cooperate, please submit a letter explaining the reason for the delay in\nreporting or decision not to cooperate.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), page 2, Eligibility"
+  },
+  {
+   "id": "SD-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Letter explaining the delay when filing more than 12 months after the crime."
+   },
+   "summary": "If filing more than 12 months after the crime, include a letter stating the reason for the delay.",
+   "quote": "If you are filing past 12 months, please\nsubmit a letter stating the reason for the delay.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), page 2, Eligibility"
+  },
+  {
+   "id": "SD-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed and dated Declaration and Authorization (page 10)."
+   },
+   "summary": "Include the signed and dated Declaration and Authorization on page 10 of the application.",
+   "quote": "Signed and dated Declaration and Authorization, page 10.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), page 9, Completed applications include"
+  },
+  {
+   "id": "SD-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed, dated, and witnessed Authorization for the Use or Disclosure of Protected Health Information (pages 11 to 12)."
+   },
+   "summary": "Include the health information release on pages 11 to 12, signed, dated, and with a witness signature.",
+   "quote": "Signed, dated and witness signature on the Authorization for the Use or Disclosure of Protected Health Information,\npage 11-12.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), page 9, Completed applications include"
+  },
+  {
+   "id": "SD-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "W-9; required only if the final award is over $5,000, but the program recommends filling it out when applying."
+   },
+   "summary": "A W-9 must be filled out if the final award totals over $5,000, so the program suggests including it with the application.",
+   "quote": "The W-9 is not required but must be filled out if the final award totals over $5,000; therefore, it is best practice to fill out the\nW-9 when applying to avoid any unnecessary delays in receiving the final award.",
+   "source_id": "SD-S7",
+   "pinpoint": "Primary Application Instructions, Important Information"
+  },
+  {
+   "id": "SD-DOC-11",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Guardianship papers if a legal guardian files for the victim."
+   },
+   "summary": "A legal guardian filing for the victim attaches the guardianship documentation.",
+   "quote": "If you have been appointed legal guardian of the victim, please attach documentation.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section III (Claimant Information)"
+  },
+  {
+   "id": "SD-DOC-12",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Copy of the death certificate when the victim died as a result of the crime."
+   },
+   "summary": "If the victim died as a result of the crime, attach a copy of the death certificate.",
+   "quote": "Attach a copy of Certificate of Death.",
+   "source_id": "SD-S6",
+   "pinpoint": "Primary Application (DPS-VS-694 12/17), Section X (Death as a result of the Crime)"
   }
  ],
  "coverage": {
@@ -530,7 +716,9 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "minimum_loss",
@@ -538,10 +726,11 @@
    "temporary_housing",
    "expense_cap for counseling (time limit only, no dollar cap found)",
    "expense_cap for lost_wages (formula only, no dollar cap)",
-   "reporting alternatives for sexual assault survivors"
+   "reporting alternatives for sexual assault survivors",
+   "processing_time"
   ],
-  "notes": "No minimum loss amount was found in SDCL 23A-28B or ARSD 67:55. No relocation or housing benefit was found; lodging is covered only as part of travel for treatment, court, police meetings, or funeral (ARSD 67:55:04:05(9)). Counseling has a time limit in ARSD 67:55:04:03 but no dollar cap was found. No statutory alternative to a police report for sexual assault was found; the 5-day reporting rule in SDCL 23A-28B-25(1) applies, and the application asks for a letter explaining a late report. The exam statute (SDCL 22-22-26.2) does not say whether a survivor's health insurance may be billed for the exam. The dollar limits in ARSD chapter 67:55:04 (security $500, funeral $8,000, homicide scene cleanup $1,500) can be exceeded with commission approval under ARSD 67:55:04:20, but never above the $15,000 statutory cap."
+  "notes": "No minimum loss amount was found in SDCL 23A-28B or ARSD 67:55. No relocation or housing benefit was found; lodging is covered only as part of travel for treatment, court, police meetings, or funeral (ARSD 67:55:04:05(9)). Counseling has a time limit in ARSD 67:55:04:03 but no dollar cap was found. No statutory alternative to a police report for sexual assault was found; the 5-day reporting rule in SDCL 23A-28B-25(1) applies, and the application asks for a letter explaining a late report. The exam statute (SDCL 22-22-26.2) does not say whether a survivor's health insurance may be billed for the exam. The dollar limits in ARSD chapter 67:55:04 (security $500, funeral $8,000, homicide scene cleanup $1,500) can be exceeded with commission approval under ARSD 67:55:04:20, but never above the $15,000 statutory cap. No stated processing time for an initial decision was found in the apply page, application, instructions, SDCL 23A-28B, or ARSD 67:55; the only timing found is the 15 business days to send notice of the commission's final decision after an appeal hearing (ARSD 67:55:02:11), which is not an application processing time. No fax number for filing was found (the fax on the application belongs to the DPS civil rights notice)."
  },
  "confidence": "high",
- "researcher_notes": "Statute text from sdlegislature.gov (codified chapter 23A-28B, and 22-22-26 / 22-22-26.2 as amended by SL 2026, ch 105). Administrative rules are ARSD article 67:55 (still filed under the Department of Social Services title, but the program is now run by the Department of Public Safety); several sections were amended effective September 8, 2026. In the saved text of ARSD 67:55:04:03 the general counseling time window renders as '2 4 months'. The raw HTML of the single-rule page (SD-S9) shows the digits '2' and '4' in adjacent spans with no space, so it reads as 24 months after the crime, but the text check cannot confirm it, so SD-COUNS-1 omits the number. SD-COUNS-2 covers the separate, cleanly stated 24-months-from-application rule for juvenile victims. The primary application PDF is form DPS-VS-694 dated 12/17 and lists an older web address (dps.sd.gov); the program pages now live on sd.gov. The application says lost wages are paid at the federal minimum wage. SDCL 23A-28B-20 sets the monthly minimum wage from the federal hourly minimum wage times 173.2 hours, and pays the lesser of that or the victim's average monthly earnings for the prior six months, so the application is a simplification; the statute controls. ARSD 67:55:01:06 states payment is not allowed for substantial contributory conduct without the sex-offense exception, but SDCL 23A-28B-25(2)(a) exempts sex offense victims and the statute controls. The program page also says it can pay victims of state, tribal, or federal crimes. Awards are payable only to the extent the fund has money (SDCL 23A-28B-10). Reviewer: per-expense dollar limits in ARSD 67:55:04 are not hard caps; the commission may deviate from them (ARSD 67:55:04:20), except for the emergency award and the $15,000 statutory cap. ARSD 67:55:04:13 (2004) requires rape exam bills to go to health insurance before the program pays; it predates the 2018 and 2026 county-pay statute changes and does not say the county may bill the survivor's insurance, so exam_no_bill stays 'unspecified'."
+ "researcher_notes": "Statute text from sdlegislature.gov (codified chapter 23A-28B, and 22-22-26 / 22-22-26.2 as amended by SL 2026, ch 105). Administrative rules are ARSD article 67:55 (still filed under the Department of Social Services title, but the program is now run by the Department of Public Safety); several sections were amended effective September 8, 2026. In the saved text of ARSD 67:55:04:03 the general counseling time window renders as '2 4 months'. The raw HTML of the single-rule page (SD-S9) shows the digits '2' and '4' in adjacent spans with no space, so it reads as 24 months after the crime, but the text check cannot confirm it, so SD-COUNS-1 omits the number. SD-COUNS-2 covers the separate, cleanly stated 24-months-from-application rule for juvenile victims. The primary application PDF is form DPS-VS-694 dated 12/17 and lists an older web address (dps.sd.gov); the program pages now live on sd.gov. The application says lost wages are paid at the federal minimum wage. SDCL 23A-28B-20 sets the monthly minimum wage from the federal hourly minimum wage times 173.2 hours, and pays the lesser of that or the victim's average monthly earnings for the prior six months, so the application is a simplification; the statute controls. ARSD 67:55:01:06 states payment is not allowed for substantial contributory conduct without the sex-offense exception, but SDCL 23A-28B-25(2)(a) exempts sex offense victims and the statute controls. The program page also says it can pay victims of state, tribal, or federal crimes. Awards are payable only to the extent the fund has money (SDCL 23A-28B-10). Reviewer: per-expense dollar limits in ARSD 67:55:04 are not hard caps; the commission may deviate from them (ARSD 67:55:04:20), except for the emergency award and the $15,000 statutory cap. ARSD 67:55:04:13 (2004) requires rape exam bills to go to health insurance before the program pays; it predates the 2018 and 2026 county-pay statute changes and does not say the county may bill the survivor's insurance, so exam_no_bill stays 'unspecified'. Filing info: the saved application PDF (SD-S6, DPS-VS-694 12/17) is the one the current apply page links as the 'Crime Victims' Compensation Application form'; it has no AcroForm fields (pypdf counts 0), so it is a print-and-fill form. The apply page says applicants can mail the form, email a digital copy (its link is mailto:victimsservices@state.sd.us), or apply online through MAVIS; the MAVIS URL comes from the link on the page, not the visible text. The application lists bills, receipts, insurance statements, the signed Declaration and Authorization, the witnessed health information release, and a W-9 as parts of a complete application; the instructions say the W-9 is needed only for final awards over $5,000. The application does not ask for a copy of the police report or a photo ID; the program contacts law enforcement and providers itself."
 }

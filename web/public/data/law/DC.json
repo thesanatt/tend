@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.dccourts.gov/sites/default/files/CVCP_Application_New_Code_Changes_2023.pdf",
   "phone": "202-879-4216",
   "phone_source_id": "DC-S1",
-  "statute_citation": "D.C. Code §§ 4-501 to 4-518; D.C. Super. Ct. CVCP Rules; D.C. Code §§ 4-561.03 and 23-1908 (PERK)"
+  "statute_citation": "D.C. Code §§ 4-501 to 4-518; D.C. Super. Ct. CVCP Rules; D.C. Code §§ 4-561.03 and 23-1908 (PERK)",
+  "application_form": {
+   "source_id": "DC-S6",
+   "fillable": true,
+   "field_count": 443
+  }
  },
  "sources": [
   {
@@ -161,6 +166,16 @@
    "raw_path": "rules/sources/DC/DC-S15.html",
    "text_path": "rules/sources/DC/DC-S15.txt",
    "sha256": "9e8e25141045d44fe601ff92d6e300b7c2de355db6d2ab379b8f681674c84655"
+  },
+  {
+   "id": "DC-S16",
+   "title": "D.C. Courts Forms Help Online, Crime Victims (guided online CVCP application)",
+   "url": "https://www.probono.net/dccourts/crimevictims/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:42:20Z",
+   "raw_path": "rules/sources/DC/DC-S16.html",
+   "text_path": "rules/sources/DC/DC-S16.txt",
+   "sha256": "28a60f35f0e30b85873fc03c63c2f4d44a07069db87ba487c65da6e5467e6be3"
   }
  ],
  "rules": [
@@ -607,6 +622,237 @@
    "source_id": "DC-S8",
    "pinpoint": "D.C. Code § 4-501(14)",
    "fragment_url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-501#:~:text=%E2%80%9CVictim%E2%80%9D%20means%20a%20person%20who,a%20crime%20victims%20compensation%20program"
+  },
+  {
+   "id": "DC-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "CVCPapplications@dcsc.gov"
+   },
+   "summary": "Email the completed application and supporting documents to CVCPapplications@dcsc.gov.",
+   "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
+  },
+  {
+   "id": "DC-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "515 5th Street, NW #109, Washington, D.C. 20001"
+   },
+   "summary": "Mail the completed application to the CVCP office at 515 5th Street, NW #109, Washington, D.C. 20001.",
+   "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
+  },
+  {
+   "id": "DC-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "515 5th Street, NW #109, Washington, D.C. 20001"
+   },
+   "summary": "Drop off the completed application in person at the CVCP office, 515 5th Street, NW #109, Washington, D.C. 20001, or at a remote site.",
+   "quote": "Please submit completed application by email to CVCPapplications@dcsc.gov or by mail or in person to 515 5th Street, NW #109, Washington, D.C. 20001; or see remote sites.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.7, submission instructions"
+  },
+  {
+   "id": "DC-SUB-4",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "202-879-4230"
+   },
+   "summary": "The application page also lists fax as a way to submit: 202-879-4230.",
+   "quote": "Fax: 202-879-4230",
+   "source_id": "DC-S4",
+   "pinpoint": "CVCP Application page, ways to submit",
+   "fragment_url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application#:~:text=Fax%3A%20202%2D879%2D4230"
+  },
+  {
+   "id": "DC-SUB-5",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://lawhelpinteractive.org/Interview/GenerateInterview/8116/engine"
+   },
+   "summary": "Apply online through the self-guided interactive interview linked from the D.C. Courts.",
+   "quote": "OR ONLINE AT Self-Guided Interactive Interview Application https://lawhelpinteractive.org/Interview/Gene rateInterview/8116/engine",
+   "source_id": "DC-S5",
+   "pinpoint": "CVCP Information Brochure, Where can I get an application?"
+  },
+  {
+   "id": "DC-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "photo_id",
+    "note": "If no ID is provided, staff will contact you for another way to confirm identity."
+   },
+   "summary": "Include a valid photo ID with the application.",
+   "quote": "DOCUMENTS NEEDED • CVCP Application • Valid Photo ID",
+   "source_id": "DC-S5",
+   "pinpoint": "CVCP Information Brochure, Documents Needed"
+  },
+  {
+   "id": "DC-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Or a DC civil protection order; the application page says temporary restraining orders are not accepted, while the 2023 form also lists anti-stalking orders and a forensic medical exam as crime documentation."
+   },
+   "summary": "Include a copy of the DC police report or DC civil protection order, plus any bills or receipts you want reimbursed.",
+   "quote": "submit it along with a copy of your DC police report or DC civil protection order (the program does not accept temporary restraining orders), any bills or receipts that you would like to have reimbursed by the program.",
+   "source_id": "DC-S4",
+   "pinpoint": "CVCP Application page",
+   "fragment_url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application#:~:text=submit%20it%20along%20with%20a,have%20reimbursed%20by%20the%20program."
+  },
+  {
+   "id": "DC-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "exam_record",
+    "note": "Listed on the application as one accepted form of crime documentation (at least one must be selected)."
+   },
+   "summary": "A forensic medical examination is one of the crime documentation options on the application.",
+   "quote": "Forensic medical examination",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.2, Documentation of Crime"
+  },
+  {
+   "id": "DC-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Bills or receipts for every expense you want reimbursed."
+   },
+   "summary": "Send any bills or receipts you want the program to reimburse.",
+   "quote": "any bills or receipts that you would like to have reimbursed by the program.",
+   "source_id": "DC-S4",
+   "pinpoint": "CVCP Application page",
+   "fragment_url": "https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program/application#:~:text=any%20bills%20or%20receipts%20that,have%20reimbursed%20by%20the%20program."
+  },
+  {
+   "id": "DC-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Medical, dental, and mental health bills."
+   },
+   "summary": "Submit copies of all medical, dental, or mental health bills received so far.",
+   "quote": "Submit copies of all available bills received to date.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
+  },
+  {
+   "id": "DC-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement"
+   },
+   "summary": "Attach all insurance payment statements and denials for treatment costs.",
+   "quote": "Attach all insurance payment statements and rejections.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
+  },
+  {
+   "id": "DC-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Authorization and release forms for medical, wage, support, and collateral-source records."
+   },
+   "summary": "The program will ask you to complete authorization and release forms.",
+   "quote": "YOU WILL BE REQUIRED TO COMPLETE AUTHORIZATION AND RELEASE FORMS",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 2"
+  },
+  {
+   "id": "DC-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Disability statement from the doctor, only if claiming lost wages."
+   },
+   "summary": "For lost wages, submit a disability statement from the doctor who can verify how long you could not work.",
+   "quote": "(Please submit disability statement from the verifying doctor)",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.4, Section 4"
+  },
+  {
+   "id": "DC-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only if self-employed: federal income tax returns."
+   },
+   "summary": "If you are self-employed and claiming lost wages, attach your federal income tax returns for the 12 months before the crime.",
+   "quote": "If yes, you must attach a copy of your Federal Income Tax Returns for the last 12 months preceding crime.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.4, Section 4"
+  },
+  {
+   "id": "DC-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Copy of the lease and a referral form, only if requesting temporary housing or moving expenses."
+   },
+   "summary": "For temporary housing or moving expenses, submit a copy of the lease and a referral form.",
+   "quote": "If yes, submit a copy of lease. A referral form must also be submitted.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.3, Section 1"
+  },
+  {
+   "id": "DC-DOC-11",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Transportation receipts, only if your car was held as evidence."
+   },
+   "summary": "If your car was held as evidence, submit copies of your alternate transportation receipts.",
+   "quote": "Please submit copy of transportation receipts.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.6, Section 12"
+  },
+  {
+   "id": "DC-DOC-12",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Birth certificates for children, only when listing secondary victims or dependents."
+   },
+   "summary": "When listing dependents or secondary victims, submit copies of the children's birth certificates.",
+   "quote": "Submit copies of birth certificates for children.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.5, Section 6"
+  },
+  {
+   "id": "DC-DOC-13",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Confidential Information form, attached at the end of the online interview when applying online."
+   },
+   "summary": "If you apply online, complete the Confidential Information form and attach it at the end of the online interview.",
+   "quote": "Please click here to complete a Confidential Information form. Once completed, you can attach it at the end of the online interactive interview that you are completing, such as the Crime Victims Compensation Form.",
+   "source_id": "DC-S16",
+   "pinpoint": "D.C. Courts Forms Help Online, Crime Victims",
+   "fragment_url": "https://www.probono.net/dccourts/crimevictims/#:~:text=Please%20click%20here%20to%20complete,the%20Crime%20Victims%20Compensation%20Form."
+  },
+  {
+   "id": "DC-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 5,
+    "note": "Business days for staff to review the application; this is not the time to a decision."
+   },
+   "summary": "Allow 5 business days for a CVCP team member to review the application.",
+   "quote": "Please allow 5 business days for a CVCP team member to review your compensation application.",
+   "source_id": "DC-S6",
+   "pinpoint": "CVCP Application (rev. 4/21/23), p.7"
   }
  ],
  "coverage": {
@@ -620,16 +866,19 @@
    "excluded_expense",
    "expense_cap",
    "filing_deadline",
+   "processing_time",
    "reporting_requirement",
+   "required_document",
    "residency",
+   "submission",
    "total_cap"
   ],
   "not_found": [
    "minimum_loss",
    "exam_payment"
   ],
-  "notes": "D.C. Code 4-506(d) lets the program waive its time limits for good cause, including compelling health or safety concerns (not encoded as a separate deadline rule). No minimum-loss threshold appears in D.C. Code 4-501 to 4-512 or the CVCP Rules. D.C. Code 4-561.03 bars the hospital from billing the survivor for a PERK, but no official source I saved names who pays the hospital or says whether the survivor's private insurance may be billed, so exam_payment is left out and insurance_billing is unspecified."
+  "notes": "D.C. Code 4-506(d) lets the program waive its time limits for good cause, including compelling health or safety concerns (not encoded as a separate deadline rule). No minimum-loss threshold appears in D.C. Code 4-501 to 4-512 or the CVCP Rules. D.C. Code 4-561.03 bars the hospital from billing the survivor for a PERK, but no official source I saved names who pays the hospital or says whether the survivor's private insurance may be billed, so exam_payment is left out and insurance_billing is unspecified. Processing time: the 2023 application asks applicants to allow 5 business days for staff review of the application; no official source states a time to a decision or payment."
  },
  "confidence": "high",
- "researcher_notes": "Dollar sub-limits come from the D.C. Superior Court CVCP Rules (DC-S7); the statute (4-501(7)) lists covered costs but sets only the $10,000 funeral cap and the $25,000 total. The Rules PDF is older than the 2023 amendments (D.C. Law 24-341) in places: Rule 25 says funeral up to $6,000, while statute 4-501(7)(A)(ii), the program's Compensable Costs page, and the 2023 application all say $10,000 (statute wins). Rule 7(b) lists only a sexual assault exam as the reporting alternative; statute 4-506(c)(3) is broader (protective order, forensic exam, or a report before the statute of limitations), and the statute is used here. The Application page (DC-S4) says to submit a DC police report or DC civil protection order and that temporary restraining orders are not accepted, while the 2023 application form (DC-S6) lists forensic medical examination as crime documentation; Tend should follow the statute and tell survivors to call the program if documentation is questioned. 4-506(a-2) also says arrest, prosecution, or conviction of the offender is not required, and being a family or household member of the offender does not by itself make a claimant ineligible. Federal OVC directory confirmed the program website and phone 202-879-4216. Reviewer pass: added the statutory $10,000 funeral cap (4-501(7)(A)(ii)) as its own rule, the $2,500 per-victimization limit on loss of services alongside the $200 weekly limit, and the 4-508(b)(2) law-enforcement cooperation ground for denial. Rule 33 covers only a rental car, while the 2023 statute covers alternate transportation including rideshare; the $2,000 figure comes from the Rules, the Compensable Costs page, and the 2023 application. The CVCP Rules PDF carries no adoption date; its dollar sub-limits other than funeral match the current Compensable Costs page and the 2023 application form. No official source found names who pays the hospital for the PERK exam."
+ "researcher_notes": "Dollar sub-limits come from the D.C. Superior Court CVCP Rules (DC-S7); the statute (4-501(7)) lists covered costs but sets only the $10,000 funeral cap and the $25,000 total. The Rules PDF is older than the 2023 amendments (D.C. Law 24-341) in places: Rule 25 says funeral up to $6,000, while statute 4-501(7)(A)(ii), the program's Compensable Costs page, and the 2023 application all say $10,000 (statute wins). Rule 7(b) lists only a sexual assault exam as the reporting alternative; statute 4-506(c)(3) is broader (protective order, forensic exam, or a report before the statute of limitations), and the statute is used here. The Application page (DC-S4) says to submit a DC police report or DC civil protection order and that temporary restraining orders are not accepted, while the 2023 application form (DC-S6) lists forensic medical examination as crime documentation; Tend should follow the statute and tell survivors to call the program if documentation is questioned. 4-506(a-2) also says arrest, prosecution, or conviction of the offender is not required, and being a family or household member of the offender does not by itself make a claimant ineligible. Federal OVC directory confirmed the program website and phone 202-879-4216. Reviewer pass: added the statutory $10,000 funeral cap (4-501(7)(A)(ii)) as its own rule, the $2,500 per-victimization limit on loss of services alongside the $200 weekly limit, and the 4-508(b)(2) law-enforcement cooperation ground for denial. Rule 33 covers only a rental car, while the 2023 statute covers alternate transportation including rideshare; the $2,000 figure comes from the Rules, the Compensable Costs page, and the 2023 application. The CVCP Rules PDF carries no adoption date; its dollar sub-limits other than funeral match the current Compensable Costs page and the 2023 application form. No official source found names who pays the hospital for the PERK exam. How to file: the 2023 application (DC-S6, 443 AcroForm fields, the version linked from the program's Application page) says to submit by email to CVCPapplications@dcsc.gov or by mail or in person at 515 5th Street, NW #109, or at remote sites; the brochure (DC-S5) lists five Balance and Restorative Justice Center remote sites for pick-up and drop-off. The Application page (DC-S4) adds fax 202-879-4230 and shows the email address obfuscated, so the email rule quotes the application form. D.C. Code 4-512(a) confirms filing in person, by mail, online, or by email. The online target comes from the brochure, where a PDF line break splits the URL ('Gene rateInterview'); the joined URL is the same link the D.C. Courts Forms Help Online page (DC-S16) uses for its Start Your Online Interview button and it returned HTTP 200 on Oct 3. The application asks for a photo ID but says staff will confirm identity another way if none is attached."
 }

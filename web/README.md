@@ -37,7 +37,10 @@ npm run lint && npm run typecheck && npm run build
    the `x-tend-engine` response header.
 3. **A TypeScript preview** of the SPEC semantics (`lib/engine/preview.ts`), labeled "Preview engine
    in this browser" in the footer and the audit trail. It exists so the demo works with nothing else
-   running. One choice the spec leaves open: per-unit rate caps apply before per-claim caps.
+   running. Where the SPEC leaves room it makes the same readings as the Python reference
+   (`refengine/README.md`), so lines, totals, checks, and the trace match whichever backend runs.
+   `tests/parity.test.ts` replays reference outputs for every state; rebuild them with
+   `python3 scripts/parity-fixtures.py --refengine ../refengine` after the rules or the reference change.
 
 ## Configuration
 
@@ -65,6 +68,8 @@ Response shapes are in `lib/types.ts`; examples are in `fixtures/`.
 - Refresh both after research changes: `npm run sync:rules -- ../rules` (or a path to `rules/`).
 - `fixtures/`: Rowan's fictional Michigan scan, engine input and output, the bill audit, the advocate
   view, and a stand-in compiled listing. `npm run fixtures` rebuilds the engine fixtures.
+- `fixtures/parity/<ST>.json`: reference engine outputs for random claims and Rowan's costs in every
+  state, tied to the sha256 of the law file they were made from.
 
 ## Privacy and safety
 

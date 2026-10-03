@@ -9,7 +9,12 @@
   "application_pdf_url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf",
   "phone": "302-255-1770",
   "phone_source_id": "DE-S2",
-  "statute_citation": "11 Del. C. §§ 9001 to 9025"
+  "statute_citation": "11 Del. C. §§ 9001 to 9025",
+  "application_form": {
+   "source_id": "DE-S4",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -61,6 +66,16 @@
    "raw_path": "rules/sources/DE/DE-S5.pdf",
    "text_path": "rules/sources/DE/DE-S5.txt",
    "sha256": "0201da7fa79de9b1babb1f778d6ea191b6b72ab1193b5de266c27a73d0b63cb7"
+  },
+  {
+   "id": "DE-S6",
+   "title": "Delaware VCAP online claim portal home page",
+   "url": "https://ccvcde.org",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:42:10Z",
+   "raw_path": "rules/sources/DE/DE-S6.html",
+   "text_path": "rules/sources/DE/DE-S6.txt",
+   "sha256": "c52ec30e17f701e16d25c974118287100a35540eba0679abf212e4273ac09e75"
   }
  ],
  "rules": [
@@ -488,6 +503,144 @@
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9009(9)",
    "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20person%20whose%20domicile%20is,benefits%20provided%20under%20this%20chapter."
+  },
+  {
+   "id": "DE-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "900 N. King Street, 4th Floor Wilmington, DE 19801"
+   },
+   "summary": "Mail the claim form to VCAP at 900 N. King Street, 4th Floor, Wilmington, DE 19801.",
+   "quote": "You must submit a claim form to get the process started. Your claim can be submitted in the following ways: Mail: 900 N. King Street, 4th Floor Wilmington, DE 19801",
+   "source_id": "DE-S5",
+   "pinpoint": "VCAP brochure (English), How do I file a claim?"
+  },
+  {
+   "id": "DE-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(302) 577-1326"
+   },
+   "summary": "Fax the claim form to VCAP at (302) 577-1326.",
+   "quote": "Fax: (302) 577-1326 If you would prefer to apply online, please visit: https://ccvcde.org",
+   "source_id": "DE-S5",
+   "pinpoint": "VCAP brochure (English), How do I file a claim?"
+  },
+  {
+   "id": "DE-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://ccvcde.org"
+   },
+   "summary": "Apply online through the VCAP claim portal at https://ccvcde.org.",
+   "quote": "If you would prefer to apply online, please visit: https://ccvcde.org",
+   "source_id": "DE-S5",
+   "pinpoint": "VCAP brochure (English), How do I file a claim?"
+  },
+  {
+   "id": "DE-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "the program's own claim form, in writing and signed by the claimant"
+   },
+   "summary": "The claim must be filed in writing on VCAP's own claim form and signed by the claimant.",
+   "quote": "All claims filed with the Agency must be in writing on the Agency's provided claim form and signed by the claimant.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9012(a)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=All%20claims%20filed%20with%20the,and%20signed%20by%20the%20claimant."
+  },
+  {
+   "id": "DE-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed subrogation, authorization, and consent agreements that are part of the official claim form"
+   },
+   "summary": "The official claim form includes subrogation, authorization, and consent agreements that must be part of the filing.",
+   "quote": "claims must be filed in the office of VCAP on official forms which include subrogation, authorization, and consent agreements.",
+   "source_id": "DE-S3",
+   "pinpoint": "1 Del. Admin. Code 301-11.1",
+   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=claims%20must%20be%20filed%20in,subrogation%2C%20authorization%2C%20and%20consent%20agreements."
+  },
+  {
+   "id": "DE-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "documentation (bills, receipts) supporting every loss claimed"
+   },
+   "summary": "Every loss must be backed by documentation before VCAP awards compensation.",
+   "quote": "All losses must be supported by documentation prior to compensation being awarded.",
+   "source_id": "DE-S2",
+   "pinpoint": "Delaware DOJ VCAP page, FAQs, Are there any limits?",
+   "fragment_url": "https://attorneygeneral.delaware.gov/vcap/#:~:text=All%20losses%20must%20be%20supported,prior%20to%20compensation%20being%20awarded."
+  },
+  {
+   "id": "DE-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "any further documentation VCAP requests during its investigation, due within 45 days of the request"
+   },
+   "summary": "If VCAP asks for more documentation while investigating, it must be sent within 45 days of the request.",
+   "quote": "If VCAP, in its investigation of a claim, requires further documentation from the claimant, such documentation must be submitted to VCAP no later than 45 days of the date of VCAP's request.",
+   "source_id": "DE-S3",
+   "pinpoint": "1 Del. Admin. Code 301-11.2",
+   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=If%20VCAP%2C%20in%20its%20investigation,the%20date%20of%20VCAP%27s%20request."
+  },
+  {
+   "id": "DE-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "documentation of temporary housing, rent, security deposit, furniture, or moving costs, within 45 days of VCAP's request"
+   },
+   "summary": "Survivors claiming temporary housing, rent, security deposit, furniture, or moving costs must send documentation within 45 days of VCAP's request.",
+   "quote": "A victim who seeks compensation for temporary housing, rent, security deposit, furniture and/or moving expenses must submit documentation within 45 days of VCAP's request therefor, unless an extension is granted by the Agency.",
+   "source_id": "DE-S3",
+   "pinpoint": "1 Del. Admin. Code 301-11.3",
+   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=A%20victim%20who%20seeks%20compensation,is%20granted%20by%20the%20Agency."
+  },
+  {
+   "id": "DE-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "proof of a workers' compensation claim, only if the injury happened while working"
+   },
+   "summary": "If the injury happened on the job, the survivor must file a workers' compensation claim and send proof of it before applying to VCAP.",
+   "quote": "If the victim seeks compensation for an injury sustained while in the course and scope of employment, the victim must submit a claim for worker's compensation, and provide documentation thereof, before making application to VCAP for compensation.",
+   "source_id": "DE-S3",
+   "pinpoint": "1 Del. Admin. Code 301-11.4",
+   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=If%20the%20victim%20seeks%20compensation,application%20to%20VCAP%20for%20compensation."
+  },
+  {
+   "id": "DE-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "a written request showing just cause, only if asking for an emergency award"
+   },
+   "summary": "To ask for an emergency award, the claimant must request it in writing with the claim form and show just cause.",
+   "quote": "The claimant, must, in writing, request an emergency award when submitting his claim form and show just cause as to why such an award should be considered.",
+   "source_id": "DE-S3",
+   "pinpoint": "1 Del. Admin. Code 301-23.0",
+   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=The%20claimant%2C%20must%2C%20in%20writing%2C,an%20award%20should%20be%20considered."
+  },
+  {
+   "id": "DE-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 60
+   },
+   "summary": "A decision on a claim can take up to 60 days, and longer in rare cases.",
+   "quote": "It can take up to 60 days to make a decision on your claim. In rare cases, it can take longer.",
+   "source_id": "DE-S5",
+   "pinpoint": "VCAP brochure (English), What can I expect next?"
   }
  ],
  "coverage": {
@@ -505,7 +658,10 @@
    "minimum_loss",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "expense_cap:counseling (no general adult counseling cap found; see notes)",
@@ -518,5 +674,5 @@
   "notes": "Statute text is from the official Delaware Code Online. Counseling: the only counseling limits found are $1,200 per child victim for psychological assessment and short-term counseling under the Child Victim Counseling and Assessment Program (1 Del. Admin. Code 301-26.0, 11 Del. C. § 9024) and a 50-session limit that applies only to reopened claims under § 9009(13); neither is encoded as a general counseling cap. Medical, mental health, and dental providers paid by VCAP must accept the VCAP payment as payment in full and may not bill the victim the balance (Rules 28.1, 29.1, 30.1); VCAP pays 80% of usual and customary charges (Rules 28.2, 29.2, 30.2). The printable application PDF is an image scan with no extractable text, so no rules were drawn from it. No separate SANE or forensic exam payment policy beyond 11 Del. C. § 9023 was located."
  },
  "confidence": "high",
- "researcher_notes": "Sources disagree in a few places and the statute controls: (1) the regulation sets the funeral and burial cap at $5,000 (Rule 25.0) while 11 Del. C. § 9002(10)s. sets $7,500; funeral is not encoded. (2) The program FAQ states the 72-hour police report requirement without exceptions, but § 9010(a)(5) waives it for, among other things, a protection from abuse order or cooperation with law enforcement or an appropriate government agency in sexual assault cases. (3) Rule 13.2 says reconsideration must be requested within 15 days; § 9012(b) says 30 days. (4) The statute measures the filing deadline from the personal injury and Rule 11.1 from the date of the crime; for sexual assault these are normally the same day. Additional sexual-assault-specific provisions: § 9009(11) lets a victim of a crime that occurred before age 18 claim counseling up to the 20th birthday, and that age limit does not apply to sexual assault or abuse; § 9009(12) bars statute of limitations limits on claims from child sexual assault or abuse; § 9010(d) bars denial solely because a child sexual assault victim delayed reporting or applying. Forensic exam payment flows provider to insurance to the fund under § 9023, so insurance_billing is recorded as allowed (the provider must bill insurance) while the survivor owes nothing out of pocket. Reviewer: the brochure lists attorneys fees as not eligible, but 11 Del. C. § 9013 and Rule 19.0 let the Appeals Board award fees for representation before it (up to $1,000 or 15% of the award, whichever is less, in addition to compensation); the statute controls, so the brochure exclusion was replaced by that cap (DE-CAP-6). Housing-related costs (rent, security deposit, furniture) under § 9002(10)h. are capped at 3 times the monthly prospective housing cost, which is not a fixed dollar amount and so is not encoded. Rule 27.1 says life insurance proceeds are not deducted from the award."
+ "researcher_notes": "Sources disagree in a few places and the statute controls: (1) the regulation sets the funeral and burial cap at $5,000 (Rule 25.0) while 11 Del. C. § 9002(10)s. sets $7,500; funeral is not encoded. (2) The program FAQ states the 72-hour police report requirement without exceptions, but § 9010(a)(5) waives it for, among other things, a protection from abuse order or cooperation with law enforcement or an appropriate government agency in sexual assault cases. (3) Rule 13.2 says reconsideration must be requested within 15 days; § 9012(b) says 30 days. (4) The statute measures the filing deadline from the personal injury and Rule 11.1 from the date of the crime; for sexual assault these are normally the same day. Additional sexual-assault-specific provisions: § 9009(11) lets a victim of a crime that occurred before age 18 claim counseling up to the 20th birthday, and that age limit does not apply to sexual assault or abuse; § 9009(12) bars statute of limitations limits on claims from child sexual assault or abuse; § 9010(d) bars denial solely because a child sexual assault victim delayed reporting or applying. Forensic exam payment flows provider to insurance to the fund under § 9023, so insurance_billing is recorded as allowed (the provider must bill insurance) while the survivor owes nothing out of pocket. Reviewer: the brochure lists attorneys fees as not eligible, but 11 Del. C. § 9013 and Rule 19.0 let the Appeals Board award fees for representation before it (up to $1,000 or 15% of the award, whichever is less, in addition to compensation); the statute controls, so the brochure exclusion was replaced by that cap (DE-CAP-6). Housing-related costs (rent, security deposit, furniture) under § 9002(10)h. are capped at 3 times the monthly prospective housing cost, which is not a fixed dollar amount and so is not encoded. Rule 27.1 says life insurance proceeds are not deducted from the award. Filing info (added Oct 3): the brochure lists mail, fax, and online (https://ccvcde.org) as the ways to submit a claim. Email (VCAP@delaware.gov) appears only as contact info, not as a filing method, so no email submission rule was added. The brochure mailing address reads '900 N. King Street, 4th Floor' while the DOJ page, the online portal (DE-S6), and the claim form header read '900 North King St., Suite 4', both Wilmington, DE 19801; the brochure is the only text source that names it as the place to mail claims, so it is encoded as written and the reviewer may want to confirm. The printable application (DE-S4, title 'DE VCAP CLAIM FORM 12-09', footer 'VCAP Claim Form (1/10)') is a 3-page image scan with no text layer and no AcroForm fields, so nothing is quoted from it; visually it says 'Complete and submit to' the Suite 4 address, asks the applicant to attach any medical bills received, lists the police complaint number, and requires the claimant's signature to be witnessed by an adult over 18 plus a signed HIPAA authorization. Those form items are not encoded because they cannot be verified against extracted text. Processing time comes from the brochure (up to 60 days for a decision); 11 Del. C. § 9012(a) separately says the Agency starts its investigation within 30 days of filing."
 }

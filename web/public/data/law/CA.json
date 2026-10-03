@@ -9,7 +9,12 @@
   "application_pdf_url": "https://victims.ca.gov/uploads/2021/01/victimcompensationapp_eng.pdf",
   "phone": "800-777-9229",
   "phone_source_id": "CA-S12",
-  "statute_citation": "Cal. Gov. Code 13950 to 13966; Cal. Code Regs. tit. 2, 649 et seq.; Cal. Penal Code 13823.95"
+  "statute_citation": "Cal. Gov. Code 13950 to 13966; Cal. Code Regs. tit. 2, 649 et seq.; Cal. Penal Code 13823.95",
+  "application_form": {
+   "source_id": "CA-S17",
+   "fillable": true,
+   "field_count": 207
+  }
  },
  "sources": [
   {
@@ -473,6 +478,165 @@
    "source_id": "CA-S11",
    "pinpoint": "CalVCB, Who Is Eligible, Eligibility criteria",
    "fragment_url": "https://victims.ca.gov/for-victims/who-is-eligible/#:~:text=A%20California%20resident%20at%20the,A%20non%2Dresident%20victimized%20in%20California."
+  },
+  {
+   "id": "CA-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "California Victim Compensation Board\nPO Box 3036, Sacramento, CA 95812-3036"
+   },
+   "summary": "Print, sign, and mail the completed paper application to CalVCB in Sacramento.",
+   "quote": "Mail completed application to:\n\nFor more information call:\n\nCalifornia Victim Compensation Board\nPO Box 3036, Sacramento, CA 95812-3036",
+   "source_id": "CA-S17",
+   "pinpoint": "Form VCGCB-VCP-005 (Rev. 10/2017), page 6, after Section 13a"
+  },
+  {
+   "id": "CA-SUBMIT-INPERSON",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "your local Victim Witness Assistance Center"
+   },
+   "summary": "Instead of mailing it, the signed paper application can be delivered to a local Victim Witness Assistance Center.",
+   "quote": "or\ndeliver to your local Victim Witness Assistance Center",
+   "source_id": "CA-S17",
+   "pinpoint": "Form VCGCB-VCP-005 (Rev. 10/2017), page 6, after Section 13a"
+  },
+  {
+   "id": "CA-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://online.victims.ca.gov/"
+   },
+   "summary": "Apply online by creating a CalVCB Online account and starting a new application in English or Spanish.",
+   "quote": "To apply online: Create a CalVCB Online account or login Start a new application (in English or Spanish)",
+   "source_id": "CA-S12",
+   "pinpoint": "CalVCB How To Get Compensated, Steps to apply, Step 2",
+   "fragment_url": "https://victims.ca.gov/for-victims/how-compensation-works/#:~:text=To%20apply%20online%3A%20Create%20a,application%20%28in%20English%20or%20Spanish%29"
+  },
+  {
+   "id": "CA-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of crime-related bills, or a list of them, attached to the application."
+   },
+   "summary": "Attach copies of crime-related bills, or a list of them, to the application.",
+   "quote": "Please attach copies, or a list, of any crime-related bills.",
+   "source_id": "CA-S17",
+   "pinpoint": "Form VCGCB-VCP-005 (Rev. 10/2017), Section 4"
+  },
+  {
+   "id": "CA-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Copies of insurance documentation; Section 9 also asks for insurance details because CalVCB is the payer of last resort."
+   },
+   "summary": "Attach copies of supporting documents, including crime-related bills and insurance papers. Keep the originals.",
+   "quote": "Attach copies of any documentation that supports your application for crime victim compensation, including copies of crimerelated bills, insurance, or anything relating to the crime. Save original documents for your records.",
+   "source_id": "CA-S17",
+   "pinpoint": "Form VCGCB-VCP-005 (Rev. 10/2017), page 5, closing instructions"
+  },
+  {
+   "id": "CA-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Include a copy if one exists; CalVCB says it speeds processing. Not reporting is not by itself grounds for denial in a sexual assault claim."
+   },
+   "summary": "CalVCB says including copies of crime reports, bills, and receipts gets a claim processed faster.",
+   "quote": "To get a claim processed faster, applicants should: Complete every section of the application Include copies of crime reports, bills, receipts, and other related documents",
+   "source_id": "CA-S12",
+   "pinpoint": "CalVCB How To Get Compensated, How we review your application",
+   "fragment_url": "https://victims.ca.gov/for-victims/how-compensation-works/#:~:text=To%20get%20a%20claim%20processed,receipts%2C%20and%20other%20related%20documents"
+  },
+  {
+   "id": "CA-DOC-RECEIPTS",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Copies of receipts for crime-related costs."
+   },
+   "summary": "Include copies of receipts for crime-related costs with the application.",
+   "quote": "Include copies of crime reports, bills, receipts, and other related documents",
+   "source_id": "CA-S12",
+   "pinpoint": "CalVCB How To Get Compensated, How we review your application",
+   "fragment_url": "https://victims.ca.gov/for-victims/how-compensation-works/#:~:text=Include%20copies%20of%20crime%20reports%2C,receipts%2C%20and%20other%20related%20documents"
+  },
+  {
+   "id": "CA-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For income loss: a tax return, pay stub, or employer statement."
+   },
+   "summary": "For income loss, CalVCB asks for proof of income such as a tax return, pay stub, or employer statement.",
+   "quote": "Proof of income (tax return, pay stub, or statement from an employer).",
+   "source_id": "CA-S16",
+   "pinpoint": "Benefit Reference Guide (Rev. 05/2025), Income Loss, Examples of What We Need"
+  },
+  {
+   "id": "CA-DOC-DISABILITY",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For income loss: a disability statement from a medical or mental health provider."
+   },
+   "summary": "For income loss, CalVCB asks for a disability statement from a medical or mental health provider.",
+   "quote": "A disability statement from a medical or mental health provider.",
+   "source_id": "CA-S16",
+   "pinpoint": "Benefit Reference Guide (Rev. 05/2025), Income Loss, Examples of What We Need"
+  },
+  {
+   "id": "CA-DOC-MEDICAL",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "For medical and dental expenses: the crime report or medical or dental records showing the services were needed."
+   },
+   "summary": "For medical and dental costs, CalVCB asks for proof from the crime report or medical or dental records that the care was needed.",
+   "quote": "Proof from the crime report or medical/dental records that medical/dental services are required.",
+   "source_id": "CA-S16",
+   "pinpoint": "Benefit Reference Guide (Rev. 05/2025), Medical and Dental Expenses, Examples of What We Need"
+  },
+  {
+   "id": "CA-DOC-COUNSEL",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "For mental health treatment: itemized receipts, plus a Mental Health Billing Intake form from the provider with the first bill."
+   },
+   "summary": "For counseling, CalVCB asks for itemized receipts and a Mental Health Billing Intake form from the provider with the first bill.",
+   "quote": "Itemized receipts for mental health treatment received. Providers may also bill CalVCB directly.\n• A completed Mental Health Billing Intake form from the provider with their first bill.",
+   "source_id": "CA-S16",
+   "pinpoint": "Benefit Reference Guide (Rev. 05/2025), Mental Health Treatment, Examples of What We Need"
+  },
+  {
+   "id": "CA-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90
+   },
+   "summary": "CalVCB says applications can take 90 days to process.",
+   "quote": "Applications can take 90 days to process.",
+   "source_id": "CA-S12",
+   "pinpoint": "CalVCB How To Get Compensated, Step 3",
+   "fragment_url": "https://victims.ca.gov/for-victims/how-compensation-works/#:~:text=Applications%20can%20take%2090%20days%20to%20process."
+  },
+  {
+   "id": "CA-TIME-2",
+   "category": "processing_time",
+   "params": {
+    "days": 30,
+    "note": "Emergency awards only"
+   },
+   "summary": "Qualifying emergency awards are generally paid within 30 calendar days of receiving the application.",
+   "quote": "Qualifying emergency awards are generally paid within 30 calendar days of receipt of the application.",
+   "source_id": "CA-S17",
+   "pinpoint": "Form VCGCB-VCP-005 (Rev. 10/2017), Section 4, Emergency Award Request"
   }
  ],
  "coverage": {
@@ -489,7 +653,10 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss",
@@ -501,5 +668,5 @@
   "notes": "No minimum dollar loss was found in the statute or on CalVCB pages; Gov. Code 13955(g) only requires that the injury has resulted or may result in pecuniary loss. Lost income has no separate dollar cap in the sources read (it is limited by time, generally five years, in Gov. Code 13957.5 and by the overall total). No mileage rate was found. Medical is paid at board rates (Medicare rate or 75% of billed per the What Is Covered page) rather than a fixed dollar cap. Emergency awards have no fixed dollar amount; Gov. Code 13952.5(g) ties the amount to the immediate needs of the victim, subject to board rates and limits. Whether the survivor's health insurance may be billed for the forensic exam is not addressed in Penal Code 13823.95, so insurance_billing is left unspecified."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text comes from Justia's 2025 California Code because leginfo.legislature.ca.gov renders section text inside form tags that the fetch tool strips; the text was cross-checked by reading the leginfo article pages directly. Gov. Code 13956, 13957, and 13957.5 each have two versions on leginfo: the version quoted here (total award $35,000, raisable to $70,000 with federal funds; relocation $3,418) and an alternate version (AB 160 of 2022 and AB 1187 of 2023) with a $100,000 total, $7,500 relocation, and no dollar cap on victim counseling that only becomes operative July 1, 2024 if General Fund money is appropriated to backfill the Restitution Fund. CalVCB's own pages (What Is Covered, FAQ) and the Benefit Reference Guide Rev. 05/2025 still state $70,000 total, $3,418 relocation, $1,000 home security, and $10,000 / 60 sessions for victim counseling, so the conditional expansion appears not to have taken effect; re-check if CalVCB publishes new limits. The total_cap rule quotes CalVCB because the statute's operative number depends on federal funding. The board may exceed the counseling and relocation caps in dire or exceptional circumstances (13957(a)(2)(C), 13957(a)(7)(E)). Penal Code 13823.95(b)(1) also says a survivor does not have to participate in the criminal justice system to get the exam. Gov. Code 13956(a)(1)(C) says committing a crime does not count as involvement when the injury resulted from rape under Penal Code 261. Gov. Code 13955(b)(1) says eligibility for non-residents victimized in California applies only while the board finds federal funds are available. The paper application listed on the CalVCB forms page is Rev. 10/2017; CalVCB also takes applications online at online.victims.ca.gov. Phone 800-777-9229 matches the OVC state directory. Reviewer: the counseling caps are recorded twice on purpose, once from the statute ($10,000, Gov. Code 13957(a)(2)(A)(i)) and once from the 2025 Benefit Reference Guide, which adds the 60-session limit for a direct victim. Gov. Code 13956(b)(1) still says an application shall be denied if the victim failed to cooperate reasonably with law enforcement, weighed against age, psychological state, and fear of retaliation; not making a police report or delaying one is not by itself grounds for denial in a sexual assault claim. Penal Code 13823.95(a) bars charging the exam to the victim 'directly or indirectly'; whether that bars billing the victim's own health insurance is not stated, so insurance_billing stays unspecified. The CalVCB FAQ says victims of crimes outside California should also file in the state where the crime occurred."
+ "researcher_notes": "Statute text comes from Justia's 2025 California Code because leginfo.legislature.ca.gov renders section text inside form tags that the fetch tool strips; the text was cross-checked by reading the leginfo article pages directly. Gov. Code 13956, 13957, and 13957.5 each have two versions on leginfo: the version quoted here (total award $35,000, raisable to $70,000 with federal funds; relocation $3,418) and an alternate version (AB 160 of 2022 and AB 1187 of 2023) with a $100,000 total, $7,500 relocation, and no dollar cap on victim counseling that only becomes operative July 1, 2024 if General Fund money is appropriated to backfill the Restitution Fund. CalVCB's own pages (What Is Covered, FAQ) and the Benefit Reference Guide Rev. 05/2025 still state $70,000 total, $3,418 relocation, $1,000 home security, and $10,000 / 60 sessions for victim counseling, so the conditional expansion appears not to have taken effect; re-check if CalVCB publishes new limits. The total_cap rule quotes CalVCB because the statute's operative number depends on federal funding. The board may exceed the counseling and relocation caps in dire or exceptional circumstances (13957(a)(2)(C), 13957(a)(7)(E)). Penal Code 13823.95(b)(1) also says a survivor does not have to participate in the criminal justice system to get the exam. Gov. Code 13956(a)(1)(C) says committing a crime does not count as involvement when the injury resulted from rape under Penal Code 261. Gov. Code 13955(b)(1) says eligibility for non-residents victimized in California applies only while the board finds federal funds are available. The paper application listed on the CalVCB forms page is Rev. 10/2017; CalVCB also takes applications online at online.victims.ca.gov. Phone 800-777-9229 matches the OVC state directory. Reviewer: the counseling caps are recorded twice on purpose, once from the statute ($10,000, Gov. Code 13957(a)(2)(A)(i)) and once from the 2025 Benefit Reference Guide, which adds the 60-session limit for a direct victim. Gov. Code 13956(b)(1) still says an application shall be denied if the victim failed to cooperate reasonably with law enforcement, weighed against age, psychological state, and fear of retaliation; not making a police report or delaying one is not by itself grounds for denial in a sexual assault claim. Penal Code 13823.95(a) bars charging the exam to the victim 'directly or indirectly'; whether that bars billing the victim's own health insurance is not stated, so insurance_billing stays unspecified. The CalVCB FAQ says victims of crimes outside California should also file in the state where the crime occurred. How to file: the application PDF linked from the CalVCB forms page (CA-S17, Form VCGCB-VCP-005 Rev. 10/2017) is still the current English version and is fillable with 207 AcroForm fields. It says to mail the signed application to CalVCB, PO Box 3036, Sacramento, CA 95812-3036, or deliver it to a local Victim Witness Assistance Center. The online target URL https://online.victims.ca.gov/ is the link behind 'CalVCB Online' on the How To Get Compensated page (CA-S12); the visible page text names CalVCB Online but does not print the address. CA-S12 also lists fax 866-902-8669, email info@victims.ca.gov, and the same PO Box for sending bills after approval; those are for bills, not the application, so they are not recorded as submission rules. Several required_document rules come from the Benefit Reference Guide's 'Examples of What We Need' lists, which are per-expense (income loss, medical, counseling); CalVCB does not ask for a photo ID in the sources read. Processing: 'Applications can take 90 days to process' (CA-S12); qualifying emergency awards are generally paid within 30 calendar days (CA-S17)."
 }

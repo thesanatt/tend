@@ -9,7 +9,12 @@
   "application_pdf_url": "https://media.ark.org/dps/CVRB-Application_10-6-2023.pdf",
   "phone": "501-682-1020",
   "phone_source_id": "AR-S1",
-  "statute_citation": "A.C.A. 16-90-701 to 16-90-720; forensic exams A.C.A. 12-12-401 to 12-12-404; rules 16 CAR Part 60"
+  "statute_citation": "A.C.A. 16-90-701 to 16-90-720; forensic exams A.C.A. 12-12-401 to 12-12-404; rules 16 CAR Part 60",
+  "application_form": {
+   "source_id": "AR-S8",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -151,6 +156,16 @@
    "raw_path": "rules/sources/AR/AR-S14.pdf",
    "text_path": "rules/sources/AR/AR-S14.txt",
    "sha256": "39bffbd7743210b538a57fd1a497d3ca7a40f5c3ef613d7989c1ce61251b290b"
+  },
+  {
+   "id": "AR-S15",
+   "title": "Arkansas.gov state portal, Crime Victims Reparations Board agency page",
+   "url": "https://portal.arkansas.gov/state_agencies/department-of-public-safety/crime-victims-reparations-board/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:40:39Z",
+   "raw_path": "rules/sources/AR/AR-S15.html",
+   "text_path": "rules/sources/AR/AR-S15.txt",
+   "sha256": "b1fde4d8e89e8c8a224fa7d5157d8e17c9a68ff706cdd4981e87e2f5004d6021"
   }
  ],
  "rules": [
@@ -553,6 +568,122 @@
    "quote": "Property replacement is prohibited.",
    "source_id": "AR-S8",
    "pinpoint": "Application for Crime Victim Compensation, Section G"
+  },
+  {
+   "id": "AR-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://crimevictims.dps.arkansas.gov/Forms/CVApplication"
+   },
+   "summary": "The program offers an online application, which its Documents and Forms page marks as the preferred way to apply.",
+   "quote": "We offer an ONLINE APPLICATION process for Victim Compensation! Access the Online Application",
+   "source_id": "AR-S1",
+   "pinpoint": "CVRB home page, Crime Victim Compensation Application",
+   "fragment_url": "https://www.dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/#:~:text=We%20offer%20an%20ONLINE%20APPLICATION,Compensation%21%20Access%20the%20Online%20Application"
+  },
+  {
+   "id": "AR-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "322 South Main Street, Suite 615 Little Rock, AR 72201",
+    "note": "The page says to submit the application to the reparations office and lists this as the office address; it does not say mail in so many words. The 2023 paper application and the Arkansas.gov portal page list 1 State Police Plaza Drive, Little Rock, AR 72209 instead. Call 501-682-1020 to confirm the address before mailing."
+   },
+   "summary": "A paper application can be sent to the Crime Victims Reparations office, listed on the DPS site at 322 South Main Street, Suite 615, Little Rock, AR 72201.",
+   "quote": "Victims may apply for compensation by submitting an application to the Arkansas Crime Victim's Reparations office. Applications are available from the Arkansas Crime Victim's Reparations office or from one of Arkansas's 28 elected prosecutors. These programs are funded by fees collected from criminal offenders and a federal grant through the Victims of Crime Act, administered by the U.S. Department of Justice. Contact CVRB 322 South Main Street, Suite 615 Little Rock, AR 72201",
+   "source_id": "AR-S4",
+   "pinpoint": "About CVRB page, applying and Contact CVRB",
+   "fragment_url": "https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/about-cvrb/#:~:text=Victims%20may%20apply%20for%20compensation,615%20Little%20Rock%2C%20AR%2072201"
+  },
+  {
+   "id": "AR-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Copy of the law enforcement incident report. 16 CAR 60-206(b)(2) also accepts other official documentation from the agency the crime was reported to."
+   },
+   "summary": "Attach a copy of the law enforcement agency's incident report to the application.",
+   "quote": "NOTE: You must attach a copy of the law-enforcement agency's incident report to this application.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section B, Crime Information"
+  },
+  {
+   "id": "AR-DOC-2",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized medical, dental, and counseling bills or other statements verifying expenses; the claim is not processed without them."
+   },
+   "summary": "When asking for medical or counseling costs, attach copies of all itemized medical and counseling bills or other statements verifying the expenses.",
+   "quote": "NOTE: In addition to completing this section, you must attach copies of all itemized medical bills, mental health counseling bills, or other statements verifying expenses.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section C, Request for Medical Treatment/Mental-Health Counseling"
+  },
+  {
+   "id": "AR-DOC-3",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Most recent pay stub; self-employed applicants send tax returns from the last three years."
+   },
+   "summary": "For lost wages, attach your most recent pay stub, or if self-employed, your tax returns from the last three years.",
+   "quote": "Attach a copy of your most recent pay stub from your employer. If you are self-employed, you must furnish copies of your tax returns from the last three (3) years so lost wages can be most accurately determined.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section D, Request for Lost Wages"
+  },
+  {
+   "id": "AR-DOC-4",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "medical_records",
+    "note": "Name and address of the physician who can verify the disability period, or a copy of a recent disability statement."
+   },
+   "summary": "For lost wages, give the name and address of the physician who can verify your time off, or attach a recent disability statement.",
+   "quote": "You must also provide the complete name and address of the physician who can verify your disability period, or you may attach a copy of a recent disability statement.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section D, Request for Lost Wages"
+  },
+  {
+   "id": "AR-DOC-5",
+   "category": "required_document",
+   "expense": "funeral",
+   "params": {
+    "document": "other",
+    "note": "Funeral bill and death certificate, only when requesting funeral or burial expenses for a deceased victim."
+   },
+   "summary": "For funeral or burial expenses, include a copy of the funeral bill and the death certificate.",
+   "quote": "NOTE: You must submit a copy of the funeral bill and the death certificate with this application.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section E, Request for Funeral/Burial Expenses"
+  },
+  {
+   "id": "AR-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Loss of support only: the deceased victim's last three years of tax returns, Social Security benefit verification, and proof of guardianship for a minor dependent."
+   },
+   "summary": "For loss of support after a victim's death, include the victim's last three years of tax returns, Social Security benefit verification, and proof of guardianship for a minor dependent.",
+   "quote": "NOTE: You must attach copies of the deceased victim's last three (3) years' tax returns. You must also provide verification regarding the denial or receipt of any benefits from the Social Security Administration. You must be the legal guardian of a minor dependent to request loss of support on their behalf and must provide verification of guardianship.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section F, Request for Loss of Support"
+  },
+  {
+   "id": "AR-DOC-7",
+   "category": "required_document",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "document": "receipts",
+    "note": "Crime scene cleanup only, which the application limits to survivors or dependents of homicide victims."
+   },
+   "summary": "For crime scene cleanup, attach receipts or other supporting documentation.",
+   "quote": "Receipts or supporting documentation must be attached to this application.",
+   "source_id": "AR-S8",
+   "pinpoint": "Application, Section G, Request for Assistance with Crime Scene Clean Up"
   }
  ],
  "coverage": {
@@ -569,7 +700,9 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "minimum_loss",
@@ -579,10 +712,11 @@
    "expense_cap:security",
    "covered_expense:relocation",
    "reporting_requirement:alternatives",
-   "exam_no_bill:insurance_billing"
+   "exam_no_bill:insurance_billing",
+   "processing_time"
   ],
-  "notes": "No minimum loss appears in A.C.A. 16-90-701 to 16-90-720 or 16 CAR Part 60 (the $500 figures in 16-90-719 belong to a property-repair labor program, not a minimum loss). No per-expense cap was found for lost wages, transportation, or security, and relocation is not mentioned as covered or excluded. For compensation, the 72-hour police report rule has only a good-cause exception (16 CAR 60-203(c)(2) lists physical incapacity, mental incompetence, age, and an injury not reasonably discoverable); no sexual-assault-specific alternative such as an exam or advocate report was found. The exam statute does not say whether the survivor's insurance may be billed; 16 CAR 60-303 reduces exam payments by collateral sources, recorded as AR-EXAM-5, so insurance_billing is left 'unspecified'. Crime scene cleanup is an allowable expense in 16-90-703(1)(A)(iv), but the application (Section G) limits it to survivors or dependents of homicide victims, so it is not recorded as covered for sexual assault survivors."
+  "notes": "No minimum loss appears in A.C.A. 16-90-701 to 16-90-720 or 16 CAR Part 60 (the $500 figures in 16-90-719 belong to a property-repair labor program, not a minimum loss). No per-expense cap was found for lost wages, transportation, or security, and relocation is not mentioned as covered or excluded. For compensation, the 72-hour police report rule has only a good-cause exception (16 CAR 60-203(c)(2) lists physical incapacity, mental incompetence, age, and an injury not reasonably discoverable); no sexual-assault-specific alternative such as an exam or advocate report was found. The exam statute does not say whether the survivor's insurance may be billed; 16 CAR 60-303 reduces exam payments by collateral sources, recorded as AR-EXAM-5, so insurance_billing is left 'unspecified'. Crime scene cleanup is an allowable expense in 16-90-703(1)(A)(iv), but the application (Section G) limits it to survivors or dependents of homicide victims, so it is not recorded as covered for sexual assault survivors. No official source states how long a decision or payment takes; 16 CAR 60-206(h)(2) only says the claimant is mailed notice within fifteen calendar days after the staff decision, so no processing_time rule is recorded."
  },
  "confidence": "medium",
- "researcher_notes": "Filing deadline conflict: Act 666 of 2025 (SB 430, approved 4/16/25, saved as AR-S14) changed A.C.A. 16-90-712(a)(1) from one year to five years, plus five years after age 18 for minors. The statute wins, so the rules record five years. The board's rules (16 CAR 60-203(d)(1), both the DPS January 2026 copy AR-S7 and the BLR 03/22/2026 copy AR-S13), the DPS criteria page (AR-S3), and the DPS statute compilation (AR-S6, current only through 2023) still say one year. Act 666 has no emergency clause, and I did not verify its effective date or whether it reaches older crimes, so the app should tell survivors past one year to still apply and ask the program. Statute text for 16-90-703, 712, 716 and 12-12-403 is from Justia's 2025 Arkansas Code (Act 666 itself is from the legislature's site); it matches the DPS compilation except for the 2025 change to 712. Other notes: the cooperation requirement in 16-90-712(c) does not apply to human trafficking victims or minor victims of a sex offense. 16 CAR 60-211(b)(3) lets the board waive the $2,500 counseling maximum for documented special need. 16 CAR 60-210(b)-(c) says a provider that accepts the 65% medical payment agrees not to sue the victim for the balance, and A.C.A. 16-90-720 has the board pay healthcare at the workers' compensation fee schedule. 16 CAR 60-304 sets provider reimbursement maximums for exams (facility fee, SANE nurse fee, labs, colposcope); these are provider limits, not survivor caps, and are not recorded as rules. Exam bills must reach the board within three months of the exam (16 CAR 60-302(b)), a provider obligation. 12-12-402 says no provider may require an adult victim to report in order to get treatment. The application PDF lists the board at 1 State Police Plaza Drive, Little Rock, while the DPS site lists 322 South Main Street, Suite 615; the phone 501-682-1020 is the same on both and on the OVC directory. The DPS pages name the program administrator; no person is named here. Reviewer: an advance (emergency) award must be repaid if the claimant later does not follow through with prosecution or another program requirement (16 CAR 60-207(b)(4)); the rules also require cooperation with law enforcement (60-203(f)), while the statute exempts minor victims of a sex offense from the cooperation rule (16-90-712(c)(2)). The application warns that, until the board decides, the victim/claimant is responsible to service providers for expenses (the exam is the exception under 12-12-403(c))."
+ "researcher_notes": "Filing deadline conflict: Act 666 of 2025 (SB 430, approved 4/16/25, saved as AR-S14) changed A.C.A. 16-90-712(a)(1) from one year to five years, plus five years after age 18 for minors. The statute wins, so the rules record five years. The board's rules (16 CAR 60-203(d)(1), both the DPS January 2026 copy AR-S7 and the BLR 03/22/2026 copy AR-S13), the DPS criteria page (AR-S3), and the DPS statute compilation (AR-S6, current only through 2023) still say one year. Act 666 has no emergency clause, and I did not verify its effective date or whether it reaches older crimes, so the app should tell survivors past one year to still apply and ask the program. Statute text for 16-90-703, 712, 716 and 12-12-403 is from Justia's 2025 Arkansas Code (Act 666 itself is from the legislature's site); it matches the DPS compilation except for the 2025 change to 712. Other notes: the cooperation requirement in 16-90-712(c) does not apply to human trafficking victims or minor victims of a sex offense. 16 CAR 60-211(b)(3) lets the board waive the $2,500 counseling maximum for documented special need. 16 CAR 60-210(b)-(c) says a provider that accepts the 65% medical payment agrees not to sue the victim for the balance, and A.C.A. 16-90-720 has the board pay healthcare at the workers' compensation fee schedule. 16 CAR 60-304 sets provider reimbursement maximums for exams (facility fee, SANE nurse fee, labs, colposcope); these are provider limits, not survivor caps, and are not recorded as rules. Exam bills must reach the board within three months of the exam (16 CAR 60-302(b)), a provider obligation. 12-12-402 says no provider may require an adult victim to report in order to get treatment. The application PDF lists the board at 1 State Police Plaza Drive, Little Rock, while the DPS site lists 322 South Main Street, Suite 615; the phone 501-682-1020 is the same on both and on the OVC directory. The DPS pages name the program administrator; no person is named here. Reviewer: an advance (emergency) award must be repaid if the claimant later does not follow through with prosecution or another program requirement (16 CAR 60-207(b)(4)); the rules also require cooperation with law enforcement (60-203(f)), while the statute exempts minor victims of a sex offense from the cooperation rule (16-90-712(c)(2)). The application warns that, until the board decides, the victim/claimant is responsible to service providers for expenses (the exam is the exception under 12-12-403(c)). How to file: the DPS home page offers an online application (AR-S1) and the Documents and Forms page calls it preferred (AR-S5); the online form at crimevictims.dps.arkansas.gov is a JavaScript form whose text could not be saved, so the target URL is taken from the link on AR-S1. The paper application (AR-S8, CVRB-Application_10-6-2023.pdf, the only version linked from the DPS forms page) has no fillable AcroForm fields (0 fields), so it must be printed and filled by hand. No official source states a mailing, fax, or email submission instruction in so many words: AR-S4 says to submit the application to the reparations office and lists 322 South Main Street, Suite 615, Little Rock, AR 72201, while the application header and the Arkansas.gov portal page (AR-S15) list 1 State Police Plaza Drive, Little Rock, AR 72209 and fax 501-682-5313. I recorded mail to the DPS site address (the newer source) and no fax rule; the app should tell survivors to call 501-682-1020 to confirm where to send paper copies. The application also requires the signed Authorization to Release Information and the applicant's signature, and 16 CAR 60-206(b) requires the form be complete and come with an itemized statement and the police report or other official documentation from the reporting agency."
 }

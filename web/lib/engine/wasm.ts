@@ -43,6 +43,16 @@ function copyIn(mod: TendModule, bytes: Uint8Array): number {
   return ptr;
 }
 
+// The engine reports {error: {code, message}}; older builds used a plain string.
+export function engineErrorText(error: unknown): string {
+  if (error && typeof error === "object") {
+    const { code, message } = error as { code?: unknown; message?: unknown };
+    const text = [code, message].filter((v) => typeof v === "string" && v).join(": ");
+    return text || JSON.stringify(error);
+  }
+  return String(error);
+}
+
 export class WasmEngine {
   private images = new Map<string, Promise<Uint8Array | null>>();
 
@@ -93,7 +103,7 @@ export class WasmEngine {
         const text = this.takeString(this.mod._tend_eval_json(imgPtr, image.length, inPtr), "tend_eval_json");
         const out = JSON.parse(text);
         if (out && typeof out === "object" && "error" in out && !("lines" in out)) {
-          throw new Error(`engine error: ${String(out.error)}`);
+          throw new Error(`engine error: ${engineErrorText(out.error)}`);
         }
         return out as EngineOutput;
       } finally {

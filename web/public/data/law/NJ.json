@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.nj.gov/oag/njvictims/pdfs/VCCO-Application-Instructions.pdf",
   "phone": "973-648-2107",
   "phone_source_id": "NJ-S2",
-  "statute_citation": "N.J.S.A. 52:4B-1 et seq. (Criminal Injuries Compensation Act of 1971); N.J.A.C. 13:75"
+  "statute_citation": "N.J.S.A. 52:4B-1 et seq. (Criminal Injuries Compensation Act of 1971); N.J.A.C. 13:75",
+  "application_form": {
+   "source_id": "NJ-S16",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -141,6 +146,16 @@
    "raw_path": "rules/sources/NJ/NJ-S18.html",
    "text_path": "rules/sources/NJ/NJ-S18.txt",
    "sha256": "7be92ccae6e6b947bafdab6983e1bd3c142ff0a69871d490e23511218584e05c"
+  },
+  {
+   "id": "NJ-S19",
+   "title": "NJ VCCO Paper Application page",
+   "url": "https://www.njoag.gov/vcco/vcco-paper-application/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:36:29Z",
+   "raw_path": "rules/sources/NJ/NJ-S19.html",
+   "text_path": "rules/sources/NJ/NJ-S19.txt",
+   "sha256": "f793d944b093d042e4e8856065779f9f1193d0aad64a55b002b3891a713aecbb"
   }
  ],
  "rules": [
@@ -619,6 +634,162 @@
    "source_id": "NJ-S2",
    "pinpoint": "NJ VCCO Eligibility page, Preconditions for Eligibility",
    "fragment_url": "https://www.njoag.gov/vcco/vcco-eligibility/#:~:text=The%20crime%20must%20occur%20in,compensation%20for%20your%20crime%2Drelated%20losses."
+  },
+  {
+   "id": "NJ-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "www.njvictims.org"
+   },
+   "summary": "Applications can be filed online through the VCCO claims system.",
+   "quote": "For applications and submission of documents, you may: File online @ www.njvictims.org",
+   "source_id": "NJ-S6",
+   "pinpoint": "NJ VCCO Contact page, applications and submission of documents",
+   "fragment_url": "https://www.njoag.gov/vcco/vcco-contact-us/#:~:text=For%20applications%20and%20submission%20of,may%3A%20File%20online%20%40%20www.njvictims.org"
+  },
+  {
+   "id": "NJ-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "VCCO, 50 Park Place, 5th floor, Newark, NJ 07102"
+   },
+   "summary": "Paper applications go by mail to the VCCO office in Newark.",
+   "quote": "Mail all applications\nto Newark office at:\nVCCO\n50 Park Place, 5th floor\nNewark, NJ 07102",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II sidebar"
+  },
+  {
+   "id": "NJ-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "973-648-3937"
+   },
+   "summary": "Applications and documents can be faxed to the VCCO.",
+   "quote": "Fax: 973-648-3937",
+   "source_id": "NJ-S6",
+   "pinpoint": "NJ VCCO Contact page, applications and submission of documents",
+   "fragment_url": "https://www.njoag.gov/vcco/vcco-contact-us/#:~:text=Fax%3A%20973%2D648%2D3937"
+  },
+  {
+   "id": "NJ-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Attach if available; the VCCO will request it from police or the prosecutor if you do not have one."
+   },
+   "summary": "Attach a copy of the police incident report if you have one; otherwise the VCCO requests it.",
+   "quote": "Attach a copy\nof the incident report. If you don't have one, the\nVCCO will request one from the police and/or\nprosecutor.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 4"
+  },
+  {
+   "id": "NJ-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Copies of itemized receipts, as many as you have; more can be sent later."
+   },
+   "summary": "Include copies of itemized receipts with the application.",
+   "quote": "Include\ncopies of as much related information (i.e. copies of itemized receipts,\nbills, insurance statements) as you have.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II"
+  },
+  {
+   "id": "NJ-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of itemized bills from doctors, hospitals and counselors, if you already have them."
+   },
+   "summary": "Send copies of any itemized medical or counseling bills you already have.",
+   "quote": "If you already\nhave itemized bills, please send copies with\nyour application.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 7"
+  },
+  {
+   "id": "NJ-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Copies of insurance statements, as many as you have."
+   },
+   "summary": "Include copies of insurance statements with the application.",
+   "quote": "Include\ncopies of as much related information (i.e. copies of itemized receipts,\nbills, insurance statements) as you have.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II"
+  },
+  {
+   "id": "NJ-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages, if available: pay stubs from the week before the crime and the week you returned to work."
+   },
+   "summary": "For lost wages, supply pay stubs from before the crime and from your return to work.",
+   "quote": "If available, please supply your pay stubs from the week before the crime, the week you returned to work\nand a letter from your doctor stating your period of disability.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)"
+  },
+  {
+   "id": "NJ-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For lost wages: a letter from your doctor stating your period of disability."
+   },
+   "summary": "For lost wages, supply a doctor's letter stating the period of disability.",
+   "quote": "If available, please supply your pay stubs from the week before the crime, the week you returned to work\nand a letter from your doctor stating your period of disability.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)"
+  },
+  {
+   "id": "NJ-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Self-employed lost wages: income and business tax returns for the 2 years before the crime."
+   },
+   "summary": "Self-employed applicants claiming lost wages must supply income and business tax returns for the 2 years before the crime.",
+   "quote": "If you are self-employed, you must supply copies of your income tax returns and business tax returns for the last 2 years before the crime.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)"
+  },
+  {
+   "id": "NJ-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed HIPAA authorization (application Section 15) so the VCCO can get records from health care providers."
+   },
+   "summary": "The HIPAA release in the application must be completed, signed and dated before the claim can be processed.",
+   "quote": "This authorization is necessary to obtain information\nfrom your health care providers under federal law.\nIt must be completed, signed and dated in order\nfor the VCCO to process your claim.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 15"
+  },
+  {
+   "id": "NJ-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90
+   },
+   "summary": "The VCCO decides on an application within 90 days after it acknowledges receiving the completed application and all supporting information; this can be extended for good cause.",
+   "quote": "The Office will make its determination regarding the application within 90 days of acknowledgment by the\nOffice of receipt of the completed application and any and all necessary supplemental information",
+   "source_id": "NJ-S9",
+   "pinpoint": "N.J.A.C. 13:75-4.2(c)"
+  },
+  {
+   "id": "NJ-TIME-2",
+   "category": "processing_time",
+   "params": {
+    "months": 3
+   },
+   "summary": "The application instructions say claims take 3 months to process once all documentation is received.",
+   "quote": "the turn around time for processing a claim is 3 months of receipt of\nall documentation.",
+   "source_id": "NJ-S16",
+   "pinpoint": "NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II"
   }
  ],
  "coverage": {
@@ -635,16 +806,20 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "exam_payment",
    "medical expense cap (none found beyond the $25,000 total)",
    "reporting alternatives for sexual assault (none in statute or rules)",
-   "insurance billing rule for forensic exams"
+   "insurance billing rule for forensic exams",
+   "photo_id or proof of residency (the application and instructions do not ask for either)"
   ],
   "notes": "No source names which agency pays providers for the forensic exam, and none says whether a hospital may bill the survivor's insurance for it; the statute (52:4B-52(k), echoed in 52:4B-22(b)) bars charging the victim a fee for exam services, and the AG SART standards say care beyond the exam can be billed under hospital policy. Statute and regulation require a police or law enforcement report within nine months, with a good-cause exception for late reports; the AG SART standards also tell survivors that VCCO benefits require a report to law enforcement. No protective-order, advocate or exam-only alternative was found in law."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text: N.J.S.A. 52:4B-18 and 52:4B-52 from Justia's 2025 edition (the legislature site was not used); other sections from the OAG compilation dated 8/1/2020, which may predate later amendments (the 2024 VCCO FAQ mentions new covered crime types such as harassment and criminal mischief that are not in that compilation). The OAG administrative code copy has no visible adoption date but reflects post-August 2020 changes. The 2024 FAQ (NJ-S4) says a crime 'must have been reported to law enforcement within 9 months of the crime, filing of a restraining order or sexual violence protective order'; the statute (52:4B-18) says only police or law enforcement, so I did not record a protective-order alternative. The AG SART Standards (NJ-S13, 2018) say emergency care beyond the scope of the forensic exam may be charged under hospital policy, so the no-fee rule covers exam services only. The VCCO Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order and lists (973) 648-2107; the Contact page and OVC directory still list 877-658-2221. Counseling also has per-session rate caps by provider type in N.J.A.C. 13:75-4.4(a), not encoded. Catastrophic injury claims can get supplemental rehabilitative compensation beyond $25,000 (not encoded). Reviewer (Oct 3): moved NJ-CRIME-1 to Justia's 2025 text of 52:4B-11 (NJ-S18, amended through P.L.2023, c.101); the sexual assault offenses are unchanged and harassment and criminal mischief are not in that text, so the 2024 FAQ's mention of them is unconfirmed in statute. Changed the program phone to (973) 648-2107 because the Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order; the Contact page still lists both. Emergency award statute text (52:4B-10.1, NJ-S8) is from the 8/1/2020 compilation; its $7,500 per-award cap matches N.J.A.C. 13:75-5.1(c). The $3,000 security rule (NJ-SEC-1) is the same $3,000 as relocation, not an additional amount; an engine must not add them. N.J.A.C. 13:75-4.4(c) says a provider who accepts VCCO payment must accept the VCCO rate as payment in full and not seek more from other sources (not encoded; it is not exam-specific). Catastrophically injured victims can get up to $35,000 more for rehabilitative services under N.J.A.C. 13:75-6.3(a) (not encoded)."
+ "researcher_notes": "Statute text: N.J.S.A. 52:4B-18 and 52:4B-52 from Justia's 2025 edition (the legislature site was not used); other sections from the OAG compilation dated 8/1/2020, which may predate later amendments (the 2024 VCCO FAQ mentions new covered crime types such as harassment and criminal mischief that are not in that compilation). The OAG administrative code copy has no visible adoption date but reflects post-August 2020 changes. The 2024 FAQ (NJ-S4) says a crime 'must have been reported to law enforcement within 9 months of the crime, filing of a restraining order or sexual violence protective order'; the statute (52:4B-18) says only police or law enforcement, so I did not record a protective-order alternative. The AG SART Standards (NJ-S13, 2018) say emergency care beyond the scope of the forensic exam may be charged under hospital policy, so the no-fee rule covers exam services only. The VCCO Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order and lists (973) 648-2107; the Contact page and OVC directory still list 877-658-2221. Counseling also has per-session rate caps by provider type in N.J.A.C. 13:75-4.4(a), not encoded. Catastrophic injury claims can get supplemental rehabilitative compensation beyond $25,000 (not encoded). Reviewer (Oct 3): moved NJ-CRIME-1 to Justia's 2025 text of 52:4B-11 (NJ-S18, amended through P.L.2023, c.101); the sexual assault offenses are unchanged and harassment and criminal mischief are not in that text, so the 2024 FAQ's mention of them is unconfirmed in statute. Changed the program phone to (973) 648-2107 because the Eligibility page (NJ-S2) says the toll-free line 877-658-2221 is out of order; the Contact page still lists both. Emergency award statute text (52:4B-10.1, NJ-S8) is from the 8/1/2020 compilation; its $7,500 per-award cap matches N.J.A.C. 13:75-5.1(c). The $3,000 security rule (NJ-SEC-1) is the same $3,000 as relocation, not an additional amount; an engine must not add them. N.J.A.C. 13:75-4.4(c) says a provider who accepts VCCO payment must accept the VCCO rate as payment in full and not seek more from other sources (not encoded; it is not exam-specific). Catastrophically injured victims can get up to $35,000 more for rehabilitative services under N.J.A.C. 13:75-6.3(a) (not encoded). How to file (Oct 3): the paper application (NJ-S16, rev. 8/25/20, effective 8/1/20) is still the version linked from the VCCO Paper Application page (NJ-S19); it has no AcroForm fields (field_count 0), so it is print-and-fill. Filing methods from the Contact page (NJ-S6): online at www.njvictims.org, fax 973-648-3937, or mail; the instructions give the mail address as VCCO, 50 Park Place, 5th floor, Newark, NJ 07102 (line breaks shown as commas in the target). The 2024 FAQ (NJ-S4) describes filing as completing the online application, so online is the main path. Email (njvictims@njvictims.org) is given only for status questions and appointment requests, not for filing, so no email submission rule; walk-ins are mentioned only in a closure notice, so no in_person rule. Claimants with an active claim and PIN can upload documents online; documents sent later should include the claim number (NJ-S6). The 90-day decision time in N.J.A.C. 13:75-4.2(c) (NJ-TIME-1) runs from acknowledgment of a complete application and can be extended for good cause; the instructions' 3 months (NJ-TIME-2) runs from receipt of all documentation. The Paper Application page also says to call if no receipt letter arrives within four weeks (not encoded). Most documents are 'if available'; the VCCO will request the police report itself if the survivor does not have one. Homicide-only documents (victim's tax returns for loss of support) were not encoded."
 }
