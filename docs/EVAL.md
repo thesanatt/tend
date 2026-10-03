@@ -20,8 +20,8 @@ implementation (engine/tests/oracle.cpp) that shares no code with the compiler o
 | the same under AddressSanitizer and UBSan (`make test-san`) | 69 of 69 pass |
 | C++ VM vs the C++ oracle, random laws | 6,000 evaluations (1,500 random laws x 4 claims), 0 differences |
 | C++ VM vs the C++ oracle, real laws | 612 evaluations (51 jurisdictions x 12 scenarios), 0 differences |
-| Python reference tests (`uv run pytest`) | 462 tests, all pass |
-| validation messages, reference and C++ | 68 claim cases give byte-identical results; 15 non-JSON texts refused by both |
+| Python reference tests (`uv run pytest`) | 470 tests, all pass |
+| validation messages, reference and C++ | 72 claim cases give byte-identical results; 15 non-JSON texts refused by both |
 | laws refused, reference and `tendc` | 51 broken laws refused by both with the same message; 7 edge cases accepted by both |
 | hand-computed golden claim (18 lines, 40 trace entries) | the C++ engine wrote the expected file; the reference matches it byte for byte |
 | difftest, reference vs C++ (`difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`) | **121,000 claims, 0 mismatches** |

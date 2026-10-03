@@ -318,22 +318,25 @@ The claim is one JSON object (RFC 8259, UTF-8, at most 64 nested arrays and obje
 reads a C string, so a NUL byte ends it). The engine reads it in document order and reports the
 first problem. Keys it does not know are skipped, never echoed; known keys are:
 
-| where | key | value | when null or missing |
-|---|---|---|---|
-| top | `jurisdiction` | string; must equal the law's code | not checked |
-| top | `context` | object (required) | `context is required` |
-| top | `items` | array of objects | no items |
-| context | `incident_date`, `as_of_date` | `YYYY-MM-DD`, a real day in years 0001..9999 (required) | `... is required` / bad date |
-| context | `police_report` | `yes`, `no`, `unknown` | unknown |
-| context | `forensic_exam` | true or false | false |
-| item | `item_id` | non-empty string, unique in the claim (required) | required |
-| item | `date` | `YYYY-MM-DD` (required) | required |
-| item | `amount_cents` | integer, 0 to 2^53 - 1 (required) | required |
-| item | `expense` | one of the 18 SCHEMA.md expenses, or `unknown` | unknown |
-| item | `confirmed`, `is_bill` | true or false | false |
-| item | `insurance_paid_cents`, `units` | integer, 0 to 2^53 - 1 | 0 |
-| item | `unit` | session, week, hour, mile, day, month, item | no unit |
-| item | `tags` | list of strings | no tags |
+| where | key | value | when missing | when null |
+|---|---|---|---|---|
+| top | `jurisdiction` | string; must equal the law's code | not checked | not checked |
+| top | `context` | object (required) | `context is required` | `context: expected an object` |
+| top | `items` | array of objects | no items | no items |
+| context | `incident_date`, `as_of_date` | `YYYY-MM-DD`, a real day in years 0001..9999 (required) | `context.<key> is required` | `context.<key>: expected a date as YYYY-MM-DD` |
+| context | `police_report` | `yes`, `no`, `unknown` | unknown | unknown |
+| context | `forensic_exam` | true or false | false | false |
+| item | `item_id` | non-empty string, unique in the claim (required) | `items[i].item_id is required` | `items[i].item_id: expected a string` |
+| item | `date` | `YYYY-MM-DD` (required) | `items[i].date is required` | `items[i].date: expected a date as YYYY-MM-DD` |
+| item | `amount_cents` | integer, 0 to 2^53 - 1 (required) | `items[i].amount_cents is required` | `items[i].amount_cents: expected an integer` |
+| item | `expense` | one of the 18 SCHEMA.md expenses, or `unknown` | unknown | unknown |
+| item | `confirmed`, `is_bill` | true or false | false | false |
+| item | `insurance_paid_cents`, `units` | integer, 0 to 2^53 - 1 | 0 | 0 |
+| item | `unit` | session, week, hour, mile, day, month, item | no unit | no unit |
+| item | `tags` | list of strings | no tags | no tags |
+
+So null stands for "not given" on every optional key, but a required key that is null is a value
+of the wrong type, not a missing key.
 
 Errors are `{"error":{"code":...,"message":...}}`. Codes: `bad_image`, `bad_input`,
 `jurisdiction_mismatch`, `vm_trap`. For any well-formed JSON document, the message is exactly one
