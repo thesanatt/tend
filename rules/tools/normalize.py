@@ -22,7 +22,7 @@ TAG_WORDS = [
     (("pain and suffering",), "pain_suffering"),
 ]
 SA_WORDS = ("sexual", "forensic", "criminal sexual conduct", "sexual_assault", "forensic_exam")
-INFO_CATEGORIES = {"conduct_reduction", "emergency_award", "eligible_crime", "residency", "submission", "required_document", "processing_time"}
+INFO_CATEGORIES = {"conduct_reduction", "emergency_award", "eligible_crime", "residency", "submission", "required_document", "processing_time", "address_confidentiality", "record_confidentiality"}
 
 
 def applies_to_someone_else(params: dict) -> str | None:

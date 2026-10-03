@@ -76,6 +76,8 @@ rejects. A rule exists only if its `quote` is a verbatim substring of a saved of
 | `submission` | how to file: one rule per method | `method` (mail, online, email, fax, in_person), `target` (the address, URL, email, or fax number exactly as written) |
 | `required_document` | a document the program asks applicants to include or provide | `document` (photo_id, itemized_bill, receipts, police_report, exam_record, wage_verification, medical_records, insurance_statement, counseling_statement, proof_of_residency, other), optional `note` |
 | `processing_time` | stated time for a decision or payment | `days` (or `weeks`/`months`) |
+| `address_confidentiality` | the state's address confidentiality program (substitute address for survivors on government records and forms) | `program_name`, `agency`, `covers_sexual_assault` (bool), `enroll` (how, as written) |
+| `record_confidentiality` | the compensation program's records or claims are confidential by law | none |
 
 ## Expense types (`expense`)
 

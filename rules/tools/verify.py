@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[2]
-CATEGORIES = {"exam_no_bill", "exam_payment", "total_cap", "expense_cap", "covered_expense", "excluded_expense", "filing_deadline", "reporting_requirement", "minimum_loss", "collateral_source", "conduct_reduction", "emergency_award", "eligible_crime", "residency", "submission", "required_document", "processing_time"}
+CATEGORIES = {"exam_no_bill", "exam_payment", "total_cap", "expense_cap", "covered_expense", "excluded_expense", "filing_deadline", "reporting_requirement", "minimum_loss", "collateral_source", "conduct_reduction", "emergency_award", "eligible_crime", "residency", "submission", "required_document", "processing_time", "address_confidentiality", "record_confidentiality"}
 EXPENSES = {"medical", "forensic_exam", "counseling", "lost_wages", "transportation", "relocation", "temporary_housing", "security", "crime_scene_cleanup", "childcare", "property_replacement", "clothing_bedding", "prescription", "dental", "funeral", "legal", "tuition", "other"}
 NUMERIC_PARAMS = {"amount_cents", "years", "days", "within_days", "count_limit", "days_lost", "weeks", "months"}
 WORDS = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16, "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90}
