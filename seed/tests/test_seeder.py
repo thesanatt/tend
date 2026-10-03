@@ -1,11 +1,12 @@
 import json
 
+import httpx
 import pytest
 
 from history import ACCOUNTS, MERCHANTS, build_history
 from personas import PERSONAS
 from seeder import Seeder, labels_for, take_snapshot, verify_against_plan
-from tend_api.nessie import NessieListCorrupt
+from tend_api.nessie import NessieClient, NessieListCorrupt, read_persona
 
 QUIET = {"log": lambda message: None}
 
@@ -106,3 +107,27 @@ def test_snapshot_files_are_labeled_and_complete(client, seeded, tmp_path):
     doc = data["meta"]["documents"][0]
     assert doc["path"] == "seed/bills/rowan-mi-riverbend.pdf" and doc["total_cents"] == 443_00
     assert (tmp_path / "bills" / "rowan-mi-riverbend.pdf").exists()
+
+
+def test_read_persona_prefers_live_and_says_so(client, fake, seeded, tmp_path):
+    persona, manifest, _ = seeded
+    take_snapshot(client, persona, root=tmp_path)
+    saved_dir = tmp_path / "snapshots"
+    live = read_persona(persona.id, client, saved_dir)
+    assert (live.source, live.error) == ("live", None)
+    assert live.snapshot.meta["persona_id"] == persona.id
+    client.create_withdrawal(manifest["accounts"]["checking"], amount_cents=118_00, date="2026-10-03",
+                             description="Riverbend [tend:demo]")
+    assert len(read_persona(persona.id, client, saved_dir).snapshot.txns) == len(live.snapshot.txns) + 1
+
+
+def test_read_persona_falls_back_to_the_snapshot(tmp_path):
+    assert read_persona("rowan-mi").source == "snapshot"
+
+    def down(request: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectError("venue wifi", request=request)
+
+    with NessieClient("k", "https://nessie.test", transport=httpx.MockTransport(down)) as offline_client:
+        result = read_persona("rowan-mi", offline_client)
+    assert result.source == "snapshot" and "ConnectError" in result.error
+    assert len(result.snapshot.txns) == len(build_history())

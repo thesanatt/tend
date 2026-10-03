@@ -35,6 +35,7 @@ PROMPT_VERSION = "classify-v3"  # bump when the prompt changes; old cache entrie
 MAX_REASON_WORDS = 19
 CONFIRM_AT = 0.85
 
+# Care a same-day ride can be travel to, and the word the ride's reason uses for it.
 CARE_EXPENSES = {"counseling": "counseling", "medical": "medical", "forensic_exam": "medical",
                  "dental": "dental", "prescription": "prescription"}
 

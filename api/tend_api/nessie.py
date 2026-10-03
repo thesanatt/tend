@@ -10,11 +10,12 @@ import json
 import os
 import re
 from collections.abc import Callable, Iterable
-from dataclasses import asdict, dataclass, field, replace
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import asdict, dataclass, field
 from datetime import date as _date
 from decimal import Decimal
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, NamedTuple
 
 import httpx
 
@@ -565,10 +566,16 @@ class NessieClient:
     def snapshot(self, customer_id: str, meta: dict | None = None) -> BankSnapshot:
         customer = self.get_customer(customer_id)
         accounts = sorted(self.list_accounts(customer_id), key=lambda a: (a.type, a.nickname, a.id))
-        txns = sorted((t for a in accounts for t in self.account_txns(a.id)), key=lambda t: (t.date, t.kind, t.id))
-        bills = sorted((b for a in accounts for b in self.list_bills(a.id)), key=lambda b: b.id)
-        wanted = {t.merchant_id for t in txns if t.merchant_id}
-        merchants = sorted((m for m in self.list_merchants() if m.id in wanted), key=lambda m: (m.name, m.id))
+        # About a dozen independent list reads; in parallel a slow (cold) one no longer stacks
+        # on top of the others. Typical: 1.1 s one by one, a fraction of that together.
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            txn_lists = pool.map(lambda job: self.list_txns(*job), [(a.id, k) for a in accounts for k in TXN_KINDS])
+            bill_lists = pool.map(self.list_bills, [a.id for a in accounts])
+            all_merchants = pool.submit(self.list_merchants)
+            txns = sorted((t for group in txn_lists for t in group), key=lambda t: (t.date, t.kind, t.id))
+            bills = sorted((b for group in bill_lists for b in group), key=lambda b: b.id)
+            wanted = {t.merchant_id for t in txns if t.merchant_id}
+            merchants = sorted((m for m in all_merchants.result() if m.id in wanted), key=lambda m: (m.name, m.id))
         return BankSnapshot(customer, accounts, merchants, txns, bills, dict(meta or {}))
 
 
@@ -626,7 +633,7 @@ class BankSnapshot:
         return cls(
             customer=Customer(cust["id"], cust["first_name"], cust["last_name"], addr(cust.get("address"))),
             accounts=[Account(**a) for a in data["accounts"]],
-            merchants=[replace(Merchant(**m), address=addr(m.get("address"))) for m in data["merchants"]],
+            merchants=[Merchant(**{**m, "address": addr(m.get("address"))}) for m in data["merchants"]],
             txns=[Txn(**t) for t in data["transactions"]],
             bills=[Bill(**b) for b in data["bills"]],
             meta=data.get("meta", {}),
@@ -650,3 +657,25 @@ def load_persona_snapshot(persona_id: str, directory: str | Path | None = None) 
 
 def list_persona_snapshots(directory: str | Path | None = None) -> list[str]:
     return sorted(p.stem for p in Path(directory or SNAPSHOT_DIR).glob("*.json"))
+
+
+class PersonaRead(NamedTuple):
+    snapshot: BankSnapshot
+    source: Literal["live", "snapshot"]
+    error: str | None = None
+
+
+def read_persona(persona_id: str, client: NessieClient | None = None,
+                 directory: str | Path | None = None) -> PersonaRead:
+    """Live Nessie when it answers, otherwise the committed snapshot; source says which one.
+
+    The saved copy supplies the customer id and the persona's metadata either way, so a live
+    read costs about a dozen GETs and an outage costs nothing but the label.
+    """
+    saved = load_persona_snapshot(persona_id, directory)
+    if client is None:
+        return PersonaRead(saved, "snapshot")
+    try:
+        return PersonaRead(client.snapshot(saved.customer.id, saved.meta), "live")
+    except (NessieError, ValueError) as exc:
+        return PersonaRead(saved, "snapshot", f"{type(exc).__name__}: {exc}")
