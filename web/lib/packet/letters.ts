@@ -63,8 +63,10 @@ function documentRules(
 }
 
 // One letter per bill: lines from the same itemized bill share the part of the id before the last ":".
-function billKey(itemId: string): string {
-  return itemId.startsWith("nessie:") ? itemId : itemId.slice(0, itemId.lastIndexOf(":")) || itemId;
+export function billKey(itemId: string): string {
+  const cut = itemId.lastIndexOf(":");
+  // "exam-1" and "exam-2" have no bill part: each is its own bill.
+  return itemId.startsWith("nessie:") || cut <= 0 ? itemId : itemId.slice(0, cut);
 }
 
 export function billingHold(law: LawBook, held: EngineLine[], items: Map<string, EngineItem>): Letter | null {

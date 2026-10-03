@@ -371,3 +371,83 @@ describe("text the standard PDF fonts cannot draw", () => {
     await expect(builderFor(webLaw).build("NY", rowanInput(), rowanOutput())).rejects.toThrow(/Michigan|MI law/);
   });
 });
+
+describe("review fixes: the summary says only what the rules support", () => {
+  it("does not claim a state has no police report or minimum loss rule it never found", async () => {
+    const output = rowanOutput();
+    output.checks = {
+      ...output.checks,
+      reporting: { status: "not_required", rule_ids: [] },
+      minimum_loss: { status: "met", rule_ids: [] },
+    };
+    const text = (await builderFor(webLaw).build("MI", rowanInput(), output)).transcript.join("\n");
+    expect(text).not.toContain("This program does not require a police report.");
+    expect(text).toContain("Tend found no police report rule for this state.");
+    expect(text).toContain("Tend found no minimum loss rule for this state.");
+    expect(text).not.toMatch(/^Met\.$/m);
+  });
+
+  it("shows the insurance actually taken off, and both notes when a cap also applies", async () => {
+    const input = rowanInput();
+    const output = rowanOutput();
+    const er = "rcpt:9c41e2a7:1";
+    const lab = "rcpt:9c41e2a7:2";
+    input.items = input.items.map((i) =>
+      i.item_id === er
+        ? { ...i, insurance_paid_cents: 150000 }
+        : i.item_id === lab
+          ? { ...i, insurance_paid_cents: 4000 }
+          : i,
+    );
+    output.lines = output.lines.map((l) =>
+      l.item_id === er
+        ? { ...l, allowed_cents: 0 }
+        : l.item_id === lab
+          ? { ...l, allowed_cents: 10000, cap_rule_id: "MI-CAP-1" }
+          : l,
+    );
+    output.totals = { ...output.totals, allowed_cents: 10000 };
+    const text = (await builderFor(webLaw).build("MI", input, output)).transcript.join("\n");
+    // $1,500 paid by insurance on a $1,180 bill takes off $1,180, not $1,500.
+    expect(text).toContain("Less $1,180.00 that insurance paid.");
+    expect(text).not.toContain("$1,500.00");
+    expect(text).toContain("Less $40.00 that insurance paid.");
+    expect(text).toContain(`Cut to the limit in ${new LawBook(webLaw("MI")).rule("MI-CAP-1")!.pinpoint}.`);
+  });
+
+  it("writes one billing letter per held bill, even for ids with no bill part", async () => {
+    const input = rowanInput();
+    const output = rowanOutput();
+    const exam = input.items.find((i) => i.expense === "forensic_exam")!;
+    input.items = [
+      ...input.items.filter((i) => i !== exam),
+      { ...exam, item_id: "exam-1" },
+      { ...exam, item_id: "exam-2", description: "Second clinic exam" },
+    ];
+    const held = output.lines.find((l) => l.status === "held")!;
+    output.lines = [
+      ...output.lines.filter((l) => l !== held),
+      { ...held, item_id: "exam-1" },
+      { ...held, item_id: "exam-2" },
+    ];
+    const p = await builderFor(webLaw).build("MI", input, output);
+    const holds = p.letters.filter((l) => l.kind === "billing_hold");
+    expect(holds).toHaveLength(2);
+    expect(holds[1].body).toContain("Second clinic exam");
+  });
+
+  it("never makes a javascript: or file: link clickable", async () => {
+    const law = webLaw("MI");
+    law.rules = law.rules.map((r) =>
+      r.id === "MI-EXAM-1"
+        ? { ...r, fragment_url: "javascript:alert(1)" }
+        : r.id === "MI-COV-1"
+          ? { ...r, fragment_url: "file:///etc/passwd" }
+          : r,
+    );
+    const pdf = (await bytesOf((await builderFor(() => law).build("MI", rowanInput(), rowanOutput())).summaryPdf))!;
+    const links = await uriLinks(pdf);
+    expect(links.length).toBeGreaterThan(0);
+    for (const l of links) expect(l).toMatch(/^(https?:\/\/|mailto:)/);
+  });
+});

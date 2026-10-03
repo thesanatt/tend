@@ -91,6 +91,9 @@ export function makeCleaner(charset: Set<number>): (text: string) => string {
   };
 }
 
+// Only web and mail links become clickable. Anything else (javascript:, file:) stays plain text.
+const SAFE_LINK = /^(https?:\/\/|mailto:)/i;
+
 interface Piece {
   text: string;
   font: FontKey;
@@ -272,7 +275,7 @@ export class Pdf {
             color: COLORS[p.color],
           });
         }
-        if (p.link && tw > 0) this.link(cx, baseline - 2.5, tw, size + 2.5, p.link);
+        if (p.link && tw > 0 && SAFE_LINK.test(p.link)) this.link(cx, baseline - 2.5, tw, size + 2.5, p.link);
       }
       cx += w;
       i = j;

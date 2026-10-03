@@ -122,7 +122,9 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
       : reporting.status === "required"
         ? "This program asks for a police report or another proof it accepts."
         : reporting.status === "not_required"
-          ? "This program does not require a police report."
+          ? reporting.rule_ids.length
+            ? "This program does not require a police report."
+            : "Tend found no police report rule for this state. Ask the program."
           : "This depends on whether it was reported. You do not have to say.";
   const minimumText: Record<string, string> = {
     met: "Met.",
@@ -136,7 +138,10 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     ["Police report", reportingText, cites(reporting.rule_ids)],
     [
       "Minimum loss",
-      minimumText[minimum_loss.status] ?? minimum_loss.status,
+      // With no rule the engine reports met; the summary does not claim a minimum it never found.
+      !minimum_loss.rule_ids.length && minimum_loss.status === "met"
+        ? "Tend found no minimum loss rule for this state."
+        : (minimumText[minimum_loss.status] ?? "Ask the program how its minimum applies."),
       minimum_loss.rule_ids.length ? cites(minimum_loss.rule_ids) : "",
     ],
   ];
@@ -193,15 +198,18 @@ function groupRules(law: LawBook, lines: EngineLine[]): Rule[] {
 function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined): string[] {
   const notes: string[] = [];
   const pin = (id: string) => law.rule(id)?.pinpoint ?? id;
+  // The engine subtracts insurance (step 6) only under a collateral source rule, and never below
+  // zero, so the note shows what was taken off, not what the insurer paid in total.
+  const collateral = line.rule_ids.some((id) => law.rule(id)?.category === "collateral_source");
+  const insurance = Math.min(item?.insurance_paid_cents ?? 0, line.requested_cents);
+  if (line.status === "eligible" && collateral && insurance > 0) {
+    notes.push(`Less ${formatCents(insurance)} that insurance paid.`);
+  }
   if (line.cap_rule_id) {
     notes.push(
       line.allowed_cents === 0
         ? `The limit in ${pin(line.cap_rule_id)} was already reached.`
         : `Cut to the limit in ${pin(line.cap_rule_id)}.`,
-    );
-  } else if (line.status === "eligible" && line.allowed_cents < line.requested_cents) {
-    notes.push(
-      `Less the ${formatCents(item?.insurance_paid_cents ?? line.requested_cents - line.allowed_cents)} insurance paid.`,
     );
   }
   for (const flag of line.flags) {
