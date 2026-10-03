@@ -48,8 +48,9 @@ class InputParser {
     if (err_.empty()) err_ = "invalid JSON at byte " + std::to_string(r_.offset()) + ": " + r_.error();
     return false;
   }
+  // Prefers the reader's message: it says what was wrong with the JSON itself.
   bool field_error(const std::string& path, const char* what) {
-    if (err_.empty()) err_ = path + ": " + what;
+    if (err_.empty()) err_ = path + ": " + (r_.failed() ? r_.error() : what);
     return false;
   }
   bool semantic(const std::string& msg) {

@@ -50,15 +50,15 @@ class Lister {
 
  private:
   void line(const std::string& s) {
-    out_ += s;
+    size_t end = s.find_last_not_of(' ');
+    out_.append(s, 0, end == std::string::npos ? 0 : end + 1);
     out_ += '\n';
   }
 
   void header() {
     std::string_view name = law_.meta_value("name");
     std::string_view compiler = law_.meta_value("compiler");
-    line("; tend law image " + std::string(law_.jurisdiction) +
-         (name.empty() ? "" : " (" + std::string(name) + ")"));
+    line("; tend law image " + std::string(law_.jurisdiction) + (name.empty() ? "" : ", " + std::string(name)));
     line("; format " + std::to_string(law_.major) + "." + std::to_string(law_.minor) +
          (compiler.empty() ? "" : ", compiled by " + std::string(compiler)));
     line("; source sha256 " + to_hex(law_.source_sha256, 32));

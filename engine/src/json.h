@@ -36,6 +36,7 @@ class JsonReader {
   bool finish();
 
   bool fail(const char* msg);
+  bool failed() const { return err_ != nullptr; }
   const char* error() const { return err_ ? err_ : "ok"; }
   size_t offset() const { return size_t(p_ - begin_); }
 
