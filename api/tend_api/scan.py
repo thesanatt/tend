@@ -179,7 +179,12 @@ def items_from_snapshot(module: ModuleType, snap: dict[str, Any], incident_date:
     except (ValueError, KeyError, TypeError) as exc:
         raise ScanError(f"This snapshot is not in the format the classifier reads: {exc}", 502) from exc
     anchors = [(d["service_date"], d["bill_id"], "medical") for d in snapshot_documents(snap) if d.get("service_date") and d.get("bill_id")]
-    results = module.classify_snapshot(bank, extra_anchors=anchors, incident_date=incident_date)
+    # Rules and the committed answers only: a scan never sends anything to a model (that takes the
+    # survivor's yes, at POST /api/ai/classify) and never writes the cache file.
+    cache = module.ClassificationCache(module.DEFAULT_CACHE_PATH)
+    cache.path = None
+    classifier = module.Classifier(cache=cache, use_model=False)
+    results = module.classify_snapshot(bank, classifier, extra_anchors=anchors, incident_date=incident_date)
     kinds = {t.item_id: t.kind for t in bank.txns} | {b.item_id: "bill" for b in bank.bills}
     merchants = {t.item_id: (bank.merchant(t.merchant_id).name if bank.merchant(t.merchant_id) else None) for t in bank.txns}
     merchants |= {b.item_id: b.payee for b in bank.bills}

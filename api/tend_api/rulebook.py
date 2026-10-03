@@ -156,6 +156,7 @@ class Rulebook:
             }
         row = self._require(st)
         name, program = row["name"], row.get("program") or {}
+        place = f"the {name}" if name.startswith("District of") else name
         contact = self._contact(st, program)
         query = self._query(question, st)
         hits = self.repo.search_rules(query.terms, st, 30)
@@ -166,9 +167,9 @@ class Rulebook:
             return {
                 **base,
                 "answered": True,
-                "answer": f"You can call {name}'s program at {contact['phone']}.",
+                "answer": f"You can call {place}'s program at {contact['phone']}.",
                 "points": [],
-                "note": NOTE.format(name=name),
+                "note": NOTE.format(name=place),
             }
         if not picked:
             call = f" The program can answer it: {contact['phone']}." if contact["phone"] else ""
@@ -185,5 +186,5 @@ class Rulebook:
             "answer": points[0]["text"],
             "points": points,
             "intents": {"categories": sorted(query.categories), "expenses": sorted(query.expenses), "tags": sorted(query.tags)},
-            "note": NOTE.format(name=name),
+            "note": NOTE.format(name=place),
         }

@@ -208,6 +208,8 @@ class AgentService:
         if doc is None:
             raise AgentError(f"No verified rules for {st}.", 404)
         name = doc.get("name") or st
+        place = f"the {name}" if name.startswith("District of") else name  # "apply in the District of Columbia"
+        opening = place[0].upper() + place[1:]  # the same words at the start of a sentence
         by_id = self.rules.rules_by_id(st)
         sources = self.rules.sources_by_id(st)
         try:
@@ -258,7 +260,7 @@ class AgentService:
             text = (
                 f"You have about {span(days)} from the date it happened to apply."
                 if days
-                else f"Tend found no set filing deadline in {name}'s rules. Ask the program."
+                else f"Tend found no set filing deadline in {place}'s rules. Ask the program."
             )
             deadline = sentence(text, deadline_ids, status="unknown", deadline_date=None, flags=flags)
 
@@ -275,11 +277,11 @@ class AgentService:
                     "Your police report meets this rule." if police == "yes" else "Your forensic exam counts in place of a police report."
                 )
             elif status == "required":
-                text = f"{name} asks for a police report."
+                text = f"{opening} asks for a police report."
                 if alternatives:
                     text += f" These can count instead: {join_words([ALTERNATIVES.get(a, a) for a in alternatives])}."
             elif status == "not_required":
-                text = f"{name} does not require a police report."
+                text = f"{opening} does not require a police report."
             else:
                 text = "Ask the program whether you need a police report."
             return sentence(text, ids, status=status, alternatives=alternatives, assumes_exam=exam)
@@ -311,7 +313,8 @@ class AgentService:
                 if cap.get("per") == "unit" and cap.get("unit"):
                     cap_text = f"up to {money(cap_cents)} {UNIT_WORDS.get(cap['unit'], 'each')}"
                     if cap.get("count_limit"):
-                        cap_text += f", {cap['count_limit']} at most"
+                        count = int(cap["count_limit"])
+                        cap_text += f" for up to {count} {cap['unit']}{'s' if count != 1 else ''}"
                 elif cap_cents:
                     cap_text = f"up to {money(cap_cents)}"
             text = f"{entry['label']}, {cap_text}" if cap_text else entry["label"]
@@ -357,9 +360,9 @@ class AgentService:
 
         eligible = [r["id"] for r in of_category("eligible_crime")]
         if deadline["status"] == "late":
-            headline = sentence(f"The usual deadline in {name} may have passed. Ask the program about exceptions.", deadline["rule_ids"])
+            headline = sentence(f"The usual deadline in {place} may have passed. Ask the program about exceptions.", deadline["rule_ids"])
         else:
-            headline = sentence(f"You can likely apply in {name}.", eligible)
+            headline = sentence(f"You can likely apply in {place}.", eligible)
 
         program = doc.get("program") or {}
         phone_source = sources.get(program.get("phone_source_id") or "")

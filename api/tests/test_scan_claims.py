@@ -60,8 +60,16 @@ def test_scan_itemizes_the_hospital_bill(client):
     assert [ln["item_id"] for ln in audit["lines"]] == [ln["item_id"] for ln in lines]
 
 
-def test_scan_with_the_real_classifier(settings, clock):
-    # No classifier hook: tend_api.classify runs on the snapshot (rules and the committed cache, no model).
+def test_scan_with_the_real_classifier(settings, clock, monkeypatch):
+    # No classifier hook: tend_api.classify runs on the snapshot (rules and the committed cache). Even with a
+    # key in the environment, a scan never calls a model: that takes consent, at /api/ai/classify.
+    import tend_api.classify as classify
+
+    def refuse(*args, **kwargs):
+        raise AssertionError("a scan tried to build a model backend")
+
+    monkeypatch.setenv("GEMINI_API_KEY", "would-be-sent")
+    monkeypatch.setattr(classify, "gemini_backend", refuse)
     scan = client_for(make_services(settings, clock, classifier=None)).post("/api/scan", json={"persona_id": "rowan-mi", "st": "MI"})
     assert scan.status_code == 200, scan.text
     items = {i["item_id"]: i for i in scan.json()["items"]}
