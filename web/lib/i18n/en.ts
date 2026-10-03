@@ -602,7 +602,6 @@ export const en = {
     summaryDownload: "Download the summary (PDF)",
     summaryShow: (n: number) => `Show the ${plural(n, "line", "lines")} here`,
     colCost: "Cost",
-    colLaw: "Law",
     colAmount: "Amount",
     noLines: "Nothing counts yet. Say yes to your costs in the Gather step.",
     neededTitle: "Still needed",

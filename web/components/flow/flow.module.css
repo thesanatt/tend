@@ -1343,6 +1343,11 @@
   color: var(--ink-3);
 }
 
+/* The citation under each cost lines up with the cost's text. */
+.lineTable td > button {
+  margin-left: calc(-1 * var(--space-2));
+}
+
 .sub {
   display: block;
   font-size: var(--text-xs);

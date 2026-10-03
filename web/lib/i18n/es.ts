@@ -588,7 +588,6 @@ export const es: Dict = {
     summaryDownload: "Descargar el resumen (PDF)",
     summaryShow: (n: number) => (n === 1 ? "Mostrar la línea aquí" : `Mostrar las ${n} líneas aquí`),
     colCost: "Gasto",
-    colLaw: "Ley",
     colAmount: "Monto",
     noLines: "Todavía no se incluye nada. Di que sí a tus gastos en el paso Reunir.",
     neededTitle: "Todavía falta",

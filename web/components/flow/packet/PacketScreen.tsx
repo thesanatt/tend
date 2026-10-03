@@ -211,7 +211,6 @@ export default function PacketScreen() {
                 <thead>
                   <tr>
                     <th scope="col">{t.packet.colCost}</th>
-                    <th scope="col">{t.packet.colLaw}</th>
                     <th scope="col" className={styles.num}>
                       {t.packet.colAmount}
                     </th>
@@ -229,8 +228,7 @@ export default function PacketScreen() {
                             {t.expense[l.expense]}
                             {it && it.origin !== "bill" ? `, ${f.date(it.date, "short")}` : ""}
                           </span>
-                        </td>
-                        <td>
+                          {/* The law sits under its cost, so two columns fit a narrow phone. */}
                           <Cite
                             ruleIds={[...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]}
                             law={law}
