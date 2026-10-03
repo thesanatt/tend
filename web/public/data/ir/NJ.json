@@ -1,0 +1,309 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "NJ",
+ "source_sha256": "d2ef5124e4b5144f017ce0ae9a5fba06a98351690d9ec247676abe65d880a969",
+ "ir_sha256": "cc5edce2539d3f8df18cf0359f3d66d797360d82dd23c0aca52aa6526078d4ae",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "NJ-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NJ-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NJ-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NJ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NJ-COUNSEL-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 2000000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "NJ-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-SEC-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-TRANS-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 1000,
+   "per": "unit",
+   "unit": "day"
+  },
+  {
+   "id": "NJ-TRANS-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NJ-CHILD-1",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 650000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 400000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-LEGAL-1",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-FUNERAL-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-DOMHELP-1",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 650000,
+   "per": "claim"
+  },
+  {
+   "id": "NJ-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NJ-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NJ-COV-COUNSEL",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NJ-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NJ-COV-RX",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NJ-COV-CLOTH",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "NJ-EXCL-PROP",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "NJ-EXCL-PAIN",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NJ-FILE-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "NJ-FILE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "NJ-FILE-3",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "discovery"
+  },
+  {
+   "id": "NJ-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NJ-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NJ-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NJ-MINLOSS-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 0
+  },
+  {
+   "id": "NJ-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NJ-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NJ-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NJ-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NJ-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NJ-EMERG-2",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NJ-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NJ-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NJ-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NJ-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NJ-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NJ-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NJ-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NJ-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NJ-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NJ-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "NJ-WAGES-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

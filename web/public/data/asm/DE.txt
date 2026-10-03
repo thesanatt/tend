@@ -1,0 +1,877 @@
+; tend law image DE, Delaware
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 c4ac295785e3b60960e5cbebf3c49ad02c65d34e4cff9a1dc291f73a1f86698e
+; image sha256  0b437afbbbedc8b7b71d60a5d72de2b6124925e4ff8a04a4c0acae2d10879d45
+; 46 rules, 9 sources, 33 proofs, 5 ints, 269 strings
+; item program: 400 instructions, 1384 bytes, max stack 2
+; aggregate program: 237 instructions, 728 bytes, max stack 2, 8 loops
+
+.rules
+    R0    DE-EXAM-1             exam_no_bill  -                                             11 Del. C. § 9023(d)
+    R1    DE-EXAM-2             exam_no_bill  -                                             11 Del. C. § 9023(c)
+    R2    DE-EXAM-3             exam_payment  -                                             11 Del. C. § 9023(c)
+    R3    DE-CAP-1              total_cap     -                                             11 Del. C. § 9011(d)
+    R4    DE-CAP-2              expense_cap   temporary_housing     per claim               11 Del. C. § 9002(10)b.
+    R5    DE-CAP-3              expense_cap   relocation            per claim               11 Del. C. § 9002(10)c.
+    R6    DE-CAP-4              expense_cap   security              per claim               11 Del. C. § 9002(10)d.
+    R7    DE-CAP-5              expense_cap   crime_scene_cleanup   per claim               11 Del. C. § 9002(10)a.
+    R8    DE-CAP-6              expense_cap   legal                 per claim               11 Del. C. § 9013
+    R9    DE-CAP-7              expense_cap   other                 per claim               11 Del. C. § 9002(10)i.
+    R10   DE-COV-1              covered       medical                                       11 Del. C. § 9002(10)n.
+    R11   DE-COV-2              covered       counseling                                    11 Del. C. § 9002(10)o.
+    R12   DE-COV-3              covered       lost_wages                                    11 Del. C. § 9002(10)r.
+    R13   DE-COV-4              covered       security                                      11 Del. C. § 9002(10)k.
+    R14   DE-COV-5              covered       property_replacement                          11 Del. C. § 9002(10)k.
+    R15   DE-COV-6              covered       childcare                                     11 Del. C. § 9002(10)l.
+    R16   DE-COV-7              covered       medical                                       11 Del. C. § 9002(10)q.
+    R17   DE-COV-8              covered       dental                                        VCAP page, FAQs: Who can get help?
+    R18   DE-COV-9              covered       prescription                                  VCAP page, FAQs: Who can get help?
+    R19   DE-COV-10             covered       other                                         11 Del. C. § 9002(10)m.
+    R20   DE-EXCL-1             excluded      property_replacement                          11 Del. C. § 9002(10)
+    R21   DE-EXCL-2             excluded      -                                             VCAP page, FAQs: Are there any limits?
+    R22   DE-DEAD-1             deadline      -                                             11 Del. C. § 9010(a)(4)
+    R23   DE-REPORT-1           reporting     -                                             11 Del. C. § 9010(a)(5)
+    R24   DE-REPORT-2           reporting     -                                             11 Del. C. § 9010(a)(3)
+    R25   DE-MIN-1              minimum_loss  -                                             11 Del. C. § 9011(b)
+    R26   DE-COLL-1             collateral    -                                             11 Del. C. § 9009(1)
+    R27   DE-COND-1             info          -                     conduct_reduction       11 Del. C. § 9010(c)
+    R28   DE-EMERG-1            info          -                     emergency_award         1 Del. Admin. Code 301-23.0
+    R29   DE-CRIME-1            info          -                     eligible_crime          11 Del. C. § 9002(6)a.
+    R30   DE-CRIME-2            info          -                     eligible_crime          11 Del. C. § 9002(12)
+    R31   DE-RES-1              info          -                     residency               11 Del. C. § 9021(1)
+    R32   DE-RES-2              info          -                     residency               11 Del. C. § 9009(9)
+    R33   DE-SUB-1              info          -                     submission              VCAP brochure (English), How do I file a claim?
+    R34   DE-SUB-2              info          -                     submission              VCAP brochure (English), How do I file a claim?
+    R35   DE-SUB-3              info          -                     submission              VCAP brochure (English), How do I file a claim?
+    R36   DE-DOC-1              info          -                     required_document       11 Del. C. § 9012(a)
+    R37   DE-DOC-2              info          -                     required_document       1 Del. Admin. Code 301-11.1
+    R38   DE-DOC-3              info          -                     required_document       Delaware DOJ VCAP page, FAQs, Are there any limits?
+    R39   DE-DOC-4              info          -                     required_document       1 Del. Admin. Code 301-11.2
+    R40   DE-DOC-5              info          -                     required_document       1 Del. Admin. Code 301-11.3
+    R41   DE-DOC-6              info          -                     required_document       1 Del. Admin. Code 301-11.4
+    R42   DE-DOC-7              info          -                     required_document       1 Del. Admin. Code 301-23.0
+    R43   DE-TIME-1             info          -                     processing_time         VCAP brochure (English), What can I expect next?
+    R44   DE-ACP-1              info          -                     address_confidentiality 11 Del. C. § 9613(1); substitute address under § 9612(a)
+    R45   DE-RECCONF-1          info          -                     record_confidentiality  29 Del. C. § 10002(o)(14) (records not deemed public)
+
+.tags   pain_suffering=bit0
+
+.sources
+    S0    DE-S1       sha256 2969992900ea1a21  https://delcode.delaware.gov/title11/c090/index.html
+    S1    DE-S2       sha256 d1eed633948ad6a0  https://attorneygeneral.delaware.gov/vcap/
+    S2    DE-S3       sha256 0b4b9db39d486b28  https://regulations.delaware.gov/AdminCode/title1/300/301.shtml
+    S3    DE-S4       sha256 4071b88cd8e44d9b  https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf
+    S4    DE-S5       sha256 0201da7fa79de9b1  https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Brochure-2019-English.pdf
+    S5    DE-S6       sha256 c52ec30e17f701e1  https://ccvcde.org
+    S6    DE-S7       sha256 c33a848089a7bd56  https://delcode.delaware.gov/title29/c100/index.html
+    S7    DE-S8       sha256 ab9d6b9d327f1ed5  https://delcode.delaware.gov/title11/c096/sc02/index.html
+    S8    DE-S9       sha256 7fec584f41c85e13  https://attorneygeneral.delaware.gov/criminal/
+
+.proofs
+    P0    ()
+    P1    (DE-EXAM-1, DE-EXAM-2, DE-EXAM-3)
+    P2    (DE-EXCL-2)
+    P3    (DE-COV-1, DE-COV-7)
+    P4    (DE-COV-1, DE-COV-7, DE-COLL-1)
+    P5    (DE-COV-2)
+    P6    (DE-COV-2, DE-COLL-1)
+    P7    (DE-COV-3)
+    P8    (DE-COV-3, DE-COLL-1)
+    P9    (DE-CAP-3)
+    P10   (DE-CAP-3, DE-COLL-1)
+    P11   (DE-CAP-2)
+    P12   (DE-CAP-2, DE-COLL-1)
+    P13   (DE-CAP-4, DE-COV-4)
+    P14   (DE-CAP-4, DE-COV-4, DE-COLL-1)
+    P15   (DE-CAP-5)
+    P16   (DE-CAP-5, DE-COLL-1)
+    P17   (DE-COV-6)
+    P18   (DE-COV-6, DE-COLL-1)
+    P19   (DE-EXCL-1, DE-EXCL-2)
+    P20   (DE-EXCL-1)
+    P21   (DE-COV-9)
+    P22   (DE-COV-9, DE-COLL-1)
+    P23   (DE-COV-8)
+    P24   (DE-COV-8, DE-COLL-1)
+    P25   (DE-CAP-6)
+    P26   (DE-CAP-6, DE-COLL-1)
+    P27   (DE-CAP-7, DE-COV-10)
+    P28   (DE-CAP-7, DE-COV-10, DE-COLL-1)
+    P29   (DE-MIN-1)
+    P30   (DE-DEAD-1)
+    P31   (DE-REPORT-1, DE-REPORT-2)
+    P32   (DE-COLL-1, DE-COND-1, DE-EMERG-1, DE-CRIME-1, DE-CRIME-2, DE-RES-1, DE-RES-2, DE-SUB-1, DE-SUB-2, DE-SUB-3, DE-DOC-1, DE-DOC-2, DE-DOC-3, DE-DOC-4, DE-DOC-5, DE-DOC-6, DE-DOC-7, DE-TIME-1, DE-ACP-1, DE-RECCONF-1)
+
+.ints
+    K0    150000        ; $1,500.00
+    K1    100000        ; $1,000.00
+    K2    300000        ; $3,000.00
+    K3    2500000       ; $25,000.00
+    K4    2500          ; $25.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L17
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L21
+                        case temporary_housing     -> L26
+                        case security              -> L31
+                        case crime_scene_cleanup   -> L36
+                        case childcare             -> L41
+                        case property_replacement  -> L46
+                        case clothing_bedding      -> L17
+                        case prescription          -> L50
+                        case dental                -> L55
+                        case funeral               -> L17
+                        case legal                 -> L60
+                        case tuition               -> L17
+                        case other                 -> L65
+                        case unknown               -> L17
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; DE-EXAM-1  11 Del. C. § 9023(d)  "The victim of the sexual offense shall not pay any out-of-pocket..."
+              ; DE-EXAM-2  11 Del. C. § 9023(c)  "Hospitals and health-care professionals shall provide forensic..."
+              ; DE-EXAM-3  11 Del. C. § 9023(c)  "Any hospital or health-care professional performing a forensic..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; DE-EXAM-1, DE-EXAM-2, DE-EXAM-3
+  007b        ret
+              ; DE-COV-1  11 Del. C. § 9002(10)n.  "n. Medical expenses."
+              ; DE-COV-7  11 Del. C. § 9002(10)q.  "q. Hospital expenses."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; DE-EXCL-2
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; DE-COV-1, DE-COV-7
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; DE-COV-1, DE-COV-7, DE-COLL-1
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R26              ; DE-COLL-1
+  00d9        ret
+              ; DE-COV-2  11 Del. C. § 9002(10)o.  "o. Psychiatric care and mental health counseling."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     1
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; DE-EXCL-2
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; DE-COV-2
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; DE-COV-2, DE-COLL-1
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R26              ; DE-COLL-1
+  0137        ret
+              ; DE-COV-3  11 Del. C. § 9002(10)r.  "r. Loss of past or future earnings, including reimbursement for..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     1
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; DE-EXCL-2
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; DE-COV-3
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; DE-COV-3, DE-COLL-1
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R26              ; DE-COLL-1
+  0195        ret
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     1
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P2                 ; DE-EXCL-2
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   unknown_rule, P0             ; (none)
+  01d7        ret
+              ; DE-CAP-3  11 Del. C. § 9002(10)c.  "c. Moving expenses not to exceed $1,000."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     1
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; DE-EXCL-2
+  020f        ret
+  0210  L24:  ldi      confirmed
+  0212        jnz      L25
+  0217        push     0
+  021c        decide   needs_confirmation, P9       ; DE-CAP-3
+  0220        ret
+  0221  L25:  ldi      amount_cents
+  0223        decide   eligible, P10                ; DE-CAP-3, DE-COLL-1
+  0227        lda
+  0228        ldi      insurance_paid_cents
+  022a        subs
+  022b        push     0
+  0230        max
+  0231        seta     collateral, R26              ; DE-COLL-1
+  0235        ret
+              ; DE-CAP-2  11 Del. C. § 9002(10)b.  "b. Temporary housing not to exceed $1,500."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  0236  L26:  push     0
+  023b        str      r0
+  023d        ldi      tags
+  023f        push     1
+  0244        and
+  0245        jz       L27
+  024a        ldr      r0
+  024c        push     1
+  0251        or
+  0252        str      r0
+  0254  L27:  ldr      r0
+  0256        switch   2, default L29
+                        case 0                     -> L29
+                        case 1                     -> L28
+  0264  L28:  push     0
+  0269        decide   excluded, P2                 ; DE-EXCL-2
+  026d        ret
+  026e  L29:  ldi      confirmed
+  0270        jnz      L30
+  0275        push     0
+  027a        decide   needs_confirmation, P11      ; DE-CAP-2
+  027e        ret
+  027f  L30:  ldi      amount_cents
+  0281        decide   eligible, P12                ; DE-CAP-2, DE-COLL-1
+  0285        lda
+  0286        ldi      insurance_paid_cents
+  0288        subs
+  0289        push     0
+  028e        max
+  028f        seta     collateral, R26              ; DE-COLL-1
+  0293        ret
+              ; DE-CAP-4  11 Del. C. § 9002(10)d.  "d. Essential personal safety property not to exceed $1,500."
+              ; DE-COV-4  11 Del. C. § 9002(10)k.  "k. The cost to change locks and replace items seized as..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  0294  L31:  push     0
+  0299        str      r0
+  029b        ldi      tags
+  029d        push     1
+  02a2        and
+  02a3        jz       L32
+  02a8        ldr      r0
+  02aa        push     1
+  02af        or
+  02b0        str      r0
+  02b2  L32:  ldr      r0
+  02b4        switch   2, default L34
+                        case 0                     -> L34
+                        case 1                     -> L33
+  02c2  L33:  push     0
+  02c7        decide   excluded, P2                 ; DE-EXCL-2
+  02cb        ret
+  02cc  L34:  ldi      confirmed
+  02ce        jnz      L35
+  02d3        push     0
+  02d8        decide   needs_confirmation, P13      ; DE-CAP-4, DE-COV-4
+  02dc        ret
+  02dd  L35:  ldi      amount_cents
+  02df        decide   eligible, P14                ; DE-CAP-4, DE-COV-4, DE-COLL-1
+  02e3        lda
+  02e4        ldi      insurance_paid_cents
+  02e6        subs
+  02e7        push     0
+  02ec        max
+  02ed        seta     collateral, R26              ; DE-COLL-1
+  02f1        ret
+              ; DE-CAP-5  11 Del. C. § 9002(10)a.  "a. Crime scene cleanup not to exceed $1,000."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  02f2  L36:  push     0
+  02f7        str      r0
+  02f9        ldi      tags
+  02fb        push     1
+  0300        and
+  0301        jz       L37
+  0306        ldr      r0
+  0308        push     1
+  030d        or
+  030e        str      r0
+  0310  L37:  ldr      r0
+  0312        switch   2, default L39
+                        case 0                     -> L39
+                        case 1                     -> L38
+  0320  L38:  push     0
+  0325        decide   excluded, P2                 ; DE-EXCL-2
+  0329        ret
+  032a  L39:  ldi      confirmed
+  032c        jnz      L40
+  0331        push     0
+  0336        decide   needs_confirmation, P15      ; DE-CAP-5
+  033a        ret
+  033b  L40:  ldi      amount_cents
+  033d        decide   eligible, P16                ; DE-CAP-5, DE-COLL-1
+  0341        lda
+  0342        ldi      insurance_paid_cents
+  0344        subs
+  0345        push     0
+  034a        max
+  034b        seta     collateral, R26              ; DE-COLL-1
+  034f        ret
+              ; DE-COV-6  11 Del. C. § 9002(10)l.  "l. Child care not to exceed the deposit plus 2 months of care by..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  0350  L41:  push     0
+  0355        str      r0
+  0357        ldi      tags
+  0359        push     1
+  035e        and
+  035f        jz       L42
+  0364        ldr      r0
+  0366        push     1
+  036b        or
+  036c        str      r0
+  036e  L42:  ldr      r0
+  0370        switch   2, default L44
+                        case 0                     -> L44
+                        case 1                     -> L43
+  037e  L43:  push     0
+  0383        decide   excluded, P2                 ; DE-EXCL-2
+  0387        ret
+  0388  L44:  ldi      confirmed
+  038a        jnz      L45
+  038f        push     0
+  0394        decide   needs_confirmation, P17      ; DE-COV-6
+  0398        ret
+  0399  L45:  ldi      amount_cents
+  039b        decide   eligible, P18                ; DE-COV-6, DE-COLL-1
+  039f        lda
+  03a0        ldi      insurance_paid_cents
+  03a2        subs
+  03a3        push     0
+  03a8        max
+  03a9        seta     collateral, R26              ; DE-COLL-1
+  03ad        ret
+              ; DE-COV-5  11 Del. C. § 9002(10)k.  "k. The cost to change locks and replace items seized as..."
+              ; DE-EXCL-1  11 Del. C. § 9002(10)  "“Pecuniary loss” means any expenses actually and necessarily..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  03ae  L46:  push     0
+  03b3        str      r0
+  03b5        ldi      tags
+  03b7        push     1
+  03bc        and
+  03bd        jz       L47
+  03c2        ldr      r0
+  03c4        push     1
+  03c9        or
+  03ca        str      r0
+  03cc  L47:  ldr      r0
+  03ce        switch   2, default L49
+                        case 0                     -> L49
+                        case 1                     -> L48
+  03dc  L48:  push     0
+  03e1        decide   excluded, P19                ; DE-EXCL-1, DE-EXCL-2
+  03e5        ret
+  03e6  L49:  push     0
+  03eb        decide   excluded, P20                ; DE-EXCL-1
+  03ef        ret
+              ; DE-COV-9  VCAP page, FAQs: Who can get help?  "Compensation is available for payment of medical and dental..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  03f0  L50:  push     0
+  03f5        str      r0
+  03f7        ldi      tags
+  03f9        push     1
+  03fe        and
+  03ff        jz       L51
+  0404        ldr      r0
+  0406        push     1
+  040b        or
+  040c        str      r0
+  040e  L51:  ldr      r0
+  0410        switch   2, default L53
+                        case 0                     -> L53
+                        case 1                     -> L52
+  041e  L52:  push     0
+  0423        decide   excluded, P2                 ; DE-EXCL-2
+  0427        ret
+  0428  L53:  ldi      confirmed
+  042a        jnz      L54
+  042f        push     0
+  0434        decide   needs_confirmation, P21      ; DE-COV-9
+  0438        ret
+  0439  L54:  ldi      amount_cents
+  043b        decide   eligible, P22                ; DE-COV-9, DE-COLL-1
+  043f        lda
+  0440        ldi      insurance_paid_cents
+  0442        subs
+  0443        push     0
+  0448        max
+  0449        seta     collateral, R26              ; DE-COLL-1
+  044d        ret
+              ; DE-COV-8  VCAP page, FAQs: Who can get help?  "Compensation is available for payment of medical and dental..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  044e  L55:  push     0
+  0453        str      r0
+  0455        ldi      tags
+  0457        push     1
+  045c        and
+  045d        jz       L56
+  0462        ldr      r0
+  0464        push     1
+  0469        or
+  046a        str      r0
+  046c  L56:  ldr      r0
+  046e        switch   2, default L58
+                        case 0                     -> L58
+                        case 1                     -> L57
+  047c  L57:  push     0
+  0481        decide   excluded, P2                 ; DE-EXCL-2
+  0485        ret
+  0486  L58:  ldi      confirmed
+  0488        jnz      L59
+  048d        push     0
+  0492        decide   needs_confirmation, P23      ; DE-COV-8
+  0496        ret
+  0497  L59:  ldi      amount_cents
+  0499        decide   eligible, P24                ; DE-COV-8, DE-COLL-1
+  049d        lda
+  049e        ldi      insurance_paid_cents
+  04a0        subs
+  04a1        push     0
+  04a6        max
+  04a7        seta     collateral, R26              ; DE-COLL-1
+  04ab        ret
+              ; DE-CAP-6  11 Del. C. § 9013  "Such fees shall not exceed $1,000 or 15% of the amount awarded..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  04ac  L60:  push     0
+  04b1        str      r0
+  04b3        ldi      tags
+  04b5        push     1
+  04ba        and
+  04bb        jz       L61
+  04c0        ldr      r0
+  04c2        push     1
+  04c7        or
+  04c8        str      r0
+  04ca  L61:  ldr      r0
+  04cc        switch   2, default L63
+                        case 0                     -> L63
+                        case 1                     -> L62
+  04da  L62:  push     0
+  04df        decide   excluded, P2                 ; DE-EXCL-2
+  04e3        ret
+  04e4  L63:  ldi      confirmed
+  04e6        jnz      L64
+  04eb        push     0
+  04f0        decide   needs_confirmation, P25      ; DE-CAP-6
+  04f4        ret
+  04f5  L64:  ldi      amount_cents
+  04f7        decide   eligible, P26                ; DE-CAP-6, DE-COLL-1
+  04fb        lda
+  04fc        ldi      insurance_paid_cents
+  04fe        subs
+  04ff        push     0
+  0504        max
+  0505        seta     collateral, R26              ; DE-COLL-1
+  0509        ret
+              ; DE-CAP-7  11 Del. C. § 9002(10)i.  "i. Loss of support for victims of violence, not to exceed..."
+              ; DE-COV-10  11 Del. C. § 9002(10)m.  "m. Reimbursement for reasonable expenses incurred due to..."
+              ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+  050a  L65:  push     0
+  050f        str      r0
+  0511        ldi      tags
+  0513        push     1
+  0518        and
+  0519        jz       L66
+  051e        ldr      r0
+  0520        push     1
+  0525        or
+  0526        str      r0
+  0528  L66:  ldr      r0
+  052a        switch   2, default L68
+                        case 0                     -> L68
+                        case 1                     -> L67
+  0538  L67:  push     0
+  053d        decide   excluded, P2                 ; DE-EXCL-2
+  0541        ret
+  0542  L68:  ldi      confirmed
+  0544        jnz      L69
+  0549        push     0
+  054e        decide   needs_confirmation, P27      ; DE-CAP-7, DE-COV-10
+  0552        ret
+  0553  L69:  ldi      amount_cents
+  0555        decide   eligible, P28                ; DE-CAP-7, DE-COV-10, DE-COLL-1
+  0559        lda
+  055a        ldi      insurance_paid_cents
+  055c        subs
+  055d        push     0
+  0562        max
+  0563        seta     collateral, R26              ; DE-COLL-1
+  0567        ret
+
+.aggregate
+              ; DE-CAP-2  11 Del. C. § 9002(10)b.  "b. Temporary housing not to exceed $1,500."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     temporary_housing, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $1,500.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $1,500.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R4              ; DE-CAP-2
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R4              ; DE-CAP-2
+  004d  L3:   next     L0
+              ; DE-CAP-3  11 Del. C. § 9002(10)c.  "c. Moving expenses not to exceed $1,000."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     relocation, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $1,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $1,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R5              ; DE-CAP-3
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R5              ; DE-CAP-3
+  009f  L8:   next     L5
+              ; DE-CAP-4  11 Del. C. § 9002(10)d.  "d. Essential personal safety property not to exceed $1,500."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     security, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K0                           ; $1,500.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K0                           ; $1,500.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R6              ; DE-CAP-4
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R6              ; DE-CAP-4
+  00f1  L13:  next     L10
+              ; DE-CAP-5  11 Del. C. § 9002(10)a.  "a. Crime scene cleanup not to exceed $1,000."
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        push     0
+  0102        str      r1
+  0104        each     crime_scene_cleanup, L19
+  010a  L15:  ldr      r1
+  010c        jnz      L17
+  0111        ldr      r0
+  0113        lda
+  0114        adds
+  0115        ldk      K1                           ; $1,000.00
+  0118        gt
+  0119        jz       L16
+  011e        ldk      K1                           ; $1,000.00
+  0121        ldr      r0
+  0123        subs
+  0124        cap      expense_cap, R7              ; DE-CAP-5
+  0128        push     1
+  012d        str      r1
+  012f  L16:  ldr      r0
+  0131        lda
+  0132        adds
+  0133        str      r0
+  0135        jmp      L18
+  013a  L17:  push     0
+  013f        cap      expense_cap, R7              ; DE-CAP-5
+  0143  L18:  next     L15
+              ; DE-CAP-6  11 Del. C. § 9013  "Such fees shall not exceed $1,000 or 15% of the amount awarded..."
+  0148  L19:  push     0
+  014d        str      r0
+  014f        push     0
+  0154        str      r1
+  0156        each     legal, L24
+  015c  L20:  ldr      r1
+  015e        jnz      L22
+  0163        ldr      r0
+  0165        lda
+  0166        adds
+  0167        ldk      K1                           ; $1,000.00
+  016a        gt
+  016b        jz       L21
+  0170        ldk      K1                           ; $1,000.00
+  0173        ldr      r0
+  0175        subs
+  0176        cap      expense_cap, R8              ; DE-CAP-6
+  017a        push     1
+  017f        str      r1
+  0181  L21:  ldr      r0
+  0183        lda
+  0184        adds
+  0185        str      r0
+  0187        jmp      L23
+  018c  L22:  push     0
+  0191        cap      expense_cap, R8              ; DE-CAP-6
+  0195  L23:  next     L20
+              ; DE-CAP-7  11 Del. C. § 9002(10)i.  "i. Loss of support for victims of violence, not to exceed..."
+  019a  L24:  push     0
+  019f        str      r0
+  01a1        push     0
+  01a6        str      r1
+  01a8        each     other, L29
+  01ae  L25:  ldr      r1
+  01b0        jnz      L27
+  01b5        ldr      r0
+  01b7        lda
+  01b8        adds
+  01b9        ldk      K2                           ; $3,000.00
+  01bc        gt
+  01bd        jz       L26
+  01c2        ldk      K2                           ; $3,000.00
+  01c5        ldr      r0
+  01c7        subs
+  01c8        cap      expense_cap, R9              ; DE-CAP-7
+  01cc        push     1
+  01d1        str      r1
+  01d3  L26:  ldr      r0
+  01d5        lda
+  01d6        adds
+  01d7        str      r0
+  01d9        jmp      L28
+  01de  L27:  push     0
+  01e3        cap      expense_cap, R9              ; DE-CAP-7
+  01e7  L28:  next     L25
+              ; DE-CAP-1  11 Del. C. § 9011(d)  "Compensation may not be awarded under the chapter to a claimant..."
+  01ec  L29:  push     0
+  01f1        str      r0
+  01f3        push     0
+  01f8        str      r1
+  01fa        each     all, L34
+  0200  L30:  ldr      r1
+  0202        jnz      L32
+  0207        ldr      r0
+  0209        lda
+  020a        adds
+  020b        ldk      K3                           ; $25,000.00
+  020e        gt
+  020f        jz       L31
+  0214        ldk      K3                           ; $25,000.00
+  0217        ldr      r0
+  0219        subs
+  021a        cap      total_cap, R3                ; DE-CAP-1
+  021e        push     1
+  0223        str      r1
+  0225  L31:  ldr      r0
+  0227        lda
+  0228        adds
+  0229        str      r0
+  022b        jmp      L33
+  0230  L32:  push     0
+  0235        cap      total_cap, R3                ; DE-CAP-1
+  0239  L33:  next     L30
+  023e  L34:  push     0
+  0243        str      r0
+  0245        each     all, L36
+  024b  L35:  ldr      r0
+  024d        lda
+  024e        adds
+  024f        str      r0
+  0251        next     L35
+  0256  L36:  push     0
+  025b        str      r2
+              ; DE-MIN-1  11 Del. C. § 9011(b)  "Except in cases of dire hardship, as determined by the Agency..."
+  025d        ldr      r0
+  025f        ldk      K4                           ; $25.00
+  0262        lt
+  0263        jz       L37
+  0268        push     3
+  026d        ldr      r2
+  026f        max
+  0270        str      r2
+  0272  L37:  ldr      r2
+  0274        check    minimum_loss, P29            ; DE-MIN-1
+              ; DE-DEAD-1  11 Del. C. § 9010(a)(4)  "Where the claim has not been filed within 1 year after the..."
+  0278        ldx      incident_date
+  027a        push     365
+  027f        adds
+  0280        dup
+  0281        setdate
+  0282        ldx      as_of_date
+  0284        ge
+  0285        jz       L38
+  028a        push     0
+  028f        jmp      L39
+  0294  L38:  push     1                            ; late
+  0299  L39:  check    deadline, P30                ; DE-DEAD-1
+              ; DE-REPORT-1  11 Del. C. § 9010(a)(5)  "Where the victim has failed to report the crime to a..."
+              ; DE-REPORT-2  11 Del. C. § 9010(a)(3)  "Where the victim refused to give reasonable cooperation to state..."
+  029d        ldx      police_report
+  029f        push     1                            ; yes
+  02a4        eq
+  02a5        jnz      L41
+  02aa        ldx      police_report
+  02ac        push     0                            ; no
+  02b1        eq
+  02b2        jnz      L40
+  02b7        push     3
+  02bc        jmp      L42
+  02c1  L40:  push     1
+  02c6        jmp      L42
+  02cb  L41:  push     0                            ; satisfied
+  02d0  L42:  check    reporting, P31               ; DE-REPORT-1, DE-REPORT-2
+              ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
+              ; DE-COND-1  11 Del. C. § 9010(c)  "If the victim bears any share of responsibility that caused..."
+              ; DE-EMERG-1  1 Del. Admin. Code 301-23.0  "The Agency will make an emergency award only upon a showing of..."
+              ; DE-CRIME-1  11 Del. C. § 9002(6)a.  "Any specific offense set forth in Chapter 5 of this title, if..."
+              ; DE-CRIME-2  11 Del. C. § 9002(12)  "“Personal injury” means bodily harm, mental, emotional or..."
+              ; DE-RES-1  11 Del. C. § 9021(1)  "All persons, including nonresidents of Delaware, who are victims..."
+              ; DE-RES-2  11 Del. C. § 9009(9)  "A person whose domicile is in Delaware and who is the victim or..."
+              ; DE-SUB-1  VCAP brochure (English), How do I file a claim?  "You must submit a claim form to get the process started. Your..."
+              ; DE-SUB-2  VCAP brochure (English), How do I file a claim?  "Fax: (302) 577-1326 If you would prefer to apply online, please..."
+              ; DE-SUB-3  VCAP brochure (English), How do I file a claim?  "If you would prefer to apply online, please visit:..."
+              ; DE-DOC-1  11 Del. C. § 9012(a)  "All claims filed with the Agency must be in writing on the..."
+              ; DE-DOC-2  1 Del. Admin. Code 301-11.1  "claims must be filed in the office of VCAP on official forms..."
+              ; DE-DOC-3  Delaware DOJ VCAP page, FAQs, Are there any limits?  "All losses must be supported by documentation prior to..."
+              ; DE-DOC-4  1 Del. Admin. Code 301-11.2  "If VCAP, in its investigation of a claim, requires further..."
+              ; DE-DOC-5  1 Del. Admin. Code 301-11.3  "A victim who seeks compensation for temporary housing, rent..."
+              ; DE-DOC-6  1 Del. Admin. Code 301-11.4  "If the victim seeks compensation for an injury sustained while..."
+              ; DE-DOC-7  1 Del. Admin. Code 301-23.0  "The claimant, must, in writing, request an emergency award when..."
+              ; DE-TIME-1  VCAP brochure (English), What can I expect next?  "It can take up to 60 days to make a decision on your claim. In..."
+              ; DE-ACP-1  11 Del. C. § 9613(1); substitute address under § 9612(a)  "All of the following persons are eligible to apply to become..."
+              ; DE-RECCONF-1  29 Del. C. § 10002(o)(14) (records not deemed public)  "(14) Investigative files compiled or maintained by the..."
+  02d4        info     P32                          ; DE-COLL-1, DE-COND-1, DE-EMERG-1, DE-CRIME-1, DE-CRIME-2, DE-RES-1, DE-RES-2, DE-SUB-1, DE-SUB-2, DE-SUB-3, DE-DOC-1, DE-DOC-2, DE-DOC-3, DE-DOC-4, DE-DOC-5, DE-DOC-6, DE-DOC-7, DE-TIME-1, DE-ACP-1, DE-RECCONF-1
+  02d7        ret
+

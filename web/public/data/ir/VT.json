@@ -1,0 +1,255 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "VT",
+ "source_sha256": "8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66",
+ "ir_sha256": "3e71cd7b35a8d2a5e4271b7441e6a7da364818c31431290360bbd9c9b55c994f",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "VT-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VT-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VT-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VT-EXAM-4",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "VT-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1000000
+  },
+  {
+   "id": "VT-COUNSEL-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 10000,
+   "per": "unit",
+   "unit": "session",
+   "alt_rule_ids": [
+    "VT-COUNSEL-2"
+   ]
+  },
+  {
+   "id": "VT-COUNSEL-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "VT-COUNSEL-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "VT-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 75000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 12
+  },
+  {
+   "id": "VT-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VT-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "VT-RELOC-2",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 10000,
+   "per": "unit",
+   "unit": "day",
+   "count_limit": 7
+  },
+  {
+   "id": "VT-RELOC-3",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "VT-TRAVEL-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "VT-TRAVEL-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "VT-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VT-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VT-SEC-1",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "VT-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "VT-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "VT-EXCL-3",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "VT-DEADLINE-1",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "VT-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "medical_provider"
+   ]
+  },
+  {
+   "id": "VT-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "VT-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "VT-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "VT-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "VT-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VT-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "VT-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "VT-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VT-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "VT-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "VT-COUNSEL-2",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of VT-COUNSEL-1"
+  }
+ ]
+}

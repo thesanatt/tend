@@ -146,6 +146,56 @@
    "raw_path": "rules/sources/NY/NY-S19.pdf",
    "text_path": "rules/sources/NY/NY-S19.txt",
    "sha256": "b50ccec6da4c39b335e5693a32ac1c310a0094ac4241c0bfed26a51c28e69b3c"
+  },
+  {
+   "id": "NY-S20",
+   "title": "N.Y. Executive Law 633 (Confidentiality of records)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/633",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:18Z",
+   "raw_path": "rules/sources/NY/NY-S20.html",
+   "text_path": "rules/sources/NY/NY-S20.txt",
+   "sha256": "539424f97b6f6fe5065669b12bfcc8080cf05fb3f6f59756e9c00a8680222c90"
+  },
+  {
+   "id": "NY-S21",
+   "title": "N.Y. Executive Law 108 (Address confidentiality program)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/108",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:22Z",
+   "raw_path": "rules/sources/NY/NY-S21.html",
+   "text_path": "rules/sources/NY/NY-S21.txt",
+   "sha256": "00feeece082fc17aeb04799cd3f260d6de18aeda9ee9e1a20c49b9b35906fa21"
+  },
+  {
+   "id": "NY-S22",
+   "title": "NY Department of State Address Confidentiality Program page",
+   "url": "https://dos.ny.gov/address-confidentiality-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:22Z",
+   "raw_path": "rules/sources/NY/NY-S22.html",
+   "text_path": "rules/sources/NY/NY-S22.txt",
+   "sha256": "6c5b2b7ccac62720591f1c6370fb647d86e19c6add446e8b266a972a4f1fbebd"
+  },
+  {
+   "id": "NY-S23",
+   "title": "NY Department of State: Apply to Address Confidentiality Program",
+   "url": "https://dos.ny.gov/apply-address-confidentiality-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:53Z",
+   "raw_path": "rules/sources/NY/NY-S23.html",
+   "text_path": "rules/sources/NY/NY-S23.txt",
+   "sha256": "535d361811aaed35167a4b0fec00cede62f3128bba43253f861ef12a804e1595"
+  },
+  {
+   "id": "NY-S24",
+   "title": "NY Department of State Address Confidentiality Program (ACP) landing page",
+   "url": "https://dos.ny.gov/ACP",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:53Z",
+   "raw_path": "rules/sources/NY/NY-S24.html",
+   "text_path": "rules/sources/NY/NY-S24.txt",
+   "sha256": "523963b1fe2865d9a3ad1bee1f96799555915a8be778d9d33f1f38700cc287d1"
   }
  ],
  "rules": [
@@ -895,6 +945,31 @@
    "quote": "If the victim has coverage through either Worker's Compensation or a Disability Insurance provider, OVS will need the decision letter from either Worker's Compensation or the Disability Insurance provider to help determine eligibility for compensation.",
    "source_id": "NY-S4",
    "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability"
+  },
+  {
+   "id": "NY-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "New York Department of State (Secretary of State)",
+    "covers_sexual_assault": true,
+    "enroll": "You may apply online or by completing a pdf application. Completed applications may either be mailed or faxed. Filing instructions are on the form. (DOS ACP: (518) 474-7306, toll-free (855) 350-4595, Address Confidentiality Program, P.O. Box 1110, Albany, NY 12201-1110, fax (518) 474-0709.)"
+   },
+   "summary": "The Department of State runs an Address Confidentiality Program that gives eligible victims, including victims of a sexual offense, a designated substitute address to use instead of their real address, with free mail forwarding.",
+   "quote": "There is created in the office of the secretary of state a program to be known as the \"address confidentiality program\" to protect victims of domestic violence, victims of human trafficking, victims of kidnapping, victims of a sexual offense, victims of stalking, and reproductive health care services providers, employees, volunteers, patients, or immediate family members of reproductive health care services providers by authorizing the use of designated addresses for such victims and their minor children.",
+   "source_id": "NY-S21",
+   "pinpoint": "N.Y. Exec. Law 108 (preamble)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/108#:~:text=There%20is%20created%20in%20the,victims%20and%20their%20minor%20children."
+  },
+  {
+   "id": "NY-REC-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "OVS records and proceedings on a victim's or claimant's compensation claim are confidential and are not shared with government or private entities, except for listed purposes such as criminal justice requests, judicial subpoenas, the claimant's own requests, and program administration.",
+   "quote": "Records maintained by the office and proceedings by the office based thereon regarding a claim submitted by a victim or a claimant shall be deemed confidential and shall not be shared with any government or private entity, with the following exceptions:",
+   "source_id": "NY-S20",
+   "pinpoint": "N.Y. Exec. Law 633(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/633#:~:text=Records%20maintained%20by%20the%20office,entity%2C%20with%20the%20following%20exceptions%3A"
   }
  ],
  "coverage": {
@@ -912,7 +987,9 @@
    "reporting_requirement",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "total_cap",
@@ -925,5 +1002,5 @@
   "notes": "total_cap: Article 22 sets no overall maximum award; it caps specific categories (lost earnings, relocation, property, etc.) and medical and counseling costs have no dollar cap in the statute. I did not record a total cap rather than infer one. Counseling rates: no per-session counseling fee cap was found in Executive Law 631 or in 9 NYCRR 525.3 or 525.12; 525.12(g)(4) lets OVS require proof that counseling is crime-related when a claim is filed more than one year after counseling began. minimum_loss: no minimum out-of-pocket loss requirement was found in the statute sections read. Security: covered for new or enhanced devices with a physician, counselor, or DA statement (525.12(g)(3)); no dollar cap found apart from the $2,500 crime scene securing cap. Financial difficulty: Exec. Law 631(6)(a) requires a finding of financial difficulty except for emergency awards and awards under ten thousand dollars (not a schema category). Reporting: the old one-week police reporting rule is no longer in Exec. Law 631(1); the current text accepts records of a support agency for survivors of crime. OVS pages say the Crime Verification Form is accepted only for claims filed on or after December 31, 2025. Reviewer additions: 9 NYCRR 525.12(h)(9) (LII text, last amended 2022) says direct-reimbursement exam expenses must relate to services within 120 hours of the incident, waived for a child victim or for good cause, and no kit reimbursement past 120 hours; the current Exec. Law 631(13) and the March 2026 OVS provider billing manual do not state this window, so it is not encoded as a rule. The per-item clothing, bedding, communication and transportation-item limits in 525.12(n)(1)-(4) do not apply when OVS finds the property is related to the victim's health or safety (525.12(n)(6)); the $2,500 statutory property cap still applies. The protective-order, victim services provider, and medical or mental health provider alternatives in Exec. Law 631(1)(c)(iii) are conditioned in the statute on the victim being unable to report to or cooperate with police for health or safety reasons; the OVS update page (NY-S7) describes the Crime Verification Form without that condition. processing_time: no saved OVS page, application, or statute section states a time for a decision or payment, so none is recorded."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from the NY Senate Open Legislation site (fetched via Chrome). 9 NYCRR text is from Cornell LII because the official Westlaw NYCRR site is script-heavy; LII shows the 525.12 amendment history through Oct 12, 2022, and its funeral cap ($6,000) is older than the current statute ($12,000 in Exec. Law 631(2)), so for any conflict the statute wins. Effective dates from OVS update pages: three-year filing deadline and Crime Verification Form alternative to police reports apply starting December 31, 2025; filing deadline previously shorter. Exec. Law 631(13)(b) also sets provider reimbursement ceilings for the exam ($800 / $1,200 / $2,500); these are provider rates, not survivor-facing, so I did not encode them. The OVS FRE page says claims received on or after February 3, 2026 are paid by a new OVS fee schedule. PHL 2805-i(1) has two versions of the no-billing paragraph (lettered (d) until May 9, 2027 and (g) after); the quoted text is identical in both. Expense caps with per='item' (clothing, communication items) are per-item limits from 9 NYCRR 525.12(n); per='item' is outside the schema's listed values but is what the regulation says. A phone would most plausibly fall under 'ability to communicate', but the regulation does not name phones. Essential personal property awards for adults generally require a physical injury; sex offense victims are presumed physically injured under Exec. Law 626(1). The older OVS FAQ page and 2022 guideline PDFs state superseded rules (one-week reporting, one-year filing, $500 property cap), so I did not use them. How to file: the English application link on the OVS page (ovs.ny.gov/compensation_application_english) still redirects to the Feb. 2026 fillable PDF saved as NY-S4 (552 AcroForm fields), so that is the newest version. Submission targets come from the application's contact section: mail to the Albany AE Smith Building address and email to OVSIntake@ovs.ny.gov; online filing is through OVS Compass (program.apply_url). The OVS page (NY-S1) also lists a Brooklyn office at 55 Hanson Place for the Compensation Division, but the application says to mail documents to the Albany address, so only Albany is encoded. No fax or in-person filing method is stated. The application also says documents can be sent later if not ready, and the OVS page says OVS may later ask for birth or death certificates, marriage licenses, insurance Explanations of Benefits, and receipts depending on the claim; those on-request items are not encoded as required documents. Photo ID, proof of residency, and wage verification are not requested up front; for lost wages the application says OVS contacts the employer."
+ "researcher_notes": "Statute text is from the NY Senate Open Legislation site (fetched via Chrome). 9 NYCRR text is from Cornell LII because the official Westlaw NYCRR site is script-heavy; LII shows the 525.12 amendment history through Oct 12, 2022, and its funeral cap ($6,000) is older than the current statute ($12,000 in Exec. Law 631(2)), so for any conflict the statute wins. Effective dates from OVS update pages: three-year filing deadline and Crime Verification Form alternative to police reports apply starting December 31, 2025; filing deadline previously shorter. Exec. Law 631(13)(b) also sets provider reimbursement ceilings for the exam ($800 / $1,200 / $2,500); these are provider rates, not survivor-facing, so I did not encode them. The OVS FRE page says claims received on or after February 3, 2026 are paid by a new OVS fee schedule. PHL 2805-i(1) has two versions of the no-billing paragraph (lettered (d) until May 9, 2027 and (g) after); the quoted text is identical in both. Expense caps with per='item' (clothing, communication items) are per-item limits from 9 NYCRR 525.12(n); per='item' is outside the schema's listed values but is what the regulation says. A phone would most plausibly fall under 'ability to communicate', but the regulation does not name phones. Essential personal property awards for adults generally require a physical injury; sex offense victims are presumed physically injured under Exec. Law 626(1). The older OVS FAQ page and 2022 guideline PDFs state superseded rules (one-week reporting, one-year filing, $500 property cap), so I did not use them. How to file: the English application link on the OVS page (ovs.ny.gov/compensation_application_english) still redirects to the Feb. 2026 fillable PDF saved as NY-S4 (552 AcroForm fields), so that is the newest version. Submission targets come from the application's contact section: mail to the Albany AE Smith Building address and email to OVSIntake@ovs.ny.gov; online filing is through OVS Compass (program.apply_url). The OVS page (NY-S1) also lists a Brooklyn office at 55 Hanson Place for the Compensation Division, but the application says to mail documents to the Albany address, so only Albany is encoded. No fax or in-person filing method is stated. The application also says documents can be sent later if not ready, and the OVS page says OVS may later ask for birth or death certificates, marriage licenses, insurance Explanations of Benefits, and receipts depending on the claim; those on-request items are not encoded as required documents. Photo ID, proof of residency, and wage verification are not requested up front; for lost wages the application says OVS contacts the employer. Address confidentiality: Exec. Law 108 (NY-S21) makes victims of a sexual offense (Penal Law article 130 and 255.25 to 255.27, including threats or attempts) eligible for the Department of State Address Confidentiality Program; applicants affirm they left their residence because of the acts and fear for their safety (108(2)(a)(i)), applications are filed with the office of the secretary (108(2)(c)), designated state, local or nonprofit agencies assist applicants (108(3)), and certification lasts four years (108(2)(e)). The DOS ACP pages (NY-S22, NY-S23) still describe eligibility as victims of domestic violence only and say participation is limited to New York State residents; the statute is broader and wins, so covers_sexual_assault is true from the statute. The enroll text and contact details come from the DOS apply page (NY-S23). Record confidentiality: Exec. Law 633(1) (NY-S20) exceptions are legitimate criminal justice requests (where the victim reported to a victim services provider instead of police, OVS may not share identifying information), judicial subpoenas, requests by the victim or claimant or their authorized representative, and purposes necessary for administering Article 22; 633(2) makes other OVS records (such as those under 631-a and 632-a) public; 633(3) keeps records that are confidential under other laws confidential."
 }

@@ -1,0 +1,227 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "NC",
+ "source_sha256": "5ac3957e483ba6cf4fab08a0ef3888955958a6d15b7b83ec4bdc6569ae3943f3",
+ "ir_sha256": "88c88fb2d1bd34de9f1129ad41f5adef6d87e160bc537668189a1b5087188dae",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "NC-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NC-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NC-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NC-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4500000
+  },
+  {
+   "id": "NC-WAGE-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 40000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 26
+  },
+  {
+   "id": "NC-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NC-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "NC-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NC-COUN-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NC-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NC-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NC-CLEAN-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "NC-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "NC-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NC-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NC-EXCL-4",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NC-EXCL-5",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NC-REPL-1",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 20000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 26
+  },
+  {
+   "id": "NC-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NC-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "NC-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NC-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NC-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NC-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NC-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NC-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NC-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NC-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NC-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NC-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NC-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NC-ACP-2",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NC-CONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

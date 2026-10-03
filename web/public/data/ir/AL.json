@@ -1,0 +1,312 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "AL",
+ "source_sha256": "c5d5c095f55d50ab79e9bd1f047d12394779af8712e6326216e23ea20467fb5b",
+ "ir_sha256": "8aac9d41cfa9dd84ebb317f9f3644cc7e2891f3c4f6ac65efa8b0689438b256e",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "AL-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AL-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AL-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AL-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AL-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AL-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AL-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AL-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "AL-CAP-COUNS",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 625000,
+   "per": "claim",
+   "count_limit": 50
+  },
+  {
+   "id": "AL-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 40000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 26
+  },
+  {
+   "id": "AL-WAGES-SA",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "AL-CAP-RELO",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "AL-CAP-TRAVEL",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "AL-COV-TRAVEL-MED",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "AL-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "AL-COV-MED-OOP",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "AL-COV-HIV",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "AL-COV-SEC",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "AL-CAP-GLASSES",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 35000,
+   "per": "claim"
+  },
+  {
+   "id": "AL-EXCL-PROP",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "AL-EXCL-PROP-2",
+   "kind": "excluded",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "AL-EXCL-PAIN",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "AL-EXCL-LEGAL",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "AL-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "AL-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AL-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AL-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "AL-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "AL-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AL-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AL-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "AL-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "AL-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "AL-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "AL-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "AL-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "AL-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AL-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AL-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AL-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-13",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-14",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-15",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-16",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-DOC-17",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AL-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "AL-CAP-COUNS-MINOR",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

@@ -1,0 +1,235 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "AR",
+ "source_sha256": "3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6",
+ "ir_sha256": "c85d24b9fbda6f6707bbad498fd5aa4c2a27a396091b5f76cadf1f07ae85ebba",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "AR-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AR-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AR-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AR-EXAM-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "AR-EXAM-5",
+   "kind": "collateral"
+  },
+  {
+   "id": "AR-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AR-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "AR-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1000000
+  },
+  {
+   "id": "AR-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "AR-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "AR-CAP-4",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "AR-CAP-5",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "AR-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "AR-DEAD-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "AR-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "AR-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AR-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AR-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "AR-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AR-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "AR-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "AR-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "AR-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "AR-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "AR-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "AR-COV-4",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "AR-COV-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "AR-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "AR-COV-7",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "AR-COV-8",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "AR-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "AR-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "AR-EXCL-3",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "AR-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AR-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AR-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "AR-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

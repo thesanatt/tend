@@ -1,0 +1,611 @@
+; tend law image NE, Nebraska
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 cbe76153dd8e4a957913c1b63d0fe3163823f55580e6f41697008b7ab0899dca
+; image sha256  0c286063072ff7700b23aa54302f1db5fe5d35f8afa974f8b480041cf526ea8f
+; 42 rules, 22 sources, 23 proofs, 3 ints, 268 strings
+; item program: 255 instructions, 914 bytes, max stack 2
+; aggregate program: 140 instructions, 440 bytes, max stack 2, 4 loops
+
+.rules
+    R0    NE-EXAM-1             exam_no_bill  -                                             Neb. Rev. Stat. 81-1429.03(1)
+    R1    NE-EXAM-2             exam_payment  -                                             Neb. Rev. Stat. 81-1429.03(1)
+    R2    NE-MED-1              covered       medical                                       Neb. Rev. Stat. 81-1807(2)(a)
+    R3    NE-CAP-1              total_cap     -                                             Neb. Rev. Stat. 81-1823
+    R4    NE-CAP-2              expense_cap   counseling            per claim               NCC Crime Victim Reparations page, Types of Expenses
+    R5    NE-CAP-3              expense_cap   crime_scene_cleanup   per claim               NCC Crime Victim Reparations page, Types of Expenses
+    R6    NE-CAP-4              expense_cap   funeral               per claim               NCC Crime Victim Reparations page, Types of Expenses
+    R7    NE-COV-1              covered       medical                                       NCC Crime Victim Reparations page, Types of Expenses
+    R8    NE-COV-2              covered       counseling                                    Neb. Rev. Stat. 81-1819(1)
+    R9    NE-COV-3              covered       lost_wages                                    Neb. Rev. Stat. 81-1819(2)
+    R10   NE-COV-4              covered       dental                                        NCC Crime Victim Reparations page, Types of Expenses
+    R11   NE-COV-5              covered       prescription                                  NCC Crime Victim Reparations page, Types of Expenses
+    R12   NE-EXCL-1             excluded      property_replacement                          NCC Crime Victim Reparations page, Limitations
+    R13   NE-EXCL-2             excluded      -                                             NCC Crime Victim Reparations page, Limitations
+    R14   NE-WAGE-1             minimum_loss  -                                             CVR Claim Application (Oct 2023), Section 6
+    R15   NE-DEAD-1             deadline      -                                             Neb. Rev. Stat. 81-1821(2)(a)
+    R16   NE-REP-1              reporting     -                                             Neb. Rev. Stat. 81-1821(1)(b)
+    R17   NE-REP-2              reporting     -                                             Neb. Rev. Stat. 81-1821(4)
+    R18   NE-COLL-1             collateral    -                                             80 Neb. Admin. Code ch. 3, 004
+    R19   NE-COLL-2             collateral    -                                             80 Neb. Admin. Code ch. 3, 004
+    R20   NE-COND-1             info          -                     conduct_reduction       Neb. Rev. Stat. 81-1816(1)
+    R21   NE-COND-2             info          -                     conduct_reduction       NCC: Innocence and Contributory Conduct
+    R22   NE-COND-3             info          -                     conduct_reduction       Neb. Rev. Stat. 81-1822(3)
+    R23   NE-EMER-1             info          -                     emergency_award         Neb. Rev. Stat. 81-1820(1)(a)
+    R24   NE-ELIG-1             info          -                     eligible_crime          Neb. Rev. Stat. 81-1818(2)
+    R25   NE-ELIG-2             info          -                     eligible_crime          Neb. Rev. Stat. 81-1821(4)
+    R26   NE-RES-1              info          -                     residency               Neb. Rev. Stat. 81-1807(1)
+    R27   NE-SUBMIT-1           info          -                     submission              CVR Claim Application (Oct 2023), cover page
+    R28   NE-SUBMIT-2           info          -                     submission              Crime Victim Reparations program page, Apply
+    R29   NE-SUBMIT-3           info          -                     submission              CVR Claim Application (Oct 2023), cover page
+    R30   NE-DOC-1              info          -                     required_document       FAQ, What must I do to apply for compensation?
+    R31   NE-DOC-2              info          -                     required_document       CVR Claim Application (Oct 2023), Section 4: Expenses
+    R32   NE-DOC-3              info          -                     required_document       CVR Claim Application (Oct 2023), Authorization to Release Information
+    R33   NE-DOC-4              info          -                     required_document       CVR Claim Application (Oct 2023), United States Citizenship Attestation
+    R34   NE-DOC-5              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
+    R35   NE-DOC-6              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
+    R36   NE-DOC-7              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
+    R37   NE-DOC-8              info          -                     required_document       CVR Claim Application (Oct 2023), Section 4: Expenses
+    R38   NE-TIME-1             info          -                     processing_time         Claims Process, quoting Neb. Rev. Stat. 81-1809(1)
+    R39   NE-TIME-2             info          -                     processing_time         CVR pamphlet (English), back panel
+    R40   NE-ACP-1              info          -                     address_confidentiality Program eligibility
+    R41   NE-RECORDS-1          info          -                     record_confidentiality  Neb. Rev. Stat. 81-1842
+
+.tags   pain_suffering=bit0
+
+.sources
+    S0    NE-S1       sha256 c16b9f79ee68f7b4  https://ncc.nebraska.gov/crime-victim-reparations
+    S1    NE-S2       sha256 1bb83990f017c834  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1807
+    S2    NE-S3       sha256 0fe6456dd106bbc4  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1816
+    S3    NE-S4       sha256 0febd743e416681c  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1817
+    S4    NE-S5       sha256 d0479e74a91dd50f  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1819
+    S5    NE-S6       sha256 7b74608b1e7cd6ef  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1820
+    S6    NE-S7       sha256 08423fe91ee6ebf1  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1821
+    S7    NE-S8       sha256 5a1a368f3bcef1db  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1822
+    S8    NE-S9       sha256 5249f7533688e4de  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1823
+    S9    NE-S10      sha256 e35eba643ece3a05  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1429.03
+    S10   NE-S11      sha256 aae502bd6e78a18b  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1801
+    S11   NE-S12      sha256 85ea7945d6fba0bc  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1818
+    S12   NE-S13      sha256 ac759d0c53a9ebd6  https://ncc.nebraska.gov/sites/default/files/doc/Frequently%20Asked%20Questions.pdf
+    S13   NE-S14      sha256 de945a9f54868ca3  https://ncc.nebraska.gov/sites/default/files/doc/57844_78_Nebraska%20Crime%20Victim_s%20Reparations%20New%20Brochure%20-%20Statute%20spelled%20correctly.pdf
+    S14   NE-S15      sha256 504843f36be9f074  https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf
+    S15   NE-S17      sha256 3272d6eab9fc2e99  https://ncc.nebraska.gov/sites/default/files/doc/Innocence%20and%20Contributory%20Conduct.pdf
+    S16   NE-S20      sha256 aab55034367d0711  https://www.law.cornell.edu/regulations/nebraska/80-Neb-Admin-Code-ch-3-SS-003
+    S17   NE-S21      sha256 efc25ab9a66aee17  https://www.law.cornell.edu/regulations/nebraska/80-Neb-Admin-Code-ch-3-SS-004
+    S18   NE-S22      sha256 2fe24d94f109452f  https://ncc.nebraska.gov/sites/default/files/doc/Claims%20Process.pdf
+    S19   NE-S23      sha256 ad580a82d8018359  https://sos.nebraska.gov/business-services/address-confidentiality-program
+    S20   NE-S24      sha256 cb8449f16f3e63fc  https://nebraskalegislature.gov/laws/statutes.php?statute=42-1203
+    S21   NE-S25      sha256 dc730cdcfc2cd8ee  https://nebraskalegislature.gov/laws/statutes.php?statute=81-1842
+
+.proofs
+    P0    ()
+    P1    (NE-EXAM-1, NE-EXAM-2)
+    P2    (NE-EXCL-2)
+    P3    (NE-MED-1, NE-COV-1)
+    P4    (NE-MED-1, NE-COV-1, NE-COLL-1, NE-COLL-2)
+    P5    (NE-CAP-2, NE-COV-2)
+    P6    (NE-CAP-2, NE-COV-2, NE-COLL-1, NE-COLL-2)
+    P7    (NE-COV-3)
+    P8    (NE-COV-3, NE-COLL-1, NE-COLL-2)
+    P9    (NE-CAP-3)
+    P10   (NE-CAP-3, NE-COLL-1, NE-COLL-2)
+    P11   (NE-EXCL-1, NE-EXCL-2)
+    P12   (NE-EXCL-1)
+    P13   (NE-COV-5)
+    P14   (NE-COV-5, NE-COLL-1, NE-COLL-2)
+    P15   (NE-COV-4)
+    P16   (NE-COV-4, NE-COLL-1, NE-COLL-2)
+    P17   (NE-CAP-4)
+    P18   (NE-CAP-4, NE-COLL-1, NE-COLL-2)
+    P19   (NE-WAGE-1)
+    P20   (NE-DEAD-1)
+    P21   (NE-REP-1, NE-REP-2)
+    P22   (NE-COLL-1, NE-COLL-2, NE-COND-1, NE-COND-2, NE-COND-3, NE-EMER-1, NE-ELIG-1, NE-ELIG-2, NE-RES-1, NE-SUBMIT-1, NE-SUBMIT-2, NE-SUBMIT-3, NE-DOC-1, NE-DOC-2, NE-DOC-3, NE-DOC-4, NE-DOC-5, NE-DOC-6, NE-DOC-7, NE-DOC-8, NE-TIME-1, NE-TIME-2, NE-ACP-1, NE-RECORDS-1)
+
+.ints
+    K0    500000        ; $5,000.00
+    K1    1000000       ; $10,000.00
+    K2    2500000       ; $25,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L17
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L17
+                        case temporary_housing     -> L17
+                        case security              -> L17
+                        case crime_scene_cleanup   -> L21
+                        case childcare             -> L17
+                        case property_replacement  -> L26
+                        case clothing_bedding      -> L17
+                        case prescription          -> L30
+                        case dental                -> L35
+                        case funeral               -> L40
+                        case legal                 -> L17
+                        case tuition               -> L17
+                        case other                 -> L17
+                        case unknown               -> L17
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; NE-EXAM-1  Neb. Rev. Stat. 81-1429.03(1)  "A report of a forensic medical examination shall not be remitted..."
+              ; NE-EXAM-2  Neb. Rev. Stat. 81-1429.03(1)  "The full out-of-pocket cost or expense that may be charged to a..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; NE-EXAM-1, NE-EXAM-2
+  007b        ret
+              ; NE-MED-1  Neb. Rev. Stat. 81-1807(2)(a)  "a health care provider may, with the permission of the victim..."
+              ; NE-COV-1  NCC Crime Victim Reparations page, Types of Expenses  "Medical expenses (hospital, doctor, dental, prescriptions..."
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; NE-EXCL-2
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; NE-MED-1, NE-COV-1
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; NE-MED-1, NE-COV-1, NE-COLL-1, NE-COLL-2
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R18              ; NE-COLL-1
+  00d9        ret
+              ; NE-CAP-2  NCC Crime Victim Reparations page, Types of Expenses  "Counseling | Therapy (Maximum of $5,000)"
+              ; NE-COV-2  Neb. Rev. Stat. 81-1819(1)  "Expenses actually and reasonably incurred as a result of the..."
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     1
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; NE-EXCL-2
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; NE-CAP-2, NE-COV-2
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; NE-CAP-2, NE-COV-2, NE-COLL-1, NE-COLL-2
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R18              ; NE-COLL-1
+  0137        ret
+              ; NE-COV-3  Neb. Rev. Stat. 81-1819(2)  "Loss of wages and future earning capacity as a result of total..."
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     1
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; NE-EXCL-2
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; NE-COV-3
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; NE-COV-3, NE-COLL-1, NE-COLL-2
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R18              ; NE-COLL-1
+  0195        ret
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     1
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P2                 ; NE-EXCL-2
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   unknown_rule, P0             ; (none)
+  01d7        ret
+              ; NE-CAP-3  NCC Crime Victim Reparations page, Types of Expenses  "Crime-scene clean-up (Maximum of $5,000)"
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     1
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; NE-EXCL-2
+  020f        ret
+  0210  L24:  ldi      confirmed
+  0212        jnz      L25
+  0217        push     0
+  021c        decide   needs_confirmation, P9       ; NE-CAP-3
+  0220        ret
+  0221  L25:  ldi      amount_cents
+  0223        decide   eligible, P10                ; NE-CAP-3, NE-COLL-1, NE-COLL-2
+  0227        lda
+  0228        ldi      insurance_paid_cents
+  022a        subs
+  022b        push     0
+  0230        max
+  0231        seta     collateral, R18              ; NE-COLL-1
+  0235        ret
+              ; NE-EXCL-1  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+  0236  L26:  push     0
+  023b        str      r0
+  023d        ldi      tags
+  023f        push     1
+  0244        and
+  0245        jz       L27
+  024a        ldr      r0
+  024c        push     1
+  0251        or
+  0252        str      r0
+  0254  L27:  ldr      r0
+  0256        switch   2, default L29
+                        case 0                     -> L29
+                        case 1                     -> L28
+  0264  L28:  push     0
+  0269        decide   excluded, P11                ; NE-EXCL-1, NE-EXCL-2
+  026d        ret
+  026e  L29:  push     0
+  0273        decide   excluded, P12                ; NE-EXCL-1
+  0277        ret
+              ; NE-COV-5  NCC Crime Victim Reparations page, Types of Expenses  "Medical expenses (hospital, doctor, dental, prescriptions..."
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  0278  L30:  push     0
+  027d        str      r0
+  027f        ldi      tags
+  0281        push     1
+  0286        and
+  0287        jz       L31
+  028c        ldr      r0
+  028e        push     1
+  0293        or
+  0294        str      r0
+  0296  L31:  ldr      r0
+  0298        switch   2, default L33
+                        case 0                     -> L33
+                        case 1                     -> L32
+  02a6  L32:  push     0
+  02ab        decide   excluded, P2                 ; NE-EXCL-2
+  02af        ret
+  02b0  L33:  ldi      confirmed
+  02b2        jnz      L34
+  02b7        push     0
+  02bc        decide   needs_confirmation, P13      ; NE-COV-5
+  02c0        ret
+  02c1  L34:  ldi      amount_cents
+  02c3        decide   eligible, P14                ; NE-COV-5, NE-COLL-1, NE-COLL-2
+  02c7        lda
+  02c8        ldi      insurance_paid_cents
+  02ca        subs
+  02cb        push     0
+  02d0        max
+  02d1        seta     collateral, R18              ; NE-COLL-1
+  02d5        ret
+              ; NE-COV-4  NCC Crime Victim Reparations page, Types of Expenses  "Medical expenses (hospital, doctor, dental, prescriptions..."
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  02d6  L35:  push     0
+  02db        str      r0
+  02dd        ldi      tags
+  02df        push     1
+  02e4        and
+  02e5        jz       L36
+  02ea        ldr      r0
+  02ec        push     1
+  02f1        or
+  02f2        str      r0
+  02f4  L36:  ldr      r0
+  02f6        switch   2, default L38
+                        case 0                     -> L38
+                        case 1                     -> L37
+  0304  L37:  push     0
+  0309        decide   excluded, P2                 ; NE-EXCL-2
+  030d        ret
+  030e  L38:  ldi      confirmed
+  0310        jnz      L39
+  0315        push     0
+  031a        decide   needs_confirmation, P15      ; NE-COV-4
+  031e        ret
+  031f  L39:  ldi      amount_cents
+  0321        decide   eligible, P16                ; NE-COV-4, NE-COLL-1, NE-COLL-2
+  0325        lda
+  0326        ldi      insurance_paid_cents
+  0328        subs
+  0329        push     0
+  032e        max
+  032f        seta     collateral, R18              ; NE-COLL-1
+  0333        ret
+              ; NE-CAP-4  NCC Crime Victim Reparations page, Types of Expenses  "Funeral expenses (Maximum of $10,000)"
+              ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+  0334  L40:  push     0
+  0339        str      r0
+  033b        ldi      tags
+  033d        push     1
+  0342        and
+  0343        jz       L41
+  0348        ldr      r0
+  034a        push     1
+  034f        or
+  0350        str      r0
+  0352  L41:  ldr      r0
+  0354        switch   2, default L43
+                        case 0                     -> L43
+                        case 1                     -> L42
+  0362  L42:  push     0
+  0367        decide   excluded, P2                 ; NE-EXCL-2
+  036b        ret
+  036c  L43:  ldi      confirmed
+  036e        jnz      L44
+  0373        push     0
+  0378        decide   needs_confirmation, P17      ; NE-CAP-4
+  037c        ret
+  037d  L44:  ldi      amount_cents
+  037f        decide   eligible, P18                ; NE-CAP-4, NE-COLL-1, NE-COLL-2
+  0383        lda
+  0384        ldi      insurance_paid_cents
+  0386        subs
+  0387        push     0
+  038c        max
+  038d        seta     collateral, R18              ; NE-COLL-1
+  0391        ret
+
+.aggregate
+              ; NE-CAP-2  NCC Crime Victim Reparations page, Types of Expenses  "Counseling | Therapy (Maximum of $5,000)"
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     counseling, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $5,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $5,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R4              ; NE-CAP-2
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R4              ; NE-CAP-2
+  004d  L3:   next     L0
+              ; NE-CAP-3  NCC Crime Victim Reparations page, Types of Expenses  "Crime-scene clean-up (Maximum of $5,000)"
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     crime_scene_cleanup, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K0                           ; $5,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K0                           ; $5,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R5              ; NE-CAP-3
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R5              ; NE-CAP-3
+  009f  L8:   next     L5
+              ; NE-CAP-4  NCC Crime Victim Reparations page, Types of Expenses  "Funeral expenses (Maximum of $10,000)"
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     funeral, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K1                           ; $10,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K1                           ; $10,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R6              ; NE-CAP-4
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R6              ; NE-CAP-4
+  00f1  L13:  next     L10
+              ; NE-CAP-1  Neb. Rev. Stat. 81-1823  "no compensation shall be awarded under the Nebraska Crime..."
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        push     0
+  0102        str      r1
+  0104        each     all, L19
+  010a  L15:  ldr      r1
+  010c        jnz      L17
+  0111        ldr      r0
+  0113        lda
+  0114        adds
+  0115        ldk      K2                           ; $25,000.00
+  0118        gt
+  0119        jz       L16
+  011e        ldk      K2                           ; $25,000.00
+  0121        ldr      r0
+  0123        subs
+  0124        cap      total_cap, R3                ; NE-CAP-1
+  0128        push     1
+  012d        str      r1
+  012f  L16:  ldr      r0
+  0131        lda
+  0132        adds
+  0133        str      r0
+  0135        jmp      L18
+  013a  L17:  push     0
+  013f        cap      total_cap, R3                ; NE-CAP-1
+  0143  L18:  next     L15
+              ; NE-WAGE-1  CVR Claim Application (Oct 2023), Section 6  "Loss of Wage will only be considered if more than seven (7)..."
+  0148  L19:  push     4                            ; unknown
+  014d        check    minimum_loss, P19            ; NE-WAGE-1
+              ; NE-DEAD-1  Neb. Rev. Stat. 81-1821(2)(a)  "For a victim who was nineteen years of age or older at the time..."
+  0151        ldx      incident_date
+  0153        push     730
+  0158        adds
+  0159        dup
+  015a        setdate
+  015b        ldx      as_of_date
+  015d        ge
+  015e        jz       L20
+  0163        push     0
+  0168        jmp      L21
+  016d  L20:  push     1                            ; late
+  0172  L21:  check    deadline, P20                ; NE-DEAD-1
+              ; NE-REP-1  Neb. Rev. Stat. 81-1821(1)(b)  "The personal injury or death was the result of an incident or..."
+              ; NE-REP-2  Neb. Rev. Stat. 81-1821(4)  "An application submitted by or for a victim of sexual assault..."
+  0176        ldx      police_report
+  0178        push     1                            ; yes
+  017d        eq
+  017e        jnz      L23
+  0183        ldx      forensic_exam
+  0185        jnz      L23
+  018a        ldx      police_report
+  018c        push     0                            ; no
+  0191        eq
+  0192        jnz      L22
+  0197        push     3
+  019c        jmp      L24
+  01a1  L22:  push     1
+  01a6        jmp      L24
+  01ab  L23:  push     0                            ; satisfied
+  01b0  L24:  check    reporting, P21               ; NE-REP-1, NE-REP-2
+              ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
+              ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
+              ; NE-COND-1  Neb. Rev. Stat. 81-1816(1)  "the committee or hearing officer shall consider all..."
+              ; NE-COND-2  NCC: Innocence and Contributory Conduct  "contributory conduct is never used in screening claims involving..."
+              ; NE-COND-3  Neb. Rev. Stat. 81-1822(3)  "If the victim violated a criminal law of the state, which..."
+              ; NE-EMER-1  Neb. Rev. Stat. 81-1820(1)(a)  "The amount of the emergency compensation shall not exceed five..."
+              ; NE-ELIG-1  Neb. Rev. Stat. 81-1818(2)  "The commission or attempt on the part of one other than the..."
+              ; NE-ELIG-2  Neb. Rev. Stat. 81-1821(4)  "An application submitted by or for a victim of sexual assault..."
+              ; NE-RES-1  Neb. Rev. Stat. 81-1807(1)  "Residents and nonresidents of Nebraska who are victims of crimes..."
+              ; NE-SUBMIT-1  CVR Claim Application (Oct 2023), cover page  "Return the completed/signed application and documentation to the..."
+              ; NE-SUBMIT-2  Crime Victim Reparations program page, Apply  "Submit, along with supporting documentation requested, by email..."
+              ; NE-SUBMIT-3  CVR Claim Application (Oct 2023), cover page  "Phone: 402.471.2828 Fax: 402.471.2837"
+              ; NE-DOC-1  FAQ, What must I do to apply for compensation?  "Submit itemized copies of all medical bills relating to the..."
+              ; NE-DOC-2  CVR Claim Application (Oct 2023), Section 4: Expenses  "Attach copies of crime related bills and any paid receipts."
+              ; NE-DOC-3  CVR Claim Application (Oct 2023), Authorization to Release Information  "This authorization is an integral part of your application and..."
+              ; NE-DOC-4  CVR Claim Application (Oct 2023), United States Citizenship Attestation  "I am a qualified alien under the federal Immigration and..."
+              ; NE-DOC-5  CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information  "Copy of pay stubs or an earning statement for the pay period(s)..."
+              ; NE-DOC-6  CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information  "If Self-Employed: submit the most recent federal tax returns..."
+              ; NE-DOC-7  CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information  "A Doctor’s release back to work."
+              ; NE-DOC-8  CVR Claim Application (Oct 2023), Section 4: Expenses  "Funeral or Burial Expenses (A copy of the death certificate will..."
+              ; NE-TIME-1  Claims Process, quoting Neb. Rev. Stat. 81-1809(1)  "A hearing officer shall consider and rule upon any application..."
+              ; NE-TIME-2  CVR pamphlet (English), back panel  "CVR program applications take time, typically claims are fully..."
+              ; NE-ACP-1  Program eligibility  "To be eligible for ACP, an individual must be (1) a victim of..."
+              ; NE-RECORDS-1  Neb. Rev. Stat. 81-1842  "The name of any victim of a sexual assault appearing in..."
+  01b4        info     P22                          ; NE-COLL-1, NE-COLL-2, NE-COND-1, NE-COND-2, NE-COND-3, NE-EMER-1, NE-ELIG-1, NE-ELIG-2, NE-RES-1, NE-SUBMIT-1, NE-SUBMIT-2, NE-SUBMIT-3, NE-DOC-1, NE-DOC-2, NE-DOC-3, NE-DOC-4, NE-DOC-5, NE-DOC-6, NE-DOC-7, NE-DOC-8, NE-TIME-1, NE-TIME-2, NE-ACP-1, NE-RECORDS-1
+  01b7        ret
+

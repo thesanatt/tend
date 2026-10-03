@@ -1,0 +1,306 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "OK",
+ "source_sha256": "e2fb4c696a03f37663c15226e3e396737d32f87c52c5d29633dcb7fb40d8dbf4",
+ "ir_sha256": "47b0f0567bf032cb20171a6380b1d7779d5111039636844d30b4cf547e264ae1",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "OK-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OK-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OK-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OK-EXAM-4",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 80000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-EXAM-5",
+   "kind": "expense_cap",
+   "expense": "prescription",
+   "cap_cents": 10000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OK-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "OK-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-CAP-3",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 2000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "OK-CAP-4"
+   ]
+  },
+  {
+   "id": "OK-CAP-5",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-CAP-6",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "OK-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OK-COV-1B",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OK-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OK-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OK-COV-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OK-COV-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "OK-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "OK-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "OK-DEAD-1",
+   "kind": "deadline",
+   "days": 900,
+   "from": "crime"
+  },
+  {
+   "id": "OK-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "OK-RPT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "other"
+   ],
+   "within_days": 3
+  },
+  {
+   "id": "OK-RPT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "OK-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "OK-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "OK-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "OK-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OK-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OK-EXAM-7",
+   "kind": "collateral"
+  },
+  {
+   "id": "OK-EXAM-8",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OK-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OK-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-13",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-TIME-3",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-TIME-4",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "OK-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "OK-CAP-4",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of OK-CAP-3"
+  }
+ ]
+}

@@ -176,6 +176,26 @@
    "raw_path": "rules/sources/DC/DC-S16.html",
    "text_path": "rules/sources/DC/DC-S16.txt",
    "sha256": "28a60f35f0e30b85873fc03c63c2f4d44a07069db87ba487c65da6e5467e6be3"
+  },
+  {
+   "id": "DC-S17",
+   "title": "D.C. Code § 4-511, Confidentiality",
+   "url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-511",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:27Z",
+   "raw_path": "rules/sources/DC/DC-S17.html",
+   "text_path": "rules/sources/DC/DC-S17.txt",
+   "sha256": "d723d81aa5119644b44df4fb803d263a5bb567a1e5fb2db762edd15c5e2ce73e"
+  },
+  {
+   "id": "DC-S18",
+   "title": "Office of Victim Services and Justice Grants, Address Confidentiality Program page",
+   "url": "https://ovsjg.dc.gov/acp",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:35Z",
+   "raw_path": "rules/sources/DC/DC-S18.html",
+   "text_path": "rules/sources/DC/DC-S18.txt",
+   "sha256": "2c157f5a324716e21549a291f54c7ff32ed04ea1621ec8732d7d7585367451f5"
   }
  ],
  "rules": [
@@ -853,10 +873,36 @@
    "quote": "Please allow 5 business days for a CVCP team member to review your compensation application.",
    "source_id": "DC-S6",
    "pinpoint": "CVCP Application (rev. 4/21/23), p.7"
+  },
+  {
+   "id": "DC-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Office of Victim Services and Justice Grants (OVSJG)",
+    "covers_sexual_assault": true,
+    "enroll": "Application assistants are available in several agencies across the District to answer questions, verify eligibility, and accept applications. To learn more about the ACP or submit an application, reach out to an application assistant on the list below."
+   },
+   "summary": "D.C.'s Address Confidentiality Program, run by the Office of Victim Services and Justice Grants, gives eligible D.C. residents who fear for their safety and have experienced sexual assault, domestic violence, stalking, or human trafficking a legal substitute address that District agencies must accept, plus forwarding of first-class, certified, and registered mail. Applicants must also have moved recently, plan to move soon, or have kept their current address off public records, and apply through an application assistant.",
+   "quote": "The District’s Address Confidentiality Program (ACP), administered by the Office of Victim Services and Justice Grants (OVSJG), provides a legal substitute address for eligible DC residents to maintain the confidentiality of her or his actual address.",
+   "source_id": "DC-S18",
+   "pinpoint": "OVSJG Address Confidentiality Program page, program description",
+   "fragment_url": "https://ovsjg.dc.gov/acp#:~:text=The%20District%E2%80%99s%20Address%20Confidentiality%20Program,her%20or%20his%20actual%20address."
+  },
+  {
+   "id": "DC-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Information, records, and hearing transcripts in compensation claim files are confidential and not open to public inspection; only the claimant, a representative with the claimant's signed authorization, treating or advising physicians at the Court's discretion, and people assisting the Court with administering the claim may see them. The annual report to the D.C. Council leaves out claimant names unless the claimant agrees.",
+   "quote": "Information, records, and transcripts of hearings contained in the claims files under the provisions of this chapter are confidential and not open to public inspection",
+   "source_id": "DC-S17",
+   "pinpoint": "D.C. Code § 4-511(a)",
+   "fragment_url": "https://code.dccouncil.gov/us/dc/council/code/sections/4-511#:~:text=Information%2C%20records%2C%20and%20transcripts%20of,not%20open%20to%20public%20inspection"
   }
  ],
  "coverage": {
   "found": [
+   "address_confidentiality",
    "collateral_source",
    "conduct_reduction",
    "covered_expense",
@@ -867,6 +913,7 @@
    "expense_cap",
    "filing_deadline",
    "processing_time",
+   "record_confidentiality",
    "reporting_requirement",
    "required_document",
    "residency",
@@ -877,8 +924,8 @@
    "minimum_loss",
    "exam_payment"
   ],
-  "notes": "D.C. Code 4-506(d) lets the program waive its time limits for good cause, including compelling health or safety concerns (not encoded as a separate deadline rule). No minimum-loss threshold appears in D.C. Code 4-501 to 4-512 or the CVCP Rules. D.C. Code 4-561.03 bars the hospital from billing the survivor for a PERK, but no official source I saved names who pays the hospital or says whether the survivor's private insurance may be billed, so exam_payment is left out and insurance_billing is unspecified. Processing time: the 2023 application asks applicants to allow 5 business days for staff review of the application; no official source states a time to a decision or payment."
+  "notes": "D.C. Code 4-506(d) lets the program waive its time limits for good cause, including compelling health or safety concerns (not encoded as a separate deadline rule). No minimum-loss threshold appears in D.C. Code 4-501 to 4-512 or the CVCP Rules. D.C. Code 4-561.03 bars the hospital from billing the survivor for a PERK, but no official source I saved names who pays the hospital or says whether the survivor's private insurance may be billed, so exam_payment is left out and insurance_billing is unspecified. Processing time: the 2023 application asks applicants to allow 5 business days for staff review of the application; no official source states a time to a decision or payment. Address confidentiality: D.C.'s ACP (Address Confidentiality Act of 2018, D.C. Law 22-118) is run by OVSJG; the OVSJG ACP page (DC-S18) lists sexual assault among qualifying experiences. Record confidentiality: D.C. Code 4-511 (DC-S17) makes claim files confidential and not open to public inspection."
  },
  "confidence": "high",
- "researcher_notes": "Dollar sub-limits come from the D.C. Superior Court CVCP Rules (DC-S7); the statute (4-501(7)) lists covered costs but sets only the $10,000 funeral cap and the $25,000 total. The Rules PDF is older than the 2023 amendments (D.C. Law 24-341) in places: Rule 25 says funeral up to $6,000, while statute 4-501(7)(A)(ii), the program's Compensable Costs page, and the 2023 application all say $10,000 (statute wins). Rule 7(b) lists only a sexual assault exam as the reporting alternative; statute 4-506(c)(3) is broader (protective order, forensic exam, or a report before the statute of limitations), and the statute is used here. The Application page (DC-S4) says to submit a DC police report or DC civil protection order and that temporary restraining orders are not accepted, while the 2023 application form (DC-S6) lists forensic medical examination as crime documentation; Tend should follow the statute and tell survivors to call the program if documentation is questioned. 4-506(a-2) also says arrest, prosecution, or conviction of the offender is not required, and being a family or household member of the offender does not by itself make a claimant ineligible. Federal OVC directory confirmed the program website and phone 202-879-4216. Reviewer pass: added the statutory $10,000 funeral cap (4-501(7)(A)(ii)) as its own rule, the $2,500 per-victimization limit on loss of services alongside the $200 weekly limit, and the 4-508(b)(2) law-enforcement cooperation ground for denial. Rule 33 covers only a rental car, while the 2023 statute covers alternate transportation including rideshare; the $2,000 figure comes from the Rules, the Compensable Costs page, and the 2023 application. The CVCP Rules PDF carries no adoption date; its dollar sub-limits other than funeral match the current Compensable Costs page and the 2023 application form. No official source found names who pays the hospital for the PERK exam. How to file: the 2023 application (DC-S6, 443 AcroForm fields, the version linked from the program's Application page) says to submit by email to CVCPapplications@dcsc.gov or by mail or in person at 515 5th Street, NW #109, or at remote sites; the brochure (DC-S5) lists five Balance and Restorative Justice Center remote sites for pick-up and drop-off. The Application page (DC-S4) adds fax 202-879-4230 and shows the email address obfuscated, so the email rule quotes the application form. D.C. Code 4-512(a) confirms filing in person, by mail, online, or by email. The online target comes from the brochure, where a PDF line break splits the URL ('Gene rateInterview'); the joined URL is the same link the D.C. Courts Forms Help Online page (DC-S16) uses for its Start Your Online Interview button and it returned HTTP 200 on Oct 3. The application asks for a photo ID but says staff will confirm identity another way if none is attached."
+ "researcher_notes": "Dollar sub-limits come from the D.C. Superior Court CVCP Rules (DC-S7); the statute (4-501(7)) lists covered costs but sets only the $10,000 funeral cap and the $25,000 total. The Rules PDF is older than the 2023 amendments (D.C. Law 24-341) in places: Rule 25 says funeral up to $6,000, while statute 4-501(7)(A)(ii), the program's Compensable Costs page, and the 2023 application all say $10,000 (statute wins). Rule 7(b) lists only a sexual assault exam as the reporting alternative; statute 4-506(c)(3) is broader (protective order, forensic exam, or a report before the statute of limitations), and the statute is used here. The Application page (DC-S4) says to submit a DC police report or DC civil protection order and that temporary restraining orders are not accepted, while the 2023 application form (DC-S6) lists forensic medical examination as crime documentation; Tend should follow the statute and tell survivors to call the program if documentation is questioned. 4-506(a-2) also says arrest, prosecution, or conviction of the offender is not required, and being a family or household member of the offender does not by itself make a claimant ineligible. Federal OVC directory confirmed the program website and phone 202-879-4216. Reviewer pass: added the statutory $10,000 funeral cap (4-501(7)(A)(ii)) as its own rule, the $2,500 per-victimization limit on loss of services alongside the $200 weekly limit, and the 4-508(b)(2) law-enforcement cooperation ground for denial. Rule 33 covers only a rental car, while the 2023 statute covers alternate transportation including rideshare; the $2,000 figure comes from the Rules, the Compensable Costs page, and the 2023 application. The CVCP Rules PDF carries no adoption date; its dollar sub-limits other than funeral match the current Compensable Costs page and the 2023 application form. No official source found names who pays the hospital for the PERK exam. How to file: the 2023 application (DC-S6, 443 AcroForm fields, the version linked from the program's Application page) says to submit by email to CVCPapplications@dcsc.gov or by mail or in person at 515 5th Street, NW #109, or at remote sites; the brochure (DC-S5) lists five Balance and Restorative Justice Center remote sites for pick-up and drop-off. The Application page (DC-S4) adds fax 202-879-4230 and shows the email address obfuscated, so the email rule quotes the application form. D.C. Code 4-512(a) confirms filing in person, by mail, online, or by email. The online target comes from the brochure, where a PDF line break splits the URL ('Gene rateInterview'); the joined URL is the same link the D.C. Courts Forms Help Online page (DC-S16) uses for its Start Your Online Interview button and it returned HTTP 200 on Oct 3. The application asks for a photo ID but says staff will confirm identity another way if none is attached. Address confidentiality: the OVSJG ACP page (DC-S18) says an applicant may qualify if they fear for their safety, currently (or will soon) reside in D.C., and have experienced domestic violence, sexual assault, stalking, or human trafficking; they must also have moved within the past 60 days, plan to move within 30 days, or have kept their current address off online and public records. The substitute address binds District agencies only; the page says non-government entities may still require the actual address and the program does not forward packages or magazines. The program is created by D.C. Law 22-118 (Address Confidentiality Act of 2018); the statute itself was not saved, so the rule quotes the official program page. Record confidentiality: D.C. Code 4-511(a) (DC-S17) is the statute; CVCP Rule 4 (DC-S7) and the Application page (DC-S4) say the same thing. 4-511(a) lets the claimant, an authorized representative, physicians at the Court's discretion, and people assisting the Court see the file, and 4-507(f) lets the Court tell the sentencing judge the award amount, so Tend should not say no one outside the program ever sees the claim."
 }

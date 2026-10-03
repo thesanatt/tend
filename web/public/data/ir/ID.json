@@ -1,0 +1,286 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "ID",
+ "source_sha256": "c7a8684f704d3d7869f36a2c60e60b86f9eb1bc98297fa32fe5d98d11ae3d91d",
+ "ir_sha256": "f3f49460c20677ea89253f22907691226a9e38cd24995f56abb138efe8e3ee15",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "ID-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ID-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ID-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ID-CAP-1B",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ID-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "ID-CAP-4",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 17500,
+   "per": "unit",
+   "unit": "week",
+   "alt_rule_ids": [
+    "ID-CAP-5"
+   ]
+  },
+  {
+   "id": "ID-CAP-6",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 2000000,
+   "per": "claim"
+  },
+  {
+   "id": "ID-CAP-7",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ID-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ID-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ID-COV-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ID-COV-4",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "ID-COV-5",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "ID-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ID-COV-7",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "ID-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "ID-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ID-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ID-EXCL-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ID-EXCL-5",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ID-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "ID-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 3
+  },
+  {
+   "id": "ID-REPORT-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "ID-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ID-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ID-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ID-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ID-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ID-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "ID-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ID-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ID-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ID-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "ID-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ID-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ID-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ID-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "ID-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "ID-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "ID-CAP-3",
+   "category": "expense_cap",
+   "reason": "applies_to \"family members of the victim (spouse, parent, grandparent, child, grandchild, sibling)\""
+  },
+  {
+   "id": "ID-CAP-5",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ID-CAP-4"
+  }
+ ]
+}

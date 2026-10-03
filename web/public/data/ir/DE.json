@@ -1,0 +1,258 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "DE",
+ "source_sha256": "c4ac295785e3b60960e5cbebf3c49ad02c65d34e4cff9a1dc291f73a1f86698e",
+ "ir_sha256": "d38fa74b890d3eee1c72074c16d9c26d361bcaf6e66ab2f4689f4eb39853f5fe",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "DE-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DE-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DE-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "DE-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "DE-CAP-2",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-3",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-4",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-5",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-6",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-CAP-7",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "DE-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DE-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "DE-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "DE-COV-4",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "DE-COV-5",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "DE-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "DE-COV-7",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DE-COV-8",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "DE-COV-9",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "DE-COV-10",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "DE-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "DE-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "DE-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "DE-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "DE-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "DE-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 2500
+  },
+  {
+   "id": "DE-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "DE-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "DE-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "DE-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "DE-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "DE-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "DE-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "DE-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DE-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DE-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DE-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DE-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "DE-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "DE-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

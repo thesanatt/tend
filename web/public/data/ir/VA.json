@@ -1,0 +1,292 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "VA",
+ "source_sha256": "14ab5946eb7ddc4551e8c3bcf22d707ef6446cd1cb5594cd5f6a84abedb809e9",
+ "ir_sha256": "3c0c62d35fe32ebd9b0998209da34df4df18269d9a09324ade9689621de186e7",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "VA-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VA-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "VA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "VA-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "VA-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VA-MOVE-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "VA-SEC-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "VA-HOUSE-1",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "VA-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "VA-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "VA-RX-2",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "VA-COUNSEL-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "VA-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "VA-CLOTH-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "VA-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash",
+    "phone",
+    "vehicle"
+   ]
+  },
+  {
+   "id": "VA-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "VA-EXCL-3",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "VA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-3",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VA-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "VA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "VA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "VA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "VA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "VA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "VA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "VA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "VA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VA-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "VA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

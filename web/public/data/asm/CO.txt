@@ -1,0 +1,652 @@
+; tend law image CO, Colorado
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 4ba52aedd7ecdec6f748bb32e86de240f91ab711ac57bdda5230575598bd7a8e
+; image sha256  03ca8cc425947b41e742e04c5a4c89557932a31c06624b5b2a39afc01c2e8c63
+; 34 rules, 18 sources, 23 proofs, 1 ints, 240 strings
+; item program: 392 instructions, 1401 bytes, max stack 2
+; aggregate program: 49 instructions, 166 bytes, max stack 2, 1 loops
+
+.rules
+    R0    CO-EXAM-1             exam_no_bill  -                                             C.R.S. 18-3-407.5(3)(b)
+    R1    CO-EXAM-2             exam_payment  -                                             C.R.S. 18-3-407.5(3)(b)
+    R2    CO-EXAM-3             exam_payment  -                                             C.R.S. 18-3-407.5(1)
+    R3    CO-EXAM-4             exam_payment  -                                             C.R.S. 18-3-407.7(2)(a)
+    R4    CO-EXAM-5             exam_payment  -                                             DCJ SAVE program page, Eligibility
+    R5    CO-EXAM-6             exam_payment  -                                             DCJ SAVE program page, How Are Medical Forensic Exams Paid For
+    R6    CO-CAP-1              total_cap     -                                             C.R.S. 24-4.1-109(2)(b)
+    R7    CO-COV-1              covered       medical                                       C.R.S. 24-4.1-109(1)(a)
+    R8    CO-COV-2              covered       lost_wages                                    C.R.S. 24-4.1-109(1)(b)
+    R9    CO-COV-3              covered       counseling                                    C.R.S. 24-4.1-109(1)(g)
+    R10   CO-COV-4              covered       transportation                                C.R.S. 24-4.1-109(1)(i)
+    R11   CO-COV-5              covered       relocation                                    C.R.S. 24-4.1-109(1)(l)
+    R12   CO-COV-6              covered       childcare                                     C.R.S. 24-4.1-109(1)(k)
+    R13   CO-COV-7              covered       security                                      C.R.S. 24-4.1-109(1.5)(a)(II)
+    R14   CO-COV-8              covered       security                                      C.R.S. 24-4.1-109(1.5)(a)(III)
+    R15   CO-COV-9              covered       funeral                                       C.R.S. 24-4.1-109(1)(e)
+    R16   CO-EXC-1              excluded      -                                             C.R.S. 24-4.1-109(2)(a)
+    R17   CO-EXC-2              excluded      -                                             C.R.S. 24-4.1-109(2)(d)
+    R18   CO-REPORT-1           reporting     -                                             C.R.S. 24-4.1-108(1)(b)
+    R19   CO-COLL-1             collateral    -                                             C.R.S. 24-4.1-110(2)
+    R20   CO-COND-1             info          -                     conduct_reduction       C.R.S. 24-4.1-108(1)(e)
+    R21   CO-EMERG-1            info          -                     emergency_award         C.R.S. 24-4.1-112(1)
+    R22   CO-CRIME-1            info          -                     eligible_crime          C.R.S. 24-4.1-302(1)(n)
+    R23   CO-RES-1              info          -                     residency               C.R.S. 24-4.1-102(10)(c)
+    R24   CO-SUBMIT-1           info          -                     submission              DCJ How to File a Claim page, How to File a Claim section
+    R25   CO-DOC-APP            info          -                     required_document       State application, instructions above Section 1
+    R26   CO-DOC-BILLS          info          -                     required_document       State application, end of Section 3
+    R27   CO-DOC-BILLS-2        info          -                     required_document       DCJ How to File a Claim page, How to File a Claim section
+    R28   CO-DOC-RECEIPTS       info          -                     required_document       State application, General Information item 5
+    R29   CO-DOC-INSURANCE      info          -                     required_document       State application, Section 5 (Insurance Information)
+    R30   CO-DOC-CIVIL          info          -                     required_document       State application, Section 6 (Civil Lawsuit) note
+    R31   CO-TIME-1             info          -                     processing_time         DCJ How to File a Claim page, How to File a Claim section
+    R32   CO-ACP-1              info          -                     address_confidentiality DCS Address Confidentiality Program (ACP) page, introduction
+    R33   CO-RECORDS-1          info          -                     record_confidentiality  C.R.S. 24-4.1-107.5(2)
+
+.tags   pain_suffering=bit0, vehicle=bit1
+
+.sources
+    S0    CO-S1       sha256 2d0f094e3d5ec698  https://dcj.colorado.gov/dcj-offices/ovp/crime-victim-compensation
+    S1    CO-S2       sha256 c723b094f55b452f  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-102/
+    S2    CO-S3       sha256 af2b08b8f01b0e10  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-105/
+    S3    CO-S4       sha256 7b33c5576c1fed47  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-108/
+    S4    CO-S5       sha256 701a8d9fcf555024  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/
+    S5    CO-S6       sha256 4f271c8eb9864e51  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-110/
+    S6    CO-S7       sha256 75d7a9c2f4fdb474  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-112/
+    S7    CO-S8       sha256 0fb2256250a12812  https://law.justia.com/codes/colorado/title-18/article-3/part-4/section-18-3-407-5/
+    S8    CO-S9       sha256 a20071d3c3b91d45  https://law.justia.com/codes/colorado/title-18/article-3/part-4/section-18-3-407-7/
+    S9    CO-S10      sha256 838f5315b34242b0  https://dcj.colorado.gov/dcj-offices/ovp/save-paymt-prgm
+    S10   CO-S11      sha256 7b9b4831569007c0  https://dcj.colorado.gov/how-to-file-a-claim-for-victim-compensation
+    S11   CO-S12      sha256 c1879416323cfe1e  https://ovc.ojp.gov/states/colorado
+    S12   CO-S13      sha256 1dcd49fd88cc1bf1  https://cdpsdocs.state.co.us/ovp/Vic_Comp/VC_English_Application_2_18_16.pdf
+    S13   CO-S14      sha256 c1c7c643094e77e1  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-3/section-24-4-1-302/
+    S14   CO-S15      sha256 89df258821eacd2c  https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-107-5/
+    S15   CO-S16      sha256 2016d937dd303464  https://dcs.colorado.gov/acp/how-to-enroll-in-the-acp
+    S16   CO-S17      sha256 6f11e6eb6df38272  https://dcs.colorado.gov/acp
+    S17   CO-S18      sha256 73cd1931bf59572b  https://law.justia.com/codes/colorado/title-24/principal-departments/article-30/part-21/section-24-30-2104/
+
+.proofs
+    P0    ()
+    P1    (CO-EXAM-1, CO-EXAM-2, CO-EXAM-3, CO-EXAM-4, CO-EXAM-5, CO-EXAM-6)
+    P2    (CO-EXC-1)
+    P3    (CO-EXC-2)
+    P4    (CO-EXC-1, CO-EXC-2)
+    P5    (CO-COV-1)
+    P6    (CO-COV-1, CO-COLL-1)
+    P7    (CO-COV-3)
+    P8    (CO-COV-3, CO-COLL-1)
+    P9    (CO-COV-2)
+    P10   (CO-COV-2, CO-COLL-1)
+    P11   (CO-COV-4)
+    P12   (CO-COV-4, CO-COLL-1)
+    P13   (CO-COV-5)
+    P14   (CO-COV-5, CO-COLL-1)
+    P15   (CO-COV-7, CO-COV-8)
+    P16   (CO-COV-7, CO-COV-8, CO-COLL-1)
+    P17   (CO-COV-6)
+    P18   (CO-COV-6, CO-COLL-1)
+    P19   (CO-COV-9)
+    P20   (CO-COV-9, CO-COLL-1)
+    P21   (CO-REPORT-1)
+    P22   (CO-COLL-1, CO-COND-1, CO-EMERG-1, CO-CRIME-1, CO-RES-1, CO-SUBMIT-1, CO-DOC-APP, CO-DOC-BILLS, CO-DOC-BILLS-2, CO-DOC-RECEIPTS, CO-DOC-INSURANCE, CO-DOC-CIVIL, CO-TIME-1, CO-ACP-1, CO-RECORDS-1)
+
+.ints
+    K0    3000000       ; $30,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L42
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L10
+                        case lost_wages            -> L18
+                        case transportation        -> L26
+                        case relocation            -> L34
+                        case temporary_housing     -> L42
+                        case security              -> L49
+                        case crime_scene_cleanup   -> L42
+                        case childcare             -> L57
+                        case property_replacement  -> L42
+                        case clothing_bedding      -> L42
+                        case prescription          -> L42
+                        case dental                -> L42
+                        case funeral               -> L65
+                        case legal                 -> L42
+                        case tuition               -> L42
+                        case other                 -> L42
+                        case unknown               -> L42
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; CO-EXAM-1  C.R.S. 18-3-407.5(3)(b)  "A victim of a sexual offense shall not bear the cost of a..."
+              ; CO-EXAM-2  C.R.S. 18-3-407.5(3)(b)  "The division of criminal justice in the department of public..."
+              ; CO-EXAM-3  C.R.S. 18-3-407.5(1)  "A law enforcement agency with jurisdiction over a sexual assault..."
+              ; CO-EXAM-4  C.R.S. 18-3-407.7(2)(a)  "The program must cover medical fees and costs associated with..."
+              ; CO-EXAM-5  DCJ SAVE program page, Eligibility  "For FY (fiscal year) 2026, the current per incident cap payable..."
+              ; CO-EXAM-6  DCJ SAVE program page, How Are Medical Forensic Exams Paid For  "If the victim makes an anonymous or medical report, the SAVE..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; CO-EXAM-1, CO-EXAM-2, CO-EXAM-3, CO-EXAM-4, CO-EXAM-5, CO-EXAM-6
+  007b        ret
+              ; CO-COV-1  C.R.S. 24-4.1-109(1)(a)  "Reasonable medical and hospital expenses and expenses incurred..."
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldi      tags
+  009c        push     2
+  00a1        and
+  00a2        jz       L4
+  00a7        ldr      r0
+  00a9        push     2
+  00ae        or
+  00af        str      r0
+  00b1  L4:   ldr      r0
+  00b3        switch   4, default L8
+                        case 0                     -> L8
+                        case 1                     -> L5
+                        case 2                     -> L6
+                        case 3                     -> L7
+  00c9  L5:   push     0
+  00ce        decide   excluded, P2                 ; CO-EXC-1
+  00d2        ret
+  00d3  L6:   push     0
+  00d8        decide   excluded, P3                 ; CO-EXC-2
+  00dc        ret
+  00dd  L7:   push     0
+  00e2        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  00e6        ret
+  00e7  L8:   ldi      confirmed
+  00e9        jnz      L9
+  00ee        push     0
+  00f3        decide   needs_confirmation, P5       ; CO-COV-1
+  00f7        ret
+  00f8  L9:   ldi      amount_cents
+  00fa        decide   eligible, P6                 ; CO-COV-1, CO-COLL-1
+  00fe        lda
+  00ff        ldi      insurance_paid_cents
+  0101        subs
+  0102        push     0
+  0107        max
+  0108        seta     collateral, R19              ; CO-COLL-1
+  010c        ret
+              ; CO-COV-3  C.R.S. 24-4.1-109(1)(g)  "Mental health counseling;"
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  010d  L10:  push     0
+  0112        str      r0
+  0114        ldi      tags
+  0116        push     1
+  011b        and
+  011c        jz       L11
+  0121        ldr      r0
+  0123        push     1
+  0128        or
+  0129        str      r0
+  012b  L11:  ldi      tags
+  012d        push     2
+  0132        and
+  0133        jz       L12
+  0138        ldr      r0
+  013a        push     2
+  013f        or
+  0140        str      r0
+  0142  L12:  ldr      r0
+  0144        switch   4, default L16
+                        case 0                     -> L16
+                        case 1                     -> L13
+                        case 2                     -> L14
+                        case 3                     -> L15
+  015a  L13:  push     0
+  015f        decide   excluded, P2                 ; CO-EXC-1
+  0163        ret
+  0164  L14:  push     0
+  0169        decide   excluded, P3                 ; CO-EXC-2
+  016d        ret
+  016e  L15:  push     0
+  0173        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  0177        ret
+  0178  L16:  ldi      confirmed
+  017a        jnz      L17
+  017f        push     0
+  0184        decide   needs_confirmation, P7       ; CO-COV-3
+  0188        ret
+  0189  L17:  ldi      amount_cents
+  018b        decide   eligible, P8                 ; CO-COV-3, CO-COLL-1
+  018f        lda
+  0190        ldi      insurance_paid_cents
+  0192        subs
+  0193        push     0
+  0198        max
+  0199        seta     collateral, R19              ; CO-COLL-1
+  019d        ret
+              ; CO-COV-2  C.R.S. 24-4.1-109(1)(b)  "Loss of earnings;"
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  019e  L18:  push     0
+  01a3        str      r0
+  01a5        ldi      tags
+  01a7        push     1
+  01ac        and
+  01ad        jz       L19
+  01b2        ldr      r0
+  01b4        push     1
+  01b9        or
+  01ba        str      r0
+  01bc  L19:  ldi      tags
+  01be        push     2
+  01c3        and
+  01c4        jz       L20
+  01c9        ldr      r0
+  01cb        push     2
+  01d0        or
+  01d1        str      r0
+  01d3  L20:  ldr      r0
+  01d5        switch   4, default L24
+                        case 0                     -> L24
+                        case 1                     -> L21
+                        case 2                     -> L22
+                        case 3                     -> L23
+  01eb  L21:  push     0
+  01f0        decide   excluded, P2                 ; CO-EXC-1
+  01f4        ret
+  01f5  L22:  push     0
+  01fa        decide   excluded, P3                 ; CO-EXC-2
+  01fe        ret
+  01ff  L23:  push     0
+  0204        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  0208        ret
+  0209  L24:  ldi      confirmed
+  020b        jnz      L25
+  0210        push     0
+  0215        decide   needs_confirmation, P9       ; CO-COV-2
+  0219        ret
+  021a  L25:  ldi      amount_cents
+  021c        decide   eligible, P10                ; CO-COV-2, CO-COLL-1
+  0220        lda
+  0221        ldi      insurance_paid_cents
+  0223        subs
+  0224        push     0
+  0229        max
+  022a        seta     collateral, R19              ; CO-COLL-1
+  022e        ret
+              ; CO-COV-4  C.R.S. 24-4.1-109(1)(i)  "Reasonable travel expenses for a victim related to funeral..."
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  022f  L26:  push     0
+  0234        str      r0
+  0236        ldi      tags
+  0238        push     1
+  023d        and
+  023e        jz       L27
+  0243        ldr      r0
+  0245        push     1
+  024a        or
+  024b        str      r0
+  024d  L27:  ldi      tags
+  024f        push     2
+  0254        and
+  0255        jz       L28
+  025a        ldr      r0
+  025c        push     2
+  0261        or
+  0262        str      r0
+  0264  L28:  ldr      r0
+  0266        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  027c  L29:  push     0
+  0281        decide   excluded, P2                 ; CO-EXC-1
+  0285        ret
+  0286  L30:  push     0
+  028b        decide   excluded, P3                 ; CO-EXC-2
+  028f        ret
+  0290  L31:  push     0
+  0295        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  0299        ret
+  029a  L32:  ldi      confirmed
+  029c        jnz      L33
+  02a1        push     0
+  02a6        decide   needs_confirmation, P11      ; CO-COV-4
+  02aa        ret
+  02ab  L33:  ldi      amount_cents
+  02ad        decide   eligible, P12                ; CO-COV-4, CO-COLL-1
+  02b1        lda
+  02b2        ldi      insurance_paid_cents
+  02b4        subs
+  02b5        push     0
+  02ba        max
+  02bb        seta     collateral, R19              ; CO-COLL-1
+  02bf        ret
+              ; CO-COV-5  C.R.S. 24-4.1-109(1)(l)  "Reasonable relocation expenses for a victim to relocate as..."
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  02c0  L34:  push     0
+  02c5        str      r0
+  02c7        ldi      tags
+  02c9        push     1
+  02ce        and
+  02cf        jz       L35
+  02d4        ldr      r0
+  02d6        push     1
+  02db        or
+  02dc        str      r0
+  02de  L35:  ldi      tags
+  02e0        push     2
+  02e5        and
+  02e6        jz       L36
+  02eb        ldr      r0
+  02ed        push     2
+  02f2        or
+  02f3        str      r0
+  02f5  L36:  ldr      r0
+  02f7        switch   4, default L40
+                        case 0                     -> L40
+                        case 1                     -> L37
+                        case 2                     -> L38
+                        case 3                     -> L39
+  030d  L37:  push     0
+  0312        decide   excluded, P2                 ; CO-EXC-1
+  0316        ret
+  0317  L38:  push     0
+  031c        decide   excluded, P3                 ; CO-EXC-2
+  0320        ret
+  0321  L39:  push     0
+  0326        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  032a        ret
+  032b  L40:  ldi      confirmed
+  032d        jnz      L41
+  0332        push     0
+  0337        decide   needs_confirmation, P13      ; CO-COV-5
+  033b        ret
+  033c  L41:  ldi      amount_cents
+  033e        decide   eligible, P14                ; CO-COV-5, CO-COLL-1
+  0342        lda
+  0343        ldi      insurance_paid_cents
+  0345        subs
+  0346        push     0
+  034b        max
+  034c        seta     collateral, R19              ; CO-COLL-1
+  0350        ret
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+  0351  L42:  push     0
+  0356        str      r0
+  0358        ldi      tags
+  035a        push     1
+  035f        and
+  0360        jz       L43
+  0365        ldr      r0
+  0367        push     1
+  036c        or
+  036d        str      r0
+  036f  L43:  ldi      tags
+  0371        push     2
+  0376        and
+  0377        jz       L44
+  037c        ldr      r0
+  037e        push     2
+  0383        or
+  0384        str      r0
+  0386  L44:  ldr      r0
+  0388        switch   4, default L48
+                        case 0                     -> L48
+                        case 1                     -> L45
+                        case 2                     -> L46
+                        case 3                     -> L47
+  039e  L45:  push     0
+  03a3        decide   excluded, P2                 ; CO-EXC-1
+  03a7        ret
+  03a8  L46:  push     0
+  03ad        decide   excluded, P3                 ; CO-EXC-2
+  03b1        ret
+  03b2  L47:  push     0
+  03b7        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  03bb        ret
+  03bc  L48:  push     0
+  03c1        decide   unknown_rule, P0             ; (none)
+  03c5        ret
+              ; CO-COV-7  C.R.S. 24-4.1-109(1.5)(a)(II)  "Any modification to the victim's residence that is necessary to..."
+              ; CO-COV-8  C.R.S. 24-4.1-109(1.5)(a)(III)  "The rekeying of a motor vehicle or other lock that is necessary..."
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  03c6  L49:  push     0
+  03cb        str      r0
+  03cd        ldi      tags
+  03cf        push     1
+  03d4        and
+  03d5        jz       L50
+  03da        ldr      r0
+  03dc        push     1
+  03e1        or
+  03e2        str      r0
+  03e4  L50:  ldi      tags
+  03e6        push     2
+  03eb        and
+  03ec        jz       L51
+  03f1        ldr      r0
+  03f3        push     2
+  03f8        or
+  03f9        str      r0
+  03fb  L51:  ldr      r0
+  03fd        switch   4, default L55
+                        case 0                     -> L55
+                        case 1                     -> L52
+                        case 2                     -> L53
+                        case 3                     -> L54
+  0413  L52:  push     0
+  0418        decide   excluded, P2                 ; CO-EXC-1
+  041c        ret
+  041d  L53:  push     0
+  0422        decide   excluded, P3                 ; CO-EXC-2
+  0426        ret
+  0427  L54:  push     0
+  042c        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  0430        ret
+  0431  L55:  ldi      confirmed
+  0433        jnz      L56
+  0438        push     0
+  043d        decide   needs_confirmation, P15      ; CO-COV-7, CO-COV-8
+  0441        ret
+  0442  L56:  ldi      amount_cents
+  0444        decide   eligible, P16                ; CO-COV-7, CO-COV-8, CO-COLL-1
+  0448        lda
+  0449        ldi      insurance_paid_cents
+  044b        subs
+  044c        push     0
+  0451        max
+  0452        seta     collateral, R19              ; CO-COLL-1
+  0456        ret
+              ; CO-COV-6  C.R.S. 24-4.1-109(1)(k)  "Dependent care services; and"
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  0457  L57:  push     0
+  045c        str      r0
+  045e        ldi      tags
+  0460        push     1
+  0465        and
+  0466        jz       L58
+  046b        ldr      r0
+  046d        push     1
+  0472        or
+  0473        str      r0
+  0475  L58:  ldi      tags
+  0477        push     2
+  047c        and
+  047d        jz       L59
+  0482        ldr      r0
+  0484        push     2
+  0489        or
+  048a        str      r0
+  048c  L59:  ldr      r0
+  048e        switch   4, default L63
+                        case 0                     -> L63
+                        case 1                     -> L60
+                        case 2                     -> L61
+                        case 3                     -> L62
+  04a4  L60:  push     0
+  04a9        decide   excluded, P2                 ; CO-EXC-1
+  04ad        ret
+  04ae  L61:  push     0
+  04b3        decide   excluded, P3                 ; CO-EXC-2
+  04b7        ret
+  04b8  L62:  push     0
+  04bd        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  04c1        ret
+  04c2  L63:  ldi      confirmed
+  04c4        jnz      L64
+  04c9        push     0
+  04ce        decide   needs_confirmation, P17      ; CO-COV-6
+  04d2        ret
+  04d3  L64:  ldi      amount_cents
+  04d5        decide   eligible, P18                ; CO-COV-6, CO-COLL-1
+  04d9        lda
+  04da        ldi      insurance_paid_cents
+  04dc        subs
+  04dd        push     0
+  04e2        max
+  04e3        seta     collateral, R19              ; CO-COLL-1
+  04e7        ret
+              ; CO-COV-9  C.R.S. 24-4.1-109(1)(e)  "Funeral and burial expenses;"
+              ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
+              ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+  04e8  L65:  push     0
+  04ed        str      r0
+  04ef        ldi      tags
+  04f1        push     1
+  04f6        and
+  04f7        jz       L66
+  04fc        ldr      r0
+  04fe        push     1
+  0503        or
+  0504        str      r0
+  0506  L66:  ldi      tags
+  0508        push     2
+  050d        and
+  050e        jz       L67
+  0513        ldr      r0
+  0515        push     2
+  051a        or
+  051b        str      r0
+  051d  L67:  ldr      r0
+  051f        switch   4, default L71
+                        case 0                     -> L71
+                        case 1                     -> L68
+                        case 2                     -> L69
+                        case 3                     -> L70
+  0535  L68:  push     0
+  053a        decide   excluded, P2                 ; CO-EXC-1
+  053e        ret
+  053f  L69:  push     0
+  0544        decide   excluded, P3                 ; CO-EXC-2
+  0548        ret
+  0549  L70:  push     0
+  054e        decide   excluded, P4                 ; CO-EXC-1, CO-EXC-2
+  0552        ret
+  0553  L71:  ldi      confirmed
+  0555        jnz      L72
+  055a        push     0
+  055f        decide   needs_confirmation, P19      ; CO-COV-9
+  0563        ret
+  0564  L72:  ldi      amount_cents
+  0566        decide   eligible, P20                ; CO-COV-9, CO-COLL-1
+  056a        lda
+  056b        ldi      insurance_paid_cents
+  056d        subs
+  056e        push     0
+  0573        max
+  0574        seta     collateral, R19              ; CO-COLL-1
+  0578        ret
+
+.aggregate
+              ; CO-CAP-1  C.R.S. 24-4.1-109(2)(b)  "Aggregate damages to the victim or to the dependents of a victim..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     all, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $30,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $30,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      total_cap, R6                ; CO-CAP-1
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      total_cap, R6                ; CO-CAP-1
+  004d  L3:   next     L0
+  0052  L4:   push     0                            ; met
+  0057        check    minimum_loss, P0             ; (none)
+  005b        push     2                            ; unknown
+  0060        check    deadline, P0                 ; (none)
+              ; CO-REPORT-1  C.R.S. 24-4.1-108(1)(b)  "The requirement to notify the appropriate law enforcement..."
+  0064        ldx      police_report
+  0066        push     1                            ; yes
+  006b        eq
+  006c        jnz      L6
+  0071        ldx      forensic_exam
+  0073        jnz      L6
+  0078        ldx      police_report
+  007a        push     0                            ; no
+  007f        eq
+  0080        jnz      L5
+  0085        push     3
+  008a        jmp      L7
+  008f  L5:   push     1
+  0094        jmp      L7
+  0099  L6:   push     0                            ; satisfied
+  009e  L7:   check    reporting, P21               ; CO-REPORT-1
+              ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
+              ; CO-COND-1  C.R.S. 24-4.1-108(1)(e)  "The death of or injury to the victim was not substantially..."
+              ; CO-EMERG-1  C.R.S. 24-4.1-112(1)  "The board may order an emergency approval to the applicant..."
+              ; CO-CRIME-1  C.R.S. 24-4.1-302(1)(n)  "(n) (I) Sexual assault, in violation of section 18-3-402, C. R...."
+              ; CO-RES-1  C.R.S. 24-4.1-102(10)(c)  "“Victim” also means a person who is a resident of this state..."
+              ; CO-SUBMIT-1  DCJ How to File a Claim page, How to File a Claim section  "You can also download and fill out this Victim Compensation..."
+              ; CO-DOC-APP  State application, instructions above Section 1  "Please complete every question. Write N/A if the question is not..."
+              ; CO-DOC-BILLS  State application, end of Section 3  "INCLUDE COPIES OF ITEMIZED BILLS WITH THIS APPLICATION. PLEASE..."
+              ; CO-DOC-BILLS-2  DCJ How to File a Claim page, How to File a Claim section  "Submit the application and itemized bills directly related to..."
+              ; CO-DOC-RECEIPTS  State application, General Information item 5  "Please attach all bills and receipts. You may apply even if you..."
+              ; CO-DOC-INSURANCE  State application, Section 5 (Insurance Information)  "All applicants seeking compensation for medical bills must..."
+              ; CO-DOC-CIVIL  State application, Section 6 (Civil Lawsuit) note  "The Crime Victim Compensation Board must be notified of any..."
+              ; CO-TIME-1  DCJ How to File a Claim page, How to File a Claim section  "The processing time is different for each district, however, it..."
+              ; CO-ACP-1  DCS Address Confidentiality Program (ACP) page, introduction  "The Colorado Address Confidentiality Program (ACP) is a..."
+              ; CO-RECORDS-1  C.R.S. 24-4.1-107.5(2)  "Any materials received, made, or kept by a board or a district..."
+  00a2        info     P22                          ; CO-COLL-1, CO-COND-1, CO-EMERG-1, CO-CRIME-1, CO-RES-1, CO-SUBMIT-1, CO-DOC-APP, CO-DOC-BILLS, CO-DOC-BILLS-2, CO-DOC-RECEIPTS, CO-DOC-INSURANCE, CO-DOC-CIVIL, CO-TIME-1, CO-ACP-1, CO-RECORDS-1
+  00a5        ret
+

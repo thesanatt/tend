@@ -1,0 +1,1105 @@
+; tend law image NV, Nevada
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 94391c3018caf9d981b4667df9fdd0f1108a9080fdd2736105d362400dec509f
+; image sha256  2479dfce7f966b5064ad5f1fdf34041b98bfb24d45d52f33180c588a85d65d36
+; 63 rules, 9 sources, 32 proofs, 9 ints, 327 strings
+; item program: 403 instructions, 1407 bytes, max stack 2
+; aggregate program: 406 instructions, 1224 bytes, max stack 3, 14 loops
+
+.rules
+    R0    NV-EXAM-1             exam_no_bill  -                                             NRS 217.300(4)
+    R1    NV-EXAM-2             exam_payment  -                                             NRS 217.300(2)
+    R2    NV-EXAM-3             exam_payment  -                                             NRS 217.300(1)
+    R3    NV-EXAM-4             exam_no_bill  -                                             NRS 217.300(3)(a)
+    R4    NV-EXAM-5             reporting     -                                             NRS 217.300(5)
+    R5    NV-CAP-1              total_cap     -                                             VOCP Benefits and Covered Expenses page
+    R6    NV-CAP-2              total_cap     -                                             Nevada State Plan for Services for Victims of Crime 500.12(A)
+    R7    NV-CAP-MED            expense_cap   medical               per claim               Coverage Limits for Service Providers: Medical Service Providers
+    R8    NV-CAP-DENTAL         expense_cap   dental                per claim               Coverage Limits for Service Providers: Dental Service Providers
+    R9    NV-CAP-COUNSEL        expense_cap   counseling            per claim               Coverage Limits for Service Providers: Mental Health Providers
+    R10   NV-CAP-WAGE-1         expense_cap   lost_wages            per week                Nevada State Plan for Services for Victims of Crime 400.8(B)
+    R11   NV-CAP-WAGE-2         expense_cap   lost_wages            per claim               Nevada State Plan for Services for Victims of Crime 400.8(B)
+    R12   NV-CAP-WAGE-3         expense_cap   lost_wages            per day                 Nevada State Plan for Services for Victims of Crime 400.7(A)
+    R13   NV-CAP-RELOC          expense_cap   relocation            per claim               Nevada State Plan for Services for Victims of Crime 400.9(E)
+    R14   NV-CAP-LODGING        expense_cap   temporary_housing     per claim               Nevada State Plan for Services for Victims of Crime 400.9(E)(3)
+    R15   NV-CAP-SECURITY       expense_cap   security              per claim               Nevada State Plan for Services for Victims of Crime 400.11(A)
+    R16   NV-CAP-CHILDCARE      expense_cap   childcare             per claim               Nevada State Plan for Services for Victims of Crime 400.12(A)
+    R17   NV-CAP-RX             expense_cap   prescription          per claim               Nevada State Plan for Services for Victims of Crime 400.5(A)
+    R18   NV-CAP-CLEANUP        expense_cap   crime_scene_cleanup   per claim               Coverage Limits for Service Providers: Crime Scene Cleanup Providers
+    R19   NV-CAP-FUNERAL        expense_cap   funeral               per claim               Coverage Limits for Service Providers: Funeral and Burial Service Providers
+    R20   NV-COV-MED            covered       medical                                       NRS 217.200(1)(a)
+    R21   NV-COV-COUNSEL        covered       counseling                                    Nevada State Plan for Services for Victims of Crime 400.6(A)
+    R22   NV-COV-WAGES          covered       lost_wages                                    NRS 217.200(1)(b)
+    R23   NV-COV-RELOC          covered       relocation                                    VOCP Benefits and Covered Expenses page
+    R24   NV-COV-SECURITY       covered       security                                      VOCP Benefits and Covered Expenses page
+    R25   NV-COV-CHILDCARE      covered       childcare                                     VOCP Benefits and Covered Expenses page
+    R26   NV-COV-RX             covered       prescription                                  VOCP Benefits and Covered Expenses page
+    R27   NV-COV-DENTAL         covered       dental                                        VOCP Benefits and Covered Expenses page
+    R28   NV-COV-HIV            covered       prescription                                  Nevada State Plan for Services for Victims of Crime 400.5(C)
+    R29   NV-COV-TRAVEL         covered       transportation                                Nevada State Plan for Services for Victims of Crime 400.13(A)
+    R30   NV-COV-CLEANUP        covered       crime_scene_cleanup                           VOCP Benefits and Covered Expenses page
+    R31   NV-COV-FUNERAL        covered       funeral                                       NRS 217.200(1)(d)
+    R32   NV-EXCL-PROPERTY      excluded      property_replacement                          VOCP Benefits and Covered Expenses page
+    R33   NV-EXCL-PAIN          excluded      -                                             Nevada State Plan for Services for Victims of Crime 500.11(D)
+    R34   NV-EXCL-MILEAGE       excluded      transportation                                Nevada State Plan for Services for Victims of Crime 400.13(A)
+    R35   NV-EXCL-OTHER         info          -                     excluded_expense        VOCP Benefits and Covered Expenses page
+    R36   NV-DEADLINE-1         deadline      -                                             NRS 217.100(1)(a)
+    R37   NV-DEADLINE-2         deadline      -                                             NRS 217.100(1)(b)
+    R38   NV-DEADLINE-3         info          -                     filing_deadline         NRS 217.100(2)
+    R39   NV-REPORT-1           reporting     -                                             NRS 217.100(5)
+    R40   NV-REPORT-2           reporting     -                                             Application Instructions, Authorization 1: Law Enforcement Reports
+    R41   NV-REPORT-3           reporting     -                                             Nevada State Plan for Services for Victims of Crime 300.12(C)(1)
+    R42   NV-COLL-1             collateral    -                                             NRS 217.180(3)
+    R43   NV-COLL-2             collateral    -                                             Application Instructions, Important to Know
+    R44   NV-CONDUCT-1          info          -                     conduct_reduction       NRS 217.180(1)
+    R45   NV-CONDUCT-2          info          -                     conduct_reduction       NRS 217.180(2)
+    R46   NV-CRIME-1            info          -                     eligible_crime          Nevada State Plan for Services for Victims of Crime 200.2(A)
+    R47   NV-CRIME-2            info          -                     eligible_crime          Eligibility Criteria page
+    R48   NV-RES-1              info          -                     residency               NRS 217.102(2)
+    R49   NV-RES-2              info          -                     residency               NRS 217.102(1)
+    R50   NV-RES-3              info          -                     residency               NRS 217.070(2)(a)
+    R51   NV-SUB-1              info          -                     submission              Application, signature page (Send Completed, Signed Applications to)
+    R52   NV-SUB-2              info          -                     submission              Application and Instructions page, Assistance with Application
+    R53   NV-SUB-3              info          -                     submission              Application, signature page (Send Completed, Signed Applications to)
+    R54   NV-DOC-1              info          -                     required_document       Application, Section 3: Tell us about the crime
+    R55   NV-DOC-2              info          -                     required_document       Application, Section 4: Tell us about your Crime Related Expenses
+    R56   NV-DOC-3              info          -                     required_document       Application, Section 4: Tell us about your Crime Related Expenses
+    R57   NV-DOC-4              info          -                     required_document       Application, Section 11: Tell us about the Victim's Insurance or Civil Suit Information
+    R58   NV-DOC-5              info          -                     required_document       2026 application, Authorization for Release of Information, Certification and Acknowledgements
+    R59   NV-DOC-6              info          -                     required_document       2026 application, Section 2: How can we verify the crime occurred?
+    R60   NV-PROC-1             info          -                     processing_time         NRS 217.110(2)
+    R61   NV-ACP-1              info          -                     address_confidentiality DCFS Confidential Address Program page, 'About the Confidential Address Program'
+    R62   NV-RECORDS-1          info          -                     record_confidentiality  NRS 217.105
+
+.tags   cash=bit0, pain_suffering=bit1
+
+.sources
+    S0    NV-S1       sha256 e54c37dacfa5f460  https://www.voc.nv.gov/victim-assistance/eligibility-criteria/
+    S1    NV-S2       sha256 c7d1dadc35931588  https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/
+    S2    NV-S3       sha256 2b28289a599fe3a6  https://www.voc.nv.gov/victim-assistance/voc-application-instructions/
+    S3    NV-S4       sha256 ff383c2d91af359f  https://www.voc.nv.gov/siteassets/content/forms/voc-application_english.pdf
+    S4    NV-S5       sha256 cd4879b253375231  https://www.leg.state.nv.us/nrs/NRS-217.html
+    S5    NV-S6       sha256 954fb0c24a823412  https://www.voc.nv.gov/service-providers/coverage-limits/
+    S6    NV-S7       sha256 3995918abf6be9bf  https://www.voc.nv.gov/uploadedFiles/vocnvgov/content/Advocates/State_Plan_for_Victim_Services.pdf
+    S7    NV-S9       sha256 62a1f937f964c234  https://www.voc.nv.gov/siteassets/content/home/voc-forms-2026/enenglish1.pdf
+    S8    NV-S10      sha256 bfd6e26a88f56bf7  https://dcfs.nv.gov/Programs/CAP/ConfidentialAddressProgram/
+
+.proofs
+    P0    ()
+    P1    (NV-EXAM-1, NV-EXAM-4, NV-EXAM-2, NV-EXAM-3)
+    P2    (NV-EXCL-PAIN)
+    P3    (NV-CAP-MED, NV-COV-MED)
+    P4    (NV-CAP-MED, NV-COV-MED, NV-COLL-1, NV-COLL-2)
+    P5    (NV-CAP-COUNSEL, NV-COV-COUNSEL)
+    P6    (NV-CAP-COUNSEL, NV-COV-COUNSEL, NV-COLL-1, NV-COLL-2)
+    P7    (NV-CAP-WAGE-1, NV-CAP-WAGE-2, NV-CAP-WAGE-3, NV-COV-WAGES)
+    P8    (NV-CAP-WAGE-1, NV-CAP-WAGE-2, NV-CAP-WAGE-3, NV-COV-WAGES, NV-COLL-1, NV-COLL-2)
+    P9    (NV-EXCL-PAIN, NV-EXCL-MILEAGE)
+    P10   (NV-EXCL-MILEAGE)
+    P11   (NV-CAP-RELOC, NV-COV-RELOC)
+    P12   (NV-CAP-RELOC, NV-COV-RELOC, NV-COLL-1, NV-COLL-2)
+    P13   (NV-CAP-LODGING)
+    P14   (NV-CAP-LODGING, NV-COLL-1, NV-COLL-2)
+    P15   (NV-CAP-SECURITY, NV-COV-SECURITY)
+    P16   (NV-CAP-SECURITY, NV-COV-SECURITY, NV-COLL-1, NV-COLL-2)
+    P17   (NV-CAP-CLEANUP, NV-COV-CLEANUP)
+    P18   (NV-CAP-CLEANUP, NV-COV-CLEANUP, NV-COLL-1, NV-COLL-2)
+    P19   (NV-CAP-CHILDCARE, NV-COV-CHILDCARE)
+    P20   (NV-CAP-CHILDCARE, NV-COV-CHILDCARE, NV-COLL-1, NV-COLL-2)
+    P21   (NV-EXCL-PROPERTY)
+    P22   (NV-EXCL-PROPERTY, NV-EXCL-PAIN)
+    P23   (NV-CAP-RX, NV-COV-RX, NV-COV-HIV)
+    P24   (NV-CAP-RX, NV-COV-RX, NV-COV-HIV, NV-COLL-1, NV-COLL-2)
+    P25   (NV-CAP-DENTAL, NV-COV-DENTAL)
+    P26   (NV-CAP-DENTAL, NV-COV-DENTAL, NV-COLL-1, NV-COLL-2)
+    P27   (NV-CAP-FUNERAL, NV-COV-FUNERAL)
+    P28   (NV-CAP-FUNERAL, NV-COV-FUNERAL, NV-COLL-1, NV-COLL-2)
+    P29   (NV-DEADLINE-1, NV-DEADLINE-2)
+    P30   (NV-EXAM-5, NV-REPORT-1, NV-REPORT-2, NV-REPORT-3)
+    P31   (NV-EXCL-OTHER, NV-DEADLINE-3, NV-COLL-1, NV-COLL-2, NV-CONDUCT-1, NV-CONDUCT-2, NV-CRIME-1, NV-CRIME-2, NV-RES-1, NV-RES-2, NV-RES-3, NV-SUB-1, NV-SUB-2, NV-SUB-3, NV-DOC-1, NV-DOC-2, NV-DOC-3, NV-DOC-4, NV-DOC-5, NV-DOC-6, NV-PROC-1, NV-ACP-1, NV-RECORDS-1)
+
+.ints
+    K0    35000         ; $350.00
+    K1    7000          ; $70.00
+    K2    3500000       ; $35,000.00
+    K3    500000        ; $5,000.00
+    K4    1820000       ; $18,200.00
+    K5    250000        ; $2,500.00
+    K6    50000         ; $500.00
+    K7    150000        ; $1,500.00
+    K8    600000        ; $6,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L53
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L21
+                        case temporary_housing     -> L26
+                        case security              -> L31
+                        case crime_scene_cleanup   -> L36
+                        case childcare             -> L41
+                        case property_replacement  -> L46
+                        case clothing_bedding      -> L53
+                        case prescription          -> L57
+                        case dental                -> L62
+                        case funeral               -> L67
+                        case legal                 -> L53
+                        case tuition               -> L53
+                        case other                 -> L53
+                        case unknown               -> L53
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; NV-EXAM-1  NRS 217.300(4)  "Any costs incurred pursuant to subsection 2 must not be charged..."
+              ; NV-EXAM-4  NRS 217.300(3)(a)  "Any costs incurred pursuant to subsection 1: (a) Must not be..."
+              ; NV-EXAM-2  NRS 217.300(2)  "any costs incurred by a medical provider for the forensic..."
+              ; NV-EXAM-3  NRS 217.300(1)  "The county in whose jurisdiction a sexual assault is committed..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; NV-EXAM-1, NV-EXAM-4, NV-EXAM-2, NV-EXAM-3
+  007b        ret
+              ; NV-CAP-MED  Coverage Limits for Service Providers: Medical Service Providers  "The Victims of Crime Program may pay up to $35,000 for medical..."
+              ; NV-COV-MED  NRS 217.200(1)(a)  "Medical expenses, expenses for psychological counseling and..."
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     3
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; NV-EXCL-PAIN
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; NV-CAP-MED, NV-COV-MED
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; NV-CAP-MED, NV-COV-MED, NV-COLL-1, NV-COLL-2
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R42              ; NV-COLL-1
+  00d9        ret
+              ; NV-CAP-COUNSEL  Coverage Limits for Service Providers: Mental Health Providers  "The VOCP pays up to $5,000 in mental health counseling for..."
+              ; NV-COV-COUNSEL  Nevada State Plan for Services for Victims of Crime 400.6(A)  "Mental Health counseling benefits are available for all approved..."
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     3
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; NV-EXCL-PAIN
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; NV-CAP-COUNSEL, NV-COV-COUNSEL
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; NV-CAP-COUNSEL, NV-COV-COUNSEL, NV-COLL-1, NV-COLL-2
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R42              ; NV-COLL-1
+  0137        ret
+              ; NV-CAP-WAGE-1  Nevada State Plan for Services for Victims of Crime 400.8(B)  "Loss of earnings may be paid at up to 100 percent of the..."
+              ; NV-CAP-WAGE-2  Nevada State Plan for Services for Victims of Crime 400.8(B)  "Loss of earnings may be paid at up to 100 percent of the..."
+              ; NV-CAP-WAGE-3  Nevada State Plan for Services for Victims of Crime 400.7(A)  "A Compensation Officer may approve lost wage or income..."
+              ; NV-COV-WAGES  NRS 217.200(1)(b)  "Loss of earnings or support that is reasonably incurred as a..."
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     3
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; NV-EXCL-PAIN
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; NV-CAP-WAGE-1, NV-CAP-WAGE-2, NV-CAP-WAGE-3, NV-COV-WAGES
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; NV-CAP-WAGE-1, NV-CAP-WAGE-2, NV-CAP-WAGE-3, NV-COV-WAGES, NV-COLL-1, NV-COLL-2
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R42              ; NV-COLL-1
+  0195        ret
+              ; NV-COV-TRAVEL  Nevada State Plan for Services for Victims of Crime 400.13(A)  "Applicants who are required to travel for medical treatment or..."
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-EXCL-MILEAGE  Nevada State Plan for Services for Victims of Crime 400.13(A)  "Mileage reimbursement will not be paid by the VOCP."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     3
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P9                 ; NV-EXCL-PAIN, NV-EXCL-MILEAGE
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   excluded, P10                ; NV-EXCL-MILEAGE
+  01d7        ret
+              ; NV-CAP-RELOC  Nevada State Plan for Services for Victims of Crime 400.9(E)  "The total amount for all relocation expenses cannot exceed..."
+              ; NV-COV-RELOC  VOCP Benefits and Covered Expenses page  "Emergency Shelter and Relocation costs"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     3
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; NV-EXCL-PAIN
+  020f        ret
+  0210  L24:  ldi      confirmed
+  0212        jnz      L25
+  0217        push     0
+  021c        decide   needs_confirmation, P11      ; NV-CAP-RELOC, NV-COV-RELOC
+  0220        ret
+  0221  L25:  ldi      amount_cents
+  0223        decide   eligible, P12                ; NV-CAP-RELOC, NV-COV-RELOC, NV-COLL-1, NV-COLL-2
+  0227        lda
+  0228        ldi      insurance_paid_cents
+  022a        subs
+  022b        push     0
+  0230        max
+  0231        seta     collateral, R42              ; NV-COLL-1
+  0235        ret
+              ; NV-CAP-LODGING  Nevada State Plan for Services for Victims of Crime 400.9(E)(3)  "Temporary lodging expenses of no more than $500"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0236  L26:  push     0
+  023b        str      r0
+  023d        ldi      tags
+  023f        push     3
+  0244        and
+  0245        jz       L27
+  024a        ldr      r0
+  024c        push     1
+  0251        or
+  0252        str      r0
+  0254  L27:  ldr      r0
+  0256        switch   2, default L29
+                        case 0                     -> L29
+                        case 1                     -> L28
+  0264  L28:  push     0
+  0269        decide   excluded, P2                 ; NV-EXCL-PAIN
+  026d        ret
+  026e  L29:  ldi      confirmed
+  0270        jnz      L30
+  0275        push     0
+  027a        decide   needs_confirmation, P13      ; NV-CAP-LODGING
+  027e        ret
+  027f  L30:  ldi      amount_cents
+  0281        decide   eligible, P14                ; NV-CAP-LODGING, NV-COLL-1, NV-COLL-2
+  0285        lda
+  0286        ldi      insurance_paid_cents
+  0288        subs
+  0289        push     0
+  028e        max
+  028f        seta     collateral, R42              ; NV-COLL-1
+  0293        ret
+              ; NV-CAP-SECURITY  Nevada State Plan for Services for Victims of Crime 400.11(A)  "A victim may be eligible to receive reimbursement of up to..."
+              ; NV-COV-SECURITY  VOCP Benefits and Covered Expenses page  "Home Security Repair"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0294  L31:  push     0
+  0299        str      r0
+  029b        ldi      tags
+  029d        push     3
+  02a2        and
+  02a3        jz       L32
+  02a8        ldr      r0
+  02aa        push     1
+  02af        or
+  02b0        str      r0
+  02b2  L32:  ldr      r0
+  02b4        switch   2, default L34
+                        case 0                     -> L34
+                        case 1                     -> L33
+  02c2  L33:  push     0
+  02c7        decide   excluded, P2                 ; NV-EXCL-PAIN
+  02cb        ret
+  02cc  L34:  ldi      confirmed
+  02ce        jnz      L35
+  02d3        push     0
+  02d8        decide   needs_confirmation, P15      ; NV-CAP-SECURITY, NV-COV-SECURITY
+  02dc        ret
+  02dd  L35:  ldi      amount_cents
+  02df        decide   eligible, P16                ; NV-CAP-SECURITY, NV-COV-SECURITY, NV-COLL-1, NV-COLL-2
+  02e3        lda
+  02e4        ldi      insurance_paid_cents
+  02e6        subs
+  02e7        push     0
+  02ec        max
+  02ed        seta     collateral, R42              ; NV-COLL-1
+  02f1        ret
+              ; NV-CAP-CLEANUP  Coverage Limits for Service Providers: Crime Scene Cleanup Providers  "The VOCP pays up to $5,000 in Crime Scene Cleanup costs for..."
+              ; NV-COV-CLEANUP  VOCP Benefits and Covered Expenses page  "Crime scene cleanup"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  02f2  L36:  push     0
+  02f7        str      r0
+  02f9        ldi      tags
+  02fb        push     3
+  0300        and
+  0301        jz       L37
+  0306        ldr      r0
+  0308        push     1
+  030d        or
+  030e        str      r0
+  0310  L37:  ldr      r0
+  0312        switch   2, default L39
+                        case 0                     -> L39
+                        case 1                     -> L38
+  0320  L38:  push     0
+  0325        decide   excluded, P2                 ; NV-EXCL-PAIN
+  0329        ret
+  032a  L39:  ldi      confirmed
+  032c        jnz      L40
+  0331        push     0
+  0336        decide   needs_confirmation, P17      ; NV-CAP-CLEANUP, NV-COV-CLEANUP
+  033a        ret
+  033b  L40:  ldi      amount_cents
+  033d        decide   eligible, P18                ; NV-CAP-CLEANUP, NV-COV-CLEANUP, NV-COLL-1, NV-COLL-2
+  0341        lda
+  0342        ldi      insurance_paid_cents
+  0344        subs
+  0345        push     0
+  034a        max
+  034b        seta     collateral, R42              ; NV-COLL-1
+  034f        ret
+              ; NV-CAP-CHILDCARE  Nevada State Plan for Services for Victims of Crime 400.12(A)  "The total benefit available for all affected children, per..."
+              ; NV-COV-CHILDCARE  VOCP Benefits and Covered Expenses page  "Childcare costs incurred because of the crime"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0350  L41:  push     0
+  0355        str      r0
+  0357        ldi      tags
+  0359        push     3
+  035e        and
+  035f        jz       L42
+  0364        ldr      r0
+  0366        push     1
+  036b        or
+  036c        str      r0
+  036e  L42:  ldr      r0
+  0370        switch   2, default L44
+                        case 0                     -> L44
+                        case 1                     -> L43
+  037e  L43:  push     0
+  0383        decide   excluded, P2                 ; NV-EXCL-PAIN
+  0387        ret
+  0388  L44:  ldi      confirmed
+  038a        jnz      L45
+  038f        push     0
+  0394        decide   needs_confirmation, P19      ; NV-CAP-CHILDCARE, NV-COV-CHILDCARE
+  0398        ret
+  0399  L45:  ldi      amount_cents
+  039b        decide   eligible, P20                ; NV-CAP-CHILDCARE, NV-COV-CHILDCARE, NV-COLL-1, NV-COLL-2
+  039f        lda
+  03a0        ldi      insurance_paid_cents
+  03a2        subs
+  03a3        push     0
+  03a8        max
+  03a9        seta     collateral, R42              ; NV-COLL-1
+  03ad        ret
+              ; NV-EXCL-PROPERTY  VOCP Benefits and Covered Expenses page  "Lost or stolen property or cash Property damage"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+  03ae  L46:  push     0
+  03b3        str      r0
+  03b5        ldi      tags
+  03b7        push     1
+  03bc        and
+  03bd        jz       L47
+  03c2        ldr      r0
+  03c4        push     1
+  03c9        or
+  03ca        str      r0
+  03cc  L47:  ldi      tags
+  03ce        push     3
+  03d3        and
+  03d4        jz       L48
+  03d9        ldr      r0
+  03db        push     2
+  03e0        or
+  03e1        str      r0
+  03e3  L48:  ldr      r0
+  03e5        switch   4, default L52
+                        case 0                     -> L52
+                        case 1                     -> L49
+                        case 2                     -> L50
+                        case 3                     -> L51
+  03fb  L49:  push     0
+  0400        decide   excluded, P21                ; NV-EXCL-PROPERTY
+  0404        ret
+  0405  L50:  push     0
+  040a        decide   excluded, P2                 ; NV-EXCL-PAIN
+  040e        ret
+  040f  L51:  push     0
+  0414        decide   excluded, P22                ; NV-EXCL-PROPERTY, NV-EXCL-PAIN
+  0418        ret
+  0419  L52:  push     0
+  041e        decide   unknown_rule, P0             ; (none)
+  0422        ret
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+  0423  L53:  push     0
+  0428        str      r0
+  042a        ldi      tags
+  042c        push     3
+  0431        and
+  0432        jz       L54
+  0437        ldr      r0
+  0439        push     1
+  043e        or
+  043f        str      r0
+  0441  L54:  ldr      r0
+  0443        switch   2, default L56
+                        case 0                     -> L56
+                        case 1                     -> L55
+  0451  L55:  push     0
+  0456        decide   excluded, P2                 ; NV-EXCL-PAIN
+  045a        ret
+  045b  L56:  push     0
+  0460        decide   unknown_rule, P0             ; (none)
+  0464        ret
+              ; NV-CAP-RX  Nevada State Plan for Services for Victims of Crime 400.5(A)  "The VOCP may reimburse up to a maximum of $6,000 for..."
+              ; NV-COV-RX  VOCP Benefits and Covered Expenses page  "Medical and Dental treatment Medically necessary equipment..."
+              ; NV-COV-HIV  Nevada State Plan for Services for Victims of Crime 400.5(C)  "The VOCP may pay for medically recommended HIV preventive..."
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0465  L57:  push     0
+  046a        str      r0
+  046c        ldi      tags
+  046e        push     3
+  0473        and
+  0474        jz       L58
+  0479        ldr      r0
+  047b        push     1
+  0480        or
+  0481        str      r0
+  0483  L58:  ldr      r0
+  0485        switch   2, default L60
+                        case 0                     -> L60
+                        case 1                     -> L59
+  0493  L59:  push     0
+  0498        decide   excluded, P2                 ; NV-EXCL-PAIN
+  049c        ret
+  049d  L60:  ldi      confirmed
+  049f        jnz      L61
+  04a4        push     0
+  04a9        decide   needs_confirmation, P23      ; NV-CAP-RX, NV-COV-RX, NV-COV-HIV
+  04ad        ret
+  04ae  L61:  ldi      amount_cents
+  04b0        decide   eligible, P24                ; NV-CAP-RX, NV-COV-RX, NV-COV-HIV, NV-COLL-1, NV-COLL-2
+  04b4        lda
+  04b5        ldi      insurance_paid_cents
+  04b7        subs
+  04b8        push     0
+  04bd        max
+  04be        seta     collateral, R42              ; NV-COLL-1
+  04c2        ret
+              ; NV-CAP-DENTAL  Coverage Limits for Service Providers: Dental Service Providers  "The VOCP may pay up to $35,000 for treatment of dental..."
+              ; NV-COV-DENTAL  VOCP Benefits and Covered Expenses page  "Medical and Dental treatment"
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  04c3  L62:  push     0
+  04c8        str      r0
+  04ca        ldi      tags
+  04cc        push     3
+  04d1        and
+  04d2        jz       L63
+  04d7        ldr      r0
+  04d9        push     1
+  04de        or
+  04df        str      r0
+  04e1  L63:  ldr      r0
+  04e3        switch   2, default L65
+                        case 0                     -> L65
+                        case 1                     -> L64
+  04f1  L64:  push     0
+  04f6        decide   excluded, P2                 ; NV-EXCL-PAIN
+  04fa        ret
+  04fb  L65:  ldi      confirmed
+  04fd        jnz      L66
+  0502        push     0
+  0507        decide   needs_confirmation, P25      ; NV-CAP-DENTAL, NV-COV-DENTAL
+  050b        ret
+  050c  L66:  ldi      amount_cents
+  050e        decide   eligible, P26                ; NV-CAP-DENTAL, NV-COV-DENTAL, NV-COLL-1, NV-COLL-2
+  0512        lda
+  0513        ldi      insurance_paid_cents
+  0515        subs
+  0516        push     0
+  051b        max
+  051c        seta     collateral, R42              ; NV-COLL-1
+  0520        ret
+              ; NV-CAP-FUNERAL  Coverage Limits for Service Providers: Funeral and Burial Service Providers  "The VOCP pays up to $5,000 for a deceased victim"
+              ; NV-COV-FUNERAL  NRS 217.200(1)(d)  "Funeral expenses that are actually and reasonably incurred as a..."
+              ; NV-EXCL-PAIN  Nevada State Plan for Services for Victims of Crime 500.11(D)  "The VOCP does not reimburse expenses or pay for property loss or..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+  0521  L67:  push     0
+  0526        str      r0
+  0528        ldi      tags
+  052a        push     3
+  052f        and
+  0530        jz       L68
+  0535        ldr      r0
+  0537        push     1
+  053c        or
+  053d        str      r0
+  053f  L68:  ldr      r0
+  0541        switch   2, default L70
+                        case 0                     -> L70
+                        case 1                     -> L69
+  054f  L69:  push     0
+  0554        decide   excluded, P2                 ; NV-EXCL-PAIN
+  0558        ret
+  0559  L70:  ldi      confirmed
+  055b        jnz      L71
+  0560        push     0
+  0565        decide   needs_confirmation, P27      ; NV-CAP-FUNERAL, NV-COV-FUNERAL
+  0569        ret
+  056a  L71:  ldi      amount_cents
+  056c        decide   eligible, P28                ; NV-CAP-FUNERAL, NV-COV-FUNERAL, NV-COLL-1, NV-COLL-2
+  0570        lda
+  0571        ldi      insurance_paid_cents
+  0573        subs
+  0574        push     0
+  0579        max
+  057a        seta     collateral, R42              ; NV-COLL-1
+  057e        ret
+
+.aggregate
+              ; NV-CAP-WAGE-1  Nevada State Plan for Services for Victims of Crime 400.8(B)  "Loss of earnings may be paid at up to 100 percent of the..."
+  0000        push     52
+  0005        str      r3
+  0007        each     lost_wages, L4
+  000d  L0:   ldi      units
+  000f        jz       L2
+  0014        ldi      units
+  0016        ldr      r3
+  0018        min
+  0019        str      r4
+  001b        ldr      r3
+  001d        ldr      r4
+  001f        subs
+  0020        str      r3
+  0022        ldk      K0                           ; $350.00
+  0025        ldr      r4
+  0027        muls
+  0028        dup
+  0029        lda
+  002a        lt
+  002b        jz       L1
+  0030        cap      unit_cap, R10                ; NV-CAP-WAGE-1
+  0034        jmp      L3
+  0039  L1:   pop
+  003a        jmp      L3
+  003f  L2:   flag     R10                          ; rate_unverified NV-CAP-WAGE-1
+  0042  L3:   next     L0
+              ; NV-CAP-WAGE-3  Nevada State Plan for Services for Victims of Crime 400.7(A)  "A Compensation Officer may approve lost wage or income..."
+  0047  L4:   push     10
+  004c        str      r3
+  004e        each     lost_wages, L9
+  0054  L5:   ldi      units
+  0056        jz       L7
+  005b        ldi      units
+  005d        ldr      r3
+  005f        min
+  0060        str      r4
+  0062        ldr      r3
+  0064        ldr      r4
+  0066        subs
+  0067        str      r3
+  0069        ldk      K1                           ; $70.00
+  006c        ldr      r4
+  006e        muls
+  006f        dup
+  0070        lda
+  0071        lt
+  0072        jz       L6
+  0077        cap      unit_cap, R12                ; NV-CAP-WAGE-3
+  007b        jmp      L8
+  0080  L6:   pop
+  0081        jmp      L8
+  0086  L7:   flag     R12                          ; rate_unverified NV-CAP-WAGE-3
+  0089  L8:   next     L5
+              ; NV-CAP-MED  Coverage Limits for Service Providers: Medical Service Providers  "The Victims of Crime Program may pay up to $35,000 for medical..."
+  008e  L9:   push     0
+  0093        str      r0
+  0095        push     0
+  009a        str      r1
+  009c        each     medical, L14
+  00a2  L10:  ldr      r1
+  00a4        jnz      L12
+  00a9        ldr      r0
+  00ab        lda
+  00ac        adds
+  00ad        ldk      K2                           ; $35,000.00
+  00b0        gt
+  00b1        jz       L11
+  00b6        ldk      K2                           ; $35,000.00
+  00b9        ldr      r0
+  00bb        subs
+  00bc        cap      expense_cap, R7              ; NV-CAP-MED
+  00c0        push     1
+  00c5        str      r1
+  00c7  L11:  ldr      r0
+  00c9        lda
+  00ca        adds
+  00cb        str      r0
+  00cd        jmp      L13
+  00d2  L12:  push     0
+  00d7        cap      expense_cap, R7              ; NV-CAP-MED
+  00db  L13:  next     L10
+              ; NV-CAP-DENTAL  Coverage Limits for Service Providers: Dental Service Providers  "The VOCP may pay up to $35,000 for treatment of dental..."
+  00e0  L14:  push     0
+  00e5        str      r0
+  00e7        push     0
+  00ec        str      r1
+  00ee        each     dental, L19
+  00f4  L15:  ldr      r1
+  00f6        jnz      L17
+  00fb        ldr      r0
+  00fd        lda
+  00fe        adds
+  00ff        ldk      K2                           ; $35,000.00
+  0102        gt
+  0103        jz       L16
+  0108        ldk      K2                           ; $35,000.00
+  010b        ldr      r0
+  010d        subs
+  010e        cap      expense_cap, R8              ; NV-CAP-DENTAL
+  0112        push     1
+  0117        str      r1
+  0119  L16:  ldr      r0
+  011b        lda
+  011c        adds
+  011d        str      r0
+  011f        jmp      L18
+  0124  L17:  push     0
+  0129        cap      expense_cap, R8              ; NV-CAP-DENTAL
+  012d  L18:  next     L15
+              ; NV-CAP-COUNSEL  Coverage Limits for Service Providers: Mental Health Providers  "The VOCP pays up to $5,000 in mental health counseling for..."
+  0132  L19:  push     0
+  0137        str      r0
+  0139        push     0
+  013e        str      r1
+  0140        each     counseling, L24
+  0146  L20:  ldr      r1
+  0148        jnz      L22
+  014d        ldr      r0
+  014f        lda
+  0150        adds
+  0151        ldk      K3                           ; $5,000.00
+  0154        gt
+  0155        jz       L21
+  015a        ldk      K3                           ; $5,000.00
+  015d        ldr      r0
+  015f        subs
+  0160        cap      expense_cap, R9              ; NV-CAP-COUNSEL
+  0164        push     1
+  0169        str      r1
+  016b  L21:  ldr      r0
+  016d        lda
+  016e        adds
+  016f        str      r0
+  0171        jmp      L23
+  0176  L22:  push     0
+  017b        cap      expense_cap, R9              ; NV-CAP-COUNSEL
+  017f  L23:  next     L20
+              ; NV-CAP-WAGE-2  Nevada State Plan for Services for Victims of Crime 400.8(B)  "Loss of earnings may be paid at up to 100 percent of the..."
+  0184  L24:  push     0
+  0189        str      r0
+  018b        push     0
+  0190        str      r1
+  0192        each     lost_wages, L29
+  0198  L25:  ldr      r1
+  019a        jnz      L27
+  019f        ldr      r0
+  01a1        lda
+  01a2        adds
+  01a3        ldk      K4                           ; $18,200.00
+  01a6        gt
+  01a7        jz       L26
+  01ac        ldk      K4                           ; $18,200.00
+  01af        ldr      r0
+  01b1        subs
+  01b2        cap      expense_cap, R11             ; NV-CAP-WAGE-2
+  01b6        push     1
+  01bb        str      r1
+  01bd  L26:  ldr      r0
+  01bf        lda
+  01c0        adds
+  01c1        str      r0
+  01c3        jmp      L28
+  01c8  L27:  push     0
+  01cd        cap      expense_cap, R11             ; NV-CAP-WAGE-2
+  01d1  L28:  next     L25
+              ; NV-CAP-RELOC  Nevada State Plan for Services for Victims of Crime 400.9(E)  "The total amount for all relocation expenses cannot exceed..."
+  01d6  L29:  push     0
+  01db        str      r0
+  01dd        push     0
+  01e2        str      r1
+  01e4        each     relocation, L34
+  01ea  L30:  ldr      r1
+  01ec        jnz      L32
+  01f1        ldr      r0
+  01f3        lda
+  01f4        adds
+  01f5        ldk      K5                           ; $2,500.00
+  01f8        gt
+  01f9        jz       L31
+  01fe        ldk      K5                           ; $2,500.00
+  0201        ldr      r0
+  0203        subs
+  0204        cap      expense_cap, R13             ; NV-CAP-RELOC
+  0208        push     1
+  020d        str      r1
+  020f  L31:  ldr      r0
+  0211        lda
+  0212        adds
+  0213        str      r0
+  0215        jmp      L33
+  021a  L32:  push     0
+  021f        cap      expense_cap, R13             ; NV-CAP-RELOC
+  0223  L33:  next     L30
+              ; NV-CAP-LODGING  Nevada State Plan for Services for Victims of Crime 400.9(E)(3)  "Temporary lodging expenses of no more than $500"
+  0228  L34:  push     0
+  022d        str      r0
+  022f        push     0
+  0234        str      r1
+  0236        each     temporary_housing, L39
+  023c  L35:  ldr      r1
+  023e        jnz      L37
+  0243        ldr      r0
+  0245        lda
+  0246        adds
+  0247        ldk      K6                           ; $500.00
+  024a        gt
+  024b        jz       L36
+  0250        ldk      K6                           ; $500.00
+  0253        ldr      r0
+  0255        subs
+  0256        cap      expense_cap, R14             ; NV-CAP-LODGING
+  025a        push     1
+  025f        str      r1
+  0261  L36:  ldr      r0
+  0263        lda
+  0264        adds
+  0265        str      r0
+  0267        jmp      L38
+  026c  L37:  push     0
+  0271        cap      expense_cap, R14             ; NV-CAP-LODGING
+  0275  L38:  next     L35
+              ; NV-CAP-SECURITY  Nevada State Plan for Services for Victims of Crime 400.11(A)  "A victim may be eligible to receive reimbursement of up to..."
+  027a  L39:  push     0
+  027f        str      r0
+  0281        push     0
+  0286        str      r1
+  0288        each     security, L44
+  028e  L40:  ldr      r1
+  0290        jnz      L42
+  0295        ldr      r0
+  0297        lda
+  0298        adds
+  0299        ldk      K7                           ; $1,500.00
+  029c        gt
+  029d        jz       L41
+  02a2        ldk      K7                           ; $1,500.00
+  02a5        ldr      r0
+  02a7        subs
+  02a8        cap      expense_cap, R15             ; NV-CAP-SECURITY
+  02ac        push     1
+  02b1        str      r1
+  02b3  L41:  ldr      r0
+  02b5        lda
+  02b6        adds
+  02b7        str      r0
+  02b9        jmp      L43
+  02be  L42:  push     0
+  02c3        cap      expense_cap, R15             ; NV-CAP-SECURITY
+  02c7  L43:  next     L40
+              ; NV-CAP-CHILDCARE  Nevada State Plan for Services for Victims of Crime 400.12(A)  "The total benefit available for all affected children, per..."
+  02cc  L44:  push     0
+  02d1        str      r0
+  02d3        push     0
+  02d8        str      r1
+  02da        each     childcare, L49
+  02e0  L45:  ldr      r1
+  02e2        jnz      L47
+  02e7        ldr      r0
+  02e9        lda
+  02ea        adds
+  02eb        ldk      K5                           ; $2,500.00
+  02ee        gt
+  02ef        jz       L46
+  02f4        ldk      K5                           ; $2,500.00
+  02f7        ldr      r0
+  02f9        subs
+  02fa        cap      expense_cap, R16             ; NV-CAP-CHILDCARE
+  02fe        push     1
+  0303        str      r1
+  0305  L46:  ldr      r0
+  0307        lda
+  0308        adds
+  0309        str      r0
+  030b        jmp      L48
+  0310  L47:  push     0
+  0315        cap      expense_cap, R16             ; NV-CAP-CHILDCARE
+  0319  L48:  next     L45
+              ; NV-CAP-RX  Nevada State Plan for Services for Victims of Crime 400.5(A)  "The VOCP may reimburse up to a maximum of $6,000 for..."
+  031e  L49:  push     0
+  0323        str      r0
+  0325        push     0
+  032a        str      r1
+  032c        each     prescription, L54
+  0332  L50:  ldr      r1
+  0334        jnz      L52
+  0339        ldr      r0
+  033b        lda
+  033c        adds
+  033d        ldk      K8                           ; $6,000.00
+  0340        gt
+  0341        jz       L51
+  0346        ldk      K8                           ; $6,000.00
+  0349        ldr      r0
+  034b        subs
+  034c        cap      expense_cap, R17             ; NV-CAP-RX
+  0350        push     1
+  0355        str      r1
+  0357  L51:  ldr      r0
+  0359        lda
+  035a        adds
+  035b        str      r0
+  035d        jmp      L53
+  0362  L52:  push     0
+  0367        cap      expense_cap, R17             ; NV-CAP-RX
+  036b  L53:  next     L50
+              ; NV-CAP-CLEANUP  Coverage Limits for Service Providers: Crime Scene Cleanup Providers  "The VOCP pays up to $5,000 in Crime Scene Cleanup costs for..."
+  0370  L54:  push     0
+  0375        str      r0
+  0377        push     0
+  037c        str      r1
+  037e        each     crime_scene_cleanup, L59
+  0384  L55:  ldr      r1
+  0386        jnz      L57
+  038b        ldr      r0
+  038d        lda
+  038e        adds
+  038f        ldk      K3                           ; $5,000.00
+  0392        gt
+  0393        jz       L56
+  0398        ldk      K3                           ; $5,000.00
+  039b        ldr      r0
+  039d        subs
+  039e        cap      expense_cap, R18             ; NV-CAP-CLEANUP
+  03a2        push     1
+  03a7        str      r1
+  03a9  L56:  ldr      r0
+  03ab        lda
+  03ac        adds
+  03ad        str      r0
+  03af        jmp      L58
+  03b4  L57:  push     0
+  03b9        cap      expense_cap, R18             ; NV-CAP-CLEANUP
+  03bd  L58:  next     L55
+              ; NV-CAP-FUNERAL  Coverage Limits for Service Providers: Funeral and Burial Service Providers  "The VOCP pays up to $5,000 for a deceased victim"
+  03c2  L59:  push     0
+  03c7        str      r0
+  03c9        push     0
+  03ce        str      r1
+  03d0        each     funeral, L64
+  03d6  L60:  ldr      r1
+  03d8        jnz      L62
+  03dd        ldr      r0
+  03df        lda
+  03e0        adds
+  03e1        ldk      K3                           ; $5,000.00
+  03e4        gt
+  03e5        jz       L61
+  03ea        ldk      K3                           ; $5,000.00
+  03ed        ldr      r0
+  03ef        subs
+  03f0        cap      expense_cap, R19             ; NV-CAP-FUNERAL
+  03f4        push     1
+  03f9        str      r1
+  03fb  L61:  ldr      r0
+  03fd        lda
+  03fe        adds
+  03ff        str      r0
+  0401        jmp      L63
+  0406  L62:  push     0
+  040b        cap      expense_cap, R19             ; NV-CAP-FUNERAL
+  040f  L63:  next     L60
+              ; NV-CAP-1  VOCP Benefits and Covered Expenses page  "There are limits on individual benefits and no claim may exceed..."
+  0414  L64:  push     0
+  0419        str      r0
+  041b        push     0
+  0420        str      r1
+  0422        each     all, L69
+  0428  L65:  ldr      r1
+  042a        jnz      L67
+  042f        ldr      r0
+  0431        lda
+  0432        adds
+  0433        ldk      K2                           ; $35,000.00
+  0436        gt
+  0437        jz       L66
+  043c        ldk      K2                           ; $35,000.00
+  043f        ldr      r0
+  0441        subs
+  0442        cap      total_cap, R5                ; NV-CAP-1
+  0446        push     1
+  044b        str      r1
+  044d  L66:  ldr      r0
+  044f        lda
+  0450        adds
+  0451        str      r0
+  0453        jmp      L68
+  0458  L67:  push     0
+  045d        cap      total_cap, R5                ; NV-CAP-1
+  0461  L68:  next     L65
+  0466  L69:  push     0                            ; met
+  046b        check    minimum_loss, P0             ; (none)
+              ; NV-DEADLINE-1  NRS 217.100(1)(a)  "(a) Except as otherwise provided in paragraph (b), not later..."
+  046f        ldx      incident_date
+  0471        push     1800
+  0476        adds
+              ; NV-DEADLINE-2  NRS 217.100(1)(b)  "(b) If the applicant was a minor at the time of the injury, not..."
+  0477        ldx      incident_date
+  0479        push     1800
+  047e        adds
+  047f        max
+  0480        dup
+  0481        setdate
+  0482        ldx      as_of_date
+  0484        ge
+  0485        jz       L70
+  048a        push     0
+  048f        jmp      L71
+  0494  L70:  push     1                            ; late
+  0499  L71:  check    deadline, P29                ; NV-DEADLINE-1, NV-DEADLINE-2
+              ; NV-EXAM-5  NRS 217.300(5)  "The filing of a report with the appropriate law enforcement..."
+              ; NV-REPORT-1  NRS 217.100(5)  "(b) A police report, investigative report or complaint which the..."
+              ; NV-REPORT-2  Application Instructions, Authorization 1: Law Enforcement Reports  "I understand that law enforcement reports are not required for..."
+              ; NV-REPORT-3  Nevada State Plan for Services for Victims of Crime 300.12(C)(1)  "when a sexual assault victim submits to a forensic examination..."
+  049d        ldx      police_report
+  049f        push     1                            ; yes
+  04a4        eq
+  04a5        jnz      L72
+  04aa        ldx      forensic_exam
+  04ac        jnz      L72
+  04b1        push     2
+  04b6        jmp      L73
+  04bb  L72:  push     0                            ; satisfied
+  04c0  L73:  check    reporting, P30               ; NV-EXAM-5, NV-REPORT-1, NV-REPORT-2, NV-REPORT-3
+              ; NV-EXCL-OTHER  VOCP Benefits and Covered Expenses page  "Any expense payable by insurance or any other source"
+              ; NV-DEADLINE-3  NRS 217.100(2)  "The Director or a person designated by the Director may waive..."
+              ; NV-COLL-1  NRS 217.180(3)  "The compensation officer shall deduct the amounts that the..."
+              ; NV-COLL-2  Application Instructions, Important to Know  "The Victims Compensation Program is the payer of last resort...."
+              ; NV-CONDUCT-1  NRS 217.180(1)  "the compensation officer shall award compensation unless the..."
+              ; NV-CONDUCT-2  NRS 217.180(2)  "If the case involves a victim of domestic violence, sexual..."
+              ; NV-CRIME-1  Nevada State Plan for Services for Victims of Crime 200.2(A)  "Sexual Assault or Spousal Rape: NRS 200.366"
+              ; NV-CRIME-2  Eligibility Criteria page  "The VOCP can help victims for crimes such as: Assault/Battery..."
+              ; NV-RES-1  NRS 217.102(2)  "A victim of a crime that occurred in this State who is not a..."
+              ; NV-RES-2  NRS 217.102(1)  "A resident who is a victim of a crime that occurred in a state..."
+              ; NV-RES-3  NRS 217.070(2)(a)  "The term includes any person who was harmed by an act listed in..."
+              ; NV-SUB-1  Application, signature page (Send Completed, Signed Applications to)  "Send Completed, Signed Applications to: Scan and E-Mail to:..."
+              ; NV-SUB-2  Application and Instructions page, Assistance with Application  "Completed applications can be emailed to..."
+              ; NV-SUB-3  Application, signature page (Send Completed, Signed Applications to)  "Send Completed, Signed Applications to: Scan and E-Mail to:..."
+              ; NV-DOC-1  Application, Section 3: Tell us about the crime  "Please attach a copy of the police report prepared by the Law..."
+              ; NV-DOC-2  Application, Section 4: Tell us about your Crime Related Expenses  "Attach your bills, receipts, estimates, or other documents which..."
+              ; NV-DOC-3  Application, Section 4: Tell us about your Crime Related Expenses  "Attach your bills, receipts, estimates, or other documents which..."
+              ; NV-DOC-4  Application, Section 11: Tell us about the Victim's Insurance or Civil Suit Information  "Does the Victim/ Applicant have Life, Medical, Dental, or Vision..."
+              ; NV-DOC-5  2026 application, Authorization for Release of Information, Certification and Acknowledgements  "By checking the boxes and signing below, you are giving..."
+              ; NV-DOC-6  2026 application, Section 2: How can we verify the crime occurred?  "We need documentation that a crime occurred. Check all that you..."
+              ; NV-PROC-1  NRS 217.110(2)  "the compensation officer shall conduct an investigation and..."
+              ; NV-ACP-1  DCFS Confidential Address Program page, 'About the Confidential Address Program'  "The Nevada Confidential Address Program (CAP) is a program that..."
+              ; NV-RECORDS-1  NRS 217.105  "Any information which a compensation officer obtains in the..."
+  04c4        info     P31                          ; NV-EXCL-OTHER, NV-DEADLINE-3, NV-COLL-1, NV-COLL-2, NV-CONDUCT-1, NV-CONDUCT-2, NV-CRIME-1, NV-CRIME-2, NV-RES-1, NV-RES-2, NV-RES-3, NV-SUB-1, NV-SUB-2, NV-SUB-3, NV-DOC-1, NV-DOC-2, NV-DOC-3, NV-DOC-4, NV-DOC-5, NV-DOC-6, NV-PROC-1, NV-ACP-1, NV-RECORDS-1
+  04c7        ret
+

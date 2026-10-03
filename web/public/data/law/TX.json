@@ -206,6 +206,26 @@
    "raw_path": "rules/sources/TX/TX-S21.html",
    "text_path": "rules/sources/TX/TX-S21.txt",
    "sha256": "f863eb876a602a72539c0afc85cfcb3c6d90485a872e00861f58335da2da91c3"
+  },
+  {
+   "id": "TX-S22",
+   "title": "Tex. Code Crim. Proc. Chapter 58 (Confidentiality of Identifying Information; Address Confidentiality Program, Subch. B)",
+   "url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.58.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:21Z",
+   "raw_path": "rules/sources/TX/TX-S22.html",
+   "text_path": "rules/sources/TX/TX-S22.txt",
+   "sha256": "1f0f68c3afc1f81db52d1ccd058c8c4d7efc5a18dac4c32755a506dee09edfbb"
+  },
+  {
+   "id": "TX-S23",
+   "title": "OAG Address Confidentiality Program",
+   "url": "https://www.texasattorneygeneral.gov/crime-victims/address-confidentiality-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:08Z",
+   "raw_path": "rules/sources/TX/TX-S23.html",
+   "text_path": "rules/sources/TX/TX-S23.txt",
+   "sha256": "3d4420f9712c8eddb5c26821cd825fa94261b6c53ed765b8813c7850d93ebb38"
   }
  ],
  "rules": [
@@ -751,10 +771,36 @@
    "source_id": "TX-S9",
    "pinpoint": "OAG Rent and Relocation page, How to apply",
    "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/cvc-covered-costs/rent-and-relocation-reimbursement#:~:text=Relocation%20and%20Rental%20Assistance%20Acknowledgement,requesting%20funds%20after%20the%20move%29"
+  },
+  {
+   "id": "TX-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Office of the Attorney General of Texas",
+    "covers_sexual_assault": true,
+    "enroll": "Connect with an advocate (recommended), who helps gather documents and submits the application. On your own, download the application and, with ONE of a protection order, temporary restraining order or injunction, or documentation of the crime, upload it through the Submit Documents Online form link or mail it to Texas Address Confidentiality Program, P.O. Box 12199, Austin, Texas 78711-2199. Questions: (888) 832-2322."
+   },
+   "summary": "The Attorney General runs an address confidentiality program for survivors of sexual assault and other listed crimes. It gives each participant a substitute P.O. box address to use instead of their real home, work, or school address, and forwards their mail.",
+   "quote": "(a)  The attorney general shall establish an address confidentiality program, as provided by this subchapter, to assist a victim of family violence, sexual assault or abuse, stalking, child abduction, or trafficking of persons in maintaining a confidential address. (b)  The attorney general shall: (1)  designate a substitute post office box address that a participant may use in place of the participant's true residential, business, or school address;",
+   "source_id": "TX-S22",
+   "pinpoint": "Tex. Code Crim. Proc. art. 58.052(a), (b)(1)",
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.58.htm#:~:text=%28a%29%20The%20attorney%20general%20shall,residential%2C%20business%2C%20or%20school%20address%3B"
+  },
+  {
+   "id": "TX-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "A compensation application and the records the Attorney General keeps on it are not subject to disclosure under the Public Information Act, and are shielded from discovery and subpoena except in the cases the statute lists, such as a court order or the claimant's consent.",
+   "quote": "An application for compensation under this chapter and any information, document, summary, or other record provided to or received, maintained, or created by the attorney general under this chapter, including a report released to the attorney general under Article 56B.054 (f), is: (1)  except as provided by Section 552.132 (c), Government Code, not subject to disclosure under Chapter 552 of that code; and (2)  except as provided by Subsection (c), not subject to disclosure, discovery, subpoena, or other means of legal compulsion for release.",
+   "source_id": "TX-S1",
+   "pinpoint": "Tex. Code Crim. Proc. art. 56B.058(b)",
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=An%20application%20for%20compensation%20under,of%20legal%20compulsion%20for%20release."
   }
  ],
  "coverage": {
   "found": [
+   "address_confidentiality",
    "collateral_source",
    "conduct_reduction",
    "covered_expense",
@@ -765,6 +811,7 @@
    "excluded_expense",
    "expense_cap",
    "filing_deadline",
+   "record_confidentiality",
    "reporting_requirement",
    "required_document",
    "residency",
@@ -780,5 +827,5 @@
   "notes": "No minimum loss requirement appears in Chapter 56B or the program pages I saved. I found no statute, rule, or program page that covers home security devices, so security is left out. The statute does not say whether a survivor's own insurance may be billed for the forensic portion of the exam, so insurance_billing is unspecified. Travel has no dollar cap of its own: 1 TAC 61.404(c) limits transportation, meals, and lodging to the maximum rates for Texas state employees, which I did not encode as a number. No processing time is stated: the How to Apply page says processing time varies for each case."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from statutes.capitol.texas.gov (current through the 89th Legislature, 2nd Called Session, 2025). Administrative rules (1 TAC ch. 61) are from Cornell LII because the Texas SOS site is hard to snapshot; those rules still cite the pre-2021 article numbers (art. 56.32, 56.42) from before Chapter 56 was recodified into 56A/56B, so check them against the SOS Texas Administrative Code before relying on them for edge cases. Filing deadline: the statute (art. 56B.052) says the third anniversary of the crime; I quoted the program page because it states the 3 years numerically. For a child victim the statute runs 3 years from when the claimant is made aware of the offense but not after the child turns 21 (art. 56B.052(c)); periods of crime-caused incapacity are excluded (art. 56B.052(d)). Sexual assault Emergency Medical Care (EMC) compensation under art. 56A.305 is separate from the $50,000 aggregate cap (the OAG medical care page says an additional $25,000 may be available) and does not need a police report; EMC applications must be filed within 3 years of the exam per the OAG EMC page. Counseling: 1 TAC 61.503 says 60 sessions for conduct after September 1, 2014 while the OAG page says after 8/31/2014; the program page also says compensation is generally one session per week. Catastrophic injuries resulting in total and permanent disability can get up to $75,000 more (art. 56B.106(b)); not encoded as a rule. Relocation: the $5,000 cap in art. 56B.106(c-3) applies to crimes after 8/31/2023 per the OAG page; earlier crimes had different limits. The program allows one move, within 3 years of the crime. The paper application PDF (TX-S16) is dated 10/15 and cites the old Chapter 56; the online portal is the program's preferred route. Reviewer: the 1 TAC ch. 61 copies on Cornell LII show no amendments after 2017, and the OAG pages agree with the 60-session counseling limit and the $700 weekly lost-wage limit; the $300 weekly childcare, $2250 crime scene cleanup and $1000 seized-property limits are confirmed only by the TAC text. The EMC $25,000 applies to exams after August 31, 2023 per the OAG EMC page, and the 30-day follow-up coverage applies to care sought after August 31, 2025. Filing: the paper application (TX-S16, rev. 10/15, 245 AcroForm fields) is still the one linked from the How to Apply page, which also links a Spanish version. It says to mail it to the OAG CVC Program (011), P.O. Box 12198, Austin, Texas 78711-2198; the newer program pages give the same P.O. box addressed to Crime Victim Services. The online target URL (https://cvs.texasattorneygeneral.gov/portal/login) is the href of the 'Sign In to the CVC Portal' link on TX-S5; the URL itself is not in the page text. Documents sent after applying can go through the portal, the CVC Documentation Upload webform, or by mail. The application says not to wait for documents before mailing it. No fax, email, or in-person filing route is stated; the program says it does not routinely communicate with victims by email."
+ "researcher_notes": "Statute text is from statutes.capitol.texas.gov (current through the 89th Legislature, 2nd Called Session, 2025). Administrative rules (1 TAC ch. 61) are from Cornell LII because the Texas SOS site is hard to snapshot; those rules still cite the pre-2021 article numbers (art. 56.32, 56.42) from before Chapter 56 was recodified into 56A/56B, so check them against the SOS Texas Administrative Code before relying on them for edge cases. Filing deadline: the statute (art. 56B.052) says the third anniversary of the crime; I quoted the program page because it states the 3 years numerically. For a child victim the statute runs 3 years from when the claimant is made aware of the offense but not after the child turns 21 (art. 56B.052(c)); periods of crime-caused incapacity are excluded (art. 56B.052(d)). Sexual assault Emergency Medical Care (EMC) compensation under art. 56A.305 is separate from the $50,000 aggregate cap (the OAG medical care page says an additional $25,000 may be available) and does not need a police report; EMC applications must be filed within 3 years of the exam per the OAG EMC page. Counseling: 1 TAC 61.503 says 60 sessions for conduct after September 1, 2014 while the OAG page says after 8/31/2014; the program page also says compensation is generally one session per week. Catastrophic injuries resulting in total and permanent disability can get up to $75,000 more (art. 56B.106(b)); not encoded as a rule. Relocation: the $5,000 cap in art. 56B.106(c-3) applies to crimes after 8/31/2023 per the OAG page; earlier crimes had different limits. The program allows one move, within 3 years of the crime. The paper application PDF (TX-S16) is dated 10/15 and cites the old Chapter 56; the online portal is the program's preferred route. Reviewer: the 1 TAC ch. 61 copies on Cornell LII show no amendments after 2017, and the OAG pages agree with the 60-session counseling limit and the $700 weekly lost-wage limit; the $300 weekly childcare, $2250 crime scene cleanup and $1000 seized-property limits are confirmed only by the TAC text. The EMC $25,000 applies to exams after August 31, 2023 per the OAG EMC page, and the 30-day follow-up coverage applies to care sought after August 31, 2025. Filing: the paper application (TX-S16, rev. 10/15, 245 AcroForm fields) is still the one linked from the How to Apply page, which also links a Spanish version. It says to mail it to the OAG CVC Program (011), P.O. Box 12198, Austin, Texas 78711-2198; the newer program pages give the same P.O. box addressed to Crime Victim Services. The online target URL (https://cvs.texasattorneygeneral.gov/portal/login) is the href of the 'Sign In to the CVC Portal' link on TX-S5; the URL itself is not in the page text. Documents sent after applying can go through the portal, the CVC Documentation Upload webform, or by mail. The application says not to wait for documents before mailing it. No fax, email, or in-person filing route is stated; the program says it does not routinely communicate with victims by email. Privacy: the Address Confidentiality Program is in Tex. Code Crim. Proc. ch. 58, subch. B (arts. 58.051 and following), run by the OAG; art. 58.052(a) lists victims of sexual assault or abuse, and the OAG ACP page (TX-S23) gives the application steps, says applicants not working with an advocate need a protective order, restraining order or injunction, or documentation of the crime, and says enrollment lasts 3 years at a time with renewal. Art. 58.053 requires state and local agencies to accept the substitute address, with exemptions set by OAG rule. Compensation records: art. 56B.058(c) lists the exceptions for release (court order for good cause, consent of the claimant or victim, and others), and a subpoena response releases only the completed application with Gov. Code 552.132(b) confidential information redacted (art. 56B.058(d))."
 }

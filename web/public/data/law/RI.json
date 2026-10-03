@@ -136,6 +136,36 @@
    "raw_path": "rules/sources/RI/RI-S14.pdf",
    "text_path": "rules/sources/RI/RI-S14.txt",
    "sha256": "9122ba364aeeadf7793d0cc0bf05d8cda4a113decd3516fed1bd49a808c50473"
+  },
+  {
+   "id": "RI-S15",
+   "title": "R.I. Gen. Laws § 42-164-3 (Address confidentiality program)",
+   "url": "https://webserver.rilegislature.gov/Statutes/TITLE42/42-164/42-164-3.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:18Z",
+   "raw_path": "rules/sources/RI/RI-S15.html",
+   "text_path": "rules/sources/RI/RI-S15.txt",
+   "sha256": "ffa9966beb13bc7f4a039e281318337a0b221e9c9169c2130b1c66afe401fdb5"
+  },
+  {
+   "id": "RI-S16",
+   "title": "R.I. Gen. Laws § 42-164-2 (Address Confidentiality Program definitions)",
+   "url": "https://webserver.rilegislature.gov/Statutes/TITLE42/42-164/42-164-2.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:19Z",
+   "raw_path": "rules/sources/RI/RI-S16.html",
+   "text_path": "rules/sources/RI/RI-S16.txt",
+   "sha256": "867e849e636954065dc93677d8398d70a436ba51c4fb395c77f9cd3c4715a079"
+  },
+  {
+   "id": "RI-S17",
+   "title": "Address Confidentiality Program page, Rhode Island Department of State",
+   "url": "https://www.sos.ri.gov/AddressConfidentialityProgram",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:19Z",
+   "raw_path": "rules/sources/RI/RI-S17.html",
+   "text_path": "rules/sources/RI/RI-S17.txt",
+   "sha256": "19e2799c6e5b5d782cf6d309b4b8624964ae6da585a5cfbcd671e50ac66ace8a"
   }
  ],
  "rules": [
@@ -647,6 +677,30 @@
    "quote": "Upon request by the office, the victim must submit a disability letter from a treating physician or mental health provider demonstrating that the victim is disabled from working as a direct result of the crime",
    "source_id": "RI-S11",
    "pinpoint": "120-RICR-00-00-2.8(A)(4)(a)"
+  },
+  {
+   "id": "RI-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Rhode Island Department of State (Secretary of State)",
+    "covers_sexual_assault": true,
+    "enroll": "Click here to download the application. Applications should be sent to: Department of State Attention: ACP PO Box 6888 Providence, RI 02940. Applicants can contact the Department by email, phone, or in-person for help filling out the application."
+   },
+   "summary": "Rhode Island's Address Confidentiality Program, run by the Secretary of State's Department of State, gives victims of domestic violence, stalking, sexual assault, trafficking, or abuse who have moved or are about to move a shared Providence PO Box to use as their address on state and local government records, with first-class mail and legal papers forwarded free to their real address. Applicants mail a sworn application to the Department, which can help fill it out.",
+   "quote": "The goal of the Address Confidentiality Program (ACP/Program) is to help victims of domestic violence, stalking, sexual assault, and trafficking and/or abuse as defined by RI Gen. Laws §42-164-2 who have relocated or are about to relocate",
+   "source_id": "RI-S17",
+   "pinpoint": "ACP page, program description",
+   "fragment_url": "https://www.sos.ri.gov/AddressConfidentialityProgram#:~:text=The%20goal%20of%20the%20Address,or%20are%20about%20to%20relocate"
+  },
+  {
+   "id": "RI-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Medical, counseling, psychiatric, employment, financial, and investigative records the compensation office gets with a claim are confidential and cannot be released without the applicant's permission unless law allows it. The application itself and the notice of award or denial are treated as public records unless another law says otherwise.",
+   "quote": "All medical records, mental health counseling records, psychiatric records, employment information, personal financial information and investigative records received, obtained or maintained by the office in connection with any application for compensation shall be maintained as confidential investigative material",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.13"
   }
  ],
  "coverage": {
@@ -664,15 +718,17 @@
    "excluded_expense",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "exam_no_bill",
    "minimum_loss",
    "processing_time"
   ],
-  "notes": "No Rhode Island statute or official policy was found that bars billing the survivor or the survivor's insurance for a sexual assault forensic exam; the only official statement found is the Attorney General's bill of rights saying the exam cost is compensable through the CVCP regardless of reporting. No minimum loss was found. The relocation cap is in flux: the compiled statute (12-25-21.1(e)) and the current rule say $5,000, but a 2026 bill (H 8155) raised it to $8,000 and the amended rule effective 10/13/2026 (RI-S14) says $8,000, so no relocation dollar cap is recorded. Counseling hourly rates, the $1,000 travel cap, the 62% lost-earnings rule, the property exclusion, and the reporting rules appear in both the current rule (RI-S11) and the amended rule effective 10/13/2026 (RI-S14). No processing time for a decision or payment is stated in the program page, the application, or the rule; the only stated times are 30 days for a decision on reconsideration, which is not recorded."
+  "notes": "No Rhode Island statute or official policy was found that bars billing the survivor or the survivor's insurance for a sexual assault forensic exam; the only official statement found is the Attorney General's bill of rights saying the exam cost is compensable through the CVCP regardless of reporting. No minimum loss was found. The relocation cap is in flux: the compiled statute (12-25-21.1(e)) and the current rule say $5,000, but a 2026 bill (H 8155) raised it to $8,000 and the amended rule effective 10/13/2026 (RI-S14) says $8,000, so no relocation dollar cap is recorded. Counseling hourly rates, the $1,000 travel cap, the 62% lost-earnings rule, the property exclusion, and the reporting rules appear in both the current rule (RI-S11) and the amended rule effective 10/13/2026 (RI-S14). No processing time for a decision or payment is stated in the program page, the application, or the rule; the only stated times are 30 days for a decision on reconsideration, which is not recorded. The address confidentiality program and record confidentiality rule were both found."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text is from the RI legislature's compiled General Laws site, which may not yet show 2026 session laws. The rule amendment effective 10/13/2026 says it implements 2026 changes to 12-25-20 and 12-25-21.1: hit-and-run serious bodily injury added, stalking victims allowed relocation or home-modification awards, larceny and the crime against nature offenses removed from the covered list, and emergency relocation raised to $8,000. The introduced H 8155 text only changes the relocation amount; it leaves the $1,000 home-safety cap and $25,000 total cap unchanged, but the enacted version was not saved, so RI-SECURITY-1 should be rechecked once the compiled statute updates. The AG page says exam compensation is available regardless of cooperation, while 12-25-19(d)(1)(i) lets the office weigh cooperation for other awards; statute wins for non-exam expenses. The program FAQ (RI-S8) also lists a DCYF report for minors and a no contact order for domestic violence victims as alternatives to a police report. Other caps in the rule not recorded as rules: eyeglasses $200, crime scene cleanup $2,000, burial $10,000, secondary victim counseling $1,500, group therapy at 40% of the individual rate, temporary housing $150 per night for up to 10 nights within relocation. Reviewer: the AG page says exam compensation is available regardless of reporting, but 12-25-22(a) only lets the office accept an exam in place of a police report when the exam was within 15 days of the crime, and the same AG page warns that not participating in the criminal justice system will likely limit compensation eligibility. A 2022 bill (S 2374) would have barred charging the survivor for the evidentiary exam (proposed 12-28.1-6), but chapter 12-28.1 does not exist in the compiled General Laws and 23-98-5 has no billing rule, so exam_no_bill stays not_found. The home-safety $1,000 cap appears only in the statute; neither the current rule nor the 10/13/2026 rule states a dollar cap for safety modifications. How to file: the application PDF (RI-S9, retrieved from the program page's current English link) is a flat scan with no AcroForm fields (0 fields), so it is printed and filled by hand. The mail address is taken from the form, which adds '2nd Floor'; the program page gives '50 Service Ave Warwick, RI 02886' without the floor. The online portal URL (http://cvcapp.treasury.ri.gov/) is the link target behind 'here' on the program page, not visible text. The program page has an 'email us' link (crimevictims@treasury.ri.gov) for questions only; it does not say applications can be emailed, so no email submission rule was added. The rule also lets the office request a mental health treatment plan from the treating provider (2.8(A)(3)(b)); that comes from the provider, not the applicant, so it is not a required_document."
+ "researcher_notes": "Statute text is from the RI legislature's compiled General Laws site, which may not yet show 2026 session laws. The rule amendment effective 10/13/2026 says it implements 2026 changes to 12-25-20 and 12-25-21.1: hit-and-run serious bodily injury added, stalking victims allowed relocation or home-modification awards, larceny and the crime against nature offenses removed from the covered list, and emergency relocation raised to $8,000. The introduced H 8155 text only changes the relocation amount; it leaves the $1,000 home-safety cap and $25,000 total cap unchanged, but the enacted version was not saved, so RI-SECURITY-1 should be rechecked once the compiled statute updates. The AG page says exam compensation is available regardless of cooperation, while 12-25-19(d)(1)(i) lets the office weigh cooperation for other awards; statute wins for non-exam expenses. The program FAQ (RI-S8) also lists a DCYF report for minors and a no contact order for domestic violence victims as alternatives to a police report. Other caps in the rule not recorded as rules: eyeglasses $200, crime scene cleanup $2,000, burial $10,000, secondary victim counseling $1,500, group therapy at 40% of the individual rate, temporary housing $150 per night for up to 10 nights within relocation. Reviewer: the AG page says exam compensation is available regardless of reporting, but 12-25-22(a) only lets the office accept an exam in place of a police report when the exam was within 15 days of the crime, and the same AG page warns that not participating in the criminal justice system will likely limit compensation eligibility. A 2022 bill (S 2374) would have barred charging the survivor for the evidentiary exam (proposed 12-28.1-6), but chapter 12-28.1 does not exist in the compiled General Laws and 23-98-5 has no billing rule, so exam_no_bill stays not_found. The home-safety $1,000 cap appears only in the statute; neither the current rule nor the 10/13/2026 rule states a dollar cap for safety modifications. How to file: the application PDF (RI-S9, retrieved from the program page's current English link) is a flat scan with no AcroForm fields (0 fields), so it is printed and filled by hand. The mail address is taken from the form, which adds '2nd Floor'; the program page gives '50 Service Ave Warwick, RI 02886' without the floor. The online portal URL (http://cvcapp.treasury.ri.gov/) is the link target behind 'here' on the program page, not visible text. The program page has an 'email us' link (crimevictims@treasury.ri.gov) for questions only; it does not say applications can be emailed, so no email submission rule was added. The rule also lets the office request a mental health treatment plan from the treating provider (2.8(A)(3)(b)); that comes from the provider, not the applicant, so it is not a required_document. Address confidentiality: the Department of State page (RI-S17) says the ACP helps victims of sexual assault, and R.I. Gen. Laws 42-164-2(1)(vii) (RI-S16) lists sexual assault (chapter 37 of title 11) as 'abuse' regardless of whether it was reported to law enforcement; 42-164-3(b) (RI-S15) requires a sworn statement that the applicant is a victim of domestic violence or abuse, so a survivor of sexual assault by a non-family member qualifies through the 'abuse' definition. Participants are certified for five years and get the Program's Providence PO Box with an identification number; the application must be mailed to Department of State, Attention: ACP, PO Box 6888, Providence, RI 02940. The AG's sexual assault bill of rights page (RI-S12) also describes the program. Record confidentiality: 2.13 of the current rule (RI-S11) and the 10/13/2026 amended rule (RI-S14, 2.13(A)) have the same text; both say the application and the notice of award or denial are public records unless otherwise provided by law, so only supporting records (medical, counseling, employment, financial, investigative) are confidential. The application's consent page (RI-S9) also says records are protected under federal confidentiality regulations and state law and cannot be disclosed without written consent except as provided by law. No separate confidentiality section was found in chapter 12-25."
 }

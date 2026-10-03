@@ -206,6 +206,36 @@
    "raw_path": "rules/sources/NE/NE-S22.pdf",
    "text_path": "rules/sources/NE/NE-S22.txt",
    "sha256": "2fe24d94f109452f9a888aea9654356cba4e741c41c4299c36e90d190d55a56e"
+  },
+  {
+   "id": "NE-S23",
+   "title": "Nebraska Secretary of State: Address Confidentiality Program page",
+   "url": "https://sos.nebraska.gov/business-services/address-confidentiality-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:00:16Z",
+   "raw_path": "rules/sources/NE/NE-S23.html",
+   "text_path": "rules/sources/NE/NE-S23.txt",
+   "sha256": "ad580a82d8018359c4f58c1972347cdd7044eccc25bdd00147df85a487f0c3e4"
+  },
+  {
+   "id": "NE-S24",
+   "title": "Neb. Rev. Stat. 42-1203 (Address Confidentiality Act definitions)",
+   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=42-1203",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:16Z",
+   "raw_path": "rules/sources/NE/NE-S24.html",
+   "text_path": "rules/sources/NE/NE-S24.txt",
+   "sha256": "cb8449f16f3e63fcfe5427798596d5d5b7c02c44ae7cc437147b0fd4e0381f4e"
+  },
+  {
+   "id": "NE-S25",
+   "title": "Neb. Rev. Stat. 81-1842 (sexual assault victim; records; confidential)",
+   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1842",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:24Z",
+   "raw_path": "rules/sources/NE/NE-S25.html",
+   "text_path": "rules/sources/NE/NE-S25.txt",
+   "sha256": "dc730cdcfc2cd8ee695bfc7b462e7703405fab8463cf0706437a6e6610c21245"
   }
  ],
  "rules": [
@@ -706,6 +736,31 @@
    "quote": "CVR program applications take time, typically claims are fully processed within 6-9 months.",
    "source_id": "NE-S14",
    "pinpoint": "CVR pamphlet (English), back panel"
+  },
+  {
+   "id": "NE-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Nebraska Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Application for ACP is made in person at one of the designated victim assistance centers located throughout the state. Applications will not be accepted at the Secretary of State’s Office."
+   },
+   "summary": "Nebraska's Address Confidentiality Program, run by the Secretary of State, gives eligible victims of abuse, sexual assault or stalking a substitute address for state and local agencies and forwards their mail; you apply in person at a designated victim assistance center, not at the Secretary of State's office.",
+   "quote": "To be eligible for ACP, an individual must be (1) a victim of abuse, sexual assault or stalking who fears for his or her safety",
+   "source_id": "NE-S23",
+   "pinpoint": "Program eligibility",
+   "fragment_url": "https://sos.nebraska.gov/business-services/address-confidentiality-program#:~:text=To%20be%20eligible%20for%20ACP%2C,for%20his%20or%20her%20safety"
+  },
+  {
+   "id": "NE-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "By statute, the name of a sexual assault victim in the reparations committee's records when applying for compensation may not be made public. The statute protects the name; it does not say the whole claim file is confidential.",
+   "quote": "The name of any victim of a sexual assault appearing in information or records of the Crime Victim's Reparations Committee when the victim is applying for compensation under the Nebraska Crime Victim's Reparations Act shall not be made public.",
+   "source_id": "NE-S25",
+   "pinpoint": "Neb. Rev. Stat. 81-1842",
+   "fragment_url": "https://nebraskalegislature.gov/laws/statutes.php?statute=81-1842#:~:text=The%20name%20of%20any%20victim,shall%20not%20be%20made%20public."
   }
  ],
  "coverage": {
@@ -726,7 +781,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap:lost_wages (dollar figure)",
@@ -743,5 +800,5 @@
   "notes": "Lost wages are capped by regulation at the average weekly wage under the Nebraska Workers' Compensation Act (80 NAC ch. 3, 003.04), but no dollar figure is stated in the saved sources, so no lost_wages expense_cap rule was written. The regulation sets counseling, funeral, crime scene cleanup and direct medical provider limits by an Annual Rate Schedule set by the Committee, which I could not find online; the counseling cap of $5,000 comes from the program's current web page. No source mentions relocation, transportation, or home security as covered expenses. No dollar minimum loss was found; the only threshold is the more-than-seven-consecutive-days rule for wage loss on the application form."
  },
  "confidence": "medium",
- "researcher_notes": "Statute and agency sources disagree in places. (1) Police report window: 81-1821(1)(b) and the Oct 2023 application say five days; the FAQ PDF (updated 4-5-2023) still says three days. Statute wins. (2) Counseling cap: program web page and pamphlet say $5,000; the 2023 FAQ says $2,000; the regulation defers to an unpublished Annual Rate Schedule. Funeral: web page and pamphlet say $10,000, FAQ says $5,000. I used the current web page. (3) Out-of-state crimes: 81-1807(1) lets a Nebraska resident claim for a crime in a state with no program for which they are eligible, but 81-1824 says no order shall be made for offenses occurring outside the state. Left out of rules because of the conflict. (4) 81-1801(8) defines personal injury as actual bodily harm, while the program page describes victims as people physically or emotionally injured; worth a reviewer check for survivors without physical injury. (5) Forensic exam: 81-1429.03(5) lets the Sexual Assault Payment Program pay up to $200 for the examiner fee and $300 for the facility fee, with more payable on documentation; these are provider payment limits, not survivor caps, so they are not encoded. (6) 80 NAC ch. 3, 003.09 says a medical provider that accepts CVR payment accepts it as payment in full and is barred from collecting from the victim (saved in NE-S20). (7) The application requires a U.S. citizenship or qualified alien attestation under Neb. Rev. Stat. 4-108 to 4-114. (8) Regulations were saved from Cornell LII because rules.nebraska.gov is a JavaScript app and the old nebraska.gov PDF links redirect to it. Reviewer (Oct 3): added funeral ($10,000) and crime-scene cleanup ($5,000) caps from the current program page; the regulation (80 NAC ch. 3, 003.06 and 003.08, amended 11/10/2024) sets both by the unpublished Annual Rate Schedule, so these page figures may change. Split pain and suffering into its own excluded_expense rule and removed an example (a phone) that no source states. Added 81-1822(3) (no award if the victim's own criminal violation caused or contributed to the injury) as information only; the program says contributory conduct is never used to screen sexual assault claims (NE-S17). The wage rule NE-WAGE-1 is 'more than seven' consecutive days, so 7 days exactly does not qualify; it appears only on the Oct 2023 application form, not in the statute or regulation. 81-1823's $25,000 cap is 'Except as provided in section 81-1813', which was not saved. How to file (Oct 3): the Oct 2023 CVR Claim Application (NE-S15) is still the version linked from the program page; it is a flat PDF with no AcroForm fields (0 fields), so it must be printed or filled by hand. Submission is by mail or email per the program page and pamphlet; the fax number appears only in the application's return-to block next to the phone number, so NE-SUBMIT-3 is a reasonable reading rather than an explicit instruction. The program page lists the mailing address as Nebraska Crime Commission, 301 Centennial Mall South, P.O. Box 94946, Lincoln, NE 68509-4946; the application uses the shorter PO Box address, which I used. No online portal or in-person filing is stated. The 2023 FAQ (NE-S13) asks for 3 payroll stubs from just before the incident and an employer statement, while the Oct 2023 application asks for pay stubs for the missed periods and says CVR contacts the employer itself; I followed the application. Processing time: 81-1809(1), quoted in the saved Claims Process PDF (NE-S22; the statute itself was not saved), gives 180 days after all required information is received; the pamphlet says 6 to 9 months typically."
+ "researcher_notes": "Statute and agency sources disagree in places. (1) Police report window: 81-1821(1)(b) and the Oct 2023 application say five days; the FAQ PDF (updated 4-5-2023) still says three days. Statute wins. (2) Counseling cap: program web page and pamphlet say $5,000; the 2023 FAQ says $2,000; the regulation defers to an unpublished Annual Rate Schedule. Funeral: web page and pamphlet say $10,000, FAQ says $5,000. I used the current web page. (3) Out-of-state crimes: 81-1807(1) lets a Nebraska resident claim for a crime in a state with no program for which they are eligible, but 81-1824 says no order shall be made for offenses occurring outside the state. Left out of rules because of the conflict. (4) 81-1801(8) defines personal injury as actual bodily harm, while the program page describes victims as people physically or emotionally injured; worth a reviewer check for survivors without physical injury. (5) Forensic exam: 81-1429.03(5) lets the Sexual Assault Payment Program pay up to $200 for the examiner fee and $300 for the facility fee, with more payable on documentation; these are provider payment limits, not survivor caps, so they are not encoded. (6) 80 NAC ch. 3, 003.09 says a medical provider that accepts CVR payment accepts it as payment in full and is barred from collecting from the victim (saved in NE-S20). (7) The application requires a U.S. citizenship or qualified alien attestation under Neb. Rev. Stat. 4-108 to 4-114. (8) Regulations were saved from Cornell LII because rules.nebraska.gov is a JavaScript app and the old nebraska.gov PDF links redirect to it. Reviewer (Oct 3): added funeral ($10,000) and crime-scene cleanup ($5,000) caps from the current program page; the regulation (80 NAC ch. 3, 003.06 and 003.08, amended 11/10/2024) sets both by the unpublished Annual Rate Schedule, so these page figures may change. Split pain and suffering into its own excluded_expense rule and removed an example (a phone) that no source states. Added 81-1822(3) (no award if the victim's own criminal violation caused or contributed to the injury) as information only; the program says contributory conduct is never used to screen sexual assault claims (NE-S17). The wage rule NE-WAGE-1 is 'more than seven' consecutive days, so 7 days exactly does not qualify; it appears only on the Oct 2023 application form, not in the statute or regulation. 81-1823's $25,000 cap is 'Except as provided in section 81-1813', which was not saved. How to file (Oct 3): the Oct 2023 CVR Claim Application (NE-S15) is still the version linked from the program page; it is a flat PDF with no AcroForm fields (0 fields), so it must be printed or filled by hand. Submission is by mail or email per the program page and pamphlet; the fax number appears only in the application's return-to block next to the phone number, so NE-SUBMIT-3 is a reasonable reading rather than an explicit instruction. The program page lists the mailing address as Nebraska Crime Commission, 301 Centennial Mall South, P.O. Box 94946, Lincoln, NE 68509-4946; the application uses the shorter PO Box address, which I used. No online portal or in-person filing is stated. The 2023 FAQ (NE-S13) asks for 3 payroll stubs from just before the incident and an employer statement, while the Oct 2023 application asks for pay stubs for the missed periods and says CVR contacts the employer itself; I followed the application. Processing time: 81-1809(1), quoted in the saved Claims Process PDF (NE-S22; the statute itself was not saved), gives 180 days after all required information is received; the pamphlet says 6 to 9 months typically. Privacy (Oct 3): Nebraska's Address Confidentiality Program is run by the Secretary of State under the Address Confidentiality Act (Neb. Rev. Stat. 42-1201 and following). The program page (NE-S23) says it gives a substitute address for state and local agencies plus free first-class mail forwarding, and eligibility covers victims of abuse, sexual assault or stalking who fear for their safety and have recently moved or plan to move to a place unknown to the abuser. 42-1203(6) (NE-S24) defines sexual assault by reference to 28-319, 28-319.01, 28-320, 28-320.01 and 28-386, and the Act also covers trafficking victims (42-1203(8)). Enrollment is in person at a designated victim assistance center only; the program page says the Secretary of State's office does not accept applications. ACP contact per the page: (402) 471-3568 or toll free (866) 227-6327. Record confidentiality: 81-1842 (NE-S25) bars making public the name of a sexual assault victim in the committee's records when applying for compensation. It covers the name only; no saved source says the rest of the claim file is exempt from public records law. The Oct 2023 application (NE-S15) separately says its federal demographic data is used for statistical purposes only and kept confidential."
 }

@@ -1,0 +1,318 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "DC",
+ "source_sha256": "2dd795bfd3403e3a00d6ee1e3911c94b684da394c4a748877feb85b6fc5732a1",
+ "ir_sha256": "03db2546156ce38c55178adea23c1c166947292109f749e44ad7b0feb55d2083",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "DC-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DC-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "DC-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "DC-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-3",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-4",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-5",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-6",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 60000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-7",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-8",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 10000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-9",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-10",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 20000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "DC-CAP-11",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-12",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-CAP-13",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "DC-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DC-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "DC-COV-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "DC-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "DC-COV-5",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "DC-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "DC-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "DC-EXC-2",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "DC-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "DC-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 7
+  },
+  {
+   "id": "DC-REP-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "DC-REP-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "DC-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "DC-COL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "DC-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "DC-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "DC-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "DC-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "DC-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "DC-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DC-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DC-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DC-SUB-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DC-SUB-5",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "DC-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-DOC-13",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "DC-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "DC-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "DC-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

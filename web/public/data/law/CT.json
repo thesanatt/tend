@@ -66,6 +66,26 @@
    "raw_path": "rules/sources/CT/CT-S8.pdf",
    "text_path": "rules/sources/CT/CT-S8.txt",
    "sha256": "6a6608a513fd10ee6a56ba25f0eb5368183c9594ee48790dfb005923cdfe6489"
+  },
+  {
+   "id": "CT-S9",
+   "title": "Conn. Gen. Stat. Chapter 968a, Address Confidentiality Program (secs. 54-240 to 54-240o)",
+   "url": "https://www.cga.ct.gov/current/pub/chap_968a.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:07Z",
+   "raw_path": "rules/sources/CT/CT-S9.html",
+   "text_path": "rules/sources/CT/CT-S9.txt",
+   "sha256": "b32712a0ec13d568d9e3ae1d48c85a5b54fd6ce8cdfa5748bde453c506dfee83"
+  },
+  {
+   "id": "CT-S10",
+   "title": "Address Confidentiality Program, Office of the Secretary of the State",
+   "url": "https://portal.ct.gov/sots/business-services/acp/address-confidentiality-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:08Z",
+   "raw_path": "rules/sources/CT/CT-S10.html",
+   "text_path": "rules/sources/CT/CT-S10.txt",
+   "sha256": "57c01462937e6a62c92b9e063b187226d15f771783cf3f825d7e91101c8607a8"
   }
  ],
  "rules": [
@@ -611,6 +631,31 @@
    "quote": "Applications that are not signed will be returned for signature.",
    "source_id": "CT-S4",
    "pinpoint": "JD-VS-8PI, Section 10"
+  },
+  {
+   "id": "CT-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP), Connecticut Safe at Home",
+    "agency": "Office of the Secretary of the State",
+    "covers_sexual_assault": true,
+    "enroll": "Participants complete applications through a community-based domestic violence or sexual assault crisis program. These programs are located throughout the state. The application process involves meeting with an application assistant and receiving orientation information about the program. Application Assistants send the completed applications to the ACP office."
+   },
+   "summary": "Connecticut's Address Confidentiality Program, run by the Secretary of the State, gives victims of sexual assault, family violence, stalking and some other crimes a substitute mailing address that state and town agencies must accept, and forwards first-class mail for free. Applying is done with an application assistant at a domestic violence or sexual assault crisis program.",
+   "quote": "There shall be an address confidentiality program established in the office of the Secretary of the State to provide a substitute mailing address for any person who wishes to keep such person's residential address confidential because of safety concerns and (1) has been a victim of (A) family violence, (B) injury or risk of injury to a child, (C) kidnapping, (D) sexual assault, (E) stalking",
+   "source_id": "CT-S9",
+   "pinpoint": "Conn. Gen. Stat. sec. 54-240a(a)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968a.htm#:~:text=There%20shall%20be%20an%20address,%28D%29%20sexual%20assault%2C%20%28E%29%20stalking"
+  },
+  {
+   "id": "CT-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Information the Office of Victim Services or a compensation commissioner receives that is already confidential under another Connecticut law stays confidential while they hold it. The statute does not make the whole claim file confidential.",
+   "quote": "Any information received which is confidential in accordance with any provision of the general statutes shall remain confidential while in the custody of the Office of Victim Services or a victim compensation commissioner.",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. sec. 54-204(b)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=Any%20information%20received%20which%20is,or%20a%20victim%20compensation%20commissioner."
   }
  ],
  "coverage": {
@@ -628,7 +673,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "emergency_award",
@@ -646,5 +693,5 @@
   "notes": "No minimum loss appears in the statute. Sec. 54-217 now allows only expedited processing of a claim for undue hardship; its history note says older versions set an emergency award amount, but the current text sets none, so emergency_award is left out. No relocation benefit appears in the statute, brochure, benefits chart or application. No separate cap on counseling, lost wages, medical or court travel was found beyond the overall caps; the $5,000 cap (CT-CAP-2) applies only to emotional-harm-only claims. The statute sets no number of days for the police report, though the application asks whether the crime was reported within 5 days. Sec. 54-207 (regulations) is repealed and sec. 54-207a delegates procedures to the Chief Court Administrator; no administrative rules setting caps were found. The program web pages on jud.ct.gov (compensation.htm, safe.htm, svc_providers.htm) could not be saved because the fetch tool strips the page-wide form element those pages use, so the brochure, application and benefits chart PDFs stand in for them. No processing time for a decision or payment is stated in the application, brochure, benefits chart or statute."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from the Connecticut General Assembly's current chapter pages. Exam billing: sec. 19a-112a(e)(1) bars charging exam costs directly or indirectly to the survivor and routes them to the Forensic Sex Evidence Exams account; it does not expressly mention billing the survivor's insurance, so insurance_billing is 'unspecified'. The OVS SAFE page (https://www.jud.ct.gov/crimevictim/safe.htm, not saveable with the tool) says a patient cannot receive a bill for the exam and tells patients to call OVS at 1-800-822-8428 if they or their insurer get a bill. Caps: sec. 54-211(d)(2) allows up to $5,000 more for minors with extra medical or counseling needs and (d)(3) allows going over the caps for good cause; these are not encoded as rules. The $1,000 crime scene cleanup and security cap comes from program documents, not the statute. Under sec. 54-212 OVS may recover two-thirds of what it paid from later recoveries; not encoded. The program phone 1-888-286-7347 is from the brochure; the OVS general line on the federal OVC directory is 860-263-2760. Reviewer check (Oct 3): the 2026 Supplement on cga.ct.gov amends only secs. 54-203 and 54-230 in chapter 968, and its version of 19a-112a(e) (amended by P.A. 25-29) is word for word the same as the saved text, so the caps, deadline, reporting and exam rules above are current through the 2025 session. Acts from the 2026 session were not checked. 'Emotional harm' in sec. 54-201(6) means impairment from a threat of physical injury or death, so the $5,000 cap (CT-CAP-2) is for threat-only claims; sexual assault involving actual bodily harm falls under the $15,000 cap. CT-CAP-3, CT-CAP-4 and CT-CAP-5 are one shared $1,000 benefit, not three. 'Charged directly or indirectly to such victim' in 19a-112a(e) may reach insurance billing, but the statute does not say so, so insurance_billing stays 'unspecified'. How to file (Oct 3): the application JD-VS-8PI (Rev. 7/21, CT-S4) is still the version served at program.application_pdf_url (same sha256 on re-download) and has 296 AcroForm fields. It lists mail, fax and email as the ways to send it; no online filing portal or in-person drop-off is stated in the saved sources, and compensation.htm still could not be saved (blocked or empty even through Chrome). The application asks for the police report number but not a copy of the report, so no police_report document rule was added. The application must carry a handwritten signature."
+ "researcher_notes": "Statute text is from the Connecticut General Assembly's current chapter pages. Exam billing: sec. 19a-112a(e)(1) bars charging exam costs directly or indirectly to the survivor and routes them to the Forensic Sex Evidence Exams account; it does not expressly mention billing the survivor's insurance, so insurance_billing is 'unspecified'. The OVS SAFE page (https://www.jud.ct.gov/crimevictim/safe.htm, not saveable with the tool) says a patient cannot receive a bill for the exam and tells patients to call OVS at 1-800-822-8428 if they or their insurer get a bill. Caps: sec. 54-211(d)(2) allows up to $5,000 more for minors with extra medical or counseling needs and (d)(3) allows going over the caps for good cause; these are not encoded as rules. The $1,000 crime scene cleanup and security cap comes from program documents, not the statute. Under sec. 54-212 OVS may recover two-thirds of what it paid from later recoveries; not encoded. The program phone 1-888-286-7347 is from the brochure; the OVS general line on the federal OVC directory is 860-263-2760. Reviewer check (Oct 3): the 2026 Supplement on cga.ct.gov amends only secs. 54-203 and 54-230 in chapter 968, and its version of 19a-112a(e) (amended by P.A. 25-29) is word for word the same as the saved text, so the caps, deadline, reporting and exam rules above are current through the 2025 session. Acts from the 2026 session were not checked. 'Emotional harm' in sec. 54-201(6) means impairment from a threat of physical injury or death, so the $5,000 cap (CT-CAP-2) is for threat-only claims; sexual assault involving actual bodily harm falls under the $15,000 cap. CT-CAP-3, CT-CAP-4 and CT-CAP-5 are one shared $1,000 benefit, not three. 'Charged directly or indirectly to such victim' in 19a-112a(e) may reach insurance billing, but the statute does not say so, so insurance_billing stays 'unspecified'. How to file (Oct 3): the application JD-VS-8PI (Rev. 7/21, CT-S4) is still the version served at program.application_pdf_url (same sha256 on re-download) and has 296 AcroForm fields. It lists mail, fax and email as the ways to send it; no online filing portal or in-person drop-off is stated in the saved sources, and compensation.htm still could not be saved (blocked or empty even through Chrome). The application asks for the police report number but not a copy of the report, so no police_report document rule was added. The application must carry a handwritten signature. Privacy (Oct 3): the Address Confidentiality Program is in chapter 968a (secs. 54-240 to 54-240o, CT-S9) and run by the Secretary of the State; sec. 54-240a(a) and 54-240c list sexual assault as a qualifying crime, and sec. 54-240b(a) says each application must be completed with an application assistant. The SOTS page (CT-S10) says applications may only be submitted by application assistants tied to a domestic violence or sexual assault advocacy organization. Record confidentiality is narrow: sec. 54-204(b) only keeps information that is already confidential under other statutes confidential while OVS or a commissioner holds it; no statute found in chapter 968 that makes the compensation claim file itself exempt from public disclosure. Secs. 54-228 and 54-230 separately keep a victim's notification request and mailing address confidential, but those cover offender-release notification, not compensation claims."
 }

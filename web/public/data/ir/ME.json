@@ -1,0 +1,244 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "ME",
+ "source_sha256": "4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561",
+ "ir_sha256": "83291283bde98888c108decf10c06a7baf4b8c948fbfb18581903a5e3ab8d69a",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "ME-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ME-EXAM-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "ME-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ME-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "ME-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "ME-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ME-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ME-COUNS-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ME-COUNS-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ME-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ME-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ME-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ME-SEC-1",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "ME-RELO-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "ME-CLEAN-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "ME-PROS-1",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "ME-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 450000,
+   "per": "claim"
+  },
+  {
+   "id": "ME-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ME-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ME-DEAD-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "ME-DEAD-2",
+   "kind": "deadline",
+   "days": 60,
+   "from": "discovery"
+  },
+  {
+   "id": "ME-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "ME-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "ME-REP-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "ME-REP-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ME-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ME-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ME-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ME-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ME-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ME-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ME-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "ME-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "ME-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ME-DOC-SIGNED",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-MEDICAL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-COUNSEL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "ME-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

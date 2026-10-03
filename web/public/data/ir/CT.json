@@ -1,0 +1,259 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "CT",
+ "source_sha256": "85b9830e195e3e3df4525d4d7a82ca2aefb639ef768ac0eb16b60b0301c9d24e",
+ "ir_sha256": "2e940b1fa0e0ce2e23d7532d4653911c84cb492855a426381b7acea8b3c658df",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "CT-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CT-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CT-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CT-CAP-3",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CT-CAP-4",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CT-CAP-5",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "CT-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "CT-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "CT-COV-3",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "CT-COV-4",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "CT-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "CT-COV-6",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "CT-COV-7",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "CT-COV-8",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "CT-COV-9",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "CT-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "CT-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "CT-EXCL-3",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "CT-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "CT-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "CT-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate",
+    "forensic_exam",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "CT-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "CT-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "CT-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "CT-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "CT-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CT-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CT-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "CT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "CT-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CT-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CT-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "CT-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "CT-CAP-1",
+   "category": "total_cap",
+   "reason": "applies_to \"personal_injury\""
+  },
+  {
+   "id": "CT-CAP-2",
+   "category": "total_cap",
+   "reason": "applies_to \"emotional_harm_only\""
+  }
+ ]
+}

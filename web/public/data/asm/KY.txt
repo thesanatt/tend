@@ -1,0 +1,1046 @@
+; tend law image KY, Kentucky
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 9d8a7a76fe2dee8bb1ccb9b68818f1eb0664d1d6523f047401e57083d7ae3a3a
+; image sha256  1be4fb45f6a8c7f978390e9bf7f8d2a3c589e2654d17ec6fdabd1129f6a49c13
+; 49 rules, 22 sources, 30 proofs, 5 ints, 299 strings
+; item program: 564 instructions, 1981 bytes, max stack 2
+; aggregate program: 192 instructions, 596 bytes, max stack 3, 7 loops
+
+.rules
+    R0    KY-EXAM-1             exam_no_bill  -                                             KRS 216B.400(10)(a)
+    R1    KY-EXAM-2             exam_no_bill  -                                             KRS 216B.400(10)(b)-(d)
+    R2    KY-EXAM-3             exam_no_bill  -                                             KRS 216B.400(11)(a)
+    R3    KY-EXAM-4             exam_no_bill  -                                             SAEP FAQ, "Can we bill the patient's Insurance?"
+    R4    KY-EXAM-PAY-1         exam_payment  -                                             KRS 216B.400(9)(a)
+    R5    KY-CAP-TOTAL          total_cap     -                                             KRS 49.370(5)
+    R6    KY-CAP-WAGES          expense_cap   lost_wages            per week                KRS 49.370(3)
+    R7    KY-CAP-RELOCATION     expense_cap   relocation            per claim               KRS 49.370(2)(a)1.a.
+    R8    KY-CAP-HOUSING        expense_cap   temporary_housing     per claim               KRS 49.370(2)(a)1.b.
+    R9    KY-CAP-SECURITY       expense_cap   security              per claim               KRS 49.370(2)(a)5.
+    R10   KY-CAP-CLEANUP        expense_cap   crime_scene_cleanup   per claim               KRS 49.370(2)(a)3.
+    R11   KY-CAP-FUNERAL        expense_cap   funeral               per claim               KRS 49.370(4)
+    R12   KY-COV-COUNSELING     covered       counseling                                    KRS 49.370(2)(a)8.
+    R13   KY-COV-MEDICAL        covered       medical                                       KRS 49.370(2)(a)
+    R14   KY-COV-DENTAL         covered       dental                                        CVCB FAQ, "What categories of expenses are compensable by the Board?"
+    R15   KY-COV-SEIZED         covered       property_replacement                          KRS 49.370(2)(a)4.
+    R16   KY-COV-GLASSES        covered       other                                         KRS 49.370(2)(a)9.
+    R17   KY-COV-WELLNESS       covered       other                                         KRS 49.370(2)(a)6.
+    R18   KY-COV-COURT          covered       transportation                                802 KAR 3:030 Section 4
+    R19   KY-COV-LUMPSUM        covered       other                                         KRS 49.370(7)
+    R20   KY-EXCL-PROPERTY      excluded      -                                             KRS 49.370(6)
+    R21   KY-EXCL-PAIN          excluded      -                                             CVCB FAQ, "What types of expenses are NOT compensable by the Board?"
+    R22   KY-COLLATERAL         collateral    -                                             KRS 49.390(1)
+    R23   KY-CONDUCT            info          -                     conduct_reduction       KRS 49.390(2)
+    R24   KY-EMERGENCY          info          -                     emergency_award         KRS 49.360(2)(a)-(b)
+    R25   KY-CRIME-1            info          -                     eligible_crime          KRS 49.280(3)
+    R26   KY-CRIME-2            info          -                     eligible_crime          Crime Victim Compensation Form, Section 3
+    R27   KY-RES-1              info          -                     residency               KRS 49.280(5)(a)
+    R28   KY-RES-2              info          -                     residency               KRS 49.290
+    R29   KY-RES-3              info          -                     residency               KRS 49.280(5)(b)
+    R30   KY-SUB-1              info          -                     submission              802 KAR 3:010 Section 4(2)(a)
+    R31   KY-SUB-2              info          -                     submission              802 KAR 3:010 Section 4(2)(b)
+    R32   KY-SUB-3              info          -                     submission              802 KAR 3:010 Section 4(2)(c)
+    R33   KY-SUB-4              info          -                     submission              802 KAR 3:010 Section 4(2)(d)
+    R34   KY-SUB-5              info          -                     submission              CVCB FAQ (updated August 2024), Where should I send my paper claim form?
+    R35   KY-DOC-1              info          -                     required_document       CVCB Documents to include, item 1
+    R36   KY-DOC-2              info          -                     required_document       802 KAR 3:030 Section 8(1)
+    R37   KY-DOC-3              info          -                     required_document       802 KAR 3:030 Section 8(2)(a)
+    R38   KY-DOC-4              info          -                     required_document       Crime Victim Compensation Form (July 2024), Section 7
+    R39   KY-DOC-5              info          -                     required_document       802 KAR 3:030 Section 9(1)
+    R40   KY-DOC-6              info          -                     required_document       802 KAR 3:010 Section 4(3)
+    R41   KY-DOC-7              info          -                     required_document       CVCB Documents to include, item 4(a)
+    R42   KY-DOC-8              info          -                     required_document       Crime Victim Compensation Form (July 2024), Section 4
+    R43   KY-DOC-9              info          -                     required_document       802 KAR 3:010 Section 8(1)
+    R44   KY-DOC-10             info          -                     required_document       CVCB Documents to include, item 3
+    R45   KY-DOC-11             info          -                     required_document       CVCB Documents to include, item 5(a)
+    R46   KY-TIME-1             info          -                     processing_time         802 KAR 3:010 Section 6(3)
+    R47   KY-ACP-1              info          -                     address_confidentiality KRS 14.302(2)-(3)
+    R48   KY-RECCONF-1          info          -                     record_confidentiality  802 KAR 3:010 Section 5(3)-(4)
+
+.tags   phone=bit0, pain_suffering=bit1
+
+.sources
+    S0    KY-S1       sha256 b39090cef0acbb03  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54907
+    S1    KY-S2       sha256 17fe12d85294bf5f  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=51475
+    S2    KY-S3       sha256 5c43590d2c74a213  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54909
+    S3    KY-S4       sha256 cffa87bd3bf2d404  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54910
+    S4    KY-S5       sha256 6c1db46f0fd5231a  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54913
+    S5    KY-S6       sha256 97a05293cdcc8237  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54914
+    S6    KY-S7       sha256 e989290567c25b59  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54915
+    S7    KY-S8       sha256 b15ea6065555fc2b  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=51493
+    S8    KY-S9       sha256 42ed99c660efd409  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56085
+    S9    KY-S10      sha256 8db91539148887d5  https://apps.legislature.ky.gov/law/kar/titles/802/003/010/
+    S10   KY-S11      sha256 f9043c7f82b06994  https://apps.legislature.ky.gov/law/kar/titles/802/003/020/
+    S11   KY-S12      sha256 5f8e10a3c15f2a32  https://apps.legislature.ky.gov/law/kar/titles/802/003/030/
+    S12   KY-S13      sha256 e615483c86711d76  https://apps.legislature.ky.gov/law/kar/titles/802/003/050/
+    S13   KY-S14      sha256 216a1edd353c5663  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54911
+    S14   KY-S17      sha256 56fbff3872c684ff  https://kycc.ky.gov/Documents/CVFAQJuly2024.pdf
+    S15   KY-S18      sha256 bea4ed4d727205d8  https://kycc.ky.gov/Documents/CVBrochureJuly2024.pdf
+    S16   KY-S19      sha256 4eb30a91fcc4bd9d  https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf
+    S17   KY-S20      sha256 728256e6631acf37  https://kycc.ky.gov/Documents/FAQforSAEP2023.pdf
+    S18   KY-S21      sha256 fe87d30b972fd974  https://kycc.ky.gov/Documents/Policy%20on%20Emergency%20Award%20Requests.pdf
+    S19   KY-S22      sha256 817f2b15871bc01a  https://kycc.ky.gov/Documents/CVCB%20Documents%20to%20include.pdf
+    S20   KY-S24      sha256 f3a6e0388fbdbfb3  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54144
+    S21   KY-S25      sha256 638fb27f0a97a68d  https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54143
+
+.proofs
+    P0    ()
+    P1    (KY-EXAM-1, KY-EXAM-2, KY-EXAM-3, KY-EXAM-4, KY-EXAM-PAY-1)
+    P2    (KY-EXCL-PROPERTY)
+    P3    (KY-EXCL-PAIN)
+    P4    (KY-EXCL-PROPERTY, KY-EXCL-PAIN)
+    P5    (KY-COV-MEDICAL)
+    P6    (KY-COV-MEDICAL, KY-COLLATERAL)
+    P7    (KY-COV-COUNSELING)
+    P8    (KY-COV-COUNSELING, KY-COLLATERAL)
+    P9    (KY-CAP-WAGES)
+    P10   (KY-CAP-WAGES, KY-COLLATERAL)
+    P11   (KY-COV-COURT)
+    P12   (KY-COV-COURT, KY-COLLATERAL)
+    P13   (KY-CAP-RELOCATION)
+    P14   (KY-CAP-RELOCATION, KY-COLLATERAL)
+    P15   (KY-CAP-HOUSING)
+    P16   (KY-CAP-HOUSING, KY-COLLATERAL)
+    P17   (KY-CAP-SECURITY)
+    P18   (KY-CAP-SECURITY, KY-COLLATERAL)
+    P19   (KY-CAP-CLEANUP)
+    P20   (KY-CAP-CLEANUP, KY-COLLATERAL)
+    P21   (KY-COV-SEIZED)
+    P22   (KY-COV-SEIZED, KY-COLLATERAL)
+    P23   (KY-COV-DENTAL)
+    P24   (KY-COV-DENTAL, KY-COLLATERAL)
+    P25   (KY-CAP-FUNERAL)
+    P26   (KY-CAP-FUNERAL, KY-COLLATERAL)
+    P27   (KY-COV-GLASSES, KY-COV-WELLNESS, KY-COV-LUMPSUM)
+    P28   (KY-COV-GLASSES, KY-COV-WELLNESS, KY-COV-LUMPSUM, KY-COLLATERAL)
+    P29   (KY-COLLATERAL, KY-CONDUCT, KY-EMERGENCY, KY-CRIME-1, KY-CRIME-2, KY-RES-1, KY-RES-2, KY-RES-3, KY-SUB-1, KY-SUB-2, KY-SUB-3, KY-SUB-4, KY-SUB-5, KY-DOC-1, KY-DOC-2, KY-DOC-3, KY-DOC-4, KY-DOC-5, KY-DOC-6, KY-DOC-7, KY-DOC-8, KY-DOC-9, KY-DOC-10, KY-DOC-11, KY-TIME-1, KY-ACP-1, KY-RECCONF-1)
+
+.ints
+    K0    50000         ; $500.00
+    K1    200000        ; $2,000.00
+    K2    150000        ; $1,500.00
+    K3    1000000       ; $10,000.00
+    K4    5000000       ; $50,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L66
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L10
+                        case lost_wages            -> L18
+                        case transportation        -> L26
+                        case relocation            -> L34
+                        case temporary_housing     -> L42
+                        case security              -> L50
+                        case crime_scene_cleanup   -> L58
+                        case childcare             -> L66
+                        case property_replacement  -> L73
+                        case clothing_bedding      -> L66
+                        case prescription          -> L66
+                        case dental                -> L81
+                        case funeral               -> L89
+                        case legal                 -> L66
+                        case tuition               -> L66
+                        case other                 -> L97
+                        case unknown               -> L66
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; KY-EXAM-1  KRS 216B.400(10)(a)  "When an examination of a victim of a sexual offense is provided..."
+              ; KY-EXAM-2  KRS 216B.400(10)(b)-(d)  "(b) Prophylactic medical treatment; (c) Strangulation..."
+              ; KY-EXAM-3  KRS 216B.400(11)(a)  "No victim shall be denied an examination, or billed in violation..."
+              ; KY-EXAM-4  SAEP FAQ, "Can we bill the patient's Insurance?"  "If a patient has insurance, whether Medicaid or Private..."
+              ; KY-EXAM-PAY-1  KRS 216B.400(9)(a)  "The examinations provided in accordance with this section and..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; KY-EXAM-1, KY-EXAM-2, KY-EXAM-3, KY-EXAM-4, KY-EXAM-PAY-1
+  007b        ret
+              ; KY-COV-MEDICAL  KRS 49.370(2)(a)  "Any award made pursuant to KRS 49.270 to 49.490 shall be in an..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldi      tags
+  009c        push     2
+  00a1        and
+  00a2        jz       L4
+  00a7        ldr      r0
+  00a9        push     2
+  00ae        or
+  00af        str      r0
+  00b1  L4:   ldr      r0
+  00b3        switch   4, default L8
+                        case 0                     -> L8
+                        case 1                     -> L5
+                        case 2                     -> L6
+                        case 3                     -> L7
+  00c9  L5:   push     0
+  00ce        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  00d2        ret
+  00d3  L6:   push     0
+  00d8        decide   excluded, P3                 ; KY-EXCL-PAIN
+  00dc        ret
+  00dd  L7:   push     0
+  00e2        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  00e6        ret
+  00e7  L8:   ldi      confirmed
+  00e9        jnz      L9
+  00ee        push     0
+  00f3        decide   needs_confirmation, P5       ; KY-COV-MEDICAL
+  00f7        ret
+  00f8  L9:   ldi      amount_cents
+  00fa        decide   eligible, P6                 ; KY-COV-MEDICAL, KY-COLLATERAL
+  00fe        lda
+  00ff        ldi      insurance_paid_cents
+  0101        subs
+  0102        push     0
+  0107        max
+  0108        seta     collateral, R22              ; KY-COLLATERAL
+  010c        ret
+              ; KY-COV-COUNSELING  KRS 49.370(2)(a)8.  "Mental health counseling, necessary as a result of the injury..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  010d  L10:  push     0
+  0112        str      r0
+  0114        ldi      tags
+  0116        push     1
+  011b        and
+  011c        jz       L11
+  0121        ldr      r0
+  0123        push     1
+  0128        or
+  0129        str      r0
+  012b  L11:  ldi      tags
+  012d        push     2
+  0132        and
+  0133        jz       L12
+  0138        ldr      r0
+  013a        push     2
+  013f        or
+  0140        str      r0
+  0142  L12:  ldr      r0
+  0144        switch   4, default L16
+                        case 0                     -> L16
+                        case 1                     -> L13
+                        case 2                     -> L14
+                        case 3                     -> L15
+  015a  L13:  push     0
+  015f        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  0163        ret
+  0164  L14:  push     0
+  0169        decide   excluded, P3                 ; KY-EXCL-PAIN
+  016d        ret
+  016e  L15:  push     0
+  0173        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  0177        ret
+  0178  L16:  ldi      confirmed
+  017a        jnz      L17
+  017f        push     0
+  0184        decide   needs_confirmation, P7       ; KY-COV-COUNSELING
+  0188        ret
+  0189  L17:  ldi      amount_cents
+  018b        decide   eligible, P8                 ; KY-COV-COUNSELING, KY-COLLATERAL
+  018f        lda
+  0190        ldi      insurance_paid_cents
+  0192        subs
+  0193        push     0
+  0198        max
+  0199        seta     collateral, R22              ; KY-COLLATERAL
+  019d        ret
+              ; KY-CAP-WAGES  KRS 49.370(3)  "the award shall be equal to net earnings at the time of the..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  019e  L18:  push     0
+  01a3        str      r0
+  01a5        ldi      tags
+  01a7        push     1
+  01ac        and
+  01ad        jz       L19
+  01b2        ldr      r0
+  01b4        push     1
+  01b9        or
+  01ba        str      r0
+  01bc  L19:  ldi      tags
+  01be        push     2
+  01c3        and
+  01c4        jz       L20
+  01c9        ldr      r0
+  01cb        push     2
+  01d0        or
+  01d1        str      r0
+  01d3  L20:  ldr      r0
+  01d5        switch   4, default L24
+                        case 0                     -> L24
+                        case 1                     -> L21
+                        case 2                     -> L22
+                        case 3                     -> L23
+  01eb  L21:  push     0
+  01f0        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  01f4        ret
+  01f5  L22:  push     0
+  01fa        decide   excluded, P3                 ; KY-EXCL-PAIN
+  01fe        ret
+  01ff  L23:  push     0
+  0204        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  0208        ret
+  0209  L24:  ldi      confirmed
+  020b        jnz      L25
+  0210        push     0
+  0215        decide   needs_confirmation, P9       ; KY-CAP-WAGES
+  0219        ret
+  021a  L25:  ldi      amount_cents
+  021c        decide   eligible, P10                ; KY-CAP-WAGES, KY-COLLATERAL
+  0220        lda
+  0221        ldi      insurance_paid_cents
+  0223        subs
+  0224        push     0
+  0229        max
+  022a        seta     collateral, R22              ; KY-COLLATERAL
+  022e        ret
+              ; KY-COV-COURT  802 KAR 3:030 Section 4  "A victim and the victim's caregiver, if applicable, may recover..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  022f  L26:  push     0
+  0234        str      r0
+  0236        ldi      tags
+  0238        push     1
+  023d        and
+  023e        jz       L27
+  0243        ldr      r0
+  0245        push     1
+  024a        or
+  024b        str      r0
+  024d  L27:  ldi      tags
+  024f        push     2
+  0254        and
+  0255        jz       L28
+  025a        ldr      r0
+  025c        push     2
+  0261        or
+  0262        str      r0
+  0264  L28:  ldr      r0
+  0266        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  027c  L29:  push     0
+  0281        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  0285        ret
+  0286  L30:  push     0
+  028b        decide   excluded, P3                 ; KY-EXCL-PAIN
+  028f        ret
+  0290  L31:  push     0
+  0295        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  0299        ret
+  029a  L32:  ldi      confirmed
+  029c        jnz      L33
+  02a1        push     0
+  02a6        decide   needs_confirmation, P11      ; KY-COV-COURT
+  02aa        ret
+  02ab  L33:  ldi      amount_cents
+  02ad        decide   eligible, P12                ; KY-COV-COURT, KY-COLLATERAL
+  02b1        lda
+  02b2        ldi      insurance_paid_cents
+  02b4        subs
+  02b5        push     0
+  02ba        max
+  02bb        seta     collateral, R22              ; KY-COLLATERAL
+  02bf        ret
+              ; KY-CAP-RELOCATION  KRS 49.370(2)(a)1.a.  "For the victim and for any child who is the victim's dependent..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  02c0  L34:  push     0
+  02c5        str      r0
+  02c7        ldi      tags
+  02c9        push     1
+  02ce        and
+  02cf        jz       L35
+  02d4        ldr      r0
+  02d6        push     1
+  02db        or
+  02dc        str      r0
+  02de  L35:  ldi      tags
+  02e0        push     2
+  02e5        and
+  02e6        jz       L36
+  02eb        ldr      r0
+  02ed        push     2
+  02f2        or
+  02f3        str      r0
+  02f5  L36:  ldr      r0
+  02f7        switch   4, default L40
+                        case 0                     -> L40
+                        case 1                     -> L37
+                        case 2                     -> L38
+                        case 3                     -> L39
+  030d  L37:  push     0
+  0312        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  0316        ret
+  0317  L38:  push     0
+  031c        decide   excluded, P3                 ; KY-EXCL-PAIN
+  0320        ret
+  0321  L39:  push     0
+  0326        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  032a        ret
+  032b  L40:  ldi      confirmed
+  032d        jnz      L41
+  0332        push     0
+  0337        decide   needs_confirmation, P13      ; KY-CAP-RELOCATION
+  033b        ret
+  033c  L41:  ldi      amount_cents
+  033e        decide   eligible, P14                ; KY-CAP-RELOCATION, KY-COLLATERAL
+  0342        lda
+  0343        ldi      insurance_paid_cents
+  0345        subs
+  0346        push     0
+  034b        max
+  034c        seta     collateral, R22              ; KY-COLLATERAL
+  0350        ret
+              ; KY-CAP-HOUSING  KRS 49.370(2)(a)1.b.  "Temporary housing costs incurred within thirty (30) days of the..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  0351  L42:  push     0
+  0356        str      r0
+  0358        ldi      tags
+  035a        push     1
+  035f        and
+  0360        jz       L43
+  0365        ldr      r0
+  0367        push     1
+  036c        or
+  036d        str      r0
+  036f  L43:  ldi      tags
+  0371        push     2
+  0376        and
+  0377        jz       L44
+  037c        ldr      r0
+  037e        push     2
+  0383        or
+  0384        str      r0
+  0386  L44:  ldr      r0
+  0388        switch   4, default L48
+                        case 0                     -> L48
+                        case 1                     -> L45
+                        case 2                     -> L46
+                        case 3                     -> L47
+  039e  L45:  push     0
+  03a3        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  03a7        ret
+  03a8  L46:  push     0
+  03ad        decide   excluded, P3                 ; KY-EXCL-PAIN
+  03b1        ret
+  03b2  L47:  push     0
+  03b7        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  03bb        ret
+  03bc  L48:  ldi      confirmed
+  03be        jnz      L49
+  03c3        push     0
+  03c8        decide   needs_confirmation, P15      ; KY-CAP-HOUSING
+  03cc        ret
+  03cd  L49:  ldi      amount_cents
+  03cf        decide   eligible, P16                ; KY-CAP-HOUSING, KY-COLLATERAL
+  03d3        lda
+  03d4        ldi      insurance_paid_cents
+  03d6        subs
+  03d7        push     0
+  03dc        max
+  03dd        seta     collateral, R22              ; KY-COLLATERAL
+  03e1        ret
+              ; KY-CAP-SECURITY  KRS 49.370(2)(a)5.  "Replacement or repair of windows and locks at the primary..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  03e2  L50:  push     0
+  03e7        str      r0
+  03e9        ldi      tags
+  03eb        push     1
+  03f0        and
+  03f1        jz       L51
+  03f6        ldr      r0
+  03f8        push     1
+  03fd        or
+  03fe        str      r0
+  0400  L51:  ldi      tags
+  0402        push     2
+  0407        and
+  0408        jz       L52
+  040d        ldr      r0
+  040f        push     2
+  0414        or
+  0415        str      r0
+  0417  L52:  ldr      r0
+  0419        switch   4, default L56
+                        case 0                     -> L56
+                        case 1                     -> L53
+                        case 2                     -> L54
+                        case 3                     -> L55
+  042f  L53:  push     0
+  0434        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  0438        ret
+  0439  L54:  push     0
+  043e        decide   excluded, P3                 ; KY-EXCL-PAIN
+  0442        ret
+  0443  L55:  push     0
+  0448        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  044c        ret
+  044d  L56:  ldi      confirmed
+  044f        jnz      L57
+  0454        push     0
+  0459        decide   needs_confirmation, P17      ; KY-CAP-SECURITY
+  045d        ret
+  045e  L57:  ldi      amount_cents
+  0460        decide   eligible, P18                ; KY-CAP-SECURITY, KY-COLLATERAL
+  0464        lda
+  0465        ldi      insurance_paid_cents
+  0467        subs
+  0468        push     0
+  046d        max
+  046e        seta     collateral, R22              ; KY-COLLATERAL
+  0472        ret
+              ; KY-CAP-CLEANUP  KRS 49.370(2)(a)3.  "Crime scene cleanup within thirty (30) days of the crime when..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  0473  L58:  push     0
+  0478        str      r0
+  047a        ldi      tags
+  047c        push     1
+  0481        and
+  0482        jz       L59
+  0487        ldr      r0
+  0489        push     1
+  048e        or
+  048f        str      r0
+  0491  L59:  ldi      tags
+  0493        push     2
+  0498        and
+  0499        jz       L60
+  049e        ldr      r0
+  04a0        push     2
+  04a5        or
+  04a6        str      r0
+  04a8  L60:  ldr      r0
+  04aa        switch   4, default L64
+                        case 0                     -> L64
+                        case 1                     -> L61
+                        case 2                     -> L62
+                        case 3                     -> L63
+  04c0  L61:  push     0
+  04c5        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  04c9        ret
+  04ca  L62:  push     0
+  04cf        decide   excluded, P3                 ; KY-EXCL-PAIN
+  04d3        ret
+  04d4  L63:  push     0
+  04d9        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  04dd        ret
+  04de  L64:  ldi      confirmed
+  04e0        jnz      L65
+  04e5        push     0
+  04ea        decide   needs_confirmation, P19      ; KY-CAP-CLEANUP
+  04ee        ret
+  04ef  L65:  ldi      amount_cents
+  04f1        decide   eligible, P20                ; KY-CAP-CLEANUP, KY-COLLATERAL
+  04f5        lda
+  04f6        ldi      insurance_paid_cents
+  04f8        subs
+  04f9        push     0
+  04fe        max
+  04ff        seta     collateral, R22              ; KY-COLLATERAL
+  0503        ret
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+  0504  L66:  push     0
+  0509        str      r0
+  050b        ldi      tags
+  050d        push     1
+  0512        and
+  0513        jz       L67
+  0518        ldr      r0
+  051a        push     1
+  051f        or
+  0520        str      r0
+  0522  L67:  ldi      tags
+  0524        push     2
+  0529        and
+  052a        jz       L68
+  052f        ldr      r0
+  0531        push     2
+  0536        or
+  0537        str      r0
+  0539  L68:  ldr      r0
+  053b        switch   4, default L72
+                        case 0                     -> L72
+                        case 1                     -> L69
+                        case 2                     -> L70
+                        case 3                     -> L71
+  0551  L69:  push     0
+  0556        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  055a        ret
+  055b  L70:  push     0
+  0560        decide   excluded, P3                 ; KY-EXCL-PAIN
+  0564        ret
+  0565  L71:  push     0
+  056a        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  056e        ret
+  056f  L72:  push     0
+  0574        decide   unknown_rule, P0             ; (none)
+  0578        ret
+              ; KY-COV-SEIZED  KRS 49.370(2)(a)4.  "Reimbursement for the replacement of items owned by the victim..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  0579  L73:  push     0
+  057e        str      r0
+  0580        ldi      tags
+  0582        push     1
+  0587        and
+  0588        jz       L74
+  058d        ldr      r0
+  058f        push     1
+  0594        or
+  0595        str      r0
+  0597  L74:  ldi      tags
+  0599        push     2
+  059e        and
+  059f        jz       L75
+  05a4        ldr      r0
+  05a6        push     2
+  05ab        or
+  05ac        str      r0
+  05ae  L75:  ldr      r0
+  05b0        switch   4, default L79
+                        case 0                     -> L79
+                        case 1                     -> L76
+                        case 2                     -> L77
+                        case 3                     -> L78
+  05c6  L76:  push     0
+  05cb        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  05cf        ret
+  05d0  L77:  push     0
+  05d5        decide   excluded, P3                 ; KY-EXCL-PAIN
+  05d9        ret
+  05da  L78:  push     0
+  05df        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  05e3        ret
+  05e4  L79:  ldi      confirmed
+  05e6        jnz      L80
+  05eb        push     0
+  05f0        decide   needs_confirmation, P21      ; KY-COV-SEIZED
+  05f4        ret
+  05f5  L80:  ldi      amount_cents
+  05f7        decide   eligible, P22                ; KY-COV-SEIZED, KY-COLLATERAL
+  05fb        lda
+  05fc        ldi      insurance_paid_cents
+  05fe        subs
+  05ff        push     0
+  0604        max
+  0605        seta     collateral, R22              ; KY-COLLATERAL
+  0609        ret
+              ; KY-COV-DENTAL  CVCB FAQ, "What categories of expenses are compensable by the Board?"  "Medical/dental expenses;"
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  060a  L81:  push     0
+  060f        str      r0
+  0611        ldi      tags
+  0613        push     1
+  0618        and
+  0619        jz       L82
+  061e        ldr      r0
+  0620        push     1
+  0625        or
+  0626        str      r0
+  0628  L82:  ldi      tags
+  062a        push     2
+  062f        and
+  0630        jz       L83
+  0635        ldr      r0
+  0637        push     2
+  063c        or
+  063d        str      r0
+  063f  L83:  ldr      r0
+  0641        switch   4, default L87
+                        case 0                     -> L87
+                        case 1                     -> L84
+                        case 2                     -> L85
+                        case 3                     -> L86
+  0657  L84:  push     0
+  065c        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  0660        ret
+  0661  L85:  push     0
+  0666        decide   excluded, P3                 ; KY-EXCL-PAIN
+  066a        ret
+  066b  L86:  push     0
+  0670        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  0674        ret
+  0675  L87:  ldi      confirmed
+  0677        jnz      L88
+  067c        push     0
+  0681        decide   needs_confirmation, P23      ; KY-COV-DENTAL
+  0685        ret
+  0686  L88:  ldi      amount_cents
+  0688        decide   eligible, P24                ; KY-COV-DENTAL, KY-COLLATERAL
+  068c        lda
+  068d        ldi      insurance_paid_cents
+  068f        subs
+  0690        push     0
+  0695        max
+  0696        seta     collateral, R22              ; KY-COLLATERAL
+  069a        ret
+              ; KY-CAP-FUNERAL  KRS 49.370(4)  "In no event shall an award for funeral expenses exceed ten..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  069b  L89:  push     0
+  06a0        str      r0
+  06a2        ldi      tags
+  06a4        push     1
+  06a9        and
+  06aa        jz       L90
+  06af        ldr      r0
+  06b1        push     1
+  06b6        or
+  06b7        str      r0
+  06b9  L90:  ldi      tags
+  06bb        push     2
+  06c0        and
+  06c1        jz       L91
+  06c6        ldr      r0
+  06c8        push     2
+  06cd        or
+  06ce        str      r0
+  06d0  L91:  ldr      r0
+  06d2        switch   4, default L95
+                        case 0                     -> L95
+                        case 1                     -> L92
+                        case 2                     -> L93
+                        case 3                     -> L94
+  06e8  L92:  push     0
+  06ed        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  06f1        ret
+  06f2  L93:  push     0
+  06f7        decide   excluded, P3                 ; KY-EXCL-PAIN
+  06fb        ret
+  06fc  L94:  push     0
+  0701        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  0705        ret
+  0706  L95:  ldi      confirmed
+  0708        jnz      L96
+  070d        push     0
+  0712        decide   needs_confirmation, P25      ; KY-CAP-FUNERAL
+  0716        ret
+  0717  L96:  ldi      amount_cents
+  0719        decide   eligible, P26                ; KY-CAP-FUNERAL, KY-COLLATERAL
+  071d        lda
+  071e        ldi      insurance_paid_cents
+  0720        subs
+  0721        push     0
+  0726        max
+  0727        seta     collateral, R22              ; KY-COLLATERAL
+  072b        ret
+              ; KY-COV-GLASSES  KRS 49.370(2)(a)9.  "Replacement of eyeglasses and other corrective lenses stolen..."
+              ; KY-COV-WELLNESS  KRS 49.370(2)(a)6.  "Rehabilitative or wellness practices recommended by a healthcare..."
+              ; KY-COV-LUMPSUM  KRS 49.370(7)  "An award may be made for a claim filed more than ten (10) years..."
+              ; KY-EXCL-PROPERTY  KRS 49.370(6)  "An award shall not be made for any type of property loss or..."
+              ; KY-EXCL-PAIN  CVCB FAQ, "What types of expenses are NOT compensable by the Board?"  "Property damage or loss, except as provided in KRS Chapter 49..."
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+  072c  L97:  push     0
+  0731        str      r0
+  0733        ldi      tags
+  0735        push     1
+  073a        and
+  073b        jz       L98
+  0740        ldr      r0
+  0742        push     1
+  0747        or
+  0748        str      r0
+  074a  L98:  ldi      tags
+  074c        push     2
+  0751        and
+  0752        jz       L99
+  0757        ldr      r0
+  0759        push     2
+  075e        or
+  075f        str      r0
+  0761  L99:  ldr      r0
+  0763        switch   4, default L103
+                        case 0                     -> L103
+                        case 1                     -> L100
+                        case 2                     -> L101
+                        case 3                     -> L102
+  0779  L100: push     0
+  077e        decide   excluded, P2                 ; KY-EXCL-PROPERTY
+  0782        ret
+  0783  L101: push     0
+  0788        decide   excluded, P3                 ; KY-EXCL-PAIN
+  078c        ret
+  078d  L102: push     0
+  0792        decide   excluded, P4                 ; KY-EXCL-PROPERTY, KY-EXCL-PAIN
+  0796        ret
+  0797  L103: ldi      confirmed
+  0799        jnz      L104
+  079e        push     0
+  07a3        decide   needs_confirmation, P27      ; KY-COV-GLASSES, KY-COV-WELLNESS, KY-COV-LUMPSUM
+  07a7        ret
+  07a8  L104: ldi      amount_cents
+  07aa        decide   eligible, P28                ; KY-COV-GLASSES, KY-COV-WELLNESS, KY-COV-LUMPSUM, KY-COLLATERAL
+  07ae        lda
+  07af        ldi      insurance_paid_cents
+  07b1        subs
+  07b2        push     0
+  07b7        max
+  07b8        seta     collateral, R22              ; KY-COLLATERAL
+  07bc        ret
+
+.aggregate
+              ; KY-CAP-WAGES  KRS 49.370(3)  "the award shall be equal to net earnings at the time of the..."
+  0000        each     lost_wages, L4
+  0006  L0:   ldi      units
+  0008        jz       L2
+  000d        ldk      K0                           ; $500.00
+  0010        ldi      units
+  0012        muls
+  0013        dup
+  0014        lda
+  0015        lt
+  0016        jz       L1
+  001b        cap      unit_cap, R6                 ; KY-CAP-WAGES
+  001f        jmp      L3
+  0024  L1:   pop
+  0025        jmp      L3
+  002a  L2:   flag     R6                           ; rate_unverified KY-CAP-WAGES
+  002d  L3:   next     L0
+              ; KY-CAP-RELOCATION  KRS 49.370(2)(a)1.a.  "For the victim and for any child who is the victim's dependent..."
+  0032  L4:   push     0
+  0037        str      r0
+  0039        push     0
+  003e        str      r1
+  0040        each     relocation, L9
+  0046  L5:   ldr      r1
+  0048        jnz      L7
+  004d        ldr      r0
+  004f        lda
+  0050        adds
+  0051        ldk      K1                           ; $2,000.00
+  0054        gt
+  0055        jz       L6
+  005a        ldk      K1                           ; $2,000.00
+  005d        ldr      r0
+  005f        subs
+  0060        cap      expense_cap, R7              ; KY-CAP-RELOCATION
+  0064        push     1
+  0069        str      r1
+  006b  L6:   ldr      r0
+  006d        lda
+  006e        adds
+  006f        str      r0
+  0071        jmp      L8
+  0076  L7:   push     0
+  007b        cap      expense_cap, R7              ; KY-CAP-RELOCATION
+  007f  L8:   next     L5
+              ; KY-CAP-HOUSING  KRS 49.370(2)(a)1.b.  "Temporary housing costs incurred within thirty (30) days of the..."
+  0084  L9:   push     0
+  0089        str      r0
+  008b        push     0
+  0090        str      r1
+  0092        each     temporary_housing, L14
+  0098  L10:  ldr      r1
+  009a        jnz      L12
+  009f        ldr      r0
+  00a1        lda
+  00a2        adds
+  00a3        ldk      K1                           ; $2,000.00
+  00a6        gt
+  00a7        jz       L11
+  00ac        ldk      K1                           ; $2,000.00
+  00af        ldr      r0
+  00b1        subs
+  00b2        cap      expense_cap, R8              ; KY-CAP-HOUSING
+  00b6        push     1
+  00bb        str      r1
+  00bd  L11:  ldr      r0
+  00bf        lda
+  00c0        adds
+  00c1        str      r0
+  00c3        jmp      L13
+  00c8  L12:  push     0
+  00cd        cap      expense_cap, R8              ; KY-CAP-HOUSING
+  00d1  L13:  next     L10
+              ; KY-CAP-SECURITY  KRS 49.370(2)(a)5.  "Replacement or repair of windows and locks at the primary..."
+  00d6  L14:  push     0
+  00db        str      r0
+  00dd        push     0
+  00e2        str      r1
+  00e4        each     security, L19
+  00ea  L15:  ldr      r1
+  00ec        jnz      L17
+  00f1        ldr      r0
+  00f3        lda
+  00f4        adds
+  00f5        ldk      K2                           ; $1,500.00
+  00f8        gt
+  00f9        jz       L16
+  00fe        ldk      K2                           ; $1,500.00
+  0101        ldr      r0
+  0103        subs
+  0104        cap      expense_cap, R9              ; KY-CAP-SECURITY
+  0108        push     1
+  010d        str      r1
+  010f  L16:  ldr      r0
+  0111        lda
+  0112        adds
+  0113        str      r0
+  0115        jmp      L18
+  011a  L17:  push     0
+  011f        cap      expense_cap, R9              ; KY-CAP-SECURITY
+  0123  L18:  next     L15
+              ; KY-CAP-CLEANUP  KRS 49.370(2)(a)3.  "Crime scene cleanup within thirty (30) days of the crime when..."
+  0128  L19:  push     0
+  012d        str      r0
+  012f        push     0
+  0134        str      r1
+  0136        each     crime_scene_cleanup, L24
+  013c  L20:  ldr      r1
+  013e        jnz      L22
+  0143        ldr      r0
+  0145        lda
+  0146        adds
+  0147        ldk      K1                           ; $2,000.00
+  014a        gt
+  014b        jz       L21
+  0150        ldk      K1                           ; $2,000.00
+  0153        ldr      r0
+  0155        subs
+  0156        cap      expense_cap, R10             ; KY-CAP-CLEANUP
+  015a        push     1
+  015f        str      r1
+  0161  L21:  ldr      r0
+  0163        lda
+  0164        adds
+  0165        str      r0
+  0167        jmp      L23
+  016c  L22:  push     0
+  0171        cap      expense_cap, R10             ; KY-CAP-CLEANUP
+  0175  L23:  next     L20
+              ; KY-CAP-FUNERAL  KRS 49.370(4)  "In no event shall an award for funeral expenses exceed ten..."
+  017a  L24:  push     0
+  017f        str      r0
+  0181        push     0
+  0186        str      r1
+  0188        each     funeral, L29
+  018e  L25:  ldr      r1
+  0190        jnz      L27
+  0195        ldr      r0
+  0197        lda
+  0198        adds
+  0199        ldk      K3                           ; $10,000.00
+  019c        gt
+  019d        jz       L26
+  01a2        ldk      K3                           ; $10,000.00
+  01a5        ldr      r0
+  01a7        subs
+  01a8        cap      expense_cap, R11             ; KY-CAP-FUNERAL
+  01ac        push     1
+  01b1        str      r1
+  01b3  L26:  ldr      r0
+  01b5        lda
+  01b6        adds
+  01b7        str      r0
+  01b9        jmp      L28
+  01be  L27:  push     0
+  01c3        cap      expense_cap, R11             ; KY-CAP-FUNERAL
+  01c7  L28:  next     L25
+              ; KY-CAP-TOTAL  KRS 49.370(5)  "Any award made under KRS 49.270 to 49.490 shall not exceed fifty..."
+  01cc  L29:  push     0
+  01d1        str      r0
+  01d3        push     0
+  01d8        str      r1
+  01da        each     all, L34
+  01e0  L30:  ldr      r1
+  01e2        jnz      L32
+  01e7        ldr      r0
+  01e9        lda
+  01ea        adds
+  01eb        ldk      K4                           ; $50,000.00
+  01ee        gt
+  01ef        jz       L31
+  01f4        ldk      K4                           ; $50,000.00
+  01f7        ldr      r0
+  01f9        subs
+  01fa        cap      total_cap, R5                ; KY-CAP-TOTAL
+  01fe        push     1
+  0203        str      r1
+  0205  L31:  ldr      r0
+  0207        lda
+  0208        adds
+  0209        str      r0
+  020b        jmp      L33
+  0210  L32:  push     0
+  0215        cap      total_cap, R5                ; KY-CAP-TOTAL
+  0219  L33:  next     L30
+  021e  L34:  push     0                            ; met
+  0223        check    minimum_loss, P0             ; (none)
+  0227        push     2                            ; unknown
+  022c        check    deadline, P0                 ; (none)
+  0230        ldx      police_report
+  0232        push     1                            ; yes
+  0237        eq
+  0238        jnz      L35
+  023d        push     2
+  0242        jmp      L36
+  0247  L35:  push     0                            ; satisfied
+  024c  L36:  check    reporting, P0                ; (none)
+              ; KY-COLLATERAL  KRS 49.390(1)  "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced..."
+              ; KY-CONDUCT  KRS 49.390(2)  "The board may deny, reconsider, or reduce an award if the board..."
+              ; KY-EMERGENCY  KRS 49.360(2)(a)-(b)  "The amount of an emergency award shall not exceed one thousand..."
+              ; KY-CRIME-1  KRS 49.280(3)  ""Criminally injurious conduct" means conduct that occurs or is..."
+              ; KY-CRIME-2  Crime Victim Compensation Form, Section 3  "Sexual Assault (Adult)"
+              ; KY-RES-1  KRS 49.280(5)(a)  ""Victim" means a person who suffers personal physical or..."
+              ; KY-RES-2  KRS 49.290  ""Victim" shall also include nonresidents of this state who..."
+              ; KY-RES-3  KRS 49.280(5)(b)  ""Victim" shall also mean a resident who is a victim of a crime..."
+              ; KY-SUB-1  802 KAR 3:010 Section 4(2)(a)  "(a) In person or by private delivery to the Crime Victims..."
+              ; KY-SUB-2  802 KAR 3:010 Section 4(2)(b)  "(a) In person or by private delivery to the Crime Victims..."
+              ; KY-SUB-3  802 KAR 3:010 Section 4(2)(c)  "(c) By electronic mail to crimevictims@ky.gov, if the document..."
+              ; KY-SUB-4  802 KAR 3:010 Section 4(2)(d)  "(d) Through the online claims portal at:..."
+              ; KY-SUB-5  CVCB FAQ (updated August 2024), Where should I send my paper claim form?  "Paper claim forms can be submitted to the Board by fax..."
+              ; KY-DOC-1  CVCB Documents to include, item 1  "In addition to the claim form, you will need to submit, if..."
+              ; KY-DOC-2  802 KAR 3:030 Section 8(1)  "Claimants requesting reimbursement or payment for medical..."
+              ; KY-DOC-3  802 KAR 3:030 Section 8(2)(a)  "(2) If itemized billing statements are not available..."
+              ; KY-DOC-4  Crime Victim Compensation Form (July 2024), Section 7  "You must include documentation of the expense, such as itemized..."
+              ; KY-DOC-5  802 KAR 3:030 Section 9(1)  "(1) Claimants requesting reimbursement or payment of mental..."
+              ; KY-DOC-6  802 KAR 3:010 Section 4(3)  "(3) If applying for lost wages or loss of support, a claim shall..."
+              ; KY-DOC-7  CVCB Documents to include, item 4(a)  "If you are selfemployed, please submit the preceding two years'..."
+              ; KY-DOC-8  Crime Victim Compensation Form (July 2024), Section 4  "If yes, please complete, sign, and date the attached Emergency..."
+              ; KY-DOC-9  802 KAR 3:010 Section 8(1)  "(1) For purposes of KRS 49.370(7), a claimant seeking an award..."
+              ; KY-DOC-10  CVCB Documents to include, item 3  "3) Signed funeral service contract for funeral expenses"
+              ; KY-DOC-11  CVCB Documents to include, item 5(a)  "a. Documentation outlining amount of support brought into..."
+              ; KY-TIME-1  802 KAR 3:010 Section 6(3)  "(3) For claims filed after July 1, 2026, the claims investigator..."
+              ; KY-ACP-1  KRS 14.302(2)-(3)  "The Safe at Home Program shall be operated with the intent to..."
+              ; KY-RECCONF-1  802 KAR 3:010 Section 5(3)-(4)  "A claimant or victim's personally identifiable information shall..."
+  0250        info     P29                          ; KY-COLLATERAL, KY-CONDUCT, KY-EMERGENCY, KY-CRIME-1, KY-CRIME-2, KY-RES-1, KY-RES-2, KY-RES-3, KY-SUB-1, KY-SUB-2, KY-SUB-3, KY-SUB-4, KY-SUB-5, KY-DOC-1, KY-DOC-2, KY-DOC-3, KY-DOC-4, KY-DOC-5, KY-DOC-6, KY-DOC-7, KY-DOC-8, KY-DOC-9, KY-DOC-10, KY-DOC-11, KY-TIME-1, KY-ACP-1, KY-RECCONF-1
+  0253        ret
+

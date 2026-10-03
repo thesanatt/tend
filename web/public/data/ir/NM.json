@@ -1,0 +1,253 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "NM",
+ "source_sha256": "4bc2a5eae1decc2b1cefaeac64be243580c2a40ba71059c0cf72ab24c5917b77",
+ "ir_sha256": "34c26189c4344c3ccc922c234fe3601a7f792e7b26cf5ebecb468154310fe5ae",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "NM-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NM-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NM-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NM-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2000000
+  },
+  {
+   "id": "NM-CAP-3",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "NM-CAP-5",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 300000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "NM-CAP-4"
+   ]
+  },
+  {
+   "id": "NM-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NM-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NM-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NM-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NM-COV-5",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NM-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NM-COV-7",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "NM-COV-8",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NM-COV-9",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NM-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "NM-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NM-EXC-3",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "NM-EXC-4",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "NM-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NM-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "NM-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "NM-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NM-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NM-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NM-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NM-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NM-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NM-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NM-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NM-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NM-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NM-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NM-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NM-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NM-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "NM-CAP-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "NM-CAP-4",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of NM-CAP-5"
+  }
+ ]
+}
