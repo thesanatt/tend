@@ -248,12 +248,12 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput) {
       w.p(
         noBill.length
           ? "The law says you should not be billed for this exam. It is left out of the amount, and Tend wrote a letter for the billing office."
-          : "The law names who pays for this exam, so it is left out of the amount. Tend wrote a letter for the billing office.",
+          : "The law says how this exam is paid for, so it is left out of the amount. Tend wrote a letter for the billing office.",
         "clay",
       );
       for (const r of noBill) w.quote(r, "clay");
       if (payers.length) {
-        w.small(noBill.length ? "Who pays for the exam instead:" : "Who pays for the exam:", "ink2");
+        w.small(noBill.length ? "Who pays for the exam instead:" : "How the exam is paid for:", "ink2");
         for (const r of payers) w.quote(r, noBill.length ? "line" : "clay");
       }
     } else if (g.status === "unknown_rule") {

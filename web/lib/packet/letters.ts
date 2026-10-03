@@ -90,10 +90,10 @@ export function billingHold(law: LawBook, held: EngineLine[], items: Map<string,
       `I am writing about ${held.length > 1 ? "these charges" : "this charge"} on my account for a sexual assault forensic exam:\n\n${charges}`,
       why.length
         ? `${law.name} law says I should not be billed for this exam:\n\n${why.map(cite).join("\n\n")}`
-        : `${law.name} law names who pays for this exam:\n\n${payers.map(cite).join("\n\n")}`,
+        : `${law.name} law says this about paying for the exam:\n\n${payers.map(cite).join("\n\n")}`,
       why.length
         ? "Please remove the exam charge from my account, stop any collection on it, and send me an updated statement."
-        : "Please bill the payer the law names, remove the exam charge from my account, and send me an updated statement.",
+        : "Please put this charge on hold while the exam is paid for the way the law describes, and send me an updated statement.",
       why.length && payers.length
         ? `The law names who pays for the exam instead:\n\n${payers.map(cite).join("\n\n")}`
         : null,
