@@ -29,15 +29,36 @@ function leaf(block: string, tag: string): string | null {
   return m ? decode(m[1]).trim() : null;
 }
 
+// Each <TAG>...</TAG> body, with where the body starts in text (just after the opening tag), so
+// a position inside a body plus start is a position in text.
 function blocks(text: string, tag: string): { body: string; start: number }[] {
   const out: { body: string; start: number }[] = [];
   const re = new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`, "gi");
   let m: RegExpExecArray | null;
-  while ((m = re.exec(text))) out.push({ body: m[1], start: m.index });
+  while ((m = re.exec(text))) out.push({ body: m[1], start: m.index + tag.length + 2 });
   return out;
 }
 
-const lineAt = (text: string, index: number) => text.slice(0, index).split(/\r\n|\r|\n/).length;
+// The 1-based line of a position in the text. Line starts are found once, so a long export with
+// thousands of transactions does not rescan the file for each one.
+export function lineFinder(text: string): (index: number) => number {
+  const starts = [0];
+  for (let i = 0; i < text.length; i++) {
+    const c = text.charCodeAt(i);
+    if (c === 13 && text.charCodeAt(i + 1) === 10) i++; // \r\n is one break
+    if (c === 10 || c === 13) starts.push(i + 1);
+  }
+  return (index) => {
+    let lo = 0;
+    let hi = starts.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (starts[mid] <= index) lo = mid;
+      else hi = mid - 1;
+    }
+    return lo + 1;
+  };
+}
 
 const TRNTYPE_KIND: Record<string, TxnKind> = {
   ATM: "withdrawal",
@@ -54,13 +75,14 @@ export function parseOfx(text: string): StatementResult {
   const statements = [...blocks(text, "STMTRS"), ...blocks(text, "CCSTMTRS")];
   const scopes = statements.length ? statements : [{ body: text, start: 0 }];
   const seen = new Map<string, number>();
+  const lineAt = lineFinder(text);
   let layout = "ofx";
   if (/<INTU\.BID>/i.test(text)) layout = "qfx";
   for (const scope of scopes) {
     const account = leaf(scope.body, "ACCTID") ?? "";
     const acct = account.replace(/\W/g, "").slice(-4);
     for (const t of blocks(scope.body, "STMTTRN")) {
-      const line = lineAt(text, scope.start + t.start);
+      const line = lineAt(scope.start + t.start);
       const rawDate = leaf(t.body, "DTUSER") || leaf(t.body, "DTPOSTED");
       const date = parseDate(rawDate);
       const amount = parseAmount(leaf(t.body, "TRNAMT"));

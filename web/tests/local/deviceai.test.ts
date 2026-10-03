@@ -6,6 +6,8 @@ import {
   downloadProgress,
   promptJson,
   startModelDownload,
+  untilAborted,
+  type LmSession,
 } from "@/lib/local/deviceai";
 import { FakeLanguageModel, install, uninstall } from "./fake-lm";
 
@@ -139,5 +141,83 @@ describe("sessions and prompts", () => {
     const pending = promptJson(base, "hi", {}, 5000, controller.signal);
     controller.abort(new Error("left the page"));
     await expect(pending).rejects.toThrow("left the page");
+  });
+});
+
+// A browser call that never settles, and ignores its signal, must not hang a scan.
+const never = <T>() => new Promise<T>(() => undefined);
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+describe("time limits hold even when the browser ignores the signal", () => {
+  function session(over: Partial<LmSession> = {}): LmSession & { destroyed: number } {
+    const s = {
+      destroyed: 0,
+      prompt: async () => "{}",
+      destroy() {
+        s.destroyed++;
+      },
+      ...over,
+    };
+    return s;
+  }
+
+  it("a clone that never comes back times out", async () => {
+    const base = session({ clone: () => never<LmSession>() });
+    const started = Date.now();
+    await expect(promptJson(base, "hi", {}, 30)).rejects.toBeInstanceOf(DeviceAiTimeout);
+    expect(Date.now() - started).toBeLessThan(1000);
+  });
+
+  it("a clone that arrives after the limit is destroyed, not kept", async () => {
+    const late = session();
+    const base = session({ clone: () => sleep(60).then(() => late) });
+    await expect(promptJson(base, "hi", {}, 20)).rejects.toBeInstanceOf(DeviceAiTimeout);
+    await sleep(80);
+    expect(late.destroyed).toBe(1);
+    expect(base.destroyed).toBe(0);
+  });
+
+  it("a prompt that ignores its signal still times out, and its clone is destroyed", async () => {
+    const clone = session({ prompt: () => never<string>() });
+    const base = session({ clone: async () => clone });
+    await expect(promptJson(base, "hi", {}, 30)).rejects.toBeInstanceOf(DeviceAiTimeout);
+    expect(clone.destroyed).toBe(1);
+  });
+
+  it("the caller's own abort is not reported as a timeout", async () => {
+    const base = session({ clone: async () => session({ prompt: () => never<string>() }) });
+    const controller = new AbortController();
+    const pending = promptJson(base, "hi", {}, 5000, controller.signal);
+    controller.abort(new Error("quick exit"));
+    const err = await pending.catch((e: unknown) => e);
+    expect(err).not.toBeInstanceOf(DeviceAiTimeout);
+    expect((err as Error).message).toBe("quick exit");
+  });
+
+  it("a session start that never finishes gives up at the limit and is tried again next time", async () => {
+    const fake = new FakeLanguageModel();
+    let hang = true;
+    const real = fake.create;
+    fake.create = (options?: object) => (hang ? never<LmSession>() : real(options));
+    install(fake);
+    await expect(baseSession("sys", "text", [], 30)).rejects.toBeInstanceOf(DeviceAiTimeout);
+    hang = false;
+    await expect(baseSession("sys", "text", [], 30)).resolves.toBeTruthy();
+  });
+
+  it("a session that starts after the limit is destroyed", async () => {
+    const fake = new FakeLanguageModel();
+    const late = session();
+    fake.create = () => sleep(60).then(() => late);
+    install(fake);
+    await expect(baseSession("sys", "text", [], 20)).rejects.toBeInstanceOf(DeviceAiTimeout);
+    await sleep(80);
+    expect(late.destroyed).toBe(1);
+  });
+
+  it("untilAborted passes values and errors through when nothing aborts", async () => {
+    const signal = new AbortController().signal;
+    await expect(untilAborted(Promise.resolve(7), signal)).resolves.toBe(7);
+    await expect(untilAborted(Promise.reject(new Error("no")), signal)).rejects.toThrow("no");
   });
 });

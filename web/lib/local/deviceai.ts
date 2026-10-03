@@ -143,17 +143,22 @@ export function baseSession(
     const lm = languageModel();
     if (!lm) return Promise.reject(new Error("On-device AI is not available in this browser."));
     // Aborting a create() signal after the session exists would destroy it, so the time limit
-    // only ever aborts a creation that is still running.
+    // only ever aborts a creation that is still running. A start that never settles gives up
+    // at the limit, and is not cached, so the next call tries again.
     const controller = new AbortController();
     const timer = setTimeout(
       () => controller.abort(new DeviceAiTimeout("on-device model took too long to start")),
       createTimeoutMs,
     );
-    pending = createLowTemperature(lm, {
-      ...IO[modality],
-      initialPrompts: [{ role: "system", content: system }, ...examples],
-      signal: controller.signal,
-    })
+    pending = untilAborted(
+      createLowTemperature(lm, {
+        ...IO[modality],
+        initialPrompts: [{ role: "system", content: system }, ...examples],
+        signal: controller.signal,
+      }),
+      controller.signal,
+      destroyLate,
+    )
       .catch((err) => {
         sessions.delete(key);
         throw err;
@@ -171,6 +176,30 @@ export function forgetSessions(): void {
 
 export class DeviceAiTimeout extends Error {}
 
+// Settles with the promise, or rejects as soon as the signal aborts, so a browser call that
+// ignores its signal cannot hang Tend. A session that arrives after the abort is handed to
+// discard (destroyed) instead of staying in memory.
+export function untilAborted<T>(p: Promise<T>, signal: AbortSignal, discard?: (late: T) => void): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const onAbort = () => reject(signal.reason);
+    if (signal.aborted) onAbort();
+    else signal.addEventListener("abort", onAbort, { once: true });
+    p.then(
+      (value) => {
+        signal.removeEventListener("abort", onAbort);
+        if (signal.aborted) discard?.(value);
+        else resolve(value);
+      },
+      (err) => {
+        signal.removeEventListener("abort", onAbort);
+        reject(err);
+      },
+    );
+  });
+}
+
+const destroyLate = (session: LmSession) => session.destroy();
+
 // One prompt with a JSON schema constraint and a time limit; the answer is parsed JSON.
 export async function promptJson(
   base: LmSession,
@@ -179,15 +208,18 @@ export async function promptJson(
   timeoutMs: number,
   signal?: AbortSignal,
 ): Promise<unknown> {
-  const session = base.clone ? await base.clone(signal ? { signal } : undefined) : base;
+  // The time limit covers making the clone and the prompt, so neither can hang the batch loop.
   const timer = AbortSignal.timeout(timeoutMs);
   const combined = signal ? AbortSignal.any([signal, timer]) : timer;
+  let session = base;
   try {
+    if (base.clone) session = await untilAborted(base.clone({ signal: combined }), combined, destroyLate);
     combined.throwIfAborted(); // the caller may have given up while the clone was made
-    const text = await session.prompt(input, { responseConstraint: schema, signal: combined });
+    const text = await untilAborted(session.prompt(input, { responseConstraint: schema, signal: combined }), combined);
     return JSON.parse(text);
   } catch (err) {
-    if (timer.aborted) throw new DeviceAiTimeout(`on-device model took longer than ${timeoutMs} ms`);
+    if (combined.aborted && combined.reason === timer.reason)
+      throw new DeviceAiTimeout(`on-device model took longer than ${timeoutMs} ms`);
     throw err;
   } finally {
     if (session !== base) session.destroy();

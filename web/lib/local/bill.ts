@@ -8,7 +8,7 @@ import type { Source } from "../contracts";
 import type { ItemExpense } from "../types";
 import { parseAmount, parseDate } from "./amounts";
 import { balanceChecks, BillReadError, matchExpense, parseTextBill, type TextBill } from "./billtext";
-import { cloudReadBill } from "./cloud";
+import { CLOUD_BILL_MAX_BYTES, cloudBillMime, cloudReadBill } from "./cloud";
 import { baseSession, deviceAiStatus, promptJson } from "./deviceai";
 import { sha256Hex } from "./hash";
 import { isPdf, linesToText, openPdf, pdfLines } from "./pdf";
@@ -154,17 +154,23 @@ function centsFromModel(text: unknown): number | null {
 
 // What the model transcribed, read the way billtext.ts reads a text line: the last amount on a
 // line is what the patient owes, and the last amount on the totals row is the bill's total.
-export function billFromAnswer(answer: ImageAnswer): { bill: TextBill; dropped: number } {
+// The answer is parsed model output, so every field is checked before it is used.
+const str = (v: unknown): string => (typeof v === "string" ? v : "");
+const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+
+export function billFromAnswer(raw: unknown): { bill: TextBill; dropped: number } {
+  const answer: Record<string, unknown> = isObj(raw) ? raw : {};
   const bill = emptyBill();
-  bill.provider = answer.provider?.trim() || null;
-  bill.statement_date = answer.statement_date?.trim() || null;
+  bill.provider = str(answer.provider).trim() || null;
+  bill.statement_date = str(answer.statement_date).trim() || null;
   const totals = (Array.isArray(answer.totals) ? answer.totals : []).map(centsFromModel);
   bill.total_cents = totals.length && totals.every((c) => c !== null) ? totals[totals.length - 1] : null;
   bill.amount_due_cents = centsFromModel(answer.amount_due);
   let dropped = 0;
-  for (const l of Array.isArray(answer.lines) ? answer.lines : []) {
+  for (const item of Array.isArray(answer.lines) ? answer.lines : []) {
+    const l: Record<string, unknown> = isObj(item) ? item : {};
     const columns = (Array.isArray(l.amounts) ? l.amounts : []).map(centsFromModel);
-    const description = (l.description ?? "").replace(/\s+/g, " ").trim();
+    const description = str(l.description).replace(/\s+/g, " ").trim();
     if (!columns.length || columns.some((c) => c === null) || !description) {
       dropped++;
       continue;
@@ -176,7 +182,7 @@ export function billFromAnswer(answer: ImageAnswer): { bill: TextBill; dropped: 
     }
     bill.lines.push({
       line_no: bill.lines.length + 1,
-      date: parseDate(l.date ?? "") ?? "",
+      date: parseDate(str(l.date)) ?? "",
       description,
       amount_cents: owed,
       columns_cents: columns as number[],
@@ -254,33 +260,22 @@ export interface ReadBillOptions {
   fetch?: typeof fetch;
 }
 
-const MIME: Record<string, string> = {
-  png: "image/png",
-  jpg: "image/jpeg",
-  jpeg: "image/jpeg",
-  webp: "image/webp",
-  heic: "image/heic",
-};
+export const MAX_BILL_BYTES = 25 * 1024 * 1024;
 
-function mimeOf(file: Blob & { name?: string }, bytes: Uint8Array): string {
-  if (isPdf(bytes)) return "application/pdf";
-  if (file.type && Object.values(MIME).includes(file.type)) return file.type;
-  const ext = (file.name ?? "").toLowerCase().split(".").pop() ?? "";
-  if (MIME[ext]) return MIME[ext];
-  return bytes[0] === 0xff && bytes[1] === 0xd8 ? "image/jpeg" : "image/png";
+// Why a file cannot go to the cloud reader, before anything is sent; null when it can.
+function cloudRefusal(bytes: Uint8Array): string | null {
+  if (!cloudBillMime(bytes))
+    return "Cloud reading takes a PDF or a PNG, JPEG, WEBP, or HEIC photo, so this file was not sent.";
+  if (bytes.byteLength > CLOUD_BILL_MAX_BYTES)
+    return "This file is too large to send for cloud reading. The limit is 10 MB, so it was not sent.";
+  return null;
 }
 
 // The cloud's reading, checked again here: integer cents only, and the lines must add up.
-async function fromCloud(
-  bytes: Uint8Array,
-  mime: string,
-  sha: string,
-  format: LocalBillReading["format"],
-  opts: ReadBillOptions,
-) {
+async function fromCloud(bytes: Uint8Array, sha: string, format: LocalBillReading["format"], opts: ReadBillOptions) {
   let got;
   try {
-    got = await cloudReadBill(bytes, mime, { fetch: opts.fetch, signal: opts.signal });
+    got = await cloudReadBill(bytes, cloudBillMime(bytes)!, { fetch: opts.fetch, signal: opts.signal });
   } catch {
     return unreadable(sha, format, "cloud_ai", "Cloud reading did not answer, so this bill is not used.");
   }
@@ -288,9 +283,9 @@ async function fromCloud(
   bill.provider = got.provider;
   bill.amount_due_cents = Number.isSafeInteger(got.total_cents) ? got.total_cents : null;
   bill.adjustments = got.adjustments.filter((a) => Number.isSafeInteger(a.amount_cents) && a.amount_cents >= 0);
-  let bad = 0;
+  let bad = got.dropped + got.adjustments.length - bill.adjustments.length;
   for (const l of got.lines) {
-    if (!Number.isSafeInteger(l.amount_cents) || l.amount_cents < 0 || typeof l.description !== "string") {
+    if (!Number.isSafeInteger(l.amount_cents) || l.amount_cents < 0 || !l.description.trim()) {
       bad++;
       continue;
     }
@@ -317,13 +312,21 @@ async function fromCloud(
 }
 
 export async function readBill(file: Blob & { name?: string }, opts: ReadBillOptions = {}): Promise<LocalBillReading> {
+  if (file.size > MAX_BILL_BYTES) {
+    // Not read at all, so there is no hash; the format is a guess from the name and type.
+    const format = /pdf/i.test(file.type) || /\.pdf$/i.test(file.name ?? "") ? "pdf" : file.type ? "image" : "text";
+    return unreadable("", format, "rule", "This file is too large to read. A photo or PDF under 25 MB works.");
+  }
   const bytes = new Uint8Array(await file.arrayBuffer());
   const sha = await sha256Hex(bytes);
-  // A picture the device could not read goes to the cloud only with consent.
-  const orCloud = async (reading: LocalBillReading, format: LocalBillReading["format"]) =>
-    reading.status === "ok" || opts.cloudConsent !== true
-      ? reading
-      : fromCloud(bytes, mimeOf(file, bytes), sha, format, opts);
+  // A picture the device could not read goes to the cloud only with consent, and only as a file
+  // type and size the cloud reader takes; otherwise the device's reading stands and says why.
+  const orCloud = async (reading: LocalBillReading, format: LocalBillReading["format"]) => {
+    if (reading.status === "ok" || opts.cloudConsent !== true) return reading;
+    const refusal = cloudRefusal(bytes);
+    if (refusal) return { ...reading, warnings: [...reading.warnings, refusal] };
+    return fromCloud(bytes, sha, format, opts);
+  };
   if (isPdf(bytes)) {
     let text: string;
     try {

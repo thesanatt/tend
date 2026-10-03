@@ -179,9 +179,16 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
   const seen = new Map<string, number>();
   let last: { txn: LocalTxn; x: number; y: number; page: number; extra: number } | null = null;
 
+  // Warnings name the page and the line on that page, which a person can find in the PDF.
+  const pageStart = new Map<number, number>();
+  lines.forEach((l, i) => {
+    if (!pageStart.has(l.page)) pageStart.set(l.page, i);
+  });
+
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
     const lineNo = index + 1;
+    const where = `Page ${line.page}, line ${index - pageStart.get(line.page)! + 1}`;
     const t = line.text;
     const h = headerColumns(line);
     if (h) {
@@ -223,16 +230,16 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
     const description = rest.replace(/\s+/g, " ").trim();
     if (SKIP_ROW.test(description)) continue;
     if (!tokens.length) {
-      warnings.push(`Line ${lineNo} skipped: a dated line with no amount.`);
+      warnings.push(`${where} skipped: a dated line with no amount.`);
       continue;
     }
     const date = rowDate(row.groups!.d1.trim(), period, fallbackYear);
     if (!date) {
-      warnings.push(`Line ${lineNo} skipped: no date Tend could read.`);
+      warnings.push(`${where} skipped: no date Tend could read.`);
       continue;
     }
     if (!/[A-Za-z]{2}/.test(description)) {
-      warnings.push(`Line ${lineNo} skipped: no description.`);
+      warnings.push(`${where} skipped: no description.`);
       continue;
     }
 
@@ -251,15 +258,13 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
       // No usable header: the first amount is the amount; any after it is a running balance.
       const first = placed.find((p) => p.column !== "balance");
       if (!first) {
-        warnings.push(`Line ${lineNo} skipped: it shows only a balance.`);
+        warnings.push(`${where} skipped: it shows only a balance.`);
         continue;
       }
       if (first.amount) pick = { amount: first.amount, column: null };
     }
     if (!pick || !pick.amount.cents) {
-      warnings.push(
-        pick ? `Line ${lineNo} skipped: the amount is zero.` : `Line ${lineNo} skipped: the amount could not be read.`,
-      );
+      warnings.push(pick ? `${where} skipped: the amount is zero.` : `${where} skipped: the amount could not be read.`);
       continue;
     }
 

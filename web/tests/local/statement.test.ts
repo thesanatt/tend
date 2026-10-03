@@ -3,6 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseAmount, parseCents, parseDate } from "@/lib/local/amounts";
 import { readRows, sniffDelimiter } from "@/lib/local/csv";
+import { lineFinder, parseOfx } from "@/lib/local/ofx";
 import type { PdfLine } from "@/lib/local/pdf";
 import { statementParser } from "@/lib/local/statement";
 import { parseStatementLines } from "@/lib/local/statement-pdf";
@@ -206,6 +207,16 @@ describe("bank CSV exports", () => {
     ]);
   });
 
+  it("a file saved from Excel as Unicode Text (UTF-16, tabs) reads like the original", async () => {
+    const text = readFileSync(path.join(FIX, "csv/chase-card.csv"), "utf8").replace(/,/g, "\t");
+    const utf8 = await statementParser.parseBytes(new TextEncoder().encode(text));
+    const le = await statementParser.parseBytes(new Uint8Array([0xff, 0xfe, ...Buffer.from(text, "utf16le")]));
+    const be = await statementParser.parseBytes(new Uint8Array([0xfe, 0xff, ...Buffer.from(text, "utf16le").swap16()]));
+    expect(utf8.txns.length).toBeGreaterThan(0);
+    expect(le).toEqual(utf8);
+    expect(be).toEqual(utf8);
+  });
+
   it("a messy file: byte order mark, CRLF, unreadable rows become warnings by line", async () => {
     const r = await parse("csv/messy.csv");
     expect(rows(r)).toEqual([
@@ -240,6 +251,36 @@ describe("bank CSV exports", () => {
 });
 
 describe("OFX and QFX", () => {
+  it("finds line numbers the way a split on any line break would", () => {
+    const text = "a\r\nbb\rc\n\nd\r\n\r\ne";
+    const at = lineFinder(text);
+    for (let i = 0; i <= text.length; i++) {
+      if (text[i - 1] === "\r" && text[i] === "\n") continue; // inside one \r\n break, not a place a tag starts
+      expect(at(i)).toBe(text.slice(0, i).split(/\r\n|\r|\n/).length);
+    }
+  });
+
+  it("reads a long export quickly and still names the right line", () => {
+    const head = ["OFXHEADER:100", "<OFX>", "<BANKMSGSRSV1><STMTTRNRS><STMTRS>", "<BANKTRANLIST>"];
+    const rows = Array.from({ length: 10_000 }, (_, i) =>
+      [
+        "<STMTTRN>",
+        "<TRNTYPE>DEBIT",
+        `<DTPOSTED>${i === 9_999 ? "2026" : "20260614"}`,
+        `<TRNAMT>-${(i % 90) + 10}.25`,
+        `<FITID>F${i}`,
+        `<NAME>ODD SHOP ${i}`,
+        "</STMTTRN>",
+      ].join("\r\n"),
+    );
+    const text = [...head, ...rows, "</BANKTRANLIST></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"].join("\r\n");
+    const started = performance.now();
+    const r = parseOfx(text);
+    expect(performance.now() - started).toBeLessThan(2000); // was about 7 s before line starts were indexed
+    expect(r.txns).toHaveLength(9_999);
+    expect(r.warnings).toEqual([`Line ${head.length + 7 * 9_999 + 1} skipped: no date Tend could read.`]);
+  });
+
   it("SGML OFX 1.x: unclosed tags, entities, DTUSER first, duplicates and bad dates warned", async () => {
     const r = await parse("ofx/checking.ofx");
     expect(r.format).toBe("ofx");
@@ -252,8 +293,8 @@ describe("OFX and QFX", () => {
       ["2026-06-26", -23600, "deposit", "FERNWAY BOOKS PAYROLL DIRECT DEP FICTIONAL"],
     ]);
     expect(r.warnings).toEqual([
-      "Line 81 skipped: the same transaction appears twice.",
-      "Line 89 skipped: no date Tend could read.",
+      "Line 82 skipped: the same transaction appears twice.", // the line where its <STMTTRN> opens
+      "Line 90 skipped: no date Tend could read.",
     ]);
     contractShape(r);
   });
@@ -304,7 +345,7 @@ describe("PDF statements", () => {
       // After the daily balance table, which is not read, comes a fees section.
       ["2026-06-30", 200, "purchase", "Paper statement fee"],
     ]);
-    expect(r.warnings).toEqual(["Line 25 skipped: it shows only a balance."]);
+    expect(r.warnings).toEqual(["Page 2, line 7 skipped: it shows only a balance."]);
   });
 
   it("a card statement across New Year: month-name dates get the right year, payments are money in", async () => {
@@ -393,7 +434,7 @@ describe("PDF line heuristics on their own", () => {
       ["2026-06-18", 15000, "CHECK 1043"],
       ["2026-06-21", 1800, "WAYFARE RIDES"],
     ]);
-    expect(r.warnings).toEqual(["Line 9 skipped: no description."]);
+    expect(r.warnings).toEqual(["Page 1, line 9 skipped: no description."]);
   });
 
   it("a dated line with no amount is reported, and a footer is not glued to a row", () => {
@@ -403,7 +444,7 @@ describe("PDF line heuristics on their own", () => {
     expect(r.txns.map((t) => t.description)).toEqual(["WAYFARE RIDES"]);
     expect(r.warnings).toEqual([
       "The statement period was not found, so dates use this year.",
-      "Line 2 skipped: a dated line with no amount.",
+      "Page 1, line 2 skipped: a dated line with no amount.",
     ]);
   });
 });

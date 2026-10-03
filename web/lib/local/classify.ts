@@ -6,7 +6,7 @@
 import type { Source, StatementTxn, Unit } from "../contracts";
 import { isIsoDay } from "../dates";
 import type { ItemExpense } from "../types";
-import { cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
+import { CLOUD_LIMITS, cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
 import { inferPay } from "./paydip";
 import {
@@ -254,13 +254,17 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
   };
 }
 
+// A row as a model sees it, cut to the API's field limits so one very long description cannot
+// fill Gemini Nano's context (which would end device sorting for every batch after it).
+const cut = (text: string, max: number) => Array.from(text).slice(0, max).join("");
+
 function modelRow(ref: string, f: TxnFacts): ModelRow {
   return {
     ref,
     kind: f.kind,
-    merchant: f.merchant_name,
-    category: f.merchant_category,
-    description: stripTags(f.description),
+    merchant: cut(f.merchant_name, CLOUD_LIMITS.merchant),
+    category: cut(f.merchant_category, CLOUD_LIMITS.category),
+    description: cut(stripTags(f.description), CLOUD_LIMITS.description),
   };
 }
 

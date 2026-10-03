@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { classifier, classifyDetailed, DEVICE_BATCH, responseSchema } from "@/lib/local/classify";
+import { CLOUD_LIMITS, scrubForCloud } from "@/lib/local/cloud";
 import { fromNessieRelay } from "@/lib/local/nessie";
 import { MODEL_LABELS } from "@/lib/local/rules";
 import { statementParser } from "@/lib/local/statement";
@@ -279,6 +280,51 @@ describe("Gemini Nano on the device", () => {
       ["transportation", "link", false],
     ]);
   });
+
+  it("a very long description reaches the model cut short, and the rows after it still get sorted", async () => {
+    const lengths: number[] = [];
+    install(
+      new FakeLanguageModel({
+        answer: (input) => {
+          const rows = rowsOf(input);
+          lengths.push(...rows.map((r) => Array.from(r.description).length));
+          return JSON.stringify({ results: rows.map((r) => ({ ref: r.ref, expense: "legal", reason: "Legal help" })) });
+        },
+      }),
+    );
+    const report = await classifyDetailed([txn(`ODD SHOP ${"x".repeat(10_000)}`, 1000), ...unclear(DEVICE_BATCH)], ctx);
+    expect(Math.max(...lengths)).toBe(CLOUD_LIMITS.description);
+    expect(report.counts.device_ai).toBe(DEVICE_BATCH + 1);
+  });
+
+  it("a device whose sessions never come back cannot hang a scan", async () => {
+    const fake = new FakeLanguageModel();
+    fake.create = async () => ({
+      prompt: async () => "{}",
+      clone: () => new Promise<never>(() => undefined),
+      destroy: () => undefined,
+    });
+    install(fake);
+    const report = await classifyDetailed(unclear(DEVICE_BATCH * 3), ctx, { deviceTimeoutMs: 20 });
+    expect(report.device.errors).toEqual(["batch 1: timed out", "batch 2: timed out"]);
+    expect(report.counts.unresolved).toBe(DEVICE_BATCH * 3);
+  });
+});
+
+describe("what leaves the device for cloud sorting", () => {
+  it.each([
+    ["Zelle payment to Jane Doe JPM99abc123", "Zelle payment to a person"],
+    ["ZELLE FROM DOE JANE ON 06/14 REF # PP0ABC123", "ZELLE FROM a person"],
+    ["Venmo *jdoe", "Venmo payment"],
+    ["PAYPAL *LUMEN STREAM 4029357733 CA", "PAYPAL *LUMEN STREAM CA"],
+    ["WEB ID: 3264681992 VENMO CASHOUT", "WEB VENMO CASHOUT"],
+    ["CHECKCARD 0614 ODD SHOP XXXXXXXXXXXX4321", "CHECKCARD ODD SHOP"],
+    ["ODD SHOP #1043 ACCT 556677", "ODD SHOP"],
+    ["Odd Shop (734) 555-0199 2026-06-14", "Odd Shop"],
+    ["Odd Shop Route 66, 24 hour service", "Odd Shop Route 66, 24 hour service"],
+  ])("%s", (input, out) => {
+    expect(scrubForCloud(input)).toBe(out);
+  });
 });
 
 describe("cloud Gemini only with consent", () => {
@@ -340,6 +386,48 @@ describe("cloud Gemini only with consent", () => {
     expect(report.items.map((i) => [i.expense, i.source, i.confirmed])).toEqual(
       Array(2).fill(["childcare", "cloud_ai", false]),
     );
+  });
+
+  it("takes card numbers, dates, amounts, contact details and other people's names out first", async () => {
+    const fetch = okFetch();
+    const rows = [
+      txn("ZELLE TO DOE JANE ON 06/14 REF # PP0ABC1234", 4000),
+      txn("CASH APP*JANE DOE*OAKLAND CA", 2500),
+      txn("Zelle Transfer Conf# T0ABC; Jane Doe", 3000),
+      txn("UTILITY CO DES:BILL PAY ID:XXXXX12345 INDN:JANE DOE CO ID:1234567890 PPD", 5100),
+      txn("ACH DEBIT ORIG CO NAME:CITY WATER IND NAME:JANE DOE TRN: 1234TC", 6100),
+      txn("ODD SHOP 4111 1111 1111 1234 $45.10 CALL 415-555-0100 jdoe@example.com", 4510),
+      txn("PURCHASE AUTHORIZED ON 06/18 NORTHSIDE HARDWARE ANN ARBOR MI S386169734567890 CARD 1234", 6400),
+    ];
+    await classifyDetailed(rows, ctx, { cloudConsent: true, deviceAi: false, fetch: asFetch(fetch) });
+    const sent = JSON.parse(String(fetch.mock.calls[0][1].body)) as { txns: { description: string }[] };
+    expect(sent.txns.map((t) => t.description)).toEqual([
+      "ZELLE TO a person",
+      "CASH APP payment",
+      "Zelle Transfer",
+      "UTILITY CO DES:BILL PAY",
+      "ACH DEBIT ORIG CO NAME:CITY WATER",
+      "ODD SHOP CALL",
+      "PURCHASE AUTHORIZED ON NORTHSIDE HARDWARE ANN ARBOR MI",
+    ]);
+    const text = String(fetch.mock.calls[0][1].body);
+    for (const secret of ["JANE", "Jane", "DOE", "1234", "06/1", "45.10", "555", "@", "PP0ABC", "T0ABC"])
+      expect(text).not.toContain(secret);
+  });
+
+  it("keeps every field inside the API's limits, counted in characters as Python counts them", async () => {
+    const fetch = okFetch();
+    const long = (c: string, n: number) => Array(n).fill(c).join("");
+    const row = txn(long("\u{1F33F}", 500), 1000, { merchant: long("\u{1F33F}", 300), category: long("e", 100) });
+    await classifyDetailed([row], ctx, { cloudConsent: true, deviceAi: false, fetch: asFetch(fetch) });
+    const [sent] = (JSON.parse(String(fetch.mock.calls[0][1].body)) as { txns: Record<string, string>[] }).txns;
+    expect([sent.merchant, sent.category, sent.description].map((s) => Array.from(s).length)).toEqual([
+      CLOUD_LIMITS.merchant,
+      CLOUD_LIMITS.category,
+      CLOUD_LIMITS.description,
+    ]);
+    // Cut between characters, never inside one: no half of a surrogate pair is left behind.
+    expect(sent.description.length).toBe(2 * CLOUD_LIMITS.description);
   });
 
   it("takes only the model's labels from the answer", async () => {

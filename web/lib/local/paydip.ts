@@ -47,7 +47,7 @@ function payrollGroups(txns: LocalTxn[]): Map<string, Check[]> {
   const groups = new Map<string, Check[]>();
   for (const t of txns) {
     if (t.amount_cents >= 0 || (t.kind && t.kind !== "deposit")) continue;
-    const key = payerKey(t.description);
+    const key = payerKey(t.description ?? "");
     if (!key) continue;
     const list = groups.get(key) ?? [];
     list.push({ txn: t, cents: -t.amount_cents });

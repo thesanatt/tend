@@ -8,7 +8,10 @@ import type { LocalStatementParser, StatementResult } from "./types";
 
 export const MAX_STATEMENT_BYTES = 25 * 1024 * 1024;
 
-function decodeText(bytes: Uint8Array): string {
+export function decodeText(bytes: Uint8Array): string {
+  // Excel's "Unicode Text" save is UTF-16 with a byte order mark.
+  if (bytes[0] === 0xff && bytes[1] === 0xfe) return new TextDecoder("utf-16le").decode(bytes);
+  if (bytes[0] === 0xfe && bytes[1] === 0xff) return new TextDecoder("utf-16be").decode(bytes);
   const utf8 = new TextDecoder("utf-8", { fatal: false }).decode(bytes);
   // Older exports are Windows-1252; a run of replacement characters gives that away.
   if ((utf8.match(/\ufffd/g) ?? []).length > 3) return new TextDecoder("windows-1252").decode(bytes);

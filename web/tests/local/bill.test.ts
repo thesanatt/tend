@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { readBill } from "@/lib/local/bill";
+import { billFromAnswer, MAX_BILL_BYTES, readBill } from "@/lib/local/bill";
+import { CLOUD_BILL_MAX_BYTES, cloudBillMime } from "@/lib/local/cloud";
 import parity from "./fixtures/classify-parity.json";
 import { FakeLanguageModel, install, uninstall } from "./fake-lm";
 
@@ -269,6 +270,32 @@ describe("bill photos go to Gemini Nano on the device", () => {
     const got = await readBill(photo());
     expect(got).toMatchObject({ status: "unreliable", source: "device_ai", lines: [] });
   });
+
+  // JSON that ignores the schema: a model is not trusted to keep the shape it was given.
+  it.each([
+    ["null", null],
+    ["a number", 5],
+    ["a string", "x"],
+    ["lines that are not objects", { lines: [null, 3, "x", []], totals: ["$1.00"], amount_due: "$1.00" }],
+    ["fields of the wrong type", { provider: 5, statement_date: {}, lines: "x", totals: [1], amount_due: 2 }],
+    ["a description that is a number", { lines: [{ description: 3, amounts: ["$1.00"] }], totals: ["$1.00"] }],
+    ["amounts that are not a list", { lines: [{ description: "Visit", amounts: "$1.00" }], totals: ["$1.00"] }],
+  ])("reads %s from the model without throwing, and never as ok", async (_, answer) => {
+    expect(() => billFromAnswer(answer)).not.toThrow();
+    install(new FakeLanguageModel({ answer: () => JSON.stringify(answer) }));
+    const got = await readBill(photo());
+    expect(got.status).toBe("unreliable");
+  });
+
+  it("a line it cannot use makes the photo unreliable even when the rest add up", () => {
+    const { bill, dropped } = billFromAnswer({
+      lines: [null, { description: "Clinic visit", amounts: ["$120.00"] }],
+      totals: ["$120.00"],
+      amount_due: "$120.00",
+    });
+    expect(dropped).toBe(1);
+    expect(bill.lines).toHaveLength(1);
+  });
 });
 
 describe("cloud reading for a bill the device cannot read, only with consent", () => {
@@ -356,6 +383,92 @@ describe("cloud reading for a bill the device cannot read, only with consent", (
     expect(JSON.parse(String((fetch.mock.calls[0] as unknown as [string, RequestInit])[1].body)).mime).toBe(
       "application/pdf",
     );
+  });
+
+  it("a cloud answer with lines that are not objects is unreliable, not a crash", async () => {
+    for (const lines of [
+      [null, ...cloudOk.lines],
+      [...cloudOk.lines, "x"],
+      [[1, 2], ...cloudOk.lines],
+    ]) {
+      const fetch = vi.fn(async () => reply({ ...cloudOk, lines }));
+      const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(fetch) });
+      expect(got).toMatchObject({ status: "unreliable", sums_match: false });
+      expect(got.lines).toHaveLength(4);
+      expect(got.warnings).toContain("Some lines from the cloud reading could not be used.");
+    }
+  });
+
+  it("odd cloud shapes never throw", async () => {
+    const bodies = [
+      {},
+      { lines: "x", adjustments: 5, total_cents: "100" },
+      { lines: [{ amount_cents: 5 }], adjustments: [null] },
+      { lines: [{ description: 7, amount_cents: 100 }], total_cents: 100, sums_match: true },
+      { lines: [{ description: " ", amount_cents: 100 }], total_cents: 100, sums_match: true },
+      { lines: [{ description: "x", amount_cents: 100 }], total_cents: 100, sums_match: true, adjustments: [{}] },
+    ];
+    for (const body of bodies) {
+      const got = await readBill(photo(), { cloudConsent: true, fetch: asFetch(vi.fn(async () => reply(body))) });
+      expect(got.status).toBe("unreliable");
+    }
+  });
+
+  it("sends the type the bytes say, not the file name", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const renamed = new File([readFileSync(path.join(FIX, "bill-photo.png"))], "bill.jpg", { type: "image/jpeg" });
+    await readBill(renamed, { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(JSON.parse(String((fetch.mock.calls[0] as unknown as [string, RequestInit])[1].body)).mime).toBe(
+      "image/png",
+    );
+  });
+
+  it.each([
+    [
+      "webp",
+      [..."RIFF"]
+        .map((c) => c.charCodeAt(0))
+        .concat(
+          [0, 0, 0, 0],
+          [..."WEBP"].map((c) => c.charCodeAt(0)),
+        ),
+      "image/webp",
+    ],
+    ["heic", [0, 0, 0, 24].concat([..."ftypheic"].map((c) => c.charCodeAt(0))), "image/heic"],
+    ["jpeg", [0xff, 0xd8, 0xff, 0xe0], "image/jpeg"],
+    ["gif", [..."GIF89a"].map((c) => c.charCodeAt(0)), null],
+  ])("knows a %s picture by its first bytes", (_, head, mime) => {
+    expect(cloudBillMime(new Uint8Array([...head, ...new Array(32).fill(0)]))).toBe(mime);
+  });
+
+  it("does not send a picture type the cloud reader cannot take, and says why", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const gif = new File([new Uint8Array([..."GIF89a"].map((c) => c.charCodeAt(0)))], "bill.gif", {
+      type: "image/gif",
+    });
+    const got = await readBill(gif, { cloudConsent: true, fetch: asFetch(fetch) });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(got.status).toBe("unreliable");
+    expect(got.warnings.at(-1)).toMatch(/was not sent/);
+  });
+
+  it("does not send a file larger than the cloud reader takes", async () => {
+    const fetch = vi.fn(async () => reply(cloudOk));
+    const big = new Uint8Array(CLOUD_BILL_MAX_BYTES + 1);
+    big.set(readFileSync(path.join(FIX, "bill-photo.png")));
+    const got = await readBill(new File([big], "bill.png", { type: "image/png" }), {
+      cloudConsent: true,
+      fetch: asFetch(fetch),
+    });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(got.warnings.at(-1)).toMatch(/too large to send/);
+  });
+
+  it("does not read a file over the size limit at all", async () => {
+    const huge = new File([new Uint8Array(MAX_BILL_BYTES + 1)], "scan.pdf", { type: "application/pdf" });
+    const got = await readBill(huge, { cloudConsent: true });
+    expect(got).toMatchObject({ status: "unreliable", format: "pdf", sha256: "", lines: [] });
+    expect(got.warnings).toEqual(["This file is too large to read. A photo or PDF under 25 MB works."]);
   });
 
   it("an on-device reading that adds up is not sent anywhere", async () => {
