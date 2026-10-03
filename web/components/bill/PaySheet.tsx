@@ -28,6 +28,14 @@ export function accountLabel(from: string | AccountRef): string {
   return typeof from === "string" ? from : `${from.nickname} ending ${from.mask ?? from.id.slice(-4)}`;
 }
 
+// The confirm step shows the server's numbers, so they have to be the ones the bill screen showed.
+export function proposalProblem(p: ActionProposal, amountCents: number, payee: string): string | null {
+  if (p.amount_cents !== amountCents)
+    return `The payment service proposed ${formatCents(p.amount_cents)}, but the bill shows ${formatCents(amountCents)} to pay. Nothing was sent.`;
+  if (p.payee !== payee) return `The payment service named a different payee (${p.payee}). Nothing was sent.`;
+  return null;
+}
+
 export default function PaySheet(props: PaySheetProps) {
   const { open, onClose, itemIds, amountCents, forText, notPaidText, onDone } = props;
   const [phase, setPhase] = useState<Phase>("proposing");
@@ -60,14 +68,20 @@ export default function PaySheet(props: PaySheetProps) {
       },
       accountLabel(p.account),
     )
-      .then((p) => {
+      .then((proposal) => {
         if (!live) return;
-        setProposal(p);
+        const problem = proposalProblem(proposal, p.amountCents, p.payee);
+        if (problem) {
+          setError(problem);
+          setPhase("error");
+          return;
+        }
+        setProposal(proposal);
         setPhase("ready");
       })
       .catch((e: Error) => {
         if (!live) return;
-        setError(e.message);
+        setError(`Tend could not prepare this payment: ${e.message}`);
         setPhase("error");
       });
     return () => {
@@ -131,7 +145,7 @@ export default function PaySheet(props: PaySheetProps) {
 
       {phase === "error" ? (
         <p role="alert" className={styles.problem}>
-          Tend could not prepare this payment: {error}
+          {error}
         </p>
       ) : null}
 
@@ -166,7 +180,11 @@ export default function PaySheet(props: PaySheetProps) {
             <p className={styles.demo}>
               Demo mode: Tend is not connected to the bank, so nothing will be sent. The steps are the same.
             </p>
-          ) : null}
+          ) : (
+            <p className={styles.demo}>
+              The bank here is Nessie, Capital One&apos;s mock bank. Paying writes a record there; no real money moves.
+            </p>
+          )}
 
           <div className={styles.codeBox}>
             <p>To confirm on purpose, type this code:</p>

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { proposalProblem } from "@/components/bill/PaySheet";
 import { ApiError, confirmPayment, normalizeSummaries, proposePayment, resetDataModeForTests } from "@/lib/api";
 
 const pay = {
@@ -70,5 +71,27 @@ describe("jurisdiction list from the API", () => {
       { st: "NY", name: "New York", rules: 46, sources: 13, program: null, confidence: null, verified_at: null },
     ]);
     expect(normalizeSummaries("nope")).toEqual([]);
+  });
+});
+
+describe("payment proposal check", () => {
+  const proposal = {
+    action_id: "a1",
+    amount_cents: 139400,
+    from: "Checking",
+    payee: "Riverbend General Hospital",
+    confirm_code: "123456",
+    expires_at: "2026-10-03T12:00:00Z",
+  };
+
+  it("accepts a proposal that matches the bill screen", () => {
+    expect(proposalProblem(proposal, 139400, "Riverbend General Hospital")).toBeNull();
+  });
+
+  it("refuses a proposal whose amount or payee differs from what the survivor saw", () => {
+    expect(proposalProblem({ ...proposal, amount_cents: 171900 }, 139400, "Riverbend General Hospital")).toMatch(
+      /\$1,719\.00.*\$1,394\.00.*Nothing was sent/,
+    );
+    expect(proposalProblem(proposal, 139400, "Someone else")).toMatch(/different payee/);
   });
 });

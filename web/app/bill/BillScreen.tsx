@@ -11,7 +11,8 @@ import RuleCard from "@/components/RuleCard";
 import StatusTag from "@/components/StatusTag";
 import { auditBill } from "@/lib/api";
 import { formatDay, formatTimestamp } from "@/lib/dates";
-import { formatCents, sumCents } from "@/lib/money";
+import { billPlan } from "@/lib/bill";
+import { formatCents } from "@/lib/money";
 import { useSession, type Session } from "@/lib/session";
 import type { BillAudit } from "@/lib/types";
 import { useLaw } from "@/lib/useLaw";
@@ -48,12 +49,7 @@ function BillView({ session }: { session: Session }) {
   const output = claim.evaluation?.output ?? null;
   const statusOf = (itemId: string) => output?.lines.find((l) => l.item_id === itemId)?.status ?? null;
   const lineFor = (itemId: string) => output?.lines.find((l) => l.item_id === itemId) ?? null;
-  const heldLines = bill.lines.filter((l) => statusOf(l.item_id) === "held");
-  const payLines = bill.lines.filter((l) => statusOf(l.item_id) !== "held");
-  const heldCents = sumCents(heldLines.map((l) => l.amount_cents));
-  const restCents = sumCents(payLines.map((l) => l.amount_cents));
-  const adds =
-    bill.lines_sum_cents === bill.total_cents && sumCents(bill.lines.map((l) => l.amount_cents)) === bill.total_cents;
+  const { decided, heldLines, payLines, heldCents, restCents, adds, restClaimed } = billPlan(bill, output);
   const forBill = session.payments.filter((p) => p.item_ids.some((id) => bill.lines.some((l) => l.item_id === id)));
   const payment = forBill.at(-1);
   const paid = forBill.some((p) => p.status === "done");
@@ -148,14 +144,16 @@ function BillView({ session }: { session: Session }) {
                   </td>
                 </tr>
               ) : null}
-              <tr className={styles.rest}>
-                <th scope="row" colSpan={2}>
-                  The rest
-                </th>
-                <td className={styles.num}>
-                  <Money cents={restCents} />
-                </td>
-              </tr>
+              {decided ? (
+                <tr className={styles.rest}>
+                  <th scope="row" colSpan={2}>
+                    The rest
+                  </th>
+                  <td className={styles.num}>
+                    <Money cents={restCents} />
+                  </td>
+                </tr>
+              ) : null}
             </tfoot>
           </table>
           <p className="meta">
@@ -166,7 +164,18 @@ function BillView({ session }: { session: Session }) {
         </section>
 
         <aside className={styles.law} aria-labelledby="law-title">
-          {heldLines.length ? (
+          {!decided ? (
+            <>
+              <h2 id="law-title" className={styles.lawTitle}>
+                {claim.status === "error" ? "Tend could not check this bill" : "Checking this bill against the law"}
+              </h2>
+              <p role={claim.status === "error" ? "alert" : "status"}>
+                {claim.status === "error"
+                  ? `${claim.error ?? "The law engine did not answer."} Do not pay this bill until it has been checked.`
+                  : "Paying waits until every line has been checked."}
+              </p>
+            </>
+          ) : heldLines.length ? (
             <>
               <h2 id="law-title" className={styles.lawTitle}>
                 {law.law?.name ?? "The"} law says you should not get this bill
@@ -196,8 +205,9 @@ function BillView({ session }: { session: Session }) {
                 No line on this bill is held
               </h2>
               <p>
-                {law.law?.name ?? "This state"}&apos;s verified rules do not include an exam billing rule, so Tend
-                treats every line as a cost you can claim.
+                {noBill.length || examPay.length
+                  ? "None of its lines is a forensic exam, so the exam billing rules do not apply to it."
+                  : `${law.law?.name ?? "This state"}'s verified rules do not include an exam billing rule, so Tend treats an exam line like other medical care.`}
               </p>
             </>
           )}
@@ -224,16 +234,17 @@ function BillView({ session }: { session: Session }) {
               Contact the exam payment program
             </button>
           ) : null}
-          {!paid && restCents > 0 && adds ? (
+          {decided && !paid && restCents > 0 && adds ? (
             <button type="button" className="btn btn-secondary" onClick={() => setSheet("pay")}>
               Pay the rest from {account.nickname}
             </button>
           ) : null}
         </div>
-        {restCents > 0 ? (
+        {decided && restCents > 0 ? (
           <p className={styles.choice}>
-            Paying the rest is your choice. Those lines are medical care the program can pay you back for, and they are
-            already in your claim.
+            {restClaimed
+              ? "Paying the rest is your choice. Those lines are already in your claim, so the program can pay you back for them."
+              : "Paying the rest is your choice. Some of those lines are not in your claim; Costs shows why for each one."}
           </p>
         ) : null}
       </section>
