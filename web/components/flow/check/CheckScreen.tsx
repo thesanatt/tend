@@ -121,7 +121,7 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
     check.date && !isIsoDay(check.date) ? t.check.dateBad : check.date > today ? t.check.dateFuture : null;
   const output =
     claim.evaluation && claim.evaluation.output.jurisdiction === check.st ? claim.evaluation.output : null;
-  const summary = law.law && check.st ? buildCheckSummary(law.law, output, check, knowsDate(state)) : null;
+  const summary = law.law && check.st ? buildCheckSummary(law.law, output, check, knowsDate(state, today)) : null;
   const deadlineSentence =
     summary?.deadline.kind === "date" ? t.check.notTodayDeadline(summary.name, f.date(summary.deadline.date)) : null;
 

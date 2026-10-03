@@ -530,6 +530,9 @@ export const es: Dict = {
       `El servicio de pago propuso ${proposed}, pero la factura muestra ${expected}. No se envió nada.`,
     payeeMismatch: (payee: string) => `El servicio de pago indicó otro destinatario (${payee}). No se envió nada.`,
     prepareFailed: (msg: string) => `Tend no pudo preparar este pago: ${msg}`,
+    codeWrong: "Ese código no coincide. Revisa los seis dígitos e inténtalo de nuevo.",
+    codeExpired: "Este código venció o ya se usó. Cierra esto y empieza de nuevo para recibir otro.",
+    confirmFailed: (msg: string) => `El pago no se completó: ${msg}`,
   },
 
   packet: {

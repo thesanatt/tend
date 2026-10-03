@@ -115,7 +115,11 @@ export default function PaySheet(props: PaySheetProps) {
         if (!proposal.demo) logSent({ kind: "payment", amount_cents: r.amount_cents, to: proposal.payee });
       }
     } catch (e) {
-      setError((e as Error).message);
+      // The bank side answers in English; the survivor reads it in their language.
+      const status = (e as { status?: number }).status;
+      setError(
+        status === 400 ? t.pay.codeWrong : status === 410 ? t.pay.codeExpired : t.pay.confirmFailed((e as Error).message),
+      );
       setPhase("ready");
     }
   }

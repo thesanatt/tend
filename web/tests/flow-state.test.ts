@@ -152,6 +152,20 @@ describe("engine input", () => {
     expect(buildEngineInput(s, TODAY)!.context.incident_date).toBe("2026-06-20");
   });
 
+  it("treats a future or half-typed date as unknown, and never sends a line that is not money", () => {
+    let s = reducer(withCheck(), { type: "check", patch: { date: "2027-01-01" } });
+    s = reducer(s, {
+      type: "addSource",
+      source: { id: "s", kind: "statement", label: "s.csv", read: 3, found: 3, warnings: [], sample: false },
+      items: [item("ok"), item("refund", { amount_cents: -500 }), item("frac", { amount_cents: 12.5 })],
+    });
+    const input = buildEngineInput(s, TODAY)!;
+    expect(input.context.incident_date).toBe("2026-06-20");
+    expect(input.items.map((i) => i.item_id)).toEqual(["ok"]);
+    s = reducer(s, { type: "check", patch: { date: "2026-02-30" } });
+    expect(countingDate(s, TODAY)).toBe("2026-06-20");
+  });
+
   it("keeps the first reading of a cost when a source is read twice", () => {
     const source = { id: "s", kind: "statement" as const, label: "s.csv", read: 1, found: 1, warnings: [], sample: false };
     let s = reducer(withCheck(), { type: "addSource", source, items: [item("a", { amount_cents: 100 })] });

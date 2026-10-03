@@ -1,5 +1,6 @@
 // Pure joins between the flow state and the law engine. Money totals always come from the engine
 // output; this file only decides what goes in and how lines are grouped and labeled.
+import { isIsoDay } from "@/lib/dates";
 import { sumCents } from "@/lib/money";
 import type { EngineInput, EngineLine, EngineOutput, ItemExpense, LineStatus, PoliceReport } from "@/lib/types";
 import type { BillRecord, FlowItem, FlowState, PoliceAnswer, YesNoUnsure } from "./state";
@@ -19,24 +20,30 @@ export function replacedIds(bills: BillRecord[]): Set<string> {
   return new Set(bills.map((b) => b.replaces).filter((id): id is string => Boolean(id)));
 }
 
+// A date counts only when it is a real calendar day, not in the future, and not marked Not sure.
+export function knowsDate(state: FlowState, asOf?: string): boolean {
+  const { date, dateUnsure } = state.check;
+  return !dateUnsure && isIsoDay(date) && (asOf === undefined || date <= asOf);
+}
+
 // The date the engine counts from. Without a date, every gathered cost counts from the earliest one,
 // and the screens never show a deadline date computed from that stand-in.
 export function countingDate(state: FlowState, asOf: string): string {
-  const { date, dateUnsure } = state.check;
-  if (date && !dateUnsure) return date;
+  if (knowsDate(state, asOf)) return state.check.date;
   const dates = state.items.map((i) => i.date).filter((d) => d <= asOf);
   return dates.length ? dates.reduce((a, b) => (a < b ? a : b)) : asOf;
 }
 
-export function knowsDate(state: FlowState): boolean {
-  return Boolean(state.check.date) && !state.check.dateUnsure;
-}
+// The engines refuse a whole claim over one bad line (SPEC v1.2 input validation), so a line that
+// could not be money is left out here rather than sent.
+const sendable = (it: FlowItem) =>
+  Number.isSafeInteger(it.amount_cents) && it.amount_cents >= 0 && isIsoDay(it.date);
 
 export function buildEngineInput(state: FlowState, asOf: string): EngineInput | null {
   if (!state.check.st) return null;
   const replaced = replacedIds(state.bills);
   const items = state.items
-    .filter((it) => !replaced.has(it.item_id))
+    .filter((it) => !replaced.has(it.item_id) && sendable(it))
     .filter((it) => effectiveAnswer(state, it) !== "no")
     .map((it) => ({
       item_id: it.item_id,

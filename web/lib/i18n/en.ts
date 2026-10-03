@@ -529,6 +529,9 @@ export const en = {
       `The payment service proposed ${proposed}, but the bill shows ${expected}. Nothing was sent.`,
     payeeMismatch: (payee: string) => `The payment service named a different payee (${payee}). Nothing was sent.`,
     prepareFailed: (msg: string) => `Tend could not get this payment ready: ${msg}`,
+    codeWrong: "That code does not match. Check the six digits and try again.",
+    codeExpired: "This code has expired or was already used. Close this and start again for a new one.",
+    confirmFailed: (msg: string) => `The payment did not go through: ${msg}`,
   },
 
   packet: {

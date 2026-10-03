@@ -8,6 +8,7 @@ import { FlowProvider } from "@/components/flow/FlowProvider";
 import { accountLabel, type FlowServices } from "@/components/flow/services";
 import { demoBankTxns, ROWAN_ACCOUNT } from "@/components/flow/samples";
 import { initialState, reducer, type Action, type FlowState } from "@/components/flow/state";
+import { ApiError } from "@/lib/api";
 import { I18nProvider, type Lang } from "@/lib/i18n";
 import {
   mockBillReader,
@@ -87,7 +88,7 @@ export function testServices(over: Partial<FlowServices> = {}): TestServices {
       demo: false,
     })),
     confirm: vi.fn(async (actionId: string, code: string) => {
-      if (code !== "123456") throw new Error("That code does not match.");
+      if (code !== "123456") throw new ApiError("That code does not match.", 400);
       return {
         action_id: actionId,
         status: "done",

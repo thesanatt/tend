@@ -83,7 +83,7 @@ export default function AddRecords() {
   const statement = (file: File, sample = false) =>
     run("statement", async () => {
       const source = await readStatement(file, sample);
-      if (!source.read) throw new Error(t.gather.unsupported);
+      if (!source.read) setError(t.gather.unsupported);
     });
   const bill = (file: File, sample = false) => run("bill", () => readBill(file, sample));
 

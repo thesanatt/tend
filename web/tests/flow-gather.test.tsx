@@ -85,6 +85,16 @@ describe("Gather", () => {
     expect((box as HTMLInputElement).checked).toBe(false);
   });
 
+  it("says plainly when a file has no transactions it can read", async () => {
+    renderFlow(<GatherScreen />, { initial: stateFrom([MI_CHECK]) });
+    fireEvent.change(document.getElementById("statement-file")!, {
+      target: { files: [new File(["hello"], "notes.txt", { type: "text/plain" })] },
+    });
+    expect(
+      await screen.findByText("Tend could not find transactions in this file. Try a CSV or PDF from your bank."),
+    ).toBeTruthy();
+  });
+
   it("reads a bill on the device and says whether its lines add up", async () => {
     renderFlow(<GatherScreen />, { initial: stateFrom([MI_CHECK]) });
     fireEvent.click(screen.getByRole("button", { name: "Use a sample bill" }));
@@ -191,7 +201,7 @@ describe("bill triage", () => {
     expect(payButton.disabled).toBe(true);
     fireEvent.change(code, { target: { value: "654321" } });
     fireEvent.click(payButton);
-    expect(await within(dialog).findByText("That code does not match.")).toBeTruthy();
+    expect(await within(dialog).findByText("That code does not match. Check the six digits and try again.")).toBeTruthy();
     expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
 
     fireEvent.change(code, { target: { value: "123456" } });

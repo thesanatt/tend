@@ -111,7 +111,7 @@ export default function TrackScreen() {
   const all = plants(state, output).map((p) =>
     p.stage === "sprout" && p.item.origin === "bill" ? { ...p, stage: "leaf" as const } : p,
   );
-  const summary = law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state)) : null;
+  const summary = law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today)) : null;
   const deadline = summary?.deadline.kind === "date" ? summary.deadline : null;
   const held = output?.lines.filter((l) => l.status === "held") ?? [];
   const paidCents = all.filter((p) => p.stage === "bloom").reduce((s, p) => s + p.line.allowed_cents, 0);
