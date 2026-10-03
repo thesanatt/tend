@@ -97,7 +97,8 @@ Sealed shares
 - `GET /shares/{id}`: `{ciphertext, iv, alg: "AES-256-GCM", encoding: "base64url", created_at, expires_at, once}`,
   base64url with no padding, the alphabet web/lib/share decodes. An open-once share loses its ciphertext in the
   same transaction; a second read gets 410.
-- `DELETE /shares/{id}`: 204. Expired shares are swept on every new share.
+- `DELETE /shares/{id}`: 204. Expired shares, and the payee of expired proposals, are swept on every new share
+  or payment and once a minute by the app itself.
 
 Cloud AI, only with `consent: true` (403 otherwise; nothing logged or stored)
 - `POST /ai/classify` `{consent, st?, incident_date?, txns: [{id, description, merchant?, category?, date?, amount_cents?, kind?}]}`:

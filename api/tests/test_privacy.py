@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import asyncio
 import base64
+import contextlib
 import json
 import os
 import sqlite3
@@ -10,6 +12,7 @@ import sqlite3
 import pytest
 from helpers import CHECKING, client_for, confirm_all, from_b64url, make_services, scan_rowan
 
+from tend_api.app import sweep_forever
 from tend_api.bank import BankError
 from tend_api.db import MAX_SHARE_BYTES
 from tend_api.db.sqlite import SQLiteRepository
@@ -127,6 +130,29 @@ def test_share_size_limit_and_iv_length(client):
 def test_unknown_share_is_404_and_bad_ids_422(client):
     assert client.get("/api/shares/" + "a" * 22).status_code == 404
     assert client.get("/api/shares/short").status_code == 422
+
+
+def test_an_expired_proposal_loses_its_payee_without_new_traffic(client, services, clock):
+    # The payee is kept only while a code can still be confirmed. With no new payment or share to
+    # trigger a sweep, the app's own sweeper clears it once the ten minutes are up.
+    proposal = client.post("/api/actions/propose", json={"from": CHECKING, "payee": "Riverbend General Hospital", "amount_cents": 500})
+    action_id = proposal.json()["action_id"]
+    clock.advance(minutes=11)
+    assert services.repo.get_action(action_id)["payee"] == "Riverbend General Hospital"
+
+    async def until_swept() -> None:
+        task = asyncio.create_task(sweep_forever(services, every_s=0.01))
+        for _ in range(200):
+            await asyncio.sleep(0.01)
+            if services.repo.get_action(action_id)["status"] == "expired":
+                break
+        task.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await task
+
+    asyncio.run(until_swept())
+    action = services.repo.get_action(action_id)
+    assert action["status"] == "expired" and action["payee"] is None
 
 
 def test_audit_log_holds_no_names(client):
