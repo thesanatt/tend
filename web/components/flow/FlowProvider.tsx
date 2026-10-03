@@ -87,7 +87,7 @@ export function rawFinder(txns: StatementTxn[]): (itemId: string) => StatementTx
 }
 
 async function fileSha(file: Blob): Promise<string> {
-  const bytes = new Uint8Array(await new Response(file).arrayBuffer());
+  const bytes = new Uint8Array(typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer());
   const digest = await crypto.subtle.digest("SHA-256", bytes as BufferSource);
   return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
 }

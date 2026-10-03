@@ -14,7 +14,16 @@ function host(url: string): string {
 
 // A rule as the survivor sees it: the plain summary first, then the exact words of the law in their
 // original language, then where the sentence lives.
-export default function LawQuote({ rule, source }: { rule: Rule; source?: Source }) {
+export default function LawQuote({
+  rule,
+  source,
+  languageNote = true,
+}: {
+  rule: Rule;
+  source?: Source;
+  // Off when a sheet lists several quotes and says it once.
+  languageNote?: boolean;
+}) {
   const { t, f, lang } = useI18n();
   const summary = useSummary(rule.summary);
   const href = rule.fragment_url ?? source?.url;
@@ -36,7 +45,7 @@ export default function LawQuote({ rule, source }: { rule: Rule; source?: Source
           <mark>{rule.quote}</mark>
         </p>
       </blockquote>
-      {lang !== "en" ? <p className={styles.note}>{t.cite.quoteOriginal}</p> : null}
+      {languageNote && lang !== "en" ? <p className={styles.note}>{t.cite.quoteOriginal}</p> : null}
       {href ? (
         <p className={styles.source}>
           <a href={href} target="_blank" rel="noopener noreferrer">

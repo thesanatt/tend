@@ -26,7 +26,7 @@ async function fileText(file: Blob): Promise<string> {
 }
 
 async function fileBytes(file: Blob): Promise<Uint8Array> {
-  return new Uint8Array(await new Response(file).arrayBuffer());
+  return new Uint8Array(typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer());
 }
 
 export async function sha256Hex(bytes: Uint8Array): Promise<string> {

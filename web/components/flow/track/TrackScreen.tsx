@@ -14,15 +14,16 @@ import styles from "../flow.module.css";
 
 const STAGES: Stage[] = ["sprout", "leaf", "bud", "bloom"];
 
-// A plain calendar file the survivor saves on purpose. It says nothing about why.
+// A plain calendar file the survivor saves on purpose. Nothing in it, not even the app's name,
+// says what it is about.
 export function reminderIcs(date: string, text: string, stamp: string): string {
   const d = date.replace(/-/g, "");
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Tend//EN",
+    "PRODID:-//Reminder//EN",
     "BEGIN:VEVENT",
-    `UID:${stamp}@tend`,
+    `UID:${stamp}@local`,
     `DTSTAMP:${stamp}`,
     `DTSTART;VALUE=DATE:${d}`,
     `SUMMARY:${text}`,

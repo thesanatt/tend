@@ -131,7 +131,7 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
     setAnnounce(t.check.updated(summary.name));
     // The summary text itself is long; one short line tells screen readers it changed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summary?.st, output?.checks.deadline.deadline_date, output?.checks.reporting.status]);
+  }, [summary?.st, output?.checks.deadline.deadline_date, output?.checks.reporting.status, t]);
 
   return (
     <div className={styles.checkLayout}>

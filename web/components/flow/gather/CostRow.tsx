@@ -2,7 +2,7 @@
 
 import Money from "@/components/Money";
 import { useJustChanged } from "@/lib/hooks";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, useSummary } from "@/lib/i18n";
 import type { ItemExpense } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 import type { Row } from "../claim";
@@ -26,10 +26,12 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
   const id = item.item_id;
   const qid = `q-${id.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
   const capped = line && line.status === "eligible" && line.allowed_cents < line.requested_cents;
+  // The classifier writes its reason in English; in Spanish the device translates it when it can.
+  const classifierReason = useSummary(item.origin === "bill" ? undefined : item.reason);
   const reason =
     item.origin === "bill"
       ? t.gather.reasonBill(item.line_no ?? 0, item.merchant ?? t.gather.theProvider)
-      : item.reason;
+      : classifierReason.text;
   const from = t.gather.from[item.origin];
   const explain = t.statusExplain[status];
 

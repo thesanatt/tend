@@ -14,13 +14,13 @@ export function capText(cost: CoveredCost, t: Dict, f: Formatters): string | nul
   return cost.cap.countLimit ? `${base}, ${t.countLimit(cost.cap.per, cost.cap.countLimit)}` : base;
 }
 
-export function spanText(d: Extract<DeadlineFact, { kind: "span" }>, t: Dict): string {
+export function spanText(d: Extract<DeadlineFact, { kind: "span" }>, t: Dict, f: Formatters): string {
   const parts = [
     d.years ? t.units.years(d.years) : null,
     d.months ? t.units.months(d.months) : null,
     d.days ? t.units.days(d.days) : null,
   ].filter((p): p is string => Boolean(p));
-  return parts.join(" ");
+  return f.and(parts);
 }
 
 function host(url: string): string {
@@ -92,7 +92,7 @@ export default function CheckSummaryView({
             </>
           ) : d.kind === "span" ? (
             <>
-              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t))}</p>
+              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t, f))}</p>
               <p className={styles.factNote}>{t.check.deadlineSpanNote}</p>
             </>
           ) : d.kind === "unknown" ? (

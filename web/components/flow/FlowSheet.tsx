@@ -57,21 +57,25 @@ export default function FlowSheet({ open, onClose, title, children, footer, tone
         if (e.target === ref.current) onClose();
       }}
     >
-      <div className={styles.panel}>
-        <header className={styles.head}>
-          <h2 id={titleId} className={styles.title}>
-            {title}
-          </h2>
-          <div className={styles.headActions}>
-            <button type="button" className={`btn btn-quiet ${styles.close}`} onClick={onClose}>
-              {t.common.close}
-            </button>
-            <ExitControl inline />
-          </div>
-        </header>
-        <div className={styles.body}>{children}</div>
-        {footer ? <footer className={styles.foot}>{footer}</footer> : null}
-      </div>
+      {/* A closed sheet keeps only its frame: long lists hold many citations, and their quotes
+          are built when one opens. */}
+      {open ? (
+        <div className={styles.panel}>
+          <header className={styles.head}>
+            <h2 id={titleId} className={styles.title}>
+              {title}
+            </h2>
+            <div className={styles.headActions}>
+              <button type="button" className={`btn btn-quiet ${styles.close}`} onClick={onClose}>
+                {t.common.close}
+              </button>
+              <ExitControl inline />
+            </div>
+          </header>
+          <div className={styles.body}>{children}</div>
+          {footer ? <footer className={styles.foot}>{footer}</footer> : null}
+        </div>
+      ) : null}
     </dialog>,
     document.body,
   );

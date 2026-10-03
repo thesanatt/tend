@@ -22,7 +22,7 @@ interface CiteProps {
 
 // The pinpoint as a button. It opens the plain summary, the exact quote, and a link to the source.
 export default function Cite({ ruleIds: given, law, subject, explain, title, tone = "default" }: CiteProps) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [open, setOpen] = useState(false);
   const ruleIds = [...new Set(given)];
   const rules = ruleIds.map((id) => law.rule(id)).filter((r): r is Rule => Boolean(r));
@@ -48,11 +48,12 @@ export default function Cite({ ruleIds: given, law, subject, explain, title, ton
         <div className={styles.intro}>
           <p className={styles.subject}>{subject}</p>
           {explain ? <p>{explain}</p> : null}
+          {lang !== "en" && rules.length ? <p className="meta">{t.cite.quoteOriginal}</p> : null}
         </div>
         {!ruleIds.length ? <p>{t.cite.noRule}</p> : null}
         {rules.map((r) => (
           <section key={r.id} className={styles.group}>
-            <LawQuote rule={r} source={law.source(r.source_id)} />
+            <LawQuote rule={r} source={law.source(r.source_id)} languageNote={false} />
           </section>
         ))}
         {law.law && missing.length ? <p className="meta">{t.cite.missing(missing.join(", "))}</p> : null}

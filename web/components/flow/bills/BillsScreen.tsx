@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Money from "@/components/Money";
 import type { Letter } from "@/lib/contracts";
-import { useI18n, type Dict } from "@/lib/i18n";
+import { useI18n } from "@/lib/i18n";
 import type { Rule } from "@/lib/types";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import { billItems, billPlan } from "../claim";
@@ -20,9 +20,9 @@ import { usePacket } from "../usePacket";
 import styles from "../flow.module.css";
 import PaySheet from "./PaySheet";
 
-// Used when the packet builder has no billing letter: the same request, built from the verified rule.
+// Used when the packet builder has no billing letter: the same request, quoting the verified rule.
+// It goes to a US billing office, so it is written in English whatever the screen's language.
 export function fallbackHoldLetter(
-  t: Dict,
   stateName: string,
   provider: string,
   heldText: string,
@@ -31,8 +31,18 @@ export function fallbackHoldLetter(
 ): Letter {
   return {
     kind: "billing_hold",
-    title: t.letters.billing_hold,
-    body: t.letters.holdBody(provider, heldText, stateName, noBill.pinpoint, noBill.quote, payer),
+    title: "Letter to the billing office",
+    body: [
+      `To the billing office at ${provider}:`,
+      "",
+      `I received a bill that includes a charge for a forensic exam: ${heldText}.`,
+      "",
+      `${stateName} law, ${noBill.pinpoint}, says: "${noBill.quote}"`,
+      "",
+      `Please remove this charge from my account${payer ? ` and send it to ${payer}` : ""}, and send me a corrected bill.`,
+      "",
+      "Thank you.",
+    ].join("\n"),
     rule_ids: [noBill.id],
   };
 }
@@ -84,7 +94,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
   const letter =
     pk.packet?.letters.find((l) => l.kind === "billing_hold") ??
     ((pk.status === "ready" || pk.status === "error") && noBill
-      ? fallbackHoldLetter(t, law.law?.name ?? "", provider, heldText, noBill, payer)
+      ? fallbackHoldLetter(law.law?.name ?? "", provider, heldText, noBill, payer)
       : null);
   const payments = state.payments.filter((p) => p.bill_id === bill.id);
   const paid = payments.find((p) => p.status === "done");

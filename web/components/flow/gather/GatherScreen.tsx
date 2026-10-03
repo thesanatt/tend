@@ -49,7 +49,7 @@ function GroupBed({
       {g.batch ? (
         <div className={styles.batch}>
           <button type="button" className="btn btn-secondary" onClick={() => onAnswer(g.batch!.ids, "yes")}>
-            {t.gather.confirmAll(g.batch.ids.length, t.nouns[g.batch.expense as ItemExpense] ?? t.nouns.other)}
+            {t.gather.confirmAll((t.nouns[g.batch.expense as ItemExpense] ?? t.nouns.other)(g.batch.ids.length))}
           </button>
           <p className="meta">{t.gather.confirmAllNote}</p>
         </div>
