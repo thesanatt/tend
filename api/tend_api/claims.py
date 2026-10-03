@@ -41,18 +41,60 @@ def check_evidence(items: list[Item], evidence: dict[str, dict[str, Any]]) -> tu
     return kept, refused
 
 
+# SPEC statuses, v1.0 and v1.1 together.
+LINE_STATUSES = {"out_of_window", "held", "excluded", "unknown_rule", "needs_confirmation", "eligible"}
+CHECK_STATUSES = {
+    "deadline": {"ok", "late", "unknown"},
+    "minimum_loss": {"met", "not_met", "waived", "may_be_waived", "unknown"},
+    "reporting": {"satisfied", "required", "not_required", "unknown"},
+}
+
+
 def validate_output(output: dict[str, Any], payload: dict[str, Any]) -> None:
+    """Check the engine's arithmetic before anyone sees a dollar of it: one line per item, totals that add up."""
     try:
         assert_integer_cents(output)
     except ValueError as exc:
         raise ClaimError(f"engine output broke the integer-cents rule: {exc}", 500) from exc
     lines = output.get("lines")
-    if not isinstance(lines, list) or not isinstance(output.get("totals"), dict):
+    totals = output.get("totals")
+    if not isinstance(lines, list) or not isinstance(totals, dict) or not all(isinstance(ln, dict) for ln in lines):
         raise ClaimError("engine output is missing lines or totals", 500)
-    known = {i["item_id"] for i in payload["items"]}
-    invented = [ln.get("item_id") for ln in lines if ln.get("item_id") not in known]
+    items = {i["item_id"]: i for i in payload["items"]}
+    invented = [ln.get("item_id") for ln in lines if ln.get("item_id") not in items]
     if invented:
         raise ClaimError(f"engine output has lines with no input item: {invented[:3]}", 500)
+    ids = [ln["item_id"] for ln in lines]
+    if len(ids) != len(set(ids)) or set(ids) != set(items):
+        raise ClaimError("engine output does not have exactly one line per input item", 500)
+
+    problems = []
+    for ln in lines:
+        status, requested, allowed = ln.get("status"), ln.get("requested_cents"), ln.get("allowed_cents")
+        if status not in LINE_STATUSES:
+            problems.append(f"{ln['item_id']}: unknown status {status!r}")
+        elif requested != items[ln["item_id"]]["amount_cents"]:
+            problems.append(f"{ln['item_id']}: requested {requested} is not the item amount")
+        elif not isinstance(allowed, int) or not 0 <= allowed <= requested:
+            problems.append(f"{ln['item_id']}: allowed {allowed} is outside 0 to requested")
+        elif status != "eligible" and allowed != 0:
+            problems.append(f"{ln['item_id']}: a {status} line allows {allowed}")
+    eligible = [ln for ln in lines if ln.get("status") == "eligible"]
+    allowed_sum = sum(ln.get("allowed_cents") or 0 for ln in eligible)
+    held_sum = sum(ln.get("requested_cents") or 0 for ln in lines if ln.get("status") == "held")
+    if totals.get("allowed_cents") != allowed_sum:
+        problems.append(f"totals.allowed_cents {totals.get('allowed_cents')} is not the sum of the lines ({allowed_sum})")
+    if totals.get("held_cents") != held_sum:
+        problems.append(f"totals.held_cents {totals.get('held_cents')} is not the sum of the held lines ({held_sum})")
+    by_expense = totals.get("by_expense")
+    if isinstance(by_expense, dict) and sum(by_expense.values()) != allowed_sum:
+        problems.append("totals.by_expense does not add up to totals.allowed_cents")
+    for name, statuses in CHECK_STATUSES.items():
+        check = (output.get("checks") or {}).get(name)
+        if check is not None and check.get("status") not in statuses:
+            problems.append(f"checks.{name} has unknown status {check.get('status')!r}")
+    if problems:
+        raise ClaimError(f"engine output failed its own arithmetic, so Tend will not show it: {'; '.join(problems[:3])}", 500)
 
 
 class ClaimService:
@@ -309,8 +351,8 @@ class ClaimService:
                 },
                 evidence,
             )
-        # Payments check this so a held line can never be paid, whichever screen asks.
-        self.repo.mark_held(scan_id, held)
+        # Payments check this, so a line is paid only after the law ran on it and never when it is held.
+        self.repo.mark_checked(scan_id, [line.item_id for line in bill.lines], held)
         return scan_id
 
 

@@ -43,22 +43,27 @@ same checkout, and skips until then.
 - `POST /scan` `{persona_id | customer_id, st, incident_date?}`: classified items plus the persona's itemized bill as
   verified lines (they replace the single bank bill), the checking `account`, `read_count`, and a ready `engine_input`.
   Inferred items stay unconfirmed until the survivor says yes.
-- `POST /claim?scan_id=...` engine input in, engine output out, plus `claim_id`, `refused`, and `evidence`.
+- `POST /claim?scan_id=...` engine input in, engine output out, plus `claim_id`, `refused`, and `evidence`. Output
+  that does not add up (one line per item, allowed within requested, totals equal to their lines, known statuses)
+  is refused with a 500 rather than shown.
   `X-Tend-Engine` says `native` or `reference`. With `scan_id`, a line whose id, amount, or date does not match
   the scan is refused with the reason.
 - `GET /claims/{claim_id}`: every line joined to its transaction and the verbatim rule quote
 - `POST /bill/audit` `{bill_id | persona_id | bill_text, st?, scan_id?, incident_date?}`: the lines must add up to
   the bill's total, the file must match the snapshot's sha256, and the total must match the Nessie bill, or the
   audit refuses. The exam line is held with the law quoted; `payable_cents` is what is left to pay.
-- `POST /actions/propose` (`{from | from_account_id, payee, amount_cents}`, optionally `kind: "pay_bill"`,
-  `bill_id`, `item_ids`: the amount must equal those lines and none may be held), `POST /actions/confirm`,
+- `POST /actions/propose` (`{from | from_account_id, payee, amount_cents}`, optionally `kind: "pay_bill"` with
+  `bill_id` and `item_ids`: the amount must equal those lines, the bill must have been through `/bill/audit` so the
+  law engine has seen every line, and none may be held; with `claim_id` and `item_id`, the amount may not exceed
+  that line), `POST /actions/confirm`,
   `GET /actions/{id}`, `GET /audit` (hash chain check included)
 - `GET /packet/{claim_id}.pdf` (summary plus the state application when Tend has it), `POST /packet` (same,
   rendered from an engine input and not stored), `/packet/{claim_id}/application.pdf`, `/packet/{claim_id}/needed`
 - `POST /share` with `ciphertext` and `nonce` (sealed in the browser; `open_once` optional), or with `claim_id`,
   or with `input` (the server evaluates it again). `GET /share/{token}`, `GET /share/{token}/packet.pdf`,
   `DELETE /share/{token}`.
-- Agent: `GET /agent/checklist/{st}`, `POST /agent/link`, `POST /agent/redeem`, `GET /agent/claim`,
+- Agent: `GET /agent/checklist/{st}?incident_date=&forensic_exam=&police_report=` (when `forensic_exam` is not
+  given, `reporting` assumes no exam and `reporting_if_exam` gives the other answer), `POST /agent/link`, `POST /agent/redeem`, `GET /agent/claim`,
   `POST /agent/pay`, `POST /agent/confirm` (Bearer token from redeem; payments need the typed `confirm 118.00`)
 
 ## What the API expects from the other parts

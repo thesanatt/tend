@@ -8,7 +8,7 @@ import stat
 import sys
 
 import pytest
-from helpers import FIXTURES, MI_RULES, client_for, fake_ref, make_services
+from helpers import FIXTURES, MI_RULES, client_for, fake_ref, law_image, make_services
 
 from tend_api.engine import EngineUnavailable, call_reference, load_reference
 
@@ -284,3 +284,51 @@ def test_call_reference_conventions():
     assert call_reference(law_first, law, payload) == ("law_first", law, payload)
     assert call_reference(input_first, law, payload) == ("input_first", payload, law)
     assert call_reference(input_only, law, payload) == ("input_only", payload)
+
+
+def test_image_from_an_older_ir_is_recompiled(native_settings, clock, tmp_path):
+    ir_dir = write_ir(tmp_path / "ir", hashlib.sha256(MI_RULES.read_bytes()).hexdigest())
+    current = hashlib.sha256((ir_dir / "MI.json").read_bytes()).hexdigest().encode()
+    image = native_settings.law_dirs[0] / "MI.tlaw"
+    settings = dataclasses.replace(native_settings, tendc=fake_tendc(tmp_path), ir_dir=ir_dir)
+
+    image.write_bytes(law_image() + b"ir_sha256" + current)
+    client = client_for(make_services(settings, clock))
+    assert client.post("/api/claim", json=EMPTY_CLAIM).headers["X-Tend-Engine"] == "native"
+    assert not (tmp_path / "bin" / "tendc.args").exists()  # same IR: the built image is used as is
+
+    image.write_bytes(law_image() + b"ir_sha256" + b"f" * 64)  # same verified file, IR normalized again since
+    client = client_for(make_services(settings, clock))
+    assert client.post("/api/claim", json=EMPTY_CLAIM).headers["X-Tend-Engine"] == "native"
+    assert (tmp_path / "bin" / "tendc.args").exists()
+    assert (settings.cache_dir / "laws" / "MI.tlaw").is_file()
+
+
+def output_with(change):
+    def evaluate(law, payload):
+        out = fake_ref.evaluate(law, payload)
+        change(out)
+        return out
+
+    return evaluate
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        lambda out: out["totals"].update(allowed_cents=out["totals"]["allowed_cents"] + 100),
+        lambda out: out["totals"].update(held_cents=500),
+        lambda out: out["lines"][0].update(allowed_cents=out["lines"][0]["requested_cents"] + 1),
+        lambda out: out["lines"][0].update(requested_cents=1),
+        lambda out: out["lines"][0].update(status="approved"),
+        lambda out: out["lines"].pop(),
+        lambda out: out["lines"].append(dict(out["lines"][0])),
+        lambda out: out["checks"]["reporting"].update(status="fine"),
+    ],
+    ids=["total", "held", "allowed-over", "requested", "status", "missing-line", "duplicate-line", "check-status"],
+)
+def test_engine_output_that_does_not_add_up_is_refused(settings, clock, change):
+    client = client_for(make_services(settings, clock, reference_evaluate=output_with(change)))
+    r = client.post("/api/claim", json=ONE_ITEM)
+    assert r.status_code == 500
+    assert "Tend will not show it" in r.json()["detail"] or "one line per input item" in r.json()["detail"]

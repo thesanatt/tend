@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, Depends, Header
 
@@ -23,8 +23,14 @@ SessionClaim = Annotated[str, Depends(session_claim)]
 
 
 @router.get("/checklist/{st}")
-def checklist(st: StatePath, svc: ServicesDep, incident_date: dt.date | None = None) -> dict[str, Any]:
-    return svc.agent.checklist(st.upper(), incident_date)
+def checklist(
+    st: StatePath,
+    svc: ServicesDep,
+    incident_date: dt.date | None = None,
+    forensic_exam: bool | None = None,
+    police_report: Literal["yes", "no", "unknown"] = "unknown",
+) -> dict[str, Any]:
+    return svc.agent.checklist(st.upper(), incident_date, forensic_exam, police_report)
 
 
 @router.post("/link")

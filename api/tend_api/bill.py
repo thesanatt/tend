@@ -110,6 +110,13 @@ def _parse_date(m: re.Match[str]) -> dt.date:
     return dt.date(year, int(m.group("m2")), int(m.group("d2")))
 
 
+def _cents(token: str, line: str) -> int:
+    try:
+        return parse_cents(token)
+    except ValueError as exc:
+        raise BillRefused(f"Tend could not read the amount {token.strip()!r} on this bill line: {line!r}") from exc
+
+
 def parse_text_bill(text: str, sha256: str, fmt: str = "text") -> Bill:
     bill = Bill(sha256=sha256, format=fmt, lines=[])
     title: str | None = None
@@ -144,14 +151,14 @@ def parse_text_bill(text: str, sha256: str, fmt: str = "text") -> Bill:
             except ValueError as exc:
                 raise BillRefused(f"bad date on bill line: {line!r}") from exc
             description = re.sub(r"\s{2,}", " ", line[row.end() : amounts[0].start()]).strip(" .\t-")
-            columns = [parse_cents(a.group(0)) for a in amounts]
+            columns = [_cents(a.group(0), line) for a in amounts]
             if columns[-1] < 0:  # a dated credit, e.g. a payment received, reduces what is due
                 bill.adjustments.append({"label": description, "amount_cents": -columns[-1]})
                 continue
             bill.lines.append(BillLine(len(bill.lines) + 1, when, description, columns[-1], columns))
             continue
         label = line[: amounts[0].start()].strip(" .:\t")
-        cents = parse_cents(amounts[-1].group(0))
+        cents = _cents(amounts[-1].group(0), line)
         if _DUE.search(label):
             dues.append(cents)
         elif _TOTAL.search(label):

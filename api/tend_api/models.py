@@ -185,12 +185,18 @@ class ProposeRequest(Strict):
             raise ValueError("payee is empty")
         return cleaned
 
+    @model_validator(mode="after")
+    def _bill_lines(self) -> ProposeRequest:
+        if self.kind == "pay_bill" and not self.item_ids:
+            raise ValueError("pay_bill needs item_ids: the bill lines this pays")
+        return self
+
 
 class ConfirmRequest(Strict):
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
     action_id: Slug
-    confirm_code: Annotated[str, Field(pattern=r"^\d{6}$")]
+    confirm_code: Annotated[str, Field(pattern=r"^[0-9]{6}$")]
     amount_cents: PositiveCents | None = None
     from_account: Annotated[str | None, Field(alias="from", max_length=64)] = None
     payee: Annotated[str | None, Field(max_length=80)] = None
@@ -242,5 +248,5 @@ class AgentPayRequest(Strict):
 
 class AgentConfirmRequest(Strict):
     action_id: Slug
-    confirm_code: Annotated[str, Field(pattern=r"^\d{6}$")]
+    confirm_code: Annotated[str, Field(pattern=r"^[0-9]{6}$")]
     typed: Annotated[str, Field(min_length=1, max_length=64, description='what the survivor typed, e.g. "confirm 118.00"')]

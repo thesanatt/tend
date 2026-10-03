@@ -18,6 +18,8 @@ CODE_TTL = dt.timedelta(minutes=10)
 MAX_ATTEMPTS = 5
 HELD_MESSAGE = "This line is held under the exam billing law. Ask billing to remove it first; Tend will not pay it."
 
+UNCHECKED_MESSAGE = "Tend has not checked this bill against the law yet. Check the bill first, then pay what is left."
+
 AccountsForScan = Callable[[str], set[str] | None]
 
 
@@ -52,7 +54,7 @@ class ActionService:
 
     def propose(self, req: ProposeRequest, channel: str = "app") -> dict[str, Any]:
         if req.claim_id is not None:
-            self._check_claim_line(req.claim_id, req.item_id)
+            self._check_claim_line(req.claim_id, req.item_id, req.amount_cents)
         if req.item_ids:
             self._check_bill_lines(req.item_ids, req.amount_cents, req.from_account)
         # A request can ask for a dry run on a live server, never a live write on a dry-run server.
@@ -115,7 +117,7 @@ class ActionService:
             "dry_run": dry_run,
         }
 
-    def _check_claim_line(self, claim_id: str, item_id: str | None) -> None:
+    def _check_claim_line(self, claim_id: str, item_id: str | None, amount_cents: int) -> None:
         claim = self.repo.get_claim(claim_id)
         if claim is None:
             raise ActionError(f"claim {claim_id} not found", 404)
@@ -126,6 +128,9 @@ class ActionService:
             raise ActionError(f"item {item_id} is not a line of claim {claim_id}", 404)
         if line.get("status") == "held":
             raise ActionError(HELD_MESSAGE, 409)
+        owed = line.get("requested_cents")
+        if isinstance(owed, int) and amount_cents > owed:
+            raise ActionError(f"The amount is more than this line ({format_cents(owed)}).", 409)
 
     def _check_bill_lines(self, item_ids: list[str], amount_cents: int, from_account: str) -> None:
         """Paying named lines: each must be a line Tend read, none held, and the amount must be exactly their sum."""
@@ -135,6 +140,9 @@ class ActionService:
             raise ActionError(f"Tend has no record of {', '.join(unknown[:3])}. Scan or audit the bill first.", 404)
         if any(records[i]["held"] for i in item_ids):
             raise ActionError(HELD_MESSAGE, 409)
+        # A scan reads the itemized bill but does not run the law on it; the exam line could be among these.
+        if not all(records[i]["checked"] for i in item_ids):
+            raise ActionError(UNCHECKED_MESSAGE, 409)
         total = sum(records[i]["amount_cents"] for i in set(item_ids))
         if total != amount_cents:
             raise ActionError(f"The amount does not match the lines being paid ({format_cents(total)}).", 409)

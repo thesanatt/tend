@@ -416,3 +416,44 @@ def test_verify_chain_detects_tampering(services, client):
     assert verify_chain(edited) == {"ok": False, "rows": 3, "broken_at": 2, "reason": "hash does not match the row body"}
     dropped = [rows[0], rows[2]]
     assert verify_chain(dropped)["broken_at"] == 3
+
+
+def test_bill_lines_from_a_scan_are_not_payable_until_the_law_checks_them(client):
+    scan = scan_rowan(client)
+    lines = [i for i in scan["items"] if i.get("source") == "bill"]
+    exam = [i for i in lines if i["expense"] == "forensic_exam"]
+    assert exam, "the scan reads the itemized bill, exam line included"
+    # Right after a scan the exam line has not been through the engine; it must not be payable.
+    r = pay_bill(client, exam)
+    assert r.status_code == 409
+    assert "not checked this bill" in r.json()["detail"]
+    others = [i for i in lines if i["expense"] != "forensic_exam"]
+    assert pay_bill(client, others).status_code == 409
+    client.post("/api/bill/audit", json={"bill_id": "b-riverbend-0001", "persona_id": "rowan-mi", "scan_id": scan["scan_id"]})
+    assert pay_bill(client, exam).status_code == 409 and "held" in pay_bill(client, exam).json()["detail"]
+    assert pay_bill(client, others).status_code == 200
+
+
+def test_pay_bill_must_name_its_lines(client):
+    r = client.post("/api/actions/propose", json={**PAYMENT, "kind": "pay_bill", "bill_id": "b-riverbend-0001"})
+    assert r.status_code == 422
+
+
+def test_claim_line_payment_cannot_exceed_the_line(client):
+    scan = scan_rowan(client)
+    audit = client.post("/api/bill/audit", json={"st": "MI", "persona_id": "rowan-mi", "scan_id": scan["scan_id"]}).json()
+    claim_input = confirm_all({**scan["engine_input"], "items": audit["engine_items"]})
+    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=claim_input).json()
+    line = next(i for i in audit["engine_items"] if i["expense"] != "forensic_exam")
+    over = {**PAYMENT, "amount_cents": line["amount_cents"] + 1, "claim_id": claim["claim_id"], "item_id": line["item_id"]}
+    r = client.post("/api/actions/propose", json=over)
+    assert r.status_code == 409
+    assert "more than this line" in r.json()["detail"]
+    exact = {**over, "amount_cents": line["amount_cents"]}
+    assert client.post("/api/actions/propose", json=exact).status_code == 200
+
+
+def test_confirm_code_must_be_ascii_digits(client):
+    action = propose(client)
+    r = client.post("/api/actions/confirm", json={"action_id": action["action_id"], "confirm_code": "\u0661" * 6})
+    assert r.status_code == 422

@@ -136,3 +136,37 @@ def test_agent_cannot_pay_a_held_line(client, session):
         "/api/agent/pay", headers=session["headers"], json={**PAY, "amount_cents": held["amount_cents"], "item_id": held["item_id"]}
     )
     assert r.status_code == 409
+
+
+@pytest.mark.parametrize("typed", ["confirm 1,1", "confirm 1,000,0", "confirm \u0661\u0661\u0668"])
+def test_malformed_typed_amount_approves_nothing(client, session, typed):
+    proposed = client.post("/api/agent/pay", headers=session["headers"], json=PAY).json()
+    base = {"action_id": proposed["action_id"], "confirm_code": proposed["confirm_code"]}
+    r = client.post("/api/agent/confirm", headers=session["headers"], json={**base, "typed": typed})
+    assert r.status_code == 409
+    assert client.get(f"/api/actions/{proposed['action_id']}").json()["status"] == "proposed"
+
+
+def test_agent_cannot_pay_more_than_a_line(client, session):
+    view = client.get(f"/api/claims/{session['claim_id']}").json()
+    line = next(ln for ln in view["lines"] if ln["status"] == "eligible")
+    r = client.post(
+        "/api/agent/pay",
+        headers=session["headers"],
+        json={**PAY, "amount_cents": line["requested_cents"] * 100, "item_id": line["item_id"]},
+    )
+    assert r.status_code == 409
+
+
+def test_checklist_does_not_assume_an_exam(client):
+    data = client.get("/api/agent/checklist/MI", params={"incident_date": "2026-06-14"}).json()
+    assert data["forensic_exam"] is None
+    assert data["reporting"]["status"] != "satisfied"
+    assert data["reporting_if_exam"]["status"] == "satisfied"
+    told = client.get("/api/agent/checklist/MI", params={"incident_date": "2026-06-14", "forensic_exam": "true"}).json()
+    assert told["reporting"]["status"] == "satisfied" and told["reporting_if_exam"] is None
+    reported = client.get(
+        "/api/agent/checklist/MI", params={"incident_date": "2026-06-14", "forensic_exam": "false", "police_report": "yes"}
+    ).json()
+    assert reported["reporting"]["status"] == "satisfied"
+    assert "Commission" not in data["note"]

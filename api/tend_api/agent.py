@@ -20,7 +20,7 @@ from .storage import Repository
 LINK_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"  # no 0/O, 1/I/L: the survivor reads it aloud or types it
 LINK_TTL = dt.timedelta(minutes=30)
 SESSION_TTL = dt.timedelta(hours=2)
-CONFIRM_PHRASE = re.compile(r"^\s*confirm\s+\$?(?P<amount>\d[\d,]*(?:\.\d{2})?)\s*$", re.I)
+CONFIRM_PHRASE = re.compile(r"^\s*confirm\s+\$?(?P<amount>\d[\d,]*(?:\.\d{2})?)\s*$", re.I | re.A)
 NOT_INCLUDED = ("excluded", "unknown_rule", "out_of_window")
 
 
@@ -38,6 +38,16 @@ def normalize_link_code(code: str) -> str:
 
 def confirm_phrase(amount_cents: int) -> str:
     return f"confirm {format_cents(amount_cents)[1:]}"
+
+
+def typed_cents(typed: str) -> int | None:
+    m = CONFIRM_PHRASE.match(typed)
+    if m is None:
+        return None
+    try:
+        return parse_cents(m.group("amount"))
+    except ValueError:  # "confirm 1,1" and other malformed amounts approve nothing
+        return None
 
 
 def _cite(c: dict[str, Any]) -> dict[str, Any]:
@@ -68,7 +78,9 @@ class AgentService:
         self.accounts_for_scan = accounts_for_scan
         self.clock = clock
 
-    def checklist(self, st: str, incident_date: dt.date | None) -> dict[str, Any]:
+    def checklist(
+        self, st: str, incident_date: dt.date | None, forensic_exam: bool | None = None, police_report: str = "unknown"
+    ) -> dict[str, Any]:
         doc = self.rules.get(st)
         if doc is None:
             raise AgentError(f"No verified rules for {st}.", 404)
@@ -78,28 +90,34 @@ class AgentService:
             return [_cite(citation(r, sources)) for r in doc["rules"] if r.get("category") in categories]
 
         today = local_today(self.clock())
-        checks: dict[str, Any] = {}
         engine = None
-        if incident_date is not None:
+
+        def run(exam: bool) -> dict[str, Any]:
+            nonlocal engine
+            if incident_date is None:
+                return {}
             payload = {
                 "jurisdiction": st,
                 "context": {
                     "incident_date": incident_date.isoformat(),
                     "as_of_date": today.isoformat(),
-                    "police_report": "unknown",
-                    "forensic_exam": True,
+                    "police_report": police_report,
+                    "forensic_exam": exam,
                 },
                 "items": [],
             }
             try:
                 output, engine = self.engines.evaluate(payload)
-                checks = output.get("checks") or {}
             except (EngineUnavailable, EngineError):
-                checks = {}
+                return {}
+            return output.get("checks") or {}
+
+        # Never assume an exam: unless the survivor said, report both answers so the agent can ask.
+        checks = run(bool(forensic_exam))
         rules_by_id = self.rules.rules_by_id(st)
 
-        def check(name: str, category: str) -> dict[str, Any]:
-            found = checks.get(name)
+        def check(name: str, category: str, found_in: dict[str, Any]) -> dict[str, Any]:
+            found = found_in.get(name)
             if found is None:
                 return {"status": "unknown", "citations": cites(category)}
             return {**found, "citations": [_cite(citation(rules_by_id[r], sources)) for r in found.get("rule_ids", []) if r in rules_by_id]}
@@ -116,13 +134,16 @@ class AgentService:
             "as_of_date": today.isoformat(),
             "incident_date": incident_date.isoformat() if incident_date else None,
             "engine": engine,
-            "deadline": check("deadline", "filing_deadline"),
-            "reporting": check("reporting", "reporting_requirement"),
+            "forensic_exam": forensic_exam,
+            "police_report": police_report,
+            "deadline": check("deadline", "filing_deadline", checks),
+            "reporting": check("reporting", "reporting_requirement", checks),
+            "reporting_if_exam": check("reporting", "reporting_requirement", run(True)) if forensic_exam is None else None,
             "exam_billing": {"protection": cites("exam_no_bill"), "who_pays": cites("exam_payment")},
             "covered": [{"expense": e, "citations": c} for e, c in sorted(covered.items())],
             "not_covered": cites("excluded_expense"),
             "caps": cites("total_cap", "expense_cap"),
-            "note": "Rules can have exceptions. The Commission decides.",
+            "note": "Rules can have exceptions. The program decides.",
         }
 
     def create_link(self, claim_id: str) -> dict[str, Any]:
@@ -201,7 +222,7 @@ class AgentService:
                 | {"rules": [_cite(c) for c in check["citations"]]}
                 for name, check in view["checks"].items()
             },
-            "note": "Amount you can ask for. The Commission decides.",
+            "note": "Amount you can ask for. The program decides.",
         }
 
     def pay(self, claim_id: str, req: AgentPayRequest) -> dict[str, Any]:
@@ -223,8 +244,7 @@ class AgentService:
         action = self.repo.get_action(req.action_id)
         if action is None or action["claim_id"] != claim_id:
             raise AgentError("No payment with that id in this session.", 404)
-        typed = CONFIRM_PHRASE.match(req.typed)
-        if typed is None or parse_cents(typed.group("amount")) != action["amount_cents"]:
+        if typed_cents(req.typed) != action["amount_cents"]:
             raise AgentError(f'Nothing was paid. To approve, type exactly: "{confirm_phrase(action["amount_cents"])}"', 409)
         return self.actions.confirm(ConfirmRequest(action_id=req.action_id, confirm_code=req.confirm_code), channel="agent")
 

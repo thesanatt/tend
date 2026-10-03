@@ -208,3 +208,18 @@ def test_audit_without_scan_creates_its_own_evidence(client):
     )
     claim = client.post("/api/claim", params={"scan_id": data["scan_id"]}, json=claim_input).json()
     assert claim["refused"] == []
+
+
+@pytest.mark.parametrize(
+    "row",
+    ["06/14/2026  Laboratory panel  (43.00", "06/14/2026  Laboratory panel  43.00)"],
+)
+def test_unbalanced_amount_is_refused_not_a_crash(client, row):
+    r = audit(client, bill_text=f"Clinic\n{row}\nTotal 43.00")
+    assert r.status_code == 422
+    assert "could not read the amount" in r.json()["detail"]["message"]
+
+
+def test_unbalanced_total_is_refused_not_a_crash(client):
+    r = audit(client, bill_text="Clinic\n06/14/2026  Laboratory panel  43.00\nTotal (43.00")
+    assert r.status_code == 422

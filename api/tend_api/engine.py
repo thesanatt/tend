@@ -20,6 +20,7 @@ from .rules import RulesStore
 BUILD_HINT = "make -C engine && make -C engine laws"
 # Engine error codes that mean this image or VM cannot serve the claim, so another engine should.
 UNAVAILABLE_CODES = {"bad_image", "vm_trap"}
+IR_META_KEY = b"ir_sha256"
 
 
 class EngineError(Exception):
@@ -123,10 +124,12 @@ class NativeEngine:
         if not rules_path.is_file():
             raise EngineError(f"no verified rules for {st}")
         rules_bytes = rules_path.read_bytes()
+        ir_path = self.ir.path(st)
+        ir_hex = hashlib.sha256(ir_path.read_bytes()).hexdigest() if ir_path is not None else None
         candidates = [d / f"{st}.tlaw" for d in self.law_dirs] + [self.compiled_dir / f"{st}.tlaw"]
         for path in candidates:
             image = self._read_image(path)
-            if image is not None and _image_matches(image, path, rules_path, rules_bytes):
+            if image is not None and _image_matches(image, path, rules_path, rules_bytes, ir_hex):
                 return image, path
         if not self.tendc.is_file():
             raise EngineUnavailable(f"No up-to-date law image for {st} and no compiler at {self.tendc}. Build it with: {BUILD_HINT}")
@@ -200,7 +203,11 @@ class NativeEngine:
             return {"available": False, "reason": str(exc)}
 
 
-def _image_matches(image: bytes, image_path: Path, rules_path: Path, rules_bytes: bytes) -> bool:
+def _image_matches(image: bytes, image_path: Path, rules_path: Path, rules_bytes: bytes, ir_hex: str | None = None) -> bool:
+    # An image compiled from the IR names that IR's sha256 in its META section. When the IR is
+    # normalized again (same verified file, new IR), the old image is stale and gets recompiled.
+    if ir_hex is not None and IR_META_KEY in image and ir_hex.encode() not in image:
+        return False
     # The image header carries the sha256 of the verified JSON; fall back to mtimes if the layout hides it.
     digest = hashlib.sha256(rules_bytes)
     if digest.digest() in image or digest.hexdigest().encode() in image:

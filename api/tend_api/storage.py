@@ -24,7 +24,7 @@ class Repository(Protocol):
     def get_scan(self, scan_id: str) -> dict[str, Any] | None: ...
     def evidence(self, scan_id: str) -> dict[str, dict[str, Any]]: ...
     def evidence_for(self, item_ids: list[str]) -> dict[str, dict[str, Any]]: ...
-    def mark_held(self, scan_id: str, item_ids: list[str]) -> None: ...
+    def mark_checked(self, scan_id: str, item_ids: list[str], held: list[str]) -> None: ...
 
     def save_claim(self, claim: dict[str, Any]) -> None: ...
     def get_claim(self, claim_id: str) -> dict[str, Any] | None: ...
@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS evidence (
     date TEXT NOT NULL,
     source TEXT NOT NULL,
     held INTEGER NOT NULL DEFAULT 0,
+    checked INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (scan_id, item_id)
 );
 CREATE INDEX IF NOT EXISTS evidence_item ON evidence(item_id);
@@ -161,6 +162,7 @@ CREATE TABLE IF NOT EXISTS agent_sessions (
 # Columns added after the first schema; ALTER keeps a database from an earlier run working.
 ADDED_COLUMNS = (
     ("evidence", "held", "INTEGER NOT NULL DEFAULT 0"),
+    ("evidence", "checked", "INTEGER NOT NULL DEFAULT 0"),
     ("actions", "channel", "TEXT NOT NULL DEFAULT 'app'"),
     ("actions", "bill_id", "TEXT"),
     ("actions", "item_ids_json", "TEXT"),
@@ -271,24 +273,30 @@ class SQLiteRepository:
         return {r["item_id"]: dict(r) for r in rows}
 
     def evidence_for(self, item_ids: list[str]) -> dict[str, dict[str, Any]]:
-        """The latest record of each item across scans; held if any audit held it."""
+        """The latest record of each item across scans; held if any audit held it, checked if any audit ran the law on it."""
         if not item_ids:
             return {}
         marks = ",".join("?" * len(item_ids))
         with self._lock:
             rows = self._conn.execute(
-                f"SELECT e.*, MAX(e.held) OVER (PARTITION BY e.item_id) AS ever_held FROM evidence e"
+                f"SELECT e.*, MAX(e.held) OVER (PARTITION BY e.item_id) AS ever_held, MAX(e.checked) OVER (PARTITION BY e.item_id) AS ever_checked"
+                f" FROM evidence e"
                 f" JOIN scans s ON s.scan_id = e.scan_id WHERE e.item_id IN ({marks}) ORDER BY s.created_at",
                 tuple(item_ids),
             ).fetchall()
         out: dict[str, dict[str, Any]] = {}
         for r in rows:
-            out[r["item_id"]] = {**dict(r), "held": bool(r["ever_held"])}
+            out[r["item_id"]] = {**dict(r), "held": bool(r["ever_held"]), "checked": bool(r["ever_checked"])}
         return out
 
-    def mark_held(self, scan_id: str, item_ids: list[str]) -> None:
+    def mark_checked(self, scan_id: str, item_ids: list[str], held: list[str]) -> None:
+        """Record that the law engine ran on these lines, and which of them it held."""
+        held_set = set(held)
         with self._tx() as c:
-            c.executemany("UPDATE evidence SET held = 1 WHERE scan_id = ? AND item_id = ?", [(scan_id, i) for i in item_ids])
+            c.executemany(
+                "UPDATE evidence SET checked = 1, held = MAX(held, ?) WHERE scan_id = ? AND item_id = ?",
+                [(int(i in held_set), scan_id, i) for i in item_ids],
+            )
 
     # claims
 

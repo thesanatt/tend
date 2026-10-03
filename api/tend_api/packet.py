@@ -155,7 +155,7 @@ def still_needed(view: dict[str, Any], rules_doc: dict[str, Any]) -> list[dict[s
         needed.append(
             {
                 "document": "A short written reason for filing late",
-                "why": "The Commission can extend the deadline for good cause.",
+                "why": "Some programs accept a late claim for a good reason. The program decides.",
                 "rule_ids": deadline.get("rule_ids", []),
             }
         )
@@ -327,7 +327,7 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
     story.append(Spacer(1, 12))
     story.append(Paragraph("Amount you can ask for", st["small"]))
     story.append(Paragraph(format_cents(totals.get("allowed_cents", 0)), st["big"]))
-    story.append(Paragraph("The Commission decides. Eligibility rules have exceptions, and a Navigator can help.", st["small"]))
+    story.append(Paragraph("The program decides. Eligibility rules have exceptions, and a Navigator can help.", st["small"]))
     counted = sum(1 for ln in lines if ln.get("status") == "eligible")
     held = totals.get("held_cents", 0)
     summary = f"{counted} of {len(lines)} lines counted, from {format_cents(totals.get('requested_cents', 0))} requested."
@@ -445,7 +445,7 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
         src_table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LINEBELOW", (0, 0), (-1, -1), 0.4, LINE)]))
         story.append(src_table)
 
-    footer = f"Tend claim {view['claim_id']}. Rules can have exceptions. The Commission decides."
+    footer = f"Tend claim {view['claim_id']}. Rules can have exceptions. The program decides."
 
     def on_page(canvas: Any, doc: Any) -> None:
         canvas.saveState()

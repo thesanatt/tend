@@ -159,3 +159,10 @@ def test_database_from_an_earlier_schema_is_upgraded(tmp_path):
     )
     action = repo.get_action("act_1")
     assert action["channel"] == "agent" and action["item_ids"] == ["x"]
+    repo.save_scan(
+        {"scan_id": "s1", "jurisdiction": "MI", "fictional": True, "created_at": "t"},
+        [{"item_id": "bill:1", "amount_cents": 100, "date": "2026-06-14", "source": "bill"}],
+    )
+    assert repo.evidence_for(["bill:1"])["bill:1"]["checked"] is False
+    repo.mark_checked("s1", ["bill:1"], [])
+    assert repo.evidence_for(["bill:1"])["bill:1"]["checked"] is True
