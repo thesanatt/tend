@@ -41,6 +41,11 @@ class Repository(Protocol):
     def get_share(self, token_hash: str) -> dict[str, Any] | None: ...
     def revoke_share(self, token_hash: str, at: str) -> bool: ...
 
+    def insert_agent_link(self, link: dict[str, Any]) -> None: ...
+    def redeem_agent_link(self, code_hash: str, at: str) -> str | None: ...
+    def insert_agent_session(self, session: dict[str, Any]) -> None: ...
+    def get_agent_session(self, token_hash: str) -> dict[str, Any] | None: ...
+
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS meta (
@@ -86,6 +91,7 @@ CREATE TABLE IF NOT EXISTS actions (
     claim_id TEXT,
     item_id TEXT,
     code_mac TEXT NOT NULL,
+    channel TEXT NOT NULL DEFAULT 'app',
     attempts INTEGER NOT NULL DEFAULT 0,
     dry_run INTEGER NOT NULL,
     created_at TEXT NOT NULL,
@@ -115,6 +121,19 @@ CREATE TABLE IF NOT EXISTS shares (
     created_at TEXT NOT NULL,
     expires_at TEXT NOT NULL,
     revoked_at TEXT
+);
+CREATE TABLE IF NOT EXISTS agent_links (
+    code_hash TEXT PRIMARY KEY,
+    claim_id TEXT NOT NULL REFERENCES claims(claim_id),
+    created_at TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    redeemed_at TEXT
+);
+CREATE TABLE IF NOT EXISTS agent_sessions (
+    token_hash TEXT PRIMARY KEY,
+    claim_id TEXT NOT NULL REFERENCES claims(claim_id),
+    created_at TEXT NOT NULL,
+    expires_at TEXT NOT NULL
 );
 """
 
@@ -263,8 +282,8 @@ class SQLiteRepository:
     def insert_action(self, action: dict[str, Any]) -> None:
         with self._tx() as c:
             c.execute(
-                "INSERT INTO actions (action_id, status, amount_cents, from_account, payee, claim_id, item_id, code_mac, dry_run, created_at, expires_at)"
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO actions (action_id, status, amount_cents, from_account, payee, claim_id, item_id, code_mac, channel, dry_run,"
+                " created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     action["action_id"],
                     action["status"],
@@ -274,6 +293,7 @@ class SQLiteRepository:
                     action.get("claim_id"),
                     action.get("item_id"),
                     action["code_mac"],
+                    action.get("channel", "app"),
                     int(action["dry_run"]),
                     action["created_at"],
                     action["expires_at"],
@@ -372,3 +392,32 @@ class SQLiteRepository:
     def revoke_share(self, token_hash: str, at: str) -> bool:
         with self._tx() as c:
             return c.execute("UPDATE shares SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL", (at, token_hash)).rowcount == 1
+
+    # agent links: a one-time code the app shows, redeemed once by the agent for a session token
+
+    def insert_agent_link(self, link: dict[str, Any]) -> None:
+        with self._tx() as c:
+            c.execute(
+                "INSERT INTO agent_links (code_hash, claim_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
+                (link["code_hash"], link["claim_id"], link["created_at"], link["expires_at"]),
+            )
+
+    def redeem_agent_link(self, code_hash: str, at: str) -> str | None:
+        with self._tx() as c:
+            row = c.execute(
+                "SELECT claim_id FROM agent_links WHERE code_hash = ? AND redeemed_at IS NULL AND expires_at > ?", (code_hash, at)
+            ).fetchone()
+            if row is None:
+                return None
+            c.execute("UPDATE agent_links SET redeemed_at = ? WHERE code_hash = ?", (at, code_hash))
+            return row["claim_id"]
+
+    def insert_agent_session(self, session: dict[str, Any]) -> None:
+        with self._tx() as c:
+            c.execute(
+                "INSERT INTO agent_sessions (token_hash, claim_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
+                (session["token_hash"], session["claim_id"], session["created_at"], session["expires_at"]),
+            )
+
+    def get_agent_session(self, token_hash: str) -> dict[str, Any] | None:
+        return self._one("SELECT * FROM agent_sessions WHERE token_hash = ?", (token_hash,))

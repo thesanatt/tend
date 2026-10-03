@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .actions import ActionService
+from .agent import AgentService
 from .bank import Bank, DryRunBank, NessieBank
 from .claims import ClaimService
 from .clock import Clock, utcnow
@@ -27,6 +28,7 @@ class Services:
     scans: ScanService
     actions: ActionService
     shares: ShareService
+    agent: AgentService
 
 
 def build_services(
@@ -47,14 +49,18 @@ def build_services(
         ReferenceEngine(settings.refengine_dir, rules, reference_evaluate),
     )
     banks = banks or {"dry_run": DryRunBank(), "nessie": NessieBank()}
+    claims = ClaimService(repo, rules, engines, settings.seed_dir, clock)
+    actions = ActionService(repo, banks, settings.bank_mode, secret, clock)
+    shares = ShareService(repo, clock, settings.public_url)
     return Services(
         settings=settings,
         clock=clock,
         rules=rules,
         repo=repo,
         engines=engines,
-        claims=ClaimService(repo, rules, engines, settings.seed_dir, clock),
+        claims=claims,
         scans=ScanService(repo, settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory),
-        actions=ActionService(repo, banks, settings.bank_mode, secret, clock),
-        shares=ShareService(repo, clock, settings.public_url),
+        actions=actions,
+        shares=shares,
+        agent=AgentService(repo, rules, engines, claims, actions, shares, settings.seed_dir, clock),
     )

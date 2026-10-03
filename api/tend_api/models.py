@@ -191,3 +191,26 @@ class ConfirmRequest(Strict):
 class ShareRequest(Strict):
     claim_id: Slug
     ttl_hours: Annotated[int, Field(strict=True, ge=1, le=168)] = 72
+
+
+class AgentLinkRequest(Strict):
+    claim_id: Slug
+
+
+class AgentRedeemRequest(Strict):
+    link_code: Annotated[str, Field(min_length=8, max_length=16)]
+
+
+class AgentPayRequest(Strict):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    from_account: Annotated[str, Field(alias="from", min_length=1, max_length=64, pattern=r"^[A-Za-z0-9\-_]+$")]
+    payee: Annotated[str, Field(min_length=1, max_length=80)]
+    amount_cents: PositiveCents
+    item_id: ItemId | None = None
+
+
+class AgentConfirmRequest(Strict):
+    action_id: Slug
+    confirm_code: Annotated[str, Field(pattern=r"^\d{6}$")]
+    typed: Annotated[str, Field(min_length=1, max_length=64, description='what the survivor typed, e.g. "confirm 118.00"')]

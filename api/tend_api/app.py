@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from fastapi import FastAPI, Request
+from collections.abc import Awaitable, Callable
+
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -8,7 +10,7 @@ from .config import Settings, load_env_file
 from .deps import CLAIM_HEADER, ENGINE_HEADER
 from .engine import EngineError, EngineUnavailable
 from .errors import TendError
-from .routers import actions, bill, claims, jurisdictions, packet, scan, share, system
+from .routers import actions, agent, bill, claims, jurisdictions, packet, scan, share, system
 from .services import Services, build_services
 
 
@@ -25,12 +27,12 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
         CORSMiddleware,
         allow_origins=list(services.settings.cors_origins),
         allow_methods=["GET", "POST", "DELETE"],
-        allow_headers=["Content-Type"],
+        allow_headers=["Content-Type", "Authorization"],
         expose_headers=[ENGINE_HEADER, CLAIM_HEADER, "Content-Disposition"],
     )
 
     @app.middleware("http")
-    async def private_by_default(request: Request, call_next):  # noqa: ANN001, ANN202
+    async def private_by_default(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
         response = await call_next(request)
         # Claims and share links carry sensitive data; nothing should be cached or leak a share token via Referer.
         response.headers.setdefault("Cache-Control", "no-store")
@@ -50,6 +52,6 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
     async def engine_error(_: Request, exc: EngineError) -> JSONResponse:
         return JSONResponse(status_code=422, content={"detail": str(exc)})
 
-    for module in (system, jurisdictions, scan, claims, bill, actions, packet, share):
+    for module in (system, jurisdictions, scan, claims, bill, actions, packet, share, agent):
         app.include_router(module.router, prefix="/api")
     return app

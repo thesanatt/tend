@@ -35,7 +35,7 @@ class ActionService:
         self.secret = secret
         self.clock = clock
 
-    def propose(self, req: ProposeRequest) -> dict[str, Any]:
+    def propose(self, req: ProposeRequest, channel: str = "app") -> dict[str, Any]:
         if req.claim_id is not None:
             self._check_claim_line(req.claim_id, req.item_id)
         # A request can ask for a dry run on a live server, never a live write on a dry-run server.
@@ -54,6 +54,7 @@ class ActionService:
                 "claim_id": req.claim_id,
                 "item_id": req.item_id,
                 "code_mac": code_mac(self.secret, action_id, req.amount_cents, req.from_account, req.payee, code),
+                "channel": channel,
                 "dry_run": dry_run,
                 "created_at": iso(now),
                 "expires_at": expires_at,
@@ -68,6 +69,7 @@ class ActionService:
                 "payee": req.payee,
                 "claim_id": req.claim_id,
                 "item_id": req.item_id,
+                "channel": channel,
                 "dry_run": dry_run,
                 "expires_at": expires_at,
             },
@@ -96,10 +98,13 @@ class ActionService:
         if line.get("status") == "held":
             raise ActionError("This line is held under the exam billing law. Ask billing to remove it first; Tend will not pay it.", 409)
 
-    def confirm(self, req: ConfirmRequest) -> dict[str, Any]:
+    def confirm(self, req: ConfirmRequest, channel: str = "app") -> dict[str, Any]:
         action = self.repo.get_action(req.action_id)
         if action is None:
             raise ActionError("No action with that id.", 404)
+        if action["channel"] != channel:
+            # An agent-proposed payment needs the survivor's typed approval, which only the agent route checks.
+            raise ActionError(f"This payment was set up through the {action['channel']}; approve it there.", 409)
         now = self.clock()
         if action["status"] != "proposed":
             raise ActionError(f"This action is already {action['status']}. Each confirm code works once.", 409)
