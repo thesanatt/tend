@@ -1,0 +1,28 @@
+{
+ "jurisdiction": "ZZ",
+ "context": {
+  "incident_date": "2026-06-14",
+  "as_of_date": "2026-10-03",
+  "police_report": "no",
+  "forensic_exam": true
+ },
+ "items": [
+  {"item_id": "zz:reloc-2", "date": "2026-07-20", "amount_cents": 90000, "expense": "relocation", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Fictional moving truck"},
+  {"item_id": "zz:exam-bill", "date": "2026-06-14", "amount_cents": 32500, "expense": "forensic_exam", "confirmed": true, "insurance_paid_cents": 0, "is_bill": true, "units": 0, "description": "Fictional hospital, exam bill"},
+  {"item_id": "zz:er-visit", "date": "2026-06-14", "amount_cents": 185000, "expense": "medical", "confirmed": true, "insurance_paid_cents": 120000, "is_bill": false, "units": 0, "description": "Fictional ER visit"},
+  {"item_id": "zz:before", "date": "2026-06-01", "amount_cents": 5000, "expense": "medical", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Earlier visit"},
+  {"item_id": "zz:future", "date": "2026-10-10", "amount_cents": 5000, "expense": "medical", "confirmed": true, "insurance_paid_cents": 0, "is_bill": true, "units": 0, "description": "Scheduled visit"},
+  {"item_id": "zz:counsel-1", "date": "2026-06-20", "amount_cents": 15000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 1, "description": "Counseling session"},
+  {"item_id": "zz:counsel-2", "date": "2026-06-27", "amount_cents": 15000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Counseling, sessions unknown"},
+  {"item_id": "zz:counsel-3", "date": "2026-07-04", "amount_cents": 12000, "expense": "counseling", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 2, "description": "Two counseling sessions"},
+  {"item_id": "zz:wages-1", "date": "2026-06-30", "amount_cents": 140000, "expense": "lost_wages", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 2, "description": "Two weeks of missed shifts"},
+  {"item_id": "zz:transport", "date": "2026-07-01", "amount_cents": 4000, "expense": "transportation", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 60, "description": "Rides to appointments"},
+  {"item_id": "zz:reloc-1", "date": "2026-07-15", "amount_cents": 120000, "expense": "relocation", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Deposit on a new apartment"},
+  {"item_id": "zz:security", "date": "2026-07-22", "amount_cents": 45000, "expense": "security", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Door locks"},
+  {"item_id": "zz:phone", "date": "2026-06-14", "amount_cents": 89900, "expense": "property_replacement", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Replacement phone"},
+  {"item_id": "zz:groceries", "date": "2026-06-25", "amount_cents": 6400, "expense": "unknown", "confirmed": false, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Grocery store"},
+  {"item_id": "zz:pharmacy", "date": "2026-06-16", "amount_cents": 2400, "expense": "prescription", "confirmed": false, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Pharmacy"},
+  {"item_id": "zz:dental", "date": "2026-08-01", "amount_cents": 30000, "expense": "dental", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Dental repair"},
+  {"item_id": "zz:tuition", "date": "2026-08-15", "amount_cents": 50000, "expense": "tuition", "confirmed": true, "insurance_paid_cents": 0, "is_bill": false, "units": 0, "description": "Dropped class fee"}
+ ]
+}
