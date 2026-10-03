@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import { categoryLabel } from "@/lib/categories";
 import type { Rule, Source } from "@/lib/types";
-import { asmHeader, asmLine, directiveAnchor } from "./asm";
+import { asmHeader } from "./asm";
+import Linkified from "./Linkified";
+import AsmCode from "./AsmCode";
 import { hostOf, isPdf, shortDate } from "./format";
 import { ruleUse, skipReason } from "./irWords";
 import type { Asm, IrRule, IrSkip } from "./types";
@@ -52,11 +54,14 @@ export function RuleEntry({
   source,
   ir,
   skip,
+  ids,
 }: {
   rule: Rule;
   source?: Source;
   ir?: IrRule;
   skip?: IrSkip;
+  // Rule ids on this page, so a summary that names another rule links to it.
+  ids?: Set<string>;
 }) {
   const href = rule.fragment_url ?? source?.url;
   const use = ruleUse(ir, skip);
@@ -70,7 +75,9 @@ export function RuleEntry({
           {rule.id}
         </a>
       </p>
-      <p className={styles.summary}>{rule.summary}</p>
+      <p className={styles.summary}>
+        {ids ? <Linkified text={rule.summary} st={rule.id.slice(0, 2)} ids={ids} samePage /> : rule.summary}
+      </p>
       <blockquote className={styles.quote} cite={source?.url}>
         <p>
           <mark>{rule.quote}</mark>
@@ -99,7 +106,8 @@ export function RuleEntry({
   );
 }
 
-export function SetAsideList({ skipped, rules }: { skipped: IrSkip[]; rules: Map<string, Rule> }) {
+export function SetAsideList({ st, skipped, rules }: { st: string; skipped: IrSkip[]; rules: Map<string, Rule> }) {
+  const ids = new Set(rules.keys());
   return (
     <ul className={styles.setAside}>
       {skipped.map((s) => {
@@ -115,7 +123,7 @@ export function SetAsideList({ skipped, rules }: { skipped: IrSkip[]; rules: Map
             {rule ? <p className={styles.summary}>{rule.summary}</p> : null}
             <p>
               <strong>Why: </strong>
-              {skipReason(s.reason)}
+              <Linkified text={skipReason(s.reason)} st={st} ids={ids} samePage />
             </p>
             <p className={styles.raw}>
               Normalizer note: <code>{s.reason}</code>
@@ -195,7 +203,6 @@ export function AsmView({
   const head = asmHeader(asm.text);
   const meta = asm.meta;
   const rulesMatch = head.rules_sha256 === lawSha;
-  const lines = asm.text.replace(/\n$/, "").split("\n");
   const how =
     meta?.via === "api" ? "the law engine on the Tend server (tdis)" : "the engine's disassembler, tdis, when the site was built";
   return (
@@ -260,33 +267,7 @@ export function AsmView({
         </a>
         .
       </p>
-      <pre className={styles.asmPre} tabIndex={0} aria-label={`Compiled law listing for ${name}, ${lines.length} lines`}>
-        <code>
-          {lines.map((line, i) => (
-            <span key={i}>
-              {asmLine(line, ruleIds).map((seg, j) => {
-                const anchor = directiveAnchor(seg);
-                const cls = seg.k ? styles[`asm_${seg.k}`] : undefined;
-                if (seg.id) {
-                  return (
-                    <a key={j} href={`#${seg.id}`} className={cls}>
-                      {seg.t}
-                    </a>
-                  );
-                }
-                return cls || anchor ? (
-                  <span key={j} id={anchor ?? undefined} className={cls}>
-                    {seg.t}
-                  </span>
-                ) : (
-                  seg.t
-                );
-              })}
-              {"\n"}
-            </span>
-          ))}
-        </code>
-      </pre>
+      <AsmCode text={asm.text} ruleIds={[...ruleIds]} name={name} />
     </div>
   );
 }

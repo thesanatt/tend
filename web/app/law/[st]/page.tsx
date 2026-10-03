@@ -50,6 +50,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
   const rulesById = new Map<string, Rule>(law.rules.map((r) => [r.id, r]));
   const irById = new Map((ir?.rules ?? []).map((r) => [r.id, r]));
   const skipById = new Map((ir?.skipped ?? []).map((s) => [s.id, s]));
+  const ruleIds = new Set(rulesById.keys());
   const groups = groupRules(law.rules);
   const stage = LAW_STAGES.find((s) => s.stage === lawStage(law.rules.length))!;
   const decision = (ir?.rules ?? []).filter((r) => r.kind !== "info").length;
@@ -198,6 +199,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
                 source={sources.get(r.source_id)}
                 ir={irById.get(r.id)}
                 skip={skipById.get(r.id)}
+                ids={ruleIds}
               />
             ))}
           </div>
@@ -210,7 +212,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           <p className={styles.groupNote}>
             These rules are verified and quoted above, but the engine does not use them in the math. Each one says why.
           </p>
-          <SetAsideList skipped={ir.skipped} rules={rulesById} />
+          <SetAsideList st={ref.st} skipped={ir.skipped} rules={rulesById} />
         </section>
       ) : null}
 
@@ -224,7 +226,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           Verified rules SHA-256 <code className={styles.sha}>{sha256}</code>
         </p>
         {asm ? (
-          <AsmView st={ref.st} name={law.name} asm={asm} ruleIds={new Set(rulesById.keys())} lawSha={sha256} />
+          <AsmView st={ref.st} name={law.name} asm={asm} ruleIds={ruleIds} lawSha={sha256} />
         ) : (
           // No listing was built for this state; the browser asks the engine on this device or the API.
           <AsmListing st={ref.st} />

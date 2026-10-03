@@ -55,7 +55,7 @@ describe("state page /mi", () => {
   });
 
   it("shows the share card, its sentence, and its citations", () => {
-    expect(page).toContain('src="/mi/opengraph-image/card"');
+    expect(page).toContain('src="/mi/card.png"');
     expect(page).toContain(
       "If you&#x27;re Jane Doe in Michigan: you can ask for up to $45,000, and a forensic exam can count instead of a police report.",
     );
@@ -73,8 +73,15 @@ describe("state page /mi", () => {
     const meta = await generateMetadata({ params: Promise.resolve({ st: "mi" }) });
     expect(meta.title).toBe("Michigan");
     expect(meta.description).toMatch(/^If you're Jane Doe in Michigan: /);
-    expect(meta.openGraph).toMatchObject({ url: "/mi", title: "If you're Jane Doe in Michigan" });
-    expect(meta.twitter).toMatchObject({ card: "summary_large_image" });
+    const image = {
+      url: "/mi/card.png",
+      width: 1200,
+      height: 630,
+      alt: "If you're Jane Doe in Michigan: you can ask for up to $45,000, and a forensic exam can count instead of a police report.",
+    };
+    expect(meta.openGraph).toMatchObject({ url: "/mi", title: "If you're Jane Doe in Michigan", images: [image] });
+    expect(meta.twitter).toMatchObject({ card: "summary_large_image", images: [image] });
+    expect(String(meta.metadataBase)).toBe("https://youreowed.tech/");
   });
 
   it("answers only lowercase two-letter codes it knows", async () => {
@@ -150,7 +157,7 @@ describe("share buttons", () => {
     path: "/mi",
     title: "If you're Jane Doe in Michigan",
     text: "If you're Jane Doe in Michigan: you can ask for up to $45,000.",
-    imageHref: "/mi/opengraph-image/card",
+    imageHref: "/mi/card.png",
     imageName: "tend-mi.png",
   };
 

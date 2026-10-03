@@ -27,14 +27,23 @@ export async function generateMetadata({ params }: { params: Promise<{ st: strin
   if (!found) return {};
   const { ref, summary } = found;
   const title = `If you're Jane Doe in ${summary.place}`;
+  // The card (card.png/route.tsx) is a static PNG made at build time; its alt text is its sentence.
+  const image = { url: `/${st}/card.png`, width: 1200, height: 630, type: "image/png", alt: summary.share.text };
   return {
     metadataBase: siteUrl(),
     // The tab says only the state, so a shared screen shows little.
     title: ref.name,
     description: summary.share.text,
     alternates: { canonical: `/${st}` },
-    openGraph: { type: "website", siteName: "Tend", title, description: summary.share.text, url: `/${st}` },
-    twitter: { card: "summary_large_image", title, description: summary.share.text },
+    openGraph: {
+      type: "website",
+      siteName: "Tend",
+      title,
+      description: summary.share.text,
+      url: `/${st}`,
+      images: [image],
+    },
+    twitter: { card: "summary_large_image", title, description: summary.share.text, images: [image] },
   };
 }
 
@@ -55,7 +64,7 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
   const ids = new Set([...rules.keys(), ...sources.keys()]);
   const pinpoint = (id: string) => rules.get(id)?.pinpoint ?? sources.get(id)?.title ?? id;
   const path = `/${st}`;
-  const cardPath = `${path}/opengraph-image/card`;
+  const cardPath = `${path}/card.png`;
 
   const renderFact = (f: Fact) => (
     <li key={f.key} className={styles.fact}>
