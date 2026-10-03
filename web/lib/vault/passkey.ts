@@ -49,6 +49,12 @@ function cancelled(e: unknown): boolean {
   return name === "NotAllowedError" || name === "AbortError";
 }
 
+// The browser refused this kind of passkey here (wrong site, no support): the passphrase still works.
+function refused(e: unknown): boolean {
+  const name = (e as { name?: string } | null)?.name;
+  return name === "SecurityError" || name === "NotSupportedError" || name === "InvalidStateError";
+}
+
 export function webAuthnPasskeys(): PasskeyProvider {
   const api = () => {
     if (typeof window === "undefined" || !window.PublicKeyCredential || !navigator.credentials) {
@@ -71,6 +77,7 @@ export function webAuthnPasskeys(): PasskeyProvider {
       })) as PublicKeyCredential | null;
     } catch (e) {
       if (cancelled(e)) throw new PasskeyError("cancelled", "The passkey was not used.");
+      if (refused(e)) throw new PasskeyError("unsupported", "This passkey cannot be used here. Use the passphrase.");
       throw e;
     }
     const out = cred ? prfFirst(cred) : null;
@@ -117,6 +124,8 @@ export function webAuthnPasskeys(): PasskeyProvider {
         })) as PublicKeyCredential | null;
       } catch (e) {
         if (cancelled(e)) throw new PasskeyError("cancelled", "The passkey was not made.");
+        if (refused(e))
+          throw new PasskeyError("unsupported", "This browser cannot make a passkey here. Use a passphrase.");
         throw e;
       }
       if (!cred || !prfEnabled(cred)) {

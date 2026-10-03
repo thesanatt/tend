@@ -95,11 +95,19 @@ const WRAP = "tend.vault.v1.wrap:";
 const RECORD = "tend.vault.v1.record:";
 const PASSKEY_INFO = "tend.vault.v1.passkey";
 
+// A count far past the default would only make opening hang.
+const MAX_ITERATIONS = 10_000_000;
+
 function readMetaShape(raw: unknown): Meta | null {
   const m = raw as Meta | null;
   if (!m || typeof m !== "object" || m.v !== 1) return null;
   const pass =
-    m.pass && typeof m.pass.salt === "string" && Number.isSafeInteger(m.pass.iterations) && isBox(m.pass.box);
+    m.pass &&
+    typeof m.pass.salt === "string" &&
+    Number.isSafeInteger(m.pass.iterations) &&
+    m.pass.iterations > 0 &&
+    m.pass.iterations <= MAX_ITERATIONS &&
+    isBox(m.pass.box);
   const key = m.key && typeof m.key.id === "string" && typeof m.key.salt === "string" && isBox(m.key.box);
   return pass || key ? m : null;
 }
@@ -114,6 +122,7 @@ export function createVault(config: VaultConfig = {}): TendVault {
   let keys: DataKeys | null = null;
   let idle: IdleWatch | null = null;
   let detachExit: (() => void) | null = null;
+  let creating: Promise<void> | null = null;
   const exitTarget = (): EventTarget | null =>
     config.exit === undefined ? (typeof window === "undefined" ? null : window) : config.exit;
   // Bumped by every lock, so an opening that finishes after a lock (Exit pressed while opening)
@@ -188,6 +197,49 @@ export function createVault(config: VaultConfig = {}): TendVault {
     return null;
   }
 
+  async function createNow(opts: { passphrase?: string; passkey?: boolean }, startedAt: number): Promise<void> {
+    const passphrase = typeof opts.passphrase === "string" ? opts.passphrase : undefined;
+    if (passphrase === undefined && !opts.passkey) {
+      throw new VaultError("no_method", "Choose a passphrase or a passkey to lock your saved work.");
+    }
+    if (passphrase !== undefined && [...passphrase.normalize("NFKC")].length < MIN_PASSPHRASE) {
+      throw new VaultError("weak_passphrase", `Use at least ${MIN_PASSPHRASE} characters.`);
+    }
+    if ((await readMeta()) !== null) {
+      throw new VaultError("exists", "Saved work is already on this device. Open it, or delete it first.");
+    }
+    const raw = randomBytes(KEY_BYTES);
+    try {
+      const meta: Meta = { v: 1 };
+      if (passphrase !== undefined) {
+        const salt = randomBytes(16);
+        const kek = await keyFromPassphrase(passphrase, salt, iterations);
+        meta.pass = { salt: toB64url(salt), iterations, box: await sealBytes(kek, raw, `${WRAP}pass`) };
+      }
+      if (opts.passkey) {
+        const salt = randomBytes(32);
+        let secret: Bytes | null = null;
+        try {
+          const made = await keyring().register(salt);
+          secret = made.secret;
+          const kek = await keyFromSecret(secret, salt, PASSKEY_INFO);
+          meta.key = { id: made.credentialId, salt: toB64url(salt), box: await sealBytes(kek, raw, `${WRAP}key`) };
+        } catch (e) {
+          if (e instanceof PasskeyError) {
+            throw new VaultError(e.code === "cancelled" ? "passkey_cancelled" : "passkey_unsupported", e.message);
+          }
+          throw e;
+        } finally {
+          wipe(secret);
+        }
+      }
+      await storage(() => store().put(META, meta));
+      await install(raw, startedAt);
+    } finally {
+      wipe(raw);
+    }
+  }
+
   const vault: TendVault = {
     async exists() {
       return (await readMeta()) !== null;
@@ -208,45 +260,17 @@ export function createVault(config: VaultConfig = {}): TendVault {
 
     async create(opts) {
       const startedAt = epoch;
-      const passphrase = typeof opts.passphrase === "string" ? opts.passphrase : undefined;
-      if (passphrase === undefined && !opts.passkey) {
-        throw new VaultError("no_method", "Choose a passphrase or a passkey to lock your saved work.");
-      }
-      if (passphrase !== undefined && [...passphrase.normalize("NFKC")].length < MIN_PASSPHRASE) {
-        throw new VaultError("weak_passphrase", `Use at least ${MIN_PASSPHRASE} characters.`);
-      }
-      if (await vault.exists()) {
-        throw new VaultError("exists", "Saved work is already on this device. Open it, or delete it first.");
-      }
-      const raw = randomBytes(KEY_BYTES);
+      // A double tap must not write two different data keys: the second waits, then finds the first.
+      const before = creating;
+      const run = (async () => {
+        await before?.catch(() => {});
+        await createNow(opts, startedAt);
+      })();
+      creating = run;
       try {
-        const meta: Meta = { v: 1 };
-        if (passphrase !== undefined) {
-          const salt = randomBytes(16);
-          const kek = await keyFromPassphrase(passphrase, salt, iterations);
-          meta.pass = { salt: toB64url(salt), iterations, box: await sealBytes(kek, raw, `${WRAP}pass`) };
-        }
-        if (opts.passkey) {
-          const salt = randomBytes(32);
-          let secret: Bytes | null = null;
-          try {
-            const made = await keyring().register(salt);
-            secret = made.secret;
-            const kek = await keyFromSecret(secret, salt, PASSKEY_INFO);
-            meta.key = { id: made.credentialId, salt: toB64url(salt), box: await sealBytes(kek, raw, `${WRAP}key`) };
-          } catch (e) {
-            if (e instanceof PasskeyError) {
-              throw new VaultError(e.code === "cancelled" ? "passkey_cancelled" : "passkey_unsupported", e.message);
-            }
-            throw e;
-          } finally {
-            wipe(secret);
-          }
-        }
-        await storage(() => store().put(META, meta));
-        await install(raw, startedAt);
+        await run;
       } finally {
-        wipe(raw);
+        if (creating === run) creating = null;
       }
     },
 
@@ -266,6 +290,8 @@ export function createVault(config: VaultConfig = {}): TendVault {
           if (e.code === "cancelled") return false;
           throw new VaultError("passkey_unsupported", e.message);
         }
+        // A salt or id that is not even base64 was changed outside Tend.
+        if (e instanceof TypeError) throw new VaultError("damaged", "Your saved work is damaged and cannot be opened.");
         throw e;
       } finally {
         wipe(raw);

@@ -170,6 +170,33 @@ describe("vault with a passphrase", () => {
     expect(await vault.unlock({ passphrase: "maple river 42" })).toBe(false);
   });
 
+  it("a double tap on create makes one vault, not two keys", async () => {
+    const store = memoryStore();
+    const vault = createVault({ store, iterations: FAST, idleMs: 0 });
+    const results = await Promise.allSettled([
+      vault.create({ passphrase: "maple river 42" }),
+      vault.create({ passphrase: "maple river 42" }),
+    ]);
+    expect(results.map((r) => r.status).sort()).toEqual(["fulfilled", "rejected"]);
+    expect((results.find((r) => r.status === "rejected") as PromiseRejectedResult).reason).toMatchObject({
+      code: "exists",
+    });
+    await vault.set("answers", SECRET);
+    const again = createVault({ store, iterations: FAST, idleMs: 0 });
+    expect(await again.unlock({ passphrase: "maple river 42" })).toBe(true);
+    expect(await again.get("answers")).toEqual(SECRET);
+  });
+
+  it("reports a vault damaged outside Tend instead of calling it a wrong passphrase", async () => {
+    const store = memoryStore();
+    await createVault({ store, iterations: FAST, idleMs: 0 }).create({ passphrase: "maple river 42" });
+    const meta = store.records.get("meta") as { pass: { salt: string } };
+    store.records.set("meta", { ...meta, pass: { ...meta.pass, salt: "not base64 !!" } });
+    await expect(
+      createVault({ store, iterations: FAST, idleMs: 0 }).unlock({ passphrase: "maple river 42" }),
+    ).rejects.toMatchObject({ code: "damaged" });
+  });
+
   it("a lock that lands while unlock is still deriving the key wins", async () => {
     const store = memoryStore();
     await createVault({ store, iterations: FAST, idleMs: 0 }).create({ passphrase: "maple river 42" });
