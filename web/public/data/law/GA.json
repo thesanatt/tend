@@ -206,6 +206,46 @@
    "raw_path": "rules/sources/GA/GA-S21.pdf",
    "text_path": "rules/sources/GA/GA-S21.txt",
    "sha256": "f8c80a8af8405f8792f1e7bf85d824754468973d7f899d8e04f5e44600487783"
+  },
+  {
+   "id": "GA-S22",
+   "title": "Georgia Secretary of State: Safe At Home",
+   "url": "https://sos.ga.gov/safeathome",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:12Z",
+   "raw_path": "rules/sources/GA/GA-S22.html",
+   "text_path": "rules/sources/GA/GA-S22.txt",
+   "sha256": "ff3d710f74bac58a7bbdb0517eda5e2a1e0ce1bcecc72d8c74e3ed0a0a088e48"
+  },
+  {
+   "id": "GA-S23",
+   "title": "O.C.G.A. 50-18-151 (Justia, 2025 Georgia Code)",
+   "url": "https://law.justia.com/codes/georgia/title-50/chapter-18/article-8/section-50-18-151/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:16Z",
+   "raw_path": "rules/sources/GA/GA-S23.html",
+   "text_path": "rules/sources/GA/GA-S23.txt",
+   "sha256": "79edf0bf8b8775132c3a1b69b8178443f177395fd78178c67c07058174c9adbc"
+  },
+  {
+   "id": "GA-S24",
+   "title": "O.C.G.A. 17-15-4 (Justia, 2025 Georgia Code)",
+   "url": "https://law.justia.com/codes/georgia/title-17/chapter-15/section-17-15-4/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:34Z",
+   "raw_path": "rules/sources/GA/GA-S24.html",
+   "text_path": "rules/sources/GA/GA-S24.txt",
+   "sha256": "cfc3bd5e54ce01097ec47c86fd32b91b5ac4a7e473afbf687b16724b8c34930d"
+  },
+  {
+   "id": "GA-S25",
+   "title": "O.C.G.A. 17-15-6 (Justia, 2025 Georgia Code)",
+   "url": "https://law.justia.com/codes/georgia/title-17/chapter-15/section-17-15-6/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:37Z",
+   "raw_path": "rules/sources/GA/GA-S25.html",
+   "text_path": "rules/sources/GA/GA-S25.txt",
+   "sha256": "6d3f1aa8c4b200335b43a6e591a9aebf3446584ddfa4f844d461b6b6efc76bb3"
   }
  ],
  "rules": [
@@ -831,6 +871,31 @@
    "source_id": "GA-S3",
    "pinpoint": "CJCC Victims Compensation FAQ, How Soon Will I Get My Reimbursement Check?",
    "fragment_url": "https://cjcc.georgia.gov/victims-compensation/frequently-asked-questions#:~:text=Once%20a%20claim%20is%20awarded%2C,Georgia%20Bureau%20of%20Investigation%20%28GBI%29."
+  },
+  {
+   "id": "GA-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Georgia Safe at Home Program",
+    "agency": "Georgia Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Individuals must complete the application form, complete with a sworn statement."
+   },
+   "summary": "Georgia's Safe at Home program, run by the Secretary of State, gives survivors of sexual assault and other eligible people a designated substitute address for public records, forwards their mail, and seals their address on voter rolls.",
+   "quote": "The Georgia Safe at Home Program is an address confidentiality program that helps survivors of domestic violence, sexual assault, human trafficking, stalking, or other eligible individuals whose safety may be compromised by public disclosure of their residential address.",
+   "source_id": "GA-S22",
+   "pinpoint": "Program Services; O.C.G.A. 50-18-150 et seq.",
+   "fragment_url": "https://sos.ga.gov/safeathome#:~:text=The%20Georgia%20Safe%20at%20Home,disclosure%20of%20their%20residential%20address."
+  },
+  {
+   "id": "GA-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "When the compensation board requests records from police, prosecutors, courts, or other agencies to decide a claim, it must keep those records confidential.",
+   "quote": "provided, however, that the board shall preserve the confidentiality of any such records received",
+   "source_id": "GA-S24",
+   "pinpoint": "O.C.G.A. 17-15-4(a)(2)",
+   "fragment_url": "https://law.justia.com/codes/georgia/title-17/chapter-15/section-17-15-4/#:~:text=provided%2C%20however%2C%20that%20the%20board,of%20any%20such%20records%20received"
   }
  ],
  "coverage": {
@@ -853,7 +918,9 @@
    "expense_cap:forensic_exam",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap:relocation",
@@ -872,5 +939,5 @@
   "notes": "Georgia's statute and program pages list only medical/dental, lost wages, loss of support, funeral, counseling and crime scene sanitization as benefit categories. I found no source covering relocation, transportation, security, or temporary housing, and no source that expressly excludes them, so they are left as not found rather than marked excluded. No minimum loss amount and no emergency or advance award provision appear in O.C.G.A. 17-15 (section list checked) or the CJCC rules. Toll-free number 800-547-0060 is also listed on the application. The 1-year filing rule applies to crimes before July 1, 2014 (per the CJCC program page); the 3-year rule in O.C.G.A. 17-15-5 applies to later crimes. Filing: the application (Revised Sept 2026) names mail and the online portal as the two ways to file; it lists a fax number, (404) 463-7652, as contact information but does not say applications can be faxed, so no fax, email, or in-person submission rule was added. The only stated time is for payment after an award (up to eight weeks); no official source states how long a decision takes for a victim claim (the FAQ's under-30-days figure is for provider FME applications)."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from Justia's 2025 Georgia Code because Georgia does not host an official free O.C.G.A. text; the CJCC pages cite the same section. The CJCC 'What Our Programs Cover' page (GA-S6) shows one combined line, 'Loss of Income or Support Up to $20,000'; this reads as the two separate $10,000 statutory categories (lost wages and loss of support, O.C.G.A. 17-15-8(c)(2), also GA-S7, GA-S10, GA-S11) added together, so the lost wages cap is $10,000. Police report: the statute's 72-hour rule (O.C.G.A. 17-15-8(a)(3)) has a good cause exception, and the CJCC FAQ says sexual assaults after May 12, 2008 need no police report because exam documentation can be used; I did not find the statutory text behind the FAQ statement, so GA-REPORT-2 rests on the official FAQ. Counseling: Ga. Comp. R. & Regs. 144-4-.06(8)(a) requires a Psychological Service Report after the first visit, while GA-S6 says it is required beyond the fourth session. The forensic exam is paid by a separate CJCC Forensic Medical Examination Program (providers apply directly), not out of the survivor's $25,000 compensation award. The CJCC landing page and the 'How the Application Review Process Works' page could not be saved (the fetcher flagged them as blocked or empty). Reviewer additions: the $1,000 exam payment is a per-victimization total across all providers; if bills exceed it, the program splits $1,000 among providers (Ga. Comp. R. & Regs. 144-4-.08(2)(e)), and the FAQ calls the $1,000 the maximum for 'the collection of evidence for a FME'. The statutory FME definition (O.C.G.A. 17-15-2(6)) includes testing needed to collect evidence and provide treatment, but other follow-up medical care goes through the regular compensation claim. O.C.G.A. 17-15-8(a)(3) presumes good cause for a late report for trafficking victims under 17-15-7(a)(1)(D). The CJCC program page and the application still list a police or incident report as part of a Complete Application Packet; the application also says an applicant may submit without one and the program will follow up. The 72-hour reporting rule is not tied to sexual assault in the statute; only the FAQ (GA-S3) carves out sexual assault, so treat GA-REPORT-2 as program practice, not statute. Packet step additions: the application PDF (GA-S10, Revised September 2026, newest on the CJCC forms page) is a flat, non-fillable PDF with 0 AcroForm fields, so it must be printed and filled by hand or the survivor can apply through the portal. GA-S7 also gives the mailing address as 'Georgia Crime Victims Compensation at 104 Marietta Street NW, Suite 400 Atlanta, GA 30303'; the rule uses the application's fuller addressee. The application says a signed application can be submitted without all documents (such as a police report) and the program will follow up. Lost wages documents come from the CJCC lost wages enclosure (GA-S21, Rev. 06/28/19); the employer's verification form (GA-S20) must be faxed or mailed by the employer, not the survivor. GA-S19 lists what an investigative report must contain (names, dates, summary, injuries) and is saved for reference."
+ "researcher_notes": "Statute text is from Justia's 2025 Georgia Code because Georgia does not host an official free O.C.G.A. text; the CJCC pages cite the same section. The CJCC 'What Our Programs Cover' page (GA-S6) shows one combined line, 'Loss of Income or Support Up to $20,000'; this reads as the two separate $10,000 statutory categories (lost wages and loss of support, O.C.G.A. 17-15-8(c)(2), also GA-S7, GA-S10, GA-S11) added together, so the lost wages cap is $10,000. Police report: the statute's 72-hour rule (O.C.G.A. 17-15-8(a)(3)) has a good cause exception, and the CJCC FAQ says sexual assaults after May 12, 2008 need no police report because exam documentation can be used; I did not find the statutory text behind the FAQ statement, so GA-REPORT-2 rests on the official FAQ. Counseling: Ga. Comp. R. & Regs. 144-4-.06(8)(a) requires a Psychological Service Report after the first visit, while GA-S6 says it is required beyond the fourth session. The forensic exam is paid by a separate CJCC Forensic Medical Examination Program (providers apply directly), not out of the survivor's $25,000 compensation award. The CJCC landing page and the 'How the Application Review Process Works' page could not be saved (the fetcher flagged them as blocked or empty). Reviewer additions: the $1,000 exam payment is a per-victimization total across all providers; if bills exceed it, the program splits $1,000 among providers (Ga. Comp. R. & Regs. 144-4-.08(2)(e)), and the FAQ calls the $1,000 the maximum for 'the collection of evidence for a FME'. The statutory FME definition (O.C.G.A. 17-15-2(6)) includes testing needed to collect evidence and provide treatment, but other follow-up medical care goes through the regular compensation claim. O.C.G.A. 17-15-8(a)(3) presumes good cause for a late report for trafficking victims under 17-15-7(a)(1)(D). The CJCC program page and the application still list a police or incident report as part of a Complete Application Packet; the application also says an applicant may submit without one and the program will follow up. The 72-hour reporting rule is not tied to sexual assault in the statute; only the FAQ (GA-S3) carves out sexual assault, so treat GA-REPORT-2 as program practice, not statute. Packet step additions: the application PDF (GA-S10, Revised September 2026, newest on the CJCC forms page) is a flat, non-fillable PDF with 0 AcroForm fields, so it must be printed and filled by hand or the survivor can apply through the portal. GA-S7 also gives the mailing address as 'Georgia Crime Victims Compensation at 104 Marietta Street NW, Suite 400 Atlanta, GA 30303'; the rule uses the application's fuller addressee. The application says a signed application can be submitted without all documents (such as a police report) and the program will follow up. Lost wages documents come from the CJCC lost wages enclosure (GA-S21, Rev. 06/28/19); the employer's verification form (GA-S20) must be faxed or mailed by the employer, not the survivor. GA-S19 lists what an investigative report must contain (names, dates, summary, injuries) and is saved for reference. Privacy additions: Georgia's address confidentiality program is Safe at Home, run by the Secretary of State under O.C.G.A. 50-18-150 to 50-18-155 (SB 324), which took effect and began accepting applications July 1, 2026. The SOS page (GA-S22) lists sexual assault survivors as eligible, and O.C.G.A. 50-18-151(b) (GA-S23) lets an applicant qualify by affidavit that they have been a victim of sexual assault, among other offenses. The statute also requires a letter from a victim advocate or provider showing the applicant received services related to their victimization (50-18-151(c)(7)), so enrollment is not just the sworn application; it makes the application and participant information confidential and not a public record (50-18-151(g)); certification lasts four years. Record confidentiality: I found no Georgia statute or rule that makes the compensation claim file itself confidential or exempt from the Open Records Act. What exists is O.C.G.A. 17-15-4(a)(2) (GA-S24), which requires the board to preserve the confidentiality of records it receives from other agencies, and O.C.G.A. 17-15-6(c) (GA-S25), which excludes information deemed confidential from an investigative report given to the claimant. The CJCC medical release form also says the program will preserve the confidentiality of all records received, but I did not save it. Treat GA-RECCONF-1 as narrow: it covers records the board collects, not a blanket confidentiality rule for applications."
 }

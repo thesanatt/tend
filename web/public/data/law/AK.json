@@ -106,6 +106,16 @@
    "raw_path": "rules/sources/AK/AK-S13.pdf",
    "text_path": "rules/sources/AK/AK-S13.txt",
    "sha256": "4cd1ff948f83c7fd8e2972bfab955da5f82d9e4156a0ffb212bfa4b2a56e3e0c"
+  },
+  {
+   "id": "AK-S14",
+   "title": "Enrolled HB 239 (Chapter 9 SLA 26), sec. 75 enacting AS 44.21.022, Address confidentiality program (Alaska Legislature bill text)",
+   "url": "https://www.akleg.gov/basis/Bill/Text/34?Hsid=HB0239Z",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:02:26Z",
+   "raw_path": "rules/sources/AK/AK-S14.html",
+   "text_path": "rules/sources/AK/AK-S14.txt",
+   "sha256": "c0911a0d631c536bccaea0d803f89f87aade6907005f6df9f2f0b99691b04c61"
   }
  ],
  "rules": [
@@ -793,6 +803,31 @@
    "source_id": "AK-S5",
    "pinpoint": "VCCB Application page, Additional Forms, Rental Assistance",
    "fragment_url": "https://vccb.alaska.gov/apply-for-compensation-for-crime-related-expenses/#:~:text=Request%20for%20Rental%20Assistance%20must,a%20copy%20of%20your%20lease"
+  },
+  {
+   "id": "AK-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Alaska Department of Administration",
+    "covers_sexual_assault": true,
+    "enroll": "The department shall adopt regulations establishing a procedure for a qualified individual to enroll in or withdraw from the program. No enrollment procedure or application was published in the sources I found."
+   },
+   "summary": "Alaska's new Address Confidentiality Program, run by the Department of Administration, gives an enrolled person a post office box to use as a substitute mailing address and forwards their mail, and state and municipal agencies must accept that address. A victim of a crime involving sexual assault, domestic violence, or stalking can enroll if a court has issued a protective order for them or they meet other standards the department sets. The department must still adopt regulations setting out how to enroll.",
+   "quote": "(2) designate a post office box as a substitute mailing address for an 02 individual enrolled in the program; 03 (3) forward the mail of an individual enrolled in the program from the 04 post office box designated under (2) of this subsection to the individual's residential 05 street address, post office box, school address, or work address as specified on the 06 individual's application for enrollment in the program; 07 (4) maintain the confidentiality of the address of an individual enrolled 08 in the program; and 09 (5) adopt regulations establishing a procedure for a qualified individual 10 under (c) of this section to enroll in or withdraw from the program. 11 (c) The following individuals may enroll in the program: 12 (1) a victim of a crime involving domestic violence, stalking, or sexual 13 assault if 14 (A) a court has issued a protective order on behalf of the 15 victim; or 16 (B) the victim meets other standards set by the department;",
+   "source_id": "AK-S14",
+   "pinpoint": "AS 44.21.022(b)(2) to (c)(1), enacted by sec. 75 of Chapter 9 SLA 26 (HB 239), effective July 1, 2026 under sec. 94; agencies must accept the address under AS 44.21.022(e)",
+   "fragment_url": "https://www.akleg.gov/basis/Bill/Text/34?Hsid=HB0239Z#:~:text=%282%29%20designate%20a%20post%20office,standards%20set%20by%20the%20department%3B"
+  },
+  {
+   "id": "AK-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "By statute, a compensation application and personally identifying information about the applicant are confidential records that the Violent Crimes Compensation Board may not release.",
+   "quote": "An application for compensation and personally identifying information relating to an applicant for compensation are confidential records and may not be released by the board.",
+   "source_id": "AK-S1",
+   "pinpoint": "AS 18.67.030(c)",
+   "fragment_url": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=18.67.010&secEnd=18.67.190#:~:text=An%20application%20for%20compensation%20and,be%20released%20by%20the%20board."
   }
  ],
  "coverage": {
@@ -810,7 +845,9 @@
    "residency",
    "total_cap",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "exam_payment",
@@ -820,5 +857,5 @@
   "notes": "exam_payment: AS 18.68.040 bars charging survivors 16 and older (including through their insurance) but does not name who pays, and no official source I saved names the payer. minimum_loss: no minimum loss found in AS 18.67 or on the VCCB site. Reporting: AS 18.67.130(a)(2) requires a police report within five days (or five days after a report could reasonably be made); no anonymous-report, forensic-exam, or advocate alternative for compensation was found, even though AS 18.68.020 lets adults choose an anonymous report for the exam itself. No VCCB administrative regulations were found; the program's Statutes and Policies page cites only AS 18.67 and federal VOCA. Expense caps come from the VCCB Benefits at a Glance PDF (July 2026), which says it does not supplement or contradict the statutes. Transportation: Benefits at a Glance caps transportation at $5,000 per major event (funeral, trial, etc.); that cap is not stored as a rule because per-event is not one of the schema's per values. processing_time: no VCCB page, the application, or AS 18.67 states a time for a decision or payment; AS 18.67.040 only gives the applicant 30 days to request a hearing after an unfavorable decision."
  },
  "confidence": "high",
- "researcher_notes": "Deadline disagreement: AS 18.67.130(a)(1) says two years after the injury; the application PDF says within 2 years of the crime or discovery of the crime, and the home page asks applicants past two years to explain the delay. The statute wins, so the rule uses two years from the crime. AS 18.68.040 covers survivors of sexual assault under AS 11.41.410 to 11.41.425 who are 16 or older; younger survivors are not addressed by that section. Benefits at a Glance caps were checked against the PDF's column layout (pdftotext -layout) so each amount is tied to the right expense row. The Benefits at a Glance funeral row mentions up to $10,000 in emergency consideration across two applications; the statute caps one emergency award at $5,000, which is what the rule uses. The OVC directory lists the program under the Alaska Department of Public Safety, phone 800-764-3040; the VCCB home page lists the same toll-free number. Lost wages: up to two weeks without a provider note, longer with medical justification (Benefits at a Glance). Reviewer: chiropractic's $3,500 limit is stored under expense 'other' so it is not read as the medical cap; Benefits at a Glance lists general medical expenses at up to $40,000, the same as the total cap. The application's eligibility list says reasonable exceptions may apply to its requirements (police report within 5 days, 2-year filing), but no source says what those exceptions are. How to file: the application page lists online, mail, and fax; the application's instructions say it can be submitted by mail, email, or fax and give VCCB@alaska.gov; the home page calls it secure email. The online rule's target is vccb.alaska.gov because that is what the instructions print; the portal itself is https://application.vccb.alaska.gov/ (program.apply_url, linked from the application page). Documents: police report, bills, receipts, and insurance information are asked for if available, and the instructions say not to wait for them before applying; only the signed Release of Information is required with every application. The relocation, rental, counseling treatment plan, and wage items apply only when that expense is claimed. Application form: AK-S8 (05/2026 English) is the newest version linked from the application page and has 168 AcroForm fields; translated versions (Spanish, Tagalog, Samoan, Russian, Hmong, Simplified Chinese) are older uploads and were not saved."
+ "researcher_notes": "Deadline disagreement: AS 18.67.130(a)(1) says two years after the injury; the application PDF says within 2 years of the crime or discovery of the crime, and the home page asks applicants past two years to explain the delay. The statute wins, so the rule uses two years from the crime. AS 18.68.040 covers survivors of sexual assault under AS 11.41.410 to 11.41.425 who are 16 or older; younger survivors are not addressed by that section. Benefits at a Glance caps were checked against the PDF's column layout (pdftotext -layout) so each amount is tied to the right expense row. The Benefits at a Glance funeral row mentions up to $10,000 in emergency consideration across two applications; the statute caps one emergency award at $5,000, which is what the rule uses. The OVC directory lists the program under the Alaska Department of Public Safety, phone 800-764-3040; the VCCB home page lists the same toll-free number. Lost wages: up to two weeks without a provider note, longer with medical justification (Benefits at a Glance). Reviewer: chiropractic's $3,500 limit is stored under expense 'other' so it is not read as the medical cap; Benefits at a Glance lists general medical expenses at up to $40,000, the same as the total cap. The application's eligibility list says reasonable exceptions may apply to its requirements (police report within 5 days, 2-year filing), but no source says what those exceptions are. How to file: the application page lists online, mail, and fax; the application's instructions say it can be submitted by mail, email, or fax and give VCCB@alaska.gov; the home page calls it secure email. The online rule's target is vccb.alaska.gov because that is what the instructions print; the portal itself is https://application.vccb.alaska.gov/ (program.apply_url, linked from the application page). Documents: police report, bills, receipts, and insurance information are asked for if available, and the instructions say not to wait for them before applying; only the signed Release of Information is required with every application. The relocation, rental, counseling treatment plan, and wage items apply only when that expense is claimed. Application form: AK-S8 (05/2026 English) is the newest version linked from the application page and has 168 AcroForm fields; translated versions (Spanish, Tagalog, Samoan, Russian, Hmong, Simplified Chinese) are older uploads and were not saved. Address confidentiality: Alaska had no address confidentiality program until HB 239 (Chapter 9 SLA 26) enacted AS 44.21.022 in sec. 75; sec. 94 makes it effective July 1, 2026, and sec. 90 lets the Department of Administration adopt implementing regulations. The online Alaska Statutes did not yet show AS 44.21.022 when checked (Oct 3, 2026), so the rule cites the enrolled bill text. I found no Department of Administration program page, application, or enrollment regulations, so the enroll param quotes the statute's direction to adopt an enrollment procedure. Survivors of sexual assault qualify only with a protective order or by meeting other standards the department sets; people required to register under AS 12.63.010 cannot enroll; enrollment lasts five years and has no fee. Earlier bills (SB 12 in the 33rd Legislature; SB 31 and HB 104 in the 34th) stalled in finance committees. Record confidentiality: AS 18.67.030(c); the Department of Law Victims' Rights Handbook (AK-S6) says the same thing."
 }

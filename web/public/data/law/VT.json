@@ -196,6 +196,26 @@
    "raw_path": "rules/sources/VT/VT-S18.html",
    "text_path": "rules/sources/VT/VT-S18.txt",
    "sha256": "b0b58794f6c8e755d90b02d2968f5472d4f8bd771046c1c254858820882824b8"
+  },
+  {
+   "id": "VT-S19",
+   "title": "Vermont Secretary of State, Safe at Home Address Confidentiality Program page",
+   "url": "https://sos.vermont.gov/secretary-of-state-services/safe-at-home",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:02:04Z",
+   "raw_path": "rules/sources/VT/VT-S19.html",
+   "text_path": "rules/sources/VT/VT-S19.txt",
+   "sha256": "1304e1890f93f5bca4fcc0ac22146914095b2c98eac9ced4f2ee0ead9c2013a6"
+  },
+  {
+   "id": "VT-S20",
+   "title": "15 V.S.A. chapter 21 (Abuse Prevention), full text incl. subchapter 3, Address Confidentiality for Victims of Domestic Violence, Sexual Assault, or Stalking",
+   "url": "https://legislature.vermont.gov/statutes/fullchapter/15/021",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:48Z",
+   "raw_path": "rules/sources/VT/VT-S20.html",
+   "text_path": "rules/sources/VT/VT-S20.txt",
+   "sha256": "877f0463e90de812a3816539c6863adb1f036cd3775258efd645a3c7fd779656"
   }
  ],
  "rules": [
@@ -733,6 +753,31 @@
    "source_id": "VT-S6",
    "pinpoint": "CCVS Sexual Assault Program page, How to access the Program?",
    "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=The%20signed%20Sexual%20Assault%20Billing,application%20to%20open%20a%20claim"
+  },
+  {
+   "id": "VT-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home Address Confidentiality Program",
+    "agency": "Vermont Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Ready to apply? Apply Now Find an Applicant Assistant Some applicants find it helpful to use an Applicant Assistant. This is not a requirement to participate in the program."
+   },
+   "summary": "The Secretary of State's Safe at Home program gives survivors of sexual assault, domestic violence, stalking, and human trafficking a substitute post office box address and mail forwarding, and lets them use that address on state and local government records so they are harder to locate. Survivors can apply online on the program page, on their own or with help from an Applicant Assistant at a local advocacy agency.",
+   "quote": "Safe at Home provides an address confidentiality service and a protected records service. The program serves survivors of domestic violence, sexual assault, stalking, human trafficking, providers of legally protected healthcare (reproductive and gender-affirming care), and patients of legally protected healthcare.",
+   "source_id": "VT-S19",
+   "pinpoint": "Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160",
+   "fragment_url": "https://sos.vermont.gov/secretary-of-state-services/safe-at-home#:~:text=Safe%20at%20Home%20provides%20an,patients%20of%20legally%20protected%20healthcare."
+  },
+  {
+   "id": "VT-REC-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Every document the Victims Compensation Board reviews to decide a compensation application is confidential and cannot be disclosed without the victim's consent, except as the statute allows.",
+   "quote": "(a) All documents reviewed by the Victims Compensation Board for purposes of approving an application for compensation shall be confidential and shall not be disclosed without the consent of the victim except as provided in this section and subsection 7043(c) of this title.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5358a(a)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%28a%29%20All%20documents%20reviewed%20by,subsection%207043%28c%29%20of%20this%20title."
   }
  ],
  "coverage": {
@@ -751,7 +796,9 @@
    "residency",
    "total_cap",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -763,5 +810,5 @@
   "notes": "No minimum loss was found in the statute, the Board rule, or the program pages. No dollar cap for security expenses was found. The emergency advance comes from the Board's administrative rule; no amount is set there. No processing time is stated; the FAQ says approval time depends on how long it takes to verify the losses."
  },
  "confidence": "high",
- "researcher_notes": "Vermont runs two paths: Victims Compensation under 13 V.S.A. ch. 167 (police report concluding a crime occurred is required by 13 V.S.A. 5353(a)(1)), and the CCVS Sexual Assault Program under 32 V.S.A. 1407, which pays exam costs and follow-up counseling with no police report, only a report to a medical provider. The CCVS Application & Forms page says applicants do not have to provide a police report; I read that as not having to attach a copy (the claims specialist gathers it), not as waiving the statutory report requirement. Exam billing: 1407(c) requires providers to bill the survivor's insurance first, so insurance_billing is 'allowed' (in fact required); the survivor owes nothing because the Fund pays cost-sharing and providers cannot balance bill uninsured survivors. Filing deadline: the statute ties the deadline to the prosecution limitation period; 13 V.S.A. 4501(a) has no limit for sexual assault and aggravated sexual assault, but other sex offenses in 4501(b)-(e) have limits, so VT-DEADLINE-2 only covers the crimes it lists. Counseling and lost-wage figures are CCVS policies with effective dates: counseling $100/session applies to services from August 12, 2024; lost wages $750/week applies to claims filed on or after 9/8/2025 (older claims $500/week). The Board administrative rule (Code Vt. R. 80-220-001, via Cornell LII) lists older internal caps (mental health $3,000, lost wages $1,500, temporary living $1,500/month) that conflict with the current CCVS policies; I did not encode those caps and only used the rule for the emergency advance and transportation-for-treatment provisions. Relocation caps are stated in the policy without a per-claim unit; the policy says relocation is generally paid no more than once in 12 months. Reviewer: VT-TRAVEL-1's $2,000 cap applies only to travel to court proceedings, Parole Board hearings, and pre-sentence investigations in non-homicide cases (plus $2,000 more per separately tried defendant); it is not a cap on travel to medical or counseling treatment (VT-TRAVEL-2). The Board rule (VT-S16) is an old version (it lists a Montpelier address and a 7-digit phone) and is used only for the emergency advance and treatment transportation. How to file: the English application (VT-S8, last modified 8/13/2024, the version linked from the Application & Forms page) is a fillable PDF with 180 AcroForm fields. It can be mailed or filed online at ccvcvt.org (VT-S18). The application's cover page lists 58 South Main Street, Suite One, Waterbury, Vermont 05676-1599, but the online portal and the 2026 policy letterheads list 60 South Main Street, Suite 1, Waterbury, VT 05676(-1599); the mail rule keeps the application's address verbatim, and Tend should show the newer one alongside it. A fax number (802-241-1253, Victims Compensation only) is printed on the application and policies, but no source says the application can be faxed, so I did not add a fax submission rule. The Application & Forms page says applicants do not have to provide a police report, so police_report is not a required document. The Sexual Assault Program path (exam and counseling, no police report) does not use the compensation application; the signed Sexual Assault Billing Form from the SANE visit opens the claim."
+ "researcher_notes": "Vermont runs two paths: Victims Compensation under 13 V.S.A. ch. 167 (police report concluding a crime occurred is required by 13 V.S.A. 5353(a)(1)), and the CCVS Sexual Assault Program under 32 V.S.A. 1407, which pays exam costs and follow-up counseling with no police report, only a report to a medical provider. The CCVS Application & Forms page says applicants do not have to provide a police report; I read that as not having to attach a copy (the claims specialist gathers it), not as waiving the statutory report requirement. Exam billing: 1407(c) requires providers to bill the survivor's insurance first, so insurance_billing is 'allowed' (in fact required); the survivor owes nothing because the Fund pays cost-sharing and providers cannot balance bill uninsured survivors. Filing deadline: the statute ties the deadline to the prosecution limitation period; 13 V.S.A. 4501(a) has no limit for sexual assault and aggravated sexual assault, but other sex offenses in 4501(b)-(e) have limits, so VT-DEADLINE-2 only covers the crimes it lists. Counseling and lost-wage figures are CCVS policies with effective dates: counseling $100/session applies to services from August 12, 2024; lost wages $750/week applies to claims filed on or after 9/8/2025 (older claims $500/week). The Board administrative rule (Code Vt. R. 80-220-001, via Cornell LII) lists older internal caps (mental health $3,000, lost wages $1,500, temporary living $1,500/month) that conflict with the current CCVS policies; I did not encode those caps and only used the rule for the emergency advance and transportation-for-treatment provisions. Relocation caps are stated in the policy without a per-claim unit; the policy says relocation is generally paid no more than once in 12 months. Reviewer: VT-TRAVEL-1's $2,000 cap applies only to travel to court proceedings, Parole Board hearings, and pre-sentence investigations in non-homicide cases (plus $2,000 more per separately tried defendant); it is not a cap on travel to medical or counseling treatment (VT-TRAVEL-2). The Board rule (VT-S16) is an old version (it lists a Montpelier address and a 7-digit phone) and is used only for the emergency advance and treatment transportation. How to file: the English application (VT-S8, last modified 8/13/2024, the version linked from the Application & Forms page) is a fillable PDF with 180 AcroForm fields. It can be mailed or filed online at ccvcvt.org (VT-S18). The application's cover page lists 58 South Main Street, Suite One, Waterbury, Vermont 05676-1599, but the online portal and the 2026 policy letterheads list 60 South Main Street, Suite 1, Waterbury, VT 05676(-1599); the mail rule keeps the application's address verbatim, and Tend should show the newer one alongside it. A fax number (802-241-1253, Victims Compensation only) is printed on the application and policies, but no source says the application can be faxed, so I did not add a fax submission rule. The Application & Forms page says applicants do not have to provide a police report, so police_report is not a required document. The Sexual Assault Program path (exam and counseling, no police report) does not use the compensation application; the signed Sexual Assault Billing Form from the SANE visit opens the claim. Privacy: Vermont's address confidentiality program is Safe at Home, run by the Secretary of State under 15 V.S.A. §§ 1150 to 1160 (VT-S20). The statute lists sexual assault victims as eligible (15 V.S.A. § 1152(a)(1)(A)(i)) and says applications are filed directly with the Secretary's office or through a certified applicant assistant (§ 1152(b)); certification lasts four years (§ 1152(c)). The SOS page (VT-S19) says the program is a mail forwarding service with a Montpelier post office box as the substitute address, and it does not protect land records in real estate transactions. Record confidentiality: 13 V.S.A. § 5358a(a) makes the Board's application documents confidential; § 5358a(c) also requires the Board to redact the victim's residential address, phone, other contact information, and Social Security number for any purpose including restitution, and in sexual offense cases keeps the victim's employer and medical or mental health provider contact information confidential absent a court order."
 }

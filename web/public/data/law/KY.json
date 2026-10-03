@@ -216,6 +216,26 @@
    "raw_path": "rules/sources/KY/KY-S22.pdf",
    "text_path": "rules/sources/KY/KY-S22.txt",
    "sha256": "817f2b15871bc01aa1dc124a5dc8ac0769aa316c6cd6136c0f76c666bbd845bf"
+  },
+  {
+   "id": "KY-S24",
+   "title": "KRS 14.304 (Safe at Home Program application and certification)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54144",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:41Z",
+   "raw_path": "rules/sources/KY/KY-S24.pdf",
+   "text_path": "rules/sources/KY/KY-S24.txt",
+   "sha256": "f3a6e0388fbdbfb35d06d11664b3d9c9edfe0f9c564665e5edc50bb89ff17dab"
+  },
+  {
+   "id": "KY-S25",
+   "title": "KRS 14.302 (Safe at Home Program established, designated addresses)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54143",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:59:30Z",
+   "raw_path": "rules/sources/KY/KY-S25.pdf",
+   "text_path": "rules/sources/KY/KY-S25.txt",
+   "sha256": "638fb27f0a97a68d80f2e7a9a14f8017badfdfc3920478ddef37c51694c4b5b7"
   }
  ],
  "rules": [
@@ -785,6 +805,30 @@
    "source_id": "KY-S10",
    "pinpoint": "802 KAR 3:010 Section 6(3)",
    "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%283%29%20For%20claims%20filed%20after,Clerk%20to%20the%20claims%20investigator."
+  },
+  {
+   "id": "KY-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home Program",
+    "agency": "Office of the Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Applications shall be filed with the Office of the Secretary of State. Applicants may choose to consult with an application assistant for assistance with the application process or apply online directly through the portal designated by the Secretary of State."
+   },
+   "summary": "Kentucky's Safe at Home Program, run by the Secretary of State, protects victims of sexual assault, rape, other sexual crimes, domestic violence, human trafficking, and stalking by letting them use a designated address instead of their real one. It also covers their minor children and anyone living with them, and it is free for Kentucky residents who are U.S. citizens.",
+   "quote": "The Safe at Home Program shall be operated with the intent to protect victims of: (a) Domestic violence; (b) Human trafficking; (c) Stalking; (d) Sexual assault; (e) Rape; and (f) Other sexual crimes as defined by KRS 17.500. The Safe at Home Program shall authorize the use of designated addresses for victims, their minor children, and all other individuals residing with the victim.",
+   "source_id": "KY-S25",
+   "pinpoint": "KRS 14.302(2)-(3)"
+  },
+  {
+   "id": "KY-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Under the Crime Victims Compensation Board's regulation, a claimant's or victim's personally identifiable information must stay secure and confidential, and information that could show whether someone filed a claim may not be disclosed to unauthorized people.",
+   "quote": "A claimant or victim's personally identifiable information shall remain secure and confidential. (4) Information that may be used to determine whether an individual filed a claim with the Board shall not be disclosed to unauthorized individuals.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 5(3)-(4)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=A%20claimant%20or%20victim%27s%20personally,be%20disclosed%20to%20unauthorized%20individuals."
   }
  ],
  "coverage": {
@@ -802,7 +846,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "filing_deadline",
@@ -815,5 +861,5 @@
   "notes": "Filing deadline and police report rule: 2024 Ky. Acts ch. 67 (SB 319, effective July 15, 2024) deleted the old five-year filing limit from KRS 49.330 and the old 48-hour report rule. The current KRS 49.330 and 49.370 text sets no general filing deadline and no reporting deadline, so no filing_deadline or reporting_requirement rule is recorded. The CVCB FAQ (updated August 2024) still lists a police report of the incident among the documents generally required with a claim, and the claim form asks when and to whom the crime was reported, so a survivor should expect to be asked for one; the program brochure says the sexual assault exam program does not require reporting. No minimum loss amount was found. The program's HTML pages (static_id=158 and 159) could not be saved because the fetch tool strips their ASP.NET form content; their PDFs were saved instead."
  },
  "confidence": "high",
- "researcher_notes": "Caps come from KRS 49.370 as amended effective July 15, 2024 and match the CVCB FAQ cap list ($50,000 overall, $500 per week lost earnings, $2,000 relocation, $2,000 temporary housing, $10,000 funeral, $1,000 emergency). Relocation and temporary housing apply only when the crime happened at the victim's primary residence. The SAEP FAQ (revised 11/2023) predates the 2024 and 2025 amendments: its dollar fee schedule (citing 107 KAR 2:010) is superseded by 802 KAR 3:020 Medicaid-rate caps, and its statements that incomplete exams and same-day ambulance or triage are not paid conflict with current KRS 216B.400(10), which bars charging the victim for exams whether or not completed and for same-day triage and ambulance. Only its insurance-billing answer is used (KY-EXAM-4), and that matches the current program web page, which says providers bill insurance first. Under KRS 49.340(4) claims are investigated whether or not the offender is caught, charged, or convicted. Emergency award requests are limited to one per claimant by the program's January 2025 policy (KY-S21). Reviewer note: the live exam program page (static_id=159, read with curl but not saveable by fetch_source.py, which returns blocked or empty even with --chrome) says providers bill private or public insurance first, matching KY-EXAM-4, but it also says the victim may be charged for expenses not related to the exam process such as ambulance and triage. That conflicts with current KRS 216B.400(10)(d), which bars charging the victim for same-day triage and ambulance costs, so the statute (KY-EXAM-2) controls. How to file: 802 KAR 3:010 Section 4(2) lists in person or private delivery, mail, email (if the claim fits in one email), and the online portal; fax (502-573-4817) comes from the CVCB FAQ only, not the regulation. The paper application (KY-S19, revised July 2024, still the version linked on the program page on Oct 3, 2026) is a flat PDF with no AcroForm fields, so it must be printed or filled by hand. Document rules come from 802 KAR 3:010 and 3:030 and the program's 'Documents to include' checklist (KY-S22). The program page also links a 'How to file a claim' PDF, but that URL returned 404 on Oct 3, 2026, so it is not saved. Processing time: the regulation sets a 90-day deadline for the investigative report on claims filed after July 1, 2026 (120 days for claims filed after July 1, 2025); no source states a time for the Board's final decision or payment, and the brochure says processing time depends on several factors. Missing documentation: under 802 KAR 3:010 Section 10 a claim goes into default if required documents are not sent within 90 days, and can be revived without a new application. Claimants get access to the online tracking portal within one week of filing."
+ "researcher_notes": "Caps come from KRS 49.370 as amended effective July 15, 2024 and match the CVCB FAQ cap list ($50,000 overall, $500 per week lost earnings, $2,000 relocation, $2,000 temporary housing, $10,000 funeral, $1,000 emergency). Relocation and temporary housing apply only when the crime happened at the victim's primary residence. The SAEP FAQ (revised 11/2023) predates the 2024 and 2025 amendments: its dollar fee schedule (citing 107 KAR 2:010) is superseded by 802 KAR 3:020 Medicaid-rate caps, and its statements that incomplete exams and same-day ambulance or triage are not paid conflict with current KRS 216B.400(10), which bars charging the victim for exams whether or not completed and for same-day triage and ambulance. Only its insurance-billing answer is used (KY-EXAM-4), and that matches the current program web page, which says providers bill insurance first. Under KRS 49.340(4) claims are investigated whether or not the offender is caught, charged, or convicted. Emergency award requests are limited to one per claimant by the program's January 2025 policy (KY-S21). Reviewer note: the live exam program page (static_id=159, read with curl but not saveable by fetch_source.py, which returns blocked or empty even with --chrome) says providers bill private or public insurance first, matching KY-EXAM-4, but it also says the victim may be charged for expenses not related to the exam process such as ambulance and triage. That conflicts with current KRS 216B.400(10)(d), which bars charging the victim for same-day triage and ambulance costs, so the statute (KY-EXAM-2) controls. How to file: 802 KAR 3:010 Section 4(2) lists in person or private delivery, mail, email (if the claim fits in one email), and the online portal; fax (502-573-4817) comes from the CVCB FAQ only, not the regulation. The paper application (KY-S19, revised July 2024, still the version linked on the program page on Oct 3, 2026) is a flat PDF with no AcroForm fields, so it must be printed or filled by hand. Document rules come from 802 KAR 3:010 and 3:030 and the program's 'Documents to include' checklist (KY-S22). The program page also links a 'How to file a claim' PDF, but that URL returned 404 on Oct 3, 2026, so it is not saved. Processing time: the regulation sets a 90-day deadline for the investigative report on claims filed after July 1, 2026 (120 days for claims filed after July 1, 2025); no source states a time for the Board's final decision or payment, and the brochure says processing time depends on several factors. Missing documentation: under 802 KAR 3:010 Section 10 a claim goes into default if required documents are not sent within 90 days, and can be revived without a new application. Claimants get access to the online tracking portal within one week of filing. Privacy: Kentucky's address confidentiality program is the Safe at Home Program in the Office of the Secretary of State (KRS 14.300 to 14.318). KRS 14.302 names sexual assault, rape, and other sexual crimes among the offenses it protects against, and KRS 14.304(3) says applicants file with the Secretary of State, either with an application assistant or online through the Secretary of State's portal; KRS 14.304(7) also exempts applicant and participant addresses from the Open Records Act. The saved KRS 14.302 and 14.304 texts are marked 'Effective until January 1, 2027', so an amended version takes effect then and should be rechecked. The Secretary of State's Safe at Home web pages could not be saved (the fetch tool returned blocked or empty, also with --chrome), so the statutes are used. Record confidentiality comes from 802 KAR 3:010 Section 5, the claim tracking portal section; no separate statute making compensation claim records confidential was found among the saved KRS 49 sections."
 }

@@ -116,6 +116,76 @@
    "raw_path": "rules/sources/UT/UT-S10.html",
    "text_path": "rules/sources/UT/UT-S10.txt",
    "sha256": "3ec64ae913db0772b285ca366976d418cbf0240497394f4b93d0e9ddf2491e36"
+  },
+  {
+   "id": "UT-S11",
+   "title": "Utah Safe at Home, program homepage (Utah's address confidentiality program)",
+   "url": "https://safeathome.utah.gov/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:13Z",
+   "raw_path": "rules/sources/UT/UT-S11.html",
+   "text_path": "rules/sources/UT/UT-S11.txt",
+   "sha256": "38ca9dbfab3930f1a8857f4c64622028735274377630ccae87708fdc82a7e5ca"
+  },
+  {
+   "id": "UT-S12",
+   "title": "Utah Safe at Home, About (substitute address, mail forwarding, participant confidentiality)",
+   "url": "https://safeathome.utah.gov/about/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:14Z",
+   "raw_path": "rules/sources/UT/UT-S12.html",
+   "text_path": "rules/sources/UT/UT-S12.txt",
+   "sha256": "5badc6abdd1dbaaf03997500b23f88705317922031c5c64504beef65b7bae105"
+  },
+  {
+   "id": "UT-S13",
+   "title": "Utah Safe at Home, How to Enroll (eligibility and applying through a certified program assistant)",
+   "url": "https://safeathome.utah.gov/how-to-enroll/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:28Z",
+   "raw_path": "rules/sources/UT/UT-S13.html",
+   "text_path": "rules/sources/UT/UT-S13.txt",
+   "sha256": "f27220c8e4525884bbfe998c000d505d08beeb3a3ff5f1cf8542ba6191ceb168"
+  },
+  {
+   "id": "UT-S14",
+   "title": "Utah Safe at Home, Agency Compliance",
+   "url": "https://safeathome.utah.gov/agency-compliance/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:59:28Z",
+   "raw_path": "rules/sources/UT/UT-S14.html",
+   "text_path": "rules/sources/UT/UT-S14.txt",
+   "sha256": "c5d5b360cc87622fb6d2f0381f20c8c6218e77c187db624cace921c9fe558c7d"
+  },
+  {
+   "id": "UT-S15",
+   "title": "Utah Code 77-38-6, Victim's right to privacy (Title 77, Chapter 38, Part 6 page; former Safe at Home sections moved to Title 75E, Chapter 11)",
+   "url": "https://le.utah.gov/xcode/Title77/Chapter38/C77-38-P6_2023050320230503.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:10Z",
+   "raw_path": "rules/sources/UT/UT-S15.pdf",
+   "text_path": "rules/sources/UT/UT-S15.txt",
+   "sha256": "e5a0d1ea2b56551e1e22976dbe30914eb647475887aae774a7fbca449bfab943"
+  },
+  {
+   "id": "UT-S16",
+   "title": "Utah Code Title 75E, Chapter 11, Safe at Home Program (effective 7/1/2026)",
+   "url": "https://le.utah.gov/xcode/Title75E/Chapter11/C75E-11_2026050620260701.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:00:52Z",
+   "raw_path": "rules/sources/UT/UT-S16.pdf",
+   "text_path": "rules/sources/UT/UT-S16.txt",
+   "sha256": "7a3dd935a744191e23265f01820a1d3deccbc488e723254df39e3ef7db25b043"
+  },
+  {
+   "id": "UT-S17",
+   "title": "Utah Code 75E-1-101, Definitions for Title 75E (Department of Criminal Justice)",
+   "url": "https://le.utah.gov/xcode/Title75E/Chapter1/C75E-1_2026050620260701.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:23Z",
+   "raw_path": "rules/sources/UT/UT-S17.pdf",
+   "text_path": "rules/sources/UT/UT-S17.txt",
+   "sha256": "2aaf24d7617450938b3ea9da4a593d6b6bae7762b95a45c04ead3be237381563"
   }
  ],
  "rules": [
@@ -794,6 +864,30 @@
    "source_id": "UT-S3",
    "pinpoint": "Apply for Compensation, Victim Compensation Application Process",
    "fragment_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/#:~:text=Processing%20time%20is%20approximately%2060%2D90%20days."
+  },
+  {
+   "id": "UT-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home Program",
+    "agency": "Utah Department of Criminal Justice",
+    "covers_sexual_assault": true,
+    "enroll": "In order to apply for the Safe at Home Program, a victim must meet with a Certified Safe at Home Program Assistant. Safe at Home Program Assistants are victim advocates and others who work with victims that have gone through a certification training. They will complete the application with the victim and submit it to Safe at Home on behalf of the victim. Safe at Home cannot accept applications directly from an individual. That individual must work with a Program Assistant."
+   },
+   "summary": "Utah's Safe at Home Program gives survivors of sexual assault, domestic violence, stalking, human trafficking, and abuse who fear for their safety a legal substitute address and free mail forwarding, and state and local government agencies must accept that substitute address. Survivors apply through a certified program assistant, not directly.",
+   "quote": "Utah’s Safe at Home Program is available to survivors of abuse, child abuse, domestic violence, stalking, human trafficking, and sexual assault who are afraid that they will be in physical danger if their perpetrator knows where they live. The program will provide a substitute address and mail forwarding for survivors living in Utah.",
+   "source_id": "UT-S11",
+   "pinpoint": "Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)",
+   "fragment_url": "https://safeathome.utah.gov/#:~:text=Utah%E2%80%99s%20Safe%20at%20Home%20Program,for%20survivors%20living%20in%20Utah."
+  },
+  {
+   "id": "UT-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Records the Utah Office for Victims of Crime holds about a claimant's eligibility (the claim, correspondence on approval, denial, or payment, supporting documents, medical or mental health treatment plans, and police reports) are confidential records that can be released only as the compensation statute allows, overriding the state open records act: to the claimant, to whoever submitted the record, or for fraud or subrogation actions.",
+   "quote": "Notwithstanding Title 63G, Chapter 2, Government Records Access and Management Act, a confidential record, a public restitution record, and a nonpublic restitution record may only be disclosed as provided in this section.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)"
   }
  ],
  "coverage": {
@@ -812,14 +906,16 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "filing_deadline",
    "minimum_loss"
   ],
-  "notes": "No filing deadline appears in Utah Code 75E-5 (effective 7/1/2026), in R270-1, on the program pages, or on the application; the closest rules are R270-1-23 (a claim expires three years after the date of application, extendable for extenuating circumstances) and R270-1-24(5) (exam reimbursement requests are due within one year of the exam), neither of which is a deadline for a victim to apply. R270-1-9(1)(b) says no time limit is required for filing an emergency claim. No minimum loss amount was found. No rule names phones or other ordinary property as excluded; the statute covers only personal property necessary and essential to health or safety (75E-5-309(1)(d)(viii)), and the program page says property crimes are not eligible crimes. Neither the statute nor R270-1-24 says whether the survivor's own insurance may be billed for the exam; the UOVC sexual assault provider billing page says providers must bill all available insurance before billing UOVC, so insurance_billing is left unspecified."
+  "notes": "No filing deadline appears in Utah Code 75E-5 (effective 7/1/2026), in R270-1, on the program pages, or on the application; the closest rules are R270-1-23 (a claim expires three years after the date of application, extendable for extenuating circumstances) and R270-1-24(5) (exam reimbursement requests are due within one year of the exam), neither of which is a deadline for a victim to apply. R270-1-9(1)(b) says no time limit is required for filing an emergency claim. No minimum loss amount was found. No rule names phones or other ordinary property as excluded; the statute covers only personal property necessary and essential to health or safety (75E-5-309(1)(d)(viii)), and the program page says property crimes are not eligible crimes. Neither the statute nor R270-1-24 says whether the survivor's own insurance may be billed for the exam; the UOVC sexual assault provider billing page says providers must bill all available insurance before billing UOVC, so insurance_billing is left unspecified. Privacy (added Oct 3): Safe at Home was recodified from Title 77, Chapter 38, Part 6 to Title 75E, Chapter 11 (Chapter 291, 2026 General Session, effective 7/1/2026); the Title 77 Part 6 page now holds only 77-38-6."
  },
  "confidence": "medium",
- "researcher_notes": "Utah recodified the Crime Victim Reparations Act from Title 63M, Chapter 7, Part 5 into Title 75E, Chapter 5 (Chapter 291, 2026 General Session, effective 7/1/2026). R270-1 (effective 12/08/2023, continuation notice March 6, 2026) still cites the old 63M-7 section numbers, and the application PDF still cites 63M-7-519 and 63M-7-510. The rule-based caps (relocation $2,000, transportation $1,000, essential property $1,500/$5,000, emergency $1,000, 25 counseling sessions, 12 weeks lost earnings) come from R270-1 and the board may approve more in extenuating circumstances. The UOVC Code R payment table (UT-S6) lists $625 for an exam and $1250 with photo documentation for dates of service from January 5, 2023; R270-1-24 sets the $1,250 maximum with photo documentation. 75E-5-313(2) also bars medical providers from debt collection while a claim is pending (summarized on the FAQ, UT-S2). Phone 801-238-2360 matches the OVC directory; toll free 1-800-621-7444 is on the application. Online application: https://newclaim.crimevictim.utah.gov/ . Reviewer: R270-1-24(1)(a)'s $1,250 is the examiner fee only (the Code R table, UT-S6, lists $625 without photo documentation), and the facility is paid separately under R270-1-24(2), so it is recorded as exam_payment, not as a survivor-facing expense cap. insurance_billing is set to allowed because the UOVC provider billing page (UT-S4) requires providers to bill all available insurance before UOVC; neither the statute nor R270-1-24 addresses it directly. R270-1-24(3) conditions provider reimbursement on the provider reporting the exam to law enforcement and collecting evidence only with the victim's permission; this is a provider condition, not a survivor reporting requirement. R270-1-8 (abortion) cites 63M-7-511, now 75E-5-309, and is limited to abortions permitted under Title 76, Chapter 7, Part 3. 75E-5-313(1)(b) lets a medical provider (not the exam provider, which R270-1-24(6) covers) collect from the victim up to the office's rate if the office cannot pay in full. How to file (added Oct 3): UOVC moved. The contact page (UT-S9, modified 2026-06-30) and the UOVC homepage list 420 East South Temple, Suite 500, Salt Lake City, UT 84111, while the application PDF (UT-S5, same file as live, created Jan 2025) and the provider billing page (UT-S4) still print 350 East 500 South Suite 200; the submission rule uses the newer contact-page address. Fax 801-533-4127 is the same on both. The online portal URL comes from the apply page's Online Application link, not its visible text. The FAQ (UT-S2) says to send claim correspondence to the program email, which the saved text shows as Cloudflare-obfuscated; the decoded address in the HTML is crimevictims@utah.gov, matching the application, so UT-SUBMIT-2 quotes the application header. The application has 90 AcroForm fields. No in-person submission method is stated. UT-DOC-7 is stored under funeral but the quote covers relocation costs too."
+ "researcher_notes": "Utah recodified the Crime Victim Reparations Act from Title 63M, Chapter 7, Part 5 into Title 75E, Chapter 5 (Chapter 291, 2026 General Session, effective 7/1/2026). R270-1 (effective 12/08/2023, continuation notice March 6, 2026) still cites the old 63M-7 section numbers, and the application PDF still cites 63M-7-519 and 63M-7-510. The rule-based caps (relocation $2,000, transportation $1,000, essential property $1,500/$5,000, emergency $1,000, 25 counseling sessions, 12 weeks lost earnings) come from R270-1 and the board may approve more in extenuating circumstances. The UOVC Code R payment table (UT-S6) lists $625 for an exam and $1250 with photo documentation for dates of service from January 5, 2023; R270-1-24 sets the $1,250 maximum with photo documentation. 75E-5-313(2) also bars medical providers from debt collection while a claim is pending (summarized on the FAQ, UT-S2). Phone 801-238-2360 matches the OVC directory; toll free 1-800-621-7444 is on the application. Online application: https://newclaim.crimevictim.utah.gov/ . Reviewer: R270-1-24(1)(a)'s $1,250 is the examiner fee only (the Code R table, UT-S6, lists $625 without photo documentation), and the facility is paid separately under R270-1-24(2), so it is recorded as exam_payment, not as a survivor-facing expense cap. insurance_billing is set to allowed because the UOVC provider billing page (UT-S4) requires providers to bill all available insurance before UOVC; neither the statute nor R270-1-24 addresses it directly. R270-1-24(3) conditions provider reimbursement on the provider reporting the exam to law enforcement and collecting evidence only with the victim's permission; this is a provider condition, not a survivor reporting requirement. R270-1-8 (abortion) cites 63M-7-511, now 75E-5-309, and is limited to abortions permitted under Title 76, Chapter 7, Part 3. 75E-5-313(1)(b) lets a medical provider (not the exam provider, which R270-1-24(6) covers) collect from the victim up to the office's rate if the office cannot pay in full. How to file (added Oct 3): UOVC moved. The contact page (UT-S9, modified 2026-06-30) and the UOVC homepage list 420 East South Temple, Suite 500, Salt Lake City, UT 84111, while the application PDF (UT-S5, same file as live, created Jan 2025) and the provider billing page (UT-S4) still print 350 East 500 South Suite 200; the submission rule uses the newer contact-page address. Fax 801-533-4127 is the same on both. The online portal URL comes from the apply page's Online Application link, not its visible text. The FAQ (UT-S2) says to send claim correspondence to the program email, which the saved text shows as Cloudflare-obfuscated; the decoded address in the HTML is crimevictims@utah.gov, matching the application, so UT-SUBMIT-2 quotes the application header. The application has 90 AcroForm fields. No in-person submission method is stated. UT-DOC-7 is stored under funeral but the quote covers relocation costs too. Privacy (added Oct 3): UT-ACP-1 quotes the Safe at Home homepage (UT-S11). The statute, now Utah Code Title 75E, Chapter 11 (UT-S16, renumbered from 77-38-601 et seq. by Chapter 291, 2026 General Session), creates the program 'within the department' (75E-11-102(1)), and 75E-1-101(2) (UT-S17) defines the department as the Department of Criminal Justice; the program site carries that department's logo. The statute's definition of victim covers a sexual offense under Title 76, Chapter 5, Part 4, and 75E-11-302 requires a program assistant's recommendation, a relocation within 90 days or an address unknown to the assailant, and does not require a police report or criminal charge. The enroll text is from the How to Enroll page (UT-S13), which also lists program assistants by county; those names are not recorded here. UT-RECCONF-1 quotes 75E-5-205(1); 75E-5-205(6) also requires the office to redact the name of a sexual assault victim and claimant contact information before releasing any restitution record. UT-S15 (Utah Code 77-38-6, a victim's right to withhold locating information in court and use initials in public criminal justice documents) was saved while locating the Safe at Home statute and is not cited by a rule."
 }

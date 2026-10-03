@@ -236,6 +236,36 @@
    "raw_path": "rules/sources/IN/IN-S22.pdf",
    "text_path": "rules/sources/IN/IN-S22.txt",
    "sha256": "5f5cc774e51f66b2a5ed1c00cefa6d8b56985642c17fce4fbe13ded76b57de3a"
+  },
+  {
+   "id": "IN-S23",
+   "title": "Indiana Attorney General, Address Confidentiality Program",
+   "url": "https://www.in.gov/attorneygeneral/about-the-office/appeals/victim-services/address-confidentiality-program/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:57:29Z",
+   "raw_path": "rules/sources/IN/IN-S23.html",
+   "text_path": "rules/sources/IN/IN-S23.txt",
+   "sha256": "e48fab4e31c3c50032e996bef81fa973dd6cbf66e86162f9ffeb5c2281ff2033"
+  },
+  {
+   "id": "IN-S24",
+   "title": "IC 5-26.5-2-1 (address confidentiality program; eligible applicants) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-26-5/chapter-2/section-5-26-5-2-1/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:33Z",
+   "raw_path": "rules/sources/IN/IN-S24.html",
+   "text_path": "rules/sources/IN/IN-S24.txt",
+   "sha256": "cb34d185bebf61191d67ccd1954040111e54e8dec7c3b56563f6a80eeb1960eb"
+  },
+  {
+   "id": "IN-S25",
+   "title": "IC 5-2-6.1-11.5 (confidentiality) via Justia, 2025 Indiana Code",
+   "url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-11-5/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:58:37Z",
+   "raw_path": "rules/sources/IN/IN-S25.html",
+   "text_path": "rules/sources/IN/IN-S25.txt",
+   "sha256": "949eb89d8ee7ad1a8465b792dcbee3176a000f510c332ef70ef6a935b6105332"
   }
  ],
  "rules": [
@@ -816,6 +846,31 @@
    "source_id": "IN-S16",
    "pinpoint": "IC 5-2-6.1-43(b)",
    "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-43/#:~:text=an%20award%20must%20be%20paid,which%20the%20award%20is%20computed"
+  },
+  {
+   "id": "IN-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Office of the Indiana Attorney General",
+    "covers_sexual_assault": true,
+    "enroll": "Your application must be signed by a trained victim advocate. Your victim advocate has all the required documents. If you need help finding a list of trained advocates in your area, click here . To learn more about the program e-mail confidential@atg.in.gov ."
+   },
+   "summary": "Indiana's Address Confidentiality Program, run by the Attorney General's Office, is free and lets survivors of sexual assault and other listed crimes keep a confidential address: first-class mail goes to a secure substitute address and is forwarded, and the substitute address is used for state and local government services.",
+   "quote": "The ACP is a free program that allows victims of domestic violence, sexual assault stalking, human trafficking, harassment, intimidation, or invasion of privacy to maintain a confidential address through the Attorney General's Office.",
+   "source_id": "IN-S23",
+   "pinpoint": "Attorney General, Address Confidentiality Program page, opening paragraphs",
+   "fragment_url": "https://www.in.gov/attorneygeneral/about-the-office/appeals/victim-services/address-confidentiality-program/#:~:text=The%20ACP%20is%20a%20free,through%20the%20Attorney%20General%27s%20Office."
+  },
+  {
+   "id": "IN-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Indiana law makes a compensation claimant's personal information and medical records confidential, along with records from the division's claim investigation that are not publicly available.",
+   "quote": "The following are confidential: (1) A claimant's: (A) personal information (as defined in IC 9-14-6-6 ); and (B) medical records. (2) Records obtained during an investigation under section 26 of this chapter that are not publicly available.",
+   "source_id": "IN-S25",
+   "pinpoint": "IC 5-2-6.1-11.5",
+   "fragment_url": "https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-11-5/#:~:text=The%20following%20are%20confidential%3A%20%281%29,that%20are%20not%20publicly%20available."
   }
  ],
  "coverage": {
@@ -836,7 +891,9 @@
    "total_cap",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap:lost_wages",
@@ -852,5 +909,5 @@
   "notes": "No separate dollar caps were found for lost wages, medical, security (windows and locks), or emergency shelter; those draw on the $15,000 total. Relocation and travel are listed as non-eligible on the program page, and no statute makes them covered, except emergency shelter care for up to 30 days. No source says whether an exam provider may bill the survivor's insurance; the statutes only bar charging the victim, so insurance_billing is unspecified. The program page links an online application portal but says it currently has problems and asks for written applications; no stable online apply URL was recorded, so apply_url points to the program page. How to file: the program page (IN-S1) gives mail, hand delivery, and fax for the paper application; it says online filing exists but the portal currently has problems and gives no portal URL, so no online submission rule was added. The 'Send written application' email link on that page sits under the hospital sexual assault claim section, not the survivor application, so no email rule was added. The program page says medical bills and police reports are not needed at filing; the documents listed come from what the program says it collects or requires to pay (IN-S1, 203 IAC 1-1-4). Processing time: only the statutory 30-day payment window after an award is computed (IC 5-2-6.1-43(b)); the FAQ's 'within a few months' has no number."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text is from Justia's 2025 Indiana Code (the official iga.in.gov code viewer is a script app); the administrative rule is from the official Indiana Administrative Register. Conflicts, statute wins in the rules: (1) Filing deadline: IC 5-2-6.1-16(b) requires the application within 180 days of the crime, extendable for good cause to no more than two years; the program page says applications must be filed no later than two years after the crime. (2) Total cap: IC 5-2-6.1-35 caps an award at $15,000; the FAQ describes $20,000 total ($15,000 plus an additional $5,000 for funeral costs). Funeral costs up to $5,000 are a listed expense in IC 5-2-6.1-21.1(d)(6). (3) Medical expense window: IC 5-2-6.1-21.1(d) covers expenses incurred within 180 days, extendable to two years; the program page says medical expenses must be incurred within two years. (4) The application form State Form 23776 (R14 / 9-21) predates the 2022 changes: it lists a 180-day deadline and a 72-hour report with no sexual assault exam alternative. (5) 203 IAC 1 (readopted 2023) still contains older figures superseded by statute: a 48-hour reporting rule, a $4,000 funeral cap, $1,000 or $1,500 counseling caps, and a 48-hour report condition for sex crime ER payment; it also says a provider may bill the patient or a collateral source if fund payment is denied (203 IAC 1-2-1(c)), which conflicts with IC 16-21-8-6(f) and IC 16-21-8-1(a) (exam services may not depend on reporting to or cooperating with law enforcement). Only the $500 emergency award is taken from 203 IAC 1, since no statute addresses emergency awards; the FAQ confirms emergency funding exists and that an application must be filed first. (6) The program page says crimes outside Indiana are not eligible; IC 5-2-6.1-12(a)(1)(B) lets Indiana residents apply for crimes in places without a substantially similar program. Other: victims of a child sex crime may apply until age 31 (IC 5-2-6.1-16(e)) and are exempt from the 72-hour report rule (IC 5-2-6.1-17(a)). IC 5-2-6.1-21.1(f) bars a health care provider that accepts division payment from charging the victim a copayment. Bodily injury includes emotional trauma that stems directly from a physical impairment, visible injury, or physical pain (IC 5-2-6.1-0.5). IN-S16 (IC 5-2-6.1-43, payment timing), IN-S20 (IC 16-21-8-1, list of sex crimes), and IN-S22 (rights brochure) are saved for context. Reviewer additions: 203 IAC 1-1-9(d) also says the total award may not exceed $15,000 per victim, which agrees with IC 5-2-6.1-35 against the FAQ's $20,000. IC 16-21-8-5(b) conditions payment for additional forensic services (not the exam itself) on the victim being 18 or older or, for a minor, a report to child protective services or law enforcement, the crime occurring in Indiana, and the provider starting the claim in the division's web system. IC 5-2-6.1-16(g) gives victims of battery on a child under 14 five years to apply. How-to-file additions: application_form is IN-S3, State Form 23776 (R14 / 9-21), the PDF the program page currently links; it has 89 AcroForm fields (the PDF is AES-encrypted with an empty user password). 203 IAC 1-1-3(a)(2) says claims are filed in person or by certified mail; the program page adds fax. A Spanish application is linked from the program page but not saved."
+ "researcher_notes": "Statute text is from Justia's 2025 Indiana Code (the official iga.in.gov code viewer is a script app); the administrative rule is from the official Indiana Administrative Register. Conflicts, statute wins in the rules: (1) Filing deadline: IC 5-2-6.1-16(b) requires the application within 180 days of the crime, extendable for good cause to no more than two years; the program page says applications must be filed no later than two years after the crime. (2) Total cap: IC 5-2-6.1-35 caps an award at $15,000; the FAQ describes $20,000 total ($15,000 plus an additional $5,000 for funeral costs). Funeral costs up to $5,000 are a listed expense in IC 5-2-6.1-21.1(d)(6). (3) Medical expense window: IC 5-2-6.1-21.1(d) covers expenses incurred within 180 days, extendable to two years; the program page says medical expenses must be incurred within two years. (4) The application form State Form 23776 (R14 / 9-21) predates the 2022 changes: it lists a 180-day deadline and a 72-hour report with no sexual assault exam alternative. (5) 203 IAC 1 (readopted 2023) still contains older figures superseded by statute: a 48-hour reporting rule, a $4,000 funeral cap, $1,000 or $1,500 counseling caps, and a 48-hour report condition for sex crime ER payment; it also says a provider may bill the patient or a collateral source if fund payment is denied (203 IAC 1-2-1(c)), which conflicts with IC 16-21-8-6(f) and IC 16-21-8-1(a) (exam services may not depend on reporting to or cooperating with law enforcement). Only the $500 emergency award is taken from 203 IAC 1, since no statute addresses emergency awards; the FAQ confirms emergency funding exists and that an application must be filed first. (6) The program page says crimes outside Indiana are not eligible; IC 5-2-6.1-12(a)(1)(B) lets Indiana residents apply for crimes in places without a substantially similar program. Other: victims of a child sex crime may apply until age 31 (IC 5-2-6.1-16(e)) and are exempt from the 72-hour report rule (IC 5-2-6.1-17(a)). IC 5-2-6.1-21.1(f) bars a health care provider that accepts division payment from charging the victim a copayment. Bodily injury includes emotional trauma that stems directly from a physical impairment, visible injury, or physical pain (IC 5-2-6.1-0.5). IN-S16 (IC 5-2-6.1-43, payment timing), IN-S20 (IC 16-21-8-1, list of sex crimes), and IN-S22 (rights brochure) are saved for context. Reviewer additions: 203 IAC 1-1-9(d) also says the total award may not exceed $15,000 per victim, which agrees with IC 5-2-6.1-35 against the FAQ's $20,000. IC 16-21-8-5(b) conditions payment for additional forensic services (not the exam itself) on the victim being 18 or older or, for a minor, a report to child protective services or law enforcement, the crime occurring in Indiana, and the provider starting the claim in the division's web system. IC 5-2-6.1-16(g) gives victims of battery on a child under 14 five years to apply. How-to-file additions: application_form is IN-S3, State Form 23776 (R14 / 9-21), the PDF the program page currently links; it has 89 AcroForm fields (the PDF is AES-encrypted with an empty user password). 203 IAC 1-1-3(a)(2) says claims are filed in person or by certified mail; the program page adds fax. A Spanish application is linked from the program page but not saved. Privacy additions: the Address Confidentiality Program is run by the Office of the Indiana Attorney General (IN-S23). The page says survivors of sexual assault are eligible ('Survivors of domestic violence, sexual assault, stalking, human trafficking, harassment, intimidation and invasion of privacy who fear for their safety are eligible for the ACP'); the quoted sentence in the rule has a missing comma after 'sexual assault' on the page itself. Mail goes to a substitute address and is forwarded, and the substitute address is used for driver's license, vehicle, voter, and school registrations and legal process. Applicants must be 18 or older, or a parent or guardian applying for a minor or a guardian for an incapacitated person; IC 5-26.5-2-1 (IN-S24, saved for context) also lists emancipated minors. The application must be signed by a trained victim advocate. Record confidentiality rests on IC 5-2-6.1-11.5 (IN-S25), which makes a claimant's personal information and medical records confidential; the program FAQ (IN-S2) adds that information is given only to the legal applicant unless the victim or claimant gives written authorization to speak to a third party."
 }
