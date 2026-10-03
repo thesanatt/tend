@@ -46,7 +46,8 @@ function Shared({ view, expired }: { view: ShareView; expired: boolean }) {
         </p>
         {view.output.totals.held_cents > 0 ? (
           <p className={styles.held}>
-            Held: <Money cents={view.output.totals.held_cents} /> on a bill the law says they should not be sent.
+            Held: <Money cents={view.output.totals.held_cents} face="inherit" /> on a bill the law says they should not
+            be sent.
           </p>
         ) : null}
       </section>

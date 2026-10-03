@@ -34,7 +34,12 @@ describe("answers flow into the engine input", () => {
     expect(input.items.find((i) => i.item_id === RIDE)?.confirmed).toBe(true);
     expect(input.items.some((i) => i.item_id === LOCK)).toBe(false);
     expect(input.items.find((i) => i.item_id === RX)?.confirmed).toBe(false);
-    expect(input.context).toEqual({ incident_date: "2026-06-14", as_of_date: "2026-10-03", police_report: "no", forensic_exam: true });
+    expect(input.context).toEqual({
+      incident_date: "2026-06-14",
+      as_of_date: "2026-10-03",
+      police_report: "no",
+      forensic_exam: true,
+    });
   });
 
   it("a yes on one ride adds exactly that ride to the total", () => {
@@ -75,10 +80,16 @@ describe("ledger rows and beds", () => {
 
   it("counts open questions and lines the law leaves out", () => {
     expect(openQuestions(rows)).toHaveLength(7);
-    expect(notCounted(rows).map((r) => r.status).sort()).toEqual(["excluded", "unknown_rule"]);
+    expect(
+      notCounted(rows)
+        .map((r) => r.status)
+        .sort(),
+    ).toEqual(["excluded", "unknown_rule"]);
   });
 
   it("shows rows as checking until the engine answers", () => {
-    expect(buildRows(s.scan.items, s.answers, null).every((r) => r.status === "checking" || r.status === "declined")).toBe(true);
+    expect(
+      buildRows(s.scan.items, s.answers, null).every((r) => r.status === "checking" || r.status === "declined"),
+    ).toBe(true);
   });
 });

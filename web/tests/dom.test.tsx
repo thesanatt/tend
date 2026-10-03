@@ -2,8 +2,9 @@
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Plant from "@/components/Plant";
-import QuickExit, { EXIT_URL, navigation } from "@/components/QuickExit";
+import QuickExit, { EXIT_URL, navigation, onPageShow } from "@/components/QuickExit";
 import StatusTag from "@/components/StatusTag";
+import { useJustChanged } from "@/lib/hooks";
 
 afterEach(() => cleanup());
 
@@ -13,6 +14,7 @@ describe("Exit this page", () => {
     replace = vi.fn();
     navigation.replace = replace as unknown as typeof navigation.replace;
     delete document.documentElement.dataset.exiting;
+    sessionStorage.clear();
     sessionStorage.setItem("tend.session.v1", "{}");
   });
 
@@ -33,6 +35,24 @@ describe("Exit this page", () => {
     fireEvent.keyDown(window, { key: "Escape" });
     expect(replace).toHaveBeenCalledTimes(1);
     vi.useRealTimers();
+  });
+
+  it("blanks and reloads a page restored from the back cache after leaving", () => {
+    const reload = vi.fn();
+    navigation.reload = reload;
+    const restored = (persisted: boolean) => Object.assign(new Event("pageshow"), { persisted }) as PageTransitionEvent;
+
+    onPageShow(restored(true));
+    expect(reload).not.toHaveBeenCalled();
+
+    render(<QuickExit />);
+    fireEvent.click(screen.getByRole("button", { name: "Exit this page" }));
+    delete document.documentElement.dataset.exiting;
+    onPageShow(restored(false));
+    expect(reload).not.toHaveBeenCalled();
+    onPageShow(restored(true));
+    expect(reload).toHaveBeenCalledTimes(1);
+    expect(document.documentElement.dataset.exiting).toBe("true");
   });
 
   it("ignores two presses far apart", () => {
@@ -67,6 +87,24 @@ describe("Plant", () => {
     expect(container.querySelector("svg")!.getAttribute("aria-hidden")).toBe("true");
     rerender(<Plant stage="bloom" seedKey="k" label="Bloom for $40.00" />);
     expect(screen.getByRole("img", { name: "Bloom for $40.00" })).toBeTruthy();
+  });
+});
+
+function Probe({ value, settled }: { value: string; settled: boolean }) {
+  return <span>{useJustChanged(value, settled) ? "changed" : "still"}</span>;
+}
+
+describe("useJustChanged", () => {
+  it("ignores loading values and the first settled value, then marks real changes", () => {
+    vi.useFakeTimers();
+    const { rerender } = render(<Probe value="checking" settled={false} />);
+    rerender(<Probe value="eligible" settled />);
+    expect(screen.getByText("still")).toBeTruthy();
+    rerender(<Probe value="needs_confirmation" settled />);
+    expect(screen.getByText("changed")).toBeTruthy();
+    act(() => vi.advanceTimersByTime(1300));
+    expect(screen.getByText("still")).toBeTruthy();
+    vi.useRealTimers();
   });
 });
 

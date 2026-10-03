@@ -47,3 +47,19 @@
   border-color: var(--green);
   color: var(--on-green);
 }
+
+@media (max-width: 480px) {
+  .steps ol {
+    gap: 0 var(--space-3);
+  }
+
+  .steps a {
+    gap: 6px;
+    font-size: 0.9375rem;
+  }
+
+  .n {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -43,7 +43,7 @@ function rateText(law: LawIndex, ruleId: string): string {
 
 export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowProps) {
   const { item, line, status, answer } = row;
-  const changed = useJustChanged(status);
+  const changed = useJustChanged(status, status !== "checking");
   const subject = `${item.description}, ${formatDay(item.date)}`;
   const units = unitLabel(item.expense, item.units);
   const capped = line && line.status === "eligible" && line.allowed_cents < line.requested_cents;

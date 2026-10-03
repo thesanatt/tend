@@ -1,11 +1,20 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiError, confirmPayment, normalizeSummaries, proposePayment, resetDataModeForTests } from "@/lib/api";
 
-const pay = { bill_id: "b", item_ids: ["x"], amount_cents: 139400, from_account_id: "acct", payee: "Riverbend General Hospital" };
+const pay = {
+  bill_id: "b",
+  item_ids: ["x"],
+  amount_cents: 139400,
+  from_account_id: "acct",
+  payee: "Riverbend General Hospital",
+};
 
 beforeEach(() => {
   resetDataModeForTests();
-  vi.stubGlobal("fetch", vi.fn(async () => new Response("not found", { status: 404 })));
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response("not found", { status: 404 })),
+  );
 });
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -15,7 +24,12 @@ afterEach(() => {
 describe("demo payments (no API connected)", () => {
   it("proposes the exact amount, payee, and a 6-digit code", async () => {
     const p = await proposePayment(pay, "Checking ending 4821");
-    expect(p).toMatchObject({ demo: true, amount_cents: 139400, payee: "Riverbend General Hospital", from: "Checking ending 4821" });
+    expect(p).toMatchObject({
+      demo: true,
+      amount_cents: 139400,
+      payee: "Riverbend General Hospital",
+      from: "Checking ending 4821",
+    });
     expect(p.confirm_code).toMatch(/^\d{6}$/);
   });
 

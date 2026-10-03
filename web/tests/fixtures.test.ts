@@ -16,10 +16,25 @@ describe("engine input fixture", () => {
 
   it("has exactly the SPEC keys", () => {
     expect(Object.keys(input).sort()).toEqual(["context", "items", "jurisdiction"]);
-    expect(Object.keys(input.context).sort()).toEqual(["as_of_date", "forensic_exam", "incident_date", "police_report"]);
+    expect(Object.keys(input.context).sort()).toEqual([
+      "as_of_date",
+      "forensic_exam",
+      "incident_date",
+      "police_report",
+    ]);
     for (const it of input.items) {
       expect(Object.keys(it).sort()).toEqual(
-        ["amount_cents", "confirmed", "date", "description", "expense", "insurance_paid_cents", "is_bill", "item_id", "units"].sort(),
+        [
+          "amount_cents",
+          "confirmed",
+          "date",
+          "description",
+          "expense",
+          "insurance_paid_cents",
+          "is_bill",
+          "item_id",
+          "units",
+        ].sort(),
       );
       expect(isCents(it.amount_cents) && isCents(it.insurance_paid_cents)).toBe(true);
       expect([...EXPENSES, "unknown"]).toContain(it.expense);
@@ -54,7 +69,9 @@ describe("engine output fixtures", () => {
 describe("bill fixture", () => {
   it("lines add up to the bill total and match scan items", () => {
     const bill = read<BillAudit>("fixtures/riverbend-bill.json");
-    const scanIds = new Set(read<{ items: { item_id: string }[] }>("fixtures/rowan-mi.scan.json").items.map((i) => i.item_id));
+    const scanIds = new Set(
+      read<{ items: { item_id: string }[] }>("fixtures/rowan-mi.scan.json").items.map((i) => i.item_id),
+    );
     expect(bill.lines.reduce((s, l) => s + l.amount_cents, 0)).toBe(bill.total_cents);
     expect(bill.lines_sum_cents).toBe(bill.total_cents);
     for (const l of bill.lines) expect(scanIds.has(l.item_id)).toBe(true);

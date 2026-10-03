@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { LEFT_KEY } from "@/lib/keys";
 import styles from "./QuickExit.module.css";
 
 export const EXIT_URL = process.env.NEXT_PUBLIC_EXIT_URL || "https://www.google.com/search?q=weather";
 export const DOUBLE_PRESS_MS = 1000;
 
-// Swappable in tests: jsdom does not allow spying on location.replace.
-export const navigation = { replace: (url: string) => window.location.replace(url) };
+// Swappable in tests: jsdom does not allow spying on location.replace or reload.
+export const navigation = {
+  replace: (url: string) => window.location.replace(url),
+  reload: () => window.location.reload(),
+};
 
 export function leaveNow() {
   // Hide everything first so nothing lingers on screen while the next page loads.
@@ -15,11 +19,27 @@ export function leaveNow() {
   document.title = "Weather";
   try {
     sessionStorage.clear();
+    sessionStorage.setItem(LEFT_KEY, "1");
   } catch {
     // storage can be blocked; leaving still works
   }
   // replace() swaps this history entry, so Back does not return here.
   navigation.replace(EXIT_URL);
+}
+
+// Back can restore an earlier Tend page from the browser's page cache with its old screen.
+// If the person left from this tab, blank that page and load it fresh, which shows nothing personal.
+export function onPageShow(e: PageTransitionEvent) {
+  if (!e.persisted) return;
+  let left = false;
+  try {
+    left = sessionStorage.getItem(LEFT_KEY) === "1";
+  } catch {
+    left = true;
+  }
+  if (!left) return;
+  document.documentElement.dataset.exiting = "true";
+  navigation.reload();
 }
 
 // Also rendered inside sheets: a modal dialog makes the corner button unreachable.
@@ -43,7 +63,11 @@ export default function QuickExit() {
     };
     // Capture phase, so an open dialog cannot swallow the second press.
     window.addEventListener("keydown", onKey, true);
-    return () => window.removeEventListener("keydown", onKey, true);
+    window.addEventListener("pageshow", onPageShow);
+    return () => {
+      window.removeEventListener("keydown", onKey, true);
+      window.removeEventListener("pageshow", onPageShow);
+    };
   }, []);
 
   return (

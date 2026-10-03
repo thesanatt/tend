@@ -3,6 +3,7 @@
 // The survivor's session lives in this tab only (sessionStorage) and is wiped by Exit this page.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { scan as runScan } from "./api";
+import { LEFT_KEY, SESSION_KEY } from "./keys";
 import { evaluateClaim, type Evaluation } from "./engine";
 import type { LineLife } from "./garden";
 import type { ActionResult, EngineInput, PoliceReport, ScanResult, ShareLink } from "./types";
@@ -33,7 +34,7 @@ export interface Session extends StartParams {
   share: (ShareLink & { demo: boolean }) | null;
 }
 
-export const SESSION_KEY = "tend.session.v1";
+export { SESSION_KEY };
 
 export const DEMO: StartParams = {
   persona_id: "rowan",
@@ -169,6 +170,11 @@ export function SessionProvider({ children }: { children: ReactNode }) {
           share: null,
         };
         save(next);
+        try {
+          sessionStorage.removeItem(LEFT_KEY);
+        } catch {
+          // nothing to clear
+        }
         setSession(next);
       },
       answer(itemId, value) {

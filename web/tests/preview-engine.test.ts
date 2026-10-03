@@ -42,7 +42,13 @@ const item = (over: Partial<EngineItem>): EngineItem => ({
 
 const input = (items: EngineItem[], ctx: Partial<EngineInput["context"]> = {}): EngineInput => ({
   jurisdiction: "TS",
-  context: { incident_date: "2026-06-14", as_of_date: "2026-10-03", police_report: "unknown", forensic_exam: false, ...ctx },
+  context: {
+    incident_date: "2026-06-14",
+    as_of_date: "2026-10-03",
+    police_report: "unknown",
+    forensic_exam: false,
+    ...ctx,
+  },
   items,
 });
 
@@ -66,7 +72,11 @@ describe("per-item decisions", () => {
   it("2. holds a forensic exam bill with every exam rule as proof", () => {
     const exam = item({ expense: "forensic_exam", amount_cents: 32500, is_bill: true });
     const out = run(
-      [rule("NB-1", "exam_no_bill", {}, "forensic_exam"), rule("PAY-1", "exam_payment", { payer: "State" }, "forensic_exam"), MEDICAL],
+      [
+        rule("NB-1", "exam_no_bill", {}, "forensic_exam"),
+        rule("PAY-1", "exam_payment", { payer: "State" }, "forensic_exam"),
+        MEDICAL,
+      ],
       [exam],
     );
     const line = lineOf(out, exam.item_id);
@@ -93,7 +103,10 @@ describe("per-item decisions", () => {
   it("3. excludes an expense the law excludes, before asking for confirmation", () => {
     const phone = item({ expense: "property_replacement", confirmed: false });
     const out = run(
-      [rule("EX-1", "excluded_expense", { expense: "property_replacement" }), rule("EX-2", "excluded_expense", { item: "pain" })],
+      [
+        rule("EX-1", "excluded_expense", { expense: "property_replacement" }),
+        rule("EX-2", "excluded_expense", { item: "pain" }),
+      ],
       [phone],
     );
     expect(lineOf(out, phone.item_id)).toMatchObject({ status: "excluded", rule_ids: ["EX-1"], allowed_cents: 0 });
@@ -109,14 +122,21 @@ describe("per-item decisions", () => {
 
   it("4. an expense_cap alone is enough to name an expense", () => {
     const lock = item({ expense: "security" });
-    const out = run([rule("CAP-SEC", "expense_cap", { expense: "security", amount_cents: 100000, per: "claim" })], [lock]);
+    const out = run(
+      [rule("CAP-SEC", "expense_cap", { expense: "security", amount_cents: 100000, per: "claim" })],
+      [lock],
+    );
     expect(lineOf(out, lock.item_id)).toMatchObject({ status: "eligible", rule_ids: ["CAP-SEC"] });
   });
 
   it("5. counts nothing until the survivor confirms", () => {
     const ride = item({ expense: "transportation", confirmed: false });
     const out = run([rule("COV-T", "covered_expense", { expense: "transportation" })], [ride]);
-    expect(lineOf(out, ride.item_id)).toMatchObject({ status: "needs_confirmation", rule_ids: ["COV-T"], allowed_cents: 0 });
+    expect(lineOf(out, ride.item_id)).toMatchObject({
+      status: "needs_confirmation",
+      rule_ids: ["COV-T"],
+      allowed_cents: 0,
+    });
     expect(out.totals.allowed_cents).toBe(0);
   });
 
@@ -138,7 +158,10 @@ describe("aggregate phase", () => {
   it("7. cuts the item that crosses a per-claim cap and zeroes later ones", () => {
     const items = [1, 2, 3].map((d) => item({ expense: "transportation", amount_cents: 60000, date: `2026-07-0${d}` }));
     const out = run(
-      [rule("COV-T", "covered_expense", { expense: "transportation" }), rule("CAP-T", "expense_cap", { expense: "transportation", amount_cents: 100000, per: "claim" })],
+      [
+        rule("COV-T", "covered_expense", { expense: "transportation" }),
+        rule("CAP-T", "expense_cap", { expense: "transportation", amount_cents: 100000, per: "claim" }),
+      ],
       items,
     );
     expect(items.map((i) => lineOf(out, i.item_id).allowed_cents)).toEqual([60000, 40000, 0]);
@@ -151,7 +174,10 @@ describe("aggregate phase", () => {
     const wages = item({ expense: "lost_wages", amount_cents: 250000, units: 2 });
     const unknownWeeks = item({ expense: "lost_wages", amount_cents: 50000, units: 0 });
     const out = run(
-      [rule("COV-W", "covered_expense", { expense: "lost_wages" }), rule("CAP-W", "expense_cap", { expense: "lost_wages", amount_cents: 100000, per: "week" })],
+      [
+        rule("COV-W", "covered_expense", { expense: "lost_wages" }),
+        rule("CAP-W", "expense_cap", { expense: "lost_wages", amount_cents: 100000, per: "week" }),
+      ],
       [wages, unknownWeeks],
     );
     expect(lineOf(out, wages.item_id)).toMatchObject({ allowed_cents: 200000, cap_rule_id: "CAP-W" });
@@ -162,7 +188,11 @@ describe("aggregate phase", () => {
   it("8. walks all eligible items against the smallest total cap", () => {
     const items = [item({ amount_cents: 300000 }), item({ amount_cents: 300000, date: "2026-06-21" })];
     const out = run(
-      [MEDICAL, rule("TOT-1", "total_cap", { amount_cents: 1000000 }), rule("TOT-2", "total_cap", { amount_cents: 450000 })],
+      [
+        MEDICAL,
+        rule("TOT-1", "total_cap", { amount_cents: 1000000 }),
+        rule("TOT-2", "total_cap", { amount_cents: 450000 }),
+      ],
       items,
     );
     expect(items.map((i) => lineOf(out, i.item_id).allowed_cents)).toEqual([300000, 150000]);
@@ -173,11 +203,14 @@ describe("aggregate phase", () => {
   it("9. checks minimum loss: met, not met, waived, days-only, none", () => {
     const min = (p: RuleParams) => [MEDICAL, rule("MIN-1", "minimum_loss", p)];
     const small = () => [item({ amount_cents: 5000 })];
-    expect(run(min({ amount_cents: 2500 }), small()).checks.minimum_loss).toEqual({ status: "met", rule_ids: ["MIN-1"] });
+    expect(run(min({ amount_cents: 2500 }), small()).checks.minimum_loss).toEqual({
+      status: "met",
+      rule_ids: ["MIN-1"],
+    });
     expect(run(min({ amount_cents: 10000 }), small()).checks.minimum_loss.status).toBe("not_met");
     expect(
-      run(min({ amount_cents: 10000, waived_for: ["sexual_assault"] }), small(), { forensic_exam: true }).checks.minimum_loss
-        .status,
+      run(min({ amount_cents: 10000, waived_for: ["sexual_assault"] }), small(), { forensic_exam: true }).checks
+        .minimum_loss.status,
     ).toBe("waived");
     expect(run(min({ amount_cents: 10000, waived_for: ["sexual_assault"] }), small()).checks.minimum_loss.status).toBe(
       "not_met",
@@ -194,10 +227,18 @@ describe("aggregate phase", () => {
       rule("FILE-3", "filing_deadline", { extension: "good cause" }),
     ];
     const ok = run(rules, [item({})]);
-    expect(ok.checks.deadline).toEqual({ status: "ok", deadline_date: "2029-03-10", rule_ids: ["FILE-1", "FILE-2", "FILE-3"] });
+    expect(ok.checks.deadline).toEqual({
+      status: "ok",
+      deadline_date: "2029-03-10",
+      rule_ids: ["FILE-1", "FILE-2", "FILE-3"],
+    });
     const late = run(rules, [item({})], { as_of_date: "2029-03-11" });
     expect(late.checks.deadline.status).toBe("late");
-    expect(run([MEDICAL], [item({})]).checks.deadline).toEqual({ status: "unknown", deadline_date: null, rule_ids: [] });
+    expect(run([MEDICAL], [item({})]).checks.deadline).toEqual({
+      status: "unknown",
+      deadline_date: null,
+      rule_ids: [],
+    });
   });
 
   it("11. reporting: police report, exam alternative, required, unknown, none", () => {
@@ -207,7 +248,10 @@ describe("aggregate phase", () => {
       rule("REP-2", "reporting_requirement", { required: true }),
     ];
     const one = () => [item({})];
-    expect(run(rules, one(), { police_report: "yes" }).checks.reporting).toEqual({ status: "satisfied", rule_ids: ["REP-1", "REP-2"] });
+    expect(run(rules, one(), { police_report: "yes" }).checks.reporting).toEqual({
+      status: "satisfied",
+      rule_ids: ["REP-1", "REP-2"],
+    });
     expect(run(rules, one(), { police_report: "no", forensic_exam: true }).checks.reporting).toEqual({
       status: "satisfied",
       rule_ids: ["REP-1"],

@@ -12,8 +12,13 @@ function files(dir: string): string[] {
   });
 }
 
-const sources = [...files(path.join(web, "app")), ...files(path.join(web, "components")), ...files(path.join(web, "lib"))];
-const HYPE = /\b(elevate|empower|unlock|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
+const sources = [
+  ...files(path.join(web, "app")),
+  ...files(path.join(web, "components")),
+  ...files(path.join(web, "lib")),
+];
+const HYPE =
+  /\b(elevate|empower|unlock|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
 
 describe("user-facing copy", () => {
   it("has no em dashes, en dashes, or curly quotes in source", () => {

@@ -21,7 +21,9 @@ type Route = (init?: RequestInit) => Response | Promise<Response>;
 function stubFetch(routes: Record<string, Route>) {
   const fn = vi.fn(async (url: string, init?: RequestInit) => {
     const route = routes[url];
-    return route ? route(init) : new Response("<html>not found</html>", { status: 404, headers: { "content-type": "text/html" } });
+    return route
+      ? route(init)
+      : new Response("<html>not found</html>", { status: 404, headers: { "content-type": "text/html" } });
   });
   vi.stubGlobal("fetch", fn);
   return fn;
@@ -38,7 +40,17 @@ describe("engine adapter", () => {
     const clean = toEngineInput(input);
     for (const it of clean.items) {
       expect(Object.keys(it).sort()).toEqual(
-        ["amount_cents", "confirmed", "date", "description", "expense", "insurance_paid_cents", "is_bill", "item_id", "units"].sort(),
+        [
+          "amount_cents",
+          "confirmed",
+          "date",
+          "description",
+          "expense",
+          "insurance_paid_cents",
+          "is_bill",
+          "item_id",
+          "units",
+        ].sort(),
       );
     }
   });

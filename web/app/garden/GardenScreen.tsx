@@ -97,10 +97,11 @@ function GardenView({ session }: { session: Session }) {
         <h1>Your garden</h1>
         <p className="lead">A plant grows here only for money that comes back to you.</p>
         <p className={styles.tally}>
-          {plants.length} {plants.length === 1 ? "plant" : "plants"} for <Money cents={output.totals.allowed_cents} />.{" "}
+          {plants.length} {plants.length === 1 ? "plant" : "plants"} for{" "}
+          <Money cents={output.totals.allowed_cents} face="inherit" />.{" "}
           {paidCents > 0 ? (
             <>
-              In bloom: <Money cents={paidCents} />.
+              In bloom: <Money cents={paidCents} face="inherit" />.
             </>
           ) : (
             "Nothing paid yet."

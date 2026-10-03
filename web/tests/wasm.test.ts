@@ -50,7 +50,9 @@ function fakeModule() {
       calls.push({ image, input: text });
       const parsed = JSON.parse(text) as EngineInput;
       if (parsed.items.length === 0) return writeC(JSON.stringify({ error: "no items" }));
-      return writeC(JSON.stringify({ jurisdiction: parsed.jurisdiction, law_image_sha256: image, lines: [], totals: {} }));
+      return writeC(
+        JSON.stringify({ jurisdiction: parsed.jurisdiction, law_image_sha256: image, lines: [], totals: {} }),
+      );
     },
     _tend_disasm(img: number, len: number) {
       return writeC(`; listing of ${dec.decode(heap.subarray(img, img + len))}`);
@@ -68,10 +70,15 @@ function fakeModule() {
   return mod;
 }
 
-function deps(mod: TendModule | null, script: string, contentType = "text/javascript"): WasmDeps & { fetch: ReturnType<typeof vi.fn> } {
+function deps(
+  mod: TendModule | null,
+  script: string,
+  contentType = "text/javascript",
+): WasmDeps & { fetch: ReturnType<typeof vi.fn> } {
   const factory: TendFactory = async () => mod!;
   const fetch = vi.fn(async (url: string) => {
-    if (url.endsWith("/tend.js")) return new Response(script, { status: 200, headers: { "content-type": contentType } });
+    if (url.endsWith("/tend.js"))
+      return new Response(script, { status: 200, headers: { "content-type": contentType } });
     if (url.endsWith("/laws/MI.tlaw")) return new Response(enc.encode("TLAW-MI"), { status: 200 });
     return new Response("not found", { status: 404 });
   });
@@ -103,7 +110,9 @@ const input: EngineInput = {
 describe("WebAssembly engine loader", () => {
   it("returns null when /engine/tend.js is missing or is an HTML page", async () => {
     const d = deps(fakeModule(), "", "text/html");
-    expect(await loadWasmEngine("/engine", { ...d, fetch: (async () => new Response("", { status: 404 })) as typeof fetch })).toBeNull();
+    expect(
+      await loadWasmEngine("/engine", { ...d, fetch: (async () => new Response("", { status: 404 })) as typeof fetch }),
+    ).toBeNull();
     expect(await loadWasmEngine("/engine", d)).toBeNull();
   });
 

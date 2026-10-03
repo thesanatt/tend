@@ -54,7 +54,9 @@ function BillView({ session }: { session: Session }) {
   const restCents = sumCents(payLines.map((l) => l.amount_cents));
   const adds =
     bill.lines_sum_cents === bill.total_cents && sumCents(bill.lines.map((l) => l.amount_cents)) === bill.total_cents;
-  const payment = session.payments.find((p) => p.item_ids.some((id) => bill.lines.some((l) => l.item_id === id)));
+  const forBill = session.payments.filter((p) => p.item_ids.some((id) => bill.lines.some((l) => l.item_id === id)));
+  const payment = forBill.at(-1);
+  const paid = forBill.some((p) => p.status === "done");
   const noBill = law.byCategory("exam_no_bill");
   const examPay = law.byCategory("exam_payment");
   const heldRuleIds = heldLines.length ? (lineFor(heldLines[0].item_id)?.rule_ids ?? []) : [];
@@ -222,7 +224,7 @@ function BillView({ session }: { session: Session }) {
               Contact the exam payment program
             </button>
           ) : null}
-          {!payment && restCents > 0 && adds ? (
+          {!paid && restCents > 0 && adds ? (
             <button type="button" className="btn btn-secondary" onClick={() => setSheet("pay")}>
               Pay the rest from {account.nickname}
             </button>
