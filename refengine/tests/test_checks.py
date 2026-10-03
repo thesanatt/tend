@@ -137,8 +137,9 @@ def test_no_deadline_rule_is_unknown():
 
 
 def test_huge_period_stops_at_the_last_date():
-    rules = set_params(zz(), "ZZ-DEAD-1", years=100_000)
-    assert run(rules=rules)["checks"]["deadline"]["deadline_date"] == "9999-12-31"
+    rules = set_params(zz(), "ZZ-DEAD-1", years=1000)
+    out = run(rules=rules, incident="9500-01-01", as_of="9600-01-01")
+    assert out["checks"]["deadline"]["deadline_date"] == "9999-12-31"
 
 
 # Step 11: reporting (ZZ-REPORT-1: required, alternative forensic_exam; ZZ-REPORT-2: not required)

@@ -67,7 +67,7 @@ python3 refengine/difftest.py --n 10000 --rules-dir rules/verified
 The C++ engine makes the same choices except the last sentence of 11 (see the last question
 below); difftest holds both to them.
 
-1. A rule's expense is `rule.expense`, else `params.expense`. A rule that only describes an item in
+1. A rule's expense is `rule.expense`, else `params.expense` (non-strings name nothing). A rule that only describes an item in
    text (`params.item`) names no expense.
 2. Hold proof is every `exam_no_bill` rule, then every `exam_payment` rule, each in file order,
    whatever expense the rule names ("an exam_no_bill rule exists").
@@ -105,11 +105,16 @@ below); difftest holds both to them.
     (`submission`, `required_document`, `processing_time`) are ignored, and only the five SPEC
     categories go in `info_rule_ids`.
 15. Input: strict `YYYY-MM-DD` dates; money and units are integers from 0 to 2^53 - 1 (no floats, no
-    booleans); unique `item_id`s; the input's jurisdiction must equal the rules' or be absent.
+    booleans) and all amounts together stay within 2^53 - 1, so every total is JSON-safe; unique
+    `item_id`s with no unpaired surrogates; the input's jurisdiction must equal the rules' or be absent.
     Missing or null optional fields default to `confirmed: false`, `insurance_paid_cents: 0`,
     `units: 0`, `is_bill: false`, `expense: "unknown"`. An expense outside the enum reads as
     `unknown`. Lines are sorted by `(date, item_id)`, ids compared by code point (UTF-8 byte order).
-16. `law_image_sha256` is the sha256 of the rules file bytes when loaded with `load_rules` (the CLI),
+16. Rules: the reference rejects what `tendc` rejects instead of reading it as "no limit": an expense
+    outside the enum (so no rule can cover `unknown`), `params` that is not an object, `amount_cents`
+    above 10^15, `years` above 1000, `days` above 1,000,000, non-integer numbers, a non-string `per`,
+    a non-boolean `required`, and `alternatives` or `waived_for` that is not a string or list.
+17. `law_image_sha256` is the sha256 of the rules file bytes when loaded with `load_rules` (the CLI),
     otherwise of the canonical rules JSON (sorted keys, no spaces).
 
 ## Trace
@@ -145,6 +150,14 @@ Each follows from the SPEC as written and shows up in real files:
 - SC-MIN-2 encodes its exam waiver as `["forensic_exam"]`, which the `sexual_assault` test never
   matches.
 - `count_limit` (session counts) and caps per month or per item are not enforced, only flagged.
+- Unit caps multiply the rate by `units` whatever the cap's `per`, but the SPEC fixes what `units`
+  means per expense (weeks of wages, counseling sessions, miles). NV-CAP-WAGE-3 is $70 per day, so
+  4 weeks of lost wages ($2,000) are cut to $280. CA-COUNSEL-2 is $15 per hour of peer counseling at
+  a rape crisis center, but it caps every California counseling line, so a $150 session is cut to
+  $15. Applying a rate only when `per` matches the expense's unit (and flagging the rest) would fix
+  both, in the SPEC and both engines at once.
+- MI-MIN-1's `waived_for` describes the waiver in words, so the exact `sexual_assault` entry never
+  matches and a $150 Michigan claim with an exam reads `not_met`.
 - NJ-MINLOSS-1 is a `minimum_loss` rule with no threshold ("There are no minimum loss
   requirements"). The SPEC only makes a days_lost-only rule `unknown`, so the reference says `met`;
   the C++ engine says `unknown` for any rule without an amount. One of them should change.

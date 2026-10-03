@@ -7,7 +7,7 @@ import random
 
 import pytest
 
-from claims import FIXTURES, claim, item, run, zz
+from claims import FIXTURES, add_rule, claim, item, line, replace_params, run, set_params, zz
 from tend_ref import EngineInputError, Law, evaluate, load_rules
 
 
@@ -153,3 +153,49 @@ def test_law_object_can_be_reused():
     second = law.evaluate(claim(item("b", "relocation", 100_000)))
     assert first["totals"]["allowed_cents"] == 200_000
     assert second["totals"]["allowed_cents"] == 100_000
+
+
+def test_item_id_with_an_unpaired_surrogate_is_rejected():
+    # The C++ engine rejects it too, and the output could not be written as UTF-8.
+    data = json.loads('{"item_id": "\\ud800x"}')
+    with pytest.raises(EngineInputError, match="unpaired surrogate"):
+        evaluate(zz(), claim(item(data["item_id"])))
+    assert line(run(item("\U0001f331")), "\U0001f331")["status"] == "eligible"
+
+
+def test_amounts_that_add_up_past_2_53_are_rejected():
+    big = 2**52
+    evaluate(zz(), claim(item("a", amount=big), item("b", amount=big - 1)))
+    with pytest.raises(EngineInputError, match="add up"):
+        evaluate(zz(), claim(item("a", amount=big), item("b", amount=big)))
+
+
+def test_a_rule_naming_the_unknown_expense_is_rejected():
+    # Step 4: an "unknown" line is never counted, so no rule may cover it.
+    with pytest.raises(EngineInputError, match="unknown expense"):
+        Law(add_rule(zz(), "ZZ-X-1", "covered_expense", expense="unknown"))
+    with pytest.raises(EngineInputError, match="unknown expense"):
+        Law(add_rule(zz(), "ZZ-X-1", "excluded_expense", expense="vacation"))
+
+
+@pytest.mark.parametrize("rule_id, params, message", [
+    ("ZZ-CAP-1", {"amount_cents": "2500000"}, "amount_cents"),
+    ("ZZ-CAP-1", {"amount_cents": 25000.0}, "amount_cents"),
+    ("ZZ-CAP-1", {"amount_cents": -1}, "amount_cents"),
+    ("ZZ-DEAD-1", {"years": True}, "years"),
+    ("ZZ-DEAD-1", {"days": 1_000_001}, "days"),
+    ("ZZ-REPORT-1", {"required": "false"}, "required"),
+    ("ZZ-REPORT-1", {"alternatives": 3}, "alternatives"),
+])
+def test_malformed_rule_params_are_rejected_not_ignored(rule_id, params, message):
+    # A cap written as a string must not read as "no cap".
+    with pytest.raises(EngineInputError, match=message):
+        Law(set_params(zz(), rule_id, **params))
+
+
+def test_malformed_params_object_and_per_are_rejected():
+    rules = replace_params(zz(), "ZZ-CAP-1", ["amount_cents", 1])
+    with pytest.raises(EngineInputError, match="params must be an object"):
+        Law(rules)
+    with pytest.raises(EngineInputError, match="per"):
+        Law(set_params(zz(), "ZZ-CAP-4", per=7))

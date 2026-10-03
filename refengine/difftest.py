@@ -386,9 +386,9 @@ def jurisdiction_files(args) -> list[tuple[str, Path]]:
     found, seen = [], set()
     for path in files:
         try:
-            st = json.loads(path.read_text(encoding="utf-8"))["jurisdiction"]
-        except (OSError, ValueError, KeyError, TypeError):
-            print(f"skip {path}: not a verified jurisdiction file")
+            st = Law(*load_rules(path)).jurisdiction
+        except (OSError, ValueError) as e:  # ValueError includes EngineInputError
+            print(f"skip {path}: not a verified jurisdiction file ({e})")
             continue
         if st in seen:
             print(f"skip {path}: {st} already loaded")

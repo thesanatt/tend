@@ -29,6 +29,12 @@ INFO_CATEGORIES = frozenset({
 })
 # Integers above 2^53 - 1 do not survive a JSON round trip through JavaScript (the WASM build).
 MAX_SAFE_INT = 2**53 - 1
+# Parameter bounds tendc enforces, so a rule file both engines accept reads the same in both.
+PARAM_LIMITS = {"amount_cents": 10**15, "years": 1000, "days": 1_000_000}
+PARAM_KEYS = {
+    "total_cap": ("amount_cents",), "expense_cap": ("amount_cents",), "minimum_loss": ("amount_cents",),
+    "filing_deadline": ("years", "days"),
+}
 
 _DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
@@ -38,8 +44,12 @@ class EngineInputError(ValueError):
 
 
 def rule_expense(rule: dict) -> str | None:
+    # A non-string expense names nothing, as in tendc.
     params = rule.get("params")
-    return rule.get("expense") or (params.get("expense") if isinstance(params, dict) else None)
+    for value in (rule.get("expense"), params.get("expense") if isinstance(params, dict) else None):
+        if isinstance(value, str) and value:
+            return value
+    return None
 
 
 def _params(rule: dict) -> dict:
@@ -151,6 +161,7 @@ class Law:
             if rule["id"] in seen:
                 raise EngineInputError(f"duplicate rule id {rule['id']}")
             seen.add(rule["id"])
+            _check_rule(rule)
         self.rules: list[dict] = rules["rules"]
 
         def ids(category: str) -> list[str]:
@@ -415,6 +426,34 @@ class _Evaluation:
         return "unknown"
 
 
+def _check_rule(rule: dict) -> None:
+    # Reject what tendc rejects instead of reading a malformed number as "no limit".
+    where = rule["id"]
+    params = rule.get("params")
+    if params is not None and not isinstance(params, dict):
+        raise EngineInputError(f"{where}: params must be an object")
+    params = params or {}
+    expense = rule_expense(rule)
+    if expense is not None and expense not in EXPENSES:
+        raise EngineInputError(f"{where}: unknown expense {expense!r}")
+    for key in PARAM_KEYS.get(rule["category"], ()):
+        value = params.get(key)
+        if value is None:
+            continue
+        if not isinstance(value, int) or isinstance(value, bool) or not 0 <= value <= PARAM_LIMITS[key]:
+            raise EngineInputError(f"{where}: params.{key} must be a whole number from 0 to {PARAM_LIMITS[key]}")
+    if rule["category"] == "expense_cap" and params.get("per") is not None:
+        if not isinstance(params["per"], str) or not params["per"]:
+            raise EngineInputError(f"{where}: params.per must be a non-empty string")
+    if rule["category"] == "reporting_requirement" and params.get("required") is not None:
+        if not isinstance(params["required"], bool):
+            raise EngineInputError(f"{where}: params.required must be true or false")
+    for category, key in (("reporting_requirement", "alternatives"), ("minimum_loss", "waived_for")):
+        value = params.get(key)
+        if rule["category"] == category and value is not None and not isinstance(value, (str, list)):
+            raise EngineInputError(f"{where}: params.{key} must be a string or a list")
+
+
 def _date(value, where: str) -> date:
     if not isinstance(value, str) or not _DATE_RE.fullmatch(value):
         raise EngineInputError(f"{where} must be a YYYY-MM-DD date")
@@ -473,6 +512,10 @@ def parse_input(data: dict, jurisdiction: str) -> tuple[Context, list[Item]]:
         item_id = raw.get("item_id")
         if not isinstance(item_id, str) or not item_id:
             raise EngineInputError(f"{where}.item_id must be a non-empty string")
+        try:
+            item_id.encode("utf-8")
+        except UnicodeEncodeError:
+            raise EngineInputError(f"{where}.item_id has an unpaired surrogate") from None
         if item_id in seen:
             raise EngineInputError(f"duplicate item_id {item_id!r}")
         seen.add(item_id)
@@ -490,6 +533,9 @@ def parse_input(data: dict, jurisdiction: str) -> tuple[Context, list[Item]]:
             is_bill=_bool(_get(raw, "is_bill", False), f"{where}.is_bill"),
             units=_int(_get(raw, "units", 0), f"{where}.units"),
         ))
+    # Every total in the output is a sum of amounts, so this keeps them all JSON-safe.
+    if sum(it.amount_cents for it in items) > MAX_SAFE_INT:
+        raise EngineInputError("the amounts add up to more than 2^53 - 1 cents")
     return ctx, items
 
 

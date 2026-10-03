@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-from .engine import EngineInputError, evaluate, load_rules
+from .engine import EngineInputError, Law, load_rules
 from .gen import claim_rng, generate
 
 
@@ -32,17 +32,25 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         rules, sha = load_rules(args.rules)
+        law = Law(rules, sha)  # validates the rules for gen too
         if args.command == "eval":
-            text = sys.stdin.read() if args.input == "-" else Path(args.input).read_text(encoding="utf-8")
-            out = evaluate(rules, json.loads(text), law_sha256=sha)
+            if args.input == "-":
+                text = sys.stdin.buffer.read().decode("utf-8")
+            else:
+                text = Path(args.input).read_text(encoding="utf-8")
+            out = law.evaluate(json.loads(text))
         else:
-            out = generate(rules, claim_rng(args.seed, rules["jurisdiction"], args.index))
-    except (OSError, json.JSONDecodeError, EngineInputError, KeyError) as e:
+            out = generate(rules, claim_rng(args.seed, law.jurisdiction, args.index))
+    except RecursionError:
+        print("error: the JSON is nested too deeply", file=sys.stderr)
+        return 2
+    except (OSError, ValueError) as e:  # ValueError covers bad JSON, bad UTF-8 and EngineInputError
         print(f"error: {e}", file=sys.stderr)
         return 2
 
-    json.dump(out, sys.stdout, indent=None if args.compact else 2, ensure_ascii=False)
-    sys.stdout.write("\n")
+    text = json.dumps(out, indent=None if args.compact else 2, ensure_ascii=False) + "\n"
+    sys.stdout.buffer.write(text.encode("utf-8"))
+    sys.stdout.flush()
     return 0
 
 

@@ -95,6 +95,22 @@ def test_missing_rules_dir_is_an_error(tmp_path):
     assert proc.returncode == 2
 
 
+def test_a_malformed_rules_file_is_skipped_not_a_worker_crash(tmp_path):
+    rules_dir = tmp_path / "rules"
+    rules_dir.mkdir()
+    good = json.loads((HERE / "fixtures" / "ZZ.json").read_text())
+    bad = json.loads((HERE / "fixtures" / "ZY.json").read_text())
+    bad["rules"][0]["params"] = {"amount_cents": "lots"}
+    bad["rules"][0]["category"] = "total_cap"
+    (rules_dir / "ZZ.json").write_text(json.dumps(good))
+    (rules_dir / "ZY.json").write_text(json.dumps(bad))
+    proc = subprocess.run([sys.executable, str(DIFFTEST), "--rules-dir", str(rules_dir), "--no-fixtures",
+                           "--n", "20", "--engine-root", str(tmp_path)], capture_output=True, text=True, timeout=120)
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "skip" in proc.stdout and "ZY.json" in proc.stdout
+    assert "OK: 20 claims" in proc.stdout
+
+
 @pytest.mark.parametrize("a, b, paths", [
     ({"x": 1}, {"x": 1}, []),
     ({"x": 1}, {"x": 1.0}, ["$.x"]),

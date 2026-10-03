@@ -5,6 +5,8 @@ import json
 import subprocess
 import sys
 
+import pytest
+
 from claims import FIXTURES, GOLDEN, zz
 from tend_ref import evaluate
 
@@ -58,3 +60,34 @@ def test_gen_is_deterministic_and_evaluates_cleanly():
     assert first.stdout == again.stdout != other.stdout
     proc = tend_ref("eval", "--rules", str(ZZ_PATH), "--input", "-", stdin=first.stdout)
     assert proc.returncode == 0, proc.stderr
+
+
+@pytest.mark.parametrize("payload", [b"\xff\xfe{}", b"[" * 100_000, b'{"a": NaN'])
+def test_eval_reports_unreadable_input_without_a_traceback(tmp_path, payload):
+    bad = tmp_path / "bad.json"
+    bad.write_bytes(payload)
+    proc = tend_ref("eval", "--rules", str(ZZ_PATH), "--input", str(bad))
+    assert proc.returncode == 2
+    assert proc.stderr.startswith("error: ") and "Traceback" not in proc.stderr
+    assert proc.stdout == ""
+
+
+@pytest.mark.parametrize("command", ["eval", "gen"])
+def test_rules_that_are_not_a_jurisdiction_object_exit_2(tmp_path, command):
+    bad = tmp_path / "rules.json"
+    bad.write_text("[1, 2]")
+    args = ["--input", str(GOLDEN_INPUT)] if command == "eval" else []
+    proc = tend_ref(command, "--rules", str(bad), *args)
+    assert proc.returncode == 2
+    assert proc.stderr.startswith("error: ") and "Traceback" not in proc.stderr
+
+
+def test_eval_rejects_an_unpaired_surrogate_before_printing(tmp_path):
+    data = json.loads(GOLDEN_INPUT.read_text())
+    data["items"][0]["item_id"] = "\ud800"
+    bad = tmp_path / "in.json"
+    bad.write_text(json.dumps(data))  # ensure_ascii keeps the escape as text
+    proc = tend_ref("eval", "--rules", str(ZZ_PATH), "--input", str(bad))
+    assert proc.returncode == 2
+    assert "unpaired surrogate" in proc.stderr
+    assert proc.stdout == ""
