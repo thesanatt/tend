@@ -3,7 +3,7 @@
 import { createHash } from "node:crypto";
 import { readdirSync } from "node:fs";
 import path from "node:path";
-import { PDFArray, PDFCheckBox, PDFDict, PDFDocument, PDFName, PDFString, PDFTextField } from "pdf-lib";
+import { PDFArray, PDFCheckBox, PDFDict, PDFDocument, PDFHexString, PDFName, PDFString, PDFTextField } from "pdf-lib";
 import { describe, expect, it } from "vitest";
 import { evaluatePreview } from "@/lib/engine/preview";
 import {
@@ -38,8 +38,8 @@ async function uriLinks(pdf: Uint8Array): Promise<string[]> {
     const annots = page.node.lookupMaybe(PDFName.of("Annots"), PDFArray);
     for (let i = 0; i < (annots?.size() ?? 0); i++) {
       const a = annots!.lookup(i, PDFDict);
-      const uri = a.lookupMaybe(PDFName.of("A"), PDFDict)?.lookupMaybe(PDFName.of("URI"), PDFString);
-      if (uri) out.push(uri.decodeText());
+      const uri = a.lookupMaybe(PDFName.of("A"), PDFDict)?.lookup(PDFName.of("URI"));
+      if (uri instanceof PDFString || uri instanceof PDFHexString) out.push(uri.decodeText());
     }
   }
   return out;
@@ -332,6 +332,16 @@ describe("text the standard PDF fonts cannot draw", () => {
     const p = await builderFor(webLaw).build("MI", input, rowanOutput());
     expect(p.transcript.join("\n")).toContain("Clínica São Paulo");
     expect(await bytesOf(p.summaryPdf)).not.toBeNull();
+  });
+
+  it("keeps the file valid when a link has a stray parenthesis or backslash", async () => {
+    const law = webLaw("MI");
+    const odd = "https://example.org/statute(1\\a).pdf#:~:text=a)b";
+    law.rules = law.rules.map((r) => (r.id === "MI-EXAM-1" ? { ...r, fragment_url: odd } : r));
+    const p = await builderFor(() => law).build("MI", rowanInput(), rowanOutput());
+    const pdf = (await bytesOf(p.summaryPdf))!;
+    expect(await uriLinks(pdf)).toContain(odd);
+    expect(await pdfText(pdf)).toContain("Amount you can ask for. The program decides.");
   });
 
   it("refuses a claim checked under another state's law", async () => {

@@ -1,7 +1,7 @@
 // A small flow layout on top of pdf-lib: wrapped runs of text in mixed fonts, tables that break
 // across pages, link annotations, and a footer on every page. Standard PDF fonts only (no font
 // files to fetch), and no clock or random input, so the same content always gives the same bytes.
-import { PDFDocument, PDFString, rgb, StandardFonts, type PDFFont, type PDFPage, type RGB } from "pdf-lib";
+import { PDFDocument, PDFHexString, rgb, StandardFonts, type PDFFont, type PDFPage, type RGB } from "pdf-lib";
 
 export const PAGE_W = 612;
 export const PAGE_H = 792;
@@ -281,12 +281,16 @@ export class Pdf {
 
   link(x: number, y: number, w: number, h: number, url: string): void {
     const ctx = this.doc.context;
+    // A URI is 7-bit ASCII. Written as a hex string, a stray parenthesis or backslash in a link
+    // cannot break the file (pdf-lib writes literal strings without escaping).
+    const ascii = url.replace(/[^\x20-\x7e]/g, (c) => encodeURIComponent(c));
+    const hex = Array.from(ascii, (c) => c.charCodeAt(0).toString(16).padStart(2, "0")).join("");
     const annot = ctx.obj({
       Type: "Annot",
       Subtype: "Link",
       Rect: [x, y, x + w, y + h],
       Border: [0, 0, 0],
-      A: { Type: "Action", S: "URI", URI: PDFString.of(url) },
+      A: { Type: "Action", S: "URI", URI: PDFHexString.of(hex) },
     });
     this.page.node.addAnnot(ctx.register(annot));
   }
