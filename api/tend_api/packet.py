@@ -210,7 +210,7 @@ def _quote_lines(citations: list[dict[str, Any]], st: dict[str, ParagraphStyle])
 GROUP_ORDER = ("eligible", "needs_confirmation", "held", "excluded", "unknown_rule", "out_of_window")
 GROUP_NOTE = {
     "needs_confirmation": "Tend counts these after you confirm them.",
-    "held": "Hold this line. Ask billing to remove it first.",
+    "held": "Don't pay this line. Ask billing to remove it first.",
     "excluded": "The program lists this as not covered.",
     "unknown_rule": "No rule for this expense was found. Ask a Navigator.",
     "out_of_window": "Dated before the incident or after this packet was made.",

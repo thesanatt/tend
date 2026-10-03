@@ -79,7 +79,7 @@ def test_packet_cites_every_line_and_appends_the_application(client):
         "Amount you can ask for",
         "The program decides",
         "Demo packet",
-        "Hold this line. Ask billing to remove it first.",
+        "Don't pay this line. Ask billing to remove it first.",
         "MCL 18.355a(2)",
         "shall not submit a bill",
         "That needs your express written consent.",

@@ -224,7 +224,8 @@ class AgentService:
             for rid in dict.fromkeys(ids):
                 if rid in by_id:
                     c = citation(by_id[rid], sources)
-                    out.append({k: c.get(k) for k in ("rule_id", "pinpoint", "quote", "fragment_url", "source_title", "source_url")})
+                    keys = ("rule_id", "summary", "pinpoint", "quote", "fragment_url", "source_title", "source_url")
+                    out.append({k: c.get(k) for k in keys})
             return out
 
         def sentence(text: str, ids: list[str], **extra: Any) -> dict[str, Any]:
@@ -248,20 +249,28 @@ class AgentService:
                 text += " That date is measured from the day it happened. The law counts from your report, so you may have longer."
             deadline = sentence(text, found.get("rule_ids") or deadline_ids, status="ok", deadline_date=found["deadline_date"], flags=flags)
         elif found.get("status") == "late":
+            text = f"The usual deadline was {long_date(found['deadline_date'])}. Ask the program about exceptions."
+            if "deadline_from_report" in flags:
+                text += " That date is measured from the day it happened. The law counts from your report, so you may still have time."
             deadline = sentence(
-                f"The usual deadline was {long_date(found['deadline_date'])}. Ask the program about exceptions.",
+                text,
                 found.get("rule_ids") or deadline_ids,
                 status="late",
                 deadline_date=found.get("deadline_date"),
                 flags=flags,
             )
         else:
-            days = max((r.get("days") or 0 for r in ir_rules if r.get("kind") == "deadline"), default=0)
-            text = (
-                f"You have about {span(days)} from the date it happened to apply."
-                if days
-                else f"Tend found no set filing deadline in {place}'s rules. Ask the program."
-            )
+            # Without a date: the longest deadline (SPEC step 10), counted from the earliest day it could start.
+            # As in engine/FORMAT.md section 4, any deadline counted from the report earns the note.
+            dated = [r for r in ir_rules if r.get("kind") == "deadline" and r.get("days")]
+            longest = max(dated, key=lambda r: r["days"], default=None)
+            if longest is None:
+                text = f"Tend found no set filing deadline in {place}'s rules. Ask the program."
+            else:
+                text = f"You have about {span(longest['days'])} from the date it happened to apply."
+                if any(r.get("from") == "report" for r in dated) and "deadline_from_report" not in flags:
+                    text += " The law counts from your report, so you may have longer."
+                    flags.append("deadline_from_report")
             deadline = sentence(text, deadline_ids, status="unknown", deadline_date=None, flags=flags)
 
         # police report
@@ -348,6 +357,8 @@ class AgentService:
         exam_rules = of_category("exam_no_bill")
         payers = of_category("exam_payment")
         exam = sentence(exam_rules[0].get("summary") or "", [r["id"] for r in exam_rules + payers]) if exam_rules else None
+        # The same rules split the way the Fetch.ai agent shows them: the protection, then who pays instead.
+        exam_billing = {"protection": cite([r["id"] for r in exam_rules]), "who_pays": cite([r["id"] for r in payers])}
         excluded_ids = {i["id"] for i in ir_rules if i.get("kind") == "excluded"}
         # Without the IR, an exclusion that names only an item (a phone, a purse) is still worth showing.
         not_covered = [
@@ -382,6 +393,7 @@ class AgentService:
             "total_cap": total_cap,
             "minimum_loss": minimum,
             "exam": exam,
+            "exam_billing": exam_billing,
             "not_covered": not_covered,
             "privacy": privacy,
             "program": {

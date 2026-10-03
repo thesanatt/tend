@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import re
 import sqlite3
 import sys
 
@@ -29,7 +30,8 @@ def test_scan_persona_offline(client):
     assert scan["counts"]["transactions"] == scan["read_count"] == 9  # 7 purchases, 1 deposit, 1 bill
     assert scan["incident_date"] == "2026-06-14" and scan["as_of_date"] == "2026-10-03"
     assert scan["account"] == {"id": "acct-checking-0001", "nickname": "Checking", "mask": "0011"}
-    assert "scan_id" not in scan  # nothing is kept, so there is nothing to look up later
+    # A label made from what the scan found, for clients of the first API. Nothing is kept under it.
+    assert re.fullmatch(r"scan_[0-9a-f]{20}", scan["scan_id"]) and scan_rowan(client)["scan_id"] == scan["scan_id"]
     ids = {i["item_id"] for i in scan["items"]}
     assert "nessie:p-0001" not in ids  # groceries are not a claim candidate
     inferred = [i for i in scan["items"] if i.get("kind") != "bill_line"]

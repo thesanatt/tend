@@ -12,7 +12,7 @@ import secrets
 
 import pytest
 from fastapi.testclient import TestClient
-from helpers import CHECKING, REPO, make_services
+from helpers import CHECKING, REPO, from_b64url, make_services
 from test_repository import neon_env
 
 from tend_api.app import create_app
@@ -88,10 +88,11 @@ def test_the_api_on_neon(neon):
     assert refused["answered"] is False
 
     # A sealed share: only ciphertext reaches Neon, and an open-once share loses it on the first read.
-    ciphertext = base64.b64encode(os.urandom(1024)).decode()
+    raw = os.urandom(1024)
+    ciphertext = base64.urlsafe_b64encode(raw).decode().rstrip("=")  # what web/lib/share sends
     share = client.post("/api/shares", json={"ciphertext": ciphertext, "iv": base64.b64encode(os.urandom(12)).decode(), "once": True})
     assert share.status_code == 201, share.text
-    assert client.get(share.json()["api_path"]).json()["ciphertext"] == ciphertext
+    assert from_b64url(client.get(share.json()["api_path"]).json()["ciphertext"]) == raw
     assert client.get(share.json()["api_path"]).status_code == 410
 
     # A payment: the code, the dry-run withdrawal and read-back, and two audit rows the trigger checked.

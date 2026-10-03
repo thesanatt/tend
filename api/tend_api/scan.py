@@ -22,6 +22,7 @@ from .bill import BillRefused, load_document, snapshot_documents, verify_bill
 from .clock import Clock, local_today, parse_date
 from .errors import TendError
 from .models import Item, ScanRequest
+from .money import canonical_json, sha256_hex
 
 Classifier = Callable[[list[dict[str, Any]], str], list[Any]]
 DEFAULT_LABEL = "Fictional demo data. Bank records come from Capital One's Nessie sandbox, a mock bank."
@@ -205,6 +206,12 @@ def items_from_snapshot(module: ModuleType, snap: dict[str, Any], incident_date:
     return items
 
 
+def scan_reference(engine_input: dict[str, Any]) -> str:
+    """A label for one scan, derived from what it found. Clients written for the first API send it back
+    with a bill audit; nothing is stored under it or looked up by it."""
+    return "scan_" + sha256_hex(canonical_json(engine_input))[:20]
+
+
 def _as_dict(raw: Any) -> dict[str, Any]:
     if isinstance(raw, dict):
         return raw
@@ -318,7 +325,18 @@ class ScanService:
             for d in snapshot_documents(snap)
             if d.get("bill_id")
         ]
+        engine_input = {
+            "jurisdiction": req.st,
+            "context": {
+                "incident_date": incident_date.isoformat(),
+                "as_of_date": as_of.isoformat(),
+                "police_report": police,
+                "forensic_exam": forensic_exam,
+            },
+            "items": [i.model_dump(mode="json") for i in items],
+        }
         return {
+            "scan_id": scan_reference(engine_input),
             "persona_id": persona_id,
             "customer_id": req.customer_id,
             "fictional": fictional,
@@ -338,16 +356,7 @@ class ScanService:
                 "by_expense": dict(Counter(i.expense for i in items)),
             },
             "items": rows,
-            "engine_input": {
-                "jurisdiction": req.st,
-                "context": {
-                    "incident_date": incident_date.isoformat(),
-                    "as_of_date": as_of.isoformat(),
-                    "police_report": police,
-                    "forensic_exam": forensic_exam,
-                },
-                "items": [i.model_dump(mode="json") for i in items],
-            },
+            "engine_input": engine_input,
         }
 
 

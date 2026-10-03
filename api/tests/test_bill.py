@@ -84,7 +84,7 @@ def test_audit_holds_the_exam_line_and_pays_the_rest(client):
     assert data["held_cents"] == 32500
     assert data["payable_cents"] == 11800
     [hold] = data["holds"]
-    assert hold["message"] == "Hold this line. Ask billing to remove it first."
+    assert hold["message"] == "Don't pay this line. Ask billing to remove it first."
     cited = {c["rule_id"]: c for c in hold["citations"]}
     assert cited["MI-EXAM-1"]["pinpoint"] == "MCL 18.355a(2)"
     assert "shall not submit a bill" in cited["MI-EXAM-1"]["quote"]

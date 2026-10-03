@@ -83,6 +83,23 @@ def test_oversized_requests_are_refused_before_reading(client):
     assert r.status_code == 413
 
 
+def test_a_chunked_body_over_the_limit_is_refused(client):
+    # No Content-Length: the body arrives chunked, so only counting the bytes can stop it.
+    def chunks():
+        for _ in range(17):
+            yield b" " * (1024 * 1024)
+
+    r = client.post("/api/shares", content=chunks(), headers={"content-type": "application/json"})
+    assert r.status_code == 413 and r.json()["detail"] == "That request is too large."
+    assert r.headers["cache-control"] == "no-store"
+    small = client.post(
+        "/api/agent/answer",
+        content=iter([b'{"question": "How long do I have', b' to apply?", "st": "MI"}']),
+        headers={"content-type": "application/json"},
+    )
+    assert small.status_code == 200 and small.json()["answered"] is True
+
+
 def test_health_reports_database_corpus_engines_and_bank(client):
     health = client.get("/api/health").json()
     assert health["ok"] is True
@@ -110,8 +127,26 @@ def test_access_log_drops_private_paths():
         "/api/ai/classify",
         "/api/claim",
         "/api/agent/answer",
+        "/api/rules/search?q=can+my+boss+find+out&st=MI",  # a search is typed in someone's own words
     ):
         assert quiet.filter(record(path)) is False, path
+
+
+def test_access_log_keeps_no_address_and_no_query():
+    quiet = QuietPaths()
+    rec = logging.LogRecord(
+        "uvicorn.access",
+        logging.INFO,
+        "",
+        0,
+        '%s - "%s %s HTTP/%s" %d',
+        ("203.0.113.9:51234", "GET", "/api/jurisdictions/MI?x=1", "1.1", 200),
+        None,
+    )
+    assert quiet.filter(rec) is True
+    line = rec.getMessage()
+    assert line == '- - "GET /api/jurisdictions/MI HTTP/1.1" 200'
+    assert "203.0.113.9" not in line and "x=1" not in line
 
 
 def test_settings_from_env(monkeypatch, tmp_path):

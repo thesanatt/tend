@@ -169,6 +169,7 @@ class Rulebook:
                 "answered": True,
                 "answer": f"You can call {place}'s program at {contact['phone']}.",
                 "points": [],
+                "citations": [],
                 "note": NOTE.format(name=place),
             }
         if not picked:
@@ -178,13 +179,19 @@ class Rulebook:
                 "answered": False,
                 "reason": "no_rule",
                 "message": f"I could not find a verified {name} rule about that, so I will not guess.{call}",
+                "citations": [],
             }
         points = [{"text": r.get("summary") or "", **citation(r)} for r in picked]
+        # The same rules as plain citations, the shape the Fetch.ai agent quotes from. It prints the answer and
+        # then each citation's summary and quote, so the first one leaves out the summary the answer already says.
+        citations = [citation(r) for r in picked]
+        citations[0] = {**citations[0], "summary": None}
         return {
             **base,
             "answered": True,
             "answer": points[0]["text"],
             "points": points,
+            "citations": citations,
             "intents": {"categories": sorted(query.categories), "expenses": sorted(query.expenses), "tags": sorted(query.tags)},
             "note": NOTE.format(name=place),
         }

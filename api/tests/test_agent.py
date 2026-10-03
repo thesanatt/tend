@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import dataclasses
+import json
 import re
 
 import pytest
-from helpers import BILL_ID, CHECKING, REPO, client_for, make_services
+from helpers import BILL_ID, CHECKING, REPO, client_for, fake_ref, make_services
 
 PAY = {"persona_id": "rowan-mi", "payee": "Riverbend General Hospital (fictional)", "amount_cents": 11800}
 QUIET_WORDS = re.compile(r"\b(elevate|empower|unlock|seamless|robust|journey|qualify|you should)\b", re.I)
@@ -38,6 +39,22 @@ def test_answers_cite_the_rules_that_support_them(client, question, expected):
         assert p["quote"] and p["pinpoint"] and p["source_sha256"] and p["text"]
     assert data["answer"] == data["points"][0]["text"]
     assert "The program decides" in data["note"]
+
+
+def test_answers_list_their_citations_where_the_agent_reads_them(client):
+    # The Fetch.ai agent quotes from "citations" (agent/tend_agent/navigator.py CITATION_KEYS), not "points".
+    data = ask(client, "Can the hospital bill me for the rape kit?")
+    assert len(data["citations"]) >= 2
+    assert [c["rule_id"] for c in data["citations"]] == [p["rule_id"] for p in data["points"]]
+    for c, p in zip(data["citations"], data["points"], strict=True):
+        assert {k: v for k, v in c.items() if k != "summary"} == {k: v for k, v in p.items() if k not in ("text", "summary")}
+        assert c["quote"] and c["pinpoint"] and c["fragment_url"]
+    # The agent prints the answer, then each citation's summary: the first summary is the answer, so it is not repeated.
+    first, *rest = data["citations"]
+    assert data["answer"] == data["points"][0]["summary"] and first["summary"] is None
+    assert all(c["summary"] == p["summary"] for c, p in zip(rest, data["points"][1:], strict=True))
+    refused = ask(client, "Can I get money for my dog's vet bills?")
+    assert refused["answered"] is False and refused["citations"] == []
 
 
 def test_answers_carry_fragment_links_to_the_quote(client):
@@ -98,6 +115,48 @@ def test_check_without_a_date_or_an_exam_answer(client):
 def test_check_after_the_deadline_says_so(client):
     data = client.post("/api/agent/check", json={"st": "MI", "incident_date": "2020-01-01"}).json()
     assert data["deadline"]["status"] == "late" and "Ask the program about exceptions" in data["headline"]["text"]
+
+
+def test_a_late_deadline_counted_from_the_report_may_not_be_late(settings, clock):
+    def flagged(law, payload):  # the engine flags any deadline counted from the report (engine/FORMAT.md section 4)
+        out = fake_ref.evaluate(law, payload)
+        out["checks"]["deadline"]["flags"] = ["deadline_from_report"]
+        return out
+
+    late = client_for(make_services(settings, clock, reference_evaluate=flagged))
+    deadline = late.post("/api/agent/check", json={"st": "MI", "incident_date": "2020-01-01"}).json()["deadline"]
+    assert deadline["status"] == "late" and deadline["flags"] == ["deadline_from_report"]
+    assert deadline["text"].endswith("The law counts from your report, so you may still have time.")
+
+
+def test_check_splits_exam_billing_the_way_the_agent_shows_it(client):
+    data = client.post("/api/agent/check", json={"st": "MI", "incident_date": "2026-06-14", "forensic_exam": True}).json()
+    protection, who_pays = data["exam_billing"]["protection"], data["exam_billing"]["who_pays"]
+    assert protection[0]["rule_id"] == "MI-EXAM-1" and protection[0]["pinpoint"] == "MCL 18.355a(2)"
+    assert protection[0]["summary"] and protection[0]["quote"].startswith("A health care provider shall not submit a bill")
+    assert {c["rule_id"] for c in protection + who_pays} == set(data["exam"]["rule_ids"])
+    assert all(c["summary"] for c in data["deadline"]["citations"])
+
+
+def test_check_without_a_date_says_when_the_law_counts_from_the_report(client, settings, clock, tmp_path):
+    # MI-FILE-2 counts five years from the report, so, as the engine does with a date (engine/FORMAT.md
+    # section 4, step 10), the summary says the survivor may have longer.
+    deadline = client.get("/api/agent/check", params={"st": "MI"}).json()["deadline"]
+    assert deadline["status"] == "unknown" and deadline["flags"] == ["deadline_from_report"]
+    assert (
+        deadline["text"]
+        == "You have about 5 years from the date it happened to apply. The law counts from your report, so you may have longer."
+    )
+    # The same rules counted only from the crime: no note.
+    doc = json.loads((settings.rules_dir / "MI.json").read_text())
+    for rule in doc["rules"]:
+        if rule["category"] == "filing_deadline":
+            rule["params"] = {**rule["params"], "from": "crime"}
+    (tmp_path / "rules").mkdir()
+    (tmp_path / "rules" / "MI.json").write_text(json.dumps(doc))
+    crime_client = client_for(make_services(dataclasses.replace(settings, rules_dir=tmp_path / "rules"), clock))
+    deadline = crime_client.get("/api/agent/check", params={"st": "MI"}).json()["deadline"]
+    assert deadline["flags"] == [] and deadline["text"] == "You have about 5 years from the date it happened to apply."
 
 
 @pytest.fixture

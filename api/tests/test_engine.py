@@ -116,6 +116,28 @@ def test_reference_gets_the_rules_file_hash():
     assert seen == {"law_sha256": "abc"}
 
 
+def test_reference_is_labeled_with_the_image_it_stands_in_for(settings, clock):
+    # Given the image's sha256, tend_ref writes the C++ engine's exact document (refengine/README.md), so a
+    # fallback names the same compiled law. Without an image for exactly these rules, the rules file's sha256.
+    def labeled(law, payload, *, law_sha256=None):
+        return {**fake_ref.evaluate(law, payload), "law_image_sha256": law_sha256}
+
+    laws = settings.law_dirs[0]
+    laws.mkdir(parents=True, exist_ok=True)
+    rules_sha = hashlib.sha256(MI_RULES.read_bytes()).hexdigest()
+
+    def label(image: bytes | None) -> str:
+        if image is not None:
+            (laws / "MI.tlaw").write_bytes(image)
+        r = client_for(make_services(settings, clock, reference_evaluate=labeled)).post("/api/claim", json=EMPTY_CLAIM)
+        assert r.status_code == 200 and r.headers["X-Tend-Engine"] == "reference", r.text
+        return r.json()["law_image_sha256"]
+
+    assert label(None) == rules_sha
+    assert label(law_image()) == hashlib.sha256(law_image()).hexdigest()  # no library to run it, but the image is there
+    assert label(b"TLAW" + hashlib.sha256(b"other rules").digest()) == rules_sha
+
+
 def test_stale_law_image_falls_back_to_reference(native_settings, clock):
     image = native_settings.law_dirs[0] / "MI.tlaw"
     image.write_bytes(b"TLAW-no-digest")

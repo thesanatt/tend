@@ -17,10 +17,14 @@ from typing import Any
 from .clock import Clock, iso
 from .db import MAX_SHARE_BYTES, Repository
 from .errors import TendError
-from .models import ShareCreate
+from .models import MAX_SHARE_B64, ShareCreate
 
 ALG = "AES-256-GCM"
+# web/lib/share sends base64url without padding and reads the reply with a strict base64url decoder,
+# which refuses "+", "/", and "=". The server answers in the same alphabet.
+ENCODING = "base64url"
 IV_BYTES = (12, 16)
+TOO_LARGE = "This packet is too large to share. The limit is 2 MB."
 
 
 class ShareError(TendError):
@@ -36,8 +40,8 @@ def b64decode_any(text: str, what: str = "ciphertext") -> bytes:
         raise ShareError(f"The {what} is not valid base64.", 422) from exc
 
 
-def b64encode(data: bytes) -> str:
-    return base64.b64encode(data).decode("ascii")
+def b64url(data: bytes) -> str:
+    return base64.urlsafe_b64encode(data).decode("ascii").rstrip("=")
 
 
 class ShareService:
@@ -47,10 +51,13 @@ class ShareService:
         self.public_url = public_url
 
     def seal(self, req: ShareCreate) -> dict[str, Any]:
+        # 413, not 422, so the browser can say the packet is too large rather than that the server refused it.
+        if len(req.ciphertext.strip()) > MAX_SHARE_B64:
+            raise ShareError(TOO_LARGE, 413)
         ciphertext = b64decode_any(req.ciphertext)
         iv = b64decode_any(req.iv, "IV")
         if len(ciphertext) > MAX_SHARE_BYTES:
-            raise ShareError("This packet is too large to share. The limit is 2 MB.", 413)
+            raise ShareError(TOO_LARGE, 413)
         if len(iv) not in IV_BYTES:
             raise ShareError("The IV must be 12 bytes (AES-GCM).", 422)
         if len(ciphertext) < 17:
@@ -84,9 +91,9 @@ class ShareService:
         return {
             "id": share_id,
             "alg": ALG,
-            "encoding": "base64",
-            "ciphertext": b64encode(bytes(row["ciphertext"])),
-            "iv": b64encode(bytes(row["iv"])),
+            "encoding": ENCODING,
+            "ciphertext": b64url(bytes(row["ciphertext"])),
+            "iv": b64url(bytes(row["iv"])),
             "created_at": row["created_at"],
             "expires_at": row["expires_at"],
             "once": bool(row["once"]),

@@ -26,6 +26,10 @@ TEND_NEON_TEST=1 uv run pytest -k "neon or live" # the same repository contract 
 The live run uses throwaway schemas (`tend_test_<random>`) and drops them, except one read-only test that checks
 the loaded public corpus against the files on disk.
 
+The access log keeps only the method, the path without its query, and the status: no client address. Requests
+whose path is private (shares, the bank relay, cloud AI, claims, packets, the agent routes, rule search) leave
+no line at all. Request bodies over 16 MB are refused with 413, including chunked ones with no Content-Length.
+
 ## Settings
 
 | Variable | Default | What it does |
@@ -57,11 +61,14 @@ Public corpus
 Claims, evaluated and returned
 - `POST /claim`: SPEC v1.2 engine input in, engine output out, header `X-Tend-Engine: native | reference`. Native
   is the C++ engine through ctypes; the reference reads `rules/ir` when it can and the verified file otherwise.
+  When the reference stands in, `law_image_sha256` is the sha256 of the compiled image on disk for exactly these
+  rules (so both engines give the same document), or the verified file's sha256 when there is no such image.
   Items may carry `unit` and `tags`, and a ClassifiedItem's `source`, `reason`, and `confidence` are accepted and
   dropped. Output that does not add up is refused with a 500 rather than shown.
 - `POST /packet?persona_id=`: the cited packet PDF (with the state's form when Tend has it), rendered and returned.
 - `POST /scan` `{persona_id | customer_id, st, incident_date?}`: a demo persona's bank as v1.2 items, server-side.
-- `POST /bill/audit` `{persona_id | bill_id}`: a demo persona's itemized bill. Lines must add up and match the
+  `scan_id` is a label made from what the scan found (clients of the first API send it back); nothing is kept.
+- `POST /bill/audit` `{persona_id | bill_id, scan_id?}`: a demo persona's itemized bill. Lines must add up and match the
   snapshot's sha256 and the Nessie bill; the engine holds the exam line. Returns `holds`, `payable_cents`, and
   `payable_item_ids`. Survivors' own bills go to `/ai/bill` instead.
 
@@ -83,9 +90,11 @@ Payments
 
 Sealed shares
 - `POST /shares` `{ciphertext, iv, expires_hours?: 1..168 (72), once?: false}` (base64 or base64url; `nonce`,
-  `ttl_hours`, `open_once` also accepted) returns `201 {id, expires_at, once, api_path}`. Ciphertext is at most 2 MB.
-- `GET /shares/{id}`: `{ciphertext, iv, alg: "AES-256-GCM", encoding: "base64", created_at, expires_at, once}`.
-  An open-once share loses its ciphertext in the same transaction; a second read gets 410.
+  `ttl_hours`, `open_once` also accepted) returns `201 {id, expires_at, once, api_path}`. Ciphertext is at most 2 MB;
+  over that is 413, which web/lib/share shows as "too large to share".
+- `GET /shares/{id}`: `{ciphertext, iv, alg: "AES-256-GCM", encoding: "base64url", created_at, expires_at, once}`,
+  base64url with no padding, the alphabet web/lib/share decodes. An open-once share loses its ciphertext in the
+  same transaction; a second read gets 410.
 - `DELETE /shares/{id}`: 204. Expired shares are swept on every new share.
 
 Cloud AI, only with `consent: true` (403 otherwise; nothing logged or stored)
@@ -96,16 +105,21 @@ Cloud AI, only with `consent: true` (403 otherwise; nothing logged or stored)
 - `POST /ai/bill` `{consent, file (base64, 10 MB), mime}`: a PDF or text file with a text layer is read by code and
   never sent; a photo or scan goes to the model, which copies lines as printed. Code parses every amount and
   checks the lines against the amount due: `status: ok | unreliable`, `lines` (`line_id`, `description`,
-  `amount_cents`, `expense`), `sums_match`, `source: rule | cloud_ai`. The exam line is always decided by code.
+  `amount_cents`, `expense`), `sums_match`, `source: rule | cloud_ai`. Code's own reading of a line's words wins
+  over the model's label; the model's label is used only for a line code cannot place.
 
 Agent (the Fetch.ai agent in ASI:One)
 - `POST /agent/answer` `{question, st?}`: an answer built from verified rule summaries, each point with its quote,
   pinpoint, fragment link, and source hash; or `answered: false` with the program's phone when no rule supports
-  one. The state can come from the question ("in Ohio").
+  one. The state can come from the question ("in Ohio"). `citations` lists the same rules in the shape the agent
+  quotes from; the first leaves out its summary, which is the `answer` itself.
 - `POST /agent/check` `{st, incident_date?, forensic_exam?: true | false | null, police_report?: yes | no | not_yet | unknown}`
   (also `GET /agent/check?st=`): the Check summary from docs/UX.md, every sentence with its rule ids and citations:
   `headline`, `deadline`, `reporting` (and `reporting_if_exam` when the exam answer is "not sure"), `covered`
-  ("Counseling, up to $125 a session"), `total_cap`, `minimum_loss`, `exam`, `not_covered`, `privacy`, `program`.
+  ("Counseling, up to $125 a session"), `total_cap`, `minimum_loss`, `exam` (also as `exam_billing`:
+  `protection` and `who_pays`), `not_covered`, `privacy`, `program`. When any deadline counts from the police
+  report, `deadline.flags` holds `deadline_from_report` and the text says the survivor may have longer.
+- `tests/test_agent_contract.py` replays the requests the agent on main sends; run it after changing these routes.
 - `POST /agent/pay` `{persona_id | from, account?, payee, amount_cents, bill_id?, item_ids?}` returns the proposal plus
   `confirm_phrase` ("confirm 118.00") and `ask_user`. `POST /agent/confirm` `{action_id, confirm_code, typed}` moves
   money only when `typed` names the exact amount. App and agent payments cannot be confirmed through each other.
@@ -128,8 +142,10 @@ Migrations are checksummed; editing one that already ran is refused. A SQLite fi
 claims, loses those tables on upgrade.
 
 The loader on Neon (Oct 3): 19 categories, 51 jurisdictions, 824 sources, 2,578 rules, 0 law images; 12.3 s the
-first time, 1.5 s when nothing changed. The engine build in this checkout (tend 1.1.0) refuses IR v2, so image hashes
-wait for the v1.2 engine: rerun the loader after it lands.
+first time, 1.5 s when nothing changed (2.1 s on a rerun at 7:30 PM). The engine build in this checkout (tend 1.1.0)
+refuses IR v2, so image hashes wait for the v1.2 engine: rerun the loader after it lands. Run against the tend 1.2.0
+build into a scratch SQLite file, the same command recorded 51 images (MI: `54f9809e...`, 51,812 bytes). Rules for
+AZ, ID, and WY changed on main after this corpus was loaded, so `/api/health` lists them as stale until the next run.
 
 ## What the API expects from the other parts
 

@@ -19,7 +19,7 @@ from .money import assert_integer_cents, canonical_json, sha256_hex
 from .rules import RulesStore, citation
 from .scan import account_ids, list_snapshots, load_snapshot, persona_info
 
-HOLD_MESSAGE = "Hold this line. Ask billing to remove it first."
+HOLD_MESSAGE = "Don't pay this line. Ask billing to remove it first."
 
 
 class ClaimError(TendError):

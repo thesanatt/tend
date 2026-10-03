@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import base64
 import datetime as dt
 import hashlib
 import importlib.util
+import re
 from pathlib import Path
 from typing import Any
 
@@ -89,6 +91,17 @@ def make_services(settings: Settings, clock: FakeClock, **overrides: Any):
 
 def client_for(services) -> TestClient:
     return TestClient(create_app(services=services))
+
+
+B64URL = re.compile(r"^[A-Za-z0-9_-]*$")
+
+
+def from_b64url(text: str) -> bytes:
+    """What web/lib/vault/bytes.ts fromB64url accepts, the decoder web/lib/share opens a share with:
+    base64url with no padding. "+", "/", and "=" are refused."""
+    if not B64URL.match(text) or len(text) % 4 == 1:
+        raise ValueError(f"not base64url: {text[:20]!r}")
+    return base64.urlsafe_b64decode(text + "=" * (-len(text) % 4))
 
 
 def law_image(rules_path: Path = MI_RULES) -> bytes:

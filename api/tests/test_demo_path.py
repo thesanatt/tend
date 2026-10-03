@@ -6,6 +6,7 @@ import base64
 import io
 import os
 
+from helpers import from_b64url
 from pypdf import PdfReader
 
 
@@ -56,12 +57,12 @@ def test_demo_path(client, services):
     assert done["status"] == "done" and done["read_back_matches"] is True and done["audit_id"].startswith("aud_")
     assert client.get("/api/audit").json()["chain"]["ok"] is True
 
-    # 6. Share with an advocate: sealed on the device, so the server only ever sees ciphertext.
-    ciphertext = base64.b64encode(os.urandom(2048)).decode()
-    share = client.post(
-        "/api/shares", json={"ciphertext": ciphertext, "iv": base64.b64encode(os.urandom(12)).decode(), "once": True}
-    ).json()
-    assert client.get(share["api_path"]).json()["ciphertext"] == ciphertext
+    # 6. Share with an advocate: sealed on the device, so the server only ever sees ciphertext. The
+    # browser sends base64url and opens the reply with the same strict decoder.
+    raw = os.urandom(2048)
+    sealed = {"ciphertext": base64.urlsafe_b64encode(raw).decode().rstrip("="), "iv": "AAAAAAAAAAAAAAAA", "once": True}
+    share = client.post("/api/shares", json=sealed).json()
+    assert from_b64url(client.get(share["api_path"]).json()["ciphertext"]) == raw
     assert client.get(share["api_path"]).status_code == 410
 
     # 7. The packet, rendered and returned.

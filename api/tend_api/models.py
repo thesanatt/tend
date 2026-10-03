@@ -159,6 +159,8 @@ class BillAuditRequest(Strict):
 
     persona_id: Slug | None = None
     bill_id: Slug | None = None
+    # The label /scan returned, which the Fetch.ai agent sends back. Nothing is stored or looked up by it.
+    scan_id: Slug | None = None
     st: StateCode | None = None  # defaults to the persona's jurisdiction
     incident_date: dt.date | None = None
     as_of_date: dt.date | None = None
@@ -219,8 +221,10 @@ class ConfirmRequest(Strict):
 
 
 BASE64 = r"^[A-Za-z0-9+/_\-]+={0,2}$"
-# 2 MiB of ciphertext is 2,796,203 base64 characters; the service checks the decoded size exactly.
+# 2 MiB of ciphertext is 2,796,203 base64 characters; the service checks the decoded size exactly and
+# answers 413 above it. The field itself only stops what the 16 MiB request cap would stop anyway.
 MAX_SHARE_B64 = 2_796_204
+MAX_SHARE_FIELD = 16 * 1024 * 1024
 
 
 class ShareCreate(Strict):
@@ -228,7 +232,7 @@ class ShareCreate(Strict):
 
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
-    ciphertext: Annotated[str, Field(min_length=16, max_length=MAX_SHARE_B64, pattern=BASE64)]
+    ciphertext: Annotated[str, Field(min_length=16, max_length=MAX_SHARE_FIELD, pattern=BASE64)]
     iv: Annotated[str, Field(min_length=16, max_length=44, pattern=BASE64, validation_alias=AliasChoices("iv", "nonce"))]
     expires_hours: Annotated[int, Field(strict=True, ge=1, le=168, validation_alias=AliasChoices("expires_hours", "ttl_hours"))] = 72
     once: Annotated[StrictBool, Field(validation_alias=AliasChoices("once", "open_once"))] = False

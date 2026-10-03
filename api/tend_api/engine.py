@@ -140,6 +140,26 @@ class NativeEngine:
             raise EngineUnavailable(f"tendc did not write {out}")
         return image, out
 
+    def published_image_sha256(self, st: str) -> str | None:
+        """The sha256 of a compiled image already on disk for exactly this law: it names this verified
+        file's sha256 and, when it records one, this IR's. Never compiles and never loads the library, so
+        the reference engine can label its output with the image it stands in for."""
+        rules_path = self.rules.path(st)
+        try:
+            digest = hashlib.sha256(rules_path.read_bytes())
+            ir_path = self.ir.path(st)
+            ir_hex = hashlib.sha256(ir_path.read_bytes()).hexdigest().encode() if ir_path is not None else None
+            for path in [d / f"{st}.tlaw" for d in self.law_dirs] + [self.compiled_dir / f"{st}.tlaw"]:
+                image = self._read_image(path)
+                if image is None or (digest.digest() not in image and digest.hexdigest().encode() not in image):
+                    continue
+                if ir_hex is not None and IR_META_KEY in image and ir_hex not in image:
+                    continue
+                return hashlib.sha256(image).hexdigest()
+        except OSError:
+            return None
+        return None
+
     def _read_image(self, path: Path) -> bytes | None:
         try:
             mtime = path.stat().st_mtime
@@ -250,12 +270,15 @@ class ReferenceEngine:
             self._fn = load_reference(self.refengine_dir)
         return self._fn
 
-    def evaluate(self, payload: dict[str, Any]) -> dict[str, Any]:
+    def evaluate(self, payload: dict[str, Any], law_sha256: str | None = None) -> dict[str, Any]:
+        """law_sha256 labels the output (law_image_sha256): the compiled image this law stands for when
+        one is on disk, so both engines give the same document; otherwise the verified file's sha256."""
         fn = self._function()
         st = payload["jurisdiction"]
         verified = self.rules.get(st)
         if verified is None:
             raise EngineError(f"no verified rules for {st}")
+        label = law_sha256 or self.rules.file_sha256(st)
         # SPEC v1.1 references read the IR and v1.0 ones the verified file; offer the IR first and remember
         # which one this tend_ref takes. Stale IR is never offered.
         ir, ir_problem = None, None
@@ -269,7 +292,7 @@ class ReferenceEngine:
             raise ir_problem or EngineUnavailable(f"No law IR for {st}. Run: python3 rules/tools/normalize.py {st}")
         for i, (kind, doc) in enumerate(attempts):
             try:
-                result = call_reference(fn, doc, payload, law_sha256=self.rules.file_sha256(st))
+                result = call_reference(fn, doc, payload, law_sha256=label)
             except ValueError as exc:
                 if self._reads is None and i + 1 < len(attempts):
                     continue
@@ -343,7 +366,8 @@ class EngineRouter:
                     raise
                 native_reason = str(exc)
         try:
-            return self.reference.evaluate(payload), "reference"
+            image_sha = self.native.published_image_sha256(payload["jurisdiction"])
+            return self.reference.evaluate(payload, law_sha256=image_sha), "reference"
         except EngineUnavailable as exc:
             raise EngineUnavailable(f"No law engine is available. Native: {native_reason} Reference: {exc}") from exc
 
