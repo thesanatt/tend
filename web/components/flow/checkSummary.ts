@@ -126,7 +126,10 @@ function covered(law: Jurisdiction): CoveredCost[] {
     // How many sessions or weeks: the unit is the rate's own, or a counseling session for overall limits.
     const countUnit: Per | null = best && !bestWhole ? best.per : expense === "counseling" ? "session" : null;
     const limits = all
-      .filter((c) => c.countLimit !== null && (bestWhole ? WHOLE.includes(c.per) || c.per === countUnit : c.per === best!.per))
+      .filter(
+        (c) =>
+          c.countLimit !== null && (bestWhole ? WHOLE.includes(c.per) || c.per === countUnit : c.per === best!.per),
+      )
       .map((c) => c.countLimit as number);
     const countLimit = countUnit && limits.length ? Math.max(...limits) : null;
     const cap: CapFact | null = best
@@ -218,10 +221,15 @@ export function buildCheckSummary(
     deadline,
     reporting,
     examNoBill: byCat("exam_no_bill").map((x) => x.id),
-    examPayer: { payer: (payerRule?.params?.payer as string | undefined) ?? null, ruleIds: byCat("exam_payment").map((x) => x.id) },
+    examPayer: {
+      payer: (payerRule?.params?.payer as string | undefined) ?? null,
+      ruleIds: byCat("exam_payment").map((x) => x.id),
+    },
     covered: covered(law),
     totalCap:
-      smallest === null ? null : { cents: smallest, ruleIds: totals.filter((x) => x.cents === smallest).map((x) => x.id) },
+      smallest === null
+        ? null
+        : { cents: smallest, ruleIds: totals.filter((x) => x.cents === smallest).map((x) => x.id) },
     program: {
       name: law.program.program_name,
       agency: law.program.agency,

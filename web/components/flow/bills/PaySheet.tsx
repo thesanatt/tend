@@ -129,7 +129,11 @@ export default function PaySheet(props: PaySheetProps) {
       // The bank side answers in English; the survivor reads it in their language.
       const status = (e as { status?: number }).status;
       setError(
-        status === 400 ? t.pay.codeWrong : status === 410 ? t.pay.codeExpired : t.pay.confirmFailed((e as Error).message),
+        status === 400
+          ? t.pay.codeWrong
+          : status === 410
+            ? t.pay.codeExpired
+            : t.pay.confirmFailed((e as Error).message),
       );
       setPhase("ready");
     }
@@ -239,7 +243,9 @@ export default function PaySheet(props: PaySheetProps) {
 
       {phase === "done" && result ? (
         <div className={styles.result} role="status">
-          <p className={styles.resultTitle}>{sent ? t.pay.resultPaid(f.money(result.amount_cents)) : t.pay.resultNotSent}</p>
+          <p className={styles.resultTitle}>
+            {sent ? t.pay.resultPaid(f.money(result.amount_cents)) : t.pay.resultNotSent}
+          </p>
           {result.demo ? <p>{t.pay.demoResult}</p> : result.message ? <p>{result.message}</p> : null}
           <dl className={styles.terms}>
             <div>

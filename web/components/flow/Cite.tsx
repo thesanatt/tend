@@ -33,13 +33,7 @@ export default function Cite({ ruleIds: given, law, subject, explain, title, ton
 
   return (
     <>
-      <button
-        type="button"
-        className={styles.cite}
-        onClick={() => setOpen(true)}
-        aria-haspopup="dialog"
-        title={label}
-      >
+      <button type="button" className={styles.cite} onClick={() => setOpen(true)} aria-haspopup="dialog" title={label}>
         <span className={styles.label}>{label}</span>
         {more > 0 ? <span className={styles.more}> +{more}</span> : null}
         <span className="visually-hidden">: {t.cite.showLaw(subject)}</span>

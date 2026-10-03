@@ -11,9 +11,7 @@ function leaves(node: unknown, at = ""): [string, string][] {
   if (typeof node === "string") return [[at, node]];
   if (typeof node === "function") {
     const args =
-      at === "countLimit"
-        ? ["session", 3]
-        : Array.from({ length: node.length }, (_, i) => (i % 2 ? 3 : "X"));
+      at === "countLimit" ? ["session", 3] : Array.from({ length: node.length }, (_, i) => (i % 2 ? 3 : "X"));
     const out = (node as (...a: unknown[]) => unknown)(...args);
     return typeof out === "string" ? [[`${at}()`, out]] : [];
   }
@@ -27,13 +25,19 @@ function shape(node: unknown): unknown {
   if (typeof node === "function") return `fn/${node.length}`;
   if (Array.isArray(node)) return node.map(shape);
   if (node && typeof node === "object")
-    return Object.fromEntries(Object.entries(node as Tree).map(([k, v]) => [k, shape(v)]).sort());
+    return Object.fromEntries(
+      Object.entries(node as Tree)
+        .map(([k, v]) => [k, shape(v)])
+        .sort(),
+    );
   return typeof node;
 }
 
 const en = leaves(DICTS.en);
 const es = leaves(DICTS.es);
-const BANNED = new RegExp(`[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d].map((c) => String.fromCharCode(c)).join("")}]`);
+const BANNED = new RegExp(
+  `[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d].map((c) => String.fromCharCode(c)).join("")}]`,
+);
 
 describe("dictionaries", () => {
   it("Spanish has exactly the keys, arrays, and argument counts English has", () => {
@@ -73,7 +77,10 @@ describe("dictionaries", () => {
     const sentences = text.split(/[.?:;]+\s/).filter((s) => /[a-z]/i.test(s));
     const words = text.match(/[A-Za-z']+/g) ?? [];
     const syllables = words.reduce((n, w) => {
-      const groups = w.toLowerCase().replace(/e$/, "").match(/[aeiouy]+/g);
+      const groups = w
+        .toLowerCase()
+        .replace(/e$/, "")
+        .match(/[aeiouy]+/g);
       return n + Math.max(1, groups?.length ?? 1);
     }, 0);
     const grade = 0.39 * (words.length / sentences.length) + 11.8 * (syllables / words.length) - 15.59;

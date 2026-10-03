@@ -72,7 +72,7 @@ describe("the encrypted vault", () => {
     renderCheck(services);
     expect(await screen.findByText("You can likely apply in Michigan.")).toBeTruthy();
     await saveWith("passcode");
-    expect(await screen.findByText("Saved on this device")).toBeTruthy();
+    expect((await screen.findAllByText("Saved on this device")).length).toBeGreaterThan(0);
     await waitFor(() => expect(store.records.size).toBeGreaterThan(1));
     const disk = JSON.stringify([...store.records.values()]);
     expect(disk).not.toContain("2026-06-14");
@@ -96,7 +96,7 @@ describe("the encrypted vault", () => {
     const { services } = realVault();
     renderCheck(services);
     await saveWith("passkey");
-    expect(await screen.findByText("Saved on this device")).toBeTruthy();
+    expect((await screen.findAllByText("Saved on this device")).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole("button", { name: "Lock now" }));
     expect(await screen.findByText("It was saved with Touch ID or screen lock.")).toBeTruthy();
     expect(screen.queryByLabelText("Passcode")).toBeNull();
@@ -109,7 +109,7 @@ describe("the encrypted vault", () => {
     const { vault, services } = realVault({ idleMs: 60_000 });
     renderCheck(services);
     await saveWith("passcode");
-    expect(await screen.findByText("Saved on this device")).toBeTruthy();
+    expect((await screen.findAllByText("Saved on this device")).length).toBeGreaterThan(0);
     await vi.advanceTimersByTimeAsync(61_000);
     expect(await screen.findByRole("heading", { name: "Pick up where you left off" })).toBeTruthy();
     expect(screen.getByText("It locked by itself after a few minutes without use, to keep it private.")).toBeTruthy();
@@ -251,7 +251,11 @@ describe("the packet built on the device", () => {
   }, 20_000);
 
   it("in Spanish, each document is named in Spanish with the program's own words under it", async () => {
-    renderFlow(<PacketScreen />, { services: testServices({ packetBuilder }), initial: stateFrom(gathered), lang: "es" });
+    renderFlow(<PacketScreen />, {
+      services: testServices({ packetBuilder }),
+      initial: stateFrom(gathered),
+      lang: "es",
+    });
     const detail = await screen.findByText(
       "Pay stubs from just before the injury, if not self-employed.",
       {},

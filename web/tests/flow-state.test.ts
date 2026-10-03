@@ -176,7 +176,15 @@ describe("engine input", () => {
   });
 
   it("keeps the first reading of a cost when a source is read twice", () => {
-    const source = { id: "s", kind: "statement" as const, label: "s.csv", read: 1, found: 1, warnings: [], sample: false };
+    const source = {
+      id: "s",
+      kind: "statement" as const,
+      label: "s.csv",
+      read: 1,
+      found: 1,
+      warnings: [],
+      sample: false,
+    };
     let s = reducer(withCheck(), { type: "addSource", source, items: [item("a", { amount_cents: 100 })] });
     s = reducer(s, { type: "addSource", source, items: [item("a", { amount_cents: 999 })] });
     expect(s.items).toHaveLength(1);
@@ -186,7 +194,8 @@ describe("engine input", () => {
 });
 
 describe("the same account read twice", () => {
-  const ride = (id: string, over: Partial<FlowItem> = {}) => item(id, { date: "2026-06-17", amount_cents: 1200, ...over });
+  const ride = (id: string, over: Partial<FlowItem> = {}) =>
+    item(id, { date: "2026-06-17", amount_cents: 1200, ...over });
 
   it("names the record each cost came from", () => {
     expect(recordOf(ride("stmt:abc:csv:7"))).toBe("stmt:abc");
@@ -232,7 +241,12 @@ describe("the same account read twice", () => {
 });
 
 describe("bills", () => {
-  const bankBill = item("bank:nessie:bill-1", { origin: "bank", is_bill: true, amount_cents: 44300, expense: "medical" });
+  const bankBill = item("bank:nessie:bill-1", {
+    origin: "bank",
+    is_bill: true,
+    amount_cents: 44300,
+    expense: "medical",
+  });
 
   it("an itemized bill replaces the bank bill it explains, so nothing counts twice", () => {
     let s = reducer(withCheck(), {
@@ -240,7 +254,14 @@ describe("bills", () => {
       source: { id: "bank", kind: "bank", label: "Checking", read: 1, found: 1, warnings: [], sample: true },
       items: [bankBill],
     });
-    const bill: BillRecord = { id: "bill-x", label: "b.pdf", reading: reading(44300), replaces: null, choice: null, sample: true };
+    const bill: BillRecord = {
+      id: "bill-x",
+      label: "b.pdf",
+      reading: reading(44300),
+      replaces: null,
+      choice: null,
+      sample: true,
+    };
     s = reducer(s, { type: "addBill", bill, items: billItemsFor("bill-x") });
     expect(s.bills[0].replaces).toBe(bankBill.item_id);
     const ids = buildEngineInput(s, TODAY)!.items.map((i) => i.item_id);
@@ -255,14 +276,28 @@ describe("bills", () => {
       source: { id: "bank", kind: "bank", label: "Checking", read: 1, found: 1, warnings: [], sample: true },
       items: [{ ...bankBill, amount_cents: 50000 }],
     });
-    const bill: BillRecord = { id: "bill-x", label: "b.pdf", reading: reading(44300), replaces: null, choice: null, sample: true };
+    const bill: BillRecord = {
+      id: "bill-x",
+      label: "b.pdf",
+      reading: reading(44300),
+      replaces: null,
+      choice: null,
+      sample: true,
+    };
     s = reducer(s, { type: "addBill", bill, items: billItemsFor("bill-x") });
     expect(s.bills[0].replaces).toBeNull();
   });
 
   it("holds the exam line, and nothing is payable until the engine decided every line", () => {
     let s = withCheck();
-    const bill: BillRecord = { id: "bill-x", label: "b.pdf", reading: reading(44300), replaces: null, choice: null, sample: true };
+    const bill: BillRecord = {
+      id: "bill-x",
+      label: "b.pdf",
+      reading: reading(44300),
+      replaces: null,
+      choice: null,
+      sample: true,
+    };
     s = reducer(s, { type: "addBill", bill, items: billItemsFor("bill-x") });
     expect(billPlan(s, s.bills[0], null)).toMatchObject({ decided: false, restCents: 0, heldCents: 0 });
     const output = mockEngineOutput(buildEngineInput(s, TODAY)!);
@@ -275,7 +310,14 @@ describe("bills", () => {
   });
 
   it("adding the same bill twice changes nothing", () => {
-    const bill: BillRecord = { id: "bill-x", label: "b.pdf", reading: reading(44300), replaces: null, choice: null, sample: true };
+    const bill: BillRecord = {
+      id: "bill-x",
+      label: "b.pdf",
+      reading: reading(44300),
+      replaces: null,
+      choice: null,
+      sample: true,
+    };
     let s = reducer(withCheck(), { type: "addBill", bill, items: billItemsFor("bill-x") });
     const again = reducer(s, { type: "addBill", bill, items: billItemsFor("bill-x") });
     expect(again).toBe(s);

@@ -490,6 +490,16 @@
   border-top: 1px solid var(--line);
 }
 
+.savedNote {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin: 0;
+  padding-inline: var(--space-2);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
 .actions .hint {
   flex-basis: 100%;
   margin: 0;

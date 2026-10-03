@@ -104,7 +104,7 @@ export const DEMO_CHECK = { st: "MI", date: "2026-06-14", exam: "yes", police: "
 
 export default function CheckScreen({ demo = false }: { demo?: boolean }) {
   const { t, f } = useI18n();
-  const { state, dispatch, claim, today } = useFlow();
+  const { state, dispatch, claim, today, vault } = useFlow();
   const { check } = state;
 
   useEffect(() => {
@@ -119,8 +119,7 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
 
   const dateProblem =
     check.date && !isIsoDay(check.date) ? t.check.dateBad : check.date > today ? t.check.dateFuture : null;
-  const output =
-    claim.evaluation && claim.evaluation.output.jurisdiction === check.st ? claim.evaluation.output : null;
+  const output = claim.evaluation && claim.evaluation.output.jurisdiction === check.st ? claim.evaluation.output : null;
   const summary = law.law && check.st ? buildCheckSummary(law.law, output, check, knowsDate(state, today)) : null;
   const deadlineSentence =
     summary?.deadline.kind === "date" ? t.check.notTodayDeadline(summary.name, f.date(summary.deadline.date)) : null;
@@ -259,9 +258,14 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
               {t.check.findCosts}
             </button>
           )}
-          <button type="button" className="btn btn-secondary" onClick={() => setSaveOpen(true)}>
-            {t.vault.save}
-          </button>
+          {/* Saved progress keeps itself current; saving again would only replace the lock. */}
+          {vault.status === "open" ? (
+            <p className={styles.savedNote}>{t.vault.savedHere}</p>
+          ) : (
+            <button type="button" className="btn btn-secondary" onClick={() => setSaveOpen(true)}>
+              {t.vault.save}
+            </button>
+          )}
           <button type="button" className="btn btn-quiet" onClick={() => setNotToday(true)}>
             {t.check.notToday}
           </button>

@@ -77,7 +77,13 @@ async function propose(req: PaymentRequest): Promise<ActionProposal & { demo: bo
     return { ...(body as ActionProposal), demo: false };
   }
   return proposePayment(
-    { bill_id: req.bill_id, item_ids: [], amount_cents: req.amount_cents, from_account_id: req.from.id, payee: req.payee },
+    {
+      bill_id: req.bill_id,
+      item_ids: [],
+      amount_cents: req.amount_cents,
+      from_account_id: req.from.id,
+      payee: req.payee,
+    },
     accountLabel(req.from),
   );
 }

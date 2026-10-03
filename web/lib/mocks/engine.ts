@@ -21,7 +21,13 @@ export function mockEngineOutput(input: EngineInput): EngineOutput {
     .sort((a, b) => (a.date === b.date ? a.item_id.localeCompare(b.item_id) : a.date < b.date ? -1 : 1))
     .map((it) => {
       const tags = (it as { tags?: string[] }).tags ?? [];
-      const base = { item_id: it.item_id, expense: it.expense, requested_cents: it.amount_cents, cap_rule_id: null, flags: [] };
+      const base = {
+        item_id: it.item_id,
+        expense: it.expense,
+        requested_cents: it.amount_cents,
+        cap_rule_id: null,
+        flags: [],
+      };
       if (it.date < context.incident_date || it.date > context.as_of_date)
         return { ...base, status: "out_of_window" as const, allowed_cents: 0, rule_ids: [] };
       if (it.expense === "forensic_exam")

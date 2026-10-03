@@ -99,7 +99,9 @@ export function rawFinder(txns: StatementTxn[]): (itemId: string) => StatementTx
 }
 
 async function fileSha(file: Blob): Promise<string> {
-  const bytes = new Uint8Array(typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer());
+  const bytes = new Uint8Array(
+    typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer(),
+  );
   const digest = await crypto.subtle.digest("SHA-256", bytes as BufferSource);
   return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
 }
@@ -162,7 +164,11 @@ export function FlowProvider({
       .catch((err: Error) => {
         if (id !== run.current) return;
         const consent = err instanceof EngineUnavailableError && err.serverAvailable && !stateRef.current.serverConsent;
-        setClaim((c) => ({ status: consent ? "needs_consent" : "error", evaluation: c.evaluation, error: err.message }));
+        setClaim((c) => ({
+          status: consent ? "needs_consent" : "error",
+          evaluation: c.evaluation,
+          error: err.message,
+        }));
       });
     // inputKey carries the content of input
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -280,7 +286,13 @@ export function FlowProvider({
         const sha = shortHash(await fileSha(file));
         const { txns, warnings } = await services.statementParser.parse(file);
         const s = stateRef.current;
-        const classified = await services.classifier.classify(txns, ctxFor(s, txns.map((t) => t.date)));
+        const classified = await services.classifier.classify(
+          txns,
+          ctxFor(
+            s,
+            txns.map((t) => t.date),
+          ),
+        );
         const raw = rawFinder(txns);
         const items: FlowItem[] = classified.map((c) => ({
           ...c,
@@ -306,7 +318,13 @@ export function FlowProvider({
       async connectBank() {
         const { txns, billIds, account } = await services.bank();
         const s = stateRef.current;
-        const classified = await services.classifier.classify(txns, ctxFor(s, txns.map((t) => t.date)));
+        const classified = await services.classifier.classify(
+          txns,
+          ctxFor(
+            s,
+            txns.map((t) => t.date),
+          ),
+        );
         const find = rawFinder(txns);
         const items: FlowItem[] = classified.map((c) => {
           const raw = find(c.item_id);

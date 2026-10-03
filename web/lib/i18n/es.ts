@@ -61,13 +61,13 @@ export const es: Dict = {
     sent: (parts: string) => `En este dispositivo, salvo lo que decidiste enviar: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "un pago" : `${n} pagos`),
     partShare: (n: number) => (n === 1 ? "un enlace protegido" : `${n} enlaces protegidos`),
-    partBank: "una solicitud al banco",
+    partBank: "una consulta al banco",
     partServer: "tu solicitud, para revisar la ley en el servidor de Tend",
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}. Se envió al banco.`,
     eventShare: (when: string) =>
       `${when}: un enlace para compartir. El paquete se protegió primero en este dispositivo, así que el servidor solo guarda datos cifrados.`,
-    eventBank: (when: string) => `${when}: una solicitud al banco para ver tus transacciones.`,
+    eventBank: (when: string) => `${when}: una consulta al banco para ver tus transacciones.`,
     eventServer: (when: string) =>
       `${when}: tus respuestas y gastos, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley.`,
     more: "Qué se queda aquí",
@@ -134,7 +134,7 @@ export const es: Dict = {
     },
     resumeTitle: "Sigue donde lo dejaste",
     resumeLead: "Tu progreso guardado está protegido en este dispositivo.",
-    idle: "Se bloqueó solo después de unos minutos sin uso, para mantenerlo privado.",
+    idle: "Se bloqueó por sí solo después de unos minutos sin uso, para mantenerlo privado.",
     openPasskey: "Abrir con Touch ID o bloqueo de pantalla",
     open: "Abrir",
     wrong: "Ese código no funcionó. Inténtalo de nuevo.",
@@ -207,8 +207,7 @@ export const es: Dict = {
     dateBad: "Escribe una fecha completa.",
     dateFuture: "La fecha no puede ser en el futuro.",
     examLegend: "¿Te hicieron un examen médico forense?",
-    examHint:
-      "En muchos estados el examen no te debe costar nada, y puede contar en lugar de una denuncia policial.",
+    examHint: "En muchos estados el examen no te debe costar nada, y puede contar en lugar de una denuncia policial.",
     policeLegend: "¿Se denunció a la policía?",
     policeHint: "No necesitas haberlo denunciado para usar Tend.",
     summaryEmptyTitle: "Aquí aparece tu resumen",
@@ -248,8 +247,7 @@ export const es: Dict = {
     examNoBill: "No te deben enviar una factura por el examen forense.",
     examNoBillNote: "Si te llega una, agrégala en el siguiente paso. Tend retiene esa línea y te da una carta.",
     coveredTitle: "Lo que el programa puede pagar",
-    coveredNone:
-      "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
+    coveredNone: "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     privateTitle: "Tu privacidad ante el estado",
     acp: (name: string) => `${name} da a sobrevivientes una dirección sustituta para usar en formularios del gobierno.`,
@@ -367,7 +365,7 @@ export const es: Dict = {
   },
 
   group: {
-    care: "Atención",
+    care: "Atención médica",
     counseling: "Consejería",
     travel: "Transporte",
     home: "Hogar",
@@ -391,7 +389,8 @@ export const es: Dict = {
     bankButton: "Usar la cuenta del banco de demostración",
     bankDone: "Banco de demostración agregado",
     billTitle: "Una factura",
-    billBody: "Una foto o un PDF de una factura detallada. Tend lee las líneas en este dispositivo. Deben sumar el total.",
+    billBody:
+      "Una foto o un PDF de una factura detallada. Tend lee las líneas en este dispositivo. Deben sumar el total.",
     billButton: "Agregar una factura",
     billSample: "Usar una factura de muestra",
     samplesNote: "Las muestras son de Rowan, una persona ficticia. Pruébalas para ver cómo funciona Tend.",
@@ -400,10 +399,14 @@ export const es: Dict = {
     readFailed: (msg: string) => `Tend no pudo leer esto: ${msg}`,
     unsupported: "Tend no encontró transacciones en este archivo. Prueba con un CSV o un PDF de tu banco.",
     deviceAi: {
-      available: "La IA en el dispositivo está lista. Ayuda a clasificar gastos que las reglas no reconocen, sin enviar nada.",
-      downloadable: "Se puede agregar IA en el dispositivo a este navegador. Mientras tanto, Tend clasifica los gastos con sus reglas.",
-      downloading: "La IA en el dispositivo se está descargando. Mientras tanto, Tend clasifica los gastos con sus reglas.",
-      unavailable: "Este navegador no tiene IA en el dispositivo, así que Tend clasifica los gastos con sus reglas. Tú confirmas cada uno.",
+      available:
+        "La IA en el dispositivo está lista. Ayuda a clasificar gastos que las reglas no reconocen, sin enviar nada.",
+      downloadable:
+        "Se puede agregar IA en el dispositivo a este navegador. Mientras tanto, Tend clasifica los gastos con sus reglas.",
+      downloading:
+        "La IA en el dispositivo se está descargando. Mientras tanto, Tend clasifica los gastos con sus reglas.",
+      unavailable:
+        "Este navegador no tiene IA en el dispositivo, así que Tend clasifica los gastos con sus reglas. Tú confirmas cada uno.",
     },
     readListLabel: "Registros leídos",
     statementRead: (label: string, read: number, found: number) =>
@@ -441,9 +444,7 @@ export const es: Dict = {
     notCoveredTitle: "No cubierto",
     notCoveredLead: "Se muestran para que sepas por qué no cuentan.",
     beforeDate: (n: number) =>
-      n === 1
-        ? "Se dejó fuera 1 gasto de antes de la fecha."
-        : `Se dejaron fuera ${n} gastos de antes de la fecha.`,
+      n === 1 ? "Se dejó fuera 1 gasto de antes de la fecha." : `Se dejaron fuera ${n} gastos de antes de la fecha.`,
     replacedNote:
       "Una factura detallada explica un cargo del banco, así que Tend cuenta las líneas de la factura en su lugar.",
     reasonBill: (n: number, provider: string) => `Línea ${n} de la factura de ${provider}`,
@@ -452,8 +453,7 @@ export const es: Dict = {
     onTheBill: "Factura",
     capped: (from: string) => `Reducido de ${from}`,
     rateUnverified: "La ley fija una tarifa para esto. El programa la aplicará.",
-    examAsMedical:
-      "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
+    examAsMedical: "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
     heldLine: "No pagues esta línea. La ley dice que no te la deben cobrar.",
     include: "Incluir esto",
     unsureNote: "Está bien. Queda fuera del total hasta que decidas.",
@@ -495,8 +495,7 @@ export const es: Dict = {
       `Las reglas verificadas de ${state} no tienen una regla sobre el cobro del examen, así que Tend trata una línea de examen como otra atención médica.`,
     restTitle: (amount: string) => `El resto: ${amount}`,
     paid: (amount: string, payee: string, when: string) => `Pagaste ${amount} a ${payee} (${when}).`,
-    eitherWay:
-      "Las dos opciones están bien. El programa te puede reembolsar estos gastos, los pagues ahora o no:",
+    eitherWay: "Las dos opciones están bien. El programa te puede reembolsar estos gastos, los pagues ahora o no:",
     notSent: (amount: string) => `El pago de ${amount} no se envió.`,
     payNow: (amount: string, account: string) =>
       account ? `Pagar ${amount} ahora desde ${account}` : `Pagar ${amount} ahora`,
@@ -578,10 +577,10 @@ export const es: Dict = {
     buildFailed: "Tend no pudo armar tu paquete en este dispositivo.",
     formTitle: "La solicitud del estado",
     formBody: (state: string) => `El formulario propio de ${state}, llenado solo con datos seguros.`,
-    onlyYou:
-      "Solo tú llenas esto: tu nombre, tu firma, qué pasó, quién, dónde y tu número de Seguro Social.",
+    onlyYou: "Solo tú llenas esto: tu nombre, tu firma, qué pasó, quién, dónde y tu número de Seguro Social.",
     formDownload: "Descargar el formulario llenado",
-    formBlank: "Tend todavía no puede llenar el formulario de este estado. Aquí está el formulario en blanco del programa.",
+    formBlank:
+      "Tend todavía no puede llenar el formulario de este estado. Aquí está el formulario en blanco del programa.",
     formBlankLink: "Abrir el formulario del programa",
     formNone: "Tend no encontró un formulario para este estado. El programa te puede enviar uno.",
     summaryTitle: "Resumen con citas",
@@ -623,8 +622,10 @@ export const es: Dict = {
     make: "Crear un enlace para compartir",
     making: "Protegiendo el paquete",
     problem: {
-      unavailable: "Para compartir hace falta el servidor de Tend, y ahora no está conectado. No se creó ningún enlace.",
-      network: "Tend no pudo comunicarse con su servidor. Revisa tu conexión e inténtalo de nuevo. No se creó ningún enlace.",
+      unavailable:
+        "Para compartir hace falta el servidor de Tend, y ahora no está conectado. No se creó ningún enlace.",
+      network:
+        "Tend no pudo comunicarse con su servidor. Revisa tu conexión e inténtalo de nuevo. No se creó ningún enlace.",
       too_large: "Esta solicitud es demasiado grande para compartirla con un enlace.",
       bad_packet: "Faltan partes de esta solicitud, así que no se compartió.",
       bad_options: "Un enlace puede durar de 1 hora a 7 días.",

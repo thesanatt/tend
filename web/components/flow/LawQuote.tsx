@@ -49,14 +49,20 @@ export default function LawQuote({
       {href ? (
         <p className={styles.source}>
           <a href={href} target="_blank" rel="noopener noreferrer">
-            {rule.fragment_url ? t.cite.readOn(host(href)) : isPdf ? t.cite.openPdf(host(href)) : t.cite.openSource(host(href))}
+            {rule.fragment_url
+              ? t.cite.readOn(host(href))
+              : isPdf
+                ? t.cite.openPdf(host(href))
+                : t.cite.openSource(host(href))}
             <span className="visually-hidden"> {t.common.newTab}</span>
           </a>
           {source ? (
             <span className={styles.provenance}>
               {t.cite.saved(
                 source.title,
-                /^\d{4}-\d{2}-\d{2}/.test(source.retrieved_at) ? f.date(source.retrieved_at.slice(0, 10)) : source.retrieved_at,
+                /^\d{4}-\d{2}-\d{2}/.test(source.retrieved_at)
+                  ? f.date(source.retrieved_at.slice(0, 10))
+                  : source.retrieved_at,
               )}{" "}
               <code title={source.sha256}>{source.sha256.slice(0, 12)}</code>
             </span>

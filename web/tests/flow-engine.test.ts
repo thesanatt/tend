@@ -60,7 +60,15 @@ async function flowInput(): Promise<EngineInput> {
   });
   s = reducer(s, {
     type: "addSource",
-    source: { id: "s", kind: "statement", label: "s.csv", read: txns.length, found: items.length, warnings: [], sample: true },
+    source: {
+      id: "s",
+      kind: "statement",
+      label: "s.csv",
+      read: txns.length,
+      found: items.length,
+      warnings: [],
+      sample: true,
+    },
     items,
   });
   const bill = await mockBillReader().read(sampleBillFile());

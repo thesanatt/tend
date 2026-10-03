@@ -52,7 +52,11 @@ export function michiganOutput(input: EngineInput): EngineOutput {
   const map = (id: string) => RENAME[id] ?? (id.startsWith("ZZ-COV-") ? (COVER[id.slice(7)] ?? id) : id);
   return {
     ...out,
-    lines: out.lines.map((l) => ({ ...l, rule_ids: l.rule_ids.map(map), cap_rule_id: l.cap_rule_id && map(l.cap_rule_id) })),
+    lines: out.lines.map((l) => ({
+      ...l,
+      rule_ids: l.rule_ids.map(map),
+      cap_rule_id: l.cap_rule_id && map(l.cap_rule_id),
+    })),
     checks: {
       deadline: { ...out.checks.deadline, rule_ids: out.checks.deadline.rule_ids.map(map) },
       minimum_loss: out.checks.minimum_loss,
@@ -125,7 +129,11 @@ export function stubLawFetch() {
 
 export function renderFlow(
   ui: ReactNode,
-  { services = testServices(), initial, lang = "en" }: { services?: TestServices; initial?: FlowState; lang?: Lang } = {},
+  {
+    services = testServices(),
+    initial,
+    lang = "en",
+  }: { services?: TestServices; initial?: FlowState; lang?: Lang } = {},
 ) {
   const view = render(
     <I18nProvider initial={lang}>

@@ -26,7 +26,9 @@ async function fileText(file: Blob): Promise<string> {
 }
 
 async function fileBytes(file: Blob): Promise<Uint8Array> {
-  return new Uint8Array(typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer());
+  return new Uint8Array(
+    typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer(),
+  );
 }
 
 export async function sha256Hex(bytes: Uint8Array): Promise<string> {
@@ -123,12 +125,39 @@ interface KeywordRule {
 
 const RULES: KeywordRule[] = [
   { re: /forensic|sane exam/i, expense: "forensic_exam", direct: true, reason: "A forensic exam charge" },
-  { re: /counsel|therap|psycholog/i, expense: "counseling", direct: true, reason: "A counseling provider charge", unit: "session" },
+  {
+    re: /counsel|therap|psycholog/i,
+    expense: "counseling",
+    direct: true,
+    reason: "A counseling provider charge",
+    unit: "session",
+  },
   { re: /\brx\b|prescription/i, expense: "prescription", direct: true, reason: "A prescription copay" },
-  { re: /hospital|emergency|clinic|urgent care|medical/i, expense: "medical", direct: true, reason: "A medical provider charge" },
-  { re: /lock|deadbolt|rekey|door chain|motion sensor|security system/i, expense: "security", direct: false, reason: "Home security after the date" },
-  { re: /security deposit|truck rental|moving|movers/i, expense: "relocation", direct: false, reason: "A moving cost after the date" },
-  { re: /new phone|replacement phone/i, expense: "property_replacement", direct: false, reason: "A replaced phone", tags: ["phone"] },
+  {
+    re: /hospital|emergency|clinic|urgent care|medical/i,
+    expense: "medical",
+    direct: true,
+    reason: "A medical provider charge",
+  },
+  {
+    re: /lock|deadbolt|rekey|door chain|motion sensor|security system/i,
+    expense: "security",
+    direct: false,
+    reason: "Home security after the date",
+  },
+  {
+    re: /security deposit|truck rental|moving|movers/i,
+    expense: "relocation",
+    direct: false,
+    reason: "A moving cost after the date",
+  },
+  {
+    re: /new phone|replacement phone/i,
+    expense: "property_replacement",
+    direct: false,
+    reason: "A replaced phone",
+    tags: ["phone"],
+  },
   { re: /sheet set|bedding|pillow/i, expense: "clothing_bedding", direct: false, reason: "Replaced bedding" },
   { re: /\btrip\b|ride|taxi|cab\b/i, expense: "transportation", direct: false, reason: "A ride" },
 ];
@@ -173,7 +202,10 @@ export const mockClassifier: Classifier = {
     }
     // Paychecks from the same payer that came in smaller than before the date.
     const pay = txns.filter((t) => t.amount_cents < 0 && /payroll|paycheck|salary/i.test(t.description));
-    const before = pay.filter((t) => t.date < ctx.incident_date).map((t) => -t.amount_cents).sort((a, b) => a - b);
+    const before = pay
+      .filter((t) => t.date < ctx.incident_date)
+      .map((t) => -t.amount_cents)
+      .sort((a, b) => a - b);
     const usual = before.length ? before[Math.floor(before.length / 2)] : 0;
     let prev: string | null = before.length ? pay.filter((t) => t.date < ctx.incident_date).at(-1)!.date : null;
     for (const t of pay.filter((p) => p.date >= ctx.incident_date)) {
@@ -210,7 +242,12 @@ export const SAMPLE_BILL_READING: BillReading = {
   total_cents: 44300,
   lines: [
     { line_id: "1", description: "Emergency department visit, copay", amount_cents: 7500, expense: "medical" },
-    { line_id: "2", description: "Medical forensic exam, deductible applied", amount_cents: 32500, expense: "forensic_exam" },
+    {
+      line_id: "2",
+      description: "Medical forensic exam, deductible applied",
+      amount_cents: 32500,
+      expense: "forensic_exam",
+    },
     { line_id: "3", description: "Laboratory services, coinsurance", amount_cents: 4300, expense: "medical" },
   ],
   sums_match: true,

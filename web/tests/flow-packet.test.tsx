@@ -115,7 +115,10 @@ describe("Packet", () => {
       evaluate: vi.fn(async (input: EngineInput) => {
         const output = michiganOutput(input);
         return {
-          output: { ...output, checks: { ...output.checks, minimum_loss: { status: "may_be_waived" as const, rule_ids: ["MI-MIN-1"] } } },
+          output: {
+            ...output,
+            checks: { ...output.checks, minimum_loss: { status: "may_be_waived" as const, rule_ids: ["MI-MIN-1"] } },
+          },
           backend: "wasm" as const,
           detail: "test",
         };
@@ -155,7 +158,9 @@ describe("Track", () => {
   it("keeps the deadline in view and grows a leaf when a document is attached", async () => {
     renderFlow(<TrackScreen />, { initial: stateFrom(gathered) });
     expect(await screen.findByText("File by June 14, 2031.")).toBeTruthy();
-    const plants = await screen.findAllByRole("img", { name: /^Sprout: Clearwater Counseling Group - session, \$40\.00$/ });
+    const plants = await screen.findAllByRole("img", {
+      name: /^Sprout: Clearwater Counseling Group - session, \$40\.00$/,
+    });
     expect(plants).toHaveLength(2);
     const attach = screen.getAllByLabelText(/^Attach a document/)[0];
     fireEvent.change(attach, { target: { files: [new File(["x"], "receipt.pdf", { type: "application/pdf" })] } });
@@ -183,7 +188,11 @@ describe("pause and resume", () => {
       { initial: stateFrom([MI_CHECK]) },
     );
     expect(await screen.findByText("Not saved yet")).toBeTruthy();
-    fireEvent.click(within(screen.getByRole("navigation", { name: "Steps" }).parentElement!).getByRole("button", { name: "Save this" }));
+    fireEvent.click(
+      within(screen.getByRole("navigation", { name: "Steps" }).parentElement!).getByRole("button", {
+        name: "Save this",
+      }),
+    );
     const sheet = await screen.findByRole("dialog");
     const code = within(sheet).getByLabelText("Passcode");
     fireEvent.change(code, { target: { value: "short" } });
@@ -191,7 +200,7 @@ describe("pause and resume", () => {
     expect(await within(sheet).findByText("Use at least 6 characters.")).toBeTruthy();
     fireEvent.change(code, { target: { value: "garden-42" } });
     fireEvent.click(within(sheet).getByRole("button", { name: "Save with this passcode" }));
-    expect(await screen.findByText("Saved on this device")).toBeTruthy();
+    expect((await screen.findAllByText("Saved on this device")).length).toBeGreaterThan(0);
     await waitFor(() => expect(services.vault.snapshot().get("tend.flow")).toBeTruthy());
 
     fireEvent.click(screen.getByRole("button", { name: "Lock now" }));
@@ -219,9 +228,11 @@ describe("pause and resume", () => {
     const sheet = await screen.findByRole("dialog");
     fireEvent.change(within(sheet).getByLabelText("Passcode"), { target: { value: "garden-42" } });
     fireEvent.click(within(sheet).getByRole("button", { name: "Save with this passcode" }));
-    expect(await screen.findByText("Saved on this device")).toBeTruthy();
+    expect((await screen.findAllByText("Saved on this device")).length).toBeGreaterThan(0);
     await vi.advanceTimersByTimeAsync(IDLE_LOCK_MS + 20_000);
-    expect(await screen.findByText("It locked by itself after a few minutes without use, to keep it private.")).toBeTruthy();
+    expect(
+      await screen.findByText("It locked by itself after a few minutes without use, to keep it private."),
+    ).toBeTruthy();
     expect(services.vault.isUnlocked()).toBe(false);
   });
 

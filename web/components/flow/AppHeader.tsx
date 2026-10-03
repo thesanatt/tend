@@ -24,13 +24,7 @@ export function LanguageSwitch() {
   const { lang, setLang, t } = useI18n();
   const other = lang === "en" ? "es" : "en";
   return (
-    <button
-      type="button"
-      className={styles.lang}
-      lang={other}
-      onClick={() => setLang(other)}
-      title={t.shell.switchTo}
-    >
+    <button type="button" className={styles.lang} lang={other} onClick={() => setLang(other)} title={t.shell.switchTo}>
       {t.shell.otherLanguage}
     </button>
   );

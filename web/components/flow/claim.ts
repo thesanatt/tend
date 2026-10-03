@@ -36,8 +36,7 @@ export function countingDate(state: FlowState, asOf: string): string {
 
 // The engines refuse a whole claim over one bad line (SPEC v1.2 input validation), so a line that
 // could not be money is left out here rather than sent.
-const sendable = (it: FlowItem) =>
-  Number.isSafeInteger(it.amount_cents) && it.amount_cents >= 0 && isIsoDay(it.date);
+const sendable = (it: FlowItem) => Number.isSafeInteger(it.amount_cents) && it.amount_cents >= 0 && isIsoDay(it.date);
 
 export function buildEngineInput(state: FlowState, asOf: string): EngineInput | null {
   if (!state.check.st) return null;
@@ -119,7 +118,14 @@ export function buildRows(state: FlowState, output: EngineOutput | null): Row[] 
       if (replaced.has(item.item_id)) return { item, line: null, answer, status: "replaced" as const, kind, group };
       if (answer === "no") return { item, line: null, answer, status: "declined" as const, kind, group };
       const line = lines.get(item.item_id) ?? null;
-      return { item, line, answer, status: line?.status ?? ("checking" as const), kind, group: groupOf(line?.expense ?? item.expense) };
+      return {
+        item,
+        line,
+        answer,
+        status: line?.status ?? ("checking" as const),
+        kind,
+        group: groupOf(line?.expense ?? item.expense),
+      };
     });
 }
 

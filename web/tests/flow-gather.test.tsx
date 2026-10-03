@@ -66,7 +66,11 @@ describe("Gather", () => {
     expect(boxes.length).toBeGreaterThan(0);
     expect(boxes.every((b) => b.checked)).toBe(true);
     const ride = screen.getAllByRole("group", { name: /Was this ride to care\?/ })[0];
-    expect(within(ride).getAllByRole("button").map((b) => b.textContent)).toEqual(["Yes", "No", "Not sure"]);
+    expect(
+      within(ride)
+        .getAllByRole("button")
+        .map((b) => b.textContent),
+    ).toEqual(["Yes", "No", "Not sure"]);
 
     await settled();
     const before = figure();
@@ -166,12 +170,16 @@ describe("bill triage", () => {
     renderFlow(<BillsScreen />, { initial: stateFrom(withBill) });
     expect(await screen.findByRole("heading", { name: "Don't pay this line" })).toBeTruthy();
     expect(
-      screen.getByText("Medical forensic exam, deductible applied, $325.00. Michigan law says you should not be billed for it."),
+      screen.getByText(
+        "Medical forensic exam, deductible applied, $325.00. Michigan law says you should not be billed for it.",
+      ),
     ).toBeTruthy();
     const noBill = MI_LAW.rules.find((r) => r.id === "MI-EXAM-1")!;
     expect(screen.getByText(noBill.quote)).toBeTruthy();
     expect(screen.getByRole("heading", { name: "The rest: $118.00" })).toBeTruthy();
-    expect(screen.getByText("Both choices are fine. The program can pay you back for these, whether you pay now or not:")).toBeTruthy();
+    expect(
+      screen.getByText("Both choices are fine. The program can pay you back for these, whether you pay now or not:"),
+    ).toBeTruthy();
 
     fireEvent.click(screen.getByRole("button", { name: "Get a letter for the billing office" }));
     const letter = await screen.findByText((_, el) => el?.tagName === "PRE" && el.textContent!.includes(noBill.quote));
@@ -201,7 +209,9 @@ describe("bill triage", () => {
     const dialog = await screen.findByRole("dialog");
     expect(within(dialog).getByText("$118.00")).toBeTruthy();
     expect(within(dialog).getByText("Riverbend General Hospital")).toBeTruthy();
-    expect(within(dialog).getByText(/Medical forensic exam, deductible applied, \$325\.00\. It stays held\./)).toBeTruthy();
+    expect(
+      within(dialog).getByText(/Medical forensic exam, deductible applied, \$325\.00\. It stays held\./),
+    ).toBeTruthy();
     expect(services.propose).toHaveBeenCalledWith(
       expect.objectContaining({ amount_cents: 11800, payee: "Riverbend General Hospital", from: ROWAN_ACCOUNT }),
     );
@@ -211,7 +221,9 @@ describe("bill triage", () => {
     expect(payButton.disabled).toBe(true);
     fireEvent.change(code, { target: { value: "654321" } });
     fireEvent.click(payButton);
-    expect(await within(dialog).findByText("That code does not match. Check the six digits and try again.")).toBeTruthy();
+    expect(
+      await within(dialog).findByText("That code does not match. Check the six digits and try again."),
+    ).toBeTruthy();
     expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
 
     fireEvent.change(code, { target: { value: "123456" } });
@@ -232,7 +244,12 @@ describe("bill triage", () => {
         expires_at: "2026-10-03T23:00:00Z",
         demo: true,
       })),
-      confirm: vi.fn(async () => ({ action_id: "demo-1", status: "not_sent", amount_cents: 11800, at: "2026-10-03T17:00:00Z" })),
+      confirm: vi.fn(async () => ({
+        action_id: "demo-1",
+        status: "not_sent",
+        amount_cents: 11800,
+        at: "2026-10-03T17:00:00Z",
+      })),
     });
     renderFlow(
       <>
@@ -266,7 +283,9 @@ describe("bill triage", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Pay $118.00 now from Checking 0011" }));
     const dialog = await screen.findByRole("dialog");
     expect(
-      await within(dialog).findByText("The payment service proposed $443.00, but the bill shows $118.00. Nothing was sent."),
+      await within(dialog).findByText(
+        "The payment service proposed $443.00, but the bill shows $118.00. Nothing was sent.",
+      ),
     ).toBeTruthy();
     expect(within(dialog).queryByLabelText("Confirmation code")).toBeNull();
     expect(services.confirm).not.toHaveBeenCalled();

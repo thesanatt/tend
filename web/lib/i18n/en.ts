@@ -209,7 +209,8 @@ export const en = {
     held: "The law says you should not be billed for this. Don't pay it.",
     excluded: "The law says the program does not pay for this kind of cost.",
     needs_confirmation: "This is Tend's guess. It counts only after you say yes.",
-    unknown_rule: "No verified rule for this state names this kind of cost, so Tend leaves it out. An advocate or the program can tell you if it is covered.",
+    unknown_rule:
+      "No verified rule for this state names this kind of cost, so Tend leaves it out. An advocate or the program can tell you if it is covered.",
     out_of_window: "This is from before the date you gave, so it does not count.",
     declined: "You left this out. It does not count.",
     checking: "Tend is checking this against the law.",
@@ -423,7 +424,8 @@ export const en = {
       available: "On-device AI is ready. It helps sort costs the rules miss, without sending anything.",
       downloadable: "On-device AI can be added to this browser. Until then, Tend sorts costs with its built-in rules.",
       downloading: "On-device AI is downloading. Until it is ready, Tend sorts costs with its built-in rules.",
-      unavailable: "This browser has no on-device AI, so Tend sorts costs with its built-in rules. You confirm each one.",
+      unavailable:
+        "This browser has no on-device AI, so Tend sorts costs with its built-in rules. You confirm each one.",
     } satisfies Record<DeviceAi, string>,
     readListLabel: "Records read",
     statementRead: (label: string, read: number, found: number) =>
@@ -576,12 +578,14 @@ export const en = {
     fromCosts: (n: number) => `It comes from ${plural(n, "cost", "costs")} the law covers.`,
     held: (amount: string) => `Separate from this: ${amount} on a bill you should not pay.`,
     minimum: {
-      not_met: (min: string) => `Your costs so far are under the program's minimum of ${min}. Ask the program before you send.`,
+      not_met: (min: string) =>
+        `Your costs so far are under the program's minimum of ${min}. Ask the program before you send.`,
       may_be_waived: (min: string) =>
         `Your costs so far are under the program's minimum of ${min}, but the program can waive it for survivors of sexual assault.`,
       waived: (min: string) => `The program's minimum of ${min} does not apply to survivors of sexual assault.`,
     },
-    minimumDays: "The program's minimum can also be met by days of work you missed. Ask the program how it applies to you.",
+    minimumDays:
+      "The program's minimum can also be met by days of work you missed. Ask the program how it applies to you.",
     subjectMinimum: "The program's minimum",
     building: "Putting your packet together on this device",
     buildFailed: "Tend could not put your packet together on this device.",

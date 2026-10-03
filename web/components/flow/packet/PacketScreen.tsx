@@ -147,7 +147,9 @@ export default function PacketScreen() {
 
       <section className={styles.packetTotal} aria-live="polite">
         <p className={styles.tallyLabel}>{t.common.askFor}</p>
-        <p className={styles.bigFigure}>{output ? <Money cents={output.totals.allowed_cents} face="inherit" /> : "..."}</p>
+        <p className={styles.bigFigure}>
+          {output ? <Money cents={output.totals.allowed_cents} face="inherit" /> : "..."}
+        </p>
         <p>
           {t.common.programDecides} {output ? t.packet.fromCosts(eligible.length) : null}
         </p>
@@ -229,7 +231,11 @@ export default function PacketScreen() {
                           </span>
                         </td>
                         <td>
-                          <Cite ruleIds={[...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]} law={law} subject={subject} />
+                          <Cite
+                            ruleIds={[...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]}
+                            law={law}
+                            subject={subject}
+                          />
                         </td>
                         <td className={styles.num}>
                           <Money cents={l.allowed_cents} />

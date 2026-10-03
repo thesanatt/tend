@@ -213,8 +213,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                 <p>{payer ?? t.bills.whoPaysUnknown}</p>
                 {program?.phone ? (
                   <p>
-                    {program.program_name}:{" "}
-                    <a href={`tel:${program.phone.replace(/[^\d+]/g, "")}`}>{program.phone}</a>
+                    {program.program_name}: <a href={`tel:${program.phone.replace(/[^\d+]/g, "")}`}>{program.phone}</a>
                   </p>
                 ) : null}
                 {payRule ? <Cite ruleIds={[payRule.id]} law={law} subject={t.bills.whoPays} /> : null}
@@ -263,7 +262,11 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                       className="btn btn-secondary"
                       aria-pressed={bill.choice === "claim"}
                       onClick={() =>
-                        dispatch({ type: "billChoice", billId: bill.id, choice: bill.choice === "claim" ? null : "claim" })
+                        dispatch({
+                          type: "billChoice",
+                          billId: bill.id,
+                          choice: bill.choice === "claim" ? null : "claim",
+                        })
                       }
                     >
                       {t.bills.leaveUnpaid}

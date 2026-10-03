@@ -177,7 +177,9 @@ export default function AddRecords() {
         <ul className={styles.readList} aria-label={t.gather.readListLabel}>
           {state.sources.map((s) => (
             <li key={s.id}>
-              {s.kind === "bank" ? t.gather.bankRead(s.read, s.found) : t.gather.statementRead(s.label, s.read, s.found)}
+              {s.kind === "bank"
+                ? t.gather.bankRead(s.read, s.found)
+                : t.gather.statementRead(s.label, s.read, s.found)}
               {s.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}
               {s.warnings.length ? <span className="meta"> {t.gather.warnings(s.warnings.length)}</span> : null}
               {s.already ? <span className={`meta ${styles.already}`}>{t.gather.already(s.already)}</span> : null}
@@ -186,7 +188,11 @@ export default function AddRecords() {
           {state.bills.map((b) => (
             <li key={b.id}>
               {b.reading.status === "ok" && b.reading.total_cents !== null
-                ? t.gather.billRead(b.reading.provider ?? b.label, b.reading.lines.length, f.money(b.reading.total_cents))
+                ? t.gather.billRead(
+                    b.reading.provider ?? b.label,
+                    b.reading.lines.length,
+                    f.money(b.reading.total_cents),
+                  )
                 : t.gather.billUnreliable(b.label)}
               {b.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}{" "}
               <Link href="/gather/bills">{t.gather.seeBill}</Link>

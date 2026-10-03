@@ -39,14 +39,17 @@ describe("Check", () => {
     expect(screen.getByLabelText("On what date did it happen?")).toBeTruthy();
     expect(screen.getByLabelText("I'm not sure of the date")).toBeTruthy();
     const exam = screen.getByRole("group", { name: "Did you have a medical forensic exam?" });
-    expect(within(exam).getAllByRole("radio").map((r) => r.parentElement!.textContent)).toEqual(["Yes", "No", "Not sure"]);
+    expect(
+      within(exam)
+        .getAllByRole("radio")
+        .map((r) => r.parentElement!.textContent),
+    ).toEqual(["Yes", "No", "Not sure"]);
     const police = screen.getByRole("group", { name: "Has it been reported to police?" });
-    expect(within(police).getAllByRole("radio").map((r) => r.parentElement!.textContent)).toEqual([
-      "Yes",
-      "Not yet",
-      "No",
-      "Not sure",
-    ]);
+    expect(
+      within(police)
+        .getAllByRole("radio")
+        .map((r) => r.parentElement!.textContent),
+    ).toEqual(["Yes", "Not yet", "No", "Not sure"]);
     expect(screen.getByText("Tend never asks what happened, where, or who.")).toBeTruthy();
     expect(screen.queryAllByRole("textbox")).toHaveLength(0);
   });
@@ -55,7 +58,9 @@ describe("Check", () => {
     renderFlow(<CheckScreen />);
     fireEvent.change(screen.getByLabelText("Which state did it happen in?"), { target: { value: "MI" } });
     fireEvent.change(screen.getByLabelText("On what date did it happen?"), { target: { value: "2026-06-14" } });
-    fireEvent.click(within(screen.getByRole("group", { name: "Did you have a medical forensic exam?" })).getByLabelText("Yes"));
+    fireEvent.click(
+      within(screen.getByRole("group", { name: "Did you have a medical forensic exam?" })).getByLabelText("Yes"),
+    );
 
     expect(await screen.findByText("You can likely apply in Michigan.")).toBeTruthy();
     expect(await screen.findByText("File by June 14, 2031.")).toBeTruthy();
@@ -64,7 +69,9 @@ describe("Check", () => {
     expect(screen.getByText("Counseling, up to $125 a session, for up to 35 sessions")).toBeTruthy();
     expect(screen.getByText("In total, up to $45,000")).toBeTruthy();
     expect(
-      screen.getByText("Address Confidentiality Program (ACP) gives survivors a substitute address to use on government forms."),
+      screen.getByText(
+        "Address Confidentiality Program (ACP) gives survivors a substitute address to use on government forms.",
+      ),
     ).toBeTruthy();
     expect(screen.getByText("The law keeps your compensation records confidential.")).toBeTruthy();
     expect(screen.getByRole("link", { name: "877-251-7373" }).getAttribute("href")).toBe("tel:8772517373");

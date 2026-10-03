@@ -189,7 +189,11 @@ export default function TrackScreen() {
                         stage={p.stage}
                         growth={moneyGrowth(p.line.allowed_cents)}
                         seedKey={p.item.item_id}
-                        label={t.track.plantLabel(t.track.stage[p.stage], p.item.description, f.money(p.line.allowed_cents))}
+                        label={t.track.plantLabel(
+                          t.track.stage[p.stage],
+                          p.item.description,
+                          f.money(p.line.allowed_cents),
+                        )}
                         ground={false}
                       />
                     </div>
@@ -248,4 +252,3 @@ export default function TrackScreen() {
     </div>
   );
 }
-

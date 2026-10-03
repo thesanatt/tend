@@ -40,11 +40,7 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
   return (
     <li className={`${styles.row} ${changed ? styles.changed : ""}`} data-status={status} id={`row-${qid}`}>
       <p className={styles.rowDate}>
-        {item.origin === "bill" ? (
-          t.gather.onTheBill
-        ) : (
-          <time dateTime={item.date}>{f.date(item.date, "short")}</time>
-        )}
+        {item.origin === "bill" ? t.gather.onTheBill : <time dateTime={item.date}>{f.date(item.date, "short")}</time>}
       </p>
 
       <div className={styles.rowMain}>
@@ -58,7 +54,9 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
             />
             <span className={styles.rowDesc}>
               {item.description}
-              <span className="visually-hidden">, {f.date(item.date)}. {t.gather.include}</span>
+              <span className="visually-hidden">
+                , {f.date(item.date)}. {t.gather.include}
+              </span>
             </span>
           </label>
         ) : (
@@ -113,7 +111,10 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       </div>
 
       {/* Asked only when a yes would count: a cost the law leaves out gets its rule, not a question. */}
-      {!readOnly && kind === "inferred" && (answer === undefined || answer === "unsure") && status === "needs_confirmation" ? (
+      {!readOnly &&
+      kind === "inferred" &&
+      (answer === undefined || answer === "unsure") &&
+      status === "needs_confirmation" ? (
         <div role="group" aria-labelledby={qid} className={styles.question}>
           <p id={qid} className={styles.qText}>
             {t.question[item.expense as ItemExpense] ?? t.question.other}
