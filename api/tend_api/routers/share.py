@@ -7,6 +7,7 @@ from fastapi import APIRouter, Response
 from ..deps import ServicesDep, TokenPath
 from ..models import ShareRequest
 from ..packet import render_packet, still_needed
+from ..share import ShareError
 
 router = APIRouter(tags=["share"])
 COMPARED = ("lines", "totals", "checks", "info_rule_ids")
@@ -14,6 +15,8 @@ COMPARED = ("lines", "totals", "checks", "info_rule_ids")
 
 @router.post("/share")
 def create_share(body: ShareRequest, svc: ServicesDep) -> dict[str, Any]:
+    if body.ciphertext is not None:
+        return svc.shares.create_sealed(body.ciphertext, body.nonce or "", body.alg, body.ttl_hours, body.open_once)
     if body.claim_id is not None:
         return svc.shares.create(body.claim_id, body.ttl_hours)
     # A claim computed on the device: the server runs it again and shares its own result, never the device's.
@@ -26,12 +29,25 @@ def create_share(body: ShareRequest, svc: ServicesDep) -> dict[str, Any]:
 @router.get("/share/{token}")
 def read_share(token: TokenPath, svc: ServicesDep) -> dict[str, Any]:
     share = svc.shares.resolve(token)
+    if share["kind"] == "sealed":
+        return {
+            "token": token,
+            "sealed": True,
+            "read_only": True,
+            "alg": share["alg"],
+            "nonce": share["nonce"],
+            "ciphertext": share["ciphertext"],
+            "open_once": share["open_once"],
+            "created_at": share["created_at"],
+            "expires_at": share["expires_at"],
+        }
     claim = svc.claims.get(share["claim_id"])
     view = svc.claims.view(claim)
     rules_doc = svc.rules.get(view["jurisdiction"]) or {}
     return {
         **view,
         "token": token,
+        "sealed": False,
         "read_only": True,
         "created_at": share["created_at"],
         "expires_at": share["expires_at"],
@@ -44,7 +60,9 @@ def read_share(token: TokenPath, svc: ServicesDep) -> dict[str, Any]:
 
 @router.get("/share/{token}/packet.pdf", response_class=Response)
 def shared_packet(token: TokenPath, svc: ServicesDep) -> Response:
-    share = svc.shares.resolve(token)
+    share = svc.shares.resolve(token, consume=False)
+    if share["kind"] == "sealed":
+        raise ShareError("This share is encrypted. Open the link in Tend to read the packet inside it.", 409)
     view = svc.claims.view(svc.claims.get(share["claim_id"]))
     data = render_packet(view, svc.rules.get(view["jurisdiction"]) or {}, svc.settings.forms_dir, svc.clock())
     return Response(data, media_type="application/pdf", headers={"Content-Disposition": 'inline; filename="tend-shared-packet.pdf"'})

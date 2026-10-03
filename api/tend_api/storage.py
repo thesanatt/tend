@@ -42,6 +42,9 @@ class Repository(Protocol):
     def insert_share(self, share: dict[str, Any]) -> None: ...
     def get_share(self, token_hash: str) -> dict[str, Any] | None: ...
     def revoke_share(self, token_hash: str, at: str) -> bool: ...
+    def insert_sealed_share(self, share: dict[str, Any]) -> None: ...
+    def get_sealed_share(self, token_hash: str) -> dict[str, Any] | None: ...
+    def mark_sealed_opened(self, token_hash: str, at: str) -> bool: ...
 
     def insert_agent_link(self, link: dict[str, Any]) -> None: ...
     def redeem_agent_link(self, code_hash: str, at: str) -> str | None: ...
@@ -128,6 +131,17 @@ CREATE TABLE IF NOT EXISTS shares (
     expires_at TEXT NOT NULL,
     revoked_at TEXT
 );
+CREATE TABLE IF NOT EXISTS sealed_shares (
+    token_hash TEXT PRIMARY KEY,
+    ciphertext TEXT NOT NULL,
+    nonce TEXT NOT NULL,
+    alg TEXT NOT NULL,
+    open_once INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    opened_at TEXT,
+    revoked_at TEXT
+);
 CREATE TABLE IF NOT EXISTS agent_links (
     code_hash TEXT PRIMARY KEY,
     claim_id TEXT NOT NULL REFERENCES claims(claim_id),
@@ -142,6 +156,15 @@ CREATE TABLE IF NOT EXISTS agent_sessions (
     expires_at TEXT NOT NULL
 );
 """
+
+
+# Columns added after the first schema; ALTER keeps a database from an earlier run working.
+ADDED_COLUMNS = (
+    ("evidence", "held", "INTEGER NOT NULL DEFAULT 0"),
+    ("actions", "channel", "TEXT NOT NULL DEFAULT 'app'"),
+    ("actions", "bill_id", "TEXT"),
+    ("actions", "item_ids_json", "TEXT"),
+)
 
 
 def audit_hash(body: dict[str, Any]) -> str:
@@ -173,6 +196,9 @@ class SQLiteRepository:
                 self._conn.execute("PRAGMA journal_mode=WAL")
             self._conn.execute("PRAGMA foreign_keys=ON")
             self._conn.executescript(SCHEMA)
+            for table, column, ddl in ADDED_COLUMNS:
+                if column not in {r["name"] for r in self._conn.execute(f"PRAGMA table_info({table})")}:
+                    self._conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {ddl}")
 
     @contextmanager
     def _tx(self) -> Iterator[sqlite3.Connection]:
@@ -421,7 +447,42 @@ class SQLiteRepository:
 
     def revoke_share(self, token_hash: str, at: str) -> bool:
         with self._tx() as c:
-            return c.execute("UPDATE shares SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL", (at, token_hash)).rowcount == 1
+            changed = 0
+            for table in ("shares", "sealed_shares"):
+                changed += c.execute(
+                    f"UPDATE {table} SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL", (at, token_hash)
+                ).rowcount
+            return changed == 1
+
+    # sealed shares: ciphertext encrypted in the browser; the key never reaches the server
+
+    def insert_sealed_share(self, share: dict[str, Any]) -> None:
+        with self._tx() as c:
+            c.execute(
+                "INSERT INTO sealed_shares (token_hash, ciphertext, nonce, alg, open_once, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (
+                    share["token_hash"],
+                    share["ciphertext"],
+                    share["nonce"],
+                    share["alg"],
+                    int(share["open_once"]),
+                    share["created_at"],
+                    share["expires_at"],
+                ),
+            )
+
+    def get_sealed_share(self, token_hash: str) -> dict[str, Any] | None:
+        row = self._one("SELECT * FROM sealed_shares WHERE token_hash = ?", (token_hash,))
+        if row:
+            row["open_once"] = bool(row["open_once"])
+        return row
+
+    def mark_sealed_opened(self, token_hash: str, at: str) -> bool:
+        with self._tx() as c:
+            return (
+                c.execute("UPDATE sealed_shares SET opened_at = ? WHERE token_hash = ? AND opened_at IS NULL", (at, token_hash)).rowcount
+                == 1
+            )
 
     # agent links: a one-time code the app shows, redeemed once by the agent for a session token
 

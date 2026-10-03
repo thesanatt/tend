@@ -85,8 +85,7 @@ class ActionService:
             action_id,
             {
                 "amount_cents": req.amount_cents,
-                "from": req.from_account,
-                "payee": req.payee,
+                **self._tags(req.from_account, req.payee),
                 "claim_id": req.claim_id,
                 "item_id": req.item_id,
                 "bill_id": req.bill_id,
@@ -215,8 +214,7 @@ class ActionService:
             action_id,
             {
                 "amount_cents": action["amount_cents"],
-                "from": action["from_account"],
-                "payee": action["payee"],
+                **self._tags(action["from_account"], action["payee"]),
                 "withdrawal_id": withdrawal_id,
                 "readback_ok": readback["ok"],
                 "dry_run": action["dry_run"],
@@ -255,8 +253,10 @@ class ActionService:
         status = "unverified" if exc.maybe_applied else "failed"
         at = iso(self.clock())
         self.repo.transition_action(action_id, "executing", status, {"finished_at": at, "error": str(exc)})
+        # The bank's error text can echo the payee, so the permanent log keeps only what kind of failure it was.
+        kind = type(exc.__cause__).__name__ if exc.__cause__ else type(exc).__name__
         self.repo.append_audit(
-            status, action_id, {"error": str(exc)[:300], "maybe_applied": exc.maybe_applied, "dry_run": action["dry_run"]}, at
+            status, action_id, {"error_kind": kind, "maybe_applied": exc.maybe_applied, "dry_run": action["dry_run"]}, at
         )
         if exc.maybe_applied:
             return ActionError(
@@ -265,6 +265,14 @@ class ActionService:
                 502,
             )
         return ActionError(f"The bank refused this payment, so no money moved: {exc}", 502)
+
+    def _tags(self, from_account: str, payee: str) -> dict[str, str]:
+        """Keyed hashes that tie an audit row to its action without the log holding a name (docs/PRIVACY.md)."""
+
+        def tag(kind: str, value: str) -> str:
+            return hmac.new(self.secret, f"{kind}:{value}".encode(), hashlib.sha256).hexdigest()[:32]
+
+        return {"from_tag": tag("from", from_account), "payee_tag": tag("payee", payee)}
 
     def view(self, action_id: str) -> dict[str, Any]:
         action = self.repo.get_action(action_id)

@@ -196,18 +196,30 @@ class ConfirmRequest(Strict):
     payee: Annotated[str | None, Field(max_length=80)] = None
 
 
-class ShareRequest(Strict):
-    """Share a stored claim, or a claim computed on the device: the server evaluates input itself."""
+BASE64 = r"^[A-Za-z0-9+/_\-]+={0,2}$"
 
+
+class ShareRequest(Strict):
+    """One of: ciphertext sealed in the browser (docs/PRIVACY.md), a stored claim_id, or a claim
+    computed on the device (input, which the server evaluates again)."""
+
+    ciphertext: Annotated[str, Field(min_length=16, max_length=8_000_000, pattern=BASE64)] | None = None
+    nonce: Annotated[str, Field(min_length=8, max_length=64, pattern=BASE64)] | None = None
+    alg: Literal["AES-256-GCM"] = "AES-256-GCM"
+    open_once: StrictBool = False
     claim_id: Slug | None = None
     input: ClaimInput | None = None
     output: dict[str, Any] | None = None
     ttl_hours: Annotated[int, Field(strict=True, ge=1, le=168)] = 72
 
     @model_validator(mode="after")
-    def _one_claim(self) -> ShareRequest:
-        if (self.claim_id is None) == (self.input is None):
-            raise ValueError("send claim_id, or input (with the output the device computed)")
+    def _one_kind(self) -> ShareRequest:
+        if sum(x is not None for x in (self.ciphertext, self.claim_id, self.input)) != 1:
+            raise ValueError("send ciphertext (with nonce), claim_id, or input")
+        if (self.ciphertext is None) != (self.nonce is None):
+            raise ValueError("ciphertext and nonce go together")
+        if self.open_once and self.ciphertext is None:
+            raise ValueError("open_once applies to sealed shares")
         return self
 
 

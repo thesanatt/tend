@@ -69,7 +69,8 @@ class ClaimService:
             raise ClaimError(f"No verified rules for {st}.", 404)
         return doc
 
-    def evaluate(self, claim: ClaimInput, scan_id: str | None = None, prefer: str = "auto") -> tuple[dict[str, Any], str]:
+    def run(self, claim: ClaimInput, scan_id: str | None = None, prefer: str = "auto", store: bool = True) -> dict[str, Any]:
+        """Evaluate a claim into a record; store=False keeps nothing on the server."""
         self._require_jurisdiction(claim.jurisdiction)
         scan = None
         items, refused = list(claim.items), []
@@ -84,24 +85,32 @@ class ClaimService:
         except EngineError as exc:
             raise ClaimError(str(exc), 422) from exc
         validate_output(output, payload)
-        claim_id = f"clm_{secrets.token_hex(10)}"
-        self.repo.save_claim(
-            {
-                "claim_id": claim_id,
-                "jurisdiction": claim.jurisdiction,
-                "scan_id": scan_id,
-                "persona_id": scan["persona_id"] if scan else None,
-                "fictional": bool(scan and scan["fictional"]),
-                "display_name": scan["display_name"] if scan else None,
-                "engine": engine,
-                "input": payload,
-                "output": output,
-                "refused": refused,
-                "created_at": iso(self.clock()),
-            }
-        )
-        response = {**output, "claim_id": claim_id, "refused": refused, "evidence": {"checked": scan_id is not None, "scan_id": scan_id}}
-        return response, engine
+        record = {
+            "claim_id": f"clm_{secrets.token_hex(10)}",
+            "jurisdiction": claim.jurisdiction,
+            "scan_id": scan_id,
+            "persona_id": scan["persona_id"] if scan else None,
+            "fictional": bool(scan and scan["fictional"]),
+            "display_name": scan["display_name"] if scan else None,
+            "engine": engine,
+            "input": payload,
+            "output": output,
+            "refused": refused,
+            "created_at": iso(self.clock()),
+        }
+        if store:
+            self.repo.save_claim(record)
+        return record
+
+    def evaluate(self, claim: ClaimInput, scan_id: str | None = None, prefer: str = "auto") -> tuple[dict[str, Any], str]:
+        record = self.run(claim, scan_id, prefer)
+        response = {
+            **record["output"],
+            "claim_id": record["claim_id"],
+            "refused": record["refused"],
+            "evidence": {"checked": scan_id is not None, "scan_id": scan_id},
+        }
+        return response, record["engine"]
 
     def get(self, claim_id: str) -> dict[str, Any]:
         claim = self.repo.get_claim(claim_id)
