@@ -58,6 +58,10 @@ One plant per claim line. Stage = real status: sprout (confirmed), leaf (documen
 bud (filed), bloom (paid). The deadline is always visible. Reminders are opt-in, with neutral text.
 
 ## Always on
+- Local-first and encrypted (docs/PRIVACY.md is the contract). A small persistent line on every
+  screen says what is happening: "On this device. Nothing has left it." It changes only when the
+  survivor sends something (a confirmed payment or an encrypted share).
+- Unlock the saved vault with Touch ID (passkey) or a passphrase.
 - Quick exit: corner button and Esc twice; replaces the page with a neutral one.
 - Neutral tab title ("Tend"). No push notifications. No analytics.
 - Pause and resume: progress saved on the device, optionally behind a short passcode.

@@ -13,8 +13,10 @@ Design rules that override everything below:
 3. Integer cents everywhere. No floats in money paths.
 4. No field anywhere stores what happened, where, or who did it. No names of accused people.
 5. Demo data is fictional and labeled as such. Nessie is a mock bank and the UI says so.
-6. The same engine runs natively (server, bank-scale batch) and as WebAssembly in the browser,
-   so a survivor can run their claim without their bank data leaving the device.
+6. Local-first and encrypted (docs/PRIVACY.md is normative): the WebAssembly engine, statement parsing,
+   on-device Gemini Nano classification and bill reading, form filling, and the encrypted vault all run
+   in the browser. Only confirmed payments, end-to-end encrypted shares, and opt-in cloud AI leave the
+   device. The native engine serves bank-scale batch use and the API's server-side fallback.
 
 ## Repository layout
 
