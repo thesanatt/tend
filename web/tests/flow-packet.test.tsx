@@ -9,7 +9,8 @@ import PacketScreen from "@/components/flow/packet/PacketScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, FlowItem } from "@/components/flow/state";
 import TrackScreen, { reminderDate, reminderIcs } from "@/components/flow/track/TrackScreen";
-import { MI_CHECK, renderFlow, stateFrom, stubLawFetch } from "./helpers/flow";
+import type { EngineInput } from "@/lib/types";
+import { MI_CHECK, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
@@ -107,6 +108,32 @@ describe("Packet", () => {
     fireEvent.click(screen.getByRole("button", { name: "Stop this link" }));
     expect(await screen.findByText("A link you stopped no longer works.")).toBeTruthy();
     expect(services.share.sealed.size).toBe(0);
+  });
+
+  it("says when the claim is under the program's minimum, and that the program can waive it", async () => {
+    const services = testServices({
+      evaluate: vi.fn(async (input: EngineInput) => {
+        const output = michiganOutput(input);
+        return {
+          output: { ...output, checks: { ...output.checks, minimum_loss: { status: "may_be_waived" as const, rule_ids: ["MI-MIN-1"] } } },
+          backend: "wasm" as const,
+          detail: "test",
+        };
+      }),
+    });
+    renderFlow(<PacketScreen />, { services, initial: stateFrom(gathered) });
+    expect(
+      await screen.findByText(
+        /Your costs so far are under the program's minimum of \$200\.00, but the program can waive it for survivors of sexual assault\./,
+      ),
+    ).toBeTruthy();
+    expect(screen.getByRole("button", { name: /show the law for The program's minimum/ })).toBeTruthy();
+  });
+
+  it("says nothing about the minimum when the claim meets it", async () => {
+    renderFlow(<PacketScreen />, { initial: stateFrom(gathered) });
+    await screen.findByText("$80.00");
+    expect(screen.queryByText(/program's minimum/)).toBeNull();
   });
 
   it("marks the claim as sent, which buds every plant", async () => {

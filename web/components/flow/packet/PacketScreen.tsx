@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Money from "@/components/Money";
 import type { ChecklistItem, FilingRoute, Letter, LetterKind } from "@/lib/contracts";
+import type { EngineOutput } from "@/lib/types";
 import { useI18n, useSummary, type Dict } from "@/lib/i18n";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import Cite from "../Cite";
@@ -35,14 +36,23 @@ export function templateFor(item: ChecklistItem, type: string, letters: Letter[]
   );
 }
 
-// The program's own description of the document is English. In Spanish the kind of document comes
-// first, in Spanish, with the description under it (translated on the device when it can be).
-function DocName({ item, type }: { item: ChecklistItem; type: string }) {
+// The program's own words for a document, when its rule has a note; otherwise only its kind.
+export function docNote(item: ChecklistItem, law: LawIndex): string | null {
+  const note = law.rule(item.rule_id)?.params?.note;
+  if (typeof note === "string" && note.trim()) return item.document;
+  return null;
+}
+
+// Short enough to name the document in a button's label for a screen reader.
+const excerpt = (text: string) => (text.length > 60 ? `${text.slice(0, 60).replace(/\s+\S*$/, "")}...` : text);
+
+// In English the program's own description leads. In Spanish the kind of document comes first, in
+// Spanish, with the program's words under it (translated on the device when it can be).
+function DocName({ type, note }: { type: string; note: string | null }) {
   const { t, lang } = useI18n();
-  const sentence = /^[a-z_]+$/.test(item.document) ? undefined : item.document;
-  const detail = useSummary(sentence);
-  if (!sentence) return <span>{docLabel(t, type)}</span>;
-  if (lang === "en") return <span>{sentence}</span>;
+  const detail = useSummary(note ?? undefined);
+  if (!note) return <span>{docLabel(t, type)}</span>;
+  if (lang === "en") return <span>{note}</span>;
   return (
     <span>
       {docLabel(t, type)}
@@ -79,8 +89,30 @@ function Route({ route, t }: { route: FilingRoute; t: Dict }) {
   return <span className={route.method === "mail" ? styles.address : undefined}>{target}</span>;
 }
 
-export default function PacketScreen() {
+// The program's minimum loss, said only when it is not simply met: it can decide the claim.
+function MinimumNote({ check, law }: { check: EngineOutput["checks"]["minimum_loss"]; law: LawIndex }) {
   const { t, f } = useI18n();
+  if (!check.rule_ids.length || check.status === "met") return null;
+  const amounts = check.rule_ids
+    .map((id) => law.rule(id)?.params?.amount_cents)
+    .filter((c): c is number => typeof c === "number" && Number.isSafeInteger(c) && c > 0);
+  const min = amounts.length ? f.money(Math.max(...amounts)) : null;
+  const text =
+    check.status === "unknown" || !min
+      ? t.packet.minimumDays
+      : check.status === "not_met" || check.status === "may_be_waived" || check.status === "waived"
+        ? t.packet.minimum[check.status](min)
+        : null;
+  if (!text) return null;
+  return (
+    <p className={styles.minimumNote}>
+      {text} <Cite ruleIds={check.rule_ids} law={law} subject={t.packet.subjectMinimum} />
+    </p>
+  );
+}
+
+export default function PacketScreen() {
+  const { t, f, lang } = useI18n();
   const { state, input, claim, dispatch, today } = useFlow();
   const law = useLaw(state.check.st || null);
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
@@ -122,6 +154,7 @@ export default function PacketScreen() {
         {output && output.totals.held_cents > 0 ? (
           <p className={styles.heldNote}>{t.packet.held(f.money(output.totals.held_cents))}</p>
         ) : null}
+        {output ? <MinimumNote check={output.checks.minimum_loss} law={law} /> : null}
         <EngineNotice />
       </section>
 
@@ -220,8 +253,15 @@ export default function PacketScreen() {
               {pk.packet.stillNeeded.map((c) => {
                 const key = `${c.document}:${c.rule_id}`;
                 const type = docType(c, law);
+                const note = docNote(c, law);
                 const template = templateFor(c, type, pk.packet!.letters);
-                const name = docLabel(t, type);
+                // "Other documents" says nothing on its own, so the program's words name those.
+                const name =
+                  note && lang === "en"
+                    ? excerpt(note)
+                    : note && type === "other"
+                      ? `${docLabel(t, type)}: ${excerpt(note)}`
+                      : docLabel(t, type);
                 return (
                   <li key={key}>
                     <label className={styles.checkLine}>
@@ -230,7 +270,7 @@ export default function PacketScreen() {
                         checked={have(c)}
                         onChange={(e) => dispatch({ type: "have", key, value: e.target.checked })}
                       />
-                      <DocName item={c} type={type} />
+                      <DocName type={type} note={note} />
                     </label>
                     <div className={styles.checkActions}>
                       <Cite ruleIds={[c.rule_id]} law={law} subject={name} />

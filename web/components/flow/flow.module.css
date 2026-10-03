@@ -953,6 +953,12 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* The last bill's rule would sit right above the next step's own rule. */
+.billBlock:has(+ .nextRow) {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
 /* The statement reads like the paper it came on. */
 .billCard {
   display: grid;
@@ -1237,6 +1243,11 @@
 .heldNote {
   color: var(--clay);
   font-weight: 700;
+}
+
+.minimumNote {
+  color: var(--ink-2);
+  max-width: 40rem;
 }
 
 .packetParts {

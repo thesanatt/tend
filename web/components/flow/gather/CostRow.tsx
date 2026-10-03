@@ -11,6 +11,8 @@ import StatusMark from "../StatusMark";
 import type { YesNoUnsure } from "../state";
 import styles from "../flow.module.css";
 
+const COUNTABLE: Row["status"][] = ["eligible", "needs_confirmation", "checking", "declined"];
+
 interface CostRowProps {
   row: Row;
   law: LawIndex;
@@ -46,7 +48,8 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       </p>
 
       <div className={styles.rowMain}>
-        {!readOnly && kind === "direct" && status !== "held" ? (
+        {/* A line the law leaves out gets no "Count this" box: checking it could not make it count. */}
+        {!readOnly && kind === "direct" && COUNTABLE.includes(status) ? (
           <label className={styles.include}>
             <input
               type="checkbox"

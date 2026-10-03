@@ -564,6 +564,16 @@ export const es: Dict = {
     lead: "Lo que el programa necesita, armado en este dispositivo.",
     fromCosts: (n: number) => `Viene de ${plural(n, "gasto", "gastos")} que la ley cubre.`,
     held: (amount: string) => `Aparte de esto: ${amount} en una factura que no debes pagar.`,
+    minimum: {
+      not_met: (min: string) =>
+        `Por ahora tus gastos están por debajo del mínimo del programa, ${min}. Pregúntale al programa antes de enviar.`,
+      may_be_waived: (min: string) =>
+        `Por ahora tus gastos están por debajo del mínimo del programa, ${min}, pero el programa puede no exigirlo a sobrevivientes de agresión sexual.`,
+      waived: (min: string) => `El mínimo del programa, ${min}, no se aplica a sobrevivientes de agresión sexual.`,
+    },
+    minimumDays:
+      "El mínimo del programa también se puede cumplir con los días de trabajo que perdiste. Pregúntale al programa cómo se aplica en tu caso.",
+    subjectMinimum: "El mínimo del programa",
     building: "Armando tu paquete en este dispositivo",
     buildFailed: "Tend no pudo armar tu paquete en este dispositivo.",
     formTitle: "La solicitud del estado",

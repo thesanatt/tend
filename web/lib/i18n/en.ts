@@ -575,6 +575,14 @@ export const en = {
     lead: "What the program needs, put together on this device.",
     fromCosts: (n: number) => `It comes from ${plural(n, "cost", "costs")} the law covers.`,
     held: (amount: string) => `Separate from this: ${amount} on a bill you should not pay.`,
+    minimum: {
+      not_met: (min: string) => `Your costs so far are under the program's minimum of ${min}. Ask the program before you send.`,
+      may_be_waived: (min: string) =>
+        `Your costs so far are under the program's minimum of ${min}, but the program can waive it for survivors of sexual assault.`,
+      waived: (min: string) => `The program's minimum of ${min} does not apply to survivors of sexual assault.`,
+    },
+    minimumDays: "The program's minimum can also be met by days of work you missed. Ask the program how it applies to you.",
+    subjectMinimum: "The program's minimum",
     building: "Putting your packet together on this device",
     buildFailed: "Tend could not put your packet together on this device.",
     formTitle: "The state's application",

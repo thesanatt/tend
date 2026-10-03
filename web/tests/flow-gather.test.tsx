@@ -27,6 +27,14 @@ function figure() {
   return screen.getByText(/^\$[\d,]+\.\d\d$/, { selector: "p[class*=tallyFigure] span" }).textContent;
 }
 
+// The tally keeps the last total while the engine works, so wait until no line is still being checked.
+async function settled() {
+  await waitFor(() => {
+    expect(figure()).not.toBe("...");
+    expect(document.querySelectorAll('li[data-status="checking"]')).toHaveLength(0);
+  });
+}
+
 describe("Gather", () => {
   it("asks for the state first", () => {
     renderFlow(<GatherScreen />);
@@ -48,7 +56,7 @@ describe("Gather", () => {
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
     expect(await screen.findByText("What Tend found")).toBeTruthy();
     expect(screen.getByText(/sample-statement-fictional\.csv: 190 transactions read/)).toBeTruthy();
-    await waitFor(() => expect(figure()).not.toBe("..."));
+    await settled();
     const groups = screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     expect(groups).toEqual(expect.arrayContaining(["Counseling", "Getting there", "Home", "Work", "Not covered"]));
 
@@ -60,7 +68,7 @@ describe("Gather", () => {
     const ride = screen.getAllByRole("group", { name: /Was this ride to care\?/ })[0];
     expect(within(ride).getAllByRole("button").map((b) => b.textContent)).toEqual(["Yes", "No", "Not sure"]);
 
-    await waitFor(() => expect(figure()).not.toBe("..."));
+    await settled();
     const before = figure();
     const confirmAll = screen.getByRole("button", { name: /^Yes to all \d+ rides$/ });
     fireEvent.click(confirmAll);
@@ -79,7 +87,7 @@ describe("Gather", () => {
     renderFlow(<GatherScreen />, { initial: stateFrom([MI_CHECK]) });
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
     await screen.findByText("What Tend found");
-    await waitFor(() => expect(figure()).not.toBe("..."));
+    await settled();
     const before = figure();
     const box = within(screen.getByRole("region", { name: "Counseling" })).getAllByRole("checkbox")[0];
     fireEvent.click(box);
