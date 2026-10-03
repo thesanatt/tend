@@ -79,19 +79,20 @@ FUZZ_SECONDS ?= 120
 FUZZ_DIR := build/fuzz
 FUZZ_FLAGS := -std=c++20 -O1 -g -fno-omit-frame-pointer -Iinclude -Isrc -Ithird_party \
               -fsanitize=address,undefined -fno-sanitize-recover=all
-FUZZ_LIB_OBJS := $(RUNTIME_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o)
+FUZZ_LIB_OBJS := $(RUNTIME_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o) $(COMPILER_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o)
+FUZZ_SEED_DIR := $(if $(wildcard $(RULES)/*.json),--seed-json-dir $(RULES))
 
 $(FUZZ_DIR)/obj/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(FUZZ_FLAGS) -fsanitize-coverage=trace-pc-guard -c $< -o $@
 
-$(FUZZ_DIR)/tend_fuzz: fuzz/fuzz.cpp $(FUZZ_LIB_OBJS) $(COMPILER_SRCS)
+$(FUZZ_DIR)/tend_fuzz: fuzz/fuzz.cpp $(FUZZ_LIB_OBJS)
 	@mkdir -p $(FUZZ_DIR)
-	$(CXX) $(FUZZ_FLAGS) fuzz/fuzz.cpp $(COMPILER_SRCS) $(FUZZ_LIB_OBJS) -o $@
+	$(CXX) $(FUZZ_FLAGS) fuzz/fuzz.cpp $(FUZZ_LIB_OBJS) -o $@
 
 fuzz: $(FUZZ_DIR)/tend_fuzz
 	./$(FUZZ_DIR)/tend_fuzz --seconds $(FUZZ_SECONDS) --corpus $(FUZZ_DIR)/corpus \
-	  --seed-json tests/fixtures/ZZ.json --seed-input tests/fixtures/ZZ_claim.json
+	  --seed-json tests/fixtures/ZZ.json --seed-input tests/fixtures/ZZ_claim.json $(FUZZ_SEED_DIR)
 
 bench: $(BUILD)/tendc $(BUILD)/tendvm
 	@mkdir -p $(BUILD)/laws
