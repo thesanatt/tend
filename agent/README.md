@@ -187,13 +187,24 @@ names, so the agent adapts to the names the API chose. Today it sends `{"questio
 If the answer route errors, the agent answers from the verified rules instead. If the API is down, it says so and
 nothing moves.
 
+## Limits
+
+- The agent never types the code itself. In ASI:One's planner mode the planner relays what the person writes,
+  so the review card and message ask the person to type the code. A direct @mention sends their words unchanged.
+- "Cancel" ends the payment in the chat. The API has no cancel endpoint, so the proposal stays valid on the server
+  until its code expires (10 minutes).
+- Without `/api/agent/check`, the Check uses `GET /api/agent/checklist/{st}`, which puts the date in the URL, where
+  the API's access log can see it. The agent keeps request URLs out of its own logs.
+- Without `/api/agent/answer`, questions are matched to topics by keywords (deadline, police report, exam bills,
+  costs, limits, documents, how to apply, privacy, and more). Unusual wording can get "I don't know".
+
 ## Tests
 
 ```
 cd agent && uv run pytest
 ```
 
-152 tests, offline, about 2 seconds. The API is mocked with real captures for the fictional persona
+164 tests, offline, about 2 seconds. The API is mocked with real captures for the fictional persona
 (`tests/fixtures`), and the mock enforces the API's payment rules. They cover parsing (states, dates, exam and
 report answers, codes), cited answers and "I don't know", every card against the uagents_core card schemas,
 the full demo and payment flow (no confirm without the typed code, wrong, expired, locked, cancelled, stale

@@ -169,7 +169,7 @@ _GREETING = re.compile(
 )
 _DEMO = re.compile(
     r"\b(?:demo|rowan|example claim|sample claim|test claim|fictional (?:person|claim|survivor|persona)|"
-    r"walk (?:me )?through|walkthrough|show (?:me )?(?:a|the) claim|see (?:a|the) claim)\b",
+    r"walk (?:me )?through (?:the |a |an )?(?:demo|claim|example|sample)|show (?:me )?(?:a|the) claim|see (?:a|the) claim)\b",
     re.I,
 )
 _PAY = re.compile(
@@ -183,7 +183,9 @@ _CHECK = re.compile(
     re.I,
 )
 _ELIGIBLE = re.compile(r"\b(?:am i eligible|eligib\w*|qualif\w*|can i (?:still )?(?:apply|file|get help)|could i apply)\b", re.I)
-_CANCEL = re.compile(r"\b(?:cancel\w*|stop|never ?mind|don'?t pay|do not pay|no thanks|abort)\b", re.I)
+_CANCEL = re.compile(r"\b(?:cancel\w*|never ?mind|don'?t pay|do not pay|abort)\b", re.I)
+_CANCEL_SHORT = re.compile(r"^\s*(?:stop|no thanks|quit|exit)\b", re.I)  # only as a short reply, not inside a question
+_BILL_WORDS = re.compile(r"\b(?:bill|rest|balance|remaining)\b", re.I)
 _YES = re.compile(
     r"^\s*(?:yes|yeah|yep|yup|sure|ok(?:ay)?|count (?:them|it|these|all)|go ahead|do it|please do|confirm(?:ed)?|approve\w*|y)\b",
     re.I,
@@ -202,6 +204,9 @@ def wants_demo(text: str) -> bool:
 
 
 def wants_pay(text: str) -> bool:
+    """Requests like "pay the bill" or "yes, pay it". A question like "Pay for therapy in Ohio?" is not one."""
+    if "?" in text and not _BILL_WORDS.search(text):
+        return False
     return bool(_PAY.search(text))
 
 
@@ -214,15 +219,20 @@ def asks_eligibility(text: str) -> bool:
 
 
 def wants_cancel(text: str) -> bool:
-    return bool(_CANCEL.search(text)) or bool(_PROSE_REJECT.search(text))
+    short = len(text) <= 24 and "?" not in text and bool(_CANCEL_SHORT.search(text))
+    return bool(_CANCEL.search(text)) or short or bool(_PROSE_REJECT.search(text))
 
 
 def says_yes(text: str) -> bool:
-    return bool(_YES.search(text)) or bool(_PROSE_APPROVE.search(text))
+    """A plain yes ("yes", "ok", "count them"), or the planner reporting an approval. "OK, what about Ohio?" is a
+    new question, not a yes."""
+    if _PROSE_APPROVE.search(text):
+        return True
+    return "?" not in text and bool(_YES.search(text))
 
 
 def says_no(text: str) -> bool:
-    return bool(_NO.search(text)) and not says_yes(text)
+    return "?" not in text and bool(_NO.search(text)) and not says_yes(text)
 
 
 # ---------------------------------------------------------------- topics and expenses (for cited answers)

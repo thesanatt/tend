@@ -174,6 +174,14 @@ def test_link_code():
         (says_no, "no thanks", True),
         (wants_cancel, "cancel", True),
         (wants_cancel, "The user rejected the card", True),
+        (wants_cancel, "stop", True),
+        (wants_cancel, "Does the program stop paying after a year?", False),
+        (wants_demo, "walk me through how to apply in Ohio", False),
+        (wants_demo, "walk me through the demo", True),
+        (wants_pay, "Pay for therapy in Ohio?", False),
+        (wants_pay, "can you pay the bill?", True),
+        (says_yes, "OK, what about Ohio?", False),
+        (says_no, "No, what about counseling?", False),
     ],
 )
 def test_intents(fn, text, expected):

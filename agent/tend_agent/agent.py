@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import uuid
 from typing import Any
 
@@ -24,6 +25,10 @@ from .parse import Incoming, selection_from_text
 
 MAX_TEXT = 2000
 SORRY = "Something went wrong on my side. Nothing was saved and no money moved. Please try again."
+
+# httpx logs every request URL at INFO, and a Check's URL carries the date. Keep request lines out of the logs.
+for _name in ("httpx", "httpcore"):
+    logging.getLogger(_name).setLevel(logging.WARNING)
 
 
 def incoming_from(msg: ChatMessage) -> Incoming:

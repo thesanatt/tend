@@ -40,6 +40,18 @@ def test_answer_route_saying_unknown_is_shown_as_i_dont_know(make_chat):
     assert text_of(turn).startswith("I don't know. No verified rule in Michigan answers that.") and "877-251-7373" in text_of(turn)
 
 
+def test_answer_route_with_nested_reply_and_rule_ids(make_chat):
+    f = FakeTend(
+        answer_fields=("question", "st"),
+        answer_reply={"result": {"text": "Michigan covers counseling.", "rule_ids": ["MI-COV-2", "MI-CAP-3", "NOT-A-RULE"]}},
+    )
+    turn = make_chat(f).say("Does Michigan cover counseling?")
+    text = text_of(turn)
+    assert text.startswith("Michigan covers counseling.")
+    assert "MCL 18.361(2)(b)" in text and "$125.00 per hourly session" in text  # ids became quotes and links
+    assert "NOT-A-RULE" not in text
+
+
 def test_api_answer_error_falls_back_to_rules(make_chat):
     f = FakeTend(answer_fields=("question", "st"))
     f.route_orig = f.route
@@ -214,6 +226,14 @@ def test_cancel_moves_nothing(chat, fake):
     assert "No money moved" in text_of(turn) and "pending" not in chat.state
     assert chat.say(CODE).intent == "pay_stale"
     assert fake.bodies("/api/actions/confirm") == []
+
+
+def test_a_question_during_a_payment_does_not_cancel_or_pay(chat, fake):
+    chat.say("demo")
+    chat.say("pay the bill")
+    turn = chat.say("Does the program stop paying after a year in Michigan?")
+    assert turn.intent == "answer" and "pending" in chat.state
+    assert chat.say(CODE).intent == "pay_confirm"
 
 
 def test_card_cancel_button_and_dismiss(chat, fake):

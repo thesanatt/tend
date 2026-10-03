@@ -141,6 +141,12 @@ def test_handle_chat_end_session_clears_state_and_errors_stay_private():
     assert "secret detail" not in " ".join(ctx.logs) and "turn failed: RuntimeError" in ctx.logs
 
 
+def test_request_urls_stay_out_of_the_logs():
+    # A Check's URL carries the date; httpx would log it at INFO.
+    assert logging.getLogger("httpx").getEffectiveLevel() >= logging.WARNING
+    assert logging.getLogger("httpcore").getEffectiveLevel() >= logging.WARNING
+
+
 def test_sessions_expire_and_live_only_in_memory():
     clock = [0.0]
     s = Sessions(ttl_s=10, now=lambda: clock[0])

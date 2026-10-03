@@ -33,7 +33,7 @@ from .demo import (
     render_scan,
 )
 from .fmt import cite_block, cite_link, clean, expense_label, long_date, money, program_line
-from .knowledge import MAX_QUOTED, RuleBook, answer_from_rules
+from .knowledge import MAX_QUOTED, RuleBook, answer_from_rules, cite
 from .parse import (
     Incoming,
     asks_eligibility,
@@ -173,6 +173,42 @@ def _first_list(data: dict[str, Any], *keys: str) -> list[dict[str, Any]]:
     return []
 
 
+CITATION_KEYS = ("citations", "rules", "sources", "cites", "evidence", "rule_ids")
+
+
+def _unwrap(data: dict[str, Any]) -> dict[str, Any]:
+    """Accept {"answer": {...}} or {"result": {...}} as well as a flat reply."""
+    for key in ("answer", "result", "data"):
+        inner = data.get(key)
+        if isinstance(inner, dict):
+            return {**data, **inner, key: inner.get("text") or inner.get("answer") or ""}
+    return data
+
+
+def citation_ids(data: dict[str, Any]) -> list[str]:
+    """Rule ids given as plain strings, which need the state's rules to become quotes and links."""
+    data = _unwrap(data)
+    for k in CITATION_KEYS:
+        v = data.get(k)
+        if isinstance(v, list) and v:
+            return [c for c in v if isinstance(c, str)]
+    return []
+
+
+def _citations(data: dict[str, Any], book: RuleBook | None) -> list[dict[str, Any]]:
+    for k in CITATION_KEYS:
+        v = data.get(k)
+        if isinstance(v, list) and v:
+            out = []
+            for c in v:
+                if isinstance(c, dict):
+                    out.append(c)
+                elif isinstance(c, str) and book is not None and c in book.by_id:
+                    out.append(cite(book.by_id[c], book.sources))
+            return out
+    return []
+
+
 def _known(data: dict[str, Any], cites: list[dict[str, Any]]) -> bool:
     for key in ("known", "answered", "found", "supported"):
         if isinstance(data.get(key), bool):
@@ -183,10 +219,12 @@ def _known(data: dict[str, Any], cites: list[dict[str, Any]]) -> bool:
     return bool(cites)
 
 
-def render_api_answer(data: dict[str, Any], name: str) -> str:
-    """An answer from /api/agent/answer, whatever its exact field names."""
+def render_api_answer(data: dict[str, Any], name: str, book: RuleBook | None = None) -> str:
+    """An answer from /api/agent/answer, whatever its exact field names. Rule ids given as strings are turned
+    into quotes and links with the state's verified rules (book)."""
+    data = _unwrap(data)
     text = _first_str(data, "answer", "text", "summary", "message")
-    cites = _first_list(data, "citations", "rules", "sources", "cites", "evidence")
+    cites = _citations(data, book)
     sentences = _first_list(data, "sentences")
     if not _known(data, cites) and not sentences:
         head = text if text and "know" in text.lower() else f"I don't know. No verified rule in {name} answers that."
@@ -388,7 +426,8 @@ class Navigator:
         name = state_name(st)
         try:
             data = await self.api.answer(question or canonical_question(topics, expense, name), st)
-            text = render_api_answer(data, name) if isinstance(data, dict) else ""
+            book = await self._book(st) if isinstance(data, dict) and citation_ids(data) else None
+            text = render_api_answer(data, name, book) if isinstance(data, dict) else ""
         except ApiError as exc:
             if exc.status == 0 and not exc.route_missing:
                 raise
