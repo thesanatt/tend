@@ -15,7 +15,7 @@ Needs a C++20 compiler (Apple clang 21 and GCC 13 are fine). Emscripten only for
 
 ```
 make                 # build/libtend.a, build/libtend.dylib (.so on Linux), build/tendc, build/tdis, build/tendvm
-make test            # 69 doctest cases; pass IR=... VERIFIED=... to point the corpus test elsewhere
+make test            # 70 doctest cases; pass IR=... VERIFIED=... to point the corpus test elsewhere
 make test-san        # the same under AddressSanitizer and UBSan
 make fuzz FUZZ_SECONDS=300
 make bench           # 1M-item claim, single thread
@@ -30,7 +30,9 @@ and `ctest --test-dir engine/build/cmake`; under `emcmake` it builds the WASM mo
 The tests: `test_semantics.cpp` checks each SPEC step by hand-computed answers;
 `test_differential.cpp` runs 1,500 random laws x 4 claims against `oracle.cpp`, a second, plain
 implementation that shares no code with the compiler or VM; `test_corpus.cpp` compiles all 51
-jurisdictions and checks 12 scenarios each against the oracle; `test_loader.cpp` feeds the loader
+jurisdictions, checks 12 scenarios each against the oracle, and fails when an image in
+`web/public/engine/laws` (or its `index.json` entry) is not what `tendc` builds now, so a rules
+change needs `make wasm` before it ships; `test_loader.cpp` feeds the loader
 broken images; `test_capi.cpp` checks the C ABI, the CLI tools, and the golden output in
 `tests/golden/`. The Python reference (refengine/) is a third implementation; `refengine/difftest.py`
 compares it with this engine on random claims.

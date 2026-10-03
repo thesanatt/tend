@@ -21,6 +21,10 @@ Best of 5 runs.
 | MI (real Michigan IR) | 80 | 31.4M | **14.1M items/s** (71 ms) | 16.0M items/s (63 ms) | **1.86M items/s** (536 ms) |
 | ZZ (test fixture, tag checks on every expense) | 33 | 41.9M | 12.4M items/s (81 ms) | 13.4M items/s (74 ms) | 1.85M items/s (539 ms) |
 
+Re-run about two hours later for the review, with the machine less busy (load average about 4):
+MI 16.2M items/s with the trace, 17.3M without, 2.09M items/s JSON in -> JSON out; ZZ 12.6M,
+14.3M, and 1.93M. Same code, so the spread is the machine, not the engine.
+
 For MI the end-to-end time splits into reading 207 MB of claim JSON with full validation and the
 duplicate item_id check (287 ms), the VM (71 ms), and writing 424 MB of result JSON with its
 2.2M-entry trace (147 ms). The law itself is about 13% of a bank-scale run; the rest is JSON.

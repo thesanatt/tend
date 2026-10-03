@@ -16,17 +16,18 @@ implementation (engine/tests/oracle.cpp) that shares no code with the compiler o
 
 | check | result |
 |---|---|
-| C++ test suite (`make test`) | 69 test cases, 27,014 assertions, all pass |
-| the same under AddressSanitizer and UBSan (`make test-san`) | 69 of 69 pass |
+| C++ test suite (`make test`) | 70 test cases, 27,376 assertions, all pass |
+| the same under AddressSanitizer and UBSan (`make test-san`) | 70 of 70 pass |
 | C++ VM vs the C++ oracle, random laws | 6,000 evaluations (1,500 random laws x 4 claims), 0 differences |
 | C++ VM vs the C++ oracle, real laws | 612 evaluations (51 jurisdictions x 12 scenarios), 0 differences |
+| shipped law images (`make test`) | all 51 in web/public/engine/laws byte-identical to a fresh `tendc` build, each listed in laws/index.json with matching hashes |
 | Python reference tests (`uv run pytest`) | 470 tests, all pass |
 | validation messages, reference and C++ | 72 claim cases give byte-identical results; 15 non-JSON texts refused by both |
 | laws refused, reference and `tendc` | 51 broken laws refused by both with the same message; 7 edge cases accepted by both |
 | hand-computed golden claim (18 lines, 40 trace entries) | the C++ engine wrote the expected file; the reference matches it byte for byte |
 | difftest, reference vs C++ (`difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`) | **121,000 claims, 0 mismatches** |
 | WASM vs native (`make wasm-parity`) | **106,000 of 106,000 claims byte-identical**; all 51 shipped law images are the ones tested |
-| fuzzing under ASan and UBSan (`make fuzz FUZZ_SECONDS=420`) | 1,276,000 executions in 420 s, no crashes, no property violations |
+| fuzzing under ASan and UBSan (`make fuzz`) | 1,276,000 executions in 420 s at the build, then 2,517,704 in 660 s (two runs, 5,726 edges) at the review; no crashes, no property violations |
 
 ### The difftest in detail
 
@@ -73,7 +74,30 @@ VM trap from a compiled law or a valid image).
 
 Against the SPEC v1.1 engine on the same machine, back to back: parsing is 12% slower (it now
 checks integer ranges, expense and unit strings, and repeated keys) and the VM 10% slower (typed
-unit checks), 7% end to end.
+unit checks), 7% end to end. Run again at the review, with the machine less busy, the same MI
+claim gave 16.2M items/s with the trace and 2.09M items/s JSON in to JSON out.
+
+### Review
+
+A second pass re-ran every check above on this branch merged with main. The difftest, WASM parity,
+validation, law, and golden results came out the same, down to the per-status tallies of the
+difftest; the C++ counts above include the one test case the review added. It also ran a difftest
+ten times larger with a new seed (`--n 20000 --seed 7 --random-laws 2000 --ir-fuzz 20000`):
+1,160,000 claims, 1,146,481 of them well-formed and byte-identical in both engines, 0 mismatches,
+and 20,000 broken or random laws with 0 disagreements. One Michigan claim (a held exam bill,
+counseling in sessions and without units, two weeks of wages with insurance, a phone, an
+unconfirmed ride, and a cost from before the incident) was worked line by line against the SPEC;
+both engines gave that answer.
+
+What the review changed:
+
+- main had redacted keys from saved source pages for AZ, ID, and WY. That changed those verified
+  files (source hashes only, no rule), so the three shipped law images no longer matched them.
+  They were rebuilt, and `make test` now fails whenever an image in web/public/engine/laws is not
+  what `tendc` builds from the current rules.
+- A fresh `uv run --project refengine` picked Python 3.14 on this machine; refengine now pins 3.12.
+- FORMAT.md section 5 now says what null means for every input key (a required key sent as null
+  is the wrong type, not a missing key), with four new validation cases run through both engines.
 
 ### Reproduce
 
@@ -94,3 +118,6 @@ uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 3
 - The claims are synthetic, aimed at each law's own numbers. Real bank histories look different.
 - 5,632 of 22,204 edges is 25%: the count includes the JSON library and code the fuzz targets
   never call, so it is not a coverage figure for the engine alone.
+- Deadlines counted from discovery (6 rules, in AZ, MA, MD, ME, NJ, and PA) are dated from the
+  incident, like those counted from a report, but SPEC v1.2 defines a flag only for the report. For
+  those states a `late` deadline may not be late.
