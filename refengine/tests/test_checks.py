@@ -1,235 +1,180 @@
-"""SPEC steps 9-12: minimum loss, deadline, reporting, and info rules."""
+"""SPEC steps 9-12: minimum loss, filing deadline, reporting, and the info list."""
 
 import pytest
 
-from claims import add_rule, check_ops, item, replace_params, run, set_params, without, zz
+from claims import check_ops, item, law, rule, run, zy, zz
 
 
-def status(out: dict, check: str) -> str:
-    return out["checks"][check]["status"]
+def checks(*items, rules=None, **context):
+    return run(*items, rules=rules, **context)["checks"]
 
 
-def three_years() -> dict:
-    # ZZ without its age-18 rule, so the 3-year rule (ZZ-DEAD-1) is the longest.
-    return without(zz(), "ZZ-DEAD-3")
+# 9. Minimum loss (ZZ-MIN-1: $100, waived automatically for sexual assault; ZZ-MIN-2: 5 lost days)
+
+def test_minimum_loss_met_by_amount_and_days():
+    c = checks(item("m", amount=20_000), item("w", "lost_wages", 50_000, units=1, unit="week"))
+    assert c["minimum_loss"] == {"status": "met", "rule_ids": ["ZZ-MIN-1", "ZZ-MIN-2"]}
 
 
-# Step 9: minimum loss (ZZ-MIN-1: $100, waived_for ["sexual_assault"])
-
-def test_minimum_loss_met_at_exactly_the_threshold():
-    out = run(item("a", "medical", 10_000), forensic_exam=False)
-    assert out["checks"]["minimum_loss"] == {"status": "met", "rule_ids": ["ZZ-MIN-1"]}
+def test_days_only_rule_without_lost_days_is_unknown():
+    # ZZ-MIN-1 is met; ZZ-MIN-2 cannot be checked from the claim.
+    assert checks(item("m", amount=20_000))["minimum_loss"]["status"] == "unknown"
 
 
-def test_minimum_loss_not_met_below_the_threshold():
-    assert status(run(item("a", "medical", 9_999), forensic_exam=False), "minimum_loss") == "not_met"
+def test_waived_and_unknown_combine_to_unknown():
+    assert checks(item("m", amount=5_000))["minimum_loss"]["status"] == "unknown"
 
 
-def test_minimum_loss_waived_for_sexual_assault_with_an_exam():
-    assert status(run(item("a", "medical", 500), forensic_exam=True), "minimum_loss") == "waived"
+def test_waiver_no_longer_depends_on_the_exam():
+    for exam in (True, False):
+        c = checks(item("w", "lost_wages", 5_000, units=1, unit="week"), forensic_exam=exam)
+        assert c["minimum_loss"]["status"] == "waived"  # $50 is under $100; the 5 days meet ZZ-MIN-2
 
 
-def test_minimum_loss_counts_allowed_cents_after_insurance():
-    out = run(item("a", "medical", 50_000, insurance=45_000), forensic_exam=False)
-    assert status(out, "minimum_loss") == "not_met"
+@pytest.mark.parametrize("waiver,sa,status", [
+    ("automatic", True, "waived"), ("discretionary", True, "may_be_waived"), ("other", True, "not_met"),
+    ("none", True, "not_met"), ("automatic", False, "not_met"), ("discretionary", False, "not_met"),
+])
+def test_waiver_kinds(waiver, sa, status):
+    ir = law([rule("T-MED", "covered", expense="medical"),
+              rule("T-MIN", "minimum_loss", cap_cents=10_000, waiver=waiver, waiver_for_sexual_assault=sa)])
+    assert checks(item("m", amount=5_000), rules=ir)["minimum_loss"]["status"] == status
+    assert checks(item("m", amount=10_000), rules=ir)["minimum_loss"]["status"] == "met"
 
 
-def test_held_and_unconfirmed_lines_do_not_count_toward_the_minimum():
-    out = run(item("a", "forensic_exam", 90_000), item("b", "medical", 50_000, confirmed=False),
-              forensic_exam=False)
-    assert status(out, "minimum_loss") == "not_met"
+def test_amount_or_days_rule_like_michigan():
+    ir = law([rule("T-W", "covered", expense="lost_wages"),
+              rule("T-MIN", "minimum_loss", cap_cents=20_000, days_lost=5, waiver="discretionary", waiver_for_sexual_assault=True)])
+
+    def status(*items):
+        return checks(*items, rules=ir)["minimum_loss"]["status"]
+
+    assert status(item("w", "lost_wages", 100, units=1, unit="week")) == "met"  # 5 days
+    assert status(item("d", "lost_wages", 100, units=5, unit="day")) == "met"
+    assert status(item("d", "lost_wages", 100, units=4, unit="day")) == "may_be_waived"
+    assert status(item("d", "lost_wages", 25_000, units=0)) == "met"  # $250
+    assert status(item("w", "lost_wages", 100, units=4, unit="day"), item("x", "lost_wages", 100, units=1, unit="day",
+                                                                             date="2026-07-02")) == "met"  # days add up
+    assert status(item("h", "lost_wages", 100, units=40, unit="hour")) == "may_be_waived"  # hours are not days
+    assert status(item("p", "lost_wages", 100, units=9, unit="day", confirmed=False)) == "may_be_waived"
 
 
-@pytest.mark.parametrize("waived_for", ["sexual_assault", "victims of sexual_assault", ["x", "sexual_assault"]])
-def test_waiver_matches_a_string_or_a_list_entry(waived_for):
-    rules = set_params(zz(), "ZZ-MIN-1", waived_for=waived_for)
-    assert status(run(item("a", "medical", 500), rules=rules), "minimum_loss") == "waived"
+def test_lost_days_count_only_eligible_lost_wage_lines():
+    ir = law([rule("T-C", "covered", expense="counseling"), rule("T-MIN", "minimum_loss", days_lost=3)])
+    # lost_wages has no coverage here, so its days do not count.
+    assert checks(item("w", "lost_wages", 100, units=9, unit="day"), rules=ir)["minimum_loss"]["status"] == "unknown"
+    assert checks(item("c", "counseling", 100, units=9, unit="day"), rules=ir)["minimum_loss"]["status"] == "unknown"
 
 
-@pytest.mark.parametrize("waived_for", [["forensic_exam"], ["victims of sexual_assault"], "sexual assault", None])
-def test_waiver_needs_the_sexual_assault_token(waived_for):
-    # ["forensic_exam"] is how SC-MIN-2 encodes its exam waiver; the SPEC's test does not match it.
-    rules = set_params(zz(), "ZZ-MIN-1", waived_for=waived_for)
-    assert status(run(item("a", "medical", 500), rules=rules), "minimum_loss") == "not_met"
-
-
-def test_any_unwaived_shortfall_is_not_met():
-    rules = add_rule(zz(), "ZZ-MIN-9", "minimum_loss", amount_cents=5_000)
-    assert status(run(item("a", "medical", 7_000), rules=rules), "minimum_loss") == "waived"
-    out = run(item("a", "medical", 3_000), rules=rules)
-    assert out["checks"]["minimum_loss"] == {"status": "not_met", "rule_ids": ["ZZ-MIN-1", "ZZ-MIN-9"]}
-
-
-def test_only_days_lost_is_unknown():
-    rules = replace_params(zz(), "ZZ-MIN-1", {"days_lost": 7})
-    assert run(item("a", "medical", 500), rules=rules)["checks"]["minimum_loss"] == {"status": "unknown",
-                                                                                    "rule_ids": ["ZZ-MIN-1"]}
-
-
-def test_amount_and_days_lost_on_one_rule_uses_the_amount():
-    rules = replace_params(zz(), "ZZ-MIN-1", {"amount_cents": 20_000, "days_lost": 5})
-    assert status(run(item("a", "medical", 500), rules=rules, forensic_exam=False), "minimum_loss") == "not_met"
-
-
-def test_rule_with_no_threshold_is_met():
-    # NJ-MINLOSS-1 says there is no minimum; the SPEC only makes a days_lost-only rule unknown.
-    rules = replace_params(zz(), "ZZ-MIN-1", {})
-    assert run(item("a", "medical", 1), rules=rules)["checks"]["minimum_loss"] == {"status": "met",
-                                                                                  "rule_ids": ["ZZ-MIN-1"]}
+def test_minimum_loss_uses_the_total_after_caps():
+    ir = law([rule("T-MED", "covered", expense="medical"), rule("T-T", "total_cap", cap_cents=4_000),
+              rule("T-MIN", "minimum_loss", cap_cents=5_000)])
+    assert checks(item("m", amount=6_000), rules=ir)["minimum_loss"]["status"] == "not_met"
 
 
 def test_no_minimum_loss_rule_is_met():
-    out = run(rules=without(zz(), "minimum_loss"), forensic_exam=False)
-    assert out["checks"]["minimum_loss"] == {"status": "met", "rule_ids": []}
+    c = checks(item("m"), rules=law([rule("T-MED", "covered", expense="medical")]))
+    assert c["minimum_loss"] == {"status": "met", "rule_ids": []}
 
 
-# Step 10: deadline (ZZ-DEAD-1: 3 years; ZZ-DEAD-2: 180 days; ZZ-DEAD-3: 10 years from age 18; ZZ-DEAD-4: none)
-
-def test_deadline_uses_the_longest_rule_and_lists_all():
-    assert run()["checks"]["deadline"] == {"status": "ok", "deadline_date": "2036-06-14",
-                                           "rule_ids": ["ZZ-DEAD-1", "ZZ-DEAD-2", "ZZ-DEAD-3", "ZZ-DEAD-4"]}
-    assert run(rules=three_years())["checks"]["deadline"]["deadline_date"] == "2029-06-14"
+def test_a_zero_minimum_is_always_met():
+    ir = law([rule("T-MIN", "minimum_loss", cap_cents=0, waiver="none", waiver_for_sexual_assault=False)])
+    assert checks(rules=ir)["minimum_loss"]["status"] == "met"
 
 
-def test_age_18_rule_is_counted_from_the_incident():
-    # The SPEC dates every rule from incident_date; VA-DEADLINE-4 makes this matter (see README).
-    rules = without(zz(), "ZZ-DEAD-1", "ZZ-DEAD-2")
-    assert run(rules=rules)["checks"]["deadline"] == {"status": "ok", "deadline_date": "2036-06-14",
-                                                      "rule_ids": ["ZZ-DEAD-3", "ZZ-DEAD-4"]}
+@pytest.mark.parametrize("statuses,combined", [
+    (("waived", "may_be_waived"), "may_be_waived"), (("unknown", "may_be_waived"), "may_be_waived"),
+    (("waived", "unknown"), "unknown"), (("may_be_waived", "not_met"), "not_met"), (("unknown", "not_met"), "not_met"),
+])
+def test_the_most_severe_rule_wins(statuses, combined):
+    kinds = {"waived": dict(cap_cents=10_000, waiver="automatic", waiver_for_sexual_assault=True),
+             "may_be_waived": dict(cap_cents=10_000, waiver="discretionary", waiver_for_sexual_assault=True),
+             "not_met": dict(cap_cents=10_000, waiver="none", waiver_for_sexual_assault=False),
+             "unknown": dict(days_lost=3)}
+    ir = law([rule(f"T-{i}", "minimum_loss", **kinds[s]) for i, s in enumerate(statuses)])
+    assert checks(rules=ir)["minimum_loss"]["status"] == combined
 
 
-def test_deadline_is_ok_on_the_last_day_and_late_the_next():
-    assert status(run(rules=three_years(), as_of="2029-06-14"), "deadline") == "ok"
-    assert status(run(rules=three_years(), as_of="2029-06-15"), "deadline") == "late"
+# 10. Deadline (ZZ-DEAD-1: 3 years from the crime; ZZ-DEAD-2: 180 days from discovery; ZZ-DEAD-5: 2 years from the report)
+
+def test_latest_deadline_wins_and_report_anchors_are_flagged():
+    d = checks()["deadline"]
+    assert d == {"status": "ok", "deadline_date": "2029-06-13", "rule_ids": ["ZZ-DEAD-1", "ZZ-DEAD-2", "ZZ-DEAD-5"],
+                 "flags": ["deadline_from_report"]}
 
 
-def test_deadline_in_days():
-    out = run(rules=without(zz(), "ZZ-DEAD-1", "ZZ-DEAD-3"), as_of="2026-12-12")
-    assert out["checks"]["deadline"] == {"status": "late", "deadline_date": "2026-12-11",
-                                         "rule_ids": ["ZZ-DEAD-2", "ZZ-DEAD-4"]}
+def test_deadline_boundaries():
+    assert checks(as_of="2029-06-13")["deadline"]["status"] == "ok"
+    assert checks(as_of="2029-06-14")["deadline"]["status"] == "late"
 
 
-def test_years_beat_days_on_one_rule():
-    rules = replace_params(without(zz(), "ZZ-DEAD-1", "ZZ-DEAD-3"), "ZZ-DEAD-2", {"years": 1, "days": 30})
-    assert run(rules=rules)["checks"]["deadline"]["deadline_date"] == "2027-06-14"
+def test_report_anchored_deadline_is_dated_from_the_incident():
+    ir = law([rule("T-D", "deadline", days=730, **{"from": "report"})])
+    d = checks(rules=ir)["deadline"]
+    assert (d["deadline_date"], d["flags"]) == ("2028-06-13", ["deadline_from_report"])
+    d = checks(rules=ir, as_of="2030-01-01")["deadline"]
+    assert (d["status"], d["flags"]) == ("late", ["deadline_from_report"])  # a later report could leave time
 
 
-def test_feb_29_plus_years_lands_on_feb_28():
-    out = run(rules=three_years(), incident="2024-02-29", as_of="2027-02-28")
-    assert out["checks"]["deadline"]["deadline_date"] == "2027-02-28"
-    assert status(out, "deadline") == "ok"
-    assert status(run(rules=three_years(), incident="2024-02-29", as_of="2027-03-01"), "deadline") == "late"
-
-
-def test_feb_29_into_a_leap_year_stays_feb_29():
-    rules = set_params(three_years(), "ZZ-DEAD-1", years=4)
-    assert run(rules=rules, incident="2024-02-29")["checks"]["deadline"]["deadline_date"] == "2028-02-29"
-
-
-def test_rule_without_a_period_is_listed_only():
-    out = run(rules=without(zz(), "ZZ-DEAD-1", "ZZ-DEAD-2", "ZZ-DEAD-3"))
-    assert out["checks"]["deadline"] == {"status": "unknown", "deadline_date": None, "rule_ids": ["ZZ-DEAD-4"]}
+def test_other_anchors_are_not_flagged():
+    for anchor in ("crime", "incident", "discovery", "injury", "offense"):
+        ir = law([rule("T-D", "deadline", days=30, **{"from": anchor})])
+        assert checks(rules=ir)["deadline"]["flags"] == []
+    assert checks(rules=law([rule("T-D", "deadline", days=30)]))["deadline"]["flags"] == []
 
 
 def test_no_deadline_rule_is_unknown():
-    out = run(rules=without(zz(), "filing_deadline"))
-    assert out["checks"]["deadline"] == {"status": "unknown", "deadline_date": None, "rule_ids": []}
+    d = checks(rules=zy())["deadline"]
+    assert d == {"status": "unknown", "deadline_date": None, "rule_ids": [], "flags": []}
 
 
-def test_huge_period_stops_at_the_last_date():
-    rules = set_params(zz(), "ZZ-DEAD-1", years=1000)
-    out = run(rules=rules, incident="9500-01-01", as_of="9600-01-01")
-    assert out["checks"]["deadline"]["deadline_date"] == "9999-12-31"
+def test_dates_far_out_stop_at_9999():
+    ir = law([rule("T-D", "deadline", days=4_000_000)])
+    d = checks(rules=ir, incident="9990-01-01", as_of="9999-12-31")["deadline"]
+    assert (d["status"], d["deadline_date"]) == ("ok", "9999-12-31")
 
 
-# Step 11: reporting (ZZ-REPORT-1: required, alternative forensic_exam; ZZ-REPORT-2: not required)
-
-def test_police_report_satisfies():
-    out = run(police_report="yes", forensic_exam=False)
-    assert out["checks"]["reporting"] == {"status": "satisfied", "rule_ids": ["ZZ-REPORT-1", "ZZ-REPORT-2"]}
+def test_feb_29_incident():
+    ir = law([rule("T-D", "deadline", days=365)])
+    assert checks(rules=ir, incident="2024-02-29", as_of="2024-03-01")["deadline"]["deadline_date"] == "2025-02-28"
 
 
-def test_forensic_exam_alternative_satisfies():
-    assert status(run(police_report="no", forensic_exam=True), "reporting") == "satisfied"
+# 11. Reporting (ZZ-REPORT-1: required, an exam counts; ZZ-REPORT-2: not required)
 
-
-def test_report_required_when_no_alternative_can_apply():
-    assert status(run(police_report="no", forensic_exam=False), "reporting") == "required"
-
-
-def test_unknown_police_report_is_unknown():
-    assert status(run(police_report="unknown", forensic_exam=False), "reporting") == "unknown"
-
-
-def test_alternative_the_engine_cannot_see_keeps_it_unknown():
-    rules = set_params(zz(), "ZZ-REPORT-2", alternatives=["advocate"])
-    assert status(run(rules=rules, police_report="no", forensic_exam=False), "reporting") == "unknown"
-
-
-def test_exam_alternative_on_a_not_required_rule_still_counts():
-    rules = set_params(set_params(zz(), "ZZ-REPORT-1", alternatives=[]), "ZZ-REPORT-2", alternatives=["forensic_exam"])
-    assert status(run(rules=rules, police_report="no", forensic_exam=True), "reporting") == "satisfied"
-
-
-def test_rules_that_require_nothing_never_make_it_required():
-    rules = set_params(zz(), "ZZ-REPORT-1", required=False)
-    assert status(run(rules=rules, police_report="no", forensic_exam=False), "reporting") == "unknown"
-    assert status(run(rules=rules, police_report="yes", forensic_exam=False), "reporting") == "satisfied"
-
-
-def test_rule_without_required_param_is_a_requirement():
-    rules = replace_params(without(zz(), "ZZ-REPORT-2"), "ZZ-REPORT-1", {})
-    assert status(run(rules=rules, police_report="no", forensic_exam=True), "reporting") == "required"
-
-
-@pytest.mark.parametrize("alternatives, exam, expected", [
-    ("forensic_exam", True, "satisfied"),
-    ("forensic_exam", False, "required"),
-    ("advocate", False, "unknown"),
-    ("", False, "required"),
+@pytest.mark.parametrize("police,exam,status", [
+    ("yes", False, "satisfied"), ("no", True, "satisfied"), ("no", False, "required"), ("unknown", False, "unknown"),
+    ("unknown", True, "satisfied"),
 ])
-def test_alternatives_given_as_a_string(alternatives, exam, expected):
-    rules = set_params(without(zz(), "ZZ-REPORT-2"), "ZZ-REPORT-1", alternatives=alternatives)
-    assert status(run(rules=rules, police_report="no", forensic_exam=exam), "reporting") == expected
+def test_reporting(police, exam, status):
+    assert checks(police_report=police, forensic_exam=exam)["reporting"] == {
+        "status": status, "rule_ids": ["ZZ-REPORT-1", "ZZ-REPORT-2"]}
 
 
-def test_no_reporting_rule_is_satisfied():
-    out = run(rules=without(zz(), "reporting_requirement"), police_report="no", forensic_exam=False)
-    assert out["checks"]["reporting"] == {"status": "satisfied", "rule_ids": []}
+def test_alternatives_other_than_the_exam_do_not_satisfy():
+    assert checks(rules=zy(), police_report="no", forensic_exam=True)["reporting"]["status"] == "required"
 
 
-# Step 12 and the check trace
-
-def test_info_rules_are_listed_in_file_order():
-    assert run()["info_rule_ids"] == ["ZZ-COLL-1", "ZZ-CONDUCT-1", "ZZ-EMERG-1", "ZZ-ELIG-1", "ZZ-RES-1"]
-
-
-def test_categories_no_step_uses_are_ignored():
-    # submission, required_document, and processing_time describe how to file; the SPEC uses
-    # none of them in a decision or in info_rule_ids.
-    rules = add_rule(zz(), "ZZ-SUB-1", "submission", method="mail", target="PO Box 1")
-    rules = add_rule(rules, "ZZ-DOC-1", "required_document", document="receipts")
-    rules = add_rule(rules, "ZZ-TIME-1", "processing_time", days=90)
-    items = [item("a", "medical", 50_000), item("b", "counseling", 9_000, units=1)]
-    out, plain = run(*items, rules=rules), run(*items)
-    out.pop("law_image_sha256")
-    plain.pop("law_image_sha256")
-    assert out == plain
+def test_no_required_rule_is_not_required():
+    ir = law([rule("T-R", "reporting", required=False, alternatives=["advocate"])])
+    assert checks(rules=ir, police_report="no", forensic_exam=False)["reporting"]["status"] == "not_required"
+    assert checks(rules=law([]), police_report="no")["reporting"] == {"status": "not_required", "rule_ids": []}
+    assert checks(rules=law([rule("T-R", "reporting")]), police_report="no")["reporting"]["status"] == "required"
 
 
-def test_conduct_rule_never_changes_an_amount():
-    items = [item("a", "medical", 50_000), item("b", "counseling", 9_000, units=1)]
-    with_conduct = run(*items)
-    without_conduct = run(*items, rules=without(zz(), "conduct_reduction"))
-    with_conduct["info_rule_ids"].remove("ZZ-CONDUCT-1")
-    with_conduct.pop("law_image_sha256")
-    without_conduct.pop("law_image_sha256")
-    assert with_conduct == without_conduct
+# 12. Info rules and the check trace
+
+def test_info_rule_ids_in_rule_order():
+    assert run()["info_rule_ids"] == ["ZZ-COV-9", "ZZ-DEAD-3", "ZZ-DEAD-4", "ZZ-COLL-1", "ZZ-CONDUCT-1", "ZZ-EMERG-1",
+                                      "ZZ-ELIG-1", "ZZ-RES-1"]
 
 
-def test_checks_come_last_in_step_order_naming_their_first_rule():
-    out = run(item("a"))
-    assert check_ops(out) == [("minimum_loss", "ZZ-MIN-1"), ("deadline", "ZZ-DEAD-1"), ("reporting", "ZZ-REPORT-1")]
-    assert [t["op"] for t in out["trace"][-3:]] == ["minimum_loss", "deadline", "reporting"]
-    bare = run(item("a"), rules=without(zz(), "minimum_loss", "filing_deadline", "reporting_requirement"))
-    assert check_ops(bare) == [("minimum_loss", None), ("deadline", None), ("reporting", None)]
+def test_checks_are_traced_last_in_a_fixed_order():
+    assert check_ops(run(item("a"))) == [("minimum_loss", "ZZ-MIN-1"), ("deadline", "ZZ-DEAD-1"),
+                                         ("reporting", "ZZ-REPORT-1")]
+    assert check_ops(run(rules=law([]))) == [("minimum_loss", None), ("deadline", None), ("reporting", None)]
+
+
+def test_zz_fixture_checks_are_what_the_tests_assume():
+    kinds = {r["id"]: r for r in zz()["rules"]}
+    assert kinds["ZZ-MIN-1"]["waiver"] == "automatic" and kinds["ZZ-MIN-2"]["days_lost"] == 5
+    assert kinds["ZZ-DEAD-5"]["from"] == "report"

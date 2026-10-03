@@ -1,4 +1,4 @@
-"""Builders for test claims against the synthetic ZZ jurisdiction."""
+"""Builders for test claims against the synthetic ZZ law (tests/fixtures/ir/ZZ.json)."""
 
 from __future__ import annotations
 
@@ -6,77 +6,80 @@ import copy
 import json
 from pathlib import Path
 
-from tend_ref import evaluate
+from tend_ref import Law, evaluate
 
-FIXTURES = Path(__file__).parent / "fixtures"
-GOLDEN = Path(__file__).parent / "golden"
+HERE = Path(__file__).parent
+FIXTURES = HERE / "fixtures"
+GOLDEN = HERE / "golden"
+REPO = HERE.parents[1]
 INCIDENT = "2026-06-14"
 AS_OF = "2026-10-03"
 
-_ZZ = json.loads((FIXTURES / "ZZ.json").read_text(encoding="utf-8"))
+_ZZ = json.loads((FIXTURES / "ir" / "ZZ.json").read_text(encoding="utf-8"))
+_ZY = json.loads((FIXTURES / "ir" / "ZY.json").read_text(encoding="utf-8"))
 
 
 def zz() -> dict:
     return copy.deepcopy(_ZZ)
 
 
-def without(rules: dict, *names: str) -> dict:
-    # Drop rules by id or by category.
-    out = copy.deepcopy(rules)
-    out["rules"] = [r for r in out["rules"] if r["id"] not in names and r["category"] not in names]
+def zy() -> dict:
+    return copy.deepcopy(_ZY)
+
+
+def law(rules: list[dict], code: str = "ZZ", skipped: list[dict] | None = None) -> dict:
+    """A small IR document for one test."""
+    return {"ir_version": 2, "jurisdiction": code, "name": "Test", "rules": rules, "skipped": skipped or []}
+
+
+def rule(rule_id: str, kind: str, **fields) -> dict:
+    return {"id": rule_id, "kind": kind, **fields}
+
+
+def cap(rule_id: str, expense: str, cents: int, unit: str | None = None, **fields) -> dict:
+    if unit:
+        return rule(rule_id, "expense_cap", expense=expense, cap_cents=cents, per="unit", unit=unit, **fields)
+    return rule(rule_id, "expense_cap", expense=expense, cap_cents=cents, per="claim", **fields)
+
+
+def without(ir: dict, *names: str) -> dict:
+    # Drop rules by id or by kind.
+    out = copy.deepcopy(ir)
+    out["rules"] = [r for r in out["rules"] if r["id"] not in names and r["kind"] not in names]
     return out
 
 
-def only(rules: dict, category: str, *ids: str) -> dict:
-    # Keep just the listed rules of one category; every other category stays.
-    out = copy.deepcopy(rules)
-    out["rules"] = [r for r in out["rules"] if r["category"] != category or r["id"] in ids]
-    return out
-
-
-def set_params(rules: dict, rule_id: str, **params) -> dict:
-    out = copy.deepcopy(rules)
-    rule = next(r for r in out["rules"] if r["id"] == rule_id)
-    rule["params"] = {**rule.get("params", {}), **params}
-    return out
-
-
-def replace_params(rules: dict, rule_id: str, params: dict) -> dict:
-    out = copy.deepcopy(rules)
-    next(r for r in out["rules"] if r["id"] == rule_id)["params"] = params
-    return out
-
-
-def add_rule(rules: dict, rule_id: str, category: str, **params) -> dict:
-    out = copy.deepcopy(rules)
-    out["rules"].append({
-        "id": rule_id, "category": category, "params": params,
-        "summary": "Test rule.", "quote": "Test rule.", "source_id": "ZZ-S1", "pinpoint": "ZZ Test Code 9.9",
-    })
+def with_rules(ir: dict, *rules: dict) -> dict:
+    out = copy.deepcopy(ir)
+    out["rules"] += list(rules)
     return out
 
 
 def item(item_id: str, expense: str = "medical", amount: int = 10_000, date: str = "2026-07-01",
-         confirmed: bool = True, insurance: int = 0, units: int = 0, is_bill: bool = False) -> dict:
-    return {
-        "item_id": item_id, "date": date, "amount_cents": amount, "expense": expense,
-        "confirmed": confirmed, "insurance_paid_cents": insurance, "is_bill": is_bill,
-        "units": units, "description": "test line",
-    }
+         confirmed: bool = True, insurance: int = 0, units: int = 0, unit: str | None = None, tags=None,
+         is_bill: bool = False) -> dict:
+    it = {"item_id": item_id, "date": date, "amount_cents": amount, "expense": expense, "confirmed": confirmed,
+          "insurance_paid_cents": insurance, "is_bill": is_bill, "units": units, "description": "test line"}
+    if unit is not None:
+        it["unit"] = unit
+    if tags is not None:
+        it["tags"] = tags
+    return it
 
 
 def claim(*items: dict, incident: str = INCIDENT, as_of: str = AS_OF, police_report: str = "yes",
           forensic_exam: bool = True, jurisdiction: str = "ZZ") -> dict:
     return {
         "jurisdiction": jurisdiction,
-        "context": {"incident_date": incident, "as_of_date": as_of,
-                    "police_report": police_report, "forensic_exam": forensic_exam},
+        "context": {"incident_date": incident, "as_of_date": as_of, "police_report": police_report,
+                    "forensic_exam": forensic_exam},
         "items": list(items),
     }
 
 
 def run(*items: dict, rules: dict | None = None, **context) -> dict:
-    return evaluate(rules if rules is not None else zz(), claim(*items, **context))
+    ir = rules if rules is not None else zz()
+    return evaluate(Law(ir), claim(*items, jurisdiction=ir["jurisdiction"], **context))
 
 
 def line(out: dict, item_id: str) -> dict:
