@@ -293,6 +293,21 @@ describe("IndexedDB store", () => {
     expect(await createVault({ store: idbStore("tend-vault", () => idb.factory), idleMs: 0 }).exists()).toBe(false);
   });
 
+  it("never creates the database just by looking, so a deleted vault leaves no trace", async () => {
+    const idb = fakeIndexedDB();
+    const vault = createVault({ store: idbStore("tend-vault", () => idb.factory), iterations: FAST, idleMs: 0 });
+    expect(await vault.exists()).toBe(false);
+    expect(await vault.methods()).toBeNull();
+    expect(await vault.unlock({ passphrase: "maple river 42" })).toBe(false);
+    expect(idb.databases()).toEqual([]);
+
+    await vault.create({ passphrase: "maple river 42" });
+    expect(idb.databases()).toEqual(["tend-vault"]);
+    await vault.destroy();
+    expect(await vault.exists()).toBe(false);
+    expect(idb.databases()).toEqual([]);
+  });
+
   it("says so plainly when the browser has no storage", async () => {
     const vault = createVault({ store: idbStore("tend-vault", () => undefined), idleMs: 0 });
     await expect(vault.exists()).rejects.toMatchObject({ code: "storage" });

@@ -19,6 +19,7 @@ export class StorageUnavailableError extends Error {
 const OBJECTS = "kv";
 
 export function idbStore(dbName = "tend-vault", factory?: () => IDBFactory | undefined): VaultStore {
+  // Only ever a real, open connection.
   let conn: Promise<IDBDatabase> | null = null;
 
   const idb = (): IDBFactory => {
@@ -27,34 +28,57 @@ export function idbStore(dbName = "tend-vault", factory?: () => IDBFactory | und
     return f;
   };
 
-  function open(): Promise<IDBDatabase> {
-    conn ??= new Promise<IDBDatabase>((resolve, reject) => {
+  // Reading never creates the database. On a shared device, even an empty "tend-vault" left
+  // behind after a check (or after delete) would show that Tend was used here.
+  function connect(create: boolean): Promise<IDBDatabase | null> {
+    if (conn) return conn;
+    const attempt = new Promise<IDBDatabase | null>((resolve, reject) => {
       const req = idb().open(dbName, 1);
-      req.onupgradeneeded = () => {
+      let skipped = false;
+      req.onupgradeneeded = (ev) => {
+        if (!create && ev.oldVersion === 0) {
+          // Aborting the first upgrade of a brand-new database removes it again.
+          skipped = true;
+          req.transaction?.abort();
+          return;
+        }
         if (!req.result.objectStoreNames.contains(OBJECTS)) req.result.createObjectStore(OBJECTS);
       };
-      req.onsuccess = () => {
-        const db = req.result;
-        // Another tab deleting the vault asks open connections to close; this one does.
-        db.onversionchange = () => {
-          db.close();
-          conn = null;
-        };
-        db.onclose = () => {
-          conn = null;
-        };
-        resolve(db);
-      };
-      req.onerror = () => {
-        conn = null;
-        reject(req.error ?? new StorageUnavailableError());
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = (ev) => {
+        if (!skipped) return reject(req.error ?? new StorageUnavailableError());
+        ev.preventDefault();
+        resolve(null);
       };
     });
-    return conn;
+    return attempt.then((db) => {
+      if (!db) return null;
+      // Two calls raced to connect: keep one connection, so nothing blocks a later delete.
+      if (conn) {
+        db.close();
+        return conn;
+      }
+      // Another tab deleting the vault asks open connections to close; this one does.
+      db.onversionchange = () => {
+        db.close();
+        conn = null;
+      };
+      db.onclose = () => {
+        conn = null;
+      };
+      conn = Promise.resolve(db);
+      return db;
+    });
   }
 
-  async function run<T>(mode: IDBTransactionMode, op: (s: IDBObjectStore) => IDBRequest<T>): Promise<T> {
-    const db = await open();
+  async function run<T>(
+    mode: IDBTransactionMode,
+    op: (s: IDBObjectStore) => IDBRequest<T>,
+    create = false,
+  ): Promise<T | undefined> {
+    const db = await connect(create);
+    // No database yet: nothing to read, delete, or clear.
+    if (!db) return undefined;
     return new Promise<T>((resolve, reject) => {
       const tx = db.transaction(OBJECTS, mode);
       const req = op(tx.objectStore(OBJECTS));
@@ -68,7 +92,7 @@ export function idbStore(dbName = "tend-vault", factory?: () => IDBFactory | und
   return {
     get: (key) => run("readonly", (s) => s.get(key)),
     async put(key, value) {
-      await run("readwrite", (s) => s.put(value, key));
+      await run("readwrite", (s) => s.put(value, key), true);
     },
     async delete(key) {
       await run("readwrite", (s) => s.delete(key));

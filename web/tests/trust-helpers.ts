@@ -22,10 +22,11 @@ export const rowanOutput = () => readJson<EngineOutput>(path.join(webDir, "fixtu
 
 // --- IndexedDB, just the calls lib/vault/store.ts makes ---------------------------------------
 
-type Handler = (() => void) | null;
+type Handler = ((ev?: unknown) => void) | null;
 interface FakeRequest<T = unknown> {
   result: T;
   error: DOMException | null;
+  transaction: { abort(): void } | null;
   onsuccess: Handler;
   onerror: Handler;
   onupgradeneeded?: Handler;
@@ -35,7 +36,13 @@ interface FakeRequest<T = unknown> {
 export function fakeIndexedDB() {
   const dbs = new Map<string, Map<string, Map<unknown, unknown>>>();
   const request = <T>(): FakeRequest<T> =>
-    ({ result: undefined, error: null, onsuccess: null, onerror: null }) as unknown as FakeRequest<T>;
+    ({
+      result: undefined,
+      error: null,
+      transaction: null,
+      onsuccess: null,
+      onerror: null,
+    }) as unknown as FakeRequest<T>;
 
   const factory = {
     open(name: string) {
@@ -44,6 +51,8 @@ export function fakeIndexedDB() {
         const fresh = !dbs.has(name);
         if (fresh) dbs.set(name, new Map());
         const stores = dbs.get(name)!;
+        let aborted = false;
+        req.transaction = { abort: () => (aborted = true) };
         req.result = {
           objectStoreNames: { contains: (n: string) => stores.has(n) },
           createObjectStore: (n: string) => stores.set(n, new Map()),
@@ -70,7 +79,14 @@ export function fakeIndexedDB() {
           onversionchange: null,
           onclose: null,
         };
-        if (fresh) req.onupgradeneeded?.();
+        if (fresh) req.onupgradeneeded?.({ oldVersion: 0 });
+        // As in browsers: aborting the first upgrade removes the new database again.
+        if (aborted) {
+          dbs.delete(name);
+          req.error = new DOMException("The upgrade was aborted.", "AbortError");
+          req.onerror?.({ preventDefault() {} });
+          return;
+        }
         req.onsuccess?.();
       });
       return req;
