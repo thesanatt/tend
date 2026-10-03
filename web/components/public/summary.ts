@@ -356,10 +356,11 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
   let clause: ShareClause | null = null;
 
   if (!required.length) {
+    const others = rules.some((r) => list(r, "alternatives").length);
     key = {
       id: "report",
-      big: "No police report",
-      small: "is required to apply",
+      big: "Police report",
+      small: others ? "not required; other records can count" : "not required to apply",
       cites: rules.map((r) => r.id),
     };
   } else if (examInRequired.length) {
@@ -423,10 +424,14 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
   const timed = rules
     .map((r) => ({ r, d: duration(r), from: String(params(r).from ?? "") }))
     .filter((x) => x.d !== null);
-  // The headline deadline counts from the day it happened; the longest one wins, as in the engine.
+  // The headline deadline counts from the day it happened. Where rules differ, the shortest one
+  // leads: a reader who files early loses nothing, and one told the longest window could miss the
+  // real one (Florida: 3 years, or 5 with good cause). The longer windows follow as their own rules.
+  // The engine's eligibility check uses the longest instead (docs/SPEC.md step 10), so it never
+  // turns someone away; the two answer different questions.
   const primary = timed
     .filter((x) => FROM_INCIDENT.has(x.from))
-    .sort((a, b) => b.d!.days - a.d!.days || a.r.id.localeCompare(b.r.id))[0];
+    .sort((a, b) => a.d!.days - b.d!.days || a.r.id.localeCompare(b.r.id))[0];
   const facts: Fact[] = [];
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;
@@ -480,15 +485,16 @@ function contactFacts(law: Jurisdiction, c: Corpus): { phone: Fact | null; facts
     facts.push({ key: `apply-${r.id}`, label: METHOD_LABEL[method], text: target, cites: [r.id], kind: "law", href });
   }
 
+  // The phone is shown only with the saved page it came from.
   let phone: Fact | null = null;
-  if (program.phone) {
-    const sourceId = program.phone_source_id && sources.has(program.phone_source_id) ? program.phone_source_id : null;
+  const sourceId = program.phone_source_id && sources.has(program.phone_source_id) ? program.phone_source_id : null;
+  if (program.phone && sourceId) {
     phone = {
       key: "phone",
       label: "Phone",
       text: program.phone,
-      cites: sourceId ? [sourceId] : [],
-      kind: sourceId ? "law" : "note",
+      cites: [sourceId],
+      kind: "law",
       href: `tel:${program.phone.replace(/[^\d+]/g, "")}`,
     };
     facts.push(phone);

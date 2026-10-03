@@ -224,6 +224,23 @@ describe("other states", () => {
     expect(deadline.facts).toEqual([expect.objectContaining({ kind: "note", cites: [] })]);
   });
 
+  it("leads with the shortest deadline and lists the longer windows as their own rules", () => {
+    // Florida: 3 years for newer crimes; 5 only with good cause or a DNA delay.
+    const fl = built.get("FL")!.summary;
+    expect(fl.keyFacts.find((k) => k.id === "deadline")).toMatchObject({ big: "3 years", cites: ["FL-DEADLINE-1"] });
+    const flDeadline = fl.sections.find((s) => s.id === "deadline")!;
+    expect(flDeadline.facts.map((f) => f.cites[0])).toContain("FL-DEADLINE-3");
+    // Kansas: 5 years, and the board may accept 10 for a sexually violent crime.
+    expect(built.get("KS")!.summary.keyFacts.find((k) => k.id === "deadline")?.big).toBe("5 years");
+  });
+
+  it("shows a program phone only with the page it came from", () => {
+    for (const { law, summary } of built.values()) {
+      if (!summary.phone) continue;
+      expect(summary.phone.cites).toEqual([law.program.phone_source_id]);
+    }
+  });
+
   it("Nevada's 60 months reads as 5 years", () => {
     expect(built.get("NV")!.summary.keyFacts.find((k) => k.id === "deadline")?.big).toBe("5 years");
   });
@@ -278,7 +295,10 @@ function zz(rules: Rule[], ir: IrSummary | null = null) {
 describe("summary rules on a made-up jurisdiction", () => {
   it("says no police report is required only when every report rule says so", () => {
     const none = zz([rule("ZZ-R1", "reporting_requirement", { required: false, alternatives: ["medical_provider"] })]);
-    expect(none.keyFacts.find((k) => k.id === "report")).toMatchObject({ big: "No police report" });
+    expect(none.keyFacts.find((k) => k.id === "report")).toMatchObject({
+      big: "Police report",
+      small: "not required; other records can count",
+    });
     expect(none.sections.find((s) => s.id === "police")!.facts[0].text).toBe(
       "A police report is not required. Other records can count, like medical or counseling records.",
     );
