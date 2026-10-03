@@ -1,16 +1,28 @@
-// Rebuilds the engine input/output fixtures from the Rowan scan fixture and the verified MI rules.
+// Rebuilds the engine input/output fixtures from the Rowan scan fixture with the real law engine
+// (the WebAssembly build in public/engine). Needs public/engine/laws/MI.tlaw: `make -C ../engine wasm`.
 // usage: npx tsx scripts/make-fixtures.ts
-// Outputs come from the preview evaluator, which tests/parity.test.ts holds to the reference engine.
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { toEngineInput } from "../lib/engine/index";
-import { evaluatePreview } from "../lib/engine/preview";
-import type { EngineInput, Jurisdiction, ScanResult, ShareView } from "../lib/types";
+import type { EngineInput, EngineOutput, Jurisdiction, ScanResult, ShareView } from "../lib/types";
 
 const web = path.resolve(import.meta.dirname, "..");
 const read = (p: string) => readFileSync(path.join(web, p));
 const write = (p: string, data: unknown) => writeFileSync(path.join(web, p), JSON.stringify(data, null, 2) + "\n");
+
+const image = path.join(web, "public/engine/laws/MI.tlaw");
+if (!existsSync(image)) {
+  console.error("No compiled law image at public/engine/laws/MI.tlaw. Run `make -C ../engine wasm` first.");
+  process.exit(1);
+}
+const { loadTend } = (await import(pathToFileURL(path.join(web, "public/engine/tend_engine.mjs")).href)) as {
+  loadTend: () => Promise<{ evaluate: (img: Uint8Array, claim: unknown) => EngineOutput }>;
+};
+const tend = await loadTend();
+const img = new Uint8Array(readFileSync(image));
+const evaluate = (input: EngineInput) => tend.evaluate(img, input);
 
 const scan = JSON.parse(read("fixtures/rowan-mi.scan.json").toString()) as ScanResult;
 const lawBytes = read("public/data/law/MI.json");
@@ -23,7 +35,7 @@ const input: EngineInput = toEngineInput({
   items: scan.items,
 });
 write("fixtures/rowan-mi.input.json", input);
-write("fixtures/rowan-mi.output.json", evaluatePreview(input, law, sha));
+write("fixtures/rowan-mi.output.json", evaluate(input));
 
 // The advocate view shows the claim after Rowan answered every question with yes.
 const answered: EngineInput = {
@@ -35,8 +47,8 @@ const share: ShareView = {
   created_at: "2026-10-03T16:20:00Z",
   expires_at: "2026-10-10T16:20:00Z",
   input: answered,
-  output: evaluatePreview(answered, law, sha),
-  engine: "preview",
+  output: evaluate(answered),
+  engine: "wasm",
 };
 write("fixtures/share-demo.json", share);
 console.log("wrote rowan-mi.input.json, rowan-mi.output.json, share-demo.json");

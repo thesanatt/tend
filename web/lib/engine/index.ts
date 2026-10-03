@@ -1,13 +1,13 @@
 // Picks where the law engine runs, per call:
 //   1. WebAssembly on this device, when /engine/tend.js and /engine/laws/<ST>.tlaw exist
-//   2. the Tend API (POST /api/claim), when the API is reachable
-//   3. the TypeScript preview of the same semantics, labeled as such
-import { claimFromApi, fetchAsmFixture, fetchAsmFromApi, fetchLaw } from "../api";
+//   2. the Tend API (POST /api/claim), only when the caller allows it, because that sends the claim
+//      to the server (docs/PRIVACY.md: nothing leaves the device unless the survivor acts)
+// There is no third engine. When neither runs, the caller gets EngineUnavailableError and says so.
+import { claimFromApi, dataMode, fetchAsmFixture, fetchAsmFromApi } from "../api";
 import type { EngineInput, EngineOutput } from "../types";
-import { evaluatePreview } from "./preview";
 import { loadWasmEngine, type WasmEngine } from "./wasm";
 
-export type Backend = "wasm" | "api" | "preview";
+export type Backend = "wasm" | "api";
 
 export interface Evaluation {
   output: EngineOutput;
@@ -18,8 +18,18 @@ export interface Evaluation {
 export const BACKEND_LABEL: Record<Backend, string> = {
   wasm: "Law engine (WebAssembly) on this device",
   api: "Law engine on the Tend server",
-  preview: "Preview engine in this browser",
 };
+
+// serverAvailable: the API answered the probe, so asking to use it makes sense.
+export class EngineUnavailableError extends Error {
+  constructor(
+    message: string,
+    readonly serverAvailable: boolean,
+  ) {
+    super(message);
+    this.name = "EngineUnavailableError";
+  }
+}
 
 let wasmPromise: Promise<WasmEngine | null> | null = null;
 
@@ -33,7 +43,8 @@ export function wasmEngine(): Promise<WasmEngine | null> {
   return wasmPromise;
 }
 
-// Engines expect only the SPEC input fields; scan extras (merchant, confidence) stay behind.
+// Engines expect only the SPEC input fields; extras (merchant, confidence, reason) stay behind.
+// unit and tags are SPEC v1.2 fields and pass through when the caller has them.
 export function toEngineInput(input: EngineInput): EngineInput {
   return {
     jurisdiction: input.jurisdiction.toUpperCase(),
@@ -43,21 +54,31 @@ export function toEngineInput(input: EngineInput): EngineInput {
       police_report: input.context.police_report,
       forensic_exam: input.context.forensic_exam,
     },
-    items: input.items.map((it) => ({
-      item_id: it.item_id,
-      date: it.date,
-      amount_cents: it.amount_cents,
-      expense: it.expense,
-      confirmed: it.confirmed,
-      insurance_paid_cents: it.insurance_paid_cents ?? 0,
-      is_bill: it.is_bill,
-      units: it.units ?? 0,
-      description: it.description,
-    })),
+    items: input.items.map((it) => {
+      const extra = it as { unit?: unknown; tags?: unknown };
+      return {
+        item_id: it.item_id,
+        date: it.date,
+        amount_cents: it.amount_cents,
+        expense: it.expense,
+        confirmed: it.confirmed,
+        insurance_paid_cents: it.insurance_paid_cents ?? 0,
+        is_bill: it.is_bill,
+        units: it.units ?? 0,
+        description: it.description,
+        ...(extra.unit !== undefined ? { unit: extra.unit } : {}),
+        ...(Array.isArray(extra.tags) ? { tags: extra.tags } : {}),
+      };
+    }),
   };
 }
 
-export async function evaluateClaim(raw: EngineInput): Promise<Evaluation> {
+export interface EvaluateOptions {
+  // The caller has the survivor's yes to send this claim to the Tend server when the device cannot run it.
+  allowApi?: boolean;
+}
+
+export async function evaluateClaim(raw: EngineInput, opts: EvaluateOptions = {}): Promise<Evaluation> {
   const input = toEngineInput(raw);
   const notes: string[] = [];
 
@@ -73,22 +94,21 @@ export async function evaluateClaim(raw: EngineInput): Promise<Evaluation> {
     } else {
       notes.push(`No compiled law image for ${input.jurisdiction}`);
     }
+  } else {
+    notes.push("The WebAssembly engine is not available in this browser");
   }
+
+  const live = (await dataMode()) === "live";
+  if (!opts.allowApi) throw new EngineUnavailableError(notes.join("; "), live);
 
   try {
     const api = await claimFromApi(input);
     if (api) return { output: api.output, backend: "api", detail: api.engine };
+    notes.push("The Tend server is not connected");
   } catch (err) {
     notes.push((err as Error).message);
   }
-
-  const law = await fetchLaw(input.jurisdiction);
-  if (!law) throw new Error(`No verified rules for ${input.jurisdiction}`);
-  return {
-    output: evaluatePreview(input, law.law, law.sha256),
-    backend: "preview",
-    detail: notes.join("; ") || "No engine build or API connected",
-  };
+  throw new EngineUnavailableError(notes.join("; "), false);
 }
 
 export async function disassemble(st: string): Promise<{ text: string; source: "wasm" | "api" | "fixture" } | null> {

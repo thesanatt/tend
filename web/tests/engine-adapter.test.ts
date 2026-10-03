@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetDataModeForTests } from "@/lib/api";
-import { evaluateClaim, toEngineInput } from "@/lib/engine";
+import { EngineUnavailableError, evaluateClaim, toEngineInput } from "@/lib/engine";
 import type { EngineInput, ScanResult } from "@/lib/types";
 
 const web = path.resolve(import.meta.dirname, "..");
@@ -55,33 +55,53 @@ describe("engine adapter", () => {
     }
   });
 
-  it("falls back to the labeled preview when there is no engine build and no API", async () => {
-    stubFetch({ "/data/law/MI.json": () => new Response(lawBytes, { status: 200 }) });
-    const result = await evaluateClaim(input);
-    expect(result.backend).toBe("preview");
-    expect(result.output).toEqual(fixtureOut);
+  it("passes the v1.2 unit and tags through when the caller has them", () => {
+    const withUnits = {
+      ...input,
+      items: [{ ...input.items[0], unit: "session", tags: ["phone"] } as EngineInput["items"][number]],
+    };
+    const item = toEngineInput(withUnits).items[0] as unknown as Record<string, unknown>;
+    expect(item.unit).toBe("session");
+    expect(item.tags).toEqual(["phone"]);
   });
 
-  it("uses the API when it answers, and reports which engine ran", async () => {
+  it("has no third engine: without WebAssembly or the API it says the engine is unavailable", async () => {
+    stubFetch({ "/data/law/MI.json": () => new Response(lawBytes, { status: 200 }) });
+    const err = await evaluateClaim(input, { allowApi: true }).catch((e) => e);
+    expect(err).toBeInstanceOf(EngineUnavailableError);
+    expect(err.serverAvailable).toBe(false);
+  });
+
+  it("never sends the claim to the server without the survivor's yes", async () => {
+    const fetch = stubFetch({
+      "/api/jurisdictions": () => json([{ st: "MI", name: "Michigan", rule_count: 48, source_count: 17 }]),
+      "/api/claim": () => json(fixtureOut, { "x-tend-engine": "native" }),
+    });
+    const err = await evaluateClaim(input).catch((e) => e);
+    expect(err).toBeInstanceOf(EngineUnavailableError);
+    expect(err.serverAvailable).toBe(true);
+    expect(fetch.mock.calls.some(([u]) => u === "/api/claim")).toBe(false);
+  });
+
+  it("uses the API with the survivor's yes, and reports which engine ran", async () => {
     const fetch = stubFetch({
       "/api/jurisdictions": () => json([{ st: "MI", name: "Michigan", rule_count: 48, source_count: 17 }]),
       "/api/claim": () => json({ ...fixtureOut, claim_id: "c-1" }, { "x-tend-engine": "refengine" }),
     });
-    const result = await evaluateClaim(input);
+    const result = await evaluateClaim(input, { allowApi: true });
     expect(result).toMatchObject({ backend: "api", detail: "refengine" });
     expect(result.output.claim_id).toBe("c-1");
     const [, init] = fetch.mock.calls.find(([u]) => u === "/api/claim")!;
     expect(JSON.parse(String(init?.body))).toEqual(toEngineInput(input));
   });
 
-  it("says why it fell back when the API engine fails", async () => {
+  it("says why when the API engine fails, instead of guessing", async () => {
     stubFetch({
       "/api/jurisdictions": () => json([{ st: "MI", name: "Michigan", rules: 48, sources: 17 }]),
       "/api/claim": () => new Response("boom", { status: 500 }),
-      "/data/law/MI.json": () => new Response(lawBytes, { status: 200 }),
     });
-    const result = await evaluateClaim(input);
-    expect(result.backend).toBe("preview");
-    expect(result.detail).toMatch(/claim failed: 500/);
+    const err = await evaluateClaim(input, { allowApi: true }).catch((e) => e);
+    expect(err).toBeInstanceOf(EngineUnavailableError);
+    expect(err.message).toMatch(/claim failed: 500/);
   });
 });
