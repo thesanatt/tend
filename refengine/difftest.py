@@ -18,6 +18,7 @@ import ctypes
 import json
 import os
 import random
+import re
 import shlex
 import subprocess
 import sys
@@ -234,6 +235,17 @@ class Failure:
     kind: str  # "mismatch", "invariant", "reference_error"
     engine_input: dict
     details: list[str]
+    fields: tuple[str, ...] = ()  # which output fields differ, line indexes folded to [*]
+
+
+def differing_fields(cmp: Comparison) -> tuple[str, ...]:
+    if cmp.error:
+        return ("engine error",)
+    fields = {re.sub(r"by_expense\.\w+", "by_expense.*", re.sub(r"\[\d+\]", "[*]", path))[2:]
+              for path, _, _ in cmp.output}
+    if cmp.trace_index is not None:
+        fields.add("trace")
+    return tuple(sorted(fields))
 
 
 @dataclass
@@ -257,7 +269,9 @@ class JobResult:
     statuses: Counter = field(default_factory=Counter)
     ops: Counter = field(default_factory=Counter)
     checks: Counter = field(default_factory=Counter)
-    failures: list[Failure] = field(default_factory=list)
+    failed: int = 0
+    failures: list[Failure] = field(default_factory=list)  # the first failure to show each field
+    failure_counts: Counter = field(default_factory=Counter)  # failing claims per differing field
     seconds: float = 0.0
 
 
@@ -275,9 +289,16 @@ def run_job(job: Job) -> JobResult:
         if ref is not None:
             result.statuses.update(line["status"] for line in ref["lines"])
             result.ops.update(entry["op"] for entry in ref["trace"])
+            exams = {it["item_id"] for it in engine_input["items"] if it["expense"] == "forensic_exam"}
+            result.ops["exam_as_medical"] += sum(line["item_id"] in exams and line["expense"] == "medical"
+                                                 for line in ref["lines"])
             result.checks.update(f"{name}:{c['status']}" for name, c in ref["checks"].items())
         if failure:
-            result.failures.append(failure)
+            # Keep inputs only for failures that show a new field, so long runs stay small.
+            if any(f not in result.failure_counts for f in failure.fields):
+                result.failures.append(failure)
+            result.failure_counts.update(failure.fields)
+            result.failed += 1
             if not job.keep_going:
                 break
         elif engine:
@@ -289,7 +310,7 @@ def run_job(job: Job) -> JobResult:
 def check_claim(job: Job, law: Law, engine: Engine | None, engine_input: dict, index: int,
                 rng: random.Random) -> tuple[Failure | None, dict | None]:
     def fail(kind: str, details: list[str]) -> Failure:
-        return Failure(job.jurisdiction, index, kind, engine_input, details)
+        return Failure(job.jurisdiction, index, kind, engine_input, details, (kind.replace("_", " "),))
 
     try:
         ref = law.evaluate(engine_input)
@@ -306,7 +327,9 @@ def check_claim(job: Job, law: Law, engine: Engine | None, engine_input: dict, i
         got = engine.run(job.law_path, job.rules_path, engine_input)
         cmp = compare(ref, got, check_trace=job.check_trace, check_sha=job.check_sha)
         if cmp:
-            return fail("mismatch", describe(cmp, ref, got)), ref
+            failure = fail("mismatch", describe(cmp, ref, got))
+            failure.fields = differing_fields(cmp)
+            return failure, ref
     return None, ref
 
 
@@ -504,7 +527,7 @@ def main(argv: list[str] | None = None) -> int:
     for r in results:
         totals.update(r.ops)
     expected_ops = ["out_of_window", "held", "exam_as_medical", "excluded", "unknown_rule", "needs_confirmation",
-                    "eligible", "collateral", "rate_cap", "rate_unverified", "expense_cap", "total_cap"]
+                    "eligible", "collateral", "unit_cap", "rate_unverified", "expense_cap", "total_cap"]
     print("decisions seen: " + ", ".join(f"{op} {totals[op]}" for op in expected_ops))
     never = [op for op in expected_ops if not totals[op]]
     if never:
@@ -515,18 +538,36 @@ def main(argv: list[str] | None = None) -> int:
     print("checks seen: " + ", ".join(f"{k} {v}" for k, v in sorted(check_totals.items())))
 
     failures = [f for r in results for f in r.failures]
+    failure_count = sum(r.failed for r in results)
     claims = sum(r.claims for r in results)
     elapsed = time.monotonic() - started
+    if args.keep_going and failures:
+        # Failing claims per differing field, so each kind of disagreement shows up once.
+        by_field: dict[str, Counter] = {}
+        examples: dict[str, Failure] = {}
+        for r in results:
+            for name, count in r.failure_counts.items():
+                by_field.setdefault(name, Counter())[r.jurisdiction] += count
+            for f in r.failures:
+                for name in f.fields:
+                    examples.setdefault(name, f)
+        print("\nfailing claims by differing field (count, jurisdictions, example for --replay):")
+        for name, states in sorted(by_field.items(), key=lambda kv: (-sum(kv[1].values()), kv[0])):
+            names = sorted(states)
+            shown = ", ".join(names[:10]) + (f" +{len(names) - 10}" if len(names) > 10 else "")
+            example = examples[name]
+            print(f"  {sum(states.values()):>7}  {name:<34} [{shown}]  e.g. {example.jurisdiction}:{example.index}")
     if failures:
         first = failures[0]
         job = next(j for j in jobs if j.jurisdiction == first.jurisdiction)
         rules, sha = load_rules(job.rules_path)
         report_failure(first, job, Law(rules, sha), Engine(spec) if spec else None, Path(args.out), args.shrink)
-        if len(failures) > 1:
-            print(f"({len(failures) - 1} more failures not shown)")
+        if failure_count > 1:
+            print(f"({failure_count - 1} more failures not shown"
+                  + ("" if args.keep_going else "; --keep-going counts them all") + ")")
     verdict = "FAILED" if failures or tendc_failures else "OK"
     compared = "compared with the C++ engine" if spec else "reference only, not compared"
-    print(f"\n{verdict}: {claims} claims in {elapsed:.1f}s, {len(failures)} failures"
+    print(f"\n{verdict}: {claims} claims in {elapsed:.1f}s, {failure_count} failures"
           + (f", tendc failed for {', '.join(tendc_failures)}" if tendc_failures else "") + f" ({compared})")
     return 1 if failures or tendc_failures else 0
 

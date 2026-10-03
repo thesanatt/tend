@@ -33,7 +33,8 @@ def test_empty_claim():
     out = run()
     assert out["lines"] == []
     assert out["totals"] == {"requested_cents": 0, "allowed_cents": 0, "held_cents": 0, "by_expense": {}}
-    assert [t["op"] for t in out["trace"]] == ["minimum_loss_waived", "deadline_ok", "reporting_satisfied"]
+    assert [t["op"] for t in out["trace"]] == ["minimum_loss", "deadline", "reporting"]
+    assert out["checks"]["minimum_loss"]["status"] == "waived"
 
 
 def test_output_has_exactly_the_spec_shape():
@@ -65,11 +66,14 @@ def test_null_optional_fields_take_defaults():
     assert evaluate(zz(), claim(raw))["lines"][0]["allowed_cents"] == 10_000
 
 
-def test_jurisdiction_match_ignores_case_and_may_be_omitted():
-    data = claim(item("a"), jurisdiction="zz")
-    assert evaluate(zz(), data)["jurisdiction"] == "ZZ"
+def test_jurisdiction_must_match_exactly_or_be_absent():
+    data = claim(item("a"))
     del data["jurisdiction"]
     assert evaluate(zz(), data)["jurisdiction"] == "ZZ"
+    data["jurisdiction"] = None
+    assert evaluate(zz(), data)["jurisdiction"] == "ZZ"
+    with pytest.raises(EngineInputError):
+        evaluate(zz(), claim(item("a"), jurisdiction="zz"))
 
 
 @pytest.mark.parametrize("field, value", [

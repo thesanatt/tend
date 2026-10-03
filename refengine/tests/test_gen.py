@@ -51,11 +51,14 @@ def test_generator_reaches_every_status_cap_and_check():
     for rules in (zz(), ZY):
         law = Law(rules)
         for index in range(1500):
-            out = law.evaluate(generate(rules, claim_rng(5, rules["jurisdiction"], index)))
+            data = generate(rules, claim_rng(5, rules["jurisdiction"], index))
+            out = law.evaluate(data)
             ops.update(t["op"] for t in out["trace"])
+            exams = {it["item_id"] for it in data["items"] if it["expense"] == "forensic_exam"}
+            ops["exam_as_medical"] += sum(ln["item_id"] in exams and ln["expense"] == "medical" for ln in out["lines"])
             checks.update(f"{name}:{c['status']}" for name, c in out["checks"].items())
     for op in ("out_of_window", "held", "exam_as_medical", "excluded", "unknown_rule", "needs_confirmation",
-               "eligible", "collateral", "rate_cap", "rate_unverified", "expense_cap", "total_cap"):
+               "eligible", "collateral", "unit_cap", "rate_unverified", "expense_cap", "total_cap"):
         assert ops[op] > 0, op
     for check in ("deadline:ok", "deadline:late", "deadline:unknown", "minimum_loss:met",
                   "minimum_loss:not_met", "minimum_loss:waived", "minimum_loss:unknown",

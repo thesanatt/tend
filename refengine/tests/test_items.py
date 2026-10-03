@@ -3,6 +3,7 @@
 from claims import AS_OF, INCIDENT, item, line, only, run, trace, without, zz
 
 COUNSELING_PROOF = ["ZZ-CAP-3", "ZZ-CAP-4", "ZZ-COV-2"]
+EXAM_PROOF = ["ZZ-EXAM-1", "ZZ-EXAM-2", "ZZ-EXAM-3"]
 
 
 # Step 1: window
@@ -15,8 +16,7 @@ def test_line_before_the_incident_is_out_of_window():
 
 
 def test_line_after_as_of_is_out_of_window():
-    out = run(item("a", date="2026-10-04"))
-    assert line(out, "a")["status"] == "out_of_window"
+    assert line(run(item("a", date="2026-10-04")), "a")["status"] == "out_of_window"
 
 
 def test_window_includes_both_ends():
@@ -42,31 +42,38 @@ def test_forensic_exam_is_held_with_exam_rules_as_proof():
     out = run(item("a", "forensic_exam", 32_500, is_bill=True))
     a = line(out, "a")
     assert a["status"] == "held"
-    assert a["rule_ids"] == ["ZZ-EXAM-1", "ZZ-EXAM-2"]
+    assert a["rule_ids"] == EXAM_PROOF
     assert a["allowed_cents"] == 0
     assert out["totals"]["held_cents"] == 32_500
     assert out["totals"]["requested_cents"] == 0
     assert trace(out, "a") == [("held", "ZZ-EXAM-1", 0)]
 
 
-def test_exam_rule_naming_another_expense_is_not_proof():
-    out = run(item("a", "forensic_exam"))
-    assert "ZZ-EXAM-3" not in line(out, "a")["rule_ids"]
+def test_hold_proof_is_no_bill_rules_then_payment_rules():
+    rules = zz()
+    rules["rules"].sort(key=lambda r: r["category"] != "exam_payment")  # payment rules first in the file
+    assert line(run(item("a", "forensic_exam"), rules=rules), "a")["rule_ids"] == EXAM_PROOF
+
+
+def test_hold_cites_an_exam_rule_whatever_expense_it_names():
+    # ZZ-EXAM-3 is an exam_payment rule naming "medical"; the SPEC counts it by category.
+    assert line(run(item("a", "forensic_exam")), "a")["rule_ids"][-1] == "ZZ-EXAM-3"
+    rules = only(without(zz(), "exam_no_bill"), "exam_payment", "ZZ-EXAM-3")
+    assert line(run(item("a", "forensic_exam"), rules=rules), "a")["rule_ids"] == ["ZZ-EXAM-3"]
 
 
 def test_unconfirmed_exam_is_still_held():
-    out = run(item("a", "forensic_exam", confirmed=False))
-    assert line(out, "a")["status"] == "held"
+    assert line(run(item("a", "forensic_exam", confirmed=False)), "a")["status"] == "held"
 
 
 def test_exam_payment_alone_still_holds():
-    out = run(item("a", "forensic_exam"), rules=without(zz(), "ZZ-EXAM-1"))
+    out = run(item("a", "forensic_exam"), rules=without(zz(), "exam_no_bill"))
     assert line(out, "a")["status"] == "held"
-    assert line(out, "a")["rule_ids"] == ["ZZ-EXAM-2"]
+    assert line(out, "a")["rule_ids"] == ["ZZ-EXAM-2", "ZZ-EXAM-3"]
 
 
 def test_exam_no_bill_alone_holds():
-    out = run(item("a", "forensic_exam"), rules=without(zz(), "ZZ-EXAM-2"))
+    out = run(item("a", "forensic_exam"), rules=without(zz(), "exam_payment"))
     assert line(out, "a")["rule_ids"] == ["ZZ-EXAM-1"]
 
 
@@ -79,27 +86,17 @@ def test_without_exam_rules_the_exam_is_medical():
     assert a["rule_ids"] == ["ZZ-COV-1", "ZZ-COLL-1"]
     assert a["allowed_cents"] == 30_000
     assert out["totals"]["by_expense"] == {"medical": 30_000}
-    assert trace(out, "a") == [("exam_as_medical", None, 0), ("eligible", "ZZ-COV-1", 40_000),
-                               ("collateral", "ZZ-COLL-1", -10_000)]
-
-
-def test_exam_rules_naming_only_medical_do_not_hold():
-    rules = only(without(zz(), "exam_no_bill"), "exam_payment", "ZZ-EXAM-3")
-    out = run(item("a", "forensic_exam"), rules=rules)
-    assert line(out, "a")["status"] == "eligible"
-    assert line(out, "a")["expense"] == "medical"
+    assert trace(out, "a") == [("eligible", "ZZ-COV-1", 40_000), ("collateral", "ZZ-COLL-1", -10_000)]
 
 
 def test_exam_as_medical_without_medical_coverage_is_unknown_rule():
-    rules = without(zz(), "exam_no_bill", "exam_payment", "ZZ-COV-1")
-    out = run(item("a", "forensic_exam"), rules=rules)
+    out = run(item("a", "forensic_exam"), rules=without(zz(), "exam_no_bill", "exam_payment", "ZZ-COV-1"))
     assert line(out, "a")["status"] == "unknown_rule"
     assert line(out, "a")["expense"] == "medical"
 
 
 def test_exam_as_medical_still_waits_for_confirmation():
-    rules = without(zz(), "exam_no_bill", "exam_payment")
-    out = run(item("a", "forensic_exam", confirmed=False), rules=rules)
+    out = run(item("a", "forensic_exam", confirmed=False), rules=without(zz(), "exam_no_bill", "exam_payment"))
     assert line(out, "a")["status"] == "needs_confirmation"
     assert line(out, "a")["rule_ids"] == ["ZZ-COV-1"]
 
@@ -120,8 +117,7 @@ def test_exclusion_wins_over_coverage():
 
 
 def test_exclusion_comes_before_confirmation():
-    out = run(item("a", "property_replacement", confirmed=False))
-    assert line(out, "a")["status"] == "excluded"
+    assert line(run(item("a", "property_replacement", confirmed=False)), "a")["status"] == "excluded"
 
 
 def test_text_only_exclusion_matches_no_expense():
@@ -143,10 +139,10 @@ def test_expense_with_no_rule_is_unknown_rule():
     assert line(run(item("a", "tuition")), "a")["status"] == "unknown_rule"
 
 
-def test_expense_outside_the_enum_is_unknown_rule():
+def test_expense_outside_the_enum_reads_as_unknown():
     out = run(item("a", "groceries"))
     assert line(out, "a")["status"] == "unknown_rule"
-    assert line(out, "a")["expense"] == "groceries"
+    assert line(out, "a")["expense"] == "unknown"
 
 
 def test_expense_covered_only_by_a_cap_is_eligible():
@@ -185,7 +181,7 @@ def test_eligible_line_allows_the_amount_with_full_proof():
     assert a["status"] == "eligible"
     assert a["allowed_cents"] == 15_000
     assert a["rule_ids"] == COUNSELING_PROOF + ["ZZ-COLL-1"]
-    assert trace(out, "a") == [("eligible", "ZZ-CAP-3", 15_000), ("collateral", "ZZ-COLL-1", 0)]
+    assert trace(out, "a") == [("eligible", "ZZ-CAP-3", 15_000)]
 
 
 def test_collateral_subtracts_insurance():
@@ -194,6 +190,13 @@ def test_collateral_subtracts_insurance():
     assert line(out, "a")["requested_cents"] == 120_000
     assert out["totals"]["requested_cents"] == 120_000
     assert out["totals"]["allowed_cents"] == 100_000
+    assert trace(out, "a")[-1] == ("collateral", "ZZ-COLL-1", -20_000)
+
+
+def test_collateral_with_nothing_to_subtract_logs_nothing():
+    out = run(item("a", "medical", 10_000), item("b", "medical", 0, insurance=500, date="2026-07-02"))
+    assert [op for op, _, _ in trace(out)][:2] == ["eligible", "eligible"]
+    assert line(out, "a")["rule_ids"] == ["ZZ-COV-1", "ZZ-COLL-1"]
 
 
 def test_insurance_above_the_amount_floors_at_zero():

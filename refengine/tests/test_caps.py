@@ -1,5 +1,7 @@
 """SPEC steps 7-8: expense caps (per unit, then per claim) and the total cap."""
 
+import pytest
+
 from claims import add_rule, item, line, run, set_params, trace, without, zz
 
 
@@ -38,12 +40,20 @@ def test_first_line_after_an_exact_fill_is_cut_to_zero():
     assert cap_ids(out)["b"] == "ZZ-CAP-6"
 
 
-def test_cap_leaves_a_line_already_at_zero_alone():
+def test_every_line_after_the_crossing_records_the_cap():
+    # b was already at 0 (insurance paid it); it still records the cap, with a zero delta.
     out = run(item("a", "relocation", 250_000, date="2026-07-01"),
               item("b", "relocation", 40_000, insurance=40_000, date="2026-07-02"))
     assert allowed(out) == {"a": 200_000, "b": 0}
-    assert cap_ids(out) == {"a": "ZZ-CAP-6", "b": None}
-    assert [op for op, _, _ in trace(out, "b")] == ["eligible", "collateral"]
+    assert cap_ids(out) == {"a": "ZZ-CAP-6", "b": "ZZ-CAP-6"}
+    assert trace(out, "b") == [("eligible", "ZZ-CAP-6", 40_000), ("collateral", "ZZ-COLL-1", -40_000),
+                               ("expense_cap", "ZZ-CAP-6", 0)]
+
+
+def test_zero_lines_before_the_crossing_are_left_alone():
+    out = run(item("a", "relocation", 40_000, insurance=40_000, date="2026-07-01"),
+              item("b", "relocation", 250_000, date="2026-07-02"))
+    assert cap_ids(out) == {"a": None, "b": "ZZ-CAP-6"}
 
 
 def test_cap_walk_uses_allowed_after_insurance():
@@ -66,18 +76,8 @@ def test_unconfirmed_lines_take_no_room_under_the_cap():
     assert allowed(out) == {"a": 0, "b": 150_000}
 
 
-def test_per_residence_and_per_crime_scene_caps_act_per_claim():
-    out = run(item("a", "security", 60_000, date="2026-07-01"),
-              item("b", "security", 60_000, date="2026-07-02"),
-              item("c", "crime_scene_cleanup", 600_000, date="2026-07-03"))
-    assert allowed(out) == {"a": 60_000, "b": 40_000, "c": 500_000}
-    assert cap_ids(out) == {"a": None, "b": "ZZ-CAP-7", "c": "ZZ-CAP-10"}
-
-
 def test_cap_with_no_per_acts_per_claim():
-    rules = set_params(zz(), "ZZ-CAP-6", per=None)
-    out = run(item("a", "relocation", 250_000), rules=rules)
-    assert allowed(out) == {"a": 200_000}
+    assert allowed(run(item("a", "relocation", 250_000), rules=set_params(zz(), "ZZ-CAP-6", per=None))) == {"a": 200_000}
 
 
 def test_cap_without_an_amount_limits_nothing():
@@ -99,23 +99,49 @@ def test_two_claim_caps_on_one_expense_apply_in_file_order():
         ("expense_cap", "ZZ-CAP-99", -40_000)]
 
 
-# Per-unit caps (ZZ-CAP-3: counseling $80/session; ZZ-CAP-5: wages $400/week; ZZ-CAP-8: $0.50/mile)
+# Caps the engine cannot measure (ZZ-CAP-7 per residence, ZZ-CAP-10 per crime_scene)
 
-def test_rate_cap_limits_to_rate_times_units():
+def test_unmeasurable_caps_flag_every_line_and_cut_nothing():
+    out = run(item("a", "security", 60_000, date="2026-07-01"),
+              item("b", "security", 60_000, date="2026-07-02"),
+              item("c", "crime_scene_cleanup", 600_000, units=3, date="2026-07-03"))
+    assert allowed(out) == {"a": 60_000, "b": 60_000, "c": 600_000}
+    assert cap_ids(out) == {"a": None, "b": None, "c": None}
+    assert [line(out, i)["flags"] for i in "abc"] == [["rate_unverified:ZZ-CAP-7"], ["rate_unverified:ZZ-CAP-7"],
+                                                       ["rate_unverified:ZZ-CAP-10"]]
+
+
+@pytest.mark.parametrize("per", ["month", "item", "residence", "crime_scene"])
+def test_any_unlisted_per_only_flags(per):
+    rules = set_params(zz(), "ZZ-CAP-6", per=per)
+    out = run(item("a", "relocation", 250_000, units=4), rules=rules)
+    assert allowed(out) == {"a": 250_000}
+    assert line(out, "a")["flags"] == ["rate_unverified:ZZ-CAP-6"]
+
+
+def test_flags_follow_rule_order_across_unit_and_unmeasurable_caps():
+    rules = add_rule(zz(), "ZZ-CAP-98", "expense_cap", expense="counseling", amount_cents=10_000, per="month")
+    out = run(item("a", "counseling", 5_000), rules=rules)
+    assert line(out, "a")["flags"] == ["rate_unverified:ZZ-CAP-3", "rate_unverified:ZZ-CAP-98"]
+
+
+# Unit caps (ZZ-CAP-3: counseling $80/session; ZZ-CAP-5: wages $400/week; ZZ-CAP-8: $0.50/mile)
+
+def test_unit_cap_limits_to_rate_times_units():
     out = run(item("a", "counseling", 30_000, units=2))
     assert allowed(out) == {"a": 16_000}
     assert cap_ids(out) == {"a": "ZZ-CAP-3"}
-    assert trace(out, "a")[-1] == ("rate_cap", "ZZ-CAP-3", -14_000)
+    assert trace(out, "a")[-1] == ("unit_cap", "ZZ-CAP-3", -14_000)
 
 
-def test_rate_cap_at_or_under_the_limit_changes_nothing():
+def test_unit_cap_at_or_under_the_limit_changes_nothing():
     out = run(item("a", "counseling", 16_000, units=2), item("b", "counseling", 9_000, units=2))
     assert allowed(out) == {"a": 16_000, "b": 9_000}
     assert cap_ids(out) == {"a": None, "b": None}
-    assert all(op != "rate_cap" for op, _, _ in trace(out))
+    assert all(op != "unit_cap" for op, _, _ in trace(out))
 
 
-def test_rate_cap_without_units_flags_the_line_and_keeps_the_amount():
+def test_unit_cap_without_units_flags_the_line_and_keeps_the_amount():
     out = run(item("a", "lost_wages", 900_000, units=0))
     a = line(out, "a")
     assert a["allowed_cents"] == 900_000
@@ -125,14 +151,13 @@ def test_rate_cap_without_units_flags_the_line_and_keeps_the_amount():
 
 
 def test_mile_cap_is_cents_per_mile():
-    out = run(item("a", "transportation", 10_000, units=100))
-    assert allowed(out) == {"a": 5_000}
+    assert allowed(run(item("a", "transportation", 10_000, units=100))) == {"a": 5_000}
 
 
-def test_rate_caps_run_before_claim_caps():
+def test_unit_caps_run_before_claim_caps():
     out = run(item("a", "counseling", 300_000, units=10, date="2026-07-01"),
               item("b", "counseling", 250_000, units=40, date="2026-07-02"))
-    # Rate first: a -> 80,000. Claim cap 300,000 leaves room 220,000 for b.
+    # Unit cap first: a -> 80,000. The claim cap of 300,000 then leaves 220,000 for b.
     assert allowed(out) == {"a": 80_000, "b": 220_000}
     assert cap_ids(out) == {"a": "ZZ-CAP-3", "b": "ZZ-CAP-4"}
 
@@ -146,10 +171,10 @@ def test_rate_flag_survives_a_later_claim_cut():
     assert b["cap_rule_id"] == "ZZ-CAP-4"
 
 
-def test_hour_and_day_pers_are_unit_caps():
-    for per in ("hour", "day"):
-        rules = set_params(zz(), "ZZ-CAP-3", per=per)
-        assert allowed(run(item("a", "counseling", 30_000, units=2), rules=rules)) == {"a": 16_000}
+@pytest.mark.parametrize("per", ["week", "session", "hour", "mile", "day"])
+def test_every_listed_per_is_a_unit_cap(per):
+    rules = set_params(zz(), "ZZ-CAP-3", per=per)
+    assert allowed(run(item("a", "counseling", 30_000, units=2), rules=rules)) == {"a": 16_000}
 
 
 # Total cap (ZZ-CAP-1: $25,000; ZZ-CAP-2: $30,000)
@@ -166,8 +191,7 @@ def test_total_cap_uses_the_smallest_and_walks_every_expense():
 
 def test_total_cap_on_a_tie_uses_the_first_rule():
     rules = set_params(zz(), "ZZ-CAP-2", amount_cents=2_500_000)
-    out = run(item("a", "medical", 2_600_000), rules=rules)
-    assert cap_ids(out) == {"a": "ZZ-CAP-1"}
+    assert cap_ids(run(item("a", "medical", 2_600_000), rules=rules)) == {"a": "ZZ-CAP-1"}
 
 
 def test_total_cap_overrides_an_earlier_cap_rule_id():
@@ -175,7 +199,7 @@ def test_total_cap_overrides_an_earlier_cap_rule_id():
               item("b", "relocation", 250_000, date="2026-07-02"))
     assert allowed(out) == {"a": 2_450_000, "b": 50_000}
     assert cap_ids(out)["b"] == "ZZ-CAP-1"
-    assert [op for op, _, _ in trace(out, "b")] == ["eligible", "collateral", "expense_cap", "total_cap"]
+    assert [op for op, _, _ in trace(out, "b")] == ["eligible", "expense_cap", "total_cap"]
 
 
 def test_total_cap_rule_without_an_amount_is_ignored():
@@ -184,8 +208,7 @@ def test_total_cap_rule_without_an_amount_is_ignored():
 
 
 def test_no_total_cap_rule_means_no_total_limit():
-    out = run(item("a", "medical", 9_000_000), rules=without(zz(), "total_cap"))
-    assert out["totals"]["allowed_cents"] == 9_000_000
+    assert run(item("a", "medical", 9_000_000), rules=without(zz(), "total_cap"))["totals"]["allowed_cents"] == 9_000_000
 
 
 def test_trace_deltas_add_up_to_each_line():

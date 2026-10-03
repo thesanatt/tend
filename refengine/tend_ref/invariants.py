@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import date
 
-from .engine import STATUSES, Law
+from .engine import STATUSES, UNIT_PERS, Law
 
 DEADLINE_STATUSES = {"ok", "late", "unknown"}
 MINIMUM_LOSS_STATUSES = {"met", "not_met", "waived", "unknown"}
@@ -89,6 +89,9 @@ def _check(law: Law, engine_input: dict, out: dict, err) -> None:
                 err(f"{where}: cites {rid}, which is not in the rules")
         if status == "held" and item["expense"] != "forensic_exam":
             err(f"{where}: held but the expense is {item['expense']}")
+        if line["cap_rule_id"] is None and line["allowed_cents"] < line["requested_cents"] and status == "eligible" \
+                and not (law.collateral_ids and item.get("insurance_paid_cents")):
+            err(f"{where}: allowed is below requested with no cap and no insurance to explain it")
 
     eligible = [line for line in lines if line["status"] == "eligible"]
     totals = out["totals"]
@@ -111,16 +114,16 @@ def _check(law: Law, engine_input: dict, out: dict, err) -> None:
             err(f"{cap.rule_id}: {cap.expense} allows {spent}, over the {cap.amount_cents} cap")
     if law.total_cap is not None and totals["allowed_cents"] > law.total_cap.amount_cents:
         err(f"{law.total_cap.rule_id}: total {totals['allowed_cents']} is over the cap")
-    for cap in law.rate_caps:
+    for cap in law.line_caps:
         for line in eligible:
             if line["expense"] != cap.expense:
                 continue
             units = items[line["item_id"]].get("units") or 0
-            flag = f"rate_unverified:{cap.rule_id}"
-            if units > 0 and line["allowed_cents"] > cap.amount_cents * units:
+            measured = cap.per in UNIT_PERS and units > 0
+            if measured and line["allowed_cents"] > cap.amount_cents * units:
                 err(f"line {line['item_id']}: {line['allowed_cents']} over {cap.rule_id} rate x {units} units")
-            if units == 0 and flag not in line["flags"]:
-                err(f"line {line['item_id']}: no units but no {flag} flag")
+            if not measured and f"rate_unverified:{cap.rule_id}" not in line["flags"]:
+                err(f"line {line['item_id']}: {cap.rule_id} could not be applied but the line is not flagged")
 
     checks = out["checks"]
     deadline = checks["deadline"]

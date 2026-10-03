@@ -57,64 +57,57 @@ python refengine/difftest.py --n 10000 --rules-dir rules/verified
   `tend_ref/invariants.py`, and prints a NOTICE that nothing was compared.
 - Claim N of jurisdiction ST comes from (seed, ST, N). On a mismatch it shrinks the input to the
   fewest items that still disagree, prints the differing fields and the first differing trace entry,
-  saves the input, and prints a `--replay ST:N` command.
+  saves the input, and prints a `--replay ST:N` command. `--keep-going` counts every failing claim
+  and lists them by differing field.
 - `law_image_sha256` is not compared unless `--compare-sha` is given (the reference has no image).
   `--no-trace` compares everything but the trace. The ZY and ZZ fixtures run too unless `--no-fixtures`.
 
-## Readings where the SPEC is silent
+## Readings where the SPEC leaves room
 
-The C++ engine has to make the same choices. Rule ids in parentheses are real cases from
-`rules/verified/` that make the choice matter.
+The C++ engine makes the same choices; difftest holds both to them.
 
-1. A rule's expense is `rule.expense`, else `params.expense`. Rules that only describe an item in
-   text (`params.item`) match no expense.
-2. Hold proof is the `exam_no_bill` rules, then the `exam_payment` rules, each in file order,
-   counting only rules that name `forensic_exam` or no expense. Some exam rules name `medical`
-   (WV-EXAM-3 says the facility may bill for nonforensic care), and they cannot prove an exam bill
-   is held.
+1. A rule's expense is `rule.expense`, else `params.expense`. A rule that only describes an item in
+   text (`params.item`) names no expense.
+2. Hold proof is every `exam_no_bill` rule, then every `exam_payment` rule, each in file order,
+   whatever expense the rule names ("an exam_no_bill rule exists").
 3. A forensic exam with no hold rules becomes `medical` for every later step and in its output line.
 4. Proof lists every matching rule in file order; `covered_expense` and `expense_cap` interleave as
-   they appear. On an eligible line all `collateral_source` rules follow the coverage rules.
+   they appear. An eligible line adds every `collateral_source` rule after its coverage rules.
 5. `requested_cents` is the amount on every line; `allowed_cents` is 0 unless eligible. Totals count
    eligible lines only, `held_cents` sums held amounts, and `by_expense` maps each expense with an
    eligible line to its allowed cents (sorted keys, zeros kept).
-6. With a collateral rule, every eligible line logs a `collateral` entry, even when insurance is 0.
-7. A cap without `amount_cents` does nothing (`count_limit` and `weeks` are not enforced). Unit caps
-   (week, session, hour, mile, day) run before claim caps, each group in file order, so the claim
-   walk sees rate-limited amounts. Any other `per` (claim, crime_scene, residence, or missing) is a
-   claim cap (MI-CAP-9, MI-CAP-11).
-8. A cap cuts a line only when its allowed amount is more than the room left. A cut sets
-   `cap_rule_id` (the last cap to cut wins). A later line already at 0, say paid in full by
-   insurance, keeps `cap_rule_id: null`.
-9. A unit cap on a line with no units adds the flag `rate_unverified:<rule_id>`.
+6. Insurance is logged as a `collateral` entry only when it changes the allowed amount.
+7. A cap without `amount_cents` limits nothing (`count_limit` and `weeks` are not enforced). A
+   missing `per` means per claim. Unit caps (week, session, hour, mile, day) apply `rate x units` to
+   lines with units and flag lines without. A cap per anything else (residence, crime_scene, month,
+   item) cannot be measured, so it flags every eligible line of its expense and cuts nothing. These
+   run first, in file order, then the claim caps in file order.
+8. A walk cuts the line that crosses the cap to what is left, then sets every later line to 0 with
+   that `cap_rule_id` and a trace entry, even a line that was already at 0. A line keeps the last
+   cap that cut it.
+9. A flag reads `rate_unverified:<rule_id>`.
 10. Of several total caps the smallest governs; on a tie, the first in the file.
-11. Minimum loss: each rule with `amount_cents` passes, fails, or fails but is waived (`forensic_exam`
-    is true and `waived_for`, a string or a list, contains exactly `sexual_assault`). Any unwaived
-    failure is `not_met`, otherwise any waived one is `waived`, otherwise `met`. With no amount rule,
-    a `days_lost` rule makes it `unknown`. No rule, or only rules with neither threshold
-    (NJ-MINLOSS-1 says there is no minimum), is `met`.
-12. Deadline: on one rule, `years` (calendar years, Feb 29 to Feb 28) beats `days`. Rules counted
-    from `age_18` are listed but not dated, since the engine has no birth date and counting from the
-    incident would stretch an adult's deadline (VA-DEADLINE-4: 10 years instead of 3). Rules with no
-    period are listed only. Dates past 9999-12-31 stop there.
-13. Reporting pools `alternatives` across all reporting rules. `satisfied`: a police report was
-    made, or there was an exam and some rule lists `forensic_exam`, or no rule has `required: true`
-    (a missing `required` counts as true; no rules at all lands here too). `required`: no police
-    report and every pooled alternative is `forensic_exam`, the only one the engine can rule out.
-    Otherwise `unknown`, because an advocate or protective order might still apply (NY-REPORT-4).
+11. Minimum loss: every rule with `amount_cents` is tested; any unwaived shortfall is `not_met`,
+    else any waived one is `waived`, else `met`. A shortfall is waived when `forensic_exam` is true
+    and `waived_for` is a string containing `sexual_assault` or a list with that exact entry. With
+    no amount rule, a `days_lost` rule makes it `unknown`. No rule, or only rules with neither
+    threshold, is `met`.
+12. Deadline: every rule with `years` or `days` is dated from `incident_date` (years win on one rule;
+    Feb 29 lands on Feb 28; dates stop at 9999-12-31) and the latest date wins. Rules with no period
+    are listed only.
+13. Reporting: no rules is `satisfied`. Otherwise `satisfied` when a police report was made, or there
+    was an exam and some rule lists `forensic_exam`; `required` when no report was made, some rule
+    has `required: true` (missing counts as true), and no rule lists an alternative other than
+    `forensic_exam`; otherwise `unknown`. A string `alternatives` counts as the exam when it contains
+    `forensic_exam` and as another alternative unless it is empty or exactly `forensic_exam`.
 14. A check's `rule_ids` lists every rule of its category in file order.
 15. Input: strict `YYYY-MM-DD` dates; money and units are integers from 0 to 2^53 - 1 (no floats, no
-    booleans); unique `item_id`s; the input's jurisdiction must match the rules (any case) or be
-    absent. Missing or null optional fields default to `confirmed: false`, `insurance_paid_cents: 0`,
-    `units: 0`, `is_bill: false`, `expense: "unknown"`. An expense outside the enum is `unknown_rule`.
-    Lines are sorted by `(date, item_id)`, ids compared by code point (the same as UTF-8 bytes).
+    booleans); unique `item_id`s; the input's jurisdiction must equal the rules' or be absent.
+    Missing or null optional fields default to `confirmed: false`, `insurance_paid_cents: 0`,
+    `units: 0`, `is_bill: false`, `expense: "unknown"`. An expense outside the enum reads as
+    `unknown`. Lines are sorted by `(date, item_id)`, ids compared by code point (UTF-8 byte order).
 16. `law_image_sha256` is the sha256 of the rules file bytes when loaded with `load_rules` (the CLI),
     otherwise of the canonical rules JSON (sorted keys, no spaces).
-
-Two data notes that follow from the SPEC as written, worth a look by whoever owns the rules:
-MI-MIN-1 reads "$200 or 5 days of lost earnings" but only the amount can be tested, so a small
-Michigan claim is `not_met`; SC-MIN-2 encodes its exam waiver as `["forensic_exam"]`, which the
-SPEC's `sexual_assault` test never matches.
 
 ## Trace
 
@@ -123,16 +116,29 @@ the change to that line's allowed amount, so one item's deltas sum to its `allow
 
 | op | rule_id | delta_cents |
 |---|---|---|
-| `out_of_window`, `unknown_rule`, `exam_as_medical` | null | 0 |
+| `out_of_window`, `unknown_rule` | null | 0 |
 | `held`, `excluded`, `needs_confirmation` | first proof rule | 0 |
 | `eligible` | first coverage rule | + amount |
 | `collateral` | first collateral rule | minus the insurance taken off |
-| `rate_cap`, `expense_cap`, `total_cap` | the cap | minus the cut |
+| `unit_cap`, `expense_cap`, `total_cap` | the cap | new allowed minus old |
 | `rate_unverified` | the cap | 0 |
-| `minimum_loss_<status>` | first unwaived failing rule (not_met), first waived failing rule (waived), first days_lost rule (unknown), else null | 0 |
-| `deadline_<status>` | the rule with the latest date, or null | 0 |
-| `reporting_<status>` | the rule listing forensic_exam when the exam satisfies it, the first requiring rule for required or unknown, else null | 0 |
+| `minimum_loss`, `deadline`, `reporting` | first rule in the check's `rule_ids`, or null | 0 |
 
-Order: items in `(date, item_id)` order through steps 1-6; then unit caps (rule by rule, lines in
-order), claim caps, the total cap; then `minimum_loss`, `deadline`, `reporting`. Check entries have
-`item_id: null`.
+Order: items in `(date, item_id)` order through steps 1-6; then unit and unmeasurable caps (rule by
+rule, lines in order), claim caps, the total cap; then `minimum_loss`, `deadline`, `reporting`,
+whose entries have `item_id: null`.
+
+## Questions for whoever owns the SPEC and the rules
+
+Each follows from the SPEC as written and shows up in real files:
+
+- Hold proof can cite a rule that argues the other way: WV-EXAM-3 (category `exam_payment`, expense
+  `medical`) says the facility may bill for nonforensic care. Filtering hold proof to rules that
+  name `forensic_exam` or no expense would fix it.
+- Dating `age_18` rules from the incident overstates adult deadlines: VA-DEADLINE-4 gives 10 years
+  where adults have 3, so a late Virginia claim can read `ok`.
+- MI-MIN-1 is "$200 or 5 days of lost earnings", but only the amount can be tested, so a small
+  Michigan claim reads `not_met`.
+- SC-MIN-2 encodes its exam waiver as `["forensic_exam"]`, which the `sexual_assault` test never
+  matches.
+- `count_limit` (session counts) and caps per month or per item are not enforced, only flagged.

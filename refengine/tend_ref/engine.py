@@ -55,7 +55,7 @@ def _count(value) -> int | None:
 
 
 def add_years(start: date, years: int) -> date:
-    # Calendar years; Feb 29 lands on Feb 28 in a non-leap year (the earlier, safer deadline).
+    # Calendar years; Feb 29 lands on Feb 28 in a non-leap year.
     year = start.year + years
     if year > date.max.year:
         return date.max
@@ -153,58 +153,48 @@ class Law:
             seen.add(rule["id"])
         self.rules: list[dict] = rules["rules"]
 
-        def of(category: str) -> list[dict]:
-            return [r for r in self.rules if r["category"] == category]
+        def ids(category: str) -> list[str]:
+            return [r["id"] for r in self.rules if r["category"] == category]
 
-        # Reading: exam rules prove a hold only when they name forensic_exam or no expense. A rule
-        # filed under exam_payment that names "medical" (e.g. nonforensic care the facility may
-        # bill for) is not proof that the exam bill must be held.
-        def exam_scoped(r: dict) -> bool:
-            return rule_expense(r) in (None, "forensic_exam")
-
-        self.exam_hold_ids = [r["id"] for r in of("exam_no_bill") if exam_scoped(r)] \
-            + [r["id"] for r in of("exam_payment") if exam_scoped(r)]
+        # Step 2 proof: every exam_no_bill rule, then every exam_payment rule.
+        self.exam_hold_ids = ids("exam_no_bill") + ids("exam_payment")
+        self.collateral_ids = ids("collateral_source")
+        self.info_rule_ids = [r["id"] for r in self.rules if r["category"] in INFO_CATEGORIES]
 
         self.excluded: dict[str, list[str]] = {}
         self.coverage: dict[str, list[str]] = {}  # covered_expense and expense_cap, file order
         for r in self.rules:
             expense = rule_expense(r)
             if not expense:
-                continue  # rules that only describe an item in text name no expense
+                continue  # a rule that only describes an item in text names no expense
             if r["category"] == "excluded_expense":
                 self.excluded.setdefault(expense, []).append(r["id"])
             elif r["category"] in ("covered_expense", "expense_cap"):
                 self.coverage.setdefault(expense, []).append(r["id"])
 
-        self.collateral_ids = [r["id"] for r in of("collateral_source")]
-
         # Reading: a cap without amount_cents limits nothing (count_limit and weeks are not
-        # enforced). Any per outside UNIT_PERS (claim, crime_scene, residence, or missing) is
-        # a claim cap: a claim covers one crime scene and, as far as the engine knows, one home.
-        self.rate_caps: list[Cap] = []
+        # enforced). A missing per means per claim. A per the engine cannot measure (residence,
+        # crime_scene, month, item, ...) goes with the unit caps and flags every matching line.
+        self.line_caps: list[Cap] = []  # unit caps and unmeasurable caps, file order
         self.claim_caps: list[Cap] = []
-        for r in of("expense_cap"):
-            expense = rule_expense(r)
-            amount = _count(_params(r).get("amount_cents"))
+        for r in self.rules:
+            if r["category"] != "expense_cap":
+                continue
+            expense, amount = rule_expense(r), _count(_params(r).get("amount_cents"))
             if not expense or amount is None:
                 continue
             per = _params(r).get("per")
-            per = per if isinstance(per, str) else "claim"
-            cap = Cap(r["id"], expense, amount, per)
-            (self.rate_caps if per in UNIT_PERS else self.claim_caps).append(cap)
+            cap = Cap(r["id"], expense, amount, per if isinstance(per, str) else "claim")
+            (self.claim_caps if cap.per == "claim" else self.line_caps).append(cap)
 
-        total_caps = []
-        for r in of("total_cap"):
-            amount = _count(_params(r).get("amount_cents"))
-            if amount is not None:
-                total_caps.append(Cap(r["id"], None, amount, "claim"))
+        total_caps = [Cap(r["id"], None, a, "claim") for r in self.rules
+                      if r["category"] == "total_cap" and (a := _count(_params(r).get("amount_cents"))) is not None]
         # The smallest total cap governs; min() keeps the first one on ties.
         self.total_cap = min(total_caps, key=lambda c: c.amount_cents) if total_caps else None
 
-        self.minimum_loss_rules = of("minimum_loss")
-        self.deadline_rules = of("filing_deadline")
-        self.reporting_rules = of("reporting_requirement")
-        self.info_rule_ids = [r["id"] for r in self.rules if r["category"] in INFO_CATEGORIES]
+        self.minimum_loss_rules = [r for r in self.rules if r["category"] == "minimum_loss"]
+        self.deadline_rules = [r for r in self.rules if r["category"] == "filing_deadline"]
+        self.reporting_rules = [r for r in self.rules if r["category"] == "reporting_requirement"]
 
     def evaluate(self, engine_input: dict) -> dict:
         ctx, items = parse_input(engine_input, self.jurisdiction)
@@ -248,7 +238,6 @@ class _Evaluation:
                 self.settle(line, "held", law.exam_hold_ids)
                 return
             line.expense = "medical"
-            self.log("exam_as_medical", item.item_id)
 
         # 3. Excluded by law.
         excluded = law.excluded.get(line.expense)
@@ -258,7 +247,7 @@ class _Evaluation:
 
         # 4. No rule covers this expense: shown, never counted.
         coverage = law.coverage.get(line.expense)
-        if not coverage or line.expense == "unknown":
+        if not coverage:
             self.settle(line, "unknown_rule", [])
             return
 
@@ -269,41 +258,51 @@ class _Evaluation:
 
         # 6. Eligible. The program pays after insurance when a collateral_source rule exists.
         line.allowed_cents = item.amount_cents
-        self.settle(line, "eligible", coverage, item.amount_cents)
+        self.settle(line, "eligible", coverage + law.collateral_ids, item.amount_cents)
         if law.collateral_ids:
             after = max(0, line.allowed_cents - item.insurance_paid_cents)
-            self.log("collateral", item.item_id, law.collateral_ids[0], after - line.allowed_cents)
-            line.allowed_cents = after
-            line.rule_ids += law.collateral_ids
+            if after != line.allowed_cents:
+                self.log("collateral", item.item_id, law.collateral_ids[0], after - line.allowed_cents)
+                line.allowed_cents = after
 
-    def cut(self, line: Line, cap: Cap, limit: int, op: str) -> None:
-        if line.allowed_cents > limit:
-            self.log(op, line.item.item_id, cap.rule_id, limit - line.allowed_cents)
-            line.allowed_cents = limit
-            line.cap_rule_id = cap.rule_id
+    def cap(self, line: Line, cap: Cap, value: int, op: str) -> None:
+        self.log(op, line.item.item_id, cap.rule_id, value - line.allowed_cents)
+        line.allowed_cents = value
+        line.cap_rule_id = cap.rule_id
+
+    def flag(self, line: Line, cap: Cap) -> None:
+        line.flags.append(f"rate_unverified:{cap.rule_id}")
+        self.log("rate_unverified", line.item.item_id, cap.rule_id)
 
     def walk(self, lines: list[Line], cap: Cap, op: str) -> None:
-        # Reading: only a line whose allowed amount exceeds the remaining room is cut and gets
-        # cap_rule_id. A later line already at 0 (say, paid in full by insurance) is left alone.
-        room = cap.amount_cents
+        # The line that crosses the cap is cut to what is left; every later line goes to 0 and
+        # records the cap, even a line that was already at 0.
+        used, crossed = 0, False
         for line in lines:
-            self.cut(line, cap, room, op)
-            room -= line.allowed_cents
+            if crossed:
+                self.cap(line, cap, 0, op)
+            elif used + line.allowed_cents > cap.amount_cents:
+                self.cap(line, cap, cap.amount_cents - used, op)
+                crossed = True
+            else:
+                used += line.allowed_cents
 
     def finish(self) -> dict:
         law = self.law
         eligible = [line for line in self.lines if line.status == "eligible"]
 
-        # 7a. Per-unit caps run before claim caps, so the claim walk sees rate-limited amounts.
-        for cap in law.rate_caps:
+        # 7a. Unit caps (and caps the engine cannot measure), before claim caps so the claim
+        # walk sees rate-limited amounts.
+        for cap in law.line_caps:
             for line in eligible:
                 if line.expense != cap.expense:
                     continue
-                if line.item.units > 0:
-                    self.cut(line, cap, cap.amount_cents * line.item.units, "rate_cap")
+                if cap.per in UNIT_PERS and line.item.units > 0:
+                    limit = cap.amount_cents * line.item.units
+                    if line.allowed_cents > limit:
+                        self.cap(line, cap, limit, "unit_cap")
                 else:
-                    line.flags.append(f"rate_unverified:{cap.rule_id}")
-                    self.log("rate_unverified", line.item.item_id, cap.rule_id)
+                    self.flag(line, cap)
 
         # 7b. Claim caps, each walked over its expense's eligible lines in (date, item_id) order.
         for cap in law.claim_caps:
@@ -323,103 +322,97 @@ class _Evaluation:
             "by_expense": dict(sorted(by_expense.items())),
         }
 
-        minimum_loss = self.check_minimum_loss(totals["allowed_cents"])  # 9
-        deadline = self.check_deadline()  # 10
-        reporting = self.check_reporting()  # 11
+        minimum_loss = self.check("minimum_loss", self.law.minimum_loss_rules,
+                                  self.minimum_loss_status(totals["allowed_cents"]))  # 9
+        deadline_status, deadline_date = self.deadline()
+        deadline = self.check("deadline", self.law.deadline_rules, deadline_status)  # 10
+        reporting = self.check("reporting", self.law.reporting_rules, self.reporting_status())  # 11
 
         return {
             "jurisdiction": law.jurisdiction,
             "law_image_sha256": law.law_sha256,
             "lines": [line.to_json() for line in self.lines],
             "totals": totals,
-            "checks": {"deadline": deadline, "minimum_loss": minimum_loss, "reporting": reporting},
+            "checks": {
+                "deadline": {"status": deadline["status"], "deadline_date": deadline_date,
+                             "rule_ids": deadline["rule_ids"]},
+                "minimum_loss": minimum_loss,
+                "reporting": reporting,
+            },
             "info_rule_ids": list(law.info_rule_ids),  # 12. listed for display only
             "trace": self.trace,
         }
 
-    def check_minimum_loss(self, total_allowed: int) -> dict:
+    def check(self, name: str, rules: list[dict], status: str) -> dict:
+        rule_ids = [r["id"] for r in rules]
+        self.log(name, rule_id=rule_ids[0] if rule_ids else None)
+        return {"status": status, "rule_ids": rule_ids}
+
+    def minimum_loss_status(self, total_allowed: int) -> str:
         rules = self.law.minimum_loss_rules
-        with_amount = [(r, a) for r in rules if (a := _count(_params(r).get("amount_cents"))) is not None]
-        if with_amount:
-            below = [r for r, amount in with_amount if total_allowed < amount]
-            unwaived = [r for r in below if not self.waived(r)]
-            if unwaived:
-                status, rule_id = "not_met", unwaived[0]["id"]
-            elif below:
-                status, rule_id = "waived", below[0]["id"]
-            else:
-                status, rule_id = "met", None
-        else:
-            days_only = [r for r in rules if _count(_params(r).get("days_lost")) is not None]
-            # Reading: no rule, or only rules with neither threshold (one says there is no
-            # minimum), means there is nothing to fail.
-            status, rule_id = ("unknown", days_only[0]["id"]) if days_only else ("met", None)
-        self.log(f"minimum_loss_{status}", rule_id=rule_id)
-        return {"status": status, "rule_ids": [r["id"] for r in rules]}
+        amounts = [(r, a) for r in rules if (a := _count(_params(r).get("amount_cents"))) is not None]
+        if not amounts:
+            # The SPEC makes only a days_lost-only rule unknown. Reading: a rule with neither
+            # threshold (one says there is no minimum) leaves nothing to fail.
+            days_only = any(_count(_params(r).get("days_lost")) is not None for r in rules)
+            return "unknown" if days_only else "met"
+        status = "met"
+        for rule, amount in amounts:
+            if total_allowed < amount:
+                if self.ctx.forensic_exam and self.waivable(rule):
+                    status = "waived" if status == "met" else status
+                else:
+                    status = "not_met"
+        return status
 
-    def waived(self, rule: dict) -> bool:
+    @staticmethod
+    def waivable(rule: dict) -> bool:
         waived_for = _params(rule).get("waived_for")
-        values = waived_for if isinstance(waived_for, list) else [waived_for]
-        return self.ctx.forensic_exam and "sexual_assault" in values
+        if isinstance(waived_for, str):
+            return "sexual_assault" in waived_for
+        return isinstance(waived_for, list) and "sexual_assault" in waived_for
 
-    def check_deadline(self) -> dict:
-        rules = self.law.deadline_rules
-        best: tuple[date, str] | None = None
-        for r in rules:
+    def deadline(self) -> tuple[str, str | None]:
+        latest: date | None = None
+        for r in self.law.deadline_rules:
             p = _params(r)
-            # Reading: a period that runs from the 18th birthday cannot be dated from the
-            # incident; counting it from the incident would overstate an adult's deadline.
-            if p.get("from") == "age_18":
-                continue
             years, days = _count(p.get("years")), _count(p.get("days"))
             if years is not None:
                 deadline = add_years(self.ctx.incident_date, years)
             elif days is not None:
                 deadline = add_days(self.ctx.incident_date, days)
             else:
-                continue
-            if best is None or deadline > best[0]:
-                best = (deadline, r["id"])
+                continue  # listed only
+            latest = deadline if latest is None else max(latest, deadline)
+        if latest is None:
+            return "unknown", None
+        return ("ok" if self.ctx.as_of_date <= latest else "late"), latest.isoformat()
 
-        if best is None:
-            status, deadline_date, rule_id = "unknown", None, None
-        else:
-            status = "ok" if self.ctx.as_of_date <= best[0] else "late"
-            deadline_date, rule_id = best[0].isoformat(), best[1]
-        self.log(f"deadline_{status}", rule_id=rule_id)
-        return {"status": status, "deadline_date": deadline_date, "rule_ids": [r["id"] for r in rules]}
-
-    def check_reporting(self) -> dict:
+    def reporting_status(self) -> str:
         ctx, rules = self.ctx, self.law.reporting_rules
-
-        def alternatives_of(r: dict) -> list:
-            alts = _params(r).get("alternatives")
-            return alts if isinstance(alts, list) else []
-
-        alternatives: list = []
+        if not rules:
+            return "satisfied"
+        exam_alternative = other_alternative = required = False
         for r in rules:
-            for alt in alternatives_of(r):
-                if alt not in alternatives:
-                    alternatives.append(alt)
-        # A rule without the required param still counts as a requirement.
-        requiring = [r for r in rules if _params(r).get("required", True) is not False]
-        exam_rule = next((r for r in rules if "forensic_exam" in alternatives_of(r)), None)
-
-        if ctx.police_report == "yes":
-            status, rule_id = "satisfied", None
-        elif ctx.forensic_exam and exam_rule is not None:
-            status, rule_id = "satisfied", exam_rule["id"]
-        elif not requiring:
-            status, rule_id = "satisfied", None
+            p = _params(r)
+            required = required or p.get("required", True) is not False
+            alts = p.get("alternatives")
+            if isinstance(alts, str):
+                exam_alternative = exam_alternative or "forensic_exam" in alts
+                other_alternative = other_alternative or alts not in ("", "forensic_exam")
+            elif isinstance(alts, list):
+                for alt in alts:
+                    exam_alternative = exam_alternative or alt == "forensic_exam"
+                    other_alternative = other_alternative or alt != "forensic_exam"
+        if ctx.police_report == "yes" or (ctx.forensic_exam and exam_alternative):
+            return "satisfied"
         # Reading: "no alternative applies" holds only when every listed alternative is one the
-        # engine can rule out. Only forensic_exam is known; a protective order or advocate might
-        # still apply, so those cases stay unknown rather than "required".
-        elif ctx.police_report == "no" and all(alt == "forensic_exam" for alt in alternatives):
-            status, rule_id = "required", requiring[0]["id"]
-        else:
-            status, rule_id = "unknown", requiring[0]["id"]
-        self.log(f"reporting_{status}", rule_id=rule_id)
-        return {"status": status, "rule_ids": [r["id"] for r in rules]}
+        # engine can rule out. Only forensic_exam is known; an advocate or protective order might
+        # still apply, so those cases stay unknown. Rules with required false never make it
+        # required.
+        if ctx.police_report == "no" and required and not other_alternative:
+            return "required"
+        return "unknown"
 
 
 def _date(value, where: str) -> date:
@@ -452,7 +445,7 @@ def parse_input(data: dict, jurisdiction: str) -> tuple[Context, list[Item]]:
     if not isinstance(data, dict):
         raise EngineInputError("engine input must be a JSON object")
     claimed = _get(data, "jurisdiction", jurisdiction)
-    if not isinstance(claimed, str) or claimed.upper() != jurisdiction.upper():
+    if claimed != jurisdiction:
         raise EngineInputError(f"input is for {claimed!r} but the rules are for {jurisdiction}")
 
     raw_ctx = data.get("context")
@@ -490,7 +483,7 @@ def parse_input(data: dict, jurisdiction: str) -> tuple[Context, list[Item]]:
             item_id=item_id,
             date=_date(raw.get("date"), f"{where}.date"),
             amount_cents=_int(raw.get("amount_cents"), f"{where}.amount_cents"),
-            expense=expense,
+            expense=expense if expense in EXPENSES else "unknown",
             confirmed=_bool(_get(raw, "confirmed", False), f"{where}.confirmed"),
             insurance_paid_cents=_int(_get(raw, "insurance_paid_cents", 0),
                                       f"{where}.insurance_paid_cents"),
