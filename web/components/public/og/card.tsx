@@ -123,14 +123,19 @@ export interface CardProps {
   pinpoints: string[];
 }
 
+// The card's sentence is Tend's plain wording of the cited rules, not a quote, so the small print
+// names the pinpoints when they fit and otherwise points to the page that cites them.
+export function cardSourceLine(name: string, pinpoints: string[]): string {
+  const cites = pinpoints.join(" and ");
+  return cites && cites.length <= 64
+    ? `From ${name} law: ${cites}. The program decides.`
+    : `From ${name} law, with citations on the page. The program decides.`;
+}
+
 export function Card({ summary, rules, address, pinpoints }: CardProps) {
   const lead = `If you're Jane Doe in ${summary.place}:`;
   const body = `${summary.share.clauses.map((c) => c.text).join(", and ")}.`;
-  const cites = pinpoints.join(" and ");
-  const sourceLine =
-    cites && cites.length <= 64
-      ? `From ${summary.name} law: ${cites}. The program decides.`
-      : `Every line is quoted from ${summary.name} law. The program decides.`;
+  const sourceLine = cardSourceLine(summary.name, pinpoints);
 
   return (
     <div

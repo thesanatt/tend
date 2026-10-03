@@ -215,6 +215,20 @@ describe("other states", () => {
     expect(summary.keyFacts.find((k) => k.id === "report")?.big).toBe("Police report");
   });
 
+  it("Kansas does not say a report is simply not required, since it needs a report or an exam", () => {
+    // KS-REP-1: a report within 72 hours, OR an exam within 7 days, OR good cause.
+    const ks = built.get("KS")!.summary;
+    const lead = ks.sections.find((s) => s.id === "police")!.facts[0];
+    expect(lead.text).toBe(
+      "A police report is not the only way to qualify. Other records can count, like a forensic exam.",
+    );
+    expect(lead.cites).toContain("KS-REP-1");
+    expect(ks.keyFacts.find((k) => k.id === "report")?.small).toBe("not the only record that counts");
+    for (const { summary } of built.values()) {
+      for (const text of allText(summary)) expect(text).not.toMatch(/police report is not required\. Other records/);
+    }
+  });
+
   it("DC is named DC on the card", () => {
     expect(built.get("DC")!.summary.share.text).toMatch(/^If you're Jane Doe in DC: /);
   });
@@ -224,7 +238,36 @@ describe("other states", () => {
     expect(deadline.facts).toEqual([expect.objectContaining({ kind: "note", cites: [] })]);
   });
 
-  it("leads with the shortest deadline and lists the longer windows as their own rules", () => {
+  it("leads with the program's general deadline, not a window for older crimes", () => {
+    // Virginia: 3 years for crimes since July 1, 2025. The 1-year rule (VA-DEADLINE-3) covers only
+    // crimes from 2001 through June 2025, so it must not be the headline.
+    const va = built.get("VA")!.summary;
+    expect(va.keyFacts.find((k) => k.id === "deadline")).toMatchObject({ big: "3 years", cites: ["VA-DEADLINE-1"] });
+    const vaDeadline = va.sections.find((s) => s.id === "deadline")!;
+    expect(vaDeadline.facts[0].text).toBe("Apply within 3 years of the date it happened.");
+    expect(vaDeadline.facts.map((f) => f.cites[0])).toContain("VA-DEADLINE-3");
+  });
+
+  it("every headline deadline is the first rule counted from the day it happened", () => {
+    const fromIncident = new Set(["crime", "incident", "injury", "offense", "occurrence"]);
+    for (const [st, { law, summary }] of built) {
+      const first = law.rules.find(
+        (r) =>
+          r.category === "filing_deadline" &&
+          fromIncident.has(String((r.params as Record<string, unknown>)?.from ?? "")) &&
+          duration(r) !== null,
+      );
+      const key = summary.keyFacts.find((k) => k.id === "deadline");
+      if (!first) {
+        expect(key, st).toBeUndefined();
+        continue;
+      }
+      expect(key?.cites, st).toEqual([first.id]);
+      expect(key?.big, st).toBe(duration(first)!.text);
+    }
+  });
+
+  it("leads with the general deadline and lists the longer windows as their own rules", () => {
     // Florida: 3 years for newer crimes; 5 only with good cause or a DNA delay.
     const fl = built.get("FL")!.summary;
     expect(fl.keyFacts.find((k) => k.id === "deadline")).toMatchObject({ big: "3 years", cites: ["FL-DEADLINE-1"] });
@@ -297,11 +340,15 @@ describe("summary rules on a made-up jurisdiction", () => {
     const none = zz([rule("ZZ-R1", "reporting_requirement", { required: false, alternatives: ["medical_provider"] })]);
     expect(none.keyFacts.find((k) => k.id === "report")).toMatchObject({
       big: "Police report",
-      small: "not required; other records can count",
+      small: "not the only record that counts",
     });
     expect(none.sections.find((s) => s.id === "police")!.facts[0].text).toBe(
-      "A police report is not required. Other records can count, like medical or counseling records.",
+      "A police report is not the only way to qualify. Other records can count, like medical or counseling records.",
     );
+    // With no alternative named anywhere, "not required" is what the rule says.
+    const bare = zz([rule("ZZ-R1", "reporting_requirement", { required: false })]);
+    expect(bare.keyFacts.find((k) => k.id === "report")?.small).toBe("not required to apply");
+    expect(bare.sections.find((s) => s.id === "police")!.facts[0].text).toBe("A police report is not required.");
     const mixed = zz([
       rule("ZZ-R1", "reporting_requirement", { required: false, alternatives: ["forensic_exam"] }),
       rule("ZZ-R2", "reporting_requirement", { required: true, within_hours: 72 }),

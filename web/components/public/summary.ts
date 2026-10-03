@@ -357,10 +357,13 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
 
   if (!required.length) {
     const others = rules.some((r) => list(r, "alternatives").length);
+    // "Not required" alone overstates a rule like KS-REP-1 (a report within 72 hours OR an exam
+    // within 7 days), which the corpus marks required: false because an alternative exists. When
+    // the rules name alternatives, the page says a report is not the only way, which holds for both.
     key = {
       id: "report",
       big: "Police report",
-      small: others ? "not required; other records can count" : "not required to apply",
+      small: others ? "not the only record that counts" : "not required to apply",
       cites: rules.map((r) => r.id),
     };
   } else if (examInRequired.length) {
@@ -396,7 +399,7 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
     lead = {
       key: "report-lead",
       text: alts.length
-        ? `A police report is not required. Other records can count, like ${like}.`
+        ? `A police report is not the only way to qualify. Other records can count, like ${like}.`
         : "A police report is not required.",
       cites: rules.map((r) => r.id),
       kind: "law",
@@ -424,14 +427,14 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
   const timed = rules
     .map((r) => ({ r, d: duration(r), from: String(params(r).from ?? "") }))
     .filter((x) => x.d !== null);
-  // The headline deadline counts from the day it happened. Where rules differ, the shortest one
-  // leads: a reader who files early loses nothing, and one told the longest window could miss the
-  // real one (Florida: 3 years, or 5 with good cause). The longer windows follow as their own rules.
-  // The engine's eligibility check uses the longest instead (docs/SPEC.md step 10), so it never
+  // The headline deadline counts from the day it happened and is the program's general rule: the
+  // first such rule in the verified corpus, where research lists the general deadline before its
+  // exceptions. Neither the shortest nor the longest works as a stand-in. The shortest would lead
+  // Virginia with a 1-year window that only covers crimes before July 2025 (VA-DEADLINE-3), and the
+  // longest would lead Florida with 5 years that need good cause (FL-DEADLINE-3). Every other window
+  // follows as its own rule. The engine's check uses the longest (docs/SPEC.md step 10), so it never
   // turns someone away; the two answer different questions.
-  const primary = timed
-    .filter((x) => FROM_INCIDENT.has(x.from))
-    .sort((a, b) => a.d!.days - b.d!.days || a.r.id.localeCompare(b.r.id))[0];
+  const primary = timed.find((x) => FROM_INCIDENT.has(x.from));
   const facts: Fact[] = [];
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;

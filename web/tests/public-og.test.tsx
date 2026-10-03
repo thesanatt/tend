@@ -1,7 +1,7 @@
 // The share card renders through next/og to a 1200 x 630 PNG for every jurisdiction.
 import { describe, expect, it } from "vitest";
 import { dynamicParams, generateStaticParams, GET } from "@/app/[st]/card.png/route";
-import { bodySize } from "@/components/public/og/card";
+import { bodySize, cardSourceLine } from "@/components/public/og/card";
 
 function pngSize(bytes: Uint8Array): { width: number; height: number } {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
@@ -43,5 +43,14 @@ describe("share card image", () => {
     expect(bodySize("x".repeat(120))).toBe(54);
     expect(bodySize("x".repeat(150))).toBe(48);
     expect(bodySize("x".repeat(200))).toBe(42);
+  });
+
+  it("never calls the card's sentence a quote: it names the pinpoints or points to the page", () => {
+    expect(cardSourceLine("Michigan", ["MCL 18.361(1)", "MCL 18.355a(10)"])).toBe(
+      "From Michigan law: MCL 18.361(1) and MCL 18.355a(10). The program decides.",
+    );
+    const long = cardSourceLine("Kansas", ["K.S.A. 74-7301 through a very long pinpoint", "K.A.R. 20-2-8(a)(1)(B)"]);
+    expect(long).toBe("From Kansas law, with citations on the page. The program decides.");
+    expect(long).not.toMatch(/quot/i);
   });
 });
