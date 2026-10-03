@@ -59,6 +59,9 @@ def quiet_access_log() -> None:
     access = logging.getLogger("uvicorn.access")
     if not any(isinstance(f, QuietPaths) for f in access.filters):
         access.addFilter(QuietPaths())
+    # pypdf warns about a damaged PDF with bytes copied out of it ("invalid pdf header: b'Rowan'"), and Python
+    # prints unhandled warnings to stderr, which is the server log. A file someone uploads must not land there.
+    logging.getLogger("pypdf").setLevel(logging.CRITICAL + 1)
 
 
 class BodyLimit:

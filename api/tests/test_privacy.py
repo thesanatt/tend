@@ -6,6 +6,7 @@ import asyncio
 import base64
 import contextlib
 import json
+import logging
 import os
 import sqlite3
 
@@ -130,6 +131,16 @@ def test_share_size_limit_and_iv_length(client):
 def test_unknown_share_is_404_and_bad_ids_422(client):
     assert client.get("/api/shares/" + "a" * 22).status_code == 404
     assert client.get("/api/shares/short").status_code == 422
+
+
+def test_a_damaged_file_leaves_none_of_its_bytes_in_the_log(client, caplog, capsys):
+    # pypdf's warning about a bad header quotes the file's first bytes; here those are a name.
+    secret = b"Rowan Hale, 214 Alder Row, ER visit $75.00"
+    with caplog.at_level(logging.DEBUG):
+        r = client.post("/api/ai/bill", json={"consent": True, "file": base64.b64encode(secret).decode(), "mime": "application/pdf"})
+    assert r.status_code == 503  # no text layer, and no cloud AI on this test server
+    assert not [rec for rec in caplog.records if "Rowan" in rec.getMessage()]
+    assert "Rowan" not in capsys.readouterr().err
 
 
 def test_an_expired_proposal_loses_its_payee_without_new_traffic(client, services, clock):

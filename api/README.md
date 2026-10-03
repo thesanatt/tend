@@ -28,7 +28,8 @@ the loaded public corpus against the files on disk.
 
 The access log keeps only the method, the path without its query, and the status: no client address. Requests
 whose path is private (shares, the bank relay, cloud AI, claims, packets, the agent routes, rule search) leave
-no line at all. Request bodies over 16 MB are refused with 413, including chunked ones with no Content-Length.
+no line at all. pypdf's warnings, which quote bytes from a damaged file, are switched off. Request bodies over
+16 MB are refused with 413, including chunked ones with no Content-Length.
 
 ## Settings
 
