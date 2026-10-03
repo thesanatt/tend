@@ -162,6 +162,11 @@ a:hover {
   outline-offset: 2px;
 }
 
+/* A step's heading takes focus so a screen reader starts there. It is not a control, so no ring. */
+main h1[tabindex="-1"]:focus {
+  outline: none;
+}
+
 ::selection {
   background: var(--green-tint);
   color: var(--ink);
@@ -324,6 +329,7 @@ html[data-exiting] body {
 
 /* Form controls */
 input[type="text"],
+input[type="password"],
 input[type="date"],
 input[type="tel"],
 input[type="number"],

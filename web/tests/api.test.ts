@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { proposalProblem } from "@/components/bill/PaySheet";
+import { fromLabel, proposalProblem } from "@/components/flow/bills/PaySheet";
+import { DICTS, formatters } from "@/lib/i18n";
 import { ApiError, confirmPayment, normalizeSummaries, proposePayment, resetDataModeForTests } from "@/lib/api";
 
 const pay = {
@@ -75,6 +76,8 @@ describe("jurisdiction list from the API", () => {
 });
 
 describe("payment proposal check", () => {
+  const check = (p: Parameters<typeof proposalProblem>[0], amount: number, payee: string) =>
+    proposalProblem(p, amount, payee, DICTS.en, formatters("en"));
   const proposal = {
     action_id: "a1",
     amount_cents: 139400,
@@ -85,13 +88,25 @@ describe("payment proposal check", () => {
   };
 
   it("accepts a proposal that matches the bill screen", () => {
-    expect(proposalProblem(proposal, 139400, "Riverbend General Hospital")).toBeNull();
+    expect(check(proposal, 139400, "Riverbend General Hospital")).toBeNull();
   });
 
   it("refuses a proposal whose amount or payee differs from what the survivor saw", () => {
-    expect(proposalProblem({ ...proposal, amount_cents: 171900 }, 139400, "Riverbend General Hospital")).toMatch(
+    expect(check({ ...proposal, amount_cents: 171900 }, 139400, "Riverbend General Hospital")).toMatch(
       /\$1,719\.00.*\$1,394\.00.*Nothing was sent/,
     );
-    expect(proposalProblem(proposal, 139400, "Someone else")).toMatch(/different payee/);
+    expect(check(proposal, 139400, "Someone else")).toMatch(/different payee/);
+  });
+
+  it("refuses a proposal from a different account, and shows the account by the name the survivor knows", () => {
+    const account = { id: "acct-1", nickname: "Checking", mask: "0011" };
+    const live = { ...proposal, from: "acct-1" };
+    const at = (p: typeof proposal) =>
+      proposalProblem(p, 139400, "Riverbend General Hospital", DICTS.en, formatters("en"), account);
+    expect(at(live)).toBeNull();
+    expect(at({ ...proposal, from: "Checking 0011" })).toBeNull();
+    expect(at({ ...proposal, from: "acct-9" })).toMatch(/different account/);
+    expect(fromLabel("acct-1", account)).toBe("Checking 0011");
+    expect(fromLabel("Savings", account)).toBe("Savings");
   });
 });

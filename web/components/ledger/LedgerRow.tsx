@@ -8,7 +8,7 @@ import { expenseQuestion, unitLabel } from "@/lib/expenses";
 import { useJustChanged } from "@/lib/hooks";
 import type { Row } from "@/lib/ledger";
 import { formatCents } from "@/lib/money";
-import type { Answer } from "@/lib/session";
+import type { Answer } from "@/lib/ledger";
 import { parseFlag } from "@/lib/status";
 import type { LawIndex } from "@/lib/useLaw";
 import styles from "./ledger.module.css";

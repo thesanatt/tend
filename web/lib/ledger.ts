@@ -1,8 +1,9 @@
 // Joins scan items with engine lines for display. Money totals come from the engine output; this
 // file only groups and labels.
 import { expenseRank } from "./expenses";
-import type { Answer } from "./session";
 import type { EngineLine, EngineOutput, LineStatus, ScanItem } from "./types";
+
+export type Answer = "yes" | "no" | "unsure";
 
 export type RowStatus = LineStatus | "declined" | "checking";
 

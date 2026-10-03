@@ -4,7 +4,7 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { SharedPacket } from "@/lib/contracts";
-import { evaluatePreview } from "@/lib/engine/preview";
+import { evaluatePreview } from "./helpers/preview-engine";
 import { createShare, parseShareLink, ShareError } from "@/lib/share";
 import { fromB64url } from "@/lib/vault/bytes";
 import { fakeShareServer, rowanInput, rowanOutput, webDir, webLaw, type Captured } from "./trust-helpers";

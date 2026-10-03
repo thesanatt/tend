@@ -18,6 +18,8 @@ export const CATEGORY_LABEL: Record<RuleCategory, string> = {
   eligible_crime: "Who can apply",
   residency: "Where you live and where it happened",
   conduct_reduction: "How the program reviews a claim",
+  address_confidentiality: "Keeping your address private",
+  record_confidentiality: "Your claim records are confidential",
 };
 
 // Law view order: what helps a survivor first, the program's own review last.
@@ -33,6 +35,8 @@ export const CATEGORY_ORDER: RuleCategory[] = [
   "submission",
   "required_document",
   "processing_time",
+  "address_confidentiality",
+  "record_confidentiality",
   "reporting_requirement",
   "minimum_loss",
   "emergency_award",

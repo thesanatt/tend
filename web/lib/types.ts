@@ -132,7 +132,9 @@ export type RuleCategory =
   | "residency"
   | "submission"
   | "required_document"
-  | "processing_time";
+  | "processing_time"
+  | "address_confidentiality"
+  | "record_confidentiality";
 
 export interface RuleParams {
   expense?: string;

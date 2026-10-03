@@ -5,7 +5,7 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 import { PDFArray, PDFCheckBox, PDFDict, PDFDocument, PDFHexString, PDFName, PDFString, PDFTextField } from "pdf-lib";
 import { describe, expect, it } from "vitest";
-import { evaluatePreview } from "@/lib/engine/preview";
+import { evaluatePreview } from "./helpers/preview-engine";
 import {
   allowlist,
   createPacketBuilder,

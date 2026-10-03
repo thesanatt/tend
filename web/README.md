@@ -12,55 +12,60 @@ npm run lint && npm run typecheck && npm run build
 
 ## Screens
 
-| Route            | What it shows                                                                 |
-| ---------------- | ----------------------------------------------------------------------------- |
-| `/`              | The law garden: one plant per state, grown by verified rule count; counts fixed at build |
-| `/[st]`          | A state's public page (`/mi`): what its law promises, every line cited, share card |
-| `/[st]/card.png` | The 1200x630 share card for that state (next/og, static PNG made at build)    |
-| `/start`         | State, date, optional questions, consent to read the account                  |
-| `/ledger`        | Costs in beds, status and citation per line, yes / no / not sure on guesses   |
-| `/bill`          | Itemized bill with the exam line held and the law beside it; pay the rest     |
-| `/claim`         | Amount you can ask for, checks, packet, share link, compare states            |
-| `/claim/packet`  | Printable packet: each cost with its record id, rule ids, and quoted law      |
-| `/garden`        | The survivor's garden: plants grow only for money that comes back            |
+The survivor flow lives in `app/(flow)` and `components/flow` (docs/UX.md). Every string comes from
+`lib/i18n` (English and Spanish, typed so a missing key fails the build).
+
+| Route            | What it shows                                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`              | The law garden: one plant per state, grown by verified rule count; counts fixed at build                                              |
+| `/[st]`          | A state's public page (`/mi`): what its law promises, every line cited, share card                                                    |
+| `/[st]/card.png` | The 1200x630 share card for that state (next/og, static PNG made at build)                                                            |
+| `/check`         | Check: four questions (Not sure always allowed) and a cited summary                                                                   |
+| `/gather`        | Gather: statement upload, demo bank, bills; costs in groups with yes / no                                                             |
+| `/gather/bills`  | Bill triage: held lines with the law and a letter, then pay or claim                                                                  |
+| `/packet`        | Packet: the state's form, cited summary, still needed, where to file, share                                                           |
+| `/track`         | Track: the garden as the status tracker; the deadline stays in view                                                                   |
 | `/law/[st]`      | How Tend decides: verified rules with what the engine does with each, set-aside rules, sources with SHA-256, and the compiled listing |
-| `/share/[token]` | Read-only advocate view (`/share/demo` works with fixtures)                   |
+| `/share`         | Opens an end-to-end encrypted share link (`/share#<id>.<key>`) in the browser                                                         |
+| `/share/[token]` | Read-only advocate view (`/share/demo` works with fixtures)                                                                           |
+
+`/start`, `/ledger`, `/bill`, `/claim`, and `/garden` redirect to the new steps. `/check?demo=rowan`
+fills in the fictional demo answers.
+
+The flow codes against `lib/contracts.ts` and imports the real modules by those paths (`lib/local`,
+`lib/vault`, `lib/share`, `lib/packet`); the flow's own tests use the thin mocks in `lib/mocks`, and
+`tests/flow-trust.test.tsx` drives the screens on the real vault, share, and packet modules.
 
 ## Where the claim math runs
 
-`lib/engine/index.ts` picks a backend for every evaluation, in this order:
+`lib/engine/index.ts` picks a backend for every evaluation:
 
 1. **WebAssembly on the device** when `public/engine/tend.js` exists (checked at server start) and
-   `public/engine/laws/<ST>.tlaw` exists for the state. Build flags the loader expects:
-   `-sMODULARIZE=1 -sEXPORT_NAME=createTendModule` (or `-sEXPORT_ES6=1`), exporting
-   `_tend_eval_json, _tend_disasm, _tend_version, _tend_free, _malloc, _free` and `HEAPU8`.
-   Strings and law images go through `_malloc`, never the wasm stack.
-2. **The API** (`POST /api/claim`) when `TEND_API_URL` is set and answers. The engine name comes from
-   the `x-tend-engine` response header.
-3. **A TypeScript preview** of the SPEC semantics (`lib/engine/preview.ts`), labeled "Preview engine
-   in this browser" in the footer and the audit trail. It exists so the demo works with nothing else
-   running. Where the SPEC leaves room it makes the same readings as the Python reference
-   (`refengine/README.md`), so lines, totals, checks, and the trace match whichever backend runs.
-   `tests/parity.test.ts` replays reference outputs for every state; rebuild them with
-   `python3 scripts/parity-fixtures.py --refengine ../refengine` after the rules or the reference change.
+   `public/engine/laws/<ST>.tlaw` exists for the state (`make -C ../engine wasm` builds both).
+2. **The API** (`POST /api/claim`) only when the caller passes `allowApi`. The flow asks the survivor
+   first, because that sends the claim off the device, and the privacy line says so afterward.
+
+There is no third engine. Without either, the screens say the law could not be checked.
 
 ## Configuration
 
-| Variable              | Default                                  | Effect                                        |
-| --------------------- | ---------------------------------------- | --------------------------------------------- |
-| `TEND_API_URL`        | unset                                    | Proxies `/api/*` to the FastAPI service       |
-| `NEXT_PUBLIC_EXIT_URL`| `https://www.google.com/search?q=weather`| Where Exit this page goes                     |
+| Variable               | Default                                   | Effect                                  |
+| ---------------------- | ----------------------------------------- | --------------------------------------- |
+| `TEND_API_URL`         | unset                                     | Proxies `/api/*` to the FastAPI service |
+| `NEXT_PUBLIC_EXIT_URL` | `https://www.google.com/search?q=weather` | Where Exit this page goes               |
 
-Without `TEND_API_URL` the app uses `fixtures/` and says "built-in demo fixtures" in the footer. A
-payment in that mode walks through the same confirm sheet and ends with "Nothing was sent."
+Without `TEND_API_URL` nothing is sent anywhere: the demo bank is a copy of Rowan's fictional Nessie
+account that ships with the app, and a payment walks through the same confirm sheet and ends with
+"Nothing was sent."
 
 ## API calls the app makes
 
-`GET /api/jurisdictions`, `POST /api/scan {persona_id, st, incident_date}`,
-`POST /api/bill/audit {bill_id, persona_id}`, `POST /api/claim <engine input>`,
-`POST /api/actions/propose {kind: "pay_bill", bill_id, item_ids, amount_cents, from_account_id, payee}`,
-`POST /api/actions/confirm {action_id, confirm_code}`, `POST /api/share {input, output}`,
-`GET /api/share/{token}`, `GET /api/jurisdictions/{st}/asm`, `GET /api/packet/{claim_id}.pdf`.
+The survivor flow calls the API only for what the survivor sends: `POST /api/actions/propose
+{from_account_id, payee, amount_cents}` and `POST /api/actions/confirm {action_id, confirm_code}` for a
+payment, `POST /api/claim <engine input>` after they agree to check on the server, and a sealed share
+through `lib/share` (`POST /api/shares`, or the API's `POST /api/share` with `ciphertext` and `nonce`;
+`DELETE` stops a link). The key stays in the link's `#fragment`. The law and advocate pages also use
+`GET /api/jurisdictions`, `GET /api/jurisdictions/{st}/asm`, and `GET /api/share/{token}`.
 Response shapes are in `lib/types.ts`; examples are in `fixtures/`.
 
 ## Data
@@ -71,20 +76,26 @@ Response shapes are in `lib/types.ts`; examples are in `fixtures/`.
 - `public/data/ir/<ST>.json`: `rules/ir/<ST>.json` without the program block, with the IR's SHA-256 and
   whether it was made from the current verified file.
 - Refresh these after research changes: `npm run sync:rules -- ../rules` (or a path to `rules/`), then
-  `npm run fixtures` and `python3 scripts/parity-fixtures.py --refengine ../refengine`.
+  `npm run fixtures`.
 - `public/data/asm/<ST>.txt` and `index.json`: the compiled listing for each state. `npm run sync:asm`
   runs `../engine/build/tdis` on `public/engine/laws/<ST>.tlaw` (or `../engine/build/laws`), falls back
   to `TEND_API_URL`, and otherwise keeps the committed listings. `npm run build` runs it first.
 - `NEXT_PUBLIC_SITE_URL` (default `https://youreowed.tech`) is the address printed on share cards and
   used for their Open Graph links.
 - `fixtures/`: Rowan's fictional Michigan scan, engine input and output, the bill audit, the advocate
-  view, and a stand-in compiled listing. `npm run fixtures` rebuilds the engine fixtures.
-- `fixtures/parity/<ST>.json`: reference engine outputs for random claims and Rowan's costs in every
-  state, tied to the sha256 of the law file they were made from.
+  view, and a stand-in compiled listing. `npm run fixtures` rebuilds the engine fixtures with the
+  WebAssembly engine.
+- `components/flow/samples/rowan.ts`: the sample statement rows and the sample itemized bill (PDF),
+  generated from `seed/snapshots/rowan-mi.json` and `seed/bills/rowan-mi-riverbend.pdf`. Fictional.
 
 ## Privacy and safety
 
-Answers live in this browser tab only (`sessionStorage`). Exit this page (or Esc twice) blanks the
-screen, clears that storage, and replaces the history entry; a page restored later from the back
-cache reloads blank. Tend stores no names and never asks what happened. Responses send
-`Referrer-Policy: no-referrer`, so opening a source link does not reveal the page it came from.
+Answers and costs live in memory. Save this puts them in the encrypted vault on the device (`lib/vault`,
+AES-256-GCM in IndexedDB), behind Touch ID (a passkey with PRF) or a passcode; nothing is written in the
+clear. The vault locks itself after 5 minutes without a tap or key, and the screen clears with it.
+Exit this page also closes any on-device AI session. The line under the header says where the data
+is and changes only when something is sent (a confirmed payment, a share link, or, with consent, a
+claim checked on the server). Exit this page (or Esc twice) locks the vault, blanks the screen,
+clears the tab, and replaces the history entry. Tend stores no names and never asks what happened.
+Responses send `Referrer-Policy: no-referrer`, so opening a source link does not reveal the page it
+came from.

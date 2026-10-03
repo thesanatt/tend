@@ -47,7 +47,10 @@ describe("user-facing copy", () => {
   });
 
   it("says the program decides wherever an amount is shown as askable", () => {
-    const claim = readFileSync(path.join(web, "app/claim/ClaimScreen.tsx"), "utf8");
-    expect(claim).toContain("Amount you can ask for. The program decides.");
+    for (const screen of ["components/flow/gather/GatherScreen.tsx", "components/flow/packet/PacketScreen.tsx"]) {
+      const source = readFileSync(path.join(web, screen), "utf8");
+      expect(source).toContain("t.common.askFor");
+      expect(source).toContain("t.common.programDecides");
+    }
   });
 });
