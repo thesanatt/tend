@@ -64,7 +64,8 @@ python3 refengine/difftest.py --n 10000 --rules-dir rules/verified
 
 ## Readings where the SPEC leaves room
 
-The C++ engine makes the same choices; difftest holds both to them.
+The C++ engine makes the same choices except the last sentence of 11 (see the last question
+below); difftest holds both to them.
 
 1. A rule's expense is `rule.expense`, else `params.expense`. A rule that only describes an item in
    text (`params.item`) names no expense.
@@ -144,3 +145,6 @@ Each follows from the SPEC as written and shows up in real files:
 - SC-MIN-2 encodes its exam waiver as `["forensic_exam"]`, which the `sexual_assault` test never
   matches.
 - `count_limit` (session counts) and caps per month or per item are not enforced, only flagged.
+- NJ-MINLOSS-1 is a `minimum_loss` rule with no threshold ("There are no minimum loss
+  requirements"). The SPEC only makes a days_lost-only rule `unknown`, so the reference says `met`;
+  the C++ engine says `unknown` for any rule without an amount. One of them should change.
