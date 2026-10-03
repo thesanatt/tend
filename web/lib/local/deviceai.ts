@@ -173,6 +173,7 @@ export async function promptJson(
   const timer = AbortSignal.timeout(timeoutMs);
   const combined = signal ? AbortSignal.any([signal, timer]) : timer;
   try {
+    combined.throwIfAborted(); // the caller may have given up while the clone was made
     const text = await session.prompt(input, { responseConstraint: schema, signal: combined });
     return JSON.parse(text);
   } catch (err) {

@@ -1,5 +1,5 @@
 // A stand-in for Chrome's LanguageModel global, so the on-device paths run in Node.
-import { forgetSessions } from "@/lib/local/deviceai";
+import { forgetSessions, type LmSession } from "@/lib/local/deviceai";
 
 export interface PromptCall {
   input: unknown;
@@ -20,21 +20,22 @@ export class FakeLanguageModel {
   destroyed = 0;
   constructor(readonly opts: FakeOptions = {}) {}
 
-  availability = async (options?: { expectedInputs?: { type: string }[] }) => {
+  availability: (options?: { expectedInputs?: { type: string }[] }) => Promise<string> = async (options) => {
     const image = options?.expectedInputs?.some((i) => i.type === "image");
     return this.opts.availability?.[image ? "image" : "text"] ?? "available";
   };
 
-  create = async (options: object = {}) => {
+  create: (options?: object) => Promise<LmSession> = async (options = {}) => {
     this.creates.push(options);
     if (this.opts.createError) throw this.opts.createError;
     return this.session();
   };
 
-  private session() {
+  private session(): LmSession {
     const prompt = async (input: unknown, options?: PromptCall["options"]) => {
       const call = { input, options };
       this.prompts.push(call);
+      options?.signal?.throwIfAborted();
       if (this.opts.delayMs) {
         await new Promise<void>((resolve, reject) => {
           const t = setTimeout(resolve, this.opts.delayMs);

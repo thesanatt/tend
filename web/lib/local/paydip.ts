@@ -122,7 +122,11 @@ export function inferPayDips(txns: LocalTxn[], incidentDate: string): LocalClass
       .flatMap(([, list]) => list.map((c) => c.txn.date))
       .filter((d) => d >= incidentDate)
       .sort()[0];
-    const stop = otherStart && otherStart < lastDay ? otherStart : addDays(lastDay, -3);
+    // The last day a missing check can be due: a few days before the statement ends, and before
+    // another employer's first check after the date.
+    const endOfData = addDays(lastDay, -3);
+    const beforeOther = otherStart ? addDays(otherStart, -1) : endOfData;
+    const stop = beforeOther < endOfData ? beforeOther : endOfData;
     const tolerance = Math.ceil(gap / 3);
     let expected = addDays(before[before.length - 1].txn.date, gap);
     for (let n = 0; n < 60 && expected <= stop; n++, expected = addDays(expected, gap)) {
