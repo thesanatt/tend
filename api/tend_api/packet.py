@@ -84,6 +84,13 @@ def _text(value: Any) -> str:
     return escape(s)
 
 
+EXPENSE_LABELS = {"clothing_bedding": "Clothing and bedding"}
+
+
+def expense_label(expense: str) -> str:
+    return EXPENSE_LABELS.get(expense, expense.replace("_", " ").capitalize())
+
+
 def still_needed(view: dict[str, Any], rules_doc: dict[str, Any]) -> list[dict[str, Any]]:
     """Documents the claim still needs, each tied to the line status, check, or rule that calls for it."""
     lines = view["lines"]
@@ -92,7 +99,7 @@ def still_needed(view: dict[str, Any], rules_doc: dict[str, Any]) -> list[dict[s
     for expense in counted:
         if expense in DOCS_BY_EXPENSE:
             needed.append(
-                {"document": DOCS_BY_EXPENSE[expense], "why": f"You are asking for {expense.replace('_', ' ')} costs.", "rule_ids": []}
+                {"document": DOCS_BY_EXPENSE[expense], "why": f"You are asking for {expense_label(expense).lower()} costs.", "rule_ids": []}
             )
     collateral = [r["id"] for r in rules_doc.get("rules", []) if r.get("category") == "collateral_source"]
     if collateral and INSURABLE & set(counted):
@@ -238,7 +245,7 @@ def _group_story(
     color = STATUS_COLOR.get(status, "#5b665f")
     out: list[Any] = [
         Paragraph(
-            f"<b>{_text(expense.replace('_', ' ').capitalize())}</b>: <font color='{color}'>{_text(STATUS_LABEL.get(status, status))}</font>"
+            f"<b>{_text(expense_label(expense))}</b>: <font color='{color}'>{_text(STATUS_LABEL.get(status, status))}</font>"
             f" <font color='#5b665f'>({_text(detail)})</font>",
             st["base"],
         )

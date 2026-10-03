@@ -150,3 +150,10 @@ def test_still_needed_documents_are_tied_to_reasons(client):
 
 def test_packet_for_unknown_claim_is_404(client):
     assert client.get("/api/packet/clm_missing.pdf").status_code == 404
+
+
+def test_expense_labels_read_as_words():
+    from tend_api.packet import expense_label
+
+    assert expense_label("clothing_bedding") == "Clothing and bedding"
+    assert expense_label("lost_wages") == "Lost wages"
