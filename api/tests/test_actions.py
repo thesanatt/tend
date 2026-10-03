@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import dataclasses
+import hashlib
+import json
+import shutil
 import sqlite3
 import threading
 import time
@@ -205,6 +208,38 @@ def test_paying_a_bill_without_naming_lines_pays_what_is_not_held(client):
         "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 44300, "from": CHECKING, "payee": PAYEE}
     )
     assert whole.status_code == 409 and "$118.00" in whole.json()["detail"]
+
+
+def test_the_payable_amount_the_audit_shows_can_be_paid_when_the_bill_prints_a_credit(settings, clock, tmp_path):
+    # The same bill with a $20.00 payment already made: $423.00 due, $325.00 of it the held exam line.
+    seed = tmp_path / "seed"
+    shutil.copytree(settings.seed_dir, seed)
+    bill_path = seed / "bills" / "riverbend-2026-06.txt"
+    text = bill_path.read_text().replace(
+        "Amount due                                                       $443.00",
+        "07/01/2026  Payment received                                     ($20.00)\n"
+        "Amount due                                                       $423.00",
+    )
+    bill_path.write_text(text)
+    snapshot_path = seed / "snapshots" / "rowan-mi.json"
+    snapshot = json.loads(snapshot_path.read_text())
+    [document] = snapshot["meta"]["documents"]
+    document["sha256"], document["total_cents"] = hashlib.sha256(text.encode()).hexdigest(), 42300
+    [bank_bill] = snapshot["bills"]
+    bank_bill.update({k: 42300 for k in ("amount_cents", "payment_amount_cents") if k in bank_bill})
+    snapshot_path.write_text(json.dumps(snapshot))
+    client = client_for(make_services(dataclasses.replace(settings, seed_dir=seed), clock))
+
+    audit = client.post("/api/bill/audit", json={"bill_id": BILL_ID, "persona_id": "rowan-mi"}).json()
+    assert audit["adjustments"] and audit["payable_cents"] == 9800 and audit["held_cents"] == 32500
+    body = {"kind": "pay_bill", "bill_id": BILL_ID, "from": CHECKING, "payee": PAYEE, "amount_cents": audit["payable_cents"]}
+    assert client.post("/api/actions/propose", json=body).status_code == 200  # every line that is not held
+    named = client.post("/api/actions/propose", json={**body, "item_ids": audit["payable_item_ids"]})
+    assert named.status_code == 200, named.text
+    one_line = next(ln for ln in audit["lines"] if ln["status"] != "held")
+    exact = client.post("/api/actions/propose", json={**body, "item_ids": [one_line["item_id"]], "amount_cents": one_line["amount_cents"]})
+    assert exact.status_code == 200  # some lines, not all: their own amounts
+    assert client.post("/api/actions/propose", json={**body, "amount_cents": 11800}).status_code == 409
 
 
 def test_bill_payment_must_equal_its_lines(client):

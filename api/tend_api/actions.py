@@ -130,6 +130,10 @@ class ActionService:
         if any(i in held for i in item_ids):
             raise ActionError(HELD_MESSAGE, 409)
         total = sum(lines[i]["amount_cents"] for i in item_ids)
+        if set(item_ids) == {i for i in lines if i not in held} and review.get("payable_cents") is not None:
+            # Every line that is not held: the amount the bill audit showed as payable, which takes off any
+            # credit the bill itself prints (a payment already made). Paying the audit's number must work.
+            total = review["payable_cents"]
         if total != req.amount_cents:
             raise ActionError(f"The amount does not match the lines being paid ({format_cents(total)}).", 409)
         accounts = review.get("accounts") or set()

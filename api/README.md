@@ -83,7 +83,9 @@ Payments
 - `POST /actions/propose` `{from, payee, amount_cents, kind?: "pay_bill", bill_id?, item_ids?, dry_run?}` returns
   `action_id`, `confirm_code` (six digits, once, ten minutes), `expires_at`. With `bill_id`, the server reads the
   demo bill again and runs the engine on it: held lines are refused, the amount must equal the lines paid, and
-  leaving out `item_ids` pays every line that is not held. Live writes must be whole dollars, from a persona account.
+  leaving out `item_ids` pays every line that is not held. Paying every line that is not held takes the audit's
+  `payable_cents`, which already subtracts any credit the bill prints (a payment made earlier); some of the lines
+  take their own amounts. Live writes must be whole dollars, from a persona account.
 - `POST /actions/confirm` `{action_id, confirm_code}`: Nessie withdrawal described as `Payment to <payee> [tend:<action id>]`,
   read back and compared, then logged. Wrong codes lock the action after five tries.
 - `GET /actions/{action_id}`, `GET /audit` (rows plus the chain recomputed).

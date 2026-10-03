@@ -305,6 +305,7 @@ class ClaimService:
             "accounts": account_ids(load_snapshot(self.seed_dir, persona_id)),
             "payee": audit["provider"],
             "lines": [{"item_id": ln["item_id"], "amount_cents": ln["amount_cents"], "status": ln["status"]} for ln in audit["lines"]],
+            "payable_cents": audit["payable_cents"],
         }
 
 
