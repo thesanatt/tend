@@ -45,14 +45,14 @@ def test_match_expense(description, expense):
     assert match_expense(description)[0] == expense
 
 
-def test_lines_must_add_up_or_the_audit_refuses(client):
+def test_lines_must_add_up_or_the_audit_refuses():
     bad = TEXT_BILL.decode().replace(
         "Total charges                                                    $443.00",
         "Total charges                                                    $450.00",
     )
-    r = audit(client, bill_text=bad)
-    assert r.status_code == 422
-    detail = r.json()["detail"]
+    with pytest.raises(BillRefused) as caught:
+        balance_checks(extract_bill(bad.encode(), "text"))
+    detail = caught.value.detail
     assert "do not add up" in detail["message"]
     assert detail["checks"][0] == {"name": "lines_equal_total", "ok": False, "lines_sum_cents": 44300, "total_cents": 45000}
 
@@ -187,39 +187,39 @@ def test_audit_needs_an_incident_date(client):
     assert r.status_code == 422
 
 
-def test_bill_lines_become_evidence_for_the_claim(client):
+def test_audit_lines_evaluate_the_same_as_a_claim(client):
+    # Nothing ties the audit to a later claim on the server; the device sends the same lines back.
     scan = scan_rowan(client)
-    data = audit(client, persona_id="rowan-mi", scan_id=scan["scan_id"]).json()
-    assert data["scan_id"] == scan["scan_id"]
+    data = audit(client, persona_id="rowan-mi").json()
     claim_input = confirm_all({**scan["engine_input"], "items": data["engine_items"]})
-    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=claim_input).json()
-    assert claim["refused"] == []
-    assert claim["totals"]["held_cents"] == 32500
+    claim = client.post("/api/claim", json=claim_input).json()
+    assert claim["totals"]["held_cents"] == data["held_cents"] == 32500
+    assert {ln["item_id"]: ln["status"] for ln in claim["lines"]} == {ln["item_id"]: ln["status"] for ln in data["lines"]}
 
 
-def test_audit_without_scan_creates_its_own_evidence(client):
-    data = audit(client, bill_id="riverbend-2026-06").json()
-    claim_input = confirm_all(
-        {
-            "jurisdiction": "MI",
-            "context": {"incident_date": "2026-06-14", "as_of_date": "2026-10-03", "forensic_exam": True},
-            "items": data["engine_items"],
-        }
-    )
-    claim = client.post("/api/claim", params={"scan_id": data["scan_id"]}, json=claim_input).json()
-    assert claim["refused"] == []
+def test_audit_stores_nothing(client, services):
+    before = services.repo.corpus_counts()
+    audit(client, persona_id="rowan-mi")
+    assert services.repo.corpus_counts() == before
+    assert services.repo.audit_rows() == []
+
+
+def test_bill_text_is_not_accepted_here(client):
+    # A survivor's own bill goes through POST /api/ai/bill, which needs consent; this route reads demo bills only.
+    r = audit(client, bill_text="Clinic\n06/14/2026  Laboratory panel  43.00\nTotal 43.00")
+    assert r.status_code == 422
 
 
 @pytest.mark.parametrize(
     "row",
     ["06/14/2026  Laboratory panel  (43.00", "06/14/2026  Laboratory panel  43.00)"],
 )
-def test_unbalanced_amount_is_refused_not_a_crash(client, row):
-    r = audit(client, bill_text=f"Clinic\n{row}\nTotal 43.00")
-    assert r.status_code == 422
-    assert "could not read the amount" in r.json()["detail"]["message"]
+def test_unbalanced_amount_is_refused_not_a_crash(row):
+    with pytest.raises(BillRefused) as caught:
+        extract_bill(f"Clinic\n{row}\nTotal 43.00".encode(), "text")
+    assert "could not read the amount" in caught.value.detail["message"]
 
 
-def test_unbalanced_total_is_refused_not_a_crash(client):
-    r = audit(client, bill_text="Clinic\n06/14/2026  Laboratory panel  43.00\nTotal (43.00")
-    assert r.status_code == 422
+def test_unbalanced_total_is_refused_not_a_crash():
+    with pytest.raises(BillRefused):
+        balance_checks(extract_bill(b"Clinic\n06/14/2026  Laboratory panel  43.00\nTotal (43.00", "text"))

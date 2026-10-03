@@ -1,94 +1,97 @@
+"""End-to-end encrypted share links (docs/PRIVACY.md, "A packet you choose to share").
+
+The browser seals the packet with a fresh AES-256-GCM key and sends only the ciphertext and IV.
+The key stays in the link's fragment, which browsers never send to a server, so the server holds
+nothing it can read. Links expire, can be deleted, and can be set to open once: the first read of
+an open-once link takes the ciphertext with it.
+"""
+
 from __future__ import annotations
 
+import base64
+import binascii
 import datetime as dt
-import hashlib
 import secrets
 from typing import Any
 
-from .clock import Clock, iso, parse_iso
+from .clock import Clock, iso
+from .db import MAX_SHARE_BYTES, Repository
 from .errors import TendError
-from .storage import Repository
+from .models import ShareCreate
+
+ALG = "AES-256-GCM"
+IV_BYTES = (12, 16)
 
 
 class ShareError(TendError):
     pass
 
 
-def token_hash(token: str) -> str:
-    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+def b64decode_any(text: str) -> bytes:
+    """Standard or URL-safe base64, padded or not."""
+    clean = text.strip().replace("-", "+").replace("_", "/")
+    try:
+        return base64.b64decode(clean + "=" * (-len(clean) % 4), validate=True)
+    except (binascii.Error, ValueError) as exc:
+        raise ShareError("The ciphertext is not valid base64.", 422) from exc
+
+
+def b64encode(data: bytes) -> str:
+    return base64.b64encode(data).decode("ascii")
 
 
 class ShareService:
-    """Expiring, revocable, read-only links. Only a hash of each token is stored.
-
-    A sealed share holds ciphertext made in the browser (docs/PRIVACY.md); its key travels in the
-    link's fragment, so the server cannot read it. A claim share serves a claim the server holds.
-    """
-
     def __init__(self, repo: Repository, clock: Clock, public_url: str = ""):
         self.repo = repo
         self.clock = clock
         self.public_url = public_url
 
-    def _link(self, token: str, expires_at: str, **extra: Any) -> dict[str, Any]:
+    def seal(self, req: ShareCreate) -> dict[str, Any]:
+        ciphertext = b64decode_any(req.ciphertext)
+        iv = b64decode_any(req.iv)
+        if len(ciphertext) > MAX_SHARE_BYTES:
+            raise ShareError("This packet is too large to share. The limit is 2 MB.", 413)
+        if len(iv) not in IV_BYTES:
+            raise ShareError("The IV must be 12 bytes (AES-GCM).", 422)
+        if len(ciphertext) < 17:
+            raise ShareError("That is too short to be an encrypted packet.", 422)
+        now = self.clock()
+        self.repo.sweep(iso(now))
+        share_id = secrets.token_urlsafe(16)  # 128 random bits; the link's only locator
+        expires_at = iso(now + dt.timedelta(hours=req.expires_hours))
+        self.repo.insert_share(
+            {"id": share_id, "ciphertext": ciphertext, "iv": iv, "once": req.once, "created_at": iso(now), "expires_at": expires_at}
+        )
         return {
-            "token": token,
-            "path": f"/share/{token}",
-            "url": f"{self.public_url}/share/{token}" if self.public_url else None,
-            "api_path": f"/api/share/{token}",
+            "id": share_id,
+            "created_at": iso(now),
             "expires_at": expires_at,
-            "read_only": True,
-            **extra,
+            "once": req.once,
+            "size_bytes": len(ciphertext),
+            "api_path": f"/api/shares/{share_id}",
+            "path": f"/share/{share_id}",
+            "url": f"{self.public_url}/share/{share_id}" if self.public_url else None,
         }
 
-    def create(self, claim_id: str, ttl_hours: int) -> dict[str, Any]:
-        if self.repo.get_claim(claim_id) is None:
-            raise ShareError(f"claim {claim_id} not found", 404)
-        token = secrets.token_urlsafe(24)
-        now = self.clock()
-        expires_at = iso(now + dt.timedelta(hours=ttl_hours))
-        self.repo.insert_share({"token_hash": token_hash(token), "claim_id": claim_id, "created_at": iso(now), "expires_at": expires_at})
-        return self._link(token, expires_at, sealed=False)
-
-    def create_sealed(self, ciphertext: str, nonce: str, alg: str, ttl_hours: int, open_once: bool) -> dict[str, Any]:
-        token = secrets.token_urlsafe(24)
-        now = self.clock()
-        expires_at = iso(now + dt.timedelta(hours=ttl_hours))
-        self.repo.insert_sealed_share(
-            {
-                "token_hash": token_hash(token),
-                "ciphertext": ciphertext,
-                "nonce": nonce,
-                "alg": alg,
-                "open_once": open_once,
-                "created_at": iso(now),
-                "expires_at": expires_at,
-            }
-        )
-        return self._link(token, expires_at, sealed=True, open_once=open_once)
-
-    def _check_live(self, share: dict[str, Any]) -> None:
-        if share["revoked_at"]:
-            raise ShareError("This link was turned off by the person who shared it.", 410)
-        if parse_iso(share["expires_at"]) <= self.clock():
+    def open(self, share_id: str) -> dict[str, Any]:
+        state, row = self.repo.open_share(share_id, iso(self.clock()))
+        if state == "missing":
+            raise ShareError("This link is not valid. It may have been deleted.", 404)
+        if state == "expired":
             raise ShareError("This link has expired.", 410)
+        if state == "opened" or row is None:
+            raise ShareError("This link could be opened once, and it has been.", 410)
+        return {
+            "id": share_id,
+            "alg": ALG,
+            "encoding": "base64",
+            "ciphertext": b64encode(bytes(row["ciphertext"])),
+            "iv": b64encode(bytes(row["iv"])),
+            "created_at": row["created_at"],
+            "expires_at": row["expires_at"],
+            "once": bool(row["once"]),
+        }
 
-    def resolve(self, token: str, consume: bool = True) -> dict[str, Any]:
-        """The share behind a token. Opening a sealed open-once share uses it up."""
-        digest = token_hash(token)
-        sealed = self.repo.get_sealed_share(digest)
-        if sealed is not None:
-            self._check_live(sealed)
-            if sealed["open_once"]:
-                if sealed["opened_at"] or (consume and not self.repo.mark_sealed_opened(digest, iso(self.clock()))):
-                    raise ShareError("This link could be opened once, and it has been.", 410)
-            return {**sealed, "kind": "sealed"}
-        share = self.repo.get_share(digest)
-        if share is None:
-            raise ShareError("This link is not valid.", 404)
-        self._check_live(share)
-        return {**share, "kind": "claim"}
-
-    def revoke(self, token: str) -> None:
-        if not self.repo.revoke_share(token_hash(token), iso(self.clock())):
-            raise ShareError("This link is not valid or was already turned off.", 404)
+    def delete(self, share_id: str) -> None:
+        if not self.repo.delete_share(share_id):
+            raise ShareError("This link is not valid or was already deleted.", 404)

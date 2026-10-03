@@ -130,3 +130,21 @@ def test_propose_uses_from_alias_and_positive_integer_cents():
             ProposeRequest.model_validate({"from": "acct-1", "payee": "Riverbend", "amount_cents": amount})
     with pytest.raises(ValidationError):
         ConfirmRequest.model_validate({"action_id": "act_1", "confirm_code": "12345"})
+    with pytest.raises(ValidationError):  # bill lines without the bill they belong to
+        ProposeRequest.model_validate({"from": "acct-1", "payee": "R", "amount_cents": 100, "item_ids": ["bill:x:1"]})
+
+
+def test_item_takes_v12_units_and_tags():
+    item = Item.model_validate(_item(unit="session", units=1, tags=["phone"]))
+    assert (item.unit, item.units, item.tags) == ("session", 1, ["phone"])
+    for over in ({"unit": "fortnight"}, {"tags": ["Phone!"]}, {"units": -1}):
+        with pytest.raises(ValidationError):
+            Item.model_validate(_item(**over))
+
+
+def test_classified_item_display_fields_are_dropped_not_refused():
+    # A ClassifiedItem (web/lib/contracts.ts) can be sent as-is; the engine never sees its display fields.
+    item = Item.model_validate(_item(unit="session", source="rule", reason="Known counseling practice", confidence=0.95))
+    assert "reason" not in item.model_dump() and item.unit == "session"
+    with pytest.raises(ValidationError):
+        Item.model_validate(_item(story="what happened"))

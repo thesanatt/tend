@@ -6,6 +6,7 @@ import json
 import os
 import stat
 import sys
+from pathlib import Path
 
 import pytest
 from helpers import FIXTURES, MI_RULES, client_for, fake_ref, law_image, make_services
@@ -52,7 +53,8 @@ def test_claim_falls_back_to_reference_and_says_so(client):
     r = client.post("/api/claim", json=ONE_ITEM)
     assert r.status_code == 200, r.text
     assert r.headers["X-Tend-Engine"] == "reference"
-    assert r.headers["X-Tend-Claim-Id"] == r.json()["claim_id"]
+    # The body is the engine's output and nothing else: no claim id, because no claim is kept.
+    assert "claim_id" not in r.json() and r.json()["lines"][0]["item_id"] == "nessie:p-0005"
 
 
 def test_forcing_native_without_it_is_503(client):
@@ -252,7 +254,10 @@ def test_engine_output_cannot_invent_lines(settings, clock):
 
 
 def test_load_reference_from_refengine_dir(monkeypatch):
-    monkeypatch.setattr(sys, "path", list(sys.path))
+    # Other tests may have imported the real refengine; hide it so only the fixture can be found.
+    monkeypatch.setattr(sys, "path", [p for p in sys.path if not (Path(p) / "tend_ref").is_dir()])
+    for name in [m for m in sys.modules if m == "tend_ref" or m.startswith("tend_ref.")]:
+        monkeypatch.delitem(sys.modules, name)
     # setitem records whatever was there (or nothing) so teardown restores it; the fake never outlives this test.
     monkeypatch.setitem(sys.modules, "tend_ref", None)
     del sys.modules["tend_ref"]

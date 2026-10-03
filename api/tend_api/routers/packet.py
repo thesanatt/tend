@@ -1,47 +1,29 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Annotated
 
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Query, Response
 
-from ..deps import EnginePref, IdPath, ServicesDep
-from ..errors import TendError
-from ..forms import fill_application
+from ..deps import ENGINE_HEADER, EnginePref, ServicesDep
 from ..models import ClaimInput
-from ..packet import render_packet, still_needed
+from ..packet import render_packet
 
 router = APIRouter(tags=["packet"])
 
 
-def _pdf(data: bytes, filename: str) -> Response:
-    return Response(data, media_type="application/pdf", headers={"Content-Disposition": f'inline; filename="{filename}"'})
-
-
 @router.post("/packet", response_class=Response)
-def packet_without_storing(body: ClaimInput, svc: ServicesDep, engine: EnginePref = "auto") -> Response:
-    """The packet for a claim, evaluated and rendered without keeping anything on the server."""
-    view = svc.claims.view(svc.claims.run(body, prefer=engine, store=False))
+def packet(
+    body: ClaimInput,
+    svc: ServicesDep,
+    engine: EnginePref = "auto",
+    persona_id: Annotated[str | None, Query(pattern=r"^[a-z0-9][a-z0-9\-]{0,39}$", description="labels a demo packet as fictional")] = None,
+) -> Response:
+    """The cited packet PDF for a claim, rendered and returned. Nothing is kept on the server."""
+    output, engine_name, payload = svc.claims.evaluate(body, engine)
+    view = svc.claims.view(payload, output, engine_name, persona_id)
     data = render_packet(view, svc.rules.get(view["jurisdiction"]) or {}, svc.settings.forms_dir, svc.clock())
-    return _pdf(data, "tend-packet.pdf")
-
-
-@router.get("/packet/{claim_id}.pdf", response_class=Response)
-def packet_pdf(claim_id: IdPath, svc: ServicesDep) -> Response:
-    view = svc.claims.view(svc.claims.get(claim_id))
-    data = render_packet(view, svc.rules.get(view["jurisdiction"]) or {}, svc.settings.forms_dir, svc.clock())
-    return _pdf(data, f"tend-{claim_id}.pdf")
-
-
-@router.get("/packet/{claim_id}/application.pdf", response_class=Response)
-def application_pdf(claim_id: IdPath, svc: ServicesDep) -> Response:
-    view = svc.claims.view(svc.claims.get(claim_id))
-    data = fill_application(svc.settings.forms_dir, view["jurisdiction"], view)
-    if data is None:
-        raise TendError(f"Tend does not have {view['jurisdiction']}'s application form yet.", 404)
-    return _pdf(data, f"tend-{claim_id}-application.pdf")
-
-
-@router.get("/packet/{claim_id}/needed")
-def needed(claim_id: IdPath, svc: ServicesDep) -> dict[str, Any]:
-    view = svc.claims.view(svc.claims.get(claim_id))
-    return {"claim_id": claim_id, "needed": still_needed(view, svc.rules.get(view["jurisdiction"]) or {})}
+    return Response(
+        data,
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'inline; filename="tend-packet.pdf"', ENGINE_HEADER: engine_name},
+    )

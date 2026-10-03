@@ -7,12 +7,46 @@ import subprocess
 import sys
 from pathlib import Path
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 from helpers import FIXTURES, FakeClock, law_image, make_services
 
 from tend_api.app import create_app
 from tend_api.config import API_DIR, Settings
+
+OFFLINE_ENV = (
+    "GEMINI_API_KEY",
+    "GOOGLE_API_KEY",
+    "NESSIE_API_KEY",
+    "NESSIE_BASE_URL",
+    "DATABASE_URL",
+    "DATABASE_URL_POOLED",
+    "TEND_DB",
+    "TEND_DB_SCHEMA",
+    "TEND_BANK",
+    "TEND_RELAY_LIVE",
+    "TEND_SECRET",
+    "TEND_ENV_FILE",
+)
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    config.addinivalue_line("markers", "live: talks to a real service (Neon); skipped unless its flag is set")
+
+
+@pytest.fixture(autouse=True)
+def offline(request, monkeypatch):
+    """Unit tests never reach Nessie or Gemini, and never see the keys exported in the shell."""
+    for key in OFFLINE_ENV:
+        monkeypatch.delenv(key, raising=False)
+    if request.node.get_closest_marker("live"):
+        return
+
+    def refuse(self, req):
+        raise AssertionError(f"a unit test tried to reach the network: {req.url}")
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", refuse)
 
 
 @pytest.fixture
@@ -31,7 +65,7 @@ def settings(tmp_path: Path) -> Settings:
         refengine_dir=tmp_path / "no-refengine",
         forms_dir=API_DIR / "forms",
         cache_dir=tmp_path / "cache",
-        db_path=str(tmp_path / "tend.sqlite3"),
+        database_url=str(tmp_path / "tend.sqlite3"),
         bank_mode="dry_run",
         secret_hex="ab" * 32,
     )

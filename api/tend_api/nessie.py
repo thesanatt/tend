@@ -645,6 +645,31 @@ class BankSnapshot:
     def balance_cents(self, account_id: str, as_of: str | None = None) -> int:
         return computed_balance_cents(self.account(account_id), self.txns, as_of)
 
+    def statement(self, account_id: str, start: str | None = None, end: str | None = None) -> list[dict]:
+        """One account's records as statement rows (StatementTxn in web/lib/contracts.ts): money out is
+        positive, money in negative, with the same rules as computed_balance_cents. A transfer from another
+        account shows here as money in. Tags such as [payee:...] are not shown."""
+        rows = []
+        for t in self.txns:
+            if t.status == "cancelled" or t.medium == "rewards" or (start and t.date < start) or (end and t.date > end):
+                continue
+            if t.account_id == account_id:
+                if t.kind == "transfer" and t.payee_account_id == account_id:
+                    continue
+                sign = -1 if t.kind == "deposit" else 1
+            elif t.kind == "transfer" and t.payee_account_id == account_id:
+                sign = -1
+            else:
+                continue
+            row = {"id": t.item_id, "date": t.date, "amount_cents": sign * t.amount_cents,
+                   "description": t.display_description, "origin": "nessie", "kind": t.kind}
+            merchant = self.merchant(t.merchant_id)
+            if merchant is not None:
+                row["merchant"] = merchant.name
+                row["category"] = merchant.category
+            rows.append(row)
+        return sorted(rows, key=lambda r: (r["date"], r["id"]))
+
     def to_dict(self) -> dict:
         return {
             "format": SNAPSHOT_FORMAT,

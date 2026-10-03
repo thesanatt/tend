@@ -6,13 +6,15 @@ import threading
 import time
 
 import pytest
-from helpers import client_for, confirm_all, make_services, scan_rowan
+from helpers import BILL_ID, CHECKING, client_for, make_services
 
 from tend_api.bank import BankError, DryRunBank, NessieBank
+from tend_api.db import verify_chain
 from tend_api.models import ConfirmRequest, ProposeRequest
-from tend_api.storage import verify_chain
 
-PAYMENT = {"from": "acct-checking-0001", "payee": "Riverbend General Hospital (fictional)", "amount_cents": 11800}
+PAYEE = "Riverbend General Hospital (fictional)"
+PAYMENT = {"from": CHECKING, "payee": PAYEE, "amount_cents": 11800}
+MISSING_ACTION = "act_" + "0" * 20
 
 
 def propose(client, **over):
@@ -44,22 +46,27 @@ def test_propose_then_confirm_executes_once(client):
     assert done["withdrawal_id"].startswith("dryrun-")
     assert done["readback"]["ok"] is True
     assert done["readback"]["checks"] == {"id": True, "tagged_with_action": True, "account": True, "amount": True}
-    assert action["action_id"] in done["readback"]["description"]
+    assert done["readback"]["description"].endswith(f"[tend:{action['action_id']}]")
 
     again = confirm(client, action)
     assert again.status_code == 409
     assert "works once" in again.json()["detail"]
 
+    # The log holds confirmed payments only: a proposal that never gets its yes leaves no row.
     events = [row["event"] for row in client.get("/api/audit").json()["rows"]]
-    assert events == ["proposed", "confirmed", "executed"]
+    assert events == ["confirmed", "executed"]
+
+
+def test_an_unconfirmed_proposal_leaves_no_audit_row(client):
+    propose(client)
+    assert client.get("/api/audit").json() == {"chain": {"ok": True, "rows": 0, "head": "0" * 64}, "rows": []}
 
 
 def test_audit_chain_links_every_row(client):
     for _ in range(2):
-        action = propose(client)
-        confirm(client, action)
+        confirm(client, propose(client))
     log = client.get("/api/audit").json()
-    assert log["chain"]["ok"] is True and log["chain"]["rows"] == 6
+    assert log["chain"]["ok"] is True and log["chain"]["rows"] == 4
     rows = log["rows"]
     assert rows[0]["prev_hash"] == "0" * 64
     assert all(rows[i]["prev_hash"] == rows[i - 1]["hash"] for i in range(1, len(rows)))
@@ -72,8 +79,10 @@ def test_wrong_code_is_rejected_then_locks_after_five(client):
         assert r.status_code == 403, attempt
     r = confirm(client, action, code=wrong(action["confirm_code"]))
     assert r.status_code == 423
-    assert confirm(client, action).status_code == 409  # the right code no longer works
-    assert client.get(f"/api/actions/{action['action_id']}").json()["status"] == "locked"
+    assert confirm(client, action).status_code == 423  # the right code no longer works
+    view = client.get(f"/api/actions/{action['action_id']}").json()
+    assert view["status"] == "locked" and view["attempts"] == 5 and view["payee"] is None
+    assert client.get("/api/audit").json()["rows"] == []
 
 
 def test_code_expires_after_ten_minutes(client, clock):
@@ -81,14 +90,26 @@ def test_code_expires_after_ten_minutes(client, clock):
     clock.advance(minutes=10, seconds=1)
     r = confirm(client, action)
     assert r.status_code == 410
-    assert client.get(f"/api/actions/{action['action_id']}").json()["status"] == "expired"
-    assert confirm(client, action).status_code == 409
+    view = client.get(f"/api/actions/{action['action_id']}").json()
+    assert view["status"] == "expired" and view["payee"] is None
+    assert confirm(client, action).status_code == 410
 
 
 def test_code_works_just_before_expiry(client, clock):
     action = propose(client)
     clock.advance(minutes=9, seconds=59)
     assert confirm(client, action).json()["status"] == "done"
+
+
+def test_a_sweep_expires_proposals_nobody_confirmed(client, services, clock):
+    action = propose(client)
+    clock.advance(minutes=11)
+    propose(client)  # every proposal sweeps first
+    row = services.repo.get_action(action["action_id"])
+    assert row["status"] == "expired" and row["payee"] is None
+    clock.advance(days=2)
+    propose(client)
+    assert services.repo.get_action(action["action_id"]) is None  # finished rows go after a day
 
 
 @pytest.mark.parametrize("over", [{"amount_cents": 11900}, {"from": "acct-cushion-0001"}, {"payee": "Someone Else"}])
@@ -102,8 +123,8 @@ def test_confirmation_must_match_what_was_proposed(client, over):
 def test_code_is_bound_to_the_stored_action(services, client):
     action = propose(client)
     # Editing the stored amount (as an attacker with database access might) breaks the code.
-    conn = sqlite3.connect(services.settings.db_path)
-    conn.execute("UPDATE actions SET amount_cents = 99999 WHERE action_id = ?", (action["action_id"],))
+    conn = sqlite3.connect(services.settings.database_url)
+    conn.execute("UPDATE pending_actions SET amount_cents = 99999 WHERE action_id = ?", (action["action_id"],))
     conn.commit()
     conn.close()
     assert confirm(client, action).status_code == 403
@@ -114,9 +135,23 @@ def test_code_is_never_stored_or_logged(services, client):
     code = action["confirm_code"]
     row = services.repo.get_action(action["action_id"])
     assert code not in str(row)
+    confirm(client, action)
     assert all(code not in str(r["body"]) for r in services.repo.audit_rows())
     view = client.get(f"/api/actions/{action['action_id']}").json()
     assert "code_mac" not in view and "confirm_code" not in view
+
+
+def test_finished_payment_keeps_no_payee_name(services, client):
+    action = propose(client)
+    assert services.repo.get_action(action["action_id"])["payee"] == PAYEE  # only while it waits for the code
+    confirm(client, action)
+    row = services.repo.get_action(action["action_id"])
+    assert row["payee"] is None and row["status"] == "done"
+    assert PAYEE not in str(row) and "Riverbend" not in str(row["readback"])
+    assert all(
+        "Riverbend" not in r["body"] if isinstance(r["body"], str) else "Riverbend" not in str(r["body"])
+        for r in services.repo.audit_rows()
+    )
 
 
 @pytest.mark.parametrize("amount", [0, -100, 118.0, "11800", True])
@@ -125,79 +160,84 @@ def test_amount_must_be_positive_integer_cents(client, amount):
 
 
 def test_unknown_action_is_404(client):
-    assert client.post("/api/actions/confirm", json={"action_id": "act_missing", "confirm_code": "123456"}).status_code == 404
+    assert client.post("/api/actions/confirm", json={"action_id": MISSING_ACTION, "confirm_code": "123456"}).status_code == 404
+    assert client.get(f"/api/actions/{MISSING_ACTION}").status_code == 404
+    assert client.get("/api/actions/act_1").status_code == 422
 
 
-def bill_lines(client):
-    scan = scan_rowan(client)
-    audit = client.post("/api/bill/audit", json={"bill_id": "b-riverbend-0001", "persona_id": "rowan-mi"}).json()
+def bill_audit(client):
+    audit = client.post("/api/bill/audit", json={"bill_id": BILL_ID, "persona_id": "rowan-mi"}).json()
     held = {h["item_id"] for h in audit["holds"]}
-    return audit, [ln for ln in audit["lines"] if ln["item_id"] not in held], [ln for ln in audit["lines"] if ln["item_id"] in held], scan
+    return audit, [ln for ln in audit["lines"] if ln["item_id"] not in held], [ln for ln in audit["lines"] if ln["item_id"] in held]
 
 
 def pay_bill(client, lines, **over):
     body = {
         "kind": "pay_bill",
-        "bill_id": "b-riverbend-0001",
+        "bill_id": BILL_ID,
         "item_ids": [ln["item_id"] for ln in lines],
         "amount_cents": sum(ln["amount_cents"] for ln in lines),
-        "from_account_id": "acct-checking-0001",
-        "payee": "Riverbend General Hospital (fictional)",
+        "from_account_id": CHECKING,
+        "payee": PAYEE,
     }
     return client.post("/api/actions/propose", json={**body, **over})
 
 
 def test_paying_bill_lines_records_what_was_paid(client):
-    _, payable, _, _ = bill_lines(client)
+    _, payable, _ = bill_audit(client)
     proposal = pay_bill(client, payable)
     assert proposal.status_code == 200, proposal.text
     body = proposal.json()
     assert body["kind"] == "pay_bill" and body["item_ids"] == [ln["item_id"] for ln in payable] and body["amount_cents"] == 11800
     result = confirm(client, body).json()
-    assert result["status"] == "done" and result["bill_id"] == "b-riverbend-0001" and result["item_ids"] == body["item_ids"]
+    assert result["status"] == "done" and result["bill_id"] == BILL_ID and result["item_ids"] == body["item_ids"]
     assert "Dry run" in result["message"]
-    proposed_row = client.get("/api/audit").json()["rows"][0]
-    assert proposed_row["data"]["item_ids"] == body["item_ids"]
+
+
+def test_paying_a_bill_without_naming_lines_pays_what_is_not_held(client):
+    proposal = client.post(
+        "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 11800, "from": CHECKING, "payee": PAYEE}
+    )
+    assert proposal.status_code == 200, proposal.text
+    audit, payable, _ = bill_audit(client)
+    assert proposal.json()["item_ids"] == [ln["item_id"] for ln in payable]
+    whole = client.post(
+        "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 44300, "from": CHECKING, "payee": PAYEE}
+    )
+    assert whole.status_code == 409 and "$118.00" in whole.json()["detail"]
 
 
 def test_bill_payment_must_equal_its_lines(client):
-    _, payable, _, _ = bill_lines(client)
+    _, payable, _ = bill_audit(client)
     r = pay_bill(client, payable, amount_cents=12000)
     assert r.status_code == 409
     assert "$118.00" in r.json()["detail"]
 
 
-def test_held_bill_line_cannot_be_paid_even_without_a_claim(client):
-    _, payable, held, _ = bill_lines(client)
+def test_held_bill_line_cannot_be_paid(client):
+    # The law engine runs on the bill again at payment time, so nothing has to have been audited first.
+    _, payable, held = bill_audit(client)
     r = pay_bill(client, payable + held)
     assert r.status_code == 409
     assert "held" in r.json()["detail"]
+    assert pay_bill(client, held).status_code == 409
 
 
-def test_unknown_bill_line_cannot_be_paid(client):
-    r = pay_bill(client, [{"item_id": "bill:0000000000000000:9", "amount_cents": 500}])
-    assert r.status_code == 404
+def test_unknown_bill_or_line_cannot_be_paid(client):
+    assert pay_bill(client, [{"item_id": "bill:0000000000000000:9", "amount_cents": 500}]).status_code == 404
+    unknown_bill = pay_bill(client, [{"item_id": "bill:0000000000000000:9", "amount_cents": 500}], bill_id="b-unknown")
+    assert unknown_bill.status_code == 404 and "plain payment" in unknown_bill.json()["detail"]
 
 
 def test_bill_is_paid_only_from_the_persona_accounts(client):
-    _, payable, _, _ = bill_lines(client)
+    _, payable, _ = bill_audit(client)
     r = pay_bill(client, payable, from_account_id="acct-someone-else")
     assert r.status_code == 403
 
 
-def test_held_line_cannot_be_paid(client):
-    scan = scan_rowan(client)
-    audit = client.post("/api/bill/audit", json={"st": "MI", "persona_id": "rowan-mi", "scan_id": scan["scan_id"]}).json()
-    claim_input = confirm_all({**scan["engine_input"], "items": audit["engine_items"]})
-    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=claim_input).json()
-    exam = audit["holds"][0]["item_id"]
-    r = client.post("/api/actions/propose", json={**PAYMENT, "amount_cents": 32500, "claim_id": claim["claim_id"], "item_id": exam})
-    assert r.status_code == 409
-    assert "held" in r.json()["detail"]
-    other = next(i["item_id"] for i in audit["engine_items"] if i["item_id"] != exam)
-    ok = client.post("/api/actions/propose", json={**PAYMENT, "amount_cents": 7500, "claim_id": claim["claim_id"], "item_id": other})
-    assert ok.status_code == 200
-    assert client.post("/api/actions/propose", json={**PAYMENT, "claim_id": "clm_missing"}).status_code == 404
+def test_pay_bill_needs_the_bill(client):
+    r = client.post("/api/actions/propose", json={**PAYMENT, "kind": "pay_bill"})
+    assert r.status_code == 422
 
 
 class FailingBank(DryRunBank):
@@ -231,8 +271,9 @@ def test_refused_payment_moves_no_money_and_is_logged(settings, clock):
     r = confirm(client, action)
     assert r.status_code == 502
     assert "no money moved" in r.json()["detail"]
-    assert client.get(f"/api/actions/{action['action_id']}").json()["status"] == "failed"
-    assert [row["event"] for row in client.get("/api/audit").json()["rows"]][-1] == "failed"
+    view = client.get(f"/api/actions/{action['action_id']}").json()
+    assert view["status"] == "failed" and view["error_kind"] == "BankError"
+    assert [row["event"] for row in client.get("/api/audit").json()["rows"]] == ["confirmed", "failed"]
     assert confirm(client, action).status_code == 409
 
 
@@ -257,6 +298,7 @@ def test_readback_mismatch_is_flagged_unverified(settings, clock):
     done = confirm(client, propose(client)).json()
     assert done["status"] == "unverified"
     assert done["readback"]["checks"]["amount"] is False
+    assert client.get("/api/audit").json()["rows"][-1]["event"] == "unverified"
 
 
 class SlowBank(DryRunBank):
@@ -359,7 +401,8 @@ def test_live_mode_writes_through_the_nessie_client(settings, clock):
     assert done["readback"]["checks"] == {"id": True, "tagged_with_action": True, "account": True, "amount": True}
     stored = nessie.stored["nessie-w-1"]
     assert stored["amount"] == 118 and stored["transaction_date"] == "2026-10-03"
-    assert stored["description"].startswith(f"Tend {action['action_id']}")
+    # Tagged the way the classifier recognizes Tend's own payments, so it is never offered as a cost.
+    assert stored["description"] == f"Payment to {PAYEE} [tend:{action['action_id']}]"
     assert client.get("/api/audit").json()["rows"][-1]["data"]["bank"] == "nessie"
 
     rehearsal = propose(client, dry_run=True)
@@ -397,13 +440,18 @@ def test_dry_run_server_never_writes_live(client):
     assert action["dry_run"] is True
 
 
-def test_audit_table_is_append_only(services, client):
+def test_audit_table_is_append_only_and_extends_only_its_head(services, client):
     confirm(client, propose(client))
-    conn = sqlite3.connect(services.settings.db_path)
+    conn = sqlite3.connect(services.settings.database_url)
     with pytest.raises(sqlite3.DatabaseError, match="append-only"):
-        conn.execute("UPDATE audit SET event = 'nothing' WHERE seq = 1")
+        conn.execute("UPDATE audit_log SET event = 'failed' WHERE seq = 1")
     with pytest.raises(sqlite3.DatabaseError, match="append-only"):
-        conn.execute("DELETE FROM audit")
+        conn.execute("DELETE FROM audit_log")
+    with pytest.raises(sqlite3.DatabaseError, match="extend the chain"):
+        conn.execute(
+            "INSERT INTO audit_log (seq, ts, event, action_id, body, prev_hash, hash) VALUES (3, 't', 'executed', 'a', '{}', ?, ?)",
+            ("1" * 64, "2" * 64),
+        )
     conn.close()
 
 
@@ -413,47 +461,11 @@ def test_verify_chain_detects_tampering(services, client):
     assert verify_chain(rows)["ok"] is True
     edited = [dict(r) for r in rows]
     edited[1] = {**edited[1], "body": {**edited[1]["body"], "data": {"amount_cents": 1}}}
-    assert verify_chain(edited) == {"ok": False, "rows": 3, "broken_at": 2, "reason": "hash does not match the row body"}
-    dropped = [rows[0], rows[2]]
-    assert verify_chain(dropped)["broken_at"] == 3
-
-
-def test_bill_lines_from_a_scan_are_not_payable_until_the_law_checks_them(client):
-    scan = scan_rowan(client)
-    lines = [i for i in scan["items"] if i.get("source") == "bill"]
-    exam = [i for i in lines if i["expense"] == "forensic_exam"]
-    assert exam, "the scan reads the itemized bill, exam line included"
-    # Right after a scan the exam line has not been through the engine; it must not be payable.
-    r = pay_bill(client, exam)
-    assert r.status_code == 409
-    assert "not checked this bill" in r.json()["detail"]
-    others = [i for i in lines if i["expense"] != "forensic_exam"]
-    assert pay_bill(client, others).status_code == 409
-    client.post("/api/bill/audit", json={"bill_id": "b-riverbend-0001", "persona_id": "rowan-mi", "scan_id": scan["scan_id"]})
-    assert pay_bill(client, exam).status_code == 409 and "held" in pay_bill(client, exam).json()["detail"]
-    assert pay_bill(client, others).status_code == 200
-
-
-def test_pay_bill_must_name_its_lines(client):
-    r = client.post("/api/actions/propose", json={**PAYMENT, "kind": "pay_bill", "bill_id": "b-riverbend-0001"})
-    assert r.status_code == 422
-
-
-def test_claim_line_payment_cannot_exceed_the_line(client):
-    scan = scan_rowan(client)
-    audit = client.post("/api/bill/audit", json={"st": "MI", "persona_id": "rowan-mi", "scan_id": scan["scan_id"]}).json()
-    claim_input = confirm_all({**scan["engine_input"], "items": audit["engine_items"]})
-    claim = client.post("/api/claim", params={"scan_id": scan["scan_id"]}, json=claim_input).json()
-    line = next(i for i in audit["engine_items"] if i["expense"] != "forensic_exam")
-    over = {**PAYMENT, "amount_cents": line["amount_cents"] + 1, "claim_id": claim["claim_id"], "item_id": line["item_id"]}
-    r = client.post("/api/actions/propose", json=over)
-    assert r.status_code == 409
-    assert "more than this line" in r.json()["detail"]
-    exact = {**over, "amount_cents": line["amount_cents"]}
-    assert client.post("/api/actions/propose", json=exact).status_code == 200
+    assert verify_chain(edited) == {"ok": False, "rows": 2, "broken_at": 2, "reason": "hash does not match the row body"}
+    assert verify_chain([rows[1]])["broken_at"] == 2
 
 
 def test_confirm_code_must_be_ascii_digits(client):
     action = propose(client)
-    r = client.post("/api/actions/confirm", json={"action_id": action["action_id"], "confirm_code": "\u0661" * 6})
+    r = client.post("/api/actions/confirm", json={"action_id": action["action_id"], "confirm_code": "١" * 6})
     assert r.status_code == 422

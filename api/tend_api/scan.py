@@ -1,9 +1,15 @@
+"""Scan a demo persona's bank into claim items, on the server. Nothing is stored.
+
+In the local-first flow the device classifies its own statement (web/lib/local/classify) and this
+endpoint is the server-side twin for demo personas, for the agent, and for parity checks. Every
+item is SPEC v1.2 shaped (typed unit and tags), and anything inferred starts unconfirmed.
+"""
+
 from __future__ import annotations
 
 import dataclasses
 import importlib
 import json
-import secrets
 from collections import Counter
 from collections.abc import Callable
 from pathlib import Path
@@ -13,15 +19,16 @@ from typing import Any
 from pydantic import ValidationError
 
 from .bill import BillRefused, load_document, snapshot_documents, verify_bill
-from .clock import Clock, iso, local_today, parse_date
+from .clock import Clock, local_today, parse_date
 from .errors import TendError
 from .models import Item, ScanRequest
-from .storage import Repository
 
 Classifier = Callable[[list[dict[str, Any]], str], list[Any]]
 DEFAULT_LABEL = "Fictional demo data. Bank records come from Capital One's Nessie sandbox, a mock bank."
 MOCK_BANK_LABEL = "Bank records come from Capital One's Nessie sandbox, a mock bank."
 TRANSACTION_KINDS = ("purchases", "bills", "withdrawals", "transfers", "deposits")
+# Methods whose label is a guess or a link, so the line always waits for the survivor's yes.
+INFERRED = frozenset({"model", "link", "inference", "unresolved"})
 
 
 class ScanError(TendError):
@@ -35,16 +42,25 @@ def snapshot_dir(seed_dir: Path) -> Path:
 def load_snapshot(seed_dir: Path, persona_id: str) -> dict[str, Any]:
     path = snapshot_dir(seed_dir) / f"{persona_id}.json"
     if not path.is_file():
-        raise ScanError(f"No snapshot for persona {persona_id!r} in {snapshot_dir(seed_dir)}", 404)
+        raise ScanError(f"No snapshot for persona {persona_id!r}.", 404)
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def find_customer_snapshot(seed_dir: Path, customer_id: str) -> tuple[str, dict[str, Any]] | None:
+def list_snapshots(seed_dir: Path) -> list[tuple[str, dict[str, Any]]]:
+    out = []
     for path in sorted(snapshot_dir(seed_dir).glob("*.json")):
-        snap = json.loads(path.read_text(encoding="utf-8"))
+        try:
+            out.append((path.stem, json.loads(path.read_text(encoding="utf-8"))))
+        except (OSError, ValueError):
+            continue
+    return out
+
+
+def find_customer_snapshot(seed_dir: Path, customer_id: str) -> tuple[str, dict[str, Any]] | None:
+    for persona_id, snap in list_snapshots(seed_dir):
         customer = snap.get("customer") or {}
         if customer_id in (customer.get("_id"), customer.get("id"), snap.get("customer_id")):
-            return path.stem, snap
+            return persona_id, snap
     return None
 
 
@@ -71,14 +87,15 @@ def account_ids(snap: dict[str, Any]) -> set[str]:
     return {str(_id(a)) for a in snap.get("accounts") or [] if _id(a)}
 
 
-def primary_account(snap: dict[str, Any]) -> dict[str, Any] | None:
-    """The account payments come from: the persona's checking account."""
+def primary_account(snap: dict[str, Any], key: str = "checking") -> dict[str, Any] | None:
+    """The account payments come from: the persona's checking account unless another is named."""
     accounts = snap.get("accounts") or []
-    key = ((snap.get("meta") or {}).get("account_keys") or {}).get("checking")
+    wanted = ((snap.get("meta") or {}).get("account_keys") or {}).get(key)
+    kind = {"checking": "checking", "cushion": "savings", "savings": "savings"}.get(key, key)
     pick = (
-        next((a for a in accounts if key and _id(a) == key), None)
-        or next((a for a in accounts if str(a.get("type", "")).lower() == "checking"), None)
-        or (accounts[0] if accounts else None)
+        next((a for a in accounts if wanted and _id(a) == wanted), None)
+        or next((a for a in accounts if str(a.get("type", "")).lower() == kind), None)
+        or (accounts[0] if accounts and key == "checking" else None)
     )
     if pick is None:
         return None
@@ -106,6 +123,7 @@ def itemized_bill_items(seed_dir: Path, snap: dict[str, Any]) -> tuple[list[dict
         replaced.add(f"nessie:{doc['bill_id']}")
         for line in bill.lines:
             matched = f', matched on "{line.match}"' if line.match else ""
+            counseling = line.expense == "counseling"
             rows.append(
                 {
                     "item_id": line.item_id,
@@ -114,15 +132,19 @@ def itemized_bill_items(seed_dir: Path, snap: dict[str, Any]) -> tuple[list[dict
                     "expense": line.expense,
                     # The provider's own itemized statement, not an inference, so the line starts confirmed.
                     "confirmed": True,
+                    "insurance_paid_cents": 0,
                     "is_bill": True,
-                    "units": 0,
+                    "units": 1 if counseling else 0,
+                    "unit": "session" if counseling else None,
                     "description": (f"{bill.provider} - {line.description}" if bill.provider else line.description)[:200],
-                    "merchant": bill.provider,
-                    "source": "bill",
-                    "bill_id": doc["bill_id"],
-                    "confidence": 1.0,
-                    "method": "itemized_bill",
+                    "tags": [],
+                    "source": "rule",
                     "reason": f"Line {line.line_no} of the itemized bill{matched}",
+                    "confidence": 1.0,
+                    "merchant": bill.provider,
+                    "kind": "bill_line",
+                    "bill_id": doc["bill_id"],
+                    "method": "itemized_bill",
                 }
             )
     return rows, replaced, errors
@@ -148,54 +170,8 @@ def _classify_module() -> ModuleType:
         raise ScanError(f"The classifier is not installed (tend_api.classify): {exc}", 503) from exc
 
 
-def default_classifier() -> Classifier:
-    module = _classify_module()
-    if not hasattr(module, "classify_transactions"):
-        raise ScanError("tend_api.classify has no classify_transactions(transactions, st)", 503)
-    return module.classify_transactions
-
-
-def items_from_classifications(snap: dict[str, Any], results: dict[str, Any]) -> list[dict[str, Any]]:
-    """Engine items from classify_snapshot's {nessie id: Classification}. Only candidates become items."""
-    service_dates = {d.get("bill_id"): d.get("service_date") for d in snapshot_documents(snap) if d.get("bill_id")}
-    items = []
-    for txn in transactions_from_snapshot(snap):
-        ref = _id(txn)
-        result = results.get(ref)
-        if result is None:
-            continue
-        r = result.to_dict() if hasattr(result, "to_dict") else dict(result)
-        if not r.get("candidate"):
-            continue
-        is_bill = txn.get("kind") == "bill"
-        merchant = (txn.get("merchant") or {}).get("name")
-        description = txn.get("payee") if is_bill else " ".join(filter(None, [merchant, txn.get("description")]))
-        items.append(
-            {
-                "item_id": f"nessie:{ref}",
-                # A Nessie bill's own dates are bookkeeping; the itemized bill says when care happened.
-                "date": (service_dates.get(ref) if is_bill else None) or txn.get("date") or txn.get("creation_date"),
-                "amount_cents": txn.get("amount_cents"),
-                "expense": r.get("expense", "unknown"),
-                "confirmed": bool(r.get("confirmed")),
-                "is_bill": is_bill,
-                # Each counseling charge is one session, so per-session caps can apply.
-                "units": 1 if r.get("expense") == "counseling" and not is_bill else 0,
-                "tags": list(r.get("tags") or []),
-                "description": (description or "")[:200],
-                "merchant": txn.get("payee") if is_bill else merchant,
-                "source": txn.get("kind"),
-                "bill_id": ref if is_bill else None,
-                "confidence": r.get("confidence"),
-                "reason": r.get("reason"),
-                "method": r.get("method"),
-                "linked_item_ids": [f"nessie:{x}" for x in r.get("linked_refs") or []],
-            }
-        )
-    return items
-
-
-def classify_with_snapshot(module: ModuleType, snap: dict[str, Any]) -> dict[str, Any]:
+def items_from_snapshot(module: ModuleType, snap: dict[str, Any], incident_date: str | None) -> list[dict[str, Any]]:
+    """ClassifiedItems from the real classifier, plus the display fields the scan view shows."""
     from tend_api.nessie import BankSnapshot
 
     try:
@@ -203,7 +179,25 @@ def classify_with_snapshot(module: ModuleType, snap: dict[str, Any]) -> dict[str
     except (ValueError, KeyError, TypeError) as exc:
         raise ScanError(f"This snapshot is not in the format the classifier reads: {exc}", 502) from exc
     anchors = [(d["service_date"], d["bill_id"], "medical") for d in snapshot_documents(snap) if d.get("service_date") and d.get("bill_id")]
-    return module.classify_snapshot(bank, extra_anchors=anchors)
+    results = module.classify_snapshot(bank, extra_anchors=anchors, incident_date=incident_date)
+    kinds = {t.item_id: t.kind for t in bank.txns} | {b.item_id: "bill" for b in bank.bills}
+    merchants = {t.item_id: (bank.merchant(t.merchant_id).name if bank.merchant(t.merchant_id) else None) for t in bank.txns}
+    merchants |= {b.item_id: b.payee for b in bank.bills}
+    items = []
+    for item in module.snapshot_items(bank, results, incident_date):
+        ref = item["item_id"].removeprefix("nessie:")
+        r = results[ref]
+        items.append(
+            {
+                **item,
+                "merchant": merchants.get(item["item_id"]),
+                "kind": kinds.get(item["item_id"]),
+                "bill_id": ref if kinds.get(item["item_id"]) == "bill" else None,
+                "method": r.method,
+                "linked_item_ids": [f"nessie:{x}" for x in r.linked_refs],
+            }
+        )
+    return items
 
 
 def _as_dict(raw: Any) -> dict[str, Any]:
@@ -217,15 +211,14 @@ def _as_dict(raw: Any) -> dict[str, Any]:
 
 
 def normalize_items(raw_items: list[Any]) -> tuple[list[Item], list[dict[str, Any]]]:
-    """Split classifier output into strict engine items and display rows (engine fields plus confidence, reason, ...)."""
+    """Split classifier output into strict engine items and display rows (engine fields plus reason, ...)."""
     items: list[Item] = []
     rows: list[dict[str, Any]] = []
     for raw in raw_items:
         data = _as_dict(raw)
         fields = {k: data[k] for k in Item.model_fields if k in data}
         fields.setdefault("confirmed", False)
-        confidence = data.get("confidence")
-        if isinstance(confidence, (int, float)) and confidence < 1:
+        if data.get("method") in INFERRED or data.get("source") in ("cloud_ai", "device_ai"):
             fields["confirmed"] = False  # anything inferred waits for the survivor's yes
         try:
             item = Item.model_validate(fields)
@@ -240,14 +233,12 @@ def normalize_items(raw_items: list[Any]) -> tuple[list[Item], list[dict[str, An
 class ScanService:
     def __init__(
         self,
-        repo: Repository,
         seed_dir: Path,
         clock: Clock,
         classifier: Classifier | None = None,
         live_scan: bool = False,
         nessie_client_factory: Callable[[], Any] | None = None,
     ):
-        self.repo = repo
         self.seed_dir = seed_dir
         self.clock = clock
         self._classifier = classifier
@@ -257,32 +248,25 @@ class ScanService:
     def persona_accounts(self) -> set[str]:
         """Every account id in the seed personas: the only accounts a live payment may come from."""
         accounts: set[str] = set()
-        for path in sorted(snapshot_dir(self.seed_dir).glob("*.json")):
-            try:
-                accounts |= account_ids(json.loads(path.read_text(encoding="utf-8")))
-            except (OSError, ValueError):
-                continue
+        for _, snap in list_snapshots(self.seed_dir):
+            accounts |= account_ids(snap)
         return accounts
 
-    def accounts_for_scan(self, scan_id: str) -> set[str] | None:
-        """The persona's own account ids, when the scan came from a persona snapshot."""
-        scan = self.repo.get_scan(scan_id)
-        if not scan or not scan.get("persona_id"):
-            return None
-        try:
-            return account_ids(load_snapshot(self.seed_dir, scan["persona_id"])) or None
-        except ScanError:
-            return None
+    def persona_account(self, persona_id: str, key: str = "checking") -> dict[str, Any]:
+        account = primary_account(load_snapshot(self.seed_dir, persona_id), key)
+        if account is None:
+            raise ScanError(f"{persona_id} has no {key} account.", 404)
+        return account
 
-    def classify(self, snap: dict[str, Any], st: str) -> list[Any]:
+    def classify(self, snap: dict[str, Any], st: str, incident_date: str | None) -> list[Any]:
         if self._classifier is not None:
             return list(self._classifier(transactions_from_snapshot(snap), st))
         module = _classify_module()
+        if hasattr(module, "snapshot_items"):
+            return items_from_snapshot(module, snap, incident_date)
         if hasattr(module, "classify_transactions"):
             return list(module.classify_transactions(transactions_from_snapshot(snap), st))
-        if hasattr(module, "classify_snapshot"):
-            return items_from_classifications(snap, classify_with_snapshot(module, snap))
-        raise ScanError("tend_api.classify has neither classify_transactions nor classify_snapshot", 503)
+        raise ScanError("tend_api.classify has neither snapshot_items nor classify_transactions", 503)
 
     def snapshot_for(self, req: ScanRequest) -> tuple[str | None, dict[str, Any]]:
         if req.persona_id:
@@ -298,7 +282,7 @@ class ScanService:
         try:
             snap = client.snapshot(req.customer_id)
         except Exception as exc:
-            raise ScanError(f"Nessie did not answer the scan: {exc}", 502) from exc
+            raise ScanError(f"Nessie did not answer the scan ({type(exc).__name__}).", 502) from exc
         if hasattr(snap, "to_dict"):
             snap = snap.to_dict()
         if not isinstance(snap, dict):
@@ -313,45 +297,28 @@ class ScanService:
         incident_date = req.incident_date or parse_date(context.get("incident_date"))
         if incident_date is None:
             raise ScanError("incident_date is required (the persona snapshot does not set one).", 422)
-        now = self.clock()
-        as_of = parse_date(context.get("as_of_date")) or local_today(now)
+        as_of = parse_date(context.get("as_of_date")) or local_today(self.clock())
 
         transactions = transactions_from_snapshot(snap)
         bill_rows, replaced, bill_errors = itemized_bill_items(self.seed_dir, snap)
-        classified = [r for r in self.classify(snap, req.st) if _as_dict(r).get("item_id") not in replaced]
+        classified = [r for r in self.classify(snap, req.st, incident_date.isoformat()) if _as_dict(r).get("item_id") not in replaced]
         items, rows = normalize_items(classified + bill_rows)
         forensic_exam = context.get("forensic_exam")
         if not isinstance(forensic_exam, bool):
             forensic_exam = any(i.expense == "forensic_exam" for i in items)
         police = context.get("police_report") if context.get("police_report") in ("yes", "no", "unknown") else "unknown"
-
-        scan_id = f"scan_{secrets.token_hex(10)}"
         fictional = bool(info["fictional"] if info["fictional"] is not None else persona_id is not None)
-        display_name = info["display_name"] if fictional else None
-        self.repo.save_scan(
-            {
-                "scan_id": scan_id,
-                "persona_id": persona_id,
-                "customer_id": req.customer_id,
-                "jurisdiction": req.st,
-                "fictional": fictional,
-                "display_name": display_name,
-                "created_at": iso(now),
-            },
-            [{"item_id": i.item_id, "amount_cents": i.amount_cents, "date": i.date.isoformat(), "source": "nessie"} for i in items],
-        )
         documents = [
             {k: d.get(k) for k in ("kind", "bill_id", "statement_date", "service_date", "due_date", "total_cents")}
             for d in snapshot_documents(snap)
             if d.get("bill_id")
         ]
         return {
-            "scan_id": scan_id,
             "persona_id": persona_id,
             "customer_id": req.customer_id,
             "fictional": fictional,
             "label": info["label"] or (DEFAULT_LABEL if fictional else MOCK_BANK_LABEL),
-            "display_name": display_name,
+            "display_name": info["display_name"] if fictional else None,
             "st": req.st,
             "incident_date": incident_date.isoformat(),
             "as_of_date": as_of.isoformat(),

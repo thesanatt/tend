@@ -30,6 +30,14 @@ def get_jurisdiction(st: StatePath, svc: ServicesDep) -> dict[str, Any]:
     return {**doc, "rules_sha256": svc.rules.file_sha256(st)}
 
 
+@router.get("/jurisdictions/{st}/images")
+def law_images(st: StatePath, svc: ServicesDep) -> dict[str, Any]:
+    """The compiled law images the loader recorded, so a device can check its engine ran the published one."""
+    st = st.upper()
+    _require(svc, st)
+    return {"jurisdiction": st, "rules_sha256": svc.rules.file_sha256(st), "images": svc.repo.law_images(st)}
+
+
 @router.get("/jurisdictions/{st}/asm", response_model=None)
 def disassembly(st: StatePath, svc: ServicesDep, format: Literal["json", "text"] = "json") -> dict[str, Any] | PlainTextResponse:
     st = st.upper()
