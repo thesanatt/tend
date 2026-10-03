@@ -20,7 +20,8 @@ const SECRET = { note: "counseling receipts from June", amounts: [4000, 4000], o
 
 function fakePasskeys(seed = "authenticator-1", mode: "ok" | "cancel" | "unsupported" = "ok"): PasskeyProvider {
   // PRF semantics: HMAC(device secret, salt). A different device gives a different secret.
-  const prf = (salt: Uint8Array) => new Uint8Array(createHmac("sha256", seed).update(salt).digest()) as Uint8Array<ArrayBuffer>;
+  const prf = (salt: Uint8Array) =>
+    new Uint8Array(createHmac("sha256", seed).update(salt).digest()) as Uint8Array<ArrayBuffer>;
   return {
     available: async () => mode !== "unsupported",
     async register(salt) {
@@ -138,7 +139,10 @@ describe("vault with a passphrase", () => {
 
     // A changed wrapped key reads as a wrong passphrase: unlock fails cleanly.
     const meta = store.records.get("meta") as { pass: { box: { iv: string; ct: string } } };
-    store.records.set("meta", { ...meta, pass: { ...meta.pass, box: { ...meta.pass.box, ct: flip(meta.pass.box.ct) } } });
+    store.records.set("meta", {
+      ...meta,
+      pass: { ...meta.pass, box: { ...meta.pass.box, ct: flip(meta.pass.box.ct) } },
+    });
     const fresh = createVault({ store, iterations: FAST, idleMs: 0 });
     expect(await fresh.unlock({ passphrase: "maple river 42" })).toBe(false);
   });
@@ -201,7 +205,13 @@ describe("auto-lock after inactivity", () => {
 
   it("locks on the next use when a sleeping tab missed its timer", async () => {
     let now = 1_000_000;
-    const vault = createVault({ store: memoryStore(), iterations: FAST, idleMs: 60_000, activity: null, now: () => now });
+    const vault = createVault({
+      store: memoryStore(),
+      iterations: FAST,
+      idleMs: 60_000,
+      activity: null,
+      now: () => now,
+    });
     await vault.create({ passphrase: "maple river 42" });
     now += 61_000; // timers do not run in a background tab
     await expect(vault.get("anything")).rejects.toMatchObject({ code: "locked" });
@@ -226,8 +236,12 @@ describe("vault with a passkey (WebAuthn PRF)", () => {
   it("fails cleanly with another device's passkey or a cancelled prompt", async () => {
     const store = memoryStore();
     await createVault({ store, passkeys: fakePasskeys(), idleMs: 0 }).create({ passkey: true });
-    expect(await createVault({ store, passkeys: fakePasskeys("authenticator-2"), idleMs: 0 }).unlock({ passkey: true })).toBe(false);
-    expect(await createVault({ store, passkeys: fakePasskeys("x", "cancel"), idleMs: 0 }).unlock({ passkey: true })).toBe(false);
+    expect(
+      await createVault({ store, passkeys: fakePasskeys("authenticator-2"), idleMs: 0 }).unlock({ passkey: true }),
+    ).toBe(false);
+    expect(
+      await createVault({ store, passkeys: fakePasskeys("x", "cancel"), idleMs: 0 }).unlock({ passkey: true }),
+    ).toBe(false);
     await expect(
       createVault({ store, passkeys: fakePasskeys("x", "unsupported"), idleMs: 0 }).unlock({ passkey: true }),
     ).rejects.toMatchObject({ code: "passkey_unsupported" });
@@ -240,7 +254,9 @@ describe("vault with a passkey (WebAuthn PRF)", () => {
       code: "passkey_unsupported",
     });
     expect(store.records.size).toBe(0);
-    await expect(createVault({ store, passkeys: fakePasskeys("x", "cancel"), idleMs: 0 }).create({ passkey: true })).rejects.toMatchObject({
+    await expect(
+      createVault({ store, passkeys: fakePasskeys("x", "cancel"), idleMs: 0 }).create({ passkey: true }),
+    ).rejects.toMatchObject({
       code: "passkey_cancelled",
     });
   });

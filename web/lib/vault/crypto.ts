@@ -22,9 +22,7 @@ const AES = { name: "AES-GCM", length: 256 } as const;
 
 export async function keyFromPassphrase(passphrase: string, salt: Bytes, iterations: number): Promise<CryptoKey> {
   // NFKC so the same passphrase typed on another keyboard gives the same key.
-  const material = await subtle().importKey("raw", utf8(passphrase.normalize("NFKC")), "PBKDF2", false, [
-    "deriveKey",
-  ]);
+  const material = await subtle().importKey("raw", utf8(passphrase.normalize("NFKC")), "PBKDF2", false, ["deriveKey"]);
   return subtle().deriveKey({ name: "PBKDF2", hash: "SHA-256", salt, iterations }, material, AES, false, [
     "encrypt",
     "decrypt",
@@ -52,10 +50,13 @@ export interface DataKeys {
 export async function dataKeys(raw: Bytes): Promise<DataKeys> {
   const material = await subtle().importKey("raw", raw, "HKDF", false, ["deriveKey"]);
   const salt = utf8("tend.vault.v1");
-  const enc = await subtle().deriveKey({ name: "HKDF", hash: "SHA-256", salt, info: utf8("records") }, material, AES, false, [
-    "encrypt",
-    "decrypt",
-  ]);
+  const enc = await subtle().deriveKey(
+    { name: "HKDF", hash: "SHA-256", salt, info: utf8("records") },
+    material,
+    AES,
+    false,
+    ["encrypt", "decrypt"],
+  );
   const names = await subtle().deriveKey(
     { name: "HKDF", hash: "SHA-256", salt, info: utf8("names") },
     material,

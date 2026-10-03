@@ -110,7 +110,7 @@ export function createVault(config: VaultConfig = {}): TendVault {
 
   let keys: DataKeys | null = null;
   let idle: IdleWatch | null = null;
-  // Bumped by every lock, so an unlock that finishes after a lock (Exit pressed mid-unlock)
+  // Bumped by every lock, so an opening that finishes after a lock (Exit pressed while opening)
   // cannot leave the vault open.
   let epoch = 0;
   const listeners = new Set<(reason: LockReason) => void>();

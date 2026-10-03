@@ -152,7 +152,14 @@ export function fakeShareServer(routes: "primary" | "legacy" | "none" = "primary
       if (s.once && s.opened) return json(410, { detail: "This link could be opened once, and it has been." });
       s.opened = true;
       return kind === "primary"
-        ? json(200, { id, ciphertext: s.ciphertext, iv: s.iv, once: s.once, expires_at: s.expires_at, created_at: "2026-10-03T16:20:00Z" })
+        ? json(200, {
+            id,
+            ciphertext: s.ciphertext,
+            iv: s.iv,
+            once: s.once,
+            expires_at: s.expires_at,
+            created_at: "2026-10-03T16:20:00Z",
+          })
         : json(200, {
             token: id,
             sealed: true,

@@ -1,6 +1,6 @@
-// Passkey unlock through the WebAuthn PRF extension: Touch ID (or the phone's lock) returns a
-// secret that only this passkey and this salt produce. Nothing is sent anywhere: there is no
-// server check, so the challenge is just random bytes.
+// Opening the vault with a passkey, through the WebAuthn PRF extension: Touch ID (or the phone's
+// lock) returns a secret that only this passkey and this salt produce. Nothing is sent anywhere:
+// there is no server check, so the challenge is just random bytes.
 import { fromB64url, randomBytes, toB64url, type Bytes } from "./bytes";
 
 export interface PasskeyProvider {
@@ -74,7 +74,7 @@ export function webAuthnPasskeys(): PasskeyProvider {
       throw e;
     }
     const out = cred ? prfFirst(cred) : null;
-    if (!out) throw new PasskeyError("unsupported", "This passkey cannot unlock saved work here. Use the passphrase.");
+    if (!out) throw new PasskeyError("unsupported", "This passkey cannot open saved work here. Use the passphrase.");
     return out;
   }
 

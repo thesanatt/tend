@@ -19,8 +19,7 @@ export interface IdleOptions {
 }
 
 export function watchIdle({ idleMs, onIdle, target, now = Date.now }: IdleOptions): IdleWatch {
-  const on: EventTarget | null =
-    target === undefined ? (typeof document === "undefined" ? null : document) : target;
+  const on: EventTarget | null = target === undefined ? (typeof document === "undefined" ? null : document) : target;
   let last = now();
   let timer: ReturnType<typeof setTimeout> | null = null;
   let stopped = false;
