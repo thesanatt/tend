@@ -31,7 +31,8 @@ export { fromB64url, toB64url } from "./bytes";
 
 export const MIN_PASSPHRASE = 6;
 
-export type LockReason = "manual" | "idle" | "destroyed";
+// "exit": the page was left (pagehide), so a page restored from the back cache comes back locked.
+export type LockReason = "manual" | "idle" | "exit" | "destroyed";
 
 export type VaultErrorCode =
   | "exists" // create() when a vault is already saved here
@@ -62,6 +63,8 @@ export interface VaultConfig {
   iterations?: number;
   // Where taps and keys are heard (default: document).
   activity?: EventTarget | null;
+  // Where leaving the page is heard (pagehide; default: window).
+  exit?: EventTarget | null;
   now?: () => number;
 }
 
@@ -110,6 +113,9 @@ export function createVault(config: VaultConfig = {}): TendVault {
 
   let keys: DataKeys | null = null;
   let idle: IdleWatch | null = null;
+  let detachExit: (() => void) | null = null;
+  const exitTarget = (): EventTarget | null =>
+    config.exit === undefined ? (typeof window === "undefined" ? null : window) : config.exit;
   // Bumped by every lock, so an opening that finishes after a lock (Exit pressed while opening)
   // cannot leave the vault open.
   let epoch = 0;
@@ -136,6 +142,8 @@ export function createVault(config: VaultConfig = {}): TendVault {
     epoch += 1;
     idle?.stop();
     idle = null;
+    detachExit?.();
+    detachExit = null;
     if (was || reason === "destroyed") for (const fn of [...listeners]) fn(reason);
   }
 
@@ -143,8 +151,15 @@ export function createVault(config: VaultConfig = {}): TendVault {
     const derived = await dataKeys(raw);
     if (startedAt !== epoch) return false;
     idle?.stop();
+    detachExit?.();
     keys = derived;
     idle = idleMs > 0 ? watchIdle({ idleMs, onIdle: () => lock("idle"), target: config.activity, now }) : null;
+    const target = exitTarget();
+    if (target) {
+      const onExit = () => lock("exit");
+      target.addEventListener("pagehide", onExit);
+      detachExit = () => target.removeEventListener("pagehide", onExit);
+    }
     return true;
   }
 

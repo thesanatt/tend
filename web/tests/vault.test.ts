@@ -203,6 +203,22 @@ describe("auto-lock after inactivity", () => {
     await expect(vault.get("draft")).rejects.toMatchObject({ code: "locked" });
   });
 
+  it("locks when the page is left, so the back cache cannot restore it open", async () => {
+    const exit = new EventTarget();
+    const vault = createVault({ store: memoryStore(), iterations: FAST, idleMs: 0, exit });
+    const reasons: LockReason[] = [];
+    vault.onLock((r) => reasons.push(r));
+    await vault.create({ passphrase: "maple river 42" });
+    exit.dispatchEvent(new Event("pagehide"));
+    expect(vault.isUnlocked()).toBe(false);
+    expect(reasons).toEqual(["exit"]);
+    // Opened again later, it listens again; a manual lock stops listening.
+    expect(await vault.unlock({ passphrase: "maple river 42" })).toBe(true);
+    vault.lock();
+    exit.dispatchEvent(new Event("pagehide"));
+    expect(reasons).toEqual(["exit", "manual"]);
+  });
+
   it("locks on the next use when a sleeping tab missed its timer", async () => {
     let now = 1_000_000;
     const vault = createVault({
