@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 import { hasProgress, useFlow } from "./FlowProvider";
 import SaveSheet from "./SaveSheet";
@@ -158,11 +158,30 @@ function Resume({ onSkip }: { onSkip: () => void }) {
   );
 }
 
+// Every flow page has the same neutral tab title, so a screen reader hears nothing new when the
+// step changes. Moving focus to the new page's heading tells it where it is.
+function useFocusHeadingOnStep() {
+  const path = usePathname();
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    const h1 = document.querySelector<HTMLElement>("main h1");
+    if (!h1) return;
+    h1.tabIndex = -1;
+    h1.focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  }, [path]);
+}
+
 export default function FlowFrame({ children }: { children: ReactNode }) {
   const { t } = useI18n();
   const { vault, state } = useFlow();
   const [skipped, setSkipped] = useState(false);
   const locked = vault.status === "locked" && !hasProgress(state) && !skipped;
+  useFocusHeadingOnStep();
 
   return (
     <div className="page">

@@ -20,7 +20,7 @@ import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
 import type { StatementTxn } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
 import type { EngineInput } from "@/lib/types";
-import { buildEngineInput, countingDate } from "./claim";
+import { buildEngineInput, countingDate, knowsDate } from "./claim";
 import { defaultServices, type FlowServices } from "./services";
 import {
   findReplaced,
@@ -182,7 +182,9 @@ export function FlowProvider({
   const lockNow = useCallback(
     (idle = false) => {
       services.vault.lock();
-      for (const url of previews.current.values()) URL.revokeObjectURL(url);
+      if (typeof URL.revokeObjectURL === "function") {
+        for (const url of previews.current.values()) URL.revokeObjectURL(url);
+      }
       previews.current.clear();
       dispatch({ type: "reset", lang: stateRef.current.lang });
       setIdleLocked(idle);
@@ -190,6 +192,15 @@ export function FlowProvider({
     },
     [services],
   );
+
+  // A page brought back from the browser's back cache had its vault locked on the way out.
+  useEffect(() => {
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted && vaultStatus === "open" && !services.vault.isUnlocked()) lockNow();
+    };
+    window.addEventListener("pageshow", onShow);
+    return () => window.removeEventListener("pageshow", onShow);
+  }, [vaultStatus, services, lockNow]);
 
   // On a shared device, an open vault locks itself after a quiet stretch.
   useEffect(() => {
@@ -212,7 +223,7 @@ export function FlowProvider({
   const value = useMemo<Flow>(() => {
     const ctxFor = (s: FlowState, txDates: string[]) => {
       const dates = [...txDates].sort();
-      const incident = s.check.date && !s.check.dateUnsure ? s.check.date : (dates[0] ?? countingDate(s, today));
+      const incident = knowsDate(s, today) ? s.check.date : (dates[0] ?? countingDate(s, today));
       return { st: s.check.st, incident_date: incident };
     };
 
