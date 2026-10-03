@@ -7,7 +7,8 @@ import { useOptionalFlow } from "./FlowProvider";
 import styles from "./shell.module.css";
 
 // Exit this page: the corner button, Esc twice, and a copy inside every sheet. It locks the vault,
-// blanks the screen, clears the tab, and replaces the history entry (components/QuickExit.tsx).
+// closes any on-device AI session, blanks the screen, clears the tab, and replaces the history entry
+// (components/QuickExit.tsx).
 export function ExitControl({ inline = false }: { inline?: boolean }) {
   const { t } = useI18n();
   const flow = useOptionalFlow();
@@ -15,6 +16,7 @@ export function ExitControl({ inline = false }: { inline?: boolean }) {
   const leave = () => {
     try {
       flow?.services.vault.lock();
+      flow?.services.releaseDeviceAi?.();
     } finally {
       leaveNow();
     }

@@ -185,11 +185,13 @@ describe("Exit this page", () => {
     delete document.documentElement.dataset.exiting;
   });
 
-  it("locks the vault, blanks the page, and leaves from the button", () => {
-    const { services } = renderFlow(<ExitControl />);
+  it("locks the vault, closes on-device AI, blanks the page, and leaves from the button", () => {
+    const releaseDeviceAi = vi.fn();
+    const { services } = renderFlow(<ExitControl />, { services: testServices({ releaseDeviceAi }) });
     const lock = vi.spyOn(services.vault, "lock");
     fireEvent.click(screen.getByRole("button", { name: "Exit this page" }));
     expect(lock).toHaveBeenCalled();
+    expect(releaseDeviceAi).toHaveBeenCalledTimes(1);
     expect(replace).toHaveBeenCalledWith(EXIT_URL);
     expect(document.documentElement.dataset.exiting).toBe("true");
   });

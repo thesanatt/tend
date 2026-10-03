@@ -32,9 +32,9 @@ The survivor flow lives in `app/(flow)` and `components/flow` (docs/UX.md). Ever
 `/start`, `/ledger`, `/bill`, `/claim`, and `/garden` redirect to the new steps. `/check?demo=rowan`
 fills in the fictional demo answers.
 
-The flow codes against `lib/contracts.ts` and imports the real modules by those paths (`lib/vault`,
-`lib/share`, `lib/packet`, `lib/local`). Until the on-device reading module lands, `lib/local/index.ts`
-is a marked placeholder over the thin mocks in `lib/mocks`; the flow's own tests use those mocks.
+The flow codes against `lib/contracts.ts` and imports the real modules by those paths (`lib/local`,
+`lib/vault`, `lib/share`, `lib/packet`); the flow's own tests use the thin mocks in `lib/mocks`, and
+`tests/flow-trust.test.tsx` drives the screens on the real vault, share, and packet modules.
 
 ## Where the claim math runs
 
@@ -92,7 +92,8 @@ Response shapes are in `lib/types.ts`; examples are in `fixtures/`.
 
 Answers and costs live in memory. Save this puts them in the encrypted vault on the device (`lib/vault`,
 AES-256-GCM in IndexedDB), behind Touch ID (a passkey with PRF) or a passcode; nothing is written in the
-clear. The vault locks itself after 5 minutes without a tap or key, and the screen clears with it. The line under the header says where the data
+clear. The vault locks itself after 5 minutes without a tap or key, and the screen clears with it.
+Exit this page also closes any on-device AI session. The line under the header says where the data
 is and changes only when something is sent (a confirmed payment, a share link, or, with consent, a
 claim checked on the server). Exit this page (or Esc twice) locks the vault, blanks the screen,
 clears the tab, and replaces the history entry. Tend stores no names and never asks what happened.

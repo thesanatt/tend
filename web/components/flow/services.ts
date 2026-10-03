@@ -11,7 +11,7 @@ import type {
   Vault,
 } from "@/lib/contracts";
 import { evaluateClaim, type Evaluation } from "@/lib/engine";
-import * as local from "@/lib/local";
+import { billReader, classifier, releaseDeviceAi, statementParser } from "@/lib/local";
 import { packetBuilder } from "@/lib/packet";
 import { share } from "@/lib/share";
 import type { AccountRef, ActionProposal, ActionResult, EngineInput } from "@/lib/types";
@@ -88,13 +88,10 @@ async function propose(req: PaymentRequest): Promise<ActionProposal & { demo: bo
   );
 }
 
-// lib/local may also export releaseDeviceAi; read it off the module so either version links.
-const releaseDeviceAi = (local as { releaseDeviceAi?: () => void }).releaseDeviceAi;
-
 export const defaultServices: FlowServices = {
-  statementParser: local.statementParser,
-  classifier: local.classifier,
-  billReader: local.billReader,
+  statementParser,
+  classifier,
+  billReader,
   vault,
   share,
   packetBuilder,
@@ -112,13 +109,11 @@ export const defaultServices: FlowServices = {
     if (typeof window === "undefined" || !("PublicKeyCredential" in window)) return false;
     return vault.passkeyAvailable().catch(() => false);
   },
-  releaseDeviceAi: releaseDeviceAi
-    ? () => {
-        try {
-          releaseDeviceAi();
-        } catch {
-          // Leaving the page matters more than closing a model session.
-        }
-      }
-    : undefined,
+  releaseDeviceAi() {
+    try {
+      releaseDeviceAi();
+    } catch {
+      // Leaving the page matters more than closing a model session.
+    }
+  },
 };
