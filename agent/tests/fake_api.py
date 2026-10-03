@@ -35,6 +35,9 @@ class FakeTend:
     now: dt.datetime = field(default_factory=lambda: dt.datetime.now(dt.UTC))
     calls: list[dict[str, Any]] = field(default_factory=list)
     actions: dict[str, dict[str, Any]] = field(default_factory=dict)
+    fail_once: set[str] = field(default_factory=set)  # paths that answer 503 the next time they are called
+    checklist_patch: dict[str, Any] = field(default_factory=dict)  # merged into the checklist reply
+    summary_patch: dict[str, Any] = field(default_factory=dict)  # merged into the linked claim summary
 
     # ------------------------------------------------------------ helpers for tests
 
@@ -79,6 +82,9 @@ class FakeTend:
         self.calls.append(
             {"method": request.method, "path": path, "json": body, "params": dict(request.url.params), "headers": dict(request.headers)}
         )
+        if path in self.fail_once:
+            self.fail_once.discard(path)
+            return httpx.Response(503, json={"detail": "Service Unavailable"})
         try:
             status, data = self.route(request.method, path, body, request)
         except KeyError as exc:  # a missing field in a request body is the agent's bug
@@ -107,6 +113,7 @@ class FakeTend:
             data = load("checklist_MI.json")
             st = path.rsplit("/", 1)[-1].upper()
             data["jurisdiction"], data["name"] = st, STATES.get(st, st)
+            data.update(copy.deepcopy(self.checklist_patch))
             return 200, data
         if path == "/api/agent/answer" and self.answer_fields is not None:
             return 200, self.answer_reply or {
@@ -143,7 +150,7 @@ class FakeTend:
             return 404, {"detail": "That link code is not valid, was already used, or has expired. Ask Tend for a new one."}
         if path == "/api/agent/claim":
             if request.headers.get("authorization") == "Bearer tok-1":
-                return 200, load("linked_summary.json")
+                return 200, {**load("linked_summary.json"), **copy.deepcopy(self.summary_patch)}
             return 401, {"detail": "This agent session is not valid or has expired."}
         return 404, {"detail": "Not Found"}
 

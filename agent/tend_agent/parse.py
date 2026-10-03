@@ -316,19 +316,38 @@ def find_expense(text: str) -> str | None:
 
 # ---------------------------------------------------------------- privacy guard
 
-_NARRATIVE = re.compile(
-    r"\b(?:he|she|they|him)\s+(?:was|were|did|had|took|grabbed|hit|forced|attacked|raped|assaulted|touched|followed|drugged|pushed|choked)\b|"
-    r"\b(?:raped|assaulted|attacked|molested|abused|drugged|strangled|choked|groped)\s+(?:me|my)\b|"
+# An act described in the first or third person. Caught at any length: "he raped me" is short.
+_ACT = re.compile(
+    r"\b(?:he|she|they|him|someone|somebody|a guy|a man|a woman)\s+(?:took|grabbed|hit|forced|attacked|raped|assaulted|touched|"
+    r"followed|drugged|pushed|choked|strangled|molested|groped|abused|hurt|beat)\b|"
+    r"\b(?:raped|assaulted|attacked|molested|abused|drugged|strangled|choked|groped|hit|hurt|beat|touched)\s+(?:me|my)\b|"
+    r"\bi was (?:raped|assaulted|attacked|molested|abused|drugged|strangled|choked|groped)\b",
+    re.I,
+)
+# Who or where. Only in longer messages, since "Can my partner apply?" is a fair question.
+_CONTEXT = re.compile(
+    r"\b(?:he|she|they|him)\s+(?:was|were|did|had)\b|"
     r"\bmy (?:ex|boyfriend|girlfriend|husband|wife|partner|coworker|boss|roommate|neighbou?r|date|friend|uncle|stepdad)\b|"
-    r"\b(?:it happened (?:at|in|on)|at (?:his|her|their) (?:place|house|apartment))\b",
+    r"\bit happened (?:at|in)\b|\bit happened on (?!(?:\d|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec))|"
+    r"\bat (?:his|her|their) (?:place|house|apartment)\b",
     re.I,
 )
 
 
+def story_kind(text: str) -> str | None:
+    """'act' when someone describes what was done to them, 'context' when a longer message names who or where,
+    else None. Either way the message is not passed on."""
+    if _ACT.search(text):
+        return "act"
+    if len(text) > 40 and _CONTEXT.search(text):
+        return "context"
+    return None
+
+
 def looks_like_story(text: str) -> bool:
-    """True when someone starts telling what happened. Tend never needs it, so the agent says so and does
-    not pass the message on."""
-    return len(text) > 40 and bool(_NARRATIVE.search(text))
+    """True when someone starts telling what happened. Tend never needs it, so the agent does not pass the
+    message on."""
+    return story_kind(text) is not None
 
 
 # ---------------------------------------------------------------- incoming message

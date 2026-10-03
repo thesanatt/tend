@@ -139,6 +139,11 @@ where marked with `[...]`.
 
 - The agent never asks what happened, where, or who. If a message starts to describe it, the agent says it does
   not need that, does not pass the message on, and answers from the topic alone (for example "counseling").
+  A described act ("he hit me") is caught at any length, and the reply adds the National Sexual Assault Hotline
+  (800-656-4673). A plain question that names a partner ("Can my partner apply?") is also kept off the API, but
+  without the note. "It happened on June 14" is just a date.
+- A Check sends the date as a query parameter on `GET /api/agent/checklist/{st}`, so the API's access log can
+  see it. A `POST /api/agent/check` route would fix that, and the agent switches to it on its own.
 - Message text is never stored or logged. Logs hold the kind of turn only, like `turn intent=answer replies=1`.
   The uAgents Inspector's message history, which would keep every message in memory, is switched off.
 - Session state lives in memory, ends after two quiet hours, and holds ids, amounts, a state code, and the topic of
@@ -204,7 +209,7 @@ nothing moves.
 cd agent && uv run pytest
 ```
 
-165 tests, offline, about 2 seconds. The API is mocked with real captures for the fictional persona
+190 tests, offline, about 3 seconds. The API is mocked with real captures for the fictional persona
 (`tests/fixtures`), and the mock enforces the API's payment rules. They cover parsing (states, dates, exam and
 report answers, codes), cited answers and "I don't know", every card against the uagents_core card schemas,
 the full demo and payment flow (no confirm without the typed code, wrong, expired, locked, cancelled, stale

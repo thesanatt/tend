@@ -139,6 +139,17 @@ def short_cap(caps: list[dict[str, Any]]) -> str:
     return f"{phrase}, limits vary" if len(amounts) > 1 else phrase
 
 
+def total_caps(rules: list[dict[str, Any]]) -> list[tuple[dict[str, Any], str]]:
+    """(rule, "who it is for") for the total cap to show. Like the engine, the smallest cap that applies to
+    everyone wins (a larger one is usually an exception, like catastrophic injury). When every cap is limited
+    to some case (a crime date, a kind of injury), each one is listed with its case."""
+    caps = [r for r in rules if isinstance((r.get("params") or {}).get("amount_cents"), int)]
+    plain = [r for r in caps if not applies_to(r)]
+    if plain:
+        return [(min(plain, key=lambda r: r["params"]["amount_cents"]), "")]
+    return [(r, applies_to(r)) for r in caps]
+
+
 class RuleBook:
     def __init__(self, doc: dict[str, Any]):
         self.doc = doc
@@ -231,10 +242,16 @@ def topic_answer(book: RuleBook, topic: str) -> Answer | None:
         totals = book.of("total_cap")
         text = intro
         if totals:
-            amount = (totals[0].get("params") or {}).get("amount_cents")
-            if isinstance(amount, int):
-                text += f" The most the program pays in total is **{money_short(amount)}**."
-            text += "\n\n" + _blocks(book.cites(totals))
+            shown = total_caps(totals)
+            if len(shown) == 1 and not shown[0][1]:
+                text += f" The most the program pays in total is **{money_short(shown[0][0]['params']['amount_cents'])}**."
+            elif shown:
+                text += (
+                    " The most the program pays in total depends on the case: "
+                    + "; ".join(f"**{money_short(r['params']['amount_cents'])}** for {who}" for r, who in shown)
+                    + "."
+                )
+            text += "\n\n" + _blocks(book.cites([r for r, _ in shown] + [r for r in totals if r not in [x for x, _ in shown]]))
         caps = [r for r in book.of("expense_cap") if cap_phrase(r)]
         if caps:
             text += "\n\nSome costs have their own limits:\n" + "\n".join(

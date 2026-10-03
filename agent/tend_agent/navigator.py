@@ -46,12 +46,12 @@ from .parse import (
     find_report,
     find_topics,
     is_greeting,
-    looks_like_story,
     parse_iso_date,
     report_value,
     says_no,
     says_yes,
     selection_from_text,
+    story_kind,
     wants_cancel,
     wants_check,
     wants_demo,
@@ -72,10 +72,13 @@ STORY_NOTE = (
     "You don't need to tell me what happened, where, or who, and I didn't pass that message on. "
     "I only need the state, and for a Check, the date."
 )
+HOTLINE = "If you want to talk with someone now, the National Sexual Assault Hotline is free and open all day and night: 800-656-4673."
+QUESTION_START = re.compile(r"^\s*(?:can|could|does|do|is|are|will|would|what|how|who|which|when|where|if)\b", re.I)
 TROUBLE = (
     "I can't reach Tend's server right now, so I can't look up the law. Nothing was saved and no money moved. Please try again in a minute."
 )
 COVERAGE_Q = re.compile(r"\b(?:which|what) (?:states|jurisdictions)\b|\ball (?:the )?states\b|\b50 states\b", re.I)
+_BILL_ONLY = re.compile(r"\b(?:bill|balance|rest|it|now|payment)\b", re.I)
 THANKS = re.compile(r"^\s*(?:thanks|thank you|thx|ty)\b", re.I)
 CANONICAL = {
     "deadline": "What is the deadline to apply for crime victim compensation in {name}?",
@@ -276,10 +279,14 @@ class Navigator:
             return await self._on_selection(s, sel, text)
         if not text:
             return [Reply(WELCOME, card=cards.welcome_card())], "welcome"
-        story = looks_like_story(text)
+        kind = story_kind(text)
+        story = kind is not None
         replies, intent = await self._route_text(s, text, story)
-        if story and replies and not replies[0].text.startswith(STORY_NOTE):
-            replies[0].text = f"{STORY_NOTE}\n\n{replies[0].text}"
+        # A plain question that names a partner ("Can my partner apply?") is guarded without a note.
+        note = kind == "act" or (kind == "context" and not QUESTION_START.match(text))
+        if note and replies and not replies[0].text.startswith(STORY_NOTE):
+            lead = STORY_NOTE + (f" {HOTLINE}" if kind == "act" else "")
+            replies[0].text = f"{lead}\n\n{replies[0].text}"
         return replies, intent
 
     async def _route_text(self, s: dict[str, Any], text: str, story: bool) -> tuple[list[Reply], str]:
@@ -314,6 +321,8 @@ class Navigator:
                 return [Reply("OK. Nothing was counted. Say **demo** any time to start over.", end_session=True)], "skip"
         if demo and wants_pay(text):
             return await self._propose(s), "pay_propose"
+        if not demo and wants_pay(text) and _BILL_ONLY.search(text):
+            return [Reply("There is no bill to pay in this chat yet. Say **demo** to walk through the fictional claim first.")], "pay_none"
         if THANKS.search(text) and len(text) < 40:
             return [Reply("You're welcome. I'm here if you have another question.", end_session=True)], "thanks"
         if COVERAGE_Q.search(text):
@@ -499,7 +508,9 @@ class Navigator:
 
     async def _count(self, s: dict[str, Any]) -> list[Reply]:
         demo = s["demo"]
-        claim = await self.api.claim(demo.pop("input"), demo["scan_id"])
+        # Keep the input until the claim succeeds, so "yes" works again after a timeout.
+        claim = await self.api.claim(demo["input"], demo["scan_id"])
+        demo.pop("input", None)
         demo["claim_id"] = claim.get("claim_id")
         demo["stage"] = "counted"
         book = await self._book(demo["st"]) or RuleBook({"jurisdiction": demo["st"], "name": state_name(demo["st"])})

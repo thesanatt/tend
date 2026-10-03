@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .fmt import cite_block, cite_link, clean, expense_label, long_date, money_short, program_line
-from .knowledge import RuleBook, cite
+from .knowledge import RuleBook, cite, total_caps
 
 ALTERNATIVES = {
     "forensic_exam": "a forensic exam",
@@ -60,11 +60,12 @@ def _requiring_rule(cites: list[dict[str, Any]], book: RuleBook | None) -> dict[
     return _first(cites)
 
 
-def deadline_section(check: dict[str, Any], book: RuleBook | None) -> str:
+def deadline_section(check: dict[str, Any], book: RuleBook | None, *, have_date: bool = False, name: str = "") -> str:
     cites = check.get("citations") or []
     status = check.get("status")
     date = check.get("deadline_date")
     main = _with_summary(_first(cites), book)
+    where = f" for {name}" if name else ""
     if status == "ok" and date:
         head = f"**Deadline:** apply by **{long_date(date)}**."
     elif status == "late" and date:
@@ -72,6 +73,11 @@ def deadline_section(check: dict[str, Any], book: RuleBook | None) -> str:
             f"**Deadline:** the usual deadline was **{long_date(date)}**. Some programs allow more time for a good "
             "reason, so it is still worth calling."
         )
+    elif not cites:
+        head = f"**Deadline:** I could not find a verified filing deadline{where}. Ask the program how long you have."
+    elif have_date:
+        # The date was given but the rules do not reduce to one day (for example, a deadline in months).
+        head = "**Deadline:** I could not work out the exact day from the verified rules. Read the rule below, or ask the program."
     else:
         head = "**Deadline:** counted from the date it happened. Tell me the date (only the date) for the exact day."
     flags = check.get("flags") or []
@@ -138,13 +144,19 @@ def covered_section(data: dict[str, Any], book: RuleBook | None) -> str:
 def total_section(book: RuleBook | None) -> str:
     if book is None:
         return ""
-    totals = book.of("total_cap")
-    if not totals:
+    shown = total_caps(book.of("total_cap"))
+    if not shown:
         return ""
-    amount = (totals[0].get("params") or {}).get("amount_cents")
-    if not isinstance(amount, int):
-        return ""
-    return f"**Most you can ask for:** {money_short(amount)} in total ({cite_link(cite(totals[0], book.sources))})."
+    if len(shown) == 1 and not shown[0][1]:
+        rule = shown[0][0]
+        return f"**Most you can ask for:** {money_short(rule['params']['amount_cents'])} in total ({cite_link(cite(rule, book.sources))})."
+    cases = "; ".join(
+        f"{money_short(r['params']['amount_cents'])} for {who} ({cite_link(cite(r, book.sources))})"
+        if who
+        else f"{money_short(r['params']['amount_cents'])} ({cite_link(cite(r, book.sources))})"
+        for r, who in shown
+    )
+    return f"**Most you can ask for:** it depends on the case: {cases}."
 
 
 def sentences_section(data: dict[str, Any]) -> str:
@@ -185,7 +197,7 @@ def render_check(
     if sentences:
         parts.append(sentences)
     if deadline:
-        parts.append(deadline_section(deadline, book))
+        parts.append(deadline_section(deadline, book, have_date=bool(incident_date), name=name))
     if data.get("reporting"):
         parts.append(reporting_section(data["reporting"], data.get("reporting_if_exam"), exam=exam, report=report, book=book, name=name))
     for section in (exam_section(data.get("exam_billing"), book), covered_section(data, book), total_section(book)):

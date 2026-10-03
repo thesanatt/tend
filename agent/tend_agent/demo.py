@@ -8,7 +8,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any
 
-from .fmt import cite_block, cite_link, expense_label, long_date, money, money_short, plural
+from .fmt import cite_block, cite_link, expense_label, long_date, money, plural
 from .knowledge import RuleBook, cap_phrase, cite
 
 DEMO_PERSONAS = {"MI": "rowan-mi", "NY": "rowan-ny", "CA": "rowan-ca", "TX": "rowan-tx"}
@@ -59,6 +59,7 @@ def demo_state(scan: dict[str, Any], audit: dict[str, Any] | None, persona_id: s
         "pay_item_ids": [ln["item_id"] for ln in pay_lines],
         "payable_cents": int((audit or {}).get("payable_cents") or 0),
         "held_cents": int((audit or {}).get("held_cents") or 0),
+        "police_report": ((scan.get("engine_input") or {}).get("context") or {}).get("police_report"),
         "claim_id": None,
         "paid": False,
     }
@@ -159,12 +160,16 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
     checks = claim.get("checks") or {}
     facts = []
     deadline = checks.get("deadline") or {}
-    if deadline.get("status") == "ok" and deadline.get("deadline_date"):
-        rid = next((r for r in deadline.get("rule_ids") or [] if r in book.by_id), None)
-        link = f" ({cite_link(cite(book.by_id[rid], book.sources))})" if rid else ""
-        facts.append(f"Apply by {long_date(deadline['deadline_date'])}{link}.")
-    if (checks.get("reporting") or {}).get("status") == "satisfied":
-        facts.append("The forensic exam counts in place of a police report.")
+    rid = next((r for r in deadline.get("rule_ids") or [] if r in book.by_id), None)
+    link = f" ({cite_link(cite(book.by_id[rid], book.sources))})" if rid else ""
+    facts.append(deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), link, deadline.get("flags")))
+    reporting = (checks.get("reporting") or {}).get("status")
+    if reporting == "satisfied":
+        reported = demo.get("police_report") == "yes"
+        facts.append("The police report meets that rule." if reported else "The forensic exam counts in place of a police report.")
+    elif reporting == "required":
+        facts.append("This state asks for a police report.")
+    facts = [f for f in facts if f]
     if facts:
         out.append(" ".join(facts))
 
@@ -174,6 +179,19 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
             f"{demo['account_label']} (mock bank)? Say **pay the bill**. Nothing moves until you type a code."
         )
     return "\n\n".join(out)
+
+
+def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None) -> str:
+    """The filing deadline in one sentence. A late date is never shown as "apply by"."""
+    if not date or status not in ("ok", "late"):
+        return ""
+    if status == "late":
+        text = f"The usual deadline was {long_date(date)}{link}. Some programs allow more time for a good reason, so it is worth calling."
+    else:
+        text = f"Apply by {long_date(date)}{link}."
+    if any("deadline_from_report" in str(f) for f in flags or []):
+        text += " This is measured from the date it happened. The law counts from your report, so you may have longer."
+    return text
 
 
 def payment_body(demo: dict[str, Any]) -> dict[str, Any]:
@@ -226,7 +244,8 @@ def render_linked(summary: dict[str, Any], app_url: str = "", packet_url: str = 
     if summary.get("fictional"):
         out.append(f"_{FICTIONAL}_")
     rows = []
-    for e in summary.get("by_expense") or []:
+    by_amount = sorted(summary.get("by_expense") or [], key=lambda e: -int(e.get("allowed_cents") or 0))
+    for e in by_amount:
         rule = (e.get("rules") or [None])[0]
         link = f" ({cite_link(rule)})" if rule else ""
         rows.append(
@@ -242,18 +261,13 @@ def render_linked(summary: dict[str, Any], app_url: str = "", packet_url: str = 
     if waiting:
         out.append(f"{plural(waiting, 'line')} still wait for a yes in the app.")
     deadline = (summary.get("checks") or {}).get("deadline") or {}
-    if deadline.get("deadline_date"):
-        rule = (deadline.get("rules") or [None])[0]
-        out.append(f"Apply by {long_date(deadline['deadline_date'])}" + (f" ({cite_link(rule)})." if rule else "."))
+    rule = (deadline.get("rules") or [None])[0]
+    sentence = deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), f" ({cite_link(rule)})" if rule else "")
+    if sentence:
+        out.append(sentence)
     if packet_url:
         out.append(f"Packet (PDF, link expires): {packet_url}")
     program = summary.get("program") or {}
     if program.get("phone"):
         out.append(f"Program phone: {program['phone']}.")
     return "\n\n".join(out)
-
-
-def cap_total_line(book: RuleBook) -> str:
-    totals = book.of("total_cap")
-    amount = (totals[0].get("params") or {}).get("amount_cents") if totals else None
-    return f"The most {book.name} pays in total is {money_short(amount)}." if isinstance(amount, int) else ""
