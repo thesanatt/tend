@@ -1,0 +1,206 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "HI",
+ "source_sha256": "fce39036f6be5f4fb752b90045bb1e1936595efc6e32c2b79f25bd0ff8997570",
+ "ir_sha256": "1ed2b1ce986de12dd4fcb05060deed6da9ad91828cbbf374c7989eae565d2db0",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "HI-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "HI-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1000000
+  },
+  {
+   "id": "HI-DEADLINE-1",
+   "kind": "deadline",
+   "days": 540,
+   "from": "crime"
+  },
+  {
+   "id": "HI-DEADLINE-2",
+   "kind": "deadline",
+   "days": 540,
+   "from": "crime"
+  },
+  {
+   "id": "HI-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "HI-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "HI-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "HI-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "HI-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "HI-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "HI-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "HI-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "HI-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "HI-COVER-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "HI-COVER-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "HI-COVER-GLASSES-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "HI-COVER-COUNSEL-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "HI-COVER-DENTAL-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "HI-COVER-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "HI-COVER-PAIN-1",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "HI-COVER-EVIDENCE-1",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "HI-COVER-CLEANUP-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "HI-COVER-CHILDCARE-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "HI-EXCL-PROPERTY-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "HI-EXCL-JAIL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "HI-EXCL-NOSHOW-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "HI-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  }
+ ],
+ "skipped": []
+}

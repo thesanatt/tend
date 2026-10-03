@@ -106,6 +106,16 @@
    "raw_path": "rules/sources/SD/SD-S9.html",
    "text_path": "rules/sources/SD/SD-S9.txt",
    "sha256": "615c4811596d4cb71a36833334d73779adb704763fbceab88dbe9352a8d8c3e5"
+  },
+  {
+   "id": "SD-S10",
+   "title": "SD Secretary of State, Address Confidentiality - Secure Active Designation (quotes SDCL 12-4-9.2)",
+   "url": "https://sdsos.gov/elections-voting/voting/Secure-Active-Designation.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:27Z",
+   "raw_path": "rules/sources/SD/SD-S10.html",
+   "text_path": "rules/sources/SD/SD-S10.txt",
+   "sha256": "bac1056b9ba570981de8b685a0c13d691e67fda84a99604f528a1922da9bedd4"
   }
  ],
  "rules": [
@@ -700,6 +710,31 @@
    "quote": "Attach a copy of Certificate of Death.",
    "source_id": "SD-S6",
    "pinpoint": "Primary Application (DPS-VS-694 12/17), Section X (Death as a result of the Crime)"
+  },
+  {
+   "id": "SD-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Secure Active Designation",
+    "agency": "South Dakota Secretary of State",
+    "covers_sexual_assault": false,
+    "enroll": "A person eligible to vote under 12-4-1 may apply to the secretary of state to be listed in the master registration file with a secured active designation."
+   },
+   "summary": "South Dakota's only address confidentiality program is voter-only: a person with an active protection order or living in a victims' services shelter can ask the Secretary of State to keep their voter record out of public inspection. It does not give a substitute mailing address.",
+   "quote": "A voter record with a secured active designation shall be excluded from public inspection or copying, except if requested by a law enforcement agency, if directed by a court order, or if a secured active designation has been cancelled at the request of the secured active designee.",
+   "source_id": "SD-S10",
+   "pinpoint": "SDCL 12-4-9.2, as quoted on the Secretary of State Secure Active Designation page",
+   "fragment_url": "https://sdsos.gov/elections-voting/voting/Secure-Active-Designation.aspx#:~:text=A%20voter%20record%20with%20a,of%20the%20secured%20active%20designee."
+  },
+  {
+   "id": "SD-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Records and reports the compensation department or commission obtains stay confidential if another law or rule already makes them confidential (for example medical or counseling records). The statute does not make the whole claim file confidential.",
+   "quote": "Any record or report obtained by the department or commission, the confidentiality of which is protected by any law or administrative rule, shall remain confidential.",
+   "source_id": "SD-S1",
+   "pinpoint": "SDCL 23A-28B-36",
+   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Any%20record%20or%20report%20obtained,administrative%20rule%2C%20shall%20remain%20confidential."
   }
  ],
  "coverage": {
@@ -718,7 +753,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -727,10 +764,11 @@
    "expense_cap for counseling (time limit only, no dollar cap found)",
    "expense_cap for lost_wages (formula only, no dollar cap)",
    "reporting alternatives for sexual assault survivors",
-   "processing_time"
+   "processing_time",
+   "address confidentiality program with a substitute mailing address (only the voter-record Secure Active Designation exists)"
   ],
-  "notes": "No minimum loss amount was found in SDCL 23A-28B or ARSD 67:55. No relocation or housing benefit was found; lodging is covered only as part of travel for treatment, court, police meetings, or funeral (ARSD 67:55:04:05(9)). Counseling has a time limit in ARSD 67:55:04:03 but no dollar cap was found. No statutory alternative to a police report for sexual assault was found; the 5-day reporting rule in SDCL 23A-28B-25(1) applies, and the application asks for a letter explaining a late report. The exam statute (SDCL 22-22-26.2) does not say whether a survivor's health insurance may be billed for the exam. The dollar limits in ARSD chapter 67:55:04 (security $500, funeral $8,000, homicide scene cleanup $1,500) can be exceeded with commission approval under ARSD 67:55:04:20, but never above the $15,000 statutory cap. No stated processing time for an initial decision was found in the apply page, application, instructions, SDCL 23A-28B, or ARSD 67:55; the only timing found is the 15 business days to send notice of the commission's final decision after an appeal hearing (ARSD 67:55:02:11), which is not an application processing time. No fax number for filing was found (the fax on the application belongs to the DPS civil rights notice)."
+  "notes": "No minimum loss amount was found in SDCL 23A-28B or ARSD 67:55. No relocation or housing benefit was found; lodging is covered only as part of travel for treatment, court, police meetings, or funeral (ARSD 67:55:04:05(9)). Counseling has a time limit in ARSD 67:55:04:03 but no dollar cap was found. No statutory alternative to a police report for sexual assault was found; the 5-day reporting rule in SDCL 23A-28B-25(1) applies, and the application asks for a letter explaining a late report. The exam statute (SDCL 22-22-26.2) does not say whether a survivor's health insurance may be billed for the exam. The dollar limits in ARSD chapter 67:55:04 (security $500, funeral $8,000, homicide scene cleanup $1,500) can be exceeded with commission approval under ARSD 67:55:04:20, but never above the $15,000 statutory cap. No stated processing time for an initial decision was found in the apply page, application, instructions, SDCL 23A-28B, or ARSD 67:55; the only timing found is the 15 business days to send notice of the commission's final decision after an appeal hearing (ARSD 67:55:02:11), which is not an application processing time. No fax number for filing was found (the fax on the application belongs to the DPS civil rights notice). South Dakota has no substitute-address confidentiality program like Safe at Home; the Minnesota Secretary of State's national list also shows South Dakota as having no program. The only option found is the Secretary of State's Secure Active Designation under SDCL 12-4-9.2, which hides the voter registration record only. Eligibility depends on an active protection order (chapter 25-10 or 22-19A) or living in a victims' services shelter, not on the type of crime; the SOS page names rape among the circumstances it is designed for, but no quote says sexual assault survivors are eligible as such, so covers_sexual_assault is false. Forms go to the Office of the Secretary of State, Elections Division, 500 East Capitol Avenue, Suite 204, Pierre, SD 57501. SDCL 23A-28B-36 only keeps records confidential when another law or rule already protects them; it is not a blanket confidentiality rule for claims. SDCL 23A-28B-37 says hearings on an application are open to the public and the hearing record is a public record unless the commission closes the hearing, for example because a public hearing would cause trauma for the victim."
  },
  "confidence": "high",
- "researcher_notes": "Statute text from sdlegislature.gov (codified chapter 23A-28B, and 22-22-26 / 22-22-26.2 as amended by SL 2026, ch 105). Administrative rules are ARSD article 67:55 (still filed under the Department of Social Services title, but the program is now run by the Department of Public Safety); several sections were amended effective September 8, 2026. In the saved text of ARSD 67:55:04:03 the general counseling time window renders as '2 4 months'. The raw HTML of the single-rule page (SD-S9) shows the digits '2' and '4' in adjacent spans with no space, so it reads as 24 months after the crime, but the text check cannot confirm it, so SD-COUNS-1 omits the number. SD-COUNS-2 covers the separate, cleanly stated 24-months-from-application rule for juvenile victims. The primary application PDF is form DPS-VS-694 dated 12/17 and lists an older web address (dps.sd.gov); the program pages now live on sd.gov. The application says lost wages are paid at the federal minimum wage. SDCL 23A-28B-20 sets the monthly minimum wage from the federal hourly minimum wage times 173.2 hours, and pays the lesser of that or the victim's average monthly earnings for the prior six months, so the application is a simplification; the statute controls. ARSD 67:55:01:06 states payment is not allowed for substantial contributory conduct without the sex-offense exception, but SDCL 23A-28B-25(2)(a) exempts sex offense victims and the statute controls. The program page also says it can pay victims of state, tribal, or federal crimes. Awards are payable only to the extent the fund has money (SDCL 23A-28B-10). Reviewer: per-expense dollar limits in ARSD 67:55:04 are not hard caps; the commission may deviate from them (ARSD 67:55:04:20), except for the emergency award and the $15,000 statutory cap. ARSD 67:55:04:13 (2004) requires rape exam bills to go to health insurance before the program pays; it predates the 2018 and 2026 county-pay statute changes and does not say the county may bill the survivor's insurance, so exam_no_bill stays 'unspecified'. Filing info: the saved application PDF (SD-S6, DPS-VS-694 12/17) is the one the current apply page links as the 'Crime Victims' Compensation Application form'; it has no AcroForm fields (pypdf counts 0), so it is a print-and-fill form. The apply page says applicants can mail the form, email a digital copy (its link is mailto:victimsservices@state.sd.us), or apply online through MAVIS; the MAVIS URL comes from the link on the page, not the visible text. The application lists bills, receipts, insurance statements, the signed Declaration and Authorization, the witnessed health information release, and a W-9 as parts of a complete application; the instructions say the W-9 is needed only for final awards over $5,000. The application does not ask for a copy of the police report or a photo ID; the program contacts law enforcement and providers itself."
+ "researcher_notes": "Statute text from sdlegislature.gov (codified chapter 23A-28B, and 22-22-26 / 22-22-26.2 as amended by SL 2026, ch 105). Administrative rules are ARSD article 67:55 (still filed under the Department of Social Services title, but the program is now run by the Department of Public Safety); several sections were amended effective September 8, 2026. In the saved text of ARSD 67:55:04:03 the general counseling time window renders as '2 4 months'. The raw HTML of the single-rule page (SD-S9) shows the digits '2' and '4' in adjacent spans with no space, so it reads as 24 months after the crime, but the text check cannot confirm it, so SD-COUNS-1 omits the number. SD-COUNS-2 covers the separate, cleanly stated 24-months-from-application rule for juvenile victims. The primary application PDF is form DPS-VS-694 dated 12/17 and lists an older web address (dps.sd.gov); the program pages now live on sd.gov. The application says lost wages are paid at the federal minimum wage. SDCL 23A-28B-20 sets the monthly minimum wage from the federal hourly minimum wage times 173.2 hours, and pays the lesser of that or the victim's average monthly earnings for the prior six months, so the application is a simplification; the statute controls. ARSD 67:55:01:06 states payment is not allowed for substantial contributory conduct without the sex-offense exception, but SDCL 23A-28B-25(2)(a) exempts sex offense victims and the statute controls. The program page also says it can pay victims of state, tribal, or federal crimes. Awards are payable only to the extent the fund has money (SDCL 23A-28B-10). Reviewer: per-expense dollar limits in ARSD 67:55:04 are not hard caps; the commission may deviate from them (ARSD 67:55:04:20), except for the emergency award and the $15,000 statutory cap. ARSD 67:55:04:13 (2004) requires rape exam bills to go to health insurance before the program pays; it predates the 2018 and 2026 county-pay statute changes and does not say the county may bill the survivor's insurance, so exam_no_bill stays 'unspecified'. Filing info: the saved application PDF (SD-S6, DPS-VS-694 12/17) is the one the current apply page links as the 'Crime Victims' Compensation Application form'; it has no AcroForm fields (pypdf counts 0), so it is a print-and-fill form. The apply page says applicants can mail the form, email a digital copy (its link is mailto:victimsservices@state.sd.us), or apply online through MAVIS; the MAVIS URL comes from the link on the page, not the visible text. The application lists bills, receipts, insurance statements, the signed Declaration and Authorization, the witnessed health information release, and a W-9 as parts of a complete application; the instructions say the W-9 is needed only for final awards over $5,000. The application does not ask for a copy of the police report or a photo ID; the program contacts law enforcement and providers itself. South Dakota has no substitute-address confidentiality program like Safe at Home; the Minnesota Secretary of State's national list also shows South Dakota as having no program. The only option found is the Secretary of State's Secure Active Designation under SDCL 12-4-9.2, which hides the voter registration record only. Eligibility depends on an active protection order (chapter 25-10 or 22-19A) or living in a victims' services shelter, not on the type of crime; the SOS page names rape among the circumstances it is designed for, but no quote says sexual assault survivors are eligible as such, so covers_sexual_assault is false. Forms go to the Office of the Secretary of State, Elections Division, 500 East Capitol Avenue, Suite 204, Pierre, SD 57501. SDCL 23A-28B-36 only keeps records confidential when another law or rule already protects them; it is not a blanket confidentiality rule for claims. SDCL 23A-28B-37 says hearings on an application are open to the public and the hearing record is a public record unless the commission closes the hearing, for example because a public hearing would cause trauma for the victim."
 }

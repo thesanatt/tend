@@ -156,6 +156,26 @@
    "raw_path": "rules/sources/MT/MT-S14.html",
    "text_path": "rules/sources/MT/MT-S14.txt",
    "sha256": "cc609f0835e77398cb651436255ba4a9a57be70a4cb604056c5adbf86bc60477"
+  },
+  {
+   "id": "MT-S15",
+   "title": "Montana DOJ Office of Victim Services: Address Confidentiality Program",
+   "url": "https://dojmt.gov/victim-services/address-confidentiality-program/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T20:01:05Z",
+   "raw_path": "rules/sources/MT/MT-S15.html",
+   "text_path": "rules/sources/MT/MT-S15.txt",
+   "sha256": "4dc021c1259ab4da5dc94bd58aceee871918b2229d6381241870f9cfb0bb2b35"
+  },
+  {
+   "id": "MT-S16",
+   "title": "MCA 53-9-107: Public inspection and disclosure of office's records",
+   "url": "https://mca.legmt.gov/bills/mca/title_0530/chapter_0090/part_0010/section_0070/0530-0090-0010-0070.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T20:01:17Z",
+   "raw_path": "rules/sources/MT/MT-S16.html",
+   "text_path": "rules/sources/MT/MT-S16.txt",
+   "sha256": "e953d530940728e1335c79239a00fa6e72f9107ffff7c8d6a3252cb95a93a0c8"
   }
  ],
  "rules": [
@@ -624,6 +644,31 @@
    "source_id": "MT-S3",
    "pinpoint": "CVC FAQ, How long will it take to receive a decision on compensation benefits?",
    "fragment_url": "https://dojmt.gov/victim-services/crime-victim-compensation/faq/#:~:text=The%20goal%20of%20the%20CVC,a%20claim%20within%2060%20days."
+  },
+  {
+   "id": "MT-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Montana Department of Justice, Office of Victim Services",
+    "covers_sexual_assault": true,
+    "enroll": "Download and complete the Address Confidentiality Program Application. Applicants must submit supporting documents with the application. Mail, email, or fax the application and supporting documentation to: Office of Victim Services ACP, P.O. Box 201410, Helena, MT 59620-1410; Fax: (406) 444-5335. An online application is also offered. For assistance in completing the ACP application, please contact a Crime Victim Advocate or contact the Office of Victim Services ACP Program."
+   },
+   "summary": "Montana's Address Confidentiality Program, run by the DOJ Office of Victim Services, gives Montana residents who are victims of sexual assault, partner or family member assault, stalking, or human trafficking a substitute address and free confidential first-class mail forwarding. Survivors apply online or by mailing, emailing, or faxing the application with supporting documents, and a crime victim advocate can help.",
+   "quote": "Be a victim of partner or family member assault, sexual assault, stalking, human trafficking, or eligible to apply for an order of protection.",
+   "source_id": "MT-S15",
+   "pinpoint": "Address Confidentiality Program page, eligibility list",
+   "fragment_url": "https://dojmt.gov/victim-services/address-confidentiality-program/#:~:text=Be%20a%20victim%20of%20partner,for%20an%20order%20of%20protection."
+  },
+  {
+   "id": "MT-CONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "The compensation office's records are generally open to public inspection, but personal, medical, or similar information is exempt from disclosure when releasing it would be an unreasonable invasion of privacy, and confidential criminal justice information stays protected under the Montana Criminal Justice Information Act.",
+   "quote": "the following public records of the office are exempt from disclosure: (a)\tinformation of a personal nature, such as personal, medical, or similar information, if the public disclosure of the information would constitute an unreasonable invasion of privacy",
+   "source_id": "MT-S16",
+   "pinpoint": "MCA 53-9-107(3)(a)",
+   "fragment_url": "https://mca.legmt.gov/bills/mca/title_0530/chapter_0090/part_0010/section_0070/0530-0090-0010-0070.html#:~:text=the%20following%20public%20records%20of,an%20unreasonable%20invasion%20of%20privacy"
   }
  ],
  "coverage": {
@@ -643,7 +688,9 @@
    "total_cap",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap for counseling for primary victims (current amount not verified)",
@@ -656,5 +703,5 @@
   "notes": "Montana has no fixed dollar cap on lost wages for employed victims; MCA 53-9-128(1) pays 66 2/3% of wages up to one-half the state's average weekly wage, and 53-9-128(7)(a) caps victims who were employable but not employed at $100 per week. ARM 23.15.306(3) limits primary-victim counseling to 12 consecutive months or $2,000 with extensions available, but the same rule's secondary-victim limit ($2,000) has been superseded by the statute ($5,000), and the DOJ page names no primary-victim cap, so I did not encode a primary-victim counseling cap. I found no relocation, security, or minimum-loss provision. Neither the statute nor FREPP pages say whether the survivor's insurance may be billed for the exam."
  },
  "confidence": "high",
- "researcher_notes": "Total cap of $25,000 comes from the DOJ program page; the statute itself only caps death cases at $25,000 (MCA 53-9-128(5)). Reporting: adult survivors must report to law enforcement within 72 hours unless good cause is shown (ARM 23.15.103 lists factors such as the reasonableness of the delay and incapacity); there is no statutory alternative such as a forensic exam or advocate report. The exam itself does not require a report: unreported exams are paid by FREPP (MCA 46-15-411(2); DOJ FREPP page). ARM 23.15.402(1) (2005) says FREPP requires the exam within 72 hours and that the victim choose not to report; the current DOJ FREPP page does not repeat the 72-hour condition, so I left it out of the rules. MCA 46-15-411(3) and the FREPP page say treatment of physical injuries from the assault is not covered by the exam payment and may be billed to the survivor; CVC may still cover such medical costs under MCA 53-9-128(2). ARM rules were saved from Cornell LII because the Secretary of State ARM site is script-driven. Reviewer note: MCA 53-9-103(3)(b) and (6)(a) define criminally injurious conduct and victim in terms of bodily injury or death, while the DOJ page describes a primary victim as someone who suffered direct physical or emotional harm; a survivor without a physical injury should confirm eligibility with the office. MT-CAP-2 uses the non-standard param applies_to: secondary_victims; the $5,000 counseling cap does not apply to the primary victim under the statute. How to file: the only submission method the official sources state is mail to P.O. Box 201410, Helena, MT 59620-1410 (Request a Claim Form page; the 12-25 claim form also carries a postage-paid business reply panel). The OVS contact block lists fax (406) 444-5335 and an email address, but no source says claims may be filed by fax or email, and the email is obfuscated in the saved snapshot, so I did not add fax or email submission rules. There is no online filing; the page's online request only mails a blank form. The claim form PDF (MT-S6, Version 10/2025) has no AcroForm fields, so it is printed and filled by hand. The 60-day processing time is a stated goal, not a guarantee."
+ "researcher_notes": "Total cap of $25,000 comes from the DOJ program page; the statute itself only caps death cases at $25,000 (MCA 53-9-128(5)). Reporting: adult survivors must report to law enforcement within 72 hours unless good cause is shown (ARM 23.15.103 lists factors such as the reasonableness of the delay and incapacity); there is no statutory alternative such as a forensic exam or advocate report. The exam itself does not require a report: unreported exams are paid by FREPP (MCA 46-15-411(2); DOJ FREPP page). ARM 23.15.402(1) (2005) says FREPP requires the exam within 72 hours and that the victim choose not to report; the current DOJ FREPP page does not repeat the 72-hour condition, so I left it out of the rules. MCA 46-15-411(3) and the FREPP page say treatment of physical injuries from the assault is not covered by the exam payment and may be billed to the survivor; CVC may still cover such medical costs under MCA 53-9-128(2). ARM rules were saved from Cornell LII because the Secretary of State ARM site is script-driven. Reviewer note: MCA 53-9-103(3)(b) and (6)(a) define criminally injurious conduct and victim in terms of bodily injury or death, while the DOJ page describes a primary victim as someone who suffered direct physical or emotional harm; a survivor without a physical injury should confirm eligibility with the office. MT-CAP-2 uses the non-standard param applies_to: secondary_victims; the $5,000 counseling cap does not apply to the primary victim under the statute. How to file: the only submission method the official sources state is mail to P.O. Box 201410, Helena, MT 59620-1410 (Request a Claim Form page; the 12-25 claim form also carries a postage-paid business reply panel). The OVS contact block lists fax (406) 444-5335 and an email address, but no source says claims may be filed by fax or email, and the email is obfuscated in the saved snapshot, so I did not add fax or email submission rules. There is no online filing; the page's online request only mails a blank form. The claim form PDF (MT-S6, Version 10/2025) has no AcroForm fields, so it is printed and filled by hand. The 60-day processing time is a stated goal, not a guarantee. Address confidentiality: the DOJ Office of Victim Services runs the Address Confidentiality Program (substitute address plus free confidential first-class mail forwarding); the program page lists sexual assault among the qualifying victimizations and requires Montana residency. Record confidentiality: MCA 53-9-107(1) makes the compensation office's records open to public inspection by default; only personal, medical, or similar information whose release would be an unreasonable invasion of privacy is exempt under 53-9-107(3)(a), and the party seeking disclosure carries the burden. This is weaker than a blanket confidentiality statute, so the app should not tell survivors their claim file is fully sealed. The 12-25 claim form's release language also says the program will keep confidential information it receives confidential."
 }

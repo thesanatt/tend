@@ -1,0 +1,293 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "MA",
+ "source_sha256": "0be711d80cbbfe9d51d405ec14235474d8aaf4537159540ebef6438dd58306e0",
+ "ir_sha256": "480b13ef38efe008da7334e1386aca7eb637bcd1654327f5464eff94760af35f",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "MA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MA-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MA-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MA-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MA-EXAM-7",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "MA-EXAM-8",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "MA-CAP-2",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "MA-CAP-3",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 25000,
+   "per": "claim"
+  },
+  {
+   "id": "MA-CAP-4",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "MA-CAP-5",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1300000,
+   "per": "claim"
+  },
+  {
+   "id": "MA-CAP-6",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 7500,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "MA-COV-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MA-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MA-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MA-COV-4",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "MA-COV-5",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "MA-COV-6",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "MA-COV-7",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "MA-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "MA-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MA-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MA-DEAD-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "MA-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "MA-DEAD-3",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "discovery"
+  },
+  {
+   "id": "MA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "MA-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "medical_provider"
+   ]
+  },
+  {
+   "id": "MA-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "MA-REPORT-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MA-REPORT-5",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MA-REPORT-6",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "MA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MA-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MA-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MA-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MA-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MA-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MA-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "MA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MA-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

@@ -156,6 +156,46 @@
    "raw_path": "rules/sources/CO/CO-S14.html",
    "text_path": "rules/sources/CO/CO-S14.txt",
    "sha256": "c1c7c643094e77e10779461ecba6c78be93d6398c807e00d2f034fa4f376177c"
+  },
+  {
+   "id": "CO-S15",
+   "title": "C.R.S. 24-4.1-107.5 (Confidentiality of materials), via Justia",
+   "url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-107-5/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:40Z",
+   "raw_path": "rules/sources/CO/CO-S15.html",
+   "text_path": "rules/sources/CO/CO-S15.txt",
+   "sha256": "89df258821eacd2c6c683c615a7e0aed323eff06d162cd69ec24ff0b6ce88779"
+  },
+  {
+   "id": "CO-S16",
+   "title": "Colorado DPA Division of Central Services: How to Enroll in the ACP",
+   "url": "https://dcs.colorado.gov/acp/how-to-enroll-in-the-acp",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:57:49Z",
+   "raw_path": "rules/sources/CO/CO-S16.html",
+   "text_path": "rules/sources/CO/CO-S16.txt",
+   "sha256": "2016d937dd303464583fb53f50863ec23f7d389daa63d7ef59608ccfd72b5eb2"
+  },
+  {
+   "id": "CO-S17",
+   "title": "Colorado DPA Division of Central Services: Address Confidentiality Program (ACP)",
+   "url": "https://dcs.colorado.gov/acp",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:57:50Z",
+   "raw_path": "rules/sources/CO/CO-S17.html",
+   "text_path": "rules/sources/CO/CO-S17.txt",
+   "sha256": "6f11e6eb6df382722e03fcc11d1e1ae613a67221401eee2cdade7a41a9a7e3a8"
+  },
+  {
+   "id": "CO-S18",
+   "title": "C.R.S. 24-30-2104 (Address confidentiality program, creation), via Justia",
+   "url": "https://law.justia.com/codes/colorado/title-24/principal-departments/article-30/part-21/section-24-30-2104/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:58:00Z",
+   "raw_path": "rules/sources/CO/CO-S18.html",
+   "text_path": "rules/sources/CO/CO-S18.txt",
+   "sha256": "73cd1931bf59572bcae4adfefaf5d5bd8147c69dbed9483988057da801d11d0c"
   }
  ],
  "rules": [
@@ -556,6 +596,31 @@
    "source_id": "CO-S11",
    "pinpoint": "DCJ How to File a Claim page, How to File a Claim section",
    "fragment_url": "https://dcj.colorado.gov/how-to-file-a-claim-for-victim-compensation#:~:text=The%20processing%20time%20is%20different,notified%20of%20the%20program%27s%20decision."
+  },
+  {
+   "id": "CO-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program (ACP)",
+    "agency": "Colorado Department of Personnel & Administration, Division of Central Services",
+    "covers_sexual_assault": true,
+    "enroll": "To begin the enrollment process, meet with a certified Application Assistant. Visit the Application Center Locations page to view a listing of available Application Assistants. Only AAs can make ACP referrals and submit ACP applications."
+   },
+   "summary": "Colorado's Address Confidentiality Program gives survivors of sexual assault, stalking, human trafficking, and domestic violence a legal substitute address and mail forwarding, and state and local government agencies must accept that address.",
+   "quote": "The Colorado Address Confidentiality Program (ACP) is a statewide program that provides protected healthcare workers and survivors of stalking/harassment, sexual assault, human trafficking, and domestic violence with a legal substitute address and mail forwarding. Under Colorado law, all state and local government agencies must accept a participant’s substitute address.",
+   "source_id": "CO-S17",
+   "pinpoint": "DCS Address Confidentiality Program (ACP) page, introduction",
+   "fragment_url": "https://dcs.colorado.gov/acp#:~:text=The%20Colorado%20Address%20Confidentiality%20Program,accept%20a%20participant%E2%80%99s%20substitute%20address."
+  },
+  {
+   "id": "CO-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "By statute, any records, claims, or information a district board or district attorney receives, makes, or keeps to process a crime victim compensation claim are confidential.",
+   "quote": "Any materials received, made, or kept by a board or a district attorney to process a claim on behalf of a crime victim under this article are confidential.",
+   "source_id": "CO-S15",
+   "pinpoint": "C.R.S. 24-4.1-107.5(2)",
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-107-5/#:~:text=Any%20materials%20received%2C%20made%2C%20or,under%20this%20article%20are%20confidential."
   }
  ],
  "coverage": {
@@ -573,15 +638,17 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap",
    "filing_deadline",
    "minimum_loss"
   ],
-  "notes": "No statewide per-expense caps (counseling, lost wages, relocation, transportation, medical, security) were found; each judicial district board sets its own limits by policy, and the state application says some districts do not pay up to the $30,000 statutory limit. Filing deadline: after SB 24-120 (2024), C.R.S. 24-4.1-108(1)(f) only requires that the application be filed with the board and states no time limit for injury claims; property damage claims must be filed within six months (24-4.1-108(1.5)(d)), which the schema cannot express in years or days. No minimum loss amount appears in the statute. Whether insurance may be billed for the evidence-collection portion of the exam is not stated in the statute. How to file: Colorado has no single statewide submission address; the DCJ pages say to send the application to the administrator in the judicial district where the crime occurred, so the submission rule points there and the district addresses and emails are on CO-S1. The 2016 form's insurance section is information to fill in, not a separate document."
+  "notes": "No statewide per-expense caps (counseling, lost wages, relocation, transportation, medical, security) were found; each judicial district board sets its own limits by policy, and the state application says some districts do not pay up to the $30,000 statutory limit. Filing deadline: after SB 24-120 (2024), C.R.S. 24-4.1-108(1)(f) only requires that the application be filed with the board and states no time limit for injury claims; property damage claims must be filed within six months (24-4.1-108(1.5)(d)), which the schema cannot express in years or days. No minimum loss amount appears in the statute. Whether insurance may be billed for the evidence-collection portion of the exam is not stated in the statute. How to file: Colorado has no single statewide submission address; the DCJ pages say to send the application to the administrator in the judicial district where the crime occurred, so the submission rule points there and the district addresses and emails are on CO-S1. The 2016 form's insurance section is information to fill in, not a separate document. Address confidentiality: Colorado's ACP is run by the Department of Personnel & Administration (Division of Central Services), not the Secretary of State; the statute (C.R.S. 24-30-2104, CO-S18) covers relocated victims of domestic violence, a sexual offense, human trafficking, or stalking. Record confidentiality: C.R.S. 24-4.1-107.5(2) makes compensation claim materials confidential, with narrow court-review and in camera exceptions."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text was taken from Justia (marked 2025), which includes the SB 24-120 amendments effective May 15, 2024; 2026 session changes, if any, were not checked. Colorado's program is decentralized: claims go to the board in the judicial district where the crime occurred, and boards may waive requirements or reduce awards (24-4.1-108(2)). The DCJ-linked state application PDF is dated 2016 and still lists a one-year filing deadline and 72-hour police notification for all claims; current statute keeps the 72-hour rule only for property damage claims (24-4.1-108(1.5)(b)) and has no deadline for injury claims, so the form's deadline was not used. Some local district pages also still state a one-year deadline; survivors should apply promptly and confirm with their district. 'Injury' includes mental impairment and pregnancy (24-4.1-102(8)). Forensic exam payment: law enforcement pays when the survivor reports; DCJ pays when the survivor does not take part (18-3-407.5); SAVE (18-3-407.7) covers related medical costs for medical and anonymous reporters, with an FY2026 cap of $4,000 per incident per the DCJ SAVE page. Phone is the OVP number listed by the federal OVC directory; local district phone numbers are on the DCJ CVC page. Reviewer (Oct 3): the SAVE page's $4,000 cap is labeled FY 2026, a fiscal year that ended June 30, 2026, so it may be stale. The state application PDF that DCJ still links (2016) states a one-year filing deadline and 72-hour police notification for all claims; current statute does not, so the app should warn users that the form's eligibility text is outdated. The phone listed is the OVP main line from the OVC directory; the DCJ how-to-file page also gives a separate number for help finding the right district administrator. How-to-file pass (Oct 3): the state application CO-S13 (2016) is still the version DCJ links from both the How to File page and the Spanish section; no newer statewide PDF was linked, so it is the application_form (fillable, 152 AcroForm fields). Submission is decentralized: one mail rule targets 'the appropriate administrator' from the DCJ page; the per-district addresses on CO-S1 were not turned into separate rules because each sits next to a named contact person. The DCJ page also gives (720) 672-2166 and a staff email for help finding the right administrator, which is a help line, not a submission target. Processing time: DCJ says generally 30-45 days to a decision and that it varies by district; the 2016 form says the investigation may take up to 60 days."
+ "researcher_notes": "Statute text was taken from Justia (marked 2025), which includes the SB 24-120 amendments effective May 15, 2024; 2026 session changes, if any, were not checked. Colorado's program is decentralized: claims go to the board in the judicial district where the crime occurred, and boards may waive requirements or reduce awards (24-4.1-108(2)). The DCJ-linked state application PDF is dated 2016 and still lists a one-year filing deadline and 72-hour police notification for all claims; current statute keeps the 72-hour rule only for property damage claims (24-4.1-108(1.5)(b)) and has no deadline for injury claims, so the form's deadline was not used. Some local district pages also still state a one-year deadline; survivors should apply promptly and confirm with their district. 'Injury' includes mental impairment and pregnancy (24-4.1-102(8)). Forensic exam payment: law enforcement pays when the survivor reports; DCJ pays when the survivor does not take part (18-3-407.5); SAVE (18-3-407.7) covers related medical costs for medical and anonymous reporters, with an FY2026 cap of $4,000 per incident per the DCJ SAVE page. Phone is the OVP number listed by the federal OVC directory; local district phone numbers are on the DCJ CVC page. Reviewer (Oct 3): the SAVE page's $4,000 cap is labeled FY 2026, a fiscal year that ended June 30, 2026, so it may be stale. The state application PDF that DCJ still links (2016) states a one-year filing deadline and 72-hour police notification for all claims; current statute does not, so the app should warn users that the form's eligibility text is outdated. The phone listed is the OVP main line from the OVC directory; the DCJ how-to-file page also gives a separate number for help finding the right district administrator. How-to-file pass (Oct 3): the state application CO-S13 (2016) is still the version DCJ links from both the How to File page and the Spanish section; no newer statewide PDF was linked, so it is the application_form (fillable, 152 AcroForm fields). Submission is decentralized: one mail rule targets 'the appropriate administrator' from the DCJ page; the per-district addresses on CO-S1 were not turned into separate rules because each sits next to a named contact person. The DCJ page also gives (720) 672-2166 and a staff email for help finding the right administrator, which is a help line, not a submission target. Processing time: DCJ says generally 30-45 days to a decision and that it varies by district; the 2016 form says the investigation may take up to 60 days. Privacy pass (Oct 3): ACP enrollment goes only through a certified Application Assistant at a victim-services agency; the enroll page also says applicants must have relocated within the past 90 days or plan to relocate, must reside in Colorado, and must provide documentation of eligibility (for example police reports, protection orders, or a letter from a counselor or advocate). Certification lasts 4 years. The DCS site posted a notice on Sept. 28, 2026 that it is migrating during October 2026, so the ACP URLs may change. C.R.S. 24-4.1-107.5 (CO-S15) also bars boards from producing claim records through discovery except for court review of a board decision or on a strict showing that the information exists only in board records, after in camera review and a court finding that release will not threaten the victim's safety."
 }

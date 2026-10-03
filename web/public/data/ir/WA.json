@@ -1,0 +1,303 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "WA",
+ "source_sha256": "e67dc45a75fa26fc59d10e13b1d86f87ff40271faf8112cf673ddee6ff3360ba",
+ "ir_sha256": "ffbbc917c61992ff9556fc68b222bbe2b3669d5359ee8fb8fe0f9042b5b09be2",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "WA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WA-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WA-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WA-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WA-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 19000000
+  },
+  {
+   "id": "WA-CAP-NONMEDICAL",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 4000000,
+   "per": "claim"
+  },
+  {
+   "id": "WA-CAP-MEDICAL",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 15000000,
+   "per": "claim"
+  },
+  {
+   "id": "WA-CAP-COUNSELING",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 15000000,
+   "per": "claim"
+  },
+  {
+   "id": "WA-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "WA-COV-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WA-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WA-EXC-WAGES",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WA-COV-COUNSELING",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WA-COV-COUNSELING-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WA-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WA-COV-TRANSPORT",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "WA-COV-TRANSPORT-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "WA-COV-TRANSPORT-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "WA-COV-CLOTHING",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "WA-COV-PEP",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "WA-COV-GLASSES",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WA-EXC-PROPERTY",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WA-EXC-CLEANUP",
+   "kind": "excluded",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "WA-EXC-MEDICAID",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "report"
+  },
+  {
+   "id": "WA-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "report"
+  },
+  {
+   "id": "WA-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "WA-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "WA-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "WA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WA-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WA-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WA-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "WA-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "WA-COLLATERAL-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "WA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WA-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WA-RESIDENCY-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "WA-RESIDENCY-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "WA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "WA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "WA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

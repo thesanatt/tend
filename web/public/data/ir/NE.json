@@ -1,0 +1,234 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "NE",
+ "source_sha256": "cbe76153dd8e4a957913c1b63d0fe3163823f55580e6f41697008b7ab0899dca",
+ "ir_sha256": "2e4eea20b29c2cf71f508247474be7ded7321b7ec7d6a905c23453ccea086b38",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "NE-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NE-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NE-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NE-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NE-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NE-CAP-3",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NE-CAP-4",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "NE-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NE-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NE-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NE-COV-4",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NE-COV-5",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NE-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NE-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NE-WAGE-1",
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "days_lost": 7
+  },
+  {
+   "id": "NE-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "NE-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "NE-REP-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "NE-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NE-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NE-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NE-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NE-COND-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NE-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "NE-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NE-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NE-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NE-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NE-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NE-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NE-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NE-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NE-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NE-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

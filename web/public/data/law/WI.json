@@ -96,6 +96,36 @@
    "raw_path": "rules/sources/WI/WI-S8.pdf",
    "text_path": "rules/sources/WI/WI-S8.txt",
    "sha256": "999dc4a9321e2d1ead067d69ffc33420fed5ebc4c49eab4d3fc38aa3c6312a31"
+  },
+  {
+   "id": "WI-S9",
+   "title": "Wisconsin DOJ: Safe at Home Address Confidentiality Program",
+   "url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/safe-at-home-address-confidentiality-program.aspx",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:57:52Z",
+   "raw_path": "rules/sources/WI/WI-S9.html",
+   "text_path": "rules/sources/WI/WI-S9.txt",
+   "sha256": "2f9e4708d1c71d4ddb18a5690bd3169447d88fe09fe4dee0a52ea38affdda7f9"
+  },
+  {
+   "id": "WI-S10",
+   "title": "Wis. Stat. 165.68, Address confidentiality program",
+   "url": "https://docs.legis.wisconsin.gov/document/statutes/165.68",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:57Z",
+   "raw_path": "rules/sources/WI/WI-S10.html",
+   "text_path": "rules/sources/WI/WI-S10.txt",
+   "sha256": "f8c45e1422924b4aa4a1f652a933640183ec2599d557c7aec52031ce21d7d4ad"
+  },
+  {
+   "id": "WI-S11",
+   "title": "Wis. Stat. 103.10(1m), definitions including \"sexual abuse\" (cross-referenced by 165.68(1)(a)3.)",
+   "url": "https://docs.legis.wisconsin.gov/document/statutes/103.10(1m)",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:58:15Z",
+   "raw_path": "rules/sources/WI/WI-S11.html",
+   "text_path": "rules/sources/WI/WI-S11.txt",
+   "sha256": "75661fcb867aca6258fab5f9181a999d30b3a6c561ee308ab4afc78e793652e2"
   }
  ],
  "rules": [
@@ -699,6 +729,30 @@
    "source_id": "WI-S3",
    "pinpoint": "Wisconsin DOJ Crime Victim Compensation Program page, How will my claim be processed?",
    "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/crime-victim-compensation-program.aspx#:~:text=Due%20to%20the%20high%20volume,from%2090%2D120%20days%20or%20longer."
+  },
+  {
+   "id": "WI-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home Address Confidentiality Program",
+    "agency": "Wisconsin Department of Justice, Office of Crime Victim Services",
+    "covers_sexual_assault": true,
+    "enroll": "Individuals intending to enroll in Safe at Home must first participate in safety planning with an Application Assistant. After creating a safety plan with a designated Application Assistant, an individual may submit an application for enrollment in Safe at Home. A completed application may be faxed to Safe at Home's secure fax at (608) 261-8660 or mailed to Safe at Home, PO BOX 7035, Madison, WI 53707. Do not use email to submit your application."
+   },
+   "summary": "Safe at Home, run by the Wisconsin Department of Justice, gives Wisconsin residents who are victims of sexual abuse and other listed abuse a legal substitute address to use in place of their actual address, with free mail forwarding. Applicants first make a safety plan with a designated Application Assistant.",
+   "quote": "Safe at Home is an address confidentiality program that provides victims of domestic abuse, child abuse, sexual abuse, stalking, trafficking, or those who simply fear for their physical safety with a legal substitute address",
+   "source_id": "WI-S9",
+   "pinpoint": "Wisconsin DOJ, Safe at Home Address Confidentiality Program page, program description; Wis. Stat. 165.68",
+   "fragment_url": "https://www.wisdoj.gov/Pages/CrimeVictimServices/safe-at-home-address-confidentiality-program.aspx#:~:text=Safe%20at%20Home%20is%20an,with%20a%20legal%20substitute%20address"
+  },
+  {
+   "id": "WI-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "When a compensation claim arises from sexual assault or another listed sexual offense, the personally identifiable information on the application form is not open to public records inspection or copying.",
+   "quote": "any personally identifiable information, as defined in s. 19.62 (5), provided on the application form is not subject to inspection or copying under s. 19.35 (1).",
+   "source_id": "WI-S1",
+   "pinpoint": "Wis. Stat. 949.05(2)(a)"
   }
  ],
  "coverage": {
@@ -717,7 +771,9 @@
    "total_cap",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -730,8 +786,8 @@
    "lost_wages cap",
    "reporting alternatives for sexual assault (compensation claims)"
   ],
-  "notes": "No minimum loss amount appears in current Wis. Stat. ch. 949 or Jus 11. No emergency or advance award provision was found (the FAQ mentions only that 'Some exceptions may be made for emergency situations' when waiting on insurance or lawsuits). No relocation, temporary housing, or home security expense category was found; 'securing' a crime scene is part of the $1,000 crime scene cleanup cap, not personal security. The FAQ says mileage for appointments and court is not paid; no covered transportation rule was found. No separate cap on the victim's own counseling or lost wages was found beyond the $40,000 total. For compensation claims, the police report rule (5 days, waivable in the interest of justice) has no sexual-assault-specific alternative in the statute or rules; the forensic exam itself is paid by the SAFE Fund with no report required."
+  "notes": "No minimum loss amount appears in current Wis. Stat. ch. 949 or Jus 11. No emergency or advance award provision was found (the FAQ mentions only that 'Some exceptions may be made for emergency situations' when waiting on insurance or lawsuits). No relocation, temporary housing, or home security expense category was found; 'securing' a crime scene is part of the $1,000 crime scene cleanup cap, not personal security. The FAQ says mileage for appointments and court is not paid; no covered transportation rule was found. No separate cap on the victim's own counseling or lost wages was found beyond the $40,000 total. For compensation claims, the police report rule (5 days, waivable in the interest of justice) has no sexual-assault-specific alternative in the statute or rules; the forensic exam itself is paid by the SAFE Fund with no report required. Address confidentiality: Safe at Home (Wis. Stat. 165.68) is run by the Department of Justice; 165.68(1)(a)3. counts sexual abuse as defined in 103.10(1m)(b)6., which covers violations of s. 940.225 (sexual assault), so covers_sexual_assault is true. Record confidentiality: 949.05(2)(a) shields applicant PII only for claims from listed sexual offenses; 949.16 otherwise says the record of a proceeding is a public record."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is the LRB 2023-24 Wis. Stats. PDF published 10-1-26 (updated through 2025 Wis. Act 247). Jus 11 is the Register November 2024 PDF; its text extraction renders curly quotes and apostrophes as X/Y/[ so quotes from it avoid those characters. The wisdoj.gov SharePoint pages wrap the whole body in a <form>, which the standard fetch tool strips, so WI-S3 to WI-S7 were saved with the same plain HTTP fetch and the same text extraction except that form content is kept; raw HTML and sha256 are the real bytes. Those pages contain zero-width spaces, so quotes were chosen from spans without them. SAFE Fund provider reimbursement is two-thirds of billed eligible services up to $1,200 per exam in Jus 11.16(4), inflation-adjusted yearly; the SAFE Fund page lists the current maximum as $1,621.22. That limit is on the provider's reimbursement, not on the survivor; the no-bill rule in 949.26(2)(a) applies to providers who seek a SAFE Fund award. The SAFE Fund page says it can reimburse when a victim does not want to report, cooperate, or bill insurance. Older DOJ addresses (doj.state.wi.us) still appear on the application PDF; the program phone 800-446-6564 matches the OVC directory and the program page. 949.08(2)(a) bars rather than reduces an award for contributing conduct, and does not apply to people injured aiding victims or police. Reviewer: 949.26(1m) bars a SAFE Fund award when the provider is authorized to bill insurance and the victim cooperates with law enforcement, so the SAFE Fund no-bill rule in 949.26(2) is tied to providers seeking a fund award; a survivor who reports and authorizes insurance billing falls outside it (CVC awards are then reduced by any SAFE award under 949.06(3)(f)). The SAFE Fund pays the provider two-thirds of billed eligible services up to the yearly cap, and the provider may not bill the survivor for the rest. 949.06(4)(a) also says an award may be made whether or not anyone is prosecuted or convicted. How to file: the application page (WI-S5) lists online (recommended) and mail or fax for the paper form. The paper application (WI-S8, DJ-CVC-1 Rev. 10/2024, byte-identical to the live PDF on Oct 3 2026) has no AcroForm fields, so it is print-and-fill only. Its return block also lists Email: ocvs@doj.state.wi.us and the old www.doj.state.wi.us domain; the current pages list ocvs@wisdoj.gov only as a contact address and say paper applications may be mailed or faxed, so no email submission rule was added. The FAQ says nothing has to be sent with the application (bills are optional at filing and the program follows up), and police reports are requested by the program directly from law enforcement, so no police_report document rule was added. No photo ID or proof of residency requirement was found. Processing time is the intake estimate on the program page (90-120 days or longer); no statutory decision deadline was recorded."
+ "researcher_notes": "Statute text is the LRB 2023-24 Wis. Stats. PDF published 10-1-26 (updated through 2025 Wis. Act 247). Jus 11 is the Register November 2024 PDF; its text extraction renders curly quotes and apostrophes as X/Y/[ so quotes from it avoid those characters. The wisdoj.gov SharePoint pages wrap the whole body in a <form>, which the standard fetch tool strips, so WI-S3 to WI-S7 were saved with the same plain HTTP fetch and the same text extraction except that form content is kept; raw HTML and sha256 are the real bytes. Those pages contain zero-width spaces, so quotes were chosen from spans without them. SAFE Fund provider reimbursement is two-thirds of billed eligible services up to $1,200 per exam in Jus 11.16(4), inflation-adjusted yearly; the SAFE Fund page lists the current maximum as $1,621.22. That limit is on the provider's reimbursement, not on the survivor; the no-bill rule in 949.26(2)(a) applies to providers who seek a SAFE Fund award. The SAFE Fund page says it can reimburse when a victim does not want to report, cooperate, or bill insurance. Older DOJ addresses (doj.state.wi.us) still appear on the application PDF; the program phone 800-446-6564 matches the OVC directory and the program page. 949.08(2)(a) bars rather than reduces an award for contributing conduct, and does not apply to people injured aiding victims or police. Reviewer: 949.26(1m) bars a SAFE Fund award when the provider is authorized to bill insurance and the victim cooperates with law enforcement, so the SAFE Fund no-bill rule in 949.26(2) is tied to providers seeking a fund award; a survivor who reports and authorizes insurance billing falls outside it (CVC awards are then reduced by any SAFE award under 949.06(3)(f)). The SAFE Fund pays the provider two-thirds of billed eligible services up to the yearly cap, and the provider may not bill the survivor for the rest. 949.06(4)(a) also says an award may be made whether or not anyone is prosecuted or convicted. How to file: the application page (WI-S5) lists online (recommended) and mail or fax for the paper form. The paper application (WI-S8, DJ-CVC-1 Rev. 10/2024, byte-identical to the live PDF on Oct 3 2026) has no AcroForm fields, so it is print-and-fill only. Its return block also lists Email: ocvs@doj.state.wi.us and the old www.doj.state.wi.us domain; the current pages list ocvs@wisdoj.gov only as a contact address and say paper applications may be mailed or faxed, so no email submission rule was added. The FAQ says nothing has to be sent with the application (bills are optional at filing and the program follows up), and police reports are requested by the program directly from law enforcement, so no police_report document rule was added. No photo ID or proof of residency requirement was found. Processing time is the intake estimate on the program page (90-120 days or longer); no statutory decision deadline was recorded. Privacy (added Oct 3 2026): WI-ACP-1 quotes the DOJ Safe at Home page (WI-S9), saved with the same form-preserving plain HTTP fetch as WI-S3 to WI-S7 because the standard tool strips the SharePoint <form> body; the quote avoids the zero-width spaces on that page. The governing statute is Wis. Stat. 165.68 (WI-S10): eligibility requires Wisconsin residency and being a victim of abuse (or fearing for physical safety), 'Abuse' includes 'Sexual abuse, as defined in s. 103.10 (1m) (b) 6.', and that definition (WI-S11) lists s. 940.225, the sexual assault statute. Participation lasts 5 years and the department may not charge a fee. The enroll text is copied from WI-S9. WI-RECCONF-1 is narrow: 949.05(2)(a) exempts applicant personally identifiable information from public inspection and copying only when the claim arises from s. 940.22(2), 940.225, 948.02, 948.025, 948.051, 948.085, 948.095 or a sexually motivated crime; for other claims 949.16 says 'The record of a proceeding before an examiner or the department under this subchapter is a public record', with records confidential under other law staying confidential. The SAFE Fund has its own rule (949.36): the victim's PII stays confidential when a provider seeks an award unless the victim consents in writing."
 }

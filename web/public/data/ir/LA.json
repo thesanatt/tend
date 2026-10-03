@@ -1,0 +1,272 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "LA",
+ "source_sha256": "8b26225a92270c86fe715b0502d499d4d18867d341fe314661ff5c7b48236990",
+ "ir_sha256": "a81882f4a4f797dc977fa14abe25fd3df358d8bec2b2be137bed57420b5ca066",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "LA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "LA-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "LA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "LA-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "LA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "LA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "LA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "LA-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "LA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "LA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "LA-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "LA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "LA-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "LA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "LA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "LA-COUNS-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "LA-COUNS-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 11000,
+   "per": "unit",
+   "unit": "session",
+   "alt_rule_ids": [
+    "LA-COUNS-3"
+   ]
+  },
+  {
+   "id": "LA-COUNS-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "LA-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "LA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "LA-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "LA-RELO-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "LA-HOUSING-1",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "LA-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "LA-CLOTH-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "LA-CHILD-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "LA-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "LA-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "LA-EXCL-2",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "LA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "LA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "LA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "LA-DOC-SIGN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-REASONABLE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-COURT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-HEALTH",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-EXAM",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-BILLS-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-CLAIMFORMS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-DISABILITY",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-NEWS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-LATE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "LA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "LA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "LA-COUNS-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of LA-COUNS-2"
+  }
+ ]
+}

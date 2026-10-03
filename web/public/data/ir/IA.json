@@ -1,0 +1,323 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "IA",
+ "source_sha256": "b32cb0ab99cd81eb5d98653c4381f27fa7d310bd9792d57f29b6689973030a32",
+ "ir_sha256": "229d680f436a54f01d46acb179c232c8a06a624bfd64a835f253710505bf363e",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "IA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "IA-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "IA-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IA-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IA-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IA-MED-1",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 2500000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "IA-MED-3",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "IA-COUNS-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "IA-COUNS-2"
+   ]
+  },
+  {
+   "id": "IA-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 600000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "IA-WAGES-2"
+   ]
+  },
+  {
+   "id": "IA-WAGES-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "IA-WAGES-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "IA-WAGES-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "IA-TRANS-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-TRANS-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "IA-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "IA-HOUSING-1",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-SEC-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-SEC-2",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "IA-CLOTH-1",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 20000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-CLOTH-2",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "IA-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-CHILD-1",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "IA-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "IA-EXCL-2",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "IA-EXCL-3",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering",
+    "phone"
+   ]
+  },
+  {
+   "id": "IA-EXCL-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "IA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "IA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "IA-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate",
+    "forensic_exam",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "IA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "IA-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "IA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IA-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "IA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "IA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "IA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "IA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "IA-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "IA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "IA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "IA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "IA-COUNS-2",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of IA-COUNS-1"
+  },
+  {
+   "id": "IA-WAGES-2",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of IA-WAGES-1"
+  }
+ ]
+}

@@ -1,0 +1,250 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "RI",
+ "source_sha256": "6ba35ab46e4720a58b86d7dfdbc360f503ca7acb9ca560b5b073c8b918925330",
+ "ir_sha256": "0dbca310d1baa6e9ba9becccb94459b9b5c021d878b593bed0a8ab6a342e108f",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "RI-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "RI-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "RI-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "RI-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "RI-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "RI-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "RI-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "RI-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ],
+   "within_days": 15
+  },
+  {
+   "id": "RI-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "RI-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "RI-REPORT-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "RI-REPORT-5",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "RI-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "RI-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "RI-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "RI-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "RI-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "RI-DENTAL-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "RI-COUNSEL-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "RI-COUNSEL-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 13000,
+   "per": "unit",
+   "unit": "hour",
+   "alt_rule_ids": [
+    "RI-COUNSEL-3",
+    "RI-COUNSEL-4"
+   ]
+  },
+  {
+   "id": "RI-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "RI-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "RI-TRAVEL-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "RI-RELOC-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "RI-SECURITY-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "RI-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "RI-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "RI-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "RI-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "RI-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "RI-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "RI-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "RI-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "RI-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "RI-COUNSEL-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of RI-COUNSEL-2"
+  },
+  {
+   "id": "RI-COUNSEL-4",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of RI-COUNSEL-2"
+  }
+ ]
+}

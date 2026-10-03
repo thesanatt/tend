@@ -1,0 +1,272 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "SD",
+ "source_sha256": "21f25a578dc391727b10c37b3ed360bf0d33471f996118ab60c71100dc6ce169",
+ "ir_sha256": "6108cc75f6a983b06e518c38be2f13d85257ea21155d674e92f8f944e1348824",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "SD-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SD-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "SD-EXAM-3",
+   "kind": "excluded",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "SD-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "SD-CAP-2",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "SD-CAP-3",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 800000,
+   "per": "claim"
+  },
+  {
+   "id": "SD-CAP-4",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "SD-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "SD-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "SD-COUNS-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "SD-COUNS-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "SD-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "SD-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "SD-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "SD-TRANS-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "SD-SEC-1",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "SD-CLOTH-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "SD-CHILD-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "SD-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "SD-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "SD-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "SD-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "SD-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "SD-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "SD-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "SD-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "SD-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "SD-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "SD-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "SD-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SD-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SD-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "SD-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "SD-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "SD-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "SD-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "SD-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SD-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "SD-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

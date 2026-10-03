@@ -166,6 +166,36 @@
    "raw_path": "rules/sources/CA/CA-S18.html",
    "text_path": "rules/sources/CA/CA-S18.txt",
    "sha256": "3d064590db65ca06566958179f8ba305b713d3ab21e6a183672265e56f44e765"
+  },
+  {
+   "id": "CA-S19",
+   "title": "Cal. Gov. Code 6206 (Safe at Home application), via Justia 2025 California Code",
+   "url": "https://law.justia.com/codes/california/code-gov/title-1/division-7/chapter-3-1/section-6206/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:56:09Z",
+   "raw_path": "rules/sources/CA/CA-S19.html",
+   "text_path": "rules/sources/CA/CA-S19.txt",
+   "sha256": "457b2c247ef6d2d4accf62b91ccbd1eafa596d095e1e1038ccce6f24f27d9d1e"
+  },
+  {
+   "id": "CA-S20",
+   "title": "California Secretary of State: Safe at Home",
+   "url": "https://www.sos.ca.gov/registries/safe-home",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:10Z",
+   "raw_path": "rules/sources/CA/CA-S20.html",
+   "text_path": "rules/sources/CA/CA-S20.txt",
+   "sha256": "48e6c42e81e0e31cda135120d8cb36305c74da822efc153e071a6c84d7fae21b"
+  },
+  {
+   "id": "CA-S21",
+   "title": "CalVCB: Confidentiality",
+   "url": "https://victims.ca.gov/for-service-providers/confidentiality/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:24Z",
+   "raw_path": "rules/sources/CA/CA-S21.html",
+   "text_path": "rules/sources/CA/CA-S21.txt",
+   "sha256": "37df47ae060d484494f39587366a12bd9bb740c0b1fccf2a5851ed064b82cd93"
   }
  ],
  "rules": [
@@ -637,6 +667,31 @@
    "quote": "Qualifying emergency awards are generally paid within 30 calendar days of receipt of the application.",
    "source_id": "CA-S17",
    "pinpoint": "Form VCGCB-VCP-005 (Rev. 10/2017), Section 4, Emergency Award Request"
+  },
+  {
+   "id": "CA-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home",
+    "agency": "California Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "An application shall be completed in person at a community-based victims' assistance program or a community-based assistance program that serves victims of elder or dependent adult abuse pursuant to the Elder Abuse and Dependent Adult Civil Protection Act (Chapter 11 (commencing with Section 15600) of Part 3 of Division 9 of the Welfare and Institutions Code). The application process shall include a requirement that the applicant meet with a victims' assistance counselor and receive orientation information about the program."
+   },
+   "summary": "Safe at Home, run by the California Secretary of State, gives survivors of sexual assault and other listed crimes a substitute mailing address that state, county, and city agencies accept in place of a home address.",
+   "quote": "Safe at Home offers a substitute mailing address to receive first class, certified, and registered mail for victims of domestic violence, sexual assault, stalking, human trafficking, child abduction, and elder or dependent adult abuse.",
+   "source_id": "CA-S20",
+   "pinpoint": "Secretary of State, Safe at Home page, 'What is the Safe at Home program?'",
+   "fragment_url": "https://www.sos.ca.gov/registries/safe-home#:~:text=Safe%20at%20Home%20offers%20a,elder%20or%20dependent%20adult%20abuse."
+  },
+  {
+   "id": "CA-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "CalVCB says the information in a claim, including medical information, is strictly confidential and is shared only with the applicant's written permission or when the law requires it.",
+   "quote": "The information you share with CalVCB is strictly confidential.",
+   "source_id": "CA-S21",
+   "pinpoint": "CalVCB Confidentiality page, 'Your claim is confidential'",
+   "fragment_url": "https://victims.ca.gov/for-service-providers/confidentiality/#:~:text=The%20information%20you%20share%20with%20CalVCB%20is%20strictly%20confidential."
   }
  ],
  "coverage": {
@@ -656,7 +711,9 @@
    "residency",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -665,8 +722,8 @@
    "expense_cap:medical",
    "emergency_award:amount"
   ],
-  "notes": "No minimum dollar loss was found in the statute or on CalVCB pages; Gov. Code 13955(g) only requires that the injury has resulted or may result in pecuniary loss. Lost income has no separate dollar cap in the sources read (it is limited by time, generally five years, in Gov. Code 13957.5 and by the overall total). No mileage rate was found. Medical is paid at board rates (Medicare rate or 75% of billed per the What Is Covered page) rather than a fixed dollar cap. Emergency awards have no fixed dollar amount; Gov. Code 13952.5(g) ties the amount to the immediate needs of the victim, subject to board rates and limits. Whether the survivor's health insurance may be billed for the forensic exam is not addressed in Penal Code 13823.95, so insurance_billing is left unspecified."
+  "notes": "No minimum dollar loss was found in the statute or on CalVCB pages; Gov. Code 13955(g) only requires that the injury has resulted or may result in pecuniary loss. Lost income has no separate dollar cap in the sources read (it is limited by time, generally five years, in Gov. Code 13957.5 and by the overall total). No mileage rate was found. Medical is paid at board rates (Medicare rate or 75% of billed per the What Is Covered page) rather than a fixed dollar cap. Emergency awards have no fixed dollar amount; Gov. Code 13952.5(g) ties the amount to the immediate needs of the victim, subject to board rates and limits. Whether the survivor's health insurance may be billed for the forensic exam is not addressed in Penal Code 13823.95, so insurance_billing is left unspecified. No California statute was found that makes the whole CalVCB claim file confidential or exempt from the Public Records Act; the record_confidentiality rule rests on CalVCB's own Confidentiality page (CA-S21). Gov. Code 13954 only bars the board and victim centers from disclosing documents that personally identify a minor, and that section was not saved."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text comes from Justia's 2025 California Code because leginfo.legislature.ca.gov renders section text inside form tags that the fetch tool strips; the text was cross-checked by reading the leginfo article pages directly. Gov. Code 13956, 13957, and 13957.5 each have two versions on leginfo: the version quoted here (total award $35,000, raisable to $70,000 with federal funds; relocation $3,418) and an alternate version (AB 160 of 2022 and AB 1187 of 2023) with a $100,000 total, $7,500 relocation, and no dollar cap on victim counseling that only becomes operative July 1, 2024 if General Fund money is appropriated to backfill the Restitution Fund. CalVCB's own pages (What Is Covered, FAQ) and the Benefit Reference Guide Rev. 05/2025 still state $70,000 total, $3,418 relocation, $1,000 home security, and $10,000 / 60 sessions for victim counseling, so the conditional expansion appears not to have taken effect; re-check if CalVCB publishes new limits. The total_cap rule quotes CalVCB because the statute's operative number depends on federal funding. The board may exceed the counseling and relocation caps in dire or exceptional circumstances (13957(a)(2)(C), 13957(a)(7)(E)). Penal Code 13823.95(b)(1) also says a survivor does not have to participate in the criminal justice system to get the exam. Gov. Code 13956(a)(1)(C) says committing a crime does not count as involvement when the injury resulted from rape under Penal Code 261. Gov. Code 13955(b)(1) says eligibility for non-residents victimized in California applies only while the board finds federal funds are available. The paper application listed on the CalVCB forms page is Rev. 10/2017; CalVCB also takes applications online at online.victims.ca.gov. Phone 800-777-9229 matches the OVC state directory. Reviewer: the counseling caps are recorded twice on purpose, once from the statute ($10,000, Gov. Code 13957(a)(2)(A)(i)) and once from the 2025 Benefit Reference Guide, which adds the 60-session limit for a direct victim. Gov. Code 13956(b)(1) still says an application shall be denied if the victim failed to cooperate reasonably with law enforcement, weighed against age, psychological state, and fear of retaliation; not making a police report or delaying one is not by itself grounds for denial in a sexual assault claim. Penal Code 13823.95(a) bars charging the exam to the victim 'directly or indirectly'; whether that bars billing the victim's own health insurance is not stated, so insurance_billing stays unspecified. The CalVCB FAQ says victims of crimes outside California should also file in the state where the crime occurred. How to file: the application PDF linked from the CalVCB forms page (CA-S17, Form VCGCB-VCP-005 Rev. 10/2017) is still the current English version and is fillable with 207 AcroForm fields. It says to mail the signed application to CalVCB, PO Box 3036, Sacramento, CA 95812-3036, or deliver it to a local Victim Witness Assistance Center. The online target URL https://online.victims.ca.gov/ is the link behind 'CalVCB Online' on the How To Get Compensated page (CA-S12); the visible page text names CalVCB Online but does not print the address. CA-S12 also lists fax 866-902-8669, email info@victims.ca.gov, and the same PO Box for sending bills after approval; those are for bills, not the application, so they are not recorded as submission rules. Several required_document rules come from the Benefit Reference Guide's 'Examples of What We Need' lists, which are per-expense (income loss, medical, counseling); CalVCB does not ask for a photo ID in the sources read. Processing: 'Applications can take 90 days to process' (CA-S12); qualifying emergency awards are generally paid within 30 calendar days (CA-S17)."
+ "researcher_notes": "Statute text comes from Justia's 2025 California Code because leginfo.legislature.ca.gov renders section text inside form tags that the fetch tool strips; the text was cross-checked by reading the leginfo article pages directly. Gov. Code 13956, 13957, and 13957.5 each have two versions on leginfo: the version quoted here (total award $35,000, raisable to $70,000 with federal funds; relocation $3,418) and an alternate version (AB 160 of 2022 and AB 1187 of 2023) with a $100,000 total, $7,500 relocation, and no dollar cap on victim counseling that only becomes operative July 1, 2024 if General Fund money is appropriated to backfill the Restitution Fund. CalVCB's own pages (What Is Covered, FAQ) and the Benefit Reference Guide Rev. 05/2025 still state $70,000 total, $3,418 relocation, $1,000 home security, and $10,000 / 60 sessions for victim counseling, so the conditional expansion appears not to have taken effect; re-check if CalVCB publishes new limits. The total_cap rule quotes CalVCB because the statute's operative number depends on federal funding. The board may exceed the counseling and relocation caps in dire or exceptional circumstances (13957(a)(2)(C), 13957(a)(7)(E)). Penal Code 13823.95(b)(1) also says a survivor does not have to participate in the criminal justice system to get the exam. Gov. Code 13956(a)(1)(C) says committing a crime does not count as involvement when the injury resulted from rape under Penal Code 261. Gov. Code 13955(b)(1) says eligibility for non-residents victimized in California applies only while the board finds federal funds are available. The paper application listed on the CalVCB forms page is Rev. 10/2017; CalVCB also takes applications online at online.victims.ca.gov. Phone 800-777-9229 matches the OVC state directory. Reviewer: the counseling caps are recorded twice on purpose, once from the statute ($10,000, Gov. Code 13957(a)(2)(A)(i)) and once from the 2025 Benefit Reference Guide, which adds the 60-session limit for a direct victim. Gov. Code 13956(b)(1) still says an application shall be denied if the victim failed to cooperate reasonably with law enforcement, weighed against age, psychological state, and fear of retaliation; not making a police report or delaying one is not by itself grounds for denial in a sexual assault claim. Penal Code 13823.95(a) bars charging the exam to the victim 'directly or indirectly'; whether that bars billing the victim's own health insurance is not stated, so insurance_billing stays unspecified. The CalVCB FAQ says victims of crimes outside California should also file in the state where the crime occurred. How to file: the application PDF linked from the CalVCB forms page (CA-S17, Form VCGCB-VCP-005 Rev. 10/2017) is still the current English version and is fillable with 207 AcroForm fields. It says to mail the signed application to CalVCB, PO Box 3036, Sacramento, CA 95812-3036, or deliver it to a local Victim Witness Assistance Center. The online target URL https://online.victims.ca.gov/ is the link behind 'CalVCB Online' on the How To Get Compensated page (CA-S12); the visible page text names CalVCB Online but does not print the address. CA-S12 also lists fax 866-902-8669, email info@victims.ca.gov, and the same PO Box for sending bills after approval; those are for bills, not the application, so they are not recorded as submission rules. Several required_document rules come from the Benefit Reference Guide's 'Examples of What We Need' lists, which are per-expense (income loss, medical, counseling); CalVCB does not ask for a photo ID in the sources read. Processing: 'Applications can take 90 days to process' (CA-S12); qualifying emergency awards are generally paid within 30 calendar days (CA-S17). Privacy: California's address confidentiality program is Safe at Home, run by the Secretary of State (Gov. Code 6205 et seq.). The enroll text is copied from Gov. Code 6206(a) (CA-S19): applications are completed in person at a community-based victims' assistance program, with a victims' assistance counselor; 6206(a)(1)(A) lists sexual assault among the qualifying grounds. The SOS page (CA-S20) gives toll-free 877-322-5227 and SafeAtHome@sos.ca.gov, and says participants can also register as confidential voters. CalVCB's Confidentiality page (CA-S21) says claim information, including medical information, is shared only with written permission or when the law requires it, and that the signed release lets CalVCB share information with government agencies and medical, dental, mental health, and funeral providers to decide eligibility; it is an agency statement, not a statute."
 }

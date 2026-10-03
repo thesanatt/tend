@@ -31,7 +31,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
@@ -46,10 +48,10 @@
    "reporting_requirement:within_days",
    "processing_time"
   ],
-  "notes": "No minimum loss, emergency award, or police-report time limit appears in RSMo 595.010 to 595.075 or the DPS pages saved. The RSMo 595.010(12) definition of 'emergency service' (cash grants up to $100) belongs to victim services, not a CVC emergency award, so it is not recorded. No per-expense cap was found for counseling, medical, transportation, or security; relocation is listed as not payable. Transportation and security costs are not listed as covered or excluded. The program's Q and A PDF (cvc-qa.pdf) returned 404. No official source states a processing time for a decision or payment; the guidelines only give claimants 30 days to answer requests for information."
+  "notes": "No minimum loss, emergency award, or police-report time limit appears in RSMo 595.010 to 595.075 or the DPS pages saved. The RSMo 595.010(12) definition of 'emergency service' (cash grants up to $100) belongs to victim services, not a CVC emergency award, so it is not recorded. No per-expense cap was found for counseling, medical, transportation, or security; relocation is listed as not payable. Transportation and security costs are not listed as covered or excluded. The program's Q and A PDF (cvc-qa.pdf) returned 404. No official source states a processing time for a decision or payment; the guidelines only give claimants 30 days to answer requests for information. RSMo 595.037 makes CVC claim information open to the public by default; sexual assault claims are closed and confidential only on a department determination, so record confidentiality for survivors is conditional, not automatic."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from revisor.mo.gov (595.010, 595.015, 595.020, 595.025, 595.030, 595.035 effective 28 Aug 2018; 595.220 effective 28 Aug 2020). Exam billing: RSMo 595.220.6 says eligible forensic exam charges are billed to and paid by DPS and the victim may not be charged; the statute does not mention insurance, while the DPS SAFE page and SAFE fact sheet say health insurance may be billed secondary, so insurance_billing is 'allowed' per the agency. The SAFE fact sheet adds that exams can be anonymous and that medical treatment (STI/HIV prophylaxis, emergency contraception, wound care, etc.) may be billed to the patient and then claimed from CVC. 11 CSR 30-12.010 sets provider reimbursement maximums for SAFE exams (saved as MO-S16) but these are not survivor-facing caps. The guidelines page states lost wages were capped at $200/week for crimes before Aug. 28, 2015 and $400/week after; only the current statutory $400 is recorded. The online application is reached from the CVC page; the PDF form (812-1321, rev. 10-18) is linked as 'CVC Application and Guide'. Toll-free 1-800-347-6881 also appears on the fact sheet and application. Cooperation with law enforcement is required unless good cause (RSMo 595.015.4); an arrest or conviction is not required (RSMo 595.025.3(1)). Reviewer: the brochure says out-of-state crimes must be filed in that state, but RSMo 595.020.5 lets a Missouri resident apply in Missouri when the place of the crime has no program that would cover them; the statute controls. The insurance_billing value 'allowed' rests on the DPS SAFE page and SAFE fact sheet only; RSMo 595.220.6 and 11 CSR 30-12.010 are silent on billing the survivor's insurance (the regulation bars insurance billing only for child physical abuse exams). The brochure and fact sheet also list clothing among costs CVC cannot pay. How to file: the saved application (MO-S6, form 812-1321 rev. 10-18, still the file DPS links as 'CVC Application and Guide', 192 fillable AcroForm fields) prints the old mailing address P.O. Box 749, Jefferson City, Missouri 65102-0749. Current DPS pages, the 1/2024 brochure, and the compensation checklist (MO-S17) all give P.O. Box 1589, Jefferson City, MO 65102-1589, so the mail rule uses the newer address. The CVC page says victims 'complete an online application', but its 'online application' link points back to the same CVC page and two searches found no separate portal; the online rule's target is that page, where the fillable PDF is posted. The brochure lists email (CVC@dps.mo.gov) and fax ((573) 526-4940) only for requesting an application or contacting the program, not for submitting one, so no email or fax submission rule is recorded. A police report is not something the applicant attaches: the form asks for the report number and agency, and the fact sheet says CVC requests documentation from law enforcement itself.",
+ "researcher_notes": "Statute text is from revisor.mo.gov (595.010, 595.015, 595.020, 595.025, 595.030, 595.035 effective 28 Aug 2018; 595.220 effective 28 Aug 2020). Exam billing: RSMo 595.220.6 says eligible forensic exam charges are billed to and paid by DPS and the victim may not be charged; the statute does not mention insurance, while the DPS SAFE page and SAFE fact sheet say health insurance may be billed secondary, so insurance_billing is 'allowed' per the agency. The SAFE fact sheet adds that exams can be anonymous and that medical treatment (STI/HIV prophylaxis, emergency contraception, wound care, etc.) may be billed to the patient and then claimed from CVC. 11 CSR 30-12.010 sets provider reimbursement maximums for SAFE exams (saved as MO-S16) but these are not survivor-facing caps. The guidelines page states lost wages were capped at $200/week for crimes before Aug. 28, 2015 and $400/week after; only the current statutory $400 is recorded. The online application is reached from the CVC page; the PDF form (812-1321, rev. 10-18) is linked as 'CVC Application and Guide'. Toll-free 1-800-347-6881 also appears on the fact sheet and application. Cooperation with law enforcement is required unless good cause (RSMo 595.015.4); an arrest or conviction is not required (RSMo 595.025.3(1)). Reviewer: the brochure says out-of-state crimes must be filed in that state, but RSMo 595.020.5 lets a Missouri resident apply in Missouri when the place of the crime has no program that would cover them; the statute controls. The insurance_billing value 'allowed' rests on the DPS SAFE page and SAFE fact sheet only; RSMo 595.220.6 and 11 CSR 30-12.010 are silent on billing the survivor's insurance (the regulation bars insurance billing only for child physical abuse exams). The brochure and fact sheet also list clothing among costs CVC cannot pay. How to file: the saved application (MO-S6, form 812-1321 rev. 10-18, still the file DPS links as 'CVC Application and Guide', 192 fillable AcroForm fields) prints the old mailing address P.O. Box 749, Jefferson City, Missouri 65102-0749. Current DPS pages, the 1/2024 brochure, and the compensation checklist (MO-S17) all give P.O. Box 1589, Jefferson City, MO 65102-1589, so the mail rule uses the newer address. The CVC page says victims 'complete an online application', but its 'online application' link points back to the same CVC page and two searches found no separate portal; the online rule's target is that page, where the fillable PDF is posted. The brochure lists email (CVC@dps.mo.gov) and fax ((573) 526-4940) only for requesting an application or contacting the program, not for submitting one, so no email or fax submission rule is recorded. A police report is not something the applicant attaches: the form asks for the report number and agency, and the fact sheet says CVC requests documentation from law enforcement itself. Address confidentiality: RSMo 589.660 to 589.681 create the Secretary of State's Address Confidentiality Program (the Secretary's office brands it Safe at Home, but its page at sos.mo.gov/safeathome was blocked and could not be saved, so the statutory name is used). Eligibility expressly includes victims of rape and sexual assault who fear future harm; the application must be signed by a registered application assistant, and certification lasts four years with renewal. Record confidentiality: RSMo 595.037.1 says all information submitted on a CVC claim and any hearing 'shall be open to the public' except listed claims, which include rape, sodomy, or sexual abuse claims when the department determines confidentiality is in the victim's best interest, claims where the victim is a minor, and claims where disclosure would hurt apprehension or trial of an untried assailant; 595.037.2 lets the department close any record or hearing in the interest of justice. Tend should not tell Missouri survivors their claim is confidential by default.",
  "sources": [
   {
    "id": "MO-S1",
@@ -220,6 +222,36 @@
    "raw_path": "rules/sources/MO/MO-S17.pdf",
    "text_path": "rules/sources/MO/MO-S17.txt",
    "sha256": "bdc20d592c5c277d3b75b8b0581724616df69be43517fb059d7e2a9c86ed2d68"
+  },
+  {
+   "id": "MO-S18",
+   "title": "RSMo 589.660 (address confidentiality program definitions)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=589.660",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:33Z",
+   "raw_path": "rules/sources/MO/MO-S18.html",
+   "text_path": "rules/sources/MO/MO-S18.txt",
+   "sha256": "522b0b07214d9b4a02d62940bb1012c3e8c8beb5c9f72ec414390739f67b2025"
+  },
+  {
+   "id": "MO-S19",
+   "title": "RSMo 589.663 (Address Confidentiality Program created, application procedures)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=589.663",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:33Z",
+   "raw_path": "rules/sources/MO/MO-S19.html",
+   "text_path": "rules/sources/MO/MO-S19.txt",
+   "sha256": "d8a62841b6826e7fa944b81964beacacc19c383fb2614f78806f72eeaef34c5c"
+  },
+  {
+   "id": "MO-S20",
+   "title": "RSMo 595.037 (CVC open records, exceptions, closed and confidential claims)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.037",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:57:54Z",
+   "raw_path": "rules/sources/MO/MO-S20.html",
+   "text_path": "rules/sources/MO/MO-S20.txt",
+   "sha256": "3fd2f4f849e1aec5f8f24148a41f7e77a544c1e9796cf793e48f22e6ad325001"
   }
  ],
  "rules": [
@@ -682,6 +714,31 @@
    "quote": "If you are applying for loss of support, please provide a copy of the dependent child's birth",
    "source_id": "MO-S17",
    "pinpoint": "CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims"
+  },
+  {
+   "id": "MO-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Missouri Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "An adult person, a parent or guardian acting on behalf of a minor, or a guardian acting on behalf of an incapacitated person may apply to the secretary to have a designated address assigned by the secretary to serve as the person's address or the address of the minor or incapacitated person; (2)  The secretary may approve an application if it is filed with the office of the secretary in the manner established by rule and on a form prescribed by the secretary.  A completed application shall contain: (a)  The date the application was prepared, the applicant's signature, and the signature and registration number of the application assistant who assisted the applicant in applying to be a program participant; (RSMo 589.663(1)-(2)(a). An application assistant is a trained, registered employee or volunteer of a government agency or nonprofit program serving victims of domestic violence, rape, sexual assault, human trafficking, stalking, or other crimes, RSMo 589.660(2).)"
+   },
+   "summary": "The Missouri Secretary of State runs an Address Confidentiality Program that gives victims of rape, sexual assault, and other listed crimes who fear for their safety a designated substitute address in place of their real address. Applicants apply to the Secretary with the help of a registered application assistant.",
+   "quote": "There is created in the office of the secretary of state a program to be known as the \"Address Confidentiality Program\" to protect victims of domestic violence, rape, sexual assault, human trafficking, stalking, or other crimes who fear for their safety, as well as the safety of individuals residing in the same household as the victim, by authorizing the use of designated addresses for such victims, their minor children, and individuals residing with them.",
+   "source_id": "MO-S19",
+   "pinpoint": "RSMo 589.663 (preamble)",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=589.663#:~:text=There%20is%20created%20in%20the,and%20individuals%20residing%20with%20them."
+  },
+  {
+   "id": "MO-REC-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "CVC claim information and hearings are open to the public by default in Missouri. A claim for rape, sodomy, or sexual abuse is closed and confidential only when DPS decides that is in the best interest of the victim or dependents; claims involving a minor, or where the assailant has not been tried and disclosure would hurt the case, are also closed, and DPS may close any record in the interest of justice.",
+   "quote": "A claim in which the offense allegedly perpetrated against the victim is rape, sodomy or sexual abuse and it is determined by the department to be in the best interest of the victim or of the victim's dependents that the information be kept confidential or that the public be excluded from the hearing;",
+   "source_id": "MO-S20",
+   "pinpoint": "RSMo 595.037.1(2)",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.037#:~:text=A%20claim%20in%20which%20the,be%20excluded%20from%20the%20hearing%3B"
   }
  ]
 }
