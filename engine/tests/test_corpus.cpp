@@ -21,19 +21,26 @@ const std::vector<std::string> kAllExpenses = {
     "security", "crime_scene_cleanup", "childcare", "property_replacement", "clothing_bedding", "prescription",
     "dental", "funeral", "legal", "tuition", "other", "unknown"};
 
+// Every expense, with units of every kind, so each unit cap meets lines it
+// measures and lines it cannot.
 json scenario_items() {
+  const std::vector<std::string> units = {"session", "week", "hour", "mile", "day", "month", "item"};
   json items = json::array();
   int day = 15;
+  size_t u = 0;
   json tag_sets = json::array({json::array(), json::array({"phone"}), json::array({"pain_suffering", "cash"}),
                                json::array({"purse", "vehicle", "jewelry"})});
   size_t t = 0;
   for (const auto& e : kAllExpenses) {
     std::string d = "2026-06-" + std::to_string(day);
-    items.push_back(th::item("n:" + e + ":1", d, 50000, e, {{"units", 2}, {"insurance_paid_cents", 10000}}));
+    items.push_back(th::item("n:" + e + ":1", d, 50000, e,
+                             {{"units", 2}, {"unit", units[u++ % units.size()]}, {"insurance_paid_cents", 10000}}));
     items.push_back(th::item("n:" + e + ":2", d, 3000000, e, {{"tags", tag_sets[t++ % 4]}}));
     items.push_back(th::item("n:" + e + ":3", "2026-07-0" + std::to_string(1 + day % 9), 12500, e,
-                             {{"units", 1}, {"tags", tag_sets[t++ % 4]}}));
-    items.push_back(th::item("n:" + e + ":4", "2026-07-1" + std::to_string(day % 9), 9000, e, {{"units", 40}}));
+                             {{"units", 1}, {"unit", units[u++ % units.size()]}, {"tags", tag_sets[t++ % 4]}}));
+    items.push_back(th::item("n:" + e + ":4", "2026-07-1" + std::to_string(day % 9), 9000, e,
+                             {{"units", 40}, {"unit", units[u++ % units.size()]}}));
+    items.push_back(th::item("n:" + e + ":5", "2026-08-0" + std::to_string(1 + day % 9), 70000, e, {{"units", 3}}));
     day = day < 29 ? day + 1 : 15;
   }
   items.push_back(th::item("n:early", "2026-01-02", 4000, "medical"));

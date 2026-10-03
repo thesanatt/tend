@@ -9,7 +9,7 @@ namespace tend {
 
 constexpr char kMagic[4] = {'T', 'L', 'A', 'W'};
 constexpr uint16_t kFormatMajor = 1;
-constexpr uint16_t kFormatMinor = 1;
+constexpr uint16_t kFormatMinor = 2;
 constexpr uint32_t kHeaderSize = 64;
 constexpr uint32_t kSectionEntrySize = 12;
 constexpr uint32_t kTrailerSize = 32;
@@ -43,7 +43,7 @@ constexpr uint32_t kRuleRecordSize = 36;
 constexpr uint32_t kSourceRecordSize = 44;
 constexpr uint32_t kAnnoRecordSize = 12;
 
-// Rule kinds of the law IR (docs/SPEC.md v1.1), plus SKIPPED for verified
+// Rule kinds of the law IR (docs/SPEC.md v1.2, IR version 2), plus SKIPPED for verified
 // rules the front end set aside (kept so their quotes stay in the image).
 enum Kind : uint8_t {
   K_EXAM_NO_BILL,
@@ -88,6 +88,23 @@ constexpr uint8_t kRuleExpenseCount = EXP_UNKNOWN;  // expenses a rule may name
 
 enum Per : uint8_t { PER_NONE, PER_CLAIM, PER_UNIT, PER_COUNT };
 
+// What an item's `units` count (SPEC v1.2 typed units). UNIT_NONE when the
+// item names no unit; a per-unit cap applies only when the units match.
+enum Unit : uint8_t {
+  UNIT_NONE,
+  UNIT_SESSION,
+  UNIT_WEEK,
+  UNIT_HOUR,
+  UNIT_MILE,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_ITEM,
+  UNIT_COUNT
+};
+
+// Where a filing deadline is counted from (IR `from`).
+enum Anchor : uint8_t { FROM_CRIME, FROM_INCIDENT, FROM_DISCOVERY, FROM_INJURY, FROM_OFFENSE, FROM_REPORT, FROM_COUNT };
+
 enum LineStatus : uint8_t {
   ST_OUT_OF_WINDOW,
   ST_HELD,
@@ -114,7 +131,9 @@ enum TraceOp : uint8_t {
 enum CheckKind : uint8_t { CK_DEADLINE, CK_MINIMUM_LOSS, CK_REPORTING, CK_COUNT };
 enum DeadlineStatus : uint8_t { DL_OK, DL_LATE, DL_UNKNOWN, DL_COUNT };
 // Ordered by severity: combining several rules keeps the largest.
-enum MinLossStatus : uint8_t { ML_MET, ML_WAIVED, ML_MAY_BE_WAIVED, ML_NOT_MET, ML_UNKNOWN, ML_COUNT };
+enum MinLossStatus : uint8_t { ML_MET, ML_WAIVED, ML_UNKNOWN, ML_MAY_BE_WAIVED, ML_NOT_MET, ML_COUNT };
+// Notes a program can attach to a check (OP_NOTE); each belongs to one check.
+enum CheckNote : uint8_t { CN_DEADLINE_FROM_REPORT, CN_COUNT };
 enum ReportStatus : uint8_t { RP_SATISFIED, RP_REQUIRED, RP_NOT_REQUIRED, RP_UNKNOWN, RP_COUNT };
 
 enum CtxField : uint8_t { CX_INCIDENT_DATE, CX_AS_OF_DATE, CX_POLICE_REPORT, CX_FORENSIC_EXAM, CX_COUNT };
@@ -128,6 +147,7 @@ enum ItemField : uint8_t {
   IF_IS_BILL,
   IF_UNITS,
   IF_TAGS,  // bit i set when the item carries the image's tag i
+  IF_UNIT,  // Unit
   IF_COUNT
 };
 
@@ -171,6 +191,7 @@ enum Opcode : uint8_t {
   OP_CHECK = 0x44,   // u8 kind, u16 proof
   OP_SETDATE = 0x45,
   OP_INFO = 0x46,  // u16 proof
+  OP_NOTE = 0x47,  // u8 check note
 };
 
 enum Operands : uint8_t {
@@ -210,8 +231,14 @@ std::string_view check_status_name(uint8_t kind, uint8_t status);
 uint8_t check_status_count(uint8_t kind);
 std::string_view ctx_field_name(uint8_t f);
 std::string_view item_field_name(uint8_t f);
+std::string_view unit_name(uint8_t u);  // "" for UNIT_NONE
+std::string_view anchor_name(uint8_t a);
+std::string_view note_name(uint8_t n);
+uint8_t note_check(uint8_t n);  // the check a note belongs to
 
 bool parse_kind(std::string_view s, uint8_t& out);
 bool parse_expense(std::string_view s, uint8_t& out);  // any of the 19 item expenses
+bool parse_unit(std::string_view s, uint8_t& out);     // the 7 named units, never UNIT_NONE
+bool parse_anchor(std::string_view s, uint8_t& out);
 
 }  // namespace tend

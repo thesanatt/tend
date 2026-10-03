@@ -37,6 +37,7 @@ const std::vector<std::string> kKinds = {"exam_no_bill", "exam_payment", "total_
 const std::vector<std::string> kExpenses = {"medical", "forensic_exam", "counseling", "lost_wages", "transportation",
                                             "relocation", "security", "property_replacement", "dental", "other"};
 const std::vector<std::string> kUnits = {"session", "week", "hour", "mile", "day", "month", "item"};
+constexpr int64_t kMaxSafe = (int64_t(1) << 53) - 1;
 const std::vector<std::string> kTags = {"phone", "purse", "cash", "pain_suffering"};
 const std::vector<std::string> kAlternatives = {"forensic_exam", "protective_order", "advocate", "medical_provider", "other"};
 
@@ -108,7 +109,8 @@ json random_law(Rng& r) {
       }
     } else if (kind == "deadline") {
       rule["days"] = r.range(0, 4000);
-      rule["from"] = r.pick(std::vector<std::string>{"crime", "discovery", "report", "age_18"});
+      if (r.chance(85))
+        rule["from"] = r.pick(std::vector<std::string>{"crime", "incident", "discovery", "injury", "offense", "report"});
     } else if (kind == "reporting") {
       if (r.chance(85)) rule["required"] = r.chance(60);
       json alts = json::array();
@@ -119,7 +121,7 @@ json random_law(Rng& r) {
       if (r.chance(30)) rule["within_days"] = r.range(1, 30);
     } else if (kind == "minimum_loss") {
       if (r.chance(80)) rule["cap_cents"] = r.range(0, 30000);
-      if (r.chance(30)) rule["days_lost"] = r.range(1, 14);
+      if (r.chance(30) || !rule.contains("cap_cents")) rule["days_lost"] = r.range(0, 14);
       rule["waiver"] = r.pick(std::vector<std::string>{"none", "other", "discretionary", "automatic"});
       rule["waiver_for_sexual_assault"] = r.chance(50);
     } else if (kind == "info") {
@@ -147,17 +149,18 @@ json random_claim(Rng& r) {
   json items = json::array();
   int n = int(r.range(0, 40));
   for (int i = 0; i < n; i++) {
-    int64_t amount = r.chance(2) ? INT64_MAX - r.range(0, 5) : money(r);
+    int64_t amount = r.chance(2) ? kMaxSafe - r.range(0, 5) : money(r);
     // Ids repeat their prefix so (date, id) ordering still sees shared prefixes; the suffix keeps them unique.
     json it = {{"item_id", "i" + std::to_string(r.range(0, n)) + "-" + std::to_string(i)},
                {"date", date_of(incident + r.range(-15, std::max<int64_t>(as_of - incident, 0) + 15))},
                {"amount_cents", amount}};
     if (r.chance(95)) {
-      it["expense"] = r.chance(85) ? r.pick(kExpenses) : r.pick(std::vector<std::string>{"unknown", "groceries", "tuition"});
+      it["expense"] = r.chance(85) ? r.pick(kExpenses) : r.pick(std::vector<std::string>{"unknown", "tuition", "funeral"});
     }
     if (r.chance(90)) it["confirmed"] = r.chance(85);
-    if (r.chance(30)) it["insurance_paid_cents"] = r.chance(5) ? INT64_MAX : r.range(0, amount < 2000000 ? amount + amount / 5 : 2000000);
-    if (r.chance(50)) it["units"] = r.chance(3) ? INT64_MAX / 3 : r.range(0, 12);
+    if (r.chance(30)) it["insurance_paid_cents"] = r.chance(5) ? kMaxSafe : r.range(0, amount < 2000000 ? amount + amount / 5 : 2000000);
+    if (r.chance(50)) it["units"] = r.chance(3) ? kMaxSafe / 3 : r.range(0, 12);
+    if (r.chance(60)) it["unit"] = r.chance(90) ? json(r.pick(kUnits)) : json(nullptr);
     if (r.chance(50)) it["is_bill"] = r.chance(50);
     if (r.chance(40)) {
       json tags = tag_list(r, 30);

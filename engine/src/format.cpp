@@ -46,6 +46,7 @@ constexpr std::array<OpInfo, 256> make_op_table() {
   t[OP_CHECK] = {"check", OPD_U8_U16, 1, 0, IN_AGGR};
   t[OP_SETDATE] = {"setdate", OPD_NONE, 1, 0, IN_AGGR};
   t[OP_INFO] = {"info", OPD_U16, 0, 0, IN_AGGR};
+  t[OP_NOTE] = {"note", OPD_U8, 0, 0, IN_AGGR};
   return t;
 }
 
@@ -74,12 +75,16 @@ constexpr std::string_view kTraceOps[TR_COUNT] = {
 
 constexpr std::string_view kCheckKinds[CK_COUNT] = {"deadline", "minimum_loss", "reporting"};
 constexpr std::string_view kDeadline[DL_COUNT] = {"ok", "late", "unknown"};
-constexpr std::string_view kMinLoss[ML_COUNT] = {"met", "waived", "may_be_waived", "not_met", "unknown"};
+constexpr std::string_view kMinLoss[ML_COUNT] = {"met", "waived", "unknown", "may_be_waived", "not_met"};
 constexpr std::string_view kReport[RP_COUNT] = {"satisfied", "required", "not_required", "unknown"};
 constexpr std::string_view kCtx[CX_COUNT] = {"incident_date", "as_of_date", "police_report",
                                              "forensic_exam"};
-constexpr std::string_view kItemFields[IF_COUNT] = {"date",      "amount_cents",         "expense", "confirmed",
-                                                    "insurance_paid_cents", "is_bill", "units",   "tags"};
+constexpr std::string_view kItemFields[IF_COUNT] = {"date",    "amount_cents", "expense", "confirmed", "insurance_paid_cents",
+                                                    "is_bill", "units",        "tags",    "unit"};
+constexpr std::string_view kUnits[UNIT_COUNT] = {"", "session", "week", "hour", "mile", "day", "month", "item"};
+constexpr std::string_view kAnchors[FROM_COUNT] = {"crime", "incident", "discovery", "injury", "offense", "report"};
+constexpr std::string_view kNotes[CN_COUNT] = {"deadline_from_report"};
+constexpr uint8_t kNoteCheck[CN_COUNT] = {CK_DEADLINE};
 
 std::string_view pick(const std::string_view* table, size_t n, size_t i) {
   return i < n ? table[i] : std::string_view("?");
@@ -97,6 +102,10 @@ std::string_view trace_op_name(uint8_t t) { return pick(kTraceOps, TR_COUNT, t);
 std::string_view check_kind_name(uint8_t k) { return pick(kCheckKinds, CK_COUNT, k); }
 std::string_view ctx_field_name(uint8_t f) { return pick(kCtx, CX_COUNT, f); }
 std::string_view item_field_name(uint8_t f) { return pick(kItemFields, IF_COUNT, f); }
+std::string_view unit_name(uint8_t u) { return pick(kUnits, UNIT_COUNT, u); }
+std::string_view anchor_name(uint8_t a) { return pick(kAnchors, FROM_COUNT, a); }
+std::string_view note_name(uint8_t n) { return pick(kNotes, CN_COUNT, n); }
+uint8_t note_check(uint8_t n) { return n < CN_COUNT ? kNoteCheck[n] : CK_COUNT; }
 
 uint8_t check_status_count(uint8_t kind) {
   switch (kind) {
@@ -119,6 +128,26 @@ std::string_view check_status_name(uint8_t kind, uint8_t status) {
 bool parse_kind(std::string_view s, uint8_t& out) {
   for (uint8_t i = 0; i < K_SKIPPED; i++) {
     if (kKinds[i] == s) {
+      out = i;
+      return true;
+    }
+  }
+  return false;
+}
+
+bool parse_unit(std::string_view s, uint8_t& out) {
+  for (uint8_t i = UNIT_SESSION; i < UNIT_COUNT; i++) {
+    if (kUnits[i] == s) {
+      out = i;
+      return true;
+    }
+  }
+  return false;
+}
+
+bool parse_anchor(std::string_view s, uint8_t& out) {
+  for (uint8_t i = 0; i < FROM_COUNT; i++) {
+    if (kAnchors[i] == s) {
       out = i;
       return true;
     }

@@ -72,7 +72,7 @@ inline json ir(const std::string& id, const std::string& kind, json fields = jso
 }
 
 inline json law(const std::vector<json>& rules, const std::string& st = "ZZ", json skipped = json::array()) {
-  return {{"ir_version", 1}, {"jurisdiction", st}, {"name", "Test"}, {"rules", rules}, {"skipped", skipped}};
+  return {{"ir_version", 2}, {"jurisdiction", st}, {"name", "Test"}, {"rules", rules}, {"skipped", skipped}};
 }
 
 inline json item(const std::string& id, const std::string& date, int64_t amount, const std::string& expense,

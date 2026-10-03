@@ -95,6 +95,7 @@ class Lister {
       if (r.per == PER_CLAIM) detail = "per claim";
       else if (r.per == PER_UNIT) detail = "per " + std::string(law_.str(r.aux));
       else if (r.kind == K_INFO || r.kind == K_SKIPPED) detail = std::string(law_.str(r.category));
+      else if (r.kind == K_DEADLINE && r.aux != kNone) detail = "from " + std::string(law_.str(r.aux));
       std::string text = "    " + pad("R" + std::to_string(i), 6) + pad(std::string(law_.str(r.id)), 22) +
                          pad(std::string(kind_name(r.kind)), 14) +
                          pad(r.expense == kNoExpense ? "-" : std::string(expense_name(r.expense)), 22) +
@@ -204,6 +205,8 @@ class Lister {
         } else if (prev && prev->op == OP_LDX && prev->a == CX_POLICE_REPORT && in.c >= 0 && in.c <= 2) {
           static const char* kPolice[] = {"no", "yes", "unknown"};
           comment = kPolice[in.c];
+        } else if (prev && prev->op == OP_LDI && prev->a == IF_UNIT && in.c >= 0 && in.c < UNIT_COUNT) {
+          comment = in.c == UNIT_NONE ? std::string("no unit") : std::string(unit_name(uint8_t(in.c)));
         }
         break;
       }
@@ -244,6 +247,7 @@ class Lister {
         operands = std::string(check_kind_name(in.a)) + ", P" + std::to_string(in.b);
         comment = proof_text(law_, in.b);
         break;
+      case OP_NOTE: operands = std::string(note_name(in.a)); break;
       case OP_INFO:
       case OP_ALTS:
         operands = "P" + std::to_string(in.b);
@@ -313,6 +317,9 @@ void inspect_json(const Law& law, OutBuf& out) {
     else out.put_json_string(per_name(r.per));
     out.put(",\"unit\":");
     if (r.per == PER_UNIT) str_or_null(r.aux);
+    else out.put("null");
+    out.put(",\"from\":");
+    if (r.kind == K_DEADLINE) str_or_null(r.aux);
     else out.put("null");
     out.put(",\"skip_reason\":");
     if (r.kind == K_SKIPPED) str_or_null(r.aux);

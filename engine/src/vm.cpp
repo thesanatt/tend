@@ -102,7 +102,7 @@ bool exec(Machine& m, const Program& prog, uint32_t start_line, uint32_t end_lin
 
 #if TEND_THREADED
   // Indexed by opcode; the verifier admits only the opcodes named here.
-  static void* const kJump[OP_INFO + 1] = {
+  static void* const kJump[OP_NOTE + 1] = {
       &&L_bad,     &&L_OP_PUSH,   &&L_OP_LDK,  &&L_OP_POP,    &&L_OP_DUP,    &&L_OP_SWAP,    &&L_bad,     &&L_bad,
       &&L_OP_LDX,  &&L_OP_LDI,    &&L_OP_LDA,  &&L_OP_LDR,    &&L_OP_STR,    &&L_bad,        &&L_bad,     &&L_bad,
       &&L_OP_ADDS, &&L_OP_SUBS,   &&L_OP_MULS, &&L_OP_MIN,    &&L_OP_MAX,    &&L_bad,        &&L_OP_AND,  &&L_OP_OR,
@@ -111,7 +111,7 @@ bool exec(Machine& m, const Program& prog, uint32_t start_line, uint32_t end_lin
       &&L_bad,     &&L_bad,       &&L_bad,     &&L_bad,       &&L_bad,       &&L_bad,        &&L_bad,     &&L_bad,
       &&L_OP_DECIDE, &&L_OP_SETEXP, &&L_OP_SETA, &&L_OP_ALTS, &&L_bad,       &&L_bad,        &&L_bad,     &&L_bad,
       &&L_bad,     &&L_bad,       &&L_bad,     &&L_bad,       &&L_bad,       &&L_bad,        &&L_bad,     &&L_bad,
-      &&L_OP_EACH, &&L_OP_NEXT,   &&L_OP_CAP,  &&L_OP_FLAG,   &&L_OP_CHECK,  &&L_OP_SETDATE, &&L_OP_INFO};
+      &&L_OP_EACH, &&L_OP_NEXT,   &&L_OP_CAP,  &&L_OP_FLAG,   &&L_OP_CHECK,  &&L_OP_SETDATE, &&L_OP_INFO, &&L_OP_NOTE};
   DISPATCH();
 #else
   for (;;) {
@@ -312,6 +312,8 @@ bool exec(Machine& m, const Program& prog, uint32_t start_line, uint32_t end_lin
     m.ev.has_info = true;
     m.ev.info_proof = in.b;
   }
+  NEXT_INSN;
+  OP(OP_NOTE) m.ev.notes |= uint32_t(1) << in.a;
   NEXT_INSN;
 #if TEND_THREADED
 L_bad:

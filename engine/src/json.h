@@ -31,6 +31,11 @@ class JsonReader {
   // only valid until the next string read.
   bool read_string(std::string_view& out, bool* scratch = nullptr);
   bool read_int64(int64_t& v);
+  // Reads any JSON number. `kind` says whether it was an integer that fits
+  // int64 (v is set), an integer that does not, or not an integer at all
+  // (a fraction or an exponent). Returns false only on a syntax error.
+  enum NumberKind { kInt, kIntOutOfRange, kNotInt };
+  bool read_number(int64_t& v, NumberKind& kind);
   bool read_bool(bool& v);
   bool skip();
   bool finish();

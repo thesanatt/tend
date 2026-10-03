@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(tend VERSION 1.1.0 LANGUAGES CXX)
+project(tend VERSION 1.2.0 LANGUAGES CXX)
 
 # Native:     cmake -S engine -B engine/build/cmake -G Ninja && cmake --build engine/build/cmake && ctest --test-dir engine/build/cmake
 # WebAssembly: emcmake cmake -S engine -B engine/build/wasm-cmake -G Ninja && cmake --build engine/build/wasm-cmake
