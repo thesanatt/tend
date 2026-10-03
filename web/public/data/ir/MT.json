@@ -1,0 +1,215 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "MT",
+ "source_sha256": "4bd25991fd25c229b72d87000aa0ea36a5320ff21fbff1e3a0601a3dff6b0bac",
+ "ir_sha256": "de720c6bc74ca78f4dfdb85bd63b0953134271821703f3a199ffbbf23f25dba6",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "MT-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MT-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MT-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "MT-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "MT-CAP-3",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "MT-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MT-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MT-COV-3",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "MT-COV-4",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "MT-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MT-COV-6",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "MT-EXC-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MT-EXC-2",
+   "kind": "excluded",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "MT-EXC-3",
+   "kind": "excluded",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "MT-EXC-4",
+   "kind": "excluded",
+   "expense": "transportation"
+  },
+  {
+   "id": "MT-EXC-5",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "MT-EXC-6",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "MT-EXC-7",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MT-EXC-8",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MT-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "MT-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "MT-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MT-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MT-COL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MT-CON-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MT-CON-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MT-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MT-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MT-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "MT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MT-CONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

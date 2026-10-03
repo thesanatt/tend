@@ -14,14 +14,16 @@ npm run lint && npm run typecheck && npm run build
 
 | Route            | What it shows                                                                 |
 | ---------------- | ----------------------------------------------------------------------------- |
-| `/`              | The law garden: one plant per state, grown by verified rule count             |
+| `/`              | The law garden: one plant per state, grown by verified rule count; counts fixed at build |
+| `/[st]`          | A state's public page (`/mi`): what its law promises, every line cited, share card |
+| `/[st]/card.png` | The 1200x630 share card for that state (next/og, static PNG made at build)    |
 | `/start`         | State, date, optional questions, consent to read the account                  |
 | `/ledger`        | Costs in beds, status and citation per line, yes / no / not sure on guesses   |
 | `/bill`          | Itemized bill with the exam line held and the law beside it; pay the rest     |
 | `/claim`         | Amount you can ask for, checks, packet, share link, compare states            |
 | `/claim/packet`  | Printable packet: each cost with its record id, rule ids, and quoted law      |
 | `/garden`        | The survivor's garden: plants grow only for money that comes back            |
-| `/law/[st]`      | A state's verified rules, sources with SHA-256, and the compiled listing      |
+| `/law/[st]`      | How Tend decides: verified rules with what the engine does with each, set-aside rules, sources with SHA-256, and the compiled listing |
 | `/share/[token]` | Read-only advocate view (`/share/demo` works with fixtures)                   |
 
 ## Where the claim math runs
@@ -63,9 +65,18 @@ Response shapes are in `lib/types.ts`; examples are in `fixtures/`.
 
 ## Data
 
-- `public/data/jurisdictions.json`: all 51 jurisdictions as `{st, name, rules, sources, ...}`.
+- `public/data/jurisdictions.json`: all 51 jurisdictions as `{st, name, rules, sources, ...}`, plus the
+  IR's decision, information, and set-aside counts.
 - `public/data/law/<ST>.json`: byte-for-byte copies of `rules/verified/<ST>.json`.
-- Refresh both after research changes: `npm run sync:rules -- ../rules` (or a path to `rules/`).
+- `public/data/ir/<ST>.json`: `rules/ir/<ST>.json` without the program block, with the IR's SHA-256 and
+  whether it was made from the current verified file.
+- Refresh these after research changes: `npm run sync:rules -- ../rules` (or a path to `rules/`), then
+  `npm run fixtures` and `python3 scripts/parity-fixtures.py --refengine ../refengine`.
+- `public/data/asm/<ST>.txt` and `index.json`: the compiled listing for each state. `npm run sync:asm`
+  runs `../engine/build/tdis` on `public/engine/laws/<ST>.tlaw` (or `../engine/build/laws`), falls back
+  to `TEND_API_URL`, and otherwise keeps the committed listings. `npm run build` runs it first.
+- `NEXT_PUBLIC_SITE_URL` (default `https://youreowed.tech`) is the address printed on share cards and
+  used for their Open Graph links.
 - `fixtures/`: Rowan's fictional Michigan scan, engine input and output, the bill audit, the advocate
   view, and a stand-in compiled listing. `npm run fixtures` rebuilds the engine fixtures.
 - `fixtures/parity/<ST>.json`: reference engine outputs for random claims and Rowan's costs in every

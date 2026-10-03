@@ -1,0 +1,323 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "ND",
+ "source_sha256": "f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418",
+ "ir_sha256": "4f97863ca3f60c31a849f7abf33ba4c8ac3312a81741be8c789c929ed025369a",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "ND-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ND-EXAM-CHILD",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ND-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ND-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ND-CAP-COUNSEL-MINOR",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 480000,
+   "per": "claim",
+   "count_limit": 40,
+   "alt_rule_ids": [
+    "ND-CAP-COUNSEL-ADULT",
+    "ND-CAP-COUNSEL-EXTRA"
+   ]
+  },
+  {
+   "id": "ND-CAP-WAGES-WEEK",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 30000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "ND-CAP-WAGES-TOTAL",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 480000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-TRAVEL",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-RX",
+   "kind": "expense_cap",
+   "expense": "prescription",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-DENTAL",
+   "kind": "expense_cap",
+   "expense": "dental",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-CAP-REPLACE",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "ND-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ND-COV-COUNSEL",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ND-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ND-COV-TRAVEL",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "ND-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ND-COV-DEPCARE",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "ND-EXCL-PROPERTY",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ND-EXCL-NONECON",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ND-EXCL-FEES",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "ND-EXCL-ATTY",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "ND-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "report"
+  },
+  {
+   "id": "ND-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-REPORT-GOODCAUSE",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-REPORT-GOODCAUSE-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-REPORT-CHILD",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "ND-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ND-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "ND-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-CONDUCT-4",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ND-EMERGENCY-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "ND-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ND-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ND-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "ND-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ND-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "ND-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-13",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-14",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-15",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-DOC-16",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ND-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "ND-CAP-COUNSEL-ADULT",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ND-CAP-COUNSEL-MINOR"
+  },
+  {
+   "id": "ND-CAP-COUNSEL-EXTRA",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ND-CAP-COUNSEL-MINOR"
+  }
+ ]
+}

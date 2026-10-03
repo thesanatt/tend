@@ -1,0 +1,342 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "PA",
+ "source_sha256": "cce617988cd5dd33fb3ea12d7f077595f82747ee58e26ac0ac97a66ec39eb61a",
+ "ir_sha256": "d626d80d30e4be66eef5cb9c62ceaacce57fe55a3abf1aa4a3917b93e1ed4355",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "PA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "PA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "PA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "PA-EXAM-6",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "PA-EXAM-7",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-EXAM-8",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "PA-COUNSEL-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 1000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "PA-COUNSEL-1",
+    "PA-COUNSEL-5"
+   ]
+  },
+  {
+   "id": "PA-COUNSEL-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "PA-COUNSEL-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "PA-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "PA-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "PA-RELOC-3",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "PA-RELOC-4",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 7500,
+   "per": "unit",
+   "unit": "day"
+  },
+  {
+   "id": "PA-TRANS-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "PA-TRANS-2",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 3000,
+   "per": "unit",
+   "unit": "day",
+   "alt_rule_ids": [
+    "PA-TRANS-3"
+   ]
+  },
+  {
+   "id": "PA-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "PA-MED-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "PA-MED-3",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-CHILD-1",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "PA-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "PA-EXCL-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "PA-EXCL-2",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "PA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "discovery"
+  },
+  {
+   "id": "PA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "PA-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "PA-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "PA-REPORT-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "PA-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 5000
+  },
+  {
+   "id": "PA-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "PA-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "PA-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "PA-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "PA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "PA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "PA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "PA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "PA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "PA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "PA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "PA-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "PA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "PA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "PA-COUNSEL-1",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of PA-COUNSEL-2"
+  },
+  {
+   "id": "PA-COUNSEL-5",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of PA-COUNSEL-2"
+  },
+  {
+   "id": "PA-TRANS-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of PA-TRANS-2"
+  }
+ ]
+}

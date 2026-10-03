@@ -1,0 +1,263 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "KS",
+ "source_sha256": "c2651dca2238df54a9bbb393caa43b949979de3d35988554ed147d11e14fa534",
+ "ir_sha256": "3e9177c3579344f463c803eb6b5742210b48e1e77cf0d182cddf8f28a3d1e289",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "KS-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KS-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KS-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KS-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KS-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "KS-CAP-2",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 80000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "KS-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "KS-CAP-4",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 9000,
+   "per": "unit",
+   "unit": "hour",
+   "alt_rule_ids": [
+    "KS-CAP-5"
+   ]
+  },
+  {
+   "id": "KS-CAP-6",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "KS-CAP-7",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "KS-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "KS-COV-2",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "KS-COV-3",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "KS-COV-4",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "KS-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "KS-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "KS-EXC-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "KS-DEAD-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "KS-DEAD-2",
+   "kind": "deadline",
+   "days": 3652,
+   "from": "crime"
+  },
+  {
+   "id": "KS-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "KS-DEAD-4",
+   "kind": "deadline",
+   "days": 730,
+   "from": "report"
+  },
+  {
+   "id": "KS-REP-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "other"
+   ]
+  },
+  {
+   "id": "KS-REP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "KS-CON-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KS-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "KS-CON-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KS-CON-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KS-EMR-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "KS-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "KS-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KS-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KS-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KS-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "KS-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "KS-CONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "KS-CAP-5",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of KS-CAP-4"
+  }
+ ]
+}

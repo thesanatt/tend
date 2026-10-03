@@ -1,0 +1,327 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "OR",
+ "source_sha256": "47f8340db72b669fff5ec10809609f11882a2d998da51fbdab5eafa98e45e3ef",
+ "ir_sha256": "e401eb20fac4655da6d4e35d90f17fa02219576197e62109aee713daf1600c9e",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "OR-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OR-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "OR-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OR-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OR-EXAM-6",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OR-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4700000
+  },
+  {
+   "id": "OR-CAP-MED",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 2000000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-CAP-COUNS",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 2000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "OR-CAP-COUNS-LTD"
+   ]
+  },
+  {
+   "id": "OR-COUNS-SESS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "OR-CAP-WAGE-WK",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "OR-CAP-WAGE",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 2000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "OR-CAP-WAGE-PARENT"
+   ]
+  },
+  {
+   "id": "OR-WAGE-RATE",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OR-WAGE-DOC",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "OR-CAP-TRANS",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-TRANS-RATE",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "OR-CAP-REHAB",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 400000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-CAP-CLEAN",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "OR-COV-DEVICES",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "OR-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "OR-EXCL-PROP",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "OR-EXCL-PROP-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "OR-EXCL-RELO",
+   "kind": "excluded",
+   "expense": "relocation"
+  },
+  {
+   "id": "OR-EXCL-SAVE",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "OR-DEADLINE-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "OR-DEADLINE-2",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "OR-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "OR-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "OR-REPORT-5",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "protective_order"
+   ]
+  },
+  {
+   "id": "OR-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "OR-REPORT-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "OR-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "OR-COLLATERAL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "OR-COLLATERAL-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "OR-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "OR-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "OR-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OR-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "OR-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OR-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OR-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "OR-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-SUBMIT-INPERSON",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-DOC-SIGNED-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-WAGE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-WAGE-SELF",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-WORK-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-EOB",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-RECEIPT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-TIME-ACK",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OR-TIME-DECISION",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OR-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "OR-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "OR-CAP-COUNS-LTD",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of OR-CAP-COUNS"
+  },
+  {
+   "id": "OR-CAP-WAGE-PARENT",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of OR-CAP-WAGE"
+  }
+ ]
+}

@@ -1,0 +1,308 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "MN",
+ "source_sha256": "57f177bbc5710e337e75e436fea9481fc808c1c9b04cdb1498a538f41c0c7a54",
+ "ir_sha256": "e0962227faf73ab7097f3aaee2ae20d4632bba9058e3fbfdbf8b34b80e2fa13e",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "MN-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MN-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MN-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MN-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MN-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "MN-CAP-COUNSELING",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-CAP-COUNSELING-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MN-CAP-RELOCATION",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-CAP-CLEANUP",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-CAP-CHILDCARE",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 300,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "MN-CAP-HEALING",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "MN-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MN-COV-COUNSELING",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MN-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MN-COV-TRANSPORT",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "MN-COV-CHILDCARE",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "MN-EXC-PROPERTY",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash",
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "MN-EXC-PROPERTY-2",
+   "kind": "excluded",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "MN-EXC-SECURITY",
+   "kind": "excluded",
+   "expense": "security"
+  },
+  {
+   "id": "MN-EXC-CLOTHING",
+   "kind": "excluded",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "MN-EXC-LEGAL",
+   "kind": "excluded",
+   "expense": "legal"
+  },
+  {
+   "id": "MN-EXC-TUITION",
+   "kind": "excluded",
+   "expense": "tuition"
+  },
+  {
+   "id": "MN-EXC-LEAVE",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MN-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "MN-DEADLINE-2",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "report"
+  },
+  {
+   "id": "MN-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 30
+  },
+  {
+   "id": "MN-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MN-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "MN-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 5000
+  },
+  {
+   "id": "MN-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MN-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MN-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MN-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MN-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "MN-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MN-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MN-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MN-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MN-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MN-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-SUBMIT-FAX",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-DOC-EXPENSES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-ITEMIZED",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-EOB",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-INSCARD",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-TAXRETURN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-W9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-SIGNATURE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-MILEAGE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MN-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "MN-CAP-WAGES",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "MN-CAP-WAGES-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

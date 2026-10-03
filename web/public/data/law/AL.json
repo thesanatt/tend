@@ -266,6 +266,26 @@
    "raw_path": "rules/sources/AL/AL-S30.html",
    "text_path": "rules/sources/AL/AL-S30.txt",
    "sha256": "ed4d5f99f35d387a98b5a75c02037daeacf34cfa5ce2b24a567125e69ee64dbc"
+  },
+  {
+   "id": "AL-S31",
+   "title": "Ala. Admin. Code r. 262-X-2-.05 (Records)",
+   "url": "https://admincode.legislature.state.al.us/administrative-code/262-X-2-.05",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T19:58:34Z",
+   "raw_path": "rules/sources/AL/AL-S31.html",
+   "text_path": "rules/sources/AL/AL-S31.txt",
+   "sha256": "ea8360cd5dfe7f9bd5b74eaeee036cc08d725420ba6a8845e2718240fdbea240"
+  },
+  {
+   "id": "AL-S32",
+   "title": "Ala. Code 15-23-4 (Justia)",
+   "url": "https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-4/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:58:37Z",
+   "raw_path": "rules/sources/AL/AL-S32.html",
+   "text_path": "rules/sources/AL/AL-S32.txt",
+   "sha256": "7759be79ba969201f70675b9f7065f4189cea9a1e7bb39d302c04cd5230b50c8"
   }
  ],
  "rules": [
@@ -1000,6 +1020,16 @@
    "source_id": "AL-S25",
    "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(14)(b)",
    "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=A%20copy%20of%20the%20hotel,document%20is%20required%20for%20verification."
+  },
+  {
+   "id": "AL-REC-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "The Commission may not disclose the names and addresses of victims or claimants who applied for compensation, or the facts of the crime against them.",
+   "quote": "The commission may not disclose the names and addresses of victims or claimants who have applied for compensation pursuant to this article or the facts or circumstances of the criminally injurious conduct perpetrated against them.",
+   "source_id": "AL-S32",
+   "pinpoint": "Ala. Code 15-23-4(k)",
+   "fragment_url": "https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-4/#:~:text=The%20commission%20may%20not%20disclose,injurious%20conduct%20perpetrated%20against%20them."
   }
  ],
  "coverage": {
@@ -1018,14 +1048,16 @@
    "residency",
    "total_cap",
    "submission",
-   "required_document"
+   "required_document",
+   "record_confidentiality"
   ],
   "not_found": [
    "minimum_loss",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality"
   ],
-  "notes": "No minimum loss rule found in the statute or rules. No dollar cap found for security enhancement. No police-report alternative for sexual assault compensation claims was found; the 72-hour report rule has a good-cause exception. The exam payment program separately pays for adult 'Jane Doe' exams (r. 262-X-11-.01(4)(c)3), which suggests the exam itself does not need a police report for adults, but this is not a rule about compensation claims. For minors, the SANE facility must confirm a report to DHR or law enforcement before the exam is paid (r. 262-X-11-.01(4)(c)10). No processing time for a decision or payment is stated in the saved sources; the rules say only that approved claims are paid in order of approval as funds become available (r. 262-X-4-.04(6))."
+  "notes": "No minimum loss rule found in the statute or rules. No dollar cap found for security enhancement. No police-report alternative for sexual assault compensation claims was found; the 72-hour report rule has a good-cause exception. The exam payment program separately pays for adult 'Jane Doe' exams (r. 262-X-11-.01(4)(c)3), which suggests the exam itself does not need a police report for adults, but this is not a rule about compensation claims. For minors, the SANE facility must confirm a report to DHR or law enforcement before the exam is paid (r. 262-X-11-.01(4)(c)10). No processing time for a decision or payment is stated in the saved sources; the rules say only that approved claims are paid in order of approval as funds become available (r. 262-X-4-.04(6)). address_confidentiality: Alabama has no state address confidentiality program; the Arizona and Minnesota Secretary of State ACP directories (azsos.gov ACP_Throughout_the_United_States.pdf; sos.mn.gov Safe at Home 'Other States' page) both list 'Alabama No program', and no Alabama statute or agency page for one was found. record_confidentiality: Ala. Code 15-23-4(k) bars disclosing victim or claimant names, addresses, and crime facts; r. 262-X-2-.05 repeats this, and 15-23-5(4) makes law enforcement investigative reports received by the Commission confidential except to a grand jury."
  },
  "confidence": "high",
- "researcher_notes": "Statute vs. rule on amounts: Ala. Code 15-23-15(b) sets a ceiling of $20,000 aggregate and 15-23-15(a) a $600/week ceiling for work loss; the Commission's rule (r. 262-X-4-.04, certified version effective Nov 13, 2023 on the official admin code site) sets the actual limits at $15,000 per claim and $400/week. The rule sits inside the statutory ceiling, so the rule numbers are used; the ACVCC website also says the maximum award is $15,000 (as of July 09, 2020). A July 14, 2025 notice of intended action (posted on acvcc.alabama.gov under Administrative Rule Updates) proposed raising lost wages to $500/week for up to 26 weeks ($13,000 max) and funeral to $6,000 for crimes on or after July 11, 2025; the official admin code site still showed the Nov 13, 2023 version when retrieved on 2026-10-03, so the proposal is not used. Recheck before relying on the lost-wage cap. Outstanding (unpaid) medical bills sent to providers may be paid at 30% of eligible charges up to $6,000 (r. 262-X-4-.04(3)); not modeled as a survivor-facing cap. The exam program pays providers flat fees ($400 exam without medication, $550 with medication, $300 off-base, $50 lab) per r. 262-X-11-.01(9); those are provider fee schedules, not survivor caps. The statute (15-23-121) allows providers to bill health insurance for the exam and the rule requires collateral sources first, so insurance_billing is 'allowed'. Toll-free number for victims: 1-800-541-9388 (ACVCC brochure and website footer). Statute text is from Justia (2025 Code of Alabama) because the legislature's code site is script-only. The contact, law, and admin code pages on acvcc.alabama.gov blocked automated fetches. Reviewer: the statute's 72-hour report rule is not stored as within_days because the quote says 72 hours, not days. The exam payment program pays only the initial forensic exam and STI prevention (r. 262-X-11-.01(6)); injury treatment and hospital admissions go through a regular compensation claim. How to file: the Compensation page (AL-S5) lists fax (334)290-4455, email info@acvcc.alabama.gov, and mail to P.O. Box 231267, Montgomery, Alabama 36123-1267; the application itself (AL-S8, MAR 2026, the PDF linked from the Application Form page) names email and fax, and r. 262-X-1-.01(3) also gives the PO Box and email. There is no online application; the Application Form page links to the PDF. The application PDF has 112 AcroForm fields. The ACVCC claims page (acvcc.alabama.gov/victims/claims/) blocked automated fetches on 2026-10-03, so any document checklist there was not captured."
+ "researcher_notes": "Statute vs. rule on amounts: Ala. Code 15-23-15(b) sets a ceiling of $20,000 aggregate and 15-23-15(a) a $600/week ceiling for work loss; the Commission's rule (r. 262-X-4-.04, certified version effective Nov 13, 2023 on the official admin code site) sets the actual limits at $15,000 per claim and $400/week. The rule sits inside the statutory ceiling, so the rule numbers are used; the ACVCC website also says the maximum award is $15,000 (as of July 09, 2020). A July 14, 2025 notice of intended action (posted on acvcc.alabama.gov under Administrative Rule Updates) proposed raising lost wages to $500/week for up to 26 weeks ($13,000 max) and funeral to $6,000 for crimes on or after July 11, 2025; the official admin code site still showed the Nov 13, 2023 version when retrieved on 2026-10-03, so the proposal is not used. Recheck before relying on the lost-wage cap. Outstanding (unpaid) medical bills sent to providers may be paid at 30% of eligible charges up to $6,000 (r. 262-X-4-.04(3)); not modeled as a survivor-facing cap. The exam program pays providers flat fees ($400 exam without medication, $550 with medication, $300 off-base, $50 lab) per r. 262-X-11-.01(9); those are provider fee schedules, not survivor caps. The statute (15-23-121) allows providers to bill health insurance for the exam and the rule requires collateral sources first, so insurance_billing is 'allowed'. Toll-free number for victims: 1-800-541-9388 (ACVCC brochure and website footer). Statute text is from Justia (2025 Code of Alabama) because the legislature's code site is script-only. The contact, law, and admin code pages on acvcc.alabama.gov blocked automated fetches. Reviewer: the statute's 72-hour report rule is not stored as within_days because the quote says 72 hours, not days. The exam payment program pays only the initial forensic exam and STI prevention (r. 262-X-11-.01(6)); injury treatment and hospital admissions go through a regular compensation claim. How to file: the Compensation page (AL-S5) lists fax (334)290-4455, email info@acvcc.alabama.gov, and mail to P.O. Box 231267, Montgomery, Alabama 36123-1267; the application itself (AL-S8, MAR 2026, the PDF linked from the Application Form page) names email and fax, and r. 262-X-1-.01(3) also gives the PO Box and email. There is no online application; the Application Form page links to the PDF. The application PDF has 112 AcroForm fields. The ACVCC claims page (acvcc.alabama.gov/victims/claims/) blocked automated fetches on 2026-10-03, so any document checklist there was not captured. Privacy: Alabama has no address confidentiality program (no substitute-address program run by the Secretary of State or Attorney General was found; national ACP directories from the Arizona and Minnesota Secretaries of State list Alabama as having no program). Claimant identity is protected by Ala. Code 15-23-4(k) (also r. 262-X-2-.05, AL-S31), and police investigative reports the Commission receives are confidential under 15-23-5(4) (AL-S21)."
 }

@@ -1,0 +1,646 @@
+; tend law image VT, Vermont
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66
+; image sha256  dd6dad80b75376c4d99a3c9b38c4cde0f2d8a78f34bd36d3058ad7d4138e6d11
+; 45 rules, 20 sources, 22 proofs, 5 ints, 293 strings
+; item program: 256 instructions, 917 bytes, max stack 2
+; aggregate program: 169 instructions, 515 bytes, max stack 3, 6 loops
+
+.rules
+    R0    VT-EXAM-1             exam_payment  -                                             32 V.S.A. § 1407(b)
+    R1    VT-EXAM-2             exam_no_bill  -                                             32 V.S.A. § 1407(c)(2)
+    R2    VT-EXAM-3             exam_no_bill  -                                             32 V.S.A. § 1407(c)(1)
+    R3    VT-EXAM-4             covered       forensic_exam                                 CCVS Sexual Assault Program page, What is covered?
+    R4    VT-CAP-1              total_cap     -                                             13 V.S.A. § 5356(a)
+    R5    VT-COUNSEL-1          expense_cap   counseling            per session             CCVS Mental Health Policy, Guidelines 1 (Fee Schedule)
+    R6    VT-COUNSEL-3          covered       counseling                                    CCVS Sexual Assault Program Mental Health Policy, Introduction
+    R7    VT-COUNSEL-4          covered       counseling                                    13 V.S.A. § 5351(5)
+    R8    VT-WAGES-1            expense_cap   lost_wages            per week                CCVS Policy for Reimbursement of Lost Wages, para. 5b
+    R9    VT-WAGES-2            covered       lost_wages                                    CCVS Policy for Reimbursement of Lost Wages, para. 2
+    R10   VT-RELOC-1            expense_cap   relocation            per claim               CCVS Policy for Housing and Relocation, Relocation Costs
+    R11   VT-RELOC-2            expense_cap   temporary_housing     per day                 CCVS Policy for Housing and Relocation, Emergency Housing
+    R12   VT-RELOC-3            covered       relocation                                    CCVS Policy for Housing and Relocation, introduction
+    R13   VT-TRAVEL-1           expense_cap   transportation        per claim               CCVS Policy for Reimbursement of Travel Expenses
+    R14   VT-TRAVEL-2           covered       transportation                                Code Vt. R. 80-220-001, Section 5356(B)
+    R15   VT-MED-1              covered       medical                                       13 V.S.A. § 5356(c)
+    R16   VT-MED-2              covered       medical                                       13 V.S.A. § 5351(5)
+    R17   VT-SEC-1              covered       security                                      CCVS Eligibility page, Expenses the Victims Compensation Program may pay for
+    R18   VT-EXCL-1             info          -                     excluded_expense        CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program
+    R19   VT-EXCL-2             excluded      -                                             CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program
+    R20   VT-EXCL-3             excluded      legal                                         CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program
+    R21   VT-DEADLINE-1         info          -                     filing_deadline         13 V.S.A. § 5355(b)(1)
+    R22   VT-DEADLINE-2         info          -                     filing_deadline         13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)
+    R23   VT-REPORT-1           reporting     -                                             13 V.S.A. § 5353(a)(1)
+    R24   VT-REPORT-2           reporting     -                                             CCVS Sexual Assault Program page, Who is eligible?
+    R25   VT-COLL-1             collateral    -                                             13 V.S.A. § 5351(6)(A)
+    R26   VT-COLL-2             collateral    -                                             CCVS Victims Compensation FAQ
+    R27   VT-CONDUCT-1          info          -                     conduct_reduction       13 V.S.A. § 5355(b)(2)
+    R28   VT-EMERG-1            info          -                     emergency_award         Code Vt. R. 80-220-001, Section 5356(A)
+    R29   VT-CRIME-1            info          -                     eligible_crime          CCVS Eligibility page, Types of crimes that may qualify
+    R30   VT-CRIME-2            info          -                     eligible_crime          13 V.S.A. § 5351(4)
+    R31   VT-RES-1              info          -                     residency               13 V.S.A. § 5353(a)(2)-(3)
+    R32   VT-RES-2              info          -                     residency               CCVS Sexual Assault Program page, Who is eligible?
+    R33   VT-SUBMIT-1           info          -                     submission              Application for Vermont Victims Compensation, cover page; Application Instructions item 4
+    R34   VT-SUBMIT-2           info          -                     submission              CCVS Application & Forms page
+    R35   VT-DOC-1              info          -                     required_document       Victims Compensation FAQ, What happens when an application is received?
+    R36   VT-DOC-2              info          -                     required_document       Application for Vermont Victims Compensation, page 6
+    R37   VT-DOC-3              info          -                     required_document       CCVS Policy for Reimbursement of Lost Wages, item 3
+    R38   VT-DOC-4              info          -                     required_document       CCVS Policy for Reimbursement of Lost Wages, item 4b
+    R39   VT-DOC-5              info          -                     required_document       CCVS Victims Compensation Mental Health Policy, section 2, Treatment Plans
+    R40   VT-DOC-6              info          -                     required_document       CCVS Policy for Housing and Relocation, Security Deposits
+    R41   VT-DOC-7              info          -                     required_document       CCVS Sexual Assault Program page, How to access the Program?
+    R42   VT-ACP-1              info          -                     address_confidentiality Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160
+    R43   VT-REC-1              info          -                     record_confidentiality  13 V.S.A. § 5358a(a)
+    R44   VT-COUNSEL-2          skipped       -                     expense_cap             CCVS Sexual Assault Program Mental Health Policy, Guidelines & Fee Schedule  ; less generous duplicate of VT-COUNSEL-1
+
+.tags   pain_suffering=bit0
+
+.sources
+    S0    VT-S1       sha256 1158c5b01b333bf7  https://legislature.vermont.gov/statutes/fullchapter/13/167
+    S1    VT-S2       sha256 085db58166547df5  https://www.ccvs.vermont.gov/victims-compensation
+    S2    VT-S3       sha256 5f2b48af2a393a8e  https://www.ccvs.vermont.gov/victims-compensation/frequently-asked-questions
+    S3    VT-S4       sha256 e5c2a8416cd49034  https://www.ccvs.vermont.gov/victims-compensation/eligibility
+    S4    VT-S5       sha256 8ac8c06878bf1c24  https://www.ccvs.vermont.gov/victims-compensation/policies
+    S5    VT-S6       sha256 c7d5c4b3b4ae5f91  https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program
+    S6    VT-S7       sha256 d3e07387e2672d17  https://www.ccvs.vermont.gov/victims-compensation/application-forms
+    S7    VT-S8       sha256 9ae6d1137a62e1b2  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/English%20Victims%20Compensation%20Application.pdf
+    S8    VT-S9       sha256 c6aaccc57a8f885e  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Mental%20Health%20Policy%203.24.26.pdf
+    S9    VT-S10      sha256 6cc7193fccc9d52d  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Sexual%20Assault%20Program%20Mental%20Health%20Policy%203.23.26.pdf
+    S10   VT-S11      sha256 e605004c84b9eba7  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Lost%20Wage%20Policy%203.24.26.pdf
+    S11   VT-S12      sha256 5ec2c15581465109  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/POLICY%20FOR%20REIMBURSEMENT%20OF%20TRAVEL%20EXPENSES%203.24.26.pdf
+    S12   VT-S13      sha256 e94582f4a15a41a7  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Housing%20and%20Relocation%20Policy%203.24.26.pdf
+    S13   VT-S14      sha256 a6c5bb17bf0b443e  https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Payment%20Policy%20for%20Health%20Care%20Providers%203.24.26.pdf
+    S14   VT-S15      sha256 a14f82c6f9107822  https://legislature.vermont.gov/statutes/section/32/017/01407
+    S15   VT-S16      sha256 b1f12d100f566029  https://www.law.cornell.edu/regulations/vermont/80-001-Code-Vt-R-80-220-001-X
+    S16   VT-S17      sha256 5316155f1ca9a497  https://legislature.vermont.gov/statutes/section/13/151/04501
+    S17   VT-S18      sha256 b0b58794f6c8e755  https://ccvcvt.org/
+    S18   VT-S19      sha256 1304e1890f93f5bc  https://sos.vermont.gov/secretary-of-state-services/safe-at-home
+    S19   VT-S20      sha256 877f0463e90de812  https://legislature.vermont.gov/statutes/fullchapter/15/021
+
+.proofs
+    P0    ()
+    P1    (VT-EXAM-2, VT-EXAM-3, VT-EXAM-1)
+    P2    (VT-EXCL-2)
+    P3    (VT-MED-1, VT-MED-2)
+    P4    (VT-MED-1, VT-MED-2, VT-COLL-1, VT-COLL-2)
+    P5    (VT-COUNSEL-2)
+    P6    (VT-COUNSEL-1, VT-COUNSEL-3, VT-COUNSEL-4)
+    P7    (VT-COUNSEL-1, VT-COUNSEL-3, VT-COUNSEL-4, VT-COLL-1, VT-COLL-2)
+    P8    (VT-WAGES-1, VT-WAGES-2)
+    P9    (VT-WAGES-1, VT-WAGES-2, VT-COLL-1, VT-COLL-2)
+    P10   (VT-TRAVEL-1, VT-TRAVEL-2)
+    P11   (VT-TRAVEL-1, VT-TRAVEL-2, VT-COLL-1, VT-COLL-2)
+    P12   (VT-RELOC-1, VT-RELOC-3)
+    P13   (VT-RELOC-1, VT-RELOC-3, VT-COLL-1, VT-COLL-2)
+    P14   (VT-RELOC-2)
+    P15   (VT-RELOC-2, VT-COLL-1, VT-COLL-2)
+    P16   (VT-SEC-1)
+    P17   (VT-SEC-1, VT-COLL-1, VT-COLL-2)
+    P18   (VT-EXCL-2, VT-EXCL-3)
+    P19   (VT-EXCL-3)
+    P20   (VT-REPORT-1, VT-REPORT-2)
+    P21   (VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1)
+
+.ints
+    K0    10000         ; $100.00
+    K1    75000         ; $750.00
+    K2    150000        ; $1,500.00
+    K3    200000        ; $2,000.00
+    K4    1000000       ; $10,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L37
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L22
+                        case temporary_housing     -> L27
+                        case security              -> L32
+                        case crime_scene_cleanup   -> L37
+                        case childcare             -> L37
+                        case property_replacement  -> L37
+                        case clothing_bedding      -> L37
+                        case prescription          -> L37
+                        case dental                -> L37
+                        case funeral               -> L37
+                        case legal                 -> L41
+                        case tuition               -> L37
+                        case other                 -> L37
+                        case unknown               -> L37
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; VT-EXAM-2  32 V.S.A. § 1407(c)(2)  "If the victim's health coverage does not cover all of the..."
+              ; VT-EXAM-3  32 V.S.A. § 1407(c)(1)  "Health care facilities and health care providers shall bill the..."
+              ; VT-EXAM-1  32 V.S.A. § 1407(b)  "The State shall also bear the costs of sexual assault..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; VT-EXAM-2, VT-EXAM-3, VT-EXAM-1
+  007b        ret
+              ; VT-MED-1  13 V.S.A. § 5356(c)  "The Board may reimburse health care facilities and health care..."
+              ; VT-MED-2  13 V.S.A. § 5351(5)  ""Pecuniary loss" means, in the case of a victim, the amount of..."
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; VT-EXCL-2
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; VT-MED-1, VT-MED-2
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; VT-MED-1, VT-MED-2, VT-COLL-1, VT-COLL-2
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R25              ; VT-COLL-1
+  00d9        ret
+              ; VT-COUNSEL-1  CCVS Mental Health Policy, Guidelines 1 (Fee Schedule)  "One-hour individual or family sessions will be paid at a maximum..."
+              ; VT-COUNSEL-3  CCVS Sexual Assault Program Mental Health Policy, Introduction  "The Sexual Assault Program can consider payment of up to 20..."
+              ; VT-COUNSEL-4  13 V.S.A. § 5351(5)  "Medical or medically related expenses may include, but are not..."
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     1
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; VT-EXCL-2
+  0111        ret
+  0112  L10:  alts     P5                           ; VT-COUNSEL-2
+  0115        ldi      confirmed
+  0117        jnz      L11
+  011c        push     0
+  0121        decide   needs_confirmation, P6       ; VT-COUNSEL-1, VT-COUNSEL-3, VT-COUNSEL-4
+  0125        ret
+  0126  L11:  ldi      amount_cents
+  0128        decide   eligible, P7                 ; VT-COUNSEL-1, VT-COUNSEL-3, VT-COUNSEL-4, VT-COLL-1, VT-COLL-2
+  012c        lda
+  012d        ldi      insurance_paid_cents
+  012f        subs
+  0130        push     0
+  0135        max
+  0136        seta     collateral, R25              ; VT-COLL-1
+  013a        ret
+              ; VT-WAGES-1  CCVS Policy for Reimbursement of Lost Wages, para. 5b  "5b) For Compensation claim filed on or after 9/8/2025: the..."
+              ; VT-WAGES-2  CCVS Policy for Reimbursement of Lost Wages, para. 2  "lost wages will be paid at 85% of the victim's gross wages at..."
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  013b  L12:  push     0
+  0140        str      r0
+  0142        ldi      tags
+  0144        push     1
+  0149        and
+  014a        jz       L13
+  014f        ldr      r0
+  0151        push     1
+  0156        or
+  0157        str      r0
+  0159  L13:  ldr      r0
+  015b        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0169  L14:  push     0
+  016e        decide   excluded, P2                 ; VT-EXCL-2
+  0172        ret
+  0173  L15:  ldi      confirmed
+  0175        jnz      L16
+  017a        push     0
+  017f        decide   needs_confirmation, P8       ; VT-WAGES-1, VT-WAGES-2
+  0183        ret
+  0184  L16:  ldi      amount_cents
+  0186        decide   eligible, P9                 ; VT-WAGES-1, VT-WAGES-2, VT-COLL-1, VT-COLL-2
+  018a        lda
+  018b        ldi      insurance_paid_cents
+  018d        subs
+  018e        push     0
+  0193        max
+  0194        seta     collateral, R25              ; VT-COLL-1
+  0198        ret
+              ; VT-TRAVEL-1  CCVS Policy for Reimbursement of Travel Expenses  "For all non-homicide criminal cases there is a $2,000.00 travel..."
+              ; VT-TRAVEL-2  Code Vt. R. 80-220-001, Section 5356(B)  "-transportation for medical/mental health treatment."
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  0199  L17:  push     0
+  019e        str      r0
+  01a0        ldi      tags
+  01a2        push     1
+  01a7        and
+  01a8        jz       L18
+  01ad        ldr      r0
+  01af        push     1
+  01b4        or
+  01b5        str      r0
+  01b7  L18:  ldr      r0
+  01b9        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c7  L19:  push     0
+  01cc        decide   excluded, P2                 ; VT-EXCL-2
+  01d0        ret
+  01d1  L20:  ldi      confirmed
+  01d3        jnz      L21
+  01d8        push     0
+  01dd        decide   needs_confirmation, P10      ; VT-TRAVEL-1, VT-TRAVEL-2
+  01e1        ret
+  01e2  L21:  ldi      amount_cents
+  01e4        decide   eligible, P11                ; VT-TRAVEL-1, VT-TRAVEL-2, VT-COLL-1, VT-COLL-2
+  01e8        lda
+  01e9        ldi      insurance_paid_cents
+  01eb        subs
+  01ec        push     0
+  01f1        max
+  01f2        seta     collateral, R25              ; VT-COLL-1
+  01f6        ret
+              ; VT-RELOC-1  CCVS Policy for Housing and Relocation, Relocation Costs  "Relocation costs could include the following: rental trucks..."
+              ; VT-RELOC-3  CCVS Policy for Housing and Relocation, introduction  "The Victims Compensation Program will generally pay relocation..."
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  01f7  L22:  push     0
+  01fc        str      r0
+  01fe        ldi      tags
+  0200        push     1
+  0205        and
+  0206        jz       L23
+  020b        ldr      r0
+  020d        push     1
+  0212        or
+  0213        str      r0
+  0215  L23:  ldr      r0
+  0217        switch   2, default L25
+                        case 0                     -> L25
+                        case 1                     -> L24
+  0225  L24:  push     0
+  022a        decide   excluded, P2                 ; VT-EXCL-2
+  022e        ret
+  022f  L25:  ldi      confirmed
+  0231        jnz      L26
+  0236        push     0
+  023b        decide   needs_confirmation, P12      ; VT-RELOC-1, VT-RELOC-3
+  023f        ret
+  0240  L26:  ldi      amount_cents
+  0242        decide   eligible, P13                ; VT-RELOC-1, VT-RELOC-3, VT-COLL-1, VT-COLL-2
+  0246        lda
+  0247        ldi      insurance_paid_cents
+  0249        subs
+  024a        push     0
+  024f        max
+  0250        seta     collateral, R25              ; VT-COLL-1
+  0254        ret
+              ; VT-RELOC-2  CCVS Policy for Housing and Relocation, Emergency Housing  "Emergency housing will be paid at a maximum of $100.00 per..."
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  0255  L27:  push     0
+  025a        str      r0
+  025c        ldi      tags
+  025e        push     1
+  0263        and
+  0264        jz       L28
+  0269        ldr      r0
+  026b        push     1
+  0270        or
+  0271        str      r0
+  0273  L28:  ldr      r0
+  0275        switch   2, default L30
+                        case 0                     -> L30
+                        case 1                     -> L29
+  0283  L29:  push     0
+  0288        decide   excluded, P2                 ; VT-EXCL-2
+  028c        ret
+  028d  L30:  ldi      confirmed
+  028f        jnz      L31
+  0294        push     0
+  0299        decide   needs_confirmation, P14      ; VT-RELOC-2
+  029d        ret
+  029e  L31:  ldi      amount_cents
+  02a0        decide   eligible, P15                ; VT-RELOC-2, VT-COLL-1, VT-COLL-2
+  02a4        lda
+  02a5        ldi      insurance_paid_cents
+  02a7        subs
+  02a8        push     0
+  02ad        max
+  02ae        seta     collateral, R25              ; VT-COLL-1
+  02b2        ret
+              ; VT-SEC-1  CCVS Eligibility page, Expenses the Victims Compensation Program may pay for  "Safety/security"
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+  02b3  L32:  push     0
+  02b8        str      r0
+  02ba        ldi      tags
+  02bc        push     1
+  02c1        and
+  02c2        jz       L33
+  02c7        ldr      r0
+  02c9        push     1
+  02ce        or
+  02cf        str      r0
+  02d1  L33:  ldr      r0
+  02d3        switch   2, default L35
+                        case 0                     -> L35
+                        case 1                     -> L34
+  02e1  L34:  push     0
+  02e6        decide   excluded, P2                 ; VT-EXCL-2
+  02ea        ret
+  02eb  L35:  ldi      confirmed
+  02ed        jnz      L36
+  02f2        push     0
+  02f7        decide   needs_confirmation, P16      ; VT-SEC-1
+  02fb        ret
+  02fc  L36:  ldi      amount_cents
+  02fe        decide   eligible, P17                ; VT-SEC-1, VT-COLL-1, VT-COLL-2
+  0302        lda
+  0303        ldi      insurance_paid_cents
+  0305        subs
+  0306        push     0
+  030b        max
+  030c        seta     collateral, R25              ; VT-COLL-1
+  0310        ret
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+  0311  L37:  push     0
+  0316        str      r0
+  0318        ldi      tags
+  031a        push     1
+  031f        and
+  0320        jz       L38
+  0325        ldr      r0
+  0327        push     1
+  032c        or
+  032d        str      r0
+  032f  L38:  ldr      r0
+  0331        switch   2, default L40
+                        case 0                     -> L40
+                        case 1                     -> L39
+  033f  L39:  push     0
+  0344        decide   excluded, P2                 ; VT-EXCL-2
+  0348        ret
+  0349  L40:  push     0
+  034e        decide   unknown_rule, P0             ; (none)
+  0352        ret
+              ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
+              ; VT-EXCL-3  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Attorney fees"
+  0353  L41:  push     0
+  0358        str      r0
+  035a        ldi      tags
+  035c        push     1
+  0361        and
+  0362        jz       L42
+  0367        ldr      r0
+  0369        push     1
+  036e        or
+  036f        str      r0
+  0371  L42:  ldr      r0
+  0373        switch   2, default L44
+                        case 0                     -> L44
+                        case 1                     -> L43
+  0381  L43:  push     0
+  0386        decide   excluded, P18                ; VT-EXCL-2, VT-EXCL-3
+  038a        ret
+  038b  L44:  push     0
+  0390        decide   excluded, P19                ; VT-EXCL-3
+  0394        ret
+
+.aggregate
+              ; VT-COUNSEL-1  CCVS Mental Health Policy, Guidelines 1 (Fee Schedule)  "One-hour individual or family sessions will be paid at a maximum..."
+  0000        each     counseling, L4
+  0006  L0:   ldi      units
+  0008        jz       L2
+  000d        ldk      K0                           ; $100.00
+  0010        ldi      units
+  0012        muls
+  0013        dup
+  0014        lda
+  0015        lt
+  0016        jz       L1
+  001b        cap      unit_cap, R5                 ; VT-COUNSEL-1
+  001f        jmp      L3
+  0024  L1:   pop
+  0025        jmp      L3
+  002a  L2:   flag     R5                           ; rate_unverified VT-COUNSEL-1
+  002d  L3:   next     L0
+              ; VT-WAGES-1  CCVS Policy for Reimbursement of Lost Wages, para. 5b  "5b) For Compensation claim filed on or after 9/8/2025: the..."
+  0032  L4:   push     12
+  0037        str      r3
+  0039        each     lost_wages, L9
+  003f  L5:   ldi      units
+  0041        jz       L7
+  0046        ldi      units
+  0048        ldr      r3
+  004a        min
+  004b        str      r4
+  004d        ldr      r3
+  004f        ldr      r4
+  0051        subs
+  0052        str      r3
+  0054        ldk      K1                           ; $750.00
+  0057        ldr      r4
+  0059        muls
+  005a        dup
+  005b        lda
+  005c        lt
+  005d        jz       L6
+  0062        cap      unit_cap, R8                 ; VT-WAGES-1
+  0066        jmp      L8
+  006b  L6:   pop
+  006c        jmp      L8
+  0071  L7:   flag     R8                           ; rate_unverified VT-WAGES-1
+  0074  L8:   next     L5
+              ; VT-RELOC-2  CCVS Policy for Housing and Relocation, Emergency Housing  "Emergency housing will be paid at a maximum of $100.00 per..."
+  0079  L9:   push     7
+  007e        str      r3
+  0080        each     temporary_housing, L14
+  0086  L10:  ldi      units
+  0088        jz       L12
+  008d        ldi      units
+  008f        ldr      r3
+  0091        min
+  0092        str      r4
+  0094        ldr      r3
+  0096        ldr      r4
+  0098        subs
+  0099        str      r3
+  009b        ldk      K0                           ; $100.00
+  009e        ldr      r4
+  00a0        muls
+  00a1        dup
+  00a2        lda
+  00a3        lt
+  00a4        jz       L11
+  00a9        cap      unit_cap, R11                ; VT-RELOC-2
+  00ad        jmp      L13
+  00b2  L11:  pop
+  00b3        jmp      L13
+  00b8  L12:  flag     R11                          ; rate_unverified VT-RELOC-2
+  00bb  L13:  next     L10
+              ; VT-RELOC-1  CCVS Policy for Housing and Relocation, Relocation Costs  "Relocation costs could include the following: rental trucks..."
+  00c0  L14:  push     0
+  00c5        str      r0
+  00c7        push     0
+  00cc        str      r1
+  00ce        each     relocation, L19
+  00d4  L15:  ldr      r1
+  00d6        jnz      L17
+  00db        ldr      r0
+  00dd        lda
+  00de        adds
+  00df        ldk      K2                           ; $1,500.00
+  00e2        gt
+  00e3        jz       L16
+  00e8        ldk      K2                           ; $1,500.00
+  00eb        ldr      r0
+  00ed        subs
+  00ee        cap      expense_cap, R10             ; VT-RELOC-1
+  00f2        push     1
+  00f7        str      r1
+  00f9  L16:  ldr      r0
+  00fb        lda
+  00fc        adds
+  00fd        str      r0
+  00ff        jmp      L18
+  0104  L17:  push     0
+  0109        cap      expense_cap, R10             ; VT-RELOC-1
+  010d  L18:  next     L15
+              ; VT-TRAVEL-1  CCVS Policy for Reimbursement of Travel Expenses  "For all non-homicide criminal cases there is a $2,000.00 travel..."
+  0112  L19:  push     0
+  0117        str      r0
+  0119        push     0
+  011e        str      r1
+  0120        each     transportation, L24
+  0126  L20:  ldr      r1
+  0128        jnz      L22
+  012d        ldr      r0
+  012f        lda
+  0130        adds
+  0131        ldk      K3                           ; $2,000.00
+  0134        gt
+  0135        jz       L21
+  013a        ldk      K3                           ; $2,000.00
+  013d        ldr      r0
+  013f        subs
+  0140        cap      expense_cap, R13             ; VT-TRAVEL-1
+  0144        push     1
+  0149        str      r1
+  014b  L21:  ldr      r0
+  014d        lda
+  014e        adds
+  014f        str      r0
+  0151        jmp      L23
+  0156  L22:  push     0
+  015b        cap      expense_cap, R13             ; VT-TRAVEL-1
+  015f  L23:  next     L20
+              ; VT-CAP-1  13 V.S.A. § 5356(a)  "the Board shall authorize cash payments, not to exceed..."
+  0164  L24:  push     0
+  0169        str      r0
+  016b        push     0
+  0170        str      r1
+  0172        each     all, L29
+  0178  L25:  ldr      r1
+  017a        jnz      L27
+  017f        ldr      r0
+  0181        lda
+  0182        adds
+  0183        ldk      K4                           ; $10,000.00
+  0186        gt
+  0187        jz       L26
+  018c        ldk      K4                           ; $10,000.00
+  018f        ldr      r0
+  0191        subs
+  0192        cap      total_cap, R4                ; VT-CAP-1
+  0196        push     1
+  019b        str      r1
+  019d  L26:  ldr      r0
+  019f        lda
+  01a0        adds
+  01a1        str      r0
+  01a3        jmp      L28
+  01a8  L27:  push     0
+  01ad        cap      total_cap, R4                ; VT-CAP-1
+  01b1  L28:  next     L25
+  01b6  L29:  push     0                            ; met
+  01bb        check    minimum_loss, P0             ; (none)
+  01bf        push     2                            ; unknown
+  01c4        check    deadline, P0                 ; (none)
+              ; VT-REPORT-1  13 V.S.A. § 5353(a)(1)  "(1) a law enforcement official has filed a report concluding..."
+              ; VT-REPORT-2  CCVS Sexual Assault Program page, Who is eligible?  "The victim does not have to report the crime to the police to be..."
+  01c8        ldx      police_report
+  01ca        push     1                            ; yes
+  01cf        eq
+  01d0        jnz      L31
+  01d5        ldx      police_report
+  01d7        push     0                            ; no
+  01dc        eq
+  01dd        jnz      L30
+  01e2        push     3
+  01e7        jmp      L32
+  01ec  L30:  push     1
+  01f1        jmp      L32
+  01f6  L31:  push     0                            ; satisfied
+  01fb  L32:  check    reporting, P20               ; VT-REPORT-1, VT-REPORT-2
+              ; VT-EXCL-1  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Expenses for lost, stolen or damaged property (except medically..."
+              ; VT-DEADLINE-1  13 V.S.A. § 5355(b)(1)  "(1) The application was not made within the period of time..."
+              ; VT-DEADLINE-2  13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)  "(a) Prosecutions for aggravated sexual assault, aggravated..."
+              ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
+              ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
+              ; VT-CONDUCT-1  13 V.S.A. § 5355(b)(2)  "(2) The victim violated a criminal law of this State that caused..."
+              ; VT-EMERG-1  Code Vt. R. 80-220-001, Section 5356(A)  "A) Emergency Advance can be made during the period of time a..."
+              ; VT-CRIME-1  CCVS Eligibility page, Types of crimes that may qualify  "Robbery Sexual Assault Stalking"
+              ; VT-CRIME-2  13 V.S.A. § 5351(4)  ""Injury" means actual bodily harm or pregnancy, or emotional..."
+              ; VT-RES-1  13 V.S.A. § 5353(a)(2)-(3)  "(2) the crime was committed in this State; or (3) the victim is..."
+              ; VT-RES-2  CCVS Sexual Assault Program page, Who is eligible?  "Victims of sexual assault are eligible if the crime happened in..."
+              ; VT-SUBMIT-1  Application for Vermont Victims Compensation, cover page; Application Instructions item 4  "Victims Compensation Program 58 South Main Street, Suite..."
+              ; VT-SUBMIT-2  CCVS Application & Forms page  "The application is also available and can be downloaded in other..."
+              ; VT-DOC-1  Victims Compensation FAQ, What happens when an application is received?  "If there are outstanding crime related bills, please send them..."
+              ; VT-DOC-2  Application for Vermont Victims Compensation, page 6  "You must sign and date in the three (3) places that follow to be..."
+              ; VT-DOC-3  CCVS Policy for Reimbursement of Lost Wages, item 3  "For victims who are self-employed, the value of actual wages..."
+              ; VT-DOC-4  CCVS Policy for Reimbursement of Lost Wages, item 4b  "eligible for reimbursement of more than two weeks lost wages, a..."
+              ; VT-DOC-5  CCVS Victims Compensation Mental Health Policy, section 2, Treatment Plans  "To be eligible for payment of counseling expenses, the..."
+              ; VT-DOC-6  CCVS Policy for Housing and Relocation, Security Deposits  "we will reimburse the victim for the security deposit upon the..."
+              ; VT-DOC-7  CCVS Sexual Assault Program page, How to access the Program?  "The signed Sexual Assault Billing Form serves as the application..."
+              ; VT-ACP-1  Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160  "Safe at Home provides an address confidentiality service and a..."
+              ; VT-REC-1  13 V.S.A. § 5358a(a)  "(a) All documents reviewed by the Victims Compensation Board for..."
+  01ff        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
+  0202        ret
+

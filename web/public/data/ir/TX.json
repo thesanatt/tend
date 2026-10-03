@@ -1,0 +1,246 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "TX",
+ "source_sha256": "e3ef520f93df5b01a54d8f81390efb457f3d54bac1a1f39620478677fc61b530",
+ "ir_sha256": "0fa8f1aae7b1860360ae430c62059966e6db0992c1f8eb361eae6b8f3e69c72c",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "TX-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TX-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "TX-EXAM-3",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 2500000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TX-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "TX-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 70000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "TX-RELO-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "TX-RELO-2",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-RELO-3",
+   "kind": "covered",
+   "expense": "temporary_housing"
+  },
+  {
+   "id": "TX-TRAVEL-1",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "TX-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TX-MED-2",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "TX-COUNSEL-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "TX-WAGES-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "TX-CHILD-1",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 30000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "TX-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 225000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-SEIZED-1",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "TX-SEIZED-2",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "TX-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TX-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TX-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TX-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "TX-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "TX-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "TX-COLLAT-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "TX-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "TX-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "TX-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "TX-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "TX-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "TX-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "TX-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "TX-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "TX-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "TX-COUNSEL-1",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

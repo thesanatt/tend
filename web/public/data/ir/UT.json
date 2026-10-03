@@ -1,0 +1,305 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "UT",
+ "source_sha256": "85b5515ec22785f09e9f3374b10d7613e5a028e5e2efae59039bae52a149f9b2",
+ "ir_sha256": "2c2e7794a1b68b5047487e2ef6b2d9b853f66674d27245e7a51547e5fe4ad139",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "UT-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "UT-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "UT-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "UT-EXAM-5",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "UT-EXAM-6",
+   "kind": "collateral"
+  },
+  {
+   "id": "UT-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "UT-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "UT-CAP-1",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 5000000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-4",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-5",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-6",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-7",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-CAP-8",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1400000,
+   "per": "claim"
+  },
+  {
+   "id": "UT-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-COV-3",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "UT-COV-4",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "UT-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "UT-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "UT-COV-7",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "UT-COV-8",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-COV-9",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "UT-COV-10",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "UT-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-EXCL-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "UT-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "UT-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "UT-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate"
+   ]
+  },
+  {
+   "id": "UT-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "UT-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "UT-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "UT-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "UT-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "UT-EMERG-2",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "UT-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "UT-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "UT-ELIG-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "UT-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "UT-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "UT-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "UT-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "UT-CAP-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "UT-CAP-3",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
+}

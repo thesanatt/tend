@@ -1,0 +1,733 @@
+; tend law image VA, Virginia
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 14ab5946eb7ddc4551e8c3bcf22d707ef6446cd1cb5594cd5f6a84abedb809e9
+; image sha256  c46785c2721bc075e25fe3a60b38b800cdd05651bd0433072f29a3b28a61976b
+; 54 rules, 21 sources, 29 proofs, 4 ints, 332 strings
+; item program: 345 instructions, 1219 bytes, max stack 2
+; aggregate program: 137 instructions, 411 bytes, max stack 3, 4 loops
+
+.rules
+    R0    VA-EXAM-1             exam_payment  -                                             Va. Code § 19.2-368.11:1(F)
+    R1    VA-EXAM-2             exam_payment  -                                             Va. Code § 19.2-165.1(B)
+    R2    VA-EXAM-3             exam_no_bill  -                                             VVF Notice to Sexual Assault Patients
+    R3    VA-EXAM-4             exam_no_bill  -                                             SAFE Payment Program Procedures and Guidelines, Eligibility Criteria 3(b)
+    R4    VA-EXAM-5             exam_no_bill  -                                             VVF SAFE Payment Program page, Submit a SAFE claim
+    R5    VA-EXAM-6             exam_payment  -                                             VVF SAFE Payment Program page, Eligibility Requirements
+    R6    VA-EXAM-7             exam_payment  -                                             Va. Code § 19.2-368.11:1(F)
+    R7    VA-CAP-1              total_cap     -                                             Va. Code § 19.2-368.11:1(H)
+    R8    VA-MIN-1              minimum_loss  -                                             Va. Code § 19.2-368.11:1(H)
+    R9    VA-WAGE-1             covered       lost_wages                                    Va. Code § 19.2-368.11:1(A)
+    R10   VA-MOVE-1             expense_cap   relocation            per claim               Va. Code § 19.2-368.11:1(E)(vi)
+    R11   VA-SEC-1              expense_cap   security              per claim               VVF Eligibility page, Requirement #4: Expense Stipulations
+    R12   VA-HOUSE-1            covered       temporary_housing                             VVF Eligibility page, Requirement #4: Expense Stipulations
+    R13   VA-MED-1              covered       medical                                       Va. Code § 19.2-368.11:1(E)(i)
+    R14   VA-MED-2              covered       medical                                       Va. Code § 19.2-368.11:1(E)(iv)
+    R15   VA-RX-1               covered       prescription                                  VVF Eligibility page, Requirement #4: Expense Stipulations
+    R16   VA-RX-2               covered       prescription                                  VVF SAFE Payment Program page, HIV Prevention
+    R17   VA-COUNSEL-1          covered       counseling                                    VVF How Compensation Works, Eligible Expenses
+    R18   VA-TRANS-1            covered       transportation                                VVF Eligibility page, Requirement #4: Expense Stipulations
+    R19   VA-CLOTH-1            covered       clothing_bedding                              VVF How Compensation Works, Non-Eligible Expenses
+    R20   VA-EXCL-1             excluded      property_replacement                          VVF How Compensation Works, Non-Eligible Expenses
+    R21   VA-EXCL-2             excluded      legal                                         VVF Policies, Criteria for an Award (E)
+    R22   VA-EXCL-3             excluded      -                                             VVF How Compensation Works, Payer of Last Resort
+    R23   VA-DEADLINE-1         deadline      -                                             Va. Code § 19.2-368.5(B)
+    R24   VA-DEADLINE-2         deadline      -                                             VVF Eligibility page, Requirement #5: Filing Timeline Stipulations
+    R25   VA-DEADLINE-3         deadline      -                                             VVF Eligibility page, Requirement #5: Filing Timeline Stipulations
+    R26   VA-DEADLINE-4         deadline      -                                             Va. Code § 19.2-368.5(B)(iii)
+    R27   VA-REPORT-1           reporting     -                                             Va. Code § 19.2-368.10(3)
+    R28   VA-REPORT-2           reporting     -                                             Va. Code § 19.2-368.11:1(F)
+    R29   VA-COLL-1             collateral    -                                             Va. Code § 19.2-368.11:1(G)
+    R30   VA-CONDUCT-1          info          -                     conduct_reduction       Va. Code § 19.2-368.12(C)
+    R31   VA-EMERG-1            info          -                     emergency_award         Va. Code § 19.2-368.9
+    R32   VA-CRIME-1            info          -                     eligible_crime          Va. Code § 19.2-368.2
+    R33   VA-CRIME-2            info          -                     eligible_crime          VVF Eligibility page, Requirement #1: Crime Stipulations
+    R34   VA-RES-1              info          -                     residency               VVF Policies, Criteria for an Award (H)
+    R35   VA-RES-2              info          -                     residency               Va. Code § 19.2-368.4(C)
+    R36   VA-SUBMIT-1           info          -                     submission              VVF Claim Form (English, 08/12/2025), instructions p. 2 (Returning the Application)
+    R37   VA-SUBMIT-2           info          -                     submission              VVF Claim Form (English, 08/12/2025), instructions p. 2 (Returning the Application)
+    R38   VA-SUBMIT-3           info          -                     submission              Va. Code § 19.2-368.5(C)
+    R39   VA-SUBMIT-4           info          -                     submission              VVF Policies (Sept 2025), Where a Claim Must Be Filed, p. 12
+    R40   VA-DOC-1              info          -                     required_document       VVF Claim Form (English, 08/12/2025), instructions p. 2 (Returning the Application)
+    R41   VA-DOC-2              info          -                     required_document       VVF Claim Form (English, 08/12/2025), Section I (Medical Providers), application p. 3
+    R42   VA-DOC-3              info          -                     required_document       VVF Claim Form page, Helpful Tips
+    R43   VA-DOC-4              info          -                     required_document       VVF Claim Form (English, 08/12/2025), instructions p. 1 (Physical/Emotional Injuries)
+    R44   VA-DOC-5              info          -                     required_document       VVF Claim Form (English, 08/12/2025), instructions p. 1 (The Crime)
+    R45   VA-DOC-6              info          -                     required_document       VVF Claim Form (English, 08/12/2025), Section E (Reporting Information), application p. 2
+    R46   VA-DOC-7              info          -                     required_document       VVF Claim Form (English, 08/12/2025), Section J (Insurance and Collateral Resources), application p. 3
+    R47   VA-DOC-8              info          -                     required_document       VVF Claim Form (English, 08/12/2025), instructions p. 1 (Prescriptions)
+    R48   VA-DOC-9              info          -                     required_document       VVF Claim Form (English, 08/12/2025), instructions p. 1 (Loss of Wages)
+    R49   VA-DOC-10             info          -                     required_document       VVF Policies (Sept 2025), p. 15
+    R50   VA-DOC-11             info          -                     required_document       VVF Claim Form (English, 08/12/2025), instructions p. 1 (Moving Expenses)
+    R51   VA-DOC-12             info          -                     required_document       VVF Claim Form (English, 08/12/2025), Applicant Responsibilities & Authorizations, application p. 4
+    R52   VA-ACP-1              info          -                     address_confidentiality Va. Code § 2.2-515.2(B)
+    R53   VA-RECCONF-1          info          -                     record_confidentiality  VVF Confidentiality page, Your Claim is Confidential
+
+.tags   cash=bit0, phone=bit1, vehicle=bit2, pain_suffering=bit3
+
+.sources
+    S0    VA-S1       sha256 43553de788549614  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.2/
+    S1    VA-S2       sha256 572297a5539a58d7  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.4/
+    S2    VA-S3       sha256 ab64413dc8b3b601  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.5/
+    S3    VA-S4       sha256 9e33ac9776a29112  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.9/
+    S4    VA-S5       sha256 d4d8517cfd545d70  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.10/
+    S5    VA-S6       sha256 6bdbdee65f59983e  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/
+    S6    VA-S7       sha256 db1d120e1af58781  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.12/
+    S7    VA-S8       sha256 69cd4cee8479c1ed  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.5:2/
+    S8    VA-S9       sha256 d36f2ac805b9b67f  https://law.lis.virginia.gov/vacode/title19.2/chapter1.2/section19.2-165.1/
+    S9    VA-S10      sha256 6611070319d1e675  https://vvf.virginia.gov/safe-payment-program
+    S10   VA-S11      sha256 72c8c9ff3cc21379  https://vvf.virginia.gov/sites/default/files/Forms/VVF-Claim-Form-English-08122025.pdf
+    S11   VA-S12      sha256 bcc02268d4ef1cf7  https://vvf.virginia.gov/eligibility
+    S12   VA-S13      sha256 16c4727e72644068  https://vvf.virginia.gov/compensation
+    S13   VA-S14      sha256 af1898e5eea11911  https://vvf.virginia.gov/sites/default/files/Documents/VVF-Policies.pdf
+    S14   VA-S15      sha256 ccd63ce8f9514dc9  https://vvf.virginia.gov/contact
+    S15   VA-S16      sha256 0558d93c4dbad126  https://vvf.virginia.gov/sites/default/files/Documents/SAFE-Procedures-and-Guidelinesf-2026.pdf
+    S16   VA-S17      sha256 343ce3b2debde268  https://vvf.virginia.gov/sites/default/files/Forms/Notice-to-Sexual-Assault-Patients_0.pdf
+    S17   VA-S18      sha256 8dc398cd228a538d  https://vvf.virginia.gov/forms/vvf-claim-form
+    S18   VA-S19      sha256 4d78b858ac37743c  https://law.lis.virginia.gov/vacode/title2.2/chapter5/section2.2-515.2/
+    S19   VA-S20      sha256 764b34ce797defe0  https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.3/
+    S20   VA-S21      sha256 3c4c5d2bd71e6440  https://vvf.virginia.gov/confidentiality
+
+.proofs
+    P0    ()
+    P1    (VA-EXAM-3, VA-EXAM-4, VA-EXAM-5, VA-EXAM-1, VA-EXAM-2, VA-EXAM-6, VA-EXAM-7)
+    P2    (VA-EXCL-3)
+    P3    (VA-MED-1, VA-MED-2)
+    P4    (VA-MED-1, VA-MED-2, VA-COLL-1)
+    P5    (VA-COUNSEL-1)
+    P6    (VA-COUNSEL-1, VA-COLL-1)
+    P7    (VA-WAGE-1)
+    P8    (VA-WAGE-1, VA-COLL-1)
+    P9    (VA-TRANS-1)
+    P10   (VA-TRANS-1, VA-COLL-1)
+    P11   (VA-MOVE-1)
+    P12   (VA-MOVE-1, VA-COLL-1)
+    P13   (VA-HOUSE-1)
+    P14   (VA-HOUSE-1, VA-COLL-1)
+    P15   (VA-SEC-1)
+    P16   (VA-SEC-1, VA-COLL-1)
+    P17   (VA-EXCL-1)
+    P18   (VA-EXCL-1, VA-EXCL-3)
+    P19   (VA-CLOTH-1)
+    P20   (VA-CLOTH-1, VA-COLL-1)
+    P21   (VA-RX-1, VA-RX-2)
+    P22   (VA-RX-1, VA-RX-2, VA-COLL-1)
+    P23   (VA-EXCL-2, VA-EXCL-3)
+    P24   (VA-EXCL-2)
+    P25   (VA-MIN-1)
+    P26   (VA-DEADLINE-1, VA-DEADLINE-2, VA-DEADLINE-3, VA-DEADLINE-4)
+    P27   (VA-REPORT-1, VA-REPORT-2)
+    P28   (VA-COLL-1, VA-CONDUCT-1, VA-EMERG-1, VA-CRIME-1, VA-CRIME-2, VA-RES-1, VA-RES-2, VA-SUBMIT-1, VA-SUBMIT-2, VA-SUBMIT-3, VA-SUBMIT-4, VA-DOC-1, VA-DOC-2, VA-DOC-3, VA-DOC-4, VA-DOC-5, VA-DOC-6, VA-DOC-7, VA-DOC-8, VA-DOC-9, VA-DOC-10, VA-DOC-11, VA-DOC-12, VA-ACP-1, VA-RECCONF-1)
+
+.ints
+    K0    200000        ; $2,000.00
+    K1    100000        ; $1,000.00
+    K2    3500000       ; $35,000.00
+    K3    10000         ; $100.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L37
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L22
+                        case temporary_housing     -> L27
+                        case security              -> L32
+                        case crime_scene_cleanup   -> L37
+                        case childcare             -> L37
+                        case property_replacement  -> L41
+                        case clothing_bedding      -> L48
+                        case prescription          -> L53
+                        case dental                -> L37
+                        case funeral               -> L37
+                        case legal                 -> L58
+                        case tuition               -> L37
+                        case other                 -> L37
+                        case unknown               -> L37
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; VA-EXAM-3  VVF Notice to Sexual Assault Patients  "You have the right to seek evidence collection at no cost to..."
+              ; VA-EXAM-4  SAFE Payment Program Procedures and Guidelines, Eligibility Criteria 3(b)  "Patients should only receive bills from providers for expenses..."
+              ; VA-EXAM-5  VVF SAFE Payment Program page, Submit a SAFE claim  "If the patient is covered by a federally funded insurance such..."
+              ; VA-EXAM-1  Va. Code § 19.2-368.11:1(F)  "the Criminal Injuries Compensation Fund shall pay for physical..."
+              ; VA-EXAM-2  Va. Code § 19.2-165.1(B)  "shall be paid by the Commonwealth pursuant to subsection F of §..."
+              ; VA-EXAM-6  VVF SAFE Payment Program page, Eligibility Requirements  "Medical forensic examinations for non-acute (more than 120 hours..."
+              ; VA-EXAM-7  Va. Code § 19.2-368.11:1(F)  "Funds paid for physical evidence recovery kit or anonymous trace..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; VA-EXAM-3, VA-EXAM-4, VA-EXAM-5, VA-EXAM-1, VA-EXAM-2, VA-EXAM-6, VA-EXAM-7
+  007b        ret
+              ; VA-MED-1  Va. Code § 19.2-368.11:1(E)(i)  "unreimbursed medical expenses or indebtedness reasonably..."
+              ; VA-MED-2  Va. Code § 19.2-368.11:1(E)(iv)  "expenses attributable to pregnancy resulting from forcible rape"
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     8
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; VA-EXCL-3
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; VA-MED-1, VA-MED-2
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; VA-MED-1, VA-MED-2, VA-COLL-1
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R29              ; VA-COLL-1
+  00d9        ret
+              ; VA-COUNSEL-1  VVF How Compensation Works, Eligible Expenses  "Counseling For direct victims"
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     8
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; VA-EXCL-3
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; VA-COUNSEL-1
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; VA-COUNSEL-1, VA-COLL-1
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R29              ; VA-COLL-1
+  0137        ret
+              ; VA-WAGE-1  Va. Code § 19.2-368.11:1(A)  "at a weekly compensation rate equal to 66-2 /3 percent of the..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     8
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; VA-EXCL-3
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; VA-WAGE-1
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; VA-WAGE-1, VA-COLL-1
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R29              ; VA-COLL-1
+  0195        ret
+              ; VA-TRANS-1  VVF Eligibility page, Requirement #4: Expense Stipulations  "Mileage - Minor Victims Only: Reimbursement for mileage to/from..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     8
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P2                 ; VA-EXCL-3
+  01cd        ret
+  01ce  L20:  ldi      confirmed
+  01d0        jnz      L21
+  01d5        push     0
+  01da        decide   needs_confirmation, P9       ; VA-TRANS-1
+  01de        ret
+  01df  L21:  ldi      amount_cents
+  01e1        decide   eligible, P10                ; VA-TRANS-1, VA-COLL-1
+  01e5        lda
+  01e6        ldi      insurance_paid_cents
+  01e8        subs
+  01e9        push     0
+  01ee        max
+  01ef        seta     collateral, R29              ; VA-COLL-1
+  01f3        ret
+              ; VA-MOVE-1  Va. Code § 19.2-368.11:1(E)(vi)  "reasonable and necessary moving expenses, not to exceed $2,000..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  01f4  L22:  push     0
+  01f9        str      r0
+  01fb        ldi      tags
+  01fd        push     8
+  0202        and
+  0203        jz       L23
+  0208        ldr      r0
+  020a        push     1
+  020f        or
+  0210        str      r0
+  0212  L23:  ldr      r0
+  0214        switch   2, default L25
+                        case 0                     -> L25
+                        case 1                     -> L24
+  0222  L24:  push     0
+  0227        decide   excluded, P2                 ; VA-EXCL-3
+  022b        ret
+  022c  L25:  ldi      confirmed
+  022e        jnz      L26
+  0233        push     0
+  0238        decide   needs_confirmation, P11      ; VA-MOVE-1
+  023c        ret
+  023d  L26:  ldi      amount_cents
+  023f        decide   eligible, P12                ; VA-MOVE-1, VA-COLL-1
+  0243        lda
+  0244        ldi      insurance_paid_cents
+  0246        subs
+  0247        push     0
+  024c        max
+  024d        seta     collateral, R29              ; VA-COLL-1
+  0251        ret
+              ; VA-HOUSE-1  VVF Eligibility page, Requirement #4: Expense Stipulations  "Temporary Lodging: Limited situations only, when the physical..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  0252  L27:  push     0
+  0257        str      r0
+  0259        ldi      tags
+  025b        push     8
+  0260        and
+  0261        jz       L28
+  0266        ldr      r0
+  0268        push     1
+  026d        or
+  026e        str      r0
+  0270  L28:  ldr      r0
+  0272        switch   2, default L30
+                        case 0                     -> L30
+                        case 1                     -> L29
+  0280  L29:  push     0
+  0285        decide   excluded, P2                 ; VA-EXCL-3
+  0289        ret
+  028a  L30:  ldi      confirmed
+  028c        jnz      L31
+  0291        push     0
+  0296        decide   needs_confirmation, P13      ; VA-HOUSE-1
+  029a        ret
+  029b  L31:  ldi      amount_cents
+  029d        decide   eligible, P14                ; VA-HOUSE-1, VA-COLL-1
+  02a1        lda
+  02a2        ldi      insurance_paid_cents
+  02a4        subs
+  02a5        push     0
+  02aa        max
+  02ab        seta     collateral, R29              ; VA-COLL-1
+  02af        ret
+              ; VA-SEC-1  VVF Eligibility page, Requirement #4: Expense Stipulations  "Home Security: Reimbursement of the purchase and installation of..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  02b0  L32:  push     0
+  02b5        str      r0
+  02b7        ldi      tags
+  02b9        push     8
+  02be        and
+  02bf        jz       L33
+  02c4        ldr      r0
+  02c6        push     1
+  02cb        or
+  02cc        str      r0
+  02ce  L33:  ldr      r0
+  02d0        switch   2, default L35
+                        case 0                     -> L35
+                        case 1                     -> L34
+  02de  L34:  push     0
+  02e3        decide   excluded, P2                 ; VA-EXCL-3
+  02e7        ret
+  02e8  L35:  ldi      confirmed
+  02ea        jnz      L36
+  02ef        push     0
+  02f4        decide   needs_confirmation, P15      ; VA-SEC-1
+  02f8        ret
+  02f9  L36:  ldi      amount_cents
+  02fb        decide   eligible, P16                ; VA-SEC-1, VA-COLL-1
+  02ff        lda
+  0300        ldi      insurance_paid_cents
+  0302        subs
+  0303        push     0
+  0308        max
+  0309        seta     collateral, R29              ; VA-COLL-1
+  030d        ret
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+  030e  L37:  push     0
+  0313        str      r0
+  0315        ldi      tags
+  0317        push     8
+  031c        and
+  031d        jz       L38
+  0322        ldr      r0
+  0324        push     1
+  0329        or
+  032a        str      r0
+  032c  L38:  ldr      r0
+  032e        switch   2, default L40
+                        case 0                     -> L40
+                        case 1                     -> L39
+  033c  L39:  push     0
+  0341        decide   excluded, P2                 ; VA-EXCL-3
+  0345        ret
+  0346  L40:  push     0
+  034b        decide   unknown_rule, P0             ; (none)
+  034f        ret
+              ; VA-EXCL-1  VVF How Compensation Works, Non-Eligible Expenses  "Replacement of stolen vehicles, cellphones, money, or other..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+  0350  L41:  push     0
+  0355        str      r0
+  0357        ldi      tags
+  0359        push     7
+  035e        and
+  035f        jz       L42
+  0364        ldr      r0
+  0366        push     1
+  036b        or
+  036c        str      r0
+  036e  L42:  ldi      tags
+  0370        push     8
+  0375        and
+  0376        jz       L43
+  037b        ldr      r0
+  037d        push     2
+  0382        or
+  0383        str      r0
+  0385  L43:  ldr      r0
+  0387        switch   4, default L47
+                        case 0                     -> L47
+                        case 1                     -> L44
+                        case 2                     -> L45
+                        case 3                     -> L46
+  039d  L44:  push     0
+  03a2        decide   excluded, P17                ; VA-EXCL-1
+  03a6        ret
+  03a7  L45:  push     0
+  03ac        decide   excluded, P2                 ; VA-EXCL-3
+  03b0        ret
+  03b1  L46:  push     0
+  03b6        decide   excluded, P18                ; VA-EXCL-1, VA-EXCL-3
+  03ba        ret
+  03bb  L47:  push     0
+  03c0        decide   unknown_rule, P0             ; (none)
+  03c4        ret
+              ; VA-CLOTH-1  VVF How Compensation Works, Non-Eligible Expenses  "When clothing or bedding are taken as evidence, VVF may pay for..."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  03c5  L48:  push     0
+  03ca        str      r0
+  03cc        ldi      tags
+  03ce        push     8
+  03d3        and
+  03d4        jz       L49
+  03d9        ldr      r0
+  03db        push     1
+  03e0        or
+  03e1        str      r0
+  03e3  L49:  ldr      r0
+  03e5        switch   2, default L51
+                        case 0                     -> L51
+                        case 1                     -> L50
+  03f3  L50:  push     0
+  03f8        decide   excluded, P2                 ; VA-EXCL-3
+  03fc        ret
+  03fd  L51:  ldi      confirmed
+  03ff        jnz      L52
+  0404        push     0
+  0409        decide   needs_confirmation, P19      ; VA-CLOTH-1
+  040d        ret
+  040e  L52:  ldi      amount_cents
+  0410        decide   eligible, P20                ; VA-CLOTH-1, VA-COLL-1
+  0414        lda
+  0415        ldi      insurance_paid_cents
+  0417        subs
+  0418        push     0
+  041d        max
+  041e        seta     collateral, R29              ; VA-COLL-1
+  0422        ret
+              ; VA-RX-1  VVF Eligibility page, Requirement #4: Expense Stipulations  "Prescriptions for treatment of injuries/conditions caused by the..."
+              ; VA-RX-2  VVF SAFE Payment Program page, HIV Prevention  "The full course (28-day supply) of HIV preventative medication"
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+  0423  L53:  push     0
+  0428        str      r0
+  042a        ldi      tags
+  042c        push     8
+  0431        and
+  0432        jz       L54
+  0437        ldr      r0
+  0439        push     1
+  043e        or
+  043f        str      r0
+  0441  L54:  ldr      r0
+  0443        switch   2, default L56
+                        case 0                     -> L56
+                        case 1                     -> L55
+  0451  L55:  push     0
+  0456        decide   excluded, P2                 ; VA-EXCL-3
+  045a        ret
+  045b  L56:  ldi      confirmed
+  045d        jnz      L57
+  0462        push     0
+  0467        decide   needs_confirmation, P21      ; VA-RX-1, VA-RX-2
+  046b        ret
+  046c  L57:  ldi      amount_cents
+  046e        decide   eligible, P22                ; VA-RX-1, VA-RX-2, VA-COLL-1
+  0472        lda
+  0473        ldi      insurance_paid_cents
+  0475        subs
+  0476        push     0
+  047b        max
+  047c        seta     collateral, R29              ; VA-COLL-1
+  0480        ret
+              ; VA-EXCL-2  VVF Policies, Criteria for an Award (E)  "The Commission lacks authority to award attorneys’ fees."
+              ; VA-EXCL-3  VVF How Compensation Works, Payer of Last Resort  "The Fund cannot consider payment for pain and suffering and..."
+  0481  L58:  push     0
+  0486        str      r0
+  0488        ldi      tags
+  048a        push     8
+  048f        and
+  0490        jz       L59
+  0495        ldr      r0
+  0497        push     1
+  049c        or
+  049d        str      r0
+  049f  L59:  ldr      r0
+  04a1        switch   2, default L61
+                        case 0                     -> L61
+                        case 1                     -> L60
+  04af  L60:  push     0
+  04b4        decide   excluded, P23                ; VA-EXCL-2, VA-EXCL-3
+  04b8        ret
+  04b9  L61:  push     0
+  04be        decide   excluded, P24                ; VA-EXCL-2
+  04c2        ret
+
+.aggregate
+              ; VA-MOVE-1  Va. Code § 19.2-368.11:1(E)(vi)  "reasonable and necessary moving expenses, not to exceed $2,000..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     relocation, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $2,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $2,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R10             ; VA-MOVE-1
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R10             ; VA-MOVE-1
+  004d  L3:   next     L0
+              ; VA-SEC-1  VVF Eligibility page, Requirement #4: Expense Stipulations  "Home Security: Reimbursement of the purchase and installation of..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     security, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $1,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $1,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R11             ; VA-SEC-1
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R11             ; VA-SEC-1
+  009f  L8:   next     L5
+              ; VA-CAP-1  Va. Code § 19.2-368.11:1(H)  "payments for injury or death to a victim of crime, to the..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     all, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K2                           ; $35,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K2                           ; $35,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      total_cap, R7                ; VA-CAP-1
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      total_cap, R7                ; VA-CAP-1
+  00f1  L13:  next     L10
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        each     all, L16
+  0103  L15:  ldr      r0
+  0105        lda
+  0106        adds
+  0107        str      r0
+  0109        next     L15
+  010e  L16:  push     0
+  0113        str      r2
+              ; VA-MIN-1  Va. Code § 19.2-368.11:1(H)  "To qualify for an award under this chapter, a claim must have a..."
+  0115        ldr      r0
+  0117        ldk      K3                           ; $100.00
+  011a        lt
+  011b        jz       L17
+  0120        push     3
+  0125        ldr      r2
+  0127        max
+  0128        str      r2
+  012a  L17:  ldr      r2
+  012c        check    minimum_loss, P25            ; VA-MIN-1
+              ; VA-DEADLINE-1  Va. Code § 19.2-368.5(B)  "A claim shall be filed by the claimant not later than three..."
+  0130        ldx      incident_date
+  0132        push     1095
+  0137        adds
+              ; VA-DEADLINE-2  VVF Eligibility page, Requirement #5: Filing Timeline Stipulations  "Crimes committed on and after July 1, 2025 The deadline to file..."
+  0138        ldx      incident_date
+  013a        push     1095
+  013f        adds
+  0140        max
+              ; VA-DEADLINE-3  VVF Eligibility page, Requirement #5: Filing Timeline Stipulations  "Crimes committed on July 1, 2001 through June 30, 2025 The..."
+  0141        ldx      incident_date
+  0143        push     365
+  0148        adds
+  0149        max
+              ; VA-DEADLINE-4  Va. Code § 19.2-368.5(B)(iii)  "in cases involving claims of sexual abuse of a minor, the claim..."
+  014a        ldx      incident_date
+  014c        push     3652
+  0151        adds
+  0152        max
+  0153        dup
+  0154        setdate
+  0155        ldx      as_of_date
+  0157        ge
+  0158        jz       L18
+  015d        push     0
+  0162        jmp      L19
+  0167  L18:  push     1                            ; late
+  016c  L19:  check    deadline, P26                ; VA-DEADLINE-1, VA-DEADLINE-2, VA-DEADLINE-3, VA-DEADLINE-4
+              ; VA-REPORT-1  Va. Code § 19.2-368.10(3)  "The provisions of this subdivision shall not apply to claims of..."
+              ; VA-REPORT-2  Va. Code § 19.2-368.11:1(F)  "Any individual that submits to and completes any such..."
+  0170        ldx      police_report
+  0172        push     1                            ; yes
+  0177        eq
+  0178        jnz      L20
+  017d        ldx      forensic_exam
+  017f        jnz      L20
+  0184        push     2
+  0189        jmp      L21
+  018e  L20:  push     0                            ; satisfied
+  0193  L21:  check    reporting, P27               ; VA-REPORT-1, VA-REPORT-2
+              ; VA-COLL-1  Va. Code § 19.2-368.11:1(G)  "Any claim made pursuant to this chapter shall be reduced by the..."
+              ; VA-CONDUCT-1  Va. Code § 19.2-368.12(C)  "the Commission shall determine whether, because of his conduct..."
+              ; VA-EMERG-1  Va. Code § 19.2-368.9  "the amount of such emergency award shall not exceed $3,000"
+              ; VA-CRIME-1  Va. Code § 19.2-368.2  ""Sexual abuse" means sexual abuse as defined in subdivision 6 of..."
+              ; VA-CRIME-2  VVF Eligibility page, Requirement #1: Crime Stipulations  "Sexual Abuse (minors and adults) (must result in physical injury..."
+              ; VA-RES-1  VVF Policies, Criteria for an Award (H)  "As long as the crime was committed in Virginia, there is no..."
+              ; VA-RES-2  Va. Code § 19.2-368.4(C)  "A resident of Virginia who is the victim of a crime occurring..."
+              ; VA-SUBMIT-1  VVF Claim Form (English, 08/12/2025), instructions p. 2 (Returning the Application)  "Submit application to P.O. Box 26927, Richmond, VA 23261 or..."
+              ; VA-SUBMIT-2  VVF Claim Form (English, 08/12/2025), instructions p. 2 (Returning the Application)  "Submit application to P.O. Box 26927, Richmond, VA 23261 or..."
+              ; VA-SUBMIT-3  Va. Code § 19.2-368.5(C)  "Claims shall be filed in the office of the Commission in person..."
+              ; VA-SUBMIT-4  VVF Policies (Sept 2025), Where a Claim Must Be Filed, p. 12  "Victim advocates that have been through specialized training may..."
+              ; VA-DOC-1  VVF Claim Form (English, 08/12/2025), instructions p. 2 (Returning the Application)  "Applicants should attach all receipts, records and documents..."
+              ; VA-DOC-2  VVF Claim Form (English, 08/12/2025), Section I (Medical Providers), application p. 3  "Attach a list of additional providers and attach copies of..."
+              ; VA-DOC-3  VVF Claim Form page, Helpful Tips  "Please include any bills, receipts, invoices, and insurance..."
+              ; VA-DOC-4  VVF Claim Form (English, 08/12/2025), instructions p. 1 (Physical/Emotional Injuries)  "Eligible claimants must submit proof of physical and/or..."
+              ; VA-DOC-5  VVF Claim Form (English, 08/12/2025), instructions p. 1 (The Crime)  "The victim's physical, mental, emotional and family situation..."
+              ; VA-DOC-6  VVF Claim Form (English, 08/12/2025), Section E (Reporting Information), application p. 2  "Is there a permanent protective order for the victim and..."
+              ; VA-DOC-7  VVF Claim Form (English, 08/12/2025), Section J (Insurance and Collateral Resources), application p. 3  "VVF will not make a decision on reimbursing health expenses..."
+              ; VA-DOC-8  VVF Claim Form (English, 08/12/2025), instructions p. 1 (Prescriptions)  "The applicant must provide copies of receipts for prescriptions."
+              ; VA-DOC-9  VVF Claim Form (English, 08/12/2025), instructions p. 1 (Loss of Wages)  "Replacement of lost wages for the victim, who could not work..."
+              ; VA-DOC-10  VVF Policies (Sept 2025), p. 15  "In order to reimburse this expense, the Fund must have a copy of..."
+              ; VA-DOC-11  VVF Claim Form (English, 08/12/2025), instructions p. 1 (Moving Expenses)  "(Dated/signed contracts required.)"
+              ; VA-DOC-12  VVF Claim Form (English, 08/12/2025), Applicant Responsibilities & Authorizations, application p. 4  "Applications are not accepted unless this form is signed by the..."
+              ; VA-ACP-1  Va. Code § 2.2-515.2(B)  "to protect victims of domestic violence, stalking, child..."
+              ; VA-RECCONF-1  VVF Confidentiality page, Your Claim is Confidential  "All Virginia Victims Fund (VVF) applications and related..."
+  0197        info     P28                          ; VA-COLL-1, VA-CONDUCT-1, VA-EMERG-1, VA-CRIME-1, VA-CRIME-2, VA-RES-1, VA-RES-2, VA-SUBMIT-1, VA-SUBMIT-2, VA-SUBMIT-3, VA-SUBMIT-4, VA-DOC-1, VA-DOC-2, VA-DOC-3, VA-DOC-4, VA-DOC-5, VA-DOC-6, VA-DOC-7, VA-DOC-8, VA-DOC-9, VA-DOC-10, VA-DOC-11, VA-DOC-12, VA-ACP-1, VA-RECCONF-1
+  019a        ret
+

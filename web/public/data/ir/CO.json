@@ -1,0 +1,180 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "CO",
+ "source_sha256": "4ba52aedd7ecdec6f748bb32e86de240f91ab711ac57bdda5230575598bd7a8e",
+ "ir_sha256": "9284fb73df1741b19b87e3ff1d79c0119096d3d4f743a3f65e3ec81435c2f309",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "CO-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "CO-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3000000
+  },
+  {
+   "id": "CO-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "CO-COV-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "CO-COV-3",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "CO-COV-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "CO-COV-5",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "CO-COV-6",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "CO-COV-7",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "CO-COV-8",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "CO-COV-9",
+   "kind": "covered",
+   "expense": "funeral"
+  },
+  {
+   "id": "CO-EXC-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "CO-EXC-2",
+   "kind": "excluded",
+   "tags": [
+    "vehicle"
+   ]
+  },
+  {
+   "id": "CO-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "CO-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "CO-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "CO-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "CO-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "CO-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "CO-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CO-DOC-APP",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CO-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CO-DOC-BILLS-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CO-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CO-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CO-DOC-CIVIL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CO-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "CO-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "CO-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

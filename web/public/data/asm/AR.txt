@@ -1,0 +1,683 @@
+; tend law image AR, Arkansas
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6
+; image sha256  39562c8c74282fe591cfcd17d592478b52867a9d934c7d07f29dee4c6e75f951
+; 44 rules, 18 sources, 26 proofs, 3 ints, 272 strings
+; item program: 313 instructions, 1102 bytes, max stack 2
+; aggregate program: 142 instructions, 442 bytes, max stack 3, 4 loops
+
+.rules
+    R0    AR-EXAM-1             exam_no_bill  -                                             A.C.A. 12-12-403(b)(1)
+    R1    AR-EXAM-2             exam_no_bill  -                                             A.C.A. 12-12-403(c)(2)
+    R2    AR-EXAM-3             exam_payment  -                                             A.C.A. 12-12-403(c)(1)
+    R3    AR-EXAM-4             reporting     -                                             A.C.A. 12-12-403(b)(2)(A)
+    R4    AR-EXAM-5             collateral    -                                             16 CAR 60-303
+    R5    AR-EXAM-6             exam_payment  -                                             16 CAR 60-206(c)(2)-(3)
+    R6    AR-EXAM-7             exam_payment  -                                             About CVRB page
+    R7    AR-CAP-1              total_cap     -                                             A.C.A. 16-90-716(a)(1)
+    R8    AR-CAP-2              total_cap     -                                             A.C.A. 16-90-716(a)(2)
+    R9    AR-CAP-3              expense_cap   counseling            per claim               16 CAR 60-211(a)(1)
+    R10   AR-CAP-4              expense_cap   medical               per claim               16 CAR 60-210(a)(1)
+    R11   AR-CAP-5              expense_cap   funeral               per claim               16 CAR 60-205(b)(1)
+    R12   AR-EMER-1             info          -                     emergency_award         16 CAR 60-207(b)(1)
+    R13   AR-DEAD-1             deadline      -                                             A.C.A. 16-90-712(a)(1)(A), as amended by Act 666 of 2025
+    R14   AR-DEAD-2             deadline      -                                             A.C.A. 16-90-712(a)(1)(B), as amended by Act 666 of 2025
+    R15   AR-REPORT-1           reporting     -                                             A.C.A. 16-90-712(a)(6)
+    R16   AR-REPORT-2           reporting     -                                             16 CAR 60-203(c)(2)
+    R17   AR-COLL-1             collateral    -                                             A.C.A. 16-90-712(b)(1)
+    R18   AR-COND-1             info          -                     conduct_reduction       A.C.A. 16-90-712(b)(2)
+    R19   AR-ELIG-1             info          -                     eligible_crime          A.C.A. 16-90-703(10)
+    R20   AR-ELIG-2             info          -                     eligible_crime          A.C.A. 16-90-703(11)(B)(ii)
+    R21   AR-RES-1              info          -                     residency               A.C.A. 16-90-703(11)(A)
+    R22   AR-COV-1              covered       medical                                       A.C.A. 16-90-703(1)(A)(i)
+    R23   AR-COV-2              covered       counseling                                    16 CAR 60-202(2)(A)
+    R24   AR-COV-3              covered       lost_wages                                    A.C.A. 16-90-703(12)
+    R25   AR-COV-4              covered       security                                      Application for Crime Victim Compensation, Section H
+    R26   AR-COV-5              covered       transportation                                Application for Crime Victim Compensation, Section H
+    R27   AR-COV-6              covered       childcare                                     Application for Crime Victim Compensation, Section C
+    R28   AR-COV-7              covered       prescription                                  Application for Crime Victim Compensation, Section C
+    R29   AR-COV-8              covered       dental                                        Application for Crime Victim Compensation, Section C
+    R30   AR-EXCL-1             excluded      -                                             CVRB home page
+    R31   AR-EXCL-2             info          -                     excluded_expense        A.C.A. 16-90-703(7)
+    R32   AR-EXCL-3             excluded      property_replacement                          Application for Crime Victim Compensation, Section G
+    R33   AR-SUBMIT-1           info          -                     submission              CVRB home page, Crime Victim Compensation Application
+    R34   AR-SUBMIT-2           info          -                     submission              About CVRB page, applying and Contact CVRB
+    R35   AR-DOC-1              info          -                     required_document       Application, Section B, Crime Information
+    R36   AR-DOC-2              info          -                     required_document       Application, Section C, Request for Medical Treatment/Mental-Health Counseling
+    R37   AR-DOC-3              info          -                     required_document       Application, Section D, Request for Lost Wages
+    R38   AR-DOC-4              info          -                     required_document       Application, Section D, Request for Lost Wages
+    R39   AR-DOC-5              info          -                     required_document       Application, Section E, Request for Funeral/Burial Expenses
+    R40   AR-DOC-6              info          -                     required_document       Application, Section F, Request for Loss of Support
+    R41   AR-DOC-7              info          -                     required_document       Application, Section G, Request for Assistance with Crime Scene Clean Up
+    R42   AR-ACP-1              info          -                     address_confidentiality DFA Address Confidentiality Program page, Program Description
+    R43   AR-RECCONF-1          info          -                     record_confidentiality  A.C.A. 16-90-711
+
+.tags   pain_suffering=bit0
+
+.sources
+    S0    AR-S1       sha256 b46522a82f001ff8  https://www.dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/
+    S1    AR-S2       sha256 1f4b1178b236ff82  https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/eligibility/
+    S2    AR-S3       sha256 abb216ee3823827b  https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/criteria-to-receive-compensation/
+    S3    AR-S4       sha256 40b7a0ae85238c78  https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/about-cvrb/
+    S4    AR-S5       sha256 317b7bdef26a716e  https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/documents-forms/
+    S5    AR-S6       sha256 08065c04cbe12f88  https://media.ark.org/dps/CVRB-Statutes_2026.pdf
+    S6    AR-S7       sha256 78f204fe148e34e9  https://media.ark.org/dps/ACVRB-Rules-_1-6-26.pdf
+    S7    AR-S8       sha256 59152a9466cad329  https://media.ark.org/dps/CVRB-Application_10-6-2023.pdf
+    S8    AR-S9       sha256 61b599c304013512  https://law.justia.com/codes/arkansas/title-16/subtitle-6/chapter-90/subchapter-7/section-16-90-712/
+    S9    AR-S10      sha256 2c8aa1cc9abb1cbf  https://law.justia.com/codes/arkansas/title-16/subtitle-6/chapter-90/subchapter-7/section-16-90-716/
+    S10   AR-S11      sha256 a6eac40f4c97912b  https://law.justia.com/codes/arkansas/title-16/subtitle-6/chapter-90/subchapter-7/section-16-90-703/
+    S11   AR-S12      sha256 0d384a81855f0f43  https://law.justia.com/codes/arkansas/title-12/subtitle-2/chapter-12/subchapter-4/section-12-12-403/
+    S12   AR-S13      sha256 0a9a775407f803b4  https://webftp.blr.arkansas.gov/Home/FTPDocument?path=CAR%2FParts%2F16CARpt60.pdf
+    S13   AR-S14      sha256 39bffbd7743210b5  https://arkleg.state.ar.us/Acts/FTPDocument?path=%2FACTS%2F2025R%2FPublic%2F&file=666.pdf&ddBienniumSession=2025%2F2025R
+    S14   AR-S15      sha256 b1fde4d8e89e8c8a  https://portal.arkansas.gov/state_agencies/department-of-public-safety/crime-victims-reparations-board/
+    S15   AR-S16      sha256 f7ff5c9f73fda942  https://www.dfa.arkansas.gov/office/driver-services/address-confidentiality-program/
+    S16   AR-S17      sha256 61378b551a49db3f  https://law.justia.com/codes/arkansas/title-27/subtitle-2/chapter-16/subchapter-8/section-27-16-811/
+    S17   AR-S18      sha256 e0b3f3a5ca66f1e0  https://www.dfa.arkansas.gov/wp-content/uploads/ACP_Affidavit-2.pdf
+
+.proofs
+    P0    ()
+    P1    (AR-EXAM-1, AR-EXAM-2, AR-EXAM-3, AR-EXAM-6, AR-EXAM-7)
+    P2    (AR-EXCL-1)
+    P3    (AR-CAP-4, AR-COV-1)
+    P4    (AR-CAP-4, AR-COV-1, AR-EXAM-5, AR-COLL-1)
+    P5    (AR-CAP-3, AR-COV-2)
+    P6    (AR-CAP-3, AR-COV-2, AR-EXAM-5, AR-COLL-1)
+    P7    (AR-COV-3)
+    P8    (AR-COV-3, AR-EXAM-5, AR-COLL-1)
+    P9    (AR-COV-5)
+    P10   (AR-COV-5, AR-EXAM-5, AR-COLL-1)
+    P11   (AR-COV-4)
+    P12   (AR-COV-4, AR-EXAM-5, AR-COLL-1)
+    P13   (AR-COV-6)
+    P14   (AR-COV-6, AR-EXAM-5, AR-COLL-1)
+    P15   (AR-EXCL-1, AR-EXCL-3)
+    P16   (AR-EXCL-3)
+    P17   (AR-COV-7)
+    P18   (AR-COV-7, AR-EXAM-5, AR-COLL-1)
+    P19   (AR-COV-8)
+    P20   (AR-COV-8, AR-EXAM-5, AR-COLL-1)
+    P21   (AR-CAP-5)
+    P22   (AR-CAP-5, AR-EXAM-5, AR-COLL-1)
+    P23   (AR-DEAD-1, AR-DEAD-2)
+    P24   (AR-EXAM-4, AR-REPORT-1, AR-REPORT-2)
+    P25   (AR-EXAM-5, AR-EMER-1, AR-COLL-1, AR-COND-1, AR-ELIG-1, AR-ELIG-2, AR-RES-1, AR-EXCL-2, AR-SUBMIT-1, AR-SUBMIT-2, AR-DOC-1, AR-DOC-2, AR-DOC-3, AR-DOC-4, AR-DOC-5, AR-DOC-6, AR-DOC-7, AR-ACP-1, AR-RECCONF-1)
+
+.ints
+    K0    250000        ; $2,500.00
+    K1    1000000       ; $10,000.00
+    K2    750000        ; $7,500.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L22
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L22
+                        case temporary_housing     -> L22
+                        case security              -> L26
+                        case crime_scene_cleanup   -> L22
+                        case childcare             -> L31
+                        case property_replacement  -> L36
+                        case clothing_bedding      -> L22
+                        case prescription          -> L40
+                        case dental                -> L45
+                        case funeral               -> L50
+                        case legal                 -> L22
+                        case tuition               -> L22
+                        case other                 -> L22
+                        case unknown               -> L22
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; AR-EXAM-1  A.C.A. 12-12-403(b)(1)  "(A) All victims shall be exempted from the payment of expenses..."
+              ; AR-EXAM-2  A.C.A. 12-12-403(c)(2)  "The licensed healthcare provider shall not submit any remaining..."
+              ; AR-EXAM-3  A.C.A. 12-12-403(c)(1)  "A licensed healthcare provider that performs a medical-legal..."
+              ; AR-EXAM-6  16 CAR 60-206(c)(2)-(3)  "The board may directly reimburse a medical care provider for..."
+              ; AR-EXAM-7  About CVRB page  "the Sexual Assault Reimbursement Program allows evidence to be..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; AR-EXAM-1, AR-EXAM-2, AR-EXAM-3, AR-EXAM-6, AR-EXAM-7
+  007b        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-CAP-4  16 CAR 60-210(a)(1)  "the Crime Victims Reparations Board will award up to sixty-five..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-1  A.C.A. 16-90-703(1)(A)(i)  "“Allowable expense” means charges incurred for needed..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; AR-EXCL-1
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; AR-CAP-4, AR-COV-1
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; AR-CAP-4, AR-COV-1, AR-EXAM-5, AR-COLL-1
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R4               ; AR-EXAM-5
+  00d9        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-CAP-3  16 CAR 60-211(a)(1)  "the Crime Victims Reparations Board will pay a maximum of two..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-2  16 CAR 60-202(2)(A)  "Mental health expenses incurred as a result of the criminally..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     1
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; AR-EXCL-1
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; AR-CAP-3, AR-COV-2
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; AR-CAP-3, AR-COV-2, AR-EXAM-5, AR-COLL-1
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R4               ; AR-EXAM-5
+  0137        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-3  A.C.A. 16-90-703(12)  "“Work loss” means loss of income from work the victim or..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     1
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; AR-EXCL-1
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; AR-COV-3
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; AR-COV-3, AR-EXAM-5, AR-COLL-1
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R4               ; AR-EXAM-5
+  0195        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-5  Application for Crime Victim Compensation, Section H  "Travel and lodging resulting from a criminal justice proceeding..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     1
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P2                 ; AR-EXCL-1
+  01cd        ret
+  01ce  L20:  ldi      confirmed
+  01d0        jnz      L21
+  01d5        push     0
+  01da        decide   needs_confirmation, P9       ; AR-COV-5
+  01de        ret
+  01df  L21:  ldi      amount_cents
+  01e1        decide   eligible, P10                ; AR-COV-5, AR-EXAM-5, AR-COLL-1
+  01e5        lda
+  01e6        ldi      insurance_paid_cents
+  01e8        subs
+  01e9        push     0
+  01ee        max
+  01ef        seta     collateral, R4               ; AR-EXAM-5
+  01f3        ret
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  01f4  L22:  push     0
+  01f9        str      r0
+  01fb        ldi      tags
+  01fd        push     1
+  0202        and
+  0203        jz       L23
+  0208        ldr      r0
+  020a        push     1
+  020f        or
+  0210        str      r0
+  0212  L23:  ldr      r0
+  0214        switch   2, default L25
+                        case 0                     -> L25
+                        case 1                     -> L24
+  0222  L24:  push     0
+  0227        decide   excluded, P2                 ; AR-EXCL-1
+  022b        ret
+  022c  L25:  push     0
+  0231        decide   unknown_rule, P0             ; (none)
+  0235        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-4  Application for Crime Victim Compensation, Section H  "Purchase and installation of locks and windows following a..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  0236  L26:  push     0
+  023b        str      r0
+  023d        ldi      tags
+  023f        push     1
+  0244        and
+  0245        jz       L27
+  024a        ldr      r0
+  024c        push     1
+  0251        or
+  0252        str      r0
+  0254  L27:  ldr      r0
+  0256        switch   2, default L29
+                        case 0                     -> L29
+                        case 1                     -> L28
+  0264  L28:  push     0
+  0269        decide   excluded, P2                 ; AR-EXCL-1
+  026d        ret
+  026e  L29:  ldi      confirmed
+  0270        jnz      L30
+  0275        push     0
+  027a        decide   needs_confirmation, P11      ; AR-COV-4
+  027e        ret
+  027f  L30:  ldi      amount_cents
+  0281        decide   eligible, P12                ; AR-COV-4, AR-EXAM-5, AR-COLL-1
+  0285        lda
+  0286        ldi      insurance_paid_cents
+  0288        subs
+  0289        push     0
+  028e        max
+  028f        seta     collateral, R4               ; AR-EXAM-5
+  0293        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-6  Application for Crime Victim Compensation, Section C  "Replacement Service Loss (child care, convalescent care, etc.)"
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  0294  L31:  push     0
+  0299        str      r0
+  029b        ldi      tags
+  029d        push     1
+  02a2        and
+  02a3        jz       L32
+  02a8        ldr      r0
+  02aa        push     1
+  02af        or
+  02b0        str      r0
+  02b2  L32:  ldr      r0
+  02b4        switch   2, default L34
+                        case 0                     -> L34
+                        case 1                     -> L33
+  02c2  L33:  push     0
+  02c7        decide   excluded, P2                 ; AR-EXCL-1
+  02cb        ret
+  02cc  L34:  ldi      confirmed
+  02ce        jnz      L35
+  02d3        push     0
+  02d8        decide   needs_confirmation, P13      ; AR-COV-6
+  02dc        ret
+  02dd  L35:  ldi      amount_cents
+  02df        decide   eligible, P14                ; AR-COV-6, AR-EXAM-5, AR-COLL-1
+  02e3        lda
+  02e4        ldi      insurance_paid_cents
+  02e6        subs
+  02e7        push     0
+  02ec        max
+  02ed        seta     collateral, R4               ; AR-EXAM-5
+  02f1        ret
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+              ; AR-EXCL-3  Application for Crime Victim Compensation, Section G  "Property replacement is prohibited."
+  02f2  L36:  push     0
+  02f7        str      r0
+  02f9        ldi      tags
+  02fb        push     1
+  0300        and
+  0301        jz       L37
+  0306        ldr      r0
+  0308        push     1
+  030d        or
+  030e        str      r0
+  0310  L37:  ldr      r0
+  0312        switch   2, default L39
+                        case 0                     -> L39
+                        case 1                     -> L38
+  0320  L38:  push     0
+  0325        decide   excluded, P15                ; AR-EXCL-1, AR-EXCL-3
+  0329        ret
+  032a  L39:  push     0
+  032f        decide   excluded, P16                ; AR-EXCL-3
+  0333        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-7  Application for Crime Victim Compensation, Section C  "List all medical expenses incurred as a result of crime related..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  0334  L40:  push     0
+  0339        str      r0
+  033b        ldi      tags
+  033d        push     1
+  0342        and
+  0343        jz       L41
+  0348        ldr      r0
+  034a        push     1
+  034f        or
+  0350        str      r0
+  0352  L41:  ldr      r0
+  0354        switch   2, default L43
+                        case 0                     -> L43
+                        case 1                     -> L42
+  0362  L42:  push     0
+  0367        decide   excluded, P2                 ; AR-EXCL-1
+  036b        ret
+  036c  L43:  ldi      confirmed
+  036e        jnz      L44
+  0373        push     0
+  0378        decide   needs_confirmation, P17      ; AR-COV-7
+  037c        ret
+  037d  L44:  ldi      amount_cents
+  037f        decide   eligible, P18                ; AR-COV-7, AR-EXAM-5, AR-COLL-1
+  0383        lda
+  0384        ldi      insurance_paid_cents
+  0386        subs
+  0387        push     0
+  038c        max
+  038d        seta     collateral, R4               ; AR-EXAM-5
+  0391        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COV-8  Application for Crime Victim Compensation, Section C  "Dental Care"
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  0392  L45:  push     0
+  0397        str      r0
+  0399        ldi      tags
+  039b        push     1
+  03a0        and
+  03a1        jz       L46
+  03a6        ldr      r0
+  03a8        push     1
+  03ad        or
+  03ae        str      r0
+  03b0  L46:  ldr      r0
+  03b2        switch   2, default L48
+                        case 0                     -> L48
+                        case 1                     -> L47
+  03c0  L47:  push     0
+  03c5        decide   excluded, P2                 ; AR-EXCL-1
+  03c9        ret
+  03ca  L48:  ldi      confirmed
+  03cc        jnz      L49
+  03d1        push     0
+  03d6        decide   needs_confirmation, P19      ; AR-COV-8
+  03da        ret
+  03db  L49:  ldi      amount_cents
+  03dd        decide   eligible, P20                ; AR-COV-8, AR-EXAM-5, AR-COLL-1
+  03e1        lda
+  03e2        ldi      insurance_paid_cents
+  03e4        subs
+  03e5        push     0
+  03ea        max
+  03eb        seta     collateral, R4               ; AR-EXAM-5
+  03ef        ret
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-CAP-5  16 CAR 60-205(b)(1)  "Compensation for funeral expenses of deceased victims may not..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-EXCL-1  CVRB home page  "This program does not cover property crimes nor pain and..."
+  03f0  L50:  push     0
+  03f5        str      r0
+  03f7        ldi      tags
+  03f9        push     1
+  03fe        and
+  03ff        jz       L51
+  0404        ldr      r0
+  0406        push     1
+  040b        or
+  040c        str      r0
+  040e  L51:  ldr      r0
+  0410        switch   2, default L53
+                        case 0                     -> L53
+                        case 1                     -> L52
+  041e  L52:  push     0
+  0423        decide   excluded, P2                 ; AR-EXCL-1
+  0427        ret
+  0428  L53:  ldi      confirmed
+  042a        jnz      L54
+  042f        push     0
+  0434        decide   needs_confirmation, P21      ; AR-CAP-5
+  0438        ret
+  0439  L54:  ldi      amount_cents
+  043b        decide   eligible, P22                ; AR-CAP-5, AR-EXAM-5, AR-COLL-1
+  043f        lda
+  0440        ldi      insurance_paid_cents
+  0442        subs
+  0443        push     0
+  0448        max
+  0449        seta     collateral, R4               ; AR-EXAM-5
+  044d        ret
+
+.aggregate
+              ; AR-CAP-3  16 CAR 60-211(a)(1)  "the Crime Victims Reparations Board will pay a maximum of two..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     counseling, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $2,500.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $2,500.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R9              ; AR-CAP-3
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R9              ; AR-CAP-3
+  004d  L3:   next     L0
+              ; AR-CAP-4  16 CAR 60-210(a)(1)  "the Crime Victims Reparations Board will award up to sixty-five..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     medical, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $10,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $10,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R10             ; AR-CAP-4
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R10             ; AR-CAP-4
+  009f  L8:   next     L5
+              ; AR-CAP-5  16 CAR 60-205(b)(1)  "Compensation for funeral expenses of deceased victims may not..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     funeral, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K2                           ; $7,500.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K2                           ; $7,500.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R11             ; AR-CAP-5
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R11             ; AR-CAP-5
+  00f1  L13:  next     L10
+              ; AR-CAP-1  A.C.A. 16-90-716(a)(1)  "Reparations payable to a victim and to all other claimants..."
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        push     0
+  0102        str      r1
+  0104        each     all, L19
+  010a  L15:  ldr      r1
+  010c        jnz      L17
+  0111        ldr      r0
+  0113        lda
+  0114        adds
+  0115        ldk      K1                           ; $10,000.00
+  0118        gt
+  0119        jz       L16
+  011e        ldk      K1                           ; $10,000.00
+  0121        ldr      r0
+  0123        subs
+  0124        cap      total_cap, R7                ; AR-CAP-1
+  0128        push     1
+  012d        str      r1
+  012f  L16:  ldr      r0
+  0131        lda
+  0132        adds
+  0133        str      r0
+  0135        jmp      L18
+  013a  L17:  push     0
+  013f        cap      total_cap, R7                ; AR-CAP-1
+  0143  L18:  next     L15
+  0148  L19:  push     0                            ; met
+  014d        check    minimum_loss, P0             ; (none)
+              ; AR-DEAD-1  A.C.A. 16-90-712(a)(1)(A), as amended by Act 666 of 2025  "Unless the claim has been filed with the Crime Victims..."
+  0151        ldx      incident_date
+  0153        push     1826
+  0158        adds
+              ; AR-DEAD-2  A.C.A. 16-90-712(a)(1)(B), as amended by Act 666 of 2025  "If the victim is a minor, the claim is filed within five (5)..."
+  0159        ldx      incident_date
+  015b        push     1826
+  0160        adds
+  0161        max
+  0162        dup
+  0163        setdate
+  0164        ldx      as_of_date
+  0166        ge
+  0167        jz       L20
+  016c        push     0
+  0171        jmp      L21
+  0176  L20:  push     1                            ; late
+  017b  L21:  check    deadline, P23                ; AR-DEAD-1, AR-DEAD-2
+              ; AR-EXAM-4  A.C.A. 12-12-403(b)(2)(A)  "This subsection does not require a victim of sexual assault to..."
+              ; AR-REPORT-1  A.C.A. 16-90-712(a)(6)  "Unless the criminally injurious conduct resulting in injury or..."
+              ; AR-REPORT-2  16 CAR 60-203(c)(2)  "Good cause shall include, but not be limited to, the: (A)..."
+  017f        ldx      police_report
+  0181        push     1                            ; yes
+  0186        eq
+  0187        jnz      L23
+  018c        ldx      police_report
+  018e        push     0                            ; no
+  0193        eq
+  0194        jnz      L22
+  0199        push     3
+  019e        jmp      L24
+  01a3  L22:  push     1
+  01a8        jmp      L24
+  01ad  L23:  push     0                            ; satisfied
+  01b2  L24:  check    reporting, P24               ; AR-EXAM-4, AR-REPORT-1, AR-REPORT-2
+              ; AR-EXAM-5  16 CAR 60-303  "Medical-legal examination bills will be denied or diminished to..."
+              ; AR-EMER-1  16 CAR 60-207(b)(1)  "The amount of such advance (emergency) award shall not exceed..."
+              ; AR-COLL-1  A.C.A. 16-90-712(b)(1)  "Reparations otherwise payable to a claimant shall be diminished..."
+              ; AR-COND-1  A.C.A. 16-90-712(b)(2)  "Of the degree of responsibility for the cause of the injury or..."
+              ; AR-ELIG-1  A.C.A. 16-90-703(10)  "“Personal injury” means actual bodily harm, including..."
+              ; AR-ELIG-2  A.C.A. 16-90-703(11)(B)(ii)  "Is an immediate family member of a deceased victim, a victim of..."
+              ; AR-RES-1  A.C.A. 16-90-703(11)(A)  "“Victim” means a person who suffers personal injury or death..."
+              ; AR-EXCL-2  A.C.A. 16-90-703(7)  "“Economic loss” means monetary detriment consisting of..."
+              ; AR-SUBMIT-1  CVRB home page, Crime Victim Compensation Application  "We offer an ONLINE APPLICATION process for Victim Compensation!..."
+              ; AR-SUBMIT-2  About CVRB page, applying and Contact CVRB  "Victims may apply for compensation by submitting an application..."
+              ; AR-DOC-1  Application, Section B, Crime Information  "NOTE: You must attach a copy of the law-enforcement agency's..."
+              ; AR-DOC-2  Application, Section C, Request for Medical Treatment/Mental-Health Counseling  "NOTE: In addition to completing this section, you must attach..."
+              ; AR-DOC-3  Application, Section D, Request for Lost Wages  "Attach a copy of your most recent pay stub from your employer...."
+              ; AR-DOC-4  Application, Section D, Request for Lost Wages  "You must also provide the complete name and address of the..."
+              ; AR-DOC-5  Application, Section E, Request for Funeral/Burial Expenses  "NOTE: You must submit a copy of the funeral bill and the death..."
+              ; AR-DOC-6  Application, Section F, Request for Loss of Support  "NOTE: You must attach copies of the deceased victim's last three..."
+              ; AR-DOC-7  Application, Section G, Request for Assistance with Crime Scene Clean Up  "Receipts or supporting documentation must be attached to this..."
+              ; AR-ACP-1  DFA Address Confidentiality Program page, Program Description  "The Address Confidentiality Program is a free program..."
+              ; AR-RECCONF-1  A.C.A. 16-90-711  "When submitted to the Crime Victims Reparations Board as part of..."
+  01b6        info     P25                          ; AR-EXAM-5, AR-EMER-1, AR-COLL-1, AR-COND-1, AR-ELIG-1, AR-ELIG-2, AR-RES-1, AR-EXCL-2, AR-SUBMIT-1, AR-SUBMIT-2, AR-DOC-1, AR-DOC-2, AR-DOC-3, AR-DOC-4, AR-DOC-5, AR-DOC-6, AR-DOC-7, AR-ACP-1, AR-RECCONF-1
+  01b9        ret
+

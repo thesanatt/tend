@@ -1,0 +1,881 @@
+; tend law image NM, New Mexico
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 4bc2a5eae1decc2b1cefaeac64be243580c2a40ba71059c0cf72ab24c5917b77
+; image sha256  658325ac84a2780336782415d5f46b71a67bf944d9454846a282372a21516921
+; 46 rules, 17 sources, 35 proofs, 3 ints, 297 strings
+; item program: 500 instructions, 1783 bytes, max stack 2
+; aggregate program: 105 instructions, 328 bytes, max stack 2, 3 loops
+
+.rules
+    R0    NM-EXAM-1             exam_no_bill  -                                             NMSA 1978, Section 30-9-21(B)
+    R1    NM-EXAM-2             exam_payment  -                                             NMSA 1978, Section 29-11-7
+    R2    NM-EXAM-3             exam_payment  -                                             NMSA 1978, Section 29-11-7(C)(1)-(2)
+    R3    NM-CAP-1              total_cap     -                                             NMSA 1978, Section 31-22-14(B)
+    R4    NM-CAP-3              expense_cap   funeral               per claim               10.40.2.10(E) NMAC
+    R5    NM-CAP-5              expense_cap   other                 per claim               10.40.2.10(K)(2) NMAC
+    R6    NM-COV-1              covered       medical                                       NMSA 1978, Section 31-22-9(A)
+    R7    NM-COV-2              covered       counseling                                    CVRC Compensation FAQ, What are the types of reparation?
+    R8    NM-COV-3              covered       lost_wages                                    NMSA 1978, Section 31-22-9(B)
+    R9    NM-COV-4              covered       lost_wages                                    10.40.2.10(G) NMAC
+    R10   NM-COV-5              covered       transportation                                10.40.2.10(M) NMAC
+    R11   NM-COV-6              covered       dental                                        CVRC Compensation FAQ, What are the types of reparation?
+    R12   NM-COV-7              covered       crime_scene_cleanup                           CVRC Application, Section 6 (Potentially Eligible Expenses)
+    R13   NM-COV-8              covered       prescription                                  CVRC Application, Section 6 (Potentially Eligible Expenses)
+    R14   NM-COV-9              covered       transportation                                10.40.2.10(N) NMAC
+    R15   NM-EXC-1              excluded      property_replacement                          NMSA 1978, Section 31-22-8(B)
+    R16   NM-EXC-2              excluded      -                                             CVRC Compensation FAQ, What are the types of reparation?
+    R17   NM-EXC-3              excluded      legal                                         NMSA 1978, Section 31-22-6(B)
+    R18   NM-EXC-4              excluded      -                                             10.40.2.10(P) NMAC
+    R19   NM-DEAD-1             deadline      -                                             NMSA 1978, Section 31-22-14(A)
+    R20   NM-REPORT-1           reporting     -                                             NMSA 1978, Section 31-22-7(D)
+    R21   NM-REPORT-2           reporting     -                                             NMSA 1978, Section 31-22-7(D)(3)
+    R22   NM-COLL-1             collateral    -                                             NMSA 1978, Section 31-22-14(C)
+    R23   NM-COLL-2             collateral    -                                             10.40.2.10(I) NMAC
+    R24   NM-CONDUCT-1          info          -                     conduct_reduction       NMSA 1978, Section 31-22-7(C)
+    R25   NM-EMERG-1            info          -                     emergency_award         NMSA 1978, Section 31-22-14(E)
+    R26   NM-CRIME-1            info          -                     eligible_crime          NMSA 1978, Section 31-22-8(A)(9)-(10)
+    R27   NM-CRIME-2            info          -                     eligible_crime          NMSA 1978, Section 31-22-3(F)
+    R28   NM-RES-1              info          -                     residency               NMSA 1978, Section 31-22-3(I)
+    R29   NM-SUBMIT-1           info          -                     submission              CVRC online application portal, home page
+    R30   NM-SUBMIT-2           info          -                     submission              Compensation Application page, How do I apply?
+    R31   NM-SUBMIT-3           info          -                     submission              Compensation Application page, How do I apply?
+    R32   NM-DOC-1              info          -                     required_document       Application, Section 4
+    R33   NM-DOC-2              info          -                     required_document       Compensation Application page, What happens after I send my application?
+    R34   NM-DOC-3              info          -                     required_document       10.40.2.10(C) NMAC
+    R35   NM-DOC-4              info          -                     required_document       10.40.2.10(G)(2) NMAC
+    R36   NM-DOC-5              info          -                     required_document       10.40.2.10(G)(1) NMAC
+    R37   NM-DOC-6              info          -                     required_document       10.40.2.10(J)(1) NMAC
+    R38   NM-DOC-7              info          -                     required_document       Application, Section 1
+    R39   NM-DOC-8              info          -                     required_document       Application, Section 1
+    R40   NM-DOC-9              info          -                     required_document       Application, Acknowledgement and Authorization
+    R41   NM-PROC-1             info          -                     processing_time         Compensation Application page, What happens after I send my application?
+    R42   NM-ACP-1              info          -                     address_confidentiality Safe at Home program page, program description; enrollment steps from the Eligibility, FAQs & Resources page (NM-S16), How to Apply
+    R43   NM-RECCONF-1          info          -                     record_confidentiality  10.40.2.14 NMAC, Confidentiality
+    R44   NM-CAP-2              skipped       -                     expense_cap             10.40.2.10(J)(5) NMAC  ; expense_cap without amount or expense
+    R45   NM-CAP-4              skipped       -                     expense_cap             10.40.2.10(F) NMAC  ; less generous duplicate of NM-CAP-5
+
+.tags   pain_suffering=bit0, phone=bit1
+
+.sources
+    S0    NM-S1       sha256 04a8984dcd0c25b0  https://www.cvrc.nm.gov/for-victims/cvrc-application/
+    S1    NM-S2       sha256 9d28372ed63d2445  https://www.cvrc.nm.gov/wp-content/uploads/2026/03/102025-English-Brochure.pdf
+    S2    NM-S3       sha256 70ef95c974870e68  https://www.cvrc.nm.gov/wp-content/uploads/2025/02/Compensation-Application-in-English-Fillable-022025-1.pdf
+    S3    NM-S4       sha256 3d2b2b0ee823394f  https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-7/
+    S4    NM-S5       sha256 a3a42031ce38e6a7  https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-3/
+    S5    NM-S6       sha256 f035480e1e944a8e  https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-8/
+    S6    NM-S7       sha256 0697ef14fa078d29  https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-9/
+    S7    NM-S8       sha256 43fa9bd3beb80a1c  https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-14/
+    S8    NM-S9       sha256 e33bf5386dd731d7  https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-6/
+    S9    NM-S10      sha256 59ca7ff4c299ae57  https://law.justia.com/codes/new-mexico/chapter-30/article-9/section-30-9-21/
+    S10   NM-S11      sha256 61cae1bc5f71c762  https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/
+    S11   NM-S12      sha256 c70a5798bfca1130  https://www.srca.nm.gov/parts/title10/10.040.0002.html
+    S12   NM-S13      sha256 1688efbf0f0baad7  https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-3/
+    S13   NM-S14      sha256 3955ea85f6ddbb37  https://cvcapp.cvrc.nm.gov
+    S14   NM-S15      sha256 4c4869abaeef117b  https://www.sos.nm.gov/safe-at-home/
+    S15   NM-S16      sha256 0e25bd40a6b73d43  https://www.sos.nm.gov/safe-at-home/safe-at-home-eligibility-faqs-and-resources/
+    S16   NM-S17      sha256 958bc73a9e548c2d  https://law.justia.com/codes/new-mexico/chapter-40/article-13b/section-40-13b-3/
+
+.proofs
+    P0    ()
+    P1    (NM-EXAM-1, NM-EXAM-2, NM-EXAM-3)
+    P2    (NM-EXC-2)
+    P3    (NM-EXC-4)
+    P4    (NM-EXC-2, NM-EXC-4)
+    P5    (NM-COV-1)
+    P6    (NM-COV-1, NM-COLL-1, NM-COLL-2)
+    P7    (NM-COV-2)
+    P8    (NM-COV-2, NM-COLL-1, NM-COLL-2)
+    P9    (NM-COV-3, NM-COV-4)
+    P10   (NM-COV-3, NM-COV-4, NM-COLL-1, NM-COLL-2)
+    P11   (NM-COV-5, NM-COV-9)
+    P12   (NM-COV-5, NM-COV-9, NM-COLL-1, NM-COLL-2)
+    P13   (NM-COV-7)
+    P14   (NM-COV-7, NM-COLL-1, NM-COLL-2)
+    P15   (NM-EXC-1, NM-EXC-2)
+    P16   (NM-EXC-1, NM-EXC-4)
+    P17   (NM-EXC-1, NM-EXC-2, NM-EXC-4)
+    P18   (NM-EXC-1)
+    P19   (NM-COV-8)
+    P20   (NM-COV-8, NM-COLL-1, NM-COLL-2)
+    P21   (NM-COV-6)
+    P22   (NM-COV-6, NM-COLL-1, NM-COLL-2)
+    P23   (NM-CAP-3)
+    P24   (NM-CAP-3, NM-COLL-1, NM-COLL-2)
+    P25   (NM-EXC-2, NM-EXC-3)
+    P26   (NM-EXC-3, NM-EXC-4)
+    P27   (NM-EXC-2, NM-EXC-3, NM-EXC-4)
+    P28   (NM-EXC-3)
+    P29   (NM-CAP-4)
+    P30   (NM-CAP-5)
+    P31   (NM-CAP-5, NM-COLL-1, NM-COLL-2)
+    P32   (NM-DEAD-1)
+    P33   (NM-REPORT-1, NM-REPORT-2)
+    P34   (NM-COLL-1, NM-COLL-2, NM-CONDUCT-1, NM-EMERG-1, NM-CRIME-1, NM-CRIME-2, NM-RES-1, NM-SUBMIT-1, NM-SUBMIT-2, NM-SUBMIT-3, NM-DOC-1, NM-DOC-2, NM-DOC-3, NM-DOC-4, NM-DOC-5, NM-DOC-6, NM-DOC-7, NM-DOC-8, NM-DOC-9, NM-PROC-1, NM-ACP-1, NM-RECCONF-1)
+
+.ints
+    K0    600000        ; $6,000.00
+    K1    300000        ; $3,000.00
+    K2    2000000       ; $20,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L34
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L10
+                        case lost_wages            -> L18
+                        case transportation        -> L26
+                        case relocation            -> L34
+                        case temporary_housing     -> L34
+                        case security              -> L34
+                        case crime_scene_cleanup   -> L41
+                        case childcare             -> L34
+                        case property_replacement  -> L49
+                        case clothing_bedding      -> L34
+                        case prescription          -> L56
+                        case dental                -> L64
+                        case funeral               -> L72
+                        case legal                 -> L80
+                        case tuition               -> L34
+                        case other                 -> L87
+                        case unknown               -> L34
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; NM-EXAM-1  NMSA 1978, Section 30-9-21(B)  "No costs incurred by a health care provider for the collection..."
+              ; NM-EXAM-2  NMSA 1978, Section 29-11-7  "The administrator shall: A. provide free forensic medical exams..."
+              ; NM-EXAM-3  NMSA 1978, Section 29-11-7(C)(1)-(2)  "the reimbursement covers the full cost of the forensic medical..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; NM-EXAM-1, NM-EXAM-2, NM-EXAM-3
+  007b        ret
+              ; NM-COV-1  NMSA 1978, Section 31-22-9(A)  "The commission may order payment of reparation for: A. expenses..."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldi      tags
+  009c        push     2
+  00a1        and
+  00a2        jz       L4
+  00a7        ldr      r0
+  00a9        push     2
+  00ae        or
+  00af        str      r0
+  00b1  L4:   ldr      r0
+  00b3        switch   4, default L8
+                        case 0                     -> L8
+                        case 1                     -> L5
+                        case 2                     -> L6
+                        case 3                     -> L7
+  00c9  L5:   push     0
+  00ce        decide   excluded, P2                 ; NM-EXC-2
+  00d2        ret
+  00d3  L6:   push     0
+  00d8        decide   excluded, P3                 ; NM-EXC-4
+  00dc        ret
+  00dd  L7:   push     0
+  00e2        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  00e6        ret
+  00e7  L8:   ldi      confirmed
+  00e9        jnz      L9
+  00ee        push     0
+  00f3        decide   needs_confirmation, P5       ; NM-COV-1
+  00f7        ret
+  00f8  L9:   ldi      amount_cents
+  00fa        decide   eligible, P6                 ; NM-COV-1, NM-COLL-1, NM-COLL-2
+  00fe        lda
+  00ff        ldi      insurance_paid_cents
+  0101        subs
+  0102        push     0
+  0107        max
+  0108        seta     collateral, R22              ; NM-COLL-1
+  010c        ret
+              ; NM-COV-2  CVRC Compensation FAQ, What are the types of reparation?  "Medical and dental care; Mental health counseling; (30 session..."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  010d  L10:  push     0
+  0112        str      r0
+  0114        ldi      tags
+  0116        push     1
+  011b        and
+  011c        jz       L11
+  0121        ldr      r0
+  0123        push     1
+  0128        or
+  0129        str      r0
+  012b  L11:  ldi      tags
+  012d        push     2
+  0132        and
+  0133        jz       L12
+  0138        ldr      r0
+  013a        push     2
+  013f        or
+  0140        str      r0
+  0142  L12:  ldr      r0
+  0144        switch   4, default L16
+                        case 0                     -> L16
+                        case 1                     -> L13
+                        case 2                     -> L14
+                        case 3                     -> L15
+  015a  L13:  push     0
+  015f        decide   excluded, P2                 ; NM-EXC-2
+  0163        ret
+  0164  L14:  push     0
+  0169        decide   excluded, P3                 ; NM-EXC-4
+  016d        ret
+  016e  L15:  push     0
+  0173        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  0177        ret
+  0178  L16:  ldi      confirmed
+  017a        jnz      L17
+  017f        push     0
+  0184        decide   needs_confirmation, P7       ; NM-COV-2
+  0188        ret
+  0189  L17:  ldi      amount_cents
+  018b        decide   eligible, P8                 ; NM-COV-2, NM-COLL-1, NM-COLL-2
+  018f        lda
+  0190        ldi      insurance_paid_cents
+  0192        subs
+  0193        push     0
+  0198        max
+  0199        seta     collateral, R22              ; NM-COLL-1
+  019d        ret
+              ; NM-COV-3  NMSA 1978, Section 31-22-9(B)  "B. loss to the victim of earning power as a result of total or..."
+              ; NM-COV-4  10.40.2.10(G) NMAC  "Loss of wages may be paid to the victim, claimant, and/or, in..."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  019e  L18:  push     0
+  01a3        str      r0
+  01a5        ldi      tags
+  01a7        push     1
+  01ac        and
+  01ad        jz       L19
+  01b2        ldr      r0
+  01b4        push     1
+  01b9        or
+  01ba        str      r0
+  01bc  L19:  ldi      tags
+  01be        push     2
+  01c3        and
+  01c4        jz       L20
+  01c9        ldr      r0
+  01cb        push     2
+  01d0        or
+  01d1        str      r0
+  01d3  L20:  ldr      r0
+  01d5        switch   4, default L24
+                        case 0                     -> L24
+                        case 1                     -> L21
+                        case 2                     -> L22
+                        case 3                     -> L23
+  01eb  L21:  push     0
+  01f0        decide   excluded, P2                 ; NM-EXC-2
+  01f4        ret
+  01f5  L22:  push     0
+  01fa        decide   excluded, P3                 ; NM-EXC-4
+  01fe        ret
+  01ff  L23:  push     0
+  0204        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  0208        ret
+  0209  L24:  ldi      confirmed
+  020b        jnz      L25
+  0210        push     0
+  0215        decide   needs_confirmation, P9       ; NM-COV-3, NM-COV-4
+  0219        ret
+  021a  L25:  ldi      amount_cents
+  021c        decide   eligible, P10                ; NM-COV-3, NM-COV-4, NM-COLL-1, NM-COLL-2
+  0220        lda
+  0221        ldi      insurance_paid_cents
+  0223        subs
+  0224        push     0
+  0229        max
+  022a        seta     collateral, R22              ; NM-COLL-1
+  022e        ret
+              ; NM-COV-5  10.40.2.10(M) NMAC  "Gas expenses to transport the victim to a health provider may be..."
+              ; NM-COV-9  10.40.2.10(N) NMAC  "The distance traveled shall be more than thirty miles one way..."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  022f  L26:  push     0
+  0234        str      r0
+  0236        ldi      tags
+  0238        push     1
+  023d        and
+  023e        jz       L27
+  0243        ldr      r0
+  0245        push     1
+  024a        or
+  024b        str      r0
+  024d  L27:  ldi      tags
+  024f        push     2
+  0254        and
+  0255        jz       L28
+  025a        ldr      r0
+  025c        push     2
+  0261        or
+  0262        str      r0
+  0264  L28:  ldr      r0
+  0266        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  027c  L29:  push     0
+  0281        decide   excluded, P2                 ; NM-EXC-2
+  0285        ret
+  0286  L30:  push     0
+  028b        decide   excluded, P3                 ; NM-EXC-4
+  028f        ret
+  0290  L31:  push     0
+  0295        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  0299        ret
+  029a  L32:  ldi      confirmed
+  029c        jnz      L33
+  02a1        push     0
+  02a6        decide   needs_confirmation, P11      ; NM-COV-5, NM-COV-9
+  02aa        ret
+  02ab  L33:  ldi      amount_cents
+  02ad        decide   eligible, P12                ; NM-COV-5, NM-COV-9, NM-COLL-1, NM-COLL-2
+  02b1        lda
+  02b2        ldi      insurance_paid_cents
+  02b4        subs
+  02b5        push     0
+  02ba        max
+  02bb        seta     collateral, R22              ; NM-COLL-1
+  02bf        ret
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+  02c0  L34:  push     0
+  02c5        str      r0
+  02c7        ldi      tags
+  02c9        push     1
+  02ce        and
+  02cf        jz       L35
+  02d4        ldr      r0
+  02d6        push     1
+  02db        or
+  02dc        str      r0
+  02de  L35:  ldi      tags
+  02e0        push     2
+  02e5        and
+  02e6        jz       L36
+  02eb        ldr      r0
+  02ed        push     2
+  02f2        or
+  02f3        str      r0
+  02f5  L36:  ldr      r0
+  02f7        switch   4, default L40
+                        case 0                     -> L40
+                        case 1                     -> L37
+                        case 2                     -> L38
+                        case 3                     -> L39
+  030d  L37:  push     0
+  0312        decide   excluded, P2                 ; NM-EXC-2
+  0316        ret
+  0317  L38:  push     0
+  031c        decide   excluded, P3                 ; NM-EXC-4
+  0320        ret
+  0321  L39:  push     0
+  0326        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  032a        ret
+  032b  L40:  push     0
+  0330        decide   unknown_rule, P0             ; (none)
+  0334        ret
+              ; NM-COV-7  CVRC Application, Section 6 (Potentially Eligible Expenses)  "Crime Scene Cleanup"
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  0335  L41:  push     0
+  033a        str      r0
+  033c        ldi      tags
+  033e        push     1
+  0343        and
+  0344        jz       L42
+  0349        ldr      r0
+  034b        push     1
+  0350        or
+  0351        str      r0
+  0353  L42:  ldi      tags
+  0355        push     2
+  035a        and
+  035b        jz       L43
+  0360        ldr      r0
+  0362        push     2
+  0367        or
+  0368        str      r0
+  036a  L43:  ldr      r0
+  036c        switch   4, default L47
+                        case 0                     -> L47
+                        case 1                     -> L44
+                        case 2                     -> L45
+                        case 3                     -> L46
+  0382  L44:  push     0
+  0387        decide   excluded, P2                 ; NM-EXC-2
+  038b        ret
+  038c  L45:  push     0
+  0391        decide   excluded, P3                 ; NM-EXC-4
+  0395        ret
+  0396  L46:  push     0
+  039b        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  039f        ret
+  03a0  L47:  ldi      confirmed
+  03a2        jnz      L48
+  03a7        push     0
+  03ac        decide   needs_confirmation, P13      ; NM-COV-7
+  03b0        ret
+  03b1  L48:  ldi      amount_cents
+  03b3        decide   eligible, P14                ; NM-COV-7, NM-COLL-1, NM-COLL-2
+  03b7        lda
+  03b8        ldi      insurance_paid_cents
+  03ba        subs
+  03bb        push     0
+  03c0        max
+  03c1        seta     collateral, R22              ; NM-COLL-1
+  03c5        ret
+              ; NM-EXC-1  NMSA 1978, Section 31-22-8(B)  "B. No award shall be made for any loss or damage to property."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+  03c6  L49:  push     0
+  03cb        str      r0
+  03cd        ldi      tags
+  03cf        push     1
+  03d4        and
+  03d5        jz       L50
+  03da        ldr      r0
+  03dc        push     1
+  03e1        or
+  03e2        str      r0
+  03e4  L50:  ldi      tags
+  03e6        push     2
+  03eb        and
+  03ec        jz       L51
+  03f1        ldr      r0
+  03f3        push     2
+  03f8        or
+  03f9        str      r0
+  03fb  L51:  ldr      r0
+  03fd        switch   4, default L55
+                        case 0                     -> L55
+                        case 1                     -> L52
+                        case 2                     -> L53
+                        case 3                     -> L54
+  0413  L52:  push     0
+  0418        decide   excluded, P15                ; NM-EXC-1, NM-EXC-2
+  041c        ret
+  041d  L53:  push     0
+  0422        decide   excluded, P16                ; NM-EXC-1, NM-EXC-4
+  0426        ret
+  0427  L54:  push     0
+  042c        decide   excluded, P17                ; NM-EXC-1, NM-EXC-2, NM-EXC-4
+  0430        ret
+  0431  L55:  push     0
+  0436        decide   excluded, P18                ; NM-EXC-1
+  043a        ret
+              ; NM-COV-8  CVRC Application, Section 6 (Potentially Eligible Expenses)  "Prescriptions"
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  043b  L56:  push     0
+  0440        str      r0
+  0442        ldi      tags
+  0444        push     1
+  0449        and
+  044a        jz       L57
+  044f        ldr      r0
+  0451        push     1
+  0456        or
+  0457        str      r0
+  0459  L57:  ldi      tags
+  045b        push     2
+  0460        and
+  0461        jz       L58
+  0466        ldr      r0
+  0468        push     2
+  046d        or
+  046e        str      r0
+  0470  L58:  ldr      r0
+  0472        switch   4, default L62
+                        case 0                     -> L62
+                        case 1                     -> L59
+                        case 2                     -> L60
+                        case 3                     -> L61
+  0488  L59:  push     0
+  048d        decide   excluded, P2                 ; NM-EXC-2
+  0491        ret
+  0492  L60:  push     0
+  0497        decide   excluded, P3                 ; NM-EXC-4
+  049b        ret
+  049c  L61:  push     0
+  04a1        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  04a5        ret
+  04a6  L62:  ldi      confirmed
+  04a8        jnz      L63
+  04ad        push     0
+  04b2        decide   needs_confirmation, P19      ; NM-COV-8
+  04b6        ret
+  04b7  L63:  ldi      amount_cents
+  04b9        decide   eligible, P20                ; NM-COV-8, NM-COLL-1, NM-COLL-2
+  04bd        lda
+  04be        ldi      insurance_paid_cents
+  04c0        subs
+  04c1        push     0
+  04c6        max
+  04c7        seta     collateral, R22              ; NM-COLL-1
+  04cb        ret
+              ; NM-COV-6  CVRC Compensation FAQ, What are the types of reparation?  "can be made for the following: Medical and dental care;"
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  04cc  L64:  push     0
+  04d1        str      r0
+  04d3        ldi      tags
+  04d5        push     1
+  04da        and
+  04db        jz       L65
+  04e0        ldr      r0
+  04e2        push     1
+  04e7        or
+  04e8        str      r0
+  04ea  L65:  ldi      tags
+  04ec        push     2
+  04f1        and
+  04f2        jz       L66
+  04f7        ldr      r0
+  04f9        push     2
+  04fe        or
+  04ff        str      r0
+  0501  L66:  ldr      r0
+  0503        switch   4, default L70
+                        case 0                     -> L70
+                        case 1                     -> L67
+                        case 2                     -> L68
+                        case 3                     -> L69
+  0519  L67:  push     0
+  051e        decide   excluded, P2                 ; NM-EXC-2
+  0522        ret
+  0523  L68:  push     0
+  0528        decide   excluded, P3                 ; NM-EXC-4
+  052c        ret
+  052d  L69:  push     0
+  0532        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  0536        ret
+  0537  L70:  ldi      confirmed
+  0539        jnz      L71
+  053e        push     0
+  0543        decide   needs_confirmation, P21      ; NM-COV-6
+  0547        ret
+  0548  L71:  ldi      amount_cents
+  054a        decide   eligible, P22                ; NM-COV-6, NM-COLL-1, NM-COLL-2
+  054e        lda
+  054f        ldi      insurance_paid_cents
+  0551        subs
+  0552        push     0
+  0557        max
+  0558        seta     collateral, R22              ; NM-COLL-1
+  055c        ret
+              ; NM-CAP-3  10.40.2.10(E) NMAC  "Awards for funeral expenses shall not exceed six thousand..."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  055d  L72:  push     0
+  0562        str      r0
+  0564        ldi      tags
+  0566        push     1
+  056b        and
+  056c        jz       L73
+  0571        ldr      r0
+  0573        push     1
+  0578        or
+  0579        str      r0
+  057b  L73:  ldi      tags
+  057d        push     2
+  0582        and
+  0583        jz       L74
+  0588        ldr      r0
+  058a        push     2
+  058f        or
+  0590        str      r0
+  0592  L74:  ldr      r0
+  0594        switch   4, default L78
+                        case 0                     -> L78
+                        case 1                     -> L75
+                        case 2                     -> L76
+                        case 3                     -> L77
+  05aa  L75:  push     0
+  05af        decide   excluded, P2                 ; NM-EXC-2
+  05b3        ret
+  05b4  L76:  push     0
+  05b9        decide   excluded, P3                 ; NM-EXC-4
+  05bd        ret
+  05be  L77:  push     0
+  05c3        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  05c7        ret
+  05c8  L78:  ldi      confirmed
+  05ca        jnz      L79
+  05cf        push     0
+  05d4        decide   needs_confirmation, P23      ; NM-CAP-3
+  05d8        ret
+  05d9  L79:  ldi      amount_cents
+  05db        decide   eligible, P24                ; NM-CAP-3, NM-COLL-1, NM-COLL-2
+  05df        lda
+  05e0        ldi      insurance_paid_cents
+  05e2        subs
+  05e3        push     0
+  05e8        max
+  05e9        seta     collateral, R22              ; NM-COLL-1
+  05ed        ret
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-3  NMSA 1978, Section 31-22-6(B)  "None of the appropriation in this act [31-22-1 to 31-22-21 NMSA..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+  05ee  L80:  push     0
+  05f3        str      r0
+  05f5        ldi      tags
+  05f7        push     1
+  05fc        and
+  05fd        jz       L81
+  0602        ldr      r0
+  0604        push     1
+  0609        or
+  060a        str      r0
+  060c  L81:  ldi      tags
+  060e        push     2
+  0613        and
+  0614        jz       L82
+  0619        ldr      r0
+  061b        push     2
+  0620        or
+  0621        str      r0
+  0623  L82:  ldr      r0
+  0625        switch   4, default L86
+                        case 0                     -> L86
+                        case 1                     -> L83
+                        case 2                     -> L84
+                        case 3                     -> L85
+  063b  L83:  push     0
+  0640        decide   excluded, P25                ; NM-EXC-2, NM-EXC-3
+  0644        ret
+  0645  L84:  push     0
+  064a        decide   excluded, P26                ; NM-EXC-3, NM-EXC-4
+  064e        ret
+  064f  L85:  push     0
+  0654        decide   excluded, P27                ; NM-EXC-2, NM-EXC-3, NM-EXC-4
+  0658        ret
+  0659  L86:  push     0
+  065e        decide   excluded, P28                ; NM-EXC-3
+  0662        ret
+              ; NM-CAP-5  10.40.2.10(K)(2) NMAC  "In all cases of medicine man care, the commission board shall..."
+              ; NM-EXC-2  CVRC Compensation FAQ, What are the types of reparation?  "No awards are made for property loss, pain and suffering, or..."
+              ; NM-EXC-4  10.40.2.10(P) NMAC  "The following expenses shall not be considered for..."
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+  0663  L87:  push     0
+  0668        str      r0
+  066a        ldi      tags
+  066c        push     1
+  0671        and
+  0672        jz       L88
+  0677        ldr      r0
+  0679        push     1
+  067e        or
+  067f        str      r0
+  0681  L88:  ldi      tags
+  0683        push     2
+  0688        and
+  0689        jz       L89
+  068e        ldr      r0
+  0690        push     2
+  0695        or
+  0696        str      r0
+  0698  L89:  ldr      r0
+  069a        switch   4, default L93
+                        case 0                     -> L93
+                        case 1                     -> L90
+                        case 2                     -> L91
+                        case 3                     -> L92
+  06b0  L90:  push     0
+  06b5        decide   excluded, P2                 ; NM-EXC-2
+  06b9        ret
+  06ba  L91:  push     0
+  06bf        decide   excluded, P3                 ; NM-EXC-4
+  06c3        ret
+  06c4  L92:  push     0
+  06c9        decide   excluded, P4                 ; NM-EXC-2, NM-EXC-4
+  06cd        ret
+  06ce  L93:  alts     P29                          ; NM-CAP-4
+  06d1        ldi      confirmed
+  06d3        jnz      L94
+  06d8        push     0
+  06dd        decide   needs_confirmation, P30      ; NM-CAP-5
+  06e1        ret
+  06e2  L94:  ldi      amount_cents
+  06e4        decide   eligible, P31                ; NM-CAP-5, NM-COLL-1, NM-COLL-2
+  06e8        lda
+  06e9        ldi      insurance_paid_cents
+  06eb        subs
+  06ec        push     0
+  06f1        max
+  06f2        seta     collateral, R22              ; NM-COLL-1
+  06f6        ret
+
+.aggregate
+              ; NM-CAP-3  10.40.2.10(E) NMAC  "Awards for funeral expenses shall not exceed six thousand..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     funeral, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $6,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $6,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R4              ; NM-CAP-3
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R4              ; NM-CAP-3
+  004d  L3:   next     L0
+              ; NM-CAP-5  10.40.2.10(K)(2) NMAC  "In all cases of medicine man care, the commission board shall..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     other, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $3,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $3,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R5              ; NM-CAP-5
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R5              ; NM-CAP-5
+  009f  L8:   next     L5
+              ; NM-CAP-1  NMSA 1978, Section 31-22-14(B)  "No award of reparation shall be in excess of twenty thousand..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     all, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K2                           ; $20,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K2                           ; $20,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      total_cap, R3                ; NM-CAP-1
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      total_cap, R3                ; NM-CAP-1
+  00f1  L13:  next     L10
+  00f6  L14:  push     0                            ; met
+  00fb        check    minimum_loss, P0             ; (none)
+              ; NM-DEAD-1  NMSA 1978, Section 31-22-14(A)  "An application for reparation shall be made within two years..."
+  00ff        ldx      incident_date
+  0101        push     730
+  0106        adds
+  0107        dup
+  0108        setdate
+  0109        ldx      as_of_date
+  010b        ge
+  010c        jz       L15
+  0111        push     0
+  0116        jmp      L16
+  011b  L15:  push     1                            ; late
+  0120  L16:  check    deadline, P32                ; NM-DEAD-1
+              ; NM-REPORT-1  NMSA 1978, Section 31-22-7(D)  "provided an arrest has been made or the act or omission..."
+              ; NM-REPORT-2  NMSA 1978, Section 31-22-7(D)(3)  "the claimant or victim fully cooperated with the appropriate law..."
+  0124        ldx      police_report
+  0126        push     1                            ; yes
+  012b        eq
+  012c        jnz      L17
+  0131        push     2
+  0136        jmp      L18
+  013b  L17:  push     0                            ; satisfied
+  0140  L18:  check    reporting, P33               ; NM-REPORT-1, NM-REPORT-2
+              ; NM-COLL-1  NMSA 1978, Section 31-22-14(C)  "the commission shall deduct from any reparation awarded any..."
+              ; NM-COLL-2  10.40.2.10(I) NMAC  "shall submit covered expenses to the source(s) for payment. Only..."
+              ; NM-CONDUCT-1  NMSA 1978, Section 31-22-7(C)  "The commission shall consider the behavior of the victim and..."
+              ; NM-EMERG-1  NMSA 1978, Section 31-22-14(E)  "If it appears that a final award of reparation will be made by..."
+              ; NM-CRIME-1  NMSA 1978, Section 31-22-8(A)(9)-(10)  "(9) criminal sexual penetration; (10) criminal sexual contact of..."
+              ; NM-CRIME-2  NMSA 1978, Section 31-22-3(F)  ""injury" means actual bodily harm or disfigurement and includes..."
+              ; NM-RES-1  NMSA 1978, Section 31-22-3(I)  "a person in New Mexico who is injured or killed by any act or..."
+              ; NM-SUBMIT-1  CVRC online application portal, home page  "To begin Please choose one of the following options: Sign In OR..."
+              ; NM-SUBMIT-2  Compensation Application page, How do I apply?  "Crime Victims Reparation Commission 6200 Uptown Blvd., Suite 210..."
+              ; NM-SUBMIT-3  Compensation Application page, How do I apply?  "Fax: (505) 841-9437"
+              ; NM-DOC-1  Application, Section 4  "CRIME INFORMATION (Provide copy of police report if available)"
+              ; NM-DOC-2  Compensation Application page, What happens after I send my application?  "The application and related documentation received, including a..."
+              ; NM-DOC-3  10.40.2.10(C) NMAC  "This documentation must provide the name of payee, the name of..."
+              ; NM-DOC-4  10.40.2.10(G)(2) NMAC  "a statement from the employer providing: (a) the dates of work..."
+              ; NM-DOC-5  10.40.2.10(G)(1) NMAC  "a copy of a doctor's statement certifying that the victim is..."
+              ; NM-DOC-6  10.40.2.10(J)(1) NMAC  "All counselors shall provide the commission staff with the..."
+              ; NM-DOC-7  Application, Section 1  "DECEASED (Submit copy of death certificate)"
+              ; NM-DOC-8  Application, Section 1  "INCAPACITATED (Submit a power of attorney)"
+              ; NM-DOC-9  Application, Acknowledgement and Authorization  "This authorization is part of your application and must be..."
+              ; NM-PROC-1  Compensation Application page, What happens after I send my application?  "A decision about whether the victim/claimant is eligible is..."
+              ; NM-ACP-1  Safe at Home program page, program description; enrollment steps from the Eligibility, FAQs & Resources page (NM-S16), How to Apply  "The Secretary of State’s Safe at Home program (formerly known..."
+              ; NM-RECCONF-1  10.40.2.14 NMAC, Confidentiality  "Application files which contain confidential medical and police..."
+  0144        info     P34                          ; NM-COLL-1, NM-COLL-2, NM-CONDUCT-1, NM-EMERG-1, NM-CRIME-1, NM-CRIME-2, NM-RES-1, NM-SUBMIT-1, NM-SUBMIT-2, NM-SUBMIT-3, NM-DOC-1, NM-DOC-2, NM-DOC-3, NM-DOC-4, NM-DOC-5, NM-DOC-6, NM-DOC-7, NM-DOC-8, NM-DOC-9, NM-PROC-1, NM-ACP-1, NM-RECCONF-1
+  0147        ret
+

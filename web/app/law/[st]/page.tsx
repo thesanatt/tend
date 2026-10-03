@@ -1,32 +1,25 @@
-import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AsmListing from "@/components/law/AsmListing";
-import styles from "@/components/law/law.module.css";
 import Plant from "@/components/Plant";
-import RuleCard from "@/components/RuleCard";
-import { CATEGORY_LABEL, CATEGORY_ORDER } from "@/lib/categories";
-import { formatTimestamp } from "@/lib/dates";
+import { loadAsm, loadIr, loadLaw, stateFromParam } from "@/components/public/data";
+import { count } from "@/components/public/format";
+import {
+  AsmView,
+  groupRules,
+  lawCategoryLabel,
+  RuleEntry,
+  SetAsideList,
+  SourceList,
+} from "@/components/public/LawParts";
+import styles from "@/components/public/law.module.css";
 import { LAW_STAGES, lawGrowth, lawStage } from "@/lib/garden";
 import STATES from "@/lib/states.json";
-import type { Jurisdiction } from "@/lib/types";
+import type { Rule } from "@/lib/types";
 
-// Built from the verified corpus copy in public/data/law (scripts/sync-rules.mjs).
-async function loadLaw(st: string): Promise<{ law: Jurisdiction; sha256: string } | null> {
-  try {
-    const raw = await readFile(path.join(process.cwd(), "public", "data", "law", `${st}.json`));
-    return {
-      law: JSON.parse(raw.toString("utf8")) as Jurisdiction,
-      sha256: createHash("sha256").update(raw).digest("hex"),
-    };
-  } catch {
-    return null;
-  }
-}
-
+// "How Tend decides": every verified rule with its quote, what the compiler did with it, the
+// compiled listing, and the saved sources. Built at build time from public/data.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -35,83 +28,70 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ st: string }> }): Promise<Metadata> {
   const { st } = await params;
-  const name = STATES.find((s) => s.st === st)?.name ?? st;
-  return { title: `${name} law` };
-}
-
-function host(url: string): string {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
+  const ref = stateFromParam(st);
+  return { title: ref ? `${ref.name} law` : "Law" };
 }
 
 export default async function LawPage({ params }: { params: Promise<{ st: string }> }) {
   const { st } = await params;
-  const loaded = await loadLaw(st);
-  const name = STATES.find((s) => s.st === st)?.name ?? st;
+  const ref = stateFromParam(st);
+  if (!ref || ref.st !== st) notFound();
+  const loaded = loadLaw(ref.st);
 
   if (!loaded) {
-    if (!STATES.some((s) => s.st === st)) notFound();
     return (
       <div className={`page ${styles.law}`}>
         <p className={styles.crumb}>
-          <Link href="/">Law garden</Link> / {name}
+          <Link href="/">Law garden</Link> / {ref.name}
         </p>
-        <h1>{name}</h1>
+        <h1>{ref.name}</h1>
         <p className="lead">Tend has not verified this program&apos;s rules yet, so nothing here is counted for it.</p>
       </div>
     );
   }
 
   const { law, sha256 } = loaded;
-  const { program } = law;
+  const ir = loadIr(ref.st);
+  const asm = loadAsm(ref.st);
   const sources = new Map(law.sources.map((s) => [s.id, s]));
-  const groups = CATEGORY_ORDER.map((c) => ({ category: c, rules: law.rules.filter((r) => r.category === c) })).filter(
-    (g) => g.rules.length,
-  );
+  const rulesById = new Map<string, Rule>(law.rules.map((r) => [r.id, r]));
+  const irById = new Map((ir?.rules ?? []).map((r) => [r.id, r]));
+  const skipById = new Map((ir?.skipped ?? []).map((s) => [s.id, s]));
+  const ruleIds = new Set(rulesById.keys());
+  const groups = groupRules(law.rules);
   const stage = LAW_STAGES.find((s) => s.stage === lawStage(law.rules.length))!;
+  const decision = (ir?.rules ?? []).filter((r) => r.kind !== "info").length;
+  const info = (ir?.rules ?? []).filter((r) => r.kind === "info").length;
+  const lower = ref.st.toLowerCase();
 
   return (
     <div className={`page ${styles.law}`}>
-      <p className={styles.crumb}>
-        <Link href="/">Law garden</Link> / {law.name}
-      </p>
-
       <header className={styles.head}>
         <div className={styles.headText}>
-          <h1>{law.name}</h1>
-          <p className="lead">
-            {program.program_name}, run by {program.agency}.
+          <p className={styles.crumb}>
+            <Link href="/">Law garden</Link> / <Link href={`/${lower}`}>{law.name}</Link> / How Tend decides
           </p>
-          {program.statute_citation ? <p className={styles.statute}>Statute: {program.statute_citation}</p> : null}
-          <ul className={styles.contact}>
-            {program.phone ? (
-              <li>
-                <a href={`tel:${program.phone.replace(/[^\d+]/g, "")}`}>{program.phone}</a>
-              </li>
-            ) : null}
+          <h1>How Tend decides in {law.name}</h1>
+          <p className="lead">
+            The verified rules for {law.program.program_name}, run by {law.program.agency}. Each rule shows its exact
+            quote, where it was saved from, and what the law engine does with it.
+          </p>
+          {law.program.statute_citation ? <p className="meta">Statute: {law.program.statute_citation}</p> : null}
+          <ul className={styles.links} aria-label="Related pages and data">
             <li>
-              <a href={program.website} target="_blank" rel="noopener noreferrer">
-                {host(program.website)}
-                <span className="visually-hidden"> (opens in a new tab)</span>
-              </a>
+              <Link href={`/${lower}`}>What {law.name} promises, in plain words</Link>
             </li>
-            {program.apply_url ? (
+            <li>
+              <a href={`/data/law/${ref.st}.json`}>Verified rules (JSON)</a>
+            </li>
+            {ir ? (
               <li>
-                <a href={program.apply_url} target="_blank" rel="noopener noreferrer">
-                  How to apply
-                  <span className="visually-hidden"> (opens in a new tab)</span>
-                </a>
+                <a href={`/data/ir/${ref.st}.json`}>Law IR (JSON)</a>
               </li>
             ) : null}
-            {program.application_pdf_url ? (
+            {asm ? (
               <li>
-                <a href={program.application_pdf_url} target="_blank" rel="noopener noreferrer">
-                  Application form (PDF)
-                  <span className="visually-hidden"> (opens in a new tab)</span>
-                </a>
+                <a href={`/data/asm/${ref.st}.txt`}>Compiled listing (text)</a>
               </li>
             ) : null}
           </ul>
@@ -121,17 +101,61 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           <figcaption>
             <strong>{stage.label}</strong>
             <span>
-              {law.rules.length} rules verified from {law.sources.length} official sources. Research confidence:{" "}
-              {law.confidence}.
+              {count(law.rules.length, "rule", "rules")} verified from {count(law.sources.length, "source", "sources")}.
+              Research confidence: {law.confidence}.
             </span>
           </figcaption>
         </figure>
       </header>
 
-      <p className={styles.method}>
-        Every rule below is quoted word for word from a saved official source. Tend&apos;s checker keeps a rule only if
-        its quote matches the saved text and every number in it appears in the quote.
-      </p>
+      <dl className={styles.counts}>
+        <div>
+          <dt>Rules verified</dt>
+          <dd>{law.rules.length}</dd>
+        </div>
+        <div>
+          <dt>Official sources</dt>
+          <dd>{law.sources.length}</dd>
+        </div>
+        {ir ? (
+          <>
+            <div>
+              <dt>Used in decisions</dt>
+              <dd>{decision}</dd>
+            </div>
+            <div>
+              <dt>Shown for information</dt>
+              <dd>{info}</dd>
+            </div>
+            <div>
+              <dt>Set aside, with a reason</dt>
+              <dd>{ir.skipped.length}</dd>
+            </div>
+          </>
+        ) : null}
+      </dl>
+
+      <section className={styles.steps} aria-labelledby="h-check">
+        <h2 id="h-check">How to check this page</h2>
+        <ol>
+          <li>
+            Every rule quotes a saved copy of an official page, word for word. The SHA-256 under each source is the
+            fingerprint of that saved copy, so anyone can confirm the text has not changed.
+          </li>
+          <li>
+            A checker keeps a rule only if its quote matches the saved text and every number in the rule appears in the
+            quote.
+          </li>
+          <li>
+            A normalizer turns the rules into the law IR. Rules about someone other than the survivor, or with nothing
+            to compute, are set aside with a reason.
+          </li>
+          <li>
+            The compiler turns the IR into bytecode. The listing below is that bytecode, with each block commented with
+            the rule it came from. The same image runs on the server and in the browser.
+          </li>
+        </ol>
+      </section>
 
       {law.coverage?.not_found?.length || law.coverage?.notes ? (
         <details className={styles.gaps}>
@@ -151,73 +175,79 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
         <ul>
           {groups.map((g) => (
             <li key={g.category}>
-              <a href={`#${g.category}`}>{CATEGORY_LABEL[g.category]}</a> <span className="meta">{g.rules.length}</span>
+              <a href={`#${g.category}`}>{lawCategoryLabel(g.category)}</a>&nbsp;
+              <span className="meta">{g.rules.length}</span>
             </li>
           ))}
+          {ir?.skipped.length ? (
+            <li>
+              <a href="#set-aside">Set aside</a>&nbsp;<span className="meta">{ir.skipped.length}</span>
+            </li>
+          ) : null}
           <li>
             <a href="#compiled">Compiled law</a>
           </li>
           <li>
-            <a href="#sources">Sources</a>
+            <a href="#sources">Sources</a>&nbsp;<span className="meta">{law.sources.length}</span>
           </li>
         </ul>
       </nav>
 
       {groups.map((g) => (
         <section key={g.category} id={g.category} className={styles.group} aria-labelledby={`h-${g.category}`}>
-          <h2 id={`h-${g.category}`}>{CATEGORY_LABEL[g.category]}</h2>
+          <h2 id={`h-${g.category}`}>{lawCategoryLabel(g.category)}</h2>
           <div className={styles.rules}>
             {g.rules.map((r) => (
-              <RuleCard key={r.id} rule={r} source={sources.get(r.source_id)} />
+              <RuleEntry
+                key={r.id}
+                rule={r}
+                source={sources.get(r.source_id)}
+                ir={irById.get(r.id)}
+                skip={skipById.get(r.id)}
+                ids={ruleIds}
+              />
             ))}
           </div>
         </section>
       ))}
 
+      {ir?.skipped.length ? (
+        <section id="set-aside" className={styles.group} aria-labelledby="h-set-aside">
+          <h2 id="h-set-aside">Set aside</h2>
+          <p className={styles.groupNote}>
+            These rules are verified and quoted above, but the engine does not use them in the math. Each one says why.
+          </p>
+          <SetAsideList st={ref.st} skipped={ir.skipped} rules={rulesById} />
+        </section>
+      ) : null}
+
       <section id="compiled" className={styles.group} aria-labelledby="h-compiled">
         <h2 id="h-compiled">Compiled law</h2>
-        <p className={styles.method}>
-          The engine compiles these rules into a law image and runs it as bytecode, the same way on the server and in
-          the browser. Each block in the listing is commented with the rule it came from.
+        <p className={styles.groupNote}>
+          The engine compiles {law.name}&apos;s rules into a law image and runs it as bytecode. Rule ids in the listing
+          link back to the rules above.
         </p>
         <p className="meta">
           Verified rules SHA-256 <code className={styles.sha}>{sha256}</code>
         </p>
-        <AsmListing st={law.jurisdiction} />
+        {asm ? (
+          <AsmView
+            st={ref.st}
+            name={law.name}
+            asm={asm}
+            ruleIds={ruleIds}
+            lawSha={sha256}
+            irVersion={ir?.ir_version ?? null}
+          />
+        ) : (
+          // No listing was built for this state; the browser asks the engine on this device or the API.
+          <AsmListing st={ref.st} />
+        )}
       </section>
 
       <section id="sources" className={styles.group} aria-labelledby="h-sources">
         <h2 id="h-sources">Sources</h2>
-        <div className={styles.tableWrap}>
-          <table className={styles.sources}>
-            <thead>
-              <tr>
-                <th scope="col">Source</th>
-                <th scope="col">Kind</th>
-                <th scope="col">Saved</th>
-                <th scope="col">SHA-256</th>
-              </tr>
-            </thead>
-            <tbody>
-              {law.sources.map((s) => (
-                <tr key={s.id}>
-                  <th scope="row">
-                    <a href={s.url} target="_blank" rel="noopener noreferrer">
-                      {s.title}
-                      <span className="visually-hidden"> (opens in a new tab)</span>
-                    </a>
-                    <span className={styles.sourceId}>{s.id}</span>
-                  </th>
-                  <td>{s.kind.replace(/_/g, " ")}</td>
-                  <td>{formatTimestamp(s.retrieved_at)}</td>
-                  <td>
-                    <code title={s.sha256}>{s.sha256.slice(0, 12)}</code>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <SourceList sources={law.sources} rules={law.rules} />
         {law.researcher_notes ? (
           <details className={styles.gaps}>
             <summary>Researcher notes</summary>

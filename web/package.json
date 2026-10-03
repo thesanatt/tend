@@ -11,7 +11,9 @@
     "test": "vitest run",
     "sync:rules": "node scripts/sync-rules.mjs",
     "fixtures": "tsx scripts/make-fixtures.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "sync:asm": "node scripts/build-asm.mjs",
+    "prebuild": "node scripts/build-asm.mjs --quiet"
   },
   "dependencies": {
     "next": "16.3.8",

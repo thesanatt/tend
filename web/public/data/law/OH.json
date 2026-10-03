@@ -156,6 +156,36 @@
    "raw_path": "rules/sources/OH/OH-S17.html",
    "text_path": "rules/sources/OH/OH-S17.txt",
    "sha256": "d9920eb40230782eed16dede0d81bc43a9ea5f227173fb30a5fa8bccc5ea5e84"
+  },
+  {
+   "id": "OH-S18",
+   "title": "ORC 111.42 (address confidentiality program; application to secretary of state)",
+   "url": "https://codes.ohio.gov/ohio-revised-code/section-111.42",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:55:57Z",
+   "raw_path": "rules/sources/OH/OH-S18.html",
+   "text_path": "rules/sources/OH/OH-S18.txt",
+   "sha256": "0cfaa51c66e8a0ba8faa6c3ac96258caca4674f6a938dbddb9bd21013639bbf8"
+  },
+  {
+   "id": "OH-S19",
+   "title": "ORC 2743.62 (privilege; confidentiality of records obtained for reparations claims)",
+   "url": "https://codes.ohio.gov/ohio-revised-code/section-2743.62",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:55:58Z",
+   "raw_path": "rules/sources/OH/OH-S19.html",
+   "text_path": "rules/sources/OH/OH-S19.txt",
+   "sha256": "9856a5f5f2a146a59fc87b960269c9857ce451e33d7654028b81e5668085002e"
+  },
+  {
+   "id": "OH-S20",
+   "title": "Ohio Secretary of State, Safe at Home program page",
+   "url": "https://www.ohiosos.gov/public-integrity/safe-at-home",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:23Z",
+   "raw_path": "rules/sources/OH/OH-S20.html",
+   "text_path": "rules/sources/OH/OH-S20.txt",
+   "sha256": "69bc7ece633d6cd70a1f18720d7f94c058245f8a102f2f921b923fa47f4d636b"
   }
  ],
  "rules": [
@@ -696,6 +726,31 @@
    "source_id": "OH-S17",
    "pinpoint": "ORC 2743.59(E)",
    "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.59#:~:text=The%20attorney%20general%20shall%20make,after%20receiving%20the%20claim%20application."
+  },
+  {
+   "id": "OH-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Safe at Home (Ohio address confidentiality program)",
+    "agency": "Ohio Secretary of State",
+    "covers_sexual_assault": true,
+    "enroll": "Participants must apply through a certified Application Assistant. The statute adds that the application is on a form prescribed by the secretary of state, with a notarized statement and the Application Assistant's recommendation."
+   },
+   "summary": "Ohio's Safe at Home program, run by the Secretary of State, gives survivors of rape, sexual battery, domestic violence, stalking, or human trafficking a substitute address to use on government records instead of their real one. You apply with a certified Application Assistant at a survivor services organization.",
+   "quote": "The applicant fears for the safety of the applicant, a member of the applicant's household, or the minor, incompetent, or ward on whose behalf the application is made because the applicant, household member, minor, incompetent, or ward is a victim of domestic violence, menacing by stalking, human trafficking, trafficking in persons, rape, or sexual battery.",
+   "source_id": "OH-S18",
+   "pinpoint": "ORC 111.42(A)(3)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-111.42#:~:text=The%20applicant%20fears%20for%20the,persons%2C%20rape%2C%20or%20sexual%20battery."
+  },
+  {
+   "id": "OH-RECORDS-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "Records the Attorney General or Court of Claims gets for a compensation claim (such as medical or counseling records) that were confidential or exempt from public records law in the hands of whoever created them stay confidential once the program has them. This does not make the whole claim file confidential, and the records can still be used in hearings and written decisions on the claim.",
+   "quote": "any record or report that the court of claims or the  attorney general has obtained prior to, or obtains on or after,  June 30, 1998, under the provisions of sections 2743.51 to 2743.72 of the Revised Code and that is confidential or otherwise exempt  from public disclosure under section 149.43 of the Revised Code  while in the possession of the creator of the record or report  shall remain confidential or exempt from public disclosure under  section 149.43 of the Revised Code while in the possession of the  court of claims or the attorney general.",
+   "source_id": "OH-S19",
+   "pinpoint": "ORC 2743.62(A)(2)(a)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.62#:~:text=any%20record%20or%20report%20that,claims%20or%20the%20attorney%20general."
   }
  ],
  "coverage": {
@@ -716,7 +771,9 @@
    "total_cap",
    "submission",
    "required_document",
-   "processing_time"
+   "processing_time",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "relocation",
@@ -728,8 +785,8 @@
    "expense_cap for counseling for the victim",
    "reporting alternatives for sexual assault"
   ],
-  "notes": "No statute, rule, or official page I could save sets a weekly wage cap, a per-session counseling cap for the victim, or any relocation, housing, or transportation benefit. The application lists 'Mileage' as a checkbox but I found no rule text describing it. Security repairs are covered only as part of crime scene cleanup (ORC 2743.51(T)(2), $750 per claim). The statute requires that the crime was reported to law enforcement at some point and lists no alternative (forensic exam, advocate, protective order) for sexual assault. The Attorney General's HTML program pages (Apply for Victims Compensation, SAFE Program) could not be saved by the fetch tool, so the application PDF and brochure stand in for them."
+  "notes": "No statute, rule, or official page I could save sets a weekly wage cap, a per-session counseling cap for the victim, or any relocation, housing, or transportation benefit. The application lists 'Mileage' as a checkbox but I found no rule text describing it. Security repairs are covered only as part of crime scene cleanup (ORC 2743.51(T)(2), $750 per claim). The statute requires that the crime was reported to law enforcement at some point and lists no alternative (forensic exam, advocate, protective order) for sexual assault. The Attorney General's HTML program pages (Apply for Victims Compensation, SAFE Program) could not be saved by the fetch tool, so the application PDF and brochure stand in for them. Privacy (added Oct 3): Safe at Home is Ohio's address confidentiality program (ORC 111.41 to 111.47, Secretary of State). For compensation records I found only ORC 2743.62(A)(2)(a), which keeps already-confidential records (for example medical records) confidential in the AG's or Court of Claims' hands; I found no statute or official statement making the whole claim, application, or applicant identity confidential or exempt from public records law."
  },
  "confidence": "high",
- "researcher_notes": "Statutes are from codes.ohio.gov (ORC 2743.51, 2743.56, 2743.60 effective March 2, 2022 after S.B. 36). Disagreements: the AG brochure 'Crime Can Be Costly' (OH-S15, undated) says family counseling is capped at $2,500 per person or $7,500 per family, but ORC 2743.60(H) caps an (L)(2) immediate-family claimant at $5,000; I used the statute. The Court of Claims FAQ (OH-S12) still says certain serious criminal history disqualifies, but the AG's own Apply for Victims Compensation page (read during research but not savable with the fetch tool) says that as of March 2, 2022 criminal backgrounds are no longer disqualifiers, matching the amended ORC 2743.60. Exam billing: per the AG SAFE instructions (OH-S14), emergency contraception, pain medication, and treatment of injuries beyond the forensic exam may be billed to the patient or insurer; those costs can then be claimed as medical expenses. Ohio health care providers must report a sexual assault to police under ORC 2921.22 (an adult may stay unnamed), per OH-S14; I did not find authority saying that provider report satisfies the compensation reporting rule, so Tend should not assume it does. ORC 2743.521(B) (OH-S11) bars a medical provider that accepts payment through an award from billing the victim for those expenses. The application PDF lists phone 614-466-5610 and toll-free 877-584-2846 (877-5VICTIM); the OVC directory lists 614-466-5610. Reviewer: added OH-EXAM-5 to 7 and OH-CAP-6 from sources already saved. The free exam is limited to evidence collection: for adults the SAFE table makes procedures billable to the patient when the last incident was more than 96 hours earlier (absent documented extenuating circumstances), and with other injuries the ED level charge, physician charges, labs, scans, and HIV prophylaxis are listed as billable to the patient. OAC 109:7-1-02(C) lets the Attorney General raise the $632 and $2,500 amounts for inflation; the SAFE instructions still state $632, so I kept it, but the current figure could be higher. ORC 2743.60(F) and (I) also bar awards for crimes against adults while serving a prison sentence and suspend payment while a victim is incarcerated; there is no schema category for these. How to file (added Oct 3): the AG Apply for Victims Compensation page (OH-S16) lists online filing, mail, fax, and email. The fetch tool rejected that page as blocked because the site is ASP.NET and wraps all content in one <form>, which the tool strips; I saved the same Chrome snapshot with the tool's text extraction minus the form removal, so OH-S16.txt is that page's text. The online target is the 'Register and file' link in the saved HTML. ORC 2743.56(A) (OH-S4) says a mailed application counts as filed on its postmark date. The application PDF (OH-S9, same URL the Apply page links, modified June 2026) has 207 AcroForm fields. It asks for copies of 6 paychecks for lost wages, front and back of insurance cards, a death certificate for funeral claims, and a signed release; it does not tell applicants to attach bills, receipts, or a police report, so I did not add those. ORC 2743.59(E) (OH-S17) sets the 120-day decision limit, which the AG can extend in writing; no AG page states a typical processing time. A separate supplemental application exists for later expenses and was not saved."
+ "researcher_notes": "Statutes are from codes.ohio.gov (ORC 2743.51, 2743.56, 2743.60 effective March 2, 2022 after S.B. 36). Disagreements: the AG brochure 'Crime Can Be Costly' (OH-S15, undated) says family counseling is capped at $2,500 per person or $7,500 per family, but ORC 2743.60(H) caps an (L)(2) immediate-family claimant at $5,000; I used the statute. The Court of Claims FAQ (OH-S12) still says certain serious criminal history disqualifies, but the AG's own Apply for Victims Compensation page (read during research but not savable with the fetch tool) says that as of March 2, 2022 criminal backgrounds are no longer disqualifiers, matching the amended ORC 2743.60. Exam billing: per the AG SAFE instructions (OH-S14), emergency contraception, pain medication, and treatment of injuries beyond the forensic exam may be billed to the patient or insurer; those costs can then be claimed as medical expenses. Ohio health care providers must report a sexual assault to police under ORC 2921.22 (an adult may stay unnamed), per OH-S14; I did not find authority saying that provider report satisfies the compensation reporting rule, so Tend should not assume it does. ORC 2743.521(B) (OH-S11) bars a medical provider that accepts payment through an award from billing the victim for those expenses. The application PDF lists phone 614-466-5610 and toll-free 877-584-2846 (877-5VICTIM); the OVC directory lists 614-466-5610. Reviewer: added OH-EXAM-5 to 7 and OH-CAP-6 from sources already saved. The free exam is limited to evidence collection: for adults the SAFE table makes procedures billable to the patient when the last incident was more than 96 hours earlier (absent documented extenuating circumstances), and with other injuries the ED level charge, physician charges, labs, scans, and HIV prophylaxis are listed as billable to the patient. OAC 109:7-1-02(C) lets the Attorney General raise the $632 and $2,500 amounts for inflation; the SAFE instructions still state $632, so I kept it, but the current figure could be higher. ORC 2743.60(F) and (I) also bar awards for crimes against adults while serving a prison sentence and suspend payment while a victim is incarcerated; there is no schema category for these. How to file (added Oct 3): the AG Apply for Victims Compensation page (OH-S16) lists online filing, mail, fax, and email. The fetch tool rejected that page as blocked because the site is ASP.NET and wraps all content in one <form>, which the tool strips; I saved the same Chrome snapshot with the tool's text extraction minus the form removal, so OH-S16.txt is that page's text. The online target is the 'Register and file' link in the saved HTML. ORC 2743.56(A) (OH-S4) says a mailed application counts as filed on its postmark date. The application PDF (OH-S9, same URL the Apply page links, modified June 2026) has 207 AcroForm fields. It asks for copies of 6 paychecks for lost wages, front and back of insurance cards, a death certificate for funeral claims, and a signed release; it does not tell applicants to attach bills, receipts, or a police report, so I did not add those. ORC 2743.59(E) (OH-S17) sets the 120-day decision limit, which the AG can extend in writing; no AG page states a typical processing time. A separate supplemental application exists for later expenses and was not saved. Privacy (added Oct 3): ORC 111.42(A)(3) (OH-S18) makes victims of rape or sexual battery eligible for Safe at Home; the Secretary of State page (OH-S20) also lists sexual assault and says participants must apply through a certified Application Assistant and get a substitute address for voter registration, government correspondence, and other official records. Certification lasts four years (ORC 111.42(E)); registered sex offenders are ineligible. Record confidentiality is narrow: ORC 2743.62(A)(2)(a) (OH-S19) only preserves the confidential status a record already had, and 2743.62(A)(2)(b) lets judges, magistrates, the claimant, and the AG refer to those records in hearings and written decisions. The Court of Claims page (OH-S12) says it keeps an electronic archive of Victims decisions back to 1977, so Tend should not tell Ohio users their claim is fully private. I did not find any ORC 149.43(A)(1) exemption naming compensation claim files."
 }

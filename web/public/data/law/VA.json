@@ -196,6 +196,36 @@
    "raw_path": "rules/sources/VA/VA-S18.html",
    "text_path": "rules/sources/VA/VA-S18.txt",
    "sha256": "8dc398cd228a538d027e9b520a956823f8966a6a9238c9c47fd21f9930627e17"
+  },
+  {
+   "id": "VA-S19",
+   "title": "Va. Code § 2.2-515.2 (Address Confidentiality Program)",
+   "url": "https://law.lis.virginia.gov/vacode/title2.2/chapter5/section2.2-515.2/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:55:55Z",
+   "raw_path": "rules/sources/VA/VA-S19.html",
+   "text_path": "rules/sources/VA/VA-S19.txt",
+   "sha256": "4d78b858ac37743c86bdd7b9e13c2dcb6d95d87e3d7117a6bf43bb9b5fe58062"
+  },
+  {
+   "id": "VA-S20",
+   "title": "Va. Code § 19.2-368.3 (Powers and duties of Commission)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.3/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:55:56Z",
+   "raw_path": "rules/sources/VA/VA-S20.html",
+   "text_path": "rules/sources/VA/VA-S20.txt",
+   "sha256": "764b34ce797defe0113a1abaca4099d25c9b55c08a43d84d187f6751445bc1db"
+  },
+  {
+   "id": "VA-S21",
+   "title": "Virginia Victims Fund: Confidentiality page",
+   "url": "https://vvf.virginia.gov/confidentiality",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:56:19Z",
+   "raw_path": "rules/sources/VA/VA-S21.html",
+   "text_path": "rules/sources/VA/VA-S21.txt",
+   "sha256": "3c4c5d2bd71e64408a714cc48b9a39d465a32b646a34aeac8e108be9e3208c2d"
   }
  ],
  "rules": [
@@ -847,6 +877,31 @@
    "quote": "Applications are not accepted unless this form is signed by the applicant.",
    "source_id": "VA-S11",
    "pinpoint": "VVF Claim Form (English, 08/12/2025), Applicant Responsibilities & Authorizations, application p. 4"
+  },
+  {
+   "id": "VA-ACP-1",
+   "category": "address_confidentiality",
+   "params": {
+    "program_name": "Address Confidentiality Program",
+    "agency": "Office of the Attorney General of Virginia",
+    "covers_sexual_assault": true,
+    "enroll": "An individual who is at least 18 years of age, a parent or guardian acting on behalf of a minor, a guardian acting on behalf of an incapacitated person, or an emancipated minor may apply in person at (i) sexual or domestic violence programs that have been accredited by the Virginia Sexual and Domestic Violence Program Professional Standards Committee ... or (ii) crime victim and witness assistance programs."
+   },
+   "summary": "Virginia's Address Confidentiality Program, run by the Office of the Attorney General, lets victims of sexual violence, domestic violence, stalking or child abduction use a designated address, and the office forwards their first-class mail to the actual address.",
+   "quote": "to protect victims of domestic violence, stalking, child abduction, or sexual violence by authorizing the use of designated addresses for such victims",
+   "source_id": "VA-S19",
+   "pinpoint": "Va. Code § 2.2-515.2(B)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title2.2/chapter5/section2.2-515.2/#:~:text=to%20protect%20victims%20of%20domestic,designated%20addresses%20for%20such%20victims"
+  },
+  {
+   "id": "VA-RECCONF-1",
+   "category": "record_confidentiality",
+   "params": {},
+   "summary": "All Virginia Victims Fund applications and related documents, including medical records, are confidential; except where law requires otherwise, VVF discloses a victim's information only with written permission.",
+   "quote": "All Virginia Victims Fund (VVF) applications and related documents, including medical information and records, are highly confidential. Except as otherwise required by Virginia or federal law, VVF may only disclose a victim or applicant’s information with their written permission.",
+   "source_id": "VA-S21",
+   "pinpoint": "VVF Confidentiality page, Your Claim is Confidential",
+   "fragment_url": "https://vvf.virginia.gov/confidentiality#:~:text=All%20Virginia%20Victims%20Fund%20%28VVF%29,information%20with%20their%20written%20permission."
   }
  ],
  "coverage": {
@@ -866,7 +921,9 @@
    "eligible_crime",
    "residency",
    "submission",
-   "required_document"
+   "required_document",
+   "address_confidentiality",
+   "record_confidentiality"
   ],
   "not_found": [
    "expense_cap counseling for direct victims (no dollar cap found in statute or program pages)",
@@ -880,5 +937,5 @@
   "notes": "Exam payment is the SAFE Payment Program run by the Virginia Victims Fund under Va. Code § 19.2-368.11:1(F) and § 19.2-165.1(B). The claimant/victim FAQ page (vvf.virginia.gov/claimant-victim-faqs) could not be saved by the fetch tool and was not used. The VVF Policies PDF (Sept 2025) references an Available Benefits section that is not in the published PDF."
  },
  "confidence": "high",
- "researcher_notes": "Statute text retrieved Oct 3 2026 reflects 2025 and 2026 amendments: total cap $35,000 (§ 19.2-368.11:1(H)) and a three-year filing deadline (§ 19.2-368.5(B)). VVF pages say the three-year deadline applies to crimes on or after July 1, 2025 and that caps follow the policy in effect on the date of the crime, so older crimes may fall under a one-year deadline and older caps. Disagreement: the statute caps survivor counseling for family of homicide victims at $3,500 per claim (§ 19.2-368.11:1(E)(v)), while the VVF eligibility page and claim form list grief counseling up to $5,000; neither cap applies to direct sexual assault victims, so no counseling cap was recorded. Disagreement: the VVF Policies PDF says only victims of child sexual assault are exempt from prompt reporting, but the current § 19.2-368.10(3) says the reporting subdivision does not apply to claims of sexual abuse, which § 19.2-368.2 defines to include adult rape, sodomy, object sexual penetration and sexual battery; the statute controls. For other crimes, prompt reporting is judged from police records, the victim's situation, and any permanent protective order (§ 19.2-368.10(3)); the claim form says crimes between July 1, 1998 and June 30, 2025 used a 120-hour reporting standard with good cause. Once a claim is filed, notified health care providers must stop debt collection until a decision (§ 19.2-368.5:2). SAFE provider reimbursement rates (60% of eligible charges for acute exams, $1,500 non-acute, $1,000 follow-up) are payments to providers, not survivor caps, and were not recorded as rules. Lost wages for direct victims are paid at two-thirds of average weekly wage; the $600 weekly figure applies to partial loss of earnings combined with actual earnings. Reviewer: removed the $600 per week lost_wages expense_cap because it limits combined earnings plus partial-loss compensation, not the benefit itself, and would understate total-loss benefits; the statute text is § 19.2-368.11:1(B). VVF says caps follow the policy in effect on the date of the crime, so older crimes may fall under different caps that are not recorded here. How to file: the claim form (VA-S11, 08/12/2025, the version linked from the VVF Claim Form page, 175 AcroForm fields) says to submit by mail to P.O. Box 26927, Richmond, VA 23261 or fax 804-823-6905; § 19.2-368.5(C) and the VVF Policies also allow in-person filing, and the contact page says in-person assistance is by appointment only (appointment@vvf.virginia.gov). There is no public online application: WebFile is for trained victim advocates and medical providers, so a survivor who wants to file electronically goes through a local Victim/Witness program. Disagreement: the VVF Policies PDF (Sept 2025) says supporting documents can be e-mailed to info@virginiavictimsfund.org, but the newer Contact Us page says VVF is no longer accepting documents via email for security reasons, so no email submission rule was recorded. SAFE exam submission targets (fax 804-823-6907, safe@vvf.virginia.gov) are for providers and were not recorded as survivor filing methods. No processing time is stated; the only time limits are on the claimant (180 days after the acknowledgement letter to send requested documents, and two years from eligibility per the How Compensation Works page)."
+ "researcher_notes": "Statute text retrieved Oct 3 2026 reflects 2025 and 2026 amendments: total cap $35,000 (§ 19.2-368.11:1(H)) and a three-year filing deadline (§ 19.2-368.5(B)). VVF pages say the three-year deadline applies to crimes on or after July 1, 2025 and that caps follow the policy in effect on the date of the crime, so older crimes may fall under a one-year deadline and older caps. Disagreement: the statute caps survivor counseling for family of homicide victims at $3,500 per claim (§ 19.2-368.11:1(E)(v)), while the VVF eligibility page and claim form list grief counseling up to $5,000; neither cap applies to direct sexual assault victims, so no counseling cap was recorded. Disagreement: the VVF Policies PDF says only victims of child sexual assault are exempt from prompt reporting, but the current § 19.2-368.10(3) says the reporting subdivision does not apply to claims of sexual abuse, which § 19.2-368.2 defines to include adult rape, sodomy, object sexual penetration and sexual battery; the statute controls. For other crimes, prompt reporting is judged from police records, the victim's situation, and any permanent protective order (§ 19.2-368.10(3)); the claim form says crimes between July 1, 1998 and June 30, 2025 used a 120-hour reporting standard with good cause. Once a claim is filed, notified health care providers must stop debt collection until a decision (§ 19.2-368.5:2). SAFE provider reimbursement rates (60% of eligible charges for acute exams, $1,500 non-acute, $1,000 follow-up) are payments to providers, not survivor caps, and were not recorded as rules. Lost wages for direct victims are paid at two-thirds of average weekly wage; the $600 weekly figure applies to partial loss of earnings combined with actual earnings. Reviewer: removed the $600 per week lost_wages expense_cap because it limits combined earnings plus partial-loss compensation, not the benefit itself, and would understate total-loss benefits; the statute text is § 19.2-368.11:1(B). VVF says caps follow the policy in effect on the date of the crime, so older crimes may fall under different caps that are not recorded here. How to file: the claim form (VA-S11, 08/12/2025, the version linked from the VVF Claim Form page, 175 AcroForm fields) says to submit by mail to P.O. Box 26927, Richmond, VA 23261 or fax 804-823-6905; § 19.2-368.5(C) and the VVF Policies also allow in-person filing, and the contact page says in-person assistance is by appointment only (appointment@vvf.virginia.gov). There is no public online application: WebFile is for trained victim advocates and medical providers, so a survivor who wants to file electronically goes through a local Victim/Witness program. Disagreement: the VVF Policies PDF (Sept 2025) says supporting documents can be e-mailed to info@virginiavictimsfund.org, but the newer Contact Us page says VVF is no longer accepting documents via email for security reasons, so no email submission rule was recorded. SAFE exam submission targets (fax 804-823-6907, safe@vvf.virginia.gov) are for providers and were not recorded as survivor filing methods. No processing time is stated; the only time limits are on the claimant (180 days after the acknowledgement letter to send requested documents, and two years from eligibility per the How Compensation Works page). Privacy: Virginia's Address Confidentiality Program (Va. Code § 2.2-515.2) is run by the Office of the Attorney General; 'sexual violence' is defined to include rape (§ 18.2-61) and other sexual offenses, regardless of whether the conduct was reported or charged. Applicants must be at least 18 (or a parent/guardian for a minor or incapacitated person, or an emancipated minor), apply in person through an accredited sexual or domestic violence program or a crime victim and witness assistance program, are certified for three years, and residents of temporary housing for 30 days or less cannot enroll until they have a permanent address. Participants can ask any state or local agency to use the designated address, and ACP records identifying participants are exempt from Virginia FOIA (§ 2.2-515.2(G)). Record confidentiality comes from the VVF Confidentiality page, not a statute: no statute was found that makes compensation claim files confidential as a whole; § 19.2-368.3(2) (VA-S20) only makes investigative information the Commission obtains from police, prosecutors and the medical examiner confidential. The VVF page also notes that the signed Notarized Agreement lets VVF share information with agencies, providers, employers and insurers to decide eligibility."
 }

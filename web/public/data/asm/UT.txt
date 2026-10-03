@@ -1,0 +1,639 @@
+; tend law image UT, Utah
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 85b5515ec22785f09e9f3374b10d7613e5a028e5e2efae59039bae52a149f9b2
+; image sha256  542957c204b39cf036cbc27daf3bfeab62126a517e05d652cc30011f4258929a
+; 56 rules, 17 sources, 28 proofs, 7 ints, 329 strings
+; item program: 187 instructions, 590 bytes, max stack 2
+; aggregate program: 209 instructions, 651 bytes, max stack 2, 7 loops
+
+.rules
+    R0    UT-EXAM-1             exam_no_bill  -                                             Utah Admin. Code R270-1-24(6)
+    R1    UT-EXAM-2             exam_no_bill  -                                             UOVC Sexual Assault Services Providers billing page, Payment in Full Requirement
+    R2    UT-EXAM-3             exam_payment  -                                             Utah Admin. Code R270-1-24(1)(a)
+    R3    UT-EXAM-5             covered       prescription                                  Utah Admin. Code R270-1-24(1)(b)
+    R4    UT-EXAM-6             collateral    -                                             UOVC Sexual Assault Services Providers billing page, Reminder
+    R5    UT-EXAM-7             exam_payment  -                                             Utah Admin. Code R270-1-24(2)
+    R6    UT-EXCL-1             info          -                     excluded_expense        Utah Admin. Code R270-1-24(7)
+    R7    UT-TOTAL-1            total_cap     -                                             Utah Code 75E-5-309(4)(a)
+    R8    UT-CAP-1              expense_cap   medical               per claim               Utah Code 75E-5-309(4)(b)
+    R9    UT-CAP-4              expense_cap   relocation            per claim               Utah Admin. Code R270-1-11(1)(a)
+    R10   UT-CAP-5              expense_cap   transportation        per claim               Utah Admin. Code R270-1-12(1)
+    R11   UT-CAP-6              expense_cap   security              per claim               Utah Admin. Code R270-1-16(3)(a)
+    R12   UT-CAP-7              expense_cap   other                 per claim               Utah Admin. Code R270-1-16(2)(a)
+    R13   UT-CAP-8              expense_cap   funeral               per claim               Utah Admin. Code R270-1-3(1)(a)
+    R14   UT-COV-1              covered       medical                                       Utah Code 75E-5-309(1)(d)(ii)
+    R15   UT-COV-2              covered       medical                                       Utah Admin. Code R270-1-21
+    R16   UT-COV-3              covered       dental                                        Utah Admin. Code R270-1-2(2)(b)(i)
+    R17   UT-COV-4              covered       counseling                                    Utah Code 75E-5-309(1)(d)(iii)
+    R18   UT-COV-5              covered       lost_wages                                    Utah Code 75E-5-309(1)(d)(iv)
+    R19   UT-COV-6              covered       childcare                                     Utah Code 75E-5-309(1)(d)(v)
+    R20   UT-COV-7              covered       property_replacement                          Utah Code 75E-5-309(1)(d)(viii)
+    R21   UT-COV-8              covered       medical                                       Utah Code 75E-5-309(1)(d)(x)
+    R22   UT-COV-9              covered       prescription                                  Utah Admin. Code R270-1-19(2)
+    R23   UT-COV-10             covered       medical                                       Utah Admin. Code R270-1-8
+    R24   UT-EXCL-2             info          -                     excluded_expense        Utah Code 75E-5-101(18)(c)
+    R25   UT-EXCL-3             info          -                     excluded_expense        Utah Admin. Code R270-1-28(4)(a)
+    R26   UT-EXCL-4             info          -                     excluded_expense        Utah Admin. Code R270-1-5(5)
+    R27   UT-REPORT-1           reporting     -                                             Utah Code 75E-5-305(1)(d)
+    R28   UT-REPORT-2           reporting     -                                             Utah Code 75E-5-305(3)(a)
+    R29   UT-REPORT-3           reporting     -                                             UOVC Apply for Compensation page, Eligibility
+    R30   UT-COLL-1             collateral    -                                             Utah Admin. Code R270-1-28(5)(a)
+    R31   UT-COLL-2             collateral    -                                             Utah Admin. Code R270-1-28(5)(b)
+    R32   UT-COND-1             info          -                     conduct_reduction       Utah Code 75E-5-309(2)(a)
+    R33   UT-COND-2             info          -                     conduct_reduction       Utah Admin. Code R270-1-22(3)
+    R34   UT-EMERG-1            info          -                     emergency_award         Utah Code 75E-5-309(3)(a)
+    R35   UT-EMERG-2            info          -                     emergency_award         Utah Admin. Code R270-1-9(1)(a)
+    R36   UT-ELIG-1             info          -                     eligible_crime          Utah Code 75E-5-101(47)(a)
+    R37   UT-ELIG-2             info          -                     eligible_crime          UOVC Apply for Compensation page, Eligibility
+    R38   UT-ELIG-3             info          -                     eligible_crime          Utah Code 75E-5-305(2)
+    R39   UT-RES-1              info          -                     residency               Utah Code 75E-5-305(1)(b)
+    R40   UT-SUBMIT-1           info          -                     submission              Apply for Compensation, Victim Compensation Application Process
+    R41   UT-SUBMIT-2           info          -                     submission              Application header
+    R42   UT-SUBMIT-3           info          -                     submission              Contact Us, Office Contact Information
+    R43   UT-SUBMIT-4           info          -                     submission              Contact Us, Office Contact Information
+    R44   UT-DOC-1              info          -                     required_document       Apply for Compensation, Victim Compensation Application Process
+    R45   UT-DOC-2              info          -                     required_document       Apply for Compensation, Eligibility
+    R46   UT-DOC-3              info          -                     required_document       Application, Section 3
+    R47   UT-DOC-4              info          -                     required_document       Application, Section 9
+    R48   UT-DOC-5              info          -                     required_document       Victim FAQs, medical bills
+    R49   UT-DOC-6              info          -                     required_document       Utah Admin. Code R270-1-5(1)(b)(i)
+    R50   UT-DOC-7              info          -                     required_document       What Happens After a Decision, Funeral or Relocation Costs
+    R51   UT-TIME-1             info          -                     processing_time         Apply for Compensation, Victim Compensation Application Process
+    R52   UT-ACP-1              info          -                     address_confidentiality Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)
+    R53   UT-RECCONF-1          info          -                     record_confidentiality  Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)
+    R54   UT-CAP-2              skipped       -                     expense_cap             Utah Admin. Code R270-1-5(1)(a)(i)  ; expense_cap without amount or expense
+    R55   UT-CAP-3              skipped       -                     expense_cap             Utah Admin. Code R270-1-10(2)(a)  ; expense_cap without amount or expense
+
+.sources
+    S0    UT-S1       sha256 2a1f9a288debddcf  https://crimevictim.utah.gov/help-for-victims/victim-compensation/
+    S1    UT-S2       sha256 462fab28b353f9d3  https://crimevictim.utah.gov/help-for-victims/victim-faqs/
+    S2    UT-S3       sha256 c4cf62d870c3b733  https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/
+    S3    UT-S4       sha256 391005d922e1b67a  https://crimevictim.utah.gov/billing/sexual-assault-services-providers/
+    S4    UT-S5       sha256 6c739b957c678d03  https://crimevictim.utah.gov/wp-content/uploads/UOVC-Application-English.pdf
+    S5    UT-S6       sha256 d293e1b0dbbd82fb  https://crimevictim.utah.gov/wp-content/uploads/Code-R-table-2023-01-05-1.pdf
+    S6    UT-S7       sha256 e7a956330e9f366f  https://le.utah.gov/xcode/Title75E/Chapter5/C75E-5_2026050620260701.pdf
+    S7    UT-S8       sha256 a5d1217daca9fcc4  https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules
+    S8    UT-S9       sha256 460e0279f1e931ca  https://crimevictim.utah.gov/about/contact-us/
+    S9    UT-S10      sha256 3ec64ae913db0772  https://crimevictim.utah.gov/help-for-victims/victim-compensation/after-decision/
+    S10   UT-S11      sha256 38ca9dbfab3930f1  https://safeathome.utah.gov/
+    S11   UT-S12      sha256 5badc6abdd1dbaaf  https://safeathome.utah.gov/about/
+    S12   UT-S13      sha256 f27220c8e4525884  https://safeathome.utah.gov/how-to-enroll/
+    S13   UT-S14      sha256 c5d5b360cc87622f  https://safeathome.utah.gov/agency-compliance/
+    S14   UT-S15      sha256 e5a0d1ea2b56551e  https://le.utah.gov/xcode/Title77/Chapter38/C77-38-P6_2023050320230503.pdf
+    S15   UT-S16      sha256 7a3dd935a744191e  https://le.utah.gov/xcode/Title75E/Chapter11/C75E-11_2026050620260701.pdf
+    S16   UT-S17      sha256 2aaf24d761745093  https://le.utah.gov/xcode/Title75E/Chapter1/C75E-1_2026050620260701.pdf
+
+.proofs
+    P0    ()
+    P1    (UT-EXAM-1, UT-EXAM-2, UT-EXAM-3, UT-EXAM-7)
+    P2    (UT-CAP-1, UT-COV-1, UT-COV-2, UT-COV-8, UT-COV-10)
+    P3    (UT-CAP-1, UT-COV-1, UT-COV-2, UT-COV-8, UT-COV-10, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P4    (UT-COV-4)
+    P5    (UT-COV-4, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P6    (UT-COV-5)
+    P7    (UT-COV-5, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P8    (UT-CAP-5)
+    P9    (UT-CAP-5, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P10   (UT-CAP-4)
+    P11   (UT-CAP-4, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P12   (UT-CAP-6)
+    P13   (UT-CAP-6, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P14   (UT-COV-6)
+    P15   (UT-COV-6, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P16   (UT-COV-7)
+    P17   (UT-COV-7, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P18   (UT-EXAM-5, UT-COV-9)
+    P19   (UT-EXAM-5, UT-COV-9, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P20   (UT-COV-3)
+    P21   (UT-COV-3, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P22   (UT-CAP-8)
+    P23   (UT-CAP-8, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P24   (UT-CAP-7)
+    P25   (UT-CAP-7, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
+    P26   (UT-REPORT-1, UT-REPORT-2, UT-REPORT-3)
+    P27   (UT-EXAM-6, UT-EXCL-1, UT-EXCL-2, UT-EXCL-3, UT-EXCL-4, UT-COLL-1, UT-COLL-2, UT-COND-1, UT-COND-2, UT-EMERG-1, UT-EMERG-2, UT-ELIG-1, UT-ELIG-2, UT-ELIG-3, UT-RES-1, UT-SUBMIT-1, UT-SUBMIT-2, UT-SUBMIT-3, UT-SUBMIT-4, UT-DOC-1, UT-DOC-2, UT-DOC-3, UT-DOC-4, UT-DOC-5, UT-DOC-6, UT-DOC-7, UT-TIME-1, UT-ACP-1, UT-RECCONF-1)
+
+.ints
+    K0    5000000       ; $50,000.00
+    K1    200000        ; $2,000.00
+    K2    100000        ; $1,000.00
+    K3    150000        ; $1,500.00
+    K4    500000        ; $5,000.00
+    K5    1400000       ; $14,000.00
+    K6    2500000       ; $25,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L12
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L12
+                        case security              -> L13
+                        case crime_scene_cleanup   -> L12
+                        case childcare             -> L15
+                        case property_replacement  -> L17
+                        case clothing_bedding      -> L12
+                        case prescription          -> L19
+                        case dental                -> L21
+                        case funeral               -> L23
+                        case legal                 -> L12
+                        case tuition               -> L12
+                        case other                 -> L25
+                        case unknown               -> L12
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; UT-EXAM-1  Utah Admin. Code R270-1-24(6)  "A victim may not be: (a) charged for a medical forensic sexual..."
+              ; UT-EXAM-2  UOVC Sexual Assault Services Providers billing page, Payment in Full Requirement  "A sexual assault exam service provider who accepts payment from..."
+              ; UT-EXAM-3  Utah Admin. Code R270-1-24(1)(a)  "The office may pay a medical service provider who performs a..."
+              ; UT-EXAM-7  Utah Admin. Code R270-1-24(2)  "50% of the fee for the use of an examination room to perform a..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; UT-EXAM-1, UT-EXAM-2, UT-EXAM-3, UT-EXAM-7
+  007b        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-CAP-1  Utah Code 75E-5-309(4)(b)  "A compensation award for medical expenses resulting from serious..."
+              ; UT-COV-1  Utah Code 75E-5-309(1)(d)(ii)  "inpatient and outpatient medical treatment and physical therapy..."
+              ; UT-COV-2  Utah Admin. Code R270-1-21  "if the victim does not have any collateral source to pay for..."
+              ; UT-COV-8  Utah Code 75E-5-309(1)(d)(x)  "for a victim of sexual assault who becomes pregnant from the..."
+              ; UT-COV-10  Utah Admin. Code R270-1-8  "As part of a reparations award, the office shall pay expenses..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  007c  L2:   ldi      confirmed
+  007e        jnz      L3
+  0083        push     0
+  0088        decide   needs_confirmation, P2       ; UT-CAP-1, UT-COV-1, UT-COV-2, UT-COV-8, UT-COV-10
+  008c        ret
+  008d  L3:   ldi      amount_cents
+  008f        decide   eligible, P3                 ; UT-CAP-1, UT-COV-1, UT-COV-2, UT-COV-8, UT-COV-10, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  0093        lda
+  0094        ldi      insurance_paid_cents
+  0096        subs
+  0097        push     0
+  009c        max
+  009d        seta     collateral, R4               ; UT-EXAM-6
+  00a1        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-COV-4  Utah Code 75E-5-309(1)(d)(iii)  "mental health counseling that: (A) is set forth in a mental..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  00a2  L4:   ldi      confirmed
+  00a4        jnz      L5
+  00a9        push     0
+  00ae        decide   needs_confirmation, P4       ; UT-COV-4
+  00b2        ret
+  00b3  L5:   ldi      amount_cents
+  00b5        decide   eligible, P5                 ; UT-COV-4, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  00b9        lda
+  00ba        ldi      insurance_paid_cents
+  00bc        subs
+  00bd        push     0
+  00c2        max
+  00c3        seta     collateral, R4               ; UT-EXAM-6
+  00c7        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-COV-5  Utah Code 75E-5-309(1)(d)(iv)  "actual loss of past earnings and anticipated loss of future..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  00c8  L6:   ldi      confirmed
+  00ca        jnz      L7
+  00cf        push     0
+  00d4        decide   needs_confirmation, P6       ; UT-COV-5
+  00d8        ret
+  00d9  L7:   ldi      amount_cents
+  00db        decide   eligible, P7                 ; UT-COV-5, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  00df        lda
+  00e0        ldi      insurance_paid_cents
+  00e2        subs
+  00e3        push     0
+  00e8        max
+  00e9        seta     collateral, R4               ; UT-EXAM-6
+  00ed        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-CAP-5  Utah Admin. Code R270-1-12(1)  "the office may pay up to $1,000 for the reasonable and necessary..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  00ee  L8:   ldi      confirmed
+  00f0        jnz      L9
+  00f5        push     0
+  00fa        decide   needs_confirmation, P8       ; UT-CAP-5
+  00fe        ret
+  00ff  L9:   ldi      amount_cents
+  0101        decide   eligible, P9                 ; UT-CAP-5, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  0105        lda
+  0106        ldi      insurance_paid_cents
+  0108        subs
+  0109        push     0
+  010e        max
+  010f        seta     collateral, R4               ; UT-EXAM-6
+  0113        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-CAP-4  Utah Admin. Code R270-1-11(1)(a)  "the office may pay up to $2,000 for any reasonable and necessary..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  0114  L10:  ldi      confirmed
+  0116        jnz      L11
+  011b        push     0
+  0120        decide   needs_confirmation, P10      ; UT-CAP-4
+  0124        ret
+  0125  L11:  ldi      amount_cents
+  0127        decide   eligible, P11                ; UT-CAP-4, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  012b        lda
+  012c        ldi      insurance_paid_cents
+  012e        subs
+  012f        push     0
+  0134        max
+  0135        seta     collateral, R4               ; UT-EXAM-6
+  0139        ret
+  013a  L12:  push     0
+  013f        decide   unknown_rule, P0             ; (none)
+  0143        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-CAP-6  Utah Admin. Code R270-1-16(3)(a)  "The reparations officer may allow up to $1,500 for other..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  0144  L13:  ldi      confirmed
+  0146        jnz      L14
+  014b        push     0
+  0150        decide   needs_confirmation, P12      ; UT-CAP-6
+  0154        ret
+  0155  L14:  ldi      amount_cents
+  0157        decide   eligible, P13                ; UT-CAP-6, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  015b        lda
+  015c        ldi      insurance_paid_cents
+  015e        subs
+  015f        push     0
+  0164        max
+  0165        seta     collateral, R4               ; UT-EXAM-6
+  0169        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-COV-6  Utah Code 75E-5-309(1)(d)(v)  "care of minor children enabling a victim or spouse of a victim..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  016a  L15:  ldi      confirmed
+  016c        jnz      L16
+  0171        push     0
+  0176        decide   needs_confirmation, P14      ; UT-COV-6
+  017a        ret
+  017b  L16:  ldi      amount_cents
+  017d        decide   eligible, P15                ; UT-COV-6, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  0181        lda
+  0182        ldi      insurance_paid_cents
+  0184        subs
+  0185        push     0
+  018a        max
+  018b        seta     collateral, R4               ; UT-EXAM-6
+  018f        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-COV-7  Utah Code 75E-5-309(1)(d)(viii)  "personal property necessary and essential to the health or..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  0190  L17:  ldi      confirmed
+  0192        jnz      L18
+  0197        push     0
+  019c        decide   needs_confirmation, P16      ; UT-COV-7
+  01a0        ret
+  01a1  L18:  ldi      amount_cents
+  01a3        decide   eligible, P17                ; UT-COV-7, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  01a7        lda
+  01a8        ldi      insurance_paid_cents
+  01aa        subs
+  01ab        push     0
+  01b0        max
+  01b1        seta     collateral, R4               ; UT-EXAM-6
+  01b5        ret
+              ; UT-EXAM-5  Utah Admin. Code R270-1-24(1)(b)  "the full cost of any medications the medical service provider..."
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-COV-9  Utah Admin. Code R270-1-19(2)  "The office shall only consider reimbursement of prescription or..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  01b6  L19:  ldi      confirmed
+  01b8        jnz      L20
+  01bd        push     0
+  01c2        decide   needs_confirmation, P18      ; UT-EXAM-5, UT-COV-9
+  01c6        ret
+  01c7  L20:  ldi      amount_cents
+  01c9        decide   eligible, P19                ; UT-EXAM-5, UT-COV-9, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  01cd        lda
+  01ce        ldi      insurance_paid_cents
+  01d0        subs
+  01d1        push     0
+  01d6        max
+  01d7        seta     collateral, R4               ; UT-EXAM-6
+  01db        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-COV-3  Utah Admin. Code R270-1-2(2)(b)(i)  "medical services include dental services"
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  01dc  L21:  ldi      confirmed
+  01de        jnz      L22
+  01e3        push     0
+  01e8        decide   needs_confirmation, P20      ; UT-COV-3
+  01ec        ret
+  01ed  L22:  ldi      amount_cents
+  01ef        decide   eligible, P21                ; UT-COV-3, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  01f3        lda
+  01f4        ldi      insurance_paid_cents
+  01f6        subs
+  01f7        push     0
+  01fc        max
+  01fd        seta     collateral, R4               ; UT-EXAM-6
+  0201        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-CAP-8  Utah Admin. Code R270-1-3(1)(a)  "up to $14,000 for any reasonable and necessary expense related..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  0202  L23:  ldi      confirmed
+  0204        jnz      L24
+  0209        push     0
+  020e        decide   needs_confirmation, P22      ; UT-CAP-8
+  0212        ret
+  0213  L24:  ldi      amount_cents
+  0215        decide   eligible, P23                ; UT-CAP-8, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  0219        lda
+  021a        ldi      insurance_paid_cents
+  021c        subs
+  021d        push     0
+  0222        max
+  0223        seta     collateral, R4               ; UT-EXAM-6
+  0227        ret
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-CAP-7  Utah Admin. Code R270-1-16(2)(a)  "The reparations officer may allow up to $5,000 for medically..."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+  0228  L25:  ldi      confirmed
+  022a        jnz      L26
+  022f        push     0
+  0234        decide   needs_confirmation, P24      ; UT-CAP-7
+  0238        ret
+  0239  L26:  ldi      amount_cents
+  023b        decide   eligible, P25                ; UT-CAP-7, UT-EXAM-6, UT-COLL-1, UT-COLL-2
+  023f        lda
+  0240        ldi      insurance_paid_cents
+  0242        subs
+  0243        push     0
+  0248        max
+  0249        seta     collateral, R4               ; UT-EXAM-6
+  024d        ret
+
+.aggregate
+              ; UT-CAP-1  Utah Code 75E-5-309(4)(b)  "A compensation award for medical expenses resulting from serious..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     medical, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $50,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $50,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R8              ; UT-CAP-1
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R8              ; UT-CAP-1
+  004d  L3:   next     L0
+              ; UT-CAP-4  Utah Admin. Code R270-1-11(1)(a)  "the office may pay up to $2,000 for any reasonable and necessary..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     relocation, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $2,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $2,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R9              ; UT-CAP-4
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R9              ; UT-CAP-4
+  009f  L8:   next     L5
+              ; UT-CAP-5  Utah Admin. Code R270-1-12(1)  "the office may pay up to $1,000 for the reasonable and necessary..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     transportation, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K2                           ; $1,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K2                           ; $1,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R10             ; UT-CAP-5
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R10             ; UT-CAP-5
+  00f1  L13:  next     L10
+              ; UT-CAP-6  Utah Admin. Code R270-1-16(3)(a)  "The reparations officer may allow up to $1,500 for other..."
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        push     0
+  0102        str      r1
+  0104        each     security, L19
+  010a  L15:  ldr      r1
+  010c        jnz      L17
+  0111        ldr      r0
+  0113        lda
+  0114        adds
+  0115        ldk      K3                           ; $1,500.00
+  0118        gt
+  0119        jz       L16
+  011e        ldk      K3                           ; $1,500.00
+  0121        ldr      r0
+  0123        subs
+  0124        cap      expense_cap, R11             ; UT-CAP-6
+  0128        push     1
+  012d        str      r1
+  012f  L16:  ldr      r0
+  0131        lda
+  0132        adds
+  0133        str      r0
+  0135        jmp      L18
+  013a  L17:  push     0
+  013f        cap      expense_cap, R11             ; UT-CAP-6
+  0143  L18:  next     L15
+              ; UT-CAP-7  Utah Admin. Code R270-1-16(2)(a)  "The reparations officer may allow up to $5,000 for medically..."
+  0148  L19:  push     0
+  014d        str      r0
+  014f        push     0
+  0154        str      r1
+  0156        each     other, L24
+  015c  L20:  ldr      r1
+  015e        jnz      L22
+  0163        ldr      r0
+  0165        lda
+  0166        adds
+  0167        ldk      K4                           ; $5,000.00
+  016a        gt
+  016b        jz       L21
+  0170        ldk      K4                           ; $5,000.00
+  0173        ldr      r0
+  0175        subs
+  0176        cap      expense_cap, R12             ; UT-CAP-7
+  017a        push     1
+  017f        str      r1
+  0181  L21:  ldr      r0
+  0183        lda
+  0184        adds
+  0185        str      r0
+  0187        jmp      L23
+  018c  L22:  push     0
+  0191        cap      expense_cap, R12             ; UT-CAP-7
+  0195  L23:  next     L20
+              ; UT-CAP-8  Utah Admin. Code R270-1-3(1)(a)  "up to $14,000 for any reasonable and necessary expense related..."
+  019a  L24:  push     0
+  019f        str      r0
+  01a1        push     0
+  01a6        str      r1
+  01a8        each     funeral, L29
+  01ae  L25:  ldr      r1
+  01b0        jnz      L27
+  01b5        ldr      r0
+  01b7        lda
+  01b8        adds
+  01b9        ldk      K5                           ; $14,000.00
+  01bc        gt
+  01bd        jz       L26
+  01c2        ldk      K5                           ; $14,000.00
+  01c5        ldr      r0
+  01c7        subs
+  01c8        cap      expense_cap, R13             ; UT-CAP-8
+  01cc        push     1
+  01d1        str      r1
+  01d3  L26:  ldr      r0
+  01d5        lda
+  01d6        adds
+  01d7        str      r0
+  01d9        jmp      L28
+  01de  L27:  push     0
+  01e3        cap      expense_cap, R13             ; UT-CAP-8
+  01e7  L28:  next     L25
+              ; UT-TOTAL-1  Utah Code 75E-5-309(4)(a)  "Except as provided in Subsection (4)(b), a compensation award..."
+  01ec  L29:  push     0
+  01f1        str      r0
+  01f3        push     0
+  01f8        str      r1
+  01fa        each     all, L34
+  0200  L30:  ldr      r1
+  0202        jnz      L32
+  0207        ldr      r0
+  0209        lda
+  020a        adds
+  020b        ldk      K6                           ; $25,000.00
+  020e        gt
+  020f        jz       L31
+  0214        ldk      K6                           ; $25,000.00
+  0217        ldr      r0
+  0219        subs
+  021a        cap      total_cap, R7                ; UT-TOTAL-1
+  021e        push     1
+  0223        str      r1
+  0225  L31:  ldr      r0
+  0227        lda
+  0228        adds
+  0229        str      r0
+  022b        jmp      L33
+  0230  L32:  push     0
+  0235        cap      total_cap, R7                ; UT-TOTAL-1
+  0239  L33:  next     L30
+  023e  L34:  push     0                            ; met
+  0243        check    minimum_loss, P0             ; (none)
+  0247        push     2                            ; unknown
+  024c        check    deadline, P0                 ; (none)
+              ; UT-REPORT-1  Utah Code 75E-5-305(1)(d)  "the criminally injurious conduct is reported to a law..."
+              ; UT-REPORT-2  Utah Code 75E-5-305(3)(a)  "a victim of sexual assault is not required to report the sexual..."
+              ; UT-REPORT-3  UOVC Apply for Compensation page, Eligibility  "In cases of sexual assault, a questionnaire can be completed by..."
+  0250        ldx      police_report
+  0252        push     1                            ; yes
+  0257        eq
+  0258        jnz      L36
+  025d        ldx      police_report
+  025f        push     0                            ; no
+  0264        eq
+  0265        jnz      L35
+  026a        push     3
+  026f        jmp      L37
+  0274  L35:  push     1
+  0279        jmp      L37
+  027e  L36:  push     0                            ; satisfied
+  0283  L37:  check    reporting, P26               ; UT-REPORT-1, UT-REPORT-2, UT-REPORT-3
+              ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
+              ; UT-EXCL-1  Utah Admin. Code R270-1-24(7)  "The office may not provide any reimbursement for any costs..."
+              ; UT-EXCL-2  Utah Code 75E-5-101(18)(c)  ""Economic loss" does not include noneconomic detriment."
+              ; UT-EXCL-3  Utah Admin. Code R270-1-28(4)(a)  "The office may not pay: (a) interest, finance, or collection..."
+              ; UT-EXCL-4  Utah Admin. Code R270-1-5(5)  "The office may not pay for wilderness programs."
+              ; UT-COLL-1  Utah Admin. Code R270-1-28(5)(a)  "If a victim has medical insurance or another collateral source..."
+              ; UT-COLL-2  Utah Admin. Code R270-1-28(5)(b)  "A reparations officer may waive the requirement in Subsection..."
+              ; UT-COND-1  Utah Code 75E-5-309(2)(a)  "The office may reduce or deny a compensation award otherwise..."
+              ; UT-COND-2  Utah Admin. Code R270-1-22(3)  "When determining whether the victim engaged in misconduct..."
+              ; UT-EMERG-1  Utah Code 75E-5-309(3)(a)  "If a compensation specialist determines that a claimant will..."
+              ; UT-EMERG-2  Utah Admin. Code R270-1-9(1)(a)  "the office may make emergency reparations awards up to $1,000."
+              ; UT-ELIG-1  Utah Code 75E-5-101(47)(a)  ""Victim" means an individual who suffers bodily or psychological..."
+              ; UT-ELIG-2  UOVC Apply for Compensation page, Eligibility  "Crimes that are eligible for compensation include: Aggravated..."
+              ; UT-ELIG-3  Utah Code 75E-5-305(2)  "A compensation award may be made to a victim regardless of..."
+              ; UT-RES-1  Utah Code 75E-5-305(1)(b)  "the criminally injurious conduct occurred in Utah; or (ii) the..."
+              ; UT-SUBMIT-1  Apply for Compensation, Victim Compensation Application Process  "The application can be completed either through the online..."
+              ; UT-SUBMIT-2  Application header  "Email: crimevictims@utah.gov"
+              ; UT-SUBMIT-3  Contact Us, Office Contact Information  "Mailing & Physical Address: 420 East South Temple, Suite 500..."
+              ; UT-SUBMIT-4  Contact Us, Office Contact Information  "Fax: 801-533-4127"
+              ; UT-DOC-1  Apply for Compensation, Victim Compensation Application Process  "The Utah Office for Victims of Crime staff must request the..."
+              ; UT-DOC-2  Apply for Compensation, Eligibility  "In cases of sexual assault, a questionnaire can be completed by..."
+              ; UT-DOC-3  Application, Section 3  "INSURANCE (Failure to provide this information will delay..."
+              ; UT-DOC-4  Application, Section 9  "APPLICATIONS SUBMITTED FOR CHILD VICTIMS UNDER THE AGE OF..."
+              ; UT-DOC-5  Victim FAQs, medical bills  "Contact your medical provider, provide them with your claim..."
+              ; UT-DOC-6  Utah Admin. Code R270-1-5(1)(b)(i)  "a qualified mental health professional who intends to provide..."
+              ; UT-DOC-7  What Happens After a Decision, Funeral or Relocation Costs  "Payment for these services may be made directly to the..."
+              ; UT-TIME-1  Apply for Compensation, Victim Compensation Application Process  "Processing time is approximately 60-90 days."
+              ; UT-ACP-1  Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)  "Utah’s Safe at Home Program is available to survivors of..."
+              ; UT-RECCONF-1  Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)  "Notwithstanding Title 63G, Chapter 2, Government Records Access..."
+  0287        info     P27                          ; UT-EXAM-6, UT-EXCL-1, UT-EXCL-2, UT-EXCL-3, UT-EXCL-4, UT-COLL-1, UT-COLL-2, UT-COND-1, UT-COND-2, UT-EMERG-1, UT-EMERG-2, UT-ELIG-1, UT-ELIG-2, UT-ELIG-3, UT-RES-1, UT-SUBMIT-1, UT-SUBMIT-2, UT-SUBMIT-3, UT-SUBMIT-4, UT-DOC-1, UT-DOC-2, UT-DOC-3, UT-DOC-4, UT-DOC-5, UT-DOC-6, UT-DOC-7, UT-TIME-1, UT-ACP-1, UT-RECCONF-1
+  028a        ret
+
