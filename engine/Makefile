@@ -71,8 +71,13 @@ $(BUILD)/tendvm: $(OBJ)/tools/tendvm.o $(BUILD)/libtend.a
 $(BUILD)/tend_tests: $(TEST_OBJS) $(BUILD)/libtendc.a $(BUILD)/libtend.a
 	$(CXX) $(LDFLAGS) $^ -o $@
 
+# The law images the browser ships (web/public/engine/laws) must be what tendc
+# builds from the default corpus now; pointing IR or VERIFIED elsewhere skips
+# that check.
+SHIPPED ?= $(if $(and $(filter ../rules/ir,$(IR)),$(filter ../rules/verified,$(VERIFIED))),../web/public/engine)
+
 test: $(BUILD)/tend_tests $(BUILD)/tendc $(BUILD)/tendvm $(BUILD)/tdis
-	TEND_IR_DIR=$(IR) TEND_RULES_DIR=$(VERIFIED) TEND_BUILD_DIR=$(BUILD) ./$(BUILD)/tend_tests
+	TEND_IR_DIR=$(IR) TEND_RULES_DIR=$(VERIFIED) TEND_SHIPPED_DIR=$(SHIPPED) TEND_BUILD_DIR=$(BUILD) ./$(BUILD)/tend_tests
 
 test-san:
 	$(MAKE) BUILD=build/san OPT="-O1 -g -fno-omit-frame-pointer" \

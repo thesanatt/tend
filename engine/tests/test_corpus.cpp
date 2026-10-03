@@ -4,12 +4,15 @@
 // source_sha256 no longer matches the verified file) is reported, not tested.
 #include <algorithm>
 #include <filesystem>
+#include <map>
+#include <set>
 #include <string>
 #include <vector>
 
 #include "helpers.h"
 #include "image.h"
 #include "oracle.h"
+#include "sha256.h"
 
 using th::json;
 namespace fs = std::filesystem;
@@ -146,4 +149,80 @@ TEST_CASE("corpus: real jurisdictions compile, verify, and match the oracle") {
   for (const auto& s : stale) stale_list += " " + s;
   MESSAGE(states << " jurisdictions, " << evaluations << " scenario evaluations; " << stale.size()
                  << " stale IR files skipped:" << stale_list << "; " << unpaired.size() << " without a verified file");
+}
+
+// The browser evaluates claims with the images in web/public/engine/laws, so
+// they must be exactly what tendc builds from the rules now. A rules change
+// (even a new source hash) without `make wasm` fails here instead of shipping
+// an image that no longer matches its verified file. `make test` sets
+// TEND_SHIPPED_DIR only for the default corpus.
+TEST_CASE("corpus: the law images shipped to the browser are the ones tendc builds now") {
+  fs::path shipped = th::env_or("TEND_SHIPPED_DIR", "");
+  if (shipped.empty()) {
+    MESSAGE("TEND_SHIPPED_DIR is not set; shipped law images not checked");
+    return;
+  }
+  fs::path laws_dir = shipped / "laws";
+  fs::path ir_dir = th::env_or("TEND_IR_DIR", "../rules/ir");
+  fs::path verified_dir = th::env_or("TEND_RULES_DIR", "../rules/verified");
+  std::error_code ec;
+  REQUIRE_MESSAGE(fs::is_directory(laws_dir, ec), laws_dir.string() << " is missing; run make wasm");
+
+  std::string index_text = th::read_text((laws_dir / "index.json").string());
+  REQUIRE_MESSAGE(!index_text.empty(), "laws/index.json is missing; run make wasm");
+  json index = json::parse(index_text);
+  CHECK(index["engine"] == tend_version());
+  std::map<std::string, json> listed;
+  for (const auto& e : index["laws"]) listed[e["file"].get<std::string>()] = e;
+
+  std::set<std::string> on_disk;
+  for (const auto& e : fs::directory_iterator(laws_dir, ec)) {
+    if (e.path().extension() == ".tlaw") on_disk.insert(e.path().filename().string());
+  }
+  CHECK(listed.size() == on_disk.size());
+
+  int current = 0;
+  std::vector<std::string> stale;
+  for (const auto& e : fs::directory_iterator(ir_dir, ec)) {
+    if (e.path().extension() != ".json") continue;
+    std::string st = e.path().stem().string();
+    CAPTURE(st);
+    std::string verified = th::read_text((verified_dir / e.path().filename()).string());
+    if (verified.empty()) continue;
+    tend::CompileResult res;
+    std::string err;
+    if (!tend::compile_law(th::read_text(e.path().string()), verified, res, err)) {
+      if (err.rfind("stale IR", 0) == 0) stale.push_back(st);
+      else FAIL_CHECK("compile error: " << err);
+      continue;
+    }
+    std::string file = st + ".tlaw";
+    std::string image = th::read_text((laws_dir / file).string());
+    std::vector<uint8_t> bytes(image.begin(), image.end());
+    CHECK_MESSAGE(bytes == res.image, "web/public/engine/laws/" << file
+                                           << " is not what tendc builds from the rules now; run make wasm");
+    auto it = listed.find(file);
+    if (it == listed.end()) {
+      FAIL_CHECK("laws/index.json does not list " << file << "; run make wasm");
+      continue;
+    }
+    const json& entry = it->second;
+    tend::Law law;
+    REQUIRE(tend::load_law(res.image.data(), res.image.size(), law, err));
+    CHECK(entry["jurisdiction"] == st);
+    CHECK(entry["bytes"] == res.image.size());
+    CHECK(entry["rules"] == law.rules.size());
+    CHECK(entry["law_image_sha256"] == tend::to_hex(law.image_sha256, 32));
+    CHECK(entry["source_sha256"] == tend::to_hex(law.source_sha256, 32));
+    on_disk.erase(file);
+    current++;
+  }
+  std::string extra;
+  for (const auto& f : on_disk) extra += " " + f;
+  CHECK_MESSAGE(on_disk.empty(), "shipped images with no current IR (missing or stale; rerun rules/tools/normalize.py "
+                                 "and make wasm):"
+                                     << extra);
+  std::string stale_list;
+  for (const auto& s : stale) stale_list += " " + s;
+  MESSAGE(current << " shipped law images match a fresh compile; stale IR not checked:" << stale_list);
 }
