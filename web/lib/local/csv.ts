@@ -358,14 +358,25 @@ export function parseCsv(text: string): StatementResult {
   // refunds show which sign means money in.
   let negativeOut = !POSITIVE_IS_OUT.has(layout);
   if (layout === "generic_amount") {
-    const typed = drafts.filter((d) => TYPE_OUT.test(d.type) || TYPE_IN.test(d.type)).length;
-    if (typed < drafts.length / 2) {
+    const typed = drafts.filter((d) => TYPE_OUT.test(d.type) || TYPE_IN.test(d.type));
+    if (typed.length < drafts.length / 2) {
       const income = drafts.filter((d) => d.amount && d.amount.cents && INCOME_WORDS.test(d.description));
       const neg = drafts.filter((d) => d.amount?.negative).length;
       const pos = drafts.filter((d) => d.amount && d.amount.cents && !d.amount.negative).length;
       if (income.length) negativeOut = income.filter((d) => !d.amount!.negative).length >= income.length / 2;
       else negativeOut = neg >= pos;
       warnings.push(negativeOut ? "Read negative amounts as money spent." : "Read positive amounts as money spent.");
+    } else {
+      // A type column names the direction. Its rows that also carry a sign show which sign means
+      // money out: on some card exports a purchase is 25.00 and a refund or payment -25.00.
+      let votesNegativeOut = 0;
+      let votesPositiveOut = 0;
+      for (const d of typed) {
+        if (!d.amount?.explicit || !d.amount.cents) continue;
+        if (TYPE_OUT.test(d.type) === d.amount.negative) votesNegativeOut++;
+        else votesPositiveOut++;
+      }
+      if (votesPositiveOut > votesNegativeOut) negativeOut = false;
     }
   }
 

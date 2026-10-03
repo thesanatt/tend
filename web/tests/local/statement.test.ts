@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseAmount, parseCents, parseDate } from "@/lib/local/amounts";
+import { classifier } from "@/lib/local/classify";
 import { readRows, sniffDelimiter } from "@/lib/local/csv";
 import { lineFinder, parseOfx } from "@/lib/local/ofx";
 import type { PdfLine } from "@/lib/local/pdf";
@@ -182,6 +183,35 @@ describe("bank CSV exports", () => {
     const r = await parse("csv/amex.csv");
     expect(r.layout).toBe("amex");
     expect(r.txns.map((t) => t.amount_cents)).toEqual([2300, -30000, 13900]);
+  });
+
+  it("a card export with a Type column: a refund or payment printed negative is money in", async () => {
+    const r = await parse("csv/typed-card.csv");
+    expect(r.layout).toBe("generic_amount");
+    expect(rows(r)).toEqual([
+      ["2026-06-18", 15000, "purchase", "CLEARWATER COUNSELING GROUP ANN ARBOR MI"],
+      ["2026-06-22", 13900, "purchase", "DOWNTOWN HOTEL ANN ARBOR MI"],
+      ["2026-06-25", -13900, "deposit", "DOWNTOWN HOTEL ANN ARBOR MI"],
+      ["2026-06-30", -50000, "deposit", "ACH DEPOSIT INTERNET TRANSFER FROM ACCOUNT ENDING IN 0042"],
+    ]);
+    // The refunded hotel night is offered once, not twice.
+    const items = await classifier.classify(r.txns, { st: "MI", incident_date: "2026-06-14" }, { deviceAi: false });
+    expect(items.map((i) => [i.expense, i.amount_cents])).toEqual([
+      ["counseling", 15000],
+      ["temporary_housing", 13900],
+    ]);
+  });
+
+  it("a type column wins over a guess, and rows with a sign keep the bank's convention", async () => {
+    const r = await statementParser.parseText(
+      [
+        "Date,Description,Type,Amount",
+        "06/15/2026,ODD SHOP,Debit,-25.00",
+        "06/16/2026,ODD SHOP REFUND,Pos,+5.00",
+        "06/17/2026,FERNWAY BOOKS PAYROLL,Credit,412.00",
+      ].join("\n"),
+    );
+    expect(r.txns.map((t) => t.amount_cents)).toEqual([2500, -500, -41200]);
   });
 
   it("generic signed amounts: paychecks show which sign is money in", async () => {
@@ -388,6 +418,7 @@ describe("every fixture keeps money out positive and in integer cents", () => {
     "csv/generic-signed.csv",
     "csv/generic-positive.csv",
     "csv/generic-semicolon.csv",
+    "csv/typed-card.csv",
     "ofx/checking.ofx",
     "ofx/card.qfx",
     "statement-sections.pdf",

@@ -1,7 +1,14 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { classifier, classifyDetailed, DEVICE_BATCH, responseSchema } from "@/lib/local/classify";
+import {
+  classifier,
+  classifyDetailed,
+  DEVICE_BATCH,
+  REFUND_REASON,
+  refundedPurchases,
+  responseSchema,
+} from "@/lib/local/classify";
 import { CLOUD_LIMITS, scrubForCloud } from "@/lib/local/cloud";
 import { fromNessieRelay } from "@/lib/local/nessie";
 import { MODEL_LABELS } from "@/lib/local/rules";
@@ -308,6 +315,39 @@ describe("Gemini Nano on the device", () => {
     const report = await classifyDetailed(unclear(DEVICE_BATCH * 3), ctx, { deviceTimeoutMs: 20 });
     expect(report.device.errors).toEqual(["batch 1: timed out", "batch 2: timed out"]);
     expect(report.counts.unresolved).toBe(DEVICE_BATCH * 3);
+  });
+});
+
+describe("refunds", () => {
+  const sessions = (refund: Partial<LocalTxn>) => [
+    txn("CLEARWATER COUNSELING GROUP", 15000, { date: "2026-06-17", kind: "purchase" }),
+    txn("CLEARWATER COUNSELING GROUP", 15000, { date: "2026-06-24", kind: "purchase" }),
+    txn("CLEARWATER COUNSELING GROUP REFUND", -15000, { date: "2026-06-26", kind: "deposit", ...refund }),
+  ];
+
+  it("a cost whose same amount came back from the same place is asked about, not pre-checked", async () => {
+    const report = await classifyDetailed(sessions({}), ctx, { deviceAi: false });
+    expect(report.items.map((i) => [i.date, i.amount_cents, i.confirmed, i.reason])).toEqual([
+      ["2026-06-17", 15000, true, "Counseling or therapy charge"],
+      ["2026-06-24", 15000, false, REFUND_REASON],
+    ]);
+  });
+
+  it.each([
+    ["another amount", { amount_cents: -5000 }],
+    ["another merchant", { description: "ODD SHOP REFUND" }],
+    ["money that came before the charge", { date: "2026-06-10" }],
+    ["more than 90 days later", { date: "2026-10-01" }],
+    ["a transfer", { kind: "transfer" as const }],
+  ])("%s is not a refund of it", async (_, refund) => {
+    const report = await classifyDetailed(sessions(refund), ctx, { deviceAi: false });
+    expect(report.items.every((i) => i.confirmed)).toBe(true);
+  });
+
+  it("one deposit answers for one charge", () => {
+    const two = [...sessions({}), txn("CLEARWATER COUNSELING GROUP", -15000, { date: "2026-06-27", kind: "deposit" })];
+    expect(refundedPurchases(two).size).toBe(2);
+    expect(refundedPurchases(sessions({})).size).toBe(1);
   });
 });
 

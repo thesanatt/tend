@@ -4,7 +4,7 @@
 // inferred from paychecks. Models only pick a label from a fixed list and never see amounts;
 // eligibility, caps and totals belong to the law engine.
 import type { Source, StatementTxn, Unit } from "../contracts";
-import { isIsoDay } from "../dates";
+import { daysBetween, isIsoDay } from "../dates";
 import type { ItemExpense } from "../types";
 import { CLOUD_LIMITS, cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
@@ -254,6 +254,39 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
   };
 }
 
+export const REFUND_REASON = "The same amount came back later, so check whether it was refunded";
+const REFUND_WORDS = /\b(refunds?|returns?|returned|credits?|reversals?|reversed|adjustments?)\b/g;
+const refundKey = (t: LocalTxn) =>
+  norm(t.merchant || t.description || "")
+    .replace(REFUND_WORDS, " ")
+    .replace(/[^a-z]+/g, " ")
+    .trim();
+
+// Purchases matched one to one with a later deposit of the same amount from the same merchant,
+// within 90 days; each deposit matches the latest such purchase before it. Paychecks, transfers
+// and bank bills never match.
+export function refundedPurchases(txns: LocalTxn[]): Set<string> {
+  const out = new Set<string>();
+  const spent = txns
+    .filter((t) => t.amount_cents > 0 && t.kind !== "transfer" && t.kind !== "bill")
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  for (const m of txns) {
+    if (m.amount_cents >= 0 || (m.kind && m.kind !== "deposit")) continue;
+    const key = refundKey(m);
+    if (!key) continue;
+    const hit = spent.find(
+      (s) =>
+        !out.has(s.id) &&
+        s.amount_cents === -m.amount_cents &&
+        s.date <= m.date &&
+        daysBetween(s.date, m.date) <= 90 &&
+        refundKey(s) === key,
+    );
+    if (hit) out.add(hit.id);
+  }
+  return out;
+}
+
 // A row as a model sees it, cut to the API's field limits so one very long description cannot
 // fill Gemini Nano's context (which would end device sorting for every batch after it).
 const cut = (text: string, max: number) => Array.from(text).slice(0, max).join("");
@@ -436,6 +469,13 @@ export async function classifyDetailed(
     if (day && !known.has(`${day}|${t.id}`)) anchors.push({ date: day, ref: t.id, expense: "medical" });
   }
   results = linkCareRides(facts, results, anchors);
+
+  // A cost whose same amount later came back from the same place may have been refunded, so it is
+  // asked about instead of starting checked. Nothing is removed: a wrong match costs one tap.
+  const refunded = refundedPurchases(txns);
+  results = results.map((r) =>
+    refunded.has(r.ref) && r.candidate ? { ...r, confirmed: false, reason: REFUND_REASON } : r,
+  );
 
   // A paycheck that came in short after the date becomes lost pay on its own id, as the API's
   // wage gaps do; checks that never came are new lines.
