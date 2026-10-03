@@ -132,6 +132,17 @@ describe("law page /law/MI", () => {
     expect(pre.querySelector('a[href="#MI-EXAM-1"]')).not.toBeNull();
     expect(doc.getElementById("asm-aggregate")).not.toBeNull();
   });
+
+  it("says whether the listing was compiled from these rules and this IR", () => {
+    const index = JSON.parse(readFileSync(path.join(web, "public/data/asm/index.json"), "utf8")).states.MI;
+    const ir = JSON.parse(readFileSync(path.join(web, "public/data/ir/MI.json"), "utf8"));
+    const doc = new DOMParser().parseFromString(page, "text/html");
+    const facts = doc.querySelector("#compiled dl")!.textContent!;
+    expect(facts).toContain(index.rules_fresh ? "Yes. The image names the same SHA-256" : "No. The image was compiled");
+    expect(facts).toContain(
+      index.ir_fresh ? "Yes. The image carries the SHA-256 of the IR" : `the IR is now version ${ir.ir_version}`,
+    );
+  });
 });
 
 describe("home page", () => {

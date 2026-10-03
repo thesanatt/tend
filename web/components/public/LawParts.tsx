@@ -193,12 +193,14 @@ export function AsmView({
   asm,
   ruleIds,
   lawSha,
+  irVersion,
 }: {
   st: string;
   name: string;
   asm: Asm;
   ruleIds: Set<string>;
   lawSha: string;
+  irVersion: number | null;
 }) {
   const head = asmHeader(asm.text);
   const meta = asm.meta;
@@ -238,16 +240,23 @@ export function AsmView({
             </Fresh>
           </dd>
         </div>
-        {meta && meta.ir_fresh === false ? (
+        {meta && typeof meta.ir_fresh === "boolean" ? (
           <div>
             <dt>Compiled from the current law IR</dt>
             <dd>
-              <Fresh ok={false}>
-                Not yet. The image predates the latest normalizer update (IR version 2).{" "}
-                {meta.kind_changes?.length
-                  ? `${meta.kind_changes.length} rule${meta.kind_changes.length === 1 ? " is" : "s are"} treated differently now: ${meta.kind_changes.join(", ")}. The tags above show the current treatment.`
-                  : "No rule changed kind."}{" "}
-                It refreshes when the engine is rebuilt.
+              <Fresh ok={meta.ir_fresh}>
+                {meta.ir_fresh ? (
+                  "Yes. The image carries the SHA-256 of the IR shown on this page."
+                ) : (
+                  <>
+                    Not yet. The image was compiled from an earlier IR
+                    {irVersion ? `; the IR is now version ${irVersion}` : ""}.{" "}
+                    {meta.kind_changes?.length
+                      ? `${meta.kind_changes.length} rule${meta.kind_changes.length === 1 ? " is" : "s are"} treated differently now: ${meta.kind_changes.join(", ")}. The tags above show the current treatment.`
+                      : "No rule changed kind."}{" "}
+                    The listing refreshes when the engine is rebuilt.
+                  </>
+                )}
               </Fresh>
             </dd>
           </div>

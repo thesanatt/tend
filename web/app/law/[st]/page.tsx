@@ -231,7 +231,14 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           Verified rules SHA-256 <code className={styles.sha}>{sha256}</code>
         </p>
         {asm ? (
-          <AsmView st={ref.st} name={law.name} asm={asm} ruleIds={ruleIds} lawSha={sha256} />
+          <AsmView
+            st={ref.st}
+            name={law.name}
+            asm={asm}
+            ruleIds={ruleIds}
+            lawSha={sha256}
+            irVersion={ir?.ir_version ?? null}
+          />
         ) : (
           // No listing was built for this state; the browser asks the engine on this device or the API.
           <AsmListing st={ref.st} />
