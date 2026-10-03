@@ -31,4 +31,5 @@ const info = tend.inspect(image);
 const t0 = performance.now();
 for (let i = 0; i < 200; i++) tend.evaluateRaw(image, claim);
 const ms = (performance.now() - t0) / 200;
-console.log(`wasm_smoke: ok (${tend.version()}, ${info.rules.length} rules, ${ms.toFixed(3)} ms per 17-item claim)`);
+const items = JSON.parse(claim).items.length;
+console.log(`wasm_smoke: ok (${tend.version()}, ${info.rules.length} rules, ${ms.toFixed(3)} ms per ${items}-item claim)`);
