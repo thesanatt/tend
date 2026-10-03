@@ -1,0 +1,1001 @@
+; tend law image IA, Iowa
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 b32cb0ab99cd81eb5d98653c4381f27fa7d310bd9792d57f29b6689973030a32
+; image sha256  ca5dbc62cd5bd80cad7fee2505c4c3070f593677acbd8d5f5f52278f05721c8f
+; 56 rules, 14 sources, 34 proofs, 8 ints, 293 strings
+; item program: 391 instructions, 1362 bytes, max stack 2
+; aggregate program: 329 instructions, 1014 bytes, max stack 2, 11 loops
+
+.rules
+    R0    IA-EXAM-1             exam_no_bill  -                                             Iowa Admin. Code r. 61-9.84
+    R1    IA-EXAM-2             exam_no_bill  -                                             Iowa Admin. Code r. 61-9.84
+    R2    IA-EXAM-3             exam_payment  -                                             Iowa Code 915.41(1)
+    R3    IA-EXAM-4             exam_payment  -                                             Iowa AG, Sexual Assault Examination Payment Program page
+    R4    IA-EXAM-5             exam_payment  -                                             Iowa AG, Sexual Assault Examination Payment Program page
+    R5    IA-MED-1              expense_cap   medical               per claim               Iowa Code 915.86(1)
+    R6    IA-MED-2              covered       medical                                       Iowa Admin. Code r. 61-9.35(1)(f)
+    R7    IA-MED-3              covered       medical                                       Iowa Admin. Code r. 61-9.35(1)(g)
+    R8    IA-COUNS-1            expense_cap   counseling            per claim               Iowa Code 915.86(1)
+    R9    IA-WAGES-1            expense_cap   lost_wages            per claim               Iowa Code 915.86(2)
+    R10   IA-WAGES-3            covered       lost_wages                                    Iowa Admin. Code r. 61-9.35(7)(a)
+    R11   IA-WAGES-4            covered       lost_wages                                    Iowa Admin. Code r. 61-9.35(8)
+    R12   IA-WAGES-5            covered       lost_wages                                    Iowa Admin. Code r. 61-9.35(10)
+    R13   IA-TRANS-1            expense_cap   transportation        per claim               Iowa Code 915.86(15)
+    R14   IA-TRANS-2            covered       transportation                                Iowa Admin. Code r. 61-9.35(17)(a)
+    R15   IA-RELOC-1            expense_cap   relocation            per claim               Iowa Code 915.86(16)
+    R16   IA-RELOC-2            covered       relocation                                    Iowa Code 915.80(5)
+    R17   IA-HOUSING-1          expense_cap   temporary_housing     per claim               Iowa Code 915.86(17)
+    R18   IA-SEC-1              expense_cap   security              per claim               Iowa Code 915.86(14)
+    R19   IA-SEC-2              covered       security                                      Iowa Admin. Code r. 61-9.35(16)(b)
+    R20   IA-CLOTH-1            expense_cap   clothing_bedding      per claim               Iowa Code 915.86(5)
+    R21   IA-CLOTH-2            covered       clothing_bedding                              Iowa Admin. Code r. 61-9.35(13)
+    R22   IA-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               Iowa Code 915.86(11)
+    R23   IA-CHILD-1            expense_cap   childcare             per claim               Iowa Code 915.86(13)
+    R24   IA-FUN-1              expense_cap   funeral               per claim               Iowa Code 915.86(6)
+    R25   IA-EXCL-1             excluded      property_replacement                          Iowa AG, Crime Victim Compensation Facts page
+    R26   IA-EXCL-2             excluded      legal                                         Iowa AG, Crime Victim Compensation Facts page
+    R27   IA-EXCL-3             excluded      -                                             Iowa AG, Crime Victim Compensation Facts page
+    R28   IA-EXCL-4             info          -                     excluded_expense        Iowa Admin. Code r. 61-9.35(1)(f)
+    R29   IA-DEADLINE-1         deadline      -                                             Iowa Code 915.84(1)
+    R30   IA-REPORT-1           reporting     -                                             Iowa Code 915.84(3)
+    R31   IA-REPORT-2           reporting     -                                             Iowa Admin. Code r. 61-9.29(4)(c)
+    R32   IA-COLL-1             collateral    -                                             Iowa Code 915.87(1)
+    R33   IA-COLL-2             collateral    -                                             Iowa AG, Crime Victim Compensation Facts page
+    R34   IA-CONDUCT-1          info          -                     conduct_reduction       Iowa Code 915.87(2)
+    R35   IA-CONDUCT-2          info          -                     conduct_reduction       Iowa Admin. Code r. 61-9.31
+    R36   IA-EMERG-1            info          -                     emergency_award         Iowa Code 915.91
+    R37   IA-CRIME-1            info          -                     eligible_crime          Iowa AG Quick Reference Guide, Who
+    R38   IA-CRIME-2            info          -                     eligible_crime          Iowa Admin. Code r. 61-9.26
+    R39   IA-RES-1              info          -                     residency               Iowa Code 915.80(2)
+    R40   IA-RES-2              info          -                     residency               Iowa Code 915.85(4)
+    R41   IA-RES-3              info          -                     residency               Iowa Admin. Code r. 61-9.26 (definition of "Applicant", item 3)
+    R42   IA-SUBMIT-1           info          -                     submission              Application brochure, To Apply for Crime Victim Compensation panel
+    R43   IA-SUBMIT-2           info          -                     submission              ccvcia.org home page, Contact Us
+    R44   IA-DOC-1              info          -                     required_document       Application, Release of Information and Repayment Agreements page
+    R45   IA-DOC-2              info          -                     required_document       Application, Release of Information and Repayment Agreements page
+    R46   IA-DOC-3              info          -                     required_document       Application, item 5
+    R47   IA-DOC-4              info          -                     required_document       What are Covered Costs?, lost wages footnote
+    R48   IA-DOC-5              info          -                     required_document       Iowa Admin. Code r. 61-9.35(7)(c)
+    R49   IA-DOC-6              info          -                     required_document       Iowa Admin. Code r. 61-9.35(2)
+    R50   IA-DOC-7              info          -                     required_document       Iowa Admin. Code r. 61-9.35(4)
+    R51   IA-TIME-1             info          -                     processing_time         Quick Facts
+    R52   IA-ACP-1              info          -                     address_confidentiality Safe at Home home page, program description (Who)
+    R53   IA-RECCONF-1          info          -                     record_confidentiality  Iowa Code 915.90(1)
+    R54   IA-COUNS-2            skipped       -                     expense_cap             Iowa Code 915.86(12)  ; less generous duplicate of IA-COUNS-1
+    R55   IA-WAGES-2            skipped       -                     expense_cap             Iowa Code 915.86(4)  ; less generous duplicate of IA-WAGES-1
+
+.tags   pain_suffering=bit0, phone=bit1
+
+.sources
+    S0    IA-S1       sha256 aab75cf2cb78eec4  https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation
+    S1    IA-S2       sha256 2f819783e623ad63  https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/crime-victim-compensation-facts/
+    S2    IA-S3       sha256 228c181a167480c9  https://www.iowaattorneygeneral.gov/for-crime-victims/sexual-assault-resources/sexual-assault-examination-payment/
+    S3    IA-S4       sha256 df2f5cca013e5454  https://www.iowaattorneygeneral.gov/media/cms/Quick_Guide_to_Crime_Victim_Compens_C2F74213F919D.pdf
+    S4    IA-S5       sha256 e61cb5e90549368e  https://www.iowaattorneygeneral.gov/media/cms/Compensation_Application_English_0E6E8B08B04B2.pdf
+    S5    IA-S6       sha256 614bec15db736abb  https://www.legis.iowa.gov/docs/code/915.pdf
+    S6    IA-S7       sha256 e509b798c13bd4ed  https://www.legis.iowa.gov/docs/iac/chapter/61.9.pdf
+    S7    IA-S8       sha256 b64718bd2b0907fd  https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/online-crime-victim-compensation-application/
+    S8    IA-S9       sha256 dac3e0631ca91c99  https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/printable-crime-victim-compensation-application/
+    S9    IA-S10      sha256 3a367f92873b10a2  https://ccvcia.org/
+    S10   IA-S11      sha256 64f327a513c1707e  https://www.legis.iowa.gov/docs/code/9E.pdf
+    S11   IA-S12      sha256 6f00cfe984624142  https://www.legis.iowa.gov/docs/code/22.7.pdf
+    S12   IA-S13      sha256 0de84f5285934603  https://safeathome.iowa.gov/
+    S13   IA-S14      sha256 6462c68d1c95249d  https://safeathome.iowa.gov/apply/apply.html
+
+.proofs
+    P0    ()
+    P1    (IA-EXAM-1, IA-EXAM-2, IA-EXAM-3, IA-EXAM-4, IA-EXAM-5)
+    P2    (IA-EXCL-3)
+    P3    (IA-MED-1, IA-MED-2, IA-MED-3)
+    P4    (IA-MED-1, IA-MED-2, IA-MED-3, IA-COLL-1, IA-COLL-2)
+    P5    (IA-COUNS-2)
+    P6    (IA-COUNS-1)
+    P7    (IA-COUNS-1, IA-COLL-1, IA-COLL-2)
+    P8    (IA-WAGES-2)
+    P9    (IA-WAGES-1, IA-WAGES-3, IA-WAGES-4, IA-WAGES-5)
+    P10   (IA-WAGES-1, IA-WAGES-3, IA-WAGES-4, IA-WAGES-5, IA-COLL-1, IA-COLL-2)
+    P11   (IA-TRANS-1, IA-TRANS-2)
+    P12   (IA-TRANS-1, IA-TRANS-2, IA-COLL-1, IA-COLL-2)
+    P13   (IA-RELOC-1, IA-RELOC-2)
+    P14   (IA-RELOC-1, IA-RELOC-2, IA-COLL-1, IA-COLL-2)
+    P15   (IA-HOUSING-1)
+    P16   (IA-HOUSING-1, IA-COLL-1, IA-COLL-2)
+    P17   (IA-SEC-1, IA-SEC-2)
+    P18   (IA-SEC-1, IA-SEC-2, IA-COLL-1, IA-COLL-2)
+    P19   (IA-CLEAN-1)
+    P20   (IA-CLEAN-1, IA-COLL-1, IA-COLL-2)
+    P21   (IA-CHILD-1)
+    P22   (IA-CHILD-1, IA-COLL-1, IA-COLL-2)
+    P23   (IA-EXCL-1, IA-EXCL-3)
+    P24   (IA-EXCL-1)
+    P25   (IA-CLOTH-1, IA-CLOTH-2)
+    P26   (IA-CLOTH-1, IA-CLOTH-2, IA-COLL-1, IA-COLL-2)
+    P27   (IA-FUN-1)
+    P28   (IA-FUN-1, IA-COLL-1, IA-COLL-2)
+    P29   (IA-EXCL-2, IA-EXCL-3)
+    P30   (IA-EXCL-2)
+    P31   (IA-DEADLINE-1)
+    P32   (IA-REPORT-1, IA-REPORT-2)
+    P33   (IA-EXCL-4, IA-COLL-1, IA-COLL-2, IA-CONDUCT-1, IA-CONDUCT-2, IA-EMERG-1, IA-CRIME-1, IA-CRIME-2, IA-RES-1, IA-RES-2, IA-RES-3, IA-SUBMIT-1, IA-SUBMIT-2, IA-DOC-1, IA-DOC-2, IA-DOC-3, IA-DOC-4, IA-DOC-5, IA-DOC-6, IA-DOC-7, IA-TIME-1, IA-ACP-1, IA-RECCONF-1)
+
+.ints
+    K0    2500000       ; $25,000.00
+    K1    500000        ; $5,000.00
+    K2    600000        ; $6,000.00
+    K3    100000        ; $1,000.00
+    K4    200000        ; $2,000.00
+    K5    50000         ; $500.00
+    K6    20000         ; $200.00
+    K7    750000        ; $7,500.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L56
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L22
+                        case temporary_housing     -> L27
+                        case security              -> L32
+                        case crime_scene_cleanup   -> L37
+                        case childcare             -> L42
+                        case property_replacement  -> L47
+                        case clothing_bedding      -> L51
+                        case prescription          -> L56
+                        case dental                -> L56
+                        case funeral               -> L60
+                        case legal                 -> L65
+                        case tuition               -> L56
+                        case other                 -> L56
+                        case unknown               -> L56
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; IA-EXAM-1  Iowa Admin. Code r. 61-9.84  "A victim of sexual abuse is not responsible for the payment of..."
+              ; IA-EXAM-2  Iowa Admin. Code r. 61-9.84  "A medical provider must not submit any remaining balance to the..."
+              ; IA-EXAM-3  Iowa Code 915.41(1)  "The cost of a medical examination of a victim for the purpose of..."
+              ; IA-EXAM-4  Iowa AG, Sexual Assault Examination Payment Program page  "The State of Iowa pays for the sexual assault examination..."
+              ; IA-EXAM-5  Iowa AG, Sexual Assault Examination Payment Program page  "In the event that a victim is erroneously billed and pays for..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; IA-EXAM-1, IA-EXAM-2, IA-EXAM-3, IA-EXAM-4, IA-EXAM-5
+  007b        ret
+              ; IA-MED-1  Iowa Code 915.86(1)  "Reasonable charges incurred for medical care not to exceed..."
+              ; IA-MED-2  Iowa Admin. Code r. 61-9.35(1)(f)  "Compensation may be paid for medical care costs related to..."
+              ; IA-MED-3  Iowa Admin. Code r. 61-9.35(1)(g)  "Compensation may be paid for the replacement of a medical device..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     3
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; IA-EXCL-3
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; IA-MED-1, IA-MED-2, IA-MED-3
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; IA-MED-1, IA-MED-2, IA-MED-3, IA-COLL-1, IA-COLL-2
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R32              ; IA-COLL-1
+  00d9        ret
+              ; IA-COUNS-1  Iowa Code 915.86(1)  "Reasonable charges incurred for mental health care not to exceed..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     3
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; IA-EXCL-3
+  0111        ret
+  0112  L10:  alts     P5                           ; IA-COUNS-2
+  0115        ldi      confirmed
+  0117        jnz      L11
+  011c        push     0
+  0121        decide   needs_confirmation, P6       ; IA-COUNS-1
+  0125        ret
+  0126  L11:  ldi      amount_cents
+  0128        decide   eligible, P7                 ; IA-COUNS-1, IA-COLL-1, IA-COLL-2
+  012c        lda
+  012d        ldi      insurance_paid_cents
+  012f        subs
+  0130        push     0
+  0135        max
+  0136        seta     collateral, R32              ; IA-COLL-1
+  013a        ret
+              ; IA-WAGES-1  Iowa Code 915.86(2)  "Loss of income from work the victim would have performed and for..."
+              ; IA-WAGES-3  Iowa Admin. Code r. 61-9.35(7)(a)  "Lost wages are computed as the gross rate of pay multiplied by..."
+              ; IA-WAGES-4  Iowa Admin. Code r. 61-9.35(8)  "Compensation for lost wages or income incurred within the first..."
+              ; IA-WAGES-5  Iowa Admin. Code r. 61-9.35(10)  "Compensation for lost wages or income shall be paid to an..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  013b  L12:  push     0
+  0140        str      r0
+  0142        ldi      tags
+  0144        push     3
+  0149        and
+  014a        jz       L13
+  014f        ldr      r0
+  0151        push     1
+  0156        or
+  0157        str      r0
+  0159  L13:  ldr      r0
+  015b        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0169  L14:  push     0
+  016e        decide   excluded, P2                 ; IA-EXCL-3
+  0172        ret
+  0173  L15:  alts     P8                           ; IA-WAGES-2
+  0176        ldi      confirmed
+  0178        jnz      L16
+  017d        push     0
+  0182        decide   needs_confirmation, P9       ; IA-WAGES-1, IA-WAGES-3, IA-WAGES-4, IA-WAGES-5
+  0186        ret
+  0187  L16:  ldi      amount_cents
+  0189        decide   eligible, P10                ; IA-WAGES-1, IA-WAGES-3, IA-WAGES-4, IA-WAGES-5, IA-COLL-1, IA-COLL-2
+  018d        lda
+  018e        ldi      insurance_paid_cents
+  0190        subs
+  0191        push     0
+  0196        max
+  0197        seta     collateral, R32              ; IA-COLL-1
+  019b        ret
+              ; IA-TRANS-1  Iowa Code 915.86(15)  "Reasonable expenses incurred by the victim, a secondary victim..."
+              ; IA-TRANS-2  Iowa Admin. Code r. 61-9.35(17)(a)  "Use of a privately owned vehicle shall be paid at the per-mile..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  019c  L17:  push     0
+  01a1        str      r0
+  01a3        ldi      tags
+  01a5        push     3
+  01aa        and
+  01ab        jz       L18
+  01b0        ldr      r0
+  01b2        push     1
+  01b7        or
+  01b8        str      r0
+  01ba  L18:  ldr      r0
+  01bc        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01ca  L19:  push     0
+  01cf        decide   excluded, P2                 ; IA-EXCL-3
+  01d3        ret
+  01d4  L20:  ldi      confirmed
+  01d6        jnz      L21
+  01db        push     0
+  01e0        decide   needs_confirmation, P11      ; IA-TRANS-1, IA-TRANS-2
+  01e4        ret
+  01e5  L21:  ldi      amount_cents
+  01e7        decide   eligible, P12                ; IA-TRANS-1, IA-TRANS-2, IA-COLL-1, IA-COLL-2
+  01eb        lda
+  01ec        ldi      insurance_paid_cents
+  01ee        subs
+  01ef        push     0
+  01f4        max
+  01f5        seta     collateral, R32              ; IA-COLL-1
+  01f9        ret
+              ; IA-RELOC-1  Iowa Code 915.86(16)  "Reasonable charges incurred by a victim, a secondary victim, a..."
+              ; IA-RELOC-2  Iowa Code 915.80(5)  ""Emergency relocation" means a relocation that takes place..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  01fa  L22:  push     0
+  01ff        str      r0
+  0201        ldi      tags
+  0203        push     3
+  0208        and
+  0209        jz       L23
+  020e        ldr      r0
+  0210        push     1
+  0215        or
+  0216        str      r0
+  0218  L23:  ldr      r0
+  021a        switch   2, default L25
+                        case 0                     -> L25
+                        case 1                     -> L24
+  0228  L24:  push     0
+  022d        decide   excluded, P2                 ; IA-EXCL-3
+  0231        ret
+  0232  L25:  ldi      confirmed
+  0234        jnz      L26
+  0239        push     0
+  023e        decide   needs_confirmation, P13      ; IA-RELOC-1, IA-RELOC-2
+  0242        ret
+  0243  L26:  ldi      amount_cents
+  0245        decide   eligible, P14                ; IA-RELOC-1, IA-RELOC-2, IA-COLL-1, IA-COLL-2
+  0249        lda
+  024a        ldi      insurance_paid_cents
+  024c        subs
+  024d        push     0
+  0252        max
+  0253        seta     collateral, R32              ; IA-COLL-1
+  0257        ret
+              ; IA-HOUSING-1  Iowa Code 915.86(17)  "Reasonable expenses incurred by a victim, or by a victim service..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  0258  L27:  push     0
+  025d        str      r0
+  025f        ldi      tags
+  0261        push     3
+  0266        and
+  0267        jz       L28
+  026c        ldr      r0
+  026e        push     1
+  0273        or
+  0274        str      r0
+  0276  L28:  ldr      r0
+  0278        switch   2, default L30
+                        case 0                     -> L30
+                        case 1                     -> L29
+  0286  L29:  push     0
+  028b        decide   excluded, P2                 ; IA-EXCL-3
+  028f        ret
+  0290  L30:  ldi      confirmed
+  0292        jnz      L31
+  0297        push     0
+  029c        decide   needs_confirmation, P15      ; IA-HOUSING-1
+  02a0        ret
+  02a1  L31:  ldi      amount_cents
+  02a3        decide   eligible, P16                ; IA-HOUSING-1, IA-COLL-1, IA-COLL-2
+  02a7        lda
+  02a8        ldi      insurance_paid_cents
+  02aa        subs
+  02ab        push     0
+  02b0        max
+  02b1        seta     collateral, R32              ; IA-COLL-1
+  02b5        ret
+              ; IA-SEC-1  Iowa Code 915.86(14)  "Reasonable crime-related expenses incurred by a victim, the..."
+              ; IA-SEC-2  Iowa Admin. Code r. 61-9.35(16)(b)  "Compensation may be paid for doors, locks, windows, security..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  02b6  L32:  push     0
+  02bb        str      r0
+  02bd        ldi      tags
+  02bf        push     3
+  02c4        and
+  02c5        jz       L33
+  02ca        ldr      r0
+  02cc        push     1
+  02d1        or
+  02d2        str      r0
+  02d4  L33:  ldr      r0
+  02d6        switch   2, default L35
+                        case 0                     -> L35
+                        case 1                     -> L34
+  02e4  L34:  push     0
+  02e9        decide   excluded, P2                 ; IA-EXCL-3
+  02ed        ret
+  02ee  L35:  ldi      confirmed
+  02f0        jnz      L36
+  02f5        push     0
+  02fa        decide   needs_confirmation, P17      ; IA-SEC-1, IA-SEC-2
+  02fe        ret
+  02ff  L36:  ldi      amount_cents
+  0301        decide   eligible, P18                ; IA-SEC-1, IA-SEC-2, IA-COLL-1, IA-COLL-2
+  0305        lda
+  0306        ldi      insurance_paid_cents
+  0308        subs
+  0309        push     0
+  030e        max
+  030f        seta     collateral, R32              ; IA-COLL-1
+  0313        ret
+              ; IA-CLEAN-1  Iowa Code 915.86(11)  "Reasonable expenses incurred by the victim, secondary victim, or..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  0314  L37:  push     0
+  0319        str      r0
+  031b        ldi      tags
+  031d        push     3
+  0322        and
+  0323        jz       L38
+  0328        ldr      r0
+  032a        push     1
+  032f        or
+  0330        str      r0
+  0332  L38:  ldr      r0
+  0334        switch   2, default L40
+                        case 0                     -> L40
+                        case 1                     -> L39
+  0342  L39:  push     0
+  0347        decide   excluded, P2                 ; IA-EXCL-3
+  034b        ret
+  034c  L40:  ldi      confirmed
+  034e        jnz      L41
+  0353        push     0
+  0358        decide   needs_confirmation, P19      ; IA-CLEAN-1
+  035c        ret
+  035d  L41:  ldi      amount_cents
+  035f        decide   eligible, P20                ; IA-CLEAN-1, IA-COLL-1, IA-COLL-2
+  0363        lda
+  0364        ldi      insurance_paid_cents
+  0366        subs
+  0367        push     0
+  036c        max
+  036d        seta     collateral, R32              ; IA-COLL-1
+  0371        ret
+              ; IA-CHILD-1  Iowa Code 915.86(13)  "Reasonable dependent care expenses incurred by the victim, the..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  0372  L42:  push     0
+  0377        str      r0
+  0379        ldi      tags
+  037b        push     3
+  0380        and
+  0381        jz       L43
+  0386        ldr      r0
+  0388        push     1
+  038d        or
+  038e        str      r0
+  0390  L43:  ldr      r0
+  0392        switch   2, default L45
+                        case 0                     -> L45
+                        case 1                     -> L44
+  03a0  L44:  push     0
+  03a5        decide   excluded, P2                 ; IA-EXCL-3
+  03a9        ret
+  03aa  L45:  ldi      confirmed
+  03ac        jnz      L46
+  03b1        push     0
+  03b6        decide   needs_confirmation, P21      ; IA-CHILD-1
+  03ba        ret
+  03bb  L46:  ldi      amount_cents
+  03bd        decide   eligible, P22                ; IA-CHILD-1, IA-COLL-1, IA-COLL-2
+  03c1        lda
+  03c2        ldi      insurance_paid_cents
+  03c4        subs
+  03c5        push     0
+  03ca        max
+  03cb        seta     collateral, R32              ; IA-COLL-1
+  03cf        ret
+              ; IA-EXCL-1  Iowa AG, Crime Victim Compensation Facts page  "The program cannot pay for property loss, property repair, legal..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+  03d0  L47:  push     0
+  03d5        str      r0
+  03d7        ldi      tags
+  03d9        push     3
+  03de        and
+  03df        jz       L48
+  03e4        ldr      r0
+  03e6        push     1
+  03eb        or
+  03ec        str      r0
+  03ee  L48:  ldr      r0
+  03f0        switch   2, default L50
+                        case 0                     -> L50
+                        case 1                     -> L49
+  03fe  L49:  push     0
+  0403        decide   excluded, P23                ; IA-EXCL-1, IA-EXCL-3
+  0407        ret
+  0408  L50:  push     0
+  040d        decide   excluded, P24                ; IA-EXCL-1
+  0411        ret
+              ; IA-CLOTH-1  Iowa Code 915.86(5)  "Reasonable replacement value of clothing that is held for..."
+              ; IA-CLOTH-2  Iowa Admin. Code r. 61-9.35(13)  "Compensation may be paid for clothing and bedding held as..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  0412  L51:  push     0
+  0417        str      r0
+  0419        ldi      tags
+  041b        push     3
+  0420        and
+  0421        jz       L52
+  0426        ldr      r0
+  0428        push     1
+  042d        or
+  042e        str      r0
+  0430  L52:  ldr      r0
+  0432        switch   2, default L54
+                        case 0                     -> L54
+                        case 1                     -> L53
+  0440  L53:  push     0
+  0445        decide   excluded, P2                 ; IA-EXCL-3
+  0449        ret
+  044a  L54:  ldi      confirmed
+  044c        jnz      L55
+  0451        push     0
+  0456        decide   needs_confirmation, P25      ; IA-CLOTH-1, IA-CLOTH-2
+  045a        ret
+  045b  L55:  ldi      amount_cents
+  045d        decide   eligible, P26                ; IA-CLOTH-1, IA-CLOTH-2, IA-COLL-1, IA-COLL-2
+  0461        lda
+  0462        ldi      insurance_paid_cents
+  0464        subs
+  0465        push     0
+  046a        max
+  046b        seta     collateral, R32              ; IA-COLL-1
+  046f        ret
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+  0470  L56:  push     0
+  0475        str      r0
+  0477        ldi      tags
+  0479        push     3
+  047e        and
+  047f        jz       L57
+  0484        ldr      r0
+  0486        push     1
+  048b        or
+  048c        str      r0
+  048e  L57:  ldr      r0
+  0490        switch   2, default L59
+                        case 0                     -> L59
+                        case 1                     -> L58
+  049e  L58:  push     0
+  04a3        decide   excluded, P2                 ; IA-EXCL-3
+  04a7        ret
+  04a8  L59:  push     0
+  04ad        decide   unknown_rule, P0             ; (none)
+  04b1        ret
+              ; IA-FUN-1  Iowa Code 915.86(6)  "Reasonable funeral and burial expenses not to exceed seven..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+  04b2  L60:  push     0
+  04b7        str      r0
+  04b9        ldi      tags
+  04bb        push     3
+  04c0        and
+  04c1        jz       L61
+  04c6        ldr      r0
+  04c8        push     1
+  04cd        or
+  04ce        str      r0
+  04d0  L61:  ldr      r0
+  04d2        switch   2, default L63
+                        case 0                     -> L63
+                        case 1                     -> L62
+  04e0  L62:  push     0
+  04e5        decide   excluded, P2                 ; IA-EXCL-3
+  04e9        ret
+  04ea  L63:  ldi      confirmed
+  04ec        jnz      L64
+  04f1        push     0
+  04f6        decide   needs_confirmation, P27      ; IA-FUN-1
+  04fa        ret
+  04fb  L64:  ldi      amount_cents
+  04fd        decide   eligible, P28                ; IA-FUN-1, IA-COLL-1, IA-COLL-2
+  0501        lda
+  0502        ldi      insurance_paid_cents
+  0504        subs
+  0505        push     0
+  050a        max
+  050b        seta     collateral, R32              ; IA-COLL-1
+  050f        ret
+              ; IA-EXCL-2  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+              ; IA-EXCL-3  Iowa AG, Crime Victim Compensation Facts page  "The program does not cover property crime, property loss, legal..."
+  0510  L65:  push     0
+  0515        str      r0
+  0517        ldi      tags
+  0519        push     3
+  051e        and
+  051f        jz       L66
+  0524        ldr      r0
+  0526        push     1
+  052b        or
+  052c        str      r0
+  052e  L66:  ldr      r0
+  0530        switch   2, default L68
+                        case 0                     -> L68
+                        case 1                     -> L67
+  053e  L67:  push     0
+  0543        decide   excluded, P29                ; IA-EXCL-2, IA-EXCL-3
+  0547        ret
+  0548  L68:  push     0
+  054d        decide   excluded, P30                ; IA-EXCL-2
+  0551        ret
+
+.aggregate
+              ; IA-MED-1  Iowa Code 915.86(1)  "Reasonable charges incurred for medical care not to exceed..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     medical, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $25,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $25,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R5              ; IA-MED-1
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R5              ; IA-MED-1
+  004d  L3:   next     L0
+              ; IA-COUNS-1  Iowa Code 915.86(1)  "Reasonable charges incurred for mental health care not to exceed..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     counseling, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $5,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $5,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R8              ; IA-COUNS-1
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R8              ; IA-COUNS-1
+  009f  L8:   next     L5
+              ; IA-WAGES-1  Iowa Code 915.86(2)  "Loss of income from work the victim would have performed and for..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     lost_wages, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K2                           ; $6,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K2                           ; $6,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R9              ; IA-WAGES-1
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R9              ; IA-WAGES-1
+  00f1  L13:  next     L10
+              ; IA-TRANS-1  Iowa Code 915.86(15)  "Reasonable expenses incurred by the victim, a secondary victim..."
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        push     0
+  0102        str      r1
+  0104        each     transportation, L19
+  010a  L15:  ldr      r1
+  010c        jnz      L17
+  0111        ldr      r0
+  0113        lda
+  0114        adds
+  0115        ldk      K3                           ; $1,000.00
+  0118        gt
+  0119        jz       L16
+  011e        ldk      K3                           ; $1,000.00
+  0121        ldr      r0
+  0123        subs
+  0124        cap      expense_cap, R13             ; IA-TRANS-1
+  0128        push     1
+  012d        str      r1
+  012f  L16:  ldr      r0
+  0131        lda
+  0132        adds
+  0133        str      r0
+  0135        jmp      L18
+  013a  L17:  push     0
+  013f        cap      expense_cap, R13             ; IA-TRANS-1
+  0143  L18:  next     L15
+              ; IA-RELOC-1  Iowa Code 915.86(16)  "Reasonable charges incurred by a victim, a secondary victim, a..."
+  0148  L19:  push     0
+  014d        str      r0
+  014f        push     0
+  0154        str      r1
+  0156        each     relocation, L24
+  015c  L20:  ldr      r1
+  015e        jnz      L22
+  0163        ldr      r0
+  0165        lda
+  0166        adds
+  0167        ldk      K3                           ; $1,000.00
+  016a        gt
+  016b        jz       L21
+  0170        ldk      K3                           ; $1,000.00
+  0173        ldr      r0
+  0175        subs
+  0176        cap      expense_cap, R15             ; IA-RELOC-1
+  017a        push     1
+  017f        str      r1
+  0181  L21:  ldr      r0
+  0183        lda
+  0184        adds
+  0185        str      r0
+  0187        jmp      L23
+  018c  L22:  push     0
+  0191        cap      expense_cap, R15             ; IA-RELOC-1
+  0195  L23:  next     L20
+              ; IA-HOUSING-1  Iowa Code 915.86(17)  "Reasonable expenses incurred by a victim, or by a victim service..."
+  019a  L24:  push     0
+  019f        str      r0
+  01a1        push     0
+  01a6        str      r1
+  01a8        each     temporary_housing, L29
+  01ae  L25:  ldr      r1
+  01b0        jnz      L27
+  01b5        ldr      r0
+  01b7        lda
+  01b8        adds
+  01b9        ldk      K4                           ; $2,000.00
+  01bc        gt
+  01bd        jz       L26
+  01c2        ldk      K4                           ; $2,000.00
+  01c5        ldr      r0
+  01c7        subs
+  01c8        cap      expense_cap, R17             ; IA-HOUSING-1
+  01cc        push     1
+  01d1        str      r1
+  01d3  L26:  ldr      r0
+  01d5        lda
+  01d6        adds
+  01d7        str      r0
+  01d9        jmp      L28
+  01de  L27:  push     0
+  01e3        cap      expense_cap, R17             ; IA-HOUSING-1
+  01e7  L28:  next     L25
+              ; IA-SEC-1  Iowa Code 915.86(14)  "Reasonable crime-related expenses incurred by a victim, the..."
+  01ec  L29:  push     0
+  01f1        str      r0
+  01f3        push     0
+  01f8        str      r1
+  01fa        each     security, L34
+  0200  L30:  ldr      r1
+  0202        jnz      L32
+  0207        ldr      r0
+  0209        lda
+  020a        adds
+  020b        ldk      K5                           ; $500.00
+  020e        gt
+  020f        jz       L31
+  0214        ldk      K5                           ; $500.00
+  0217        ldr      r0
+  0219        subs
+  021a        cap      expense_cap, R18             ; IA-SEC-1
+  021e        push     1
+  0223        str      r1
+  0225  L31:  ldr      r0
+  0227        lda
+  0228        adds
+  0229        str      r0
+  022b        jmp      L33
+  0230  L32:  push     0
+  0235        cap      expense_cap, R18             ; IA-SEC-1
+  0239  L33:  next     L30
+              ; IA-CLOTH-1  Iowa Code 915.86(5)  "Reasonable replacement value of clothing that is held for..."
+  023e  L34:  push     0
+  0243        str      r0
+  0245        push     0
+  024a        str      r1
+  024c        each     clothing_bedding, L39
+  0252  L35:  ldr      r1
+  0254        jnz      L37
+  0259        ldr      r0
+  025b        lda
+  025c        adds
+  025d        ldk      K6                           ; $200.00
+  0260        gt
+  0261        jz       L36
+  0266        ldk      K6                           ; $200.00
+  0269        ldr      r0
+  026b        subs
+  026c        cap      expense_cap, R20             ; IA-CLOTH-1
+  0270        push     1
+  0275        str      r1
+  0277  L36:  ldr      r0
+  0279        lda
+  027a        adds
+  027b        str      r0
+  027d        jmp      L38
+  0282  L37:  push     0
+  0287        cap      expense_cap, R20             ; IA-CLOTH-1
+  028b  L38:  next     L35
+              ; IA-CLEAN-1  Iowa Code 915.86(11)  "Reasonable expenses incurred by the victim, secondary victim, or..."
+  0290  L39:  push     0
+  0295        str      r0
+  0297        push     0
+  029c        str      r1
+  029e        each     crime_scene_cleanup, L44
+  02a4  L40:  ldr      r1
+  02a6        jnz      L42
+  02ab        ldr      r0
+  02ad        lda
+  02ae        adds
+  02af        ldk      K3                           ; $1,000.00
+  02b2        gt
+  02b3        jz       L41
+  02b8        ldk      K3                           ; $1,000.00
+  02bb        ldr      r0
+  02bd        subs
+  02be        cap      expense_cap, R22             ; IA-CLEAN-1
+  02c2        push     1
+  02c7        str      r1
+  02c9  L41:  ldr      r0
+  02cb        lda
+  02cc        adds
+  02cd        str      r0
+  02cf        jmp      L43
+  02d4  L42:  push     0
+  02d9        cap      expense_cap, R22             ; IA-CLEAN-1
+  02dd  L43:  next     L40
+              ; IA-CHILD-1  Iowa Code 915.86(13)  "Reasonable dependent care expenses incurred by the victim, the..."
+  02e2  L44:  push     0
+  02e7        str      r0
+  02e9        push     0
+  02ee        str      r1
+  02f0        each     childcare, L49
+  02f6  L45:  ldr      r1
+  02f8        jnz      L47
+  02fd        ldr      r0
+  02ff        lda
+  0300        adds
+  0301        ldk      K3                           ; $1,000.00
+  0304        gt
+  0305        jz       L46
+  030a        ldk      K3                           ; $1,000.00
+  030d        ldr      r0
+  030f        subs
+  0310        cap      expense_cap, R23             ; IA-CHILD-1
+  0314        push     1
+  0319        str      r1
+  031b  L46:  ldr      r0
+  031d        lda
+  031e        adds
+  031f        str      r0
+  0321        jmp      L48
+  0326  L47:  push     0
+  032b        cap      expense_cap, R23             ; IA-CHILD-1
+  032f  L48:  next     L45
+              ; IA-FUN-1  Iowa Code 915.86(6)  "Reasonable funeral and burial expenses not to exceed seven..."
+  0334  L49:  push     0
+  0339        str      r0
+  033b        push     0
+  0340        str      r1
+  0342        each     funeral, L54
+  0348  L50:  ldr      r1
+  034a        jnz      L52
+  034f        ldr      r0
+  0351        lda
+  0352        adds
+  0353        ldk      K7                           ; $7,500.00
+  0356        gt
+  0357        jz       L51
+  035c        ldk      K7                           ; $7,500.00
+  035f        ldr      r0
+  0361        subs
+  0362        cap      expense_cap, R24             ; IA-FUN-1
+  0366        push     1
+  036b        str      r1
+  036d  L51:  ldr      r0
+  036f        lda
+  0370        adds
+  0371        str      r0
+  0373        jmp      L53
+  0378  L52:  push     0
+  037d        cap      expense_cap, R24             ; IA-FUN-1
+  0381  L53:  next     L50
+  0386  L54:  push     0                            ; met
+  038b        check    minimum_loss, P0             ; (none)
+              ; IA-DEADLINE-1  Iowa Code 915.84(1)  "file the application with the department within two years after..."
+  038f        ldx      incident_date
+  0391        push     730
+  0396        adds
+  0397        dup
+  0398        setdate
+  0399        ldx      as_of_date
+  039b        ge
+  039c        jz       L55
+  03a1        push     0
+  03a6        jmp      L56
+  03ab  L55:  push     1                            ; late
+  03b0  L56:  check    deadline, P31                ; IA-DEADLINE-1
+              ; IA-REPORT-1  Iowa Code 915.84(3)  "A person is not eligible for compensation unless the crime was..."
+              ; IA-REPORT-2  Iowa Admin. Code r. 61-9.29(4)(c)  "For a victim of sexual abuse, the 72-hour reporting requirement..."
+  03b4        ldx      police_report
+  03b6        push     1                            ; yes
+  03bb        eq
+  03bc        jnz      L58
+  03c1        ldx      forensic_exam
+  03c3        jnz      L58
+  03c8        ldx      police_report
+  03ca        push     0                            ; no
+  03cf        eq
+  03d0        jnz      L57
+  03d5        push     3
+  03da        jmp      L59
+  03df  L57:  push     1
+  03e4        jmp      L59
+  03e9  L58:  push     0                            ; satisfied
+  03ee  L59:  check    reporting, P32               ; IA-REPORT-1, IA-REPORT-2
+              ; IA-EXCL-4  Iowa Admin. Code r. 61-9.35(1)(f)  "Expenses incurred for the care of a newborn child are not..."
+              ; IA-COLL-1  Iowa Code 915.87(1)  "Compensation shall be reduced by the amount of any payment..."
+              ; IA-COLL-2  Iowa AG, Crime Victim Compensation Facts page  "The program is the payer-of-last-resort after insurance, other..."
+              ; IA-CONDUCT-1  Iowa Code 915.87(2)  "Compensation shall not be made when the bodily injury or death..."
+              ; IA-CONDUCT-2  Iowa Admin. Code r. 61-9.31  "The program shall reduce or disqualify compensation when there..."
+              ; IA-EMERG-1  Iowa Code 915.91  "If the department determines that compensation may be made and..."
+              ; IA-CRIME-1  Iowa AG Quick Reference Guide, Who  "Homicide • Assault • Domestic Abuse • Sexual Assault"
+              ; IA-CRIME-2  Iowa Admin. Code r. 61-9.26  ""Personal injury" or "injury" means bodily harm or mental..."
+              ; IA-RES-1  Iowa Code 915.80(2)  ""Crime" means conduct that occurs or is attempted in this state..."
+              ; IA-RES-2  Iowa Code 915.85(4)  "To a victim of an act committed outside this state who is a..."
+              ; IA-RES-3  Iowa Admin. Code r. 61-9.26 (definition of "Applicant", item 3)  "A resident of Iowa who is the victim of an act that would be..."
+              ; IA-SUBMIT-1  Application brochure, To Apply for Crime Victim Compensation panel  "Apply online by visiting www.iowaattorneygeneral.gov."
+              ; IA-SUBMIT-2  ccvcia.org home page, Contact Us  "Office of the Attorney General of Iowa Victim Assistance Section..."
+              ; IA-DOC-1  Application, Release of Information and Repayment Agreements page  "Section 1 MUST BE SIGNED TO COMPLETE your Application for Crime..."
+              ; IA-DOC-2  Application, Release of Information and Repayment Agreements page  "SECTIONS 2 AND 3 MUST BE COMPLETED AND SIGNED to receive Medical..."
+              ; IA-DOC-3  Application, item 5  "List your insurance company name, address, and policy number for..."
+              ; IA-DOC-4  What are Covered Costs?, lost wages footnote  "*Compensation paid for more than two weeks of a crime victim's..."
+              ; IA-DOC-5  Iowa Admin. Code r. 61-9.35(7)(c)  "Self-employed persons or small business employees must provide..."
+              ; IA-DOC-6  Iowa Admin. Code r. 61-9.35(2)  "When compensation for medical care is requested, the provider..."
+              ; IA-DOC-7  Iowa Admin. Code r. 61-9.35(4)  "When compensation for mental health counseling is requested, the..."
+              ; IA-TIME-1  Quick Facts  "Eligibility determination may take eight weeks."
+              ; IA-ACP-1  Safe at Home home page, program description (Who)  "Safe at Home is an address confidentiality program that provides..."
+              ; IA-RECCONF-1  Iowa Code 915.90(1)  "Information and records which are confidential under section..."
+  03f2        info     P33                          ; IA-EXCL-4, IA-COLL-1, IA-COLL-2, IA-CONDUCT-1, IA-CONDUCT-2, IA-EMERG-1, IA-CRIME-1, IA-CRIME-2, IA-RES-1, IA-RES-2, IA-RES-3, IA-SUBMIT-1, IA-SUBMIT-2, IA-DOC-1, IA-DOC-2, IA-DOC-3, IA-DOC-4, IA-DOC-5, IA-DOC-6, IA-DOC-7, IA-TIME-1, IA-ACP-1, IA-RECCONF-1
+  03f5        ret
+

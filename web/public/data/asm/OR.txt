@@ -1,0 +1,587 @@
+; tend law image OR, Oregon
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 47f8340db72b669fff5ec10809609f11882a2d998da51fbdab5eafa98e45e3ef
+; image sha256  89ecade9731de77d2b7e72d360e526807991fa329f60f13bc9c154a4345fe930
+; 57 rules, 13 sources, 23 proofs, 6 ints, 327 strings
+; item program: 125 instructions, 426 bytes, max stack 2
+; aggregate program: 241 instructions, 745 bytes, max stack 3, 8 loops
+
+.rules
+    R0    OR-EXAM-1             exam_no_bill  -                                             ORS 147.397(4)
+    R1    OR-EXAM-2             exam_no_bill  -                                             OAR 137-084-0020(4)
+    R2    OR-EXAM-3             exam_payment  -                                             ORS 147.397(1)
+    R3    OR-EXAM-4             exam_payment  -                                             ORS 147.397(8)
+    R4    OR-EXAM-6             covered       counseling                                    OAR 137-084-0020(1)(k)
+    R5    OR-CAP-1              total_cap     -                                             ORS 147.035(1)(b)
+    R6    OR-CAP-MED            expense_cap   medical               per claim               ORS 147.035(2)(a)
+    R7    OR-CAP-COUNS          expense_cap   counseling            per claim               ORS 147.035(2)(a)
+    R8    OR-COUNS-SESS         covered       counseling                                    CVC FAQ, How much do compensation benefits cover?
+    R9    OR-CAP-WAGE-WK        expense_cap   lost_wages            per week                ORS 147.035(2)(b)
+    R10   OR-CAP-WAGE           expense_cap   lost_wages            per claim               ORS 147.035(2)(b)
+    R11   OR-WAGE-RATE          covered       lost_wages                                    OAR 137-076-0025(3)
+    R12   OR-WAGE-DOC           covered       lost_wages                                    OAR 137-076-0025(1)(c)(C)
+    R13   OR-CAP-TRANS          expense_cap   transportation        per claim               ORS 147.035(2)(g)
+    R14   OR-TRANS-RATE         covered       transportation                                CVC brochure (2024), What Does CVC Pay For?
+    R15   OR-CAP-REHAB          expense_cap   other                 per claim               ORS 147.035(2)(c)
+    R16   OR-CAP-CLEAN          expense_cap   crime_scene_cleanup   per claim               ORS 147.035(2)(d)
+    R17   OR-COV-DEVICES        covered       medical                                       Compensation for Victims of Crime page, benefits list
+    R18   OR-COV-DENTAL         covered       dental                                        CVC FAQ, dental work
+    R19   OR-EXCL-PROP          excluded      property_replacement                          ORS 147.035(5)
+    R20   OR-EXCL-PROP-2        info          -                     excluded_expense        CVC brochure (2024)
+    R21   OR-EXCL-RELO          excluded      relocation                                    Compensation for Victims of Crime page
+    R22   OR-EXCL-SAVE          info          -                     excluded_expense        OAR 137-084-0030(1)
+    R23   OR-DEADLINE-1         deadline      -                                             ORS 147.015(1)(e)
+    R24   OR-DEADLINE-2         deadline      -                                             OAR 137-076-0030(2)
+    R25   OR-REPORT-1           reporting     -                                             ORS 147.015(1)(b)
+    R26   OR-REPORT-2           reporting     -                                             ORS 147.015(2)(a)(E), (2)(b), (2)(c)
+    R27   OR-REPORT-5           reporting     -                                             ORS 147.015(2)(a)(B)
+    R28   OR-REPORT-3           reporting     -                                             CVC brochure (2024), Reporting Requirements
+    R29   OR-REPORT-4           reporting     -                                             OAR 137-076-0016(4)
+    R30   OR-COLLATERAL-1       collateral    -                                             ORS 147.125(1)(c)
+    R31   OR-COLLATERAL-2       collateral    -                                             OAR 137-076-0040
+    R32   OR-COLLATERAL-3       collateral    -                                             CVC brochure (2024), Other Compensation
+    R33   OR-CONDUCT-1          info          -                     conduct_reduction       ORS 147.015(1)(d)
+    R34   OR-EMERG-1            info          -                     emergency_award         ORS 147.055(2)(a)
+    R35   OR-CRIME-1            info          -                     eligible_crime          CVC brochure (2024), opening
+    R36   OR-CRIME-2            info          -                     eligible_crime          ORS 147.005(10)
+    R37   OR-RES-1              info          -                     residency               ORS 147.005(17)(a)(A)
+    R38   OR-RES-2              info          -                     residency               ORS 147.005(17)(a)(E)
+    R39   OR-RES-3              info          -                     residency               CVC Application (2026), page 1
+    R40   OR-SUBMIT-ONLINE      info          -                     submission              CVC Application (2026), page i, How do I apply?
+    R41   OR-SUBMIT-EMAIL       info          -                     submission              CVC Application (2026), page i, How do I apply?
+    R42   OR-SUBMIT-MAIL        info          -                     submission              CVC Application (2026), page i, How do I apply?
+    R43   OR-SUBMIT-INPERSON    info          -                     submission              CVC brochure (2024), How Do I Submit an Application?
+    R44   OR-DOC-SIGNED-RELEASE info          -                     required_document       CVC Application (2026), page 4, Required Release to Process Your Application
+    R45   OR-DOC-WAGE           info          -                     required_document       CVC FAQ, loss of earnings benefit
+    R46   OR-DOC-WAGE-SELF      info          -                     required_document       CVC FAQ, loss of earnings benefit
+    R47   OR-DOC-WORK-RELEASE   info          -                     required_document       CVC Application (2026), page i, Answers to Commonly Asked Questions
+    R48   OR-DOC-BILLS          info          -                     required_document       OAR 137-076-0043(1)
+    R49   OR-DOC-EOB            info          -                     required_document       Applying for CVC, Crime Victims Portal FAQs, How do I upload documents?
+    R50   OR-DOC-RECEIPT        info          -                     required_document       OAR 137-076-0019(2)(c)
+    R51   OR-TIME-ACK           info          -                     processing_time         CVC Application (2026), page i, What happens next?
+    R52   OR-TIME-DECISION      info          -                     processing_time         CVC Application (2026), page i, What happens next?
+    R53   OR-ACP-1              info          -                     address_confidentiality Oregon DOJ ACP page, 'Protecting Addresses for Victims'; program established by ORS 192.822
+    R54   OR-REC-1              info          -                     record_confidentiality  ORS 147.115(1)(b)
+    R55   OR-CAP-COUNS-LTD      skipped       -                     expense_cap             OAR 137-076-0016(6)  ; less generous duplicate of OR-CAP-COUNS
+    R56   OR-CAP-WAGE-PARENT    skipped       -                     expense_cap             OAR 137-076-0025(2)(d)(C)  ; less generous duplicate of OR-CAP-WAGE
+
+.sources
+    S0    OR-S1       sha256 29cb905ed2ce1612  https://www.oregonlegislature.gov/bills_laws/ors/ors147.html
+    S1    OR-S2       sha256 b208332c6f58dbdf  https://www.doj.state.or.us/crime-victims/crime-victim-compensation/compensation-for-victims-of-crime/
+    S2    OR-S3       sha256 27fc4648b6d88d72  https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/
+    S3    OR-S4       sha256 d14b064bfc592d5a  https://www.doj.state.or.us/wp-content/uploads/2024/02/CVC-Brochure-English-2024_final.pdf
+    S4    OR-S5       sha256 8993d72879c04629  https://www.doj.state.or.us/crime-victims/crime-victim-compensation/cvc-portal/
+    S5    OR-S6       sha256 9d1819efac09acb6  https://www.doj.state.or.us/crime-victims/crime-victim-compensation/for-medical-providers/save-fund-information-for-medical-providers/
+    S6    OR-S7       sha256 c9769421f2f961ee  https://www.doj.state.or.us/wp-content/uploads/2026/01/CVC-Application-English-2026-fillable.pdf
+    S7    OR-S8       sha256 a8c5a4dd4d06fcee  https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310
+    S8    OR-S9       sha256 e94f296dba47c322  https://www.doj.state.or.us/crime-victims/victims-resources/victims-services/sexual-assault-victims-emergency-medical-response-save-fund/
+    S9    OR-S10      sha256 2b20bf516b41f336  https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304
+    S10   OR-S11      sha256 f2b533b47cd9730b  https://www.doj.state.or.us/crime-victims/victims-services/address-confidentiality-program-acp/
+    S11   OR-S12      sha256 e55541579a41150f  https://www.oregonlegislature.gov/bills_laws/ors/ors192.html
+    S12   OR-S13      sha256 e0bc9f87f79e4ee0  https://www.doj.state.or.us/crime-victims/victims-services/address-confidentiality-program-acp/frequently-asked-questions/
+
+.proofs
+    P0    ()
+    P1    (OR-EXAM-1, OR-EXAM-2, OR-EXAM-3, OR-EXAM-4)
+    P2    (OR-CAP-MED, OR-COV-DEVICES)
+    P3    (OR-CAP-MED, OR-COV-DEVICES, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P4    (OR-CAP-COUNS-LTD)
+    P5    (OR-EXAM-6, OR-CAP-COUNS, OR-COUNS-SESS)
+    P6    (OR-EXAM-6, OR-CAP-COUNS, OR-COUNS-SESS, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P7    (OR-CAP-WAGE-PARENT)
+    P8    (OR-CAP-WAGE-WK, OR-CAP-WAGE, OR-WAGE-RATE, OR-WAGE-DOC)
+    P9    (OR-CAP-WAGE-WK, OR-CAP-WAGE, OR-WAGE-RATE, OR-WAGE-DOC, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P10   (OR-CAP-TRANS, OR-TRANS-RATE)
+    P11   (OR-CAP-TRANS, OR-TRANS-RATE, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P12   (OR-EXCL-RELO)
+    P13   (OR-CAP-CLEAN)
+    P14   (OR-CAP-CLEAN, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P15   (OR-EXCL-PROP)
+    P16   (OR-COV-DENTAL)
+    P17   (OR-COV-DENTAL, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P18   (OR-CAP-REHAB)
+    P19   (OR-CAP-REHAB, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3)
+    P20   (OR-DEADLINE-1, OR-DEADLINE-2)
+    P21   (OR-REPORT-1, OR-REPORT-2, OR-REPORT-5, OR-REPORT-3, OR-REPORT-4)
+    P22   (OR-EXCL-PROP-2, OR-EXCL-SAVE, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3, OR-CONDUCT-1, OR-EMERG-1, OR-CRIME-1, OR-CRIME-2, OR-RES-1, OR-RES-2, OR-RES-3, OR-SUBMIT-ONLINE, OR-SUBMIT-EMAIL, OR-SUBMIT-MAIL, OR-SUBMIT-INPERSON, OR-DOC-SIGNED-RELEASE, OR-DOC-WAGE, OR-DOC-WAGE-SELF, OR-DOC-WORK-RELEASE, OR-DOC-BILLS, OR-DOC-EOB, OR-DOC-RECEIPT, OR-TIME-ACK, OR-TIME-DECISION, OR-ACP-1, OR-REC-1)
+
+.ints
+    K0    60000         ; $600.00
+    K1    2000000       ; $20,000.00
+    K2    300000        ; $3,000.00
+    K3    400000        ; $4,000.00
+    K4    250000        ; $2,500.00
+    K5    4700000       ; $47,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L11
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L11
+                        case security              -> L11
+                        case crime_scene_cleanup   -> L12
+                        case childcare             -> L11
+                        case property_replacement  -> L14
+                        case clothing_bedding      -> L11
+                        case prescription          -> L11
+                        case dental                -> L15
+                        case funeral               -> L11
+                        case legal                 -> L11
+                        case tuition               -> L11
+                        case other                 -> L17
+                        case unknown               -> L11
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; OR-EXAM-1  ORS 147.397(4)  "A provider who submits a bill under this subsection may not bill..."
+              ; OR-EXAM-2  OAR 137-084-0020(4)  "An eligible medical services provider (including subcontractor..."
+              ; OR-EXAM-3  ORS 147.397(1)  "Subject to the availability of funds from gifts, grants and..."
+              ; OR-EXAM-4  ORS 147.397(8)  "A victim may obtain a medical assessment and complete and submit..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; OR-EXAM-1, OR-EXAM-2, OR-EXAM-3, OR-EXAM-4
+  007b        ret
+              ; OR-CAP-MED  ORS 147.035(2)(a)  "The victim's reasonable medical and hospital expenses, including..."
+              ; OR-COV-DEVICES  Compensation for Victims of Crime page, benefits list  "Replacement of damaged eyeglasses, hearing aids, dentures and..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  007c  L2:   ldi      confirmed
+  007e        jnz      L3
+  0083        push     0
+  0088        decide   needs_confirmation, P2       ; OR-CAP-MED, OR-COV-DEVICES
+  008c        ret
+  008d  L3:   ldi      amount_cents
+  008f        decide   eligible, P3                 ; OR-CAP-MED, OR-COV-DEVICES, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  0093        lda
+  0094        ldi      insurance_paid_cents
+  0096        subs
+  0097        push     0
+  009c        max
+  009d        seta     collateral, R30              ; OR-COLLATERAL-1
+  00a1        ret
+              ; OR-EXAM-6  OAR 137-084-0020(1)(k)  "Five (5) counseling sessions; counseling sessions expire 18..."
+              ; OR-CAP-COUNS  ORS 147.035(2)(a)  "The victim's reasonable medical and hospital expenses, including..."
+              ; OR-COUNS-SESS  CVC FAQ, How much do compensation benefits cover?  "If CVC approves the claim, we can pay for 30 counseling..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  00a2  L4:   alts     P4                           ; OR-CAP-COUNS-LTD
+  00a5        ldi      confirmed
+  00a7        jnz      L5
+  00ac        push     0
+  00b1        decide   needs_confirmation, P5       ; OR-EXAM-6, OR-CAP-COUNS, OR-COUNS-SESS
+  00b5        ret
+  00b6  L5:   ldi      amount_cents
+  00b8        decide   eligible, P6                 ; OR-EXAM-6, OR-CAP-COUNS, OR-COUNS-SESS, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  00bc        lda
+  00bd        ldi      insurance_paid_cents
+  00bf        subs
+  00c0        push     0
+  00c5        max
+  00c6        seta     collateral, R30              ; OR-COLLATERAL-1
+  00ca        ret
+              ; OR-CAP-WAGE-WK  ORS 147.035(2)(b)  "Loss of the victim's earnings, at a maximum rate of $600 per..."
+              ; OR-CAP-WAGE  ORS 147.035(2)(b)  "Loss of the victim's earnings, at a maximum rate of $600 per..."
+              ; OR-WAGE-RATE  OAR 137-076-0025(3)  "Compensation for lost earnings under ORS 147.035(2)(b) shall be..."
+              ; OR-WAGE-DOC  OAR 137-076-0025(1)(c)(C)  "Lost earnings compensation for periods of disability in excess..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  00cb  L6:   alts     P7                           ; OR-CAP-WAGE-PARENT
+  00ce        ldi      confirmed
+  00d0        jnz      L7
+  00d5        push     0
+  00da        decide   needs_confirmation, P8       ; OR-CAP-WAGE-WK, OR-CAP-WAGE, OR-WAGE-RATE, OR-WAGE-DOC
+  00de        ret
+  00df  L7:   ldi      amount_cents
+  00e1        decide   eligible, P9                 ; OR-CAP-WAGE-WK, OR-CAP-WAGE, OR-WAGE-RATE, OR-WAGE-DOC, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  00e5        lda
+  00e6        ldi      insurance_paid_cents
+  00e8        subs
+  00e9        push     0
+  00ee        max
+  00ef        seta     collateral, R30              ; OR-COLLATERAL-1
+  00f3        ret
+              ; OR-CAP-TRANS  ORS 147.035(2)(g)  "Expenses related to transportation for the victim's medical care..."
+              ; OR-TRANS-RATE  CVC brochure (2024), What Does CVC Pay For?  "Reimbursement of mileage (50¢ per mile) for travel to medical..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  00f4  L8:   ldi      confirmed
+  00f6        jnz      L9
+  00fb        push     0
+  0100        decide   needs_confirmation, P10      ; OR-CAP-TRANS, OR-TRANS-RATE
+  0104        ret
+  0105  L9:   ldi      amount_cents
+  0107        decide   eligible, P11                ; OR-CAP-TRANS, OR-TRANS-RATE, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  010b        lda
+  010c        ldi      insurance_paid_cents
+  010e        subs
+  010f        push     0
+  0114        max
+  0115        seta     collateral, R30              ; OR-COLLATERAL-1
+  0119        ret
+              ; OR-EXCL-RELO  Compensation for Victims of Crime page  "CVC can not reimburse damages for property crimes, or pay for..."
+  011a  L10:  push     0
+  011f        decide   excluded, P12                ; OR-EXCL-RELO
+  0123        ret
+  0124  L11:  push     0
+  0129        decide   unknown_rule, P0             ; (none)
+  012d        ret
+              ; OR-CAP-CLEAN  ORS 147.035(2)(d)  "Reasonable cleaning expenses, up to a maximum of $2,500"
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  012e  L12:  ldi      confirmed
+  0130        jnz      L13
+  0135        push     0
+  013a        decide   needs_confirmation, P13      ; OR-CAP-CLEAN
+  013e        ret
+  013f  L13:  ldi      amount_cents
+  0141        decide   eligible, P14                ; OR-CAP-CLEAN, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  0145        lda
+  0146        ldi      insurance_paid_cents
+  0148        subs
+  0149        push     0
+  014e        max
+  014f        seta     collateral, R30              ; OR-COLLATERAL-1
+  0153        ret
+              ; OR-EXCL-PROP  ORS 147.035(5)  "Compensation may not be awarded under ORS 147.005 to 147.367 for..."
+  0154  L14:  push     0
+  0159        decide   excluded, P15                ; OR-EXCL-PROP
+  015d        ret
+              ; OR-COV-DENTAL  CVC FAQ, dental work  "If you do not have insurance, CVC must review and approve a..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  015e  L15:  ldi      confirmed
+  0160        jnz      L16
+  0165        push     0
+  016a        decide   needs_confirmation, P16      ; OR-COV-DENTAL
+  016e        ret
+  016f  L16:  ldi      amount_cents
+  0171        decide   eligible, P17                ; OR-COV-DENTAL, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  0175        lda
+  0176        ldi      insurance_paid_cents
+  0178        subs
+  0179        push     0
+  017e        max
+  017f        seta     collateral, R30              ; OR-COLLATERAL-1
+  0183        ret
+              ; OR-CAP-REHAB  ORS 147.035(2)(c)  "The victim's rehabilitation expenses, up to a maximum amount of..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+  0184  L17:  ldi      confirmed
+  0186        jnz      L18
+  018b        push     0
+  0190        decide   needs_confirmation, P18      ; OR-CAP-REHAB
+  0194        ret
+  0195  L18:  ldi      amount_cents
+  0197        decide   eligible, P19                ; OR-CAP-REHAB, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3
+  019b        lda
+  019c        ldi      insurance_paid_cents
+  019e        subs
+  019f        push     0
+  01a4        max
+  01a5        seta     collateral, R30              ; OR-COLLATERAL-1
+  01a9        ret
+
+.aggregate
+              ; OR-CAP-WAGE-WK  ORS 147.035(2)(b)  "Loss of the victim's earnings, at a maximum rate of $600 per..."
+  0000        each     lost_wages, L4
+  0006  L0:   ldi      units
+  0008        jz       L2
+  000d        ldk      K0                           ; $600.00
+  0010        ldi      units
+  0012        muls
+  0013        dup
+  0014        lda
+  0015        lt
+  0016        jz       L1
+  001b        cap      unit_cap, R9                 ; OR-CAP-WAGE-WK
+  001f        jmp      L3
+  0024  L1:   pop
+  0025        jmp      L3
+  002a  L2:   flag     R9                           ; rate_unverified OR-CAP-WAGE-WK
+  002d  L3:   next     L0
+              ; OR-CAP-MED  ORS 147.035(2)(a)  "The victim's reasonable medical and hospital expenses, including..."
+  0032  L4:   push     0
+  0037        str      r0
+  0039        push     0
+  003e        str      r1
+  0040        each     medical, L9
+  0046  L5:   ldr      r1
+  0048        jnz      L7
+  004d        ldr      r0
+  004f        lda
+  0050        adds
+  0051        ldk      K1                           ; $20,000.00
+  0054        gt
+  0055        jz       L6
+  005a        ldk      K1                           ; $20,000.00
+  005d        ldr      r0
+  005f        subs
+  0060        cap      expense_cap, R6              ; OR-CAP-MED
+  0064        push     1
+  0069        str      r1
+  006b  L6:   ldr      r0
+  006d        lda
+  006e        adds
+  006f        str      r0
+  0071        jmp      L8
+  0076  L7:   push     0
+  007b        cap      expense_cap, R6              ; OR-CAP-MED
+  007f  L8:   next     L5
+              ; OR-CAP-COUNS  ORS 147.035(2)(a)  "The victim's reasonable medical and hospital expenses, including..."
+  0084  L9:   push     0
+  0089        str      r0
+  008b        push     0
+  0090        str      r1
+  0092        each     counseling, L14
+  0098  L10:  ldr      r1
+  009a        jnz      L12
+  009f        ldr      r0
+  00a1        lda
+  00a2        adds
+  00a3        ldk      K1                           ; $20,000.00
+  00a6        gt
+  00a7        jz       L11
+  00ac        ldk      K1                           ; $20,000.00
+  00af        ldr      r0
+  00b1        subs
+  00b2        cap      expense_cap, R7              ; OR-CAP-COUNS
+  00b6        push     1
+  00bb        str      r1
+  00bd  L11:  ldr      r0
+  00bf        lda
+  00c0        adds
+  00c1        str      r0
+  00c3        jmp      L13
+  00c8  L12:  push     0
+  00cd        cap      expense_cap, R7              ; OR-CAP-COUNS
+  00d1  L13:  next     L10
+              ; OR-CAP-WAGE  ORS 147.035(2)(b)  "Loss of the victim's earnings, at a maximum rate of $600 per..."
+  00d6  L14:  push     0
+  00db        str      r0
+  00dd        push     0
+  00e2        str      r1
+  00e4        each     lost_wages, L19
+  00ea  L15:  ldr      r1
+  00ec        jnz      L17
+  00f1        ldr      r0
+  00f3        lda
+  00f4        adds
+  00f5        ldk      K1                           ; $20,000.00
+  00f8        gt
+  00f9        jz       L16
+  00fe        ldk      K1                           ; $20,000.00
+  0101        ldr      r0
+  0103        subs
+  0104        cap      expense_cap, R10             ; OR-CAP-WAGE
+  0108        push     1
+  010d        str      r1
+  010f  L16:  ldr      r0
+  0111        lda
+  0112        adds
+  0113        str      r0
+  0115        jmp      L18
+  011a  L17:  push     0
+  011f        cap      expense_cap, R10             ; OR-CAP-WAGE
+  0123  L18:  next     L15
+              ; OR-CAP-TRANS  ORS 147.035(2)(g)  "Expenses related to transportation for the victim's medical care..."
+  0128  L19:  push     0
+  012d        str      r0
+  012f        push     0
+  0134        str      r1
+  0136        each     transportation, L24
+  013c  L20:  ldr      r1
+  013e        jnz      L22
+  0143        ldr      r0
+  0145        lda
+  0146        adds
+  0147        ldk      K2                           ; $3,000.00
+  014a        gt
+  014b        jz       L21
+  0150        ldk      K2                           ; $3,000.00
+  0153        ldr      r0
+  0155        subs
+  0156        cap      expense_cap, R13             ; OR-CAP-TRANS
+  015a        push     1
+  015f        str      r1
+  0161  L21:  ldr      r0
+  0163        lda
+  0164        adds
+  0165        str      r0
+  0167        jmp      L23
+  016c  L22:  push     0
+  0171        cap      expense_cap, R13             ; OR-CAP-TRANS
+  0175  L23:  next     L20
+              ; OR-CAP-REHAB  ORS 147.035(2)(c)  "The victim's rehabilitation expenses, up to a maximum amount of..."
+  017a  L24:  push     0
+  017f        str      r0
+  0181        push     0
+  0186        str      r1
+  0188        each     other, L29
+  018e  L25:  ldr      r1
+  0190        jnz      L27
+  0195        ldr      r0
+  0197        lda
+  0198        adds
+  0199        ldk      K3                           ; $4,000.00
+  019c        gt
+  019d        jz       L26
+  01a2        ldk      K3                           ; $4,000.00
+  01a5        ldr      r0
+  01a7        subs
+  01a8        cap      expense_cap, R15             ; OR-CAP-REHAB
+  01ac        push     1
+  01b1        str      r1
+  01b3  L26:  ldr      r0
+  01b5        lda
+  01b6        adds
+  01b7        str      r0
+  01b9        jmp      L28
+  01be  L27:  push     0
+  01c3        cap      expense_cap, R15             ; OR-CAP-REHAB
+  01c7  L28:  next     L25
+              ; OR-CAP-CLEAN  ORS 147.035(2)(d)  "Reasonable cleaning expenses, up to a maximum of $2,500"
+  01cc  L29:  push     0
+  01d1        str      r0
+  01d3        push     0
+  01d8        str      r1
+  01da        each     crime_scene_cleanup, L34
+  01e0  L30:  ldr      r1
+  01e2        jnz      L32
+  01e7        ldr      r0
+  01e9        lda
+  01ea        adds
+  01eb        ldk      K4                           ; $2,500.00
+  01ee        gt
+  01ef        jz       L31
+  01f4        ldk      K4                           ; $2,500.00
+  01f7        ldr      r0
+  01f9        subs
+  01fa        cap      expense_cap, R16             ; OR-CAP-CLEAN
+  01fe        push     1
+  0203        str      r1
+  0205  L31:  ldr      r0
+  0207        lda
+  0208        adds
+  0209        str      r0
+  020b        jmp      L33
+  0210  L32:  push     0
+  0215        cap      expense_cap, R16             ; OR-CAP-CLEAN
+  0219  L33:  next     L30
+              ; OR-CAP-1  ORS 147.035(1)(b)  "The maximum amount of compensation that may be awarded, in..."
+  021e  L34:  push     0
+  0223        str      r0
+  0225        push     0
+  022a        str      r1
+  022c        each     all, L39
+  0232  L35:  ldr      r1
+  0234        jnz      L37
+  0239        ldr      r0
+  023b        lda
+  023c        adds
+  023d        ldk      K5                           ; $47,000.00
+  0240        gt
+  0241        jz       L36
+  0246        ldk      K5                           ; $47,000.00
+  0249        ldr      r0
+  024b        subs
+  024c        cap      total_cap, R5                ; OR-CAP-1
+  0250        push     1
+  0255        str      r1
+  0257  L36:  ldr      r0
+  0259        lda
+  025a        adds
+  025b        str      r0
+  025d        jmp      L38
+  0262  L37:  push     0
+  0267        cap      total_cap, R5                ; OR-CAP-1
+  026b  L38:  next     L35
+  0270  L39:  push     0                            ; met
+  0275        check    minimum_loss, P0             ; (none)
+              ; OR-DEADLINE-1  ORS 147.015(1)(e)  "Within one year of the date of the injury to the victim; or (B)..."
+  0279        ldx      incident_date
+  027b        push     365
+  0280        adds
+              ; OR-DEADLINE-2  OAR 137-076-0030(2)  ""Good cause" for failure to file an application for compensation..."
+  0281        ldx      incident_date
+  0283        push     365
+  0288        adds
+  0289        max
+  028a        dup
+  028b        setdate
+  028c        ldx      as_of_date
+  028e        ge
+  028f        jz       L40
+  0294        push     0
+  0299        jmp      L41
+  029e  L40:  push     1                            ; late
+  02a3  L41:  check    deadline, P20                ; OR-DEADLINE-1, OR-DEADLINE-2
+              ; OR-REPORT-1  ORS 147.015(1)(b)  "The appropriate law enforcement officials were notified of the..."
+              ; OR-REPORT-2  ORS 147.015(2)(a)(E), (2)(b), (2)(c)  "(E) A medical assessment, as defined in ORS 147.395, for sexual..."
+              ; OR-REPORT-5  ORS 147.015(2)(a)(B)  "A sexual abuse restraining order under ORS 163.760 to 163.777"
+              ; OR-REPORT-3  CVC brochure (2024), Reporting Requirements  "You may report your crime in one of the following ways: •..."
+              ; OR-REPORT-4  OAR 137-076-0016(4)  "Notification of the perpetration of the crime as required by ORS..."
+  02a7        ldx      police_report
+  02a9        push     1                            ; yes
+  02ae        eq
+  02af        jnz      L43
+  02b4        ldx      forensic_exam
+  02b6        jnz      L43
+  02bb        ldx      police_report
+  02bd        push     0                            ; no
+  02c2        eq
+  02c3        jnz      L42
+  02c8        push     3
+  02cd        jmp      L44
+  02d2  L42:  push     1
+  02d7        jmp      L44
+  02dc  L43:  push     0                            ; satisfied
+  02e1  L44:  check    reporting, P21               ; OR-REPORT-1, OR-REPORT-2, OR-REPORT-5, OR-REPORT-3, OR-REPORT-4
+              ; OR-EXCL-PROP-2  CVC brochure (2024)  "The CVC Program cannot pay for lost items or property damage."
+              ; OR-EXCL-SAVE  OAR 137-084-0030(1)  "Examples of services not covered by the Fund include, but are..."
+              ; OR-COLLATERAL-1  ORS 147.125(1)(c)  "shall deduct the amount of benefits, payments or awards that are..."
+              ; OR-COLLATERAL-2  OAR 137-076-0040  "A prior resource may include but is not limited to: private or..."
+              ; OR-COLLATERAL-3  CVC brochure (2024), Other Compensation  "CVC will pay for copays, deductibles, and crime-related..."
+              ; OR-CONDUCT-1  ORS 147.015(1)(d)  "The department determines that the victim acted reasonably with..."
+              ; OR-EMERG-1  ORS 147.055(2)(a)  "The amount of such emergency award shall not exceed $1,000."
+              ; OR-CRIME-1  CVC brochure (2024), opening  "Eligible crimes include domestic violence, sexual assault, child..."
+              ; OR-CRIME-2  ORS 147.005(10)  ""Injury" means abuse of a corpse, actual bodily harm, mental or..."
+              ; OR-RES-1  ORS 147.005(17)(a)(A)  "Killed or injured in this state as a result of a compensable..."
+              ; OR-RES-2  ORS 147.005(17)(a)(E)  "Who is an Oregon resident killed or injured as a result of a..."
+              ; OR-RES-3  CVC Application (2026), page 1  "CVC does not request or consider immigration status when..."
+              ; OR-SUBMIT-ONLINE  CVC Application (2026), page i, How do I apply?  "You can apply electronically through the Crime Victims’..."
+              ; OR-SUBMIT-EMAIL  CVC Application (2026), page i, How do I apply?  "You can also submit your application by email:..."
+              ; OR-SUBMIT-MAIL  CVC Application (2026), page i, How do I apply?  "You can mail a paper application to: Oregon Department of..."
+              ; OR-SUBMIT-INPERSON  CVC brochure (2024), How Do I Submit an Application?  "Apply at your local District Attorney’s Office Victim..."
+              ; OR-DOC-SIGNED-RELEASE  CVC Application (2026), page 4, Required Release to Process Your Application  "You must sign this form to allow CVC to verify the information..."
+              ; OR-DOC-WAGE  CVC FAQ, loss of earnings benefit  "The following information must be provided to CVC: Documentation..."
+              ; OR-DOC-WAGE-SELF  CVC FAQ, loss of earnings benefit  "If you are self-employed, please submit the previous year tax..."
+              ; OR-DOC-WORK-RELEASE  CVC Application (2026), page i, Answers to Commonly Asked Questions  "A work release from a doctor is required beyond 2 weeks of..."
+              ; OR-DOC-BILLS  OAR 137-076-0043(1)  "Requests for payment of crime related expenses shall be..."
+              ; OR-DOC-EOB  Applying for CVC, Crime Victims Portal FAQs, How do I upload documents?  "EOB’s, chart notes, and bills can all be combined to one..."
+              ; OR-DOC-RECEIPT  OAR 137-076-0019(2)(c)  "the Department may, at its discretion, reimburse reasonable and..."
+              ; OR-TIME-ACK  CVC Application (2026), page i, What happens next?  "We will notify you by mail or email when we receive your..."
+              ; OR-TIME-DECISION  CVC Application (2026), page i, What happens next?  "We will contact you again in 60 to 90 days to tell you if we..."
+              ; OR-ACP-1  Oregon DOJ ACP page, 'Protecting Addresses for Victims'; program established by ORS 192.822  "It helps survivors of domestic violence, sexual assault..."
+              ; OR-REC-1  ORS 147.115(1)(b)  "All information submitted to the Department of Justice by an..."
+  02e5        info     P22                          ; OR-EXCL-PROP-2, OR-EXCL-SAVE, OR-COLLATERAL-1, OR-COLLATERAL-2, OR-COLLATERAL-3, OR-CONDUCT-1, OR-EMERG-1, OR-CRIME-1, OR-CRIME-2, OR-RES-1, OR-RES-2, OR-RES-3, OR-SUBMIT-ONLINE, OR-SUBMIT-EMAIL, OR-SUBMIT-MAIL, OR-SUBMIT-INPERSON, OR-DOC-SIGNED-RELEASE, OR-DOC-WAGE, OR-DOC-WAGE-SELF, OR-DOC-WORK-RELEASE, OR-DOC-BILLS, OR-DOC-EOB, OR-DOC-RECEIPT, OR-TIME-ACK, OR-TIME-DECISION, OR-ACP-1, OR-REC-1
+  02e8        ret
+

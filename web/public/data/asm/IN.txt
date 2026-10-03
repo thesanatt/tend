@@ -1,0 +1,546 @@
+; tend law image IN, Indiana
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 66ecfc7fc55f5ca7c9ae979a1ea3e2beb2a1f05ffa778e78aab9178de3c8b719
+; image sha256  171b447c1458f7659c68a5e721b22f7a1be8fe8513f437681ca2cf086204a86c
+; 47 rules, 25 sources, 27 proofs, 5 ints, 328 strings
+; item program: 176 instructions, 600 bytes, max stack 2
+; aggregate program: 162 instructions, 506 bytes, max stack 2, 5 loops
+
+.rules
+    R0    IN-EXAM-1             exam_no_bill  -                                             IC 16-21-8-6(f)
+    R1    IN-EXAM-2             exam_no_bill  -                                             IC 5-2-6.1-39(d)
+    R2    IN-EXAM-4             exam_no_bill  -                                             IC 16-21-8-6(a)
+    R3    IN-EXAM-3             exam_payment  -                                             IC 16-21-8-5(a)
+    R4    IN-CAP-1              total_cap     -                                             IC 5-2-6.1-35(a)
+    R5    IN-CAP-2              expense_cap   counseling            per claim               IC 5-2-6.1-21.1(d)(7)
+    R6    IN-CAP-3              expense_cap   childcare             per claim               IC 5-2-6.1-21.1(d)(4)
+    R7    IN-CAP-4              expense_cap   funeral               per claim               IC 5-2-6.1-21.1(d)(6)
+    R8    IN-COV-1              covered       medical                                       IC 5-2-6.1-21.1(d)(1)
+    R9    IN-COV-2              covered       medical                                       IC 5-2-6.1-21.1(h)
+    R10   IN-COV-3              covered       lost_wages                                    IC 5-2-6.1-21.1(d)(2)
+    R11   IN-COV-4              covered       temporary_housing                             IC 5-2-6.1-21.1(d)(3)
+    R12   IN-COV-5              covered       security                                      IC 5-2-6.1-21.1(d)(9)
+    R13   IN-COV-6              covered       crime_scene_cleanup                           IC 5-2-6.1-21.1(d)(10)
+    R14   IN-COV-7              covered       prescription                                  IC 5-2-6.1-21.1(d)(1)(B)
+    R15   IN-COV-8              covered       counseling                                    IC 5-2-6.1-21.1(i)
+    R16   IN-EXCL-1             excluded      property_replacement                          ICJI program page, Non-eligible expenses
+    R17   IN-EXCL-2             excluded      relocation                                    ICJI program page, Non-eligible expenses
+    R18   IN-EXCL-3             excluded      transportation                                ICJI program page, Non-eligible expenses
+    R19   IN-EXCL-4             excluded      other                                         ICJI program page, Non-eligible expenses
+    R20   IN-EXCL-5             excluded      lost_wages                                    IC 5-2-6.1-32(e)
+    R21   IN-DEADLINE-1         deadline      -                                             IC 5-2-6.1-16(b)
+    R22   IN-REPORT-1           reporting     -                                             IC 5-2-6.1-17(a)
+    R23   IN-REPORT-2           reporting     -                                             IC 5-2-6.1-17(d)
+    R24   IN-REPORT-3           reporting     -                                             IC 5-2-6.1-20
+    R25   IN-REPORT-4           reporting     -                                             IC 16-21-8-1(a)
+    R26   IN-MIN-1              minimum_loss  -                                             IC 5-2-6.1-21.1(b), (c)
+    R27   IN-COLL-1             collateral    -                                             IC 5-2-6.1-32(a)
+    R28   IN-COND-1             info          -                     conduct_reduction       IC 5-2-6.1-34(b)
+    R29   IN-COND-2             info          -                     conduct_reduction       IC 5-2-6.1-13(c)
+    R30   IN-EMERG-1            info          -                     emergency_award         203 IAC 1-1-9(k)
+    R31   IN-CRIME-1            info          -                     eligible_crime          ICJI program page, Additional eligibility requirements
+    R32   IN-CRIME-2            info          -                     eligible_crime          IC 5-2-6.1-8(1)
+    R33   IN-RES-1              info          -                     residency               IC 5-2-6.1-12(a)(1), (2)
+    R34   IN-SUBMIT-1           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
+    R35   IN-SUBMIT-2           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
+    R36   IN-SUBMIT-3           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
+    R37   IN-DOC-1              info          -                     required_document       203 IAC 1-1-4(1)
+    R38   IN-DOC-2              info          -                     required_document       Non-eligible expenses
+    R39   IN-DOC-3              info          -                     required_document       Non-eligible expenses
+    R40   IN-DOC-4              info          -                     required_document       203 IAC 1-1-4(4)
+    R41   IN-DOC-5              info          -                     required_document       203 IAC 1-1-4(5)
+    R42   IN-DOC-6              info          -                     required_document       Eligible expenses, loss of support
+    R43   IN-DOC-7              info          -                     required_document       State Form 23776, Eligibility Requirements, item 7
+    R44   IN-TIME-1             info          -                     processing_time         IC 5-2-6.1-43(b)
+    R45   IN-ACP-1              info          -                     address_confidentiality Attorney General, Address Confidentiality Program page, opening paragraphs
+    R46   IN-RECORDS-1          info          -                     record_confidentiality  IC 5-2-6.1-11.5
+
+.tags   cash=bit0, pain_suffering=bit1
+
+.sources
+    S0    IN-S1       sha256 6c81abaf46b03009  https://www.in.gov/cji/victim-compensation/
+    S1    IN-S2       sha256 98acdc7b56d92612  https://www.in.gov/cji/victim-compensation/frequently-asked-questions/
+    S2    IN-S3       sha256 04bc844d429e7743  https://www.in.gov/cji/victim-compensation/files/23776-fill-in-R14-10-21.pdf
+    S3    IN-S4       sha256 a75e545312d0360f  https://www.in.gov/cji/victim-compensation/rights-of-victims-of-sexual-assault/
+    S4    IN-S5       sha256 6534612e7c0b1850  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-8/
+    S5    IN-S6       sha256 8ca097c06ad39a62  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-12/
+    S6    IN-S7       sha256 4a385dd4b77ba7a4  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-13/
+    S7    IN-S8       sha256 5b3221f27c1506f7  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-16/
+    S8    IN-S9       sha256 9f3b1917e933853b  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-17/
+    S9    IN-S10      sha256 b889a25bd914806b  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-20/
+    S10   IN-S11      sha256 b6eab18c88a8361e  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-21-1/
+    S11   IN-S12      sha256 7e61d5bebbe8292f  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-32/
+    S12   IN-S13      sha256 856b01a9365dbde9  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-34/
+    S13   IN-S14      sha256 ccc046c433fc24c6  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-35/
+    S14   IN-S15      sha256 c254171281d93ecd  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-39/
+    S15   IN-S16      sha256 7a97059cf2b10d07  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-43/
+    S16   IN-S17      sha256 86d4e3292ca91a16  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-0-5/
+    S17   IN-S18      sha256 16c0238de5cff517  https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-5/
+    S18   IN-S19      sha256 9d2300c87f2d7225  https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-6/
+    S19   IN-S20      sha256 7fc207a3ef97e4aa  https://law.justia.com/codes/indiana/title-16/article-21/chapter-8/section-16-21-8-1/
+    S20   IN-S21      sha256 9254ec75017d29c3  https://iar.iga.in.gov/latestArticle/203/1
+    S21   IN-S22      sha256 5f5cc774e51f66b2  https://www.in.gov/cji/victim-compensation/files/Sexual-assault-victims-rights-revised-English.pdf
+    S22   IN-S23      sha256 e48fab4e31c3c500  https://www.in.gov/attorneygeneral/about-the-office/appeals/victim-services/address-confidentiality-program/
+    S23   IN-S24      sha256 cb34d185bebf6119  https://law.justia.com/codes/indiana/title-5/article-26-5/chapter-2/section-5-26-5-2-1/
+    S24   IN-S25      sha256 949eb89d8ee7ad1a  https://law.justia.com/codes/indiana/title-5/article-2/chapter-6-1/section-5-2-6-1-11-5/
+
+.proofs
+    P0    ()
+    P1    (IN-EXAM-1, IN-EXAM-2, IN-EXAM-4, IN-EXAM-3)
+    P2    (IN-COV-1, IN-COV-2)
+    P3    (IN-COV-1, IN-COV-2, IN-COLL-1)
+    P4    (IN-CAP-2, IN-COV-8)
+    P5    (IN-CAP-2, IN-COV-8, IN-COLL-1)
+    P6    (IN-EXCL-5)
+    P7    (IN-EXCL-3)
+    P8    (IN-EXCL-2)
+    P9    (IN-COV-4)
+    P10   (IN-COV-4, IN-COLL-1)
+    P11   (IN-COV-5)
+    P12   (IN-COV-5, IN-COLL-1)
+    P13   (IN-COV-6)
+    P14   (IN-COV-6, IN-COLL-1)
+    P15   (IN-CAP-3)
+    P16   (IN-CAP-3, IN-COLL-1)
+    P17   (IN-EXCL-1)
+    P18   (IN-COV-7)
+    P19   (IN-COV-7, IN-COLL-1)
+    P20   (IN-CAP-4)
+    P21   (IN-CAP-4, IN-COLL-1)
+    P22   (IN-EXCL-4)
+    P23   (IN-MIN-1)
+    P24   (IN-DEADLINE-1)
+    P25   (IN-REPORT-1, IN-REPORT-2, IN-REPORT-3, IN-REPORT-4)
+    P26   (IN-COLL-1, IN-COND-1, IN-COND-2, IN-EMERG-1, IN-CRIME-1, IN-CRIME-2, IN-RES-1, IN-SUBMIT-1, IN-SUBMIT-2, IN-SUBMIT-3, IN-DOC-1, IN-DOC-2, IN-DOC-3, IN-DOC-4, IN-DOC-5, IN-DOC-6, IN-DOC-7, IN-TIME-1, IN-ACP-1, IN-RECORDS-1)
+
+.ints
+    K0    300000        ; $3,000.00
+    K1    100000        ; $1,000.00
+    K2    500000        ; $5,000.00
+    K3    1500000       ; $15,000.00
+    K4    10000         ; $100.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L21
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L7
+                        case relocation            -> L8
+                        case temporary_housing     -> L9
+                        case security              -> L11
+                        case crime_scene_cleanup   -> L13
+                        case childcare             -> L15
+                        case property_replacement  -> L17
+                        case clothing_bedding      -> L21
+                        case prescription          -> L22
+                        case dental                -> L21
+                        case funeral               -> L24
+                        case legal                 -> L21
+                        case tuition               -> L21
+                        case other                 -> L26
+                        case unknown               -> L21
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; IN-EXAM-1  IC 16-21-8-6(f)  "A provider may not charge the victim for services required under..."
+              ; IN-EXAM-2  IC 5-2-6.1-39(d)  "A medical service provider may not charge the victim for a..."
+              ; IN-EXAM-4  IC 16-21-8-6(a)  "When a provider provides forensic medical exams and additional..."
+              ; IN-EXAM-3  IC 16-21-8-5(a)  "The division shall award compensation or reimbursement under..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; IN-EXAM-1, IN-EXAM-2, IN-EXAM-4, IN-EXAM-3
+  007b        ret
+              ; IN-COV-1  IC 5-2-6.1-21.1(d)(1)  "the division may order the payment of compensation under this..."
+              ; IN-COV-2  IC 5-2-6.1-21.1(h)  "The director may extend the one hundred eighty (180) day..."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  007c  L2:   ldi      confirmed
+  007e        jnz      L3
+  0083        push     0
+  0088        decide   needs_confirmation, P2       ; IN-COV-1, IN-COV-2
+  008c        ret
+  008d  L3:   ldi      amount_cents
+  008f        decide   eligible, P3                 ; IN-COV-1, IN-COV-2, IN-COLL-1
+  0093        lda
+  0094        ldi      insurance_paid_cents
+  0096        subs
+  0097        push     0
+  009c        max
+  009d        seta     collateral, R27              ; IN-COLL-1
+  00a1        ret
+              ; IN-CAP-2  IC 5-2-6.1-21.1(d)(7)  "(7) Outpatient mental health counseling, not to exceed three..."
+              ; IN-COV-8  IC 5-2-6.1-21.1(i)  "The director may extend the one hundred eighty (180) day..."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  00a2  L4:   ldi      confirmed
+  00a4        jnz      L5
+  00a9        push     0
+  00ae        decide   needs_confirmation, P4       ; IN-CAP-2, IN-COV-8
+  00b2        ret
+  00b3  L5:   ldi      amount_cents
+  00b5        decide   eligible, P5                 ; IN-CAP-2, IN-COV-8, IN-COLL-1
+  00b9        lda
+  00ba        ldi      insurance_paid_cents
+  00bc        subs
+  00bd        push     0
+  00c2        max
+  00c3        seta     collateral, R27              ; IN-COLL-1
+  00c7        ret
+              ; IN-COV-3  IC 5-2-6.1-21.1(d)(2)  "(2) Loss of income: (A) the victim would have earned had the..."
+              ; IN-EXCL-5  IC 5-2-6.1-32(e)  "The division may not reimburse the claimant for the use of paid..."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  00c8  L6:   push     0
+  00cd        decide   excluded, P6                 ; IN-EXCL-5
+  00d1        ret
+              ; IN-EXCL-3  ICJI program page, Non-eligible expenses  "Rent, utilities, food, travel, or lodging."
+  00d2  L7:   push     0
+  00d7        decide   excluded, P7                 ; IN-EXCL-3
+  00db        ret
+              ; IN-EXCL-2  ICJI program page, Non-eligible expenses  "Moving, relocation or daily living expenses."
+  00dc  L8:   push     0
+  00e1        decide   excluded, P8                 ; IN-EXCL-2
+  00e5        ret
+              ; IN-COV-4  IC 5-2-6.1-21.1(d)(3)  "(3) Emergency shelter care expenses, not to exceed the expenses..."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  00e6  L9:   ldi      confirmed
+  00e8        jnz      L10
+  00ed        push     0
+  00f2        decide   needs_confirmation, P9       ; IN-COV-4
+  00f6        ret
+  00f7  L10:  ldi      amount_cents
+  00f9        decide   eligible, P10                ; IN-COV-4, IN-COLL-1
+  00fd        lda
+  00fe        ldi      insurance_paid_cents
+  0100        subs
+  0101        push     0
+  0106        max
+  0107        seta     collateral, R27              ; IN-COLL-1
+  010b        ret
+              ; IN-COV-5  IC 5-2-6.1-21.1(d)(9)  "(9) Replacement of windows or door locks."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  010c  L11:  ldi      confirmed
+  010e        jnz      L12
+  0113        push     0
+  0118        decide   needs_confirmation, P11      ; IN-COV-5
+  011c        ret
+  011d  L12:  ldi      amount_cents
+  011f        decide   eligible, P12                ; IN-COV-5, IN-COLL-1
+  0123        lda
+  0124        ldi      insurance_paid_cents
+  0126        subs
+  0127        push     0
+  012c        max
+  012d        seta     collateral, R27              ; IN-COLL-1
+  0131        ret
+              ; IN-COV-6  IC 5-2-6.1-21.1(d)(10)  "(10) Cleanup of the scene of a violent crime."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  0132  L13:  ldi      confirmed
+  0134        jnz      L14
+  0139        push     0
+  013e        decide   needs_confirmation, P13      ; IN-COV-6
+  0142        ret
+  0143  L14:  ldi      amount_cents
+  0145        decide   eligible, P14                ; IN-COV-6, IN-COLL-1
+  0149        lda
+  014a        ldi      insurance_paid_cents
+  014c        subs
+  014d        push     0
+  0152        max
+  0153        seta     collateral, R27              ; IN-COLL-1
+  0157        ret
+              ; IN-CAP-3  IC 5-2-6.1-21.1(d)(4)  "(4) Expense incurred for child care, not to exceed one thousand..."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  0158  L15:  ldi      confirmed
+  015a        jnz      L16
+  015f        push     0
+  0164        decide   needs_confirmation, P15      ; IN-CAP-3
+  0168        ret
+  0169  L16:  ldi      amount_cents
+  016b        decide   eligible, P16                ; IN-CAP-3, IN-COLL-1
+  016f        lda
+  0170        ldi      insurance_paid_cents
+  0172        subs
+  0173        push     0
+  0178        max
+  0179        seta     collateral, R27              ; IN-COLL-1
+  017d        ret
+              ; IN-EXCL-1  ICJI program page, Non-eligible expenses  "Property damage (other than the replacement of windows or door..."
+  017e  L17:  push     0
+  0183        str      r0
+  0185        ldi      tags
+  0187        push     1
+  018c        and
+  018d        jz       L18
+  0192        ldr      r0
+  0194        push     1
+  0199        or
+  019a        str      r0
+  019c  L18:  ldr      r0
+  019e        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01ac  L19:  push     0
+  01b1        decide   excluded, P17                ; IN-EXCL-1
+  01b5        ret
+  01b6  L20:  push     0
+  01bb        decide   unknown_rule, P0             ; (none)
+  01bf        ret
+  01c0  L21:  push     0
+  01c5        decide   unknown_rule, P0             ; (none)
+  01c9        ret
+              ; IN-COV-7  IC 5-2-6.1-21.1(d)(1)(B)  "(B) prescription drugs; and (C) prosthetic devices;"
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  01ca  L22:  ldi      confirmed
+  01cc        jnz      L23
+  01d1        push     0
+  01d6        decide   needs_confirmation, P18      ; IN-COV-7
+  01da        ret
+  01db  L23:  ldi      amount_cents
+  01dd        decide   eligible, P19                ; IN-COV-7, IN-COLL-1
+  01e1        lda
+  01e2        ldi      insurance_paid_cents
+  01e4        subs
+  01e5        push     0
+  01ea        max
+  01eb        seta     collateral, R27              ; IN-COLL-1
+  01ef        ret
+              ; IN-CAP-4  IC 5-2-6.1-21.1(d)(6)  "(6) Expenses incurred for funeral, burial, or cremation of the..."
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+  01f0  L24:  ldi      confirmed
+  01f2        jnz      L25
+  01f7        push     0
+  01fc        decide   needs_confirmation, P20      ; IN-CAP-4
+  0200        ret
+  0201  L25:  ldi      amount_cents
+  0203        decide   eligible, P21                ; IN-CAP-4, IN-COLL-1
+  0207        lda
+  0208        ldi      insurance_paid_cents
+  020a        subs
+  020b        push     0
+  0210        max
+  0211        seta     collateral, R27              ; IN-COLL-1
+  0215        ret
+              ; IN-EXCL-4  ICJI program page, Non-eligible expenses  "Pain and suffering."
+  0216  L26:  push     0
+  021b        str      r0
+  021d        ldi      tags
+  021f        push     2
+  0224        and
+  0225        jz       L27
+  022a        ldr      r0
+  022c        push     1
+  0231        or
+  0232        str      r0
+  0234  L27:  ldr      r0
+  0236        switch   2, default L29
+                        case 0                     -> L29
+                        case 1                     -> L28
+  0244  L28:  push     0
+  0249        decide   excluded, P22                ; IN-EXCL-4
+  024d        ret
+  024e  L29:  push     0
+  0253        decide   unknown_rule, P0             ; (none)
+  0257        ret
+
+.aggregate
+              ; IN-CAP-2  IC 5-2-6.1-21.1(d)(7)  "(7) Outpatient mental health counseling, not to exceed three..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     counseling, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $3,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $3,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R5              ; IN-CAP-2
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R5              ; IN-CAP-2
+  004d  L3:   next     L0
+              ; IN-CAP-3  IC 5-2-6.1-21.1(d)(4)  "(4) Expense incurred for child care, not to exceed one thousand..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     childcare, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K1                           ; $1,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K1                           ; $1,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R6              ; IN-CAP-3
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R6              ; IN-CAP-3
+  009f  L8:   next     L5
+              ; IN-CAP-4  IC 5-2-6.1-21.1(d)(6)  "(6) Expenses incurred for funeral, burial, or cremation of the..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     funeral, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K2                           ; $5,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K2                           ; $5,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R7              ; IN-CAP-4
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R7              ; IN-CAP-4
+  00f1  L13:  next     L10
+              ; IN-CAP-1  IC 5-2-6.1-35(a)  "(a) An award to a claimant under this chapter: (1) may not..."
+  00f6  L14:  push     0
+  00fb        str      r0
+  00fd        push     0
+  0102        str      r1
+  0104        each     all, L19
+  010a  L15:  ldr      r1
+  010c        jnz      L17
+  0111        ldr      r0
+  0113        lda
+  0114        adds
+  0115        ldk      K3                           ; $15,000.00
+  0118        gt
+  0119        jz       L16
+  011e        ldk      K3                           ; $15,000.00
+  0121        ldr      r0
+  0123        subs
+  0124        cap      total_cap, R4                ; IN-CAP-1
+  0128        push     1
+  012d        str      r1
+  012f  L16:  ldr      r0
+  0131        lda
+  0132        adds
+  0133        str      r0
+  0135        jmp      L18
+  013a  L17:  push     0
+  013f        cap      total_cap, R4                ; IN-CAP-1
+  0143  L18:  next     L15
+  0148  L19:  push     0
+  014d        str      r0
+  014f        each     all, L21
+  0155  L20:  ldr      r0
+  0157        lda
+  0158        adds
+  0159        str      r0
+  015b        next     L20
+  0160  L21:  push     0
+  0165        str      r2
+              ; IN-MIN-1  IC 5-2-6.1-21.1(b), (c)  "(b) This section does not apply to reimbursement for forensic..."
+  0167        ldr      r0
+  0169        ldk      K4                           ; $100.00
+  016c        lt
+  016d        jz       L24
+  0172        ldx      forensic_exam
+  0174        jz       L22
+  0179        push     2
+  017e        jmp      L23
+  0183  L22:  push     3
+  0188  L23:  ldr      r2
+  018a        max
+  018b        str      r2
+  018d  L24:  ldr      r2
+  018f        check    minimum_loss, P23            ; IN-MIN-1
+              ; IN-DEADLINE-1  IC 5-2-6.1-16(b)  "the application must be received by the division not more than..."
+  0193        ldx      incident_date
+  0195        push     180
+  019a        adds
+  019b        dup
+  019c        setdate
+  019d        ldx      as_of_date
+  019f        ge
+  01a0        jz       L25
+  01a5        push     0
+  01aa        jmp      L26
+  01af  L25:  push     1                            ; late
+  01b4  L26:  check    deadline, P24                ; IN-DEADLINE-1
+              ; IN-REPORT-1  IC 5-2-6.1-17(a)  "(a) Except for an alleged victim of a child sex crime, the..."
+              ; IN-REPORT-2  IC 5-2-6.1-17(d)  "(d) The division may accept proof that evidence was collected..."
+              ; IN-REPORT-3  IC 5-2-6.1-20  "the division finds a compelling reason for failure to report to..."
+              ; IN-REPORT-4  IC 16-21-8-1(a)  "The provision of services may not be dependent on a victim's..."
+  01b8        ldx      police_report
+  01ba        push     1                            ; yes
+  01bf        eq
+  01c0        jnz      L28
+  01c5        ldx      forensic_exam
+  01c7        jnz      L28
+  01cc        ldx      police_report
+  01ce        push     0                            ; no
+  01d3        eq
+  01d4        jnz      L27
+  01d9        push     3
+  01de        jmp      L29
+  01e3  L27:  push     1
+  01e8        jmp      L29
+  01ed  L28:  push     0                            ; satisfied
+  01f2  L29:  check    reporting, P25               ; IN-REPORT-1, IN-REPORT-2, IN-REPORT-3, IN-REPORT-4
+              ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
+              ; IN-COND-1  IC 5-2-6.1-34(b)  "If the division finds that the victim contributed to the..."
+              ; IN-COND-2  IC 5-2-6.1-13(c)  "Benefits may be awarded to a person described in subsection..."
+              ; IN-EMERG-1  203 IAC 1-1-9(k)  "An emergency award of not more than five hundred dollars ($500)..."
+              ; IN-CRIME-1  ICJI program page, Additional eligibility requirements  "victims of sexual assault who have had a forensic exam conducted..."
+              ; IN-CRIME-2  IC 5-2-6.1-8(1)  "A crime under the Indiana Code that is a felony of any kind or a..."
+              ; IN-RES-1  IC 5-2-6.1-12(a)(1), (2)  "(1) A resident of Indiana who is a victim of a violent crime..."
+              ; IN-SUBMIT-1  Apply for Violent Crime Compensation, File a PDF claim  "If applying online isn't an option, PDF applications can be..."
+              ; IN-SUBMIT-2  Apply for Violent Crime Compensation, File a PDF claim  "If applying online isn't an option, PDF applications can be..."
+              ; IN-SUBMIT-3  Apply for Violent Crime Compensation, File a PDF claim  "They can also be faxed to: 317-232-7103."
+              ; IN-DOC-1  203 IAC 1-1-4(1)  "(1) A police report including all supplemental reports and..."
+              ; IN-DOC-2  Non-eligible expenses  "Expenses that cannot be verified via an itemized bill."
+              ; IN-DOC-3  Non-eligible expenses  "Out of pocket expenses without proof of payment."
+              ; IN-DOC-4  203 IAC 1-1-4(4)  "(4) Documentation regarding substitute child care expenses..."
+              ; IN-DOC-5  203 IAC 1-1-4(5)  "(5) Documentation concerning the following: (A) Medical or life..."
+              ; IN-DOC-6  Eligible expenses, loss of support  "(Note: This requires verification of legal dependent status..."
+              ; IN-DOC-7  State Form 23776, Eligibility Requirements, item 7  "If the claimant is less than eighteen (18) years old, a parent..."
+              ; IN-TIME-1  IC 5-2-6.1-43(b)  "an award must be paid not more than thirty (30) days after the..."
+              ; IN-ACP-1  Attorney General, Address Confidentiality Program page, opening paragraphs  "The ACP is a free program that allows victims of domestic..."
+              ; IN-RECORDS-1  IC 5-2-6.1-11.5  "The following are confidential: (1) A claimant's: (A) personal..."
+  01f6        info     P26                          ; IN-COLL-1, IN-COND-1, IN-COND-2, IN-EMERG-1, IN-CRIME-1, IN-CRIME-2, IN-RES-1, IN-SUBMIT-1, IN-SUBMIT-2, IN-SUBMIT-3, IN-DOC-1, IN-DOC-2, IN-DOC-3, IN-DOC-4, IN-DOC-5, IN-DOC-6, IN-DOC-7, IN-TIME-1, IN-ACP-1, IN-RECORDS-1
+  01f9        ret
+

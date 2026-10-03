@@ -1,0 +1,656 @@
+; tend law image NC, North Carolina
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 5ac3957e483ba6cf4fab08a0ef3888955958a6d15b7b83ec4bdc6569ae3943f3
+; image sha256  e63f3185057458f676a5c1e8b518c71273767b231d73e1b1200e41e5f71284c0
+; 41 rules, 11 sources, 26 proofs, 4 ints, 250 strings
+; item program: 305 instructions, 1097 bytes, max stack 2
+; aggregate program: 136 instructions, 411 bytes, max stack 3, 4 loops
+
+.rules
+    R0    NC-EXAM-1             exam_no_bill  -                                             N.C. Gen. Stat. 143B-1200(c)
+    R1    NC-EXAM-2             exam_payment  -                                             N.C. Gen. Stat. 143B-1200(b)
+    R2    NC-EXAM-3             exam_payment  -                                             N.C. Gen. Stat. 143B-1200(c)
+    R3    NC-CAP-1              total_cap     -                                             N.C. Gen. Stat. 15B-11(g)
+    R4    NC-WAGE-1             expense_cap   lost_wages            per week                N.C. Gen. Stat. 15B-2(14)
+    R5    NC-WAGE-2             covered       lost_wages                                    N.C. Gen. Stat. 15B-2(14)
+    R6    NC-FUN-1              expense_cap   funeral               per claim               N.C. Gen. Stat. 15B-2(1)
+    R7    NC-MED-1              covered       medical                                       N.C. Gen. Stat. 15B-2(1)
+    R8    NC-COUN-1             covered       counseling                                    N.C. Gen. Stat. 15B-2(1)
+    R9    NC-MED-2              covered       medical                                       N.C. Gen. Stat. 15B-2(1)
+    R10   NC-DENT-1             covered       dental                                        NC DPS Victim Compensation Program page, Accepted Expenses
+    R11   NC-CLEAN-1            covered       crime_scene_cleanup                           NC DPS Victim Compensation Program page, FAQ: What paperwork do I need to submit? (Crime scene cleanup)
+    R12   NC-EXCL-1             excluded      property_replacement                          NC DPS Victim Compensation Program page, Not Accepted
+    R13   NC-EXCL-2             excluded      transportation                                NC DPS Victim Compensation Program page, Not Accepted
+    R14   NC-EXCL-3             info          -                     excluded_expense        NC DPS Victim Compensation Program page, Not Accepted
+    R15   NC-EXCL-4             excluded      -                                             N.C. Gen. Stat. 15B-4(a)
+    R16   NC-EXCL-5             excluded      legal                                         NC DPS Victim Compensation Program page, Not Accepted
+    R17   NC-REPL-1             expense_cap   other                 per week                N.C. Gen. Stat. 15B-2(12)
+    R18   NC-DEAD-1             deadline      -                                             N.C. Gen. Stat. 15B-11(a)(1)
+    R19   NC-REPORT-1           reporting     -                                             N.C. Gen. Stat. 15B-11(a)(3)
+    R20   NC-COLL-1             collateral    -                                             N.C. Gen. Stat. 15B-11(d)
+    R21   NC-COLL-2             collateral    -                                             NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?
+    R22   NC-COND-1             info          -                     conduct_reduction       N.C. Gen. Stat. 15B-11(b)(2)
+    R23   NC-COND-2             info          -                     conduct_reduction       N.C. Gen. Stat. 15B-11(c)
+    R24   NC-CRIME-1            info          -                     eligible_crime          NC DPS Victim Compensation Program page, FAQ: What financial support is available?
+    R25   NC-RES-1              info          -                     residency               N.C. Gen. Stat. 15B-4(b)
+    R26   NC-RES-2              info          -                     residency               NC DPS Victim Compensation Program page, FAQ: Am I eligible?
+    R27   NC-SUBMIT-1           info          -                     submission              NC DPS Victim Compensation Program page, How to Apply
+    R28   NC-SUBMIT-2           info          -                     submission              NC DPS Rape Victim Assistance Program FAQ, 'Is financial help available for medical expenses beyond the cost of the forensic exam?'
+    R29   NC-DOC-1              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'
+    R30   NC-DOC-2              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'
+    R31   NC-DOC-3              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Medical and counseling services)
+    R32   NC-DOC-4              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'
+    R33   NC-DOC-5              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Lost wages)
+    R34   NC-DOC-6              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Lost wages)
+    R35   NC-DOC-7              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Dental services)
+    R36   NC-DOC-8              info          -                     required_document       NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Funeral expenses)
+    R37   NC-TIME-1             info          -                     processing_time         NC DPS Victim Compensation Program FAQ, 'What happens after I submit my application?'
+    R38   NC-ACP-1              info          -                     address_confidentiality N.C. Gen. Stat. 15C-2(2)
+    R39   NC-ACP-2              info          -                     address_confidentiality N.C. Gen. Stat. 15C-4(a)
+    R40   NC-CONF-1             info          -                     record_confidentiality  N.C. Gen. Stat. 15B-8.1(b)
+
+.tags   cash=bit0, pain_suffering=bit1
+
+.sources
+    S0    NC-S1       sha256 ef3fa0094421cf85  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html
+    S1    NC-S2       sha256 335b8337a2a2922a  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-4.html
+    S2    NC-S3       sha256 bf9ec2451237c8a8  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html
+    S3    NC-S4       sha256 368d9271d06ac8c0  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_143B/GS_143B-1200.html
+    S4    NC-S5       sha256 df30903c19774ca2  https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services
+    S5    NC-S6       sha256 74898cf8bab248d1  https://www.ncdps.gov/dps-services/crime-victims-compensation-services/rape-victim-assistance-program
+    S6    NC-S7       sha256 676171cca3e24657  https://www.ncdps.gov/dps-services/office-victim-compensation-services
+    S7    NC-S8       sha256 5d16fc0828444301  https://www.ncdps.gov/division/victim-compensation-services/victim-compensation-application-english/download?attachment
+    S8    NC-S9       sha256 b9d2b22c84cb943e  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15C/GS_15C-2.html
+    S9    NC-S10      sha256 2b2bb167052276ac  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15C/GS_15C-4.html
+    S10   NC-S11      sha256 99a113febc1856f5  https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-8.1.html
+
+.proofs
+    P0    ()
+    P1    (NC-EXAM-1, NC-EXAM-2, NC-EXAM-3)
+    P2    (NC-EXCL-4)
+    P3    (NC-MED-1, NC-MED-2)
+    P4    (NC-MED-1, NC-MED-2, NC-COLL-1, NC-COLL-2)
+    P5    (NC-COUN-1)
+    P6    (NC-COUN-1, NC-COLL-1, NC-COLL-2)
+    P7    (NC-WAGE-1, NC-WAGE-2)
+    P8    (NC-WAGE-1, NC-WAGE-2, NC-COLL-1, NC-COLL-2)
+    P9    (NC-EXCL-2, NC-EXCL-4)
+    P10   (NC-EXCL-2)
+    P11   (NC-CLEAN-1)
+    P12   (NC-CLEAN-1, NC-COLL-1, NC-COLL-2)
+    P13   (NC-EXCL-1)
+    P14   (NC-EXCL-1, NC-EXCL-4)
+    P15   (NC-DENT-1)
+    P16   (NC-DENT-1, NC-COLL-1, NC-COLL-2)
+    P17   (NC-FUN-1)
+    P18   (NC-FUN-1, NC-COLL-1, NC-COLL-2)
+    P19   (NC-EXCL-4, NC-EXCL-5)
+    P20   (NC-EXCL-5)
+    P21   (NC-REPL-1)
+    P22   (NC-REPL-1, NC-COLL-1, NC-COLL-2)
+    P23   (NC-DEAD-1)
+    P24   (NC-REPORT-1)
+    P25   (NC-EXCL-3, NC-COLL-1, NC-COLL-2, NC-COND-1, NC-COND-2, NC-CRIME-1, NC-RES-1, NC-RES-2, NC-SUBMIT-1, NC-SUBMIT-2, NC-DOC-1, NC-DOC-2, NC-DOC-3, NC-DOC-4, NC-DOC-5, NC-DOC-6, NC-DOC-7, NC-DOC-8, NC-TIME-1, NC-ACP-1, NC-ACP-2, NC-CONF-1)
+
+.ints
+    K0    40000         ; $400.00
+    K1    20000         ; $200.00
+    K2    1000000       ; $10,000.00
+    K3    4500000       ; $45,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L21
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L21
+                        case temporary_housing     -> L21
+                        case security              -> L21
+                        case crime_scene_cleanup   -> L25
+                        case childcare             -> L21
+                        case property_replacement  -> L30
+                        case clothing_bedding      -> L21
+                        case prescription          -> L21
+                        case dental                -> L37
+                        case funeral               -> L42
+                        case legal                 -> L47
+                        case tuition               -> L21
+                        case other                 -> L51
+                        case unknown               -> L21
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; NC-EXAM-1  N.C. Gen. Stat. 143B-1200(c)  "A medical facility or medical professional that performs a..."
+              ; NC-EXAM-2  N.C. Gen. Stat. 143B-1200(b)  "Whenever a forensic medical examination is conducted as a result..."
+              ; NC-EXAM-3  N.C. Gen. Stat. 143B-1200(c)  "A medical facility or medical professional that performs a..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; NC-EXAM-1, NC-EXAM-2, NC-EXAM-3
+  007b        ret
+              ; NC-MED-1  N.C. Gen. Stat. 15B-2(1)  "Allowable expense for medical care, counseling, rehabilitation..."
+              ; NC-MED-2  N.C. Gen. Stat. 15B-2(1)  "By accepting the compensation paid as allowable expense pursuant..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     2
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; NC-EXCL-4
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; NC-MED-1, NC-MED-2
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; NC-MED-1, NC-MED-2, NC-COLL-1, NC-COLL-2
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R20              ; NC-COLL-1
+  00d9        ret
+              ; NC-COUN-1  N.C. Gen. Stat. 15B-2(1)  "Allowable expense for medical care, counseling, rehabilitation..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     2
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; NC-EXCL-4
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; NC-COUN-1
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; NC-COUN-1, NC-COLL-1, NC-COLL-2
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R20              ; NC-COLL-1
+  0137        ret
+              ; NC-WAGE-1  N.C. Gen. Stat. 15B-2(14)  "Compensation for work loss will be limited to 26 weeks..."
+              ; NC-WAGE-2  N.C. Gen. Stat. 15B-2(14)  "A claim for work loss will be paid only upon proof that the..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     2
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; NC-EXCL-4
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; NC-WAGE-1, NC-WAGE-2
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; NC-WAGE-1, NC-WAGE-2, NC-COLL-1, NC-COLL-2
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R20              ; NC-COLL-1
+  0195        ret
+              ; NC-EXCL-2  NC DPS Victim Compensation Program page, Not Accepted  "X Travel"
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     2
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P9                 ; NC-EXCL-2, NC-EXCL-4
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   excluded, P10                ; NC-EXCL-2
+  01d7        ret
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     2
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; NC-EXCL-4
+  020f        ret
+  0210  L24:  push     0
+  0215        decide   unknown_rule, P0             ; (none)
+  0219        ret
+              ; NC-CLEAN-1  NC DPS Victim Compensation Program page, FAQ: What paperwork do I need to submit? (Crime scene cleanup)  "Crime scene cleanup Submit the itemized bill from a certified..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  021a  L25:  push     0
+  021f        str      r0
+  0221        ldi      tags
+  0223        push     2
+  0228        and
+  0229        jz       L26
+  022e        ldr      r0
+  0230        push     1
+  0235        or
+  0236        str      r0
+  0238  L26:  ldr      r0
+  023a        switch   2, default L28
+                        case 0                     -> L28
+                        case 1                     -> L27
+  0248  L27:  push     0
+  024d        decide   excluded, P2                 ; NC-EXCL-4
+  0251        ret
+  0252  L28:  ldi      confirmed
+  0254        jnz      L29
+  0259        push     0
+  025e        decide   needs_confirmation, P11      ; NC-CLEAN-1
+  0262        ret
+  0263  L29:  ldi      amount_cents
+  0265        decide   eligible, P12                ; NC-CLEAN-1, NC-COLL-1, NC-COLL-2
+  0269        lda
+  026a        ldi      insurance_paid_cents
+  026c        subs
+  026d        push     0
+  0272        max
+  0273        seta     collateral, R20              ; NC-COLL-1
+  0277        ret
+              ; NC-EXCL-1  NC DPS Victim Compensation Program page, Not Accepted  "Not Accepted X Property damage or loss X Lost or stolen money X..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+  0278  L30:  push     0
+  027d        str      r0
+  027f        ldi      tags
+  0281        push     1
+  0286        and
+  0287        jz       L31
+  028c        ldr      r0
+  028e        push     1
+  0293        or
+  0294        str      r0
+  0296  L31:  ldi      tags
+  0298        push     2
+  029d        and
+  029e        jz       L32
+  02a3        ldr      r0
+  02a5        push     2
+  02aa        or
+  02ab        str      r0
+  02ad  L32:  ldr      r0
+  02af        switch   4, default L36
+                        case 0                     -> L36
+                        case 1                     -> L33
+                        case 2                     -> L34
+                        case 3                     -> L35
+  02c5  L33:  push     0
+  02ca        decide   excluded, P13                ; NC-EXCL-1
+  02ce        ret
+  02cf  L34:  push     0
+  02d4        decide   excluded, P2                 ; NC-EXCL-4
+  02d8        ret
+  02d9  L35:  push     0
+  02de        decide   excluded, P14                ; NC-EXCL-1, NC-EXCL-4
+  02e2        ret
+  02e3  L36:  push     0
+  02e8        decide   unknown_rule, P0             ; (none)
+  02ec        ret
+              ; NC-DENT-1  NC DPS Victim Compensation Program page, Accepted Expenses  "Accepted Expenses ✓ Medical ✓ Counseling ✓ Dental or..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  02ed  L37:  push     0
+  02f2        str      r0
+  02f4        ldi      tags
+  02f6        push     2
+  02fb        and
+  02fc        jz       L38
+  0301        ldr      r0
+  0303        push     1
+  0308        or
+  0309        str      r0
+  030b  L38:  ldr      r0
+  030d        switch   2, default L40
+                        case 0                     -> L40
+                        case 1                     -> L39
+  031b  L39:  push     0
+  0320        decide   excluded, P2                 ; NC-EXCL-4
+  0324        ret
+  0325  L40:  ldi      confirmed
+  0327        jnz      L41
+  032c        push     0
+  0331        decide   needs_confirmation, P15      ; NC-DENT-1
+  0335        ret
+  0336  L41:  ldi      amount_cents
+  0338        decide   eligible, P16                ; NC-DENT-1, NC-COLL-1, NC-COLL-2
+  033c        lda
+  033d        ldi      insurance_paid_cents
+  033f        subs
+  0340        push     0
+  0345        max
+  0346        seta     collateral, R20              ; NC-COLL-1
+  034a        ret
+              ; NC-FUN-1  N.C. Gen. Stat. 15B-2(1)  "Allowable expense includes a total charge not in excess of ten..."
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  034b  L42:  push     0
+  0350        str      r0
+  0352        ldi      tags
+  0354        push     2
+  0359        and
+  035a        jz       L43
+  035f        ldr      r0
+  0361        push     1
+  0366        or
+  0367        str      r0
+  0369  L43:  ldr      r0
+  036b        switch   2, default L45
+                        case 0                     -> L45
+                        case 1                     -> L44
+  0379  L44:  push     0
+  037e        decide   excluded, P2                 ; NC-EXCL-4
+  0382        ret
+  0383  L45:  ldi      confirmed
+  0385        jnz      L46
+  038a        push     0
+  038f        decide   needs_confirmation, P17      ; NC-FUN-1
+  0393        ret
+  0394  L46:  ldi      amount_cents
+  0396        decide   eligible, P18                ; NC-FUN-1, NC-COLL-1, NC-COLL-2
+  039a        lda
+  039b        ldi      insurance_paid_cents
+  039d        subs
+  039e        push     0
+  03a3        max
+  03a4        seta     collateral, R20              ; NC-COLL-1
+  03a8        ret
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-EXCL-5  NC DPS Victim Compensation Program page, Not Accepted  "X Court fees and expenses"
+  03a9  L47:  push     0
+  03ae        str      r0
+  03b0        ldi      tags
+  03b2        push     2
+  03b7        and
+  03b8        jz       L48
+  03bd        ldr      r0
+  03bf        push     1
+  03c4        or
+  03c5        str      r0
+  03c7  L48:  ldr      r0
+  03c9        switch   2, default L50
+                        case 0                     -> L50
+                        case 1                     -> L49
+  03d7  L49:  push     0
+  03dc        decide   excluded, P19                ; NC-EXCL-4, NC-EXCL-5
+  03e0        ret
+  03e1  L50:  push     0
+  03e6        decide   excluded, P20                ; NC-EXCL-5
+  03ea        ret
+              ; NC-EXCL-4  N.C. Gen. Stat. 15B-4(a)  "Compensation shall only be paid for economic loss and not for..."
+              ; NC-REPL-1  N.C. Gen. Stat. 15B-2(12)  "Replacement service loss will be limited to a 26-week period..."
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+  03eb  L51:  push     0
+  03f0        str      r0
+  03f2        ldi      tags
+  03f4        push     2
+  03f9        and
+  03fa        jz       L52
+  03ff        ldr      r0
+  0401        push     1
+  0406        or
+  0407        str      r0
+  0409  L52:  ldr      r0
+  040b        switch   2, default L54
+                        case 0                     -> L54
+                        case 1                     -> L53
+  0419  L53:  push     0
+  041e        decide   excluded, P2                 ; NC-EXCL-4
+  0422        ret
+  0423  L54:  ldi      confirmed
+  0425        jnz      L55
+  042a        push     0
+  042f        decide   needs_confirmation, P21      ; NC-REPL-1
+  0433        ret
+  0434  L55:  ldi      amount_cents
+  0436        decide   eligible, P22                ; NC-REPL-1, NC-COLL-1, NC-COLL-2
+  043a        lda
+  043b        ldi      insurance_paid_cents
+  043d        subs
+  043e        push     0
+  0443        max
+  0444        seta     collateral, R20              ; NC-COLL-1
+  0448        ret
+
+.aggregate
+              ; NC-WAGE-1  N.C. Gen. Stat. 15B-2(14)  "Compensation for work loss will be limited to 26 weeks..."
+  0000        push     26
+  0005        str      r3
+  0007        each     lost_wages, L4
+  000d  L0:   ldi      units
+  000f        jz       L2
+  0014        ldi      units
+  0016        ldr      r3
+  0018        min
+  0019        str      r4
+  001b        ldr      r3
+  001d        ldr      r4
+  001f        subs
+  0020        str      r3
+  0022        ldk      K0                           ; $400.00
+  0025        ldr      r4
+  0027        muls
+  0028        dup
+  0029        lda
+  002a        lt
+  002b        jz       L1
+  0030        cap      unit_cap, R4                 ; NC-WAGE-1
+  0034        jmp      L3
+  0039  L1:   pop
+  003a        jmp      L3
+  003f  L2:   flag     R4                           ; rate_unverified NC-WAGE-1
+  0042  L3:   next     L0
+              ; NC-REPL-1  N.C. Gen. Stat. 15B-2(12)  "Replacement service loss will be limited to a 26-week period..."
+  0047  L4:   push     26
+  004c        str      r3
+  004e        each     other, L9
+  0054  L5:   ldi      units
+  0056        jz       L7
+  005b        ldi      units
+  005d        ldr      r3
+  005f        min
+  0060        str      r4
+  0062        ldr      r3
+  0064        ldr      r4
+  0066        subs
+  0067        str      r3
+  0069        ldk      K1                           ; $200.00
+  006c        ldr      r4
+  006e        muls
+  006f        dup
+  0070        lda
+  0071        lt
+  0072        jz       L6
+  0077        cap      unit_cap, R17                ; NC-REPL-1
+  007b        jmp      L8
+  0080  L6:   pop
+  0081        jmp      L8
+  0086  L7:   flag     R17                          ; rate_unverified NC-REPL-1
+  0089  L8:   next     L5
+              ; NC-FUN-1  N.C. Gen. Stat. 15B-2(1)  "Allowable expense includes a total charge not in excess of ten..."
+  008e  L9:   push     0
+  0093        str      r0
+  0095        push     0
+  009a        str      r1
+  009c        each     funeral, L14
+  00a2  L10:  ldr      r1
+  00a4        jnz      L12
+  00a9        ldr      r0
+  00ab        lda
+  00ac        adds
+  00ad        ldk      K2                           ; $10,000.00
+  00b0        gt
+  00b1        jz       L11
+  00b6        ldk      K2                           ; $10,000.00
+  00b9        ldr      r0
+  00bb        subs
+  00bc        cap      expense_cap, R6              ; NC-FUN-1
+  00c0        push     1
+  00c5        str      r1
+  00c7  L11:  ldr      r0
+  00c9        lda
+  00ca        adds
+  00cb        str      r0
+  00cd        jmp      L13
+  00d2  L12:  push     0
+  00d7        cap      expense_cap, R6              ; NC-FUN-1
+  00db  L13:  next     L10
+              ; NC-CAP-1  N.C. Gen. Stat. 15B-11(g)  "Compensation payable to a victim and to all other claimants..."
+  00e0  L14:  push     0
+  00e5        str      r0
+  00e7        push     0
+  00ec        str      r1
+  00ee        each     all, L19
+  00f4  L15:  ldr      r1
+  00f6        jnz      L17
+  00fb        ldr      r0
+  00fd        lda
+  00fe        adds
+  00ff        ldk      K3                           ; $45,000.00
+  0102        gt
+  0103        jz       L16
+  0108        ldk      K3                           ; $45,000.00
+  010b        ldr      r0
+  010d        subs
+  010e        cap      total_cap, R3                ; NC-CAP-1
+  0112        push     1
+  0117        str      r1
+  0119  L16:  ldr      r0
+  011b        lda
+  011c        adds
+  011d        str      r0
+  011f        jmp      L18
+  0124  L17:  push     0
+  0129        cap      total_cap, R3                ; NC-CAP-1
+  012d  L18:  next     L15
+  0132  L19:  push     0                            ; met
+  0137        check    minimum_loss, P0             ; (none)
+              ; NC-DEAD-1  N.C. Gen. Stat. 15B-11(a)(1)  "The claimant fails to file an application for an award within..."
+  013b        ldx      incident_date
+  013d        push     730
+  0142        adds
+  0143        dup
+  0144        setdate
+  0145        ldx      as_of_date
+  0147        ge
+  0148        jz       L20
+  014d        push     0
+  0152        jmp      L21
+  0157  L20:  push     1                            ; late
+  015c  L21:  check    deadline, P23                ; NC-DEAD-1
+              ; NC-REPORT-1  N.C. Gen. Stat. 15B-11(a)(3)  "The criminally injurious conduct was not reported to a law..."
+  0160        ldx      police_report
+  0162        push     1                            ; yes
+  0167        eq
+  0168        jnz      L23
+  016d        ldx      police_report
+  016f        push     0                            ; no
+  0174        eq
+  0175        jnz      L22
+  017a        push     3
+  017f        jmp      L24
+  0184  L22:  push     1
+  0189        jmp      L24
+  018e  L23:  push     0                            ; satisfied
+  0193  L24:  check    reporting, P24               ; NC-REPORT-1
+              ; NC-EXCL-3  NC DPS Victim Compensation Program page, Not Accepted  "X Utilities X Mortgage or rent"
+              ; NC-COLL-1  N.C. Gen. Stat. 15B-11(d)  "An award that has been approved shall nevertheless be denied or..."
+              ; NC-COLL-2  NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?  "Like other compensation programs, North Carolina is a payer of..."
+              ; NC-COND-1  N.C. Gen. Stat. 15B-11(b)(2)  "The claimant or a victim through whom the claimant claims..."
+              ; NC-COND-2  N.C. Gen. Stat. 15B-11(c)  "A claim may be denied, an award of compensation may be reduced..."
+              ; NC-CRIME-1  NC DPS Victim Compensation Program page, FAQ: What financial support is available?  "Victims of rape, assault, domestic violence, drunk driving and..."
+              ; NC-RES-1  N.C. Gen. Stat. 15B-4(b)  "Compensation shall only be awarded for criminally injurious..."
+              ; NC-RES-2  NC DPS Victim Compensation Program page, FAQ: Am I eligible?  "Victims do not need to be residents of North Carolina."
+              ; NC-SUBMIT-1  NC DPS Victim Compensation Program page, How to Apply  "If you prefer to apply by mail, you may download and print a..."
+              ; NC-SUBMIT-2  NC DPS Rape Victim Assistance Program FAQ, 'Is financial help available for medical expenses beyond the cost of the forensic exam?'  "To learn more about the program and start an application, visit..."
+              ; NC-DOC-1  NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'  "Complete, sign, and date the application."
+              ; NC-DOC-2  NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'  "Include a copy of the law enforcement report or warrant that..."
+              ; NC-DOC-3  NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Medical and counseling services)  "Submit itemized bills from certified providers of medical or..."
+              ; NC-DOC-4  NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'  "Provide proof of payment made towards any of the itemized bills..."
+              ; NC-DOC-5  NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Lost wages)  "If you have an employer, you should submit a signed..."
+              ; NC-DOC-6  NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Lost wages)  "If you are self-employed or are an independent contractor..."
+              ; NC-DOC-7  NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Dental services)  "You may submit a proposed treatment plan on your dentist’s..."
+              ; NC-DOC-8  NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Funeral expenses)  "Submit a copy of the death certificate, itemized funeral bill..."
+              ; NC-TIME-1  NC DPS Victim Compensation Program FAQ, 'What happens after I submit my application?'  "From the time an application is received, the average processing..."
+              ; NC-ACP-1  N.C. Gen. Stat. 15C-2(2)  "A program in the Office of the Attorney General to protect the..."
+              ; NC-ACP-2  N.C. Gen. Stat. 15C-4(a)  "An individual who wants to participate in the Address..."
+              ; NC-CONF-1  N.C. Gen. Stat. 15B-8.1(b)  "All personal information, as that term is defined in 18 U.S.C...."
+  0197        info     P25                          ; NC-EXCL-3, NC-COLL-1, NC-COLL-2, NC-COND-1, NC-COND-2, NC-CRIME-1, NC-RES-1, NC-RES-2, NC-SUBMIT-1, NC-SUBMIT-2, NC-DOC-1, NC-DOC-2, NC-DOC-3, NC-DOC-4, NC-DOC-5, NC-DOC-6, NC-DOC-7, NC-DOC-8, NC-TIME-1, NC-ACP-1, NC-ACP-2, NC-CONF-1
+  019a        ret
+

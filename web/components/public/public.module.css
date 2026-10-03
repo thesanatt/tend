@@ -1,0 +1,437 @@
+/* State pages (/mi): a summary of one program, every line one tap from its quote. */
+
+.state {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+  padding-top: var(--space-5);
+}
+
+.crumb {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+.head {
+  --plant-w: 11rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--plant-w);
+  gap: var(--space-4) var(--space-7);
+  align-items: end;
+}
+
+.headText {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.headText {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+.program {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  max-width: 46rem;
+}
+
+.contact {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-3);
+  min-width: 0;
+}
+
+.contact > details {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.contact > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The plant stands on the rule that opens the key facts: the one place the header breaks its grid.
+   Its ground sits 3/56 of its height above the bottom of the drawing. */
+.plant {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  width: 100%;
+  margin-bottom: calc(var(--space-7) * -1 - var(--plant-w) * 3 / 40 + 0.5px);
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.keyFacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.keyFacts li {
+  display: flex;
+}
+
+.keyFacts li + li {
+  border-left: 1px solid var(--line);
+}
+
+.keyFact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: var(--space-1);
+  width: 100%;
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.keyFacts li:first-child .keyFact {
+  padding-left: 0;
+}
+
+.keyFact:hover {
+  background: var(--paper-raised);
+}
+
+.keyBig {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+}
+
+.keySmall {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  line-height: 1.4;
+}
+
+.keyCite {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--green);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: var(--space-3) var(--space-7);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 84px;
+}
+
+.section > h2 {
+  font-size: var(--text-xl);
+}
+
+.facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  max-width: 44rem;
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.factText {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.factLabel {
+  font-weight: 700;
+}
+
+.note {
+  color: var(--ink-2);
+  font-style: italic;
+}
+
+/* The law behind a line */
+.law {
+  font-size: var(--text-sm);
+}
+
+.law > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--green);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.law > summary::-webkit-details-marker {
+  display: none;
+}
+
+.law > summary::before {
+  content: "";
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 6px solid currentColor;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.law[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.lawFirst {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.lawMore {
+  flex: none;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.lawBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  margin: var(--space-1) 0 var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-2);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+}
+
+.ref {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.ref + .ref {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.refCite {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+
+.refId {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.refSummary {
+  color: var(--ink-2);
+}
+
+.quote {
+  border-left: 3px solid var(--green);
+  padding: var(--space-1) 0 var(--space-1) var(--space-4);
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: 1.55;
+}
+
+.quote mark {
+  background: var(--green-tint);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.05em 0.15em;
+}
+
+.refLink {
+  font-size: var(--text-sm);
+}
+
+/* Share */
+.share {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+  padding-top: var(--space-5);
+  border-top: 1.5px solid var(--ink);
+  scroll-margin-top: 84px;
+}
+
+.shareText {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+.shareLine {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: 1.4;
+}
+
+.card {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-2);
+  background: var(--paper-raised);
+}
+
+.cardCites {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.shareButtons {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.fallback {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.shareStatus {
+  min-height: 1.5em;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.next {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  justify-items: start;
+  padding: var(--space-5);
+  border-radius: var(--radius-2);
+  background: var(--paper-sunk);
+}
+
+.next h2 {
+  font-size: var(--text-xl);
+}
+
+@media (max-width: 860px) {
+  .keyFacts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .keyFacts li + li {
+    border-left: 0;
+  }
+
+  .keyFacts li:nth-child(even) {
+    border-left: 1px solid var(--line);
+  }
+
+  .keyFacts li:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .keyFacts li:nth-child(odd) .keyFact {
+    padding-left: 0;
+  }
+
+  .section,
+  .share {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .head {
+    --plant-w: 4.75rem;
+    gap: var(--space-3);
+  }
+
+  .headText {
+    grid-column: 1 / -1;
+  }
+
+  .plant {
+    grid-row: 2;
+  }
+
+  .keyBig {
+    font-size: var(--text-xl);
+  }
+}

@@ -1,0 +1,651 @@
+; tend law image CT, Connecticut
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 85b9830e195e3e3df4525d4d7a82ca2aefb639ef768ac0eb16b60b0301c9d24e
+; image sha256  58c1fa4eeae7b6e92c35627754979baf23de2099acd8ac71fbb7665488a4752b
+; 45 rules, 7 sources, 26 proofs, 1 ints, 227 strings
+; item program: 316 instructions, 1125 bytes, max stack 2
+; aggregate program: 117 instructions, 367 bytes, max stack 3, 3 loops
+
+.rules
+    R0    CT-EXAM-1             exam_no_bill  -                                             Conn. Gen. Stat. 19a-112a(e)(1)
+    R1    CT-EXAM-2             exam_payment  -                                             Conn. Gen. Stat. 19a-112a(e)(1)
+    R2    CT-EXAM-3             exam_no_bill  -                                             Conn. Gen. Stat. 19a-112a(e)(2)
+    R3    CT-CAP-3              expense_cap   security              per claim               JD-VS-8PI, Section 9
+    R4    CT-CAP-4              expense_cap   clothing_bedding      per claim               JDP-VS-10 brochure, Examples of Eligible Expenses
+    R5    CT-CAP-5              expense_cap   crime_scene_cleanup   per claim               JD-VS-8PI, Section 9
+    R6    CT-COV-1              covered       medical                                       Conn. Gen. Stat. 54-210(a)(1)
+    R7    CT-COV-2              covered       counseling                                    JD-VS-47, Mental Health Expenses
+    R8    CT-COV-3              covered       dental                                        JD-VS-47, Medical Expenses
+    R9    CT-COV-4              covered       prescription                                  JD-VS-47, Medical Expenses
+    R10   CT-COV-5              covered       lost_wages                                    Conn. Gen. Stat. 54-210(a)(2)
+    R11   CT-COV-6              covered       transportation                                JDP-VS-10 brochure, Eligible Expenses Continued
+    R12   CT-COV-7              covered       security                                      JD-VS-47, Crime Scene Clean-up and Security Systems
+    R13   CT-COV-8              covered       clothing_bedding                              JD-VS-47, Crime Scene Clean-up and Security Systems
+    R14   CT-COV-9              covered       crime_scene_cleanup                           JD-VS-47, Crime Scene Clean-up and Security Systems
+    R15   CT-EXCL-1             excluded      property_replacement                          JDP-VS-10 brochure, Eligible Expenses Continued
+    R16   CT-EXCL-2             excluded      transportation                                JDP-VS-10 brochure, Eligible Expenses Continued
+    R17   CT-EXCL-3             excluded      -                                             Conn. Gen. Stat. 54-211(c)
+    R18   CT-DEADLINE-1         deadline      -                                             Conn. Gen. Stat. 54-211(a)(1)(A)
+    R19   CT-DEADLINE-2         deadline      -                                             Conn. Gen. Stat. 54-211(a)(2)
+    R20   CT-REPORT-1           reporting     -                                             Conn. Gen. Stat. 54-211(a)(1)(C)
+    R21   CT-REPORT-2           reporting     -                                             Conn. Gen. Stat. 54-209(d)(1)(K)
+    R22   CT-REPORT-3           reporting     -                                             Conn. Gen. Stat. 54-209(d)(2)
+    R23   CT-COLL-1             collateral    -                                             Conn. Gen. Stat. 54-208(e)
+    R24   CT-COLL-2             collateral    -                                             Conn. Gen. Stat. 54-208(e)
+    R25   CT-CONDUCT-1          info          -                     conduct_reduction       Conn. Gen. Stat. 54-208(c)
+    R26   CT-CONDUCT-2          info          -                     conduct_reduction       Conn. Gen. Stat. 54-211(b)
+    R27   CT-CRIME-1            info          -                     eligible_crime          Conn. Gen. Stat. 54-209(d)
+    R28   CT-RES-1              info          -                     residency               Conn. Gen. Stat. 54-211(f)(1)
+    R29   CT-SUBMIT-1           info          -                     submission              JD-VS-8PI, end of Section 10
+    R30   CT-SUBMIT-2           info          -                     submission              JD-VS-8PI, end of Section 10
+    R31   CT-SUBMIT-3           info          -                     submission              JD-VS-8PI, end of Section 10
+    R32   CT-DOC-1              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
+    R33   CT-DOC-2              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
+    R34   CT-DOC-3              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
+    R35   CT-DOC-4              info          -                     required_document       JD-VS-8PI, Section 9, Crime Scene Cleanup and Security System Expenses
+    R36   CT-DOC-5              info          -                     required_document       JD-VS-8PI, Section 9, Wage Loss
+    R37   CT-DOC-6              info          -                     required_document       JD-VS-47, Lost Wages and Travel Expenses to Attend Proceedings, Requirements
+    R38   CT-DOC-7              info          -                     required_document       JD-VS-8PI, Section 7a
+    R39   CT-DOC-8              info          -                     required_document       JDP-VS-10 brochure, overview
+    R40   CT-DOC-9              info          -                     required_document       JD-VS-8PI, Section 10
+    R41   CT-ACP-1              info          -                     address_confidentiality Conn. Gen. Stat. sec. 54-240a(a)
+    R42   CT-RECCONF-1          info          -                     record_confidentiality  Conn. Gen. Stat. sec. 54-204(b)
+    R43   CT-CAP-1              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(1)(A)  ; applies_to "personal_injury"
+    R44   CT-CAP-2              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(1)(D)  ; applies_to "emotional_harm_only"
+
+.tags   phone=bit0, pain_suffering=bit1
+
+.sources
+    S0    CT-S1       sha256 7452f023d7ab1a73  https://www.cga.ct.gov/current/pub/chap_968.htm
+    S1    CT-S2       sha256 e873926755195507  https://www.cga.ct.gov/current/pub/chap_368a.htm
+    S2    CT-S4       sha256 04e0e7c2c71f789c  https://www.jud.ct.gov/webforms/forms/vs008PI.pdf
+    S3    CT-S5       sha256 7d7067062177b3f3  https://www.jud.ct.gov/Publications/vs010.pdf
+    S4    CT-S8       sha256 6a6608a513fd10ee  https://www.jud.ct.gov/webforms/forms/VS047.pdf
+    S5    CT-S9       sha256 b32712a0ec13d568  https://www.cga.ct.gov/current/pub/chap_968a.htm
+    S6    CT-S10      sha256 57c01462937e6a62  https://portal.ct.gov/sots/business-services/acp/address-confidentiality-program
+
+.proofs
+    P0    ()
+    P1    (CT-EXAM-1, CT-EXAM-3, CT-EXAM-2)
+    P2    (CT-EXCL-3)
+    P3    (CT-COV-1)
+    P4    (CT-COV-1, CT-COLL-1, CT-COLL-2)
+    P5    (CT-COV-2)
+    P6    (CT-COV-2, CT-COLL-1, CT-COLL-2)
+    P7    (CT-COV-5)
+    P8    (CT-COV-5, CT-COLL-1, CT-COLL-2)
+    P9    (CT-EXCL-2, CT-EXCL-3)
+    P10   (CT-EXCL-2)
+    P11   (CT-CAP-3, CT-COV-7)
+    P12   (CT-CAP-3, CT-COV-7, CT-COLL-1, CT-COLL-2)
+    P13   (CT-CAP-5, CT-COV-9)
+    P14   (CT-CAP-5, CT-COV-9, CT-COLL-1, CT-COLL-2)
+    P15   (CT-EXCL-1)
+    P16   (CT-EXCL-1, CT-EXCL-3)
+    P17   (CT-CAP-4, CT-COV-8)
+    P18   (CT-CAP-4, CT-COV-8, CT-COLL-1, CT-COLL-2)
+    P19   (CT-COV-4)
+    P20   (CT-COV-4, CT-COLL-1, CT-COLL-2)
+    P21   (CT-COV-3)
+    P22   (CT-COV-3, CT-COLL-1, CT-COLL-2)
+    P23   (CT-DEADLINE-1, CT-DEADLINE-2)
+    P24   (CT-REPORT-1, CT-REPORT-2, CT-REPORT-3)
+    P25   (CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1)
+
+.ints
+    K0    100000        ; $1,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L21
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L7
+                        case lost_wages            -> L12
+                        case transportation        -> L17
+                        case relocation            -> L21
+                        case temporary_housing     -> L21
+                        case security              -> L25
+                        case crime_scene_cleanup   -> L30
+                        case childcare             -> L21
+                        case property_replacement  -> L35
+                        case clothing_bedding      -> L42
+                        case prescription          -> L47
+                        case dental                -> L52
+                        case funeral               -> L21
+                        case legal                 -> L21
+                        case tuition               -> L21
+                        case other                 -> L21
+                        case unknown               -> L21
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; CT-EXAM-1  Conn. Gen. Stat. 19a-112a(e)(1)  "No costs incurred by a health care facility for the examination..."
+              ; CT-EXAM-3  Conn. Gen. Stat. 19a-112a(e)(2)  "No costs incurred by a health care facility for any toxicology..."
+              ; CT-EXAM-2  Conn. Gen. Stat. 19a-112a(e)(1)  "Any such costs shall be charged to the Forensic Sex Evidence..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; CT-EXAM-1, CT-EXAM-3, CT-EXAM-2
+  007b        ret
+              ; CT-COV-1  Conn. Gen. Stat. 54-210(a)(1)  "(1) Expenses actually and reasonably incurred as a result of the..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     2
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldr      r0
+  009c        switch   2, default L5
+                        case 0                     -> L5
+                        case 1                     -> L4
+  00aa  L4:   push     0
+  00af        decide   excluded, P2                 ; CT-EXCL-3
+  00b3        ret
+  00b4  L5:   ldi      confirmed
+  00b6        jnz      L6
+  00bb        push     0
+  00c0        decide   needs_confirmation, P3       ; CT-COV-1
+  00c4        ret
+  00c5  L6:   ldi      amount_cents
+  00c7        decide   eligible, P4                 ; CT-COV-1, CT-COLL-1, CT-COLL-2
+  00cb        lda
+  00cc        ldi      insurance_paid_cents
+  00ce        subs
+  00cf        push     0
+  00d4        max
+  00d5        seta     collateral, R23              ; CT-COLL-1
+  00d9        ret
+              ; CT-COV-2  JD-VS-47, Mental Health Expenses  "Mental health therapy including individual, family, group..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  00da  L7:   push     0
+  00df        str      r0
+  00e1        ldi      tags
+  00e3        push     2
+  00e8        and
+  00e9        jz       L8
+  00ee        ldr      r0
+  00f0        push     1
+  00f5        or
+  00f6        str      r0
+  00f8  L8:   ldr      r0
+  00fa        switch   2, default L10
+                        case 0                     -> L10
+                        case 1                     -> L9
+  0108  L9:   push     0
+  010d        decide   excluded, P2                 ; CT-EXCL-3
+  0111        ret
+  0112  L10:  ldi      confirmed
+  0114        jnz      L11
+  0119        push     0
+  011e        decide   needs_confirmation, P5       ; CT-COV-2
+  0122        ret
+  0123  L11:  ldi      amount_cents
+  0125        decide   eligible, P6                 ; CT-COV-2, CT-COLL-1, CT-COLL-2
+  0129        lda
+  012a        ldi      insurance_paid_cents
+  012c        subs
+  012d        push     0
+  0132        max
+  0133        seta     collateral, R23              ; CT-COLL-1
+  0137        ret
+              ; CT-COV-5  Conn. Gen. Stat. 54-210(a)(2)  "(2) loss of earning power as a result of total or partial..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  0138  L12:  push     0
+  013d        str      r0
+  013f        ldi      tags
+  0141        push     2
+  0146        and
+  0147        jz       L13
+  014c        ldr      r0
+  014e        push     1
+  0153        or
+  0154        str      r0
+  0156  L13:  ldr      r0
+  0158        switch   2, default L15
+                        case 0                     -> L15
+                        case 1                     -> L14
+  0166  L14:  push     0
+  016b        decide   excluded, P2                 ; CT-EXCL-3
+  016f        ret
+  0170  L15:  ldi      confirmed
+  0172        jnz      L16
+  0177        push     0
+  017c        decide   needs_confirmation, P7       ; CT-COV-5
+  0180        ret
+  0181  L16:  ldi      amount_cents
+  0183        decide   eligible, P8                 ; CT-COV-5, CT-COLL-1, CT-COLL-2
+  0187        lda
+  0188        ldi      insurance_paid_cents
+  018a        subs
+  018b        push     0
+  0190        max
+  0191        seta     collateral, R23              ; CT-COLL-1
+  0195        ret
+              ; CT-COV-6  JDP-VS-10 brochure, Eligible Expenses Continued  "For physical injury and homicide cases, lost wages and travel..."
+              ; CT-EXCL-2  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  0196  L17:  push     0
+  019b        str      r0
+  019d        ldi      tags
+  019f        push     2
+  01a4        and
+  01a5        jz       L18
+  01aa        ldr      r0
+  01ac        push     1
+  01b1        or
+  01b2        str      r0
+  01b4  L18:  ldr      r0
+  01b6        switch   2, default L20
+                        case 0                     -> L20
+                        case 1                     -> L19
+  01c4  L19:  push     0
+  01c9        decide   excluded, P9                 ; CT-EXCL-2, CT-EXCL-3
+  01cd        ret
+  01ce  L20:  push     0
+  01d3        decide   excluded, P10                ; CT-EXCL-2
+  01d7        ret
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+  01d8  L21:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     2
+  01e6        and
+  01e7        jz       L22
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L22:  ldr      r0
+  01f8        switch   2, default L24
+                        case 0                     -> L24
+                        case 1                     -> L23
+  0206  L23:  push     0
+  020b        decide   excluded, P2                 ; CT-EXCL-3
+  020f        ret
+  0210  L24:  push     0
+  0215        decide   unknown_rule, P0             ; (none)
+  0219        ret
+              ; CT-CAP-3  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
+              ; CT-COV-7  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  021a  L25:  push     0
+  021f        str      r0
+  0221        ldi      tags
+  0223        push     2
+  0228        and
+  0229        jz       L26
+  022e        ldr      r0
+  0230        push     1
+  0235        or
+  0236        str      r0
+  0238  L26:  ldr      r0
+  023a        switch   2, default L28
+                        case 0                     -> L28
+                        case 1                     -> L27
+  0248  L27:  push     0
+  024d        decide   excluded, P2                 ; CT-EXCL-3
+  0251        ret
+  0252  L28:  ldi      confirmed
+  0254        jnz      L29
+  0259        push     0
+  025e        decide   needs_confirmation, P11      ; CT-CAP-3, CT-COV-7
+  0262        ret
+  0263  L29:  ldi      amount_cents
+  0265        decide   eligible, P12                ; CT-CAP-3, CT-COV-7, CT-COLL-1, CT-COLL-2
+  0269        lda
+  026a        ldi      insurance_paid_cents
+  026c        subs
+  026d        push     0
+  0272        max
+  0273        seta     collateral, R23              ; CT-COLL-1
+  0277        ret
+              ; CT-CAP-5  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
+              ; CT-COV-9  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  0278  L30:  push     0
+  027d        str      r0
+  027f        ldi      tags
+  0281        push     2
+  0286        and
+  0287        jz       L31
+  028c        ldr      r0
+  028e        push     1
+  0293        or
+  0294        str      r0
+  0296  L31:  ldr      r0
+  0298        switch   2, default L33
+                        case 0                     -> L33
+                        case 1                     -> L32
+  02a6  L32:  push     0
+  02ab        decide   excluded, P2                 ; CT-EXCL-3
+  02af        ret
+  02b0  L33:  ldi      confirmed
+  02b2        jnz      L34
+  02b7        push     0
+  02bc        decide   needs_confirmation, P13      ; CT-CAP-5, CT-COV-9
+  02c0        ret
+  02c1  L34:  ldi      amount_cents
+  02c3        decide   eligible, P14                ; CT-CAP-5, CT-COV-9, CT-COLL-1, CT-COLL-2
+  02c7        lda
+  02c8        ldi      insurance_paid_cents
+  02ca        subs
+  02cb        push     0
+  02d0        max
+  02d1        seta     collateral, R23              ; CT-COLL-1
+  02d5        ret
+              ; CT-EXCL-1  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+  02d6  L35:  push     0
+  02db        str      r0
+  02dd        ldi      tags
+  02df        push     1
+  02e4        and
+  02e5        jz       L36
+  02ea        ldr      r0
+  02ec        push     1
+  02f1        or
+  02f2        str      r0
+  02f4  L36:  ldi      tags
+  02f6        push     2
+  02fb        and
+  02fc        jz       L37
+  0301        ldr      r0
+  0303        push     2
+  0308        or
+  0309        str      r0
+  030b  L37:  ldr      r0
+  030d        switch   4, default L41
+                        case 0                     -> L41
+                        case 1                     -> L38
+                        case 2                     -> L39
+                        case 3                     -> L40
+  0323  L38:  push     0
+  0328        decide   excluded, P15                ; CT-EXCL-1
+  032c        ret
+  032d  L39:  push     0
+  0332        decide   excluded, P2                 ; CT-EXCL-3
+  0336        ret
+  0337  L40:  push     0
+  033c        decide   excluded, P16                ; CT-EXCL-1, CT-EXCL-3
+  0340        ret
+  0341  L41:  push     0
+  0346        decide   unknown_rule, P0             ; (none)
+  034a        ret
+              ; CT-CAP-4  JDP-VS-10 brochure, Examples of Eligible Expenses  "Up to $1,000 for crime scene cleanup, security systems, or..."
+              ; CT-COV-8  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  034b  L42:  push     0
+  0350        str      r0
+  0352        ldi      tags
+  0354        push     2
+  0359        and
+  035a        jz       L43
+  035f        ldr      r0
+  0361        push     1
+  0366        or
+  0367        str      r0
+  0369  L43:  ldr      r0
+  036b        switch   2, default L45
+                        case 0                     -> L45
+                        case 1                     -> L44
+  0379  L44:  push     0
+  037e        decide   excluded, P2                 ; CT-EXCL-3
+  0382        ret
+  0383  L45:  ldi      confirmed
+  0385        jnz      L46
+  038a        push     0
+  038f        decide   needs_confirmation, P17      ; CT-CAP-4, CT-COV-8
+  0393        ret
+  0394  L46:  ldi      amount_cents
+  0396        decide   eligible, P18                ; CT-CAP-4, CT-COV-8, CT-COLL-1, CT-COLL-2
+  039a        lda
+  039b        ldi      insurance_paid_cents
+  039d        subs
+  039e        push     0
+  03a3        max
+  03a4        seta     collateral, R23              ; CT-COLL-1
+  03a8        ret
+              ; CT-COV-4  JD-VS-47, Medical Expenses  "Hospital, doctor, cosmetic, and dental fees; co-pays and other..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  03a9  L47:  push     0
+  03ae        str      r0
+  03b0        ldi      tags
+  03b2        push     2
+  03b7        and
+  03b8        jz       L48
+  03bd        ldr      r0
+  03bf        push     1
+  03c4        or
+  03c5        str      r0
+  03c7  L48:  ldr      r0
+  03c9        switch   2, default L50
+                        case 0                     -> L50
+                        case 1                     -> L49
+  03d7  L49:  push     0
+  03dc        decide   excluded, P2                 ; CT-EXCL-3
+  03e0        ret
+  03e1  L50:  ldi      confirmed
+  03e3        jnz      L51
+  03e8        push     0
+  03ed        decide   needs_confirmation, P19      ; CT-COV-4
+  03f1        ret
+  03f2  L51:  ldi      amount_cents
+  03f4        decide   eligible, P20                ; CT-COV-4, CT-COLL-1, CT-COLL-2
+  03f8        lda
+  03f9        ldi      insurance_paid_cents
+  03fb        subs
+  03fc        push     0
+  0401        max
+  0402        seta     collateral, R23              ; CT-COLL-1
+  0406        ret
+              ; CT-COV-3  JD-VS-47, Medical Expenses  "Hospital, doctor, cosmetic, and dental fees; co-pays and other..."
+              ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+  0407  L52:  push     0
+  040c        str      r0
+  040e        ldi      tags
+  0410        push     2
+  0415        and
+  0416        jz       L53
+  041b        ldr      r0
+  041d        push     1
+  0422        or
+  0423        str      r0
+  0425  L53:  ldr      r0
+  0427        switch   2, default L55
+                        case 0                     -> L55
+                        case 1                     -> L54
+  0435  L54:  push     0
+  043a        decide   excluded, P2                 ; CT-EXCL-3
+  043e        ret
+  043f  L55:  ldi      confirmed
+  0441        jnz      L56
+  0446        push     0
+  044b        decide   needs_confirmation, P21      ; CT-COV-3
+  044f        ret
+  0450  L56:  ldi      amount_cents
+  0452        decide   eligible, P22                ; CT-COV-3, CT-COLL-1, CT-COLL-2
+  0456        lda
+  0457        ldi      insurance_paid_cents
+  0459        subs
+  045a        push     0
+  045f        max
+  0460        seta     collateral, R23              ; CT-COLL-1
+  0464        ret
+
+.aggregate
+              ; CT-CAP-3  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
+  0000        push     0
+  0005        str      r0
+  0007        push     0
+  000c        str      r1
+  000e        each     security, L4
+  0014  L0:   ldr      r1
+  0016        jnz      L2
+  001b        ldr      r0
+  001d        lda
+  001e        adds
+  001f        ldk      K0                           ; $1,000.00
+  0022        gt
+  0023        jz       L1
+  0028        ldk      K0                           ; $1,000.00
+  002b        ldr      r0
+  002d        subs
+  002e        cap      expense_cap, R3              ; CT-CAP-3
+  0032        push     1
+  0037        str      r1
+  0039  L1:   ldr      r0
+  003b        lda
+  003c        adds
+  003d        str      r0
+  003f        jmp      L3
+  0044  L2:   push     0
+  0049        cap      expense_cap, R3              ; CT-CAP-3
+  004d  L3:   next     L0
+              ; CT-CAP-4  JDP-VS-10 brochure, Examples of Eligible Expenses  "Up to $1,000 for crime scene cleanup, security systems, or..."
+  0052  L4:   push     0
+  0057        str      r0
+  0059        push     0
+  005e        str      r1
+  0060        each     clothing_bedding, L9
+  0066  L5:   ldr      r1
+  0068        jnz      L7
+  006d        ldr      r0
+  006f        lda
+  0070        adds
+  0071        ldk      K0                           ; $1,000.00
+  0074        gt
+  0075        jz       L6
+  007a        ldk      K0                           ; $1,000.00
+  007d        ldr      r0
+  007f        subs
+  0080        cap      expense_cap, R4              ; CT-CAP-4
+  0084        push     1
+  0089        str      r1
+  008b  L6:   ldr      r0
+  008d        lda
+  008e        adds
+  008f        str      r0
+  0091        jmp      L8
+  0096  L7:   push     0
+  009b        cap      expense_cap, R4              ; CT-CAP-4
+  009f  L8:   next     L5
+              ; CT-CAP-5  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
+  00a4  L9:   push     0
+  00a9        str      r0
+  00ab        push     0
+  00b0        str      r1
+  00b2        each     crime_scene_cleanup, L14
+  00b8  L10:  ldr      r1
+  00ba        jnz      L12
+  00bf        ldr      r0
+  00c1        lda
+  00c2        adds
+  00c3        ldk      K0                           ; $1,000.00
+  00c6        gt
+  00c7        jz       L11
+  00cc        ldk      K0                           ; $1,000.00
+  00cf        ldr      r0
+  00d1        subs
+  00d2        cap      expense_cap, R5              ; CT-CAP-5
+  00d6        push     1
+  00db        str      r1
+  00dd  L11:  ldr      r0
+  00df        lda
+  00e0        adds
+  00e1        str      r0
+  00e3        jmp      L13
+  00e8  L12:  push     0
+  00ed        cap      expense_cap, R5              ; CT-CAP-5
+  00f1  L13:  next     L10
+  00f6  L14:  push     0                            ; met
+  00fb        check    minimum_loss, P0             ; (none)
+              ; CT-DEADLINE-1  Conn. Gen. Stat. 54-211(a)(1)(A)  "the application has been made within three years after the date..."
+  00ff        ldx      incident_date
+  0101        push     1095
+  0106        adds
+              ; CT-DEADLINE-2  Conn. Gen. Stat. 54-211(a)(2)  "fails to make application for compensation within three years..."
+  0107        ldx      incident_date
+  0109        push     1095
+  010e        adds
+  010f        max
+  0110        dup
+  0111        setdate
+  0112        ldx      as_of_date
+  0114        ge
+  0115        jz       L15
+  011a        push     0
+  011f        jmp      L16
+  0124  L15:  push     1                            ; late
+  0129  L16:  check    deadline, P23                ; CT-DEADLINE-1, CT-DEADLINE-2
+              ; CT-REPORT-1  Conn. Gen. Stat. 54-211(a)(1)(C)  "(C) such incident or offense has been reported to the police..."
+              ; CT-REPORT-2  Conn. Gen. Stat. 54-209(d)(1)(K)  "(K) a domestic violence counselor or a sexual assault counselor..."
+              ; CT-REPORT-3  Conn. Gen. Stat. 54-209(d)(2)  "the personal injury is reported in an application for a..."
+  012d        ldx      police_report
+  012f        push     1                            ; yes
+  0134        eq
+  0135        jnz      L18
+  013a        ldx      forensic_exam
+  013c        jnz      L18
+  0141        ldx      police_report
+  0143        push     0                            ; no
+  0148        eq
+  0149        jnz      L17
+  014e        push     3
+  0153        jmp      L19
+  0158  L17:  push     1
+  015d        jmp      L19
+  0162  L18:  push     0                            ; satisfied
+  0167  L19:  check    reporting, P24               ; CT-REPORT-1, CT-REPORT-2, CT-REPORT-3
+              ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
+              ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
+              ; CT-CONDUCT-1  Conn. Gen. Stat. 54-208(c)  "shall consider all circumstances determined to be relevant..."
+              ; CT-CONDUCT-2  Conn. Gen. Stat. 54-211(b)  "No compensation shall be awarded if: (1) The offender is..."
+              ; CT-CRIME-1  Conn. Gen. Stat. 54-209(d)  "In instances where a violation of section 53a-70b of the general..."
+              ; CT-RES-1  Conn. Gen. Stat. 54-211(f)(1)  "Compensation shall be awarded pursuant to sections 54-201 to..."
+              ; CT-SUBMIT-1  JD-VS-8PI, end of Section 10  "Please send the completed application to: Office of Victim..."
+              ; CT-SUBMIT-2  JD-VS-8PI, end of Section 10  "Please send the completed application to: Office of Victim..."
+              ; CT-SUBMIT-3  JD-VS-8PI, end of Section 10  "Please send the completed application to: Office of Victim..."
+              ; CT-DOC-1  JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses  "Please list the names of all providers who treated you and..."
+              ; CT-DOC-2  JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses  "Please list the names of all providers who treated you and..."
+              ; CT-DOC-3  JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses  "Please list the names of all providers who treated you and..."
+              ; CT-DOC-4  JD-VS-8PI, Section 9, Crime Scene Cleanup and Security System Expenses  "Please fill out this section if you paid all or part of the..."
+              ; CT-DOC-5  JD-VS-8PI, Section 9, Wage Loss  "If you missed more than 1 week of work, you must provide a note..."
+              ; CT-DOC-6  JD-VS-47, Lost Wages and Travel Expenses to Attend Proceedings, Requirements  "Receipts for travel expenses are required (hotel bill, parking)."
+              ; CT-DOC-7  JD-VS-8PI, Section 7a  "judge (attach a copy of the signed civil protection order or..."
+              ; CT-DOC-8  JDP-VS-10 brochure, overview  "Documentation that relates the injury and expense to the crime..."
+              ; CT-DOC-9  JD-VS-8PI, Section 10  "Applications that are not signed will be returned for signature."
+              ; CT-ACP-1  Conn. Gen. Stat. sec. 54-240a(a)  "There shall be an address confidentiality program established in..."
+              ; CT-RECCONF-1  Conn. Gen. Stat. sec. 54-204(b)  "Any information received which is confidential in accordance..."
+  016b        info     P25                          ; CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1
+  016e        ret
+

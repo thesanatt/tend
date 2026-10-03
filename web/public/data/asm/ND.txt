@@ -1,0 +1,617 @@
+; tend law image ND, North Dakota
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418
+; image sha256  eb82b60b635a6e92ac45ee5b04ff3b2aabc34300e31e78fd74cfbfc78a6ca68f
+; 58 rules, 11 sources, 24 proofs, 5 ints, 290 strings
+; item program: 138 instructions, 461 bytes, max stack 2
+; aggregate program: 262 instructions, 811 bytes, max stack 3, 9 loops
+
+.rules
+    R0    ND-EXAM-1             exam_no_bill  -                                             N.D.C.C. 12.1-34-07(1)
+    R1    ND-EXAM-CHILD         exam_no_bill  -                                             N.D.C.C. 12.1-34-07(2)
+    R2    ND-EXAM-2             exam_payment  -                                             N.D.C.C. 12.1-34-07(3)
+    R3    ND-CAP-1              total_cap     -                                             N.D.C.C. 54-23.4-06(8)
+    R4    ND-CAP-COUNSEL-MINOR  expense_cap   counseling            per claim               N.D. Admin. Code 94-03-03-10(3)(b)(2)
+    R5    ND-CAP-WAGES-WEEK     expense_cap   lost_wages            per week                N.D.C.C. 54-23.4-06(7)
+    R6    ND-CAP-WAGES-TOTAL    expense_cap   lost_wages            per claim               N.D. Admin. Code 94-03-03-13(2)(a)
+    R7    ND-CAP-TRAVEL         expense_cap   transportation        per claim               N.D. Admin. Code 94-03-03-16(2)(d)
+    R8    ND-CAP-RX             expense_cap   prescription          per claim               N.D. Admin. Code 94-03-03-08(2)(b)
+    R9    ND-CAP-DENTAL         expense_cap   dental                per claim               N.D. Admin. Code 94-03-03-09(2)(a)
+    R10   ND-CAP-FUNERAL        expense_cap   funeral               per claim               N.D.C.C. 54-23.4-01(7)(a)
+    R11   ND-CAP-REPLACE        expense_cap   other                 per claim               N.D. Admin. Code 94-03-03-15(2)
+    R12   ND-COV-MEDICAL        covered       medical                                       N.D.C.C. 54-23.4-01(7)(a)
+    R13   ND-COV-COUNSEL        covered       counseling                                    N.D. Admin. Code 94-03-03-10(3)(a)
+    R14   ND-COV-WAGES          covered       lost_wages                                    N.D.C.C. 54-23.4-01(7)(f)
+    R15   ND-COV-TRAVEL         covered       transportation                                N.D. Admin. Code 94-03-03-16
+    R16   ND-COV-DENTAL         covered       dental                                        CVC Application Tips, Section 4
+    R17   ND-COV-DEPCARE        covered       other                                         CVC Application Tips, Section 4
+    R18   ND-EXCL-PROPERTY      excluded      property_replacement                          N.D. Admin. Code 94-03-03-04(5)
+    R19   ND-EXCL-NONECON       info          -                     excluded_expense        N.D.C.C. 54-23.4-01(7)
+    R20   ND-EXCL-FEES          info          -                     excluded_expense        N.D. Admin. Code 94-03-03-08(2)(g)
+    R21   ND-EXCL-ATTY          excluded      legal                                         N.D.C.C. 54-23.4-11
+    R22   ND-DEADLINE-1         deadline      -                                             N.D.C.C. 54-23.4-06(2)
+    R23   ND-REPORT-1           reporting     -                                             N.D.C.C. 54-23.4-06(4)
+    R24   ND-REPORT-GOODCAUSE   reporting     -                                             N.D. Admin. Code 94-03-03-01(2)(a)
+    R25   ND-REPORT-GOODCAUSE-2 reporting     -                                             N.D. Admin. Code 94-03-03-01(2)(b)
+    R26   ND-REPORT-CHILD       reporting     -                                             N.D.C.C. 54-23.4-06(4)
+    R27   ND-COLLATERAL-1       collateral    -                                             N.D.C.C. 54-23.4-06(6)(a)
+    R28   ND-COLLATERAL-2       collateral    -                                             N.D. Admin. Code 94-03-03-06(1)
+    R29   ND-CONDUCT-1          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(6)(b)
+    R30   ND-CONDUCT-2          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(6)(c)
+    R31   ND-CONDUCT-3          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(5)
+    R32   ND-CONDUCT-4          info          -                     conduct_reduction       N.D. Admin. Code 94-03-03-05
+    R33   ND-EMERGENCY-1        info          -                     emergency_award         N.D.C.C. 54-23.4-14
+    R34   ND-CRIME-1            info          -                     eligible_crime          DOCR CVC page, What is Eligibility Criteria?
+    R35   ND-CRIME-2            info          -                     eligible_crime          N.D.C.C. 54-23.4-01(1)
+    R36   ND-RES-1              info          -                     residency               N.D.C.C. 54-23.4-06(1)
+    R37   ND-SUBMIT-1           info          -                     submission              Program page, Crime Victims Compensation Application and Forms
+    R38   ND-TIME-1             info          -                     processing_time         Program page, Claim Status
+    R39   ND-DOC-1              info          -                     required_document       N.D. Admin. Code 94-03-03-02(2)
+    R40   ND-DOC-2              info          -                     required_document       CVC Application Tips, Section 3 (Incident Information, continued)
+    R41   ND-DOC-3              info          -                     required_document       N.D. Admin. Code 94-03-03-08(1)
+    R42   ND-DOC-4              info          -                     required_document       N.D. Admin. Code 94-03-03-09(1)
+    R43   ND-DOC-5              info          -                     required_document       CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), Verification Requirements
+    R44   ND-DOC-6              info          -                     required_document       CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), introduction
+    R45   ND-DOC-7              info          -                     required_document       N.D. Admin. Code 94-03-03-13(1)
+    R46   ND-DOC-8              info          -                     required_document       Work Loss - Employer's Report, SFN 12437
+    R47   ND-DOC-9              info          -                     required_document       N.D. Admin. Code 94-03-03-13(1)(c)
+    R48   ND-DOC-10             info          -                     required_document       Work Loss - Physician's Report, SFN 60497
+    R49   ND-DOC-11             info          -                     required_document       N.D. Admin. Code 94-03-03-16(1)
+    R50   ND-DOC-12             info          -                     required_document       N.D. Admin. Code 94-03-03-17(3)
+    R51   ND-DOC-13             info          -                     required_document       N.D. Admin. Code 94-03-03-15(1)
+    R52   ND-DOC-14             info          -                     required_document       N.D. Admin. Code 94-03-03-14(1)
+    R53   ND-DOC-15             info          -                     required_document       N.D. Admin. Code 94-03-03-06 (collateral sources)
+    R54   ND-DOC-16             info          -                     required_document       Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement
+    R55   ND-REC-1              info          -                     record_confidentiality  N.D.C.C. 54-23.4-17
+    R56   ND-CAP-COUNSEL-ADULT  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(1)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
+    R57   ND-CAP-COUNSEL-EXTRA  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(6)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
+
+.sources
+    S0    ND-S1       sha256 88da8a9d21468105  https://www.ndlegis.gov/cencode/t54c23-4.pdf
+    S1    ND-S2       sha256 052366d93825268a  https://www.docr.nd.gov/crime-victims-compensation
+    S2    ND-S3       sha256 163d5a8bae976a8d  https://ndlegis.gov/information/acdata/pdf/94-03-01.pdf
+    S3    ND-S4       sha256 567856ed64d9ba70  https://ndlegis.gov/information/acdata/pdf/94-03-02.pdf
+    S4    ND-S5       sha256 d8c38aba4b36053b  https://ndlegis.gov/information/acdata/pdf/94-03-03.pdf
+    S5    ND-S6       sha256 a2b124e4870d02b0  https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Forms/CVC%20Application%20Tips.pdf
+    S6    ND-S7       sha256 5140cf5ae2030a91  https://www.ndlegis.gov/cencode/t12-1c34.pdf
+    S7    ND-S8       sha256 736fd6282d231a99  https://www.docr.nd.gov/sites/www/files/documents/victims/ND%20CVC%20MH%20Policy%20and%20Provider%20Form%20%5BFillable%5D.pdf
+    S8    ND-S9       sha256 5e4c18f0c80627d2  https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Forms/CVC%20Release%20of%20Information%20revised%202025%20-%20Fillable.pdf
+    S9    ND-S10      sha256 81e09b9733cc1a0b  https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Employers%20Report%20-%20Lost%20Wages.pdf
+    S10   ND-S11      sha256 7fa36e4659b02e18  https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Physicians%20Report%20-%20Lost%20Wages.pdf
+
+.proofs
+    P0    ()
+    P1    (ND-EXAM-1, ND-EXAM-CHILD, ND-EXAM-2)
+    P2    (ND-COV-MEDICAL)
+    P3    (ND-COV-MEDICAL, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P4    (ND-CAP-COUNSEL-ADULT, ND-CAP-COUNSEL-EXTRA)
+    P5    (ND-CAP-COUNSEL-MINOR, ND-COV-COUNSEL)
+    P6    (ND-CAP-COUNSEL-MINOR, ND-COV-COUNSEL, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P7    (ND-CAP-WAGES-WEEK, ND-CAP-WAGES-TOTAL, ND-COV-WAGES)
+    P8    (ND-CAP-WAGES-WEEK, ND-CAP-WAGES-TOTAL, ND-COV-WAGES, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P9    (ND-CAP-TRAVEL, ND-COV-TRAVEL)
+    P10   (ND-CAP-TRAVEL, ND-COV-TRAVEL, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P11   (ND-EXCL-PROPERTY)
+    P12   (ND-CAP-RX)
+    P13   (ND-CAP-RX, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P14   (ND-CAP-DENTAL, ND-COV-DENTAL)
+    P15   (ND-CAP-DENTAL, ND-COV-DENTAL, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P16   (ND-CAP-FUNERAL)
+    P17   (ND-CAP-FUNERAL, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P18   (ND-EXCL-ATTY)
+    P19   (ND-CAP-REPLACE, ND-COV-DEPCARE)
+    P20   (ND-CAP-REPLACE, ND-COV-DEPCARE, ND-COLLATERAL-1, ND-COLLATERAL-2)
+    P21   (ND-DEADLINE-1)
+    P22   (ND-REPORT-1, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-REPORT-CHILD)
+    P23   (ND-EXCL-NONECON, ND-EXCL-FEES, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1)
+
+.ints
+    K0    30000         ; $300.00
+    K1    480000        ; $4,800.00
+    K2    100000        ; $1,000.00
+    K3    500000        ; $5,000.00
+    K4    2500000       ; $25,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L10
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L10
+                        case security              -> L10
+                        case crime_scene_cleanup   -> L10
+                        case childcare             -> L10
+                        case property_replacement  -> L11
+                        case clothing_bedding      -> L10
+                        case prescription          -> L12
+                        case dental                -> L14
+                        case funeral               -> L16
+                        case legal                 -> L18
+                        case tuition               -> L10
+                        case other                 -> L19
+                        case unknown               -> L10
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; ND-EXAM-1  N.D.C.C. 12.1-34-07(1)  "performed within one hundred twenty hours after the alleged..."
+              ; ND-EXAM-CHILD  N.D.C.C. 12.1-34-07(2)  "When a child forensic medical examination is performed, the..."
+              ; ND-EXAM-2  N.D.C.C. 12.1-34-07(3)  "Upon submission of appropriate documentation, the attorney..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; ND-EXAM-1, ND-EXAM-CHILD, ND-EXAM-2
+  007b        ret
+              ; ND-COV-MEDICAL  N.D.C.C. 54-23.4-01(7)(a)  ""Allowable expense" means reasonable charges incurred for..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  007c  L2:   ldi      confirmed
+  007e        jnz      L3
+  0083        push     0
+  0088        decide   needs_confirmation, P2       ; ND-COV-MEDICAL
+  008c        ret
+  008d  L3:   ldi      amount_cents
+  008f        decide   eligible, P3                 ; ND-COV-MEDICAL, ND-COLLATERAL-1, ND-COLLATERAL-2
+  0093        lda
+  0094        ldi      insurance_paid_cents
+  0096        subs
+  0097        push     0
+  009c        max
+  009d        seta     collateral, R27              ; ND-COLLATERAL-1
+  00a1        ret
+              ; ND-CAP-COUNSEL-MINOR  N.D. Admin. Code 94-03-03-10(3)(b)(2)  "For minor victims, no more than forty sessions, and total..."
+              ; ND-COV-COUNSEL  N.D. Admin. Code 94-03-03-10(3)(a)  "Assessment, diagnosis, and treatment, including individual or..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  00a2  L4:   alts     P4                           ; ND-CAP-COUNSEL-ADULT, ND-CAP-COUNSEL-EXTRA
+  00a5        ldi      confirmed
+  00a7        jnz      L5
+  00ac        push     0
+  00b1        decide   needs_confirmation, P5       ; ND-CAP-COUNSEL-MINOR, ND-COV-COUNSEL
+  00b5        ret
+  00b6  L5:   ldi      amount_cents
+  00b8        decide   eligible, P6                 ; ND-CAP-COUNSEL-MINOR, ND-COV-COUNSEL, ND-COLLATERAL-1, ND-COLLATERAL-2
+  00bc        lda
+  00bd        ldi      insurance_paid_cents
+  00bf        subs
+  00c0        push     0
+  00c5        max
+  00c6        seta     collateral, R27              ; ND-COLLATERAL-1
+  00ca        ret
+              ; ND-CAP-WAGES-WEEK  N.D.C.C. 54-23.4-06(7)  "Compensation for work loss, replacement services loss..."
+              ; ND-CAP-WAGES-TOTAL  N.D. Admin. Code 94-03-03-13(2)(a)  "Payment for work loss may not exceed more than three hundred..."
+              ; ND-COV-WAGES  N.D.C.C. 54-23.4-01(7)(f)  ""Work loss" means loss of income from work the victim would have..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  00cb  L6:   ldi      confirmed
+  00cd        jnz      L7
+  00d2        push     0
+  00d7        decide   needs_confirmation, P7       ; ND-CAP-WAGES-WEEK, ND-CAP-WAGES-TOTAL, ND-COV-WAGES
+  00db        ret
+  00dc  L7:   ldi      amount_cents
+  00de        decide   eligible, P8                 ; ND-CAP-WAGES-WEEK, ND-CAP-WAGES-TOTAL, ND-COV-WAGES, ND-COLLATERAL-1, ND-COLLATERAL-2
+  00e2        lda
+  00e3        ldi      insurance_paid_cents
+  00e5        subs
+  00e6        push     0
+  00eb        max
+  00ec        seta     collateral, R27              ; ND-COLLATERAL-1
+  00f0        ret
+              ; ND-CAP-TRAVEL  N.D. Admin. Code 94-03-03-16(2)(d)  "The maximum reimbursement for lodging, meals, and mileage is one..."
+              ; ND-COV-TRAVEL  N.D. Admin. Code 94-03-03-16  "The division may reimburse a claimant for meals, lodging, and..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  00f1  L8:   ldi      confirmed
+  00f3        jnz      L9
+  00f8        push     0
+  00fd        decide   needs_confirmation, P9       ; ND-CAP-TRAVEL, ND-COV-TRAVEL
+  0101        ret
+  0102  L9:   ldi      amount_cents
+  0104        decide   eligible, P10                ; ND-CAP-TRAVEL, ND-COV-TRAVEL, ND-COLLATERAL-1, ND-COLLATERAL-2
+  0108        lda
+  0109        ldi      insurance_paid_cents
+  010b        subs
+  010c        push     0
+  0111        max
+  0112        seta     collateral, R27              ; ND-COLLATERAL-1
+  0116        ret
+  0117  L10:  push     0
+  011c        decide   unknown_rule, P0             ; (none)
+  0120        ret
+              ; ND-EXCL-PROPERTY  N.D. Admin. Code 94-03-03-04(5)  "Claims for property loss or damage."
+  0121  L11:  push     0
+  0126        decide   excluded, P11                ; ND-EXCL-PROPERTY
+  012a        ret
+              ; ND-CAP-RX  N.D. Admin. Code 94-03-03-08(2)(b)  "The division may not pay more than one thousand dollars for new..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  012b  L12:  ldi      confirmed
+  012d        jnz      L13
+  0132        push     0
+  0137        decide   needs_confirmation, P12      ; ND-CAP-RX
+  013b        ret
+  013c  L13:  ldi      amount_cents
+  013e        decide   eligible, P13                ; ND-CAP-RX, ND-COLLATERAL-1, ND-COLLATERAL-2
+  0142        lda
+  0143        ldi      insurance_paid_cents
+  0145        subs
+  0146        push     0
+  014b        max
+  014c        seta     collateral, R27              ; ND-COLLATERAL-1
+  0150        ret
+              ; ND-CAP-DENTAL  N.D. Admin. Code 94-03-03-09(2)(a)  "The division may not pay more than five thousand dollars for..."
+              ; ND-COV-DENTAL  CVC Application Tips, Section 4  "Medical/Dental benefits for the Victim – If the victim has..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  0151  L14:  ldi      confirmed
+  0153        jnz      L15
+  0158        push     0
+  015d        decide   needs_confirmation, P14      ; ND-CAP-DENTAL, ND-COV-DENTAL
+  0161        ret
+  0162  L15:  ldi      amount_cents
+  0164        decide   eligible, P15                ; ND-CAP-DENTAL, ND-COV-DENTAL, ND-COLLATERAL-1, ND-COLLATERAL-2
+  0168        lda
+  0169        ldi      insurance_paid_cents
+  016b        subs
+  016c        push     0
+  0171        max
+  0172        seta     collateral, R27              ; ND-COLLATERAL-1
+  0176        ret
+              ; ND-CAP-FUNERAL  N.D.C.C. 54-23.4-01(7)(a)  "The term includes a total charge not in excess of five thousand..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  0177  L16:  ldi      confirmed
+  0179        jnz      L17
+  017e        push     0
+  0183        decide   needs_confirmation, P16      ; ND-CAP-FUNERAL
+  0187        ret
+  0188  L17:  ldi      amount_cents
+  018a        decide   eligible, P17                ; ND-CAP-FUNERAL, ND-COLLATERAL-1, ND-COLLATERAL-2
+  018e        lda
+  018f        ldi      insurance_paid_cents
+  0191        subs
+  0192        push     0
+  0197        max
+  0198        seta     collateral, R27              ; ND-COLLATERAL-1
+  019c        ret
+              ; ND-EXCL-ATTY  N.D.C.C. 54-23.4-11  "Attorney's fees are not allowable for assisting a claimant in..."
+  019d  L18:  push     0
+  01a2        decide   excluded, P18                ; ND-EXCL-ATTY
+  01a6        ret
+              ; ND-CAP-REPLACE  N.D. Admin. Code 94-03-03-15(2)  "The division may not pay more than one thousand dollars for..."
+              ; ND-COV-DEPCARE  CVC Application Tips, Section 4  "Dependent Care – If the victim was the primary caregiver, the..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+  01a7  L19:  ldi      confirmed
+  01a9        jnz      L20
+  01ae        push     0
+  01b3        decide   needs_confirmation, P19      ; ND-CAP-REPLACE, ND-COV-DEPCARE
+  01b7        ret
+  01b8  L20:  ldi      amount_cents
+  01ba        decide   eligible, P20                ; ND-CAP-REPLACE, ND-COV-DEPCARE, ND-COLLATERAL-1, ND-COLLATERAL-2
+  01be        lda
+  01bf        ldi      insurance_paid_cents
+  01c1        subs
+  01c2        push     0
+  01c7        max
+  01c8        seta     collateral, R27              ; ND-COLLATERAL-1
+  01cc        ret
+
+.aggregate
+              ; ND-CAP-WAGES-WEEK  N.D.C.C. 54-23.4-06(7)  "Compensation for work loss, replacement services loss..."
+  0000        each     lost_wages, L4
+  0006  L0:   ldi      units
+  0008        jz       L2
+  000d        ldk      K0                           ; $300.00
+  0010        ldi      units
+  0012        muls
+  0013        dup
+  0014        lda
+  0015        lt
+  0016        jz       L1
+  001b        cap      unit_cap, R5                 ; ND-CAP-WAGES-WEEK
+  001f        jmp      L3
+  0024  L1:   pop
+  0025        jmp      L3
+  002a  L2:   flag     R5                           ; rate_unverified ND-CAP-WAGES-WEEK
+  002d  L3:   next     L0
+              ; ND-CAP-COUNSEL-MINOR  N.D. Admin. Code 94-03-03-10(3)(b)(2)  "For minor victims, no more than forty sessions, and total..."
+  0032  L4:   push     0
+  0037        str      r0
+  0039        push     0
+  003e        str      r1
+  0040        each     counseling, L9
+  0046  L5:   ldr      r1
+  0048        jnz      L7
+  004d        ldr      r0
+  004f        lda
+  0050        adds
+  0051        ldk      K1                           ; $4,800.00
+  0054        gt
+  0055        jz       L6
+  005a        ldk      K1                           ; $4,800.00
+  005d        ldr      r0
+  005f        subs
+  0060        cap      expense_cap, R4              ; ND-CAP-COUNSEL-MINOR
+  0064        push     1
+  0069        str      r1
+  006b  L6:   ldr      r0
+  006d        lda
+  006e        adds
+  006f        str      r0
+  0071        jmp      L8
+  0076  L7:   push     0
+  007b        cap      expense_cap, R4              ; ND-CAP-COUNSEL-MINOR
+  007f  L8:   next     L5
+              ; ND-CAP-WAGES-TOTAL  N.D. Admin. Code 94-03-03-13(2)(a)  "Payment for work loss may not exceed more than three hundred..."
+  0084  L9:   push     0
+  0089        str      r0
+  008b        push     0
+  0090        str      r1
+  0092        each     lost_wages, L14
+  0098  L10:  ldr      r1
+  009a        jnz      L12
+  009f        ldr      r0
+  00a1        lda
+  00a2        adds
+  00a3        ldk      K1                           ; $4,800.00
+  00a6        gt
+  00a7        jz       L11
+  00ac        ldk      K1                           ; $4,800.00
+  00af        ldr      r0
+  00b1        subs
+  00b2        cap      expense_cap, R6              ; ND-CAP-WAGES-TOTAL
+  00b6        push     1
+  00bb        str      r1
+  00bd  L11:  ldr      r0
+  00bf        lda
+  00c0        adds
+  00c1        str      r0
+  00c3        jmp      L13
+  00c8  L12:  push     0
+  00cd        cap      expense_cap, R6              ; ND-CAP-WAGES-TOTAL
+  00d1  L13:  next     L10
+              ; ND-CAP-TRAVEL  N.D. Admin. Code 94-03-03-16(2)(d)  "The maximum reimbursement for lodging, meals, and mileage is one..."
+  00d6  L14:  push     0
+  00db        str      r0
+  00dd        push     0
+  00e2        str      r1
+  00e4        each     transportation, L19
+  00ea  L15:  ldr      r1
+  00ec        jnz      L17
+  00f1        ldr      r0
+  00f3        lda
+  00f4        adds
+  00f5        ldk      K2                           ; $1,000.00
+  00f8        gt
+  00f9        jz       L16
+  00fe        ldk      K2                           ; $1,000.00
+  0101        ldr      r0
+  0103        subs
+  0104        cap      expense_cap, R7              ; ND-CAP-TRAVEL
+  0108        push     1
+  010d        str      r1
+  010f  L16:  ldr      r0
+  0111        lda
+  0112        adds
+  0113        str      r0
+  0115        jmp      L18
+  011a  L17:  push     0
+  011f        cap      expense_cap, R7              ; ND-CAP-TRAVEL
+  0123  L18:  next     L15
+              ; ND-CAP-RX  N.D. Admin. Code 94-03-03-08(2)(b)  "The division may not pay more than one thousand dollars for new..."
+  0128  L19:  push     0
+  012d        str      r0
+  012f        push     0
+  0134        str      r1
+  0136        each     prescription, L24
+  013c  L20:  ldr      r1
+  013e        jnz      L22
+  0143        ldr      r0
+  0145        lda
+  0146        adds
+  0147        ldk      K2                           ; $1,000.00
+  014a        gt
+  014b        jz       L21
+  0150        ldk      K2                           ; $1,000.00
+  0153        ldr      r0
+  0155        subs
+  0156        cap      expense_cap, R8              ; ND-CAP-RX
+  015a        push     1
+  015f        str      r1
+  0161  L21:  ldr      r0
+  0163        lda
+  0164        adds
+  0165        str      r0
+  0167        jmp      L23
+  016c  L22:  push     0
+  0171        cap      expense_cap, R8              ; ND-CAP-RX
+  0175  L23:  next     L20
+              ; ND-CAP-DENTAL  N.D. Admin. Code 94-03-03-09(2)(a)  "The division may not pay more than five thousand dollars for..."
+  017a  L24:  push     0
+  017f        str      r0
+  0181        push     0
+  0186        str      r1
+  0188        each     dental, L29
+  018e  L25:  ldr      r1
+  0190        jnz      L27
+  0195        ldr      r0
+  0197        lda
+  0198        adds
+  0199        ldk      K3                           ; $5,000.00
+  019c        gt
+  019d        jz       L26
+  01a2        ldk      K3                           ; $5,000.00
+  01a5        ldr      r0
+  01a7        subs
+  01a8        cap      expense_cap, R9              ; ND-CAP-DENTAL
+  01ac        push     1
+  01b1        str      r1
+  01b3  L26:  ldr      r0
+  01b5        lda
+  01b6        adds
+  01b7        str      r0
+  01b9        jmp      L28
+  01be  L27:  push     0
+  01c3        cap      expense_cap, R9              ; ND-CAP-DENTAL
+  01c7  L28:  next     L25
+              ; ND-CAP-FUNERAL  N.D.C.C. 54-23.4-01(7)(a)  "The term includes a total charge not in excess of five thousand..."
+  01cc  L29:  push     0
+  01d1        str      r0
+  01d3        push     0
+  01d8        str      r1
+  01da        each     funeral, L34
+  01e0  L30:  ldr      r1
+  01e2        jnz      L32
+  01e7        ldr      r0
+  01e9        lda
+  01ea        adds
+  01eb        ldk      K3                           ; $5,000.00
+  01ee        gt
+  01ef        jz       L31
+  01f4        ldk      K3                           ; $5,000.00
+  01f7        ldr      r0
+  01f9        subs
+  01fa        cap      expense_cap, R10             ; ND-CAP-FUNERAL
+  01fe        push     1
+  0203        str      r1
+  0205  L31:  ldr      r0
+  0207        lda
+  0208        adds
+  0209        str      r0
+  020b        jmp      L33
+  0210  L32:  push     0
+  0215        cap      expense_cap, R10             ; ND-CAP-FUNERAL
+  0219  L33:  next     L30
+              ; ND-CAP-REPLACE  N.D. Admin. Code 94-03-03-15(2)  "The division may not pay more than one thousand dollars for..."
+  021e  L34:  push     0
+  0223        str      r0
+  0225        push     0
+  022a        str      r1
+  022c        each     other, L39
+  0232  L35:  ldr      r1
+  0234        jnz      L37
+  0239        ldr      r0
+  023b        lda
+  023c        adds
+  023d        ldk      K2                           ; $1,000.00
+  0240        gt
+  0241        jz       L36
+  0246        ldk      K2                           ; $1,000.00
+  0249        ldr      r0
+  024b        subs
+  024c        cap      expense_cap, R11             ; ND-CAP-REPLACE
+  0250        push     1
+  0255        str      r1
+  0257  L36:  ldr      r0
+  0259        lda
+  025a        adds
+  025b        str      r0
+  025d        jmp      L38
+  0262  L37:  push     0
+  0267        cap      expense_cap, R11             ; ND-CAP-REPLACE
+  026b  L38:  next     L35
+              ; ND-CAP-1  N.D.C.C. 54-23.4-06(8)  "Compensation payable to a victim and to all other claimants..."
+  0270  L39:  push     0
+  0275        str      r0
+  0277        push     0
+  027c        str      r1
+  027e        each     all, L44
+  0284  L40:  ldr      r1
+  0286        jnz      L42
+  028b        ldr      r0
+  028d        lda
+  028e        adds
+  028f        ldk      K4                           ; $25,000.00
+  0292        gt
+  0293        jz       L41
+  0298        ldk      K4                           ; $25,000.00
+  029b        ldr      r0
+  029d        subs
+  029e        cap      total_cap, R3                ; ND-CAP-1
+  02a2        push     1
+  02a7        str      r1
+  02a9  L41:  ldr      r0
+  02ab        lda
+  02ac        adds
+  02ad        str      r0
+  02af        jmp      L43
+  02b4  L42:  push     0
+  02b9        cap      total_cap, R3                ; ND-CAP-1
+  02bd  L43:  next     L40
+  02c2  L44:  push     0                            ; met
+  02c7        check    minimum_loss, P0             ; (none)
+              ; ND-DEADLINE-1  N.D.C.C. 54-23.4-06(2)  "A claim for compensation must be filed within one year from the..."
+  02cb        ldx      incident_date
+  02cd        push     365
+  02d2        adds
+  02d3        dup
+  02d4        setdate
+  02d5        ldx      as_of_date
+  02d7        ge
+  02d8        jz       L45
+  02dd        push     0
+  02e2        jmp      L46
+  02e7  L45:  push     1                            ; late
+  02ec  L46:  check    deadline, P21                ; ND-DEADLINE-1
+              ; ND-REPORT-1  N.D.C.C. 54-23.4-06(4)  "Compensation may not be awarded unless the criminally injurious..."
+              ; ND-REPORT-GOODCAUSE  N.D. Admin. Code 94-03-03-01(2)(a)  "Evidence, including medical records or verifiable reports from..."
+              ; ND-REPORT-GOODCAUSE-2  N.D. Admin. Code 94-03-03-01(2)(b)  "Law enforcement substantiates there was a fear of retaliation."
+              ; ND-REPORT-CHILD  N.D.C.C. 54-23.4-06(4)  "In the case of child abuse or sexual molestation of a child, the..."
+  02f0        ldx      police_report
+  02f2        push     1                            ; yes
+  02f7        eq
+  02f8        jnz      L48
+  02fd        ldx      police_report
+  02ff        push     0                            ; no
+  0304        eq
+  0305        jnz      L47
+  030a        push     3
+  030f        jmp      L49
+  0314  L47:  push     1
+  0319        jmp      L49
+  031e  L48:  push     0                            ; satisfied
+  0323  L49:  check    reporting, P22               ; ND-REPORT-1, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-REPORT-CHILD
+              ; ND-EXCL-NONECON  N.D.C.C. 54-23.4-01(7)  "Noneconomic detriment is not loss."
+              ; ND-EXCL-FEES  N.D. Admin. Code 94-03-03-08(2)(g)  "The division may not pay compensation for interest, finance, or..."
+              ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
+              ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
+              ; ND-CONDUCT-1  N.D.C.C. 54-23.4-06(6)(b)  "To the extent the division deems reasonable because of the..."
+              ; ND-CONDUCT-2  N.D.C.C. 54-23.4-06(6)(c)  "To the extent the division deems reasonable when it is..."
+              ; ND-CONDUCT-3  N.D.C.C. 54-23.4-06(5)  "The division, upon finding that the claimant has not fully..."
+              ; ND-CONDUCT-4  N.D. Admin. Code 94-03-03-05  "The division shall deny compensation if the claimant's conduct..."
+              ; ND-EMERGENCY-1  N.D.C.C. 54-23.4-14  "If the division determines that the claimant will suffer..."
+              ; ND-CRIME-1  DOCR CVC page, What is Eligibility Criteria?  "The victim suffered physical or emotional injuries as a result..."
+              ; ND-CRIME-2  N.D.C.C. 54-23.4-01(1)  ""Bodily injury" means any harm that requires medical treatment..."
+              ; ND-RES-1  N.D.C.C. 54-23.4-06(1)  "If a resident of this state is a victim of criminally injurious..."
+              ; ND-SUBMIT-1  Program page, Crime Victims Compensation Application and Forms  "Clicking the link below will take you to the online application..."
+              ; ND-TIME-1  Program page, Claim Status  "Please allow 2-4 weeks for processing CVC application or claim..."
+              ; ND-DOC-1  N.D. Admin. Code 94-03-03-02(2)  "A claimant for benefits shall submit a completed application for..."
+              ; ND-DOC-2  CVC Application Tips, Section 3 (Incident Information, continued)  "There may be a justifiable reason for the late report. Please..."
+              ; ND-DOC-3  N.D. Admin. Code 94-03-03-08(1)  "A request for compensation for medical services must include a..."
+              ; ND-DOC-4  N.D. Admin. Code 94-03-03-09(1)  "A request for compensation for dental services must include a..."
+              ; ND-DOC-5  CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), Verification Requirements  "A billing statement of itemized transactions containing the..."
+              ; ND-DOC-6  CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), introduction  "The Provider Verification Form portion is to be returned with..."
+              ; ND-DOC-7  N.D. Admin. Code 94-03-03-13(1)  "A claim for reimbursement for work loss must include written..."
+              ; ND-DOC-8  Work Loss - Employer's Report, SFN 12437  "FORM MUST BE COMPLETED BY EMPLOYER YOU WERE WORKING FOR AT THE..."
+              ; ND-DOC-9  N.D. Admin. Code 94-03-03-13(1)(c)  "Self-employed victims shall provide a copy of federal income tax..."
+              ; ND-DOC-10  Work Loss - Physician's Report, SFN 60497  "FORM MUST BE COMPLETED BY A MEDICAL PROVIDER WHO TREATED YOU FOR..."
+              ; ND-DOC-11  N.D. Admin. Code 94-03-03-16(1)  "The claimant shall submit receipts for travel and lodging..."
+              ; ND-DOC-12  N.D. Admin. Code 94-03-03-17(3)  "The claimant shall submit itemized receipts for reimbursement..."
+              ; ND-DOC-13  N.D. Admin. Code 94-03-03-15(1)  "A claim for reimbursement for replacement services loss must..."
+              ; ND-DOC-14  N.D. Admin. Code 94-03-03-14(1)  "A claim for loss of support must include verification of the..."
+              ; ND-DOC-15  N.D. Admin. Code 94-03-03-06 (collateral sources)  "Before payment is made from the division, either the provider or..."
+              ; ND-DOC-16  Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement  "The DOCR may, however, require that you authorize disclosure of..."
+              ; ND-REC-1  N.D.C.C. 54-23.4-17  "All other records of the division concerning the application for..."
+  0327        info     P23                          ; ND-EXCL-NONECON, ND-EXCL-FEES, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1
+  032a        ret
+
