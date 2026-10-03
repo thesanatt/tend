@@ -46,7 +46,7 @@ whose expected output was worked out by hand from the SPEC; any engine can be ch
 ## Differential test
 
 ```sh
-python refengine/difftest.py --n 10000 --rules-dir rules/verified
+python3 refengine/difftest.py --n 10000 --rules-dir rules/verified
 ```
 
 - Looks for `engine/build/libtend.dylib` (or `.so`), called through the C ABI with ctypes, then for

@@ -401,7 +401,20 @@ def jurisdiction_files(args) -> list[tuple[str, Path]]:
     return found
 
 
-def report_failure(failure: Failure, job: Job, law: Law, engine: Engine | None, out_dir: Path, shrink_on: bool) -> None:
+def engine_flags(args) -> str:
+    # The options a replay needs to reach the same engine the same way.
+    flags = []
+    for name in ("engine_root", "engine_lib", "engine_cli", "tendc", "engine_cmd"):
+        value = getattr(args, name)
+        if value and not (name == "engine_root" and Path(value).resolve() == ROOT):
+            flags.append(f"--{name.replace('_', '-')} {shlex.quote(value)}")
+    flags += [flag for flag, on in (("--prefer-cli", args.prefer_cli), ("--no-trace", not args.check_trace),
+                                    ("--compare-sha", args.compare_sha)) if on]
+    return "".join(f" {flag}" for flag in flags)
+
+
+def report_failure(failure: Failure, job: Job, law: Law, engine: Engine | None, out_dir: Path, shrink_on: bool,
+                   replay_flags: str = "") -> None:
     st, index = failure.jurisdiction, failure.index
     title = {"mismatch": "MISMATCH", "invariant": "REFERENCE INVARIANT BROKEN",
              "reference_error": "REFERENCE ERROR"}[failure.kind]
@@ -422,8 +435,11 @@ def report_failure(failure: Failure, job: Job, law: Law, engine: Engine | None, 
     saved = out_dir / f"{st}-{index}.input.json"
     saved.write_text(json.dumps(engine_input, indent=2) + "\n", encoding="utf-8")
     print(f"input saved to {saved}")
-    print(f"regenerate the full claim: python -m tend_ref gen --rules {job.rules_path} --seed {job.seed} --index {index}")
-    print(f"replay: python {Path(__file__).name} --replay {st}:{index} --seed {job.seed} --rules-dir {Path(job.rules_path).parent}")
+    here = os.path.relpath(HERE)
+    print(f"regenerate the full claim: PYTHONPATH={here} python3 -m tend_ref gen --rules {job.rules_path} "
+          f"--seed {job.seed} --index {index}")
+    print(f"replay: python3 {os.path.join(here, 'difftest.py')} --replay {st}:{index} --seed {job.seed} "
+          f"--rules-dir {Path(job.rules_path).parent}{replay_flags}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -453,6 +469,8 @@ def main(argv: list[str] | None = None) -> int:
     if not files:
         print(f"error: no verified jurisdiction files in {args.rules_dir}", file=sys.stderr)
         return 2
+    if not any(Path(path).resolve() not in {f.resolve() for f in FIXTURES} for _, path in files):
+        print(f"NOTICE: no verified rules in {args.rules_dir}; only the synthetic fixtures will run.")
     spec, note = find_engine(args)
     if spec is None and (args.engine_lib or args.engine_cli):
         print(f"error: {note}; pass --tendc", file=sys.stderr)
@@ -491,7 +509,7 @@ def main(argv: list[str] | None = None) -> int:
         engine_input = generate(rules, rng)
         failure, _ = check_claim(job, law, engine, engine_input, int(index), rng)
         if failure:
-            report_failure(failure, job, law, engine, Path(args.out), args.shrink)
+            report_failure(failure, job, law, engine, Path(args.out), args.shrink, engine_flags(args))
             return 1
         print(f"{job.jurisdiction} claim {index}: {'engines agree' if engine else 'reference invariants hold'}")
         return 0
@@ -505,6 +523,9 @@ def main(argv: list[str] | None = None) -> int:
         print("        invariants; nothing is compared until the C++ engine is built.")
 
     jobs = [job_for(st, path, args.n) for st, path in files]
+    if not jobs:
+        print("\nFAILED: tendc compiled no jurisdiction, so nothing ran")
+        return 1
     started = time.monotonic()
     try:
         if args.jobs > 1 and len(jobs) > 1:
@@ -561,12 +582,14 @@ def main(argv: list[str] | None = None) -> int:
         first = failures[0]
         job = next(j for j in jobs if j.jurisdiction == first.jurisdiction)
         rules, sha = load_rules(job.rules_path)
-        report_failure(first, job, Law(rules, sha), Engine(spec) if spec else None, Path(args.out), args.shrink)
+        report_failure(first, job, Law(rules, sha), Engine(spec) if spec else None, Path(args.out), args.shrink,
+                       engine_flags(args))
         if failure_count > 1:
             print(f"({failure_count - 1} more failures not shown"
                   + ("" if args.keep_going else "; --keep-going counts them all") + ")")
     verdict = "FAILED" if failures or tendc_failures else "OK"
-    compared = "compared with the C++ engine" if spec else "reference only, not compared"
+    compared = ("reference only, not compared" if not spec
+                else "compared with --engine-cmd" if args.engine_cmd else "compared with the C++ engine")
     print(f"\n{verdict}: {claims} claims in {elapsed:.1f}s, {failure_count} failures"
           + (f", tendc failed for {', '.join(tendc_failures)}" if tendc_failures else "") + f" ({compared})")
     return 1 if failures or tendc_failures else 0

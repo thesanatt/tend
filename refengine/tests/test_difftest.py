@@ -1,6 +1,7 @@
 """difftest.py against stand-in engines: agreement, a planted bug, a crash, and no engine at all."""
 
 import json
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -36,7 +37,7 @@ def test_without_an_engine_it_runs_the_reference_and_says_so(tmp_path):
 def test_agreeing_engine_passes(tmp_path):
     proc = difftest(tmp_path, "--n", "25", "--engine-cmd", fake())
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    assert "compared with the C++ engine" in proc.stdout
+    assert "compared with --engine-cmd" in proc.stdout
     assert "0 failures" in proc.stdout
 
 
@@ -51,6 +52,13 @@ def test_planted_bug_is_found_shrunk_and_saved(tmp_path):
     small = json.loads(saved[0].read_text())
     assert len(small["items"]) == 1
     assert small["items"][0]["insurance_paid_cents"] > 0
+    # The printed replay command reaches the same engine and reproduces the mismatch.
+    replay = next(line for line in proc.stdout.splitlines() if line.startswith("replay: "))
+    args = shlex.split(replay.removeprefix("replay: "))
+    again = subprocess.run([sys.executable, *args[1:], "--jobs", "1", "--out", str(tmp_path / "out2")],
+                           capture_output=True, text=True, timeout=300)
+    assert again.returncode == 1, again.stdout + again.stderr
+    assert "MISMATCH: ZZ claim" in again.stdout
 
 
 def test_trace_only_difference_is_reported(tmp_path):
