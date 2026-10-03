@@ -112,6 +112,22 @@ describe("per-item decisions", () => {
     expect(lineOf(out, phone.item_id)).toMatchObject({ status: "excluded", rule_ids: ["EX-1"], allowed_cents: 0 });
   });
 
+  it("3. applies an exclusion to a whole kind of cost only when it says so plainly", () => {
+    const care = item({ expense: "medical" });
+    const rides = item({ expense: "transportation" });
+    const covered = [MEDICAL, rule("COV-T", "covered_expense", { expense: "transportation" })];
+    // item-level: a top-level expense plus a narrower item text, like "services covered by Medicaid"
+    const narrow = {
+      ...rule("EX-MED", "excluded_expense", { item: "services covered by Medicaid" }),
+      expense: "medical",
+    };
+    // category-level: a top-level expense with no item, like "travel expenses"
+    const broad = { ...rule("EX-T", "excluded_expense", {}), expense: "transportation" };
+    const out = run([...covered, narrow, broad], [care, rides]);
+    expect(lineOf(out, care.item_id).status).toBe("eligible");
+    expect(lineOf(out, rides.item_id)).toMatchObject({ status: "excluded", rule_ids: ["EX-T"] });
+  });
+
   it("4. leaves out costs no verified rule names, and unknown expenses", () => {
     const rx = item({ expense: "prescription" });
     const odd = item({ expense: "unknown" });
@@ -322,5 +338,29 @@ describe("Rowan, Michigan (fixtures)", () => {
     const out = evaluatePreview(all, mi, "sha");
     expect(out.totals.allowed_cents).toBe(321425);
     expect(out.totals.held_cents).toBe(32500);
+  });
+});
+
+describe("every verified state", () => {
+  const web = path.resolve(import.meta.dirname, "..");
+  const input = JSON.parse(readFileSync(path.join(web, "fixtures/rowan-mi.input.json"), "utf8")) as EngineInput;
+  const all = { ...input, items: input.items.map((i) => ({ ...i, confirmed: true })) };
+  const states = JSON.parse(readFileSync(path.join(web, "public/data/jurisdictions.json"), "utf8")) as {
+    st: string;
+    rules: number;
+  }[];
+
+  it.each(states.filter((s) => s.rules > 0).map((s) => s.st))("runs Rowan's costs under %s law", (st) => {
+    const law = JSON.parse(readFileSync(path.join(web, "public/data/law", `${st}.json`), "utf8")) as Jurisdiction;
+    const out = evaluatePreview({ ...all, jurisdiction: st }, law, "sha");
+    const ids = new Set(law.rules.map((r) => r.id));
+    expect(out.lines).toHaveLength(all.items.length);
+    for (const l of out.lines) {
+      expect(Number.isSafeInteger(l.allowed_cents)).toBe(true);
+      expect(l.allowed_cents).toBeLessThanOrEqual(l.requested_cents);
+      for (const id of [...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]) expect(ids.has(id)).toBe(true);
+    }
+    const hasExamRule = law.rules.some((r) => r.category === "exam_no_bill" || r.category === "exam_payment");
+    expect(out.totals.held_cents).toBe(hasExamRule ? 32500 : 0);
   });
 });

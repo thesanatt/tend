@@ -17,12 +17,16 @@ const sources = [
   ...files(path.join(web, "components")),
   ...files(path.join(web, "lib")),
 ];
+// en dash, em dash, and curly quotes, built from code points so this file stays ASCII
+const BANNED = new RegExp(
+  `[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d].map((c) => String.fromCharCode(c)).join("")}]`,
+);
 const HYPE =
   /\b(elevate|empower|unlock|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
 
 describe("user-facing copy", () => {
   it("has no em dashes, en dashes, or curly quotes in source", () => {
-    const bad = sources.filter((f) => /[–—‘’“”]/.test(readFileSync(f, "utf8")));
+    const bad = sources.filter((f) => BANNED.test(readFileSync(f, "utf8")));
     expect(bad.map((f) => path.relative(web, f))).toEqual([]);
   });
 

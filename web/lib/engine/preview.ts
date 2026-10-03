@@ -1,7 +1,11 @@
 // In-browser preview of the law engine, following docs/SPEC.md "Law engine semantics" step by step.
 // Used only when neither the WebAssembly engine nor the API is reachable; the UI labels it as a preview.
-// One ordering choice the spec leaves open: per-unit rate caps apply before per-claim caps, so a
-// claim cap never counts dollars a rate cap would remove anyway.
+// Two choices the spec leaves open:
+// - per-unit rate caps apply before per-claim caps, so a claim cap never counts dollars a rate cap
+//   would remove anyway;
+// - an exclusion removes a whole kind of cost only when it says so plainly (params.expense, or a
+//   top-level expense with no narrower params.item). Item-level exclusions such as "services covered
+//   by Medicaid" stay in the law view for the program to apply.
 import { addDays, addYears } from "../dates";
 import { assertCents } from "../money";
 import type {
@@ -26,9 +30,15 @@ const INFO: RuleCategory[] = [
 const PER_CLAIM = new Set(["claim", undefined, null, ""]);
 
 function ruleExpense(rule: Rule): string | null {
-  if (rule.expense) return rule.expense;
   const p = rule.params?.expense;
-  return typeof p === "string" ? p : null;
+  if (typeof p === "string" && p) return p;
+  return rule.expense || null;
+}
+
+function excludedExpense(rule: Rule): string | null {
+  const p = rule.params?.expense;
+  if (typeof p === "string" && p) return p;
+  return rule.expense && !rule.params?.item ? rule.expense : null;
 }
 
 function amountOf(rule: Rule): number | null {
@@ -103,7 +113,7 @@ export function evaluatePreview(input: EngineInput, law: Jurisdiction, lawSha256
     }
 
     // 3. exclusion
-    const excluded = rules.filter((r) => r.category === "excluded_expense" && ruleExpense(r) === expense);
+    const excluded = rules.filter((r) => r.category === "excluded_expense" && excludedExpense(r) === expense);
     if (excluded.length) return decide("excluded", excluded, "exclude");
 
     // 4. coverage
