@@ -286,13 +286,9 @@ export function FlowProvider({
         const sha = shortHash(await fileSha(file));
         const { txns, warnings } = await services.statementParser.parse(file);
         const s = stateRef.current;
-        const classified = await services.classifier.classify(
-          txns,
-          ctxFor(
-            s,
-            txns.map((t) => t.date),
-          ),
-        );
+        const dates = txns.map((t) => t.date);
+        const ctx = ctxFor(s, dates);
+        const classified = await services.classifier.classify(txns, ctx);
         const raw = rawFinder(txns);
         const items: FlowItem[] = classified.map((c) => ({
           ...c,
@@ -318,13 +314,9 @@ export function FlowProvider({
       async connectBank() {
         const { txns, billIds, account } = await services.bank();
         const s = stateRef.current;
-        const classified = await services.classifier.classify(
-          txns,
-          ctxFor(
-            s,
-            txns.map((t) => t.date),
-          ),
-        );
+        const dates = txns.map((t) => t.date);
+        const ctx = ctxFor(s, dates);
+        const classified = await services.classifier.classify(txns, ctx);
         const find = rawFinder(txns);
         const items: FlowItem[] = classified.map((c) => {
           const raw = find(c.item_id);
