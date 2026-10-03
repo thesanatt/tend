@@ -180,15 +180,23 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
           />
         </div>
         <figure className={styles.card}>
-          {/* The card is the same static image people see when the link is posted. */}
+          {/* The card is the same static image people see when the link is posted. Its sentence is
+              already on the page beside it, so the alt text says what the image is instead. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={cardPath} width={1200} height={630} alt={summary.share.text} loading="lazy" decoding="async" />
+          <img
+            src={cardPath}
+            width={1200}
+            height={630}
+            alt={`The share card for ${summary.place}, as it looks when the link is posted`}
+            loading="lazy"
+            decoding="async"
+          />
           <figcaption className={styles.cardCites}>
             From{" "}
             {[...new Set(summary.share.clauses.flatMap((c) => c.cites))].map((id, i, all) => (
               <span key={id}>
                 <a href={`/law/${ref.st}#${id}`}>{pinpoint(id)}</a>
-                {i < all.length - 1 ? ", " : ""}
+                {i < all.length - 1 ? "; " : ""}
               </span>
             ))}
             . The program decides every claim.
@@ -199,8 +207,8 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
       <section className={styles.next} aria-labelledby="h-next">
         <h2 id="h-next">When you are ready</h2>
         <p>
-          Tend can check your own costs against this law on this device. It never asks what happened, and nothing leaves
-          your phone unless you send it.
+          Tend can check your own costs against this law on your device. It never asks what happened, and nothing leaves
+          your device unless you send it.
         </p>
         <div className="btn-row">
           <Link href={`/start?st=${ref.st}`} className="btn btn-primary">
