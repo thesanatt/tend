@@ -1,0 +1,176 @@
+.wrap {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+.sheet {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 50rem;
+  padding: var(--space-7);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-1);
+  font-size: var(--text-sm);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-2);
+  padding-bottom: var(--space-5);
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.head h1 {
+  font-size: var(--text-2xl);
+}
+
+.kicker {
+  color: var(--ink-3);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: var(--space-2) 0 0;
+}
+
+.facts dt,
+.summary dt {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.facts dd,
+.summary dd {
+  margin: 0;
+}
+
+.fill {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.section h2 {
+  font-size: var(--text-xl);
+}
+
+.summary {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--space-2);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.table thead th {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.table tfoot th,
+.table tfoot td {
+  font-weight: 700;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 0;
+  text-align: right;
+}
+
+.num {
+  text-align: right !important;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.nowrap {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.rules {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.sub {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+.note {
+  color: var(--ink-2);
+}
+
+.law {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.law blockquote {
+  font-family: var(--font-serif);
+  margin: var(--space-1) 0;
+}
+
+.lawHead .sub {
+  display: inline;
+}
+
+.foot {
+  display: grid;
+  gap: var(--space-1);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+@media print {
+  .wrap {
+    padding: 0;
+  }
+
+  .sheet {
+    max-width: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 10.5pt;
+  }
+
+  .table tr,
+  .law li {
+    break-inside: avoid;
+  }
+}

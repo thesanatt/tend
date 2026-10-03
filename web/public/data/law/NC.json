@@ -1,0 +1,622 @@
+{
+ "jurisdiction": "NC",
+ "name": "North Carolina",
+ "program": {
+  "program_name": "Victim Compensation Program",
+  "agency": "North Carolina Department of Public Safety, Office of Victim Compensation Services (Crime Victims Compensation Commission)",
+  "website": "https://www.ncdps.gov/dps-services/office-victim-compensation-services",
+  "apply_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services",
+  "application_pdf_url": "https://www.ncdps.gov/division/victim-compensation-services/victim-compensation-application-english/download?attachment",
+  "phone": "800-826-6200",
+  "phone_source_id": "NC-S6",
+  "statute_citation": "N.C. Gen. Stat. 15B-1 to 15B-26; forensic exams: N.C. Gen. Stat. 143B-1200",
+  "application_form": {
+   "source_id": "NC-S8",
+   "fillable": true,
+   "field_count": 116
+  }
+ },
+ "sources": [
+  {
+   "id": "NC-S1",
+   "title": "N.C. Gen. Stat. 15B-2 (Definitions)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:04Z",
+   "raw_path": "rules/sources/NC/NC-S1.html",
+   "text_path": "rules/sources/NC/NC-S1.txt",
+   "sha256": "ef3fa0094421cf85f82e072df55062ea4bebed0d9b432d98da7c2883f86e6b83"
+  },
+  {
+   "id": "NC-S2",
+   "title": "N.C. Gen. Stat. 15B-4 (Award of compensation)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-4.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:04Z",
+   "raw_path": "rules/sources/NC/NC-S2.html",
+   "text_path": "rules/sources/NC/NC-S2.txt",
+   "sha256": "335b8337a2a2922ad4d121f083c89c8332bf6d1c541c1f25da3f2a032c72cd2a"
+  },
+  {
+   "id": "NC-S3",
+   "title": "N.C. Gen. Stat. 15B-11 (Grounds for denial of claim or reduction of award)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:05Z",
+   "raw_path": "rules/sources/NC/NC-S3.html",
+   "text_path": "rules/sources/NC/NC-S3.txt",
+   "sha256": "bf9ec2451237c8a8461ebf7450029bc2275fe26793d459f5a186e2ac821a6a4e"
+  },
+  {
+   "id": "NC-S4",
+   "title": "N.C. Gen. Stat. 143B-1200 (Assistance Program for Victims of Rape and Sex Offenses)",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_143B/GS_143B-1200.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:05Z",
+   "raw_path": "rules/sources/NC/NC-S4.html",
+   "text_path": "rules/sources/NC/NC-S4.txt",
+   "sha256": "368d9271d06ac8c0a9aae03129cdb51308edd0c2354f8bfaa172495cbe555315"
+  },
+  {
+   "id": "NC-S5",
+   "title": "NC DPS Victim Compensation Program page and FAQ",
+   "url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:06Z",
+   "raw_path": "rules/sources/NC/NC-S5.html",
+   "text_path": "rules/sources/NC/NC-S5.txt",
+   "sha256": "df30903c19774ca21b337edc10fc32e9f9c5de1105f40dbad1116647fdf62407"
+  },
+  {
+   "id": "NC-S6",
+   "title": "NC DPS Rape Victim Assistance Program page and FAQ",
+   "url": "https://www.ncdps.gov/dps-services/crime-victims-compensation-services/rape-victim-assistance-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:07Z",
+   "raw_path": "rules/sources/NC/NC-S6.html",
+   "text_path": "rules/sources/NC/NC-S6.txt",
+   "sha256": "74898cf8bab248d1b907be7fbef681cef8ee578533bd23c1304be43cc36b1c89"
+  },
+  {
+   "id": "NC-S7",
+   "title": "NC DPS Office of Victim Compensation Services home page",
+   "url": "https://www.ncdps.gov/dps-services/office-victim-compensation-services",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:07Z",
+   "raw_path": "rules/sources/NC/NC-S7.html",
+   "text_path": "rules/sources/NC/NC-S7.txt",
+   "sha256": "676171cca3e246570b52c09dfe058a2e8218f1a0190fd81506476da0089051c1"
+  },
+  {
+   "id": "NC-S8",
+   "title": "NC DPS Victim Compensation Application (Jan 2026, fillable PDF)",
+   "url": "https://www.ncdps.gov/division/victim-compensation-services/victim-compensation-application-english/download?attachment",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:45Z",
+   "raw_path": "rules/sources/NC/NC-S8.pdf",
+   "text_path": "rules/sources/NC/NC-S8.txt",
+   "sha256": "5d16fc082844430139b1352404d9006474c2b012ad3a88224113df1e2c5b4e72"
+  }
+ ],
+ "rules": [
+  {
+   "id": "NC-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "A provider that performs a sexual assault forensic exam may not bill the survivor, the survivor's insurance, Medicaid, Medicare, or any other collateral source for it.",
+   "quote": "A medical facility or medical professional that performs a forensic medical examination shall not bill the victim, the victim's personal insurance, Medicaid, Medicare, or any other collateral source for the examination and other eligible expenses.",
+   "source_id": "NC-S4",
+   "pinpoint": "N.C. Gen. Stat. 143B-1200(c)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_143B/GS_143B-1200.html#:~:text=A%20medical%20facility%20or%20medical,examination%20and%20other%20eligible%20expenses."
+  },
+  {
+   "id": "NC-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Assistance Program for Victims of Rape and Sex Offenses (Rape Victim Assistance Program), NC Department of Public Safety"
+   },
+   "summary": "The state's Assistance Program for Victims of Rape and Sex Offenses (the Rape Victim Assistance Program at NC DPS) pays for forensic exams after a sexual assault or attempted sexual assault in North Carolina.",
+   "quote": "Whenever a forensic medical examination is conducted as a result of a sexual assault or an attempted sexual assault that occurred in this State, the Program shall pay for the cost of the examination.",
+   "source_id": "NC-S4",
+   "pinpoint": "N.C. Gen. Stat. 143B-1200(b)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_143B/GS_143B-1200.html#:~:text=Whenever%20a%20forensic%20medical%20examination,the%20cost%20of%20the%20examination."
+  },
+  {
+   "id": "NC-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Rape Victim Assistance Program; the provider must accept its payment as payment in full"
+   },
+   "summary": "The provider must accept the program's payment as payment in full for the exam, so no balance can be passed to the survivor.",
+   "quote": "A medical facility or medical professional that performs a forensic medical examination shall accept payment made under this section as payment in full of the amount owed for the cost of the examination and other eligible expenses.",
+   "source_id": "NC-S4",
+   "pinpoint": "N.C. Gen. Stat. 143B-1200(c)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_143B/GS_143B-1200.html#:~:text=A%20medical%20facility%20or%20medical,examination%20and%20other%20eligible%20expenses."
+  },
+  {
+   "id": "NC-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 4500000
+   },
+   "summary": "Total compensation for one victim's injury is capped at $45,000, not counting allowable funeral, cremation, and burial expenses.",
+   "quote": "Compensation payable to a victim and to all other claimants sustaining economic loss because of injury to, or the death of, that victim may not exceed forty-five thousand dollars ($45,000) in the aggregate in addition to allowable funeral, cremation, and burial expenses.",
+   "source_id": "NC-S3",
+   "pinpoint": "N.C. Gen. Stat. 15B-11(g)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html#:~:text=Compensation%20payable%20to%20a%20victim,funeral%2C%20cremation%2C%20and%20burial%20expenses."
+  },
+  {
+   "id": "NC-WAGE-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 40000,
+    "per": "week",
+    "count_limit": 26
+   },
+   "summary": "Lost wages are paid at no more than $400 per week for up to 26 weeks from the date of the injury.",
+   "quote": "Compensation for work loss will be limited to 26 weeks commencing from the date of the injury, and compensation shall not exceed four hundred dollars ($400.00) per week.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(14)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=Compensation%20for%20work%20loss%20will,hundred%20dollars%20%28%24400.00%29%20per%20week."
+  },
+  {
+   "id": "NC-WAGE-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages are covered when the survivor was employed at the time of the crime and a physician certifies the survivor was unable to work.",
+   "quote": "A claim for work loss will be paid only upon proof that the injured person was gainfully employed at the time of the criminally injurious conduct and, by physician's certificate, that the injured person was unable to work.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(14)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=A%20claim%20for%20work%20loss,person%20was%20unable%20to%20work."
+  },
+  {
+   "id": "NC-FUN-1",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Funeral, cremation, and burial expenses are covered up to $10,000.",
+   "quote": "Allowable expense includes a total charge not in excess of ten thousand dollars ($10,000) for expenses related to funeral, cremation, and burial, including transportation of a body, but excluding expenses for flowers, gravestone, and other items not directly related to the funeral service.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(1)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=Allowable%20expense%20includes%20a%20total,related%20to%20the%20funeral%20service."
+  },
+  {
+   "id": "NC-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical care is a covered expense, paid at a set share (66 2/3%) of the provider's usual charge.",
+   "quote": "Allowable expense for medical care, counseling, rehabilitation, medically-related property, and other remedial treatment and care of a victim shall be limited to sixty-six and two-thirds percent (66 2/3%) of the amount usually charged by the provider for the treatment or care.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(1)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=Allowable%20expense%20for%20medical%20care%2C,for%20the%20treatment%20or%20care."
+  },
+  {
+   "id": "NC-COUN-1",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Counseling for the victim is a covered expense, paid at a set share (66 2/3%) of the provider's usual charge.",
+   "quote": "Allowable expense for medical care, counseling, rehabilitation, medically-related property, and other remedial treatment and care of a victim shall be limited to sixty-six and two-thirds percent (66 2/3%) of the amount usually charged by the provider for the treatment or care.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(1)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=Allowable%20expense%20for%20medical%20care%2C,for%20the%20treatment%20or%20care."
+  },
+  {
+   "id": "NC-MED-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "A provider that accepts the program's payment for treatment or care must treat it as payment in full and cannot bill the claimant for the rest.",
+   "quote": "By accepting the compensation paid as allowable expense pursuant to this subdivision, the provider agrees that the compensation is payment in full for the treatment or care and shall not charge or otherwise hold a claimant financially responsible for the cost of services in addition to the amount of allowable expense.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(1)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=By%20accepting%20the%20compensation%20paid,the%20amount%20of%20allowable%20expense."
+  },
+  {
+   "id": "NC-DENT-1",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "The program lists medical, counseling, dental or orthodontic, funeral, crime scene cleanup, and lost wages as accepted expenses.",
+   "quote": "Accepted Expenses ✓ Medical ✓ Counseling ✓ Dental or orthodontic ✓ Burial and funeral expenses ✓ Crime scene cleanup ✓ Lost wages",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, Accepted Expenses",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Accepted%20Expenses%20%E2%9C%93%20Medical%20%E2%9C%93,scene%20cleanup%20%E2%9C%93%20Lost%20wages"
+  },
+  {
+   "id": "NC-CLEAN-1",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Crime scene cleanup is an accepted expense when billed by a certified biohazard cleanup company; it may include repairing or replacing doors, locks, and windows as well as cleaning blood stains.",
+   "quote": "Crime scene cleanup Submit the itemized bill from a certified biohazard cleanup company. Services may include repair or replacement of doors, locks and windows, as well as cleanup of blood stains.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, FAQ: What paperwork do I need to submit? (Crime scene cleanup)",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Crime%20scene%20cleanup%20Submit%20the,as%20cleanup%20of%20blood%20stains."
+  },
+  {
+   "id": "NC-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "property damage or loss, lost or stolen money, replacement of property taken as evidence"
+   },
+   "summary": "Property damage or loss, lost or stolen money, and replacing property taken as evidence (for example a phone or clothing) are not accepted.",
+   "quote": "Not Accepted X Property damage or loss X Lost or stolen money X Replacement of property taken as evidence",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, Not Accepted",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Not%20Accepted%20X%20Property%20damage,of%20property%20taken%20as%20evidence"
+  },
+  {
+   "id": "NC-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "item": "travel"
+   },
+   "summary": "Travel is listed as not accepted.",
+   "quote": "X Travel",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, Not Accepted",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=X%20Travel"
+  },
+  {
+   "id": "NC-EXCL-3",
+   "category": "excluded_expense",
+   "params": {
+    "item": "utilities, mortgage or rent"
+   },
+   "summary": "Utilities and mortgage or rent are not accepted.",
+   "quote": "X Utilities X Mortgage or rent",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, Not Accepted",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=X%20Utilities%20X%20Mortgage%20or%20rent"
+  },
+  {
+   "id": "NC-EXCL-4",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering (noneconomic detriment)"
+   },
+   "summary": "The program pays only economic loss, not pain and suffering or other noneconomic harm.",
+   "quote": "Compensation shall only be paid for economic loss and not for noneconomic detriment.",
+   "source_id": "NC-S2",
+   "pinpoint": "N.C. Gen. Stat. 15B-4(a)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-4.html#:~:text=Compensation%20shall%20only%20be%20paid,and%20not%20for%20noneconomic%20detriment."
+  },
+  {
+   "id": "NC-EXCL-5",
+   "category": "excluded_expense",
+   "expense": "legal",
+   "params": {
+    "item": "court fees and expenses"
+   },
+   "summary": "Court fees and expenses are not accepted.",
+   "quote": "X Court fees and expenses",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, Not Accepted",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=X%20Court%20fees%20and%20expenses"
+  },
+  {
+   "id": "NC-REPL-1",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 20000,
+    "per": "week",
+    "count_limit": 26
+   },
+   "summary": "Replacement services loss (paying someone for ordinary household services the injured person would have done) is limited to $200 per week for up to 26 weeks from the date of the injury.",
+   "quote": "Replacement service loss will be limited to a 26-week period commencing from the date of the injury, and compensation may not exceed two hundred dollars ($200.00) per week.",
+   "source_id": "NC-S1",
+   "pinpoint": "N.C. Gen. Stat. 15B-2(12)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-2.html#:~:text=Replacement%20service%20loss%20will%20be,hundred%20dollars%20%28%24200.00%29%20per%20week."
+  },
+  {
+   "id": "NC-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime"
+   },
+   "summary": "An application must be filed within two years after the date of the crime.",
+   "quote": "The claimant fails to file an application for an award within two years after the date of the criminally injurious conduct that caused the injury or death for which the claimant seeks the award.",
+   "source_id": "NC-S3",
+   "pinpoint": "N.C. Gen. Stat. 15B-11(a)(1)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html#:~:text=The%20claimant%20fails%20to%20file,the%20claimant%20seeks%20the%20award."
+  },
+  {
+   "id": "NC-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "The crime must be reported to law enforcement within six months unless there was good cause for the delay.",
+   "quote": "The criminally injurious conduct was not reported to a law enforcement officer or agency within six months of its occurrence, and there was no good cause for the delay.",
+   "source_id": "NC-S3",
+   "pinpoint": "N.C. Gen. Stat. 15B-11(a)(3)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html#:~:text=The%20criminally%20injurious%20conduct%20was,good%20cause%20for%20the%20delay."
+  },
+  {
+   "id": "NC-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "An award is reduced by anything insurance or another collateral source pays or will pay for the same loss.",
+   "quote": "An award that has been approved shall nevertheless be denied or reduced to the extent that the economic loss upon which the claim is based is or will be recouped from a collateral source.",
+   "source_id": "NC-S3",
+   "pinpoint": "N.C. Gen. Stat. 15B-11(d)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html#:~:text=An%20award%20that%20has%20been,recouped%20from%20a%20collateral%20source."
+  },
+  {
+   "id": "NC-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays last, after private or public insurance; deductibles and co-pays may be reimbursed.",
+   "quote": "Like other compensation programs, North Carolina is a payer of last resort, meaning victims should first submit expenses to private or public insurance companies. Deductibles and co-pays may be reimbursed.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, FAQ: Do I need to file a claim with my insurance?",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Like%20other%20compensation%20programs%2C%20North,and%20co%2Dpays%20may%20be%20reimbursed."
+  },
+  {
+   "id": "NC-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "A claim may be denied or reduced for the victim's contributory misconduct, with an exception for trafficking victims who were coerced or deceived.",
+   "quote": "The claimant or a victim through whom the claimant claims engaged in contributory misconduct, unless the claimant or victim through whom the claimant claims is a victim as defined by G.S. 14-43.10(a) and was coerced or deceived into participating in the contributory misconduct as a direct result of the person's status as a victim.",
+   "source_id": "NC-S3",
+   "pinpoint": "N.C. Gen. Stat. 15B-11(b)(2)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html#:~:text=The%20claimant%20or%20a%20victim,person%27s%20status%20as%20a%20victim."
+  },
+  {
+   "id": "NC-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "A claim may be denied or reduced if the claimant or victim, without good cause, did not fully cooperate with law enforcement or the prosecution.",
+   "quote": "A claim may be denied, an award of compensation may be reduced, and a claim that has already been decided may be reconsidered upon finding that the claimant or victim, without good cause, has not fully cooperated with appropriate law enforcement agencies or in the prosecution of criminal cases with regard to the criminally injurious conduct that is the basis for the award.",
+   "source_id": "NC-S3",
+   "pinpoint": "N.C. Gen. Stat. 15B-11(c)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-11.html#:~:text=A%20claim%20may%20be%20denied%2C,the%20basis%20for%20the%20award."
+  },
+  {
+   "id": "NC-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Rape victims are eligible to apply.",
+   "quote": "Victims of rape, assault, domestic violence, drunk driving and pedestrian hit and run, as well as the families of homicide victims, are eligible to apply for financial help.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, FAQ: What financial support is available?",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Victims%20of%20rape%2C%20assault%2C%20domestic,to%20apply%20for%20financial%20help."
+  },
+  {
+   "id": "NC-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in North Carolina; NC residents victimized in a state with no victim compensation program"
+   },
+   "summary": "The crime must have happened in North Carolina, except that a North Carolina resident hurt in a state with no compensation program may qualify.",
+   "quote": "Compensation shall only be awarded for criminally injurious conduct that occurs or is attempted in this State except that criminally injurious conduct that occurs or is attempted against a resident of this State while in another state which does not have a victims compensation program of any type may be a basis of compensation.",
+   "source_id": "NC-S2",
+   "pinpoint": "N.C. Gen. Stat. 15B-4(b)",
+   "fragment_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15B/GS_15B-4.html#:~:text=Compensation%20shall%20only%20be%20awarded,be%20a%20basis%20of%20compensation."
+  },
+  {
+   "id": "NC-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Non-residents eligible for crimes in North Carolina"
+   },
+   "summary": "Survivors do not need to be North Carolina residents if the crime happened in North Carolina.",
+   "quote": "Victims do not need to be residents of North Carolina.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, FAQ: Am I eligible?",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Victims%20do%20not%20need%20to%20be%20residents%20of%20North%20Carolina."
+  },
+  {
+   "id": "NC-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Office of Victim Compensation Services 4232 Mail Service Center Raleigh, NC 27699-4232"
+   },
+   "summary": "A paper application can be mailed to the Office of Victim Compensation Services, 4232 Mail Service Center, Raleigh, NC 27699-4232.",
+   "quote": "If you prefer to apply by mail, you may download and print a paper form . Mail your application to: Office of Victim Compensation Services 4232 Mail Service Center Raleigh, NC 27699-4232",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program page, How to Apply",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=If%20you%20prefer%20to%20apply,Service%20Center%20Raleigh%2C%20NC%2027699%2D4232"
+  },
+  {
+   "id": "NC-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "ncdps.gov/4victims"
+   },
+   "summary": "Survivors can start an application online through ncdps.gov/4victims, which leads to the program's online portal.",
+   "quote": "To learn more about the program and start an application, visit ncdps.gov/4victims.",
+   "source_id": "NC-S6",
+   "pinpoint": "NC DPS Rape Victim Assistance Program FAQ, 'Is financial help available for medical expenses beyond the cost of the forensic exam?'",
+   "fragment_url": "https://www.ncdps.gov/dps-services/crime-victims-compensation-services/rape-victim-assistance-program#:~:text=To%20learn%20more%20about%20the,start%20an%20application%2C%20visit%20ncdps.gov%2F4victims."
+  },
+  {
+   "id": "NC-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "the application, completed, signed, and dated"
+   },
+   "summary": "The application must be completed, signed, and dated.",
+   "quote": "Complete, sign, and date the application.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Complete%2C%20sign%2C%20and%20date%20the%20application."
+  },
+  {
+   "id": "NC-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "law enforcement report or warrant that lists the victim's name"
+   },
+   "summary": "Include a copy of the law enforcement report or warrant that names the victim.",
+   "quote": "Include a copy of the law enforcement report or warrant that lists the victim’s name.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Include%20a%20copy%20of%20the,that%20lists%20the%20victim%E2%80%99s%20name."
+  },
+  {
+   "id": "NC-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "from medical or counseling providers"
+   },
+   "summary": "Medical and counseling expenses need itemized bills from the providers.",
+   "quote": "Submit itemized bills from certified providers of medical or counseling services.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Medical and counseling services)",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Submit%20itemized%20bills%20from%20certified,of%20medical%20or%20counseling%20services."
+  },
+  {
+   "id": "NC-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "proof of any payments by the victim, third parties, or insurance"
+   },
+   "summary": "Include proof of any payments already made toward the itemized bills, by the victim, third parties, or insurance.",
+   "quote": "Provide proof of payment made towards any of the itemized bills by the victim, third parties, or insurance companies.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'How can applicants avoid delays?'",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Provide%20proof%20of%20payment%20made,third%20parties%2C%20or%20insurance%20companies."
+  },
+  {
+   "id": "NC-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "employed: physician's letter with dates out of work, employer letter confirming the absence, last paystub before the crime"
+   },
+   "summary": "For lost wages, an employed survivor sends a physician's letter on letterhead, an employer letter confirming the absence, and the last paystub before the crime.",
+   "quote": "If you have an employer, you should submit a signed physician’s letter on the provider’s letterhead that details the dates and reasons you were advised to be out of work, an official employer letter on company letterhead that confirms your approved absence and your last paystub before the incident.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Lost wages)",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=If%20you%20have%20an%20employer%2C,last%20paystub%20before%20the%20incident."
+  },
+  {
+   "id": "NC-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "self-employed or independent contractor: physician's letter plus signed federal tax return from the year before the crime"
+   },
+   "summary": "For lost wages, a self-employed survivor sends a physician's letter on letterhead and a signed federal tax return from the year before the crime.",
+   "quote": "If you are self-employed or are an independent contractor, you’ll need a signed physician’s letter on the provider’s letterhead and a copy of your signed federal tax return from the year before the crime.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Lost wages)",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=If%20you%20are%20self%2Demployed%20or,the%20year%20before%20the%20crime."
+  },
+  {
+   "id": "NC-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "dental claims: proposed treatment plan on the dentist's letterhead (optional)"
+   },
+   "summary": "For dental care, a survivor may send a proposed treatment plan on the dentist's letterhead.",
+   "quote": "You may submit a proposed treatment plan on your dentist’s letterhead.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Dental services)",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=You%20may%20submit%20a%20proposed,plan%20on%20your%20dentist%E2%80%99s%20letterhead."
+  },
+  {
+   "id": "NC-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "funeral claims: death certificate, itemized funeral bill, law enforcement report"
+   },
+   "summary": "Funeral claims need a copy of the death certificate, the itemized funeral bill, and the law enforcement report.",
+   "quote": "Submit a copy of the death certificate, itemized funeral bill and the law enforcement report.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What paperwork do I need to submit with my application?' (Funeral expenses)",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=Submit%20a%20copy%20of%20the,and%20the%20law%20enforcement%20report."
+  },
+  {
+   "id": "NC-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "months": 6,
+    "min_months": 3,
+    "basis": "average"
+   },
+   "summary": "The program says the average processing time is three to six months from when it receives the application.",
+   "quote": "From the time an application is received, the average processing time is between three to six months.",
+   "source_id": "NC-S5",
+   "pinpoint": "NC DPS Victim Compensation Program FAQ, 'What happens after I submit my application?'",
+   "fragment_url": "https://www.ncdps.gov/dps-services/victim-compensation-services/victim-compensation-services#:~:text=From%20the%20time%20an%20application,between%20three%20to%20six%20months."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "emergency_award",
+   "expense_cap:counseling (victim)",
+   "expense_cap:relocation",
+   "expense_cap:transportation",
+   "expense_cap:security",
+   "expense_cap:medical (dollar cap)",
+   "covered_expense:relocation",
+   "covered_expense:security",
+   "reporting_requirement:alternatives for sexual assault",
+   "submission:email",
+   "submission:fax",
+   "submission:in_person"
+  ],
+  "notes": "No minimum loss: the old minimum in G.S. 15B-11(e) was repealed in 1998 and nothing replaced it in the saved text. No emergency award found in Chapter 15B or 14B NCAC 09 Section .0300 (only partial payments under 14B NCAC 09 .0305). The statute gives no police-report alternative for sexual assault; it allows a report after six months only for good cause. Relocation and security are not listed as accepted or excluded. The $3,000 per-family counseling cap in G.S. 15B-2(1) applies only to immediate family members of child victims of rape, sexual assault, or domestic violence (and homicide families), so it is not recorded as a cap on the survivor's own counseling. Locks, doors, and windows appear only as part of crime scene cleanup on the agency page (NC-CLEAN-1), so no separate security rule is recorded."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statutes pulled from ncleg.gov (current through Session Laws 2026-53 per section history). Medical, counseling, and remedial care are paid at 66 2/3% of the provider's usual charge, which the provider must accept as payment in full (G.S. 15B-2(1)). Economic loss must be incurred within one year of the crime (two years for victims 18 or younger, with an exception for new medical or counseling costs), G.S. 15B-11(a)(2). The agency FAQ (NC-S5) says the two-year filing deadline has exceptions for the unreported sexual assault of a minor child and for missing persons later found to be homicide victims; I did not find that exception in the saved statute text, so it is not encoded. The Rape Victim Assistance Program pays providers up to $1,500 per exam (physician or SANE $600, facility $500, other $400) under G.S. 143B-1200(d); that is a payment limit to providers, not a cost to the survivor, so it is not encoded as a survivor cap. Administrative rules (14B NCAC 09 .0301-.0305) set procedure only, no caps or rates. The agency 'Not Accepted' list includes 'Travel', recorded as excluded transportation. How to file: the agency page (NC-S5) gives an online portal and a mail address; the online start point is recorded as ncdps.gov/4victims because that is the address written in the saved text (the 'Start an Application' and log-in links in NC-S5.html point to https://victim-comp.ncdps.gov/users/sign_in, which does not appear as text). The paper application (NC-S8, the January 2026 version at program.application_pdf_url) ends with 'Please mail to' the same 4232 Mail Service Center address and lists a fax number, 919-715-4209, as contact information; it does not say applications may be faxed, so no fax submission rule is recorded. NC-S8 is a fillable AcroForm with 116 fields. The application also asks warrant-based cases to submit a copy of the warrant, which is covered by NC-DOC-2 (report or warrant). No photo ID or proof of residency is asked for; non-residents can apply for crimes in North Carolina."
+}

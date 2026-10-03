@@ -1,0 +1,835 @@
+{
+ "jurisdiction": "OR",
+ "name": "Oregon",
+ "program": {
+  "program_name": "Crime Victims' Compensation (CVC) Program",
+  "agency": "Oregon Department of Justice, Crime Victim and Survivor Services Division",
+  "website": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/compensation-for-victims-of-crime/",
+  "apply_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/cvc-portal/",
+  "application_pdf_url": "https://www.doj.state.or.us/wp-content/uploads/2026/01/CVC-Application-English-2026-fillable.pdf",
+  "phone": "503-378-5348",
+  "phone_source_id": "OR-S2",
+  "statute_citation": "ORS 147.005 to 147.367 (compensation); ORS 147.395 to 147.399 (SAVE Fund); OAR 137-076 and 137-084",
+  "application_form": {
+   "source_id": "OR-S7",
+   "fillable": true,
+   "field_count": 140
+  }
+ },
+ "sources": [
+  {
+   "id": "OR-S1",
+   "title": "ORS Chapter 147 (Crime Victims; compensation and SAVE Fund)",
+   "url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:28Z",
+   "raw_path": "rules/sources/OR/OR-S1.html",
+   "text_path": "rules/sources/OR/OR-S1.txt",
+   "sha256": "29cb905ed2ce161289c124a8b8048aec9f5cf5b0a719861bf8b495afb4cbf02e"
+  },
+  {
+   "id": "OR-S2",
+   "title": "Oregon DOJ: Compensation for Victims of Crime",
+   "url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/compensation-for-victims-of-crime/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:28Z",
+   "raw_path": "rules/sources/OR/OR-S2.html",
+   "text_path": "rules/sources/OR/OR-S2.txt",
+   "sha256": "b208332c6f58dbdfe5e6cfe31d3c047c53bdaf0b8622a0823f879f338a4290ce"
+  },
+  {
+   "id": "OR-S3",
+   "title": "Oregon DOJ: Crime Victims' Compensation FAQ",
+   "url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:38Z",
+   "raw_path": "rules/sources/OR/OR-S3.html",
+   "text_path": "rules/sources/OR/OR-S3.txt",
+   "sha256": "27fc4648b6d88d72b4a449868de1378c68d9bdc03c4df6e59a647b3d0f7ba71c"
+  },
+  {
+   "id": "OR-S4",
+   "title": "Oregon DOJ: Crime Victims' Compensation brochure (2024)",
+   "url": "https://www.doj.state.or.us/wp-content/uploads/2024/02/CVC-Brochure-English-2024_final.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:47:38Z",
+   "raw_path": "rules/sources/OR/OR-S4.pdf",
+   "text_path": "rules/sources/OR/OR-S4.txt",
+   "sha256": "d14b064bfc592d5a90bc61922055bc5088cf6266fd771138d4212c5273b806d5"
+  },
+  {
+   "id": "OR-S5",
+   "title": "Oregon DOJ: Applying for Crime Victims' Compensation",
+   "url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/cvc-portal/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:39Z",
+   "raw_path": "rules/sources/OR/OR-S5.html",
+   "text_path": "rules/sources/OR/OR-S5.txt",
+   "sha256": "8993d72879c04629911a826303273e199584bc0df4bc678f6af55175f60299c6"
+  },
+  {
+   "id": "OR-S6",
+   "title": "Oregon DOJ: SAVE Fund/SKIT Information for Medical Providers",
+   "url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/for-medical-providers/save-fund-information-for-medical-providers/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:39Z",
+   "raw_path": "rules/sources/OR/OR-S6.html",
+   "text_path": "rules/sources/OR/OR-S6.txt",
+   "sha256": "9d1819efac09acb6eb23ebc54dbaef355eba49c097c9799cf61327af153f33ad"
+  },
+  {
+   "id": "OR-S7",
+   "title": "Oregon Crime Victims' Compensation Application (English, 2026)",
+   "url": "https://www.doj.state.or.us/wp-content/uploads/2026/01/CVC-Application-English-2026-fillable.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:47:48Z",
+   "raw_path": "rules/sources/OR/OR-S7.pdf",
+   "text_path": "rules/sources/OR/OR-S7.txt",
+   "sha256": "c9769421f2f961eea7eeda01565aad542bb256cb52c054db47c56372bbee7041"
+  },
+  {
+   "id": "OR-S8",
+   "title": "OAR Chapter 137 Division 84 (SAVE Fund)",
+   "url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:22Z",
+   "raw_path": "rules/sources/OR/OR-S8.html",
+   "text_path": "rules/sources/OR/OR-S8.txt",
+   "sha256": "a8c5a4dd4d06fceef3a60e27c014de75b15a4f86878ba8c1e0c4b6d304c98308"
+  },
+  {
+   "id": "OR-S9",
+   "title": "Oregon DOJ: Sexual Assault Victims' Emergency Medical Response (SAVE) Fund",
+   "url": "https://www.doj.state.or.us/crime-victims/victims-resources/victims-services/sexual-assault-victims-emergency-medical-response-save-fund/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:58Z",
+   "raw_path": "rules/sources/OR/OR-S9.html",
+   "text_path": "rules/sources/OR/OR-S9.txt",
+   "sha256": "e94f296dba47c322fab505ce06fef66d9e8ac49b3d9d6bc318cc35c45cff864a"
+  },
+  {
+   "id": "OR-S10",
+   "title": "OAR Chapter 137 Division 76 (Crime Victims' Compensation)",
+   "url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:39Z",
+   "raw_path": "rules/sources/OR/OR-S10.html",
+   "text_path": "rules/sources/OR/OR-S10.txt",
+   "sha256": "2b20bf516b41f336ea39eefd2948f9aff3aa2b65247f67e1b3ee8b25d6099d04"
+  }
+ ],
+ "rules": [
+  {
+   "id": "OR-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A provider that bills the SAVE Fund for a sexual assault medical assessment may not bill the survivor for it, unless the Fund lacks money or declines to pay. The statute does not address billing the survivor's insurance; the SAVE Fund rule does, and it bars billing insurance too.",
+   "quote": "A provider who submits a bill under this subsection may not bill the victim for the medical assessment except to the extent that the department is unable to pay the bill due to lack of funds or declines to pay the bill.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.397(4)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=A%20provider%20who%20submits%20a,declines%20to%20pay%20the%20bill."
+  },
+  {
+   "id": "OR-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "A provider that bills the SAVE Fund may not bill the survivor or the survivor's insurance for the exam, evidence collection, or other services given with the exam (exceptions: the Fund lacks money or declines to pay for reasons other than a late or incomplete bill).",
+   "quote": "An eligible medical services provider (including subcontractor or other designee) who submits a bill to the Fund under these rules may not bill the victim or the victim's insurance carrier for a medical examination, collection of forensic evidence using the Oregon State Police SAFE Kit, or other services provided in conjunction with the sexual assault exam",
+   "source_id": "OR-S8",
+   "pinpoint": "OAR 137-084-0020(4)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310#:~:text=An%20eligible%20medical%20services%20provider,with%20the%20sexual%20assault%20exam"
+  },
+  {
+   "id": "OR-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Oregon Department of Justice, Sexual Assault Victims' Emergency Medical Response (SAVE) Fund"
+   },
+   "summary": "The Oregon Department of Justice pays for a sexual assault medical assessment through the SAVE Fund, subject to available funds and the time frame set by rule.",
+   "quote": "Subject to the availability of funds from gifts, grants and donations in the Sexual Assault Victims' Emergency Medical Response Fund, the Department of Justice shall pay the costs of a medical assessment obtained by a victim if the victim obtains the medical assessment within the time frame established in rules adopted by the department.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.397(1)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Subject%20to%20the%20availability%20of,rules%20adopted%20by%20the%20department."
+  },
+  {
+   "id": "OR-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Oregon Department of Justice, SAVE Fund"
+   },
+   "summary": "A survivor can get a SAVE Fund paid medical assessment without reporting the assault to police.",
+   "quote": "A victim may obtain a medical assessment and complete and submit a form under this section regardless of whether the victim reports the sexual assault to a law enforcement agency.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.397(8)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=A%20victim%20may%20obtain%20a,to%20a%20law%20enforcement%20agency."
+  },
+  {
+   "id": "OR-EXAM-6",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {},
+   "summary": "The SAVE Fund also covers 5 counseling sessions, which must be used within 18 months of the exam.",
+   "quote": "Five (5) counseling sessions; counseling sessions expire 18 months from the date of the sexual assault exam.",
+   "source_id": "OR-S8",
+   "pinpoint": "OAR 137-084-0020(1)(k)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310#:~:text=Five%20%285%29%20counseling%20sessions%3B%20counseling,of%20the%20sexual%20assault%20exam."
+  },
+  {
+   "id": "OR-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 4700000
+   },
+   "summary": "The most compensation that can be awarded in total is $47,000.",
+   "quote": "The maximum amount of compensation that may be awarded, in aggregate, to the victim and the survivors and dependents of a deceased victim is $47,000.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(1)(b)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20maximum%20amount%20of%20compensation,a%20deceased%20victim%20is%20%2447%2C000."
+  },
+  {
+   "id": "OR-CAP-MED",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "amount_cents": 2000000,
+    "per": "claim"
+   },
+   "summary": "Medical and hospital expenses, including counseling and medications, are covered up to $20,000 combined.",
+   "quote": "The victim's reasonable medical and hospital expenses, including counseling expenses and the cost of any medications, up to a maximum amount of $20,000",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(a)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%27s%20reasonable%20medical%20and,a%20maximum%20amount%20of%20%2420%2C000"
+  },
+  {
+   "id": "OR-CAP-COUNS",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "amount_cents": 2000000,
+    "per": "claim"
+   },
+   "summary": "The victim's counseling counts toward the same $20,000 limit as medical and hospital expenses.",
+   "quote": "The victim's reasonable medical and hospital expenses, including counseling expenses and the cost of any medications, up to a maximum amount of $20,000",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(a)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%27s%20reasonable%20medical%20and,a%20maximum%20amount%20of%20%2420%2C000"
+  },
+  {
+   "id": "OR-CAP-COUNS-LTD",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "An applicant who does not meet the eligibility requirements (for example, the reporting requirement) may still get a limited counseling award of up to $5,000.",
+   "quote": "If the applicant files an application for a compensable crime and does not meet the eligibility requirements set forth in ORS 147.015, the Department may grant a limited counseling award of up to $5,000.00.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0016(6)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=If%20the%20applicant%20files%20an,award%20of%20up%20to%20%245%2C000.00."
+  },
+  {
+   "id": "OR-COUNS-SESS",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {},
+   "summary": "On an approved claim, CVC pays for 30 counseling sessions and needs a treatment plan from the provider for more.",
+   "quote": "If CVC approves the claim, we can pay for 30 counseling sessions. We require a treatment plan from the provider for any further sessions.",
+   "source_id": "OR-S3",
+   "pinpoint": "CVC FAQ, How much do compensation benefits cover?",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/#:~:text=If%20CVC%20approves%20the%20claim%2C,provider%20for%20any%20further%20sessions."
+  },
+  {
+   "id": "OR-CAP-WAGE-WK",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "amount_cents": 60000,
+    "per": "week"
+   },
+   "summary": "Lost earnings are paid at up to $600 per week.",
+   "quote": "Loss of the victim's earnings, at a maximum rate of $600 per week, up to a maximum amount of $20,000",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(b)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Loss%20of%20the%20victim%27s%20earnings%2C,a%20maximum%20amount%20of%20%2420%2C000"
+  },
+  {
+   "id": "OR-CAP-WAGE",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "amount_cents": 2000000,
+    "per": "claim"
+   },
+   "summary": "Lost earnings are capped at $20,000 in total.",
+   "quote": "Loss of the victim's earnings, at a maximum rate of $600 per week, up to a maximum amount of $20,000",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(b)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Loss%20of%20the%20victim%27s%20earnings%2C,a%20maximum%20amount%20of%20%2420%2C000"
+  },
+  {
+   "id": "OR-WAGE-RATE",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {},
+   "summary": "Lost earnings are figured at 75% of the victim's documented gross earnings on the date of the crime.",
+   "quote": "Compensation for lost earnings under ORS 147.035(2)(b) shall be computed on the basis of 75% of the victim's documented gross earnings on the date of the compensable crime.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0025(3)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Compensation%20for%20lost%20earnings%20under,date%20of%20the%20compensable%20crime."
+  },
+  {
+   "id": "OR-WAGE-DOC",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {},
+   "summary": "Missing more than 10 working days requires confirmation from a health provider, or a licensed therapist for an emotional injury.",
+   "quote": "Lost earnings compensation for periods of disability in excess of 10 working days may be paid only if the period of disability is confirmed by a health provider , or a licensed therapist when the victim has missed work due to an emotional injury.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0025(1)(c)(C)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Lost%20earnings%20compensation%20for%20periods,due%20to%20an%20emotional%20injury."
+  },
+  {
+   "id": "OR-CAP-WAGE-PARENT",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "A parent or guardian who misses work to care for a minor victim can get up to $5,000 in lost earnings.",
+   "quote": "Loss of earnings for the parent or guardian are compensable up to a maximum of $5,000.00 under the child victim's claim under ORS 147.035 (2)(f).",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0025(2)(d)(C)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Loss%20of%20earnings%20for%20the,claim%20under%20ORS%20147.035%20%282%29%28f%29."
+  },
+  {
+   "id": "OR-CAP-TRANS",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "amount_cents": 300000,
+    "per": "claim"
+   },
+   "summary": "Travel for the victim's covered medical care or counseling is paid up to $3,000, only when the care is more than 30 miles from home and adequate care is not available closer.",
+   "quote": "Expenses related to transportation for the victim's medical care or counseling, at a rate determined by the Department of Justice, up to a maximum amount of $3,000, when: (A) The medical care or counseling is compensable under this section; (B) The medical care or counseling is provided more than 30 miles away from the victim's residence; and (C) Adequate medical care or counseling is not available in closer proximity to the victim's residence.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(g)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Expenses%20related%20to%20transportation%20for,proximity%20to%20the%20victim%27s%20residence."
+  },
+  {
+   "id": "OR-TRANS-RATE",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {},
+   "summary": "Mileage to medical and mental health treatment is reimbursed at 50 cents per mile, up to $3,000.",
+   "quote": "Reimbursement of mileage (50¢ per mile) for travel to medical and mental health treatment, up to $3,000.",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024), What Does CVC Pay For?"
+  },
+  {
+   "id": "OR-CAP-REHAB",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "amount_cents": 400000,
+    "per": "claim"
+   },
+   "summary": "Rehabilitation expenses, such as physical therapy, are covered up to $4,000.",
+   "quote": "The victim's rehabilitation expenses, up to a maximum amount of $4,000",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(c)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%27s%20rehabilitation%20expenses%2C%20up,a%20maximum%20amount%20of%20%244%2C000"
+  },
+  {
+   "id": "OR-CAP-CLEAN",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleaning is covered up to $2,500.",
+   "quote": "Reasonable cleaning expenses, up to a maximum of $2,500",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(2)(d)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Reasonable%20cleaning%20expenses%2C%20up%20to%20a%20maximum%20of%20%242%2C500"
+  },
+  {
+   "id": "OR-COV-DEVICES",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {},
+   "summary": "Damaged eyeglasses, hearing aids, dentures and other medically necessary devices can be replaced if mentioned in the police report or medical chart notes.",
+   "quote": "Replacement of damaged eyeglasses, hearing aids, dentures and other medically necessary devices and expenses (must be mentioned in the police report or medical chart notes)",
+   "source_id": "OR-S2",
+   "pinpoint": "Compensation for Victims of Crime page, benefits list",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/compensation-for-victims-of-crime/#:~:text=Replacement%20of%20damaged%20eyeglasses%2C%20hearing,report%20or%20medical%20chart%20notes%29"
+  },
+  {
+   "id": "OR-COV-DENTAL",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {},
+   "summary": "Crime-related dental work is covered; without insurance, CVC must first approve a treatment plan from a licensed dental provider.",
+   "quote": "If you do not have insurance, CVC must review and approve a treatment plan provided by a licensed dental provider. All treatment needs to be directly related to the crime.",
+   "source_id": "OR-S3",
+   "pinpoint": "CVC FAQ, dental work",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/#:~:text=If%20you%20do%20not%20have,directly%20related%20to%20the%20crime."
+  },
+  {
+   "id": "OR-EXCL-PROP",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {},
+   "summary": "Compensation is not paid for property damage or for noneconomic damages.",
+   "quote": "Compensation may not be awarded under ORS 147.005 to 147.367 for property damage or noneconomic damages as defined in ORS 31.705.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.035(5)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Compensation%20may%20not%20be%20awarded,as%20defined%20in%20ORS%2031.705."
+  },
+  {
+   "id": "OR-EXCL-PROP-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "lost items or property damage"
+   },
+   "summary": "CVC cannot pay for lost items or property damage.",
+   "quote": "The CVC Program cannot pay for lost items or property damage.",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024)"
+  },
+  {
+   "id": "OR-EXCL-RELO",
+   "category": "excluded_expense",
+   "expense": "relocation",
+   "params": {},
+   "summary": "CVC does not pay relocation costs.",
+   "quote": "CVC can not reimburse damages for property crimes, or pay for relocation costs.",
+   "source_id": "OR-S2",
+   "pinpoint": "Compensation for Victims of Crime page",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/compensation-for-victims-of-crime/#:~:text=CVC%20can%20not%20reimburse%20damages,or%20pay%20for%20relocation%20costs."
+  },
+  {
+   "id": "OR-EXCL-SAVE",
+   "category": "excluded_expense",
+   "params": {
+    "item": "SAVE Fund exclusions: DNA testing, off-site prescriptions, follow-up services, anesthesia, transportation"
+   },
+   "summary": "The SAVE Fund does not pay for DNA testing, prescriptions filled off-site, follow-up services, anesthesia, or transportation; the provider may bill these to the survivor or insurance, and CVC may cover them on an accepted claim.",
+   "quote": "Examples of services not covered by the Fund include, but are not limited to: DNA testing; prescriptions filled off-site of the location of a medical examination; follow-up services; anesthesia services; and transportation.",
+   "source_id": "OR-S8",
+   "pinpoint": "OAR 137-084-0030(1)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310#:~:text=Examples%20of%20services%20not%20covered,services%3B%20anesthesia%20services%3B%20and%20transportation."
+  },
+  {
+   "id": "OR-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "crime",
+    "extension": "good cause shown, at the department's discretion"
+   },
+   "summary": "The application must be filed within one year of the injury, or later if the department allows an extension for good cause.",
+   "quote": "Within one year of the date of the injury to the victim; or (B) Within such further extension of time as the department, for good cause shown, allows.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.015(1)(e)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Within%20one%20year%20of%20the,for%20good%20cause%20shown%2C%20allows."
+  },
+  {
+   "id": "OR-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "crime",
+    "extension": "good cause includes lack of knowledge of the program, police failure to inform, or emotional or physical trauma"
+   },
+   "summary": "Good cause for filing after one year includes not knowing about the program, police not giving the required information, or trauma that got in the way of filing on time.",
+   "quote": "\"Good cause\" for failure to file an application for compensation within one year of the date of the crime as required by ORS 147.015(1)(e) includes but is not limited to the victim's lack of knowledge of the Crime Victims' Compensation Program, failure of a law enforcement official to provide information to the victim as required by ORS 147.365(1), or emotional or physical trauma sustained by the victim that was a barrier to timely filing the application for compensation.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0030(2)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=%22Good%20cause%22%20for%20failure%20to,filing%20the%20application%20for%20compensation."
+  },
+  {
+   "id": "OR-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "The crime must be reported to law enforcement, unless the department finds the applicant acted reasonably in not reporting. No fixed number of days is set.",
+   "quote": "The appropriate law enforcement officials were notified of the perpetration of the crime allegedly causing the death or injury to the victim, unless the Department of Justice finds that, notwithstanding the failure of notification, the applicant acted reasonably under the circumstances",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.015(1)(b)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20appropriate%20law%20enforcement%20officials,acted%20reasonably%20under%20the%20circumstances"
+  },
+  {
+   "id": "OR-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam",
+     "medical_provider",
+     "other"
+    ]
+   },
+   "summary": "The reporting requirement is also met by a sexual assault medical assessment or other forensic exam, or a health or mental health provider certifying the victim reported to them, or other documentation the department accepts.",
+   "quote": "(E) A medical assessment, as defined in ORS 147.395, for sexual assault, or any other forensic exam or medical assessment; (b) A health provider, tribal health provider, student health provider or community mental health provider certifies that the victim reported the crime to the provider; or (c) The victim provides to the department documentation that qualifies as law enforcement notification under the rules of the department.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.015(2)(a)(E), (2)(b), (2)(c)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=%28E%29%20A%20medical%20assessment%2C%20as,the%20rules%20of%20the%20department."
+  },
+  {
+   "id": "OR-REPORT-5",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "protective_order"
+    ]
+   },
+   "summary": "Getting a sexual abuse restraining order (or a stalking, abuse prevention or no contact order) because of the crime also meets the reporting requirement.",
+   "quote": "A sexual abuse restraining order under ORS 163.760 to 163.777",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.015(2)(a)(B)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=A%20sexual%20abuse%20restraining%20order%20under%20ORS%20163.760%20to%20163.777"
+  },
+  {
+   "id": "OR-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam",
+     "medical_provider",
+     "protective_order"
+    ]
+   },
+   "summary": "Survivors can meet the reporting requirement by reporting to police, telling a medical or mental health provider, getting a protective order, or getting a forensic exam.",
+   "quote": "You may report your crime in one of the following ways: • Report to law enforcement • Report to a medical or mental health provider • Obtain a protective order • Obtain a forensic medical exam due to sexual assault or strangulation",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024), Reporting Requirements"
+  },
+  {
+   "id": "OR-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "The report (or alternative) must happen before the department receives the application.",
+   "quote": "Notification of the perpetration of the crime as required by ORS 147.015 must have been done prior to the application being received by the Department in order for a person to be eligible for an award of compensation.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0016(4)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Notification%20of%20the%20perpetration%20of,for%20an%20award%20of%20compensation."
+  },
+  {
+   "id": "OR-COLLATERAL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The award is reduced by benefits from workers' compensation, government funds, or any other source the victim received or is entitled to.",
+   "quote": "shall deduct the amount of benefits, payments or awards that are payable under the Workers' Compensation Law, from local governmental, state or federal funds or from any source, and that the victim or survivors or dependents of the victim have received or to which the victim or survivors or dependents of the victim are entitled as a result of the death or injury of the victim",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.125(1)(c)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=shall%20deduct%20the%20amount%20of,or%20injury%20of%20the%20victim"
+  },
+  {
+   "id": "OR-COLLATERAL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Health insurance (including OHP), auto, workers' comp, disability, homeowner's, Paid Leave Oregon, unemployment, restitution and settlements must be used first; Indian Health Services is not a prior resource.",
+   "quote": "A prior resource may include but is not limited to: private or public health insurance, automobile insurance, workers' compensation, disability insurance, homeowner's insurance, Paid Leave Oregon or equivalent plan, unemployment benefits, restitution, civil settlements, and tribal per capita payments. Indian Health Services insurance is not considered a prior resource.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0040",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=A%20prior%20resource%20may%20include,not%20considered%20a%20prior%20resource."
+  },
+  {
+   "id": "OR-COLLATERAL-3",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "After insurance pays, CVC can cover copays, deductibles, and crime-related treatment insurance does not cover.",
+   "quote": "CVC will pay for copays, deductibles, and crime-related treatment that insurance does not cover within the scope of this program.",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024), Other Compensation"
+  },
+  {
+   "id": "OR-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "Eligibility depends on the department finding the victim acted reasonably given the victim's specific situation. Shown for information only.",
+   "quote": "The department determines that the victim acted reasonably with respect to the incident causing the death or injury to the victim, taking into account the specific situation of the victim and what a reasonable action would be for a person in the victim's circumstances",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.015(1)(d)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20department%20determines%20that%20the,person%20in%20the%20victim%27s%20circumstances"
+  },
+  {
+   "id": "OR-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "The department may make an emergency award of up to $1,000 before a final decision when an award is likely and waiting would cause undue hardship.",
+   "quote": "The amount of such emergency award shall not exceed $1,000.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.055(2)(a)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20amount%20of%20such%20emergency%20award%20shall%20not%20exceed%20%241%2C000."
+  },
+  {
+   "id": "OR-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault is an eligible crime.",
+   "quote": "Eligible crimes include domestic violence, sexual assault, child abuse, assault, homicide, hate/bias crimes, and other crimes resulting in physical or psychological injury.",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024), opening"
+  },
+  {
+   "id": "OR-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Injury includes mental or emotional harm and pregnancy, not only physical harm.",
+   "quote": "\"Injury\" means abuse of a corpse, actual bodily harm, mental or emotional harm and, with respect to a victim, includes pregnancy and mental or nervous shock.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.005(10)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=%22Injury%22%20means%20abuse%20of%20a,and%20mental%20or%20nervous%20shock."
+  },
+  {
+   "id": "OR-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "crime must occur in Oregon; victim residency not required"
+   },
+   "summary": "Victims of crimes committed in Oregon can apply, regardless of where they live.",
+   "quote": "Killed or injured in this state as a result of a compensable crime perpetrated or attempted against that person",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.005(17)(a)(A)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Killed%20or%20injured%20in%20this,or%20attempted%20against%20that%20person"
+  },
+  {
+   "id": "OR-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Oregon residents injured in a U.S. state without a reciprocal program"
+   },
+   "summary": "An Oregon resident hurt in another U.S. state can apply in Oregon only if that state has no reciprocal compensation program; otherwise the state where the crime happened pays.",
+   "quote": "Who is an Oregon resident killed or injured as a result of a compensable crime perpetrated or attempted against the person in a state, within the United States, without a reciprocal crime victims' compensation program",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.005(17)(a)(E)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Who%20is%20an%20Oregon%20resident,reciprocal%20crime%20victims%27%20compensation%20program"
+  },
+  {
+   "id": "OR-RES-3",
+   "category": "residency",
+   "params": {
+    "rule": "immigration status not considered"
+   },
+   "summary": "Immigration status is not asked about or considered.",
+   "quote": "CVC does not request or consider immigration status when determining eligibility for compensation.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page 1"
+  },
+  {
+   "id": "OR-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "doj.state.or.us/cvcportal"
+   },
+   "summary": "Apply online through the CVC Portal, which also lets you upload documents and check claim status.",
+   "quote": "You can apply electronically through the Crime Victims’ Compensation Portal at\ndoj.state.or.us/cvcportal.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, How do I apply?"
+  },
+  {
+   "id": "OR-SUBMIT-EMAIL",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "cvssd@doj.oregon.gov"
+   },
+   "summary": "Email the completed, signed application to the program.",
+   "quote": "You can also submit your application by email: cvssd@doj.oregon.gov",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, How do I apply?"
+  },
+  {
+   "id": "OR-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Oregon Department of Justice Crime Victims’ Compensation Program 1162 Court Street NE Salem, OR 97301–4096"
+   },
+   "summary": "Mail the signed paper application to the DOJ Crime Victims' Compensation Program in Salem.",
+   "quote": "You can mail a paper application to:\nOregon Department of Justice\nCrime Victims’ Compensation Program\n1162 Court Street NE\nSalem, OR 97301–4096",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, How do I apply?"
+  },
+  {
+   "id": "OR-SUBMIT-INPERSON",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "your local District Attorney’s Office Victim Assistance Program or local community-based victim services agency"
+   },
+   "summary": "You can also apply in person through a county District Attorney's victim assistance program or a community-based victim services agency.",
+   "quote": "Apply at your local District Attorney’s Office Victim Assistance Program or local community-based victim services agency.",
+   "source_id": "OR-S4",
+   "pinpoint": "CVC brochure (2024), How Do I Submit an Application?"
+  },
+  {
+   "id": "OR-DOC-SIGNED-RELEASE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed release on page 4 of the application; unsigned applications are returned."
+   },
+   "summary": "Sign the release in the application so CVC can verify your information; unsigned applications are returned.",
+   "quote": "You must sign this form to allow CVC to verify the information in your application. We will return any unsigned applications.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page 4, Required Release to Process Your Application"
+  },
+  {
+   "id": "OR-DOC-WAGE",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only for lost earnings: employer documentation of employment and time lost, plus the paystub just before the crime."
+   },
+   "summary": "For lost earnings, provide employer documentation of employment and time lost and your last paystub before the crime.",
+   "quote": "The following information must be provided to CVC: Documentation from your employer to verify employment and time loss. Your paystub just prior to the crime.",
+   "source_id": "OR-S3",
+   "pinpoint": "CVC FAQ, loss of earnings benefit",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/#:~:text=The%20following%20information%20must%20be,just%20prior%20to%20the%20crime."
+  },
+  {
+   "id": "OR-DOC-WAGE-SELF",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only for lost earnings if self-employed: the previous year's tax records."
+   },
+   "summary": "If you are self-employed and claim lost earnings, submit the previous year's tax records.",
+   "quote": "If you are self-employed, please submit the previous year tax records.",
+   "source_id": "OR-S3",
+   "pinpoint": "CVC FAQ, loss of earnings benefit",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/frequently-asked-questions/#:~:text=If%20you%20are%20self%2Demployed%2C%20please,the%20previous%20year%20tax%20records."
+  },
+  {
+   "id": "OR-DOC-WORK-RELEASE",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "other",
+    "note": "Work release from a doctor or mental health therapist, only if more than 2 weeks of work were missed."
+   },
+   "summary": "If you missed more than 2 weeks of work, a work release from your doctor is required.",
+   "quote": "A work release from a doctor is required beyond 2 weeks of missed work.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, Answers to Commonly Asked Questions"
+  },
+  {
+   "id": "OR-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized billing statements showing services, provider name, and date of service; submitted after the claim is accepted."
+   },
+   "summary": "Payment requests must be itemized billing statements listing the services, the provider's name, and the date of service.",
+   "quote": "Requests for payment of crime related expenses shall be submitted in the form of an itemized billing statement detailing the services provided, the provider’s name, the date of service",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0043(1)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Requests%20for%20payment%20of%20crime,name%2C%20the%20date%20of%20service"
+  },
+  {
+   "id": "OR-DOC-EOB",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance EOBs, combined with chart notes and bills in one portal upload."
+   },
+   "summary": "Insurance EOBs, chart notes, and bills can be combined into one upload in the CVC Portal.",
+   "quote": "EOB’s, chart notes, and bills can all be combined to one document and select bill as the category.",
+   "source_id": "OR-S5",
+   "pinpoint": "Applying for CVC, Crime Victims Portal FAQs, How do I upload documents?",
+   "fragment_url": "https://www.doj.state.or.us/crime-victims/crime-victim-compensation/cvc-portal/#:~:text=EOB%E2%80%99s%2C%20chart%20notes%2C%20and%20bills,select%20bill%20as%20the%20category."
+  },
+  {
+   "id": "OR-DOC-RECEIPT",
+   "category": "required_document",
+   "expense": "transportation",
+   "params": {
+    "document": "receipts",
+    "note": "Valid receipts for car rental, bus, train, or air fare used instead of mileage."
+   },
+   "summary": "If CVC pays for a car rental or bus, train, or air fare instead of mileage, it needs a valid receipt.",
+   "quote": "the Department may, at its discretion, reimburse reasonable and necessary round-trip car rental or bus, train, or air fare, upon submission of a valid receipt.",
+   "source_id": "OR-S10",
+   "pinpoint": "OAR 137-076-0019(2)(c)",
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=the%20Department%20may%2C%20at%20its,submission%20of%20a%20valid%20receipt."
+  },
+  {
+   "id": "OR-TIME-ACK",
+   "category": "processing_time",
+   "params": {
+    "days": 2,
+    "stage": "claim_number"
+   },
+   "summary": "CVC confirms receipt by mail or email and issues a claim number within 2 business days.",
+   "quote": "We will notify you by mail or email when we receive your application. You will receive a\nclaim number within 2 business days.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, What happens next?"
+  },
+  {
+   "id": "OR-TIME-DECISION",
+   "category": "processing_time",
+   "params": {
+    "days": 90,
+    "min_days": 60,
+    "stage": "decision"
+   },
+   "summary": "CVC says it will contact you in 60 to 90 days to tell you whether the application was accepted.",
+   "quote": "We will contact you again in 60 to 90 days to tell you if we have accepted your\napplication.",
+   "source_id": "OR-S7",
+   "pinpoint": "CVC Application (2026), page i, What happens next?"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "expense_cap:security",
+   "covered_expense:security",
+   "covered_expense:temporary_housing",
+   "expense_cap:relocation"
+  ],
+  "notes": "No minimum out-of-pocket loss appears in ORS 147.005 to 147.367 or OAR 137-076, so minimum_loss is left out rather than assumed to be zero. No security (locks, alarms) or temporary housing benefit was found. Relocation is listed as excluded on the program page, so there is no relocation cap."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute and rule text come from oregonlegislature.gov (ORS ch. 147, current edition with 2025 notes) and the Secretary of State OARD site (OAR 137-076 and 137-084, saved through the browser). Conflicts: (1) ORS 147.055 allows an emergency award up to $1,000, but the program page says CVC is unable to provide immediate financial assistance; the rule is kept because the statute governs, but in practice the program may not offer one. (2) OAR 137-084-0010(4) requires a complete SAFE Kit assessment within 84 hours of the assault for SAVE Fund payment, while the DOJ provider page lists 120 hours; the victim SAVE page says within seven days (matches the 168-hour partial assessment). (3) Statute sets transportation coverage when care is more than 30 miles away; agency pages say 60 miles roundtrip (consistent). OAR 137-076-0019(1)(e) states the rate as '.50 cents per mile'; the brochure says 50 cents per mile. (4) The FAQ says loss of support rose to $800/week; that applies to dependents of deceased victims only. Claims expire three years after the determination order (or at age 21 for minors), ORS 147.035(8). Toll-free number 1-800-503-7983 appears in the brochure. Under the SAVE FAQ, a survivor may choose to bill insurance instead of the SAVE Fund, in which case leftover copays go to a CVC application rather than the Fund. The limited counseling award ($5,000) is the path for survivors who never report and never get an exam or order. Strangulation (SKIT) exams are paid under ORS 147.035(2)(e) with a $5,000 maximum and are billed to insurance first, so they are not modeled as exam_no_bill. Reviewer: the SAVE Fund's $475 maximum (OAR 137-084-0020(1)(a)) is what the Fund pays the provider for an exam plus SAFE Kit collection, not a limit on what the survivor gets, and the provider cannot bill the survivor or insurance for the rest; it is therefore not modeled as an expense_cap. The limited counseling award (OR-CAP-COUNS-LTD, $5,000) and the parent lost wages cap (OR-CAP-WAGE-PARENT, $5,000) are conditional caps for applicants who do not meet eligibility and for parents of minor victims, not general caps on the victim's counseling or lost wages. How to file (added Oct 3): submission methods, documents, and timing come mainly from the 2026 fillable English application (OR-S7, 140 AcroForm fields), which is the newest version linked from the apply page. The apply page FAQ (OR-S5) gives the mailing address as '1162 Court St SE', but the 2026 application, the brochure, and the program page all say 1162 Court Street NE, so the mail rule uses NE. Page 2 of the application still lists the old email domain cvssd@doj.state.or.us; the instructions page uses cvssd@doj.oregon.gov, which is used here. The program page and brochure list fax 503-378-5738 as contact information but no source says to fax the application, so no fax submission rule was added. Decision timing differs by source: the 2026 application says 60 to 90 days, the FAQ says applicants are usually notified within 70 days, and the 2024 brochure says 45 to 60 days; the newest (application) is used. The application does not ask the survivor to attach a police report or medical records: it asks for the report number and provider details, and CVC requests medical records and police reports itself. Bills are submitted after the claim is accepted."
+}

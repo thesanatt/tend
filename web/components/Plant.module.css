@@ -1,0 +1,95 @@
+.plant {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--green);
+}
+
+.ground {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.groundOpen {
+  composes: ground;
+  stroke-dasharray: 2 2.4;
+}
+
+.seed {
+  fill: var(--ink-3);
+}
+
+.stem {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+.leaf {
+  fill: var(--leaf-fill);
+  stroke: currentColor;
+  stroke-width: 1.15;
+  stroke-linejoin: round;
+}
+
+.rib {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.7;
+  stroke-linecap: round;
+  opacity: 0.8;
+}
+
+.bud {
+  fill: currentColor;
+}
+
+.sepal {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.petal {
+  fill: var(--petal-fill);
+  stroke: currentColor;
+  stroke-width: 1.1;
+}
+
+.heart {
+  fill: currentColor;
+}
+
+.foliage {
+  transform-box: view-box;
+}
+
+.growing .stem {
+  stroke-dasharray: 80;
+  animation: draw var(--dur-3) var(--ease) both;
+}
+
+.growing .foliage {
+  animation: unfold var(--dur-3) var(--ease) both;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 80;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes unfold {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}

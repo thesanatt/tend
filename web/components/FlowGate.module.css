@@ -1,0 +1,16 @@
+.loading {
+  padding-block: var(--space-7);
+}
+
+.empty {
+  display: grid;
+  gap: var(--space-5);
+  padding-block: var(--space-7);
+  max-width: var(--measure);
+}
+
+.error {
+  font-weight: 700;
+  border-left: 3px solid var(--ink);
+  padding-left: var(--space-3);
+}

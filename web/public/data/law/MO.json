@@ -1,0 +1,687 @@
+{
+ "jurisdiction": "MO",
+ "name": "Missouri",
+ "program": {
+  "program_name": "Crime Victims' Compensation Program (CVC)",
+  "agency": "Missouri Department of Public Safety, Office for Victims of Crime",
+  "website": "https://dps.mo.gov/dir/programs/cvc/",
+  "apply_url": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php",
+  "application_pdf_url": "https://dps.mo.gov/dir/programs/cvc/documents/CVC_App_Instructions.pdf",
+  "phone": "573-526-6006",
+  "phone_source_id": "MO-S2",
+  "statute_citation": "RSMo 595.010 to 595.075; forensic exams RSMo 595.220",
+  "application_form": {
+   "source_id": "MO-S6",
+   "fillable": true,
+   "field_count": 192
+  }
+ },
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "emergency_award",
+   "expense_cap:counseling",
+   "expense_cap:relocation",
+   "expense_cap:transportation",
+   "expense_cap:medical",
+   "expense_cap:security",
+   "covered_expense:transportation",
+   "covered_expense:security",
+   "reporting_requirement:within_days",
+   "processing_time"
+  ],
+  "notes": "No minimum loss, emergency award, or police-report time limit appears in RSMo 595.010 to 595.075 or the DPS pages saved. The RSMo 595.010(12) definition of 'emergency service' (cash grants up to $100) belongs to victim services, not a CVC emergency award, so it is not recorded. No per-expense cap was found for counseling, medical, transportation, or security; relocation is listed as not payable. Transportation and security costs are not listed as covered or excluded. The program's Q and A PDF (cvc-qa.pdf) returned 404. No official source states a processing time for a decision or payment; the guidelines only give claimants 30 days to answer requests for information."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is from revisor.mo.gov (595.010, 595.015, 595.020, 595.025, 595.030, 595.035 effective 28 Aug 2018; 595.220 effective 28 Aug 2020). Exam billing: RSMo 595.220.6 says eligible forensic exam charges are billed to and paid by DPS and the victim may not be charged; the statute does not mention insurance, while the DPS SAFE page and SAFE fact sheet say health insurance may be billed secondary, so insurance_billing is 'allowed' per the agency. The SAFE fact sheet adds that exams can be anonymous and that medical treatment (STI/HIV prophylaxis, emergency contraception, wound care, etc.) may be billed to the patient and then claimed from CVC. 11 CSR 30-12.010 sets provider reimbursement maximums for SAFE exams (saved as MO-S16) but these are not survivor-facing caps. The guidelines page states lost wages were capped at $200/week for crimes before Aug. 28, 2015 and $400/week after; only the current statutory $400 is recorded. The online application is reached from the CVC page; the PDF form (812-1321, rev. 10-18) is linked as 'CVC Application and Guide'. Toll-free 1-800-347-6881 also appears on the fact sheet and application. Cooperation with law enforcement is required unless good cause (RSMo 595.015.4); an arrest or conviction is not required (RSMo 595.025.3(1)). Reviewer: the brochure says out-of-state crimes must be filed in that state, but RSMo 595.020.5 lets a Missouri resident apply in Missouri when the place of the crime has no program that would cover them; the statute controls. The insurance_billing value 'allowed' rests on the DPS SAFE page and SAFE fact sheet only; RSMo 595.220.6 and 11 CSR 30-12.010 are silent on billing the survivor's insurance (the regulation bars insurance billing only for child physical abuse exams). The brochure and fact sheet also list clothing among costs CVC cannot pay. How to file: the saved application (MO-S6, form 812-1321 rev. 10-18, still the file DPS links as 'CVC Application and Guide', 192 fillable AcroForm fields) prints the old mailing address P.O. Box 749, Jefferson City, Missouri 65102-0749. Current DPS pages, the 1/2024 brochure, and the compensation checklist (MO-S17) all give P.O. Box 1589, Jefferson City, MO 65102-1589, so the mail rule uses the newer address. The CVC page says victims 'complete an online application', but its 'online application' link points back to the same CVC page and two searches found no separate portal; the online rule's target is that page, where the fillable PDF is posted. The brochure lists email (CVC@dps.mo.gov) and fax ((573) 526-4940) only for requesting an application or contacting the program, not for submitting one, so no email or fax submission rule is recorded. A police report is not something the applicant attaches: the form asks for the report number and agency, and the fact sheet says CVC requests documentation from law enforcement itself.",
+ "sources": [
+  {
+   "id": "MO-S1",
+   "title": "Missouri DPS, Crime Victims' Compensation and SAFE program page",
+   "url": "https://dps.mo.gov/dir/programs/cvc/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:19Z",
+   "raw_path": "rules/sources/MO/MO-S1.html",
+   "text_path": "rules/sources/MO/MO-S1.txt",
+   "sha256": "af4f654e0835c7dd1103e4b0b459bec5e8afaa9d885b5933ac141a852c097ac3"
+  },
+  {
+   "id": "MO-S2",
+   "title": "Missouri DPS, Crime Victims' Compensation Program (CVC) page",
+   "url": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:28Z",
+   "raw_path": "rules/sources/MO/MO-S2.html",
+   "text_path": "rules/sources/MO/MO-S2.txt",
+   "sha256": "a5f049856b41a4ebe4ec058bbeebd3e73d3e1538c3138c57210b978755778f69"
+  },
+  {
+   "id": "MO-S3",
+   "title": "Missouri DPS, CVC brochure (Rev. 1/2024)",
+   "url": "https://dps.mo.gov/dir/programs/cvc/documents/CVC_Brochure.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:47:36Z",
+   "raw_path": "rules/sources/MO/MO-S3.pdf",
+   "text_path": "rules/sources/MO/MO-S3.txt",
+   "sha256": "5dfe2319161fa9e240871de32d03e1f563ae8c5a7b0a0f2e8ab1996d8ec2a9ac"
+  },
+  {
+   "id": "MO-S4",
+   "title": "Missouri DPS, CVC Forms and Applications page",
+   "url": "https://dps.mo.gov/dir/programs/cvc/forms.php",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:30Z",
+   "raw_path": "rules/sources/MO/MO-S4.html",
+   "text_path": "rules/sources/MO/MO-S4.txt",
+   "sha256": "37d5275ff222192560a5c89af69ae4dbec40df46b6301da74a7073ac025aaabd"
+  },
+  {
+   "id": "MO-S5",
+   "title": "Missouri DPS, CVC Program fact sheet (10/2021)",
+   "url": "https://dps.mo.gov/dir/programs/cvc/documents/CVC-Fact-Sheet.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:47:36Z",
+   "raw_path": "rules/sources/MO/MO-S5.pdf",
+   "text_path": "rules/sources/MO/MO-S5.txt",
+   "sha256": "f142e9545947c3579da740f264537a7c9e0b62dc615ce884125abd3ce1811e26"
+  },
+  {
+   "id": "MO-S6",
+   "title": "Missouri DPS, Application for Crime Victims' Compensation (form 812-1321)",
+   "url": "https://dps.mo.gov/dir/programs/cvc/documents/CVC_App_Instructions.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:47:37Z",
+   "raw_path": "rules/sources/MO/MO-S6.pdf",
+   "text_path": "rules/sources/MO/MO-S6.txt",
+   "sha256": "5db81c362080d367745ff96eb5b3549c44fa85b24c72f2d2df721013efb3366c"
+  },
+  {
+   "id": "MO-S7",
+   "title": "Missouri DPS, SAFE Program fact sheet (10/2021)",
+   "url": "https://dps.mo.gov/dir/programs/safe/documents/safe-fact-sheet.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:47:37Z",
+   "raw_path": "rules/sources/MO/MO-S7.pdf",
+   "text_path": "rules/sources/MO/MO-S7.txt",
+   "sha256": "e833a65695648316a7650a2bb6e4a5d27b28909744f8fc5aaea7689b12a31787"
+  },
+  {
+   "id": "MO-S8",
+   "title": "RSMo 595.010 (definitions)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.010",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:44Z",
+   "raw_path": "rules/sources/MO/MO-S8.html",
+   "text_path": "rules/sources/MO/MO-S8.txt",
+   "sha256": "7a1e74615cb4944dfd529b029aaa0ac81378c0fd8e7b7f1823a51468284518dc"
+  },
+  {
+   "id": "MO-S9",
+   "title": "RSMo 595.015 (claims, application, cooperation)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.015",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:44Z",
+   "raw_path": "rules/sources/MO/MO-S9.html",
+   "text_path": "rules/sources/MO/MO-S9.txt",
+   "sha256": "1457d71ec53906de0e737a80b1b99f1e1231bf58eaafdc8c3af82069de23d2c6"
+  },
+  {
+   "id": "MO-S10",
+   "title": "RSMo 595.020 (eligibility)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.020",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:45Z",
+   "raw_path": "rules/sources/MO/MO-S10.html",
+   "text_path": "rules/sources/MO/MO-S10.txt",
+   "sha256": "aa9e76547f1f7ceb815ff0965cb1518af71d9e0757faf04ee6dae83e413bac63"
+  },
+  {
+   "id": "MO-S11",
+   "title": "RSMo 595.025 (filing, time limit)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.025",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:45Z",
+   "raw_path": "rules/sources/MO/MO-S11.html",
+   "text_path": "rules/sources/MO/MO-S11.txt",
+   "sha256": "b703fad4fa51838259fc5e0680b79966c3f6bfe04079d4ebdcdd0db2f219284b"
+  },
+  {
+   "id": "MO-S12",
+   "title": "RSMo 595.030 (when paid, maximum award)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:45Z",
+   "raw_path": "rules/sources/MO/MO-S12.html",
+   "text_path": "rules/sources/MO/MO-S12.txt",
+   "sha256": "bfe7d309c91d54fc56df798c576f7fc56b9be6163cab5f092fcca985691446d0"
+  },
+  {
+   "id": "MO-S13",
+   "title": "RSMo 595.035 (reductions, payor of last resort, contributory conduct)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.035",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:46Z",
+   "raw_path": "rules/sources/MO/MO-S13.html",
+   "text_path": "rules/sources/MO/MO-S13.txt",
+   "sha256": "b1e66da5112a9fd63378fdf01d34c475470e20cf033a88cec440cde4ed2cf18e"
+  },
+  {
+   "id": "MO-S14",
+   "title": "RSMo 595.220 (forensic examinations)",
+   "url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.220",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:46Z",
+   "raw_path": "rules/sources/MO/MO-S14.html",
+   "text_path": "rules/sources/MO/MO-S14.txt",
+   "sha256": "f53384e364403d0079ccda9d464f9b43bb6df5f78573f8eb6c97af708b64503a"
+  },
+  {
+   "id": "MO-S15",
+   "title": "Missouri DPS, Crime Victims' Compensation Program Guidelines",
+   "url": "https://dps.mo.gov/dir/programs/cvc/guidelines.php",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:00Z",
+   "raw_path": "rules/sources/MO/MO-S15.html",
+   "text_path": "rules/sources/MO/MO-S15.txt",
+   "sha256": "45c14c56792e3d450470ed31ad7562881e54151882ebed3ece2d549144d53926"
+  },
+  {
+   "id": "MO-S16",
+   "title": "11 CSR 30-12, Forensic Examinations (provider payment rules)",
+   "url": "https://www.sos.mo.gov/cmsimages/adrules/csr/current/11csr/11c30-12.pdf",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:06Z",
+   "raw_path": "rules/sources/MO/MO-S16.pdf",
+   "text_path": "rules/sources/MO/MO-S16.txt",
+   "sha256": "c8dab3106b92d1f4acacd40b9e1aa905cb27dd8e6dd9da65d76df34c1d79fe9c"
+  },
+  {
+   "id": "MO-S17",
+   "title": "Missouri DPS, CVC Compensation Checklist",
+   "url": "https://dps.mo.gov/dir/programs/cvc/documents/checklist.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:38:12Z",
+   "raw_path": "rules/sources/MO/MO-S17.pdf",
+   "text_path": "rules/sources/MO/MO-S17.txt",
+   "sha256": "bdc20d592c5c277d3b75b8b0581724616df69be43517fb059d7e2a9c86ed2d68"
+  }
+ ],
+ "rules": [
+  {
+   "id": "MO-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "The state SAFE program pays first for the sexual assault forensic exam and no forensic fees may be billed to the patient. The program says health insurance may be billed as a secondary payer. SAFE does not cover medical treatment.",
+   "quote": "While SAFE is the \"payor of first resort\" for these fees, health insurance carriers may be billed secondary. NO forensic fees may be billed to the patient. However, the SAFE program does not cover any medical treatment that may be required due to the sexual assault.",
+   "source_id": "MO-S1",
+   "pinpoint": "Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section",
+   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/#:~:text=While%20SAFE%20is%20the%20%22payor,due%20to%20the%20sexual%20assault."
+  },
+  {
+   "id": "MO-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Missouri Department of Public Safety (SAFE Program), paid to the medical provider"
+   },
+   "summary": "By statute, provider charges for eligible forensic exams are billed to and paid by the Department of Public Safety, and the provider may not charge the victim for the forensic exam.",
+   "quote": "All appropriate medical provider charges for eligible forensic examinations shall be billed to and paid by the department of public safety. No appropriate medical provider conducting forensic examinations and providing medical treatment to victims of sexual offenses shall charge the victim for the forensic examination.",
+   "source_id": "MO-S14",
+   "pinpoint": "RSMo 595.220.6",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.220#:~:text=All%20appropriate%20medical%20provider%20charges,victim%20for%20the%20forensic%20examination."
+  },
+  {
+   "id": "MO-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical treatment after a sexual offense is not part of the free forensic exam; an eligible victim seeks payment for it through Crime Victims' Compensation.",
+   "quote": "For appropriate medical provider charges related to the medical treatment of victims of sexual offenses, if the victim is an eligible claimant under the crime victims' compensation fund, the victim shall seek compensation under sections 595.010 to 595.075",
+   "source_id": "MO-S14",
+   "pinpoint": "RSMo 595.220.6",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.220#:~:text=For%20appropriate%20medical%20provider%20charges,under%20sections%20595.010%20to%20595.075"
+  },
+  {
+   "id": "MO-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000
+   },
+   "summary": "No award may exceed $25,000.",
+   "quote": "no award pursuant to sections 595.010 to 595.075 shall exceed twenty-five thousand dollars",
+   "source_id": "MO-S12",
+   "pinpoint": "RSMo 595.030.5",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=no%20award%20pursuant%20to%20sections,shall%20exceed%20twenty%2Dfive%20thousand%20dollars"
+  },
+  {
+   "id": "MO-WAGE-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 40000,
+    "per": "week"
+   },
+   "summary": "Lost earnings are paid at the actual loss, up to $400 per week, inside the overall award cap.",
+   "quote": "Any compensation for loss of earnings or support from gainful employment shall be in an amount equal to the actual loss sustained not to exceed four hundred dollars per week",
+   "source_id": "MO-S12",
+   "pinpoint": "RSMo 595.030.5",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=Any%20compensation%20for%20loss%20of,four%20hundred%20dollars%20per%20week"
+  },
+  {
+   "id": "MO-WAGE-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages can be covered only if the victim was gainfully employed at the time of the crime.",
+   "quote": "If the victim was gainfully employed at the time of the crime, they may also be eligible for lost wages.",
+   "source_id": "MO-S5",
+   "pinpoint": "CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview"
+  },
+  {
+   "id": "MO-FUN-1",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "If the victim dies, burial and preparation expenses are capped at $5,000.",
+   "quote": "In the event of death of the victim, an award may be made for reasonable and necessary expenses actually incurred for preparation and burial not to exceed five thousand dollars.",
+   "source_id": "MO-S12",
+   "pinpoint": "RSMo 595.030.4",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=In%20the%20event%20of%20death,to%20exceed%20five%20thousand%20dollars."
+  },
+  {
+   "id": "MO-COUN-1",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Counseling is paid only when the provider is a licensed physician, psychologist, clinical social worker, professional counselor, or board-certified psychiatric-mental health nurse specialist or nurse practitioner. No dollar cap for counseling was found.",
+   "quote": "No compensation shall be paid for psychiatric treatment or other counseling services, including psychotherapy, unless the service provider is a:",
+   "source_id": "MO-S12",
+   "pinpoint": "RSMo 595.030.3",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=No%20compensation%20shall%20be%20paid,the%20service%20provider%20is%20a%3A"
+  },
+  {
+   "id": "MO-DENT-1",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Crime-related medical, dental, and counseling costs may be covered if eligibility requirements are met.",
+   "quote": "If the eligibility requirements are met, potential benefits may include costs associated with the patient's crime-related medical, dental, and counseling.",
+   "source_id": "MO-S5",
+   "pinpoint": "CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview"
+  },
+  {
+   "id": "MO-RX-1",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Medical expenses, including prescriptions, are listed as covered benefits.",
+   "quote": "Medical expenses, including prescriptions",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), Benefit Payments"
+  },
+  {
+   "id": "MO-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "item": "personal property, vehicle damage"
+   },
+   "summary": "The program's list of what it cannot pay includes personal property and vehicle damage, along with pain and suffering, food or clothing costs, and homeopathic or alternative treatment.",
+   "quote": "WHAT CVC CANNOT PAY • • • • • • • • Pain and suffering Personal Property Rent/Mortgage/Utilities Food/Clothing Costs Tuition Reimbursement Vehicle Damage Relocation Costs Homeopathic/Alternative Treatment",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), What CVC Cannot Pay"
+  },
+  {
+   "id": "MO-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "Relocation costs are on the program's list of expenses it cannot pay.",
+   "quote": "Relocation Costs",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), What CVC Cannot Pay"
+  },
+  {
+   "id": "MO-EXCL-3",
+   "category": "excluded_expense",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "item": "rent, mortgage, utilities"
+   },
+   "summary": "Rent, mortgage, and utilities are not paid.",
+   "quote": "Rent/Mortgage/Utilities",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), What CVC Cannot Pay"
+  },
+  {
+   "id": "MO-EXCL-4",
+   "category": "excluded_expense",
+   "expense": "tuition",
+   "params": {
+    "expense": "tuition"
+   },
+   "summary": "Tuition reimbursement is not paid.",
+   "quote": "Tuition Reimbursement",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), What CVC Cannot Pay"
+  },
+  {
+   "id": "MO-EXCL-5",
+   "category": "excluded_expense",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "item": "food and clothing costs"
+   },
+   "summary": "Food and clothing costs are on the program's list of expenses it cannot pay.",
+   "quote": "Food/Clothing Costs",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), What CVC Cannot Pay"
+  },
+  {
+   "id": "MO-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime",
+    "extension": "or two years from discovery of the crime"
+   },
+   "summary": "A claim must be filed within two years after the crime or after the crime was discovered.",
+   "quote": "A claim shall be filed not later than two years after the occurrence of the crime or the discovery of the crime upon which it is based.",
+   "source_id": "MO-S11",
+   "pinpoint": "RSMo 595.025.2",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.025#:~:text=A%20claim%20shall%20be%20filed,upon%20which%20it%20is%20based."
+  },
+  {
+   "id": "MO-REP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam",
+     "protective_order",
+     "medical_provider"
+    ]
+   },
+   "summary": "The crime must be reported to proper authorities, but for a sexual offense that can include the medical provider filing the forensic exam report with the county prosecutor, simply receiving a forensic exam, or getting an order of protection. No police-report time limit was found in the statute.",
+   "quote": "In the case of a sexual offense, filing a report of the offense to the proper authorities may include, but not be limited to, the filing of the report of the forensic examination by the appropriate medical provider, as defined in section 595.220 , with the prosecuting attorney of the county in which the alleged incident occurred, receiving a forensic examination, or securing an order of protection.",
+   "source_id": "MO-S12",
+   "pinpoint": "RSMo 595.030.1",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=In%20the%20case%20of%20a,securing%20an%20order%20of%20protection."
+  },
+  {
+   "id": "MO-REP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "other"
+    ]
+   },
+   "summary": "In place of other records, the applicant may give a sworn statement under RSMo 589.663 that they have good reason to believe they are a victim of domestic violence, rape, sexual assault, human trafficking, or stalking and fear further violent acts from the assailant.",
+   "quote": "In lieu of other records the claimant may provide a sworn statement by the applicant under paragraph (c) of subdivision (2) of section 589.663 that the applicant has good reason to believe that he or she is a victim of domestic violence, rape, sexual assault, human trafficking, or stalking, and fears further violent acts from his or her assailant.",
+   "source_id": "MO-S12",
+   "pinpoint": "RSMo 595.030.1",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=In%20lieu%20of%20other%20records,from%20his%20or%20her%20assailant."
+  },
+  {
+   "id": "MO-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The fund is a payor of last resort: awards are reduced by payments from the offender, public or private insurance (not life insurance), and other public or private funds.",
+   "quote": "any compensation paid pursuant to sections 595.010 to 595.075 shall be reduced by the amount of any payments, benefits or awards received or to be received as a result of the injury or death",
+   "source_id": "MO-S13",
+   "pinpoint": "RSMo 595.035.2",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.035#:~:text=any%20compensation%20paid%20pursuant%20to,of%20the%20injury%20or%20death"
+  },
+  {
+   "id": "MO-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "If you have health insurance but still owe deductibles or co-payments, those out-of-pocket costs may be reimbursed.",
+   "quote": "However, if a claimant has a health insurance but still has out-of-pocket expenses because of deductibles or co-payments, those out-of-pocket costs may be eligible for reimbursement.",
+   "source_id": "MO-S15",
+   "pinpoint": "CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund",
+   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/guidelines.php#:~:text=However%2C%20if%20a%20claimant%20has,may%20be%20eligible%20for%20reimbursement."
+  },
+  {
+   "id": "MO-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The department must consider whether the victim's consent, provocation, incitement or negligence contributed to the injury, and may reduce or deny the award on that basis.",
+   "quote": "the department of public safety shall determine whether, because of the victim's consent, provocation, incitement or negligence, the victim contributed to the infliction of the victim's injury or death, and shall reduce the amount of the compensation or deny the claim altogether, in accordance with such determination",
+   "source_id": "MO-S13",
+   "pinpoint": "RSMo 595.035.3",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.035#:~:text=the%20department%20of%20public%20safety,in%20accordance%20with%20such%20determination"
+  },
+  {
+   "id": "MO-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault victims are eligible, and a relative who needs counseling to help the victim recover can also be eligible.",
+   "quote": "In the case of a sexual assault victim, a relative of the victim requiring counseling in order to better assist the victim in his recovery",
+   "source_id": "MO-S10",
+   "pinpoint": "RSMo 595.020.1(2)",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.020#:~:text=In%20the%20case%20of%20a,the%20victim%20in%20his%20recovery"
+  },
+  {
+   "id": "MO-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime must have occurred in Missouri; the brochure says victims of crimes in other states apply in that state, but the statute adds a narrow exception for Missouri residents (see the next residency rule)."
+   },
+   "summary": "The crime must have happened in Missouri. The brochure says that if it happened in another state, the application goes to that state's program; the statute makes a narrow exception for Missouri residents.",
+   "quote": "Crime Must Have Occurred In Missouri If the crime occurred in another state, application must be made in that state",
+   "source_id": "MO-S3",
+   "pinpoint": "CVC Brochure (Rev. 1/2024), Eligibility Requirements"
+  },
+  {
+   "id": "MO-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "A Missouri resident injured in another U.S. state or territory may apply in Missouri only if the conditions in RSMo 595.020.5 are met."
+   },
+   "summary": "A Missouri resident injured by a crime in another state or U.S. territory may apply in Missouri, but only under the conditions the statute lists (such as the other place lacking a program that would cover them).",
+   "quote": "A Missouri resident who suffers personal injury or, in the case of death, a dependent of the victim or any member of the family who legally assumes the obligation, or who pays the medical or burial expenses incurred as a direct result thereof, in another state, possession or territory of the United States may make application for compensation in Missouri if",
+   "source_id": "MO-S10",
+   "pinpoint": "RSMo 595.020.5",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.020#:~:text=A%20Missouri%20resident%20who%20suffers,for%20compensation%20in%20Missouri%20if"
+  },
+  {
+   "id": "MO-RES-3",
+   "category": "residency",
+   "params": {
+    "rule": "For CVC, a crime is an act committed in Missouri (plus terrorism abroad against a Missouri resident)."
+   },
+   "summary": "By statute, a covered crime is an act committed in Missouri involving force or violence or the threat of it, whether or not it is ever prosecuted.",
+   "quote": "an act committed in this state which, regardless of whether it is adjudicated, involves the application of force or violence or the threat of force or violence by the offender upon the victim",
+   "source_id": "MO-S8",
+   "pinpoint": "RSMo 595.010.1(5)",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.010#:~:text=an%20act%20committed%20in%20this,the%20offender%20upon%20the%20victim"
+  },
+  {
+   "id": "MO-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "P.O. Box1589\nJefferson City, MO 65102-1589"
+   },
+   "summary": "Mail the signed application and attachments to the Crime Victims' Compensation Program, P.O. Box 1589, Jefferson City, MO 65102-1589.",
+   "quote": "Mailing Address: P.O. Box1589\nJefferson City, MO 65102-1589",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, letterhead"
+  },
+  {
+   "id": "MO-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php"
+   },
+   "summary": "DPS says victims complete an online application; the 'online application' link on the CVC page points to the CVC page itself, where the application is posted.",
+   "quote": "Victims seeking compensation assistance complete an online application that includes documentation necessary to determine eligibility.",
+   "source_id": "MO-S2",
+   "pinpoint": "DPS CVC program page, introduction",
+   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php#:~:text=Victims%20seeking%20compensation%20assistance%20complete,documentation%20necessary%20to%20determine%20eligibility."
+  },
+  {
+   "id": "MO-DOC-APP",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The completed CVC application (form 812-1321), signed by the victim or claimant on the last page."
+   },
+   "summary": "The application itself must be complete and signed by the victim or claimant.",
+   "quote": "CVC Application, must be signed by the Victim/Claimant",
+   "source_id": "MO-S5",
+   "pinpoint": "CVC fact sheet, Documentation"
+  },
+  {
+   "id": "MO-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized copies of all crime-related medical and counseling bills, sent to insurance, Medicaid, or Medicare first."
+   },
+   "summary": "Include itemized copies of all crime-related medical and counseling bills, plus copies of any paid receipts.",
+   "quote": "Submit itemized copies of all medical/counseling bills, plus copies of any paid receipts.",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Medical/Counseling Claims"
+  },
+  {
+   "id": "MO-DOC-BILLS-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Section V of the application asks applicants to attach all medical and psychological bills available."
+   },
+   "summary": "The application's medical section asks you to attach every bill you have.",
+   "quote": "(Attach all bills available.)",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section V"
+  },
+  {
+   "id": "MO-DOC-RX",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Crime-related prescription receipts; a pharmacy printout works."
+   },
+   "summary": "Include receipts for any crime-related prescriptions; a pharmacy printout works.",
+   "quote": "Submit any crime related prescription receipts.",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Medical/Counseling Claims"
+  },
+  {
+   "id": "MO-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages when not self-employed: the 3 paystubs immediately before the crime."
+   },
+   "summary": "For lost wages, include the three paystubs from right before the crime.",
+   "quote": "If you are applying for loss of earnings and are NOT self-employed, provide the 3 paystubs",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims"
+  },
+  {
+   "id": "MO-DOC-WAGES-SELF",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages when self-employed: signed federal income tax returns for the year of the crime and the year before."
+   },
+   "summary": "If self-employed, include signed federal tax returns for the year of the crime and the year before.",
+   "quote": "If victim was self-employed, submit copies of signed Federal Income Tax returns from the year of the crime and the year preceding the crime.",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section VIII"
+  },
+  {
+   "id": "MO-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Section VII asks for each insurance or other collateral source paying any expense, with insurer name, policy number, and policy holder."
+   },
+   "summary": "List any insurance or other source paying for the expenses, with policy details.",
+   "quote": "Indicate below if any sources are paying or will pay any of the above expenses.",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section VII"
+  },
+  {
+   "id": "MO-DOC-MEDREC",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Reports from the hospitals and providers who treated or examined the victim, if available, before any hearing."
+   },
+   "summary": "By statute the claimant submits available reports from every provider who treated or examined the victim.",
+   "quote": "submit reports, if available, from all hospitals, physicians, surgeons, or other health care providers who treated or examined the victim for the injury for which compensation is sought",
+   "source_id": "MO-S11",
+   "pinpoint": "RSMo 595.025.5",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.025#:~:text=submit%20reports%2C%20if%20available%2C%20from,for%20which%20compensation%20is%20sought"
+  },
+  {
+   "id": "MO-DOC-FUNERAL",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For funeral claims: a copy of the death certificate and the funeral bill."
+   },
+   "summary": "For a funeral claim, attach the death certificate and the funeral bill.",
+   "quote": "(Attach Copy of Death Certificate and Funeral Bill)",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section VI"
+  },
+  {
+   "id": "MO-DOC-SUPPORT",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For loss of support: the dependent child's birth certificate showing the deceased as a parent."
+   },
+   "summary": "For loss of support, include the dependent child's birth certificate.",
+   "quote": "If you are applying for loss of support, please provide a copy of the dependent child's birth",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims"
+  }
+ ]
+}

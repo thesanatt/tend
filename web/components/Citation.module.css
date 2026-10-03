@@ -1,0 +1,59 @@
+.cite {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 var(--space-2);
+  margin-left: calc(var(--space-2) * -1);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--green);
+  font: 700 var(--text-xs) / 1.2 var(--font-sans);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  cursor: pointer;
+}
+
+.cite:hover {
+  background: var(--green-tint);
+}
+
+.label {
+  max-width: 26ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.more {
+  font-weight: 400;
+  color: var(--ink-3);
+  text-decoration: none;
+  margin-left: 2px;
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.subject {
+  font-weight: 700;
+}
+
+.group {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.groupTitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ink-2);
+}

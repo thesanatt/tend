@@ -1,0 +1,563 @@
+{
+ "jurisdiction": "WV",
+ "name": "West Virginia",
+ "program": {
+  "program_name": "Crime Victims Compensation Fund",
+  "agency": "West Virginia Legislative Claims Commission",
+  "website": "https://www.wvlegislature.gov/Joint/victims.cfm",
+  "apply_url": "https://www.wvlegislature.gov/Joint/Victims/claim.cfm",
+  "application_pdf_url": "https://www.wvlegislature.gov/Joint/Victims/crime_victim_application.pdf",
+  "phone": "304-347-4850",
+  "phone_source_id": "WV-S8",
+  "statute_citation": "W. Va. Code 14-2A-1 to 14-2A-29; forensic exam payment at W. Va. Code 61-8B-16",
+  "application_form": {
+   "source_id": "WV-S11",
+   "fillable": false,
+   "field_count": 0
+  }
+ },
+ "sources": [
+  {
+   "id": "WV-S1",
+   "title": "W. Va. Code 14-2A-3 (Definitions)",
+   "url": "https://code.wvlegislature.gov/14-2A-3/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:51Z",
+   "raw_path": "rules/sources/WV/WV-S1.html",
+   "text_path": "rules/sources/WV/WV-S1.txt",
+   "sha256": "fdb868731e9b1a8fb05d1eee57081f2321891ec8c0cf38f027aae6465a97120d"
+  },
+  {
+   "id": "WV-S2",
+   "title": "W. Va. Code 14-2A-10 (Filing of application)",
+   "url": "https://code.wvlegislature.gov/14-2A-10/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:52Z",
+   "raw_path": "rules/sources/WV/WV-S2.html",
+   "text_path": "rules/sources/WV/WV-S2.txt",
+   "sha256": "3c7883bb272e6d46e5e15b47b4d5a2105997a1b3b1b9207f3861387baaeff21a"
+  },
+  {
+   "id": "WV-S3",
+   "title": "W. Va. Code 14-2A-14 (Denial, reduction, maximum award)",
+   "url": "https://code.wvlegislature.gov/14-2A-14/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:54Z",
+   "raw_path": "rules/sources/WV/WV-S3.html",
+   "text_path": "rules/sources/WV/WV-S3.txt",
+   "sha256": "28229661133fe068e5f25c7238134a08167f38f5e2610a2dad28c3da85f71951"
+  },
+  {
+   "id": "WV-S4",
+   "title": "W. Va. Code 14-2A-14a (Limitation on benefits)",
+   "url": "https://code.wvlegislature.gov/14-2A-14a/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:56Z",
+   "raw_path": "rules/sources/WV/WV-S4.html",
+   "text_path": "rules/sources/WV/WV-S4.txt",
+   "sha256": "1c82a695f597534e6d002d7c4ea009dc88a23c22402b8cc4020f92b1c86319a4"
+  },
+  {
+   "id": "WV-S5",
+   "title": "W. Va. Code 61-8B-16 (Payment for forensic medical examination)",
+   "url": "https://code.wvlegislature.gov/61-8B-16/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:21Z",
+   "raw_path": "rules/sources/WV/WV-S5.html",
+   "text_path": "rules/sources/WV/WV-S5.txt",
+   "sha256": "77a3232c6dc3475ae19f6227dc46bb95dbd9f83ce73c24b60d7685517fe95be4"
+  },
+  {
+   "id": "WV-S6",
+   "title": "W. Va. Code 14-2A-19b (Rates and limitations for health care services)",
+   "url": "https://code.wvlegislature.gov/14-2A-19b/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:23Z",
+   "raw_path": "rules/sources/WV/WV-S6.html",
+   "text_path": "rules/sources/WV/WV-S6.txt",
+   "sha256": "137c8c2557267110733704aacb7cb0cba6ec6d7d2502e80c8c87711a608a4150"
+  },
+  {
+   "id": "WV-S7",
+   "title": "W. Va. Code 14-2A-18 (Effect of no criminal charges)",
+   "url": "https://code.wvlegislature.gov/14-2A-18/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:24Z",
+   "raw_path": "rules/sources/WV/WV-S7.html",
+   "text_path": "rules/sources/WV/WV-S7.txt",
+   "sha256": "7148f8f19b2e10142244ca9676c23368990caeb6dbd400e22298ad064558ac83"
+  },
+  {
+   "id": "WV-S8",
+   "title": "Crime Victims Compensation Fund home page",
+   "url": "https://www.wvlegislature.gov/Joint/victims.cfm",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:32Z",
+   "raw_path": "rules/sources/WV/WV-S8.html",
+   "text_path": "rules/sources/WV/WV-S8.txt",
+   "sha256": "805dc1563eb12b23338d86a5d506197cc0274357fbe16e92347f34f0b2c40405"
+  },
+  {
+   "id": "WV-S9",
+   "title": "Crime Victims Compensation Fund: Eligibility, Benefits, and Applications",
+   "url": "https://victims.wvlegislature.gov/eligibility/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:49:24Z",
+   "raw_path": "rules/sources/WV/WV-S9.html",
+   "text_path": "rules/sources/WV/WV-S9.txt",
+   "sha256": "411403d9d36e45570d49006f537dd6c97408af5a165f4aed131bb89bfb648b61"
+  },
+  {
+   "id": "WV-S10",
+   "title": "Rules of Practice and Procedure under the Crime Victims Compensation Act",
+   "url": "https://www.wvlegislature.gov/Joint/Victims/rules.cfm",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/WV/WV-S10.html",
+   "text_path": "rules/sources/WV/WV-S10.txt",
+   "sha256": "56c6312c3d8ed6a6948262c72d260509a9aa3f7b4344f1277482d825461fd156"
+  },
+  {
+   "id": "WV-S11",
+   "title": "Application for West Virginia Crime Victims Compensation",
+   "url": "https://www.wvlegislature.gov/Joint/Victims/crime_victim_application.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:34Z",
+   "raw_path": "rules/sources/WV/WV-S11.pdf",
+   "text_path": "rules/sources/WV/WV-S11.txt",
+   "sha256": "e5cc3e2e2107ef4d354397c3e4feef5e4270ef4818ecd3dc7d9d7b89561bdc5a"
+  },
+  {
+   "id": "WV-S12",
+   "title": "File Your Crime Victims Claim (online claim form start page)",
+   "url": "https://www.wvlegislature.gov/Joint/Victims/claim.cfm",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:41:18Z",
+   "raw_path": "rules/sources/WV/WV-S12.html",
+   "text_path": "rules/sources/WV/WV-S12.txt",
+   "sha256": "2b7b62e7f629c47fbb22c3206f0afe9b6a16680a2e814981dd1519149814741f"
+  }
+ ],
+ "rules": [
+  {
+   "id": "WV-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "A medical facility may not collect the cost of the sexual assault forensic exam from the survivor or from the survivor's insurance.",
+   "quote": "No licensed medical facility may collect the costs of a forensic medical examination from the alleged victim of a violation of this article or from the alleged victim's insurance coverage, if any.",
+   "source_id": "WV-S5",
+   "pinpoint": "W. Va. Code 61-8B-16(b)",
+   "fragment_url": "https://code.wvlegislature.gov/61-8B-16/#:~:text=No%20licensed%20medical%20facility%20may,victim%27s%20insurance%20coverage%2C%20if%20any."
+  },
+  {
+   "id": "WV-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "West Virginia Prosecuting Attorneys Institute, forensic medical examination fund"
+   },
+   "summary": "The West Virginia Prosecuting Attorneys Institute pays the facility for the forensic exam out of the forensic medical examination fund.",
+   "quote": "the West Virginia prosecuting attorneys institute shall pay to a licensed medical facility from the forensic medical examination fund the cost of the forensic medical examination for the alleged victim",
+   "source_id": "WV-S5",
+   "pinpoint": "W. Va. Code 61-8B-16(a)",
+   "fragment_url": "https://code.wvlegislature.gov/61-8B-16/#:~:text=the%20West%20Virginia%20prosecuting%20attorneys,examination%20for%20the%20alleged%20victim"
+  },
+  {
+   "id": "WV-EXAM-3",
+   "category": "exam_payment",
+   "expense": "medical",
+   "params": {
+    "payer": "Not the exam fund; facility may bill survivor or insurer for nonforensic procedures"
+   },
+   "summary": "The exam fund does not cover nonforensic care given at the same visit (such as preventive treatment, injury treatment, pregnancy and STI testing); the facility may bill the survivor or their insurer for those.",
+   "quote": "The costs of additional nonforensic procedures performed by the licensed medical facility, including, but not limited to, prophylactic treatment, treatment of injuries, testing for pregnancy and testing for sexually transmitted diseases, may not be paid from the fund: Provided, That nothing in this section shall be construed to prohibit a licensed medical facility from seeking payment for services referred to in this subdivision from the alleged victim or his or her insurer, if any",
+   "source_id": "WV-S5",
+   "pinpoint": "W. Va. Code 61-8B-16(a)(2)",
+   "fragment_url": "https://code.wvlegislature.gov/61-8B-16/#:~:text=The%20costs%20of%20additional%20nonforensic,or%20her%20insurer%2C%20if%20any"
+  },
+  {
+   "id": "WV-EXAM-4",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false,
+    "scope": "forensic exam only; does not apply to compensation claims"
+   },
+   "summary": "A survivor does not have to report to police or cooperate with law enforcement to get a state-paid forensic exam.",
+   "quote": "Nothing in this section shall be construed to require an alleged victim of sexual assault to participate in the criminal justice system or to cooperate with law enforcement in order to be provided a forensic medical examination pursuant to the provisions of this section.",
+   "source_id": "WV-S5",
+   "pinpoint": "W. Va. Code 61-8B-16(c)",
+   "fragment_url": "https://code.wvlegislature.gov/61-8B-16/#:~:text=Nothing%20in%20this%20section%20shall,the%20provisions%20of%20this%20section."
+  },
+  {
+   "id": "WV-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 3500000
+   },
+   "summary": "For an injury claim, total compensation to the victim and all other claimants may not exceed $35,000.",
+   "quote": "Except in the case of death, or as provided in subdivision (2) of this subsection, compensation payable to a victim and to all other claimants sustaining economic loss because of injury to that victim may not exceed $35,000 in the aggregate.",
+   "source_id": "WV-S3",
+   "pinpoint": "W. Va. Code 14-2A-14(g)(1)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-14/#:~:text=Except%20in%20the%20case%20of,exceed%20%2435%2C000%20in%20the%20aggregate."
+  },
+  {
+   "id": "WV-CAP-2",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 450000,
+    "per": "claim"
+   },
+   "summary": "Relocation costs are covered up to $4,500.",
+   "quote": "Victim relocation costs not to exceed $4,500",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(f)(3)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=Victim%20relocation%20costs%20not%20to%20exceed%20%244%2C500"
+  },
+  {
+   "id": "WV-CAP-3",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 500000,
+    "per": "claim",
+    "scope": "travel to attend court proceedings for the prosecution only; medical travel has no separate cap"
+   },
+   "summary": "Travel to attend court proceedings in the prosecution is covered up to $5,000. This cap applies to court travel only, not to travel for medical care.",
+   "quote": "Reasonable travel expenses not to exceed $5,000 for a claimant to attend court proceedings conducted for the prosecution of the offender",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(f)(4)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=Reasonable%20travel%20expenses%20not%20to,the%20prosecution%20of%20the%20offender"
+  },
+  {
+   "id": "WV-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Reasonable charges for needed medical and psychological care, including eyeglasses, dentures and rehabilitation, are allowable expenses.",
+   "quote": "Reasonable charges incurred or to be incurred for reasonably needed medical care, including products, services, and accommodations related to medical and psychological care, prosthetic devices, eye glasses, dentures, rehabilitation, and other remedial treatment and care",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(f)(1)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=Reasonable%20charges%20incurred%20or%20to,other%20remedial%20treatment%20and%20care"
+  },
+  {
+   "id": "WV-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling by a licensed counselor is a reimbursable expense.",
+   "quote": "Mental Health Counseling by a Licensed Counselor",
+   "source_id": "WV-S9",
+   "pinpoint": "Eligibility page, Reimbursable Expenses",
+   "fragment_url": "https://victims.wvlegislature.gov/eligibility/#:~:text=Mental%20Health%20Counseling%20by%20a%20Licensed%20Counselor"
+  },
+  {
+   "id": "WV-COV-3",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Reasonable travel to and from a medical facility is an allowable expense.",
+   "quote": "Reasonable travel expenses for the transportation of a victim to and from a medical facility.",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(f)(6)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=Reasonable%20travel%20expenses%20for%20the,and%20from%20a%20medical%20facility."
+  },
+  {
+   "id": "WV-COV-4",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost income from work the victim could not do because of the injury counts as economic loss.",
+   "quote": "\"Work loss\" means loss of income from work that the injured person would have performed if he or she had not been injured",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(g)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=%22Work%20loss%22%20means%20loss%20of,she%20had%20not%20been%20injured"
+  },
+  {
+   "id": "WV-COV-5",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Income lost to attend court proceedings in the prosecution also counts as work loss.",
+   "quote": "\"Work loss\" also includes loss of income from work by the claimant, the victim, or the parent or legal guardian of a minor victim who must miss work to attend court proceedings conducted for the prosecution of the offender.",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(g)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=%22Work%20loss%22%20also%20includes%20loss,the%20prosecution%20of%20the%20offender."
+  },
+  {
+   "id": "WV-COV-6",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Dental costs are listed with medical costs as reimbursable.",
+   "quote": "Medical/Dental Mental Health Counseling by a Licensed Counselor Lost Wages/Income",
+   "source_id": "WV-S9",
+   "pinpoint": "Eligibility page, Reimbursable Expenses",
+   "fragment_url": "https://victims.wvlegislature.gov/eligibility/#:~:text=Medical%2FDental%20Mental%20Health%20Counseling%20by%20a%20Licensed%20Counselor%20Lost%20Wages%2FIncome"
+  },
+  {
+   "id": "WV-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "damaged or stolen personal property, including money (eyeglasses and dentures excepted)"
+   },
+   "summary": "Damaged or stolen personal property (for example a phone) and stolen money are not covered. Eyeglasses and dentures are an exception.",
+   "quote": "No. Damaged or stolen property, including money, is NOT recoverable.",
+   "source_id": "WV-S11",
+   "pinpoint": "Application packet, information page"
+  },
+  {
+   "id": "WV-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "personal property other than medically necessary items"
+   },
+   "summary": "Personal property is not covered, except medically necessary items such as eyeglasses.",
+   "quote": "Personal property (except medically necessary items such as eyeglasses)",
+   "source_id": "WV-S9",
+   "pinpoint": "Eligibility page, Types of Losses Not Covered",
+   "fragment_url": "https://victims.wvlegislature.gov/eligibility/#:~:text=Personal%20property%20%28except%20medically%20necessary%20items%20such%20as%20eyeglasses%29"
+  },
+  {
+   "id": "WV-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime"
+   },
+   "summary": "The application must be filed within two years after the crime.",
+   "quote": "All applications for an award of compensation shall be filed within two years after the occurrence of the criminally injurious conduct that is the basis of the application.",
+   "source_id": "WV-S2",
+   "pinpoint": "W. Va. Code 14-2A-10(b)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-10/#:~:text=All%20applications%20for%20an%20award,the%20basis%20of%20the%20application."
+  },
+  {
+   "id": "WV-REP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "The crime must be reported to law enforcement within 96 hours, but for a sexual offense a forensic medical exam within 96 hours meets the requirement instead. Good cause can excuse a late report or exam, and juvenile victims are exempt.",
+   "quote": "The commissioner may not approve an award of compensation if the criminally injurious conduct upon which the claim is based was not reported to a law-enforcement officer or agency or, in the case of sexual offense, the victim did not undergo a forensic medical examination, within 96 hours after the occurrence of the conduct, unless it is determined that good cause existed for the failure to report the conduct or undergo a forensic medical examination within the 96-hour period: Provided , That reporting to a law-enforcement officer or agency or a forensic medical examination is not required if the victim is a juvenile in order for a commissioner to approve an award of compensation",
+   "source_id": "WV-S3",
+   "pinpoint": "W. Va. Code 14-2A-14(b)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-14/#:~:text=The%20commissioner%20may%20not%20approve,approve%20an%20award%20of%20compensation"
+  },
+  {
+   "id": "WV-REP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "scope": "filing of a criminal charge, not just a report; exceptions for unknown offender, juvenile claimant, or adult claimant who did not block charges where law enforcement confirms a crime occurred"
+   },
+   "summary": "Beyond the police report, a criminal charge generally has to be filed. It is not required when the offender is unknown, when the claimant was a juvenile, or when an adult claimant did not cause the lack of charges and law enforcement confirms the evidence supports that a crime occurred. A conviction is not required.",
+   "quote": "The filing of a criminal charge shall be a prerequisite for receipt of compensation unless it is determined that no charges were filed due to the identity of the perpetrator being unknown: Provided, That no criminal charges need be filed if: (1) The claimant is an adult at the time the conduct giving rise to the claim occurred and no criminal charges were filed for reasons other than the desire of the claimant and a law-enforcement agency confirms that the available evidence supports a finding that a crime occurred; or (2) the claimant was a juvenile at the time the conduct giving rise to the claim occurred.",
+   "source_id": "WV-S7",
+   "pinpoint": "W. Va. Code 14-2A-18",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-18/#:~:text=The%20filing%20of%20a%20criminal,rise%20to%20the%20claim%20occurred."
+  },
+  {
+   "id": "WV-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Awards are reduced by whatever insurance or other collateral sources pay; the fund pays last.",
+   "quote": "The commissioner shall reduce an award of compensation or deny a claim for an award of compensation that is otherwise payable to a claimant to the extent that the economic loss upon which the claim is based is or will be recouped from other persons, including collateral sources",
+   "source_id": "WV-S3",
+   "pinpoint": "W. Va. Code 14-2A-14(f)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-14/#:~:text=The%20commissioner%20shall%20reduce%20an,other%20persons%2C%20including%20collateral%20sources"
+  },
+  {
+   "id": "WV-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "An award may be reduced or denied for contributory misconduct of the claimant or victim.",
+   "quote": "or if the reduction or denial is determined to be reasonable because of the contributory misconduct of the claimant or of a victim through whom he or she claims",
+   "source_id": "WV-S3",
+   "pinpoint": "W. Va. Code 14-2A-14(f)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-14/#:~:text=or%20if%20the%20reduction%20or,whom%20he%20or%20she%20claims"
+  },
+  {
+   "id": "WV-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "An award may be denied or reduced if the claimant or victim did not fully cooperate with law enforcement or the claim investigator.",
+   "quote": "A commissioner, upon a finding that the claimant or victim has not fully cooperated with appropriate law-enforcement agencies or the claim investigator, may deny a claim, reduce an award of compensation, or reconsider a claim already approved.",
+   "source_id": "WV-S3",
+   "pinpoint": "W. Va. Code 14-2A-14(d)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-14/#:~:text=A%20commissioner%2C%20upon%20a%20finding,reconsider%20a%20claim%20already%20approved."
+  },
+  {
+   "id": "WV-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault is listed among the crimes resulting in personal injury that the fund covers.",
+   "quote": "Murder Other Violent Crimes Robbery Sexual Assault Kidnapping Human Trafficking",
+   "source_id": "WV-S9",
+   "pinpoint": "Eligibility page, Crimes Resulting in Personal Injury",
+   "fragment_url": "https://victims.wvlegislature.gov/eligibility/#:~:text=Murder%20Other%20Violent%20Crimes%20Robbery%20Sexual%20Assault%20Kidnapping%20Human%20Trafficking"
+  },
+  {
+   "id": "WV-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in West Virginia (residents and nonresidents); West Virginia residents for crimes in a state with no compensation program or outside the United States"
+   },
+   "summary": "The crime must occur in West Virginia, or in a state without a victim compensation program. A nonresident is eligible only if the crime happened in West Virginia, and West Virginia residents are also covered for crimes outside the United States.",
+   "quote": "“Criminally injurious conduct” means conduct that occurs or is attempted in this state, or in any state not having a victim compensation program, which poses a substantial threat of personal injury or death and is punishable by fine or imprisonment. “Criminally injurious conduct” also includes criminally injurious conduct committed outside of the United States against a resident of this state.",
+   "source_id": "WV-S1",
+   "pinpoint": "W. Va. Code 14-2A-3(c); nonresident limit in 14-2A-3(a)(1)",
+   "fragment_url": "https://code.wvlegislature.gov/14-2A-3/#:~:text=%E2%80%9CCriminally%20injurious%20conduct%E2%80%9D%20means%20conduct,a%20resident%20of%20this%20state."
+  },
+  {
+   "id": "WV-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "CRIME VICTIMS COMPENSATION FUND 1900 KANAWHA BLVD E ROOM W-334 CHARLESTON WV 25305-0610"
+   },
+   "summary": "Mail the completed, notarized application to the Crime Victims Compensation Fund in Charleston.",
+   "quote": "Mail your completed application to: CRIME VICTIMS COMPENSATION FUND 1900 KANAWHA BLVD E ROOM W-334 CHARLESTON WV 25305-0610",
+   "source_id": "WV-S11",
+   "pinpoint": "Application packet, cover page instructions"
+  },
+  {
+   "id": "WV-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://www.wvlegislature.gov/Joint/Victims/claim.cfm"
+   },
+   "summary": "A claim can also be filed through the Legislature's online claim form.",
+   "quote": "Begin your Online Claim Process This online claim form takes you through 5 simple steps to file your Crime Victims claim.",
+   "source_id": "WV-S12",
+   "pinpoint": "File Your Crime Victims Claim page",
+   "fragment_url": "https://www.wvlegislature.gov/Joint/Victims/claim.cfm#:~:text=Begin%20your%20Online%20Claim%20Process,file%20your%20Crime%20Victims%20claim."
+  },
+  {
+   "id": "WV-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report"
+   },
+   "summary": "Send a copy of the police report with the application if you have one; do not hold the application waiting for it near the deadline.",
+   "quote": "Include all the documentation you can - if you have a copy of the police report, hospital or doctor bills, please send with the application.",
+   "source_id": "WV-S11",
+   "pinpoint": "Application packet, cover page instructions"
+  },
+  {
+   "id": "WV-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "A copy of each medical bill; insurance statements are not accepted in place of bills."
+   },
+   "summary": "Submit a copy of each of the victim's medical bills. Insurance statements are not acceptable.",
+   "quote": "SUBMIT A COPY OF EACH OF THE VICTIM’S MEDICAL BILLS. INSURANCE STATEMENTS ARE NOT ACCEPTABLE.",
+   "source_id": "WV-S11",
+   "pinpoint": "Application, Victim's Injury Information section"
+  },
+  {
+   "id": "WV-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Claimant's release signed in front of a notary public."
+   },
+   "summary": "Sign the application's release page in front of a notary; skipping the notary delays the claim.",
+   "quote": "Sign this Application (Page 4) in front of a notary public. Failure to notarize will delay the processing of your claim.",
+   "source_id": "WV-S11",
+   "pinpoint": "Application packet, cover page instructions; Claimant's Release (page 4)"
+  },
+  {
+   "id": "WV-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The application is filed in duplicate (two copies)."
+   },
+   "summary": "Under the program's procedural rules, the application is filed in duplicate.",
+   "quote": "Within two years after the occurrence of the criminally injurious conduct that is the basis of a claim, an application for an award of compensation shall be filed by a claimant, in duplicate.",
+   "source_id": "WV-S10",
+   "pinpoint": "Rules of Practice and Procedure, Rule 4",
+   "fragment_url": "https://www.wvlegislature.gov/Joint/Victims/rules.cfm#:~:text=Within%20two%20years%20after%20the,by%20a%20claimant%2C%20in%20duplicate."
+  },
+  {
+   "id": "WV-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "months": 6
+   },
+   "summary": "The claim investigator must file a finding of fact and recommendation within 6 months, unless the Commission extends it.",
+   "quote": "The finding of fact shall be filed within six months, unless extended by the Commission",
+   "source_id": "WV-S10",
+   "pinpoint": "Rules of Practice and Procedure, Rule 5(b)",
+   "fragment_url": "https://www.wvlegislature.gov/Joint/Victims/rules.cfm#:~:text=The%20finding%20of%20fact%20shall,unless%20extended%20by%20the%20Commission"
+  },
+  {
+   "id": "WV-TIME-2",
+   "category": "processing_time",
+   "params": {
+    "days": 45
+   },
+   "summary": "After the 30-day response window, a Commissioner has 45 days from assignment to approve or deny the claim without a hearing.",
+   "quote": "(d) After the expiration of the 30-day period, the Clerk shall assign the claim to a Commissioner. (e) The Commissioner shall, within 45 days after assignment by the Clerk, file an opinion without a hearing and either deny the claim or approve an award to the claimant.",
+   "source_id": "WV-S10",
+   "pinpoint": "Rules of Practice and Procedure, Rule 5(d)-(e)",
+   "fragment_url": "https://www.wvlegislature.gov/Joint/Victims/rules.cfm#:~:text=%28d%29%20After%20the%20expiration%20of,an%20award%20to%20the%20claimant."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "emergency_award",
+   "expense_cap:counseling",
+   "expense_cap:lost_wages",
+   "expense_cap:medical",
+   "covered_expense:security",
+   "covered_expense:temporary_housing"
+  ],
+  "notes": "No minimum loss amount appears in the statute or program pages (the old eligibility page only says there must be an economic loss). No emergency or advance award provision was found in W. Va. Code 14-2A. No dollar cap for the victim's own counseling, lost wages or medical care was found beyond the $35,000 total; the only counseling cap found is $5,000 for secondary victims (14-2A-3(a)(5)), which is not encoded as a rule because it does not apply to the survivor. Security devices and temporary housing are not listed as allowable expenses. The program may set maximum rates for health care services by rule or order (14-2A-19b), but no rate schedule was found."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statutes were read from code.wvlegislature.gov on 2026-10-03 (14-2A-3 shows 2025 amendments). Program pages disagree with the statute in places, and the statute is used: (1) the older eligibility page at wvlegislature.gov/Joint/Victims/eligibility.cfm and the application packet say a report within 72 hours, while 14-2A-14(b) now says 96 hours and accepts a forensic exam for sexual offenses; the newer victims.wvlegislature.gov eligibility page matches the statute. (2) Program pages list funeral costs up to $7,000 or $10,000; the statute says $10,000 (not encoded since it only applies to death claims). (3) Both eligibility pages say a minor victim must file before the 20th birthday, but 14-2A-10(b) as read only states two years from the crime, so the minor rule is not encoded. Other notes: 14-2A-18 makes the filing of criminal charges a prerequisite with exceptions (unknown offender, juvenile claimant, or adult who did not block charges where law enforcement confirms a crime occurred). 14-2A-19b says a provider that accepts the commission's payment must take it as payment in full and may not bill the claimant the difference. Program Rule 12 says the commission pays medical providers 50% of outstanding balances after collateral sources as payment in full, with no reduction against the claimant. 14-2A-14(g)(2) allows up to $100,000 more for special needs when the injury leaves the victim disabled under the Social Security Act. Claims close 10 years after filing or when benefits run out (14-2A-14a). Toll-free number 1-877-562-6878 (within West Virginia) is on WV-S8. A secondary eligibility page lists (304) 347-4851, which looks like a typo; the phone uses 304-347-4850 from the home page and the OVC directory. Reviewer: 14-2A-14(a) opens with \"Except as provided in §14-2A-10(b)\", which hints at an exception to the two-year limit, but the saved 14-2A-10(b) (last amended 2017) states no exception; the program's minor-victim rule (file before the 20th birthday) could not be tied to statute text and stays out of the rules. WV-REP-2 is a criminal-charge requirement (14-2A-18), stricter than a police report; the engine should not treat it as satisfied by a forensic exam. The court-travel cap in WV-CAP-3 does not apply to medical travel. How to file (added 2026-10-03): the application PDF (WV-S11, last modified 2016 and still the file linked from the program home page) is a flat, non-fillable form with 0 AcroForm fields, so it is printed and filled by hand. Its cover page says to mail it to the Fund; the home page (WV-S8) also links an online claim form (WV-S12, saved directly because the page text is short and the fetch tool's length check flagged it). The packet and home page list a fax number (304-347-4915) and email (cvictims@wvlegislature.gov) as contact details only, never as ways to file, so no fax or email submission rule is encoded; because the release must be notarized, the survivor should mail the original. Rule 4 says the application is filed in duplicate while the packet does not mention copies; WV-DOC-4 records the rule. Death-claim documents (death certificate, funeral bills, guardianship papers) are listed on the form but not encoded since they do not apply to a surviving victim. Processing times come from the procedural rules (6 months for the investigator's finding, then a 30-day response window, then 45 days for the Commissioner's opinion); no program page gives an overall decision or payment time. The victims.wvlegislature.gov application link (/crime-victims-compensation-application/) returned 404 on 2026-10-03."
+}

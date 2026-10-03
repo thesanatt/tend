@@ -1,0 +1,828 @@
+{
+ "jurisdiction": "ID",
+ "name": "Idaho",
+ "program": {
+  "program_name": "Crime Victims Compensation Program",
+  "agency": "Idaho Industrial Commission, Crime Victims Compensation Program",
+  "website": "https://crimevictimcomp.idaho.gov/",
+  "apply_url": "https://crimevictimcomp.idaho.gov/file-a-claim/",
+  "application_pdf_url": "https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/06/CVCP-Application-for-Compensation_20260630.pdf",
+  "phone": "208-334-6080",
+  "phone_source_id": "ID-S8",
+  "statute_citation": "Idaho Code 72-1001 to 72-1026; Idaho Code 19-5303; IDAPA 17.10.01",
+  "application_form": {
+   "source_id": "ID-S11",
+   "fillable": false,
+   "field_count": 0
+  }
+ },
+ "sources": [
+  {
+   "id": "ID-S1",
+   "title": "Idaho Code 72-1003 (Definitions)",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1003",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:25Z",
+   "raw_path": "rules/sources/ID/ID-S1.html",
+   "text_path": "rules/sources/ID/ID-S1.txt",
+   "sha256": "8f37e1b0c1814d3c2c52e3d237032ad1f73adb9e45e609713cb398383071082a"
+  },
+  {
+   "id": "ID-S2",
+   "title": "Idaho Code 72-1016 (Limitations on awards)",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:27Z",
+   "raw_path": "rules/sources/ID/ID-S2.html",
+   "text_path": "rules/sources/ID/ID-S2.txt",
+   "sha256": "854494c00bbdf4d59f0d7e84daab7659732409b14efc293ce58ffc28b9d6c25d"
+  },
+  {
+   "id": "ID-S3",
+   "title": "Idaho Code 72-1017 (Tentative award of compensation)",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1017",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:29Z",
+   "raw_path": "rules/sources/ID/ID-S3.html",
+   "text_path": "rules/sources/ID/ID-S3.txt",
+   "sha256": "382df1a72c489f66f94e99ef107fd780864578e76f6f80bdcb45bf1c0a967fbc"
+  },
+  {
+   "id": "ID-S4",
+   "title": "Idaho Code 72-1019 (Compensation benefits)",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:30Z",
+   "raw_path": "rules/sources/ID/ID-S4.html",
+   "text_path": "rules/sources/ID/ID-S4.txt",
+   "sha256": "5cd6bc576c133cc7e7425a44555478d6099c9b8efb18f1239584e246efb2ef5a"
+  },
+  {
+   "id": "ID-S5",
+   "title": "Idaho Code 72-1026 (Payments to medical providers)",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1026",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:32Z",
+   "raw_path": "rules/sources/ID/ID-S5.html",
+   "text_path": "rules/sources/ID/ID-S5.txt",
+   "sha256": "5e73736c68d0fb0faaeed9effee2bea0ddc54ecf1e80d4ebbef5efcfeab177b5"
+  },
+  {
+   "id": "ID-S6",
+   "title": "Idaho Code 19-5303 (Cost of medical exams)",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH53/SECT19-5303",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/ID/ID-S6.html",
+   "text_path": "rules/sources/ID/ID-S6.txt",
+   "sha256": "6a453ef22d849ec065c4d3628ab65fd46598fa7bbe065ffb2205c493928a4b8c"
+  },
+  {
+   "id": "ID-S7",
+   "title": "IDAPA 17.10.01, Administrative Rules Under the Crime Victims Compensation Act",
+   "url": "https://adminrules.idaho.gov/rules/current/17/171001.pdf",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:36Z",
+   "raw_path": "rules/sources/ID/ID-S7.pdf",
+   "text_path": "rules/sources/ID/ID-S7.txt",
+   "sha256": "8b2df84ea15fd1cae475aa9aaf974ad82a55d4426b657b36604e2404ece4f4b6"
+  },
+  {
+   "id": "ID-S8",
+   "title": "Idaho CVCP: Sexual Assault Forensics Examinations",
+   "url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:38Z",
+   "raw_path": "rules/sources/ID/ID-S8.html",
+   "text_path": "rules/sources/ID/ID-S8.txt",
+   "sha256": "c660b2ab88a370db8c16b316977f7bddb36d992e956aff52b9a399f66bc6744c"
+  },
+  {
+   "id": "ID-S9",
+   "title": "Idaho CVCP: Frequently Asked Questions",
+   "url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:39Z",
+   "raw_path": "rules/sources/ID/ID-S9.html",
+   "text_path": "rules/sources/ID/ID-S9.txt",
+   "sha256": "6a668b4a61477a0161ab5c00b6614fb7e9a885c55b78db999d0b93fea7df4e7f"
+  },
+  {
+   "id": "ID-S10",
+   "title": "Idaho CVCP: Complete an Application",
+   "url": "https://crimevictimcomp.idaho.gov/file-a-claim/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:41Z",
+   "raw_path": "rules/sources/ID/ID-S10.html",
+   "text_path": "rules/sources/ID/ID-S10.txt",
+   "sha256": "6977ad772ae97cd87ed3debefb46b600f0347837fe2b245bc50f1e55eff7a6d1"
+  },
+  {
+   "id": "ID-S11",
+   "title": "Idaho CVCP Application for Compensation (June 2026)",
+   "url": "https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/06/CVCP-Application-for-Compensation_20260630.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:44Z",
+   "raw_path": "rules/sources/ID/ID-S11.pdf",
+   "text_path": "rules/sources/ID/ID-S11.txt",
+   "sha256": "3dcce5f912ecc40ed9079489b6e6ea3bb6ef72872da5c4cf25b6fbebcce14da9"
+  },
+  {
+   "id": "ID-S12",
+   "title": "Idaho CVCP: Benefits You May Be Eligible For",
+   "url": "https://crimevictimcomp.idaho.gov/benefits/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:46Z",
+   "raw_path": "rules/sources/ID/ID-S12.html",
+   "text_path": "rules/sources/ID/ID-S12.txt",
+   "sha256": "6e72368a85c85e45637bf21dae3d0cc103aa108ab4c4bd275a28f0c9174054d1"
+  },
+  {
+   "id": "ID-S13",
+   "title": "Idaho CVCP Adult Sexual Assault Forensic Examination Reimbursement Application (April 2026)",
+   "url": "https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/04/SAE-Reimbursement-Form-4-14-26.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:49:01Z",
+   "raw_path": "rules/sources/ID/ID-S13.pdf",
+   "text_path": "rules/sources/ID/ID-S13.txt",
+   "sha256": "362087d213892705b51bbbbe8e26890d96abb89ee05da993627f4774fe5c1c77"
+  }
+ ],
+ "rules": [
+  {
+   "id": "ID-EXAM-1",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Idaho crime victims compensation account (Industrial Commission)"
+   },
+   "summary": "By statute, the cost of a sexual assault forensic or medical exam is paid from the state crime victims compensation account rather than by the law enforcement agency.",
+   "quote": "the cost of forensic and/or medical examinations of alleged victims of sexual assault shall be paid for from the crime victims compensation account",
+   "source_id": "ID-S6",
+   "pinpoint": "Idaho Code 19-5303",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title19/T19CH53/SECT19-5303#:~:text=the%20cost%20of%20forensic%20and%2For,the%20crime%20victims%20compensation%20account"
+  },
+  {
+   "id": "ID-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Industrial Commission, after any federal or federally financed third party for adults; after any liable third party, including private insurance, for minors"
+   },
+   "summary": "The commission pays for evidence-gathering sexual assault exams after any federal or federally financed payer (such as Medicaid or Medicare); for victims under 18 it pays after any liable third party.",
+   "quote": "Payment for the costs of forensic and medical examinations of alleged victims of sexual assault performed for the purposes of gathering evidence for possible prosecution, after collections from any federal or federally financed third party who has liability, shall be made by the commission; provided however that payment for the costs of forensic and medical examinations of alleged victims under eighteen (18) years of age shall be made by the commission after collections from any third party who has liability.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(2)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Payment%20for%20the%20costs%20of,third%20party%20who%20has%20liability."
+  },
+  {
+   "id": "ID-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "An adult survivor's (18 or older) private insurance should not be billed for a sexual assault forensic and medical exam; the program pays instead. Federal programs such as Medicaid, Medicare, or VA are billed first, and a minor's exam goes through all insurance first. This is a rule about insurance billing; no Idaho source flatly bars billing the survivor.",
+   "quote": "an adult victim's (18 years of age and older) private insurance should not be billed for a sexual assault forensic and medical examination.",
+   "source_id": "ID-S8",
+   "pinpoint": "CVCP Sexual Assault Forensics Examinations page",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/#:~:text=an%20adult%20victim%27s%20%2818%20years,assault%20forensic%20and%20medical%20examination."
+  },
+  {
+   "id": "ID-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Idaho Crime Victims Compensation Program"
+   },
+   "summary": "The program says it will pay for an adult survivor's sexual assault forensic and medical exam, and to call the program right away if the facility sends a bill for the exam.",
+   "quote": "Please note that if you are an adult victim of a Sexual Assault, we will pay for the costs of your Sexual Assault Forensic and Medical Examination. If you receive a bill from the medical facility for the Forensic Examination, please contact us immediately",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, Will you bill my insurance?",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=Please%20note%20that%20if%20you,Examination%2C%20please%20contact%20us%20immediately"
+  },
+  {
+   "id": "ID-EXAM-5",
+   "category": "exam_no_bill",
+   "expense": "medical",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A medical provider that the program has paid may not try to collect more from the victim for the same services, except when the program cannot pay the full allowable amount.",
+   "quote": "Except as provided in subsection (3) herein, a medical provider who has received payment from the commission for medical services provided to a victim or claimant under this chapter may not attempt to collect any further payment from the victim or the claimant for those same services.",
+   "source_id": "ID-S5",
+   "pinpoint": "Idaho Code 72-1026(2)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1026#:~:text=Except%20as%20provided%20in%20subsection,claimant%20for%20those%20same%20services."
+  },
+  {
+   "id": "ID-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000
+   },
+   "summary": "Compensation to a victim, and to the victim's dependents if the victim dies, for crimes by the same offender within a 6 month period may not exceed $25,000 in total. The statute's wording is built around death cases; the program applies $25,000 as its maximum for all claims.",
+   "quote": "Compensation payable to a victim and all of the victim's dependents in cases of the victim's death, because of injuries suffered due to an act or acts of criminally injurious conduct involving the same offender and occurring within a six (6) month period, may not exceed twenty-five thousand dollars ($25,000) in the aggregate.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(5)(a)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Compensation%20payable%20to%20a%20victim,dollars%20%28%2425%2C000%29%20in%20the%20aggregate."
+  },
+  {
+   "id": "ID-CAP-1B",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000
+   },
+   "summary": "The program pays treatment expenses after all other payment sources are used, up to a maximum of $25,000.",
+   "quote": "The Idaho Crime Victims Compensation Program reimburses providers and victims for treatment expenses incurred on behalf of the victim after all other payment sources have been exhausted, up to a maximum of $25,000.",
+   "source_id": "ID-S12",
+   "pinpoint": "CVCP Benefits You May Be Eligible For page",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/benefits/#:~:text=The%20Idaho%20Crime%20Victims%20Compensation,to%20a%20maximum%20of%20%2425%2C000."
+  },
+  {
+   "id": "ID-CAP-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Mental health treatment for the victim is capped at $2,500 unless the commission finds extenuating circumstances, in which case it can go up to the overall maximum.",
+   "quote": "payments for mental health treatment received as a result of the victim's injury may not exceed two thousand five hundred dollars ($2,500) unless the industrial commission finds extenuating circumstances.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(5)(b)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=payments%20for%20mental%20health%20treatment,industrial%20commission%20finds%20extenuating%20circumstances."
+  },
+  {
+   "id": "ID-CAP-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 50000,
+    "per": "claim",
+    "applies_to": "family members of the victim (spouse, parent, grandparent, child, grandchild, sibling)"
+   },
+   "summary": "Family members of a sexual assault victim can get mental health treatment reimbursed, up to $500 per person or $1,500 per family, if the victim was also awarded benefits.",
+   "quote": "Total payments made under paragraph (a) of this subsection may not exceed five hundred dollars ($500) for each person or one thousand five hundred dollars ($1,500) for a family.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(9)(b)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Total%20payments%20made%20under%20paragraph,dollars%20%28%241%2C500%29%20for%20a%20family."
+  },
+  {
+   "id": "ID-CAP-4",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 17500,
+    "per": "week"
+   },
+   "summary": "A victim with total wage loss gets 66 2/3 percent of their wages, up to $175 per week.",
+   "quote": "The weekly benefit amount is sixty-six and two-thirds percent (66 2/3%) of the wages received at the time of the criminally injurious conduct, subject to a maximum of one hundred seventy-five dollars ($175).",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(1)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=The%20weekly%20benefit%20amount%20is,one%20hundred%20seventy%2Dfive%20dollars%20%28%24175%29."
+  },
+  {
+   "id": "ID-CAP-5",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 15000,
+    "per": "week",
+    "applies_to": "victims who were employable but not employed"
+   },
+   "summary": "A victim who was employable but not employed at the time of the injury may get up to $150 per week, at the commission's discretion.",
+   "quote": "who was employable but was not employed at the time of such injury, may in the discretion of the commission be awarded weekly compensation benefits in an amount determined by the commission not to exceed one hundred fifty dollars ($150) per week.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(7)(a)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=who%20was%20employable%20but%20was,fifty%20dollars%20%28%24150%29%20per%20week."
+  },
+  {
+   "id": "ID-CAP-6",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 2000000,
+    "per": "claim",
+    "applies_to": "victims who were employable but not employed"
+   },
+   "summary": "Weekly benefits for a victim who was employable but not employed may not exceed $20,000 in total.",
+   "quote": "Compensation payable to a victim or a victim's dependents under this subsection may not exceed twenty thousand dollars ($20,000), and the limitations of subsection (5) of this section apply to compensation under this subsection.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(7)(c)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Compensation%20payable%20to%20a%20victim,to%20compensation%20under%20this%20subsection."
+  },
+  {
+   "id": "ID-CAP-7",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Reasonable funeral, burial or cremation costs, plus transporting the victim's body, are paid up to $5,000 after other collateral sources have paid.",
+   "quote": "Reasonable funeral and burial or cremation expenses of the victim, together with actual expenses of transportation of the victim's body, shall be paid in an amount not exceeding five thousand dollars ($5,000) if all other collateral sources have properly paid such expenses but have not covered all such expenses.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(4)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Reasonable%20funeral%20and%20burial%20or,not%20covered%20all%20such%20expenses."
+  },
+  {
+   "id": "ID-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "The commission may pay reasonable doctor, hospital, and medicine costs for crime injuries.",
+   "quote": "The commission may order payment of reasonable expenses actually incurred by the claimant for reasonable services by a physician or surgeon, reasonable hospital services and medicines, mental health counseling and care, and such other treatment as may be approved by the commission for the injuries suffered due to criminally injurious conduct.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(2)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=The%20commission%20may%20order%20payment,due%20to%20criminally%20injurious%20conduct."
+  },
+  {
+   "id": "ID-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling and care for crime injuries can be paid.",
+   "quote": "The commission may order payment of reasonable expenses actually incurred by the claimant for reasonable services by a physician or surgeon, reasonable hospital services and medicines, mental health counseling and care, and such other treatment as may be approved by the commission for the injuries suffered due to criminally injurious conduct.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(2)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=The%20commission%20may%20order%20payment,due%20to%20criminally%20injurious%20conduct."
+  },
+  {
+   "id": "ID-COV-3",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "The claimant or a close family member can be reimbursed for necessary travel to get covered benefits, under the commission's rules.",
+   "quote": "A claimant or a spouse, parent, child or sibling of a claimant or victim may be reimbursed for his or her expenses for necessary travel incurred in connection with obtaining benefits covered pursuant to this chapter and in accordance with rules of the commission.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(10)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=A%20claimant%20or%20a%20spouse%2C,with%20rules%20of%20the%20commission."
+  },
+  {
+   "id": "ID-COV-4",
+   "category": "covered_expense",
+   "expense": "forensic_exam",
+   "params": {
+    "expense": "forensic_exam"
+   },
+   "summary": "Covered exam costs include examiner, facility, and lab fees, STI antibiotics, HIV prophylaxis, and other medications; follow-up visits may also be covered.",
+   "quote": "Sexual assault forensic and medical examination costs covered by the program include but are not limited to examiner fees, facility fees, laboratory fees, antibiotics for Sexually Transmitted Infections, HIV prophylaxis, medical prescriptions, and other medications. Follow up visits as prescribed by the treating physician due to an assault may also be covered.",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, What benefits are offered by CVCP?",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=Sexual%20assault%20forensic%20and%20medical,assault%20may%20also%20be%20covered."
+  },
+  {
+   "id": "ID-COV-5",
+   "category": "covered_expense",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "item": "medically necessary items such as eyeglasses, contacts, prostheses, medical devices"
+   },
+   "summary": "The program does not pay for property damage, but it can pay for medically necessary items such as eyeglasses, contacts, prostheses, and other medical devices.",
+   "quote": "CVCP cannot pay Property Damages. However, the Program can pay for certain medically necessary items, such as eyeglasses, contacts, medical and dental prostheses, and other medical devices or aids.",
+   "source_id": "ID-S8",
+   "pinpoint": "CVCP Sexual Assault Forensics Examinations page, Billing",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/#:~:text=CVCP%20cannot%20pay%20Property%20Damages.,other%20medical%20devices%20or%20aids."
+  },
+  {
+   "id": "ID-COV-6",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Covered medical costs include dental, vision, hearing, prescriptions, ambulance, physical therapy, imaging, chiropractic care, and medical devices and prostheses.",
+   "quote": "Examples include medical, surgical, dental, vision, hearing, medication/prescription, ambulance transport, physical therapy, diagnostic imaging, chiropractic care, medical devices, medical aids, medical and dental prostheses.",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, What benefits are offered by CVCP? (Medical)",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=Examples%20include%20medical%2C%20surgical%2C%20dental%2C,aids%2C%20medical%20and%20dental%20prostheses."
+  },
+  {
+   "id": "ID-COV-7",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Medications and prescriptions for crime injuries are covered medical costs.",
+   "quote": "Examples include medical, surgical, dental, vision, hearing, medication/prescription, ambulance transport, physical therapy, diagnostic imaging, chiropractic care, medical devices, medical aids, medical and dental prostheses.",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, What benefits are offered by CVCP? (Medical)",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=Examples%20include%20medical%2C%20surgical%2C%20dental%2C,aids%2C%20medical%20and%20dental%20prostheses."
+  },
+  {
+   "id": "ID-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "item": "property damage or loss (for example a phone, clothing, or other personal items)"
+   },
+   "summary": "Property damage is not paid, so replacing personal property such as a phone is not covered. Pain and suffering is not paid either.",
+   "quote": "Compensation benefits are not payable for pain and suffering or property damage.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(6)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Compensation%20benefits%20are%20not%20payable,and%20suffering%20or%20property%20damage."
+  },
+  {
+   "id": "ID-EXCL-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering"
+   },
+   "summary": "Pain and suffering is not compensated.",
+   "quote": "Compensation benefits are not payable for pain and suffering or property damage.",
+   "source_id": "ID-S4",
+   "pinpoint": "Idaho Code 72-1019(6)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1019#:~:text=Compensation%20benefits%20are%20not%20payable,and%20suffering%20or%20property%20damage."
+  },
+  {
+   "id": "ID-EXCL-3",
+   "category": "excluded_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "item": "missed or cancelled appointment fees; sessions that included the offender"
+   },
+   "summary": "The program will not pay counseling cancellation or missed-appointment fees, or sessions that included the offender.",
+   "quote": "CVCP will not reimburse for cancellation or missed appointment fees nor will they consider payments for sessions that included the offender.",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, Mental Health",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=CVCP%20will%20not%20reimburse%20for,sessions%20that%20included%20the%20offender."
+  },
+  {
+   "id": "ID-EXCL-4",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "item": "first 15 miles of any round trip, and round trips of 15 miles or less"
+   },
+   "summary": "Mileage is not paid for the first 15 miles of a round trip, or for round trips of 15 miles or less; one round trip per day.",
+   "quote": "Reimbursement is limited to one (1) round trip per day. The claimant shall not be reimbursed for the first fifteen (15) miles of any round trip, nor for traveling any round trip of fifteen (15) miles or less.",
+   "source_id": "ID-S7",
+   "pinpoint": "IDAPA 17.10.01.013.06"
+  },
+  {
+   "id": "ID-EXCL-5",
+   "category": "excluded_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "item": "crime-scene cleanup"
+   },
+   "summary": "The program's FAQ lists crime-scene cleanup among costs it does not cover and points victims to court-ordered restitution from the offender instead. The same FAQ sentence also lists wage loss, which the statute does cover, so this page is not fully reliable.",
+   "quote": "A victim may request the criminal court to order the offender to pay restitution for expenses that are not covered by the program, such as property damage, wage loss, expenses to attend criminal court, or costs for crime-scene cleanup.",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, What is Restitution?",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=A%20victim%20may%20request%20the,or%20costs%20for%20crime%2Dscene%20cleanup."
+  },
+  {
+   "id": "ID-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "crime",
+    "extension": "the commission may extend the time for good cause shown"
+   },
+   "summary": "The claim must be filed within 1 year after the crime; the commission can extend this for good cause.",
+   "quote": "Compensation may not be awarded unless the claim is filed with the commission within one (1) year after the day the criminally injurious conduct occurred causing the injury or death upon which the claim is based. The time for filing a claim may be extended by the commission for good cause shown.",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(1)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=Compensation%20may%20not%20be%20awarded,commission%20for%20good%20cause%20shown."
+  },
+  {
+   "id": "ID-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_hours": 72,
+    "alternatives": [],
+    "good_cause_exception": true
+   },
+   "summary": "The crime must be reported to law enforcement within 72 hours, unless the commission finds good cause for the delay.",
+   "quote": "Compensation may not be awarded unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within seventy-two (72) hours after its occurrence or the commission finds there was good cause for the failure to report within that time.",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(3)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=Compensation%20may%20not%20be%20awarded,to%20report%20within%20that%20time."
+  },
+  {
+   "id": "ID-REPORT-2",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "forensic_exam"
+    ],
+    "scope": "exam costs only, adult victims"
+   },
+   "summary": "An adult who does not want to report to police can use a separate exam reimbursement application that covers mainly the exam cost; it is not for minors and does not open the program's other benefits.",
+   "quote": "This application should be used by victims who did not or do not wish to disclose to law enforcement at this time and are primarily seeking reimbursement for only the cost of sexual assault forensic and medical examination This form is not applicable for minor victims.",
+   "source_id": "ID-S13",
+   "pinpoint": "Adult Sexual Assault Forensic Examination Reimbursement Application, page 1"
+  },
+  {
+   "id": "ID-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "cooperation_required": true
+   },
+   "summary": "To get benefits, the claimant must fully cooperate with law enforcement and prosecutors; the commission may deny or reduce an award if they do not.",
+   "quote": "In order to be entitled to benefits under this chapter, a claimant must fully cooperate with all law enforcement agencies and prosecuting attorneys in the apprehension and prosecution of the offender causing the criminally injurious conduct.",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(4)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=In%20order%20to%20be%20entitled,causing%20the%20criminally%20injurious%20conduct."
+  },
+  {
+   "id": "ID-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Except for the sexual assault exam rules in 72-1019(2), compensation is reduced or denied to the extent it can be recovered from insurance or other collateral sources.",
+   "quote": "Subject to the limitations on payments for the costs of forensic and medical examinations of alleged victims of sexual assault described in section 72-1019 (2), Idaho Code, compensation otherwise payable to a claimant shall be reduced or denied to the extent the compensation benefits payable are or can be recouped from collateral sources.",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(5)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=Subject%20to%20the%20limitations%20on,be%20recouped%20from%20collateral%20sources."
+  },
+  {
+   "id": "ID-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "An award may be reduced or denied in proportion to how much the commission finds the victim contributed to the injury.",
+   "quote": "Compensation may be denied or reduced if the victim contributed to the infliction of death or injury with respect to which the claim is made.",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(7)(a)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=Compensation%20may%20be%20denied%20or,which%20the%20claim%20is%20made."
+  },
+  {
+   "id": "ID-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "Compensation is cut by 50 percent if the claimant was committing a felony or certain impaired-driving or boating violations when injured.",
+   "quote": "Compensation otherwise payable to a claimant shall be reduced by fifty percent (50%) if at the time the injury was incurred the claimant was engaged in a felony or was in violation of section 18-8004 or 67-7034 , Idaho Code",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(7)(b)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=Compensation%20otherwise%20payable%20to%20a,or%2067%2D7034%20%2C%20Idaho%20Code"
+  },
+  {
+   "id": "ID-CONDUCT-3",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The commission may deny or reduce an award if the claimant or victim did not fully cooperate with law enforcement or prosecutors.",
+   "quote": "The commission, upon finding that the claimant or victim has not fully cooperated with appropriate law enforcement agencies or prosecuting attorneys, may deny or reconsider and reduce an award of compensation.",
+   "source_id": "ID-S2",
+   "pinpoint": "Idaho Code 72-1016(4)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1016#:~:text=The%20commission%2C%20upon%20finding%20that,reduce%20an%20award%20of%20compensation."
+  },
+  {
+   "id": "ID-EMERG-1",
+   "category": "emergency_award",
+   "params": {},
+   "summary": "If the claimant would face financial hardship and a final award looks likely, the commission may pay a tentative award, deducted from the final award later.",
+   "quote": "If the commission determines that the claimant will suffer financial hardship unless a tentative award is made and it appears likely that a final award will be made, an amount may be paid to the claimant, to be deducted from the final award",
+   "source_id": "ID-S3",
+   "pinpoint": "Idaho Code 72-1017",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1017#:~:text=If%20the%20commission%20determines%20that,deducted%20from%20the%20final%20award"
+  },
+  {
+   "id": "ID-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Covered injury includes physical harm and, for a victim, pregnancy, sexually transmitted disease, mental or nervous shock, or extreme mental distress.",
+   "quote": "means actual bodily harm or disfigurement and, with respect to a victim, includes pregnancy, venereal disease, mental or nervous shock, or extreme mental distress",
+   "source_id": "ID-S1",
+   "pinpoint": "Idaho Code 72-1003(7)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1003#:~:text=means%20actual%20bodily%20harm%20or,shock%2C%20or%20extreme%20mental%20distress"
+  },
+  {
+   "id": "ID-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "An award may be made whether or not anyone is prosecuted or convicted.",
+   "quote": "the offender does not have to be convicted for the victim to be eligible for compensation.",
+   "source_id": "ID-S9",
+   "pinpoint": "CVCP FAQ, Does the offender have to be convicted?",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=the%20offender%20does%20not%20have,to%20be%20eligible%20for%20compensation."
+  },
+  {
+   "id": "ID-CRIME-3",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "A sexual assault victim who has reported or will report to police can file the full application; the program first pays the exam, and an eligible victim can then get other benefits such as medical, mental health, and wage loss.",
+   "quote": "Additionally, if the victim is found eligible, they may access additional benefits available through the Program, including but not limited to medical (including imaging), mental health, and wage loss benefits.",
+   "source_id": "ID-S8",
+   "pinpoint": "CVCP Sexual Assault Forensics Examinations page, Applying for CVCP",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/#:~:text=Additionally%2C%20if%20the%20victim%20is,health%2C%20and%20wage%20loss%20benefits."
+  },
+  {
+   "id": "ID-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in Idaho are covered; crimes outside Idaho are covered only for Idaho residents when the other state has no compensation program the victim is eligible for."
+   },
+   "summary": "Crimes committed in Idaho qualify. An Idaho resident hurt in another state qualifies only if that state has no compensation program the victim is eligible for.",
+   "quote": "Occurs or is attempted in this state or occurs outside the state of Idaho against a resident of the state of Idaho and which occurred in a state which does not have a crime victims compensation program for which the victim is eligible",
+   "source_id": "ID-S1",
+   "pinpoint": "Idaho Code 72-1003(4)(a)",
+   "fragment_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH10/SECT72-1003#:~:text=Occurs%20or%20is%20attempted%20in,which%20the%20victim%20is%20eligible"
+  },
+  {
+   "id": "ID-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "cvcp.admin@iic.idaho.gov"
+   },
+   "summary": "Email the completed and signed application to cvcp.admin@iic.idaho.gov.",
+   "quote": "Completed and signed applications can be sent via:\nEmail to: cvcp.admin@iic.idaho.gov",
+   "source_id": "ID-S11",
+   "pinpoint": "Application for Compensation, page 4, submission box"
+  },
+  {
+   "id": "ID-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "208-332-7559"
+   },
+   "summary": "Fax the completed and signed application to 208-332-7559.",
+   "quote": "Fax: 208-332-7559",
+   "source_id": "ID-S11",
+   "pinpoint": "Application for Compensation, page 4, submission box"
+  },
+  {
+   "id": "ID-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "IDAHO CRIME VICTIMS COMPENSATION PROGRAM P.O. BOX 83720 BOISE, ID 83720-0041"
+   },
+   "summary": "Mail the completed and signed application to Idaho Crime Victims Compensation Program, P.O. Box 83720, Boise, ID 83720-0041.",
+   "quote": "Mail to: IDAHO CRIME VICTIMS COMPENSATION PROGRAM\nP.O. BOX 83720\nBOISE, ID 83720-0041",
+   "source_id": "ID-S11",
+   "pinpoint": "Application for Compensation, page 4, submission box"
+  },
+  {
+   "id": "ID-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed application; the victim or claimant signs the release of information, the repayment and subrogation agreement, and the application certification."
+   },
+   "summary": "The application must be completed and signed before it is sent.",
+   "quote": "Completed and signed applications can be sent via:",
+   "source_id": "ID-S11",
+   "pinpoint": "Application for Compensation, page 4, submission box"
+  },
+  {
+   "id": "ID-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Copy of the court order, only if the person signing is the victim's legal guardian or conservator."
+   },
+   "summary": "If you sign as the victim's legal guardian or conservator, include a copy of the court order.",
+   "quote": "IF LEGAL GUARDIAN and /or\nCONSERVATOR",
+   "source_id": "ID-S11",
+   "pinpoint": "Application for Compensation, page 2, Claimant Information"
+  },
+  {
+   "id": "ID-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "For co-pays, deductibles, prescriptions, or other crime-related costs you paid yourself; contact your case manager."
+   },
+   "summary": "To be paid back for co-pays, deductibles, or prescriptions you paid yourself, contact your case manager; receipts are required.",
+   "quote": "If you have paid co-pays, deductibles, prescriptions, then please reach out to your Case Manager. Receipts are required.",
+   "source_id": "ID-S10",
+   "pinpoint": "Complete an Application page, Out of Pocket Expenses",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/file-a-claim/#:~:text=If%20you%20have%20paid%20co%2Dpays%2C,Case%20Manager.%20Receipts%20are%20required."
+  },
+  {
+   "id": "ID-DOC-4",
+   "category": "required_document",
+   "expense": "forensic_exam",
+   "params": {
+    "document": "itemized_bill",
+    "note": "The program requests this from the medical providers (UB04, CMS1500, or itemized billing statement), not from the survivor."
+   },
+   "summary": "For exam and medical costs, the program asks the medical providers for itemized bills.",
+   "quote": "The Program will request the following from medical providers who assisted the victim: UB04, CMS1500, or itemized billing statements with CPT and REV codes.",
+   "source_id": "ID-S8",
+   "pinpoint": "Sexual Assault Forensics Examinations page, provider documentation list",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/#:~:text=The%20Program%20will%20request%20the,with%20CPT%20and%20REV%20codes."
+  },
+  {
+   "id": "ID-DOC-5",
+   "category": "required_document",
+   "expense": "forensic_exam",
+   "params": {
+    "document": "exam_record",
+    "note": "The program requests the Sexual Assault Nurse Examination records from the medical provider."
+   },
+   "summary": "The program asks the medical provider for the sexual assault nurse examination records.",
+   "quote": "Sexual Assault Nurse Examination Records",
+   "source_id": "ID-S8",
+   "pinpoint": "Sexual Assault Forensics Examinations page, provider documentation list",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/#:~:text=Sexual%20Assault%20Nurse%20Examination%20Records"
+  },
+  {
+   "id": "ID-DOC-6",
+   "category": "required_document",
+   "expense": "forensic_exam",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Explanation of Benefits, only if the victim has federal or state insurance; requested from the medical provider."
+   },
+   "summary": "If the victim has federal or state insurance, the program asks the provider for the Explanation of Benefits.",
+   "quote": "Explanation of Benefits if the victim has federal/state insurance.",
+   "source_id": "ID-S8",
+   "pinpoint": "Sexual Assault Forensics Examinations page, provider documentation list",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/sexual-assault-forensics-examinations/#:~:text=Explanation%20of%20Benefits%20if%20the%20victim%20has%20federal%2Fstate%20insurance."
+  },
+  {
+   "id": "ID-DOC-7",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Bills, initial intake, and the CVCP Mental Health Treatment Plan; the program gathers these from the mental health provider."
+   },
+   "summary": "For counseling, the program works with your mental health provider to collect bills, the initial intake, and a treatment plan.",
+   "quote": "CVCP will work with your mental health providers directly to gather the required CVCP documentation (bills, Initial Intake, CVCP Mental Health Treatment Plan, etc.).",
+   "source_id": "ID-S10",
+   "pinpoint": "Complete an Application page, Mental Health",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/file-a-claim/#:~:text=CVCP%20will%20work%20with%20your,Mental%20Health%20Treatment%20Plan%2C%20etc.%29."
+  },
+  {
+   "id": "ID-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "W-9 form, which the claimant may be asked for before payment is sent."
+   },
+   "summary": "Before paying, the program may ask the claimant for documents such as a W-9 form.",
+   "quote": "For the purpose of dispersing payment, the claimant may be required to provide certain documentation, including a W-9 form.",
+   "source_id": "ID-S7",
+   "pinpoint": "IDAPA 17.10.01.013.07.b"
+  },
+  {
+   "id": "ID-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90,
+    "note": "The FAQ gives a range of 60 to 90 days for the review after the application is received."
+   },
+   "summary": "After the program receives the application, its review can take 60 to 90 days.",
+   "quote": "The next step of the process involves a thorough review of your application, which can take 60-90 days.",
+   "source_id": "ID-S9",
+   "pinpoint": "FAQ, What happens after my application is received?",
+   "fragment_url": "https://crimevictimcomp.idaho.gov/frequently-asked-questions/#:~:text=The%20next%20step%20of%20the,which%20can%20take%2060%2D90%20days."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_payment",
+   "exam_no_bill",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "relocation",
+   "security",
+   "temporary_housing",
+   "childcare"
+  ],
+  "notes": "No minimum loss amount appears in Idaho Code 72-1001 to 72-1026 or IDAPA 17.10.01. The statute and program pages do not list relocation, home security, temporary housing, or childcare as covered expenses, and I found no explicit exclusion either, so they are left out rather than marked excluded. Crime-scene cleanup is marked excluded from the FAQ restitution answer (ID-EXCL-5); the statute has no cleanup benefit and excludes property damage, but that FAQ sentence also wrongly lists wage loss as not covered. Replacement clothing or bedding is not listed anywhere; it would most likely fall under the property damage or loss exclusion, but no source says so directly. Wage loss has a one week waiting period under 72-1019(1) that is not modeled as a minimum loss. Transportation is reimbursed at the state employee mileage rate, which no saved source states as a number. IDAPA 17.10.01.013.07 also requires treatment and forensic exam bills to be submitted within three years of the date of treatment or eligibility; this is a bill deadline, not the claim filing deadline, so it is not encoded as a rule."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statutes are from legislature.idaho.gov (the site notes it is updated each July 1). The exam_no_bill rule on private insurance (ID-EXAM-3) comes from the program page citing Idaho Code 19-5303 and 72-1019(2); the statute itself says the commission pays after federal or federally financed third parties for adults and after any liable third party for minors, which is consistent with the page. No statute found that flatly forbids billing the survivor for the exam; 72-1026(2) bars balance billing after the program pays, with an exception in 72-1026(3) when the program cannot pay the full allowable amount. The 72 hour police report rule has a good cause exception in statute; the program's exam-only reimbursement form (ID-S13) lets adults get the exam paid without reporting, but full benefits still require reporting or good cause. ID-CAP-1 cap language in 72-1019(5)(a) is drafted around death cases but the program pages state a $25,000 maximum for all claims. The FAQ restitution answer lists wage loss among things the program does not cover, which conflicts with 72-1019(1); the statute controls and that sentence was not used. Persons serving a sentence of imprisonment are ineligible under 72-1016(6). Reviewer: the exam-only (not reported) route on the program page also requires the crime to have occurred in Idaho and the application to be filed within one year or with good cause, and the page warns it may not cover all costs of the medical visit. Funeral cap ($5,000, 72-1019(4)) added for completeness. The FAQ restitution sentence that wrongly lists wage loss is now quoted only for its crime-scene cleanup exclusion (ID-EXCL-5), with the conflict stated in that rule's summary. How to file: the June 2026 application (ID-S11), the Complete an Application page (ID-S10), and the forensic exam page (ID-S8) all list the same three methods: email, fax, and mail. No online portal or in-person filing is stated. The application PDF has no AcroForm fields (field_count 0), so it is print-and-sign, not fillable. The application itself does not ask the survivor to attach a police report, photo ID, or wage documents; it asks for the report number and employer details instead, and the program gathers medical bills, exam records, EOBs, and counseling records from providers (ID-DOC-4 to ID-DOC-7). Receipts are needed only for out-of-pocket reimbursement. The 60-90 day processing time is from the FAQ, not the statute, and is encoded as days 90 with the range in the note."
+}

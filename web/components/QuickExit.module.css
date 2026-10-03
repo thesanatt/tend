@@ -1,0 +1,51 @@
+.wrap {
+  position: fixed;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.exit {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--paper);
+  font: 700 var(--text-sm) / 1 var(--font-sans);
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.08);
+}
+
+.exit:hover {
+  background: var(--ink-2);
+}
+
+.exit:focus-visible {
+  outline-color: var(--ink);
+  outline-offset: 3px;
+}
+
+.hint {
+  display: none;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  background: var(--paper);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hint {
+    display: block;
+  }
+}
+
+/* While a sheet is open the page behind it is inert; the sheet shows its own exit button. */
+:global(html:has(dialog[open])) .wrap {
+  visibility: hidden;
+}

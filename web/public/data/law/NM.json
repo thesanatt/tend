@@ -1,0 +1,754 @@
+{
+ "jurisdiction": "NM",
+ "name": "New Mexico",
+ "program": {
+  "program_name": "Crime Victims Reparation (Victim Compensation)",
+  "agency": "New Mexico Crime Victims Reparation Commission",
+  "website": "https://www.cvrc.nm.gov/",
+  "apply_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/",
+  "application_pdf_url": "https://www.cvrc.nm.gov/wp-content/uploads/2025/02/Compensation-Application-in-English-Fillable-022025-1.pdf",
+  "phone": "800-306-6262",
+  "phone_source_id": "NM-S1",
+  "statute_citation": "NMSA 1978, Sections 31-22-1 to 31-22-24 (Crime Victims Reparation Act); 10.40.2 NMAC",
+  "application_form": {
+   "source_id": "NM-S3",
+   "fillable": true,
+   "field_count": 135
+  }
+ },
+ "sources": [
+  {
+   "id": "NM-S1",
+   "title": "CVRC Compensation Application and FAQ page",
+   "url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:40Z",
+   "raw_path": "rules/sources/NM/NM-S1.html",
+   "text_path": "rules/sources/NM/NM-S1.txt",
+   "sha256": "04a8984dcd0c25b0dd5e5f2de789a0dd96a71bec0ddf4a133c038d3f79e793c4"
+  },
+  {
+   "id": "NM-S2",
+   "title": "CVRC victim compensation brochure (Rev 10/2025)",
+   "url": "https://www.cvrc.nm.gov/wp-content/uploads/2026/03/102025-English-Brochure.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:47:47Z",
+   "raw_path": "rules/sources/NM/NM-S2.pdf",
+   "text_path": "rules/sources/NM/NM-S2.txt",
+   "sha256": "9d28372ed63d2445515d58466fd17ce3c83b89590131e8de47606a0cb3da9507"
+  },
+  {
+   "id": "NM-S3",
+   "title": "NM Crime Victims Reparation Commission Application (English, reviewed 02/2025)",
+   "url": "https://www.cvrc.nm.gov/wp-content/uploads/2025/02/Compensation-Application-in-English-Fillable-022025-1.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:47:47Z",
+   "raw_path": "rules/sources/NM/NM-S3.pdf",
+   "text_path": "rules/sources/NM/NM-S3.txt",
+   "sha256": "70ef95c974870e680bc21bad28fe1efc842f9868d8c6d019d031229fd9d08fad"
+  },
+  {
+   "id": "NM-S4",
+   "title": "NMSA 1978, Section 31-22-7 (Eligibility for reparation)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-7/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:11Z",
+   "raw_path": "rules/sources/NM/NM-S4.html",
+   "text_path": "rules/sources/NM/NM-S4.txt",
+   "sha256": "3d2b2b0ee823394f3f4ebea172ab85ba1fea00182d42423e3dbc90d14ef3e31c"
+  },
+  {
+   "id": "NM-S5",
+   "title": "NMSA 1978, Section 31-22-3 (Definitions)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-3/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:15Z",
+   "raw_path": "rules/sources/NM/NM-S5.html",
+   "text_path": "rules/sources/NM/NM-S5.txt",
+   "sha256": "a3a42031ce38e6a7ec9716545d03635526f71696d00fa02895cbbfc58268ec9b"
+  },
+  {
+   "id": "NM-S6",
+   "title": "NMSA 1978, Section 31-22-8 (Crimes enumerated)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-8/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:20Z",
+   "raw_path": "rules/sources/NM/NM-S6.html",
+   "text_path": "rules/sources/NM/NM-S6.txt",
+   "sha256": "f035480e1e944a8e3ff8bb69fa47b53422b3e6d692f59f503341514b41414abb"
+  },
+  {
+   "id": "NM-S7",
+   "title": "NMSA 1978, Section 31-22-9 (Award of reparation)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-9/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:24Z",
+   "raw_path": "rules/sources/NM/NM-S7.html",
+   "text_path": "rules/sources/NM/NM-S7.txt",
+   "sha256": "0697ef14fa078d29af0c1aeb04cdad1b0c7609d23275857342835d0c3dcedaa7"
+  },
+  {
+   "id": "NM-S8",
+   "title": "NMSA 1978, Section 31-22-14 (Limitations on award; collateral recovery; preliminary award)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-14/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:28Z",
+   "raw_path": "rules/sources/NM/NM-S8.html",
+   "text_path": "rules/sources/NM/NM-S8.txt",
+   "sha256": "43fa9bd3beb80a1c2a189eb65b2cf0dddb069d8393b8d691abe4d9e026f5cc5b"
+  },
+  {
+   "id": "NM-S9",
+   "title": "NMSA 1978, Section 31-22-6 (Medical examination; attorneys' fees; penalty)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-6/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/NM/NM-S9.html",
+   "text_path": "rules/sources/NM/NM-S9.txt",
+   "sha256": "e33bf5386dd731d7e209db61395a7056d7065fed0580372d29717a5eafbaa054"
+  },
+  {
+   "id": "NM-S10",
+   "title": "NMSA 1978, Section 30-9-21 (Sexual assault survivor's bill of rights)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-30/article-9/section-30-9-21/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:03Z",
+   "raw_path": "rules/sources/NM/NM-S10.html",
+   "text_path": "rules/sources/NM/NM-S10.txt",
+   "sha256": "59ca7ff4c299ae57568721e081874488f049c9b5dc16a2749ab92cbed4ce1d1b"
+  },
+  {
+   "id": "NM-S11",
+   "title": "NMSA 1978, Section 29-11-7 (Free forensic medical exams for victims of sexual crimes)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:07Z",
+   "raw_path": "rules/sources/NM/NM-S11.html",
+   "text_path": "rules/sources/NM/NM-S11.txt",
+   "sha256": "61cae1bc5f71c762503a65d854a9b543c265eff1c202da5a3e10f1e204d621fe"
+  },
+  {
+   "id": "NM-S12",
+   "title": "10.40.2 NMAC (Crime Victims Reparation Commission, Compensation)",
+   "url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:49:07Z",
+   "raw_path": "rules/sources/NM/NM-S12.html",
+   "text_path": "rules/sources/NM/NM-S12.txt",
+   "sha256": "c70a5798bfca11305ce26e7114b9f49df793c1a529cb2ff0b6177c04f5d78df4"
+  },
+  {
+   "id": "NM-S13",
+   "title": "NMSA 1978, Section 29-11-3 (Definitions, Sexual Crimes Prosecution and Treatment Act)",
+   "url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-3/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:36Z",
+   "raw_path": "rules/sources/NM/NM-S13.html",
+   "text_path": "rules/sources/NM/NM-S13.txt",
+   "sha256": "1688efbf0f0baad782502d062beec68e4f4e984c3632b11eac5fd7d4b2208309"
+  },
+  {
+   "id": "NM-S14",
+   "title": "CVRC online compensation application portal (home page)",
+   "url": "https://cvcapp.cvrc.nm.gov",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:40:48Z",
+   "raw_path": "rules/sources/NM/NM-S14.html",
+   "text_path": "rules/sources/NM/NM-S14.txt",
+   "sha256": "3955ea85f6ddbb37269addb24aba33ad47344b632ce0e6c6824de12439e7c237"
+  }
+ ],
+ "rules": [
+  {
+   "id": "NM-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A health care provider may not charge the survivor, directly or indirectly, for the costs of collecting a sexual assault examination kit. The statute does not say whether the survivor's insurance may be billed.",
+   "quote": "No costs incurred by a health care provider for the collection of a sexual assault examination kit shall be charged directly or indirectly to the survivor of the sexual assault.",
+   "source_id": "NM-S10",
+   "pinpoint": "NMSA 1978, Section 30-9-21(B)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-30/article-9/section-30-9-21/#:~:text=No%20costs%20incurred%20by%20a,survivor%20of%20the%20sexual%20assault."
+  },
+  {
+   "id": "NM-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "The administrator under the Sexual Crimes Prosecution and Treatment Act (NMSA 29-11-3 defines this as the director of the mental health division of the Department of Health, or a designee)"
+   },
+   "summary": "Under the Sexual Crimes Prosecution and Treatment Act, the state administrator must provide free forensic medical exams to victims of sexual crimes, arrange free exams, or reimburse victims for the exam cost.",
+   "quote": "The administrator shall: A. provide free forensic medical exams to victims of sexual crimes; B. arrange for victims of sexual crimes to obtain free forensic medical exams; or C. reimburse victims of sexual crimes for the cost of forensic medical exams",
+   "source_id": "NM-S11",
+   "pinpoint": "NMSA 1978, Section 29-11-7",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/#:~:text=The%20administrator%20shall%3A%20A.%20provide,cost%20of%20forensic%20medical%20exams"
+  },
+  {
+   "id": "NM-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "The administrator under the Sexual Crimes Prosecution and Treatment Act, by reimbursement"
+   },
+   "summary": "If the victim is reimbursed for the exam instead of getting it free, reimbursement covers the full cost with no deductible or limit, and the victim can apply for reimbursement for one year from the exam date.",
+   "quote": "the reimbursement covers the full cost of the forensic medical exam, without any deductible requirement or limit on the amount of the reimbursement; (2) the victim of a sexual crime is entitled to apply for reimbursement for a period of one year from the date of the forensic medical exam",
+   "source_id": "NM-S11",
+   "pinpoint": "NMSA 1978, Section 29-11-7(C)(1)-(2)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/#:~:text=the%20reimbursement%20covers%20the%20full,of%20the%20forensic%20medical%20exam"
+  },
+  {
+   "id": "NM-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2000000
+   },
+   "summary": "The maximum award is $20,000 per victim. The commission may add up to $30,000 more for extraordinary losses when the injury is catastrophic and causes permanent total disability.",
+   "quote": "No award of reparation shall be in excess of twenty thousand dollars ($20,000) per victim, except that the commission may award up to an additional thirty thousand dollars ($30,000) for extraordinary pecuniary losses, if the personal injury to a victim is catastrophic and results in a permanent total disability.",
+   "source_id": "NM-S8",
+   "pinpoint": "NMSA 1978, Section 31-22-14(B)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-14/#:~:text=No%20award%20of%20reparation%20shall,in%20a%20permanent%20total%20disability."
+  },
+  {
+   "id": "NM-CAP-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "per": "claim",
+    "count_limit": 30
+   },
+   "summary": "Mental health counseling is approved for up to 30 sessions per eligible person unless the commission approves more therapy.",
+   "quote": "The commission shall approve up to thirty sessions per person deemed eligible under the application submitted unless approval for additional therapy has been granted by the commission.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(J)(5) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=The%20commission%20shall%20approve%20up,been%20granted%20by%20the%20commission."
+  },
+  {
+   "id": "NM-CAP-3",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 600000,
+    "per": "claim"
+   },
+   "summary": "Funeral expenses are capped at $6,000.",
+   "quote": "Awards for funeral expenses shall not exceed six thousand dollars ($6,000.00).",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(E) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=Awards%20for%20funeral%20expenses%20shall,exceed%20six%20thousand%20dollars%20%28%246%2C000.00%29."
+  },
+  {
+   "id": "NM-CAP-4",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 35000,
+    "per": "claim"
+   },
+   "summary": "Replacement of eyeglasses or contact lenses damaged in the crime is capped at $350.",
+   "quote": "Awards for eyeglasses or contact lenses shall not exceed three hundred fifty dollars ($350.00).",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(F) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=Awards%20for%20eyeglasses%20or%20contact,three%20hundred%20fifty%20dollars%20%28%24350.00%29."
+  },
+  {
+   "id": "NM-CAP-5",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 300000,
+    "per": "claim"
+   },
+   "summary": "Native American medicine man treatment fees can be considered, up to $3,000 per application unless the board approves more in advance.",
+   "quote": "In all cases of medicine man care, the commission board shall only approve up to $3,000.00 per application unless prior approval has been granted by the commission board for additional treatment.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(K)(2) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=In%20all%20cases%20of%20medicine,commission%20board%20for%20additional%20treatment."
+  },
+  {
+   "id": "NM-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "The commission may pay expenses actually and reasonably incurred because of the victim's injury.",
+   "quote": "The commission may order payment of reparation for: A. expenses actually and reasonably incurred as a result of the victim's injury or death;",
+   "source_id": "NM-S7",
+   "pinpoint": "NMSA 1978, Section 31-22-9(A)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-9/#:~:text=The%20commission%20may%20order%20payment,the%20victim%27s%20injury%20or%20death%3B"
+  },
+  {
+   "id": "NM-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "The program lists medical and dental care and mental health counseling (30 session maximum) as types of reparation.",
+   "quote": "Medical and dental care; Mental health counseling; (30 session maximum)",
+   "source_id": "NM-S1",
+   "pinpoint": "CVRC Compensation FAQ, What are the types of reparation?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=Medical%20and%20dental%20care%3B%20Mental%20health%20counseling%3B%20%2830%20session%20maximum%29"
+  },
+  {
+   "id": "NM-COV-3",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "The commission may pay for the victim's lost earning power from total or partial incapacity.",
+   "quote": "B. loss to the victim of earning power as a result of total or partial incapacity;",
+   "source_id": "NM-S7",
+   "pinpoint": "NMSA 1978, Section 31-22-9(B)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-9/#:~:text=B.%20loss%20to%20the%20victim,of%20total%20or%20partial%20incapacity%3B"
+  },
+  {
+   "id": "NM-COV-4",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages can be paid for a recovery period of up to 14 calendar days after the crime without a physician's certification. The person must have been employed at the time of the incident.",
+   "quote": "Loss of wages may be paid to the victim, claimant, and/or, in the case of a minor victim, guardian, for up to fourteen calendar days after the crime for a recovery period.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(G) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=Loss%20of%20wages%20may%20be,crime%20for%20a%20recovery%20period."
+  },
+  {
+   "id": "NM-COV-5",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Gas to get to a health provider can be reimbursed at 20 cents per mile when the trip is over 30 miles one way from home.",
+   "quote": "Gas expenses to transport the victim to a health provider may be considered if the travel is over thirty miles one way from the victim's residence. This travel shall be verified by the health provider's billing and reports for the travel requested. The gas will be reimbursed at the rate of twenty cents per mile.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(M) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=Gas%20expenses%20to%20transport%20the,of%20twenty%20cents%20per%20mile."
+  },
+  {
+   "id": "NM-COV-6",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "The program lists medical and dental care among the expenses it can pay.",
+   "quote": "can be made for the following: Medical and dental care;",
+   "source_id": "NM-S1",
+   "pinpoint": "CVRC Compensation FAQ, What are the types of reparation?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=can%20be%20made%20for%20the%20following%3A%20Medical%20and%20dental%20care%3B"
+  },
+  {
+   "id": "NM-COV-7",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "The application lists crime scene cleanup as a potentially eligible expense.",
+   "quote": "Crime Scene Cleanup",
+   "source_id": "NM-S3",
+   "pinpoint": "CVRC Application, Section 6 (Potentially Eligible Expenses)"
+  },
+  {
+   "id": "NM-COV-8",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "The application lists prescriptions as a potentially eligible expense.",
+   "quote": "Prescriptions",
+   "source_id": "NM-S3",
+   "pinpoint": "CVRC Application, Section 6 (Potentially Eligible Expenses)"
+  },
+  {
+   "id": "NM-COV-9",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Gas to travel to a law enforcement agency on official business about the incident can be reimbursed at 20 cents per mile when the trip is more than 30 miles one way.",
+   "quote": "The distance traveled shall be more than thirty miles one way from the victim's residence and the gas will be reimbursed at the rate of twenty cents per mile.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(N) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=The%20distance%20traveled%20shall%20be,of%20twenty%20cents%20per%20mile."
+  },
+  {
+   "id": "NM-EXC-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "No award is made for any loss of or damage to property.",
+   "quote": "B. No award shall be made for any loss or damage to property.",
+   "source_id": "NM-S6",
+   "pinpoint": "NMSA 1978, Section 31-22-8(B)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-8/#:~:text=B.%20No%20award%20shall%20be,loss%20or%20damage%20to%20property."
+  },
+  {
+   "id": "NM-EXC-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering"
+   },
+   "summary": "The program does not pay for property loss, pain and suffering, or attorney's fees.",
+   "quote": "No awards are made for property loss, pain and suffering, or attorney",
+   "source_id": "NM-S1",
+   "pinpoint": "CVRC Compensation FAQ, What are the types of reparation?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=No%20awards%20are%20made%20for,pain%20and%20suffering%2C%20or%20attorney"
+  },
+  {
+   "id": "NM-EXC-3",
+   "category": "excluded_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal"
+   },
+   "summary": "Attorney fees are not paid as part of or on top of a reparation award.",
+   "quote": "None of the appropriation in this act [31-22-1 to 31-22-21 NMSA 1978] shall be used to pay attorney fees either as part of or in addition to awards of reparation.",
+   "source_id": "NM-S9",
+   "pinpoint": "NMSA 1978, Section 31-22-6(B)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-6/#:~:text=None%20of%20the%20appropriation%20in,addition%20to%20awards%20of%20reparation."
+  },
+  {
+   "id": "NM-EXC-4",
+   "category": "excluded_expense",
+   "params": {
+    "item": "phone bills, copying fees, postage"
+   },
+   "summary": "Phone bills, copying fees, and postage are not reimbursed.",
+   "quote": "The following expenses shall not be considered for reimbursement: (1) phone bills; (2) copying fees; (3) postage costs.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(P) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=The%20following%20expenses%20shall%20not,copying%20fees%3B%20%283%29%20postage%20costs."
+  },
+  {
+   "id": "NM-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "crime",
+    "extension": "Statutory exception for minor victims of criminal sexual penetration, criminal sexual contact of a minor, or child abuse. The CVRC FAQ also says some exceptions may be allowed for good cause."
+   },
+   "summary": "Apply within two years after the injury. Minors who are victims of criminal sexual penetration, criminal sexual contact of a minor, or child abuse are excepted from this limit.",
+   "quote": "An application for reparation shall be made within two years after the injury or death, except for minors who are victims of criminal activity under the provisions of Section 30-6-1 NMSA 1978, regarding abandonment or abuse of a child, Section 30-9-11 NMSA 1978, regarding criminal sexual penetration, or Section 30-9-13 NMSA 1978, regarding criminal sexual contact of a minor.",
+   "source_id": "NM-S8",
+   "pinpoint": "NMSA 1978, Section 31-22-14(A)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-14/#:~:text=An%20application%20for%20reparation%20shall,sexual%20contact%20of%20a%20minor."
+  },
+  {
+   "id": "NM-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "medical_provider",
+     "other"
+    ]
+   },
+   "summary": "A police report is not the only option. The crime must have led to an arrest, been reported to police in a reasonable time, or been reported to a licensed medical, mental health or counseling provider, or a tribal health provider.",
+   "quote": "provided an arrest has been made or the act or omission constituting a crime has been reported to the police in a reasonable time or the act or omission constituting a crime has been reported to a licensed medical, mental health or counseling provider, or tribal health provider.",
+   "source_id": "NM-S4",
+   "pinpoint": "NMSA 1978, Section 31-22-7(D)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-7/#:~:text=provided%20an%20arrest%20has%20been,provider%2C%20or%20tribal%20health%20provider."
+  },
+  {
+   "id": "NM-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false
+   },
+   "summary": "The victim or claimant must have fully cooperated with law enforcement, unless the commission finds they acted reasonably under the circumstances.",
+   "quote": "the claimant or victim fully cooperated with the appropriate law enforcement agencies or the commission finds that the claimant or victim acted reasonably under the circumstances.",
+   "source_id": "NM-S4",
+   "pinpoint": "NMSA 1978, Section 31-22-7(D)(3)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-7/#:~:text=the%20claimant%20or%20victim%20fully,acted%20reasonably%20under%20the%20circumstances."
+  },
+  {
+   "id": "NM-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Payments from collateral sources such as insurance, Medicaid, Medicare, or government benefits are deducted from the award.",
+   "quote": "the commission shall deduct from any reparation awarded any payments received from a collateral source or from the United States or the state or any of its political subdivisions for injury or death subject to reparation under the Crime Victims Reparation Act.",
+   "source_id": "NM-S8",
+   "pinpoint": "NMSA 1978, Section 31-22-14(C)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-14/#:~:text=the%20commission%20shall%20deduct%20from,the%20Crime%20Victims%20Reparation%20Act."
+  },
+  {
+   "id": "NM-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Expenses covered by insurance or another collateral source must be submitted there first. Only what those sources do not cover is considered.",
+   "quote": "shall submit covered expenses to the source(s) for payment. Only those expenses not covered by the collateral source(s) will be considered for reparation.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(I) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=shall%20submit%20covered%20expenses%20to,will%20be%20considered%20for%20reparation."
+  },
+  {
+   "id": "NM-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The commission considers the victim's behavior and reduces the award by the degree of responsibility it attributes to the victim. Shown for information only.",
+   "quote": "The commission shall consider the behavior of the victim and whether, because of provocation or otherwise, the victim bears responsibility for the act or omission constituting a crime that caused the victim's injury or death and shall reduce the amount of reparation in accordance with its assessment of the degree of responsibility attributable to the victim.",
+   "source_id": "NM-S4",
+   "pinpoint": "NMSA 1978, Section 31-22-7(C)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-7/#:~:text=The%20commission%20shall%20consider%20the,responsibility%20attributable%20to%20the%20victim."
+  },
+  {
+   "id": "NM-EMERG-1",
+   "category": "emergency_award",
+   "params": {},
+   "summary": "If a final award looks likely, the director can authorize a preliminary award with the commission chair's agreement. It is deducted from the final award.",
+   "quote": "If it appears that a final award of reparation will be made by the commission, a preliminary award may be authorized by the director of the commission or the commission's designee when the commission chair concurs.",
+   "source_id": "NM-S8",
+   "pinpoint": "NMSA 1978, Section 31-22-14(E)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-14/#:~:text=If%20it%20appears%20that%20a,when%20the%20commission%20chair%20concurs."
+  },
+  {
+   "id": "NM-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Criminal sexual penetration and criminal sexual contact of a minor are covered crimes.",
+   "quote": "(9) criminal sexual penetration; (10) criminal sexual contact of a minor;",
+   "source_id": "NM-S6",
+   "pinpoint": "NMSA 1978, Section 31-22-8(A)(9)-(10)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-8/#:~:text=%289%29%20criminal%20sexual%20penetration%3B%20%2810%29,sexual%20contact%20of%20a%20minor%3B"
+  },
+  {
+   "id": "NM-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Injury includes bodily harm, pregnancy, and extreme mental distress, so a victim does not need a physical injury to qualify.",
+   "quote": "\"injury\" means actual bodily harm or disfigurement and includes pregnancy and extreme mental distress.",
+   "source_id": "NM-S5",
+   "pinpoint": "NMSA 1978, Section 31-22-3(F)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-3/#:~:text=%22injury%22%20means%20actual%20bodily%20harm,pregnancy%20and%20extreme%20mental%20distress."
+  },
+  {
+   "id": "NM-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in New Mexico (any victim); New Mexico residents victimized in a state without an eligible compensation program"
+   },
+   "summary": "Covers anyone injured by a covered crime in New Mexico, regardless of residency, and New Mexico residents hurt in another state that has no eligible compensation program.",
+   "quote": "a person in New Mexico who is injured or killed by any act or omission of any other person that is a crime enumerated in Section 31-22-8 NMSA 1978; (2) a resident of New Mexico who is injured or killed by such a crime occurring in a state other than New Mexico if that state does not have an eligible crime victims compensation program",
+   "source_id": "NM-S5",
+   "pinpoint": "NMSA 1978, Section 31-22-3(I)",
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-3/#:~:text=a%20person%20in%20New%20Mexico,eligible%20crime%20victims%20compensation%20program"
+  },
+  {
+   "id": "NM-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://cvcapp.cvrc.nm.gov"
+   },
+   "summary": "You can file online through the CVRC application portal, where you sign in or create an account and submit the application.",
+   "quote": "To begin Please choose one of the following options: Sign In OR Create an Account",
+   "source_id": "NM-S14",
+   "pinpoint": "CVRC online application portal, home page",
+   "fragment_url": "https://cvcapp.cvrc.nm.gov#:~:text=To%20begin%20Please%20choose%20one,In%20OR%20Create%20an%20Account"
+  },
+  {
+   "id": "NM-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victims Reparation Commission 6200 Uptown Blvd., Suite 210 Albuquerque, NM 87110",
+    "note": "10.40.2.8(B) NMAC (NM-S12) counts a paper application as received when it is postmarked, delivered or faxed to the commission's offices."
+   },
+   "summary": "A paper application goes to the Crime Victims Reparation Commission office in Albuquerque; the rules count it as filed on the postmark date.",
+   "quote": "Crime Victims Reparation Commission 6200 Uptown Blvd., Suite 210 Albuquerque, NM 87110",
+   "source_id": "NM-S1",
+   "pinpoint": "Compensation Application page, How do I apply?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=Crime%20Victims%20Reparation%20Commission%206200,Suite%20210%20Albuquerque%2C%20NM%2087110"
+  },
+  {
+   "id": "NM-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(505) 841-9437",
+    "note": "10.40.2.8(B) NMAC (NM-S12) counts a paper application as received when it is postmarked, delivered or faxed to the commission's offices."
+   },
+   "summary": "A paper application can be faxed to the commission's office.",
+   "quote": "Fax: (505) 841-9437",
+   "source_id": "NM-S1",
+   "pinpoint": "Compensation Application page, How do I apply?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=Fax%3A%20%28505%29%20841%2D9437"
+  },
+  {
+   "id": "NM-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Only if one exists; the commission also accepts a provider incident verification form (see NM-DOC-2)."
+   },
+   "summary": "The application asks for a copy of the police report if one is available.",
+   "quote": "CRIME INFORMATION (Provide copy of police report if available)",
+   "source_id": "NM-S3",
+   "pinpoint": "Application, Section 4"
+  },
+  {
+   "id": "NM-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "A complete offense report or a provider incident verification form; the commission requests it itself."
+   },
+   "summary": "The commission reviews the application with a complete offense report or a provider incident verification form, which its office requests.",
+   "quote": "The application and related documentation received, including a complete offense report or provider incident verification form (which this office requests), will then be reviewed to determine if the victim and/or claimant are eligible for compensation.",
+   "source_id": "NM-S1",
+   "pinpoint": "Compensation Application page, What happens after I send my application?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=The%20application%20and%20related%20documentation,claimant%20are%20eligible%20for%20compensation."
+  },
+  {
+   "id": "NM-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Invoices, receipts or canceled checks showing payee, payer, amount paid, date of service and the service; affidavits and letters are not accepted."
+   },
+   "summary": "Expenses must be documented with invoices, receipts or canceled checks that show who was paid, who paid, the amount, the date and the service.",
+   "quote": "This documentation must provide the name of payee, the name of payer, the amount paid, date of services, and indicate what service was provided. This documentation may include invoices, receipts and canceled checks. Affidavits and letters shall not be considered proper documentation.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(C) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=This%20documentation%20must%20provide%20the,not%20be%20considered%20proper%20documentation."
+  },
+  {
+   "id": "NM-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only when lost wages are claimed: an employer statement of dates missed, hourly wage, average weekly hours and any leave or other pay received."
+   },
+   "summary": "For lost wages, the employer must give a statement of the work dates missed, hourly wage and average weekly hours.",
+   "quote": "a statement from the employer providing: (a) the dates of work missed due to the incident; (b) hourly wage; (c) the average number of hours worked weekly; and (d) any type of compensation received, such as sick leave, annual leave, unemployment, etc.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(G)(2) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=a%20statement%20from%20the%20employer,leave%2C%20annual%20leave%2C%20unemployment%2C%20etc."
+  },
+  {
+   "id": "NM-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Only when lost wages are claimed: a doctor's statement or medical documentation that the victim cannot work."
+   },
+   "summary": "For lost wages, a doctor's statement or medical documentation must show the victim is unable to work.",
+   "quote": "a copy of a doctor's statement certifying that the victim is unable to work; or a doctor's statement included in a medical document, or medical documentation showing the inability of the victim to work.",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(G)(1) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=a%20copy%20of%20a%20doctor%27s,of%20the%20victim%20to%20work."
+  },
+  {
+   "id": "NM-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Provided by the counselor to commission staff, including a patient evaluation and an itemized statement for services."
+   },
+   "summary": "Counselors must give commission staff a detailed patient evaluation describing the effect of the victimization.",
+   "quote": "All counselors shall provide the commission staff with the following: (a) detailed patient evaluation describing the effect of the victimization",
+   "source_id": "NM-S12",
+   "pinpoint": "10.40.2.10(J)(1) NMAC",
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=All%20counselors%20shall%20provide%20the,the%20effect%20of%20the%20victimization"
+  },
+  {
+   "id": "NM-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Death certificate, only if the victim died."
+   },
+   "summary": "If the victim is deceased, the application asks for a copy of the death certificate.",
+   "quote": "DECEASED (Submit copy of death certificate)",
+   "source_id": "NM-S3",
+   "pinpoint": "Application, Section 1"
+  },
+  {
+   "id": "NM-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Power of attorney, only if the victim is incapacitated."
+   },
+   "summary": "If the victim is incapacitated, the application asks for a power of attorney.",
+   "quote": "INCAPACITATED (Submit a power of attorney)",
+   "source_id": "NM-S3",
+   "pinpoint": "Application, Section 1"
+  },
+  {
+   "id": "NM-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed Acknowledgement and Authorization page (release of information and subrogation agreement)."
+   },
+   "summary": "The signed Acknowledgement and Authorization page is required for the application to be processed.",
+   "quote": "This authorization is part of your application and must be completed and signed in order to process this application.",
+   "source_id": "NM-S3",
+   "pinpoint": "Application, Acknowledgement and Authorization"
+  },
+  {
+   "id": "NM-PROC-1",
+   "category": "processing_time",
+   "params": {
+    "days": 120
+   },
+   "summary": "An eligibility decision is usually made within 120 days.",
+   "quote": "A decision about whether the victim/claimant is eligible is usually made within 120 days.",
+   "source_id": "NM-S1",
+   "pinpoint": "Compensation Application page, What happens after I send my application?",
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=A%20decision%20about%20whether%20the,usually%20made%20within%20120%20days."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "expense_cap:relocation",
+   "expense_cap:security",
+   "expense_cap:lost_wages (no dollar or week cap found)",
+   "expense_cap:medical (no separate cap found; total cap applies)",
+   "covered_expense:relocation",
+   "covered_expense:temporary_housing",
+   "covered_expense:security",
+   "emergency_award amount (statute sets none)",
+   "exam insurance billing rule (statute silent)"
+  ],
+  "notes": "Relocation, security and temporary housing are not named in the statute, the rules, or the program FAQ. Section 31-22-9(C) allows 'any other pecuniary loss' the commission finds reasonable and proper, but I did not treat that as coverage for any specific item. No minimum loss amount was found."
+ },
+ "confidence": "medium",
+ "researcher_notes": "Statute text is from Justia's 2025 New Mexico Statutes (the CVRC site links NMOneSource, which did not load for scripts); 2026 session changes were not checked. 10.40.2 NMAC (State Records Center copy) was last amended 08/31/2006 and predates the 2019 amendment (Laws 2019, ch. 211) to 31-22-7 and 31-22-14. 10.40.2.9 NMAC still says sexual assault victims must report to law enforcement within 180 days; the 2019 statute removed the police-reporting deadline and allows a report to a licensed medical, mental health or counseling provider, or tribal health provider. Statute wins, so the 180-day rule is NOT encoded. The 2019 amendment also deleted the statutory good-cause extension for late applications, but the CVRC FAQ still says 'Some exceptions may be allowed for good cause'; the extension field reflects both. The 10/2025 brochure says an application must be filed 'within a reasonable time' (its PDF text extraction is garbled, so it is not quoted). The CVRC FAQ says the cap is $50,000 in cases of permanent physical disability; the statute says $20,000 plus up to $30,000 more for catastrophic injury resulting in permanent total disability. Forensic exam payment: NMSA 29-11-7 assigns free exams to the 'administrator', which 29-11-3 defines as the director of the mental health division of the Department of Health or a designee. I could not verify from an official source which office administers exam payment today. The transportation rate (twenty cents per mile) is in the summary and quote only, because the params schema stores money as dollars. Reviewer: the CVRC FAQ and the 10/2025 brochure both say 'The crime must have occurred in New Mexico', but 31-22-3(I)(2)-(3) also covers New Mexico residents injured in a state with no eligible compensation program and residents injured by international terrorism; the statute is encoded. 10.40.2.10(L) NMAC still says the victim must cooperate with law enforcement in the prosecution; the 2019 statute lets the commission accept that the victim acted reasonably instead, so the statute is encoded. The 'mental health division of the department of health' named in 29-11-3 was last renamed in 1995; whether that office still exists or pays exams today was not confirmed. How to file: the CVRC application page links the online portal at https://cvcapp.cvrc.nm.gov (the link target, saved as NM-S14). No official source says to email the application, so no email rule was added even though the form header and contact pages list cvrc@cvrc.nm.gov (and the contact page and brochure list cvrc.office@cvrc.nm.gov). 10.40.2.8(B) NMAC says a paper application counts when 'postmarked delivered or faxed' to the commission's offices; 'delivered' is not clearly in-person filing, so no in_person rule was added. The current English application (Reviewed 02/2025, NM-S3) is the one linked from the Documents to Download page; it is fillable with 135 AcroForm fields. Document requirements for receipts, lost wages and counseling come from 10.40.2.10 NMAC (2006); the application itself asks only for a police report if available, a death certificate or power of attorney where relevant, and the signed authorization. The 10/2025 brochure says bills or records can be uploaded in the online application, but its PDF text is garbled, so it is not quoted."
+}

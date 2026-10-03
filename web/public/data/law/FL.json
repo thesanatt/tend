@@ -1,0 +1,825 @@
+{
+ "jurisdiction": "FL",
+ "name": "Florida",
+ "program": {
+  "program_name": "Victim Compensation",
+  "agency": "Office of the Attorney General (Department of Legal Affairs), Division of Victim Services and Criminal Justice Programs, Bureau of Victim Compensation",
+  "website": "https://www.myfloridalegal.com/victim-compensation",
+  "apply_url": "https://www.myfloridalegal.com/victim-compensation",
+  "application_pdf_url": "https://www.myfloridalegal.com/sites/default/files/2025.applicationclaimform.bvc100.pdf",
+  "phone": "800-226-6667",
+  "phone_source_id": "FL-S15",
+  "statute_citation": "Fla. Stat. 960.01 to 960.28; Fla. Admin. Code R. 2A-2.2001 to 2A-2.2003",
+  "application_form": {
+   "source_id": "FL-S18",
+   "fillable": true,
+   "field_count": 138
+  }
+ },
+ "sources": [
+  {
+   "id": "FL-S1",
+   "title": "Fla. Stat. 960.03 (Definitions)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:32Z",
+   "raw_path": "rules/sources/FL/FL-S1.html",
+   "text_path": "rules/sources/FL/FL-S1.txt",
+   "sha256": "0fdb8a7756a05d2297ac780364236b43222290002e9d3933e9131e24497117e3"
+  },
+  {
+   "id": "FL-S2",
+   "title": "Fla. Stat. 960.065 (Eligibility for awards)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.065.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:33Z",
+   "raw_path": "rules/sources/FL/FL-S2.html",
+   "text_path": "rules/sources/FL/FL-S2.txt",
+   "sha256": "224fff92845669ffc8aa47241991f47d656c651700fb09726d594cc2243ef09f"
+  },
+  {
+   "id": "FL-S3",
+   "title": "Fla. Stat. 960.07 (Filing of claims for compensation)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:33Z",
+   "raw_path": "rules/sources/FL/FL-S3.html",
+   "text_path": "rules/sources/FL/FL-S3.txt",
+   "sha256": "68f33c092fc296b4f5b9a97dee40a2fac2a45d0b61dbbecd87ec331ad4be060b"
+  },
+  {
+   "id": "FL-S4",
+   "title": "Fla. Stat. 960.13 (Awards)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:34Z",
+   "raw_path": "rules/sources/FL/FL-S4.html",
+   "text_path": "rules/sources/FL/FL-S4.txt",
+   "sha256": "360055ce3505db478df1848f4768b92b676a8cc9735cc10756bc931ae46a2754"
+  },
+  {
+   "id": "FL-S5",
+   "title": "Fla. Stat. 960.28 (Payment for victims' initial forensic physical examinations)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:35Z",
+   "raw_path": "rules/sources/FL/FL-S5.html",
+   "text_path": "rules/sources/FL/FL-S5.txt",
+   "sha256": "d4647c87274ab1e9855666e95dfdec57598f4d6581848de7382aeb44d66e4c55"
+  },
+  {
+   "id": "FL-S6",
+   "title": "Fla. Stat. 960.195 (Awards to elderly persons or disabled adults for property loss)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.195.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:36Z",
+   "raw_path": "rules/sources/FL/FL-S6.html",
+   "text_path": "rules/sources/FL/FL-S6.txt",
+   "sha256": "724ed0f4e1a3da111183d65b136268803ec4f39e03befbed8523aeacfc86aa56"
+  },
+  {
+   "id": "FL-S8",
+   "title": "Fla. Stat. 776.08 (Forcible felony)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0700-0799/0776/Sections/0776.08.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:50:10Z",
+   "raw_path": "rules/sources/FL/FL-S8.html",
+   "text_path": "rules/sources/FL/FL-S8.txt",
+   "sha256": "69759a09cec0424ed7ddb60760551eb684d0766e6f0ee5c58bc3e58df4d7b916"
+  },
+  {
+   "id": "FL-S9",
+   "title": "Fla. Stat. 960.198 (Relocation assistance for victims of domestic violence)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.198.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:38Z",
+   "raw_path": "rules/sources/FL/FL-S9.html",
+   "text_path": "rules/sources/FL/FL-S9.txt",
+   "sha256": "9fbdbedeb42666727726fe997c4d351ea0ef128de457d0007c3d340222e6ea5b"
+  },
+  {
+   "id": "FL-S10",
+   "title": "Fla. Stat. 960.199 (Relocation assistance for victims of sexual battery)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:38Z",
+   "raw_path": "rules/sources/FL/FL-S10.html",
+   "text_path": "rules/sources/FL/FL-S10.txt",
+   "sha256": "399821838163a80488439337291058a4784be4dd370724665ba9c3b10ebb9aba"
+  },
+  {
+   "id": "FL-S11",
+   "title": "Fla. Stat. 960.12 (Emergency awards)",
+   "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.12.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:54Z",
+   "raw_path": "rules/sources/FL/FL-S11.html",
+   "text_path": "rules/sources/FL/FL-S11.txt",
+   "sha256": "3c48c077abdecfbb4019319e760fa1ee2cd5e3432f1a4444296f3e80a331b416"
+  },
+  {
+   "id": "FL-S12",
+   "title": "Fla. Admin. Code R. 2A-2.2003 (Schedule of Benefits), via Cornell LII",
+   "url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2003",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:32Z",
+   "raw_path": "rules/sources/FL/FL-S12.html",
+   "text_path": "rules/sources/FL/FL-S12.txt",
+   "sha256": "ecae9fce48e9459d8c8d945863e3e2017236773647632c8956c1fb7d94125906"
+  },
+  {
+   "id": "FL-S13",
+   "title": "Fla. Admin. Code R. 2A-2.2002 (Compensation Eligibility Requirements), via Cornell LII",
+   "url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:32Z",
+   "raw_path": "rules/sources/FL/FL-S13.html",
+   "text_path": "rules/sources/FL/FL-S13.txt",
+   "sha256": "905c1008bcf8d61590a569d81a3ab890a53793e4c631478b7c7527e3b116baa9"
+  },
+  {
+   "id": "FL-S14",
+   "title": "Fla. Admin. Code R. 2A-2.2001 (Definitions), via Cornell LII",
+   "url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2001",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/FL/FL-S14.html",
+   "text_path": "rules/sources/FL/FL-S14.txt",
+   "sha256": "c8b076c740ca89811deee268792e7da8db3fcd6419fd654787d41ecaf7d595fe"
+  },
+  {
+   "id": "FL-S15",
+   "title": "Office of the Attorney General, Bureau of Victim Compensation page",
+   "url": "https://www.myfloridalegal.com/victim-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:49:01Z",
+   "raw_path": "rules/sources/FL/FL-S15.html",
+   "text_path": "rules/sources/FL/FL-S15.txt",
+   "sha256": "4690d8b6eb0da984df9d93c0f2b2afb61c021ddbe88cbb023c8b64ed964479c1"
+  },
+  {
+   "id": "FL-S16",
+   "title": "Bureau of Victim Compensation Schedule of Benefits (effective January 6, 2022)",
+   "url": "https://www.myfloridalegal.com/sites/default/files/2025.01.06.2022.schedule-of-benefits.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:49:02Z",
+   "raw_path": "rules/sources/FL/FL-S16.pdf",
+   "text_path": "rules/sources/FL/FL-S16.txt",
+   "sha256": "2aff4901d9ee0c4dbca6ce1c35b39a658614b9b01be3166a03f787240a28c7c3"
+  },
+  {
+   "id": "FL-S17",
+   "title": "Victim Compensation Brochure",
+   "url": "https://www.myfloridalegal.com/sites/default/files/BVCVictimCompensationBrochure%5B1%5D.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:49:02Z",
+   "raw_path": "rules/sources/FL/FL-S17.pdf",
+   "text_path": "rules/sources/FL/FL-S17.txt",
+   "sha256": "b6cc46f911749b2a30aadfd50a2a8a96c68d3a573a208ab09d711e27694988ba"
+  },
+  {
+   "id": "FL-S18",
+   "title": "Victim Compensation Claim Form BVC100 (08/24)",
+   "url": "https://www.myfloridalegal.com/sites/default/files/2025.applicationclaimform.bvc100.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:49:02Z",
+   "raw_path": "rules/sources/FL/FL-S18.pdf",
+   "text_path": "rules/sources/FL/FL-S18.txt",
+   "sha256": "0a9d306256189301ee1db8a4a38e24beeafdb83fae7275dedb36ab881a04a8da"
+  },
+  {
+   "id": "FL-S19",
+   "title": "Sexual Battery Forensic Examination Claim Form BVC100SB",
+   "url": "https://www.myfloridalegal.com/sites/default/files/2025.sbapplicationclaimform.bvc100sb.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:49:03Z",
+   "raw_path": "rules/sources/FL/FL-S19.pdf",
+   "text_path": "rules/sources/FL/FL-S19.txt",
+   "sha256": "4686aa8c80d206b0f48016b7e9725f50c6ea4d48d2d2a937578b9398a777d8c7"
+  }
+ ],
+ "rules": [
+  {
+   "id": "FL-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A medical provider who performs the initial forensic exam may not bill the victim (or a minor victim's parent or guardian), directly or indirectly, for that exam.",
+   "quote": "(1) A medical provider who performs an initial forensic physical examination may not bill a victim or the victim’s parent or guardian if the victim is a minor directly or indirectly for that examination.",
+   "source_id": "FL-S5",
+   "pinpoint": "Fla. Stat. 960.28(1)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=%281%29%20A%20medical%20provider%20who,or%20indirectly%20for%20that%20examination."
+  },
+  {
+   "id": "FL-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "The state's payment is payment in full for the initial forensic exam, and the victim may not be required to pay any of its cost.",
+   "quote": "Payment made to the medical provider by the department shall be considered by the provider as payment in full for the initial forensic physical examination associated with the collection of evidence. The victim may not be required to pay, directly or indirectly, the cost of an initial forensic physical examination performed in accordance with this section.",
+   "source_id": "FL-S5",
+   "pinpoint": "Fla. Stat. 960.28(2)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=Payment%20made%20to%20the%20medical,in%20accordance%20with%20this%20section."
+  },
+  {
+   "id": "FL-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Florida Department of Legal Affairs (Office of the Attorney General), Crime Victims' Services Office"
+   },
+   "summary": "The Attorney General's Crime Victims' Services Office pays for the initial forensic exam after sexual battery or a lewd or lascivious offense, whether or not the victim has insurance, takes part in the criminal case, or cooperates with police.",
+   "quote": "The Crime Victims’ Services Office of the department shall pay for medical expenses connected with an initial forensic physical examination of a victim of sexual battery as defined in chapter 794 or a lewd or lascivious offense as defined in chapter 800. Such payment shall be made regardless of whether the victim is covered by health or disability insurance and whether the victim participates in the criminal justice system or cooperates with law enforcement.",
+   "source_id": "FL-S5",
+   "pinpoint": "Fla. Stat. 960.28(2)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=The%20Crime%20Victims%E2%80%99%20Services%20Office,or%20cooperates%20with%20law%20enforcement."
+  },
+  {
+   "id": "FL-EXAM-4",
+   "category": "expense_cap",
+   "expense": "forensic_exam",
+   "params": {
+    "expense": "forensic_exam",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "State payment for the initial forensic exam may not exceed $1,000 per violation and covers only the medical expenses connected with that exam.",
+   "quote": "The payment shall be made only out of moneys allocated to the Crime Victims’ Services Office for the purposes of this section, and the payment may not exceed $1,000 with respect to any violation. The department shall develop and maintain separate protocols for the initial forensic physical examination of adults and children. Payment under this section is limited to medical expenses connected with the initial forensic physical examination",
+   "source_id": "FL-S5",
+   "pinpoint": "Fla. Stat. 960.28(2)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=The%20payment%20shall%20be%20made,the%20initial%20forensic%20physical%20examination"
+  },
+  {
+   "id": "FL-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1500000
+   },
+   "summary": "Total benefits on one claim cannot exceed $15,000 when the victim is living and not catastrophically injured.",
+   "quote": "Total benefits paid on a single claim cannot exceed $15,000 when the victim is not deceased, or catastrophically injured",
+   "source_id": "FL-S16",
+   "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2)(c))"
+  },
+  {
+   "id": "FL-CAP-2",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Medical and dental treatment is capped at $10,000, paid to providers at a rate of 50%.",
+   "quote": "Medical/Dental Treatment $10,000 at a rate of 50%",
+   "source_id": "FL-S16",
+   "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+  },
+  {
+   "id": "FL-CAP-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Mental health care for an injured adult victim is capped at $5,000, paid to providers at a rate of 50%.",
+   "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50%",
+   "source_id": "FL-S16",
+   "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+  },
+  {
+   "id": "FL-CAP-4",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid to providers at a rate of 50%.",
+   "quote": "Mental Health Injured Minor (until age 18) $10,000 at a rate of 50%",
+   "source_id": "FL-S16",
+   "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+  },
+  {
+   "id": "FL-CAP-5",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 1500000,
+    "per": "claim"
+   },
+   "summary": "Wage loss is capped at $15,000, paid at a rate of 50% or the gross average weekly wage (GAWW).",
+   "quote": "Wage Loss $15,000 at a rate of 50% or GAWW",
+   "source_id": "FL-S16",
+   "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+  },
+  {
+   "id": "FL-CAP-6",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Sexual battery relocation assistance is a one-time payment of up to $1,500 per claim, with a lifetime maximum of $3,000.",
+   "quote": "The department may award a one-time payment of up to $1,500 on any one claim and a lifetime maximum of $3,000 to a victim of sexual battery, as defined in s. 794.011 , who needs relocation assistance.",
+   "source_id": "FL-S10",
+   "pinpoint": "Fla. Stat. 960.199(1)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html#:~:text=The%20department%20may%20award%20a,%2C%20who%20needs%20relocation%20assistance."
+  },
+  {
+   "id": "FL-CAP-7",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 50000,
+    "per": "claim"
+   },
+   "summary": "Property loss awards are only for elderly persons or disabled adults: up to $500 per claim and $1,000 lifetime.",
+   "quote": "the department may award a maximum of $500 on any one claim and a lifetime maximum of $1,000 on all claims to elderly persons or disabled adults who suffer a property loss that causes a substantial diminution in their quality of life",
+   "source_id": "FL-S6",
+   "pinpoint": "Fla. Stat. 960.195(1)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.195.html#:~:text=the%20department%20may%20award%20a,in%20their%20quality%20of%20life"
+  },
+  {
+   "id": "FL-CAP-8",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "An adult or minor victim of a forcible felony (sexual battery is one) with no physical injury can get mental health care capped at $5,000, paid to providers at a rate of 50%, for care within one year of the crime.",
+   "quote": "Mental Health Minor Victim Mental Injury (until age 18) Mental Health Adult or Minor Victim of Forcible Felony (non injury) $10,000 at a rate of 50% n/a $5,000 at a rate of 50% one year",
+   "source_id": "FL-S16",
+   "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+  },
+  {
+   "id": "FL-COV-1",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Victims of a forcible felony with a psychological injury can get mental health care, but for adults without a physical injury that is the only benefit available.",
+   "quote": "Persons who suffered a psychological or psychiatric injury as a direct result of a forcible felony may receive mental health care, when the law enforcement report identifies the individual as a victim of the crime. This is the only benefit available to adult victims who did not suffer a physical injury or death.",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(g)5.",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Persons%20who%20suffered%20a%20psychological,a%20physical%20injury%20or%20death."
+  },
+  {
+   "id": "FL-COV-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Wage loss is paid when the victim could not work because of physical injuries from the crime.",
+   "quote": "Who missed time from work because they were unable to work as a result of the physical injuries sustained as a result of the crime;",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(c)1.a.",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Who%20missed%20time%20from%20work,a%20result%20of%20the%20crime%3B"
+  },
+  {
+   "id": "FL-COV-3",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel to medical or dental treatment can be reimbursed with an itemized bill from the provider and a reasonable mileage estimate.",
+   "quote": "Reimbursement for transportation costs to medical/dental treatment appointments requires the submission of an itemized bill by the treating provider and a reasonable estimate of the mileage between the victim/applicant's residence.",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(h)4.",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Reimbursement%20for%20transportation%20costs%20to,mileage%20between%20the%20victim%2Fapplicant%27s%20residence."
+  },
+  {
+   "id": "FL-COV-4",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel to mental health treatment can be reimbursed with an itemized bill from the provider and a reasonable mileage estimate.",
+   "quote": "Reimbursement for transportation costs to mental health treatment appointments requires the submission of an itemized bill by the treating provider and a reasonable estimate of the mileage between the victim/applicant's residence.",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(g)8.",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Reimbursement%20for%20transportation%20costs%20to,mileage%20between%20the%20victim%2Fapplicant%27s%20residence."
+  },
+  {
+   "id": "FL-COV-5",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical, dental, and mental health costs the victim paid out of pocket are reimbursed at 100 percent, within the time limits and caps.",
+   "quote": "Out-of-pocket reimbursement to the victim/applicant for qualified funeral/burial, mental health (includes grief counseling), medical/dental expenses, and crime scene cleanup shall be compensated at 100 percent, when services or treatment was rendered within the timeframes established and up to the maximum benefit amount on the Schedule of Benefits.",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(e)2.",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Out%2Dof%2Dpocket%20reimbursement%20to%20the%20victim%2Fapplicant,on%20the%20Schedule%20of%20Benefits."
+  },
+  {
+   "id": "FL-COV-6",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "Sexual battery relocation needs certification from a certified rape crisis center in Florida, a safety plan, and an assault at the residence or one that causes reasonable fear for safety there.",
+   "quote": "(c) The victim’s need for assistance must be certified by a certified rape crisis center in this state. (d) The center’s certification must assert that the victim is cooperating with law enforcement officials, if applicable, and must include documentation that the victim has developed a safety plan. (e) The act of sexual battery must be committed in the victim’s place of residence or in a location that would lead the victim to reasonably fear for his or her continued safety in the place of residence.",
+   "source_id": "FL-S10",
+   "pinpoint": "Fla. Stat. 960.199(2)(c)-(e)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html#:~:text=%28c%29%20The%20victim%E2%80%99s%20need%20for,in%20the%20place%20of%20residence."
+  },
+  {
+   "id": "FL-EXC-1",
+   "category": "excluded_expense",
+   "params": {
+    "item": "real property, cash or negotiable instruments, intangible items, cosmetic damage"
+   },
+   "summary": "Under the property loss program, real property, cash, intangible items, and cosmetic damage are not compensable.",
+   "quote": "Examples of property that is not compensable includes real property, abandoned property, cash or other negotiable instruments, contraband or other illicit items, exchange agreements, items that amount to a monetary loss, are intangible, or are cosmetic damage causing a devaluation of the property.",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(3)(g)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Examples%20of%20property%20that%20is,a%20devaluation%20of%20the%20property."
+  },
+  {
+   "id": "FL-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "Good cause can extend the deadline (see FL-DEADLINE-3); delays in sexual assault kit testing or DNA profile matching can waive it."
+   },
+   "summary": "For crimes on or after October 1, 2019, the claim must be filed within 3 years after the crime.",
+   "quote": "(b)1. A claim arising from a crime occurring on or after October 1, 2019, must be filed within 3 years after the later of: a. The occurrence of the crime upon which the claim is based; b. The death of the victim or intervenor; or c. The death of the victim or intervenor is determined to be the result of the crime.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(2)(b)1.",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28b%291.%20A%20claim%20arising%20from,the%20result%20of%20the%20crime."
+  },
+  {
+   "id": "FL-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "years": 5,
+    "from": "crime",
+    "extension": "Waived entirely when the delay came from sexual assault forensic kit testing or DNA profile matching."
+   },
+   "summary": "For newer crimes (see FL-DEADLINE-1), a delay caused by sexual assault kit testing or DNA matching can waive the filing deadline, and other good cause can extend it to 5 years after the crime.",
+   "quote": "2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline. 3. For good cause based on a reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not to exceed 5 years after such occurrence.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(2)(b)2.-3.",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=2.%20Upon%20a%20showing%20that,5%20years%20after%20such%20occurrence."
+  },
+  {
+   "id": "FL-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "age_18",
+    "extension": "Good cause can extend it, and a delay in sexual assault kit testing or DNA profile matching can waive it (same subsection; see researcher_notes)."
+   },
+   "summary": "A victim who was under 18 at the time of a crime on or after October 1, 2019 has 3 years after turning 18 to file; good cause can extend this and kit testing or DNA matching delays can waive it.",
+   "quote": "(c) For a claim arising from a crime occurring on or after October 1, 2019, when a victim or intervenor who was under the age of 18 at the time the crime occurred reaches the age of 18, the victim or intervenor has 3 years to file a claim.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(3)(c)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28c%29%20For%20a%20claim%20arising,years%20to%20file%20a%20claim."
+  },
+  {
+   "id": "FL-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_days": 5,
+    "alternatives": []
+   },
+   "summary": "For crimes on or after October 1, 2019, the crime must be reported to the proper authorities within five days unless the department finds good cause for the delay.",
+   "quote": "2. Five days after the occurrence of such crime, if the crime occurred on or after October 1, 2019, unless the department, for good cause shown, finds the delay to have been justified.",
+   "source_id": "FL-S4",
+   "pinpoint": "Fla. Stat. 960.13(1)(b)2.",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=2.%20Five%20days%20after%20the,delay%20to%20have%20been%20justified."
+  },
+  {
+   "id": "FL-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "The report must go to state or federal law enforcement or prosecutors.",
+   "quote": "\"Proper authorities\" means state and federal law enforcement officials and prosecuting attorneys.",
+   "source_id": "FL-S14",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2001(9)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2001#:~:text=%22Proper%20authorities%22%20means%20state%20and,enforcement%20officials%20and%20prosecuting%20attorneys."
+  },
+  {
+   "id": "FL-COLLATERAL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays last, after insurance and every other source.",
+   "quote": "Payment made in accordance with this section shall be considered payment of last resort that follows all other sources.",
+   "source_id": "FL-S4",
+   "pinpoint": "Fla. Stat. 960.13(3)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=Payment%20made%20in%20accordance%20with,that%20follows%20all%20other%20sources."
+  },
+  {
+   "id": "FL-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The award can be reduced or denied if the department finds the victim's conduct contributed to the injury.",
+   "quote": "In determining the amount of an award, the department shall determine whether, because of his or her conduct, the victim of such crime or the intervenor contributed to the infliction of his or her physical injury or psychiatric or psychological injury or to his or her death, and the department shall reduce the amount of the award or reject the claim altogether, in accordance with such determination.",
+   "source_id": "FL-S4",
+   "pinpoint": "Fla. Stat. 960.13(7)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=In%20determining%20the%20amount%20of,in%20accordance%20with%20such%20determination."
+  },
+  {
+   "id": "FL-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "A contribution penalty is 25 percent of payments made directly to the victim; more than 25 percent means denial.",
+   "quote": "Penalty assessments, if imposed, based on contribution will be applied only to payments made directly to the victim or applicant at the rate of 25 percent of the amount otherwise payable. A penalty assessment of more than 25 percent will result in the denial of benefits.",
+   "source_id": "FL-S13",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2002(1)(b)2.",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Penalty%20assessments%2C%20if%20imposed%2C%20based,in%20the%20denial%20of%20benefits."
+  },
+  {
+   "id": "FL-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "An emergency award of up to $1,000 is possible when an award is likely and waiting would cause undue hardship; it is deducted from the final award.",
+   "quote": "if it appears to the department that such claim is one with respect to which an award probably will be made, and that either the claimant is a recipient of benefits under the federal Social Security Act or undue hardship will result to the claimant if immediate payment is not made, the department may make an emergency award to the claimant, pending a final decision in the case, on the following conditions: (1) The amount of such emergency award may not exceed $1,000; (2) The amount of such emergency award shall be deducted from any final award made to the claimant;",
+   "source_id": "FL-S11",
+   "pinpoint": "Fla. Stat. 960.12(1)-(2)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.12.html#:~:text=if%20it%20appears%20to%20the,award%20made%20to%20the%20claimant%3B"
+  },
+  {
+   "id": "FL-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Covered crimes include any felony or misdemeanor causing physical injury and any forcible felony causing psychological injury.",
+   "quote": "(a) A felony or misdemeanor offense committed by an adult or a juvenile which results in physical injury or death, a forcible felony committed by an adult or juvenile which directly results in psychiatric or psychological injury",
+   "source_id": "FL-S1",
+   "pinpoint": "Fla. Stat. 960.03(3)(a)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html#:~:text=%28a%29%20A%20felony%20or%20misdemeanor,in%20psychiatric%20or%20psychological%20injury"
+  },
+  {
+   "id": "FL-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual battery is a forcible felony under Florida law.",
+   "quote": "“Forcible felony” means treason; murder; manslaughter; sexual battery;",
+   "source_id": "FL-S8",
+   "pinpoint": "Fla. Stat. 776.08",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0700-0799/0776/Sections/0776.08.html#:~:text=%E2%80%9CForcible%20felony%E2%80%9D%20means%20treason%3B%20murder%3B%20manslaughter%3B%20sexual%20battery%3B"
+  },
+  {
+   "id": "FL-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes committed in Florida are covered; Florida residents harmed out of state are covered only where that jurisdiction lacks an eligible VOCA compensation program."
+   },
+   "summary": "A Florida resident hurt by a crime in another state is covered only if that state has no eligible crime victim compensation program.",
+   "quote": "(d) A criminal act committed outside this state against a resident of this state which would have been compensable if it had occurred in this state and which occurred in a jurisdiction that does not have an eligible crime victim compensation program as the term is defined in the federal Victims of Crime Act of 1984.",
+   "source_id": "FL-S1",
+   "pinpoint": "Fla. Stat. 960.03(3)(d)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html#:~:text=%28d%29%20A%20criminal%20act%20committed,of%20Crime%20Act%20of%201984."
+  },
+  {
+   "id": "FL-RES-2",
+   "category": "residency",
+   "expense": null,
+   "params": {
+    "rule": "A resident keeps a primary dwelling in Florida; students and military personnel stationed in Florida count as residents."
+   },
+   "summary": "For this program a resident is someone whose primary home is in Florida, and students and military personnel stationed in Florida are treated as residents.",
+   "quote": "\"Resident\" means one who maintains his or her primary dwelling in Florida. Residency is governed by a person's intent, as evidenced by all surrounding facts and circumstances. Military personnel stationed in Florida and students shall be deemed residents for purposes of this program.",
+   "source_id": "FL-S14",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2001(8)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2001#:~:text=%22Resident%22%20means%20one%20who%20maintains,for%20purposes%20of%20this%20program."
+  },
+  {
+   "id": "FL-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "PL-01, The Capitol, Tallahassee, FL 32399-1050"
+   },
+   "summary": "Mail the completed claim form and documents to the Bureau of Victim Compensation, PL-01, The Capitol, Tallahassee, FL 32399-1050.",
+   "quote": "Address: PL-01, The Capitol, Tallahassee, FL 32399-1050",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4"
+  },
+  {
+   "id": "FL-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "VCIntake@MyFloridaLegal.com"
+   },
+   "summary": "Email the completed claim form and documents to VCIntake@MyFloridaLegal.com.",
+   "quote": "Email: VCIntake@MyFloridaLegal.com",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4"
+  },
+  {
+   "id": "FL-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(850) 414-6197"
+   },
+   "summary": "Fax the completed claim form and documents to (850) 414-6197.",
+   "quote": "Fax: (850) 414-6197",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4"
+  },
+  {
+   "id": "FL-SUBMIT-4",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "the Tallahassee office of the department"
+   },
+   "summary": "By statute a claim can also be filed in person at the Department of Legal Affairs office in Tallahassee.",
+   "quote": "Claims may be filed in the Tallahassee office of the department in person or by mail.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(5)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=Claims%20may%20be%20filed%20in,in%20person%20or%20by%20mail."
+  },
+  {
+   "id": "FL-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Completed, signed, and dated claim form (BVC100)."
+   },
+   "summary": "The claim form itself must be completed, signed, and dated.",
+   "quote": "A completed, signed and dated application.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "A law enforcement report or other accepted proof of crime, such as Law Enforcement Information Reporting Form BVC430."
+   },
+   "summary": "Include proof that a compensable crime occurred, such as a law enforcement report.",
+   "quote": "Documentation which proves a compensable crime occurred. Acceptable documentation includes: a law enforcement report, affidavit charging an individual with a crime filed by law enforcement",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized bills on industry standard forms or provider letterhead."
+   },
+   "summary": "Include proof of crime-related expenses, such as itemized bills.",
+   "quote": "Proof of crime related expenses, such as itemized bills, if applicable.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "For reimbursement of costs already paid out of pocket."
+   },
+   "summary": "To be reimbursed for expenses already paid, include itemized bills and receipts with the application.",
+   "quote": "Reimbursement for out-of-pocket compensable expenses. Provide itemized bills and receipts with your applica on.",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Two, Emergency Reimbursement"
+  },
+  {
+   "id": "FL-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Proof of insurance or other third-party payments, such as an explanation of benefits, if applicable."
+   },
+   "summary": "Include proof of any third-party payments, such as an insurance explanation of benefits.",
+   "quote": "Proof of third-party payments such as insurance, restitution, judgments or settlements (e.g., copy of insurance explanation of benefits, settlement agreements, court documents for restitution and judgments), if applicable.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Copy of insurance card or policy declaration."
+   },
+   "summary": "Attach a copy of your insurance card or policy declaration.",
+   "quote": "A ach a copy of your insurance card or policy declara on.",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Nine"
+  },
+  {
+   "id": "FL-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Wage Loss Employment Report (BVC405), for wage loss claims."
+   },
+   "summary": "For wage loss, attach a Wage Loss Employment Report (BVC405) and a Treatment Disability Statement (BVC409).",
+   "quote": "A ach a completed Wage Loss Employment Report (BVC405) and Treatment Disability Statement (BVC409).",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Two, Wage Loss"
+  },
+  {
+   "id": "FL-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Treatment Disability Statement (BVC409) signed by a doctor, for wage loss or disability claims."
+   },
+   "summary": "For wage loss, a doctor fills out a Treatment Disability Statement (BVC409) showing the dates excused from work.",
+   "quote": "A ach a completed Wage Loss Employment Report (BVC405) and Treatment Disability Statement (BVC409).",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Two, Wage Loss; Section Twelve"
+  },
+  {
+   "id": "FL-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Requested after filing, not required up front."
+   },
+   "summary": "After a claim is received, the bureau may ask for specific medical and financial information.",
+   "quote": "When claims are received, victims/applicants may be asked to provide specific medical and financial information.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Relocation Certification Worksheet (BVC106) certified by a Florida rape crisis or domestic violence center, for relocation claims."
+   },
+   "summary": "Relocation claims need certification from a Florida rape crisis or domestic violence center.",
+   "quote": "Relocation benefits require certification documentation from a certified domestic violence or rape crisis center (depending on the claim type selected) in the State of Florida.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-11",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Housing contract or Notification of Residential Agreement (BVC110), for relocation claims."
+   },
+   "summary": "Relocation claims need a standard housing contract or a Notification of Residential Agreement (BVC110) at the time of application.",
+   "quote": "A standard housing contract or a No fica on of Residen al Agreement (BVC110) is required at the me of applica on.",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap",
+   "submission",
+   "required_document"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "expense_cap:transportation",
+   "expense_cap:security",
+   "covered_expense:security",
+   "reporting_requirement:alternatives_for_sexual_assault",
+   "processing_time"
+  ],
+  "notes": "No minimum dollar loss exists; instead Fla. Stat. 960.13(8) says the department shall deny an award if the claimant will not suffer serious financial hardship, considering all the claimant's financial resources. No transportation cap and no security or lock-replacement expense were found in the statute, rules, or program publications. No alternative to a police report was found for compensation claims: Fla. Admin. Code R. 2A-2.2001(9)-(10) limit proof of crime to law enforcement and prosecutors (including form BVC430). The separate forensic exam payment under 960.28 does not require reporting or cooperation. Phones and other personal property: Florida reimburses tangible property loss only through the Property Loss program for elderly persons or disabled adults (960.195); R. 2A-2.2002(3)(f) lists a telephone as an example of compensable property for that program. A typical adult survivor under the elderly or disabled criteria has no property benefit. 960.28 says the forensic exam is paid regardless of insurance and the victim may not be required to pay directly or indirectly, but it does not say whether the provider may bill the victim's insurer, so insurance_billing is 'unspecified'. No official source found states a processing time for a decision or payment."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute vs rule: 960.13(9)(a) sets a $25,000 total ceiling and $10,000 for treatment, but 960.13(9)(b) lets the department set lower limits by rule, and R. 2A-2.2003 (Schedule of Benefits) caps a living, non-catastrophic victim at $15,000 per claim. I used the rule/schedule figures because they are what the program applies; both are consistent. Schedule caps are taken from the official Schedule of Benefits PDF (FL-S16) because the Cornell LII copy of R. 2A-2.2003 (FL-S12) prints dollar amounts as '$15, 000.00', which breaks number matching; the amounts are identical. Provider payments for medical and mental health are at a rate of 50% or less depending on funds, while victim out-of-pocket reimbursement is at 100 percent (R. 2A-2.2002(2)(e)2.). Older crimes (before October 1, 2019) have a 72-hour reporting rule and 1-year filing deadline (2 years with good cause); the rules here cover crimes on or after that date. The brochure and claim form state reporting within 120 hours, matching the statutory five days. Domestic violence relocation discrepancy: Fla. Stat. 960.198 (amended by ch. 2026-86) now allows up to $2,500 per claim and $5,000 lifetime, while R. 2A-2.2003 and the Schedule of Benefits still list $1,500 and $3,000. Statute governs; not encoded as a rule because it is DV-specific. Sexual battery relocation (960.199) matches the rule at $1,500 and $3,000. Relocation assistance types (DV, sexual battery, human trafficking) are mutually exclusive for the same incident. LII copies of R. 2A-2.2001 and 2A-2.2002 were cross-checked against the current Word versions on flrules.org for every quoted passage. Medical providers must submit the forensic exam claim (BVC100SB) within 120 days of the exam; this binds providers, not survivors. Reviewer additions: The Schedule of Benefits caps (FL-S16) apply to crimes on or after January 6, 2022; the program page links a separate schedule for earlier crime dates, and the LII notes say the rule amendment took effect 1/9/2022. FL-CAP-8 quotes the Schedule PDF, whose two-column text extraction puts the $10,000 figure for the 'Minor Victim Mental Injury' row ahead of the $5,000 figure for the 'Adult or Minor Victim of Forcible Felony (non injury)' row; the LII copy of R. 2A-2.2003 (FL-S12) lists the rows in order and confirms $5,000 at 50%, one year, for the non-injury forcible felony row. FL-DEADLINE-3 is the good-cause extension ceiling (5 years), not the base deadline; the base deadline is FL-DEADLINE-1 (3 years). Compensation also requires cooperation with law enforcement and the state attorney (960.13(1)(b)), which the department can use to deny, reduce, or withdraw an award; the separate forensic exam payment does not. For minors, 960.07(3) says good cause can extend the paragraph (c) period 'for an additional period not to exceed 2 years', and kit testing or DNA matching delays can waive any filing deadline; this is described in FL-DEADLINE-2's extension text rather than quoted, to keep the quote short. How to file (added Oct 3): the claim form BVC100 (08/24), saved as FL-S18 and still the form linked from the program page, has 138 fillable AcroForm fields. Section One, instruction 4 says to submit the application and documents via email, fax, or mail; the address, email, and fax come from the form's page 1 header. Fla. Stat. 960.07(5) also allows filing in person at the Tallahassee office. No online method is encoded: the VANext portal is described on the program page and brochure as for advocates and providers (the brochure says victim service practitioners can register for access to the online claims submission portal), not survivors. The FL-S18 text extraction drops the 'ti', 'tt', and 'ft' ligatures (for example 'applica on', 'A ach'), so quotes from that source keep those gaps to stay verbatim; the brochure (FL-S17) is used where it states the same requirement in clean text."
+}

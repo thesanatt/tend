@@ -1,0 +1,28 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.eligible {
+  color: var(--green);
+}
+
+.held {
+  color: var(--clay);
+}
+
+.needs_confirmation {
+  color: var(--ink);
+}
+
+.unknown_rule,
+.out_of_window,
+.declined {
+  color: var(--ink-3);
+}

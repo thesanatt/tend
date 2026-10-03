@@ -1,0 +1,30 @@
+.home {
+  display: grid;
+  gap: var(--space-8);
+  padding-top: var(--space-7);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 46rem;
+}
+
+.forYou {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  gap: var(--space-4) var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--ink);
+}
+
+.forYouBody {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (max-width: 760px) {
+  .forYou {
+    grid-template-columns: 1fr;
+  }
+}

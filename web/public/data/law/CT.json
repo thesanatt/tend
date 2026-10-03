@@ -1,0 +1,650 @@
+{
+ "jurisdiction": "CT",
+ "name": "Connecticut",
+ "program": {
+  "program_name": "Victim Compensation Program",
+  "agency": "State of Connecticut Judicial Branch, Office of Victim Services",
+  "website": "https://www.jud.ct.gov/crimevictim/compensation.htm",
+  "apply_url": "https://www.jud.ct.gov/crimevictim/compensation.htm",
+  "application_pdf_url": "https://www.jud.ct.gov/webforms/forms/vs008PI.pdf",
+  "phone": "1-888-286-7347",
+  "phone_source_id": "CT-S5",
+  "statute_citation": "Conn. Gen. Stat. 54-201 to 54-218",
+  "application_form": {
+   "source_id": "CT-S4",
+   "fillable": true,
+   "field_count": 296
+  }
+ },
+ "sources": [
+  {
+   "id": "CT-S1",
+   "title": "Conn. Gen. Stat. Chapter 968 (Victim Services), secs. 54-201 to 54-235",
+   "url": "https://www.cga.ct.gov/current/pub/chap_968.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/CT/CT-S1.html",
+   "text_path": "rules/sources/CT/CT-S1.txt",
+   "sha256": "7452f023d7ab1a732ee1edeba9e4b425306c516055567133ae221634b33ddef7"
+  },
+  {
+   "id": "CT-S2",
+   "title": "Conn. Gen. Stat. Chapter 368a, including sec. 19a-112a (sexual assault evidence collection costs)",
+   "url": "https://www.cga.ct.gov/current/pub/chap_368a.htm",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:39Z",
+   "raw_path": "rules/sources/CT/CT-S2.html",
+   "text_path": "rules/sources/CT/CT-S2.txt",
+   "sha256": "e8739267551955073a855f91fabdabcac65baf2494753445063d4adf9abde6d8"
+  },
+  {
+   "id": "CT-S4",
+   "title": "Personal Injury Application, JD-VS-8PI (Rev. 7/21)",
+   "url": "https://www.jud.ct.gov/webforms/forms/vs008PI.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:48Z",
+   "raw_path": "rules/sources/CT/CT-S4.pdf",
+   "text_path": "rules/sources/CT/CT-S4.txt",
+   "sha256": "04e0e7c2c71f789c9b44c5bb6d28773a1e73a7e81ae7b78f548009c7a2b57e5a"
+  },
+  {
+   "id": "CT-S5",
+   "title": "Crime Victim Compensation Program brochure, JDP-VS-10 (Rev. 9/26)",
+   "url": "https://www.jud.ct.gov/Publications/vs010.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:51Z",
+   "raw_path": "rules/sources/CT/CT-S5.pdf",
+   "text_path": "rules/sources/CT/CT-S5.txt",
+   "sha256": "7d7067062177b3f3db0fa47405f3a5d138750e3540fc189dc11839c3371b0c74"
+  },
+  {
+   "id": "CT-S8",
+   "title": "Victim Compensation Program Benefits chart, JD-VS-47 (Rev. 7-24)",
+   "url": "https://www.jud.ct.gov/webforms/forms/VS047.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:49:46Z",
+   "raw_path": "rules/sources/CT/CT-S8.pdf",
+   "text_path": "rules/sources/CT/CT-S8.txt",
+   "sha256": "6a6608a513fd10ee6a56ba25f0eb5368183c9594ee48790dfb005923cdfe6489"
+  }
+ ],
+ "rules": [
+  {
+   "id": "CT-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "No cost of a sexual assault evidence collection exam, including pregnancy and STI testing and preventive treatment under the state protocol, may be charged directly or indirectly to the survivor.",
+   "quote": "No costs incurred by a health care facility for the examination of a victim of sexual assault, when such examination is performed for the purpose of gathering evidence as prescribed in the protocol, including the costs of testing for pregnancy and sexually transmitted diseases and the costs of prophylactic treatment as provided in the protocol, and no costs incurred for a medical forensic assessment interview conducted by a health care facility or provider or by an examiner working in conjunction with a multidisciplinary team established pursuant to section 17a-106a or with a child advocacy center, shall be charged directly or indirectly to such victim.",
+   "source_id": "CT-S2",
+   "pinpoint": "Conn. Gen. Stat. 19a-112a(e)(1)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_368a.htm#:~:text=No%20costs%20incurred%20by%20a,or%20indirectly%20to%20such%20victim."
+  },
+  {
+   "id": "CT-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Forensic Sex Evidence Exams account, Connecticut Judicial Department"
+   },
+   "summary": "Exam costs are charged to the Forensic Sex Evidence Exams account in the Judicial Department.",
+   "quote": "Any such costs shall be charged to the Forensic Sex Evidence Exams account in the Judicial Department.",
+   "source_id": "CT-S2",
+   "pinpoint": "Conn. Gen. Stat. 19a-112a(e)(1)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_368a.htm#:~:text=Any%20such%20costs%20shall%20be,account%20in%20the%20Judicial%20Department."
+  },
+  {
+   "id": "CT-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "Toxicology screening done under the protocol may not be charged to the survivor; the state Division of Scientific Services pays.",
+   "quote": "No costs incurred by a health care facility for any toxicology screening of a victim of sexual assault, when such screening is performed as prescribed in the protocol, shall be charged directly or indirectly to such victim. Any such costs shall be charged to the Division of Scientific Services within the Department of Emergency Services and Public Protection.",
+   "source_id": "CT-S2",
+   "pinpoint": "Conn. Gen. Stat. 19a-112a(e)(2)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_368a.htm#:~:text=No%20costs%20incurred%20by%20a,Emergency%20Services%20and%20Public%20Protection."
+  },
+  {
+   "id": "CT-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1500000,
+    "applies_to": "personal_injury"
+   },
+   "summary": "Compensation for a personal injury is capped at $15,000.",
+   "quote": "Compensation for personal injury shall be in an amount not to exceed fifteen thousand dollars",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(d)(1)(A)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=Compensation%20for%20personal%20injury%20shall,to%20exceed%20fifteen%20thousand%20dollars"
+  },
+  {
+   "id": "CT-CAP-2",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 500000,
+    "applies_to": "emotional_harm_only"
+   },
+   "summary": "When the only injury is emotional harm (a mental or emotional impairment caused by a threat of physical injury or death), compensation for medical care, mental health care and security measures is capped at $5,000. Claims involving actual bodily harm fall under the higher personal injury cap (CT-CAP-1) instead.",
+   "quote": "in cases of emotional harm only, compensation for medical and mental health care and security measures shall be in an amount not to exceed five thousand dollars",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(d)(1)(D)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=in%20cases%20of%20emotional%20harm,to%20exceed%20five%20thousand%20dollars"
+  },
+  {
+   "id": "CT-CAP-3",
+   "category": "expense_cap",
+   "params": {
+    "expense": "security",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleanup and security system expenses share one maximum benefit of $1,000 (not $1,000 each).",
+   "quote": "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum benefit $1,000)",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9"
+  },
+  {
+   "id": "CT-CAP-4",
+   "category": "expense_cap",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Replacing clothes and bedding held as evidence falls under the same single up-to-$1,000 benefit as crime scene cleanup and security systems, not a separate $1,000.",
+   "quote": "Up to $1,000 for crime scene cleanup, security systems, or replacement of clothes and bedding held as evidence",
+   "source_id": "CT-S5",
+   "pinpoint": "JDP-VS-10 brochure, Examples of Eligible Expenses"
+  },
+  {
+   "id": "CT-CAP-5",
+   "category": "expense_cap",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleanup shares the single $1,000 maximum benefit with security system expenses.",
+   "quote": "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum benefit $1,000)",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9"
+  },
+  {
+   "id": "CT-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "The program may pay expenses actually and reasonably incurred because of the injury, and must cover medical care for a victim with no insurance or whose coverage is used up.",
+   "quote": "(1) Expenses actually and reasonably incurred as a result of the personal injury or death of the victim, provided coverage for the cost of medical care and treatment of a crime victim who does not have medical insurance or who has exhausted coverage under applicable health insurance policies or Medicaid shall be ordered",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-210(a)(1)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=%281%29%20Expenses%20actually%20and%20reasonably,or%20Medicaid%20shall%20be%20ordered"
+  },
+  {
+   "id": "CT-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health therapy prescribed by a licensed medical or mental health professional is a covered benefit, including individual, family and group therapy.",
+   "quote": "Mental health therapy including individual, family, group, medication management, music therapy, art therapy, horse assisted therapy, psychotherapy, tutoring, personal trainer, gym membership, and summer camp prescribed by a licensed medical or mental health professional",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Mental Health Expenses"
+  },
+  {
+   "id": "CT-COV-3",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Dental fees and dentures are listed as covered medical expenses.",
+   "quote": "Hospital, doctor, cosmetic, and dental fees; co-pays and other medical related expenses, such as physical therapy, ambulance, prescription expenses, medical equipment, eyeglasses, dentures, and supplies",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Medical Expenses"
+  },
+  {
+   "id": "CT-COV-4",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Prescription expenses are listed as covered medical expenses.",
+   "quote": "Hospital, doctor, cosmetic, and dental fees; co-pays and other medical related expenses, such as physical therapy, ambulance, prescription expenses, medical equipment, eyeglasses, dentures, and supplies",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Medical Expenses"
+  },
+  {
+   "id": "CT-COV-5",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "The program may pay for loss of earning power caused by the victim's total or partial incapacity.",
+   "quote": "(2) loss of earning power as a result of total or partial incapacity of such victim",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-210(a)(2)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=%282%29%20loss%20of%20earning%20power,partial%20incapacity%20of%20such%20victim"
+  },
+  {
+   "id": "CT-COV-6",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "In physical injury cases, travel expenses to attend court, Psychiatric Security Review Board, and Board of Pardons and Paroles proceedings are covered.",
+   "quote": "For physical injury and homicide cases, lost wages and travel expenses for the victim and/or relatives to attend proceedings at court, the Psychiatric Security Review Board, and the Board of Pardons and Paroles",
+   "source_id": "CT-S5",
+   "pinpoint": "JDP-VS-10 brochure, Eligible Expenses Continued"
+  },
+  {
+   "id": "CT-COV-7",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Security systems, lock, door and window repair, and clothes and bedding held as evidence are covered, subject to the program maximum for this benefit.",
+   "quote": "Costs for replacement or repair of damaged locks, doors, and windows; clothes and bedding held as evidence; biohazard clean-up; and the cost and installation of security systems",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Crime Scene Clean-up and Security Systems"
+  },
+  {
+   "id": "CT-COV-8",
+   "category": "covered_expense",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding"
+   },
+   "summary": "Replacing clothes and bedding held as evidence is a covered benefit, inside the shared crime scene cleanup and security maximum.",
+   "quote": "Costs for replacement or repair of damaged locks, doors, and windows; clothes and bedding held as evidence; biohazard clean-up; and the cost and installation of security systems",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Crime Scene Clean-up and Security Systems"
+  },
+  {
+   "id": "CT-COV-9",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Biohazard cleanup of a crime scene is a covered benefit, inside the shared crime scene cleanup and security maximum.",
+   "quote": "Costs for replacement or repair of damaged locks, doors, and windows; clothes and bedding held as evidence; biohazard clean-up; and the cost and installation of security systems",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Crime Scene Clean-up and Security Systems"
+  },
+  {
+   "id": "CT-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "item": "property loss and damage (for example a phone or other personal property)"
+   },
+   "summary": "Property loss and damage is not an eligible expense, so a lost or damaged phone or other belongings would not be paid. The narrow exceptions are the shared crime scene cleanup, security and evidence clothing and bedding benefit.",
+   "quote": "Property loss and damage, pain and suffering, and travel to and from medical appointments are not eligible expenses.",
+   "source_id": "CT-S5",
+   "pinpoint": "JDP-VS-10 brochure, Eligible Expenses Continued"
+  },
+  {
+   "id": "CT-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "item": "travel to and from medical appointments"
+   },
+   "summary": "Travel to and from medical appointments is not an eligible expense.",
+   "quote": "Property loss and damage, pain and suffering, and travel to and from medical appointments are not eligible expenses.",
+   "source_id": "CT-S5",
+   "pinpoint": "JDP-VS-10 brochure, Eligible Expenses Continued"
+  },
+  {
+   "id": "CT-EXCL-3",
+   "category": "excluded_expense",
+   "params": {
+    "item": "crimes against property; pain and suffering"
+   },
+   "summary": "The statute bars compensation for property crime losses and for pain and suffering.",
+   "quote": "no compensation shall be awarded for losses sustained for crimes against property or for noneconomic detriment such as pain and suffering",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(c)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=no%20compensation%20shall%20be%20awarded,such%20as%20pain%20and%20suffering"
+  },
+  {
+   "id": "CT-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "waiver available, including for physical, emotional or psychological injury, minors not at fault, and good cause with compelling equitable circumstances"
+   },
+   "summary": "The application must be made within 3 years after the date of the injury; the Office of Victim Services can waive this in some situations.",
+   "quote": "the application has been made within three years after the date of the personal injury or death",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(a)(1)(A)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=the%20application%20has%20been%20made,the%20personal%20injury%20or%20death"
+  },
+  {
+   "id": "CT-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "waiver for physical, emotional or psychological injury"
+   },
+   "summary": "A person who missed the 3-year deadline because of physical, emotional or psychological injuries caused by the crime may apply for a waiver.",
+   "quote": "fails to make application for compensation within three years after the date of the personal injury or death as a result of physical, emotional or psychological injuries caused by such personal injury or death may apply for a waiver of such time limitation",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(a)(2)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=fails%20to%20make%20application%20for,waiver%20of%20such%20time%20limitation"
+  },
+  {
+   "id": "CT-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "forensic_exam",
+     "advocate",
+     "medical_provider",
+     "protective_order",
+     "other"
+    ]
+   },
+   "summary": "The crime must be reported to police, but a sexual assault survivor does not lose eligibility for skipping the report if they went to a health care facility within 120 hours for an evidence collection exam, or met the disclosure or protective order rules of section 54-209(d).",
+   "quote": "(C) such incident or offense has been reported to the police, except that a victim of a sexual assault shall not be ineligible for the payment of compensation by reason of failing to make a report pursuant to this subparagraph if such victim presented himself or herself to a health care facility within one hundred twenty hours of such sexual assault for examination and collection of evidence of such sexual assault in accordance with the provisions of section 19a-112a , or if such victim complied with subsection (d) of section 54-209 .",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(a)(1)(C)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=%28C%29%20such%20incident%20or%20offense,%28d%29%20of%20section%2054%2D209%20."
+  },
+  {
+   "id": "CT-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "advocate",
+     "medical_provider",
+     "other"
+    ]
+   },
+   "summary": "A police report is still the default, but for sexual assault offenses, disclosing the injury to a listed professional, such as a sexual assault counselor, a nurse or physician, or a mental health professional, can stand in for it if the office reasonably concludes the offense occurred.",
+   "quote": "(K) a domestic violence counselor or a sexual assault counselor, as defined in section 52-146k",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-209(d)(1)(K)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=%28K%29%20a%20domestic%20violence%20counselor,as%20defined%20in%20section%2052%2D146k"
+  },
+  {
+   "id": "CT-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "protective_order"
+    ]
+   },
+   "summary": "A police report is still the default, but reporting the injury in a restraining order or civil protection order application, where the order was granted after a hearing, can stand in for it if the office reasonably concludes the offense occurred.",
+   "quote": "the personal injury is reported in an application for a restraining order under section 46b-15 or an application for a civil protection order under section 46b-16a or on the record to the court, provided such restraining order or civil protection order was granted in the Superior Court following a hearing",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-209(d)(2)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=the%20personal%20injury%20is%20reported,Superior%20Court%20following%20a%20hearing"
+  },
+  {
+   "id": "CT-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The award takes into account money the applicant received or can receive from other sources, such as insurance and workers' compensation; life insurance is not counted.",
+   "quote": "shall take into consideration any amounts that the applicant has received or is eligible to receive from any other source or sources, including, but not limited to, payments from state and municipal agencies, insurance benefits, and workers' compensation awards",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-208(e)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=shall%20take%20into%20consideration%20any,benefits%2C%20and%20workers%27%20compensation%20awards"
+  },
+  {
+   "id": "CT-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "If a sexual assault survivor believes a health insurance claim would cause undue harm by spreading treatment information, the office may waive counting health insurance as a collateral source.",
+   "quote": "In a case involving circumstances under which a victim of domestic violence, sexual assault or child abuse, or a claimant in such a case, believes that the dissemination of treatment information associated with a health insurance claim would cause undue harm, the Office of Victim Services may waive the consideration of health insurance as a collateral source.",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-208(e)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=In%20a%20case%20involving%20circumstances,insurance%20as%20a%20collateral%20source."
+  },
+  {
+   "id": "CT-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "In deciding on an award the office considers relevant circumstances, including the victim's behavior and cooperation with the investigation and law enforcement.",
+   "quote": "shall consider all circumstances determined to be relevant, including, but not limited to, provocation, consent or any other behavior of the victim which directly or indirectly contributed to such victim's injury or death, the extent of the victim's cooperation in investigating the application and the extent of the victim's cooperation with law enforcement agencies in their efforts to apprehend and prosecute the offender",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-208(c)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=shall%20consider%20all%20circumstances%20determined,apprehend%20and%20prosecute%20the%20offender"
+  },
+  {
+   "id": "CT-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "No award is made if the offender would be unjustly enriched, or if the victim broke a state penal law that caused or contributed to the injury.",
+   "quote": "No compensation shall be awarded if: (1) The offender is unjustly enriched by the award, provided compensation awarded to a victim which would benefit the offender in a minimal or inconsequential manner shall not be considered unjust enrichment; (2) the victim violated a penal law of this state, which violation caused or contributed to such victim's injuries or death.",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(b)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=No%20compensation%20shall%20be%20awarded,such%20victim%27s%20injuries%20or%20death."
+  },
+  {
+   "id": "CT-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Connecticut's sexual assault offenses are named in the compensation statute as crimes the program can pay for, with alternative proof rules.",
+   "quote": "In instances where a violation of section 53a-70b of the general statutes, revision of 1958, revised to January 1, 2019, or section 53-21 , 53a-70 , 53a-70a , 53a-70c , 53a-71 , 53a-72a , 53a-72b , 53a-73a",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-209(d)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=In%20instances%20where%20a%20violation,53a%2D72a%20%2C%2053a%2D72b%20%2C%2053a%2D73a"
+  },
+  {
+   "id": "CT-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in Connecticut are covered regardless of the applicant's residency; Connecticut residents hurt elsewhere may qualify only if that state or country has no program they are eligible for."
+   },
+   "summary": "A crime that happens in Connecticut is covered no matter where the applicant lives.",
+   "quote": "Compensation shall be awarded pursuant to sections 54-201 to 54-218 , inclusive, for personal injury or death resulting from a crime which occurs (1) within this state, regardless of the residency of the applicant",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(f)(1)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=Compensation%20shall%20be%20awarded%20pursuant,the%20residency%20of%20the%20applicant"
+  },
+  {
+   "id": "CT-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109"
+   },
+   "summary": "Mail the signed application to the Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109.",
+   "quote": "Please send the completed application to: Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109; or Fax to: 860-263-2780; or Email to: OVSCompensation@jud.ct.gov",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, end of Section 10"
+  },
+  {
+   "id": "CT-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "860-263-2780"
+   },
+   "summary": "The signed application can be faxed to OVS at 860-263-2780.",
+   "quote": "Please send the completed application to: Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109; or Fax to: 860-263-2780; or Email to: OVSCompensation@jud.ct.gov",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, end of Section 10"
+  },
+  {
+   "id": "CT-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "OVSCompensation@jud.ct.gov"
+   },
+   "summary": "The signed application can be emailed to OVSCompensation@jud.ct.gov.",
+   "quote": "Please send the completed application to: Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109; or Fax to: 860-263-2780; or Email to: OVSCompensation@jud.ct.gov",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, end of Section 10"
+  },
+  {
+   "id": "CT-DOC-1",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of crime-related bills from every provider who treated you, if available."
+   },
+   "summary": "For medical, mental health, dental, or prescription costs, list every provider who treated you and include copies of the crime-related bills.",
+   "quote": "Please list the names of all providers who treated you and provide copies of crime-related bills, prescription printouts for co-pay amounts, and insurance benefit statements, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses"
+  },
+  {
+   "id": "CT-DOC-2",
+   "category": "required_document",
+   "expense": "prescription",
+   "params": {
+    "document": "receipts",
+    "note": "Prescription printouts showing co-pay amounts, if available."
+   },
+   "summary": "For prescriptions, include printouts showing your co-pay amounts.",
+   "quote": "Please list the names of all providers who treated you and provide copies of crime-related bills, prescription printouts for co-pay amounts, and insurance benefit statements, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses"
+  },
+  {
+   "id": "CT-DOC-3",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance benefit statements, if available; bills must go to insurance first."
+   },
+   "summary": "Include insurance benefit statements for crime-related medical bills, if you have them.",
+   "quote": "Please list the names of all providers who treated you and provide copies of crime-related bills, prescription printouts for co-pay amounts, and insurance benefit statements, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses"
+  },
+  {
+   "id": "CT-DOC-4",
+   "category": "required_document",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "document": "receipts",
+    "note": "Copies of bills and receipts for cleanup or security costs you paid, if available."
+   },
+   "summary": "For crime scene cleanup or security system costs you paid, include copies of the bills and receipts.",
+   "quote": "Please fill out this section if you paid all or part of the expenses and provide copies of bills and receipts, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Crime Scene Cleanup and Security System Expenses"
+  },
+  {
+   "id": "CT-DOC-5",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Note from the treating health care provider listing days absent, if you missed more than 1 week of work."
+   },
+   "summary": "If you missed more than 1 week of work, include a note from your treating health care provider listing the days you were out because of the injuries.",
+   "quote": "If you missed more than 1 week of work, you must provide a note from the treating health care provider listing the days you were absent from work because of the crime-related injuries.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Wage Loss"
+  },
+  {
+   "id": "CT-DOC-6",
+   "category": "required_document",
+   "expense": "transportation",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for travel to court or board proceedings, such as hotel bills and parking."
+   },
+   "summary": "For travel to court or parole board proceedings, include receipts such as hotel bills and parking.",
+   "quote": "Receipts for travel expenses are required (hotel bill, parking).",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Lost Wages and Travel Expenses to Attend Proceedings, Requirements"
+  },
+  {
+   "id": "CT-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Copy of the signed civil protection or restraining order, only if the person you told about the crime was a judge."
+   },
+   "summary": "If you told a judge about the crime, attach a copy of the signed civil protection order or restraining order.",
+   "quote": "judge (attach a copy of the signed civil protection order or restraining order)",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 7a"
+  },
+  {
+   "id": "CT-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Documentation that relates the injury and each expense to the crime."
+   },
+   "summary": "The program requires documentation that ties the injury and each expense to the crime.",
+   "quote": "Documentation that relates the injury and expense to the crime is required.",
+   "source_id": "CT-S5",
+   "pinpoint": "JDP-VS-10 brochure, overview"
+  },
+  {
+   "id": "CT-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Handwritten signature on the application; electronic signatures are not accepted and unsigned applications are returned."
+   },
+   "summary": "Sign the application by hand; unsigned applications are sent back for signature.",
+   "quote": "Applications that are not signed will be returned for signature.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 10"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document"
+  ],
+  "not_found": [
+   "emergency_award",
+   "minimum_loss",
+   "expense_cap:counseling",
+   "expense_cap:lost_wages",
+   "expense_cap:relocation",
+   "expense_cap:transportation",
+   "expense_cap:medical",
+   "covered_expense:relocation",
+   "reporting_requirement:within_days",
+   "administrative_rules",
+   "processing_time"
+  ],
+  "notes": "No minimum loss appears in the statute. Sec. 54-217 now allows only expedited processing of a claim for undue hardship; its history note says older versions set an emergency award amount, but the current text sets none, so emergency_award is left out. No relocation benefit appears in the statute, brochure, benefits chart or application. No separate cap on counseling, lost wages, medical or court travel was found beyond the overall caps; the $5,000 cap (CT-CAP-2) applies only to emotional-harm-only claims. The statute sets no number of days for the police report, though the application asks whether the crime was reported within 5 days. Sec. 54-207 (regulations) is repealed and sec. 54-207a delegates procedures to the Chief Court Administrator; no administrative rules setting caps were found. The program web pages on jud.ct.gov (compensation.htm, safe.htm, svc_providers.htm) could not be saved because the fetch tool strips the page-wide form element those pages use, so the brochure, application and benefits chart PDFs stand in for them. No processing time for a decision or payment is stated in the application, brochure, benefits chart or statute."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is from the Connecticut General Assembly's current chapter pages. Exam billing: sec. 19a-112a(e)(1) bars charging exam costs directly or indirectly to the survivor and routes them to the Forensic Sex Evidence Exams account; it does not expressly mention billing the survivor's insurance, so insurance_billing is 'unspecified'. The OVS SAFE page (https://www.jud.ct.gov/crimevictim/safe.htm, not saveable with the tool) says a patient cannot receive a bill for the exam and tells patients to call OVS at 1-800-822-8428 if they or their insurer get a bill. Caps: sec. 54-211(d)(2) allows up to $5,000 more for minors with extra medical or counseling needs and (d)(3) allows going over the caps for good cause; these are not encoded as rules. The $1,000 crime scene cleanup and security cap comes from program documents, not the statute. Under sec. 54-212 OVS may recover two-thirds of what it paid from later recoveries; not encoded. The program phone 1-888-286-7347 is from the brochure; the OVS general line on the federal OVC directory is 860-263-2760. Reviewer check (Oct 3): the 2026 Supplement on cga.ct.gov amends only secs. 54-203 and 54-230 in chapter 968, and its version of 19a-112a(e) (amended by P.A. 25-29) is word for word the same as the saved text, so the caps, deadline, reporting and exam rules above are current through the 2025 session. Acts from the 2026 session were not checked. 'Emotional harm' in sec. 54-201(6) means impairment from a threat of physical injury or death, so the $5,000 cap (CT-CAP-2) is for threat-only claims; sexual assault involving actual bodily harm falls under the $15,000 cap. CT-CAP-3, CT-CAP-4 and CT-CAP-5 are one shared $1,000 benefit, not three. 'Charged directly or indirectly to such victim' in 19a-112a(e) may reach insurance billing, but the statute does not say so, so insurance_billing stays 'unspecified'. How to file (Oct 3): the application JD-VS-8PI (Rev. 7/21, CT-S4) is still the version served at program.application_pdf_url (same sha256 on re-download) and has 296 AcroForm fields. It lists mail, fax and email as the ways to send it; no online filing portal or in-person drop-off is stated in the saved sources, and compensation.htm still could not be saved (blocked or empty even through Chrome). The application asks for the police report number but not a copy of the report, so no police_report document rule was added. The application must carry a handwritten signature."
+}

@@ -1,0 +1,330 @@
+.screen {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.empty,
+.problem {
+  font-weight: 700;
+  border-left: 3px solid var(--ink);
+  padding-left: var(--space-3);
+}
+
+/* The statement reads like the paper it came on. */
+.bill {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-top: 6px solid var(--ink);
+  border-radius: var(--radius-1);
+  background: var(--paper-raised);
+}
+
+.billHead {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.provider {
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.billTitle {
+  font-size: var(--text-2xl);
+}
+
+.billMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+}
+
+.billMeta dt {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.billMeta dd {
+  margin: 0;
+  font-family: var(--font-mono);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--space-3) var(--space-2);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.table thead th {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  font-weight: 700;
+  padding-top: 0;
+}
+
+.num {
+  text-align: right !important;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.lineNo {
+  font-family: var(--font-mono);
+  color: var(--ink-3);
+  width: 3rem;
+}
+
+.service {
+  display: block;
+}
+
+.lineStatus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.heldRow td {
+  background: var(--clay-tint);
+}
+
+.heldRow td:first-child {
+  box-shadow: inset 3px 0 0 var(--clay);
+}
+
+.heldWhy {
+  font-size: var(--text-xs);
+  color: var(--clay);
+  font-weight: 700;
+}
+
+.heldAmount {
+  color: var(--clay);
+  font-weight: 700;
+}
+
+.table tfoot th {
+  font-weight: 400;
+  text-align: right;
+}
+
+.table tfoot tr:first-child th,
+.table tfoot tr:first-child td {
+  border-top: 1.5px solid var(--ink);
+}
+
+.heldTotal th,
+.heldTotal td {
+  color: var(--clay);
+  font-weight: 700 !important;
+}
+
+.rest th,
+.rest td {
+  font-weight: 700 !important;
+  font-size: var(--text-lg);
+  border-bottom: 0;
+}
+
+.law {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-2);
+}
+
+.lawTitle {
+  font-size: var(--text-2xl);
+}
+
+.lawMore {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.lawMore h3,
+.contactLaw h3,
+.script h3 {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ink-2);
+}
+
+.allRules {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--ink);
+}
+
+.choice {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.receipt {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--green);
+  border-radius: var(--radius-2);
+  background: var(--paper-raised);
+  max-width: var(--measure);
+}
+
+.receiptTitle {
+  font-weight: 700;
+}
+
+/* Sheets */
+.terms {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.terms > div {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.terms dt {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  padding-top: 2px;
+}
+
+.terms dd {
+  margin: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.termAmount {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 600 !important;
+  line-height: 1.1;
+}
+
+.agency {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.demo {
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--ink);
+  background: var(--paper-sunk);
+  font-size: var(--text-sm);
+}
+
+.codeBox {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-2);
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.codeLabel {
+  font-weight: 700;
+  margin-top: var(--space-2);
+}
+
+.codeInput {
+  max-width: 12rem;
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-xl) !important;
+  letter-spacing: 0.2em;
+}
+
+.result {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.resultTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+.contact {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.script {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.scriptText {
+  padding: var(--space-4) var(--space-5);
+  border-left: 3px solid var(--ink);
+  background: var(--paper-sunk);
+  font-size: var(--text-md);
+}
+
+.contactLaw {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .bill {
+    padding: var(--space-4);
+  }
+
+  .terms > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
