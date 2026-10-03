@@ -132,7 +132,12 @@ class ScanService:
         client = self.nessie_client_factory() if self.nessie_client_factory else _nessie_client()
         if not hasattr(client, "snapshot"):
             raise ScanError("The Nessie client has no snapshot(customer_id) method.", 503)
-        snap = client.snapshot(req.customer_id)
+        try:
+            snap = client.snapshot(req.customer_id)
+        except Exception as exc:
+            raise ScanError(f"Nessie did not answer the scan: {exc}", 502) from exc
+        if not isinstance(snap, dict):
+            raise ScanError("Nessie returned an unexpected snapshot.", 502)
         snap.setdefault("fictional", False)
         return None, snap
 

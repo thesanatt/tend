@@ -69,6 +69,7 @@ def test_packet_cites_every_line_and_appends_the_application(client):
         "Hold this line. Ask billing to remove it first.",
         "MCL 18.355a(2)",
         "shall not submit a bill",
+        "That needs your express written consent.",
         "nessie:p-0005",
         "Still needed",
         "Only you write this",

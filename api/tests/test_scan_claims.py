@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import dataclasses
+import json
 import sys
 
-from helpers import client_for, confirm_all, fake_classifier, make_services, scan_rowan
+from helpers import FIXTURES, client_for, confirm_all, fake_classifier, make_services, scan_rowan
 
 
 def test_scan_persona_offline(client):
@@ -41,6 +43,31 @@ def test_scan_by_customer_id_uses_snapshot(client):
     assert r.status_code == 200
     assert r.json()["persona_id"] == "rowan-mi"
     assert client.post("/api/scan", json={"customer_id": "nobody", "st": "MI"}).status_code == 404
+
+
+class LiveClient:
+    def __init__(self, snapshot=None, error=None):
+        self._snapshot, self._error = snapshot, error
+
+    def snapshot(self, customer_id):
+        if self._error:
+            raise self._error
+        return dict(self._snapshot)
+
+
+def test_live_scan_when_enabled(settings, clock):
+    snap = json.loads((FIXTURES / "seed" / "snapshots" / "rowan-mi.json").read_text())
+    snap.pop("fictional")
+    live = dataclasses.replace(settings, live_scan=True)
+    client = client_for(make_services(live, clock, nessie_client_factory=lambda: LiveClient(snapshot=snap)))
+    data = client.post("/api/scan", json={"customer_id": "live-customer", "st": "MI"}).json()
+    assert data["fictional"] is False and data["display_name"] is None
+    assert "mock bank" in data["label"]
+
+    broken = client_for(make_services(live, clock, nessie_client_factory=lambda: LiveClient(error=TimeoutError("timed out"))))
+    r = broken.post("/api/scan", json={"customer_id": "live-customer", "st": "MI"})
+    assert r.status_code == 502
+    assert "timed out" in r.json()["detail"]
 
 
 def test_scan_errors(client):

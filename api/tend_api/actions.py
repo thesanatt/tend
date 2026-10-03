@@ -153,7 +153,12 @@ class ActionService:
             at = iso(self.clock())
             self.repo.transition_action(action_id, "executing", "failed", {"finished_at": at, "error": str(exc)})
             self.repo.append_audit("failed", action_id, {"error": str(exc)[:300], "dry_run": action["dry_run"]}, at)
-            raise ActionError(f"The bank did not accept the payment, so no money moved: {exc}", 502) from exc
+            # A timeout can land after the bank accepted the write, so say what is known and how to check it.
+            raise ActionError(
+                f"The bank did not confirm this payment ({exc}). Check the account before trying again; "
+                f"any withdrawal Tend made is labeled {action_id}.",
+                502,
+            ) from exc
 
         try:
             readback = check_readback(

@@ -20,6 +20,7 @@ from reportlab.platypus import (
     TableStyle,
 )
 
+from .claims import consent_flag
 from .clock import PROGRAM_TZ
 from .forms import FORM_SPECS, application_values, fill_application
 from .money import format_cents
@@ -306,6 +307,9 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
             if payers:
                 block.append(Paragraph("Who pays for the exam instead:", st["small"]))
                 block += _quote_lines(payers, st)
+            flag = consent_flag(ln["item_id"], ln.get("description") or "", rules_doc, {})
+            if flag:
+                block.append(Paragraph(f"<font color='#9a4a2c'>{_text(flag['message'])}</font>", st["base"]))
             block.append(Spacer(1, 6))
             story.append(KeepTogether(block))
 

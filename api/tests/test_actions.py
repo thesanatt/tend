@@ -155,12 +155,12 @@ class ShortReadBank(DryRunBank):
         return record
 
 
-def test_bank_failure_moves_no_money_and_is_logged(settings, clock):
+def test_bank_failure_is_reported_honestly_and_logged(settings, clock):
     client = client_for(make_services(settings, clock, banks={"dry_run": FailingBank()}))
     action = propose(client)
     r = confirm(client, action)
     assert r.status_code == 502
-    assert "no money moved" in r.json()["detail"]
+    assert "did not confirm" in r.json()["detail"] and action["action_id"] in r.json()["detail"]
     assert client.get(f"/api/actions/{action['action_id']}").json()["status"] == "failed"
     assert [row["event"] for row in client.get("/api/audit").json()["rows"]][-1] == "failed"
     assert confirm(client, action).status_code == 409
