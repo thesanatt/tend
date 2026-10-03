@@ -50,6 +50,8 @@ export interface ClassifyOptions {
   payDips?: boolean;
   // Time limit for each on-device prompt (default 5000 ms).
   deviceTimeoutMs?: number;
+  // Give Gemini Nano the worked examples (default true); false is for measuring without them.
+  deviceExamples?: boolean;
   // Care days that are not bank rows, such as an itemized bill's service date.
   anchors?: { date: string; ref: string; expense: string }[];
   signal?: AbortSignal;

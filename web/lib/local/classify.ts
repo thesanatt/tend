@@ -7,7 +7,7 @@ import type { Source, StatementTxn, Unit } from "../contracts";
 import { isIsoDay } from "../dates";
 import type { ItemExpense } from "../types";
 import { cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
-import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson } from "./deviceai";
+import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
 import { inferPayDips } from "./paydip";
 import {
   classifyDeterministic,
@@ -70,6 +70,81 @@ legal: attorney or legal services
 tuition: school tuition or fees
 other: eyeglasses, hearing aids, or other prescribed devices
 unknown: everyday spending, or not clear`;
+
+// Worked examples for Gemini Nano, which over-reads ordinary purchases (cold medicine as a
+// prescription, paint as home security). Chosen from the error kinds on one held-out set
+// (tests/local/fixtures/device-eval.json) and checked on a second set written before them.
+const EXAMPLE_ROWS: [ModelRow, string, string][] = [
+  [
+    { ref: "t1", kind: "purchase", merchant: "Oak Street Drug", category: "pharmacy", description: "cold medicine" },
+    "unknown",
+    "Over-the-counter medicine",
+  ],
+  [
+    { ref: "t2", kind: "purchase", merchant: "Oak Street Drug", category: "pharmacy", description: "refill pickup" },
+    "prescription",
+    "Prescription refill",
+  ],
+  [
+    { ref: "t3", kind: "purchase", merchant: "Tool Barn", category: "hardware", description: "lumber, nails" },
+    "unknown",
+    "Household building supplies",
+  ],
+  [
+    {
+      ref: "t4",
+      kind: "purchase",
+      merchant: "Tool Barn",
+      category: "hardware",
+      description: "chain lock, motion light",
+    },
+    "security",
+    "Door lock and outdoor light",
+  ],
+  [
+    { ref: "t5", kind: "purchase", merchant: "Tech Depot", category: "electronics", description: "bluetooth speaker" },
+    "unknown",
+    "Everyday electronics",
+  ],
+  [
+    { ref: "t6", kind: "purchase", merchant: "Glow Nail Salon", category: "personal care", description: "manicure" },
+    "unknown",
+    "Personal care",
+  ],
+  [
+    { ref: "t7", kind: "purchase", merchant: "Bayside Dental Group", category: "health care", description: "exam" },
+    "dental",
+    "Dental exam",
+  ],
+  [
+    { ref: "t8", kind: "purchase", merchant: "Bed Haven", category: "home goods", description: "blanket" },
+    "clothing_bedding",
+    "Bedding",
+  ],
+  [
+    { ref: "t9", kind: "purchase", merchant: "Clarity Optical", category: "optometry", description: "contact lenses" },
+    "other",
+    "Prescribed vision device",
+  ],
+  [
+    { ref: "t10", kind: "purchase", merchant: "Sparkle Car Wash", category: "auto service", description: "wash" },
+    "unknown",
+    "Car wash",
+  ],
+];
+
+const batchPrompt = (rows: ModelRow[]) =>
+  `Sort each of these bank transactions. Answer with one result per ref.\n${JSON.stringify(rows)}`;
+
+export const DEVICE_EXAMPLES: Turn[] = [
+  { role: "user", content: batchPrompt(EXAMPLE_ROWS.map(([row]) => row)) },
+  {
+    role: "assistant",
+    content: JSON.stringify({
+      results: EXAMPLE_ROWS.map(([row, expense, reason]) => ({ ref: row.ref, expense, reason })),
+    }),
+  },
+];
 
 export function responseSchema(refs: string[]): object {
   return {
@@ -198,7 +273,7 @@ async function askDevice(
   const started = Date.now();
   let base;
   try {
-    base = await baseSession(SYSTEM_PROMPT, "text");
+    base = await baseSession(SYSTEM_PROMPT, "text", opts.deviceExamples === false ? [] : DEVICE_EXAMPLES);
   } catch (err) {
     report.device.errors.push(`start: ${(err as Error).message}`);
     return;
@@ -210,7 +285,7 @@ async function askDevice(
     const batch = keys.slice(start, start + DEVICE_BATCH);
     const refs = new Map(batch.map((key, i) => [`t${i + 1}`, key]));
     const rows = [...refs].map(([ref, key]) => modelRow(ref, pending.get(key)!));
-    const prompt = `Sort each of these bank transactions. Answer with one result per ref.\n${JSON.stringify(rows)}`;
+    const prompt = batchPrompt(rows);
     report.device.batches++;
     try {
       const timeout = opts.deviceTimeoutMs ?? DEVICE_TIMEOUT_MS;
@@ -373,7 +448,7 @@ export const classifier: LocalClassifier = {
   // The first load of the model can take several seconds, so a screen can start it early.
   async prewarm() {
     const status = await deviceAiStatus("text");
-    if (status === "available") await baseSession(SYSTEM_PROMPT, "text").catch(() => undefined);
+    if (status === "available") await baseSession(SYSTEM_PROMPT, "text", DEVICE_EXAMPLES).catch(() => undefined);
     return status;
   },
 };

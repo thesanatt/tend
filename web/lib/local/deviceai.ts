@@ -124,10 +124,20 @@ async function createLowTemperature(lm: LmApi, options: object): Promise<LmSessi
 
 const sessions = new Map<string, Promise<LmSession>>();
 
-// One base session per system prompt and modality, kept warm; each request works on a clone so
-// batches never see each other's rows.
-export function baseSession(system: string, modality: Modality = "text", createTimeoutMs = 60_000): Promise<LmSession> {
-  const key = `${modality}\u0000${system}`;
+export interface Turn {
+  role: "user" | "assistant";
+  content: string;
+}
+
+// One base session per system prompt, example turns and modality, kept warm; each request works
+// on a clone so batches never see each other's rows.
+export function baseSession(
+  system: string,
+  modality: Modality = "text",
+  examples: Turn[] = [],
+  createTimeoutMs = 60_000,
+): Promise<LmSession> {
+  const key = JSON.stringify([modality, system, examples]);
   let pending = sessions.get(key);
   if (!pending) {
     const lm = languageModel();
@@ -141,7 +151,7 @@ export function baseSession(system: string, modality: Modality = "text", createT
     );
     pending = createLowTemperature(lm, {
       ...IO[modality],
-      initialPrompts: [{ role: "system", content: system }],
+      initialPrompts: [{ role: "system", content: system }, ...examples],
       signal: controller.signal,
     })
       .catch((err) => {

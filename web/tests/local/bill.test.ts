@@ -116,20 +116,28 @@ describe("bill photos go to Gemini Nano on the device", () => {
   const photo = () => file(path.join(FIX, "bill-photo.png"), "image/png");
   const answer = (o: object) => () => JSON.stringify(o);
 
-  it("is ok when the copied lines add up to the copied total", async () => {
+  it("is ok when the copied lines add up to the copied total; the last column is what is owed", async () => {
     const fake = install(
       new FakeLanguageModel({
         answer: answer({
           provider: "Lakeside Medical Center",
           statement_date: "09/15/2026",
-          total: "$1,035.00",
           amount_due: "$1,035.00",
           lines: [
-            { date: "09/02/2026", description: "Emergency department visit, copay", amount: "$50.00" },
-            { date: "09/02/2026", description: "Sexual assault medical forensic exam", amount: "$900.00" },
-            { date: "09/02/2026", description: "Laboratory services", amount: "43.00" },
-            { date: "", description: "Pharmacy, medication", amount: "$42" },
+            {
+              date: "09/02/2026",
+              description: "Emergency department visit, copay",
+              amounts: ["$980.00", "$780.00", "$150.00", "$50.00"],
+            },
+            {
+              date: "09/02/2026",
+              description: "Sexual assault medical forensic exam",
+              amounts: ["$900.00", "$0.00", "$0.00", "$900.00"],
+            },
+            { date: "09/02/2026", description: "Laboratory services", amounts: ["43.00"] },
+            { date: "", description: "Pharmacy, medication", amounts: ["$42"] },
           ],
+          totals: ["$2,137.00", "$912.00", "$190.00", "$1,035.00"],
         }),
       }),
     );
@@ -148,6 +156,7 @@ describe("bill photos go to Gemini Nano on the device", () => {
       [4200, "medical", null],
     ]);
     expect(got.lines.every((l) => Number.isInteger(l.amount_cents))).toBe(true);
+    expect(got.lines[0].columns_cents).toEqual([98000, 78000, 15000, 5000]);
     expect(got.service_date).toBe("2026-09-02");
     // The image went in as an image part, with the JSON schema as the constraint.
     const call = fake.prompts[0];
@@ -162,10 +171,11 @@ describe("bill photos go to Gemini Nano on the device", () => {
     install(
       new FakeLanguageModel({
         answer: answer({
-          total: "$500.00",
+          amount_due: "$500.00",
+          totals: ["$500.00"],
           lines: [
-            { description: "Clinic visit", amount: "$120.00" },
-            { description: "Lab", amount: "$80.00" },
+            { description: "Clinic visit", amounts: ["$120.00"] },
+            { description: "Lab", amounts: ["$80.00"] },
           ],
         }),
       }),
@@ -178,10 +188,11 @@ describe("bill photos go to Gemini Nano on the device", () => {
     install(
       new FakeLanguageModel({
         answer: answer({
-          total: "$120.00",
+          amount_due: "$120.00",
+          totals: ["$120.00"],
           lines: [
-            { description: "Clinic visit", amount: "$120.00" },
-            { description: "Lab", amount: "about forty" },
+            { description: "Clinic visit", amounts: ["$120.00"] },
+            { description: "Lab", amounts: ["about forty"] },
           ],
         }),
       }),
@@ -189,6 +200,46 @@ describe("bill photos go to Gemini Nano on the device", () => {
     const got = await readBill(photo());
     expect(got.status).toBe("unreliable");
     expect(got.warnings.join(" ")).toMatch(/could not be read/);
+  });
+
+  it("is unreliable when the model copies the charges total instead of what is owed", async () => {
+    install(
+      new FakeLanguageModel({
+        answer: answer({
+          amount_due: "$443.00",
+          totals: ["$2,445.00"],
+          lines: [
+            { description: "Emergency department visit, copay", amounts: ["$75.00"] },
+            { description: "Medical forensic exam, deductible applied", amounts: ["$325.00"] },
+            { description: "Laboratory services, coinsurance", amounts: ["$43.00"] },
+          ],
+        }),
+      }),
+    );
+    const got = await readBill(photo());
+    expect(got).toMatchObject({ status: "unreliable", lines_sum_cents: 44300, total_cents: 244500 });
+    expect(got.checks).toEqual([
+      { name: "lines_equal_total", ok: false },
+      { name: "total_less_adjustments_equals_due", ok: false },
+    ]);
+  });
+
+  it("a credit on a photo is an adjustment, not a line", async () => {
+    install(
+      new FakeLanguageModel({
+        answer: answer({
+          amount_due: "$100.00",
+          totals: ["$150.00"],
+          lines: [
+            { description: "Clinic visit", amounts: ["$150.00"] },
+            { description: "Payment received", amounts: ["($50.00)"] },
+          ],
+        }),
+      }),
+    );
+    const got = await readBill(photo());
+    expect(got).toMatchObject({ status: "ok", total_cents: 15000, amount_due_cents: 10000 });
+    expect(got.adjustments).toEqual([{ label: "Payment received", amount_cents: 5000 }]);
   });
 
   it("says so plainly when the device has no model", async () => {
