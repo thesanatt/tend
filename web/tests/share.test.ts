@@ -1,10 +1,13 @@
 // lib/share: the packet is encrypted in the browser; the server sees only ciphertext, an IV, an
 // expiry, and the open-once flag. The key rides in the link's fragment and never in a request.
+import { readdirSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { SharedPacket } from "@/lib/contracts";
+import { evaluatePreview } from "@/lib/engine/preview";
 import { createShare, parseShareLink, ShareError } from "@/lib/share";
 import { fromB64url } from "@/lib/vault/bytes";
-import { fakeShareServer, rowanInput, rowanOutput, type Captured } from "./trust-helpers";
+import { fakeShareServer, rowanInput, rowanOutput, webDir, webLaw, type Captured } from "./trust-helpers";
 
 const packet = (): SharedPacket => ({
   st: "MI",
@@ -162,5 +165,62 @@ describe("sealed share links", () => {
     expect(parseShareLink(`tok_abcdefgh.${key}`)).toEqual({ id: "tok_abcdefgh", key });
     expect(() => parseShareLink("https://x.tech/share")).toThrow(ShareError);
     expect(() => parseShareLink(`#bad id.${key}`)).toThrow(ShareError);
+  });
+
+  it("refuses a packet with broken money or parts, whether sealing or opening one someone else made", async () => {
+    const bad: [string, (p: SharedPacket) => void][] = [
+      ["fractional cents", (p) => (p.output.lines[1].allowed_cents = 118000.5)],
+      ["a string total", (p) => ((p.output.totals as unknown as Record<string, unknown>).allowed_cents = "139400")],
+      ["negative amount", (p) => (p.input.items[0].amount_cents = -1)],
+      ["lines that are not objects", (p) => ((p.output as unknown as Record<string, unknown>).lines = ["x"])],
+      ["a line with no matching cost", (p) => (p.output.lines[0].item_id = "nowhere")],
+      ["an unknown status", (p) => ((p.output.lines[0] as unknown as Record<string, unknown>).status = "paid")],
+      ["checked under another state", (p) => (p.output.jurisdiction = "NY")],
+      ["no checks", (p) => ((p.output as unknown as Record<string, unknown>).checks = {})],
+    ];
+    for (const [what, breakIt] of bad) {
+      const p = packet();
+      breakIt(p);
+      const server = fakeShareServer();
+      const share = createShare({ fetch: server.fetch, origin: null });
+      await expect(share.seal(p, { expires_hours: 1, once: false }), what).rejects.toMatchObject({
+        code: "bad_packet",
+      });
+      expect(server.calls, what).toHaveLength(0);
+
+      // The same packet sealed by hand, the way anyone could, still does not open.
+      const key = crypto.getRandomValues(new Uint8Array(32));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const aes = await crypto.subtle.importKey("raw", key, "AES-GCM", false, ["encrypt"]);
+      const plain = new TextEncoder().encode(JSON.stringify({ format: "tend.share/1", packet: p }));
+      const ct = await crypto.subtle.encrypt(
+        { name: "AES-GCM", iv, additionalData: new TextEncoder().encode("tend.share.v1") },
+        aes,
+        plain,
+      );
+      const b64 = (b: Uint8Array) => Buffer.from(b).toString("base64url");
+      const res = await server.fetch("/api/shares", {
+        method: "POST",
+        body: JSON.stringify({ ciphertext: b64(new Uint8Array(ct)), iv: b64(iv), once: false }),
+      });
+      const { id } = (await res.json()) as { id: string };
+      await expect(share.open(`/share#${id}.${b64(key)}`), what).rejects.toMatchObject({ code: "bad_packet" });
+    }
+  });
+
+  it("seals and opens a real claim for each of the 51 jurisdictions", async () => {
+    const dir = path.join(webDir, "public", "data", "law");
+    const states = readdirSync(dir)
+      .filter((f) => /^[A-Z]{2}\.json$/.test(f))
+      .map((f) => f.slice(0, 2));
+    expect(states).toHaveLength(51);
+    const share = createShare({ fetch: fakeShareServer().fetch, origin: null });
+    for (const st of states) {
+      const law = webLaw(st);
+      const input = { ...rowanInput(), jurisdiction: st };
+      const p: SharedPacket = { ...packet(), st, input, output: evaluatePreview(input, law, "0".repeat(64)) };
+      const { url } = await share.seal(p, { expires_hours: 1, once: false });
+      expect(await share.open(url), st).toEqual(p);
+    }
   });
 });

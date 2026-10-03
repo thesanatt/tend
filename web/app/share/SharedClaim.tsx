@@ -45,6 +45,8 @@ function save(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
+const PLAIN_ERRORS = new Set(["LawNotFoundError", "PacketInputError", "FormChangedError"]);
+
 // pdf-lib loads only when someone asks for a PDF.
 const loadBuilder = async () => (await import("@/lib/packet")).packetBuilder;
 
@@ -74,7 +76,13 @@ function Downloads({
       else setProblem(packet.notes[0] ?? "The state's form could not be made here.");
     } catch (e) {
       built.current = null;
-      setProblem(`The PDF could not be made: ${(e as Error).message}`);
+      // Tend's own errors are written for people; anything else (a pdf-lib failure) is not.
+      const name = (e as Error | null)?.name ?? "";
+      setProblem(
+        PLAIN_ERRORS.has(name)
+          ? `The PDF could not be made. ${(e as Error).message}`
+          : "The PDF could not be made in this browser. Try again, or ask the person who shared it to send the summary.",
+      );
     } finally {
       setBusy(null);
     }

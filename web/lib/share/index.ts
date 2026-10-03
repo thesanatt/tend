@@ -100,22 +100,89 @@ export function parseShareLink(link: string): { id: string; key: string } {
   return { id, key };
 }
 
+const STATUSES = new Set(["out_of_window", "held", "excluded", "unknown_rule", "needs_confirmation", "eligible"]);
+const MAX_NOTES = 4000;
+
+const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
+const isCents = (v: unknown) => Number.isSafeInteger(v) && (v as number) >= 0;
+const isDay = (v: unknown) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v);
+const isStrings = (v: unknown) => Array.isArray(v) && v.every((x) => typeof x === "string");
+const isCheck = (v: unknown) => isObj(v) && typeof v.status === "string" && isStrings(v.rule_ids);
+
+// Anyone can make a link, so what opens is checked as closely as what is sealed: the viewer and
+// the PDF builder read every one of these fields, and money must stay whole cents.
 function isPacket(v: unknown): v is SharedPacket {
-  const p = v as SharedPacket | null;
+  if (!isObj(v) || typeof v.st !== "string" || !/^[A-Z]{2}$/.test(v.st) || typeof v.created_at !== "string") {
+    return false;
+  }
+  if (v.notes !== undefined && (typeof v.notes !== "string" || v.notes.length > MAX_NOTES)) return false;
+  const { input, output } = v;
+  if (!isObj(input) || !isObj(output)) return false;
+  const st = v.st;
+  if (String(input.jurisdiction).toUpperCase() !== st || String(output.jurisdiction).toUpperCase() !== st) return false;
+  const ctx = input.context;
+  if (
+    !isObj(ctx) ||
+    !isDay(ctx.incident_date) ||
+    !isDay(ctx.as_of_date) ||
+    !["yes", "no", "unknown"].includes(ctx.police_report as string) ||
+    typeof ctx.forensic_exam !== "boolean"
+  ) {
+    return false;
+  }
+  const items = input.items;
+  if (
+    !Array.isArray(items) ||
+    !items.every(
+      (i) =>
+        isObj(i) &&
+        typeof i.item_id === "string" &&
+        isDay(i.date) &&
+        isCents(i.amount_cents) &&
+        typeof i.expense === "string" &&
+        (i.description === undefined || typeof i.description === "string") &&
+        (i.insurance_paid_cents === undefined || isCents(i.insurance_paid_cents)) &&
+        (i.units === undefined || isCents(i.units)),
+    )
+  ) {
+    return false;
+  }
+  const ids = new Set(items.map((i) => (i as { item_id: string }).item_id));
+  const lines = output.lines;
+  if (
+    !Array.isArray(lines) ||
+    !lines.every(
+      (l) =>
+        isObj(l) &&
+        typeof l.item_id === "string" &&
+        ids.has(l.item_id) &&
+        typeof l.expense === "string" &&
+        STATUSES.has(l.status as string) &&
+        isCents(l.requested_cents) &&
+        isCents(l.allowed_cents) &&
+        isStrings(l.rule_ids) &&
+        (l.cap_rule_id === null || l.cap_rule_id === undefined || typeof l.cap_rule_id === "string") &&
+        isStrings(l.flags),
+    )
+  ) {
+    return false;
+  }
+  const totals = output.totals;
+  if (
+    !isObj(totals) ||
+    !isCents(totals.allowed_cents) ||
+    !isCents(totals.held_cents) ||
+    !isCents(totals.requested_cents)
+  ) {
+    return false;
+  }
+  const checks = output.checks;
   return (
-    !!p &&
-    typeof p === "object" &&
-    typeof p.st === "string" &&
-    /^[A-Z]{2}$/.test(p.st) &&
-    typeof p.created_at === "string" &&
-    !!p.input &&
-    Array.isArray(p.input.items) &&
-    !!p.input.context &&
-    !!p.output &&
-    Array.isArray(p.output.lines) &&
-    !!p.output.totals &&
-    !!p.output.checks &&
-    (p.notes === undefined || typeof p.notes === "string")
+    isObj(checks) &&
+    isCheck(checks.deadline) &&
+    isCheck(checks.minimum_loss) &&
+    isCheck(checks.reporting) &&
+    isStrings(output.info_rule_ids ?? [])
   );
 }
 

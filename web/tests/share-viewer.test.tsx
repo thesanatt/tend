@@ -136,4 +136,22 @@ describe("the advocate viewer", () => {
     expect(click).toHaveBeenCalledTimes(1);
     click.mockRestore();
   });
+
+  it("shows a plain message, not a library error, when the PDF cannot be made", async () => {
+    window.location.hash = link();
+    const meta: ShareMeta = { id: "x", expires_at: null, once: false, created_at: null };
+    const { client: c } = client(async () => ({ packet: packet(), meta }));
+    const build = vi.fn(async () => {
+      throw new TypeError("Cannot read properties of undefined (reading 'getForm')");
+    });
+    const builder = { build, letterPdf: vi.fn() } as unknown as TendPacketBuilder;
+    render(<OpenShare client={c} builder={builder} />);
+    const button = await screen.findByRole("button", { name: "Download the cited summary (PDF)" });
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    const alert = await screen.findByRole("alert");
+    expect(alert.textContent).toContain("The PDF could not be made in this browser.");
+    expect(alert.textContent).not.toContain("getForm");
+  });
 });
