@@ -22,6 +22,7 @@ from .db import Repository
 from .errors import TendError
 from .models import ConfirmRequest, ProposeRequest
 from .money import canonical_json, format_cents
+from .sweep import SweepSchedule
 
 CODE_TTL = dt.timedelta(minutes=10)
 MAX_ATTEMPTS = 5
@@ -56,6 +57,7 @@ class ActionService:
         clock: Clock,
         bill_review: BillReview | None = None,
         live_accounts: Callable[[], set[str]] | None = None,
+        sweeps: SweepSchedule | None = None,
     ):
         self.repo = repo
         self.banks = banks
@@ -64,6 +66,7 @@ class ActionService:
         self.clock = clock
         self.bill_review = bill_review or (lambda bill_id: None)
         self.live_accounts = live_accounts or set
+        self.sweeps = sweeps or SweepSchedule()
 
     def _tag(self, kind: str, value: str) -> str:
         """A keyed hash: ties log rows to one account or payee without the log holding the name."""
@@ -101,6 +104,7 @@ class ActionService:
                 "expires_at": expires_at,
             }
         )
+        self.sweeps.add(now + CODE_TTL)  # the payee goes once the code can no longer be used
         return {
             "action_id": action_id,
             "status": "proposed",

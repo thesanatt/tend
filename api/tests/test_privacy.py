@@ -13,10 +13,11 @@ import sqlite3
 import pytest
 from helpers import CHECKING, client_for, confirm_all, from_b64url, make_services, scan_rowan
 
-from tend_api.app import sweep_forever
 from tend_api.bank import BankError
 from tend_api.db import MAX_SHARE_BYTES
 from tend_api.db.sqlite import SQLiteRepository
+from tend_api.models import ProposeRequest
+from tend_api.sweep import sweep_forever
 
 RAW = os.urandom(512)
 CIPHERTEXT = base64.b64encode(RAW).decode()
@@ -164,6 +165,36 @@ def test_an_expired_proposal_loses_its_payee_without_new_traffic(client, service
     asyncio.run(until_swept())
     action = services.repo.get_action(action_id)
     assert action["status"] == "expired" and action["payee"] is None
+
+
+def test_a_quiet_server_sweeps_only_when_something_has_expired(services, clock, monkeypatch):
+    # An idle server must not keep Neon's compute awake: one sweep after start, then none until a stored
+    # code or share comes due.
+    calls: list[str] = []
+    real = services.repo.sweep
+    monkeypatch.setattr(services.repo, "sweep", lambda now: calls.append(now) or real(now))
+
+    async def scenario() -> None:
+        task = asyncio.create_task(sweep_forever(services, every_s=0.005))
+        await asyncio.sleep(0.1)
+        assert len(calls) == 1  # once after start
+        payment = ProposeRequest(from_account=CHECKING, payee="Riverbend General Hospital", amount_cents=500)
+        action_id = services.actions.propose(payment)["action_id"]  # proposing sweeps too: 2
+        await asyncio.sleep(0.1)
+        assert len(calls) == 2  # the code is still good for ten minutes: nothing to do
+        clock.advance(minutes=11)
+        for _ in range(100):
+            await asyncio.sleep(0.005)
+            if len(calls) == 3:
+                break
+        assert len(calls) == 3 and services.repo.get_action(action_id)["payee"] is None
+        await asyncio.sleep(0.1)
+        assert len(calls) == 3
+        task.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await task
+
+    asyncio.run(scenario())
 
 
 def test_audit_log_holds_no_names(client):

@@ -11,18 +11,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from .clock import iso
 from .config import Settings, load_env_file
 from .deps import ENGINE_HEADER
 from .engine import EngineError, EngineUnavailable
 from .errors import TendError
 from .routers import actions, agent, ai, bank, bill, claims, jurisdictions, packet, rules, scan, shares, system
 from .services import Services, build_services
+from .sweep import sweep_forever
 
 MAX_BODY_BYTES = 16 * 1024 * 1024
 TOO_LARGE = "That request is too large."
-SWEEP_EVERY_S = 60.0
-log = logging.getLogger("tend")
 # Requests whose very path is private: a share's id, a bank relay read, a cloud AI call, a search typed
 # in someone's own words. Their access-log lines are dropped so the server keeps no record that they
 # happened (docs/PRIVACY.md).
@@ -42,17 +40,6 @@ class QuietPaths(logging.Filter):
             return False
         record.args = ("-", args[1], path.split("?", 1)[0], *args[3:])
         return True
-
-
-async def sweep_forever(services: Services, every_s: float = SWEEP_EVERY_S) -> None:
-    """Expired proposals lose their payee and expired shares their ciphertext within a minute, even when no
-    new payment or share comes along to trigger the sweep."""
-    while True:
-        await asyncio.sleep(every_s)
-        try:
-            await asyncio.to_thread(services.repo.sweep, iso(services.clock()))
-        except Exception as exc:  # a database hiccup waits for the next round
-            log.warning("sweep failed: %s", type(exc).__name__)
 
 
 def quiet_access_log() -> None:

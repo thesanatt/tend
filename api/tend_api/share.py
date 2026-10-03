@@ -18,6 +18,7 @@ from .clock import Clock, iso
 from .db import MAX_SHARE_BYTES, Repository
 from .errors import TendError
 from .models import MAX_SHARE_B64, ShareCreate
+from .sweep import SweepSchedule
 
 ALG = "AES-256-GCM"
 # web/lib/share sends base64url without padding and reads the reply with a strict base64url decoder,
@@ -45,10 +46,11 @@ def b64url(data: bytes) -> str:
 
 
 class ShareService:
-    def __init__(self, repo: Repository, clock: Clock, public_url: str = ""):
+    def __init__(self, repo: Repository, clock: Clock, public_url: str = "", sweeps: SweepSchedule | None = None):
         self.repo = repo
         self.clock = clock
         self.public_url = public_url
+        self.sweeps = sweeps or SweepSchedule()
 
     def seal(self, req: ShareCreate) -> dict[str, Any]:
         # 413, not 422, so the browser can say the packet is too large rather than that the server refused it.
@@ -65,10 +67,12 @@ class ShareService:
         now = self.clock()
         self.repo.sweep(iso(now))
         share_id = secrets.token_urlsafe(16)  # 128 random bits; the link's only locator
-        expires_at = iso(now + dt.timedelta(hours=req.expires_hours))
+        expires = now + dt.timedelta(hours=req.expires_hours)
+        expires_at = iso(expires)
         self.repo.insert_share(
             {"id": share_id, "ciphertext": ciphertext, "iv": iv, "once": req.once, "created_at": iso(now), "expires_at": expires_at}
         )
+        self.sweeps.add(expires)
         return {
             "id": share_id,
             "created_at": iso(now),

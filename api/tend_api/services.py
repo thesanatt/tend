@@ -21,6 +21,7 @@ from .rulebook import ImageFn, Rulebook
 from .rules import RulesStore
 from .scan import Classifier, ScanService
 from .share import ShareService
+from .sweep import SweepSchedule
 
 log = logging.getLogger("tend")
 
@@ -41,6 +42,7 @@ class Services:
     ai: CloudAI
     rulebook: Rulebook
     agent: AgentService
+    sweeps: SweepSchedule
 
 
 def law_image_info(native: NativeEngine, problems: list[str] | None = None) -> ImageFn:
@@ -81,7 +83,8 @@ def build_services(
     banks = banks or {"dry_run": DryRunBank(), "nessie": NessieBank()}
     claims = ClaimService(rules, engines, settings.seed_dir, clock)
     scans = ScanService(settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory)
-    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, claims.bill_review, scans.persona_accounts)
+    sweeps = SweepSchedule()
+    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, claims.bill_review, scans.persona_accounts, sweeps)
     rulebook = Rulebook(repo, rules, ir)
     if settings.autoload_corpus:
         autoload(rulebook, repo)
@@ -95,11 +98,12 @@ def build_services(
         claims=claims,
         scans=scans,
         actions=actions,
-        shares=ShareService(repo, clock, settings.public_url),
+        shares=ShareService(repo, clock, settings.public_url, sweeps),
         relay=BankRelay(settings.seed_dir, settings.relay_live, relay_client_factory),
         ai=CloudAI(settings.gemini_api_key, classify_model, bill_model),
         rulebook=rulebook,
         agent=AgentService(rules, ir, engines, rulebook, actions, scans, clock),
+        sweeps=sweeps,
     )
 
 
