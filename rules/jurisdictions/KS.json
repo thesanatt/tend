@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.ag.ks.gov/home/showpublisheddocument/10146/638816895575900000",
   "phone": "785-296-2359",
   "phone_source_id": "KS-S1",
-  "statute_citation": "K.S.A. 74-7301 et seq."
+  "statute_citation": "K.S.A. 74-7301 et seq.",
+  "application_form": {
+   "source_id": "KS-S2",
+   "fillable": true,
+   "field_count": 202
+  }
  },
  "sources": [
   {
@@ -503,6 +508,157 @@
    "quote": "a violent crime that posed a substantial threat or caused personal injury or death, committed outside of the United States against a person whose domicile is in Kansas",
    "source_id": "KS-S5",
    "pinpoint": "K.S.A. 74-7301(e)(2)"
+  },
+  {
+   "id": "KS-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Division of Crime Victims Compensation 120 SW 10th Ave, 2nd Floor Topeka, KS 66612-1597"
+   },
+   "summary": "Mail the paper application to the Division of Crime Victims Compensation at the Attorney General's office in Topeka (the contact address on the board's page; the form itself has no mail-to line).",
+   "quote": "Contact Division of Crime Victims Compensation 120 SW 10th Ave, 2nd Floor Topeka, KS 66612-1597",
+   "source_id": "KS-S1",
+   "pinpoint": "Crime Victims Compensation Board page, Contact"
+  },
+  {
+   "id": "KS-DOC-1",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized statements or bills for hospital, doctor, ambulance, x-ray, prescription and dental charges, if available."
+   },
+   "summary": "For medical costs, attach itemized statements or bills if you have them.",
+   "quote": "including hospital and doctor charges, ambulance fees, x-rays, prescriptions and dental. Please attach itemized statements or bills, receipts and insurance statements if they are available.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section H (Medical Information)"
+  },
+  {
+   "id": "KS-DOC-2",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for medical costs, if available."
+   },
+   "summary": "For medical costs, attach receipts if you have them.",
+   "quote": "including hospital and doctor charges, ambulance fees, x-rays, prescriptions and dental. Please attach itemized statements or bills, receipts and insurance statements if they are available.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section H (Medical Information)"
+  },
+  {
+   "id": "KS-DOC-3",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance statements for medical costs, if available."
+   },
+   "summary": "For medical costs, attach insurance statements if you have them.",
+   "quote": "including hospital and doctor charges, ambulance fees, x-rays, prescriptions and dental. Please attach itemized statements or bills, receipts and insurance statements if they are available.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section H (Medical Information)"
+  },
+  {
+   "id": "KS-DOC-4",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized counseling statements or bills, if available."
+   },
+   "summary": "For counseling, attach itemized statements or bills if you have them.",
+   "quote": "Section I – Counseling Information (Please attach itemized statements or bills, receipts and insurance statements if they are available.)",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section I (Counseling Information)"
+  },
+  {
+   "id": "KS-DOC-5",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for counseling, if available."
+   },
+   "summary": "For counseling, attach receipts if you have them.",
+   "quote": "Section I – Counseling Information (Please attach itemized statements or bills, receipts and insurance statements if they are available.)",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section I (Counseling Information)"
+  },
+  {
+   "id": "KS-DOC-6",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance statements for counseling, if available."
+   },
+   "summary": "For counseling, attach insurance statements if you have them.",
+   "quote": "Section I – Counseling Information (Please attach itemized statements or bills, receipts and insurance statements if they are available.)",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section I (Counseling Information)"
+  },
+  {
+   "id": "KS-DOC-7",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Most recent federal income tax return and/or pay stubs."
+   },
+   "summary": "For lost wages, attach your most recent federal income tax return and/or pay stubs.",
+   "quote": "Applicants for wage loss must attach a copy of their most recent Federal Income Tax Return and/or pay stubs.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section L (Wage Loss)"
+  },
+  {
+   "id": "KS-DOC-8",
+   "category": "required_document",
+   "expense": "funeral",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of funeral and burial bills."
+   },
+   "summary": "For funeral benefits for a deceased victim, attach copies of the bills.",
+   "quote": "Complete section if you are seeking funeral benefits for a deceased victim and attach copies of bills.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section F (Funeral/burial expenses)"
+  },
+  {
+   "id": "KS-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Loss of support (death claims): marriage certificate, birth certificates and/or child support orders."
+   },
+   "summary": "For loss of support in a death claim, attach a marriage certificate, birth certificates and/or child support orders.",
+   "quote": "If yes, please attach copies of a marriage certificate, birth certificate(s) and/or child support order(s).",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, Section G (Loss of support)"
+  },
+  {
+   "id": "KS-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The completed and signed application; unsigned or incomplete applications are returned."
+   },
+   "summary": "Send the application completed and signed; incomplete or unsigned applications are sent back, which delays the decision.",
+   "quote": "Applications which are not completed and signed will be returned, thus delaying a decision on your claim.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, How to File Your Application for Compensation"
+  },
+  {
+   "id": "KS-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "months": 3
+   },
+   "summary": "The full application and investigation process may take about 3 months.",
+   "quote": "The complete application/investigation process may take approximately 3 months.",
+   "source_id": "KS-S2",
+   "pinpoint": "Application, How to File Your Application for Compensation"
   }
  ],
  "coverage": {
@@ -519,7 +675,10 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss",
@@ -532,5 +691,5 @@
   "notes": "No minimum-loss threshold was found. Instead K.S.A. 74-7305(e) requires the board to find financial stress (the claimant cannot keep their customary level of health, safety and education without undue financial hardship), judged on dependents, living expenses, special needs, income, resources and other factors. Moving costs are allowed by K.A.R. 20-2-9(b) but no dollar cap was found. No security-measure coverage was found. Inpatient mental health care is capped per instance at 10 days or $10,000, whichever is less (K.A.R. 20-2-3(e)); not encoded because the schema has no per-instance unit. The application says unpaid medical bills assigned to a provider are paid at 80% of allowable charges as payment in full. A mental health evaluation is paid up to $350 on top of the $5,000 counseling limit (K.A.R. 20-2-3(a)(3)); not encoded as a separate cap."
  },
  "confidence": "high",
- "researcher_notes": "The compiled K.S.A. 65-448(h) on the legislature site (KS-S7) still says the county pays the exam fee, but the page flags 2026 HB 2613 as an enacted measure affecting the section. The enrolled HB 2613 (KS-S8) moves the fee to the Crime Victims Compensation Board, and the AG page (KS-S1) and SAFE invoice (KS-S3) say the program pays for exams from July 1, 2026. The rules use the newer law for the payer; the no-billing sentence is the same in both versions. The enrolled-bill PDF text mixes struck and inserted words, so quotes from it are limited to new text that reads cleanly. K.A.R. 20-2-6 (1993) still lists only a 72-hour police report; it was not used because the later statute, K.S.A. 74-7305(f), adds the forensic exam alternative. The ten-year deadline in 74-7305(b)(2)(C)(ii) applies to a 'sexually violent crime as defined in K.S.A. 22-3717'. Reviewer fetched 22-3717 (KS-S11): (d)(5) lists rape (21-5503), aggravated criminal sodomy, criminal sodomy under 21-5504(a)(3)-(4) only, aggravated sexual battery (21-5505(b)), child sex offenses, aggravated incest and attempts. Plain sexual battery (21-5505(a)) is not on the list, so those survivors get the general five-year limit. The SAFE invoice also tells providers survivors may apply whether or not they report to law enforcement. The OVC state directory lists the same phone (785-296-2359) and website. Reviewer: the 74-7301 page (KS-S5) lists 2026 HB 2780 (terramation) as an enacted measure affecting that section; it likely touches the funeral wording in 74-7301(a), and the amended text was not fetched, so KS-CAP-7 reflects the compiled pre-amendment text. The no-billing rule now cites the enrolled HB 2613 text (KS-S8) instead of the superseded compiled 65-448 (KS-S7); the sentence is identical."
+ "researcher_notes": "The compiled K.S.A. 65-448(h) on the legislature site (KS-S7) still says the county pays the exam fee, but the page flags 2026 HB 2613 as an enacted measure affecting the section. The enrolled HB 2613 (KS-S8) moves the fee to the Crime Victims Compensation Board, and the AG page (KS-S1) and SAFE invoice (KS-S3) say the program pays for exams from July 1, 2026. The rules use the newer law for the payer; the no-billing sentence is the same in both versions. The enrolled-bill PDF text mixes struck and inserted words, so quotes from it are limited to new text that reads cleanly. K.A.R. 20-2-6 (1993) still lists only a 72-hour police report; it was not used because the later statute, K.S.A. 74-7305(f), adds the forensic exam alternative. The ten-year deadline in 74-7305(b)(2)(C)(ii) applies to a 'sexually violent crime as defined in K.S.A. 22-3717'. Reviewer fetched 22-3717 (KS-S11): (d)(5) lists rape (21-5503), aggravated criminal sodomy, criminal sodomy under 21-5504(a)(3)-(4) only, aggravated sexual battery (21-5505(b)), child sex offenses, aggravated incest and attempts. Plain sexual battery (21-5505(a)) is not on the list, so those survivors get the general five-year limit. The SAFE invoice also tells providers survivors may apply whether or not they report to law enforcement. The OVC state directory lists the same phone (785-296-2359) and website. Reviewer: the 74-7301 page (KS-S5) lists 2026 HB 2780 (terramation) as an enacted measure affecting that section; it likely touches the funeral wording in 74-7301(a), and the amended text was not fetched, so KS-CAP-7 reflects the compiled pre-amendment text. The no-billing rule now cites the enrolled HB 2613 text (KS-S8) instead of the superseded compiled 65-448 (KS-S7); the sentence is identical. How to file: the application (KS-S2, revised May 2025, the version linked from the board page) has 202 fillable AcroForm fields but no mail-to address, online portal, email or fax instruction. The only filing destination in the official sources is the Contact block on the board page (KS-S1), so KS-SUBMIT-1 uses that mailing address. The same block lists a fax number, (785) 296-0652, and a generic 'Send us an email' form; neither is stated as a way to file an application, so no fax or email submission rule was added. The SAFE invoice (KS-S3) also lists that fax, but its submission instructions are for exam providers, not survivors. No online application was found. No photo ID or police report copy is requested; the form asks only for the police report number."
 }

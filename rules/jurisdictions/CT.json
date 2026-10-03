@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.jud.ct.gov/webforms/forms/vs008PI.pdf",
   "phone": "1-888-286-7347",
   "phone_source_id": "CT-S5",
-  "statute_citation": "Conn. Gen. Stat. 54-201 to 54-218"
+  "statute_citation": "Conn. Gen. Stat. 54-201 to 54-218",
+  "application_form": {
+   "source_id": "CT-S4",
+   "fillable": true,
+   "field_count": 296
+  }
  },
  "sources": [
   {
@@ -437,6 +442,156 @@
    "quote": "Compensation shall be awarded pursuant to sections 54-201 to 54-218 , inclusive, for personal injury or death resulting from a crime which occurs (1) within this state, regardless of the residency of the applicant",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-211(f)(1)"
+  },
+  {
+   "id": "CT-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109"
+   },
+   "summary": "Mail the signed application to the Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109.",
+   "quote": "Please send the completed application to: Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109; or Fax to: 860-263-2780; or Email to: OVSCompensation@jud.ct.gov",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, end of Section 10"
+  },
+  {
+   "id": "CT-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "860-263-2780"
+   },
+   "summary": "The signed application can be faxed to OVS at 860-263-2780.",
+   "quote": "Please send the completed application to: Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109; or Fax to: 860-263-2780; or Email to: OVSCompensation@jud.ct.gov",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, end of Section 10"
+  },
+  {
+   "id": "CT-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "OVSCompensation@jud.ct.gov"
+   },
+   "summary": "The signed application can be emailed to OVSCompensation@jud.ct.gov.",
+   "quote": "Please send the completed application to: Office of Victim Services, 225 Spring Street, 4th Floor, Wethersfield, CT 06109; or Fax to: 860-263-2780; or Email to: OVSCompensation@jud.ct.gov",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, end of Section 10"
+  },
+  {
+   "id": "CT-DOC-1",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of crime-related bills from every provider who treated you, if available."
+   },
+   "summary": "For medical, mental health, dental, or prescription costs, list every provider who treated you and include copies of the crime-related bills.",
+   "quote": "Please list the names of all providers who treated you and provide copies of crime-related bills, prescription printouts for co-pay amounts, and insurance benefit statements, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses"
+  },
+  {
+   "id": "CT-DOC-2",
+   "category": "required_document",
+   "expense": "prescription",
+   "params": {
+    "document": "receipts",
+    "note": "Prescription printouts showing co-pay amounts, if available."
+   },
+   "summary": "For prescriptions, include printouts showing your co-pay amounts.",
+   "quote": "Please list the names of all providers who treated you and provide copies of crime-related bills, prescription printouts for co-pay amounts, and insurance benefit statements, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses"
+  },
+  {
+   "id": "CT-DOC-3",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance benefit statements, if available; bills must go to insurance first."
+   },
+   "summary": "Include insurance benefit statements for crime-related medical bills, if you have them.",
+   "quote": "Please list the names of all providers who treated you and provide copies of crime-related bills, prescription printouts for co-pay amounts, and insurance benefit statements, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses"
+  },
+  {
+   "id": "CT-DOC-4",
+   "category": "required_document",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "document": "receipts",
+    "note": "Copies of bills and receipts for cleanup or security costs you paid, if available."
+   },
+   "summary": "For crime scene cleanup or security system costs you paid, include copies of the bills and receipts.",
+   "quote": "Please fill out this section if you paid all or part of the expenses and provide copies of bills and receipts, if available.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Crime Scene Cleanup and Security System Expenses"
+  },
+  {
+   "id": "CT-DOC-5",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Note from the treating health care provider listing days absent, if you missed more than 1 week of work."
+   },
+   "summary": "If you missed more than 1 week of work, include a note from your treating health care provider listing the days you were out because of the injuries.",
+   "quote": "If you missed more than 1 week of work, you must provide a note from the treating health care provider listing the days you were absent from work because of the crime-related injuries.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 9, Wage Loss"
+  },
+  {
+   "id": "CT-DOC-6",
+   "category": "required_document",
+   "expense": "transportation",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for travel to court or board proceedings, such as hotel bills and parking."
+   },
+   "summary": "For travel to court or parole board proceedings, include receipts such as hotel bills and parking.",
+   "quote": "Receipts for travel expenses are required (hotel bill, parking).",
+   "source_id": "CT-S8",
+   "pinpoint": "JD-VS-47, Lost Wages and Travel Expenses to Attend Proceedings, Requirements"
+  },
+  {
+   "id": "CT-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Copy of the signed civil protection or restraining order, only if the person you told about the crime was a judge."
+   },
+   "summary": "If you told a judge about the crime, attach a copy of the signed civil protection order or restraining order.",
+   "quote": "judge (attach a copy of the signed civil protection order or restraining order)",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 7a"
+  },
+  {
+   "id": "CT-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Documentation that relates the injury and each expense to the crime."
+   },
+   "summary": "The program requires documentation that ties the injury and each expense to the crime.",
+   "quote": "Documentation that relates the injury and expense to the crime is required.",
+   "source_id": "CT-S5",
+   "pinpoint": "JDP-VS-10 brochure, overview"
+  },
+  {
+   "id": "CT-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Handwritten signature on the application; electronic signatures are not accepted and unsigned applications are returned."
+   },
+   "summary": "Sign the application by hand; unsigned applications are sent back for signature.",
+   "quote": "Applications that are not signed will be returned for signature.",
+   "source_id": "CT-S4",
+   "pinpoint": "JD-VS-8PI, Section 10"
   }
  ],
  "coverage": {
@@ -452,7 +607,9 @@
    "collateral_source",
    "conduct_reduction",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "emergency_award",
@@ -464,10 +621,11 @@
    "expense_cap:medical",
    "covered_expense:relocation",
    "reporting_requirement:within_days",
-   "administrative_rules"
+   "administrative_rules",
+   "processing_time"
   ],
-  "notes": "No minimum loss appears in the statute. Sec. 54-217 now allows only expedited processing of a claim for undue hardship; its history note says older versions set an emergency award amount, but the current text sets none, so emergency_award is left out. No relocation benefit appears in the statute, brochure, benefits chart or application. No separate cap on counseling, lost wages, medical or court travel was found beyond the overall caps; the $5,000 cap (CT-CAP-2) applies only to emotional-harm-only claims. The statute sets no number of days for the police report, though the application asks whether the crime was reported within 5 days. Sec. 54-207 (regulations) is repealed and sec. 54-207a delegates procedures to the Chief Court Administrator; no administrative rules setting caps were found. The program web pages on jud.ct.gov (compensation.htm, safe.htm, svc_providers.htm) could not be saved because the fetch tool strips the page-wide form element those pages use, so the brochure, application and benefits chart PDFs stand in for them."
+  "notes": "No minimum loss appears in the statute. Sec. 54-217 now allows only expedited processing of a claim for undue hardship; its history note says older versions set an emergency award amount, but the current text sets none, so emergency_award is left out. No relocation benefit appears in the statute, brochure, benefits chart or application. No separate cap on counseling, lost wages, medical or court travel was found beyond the overall caps; the $5,000 cap (CT-CAP-2) applies only to emotional-harm-only claims. The statute sets no number of days for the police report, though the application asks whether the crime was reported within 5 days. Sec. 54-207 (regulations) is repealed and sec. 54-207a delegates procedures to the Chief Court Administrator; no administrative rules setting caps were found. The program web pages on jud.ct.gov (compensation.htm, safe.htm, svc_providers.htm) could not be saved because the fetch tool strips the page-wide form element those pages use, so the brochure, application and benefits chart PDFs stand in for them. No processing time for a decision or payment is stated in the application, brochure, benefits chart or statute."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from the Connecticut General Assembly's current chapter pages. Exam billing: sec. 19a-112a(e)(1) bars charging exam costs directly or indirectly to the survivor and routes them to the Forensic Sex Evidence Exams account; it does not expressly mention billing the survivor's insurance, so insurance_billing is 'unspecified'. The OVS SAFE page (https://www.jud.ct.gov/crimevictim/safe.htm, not saveable with the tool) says a patient cannot receive a bill for the exam and tells patients to call OVS at 1-800-822-8428 if they or their insurer get a bill. Caps: sec. 54-211(d)(2) allows up to $5,000 more for minors with extra medical or counseling needs and (d)(3) allows going over the caps for good cause; these are not encoded as rules. The $1,000 crime scene cleanup and security cap comes from program documents, not the statute. Under sec. 54-212 OVS may recover two-thirds of what it paid from later recoveries; not encoded. The program phone 1-888-286-7347 is from the brochure; the OVS general line on the federal OVC directory is 860-263-2760. Reviewer check (Oct 3): the 2026 Supplement on cga.ct.gov amends only secs. 54-203 and 54-230 in chapter 968, and its version of 19a-112a(e) (amended by P.A. 25-29) is word for word the same as the saved text, so the caps, deadline, reporting and exam rules above are current through the 2025 session. Acts from the 2026 session were not checked. 'Emotional harm' in sec. 54-201(6) means impairment from a threat of physical injury or death, so the $5,000 cap (CT-CAP-2) is for threat-only claims; sexual assault involving actual bodily harm falls under the $15,000 cap. CT-CAP-3, CT-CAP-4 and CT-CAP-5 are one shared $1,000 benefit, not three. 'Charged directly or indirectly to such victim' in 19a-112a(e) may reach insurance billing, but the statute does not say so, so insurance_billing stays 'unspecified'."
+ "researcher_notes": "Statute text is from the Connecticut General Assembly's current chapter pages. Exam billing: sec. 19a-112a(e)(1) bars charging exam costs directly or indirectly to the survivor and routes them to the Forensic Sex Evidence Exams account; it does not expressly mention billing the survivor's insurance, so insurance_billing is 'unspecified'. The OVS SAFE page (https://www.jud.ct.gov/crimevictim/safe.htm, not saveable with the tool) says a patient cannot receive a bill for the exam and tells patients to call OVS at 1-800-822-8428 if they or their insurer get a bill. Caps: sec. 54-211(d)(2) allows up to $5,000 more for minors with extra medical or counseling needs and (d)(3) allows going over the caps for good cause; these are not encoded as rules. The $1,000 crime scene cleanup and security cap comes from program documents, not the statute. Under sec. 54-212 OVS may recover two-thirds of what it paid from later recoveries; not encoded. The program phone 1-888-286-7347 is from the brochure; the OVS general line on the federal OVC directory is 860-263-2760. Reviewer check (Oct 3): the 2026 Supplement on cga.ct.gov amends only secs. 54-203 and 54-230 in chapter 968, and its version of 19a-112a(e) (amended by P.A. 25-29) is word for word the same as the saved text, so the caps, deadline, reporting and exam rules above are current through the 2025 session. Acts from the 2026 session were not checked. 'Emotional harm' in sec. 54-201(6) means impairment from a threat of physical injury or death, so the $5,000 cap (CT-CAP-2) is for threat-only claims; sexual assault involving actual bodily harm falls under the $15,000 cap. CT-CAP-3, CT-CAP-4 and CT-CAP-5 are one shared $1,000 benefit, not three. 'Charged directly or indirectly to such victim' in 19a-112a(e) may reach insurance billing, but the statute does not say so, so insurance_billing stays 'unspecified'. How to file (Oct 3): the application JD-VS-8PI (Rev. 7/21, CT-S4) is still the version served at program.application_pdf_url (same sha256 on re-download) and has 296 AcroForm fields. It lists mail, fax and email as the ways to send it; no online filing portal or in-person drop-off is stated in the saved sources, and compensation.htm still could not be saved (blocked or empty even through Chrome). The application asks for the police report number but not a copy of the report, so no police_report document rule was added. The application must carry a handwritten signature."
 }

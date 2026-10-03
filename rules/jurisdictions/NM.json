@@ -9,7 +9,12 @@
     "application_pdf_url": "https://www.cvrc.nm.gov/wp-content/uploads/2025/02/Compensation-Application-in-English-Fillable-022025-1.pdf",
     "phone": "800-306-6262",
     "phone_source_id": "NM-S1",
-    "statute_citation": "NMSA 1978, Sections 31-22-1 to 31-22-24 (Crime Victims Reparation Act); 10.40.2 NMAC"
+    "statute_citation": "NMSA 1978, Sections 31-22-1 to 31-22-24 (Crime Victims Reparation Act); 10.40.2 NMAC",
+    "application_form": {
+      "source_id": "NM-S3",
+      "fillable": true,
+      "field_count": 135
+    }
   },
   "sources": [
     {
@@ -141,6 +146,16 @@
       "raw_path": "rules/sources/NM/NM-S13.html",
       "text_path": "rules/sources/NM/NM-S13.txt",
       "sha256": "1688efbf0f0baad782502d062beec68e4f4e984c3632b11eac5fd7d4b2208309"
+    },
+    {
+      "id": "NM-S14",
+      "title": "CVRC online compensation application portal (home page)",
+      "url": "https://cvcapp.cvrc.nm.gov",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:40:48Z",
+      "raw_path": "rules/sources/NM/NM-S14.html",
+      "text_path": "rules/sources/NM/NM-S14.txt",
+      "sha256": "3955ea85f6ddbb37269addb24aba33ad47344b632ce0e6c6824de12439e7c237"
     }
   ],
   "rules": [
@@ -504,6 +519,163 @@
       "quote": "a person in New Mexico who is injured or killed by any act or omission of any other person that is a crime enumerated in Section 31-22-8 NMSA 1978; (2) a resident of New Mexico who is injured or killed by such a crime occurring in a state other than New Mexico if that state does not have an eligible crime victims compensation program",
       "source_id": "NM-S5",
       "pinpoint": "NMSA 1978, Section 31-22-3(I)"
+    },
+    {
+      "id": "NM-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://cvcapp.cvrc.nm.gov"
+      },
+      "summary": "You can file online through the CVRC application portal, where you sign in or create an account and submit the application.",
+      "quote": "To begin Please choose one of the following options: Sign In OR Create an Account",
+      "source_id": "NM-S14",
+      "pinpoint": "CVRC online application portal, home page"
+    },
+    {
+      "id": "NM-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "Crime Victims Reparation Commission 6200 Uptown Blvd., Suite 210 Albuquerque, NM 87110",
+        "note": "10.40.2.8(B) NMAC (NM-S12) counts a paper application as received when it is postmarked, delivered or faxed to the commission's offices."
+      },
+      "summary": "A paper application goes to the Crime Victims Reparation Commission office in Albuquerque; the rules count it as filed on the postmark date.",
+      "quote": "Crime Victims Reparation Commission 6200 Uptown Blvd., Suite 210 Albuquerque, NM 87110",
+      "source_id": "NM-S1",
+      "pinpoint": "Compensation Application page, How do I apply?"
+    },
+    {
+      "id": "NM-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "(505) 841-9437",
+        "note": "10.40.2.8(B) NMAC (NM-S12) counts a paper application as received when it is postmarked, delivered or faxed to the commission's offices."
+      },
+      "summary": "A paper application can be faxed to the commission's office.",
+      "quote": "Fax: (505) 841-9437",
+      "source_id": "NM-S1",
+      "pinpoint": "Compensation Application page, How do I apply?"
+    },
+    {
+      "id": "NM-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Only if one exists; the commission also accepts a provider incident verification form (see NM-DOC-2)."
+      },
+      "summary": "The application asks for a copy of the police report if one is available.",
+      "quote": "CRIME INFORMATION (Provide copy of police report if available)",
+      "source_id": "NM-S3",
+      "pinpoint": "Application, Section 4"
+    },
+    {
+      "id": "NM-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "A complete offense report or a provider incident verification form; the commission requests it itself."
+      },
+      "summary": "The commission reviews the application with a complete offense report or a provider incident verification form, which its office requests.",
+      "quote": "The application and related documentation received, including a complete offense report or provider incident verification form (which this office requests), will then be reviewed to determine if the victim and/or claimant are eligible for compensation.",
+      "source_id": "NM-S1",
+      "pinpoint": "Compensation Application page, What happens after I send my application?"
+    },
+    {
+      "id": "NM-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Invoices, receipts or canceled checks showing payee, payer, amount paid, date of service and the service; affidavits and letters are not accepted."
+      },
+      "summary": "Expenses must be documented with invoices, receipts or canceled checks that show who was paid, who paid, the amount, the date and the service.",
+      "quote": "This documentation must provide the name of payee, the name of payer, the amount paid, date of services, and indicate what service was provided. This documentation may include invoices, receipts and canceled checks. Affidavits and letters shall not be considered proper documentation.",
+      "source_id": "NM-S12",
+      "pinpoint": "10.40.2.10(C) NMAC"
+    },
+    {
+      "id": "NM-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "Only when lost wages are claimed: an employer statement of dates missed, hourly wage, average weekly hours and any leave or other pay received."
+      },
+      "summary": "For lost wages, the employer must give a statement of the work dates missed, hourly wage and average weekly hours.",
+      "quote": "a statement from the employer providing: (a) the dates of work missed due to the incident; (b) hourly wage; (c) the average number of hours worked weekly; and (d) any type of compensation received, such as sick leave, annual leave, unemployment, etc.",
+      "source_id": "NM-S12",
+      "pinpoint": "10.40.2.10(G)(2) NMAC"
+    },
+    {
+      "id": "NM-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "medical_records",
+        "note": "Only when lost wages are claimed: a doctor's statement or medical documentation that the victim cannot work."
+      },
+      "summary": "For lost wages, a doctor's statement or medical documentation must show the victim is unable to work.",
+      "quote": "a copy of a doctor's statement certifying that the victim is unable to work; or a doctor's statement included in a medical document, or medical documentation showing the inability of the victim to work.",
+      "source_id": "NM-S12",
+      "pinpoint": "10.40.2.10(G)(1) NMAC"
+    },
+    {
+      "id": "NM-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "counseling_statement",
+        "note": "Provided by the counselor to commission staff, including a patient evaluation and an itemized statement for services."
+      },
+      "summary": "Counselors must give commission staff a detailed patient evaluation describing the effect of the victimization.",
+      "quote": "All counselors shall provide the commission staff with the following: (a) detailed patient evaluation describing the effect of the victimization",
+      "source_id": "NM-S12",
+      "pinpoint": "10.40.2.10(J)(1) NMAC"
+    },
+    {
+      "id": "NM-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Death certificate, only if the victim died."
+      },
+      "summary": "If the victim is deceased, the application asks for a copy of the death certificate.",
+      "quote": "DECEASED (Submit copy of death certificate)",
+      "source_id": "NM-S3",
+      "pinpoint": "Application, Section 1"
+    },
+    {
+      "id": "NM-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Power of attorney, only if the victim is incapacitated."
+      },
+      "summary": "If the victim is incapacitated, the application asks for a power of attorney.",
+      "quote": "INCAPACITATED (Submit a power of attorney)",
+      "source_id": "NM-S3",
+      "pinpoint": "Application, Section 1"
+    },
+    {
+      "id": "NM-DOC-9",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Signed Acknowledgement and Authorization page (release of information and subrogation agreement)."
+      },
+      "summary": "The signed Acknowledgement and Authorization page is required for the application to be processed.",
+      "quote": "This authorization is part of your application and must be completed and signed in order to process this application.",
+      "source_id": "NM-S3",
+      "pinpoint": "Application, Acknowledgement and Authorization"
+    },
+    {
+      "id": "NM-PROC-1",
+      "category": "processing_time",
+      "params": {
+        "days": 120
+      },
+      "summary": "An eligibility decision is usually made within 120 days.",
+      "quote": "A decision about whether the victim/claimant is eligible is usually made within 120 days.",
+      "source_id": "NM-S1",
+      "pinpoint": "Compensation Application page, What happens after I send my application?"
     }
   ],
   "coverage": {
@@ -520,7 +692,10 @@
       "filing_deadline",
       "reporting_requirement",
       "residency",
-      "total_cap"
+      "total_cap",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "minimum_loss",
@@ -537,5 +712,5 @@
     "notes": "Relocation, security and temporary housing are not named in the statute, the rules, or the program FAQ. Section 31-22-9(C) allows 'any other pecuniary loss' the commission finds reasonable and proper, but I did not treat that as coverage for any specific item. No minimum loss amount was found."
   },
   "confidence": "medium",
-  "researcher_notes": "Statute text is from Justia's 2025 New Mexico Statutes (the CVRC site links NMOneSource, which did not load for scripts); 2026 session changes were not checked. 10.40.2 NMAC (State Records Center copy) was last amended 08/31/2006 and predates the 2019 amendment (Laws 2019, ch. 211) to 31-22-7 and 31-22-14. 10.40.2.9 NMAC still says sexual assault victims must report to law enforcement within 180 days; the 2019 statute removed the police-reporting deadline and allows a report to a licensed medical, mental health or counseling provider, or tribal health provider. Statute wins, so the 180-day rule is NOT encoded. The 2019 amendment also deleted the statutory good-cause extension for late applications, but the CVRC FAQ still says 'Some exceptions may be allowed for good cause'; the extension field reflects both. The 10/2025 brochure says an application must be filed 'within a reasonable time' (its PDF text extraction is garbled, so it is not quoted). The CVRC FAQ says the cap is $50,000 in cases of permanent physical disability; the statute says $20,000 plus up to $30,000 more for catastrophic injury resulting in permanent total disability. Forensic exam payment: NMSA 29-11-7 assigns free exams to the 'administrator', which 29-11-3 defines as the director of the mental health division of the Department of Health or a designee. I could not verify from an official source which office administers exam payment today. The transportation rate (twenty cents per mile) is in the summary and quote only, because the params schema stores money as dollars. Reviewer: the CVRC FAQ and the 10/2025 brochure both say 'The crime must have occurred in New Mexico', but 31-22-3(I)(2)-(3) also covers New Mexico residents injured in a state with no eligible compensation program and residents injured by international terrorism; the statute is encoded. 10.40.2.10(L) NMAC still says the victim must cooperate with law enforcement in the prosecution; the 2019 statute lets the commission accept that the victim acted reasonably instead, so the statute is encoded. The 'mental health division of the department of health' named in 29-11-3 was last renamed in 1995; whether that office still exists or pays exams today was not confirmed."
+  "researcher_notes": "Statute text is from Justia's 2025 New Mexico Statutes (the CVRC site links NMOneSource, which did not load for scripts); 2026 session changes were not checked. 10.40.2 NMAC (State Records Center copy) was last amended 08/31/2006 and predates the 2019 amendment (Laws 2019, ch. 211) to 31-22-7 and 31-22-14. 10.40.2.9 NMAC still says sexual assault victims must report to law enforcement within 180 days; the 2019 statute removed the police-reporting deadline and allows a report to a licensed medical, mental health or counseling provider, or tribal health provider. Statute wins, so the 180-day rule is NOT encoded. The 2019 amendment also deleted the statutory good-cause extension for late applications, but the CVRC FAQ still says 'Some exceptions may be allowed for good cause'; the extension field reflects both. The 10/2025 brochure says an application must be filed 'within a reasonable time' (its PDF text extraction is garbled, so it is not quoted). The CVRC FAQ says the cap is $50,000 in cases of permanent physical disability; the statute says $20,000 plus up to $30,000 more for catastrophic injury resulting in permanent total disability. Forensic exam payment: NMSA 29-11-7 assigns free exams to the 'administrator', which 29-11-3 defines as the director of the mental health division of the Department of Health or a designee. I could not verify from an official source which office administers exam payment today. The transportation rate (twenty cents per mile) is in the summary and quote only, because the params schema stores money as dollars. Reviewer: the CVRC FAQ and the 10/2025 brochure both say 'The crime must have occurred in New Mexico', but 31-22-3(I)(2)-(3) also covers New Mexico residents injured in a state with no eligible compensation program and residents injured by international terrorism; the statute is encoded. 10.40.2.10(L) NMAC still says the victim must cooperate with law enforcement in the prosecution; the 2019 statute lets the commission accept that the victim acted reasonably instead, so the statute is encoded. The 'mental health division of the department of health' named in 29-11-3 was last renamed in 1995; whether that office still exists or pays exams today was not confirmed. How to file: the CVRC application page links the online portal at https://cvcapp.cvrc.nm.gov (the link target, saved as NM-S14). No official source says to email the application, so no email rule was added even though the form header and contact pages list cvrc@cvrc.nm.gov (and the contact page and brochure list cvrc.office@cvrc.nm.gov). 10.40.2.8(B) NMAC says a paper application counts when 'postmarked delivered or faxed' to the commission's offices; 'delivered' is not clearly in-person filing, so no in_person rule was added. The current English application (Reviewed 02/2025, NM-S3) is the one linked from the Documents to Download page; it is fillable with 135 AcroForm fields. Document requirements for receipts, lost wages and counseling come from 10.40.2.10 NMAC (2006); the application itself asks only for a police report if available, a death certificate or power of attorney where relevant, and the signed authorization. The 10/2025 brochure says bills or records can be uploaded in the online application, but its PDF text is garbled, so it is not quoted."
 }

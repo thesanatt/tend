@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.doj.state.or.us/wp-content/uploads/2026/01/CVC-Application-English-2026-fillable.pdf",
   "phone": "503-378-5348",
   "phone_source_id": "OR-S2",
-  "statute_citation": "ORS 147.005 to 147.367 (compensation); ORS 147.395 to 147.399 (SAVE Fund); OAR 137-076 and 137-084"
+  "statute_citation": "ORS 147.005 to 147.367 (compensation); ORS 147.395 to 147.399 (SAVE Fund); OAR 137-076 and 137-084",
+  "application_form": {
+   "source_id": "OR-S7",
+   "fillable": true,
+   "field_count": 140
+  }
  },
- "source_sha256": "5fa669f2e9d1cbec79d5b85c2c779439540673539432c372e5923804ab4aa376",
+ "source_sha256": "d7a6705233d4a319b30da0ae0db468a4c13d9adad5acc8f966d0b4a8787f709c",
  "rules": [
   {
    "id": "OR-EXAM-1",
@@ -244,6 +249,71 @@
    "id": "OR-RES-3",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "OR-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-SUBMIT-INPERSON",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OR-DOC-SIGNED-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-WAGE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-WAGE-SELF",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-WORK-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-EOB",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-DOC-RECEIPT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OR-TIME-ACK",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OR-TIME-DECISION",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

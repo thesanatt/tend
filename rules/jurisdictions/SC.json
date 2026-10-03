@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
   "phone": "803-734-1900",
   "phone_source_id": "SC-S2",
-  "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360"
+  "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360",
+  "application_form": {
+   "source_id": "SC-S7",
+   "fillable": true,
+   "field_count": 103
+  }
  },
  "sources": [
   {
@@ -627,6 +632,114 @@
    "quote": "(a) the offense was committed in this State; or (b) the victim was a resident of this State when the crime was committed in either another state or outside the United States if the crime is terrorism.",
    "source_id": "SC-S1",
    "pinpoint": "S.C. Code 16-3-1210"
+  },
+  {
+   "id": "SC-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201"
+   },
+   "summary": "Fill out the whole application, print it, and mail it to DCVC at the Edgar A. Brown Building in Columbia. A local victim advocate can help.",
+   "quote": "Please complete the application in its entirety, print and mail the application to DCVC: Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201",
+   "source_id": "SC-S8",
+   "pinpoint": "How to Apply for Compensation page"
+  },
+  {
+   "id": "SC-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Law enforcement incident report; free copy from the agency the crime was reported to. Anonymous sexual assault filings write \"Anonymous\" in section 4 instead."
+   },
+   "summary": "Attach a copy of the law enforcement incident report to the application.",
+   "quote": "Complete this section in its entirety and attach a copy of the law enforcement incident report.",
+   "source_id": "SC-S7",
+   "pinpoint": "Application, Section 4 Crime Information"
+  },
+  {
+   "id": "SC-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Detailed bills, UB92 or HCFA 1500; more bills can be sent later."
+   },
+   "summary": "Attach copies of itemized bills for crime-related care.",
+   "quote": "Attach copies of itemized bills (detailed bills, UB92 or HCFA 1500).",
+   "source_id": "SC-S7",
+   "pinpoint": "Application, Section 5 Crime-Related Expense Information"
+  },
+  {
+   "id": "SC-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Itemized receipts; pharmacy receipts must show patient name, date, total, medication, RX number, pharmacy and doctor."
+   },
+   "summary": "Include itemized receipts with the application along with bills, insurance statements, and the incident report.",
+   "quote": "Also include as much related information (i.e. itemized receipts, bills, insurance statements, and incident report) as possible.",
+   "source_id": "SC-S7",
+   "pinpoint": "Application instructions, If I want to apply now, what should I do?"
+  },
+  {
+   "id": "SC-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Insurance statements or Explanation of Benefits; insurance must be billed first."
+   },
+   "summary": "Include insurance statements, since DCVC pays after insurance.",
+   "quote": "Also include as much related information (i.e. itemized receipts, bills, insurance statements, and incident report) as possible.",
+   "source_id": "SC-S7",
+   "pinpoint": "Application instructions, If I want to apply now, what should I do?"
+  },
+  {
+   "id": "SC-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Employed: last two pay stubs, the DCVC Employer's Report, and the Physician's Disability Report."
+   },
+   "summary": "To claim lost wages as an employee, send your last two pay stubs, the Employer's Report, and the Physician's Disability Report.",
+   "quote": "If you were employed, you must submit your last two pay stubs, the Employer’s Report and the Physician’s Disability Report.",
+   "source_id": "SC-S7",
+   "pinpoint": "Application, Section 7 Lost Wages / Support Information"
+  },
+  {
+   "id": "SC-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Self-employed: IRS Tax Return Transcripts, the Self-Employment Verification Form, and the Physician's Disability Report."
+   },
+   "summary": "To claim lost wages when self-employed, send your most recent IRS tax return transcripts, the Self-Employment Verification Form, and the Physician's Disability Report.",
+   "quote": "If you were self- employed, you must submit your most recent Tax Return Transcripts from the IRS, the Self-Employment Verification Form, and the Physician’s Disability Report.",
+   "source_id": "SC-S7",
+   "pinpoint": "Application, Section 7 Lost Wages / Support Information"
+  },
+  {
+   "id": "SC-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "DCVC Mental Health Counselor's Report, plus the Additional Counseling Request Form for more sessions."
+   },
+   "summary": "For counseling costs, the counselor completes the DCVC Mental Health Counselor's Report.",
+   "quote": "DCVC Mental Health Counselor’s Report\nDCVC Additional Counseling Request Form",
+   "source_id": "SC-S6",
+   "pinpoint": "Payments and Reimbursements At A Glance, Crime Related Counseling Expenses"
+  },
+  {
+   "id": "SC-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "proof_of_residency",
+    "note": "Only for South Carolina residents victimized in another country without a compensation program."
+   },
+   "summary": "A South Carolina resident hurt in another country without a compensation program must submit proof of residency.",
+   "quote": "The victim may apply to DCVC for eligibility consideration as outlined in Section 16-3-1210, providing they have and submit proof of residency.",
+   "source_id": "SC-S3",
+   "pinpoint": "FAQ, resident victimized in another country"
   }
  ],
  "coverage": {
@@ -644,17 +757,20 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "expense_cap for medical (only the $15,000 overall cap applies)",
    "expense_cap for transportation (no dollar or per-mile rate published)",
    "expense_cap for lost_wages as a dollar figure (statute ties it to the Section 42-1-50 workers' compensation maximum rate, which was not saved)",
    "covered_expense or expense_cap for security (not mentioned in any saved source)",
-   "administrative regulations setting caps or rates (none found)"
+   "administrative regulations setting caps or rates (none found)",
+   "processing_time (no official decision or payment time; the application only says to call DCVC if no letter arrives after four weeks)"
   ],
   "notes": "Relocation is expressly not covered (FAQ). Toll-free line for victims is 1-800-220-5370 (SC-S2). The application is mailed to DCVC; apply_url is the How to Apply page. Reviewer: the application (SC-S7) says DCVC can pay 'up to 40 counseling sessions or 180 days of counseling sessions, whichever is greater', which reads more generously than the statute (20 sessions or 180 days, plus up to 20 more on request); the statute is encoded. The provider guide (SC-S12) describes the anonymous route for victims 18 and older and lists 'Victim's health insurance paid the bill(s)' as an exam denial reason."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from scstatehouse.gov (Title 16, Chapter 3, Article 13); history shows last amendments in 2017. Exam billing: the statute (16-3-1350(A)) says the victim must not bear the cost but does not mention insurance; the program's Feb 2018 provider billing guide (SC-S12, still linked from the current provider portal) says neither the victim nor their insurance, including Medicaid and Medicare, may be billed. That guide is older and lists staff contacts and fee amounts that may be out of date; only its general rules are used. The anonymous filing route for sexual assault (SC-REPORT-2/3) is described only in program materials; the application says to contact DCVC for details on anonymous reporting. Disagreement: the statute caps burial at $4,000 (16-3-1180(A)(5)) but the FAQ says up to $6,500; burial is not encoded. Residency: statute 16-3-1210 also lets South Carolina residents victimized in another state file, but program pages and the application say the crime must occur in South Carolina. Reporting: 48 hours is in the statute; the schema field within_days was left out because the statute states hours, not days. Lost wages also require missing two consecutive weeks (statute) and being under a treating physician's care (At A Glance). Reviewer changes: SC-PROP-2 no longer names phones or clothing (the source says only 'Items Taken as Evidence'); mortgage/rent moved from temporary_housing to other (SC-EXCL-5); SC-EXAM-5 recategorized from exam_payment to exam_no_bill since it states the exam is at no cost to the victim; SC-EXCL-1 summary no longer says the exam covers 'evidence collection only' (the guide also lists lab work, medications, ER and physician fees billed to DCVC). Added SC-EXAM-6 (no-kit exam paid), SC-FUN-1, SC-TRANS-3, SC-EXCL-6. SC-S12 is a 2018 guide that still lists the old www.sova.sc.gov domain and staff contacts; no names are used in rules."
+ "researcher_notes": "Statute text is from scstatehouse.gov (Title 16, Chapter 3, Article 13); history shows last amendments in 2017. Exam billing: the statute (16-3-1350(A)) says the victim must not bear the cost but does not mention insurance; the program's Feb 2018 provider billing guide (SC-S12, still linked from the current provider portal) says neither the victim nor their insurance, including Medicaid and Medicare, may be billed. That guide is older and lists staff contacts and fee amounts that may be out of date; only its general rules are used. The anonymous filing route for sexual assault (SC-REPORT-2/3) is described only in program materials; the application says to contact DCVC for details on anonymous reporting. Disagreement: the statute caps burial at $4,000 (16-3-1180(A)(5)) but the FAQ says up to $6,500; burial is not encoded. Residency: statute 16-3-1210 also lets South Carolina residents victimized in another state file, but program pages and the application say the crime must occur in South Carolina. Reporting: 48 hours is in the statute; the schema field within_days was left out because the statute states hours, not days. Lost wages also require missing two consecutive weeks (statute) and being under a treating physician's care (At A Glance). Reviewer changes: SC-PROP-2 no longer names phones or clothing (the source says only 'Items Taken as Evidence'); mortgage/rent moved from temporary_housing to other (SC-EXCL-5); SC-EXAM-5 recategorized from exam_payment to exam_no_bill since it states the exam is at no cost to the victim; SC-EXCL-1 summary no longer says the exam covers 'evidence collection only' (the guide also lists lab work, medications, ER and physician fees billed to DCVC). Added SC-EXAM-6 (no-kit exam paid), SC-FUN-1, SC-TRANS-3, SC-EXCL-6. SC-S12 is a 2018 guide that still lists the old www.sova.sc.gov domain and staff contacts; no names are used in rules. How-to-file: the How to Apply page (SC-S8) names mail as the only way to submit; no online portal, email, or fax submission for applicants is stated (the fax number on the At A Glance sheet is for providers sending bills, and the contact email is obfuscated in the saved pages). The application PDF linked from How to Apply (/media/fexpbtym/...) is byte-identical (same sha256) to SC-S7, so SC-S7 is the current form; it is fillable with 103 AcroForm fields. No processing time is stated; the application says to call if no letter arrives after four weeks, which is not encoded."
 }

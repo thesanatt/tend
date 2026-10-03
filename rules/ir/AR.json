@@ -10,9 +10,14 @@
   "application_pdf_url": "https://media.ark.org/dps/CVRB-Application_10-6-2023.pdf",
   "phone": "501-682-1020",
   "phone_source_id": "AR-S1",
-  "statute_citation": "A.C.A. 16-90-701 to 16-90-720; forensic exams A.C.A. 12-12-401 to 12-12-404; rules 16 CAR Part 60"
+  "statute_citation": "A.C.A. 16-90-701 to 16-90-720; forensic exams A.C.A. 12-12-401 to 12-12-404; rules 16 CAR Part 60",
+  "application_form": {
+   "source_id": "AR-S8",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "dbb55c103335a594f6b492c9eae32fc56c52e82f25b5359f6c04777965705758",
+ "source_sha256": "9f1549352a7065760e4852ce201a00bb6df1829f670753536c8fa037377df24b",
  "rules": [
   {
    "id": "AR-EXAM-1",
@@ -184,6 +189,51 @@
    "id": "AR-EXCL-3",
    "kind": "excluded",
    "expense": "property_replacement"
+  },
+  {
+   "id": "AR-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AR-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AR-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AR-DOC-7",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": []

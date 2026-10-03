@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.okvictimscomp.com/wp-content/uploads/2019-Official-Claim-Form-EN_1.pdf",
   "phone": "800-745-6098",
   "phone_source_id": "OK-S1",
-  "statute_citation": "21 O.S. 142.1 to 142.20"
+  "statute_citation": "21 O.S. 142.1 to 142.20",
+  "application_form": {
+   "source_id": "OK-S12",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "d02d8f108f31be9b4e755a225837d42af6dd1cfe361e8545ab505a509a4115b2",
+ "source_sha256": "13de61bdbfeaf64622e1f602187318227efae47d4ff85a56a494307354847d58",
  "rules": [
   {
    "id": "OK-EXAM-1",
@@ -188,6 +193,111 @@
    "id": "OK-ELIG-2",
    "kind": "info",
    "category": "eligible_crime"
+  },
+  {
+   "id": "OK-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OK-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-12",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-DOC-13",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OK-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-TIME-3",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "OK-TIME-4",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

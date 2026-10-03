@@ -10,9 +10,14 @@
   "application_pdf_url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
   "phone": "502-782-8255",
   "phone_source_id": "KY-S19",
-  "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060"
+  "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060",
+  "application_form": {
+   "source_id": "KY-S19",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "148c7de4eaa1f89239a5122568ec7b677a286249944bd192d2c87ab5b8da1306",
+ "source_sha256": "90443bcb6025d26e6a945ca40a01a54ac31b5b5617c4359ad8973b365530e376",
  "rules": [
   {
    "id": "KY-EXAM-1",
@@ -174,6 +179,91 @@
    "id": "KY-RES-3",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "KY-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-5",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/06/CVCP-Application-for-Compensation_20260630.pdf",
   "phone": "208-334-6080",
   "phone_source_id": "ID-S8",
-  "statute_citation": "Idaho Code 72-1001 to 72-1026; Idaho Code 19-5303; IDAPA 17.10.01"
+  "statute_citation": "Idaho Code 72-1001 to 72-1026; Idaho Code 19-5303; IDAPA 17.10.01",
+  "application_form": {
+   "source_id": "ID-S11",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "94338253856f28d893a80082f4f524b3ee5f28ec22e36c910ee575950bdf86dc",
+ "source_sha256": "915b95c13a400ffc3ec2e7cbef4f40026d62af0429077106b598a07c1e966844",
  "rules": [
   {
    "id": "ID-EXAM-1",
@@ -208,6 +213,66 @@
    "id": "ID-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "ID-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ID-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ID-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ID-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ID-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

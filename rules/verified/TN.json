@@ -9,7 +9,12 @@
   "application_pdf_url": null,
   "phone": "833-867-3891",
   "phone_source_id": "TN-S1",
-  "statute_citation": "T.C.A. 29-13-101 to 29-13-119; forensic exams T.C.A. 29-13-118; Tenn. Comp. R. & Regs. 0300-02-.07"
+  "statute_citation": "T.C.A. 29-13-101 to 29-13-119; forensic exams T.C.A. 29-13-118; Tenn. Comp. R. & Regs. 0300-02-.07",
+  "application_form": {
+   "source_id": null,
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -141,6 +146,26 @@
    "raw_path": "rules/sources/TN/TN-S14.pdf",
    "text_path": "rules/sources/TN/TN-S14.txt",
    "sha256": "c0048005a2fc480e042c7777706666eb057b5432bd307051135696d3403afec0"
+  },
+  {
+   "id": "TN-S15",
+   "title": "Tennessee Treasury, Criminal Injuries Compensation program page (eligibility, Apply for Compensation, FAQ)",
+   "url": "https://treasury.tn.gov/Services/Claims-and-Risk-Management/Criminal-Injuries-Compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:39:06Z",
+   "raw_path": "rules/sources/TN/TN-S15.html",
+   "text_path": "rules/sources/TN/TN-S15.txt",
+   "sha256": "898842379e457ccdffb8dfc97441586da23f3f3cd175b847fe367d49fe04a742"
+  },
+  {
+   "id": "TN-S16",
+   "title": "Tennessee Treasury, Criminal Injuries Compensation Employer's Statement (RDA-1178)",
+   "url": "https://treasury.tn.gov/Portals/0/Documents/Criminal%20Injuries/employer.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T19:38:20Z",
+   "raw_path": "rules/sources/TN/TN-S16.pdf",
+   "text_path": "rules/sources/TN/TN-S16.txt",
+   "sha256": "43ab51a556b3377160fef6a44cd815d8571b6b54bdfde5abb29841119c2dac6c"
   }
  ],
  "rules": [
@@ -550,6 +575,118 @@
    "source_id": "TN-S5",
    "pinpoint": "T.C.A. 29-13-104(4)",
    "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-104/#:~:text=Any%20of%20the%20foregoing%20acts,act%20occurred%20is%20not%20honored."
+  },
+  {
+   "id": "TN-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "Treasury.tn.gov/injury",
+    "note": "The program page (TN-S15) says the application should be submitted online through its File a Claim link, all in one session, with supporting documents ready to upload as PDF or Word files."
+   },
+   "summary": "File the claim online through the Treasury's Criminal Injuries Compensation page.",
+   "quote": "Complete and submit your claim online at Treasury.tn.gov/injury.",
+   "source_id": "TN-S1",
+   "pinpoint": "Resource guide, Apply for Compensation"
+  },
+  {
+   "id": "TN-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "A police report, or another official document showing the crime was reported."
+   },
+   "summary": "Include a police report or another official document showing the crime was reported.",
+   "quote": "Do I need a police report? Yes, or another official document to show the crime was reported appropriately.",
+   "source_id": "TN-S15",
+   "pinpoint": "Program page, Frequently Asked Questions",
+   "fragment_url": "https://treasury.tn.gov/Services/Claims-and-Risk-Management/Criminal-Injuries-Compensation#:~:text=Do%20I%20need%20a%20police,the%20crime%20was%20reported%20appropriately."
+  },
+  {
+   "id": "TN-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Copies of bills for crime-related expenses."
+   },
+   "summary": "Attach copies of bills for crime-related expenses.",
+   "quote": "Please be prepared to attach any available relevant documents, such as a police report, death certificate, copies of bills and receipts, and other documentation if available.",
+   "source_id": "TN-S1",
+   "pinpoint": "Resource guide, Apply for Compensation"
+  },
+  {
+   "id": "TN-DOC-RECEIPTS",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Copies of receipts for expenses already paid."
+   },
+   "summary": "Attach copies of receipts for expenses already paid.",
+   "quote": "Please be prepared to attach any available relevant documents, such as a police report, death certificate, copies of bills and receipts, and other documentation if available.",
+   "source_id": "TN-S1",
+   "pinpoint": "Resource guide, Apply for Compensation"
+  },
+  {
+   "id": "TN-DOC-DEATH",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Death certificate, only for a claim based on the victim's death."
+   },
+   "summary": "For a claim based on a death, attach the death certificate.",
+   "quote": "Please be prepared to attach any available relevant documents, such as a police report, death certificate, copies of bills and receipts, and other documentation if available.",
+   "source_id": "TN-S1",
+   "pinpoint": "Resource guide, Apply for Compensation"
+  },
+  {
+   "id": "TN-DOC-PROOF",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Proof of the offense (type, date, victim, location). A law enforcement report works, and so do medical records from a health care provider, a restraining order, or a letter from law enforcement or a prosecutor."
+   },
+   "summary": "The claimant must give written proof that the offense happened; medical records from a health care provider are one accepted form of proof.",
+   "quote": "Medical records from a healthcare provider, as those terms are defined in",
+   "source_id": "TN-S13",
+   "pinpoint": "T.C.A. 29-13-103(b)(2)(B)(vii)",
+   "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-103/#:~:text=Medical%20records%20from%20a%20healthcare,those%20terms%20are%20defined%20in"
+  },
+  {
+   "id": "TN-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only when claiming lost wages: lost wage verification, W-2 forms, and the Employer's Statement (RDA-1178) completed by the employer."
+   },
+   "summary": "If claiming lost wages, include wage documentation; the statute lists lost wage verifications and W-2 forms.",
+   "quote": "Lost wage verifications; (iii) W-2 forms",
+   "source_id": "TN-S13",
+   "pinpoint": "T.C.A. 29-13-103(b)(2)(A)(ii)-(iii)",
+   "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-103/#:~:text=Lost%20wage%20verifications%3B%20%28iii%29%20W%2D2%20forms"
+  },
+  {
+   "id": "TN-DOC-EMPLOYER",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Employer's Statement (RDA-1178): Part I by the employee, Parts II to IV by the employer, sent to State of Tennessee Treasury Department, Criminal Injuries Compensation Program, 502 Deaderick Street, Nashville, TN 37243-0202."
+   },
+   "summary": "For lost wages, the employer completes the program's Employer's Statement and sends it to the program in Nashville.",
+   "quote": "Complete the form request below and send to: State of Tennessee Treasury Department Criminal Injuries Compensation Program 502 Deaderick Street w Nashville, TN 37243-0202",
+   "source_id": "TN-S16",
+   "pinpoint": "Employer's Statement (RDA-1178), header"
+  },
+  {
+   "id": "TN-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90
+   },
+   "summary": "The division must make every effort to approve or deny a claim within 90 days of receiving it.",
+   "quote": "the division shall investigate every claim for compensation and shall make every effort to honor or deny each claim within ninety (90) days of receipt of the claim",
+   "source_id": "TN-S9",
+   "pinpoint": "T.C.A. 29-13-108(d)",
+   "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-108/#:~:text=the%20division%20shall%20investigate%20every,of%20receipt%20of%20the%20claim"
   }
  ],
  "coverage": {
@@ -565,8 +702,11 @@
    "expense_cap",
    "filing_deadline",
    "minimum_loss",
+   "processing_time",
    "reporting_requirement",
+   "required_document",
    "residency",
+   "submission",
    "total_cap"
   ],
   "not_found": [
@@ -580,8 +720,8 @@
    "reporting_requirement:alternatives to reporting",
    "application_pdf_url"
   ],
-  "notes": "No security expense rule and no dollar cap on medical, relocation, or lost wages appears in T.C.A. 29-13-101 to 29-13-119 or the saved Treasury PDFs; lost wages are a rate (85 percent of average weekly wage on the workers' compensation schedule) and relocation is limited to 2 moves. The statute and the SAFE provider page do not say whether a survivor's health insurance may be billed for the forensic exam, so insurance_billing is 'unspecified'. The 15-day report to authorities is still required for compensation (good cause can excuse delay, and sexual assault is a listed good cause); no report is needed for the forensic exam alone. The program's own web page (treasury.tn.gov, a DNN page whose content sits inside a form element) could not be saved by fetch_source.py, so its statements (victim counseling covered up to the maximum, police report or other official document) are not quoted. The application is online only; there is no application PDF."
+  "notes": "No security expense rule and no dollar cap on medical, relocation, or lost wages appears in T.C.A. 29-13-101 to 29-13-119 or the saved Treasury PDFs; lost wages are a rate (85 percent of average weekly wage on the workers' compensation schedule) and relocation is limited to 2 moves. The statute and the SAFE provider page do not say whether a survivor's health insurance may be billed for the forensic exam, so insurance_billing is 'unspecified'. The 15-day report to authorities is still required for compensation (good cause can excuse delay, and sexual assault is a listed good cause); no report is needed for the forensic exam alone. The program's own web page (treasury.tn.gov, a DNN page whose content sits inside a form element) could not be saved by fetch_source.py, so its statements (victim counseling covered up to the maximum, police report or other official document) are not quoted. The application is online only; there is no application PDF. Update (Oct 3, 2026): the program page was saved as TN-S15 from a plain HTTPS fetch, with text extracted without dropping the form element; the how-to-file rules quote it."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text is the 2025 Tennessee Code via Justia (legislature/Lexis site not used). Total cap disagreement: T.C.A. 29-13-106(e) states $30,000 'except as provided in subsection (h)', and (h) indexes the cap to 105 percent of the national average, published by the State Treasurer on the Treasury website (not a rule, effective July 1). The Treasury's Maximum Expense Amounts PDF (June 2025) and program page list $34,100 for crimes on or after July 1, 2025, $32,900 for 7/1/24 to 6/30/25, and $32,000 for 7/1/17 to 6/30/24. Tenn. Comp. R. & Regs. 0300-02-.07 (rev. May 2025, TN-S14) says $34,200 for crimes on or after July 1, 2025 and contains a typo ('thirty-two thousand dollars ($32,900.00)'). The program page FAQ also still says $32,900. The lower, later Treasury-published $34,100 is recorded; confirm with the program. Medical and medical-related bills are paid at 75 percent of billed charges (T.C.A. 29-13-107(7)); a provider paid 75 percent must accept it as payment in full. Forensic exam reimbursement to the provider is capped at $1,000 and is full payment (29-13-118(d)); the provider files within 1 year of the exam. The SAFE provider page says medical treatment for injury may be billed to the patient, who may then claim compensation. Cooperation with police and prosecutors is required (29-13-109(f)) with an exception when cooperation is affected by age, psychological state, fear of retaliation, or other safety concerns (29-13-103(a)(4)). An arrest or conviction is not required (29-13-109(f)). Statute 29-13-108(b) says claims are filed in person or by mail; the Treasury says to apply through its online portal (linked as 'File a Claim' on the program page). Phone 833-867-3891 is the program's; the OVC directory lists 615-741-2734 for the Division of Claims and Risk Management. Reviewer (Oct 3, 2026): T.C.A. 29-13-106(h)(4)-(5) makes the Treasurer's website publication the operative cap and says it is not a rule, which supports $34,100 over the $34,200 in Rule 0300-02-.07. The live program page checked in Chrome on Oct 3, 2026 lists $34,100 for crimes on or after July 1, 2025 and shows no separate figure for July 1, 2026, even though (h)(2) calls for an annual comparison starting January 1, 2026; if a 2026 adjustment is published later, CAP-1 needs a new source. The same page says counseling 'may be considered for the victim up to the maximum award' (not saved; fetch_source.py --chrome returned 'blocked or empty'). T.C.A. 29-13-105(c) bars an award to a victim who was a member of the offender's family only if a benefit would go to the offender, and says it does not automatically disqualify such a victim."
+ "researcher_notes": "Statute text is the 2025 Tennessee Code via Justia (legislature/Lexis site not used). Total cap disagreement: T.C.A. 29-13-106(e) states $30,000 'except as provided in subsection (h)', and (h) indexes the cap to 105 percent of the national average, published by the State Treasurer on the Treasury website (not a rule, effective July 1). The Treasury's Maximum Expense Amounts PDF (June 2025) and program page list $34,100 for crimes on or after July 1, 2025, $32,900 for 7/1/24 to 6/30/25, and $32,000 for 7/1/17 to 6/30/24. Tenn. Comp. R. & Regs. 0300-02-.07 (rev. May 2025, TN-S14) says $34,200 for crimes on or after July 1, 2025 and contains a typo ('thirty-two thousand dollars ($32,900.00)'). The program page FAQ also still says $32,900. The lower, later Treasury-published $34,100 is recorded; confirm with the program. Medical and medical-related bills are paid at 75 percent of billed charges (T.C.A. 29-13-107(7)); a provider paid 75 percent must accept it as payment in full. Forensic exam reimbursement to the provider is capped at $1,000 and is full payment (29-13-118(d)); the provider files within 1 year of the exam. The SAFE provider page says medical treatment for injury may be billed to the patient, who may then claim compensation. Cooperation with police and prosecutors is required (29-13-109(f)) with an exception when cooperation is affected by age, psychological state, fear of retaliation, or other safety concerns (29-13-103(a)(4)). An arrest or conviction is not required (29-13-109(f)). Statute 29-13-108(b) says claims are filed in person or by mail; the Treasury says to apply through its online portal (linked as 'File a Claim' on the program page). Phone 833-867-3891 is the program's; the OVC directory lists 615-741-2734 for the Division of Claims and Risk Management. Reviewer (Oct 3, 2026): T.C.A. 29-13-106(h)(4)-(5) makes the Treasurer's website publication the operative cap and says it is not a rule, which supports $34,100 over the $34,200 in Rule 0300-02-.07. The live program page checked in Chrome on Oct 3, 2026 lists $34,100 for crimes on or after July 1, 2025 and shows no separate figure for July 1, 2026, even though (h)(2) calls for an annual comparison starting January 1, 2026; if a 2026 adjustment is published later, CAP-1 needs a new source. The same page says counseling 'may be considered for the victim up to the maximum award' (not saved; fetch_source.py --chrome returned 'blocked or empty'). T.C.A. 29-13-105(c) bars an award to a victim who was a member of the offender's family only if a benefit would go to the offender, and says it does not automatically disqualify such a victim. How to file (Oct 3, 2026): the Treasury takes claims online only (resource guide TN-S1 and program page TN-S15, whose File a Claim link goes to an Origami Risk incident-entry portal); there is no paper or PDF application, so program.application_form is {source_id: null, fillable: false, field_count: 0}. T.C.A. 29-13-108(b) still says claims are filed 'in person or by mail', but no saved source gives a mailing or walk-in address for claims, so no mail or in_person submission rule was added. The only address published is on the Employer's Statement (TN-S16, RDA-1178, a fillable PDF with 60 AcroForm fields): 502 Deaderick Street, Nashville, TN 37243-0202, where the employer sends that form. The online form must be finished in one session; supporting documents are uploaded as PDF or Word files. Criminal.Injury@tn.gov is published for advocates, not as a claim submission address. TN-S15 was saved by hand because fetch_source.py strips form elements and this DNN page sits inside one; raw bytes are the server's HTML and the sha256 matches."
 }

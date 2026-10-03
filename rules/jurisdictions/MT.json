@@ -9,7 +9,12 @@
     "application_pdf_url": "https://dojmt.gov/wp-content/uploads/2025/12/Crime-Victim-Compensation-Claim-Form-12-25.pdf",
     "phone": "406-444-3653",
     "phone_source_id": "MT-S1",
-    "statute_citation": "MCA 53-9-101 to 53-9-133"
+    "statute_citation": "MCA 53-9-101 to 53-9-133",
+    "application_form": {
+      "source_id": "MT-S6",
+      "fillable": false,
+      "field_count": 0
+    }
   },
   "sources": [
     {
@@ -512,6 +517,76 @@
       "quote": "Benefits may be awarded to: Non-residents injured in Montana. Montana residents injured in a state or country in which the victim compensation program does not compensate non-residents.",
       "source_id": "MT-S5",
       "pinpoint": "Montana DOJ, Request a Claim Form page"
+    },
+    {
+      "id": "MT-SUB-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "Crime Victim Compensation Program P.O. Box 201410 Helena, MT 59620-1410"
+      },
+      "summary": "Mail the signed and dated claim form to the Crime Victim Compensation Program, P.O. Box 201410, Helena, MT 59620-1410.",
+      "quote": "Crime Victim Compensation Program P.O. Box 201410 Helena, MT 59620-1410 Please note: Be sure your claim form is signed and dated before you mail to the CVC program.",
+      "source_id": "MT-S5",
+      "pinpoint": "Request a Claim Form, How to Request a Claim Form"
+    },
+    {
+      "id": "MT-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill"
+      },
+      "summary": "Send copies of medical bills with the claim form.",
+      "quote": "Yes, please send copies of the bills with your claim form.",
+      "source_id": "MT-S3",
+      "pinpoint": "CVC FAQ, Should I send in copies of medical bills along with the application?"
+    },
+    {
+      "id": "MT-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "insurance explanation of benefits, if applicable"
+      },
+      "summary": "If insurance processed the bills, include a copy of the explanation of benefits.",
+      "quote": "If applicable, submit a copy of your insurance explanation of benefits.",
+      "source_id": "MT-S3",
+      "pinpoint": "CVC FAQ, Should I send in copies of medical bills along with the application?"
+    },
+    {
+      "id": "MT-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "only for wage loss claims"
+      },
+      "summary": "Wage loss claims need extra paperwork and verification.",
+      "quote": "Additional paperwork and verification are required to approve wage loss.",
+      "source_id": "MT-S1",
+      "pinpoint": "Eligible Benefits, Wage Loss"
+    },
+    {
+      "id": "MT-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "the claim form itself, signed and dated by the claimant"
+      },
+      "summary": "The claimant must sign and date the claim form or it will not be considered.",
+      "quote": "Claimant must sign and date here before the claim will be considered for benefits.",
+      "source_id": "MT-S6",
+      "pinpoint": "Claim Form, Section G signature block"
+    },
+    {
+      "id": "MT-PROC-1",
+      "category": "processing_time",
+      "params": {
+        "days": 60
+      },
+      "summary": "The program aims to decide eligibility within 60 days; it can take longer if requested information is slow to arrive.",
+      "quote": "The goal of the CVC program is to determine eligibility on a claim within 60 days.",
+      "source_id": "MT-S3",
+      "pinpoint": "CVC FAQ, How long will it take to receive a decision on compensation benefits?"
     }
   ],
   "coverage": {
@@ -528,7 +603,10 @@
       "filing_deadline",
       "reporting_requirement",
       "residency",
-      "total_cap"
+      "total_cap",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "expense_cap for counseling for primary victims (current amount not verified)",
@@ -541,5 +619,5 @@
     "notes": "Montana has no fixed dollar cap on lost wages for employed victims; MCA 53-9-128(1) pays 66 2/3% of wages up to one-half the state's average weekly wage, and 53-9-128(7)(a) caps victims who were employable but not employed at $100 per week. ARM 23.15.306(3) limits primary-victim counseling to 12 consecutive months or $2,000 with extensions available, but the same rule's secondary-victim limit ($2,000) has been superseded by the statute ($5,000), and the DOJ page names no primary-victim cap, so I did not encode a primary-victim counseling cap. I found no relocation, security, or minimum-loss provision. Neither the statute nor FREPP pages say whether the survivor's insurance may be billed for the exam."
   },
   "confidence": "high",
-  "researcher_notes": "Total cap of $25,000 comes from the DOJ program page; the statute itself only caps death cases at $25,000 (MCA 53-9-128(5)). Reporting: adult survivors must report to law enforcement within 72 hours unless good cause is shown (ARM 23.15.103 lists factors such as the reasonableness of the delay and incapacity); there is no statutory alternative such as a forensic exam or advocate report. The exam itself does not require a report: unreported exams are paid by FREPP (MCA 46-15-411(2); DOJ FREPP page). ARM 23.15.402(1) (2005) says FREPP requires the exam within 72 hours and that the victim choose not to report; the current DOJ FREPP page does not repeat the 72-hour condition, so I left it out of the rules. MCA 46-15-411(3) and the FREPP page say treatment of physical injuries from the assault is not covered by the exam payment and may be billed to the survivor; CVC may still cover such medical costs under MCA 53-9-128(2). ARM rules were saved from Cornell LII because the Secretary of State ARM site is script-driven. Reviewer note: MCA 53-9-103(3)(b) and (6)(a) define criminally injurious conduct and victim in terms of bodily injury or death, while the DOJ page describes a primary victim as someone who suffered direct physical or emotional harm; a survivor without a physical injury should confirm eligibility with the office. MT-CAP-2 uses the non-standard param applies_to: secondary_victims; the $5,000 counseling cap does not apply to the primary victim under the statute."
+  "researcher_notes": "Total cap of $25,000 comes from the DOJ program page; the statute itself only caps death cases at $25,000 (MCA 53-9-128(5)). Reporting: adult survivors must report to law enforcement within 72 hours unless good cause is shown (ARM 23.15.103 lists factors such as the reasonableness of the delay and incapacity); there is no statutory alternative such as a forensic exam or advocate report. The exam itself does not require a report: unreported exams are paid by FREPP (MCA 46-15-411(2); DOJ FREPP page). ARM 23.15.402(1) (2005) says FREPP requires the exam within 72 hours and that the victim choose not to report; the current DOJ FREPP page does not repeat the 72-hour condition, so I left it out of the rules. MCA 46-15-411(3) and the FREPP page say treatment of physical injuries from the assault is not covered by the exam payment and may be billed to the survivor; CVC may still cover such medical costs under MCA 53-9-128(2). ARM rules were saved from Cornell LII because the Secretary of State ARM site is script-driven. Reviewer note: MCA 53-9-103(3)(b) and (6)(a) define criminally injurious conduct and victim in terms of bodily injury or death, while the DOJ page describes a primary victim as someone who suffered direct physical or emotional harm; a survivor without a physical injury should confirm eligibility with the office. MT-CAP-2 uses the non-standard param applies_to: secondary_victims; the $5,000 counseling cap does not apply to the primary victim under the statute. How to file: the only submission method the official sources state is mail to P.O. Box 201410, Helena, MT 59620-1410 (Request a Claim Form page; the 12-25 claim form also carries a postage-paid business reply panel). The OVS contact block lists fax (406) 444-5335 and an email address, but no source says claims may be filed by fax or email, and the email is obfuscated in the saved snapshot, so I did not add fax or email submission rules. There is no online filing; the page's online request only mails a blank form. The claim form PDF (MT-S6, Version 10/2025) has no AcroForm fields, so it is printed and filled by hand. The 60-day processing time is a stated goal, not a guarantee."
 }

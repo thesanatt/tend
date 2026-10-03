@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.iowaattorneygeneral.gov/media/cms/Compensation_Application_English_0E6E8B08B04B2.pdf",
   "phone": "1-800-373-5044",
   "phone_source_id": "IA-S2",
-  "statute_citation": "Iowa Code 915.80 to 915.94; Iowa Code 915.41 (exam costs); Iowa Admin. Code 61, ch. 9"
+  "statute_citation": "Iowa Code 915.80 to 915.94; Iowa Code 915.41 (exam costs); Iowa Admin. Code 61, ch. 9",
+  "application_form": {
+   "source_id": "IA-S5",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "09271acecfedb051aded7078b1f92603ae9854aae7bbc3877ec8a40dc932d840",
+ "source_sha256": "83edc662816f64d79761a7a129f52acdad9c26abd05f646214883a636176058a",
  "rules": [
   {
    "id": "IA-EXAM-1",
@@ -255,6 +260,56 @@
    "id": "IA-RES-3",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "IA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

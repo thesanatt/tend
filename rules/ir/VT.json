@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/English%20Victims%20Compensation%20Application.pdf",
   "phone": "800-750-1213 (Vermont only) or 802-241-1250",
   "phone_source_id": "VT-S7",
-  "statute_citation": "13 V.S.A. §§ 5351 to 5358a; 32 V.S.A. § 1407; Code Vt. R. 80-220-001"
+  "statute_citation": "13 V.S.A. §§ 5351 to 5358a; 32 V.S.A. § 1407; Code Vt. R. 80-220-001",
+  "application_form": {
+   "source_id": "VT-S8",
+   "fillable": true,
+   "field_count": 180
+  }
  },
- "source_sha256": "0c295c80948f471827438b55f8ed5962999adc0f456b6b8b7dee9ee60f4e314f",
+ "source_sha256": "f22ca5492b548b61f148cd8485a7c64d2d292c67605d773bcdd0960324c336a1",
  "rules": [
   {
    "id": "VT-EXAM-1",
@@ -197,6 +202,51 @@
    "id": "VT-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "VT-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VT-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "VT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "VT-DOC-7",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

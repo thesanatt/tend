@@ -9,7 +9,12 @@
   "application_pdf_url": "https://attorneygenerallynnfitch.com/wp-content/uploads/2026/01/Victim-Compensation-Application-12.9.2025-1.pdf",
   "phone": "800-829-6766",
   "phone_source_id": "MS-S1",
-  "statute_citation": "Miss. Code Ann. 99-41-1 to 99-41-31 (Mississippi Crime Victims' Compensation Act); forensic exam: Miss. Code Ann. 99-37-25; rules: 3 Miss. Admin. Code Pt. 1"
+  "statute_citation": "Miss. Code Ann. 99-41-1 to 99-41-31 (Mississippi Crime Victims' Compensation Act); forensic exam: Miss. Code Ann. 99-37-25; rules: 3 Miss. Admin. Code Pt. 1",
+  "application_form": {
+   "source_id": "MS-S4",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -706,6 +711,177 @@
    "quote": "The crime must have occurred in Mississippi.",
    "source_id": "MS-S6",
    "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 602(1)(a)"
+  },
+  {
+   "id": "MS-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://portal.ago.ms.gov/public/?q=node/428",
+    "note": "The quote's link text points to this URL on the Attorney General's program page. The portal page itself could not be saved (blocked)."
+   },
+   "summary": "A survivor can fill out the Crime Victim Compensation application online through the Attorney General's portal.",
+   "quote": "Complete the Crime Victim Compensation (CVC) Application online here",
+   "source_id": "MS-S1",
+   "pinpoint": "Bureau of Victim Assistance page, Victim Compensation section",
+   "fragment_url": "https://attorneygenerallynnfitch.com/divisions/bureau-of-victim-assistance/#:~:text=Complete%20the%20Crime%20Victim%20Compensation%20%28CVC%29%20Application%20online%20here"
+  },
+  {
+   "id": "MS-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "P.O. Box 220 Jackson, MS 39205",
+    "note": "'The above address' is the letterhead at the top of the application: Office of the Mississippi Attorney General, Bureau Of Victim Assistance, Crime Victim Compensation Division, P.O. Box 220 Jackson, MS 39205."
+   },
+   "summary": "Fill out the paper application, attach itemized bills and other required documents, and mail it to the Crime Victim Compensation Division's post office box in Jackson.",
+   "quote": "Fill out the form completely (please print), attach any required documentation, including itemized bills, and mail to the above address.",
+   "source_id": "MS-S4",
+   "pinpoint": "Application (rev. 12.9.2025), Instructions"
+  },
+  {
+   "id": "MS-SUBMIT-FAX",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "601.576.4445",
+    "note": "The fax number on the application letterhead is printed as '601.576.4445 (Fax)'."
+   },
+   "summary": "The printed application can also be faxed to the program using the fax number on the form.",
+   "quote": "print the form found online and mail or fax it using the information on the form.",
+   "source_id": "MS-S3",
+   "pinpoint": "Victim Compensation brochure (2025), How to Apply"
+  },
+  {
+   "id": "MS-DOC-SIGNED",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Completed application signed by the victim or claimant (must be 18 or older to sign)."
+   },
+   "summary": "The application has to be filled out completely and signed.",
+   "quote": "Application must be completed and signed.",
+   "source_id": "MS-S4",
+   "pinpoint": "Application (rev. 12.9.2025), page 1"
+  },
+  {
+   "id": "MS-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized bills for each crime-related expense; medical bills should show date of service, type of service, codes and charge."
+   },
+   "summary": "Attach itemized bills and any other documentation for the expenses being claimed.",
+   "quote": "attach any required documentation, including itemized bills",
+   "source_id": "MS-S4",
+   "pinpoint": "Application (rev. 12.9.2025), Instructions"
+  },
+  {
+   "id": "MS-DOC-MEDSTMT",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Itemized medical statement with date of service, type of service, diagnostic code, treatment code and charge (only if claiming medical expenses)."
+   },
+   "summary": "For medical expenses, provide an itemized statement listing each service's date, type, diagnostic and treatment codes, and charge.",
+   "quote": "The victim/claimant shall provide an itemized statement indicating date of service, type of service, diagnostic code, treatment code and charge for each service, product or treatment.",
+   "source_id": "MS-S6",
+   "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 301(2)(a)"
+  },
+  {
+   "id": "MS-DOC-RECEIPTS",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Itemized receipts for medical supplies not prescribed by a doctor, such as over-the-counter medications and bandages."
+   },
+   "summary": "Over-the-counter medical supplies need an itemized receipt that shows the item.",
+   "quote": "costs are supported with an itemized receipt that clearly indicates the item",
+   "source_id": "MS-S6",
+   "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 301(5)"
+  },
+  {
+   "id": "MS-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Section F: every insurance or benefit source applied for, with each insurer's name, address and phone number."
+   },
+   "summary": "The insurance and other benefits section must be filled in, because the program pays only after every other source.",
+   "quote": "By law, the Crime Victim Compensation Division is payer of last resort and must verify all sources available for payment of expenses. This section must be completed.",
+   "source_id": "MS-S4",
+   "pinpoint": "Application (rev. 12.9.2025), Section F"
+  },
+  {
+   "id": "MS-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Report of earnings plus insurance and benefit information (only if claiming lost wages)."
+   },
+   "summary": "If claiming lost wages, provide a report of earnings and information on other benefit sources.",
+   "quote": "The victim and/or claimant shall provide report of earnings and collateral source information.",
+   "source_id": "MS-S6",
+   "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 303(4)(a)"
+  },
+  {
+   "id": "MS-DOC-TAXRETURN",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Latest federal income tax return, only if self-employed and claiming lost wages."
+   },
+   "summary": "A self-employed applicant claiming lost wages attaches a copy of their latest federal income tax return.",
+   "quote": "If you are self-employed, attach a copy of your latest federal income tax return.",
+   "source_id": "MS-S4",
+   "pinpoint": "Application (rev. 12.9.2025), Section D"
+  },
+  {
+   "id": "MS-DOC-DISABILITY",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Disability statement from the victim's doctor (MD or DO) stating how long the victim could not work, only if work loss is longer than one work week; an APRN may complete the Statement of Disability Report form instead."
+   },
+   "summary": "If work was missed for more than a week, include a disability statement from the victim's doctor giving how long the disability lasted.",
+   "quote": "If loss of work due to victim's physical injuries and/or psychological trauma is longer than one work week, the victim or claimant shall provide a disability statement from the victim's attending licensed medical doctor or doctor of osteopathy licensed to practice medicine",
+   "source_id": "MS-S6",
+   "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 303(4)(b)"
+  },
+  {
+   "id": "MS-DOC-COUNSELING",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Mental Health Services and Expenses Report form, completed by the counselor (only if claiming counseling)."
+   },
+   "summary": "For counseling costs, the counselor fills out the program's Mental Health Services and Expenses Report form.",
+   "quote": "The mental health provider shall provide a completed Mental Health Services and Expenses Report form",
+   "source_id": "MS-S6",
+   "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 302(3)(b)"
+  },
+  {
+   "id": "MS-DOC-TRAVEL",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Travel reimbursement request form plus a copy of the bill showing the office visit and travel date (only if claiming medical or counseling travel)."
+   },
+   "summary": "For medical or counseling travel, submit the program's travel reimbursement request form.",
+   "quote": "The victim/claimant shall submit a travel reimbursement request form as prescribed by the Division.",
+   "source_id": "MS-S6",
+   "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 301(7)(h)"
+  },
+  {
+   "id": "MS-PROCESS-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90
+   },
+   "summary": "The program says an eligibility decision is usually made within 90 days of receiving the application.",
+   "quote": "A decision about whether the victim or claimant is eligible is usually made within 90 days.",
+   "source_id": "MS-S2",
+   "pinpoint": "Victim Compensation FAQ, What Happens After I Mail in my Application?"
   }
  ],
  "coverage": {
@@ -733,7 +909,10 @@
    "expense_cap:security",
    "expense_cap:crime_scene_cleanup",
    "expense_cap:tuition",
-   "expense_cap:funeral"
+   "expense_cap:funeral",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss",
@@ -743,5 +922,5 @@
   "notes": "No minimum dollar loss appears in Miss. Code Ann. 99-41 sections read or in the administrative rules; the rules only say a claimant must show an economic loss. No source covers childcare or clothing/bedding replacement, and none expressly excludes them, so they are not found rather than excluded. Relocation and temporary housing are limited to domestic violence victims in imminent danger; the rules define domestic violence to include rape and sexual battery between current or former spouses or partners, dating partners, household or family members, so a survivor assaulted by a stranger or acquaintance would not qualify for those two benefits. The statute (99-41-23) and the 2025 program materials set no expense caps for relocation, housing, transportation, security or cleanup; those amounts come from the administrative rules."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from Justia's 2025 Mississippi Code because Mississippi does not host its own code; the 2025 brochure and Dec 2025 application match it. Conflict: the administrative rules (R. 104) still say a child sexual abuse claim must be filed by the child's twenty-first birthday, but the current text of Miss. Code Ann. 99-41-17(1)(b) (Justia 2025) says twenty-fifth, and the 2020 FAQ, 2025 brochure and Dec 2025 application all agree with the statute, so the statute is used. The administrative rules say they reflect legislation through the 2008 session, so they predate later statutory amendments; every rule-based cap used here (transportation $500, court travel $1,000, relocation $2,000, temporary housing $500, security repairs $1,000, cleanup $1,000) is repeated in the 2025 brochure and Dec 2025 application, except tuition ($2,000, also in the 2020 FAQ; the application lists tuition loss without an amount) and the advance award ($500, only in the rules). The forensic exam statute (99-37-25) says the survivor may still be billed for further medical services not needed for the investigation; those may be claimed through compensation if the claim is otherwise eligible (R. 301(9)). The exam payment rules say survivors covered by Medicaid, Medicare, Tricare, VA or CHIP are billed to that program first, and the provider may not pass any remaining balance to the survivor (R. 602(2), 604(6)). Exam payment caps per the rules: $350 medical personnel, $450 facility, $200 labs, within $1,000 per case. The exam payment does not require a police report, but a compensation claim does require a report within 72 hours or good cause. The 2020 FAQ (MS-S2) is older; its caps match the 2025 brochure except it lists tuition loss and execution travel, which the rules also cover. The phone 800-829-6766 is confirmed by the OVC state directory and the program pages; local number is 601-359-6766. Funeral cap ($6,500, 99-41-5(a)(iii)) added in review; funeral transportation ($800) is a separate limit in the same clause and is not encoded."
+ "researcher_notes": "Statute text is from Justia's 2025 Mississippi Code because Mississippi does not host its own code; the 2025 brochure and Dec 2025 application match it. Conflict: the administrative rules (R. 104) still say a child sexual abuse claim must be filed by the child's twenty-first birthday, but the current text of Miss. Code Ann. 99-41-17(1)(b) (Justia 2025) says twenty-fifth, and the 2020 FAQ, 2025 brochure and Dec 2025 application all agree with the statute, so the statute is used. The administrative rules say they reflect legislation through the 2008 session, so they predate later statutory amendments; every rule-based cap used here (transportation $500, court travel $1,000, relocation $2,000, temporary housing $500, security repairs $1,000, cleanup $1,000) is repeated in the 2025 brochure and Dec 2025 application, except tuition ($2,000, also in the 2020 FAQ; the application lists tuition loss without an amount) and the advance award ($500, only in the rules). The forensic exam statute (99-37-25) says the survivor may still be billed for further medical services not needed for the investigation; those may be claimed through compensation if the claim is otherwise eligible (R. 301(9)). The exam payment rules say survivors covered by Medicaid, Medicare, Tricare, VA or CHIP are billed to that program first, and the provider may not pass any remaining balance to the survivor (R. 602(2), 604(6)). Exam payment caps per the rules: $350 medical personnel, $450 facility, $200 labs, within $1,000 per case. The exam payment does not require a police report, but a compensation claim does require a report within 72 hours or good cause. The 2020 FAQ (MS-S2) is older; its caps match the 2025 brochure except it lists tuition loss and execution travel, which the rules also cover. The phone 800-829-6766 is confirmed by the OVC state directory and the program pages; local number is 601-359-6766. Funeral cap ($6,500, 99-41-5(a)(iii)) added in review; funeral transportation ($800) is a separate limit in the same clause and is not encoded. How to file: the program page (MS-S1) links an online application on the AG portal (portal.ago.ms.gov, which blocked automated saving, so the target URL comes from the link on MS-S1); the Dec 2025 paper application (MS-S4) says to mail it to the letterhead address, P.O. Box 220 Jackson, MS 39205, and the 2025 brochure (MS-S3) says it can be mailed or faxed using the form's details (fax 601.576.4445). The brochure also says notarization is no longer necessary. The victimassistance@ago.ms.gov email is for questions, not for filing, so no email submission rule. The application PDF has no AcroForm fields (field_count 0), so it must be printed and filled by hand. No police report copy is required from the applicant: the form asks for the law enforcement agency and police incident report number, and the FAQ says the office requests the full offense report from law enforcement. Documents only for deceased victims (itemized funeral and burial expenses, tax return and proof of dependency) are not encoded. The 90-day decision time is from the 2020 FAQ (MS-S2); no newer source states a processing time."
 }

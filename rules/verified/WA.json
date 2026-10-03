@@ -9,7 +9,12 @@
   "application_pdf_url": "https://lni.wa.gov/forms-publications/F800-042-000.pdf",
   "phone": "800-762-3716",
   "phone_source_id": "WA-S14",
-  "statute_citation": "Chapter 7.68 RCW (RCW 7.68.170 for exam costs); chapter 296-30 WAC"
+  "statute_citation": "Chapter 7.68 RCW (RCW 7.68.170 for exam costs); chapter 296-30 WAC",
+  "application_form": {
+   "source_id": "WA-S15",
+   "fillable": true,
+   "field_count": 112
+  }
  },
  "sources": [
   {
@@ -776,6 +781,156 @@
    "source_id": "WA-S5",
    "pinpoint": "RCW 7.68.170",
    "fragment_url": "https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.170#:~:text=whether%20such%20assault%20occurred%20in,outside%20the%20state%20of%20Washington"
+  },
+  {
+   "id": "WA-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "CrimeVictimsProgramM@Lni.wa.gov"
+   },
+   "summary": "The completed PDF application can be emailed as an attachment to CrimeVictimsProgramM@Lni.wa.gov.",
+   "quote": "Upon completion, the PDF form can be emailed as an attachment to CrimeVictimsProgramM@Lni.wa.gov or faxed to 360-902-5333.",
+   "source_id": "WA-S14",
+   "pinpoint": "L&I Apply for Crime Victim Benefits page, filing instructions",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits#:~:text=Upon%20completion%2C%20the%20PDF%20form,CrimeVictimsProgramM%40Lni.wa.gov%20or%20faxed%20to%20360%2D902%2D5333."
+  },
+  {
+   "id": "WA-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "360-902-5333"
+   },
+   "summary": "The completed application can be faxed to 360-902-5333.",
+   "quote": "This form may be directly faxed to 360-902-5333 or emailed to CrimeVictimsProgramM@Lni.wa.gov .",
+   "source_id": "WA-S14",
+   "pinpoint": "L&I Apply for Crime Victim Benefits page, Application for Benefits (F800-042-000)",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits#:~:text=This%20form%20may%20be%20directly,or%20emailed%20to%20CrimeVictimsProgramM%40Lni.wa.gov%20."
+  },
+  {
+   "id": "WA-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victims Compensation Program PO Box 44520 Olympia WA 98504-4520"
+   },
+   "summary": "A printed application can be mailed to the Crime Victims Compensation Program, PO Box 44520, Olympia WA 98504-4520 (the address printed on the form; the L&I page says printed applications can be sent by mail or fax).",
+   "quote": "Crime Victims Compensation Program PO Box 44520 Olympia WA 98504-4520",
+   "source_id": "WA-S15",
+   "pinpoint": "F800-042-000, page 1 header"
+  },
+  {
+   "id": "WA-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "the application, signed and dated"
+   },
+   "summary": "Sign and date the application; incomplete information can delay the decision.",
+   "quote": "Be sure to sign and date the form. Incomplete information could delay the decision on your claim.",
+   "source_id": "WA-S14",
+   "pinpoint": "L&I Apply for Crime Victim Benefits page, Note under the application form",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits#:~:text=Be%20sure%20to%20sign%20and,the%20decision%20on%20your%20claim."
+  },
+  {
+   "id": "WA-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed Authorization to Release Confidential Information (page 5 of the application)"
+   },
+   "summary": "The victim or legal guardian must sign the authorization to release information for it to be valid.",
+   "quote": "NOTE: The victim or legal guardian must sign this form to be valid",
+   "source_id": "WA-S15",
+   "pinpoint": "F800-042-000, Authorization to Release Confidential Information"
+  },
+  {
+   "id": "WA-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "police_report"
+   },
+   "summary": "The program treats the police report as supporting documentation to send in with the claim number on each page.",
+   "quote": "How do I send supporting documentation such as the police report and medical reports?",
+   "source_id": "WA-S14",
+   "pinpoint": "L&I Apply for Crime Victim Benefits page, Questions crime victim applicants have",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits#:~:text=How%20do%20I%20send%20supporting,police%20report%20and%20medical%20reports%3F"
+  },
+  {
+   "id": "WA-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "medical reports"
+   },
+   "summary": "Medical reports are supporting documentation the program expects, sent with the claim number on each page.",
+   "quote": "How do I send supporting documentation such as the police report and medical reports?",
+   "source_id": "WA-S14",
+   "pinpoint": "L&I Apply for Crime Victim Benefits page, Questions crime victim applicants have",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits#:~:text=How%20do%20I%20send%20supporting,police%20report%20and%20medical%20reports%3F"
+  },
+  {
+   "id": "WA-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "provider section of the application completed by the treating medical professional, if already seen"
+   },
+   "summary": "If the survivor has already seen a medical or other provider, that provider completes the Provider Information section of the form.",
+   "quote": "If you have already seen a medical or other provider, or are completing this form in a medical office or hospital, please ask the medical professional seeing you to complete the section below.",
+   "source_id": "WA-S15",
+   "pinpoint": "F800-042-000, Provider Information"
+  },
+  {
+   "id": "WA-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "insurance company, policyholder, and policy ID for every available coverage"
+   },
+   "summary": "List every available insurance coverage on the form, since the program pays only after insurance.",
+   "quote": "Please list all available coverage to include: health insurance, dental insurance, vision insurance, HCA/Medicaid, Veteran, Social Security, DSHS/public assistance, workers' compensation, Indian Health, automobile insurance (victim and offender), motorcycle insurance, life insurance, home insurance, renter's insurance.",
+   "source_id": "WA-S15",
+   "pinpoint": "F800-042-000, Insurance Information"
+  },
+  {
+   "id": "WA-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "guardianship documentation, if a legal guardian applies for a minor"
+   },
+   "summary": "A legal guardian applying for a minor sends a copy of the guardianship documentation.",
+   "quote": "If you are the legal guardian, please send the Crime Victims Compensation Program a copy of the guardianship documentation.",
+   "source_id": "WA-S15",
+   "pinpoint": "F800-042-000, Authorization to Release Confidential Information"
+  },
+  {
+   "id": "WA-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "employer name, contact, address, rate of pay, and dates worked on the form; the program may contact the employer"
+   },
+   "summary": "Survivors applying for wage loss fill in the employer section, and the program may contact the employer.",
+   "quote": "If yes and you are requesting wage replacement benefits, provide the following employer information",
+   "source_id": "WA-S15",
+   "pinpoint": "F800-042-000, Wage Information"
+  },
+  {
+   "id": "WA-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 18,
+    "min_days": 15,
+    "basis": "most cases"
+   },
+   "summary": "The program says applicants hear about receipt within 5-7 days and, in most cases, about the outcome within 15-18 days.",
+   "quote": "You will hear from us within 5-7 days regarding receipt of your application and in most cases within 15-18 days regarding the outcome of your application.",
+   "source_id": "WA-S14",
+   "pinpoint": "L&I Apply for Crime Victim Benefits page, after the filing instructions",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits#:~:text=You%20will%20hear%20from%20us,the%20outcome%20of%20your%20application."
   }
  ],
  "coverage": {
@@ -791,7 +946,10 @@
    "filing_deadline",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "emergency_award",
@@ -805,5 +963,5 @@
   "notes": "No emergency or advance award, minimum loss, relocation, or security benefit was found in chapter 7.68 RCW, chapter 296-30 WAC, or the L&I program pages that were saved. For compensation claims the crime must be reported to law enforcement within 12 months (RCW 7.68.060(1)(b)); no sexual-assault alternative to a police report was found for compensation claims. The police report is not required for the sexual assault exam itself, which the program pays for directly (RCW 7.68.170, WAC 296-30-170). Mental health sessions beyond the first six need prior authorization per the Mental Health Fee Schedule (F800-105-000); that is an authorization step, not a dollar cap, so it is not encoded as a rule. Reviewer changes (Oct 3): the $40,000 limit in RCW 7.68.070(1) applies to all non-medical benefits, so it is encoded as an expense_cap (expense \"other\") instead of a second total_cap; the only total_cap is the L&I per-claim maximum of $190,000. The 60 percent wage rule is a covered_expense note, not a dollar cap. Exam payment does not apply when the victim was confined in a jail or institution at the time of the assault (F800-100-000). HIV PEP (up to a 28-day supply from a WA hospital ED) is covered. Minor victims of sex trafficking or commercial sexual abuse of a minor may apply at any time (RCW 7.68.060(6)(b))."
  },
  "confidence": "high",
- "researcher_notes": "Federal OVC directory lists the WA compensation program as the Department of Labor & Industries, phone 800-762-3716, website lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits. The L&I apply page said on Oct 3, 2026 that the online application portal was down and to email or fax the PDF form. Cap structure: RCW 7.68.070(1) caps non-medical benefits at $40,000 per injury, and RCW 7.68.085 separately caps medical benefits at $150,000; the L&I page states the combined per-claim maximum as $190,000 and groups medical and mental health under the $150,000. The burial cap in statute ($6,170) is inflation-adjusted every three years and the L&I page shows $7,990; funeral is not encoded. The minor filing rule (within two years of the 18th birthday) comes from the L&I page; it was not found in the text of RCW 7.68.060, which instead has a discovery rule for adult victims of childhood crimes. Exam insurance billing is marked unspecified: RCW 7.68.170 bars billing or charging the victim directly or indirectly and WAC 296-30-170 makes the program the primary payer, and the L&I page says patients are not required to use their own insurance, but no source expressly says whether a provider may bill the survivor's insurer. RCW 7.68.060(2)(a) consent/provocation/incitement is a full eligibility bar, not a reduction; it is recorded as conduct_reduction for information only. RCW 7.68.080 has a version effective until June 30, 2027 and one effective June 30, 2027; the quoted subsections read the same in both. Reviewer: RCW 7.68.060(1)(a) also says the 3-year clock runs from the report date; the L&I minors rule (two years after the 18th birthday) is not in RCW 7.68.060 and may come from a rule or policy that was not saved, so treat it as agency guidance. The exam billing manual (F800-100-000) calls the program the primary payer for the initial exam and covers prophylaxis, emergency contraception, hepatitis B immune globulin, tetanus vaccine, and up to 28 days of HIV medication with the exam; treatment of injuries needs a compensation application."
+ "researcher_notes": "Federal OVC directory lists the WA compensation program as the Department of Labor & Industries, phone 800-762-3716, website lni.wa.gov/claims/crime-victim-claims/apply-for-crime-victim-benefits. The L&I apply page said on Oct 3, 2026 that the online application portal was down and to email or fax the PDF form. Cap structure: RCW 7.68.070(1) caps non-medical benefits at $40,000 per injury, and RCW 7.68.085 separately caps medical benefits at $150,000; the L&I page states the combined per-claim maximum as $190,000 and groups medical and mental health under the $150,000. The burial cap in statute ($6,170) is inflation-adjusted every three years and the L&I page shows $7,990; funeral is not encoded. The minor filing rule (within two years of the 18th birthday) comes from the L&I page; it was not found in the text of RCW 7.68.060, which instead has a discovery rule for adult victims of childhood crimes. Exam insurance billing is marked unspecified: RCW 7.68.170 bars billing or charging the victim directly or indirectly and WAC 296-30-170 makes the program the primary payer, and the L&I page says patients are not required to use their own insurance, but no source expressly says whether a provider may bill the survivor's insurer. RCW 7.68.060(2)(a) consent/provocation/incitement is a full eligibility bar, not a reduction; it is recorded as conduct_reduction for information only. RCW 7.68.080 has a version effective until June 30, 2027 and one effective June 30, 2027; the quoted subsections read the same in both. Reviewer: RCW 7.68.060(1)(a) also says the 3-year clock runs from the report date; the L&I minors rule (two years after the 18th birthday) is not in RCW 7.68.060 and may come from a rule or policy that was not saved, so treat it as agency guidance. The exam billing manual (F800-100-000) calls the program the primary payer for the initial exam and covers prophylaxis, emergency contraception, hepatitis B immune globulin, tetanus vaccine, and up to 28 days of HIV medication with the exam; treatment of injuries needs a compensation application. How-to-file (Oct 3): the injury application F800-042-000 (07-2017, saved as WA-S15) is the current version linked from the L&I apply and forms pages; it has 112 AcroForm fields over 5 pages. The apply page says the online portal is down for repair, so no online submission rule is encoded; the page says to email or fax the PDF instead, and its FAQ says printed applications can go by mail or fax. The mail rule uses the PO Box printed on the form. The police report and medical reports come from the FAQ about sending supporting documentation (write the claim number on each page); no source lists a full checklist of attachments."
 }

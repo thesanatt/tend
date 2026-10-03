@@ -1,560 +1,665 @@
 {
-  "jurisdiction": "ME",
-  "name": "Maine",
-  "program": {
-    "program_name": "Maine Crime Victims' Compensation Program",
-    "agency": "Office of the Maine Attorney General, Victims' Compensation Board",
-    "website": "https://www.maine.gov/ag/crime-victims/victims-compensation",
-    "apply_url": "https://mainevcp.heart4victims.org/",
-    "application_pdf_url": null,
-    "phone": "207-624-7882",
-    "phone_source_id": "ME-S5",
-    "statute_citation": "5 M.R.S. 3360 to 3360-M (Title 5, chapter 316-A)"
+ "jurisdiction": "ME",
+ "name": "Maine",
+ "program": {
+  "program_name": "Maine Crime Victims' Compensation Program",
+  "agency": "Office of the Maine Attorney General, Victims' Compensation Board",
+  "website": "https://www.maine.gov/ag/crime-victims/victims-compensation",
+  "apply_url": "https://mainevcp.heart4victims.org/",
+  "application_pdf_url": null,
+  "phone": "207-624-7882",
+  "phone_source_id": "ME-S5",
+  "statute_citation": "5 M.R.S. 3360 to 3360-M (Title 5, chapter 316-A)",
+  "application_form": {
+   "source_id": null,
+   "fillable": false,
+   "field_count": 0
+  }
+ },
+ "sources": [
+  {
+   "id": "ME-S1",
+   "title": "Maine AG: Victims' Compensation",
+   "url": "https://www.maine.gov/ag/crime-victims/victims-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:32Z",
+   "raw_path": "rules/sources/ME/ME-S1.html",
+   "text_path": "rules/sources/ME/ME-S1.txt",
+   "sha256": "16ecd7100bf1835c95616566ea9030733e645907f03fb5381686f17feb2ededb"
   },
-  "sources": [
-    {
-      "id": "ME-S1",
-      "title": "Maine AG: Victims' Compensation",
-      "url": "https://www.maine.gov/ag/crime-victims/victims-compensation",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:32Z",
-      "raw_path": "rules/sources/ME/ME-S1.html",
-      "text_path": "rules/sources/ME/ME-S1.txt",
-      "sha256": "16ecd7100bf1835c95616566ea9030733e645907f03fb5381686f17feb2ededb"
-    },
-    {
-      "id": "ME-S2",
-      "title": "Maine AG: Victims' Compensation Eligibility Checklist",
-      "url": "https://www.maine.gov/ag/crime-victims/victims-compensation/eligibility-checklist",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:33Z",
-      "raw_path": "rules/sources/ME/ME-S2.html",
-      "text_path": "rules/sources/ME/ME-S2.txt",
-      "sha256": "60dcbc95cb99ca912a222a1ef8509f967084bce68dbc4405d0ad95c16e8f56b5"
-    },
-    {
-      "id": "ME-S3",
-      "title": "Maine AG: Sexual Assault Forensic Examinations (SAFE)",
-      "url": "https://www.maine.gov/ag/crime-victims/sexual-assault-forensic-examinations-safe",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:33Z",
-      "raw_path": "rules/sources/ME/ME-S3.html",
-      "text_path": "rules/sources/ME/ME-S3.txt",
-      "sha256": "1fdb72baf091f69dbeaca6bcef5b210fa51ac042af2a1f12ff0d24c44d40e81c"
-    },
-    {
-      "id": "ME-S4",
-      "title": "Maine AG: Victims' Compensation Program Law and History",
-      "url": "https://www.maine.gov/ag/crime-victims/victims-compensation/program-law-and-history",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:34Z",
-      "raw_path": "rules/sources/ME/ME-S4.html",
-      "text_path": "rules/sources/ME/ME-S4.txt",
-      "sha256": "7ed6dae507768847b96a275f9c51660a5dc7450b6fa9c572db3158647bef56ec"
-    },
-    {
-      "id": "ME-S5",
-      "title": "Maine AG: Mental Health Counseling Guidelines",
-      "url": "https://www.maine.gov/ag/crime-victims/victims-compensation/mental-health-counseling-guidelines",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:34Z",
-      "raw_path": "rules/sources/ME/ME-S5.html",
-      "text_path": "rules/sources/ME/ME-S5.txt",
-      "sha256": "00463280ba200626b5a094ed82da763ff63049dd39541d07e391c6301dd45308"
-    },
-    {
-      "id": "ME-S6",
-      "title": "5 M.R.S. 3360 (Definitions)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:49Z",
-      "raw_path": "rules/sources/ME/ME-S6.html",
-      "text_path": "rules/sources/ME/ME-S6.txt",
-      "sha256": "938decdb41d6af1c68345910182a2fd69374a575232d17b490cf9a706a65952b"
-    },
-    {
-      "id": "ME-S7",
-      "title": "5 M.R.S. 3360-B (Award of compensation; eligibility)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-B.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:49Z",
-      "raw_path": "rules/sources/ME/ME-S7.html",
-      "text_path": "rules/sources/ME/ME-S7.txt",
-      "sha256": "ee3c54d83cc2f917afb8eb9baef6e0e81dd6baa7c59befe3b2dac31830bcd0c0"
-    },
-    {
-      "id": "ME-S8",
-      "title": "5 M.R.S. 3360-C (Requirements and exclusions)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-C.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:50Z",
-      "raw_path": "rules/sources/ME/ME-S8.html",
-      "text_path": "rules/sources/ME/ME-S8.txt",
-      "sha256": "babfce3e9c2eb8d9baf733fea63d662263336ebb61e82ecd946e7e46003a45ed"
-    },
-    {
-      "id": "ME-S9",
-      "title": "5 M.R.S. 3360-D (Claims)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-D.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:50Z",
-      "raw_path": "rules/sources/ME/ME-S9.html",
-      "text_path": "rules/sources/ME/ME-S9.txt",
-      "sha256": "bd603ca3a0e990260ec1859733e210128dbf0072723124e42fd94780171d1c33"
-    },
-    {
-      "id": "ME-S10",
-      "title": "5 M.R.S. 3360-F (Determination of award)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-F.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:50Z",
-      "raw_path": "rules/sources/ME/ME-S10.html",
-      "text_path": "rules/sources/ME/ME-S10.txt",
-      "sha256": "9c0b8b9590631150547256c0b5777a41a7b11711f68bba48c9b436dbff6dc070"
-    },
-    {
-      "id": "ME-S11",
-      "title": "5 M.R.S. 3360-M (Payment for forensic examinations for victims of sexual assault)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-M.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:50Z",
-      "raw_path": "rules/sources/ME/ME-S11.html",
-      "text_path": "rules/sources/ME/ME-S11.txt",
-      "sha256": "bd39762a6d84bcb3860912295d06d962d2ae98de4c55bb6bbd32433ff9cb847b"
-    },
-    {
-      "id": "ME-S12",
-      "title": "5 M.R.S. 3360-E (Payment of awards; limits)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-E-2.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:46Z",
-      "raw_path": "rules/sources/ME/ME-S12.html",
-      "text_path": "rules/sources/ME/ME-S12.txt",
-      "sha256": "7c8be6f3ef5949f208ba9eae0f3c31d7e88135afcdc8dfb67cf66e9455ddb959"
-    },
-    {
-      "id": "ME-S13",
-      "title": "5 M.R.S. 3360-S (Victims' Property Compensation Fund)",
-      "url": "https://legislature.maine.gov/statutes/5/title5sec3360-S.html",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:49:55Z",
-      "raw_path": "rules/sources/ME/ME-S13.html",
-      "text_path": "rules/sources/ME/ME-S13.txt",
-      "sha256": "b44dba82527f339006b6191558569c21e56468235f029607f472ef720964599b"
-    }
-  ],
-  "rules": [
-    {
-      "id": "ME-EXAM-1",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "prohibited"
-      },
-      "summary": "The hospital or provider that does a sexual assault forensic exam may not bill the survivor or the survivor's insurer for the exam.",
-      "quote": "The hospital or health care practitioner that performs the examination may not bill the victim or the victim's insurer, nonprofit hospital or medical service organization or health maintenance organization for payment of the examination.",
-      "source_id": "ME-S11",
-      "pinpoint": "5 M.R.S. 3360-M(3)"
-    },
-    {
-      "id": "ME-EXAM-2",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Victims' Compensation Board, from the Victims' Compensation Fund",
-        "amount_cents": 75000
-      },
-      "summary": "The Victims' Compensation Board pays the provider directly from the Victims' Compensation Fund for the forensic exam, up to $750. The exam includes evidence collection and related testing and treatment for pregnancy and sexually transmitted diseases.",
-      "quote": "An examination must include at least all services directly related to the gathering of forensic evidence and related testing and treatment for pregnancy and sexually transmitted diseases.  The board shall pay a licensed hospital or licensed health care practitioner the actual cost of the forensic examination up to a maximum of $750.",
-      "source_id": "ME-S11",
-      "pinpoint": "5 M.R.S. 3360-M(2)"
-    },
-    {
-      "id": "ME-EXAM-3",
-      "category": "reporting_requirement",
-      "expense": "forensic_exam",
-      "params": {
-        "required": false,
-        "alternatives": []
-      },
-      "summary": "The survivor does not have to report the assault to law enforcement to get the forensic exam paid for. This applies to the exam payment only; a regular compensation claim still needs a report.",
-      "quote": "The victim is not required to report the offense to a law enforcement agency.",
-      "source_id": "ME-S11",
-      "pinpoint": "5 M.R.S. 3360-M(3)"
-    },
-    {
-      "id": "ME-EXAM-4",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "prohibited"
-      },
-      "summary": "The hospital may not bill the survivor or their insurer for the exam or balance-bill anything over the $750 the program pays. Charges unrelated to the exam, such as x-rays, can still be billed to the survivor or their insurer.",
-      "quote": "The hospital may not bill you or your insurer for the sexual assault examination nor for any balance over the $750. This bill will be paid even if you do not report the assault to law enforcement. However: The hospital is allowed to bill you or your insurer for charges unrelated to the sexual assault examination, for x-rays for example.",
-      "source_id": "ME-S3",
-      "pinpoint": "Maine AG SAFE page, Notice to sexual assault victims"
-    },
-    {
-      "id": "ME-EXAM-5",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Victims' Compensation Board, only when a sexual assault evidence collection kit is used"
-      },
-      "summary": "Direct billing to the Victims' Compensation Board applies only when the exam is done with a sexual assault forensic examination kit. If no kit is used, the provider bills the usual way.",
-      "quote": "This direct billing and payment process is to be used only when a forensic examination is performed using a sexual assault forensic examination kit. If a kit is not used, use your customary billing procedures.",
-      "source_id": "ME-S3",
-      "pinpoint": "Maine AG SAFE page, Notice to healthcare providers performing SAFE"
-    },
-    {
-      "id": "ME-CAP-1",
-      "category": "total_cap",
-      "params": {
-        "amount_cents": 1500000
-      },
-      "summary": "The maximum award is $15,000 for actual, unreimbursed losses and eligible expenses.",
-      "quote": "The board may award compensation to a claimant of up to $15,000 for actual and unreimbursed losses and eligible expenses of any person who is sexually assaulted",
-      "source_id": "ME-S12",
-      "pinpoint": "5 M.R.S. 3360-E(1)"
-    },
-    {
-      "id": "ME-CAP-2",
-      "category": "total_cap",
-      "params": {
-        "amount_cents": 1500000
-      },
-      "summary": "The $15,000 limit covers all claims from one crime combined, including family members' claims.",
-      "quote": "The total compensation paid from the fund for all claims arising from the crime against the victim may not exceed $15,000.",
-      "source_id": "ME-S12",
-      "pinpoint": "5 M.R.S. 3360-E(3)"
-    },
-    {
-      "id": "ME-MED-1",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {},
-      "summary": "Medical costs, including equipment, supplies and medications, are covered, usually limited to 75% of actual charges.",
-      "quote": "Medical (including equipment, supplies and medications) limited to 75% of actual charges in most cases",
-      "source_id": "ME-S1",
-      "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
-    },
-    {
-      "id": "ME-DENT-1",
-      "category": "covered_expense",
-      "expense": "dental",
-      "params": {},
-      "summary": "Dental charges and denture replacement are covered.",
-      "quote": "Dental charges and replacement of dentures",
-      "source_id": "ME-S1",
-      "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
-    },
-    {
-      "id": "ME-COUNS-1",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {},
-      "summary": "Psychological or mental health counseling expenses are eligible.",
-      "quote": "psychological or mental health counseling expenses",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-COUNS-2",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {},
-      "summary": "Family or household members of a sexual assault victim can also get unreimbursed mental health treatment related to the crime covered.",
-      "quote": "a family or household member of a sexual assault victim for unreimbursed mental health treatment expenses directly related to the crime",
-      "source_id": "ME-S7",
-      "pinpoint": "5 M.R.S. 3360-B(3)"
-    },
-    {
-      "id": "ME-WAGE-1",
-      "category": "covered_expense",
-      "expense": "lost_wages",
-      "params": {},
-      "summary": "Lost wages are an eligible loss.",
-      "quote": "lost wages",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-WAGE-2",
-      "category": "covered_expense",
-      "expense": "lost_wages",
-      "params": {},
-      "summary": "Lost income is covered for victims, with limited coverage when caring for dependents is necessary.",
-      "quote": "Lost income (for victims and limited coverage when care of dependents is necessary)",
-      "source_id": "ME-S1",
-      "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
-    },
-    {
-      "id": "ME-TRANS-1",
-      "category": "covered_expense",
-      "expense": "transportation",
-      "params": {},
-      "summary": "Travel expenses are listed only for a claimant or family member providing or obtaining care for a minor or incapacitated victim.",
-      "quote": "travel expenses and loss of income of a claimant or family member for providing or obtaining care for the personal injury of a minor or incapacitated victim",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-SEC-1",
-      "category": "covered_expense",
-      "expense": "security",
-      "params": {},
-      "summary": "Costs to repair, replace or install locks or security devices are eligible.",
-      "quote": "costs to repair, replace or install locks or security devices",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-RELO-1",
-      "category": "covered_expense",
-      "expense": "relocation",
-      "params": {},
-      "summary": "Relocation expenses are eligible.",
-      "quote": "costs of crime scene cleanup and relocation expenses",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-CLEAN-1",
-      "category": "covered_expense",
-      "expense": "crime_scene_cleanup",
-      "params": {},
-      "summary": "Crime scene cleanup costs are eligible.",
-      "quote": "costs of crime scene cleanup and relocation expenses",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-PROS-1",
-      "category": "covered_expense",
-      "expense": "other",
-      "params": {},
-      "summary": "Eyeglasses, hearing aids, dentures or other prosthetic devices taken, lost, destroyed or damaged in the crime are eligible.",
-      "quote": "costs of eyeglasses, hearing aids, dentures or other prosthetic devices taken, lost, destroyed or damaged as a result of the crime",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(4)"
-    },
-    {
-      "id": "ME-FUN-1",
-      "category": "expense_cap",
-      "expense": "funeral",
-      "params": {
-        "expense": "funeral",
-        "amount_cents": 450000,
-        "per": "claim"
-      },
-      "summary": "Funeral and burial costs are covered up to $4,500, plus up to $500 for a marker.",
-      "quote": "Funeral/ burial costs up to $4,500, costs of a marker up to $500",
-      "source_id": "ME-S1",
-      "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
-    },
-    {
-      "id": "ME-EXCL-1",
-      "category": "excluded_expense",
-      "expense": "property_replacement",
-      "params": {
-        "item": "property losses, pain and suffering, and other losses not medically related"
-      },
-      "summary": "The program does not cover property losses (a stolen or broken phone, for example), pain and suffering, or other losses that are not medically related.",
-      "quote": "Expenses NOT covered: property losses, compensation for pain and suffering, and other losses not medically related.",
-      "source_id": "ME-S1",
-      "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
-    },
-    {
-      "id": "ME-EXCL-2",
-      "category": "excluded_expense",
-      "expense": "property_replacement",
-      "params": {
-        "item": "property losses other than eyeglasses, dentures, prosthetic devices and some crime scene cleanup"
-      },
-      "summary": "Property losses are not covered, except replacement of eyeglasses, dentures and other prosthetic devices and some crime scene cleanup costs.",
-      "quote": "No property losses are covered other than replacement costs of eyeglasses, dentures and other prosthetic devices and some costs of crime scene cleanup.",
-      "source_id": "ME-S4",
-      "pinpoint": "Maine AG Program Law and History, What Is an Eligible Expense?"
-    },
-    {
-      "id": "ME-DEAD-1",
-      "category": "filing_deadline",
-      "params": {
-        "years": 3,
-        "from": "crime",
-        "extension": "or 60 days from discovery if later; board may waive for good cause and must waive for child victims"
-      },
-      "summary": "The claim must be filed within 3 years of the injury or loss, or within 60 days of discovering it, whichever is later.",
-      "quote": "B. The claim was filed with the board within 3 years of the occurrence of the injury or compensable loss, or within 60 days of the discovery of injury or compensable loss, whichever is later.",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(1)(B)"
-    },
-    {
-      "id": "ME-DEAD-2",
-      "category": "filing_deadline",
-      "params": {
-        "days": 60,
-        "from": "discovery"
-      },
-      "summary": "If the injury or loss is discovered later, the claim can be filed within 60 days of discovery when that is later than 3 years.",
-      "quote": "B. The claim was filed with the board within 3 years of the occurrence of the injury or compensable loss, or within 60 days of the discovery of injury or compensable loss, whichever is later.",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(1)(B)"
-    },
-    {
-      "id": "ME-DEAD-3",
-      "category": "filing_deadline",
-      "params": {
-        "extension": "good cause; mandatory for child victims"
-      },
-      "summary": "The board may waive the filing and police-report time limits for good cause, and must waive them on behalf of a child.",
-      "quote": "The board may waive the time requirements of subsection 1 for good cause shown and shall waive the time requirements on behalf of a child",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(3)"
-    },
-    {
-      "id": "ME-REP-1",
-      "category": "reporting_requirement",
-      "params": {
-        "required": true,
-        "within_days": 5,
-        "alternatives": []
-      },
-      "summary": "For a compensation claim, the crime must be reported to law enforcement within 5 days of the crime, its discovery, or the resulting injury. The board can waive the time limit for good cause and must waive it for a child.",
-      "quote": "A. The crime was reported to a law enforcement officer within 5 days of the occurrence or discovery of the crime or of the resultant injury",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(1)(A)"
-    },
-    {
-      "id": "ME-REP-2",
-      "category": "reporting_requirement",
-      "params": {
-        "required": true,
-        "alternatives": [
-          "other"
-        ]
-      },
-      "summary": "For current or former Maine National Guard members, an unrestricted sexual assault report to the Guard counts as a report to law enforcement.",
-      "quote": "an unrestricted report of sexual assault made to the Maine National Guard by a current or former member of the Maine National Guard is a crime reported to a law enforcement officer",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(1)"
-    },
-    {
-      "id": "ME-REP-3",
-      "category": "reporting_requirement",
-      "params": {
-        "required": true,
-        "alternatives": []
-      },
-      "summary": "The free forensic exam does not require a police report, but a regular compensation claim for other costs does.",
-      "quote": "If you need help with these expenses, you may file a Victims' Compensation Application, but, in that case, you will need to report the crime to law enforcement and other requirements of the Victims' Compensation Program will apply.",
-      "source_id": "ME-S3",
-      "pinpoint": "Maine AG SAFE page, Notice to sexual assault victims"
-    },
-    {
-      "id": "ME-COLL-1",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "Insurance, other coverage, free care or sliding-scale eligibility must be used first; the program pays after that.",
-      "quote": "If a victim has insurance and other coverage or eligibility for free care or a sliding scale, that must be applied to an expense or loss before Victims' Compensation pays",
-      "source_id": "ME-S1",
-      "pinpoint": "Maine AG Victims' Compensation page, What Are the Requirements?"
-    },
-    {
-      "id": "ME-COND-1",
-      "category": "conduct_reduction",
-      "params": {},
-      "summary": "Compensation may not be paid to someone whose own violation of a criminal law caused or contributed to the injury (information only).",
-      "quote": "B. To or on behalf of any person who violated a criminal law that caused or contributed to the injury or death for which compensation is sought",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(2)(B)"
-    },
-    {
-      "id": "ME-COND-2",
-      "category": "conduct_reduction",
-      "params": {},
-      "summary": "Compensation may not be paid to a claimant who does not fully cooperate with the board or with reasonable requests of law enforcement or prosecutors (information only).",
-      "quote": "A. To any claimant who does not fully cooperate with the board or with the reasonable requests of law enforcement officers or prosecution authorities",
-      "source_id": "ME-S8",
-      "pinpoint": "5 M.R.S. 3360-C(2)(A)"
-    },
-    {
-      "id": "ME-CRIME-1",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "Sexual assault in Maine is a covered crime, whether or not there was bodily injury or a threat of it.",
-      "quote": "B. Has been sexually assaulted within this State in violation of Title 17‑A, chapter 11 without regard to whether bodily injury or the threat of bodily injury occurred",
-      "source_id": "ME-S7",
-      "pinpoint": "5 M.R.S. 3360-B(1)(B)"
-    },
-    {
-      "id": "ME-CRIME-2",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "Aggravated sex trafficking and sex trafficking are covered crimes.",
-      "quote": "J. Aggravated sex trafficking or sex trafficking as described in Title 17‑A, sections 852 and 853",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(3)(J)"
-    },
-    {
-      "id": "ME-CRIME-3",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "Sexual exploitation of a minor is a covered crime.",
-      "quote": "H. Sexual exploitation of a minor as described in Title 17‑A, chapter 12",
-      "source_id": "ME-S6",
-      "pinpoint": "5 M.R.S. 3360(3)(H)"
-    },
-    {
-      "id": "ME-RES-1",
-      "category": "residency",
-      "params": {
-        "rule": "crime committed in Maine"
-      },
-      "summary": "Victims of a covered crime committed in Maine can apply; the statute does not limit this to Maine residents.",
-      "quote": "A. Suffers personal injury as a direct result of a crime specified in section 3360 , committed within the jurisdiction of the State",
-      "source_id": "ME-S7",
-      "pinpoint": "5 M.R.S. 3360-B(1)(A)"
-    },
-    {
-      "id": "ME-RES-2",
-      "category": "residency",
-      "params": {
-        "rule": "Maine residents for out-of-state crimes only when that state has no program available to them"
-      },
-      "summary": "A Maine resident hurt in another state can apply here only if that state has no compensation program Maine residents can use.",
-      "quote": "(3) The crime occurred in another state, but only if the person is a resident of this State and the other state does not have a victim compensation program for which residents of this State are eligible",
-      "source_id": "ME-S7",
-      "pinpoint": "5 M.R.S. 3360-B(1)(C)(3)"
-    }
-  ],
-  "coverage": {
-    "found": [
-      "collateral_source",
-      "conduct_reduction",
-      "covered_expense",
-      "eligible_crime",
-      "exam_no_bill",
-      "exam_payment",
-      "excluded_expense",
-      "expense_cap",
-      "filing_deadline",
-      "reporting_requirement",
-      "residency",
-      "total_cap"
-    ],
-    "not_found": [
-      "minimum_loss",
-      "emergency_award",
-      "expense_cap for counseling",
-      "expense_cap for lost_wages",
-      "expense_cap for relocation",
-      "expense_cap for transportation",
-      "expense_cap for security",
-      "application_pdf_url"
-    ],
-    "notes": "No minimum loss, emergency award, or per-expense dollar caps for counseling, lost wages, relocation, transportation or security were found in the statute (5 M.R.S. ch. 316-A), the Board rules (26-550 ch. 3, 6, 8), or the AG program pages. The only per-expense limits found are funeral ($4,500 plus $500 marker), medical (usually 75% of charges), and the forensic exam payment. Applications are filed online through the AG's portal; no current downloadable application PDF was found on maine.gov."
+  {
+   "id": "ME-S2",
+   "title": "Maine AG: Victims' Compensation Eligibility Checklist",
+   "url": "https://www.maine.gov/ag/crime-victims/victims-compensation/eligibility-checklist",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:33Z",
+   "raw_path": "rules/sources/ME/ME-S2.html",
+   "text_path": "rules/sources/ME/ME-S2.txt",
+   "sha256": "60dcbc95cb99ca912a222a1ef8509f967084bce68dbc4405d0ad95c16e8f56b5"
   },
-  "confidence": "high",
-  "researcher_notes": "Statute text is from legislature.maine.gov (page says data extracted 10/23/2025, so it includes PL 2025 c. 109 and c. 171). Relocation was added to eligible expenses by PL 2025 c. 171. The AG's Program Law and History page (ME-S4) still mentions an older $500 forensic exam maximum; the statute (3360-M(2)) and the current SAFE page both say $750, so the rules use $750. The exam payment covers only the exam and related testing and treatment; the SAFE page says hospitals may bill the survivor or insurer for unrelated charges such as x-rays, which can then be claimed through a regular application (police report required). Board rule 26-550 ch. 8 (2000) also still says $500 and covers only gross sexual assault, while the statute now covers any Title 17-A chapter 11 crime; statute wins. Board rule 26-550 ch. 6 sets the 75% medical guideline and requires exhausting insurance first; the rule files are .doc and could not be saved with the fetch tool, so the 75% rule is quoted from the AG page instead. Toll-free victim line on ME-S5: 1-800-903-7882. Separate from this program, Maine has a Victims' Property Compensation Fund (5 M.R.S. 3360-S, saved as ME-S13) that can pay up to $1,000 for unreimbursed property losses from a crime occurring on or after Jan 1, 2022, with its own 5-day report and 3-year filing rules; it is not encoded as a rule here because the main program excludes property, but a survivor whose phone or belongings were taken or damaged may want to apply there. The 3-year filing clock runs from the injury or compensable loss, encoded as from=crime. Reviewer (Oct 3): ME-EXAM-3 recategorized from exam_payment to reporting_requirement (required=false, expense forensic_exam), matching how other states encode 'no report needed for the exam'. Added ME-EXAM-5 from the SAFE page: direct billing applies only when a sexual assault evidence kit is used; without a kit the provider bills normally, so the no-bill protection depends on a kit being used. ME-EXAM-4 quote extended to include that unrelated charges such as x-rays may be billed. The SAFE page's provider notice still says 'gross sexual assault', while 3360-M(1) now covers any Title 17-A chapter 11 crime; statute wins."
+  {
+   "id": "ME-S3",
+   "title": "Maine AG: Sexual Assault Forensic Examinations (SAFE)",
+   "url": "https://www.maine.gov/ag/crime-victims/sexual-assault-forensic-examinations-safe",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:33Z",
+   "raw_path": "rules/sources/ME/ME-S3.html",
+   "text_path": "rules/sources/ME/ME-S3.txt",
+   "sha256": "1fdb72baf091f69dbeaca6bcef5b210fa51ac042af2a1f12ff0d24c44d40e81c"
+  },
+  {
+   "id": "ME-S4",
+   "title": "Maine AG: Victims' Compensation Program Law and History",
+   "url": "https://www.maine.gov/ag/crime-victims/victims-compensation/program-law-and-history",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:34Z",
+   "raw_path": "rules/sources/ME/ME-S4.html",
+   "text_path": "rules/sources/ME/ME-S4.txt",
+   "sha256": "7ed6dae507768847b96a275f9c51660a5dc7450b6fa9c572db3158647bef56ec"
+  },
+  {
+   "id": "ME-S5",
+   "title": "Maine AG: Mental Health Counseling Guidelines",
+   "url": "https://www.maine.gov/ag/crime-victims/victims-compensation/mental-health-counseling-guidelines",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:34Z",
+   "raw_path": "rules/sources/ME/ME-S5.html",
+   "text_path": "rules/sources/ME/ME-S5.txt",
+   "sha256": "00463280ba200626b5a094ed82da763ff63049dd39541d07e391c6301dd45308"
+  },
+  {
+   "id": "ME-S6",
+   "title": "5 M.R.S. 3360 (Definitions)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:49Z",
+   "raw_path": "rules/sources/ME/ME-S6.html",
+   "text_path": "rules/sources/ME/ME-S6.txt",
+   "sha256": "938decdb41d6af1c68345910182a2fd69374a575232d17b490cf9a706a65952b"
+  },
+  {
+   "id": "ME-S7",
+   "title": "5 M.R.S. 3360-B (Award of compensation; eligibility)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-B.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:49Z",
+   "raw_path": "rules/sources/ME/ME-S7.html",
+   "text_path": "rules/sources/ME/ME-S7.txt",
+   "sha256": "ee3c54d83cc2f917afb8eb9baef6e0e81dd6baa7c59befe3b2dac31830bcd0c0"
+  },
+  {
+   "id": "ME-S8",
+   "title": "5 M.R.S. 3360-C (Requirements and exclusions)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-C.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:50Z",
+   "raw_path": "rules/sources/ME/ME-S8.html",
+   "text_path": "rules/sources/ME/ME-S8.txt",
+   "sha256": "babfce3e9c2eb8d9baf733fea63d662263336ebb61e82ecd946e7e46003a45ed"
+  },
+  {
+   "id": "ME-S9",
+   "title": "5 M.R.S. 3360-D (Claims)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-D.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:50Z",
+   "raw_path": "rules/sources/ME/ME-S9.html",
+   "text_path": "rules/sources/ME/ME-S9.txt",
+   "sha256": "bd603ca3a0e990260ec1859733e210128dbf0072723124e42fd94780171d1c33"
+  },
+  {
+   "id": "ME-S10",
+   "title": "5 M.R.S. 3360-F (Determination of award)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-F.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:50Z",
+   "raw_path": "rules/sources/ME/ME-S10.html",
+   "text_path": "rules/sources/ME/ME-S10.txt",
+   "sha256": "9c0b8b9590631150547256c0b5777a41a7b11711f68bba48c9b436dbff6dc070"
+  },
+  {
+   "id": "ME-S11",
+   "title": "5 M.R.S. 3360-M (Payment for forensic examinations for victims of sexual assault)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-M.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:50Z",
+   "raw_path": "rules/sources/ME/ME-S11.html",
+   "text_path": "rules/sources/ME/ME-S11.txt",
+   "sha256": "bd39762a6d84bcb3860912295d06d962d2ae98de4c55bb6bbd32433ff9cb847b"
+  },
+  {
+   "id": "ME-S12",
+   "title": "5 M.R.S. 3360-E (Payment of awards; limits)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-E-2.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:46Z",
+   "raw_path": "rules/sources/ME/ME-S12.html",
+   "text_path": "rules/sources/ME/ME-S12.txt",
+   "sha256": "7c8be6f3ef5949f208ba9eae0f3c31d7e88135afcdc8dfb67cf66e9455ddb959"
+  },
+  {
+   "id": "ME-S13",
+   "title": "5 M.R.S. 3360-S (Victims' Property Compensation Fund)",
+   "url": "https://legislature.maine.gov/statutes/5/title5sec3360-S.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:55Z",
+   "raw_path": "rules/sources/ME/ME-S13.html",
+   "text_path": "rules/sources/ME/ME-S13.txt",
+   "sha256": "b44dba82527f339006b6191558569c21e56468235f029607f472ef720964599b"
+  }
+ ],
+ "rules": [
+  {
+   "id": "ME-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "The hospital or provider that does a sexual assault forensic exam may not bill the survivor or the survivor's insurer for the exam.",
+   "quote": "The hospital or health care practitioner that performs the examination may not bill the victim or the victim's insurer, nonprofit hospital or medical service organization or health maintenance organization for payment of the examination.",
+   "source_id": "ME-S11",
+   "pinpoint": "5 M.R.S. 3360-M(3)"
+  },
+  {
+   "id": "ME-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims' Compensation Board, from the Victims' Compensation Fund",
+    "amount_cents": 75000
+   },
+   "summary": "The Victims' Compensation Board pays the provider directly from the Victims' Compensation Fund for the forensic exam, up to $750. The exam includes evidence collection and related testing and treatment for pregnancy and sexually transmitted diseases.",
+   "quote": "An examination must include at least all services directly related to the gathering of forensic evidence and related testing and treatment for pregnancy and sexually transmitted diseases.  The board shall pay a licensed hospital or licensed health care practitioner the actual cost of the forensic examination up to a maximum of $750.",
+   "source_id": "ME-S11",
+   "pinpoint": "5 M.R.S. 3360-M(2)"
+  },
+  {
+   "id": "ME-EXAM-3",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false,
+    "alternatives": []
+   },
+   "summary": "The survivor does not have to report the assault to law enforcement to get the forensic exam paid for. This applies to the exam payment only; a regular compensation claim still needs a report.",
+   "quote": "The victim is not required to report the offense to a law enforcement agency.",
+   "source_id": "ME-S11",
+   "pinpoint": "5 M.R.S. 3360-M(3)"
+  },
+  {
+   "id": "ME-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "The hospital may not bill the survivor or their insurer for the exam or balance-bill anything over the $750 the program pays. Charges unrelated to the exam, such as x-rays, can still be billed to the survivor or their insurer.",
+   "quote": "The hospital may not bill you or your insurer for the sexual assault examination nor for any balance over the $750. This bill will be paid even if you do not report the assault to law enforcement. However: The hospital is allowed to bill you or your insurer for charges unrelated to the sexual assault examination, for x-rays for example.",
+   "source_id": "ME-S3",
+   "pinpoint": "Maine AG SAFE page, Notice to sexual assault victims"
+  },
+  {
+   "id": "ME-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims' Compensation Board, only when a sexual assault evidence collection kit is used"
+   },
+   "summary": "Direct billing to the Victims' Compensation Board applies only when the exam is done with a sexual assault forensic examination kit. If no kit is used, the provider bills the usual way.",
+   "quote": "This direct billing and payment process is to be used only when a forensic examination is performed using a sexual assault forensic examination kit. If a kit is not used, use your customary billing procedures.",
+   "source_id": "ME-S3",
+   "pinpoint": "Maine AG SAFE page, Notice to healthcare providers performing SAFE"
+  },
+  {
+   "id": "ME-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1500000
+   },
+   "summary": "The maximum award is $15,000 for actual, unreimbursed losses and eligible expenses.",
+   "quote": "The board may award compensation to a claimant of up to $15,000 for actual and unreimbursed losses and eligible expenses of any person who is sexually assaulted",
+   "source_id": "ME-S12",
+   "pinpoint": "5 M.R.S. 3360-E(1)"
+  },
+  {
+   "id": "ME-CAP-2",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1500000
+   },
+   "summary": "The $15,000 limit covers all claims from one crime combined, including family members' claims.",
+   "quote": "The total compensation paid from the fund for all claims arising from the crime against the victim may not exceed $15,000.",
+   "source_id": "ME-S12",
+   "pinpoint": "5 M.R.S. 3360-E(3)"
+  },
+  {
+   "id": "ME-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {},
+   "summary": "Medical costs, including equipment, supplies and medications, are covered, usually limited to 75% of actual charges.",
+   "quote": "Medical (including equipment, supplies and medications) limited to 75% of actual charges in most cases",
+   "source_id": "ME-S1",
+   "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
+  },
+  {
+   "id": "ME-DENT-1",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {},
+   "summary": "Dental charges and denture replacement are covered.",
+   "quote": "Dental charges and replacement of dentures",
+   "source_id": "ME-S1",
+   "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
+  },
+  {
+   "id": "ME-COUNS-1",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {},
+   "summary": "Psychological or mental health counseling expenses are eligible.",
+   "quote": "psychological or mental health counseling expenses",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-COUNS-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {},
+   "summary": "Family or household members of a sexual assault victim can also get unreimbursed mental health treatment related to the crime covered.",
+   "quote": "a family or household member of a sexual assault victim for unreimbursed mental health treatment expenses directly related to the crime",
+   "source_id": "ME-S7",
+   "pinpoint": "5 M.R.S. 3360-B(3)"
+  },
+  {
+   "id": "ME-WAGE-1",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {},
+   "summary": "Lost wages are an eligible loss.",
+   "quote": "lost wages",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-WAGE-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {},
+   "summary": "Lost income is covered for victims, with limited coverage when caring for dependents is necessary.",
+   "quote": "Lost income (for victims and limited coverage when care of dependents is necessary)",
+   "source_id": "ME-S1",
+   "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
+  },
+  {
+   "id": "ME-TRANS-1",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {},
+   "summary": "Travel expenses are listed only for a claimant or family member providing or obtaining care for a minor or incapacitated victim.",
+   "quote": "travel expenses and loss of income of a claimant or family member for providing or obtaining care for the personal injury of a minor or incapacitated victim",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-SEC-1",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {},
+   "summary": "Costs to repair, replace or install locks or security devices are eligible.",
+   "quote": "costs to repair, replace or install locks or security devices",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-RELO-1",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {},
+   "summary": "Relocation expenses are eligible.",
+   "quote": "costs of crime scene cleanup and relocation expenses",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-CLEAN-1",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {},
+   "summary": "Crime scene cleanup costs are eligible.",
+   "quote": "costs of crime scene cleanup and relocation expenses",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-PROS-1",
+   "category": "covered_expense",
+   "expense": "other",
+   "params": {},
+   "summary": "Eyeglasses, hearing aids, dentures or other prosthetic devices taken, lost, destroyed or damaged in the crime are eligible.",
+   "quote": "costs of eyeglasses, hearing aids, dentures or other prosthetic devices taken, lost, destroyed or damaged as a result of the crime",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(4)"
+  },
+  {
+   "id": "ME-FUN-1",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 450000,
+    "per": "claim"
+   },
+   "summary": "Funeral and burial costs are covered up to $4,500, plus up to $500 for a marker.",
+   "quote": "Funeral/ burial costs up to $4,500, costs of a marker up to $500",
+   "source_id": "ME-S1",
+   "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
+  },
+  {
+   "id": "ME-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "property losses, pain and suffering, and other losses not medically related"
+   },
+   "summary": "The program does not cover property losses (a stolen or broken phone, for example), pain and suffering, or other losses that are not medically related.",
+   "quote": "Expenses NOT covered: property losses, compensation for pain and suffering, and other losses not medically related.",
+   "source_id": "ME-S1",
+   "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?"
+  },
+  {
+   "id": "ME-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "property losses other than eyeglasses, dentures, prosthetic devices and some crime scene cleanup"
+   },
+   "summary": "Property losses are not covered, except replacement of eyeglasses, dentures and other prosthetic devices and some crime scene cleanup costs.",
+   "quote": "No property losses are covered other than replacement costs of eyeglasses, dentures and other prosthetic devices and some costs of crime scene cleanup.",
+   "source_id": "ME-S4",
+   "pinpoint": "Maine AG Program Law and History, What Is an Eligible Expense?"
+  },
+  {
+   "id": "ME-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "or 60 days from discovery if later; board may waive for good cause and must waive for child victims"
+   },
+   "summary": "The claim must be filed within 3 years of the injury or loss, or within 60 days of discovering it, whichever is later.",
+   "quote": "B. The claim was filed with the board within 3 years of the occurrence of the injury or compensable loss, or within 60 days of the discovery of injury or compensable loss, whichever is later.",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(1)(B)"
+  },
+  {
+   "id": "ME-DEAD-2",
+   "category": "filing_deadline",
+   "params": {
+    "days": 60,
+    "from": "discovery"
+   },
+   "summary": "If the injury or loss is discovered later, the claim can be filed within 60 days of discovery when that is later than 3 years.",
+   "quote": "B. The claim was filed with the board within 3 years of the occurrence of the injury or compensable loss, or within 60 days of the discovery of injury or compensable loss, whichever is later.",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(1)(B)"
+  },
+  {
+   "id": "ME-DEAD-3",
+   "category": "filing_deadline",
+   "params": {
+    "extension": "good cause; mandatory for child victims"
+   },
+   "summary": "The board may waive the filing and police-report time limits for good cause, and must waive them on behalf of a child.",
+   "quote": "The board may waive the time requirements of subsection 1 for good cause shown and shall waive the time requirements on behalf of a child",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(3)"
+  },
+  {
+   "id": "ME-REP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_days": 5,
+    "alternatives": []
+   },
+   "summary": "For a compensation claim, the crime must be reported to law enforcement within 5 days of the crime, its discovery, or the resulting injury. The board can waive the time limit for good cause and must waive it for a child.",
+   "quote": "A. The crime was reported to a law enforcement officer within 5 days of the occurrence or discovery of the crime or of the resultant injury",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(1)(A)"
+  },
+  {
+   "id": "ME-REP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "other"
+    ]
+   },
+   "summary": "For current or former Maine National Guard members, an unrestricted sexual assault report to the Guard counts as a report to law enforcement.",
+   "quote": "an unrestricted report of sexual assault made to the Maine National Guard by a current or former member of the Maine National Guard is a crime reported to a law enforcement officer",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(1)"
+  },
+  {
+   "id": "ME-REP-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "The free forensic exam does not require a police report, but a regular compensation claim for other costs does.",
+   "quote": "If you need help with these expenses, you may file a Victims' Compensation Application, but, in that case, you will need to report the crime to law enforcement and other requirements of the Victims' Compensation Program will apply.",
+   "source_id": "ME-S3",
+   "pinpoint": "Maine AG SAFE page, Notice to sexual assault victims"
+  },
+  {
+   "id": "ME-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Insurance, other coverage, free care or sliding-scale eligibility must be used first; the program pays after that.",
+   "quote": "If a victim has insurance and other coverage or eligibility for free care or a sliding scale, that must be applied to an expense or loss before Victims' Compensation pays",
+   "source_id": "ME-S1",
+   "pinpoint": "Maine AG Victims' Compensation page, What Are the Requirements?"
+  },
+  {
+   "id": "ME-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "Compensation may not be paid to someone whose own violation of a criminal law caused or contributed to the injury (information only).",
+   "quote": "B. To or on behalf of any person who violated a criminal law that caused or contributed to the injury or death for which compensation is sought",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(2)(B)"
+  },
+  {
+   "id": "ME-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "Compensation may not be paid to a claimant who does not fully cooperate with the board or with reasonable requests of law enforcement or prosecutors (information only).",
+   "quote": "A. To any claimant who does not fully cooperate with the board or with the reasonable requests of law enforcement officers or prosecution authorities",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(2)(A)"
+  },
+  {
+   "id": "ME-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault in Maine is a covered crime, whether or not there was bodily injury or a threat of it.",
+   "quote": "B. Has been sexually assaulted within this State in violation of Title 17‑A, chapter 11 without regard to whether bodily injury or the threat of bodily injury occurred",
+   "source_id": "ME-S7",
+   "pinpoint": "5 M.R.S. 3360-B(1)(B)"
+  },
+  {
+   "id": "ME-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Aggravated sex trafficking and sex trafficking are covered crimes.",
+   "quote": "J. Aggravated sex trafficking or sex trafficking as described in Title 17‑A, sections 852 and 853",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(3)(J)"
+  },
+  {
+   "id": "ME-CRIME-3",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual exploitation of a minor is a covered crime.",
+   "quote": "H. Sexual exploitation of a minor as described in Title 17‑A, chapter 12",
+   "source_id": "ME-S6",
+   "pinpoint": "5 M.R.S. 3360(3)(H)"
+  },
+  {
+   "id": "ME-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "crime committed in Maine"
+   },
+   "summary": "Victims of a covered crime committed in Maine can apply; the statute does not limit this to Maine residents.",
+   "quote": "A. Suffers personal injury as a direct result of a crime specified in section 3360 , committed within the jurisdiction of the State",
+   "source_id": "ME-S7",
+   "pinpoint": "5 M.R.S. 3360-B(1)(A)"
+  },
+  {
+   "id": "ME-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Maine residents for out-of-state crimes only when that state has no program available to them"
+   },
+   "summary": "A Maine resident hurt in another state can apply here only if that state has no compensation program Maine residents can use.",
+   "quote": "(3) The crime occurred in another state, but only if the person is a resident of this State and the other state does not have a victim compensation program for which residents of this State are eligible",
+   "source_id": "ME-S7",
+   "pinpoint": "5 M.R.S. 3360-B(1)(C)(3)"
+  },
+  {
+   "id": "ME-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://mainevcp.heart4victims.org/",
+    "note": "The quote's link text on the AG program page points to this URL. The portal itself is a script-only page that could not be saved as text."
+   },
+   "summary": "A survivor applies online through the Attorney General's victims' compensation portal.",
+   "quote": "Apply online for victims' compensation",
+   "source_id": "ME-S1",
+   "pinpoint": "AG Victims' Compensation page, Victims links"
+  },
+  {
+   "id": "ME-DOC-SIGNED",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed application; release forms come with the application so staff can gather and verify records."
+   },
+   "summary": "The application must be signed, and it includes release forms that let staff collect and verify information.",
+   "quote": "The application must be signed and sent to the Victims' Compensation Board. Release forms are included with the application to allow staff to compile and verify information.",
+   "source_id": "ME-S4",
+   "pinpoint": "AG Program Law and History, Application Process"
+  },
+  {
+   "id": "ME-DOC-MEDICAL",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Medical reports and records for the expenses claimed."
+   },
+   "summary": "A claim must include documentation of every expense claimed, including medical reports and records.",
+   "quote": "Claims must include documentation of all eligible expenses and losses for which the claimant seeks compensation, including but not limited to medical reports, records and bills, funeral bills and employment records when lost wages are sought.",
+   "source_id": "ME-S9",
+   "pinpoint": "5 M.R.S. 3360-D(1)(C)"
+  },
+  {
+   "id": "ME-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Medical bills (and funeral bills where relevant) for each expense claimed."
+   },
+   "summary": "A claim must include the bills for the expenses claimed, such as medical bills.",
+   "quote": "Claims must include documentation of all eligible expenses and losses for which the claimant seeks compensation, including but not limited to medical reports, records and bills, funeral bills and employment records when lost wages are sought.",
+   "source_id": "ME-S9",
+   "pinpoint": "5 M.R.S. 3360-D(1)(C)"
+  },
+  {
+   "id": "ME-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only when lost wages are claimed: employment records."
+   },
+   "summary": "A survivor claiming lost wages must include employment records.",
+   "quote": "Claims must include documentation of all eligible expenses and losses for which the claimant seeks compensation, including but not limited to medical reports, records and bills, funeral bills and employment records when lost wages are sought.",
+   "source_id": "ME-S9",
+   "pinpoint": "5 M.R.S. 3360-D(1)(C)"
+  },
+  {
+   "id": "ME-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Records about insurance, workers' compensation, and state or federal benefit programs."
+   },
+   "summary": "A claim must include records about insurance, workers' compensation, and state or federal assistance programs.",
+   "quote": "Claims must include records related to insurance, workers' compensation, federal and state entitlement and assistance programs.",
+   "source_id": "ME-S9",
+   "pinpoint": "5 M.R.S. 3360-D(1)(D)"
+  },
+  {
+   "id": "ME-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Not a document upload: the claim must name the crime date, what happened, and the law enforcement agency it was reported to."
+   },
+   "summary": "The claim must give the date and circumstances of the crime and name the law enforcement agency it was reported to.",
+   "quote": "Claims must specify the date, the nature and circumstances of the crime and the law enforcement agency to which the crime was reported.",
+   "source_id": "ME-S9",
+   "pinpoint": "5 M.R.S. 3360-D(1)(B)"
+  },
+  {
+   "id": "ME-DOC-COUNSEL",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "The counselor completes and sends a treatment plan to Victims' Compensation; the Board will not consider counseling costs without it."
+   },
+   "summary": "For counseling costs, the counselor must send a completed treatment plan; the case cannot go to the Board without it.",
+   "quote": "Your case cannot go before the Board without the completed treatment plan.",
+   "source_id": "ME-S5",
+   "pinpoint": "AG Mental Health Counseling Guidelines"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "required_document",
+   "residency",
+   "submission",
+   "total_cap"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "emergency_award",
+   "expense_cap for counseling",
+   "expense_cap for lost_wages",
+   "expense_cap for relocation",
+   "expense_cap for transportation",
+   "expense_cap for security",
+   "application_pdf_url",
+   "processing_time"
+  ],
+  "notes": "No minimum loss, emergency award, or per-expense dollar caps for counseling, lost wages, relocation, transportation or security were found in the statute (5 M.R.S. ch. 316-A), the Board rules (26-550 ch. 3, 6, 8), or the AG program pages. The only per-expense limits found are funeral ($4,500 plus $500 marker), medical (usually 75% of charges), and the forensic exam payment. Applications are filed online through the AG's portal; no current downloadable application PDF was found on maine.gov."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is from legislature.maine.gov (page says data extracted 10/23/2025, so it includes PL 2025 c. 109 and c. 171). Relocation was added to eligible expenses by PL 2025 c. 171. The AG's Program Law and History page (ME-S4) still mentions an older $500 forensic exam maximum; the statute (3360-M(2)) and the current SAFE page both say $750, so the rules use $750. The exam payment covers only the exam and related testing and treatment; the SAFE page says hospitals may bill the survivor or insurer for unrelated charges such as x-rays, which can then be claimed through a regular application (police report required). Board rule 26-550 ch. 8 (2000) also still says $500 and covers only gross sexual assault, while the statute now covers any Title 17-A chapter 11 crime; statute wins. Board rule 26-550 ch. 6 sets the 75% medical guideline and requires exhausting insurance first; the rule files are .doc and could not be saved with the fetch tool, so the 75% rule is quoted from the AG page instead. Toll-free victim line on ME-S5: 1-800-903-7882. Separate from this program, Maine has a Victims' Property Compensation Fund (5 M.R.S. 3360-S, saved as ME-S13) that can pay up to $1,000 for unreimbursed property losses from a crime occurring on or after Jan 1, 2022, with its own 5-day report and 3-year filing rules; it is not encoded as a rule here because the main program excludes property, but a survivor whose phone or belongings were taken or damaged may want to apply there. The 3-year filing clock runs from the injury or compensable loss, encoded as from=crime. Reviewer (Oct 3): ME-EXAM-3 recategorized from exam_payment to reporting_requirement (required=false, expense forensic_exam), matching how other states encode 'no report needed for the exam'. Added ME-EXAM-5 from the SAFE page: direct billing applies only when a sexual assault evidence kit is used; without a kit the provider bills normally, so the no-bill protection depends on a kit being used. ME-EXAM-4 quote extended to include that unrelated charges such as x-rays may be billed. The SAFE page's provider notice still says 'gross sexual assault', while 3360-M(1) now covers any Title 17-A chapter 11 crime; statute wins. How to file (Oct 3): Maine has no downloadable paper application; the AG program page links only to the online portal (https://mainevcp.heart4victims.org/), and the AG 'Apply for Victim's Compensation' online-services page is just a link with no text, so program.application_form is set to source_id null, fillable false, field_count 0. The portal is a script-only app and could not be saved. The Program Law and History page (ME-S4) says a paper form is available from the program office and District Attorneys' Victim Witness Advocate Programs and must be signed and sent to the Board, but no mailing address, fax, or email for the program is published on the saved pages (the AG contact page lists only the office's general address and the program phone numbers), so no mail, fax, or email submission rule was added. Required documents come from 5 M.R.S. 3360-D(1)(B)-(D) and the counseling guidelines. No processing time is stated; ME-S4 only says a complete claim is reviewed at the Board's next monthly meeting, which is not encoded as a number."
 }

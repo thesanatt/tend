@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.voc.nv.gov/siteassets/content/forms/voc-application_english.pdf",
   "phone": "702-486-2740",
   "phone_source_id": "NV-S3",
-  "statute_citation": "NRS 217.010 to 217.270; sexual assault exams and county treatment: NRS 217.280 to 217.350"
+  "statute_citation": "NRS 217.010 to 217.270; sexual assault exams and county treatment: NRS 217.280 to 217.350",
+  "application_form": {
+   "source_id": "NV-S4",
+   "fillable": true,
+   "field_count": 176
+  }
  },
- "source_sha256": "855ceda8daca4f5afff8e7014c108e11596e266a24fd7437149360ad8e5d66f4",
+ "source_sha256": "c26b4a10a15b19033052c30f290fed062fe89fb705113677c9d80393b767a6c2",
  "rules": [
   {
    "id": "NV-EXAM-1",
@@ -311,6 +316,56 @@
    "id": "NV-RES-3",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "NV-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NV-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NV-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NV-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

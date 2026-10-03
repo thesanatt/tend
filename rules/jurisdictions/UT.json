@@ -9,7 +9,12 @@
     "application_pdf_url": "https://crimevictim.utah.gov/wp-content/uploads/UOVC-Application-English.pdf",
     "phone": "801-238-2360",
     "phone_source_id": "UT-S3",
-    "statute_citation": "Utah Code 75E-5-101 to 75E-5-314 (formerly 63M-7-501 to 63M-7-525); Utah Admin. Code R270-1"
+    "statute_citation": "Utah Code 75E-5-101 to 75E-5-314 (formerly 63M-7-501 to 63M-7-525); Utah Admin. Code R270-1",
+    "application_form": {
+      "source_id": "UT-S5",
+      "fillable": true,
+      "field_count": 90
+    }
   },
   "sources": [
     {
@@ -91,6 +96,26 @@
       "raw_path": "rules/sources/UT/UT-S8.html",
       "text_path": "rules/sources/UT/UT-S8.txt",
       "sha256": "a5d1217daca9fcc43dc6d1a99933226d5f7e0357ed6341d0dc876ecae67efef6"
+    },
+    {
+      "id": "UT-S9",
+      "title": "Utah Office for Victims of Crime, Contact Us (mailing address, email, fax)",
+      "url": "https://crimevictim.utah.gov/about/contact-us/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:39:44Z",
+      "raw_path": "rules/sources/UT/UT-S9.html",
+      "text_path": "rules/sources/UT/UT-S9.txt",
+      "sha256": "460e0279f1e931ca45bfc05241c0bcd54c229692f69e285ed9b635d0daa690aa"
+    },
+    {
+      "id": "UT-S10",
+      "title": "Utah Office for Victims of Crime, What Happens After a Decision",
+      "url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/after-decision/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:39:58Z",
+      "raw_path": "rules/sources/UT/UT-S10.html",
+      "text_path": "rules/sources/UT/UT-S10.txt",
+      "sha256": "3ec64ae913db0772b285ca366976d418cbf0240497394f4b93d0e9ddf2491e36"
     }
   ],
   "rules": [
@@ -586,6 +611,154 @@
       "quote": "the criminally injurious conduct occurred in Utah; or (ii) the victim is a Utah resident who suffers injury or death as a result of criminally injurious conduct inflicted in a state, territory, or country that does not provide a crime victims' compensation program;",
       "source_id": "UT-S7",
       "pinpoint": "Utah Code 75E-5-305(1)(b)"
+    },
+    {
+      "id": "UT-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://newclaim.crimevictim.utah.gov/"
+      },
+      "summary": "The application can be completed through UOVC's online portal (the page's Online Application link goes to newclaim.crimevictim.utah.gov).",
+      "quote": "The application can be completed either through the online portal or by filling out the PDF and submitting it via email, mail, or fax.",
+      "source_id": "UT-S3",
+      "pinpoint": "Apply for Compensation, Victim Compensation Application Process"
+    },
+    {
+      "id": "UT-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "crimevictims@utah.gov"
+      },
+      "summary": "The PDF application can be emailed to UOVC at crimevictims@utah.gov, the email printed at the top of the application.",
+      "quote": "Email: crimevictims@utah.gov",
+      "source_id": "UT-S5",
+      "pinpoint": "Application header"
+    },
+    {
+      "id": "UT-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "420 East South Temple, Suite 500, Salt Lake City, UT 84111"
+      },
+      "summary": "The PDF application can be mailed to UOVC at its current mailing address on East South Temple in Salt Lake City.",
+      "quote": "Mailing & Physical Address: 420 East South Temple, Suite 500, Salt Lake City, UT 84111",
+      "source_id": "UT-S9",
+      "pinpoint": "Contact Us, Office Contact Information"
+    },
+    {
+      "id": "UT-SUBMIT-4",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "801-533-4127"
+      },
+      "summary": "The PDF application can be faxed to UOVC.",
+      "quote": "Fax: 801-533-4127",
+      "source_id": "UT-S9",
+      "pinpoint": "Contact Us, Office Contact Information"
+    },
+    {
+      "id": "UT-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "You do not send it. List the law enforcement agency and case number on the application; UOVC requests the investigative report from the agency."
+      },
+      "summary": "UOVC staff request the investigative report directly from law enforcement, so you list the agency and case number rather than attaching the report.",
+      "quote": "The Utah Office for Victims of Crime staff must request the investigative report directly from the law enforcement agency.",
+      "source_id": "UT-S3",
+      "pinpoint": "Apply for Compensation, Victim Compensation Application Process"
+    },
+    {
+      "id": "UT-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Sexual assault: a questionnaire completed by a sexual assault victim service provider can stand in for a police report."
+      },
+      "summary": "In sexual assault cases, a questionnaire completed by a sexual assault victim service provider can take the place of a police report.",
+      "quote": "In cases of sexual assault, a questionnaire can be completed by a sexual assault victim service provider in place of a police report.",
+      "source_id": "UT-S3",
+      "pinpoint": "Apply for Compensation, Eligibility"
+    },
+    {
+      "id": "UT-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Insurance details on the application (health insurance, Medicaid, or workers compensation; provider name and policy number; auto insurer if a vehicle was involved). Leaving them out delays processing."
+      },
+      "summary": "Fill in the insurance section of the application; leaving it blank delays processing.",
+      "quote": "INSURANCE (Failure to provide this information will delay processing of the application)",
+      "source_id": "UT-S5",
+      "pinpoint": "Application, Section 3"
+    },
+    {
+      "id": "UT-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "A parent or legal guardian must complete and sign the application for a child victim."
+      },
+      "summary": "For a child victim, the application must be completed and signed by the child's parent or legal guardian.",
+      "quote": "APPLICATIONS SUBMITTED FOR CHILD VICTIMS UNDER THE AGE OF EIGHTEEN MUST BE COMPLETED AND SIGNED BY THE CHILD'S PARENT OR LEGAL GUARDIAN",
+      "source_id": "UT-S5",
+      "pinpoint": "Application, Section 9"
+    },
+    {
+      "id": "UT-DOC-5",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Bills go from the provider to UOVC. Give the provider your claim number and ask them to send the bills directly."
+      },
+      "summary": "For crime-related medical bills, give your provider your claim number and ask them to send the bills directly to UOVC.",
+      "quote": "Contact your medical provider, provide them with your claim number, and ask them to send the bills directly to UOVC.",
+      "source_id": "UT-S2",
+      "pinpoint": "Victim FAQs, medical bills"
+    },
+    {
+      "id": "UT-DOC-6",
+      "category": "required_document",
+      "expense": "counseling",
+      "params": {
+        "document": "counseling_statement",
+        "note": "Your counselor submits a Mental Health Treatment Plan, and the reparations officer approves it before UOVC pays."
+      },
+      "summary": "Before UOVC pays for outpatient counseling, your counselor must submit a Mental Health Treatment Plan for approval.",
+      "quote": "a qualified mental health professional who intends to provide outpatient mental health counseling to a victim shall submit a Mental Health Treatment Plan to the office",
+      "source_id": "UT-S8",
+      "pinpoint": "Utah Admin. Code R270-1-5(1)(b)(i)"
+    },
+    {
+      "id": "UT-DOC-7",
+      "category": "required_document",
+      "expense": "funeral",
+      "params": {
+        "document": "receipts",
+        "note": "Funeral or relocation costs can be paid to the provider or reimbursed to you once you submit the necessary documentation."
+      },
+      "summary": "Funeral or relocation costs can be paid directly to providers, or reimbursed to you when you submit the necessary documentation.",
+      "quote": "Payment for these services may be made directly to the providers, or the claimant/victim can be reimbursed upon submission of the necessary documentation.",
+      "source_id": "UT-S10",
+      "pinpoint": "What Happens After a Decision, Funeral or Relocation Costs"
+    },
+    {
+      "id": "UT-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "days": 90,
+        "min_days": 60,
+        "stage": "decision"
+      },
+      "summary": "Applications are reviewed in the order received, and processing takes about 60 to 90 days.",
+      "quote": "Processing time is approximately 60-90 days.",
+      "source_id": "UT-S3",
+      "pinpoint": "Apply for Compensation, Victim Compensation Application Process"
     }
   ],
   "coverage": {
@@ -601,7 +774,10 @@
       "conduct_reduction",
       "emergency_award",
       "eligible_crime",
-      "residency"
+      "residency",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "filing_deadline",
@@ -610,5 +786,5 @@
     "notes": "No filing deadline appears in Utah Code 75E-5 (effective 7/1/2026), in R270-1, on the program pages, or on the application; the closest rules are R270-1-23 (a claim expires three years after the date of application, extendable for extenuating circumstances) and R270-1-24(5) (exam reimbursement requests are due within one year of the exam), neither of which is a deadline for a victim to apply. R270-1-9(1)(b) says no time limit is required for filing an emergency claim. No minimum loss amount was found. No rule names phones or other ordinary property as excluded; the statute covers only personal property necessary and essential to health or safety (75E-5-309(1)(d)(viii)), and the program page says property crimes are not eligible crimes. Neither the statute nor R270-1-24 says whether the survivor's own insurance may be billed for the exam; the UOVC sexual assault provider billing page says providers must bill all available insurance before billing UOVC, so insurance_billing is left unspecified."
   },
   "confidence": "medium",
-  "researcher_notes": "Utah recodified the Crime Victim Reparations Act from Title 63M, Chapter 7, Part 5 into Title 75E, Chapter 5 (Chapter 291, 2026 General Session, effective 7/1/2026). R270-1 (effective 12/08/2023, continuation notice March 6, 2026) still cites the old 63M-7 section numbers, and the application PDF still cites 63M-7-519 and 63M-7-510. The rule-based caps (relocation $2,000, transportation $1,000, essential property $1,500/$5,000, emergency $1,000, 25 counseling sessions, 12 weeks lost earnings) come from R270-1 and the board may approve more in extenuating circumstances. The UOVC Code R payment table (UT-S6) lists $625 for an exam and $1250 with photo documentation for dates of service from January 5, 2023; R270-1-24 sets the $1,250 maximum with photo documentation. 75E-5-313(2) also bars medical providers from debt collection while a claim is pending (summarized on the FAQ, UT-S2). Phone 801-238-2360 matches the OVC directory; toll free 1-800-621-7444 is on the application. Online application: https://newclaim.crimevictim.utah.gov/ . Reviewer: R270-1-24(1)(a)'s $1,250 is the examiner fee only (the Code R table, UT-S6, lists $625 without photo documentation), and the facility is paid separately under R270-1-24(2), so it is recorded as exam_payment, not as a survivor-facing expense cap. insurance_billing is set to allowed because the UOVC provider billing page (UT-S4) requires providers to bill all available insurance before UOVC; neither the statute nor R270-1-24 addresses it directly. R270-1-24(3) conditions provider reimbursement on the provider reporting the exam to law enforcement and collecting evidence only with the victim's permission; this is a provider condition, not a survivor reporting requirement. R270-1-8 (abortion) cites 63M-7-511, now 75E-5-309, and is limited to abortions permitted under Title 76, Chapter 7, Part 3. 75E-5-313(1)(b) lets a medical provider (not the exam provider, which R270-1-24(6) covers) collect from the victim up to the office's rate if the office cannot pay in full."
+  "researcher_notes": "Utah recodified the Crime Victim Reparations Act from Title 63M, Chapter 7, Part 5 into Title 75E, Chapter 5 (Chapter 291, 2026 General Session, effective 7/1/2026). R270-1 (effective 12/08/2023, continuation notice March 6, 2026) still cites the old 63M-7 section numbers, and the application PDF still cites 63M-7-519 and 63M-7-510. The rule-based caps (relocation $2,000, transportation $1,000, essential property $1,500/$5,000, emergency $1,000, 25 counseling sessions, 12 weeks lost earnings) come from R270-1 and the board may approve more in extenuating circumstances. The UOVC Code R payment table (UT-S6) lists $625 for an exam and $1250 with photo documentation for dates of service from January 5, 2023; R270-1-24 sets the $1,250 maximum with photo documentation. 75E-5-313(2) also bars medical providers from debt collection while a claim is pending (summarized on the FAQ, UT-S2). Phone 801-238-2360 matches the OVC directory; toll free 1-800-621-7444 is on the application. Online application: https://newclaim.crimevictim.utah.gov/ . Reviewer: R270-1-24(1)(a)'s $1,250 is the examiner fee only (the Code R table, UT-S6, lists $625 without photo documentation), and the facility is paid separately under R270-1-24(2), so it is recorded as exam_payment, not as a survivor-facing expense cap. insurance_billing is set to allowed because the UOVC provider billing page (UT-S4) requires providers to bill all available insurance before UOVC; neither the statute nor R270-1-24 addresses it directly. R270-1-24(3) conditions provider reimbursement on the provider reporting the exam to law enforcement and collecting evidence only with the victim's permission; this is a provider condition, not a survivor reporting requirement. R270-1-8 (abortion) cites 63M-7-511, now 75E-5-309, and is limited to abortions permitted under Title 76, Chapter 7, Part 3. 75E-5-313(1)(b) lets a medical provider (not the exam provider, which R270-1-24(6) covers) collect from the victim up to the office's rate if the office cannot pay in full. How to file (added Oct 3): UOVC moved. The contact page (UT-S9, modified 2026-06-30) and the UOVC homepage list 420 East South Temple, Suite 500, Salt Lake City, UT 84111, while the application PDF (UT-S5, same file as live, created Jan 2025) and the provider billing page (UT-S4) still print 350 East 500 South Suite 200; the submission rule uses the newer contact-page address. Fax 801-533-4127 is the same on both. The online portal URL comes from the apply page's Online Application link, not its visible text. The FAQ (UT-S2) says to send claim correspondence to the program email, which the saved text shows as Cloudflare-obfuscated; the decoded address in the HTML is crimevictims@utah.gov, matching the application, so UT-SUBMIT-2 quotes the application header. The application has 90 AcroForm fields. No in-person submission method is stated. UT-DOC-7 is stored under funeral but the quote covers relocation costs too."
 }

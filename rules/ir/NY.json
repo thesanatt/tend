@@ -10,9 +10,14 @@
   "application_pdf_url": "https://ovs.ny.gov/system/files/documents/2026/02/fillable-ovs-compensation-application-02.12.26.pdf",
   "phone": "1-800-247-8035",
   "phone_source_id": "NY-S1",
-  "statute_citation": "N.Y. Executive Law Article 22 (sections 620 to 635); 9 NYCRR Part 525; Public Health Law 2805-i"
+  "statute_citation": "N.Y. Executive Law Article 22 (sections 620 to 635); 9 NYCRR Part 525; Public Health Law 2805-i",
+  "application_form": {
+   "source_id": "NY-S4",
+   "fillable": true,
+   "field_count": 552
+  }
  },
- "source_sha256": "402f50a4051c803e3969b94387a1ece63514eb122df2ab00d0c334694af9d574",
+ "source_sha256": "c957ef2650f3d15ca27451832e0ebac2021b04fed664a5ac5715e82c82145ae0",
  "rules": [
   {
    "id": "NY-EXAM-1",
@@ -271,6 +276,61 @@
    "id": "NY-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "NY-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NY-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NY-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NY-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NY-DOC-8",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

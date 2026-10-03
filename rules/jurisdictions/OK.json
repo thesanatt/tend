@@ -9,7 +9,12 @@
     "application_pdf_url": "https://www.okvictimscomp.com/wp-content/uploads/2019-Official-Claim-Form-EN_1.pdf",
     "phone": "800-745-6098",
     "phone_source_id": "OK-S1",
-    "statute_citation": "21 O.S. 142.1 to 142.20"
+    "statute_citation": "21 O.S. 142.1 to 142.20",
+    "application_form": {
+      "source_id": "OK-S12",
+      "fillable": false,
+      "field_count": 0
+    }
   },
   "sources": [
     {
@@ -131,6 +136,36 @@
       "raw_path": "rules/sources/OK/OK-S20.html",
       "text_path": "rules/sources/OK/OK-S20.txt",
       "sha256": "3153987a3d5af59521dcbaf7023f5314c677926a8868c7178dbb4b4259737709"
+    },
+    {
+      "id": "OK-S21",
+      "title": "OCVC Frequently Asked Questions",
+      "url": "https://www.okvictimscomp.com/frequently-asked-questions/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:39:34Z",
+      "raw_path": "rules/sources/OK/OK-S21.html",
+      "text_path": "rules/sources/OK/OK-S21.txt",
+      "sha256": "7e35f0dd13b402195378b601480aa7ddb7d600ccbb43e05431457baa05ce83c2"
+    },
+    {
+      "id": "OK-S24",
+      "title": "DAC Victims Compensation Program page (application process)",
+      "url": "https://oklahoma.gov/dac/victims/victims-compensation-program.html",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:39:50Z",
+      "raw_path": "rules/sources/OK/OK-S24.html",
+      "text_path": "rules/sources/OK/OK-S24.txt",
+      "sha256": "4661dcb1e5e19c1488a9589a74bfc3f015d6f80612055e8a6c577ab123e1247e"
+    },
+    {
+      "id": "OK-S25",
+      "title": "OCVC VCP Online Access claim portal",
+      "url": "https://ocvcapp.okvictimscomp.com",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:40:03Z",
+      "raw_path": "rules/sources/OK/OK-S25.html",
+      "text_path": "rules/sources/OK/OK-S25.txt",
+      "sha256": "e2682481a9837f8a179b21ce33164de76abd8ee64240d1ce94380aef0c830d27"
     }
   ],
   "rules": [
@@ -520,6 +555,270 @@
       "quote": "rape, or rape by instrumentation, as defined in Sections 1111 , 1111.1 and 1114 of this title, or b. forcible sodomy, as defined in Section 888 of this title",
       "source_id": "OK-S9",
       "pinpoint": "21 O.S. 142.20(B)(1)"
+    },
+    {
+      "id": "OK-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://ocvcapp.okvictimscomp.com"
+      },
+      "summary": "Apply online through the OCVC online application portal.",
+      "quote": "Use our online application to apply for compensation benefits.",
+      "source_id": "OK-S25",
+      "pinpoint": "VCP Online Access home page, How to Apply"
+    },
+    {
+      "id": "OK-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "421 N.W. 13TH STREET, SUITE 290 • OKLAHOMA CITY, OKLAHOMA 73103"
+      },
+      "summary": "Mail the printed and signed claim form to the Crime Victims Compensation Board at 421 N.W. 13th Street, Suite 290, Oklahoma City.",
+      "quote": "Please Return to: 421 N.W. 13TH STREET, SUITE 290 • OKLAHOMA CITY, OKLAHOMA 73103",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), page 1 header"
+    },
+    {
+      "id": "OK-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "405/264-5097"
+      },
+      "summary": "Fax the printed and signed claim form to 405/264-5097.",
+      "quote": "405/264-5006 or 800/745-6098 • Fax: 405/264-5097",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), page 1 header"
+    },
+    {
+      "id": "OK-SUBMIT-4",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "victimsservices@dac.state.ok.us"
+      },
+      "summary": "The claim form says it can be emailed once printed and signed; the program email is victimsservices@dac.state.ok.us.",
+      "quote": "Website: www.okvictimscomp.com E-mail: victimsservices@dac.state.ok.us",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), instructions header"
+    },
+    {
+      "id": "OK-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Complete every section and sign all three signature areas on page four; the form must be printed and signed."
+      },
+      "summary": "Fill out every section of the paper form and sign all three signature areas on page four.",
+      "quote": "Please thoroughly complete ALL sections and sign all three areas of page four.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Instructions"
+    },
+    {
+      "id": "OK-DOC-2",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "itemized_bill",
+        "note": "All itemized medical statements for the injuries listed in Section I."
+      },
+      "summary": "List the injuries from the crime and attach all itemized medical statements.",
+      "quote": "List the injuries suffered as a result of the crime and attach all itemized medical statements.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Instructions, Section I"
+    },
+    {
+      "id": "OK-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Send every bill received so far; later bills can be added."
+      },
+      "summary": "Send all the bills you have received with the application; bills that arrive later can be added.",
+      "quote": "Please submit all the bills that you have received. If more come in, they can always be added later.",
+      "source_id": "OK-S21",
+      "pinpoint": "FAQ, Do I need to submit all bills with the application?"
+    },
+    {
+      "id": "OK-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Proof of payment for medical, dental, or counseling costs you paid yourself."
+      },
+      "summary": "Out-of-pocket medical, dental, and counseling costs are reimbursed at 100% only with documentation of payment.",
+      "quote": "Medical, dental, and counseling expenses that the victim is out-of-pocket will be reimbursed at 100%, provided there is documentation of payment and no collateral sources exist.",
+      "source_id": "OK-S24",
+      "pinpoint": "Application Process, Payments"
+    },
+    {
+      "id": "OK-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Requested by the District Attorney's Victim-Witness Coordinator during documentation, not attached by the survivor."
+      },
+      "summary": "The DA's Victim-Witness Coordinator requests the police report while documenting the claim.",
+      "quote": "A police report is requested, along with any other forms and reports that may be needed to determine out-of-pocket expenses.",
+      "source_id": "OK-S24",
+      "pinpoint": "Application Process, Documentation"
+    },
+    {
+      "id": "OK-DOC-6",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Work loss verified by the employer and the attending physician."
+      },
+      "summary": "Lost income must be verified by both your employer and your attending physician.",
+      "quote": "Work loss must be verified by the employer and the attending physician.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Types of Expenses Covered, Income Loss / Economic Loss"
+    },
+    {
+      "id": "OK-DOC-7",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "medical_records",
+        "note": "Disability verification from a physician or mental health professional covering the time off work."
+      },
+      "summary": "For lost wages, a physician or mental health professional and your employer must verify the disability time.",
+      "quote": "provided the crime prevented the person from working and the disability can be verified by a physician or mental health professional and by the victim’s employer.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Instructions, Section G"
+    },
+    {
+      "id": "OK-DOC-8",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Tax returns for the last three years, if self-employed."
+      },
+      "summary": "If you are self-employed, tax returns for the last 3 years are required for lost wages.",
+      "quote": "IF SELF-EMPLOYED, TAX RETURNS FOR THE LAST THREE YEARS WILL BE REQUIRED.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Section G heading"
+    },
+    {
+      "id": "OK-DOC-9",
+      "category": "required_document",
+      "expense": "transportation",
+      "params": {
+        "document": "other",
+        "note": "Provider documentation verifying the dates of medical or counseling appointments, for mileage."
+      },
+      "summary": "For mileage to medical or counseling appointments, include documentation from the provider verifying the dates of service.",
+      "quote": "Documentation from the provider verifying the dates of services is required.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Types of Expenses Covered, Travel"
+    },
+    {
+      "id": "OK-DOC-10",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Future economic loss: itemized list of expected expenses with an explanation."
+      },
+      "summary": "To ask for future costs, include an itemized list of the expenses you expect and an explanation.",
+      "quote": "To submit a request for future economic loss, include an itemized list of the expenses you expect to incur, along with an explanation regarding the expense.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss"
+    },
+    {
+      "id": "OK-DOC-11",
+      "category": "required_document",
+      "expense": "dental",
+      "params": {
+        "document": "other",
+        "note": "Written estimate from the attending physician for future dental work or surgery, stating the work and cost."
+      },
+      "summary": "For future dental work or surgery, ask the attending physician for a written estimate of the work and the cost.",
+      "quote": "For future dental work or surgery necessary to repair damage from the criminal incident, ask the attending physician to write an accurate estimate which clearly states the work to be performed and the cost.",
+      "source_id": "OK-S12",
+      "pinpoint": "Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss"
+    },
+    {
+      "id": "OK-DOC-12",
+      "category": "required_document",
+      "expense": "other",
+      "params": {
+        "document": "receipts",
+        "note": "Traditional American Indian healing or burial services: receipts with each item's purpose noted."
+      },
+      "summary": "For traditional American Indian healing or burial services, receipts must note each item's purpose.",
+      "quote": "In order for reimbursement of these expenses, receipts must be provided with the item’s purpose clearly noted on the receipt.",
+      "source_id": "OK-S2",
+      "pinpoint": "Eligible Expenses, Traditional American Indian Services"
+    },
+    {
+      "id": "OK-DOC-13",
+      "category": "required_document",
+      "expense": "forensic_exam",
+      "params": {
+        "document": "other",
+        "note": "Social Security number, only if you paid the exam bill yourself and want reimbursement."
+      },
+      "summary": "If you paid the forensic exam bill yourself, the program needs your Social Security number to reimburse you.",
+      "quote": "If the victim/guardian paid the bill out of their own pocket, we will need a Social Security number in order to reimburse them.",
+      "source_id": "OK-S13",
+      "pinpoint": "Sexual Assault Examination Fund page"
+    },
+    {
+      "id": "OK-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "months": 12,
+        "min_months": 4,
+        "stage": "whole claim",
+        "note": "Varies by area where the crime occurred."
+      },
+      "summary": "Processing can take anywhere from 4 to 12 months depending on where the crime occurred.",
+      "quote": "Depending on the area in which the crime occurred, the processing time could vary anywhere from 4-12 months",
+      "source_id": "OK-S21",
+      "pinpoint": "FAQ, How Long is the Process?"
+    },
+    {
+      "id": "OK-TIME-2",
+      "category": "processing_time",
+      "params": {
+        "days": 30,
+        "stage": "docketed for decision",
+        "note": "After all documentation arrives from the Victim-Witness Coordinator; can take longer if more information is needed."
+      },
+      "summary": "Once the Victim-Witness Coordinator sends all documentation, claims are generally docketed for decision within 30 days.",
+      "quote": "Claims are generally placed on a docket for decision within 30 days of receipt of all documentation from the Victim-Witness Coordinator.",
+      "source_id": "OK-S24",
+      "pinpoint": "Application Process"
+    },
+    {
+      "id": "OK-TIME-3",
+      "category": "processing_time",
+      "params": {
+        "weeks": 3,
+        "stage": "payment after approval"
+      },
+      "summary": "Payments are generally made within 3 weeks of approval.",
+      "quote": "PAYMENTS are generally made within three weeks of approval.",
+      "source_id": "OK-S24",
+      "pinpoint": "Application Process, Payments"
+    },
+    {
+      "id": "OK-TIME-4",
+      "category": "processing_time",
+      "expense": "forensic_exam",
+      "params": {
+        "days": 30,
+        "stage": "exam fund payment"
+      },
+      "summary": "Sexual Assault Examination Fund payments are usually made within 30 days of receiving the application.",
+      "quote": "Payment is usually made within 30 days of the receipt of the application by the Compensation Program.",
+      "source_id": "OK-S13",
+      "pinpoint": "Sexual Assault Examination Fund page"
     }
   ],
   "coverage": {
@@ -536,7 +835,10 @@
       "filing_deadline",
       "reporting_requirement",
       "residency",
-      "total_cap"
+      "total_cap",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "minimum_loss",
@@ -552,5 +854,5 @@
     "notes": "No dollar minimum loss was found; program pages only say there must be economic loss. Relocation, security, and temporary housing are not listed as allowable expenses in 21 O.S. 142.3 or on the program pages, and no cap for the victim's own lost wages was found beyond the overall cap. Medical services are limited to 80% of cost rather than a dollar cap. No statute was found that expressly bars a provider from billing the survivor for exam charges above the $800 fund limit."
   },
   "confidence": "high",
-  "researcher_notes": "Statutes (OSCN, 21 O.S. as amended by SB 420, eff. Nov 1, 2023) win over program pages. Conflicts: the DAC page and the 2019 claim form say the total cap is $20,000 ($40,000 with the wage add-on) and the filing deadline is one year; current 142.13(B) says $25,000 ($50,000) and 142.10(A)(1) says thirty months. The OCVC eligibility page says caregiver work loss is $2,000 but 142.13(A) and (K) say $3,000. 142.10(A)(1) still has a leftover phrase about extending 'beyond one (1) year' next to the new 30-month period. The Board may grant up to $25,000 beyond the base cap for wages or loss of support, with a hard ceiling of $50,000 under 142.13(B). The application PDF is the 2019 form and predates the 2023 changes; the online claim at ocvcapp.okvictimscomp.com is the primary route. OAC 185:10-1-4 still says one year and was not used. The filing_deadline rule uses a 'months' param because the schema only lists years or days. Exam: OAC 185:15-1-6(d) treats Medicaid or other federal programs as a collateral source that must deny first; private insurance is optional for the survivor and any insurance payment goes back to the fund (185:15-1-6(c)). Providers must stop debt collection once notified of a pending claim (21 O.S. 142.9(H)). Reviewer: the OCVC home page still says a claim should be filed within one year, and the eligibility page says 'within one (30) months'; the statute's 30 months controls. 142.3 on OSCN lists amendments only through 2007 even though its text mentions vehicle impound fees, so its history note may be incomplete. Vehicle impound fees are capped at $750 (142.13(L)) and homicide family crisis counseling at $3,000 (142.13(G)); neither was added as a rule because neither applies to a living sexual assault survivor. The DAC exam page says the $800 limit applies to assaults on or after November 1, 2023, so older assaults may fall under an earlier, lower limit that was not researched."
+  "researcher_notes": "Statutes (OSCN, 21 O.S. as amended by SB 420, eff. Nov 1, 2023) win over program pages. Conflicts: the DAC page and the 2019 claim form say the total cap is $20,000 ($40,000 with the wage add-on) and the filing deadline is one year; current 142.13(B) says $25,000 ($50,000) and 142.10(A)(1) says thirty months. The OCVC eligibility page says caregiver work loss is $2,000 but 142.13(A) and (K) say $3,000. 142.10(A)(1) still has a leftover phrase about extending 'beyond one (1) year' next to the new 30-month period. The Board may grant up to $25,000 beyond the base cap for wages or loss of support, with a hard ceiling of $50,000 under 142.13(B). The application PDF is the 2019 form and predates the 2023 changes; the online claim at ocvcapp.okvictimscomp.com is the primary route. OAC 185:10-1-4 still says one year and was not used. The filing_deadline rule uses a 'months' param because the schema only lists years or days. Exam: OAC 185:15-1-6(d) treats Medicaid or other federal programs as a collateral source that must deny first; private insurance is optional for the survivor and any insurance payment goes back to the fund (185:15-1-6(c)). Providers must stop debt collection once notified of a pending claim (21 O.S. 142.9(H)). Reviewer: the OCVC home page still says a claim should be filed within one year, and the eligibility page says 'within one (30) months'; the statute's 30 months controls. 142.3 on OSCN lists amendments only through 2007 even though its text mentions vehicle impound fees, so its history note may be incomplete. Vehicle impound fees are capped at $750 (142.13(L)) and homicide family crisis counseling at $3,000 (142.13(G)); neither was added as a rule because neither applies to a living sexual assault survivor. The DAC exam page says the $800 limit applies to assaults on or after November 1, 2023, so older assaults may fall under an earlier, lower limit that was not researched. How to file: the online portal (ocvcapp.okvictimscomp.com) is the main route; its page says written applications go by mail or fax, while the 2019 claim form says to print, sign, and then fax, email, or mail it, so email comes only from the form. The current printable application is still the June 2019 claim form (OK-S12), which the portal links; it is a flat PDF with no fillable fields (pypdf found 0), and the DAC page still links older 2016/2017 forms that were not used. No in-person filing method is stated. The police report is requested by the DA's Victim-Witness Coordinator, not attached by the survivor. Processing times come from program pages, not statute: the FAQ says 4 to 12 months overall, the DAC page says claims are docketed within 30 days of full documentation and paid within three weeks of approval."
 }

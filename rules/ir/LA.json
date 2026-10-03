@@ -10,9 +10,14 @@
   "application_pdf_url": "https://lcle.la.gov/wp-content/uploads/2025/02/01-CVR-APPLICATION-02-19-2025.pdf",
   "phone": "888-684-2846",
   "phone_source_id": "LA-S1",
-  "statute_citation": "La. R.S. 46:1801 to 46:1822 (Crime Victims' Compensation Act, as amended by Acts 2026, No. 684, effective Aug. 1, 2026); La. R.S. 40:1216.1; LAC 22:XIII"
+  "statute_citation": "La. R.S. 46:1801 to 46:1822 (Crime Victims' Compensation Act, as amended by Acts 2026, No. 684, effective Aug. 1, 2026); La. R.S. 40:1216.1; LAC 22:XIII",
+  "application_form": {
+   "source_id": "LA-S2",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "42edbea938232c3dc34cb256f41047c3b46fa58b907a73e0c6085e3422edd3c7",
+ "source_sha256": "2cea4ea3a1295cca8f771f50727c8b2edf0a84c12bcab2680b61a054a328c3ce",
  "rules": [
   {
    "id": "LA-EXAM-1",
@@ -174,6 +179,91 @@
    "id": "LA-EXCL-2",
    "kind": "excluded",
    "expense": "legal"
+  },
+  {
+   "id": "LA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "LA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "LA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "LA-DOC-SIGN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-REASONABLE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-COURT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-HEALTH",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-EXAM",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-BILLS-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-CLAIMFORMS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-DISABILITY",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-NEWS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-DOC-LATE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "LA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

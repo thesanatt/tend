@@ -9,7 +9,12 @@
   "application_pdf_url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
   "phone": "502-782-8255",
   "phone_source_id": "KY-S19",
-  "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060"
+  "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060",
+  "application_form": {
+   "source_id": "KY-S19",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -201,6 +206,16 @@
    "raw_path": "rules/sources/KY/KY-S21.pdf",
    "text_path": "rules/sources/KY/KY-S21.txt",
    "sha256": "fe87d30b972fd97433169d725f9132fffdcefcdb7d5fd85822c676739004cac2"
+  },
+  {
+   "id": "KY-S22",
+   "title": "CVCB Documents to include (claim checklist)",
+   "url": "https://kycc.ky.gov/Documents/CVCB%20Documents%20to%20include.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:39:33Z",
+   "raw_path": "rules/sources/KY/KY-S22.pdf",
+   "text_path": "rules/sources/KY/KY-S22.txt",
+   "sha256": "817f2b15871bc01aa1dc124a5dc8ac0769aa316c6cd6136c0f76c666bbd845bf"
   }
  ],
  "rules": [
@@ -557,6 +572,219 @@
    "quote": "\"Victim\" shall also mean a resident who is a victim of a crime occurring outside this state if: 1. The crime would be compensable had it occurred inside this state; and 2. The crime occurred in a state which does not have a crime victim compensation program, for which the victim is eligible as eligibility is set forth in KRS 49.310.",
    "source_id": "KY-S1",
    "pinpoint": "KRS 49.280(5)(b)"
+  },
+  {
+   "id": "KY-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601"
+   },
+   "summary": "A claim can be dropped off in person or sent by private delivery to the Board's office in Frankfort.",
+   "quote": "(a) In person or by private delivery to the Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601;",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(a)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%28a%29%20In%20person%20or%20by,2%20SC1%2C%20Frankfort%2C%20Kentucky%2040601%3B"
+  },
+  {
+   "id": "KY-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601"
+   },
+   "summary": "A claim can be mailed to the Board's office in Frankfort.",
+   "quote": "(a) In person or by private delivery to the Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601; (b) By mail to the address listed above;",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(b)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%28a%29%20In%20person%20or%20by,to%20the%20address%20listed%20above%3B"
+  },
+  {
+   "id": "KY-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "crimevictims@ky.gov"
+   },
+   "summary": "A claim can be emailed to the Board if the whole claim fits in a single email.",
+   "quote": "(c) By electronic mail to crimevictims@ky.gov, if the document can be sent in one (1) electronic message;",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(c)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%28c%29%20By%20electronic%20mail%20to,in%20one%20%281%29%20electronic%20message%3B"
+  },
+  {
+   "id": "KY-SUB-4",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://kycc.ky.gov/CVOnline/home"
+   },
+   "summary": "A claim can be filed through the Board's online claims portal.",
+   "quote": "(d) Through the online claims portal at: https://kycc.ky.gov/CVOnline/home",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(d)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%28d%29%20Through%20the%20online%20claims%20portal%20at%3A%20https%3A%2F%2Fkycc.ky.gov%2FCVOnline%2Fhome"
+  },
+  {
+   "id": "KY-SUB-5",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "502-573-4817"
+   },
+   "summary": "The Board's FAQ says a paper claim form can also be faxed.",
+   "quote": "Paper claim forms can be submitted to the Board by fax (502-573-4817)",
+   "source_id": "KY-S17",
+   "pinpoint": "CVCB FAQ (updated August 2024), Where should I send my paper claim form?"
+  },
+  {
+   "id": "KY-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "if applicable; the sexual assault exam program itself does not require reporting"
+   },
+   "summary": "The Board's checklist asks for a police report along with the claim form, if applicable.",
+   "quote": "In addition to the claim form, you will need to submit, if applicable, 1) Police Report",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 1"
+  },
+  {
+   "id": "KY-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "for medical expenses"
+   },
+   "summary": "For medical expenses, the claimant must send copies of itemized medical billing statements.",
+   "quote": "Claimants requesting reimbursement or payment for medical expenses incurred as a result of the crime shall submit the following documentation as proof of the eligible expenses: (1) Copies of itemized medical billing statements for medical treatment provided to the claimant as a direct result of the crime.",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 8(1)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/030/#:~:text=Claimants%20requesting%20reimbursement%20or%20payment,direct%20result%20of%20the%20crime."
+  },
+  {
+   "id": "KY-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "only when itemized bills are not available"
+   },
+   "summary": "If itemized medical bills are not available, non-itemized bills are accepted when the medical records from the visit are sent with them.",
+   "quote": "(2) If itemized billing statements are not available, non-itemized medical billing statements shall be accepted if: (a) The medical records from the visit are submitted along with the non-itemized medical billing statements;",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 8(2)(a)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/030/#:~:text=%282%29%20If%20itemized%20billing%20statements,the%20non%2Ditemized%20medical%20billing%20statements%3B"
+  },
+  {
+   "id": "KY-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "proof of payment or balance due for each listed expense"
+   },
+   "summary": "The claim form says each listed expense needs documentation such as itemized bills, receipts, service contracts, invoices, or other proof of payment or balance due.",
+   "quote": "You must include documentation of the expense, such as itemized bills, receipts, service contracts, invoices, or other proof of payment and/or balance due.",
+   "source_id": "KY-S19",
+   "pinpoint": "Crime Victim Compensation Form (July 2024), Section 7"
+  },
+  {
+   "id": "KY-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "for mental health counseling; also the treatment plan and itemized bills"
+   },
+   "summary": "For counseling expenses, the claimant must send a Mental Health Counselor's Report from the therapist and the treatment plan, along with itemized bills.",
+   "quote": "(1) Claimants requesting reimbursement or payment of mental health counseling expenses shall submit the following documentation as proof of the eligible expenses: (a) Mental Health Counselor's Report completed by the claimant's or victim's therapist or mental health clinician; (b) Treatment plan devised by the claimant or victim's therapist or mental health clinician;",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 9(1)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/030/#:~:text=%281%29%20Claimants%20requesting%20reimbursement%20or,therapist%20or%20mental%20health%20clinician%3B"
+  },
+  {
+   "id": "KY-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "for lost wages or loss of support; the form must be notarized"
+   },
+   "summary": "A claim for lost wages or loss of support must include a notarized Employment Verification form, plus a Physician Statement or Mental Health Counselor's Report if Board staff ask for one.",
+   "quote": "(3) If applying for lost wages or loss of support, a claim shall be supplemented by: (a) A notarized Employment Verification form; and (b) If requested by Board staff: 1. A Physician Statement form; or 2. A Mental Health Counselor's Report form.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(3)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%283%29%20If%20applying%20for%20lost,Mental%20Health%20Counselor%27s%20Report%20form."
+  },
+  {
+   "id": "KY-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "self-employed claimants send tax returns"
+   },
+   "summary": "A self-employed claimant seeking lost earnings sends the preceding two years of tax returns.",
+   "quote": "If you are selfemployed, please submit the preceding two years' worth of tax returns.",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 4(a)"
+  },
+  {
+   "id": "KY-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Emergency Award Request Form, only when requesting an emergency award"
+   },
+   "summary": "Anyone asking for an emergency award completes, signs, and dates the Emergency Award Request Form and attaches it to the claim form.",
+   "quote": "If yes, please complete, sign, and date the attached Emergency Award Request Form and attach it to your claim form.",
+   "source_id": "KY-S19",
+   "pinpoint": "Crime Victim Compensation Form (July 2024), Section 4"
+  },
+  {
+   "id": "KY-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "lump sum for sexual assault claims delayed more than ten years by kit testing or DNA matching: proof of crime date, kit collection, collection date, testing delay, and damages"
+   },
+   "summary": "A survivor seeking the lump sum for a sexual assault claim filed more than ten years after the crime must send proof of the crime date, that the kit was collected and when, that it went untested for a long time, and anecdotal proof of damages.",
+   "quote": "(1) For purposes of KRS 49.370(7), a claimant seeking an award under this provision shall submit: (a) Proof that the crime occurred more than ten (10) years prior to the date of filing of the claim; (b) Proof that the sexual assault kit was collected; (c) Proof of the collection date of the biological material; (d) Proof that the biological material went untested for an extended period; and (e) Anecdotal proof of the damages incurred as a result of the crime.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 8(1)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%281%29%20For%20purposes%20of%20KRS,a%20result%20of%20the%20crime."
+  },
+  {
+   "id": "KY-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed funeral service contract, for funeral expenses"
+   },
+   "summary": "For funeral expenses, the checklist asks for the signed funeral service contract.",
+   "quote": "3) Signed funeral service contract for funeral expenses",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 3"
+  },
+  {
+   "id": "KY-DOC-11",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "proof of household support, for loss of support"
+   },
+   "summary": "For loss of support, the checklist asks for documentation of the support the supporter brought into the household at the time of the crime.",
+   "quote": "a. Documentation outlining amount of support brought into household by the supporter at the time of the crime.",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 5(a)"
+  },
+  {
+   "id": "KY-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90
+   },
+   "summary": "For claims filed after July 1, 2026, the investigator must finish the investigative report within 90 days after the claim is assigned; this is the investigation step, not the Board's final decision.",
+   "quote": "(3) For claims filed after July 1, 2026, the claims investigator shall complete an investigative report on the claim within ninety (90) days after it is assigned by the Board Clerk to the claims investigator.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 6(3)",
+   "fragment_url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/#:~:text=%283%29%20For%20claims%20filed%20after,Clerk%20to%20the%20claims%20investigator."
   }
  ],
  "coverage": {
@@ -571,7 +799,10 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "filing_deadline",
@@ -584,5 +815,5 @@
   "notes": "Filing deadline and police report rule: 2024 Ky. Acts ch. 67 (SB 319, effective July 15, 2024) deleted the old five-year filing limit from KRS 49.330 and the old 48-hour report rule. The current KRS 49.330 and 49.370 text sets no general filing deadline and no reporting deadline, so no filing_deadline or reporting_requirement rule is recorded. The CVCB FAQ (updated August 2024) still lists a police report of the incident among the documents generally required with a claim, and the claim form asks when and to whom the crime was reported, so a survivor should expect to be asked for one; the program brochure says the sexual assault exam program does not require reporting. No minimum loss amount was found. The program's HTML pages (static_id=158 and 159) could not be saved because the fetch tool strips their ASP.NET form content; their PDFs were saved instead."
  },
  "confidence": "high",
- "researcher_notes": "Caps come from KRS 49.370 as amended effective July 15, 2024 and match the CVCB FAQ cap list ($50,000 overall, $500 per week lost earnings, $2,000 relocation, $2,000 temporary housing, $10,000 funeral, $1,000 emergency). Relocation and temporary housing apply only when the crime happened at the victim's primary residence. The SAEP FAQ (revised 11/2023) predates the 2024 and 2025 amendments: its dollar fee schedule (citing 107 KAR 2:010) is superseded by 802 KAR 3:020 Medicaid-rate caps, and its statements that incomplete exams and same-day ambulance or triage are not paid conflict with current KRS 216B.400(10), which bars charging the victim for exams whether or not completed and for same-day triage and ambulance. Only its insurance-billing answer is used (KY-EXAM-4), and that matches the current program web page, which says providers bill insurance first. Under KRS 49.340(4) claims are investigated whether or not the offender is caught, charged, or convicted. Emergency award requests are limited to one per claimant by the program's January 2025 policy (KY-S21). Reviewer note: the live exam program page (static_id=159, read with curl but not saveable by fetch_source.py, which returns blocked or empty even with --chrome) says providers bill private or public insurance first, matching KY-EXAM-4, but it also says the victim may be charged for expenses not related to the exam process such as ambulance and triage. That conflicts with current KRS 216B.400(10)(d), which bars charging the victim for same-day triage and ambulance costs, so the statute (KY-EXAM-2) controls."
+ "researcher_notes": "Caps come from KRS 49.370 as amended effective July 15, 2024 and match the CVCB FAQ cap list ($50,000 overall, $500 per week lost earnings, $2,000 relocation, $2,000 temporary housing, $10,000 funeral, $1,000 emergency). Relocation and temporary housing apply only when the crime happened at the victim's primary residence. The SAEP FAQ (revised 11/2023) predates the 2024 and 2025 amendments: its dollar fee schedule (citing 107 KAR 2:010) is superseded by 802 KAR 3:020 Medicaid-rate caps, and its statements that incomplete exams and same-day ambulance or triage are not paid conflict with current KRS 216B.400(10), which bars charging the victim for exams whether or not completed and for same-day triage and ambulance. Only its insurance-billing answer is used (KY-EXAM-4), and that matches the current program web page, which says providers bill insurance first. Under KRS 49.340(4) claims are investigated whether or not the offender is caught, charged, or convicted. Emergency award requests are limited to one per claimant by the program's January 2025 policy (KY-S21). Reviewer note: the live exam program page (static_id=159, read with curl but not saveable by fetch_source.py, which returns blocked or empty even with --chrome) says providers bill private or public insurance first, matching KY-EXAM-4, but it also says the victim may be charged for expenses not related to the exam process such as ambulance and triage. That conflicts with current KRS 216B.400(10)(d), which bars charging the victim for same-day triage and ambulance costs, so the statute (KY-EXAM-2) controls. How to file: 802 KAR 3:010 Section 4(2) lists in person or private delivery, mail, email (if the claim fits in one email), and the online portal; fax (502-573-4817) comes from the CVCB FAQ only, not the regulation. The paper application (KY-S19, revised July 2024, still the version linked on the program page on Oct 3, 2026) is a flat PDF with no AcroForm fields, so it must be printed or filled by hand. Document rules come from 802 KAR 3:010 and 3:030 and the program's 'Documents to include' checklist (KY-S22). The program page also links a 'How to file a claim' PDF, but that URL returned 404 on Oct 3, 2026, so it is not saved. Processing time: the regulation sets a 90-day deadline for the investigative report on claims filed after July 1, 2026 (120 days for claims filed after July 1, 2025); no source states a time for the Board's final decision or payment, and the brochure says processing time depends on several factors. Missing documentation: under 802 KAR 3:010 Section 10 a claim goes into default if required documents are not sent within 90 days, and can be revived without a new application. Claimants get access to the online tracking portal within one week of filing."
 }

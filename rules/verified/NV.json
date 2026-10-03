@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.voc.nv.gov/siteassets/content/forms/voc-application_english.pdf",
   "phone": "702-486-2740",
   "phone_source_id": "NV-S3",
-  "statute_citation": "NRS 217.010 to 217.270; sexual assault exams and county treatment: NRS 217.280 to 217.350"
+  "statute_citation": "NRS 217.010 to 217.270; sexual assault exams and county treatment: NRS 217.280 to 217.350",
+  "application_form": {
+   "source_id": "NV-S4",
+   "fillable": true,
+   "field_count": 176
+  }
  },
  "sources": [
   {
@@ -750,6 +755,127 @@
    "source_id": "NV-S5",
    "pinpoint": "NRS 217.070(2)(a)",
    "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=The%20term%20includes%20any%20person,reside%20in%20the%20United%20States%3B"
+  },
+  {
+   "id": "NV-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "VOCP 500 E. Warm Springs Rd, Suite 100 Las Vegas, NV 89119"
+   },
+   "summary": "Mail the completed, signed application to the VOCP office in Las Vegas.",
+   "quote": "Send Completed, Signed Applications to: Scan and E-Mail to: vocp-applications@dcfs.nv.gov 500 E. Warm Springs Rd, Suite 100 Las Vegas, NV 89119 Fax to: (702) 486-2825",
+   "source_id": "NV-S4",
+   "pinpoint": "Application, signature page (Send Completed, Signed Applications to)"
+  },
+  {
+   "id": "NV-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "vocp-applications@dcfs.nv.gov"
+   },
+   "summary": "A completed application can be scanned and emailed to the VOCP applications inbox.",
+   "quote": "Completed applications can be emailed to vocp-applications@dcfs.nv.gov",
+   "source_id": "NV-S3",
+   "pinpoint": "Application and Instructions page, Assistance with Application",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-application-instructions/#:~:text=Completed%20applications%20can%20be%20emailed%20to%20vocp%2Dapplications%40dcfs.nv.gov"
+  },
+  {
+   "id": "NV-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(702) 486-2825"
+   },
+   "summary": "The completed, signed application can be faxed to the VOCP office.",
+   "quote": "Send Completed, Signed Applications to: Scan and E-Mail to: vocp-applications@dcfs.nv.gov 500 E. Warm Springs Rd, Suite 100 Las Vegas, NV 89119 Fax to: (702) 486-2825",
+   "source_id": "NV-S4",
+   "pinpoint": "Application, signature page (Send Completed, Signed Applications to)"
+  },
+  {
+   "id": "NV-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Attach a copy if you have it; if not, VOCP will request the report. The 2026 instructions (NV-S9) say law enforcement reports are not required for eligibility."
+   },
+   "summary": "The application asks for a copy of the police report, but a claim sent without one is still accepted and VOCP will request it.",
+   "quote": "Please attach a copy of the police report prepared by the Law Enforcement Agency. Claims submitted without a police report will be accepted and the VOCP will request a report.",
+   "source_id": "NV-S4",
+   "pinpoint": "Application, Section 3: Tell us about the crime"
+  },
+  {
+   "id": "NV-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Bills or estimates for each crime-related expense checked."
+   },
+   "summary": "Attach the bills or estimates for the crime-related expenses you want paid.",
+   "quote": "Attach your bills, receipts, estimates, or other documents which support your request for payment.",
+   "source_id": "NV-S4",
+   "pinpoint": "Application, Section 4: Tell us about your Crime Related Expenses"
+  },
+  {
+   "id": "NV-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for expenses already paid."
+   },
+   "summary": "Attach receipts for crime-related expenses you already paid.",
+   "quote": "Attach your bills, receipts, estimates, or other documents which support your request for payment.",
+   "source_id": "NV-S4",
+   "pinpoint": "Application, Section 4: Tell us about your Crime Related Expenses"
+  },
+  {
+   "id": "NV-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "A copy of the insurance card, if the victim has life, medical, dental, or vision insurance."
+   },
+   "summary": "If the victim has life, medical, dental, or vision insurance, attach the insurance card.",
+   "quote": "Does the Victim/ Applicant have Life, Medical, Dental, or Vision Insurance? Please attach Insurance card.",
+   "source_id": "NV-S4",
+   "pinpoint": "Application, Section 11: Tell us about the Victim's Insurance or Civil Suit Information"
+  },
+  {
+   "id": "NV-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed authorization and release forms (law enforcement, medical, wage, information sharing, victim service provider)."
+   },
+   "summary": "Sign the authorization and release forms that come with the application; all of them are needed to process it.",
+   "quote": "By checking the boxes and signing below, you are giving permission for certain information to be shared. Please read each section carefully. All authorizations are required to process your application.",
+   "source_id": "NV-S9",
+   "pinpoint": "2026 application, Authorization for Release of Information, Certification and Acknowledgements"
+  },
+  {
+   "id": "NV-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Some record that the crime happened: police report, victim advocate statement, medical or counseling records, protective order or court documents, a professional statement, or other official records."
+   },
+   "summary": "The program needs some document showing the crime occurred, such as a police report, an advocate statement, medical or counseling records, or court papers.",
+   "quote": "We need documentation that a crime occurred. Check all that you have or can provide.",
+   "source_id": "NV-S9",
+   "pinpoint": "2026 application, Section 2: How can we verify the crime occurred?"
+  },
+  {
+   "id": "NV-PROC-1",
+   "category": "processing_time",
+   "params": {
+    "days": 60
+   },
+   "summary": "Unless the claim is denied at first review, the compensation officer must decide it within 60 days after receiving the application.",
+   "quote": "the compensation officer shall conduct an investigation and, except as otherwise provided in subsection 6, render a decision within 60 days after receipt of the application or order.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.110(2)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=the%20compensation%20officer%20shall%20conduct,of%20the%20application%20or%20order."
   }
  ],
  "coverage": {
@@ -765,7 +891,10 @@
    "collateral_source",
    "conduct_reduction",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "minimum_loss (no minimum out-of-pocket loss found in NRS 217 or the State Plan)",
@@ -777,5 +906,5 @@
   "notes": "Statute wins over older agency text. Filing deadline: NRS 217.100 (Rev. 4/15/2026, amended 2025) gives 60 months, or 60 months after age 21 for minors; the eligibility page (NV-S1) still says two years and the 2020 State Plan (NV-S7 300.2) says 24 months, so those are not used. Police reports: NRS 217.100(5) lets eligibility be shown by other documents and the 2026 instructions (NV-S9) say reports are not required, but the eligibility page (NV-S1, 5-day report rule), the application page (NV-S3), the 7/30/2026 application form (NV-S4), and the 2020 State Plan 200.1 and 300.12(A) still describe a police report requirement; that conflict is recorded here and the statute is followed. The rule caps for wages, relocation, lodging, security, childcare, and prescriptions come from the July 1, 2020 State Plan, which the program's Regulations page links as current; it says benefit levels may change at any time. Counseling ($5,000), medical and dental ($35,000), and cleanup ($5,000) come from the current coverage-limits page. NV-S9 says counseling and crime-scene cleanup may be covered beyond the $35,000 total. Reviewer additions: the 7/30/2026 application form (NV-S4) asks for a reason only when the crime occurred more than five years ago, which matches the 60-month statute. NRS 217.210, which the 7/30/2026 form still cites for police reports, does not appear in the Rev. 4/15/2026 chapter text. The 2026 instructions (NV-S9) list the crime being reported to law enforcement or another appropriate authority as an eligibility condition while also saying law enforcement reports are not required, so a survivor may still be asked for some official record. The coverage-limits page also caps chiropractic and physical therapy at $5,000 and medical equipment and supplies at $2,500; those fit no single expense type and are not encoded."
  },
  "confidence": "medium",
- "researcher_notes": "Main source conflicts: (1) filing deadline 60 months in NRS 217.100 vs two years/24 months on the eligibility page and in the 2020 State Plan; (2) police report required on older agency pages and the 7/30/2026 application form vs not required under NRS 217.100(5) and the 2026 application instructions. Other things a reviewer should know but that fit no category: NRS 217.220(4) lets the officer deny an award if the applicant will not suffer serious financial hardship, without counting the home, one vehicle, or savings up to one year's salary; NRS 217.245 says a provider that accepts VOCP payment takes it as payment in full and may not bill the victim further. NRS 217.310 to 217.340 separately let a sexual assault survivor (and spouse) apply to the county for medical and counseling treatment up to $1,000, with its own 60-day application or 3-day report timing; that county benefit is not encoded as a VOCP rule. The 2020 State Plan 400.15 limit of $1,000 for a sexual assault exam in rural counties predates the 2025 amendment of NRS 217.300 that pays exams from the Fund, so it is not encoded. Counseling hourly rates on the coverage-limits page ($125 psychiatrist down to $45 intern) are provider rates and are not encoded. The OVC directory (ovc.ojp.gov/states/nevada) lists the program at voc.nv.gov, phone 702-486-2740; it was read but not saved as a source. The NAC Chapter 217 was checked and only covers fictitious addresses, so it was not saved. Reviewer: NV-S7 kind changed from regulation to agency_pdf because the State Plan is program policy under NRS 217.094, not an administrative code. filing_deadline uses months (60) and from: age_21 because the statute counts in months and from age 21; the schema lists only years/days and age_18, so the engine must handle these values."
+ "researcher_notes": "Main source conflicts: (1) filing deadline 60 months in NRS 217.100 vs two years/24 months on the eligibility page and in the 2020 State Plan; (2) police report required on older agency pages and the 7/30/2026 application form vs not required under NRS 217.100(5) and the 2026 application instructions. Other things a reviewer should know but that fit no category: NRS 217.220(4) lets the officer deny an award if the applicant will not suffer serious financial hardship, without counting the home, one vehicle, or savings up to one year's salary; NRS 217.245 says a provider that accepts VOCP payment takes it as payment in full and may not bill the victim further. NRS 217.310 to 217.340 separately let a sexual assault survivor (and spouse) apply to the county for medical and counseling treatment up to $1,000, with its own 60-day application or 3-day report timing; that county benefit is not encoded as a VOCP rule. The 2020 State Plan 400.15 limit of $1,000 for a sexual assault exam in rural counties predates the 2025 amendment of NRS 217.300 that pays exams from the Fund, so it is not encoded. Counseling hourly rates on the coverage-limits page ($125 psychiatrist down to $45 intern) are provider rates and are not encoded. The OVC directory (ovc.ojp.gov/states/nevada) lists the program at voc.nv.gov, phone 702-486-2740; it was read but not saved as a source. The NAC Chapter 217 was checked and only covers fictitious addresses, so it was not saved. Reviewer: NV-S7 kind changed from regulation to agency_pdf because the State Plan is program policy under NRS 217.094, not an administrative code. filing_deadline uses months (60) and from: age_21 because the statute counts in months and from age 21; the schema lists only years/days and age_18, so the engine must handle these values. How to file: the application page (NV-S3) links the 7/30/2026 form (NV-S4), so NV-S4 is program.application_form (fillable AcroForm, 176 fields). NV-S9, the 2026 instructions-plus-form PDF in the voc-forms-2026 folder, is also fillable (182 fields) and gives the same mail address, email, and fax; it is used here only for the release-form and crime-documentation requirements. Submission: mail to 500 E. Warm Springs Rd, Suite 100, Las Vegas, NV 89119; email vocp-applications@dcfs.nv.gov; fax (702) 486-2825. NV-S9's cover page lists vocp@dcfs.nv.gov as a general email, but the signature page says to send applications to vocp-applications@dcfs.nv.gov, so only that one is encoded. No online filing portal was found. The office address on NV-S3 is where applicants can get help in person; no source says applications may be dropped off there, so in_person is not encoded. Documents: NV-S9 says to submit whatever documents you have now and send more later, and says eligible applicants will be sent a checklist of specific documents for each benefit; the lost wage section says a social security number must be included. Processing time comes from NRS 217.110(2) (60 days after receipt of the application, with a 5-day denial window when ineligibility is apparent); the 2020 State Plan 600.1 says the same 60 days."
 }

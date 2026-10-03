@@ -10,9 +10,14 @@
   "application_pdf_url": "https://dcr.hawaii.gov/cvcc/wp-content/uploads/sites/2/2026/06/Compensation_Application_2026-Fillable-06092026.pdf",
   "phone": "808-587-1143",
   "phone_source_id": "HI-S3",
-  "statute_citation": "Haw. Rev. Stat. ch. 351; Haw. Admin. R. ch. 23-605"
+  "statute_citation": "Haw. Rev. Stat. ch. 351; Haw. Admin. R. ch. 23-605",
+  "application_form": {
+   "source_id": "HI-S7",
+   "fillable": true,
+   "field_count": 112
+  }
  },
- "source_sha256": "bb08e45502a5c8d2c72d5d05cf8852acfe330856f8d2011f3c4c0c1a0a63f772",
+ "source_sha256": "45a2511c5da7cb2f877de529304efce97831666063df8b411c7b8dd191bc2d76",
  "rules": [
   {
    "id": "HI-EXAM-1",
@@ -144,6 +149,66 @@
    "id": "HI-EXCL-NOSHOW-1",
    "kind": "info",
    "category": "excluded_expense"
+  },
+  {
+   "id": "HI-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "HI-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "HI-DOC-8",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": []

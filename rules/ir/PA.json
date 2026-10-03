@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.pa.gov/content/dam/copapwp-pagov/en/pcv/documents/vcap%20long%20claim%20form%20july%202024.pdf",
   "phone": "800-233-2339",
   "phone_source_id": "PA-S4",
-  "statute_citation": "Crime Victims Act, 18 P.S. 11.101 et seq. (compensation: 18 P.S. 11.701 to 11.710); 37 Pa. Code Chapter 411"
+  "statute_citation": "Crime Victims Act, 18 P.S. 11.101 et seq. (compensation: 18 P.S. 11.701 to 11.710); 37 Pa. Code Chapter 411",
+  "application_form": {
+   "source_id": "PA-S6",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "f024a6e7b7cba93099834aa22cacf9587b8e0c690d1d68d5b063c85727161278",
+ "source_sha256": "ccdae57e969784e978514344e5634b86a4d23ad3256909e785023d615c61fef4",
  "rules": [
   {
    "id": "PA-EXAM-1",
@@ -249,6 +254,76 @@
    "id": "PA-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "PA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "PA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "PA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "PA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "PA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "PA-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

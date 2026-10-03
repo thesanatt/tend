@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.jud.ct.gov/webforms/forms/vs008PI.pdf",
   "phone": "1-888-286-7347",
   "phone_source_id": "CT-S5",
-  "statute_citation": "Conn. Gen. Stat. 54-201 to 54-218"
+  "statute_citation": "Conn. Gen. Stat. 54-201 to 54-218",
+  "application_form": {
+   "source_id": "CT-S4",
+   "fillable": true,
+   "field_count": 296
+  }
  },
- "source_sha256": "e32ab7b5e6f0274d6c489eb1de6589083bed5f53211611217244263d840cd153",
+ "source_sha256": "6a3157535067cc5f5c97ebe4afa89da6a0fcae4c7a1ae67ab8947c999624d6c5",
  "rules": [
   {
    "id": "CT-EXAM-1",
@@ -181,6 +186,66 @@
    "id": "CT-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "CT-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CT-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CT-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CT-DOC-9",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

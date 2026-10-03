@@ -9,7 +9,12 @@
     "application_pdf_url": "https://ovs.ny.gov/system/files/documents/2026/02/fillable-ovs-compensation-application-02.12.26.pdf",
     "phone": "1-800-247-8035",
     "phone_source_id": "NY-S1",
-    "statute_citation": "N.Y. Executive Law Article 22 (sections 620 to 635); 9 NYCRR Part 525; Public Health Law 2805-i"
+    "statute_citation": "N.Y. Executive Law Article 22 (sections 620 to 635); 9 NYCRR Part 525; Public Health Law 2805-i",
+    "application_form": {
+      "source_id": "NY-S4",
+      "fillable": true,
+      "field_count": 552
+    }
   },
   "sources": [
     {
@@ -715,6 +720,138 @@
       "quote": "an act committed outside the state of New York against a resident of the state of New York which would be compensable had it occurred within the state of New York and which occurred in a state which does not have an eligible crime victim compensation program",
       "source_id": "NY-S14",
       "pinpoint": "N.Y. Exec. Law 621(3)(b)"
+    },
+    {
+      "id": "NY-SUB-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "NYS Office of Victim Services, AE Smith Building, 80 S. Swan Street, Albany, NY 12210-8002"
+      },
+      "summary": "A paper application and documents can be mailed to the OVS office in Albany.",
+      "quote": "Mailing Address: NYS Office of Victim Services AE Smith Building 80 S. Swan Street Albany, NY 12210-8002",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information"
+    },
+    {
+      "id": "NY-SUB-2",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "OVSIntake@ovs.ny.gov"
+      },
+      "summary": "The application and supporting documents can be emailed to the OVS intake address.",
+      "quote": "Email applications and documents to: OVSIntake@ovs.ny.gov",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information"
+    },
+    {
+      "id": "NY-SUB-3",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://ovs.ny.gov/"
+      },
+      "summary": "A claim can be filed online through the OVS Compass Applicant Portal, as a guest or with a NY.gov account.",
+      "quote": "Yes, you can visit https://ovs.ny.gov/ to access the secure OVS Compass Applicant Portal, or Victim Advocate Portal, and file an application online.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 1, FAQ: Is there another way to apply?"
+    },
+    {
+      "id": "NY-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "all bills and receipts for the crime-related goods and services claimed"
+      },
+      "summary": "Include all bills and receipts for the expenses described in the application.",
+      "quote": "All bills and receipts for expenses related to goods and services you described in this application.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim"
+    },
+    {
+      "id": "NY-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill",
+        "note": "the same instruction asks for all bills, not only receipts"
+      },
+      "summary": "Include the bills for the crime-related goods and services claimed.",
+      "quote": "All bills and receipts for expenses related to goods and services you described in this application.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim"
+    },
+    {
+      "id": "NY-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "HIPAA release form, one per medical or mental health provider; a blank copy is at the end of the application"
+      },
+      "summary": "Include one completed HIPAA authorization for each medical and mental health provider seen for crime-related care.",
+      "quote": "One completed HIPAA form for each medical and mental health provider you saw for services related to this crime.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim"
+    },
+    {
+      "id": "NY-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "letters from insurers or government agencies denying or approving payment"
+      },
+      "summary": "Include any letters from insurance companies or government agencies that denied or authorized payment for the claimed expenses.",
+      "quote": "Letters from any insurance or government agencies denying or authorizing payments related to goods and services you described in this application.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim"
+    },
+    {
+      "id": "NY-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "crime verification: one third-party document, such as a Crime Verification Form from a victim service provider or a medical or mental health professional"
+      },
+      "summary": "Only one third-party document confirming the crime is needed, and a Crime Verification Form from a victim service provider or medical or mental health professional works.",
+      "quote": "You only need to submit one document showing OVS that a third-party has confirmed that you or the victim/survivor experienced a crime. You can speak to a victim service provider or medical or mental health professional, and they can fill out a Crime Verification Form.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification"
+    },
+    {
+      "id": "NY-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "optional; a police or other criminal justice agency report is one way to verify the crime, not the only way"
+      },
+      "summary": "A police or other criminal justice agency report can be submitted as the crime verification document, but it is a choice.",
+      "quote": "You may also choose to report the crime to law enforcement and submit a criminal justice agency report, like a police report, as part of this application.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification"
+    },
+    {
+      "id": "NY-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "exam_record",
+        "note": "optional; the applicant can choose to use the forensic rape exam report as part of the application"
+      },
+      "summary": "If a forensic rape exam was done, the survivor can choose to use the exam report in the application.",
+      "quote": "If an FRE was performed, do you want to use the report as part of your application?",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 10, Medical Care"
+    },
+    {
+      "id": "NY-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Workers' Compensation or disability insurance decision letter, only if the victim has that coverage"
+      },
+      "summary": "If the victim has Workers' Compensation or disability insurance coverage, OVS needs that provider's decision letter.",
+      "quote": "If the victim has coverage through either Worker's Compensation or a Disability Insurance provider, OVS will need the decision letter from either Worker's Compensation or the Disability Insurance provider to help determine eligibility for compensation.",
+      "source_id": "NY-S4",
+      "pinpoint": "OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability"
     }
   ],
   "coverage": {
@@ -730,17 +867,20 @@
       "expense_cap",
       "filing_deadline",
       "reporting_requirement",
-      "residency"
+      "residency",
+      "submission",
+      "required_document"
     ],
     "not_found": [
       "total_cap",
       "expense_cap:counseling",
       "expense_cap:medical",
       "expense_cap:security",
-      "minimum_loss"
+      "minimum_loss",
+      "processing_time"
     ],
-    "notes": "total_cap: Article 22 sets no overall maximum award; it caps specific categories (lost earnings, relocation, property, etc.) and medical and counseling costs have no dollar cap in the statute. I did not record a total cap rather than infer one. Counseling rates: no per-session counseling fee cap was found in Executive Law 631 or in 9 NYCRR 525.3 or 525.12; 525.12(g)(4) lets OVS require proof that counseling is crime-related when a claim is filed more than one year after counseling began. minimum_loss: no minimum out-of-pocket loss requirement was found in the statute sections read. Security: covered for new or enhanced devices with a physician, counselor, or DA statement (525.12(g)(3)); no dollar cap found apart from the $2,500 crime scene securing cap. Financial difficulty: Exec. Law 631(6)(a) requires a finding of financial difficulty except for emergency awards and awards under ten thousand dollars (not a schema category). Reporting: the old one-week police reporting rule is no longer in Exec. Law 631(1); the current text accepts records of a support agency for survivors of crime. OVS pages say the Crime Verification Form is accepted only for claims filed on or after December 31, 2025. Reviewer additions: 9 NYCRR 525.12(h)(9) (LII text, last amended 2022) says direct-reimbursement exam expenses must relate to services within 120 hours of the incident, waived for a child victim or for good cause, and no kit reimbursement past 120 hours; the current Exec. Law 631(13) and the March 2026 OVS provider billing manual do not state this window, so it is not encoded as a rule. The per-item clothing, bedding, communication and transportation-item limits in 525.12(n)(1)-(4) do not apply when OVS finds the property is related to the victim's health or safety (525.12(n)(6)); the $2,500 statutory property cap still applies. The protective-order, victim services provider, and medical or mental health provider alternatives in Exec. Law 631(1)(c)(iii) are conditioned in the statute on the victim being unable to report to or cooperate with police for health or safety reasons; the OVS update page (NY-S7) describes the Crime Verification Form without that condition."
+    "notes": "total_cap: Article 22 sets no overall maximum award; it caps specific categories (lost earnings, relocation, property, etc.) and medical and counseling costs have no dollar cap in the statute. I did not record a total cap rather than infer one. Counseling rates: no per-session counseling fee cap was found in Executive Law 631 or in 9 NYCRR 525.3 or 525.12; 525.12(g)(4) lets OVS require proof that counseling is crime-related when a claim is filed more than one year after counseling began. minimum_loss: no minimum out-of-pocket loss requirement was found in the statute sections read. Security: covered for new or enhanced devices with a physician, counselor, or DA statement (525.12(g)(3)); no dollar cap found apart from the $2,500 crime scene securing cap. Financial difficulty: Exec. Law 631(6)(a) requires a finding of financial difficulty except for emergency awards and awards under ten thousand dollars (not a schema category). Reporting: the old one-week police reporting rule is no longer in Exec. Law 631(1); the current text accepts records of a support agency for survivors of crime. OVS pages say the Crime Verification Form is accepted only for claims filed on or after December 31, 2025. Reviewer additions: 9 NYCRR 525.12(h)(9) (LII text, last amended 2022) says direct-reimbursement exam expenses must relate to services within 120 hours of the incident, waived for a child victim or for good cause, and no kit reimbursement past 120 hours; the current Exec. Law 631(13) and the March 2026 OVS provider billing manual do not state this window, so it is not encoded as a rule. The per-item clothing, bedding, communication and transportation-item limits in 525.12(n)(1)-(4) do not apply when OVS finds the property is related to the victim's health or safety (525.12(n)(6)); the $2,500 statutory property cap still applies. The protective-order, victim services provider, and medical or mental health provider alternatives in Exec. Law 631(1)(c)(iii) are conditioned in the statute on the victim being unable to report to or cooperate with police for health or safety reasons; the OVS update page (NY-S7) describes the Crime Verification Form without that condition. processing_time: no saved OVS page, application, or statute section states a time for a decision or payment, so none is recorded."
   },
   "confidence": "high",
-  "researcher_notes": "Statute text is from the NY Senate Open Legislation site (fetched via Chrome). 9 NYCRR text is from Cornell LII because the official Westlaw NYCRR site is script-heavy; LII shows the 525.12 amendment history through Oct 12, 2022, and its funeral cap ($6,000) is older than the current statute ($12,000 in Exec. Law 631(2)), so for any conflict the statute wins. Effective dates from OVS update pages: three-year filing deadline and Crime Verification Form alternative to police reports apply starting December 31, 2025; filing deadline previously shorter. Exec. Law 631(13)(b) also sets provider reimbursement ceilings for the exam ($800 / $1,200 / $2,500); these are provider rates, not survivor-facing, so I did not encode them. The OVS FRE page says claims received on or after February 3, 2026 are paid by a new OVS fee schedule. PHL 2805-i(1) has two versions of the no-billing paragraph (lettered (d) until May 9, 2027 and (g) after); the quoted text is identical in both. Expense caps with per='item' (clothing, communication items) are per-item limits from 9 NYCRR 525.12(n); per='item' is outside the schema's listed values but is what the regulation says. A phone would most plausibly fall under 'ability to communicate', but the regulation does not name phones. Essential personal property awards for adults generally require a physical injury; sex offense victims are presumed physically injured under Exec. Law 626(1). The older OVS FAQ page and 2022 guideline PDFs state superseded rules (one-week reporting, one-year filing, $500 property cap), so I did not use them."
+  "researcher_notes": "Statute text is from the NY Senate Open Legislation site (fetched via Chrome). 9 NYCRR text is from Cornell LII because the official Westlaw NYCRR site is script-heavy; LII shows the 525.12 amendment history through Oct 12, 2022, and its funeral cap ($6,000) is older than the current statute ($12,000 in Exec. Law 631(2)), so for any conflict the statute wins. Effective dates from OVS update pages: three-year filing deadline and Crime Verification Form alternative to police reports apply starting December 31, 2025; filing deadline previously shorter. Exec. Law 631(13)(b) also sets provider reimbursement ceilings for the exam ($800 / $1,200 / $2,500); these are provider rates, not survivor-facing, so I did not encode them. The OVS FRE page says claims received on or after February 3, 2026 are paid by a new OVS fee schedule. PHL 2805-i(1) has two versions of the no-billing paragraph (lettered (d) until May 9, 2027 and (g) after); the quoted text is identical in both. Expense caps with per='item' (clothing, communication items) are per-item limits from 9 NYCRR 525.12(n); per='item' is outside the schema's listed values but is what the regulation says. A phone would most plausibly fall under 'ability to communicate', but the regulation does not name phones. Essential personal property awards for adults generally require a physical injury; sex offense victims are presumed physically injured under Exec. Law 626(1). The older OVS FAQ page and 2022 guideline PDFs state superseded rules (one-week reporting, one-year filing, $500 property cap), so I did not use them. How to file: the English application link on the OVS page (ovs.ny.gov/compensation_application_english) still redirects to the Feb. 2026 fillable PDF saved as NY-S4 (552 AcroForm fields), so that is the newest version. Submission targets come from the application's contact section: mail to the Albany AE Smith Building address and email to OVSIntake@ovs.ny.gov; online filing is through OVS Compass (program.apply_url). The OVS page (NY-S1) also lists a Brooklyn office at 55 Hanson Place for the Compensation Division, but the application says to mail documents to the Albany address, so only Albany is encoded. No fax or in-person filing method is stated. The application also says documents can be sent later if not ready, and the OVS page says OVS may later ask for birth or death certificates, marriage licenses, insurance Explanations of Benefits, and receipts depending on the claim; those on-request items are not encoded as required documents. Photo ID, proof of residency, and wage verification are not requested up front; for lost wages the application says OVS contacts the employer."
 }

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
   "phone": "410-585-3010",
   "phone_source_id": "MD-S9",
-  "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007"
+  "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007",
+  "application_form": {
+   "source_id": "MD-S9",
+   "fillable": true,
+   "field_count": 135
+  }
  },
- "source_sha256": "1d7e1fdaf1aa518683201ef88b097ed61d62d2ae3564ebe5bdea678388c43b3f",
+ "source_sha256": "78e9c66844d6b1eaa09f973d3d2593811e8e4938d42079f86b5b6bce4eefd6a7",
  "rules": [
   {
    "id": "MD-EXAM-1",
@@ -199,6 +204,66 @@
    "id": "MD-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "MD-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MD-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MD-SUBMIT-INPERSON",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MD-DOC-SIGN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-MEDICAL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-COUNSEL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MD-DOC-WORKNOTE",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.iowaattorneygeneral.gov/media/cms/Compensation_Application_English_0E6E8B08B04B2.pdf",
   "phone": "1-800-373-5044",
   "phone_source_id": "IA-S2",
-  "statute_citation": "Iowa Code 915.80 to 915.94; Iowa Code 915.41 (exam costs); Iowa Admin. Code 61, ch. 9"
+  "statute_citation": "Iowa Code 915.80 to 915.94; Iowa Code 915.41 (exam costs); Iowa Admin. Code 61, ch. 9",
+  "application_form": {
+   "source_id": "IA-S5",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -81,6 +86,36 @@
    "raw_path": "rules/sources/IA/IA-S7.pdf",
    "text_path": "rules/sources/IA/IA-S7.txt",
    "sha256": "e509b798c13bd4ed4d400a95955be82d08b36990caaa7b961aaea29b36eb0fe7"
+  },
+  {
+   "id": "IA-S8",
+   "title": "Online Crime Victim Compensation Application (Iowa Attorney General page)",
+   "url": "https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/online-crime-victim-compensation-application/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:39:48Z",
+   "raw_path": "rules/sources/IA/IA-S8.html",
+   "text_path": "rules/sources/IA/IA-S8.txt",
+   "sha256": "b64718bd2b0907fd58f6b111760876813154e49d0ae7cd414576dcd3a06efb68"
+  },
+  {
+   "id": "IA-S9",
+   "title": "Printable Crime Victim Compensation Applications (Iowa Attorney General page)",
+   "url": "https://www.iowaattorneygeneral.gov/for-crime-victims/crime-victim-compensation/printable-crime-victim-compensation-application/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:39:49Z",
+   "raw_path": "rules/sources/IA/IA-S9.html",
+   "text_path": "rules/sources/IA/IA-S9.txt",
+   "sha256": "dac3e0631ca91c9999f668ecd345ad8701a91d46561dccd81aafefd57542f771"
+  },
+  {
+   "id": "IA-S10",
+   "title": "Iowa Crime Victim Compensation Application portal home page (ccvcia.org)",
+   "url": "https://ccvcia.org/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:40:25Z",
+   "raw_path": "rules/sources/IA/IA-S10.html",
+   "text_path": "rules/sources/IA/IA-S10.txt",
+   "sha256": "3a367f92873b10a2476b3a57992be2c18e979d4c7517213223c8a052701200f0"
   }
  ],
  "rules": [
@@ -594,6 +629,129 @@
    "quote": "A resident of Iowa who is the victim of an act that would be compensable had it occurred within the state of Iowa and any of the following apply: The act occurred in a state or foreign country that does not have a victim compensation program as defined in the federal law; The act occurred in a state or foreign country whose victim compensation program has insufficient or inadequate benefits; or The act occurred on an aircraft while in flight or occurred on waters outside of the jurisdiction of any particular state or country.",
    "source_id": "IA-S7",
    "pinpoint": "Iowa Admin. Code r. 61-9.26 (definition of \"Applicant\", item 3)"
+  },
+  {
+   "id": "IA-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "www.iowaattorneygeneral.gov"
+   },
+   "summary": "Apply online starting from the Attorney General's site; its online application page links to the program's portal, where you create an account to file.",
+   "quote": "Apply online by visiting www.iowaattorneygeneral.gov.",
+   "source_id": "IA-S5",
+   "pinpoint": "Application brochure, To Apply for Crime Victim Compensation panel"
+  },
+  {
+   "id": "IA-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Office of the Attorney General of Iowa Victim Assistance Section Hoover Building, First Floor 1305 E Walnut Street Des Moines, Iowa 50319"
+   },
+   "summary": "Send the paper application and signed forms to the Victim Assistance Section at the Hoover Building in Des Moines.",
+   "quote": "Office of the Attorney General of Iowa Victim Assistance Section Hoover Building, First Floor 1305 E Walnut Street Des Moines, Iowa 50319",
+   "source_id": "IA-S10",
+   "pinpoint": "ccvcia.org home page, Contact Us"
+  },
+  {
+   "id": "IA-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed Repayment and Subrogation Agreement (Section 1 of the release page); the application is not complete without it."
+   },
+   "summary": "Sign Section 1, the repayment and subrogation agreement; the application is not complete without that signature.",
+   "quote": "Section 1 MUST BE SIGNED TO COMPLETE your Application for Crime Victim Compensation (CVC)",
+   "source_id": "IA-S5",
+   "pinpoint": "Application, Release of Information and Repayment Agreements page"
+  },
+  {
+   "id": "IA-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed Information Release and Mental Health Special Medical Information Release (Sections 2 and 3), listing your medical and counseling providers."
+   },
+   "summary": "Fill in and sign Sections 2 and 3, the medical and mental health information releases, to get medical and counseling benefits.",
+   "quote": "SECTIONS 2 AND 3 MUST BE COMPLETED AND SIGNED to receive Medical and Counseling Benefits",
+   "source_id": "IA-S5",
+   "pinpoint": "Application, Release of Information and Repayment Agreements page"
+  },
+  {
+   "id": "IA-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Insurance company name, address, and policy number for health, Medicaid or Medicare, worker compensation, and auto, home, or boat insurance."
+   },
+   "summary": "Have the name, address, and policy number for each insurance you carry; the application asks for them.",
+   "quote": "List your insurance company name, address, and policy number for each of these insurance types:",
+   "source_id": "IA-S5",
+   "pinpoint": "Application, item 5"
+  },
+  {
+   "id": "IA-DOC-4",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "other",
+    "note": "Disability statement signed by a physician or licensed mental health practitioner, only for lost wages beyond two weeks."
+   },
+   "summary": "Lost wages for more than two weeks need a disability statement from a physician or licensed mental health practitioner who treated the victim.",
+   "quote": "*Compensation paid for more than two weeks of a crime victim's lost wages requires a disability statement.",
+   "source_id": "IA-S2",
+   "pinpoint": "What are Covered Costs?, lost wages footnote"
+  },
+  {
+   "id": "IA-DOC-5",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "wage_verification",
+    "note": "Self-employed or small business workers: recent federal or state income tax forms, or proof of average income for the past six months."
+   },
+   "summary": "If you are self-employed, provide your most recent income tax forms or proof of your average income over the past six months.",
+   "quote": "Self-employed persons or small business employees must provide federal or state income tax forms for the most recent year completed or verification of average income for a minimum of the past six months.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(7)(c)"
+  },
+  {
+   "id": "IA-DOC-6",
+   "category": "required_document",
+   "expense": "medical",
+   "params": {
+    "document": "medical_records",
+    "note": "The medical provider sends these to the program; your signed release lets the program request them."
+   },
+   "summary": "For medical costs, the provider sends the program records showing the care was for a crime injury.",
+   "quote": "When compensation for medical care is requested, the provider shall submit medical records that document the care provided and show that the medical care is for injury from crime.",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(2)"
+  },
+  {
+   "id": "IA-DOC-7",
+   "category": "required_document",
+   "expense": "counseling",
+   "params": {
+    "document": "counseling_statement",
+    "note": "The counselor completes a treatment plan and certification form (and progress forms every six months); you do not fill these out."
+   },
+   "summary": "For counseling costs, the counselor completes the program's treatment plan and certification forms.",
+   "quote": "When compensation for mental health counseling is requested, the provider shall complete verification forms related to the counseling as follows:",
+   "source_id": "IA-S7",
+   "pinpoint": "Iowa Admin. Code r. 61-9.35(4)"
+  },
+  {
+   "id": "IA-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "weeks": 8
+   },
+   "summary": "Deciding eligibility may take eight weeks.",
+   "quote": "Eligibility determination may take eight weeks.",
+   "source_id": "IA-S2",
+   "pinpoint": "Quick Facts"
   }
  ],
  "coverage": {
@@ -609,7 +767,10 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "total_cap",
@@ -618,5 +779,5 @@
   "notes": "Iowa sets per-category limits in Iowa Code 915.86 and no overall maximum award was found in the statute, rules, or program pages, so total_cap is left out. No minimum out-of-pocket loss was found. Housing assistance (915.86(17)) is in the statute but the program facts page lists it as currently unavailable."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is the Iowa Code 2026 chapter 915 PDF from legis.iowa.gov; rules are 61 IAC ch. 9 (IAC 2/5/25, ARC 8358C effective 12/18/24). Exam payment: 61 IAC 9.83(2) pays qualified providers a $400 provider fee plus a $300 facility fee for exams within 30 days; the exam program has no application for the survivor. Survivor-relevant extras not encoded as rules: 61 IAC 9.30(4) says a sexual abuse victim is deemed to have reasonably cooperated with law enforcement if the victim undergoes a sexual abuse evidentiary examination; Iowa Code 915.84(4) exempts certain child and dependent adult sexual abuse victims from police reporting when the abuse was reported to and verified by HHS; the quick guide says criminal charges do not have to be filed. 61 IAC 9.35(3) pays up to 12 counseling sessions in full with a treatment plan, after which preexisting issues can reduce payment; this is not a hard session cap, so it is not encoded as count_limit. Iowa Code 915.86(18) allows up to $5,000 per person of additional compensation for undue hardship or new events beyond category limits (not for relocation, housing, or loss of support); not encoded. The program facts page and 61 IAC 9.35(8) say lost wages beyond two weeks need a disability statement. Phones and other personal property: not covered (property loss excluded), but medical devices and medication taken, lost, or destroyed in the crime can be replaced under 61 IAC 9.35(1)(g). The Capitol program phone 515-281-5044 also appears on the exam page (IA-S3). Facts page IA-S2 contains the same quick facts as program page IA-S1. Reviewer: Iowa Code 915.84(2) lets the department waive the 30-day emergency relocation window for good cause. Iowa Code 915.86(1)(b) says a medical provider that accepts the program's full payment at the established rate must hold the victim harmless for the rest. IA-COUNS-2 ($2,000) and IA-WAGES-2 ($1,000) are caps for secondary victims and for court or investigation time, not the primary victim's main counseling or lost-wage caps (IA-COUNS-1, IA-WAGES-1). Housing assistance (IA-HOUSING-1) has no matching benefit category in 61 IAC 9.35 and the facts page says it is currently unavailable, so treat it as not currently paid."
+ "researcher_notes": "Statute text is the Iowa Code 2026 chapter 915 PDF from legis.iowa.gov; rules are 61 IAC ch. 9 (IAC 2/5/25, ARC 8358C effective 12/18/24). Exam payment: 61 IAC 9.83(2) pays qualified providers a $400 provider fee plus a $300 facility fee for exams within 30 days; the exam program has no application for the survivor. Survivor-relevant extras not encoded as rules: 61 IAC 9.30(4) says a sexual abuse victim is deemed to have reasonably cooperated with law enforcement if the victim undergoes a sexual abuse evidentiary examination; Iowa Code 915.84(4) exempts certain child and dependent adult sexual abuse victims from police reporting when the abuse was reported to and verified by HHS; the quick guide says criminal charges do not have to be filed. 61 IAC 9.35(3) pays up to 12 counseling sessions in full with a treatment plan, after which preexisting issues can reduce payment; this is not a hard session cap, so it is not encoded as count_limit. Iowa Code 915.86(18) allows up to $5,000 per person of additional compensation for undue hardship or new events beyond category limits (not for relocation, housing, or loss of support); not encoded. The program facts page and 61 IAC 9.35(8) say lost wages beyond two weeks need a disability statement. Phones and other personal property: not covered (property loss excluded), but medical devices and medication taken, lost, or destroyed in the crime can be replaced under 61 IAC 9.35(1)(g). The Capitol program phone 515-281-5044 also appears on the exam page (IA-S3). Facts page IA-S2 contains the same quick facts as program page IA-S1. Reviewer: Iowa Code 915.84(2) lets the department waive the 30-day emergency relocation window for good cause. Iowa Code 915.86(1)(b) says a medical provider that accepts the program's full payment at the established rate must hold the victim harmless for the rest. IA-COUNS-2 ($2,000) and IA-WAGES-2 ($1,000) are caps for secondary victims and for court or investigation time, not the primary victim's main counseling or lost-wage caps (IA-COUNS-1, IA-WAGES-1). Housing assistance (IA-HOUSING-1) has no matching benefit category in 61 IAC 9.35 and the facts page says it is currently unavailable, so treat it as not currently paid. How to file (added Oct 3): the English primary victim application (IA-S5, 2023 brochure, PDF dated Aug 15 2023) is still the one linked from the program and printable-applications pages; it is a flat print-and-sign PDF with no form fields. The online application page (IA-S8) links to the portal at ccvcia.org (IA-S10), where you must create an account to file. Mailing address conflict: the 2023 brochure's contact panel lists the Lucas State Office Building, Ground Floor, 321 East 12th Street, and its business reply panel is addressed to the State Capitol, 1015 E Grand Ave, Des Moines IA 50319-9903; the current portal and every AG page list the Hoover Building, 1305 E Walnut Street, so IA-SUBMIT-2 uses Hoover. No source says the application can be faxed or emailed: fax 515-281-8199 appears only as a contact number and crimevictiminfo@ag.iowa.gov only 'for help', so neither is encoded as a submission method. Filing by phone at 1-800-373-5044 is allowed (61 IAC 9.28, facts page) but phone is not a schema submission method. No source asks the applicant to attach a police report; the application asks for the law enforcement agency and case number instead, and 61 IAC 9.33 refers to a law enforcement verification form the program sends to police."
 }

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://vccb.alaska.gov/wp-content/uploads/2026/05/Alaska-VCCB-Application.pdf",
   "phone": "800-764-3040",
   "phone_source_id": "AK-S7",
-  "statute_citation": "AS 18.67.010 to 18.67.180; AS 18.68.040"
+  "statute_citation": "AS 18.67.010 to 18.67.180; AS 18.68.040",
+  "application_form": {
+   "source_id": "AK-S8",
+   "fillable": true,
+   "field_count": 168
+  }
  },
- "source_sha256": "813e481322f8b47d33aca8c8309efd29f38f0954fbe69d6419f62e30dd524315",
+ "source_sha256": "796d2ad80553fd2f06ca655c34e20aa5b56f690106eeeae425e703aaacbbf497",
  "rules": [
   {
    "id": "AK-EXAM-1",
@@ -238,6 +243,76 @@
    "id": "AK-EXCL-1",
    "kind": "excluded",
    "expense": "property_replacement"
+  },
+  {
+   "id": "AK-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-10",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

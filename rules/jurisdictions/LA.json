@@ -1,492 +1,718 @@
 {
-  "jurisdiction": "LA",
-  "name": "Louisiana",
-  "program": {
-    "program_name": "Crime Victims' Compensation (formerly Crime Victims Reparations)",
-    "agency": "Louisiana Commission on Law Enforcement and Administration of Criminal Justice (LCLE), Crime Victims' Compensation Board",
-    "website": "https://lcle.la.gov/programs/cvr/",
-    "apply_url": "https://lcle.la.gov/programs/cvr/cvr-downloads/",
-    "application_pdf_url": "https://lcle.la.gov/wp-content/uploads/2025/02/01-CVR-APPLICATION-02-19-2025.pdf",
-    "phone": "888-684-2846",
-    "phone_source_id": "LA-S1",
-    "statute_citation": "La. R.S. 46:1801 to 46:1822 (Crime Victims' Compensation Act, as amended by Acts 2026, No. 684, effective Aug. 1, 2026); La. R.S. 40:1216.1; LAC 22:XIII"
+ "jurisdiction": "LA",
+ "name": "Louisiana",
+ "program": {
+  "program_name": "Crime Victims' Compensation (formerly Crime Victims Reparations)",
+  "agency": "Louisiana Commission on Law Enforcement and Administration of Criminal Justice (LCLE), Crime Victims' Compensation Board",
+  "website": "https://lcle.la.gov/programs/cvr/",
+  "apply_url": "https://lcle.la.gov/programs/cvr/cvr-downloads/",
+  "application_pdf_url": "https://lcle.la.gov/wp-content/uploads/2025/02/01-CVR-APPLICATION-02-19-2025.pdf",
+  "phone": "888-684-2846",
+  "phone_source_id": "LA-S1",
+  "statute_citation": "La. R.S. 46:1801 to 46:1822 (Crime Victims' Compensation Act, as amended by Acts 2026, No. 684, effective Aug. 1, 2026); La. R.S. 40:1216.1; LAC 22:XIII",
+  "application_form": {
+   "source_id": "LA-S2",
+   "fillable": false,
+   "field_count": 0
+  }
+ },
+ "sources": [
+  {
+   "id": "LA-S1",
+   "title": "LCLE Crime Victims' Compensation Fund program page",
+   "url": "https://lcle.la.gov/programs/cvr/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:26Z",
+   "raw_path": "rules/sources/LA/LA-S1.html",
+   "text_path": "rules/sources/LA/LA-S1.txt",
+   "sha256": "5e38c813680de0b1f6f1e16ff91849b4766957700b78b44ee543943683071def"
   },
-  "sources": [
-    {
-      "id": "LA-S1",
-      "title": "LCLE Crime Victims' Compensation Fund program page",
-      "url": "https://lcle.la.gov/programs/cvr/",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:26Z",
-      "raw_path": "rules/sources/LA/LA-S1.html",
-      "text_path": "rules/sources/LA/LA-S1.txt",
-      "sha256": "5e38c813680de0b1f6f1e16ff91849b4766957700b78b44ee543943683071def"
-    },
-    {
-      "id": "LA-S2",
-      "title": "Application for Crime Victims Reparations (form revised Feb 2025)",
-      "url": "https://lcle.la.gov/wp-content/uploads/2025/02/01-CVR-APPLICATION-02-19-2025.pdf",
-      "kind": "application_form",
-      "retrieved_at": "2026-10-03T18:47:36Z",
-      "raw_path": "rules/sources/LA/LA-S2.pdf",
-      "text_path": "rules/sources/LA/LA-S2.txt",
-      "sha256": "281807360b2579203de755104e74a41d49ae26f2728bcaf488d8224873bae7da"
-    },
-    {
-      "id": "LA-S3",
-      "title": "Forensic Medical Exam Reimbursement policy, claim and attestation forms (revised Aug 1, 2023)",
-      "url": "https://lcle.la.gov/wp-content/uploads/2023/08/LA_CVR_FME_Reimbursement-08-23-2023.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T18:47:36Z",
-      "raw_path": "rules/sources/LA/LA-S3.pdf",
-      "text_path": "rules/sources/LA/LA-S3.txt",
-      "sha256": "5cb005cfdcea69cb218b8d3375dffee481b3cd8f2f9853fde54cf593f3d479d5"
-    },
-    {
-      "id": "LA-S4",
-      "title": "LAC Title 22, Part XIII, Crime Victims Reparations Board rules (Feb 2025)",
-      "url": "https://lcle.la.gov/wp-content/uploads/2025/03/08-Title22_CVRB_Feb2025.pdf",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:47:37Z",
-      "raw_path": "rules/sources/LA/LA-S4.pdf",
-      "text_path": "rules/sources/LA/LA-S4.txt",
-      "sha256": "92898eaa615137eed20ade9e2aa564d7f6754785894b7e9cb720d059bcedfa88"
-    },
-    {
-      "id": "LA-S5",
-      "title": "LCLE CVC Downloads page (forms and forensic exam billing note)",
-      "url": "https://lcle.la.gov/programs/cvr/cvr-downloads/",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:47:37Z",
-      "raw_path": "rules/sources/LA/LA-S5.html",
-      "text_path": "rules/sources/LA/LA-S5.txt",
-      "sha256": "5875e7ae37ca3cc37bae98efb1134bd90a294597e5c606742444b966fac58e55"
-    },
-    {
-      "id": "LA-S13",
-      "title": "La. R.S. 40:1216.1 (2025 text, Justia)",
-      "url": "https://law.justia.com/codes/louisiana/revised-statutes/title-40/rs-40-1216-1/",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:49:54Z",
-      "raw_path": "rules/sources/LA/LA-S13.html",
-      "text_path": "rules/sources/LA/LA-S13.txt",
-      "sha256": "5e602b3439143d392e89ba9418e5ec21720d6fa65d77d816004fd0acc5d6a22d"
-    },
-    {
-      "id": "LA-S14",
-      "title": "Acts 2026, No. 684 (HB 969), enrolled act amending La. R.S. 46:1801 et seq.",
-      "url": "https://legis.la.gov/legis/ViewDocument.aspx?d=1480637",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:50:45Z",
-      "raw_path": "rules/sources/LA/LA-S14.pdf",
-      "text_path": "rules/sources/LA/LA-S14.txt",
-      "sha256": "af334fd7d433be9e49a94c9fd4d9c299f1fd02b84ebee5de19758b6e5dbee031"
-    },
-    {
-      "id": "LA-S15",
-      "title": "Resume Digest, Act 684 (HB 969), 2026 Regular Session",
-      "url": "https://legis.la.gov/legis/ViewDocument.aspx?d=1485625",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:50:46Z",
-      "raw_path": "rules/sources/LA/LA-S15.pdf",
-      "text_path": "rules/sources/LA/LA-S15.txt",
-      "sha256": "8ff60513d13798c86a6a76fca57da404dd1dc9f0a6a3c683794c9c3472d44cc6"
-    }
-  ],
-  "rules": [
-    {
-      "id": "LA-EXAM-1",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "Louisiana law says a sexual assault survivor cannot be billed, directly or indirectly, for a forensic medical exam. The provider or facility sends the claim to the compensation program instead.",
-      "quote": "Under Louisiana law, a victim cannot be billed directly or indirectly for a forensic medical exam.",
-      "source_id": "LA-S5",
-      "pinpoint": "LCLE CVC Downloads page, Forensic Medical Examinations (citing La. R.S. 40:1216.1(A)(6))"
-    },
-    {
-      "id": "LA-EXAM-2",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "prohibited"
-      },
-      "summary": "The program's provider instructions say the patient's health insurance should not be billed for the forensic exam; the program is the primary payer.",
-      "quote": "The patient’s health insurance should not be billed. Our program is the primary payer for healthcare services rendered in conducting a forensic medical exam.",
-      "source_id": "LA-S3",
-      "pinpoint": "LCLE Forensic Medical Exam Reimbursement, Policy and Procedures"
-    },
-    {
-      "id": "LA-EXAM-3",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "No hospital or healthcare provider may directly bill a survivor for the healthcare services that make up the forensic medical exam.",
-      "quote": "No hospital or healthcare provider shall directly bill a survivor of a sexually oriented criminal offense for any healthcare services rendered in conducting a forensic medical examination",
-      "source_id": "LA-S13",
-      "pinpoint": "La. R.S. 40:1216.1(A)(5)"
-    },
-    {
-      "id": "LA-EXAM-4",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Louisiana Crime Victims' Compensation program (LCLE), paid directly to the examiner and the facility"
-      },
-      "summary": "The program pays the forensic exam directly to the examining provider and the facility, not the survivor. The board rule caps the provider payment at $600 and the facility payment at $1,000.",
-      "quote": "Payments for forensic medical examinations shall not exceed $600 for the healthcare provider, and $1,000 for the healthcare facility.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(A)(3)"
-    },
-    {
-      "id": "LA-CAP-1",
-      "category": "total_cap",
-      "params": {
-        "amount_cents": 1500000
-      },
-      "summary": "Awards to all claimants for one victim's injury are capped at $15,000 in total. A higher aggregate cap applies when the injury causes a permanent and total disability.",
-      "quote": "Fifteen thousand dollars in the aggregate.",
-      "source_id": "LA-S14",
-      "pinpoint": "La. R.S. 46:1810(1), as amended by Acts 2026, No. 684"
-    },
-    {
-      "id": "LA-EMERG-1",
-      "category": "emergency_award",
-      "params": {
-        "amount_cents": 100000
-      },
-      "summary": "The board can make an emergency award of up to $1,000 while an application is pending, if a final award is likely and the claimant would face undue hardship; it is deducted from the final award.",
-      "quote": "An emergency award shall not exceed one thousand dollars.",
-      "source_id": "LA-S14",
-      "pinpoint": "La. R.S. 46:1813(B), as amended by Acts 2026, No. 684"
-    },
-    {
-      "id": "LA-DEADLINE-1",
-      "category": "filing_deadline",
-      "params": {
-        "years": 3,
-        "from": "crime",
-        "extension": "the board may accept a longer period it finds justified by the circumstances"
-      },
-      "summary": "Applications must be filed within three years of the date of the crime; this replaced the earlier one-year limit. The board can allow more time when the circumstances justify it.",
-      "quote": "Changes the time period for filing from one year to three years and provides this period begins from the date the crime is committed.",
-      "source_id": "LA-S15",
-      "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(1); the board extension (\"or within such longer period as the board determines is justified by the circumstances\") is unstruck text in the enrolled Act, LA-S14, 46:1806(A)(1)(a)"
-    },
-    {
-      "id": "LA-REPORT-1",
-      "category": "reporting_requirement",
-      "params": {
-        "required": false
-      },
-      "summary": "An adult victim does not have to report the crime to law enforcement to apply; other reasonable documentation of the crime is accepted instead.",
-      "quote": "An adult victim of a criminal offense is not required to report the crime to any law enforcement officer in order to file an application.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.303(A)(2)(c)"
-    },
-    {
-      "id": "LA-REPORT-2",
-      "category": "reporting_requirement",
-      "params": {
-        "required": false,
-        "alternatives": [
-          "forensic_exam",
-          "medical_provider",
-          "other"
-        ]
-      },
-      "summary": "An application needs reasonable documentation of the crime, which can be a law enforcement report, court records, an attestation from a healthcare provider who examined the injury, or an attestation from the provider or coroner who did a forensic medical exam.",
-      "quote": "(a) A report from law enforcement, rather than a police report. (b) Court records pertaining to the crime, rather than evidencing the criminal prosecution. (c) An attestation from a healthcare provider who conducted an examination of the personal injury suffered by the victim. (d) An attestation from a healthcare provider or coroner who conducted a forensic medical examination on the victim.",
-      "source_id": "LA-S15",
-      "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)"
-    },
-    {
-      "id": "LA-COLL-1",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "The fund is the payer of last resort and pays crime-related out-of-pocket costs that insurance and other sources do not cover.",
-      "quote": "The Crime Victims’ Compensation Fund is regarded as the “payer of last resort.” It is a secondary source that pays for certain out-of-pocket expenses related to the crime that the victim has no other way to pay.",
-      "source_id": "LA-S1",
-      "pinpoint": "LCLE CVC program page, Recoveries from Other Sources"
-    },
-    {
-      "id": "LA-COLL-2",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "For sexual offense claims, the victim can choose whether or not to file with private insurance or Medicaid.",
-      "quote": "the victim has the discretion to choose whether or not to file for private insurance or Medicaid coverage.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.303(A)(5)"
-    },
-    {
-      "id": "LA-CONDUCT-1",
-      "category": "conduct_reduction",
-      "params": {},
-      "summary": "The board may deny or reduce an award because of the victim's conduct. The current statute says the behavior-based reduction does not apply when the injury came from a sexually oriented criminal offense.",
-      "quote": "The Crime Victims Reparations Board may vote to deny or reduce an award to a claimant who is a victim, or who files an application on behalf of a victim.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.301(A)(1)(a)"
-    },
-    {
-      "id": "LA-CONDUCT-2",
-      "category": "conduct_reduction",
-      "params": {},
-      "summary": "For a sexual assault victim, the board may not deny or reduce an award based on things like how the victim was dressed, where they were, alcohol or drug use, a prior relationship with the offender, or living with the offender afterward.",
-      "quote": "The following factors shall not be considered a reason for denying or reducing an award to a claimant who is a victim of a sexually oriented criminal offense, or who submits a claim on behalf of a victim of sexual assault:",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.301(A)(1)(c)"
-    },
-    {
-      "id": "LA-CRIME-1",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "Sexually oriented criminal offenses are listed as covered crimes in the current statute.",
-      "quote": "(3) A sexually oriented criminal offense.",
-      "source_id": "LA-S14",
-      "pinpoint": "La. R.S. 46:1805(A)(3), as amended by Acts 2026, No. 684"
-    },
-    {
-      "id": "LA-RES-1",
-      "category": "residency",
-      "params": {
-        "rule": "Crimes in Louisiana, or Louisiana residents victimized in a state with no eligible compensation program"
-      },
-      "summary": "The crime must happen in Louisiana, or the victim must be a Louisiana resident hurt in another state that has no compensation program they qualify for.",
-      "quote": "The crime must occur in Louisiana or the crime must involve a Louisiana resident who becomes a victim in another state that does not have a crime victim compensation program for which the victim would be eligible.",
-      "source_id": "LA-S1",
-      "pinpoint": "LCLE CVC program page, Residency"
-    },
-    {
-      "id": "LA-COUNS-1",
-      "category": "expense_cap",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling",
-        "amount_cents": 250000,
-        "per": "claim"
-      },
-      "summary": "Mental health charges are capped at $2,500 for the life of a claim; the victim can ask for another $2,500 with documented need for long-term care.",
-      "quote": "For the life of each claim, reimbursable charges may not exceed $2,500.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(I)(2)(a)"
-    },
-    {
-      "id": "LA-COUNS-2",
-      "category": "expense_cap",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling",
-        "amount_cents": 11000,
-        "per": "session"
-      },
-      "summary": "Doctoral-level providers (MD, PhD, PsyD) are paid up to $110 per session.",
-      "quote": "(a). Doctoral Level Providers (e.g. M.D. PhD., PsyD.), $110/session).",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(I)(6)(a)(iii)(a)"
-    },
-    {
-      "id": "LA-COUNS-3",
-      "category": "expense_cap",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling",
-        "amount_cents": 9000,
-        "per": "session"
-      },
-      "summary": "Master's-level counselors and social workers (LPC, LCSW, LMFT and provisional licensees) are paid up to $90 per session.",
-      "quote": "(b). Master’s Level Providers (e.g., L.P.C., L.C.S.W., L.M.F.T., P.L.P.C, P.L.C.S.W, P.L.M.F.T., D.S.W. ) $90/session.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(I)(6)(a)(iii)(b)"
-    },
-    {
-      "id": "LA-COUNS-4",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling"
-      },
-      "summary": "Mental health counseling related to the crime is an eligible expense.",
-      "quote": "Approved claims may be awarded compensation for the following only if they are related to the crime (Some expenses are limited): Reasonable medical and prescription expenses Dental expenses Mental health counseling",
-      "source_id": "LA-S1",
-      "pinpoint": "LCLE CVC program page, What Expenses are Eligible"
-    },
-    {
-      "id": "LA-MED-1",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "For outstanding medical bills, the board pays up to 70 percent of what is left after insurance and other third-party payers, within the award limits.",
-      "quote": "The board will pay up to 70 percent of all outstanding charges after any third-party payment sources up to the statutory limits.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(G)(3)"
-    },
-    {
-      "id": "LA-MED-2",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "Medical costs the victim already paid out of pocket are reimbursed before the percentage schedule for unpaid bills is applied.",
-      "quote": "Out-of-pocket paid monies will be reimbursed to the victim prior to applying this payment schedule.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(G)(5)"
-    },
-    {
-      "id": "LA-WAGES-1",
-      "category": "covered_expense",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages"
-      },
-      "summary": "Lost wages are paid at 80 percent of the victim's gross weekly wage, or 80 percent of the average weekly wage for seasonal or part-time work.",
-      "quote": "80 percent of the gross weekly wage of the victim. For seasonal or part time wages, the amount shall be calculated at 80 percent of the average weekly wage;",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(D)(4)(a)"
-    },
-    {
-      "id": "LA-RELO-1",
-      "category": "expense_cap",
-      "expense": "relocation",
-      "params": {
-        "expense": "relocation",
-        "amount_cents": 500000,
-        "per": "claim"
-      },
-      "summary": "Relocation reimbursement is limited to $5,000 per household of the claimant.",
-      "quote": "Reimbursement for relocation expenses is limited up to $5,000 per household of the claimant.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(Q)(2)"
-    },
-    {
-      "id": "LA-HOUSING-1",
-      "category": "covered_expense",
-      "expense": "temporary_housing",
-      "params": {
-        "expense": "temporary_housing"
-      },
-      "summary": "Under the amended statute, temporary lodging or permanent relocation is a covered loss when moving right away is needed for the safety of the victim or a household member.",
-      "quote": "Temporary lodging or permanent relocation when immediate relocation is necessary for the health and safety of the victim or the victim's household member.",
-      "source_id": "LA-S15",
-      "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1802 (pecuniary loss)"
-    },
-    {
-      "id": "LA-TRANS-1",
-      "category": "covered_expense",
-      "expense": "transportation",
-      "params": {
-        "expense": "transportation"
-      },
-      "summary": "Travel beyond the first ambulance ride is paid only when needed medical care is not available locally and the treating physician certifies that; private mileage is paid at the state travel rate.",
-      "quote": "Transportation costs other than the initial ambulance services are reimbursable only when required medical care is not locally available. Certification is required by the physician of record that local medical care is unavailable. Allowable private vehicle mileage for out-of-town travel is reimbursed at the rate published in the current state travel regulations.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(H)"
-    },
-    {
-      "id": "LA-CLOTH-1",
-      "category": "covered_expense",
-      "expense": "clothing_bedding",
-      "params": {
-        "expense": "clothing_bedding"
-      },
-      "summary": "Reasonable replacement of clothing, bedding, or property taken as evidence or ruined by the investigation or lab testing is covered.",
-      "quote": "Expenses associated with the collection and securing of crime scene evidence are limited to: a. reasonable replacement costs for clothing; b. bedding; or c. property seized as evidence or rendered unusable as a result of a criminal investigation or lab test.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(M)(1)"
-    },
-    {
-      "id": "LA-CHILD-1",
-      "category": "covered_expense",
-      "expense": "childcare",
-      "params": {
-        "expense": "childcare"
-      },
-      "summary": "Care of a child or dependent is listed as a pecuniary loss the program can cover under the amended statute.",
-      "quote": "Care of a child or dependent.",
-      "source_id": "LA-S14",
-      "pinpoint": "La. R.S. 46:1802(16)(c), as amended by Acts 2026, No. 684"
-    },
-    {
-      "id": "LA-CLEAN-1",
-      "category": "expense_cap",
-      "expense": "crime_scene_cleanup",
-      "params": {
-        "expense": "crime_scene_cleanup",
-        "amount_cents": 250000,
-        "per": "claim"
-      },
-      "summary": "Cleaning the victim's residential crime scene is capped at $2,500.",
-      "quote": "Expenses submitted for cleaning the residential crime scene of the victim may not exceed $2500.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(O)(2)"
-    },
-    {
-      "id": "LA-EXCL-1",
-      "category": "excluded_expense",
-      "expense": "property_replacement",
-      "params": {
-        "item": "property damage or loss, such as a stolen or broken phone (items taken as evidence or ruined by the investigation are the exception)"
-      },
-      "summary": "Property damage or loss, like a stolen or broken phone, is not reimbursed. Items seized as evidence or ruined by the investigation are a separate covered expense.",
-      "quote": "Reimbursement for property damage or loss is not an eligible expense.",
-      "source_id": "LA-S1",
-      "pinpoint": "LCLE CVC program page, What Expenses are Eligible"
-    },
-    {
-      "id": "LA-EXCL-2",
-      "category": "excluded_expense",
-      "expense": "legal",
-      "params": {
-        "expense": "legal"
-      },
-      "summary": "Attorney fees to prepare an application or represent the victim are not reimbursed unless they come from a hearing the board ordered.",
-      "quote": "The board does not reimburse victims for fees charged by an attorney to prepare an application or represent the victim in any way unless the fees result from a hearing ordered by the board.",
-      "source_id": "LA-S4",
-      "pinpoint": "LAC 22:XIII.503(B)(1)"
-    }
-  ],
-  "coverage": {
-    "found": [
-      "collateral_source",
-      "conduct_reduction",
-      "covered_expense",
-      "eligible_crime",
-      "emergency_award",
-      "exam_no_bill",
-      "exam_payment",
-      "excluded_expense",
-      "expense_cap",
-      "filing_deadline",
-      "reporting_requirement",
-      "residency",
-      "total_cap",
-      "expense_cap:counseling",
-      "expense_cap:relocation",
-      "expense_cap:crime_scene_cleanup",
-      "covered_expense:lost_wages",
-      "covered_expense:transportation",
-      "covered_expense:medical",
-      "covered_expense:temporary_housing",
-      "covered_expense:counseling",
-      "covered_expense:childcare",
-      "covered_expense:clothing_bedding"
-    ],
-    "not_found": [
-      "minimum_loss",
-      "expense_cap:security",
-      "covered_expense:security",
-      "expense_cap:lost_wages (dollar amount)",
-      "expense_cap:transportation (dollar amount)",
-      "expense_cap:medical (dollar amount)"
-    ],
-    "notes": "I found no minimum loss rule in the statute, the LAC rules, or the program pages. Nothing I saved covers home security devices or lock changes. Lost wages are paid at 80 percent of the gross weekly wage with no separate dollar cap I could find. Mileage is paid at the state travel rate, which is not stated as a number in the rule. Medical bills have no separate dollar cap beyond the $15,000 total; the board pays up to 70 percent of unpaid balances. The insurance_billing value for the exam is prohibited only in the program's provider instructions (LA-S3); the statute itself says the survivor cannot be billed directly or indirectly and does not mention insurance. Reviewer: the LAC 22:XIII.503(F) ambulance limits ($300 ground, $500 air) exist but are not encoded as a transportation cap, since ambulance is billed as medical."
+  {
+   "id": "LA-S2",
+   "title": "Application for Crime Victims Reparations (form revised Feb 2025)",
+   "url": "https://lcle.la.gov/wp-content/uploads/2025/02/01-CVR-APPLICATION-02-19-2025.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:47:36Z",
+   "raw_path": "rules/sources/LA/LA-S2.pdf",
+   "text_path": "rules/sources/LA/LA-S2.txt",
+   "sha256": "281807360b2579203de755104e74a41d49ae26f2728bcaf488d8224873bae7da"
   },
-  "confidence": "medium",
-  "researcher_notes": "Big change: Acts 2026, No. 684 (HB 969, signed by the Governor, effective Aug. 1, 2026 per the Resume Digest) rewrote La. R.S. 46:1801 to 1822. It renamed the program from Crime Victims Reparations to Crime Victims' Compensation, moved the filing deadline from one year to three years from the date of the crime, rewrote 'reasonable documentation' (law enforcement report, court records, a healthcare provider attestation, or a forensic exam attestation), added sexually oriented criminal offenses to the covered crimes, kept the $15,000 cap ($25,000 for permanent and total disability) and the $1,000 emergency award, removed catastrophic property loss, and added temporary lodging or permanent relocation and clothing/bedding/evidence property to pecuniary loss. As of Oct 3, 2026 the legislature's Law.aspx pages and Justia (2025) still show the pre-Act text, so I quoted the enrolled Act (LA-S14) or its official Resume Digest (LA-S15). The enrolled Act PDF prints struck-through deletions inline in its extracted text, so I detected strikethrough lines with PyMuPDF and only quoted lines with no struck words; its text also carries line numbers, so Act quotes are one printed line each. Re-snapshot the codified statute once legis.la.gov updates. Stale official material that conflicts with the statute (statute wins): the program page (LA-S1), the application form (LA-S2, Feb 2025), and LAC 22:XIII (Feb 2025) still say one year to file; the program page still lists vacation and sick leave as sources that pay first, but Act 684 excludes vacation and sick leave from wage continuation collateral sources; the program page still mentions catastrophic property loss of a residence, which Act 684 removed; the application form says insurance must be billed first, but LAC 22:XIII.303(A)(5) lets sexual offense victims choose whether to use private insurance or Medicaid. Sexual assault specifics: under 46:1809(B)(3)(b) as amended, the no-award grounds for failing to cooperate with law enforcement or being the offender/accessory do not apply when the application results from a sexually oriented criminal offense; the behavior-based reduction in 46:1809(B)(4)(a) also does not apply to those victims. The pre-Act 46:1806(B)(2) sentence that sexual offense victims need not report to police was removed by Act 684; non-report applications now rely on the reasonable documentation list, and LAC 22:XIII.303(A)(2)(c) still says adult victims need not report. LAC 22:XIII.303(A)(1) says applications for adult sexual offense victims go straight to the board office instead of the parish sheriff. Forensic exam: 40:1216.1(A)(6) says the survivor cannot be billed directly or indirectly; the provider ($600) and facility ($1,000) are paid under 46:1822, which Act 684 changed so LCLE staff, not a board order, approve exam reimbursements within 30 days. Services outside the forensic exam itself (for example treatment of injuries) may be billed to the patient or insurance per LA-S3, and the survivor can then seek compensation for them. Under 40:1216.1(A)(1)(a), no hospital or provider may require a survivor to report to police to get care or evidence collection. HB 998 (2026), which would have allowed exam billing through the patient's insurance, did not pass. Phone: the program lists 1-888-6-VICTIM, which spells 888-684-2846, the same number in the OVC directory; the office line is (225) 342-1749. Online applications are listed as coming soon on the CVC Claims page. Reviewer (Oct 3): corrected the exam payment pinpoint to LAC 22:XIII.503(A)(3) (it was 501(B)(3)); moved the child care rule from a program-page list fragment to the amended statute 46:1802(16)(c); confirmed with PyMuPDF strike detection that the 3-year deadline, the board extension clause, the $15,000 cap line, the $1,000 emergency award line, (A)(3) of 46:1805 and the 46:1809(B)(3)(b) and (B)(4)(a) sexual offense exceptions are unstruck. Open points: the program page still says victims must cooperate fully with law enforcement, which 46:1809(B)(3)(b) no longer applies to sexual offense applications; the Act does not say whether the 3-year period reaches crimes committed before Aug. 1, 2026 whose 1-year period had already run; LAC 22:XIII.503(Q)(3) says a police or incident report should accompany a relocation claim, which may matter for survivors who did not report; LAC 22:XIII.301(A)(2)(b)(i) says insurance must be processed before mental health claims, which sits uneasily with the 303(A)(5) insurance choice for sexual offense claims; Act 684 also removed the board's permissive rulemaking power, so how long the Feb 2025 LAC rules stay in force is unclear."
+  {
+   "id": "LA-S3",
+   "title": "Forensic Medical Exam Reimbursement policy, claim and attestation forms (revised Aug 1, 2023)",
+   "url": "https://lcle.la.gov/wp-content/uploads/2023/08/LA_CVR_FME_Reimbursement-08-23-2023.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:47:36Z",
+   "raw_path": "rules/sources/LA/LA-S3.pdf",
+   "text_path": "rules/sources/LA/LA-S3.txt",
+   "sha256": "5cb005cfdcea69cb218b8d3375dffee481b3cd8f2f9853fde54cf593f3d479d5"
+  },
+  {
+   "id": "LA-S4",
+   "title": "LAC Title 22, Part XIII, Crime Victims Reparations Board rules (Feb 2025)",
+   "url": "https://lcle.la.gov/wp-content/uploads/2025/03/08-Title22_CVRB_Feb2025.pdf",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:47:37Z",
+   "raw_path": "rules/sources/LA/LA-S4.pdf",
+   "text_path": "rules/sources/LA/LA-S4.txt",
+   "sha256": "92898eaa615137eed20ade9e2aa564d7f6754785894b7e9cb720d059bcedfa88"
+  },
+  {
+   "id": "LA-S5",
+   "title": "LCLE CVC Downloads page (forms and forensic exam billing note)",
+   "url": "https://lcle.la.gov/programs/cvr/cvr-downloads/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:37Z",
+   "raw_path": "rules/sources/LA/LA-S5.html",
+   "text_path": "rules/sources/LA/LA-S5.txt",
+   "sha256": "5875e7ae37ca3cc37bae98efb1134bd90a294597e5c606742444b966fac58e55"
+  },
+  {
+   "id": "LA-S13",
+   "title": "La. R.S. 40:1216.1 (2025 text, Justia)",
+   "url": "https://law.justia.com/codes/louisiana/revised-statutes/title-40/rs-40-1216-1/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:54Z",
+   "raw_path": "rules/sources/LA/LA-S13.html",
+   "text_path": "rules/sources/LA/LA-S13.txt",
+   "sha256": "5e602b3439143d392e89ba9418e5ec21720d6fa65d77d816004fd0acc5d6a22d"
+  },
+  {
+   "id": "LA-S14",
+   "title": "Acts 2026, No. 684 (HB 969), enrolled act amending La. R.S. 46:1801 et seq.",
+   "url": "https://legis.la.gov/legis/ViewDocument.aspx?d=1480637",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:50:45Z",
+   "raw_path": "rules/sources/LA/LA-S14.pdf",
+   "text_path": "rules/sources/LA/LA-S14.txt",
+   "sha256": "af334fd7d433be9e49a94c9fd4d9c299f1fd02b84ebee5de19758b6e5dbee031"
+  },
+  {
+   "id": "LA-S15",
+   "title": "Resume Digest, Act 684 (HB 969), 2026 Regular Session",
+   "url": "https://legis.la.gov/legis/ViewDocument.aspx?d=1485625",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:50:46Z",
+   "raw_path": "rules/sources/LA/LA-S15.pdf",
+   "text_path": "rules/sources/LA/LA-S15.txt",
+   "sha256": "8ff60513d13798c86a6a76fca57da404dd1dc9f0a6a3c683794c9c3472d44cc6"
+  },
+  {
+   "id": "LA-S16",
+   "title": "LCLE CVC Claims page (online applications listed as coming soon)",
+   "url": "https://lcle.la.gov/programs/cvr/cvr-claims/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:38:54Z",
+   "raw_path": "rules/sources/LA/LA-S16.html",
+   "text_path": "rules/sources/LA/LA-S16.txt",
+   "sha256": "483adcdfc16bdf4eb95840bbafcc40136d34aaba92d4e6ce30577b1ceb92b867"
+  }
+ ],
+ "rules": [
+  {
+   "id": "LA-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "Louisiana law says a sexual assault survivor cannot be billed, directly or indirectly, for a forensic medical exam. The provider or facility sends the claim to the compensation program instead.",
+   "quote": "Under Louisiana law, a victim cannot be billed directly or indirectly for a forensic medical exam.",
+   "source_id": "LA-S5",
+   "pinpoint": "LCLE CVC Downloads page, Forensic Medical Examinations (citing La. R.S. 40:1216.1(A)(6))"
+  },
+  {
+   "id": "LA-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "The program's provider instructions say the patient's health insurance should not be billed for the forensic exam; the program is the primary payer.",
+   "quote": "The patient’s health insurance should not be billed. Our program is the primary payer for healthcare services rendered in conducting a forensic medical exam.",
+   "source_id": "LA-S3",
+   "pinpoint": "LCLE Forensic Medical Exam Reimbursement, Policy and Procedures"
+  },
+  {
+   "id": "LA-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "No hospital or healthcare provider may directly bill a survivor for the healthcare services that make up the forensic medical exam.",
+   "quote": "No hospital or healthcare provider shall directly bill a survivor of a sexually oriented criminal offense for any healthcare services rendered in conducting a forensic medical examination",
+   "source_id": "LA-S13",
+   "pinpoint": "La. R.S. 40:1216.1(A)(5)"
+  },
+  {
+   "id": "LA-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Louisiana Crime Victims' Compensation program (LCLE), paid directly to the examiner and the facility"
+   },
+   "summary": "The program pays the forensic exam directly to the examining provider and the facility, not the survivor. The board rule caps the provider payment at $600 and the facility payment at $1,000.",
+   "quote": "Payments for forensic medical examinations shall not exceed $600 for the healthcare provider, and $1,000 for the healthcare facility.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(A)(3)"
+  },
+  {
+   "id": "LA-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1500000
+   },
+   "summary": "Awards to all claimants for one victim's injury are capped at $15,000 in total. A higher aggregate cap applies when the injury causes a permanent and total disability.",
+   "quote": "Fifteen thousand dollars in the aggregate.",
+   "source_id": "LA-S14",
+   "pinpoint": "La. R.S. 46:1810(1), as amended by Acts 2026, No. 684"
+  },
+  {
+   "id": "LA-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "The board can make an emergency award of up to $1,000 while an application is pending, if a final award is likely and the claimant would face undue hardship; it is deducted from the final award.",
+   "quote": "An emergency award shall not exceed one thousand dollars.",
+   "source_id": "LA-S14",
+   "pinpoint": "La. R.S. 46:1813(B), as amended by Acts 2026, No. 684"
+  },
+  {
+   "id": "LA-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "the board may accept a longer period it finds justified by the circumstances"
+   },
+   "summary": "Applications must be filed within three years of the date of the crime; this replaced the earlier one-year limit. The board can allow more time when the circumstances justify it.",
+   "quote": "Changes the time period for filing from one year to three years and provides this period begins from the date the crime is committed.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(1); the board extension (\"or within such longer period as the board determines is justified by the circumstances\") is unstruck text in the enrolled Act, LA-S14, 46:1806(A)(1)(a)"
+  },
+  {
+   "id": "LA-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false
+   },
+   "summary": "An adult victim does not have to report the crime to law enforcement to apply; other reasonable documentation of the crime is accepted instead.",
+   "quote": "An adult victim of a criminal offense is not required to report the crime to any law enforcement officer in order to file an application.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.303(A)(2)(c)"
+  },
+  {
+   "id": "LA-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "forensic_exam",
+     "medical_provider",
+     "other"
+    ]
+   },
+   "summary": "An application needs reasonable documentation of the crime, which can be a law enforcement report, court records, an attestation from a healthcare provider who examined the injury, or an attestation from the provider or coroner who did a forensic medical exam.",
+   "quote": "(a) A report from law enforcement, rather than a police report. (b) Court records pertaining to the crime, rather than evidencing the criminal prosecution. (c) An attestation from a healthcare provider who conducted an examination of the personal injury suffered by the victim. (d) An attestation from a healthcare provider or coroner who conducted a forensic medical examination on the victim.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)"
+  },
+  {
+   "id": "LA-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The fund is the payer of last resort and pays crime-related out-of-pocket costs that insurance and other sources do not cover.",
+   "quote": "The Crime Victims’ Compensation Fund is regarded as the “payer of last resort.” It is a secondary source that pays for certain out-of-pocket expenses related to the crime that the victim has no other way to pay.",
+   "source_id": "LA-S1",
+   "pinpoint": "LCLE CVC program page, Recoveries from Other Sources"
+  },
+  {
+   "id": "LA-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "For sexual offense claims, the victim can choose whether or not to file with private insurance or Medicaid.",
+   "quote": "the victim has the discretion to choose whether or not to file for private insurance or Medicaid coverage.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.303(A)(5)"
+  },
+  {
+   "id": "LA-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The board may deny or reduce an award because of the victim's conduct. The current statute says the behavior-based reduction does not apply when the injury came from a sexually oriented criminal offense.",
+   "quote": "The Crime Victims Reparations Board may vote to deny or reduce an award to a claimant who is a victim, or who files an application on behalf of a victim.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.301(A)(1)(a)"
+  },
+  {
+   "id": "LA-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "For a sexual assault victim, the board may not deny or reduce an award based on things like how the victim was dressed, where they were, alcohol or drug use, a prior relationship with the offender, or living with the offender afterward.",
+   "quote": "The following factors shall not be considered a reason for denying or reducing an award to a claimant who is a victim of a sexually oriented criminal offense, or who submits a claim on behalf of a victim of sexual assault:",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.301(A)(1)(c)"
+  },
+  {
+   "id": "LA-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexually oriented criminal offenses are listed as covered crimes in the current statute.",
+   "quote": "(3) A sexually oriented criminal offense.",
+   "source_id": "LA-S14",
+   "pinpoint": "La. R.S. 46:1805(A)(3), as amended by Acts 2026, No. 684"
+  },
+  {
+   "id": "LA-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in Louisiana, or Louisiana residents victimized in a state with no eligible compensation program"
+   },
+   "summary": "The crime must happen in Louisiana, or the victim must be a Louisiana resident hurt in another state that has no compensation program they qualify for.",
+   "quote": "The crime must occur in Louisiana or the crime must involve a Louisiana resident who becomes a victim in another state that does not have a crime victim compensation program for which the victim would be eligible.",
+   "source_id": "LA-S1",
+   "pinpoint": "LCLE CVC program page, Residency"
+  },
+  {
+   "id": "LA-COUNS-1",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Mental health charges are capped at $2,500 for the life of a claim; the victim can ask for another $2,500 with documented need for long-term care.",
+   "quote": "For the life of each claim, reimbursable charges may not exceed $2,500.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(I)(2)(a)"
+  },
+  {
+   "id": "LA-COUNS-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 11000,
+    "per": "session"
+   },
+   "summary": "Doctoral-level providers (MD, PhD, PsyD) are paid up to $110 per session.",
+   "quote": "(a). Doctoral Level Providers (e.g. M.D. PhD., PsyD.), $110/session).",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(I)(6)(a)(iii)(a)"
+  },
+  {
+   "id": "LA-COUNS-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 9000,
+    "per": "session"
+   },
+   "summary": "Master's-level counselors and social workers (LPC, LCSW, LMFT and provisional licensees) are paid up to $90 per session.",
+   "quote": "(b). Master’s Level Providers (e.g., L.P.C., L.C.S.W., L.M.F.T., P.L.P.C, P.L.C.S.W, P.L.M.F.T., D.S.W. ) $90/session.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(I)(6)(a)(iii)(b)"
+  },
+  {
+   "id": "LA-COUNS-4",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling related to the crime is an eligible expense.",
+   "quote": "Approved claims may be awarded compensation for the following only if they are related to the crime (Some expenses are limited): Reasonable medical and prescription expenses Dental expenses Mental health counseling",
+   "source_id": "LA-S1",
+   "pinpoint": "LCLE CVC program page, What Expenses are Eligible"
+  },
+  {
+   "id": "LA-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "For outstanding medical bills, the board pays up to 70 percent of what is left after insurance and other third-party payers, within the award limits.",
+   "quote": "The board will pay up to 70 percent of all outstanding charges after any third-party payment sources up to the statutory limits.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(G)(3)"
+  },
+  {
+   "id": "LA-MED-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical costs the victim already paid out of pocket are reimbursed before the percentage schedule for unpaid bills is applied.",
+   "quote": "Out-of-pocket paid monies will be reimbursed to the victim prior to applying this payment schedule.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(G)(5)"
+  },
+  {
+   "id": "LA-WAGES-1",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages are paid at 80 percent of the victim's gross weekly wage, or 80 percent of the average weekly wage for seasonal or part-time work.",
+   "quote": "80 percent of the gross weekly wage of the victim. For seasonal or part time wages, the amount shall be calculated at 80 percent of the average weekly wage;",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(D)(4)(a)"
+  },
+  {
+   "id": "LA-RELO-1",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Relocation reimbursement is limited to $5,000 per household of the claimant.",
+   "quote": "Reimbursement for relocation expenses is limited up to $5,000 per household of the claimant.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(Q)(2)"
+  },
+  {
+   "id": "LA-HOUSING-1",
+   "category": "covered_expense",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing"
+   },
+   "summary": "Under the amended statute, temporary lodging or permanent relocation is a covered loss when moving right away is needed for the safety of the victim or a household member.",
+   "quote": "Temporary lodging or permanent relocation when immediate relocation is necessary for the health and safety of the victim or the victim's household member.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1802 (pecuniary loss)"
+  },
+  {
+   "id": "LA-TRANS-1",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel beyond the first ambulance ride is paid only when needed medical care is not available locally and the treating physician certifies that; private mileage is paid at the state travel rate.",
+   "quote": "Transportation costs other than the initial ambulance services are reimbursable only when required medical care is not locally available. Certification is required by the physician of record that local medical care is unavailable. Allowable private vehicle mileage for out-of-town travel is reimbursed at the rate published in the current state travel regulations.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(H)"
+  },
+  {
+   "id": "LA-CLOTH-1",
+   "category": "covered_expense",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding"
+   },
+   "summary": "Reasonable replacement of clothing, bedding, or property taken as evidence or ruined by the investigation or lab testing is covered.",
+   "quote": "Expenses associated with the collection and securing of crime scene evidence are limited to: a. reasonable replacement costs for clothing; b. bedding; or c. property seized as evidence or rendered unusable as a result of a criminal investigation or lab test.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(M)(1)"
+  },
+  {
+   "id": "LA-CHILD-1",
+   "category": "covered_expense",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare"
+   },
+   "summary": "Care of a child or dependent is listed as a pecuniary loss the program can cover under the amended statute.",
+   "quote": "Care of a child or dependent.",
+   "source_id": "LA-S14",
+   "pinpoint": "La. R.S. 46:1802(16)(c), as amended by Acts 2026, No. 684"
+  },
+  {
+   "id": "LA-CLEAN-1",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Cleaning the victim's residential crime scene is capped at $2,500.",
+   "quote": "Expenses submitted for cleaning the residential crime scene of the victim may not exceed $2500.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(O)(2)"
+  },
+  {
+   "id": "LA-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "property damage or loss, such as a stolen or broken phone (items taken as evidence or ruined by the investigation are the exception)"
+   },
+   "summary": "Property damage or loss, like a stolen or broken phone, is not reimbursed. Items seized as evidence or ruined by the investigation are a separate covered expense.",
+   "quote": "Reimbursement for property damage or loss is not an eligible expense.",
+   "source_id": "LA-S1",
+   "pinpoint": "LCLE CVC program page, What Expenses are Eligible"
+  },
+  {
+   "id": "LA-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal"
+   },
+   "summary": "Attorney fees to prepare an application or represent the victim are not reimbursed unless they come from a hearing the board ordered.",
+   "quote": "The board does not reimburse victims for fees charged by an attorney to prepare an application or represent the victim in any way unless the fees result from a hearing ordered by the board.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(B)(1)"
+  },
+  {
+   "id": "LA-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victims’ Compensation Louisiana Commission on Law Enforcement PO Box 3133 Baton Rouge, LA 70821",
+    "note": "The board office. The application form prints the same P.O. Box under its older name (Crime Victims Reparations)."
+   },
+   "summary": "You can mail the application to the Crime Victims' Compensation board office at LCLE in Baton Rouge.",
+   "quote": "Or Write to: Crime Victims’ Compensation Louisiana Commission on Law Enforcement PO Box 3133 Baton Rouge, LA 70821",
+   "source_id": "LA-S1",
+   "pinpoint": "LCLE CVC program page, For More Information"
+  },
+  {
+   "id": "LA-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "the board’s office",
+    "note": "For an adult victim of a sexually oriented offense, the application goes straight to the board office, not the parish sheriff."
+   },
+   "summary": "Applications for an adult victim of a sexually oriented offense are sent directly to the board office.",
+   "quote": "Applications involving an adult victim of a sexually-oriented criminal offense are sent directly to the board’s office.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.303(A)(1)"
+  },
+  {
+   "id": "LA-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "you Parish Claim’s Investigator or the CVR Board Office",
+    "note": "Other applicants can send the packet to the sheriff's claim investigator in the parish where the crime happened; adult sexual offense applications go to the board office (LA-SUBMIT-2)."
+   },
+   "summary": "The form says to mail the original application, police report, and itemized claims to the parish claim investigator or the board office.",
+   "quote": "Please mail the original application, along with the Claim Investigator Review, the complete police report, newspaper articles (if available) and any claims (including claim forms and itemized invoices) to you Parish Claim’s Investigator or the CVR Board Office.",
+   "source_id": "LA-S2",
+   "pinpoint": "Application instructions page (form revised Feb 19, 2025)"
+  },
+  {
+   "id": "LA-DOC-SIGN",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The completed, signed application; the claimant must sign it and be at least 18 when signing (a parent or guardian signs for a minor victim)."
+   },
+   "summary": "The claimant must sign the application.",
+   "quote": "The claimant MUST sign the application.",
+   "source_id": "LA-S2",
+   "pinpoint": "Application instructions, eligibility only item 1(b)"
+  },
+  {
+   "id": "LA-DOC-REASONABLE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Reasonable documentation of the crime must come with the application; the accepted kinds are listed in LA-DOC-POLICE, LA-DOC-COURT, LA-DOC-HEALTH and LA-DOC-EXAM."
+   },
+   "summary": "An application is valid only if reasonable documentation of the crime is submitted with it.",
+   "quote": "Crime Victims Reparations applications shall be valid only if reasonable documentation of the crime is submitted with the application.",
+   "source_id": "LA-S2",
+   "pinpoint": "Application instructions, eligibility only item 5"
+  },
+  {
+   "id": "LA-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "One accepted form of reasonable documentation, not required: an adult victim does not have to report to law enforcement (LA-REPORT-1)."
+   },
+   "summary": "A report from law enforcement counts as reasonable documentation of the crime.",
+   "quote": "A report from law enforcement, rather than a police report.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(a)"
+  },
+  {
+   "id": "LA-DOC-COURT",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Court records about the crime; one accepted form of reasonable documentation."
+   },
+   "summary": "Court records about the crime count as reasonable documentation.",
+   "quote": "Court records pertaining to the crime, rather than evidencing the criminal prosecution.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(b)"
+  },
+  {
+   "id": "LA-DOC-HEALTH",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "An attestation from the healthcare provider who examined the injury; one accepted form of reasonable documentation."
+   },
+   "summary": "An attestation from a healthcare provider who examined the injury counts as reasonable documentation.",
+   "quote": "An attestation from a healthcare provider who conducted an examination of the personal injury suffered by the victim.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(c)"
+  },
+  {
+   "id": "LA-DOC-EXAM",
+   "category": "required_document",
+   "params": {
+    "document": "exam_record",
+    "note": "An attestation that a forensic medical exam was done, from the provider or coroner; one accepted form of reasonable documentation, so a survivor who had an exam can apply without a police report."
+   },
+   "summary": "An attestation from the provider or coroner who did a forensic medical exam counts as reasonable documentation.",
+   "quote": "An attestation from a healthcare provider or coroner who conducted a forensic medical examination on the victim.",
+   "source_id": "LA-S15",
+   "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(d)"
+  },
+  {
+   "id": "LA-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "An itemized bill (not a billing statement) for each expense other than the forensic exam."
+   },
+   "summary": "Each expense other than the forensic exam needs an itemized bill, not a billing statement.",
+   "quote": "An itemized bill, not a billing statement, must accompany the application for each non-FME expense claimed.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.303(A)(4)"
+  },
+  {
+   "id": "LA-DOC-BILLS-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Invoices and bills must name the victim or claimant as guarantor and show the balance owed."
+   },
+   "summary": "Bills must show the victim or claimant as guarantor and the balance owed.",
+   "quote": "All invoices, bills, etc. must indicate the victim/claimant as the guarantor and indicate balances owed.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.303(A)(5)"
+  },
+  {
+   "id": "LA-DOC-CLAIMFORMS",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The claim form for each expense type (medical, mental health, lost wages, relocation, and so on, from the CVC Downloads page); each claim form lists the documents it needs."
+   },
+   "summary": "Each type of claim form says which documents support that expense.",
+   "quote": "Each type of claim form used by the board should identify the documents that must be submitted by the victim/claimant to support and verify a claimed expense.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.501(B)(1)"
+  },
+  {
+   "id": "LA-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Lost wages claims need verification from the employer."
+   },
+   "summary": "Lost wages need verification from the employer.",
+   "quote": "wage verification by the employer is required.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(D)(3)(b)"
+  },
+  {
+   "id": "LA-DOC-DISABILITY",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Lost wages claims: the inability to work must be documented by a medical doctor."
+   },
+   "summary": "For lost wages, a medical doctor must document that the survivor could not work because of the crime.",
+   "quote": "The inability to work must be directly related to the victimization and documented by the appropriate medical doctor.",
+   "source_id": "LA-S4",
+   "pinpoint": "LAC 22:XIII.503(D)(2)"
+  },
+  {
+   "id": "LA-DOC-NEWS",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Newspaper articles or press releases about the incident, only when available."
+   },
+   "summary": "Send news articles about the incident if there are any.",
+   "quote": "Submit copies of newspaper articles, press releases, etc., that describe the incident, when available.",
+   "source_id": "LA-S2",
+   "pinpoint": "Application instructions, eligibility only item 4"
+  },
+  {
+   "id": "LA-DOC-LATE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "A letter of explanation when filing late. The form still says one year, but Act 684 (effective Aug. 1, 2026) gives three years from the crime, so this matters only past the statutory period."
+   },
+   "summary": "The form asks for a letter of explanation when filing after the deadline it prints.",
+   "quote": "If you are filing later than one year, you must attach a letter of explanation.",
+   "source_id": "LA-S2",
+   "pinpoint": "Application form page 1"
+  },
+  {
+   "id": "LA-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 45,
+    "stage": "eligibility decision",
+    "note": "usually 30 to 45 days"
+   },
+   "summary": "An eligibility decision usually comes within 30 to 45 days.",
+   "quote": "A decision about whether the victim or claimant is eligible is usually made within 30 to 45 days.",
+   "source_id": "LA-S1",
+   "pinpoint": "LCLE CVC program page, How the Application is Reviewed"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap",
+   "expense_cap:counseling",
+   "expense_cap:relocation",
+   "expense_cap:crime_scene_cleanup",
+   "covered_expense:lost_wages",
+   "covered_expense:transportation",
+   "covered_expense:medical",
+   "covered_expense:temporary_housing",
+   "covered_expense:counseling",
+   "covered_expense:childcare",
+   "covered_expense:clothing_bedding",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "expense_cap:security",
+   "covered_expense:security",
+   "expense_cap:lost_wages (dollar amount)",
+   "expense_cap:transportation (dollar amount)",
+   "expense_cap:medical (dollar amount)"
+  ],
+  "notes": "I found no minimum loss rule in the statute, the LAC rules, or the program pages. Nothing I saved covers home security devices or lock changes. Lost wages are paid at 80 percent of the gross weekly wage with no separate dollar cap I could find. Mileage is paid at the state travel rate, which is not stated as a number in the rule. Medical bills have no separate dollar cap beyond the $15,000 total; the board pays up to 70 percent of unpaid balances. The insurance_billing value for the exam is prohibited only in the program's provider instructions (LA-S3); the statute itself says the survivor cannot be billed directly or indirectly and does not mention insurance. Reviewer: the LAC 22:XIII.503(F) ambulance limits ($300 ground, $500 air) exist but are not encoded as a transportation cap, since ambulance is billed as medical."
+ },
+ "confidence": "medium",
+ "researcher_notes": "Big change: Acts 2026, No. 684 (HB 969, signed by the Governor, effective Aug. 1, 2026 per the Resume Digest) rewrote La. R.S. 46:1801 to 1822. It renamed the program from Crime Victims Reparations to Crime Victims' Compensation, moved the filing deadline from one year to three years from the date of the crime, rewrote 'reasonable documentation' (law enforcement report, court records, a healthcare provider attestation, or a forensic exam attestation), added sexually oriented criminal offenses to the covered crimes, kept the $15,000 cap ($25,000 for permanent and total disability) and the $1,000 emergency award, removed catastrophic property loss, and added temporary lodging or permanent relocation and clothing/bedding/evidence property to pecuniary loss. As of Oct 3, 2026 the legislature's Law.aspx pages and Justia (2025) still show the pre-Act text, so I quoted the enrolled Act (LA-S14) or its official Resume Digest (LA-S15). The enrolled Act PDF prints struck-through deletions inline in its extracted text, so I detected strikethrough lines with PyMuPDF and only quoted lines with no struck words; its text also carries line numbers, so Act quotes are one printed line each. Re-snapshot the codified statute once legis.la.gov updates. Stale official material that conflicts with the statute (statute wins): the program page (LA-S1), the application form (LA-S2, Feb 2025), and LAC 22:XIII (Feb 2025) still say one year to file; the program page still lists vacation and sick leave as sources that pay first, but Act 684 excludes vacation and sick leave from wage continuation collateral sources; the program page still mentions catastrophic property loss of a residence, which Act 684 removed; the application form says insurance must be billed first, but LAC 22:XIII.303(A)(5) lets sexual offense victims choose whether to use private insurance or Medicaid. Sexual assault specifics: under 46:1809(B)(3)(b) as amended, the no-award grounds for failing to cooperate with law enforcement or being the offender/accessory do not apply when the application results from a sexually oriented criminal offense; the behavior-based reduction in 46:1809(B)(4)(a) also does not apply to those victims. The pre-Act 46:1806(B)(2) sentence that sexual offense victims need not report to police was removed by Act 684; non-report applications now rely on the reasonable documentation list, and LAC 22:XIII.303(A)(2)(c) still says adult victims need not report. LAC 22:XIII.303(A)(1) says applications for adult sexual offense victims go straight to the board office instead of the parish sheriff. Forensic exam: 40:1216.1(A)(6) says the survivor cannot be billed directly or indirectly; the provider ($600) and facility ($1,000) are paid under 46:1822, which Act 684 changed so LCLE staff, not a board order, approve exam reimbursements within 30 days. Services outside the forensic exam itself (for example treatment of injuries) may be billed to the patient or insurance per LA-S3, and the survivor can then seek compensation for them. Under 40:1216.1(A)(1)(a), no hospital or provider may require a survivor to report to police to get care or evidence collection. HB 998 (2026), which would have allowed exam billing through the patient's insurance, did not pass. Phone: the program lists 1-888-6-VICTIM, which spells 888-684-2846, the same number in the OVC directory; the office line is (225) 342-1749. Online applications are listed as coming soon on the CVC Claims page. Reviewer (Oct 3): corrected the exam payment pinpoint to LAC 22:XIII.503(A)(3) (it was 501(B)(3)); moved the child care rule from a program-page list fragment to the amended statute 46:1802(16)(c); confirmed with PyMuPDF strike detection that the 3-year deadline, the board extension clause, the $15,000 cap line, the $1,000 emergency award line, (A)(3) of 46:1805 and the 46:1809(B)(3)(b) and (B)(4)(a) sexual offense exceptions are unstruck. Open points: the program page still says victims must cooperate fully with law enforcement, which 46:1809(B)(3)(b) no longer applies to sexual offense applications; the Act does not say whether the 3-year period reaches crimes committed before Aug. 1, 2026 whose 1-year period had already run; LAC 22:XIII.503(Q)(3) says a police or incident report should accompany a relocation claim, which may matter for survivors who did not report; LAC 22:XIII.301(A)(2)(b)(i) says insurance must be processed before mental health claims, which sits uneasily with the 303(A)(5) insurance choice for sexual offense claims; Act 684 also removed the board's permissive rulemaking power, so how long the Feb 2025 LAC rules stay in force is unclear. How to file (Oct 3): the application PDF (LA-S2, Feb 19, 2025, still the one linked from the Downloads page as of its Aug 2026 update) has no fillable fields, so it is printed and filled by hand. Mail is the only method I could confirm. LAC 22:XIII.303(A)(1) says applications may also be filed online at the board's website, but the CVC Claims page (LA-S16) lists CVC Online Applications as Coming Soon, so I did not add an online submission rule; recheck later. No email, fax, or in-person filing address is stated. Adult sexual offense applications go straight to the board office (P.O. Box 3133, Baton Rouge, LA 70821) rather than the parish sheriff. Required documents: the form's reasonable documentation list (police report, court records, sworn certifications) is the pre-Act version; I used the Act 684 Resume Digest list instead (law enforcement report, court records, a healthcare provider attestation, or a forensic exam attestation). The form's 'insurance must be billed before claims are submitted' line conflicts with LAC 22:XIII.303(A)(5) for sexual offense victims, so I did not add an insurance_statement document. The 30 to 45 day processing time is the program page's typical time for the sheriff's eligibility decision, not a payment deadline."
 }

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.ohioattorneygeneral.gov/Files/Individuals-and-Families/Victims/Crime-Victim-Comp-Form.aspx",
   "phone": "614-466-5610",
   "phone_source_id": "OH-S9",
-  "statute_citation": "ORC 2743.51 to 2743.72; ORC 2907.28; OAC 109:7-1-02"
+  "statute_citation": "ORC 2743.51 to 2743.72; ORC 2907.28; OAC 109:7-1-02",
+  "application_form": {
+   "source_id": "OH-S9",
+   "fillable": true,
+   "field_count": 207
+  }
  },
- "source_sha256": "58df4913ea3276530d5269131505d26c3e0e1c23dc9fcb9daa1a176fb78c9425",
+ "source_sha256": "8b5353e7c2dce0759f7a66a92ba8eca8e361df3916bb55bfcac53828517250c3",
  "rules": [
   {
    "id": "OH-EXAM-1",
@@ -193,6 +198,51 @@
    "id": "OH-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "OH-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OH-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OH-SUBMIT-FAX",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OH-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "OH-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OH-DOC-INSCARD",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OH-DOC-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OH-DOC-DEATH",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "OH-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

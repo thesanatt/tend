@@ -10,9 +10,14 @@
   "application_pdf_url": null,
   "phone": "207-624-7882",
   "phone_source_id": "ME-S5",
-  "statute_citation": "5 M.R.S. 3360 to 3360-M (Title 5, chapter 316-A)"
+  "statute_citation": "5 M.R.S. 3360 to 3360-M (Title 5, chapter 316-A)",
+  "application_form": {
+   "source_id": null,
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "0482608678f502132fedd834e0d5b4f23da36a25e1508d7ece3487cfed3440c1",
+ "source_sha256": "d47492b3a30fd08a10221462476472bd187cbf4177be09fa2b96d3287272b0c0",
  "rules": [
   {
    "id": "ME-EXAM-1",
@@ -197,6 +202,46 @@
    "id": "ME-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "ME-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ME-DOC-SIGNED",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-MEDICAL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "ME-DOC-COUNSEL",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": []

@@ -9,7 +9,12 @@
     "application_pdf_url": "https://crimevictimcomp.idaho.gov/wp-content/uploads/2026/06/CVCP-Application-for-Compensation_20260630.pdf",
     "phone": "208-334-6080",
     "phone_source_id": "ID-S8",
-    "statute_citation": "Idaho Code 72-1001 to 72-1026; Idaho Code 19-5303; IDAPA 17.10.01"
+    "statute_citation": "Idaho Code 72-1001 to 72-1026; Idaho Code 19-5303; IDAPA 17.10.01",
+    "application_form": {
+      "source_id": "ID-S11",
+      "fillable": false,
+      "field_count": 0
+    }
   },
   "sources": [
     {
@@ -598,6 +603,154 @@
       "quote": "Occurs or is attempted in this state or occurs outside the state of Idaho against a resident of the state of Idaho and which occurred in a state which does not have a crime victims compensation program for which the victim is eligible",
       "source_id": "ID-S1",
       "pinpoint": "Idaho Code 72-1003(4)(a)"
+    },
+    {
+      "id": "ID-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "cvcp.admin@iic.idaho.gov"
+      },
+      "summary": "Email the completed and signed application to cvcp.admin@iic.idaho.gov.",
+      "quote": "Completed and signed applications can be sent via:\nEmail to: cvcp.admin@iic.idaho.gov",
+      "source_id": "ID-S11",
+      "pinpoint": "Application for Compensation, page 4, submission box"
+    },
+    {
+      "id": "ID-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "208-332-7559"
+      },
+      "summary": "Fax the completed and signed application to 208-332-7559.",
+      "quote": "Fax: 208-332-7559",
+      "source_id": "ID-S11",
+      "pinpoint": "Application for Compensation, page 4, submission box"
+    },
+    {
+      "id": "ID-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "IDAHO CRIME VICTIMS COMPENSATION PROGRAM P.O. BOX 83720 BOISE, ID 83720-0041"
+      },
+      "summary": "Mail the completed and signed application to Idaho Crime Victims Compensation Program, P.O. Box 83720, Boise, ID 83720-0041.",
+      "quote": "Mail to: IDAHO CRIME VICTIMS COMPENSATION PROGRAM\nP.O. BOX 83720\nBOISE, ID 83720-0041",
+      "source_id": "ID-S11",
+      "pinpoint": "Application for Compensation, page 4, submission box"
+    },
+    {
+      "id": "ID-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Signed application; the victim or claimant signs the release of information, the repayment and subrogation agreement, and the application certification."
+      },
+      "summary": "The application must be completed and signed before it is sent.",
+      "quote": "Completed and signed applications can be sent via:",
+      "source_id": "ID-S11",
+      "pinpoint": "Application for Compensation, page 4, submission box"
+    },
+    {
+      "id": "ID-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Copy of the court order, only if the person signing is the victim's legal guardian or conservator."
+      },
+      "summary": "If you sign as the victim's legal guardian or conservator, include a copy of the court order.",
+      "quote": "IF LEGAL GUARDIAN and /or\nCONSERVATOR",
+      "source_id": "ID-S11",
+      "pinpoint": "Application for Compensation, page 2, Claimant Information"
+    },
+    {
+      "id": "ID-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "For co-pays, deductibles, prescriptions, or other crime-related costs you paid yourself; contact your case manager."
+      },
+      "summary": "To be paid back for co-pays, deductibles, or prescriptions you paid yourself, contact your case manager; receipts are required.",
+      "quote": "If you have paid co-pays, deductibles, prescriptions, then please reach out to your Case Manager. Receipts are required.",
+      "source_id": "ID-S10",
+      "pinpoint": "Complete an Application page, Out of Pocket Expenses"
+    },
+    {
+      "id": "ID-DOC-4",
+      "category": "required_document",
+      "expense": "forensic_exam",
+      "params": {
+        "document": "itemized_bill",
+        "note": "The program requests this from the medical providers (UB04, CMS1500, or itemized billing statement), not from the survivor."
+      },
+      "summary": "For exam and medical costs, the program asks the medical providers for itemized bills.",
+      "quote": "The Program will request the following from medical providers who assisted the victim: UB04, CMS1500, or itemized billing statements with CPT and REV codes.",
+      "source_id": "ID-S8",
+      "pinpoint": "Sexual Assault Forensics Examinations page, provider documentation list"
+    },
+    {
+      "id": "ID-DOC-5",
+      "category": "required_document",
+      "expense": "forensic_exam",
+      "params": {
+        "document": "exam_record",
+        "note": "The program requests the Sexual Assault Nurse Examination records from the medical provider."
+      },
+      "summary": "The program asks the medical provider for the sexual assault nurse examination records.",
+      "quote": "Sexual Assault Nurse Examination Records",
+      "source_id": "ID-S8",
+      "pinpoint": "Sexual Assault Forensics Examinations page, provider documentation list"
+    },
+    {
+      "id": "ID-DOC-6",
+      "category": "required_document",
+      "expense": "forensic_exam",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Explanation of Benefits, only if the victim has federal or state insurance; requested from the medical provider."
+      },
+      "summary": "If the victim has federal or state insurance, the program asks the provider for the Explanation of Benefits.",
+      "quote": "Explanation of Benefits if the victim has federal/state insurance.",
+      "source_id": "ID-S8",
+      "pinpoint": "Sexual Assault Forensics Examinations page, provider documentation list"
+    },
+    {
+      "id": "ID-DOC-7",
+      "category": "required_document",
+      "expense": "counseling",
+      "params": {
+        "document": "counseling_statement",
+        "note": "Bills, initial intake, and the CVCP Mental Health Treatment Plan; the program gathers these from the mental health provider."
+      },
+      "summary": "For counseling, the program works with your mental health provider to collect bills, the initial intake, and a treatment plan.",
+      "quote": "CVCP will work with your mental health providers directly to gather the required CVCP documentation (bills, Initial Intake, CVCP Mental Health Treatment Plan, etc.).",
+      "source_id": "ID-S10",
+      "pinpoint": "Complete an Application page, Mental Health"
+    },
+    {
+      "id": "ID-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "W-9 form, which the claimant may be asked for before payment is sent."
+      },
+      "summary": "Before paying, the program may ask the claimant for documents such as a W-9 form.",
+      "quote": "For the purpose of dispersing payment, the claimant may be required to provide certain documentation, including a W-9 form.",
+      "source_id": "ID-S7",
+      "pinpoint": "IDAPA 17.10.01.013.07.b"
+    },
+    {
+      "id": "ID-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "days": 90,
+        "note": "The FAQ gives a range of 60 to 90 days for the review after the application is received."
+      },
+      "summary": "After the program receives the application, its review can take 60 to 90 days.",
+      "quote": "The next step of the process involves a thorough review of your application, which can take 60-90 days.",
+      "source_id": "ID-S9",
+      "pinpoint": "FAQ, What happens after my application is received?"
     }
   ],
   "coverage": {
@@ -614,7 +767,10 @@
       "conduct_reduction",
       "emergency_award",
       "eligible_crime",
-      "residency"
+      "residency",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "minimum_loss",
@@ -626,5 +782,5 @@
     "notes": "No minimum loss amount appears in Idaho Code 72-1001 to 72-1026 or IDAPA 17.10.01. The statute and program pages do not list relocation, home security, temporary housing, or childcare as covered expenses, and I found no explicit exclusion either, so they are left out rather than marked excluded. Crime-scene cleanup is marked excluded from the FAQ restitution answer (ID-EXCL-5); the statute has no cleanup benefit and excludes property damage, but that FAQ sentence also wrongly lists wage loss as not covered. Replacement clothing or bedding is not listed anywhere; it would most likely fall under the property damage or loss exclusion, but no source says so directly. Wage loss has a one week waiting period under 72-1019(1) that is not modeled as a minimum loss. Transportation is reimbursed at the state employee mileage rate, which no saved source states as a number. IDAPA 17.10.01.013.07 also requires treatment and forensic exam bills to be submitted within three years of the date of treatment or eligibility; this is a bill deadline, not the claim filing deadline, so it is not encoded as a rule."
   },
   "confidence": "high",
-  "researcher_notes": "Statutes are from legislature.idaho.gov (the site notes it is updated each July 1). The exam_no_bill rule on private insurance (ID-EXAM-3) comes from the program page citing Idaho Code 19-5303 and 72-1019(2); the statute itself says the commission pays after federal or federally financed third parties for adults and after any liable third party for minors, which is consistent with the page. No statute found that flatly forbids billing the survivor for the exam; 72-1026(2) bars balance billing after the program pays, with an exception in 72-1026(3) when the program cannot pay the full allowable amount. The 72 hour police report rule has a good cause exception in statute; the program's exam-only reimbursement form (ID-S13) lets adults get the exam paid without reporting, but full benefits still require reporting or good cause. ID-CAP-1 cap language in 72-1019(5)(a) is drafted around death cases but the program pages state a $25,000 maximum for all claims. The FAQ restitution answer lists wage loss among things the program does not cover, which conflicts with 72-1019(1); the statute controls and that sentence was not used. Persons serving a sentence of imprisonment are ineligible under 72-1016(6). Reviewer: the exam-only (not reported) route on the program page also requires the crime to have occurred in Idaho and the application to be filed within one year or with good cause, and the page warns it may not cover all costs of the medical visit. Funeral cap ($5,000, 72-1019(4)) added for completeness. The FAQ restitution sentence that wrongly lists wage loss is now quoted only for its crime-scene cleanup exclusion (ID-EXCL-5), with the conflict stated in that rule's summary."
+  "researcher_notes": "Statutes are from legislature.idaho.gov (the site notes it is updated each July 1). The exam_no_bill rule on private insurance (ID-EXAM-3) comes from the program page citing Idaho Code 19-5303 and 72-1019(2); the statute itself says the commission pays after federal or federally financed third parties for adults and after any liable third party for minors, which is consistent with the page. No statute found that flatly forbids billing the survivor for the exam; 72-1026(2) bars balance billing after the program pays, with an exception in 72-1026(3) when the program cannot pay the full allowable amount. The 72 hour police report rule has a good cause exception in statute; the program's exam-only reimbursement form (ID-S13) lets adults get the exam paid without reporting, but full benefits still require reporting or good cause. ID-CAP-1 cap language in 72-1019(5)(a) is drafted around death cases but the program pages state a $25,000 maximum for all claims. The FAQ restitution answer lists wage loss among things the program does not cover, which conflicts with 72-1019(1); the statute controls and that sentence was not used. Persons serving a sentence of imprisonment are ineligible under 72-1016(6). Reviewer: the exam-only (not reported) route on the program page also requires the crime to have occurred in Idaho and the application to be filed within one year or with good cause, and the page warns it may not cover all costs of the medical visit. Funeral cap ($5,000, 72-1019(4)) added for completeness. The FAQ restitution sentence that wrongly lists wage loss is now quoted only for its crime-scene cleanup exclusion (ID-EXCL-5), with the conflict stated in that rule's summary. How to file: the June 2026 application (ID-S11), the Complete an Application page (ID-S10), and the forensic exam page (ID-S8) all list the same three methods: email, fax, and mail. No online portal or in-person filing is stated. The application PDF has no AcroForm fields (field_count 0), so it is print-and-sign, not fillable. The application itself does not ask the survivor to attach a police report, photo ID, or wage documents; it asks for the report number and employer details instead, and the program gathers medical bills, exam records, EOBs, and counseling records from providers (ID-DOC-4 to ID-DOC-7). Receipts are needed only for out-of-pocket reimbursement. The 60-90 day processing time is from the FAQ, not the statute, and is encoded as days 90 with the range in the note."
 }

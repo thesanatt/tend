@@ -1,587 +1,808 @@
 {
-  "jurisdiction": "KY",
-  "name": "Kentucky",
-  "program": {
-    "program_name": "Crime Victims Compensation Fund Program",
-    "agency": "Public Protection Cabinet, Office of Claims and Appeals, Crime Victims Compensation Board",
-    "website": "https://kycc.ky.gov/newstatic_info.aspx?static_id=158",
-    "apply_url": "https://kycc.ky.gov/CVOnline/home",
-    "application_pdf_url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
-    "phone": "502-782-8255",
-    "phone_source_id": "KY-S19",
-    "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060"
+ "jurisdiction": "KY",
+ "name": "Kentucky",
+ "program": {
+  "program_name": "Crime Victims Compensation Fund Program",
+  "agency": "Public Protection Cabinet, Office of Claims and Appeals, Crime Victims Compensation Board",
+  "website": "https://kycc.ky.gov/newstatic_info.aspx?static_id=158",
+  "apply_url": "https://kycc.ky.gov/CVOnline/home",
+  "application_pdf_url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
+  "phone": "502-782-8255",
+  "phone_source_id": "KY-S19",
+  "statute_citation": "KRS 49.270 to 49.490; KRS 216B.400; 802 KAR 3:010 to 3:060",
+  "application_form": {
+   "source_id": "KY-S19",
+   "fillable": false,
+   "field_count": 0
+  }
+ },
+ "sources": [
+  {
+   "id": "KY-S1",
+   "title": "KRS 49.280 (definitions)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54907",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:12Z",
+   "raw_path": "rules/sources/KY/KY-S1.pdf",
+   "text_path": "rules/sources/KY/KY-S1.txt",
+   "sha256": "b39090cef0acbb033a42436f2581edfc010c1a2dbd8c51888778ca27b9624340"
   },
-  "sources": [
-    {
-      "id": "KY-S1",
-      "title": "KRS 49.280 (definitions)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54907",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:12Z",
-      "raw_path": "rules/sources/KY/KY-S1.pdf",
-      "text_path": "rules/sources/KY/KY-S1.txt",
-      "sha256": "b39090cef0acbb033a42436f2581edfc010c1a2dbd8c51888778ca27b9624340"
-    },
-    {
-      "id": "KY-S2",
-      "title": "KRS 49.290 (nonresident victims)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=51475",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:13Z",
-      "raw_path": "rules/sources/KY/KY-S2.pdf",
-      "text_path": "rules/sources/KY/KY-S2.txt",
-      "sha256": "17fe12d85294bf5f36375c724e2e96af37013de62ec9e2d6452c10684f86b989"
-    },
-    {
-      "id": "KY-S3",
-      "title": "KRS 49.310 (eligibility)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54909",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:13Z",
-      "raw_path": "rules/sources/KY/KY-S3.pdf",
-      "text_path": "rules/sources/KY/KY-S3.txt",
-      "sha256": "5c43590d2c74a213fc3bd6fb0ebbee3038f8b8ee3bc076ba6a9edfd0b29d572e"
-    },
-    {
-      "id": "KY-S4",
-      "title": "KRS 49.330 (application for award)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54910",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:13Z",
-      "raw_path": "rules/sources/KY/KY-S4.pdf",
-      "text_path": "rules/sources/KY/KY-S4.txt",
-      "sha256": "cffa87bd3bf2d40433f968668ddfd1f11518803317255a3a35b70af07181f478"
-    },
-    {
-      "id": "KY-S5",
-      "title": "KRS 49.360 (emergency award)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54913",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:14Z",
-      "raw_path": "rules/sources/KY/KY-S5.pdf",
-      "text_path": "rules/sources/KY/KY-S5.txt",
-      "sha256": "6c1db46f0fd5231a9dadbe07ae72c48727a82faac3d4253fe5732a724c613f7f"
-    },
-    {
-      "id": "KY-S6",
-      "title": "KRS 49.370 (award requirements, expenses, amounts)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54914",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:14Z",
-      "raw_path": "rules/sources/KY/KY-S6.pdf",
-      "text_path": "rules/sources/KY/KY-S6.txt",
-      "sha256": "97a05293cdcc8237e032a2b38909d896dfe02f74566cb707f98ed82509da686f"
-    },
-    {
-      "id": "KY-S7",
-      "title": "KRS 49.390 (reduction of award)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54915",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:14Z",
-      "raw_path": "rules/sources/KY/KY-S7.pdf",
-      "text_path": "rules/sources/KY/KY-S7.txt",
-      "sha256": "e989290567c25b59323e8ad4702741d3b67b6e6113c9e8829dc3fd6903c18867"
-    },
-    {
-      "id": "KY-S8",
-      "title": "KRS 49.490 (sexual assault victim assistance fund)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=51493",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:15Z",
-      "raw_path": "rules/sources/KY/KY-S8.pdf",
-      "text_path": "rules/sources/KY/KY-S8.txt",
-      "sha256": "b15ea6065555fc2b1170bee83042ba617907cfc8c0ab8c5c32857e509ccec9ce"
-    },
-    {
-      "id": "KY-S9",
-      "title": "KRS 216B.400 (sexual offense examinations)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56085",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:48:15Z",
-      "raw_path": "rules/sources/KY/KY-S9.pdf",
-      "text_path": "rules/sources/KY/KY-S9.txt",
-      "sha256": "42ed99c660efd4098752cd327fe07a8cca8036b1df418552998bc00bdd33a0d5"
-    },
-    {
-      "id": "KY-S10",
-      "title": "802 KAR 3:010 Crime victims compensation",
-      "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:48:40Z",
-      "raw_path": "rules/sources/KY/KY-S10.html",
-      "text_path": "rules/sources/KY/KY-S10.txt",
-      "sha256": "8db91539148887d56a2581db176a149b53fdee6d59a5d8f06c5af3a5f6a4b70a"
-    },
-    {
-      "id": "KY-S11",
-      "title": "802 KAR 3:020 Payment schedule for sexual assault examinations",
-      "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/020/",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:48:41Z",
-      "raw_path": "rules/sources/KY/KY-S11.html",
-      "text_path": "rules/sources/KY/KY-S11.txt",
-      "sha256": "f9043c7f82b069943c407755eb17bad714c0261d6eefb8b60afea43708313c55"
-    },
-    {
-      "id": "KY-S12",
-      "title": "802 KAR 3:030 Crime victims compensation awards",
-      "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/030/",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:48:42Z",
-      "raw_path": "rules/sources/KY/KY-S12.html",
-      "text_path": "rules/sources/KY/KY-S12.txt",
-      "sha256": "5f8e10a3c15f2a32c984ce28d797d06dcd2b0ebae59a8317ba99b218d60112ed"
-    },
-    {
-      "id": "KY-S13",
-      "title": "802 KAR 3:050 Emergency awards",
-      "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/050/",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:48:43Z",
-      "raw_path": "rules/sources/KY/KY-S13.html",
-      "text_path": "rules/sources/KY/KY-S13.txt",
-      "sha256": "e615483c86711d76d5ddb7f5ccd7a3cd5ed219697b910e45b2ad2289870da9b1"
-    },
-    {
-      "id": "KY-S14",
-      "title": "KRS 49.340 (investigation of claim)",
-      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54911",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:49:08Z",
-      "raw_path": "rules/sources/KY/KY-S14.pdf",
-      "text_path": "rules/sources/KY/KY-S14.txt",
-      "sha256": "216a1edd353c5663e54147cf0d89871ff9144312a66297250b98450f13cac872"
-    },
-    {
-      "id": "KY-S17",
-      "title": "Crime Victims Compensation Board FAQ (updated August 2024)",
-      "url": "https://kycc.ky.gov/Documents/CVFAQJuly2024.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T18:49:23Z",
-      "raw_path": "rules/sources/KY/KY-S17.pdf",
-      "text_path": "rules/sources/KY/KY-S17.txt",
-      "sha256": "56fbff3872c684ffa8df149c3b27f08155574bd12ab4733a60a9090211c3214f"
-    },
-    {
-      "id": "KY-S18",
-      "title": "Crime Victims Compensation brochure (July 2024)",
-      "url": "https://kycc.ky.gov/Documents/CVBrochureJuly2024.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T18:49:24Z",
-      "raw_path": "rules/sources/KY/KY-S18.pdf",
-      "text_path": "rules/sources/KY/KY-S18.txt",
-      "sha256": "bea4ed4d727205d84a9bfba5b0dda9fe0270625c9b98c6923d7f3ce51f726616"
-    },
-    {
-      "id": "KY-S19",
-      "title": "Crime Victim Compensation Form (revised July 2024)",
-      "url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
-      "kind": "application_form",
-      "retrieved_at": "2026-10-03T18:49:24Z",
-      "raw_path": "rules/sources/KY/KY-S19.pdf",
-      "text_path": "rules/sources/KY/KY-S19.txt",
-      "sha256": "4eb30a91fcc4bd9d9fd5e3a373ee536488a319003901517a737b508ee54d5459"
-    },
-    {
-      "id": "KY-S20",
-      "title": "Sexual Assault Examination Program FAQ (revised 11/2023)",
-      "url": "https://kycc.ky.gov/Documents/FAQforSAEP2023.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T18:50:17Z",
-      "raw_path": "rules/sources/KY/KY-S20.pdf",
-      "text_path": "rules/sources/KY/KY-S20.txt",
-      "sha256": "728256e6631acf37759ab7c24b8fa68c0d7be34dedcedae115da78ed54a895f6"
-    },
-    {
-      "id": "KY-S21",
-      "title": "Emergency Award Request Policy (effective January 14, 2025)",
-      "url": "https://kycc.ky.gov/Documents/Policy%20on%20Emergency%20Award%20Requests.pdf",
-      "kind": "agency_pdf",
-      "retrieved_at": "2026-10-03T18:49:27Z",
-      "raw_path": "rules/sources/KY/KY-S21.pdf",
-      "text_path": "rules/sources/KY/KY-S21.txt",
-      "sha256": "fe87d30b972fd97433169d725f9132fffdcefcdb7d5fd85822c676739004cac2"
-    }
-  ],
-  "rules": [
-    {
-      "id": "KY-EXAM-1",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "When a sexual assault exam is given, no hospital, exam facility, clinician, pharmacist, health department, the survivor's insurer, or the state may charge the survivor for the exam, even if the exam is not completed.",
-      "quote": "When an examination of a victim of a sexual offense is provided in accordance with this section, no charge shall be made to the victim by the hospital, the sexual assault examination facility, the physician, the pharmacist, the health department, the sexual assault nurse examiner, other qualified medical professional, the victim's insurance carrier, or the Commonwealth for: (a) Sexual assault examinations, whether or not the exam is completed;",
-      "source_id": "KY-S9",
-      "pinpoint": "KRS 216B.400(10)(a)"
-    },
-    {
-      "id": "KY-EXAM-2",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "The no-charge rule also covers preventive medication, strangulation assessments, and other tests or services tied to the assault or exam on the same date as the exam, including triage and ambulance costs.",
-      "quote": "(b) Prophylactic medical treatment; (c) Strangulation assessments; or (d) Other medical tests or services, including triage and ambulance expenses, related to the incident, exam, or treatment which occur on the same date as the original exam.",
-      "source_id": "KY-S9",
-      "pinpoint": "KRS 216B.400(10)(b)-(d)"
-    },
-    {
-      "id": "KY-EXAM-3",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "A survivor cannot be refused an exam or billed for it because they choose not to file a police report, cooperate with law enforcement, or take part in the criminal case.",
-      "quote": "No victim shall be denied an examination, or billed in violation of subsection (10) of this section, because the victim chooses not to file a police report, cooperate with law enforcement, or otherwise participate in the criminal justice system.",
-      "source_id": "KY-S9",
-      "pinpoint": "KRS 216B.400(11)(a)"
-    },
-    {
-      "id": "KY-EXAM-4",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "allowed"
-      },
-      "summary": "The exam program's FAQ says providers should bill the patient's Medicaid or private insurance first, but may not charge a co-pay or deductible.",
-      "quote": "If a patient has insurance, whether Medicaid or Private insurance, that insurance should be billed first before billing the SAEP, but no co-pay or deductible may be charged as a condition for payment.",
-      "source_id": "KY-S20",
-      "pinpoint": "SAEP FAQ, \"Can we bill the patient's Insurance?\""
-    },
-    {
-      "id": "KY-EXAM-PAY-1",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Crime Victims Compensation Board (Sexual Assault Examination Program), paid to the provider"
-      },
-      "summary": "The Crime Victims Compensation Board pays for sexual assault exams and the related no-charge services, at rates set by its regulation.",
-      "quote": "The examinations provided in accordance with this section and other services provided to a victim pursuant to subsection (10) of this section shall be paid for by the Crime Victims Compensation Board at a rate to be determined by the administrative regulation promulgated by the board",
-      "source_id": "KY-S9",
-      "pinpoint": "KRS 216B.400(9)(a)"
-    },
-    {
-      "id": "KY-CAP-TOTAL",
-      "category": "total_cap",
-      "params": {
-        "amount_cents": 5000000
-      },
-      "summary": "The total award for a claimant cannot exceed $50,000.",
-      "quote": "Any award made under KRS 49.270 to 49.490 shall not exceed fifty thousand dollars ($50,000) in total compensation to be received by or paid on behalf of a claimant from the fund.",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(5)"
-    },
-    {
-      "id": "KY-CAP-WAGES",
-      "category": "expense_cap",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages",
-        "amount_cents": 50000,
-        "per": "week"
-      },
-      "summary": "Lost earnings or lost support are paid at net earnings, up to $500 for each week.",
-      "quote": "the award shall be equal to net earnings at the time of the criminally injurious conduct; however, no award under this subsection shall exceed five hundred dollars ($500) for each week of lost earnings or financial support.",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(3)"
-    },
-    {
-      "id": "KY-CAP-RELOCATION",
-      "category": "expense_cap",
-      "expense": "relocation",
-      "params": {
-        "expense": "relocation",
-        "amount_cents": 200000,
-        "per": "claim"
-      },
-      "summary": "When the crime happened at the victim's home, moving to a new primary residence for safety within 6 months of the crime is covered up to $2,000. The board may allow relocation costs incurred after 6 months at its discretion.",
-      "quote": "For the victim and for any child who is the victim's dependent, when the crime was committed at the primary residence of the victim: a. Relocation if the victim is moving from one (1) primary residence to another due to concern for the safety of themselves or other persons at the residence as a result of a crime within six (6) months of the crime, not to exceed two thousand dollars ($2,000). The board may, in its discretion, allow relocation expenses incurred after six (6) months",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)1.a."
-    },
-    {
-      "id": "KY-CAP-HOUSING",
-      "category": "expense_cap",
-      "expense": "temporary_housing",
-      "params": {
-        "expense": "temporary_housing",
-        "amount_cents": 200000,
-        "per": "claim"
-      },
-      "summary": "Temporary housing within 30 days of the crime, when the victim cannot stay at home because of the crime, is covered up to $2,000 (this applies when the crime happened at the victim's home).",
-      "quote": "Temporary housing costs incurred within thirty (30) days of the crime, when the victim is unable to stay in the primary residence due to the crime, not to exceed two thousand dollars ($2,000);",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)1.b."
-    },
-    {
-      "id": "KY-CAP-SECURITY",
-      "category": "expense_cap",
-      "expense": "security",
-      "params": {
-        "expense": "security",
-        "amount_cents": 150000,
-        "per": "claim"
-      },
-      "summary": "Replacing or repairing windows and locks at the victim's home or business damaged in the crime is covered up to $1,500.",
-      "quote": "Replacement or repair of windows and locks at the primary residence or business of the victim which were damaged by the commission of the crime, not to exceed one thousand five hundred dollars ($1,500);",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)5."
-    },
-    {
-      "id": "KY-CAP-CLEANUP",
-      "category": "expense_cap",
-      "expense": "crime_scene_cleanup",
-      "params": {
-        "expense": "crime_scene_cleanup",
-        "amount_cents": 200000,
-        "per": "claim"
-      },
-      "summary": "Crime scene cleanup within 30 days at the victim's home or business is covered up to $2,000.",
-      "quote": "Crime scene cleanup within thirty (30) days of the crime when the crime was committed at the primary residence or business of the victim, not to exceed two thousand dollars ($2,000);",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)3."
-    },
-    {
-      "id": "KY-CAP-FUNERAL",
-      "category": "expense_cap",
-      "expense": "funeral",
-      "params": {
-        "expense": "funeral",
-        "amount_cents": 1000000,
-        "per": "claim"
-      },
-      "summary": "Funeral and burial costs cannot exceed $10,000.",
-      "quote": "In no event shall an award for funeral expenses exceed ten thousand dollars ($10,000).",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(4)"
-    },
-    {
-      "id": "KY-COV-COUNSELING",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling"
-      },
-      "summary": "Mental health counseling needed because of the crime is covered for up to two years, after proper documentation is submitted to the board. There is no separate dollar cap; it counts toward the overall cap.",
-      "quote": "Mental health counseling, necessary as a result of the injury upon which the claim is based. Mental health counseling: a. Shall be paid for a maximum of two (2) years, but only after proper documentation is submitted to the board",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)8."
-    },
-    {
-      "id": "KY-COV-MEDICAL",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "Awards cover out-of-pocket expenses, including lost earnings or support and debts reasonably incurred for medical or other services.",
-      "quote": "Any award made pursuant to KRS 49.270 to 49.490 shall be in an amount not exceeding out-of-pocket expenses, including loss of earnings or support resulting from the injury on which the claim is based and indebtedness reasonably incurred for medical or other services",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)"
-    },
-    {
-      "id": "KY-COV-DENTAL",
-      "category": "covered_expense",
-      "expense": "dental",
-      "params": {
-        "expense": "dental"
-      },
-      "summary": "The program lists medical and dental expenses as compensable.",
-      "quote": "Medical/dental expenses;",
-      "source_id": "KY-S17",
-      "pinpoint": "CVCB FAQ, \"What categories of expenses are compensable by the Board?\""
-    },
-    {
-      "id": "KY-COV-SEIZED",
-      "category": "covered_expense",
-      "expense": "property_replacement",
-      "params": {
-        "expense": "property_replacement"
-      },
-      "summary": "Items seized by police as evidence can be replaced, up to $500 per item.",
-      "quote": "Reimbursement for the replacement of items owned by the victim and for any child who is the victim's dependent that were seized by law enforcement as evidence of the commission of the crime, not to exceed five hundred dollars ($500) per item;",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)4."
-    },
-    {
-      "id": "KY-COV-GLASSES",
-      "category": "covered_expense",
-      "expense": "other",
-      "params": {
-        "expense": "other"
-      },
-      "summary": "Replacing eyeglasses or other corrective lenses stolen, destroyed, or damaged in the crime is covered.",
-      "quote": "Replacement of eyeglasses and other corrective lenses stolen, destroyed, or damaged during the crime.",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)9."
-    },
-    {
-      "id": "KY-COV-WELLNESS",
-      "category": "covered_expense",
-      "expense": "other",
-      "params": {
-        "expense": "other"
-      },
-      "summary": "Rehabilitative or wellness practices recommended by a healthcare provider are covered up to $1,000 per year per person, for at most 2 years.",
-      "quote": "Rehabilitative or wellness practices recommended by a healthcare provider, engaged in by the victim and any juveniles dependent upon the victim due to the crime, not to exceed one thousand dollars ($1,000) per year per person, for a maximum of two (2) years;",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(2)(a)6."
-    },
-    {
-      "id": "KY-COV-COURT",
-      "category": "covered_expense",
-      "expense": "transportation",
-      "params": {
-        "expense": "transportation"
-      },
-      "summary": "Travel, parking, lodging, and meals for attending criminal court proceedings related to the crime can be covered for the victim and the victim's caregiver.",
-      "quote": "A victim and the victim's caregiver, if applicable, may recover the following types of expenses incurred for purposes of attending criminal court proceedings related to the crime: (1) Travel; (2) Parking; (3) Lodging; (4) Meals;",
-      "source_id": "KY-S12",
-      "pinpoint": "802 KAR 3:030 Section 4"
-    },
-    {
-      "id": "KY-COV-LUMPSUM",
-      "category": "covered_expense",
-      "expense": "other",
-      "params": {
-        "expense": "other"
-      },
-      "summary": "If a claim is filed more than 10 years after the crime because testing or DNA matching of a sexual assault kit was delayed, the victim may collect a $5,000 lump sum for out-of-pocket costs that cannot be proven because of the delay.",
-      "quote": "An award may be made for a claim filed more than ten (10) years after the criminally injurious conduct, due to a delay in the testing of or DNA profile matching from a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, in which case the victim may collect a lump sum in the amount of five thousand dollars ($5,000)",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(7)"
-    },
-    {
-      "id": "KY-EXCL-PROPERTY",
-      "category": "excluded_expense",
-      "params": {
-        "item": "property loss or damage (for example a stolen or broken phone), unless the statute allows it, such as items seized as evidence or windows and locks"
-      },
-      "summary": "No award is made for property loss or damage, such as a phone, except where the statute allows it (for example, items seized by police as evidence, or windows and locks).",
-      "quote": "An award shall not be made for any type of property loss or damage, except as otherwise permitted in KRS 49.270 to 49.490.",
-      "source_id": "KY-S6",
-      "pinpoint": "KRS 49.370(6)"
-    },
-    {
-      "id": "KY-EXCL-PAIN",
-      "category": "excluded_expense",
-      "params": {
-        "item": "pain and suffering, emotional distress, loss of consortium"
-      },
-      "summary": "The program does not pay for pain and suffering, emotional distress, or loss of consortium.",
-      "quote": "Property damage or loss, except as provided in KRS Chapter 49, and pain and suffering, emotional distress, and loss of consortium.",
-      "source_id": "KY-S17",
-      "pinpoint": "CVCB FAQ, \"What types of expenses are NOT compensable by the Board?\""
-    },
-    {
-      "id": "KY-COLLATERAL",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "Awards are reduced by money received or to be received from the offender, required insurance, public funds, the claimant's own insurance, an emergency award, or donations toward crime expenses.",
-      "quote": "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced by the amount of any payments received or to be received by the claimant as a result of the injury from the following sources: (a) From or on behalf of the person who committed the crime; (b) Under insurance programs mandated by law; (c) From public funds; (d) Under any contract of insurance wherein the claimant is the insured or beneficiary; (e) As an emergency award pursuant to KRS 49.360; and (f) From donations made on behalf of the victim or claimant toward expenses incurred as a result of the crime.",
-      "source_id": "KY-S7",
-      "pinpoint": "KRS 49.390(1)"
-    },
-    {
-      "id": "KY-CONDUCT",
-      "category": "conduct_reduction",
-      "params": {},
-      "summary": "The board may deny, reconsider, or reduce an award if the victim or claimant was charged with an offense, was offered immunity, knowingly took part in the conduct, or engaged in mutual aggression, in relation to the crime in the claim.",
-      "quote": "The board may deny, reconsider, or reduce an award if the board finds that, in relation to the criminally injurious conduct alleged in the claim, the victim or claimant: (a) Has been charged with a criminal offense; (b) Has been offered immunity from prosecution in exchange for testimony; (c) Knowingly participated in the conduct; or (d) Engaged in conduct which may constitute mutual aggression with another person.",
-      "source_id": "KY-S7",
-      "pinpoint": "KRS 49.390(2)"
-    },
-    {
-      "id": "KY-EMERGENCY",
-      "category": "emergency_award",
-      "params": {
-        "amount_cents": 100000
-      },
-      "summary": "An emergency award of up to $1,000 can be paid before the final decision, and it is deducted from the final award.",
-      "quote": "The amount of an emergency award shall not exceed one thousand dollars ($1,000); (b) The amount of an emergency award shall be deducted from any final award made to the claimant;",
-      "source_id": "KY-S5",
-      "pinpoint": "KRS 49.360(2)(a)-(b)"
-    },
-    {
-      "id": "KY-CRIME-1",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "Compensation covers victims of criminally injurious conduct, meaning conduct in Kentucky that poses a substantial threat of physical or psychological injury and is punishable as a crime.",
-      "quote": "\"Criminally injurious conduct\" means conduct that occurs or is attempted in this jurisdiction, poses a substantial threat of personal physical or psychological injury or death, and is punishable by fine, imprisonment, or death.",
-      "source_id": "KY-S1",
-      "pinpoint": "KRS 49.280(3)"
-    },
-    {
-      "id": "KY-CRIME-2",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "The official claim form lists adult sexual assault as a crime type.",
-      "quote": "Sexual Assault (Adult)",
-      "source_id": "KY-S19",
-      "pinpoint": "Crime Victim Compensation Form, Section 3"
-    },
-    {
-      "id": "KY-RES-1",
-      "category": "residency",
-      "params": {
-        "rule": "Victims injured by a criminal act in Kentucky"
-      },
-      "summary": "A victim is a person injured or killed by a criminal act in Kentucky.",
-      "quote": "\"Victim\" means a person who suffers personal physical or psychological injury or death from a criminal act in Kentucky as a result of:",
-      "source_id": "KY-S1",
-      "pinpoint": "KRS 49.280(5)(a)"
-    },
-    {
-      "id": "KY-RES-2",
-      "category": "residency",
-      "params": {
-        "rule": "Nonresidents hurt by crimes in Kentucky, while federal funds are available"
-      },
-      "summary": "Nonresidents who suffer losses from crimes in Kentucky are covered during periods when the board finds federal funds are available.",
-      "quote": "\"Victim\" shall also include nonresidents of this state who suffer losses as a direct result of criminal acts occurring within this state. This section shall be operative only during those time periods during which the Crime Victims Compensation Board determines that federal funds are available to the state for the compensation of victims of crime.",
-      "source_id": "KY-S2",
-      "pinpoint": "KRS 49.290"
-    },
-    {
-      "id": "KY-RES-3",
-      "category": "residency",
-      "params": {
-        "rule": "Kentucky residents victimized in a state with no compensation program"
-      },
-      "summary": "A Kentucky resident hurt by a crime in another state can apply in Kentucky only if that state has no compensation program the victim is eligible for and the crime would be covered had it happened in Kentucky.",
-      "quote": "\"Victim\" shall also mean a resident who is a victim of a crime occurring outside this state if: 1. The crime would be compensable had it occurred inside this state; and 2. The crime occurred in a state which does not have a crime victim compensation program, for which the victim is eligible as eligibility is set forth in KRS 49.310.",
-      "source_id": "KY-S1",
-      "pinpoint": "KRS 49.280(5)(b)"
-    }
-  ],
-  "coverage": {
-    "found": [
-      "exam_no_bill",
-      "exam_payment",
-      "total_cap",
-      "expense_cap",
-      "covered_expense",
-      "excluded_expense",
-      "collateral_source",
-      "conduct_reduction",
-      "emergency_award",
-      "eligible_crime",
-      "residency"
-    ],
-    "not_found": [
-      "filing_deadline",
-      "reporting_requirement",
-      "minimum_loss",
-      "expense_cap:counseling (time limit of two years only, no dollar cap)",
-      "expense_cap:transportation",
-      "expense_cap:medical (overall cap only)"
-    ],
-    "notes": "Filing deadline and police report rule: 2024 Ky. Acts ch. 67 (SB 319, effective July 15, 2024) deleted the old five-year filing limit from KRS 49.330 and the old 48-hour report rule. The current KRS 49.330 and 49.370 text sets no general filing deadline and no reporting deadline, so no filing_deadline or reporting_requirement rule is recorded. The CVCB FAQ (updated August 2024) still lists a police report of the incident among the documents generally required with a claim, and the claim form asks when and to whom the crime was reported, so a survivor should expect to be asked for one; the program brochure says the sexual assault exam program does not require reporting. No minimum loss amount was found. The program's HTML pages (static_id=158 and 159) could not be saved because the fetch tool strips their ASP.NET form content; their PDFs were saved instead."
+  {
+   "id": "KY-S2",
+   "title": "KRS 49.290 (nonresident victims)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=51475",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:13Z",
+   "raw_path": "rules/sources/KY/KY-S2.pdf",
+   "text_path": "rules/sources/KY/KY-S2.txt",
+   "sha256": "17fe12d85294bf5f36375c724e2e96af37013de62ec9e2d6452c10684f86b989"
   },
-  "confidence": "high",
-  "researcher_notes": "Caps come from KRS 49.370 as amended effective July 15, 2024 and match the CVCB FAQ cap list ($50,000 overall, $500 per week lost earnings, $2,000 relocation, $2,000 temporary housing, $10,000 funeral, $1,000 emergency). Relocation and temporary housing apply only when the crime happened at the victim's primary residence. The SAEP FAQ (revised 11/2023) predates the 2024 and 2025 amendments: its dollar fee schedule (citing 107 KAR 2:010) is superseded by 802 KAR 3:020 Medicaid-rate caps, and its statements that incomplete exams and same-day ambulance or triage are not paid conflict with current KRS 216B.400(10), which bars charging the victim for exams whether or not completed and for same-day triage and ambulance. Only its insurance-billing answer is used (KY-EXAM-4), and that matches the current program web page, which says providers bill insurance first. Under KRS 49.340(4) claims are investigated whether or not the offender is caught, charged, or convicted. Emergency award requests are limited to one per claimant by the program's January 2025 policy (KY-S21). Reviewer note: the live exam program page (static_id=159, read with curl but not saveable by fetch_source.py, which returns blocked or empty even with --chrome) says providers bill private or public insurance first, matching KY-EXAM-4, but it also says the victim may be charged for expenses not related to the exam process such as ambulance and triage. That conflicts with current KRS 216B.400(10)(d), which bars charging the victim for same-day triage and ambulance costs, so the statute (KY-EXAM-2) controls."
+  {
+   "id": "KY-S3",
+   "title": "KRS 49.310 (eligibility)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54909",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:13Z",
+   "raw_path": "rules/sources/KY/KY-S3.pdf",
+   "text_path": "rules/sources/KY/KY-S3.txt",
+   "sha256": "5c43590d2c74a213fc3bd6fb0ebbee3038f8b8ee3bc076ba6a9edfd0b29d572e"
+  },
+  {
+   "id": "KY-S4",
+   "title": "KRS 49.330 (application for award)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54910",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:13Z",
+   "raw_path": "rules/sources/KY/KY-S4.pdf",
+   "text_path": "rules/sources/KY/KY-S4.txt",
+   "sha256": "cffa87bd3bf2d40433f968668ddfd1f11518803317255a3a35b70af07181f478"
+  },
+  {
+   "id": "KY-S5",
+   "title": "KRS 49.360 (emergency award)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54913",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:14Z",
+   "raw_path": "rules/sources/KY/KY-S5.pdf",
+   "text_path": "rules/sources/KY/KY-S5.txt",
+   "sha256": "6c1db46f0fd5231a9dadbe07ae72c48727a82faac3d4253fe5732a724c613f7f"
+  },
+  {
+   "id": "KY-S6",
+   "title": "KRS 49.370 (award requirements, expenses, amounts)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54914",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:14Z",
+   "raw_path": "rules/sources/KY/KY-S6.pdf",
+   "text_path": "rules/sources/KY/KY-S6.txt",
+   "sha256": "97a05293cdcc8237e032a2b38909d896dfe02f74566cb707f98ed82509da686f"
+  },
+  {
+   "id": "KY-S7",
+   "title": "KRS 49.390 (reduction of award)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54915",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:14Z",
+   "raw_path": "rules/sources/KY/KY-S7.pdf",
+   "text_path": "rules/sources/KY/KY-S7.txt",
+   "sha256": "e989290567c25b59323e8ad4702741d3b67b6e6113c9e8829dc3fd6903c18867"
+  },
+  {
+   "id": "KY-S8",
+   "title": "KRS 49.490 (sexual assault victim assistance fund)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=51493",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:15Z",
+   "raw_path": "rules/sources/KY/KY-S8.pdf",
+   "text_path": "rules/sources/KY/KY-S8.txt",
+   "sha256": "b15ea6065555fc2b1170bee83042ba617907cfc8c0ab8c5c32857e509ccec9ce"
+  },
+  {
+   "id": "KY-S9",
+   "title": "KRS 216B.400 (sexual offense examinations)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56085",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:15Z",
+   "raw_path": "rules/sources/KY/KY-S9.pdf",
+   "text_path": "rules/sources/KY/KY-S9.txt",
+   "sha256": "42ed99c660efd4098752cd327fe07a8cca8036b1df418552998bc00bdd33a0d5"
+  },
+  {
+   "id": "KY-S10",
+   "title": "802 KAR 3:010 Crime victims compensation",
+   "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/010/",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:40Z",
+   "raw_path": "rules/sources/KY/KY-S10.html",
+   "text_path": "rules/sources/KY/KY-S10.txt",
+   "sha256": "8db91539148887d56a2581db176a149b53fdee6d59a5d8f06c5af3a5f6a4b70a"
+  },
+  {
+   "id": "KY-S11",
+   "title": "802 KAR 3:020 Payment schedule for sexual assault examinations",
+   "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/020/",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:41Z",
+   "raw_path": "rules/sources/KY/KY-S11.html",
+   "text_path": "rules/sources/KY/KY-S11.txt",
+   "sha256": "f9043c7f82b069943c407755eb17bad714c0261d6eefb8b60afea43708313c55"
+  },
+  {
+   "id": "KY-S12",
+   "title": "802 KAR 3:030 Crime victims compensation awards",
+   "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/030/",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:42Z",
+   "raw_path": "rules/sources/KY/KY-S12.html",
+   "text_path": "rules/sources/KY/KY-S12.txt",
+   "sha256": "5f8e10a3c15f2a32c984ce28d797d06dcd2b0ebae59a8317ba99b218d60112ed"
+  },
+  {
+   "id": "KY-S13",
+   "title": "802 KAR 3:050 Emergency awards",
+   "url": "https://apps.legislature.ky.gov/law/kar/titles/802/003/050/",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:48:43Z",
+   "raw_path": "rules/sources/KY/KY-S13.html",
+   "text_path": "rules/sources/KY/KY-S13.txt",
+   "sha256": "e615483c86711d76d5ddb7f5ccd7a3cd5ed219697b910e45b2ad2289870da9b1"
+  },
+  {
+   "id": "KY-S14",
+   "title": "KRS 49.340 (investigation of claim)",
+   "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54911",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:08Z",
+   "raw_path": "rules/sources/KY/KY-S14.pdf",
+   "text_path": "rules/sources/KY/KY-S14.txt",
+   "sha256": "216a1edd353c5663e54147cf0d89871ff9144312a66297250b98450f13cac872"
+  },
+  {
+   "id": "KY-S17",
+   "title": "Crime Victims Compensation Board FAQ (updated August 2024)",
+   "url": "https://kycc.ky.gov/Documents/CVFAQJuly2024.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:49:23Z",
+   "raw_path": "rules/sources/KY/KY-S17.pdf",
+   "text_path": "rules/sources/KY/KY-S17.txt",
+   "sha256": "56fbff3872c684ffa8df149c3b27f08155574bd12ab4733a60a9090211c3214f"
+  },
+  {
+   "id": "KY-S18",
+   "title": "Crime Victims Compensation brochure (July 2024)",
+   "url": "https://kycc.ky.gov/Documents/CVBrochureJuly2024.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:49:24Z",
+   "raw_path": "rules/sources/KY/KY-S18.pdf",
+   "text_path": "rules/sources/KY/KY-S18.txt",
+   "sha256": "bea4ed4d727205d84a9bfba5b0dda9fe0270625c9b98c6923d7f3ce51f726616"
+  },
+  {
+   "id": "KY-S19",
+   "title": "Crime Victim Compensation Form (revised July 2024)",
+   "url": "https://kycc.ky.gov/Documents/CVC%20Form-July%202024.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:49:24Z",
+   "raw_path": "rules/sources/KY/KY-S19.pdf",
+   "text_path": "rules/sources/KY/KY-S19.txt",
+   "sha256": "4eb30a91fcc4bd9d9fd5e3a373ee536488a319003901517a737b508ee54d5459"
+  },
+  {
+   "id": "KY-S20",
+   "title": "Sexual Assault Examination Program FAQ (revised 11/2023)",
+   "url": "https://kycc.ky.gov/Documents/FAQforSAEP2023.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:50:17Z",
+   "raw_path": "rules/sources/KY/KY-S20.pdf",
+   "text_path": "rules/sources/KY/KY-S20.txt",
+   "sha256": "728256e6631acf37759ab7c24b8fa68c0d7be34dedcedae115da78ed54a895f6"
+  },
+  {
+   "id": "KY-S21",
+   "title": "Emergency Award Request Policy (effective January 14, 2025)",
+   "url": "https://kycc.ky.gov/Documents/Policy%20on%20Emergency%20Award%20Requests.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:49:27Z",
+   "raw_path": "rules/sources/KY/KY-S21.pdf",
+   "text_path": "rules/sources/KY/KY-S21.txt",
+   "sha256": "fe87d30b972fd97433169d725f9132fffdcefcdb7d5fd85822c676739004cac2"
+  },
+  {
+   "id": "KY-S22",
+   "title": "CVCB Documents to include (claim checklist)",
+   "url": "https://kycc.ky.gov/Documents/CVCB%20Documents%20to%20include.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:39:33Z",
+   "raw_path": "rules/sources/KY/KY-S22.pdf",
+   "text_path": "rules/sources/KY/KY-S22.txt",
+   "sha256": "817f2b15871bc01aa1dc124a5dc8ac0769aa316c6cd6136c0f76c666bbd845bf"
+  }
+ ],
+ "rules": [
+  {
+   "id": "KY-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "When a sexual assault exam is given, no hospital, exam facility, clinician, pharmacist, health department, the survivor's insurer, or the state may charge the survivor for the exam, even if the exam is not completed.",
+   "quote": "When an examination of a victim of a sexual offense is provided in accordance with this section, no charge shall be made to the victim by the hospital, the sexual assault examination facility, the physician, the pharmacist, the health department, the sexual assault nurse examiner, other qualified medical professional, the victim's insurance carrier, or the Commonwealth for: (a) Sexual assault examinations, whether or not the exam is completed;",
+   "source_id": "KY-S9",
+   "pinpoint": "KRS 216B.400(10)(a)"
+  },
+  {
+   "id": "KY-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "The no-charge rule also covers preventive medication, strangulation assessments, and other tests or services tied to the assault or exam on the same date as the exam, including triage and ambulance costs.",
+   "quote": "(b) Prophylactic medical treatment; (c) Strangulation assessments; or (d) Other medical tests or services, including triage and ambulance expenses, related to the incident, exam, or treatment which occur on the same date as the original exam.",
+   "source_id": "KY-S9",
+   "pinpoint": "KRS 216B.400(10)(b)-(d)"
+  },
+  {
+   "id": "KY-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "A survivor cannot be refused an exam or billed for it because they choose not to file a police report, cooperate with law enforcement, or take part in the criminal case.",
+   "quote": "No victim shall be denied an examination, or billed in violation of subsection (10) of this section, because the victim chooses not to file a police report, cooperate with law enforcement, or otherwise participate in the criminal justice system.",
+   "source_id": "KY-S9",
+   "pinpoint": "KRS 216B.400(11)(a)"
+  },
+  {
+   "id": "KY-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "The exam program's FAQ says providers should bill the patient's Medicaid or private insurance first, but may not charge a co-pay or deductible.",
+   "quote": "If a patient has insurance, whether Medicaid or Private insurance, that insurance should be billed first before billing the SAEP, but no co-pay or deductible may be charged as a condition for payment.",
+   "source_id": "KY-S20",
+   "pinpoint": "SAEP FAQ, \"Can we bill the patient's Insurance?\""
+  },
+  {
+   "id": "KY-EXAM-PAY-1",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Crime Victims Compensation Board (Sexual Assault Examination Program), paid to the provider"
+   },
+   "summary": "The Crime Victims Compensation Board pays for sexual assault exams and the related no-charge services, at rates set by its regulation.",
+   "quote": "The examinations provided in accordance with this section and other services provided to a victim pursuant to subsection (10) of this section shall be paid for by the Crime Victims Compensation Board at a rate to be determined by the administrative regulation promulgated by the board",
+   "source_id": "KY-S9",
+   "pinpoint": "KRS 216B.400(9)(a)"
+  },
+  {
+   "id": "KY-CAP-TOTAL",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 5000000
+   },
+   "summary": "The total award for a claimant cannot exceed $50,000.",
+   "quote": "Any award made under KRS 49.270 to 49.490 shall not exceed fifty thousand dollars ($50,000) in total compensation to be received by or paid on behalf of a claimant from the fund.",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(5)"
+  },
+  {
+   "id": "KY-CAP-WAGES",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 50000,
+    "per": "week"
+   },
+   "summary": "Lost earnings or lost support are paid at net earnings, up to $500 for each week.",
+   "quote": "the award shall be equal to net earnings at the time of the criminally injurious conduct; however, no award under this subsection shall exceed five hundred dollars ($500) for each week of lost earnings or financial support.",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(3)"
+  },
+  {
+   "id": "KY-CAP-RELOCATION",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "When the crime happened at the victim's home, moving to a new primary residence for safety within 6 months of the crime is covered up to $2,000. The board may allow relocation costs incurred after 6 months at its discretion.",
+   "quote": "For the victim and for any child who is the victim's dependent, when the crime was committed at the primary residence of the victim: a. Relocation if the victim is moving from one (1) primary residence to another due to concern for the safety of themselves or other persons at the residence as a result of a crime within six (6) months of the crime, not to exceed two thousand dollars ($2,000). The board may, in its discretion, allow relocation expenses incurred after six (6) months",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)1.a."
+  },
+  {
+   "id": "KY-CAP-HOUSING",
+   "category": "expense_cap",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Temporary housing within 30 days of the crime, when the victim cannot stay at home because of the crime, is covered up to $2,000 (this applies when the crime happened at the victim's home).",
+   "quote": "Temporary housing costs incurred within thirty (30) days of the crime, when the victim is unable to stay in the primary residence due to the crime, not to exceed two thousand dollars ($2,000);",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)1.b."
+  },
+  {
+   "id": "KY-CAP-SECURITY",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Replacing or repairing windows and locks at the victim's home or business damaged in the crime is covered up to $1,500.",
+   "quote": "Replacement or repair of windows and locks at the primary residence or business of the victim which were damaged by the commission of the crime, not to exceed one thousand five hundred dollars ($1,500);",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)5."
+  },
+  {
+   "id": "KY-CAP-CLEANUP",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleanup within 30 days at the victim's home or business is covered up to $2,000.",
+   "quote": "Crime scene cleanup within thirty (30) days of the crime when the crime was committed at the primary residence or business of the victim, not to exceed two thousand dollars ($2,000);",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)3."
+  },
+  {
+   "id": "KY-CAP-FUNERAL",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Funeral and burial costs cannot exceed $10,000.",
+   "quote": "In no event shall an award for funeral expenses exceed ten thousand dollars ($10,000).",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(4)"
+  },
+  {
+   "id": "KY-COV-COUNSELING",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling needed because of the crime is covered for up to two years, after proper documentation is submitted to the board. There is no separate dollar cap; it counts toward the overall cap.",
+   "quote": "Mental health counseling, necessary as a result of the injury upon which the claim is based. Mental health counseling: a. Shall be paid for a maximum of two (2) years, but only after proper documentation is submitted to the board",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)8."
+  },
+  {
+   "id": "KY-COV-MEDICAL",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Awards cover out-of-pocket expenses, including lost earnings or support and debts reasonably incurred for medical or other services.",
+   "quote": "Any award made pursuant to KRS 49.270 to 49.490 shall be in an amount not exceeding out-of-pocket expenses, including loss of earnings or support resulting from the injury on which the claim is based and indebtedness reasonably incurred for medical or other services",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)"
+  },
+  {
+   "id": "KY-COV-DENTAL",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "The program lists medical and dental expenses as compensable.",
+   "quote": "Medical/dental expenses;",
+   "source_id": "KY-S17",
+   "pinpoint": "CVCB FAQ, \"What categories of expenses are compensable by the Board?\""
+  },
+  {
+   "id": "KY-COV-SEIZED",
+   "category": "covered_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "Items seized by police as evidence can be replaced, up to $500 per item.",
+   "quote": "Reimbursement for the replacement of items owned by the victim and for any child who is the victim's dependent that were seized by law enforcement as evidence of the commission of the crime, not to exceed five hundred dollars ($500) per item;",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)4."
+  },
+  {
+   "id": "KY-COV-GLASSES",
+   "category": "covered_expense",
+   "expense": "other",
+   "params": {
+    "expense": "other"
+   },
+   "summary": "Replacing eyeglasses or other corrective lenses stolen, destroyed, or damaged in the crime is covered.",
+   "quote": "Replacement of eyeglasses and other corrective lenses stolen, destroyed, or damaged during the crime.",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)9."
+  },
+  {
+   "id": "KY-COV-WELLNESS",
+   "category": "covered_expense",
+   "expense": "other",
+   "params": {
+    "expense": "other"
+   },
+   "summary": "Rehabilitative or wellness practices recommended by a healthcare provider are covered up to $1,000 per year per person, for at most 2 years.",
+   "quote": "Rehabilitative or wellness practices recommended by a healthcare provider, engaged in by the victim and any juveniles dependent upon the victim due to the crime, not to exceed one thousand dollars ($1,000) per year per person, for a maximum of two (2) years;",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(2)(a)6."
+  },
+  {
+   "id": "KY-COV-COURT",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel, parking, lodging, and meals for attending criminal court proceedings related to the crime can be covered for the victim and the victim's caregiver.",
+   "quote": "A victim and the victim's caregiver, if applicable, may recover the following types of expenses incurred for purposes of attending criminal court proceedings related to the crime: (1) Travel; (2) Parking; (3) Lodging; (4) Meals;",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 4"
+  },
+  {
+   "id": "KY-COV-LUMPSUM",
+   "category": "covered_expense",
+   "expense": "other",
+   "params": {
+    "expense": "other"
+   },
+   "summary": "If a claim is filed more than 10 years after the crime because testing or DNA matching of a sexual assault kit was delayed, the victim may collect a $5,000 lump sum for out-of-pocket costs that cannot be proven because of the delay.",
+   "quote": "An award may be made for a claim filed more than ten (10) years after the criminally injurious conduct, due to a delay in the testing of or DNA profile matching from a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, in which case the victim may collect a lump sum in the amount of five thousand dollars ($5,000)",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(7)"
+  },
+  {
+   "id": "KY-EXCL-PROPERTY",
+   "category": "excluded_expense",
+   "params": {
+    "item": "property loss or damage (for example a stolen or broken phone), unless the statute allows it, such as items seized as evidence or windows and locks"
+   },
+   "summary": "No award is made for property loss or damage, such as a phone, except where the statute allows it (for example, items seized by police as evidence, or windows and locks).",
+   "quote": "An award shall not be made for any type of property loss or damage, except as otherwise permitted in KRS 49.270 to 49.490.",
+   "source_id": "KY-S6",
+   "pinpoint": "KRS 49.370(6)"
+  },
+  {
+   "id": "KY-EXCL-PAIN",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering, emotional distress, loss of consortium"
+   },
+   "summary": "The program does not pay for pain and suffering, emotional distress, or loss of consortium.",
+   "quote": "Property damage or loss, except as provided in KRS Chapter 49, and pain and suffering, emotional distress, and loss of consortium.",
+   "source_id": "KY-S17",
+   "pinpoint": "CVCB FAQ, \"What types of expenses are NOT compensable by the Board?\""
+  },
+  {
+   "id": "KY-COLLATERAL",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Awards are reduced by money received or to be received from the offender, required insurance, public funds, the claimant's own insurance, an emergency award, or donations toward crime expenses.",
+   "quote": "Any award made pursuant to KRS 49.270 to 49.490 shall be reduced by the amount of any payments received or to be received by the claimant as a result of the injury from the following sources: (a) From or on behalf of the person who committed the crime; (b) Under insurance programs mandated by law; (c) From public funds; (d) Under any contract of insurance wherein the claimant is the insured or beneficiary; (e) As an emergency award pursuant to KRS 49.360; and (f) From donations made on behalf of the victim or claimant toward expenses incurred as a result of the crime.",
+   "source_id": "KY-S7",
+   "pinpoint": "KRS 49.390(1)"
+  },
+  {
+   "id": "KY-CONDUCT",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The board may deny, reconsider, or reduce an award if the victim or claimant was charged with an offense, was offered immunity, knowingly took part in the conduct, or engaged in mutual aggression, in relation to the crime in the claim.",
+   "quote": "The board may deny, reconsider, or reduce an award if the board finds that, in relation to the criminally injurious conduct alleged in the claim, the victim or claimant: (a) Has been charged with a criminal offense; (b) Has been offered immunity from prosecution in exchange for testimony; (c) Knowingly participated in the conduct; or (d) Engaged in conduct which may constitute mutual aggression with another person.",
+   "source_id": "KY-S7",
+   "pinpoint": "KRS 49.390(2)"
+  },
+  {
+   "id": "KY-EMERGENCY",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "An emergency award of up to $1,000 can be paid before the final decision, and it is deducted from the final award.",
+   "quote": "The amount of an emergency award shall not exceed one thousand dollars ($1,000); (b) The amount of an emergency award shall be deducted from any final award made to the claimant;",
+   "source_id": "KY-S5",
+   "pinpoint": "KRS 49.360(2)(a)-(b)"
+  },
+  {
+   "id": "KY-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Compensation covers victims of criminally injurious conduct, meaning conduct in Kentucky that poses a substantial threat of physical or psychological injury and is punishable as a crime.",
+   "quote": "\"Criminally injurious conduct\" means conduct that occurs or is attempted in this jurisdiction, poses a substantial threat of personal physical or psychological injury or death, and is punishable by fine, imprisonment, or death.",
+   "source_id": "KY-S1",
+   "pinpoint": "KRS 49.280(3)"
+  },
+  {
+   "id": "KY-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "The official claim form lists adult sexual assault as a crime type.",
+   "quote": "Sexual Assault (Adult)",
+   "source_id": "KY-S19",
+   "pinpoint": "Crime Victim Compensation Form, Section 3"
+  },
+  {
+   "id": "KY-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Victims injured by a criminal act in Kentucky"
+   },
+   "summary": "A victim is a person injured or killed by a criminal act in Kentucky.",
+   "quote": "\"Victim\" means a person who suffers personal physical or psychological injury or death from a criminal act in Kentucky as a result of:",
+   "source_id": "KY-S1",
+   "pinpoint": "KRS 49.280(5)(a)"
+  },
+  {
+   "id": "KY-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Nonresidents hurt by crimes in Kentucky, while federal funds are available"
+   },
+   "summary": "Nonresidents who suffer losses from crimes in Kentucky are covered during periods when the board finds federal funds are available.",
+   "quote": "\"Victim\" shall also include nonresidents of this state who suffer losses as a direct result of criminal acts occurring within this state. This section shall be operative only during those time periods during which the Crime Victims Compensation Board determines that federal funds are available to the state for the compensation of victims of crime.",
+   "source_id": "KY-S2",
+   "pinpoint": "KRS 49.290"
+  },
+  {
+   "id": "KY-RES-3",
+   "category": "residency",
+   "params": {
+    "rule": "Kentucky residents victimized in a state with no compensation program"
+   },
+   "summary": "A Kentucky resident hurt by a crime in another state can apply in Kentucky only if that state has no compensation program the victim is eligible for and the crime would be covered had it happened in Kentucky.",
+   "quote": "\"Victim\" shall also mean a resident who is a victim of a crime occurring outside this state if: 1. The crime would be compensable had it occurred inside this state; and 2. The crime occurred in a state which does not have a crime victim compensation program, for which the victim is eligible as eligibility is set forth in KRS 49.310.",
+   "source_id": "KY-S1",
+   "pinpoint": "KRS 49.280(5)(b)"
+  },
+  {
+   "id": "KY-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601"
+   },
+   "summary": "A claim can be dropped off in person or sent by private delivery to the Board's office in Frankfort.",
+   "quote": "(a) In person or by private delivery to the Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601;",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(a)"
+  },
+  {
+   "id": "KY-SUB-2",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601"
+   },
+   "summary": "A claim can be mailed to the Board's office in Frankfort.",
+   "quote": "(a) In person or by private delivery to the Crime Victims Compensation Board, 500 Mero Street, 2 SC1, Frankfort, Kentucky 40601; (b) By mail to the address listed above;",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(b)"
+  },
+  {
+   "id": "KY-SUB-3",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "crimevictims@ky.gov"
+   },
+   "summary": "A claim can be emailed to the Board if the whole claim fits in a single email.",
+   "quote": "(c) By electronic mail to crimevictims@ky.gov, if the document can be sent in one (1) electronic message;",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(c)"
+  },
+  {
+   "id": "KY-SUB-4",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://kycc.ky.gov/CVOnline/home"
+   },
+   "summary": "A claim can be filed through the Board's online claims portal.",
+   "quote": "(d) Through the online claims portal at: https://kycc.ky.gov/CVOnline/home",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(2)(d)"
+  },
+  {
+   "id": "KY-SUB-5",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "502-573-4817"
+   },
+   "summary": "The Board's FAQ says a paper claim form can also be faxed.",
+   "quote": "Paper claim forms can be submitted to the Board by fax (502-573-4817)",
+   "source_id": "KY-S17",
+   "pinpoint": "CVCB FAQ (updated August 2024), Where should I send my paper claim form?"
+  },
+  {
+   "id": "KY-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "if applicable; the sexual assault exam program itself does not require reporting"
+   },
+   "summary": "The Board's checklist asks for a police report along with the claim form, if applicable.",
+   "quote": "In addition to the claim form, you will need to submit, if applicable, 1) Police Report",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 1"
+  },
+  {
+   "id": "KY-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "for medical expenses"
+   },
+   "summary": "For medical expenses, the claimant must send copies of itemized medical billing statements.",
+   "quote": "Claimants requesting reimbursement or payment for medical expenses incurred as a result of the crime shall submit the following documentation as proof of the eligible expenses: (1) Copies of itemized medical billing statements for medical treatment provided to the claimant as a direct result of the crime.",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 8(1)"
+  },
+  {
+   "id": "KY-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "only when itemized bills are not available"
+   },
+   "summary": "If itemized medical bills are not available, non-itemized bills are accepted when the medical records from the visit are sent with them.",
+   "quote": "(2) If itemized billing statements are not available, non-itemized medical billing statements shall be accepted if: (a) The medical records from the visit are submitted along with the non-itemized medical billing statements;",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 8(2)(a)"
+  },
+  {
+   "id": "KY-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "proof of payment or balance due for each listed expense"
+   },
+   "summary": "The claim form says each listed expense needs documentation such as itemized bills, receipts, service contracts, invoices, or other proof of payment or balance due.",
+   "quote": "You must include documentation of the expense, such as itemized bills, receipts, service contracts, invoices, or other proof of payment and/or balance due.",
+   "source_id": "KY-S19",
+   "pinpoint": "Crime Victim Compensation Form (July 2024), Section 7"
+  },
+  {
+   "id": "KY-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "for mental health counseling; also the treatment plan and itemized bills"
+   },
+   "summary": "For counseling expenses, the claimant must send a Mental Health Counselor's Report from the therapist and the treatment plan, along with itemized bills.",
+   "quote": "(1) Claimants requesting reimbursement or payment of mental health counseling expenses shall submit the following documentation as proof of the eligible expenses: (a) Mental Health Counselor's Report completed by the claimant's or victim's therapist or mental health clinician; (b) Treatment plan devised by the claimant or victim's therapist or mental health clinician;",
+   "source_id": "KY-S12",
+   "pinpoint": "802 KAR 3:030 Section 9(1)"
+  },
+  {
+   "id": "KY-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "for lost wages or loss of support; the form must be notarized"
+   },
+   "summary": "A claim for lost wages or loss of support must include a notarized Employment Verification form, plus a Physician Statement or Mental Health Counselor's Report if Board staff ask for one.",
+   "quote": "(3) If applying for lost wages or loss of support, a claim shall be supplemented by: (a) A notarized Employment Verification form; and (b) If requested by Board staff: 1. A Physician Statement form; or 2. A Mental Health Counselor's Report form.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 4(3)"
+  },
+  {
+   "id": "KY-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "self-employed claimants send tax returns"
+   },
+   "summary": "A self-employed claimant seeking lost earnings sends the preceding two years of tax returns.",
+   "quote": "If you are selfemployed, please submit the preceding two years' worth of tax returns.",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 4(a)"
+  },
+  {
+   "id": "KY-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Emergency Award Request Form, only when requesting an emergency award"
+   },
+   "summary": "Anyone asking for an emergency award completes, signs, and dates the Emergency Award Request Form and attaches it to the claim form.",
+   "quote": "If yes, please complete, sign, and date the attached Emergency Award Request Form and attach it to your claim form.",
+   "source_id": "KY-S19",
+   "pinpoint": "Crime Victim Compensation Form (July 2024), Section 4"
+  },
+  {
+   "id": "KY-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "lump sum for sexual assault claims delayed more than ten years by kit testing or DNA matching: proof of crime date, kit collection, collection date, testing delay, and damages"
+   },
+   "summary": "A survivor seeking the lump sum for a sexual assault claim filed more than ten years after the crime must send proof of the crime date, that the kit was collected and when, that it went untested for a long time, and anecdotal proof of damages.",
+   "quote": "(1) For purposes of KRS 49.370(7), a claimant seeking an award under this provision shall submit: (a) Proof that the crime occurred more than ten (10) years prior to the date of filing of the claim; (b) Proof that the sexual assault kit was collected; (c) Proof of the collection date of the biological material; (d) Proof that the biological material went untested for an extended period; and (e) Anecdotal proof of the damages incurred as a result of the crime.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 8(1)"
+  },
+  {
+   "id": "KY-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed funeral service contract, for funeral expenses"
+   },
+   "summary": "For funeral expenses, the checklist asks for the signed funeral service contract.",
+   "quote": "3) Signed funeral service contract for funeral expenses",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 3"
+  },
+  {
+   "id": "KY-DOC-11",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "proof of household support, for loss of support"
+   },
+   "summary": "For loss of support, the checklist asks for documentation of the support the supporter brought into the household at the time of the crime.",
+   "quote": "a. Documentation outlining amount of support brought into household by the supporter at the time of the crime.",
+   "source_id": "KY-S22",
+   "pinpoint": "CVCB Documents to include, item 5(a)"
+  },
+  {
+   "id": "KY-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 90
+   },
+   "summary": "For claims filed after July 1, 2026, the investigator must finish the investigative report within 90 days after the claim is assigned; this is the investigation step, not the Board's final decision.",
+   "quote": "(3) For claims filed after July 1, 2026, the claims investigator shall complete an investigative report on the claim within ninety (90) days after it is assigned by the Board Clerk to the claims investigator.",
+   "source_id": "KY-S10",
+   "pinpoint": "802 KAR 3:010 Section 6(3)"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document",
+   "processing_time"
+  ],
+  "not_found": [
+   "filing_deadline",
+   "reporting_requirement",
+   "minimum_loss",
+   "expense_cap:counseling (time limit of two years only, no dollar cap)",
+   "expense_cap:transportation",
+   "expense_cap:medical (overall cap only)"
+  ],
+  "notes": "Filing deadline and police report rule: 2024 Ky. Acts ch. 67 (SB 319, effective July 15, 2024) deleted the old five-year filing limit from KRS 49.330 and the old 48-hour report rule. The current KRS 49.330 and 49.370 text sets no general filing deadline and no reporting deadline, so no filing_deadline or reporting_requirement rule is recorded. The CVCB FAQ (updated August 2024) still lists a police report of the incident among the documents generally required with a claim, and the claim form asks when and to whom the crime was reported, so a survivor should expect to be asked for one; the program brochure says the sexual assault exam program does not require reporting. No minimum loss amount was found. The program's HTML pages (static_id=158 and 159) could not be saved because the fetch tool strips their ASP.NET form content; their PDFs were saved instead."
+ },
+ "confidence": "high",
+ "researcher_notes": "Caps come from KRS 49.370 as amended effective July 15, 2024 and match the CVCB FAQ cap list ($50,000 overall, $500 per week lost earnings, $2,000 relocation, $2,000 temporary housing, $10,000 funeral, $1,000 emergency). Relocation and temporary housing apply only when the crime happened at the victim's primary residence. The SAEP FAQ (revised 11/2023) predates the 2024 and 2025 amendments: its dollar fee schedule (citing 107 KAR 2:010) is superseded by 802 KAR 3:020 Medicaid-rate caps, and its statements that incomplete exams and same-day ambulance or triage are not paid conflict with current KRS 216B.400(10), which bars charging the victim for exams whether or not completed and for same-day triage and ambulance. Only its insurance-billing answer is used (KY-EXAM-4), and that matches the current program web page, which says providers bill insurance first. Under KRS 49.340(4) claims are investigated whether or not the offender is caught, charged, or convicted. Emergency award requests are limited to one per claimant by the program's January 2025 policy (KY-S21). Reviewer note: the live exam program page (static_id=159, read with curl but not saveable by fetch_source.py, which returns blocked or empty even with --chrome) says providers bill private or public insurance first, matching KY-EXAM-4, but it also says the victim may be charged for expenses not related to the exam process such as ambulance and triage. That conflicts with current KRS 216B.400(10)(d), which bars charging the victim for same-day triage and ambulance costs, so the statute (KY-EXAM-2) controls. How to file: 802 KAR 3:010 Section 4(2) lists in person or private delivery, mail, email (if the claim fits in one email), and the online portal; fax (502-573-4817) comes from the CVCB FAQ only, not the regulation. The paper application (KY-S19, revised July 2024, still the version linked on the program page on Oct 3, 2026) is a flat PDF with no AcroForm fields, so it must be printed or filled by hand. Document rules come from 802 KAR 3:010 and 3:030 and the program's 'Documents to include' checklist (KY-S22). The program page also links a 'How to file a claim' PDF, but that URL returned 404 on Oct 3, 2026, so it is not saved. Processing time: the regulation sets a 90-day deadline for the investigative report on claims filed after July 1, 2026 (120 days for claims filed after July 1, 2025); no source states a time for the Board's final decision or payment, and the brochure says processing time depends on several factors. Missing documentation: under 802 KAR 3:010 Section 10 a claim goes into default if required documents are not sent within 90 days, and can be revived without a new application. Claimants get access to the online tracking portal within one week of filing."
 }

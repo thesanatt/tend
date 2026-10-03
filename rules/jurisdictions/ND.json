@@ -9,7 +9,12 @@
     "application_pdf_url": null,
     "phone": "701-328-6195",
     "phone_source_id": "ND-S2",
-    "statute_citation": "N.D.C.C. ch. 54-23.4; N.D. Admin. Code art. 94-03; N.D.C.C. 12.1-34-07 (exam costs)"
+    "statute_citation": "N.D.C.C. ch. 54-23.4; N.D. Admin. Code art. 94-03; N.D.C.C. 12.1-34-07 (exam costs)",
+    "application_form": {
+      "source_id": null,
+      "fillable": false,
+      "field_count": 0
+    }
   },
   "sources": [
     {
@@ -91,6 +96,36 @@
       "raw_path": "rules/sources/ND/ND-S8.pdf",
       "text_path": "rules/sources/ND/ND-S8.txt",
       "sha256": "736fd6282d231a99552ea538f970c8cbd2efc22effa8da6ae0548a9e338991d4"
+    },
+    {
+      "id": "ND-S9",
+      "title": "ND CVC Authorization to Disclose Protected Health Information (SFN 61353)",
+      "url": "https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Forms/CVC%20Release%20of%20Information%20revised%202025%20-%20Fillable.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:42:47Z",
+      "raw_path": "rules/sources/ND/ND-S9.pdf",
+      "text_path": "rules/sources/ND/ND-S9.txt",
+      "sha256": "5e4c18f0c80627d229efeaffe28427e890b19683efa6682d52567e3bd96442d2"
+    },
+    {
+      "id": "ND-S10",
+      "title": "ND CVC Work Loss - Employer's Report (SFN 12437, Rev. 06-2018)",
+      "url": "https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Employers%20Report%20-%20Lost%20Wages.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:42:47Z",
+      "raw_path": "rules/sources/ND/ND-S10.pdf",
+      "text_path": "rules/sources/ND/ND-S10.txt",
+      "sha256": "81e09b9733cc1a0bce1a7181f8c98511e3c8aac6117fc750528c8ba0f420f7ef"
+    },
+    {
+      "id": "ND-S11",
+      "title": "ND CVC Work Loss - Physician's Report (SFN 60497, Rev. 06-2018)",
+      "url": "https://www.docr.nd.gov/sites/www/files/documents/victims/CVC%20Physicians%20Report%20-%20Lost%20Wages.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:42:47Z",
+      "raw_path": "rules/sources/ND/ND-S11.pdf",
+      "text_path": "rules/sources/ND/ND-S11.txt",
+      "sha256": "7fa36e4659b02e18d59cda09fcd7b77c592cf1b618397e31894e0906e9aebf11"
     }
   ],
   "rules": [
@@ -550,6 +585,234 @@
       "quote": "If a resident of this state is a victim of criminally injurious conduct, but the criminally injurious conduct occurred outside the geographical boundaries of this state, the resident has the same rights under this chapter as if the criminally injurious conduct occurred within this state upon a showing that the state, territory, country, or political subdivision of the country in which the criminally injurious conduct occurred does not have a crime victims compensation law which covers the bodily injury or death of the victim.",
       "source_id": "ND-S1",
       "pinpoint": "N.D.C.C. 54-23.4-06(1)"
+    },
+    {
+      "id": "ND-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://portalapps.nd.gov/docr/cvc-application/",
+        "note": "The program page links to the online application; the portal itself could not be saved as a snapshot. No official source states a mail, email, or fax filing method for the application."
+      },
+      "summary": "Apply online through the ND DOCR Crime Victim's Compensation Application portal linked from the program page.",
+      "quote": "Clicking the link below will take you to the online application for Crime Victim",
+      "source_id": "ND-S2",
+      "pinpoint": "Program page, Crime Victims Compensation Application and Forms"
+    },
+    {
+      "id": "ND-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "weeks": 4,
+        "note": "The program page says to allow 2 to 4 weeks for an application or a reimbursement request."
+      },
+      "summary": "Allow 2 to 4 weeks for the program to process an application or a reimbursement request.",
+      "quote": "Please allow 2-4 weeks for processing CVC application or claim reimbursement requests.",
+      "source_id": "ND-S2",
+      "pinpoint": "Program page, Claim Status"
+    },
+    {
+      "id": "ND-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Completed application signed by the claimant or the claimant's parent, guardian, or legal representative, on the division's form."
+      },
+      "summary": "Submit a completed application on the program's form, signed by the claimant or a parent, guardian, or legal representative; an employer, provider, or insurer cannot apply for you.",
+      "quote": "A claimant for benefits shall submit a completed application for compensation signed by the claimant or the claimant's parent, guardian, or legal representative on an application form prescribed by the division.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-02(2)"
+    },
+    {
+      "id": "ND-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Written explanation of the late report, only if the crime was not reported to law enforcement within the reporting window."
+      },
+      "summary": "If the crime was not reported to law enforcement in time, explain the reason for the late report in the application.",
+      "quote": "There may be a justifiable reason for the late report. Please explain.",
+      "source_id": "ND-S6",
+      "pinpoint": "CVC Application Tips, Section 3 (Incident Information, continued)"
+    },
+    {
+      "id": "ND-DOC-3",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Billing statement with the medical provider's name, business address, telephone number, and treatment plan."
+      },
+      "summary": "For medical costs, include a billing statement showing the provider's name, business address, phone number, and treatment plan.",
+      "quote": "A request for compensation for medical services must include a billing statement containing the medical provider's name, business address, telephone number, treatment plan, and other information necessary for the division to determine the claim is for services directly related to the criminally injurious conduct.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-08(1)"
+    },
+    {
+      "id": "ND-DOC-4",
+      "category": "required_document",
+      "expense": "dental",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Billing statement with the dental provider's name, business address, telephone number, and treatment plan."
+      },
+      "summary": "For dental costs, include a billing statement showing the dentist's name, business address, phone number, and treatment plan.",
+      "quote": "A request for compensation for dental services must include a billing statement containing the dental provider's name, business address, telephone number, treatment plan, and other information necessary for the division to determine the claim is for services directly related to the criminally injurious conduct.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-09(1)"
+    },
+    {
+      "id": "ND-DOC-5",
+      "category": "required_document",
+      "expense": "counseling",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Billing statement of itemized transactions from the mental health provider."
+      },
+      "summary": "For counseling, the provider's billing statement must list itemized transactions with the provider's name, business address, and phone number.",
+      "quote": "A billing statement of itemized transactions containing the provider's name, business address, and telephone number.",
+      "source_id": "ND-S8",
+      "pinpoint": "CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), Verification Requirements"
+    },
+    {
+      "id": "ND-DOC-6",
+      "category": "required_document",
+      "expense": "counseling",
+      "params": {
+        "document": "counseling_statement",
+        "note": "Provider Verification Form portion of the CVC Mental Health Treatment Policy form, returned with the billing invoice."
+      },
+      "summary": "For counseling, the provider returns the CVC Provider Verification Form with the billing invoice.",
+      "quote": "The Provider Verification Form portion is to be returned with the billing invoice for reimbursement of services to the CVC program.",
+      "source_id": "ND-S8",
+      "pinpoint": "CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), introduction"
+    },
+    {
+      "id": "ND-DOC-7",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Written documentation from a medical or mental health provider and from the claimant's employer."
+      },
+      "summary": "For lost wages, include written documentation from a medical or mental health provider and from your employer.",
+      "quote": "A claim for reimbursement for work loss must include written documentation from a medical or mental health provider, the claimant's employer, and information the division may request that supports payment for work loss.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-13(1)"
+    },
+    {
+      "id": "ND-DOC-8",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Work Loss - Employer's Report (SFN 12437), completed by the employer at the time of the crime."
+      },
+      "summary": "For lost wages, the employer you worked for at the time of the crime completes the CVC Employer's Report.",
+      "quote": "FORM MUST BE COMPLETED BY EMPLOYER YOU WERE WORKING FOR AT THE TIME OF THE CRIME INCIDENT.",
+      "source_id": "ND-S10",
+      "pinpoint": "Work Loss - Employer's Report, SFN 12437"
+    },
+    {
+      "id": "ND-DOC-9",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Copy of the federal income tax return for the prior year, only if self-employed."
+      },
+      "summary": "For lost wages, if you are self-employed, include a copy of your federal income tax return for the prior year.",
+      "quote": "Self-employed victims shall provide a copy of federal income tax return for one year prior and other substantial verification of work loss or profits the division determines is necessary to support payment for work loss.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-13(1)(c)"
+    },
+    {
+      "id": "ND-DOC-10",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "medical_records",
+        "note": "Work Loss - Physician's Report (SFN 60497), completed by a medical provider who treated the crime injuries."
+      },
+      "summary": "For lost wages, a medical provider who treated your crime injuries completes the CVC Physician's Report.",
+      "quote": "FORM MUST BE COMPLETED BY A MEDICAL PROVIDER WHO TREATED YOU FOR YOUR CRIME INJURIES.",
+      "source_id": "ND-S11",
+      "pinpoint": "Work Loss - Physician's Report, SFN 60497"
+    },
+    {
+      "id": "ND-DOC-11",
+      "category": "required_document",
+      "expense": "transportation",
+      "params": {
+        "document": "receipts",
+        "note": "Receipts for travel and lodging."
+      },
+      "summary": "For travel and lodging, include your receipts.",
+      "quote": "The claimant shall submit receipts for travel and lodging expenses to the division.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-16(1)"
+    },
+    {
+      "id": "ND-DOC-12",
+      "category": "required_document",
+      "expense": "funeral",
+      "params": {
+        "document": "receipts",
+        "note": "Itemized receipts for funeral and burial expenses."
+      },
+      "summary": "For funeral and burial costs, include itemized receipts.",
+      "quote": "The claimant shall submit itemized receipts for reimbursement under this section.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-17(3)"
+    },
+    {
+      "id": "ND-DOC-13",
+      "category": "required_document",
+      "expense": "other",
+      "params": {
+        "document": "receipts",
+        "note": "Receipts for replacement services showing the billed amount and type of service."
+      },
+      "summary": "For replacement services, include receipts showing the billed amount and the type of service.",
+      "quote": "A claim for reimbursement for replacement services loss must include receipts for the billed amount, type of service provided, and other information necessary for the division to determine the claim is for services directly related to the criminally injurious conduct.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-15(1)"
+    },
+    {
+      "id": "ND-DOC-14",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Proof of the support the victim provided to dependents, such as tax forms, benefits records, a certified death certificate, guardianship papers, birth certificates, or child support or spousal orders. Only for a loss of support claim."
+      },
+      "summary": "For loss of support, include proof of the support the victim gave dependents before the crime, such as tax forms, a certified death certificate, or birth certificates.",
+      "quote": "A claim for loss of support must include verification of the amount of support the victim provided to dependents prior to the criminally injurious conduct.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-14(1)"
+    },
+    {
+      "id": "ND-DOC-15",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Documentation of what insurance or another collateral source paid, or that it did not cover the service."
+      },
+      "summary": "Before the program pays, you or the provider must show what insurance or another collateral source paid, or that it did not cover the service.",
+      "quote": "Before payment is made from the division, either the provider or the claimant shall provide documentation that: a. Verifies the amount paid by the collateral source; or b. Verifies the applicant or service was not covered by the collateral source.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-06 (collateral sources)"
+    },
+    {
+      "id": "ND-DOC-16",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Authorization to Disclose Protected Health Information (SFN 61353), if the program asks for it."
+      },
+      "summary": "The program may ask you to sign its Authorization to Disclose Protected Health Information form so it can get records it needs to decide the claim.",
+      "quote": "The DOCR may, however, require that you authorize disclosure of your health information if needed to make a determination about your claim.",
+      "source_id": "ND-S9",
+      "pinpoint": "Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement"
     }
   ],
   "coverage": {
@@ -566,7 +829,10 @@
       "conduct_reduction",
       "emergency_award",
       "eligible_crime",
-      "residency"
+      "residency",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "minimum_loss",
@@ -582,5 +848,5 @@
     "notes": "No general minimum loss was found; the only threshold is that a claimant must be unable to work at least three days to get work loss benefits (N.D. Admin. Code 94-03-03-13(2)(c)). No relocation, security, or temporary housing benefit appears in the statute, rules, or program pages. No sexual-assault-specific alternative to the 96-hour police report was found; late reports can be excused only for good cause. The application is online only (portalapps.nd.gov); no application PDF was found, so application_pdf_url is null. Medical has no overall cap but sub-caps: eyeglasses $500, alternative medical services $1,000, chiropractic or massage $1,200, cosmetic reconstructive procedures $5,000 (94-03-03-08(2)), and medical and dental services must be provided within two years of the crime. Counseling must fall within a two-year period beginning on the date of the first session (94-03-03-10(3)(b)). Home health services are capped at $300 per week and $4,800 total and must be provided within four months of the crime (94-03-03-11); a service animal is capped at $1,000 (94-03-03-12). The program page says the crime must be reported within 96 hours 'of the crime or discovery of the crime'; the statute and rule count 96 hours from the occurrence, so the engine follows the statute."
   },
   "confidence": "high",
-  "researcher_notes": "Statute text is the official ndlegis.gov Century Code PDF; admin rules are the official ndlegis.gov Article 94-03 PDFs (effective January 1, 2017). The program page agrees with the statute on the $25,000 total cap, the $300 per week wage cap, the 96-hour report, and the one-year filing deadline; the page states the wage cap as 'up to 16 weeks' and the rule as a $4,800 maximum (same total). Filing deadline runs from the date of the police report, not the crime. Work loss is limited to four months from the crime and is not paid while sick or annual leave is available. Travel requires at least 150 miles round trip and vehicle rental is capped at $30 per day. If the claimant has no insurance or other collateral source, the program pays 80 percent of billed charges for eligible medical, dental, or mental health services (94-03-03-06(3)); the 2025 mental health policy form describes provider reimbursement at 80 percent of patient responsibility. Forensic exam: under N.D.C.C. 12.1-34-07 the acute exam (within 120 hours unless good cause) may not be charged to the survivor directly or through a third-party payer, and the Attorney General reimburses providers; the statute does not condition this on a police report. The program page notes crowdfunding may be treated as a collateral source and restitution or civil recovery must be repaid. Contributory misconduct rule 94-03-03-05 lists conduct that requires denial; Tend shows conduct rules as information only. Reviewer: N.D.C.C. 12.1-34-07(2) separately bars charging a child forensic exam (criminal sexual conduct, physical abuse, or neglect) to the child or parent, and is recorded as ND-EXAM-CHILD."
+  "researcher_notes": "Statute text is the official ndlegis.gov Century Code PDF; admin rules are the official ndlegis.gov Article 94-03 PDFs (effective January 1, 2017). The program page agrees with the statute on the $25,000 total cap, the $300 per week wage cap, the 96-hour report, and the one-year filing deadline; the page states the wage cap as 'up to 16 weeks' and the rule as a $4,800 maximum (same total). Filing deadline runs from the date of the police report, not the crime. Work loss is limited to four months from the crime and is not paid while sick or annual leave is available. Travel requires at least 150 miles round trip and vehicle rental is capped at $30 per day. If the claimant has no insurance or other collateral source, the program pays 80 percent of billed charges for eligible medical, dental, or mental health services (94-03-03-06(3)); the 2025 mental health policy form describes provider reimbursement at 80 percent of patient responsibility. Forensic exam: under N.D.C.C. 12.1-34-07 the acute exam (within 120 hours unless good cause) may not be charged to the survivor directly or through a third-party payer, and the Attorney General reimburses providers; the statute does not condition this on a police report. The program page notes crowdfunding may be treated as a collateral source and restitution or civil recovery must be repaid. Contributory misconduct rule 94-03-03-05 lists conduct that requires denial; Tend shows conduct rules as information only. Reviewer: N.D.C.C. 12.1-34-07(2) separately bars charging a child forensic exam (criminal sexual conduct, physical abuse, or neglect) to the child or parent, and is recorded as ND-EXAM-CHILD. How to file: North Dakota has no PDF application. The program page says the application is online only (portalapps.nd.gov/docr/cvc-application/), so application_form is null with fillable false and field_count 0; the portal page could not be saved (blocked or empty, also through Chrome), so the application's own field list comes from the CVC Application Tips PDF (ND-S6). No official source states a mail, email, or fax filing method for the application itself; the program page and admin rule 94-03-01 give P.O. Box 1898, Bismarck, ND 58502-1898, fax 701-328-0309, and DOCRcompensation@nd.gov only as contact and correspondence details, and the employer and physician work-loss forms (ND-S10, ND-S11) are returned by mail, email, or fax. Supporting documents come from the 94-03-03 verification rules and the DOCR forms. Processing time (2 to 4 weeks) is from the program page."
 }

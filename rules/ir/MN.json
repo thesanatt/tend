@@ -10,9 +10,14 @@
   "application_pdf_url": "https://assets.dps.mn.gov/files/ojp/Reimbursement%20claim%20form%20%28English%29.pdf",
   "phone": "651-201-7300",
   "phone_source_id": "MN-S8",
-  "statute_citation": "Minn. Stat. 611A.51 to 611A.68; Minn. Stat. 609.35 (exam costs); Minn. R. ch. 3050"
+  "statute_citation": "Minn. Stat. 611A.51 to 611A.68; Minn. Stat. 609.35 (exam costs); Minn. R. ch. 3050",
+  "application_form": {
+   "source_id": "MN-S10",
+   "fillable": true,
+   "field_count": 53
+  }
  },
- "source_sha256": "04e806008e59964ae8126600754be1f1977f014905d2757a3cd1cf9a315673e5",
+ "source_sha256": "d5778859fe38bb812287d086416e8b5ccb51741929e3c8ffafa5a1bd3f9d34a1",
  "rules": [
   {
    "id": "MN-EXAM-1",
@@ -225,6 +230,71 @@
    "id": "MN-RES-3",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "MN-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-SUBMIT-FAX",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MN-DOC-EXPENSES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-ITEMIZED",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-EOB",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-INSCARD",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-TAXRETURN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-W9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-SIGNATURE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MN-DOC-MILEAGE",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

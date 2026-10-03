@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.scag.gov/media/iwvi4n0f/dcvc-application-revised-aug-2018-fillable-ag-new-seal-2021_01052022.pdf",
   "phone": "803-734-1900",
   "phone_source_id": "SC-S2",
-  "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360"
+  "statute_citation": "S.C. Code Ann. 16-3-1110 to 16-3-1360",
+  "application_form": {
+   "source_id": "SC-S7",
+   "fillable": true,
+   "field_count": 103
+  }
  },
- "source_sha256": "28b53cedb8be74fb5426a8d96d5a8920d82f5074963a771fe871396e5319c87e",
+ "source_sha256": "493fdb08806f84db7083566e3e6c640034904aa58ba8e6e85a871c26452f5c78",
  "rules": [
   {
    "id": "SC-EXAM-1",
@@ -214,6 +219,51 @@
    "id": "SC-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "SC-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "SC-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "SC-DOC-8",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

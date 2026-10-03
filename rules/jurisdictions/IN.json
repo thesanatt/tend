@@ -9,7 +9,12 @@
     "application_pdf_url": "https://www.in.gov/cji/victim-compensation/files/23776-fill-in-R14-10-21.pdf",
     "phone": "1-800-353-1484",
     "phone_source_id": "IN-S1",
-    "statute_citation": "IC 5-2-6.1; IC 16-21-8; 203 IAC 1"
+    "statute_citation": "IC 5-2-6.1; IC 16-21-8; 203 IAC 1",
+    "application_form": {
+      "source_id": "IN-S3",
+      "fillable": true,
+      "field_count": 89
+    }
   },
   "sources": [
     {
@@ -635,6 +640,138 @@
       "quote": "(1) A resident of Indiana who is a victim of a violent crime committed: (A) in Indiana; or (B) in a jurisdiction other than Indiana, including a foreign country, if the jurisdiction in which the violent crime occurs does not offer assistance to a victim of a violent crime that is substantially similar to the assistance offered under this chapter. (2) A nonresident of Indiana who is a victim of a violent crime committed in Indiana.",
       "source_id": "IN-S6",
       "pinpoint": "IC 5-2-6.1-12(a)(1), (2)"
+    },
+    {
+      "id": "IN-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "Indiana Government Center South, 402 W. Washington Street, Room W469, Indianapolis, IN 46204"
+      },
+      "summary": "Mail the paper application to the Indiana Criminal Justice Institute, 402 W. Washington Street, Room W469, Indianapolis, IN 46204.",
+      "quote": "If applying online isn't an option, PDF applications can be mailed or hand delivered to the Indiana Criminal Justice Institute at: Indiana Government Center South, 402 W. Washington Street, Room W469, Indianapolis, IN 46204.",
+      "source_id": "IN-S1",
+      "pinpoint": "Apply for Violent Crime Compensation, File a PDF claim"
+    },
+    {
+      "id": "IN-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "in_person",
+        "target": "Indiana Government Center South, 402 W. Washington Street, Room W469, Indianapolis, IN 46204"
+      },
+      "summary": "The paper application can also be hand delivered to the same office in the Indiana Government Center South.",
+      "quote": "If applying online isn't an option, PDF applications can be mailed or hand delivered to the Indiana Criminal Justice Institute at: Indiana Government Center South, 402 W. Washington Street, Room W469, Indianapolis, IN 46204.",
+      "source_id": "IN-S1",
+      "pinpoint": "Apply for Violent Crime Compensation, File a PDF claim"
+    },
+    {
+      "id": "IN-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "317-232-7103"
+      },
+      "summary": "The paper application can be faxed to 317-232-7103.",
+      "quote": "They can also be faxed to: 317-232-7103.",
+      "source_id": "IN-S1",
+      "pinpoint": "Apply for Violent Crime Compensation, File a PDF claim"
+    },
+    {
+      "id": "IN-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Not needed at filing; the claims analyst gets it later. Survivors who had a forensic exam do not have to report."
+      },
+      "summary": "The claims analyst gathers the police report and supplemental reports during the review; you do not have to send it with the application.",
+      "quote": "(1) A police report including all supplemental reports and victim and witness statements made to law enforcement personnel.",
+      "source_id": "IN-S21",
+      "pinpoint": "203 IAC 1-1-4(1)"
+    },
+    {
+      "id": "IN-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Not needed at filing; bills are requested during the review."
+      },
+      "summary": "Expenses are paid only when an itemized bill verifies them, so keep itemized bills for every crime-related cost.",
+      "quote": "Expenses that cannot be verified via an itemized bill.",
+      "source_id": "IN-S1",
+      "pinpoint": "Non-eligible expenses"
+    },
+    {
+      "id": "IN-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Proof of payment for anything you paid yourself."
+      },
+      "summary": "Out-of-pocket costs are reimbursed only with proof of payment, so keep receipts.",
+      "quote": "Out of pocket expenses without proof of payment.",
+      "source_id": "IN-S1",
+      "pinpoint": "Non-eligible expenses"
+    },
+    {
+      "id": "IN-DOC-4",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Employment or earnings information, and child care cost records if claiming child care."
+      },
+      "summary": "For lost wages or child care, the program collects documentation of employment, earnings, or substitute child care costs.",
+      "quote": "(4) Documentation regarding substitute child care expenses, employment, or earnings information.",
+      "source_id": "IN-S21",
+      "pinpoint": "203 IAC 1-1-4(4)"
+    },
+    {
+      "id": "IN-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Insurance, Social Security, pension, workers' compensation, or unemployment benefit information."
+      },
+      "summary": "Because the program pays last, it collects records of insurance and other benefits that covered any of the costs.",
+      "quote": "(5) Documentation concerning the following: (A) Medical or life insurance benefits, or both. (B) Social Security, pension, or retirement benefit information. (C) Worker's compensation or unemployment compensation benefits.",
+      "source_id": "IN-S21",
+      "pinpoint": "203 IAC 1-1-4(5)"
+    },
+    {
+      "id": "IN-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Loss of support only: proof of legal dependent status, marriage and support, or paternity and support."
+      },
+      "summary": "Dependents claiming loss of support must verify their dependent status and the support the victim provided.",
+      "quote": "(Note: This requires verification of legal dependent status, marriage and support, or paternity and support).",
+      "source_id": "IN-S1",
+      "pinpoint": "Eligible expenses, loss of support"
+    },
+    {
+      "id": "IN-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Parent or legal guardian signature and date if the claimant is under 18."
+      },
+      "summary": "If the claimant is under 18, a parent or legal guardian signs and dates the application.",
+      "quote": "If the claimant is less than eighteen (18) years old, a parent or legal guardian must sign and date the application.",
+      "source_id": "IN-S3",
+      "pinpoint": "State Form 23776, Eligibility Requirements, item 7"
+    },
+    {
+      "id": "IN-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "days": 30
+      },
+      "summary": "Once an award is computed, it must be paid within 30 days; the FAQ says claims are typically processed within a few months.",
+      "quote": "an award must be paid not more than thirty (30) days after the date on which the award is computed",
+      "source_id": "IN-S16",
+      "pinpoint": "IC 5-2-6.1-43(b)"
     }
   ],
   "coverage": {
@@ -652,7 +789,10 @@
       "minimum_loss",
       "reporting_requirement",
       "residency",
-      "total_cap"
+      "total_cap",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "expense_cap:lost_wages",
@@ -665,8 +805,8 @@
       "exam_no_bill:insurance_billing",
       "online_apply_url"
     ],
-    "notes": "No separate dollar caps were found for lost wages, medical, security (windows and locks), or emergency shelter; those draw on the $15,000 total. Relocation and travel are listed as non-eligible on the program page, and no statute makes them covered, except emergency shelter care for up to 30 days. No source says whether an exam provider may bill the survivor's insurance; the statutes only bar charging the victim, so insurance_billing is unspecified. The program page links an online application portal but says it currently has problems and asks for written applications; no stable online apply URL was recorded, so apply_url points to the program page."
+    "notes": "No separate dollar caps were found for lost wages, medical, security (windows and locks), or emergency shelter; those draw on the $15,000 total. Relocation and travel are listed as non-eligible on the program page, and no statute makes them covered, except emergency shelter care for up to 30 days. No source says whether an exam provider may bill the survivor's insurance; the statutes only bar charging the victim, so insurance_billing is unspecified. The program page links an online application portal but says it currently has problems and asks for written applications; no stable online apply URL was recorded, so apply_url points to the program page. How to file: the program page (IN-S1) gives mail, hand delivery, and fax for the paper application; it says online filing exists but the portal currently has problems and gives no portal URL, so no online submission rule was added. The 'Send written application' email link on that page sits under the hospital sexual assault claim section, not the survivor application, so no email rule was added. The program page says medical bills and police reports are not needed at filing; the documents listed come from what the program says it collects or requires to pay (IN-S1, 203 IAC 1-1-4). Processing time: only the statutory 30-day payment window after an award is computed (IC 5-2-6.1-43(b)); the FAQ's 'within a few months' has no number."
   },
   "confidence": "medium",
-  "researcher_notes": "Statute text is from Justia's 2025 Indiana Code (the official iga.in.gov code viewer is a script app); the administrative rule is from the official Indiana Administrative Register. Conflicts, statute wins in the rules: (1) Filing deadline: IC 5-2-6.1-16(b) requires the application within 180 days of the crime, extendable for good cause to no more than two years; the program page says applications must be filed no later than two years after the crime. (2) Total cap: IC 5-2-6.1-35 caps an award at $15,000; the FAQ describes $20,000 total ($15,000 plus an additional $5,000 for funeral costs). Funeral costs up to $5,000 are a listed expense in IC 5-2-6.1-21.1(d)(6). (3) Medical expense window: IC 5-2-6.1-21.1(d) covers expenses incurred within 180 days, extendable to two years; the program page says medical expenses must be incurred within two years. (4) The application form State Form 23776 (R14 / 9-21) predates the 2022 changes: it lists a 180-day deadline and a 72-hour report with no sexual assault exam alternative. (5) 203 IAC 1 (readopted 2023) still contains older figures superseded by statute: a 48-hour reporting rule, a $4,000 funeral cap, $1,000 or $1,500 counseling caps, and a 48-hour report condition for sex crime ER payment; it also says a provider may bill the patient or a collateral source if fund payment is denied (203 IAC 1-2-1(c)), which conflicts with IC 16-21-8-6(f) and IC 16-21-8-1(a) (exam services may not depend on reporting to or cooperating with law enforcement). Only the $500 emergency award is taken from 203 IAC 1, since no statute addresses emergency awards; the FAQ confirms emergency funding exists and that an application must be filed first. (6) The program page says crimes outside Indiana are not eligible; IC 5-2-6.1-12(a)(1)(B) lets Indiana residents apply for crimes in places without a substantially similar program. Other: victims of a child sex crime may apply until age 31 (IC 5-2-6.1-16(e)) and are exempt from the 72-hour report rule (IC 5-2-6.1-17(a)). IC 5-2-6.1-21.1(f) bars a health care provider that accepts division payment from charging the victim a copayment. Bodily injury includes emotional trauma that stems directly from a physical impairment, visible injury, or physical pain (IC 5-2-6.1-0.5). IN-S16 (IC 5-2-6.1-43, payment timing), IN-S20 (IC 16-21-8-1, list of sex crimes), and IN-S22 (rights brochure) are saved for context. Reviewer additions: 203 IAC 1-1-9(d) also says the total award may not exceed $15,000 per victim, which agrees with IC 5-2-6.1-35 against the FAQ's $20,000. IC 16-21-8-5(b) conditions payment for additional forensic services (not the exam itself) on the victim being 18 or older or, for a minor, a report to child protective services or law enforcement, the crime occurring in Indiana, and the provider starting the claim in the division's web system. IC 5-2-6.1-16(g) gives victims of battery on a child under 14 five years to apply."
+  "researcher_notes": "Statute text is from Justia's 2025 Indiana Code (the official iga.in.gov code viewer is a script app); the administrative rule is from the official Indiana Administrative Register. Conflicts, statute wins in the rules: (1) Filing deadline: IC 5-2-6.1-16(b) requires the application within 180 days of the crime, extendable for good cause to no more than two years; the program page says applications must be filed no later than two years after the crime. (2) Total cap: IC 5-2-6.1-35 caps an award at $15,000; the FAQ describes $20,000 total ($15,000 plus an additional $5,000 for funeral costs). Funeral costs up to $5,000 are a listed expense in IC 5-2-6.1-21.1(d)(6). (3) Medical expense window: IC 5-2-6.1-21.1(d) covers expenses incurred within 180 days, extendable to two years; the program page says medical expenses must be incurred within two years. (4) The application form State Form 23776 (R14 / 9-21) predates the 2022 changes: it lists a 180-day deadline and a 72-hour report with no sexual assault exam alternative. (5) 203 IAC 1 (readopted 2023) still contains older figures superseded by statute: a 48-hour reporting rule, a $4,000 funeral cap, $1,000 or $1,500 counseling caps, and a 48-hour report condition for sex crime ER payment; it also says a provider may bill the patient or a collateral source if fund payment is denied (203 IAC 1-2-1(c)), which conflicts with IC 16-21-8-6(f) and IC 16-21-8-1(a) (exam services may not depend on reporting to or cooperating with law enforcement). Only the $500 emergency award is taken from 203 IAC 1, since no statute addresses emergency awards; the FAQ confirms emergency funding exists and that an application must be filed first. (6) The program page says crimes outside Indiana are not eligible; IC 5-2-6.1-12(a)(1)(B) lets Indiana residents apply for crimes in places without a substantially similar program. Other: victims of a child sex crime may apply until age 31 (IC 5-2-6.1-16(e)) and are exempt from the 72-hour report rule (IC 5-2-6.1-17(a)). IC 5-2-6.1-21.1(f) bars a health care provider that accepts division payment from charging the victim a copayment. Bodily injury includes emotional trauma that stems directly from a physical impairment, visible injury, or physical pain (IC 5-2-6.1-0.5). IN-S16 (IC 5-2-6.1-43, payment timing), IN-S20 (IC 16-21-8-1, list of sex crimes), and IN-S22 (rights brochure) are saved for context. Reviewer additions: 203 IAC 1-1-9(d) also says the total award may not exceed $15,000 per victim, which agrees with IC 5-2-6.1-35 against the FAQ's $20,000. IC 16-21-8-5(b) conditions payment for additional forensic services (not the exam itself) on the victim being 18 or older or, for a minor, a report to child protective services or law enforcement, the crime occurring in Indiana, and the provider starting the claim in the division's web system. IC 5-2-6.1-16(g) gives victims of battery on a child under 14 five years to apply. How-to-file additions: application_form is IN-S3, State Form 23776 (R14 / 9-21), the PDF the program page currently links; it has 89 AcroForm fields (the PDF is AES-encrypted with an empty user password). 203 IAC 1-1-3(a)(2) says claims are filed in person or by certified mail; the program page adds fax. A Spanish application is linked from the program page but not saved."
 }

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://victims.ca.gov/uploads/2021/01/victimcompensationapp_eng.pdf",
   "phone": "800-777-9229",
   "phone_source_id": "CA-S12",
-  "statute_citation": "Cal. Gov. Code 13950 to 13966; Cal. Code Regs. tit. 2, 649 et seq.; Cal. Penal Code 13823.95"
+  "statute_citation": "Cal. Gov. Code 13950 to 13966; Cal. Code Regs. tit. 2, 649 et seq.; Cal. Penal Code 13823.95",
+  "application_form": {
+   "source_id": "CA-S17",
+   "fillable": true,
+   "field_count": 207
+  }
  },
- "source_sha256": "f9b28d66f8d91b9c7f3b766ca0a6fc02eb5b75d43bd12e69be8ab3cca2fb775c",
+ "source_sha256": "cfb0cd256a15a589ff65d8a4dbeff72943e817e1c46dc1f2a467769fcb51e557",
  "rules": [
   {
    "id": "CA-EXAM-1",
@@ -151,6 +156,71 @@
    "id": "CA-RESIDENCY-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "CA-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CA-SUBMIT-INPERSON",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CA-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "CA-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-DISABILITY",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-MEDICAL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-DOC-COUNSEL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "CA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "CA-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

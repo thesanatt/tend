@@ -10,9 +10,14 @@
   "application_pdf_url": "https://dojmt.gov/wp-content/uploads/2025/12/Crime-Victim-Compensation-Claim-Form-12-25.pdf",
   "phone": "406-444-3653",
   "phone_source_id": "MT-S1",
-  "statute_citation": "MCA 53-9-101 to 53-9-133"
+  "statute_citation": "MCA 53-9-101 to 53-9-133",
+  "application_form": {
+   "source_id": "MT-S6",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "45b4747f300c1b28f0a982ee61df54473bd1a90be28e58f301144722eb1882c9",
+ "source_sha256": "a88217b6007aae8c45a305953ff878edeaca8c552e3a61d238314ce5eadb31cd",
  "rules": [
   {
    "id": "MT-EXAM-1",
@@ -179,6 +184,36 @@
    "id": "MT-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "MT-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MT-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://cjcc.georgia.gov/document/document/application-victim-compensation-program-english/download",
   "phone": "404-657-2222",
   "phone_source_id": "GA-S10",
-  "statute_citation": "O.C.G.A. 17-15-1 to 17-15-17; forensic exam: O.C.G.A. 17-5-72 and 17-15-15; rules: Ga. Comp. R. & Regs. 144-4-.06 and 144-4-.08"
+  "statute_citation": "O.C.G.A. 17-15-1 to 17-15-17; forensic exam: O.C.G.A. 17-5-72 and 17-15-15; rules: Ga. Comp. R. & Regs. 144-4-.06 and 144-4-.08",
+  "application_form": {
+   "source_id": "GA-S10",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "1ae4097121d77927717971772e408bbcf8fd86b525a2a61886d98efae28c47c9",
+ "source_sha256": "681795b380a10e0e1a82b6b43d674a982baae7bc72985fb2be09e862f8b98f39",
  "rules": [
   {
    "id": "GA-EXAM-1",
@@ -205,6 +210,81 @@
    "id": "GA-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "GA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "GA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "GA-DOC-APP",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-EXAM",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-RX",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-COUNS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-WAGES-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-WAGES-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-WORK",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-W9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-DEATH",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

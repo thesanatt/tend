@@ -10,9 +10,14 @@
   "application_pdf_url": "https://attorneygenerallynnfitch.com/wp-content/uploads/2026/01/Victim-Compensation-Application-12.9.2025-1.pdf",
   "phone": "800-829-6766",
   "phone_source_id": "MS-S1",
-  "statute_citation": "Miss. Code Ann. 99-41-1 to 99-41-31 (Mississippi Crime Victims' Compensation Act); forensic exam: Miss. Code Ann. 99-37-25; rules: 3 Miss. Admin. Code Pt. 1"
+  "statute_citation": "Miss. Code Ann. 99-41-1 to 99-41-31 (Mississippi Crime Victims' Compensation Act); forensic exam: Miss. Code Ann. 99-37-25; rules: 3 Miss. Admin. Code Pt. 1",
+  "application_form": {
+   "source_id": "MS-S4",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "af172c5e06f40772b76412948d6a677da158fc3ccc48ca742fbb1d91d687614a",
+ "source_sha256": "57bbc03d2b1fed12455b17e5d00c716f19c413c9469e21545eeaf3c3fe70c994",
  "rules": [
   {
    "id": "MS-EXAM-1",
@@ -241,6 +246,76 @@
    "id": "MS-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "MS-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MS-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MS-SUBMIT-FAX",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MS-DOC-SIGNED",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-MEDSTMT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-TAXRETURN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-DISABILITY",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-COUNSELING",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-DOC-TRAVEL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MS-PROCESS-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://treasury.ri.gov/media/521/download?language=en",
   "phone": "401-462-7655",
   "phone_source_id": "RI-S8",
-  "statute_citation": "R.I. Gen. Laws §§ 12-25-16 to 12-25-31; 120-RICR-00-00-2"
+  "statute_citation": "R.I. Gen. Laws §§ 12-25-16 to 12-25-31; 120-RICR-00-00-2",
+  "application_form": {
+   "source_id": "RI-S9",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "5ac23ac46c25f983ee475357fdb1c2bd826f4adcb26fdf741b4ad65e58ebf0e1",
+ "source_sha256": "0743c4a5a589a8cf4614d2994c476c51156ab46b93a07f86abb87a397b269799",
  "rules": [
   {
    "id": "RI-EXAM-1",
@@ -183,6 +188,56 @@
    "id": "RI-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "RI-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "RI-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "RI-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "RI-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "RI-DOC-7",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

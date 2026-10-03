@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.wisdoj.gov/Crime%20Victims%20Services/cvcapp-english-print.pdf",
   "phone": "800-446-6564",
   "phone_source_id": "WI-S3",
-  "statute_citation": "Wis. Stat. ch. 949, subch. I (ss. 949.001 to 949.18); SAFE Fund: subch. II (ss. 949.20 to 949.38); Wis. Admin. Code ch. Jus 11"
+  "statute_citation": "Wis. Stat. ch. 949, subch. I (ss. 949.001 to 949.18); SAFE Fund: subch. II (ss. 949.20 to 949.38); Wis. Admin. Code ch. Jus 11",
+  "application_form": {
+   "source_id": "WI-S8",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "f954b66e130541f00f383c7607b7f82dd7dad03ca5a253ed01379bc937114d87",
+ "source_sha256": "6c9012ba97ca2d81c4197cb989eb021aa180d8a472b4470ad5720bba2c04d2f5",
  "rules": [
   {
    "id": "WI-EXAM-1",
@@ -202,6 +207,66 @@
    "id": "WI-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "WI-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WI-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WI-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WI-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WI-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

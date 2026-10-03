@@ -10,9 +10,14 @@
   "application_pdf_url": "https://mm.nh.gov/files/uploads/doj/remote-docs/victims-compensation-application-form.pdf",
   "phone": "1-800-300-4500",
   "phone_source_id": "NH-S1",
-  "statute_citation": "RSA 21-M:8-c; RSA 21-M:8-g to 21-M:8-k; N.H. Admin. Rules Jus 600"
+  "statute_citation": "RSA 21-M:8-c; RSA 21-M:8-g to 21-M:8-k; N.H. Admin. Rules Jus 600",
+  "application_form": {
+   "source_id": "NH-S2",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "0fd699dc390e734022bc1ad52abcd412d233d42730e2837a8bc828603c3bbb63",
+ "source_sha256": "8ce24ef79c3e9aa451f70593eeb7ab0e9c8c12345421e570b45130b3839a30e1",
  "rules": [
   {
    "id": "NH-EXAM-1",
@@ -258,6 +263,76 @@
    "id": "NH-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "NH-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NH-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NH-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NH-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NH-PROC-2",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

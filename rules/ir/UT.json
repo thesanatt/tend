@@ -10,9 +10,14 @@
   "application_pdf_url": "https://crimevictim.utah.gov/wp-content/uploads/UOVC-Application-English.pdf",
   "phone": "801-238-2360",
   "phone_source_id": "UT-S3",
-  "statute_citation": "Utah Code 75E-5-101 to 75E-5-314 (formerly 63M-7-501 to 63M-7-525); Utah Admin. Code R270-1"
+  "statute_citation": "Utah Code 75E-5-101 to 75E-5-314 (formerly 63M-7-501 to 63M-7-525); Utah Admin. Code R270-1",
+  "application_form": {
+   "source_id": "UT-S5",
+   "fillable": true,
+   "field_count": 90
+  }
  },
- "source_sha256": "c50ce8467898d8385e35a889235e573b184e4f1b83297766e882d00626861169",
+ "source_sha256": "d896650294a76a0fca7dd8de1b021e005c14d8c84505a84e84c60760fddf52cd",
  "rules": [
   {
    "id": "UT-EXAM-1",
@@ -227,6 +232,66 @@
    "id": "UT-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "UT-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "UT-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "UT-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

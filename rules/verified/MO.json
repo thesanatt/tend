@@ -9,7 +9,12 @@
   "application_pdf_url": "https://dps.mo.gov/dir/programs/cvc/documents/CVC_App_Instructions.pdf",
   "phone": "573-526-6006",
   "phone_source_id": "MO-S2",
-  "statute_citation": "RSMo 595.010 to 595.075; forensic exams RSMo 595.220"
+  "statute_citation": "RSMo 595.010 to 595.075; forensic exams RSMo 595.220",
+  "application_form": {
+   "source_id": "MO-S6",
+   "fillable": true,
+   "field_count": 192
+  }
  },
  "coverage": {
   "found": [
@@ -24,7 +29,9 @@
    "collateral_source",
    "conduct_reduction",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "minimum_loss",
@@ -36,12 +43,13 @@
    "expense_cap:security",
    "covered_expense:transportation",
    "covered_expense:security",
-   "reporting_requirement:within_days"
+   "reporting_requirement:within_days",
+   "processing_time"
   ],
-  "notes": "No minimum loss, emergency award, or police-report time limit appears in RSMo 595.010 to 595.075 or the DPS pages saved. The RSMo 595.010(12) definition of 'emergency service' (cash grants up to $100) belongs to victim services, not a CVC emergency award, so it is not recorded. No per-expense cap was found for counseling, medical, transportation, or security; relocation is listed as not payable. Transportation and security costs are not listed as covered or excluded. The program's Q and A PDF (cvc-qa.pdf) returned 404."
+  "notes": "No minimum loss, emergency award, or police-report time limit appears in RSMo 595.010 to 595.075 or the DPS pages saved. The RSMo 595.010(12) definition of 'emergency service' (cash grants up to $100) belongs to victim services, not a CVC emergency award, so it is not recorded. No per-expense cap was found for counseling, medical, transportation, or security; relocation is listed as not payable. Transportation and security costs are not listed as covered or excluded. The program's Q and A PDF (cvc-qa.pdf) returned 404. No official source states a processing time for a decision or payment; the guidelines only give claimants 30 days to answer requests for information."
  },
  "confidence": "high",
- "researcher_notes": "Statute text is from revisor.mo.gov (595.010, 595.015, 595.020, 595.025, 595.030, 595.035 effective 28 Aug 2018; 595.220 effective 28 Aug 2020). Exam billing: RSMo 595.220.6 says eligible forensic exam charges are billed to and paid by DPS and the victim may not be charged; the statute does not mention insurance, while the DPS SAFE page and SAFE fact sheet say health insurance may be billed secondary, so insurance_billing is 'allowed' per the agency. The SAFE fact sheet adds that exams can be anonymous and that medical treatment (STI/HIV prophylaxis, emergency contraception, wound care, etc.) may be billed to the patient and then claimed from CVC. 11 CSR 30-12.010 sets provider reimbursement maximums for SAFE exams (saved as MO-S16) but these are not survivor-facing caps. The guidelines page states lost wages were capped at $200/week for crimes before Aug. 28, 2015 and $400/week after; only the current statutory $400 is recorded. The online application is reached from the CVC page; the PDF form (812-1321, rev. 10-18) is linked as 'CVC Application and Guide'. Toll-free 1-800-347-6881 also appears on the fact sheet and application. Cooperation with law enforcement is required unless good cause (RSMo 595.015.4); an arrest or conviction is not required (RSMo 595.025.3(1)). Reviewer: the brochure says out-of-state crimes must be filed in that state, but RSMo 595.020.5 lets a Missouri resident apply in Missouri when the place of the crime has no program that would cover them; the statute controls. The insurance_billing value 'allowed' rests on the DPS SAFE page and SAFE fact sheet only; RSMo 595.220.6 and 11 CSR 30-12.010 are silent on billing the survivor's insurance (the regulation bars insurance billing only for child physical abuse exams). The brochure and fact sheet also list clothing among costs CVC cannot pay.",
+ "researcher_notes": "Statute text is from revisor.mo.gov (595.010, 595.015, 595.020, 595.025, 595.030, 595.035 effective 28 Aug 2018; 595.220 effective 28 Aug 2020). Exam billing: RSMo 595.220.6 says eligible forensic exam charges are billed to and paid by DPS and the victim may not be charged; the statute does not mention insurance, while the DPS SAFE page and SAFE fact sheet say health insurance may be billed secondary, so insurance_billing is 'allowed' per the agency. The SAFE fact sheet adds that exams can be anonymous and that medical treatment (STI/HIV prophylaxis, emergency contraception, wound care, etc.) may be billed to the patient and then claimed from CVC. 11 CSR 30-12.010 sets provider reimbursement maximums for SAFE exams (saved as MO-S16) but these are not survivor-facing caps. The guidelines page states lost wages were capped at $200/week for crimes before Aug. 28, 2015 and $400/week after; only the current statutory $400 is recorded. The online application is reached from the CVC page; the PDF form (812-1321, rev. 10-18) is linked as 'CVC Application and Guide'. Toll-free 1-800-347-6881 also appears on the fact sheet and application. Cooperation with law enforcement is required unless good cause (RSMo 595.015.4); an arrest or conviction is not required (RSMo 595.025.3(1)). Reviewer: the brochure says out-of-state crimes must be filed in that state, but RSMo 595.020.5 lets a Missouri resident apply in Missouri when the place of the crime has no program that would cover them; the statute controls. The insurance_billing value 'allowed' rests on the DPS SAFE page and SAFE fact sheet only; RSMo 595.220.6 and 11 CSR 30-12.010 are silent on billing the survivor's insurance (the regulation bars insurance billing only for child physical abuse exams). The brochure and fact sheet also list clothing among costs CVC cannot pay. How to file: the saved application (MO-S6, form 812-1321 rev. 10-18, still the file DPS links as 'CVC Application and Guide', 192 fillable AcroForm fields) prints the old mailing address P.O. Box 749, Jefferson City, Missouri 65102-0749. Current DPS pages, the 1/2024 brochure, and the compensation checklist (MO-S17) all give P.O. Box 1589, Jefferson City, MO 65102-1589, so the mail rule uses the newer address. The CVC page says victims 'complete an online application', but its 'online application' link points back to the same CVC page and two searches found no separate portal; the online rule's target is that page, where the fillable PDF is posted. The brochure lists email (CVC@dps.mo.gov) and fax ((573) 526-4940) only for requesting an application or contacting the program, not for submitting one, so no email or fax submission rule is recorded. A police report is not something the applicant attaches: the form asks for the report number and agency, and the fact sheet says CVC requests documentation from law enforcement itself.",
  "sources": [
   {
    "id": "MO-S1",
@@ -202,6 +210,16 @@
    "raw_path": "rules/sources/MO/MO-S16.pdf",
    "text_path": "rules/sources/MO/MO-S16.txt",
    "sha256": "c8dab3106b92d1f4acacd40b9e1aa905cb27dd8e6dd9da65d76df34c1d79fe9c"
+  },
+  {
+   "id": "MO-S17",
+   "title": "Missouri DPS, CVC Compensation Checklist",
+   "url": "https://dps.mo.gov/dir/programs/cvc/documents/checklist.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T19:38:12Z",
+   "raw_path": "rules/sources/MO/MO-S17.pdf",
+   "text_path": "rules/sources/MO/MO-S17.txt",
+   "sha256": "bdc20d592c5c277d3b75b8b0581724616df69be43517fb059d7e2a9c86ed2d68"
   }
  ],
  "rules": [
@@ -518,6 +536,152 @@
    "source_id": "MO-S8",
    "pinpoint": "RSMo 595.010.1(5)",
    "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.010#:~:text=an%20act%20committed%20in%20this,the%20offender%20upon%20the%20victim"
+  },
+  {
+   "id": "MO-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "P.O. Box1589\nJefferson City, MO 65102-1589"
+   },
+   "summary": "Mail the signed application and attachments to the Crime Victims' Compensation Program, P.O. Box 1589, Jefferson City, MO 65102-1589.",
+   "quote": "Mailing Address: P.O. Box1589\nJefferson City, MO 65102-1589",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, letterhead"
+  },
+  {
+   "id": "MO-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php"
+   },
+   "summary": "DPS says victims complete an online application; the 'online application' link on the CVC page points to the CVC page itself, where the application is posted.",
+   "quote": "Victims seeking compensation assistance complete an online application that includes documentation necessary to determine eligibility.",
+   "source_id": "MO-S2",
+   "pinpoint": "DPS CVC program page, introduction",
+   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/crime-victims-compensation.php#:~:text=Victims%20seeking%20compensation%20assistance%20complete,documentation%20necessary%20to%20determine%20eligibility."
+  },
+  {
+   "id": "MO-DOC-APP",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The completed CVC application (form 812-1321), signed by the victim or claimant on the last page."
+   },
+   "summary": "The application itself must be complete and signed by the victim or claimant.",
+   "quote": "CVC Application, must be signed by the Victim/Claimant",
+   "source_id": "MO-S5",
+   "pinpoint": "CVC fact sheet, Documentation"
+  },
+  {
+   "id": "MO-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized copies of all crime-related medical and counseling bills, sent to insurance, Medicaid, or Medicare first."
+   },
+   "summary": "Include itemized copies of all crime-related medical and counseling bills, plus copies of any paid receipts.",
+   "quote": "Submit itemized copies of all medical/counseling bills, plus copies of any paid receipts.",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Medical/Counseling Claims"
+  },
+  {
+   "id": "MO-DOC-BILLS-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Section V of the application asks applicants to attach all medical and psychological bills available."
+   },
+   "summary": "The application's medical section asks you to attach every bill you have.",
+   "quote": "(Attach all bills available.)",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section V"
+  },
+  {
+   "id": "MO-DOC-RX",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Crime-related prescription receipts; a pharmacy printout works."
+   },
+   "summary": "Include receipts for any crime-related prescriptions; a pharmacy printout works.",
+   "quote": "Submit any crime related prescription receipts.",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Medical/Counseling Claims"
+  },
+  {
+   "id": "MO-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages when not self-employed: the 3 paystubs immediately before the crime."
+   },
+   "summary": "For lost wages, include the three paystubs from right before the crime.",
+   "quote": "If you are applying for loss of earnings and are NOT self-employed, provide the 3 paystubs",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims"
+  },
+  {
+   "id": "MO-DOC-WAGES-SELF",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages when self-employed: signed federal income tax returns for the year of the crime and the year before."
+   },
+   "summary": "If self-employed, include signed federal tax returns for the year of the crime and the year before.",
+   "quote": "If victim was self-employed, submit copies of signed Federal Income Tax returns from the year of the crime and the year preceding the crime.",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section VIII"
+  },
+  {
+   "id": "MO-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Section VII asks for each insurance or other collateral source paying any expense, with insurer name, policy number, and policy holder."
+   },
+   "summary": "List any insurance or other source paying for the expenses, with policy details.",
+   "quote": "Indicate below if any sources are paying or will pay any of the above expenses.",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section VII"
+  },
+  {
+   "id": "MO-DOC-MEDREC",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Reports from the hospitals and providers who treated or examined the victim, if available, before any hearing."
+   },
+   "summary": "By statute the claimant submits available reports from every provider who treated or examined the victim.",
+   "quote": "submit reports, if available, from all hospitals, physicians, surgeons, or other health care providers who treated or examined the victim for the injury for which compensation is sought",
+   "source_id": "MO-S11",
+   "pinpoint": "RSMo 595.025.5",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.025#:~:text=submit%20reports%2C%20if%20available%2C%20from,for%20which%20compensation%20is%20sought"
+  },
+  {
+   "id": "MO-DOC-FUNERAL",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For funeral claims: a copy of the death certificate and the funeral bill."
+   },
+   "summary": "For a funeral claim, attach the death certificate and the funeral bill.",
+   "quote": "(Attach Copy of Death Certificate and Funeral Bill)",
+   "source_id": "MO-S6",
+   "pinpoint": "Form 812-1321 (10-18), Section VI"
+  },
+  {
+   "id": "MO-DOC-SUPPORT",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For loss of support: the dependent child's birth certificate showing the deceased as a parent."
+   },
+   "summary": "For loss of support, include the dependent child's birth certificate.",
+   "quote": "If you are applying for loss of support, please provide a copy of the dependent child's birth",
+   "source_id": "MO-S17",
+   "pinpoint": "CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims"
   }
  ]
 }

@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.in.gov/cji/victim-compensation/files/23776-fill-in-R14-10-21.pdf",
   "phone": "1-800-353-1484",
   "phone_source_id": "IN-S1",
-  "statute_citation": "IC 5-2-6.1; IC 16-21-8; 203 IAC 1"
+  "statute_citation": "IC 5-2-6.1; IC 16-21-8; 203 IAC 1",
+  "application_form": {
+   "source_id": "IN-S3",
+   "fillable": true,
+   "field_count": 89
+  }
  },
- "source_sha256": "edbb2970eb74a81e75d4de92dc9b45b7d41570db6a702e860aadf7ad2c75c236",
+ "source_sha256": "fa9aeb62f04a027d0a7ef20508d5f0897f03ccbb3876f64fc36c362258d62233",
  "rules": [
   {
    "id": "IN-EXAM-1",
@@ -201,6 +206,61 @@
    "id": "IN-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "IN-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IN-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IN-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IN-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IN-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

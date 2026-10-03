@@ -10,9 +10,14 @@
   "application_pdf_url": "https://ncc.nebraska.gov/sites/default/files/doc/CVR%20Claim%20Application%2010-2023.pdf",
   "phone": "402-471-2828",
   "phone_source_id": "NE-S14",
-  "statute_citation": "Neb. Rev. Stat. 81-1801 to 81-1842 (Nebraska Crime Victim's Reparations Act); 81-1429.03 (forensic exam payment); 80 Neb. Admin. Code chs. 1 to 5"
+  "statute_citation": "Neb. Rev. Stat. 81-1801 to 81-1842 (Nebraska Crime Victim's Reparations Act); 81-1429.03 (forensic exam payment); 80 Neb. Admin. Code chs. 1 to 5",
+  "application_form": {
+   "source_id": "NE-S15",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "cba1936d117e74ed75f202d41319f813d866a558d70e48bc4f73cb39019af71e",
+ "source_sha256": "a8a754ee5943b1227f3b92a5014fbd720fced1cd679aa5c56f3030e1173b20fb",
  "rules": [
   {
    "id": "NE-EXAM-1",
@@ -162,6 +167,71 @@
    "id": "NE-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "NE-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NE-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NE-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NE-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NE-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NE-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

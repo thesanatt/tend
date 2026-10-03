@@ -10,9 +10,14 @@
   "application_pdf_url": "https://lni.wa.gov/forms-publications/F800-042-000.pdf",
   "phone": "800-762-3716",
   "phone_source_id": "WA-S14",
-  "statute_citation": "Chapter 7.68 RCW (RCW 7.68.170 for exam costs); chapter 296-30 WAC"
+  "statute_citation": "Chapter 7.68 RCW (RCW 7.68.170 for exam costs); chapter 296-30 WAC",
+  "application_form": {
+   "source_id": "WA-S15",
+   "fillable": true,
+   "field_count": 112
+  }
  },
- "source_sha256": "f3a16a1491ba98d36a8ddf6f5c4b6dab82caa7575bf67989cd4af6ab82fb24a8",
+ "source_sha256": "ce4aec9acad28fc4875eff20c1a33028e72d9bc6af9af50f15921a3e7c11cc80",
  "rules": [
   {
    "id": "WA-EXAM-1",
@@ -237,6 +242,66 @@
    "id": "WA-RESIDENCY-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "WA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WA-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

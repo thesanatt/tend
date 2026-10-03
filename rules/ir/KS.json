@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.ag.ks.gov/home/showpublisheddocument/10146/638816895575900000",
   "phone": "785-296-2359",
   "phone_source_id": "KS-S1",
-  "statute_citation": "K.S.A. 74-7301 et seq."
+  "statute_citation": "K.S.A. 74-7301 et seq.",
+  "application_form": {
+   "source_id": "KS-S2",
+   "fillable": true,
+   "field_count": 202
+  }
  },
- "source_sha256": "11dd37d3a8b7e2dd050a2b795ef2064111b6a32b6511b2c63c76b0c93a800236",
+ "source_sha256": "9cce9dfececedb8e9421775c76db58d302780724b198edec14f62d72b205faf5",
  "rules": [
   {
    "id": "KS-EXAM-1",
@@ -191,6 +196,66 @@
    "id": "KS-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "KS-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KS-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KS-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": [

@@ -9,7 +9,12 @@
   "application_pdf_url": "https://drive.google.com/file/d/1pJpd5eewW_q_IzO-dCup5lAKbua4j8Mr/view",
   "phone": "307-777-7200",
   "phone_source_id": "WY-S3",
-  "statute_citation": "W.S. 1-40-101 to 1-40-119; W.S. 6-2-309 (exam costs)"
+  "statute_citation": "W.S. 1-40-101 to 1-40-119; W.S. 6-2-309 (exam costs)",
+  "application_form": {
+   "source_id": "WY-S5",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -638,6 +643,137 @@
    "quote": "The crime occurred in a state which does not have a crime victim compensation program",
    "source_id": "WY-S4",
    "pinpoint": "W.S. 1-40-102(a)(ix)(B)(II)"
+  },
+  {
+   "id": "WY-SUB-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Division of Victim Services, 320 W. 25th Street, 2nd Floor, Cheyenne, WY 82002"
+   },
+   "summary": "The signed application goes by mail to the Division of Victim Services in Cheyenne.",
+   "quote": "Return to: Division of Victim Services, 320 W. 25th Street, 2nd Floor, Cheyenne, WY 82002.",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, authorization page"
+  },
+  {
+   "id": "WY-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Law enforcement report and certification (LEC)"
+   },
+   "summary": "Attach the law enforcement report and certification.",
+   "quote": "ATTACH LAW ENFORCEMENT REPORT & CERTIFICATION",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, Crime Information"
+  },
+  {
+   "id": "WY-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Summary of the crime and injuries"
+   },
+   "summary": "Attach a summary of the crime and the injuries along with the law enforcement certification.",
+   "quote": "Attach LEC and summary of crime and injuries",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, checklist before sending"
+  },
+  {
+   "id": "WY-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill"
+   },
+   "summary": "Attach itemized copies of the bills being claimed.",
+   "quote": "Attach itemized copies of any bills",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, Types of Compensation Requested"
+  },
+  {
+   "id": "WY-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Bills, estimates, and receipts"
+   },
+   "summary": "Attach copies of bills, estimates, and receipts for the expenses claimed.",
+   "quote": "Attach copies of bills, estimates, and receipts",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, checklist before sending"
+  },
+  {
+   "id": "WY-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Copy of insurance card"
+   },
+   "summary": "Attach a copy of the insurance card; bills go to insurance or other sources first.",
+   "quote": "All bills must be submitted to your insurance carrier or other sources before applying. Please attach copy of insurance card.",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, Insurance/Other Collateral Sources"
+  },
+  {
+   "id": "WY-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Explanation of benefits forms for medical claims"
+   },
+   "summary": "Medical claims need explanation of benefits forms from insurance.",
+   "quote": "Explanation of benefits forms.",
+   "source_id": "WY-S2",
+   "pinpoint": "Guidelines, Medical/Dental Expenses, Requirements"
+  },
+  {
+   "id": "WY-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Employer certification form, or federal tax statement if self-employed"
+   },
+   "summary": "Lost wage claims need the employer certification form, or a federal tax statement if self-employed.",
+   "quote": "Employer certification form or federal tax statement if self-employed.",
+   "source_id": "WY-S2",
+   "pinpoint": "Guidelines, Loss of Earnings, Requirements"
+  },
+  {
+   "id": "WY-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "Mental Health Treatment Certification form, completed by the provider for pre-existing conditions or inpatient treatment"
+   },
+   "summary": "Mental health claims involving pre-existing conditions or inpatient treatment need the Mental Health Treatment Certification form.",
+   "quote": "Mental Health Treatment Certification form (pre-existing conditions/ inpatient treatment);",
+   "source_id": "WY-S2",
+   "pinpoint": "Guidelines, Mental Health Expenses, Requirements"
+  },
+  {
+   "id": "WY-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed and dated authorization page"
+   },
+   "summary": "The authorization page must be signed and dated before sending.",
+   "quote": "Sign/date following authorization page",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, checklist before sending"
+  },
+  {
+   "id": "WY-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Request for Taxpayer Identification Number and Certification (W-9 style form) attached to the application"
+   },
+   "summary": "The taxpayer identification form attached to the application must be completed, signed, and dated to receive approved benefits.",
+   "quote": "IN ORDER TO RECEIVE APPROVED BENEFITS, THIS FORM MUST BE COMPLETED, SIGNED AND DATED!!",
+   "source_id": "WY-S5",
+   "pinpoint": "Application, Request for Taxpayer Identification Number & Certification"
   }
  ],
  "coverage": {
@@ -654,7 +790,9 @@
    "conduct_reduction",
    "emergency_award",
    "eligible_crime",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "minimum_loss",
@@ -663,10 +801,11 @@
    "childcare as a standalone expense",
    "dollar cap on lost wages (paid at federal minimum wage for up to 3 months instead)",
    "administrative rules text (DVS rules, Chapter 3) not saved",
-   "a no-bill rule for anonymous exams (policy says DVS pays, but does not say the survivor may not be billed)"
+   "a no-bill rule for anonymous exams (policy says DVS pays, but does not say the survivor may not be billed)",
+   "processing_time"
   ],
   "notes": "No minimum loss amount appears in the statute, guidelines, FAQ, or instructions. Catastrophic injury can add up to $10,000 on top of the $15,000 maximum under W.S. 1-40-109(e); it is not encoded as a rule because it applies only to permanent disability. The guidelines also set a $3,000 counseling limit for elderly victims of financial fraud, not encoded because it does not apply to sexual assault. The exam no-bill rules come from the program's policy document, not from statute; W.S. 6-2-309(g) only says who pays."
  },
  "confidence": "high",
- "researcher_notes": "Statute text for 1-40-106, 1-40-109, 1-40-110, 1-40-111 and 6-2-309 is from Justia's 2025 Wyoming Statutes because wyoleg.gov publishes the code as whole-title PDFs; it matches the DVS-posted copy of the Act (WY-S4), which I used for 1-40-102 definitions. Program documents (guidelines, FAQ, application, instructions) are Google Drive files linked from dvs.wyo.gov/compensation; source URLs are the direct-download form of those Drive links. The posted application is labeled SAMPLE; the program says to apply through a local victim service provider, so apply_url points to the provider list. The guidelines allow an order of protection in place of a police report for counseling-only claims, which goes beyond the statute's notification requirement in 1-40-106(a)(iv); both are recorded. Reported-exam payment by DVS is contingent on available funding under 6-2-309(g); if division funds run out, the investigating law enforcement agency pays. The guidelines say lost-wage coverage needs the victim to have been employed at the time of the crime. Reviewer: the guidelines set three relocation limits ($1,200 per claim; $500 for moving within the community; $500 when the crime scene was the home and returning would do greater harm). The application instructions (WY-S6) say relocation applies only when the crime scene was the victim's home (domestic violence, homicide, sexual assault), so for a sexual assault at home the $500 limit is the likely one. The reported-exam no-bill policy sits under a heading for reports made without a compensation claim; DVS pays only SANE exam and evidence collection costs there."
+ "researcher_notes": "Statute text for 1-40-106, 1-40-109, 1-40-110, 1-40-111 and 6-2-309 is from Justia's 2025 Wyoming Statutes because wyoleg.gov publishes the code as whole-title PDFs; it matches the DVS-posted copy of the Act (WY-S4), which I used for 1-40-102 definitions. Program documents (guidelines, FAQ, application, instructions) are Google Drive files linked from dvs.wyo.gov/compensation; source URLs are the direct-download form of those Drive links. The posted application is labeled SAMPLE; the program says to apply through a local victim service provider, so apply_url points to the provider list. The guidelines allow an order of protection in place of a police report for counseling-only claims, which goes beyond the statute's notification requirement in 1-40-106(a)(iv); both are recorded. Reported-exam payment by DVS is contingent on available funding under 6-2-309(g); if division funds run out, the investigating law enforcement agency pays. The guidelines say lost-wage coverage needs the victim to have been employed at the time of the crime. Reviewer: the guidelines set three relocation limits ($1,200 per claim; $500 for moving within the community; $500 when the crime scene was the home and returning would do greater harm). The application instructions (WY-S6) say relocation applies only when the crime scene was the victim's home (domestic violence, homicide, sexual assault), so for a sexual assault at home the $500 limit is the likely one. The reported-exam no-bill policy sits under a heading for reports made without a compensation claim; DVS pays only SANE exam and evidence collection costs there. How to file: the posted Primary Victim Application (WY-S5, rev. 4/23, labeled SAMPLE) is a flat PDF with no form fields, so it is printed and filled by hand. The only submission method the sources state is mail to DVS in Cheyenne (the 'Return to' line on the authorization page). The fax number and email on the letterhead are contact details, not stated filing methods, so they are not encoded. The compensation page (WY-S1) says local victim service providers give out the application, help fill it in, and submit it to DVS; that route is the program's recommended path but has no matching submission method. No processing time is stated; the instructions (WY-S6) only say to call or email if there has been no letter or call within 30 days after mailing, which is a status-check prompt, not a decision time. Required documents also vary by expense type in the guidelines (gas and lodging receipts for travel, itemized lists for items taken as evidence, physician verification for lost wages past 30 days); only the general ones and the wage and counseling forms are encoded."
 }

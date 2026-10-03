@@ -9,7 +9,12 @@
     "application_pdf_url": "https://vccb.alaska.gov/wp-content/uploads/2026/05/Alaska-VCCB-Application.pdf",
     "phone": "800-764-3040",
     "phone_source_id": "AK-S7",
-    "statute_citation": "AS 18.67.010 to 18.67.180; AS 18.68.040"
+    "statute_citation": "AS 18.67.010 to 18.67.180; AS 18.68.040",
+    "application_form": {
+      "source_id": "AK-S8",
+      "fillable": true,
+      "field_count": 168
+    }
   },
   "sources": [
     {
@@ -593,6 +598,174 @@
       "quote": "Note: VCCB does not generally cover property loss or damage, these are limited exceptions.",
       "source_id": "AK-S5",
       "pinpoint": "VCCB Application and Forms, Property Replacement"
+    },
+    {
+      "id": "AK-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "4300 Boniface Pkwy Anchorage, AK 99504"
+      },
+      "summary": "The paper application can be mailed to the VCCB office in Anchorage.",
+      "quote": "You may fill out and send in the application by mail. 4300 Boniface Pkwy Anchorage, AK 99504",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, How to Apply, Mail"
+    },
+    {
+      "id": "AK-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "(907) 465-2379"
+      },
+      "summary": "The paper application can be faxed to the VCCB.",
+      "quote": "You may fill out and fax in the application. fax: (907) 465-2379",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, How to Apply, Fax"
+    },
+    {
+      "id": "AK-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "VCCB@alaska.gov"
+      },
+      "summary": "The application can be emailed to the VCCB; the application's contact block gives the email address and its instructions say it can be submitted by email.",
+      "quote": "Email: VCCB@alaska.gov",
+      "source_id": "AK-S8",
+      "pinpoint": "Application (05/2026), contact block on page 1 and on the Claim Application and Instructions page"
+    },
+    {
+      "id": "AK-SUBMIT-4",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://vccb.alaska.gov"
+      },
+      "summary": "An application can also be filed online through the VCCB's secure web portal, reached from the VCCB website.",
+      "quote": "Please visit https://vccb.alaska.gov to access the secure web application portal to file an application online.",
+      "source_id": "AK-S8",
+      "pinpoint": "Claim Application and Instructions, Is there another way to apply?"
+    },
+    {
+      "id": "AK-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Signed Release of Information on the application's final page, required with every application"
+      },
+      "summary": "The signed Release of Information on the last page of the application must be included however the application is sent.",
+      "quote": "Whether applying online, by email, fax or through a printed application, please ensure the Release of Information on the final page is signed and included.",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, How to Apply"
+    },
+    {
+      "id": "AK-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Include a copy if available; do not wait for it to apply"
+      },
+      "summary": "Include a copy of the police report if you have it; you do not need to wait for it before applying.",
+      "quote": "Please include any documentation you have available such as a copy of the police report, bills, receipts, or other crime-related information.",
+      "source_id": "AK-S8",
+      "pinpoint": "Claim Application and Instructions, Do I need to include any other documentation with the application?"
+    },
+    {
+      "id": "AK-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Invoices or statements for medical, dental, counseling, or other claimed services; if unavailable, attach a page with each provider's name, contact information, and dates of service"
+      },
+      "summary": "Submit invoices or statements for claimed services, or a page listing each provider and dates of service so the VCCB can request the records.",
+      "quote": "Billing Records: Submit invoices, statements, or receipts for all medical, dental, counseling, or other claimed services.",
+      "source_id": "AK-S8",
+      "pinpoint": "Application (05/2026), Section 5: Crime-Related Expenses, Billing Records"
+    },
+    {
+      "id": "AK-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "Receipts for anything you paid for directly"
+      },
+      "summary": "If you paid for services yourself, save and send the receipts as verification.",
+      "quote": "please save your receipts to send in as verification.",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, Additional Forms"
+    },
+    {
+      "id": "AK-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Insurance information supports the application; VCCB pays after insurance and other sources"
+      },
+      "summary": "Copies of insurance information strengthen the application.",
+      "quote": "To strengthen your application, include copies of any supporting documents, such as bills or insurance information.",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, How to Apply"
+    },
+    {
+      "id": "AK-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "medical_records",
+        "note": "Reports from treating or examining physicians, if reasonably available"
+      },
+      "summary": "By statute the applicant submits reports from the physicians who treated or examined the victim, if reasonably available.",
+      "quote": "the applicant shall, before a hearing on an application under this chapter, submit reports, if reasonably available, from all physicians or surgeons who have treated or examined the victim in relation to the injury for which compensation is claimed",
+      "source_id": "AK-S1",
+      "pinpoint": "AS 18.67.030(b)"
+    },
+    {
+      "id": "AK-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "Only when claiming lost wages; the VCCB contacts the employer for wage and date information"
+      },
+      "summary": "For lost wages, the VCCB contacts the employer for wage and date information without sharing case details.",
+      "quote": "Your employer will be contacted for wage and date information, however no details of your case will be shared",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, Additional Forms, Loss of Income"
+    },
+    {
+      "id": "AK-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "counseling_statement",
+        "note": "Treatment plan, only for counseling beyond the initial award"
+      },
+      "summary": "A treatment plan is required for counseling beyond the initial award.",
+      "quote": "there are session rate limits and treatment plans are required for services beyond the initial award",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, Additional Forms, Counseling"
+    },
+    {
+      "id": "AK-DOC-9",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Request for Relocation Assistance form, only when asking for relocation, completed before any relocation expense is covered"
+      },
+      "summary": "Relocation requests need the Request for Relocation Assistance form completed before expenses are covered.",
+      "quote": "This Request for Relocation Assistance must be completed prior to any expenses being covered.",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, Additional Forms, Relocation"
+    },
+    {
+      "id": "AK-DOC-10",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Request for Rental Assistance form plus documentation such as a copy of the lease, only when asking for rental assistance"
+      },
+      "summary": "Rental assistance requests need the Request for Rental Assistance form and documentation such as a lease copy.",
+      "quote": "Request for Rental Assistance must be filled out along with documentation, such as a copy of your lease",
+      "source_id": "AK-S5",
+      "pinpoint": "VCCB Application page, Additional Forms, Rental Assistance"
     }
   ],
   "coverage": {
@@ -608,14 +781,17 @@
       "filing_deadline",
       "reporting_requirement",
       "residency",
-      "total_cap"
+      "total_cap",
+      "submission",
+      "required_document"
     ],
     "not_found": [
       "exam_payment",
-      "minimum_loss"
+      "minimum_loss",
+      "processing_time"
     ],
-    "notes": "exam_payment: AS 18.68.040 bars charging survivors 16 and older (including through their insurance) but does not name who pays, and no official source I saved names the payer. minimum_loss: no minimum loss found in AS 18.67 or on the VCCB site. Reporting: AS 18.67.130(a)(2) requires a police report within five days (or five days after a report could reasonably be made); no anonymous-report, forensic-exam, or advocate alternative for compensation was found, even though AS 18.68.020 lets adults choose an anonymous report for the exam itself. No VCCB administrative regulations were found; the program's Statutes and Policies page cites only AS 18.67 and federal VOCA. Expense caps come from the VCCB Benefits at a Glance PDF (July 2026), which says it does not supplement or contradict the statutes. Transportation: Benefits at a Glance caps transportation at $5,000 per major event (funeral, trial, etc.); that cap is not stored as a rule because per-event is not one of the schema's per values."
+    "notes": "exam_payment: AS 18.68.040 bars charging survivors 16 and older (including through their insurance) but does not name who pays, and no official source I saved names the payer. minimum_loss: no minimum loss found in AS 18.67 or on the VCCB site. Reporting: AS 18.67.130(a)(2) requires a police report within five days (or five days after a report could reasonably be made); no anonymous-report, forensic-exam, or advocate alternative for compensation was found, even though AS 18.68.020 lets adults choose an anonymous report for the exam itself. No VCCB administrative regulations were found; the program's Statutes and Policies page cites only AS 18.67 and federal VOCA. Expense caps come from the VCCB Benefits at a Glance PDF (July 2026), which says it does not supplement or contradict the statutes. Transportation: Benefits at a Glance caps transportation at $5,000 per major event (funeral, trial, etc.); that cap is not stored as a rule because per-event is not one of the schema's per values. processing_time: no VCCB page, the application, or AS 18.67 states a time for a decision or payment; AS 18.67.040 only gives the applicant 30 days to request a hearing after an unfavorable decision."
   },
   "confidence": "high",
-  "researcher_notes": "Deadline disagreement: AS 18.67.130(a)(1) says two years after the injury; the application PDF says within 2 years of the crime or discovery of the crime, and the home page asks applicants past two years to explain the delay. The statute wins, so the rule uses two years from the crime. AS 18.68.040 covers survivors of sexual assault under AS 11.41.410 to 11.41.425 who are 16 or older; younger survivors are not addressed by that section. Benefits at a Glance caps were checked against the PDF's column layout (pdftotext -layout) so each amount is tied to the right expense row. The Benefits at a Glance funeral row mentions up to $10,000 in emergency consideration across two applications; the statute caps one emergency award at $5,000, which is what the rule uses. The OVC directory lists the program under the Alaska Department of Public Safety, phone 800-764-3040; the VCCB home page lists the same toll-free number. Lost wages: up to two weeks without a provider note, longer with medical justification (Benefits at a Glance). Reviewer: chiropractic's $3,500 limit is stored under expense 'other' so it is not read as the medical cap; Benefits at a Glance lists general medical expenses at up to $40,000, the same as the total cap. The application's eligibility list says reasonable exceptions may apply to its requirements (police report within 5 days, 2-year filing), but no source says what those exceptions are."
+  "researcher_notes": "Deadline disagreement: AS 18.67.130(a)(1) says two years after the injury; the application PDF says within 2 years of the crime or discovery of the crime, and the home page asks applicants past two years to explain the delay. The statute wins, so the rule uses two years from the crime. AS 18.68.040 covers survivors of sexual assault under AS 11.41.410 to 11.41.425 who are 16 or older; younger survivors are not addressed by that section. Benefits at a Glance caps were checked against the PDF's column layout (pdftotext -layout) so each amount is tied to the right expense row. The Benefits at a Glance funeral row mentions up to $10,000 in emergency consideration across two applications; the statute caps one emergency award at $5,000, which is what the rule uses. The OVC directory lists the program under the Alaska Department of Public Safety, phone 800-764-3040; the VCCB home page lists the same toll-free number. Lost wages: up to two weeks without a provider note, longer with medical justification (Benefits at a Glance). Reviewer: chiropractic's $3,500 limit is stored under expense 'other' so it is not read as the medical cap; Benefits at a Glance lists general medical expenses at up to $40,000, the same as the total cap. The application's eligibility list says reasonable exceptions may apply to its requirements (police report within 5 days, 2-year filing), but no source says what those exceptions are. How to file: the application page lists online, mail, and fax; the application's instructions say it can be submitted by mail, email, or fax and give VCCB@alaska.gov; the home page calls it secure email. The online rule's target is vccb.alaska.gov because that is what the instructions print; the portal itself is https://application.vccb.alaska.gov/ (program.apply_url, linked from the application page). Documents: police report, bills, receipts, and insurance information are asked for if available, and the instructions say not to wait for them before applying; only the signed Release of Information is required with every application. The relocation, rental, counseling treatment plan, and wage items apply only when that expense is claimed. Application form: AK-S8 (05/2026 English) is the newest version linked from the application page and has 168 AcroForm fields; translated versions (Spanish, Tagalog, Samoan, Russian, Hmong, Simplified Chinese) are older uploads and were not saved."
 }

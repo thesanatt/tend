@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.myfloridalegal.com/sites/default/files/2025.applicationclaimform.bvc100.pdf",
   "phone": "800-226-6667",
   "phone_source_id": "FL-S15",
-  "statute_citation": "Fla. Stat. 960.01 to 960.28; Fla. Admin. Code R. 2A-2.2001 to 2A-2.2003"
+  "statute_citation": "Fla. Stat. 960.01 to 960.28; Fla. Admin. Code R. 2A-2.2001 to 2A-2.2003",
+  "application_form": {
+   "source_id": "FL-S18",
+   "fillable": true,
+   "field_count": 138
+  }
  },
  "sources": [
   {
@@ -604,6 +609,187 @@
    "source_id": "FL-S14",
    "pinpoint": "Fla. Admin. Code R. 2A-2.2001(8)",
    "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2001#:~:text=%22Resident%22%20means%20one%20who%20maintains,for%20purposes%20of%20this%20program."
+  },
+  {
+   "id": "FL-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "PL-01, The Capitol, Tallahassee, FL 32399-1050"
+   },
+   "summary": "Mail the completed claim form and documents to the Bureau of Victim Compensation, PL-01, The Capitol, Tallahassee, FL 32399-1050.",
+   "quote": "Address: PL-01, The Capitol, Tallahassee, FL 32399-1050",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4"
+  },
+  {
+   "id": "FL-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "VCIntake@MyFloridaLegal.com"
+   },
+   "summary": "Email the completed claim form and documents to VCIntake@MyFloridaLegal.com.",
+   "quote": "Email: VCIntake@MyFloridaLegal.com",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4"
+  },
+  {
+   "id": "FL-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(850) 414-6197"
+   },
+   "summary": "Fax the completed claim form and documents to (850) 414-6197.",
+   "quote": "Fax: (850) 414-6197",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4"
+  },
+  {
+   "id": "FL-SUBMIT-4",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "the Tallahassee office of the department"
+   },
+   "summary": "By statute a claim can also be filed in person at the Department of Legal Affairs office in Tallahassee.",
+   "quote": "Claims may be filed in the Tallahassee office of the department in person or by mail.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(5)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=Claims%20may%20be%20filed%20in,in%20person%20or%20by%20mail."
+  },
+  {
+   "id": "FL-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Completed, signed, and dated claim form (BVC100)."
+   },
+   "summary": "The claim form itself must be completed, signed, and dated.",
+   "quote": "A completed, signed and dated application.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "A law enforcement report or other accepted proof of crime, such as Law Enforcement Information Reporting Form BVC430."
+   },
+   "summary": "Include proof that a compensable crime occurred, such as a law enforcement report.",
+   "quote": "Documentation which proves a compensable crime occurred. Acceptable documentation includes: a law enforcement report, affidavit charging an individual with a crime filed by law enforcement",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Itemized bills on industry standard forms or provider letterhead."
+   },
+   "summary": "Include proof of crime-related expenses, such as itemized bills.",
+   "quote": "Proof of crime related expenses, such as itemized bills, if applicable.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "For reimbursement of costs already paid out of pocket."
+   },
+   "summary": "To be reimbursed for expenses already paid, include itemized bills and receipts with the application.",
+   "quote": "Reimbursement for out-of-pocket compensable expenses. Provide itemized bills and receipts with your applica on.",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Two, Emergency Reimbursement"
+  },
+  {
+   "id": "FL-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Proof of insurance or other third-party payments, such as an explanation of benefits, if applicable."
+   },
+   "summary": "Include proof of any third-party payments, such as an insurance explanation of benefits.",
+   "quote": "Proof of third-party payments such as insurance, restitution, judgments or settlements (e.g., copy of insurance explanation of benefits, settlement agreements, court documents for restitution and judgments), if applicable.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Copy of insurance card or policy declaration."
+   },
+   "summary": "Attach a copy of your insurance card or policy declaration.",
+   "quote": "A ach a copy of your insurance card or policy declara on.",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Nine"
+  },
+  {
+   "id": "FL-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Wage Loss Employment Report (BVC405), for wage loss claims."
+   },
+   "summary": "For wage loss, attach a Wage Loss Employment Report (BVC405) and a Treatment Disability Statement (BVC409).",
+   "quote": "A ach a completed Wage Loss Employment Report (BVC405) and Treatment Disability Statement (BVC409).",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Two, Wage Loss"
+  },
+  {
+   "id": "FL-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Treatment Disability Statement (BVC409) signed by a doctor, for wage loss or disability claims."
+   },
+   "summary": "For wage loss, a doctor fills out a Treatment Disability Statement (BVC409) showing the dates excused from work.",
+   "quote": "A ach a completed Wage Loss Employment Report (BVC405) and Treatment Disability Statement (BVC409).",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Two, Wage Loss; Section Twelve"
+  },
+  {
+   "id": "FL-DOC-9",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Requested after filing, not required up front."
+   },
+   "summary": "After a claim is received, the bureau may ask for specific medical and financial information.",
+   "quote": "When claims are received, victims/applicants may be asked to provide specific medical and financial information.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-10",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Relocation Certification Worksheet (BVC106) certified by a Florida rape crisis or domestic violence center, for relocation claims."
+   },
+   "summary": "Relocation claims need certification from a Florida rape crisis or domestic violence center.",
+   "quote": "Relocation benefits require certification documentation from a certified domestic violence or rape crisis center (depending on the claim type selected) in the State of Florida.",
+   "source_id": "FL-S17",
+   "pinpoint": "Victim Compensation Brochure, Documentation Needed"
+  },
+  {
+   "id": "FL-DOC-11",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Housing contract or Notification of Residential Agreement (BVC110), for relocation claims."
+   },
+   "summary": "Relocation claims need a standard housing contract or a Notification of Residential Agreement (BVC110) at the time of application.",
+   "quote": "A standard housing contract or a No fica on of Residen al Agreement (BVC110) is required at the me of applica on.",
+   "source_id": "FL-S18",
+   "pinpoint": "Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations"
   }
  ],
  "coverage": {
@@ -620,17 +806,20 @@
    "filing_deadline",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "minimum_loss",
    "expense_cap:transportation",
    "expense_cap:security",
    "covered_expense:security",
-   "reporting_requirement:alternatives_for_sexual_assault"
+   "reporting_requirement:alternatives_for_sexual_assault",
+   "processing_time"
   ],
-  "notes": "No minimum dollar loss exists; instead Fla. Stat. 960.13(8) says the department shall deny an award if the claimant will not suffer serious financial hardship, considering all the claimant's financial resources. No transportation cap and no security or lock-replacement expense were found in the statute, rules, or program publications. No alternative to a police report was found for compensation claims: Fla. Admin. Code R. 2A-2.2001(9)-(10) limit proof of crime to law enforcement and prosecutors (including form BVC430). The separate forensic exam payment under 960.28 does not require reporting or cooperation. Phones and other personal property: Florida reimburses tangible property loss only through the Property Loss program for elderly persons or disabled adults (960.195); R. 2A-2.2002(3)(f) lists a telephone as an example of compensable property for that program. A typical adult survivor under the elderly or disabled criteria has no property benefit. 960.28 says the forensic exam is paid regardless of insurance and the victim may not be required to pay directly or indirectly, but it does not say whether the provider may bill the victim's insurer, so insurance_billing is 'unspecified'."
+  "notes": "No minimum dollar loss exists; instead Fla. Stat. 960.13(8) says the department shall deny an award if the claimant will not suffer serious financial hardship, considering all the claimant's financial resources. No transportation cap and no security or lock-replacement expense were found in the statute, rules, or program publications. No alternative to a police report was found for compensation claims: Fla. Admin. Code R. 2A-2.2001(9)-(10) limit proof of crime to law enforcement and prosecutors (including form BVC430). The separate forensic exam payment under 960.28 does not require reporting or cooperation. Phones and other personal property: Florida reimburses tangible property loss only through the Property Loss program for elderly persons or disabled adults (960.195); R. 2A-2.2002(3)(f) lists a telephone as an example of compensable property for that program. A typical adult survivor under the elderly or disabled criteria has no property benefit. 960.28 says the forensic exam is paid regardless of insurance and the victim may not be required to pay directly or indirectly, but it does not say whether the provider may bill the victim's insurer, so insurance_billing is 'unspecified'. No official source found states a processing time for a decision or payment."
  },
  "confidence": "high",
- "researcher_notes": "Statute vs rule: 960.13(9)(a) sets a $25,000 total ceiling and $10,000 for treatment, but 960.13(9)(b) lets the department set lower limits by rule, and R. 2A-2.2003 (Schedule of Benefits) caps a living, non-catastrophic victim at $15,000 per claim. I used the rule/schedule figures because they are what the program applies; both are consistent. Schedule caps are taken from the official Schedule of Benefits PDF (FL-S16) because the Cornell LII copy of R. 2A-2.2003 (FL-S12) prints dollar amounts as '$15, 000.00', which breaks number matching; the amounts are identical. Provider payments for medical and mental health are at a rate of 50% or less depending on funds, while victim out-of-pocket reimbursement is at 100 percent (R. 2A-2.2002(2)(e)2.). Older crimes (before October 1, 2019) have a 72-hour reporting rule and 1-year filing deadline (2 years with good cause); the rules here cover crimes on or after that date. The brochure and claim form state reporting within 120 hours, matching the statutory five days. Domestic violence relocation discrepancy: Fla. Stat. 960.198 (amended by ch. 2026-86) now allows up to $2,500 per claim and $5,000 lifetime, while R. 2A-2.2003 and the Schedule of Benefits still list $1,500 and $3,000. Statute governs; not encoded as a rule because it is DV-specific. Sexual battery relocation (960.199) matches the rule at $1,500 and $3,000. Relocation assistance types (DV, sexual battery, human trafficking) are mutually exclusive for the same incident. LII copies of R. 2A-2.2001 and 2A-2.2002 were cross-checked against the current Word versions on flrules.org for every quoted passage. Medical providers must submit the forensic exam claim (BVC100SB) within 120 days of the exam; this binds providers, not survivors. Reviewer additions: The Schedule of Benefits caps (FL-S16) apply to crimes on or after January 6, 2022; the program page links a separate schedule for earlier crime dates, and the LII notes say the rule amendment took effect 1/9/2022. FL-CAP-8 quotes the Schedule PDF, whose two-column text extraction puts the $10,000 figure for the 'Minor Victim Mental Injury' row ahead of the $5,000 figure for the 'Adult or Minor Victim of Forcible Felony (non injury)' row; the LII copy of R. 2A-2.2003 (FL-S12) lists the rows in order and confirms $5,000 at 50%, one year, for the non-injury forcible felony row. FL-DEADLINE-3 is the good-cause extension ceiling (5 years), not the base deadline; the base deadline is FL-DEADLINE-1 (3 years). Compensation also requires cooperation with law enforcement and the state attorney (960.13(1)(b)), which the department can use to deny, reduce, or withdraw an award; the separate forensic exam payment does not. For minors, 960.07(3) says good cause can extend the paragraph (c) period 'for an additional period not to exceed 2 years', and kit testing or DNA matching delays can waive any filing deadline; this is described in FL-DEADLINE-2's extension text rather than quoted, to keep the quote short."
+ "researcher_notes": "Statute vs rule: 960.13(9)(a) sets a $25,000 total ceiling and $10,000 for treatment, but 960.13(9)(b) lets the department set lower limits by rule, and R. 2A-2.2003 (Schedule of Benefits) caps a living, non-catastrophic victim at $15,000 per claim. I used the rule/schedule figures because they are what the program applies; both are consistent. Schedule caps are taken from the official Schedule of Benefits PDF (FL-S16) because the Cornell LII copy of R. 2A-2.2003 (FL-S12) prints dollar amounts as '$15, 000.00', which breaks number matching; the amounts are identical. Provider payments for medical and mental health are at a rate of 50% or less depending on funds, while victim out-of-pocket reimbursement is at 100 percent (R. 2A-2.2002(2)(e)2.). Older crimes (before October 1, 2019) have a 72-hour reporting rule and 1-year filing deadline (2 years with good cause); the rules here cover crimes on or after that date. The brochure and claim form state reporting within 120 hours, matching the statutory five days. Domestic violence relocation discrepancy: Fla. Stat. 960.198 (amended by ch. 2026-86) now allows up to $2,500 per claim and $5,000 lifetime, while R. 2A-2.2003 and the Schedule of Benefits still list $1,500 and $3,000. Statute governs; not encoded as a rule because it is DV-specific. Sexual battery relocation (960.199) matches the rule at $1,500 and $3,000. Relocation assistance types (DV, sexual battery, human trafficking) are mutually exclusive for the same incident. LII copies of R. 2A-2.2001 and 2A-2.2002 were cross-checked against the current Word versions on flrules.org for every quoted passage. Medical providers must submit the forensic exam claim (BVC100SB) within 120 days of the exam; this binds providers, not survivors. Reviewer additions: The Schedule of Benefits caps (FL-S16) apply to crimes on or after January 6, 2022; the program page links a separate schedule for earlier crime dates, and the LII notes say the rule amendment took effect 1/9/2022. FL-CAP-8 quotes the Schedule PDF, whose two-column text extraction puts the $10,000 figure for the 'Minor Victim Mental Injury' row ahead of the $5,000 figure for the 'Adult or Minor Victim of Forcible Felony (non injury)' row; the LII copy of R. 2A-2.2003 (FL-S12) lists the rows in order and confirms $5,000 at 50%, one year, for the non-injury forcible felony row. FL-DEADLINE-3 is the good-cause extension ceiling (5 years), not the base deadline; the base deadline is FL-DEADLINE-1 (3 years). Compensation also requires cooperation with law enforcement and the state attorney (960.13(1)(b)), which the department can use to deny, reduce, or withdraw an award; the separate forensic exam payment does not. For minors, 960.07(3) says good cause can extend the paragraph (c) period 'for an additional period not to exceed 2 years', and kit testing or DNA matching delays can waive any filing deadline; this is described in FL-DEADLINE-2's extension text rather than quoted, to keep the quote short. How to file (added Oct 3): the claim form BVC100 (08/24), saved as FL-S18 and still the form linked from the program page, has 138 fillable AcroForm fields. Section One, instruction 4 says to submit the application and documents via email, fax, or mail; the address, email, and fax come from the form's page 1 header. Fla. Stat. 960.07(5) also allows filing in person at the Tallahassee office. No online method is encoded: the VANext portal is described on the program page and brochure as for advocates and providers (the brochure says victim service practitioners can register for access to the online claims submission portal), not survivors. The FL-S18 text extraction drops the 'ti', 'tt', and 'ft' ligatures (for example 'applica on', 'A ach'), so quotes from that source keep those gaps to stay verbatim; the brochure (FL-S17) is used where it states the same requirement in clean text."
 }

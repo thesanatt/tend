@@ -9,7 +9,12 @@
   "application_pdf_url": "https://treasury.ri.gov/media/521/download?language=en",
   "phone": "401-462-7655",
   "phone_source_id": "RI-S8",
-  "statute_citation": "R.I. Gen. Laws §§ 12-25-16 to 12-25-31; 120-RICR-00-00-2"
+  "statute_citation": "R.I. Gen. Laws §§ 12-25-16 to 12-25-31; 120-RICR-00-00-2",
+  "application_form": {
+   "source_id": "RI-S9",
+   "fillable": false,
+   "field_count": 0
+  }
  },
  "sources": [
   {
@@ -521,6 +526,127 @@
    "source_id": "RI-S2",
    "pinpoint": "R.I. Gen. Laws § 12-25-19(a)(3)",
    "fragment_url": "https://webserver.rilegislature.gov/Statutes/TITLE12/12-25/12-25-19.htm#:~:text=Outside%20the%20state%20of%20Rhode,in%20which%20the%20offense%20occurred"
+  },
+  {
+   "id": "RI-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "CRIME VICTIM COMPENSATION PROGRAM, Office of the General Treasurer, 50 Service Avenue, 2nd Floor, Warwick, RI 02886"
+   },
+   "summary": "Mail the completed paper application to the Crime Victim Compensation Program at the Office of the General Treasurer in Warwick.",
+   "quote": "Return completed Application to: CRIME VICTIM COMPENSATION PROGRAM Office of the General Treasurer 50 Service Avenue, 2nd Floor Warwick, RI 02886",
+   "source_id": "RI-S9",
+   "pinpoint": "CVCP Application, page 2, return address"
+  },
+  {
+   "id": "RI-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "401-462-7694"
+   },
+   "summary": "A printed application can be faxed to the program.",
+   "quote": "You can also print out an application below, either in English or Spanish, and fax it to 401-462-7694",
+   "source_id": "RI-S8",
+   "pinpoint": "Crime Victim Compensation Program page, how to apply",
+   "fragment_url": "https://treasury.ri.gov/programs/crime-victim-compensation-program#:~:text=You%20can%20also%20print%20out,and%20fax%20it%20to%20401%2D462%2D7694"
+  },
+  {
+   "id": "RI-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "http://cvcapp.treasury.ri.gov/"
+   },
+   "summary": "Applications can be filed online through the Treasury's CVCP portal; registration is required.",
+   "quote": "Applications can be submitted online here . (registration required)",
+   "source_id": "RI-S8",
+   "pinpoint": "Crime Victim Compensation Program page, how to apply (link target http://cvcapp.treasury.ri.gov/)",
+   "fragment_url": "https://treasury.ri.gov/programs/crime-victim-compensation-program#:~:text=Applications%20can%20be%20submitted%20online%20here%20.%20%28registration%20required%29"
+  },
+  {
+   "id": "RI-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "photo_id"
+   },
+   "summary": "Include a copy of a valid photo ID with the application.",
+   "quote": "MUST SUBMIT A COPY OF A VALID PHOTO ID",
+   "source_id": "RI-S9",
+   "pinpoint": "CVCP Application, page 2"
+  },
+  {
+   "id": "RI-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "copies of bills for each expense checked on the form"
+   },
+   "summary": "Include copies of the bills for the expenses being claimed.",
+   "quote": "PLEASE SUBMIT COPIES OF BILLS",
+   "source_id": "RI-S9",
+   "pinpoint": "CVCP Application, page 1, Expenses section"
+  },
+  {
+   "id": "RI-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "signed application with release of information; the form's consent section must be signed and dated"
+   },
+   "summary": "The application must be signed under penalty of perjury and include a release of information.",
+   "quote": "The application must be signed by the Applicant under the pains and penalties of perjury;",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.11, Applicant's Obligations (2)"
+  },
+  {
+   "id": "RI-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "where appropriate: lost wage verifications, W-2 forms, tax returns"
+   },
+   "summary": "Where they apply, the applicant must provide lost wage verifications, W-2 forms, and tax returns.",
+   "quote": "Such documentation shall include, where appropriate, all expenses, lost wage verifications, W-2 forms, tax returns, death and birth certificates, and the incident report from the appropriate law enforcement authorities.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.11(C) Burden of Proof"
+  },
+  {
+   "id": "RI-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "incident report from law enforcement, where appropriate; the form also asks for the police department and report number"
+   },
+   "summary": "Where appropriate, the applicant provides the incident report from law enforcement.",
+   "quote": "Such documentation shall include, where appropriate, all expenses, lost wage verifications, W-2 forms, tax returns, death and birth certificates, and the incident report from the appropriate law enforcement authorities.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.11(C) Burden of Proof"
+  },
+  {
+   "id": "RI-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "exam_record",
+    "note": "optional for sexual assault victims: evidence of a SANE or qualifying medical forensic exam, used in place of or alongside a police report"
+   },
+   "summary": "A sexual assault survivor may submit evidence of a Sexual Assault Nurse Examination or other qualifying medical forensic exam.",
+   "quote": "Victims of sexual assault may submit documentary evidence of their Sexual Assault Nurse Examination or other qualifying Medical Forensic Examination consistent with the requirements of R.I. Gen. Laws",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(2)(e)"
+  },
+  {
+   "id": "RI-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "on request, when claiming lost earnings: a disability letter from a treating physician or mental health provider"
+   },
+   "summary": "If the office asks, a victim claiming lost earnings must send a disability letter from a treating physician or mental health provider.",
+   "quote": "Upon request by the office, the victim must submit a disability letter from a treating physician or mental health provider demonstrating that the victim is disabled from working as a direct result of the crime",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.8(A)(4)(a)"
   }
  ],
  "coverage": {
@@ -536,14 +662,17 @@
    "covered_expense",
    "expense_cap",
    "excluded_expense",
-   "residency"
+   "residency",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "exam_no_bill",
-   "minimum_loss"
+   "minimum_loss",
+   "processing_time"
   ],
-  "notes": "No Rhode Island statute or official policy was found that bars billing the survivor or the survivor's insurance for a sexual assault forensic exam; the only official statement found is the Attorney General's bill of rights saying the exam cost is compensable through the CVCP regardless of reporting. No minimum loss was found. The relocation cap is in flux: the compiled statute (12-25-21.1(e)) and the current rule say $5,000, but a 2026 bill (H 8155) raised it to $8,000 and the amended rule effective 10/13/2026 (RI-S14) says $8,000, so no relocation dollar cap is recorded. Counseling hourly rates, the $1,000 travel cap, the 62% lost-earnings rule, the property exclusion, and the reporting rules appear in both the current rule (RI-S11) and the amended rule effective 10/13/2026 (RI-S14)."
+  "notes": "No Rhode Island statute or official policy was found that bars billing the survivor or the survivor's insurance for a sexual assault forensic exam; the only official statement found is the Attorney General's bill of rights saying the exam cost is compensable through the CVCP regardless of reporting. No minimum loss was found. The relocation cap is in flux: the compiled statute (12-25-21.1(e)) and the current rule say $5,000, but a 2026 bill (H 8155) raised it to $8,000 and the amended rule effective 10/13/2026 (RI-S14) says $8,000, so no relocation dollar cap is recorded. Counseling hourly rates, the $1,000 travel cap, the 62% lost-earnings rule, the property exclusion, and the reporting rules appear in both the current rule (RI-S11) and the amended rule effective 10/13/2026 (RI-S14). No processing time for a decision or payment is stated in the program page, the application, or the rule; the only stated times are 30 days for a decision on reconsideration, which is not recorded."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text is from the RI legislature's compiled General Laws site, which may not yet show 2026 session laws. The rule amendment effective 10/13/2026 says it implements 2026 changes to 12-25-20 and 12-25-21.1: hit-and-run serious bodily injury added, stalking victims allowed relocation or home-modification awards, larceny and the crime against nature offenses removed from the covered list, and emergency relocation raised to $8,000. The introduced H 8155 text only changes the relocation amount; it leaves the $1,000 home-safety cap and $25,000 total cap unchanged, but the enacted version was not saved, so RI-SECURITY-1 should be rechecked once the compiled statute updates. The AG page says exam compensation is available regardless of cooperation, while 12-25-19(d)(1)(i) lets the office weigh cooperation for other awards; statute wins for non-exam expenses. The program FAQ (RI-S8) also lists a DCYF report for minors and a no contact order for domestic violence victims as alternatives to a police report. Other caps in the rule not recorded as rules: eyeglasses $200, crime scene cleanup $2,000, burial $10,000, secondary victim counseling $1,500, group therapy at 40% of the individual rate, temporary housing $150 per night for up to 10 nights within relocation. Reviewer: the AG page says exam compensation is available regardless of reporting, but 12-25-22(a) only lets the office accept an exam in place of a police report when the exam was within 15 days of the crime, and the same AG page warns that not participating in the criminal justice system will likely limit compensation eligibility. A 2022 bill (S 2374) would have barred charging the survivor for the evidentiary exam (proposed 12-28.1-6), but chapter 12-28.1 does not exist in the compiled General Laws and 23-98-5 has no billing rule, so exam_no_bill stays not_found. The home-safety $1,000 cap appears only in the statute; neither the current rule nor the 10/13/2026 rule states a dollar cap for safety modifications."
+ "researcher_notes": "Statute text is from the RI legislature's compiled General Laws site, which may not yet show 2026 session laws. The rule amendment effective 10/13/2026 says it implements 2026 changes to 12-25-20 and 12-25-21.1: hit-and-run serious bodily injury added, stalking victims allowed relocation or home-modification awards, larceny and the crime against nature offenses removed from the covered list, and emergency relocation raised to $8,000. The introduced H 8155 text only changes the relocation amount; it leaves the $1,000 home-safety cap and $25,000 total cap unchanged, but the enacted version was not saved, so RI-SECURITY-1 should be rechecked once the compiled statute updates. The AG page says exam compensation is available regardless of cooperation, while 12-25-19(d)(1)(i) lets the office weigh cooperation for other awards; statute wins for non-exam expenses. The program FAQ (RI-S8) also lists a DCYF report for minors and a no contact order for domestic violence victims as alternatives to a police report. Other caps in the rule not recorded as rules: eyeglasses $200, crime scene cleanup $2,000, burial $10,000, secondary victim counseling $1,500, group therapy at 40% of the individual rate, temporary housing $150 per night for up to 10 nights within relocation. Reviewer: the AG page says exam compensation is available regardless of reporting, but 12-25-22(a) only lets the office accept an exam in place of a police report when the exam was within 15 days of the crime, and the same AG page warns that not participating in the criminal justice system will likely limit compensation eligibility. A 2022 bill (S 2374) would have barred charging the survivor for the evidentiary exam (proposed 12-28.1-6), but chapter 12-28.1 does not exist in the compiled General Laws and 23-98-5 has no billing rule, so exam_no_bill stays not_found. The home-safety $1,000 cap appears only in the statute; neither the current rule nor the 10/13/2026 rule states a dollar cap for safety modifications. How to file: the application PDF (RI-S9, retrieved from the program page's current English link) is a flat scan with no AcroForm fields (0 fields), so it is printed and filled by hand. The mail address is taken from the form, which adds '2nd Floor'; the program page gives '50 Service Ave Warwick, RI 02886' without the floor. The online portal URL (http://cvcapp.treasury.ri.gov/) is the link target behind 'here' on the program page, not visible text. The program page has an 'email us' link (crimevictims@treasury.ri.gov) for questions only; it does not say applications can be emailed, so no email submission rule was added. The rule also lets the office request a mental health treatment plan from the treating provider (2.8(A)(3)(b)); that comes from the provider, not the applicant, so it is not a required_document."
 }

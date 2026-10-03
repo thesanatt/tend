@@ -1,489 +1,638 @@
 {
- "jurisdiction": "DE",
- "name": "Delaware",
- "program": {
-  "program_name": "Victims' Compensation Assistance Program (VCAP)",
-  "agency": "Delaware Department of Justice",
-  "website": "https://attorneygeneral.delaware.gov/vcap/",
-  "apply_url": "https://ccvcde.org",
-  "application_pdf_url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf",
-  "phone": "302-255-1770",
-  "phone_source_id": "DE-S2",
-  "statute_citation": "11 Del. C. §§ 9001 to 9025"
- },
- "sources": [
-  {
-   "id": "DE-S1",
-   "title": "11 Del. C. ch. 90, Compensation for Innocent Victims of Crime (sections 9001 to 9025)",
-   "url": "https://delcode.delaware.gov/title11/c090/index.html",
-   "kind": "statute",
-   "retrieved_at": "2026-10-03T18:47:34Z",
-   "raw_path": "rules/sources/DE/DE-S1.html",
-   "text_path": "rules/sources/DE/DE-S1.txt",
-   "sha256": "2969992900ea1a218358885a4bf96b776c09e6292e1d1cd1df3772db4b85e640"
+  "jurisdiction": "DE",
+  "name": "Delaware",
+  "program": {
+    "program_name": "Victims' Compensation Assistance Program (VCAP)",
+    "agency": "Delaware Department of Justice",
+    "website": "https://attorneygeneral.delaware.gov/vcap/",
+    "apply_url": "https://ccvcde.org",
+    "application_pdf_url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf",
+    "phone": "302-255-1770",
+    "phone_source_id": "DE-S2",
+    "statute_citation": "11 Del. C. §§ 9001 to 9025",
+    "application_form": {
+      "source_id": "DE-S4",
+      "fillable": false,
+      "field_count": 0
+    }
   },
-  {
-   "id": "DE-S2",
-   "title": "Delaware DOJ, Victims' Compensation Assistance Program page and FAQs",
-   "url": "https://attorneygeneral.delaware.gov/vcap/",
-   "kind": "agency_page",
-   "retrieved_at": "2026-10-03T18:47:53Z",
-   "raw_path": "rules/sources/DE/DE-S2.html",
-   "text_path": "rules/sources/DE/DE-S2.txt",
-   "sha256": "d1eed633948ad6a0fec7194c656cd1527da92e6024b9c0a2e8617ab207e39527"
-  },
-  {
-   "id": "DE-S3",
-   "title": "1 Del. Admin. Code 301, Victims' Compensation Assistance Program Rules and Regulations",
-   "url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml",
-   "kind": "regulation",
-   "retrieved_at": "2026-10-03T18:48:18Z",
-   "raw_path": "rules/sources/DE/DE-S3.html",
-   "text_path": "rules/sources/DE/DE-S3.txt",
-   "sha256": "0b4b9db39d486b28e33177160d3485adcbf7c562678086f78ceea26a7a900869"
-  },
-  {
-   "id": "DE-S4",
-   "title": "VCAP printable application (English)",
-   "url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf",
-   "kind": "application_form",
-   "retrieved_at": "2026-10-03T18:48:21Z",
-   "raw_path": "rules/sources/DE/DE-S4.pdf",
-   "text_path": "rules/sources/DE/DE-S4.txt",
-   "sha256": "4071b88cd8e44d9bf751b96b19b779e1d5174be575a1f1508c1a08b07b0b71bd"
-  },
-  {
-   "id": "DE-S5",
-   "title": "VCAP brochure (English)",
-   "url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Brochure-2019-English.pdf",
-   "kind": "agency_pdf",
-   "retrieved_at": "2026-10-03T18:48:22Z",
-   "raw_path": "rules/sources/DE/DE-S5.pdf",
-   "text_path": "rules/sources/DE/DE-S5.txt",
-   "sha256": "0201da7fa79de9b1babb1f778d6ea191b6b72ab1193b5de266c27a73d0b63cb7"
-  }
- ],
- "rules": [
-  {
-   "id": "DE-EXAM-1",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "allowed"
-   },
-   "summary": "Hospitals and health care professionals must give sexual offense forensic medical exams free of charge, and the survivor pays no out-of-pocket cost and does not have to file a compensation application for the exam. The provider bills the patient's insurance first.",
-   "quote": "The victim of the sexual offense shall not pay any out-of-pocket costs associated with the forensic medical examination and shall not be required to file an application with the Agency.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9023(d)"
-  },
-  {
-   "id": "DE-EXAM-2",
-   "category": "exam_no_bill",
-   "expense": "forensic_exam",
-   "params": {
-    "insurance_billing": "allowed"
-   },
-   "summary": "Hospitals and health care professionals must provide forensic medical exams free of charge to sexual offense victims.",
-   "quote": "Hospitals and health-care professionals shall provide forensic medical examinations free of charge to the victims of sexual offenses.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9023(c)"
-  },
-  {
-   "id": "DE-EXAM-3",
-   "category": "exam_payment",
-   "expense": "forensic_exam",
-   "params": {
-    "payer": "Patient's insurance first (including Medicaid and Medicare), then the Victims' Compensation Fund for any uncovered cost"
-   },
-   "summary": "The provider must bill the patient's insurance (including Medicaid and Medicare) first; whatever insurance does not cover can be billed to the Victims' Compensation Fund, not the survivor.",
-   "quote": "Any hospital or health-care professional performing a forensic medical examination shall seek reimbursement for the examination from the patient's insurance carrier, including Medicaid and Medicare, if available. If insurance is unavailable, or does not cover the full costs of the forensic medical examination, the service provider may seek reimbursement from the Victims' Compensation Fund.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9023(c)"
-  },
-  {
-   "id": "DE-CAP-1",
-   "category": "total_cap",
-   "params": {
-    "amount_cents": 2500000
-   },
-   "summary": "Total compensation is capped at $25,000, or up to $50,000 for victims who are permanently and totally disabled.",
-   "quote": "Compensation may not be awarded under the chapter to a claimant in a total amount in excess of $25,000; provided, however, that the Agency may award compensation to victims who are permanently and totally disabled in an amount not to exceed $50,000.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9011(d)"
-  },
-  {
-   "id": "DE-CAP-2",
-   "category": "expense_cap",
-   "expense": "temporary_housing",
-   "params": {
-    "expense": "temporary_housing",
-    "amount_cents": 150000,
-    "per": "claim"
-   },
-   "summary": "Temporary housing is capped at $1,500.",
-   "quote": "b. Temporary housing not to exceed $1,500.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)b."
-  },
-  {
-   "id": "DE-CAP-3",
-   "category": "expense_cap",
-   "expense": "relocation",
-   "params": {
-    "expense": "relocation",
-    "amount_cents": 100000,
-    "per": "claim"
-   },
-   "summary": "Moving expenses are capped at $1,000.",
-   "quote": "c. Moving expenses not to exceed $1,000.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)c."
-  },
-  {
-   "id": "DE-CAP-4",
-   "category": "expense_cap",
-   "expense": "security",
-   "params": {
-    "expense": "security",
-    "amount_cents": 150000,
-    "per": "claim"
-   },
-   "summary": "Essential personal safety property is capped at $1,500.",
-   "quote": "d. Essential personal safety property not to exceed $1,500.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)d."
-  },
-  {
-   "id": "DE-CAP-5",
-   "category": "expense_cap",
-   "expense": "crime_scene_cleanup",
-   "params": {
-    "expense": "crime_scene_cleanup",
-    "amount_cents": 100000,
-    "per": "claim"
-   },
-   "summary": "Crime scene cleanup is capped at $1,000.",
-   "quote": "a. Crime scene cleanup not to exceed $1,000.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)a."
-  },
-  {
-   "id": "DE-CAP-6",
-   "category": "expense_cap",
-   "expense": "legal",
-   "params": {
-    "expense": "legal",
-    "amount_cents": 100000,
-    "per": "claim"
-   },
-   "summary": "If the claimant has a lawyer before the Appeals Board, the Board may award attorney fees of up to $1,000 or 15% of the award, whichever is less, paid on top of the compensation. The lawyer may not charge the claimant anything beyond that award.",
-   "quote": "Such fees shall not exceed $1,000 or 15% of the amount awarded, whichever sum is less, and shall be in addition to the amount of compensation awarded to the claimant.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9013"
-  },
-  {
-   "id": "DE-CAP-7",
-   "category": "expense_cap",
-   "expense": "other",
-   "params": {
-    "expense": "other",
-    "amount_cents": 300000,
-    "per": "claim"
-   },
-   "summary": "Loss of support is capped at $3,000 for a victim who depended on the offender's income and lost it because of the crime (the offender must have had income at the time).",
-   "quote": "i. Loss of support for victims of violence, not to exceed $3,000, when all of the following are established",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)i."
-  },
-  {
-   "id": "DE-COV-1",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "Medical expenses are a covered loss.",
-   "quote": "n. Medical expenses.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)n."
-  },
-  {
-   "id": "DE-COV-2",
-   "category": "covered_expense",
-   "expense": "counseling",
-   "params": {
-    "expense": "counseling"
-   },
-   "summary": "Psychiatric care and mental health counseling are covered losses.",
-   "quote": "o. Psychiatric care and mental health counseling.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)o."
-  },
-  {
-   "id": "DE-COV-3",
-   "category": "covered_expense",
-   "expense": "lost_wages",
-   "params": {
-    "expense": "lost_wages"
-   },
-   "summary": "Lost past or future earnings caused by a disability from the injury are covered, including vacation, sick, and compensatory time.",
-   "quote": "r. Loss of past or future earnings, including reimbursement for vacation, sick, and compensatory time, because of a disability resulting from personal injury.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)r."
-  },
-  {
-   "id": "DE-COV-4",
-   "category": "covered_expense",
-   "expense": "security",
-   "params": {
-    "expense": "security"
-   },
-   "summary": "The cost to change locks is covered, along with replacing items seized as evidence.",
-   "quote": "k. The cost to change locks and replace items seized as evidence.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)k."
-  },
-  {
-   "id": "DE-COV-5",
-   "category": "covered_expense",
-   "expense": "property_replacement",
-   "params": {
-    "expense": "property_replacement"
-   },
-   "summary": "Replacing items seized as evidence is covered; this is separate from the general bar on property loss.",
-   "quote": "k. The cost to change locks and replace items seized as evidence.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)k."
-  },
-  {
-   "id": "DE-COV-6",
-   "category": "covered_expense",
-   "expense": "childcare",
-   "params": {
-    "expense": "childcare"
-   },
-   "summary": "Child care is covered, limited to the deposit plus 2 months of care by a state-approved or licensed provider.",
-   "quote": "l. Child care not to exceed the deposit plus 2 months of care by a state-approved or licensed day care provider.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)l."
-  },
-  {
-   "id": "DE-COV-7",
-   "category": "covered_expense",
-   "expense": "medical",
-   "params": {
-    "expense": "medical"
-   },
-   "summary": "Hospital expenses are a covered loss.",
-   "quote": "q. Hospital expenses.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)q."
-  },
-  {
-   "id": "DE-COV-8",
-   "category": "covered_expense",
-   "expense": "dental",
-   "params": {
-    "expense": "dental"
-   },
-   "summary": "The program page lists dental expenses and prescription medication among covered costs.",
-   "quote": "Compensation is available for payment of medical and dental expenses, mental health counseling, prescription medication, lost wages, funeral/burial support, temporary housing and moving or relocation services, crime related expenses and other costs approved by the Agency.",
-   "source_id": "DE-S2",
-   "pinpoint": "VCAP page, FAQs: Who can get help?"
-  },
-  {
-   "id": "DE-COV-9",
-   "category": "covered_expense",
-   "expense": "prescription",
-   "params": {
-    "expense": "prescription"
-   },
-   "summary": "The program page lists prescription medication among covered costs.",
-   "quote": "Compensation is available for payment of medical and dental expenses, mental health counseling, prescription medication, lost wages, funeral/burial support, temporary housing and moving or relocation services, crime related expenses and other costs approved by the Agency.",
-   "source_id": "DE-S2",
-   "pinpoint": "VCAP page, FAQs: Who can get help?"
-  },
-  {
-   "id": "DE-COV-10",
-   "category": "covered_expense",
-   "expense": "other",
-   "params": {
-    "expense": "other"
-   },
-   "summary": "Reasonable expenses for attending criminal proceedings as a prosecution witness are covered.",
-   "quote": "m. Reimbursement for reasonable expenses incurred due to attendance at criminal proceedings as a witness for the prosecution.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)m."
-  },
-  {
-   "id": "DE-EXCL-1",
-   "category": "excluded_expense",
-   "expense": "property_replacement",
-   "params": {
-    "item": "property damage"
-   },
-   "summary": "Pecuniary loss does not include property damage, so damaged personal property (for example a phone) is generally not paid. The cost to replace items seized as evidence is the exception.",
-   "quote": "“Pecuniary loss” means any expenses actually and necessarily incurred as a result of personal injury or death resulting from a crime, but does not include property damage.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(10)"
-  },
-  {
-   "id": "DE-EXCL-2",
-   "category": "excluded_expense",
-   "params": {
-    "item": "lost, damaged, or stolen property; pain and suffering"
-   },
-   "summary": "The program will not pay for lost, damaged, or stolen property, or for pain and suffering.",
-   "quote": "You cannot be paid for lost, damaged, or stolen property, or for pain and suffering.",
-   "source_id": "DE-S2",
-   "pinpoint": "VCAP page, FAQs: Are there any limits?"
-  },
-  {
-   "id": "DE-DEAD-1",
-   "category": "filing_deadline",
-   "params": {
-    "years": 1,
-    "from": "crime",
-    "extension": "Agency may grant an extension or waive the deadline when the circumstances make it unreasonable; claims from child sexual assault or abuse may not be barred by a statute of limitations (§ 9009(12))"
-   },
-   "summary": "The claim must be filed within 1 year after the injury, unless the Agency grants an extension or finds the deadline unreasonable in the circumstances.",
-   "quote": "Where the claim has not been filed within 1 year after the personal injury on which the claim in based, unless an extension is granted by the Agency or the Agency, in its discretion, determines that the circumstances render this requirement unreasonable.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9010(a)(4)"
-  },
-  {
-   "id": "DE-REPORT-1",
-   "category": "reporting_requirement",
-   "params": {
-    "required": true,
-    "alternatives": [
-     "protective_order",
-     "other"
-    ]
-   },
-   "summary": "The crime must be reported to law enforcement within 72 hours, but this is waived if it was reported to protective services or Family Court, the victim has a protection from abuse order, the victim cooperated with law enforcement or an appropriate government agency in a sexual assault case, or the Agency finds the requirement unreasonable.",
-   "quote": "Where the victim has failed to report the crime to a law-enforcement agency within 72 hours of its occurrence. This requirement is waived in any of the following circumstances: a. The crime has been reported to an appropriate governmental agency, such as child or adult protective services or the Family Court. b. The victim can provide a protection from abuse order. c. The victim has cooperated with law enforcement or an appropriate government agency in cases of crimes involving domestic violence, sexual assault or abuse. d. Where the Agency, in its discretion, determines that the circumstances of the crime or the victim render this requirement unreasonable.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9010(a)(5)"
-  },
-  {
-   "id": "DE-REPORT-2",
-   "category": "reporting_requirement",
-   "params": {
-    "required": true
-   },
-   "summary": "A claim is denied if the victim refused reasonable cooperation with law enforcement.",
-   "quote": "Where the victim refused to give reasonable cooperation to state or local law-enforcement agencies in their efforts to apprehend or convict the perpetrator of the crime in question.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9010(a)(3)"
-  },
-  {
-   "id": "DE-MIN-1",
-   "category": "minimum_loss",
-   "params": {
-    "amount_cents": 2500,
-    "waived_for": "dire hardship, as determined by the Agency"
-   },
-   "summary": "Claims for less than $25 are not paid, except in cases of dire hardship.",
-   "quote": "Except in cases of dire hardship, as determined by the Agency, there may not be payment of compensation where the claim is for less than $25.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9011(b)"
-  },
-  {
-   "id": "DE-COLL-1",
-   "category": "collateral_source",
-   "params": {},
-   "summary": "The award is the loss minus anything the claimant has received or will receive from other sources, including insurance.",
-   "quote": "If a claim is approved, the award must be the amount of pecuniary loss minus the amount the claimant has received or will receive as indemnification from any other source, including any applicable insurance.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9009(1)"
-  },
-  {
-   "id": "DE-COND-1",
-   "category": "conduct_reduction",
-   "params": {},
-   "summary": "If the victim bears a share of responsibility for the injury, the Agency reduces the award by that share.",
-   "quote": "If the victim bears any share of responsibility that caused injury or death, the Agency shall reduce the amount of compensation in accordance with its assessment of the degree of such responsibility attributable to the victim.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9010(c)"
-  },
-  {
-   "id": "DE-EMERG-1",
-   "category": "emergency_award",
-   "params": {},
-   "summary": "An emergency award is possible only on a showing of dire necessity, requested in writing with the claim form, and not until a police report or other official law enforcement documentation is obtained.",
-   "quote": "The Agency will make an emergency award only upon a showing of dire necessity. The claimant, must, in writing, request an emergency award when submitting his claim form and show just cause as to why such an award should be considered. No such award will be made until the police report or other official documentation from the appropriate law enforcement agency is acquired.",
-   "source_id": "DE-S3",
-   "pinpoint": "1 Del. Admin. Code 301-23.0"
-  },
-  {
-   "id": "DE-CRIME-1",
-   "category": "eligible_crime",
-   "params": {},
-   "summary": "Covered crimes include offenses with the characteristics of rape, unlawful sexual intercourse, unlawful sexual penetration, or unlawful sexual contact.",
-   "quote": "Any specific offense set forth in Chapter 5 of this title, if the offense was committed after July 1, 1973, and contains the characteristics of murder, rape, unlawful sexual intercourse, unlawful sexual penetration or unlawful sexual contact",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(6)a."
-  },
-  {
-   "id": "DE-CRIME-2",
-   "category": "eligible_crime",
-   "params": {},
-   "summary": "Personal injury includes mental, emotional, or psychological harm and pregnancy resulting from the crime, not only bodily harm.",
-   "quote": "“Personal injury” means bodily harm, mental, emotional or psychological harm, or includes pregnancy resulting from the crime.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9002(12)"
-  },
-  {
-   "id": "DE-RES-1",
-   "category": "residency",
-   "params": {
-    "rule": "Crimes committed in Delaware, regardless of the victim's residency"
-   },
-   "summary": "The program covers everyone, including nonresidents, who is a victim of a crime committed in Delaware.",
-   "quote": "All persons, including nonresidents of Delaware, who are victims of crimes committed on January 1, 1975, or thereafter within this State",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9021(1)"
-  },
-  {
-   "id": "DE-RES-2",
-   "category": "residency",
-   "params": {
-    "rule": "Delaware domiciliaries victimized out of state, only where that state lacks an eligible program with equal benefits"
-   },
-   "summary": "A Delaware domiciliary hurt by a crime in another state may apply if the crime would be compensable in Delaware and that state has no eligible program with equal benefits.",
-   "quote": "A person whose domicile is in Delaware and who is the victim or secondary victim of a crime that occurs in another state, possession, or territory of the United States may make an application for compensation if both of the following are true: a. The crimes would be compensable had they occurred in Delaware. b. The placement of the crime occurred in states, possessions, or territories of the United States not having eligible crime victim compensation programs that provide benefits equal to the benefits provided under this chapter.",
-   "source_id": "DE-S1",
-   "pinpoint": "11 Del. C. § 9009(9)"
-  }
- ],
- "coverage": {
-  "found": [
-   "collateral_source",
-   "conduct_reduction",
-   "covered_expense",
-   "eligible_crime",
-   "emergency_award",
-   "exam_no_bill",
-   "exam_payment",
-   "excluded_expense",
-   "expense_cap",
-   "filing_deadline",
-   "minimum_loss",
-   "reporting_requirement",
-   "residency",
-   "total_cap"
+  "sources": [
+    {
+      "id": "DE-S1",
+      "title": "11 Del. C. ch. 90, Compensation for Innocent Victims of Crime (sections 9001 to 9025)",
+      "url": "https://delcode.delaware.gov/title11/c090/index.html",
+      "kind": "statute",
+      "retrieved_at": "2026-10-03T18:47:34Z",
+      "raw_path": "rules/sources/DE/DE-S1.html",
+      "text_path": "rules/sources/DE/DE-S1.txt",
+      "sha256": "2969992900ea1a218358885a4bf96b776c09e6292e1d1cd1df3772db4b85e640"
+    },
+    {
+      "id": "DE-S2",
+      "title": "Delaware DOJ, Victims' Compensation Assistance Program page and FAQs",
+      "url": "https://attorneygeneral.delaware.gov/vcap/",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T18:47:53Z",
+      "raw_path": "rules/sources/DE/DE-S2.html",
+      "text_path": "rules/sources/DE/DE-S2.txt",
+      "sha256": "d1eed633948ad6a0fec7194c656cd1527da92e6024b9c0a2e8617ab207e39527"
+    },
+    {
+      "id": "DE-S3",
+      "title": "1 Del. Admin. Code 301, Victims' Compensation Assistance Program Rules and Regulations",
+      "url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml",
+      "kind": "regulation",
+      "retrieved_at": "2026-10-03T18:48:18Z",
+      "raw_path": "rules/sources/DE/DE-S3.html",
+      "text_path": "rules/sources/DE/DE-S3.txt",
+      "sha256": "0b4b9db39d486b28e33177160d3485adcbf7c562678086f78ceea26a7a900869"
+    },
+    {
+      "id": "DE-S4",
+      "title": "VCAP printable application (English)",
+      "url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Application-English.pdf",
+      "kind": "application_form",
+      "retrieved_at": "2026-10-03T18:48:21Z",
+      "raw_path": "rules/sources/DE/DE-S4.pdf",
+      "text_path": "rules/sources/DE/DE-S4.txt",
+      "sha256": "4071b88cd8e44d9bf751b96b19b779e1d5174be575a1f1508c1a08b07b0b71bd"
+    },
+    {
+      "id": "DE-S5",
+      "title": "VCAP brochure (English)",
+      "url": "https://attorneygeneral.delaware.gov/wp-content/uploads/sites/50/2026/04/VCAP-Brochure-2019-English.pdf",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T18:48:22Z",
+      "raw_path": "rules/sources/DE/DE-S5.pdf",
+      "text_path": "rules/sources/DE/DE-S5.txt",
+      "sha256": "0201da7fa79de9b1babb1f778d6ea191b6b72ab1193b5de266c27a73d0b63cb7"
+    },
+    {
+      "id": "DE-S6",
+      "title": "Delaware VCAP online claim portal home page",
+      "url": "https://ccvcde.org",
+      "kind": "agency_page",
+      "retrieved_at": "2026-10-03T19:42:10Z",
+      "raw_path": "rules/sources/DE/DE-S6.html",
+      "text_path": "rules/sources/DE/DE-S6.txt",
+      "sha256": "c52ec30e17f701e16d25c974118287100a35540eba0679abf212e4273ac09e75"
+    }
   ],
-  "not_found": [
-   "expense_cap:counseling (no general adult counseling cap found; see notes)",
-   "expense_cap:lost_wages",
-   "expense_cap:transportation",
-   "covered_expense:transportation (no general transportation benefit found outside ambulance transport within the forensic exam and court-attendance expenses)",
-   "expense_cap:medical (no dollar cap; regulations set payment at 80% of usual and customary charges)",
-   "emergency_award amount"
+  "rules": [
+    {
+      "id": "DE-EXAM-1",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "allowed"
+      },
+      "summary": "Hospitals and health care professionals must give sexual offense forensic medical exams free of charge, and the survivor pays no out-of-pocket cost and does not have to file a compensation application for the exam. The provider bills the patient's insurance first.",
+      "quote": "The victim of the sexual offense shall not pay any out-of-pocket costs associated with the forensic medical examination and shall not be required to file an application with the Agency.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9023(d)"
+    },
+    {
+      "id": "DE-EXAM-2",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "allowed"
+      },
+      "summary": "Hospitals and health care professionals must provide forensic medical exams free of charge to sexual offense victims.",
+      "quote": "Hospitals and health-care professionals shall provide forensic medical examinations free of charge to the victims of sexual offenses.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9023(c)"
+    },
+    {
+      "id": "DE-EXAM-3",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Patient's insurance first (including Medicaid and Medicare), then the Victims' Compensation Fund for any uncovered cost"
+      },
+      "summary": "The provider must bill the patient's insurance (including Medicaid and Medicare) first; whatever insurance does not cover can be billed to the Victims' Compensation Fund, not the survivor.",
+      "quote": "Any hospital or health-care professional performing a forensic medical examination shall seek reimbursement for the examination from the patient's insurance carrier, including Medicaid and Medicare, if available. If insurance is unavailable, or does not cover the full costs of the forensic medical examination, the service provider may seek reimbursement from the Victims' Compensation Fund.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9023(c)"
+    },
+    {
+      "id": "DE-CAP-1",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000
+      },
+      "summary": "Total compensation is capped at $25,000, or up to $50,000 for victims who are permanently and totally disabled.",
+      "quote": "Compensation may not be awarded under the chapter to a claimant in a total amount in excess of $25,000; provided, however, that the Agency may award compensation to victims who are permanently and totally disabled in an amount not to exceed $50,000.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9011(d)"
+    },
+    {
+      "id": "DE-CAP-2",
+      "category": "expense_cap",
+      "expense": "temporary_housing",
+      "params": {
+        "expense": "temporary_housing",
+        "amount_cents": 150000,
+        "per": "claim"
+      },
+      "summary": "Temporary housing is capped at $1,500.",
+      "quote": "b. Temporary housing not to exceed $1,500.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)b."
+    },
+    {
+      "id": "DE-CAP-3",
+      "category": "expense_cap",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Moving expenses are capped at $1,000.",
+      "quote": "c. Moving expenses not to exceed $1,000.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)c."
+    },
+    {
+      "id": "DE-CAP-4",
+      "category": "expense_cap",
+      "expense": "security",
+      "params": {
+        "expense": "security",
+        "amount_cents": 150000,
+        "per": "claim"
+      },
+      "summary": "Essential personal safety property is capped at $1,500.",
+      "quote": "d. Essential personal safety property not to exceed $1,500.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)d."
+    },
+    {
+      "id": "DE-CAP-5",
+      "category": "expense_cap",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "expense": "crime_scene_cleanup",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "Crime scene cleanup is capped at $1,000.",
+      "quote": "a. Crime scene cleanup not to exceed $1,000.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)a."
+    },
+    {
+      "id": "DE-CAP-6",
+      "category": "expense_cap",
+      "expense": "legal",
+      "params": {
+        "expense": "legal",
+        "amount_cents": 100000,
+        "per": "claim"
+      },
+      "summary": "If the claimant has a lawyer before the Appeals Board, the Board may award attorney fees of up to $1,000 or 15% of the award, whichever is less, paid on top of the compensation. The lawyer may not charge the claimant anything beyond that award.",
+      "quote": "Such fees shall not exceed $1,000 or 15% of the amount awarded, whichever sum is less, and shall be in addition to the amount of compensation awarded to the claimant.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9013"
+    },
+    {
+      "id": "DE-CAP-7",
+      "category": "expense_cap",
+      "expense": "other",
+      "params": {
+        "expense": "other",
+        "amount_cents": 300000,
+        "per": "claim"
+      },
+      "summary": "Loss of support is capped at $3,000 for a victim who depended on the offender's income and lost it because of the crime (the offender must have had income at the time).",
+      "quote": "i. Loss of support for victims of violence, not to exceed $3,000, when all of the following are established",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)i."
+    },
+    {
+      "id": "DE-COV-1",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Medical expenses are a covered loss.",
+      "quote": "n. Medical expenses.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)n."
+    },
+    {
+      "id": "DE-COV-2",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "Psychiatric care and mental health counseling are covered losses.",
+      "quote": "o. Psychiatric care and mental health counseling.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)o."
+    },
+    {
+      "id": "DE-COV-3",
+      "category": "covered_expense",
+      "expense": "lost_wages",
+      "params": {
+        "expense": "lost_wages"
+      },
+      "summary": "Lost past or future earnings caused by a disability from the injury are covered, including vacation, sick, and compensatory time.",
+      "quote": "r. Loss of past or future earnings, including reimbursement for vacation, sick, and compensatory time, because of a disability resulting from personal injury.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)r."
+    },
+    {
+      "id": "DE-COV-4",
+      "category": "covered_expense",
+      "expense": "security",
+      "params": {
+        "expense": "security"
+      },
+      "summary": "The cost to change locks is covered, along with replacing items seized as evidence.",
+      "quote": "k. The cost to change locks and replace items seized as evidence.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)k."
+    },
+    {
+      "id": "DE-COV-5",
+      "category": "covered_expense",
+      "expense": "property_replacement",
+      "params": {
+        "expense": "property_replacement"
+      },
+      "summary": "Replacing items seized as evidence is covered; this is separate from the general bar on property loss.",
+      "quote": "k. The cost to change locks and replace items seized as evidence.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)k."
+    },
+    {
+      "id": "DE-COV-6",
+      "category": "covered_expense",
+      "expense": "childcare",
+      "params": {
+        "expense": "childcare"
+      },
+      "summary": "Child care is covered, limited to the deposit plus 2 months of care by a state-approved or licensed provider.",
+      "quote": "l. Child care not to exceed the deposit plus 2 months of care by a state-approved or licensed day care provider.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)l."
+    },
+    {
+      "id": "DE-COV-7",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical"
+      },
+      "summary": "Hospital expenses are a covered loss.",
+      "quote": "q. Hospital expenses.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)q."
+    },
+    {
+      "id": "DE-COV-8",
+      "category": "covered_expense",
+      "expense": "dental",
+      "params": {
+        "expense": "dental"
+      },
+      "summary": "The program page lists dental expenses and prescription medication among covered costs.",
+      "quote": "Compensation is available for payment of medical and dental expenses, mental health counseling, prescription medication, lost wages, funeral/burial support, temporary housing and moving or relocation services, crime related expenses and other costs approved by the Agency.",
+      "source_id": "DE-S2",
+      "pinpoint": "VCAP page, FAQs: Who can get help?"
+    },
+    {
+      "id": "DE-COV-9",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription"
+      },
+      "summary": "The program page lists prescription medication among covered costs.",
+      "quote": "Compensation is available for payment of medical and dental expenses, mental health counseling, prescription medication, lost wages, funeral/burial support, temporary housing and moving or relocation services, crime related expenses and other costs approved by the Agency.",
+      "source_id": "DE-S2",
+      "pinpoint": "VCAP page, FAQs: Who can get help?"
+    },
+    {
+      "id": "DE-COV-10",
+      "category": "covered_expense",
+      "expense": "other",
+      "params": {
+        "expense": "other"
+      },
+      "summary": "Reasonable expenses for attending criminal proceedings as a prosecution witness are covered.",
+      "quote": "m. Reimbursement for reasonable expenses incurred due to attendance at criminal proceedings as a witness for the prosecution.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)m."
+    },
+    {
+      "id": "DE-EXCL-1",
+      "category": "excluded_expense",
+      "expense": "property_replacement",
+      "params": {
+        "item": "property damage"
+      },
+      "summary": "Pecuniary loss does not include property damage, so damaged personal property (for example a phone) is generally not paid. The cost to replace items seized as evidence is the exception.",
+      "quote": "“Pecuniary loss” means any expenses actually and necessarily incurred as a result of personal injury or death resulting from a crime, but does not include property damage.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(10)"
+    },
+    {
+      "id": "DE-EXCL-2",
+      "category": "excluded_expense",
+      "params": {
+        "item": "lost, damaged, or stolen property; pain and suffering"
+      },
+      "summary": "The program will not pay for lost, damaged, or stolen property, or for pain and suffering.",
+      "quote": "You cannot be paid for lost, damaged, or stolen property, or for pain and suffering.",
+      "source_id": "DE-S2",
+      "pinpoint": "VCAP page, FAQs: Are there any limits?"
+    },
+    {
+      "id": "DE-DEAD-1",
+      "category": "filing_deadline",
+      "params": {
+        "years": 1,
+        "from": "crime",
+        "extension": "Agency may grant an extension or waive the deadline when the circumstances make it unreasonable; claims from child sexual assault or abuse may not be barred by a statute of limitations (§ 9009(12))"
+      },
+      "summary": "The claim must be filed within 1 year after the injury, unless the Agency grants an extension or finds the deadline unreasonable in the circumstances.",
+      "quote": "Where the claim has not been filed within 1 year after the personal injury on which the claim in based, unless an extension is granted by the Agency or the Agency, in its discretion, determines that the circumstances render this requirement unreasonable.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9010(a)(4)"
+    },
+    {
+      "id": "DE-REPORT-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "alternatives": [
+          "protective_order",
+          "other"
+        ]
+      },
+      "summary": "The crime must be reported to law enforcement within 72 hours, but this is waived if it was reported to protective services or Family Court, the victim has a protection from abuse order, the victim cooperated with law enforcement or an appropriate government agency in a sexual assault case, or the Agency finds the requirement unreasonable.",
+      "quote": "Where the victim has failed to report the crime to a law-enforcement agency within 72 hours of its occurrence. This requirement is waived in any of the following circumstances: a. The crime has been reported to an appropriate governmental agency, such as child or adult protective services or the Family Court. b. The victim can provide a protection from abuse order. c. The victim has cooperated with law enforcement or an appropriate government agency in cases of crimes involving domestic violence, sexual assault or abuse. d. Where the Agency, in its discretion, determines that the circumstances of the crime or the victim render this requirement unreasonable.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9010(a)(5)"
+    },
+    {
+      "id": "DE-REPORT-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true
+      },
+      "summary": "A claim is denied if the victim refused reasonable cooperation with law enforcement.",
+      "quote": "Where the victim refused to give reasonable cooperation to state or local law-enforcement agencies in their efforts to apprehend or convict the perpetrator of the crime in question.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9010(a)(3)"
+    },
+    {
+      "id": "DE-MIN-1",
+      "category": "minimum_loss",
+      "params": {
+        "amount_cents": 2500,
+        "waived_for": "dire hardship, as determined by the Agency"
+      },
+      "summary": "Claims for less than $25 are not paid, except in cases of dire hardship.",
+      "quote": "Except in cases of dire hardship, as determined by the Agency, there may not be payment of compensation where the claim is for less than $25.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9011(b)"
+    },
+    {
+      "id": "DE-COLL-1",
+      "category": "collateral_source",
+      "params": {},
+      "summary": "The award is the loss minus anything the claimant has received or will receive from other sources, including insurance.",
+      "quote": "If a claim is approved, the award must be the amount of pecuniary loss minus the amount the claimant has received or will receive as indemnification from any other source, including any applicable insurance.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9009(1)"
+    },
+    {
+      "id": "DE-COND-1",
+      "category": "conduct_reduction",
+      "params": {},
+      "summary": "If the victim bears a share of responsibility for the injury, the Agency reduces the award by that share.",
+      "quote": "If the victim bears any share of responsibility that caused injury or death, the Agency shall reduce the amount of compensation in accordance with its assessment of the degree of such responsibility attributable to the victim.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9010(c)"
+    },
+    {
+      "id": "DE-EMERG-1",
+      "category": "emergency_award",
+      "params": {},
+      "summary": "An emergency award is possible only on a showing of dire necessity, requested in writing with the claim form, and not until a police report or other official law enforcement documentation is obtained.",
+      "quote": "The Agency will make an emergency award only upon a showing of dire necessity. The claimant, must, in writing, request an emergency award when submitting his claim form and show just cause as to why such an award should be considered. No such award will be made until the police report or other official documentation from the appropriate law enforcement agency is acquired.",
+      "source_id": "DE-S3",
+      "pinpoint": "1 Del. Admin. Code 301-23.0"
+    },
+    {
+      "id": "DE-CRIME-1",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Covered crimes include offenses with the characteristics of rape, unlawful sexual intercourse, unlawful sexual penetration, or unlawful sexual contact.",
+      "quote": "Any specific offense set forth in Chapter 5 of this title, if the offense was committed after July 1, 1973, and contains the characteristics of murder, rape, unlawful sexual intercourse, unlawful sexual penetration or unlawful sexual contact",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(6)a."
+    },
+    {
+      "id": "DE-CRIME-2",
+      "category": "eligible_crime",
+      "params": {},
+      "summary": "Personal injury includes mental, emotional, or psychological harm and pregnancy resulting from the crime, not only bodily harm.",
+      "quote": "“Personal injury” means bodily harm, mental, emotional or psychological harm, or includes pregnancy resulting from the crime.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9002(12)"
+    },
+    {
+      "id": "DE-RES-1",
+      "category": "residency",
+      "params": {
+        "rule": "Crimes committed in Delaware, regardless of the victim's residency"
+      },
+      "summary": "The program covers everyone, including nonresidents, who is a victim of a crime committed in Delaware.",
+      "quote": "All persons, including nonresidents of Delaware, who are victims of crimes committed on January 1, 1975, or thereafter within this State",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9021(1)"
+    },
+    {
+      "id": "DE-RES-2",
+      "category": "residency",
+      "params": {
+        "rule": "Delaware domiciliaries victimized out of state, only where that state lacks an eligible program with equal benefits"
+      },
+      "summary": "A Delaware domiciliary hurt by a crime in another state may apply if the crime would be compensable in Delaware and that state has no eligible program with equal benefits.",
+      "quote": "A person whose domicile is in Delaware and who is the victim or secondary victim of a crime that occurs in another state, possession, or territory of the United States may make an application for compensation if both of the following are true: a. The crimes would be compensable had they occurred in Delaware. b. The placement of the crime occurred in states, possessions, or territories of the United States not having eligible crime victim compensation programs that provide benefits equal to the benefits provided under this chapter.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9009(9)"
+    },
+    {
+      "id": "DE-SUB-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "900 N. King Street, 4th Floor Wilmington, DE 19801"
+      },
+      "summary": "Mail the claim form to VCAP at 900 N. King Street, 4th Floor, Wilmington, DE 19801.",
+      "quote": "You must submit a claim form to get the process started. Your claim can be submitted in the following ways: Mail: 900 N. King Street, 4th Floor Wilmington, DE 19801",
+      "source_id": "DE-S5",
+      "pinpoint": "VCAP brochure (English), How do I file a claim?"
+    },
+    {
+      "id": "DE-SUB-2",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "(302) 577-1326"
+      },
+      "summary": "Fax the claim form to VCAP at (302) 577-1326.",
+      "quote": "Fax: (302) 577-1326 If you would prefer to apply online, please visit: https://ccvcde.org",
+      "source_id": "DE-S5",
+      "pinpoint": "VCAP brochure (English), How do I file a claim?"
+    },
+    {
+      "id": "DE-SUB-3",
+      "category": "submission",
+      "params": {
+        "method": "online",
+        "target": "https://ccvcde.org"
+      },
+      "summary": "Apply online through the VCAP claim portal at https://ccvcde.org.",
+      "quote": "If you would prefer to apply online, please visit: https://ccvcde.org",
+      "source_id": "DE-S5",
+      "pinpoint": "VCAP brochure (English), How do I file a claim?"
+    },
+    {
+      "id": "DE-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "the program's own claim form, in writing and signed by the claimant"
+      },
+      "summary": "The claim must be filed in writing on VCAP's own claim form and signed by the claimant.",
+      "quote": "All claims filed with the Agency must be in writing on the Agency's provided claim form and signed by the claimant.",
+      "source_id": "DE-S1",
+      "pinpoint": "11 Del. C. § 9012(a)"
+    },
+    {
+      "id": "DE-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "signed subrogation, authorization, and consent agreements that are part of the official claim form"
+      },
+      "summary": "The official claim form includes subrogation, authorization, and consent agreements that must be part of the filing.",
+      "quote": "claims must be filed in the office of VCAP on official forms which include subrogation, authorization, and consent agreements.",
+      "source_id": "DE-S3",
+      "pinpoint": "1 Del. Admin. Code 301-11.1"
+    },
+    {
+      "id": "DE-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "receipts",
+        "note": "documentation (bills, receipts) supporting every loss claimed"
+      },
+      "summary": "Every loss must be backed by documentation before VCAP awards compensation.",
+      "quote": "All losses must be supported by documentation prior to compensation being awarded.",
+      "source_id": "DE-S2",
+      "pinpoint": "Delaware DOJ VCAP page, FAQs, Are there any limits?"
+    },
+    {
+      "id": "DE-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "any further documentation VCAP requests during its investigation, due within 45 days of the request"
+      },
+      "summary": "If VCAP asks for more documentation while investigating, it must be sent within 45 days of the request.",
+      "quote": "If VCAP, in its investigation of a claim, requires further documentation from the claimant, such documentation must be submitted to VCAP no later than 45 days of the date of VCAP's request.",
+      "source_id": "DE-S3",
+      "pinpoint": "1 Del. Admin. Code 301-11.2"
+    },
+    {
+      "id": "DE-DOC-5",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "documentation of temporary housing, rent, security deposit, furniture, or moving costs, within 45 days of VCAP's request"
+      },
+      "summary": "Survivors claiming temporary housing, rent, security deposit, furniture, or moving costs must send documentation within 45 days of VCAP's request.",
+      "quote": "A victim who seeks compensation for temporary housing, rent, security deposit, furniture and/or moving expenses must submit documentation within 45 days of VCAP's request therefor, unless an extension is granted by the Agency.",
+      "source_id": "DE-S3",
+      "pinpoint": "1 Del. Admin. Code 301-11.3"
+    },
+    {
+      "id": "DE-DOC-6",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "proof of a workers' compensation claim, only if the injury happened while working"
+      },
+      "summary": "If the injury happened on the job, the survivor must file a workers' compensation claim and send proof of it before applying to VCAP.",
+      "quote": "If the victim seeks compensation for an injury sustained while in the course and scope of employment, the victim must submit a claim for worker's compensation, and provide documentation thereof, before making application to VCAP for compensation.",
+      "source_id": "DE-S3",
+      "pinpoint": "1 Del. Admin. Code 301-11.4"
+    },
+    {
+      "id": "DE-DOC-7",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "a written request showing just cause, only if asking for an emergency award"
+      },
+      "summary": "To ask for an emergency award, the claimant must request it in writing with the claim form and show just cause.",
+      "quote": "The claimant, must, in writing, request an emergency award when submitting his claim form and show just cause as to why such an award should be considered.",
+      "source_id": "DE-S3",
+      "pinpoint": "1 Del. Admin. Code 301-23.0"
+    },
+    {
+      "id": "DE-TIME-1",
+      "category": "processing_time",
+      "params": {
+        "days": 60
+      },
+      "summary": "A decision on a claim can take up to 60 days, and longer in rare cases.",
+      "quote": "It can take up to 60 days to make a decision on your claim. In rare cases, it can take longer.",
+      "source_id": "DE-S5",
+      "pinpoint": "VCAP brochure (English), What can I expect next?"
+    }
   ],
-  "notes": "Statute text is from the official Delaware Code Online. Counseling: the only counseling limits found are $1,200 per child victim for psychological assessment and short-term counseling under the Child Victim Counseling and Assessment Program (1 Del. Admin. Code 301-26.0, 11 Del. C. § 9024) and a 50-session limit that applies only to reopened claims under § 9009(13); neither is encoded as a general counseling cap. Medical, mental health, and dental providers paid by VCAP must accept the VCAP payment as payment in full and may not bill the victim the balance (Rules 28.1, 29.1, 30.1); VCAP pays 80% of usual and customary charges (Rules 28.2, 29.2, 30.2). The printable application PDF is an image scan with no extractable text, so no rules were drawn from it. No separate SANE or forensic exam payment policy beyond 11 Del. C. § 9023 was located."
- },
- "confidence": "high",
- "researcher_notes": "Sources disagree in a few places and the statute controls: (1) the regulation sets the funeral and burial cap at $5,000 (Rule 25.0) while 11 Del. C. § 9002(10)s. sets $7,500; funeral is not encoded. (2) The program FAQ states the 72-hour police report requirement without exceptions, but § 9010(a)(5) waives it for, among other things, a protection from abuse order or cooperation with law enforcement or an appropriate government agency in sexual assault cases. (3) Rule 13.2 says reconsideration must be requested within 15 days; § 9012(b) says 30 days. (4) The statute measures the filing deadline from the personal injury and Rule 11.1 from the date of the crime; for sexual assault these are normally the same day. Additional sexual-assault-specific provisions: § 9009(11) lets a victim of a crime that occurred before age 18 claim counseling up to the 20th birthday, and that age limit does not apply to sexual assault or abuse; § 9009(12) bars statute of limitations limits on claims from child sexual assault or abuse; § 9010(d) bars denial solely because a child sexual assault victim delayed reporting or applying. Forensic exam payment flows provider to insurance to the fund under § 9023, so insurance_billing is recorded as allowed (the provider must bill insurance) while the survivor owes nothing out of pocket. Reviewer: the brochure lists attorneys fees as not eligible, but 11 Del. C. § 9013 and Rule 19.0 let the Appeals Board award fees for representation before it (up to $1,000 or 15% of the award, whichever is less, in addition to compensation); the statute controls, so the brochure exclusion was replaced by that cap (DE-CAP-6). Housing-related costs (rent, security deposit, furniture) under § 9002(10)h. are capped at 3 times the monthly prospective housing cost, which is not a fixed dollar amount and so is not encoded. Rule 27.1 says life insurance proceeds are not deducted from the award."
+  "coverage": {
+    "found": [
+      "collateral_source",
+      "conduct_reduction",
+      "covered_expense",
+      "eligible_crime",
+      "emergency_award",
+      "exam_no_bill",
+      "exam_payment",
+      "excluded_expense",
+      "expense_cap",
+      "filing_deadline",
+      "minimum_loss",
+      "reporting_requirement",
+      "residency",
+      "total_cap",
+      "submission",
+      "required_document",
+      "processing_time"
+    ],
+    "not_found": [
+      "expense_cap:counseling (no general adult counseling cap found; see notes)",
+      "expense_cap:lost_wages",
+      "expense_cap:transportation",
+      "covered_expense:transportation (no general transportation benefit found outside ambulance transport within the forensic exam and court-attendance expenses)",
+      "expense_cap:medical (no dollar cap; regulations set payment at 80% of usual and customary charges)",
+      "emergency_award amount"
+    ],
+    "notes": "Statute text is from the official Delaware Code Online. Counseling: the only counseling limits found are $1,200 per child victim for psychological assessment and short-term counseling under the Child Victim Counseling and Assessment Program (1 Del. Admin. Code 301-26.0, 11 Del. C. § 9024) and a 50-session limit that applies only to reopened claims under § 9009(13); neither is encoded as a general counseling cap. Medical, mental health, and dental providers paid by VCAP must accept the VCAP payment as payment in full and may not bill the victim the balance (Rules 28.1, 29.1, 30.1); VCAP pays 80% of usual and customary charges (Rules 28.2, 29.2, 30.2). The printable application PDF is an image scan with no extractable text, so no rules were drawn from it. No separate SANE or forensic exam payment policy beyond 11 Del. C. § 9023 was located."
+  },
+  "confidence": "high",
+  "researcher_notes": "Sources disagree in a few places and the statute controls: (1) the regulation sets the funeral and burial cap at $5,000 (Rule 25.0) while 11 Del. C. § 9002(10)s. sets $7,500; funeral is not encoded. (2) The program FAQ states the 72-hour police report requirement without exceptions, but § 9010(a)(5) waives it for, among other things, a protection from abuse order or cooperation with law enforcement or an appropriate government agency in sexual assault cases. (3) Rule 13.2 says reconsideration must be requested within 15 days; § 9012(b) says 30 days. (4) The statute measures the filing deadline from the personal injury and Rule 11.1 from the date of the crime; for sexual assault these are normally the same day. Additional sexual-assault-specific provisions: § 9009(11) lets a victim of a crime that occurred before age 18 claim counseling up to the 20th birthday, and that age limit does not apply to sexual assault or abuse; § 9009(12) bars statute of limitations limits on claims from child sexual assault or abuse; § 9010(d) bars denial solely because a child sexual assault victim delayed reporting or applying. Forensic exam payment flows provider to insurance to the fund under § 9023, so insurance_billing is recorded as allowed (the provider must bill insurance) while the survivor owes nothing out of pocket. Reviewer: the brochure lists attorneys fees as not eligible, but 11 Del. C. § 9013 and Rule 19.0 let the Appeals Board award fees for representation before it (up to $1,000 or 15% of the award, whichever is less, in addition to compensation); the statute controls, so the brochure exclusion was replaced by that cap (DE-CAP-6). Housing-related costs (rent, security deposit, furniture) under § 9002(10)h. are capped at 3 times the monthly prospective housing cost, which is not a fixed dollar amount and so is not encoded. Rule 27.1 says life insurance proceeds are not deducted from the award. Filing info (added Oct 3): the brochure lists mail, fax, and online (https://ccvcde.org) as the ways to submit a claim. Email (VCAP@delaware.gov) appears only as contact info, not as a filing method, so no email submission rule was added. The brochure mailing address reads '900 N. King Street, 4th Floor' while the DOJ page, the online portal (DE-S6), and the claim form header read '900 North King St., Suite 4', both Wilmington, DE 19801; the brochure is the only text source that names it as the place to mail claims, so it is encoded as written and the reviewer may want to confirm. The printable application (DE-S4, title 'DE VCAP CLAIM FORM 12-09', footer 'VCAP Claim Form (1/10)') is a 3-page image scan with no text layer and no AcroForm fields, so nothing is quoted from it; visually it says 'Complete and submit to' the Suite 4 address, asks the applicant to attach any medical bills received, lists the police complaint number, and requires the claimant's signature to be witnessed by an adult over 18 plus a signed HIPAA authorization. Those form items are not encoded because they cannot be verified against extracted text. Processing time comes from the brochure (up to 60 days for a decision); 11 Del. C. § 9012(a) separately says the Agency starts its investigation within 30 days of filing."
 }

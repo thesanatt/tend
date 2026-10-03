@@ -9,7 +9,12 @@
   "application_pdf_url": "https://dcr.hawaii.gov/cvcc/wp-content/uploads/sites/2/2026/06/Compensation_Application_2026-Fillable-06092026.pdf",
   "phone": "808-587-1143",
   "phone_source_id": "HI-S3",
-  "statute_citation": "Haw. Rev. Stat. ch. 351; Haw. Admin. R. ch. 23-605"
+  "statute_citation": "Haw. Rev. Stat. ch. 351; Haw. Admin. R. ch. 23-605",
+  "application_form": {
+   "source_id": "HI-S7",
+   "fillable": true,
+   "field_count": 112
+  }
  },
  "sources": [
   {
@@ -449,6 +454,158 @@
    "quote": "Sessions in which the victim or applicant fails to show up;",
    "source_id": "HI-S5",
    "pinpoint": "Haw. Admin. R. 23-605-10(c)(3)"
+  },
+  {
+   "id": "HI-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victim Compensation Commission 1164 Bishop St, Suite 1530 Honolulu, HI 96813"
+   },
+   "summary": "Mail the printed, signed application to the Crime Victim Compensation Commission at 1164 Bishop St, Suite 1530, Honolulu.",
+   "quote": "Then mail or drop off your completed application to : Crime Victim Compensation Commission 1164 Bishop St, Suite 1530 Honolulu, HI 96813",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, Compensation Application",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=Then%20mail%20or%20drop%20off,Suite%201530%20Honolulu%2C%20HI%2096813"
+  },
+  {
+   "id": "HI-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "Crime Victim Compensation Commission 1164 Bishop St, Suite 1530 Honolulu, HI 96813"
+   },
+   "summary": "The signed application can also be dropped off at the Commission office at 1164 Bishop St, Suite 1530, Honolulu.",
+   "quote": "Then mail or drop off your completed application to : Crime Victim Compensation Commission 1164 Bishop St, Suite 1530 Honolulu, HI 96813",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, Compensation Application",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=Then%20mail%20or%20drop%20off,Suite%201530%20Honolulu%2C%20HI%2096813"
+  },
+  {
+   "id": "HI-SUBMIT-3",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "(808) 587-1146"
+   },
+   "summary": "The application form lists a fax number for submitting it: (808) 587-1146. An original signed application must still be sent when filing electronically.",
+   "quote": "SUBMIT THE ORIGINALLY SIGNED APPLICATION TO: 1164 Bishop Street, Suite 1530 Honolulu, HI 96813 Fax: (808) 587-1146 Email: cvcc@hawaii.rr.com",
+   "source_id": "HI-S7",
+   "pinpoint": "Application Form, page 2, submission block"
+  },
+  {
+   "id": "HI-SUBMIT-4",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "cvcc@hawaii.rr.com"
+   },
+   "summary": "The application form lists an email address for submitting it: cvcc@hawaii.rr.com. An original signed application must still be sent when filing electronically.",
+   "quote": "SUBMIT THE ORIGINALLY SIGNED APPLICATION TO: 1164 Bishop Street, Suite 1530 Honolulu, HI 96813 Fax: (808) 587-1146 Email: cvcc@hawaii.rr.com",
+   "source_id": "HI-S7",
+   "pinpoint": "Application Form, page 2, submission block"
+  },
+  {
+   "id": "HI-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The original application, printed and signed in blue or black ink."
+   },
+   "summary": "Print the completed application and sign it in blue or black ink; the Commission wants the original signed form.",
+   "quote": "Print and sign the completed application using blue or black ink.",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, Compensation Application",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=Print%20and%20sign%20the%20completed,using%20blue%20or%20black%20ink."
+  },
+  {
+   "id": "HI-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "A list of the providers who treated or served the victim."
+   },
+   "summary": "Include a list of the providers who treated you, as supporting documentation.",
+   "quote": "Supporting documentation to substantiate your claim (i.e., list of providers, bills, and/or receipts, if available).",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, Compensation Application",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=Supporting%20documentation%20to%20substantiate%20your,bills%2C%20and%2For%20receipts%2C%20if%20available%29."
+  },
+  {
+   "id": "HI-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Bills, if available. The page says bills, not itemized bills."
+   },
+   "summary": "Include bills for crime-related expenses, if you have them.",
+   "quote": "Supporting documentation to substantiate your claim (i.e., list of providers, bills, and/or receipts, if available).",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, Compensation Application",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=Supporting%20documentation%20to%20substantiate%20your,bills%2C%20and%2For%20receipts%2C%20if%20available%29."
+  },
+  {
+   "id": "HI-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts, if available."
+   },
+   "summary": "Include receipts for anything you already paid, if you have them.",
+   "quote": "Supporting documentation to substantiate your claim (i.e., list of providers, bills, and/or receipts, if available).",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, Compensation Application",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=Supporting%20documentation%20to%20substantiate%20your,bills%2C%20and%2For%20receipts%2C%20if%20available%29."
+  },
+  {
+   "id": "HI-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "Not needed in the packet: the Commission requests the police report from the law enforcement agency. The form asks for the police report number."
+   },
+   "summary": "You do not need to attach the police report; the Commission requests it from the police. Put the report number on the form if you have it.",
+   "quote": "The Commission will request a police report from the reporting law enforcement agency.",
+   "source_id": "HI-S3",
+   "pinpoint": "How to Apply, How will my application be processed by the Commission?",
+   "fragment_url": "https://dcr.hawaii.gov/cvcc/apply-for-compensation/#:~:text=The%20Commission%20will%20request%20a,the%20reporting%20law%20enforcement%20agency."
+  },
+  {
+   "id": "HI-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "If the application was faxed or emailed, the original signed application must also be sent."
+   },
+   "summary": "If you fax or email the application, you must also send the original signed application.",
+   "quote": "In cases where documents have been electronically transmitted, an original signed application shall also be submitted.",
+   "source_id": "HI-S5",
+   "pinpoint": "HAR 23-605-4(b)"
+  },
+  {
+   "id": "HI-DOC-7",
+   "category": "required_document",
+   "expense": "lost_wages",
+   "params": {
+    "document": "medical_records",
+    "note": "For lost wages: a statement from the medical or mental health provider certifying the nature and duration of the disability."
+   },
+   "summary": "For lost wages, your medical or mental health provider must certify the nature and length of the disability.",
+   "quote": "The service provider must certify the nature and duration of disability.",
+   "source_id": "HI-S5",
+   "pinpoint": "HAR 23-605-12(b)"
+  },
+  {
+   "id": "HI-DOC-8",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For a child victim under 18, the parent or legal guardian completes and signs the application."
+   },
+   "summary": "For a victim under 18, a parent or legal guardian must complete and sign the application.",
+   "quote": "APPLICATIONS SUBMITTED FOR CHILD VICTIMS UNDER THE AGE OF 18 MUST BE COMPLETED AND SIGNED BY THE CHILD'S PARENT OR LEGAL GUARDIAN",
+   "source_id": "HI-S7",
+   "pinpoint": "Application Form, page 2, submission block"
   }
  ],
  "coverage": {
@@ -462,7 +619,9 @@
    "eligible_crime",
    "residency",
    "covered_expense",
-   "excluded_expense"
+   "excluded_expense",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "exam_payment",
@@ -475,10 +634,11 @@
    "security",
    "temporary_housing",
    "counseling cap",
-   "lost_wages cap"
+   "lost_wages cap",
+   "processing_time"
   ],
   "notes": "No Hawaii statute was found that says who pays for a sexual assault forensic exam or whether insurance may be billed; the only official statement found is the Attorney General HSART program page saying police are to ensure free exams regardless of reporting. No per-expense caps, minimum loss, or emergency award were found in HRS ch. 351 or HAR ch. 23-605; HAR 23-605-15 says administrative award guidelines may be set by the commission, but none were found published. No police-report alternative for sexual assault was found: HRS 351-31(d) requires an arrest or a police report without undue delay (72 hours under HAR 23-605-2, with a good cause exception). The 18 month filing deadline is stored as params.months because the schema has only years or days."
  },
  "confidence": "medium",
- "researcher_notes": "Statute text is from capitol.hawaii.gov (HRS current). HAR ch. 23-605 is an OCR'd 2001 PDF hosted by the Department of Corrections and Rehabilitation; quotes were taken only from clean stretches, and garbled passages (the four-day lost earnings limit without a medical certificate in 23-605-12(c), and the therapy exclusions in 23-605-10(c)) were left out. HAR 23-605-6(a) limits out-of-state claims by Hawaii residents to states without an eligible compensation program, which HRS 351-31(a) does not say; the statute was used. The CVCC brochure PDF (Compensation_Brochure_2026c.pdf) extracts as font-encoded garbage, so it was not saved or quoted; its deadline sentence could not be read. The $10,000 cap in HRS 351-62(b) is the current statute text as retrieved; the medical-expense exception raises it to at most $20,000. The Acknowledgement Award on the CVCC page cites HRS 351-33(4) (pain and suffering). The Sex Abuse Treatment Center (a Hawaii Pacific Health program, not a state agency) states its medical forensic exam is free; it was not used as a rule source. Reviewer (Oct 3): HI-EXAM-1 rests only on the AG HSART page's description of the police role; a search and a check of Act 113 (2018) and HRS 844D-24 found no Hawaii statute saying who pays for the forensic exam or barring bills to the victim or insurer. The 18 month deadline is stored as params.months (not a schema key); the engine must read it. The 72 hour police-report window is stored without within_days because the source states hours, not days. HAR 23-605-12(c) appears to limit lost earnings to four days without a medical certificate, but the OCR is garbled so it is not quoted."
+ "researcher_notes": "Statute text is from capitol.hawaii.gov (HRS current). HAR ch. 23-605 is an OCR'd 2001 PDF hosted by the Department of Corrections and Rehabilitation; quotes were taken only from clean stretches, and garbled passages (the four-day lost earnings limit without a medical certificate in 23-605-12(c), and the therapy exclusions in 23-605-10(c)) were left out. HAR 23-605-6(a) limits out-of-state claims by Hawaii residents to states without an eligible compensation program, which HRS 351-31(a) does not say; the statute was used. The CVCC brochure PDF (Compensation_Brochure_2026c.pdf) extracts as font-encoded garbage, so it was not saved or quoted; its deadline sentence could not be read. The $10,000 cap in HRS 351-62(b) is the current statute text as retrieved; the medical-expense exception raises it to at most $20,000. The Acknowledgement Award on the CVCC page cites HRS 351-33(4) (pain and suffering). The Sex Abuse Treatment Center (a Hawaii Pacific Health program, not a state agency) states its medical forensic exam is free; it was not used as a rule source. Reviewer (Oct 3): HI-EXAM-1 rests only on the AG HSART page's description of the police role; a search and a check of Act 113 (2018) and HRS 844D-24 found no Hawaii statute saying who pays for the forensic exam or barring bills to the victim or insurer. The 18 month deadline is stored as params.months (not a schema key); the engine must read it. The 72 hour police-report window is stored without within_days because the source states hours, not days. HAR 23-605-12(c) appears to limit lost earnings to four days without a medical certificate, but the OCR is garbled so it is not quoted. How to file (Oct 3): the How to Apply page (HI-S3) says to mail or drop off the signed application at 1164 Bishop St, Suite 1530, Honolulu; the June 2026 fillable English application (HI-S7, still the form linked from that page, 112 AcroForm fields) also lists a fax number and email under 'SUBMIT THE ORIGINALLY SIGNED APPLICATION TO'. HAR 23-605-4(b) says an original signed application must also be submitted when documents are sent electronically, so fax and email do not replace the signed original. No online portal was found. The Commission requests the police report itself, so it is stored as a police_report rule with a note that it does not go in the packet. No processing time is stated: the FAQ (HI-S4) says only that case processing time varies. The supporting documents list on HI-S3 says 'bills', not itemized bills; it is stored as itemized_bill with that note."
 }

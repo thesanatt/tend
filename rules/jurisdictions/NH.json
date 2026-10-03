@@ -9,7 +9,12 @@
     "application_pdf_url": "https://mm.nh.gov/files/uploads/doj/remote-docs/victims-compensation-application-form.pdf",
     "phone": "1-800-300-4500",
     "phone_source_id": "NH-S1",
-    "statute_citation": "RSA 21-M:8-c; RSA 21-M:8-g to 21-M:8-k; N.H. Admin. Rules Jus 600"
+    "statute_citation": "RSA 21-M:8-c; RSA 21-M:8-g to 21-M:8-k; N.H. Admin. Rules Jus 600",
+    "application_form": {
+      "source_id": "NH-S2",
+      "fillable": false,
+      "field_count": 0
+    }
   },
   "sources": [
     {
@@ -570,6 +575,179 @@
       "quote": "an individual who is not a citizen of the United States or who is not a legal alien shall be considered victims eligible for compensation under this section.",
       "source_id": "NH-S5",
       "pinpoint": "RSA 21-M:8-h, I(c)"
+    },
+    {
+      "id": "NH-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "New Hampshire Victims' Compensation Program Department of Justice 33 Capitol Street Concord, N.H. 03301-6397"
+      },
+      "summary": "Mail the completed paper application to the Victims' Compensation Program at the Department of Justice in Concord. This is the return address printed on the application form.",
+      "quote": "Please return completed application to: New Hampshire Victims' Compensation Program Department of Justice 33 Capitol Street Concord, N.H. 03301-6397",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, page 7 (return address)"
+    },
+    {
+      "id": "NH-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "New Hampshire Victims' Compensation Program Department of Justice 1 Granite Place South Concord, NH 03301"
+      },
+      "summary": "The program page lists a newer office address in Concord (Granite Place South). The form still prints the Capitol Street address, so a survivor may want to call the program to confirm which address to use.",
+      "quote": "How To Contact Our Office New Hampshire Victims' Compensation Program Department of Justice 1 Granite Place South Concord, NH 03301",
+      "source_id": "NH-S1",
+      "pinpoint": "Program page, How To Contact Our Office"
+    },
+    {
+      "id": "NH-DOC-1",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Copies of bills from every provider listed (hospital, doctors, dentists, counselors, ambulance, radiology, prescriptions), if available."
+      },
+      "summary": "For medical, dental, or counseling costs, list every provider and enclose copies of their bills if you have them.",
+      "quote": "If applicable, list all providers that provided treatment, including hospital, doctors, dentists, mental health counselors, ambulance, radiology and prescriptions (drugs and eyeglasses). Attach additional sheets if necessary. If available, please enclose copies of bills.",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 6 (Medical/Counseling Information)"
+    },
+    {
+      "id": "NH-DOC-2",
+      "category": "required_document",
+      "expense": "counseling",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Photocopies of all crime-related mental health counseling bills."
+      },
+      "summary": "After the application arrives, the program may ask for photocopies of all crime-related counseling bills.",
+      "quote": "Photocopies of all crime-related mental health counseling bills",
+      "source_id": "NH-S4",
+      "pinpoint": "Jus 604.02(b)(3)"
+    },
+    {
+      "id": "NH-DOC-3",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "other",
+        "note": "A signed HIPAA-compliant hospital and/or medical release so the program can request records and itemized statements from providers."
+      },
+      "summary": "To claim medical or hospital costs, sign a HIPAA-compliant medical release so the program can get itemized statements and records from your providers.",
+      "quote": "If a claimant seeks compensation for medical expenses, the victim or victim's parent or guardian shall complete and submit a HIPAA- compliant hospital and/or medical release.",
+      "source_id": "NH-S4",
+      "pinpoint": "Jus 604.06(a)"
+    },
+    {
+      "id": "NH-DOC-4",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Copies of pay stubs if employed when the crime happened."
+      },
+      "summary": "To claim lost wages, fill in the employment section and send copies of your pay stubs.",
+      "quote": "If yes, complete the following section, and submit copies of your pay stubs.",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 8 (Employment Information)"
+    },
+    {
+      "id": "NH-DOC-5",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "If self-employed, a copy of the tax return for the year before the crime."
+      },
+      "summary": "If you were self-employed, send a copy of your tax return for the year before the crime instead of pay stubs.",
+      "quote": "If you were self-employed at the time of the crime, please submit a copy of your tax return documentation for the year before the crime.",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 8 (Employment Information)"
+    },
+    {
+      "id": "NH-DOC-6",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "other",
+        "note": "A doctor's statement verifying how long you could not work, if you missed more than two weeks."
+      },
+      "summary": "If you missed more than two weeks of work, include a doctor's statement saying how long you were unable to work.",
+      "quote": "If you have missed more than two weeks of work, please provide a doctor's statement verifying length of time you were unable to work.",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 8 (Employment Information)"
+    },
+    {
+      "id": "NH-DOC-7",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "other",
+        "note": "Copies of written appointment confirmations (medical, mental health, police, and other crime-related appointments)."
+      },
+      "summary": "For lost wages, keep and send copies of written confirmations of crime-related appointments such as medical, counseling, and police meetings.",
+      "quote": "Copies of all written confirmations of appointments with medical providers, mental health providers, police and other law-enforcement officials, and any other appointments necessitated as a direct result of the crime.",
+      "source_id": "NH-S4",
+      "pinpoint": "Jus 605.05(b)(5)"
+    },
+    {
+      "id": "NH-DOC-8",
+      "category": "required_document",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Automobile insurance policy declarations page, only if the crime involved a motor vehicle."
+      },
+      "summary": "If the crime involved a motor vehicle, include your auto insurance policy declarations page.",
+      "quote": "Did the crime involve motor vehicles? (If yes, please provide your automobile insurance policy declarations page.)",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 9 (Restitution and Civil Action)"
+    },
+    {
+      "id": "NH-DOC-9",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "A separate sheet explaining any insurance, benefits, or other resources that may cover the expenses, with names, addresses, and phone numbers."
+      },
+      "summary": "If insurance, leave, benefits, restitution, or any other resource might cover part of the costs, explain it on a separate sheet and attach it.",
+      "quote": "please explain in full on a separate piece of paper and attach it to this application.",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 12 (Statement of Facts and Authorization)"
+    },
+    {
+      "id": "NH-DOC-10",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Copies of documents showing you were found ineligible for Medicaid, Medicare, hospital free care, or other public assistance, if you applied."
+      },
+      "summary": "If you applied for Medicaid, Medicare, hospital free care, or public assistance and were turned down, attach copies of the denial documents.",
+      "quote": "attach copies of the documents that show your ineligibility for public assistance.",
+      "source_id": "NH-S2",
+      "pinpoint": "Application, Section 12 (Statement of Facts and Authorization)"
+    },
+    {
+      "id": "NH-PROC-1",
+      "category": "processing_time",
+      "params": {
+        "weeks": 2
+      },
+      "summary": "After the program receives the application, staff will contact the applicant by mail or email within 2 weeks. This is first contact, not a decision.",
+      "quote": "Once the program receives your application, you will be contacted by mail or email within 2 weeks.",
+      "source_id": "NH-S1",
+      "pinpoint": "Program page FAQ, How Long Will It Take?"
+    },
+    {
+      "id": "NH-PROC-2",
+      "category": "processing_time",
+      "params": {
+        "days": 60
+      },
+      "summary": "Once an application is complete, the rules say no more than 60 days should pass before the commission can decide. The program page warns the whole process may take several months or longer while police reports are gathered.",
+      "quote": "In no case shall placement on the agenda result in the passage of more than 60 days after the claimant submitted a completed application before a decision can be made by the commission.",
+      "source_id": "NH-S4",
+      "pinpoint": "Jus 603.03(f)"
     }
   ],
   "coverage": {
@@ -587,7 +765,10 @@
       "conduct_reduction",
       "emergency_award",
       "eligible_crime",
-      "residency"
+      "residency",
+      "submission",
+      "required_document",
+      "processing_time"
     ],
     "not_found": [
       "expense_cap for medical (no separate medical cap found; medical is limited only by the total cap and Medicaid fee-for-service rates)",
@@ -597,5 +778,5 @@
     "notes": "The toll-free number 1-800-300-4500 works in New Hampshire only; out-of-state callers use (603) 271-1284 (both on NH-S1). The brochure PDF linked from the program page is an image-only file with no extractable text, so it was not saved. The total cap differs between sources: RSA 21-M:8-h, V says $50,000 per claimant per incident, while the program page says $40,000 per primary victim; the statute is used."
   },
   "confidence": "high",
-  "researcher_notes": "Statute vs program page: RSA 21-M:8-h, V (most recently amended 2022) sets a $50,000 maximum; the DOJ web page still says $40,000. The rule uses the statute. Reporting: Jus 605.02(c) requires a report within 5 days unless good cause is shown, and the application asks the same; the web FAQ only says to report unless there is a reasonable explanation. Jus 605.13(h) deems a sexual assault survivor who sought the exam or treatment to have reported to law enforcement. Exam billing: RSA 21-M:8-c covers any physical exam of a victim of an alleged sexual offense, while Jus 605.13 uses the words felonious sexual assault. Under Jus 605.13(c)(3), a survivor covered by Medicaid or Medicare whose kit is not anonymous is billed to Medicaid or Medicare by the provider; private insurance is billed only if the survivor chooses, and deductibles and co-pays are paid or reimbursed by the department. Hospital care: Jus 605.03(e)(2)-(3) bars hospital-care awards for an insured victim unless free or reduced-fee care has been denied. Relocation (Jus 605.07) requires a continuing credible threat and either a police report plus restraining order, or an advocate letter, and the move must happen within 6 months of the award. The program page and Jus 606.07 list different mailing addresses (1 Granite Place South vs 33 Capitol Street); the application form uses 33 Capitol Street. Jus 600 was readopted effective 12-9-19 (#12938). Reviewer additions: Jus 605.13(a) exam and treatment no-charge rule, 605.13(a) follow-up care, 605.13(c)(3) Medicaid/Medicare billing exception, 605.13(f) HIV prophylaxis voucher, 605.03(d)(4) replacement of assistive devices such as eyeglasses, and 605.03(e)(2) hospital-care limit for insured victims. Jus 605.13(e): if the exam is sought within 10 days the survivor agrees to evidence collection; an anonymous kit is kept 60 days for the survivor to decide whether to report, then destroyed. The $50,000 statutory cap was rechecked against the current gc.nh.gov text of RSA 21-M:8-h, V."
+  "researcher_notes": "Statute vs program page: RSA 21-M:8-h, V (most recently amended 2022) sets a $50,000 maximum; the DOJ web page still says $40,000. The rule uses the statute. Reporting: Jus 605.02(c) requires a report within 5 days unless good cause is shown, and the application asks the same; the web FAQ only says to report unless there is a reasonable explanation. Jus 605.13(h) deems a sexual assault survivor who sought the exam or treatment to have reported to law enforcement. Exam billing: RSA 21-M:8-c covers any physical exam of a victim of an alleged sexual offense, while Jus 605.13 uses the words felonious sexual assault. Under Jus 605.13(c)(3), a survivor covered by Medicaid or Medicare whose kit is not anonymous is billed to Medicaid or Medicare by the provider; private insurance is billed only if the survivor chooses, and deductibles and co-pays are paid or reimbursed by the department. Hospital care: Jus 605.03(e)(2)-(3) bars hospital-care awards for an insured victim unless free or reduced-fee care has been denied. Relocation (Jus 605.07) requires a continuing credible threat and either a police report plus restraining order, or an advocate letter, and the move must happen within 6 months of the award. The program page and Jus 606.07 list different mailing addresses (1 Granite Place South vs 33 Capitol Street); the application form uses 33 Capitol Street. Jus 600 was readopted effective 12-9-19 (#12938). Reviewer additions: Jus 605.13(a) exam and treatment no-charge rule, 605.13(a) follow-up care, 605.13(c)(3) Medicaid/Medicare billing exception, 605.13(f) HIV prophylaxis voucher, 605.03(d)(4) replacement of assistive devices such as eyeglasses, and 605.03(e)(2) hospital-care limit for insured victims. Jus 605.13(e): if the exam is sought within 10 days the survivor agrees to evidence collection; an anonymous kit is kept 60 days for the survivor to decide whether to report, then destroyed. The $50,000 statutory cap was rechecked against the current gc.nh.gov text of RSA 21-M:8-h, V. How to file: the application (NH-S2, rev. 02/11/2021, the version linked from the program page today; Jus 604.01 still names an older 8/23/19 revision) is a flat PDF with no fillable fields, to be printed, signed, and mailed. The form's only stated filing method is mail to 33 Capitol Street; the program page's contact block lists 1 Granite Place South, so both are kept as mail rules and a survivor should confirm by phone. The program page lists a fax number and the victimcomp@doj.nh.gov email as contact details only; no source says applications may be filed by fax, email, online, or in person, so no rules were added for those methods. Police reports are not a survivor document: program staff request them from law enforcement (NH-S1, Jus 604.04(b)). Processing: first contact within 2 weeks (program page) and a decision no more than 60 days after a completed application reaches the agenda (Jus 603.03(f)); the program page also says it may take several months or longer."
 }

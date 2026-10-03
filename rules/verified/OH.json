@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.ohioattorneygeneral.gov/Files/Individuals-and-Families/Victims/Crime-Victim-Comp-Form.aspx",
   "phone": "614-466-5610",
   "phone_source_id": "OH-S9",
-  "statute_citation": "ORC 2743.51 to 2743.72; ORC 2907.28; OAC 109:7-1-02"
+  "statute_citation": "ORC 2743.51 to 2743.72; ORC 2907.28; OAC 109:7-1-02",
+  "application_form": {
+   "source_id": "OH-S9",
+   "fillable": true,
+   "field_count": 207
+  }
  },
  "sources": [
   {
@@ -131,6 +136,26 @@
    "raw_path": "rules/sources/OH/OH-S15.pdf",
    "text_path": "rules/sources/OH/OH-S15.txt",
    "sha256": "1fd33828433236f565c2c16d7c7f4bafcfd88dc24a5971b62e97e4ae18014fc3"
+  },
+  {
+   "id": "OH-S16",
+   "title": "Ohio Attorney General, Apply for Victims Compensation page",
+   "url": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:36:59Z",
+   "raw_path": "rules/sources/OH/OH-S16.html",
+   "text_path": "rules/sources/OH/OH-S16.txt",
+   "sha256": "275d2d53ad6a0af04224a608bf80617ef62d1461f8a83d8179f36de3fd50f174"
+  },
+  {
+   "id": "OH-S17",
+   "title": "ORC 2743.59 (investigating claim; decision deadline)",
+   "url": "https://codes.ohio.gov/ohio-revised-code/section-2743.59",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T19:37:20Z",
+   "raw_path": "rules/sources/OH/OH-S17.html",
+   "text_path": "rules/sources/OH/OH-S17.txt",
+   "sha256": "d9920eb40230782eed16dede0d81bc43a9ea5f227173fb30a5fa8bccc5ea5e84"
   }
  ],
  "rules": [
@@ -558,6 +583,119 @@
    "source_id": "OH-S1",
    "pinpoint": "ORC 2743.51(A)(2)(a) and (C)(2)",
    "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.51#:~:text=A%20victim%20who%20had%20a,any%20one%20of%20the%20following%3A"
+  },
+  {
+   "id": "OH-SUBMIT-ONLINE",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://cvonlinecompensationapp.ohioattorneygeneral.gov/"
+   },
+   "summary": "Register on the Attorney General's Crime Victim's Compensation Portal and file the claim application online.",
+   "quote": "Register and file a claim application online.",
+   "source_id": "OH-S16",
+   "pinpoint": "AG Apply for Victims Compensation, Two options for filing a claim",
+   "fragment_url": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation#:~:text=Register%20and%20file%20a%20claim%20application%20online."
+  },
+  {
+   "id": "OH-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Crime Victim Services Section 30 E. Broad Street, 26th Floor Columbus, OH 43215"
+   },
+   "summary": "Print the paper application, fill it out, and mail it to the Attorney General's Crime Victim Services Section in Columbus.",
+   "quote": "Download and print an application , fill it out and mail it to Crime Victim Services Section 30 E. Broad Street, 26th Floor Columbus, OH 43215",
+   "source_id": "OH-S16",
+   "pinpoint": "AG Apply for Victims Compensation, Two options for filing a claim",
+   "fragment_url": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation#:~:text=Download%20and%20print%20an%20application,26th%20Floor%20Columbus%2C%20OH%2043215"
+  },
+  {
+   "id": "OH-SUBMIT-FAX",
+   "category": "submission",
+   "params": {
+    "method": "fax",
+    "target": "614-752-2732 or 855-229-0600"
+   },
+   "summary": "The completed paper application can be faxed to either of the Attorney General's fax numbers.",
+   "quote": "or fax it to 614-752-2732 or 855-229-0600.",
+   "source_id": "OH-S16",
+   "pinpoint": "AG Apply for Victims Compensation, Two options for filing a claim",
+   "fragment_url": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation#:~:text=or%20fax%20it%20to%20614%2D752%2D2732%20or%20855%2D229%2D0600."
+  },
+  {
+   "id": "OH-SUBMIT-EMAIL",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "CrimeVictimsCompensationApplications@OhioAGO.gov",
+    "note": "Attach the application as a PDF or Word document; photos or screenshots of the pages are not accepted."
+   },
+   "summary": "New applications can be emailed, but only as a PDF or Word attachment; photos or screenshots of the pages are rejected.",
+   "quote": "New applications can also be emailed to CrimeVictimsCompensationApplications@OhioAGO.gov but they must be attached as a PDF or Word document . No photos or screenshots of the pages will be accepted.",
+   "source_id": "OH-S16",
+   "pinpoint": "AG Apply for Victims Compensation, Two options for filing a claim",
+   "fragment_url": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation#:~:text=New%20applications%20can%20also%20be,the%20pages%20will%20be%20accepted."
+  },
+  {
+   "id": "OH-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Only when claiming lost wages: copies of the 6 paychecks before the crime."
+   },
+   "summary": "If claiming lost wages, include copies of the 6 paychecks from before the crime.",
+   "quote": "Complete if filing for loss of earnings. Provide copies of 6 paychecks prior to crime.",
+   "source_id": "OH-S9",
+   "pinpoint": "Application, Section 7: Employment Information"
+  },
+  {
+   "id": "OH-DOC-INSCARD",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Front and back copy of each insurance or benefit card listed in Section 6."
+   },
+   "summary": "Send a front and back copy of each insurance or benefit plan card listed on the application.",
+   "quote": "Please send front and back copy of card",
+   "source_id": "OH-S9",
+   "pinpoint": "Application, Section 6: Insurance and Benefit Information"
+  },
+  {
+   "id": "OH-DOC-RELEASE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "The signed and dated release in Section 12 of the application; the two medical record authorizations follow it in the PDF."
+   },
+   "summary": "The release in the application must be signed and dated, or the application will not be processed.",
+   "quote": "This release must be signed and dated for the application to be processed.",
+   "source_id": "OH-S9",
+   "pinpoint": "Application, Section 12: Subrogation, Authorization, and Signature"
+  },
+  {
+   "id": "OH-DOC-DEATH",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Only for funeral expense claims: a copy of the death certificate if the applicant has one."
+   },
+   "summary": "For funeral expense claims, include a copy of the death certificate if you have one.",
+   "quote": "If you have a copy of the death certificate, please include a copy with your application.",
+   "source_id": "OH-S9",
+   "pinpoint": "Application, Section 8: Funeral Expenses"
+  },
+  {
+   "id": "OH-TIME-1",
+   "category": "processing_time",
+   "params": {
+    "days": 120
+   },
+   "summary": "The Attorney General must issue a written decision within 120 days after receiving the application, but may extend that limit with written reasons.",
+   "quote": "The attorney general shall make a written finding of fact and decision in accordance with sections 2743.51 to 2743.72 of the Revised Code within one hundred twenty days after receiving the claim application.",
+   "source_id": "OH-S17",
+   "pinpoint": "ORC 2743.59(E)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.59#:~:text=The%20attorney%20general%20shall%20make,after%20receiving%20the%20claim%20application."
   }
  ],
  "coverage": {
@@ -575,7 +713,10 @@
    "minimum_loss",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document",
+   "processing_time"
   ],
   "not_found": [
    "relocation",
@@ -590,5 +731,5 @@
   "notes": "No statute, rule, or official page I could save sets a weekly wage cap, a per-session counseling cap for the victim, or any relocation, housing, or transportation benefit. The application lists 'Mileage' as a checkbox but I found no rule text describing it. Security repairs are covered only as part of crime scene cleanup (ORC 2743.51(T)(2), $750 per claim). The statute requires that the crime was reported to law enforcement at some point and lists no alternative (forensic exam, advocate, protective order) for sexual assault. The Attorney General's HTML program pages (Apply for Victims Compensation, SAFE Program) could not be saved by the fetch tool, so the application PDF and brochure stand in for them."
  },
  "confidence": "high",
- "researcher_notes": "Statutes are from codes.ohio.gov (ORC 2743.51, 2743.56, 2743.60 effective March 2, 2022 after S.B. 36). Disagreements: the AG brochure 'Crime Can Be Costly' (OH-S15, undated) says family counseling is capped at $2,500 per person or $7,500 per family, but ORC 2743.60(H) caps an (L)(2) immediate-family claimant at $5,000; I used the statute. The Court of Claims FAQ (OH-S12) still says certain serious criminal history disqualifies, but the AG's own Apply for Victims Compensation page (read during research but not savable with the fetch tool) says that as of March 2, 2022 criminal backgrounds are no longer disqualifiers, matching the amended ORC 2743.60. Exam billing: per the AG SAFE instructions (OH-S14), emergency contraception, pain medication, and treatment of injuries beyond the forensic exam may be billed to the patient or insurer; those costs can then be claimed as medical expenses. Ohio health care providers must report a sexual assault to police under ORC 2921.22 (an adult may stay unnamed), per OH-S14; I did not find authority saying that provider report satisfies the compensation reporting rule, so Tend should not assume it does. ORC 2743.521(B) (OH-S11) bars a medical provider that accepts payment through an award from billing the victim for those expenses. The application PDF lists phone 614-466-5610 and toll-free 877-584-2846 (877-5VICTIM); the OVC directory lists 614-466-5610. Reviewer: added OH-EXAM-5 to 7 and OH-CAP-6 from sources already saved. The free exam is limited to evidence collection: for adults the SAFE table makes procedures billable to the patient when the last incident was more than 96 hours earlier (absent documented extenuating circumstances), and with other injuries the ED level charge, physician charges, labs, scans, and HIV prophylaxis are listed as billable to the patient. OAC 109:7-1-02(C) lets the Attorney General raise the $632 and $2,500 amounts for inflation; the SAFE instructions still state $632, so I kept it, but the current figure could be higher. ORC 2743.60(F) and (I) also bar awards for crimes against adults while serving a prison sentence and suspend payment while a victim is incarcerated; there is no schema category for these."
+ "researcher_notes": "Statutes are from codes.ohio.gov (ORC 2743.51, 2743.56, 2743.60 effective March 2, 2022 after S.B. 36). Disagreements: the AG brochure 'Crime Can Be Costly' (OH-S15, undated) says family counseling is capped at $2,500 per person or $7,500 per family, but ORC 2743.60(H) caps an (L)(2) immediate-family claimant at $5,000; I used the statute. The Court of Claims FAQ (OH-S12) still says certain serious criminal history disqualifies, but the AG's own Apply for Victims Compensation page (read during research but not savable with the fetch tool) says that as of March 2, 2022 criminal backgrounds are no longer disqualifiers, matching the amended ORC 2743.60. Exam billing: per the AG SAFE instructions (OH-S14), emergency contraception, pain medication, and treatment of injuries beyond the forensic exam may be billed to the patient or insurer; those costs can then be claimed as medical expenses. Ohio health care providers must report a sexual assault to police under ORC 2921.22 (an adult may stay unnamed), per OH-S14; I did not find authority saying that provider report satisfies the compensation reporting rule, so Tend should not assume it does. ORC 2743.521(B) (OH-S11) bars a medical provider that accepts payment through an award from billing the victim for those expenses. The application PDF lists phone 614-466-5610 and toll-free 877-584-2846 (877-5VICTIM); the OVC directory lists 614-466-5610. Reviewer: added OH-EXAM-5 to 7 and OH-CAP-6 from sources already saved. The free exam is limited to evidence collection: for adults the SAFE table makes procedures billable to the patient when the last incident was more than 96 hours earlier (absent documented extenuating circumstances), and with other injuries the ED level charge, physician charges, labs, scans, and HIV prophylaxis are listed as billable to the patient. OAC 109:7-1-02(C) lets the Attorney General raise the $632 and $2,500 amounts for inflation; the SAFE instructions still state $632, so I kept it, but the current figure could be higher. ORC 2743.60(F) and (I) also bar awards for crimes against adults while serving a prison sentence and suspend payment while a victim is incarcerated; there is no schema category for these. How to file (added Oct 3): the AG Apply for Victims Compensation page (OH-S16) lists online filing, mail, fax, and email. The fetch tool rejected that page as blocked because the site is ASP.NET and wraps all content in one <form>, which the tool strips; I saved the same Chrome snapshot with the tool's text extraction minus the form removal, so OH-S16.txt is that page's text. The online target is the 'Register and file' link in the saved HTML. ORC 2743.56(A) (OH-S4) says a mailed application counts as filed on its postmark date. The application PDF (OH-S9, same URL the Apply page links, modified June 2026) has 207 AcroForm fields. It asks for copies of 6 paychecks for lost wages, front and back of insurance cards, a death certificate for funeral claims, and a signed release; it does not tell applicants to attach bills, receipts, or a police report, so I did not add those. ORC 2743.59(E) (OH-S17) sets the 120-day decision limit, which the AG can extend in writing; no AG page states a typical processing time. A separate supplemental application exists for later expenses and was not saved."
 }

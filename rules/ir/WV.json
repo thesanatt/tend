@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.wvlegislature.gov/Joint/Victims/crime_victim_application.pdf",
   "phone": "304-347-4850",
   "phone_source_id": "WV-S8",
-  "statute_citation": "W. Va. Code 14-2A-1 to 14-2A-29; forensic exam payment at W. Va. Code 61-8B-16"
+  "statute_citation": "W. Va. Code 14-2A-1 to 14-2A-29; forensic exam payment at W. Va. Code 61-8B-16",
+  "application_form": {
+   "source_id": "WV-S11",
+   "fillable": false,
+   "field_count": 0
+  }
  },
- "source_sha256": "07ad2a9c278735294331cf7b9d6230db29fcc8aaf64c206d7b94e03991073a87",
+ "source_sha256": "e40d26bb5c489e156551428e6920ea54f20941e15dbddbd48400d9f59a7c51ef",
  "rules": [
   {
    "id": "WV-EXAM-1",
@@ -133,6 +138,46 @@
    "id": "WV-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "WV-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WV-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WV-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "WV-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

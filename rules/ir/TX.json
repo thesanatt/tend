@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.texasattorneygeneral.gov/sites/default/files/files/divisions/crime-victims/Printed%20CVC%20Application.pdf",
   "phone": "800-983-9933",
   "phone_source_id": "TX-S4",
-  "statute_citation": "Tex. Code Crim. Proc. ch. 56B; forensic exams under ch. 56A, subch. G (arts. 56A.301 to 56A.309); 1 Tex. Admin. Code ch. 61"
+  "statute_citation": "Tex. Code Crim. Proc. ch. 56B; forensic exams under ch. 56A, subch. G (arts. 56A.301 to 56A.309); 1 Tex. Admin. Code ch. 61",
+  "application_form": {
+   "source_id": "TX-S16",
+   "fillable": true,
+   "field_count": 245
+  }
  },
- "source_sha256": "4bf4e0043ed3468eecd5548da003397962c20a06d04bb075fdec111d04c5ca48",
+ "source_sha256": "8db36217f481a03a88f4213cb7a6a4efea4bf3a1455c3993fe1c778e45605c63",
  "rules": [
   {
    "id": "TX-EXAM-1",
@@ -178,6 +183,61 @@
    "id": "TX-RES-1",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "TX-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "TX-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "TX-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TX-DOC-9",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [

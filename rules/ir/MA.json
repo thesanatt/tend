@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.mass.gov/doc/victim-compensation-application-english/download",
   "phone": "617-586-1340",
   "phone_source_id": "MA-S1",
-  "statute_citation": "M.G.L. c. 258C, ss. 1 to 14; 124 CMR 2.00"
+  "statute_citation": "M.G.L. c. 258C, ss. 1 to 14; 124 CMR 2.00",
+  "application_form": {
+   "source_id": "MA-S4",
+   "fillable": true,
+   "field_count": 107
+  }
  },
- "source_sha256": "14ad9702f2cbf0f56666e3fb858d1c5a7a481172ebd8b6202470e892cfe4f785",
+ "source_sha256": "953e2a144db5e3cf6200b34e1d2f226e3bcc75257d698b4335efc19e4edd289d",
  "rules": [
   {
    "id": "MA-EXAM-1",
@@ -242,6 +247,51 @@
    "id": "MA-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "MA-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MA-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MA-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MA-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MA-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

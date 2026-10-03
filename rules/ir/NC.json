@@ -10,9 +10,14 @@
   "application_pdf_url": "https://www.ncdps.gov/division/victim-compensation-services/victim-compensation-application-english/download?attachment",
   "phone": "800-826-6200",
   "phone_source_id": "NC-S6",
-  "statute_citation": "N.C. Gen. Stat. 15B-1 to 15B-26; forensic exams: N.C. Gen. Stat. 143B-1200"
+  "statute_citation": "N.C. Gen. Stat. 15B-1 to 15B-26; forensic exams: N.C. Gen. Stat. 143B-1200",
+  "application_form": {
+   "source_id": "NC-S8",
+   "fillable": true,
+   "field_count": 116
+  }
  },
- "source_sha256": "1762e2933d53b81046d4bf6a2f4501f4fea294bf3f66ab1d0a01e5383504329d",
+ "source_sha256": "1b0b90e10653692ddfcc0101bb3bfd04df987a96cf9299a9fe0feb586c011071",
  "rules": [
   {
    "id": "NC-EXAM-1",
@@ -160,6 +165,61 @@
    "id": "NC-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "NC-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NC-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NC-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NC-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
   }
  ],
  "skipped": []

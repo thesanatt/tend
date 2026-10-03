@@ -1,605 +1,757 @@
 {
-  "jurisdiction": "MD",
-  "name": "Maryland",
-  "program": {
-    "program_name": "Criminal Injuries Compensation Board (CICB)",
-    "agency": "Governor's Office of Crime Prevention and Policy, Criminal Injuries Compensation Board",
-    "website": "https://gocpp.maryland.gov/victim-services/cicb/",
-    "apply_url": "https://gocpp.maryland.gov/victim-services/cicb/",
-    "application_pdf_url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
-    "phone": "410-585-3010",
-    "phone_source_id": "MD-S9",
-    "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007"
+ "jurisdiction": "MD",
+ "name": "Maryland",
+ "program": {
+  "program_name": "Criminal Injuries Compensation Board (CICB)",
+  "agency": "Governor's Office of Crime Prevention and Policy, Criminal Injuries Compensation Board",
+  "website": "https://gocpp.maryland.gov/victim-services/cicb/",
+  "apply_url": "https://gocpp.maryland.gov/victim-services/cicb/",
+  "application_pdf_url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
+  "phone": "410-585-3010",
+  "phone_source_id": "MD-S9",
+  "statute_citation": "Md. Code, Crim. Proc. 11-801 to 11-819; exam payment at 11-1007",
+  "application_form": {
+   "source_id": "MD-S9",
+   "fillable": true,
+   "field_count": 135
+  }
+ },
+ "sources": [
+  {
+   "id": "MD-S1",
+   "title": "Md. Code, Criminal Procedure 11-801 (definitions)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-801&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:56Z",
+   "raw_path": "rules/sources/MD/MD-S1.html",
+   "text_path": "rules/sources/MD/MD-S1.txt",
+   "sha256": "fde6106151f644e9529647236ba8d24d24d8f9bd10ffaf568da28e7b8c749937"
   },
-  "sources": [
-    {
-      "id": "MD-S1",
-      "title": "Md. Code, Criminal Procedure 11-801 (definitions)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-801&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:56Z",
-      "raw_path": "rules/sources/MD/MD-S1.html",
-      "text_path": "rules/sources/MD/MD-S1.txt",
-      "sha256": "fde6106151f644e9529647236ba8d24d24d8f9bd10ffaf568da28e7b8c749937"
-    },
-    {
-      "id": "MD-S2",
-      "title": "Md. Code, Criminal Procedure 11-808 (eligibility)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-808&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:56Z",
-      "raw_path": "rules/sources/MD/MD-S2.html",
-      "text_path": "rules/sources/MD/MD-S2.txt",
-      "sha256": "a51f297b1f892e371e98180492ffef0885be318f0af7140f375378b432519161"
-    },
-    {
-      "id": "MD-S3",
-      "title": "Md. Code, Criminal Procedure 11-809 (filing claims)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-809&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:57Z",
-      "raw_path": "rules/sources/MD/MD-S3.html",
-      "text_path": "rules/sources/MD/MD-S3.txt",
-      "sha256": "0ce3ddc6d67218abdfd0216ae318e1821fd4c461088eb83d9ec017c7c7fac968"
-    },
-    {
-      "id": "MD-S4",
-      "title": "Md. Code, Criminal Procedure 11-810 (conditions for awards)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-810&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:57Z",
-      "raw_path": "rules/sources/MD/MD-S4.html",
-      "text_path": "rules/sources/MD/MD-S4.txt",
-      "sha256": "208d4dacd5c9436945a1fe138f382b57ed0357a93bb71d8e65e388d356e06587"
-    },
-    {
-      "id": "MD-S5",
-      "title": "Md. Code, Criminal Procedure 11-811 (amount of award)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-811&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:58Z",
-      "raw_path": "rules/sources/MD/MD-S5.html",
-      "text_path": "rules/sources/MD/MD-S5.txt",
-      "sha256": "34c79881955e61ed31a9f341d644f52c1289d0b4007c388f4859638d83f2529a"
-    },
-    {
-      "id": "MD-S6",
-      "title": "Md. Code, Criminal Procedure 11-813 (emergency awards)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-813&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:58Z",
-      "raw_path": "rules/sources/MD/MD-S6.html",
-      "text_path": "rules/sources/MD/MD-S6.txt",
-      "sha256": "0786a01e3635ad6ed4482ff71033cb7477d773e3df77a03df2fee45e480b5085"
-    },
-    {
-      "id": "MD-S7",
-      "title": "Md. Code, Criminal Procedure 11-1007 (sexual assault exam payment)",
-      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-1007&enactments=false",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:47:59Z",
-      "raw_path": "rules/sources/MD/MD-S7.html",
-      "text_path": "rules/sources/MD/MD-S7.txt",
-      "sha256": "4e814fe79bb9631651bc965ed01a045449a11237ddf723b8e10c3c2054642764"
-    },
-    {
-      "id": "MD-S8",
-      "title": "GOCPP: Criminal Injuries Compensation Board program page and FAQ",
-      "url": "https://gocpp.maryland.gov/victim-services/cicb/",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:48:25Z",
-      "raw_path": "rules/sources/MD/MD-S8.html",
-      "text_path": "rules/sources/MD/MD-S8.txt",
-      "sha256": "29595d7d9e863cb728e181179b2c38d7d252721c46bd927f49c76cc342f4b439"
-    },
-    {
-      "id": "MD-S9",
-      "title": "CICB Application for Crime Victim Compensation with instructions (rev. Nov 2021)",
-      "url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
-      "kind": "application_form",
-      "retrieved_at": "2026-10-03T18:48:26Z",
-      "raw_path": "rules/sources/MD/MD-S9.pdf",
-      "text_path": "rules/sources/MD/MD-S9.txt",
-      "sha256": "bca1f7372c3b443a6b44574012bb0fd6b03a377b0d264c725665d4618a1e0a8d"
-    },
-    {
-      "id": "MD-S10",
-      "title": "GOCPP: Sexual Assault Reimbursement Unit page and FAQ",
-      "url": "https://gocpp.maryland.gov/victim-services/saru/",
-      "kind": "agency_page",
-      "retrieved_at": "2026-10-03T18:48:33Z",
-      "raw_path": "rules/sources/MD/MD-S10.html",
-      "text_path": "rules/sources/MD/MD-S10.txt",
-      "sha256": "26215c9160f1b36b7f8eb2ee028c4edd4d9d9ab7ad007b5116f153ce638c0fba"
-    },
-    {
-      "id": "MD-S11",
-      "title": "COMAR 12.01 Criminal Injuries Compensation Board regulations",
-      "url": "https://regs.maryland.gov/us/md/exec/comar/12.01/index.full.html",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:49:07Z",
-      "raw_path": "rules/sources/MD/MD-S11.html",
-      "text_path": "rules/sources/MD/MD-S11.txt",
-      "sha256": "11aed83089a0a64acb731d0dc652e8857335c3d0ecf34dd85e692bada1580786"
-    },
-    {
-      "id": "MD-S12",
-      "title": "2024 Md. Laws Ch. 705 (HB 575, Victim Compensation Reform Act)",
-      "url": "https://mgaleg.maryland.gov/2024rs/Chapters_noln/CH_705_hb0575t.pdf",
-      "kind": "statute",
-      "retrieved_at": "2026-10-03T18:49:23Z",
-      "raw_path": "rules/sources/MD/MD-S12.pdf",
-      "text_path": "rules/sources/MD/MD-S12.txt",
-      "sha256": "b230e6c46c1763df7aecb0c710806cba3258c407517c891b37bc2dbca280a574"
-    },
-    {
-      "id": "MD-S13",
-      "title": "COMAR 10.12.02 Rape and Sexual Offenses: Physician and Hospital Charges (within COMAR 10.12 full text)",
-      "url": "https://regs.maryland.gov/us/md/exec/comar/10.12/index.full.html",
-      "kind": "regulation",
-      "retrieved_at": "2026-10-03T18:55:05Z",
-      "raw_path": "rules/sources/MD/MD-S13.html",
-      "text_path": "rules/sources/MD/MD-S13.txt",
-      "sha256": "a1c2c05865b2d26153d4199235b03fb96434c9673a71e5a1e775ac44a635ac8a"
-    }
-  ],
-  "rules": [
-    {
-      "id": "MD-EXAM-1",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "When a physician, qualified provider, or hospital gives a rape or sexual offense victim a forensic exam or the related emergency care listed in the statute, the services must be free to the survivor. The statute itself does not mention insurance; the exam billing regulation does.",
-      "quote": "the services shall be provided without charge to the individual",
-      "source_id": "MD-S7",
-      "pinpoint": "Md. Code, Crim. Proc. 11-1007(b)(1)"
-    },
-    {
-      "id": "MD-EXAM-2",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
-      },
-      "summary": "The provider is paid by the Governor's Office of Crime Prevention and Policy (its Sexual Assault Reimbursement Unit), not by the survivor.",
-      "quote": "is entitled to be paid by the Governor's Office of Crime Prevention and Policy for the costs of providing the services",
-      "source_id": "MD-S7",
-      "pinpoint": "Md. Code, Crim. Proc. 11-1007(b)(2)(i)"
-    },
-    {
-      "id": "MD-EXAM-3",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
-      },
-      "summary": "The free-exam rule covers a forensic exam done within 15 days of the assault (or longer if regulation allows) and emergency hospital treatment plus follow-up testing for up to 90 days after the exam.",
-      "quote": "a physical and sexual assault forensic examination to gather information and evidence as to an alleged crime when the examination is conducted within 15 days of the alleged crime or a longer period as provided by regulation; (2) emergency hospital treatment and follow-up medical testing for up to 90 days after the initial physical examination",
-      "source_id": "MD-S7",
-      "pinpoint": "Md. Code, Crim. Proc. 11-1007(c)(1)-(2)"
-    },
-    {
-      "id": "MD-EXAM-4",
-      "category": "exam_payment",
-      "expense": "forensic_exam",
-      "params": {
-        "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
-      },
-      "summary": "The state's reimbursement unit says the forensic exam is covered whether or not the survivor reports to police.",
-      "quote": "Yes, any victim of sexual assault or rape is entitled to a forensic medical examination regardless of their decision to report sexual assault to police.",
-      "source_id": "MD-S10",
-      "pinpoint": "SARU FAQ question 6"
-    },
-    {
-      "id": "MD-EXAM-5",
-      "category": "exam_no_bill",
-      "expense": "forensic_exam",
-      "params": {
-        "insurance_billing": "prohibited"
-      },
-      "summary": "A provider may not bill the survivor, the survivor's family, or the survivor's private insurance for any difference between its charges and the state's payment, and must take the state's payment as payment in full.",
-      "quote": "May not bill a victim of an alleged rape, sexual offense, or child sexual abuse, or the victim's family or private insurance, for any difference between charges and Department reimbursement; and (3) Shall accept the Department's reimbursement as payment in full.",
-      "source_id": "MD-S13",
-      "pinpoint": "COMAR 10.12.02.05A(2)-(3)"
-    },
-    {
-      "id": "MD-CAP-1",
-      "category": "total_cap",
-      "params": {
-        "amount_cents": 4500000
-      },
-      "summary": "Total compensation is capped at $45,000, including later and supplemental awards. A victim with permanent total disability can get an additional disability award on top of this total.",
-      "quote": "a total of $45,000, including any subsequent and supplemental awards",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(4)"
-    },
-    {
-      "id": "MD-CAP-2",
-      "category": "expense_cap",
-      "expense": "medical",
-      "params": {
-        "expense": "medical",
-        "amount_cents": 4500000,
-        "per": "claim"
-      },
-      "summary": "Medical claims are capped at $45,000.",
-      "quote": "$45,000 for a medical claim",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(2)"
-    },
-    {
-      "id": "MD-CAP-3",
-      "category": "expense_cap",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling",
-        "amount_cents": 4500000,
-        "per": "claim"
-      },
-      "summary": "Counseling for a person eligible because of psychological injury is capped at $45,000 per claimant.",
-      "quote": "$45,000 for each claimant for psychiatric, psychological, or mental health counseling under subsection (a)(5) of this section",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(3)"
-    },
-    {
-      "id": "MD-COV-10",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling",
-        "applies_to": "household family members of an injured victim (parent, child, domestic partner, dependent, or spouse living with the victim), not the victim"
-      },
-      "summary": "Household family members of an injured victim can get their own counseling, capped at $10,000 per claimant and $20,000 per incident. This cap is for those family members, not for the victim's own counseling.",
-      "quote": "for an award for psychiatric, psychological, or mental health counseling made under subsection (a)(6) of this section: (i) $10,000 for each claimant; and (ii) $20,000 for each incident",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(6), (b)(6)"
-    },
-    {
-      "id": "MD-CAP-5",
-      "category": "expense_cap",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages",
-        "amount_cents": 2500000,
-        "per": "claim"
-      },
-      "summary": "Disability-related claims, which is how Maryland pays lost earnings after an injury, are capped at $25,000, with up to another $25,000 for permanent total disability.",
-      "quote": "for a disability-related or dependency-related claim: (i) except as provided in item (ii) of this paragraph, $25,000",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(1)"
-    },
-    {
-      "id": "MD-CAP-6",
-      "category": "expense_cap",
-      "expense": "property_replacement",
-      "params": {
-        "expense": "property_replacement",
-        "amount_cents": 200000,
-        "per": "claim"
-      },
-      "summary": "Repairing, replacing, or cleaning property damaged by the crime or by the police investigation, including replacing locks, is capped at $2,000 per claimant.",
-      "quote": "$2,000 for each claimant for repair, replacement, or cleaning of property damaged, soiled, or littered as a result of a crime or law enforcement investigation of a crime, including the cost of replacing locks",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(5)"
-    },
-    {
-      "id": "MD-CAP-7",
-      "category": "expense_cap",
-      "expense": "funeral",
-      "params": {
-        "expense": "funeral",
-        "amount_cents": 1000000,
-        "per": "claim"
-      },
-      "summary": "Funeral expenses are capped at $10,000.",
-      "quote": "An award for funeral expenses may not exceed $10,000.",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(4)"
-    },
-    {
-      "id": "MD-COV-1",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "Medical care and medical supplies count as covered losses.",
-      "quote": "medical care, including the cost of medical supplies",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(i)"
-    },
-    {
-      "id": "MD-COV-2",
-      "category": "covered_expense",
-      "expense": "counseling",
-      "params": {
-        "expense": "counseling"
-      },
-      "summary": "Mental health counseling counts as a covered loss.",
-      "quote": "mental health counseling;",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(iii)"
-    },
-    {
-      "id": "MD-COV-3",
-      "category": "covered_expense",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages"
-      },
-      "summary": "Lost earnings are covered at up to two-thirds of the victim's gross average wage.",
-      "quote": "An award for loss of earnings or support made under this subtitle may be up to two-thirds of the victim's gross average wage",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(2)"
-    },
-    {
-      "id": "MD-COV-11",
-      "category": "covered_expense",
-      "expense": "lost_wages",
-      "params": {
-        "expense": "lost_wages",
-        "applies_to": "parent or guardian living with a child victim"
-      },
-      "summary": "A parent or guardian who lives with a child victim can get up to 30 days of lost earnings for time spent caring for the child.",
-      "quote": "The parent or guardian of a victim who is a child and who resides with the victim may be eligible for an award of up to 30 days of lost earnings as a result of caring for the victim.",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(3)"
-    },
-    {
-      "id": "MD-COV-4",
-      "category": "covered_expense",
-      "expense": "relocation",
-      "params": {
-        "expense": "relocation"
-      },
-      "summary": "A one-time relocation, including a security deposit, counts as a covered loss. No dollar cap for relocation was found in the statute.",
-      "quote": "the costs of one-time relocation, including any security deposit",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(vii)"
-    },
-    {
-      "id": "MD-COV-5",
-      "category": "covered_expense",
-      "expense": "transportation",
-      "params": {
-        "expense": "transportation"
-      },
-      "summary": "Travel costs to get medical or psychological care count as covered losses.",
-      "quote": "transportation costs incurred by travel to seek medical or psychological care",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(ix)"
-    },
-    {
-      "id": "MD-COV-6",
-      "category": "covered_expense",
-      "expense": "childcare",
-      "params": {
-        "expense": "childcare"
-      },
-      "summary": "Child care needed while seeking medical or psychological care counts as a covered loss.",
-      "quote": "child care expenses incurred as a result of seeking medical or psychological care",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(viii)"
-    },
-    {
-      "id": "MD-COV-7",
-      "category": "covered_expense",
-      "expense": "property_replacement",
-      "params": {
-        "expense": "property_replacement"
-      },
-      "summary": "Repairing, replacing, or cleaning property counts as a covered loss, subject to the separate property cap.",
-      "quote": "repairing, replacing, or cleaning property;",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(v)"
-    },
-    {
-      "id": "MD-COV-8",
-      "category": "covered_expense",
-      "expense": "security",
-      "params": {
-        "expense": "security"
-      },
-      "summary": "Replacing locks is covered inside the property cap.",
-      "quote": "including the cost of replacing locks",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(5)"
-    },
-    {
-      "id": "MD-COV-9",
-      "category": "covered_expense",
-      "expense": "medical",
-      "params": {
-        "expense": "medical"
-      },
-      "summary": "Eyeglasses and other corrective lenses count as covered losses.",
-      "quote": "expenses for eyeglasses and other corrective lenses",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(ii)"
-    },
-    {
-      "id": "MD-DEADLINE-1",
-      "category": "filing_deadline",
-      "params": {
-        "years": 4,
-        "from": "discovery",
-        "extension": "Child abuse claims can be filed at any time; claims delayed by DNA testing of a sexual assault kit run from notification of the results; the Board can accept late claims for good cause."
-      },
-      "summary": "A claim must be filed within 4 years after the crime is discovered (or a later trigger tied to an attempt to reverse a conviction).",
-      "quote": "a claimant shall file a claim within 4 years after the later of: (i) the discovery of the occurrence of the crime or delinquent act or the death of the victim",
-      "source_id": "MD-S3",
-      "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(1)"
-    },
-    {
-      "id": "MD-DEADLINE-2",
-      "category": "filing_deadline",
-      "params": {
-        "years": 4,
-        "extension": "Runs from notification of DNA testing or profile-matching results."
-      },
-      "summary": "If filing was delayed because of a delay in testing a sexual assault kit or matching a DNA profile, the 4 years run from notification of the results.",
-      "quote": "In a case where the filing of a claim was delayed as the result of a delay in the testing of DNA or a delay in DNA profile matching from a sexual assault forensic examination kit or biological material related to a sexual offense, a claimant shall file a claim within 4 years after notification of the results of the testing or DNA profile matching.",
-      "source_id": "MD-S3",
-      "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(3)"
-    },
-    {
-      "id": "MD-DEADLINE-3",
-      "category": "filing_deadline",
-      "params": {
-        "extension": "good cause"
-      },
-      "summary": "The Board can accept a late claim if there was good cause for missing the deadline.",
-      "quote": "A claimant may file a claim at any time if the Board determines that there was good cause for failure to file a claim within the time limits",
-      "source_id": "MD-S3",
-      "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(4)"
-    },
-    {
-      "id": "MD-REPORT-1",
-      "category": "reporting_requirement",
-      "params": {
-        "required": false,
-        "alternatives": [
-          "medical_provider",
-          "advocate",
-          "protective_order",
-          "other"
-        ]
-      },
-      "summary": "A police report is one accepted form of evidence, not the only one. The Board must also accept medical records, a sworn statement from a qualified third party, a peace or protective order, or other probative evidence.",
-      "quote": "The Board shall accept as evidence: (1) a report produced by a law enforcement agency; (2) medical records documenting an injury consistent with the alleged crime; (3) a sworn statement from a qualified third party; (4) a peace order issued under Title 3, Subtitle 15 of the Courts Article; (5) a protective order issued under Title 4, Subtitle 5 of the Family Law Article; and (6) any other evidence the Board considers probative.",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(b)"
-    },
-    {
-      "id": "MD-REPORT-2",
-      "category": "reporting_requirement",
-      "params": {
-        "required": false,
-        "alternatives": [
-          "advocate"
-        ]
-      },
-      "summary": "A sexual assault program advocate counts as a qualified third party whose sworn statement the Board accepts as evidence.",
-      "quote": "an advocate or victim service provider from a domestic violence or sexual assault prevention or assistance program",
-      "source_id": "MD-S1",
-      "pinpoint": "Md. Code, Crim. Proc. 11-801(g)(3)"
-    },
-    {
-      "id": "MD-MIN-1",
-      "category": "minimum_loss",
-      "params": {
-        "amount_cents": 10000
-      },
-      "summary": "The claimant must have at least $100 in unreimbursed expenses, or have lost at least $100 in earnings or support.",
-      "quote": "The Board may make an award only if the claimant, as a result of the injury on which the claim is based, has: (1) incurred at least $100 in unreimbursed and unreimbursable expenses",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(d)"
-    },
-    {
-      "id": "MD-COLL-1",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "The award is reduced by money from the offender, insurance, workers' compensation, and other public or private sources. Life insurance counts only above a set amount.",
-      "quote": "An award made under this subtitle shall be reduced by the amount of any payments received or to be received as a result of the injury",
-      "source_id": "MD-S5",
-      "pinpoint": "Md. Code, Crim. Proc. 11-811(c)"
-    },
-    {
-      "id": "MD-COLL-2",
-      "category": "collateral_source",
-      "params": {},
-      "summary": "If the claimant has no private insurance, the program requires applying for Medicaid first.",
-      "quote": "If the claimant has no private insurance, CICB requires the claimant to apply for Medicaid.",
-      "source_id": "MD-S9",
-      "pinpoint": "Application instruction sheet, Benefits and Required Documentation"
-    },
-    {
-      "id": "MD-EMERG-1",
-      "category": "emergency_award",
-      "params": {
-        "amount_cents": 1000000
-      },
-      "summary": "The Board can make an emergency award before deciding the claim if an award is likely and the claimant faces undue hardship. It may not exceed $10,000 and is deducted from the final award.",
-      "quote": "The amount of an emergency award under this section: (1) may not exceed $10,000",
-      "source_id": "MD-S6",
-      "pinpoint": "Md. Code, Crim. Proc. 11-813(b)(1)"
-    },
-    {
-      "id": "MD-EMERG-2",
-      "category": "emergency_award",
-      "params": {},
-      "summary": "Unless an application is clearly without merit, the Board must make emergency awards for funeral costs, crime scene cleanup, and emergency relocation.",
-      "quote": "the Board shall make emergency awards for: (1) funeral expenses; (2) crime scene cleanup; and (3) emergency relocation",
-      "source_id": "MD-S6",
-      "pinpoint": "Md. Code, Crim. Proc. 11-813(c)"
-    },
-    {
-      "id": "MD-CRIME-1",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "A victim is anyone who suffers physical or psychological injury from a crime, which includes sexual assault.",
-      "quote": "who suffers physical or psychological injury or death as a result of a crime or delinquent act",
-      "source_id": "MD-S1",
-      "pinpoint": "Md. Code, Crim. Proc. 11-801(h)(1)"
-    },
-    {
-      "id": "MD-CRIME-2",
-      "category": "eligible_crime",
-      "params": {},
-      "summary": "An award can rest on psychological injury that needed counseling, not only physical injury.",
-      "quote": "psychological injury to the victim that necessitated mental health counseling",
-      "source_id": "MD-S4",
-      "pinpoint": "Md. Code, Crim. Proc. 11-810(a)(2)(ii)"
-    },
-    {
-      "id": "MD-RES-1",
-      "category": "residency",
-      "params": {
-        "rule": "Crimes in Maryland regardless of residency; crimes elsewhere against Maryland residents"
-      },
-      "summary": "Covers crimes committed in Maryland against anyone, and crimes in another state against a Maryland resident.",
-      "quote": "a criminal offense under state, federal, or common law that is committed in: 1. this State; or 2. another state against a resident of this State",
-      "source_id": "MD-S1",
-      "pinpoint": "Md. Code, Crim. Proc. 11-801(d)(1)(i)"
-    },
-    {
-      "id": "MD-RES-2",
-      "category": "residency",
-      "params": {
-        "rule": "Maryland residents victimized out of state when the other state's program is unavailable"
-      },
-      "summary": "A Maryland resident hurt in another state can apply here if that state has no program, the victim is ineligible there, or that program has no money.",
-      "quote": "A resident of the State is eligible for an award under this subtitle if the resident becomes a victim in another state other than this State that: (1) does not operate a criminal injuries compensation program; (2) operates a criminal injuries compensation program for which the victim is ineligible",
-      "source_id": "MD-S2",
-      "pinpoint": "Md. Code, Crim. Proc. 11-808(b)"
-    }
-  ],
-  "coverage": {
-    "found": [
-      "exam_no_bill",
-      "exam_payment",
-      "total_cap",
-      "expense_cap",
-      "covered_expense",
-      "filing_deadline",
-      "reporting_requirement",
-      "minimum_loss",
-      "collateral_source",
-      "emergency_award",
-      "eligible_crime",
-      "residency"
-    ],
-    "not_found": [
-      "conduct_reduction",
-      "excluded_expense",
-      "expense_cap:relocation",
-      "expense_cap:transportation",
-      "expense_cap:security (separate from the $2,000 property cap)"
-    ],
-    "notes": "conduct_reduction: the 2024 Victim Compensation Reform Act (Ch. 705, HB 575, MD-S12, Section 1 effective July 1, 2025) struck the old contributory-conduct reduction and the provocation bar from 11-810; the current 11-801 to 11-819 text has no conduct reduction. The program page (MD-S8) and 2021 application (MD-S9) still describe contributory conduct as a ground for ineligibility, so no rule was written. excluded_expense: the only exclusion list found is in the 2021 application instructions, and most of it (property loss, lock changes, relocation, child care, mileage) is contradicted by current statute, so it was not used. No dollar caps were found for relocation or transportation. Exam insurance billing: the statute (11-1007) does not mention insurance, but COMAR 10.12.02.05A(2)-(3) (MD-S13) bars billing the victim, family, or private insurance for any difference and requires providers to accept state payment in full, so insurance_billing is prohibited in MD-EXAM-5."
+  {
+   "id": "MD-S2",
+   "title": "Md. Code, Criminal Procedure 11-808 (eligibility)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-808&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:56Z",
+   "raw_path": "rules/sources/MD/MD-S2.html",
+   "text_path": "rules/sources/MD/MD-S2.txt",
+   "sha256": "a51f297b1f892e371e98180492ffef0885be318f0af7140f375378b432519161"
   },
-  "confidence": "high",
-  "researcher_notes": "Statute text is from the Maryland General Assembly site, which reflects HB 575 (2024 Ch. 705). Per Sections 3 and 4 of Ch. 705 (MD-S12), Section 1 (the 11-801 to 11-819 amendments, including the struck 48-hour report, cooperation, and contributory-conduct rules and the new caps) took effect July 1, 2025; only Section 2 took effect July 1, 2024. Claims tied to crimes or decisions before July 1, 2025 may have been handled under the old rules. Several agency materials are out of date and statutes win: (1) Filing deadline: statute 11-809 says 4 years; the 2021 application (MD-S9) says three years. (2) Police report: the old 48-hour reporting and full-cooperation requirements were struck by HB 575 (MD-S12); current 11-810(b) makes a police report one of several accepted kinds of evidence. The program page (MD-S8) and the application still say to report within 48 hours and list a police report for all claims, so a survivor may still be asked for one in practice. (3) Emergency award: statute 11-813 says up to $10,000; COMAR 12.01 (MD-S11) still says $2,000 per claim and asks for a police report for an emergency award. (4) Covered expenses: statute now covers one-time relocation, child care for care visits, travel to care, and property repair or replacement including locks; the 2021 application lists these as not covered. (5) Phone: OVC directory and the application list 410-585-3010 for CICB; the program page lists 410-697-9338 under the CICB address. The application also names the agency the Governor's Office of Crime Prevention and Policy; the website domain is gocpp.maryland.gov. MD-CAP-5 maps lost earnings to the disability-related cap because 11-811(a) pays lost earnings under the workers' compensation disability schedule (two-thirds of average wage). (6) Exam regulation: COMAR 10.12.02 (MD-S13) still names the Maryland Department of Health as payer and was last amended in 2008; the statute now names GOCPP, and the SARU page (MD-S10) says SARU operates under COMAR 10.12.02. COMAR 10.12.02.03B says a forensic exam is performed within 120 hours with a police report or property-held number, while statute 11-1007(c)(1) covers exams within 15 days; the statute wins, and SARU FAQ says the exam is covered without a police report. (7) Counseling caps: the $10,000 per claimant / $20,000 per incident counseling cap in 11-811(b)(6) applies only to household family members of an injured victim, so it is recorded as MD-COV-10 (covered_expense with applies_to) rather than an expense_cap, to keep it from capping the victim's own counseling at $10,000. The victim's own counseling falls under the $45,000 cap in MD-CAP-3."
+  {
+   "id": "MD-S3",
+   "title": "Md. Code, Criminal Procedure 11-809 (filing claims)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-809&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:57Z",
+   "raw_path": "rules/sources/MD/MD-S3.html",
+   "text_path": "rules/sources/MD/MD-S3.txt",
+   "sha256": "0ce3ddc6d67218abdfd0216ae318e1821fd4c461088eb83d9ec017c7c7fac968"
+  },
+  {
+   "id": "MD-S4",
+   "title": "Md. Code, Criminal Procedure 11-810 (conditions for awards)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-810&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:57Z",
+   "raw_path": "rules/sources/MD/MD-S4.html",
+   "text_path": "rules/sources/MD/MD-S4.txt",
+   "sha256": "208d4dacd5c9436945a1fe138f382b57ed0357a93bb71d8e65e388d356e06587"
+  },
+  {
+   "id": "MD-S5",
+   "title": "Md. Code, Criminal Procedure 11-811 (amount of award)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-811&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:58Z",
+   "raw_path": "rules/sources/MD/MD-S5.html",
+   "text_path": "rules/sources/MD/MD-S5.txt",
+   "sha256": "34c79881955e61ed31a9f341d644f52c1289d0b4007c388f4859638d83f2529a"
+  },
+  {
+   "id": "MD-S6",
+   "title": "Md. Code, Criminal Procedure 11-813 (emergency awards)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-813&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:58Z",
+   "raw_path": "rules/sources/MD/MD-S6.html",
+   "text_path": "rules/sources/MD/MD-S6.txt",
+   "sha256": "0786a01e3635ad6ed4482ff71033cb7477d773e3df77a03df2fee45e480b5085"
+  },
+  {
+   "id": "MD-S7",
+   "title": "Md. Code, Criminal Procedure 11-1007 (sexual assault exam payment)",
+   "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-1007&enactments=false",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:59Z",
+   "raw_path": "rules/sources/MD/MD-S7.html",
+   "text_path": "rules/sources/MD/MD-S7.txt",
+   "sha256": "4e814fe79bb9631651bc965ed01a045449a11237ddf723b8e10c3c2054642764"
+  },
+  {
+   "id": "MD-S8",
+   "title": "GOCPP: Criminal Injuries Compensation Board program page and FAQ",
+   "url": "https://gocpp.maryland.gov/victim-services/cicb/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:25Z",
+   "raw_path": "rules/sources/MD/MD-S8.html",
+   "text_path": "rules/sources/MD/MD-S8.txt",
+   "sha256": "29595d7d9e863cb728e181179b2c38d7d252721c46bd927f49c76cc342f4b439"
+  },
+  {
+   "id": "MD-S9",
+   "title": "CICB Application for Crime Victim Compensation with instructions (rev. Nov 2021)",
+   "url": "https://gocpp.maryland.gov/wp-content/uploads/cicb-application-instructions-english.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:26Z",
+   "raw_path": "rules/sources/MD/MD-S9.pdf",
+   "text_path": "rules/sources/MD/MD-S9.txt",
+   "sha256": "bca1f7372c3b443a6b44574012bb0fd6b03a377b0d264c725665d4618a1e0a8d"
+  },
+  {
+   "id": "MD-S10",
+   "title": "GOCPP: Sexual Assault Reimbursement Unit page and FAQ",
+   "url": "https://gocpp.maryland.gov/victim-services/saru/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/MD/MD-S10.html",
+   "text_path": "rules/sources/MD/MD-S10.txt",
+   "sha256": "26215c9160f1b36b7f8eb2ee028c4edd4d9d9ab7ad007b5116f153ce638c0fba"
+  },
+  {
+   "id": "MD-S11",
+   "title": "COMAR 12.01 Criminal Injuries Compensation Board regulations",
+   "url": "https://regs.maryland.gov/us/md/exec/comar/12.01/index.full.html",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:49:07Z",
+   "raw_path": "rules/sources/MD/MD-S11.html",
+   "text_path": "rules/sources/MD/MD-S11.txt",
+   "sha256": "11aed83089a0a64acb731d0dc652e8857335c3d0ecf34dd85e692bada1580786"
+  },
+  {
+   "id": "MD-S12",
+   "title": "2024 Md. Laws Ch. 705 (HB 575, Victim Compensation Reform Act)",
+   "url": "https://mgaleg.maryland.gov/2024rs/Chapters_noln/CH_705_hb0575t.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:49:23Z",
+   "raw_path": "rules/sources/MD/MD-S12.pdf",
+   "text_path": "rules/sources/MD/MD-S12.txt",
+   "sha256": "b230e6c46c1763df7aecb0c710806cba3258c407517c891b37bc2dbca280a574"
+  },
+  {
+   "id": "MD-S13",
+   "title": "COMAR 10.12.02 Rape and Sexual Offenses: Physician and Hospital Charges (within COMAR 10.12 full text)",
+   "url": "https://regs.maryland.gov/us/md/exec/comar/10.12/index.full.html",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:55:05Z",
+   "raw_path": "rules/sources/MD/MD-S13.html",
+   "text_path": "rules/sources/MD/MD-S13.txt",
+   "sha256": "a1c2c05865b2d26153d4199235b03fb96434c9673a71e5a1e775ac44a635ac8a"
+  }
+ ],
+ "rules": [
+  {
+   "id": "MD-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "When a physician, qualified provider, or hospital gives a rape or sexual offense victim a forensic exam or the related emergency care listed in the statute, the services must be free to the survivor. The statute itself does not mention insurance; the exam billing regulation does.",
+   "quote": "the services shall be provided without charge to the individual",
+   "source_id": "MD-S7",
+   "pinpoint": "Md. Code, Crim. Proc. 11-1007(b)(1)"
+  },
+  {
+   "id": "MD-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
+   },
+   "summary": "The provider is paid by the Governor's Office of Crime Prevention and Policy (its Sexual Assault Reimbursement Unit), not by the survivor.",
+   "quote": "is entitled to be paid by the Governor's Office of Crime Prevention and Policy for the costs of providing the services",
+   "source_id": "MD-S7",
+   "pinpoint": "Md. Code, Crim. Proc. 11-1007(b)(2)(i)"
+  },
+  {
+   "id": "MD-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
+   },
+   "summary": "The free-exam rule covers a forensic exam done within 15 days of the assault (or longer if regulation allows) and emergency hospital treatment plus follow-up testing for up to 90 days after the exam.",
+   "quote": "a physical and sexual assault forensic examination to gather information and evidence as to an alleged crime when the examination is conducted within 15 days of the alleged crime or a longer period as provided by regulation; (2) emergency hospital treatment and follow-up medical testing for up to 90 days after the initial physical examination",
+   "source_id": "MD-S7",
+   "pinpoint": "Md. Code, Crim. Proc. 11-1007(c)(1)-(2)"
+  },
+  {
+   "id": "MD-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
+   },
+   "summary": "The state's reimbursement unit says the forensic exam is covered whether or not the survivor reports to police.",
+   "quote": "Yes, any victim of sexual assault or rape is entitled to a forensic medical examination regardless of their decision to report sexual assault to police.",
+   "source_id": "MD-S10",
+   "pinpoint": "SARU FAQ question 6"
+  },
+  {
+   "id": "MD-EXAM-5",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "prohibited"
+   },
+   "summary": "A provider may not bill the survivor, the survivor's family, or the survivor's private insurance for any difference between its charges and the state's payment, and must take the state's payment as payment in full.",
+   "quote": "May not bill a victim of an alleged rape, sexual offense, or child sexual abuse, or the victim's family or private insurance, for any difference between charges and Department reimbursement; and (3) Shall accept the Department's reimbursement as payment in full.",
+   "source_id": "MD-S13",
+   "pinpoint": "COMAR 10.12.02.05A(2)-(3)"
+  },
+  {
+   "id": "MD-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 4500000
+   },
+   "summary": "Total compensation is capped at $45,000, including later and supplemental awards. A victim with permanent total disability can get an additional disability award on top of this total.",
+   "quote": "a total of $45,000, including any subsequent and supplemental awards",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(4)"
+  },
+  {
+   "id": "MD-CAP-2",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "amount_cents": 4500000,
+    "per": "claim"
+   },
+   "summary": "Medical claims are capped at $45,000.",
+   "quote": "$45,000 for a medical claim",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(2)"
+  },
+  {
+   "id": "MD-CAP-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 4500000,
+    "per": "claim"
+   },
+   "summary": "Counseling for a person eligible because of psychological injury is capped at $45,000 per claimant.",
+   "quote": "$45,000 for each claimant for psychiatric, psychological, or mental health counseling under subsection (a)(5) of this section",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(3)"
+  },
+  {
+   "id": "MD-COV-10",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "applies_to": "household family members of an injured victim (parent, child, domestic partner, dependent, or spouse living with the victim), not the victim"
+   },
+   "summary": "Household family members of an injured victim can get their own counseling, capped at $10,000 per claimant and $20,000 per incident. This cap is for those family members, not for the victim's own counseling.",
+   "quote": "for an award for psychiatric, psychological, or mental health counseling made under subsection (a)(6) of this section: (i) $10,000 for each claimant; and (ii) $20,000 for each incident",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(6), (b)(6)"
+  },
+  {
+   "id": "MD-CAP-5",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 2500000,
+    "per": "claim"
+   },
+   "summary": "Disability-related claims, which is how Maryland pays lost earnings after an injury, are capped at $25,000, with up to another $25,000 for permanent total disability.",
+   "quote": "for a disability-related or dependency-related claim: (i) except as provided in item (ii) of this paragraph, $25,000",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(1)"
+  },
+  {
+   "id": "MD-CAP-6",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Repairing, replacing, or cleaning property damaged by the crime or by the police investigation, including replacing locks, is capped at $2,000 per claimant.",
+   "quote": "$2,000 for each claimant for repair, replacement, or cleaning of property damaged, soiled, or littered as a result of a crime or law enforcement investigation of a crime, including the cost of replacing locks",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(5)"
+  },
+  {
+   "id": "MD-CAP-7",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 1000000,
+    "per": "claim"
+   },
+   "summary": "Funeral expenses are capped at $10,000.",
+   "quote": "An award for funeral expenses may not exceed $10,000.",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(4)"
+  },
+  {
+   "id": "MD-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Medical care and medical supplies count as covered losses.",
+   "quote": "medical care, including the cost of medical supplies",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(i)"
+  },
+  {
+   "id": "MD-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling counts as a covered loss.",
+   "quote": "mental health counseling;",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(iii)"
+  },
+  {
+   "id": "MD-COV-3",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost earnings are covered at up to two-thirds of the victim's gross average wage.",
+   "quote": "An award for loss of earnings or support made under this subtitle may be up to two-thirds of the victim's gross average wage",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(2)"
+  },
+  {
+   "id": "MD-COV-11",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "applies_to": "parent or guardian living with a child victim"
+   },
+   "summary": "A parent or guardian who lives with a child victim can get up to 30 days of lost earnings for time spent caring for the child.",
+   "quote": "The parent or guardian of a victim who is a child and who resides with the victim may be eligible for an award of up to 30 days of lost earnings as a result of caring for the victim.",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(a)(3)"
+  },
+  {
+   "id": "MD-COV-4",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "A one-time relocation, including a security deposit, counts as a covered loss. No dollar cap for relocation was found in the statute.",
+   "quote": "the costs of one-time relocation, including any security deposit",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(vii)"
+  },
+  {
+   "id": "MD-COV-5",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Travel costs to get medical or psychological care count as covered losses.",
+   "quote": "transportation costs incurred by travel to seek medical or psychological care",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(ix)"
+  },
+  {
+   "id": "MD-COV-6",
+   "category": "covered_expense",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare"
+   },
+   "summary": "Child care needed while seeking medical or psychological care counts as a covered loss.",
+   "quote": "child care expenses incurred as a result of seeking medical or psychological care",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(viii)"
+  },
+  {
+   "id": "MD-COV-7",
+   "category": "covered_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "Repairing, replacing, or cleaning property counts as a covered loss, subject to the separate property cap.",
+   "quote": "repairing, replacing, or cleaning property;",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(v)"
+  },
+  {
+   "id": "MD-COV-8",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Replacing locks is covered inside the property cap.",
+   "quote": "including the cost of replacing locks",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(5)"
+  },
+  {
+   "id": "MD-COV-9",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Eyeglasses and other corrective lenses count as covered losses.",
+   "quote": "expenses for eyeglasses and other corrective lenses",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)(1)(ii)"
+  },
+  {
+   "id": "MD-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 4,
+    "from": "discovery",
+    "extension": "Child abuse claims can be filed at any time; claims delayed by DNA testing of a sexual assault kit run from notification of the results; the Board can accept late claims for good cause."
+   },
+   "summary": "A claim must be filed within 4 years after the crime is discovered (or a later trigger tied to an attempt to reverse a conviction).",
+   "quote": "a claimant shall file a claim within 4 years after the later of: (i) the discovery of the occurrence of the crime or delinquent act or the death of the victim",
+   "source_id": "MD-S3",
+   "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(1)"
+  },
+  {
+   "id": "MD-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 4,
+    "extension": "Runs from notification of DNA testing or profile-matching results."
+   },
+   "summary": "If filing was delayed because of a delay in testing a sexual assault kit or matching a DNA profile, the 4 years run from notification of the results.",
+   "quote": "In a case where the filing of a claim was delayed as the result of a delay in the testing of DNA or a delay in DNA profile matching from a sexual assault forensic examination kit or biological material related to a sexual offense, a claimant shall file a claim within 4 years after notification of the results of the testing or DNA profile matching.",
+   "source_id": "MD-S3",
+   "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(3)"
+  },
+  {
+   "id": "MD-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "extension": "good cause"
+   },
+   "summary": "The Board can accept a late claim if there was good cause for missing the deadline.",
+   "quote": "A claimant may file a claim at any time if the Board determines that there was good cause for failure to file a claim within the time limits",
+   "source_id": "MD-S3",
+   "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(4)"
+  },
+  {
+   "id": "MD-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "medical_provider",
+     "advocate",
+     "protective_order",
+     "other"
+    ]
+   },
+   "summary": "A police report is one accepted form of evidence, not the only one. The Board must also accept medical records, a sworn statement from a qualified third party, a peace or protective order, or other probative evidence.",
+   "quote": "The Board shall accept as evidence: (1) a report produced by a law enforcement agency; (2) medical records documenting an injury consistent with the alleged crime; (3) a sworn statement from a qualified third party; (4) a peace order issued under Title 3, Subtitle 15 of the Courts Article; (5) a protective order issued under Title 4, Subtitle 5 of the Family Law Article; and (6) any other evidence the Board considers probative.",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(b)"
+  },
+  {
+   "id": "MD-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "advocate"
+    ]
+   },
+   "summary": "A sexual assault program advocate counts as a qualified third party whose sworn statement the Board accepts as evidence.",
+   "quote": "an advocate or victim service provider from a domestic violence or sexual assault prevention or assistance program",
+   "source_id": "MD-S1",
+   "pinpoint": "Md. Code, Crim. Proc. 11-801(g)(3)"
+  },
+  {
+   "id": "MD-MIN-1",
+   "category": "minimum_loss",
+   "params": {
+    "amount_cents": 10000
+   },
+   "summary": "The claimant must have at least $100 in unreimbursed expenses, or have lost at least $100 in earnings or support.",
+   "quote": "The Board may make an award only if the claimant, as a result of the injury on which the claim is based, has: (1) incurred at least $100 in unreimbursed and unreimbursable expenses",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(d)"
+  },
+  {
+   "id": "MD-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The award is reduced by money from the offender, insurance, workers' compensation, and other public or private sources. Life insurance counts only above a set amount.",
+   "quote": "An award made under this subtitle shall be reduced by the amount of any payments received or to be received as a result of the injury",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(c)"
+  },
+  {
+   "id": "MD-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "If the claimant has no private insurance, the program requires applying for Medicaid first.",
+   "quote": "If the claimant has no private insurance, CICB requires the claimant to apply for Medicaid.",
+   "source_id": "MD-S9",
+   "pinpoint": "Application instruction sheet, Benefits and Required Documentation"
+  },
+  {
+   "id": "MD-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 1000000
+   },
+   "summary": "The Board can make an emergency award before deciding the claim if an award is likely and the claimant faces undue hardship. It may not exceed $10,000 and is deducted from the final award.",
+   "quote": "The amount of an emergency award under this section: (1) may not exceed $10,000",
+   "source_id": "MD-S6",
+   "pinpoint": "Md. Code, Crim. Proc. 11-813(b)(1)"
+  },
+  {
+   "id": "MD-EMERG-2",
+   "category": "emergency_award",
+   "params": {},
+   "summary": "Unless an application is clearly without merit, the Board must make emergency awards for funeral costs, crime scene cleanup, and emergency relocation.",
+   "quote": "the Board shall make emergency awards for: (1) funeral expenses; (2) crime scene cleanup; and (3) emergency relocation",
+   "source_id": "MD-S6",
+   "pinpoint": "Md. Code, Crim. Proc. 11-813(c)"
+  },
+  {
+   "id": "MD-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "A victim is anyone who suffers physical or psychological injury from a crime, which includes sexual assault.",
+   "quote": "who suffers physical or psychological injury or death as a result of a crime or delinquent act",
+   "source_id": "MD-S1",
+   "pinpoint": "Md. Code, Crim. Proc. 11-801(h)(1)"
+  },
+  {
+   "id": "MD-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "An award can rest on psychological injury that needed counseling, not only physical injury.",
+   "quote": "psychological injury to the victim that necessitated mental health counseling",
+   "source_id": "MD-S4",
+   "pinpoint": "Md. Code, Crim. Proc. 11-810(a)(2)(ii)"
+  },
+  {
+   "id": "MD-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes in Maryland regardless of residency; crimes elsewhere against Maryland residents"
+   },
+   "summary": "Covers crimes committed in Maryland against anyone, and crimes in another state against a Maryland resident.",
+   "quote": "a criminal offense under state, federal, or common law that is committed in: 1. this State; or 2. another state against a resident of this State",
+   "source_id": "MD-S1",
+   "pinpoint": "Md. Code, Crim. Proc. 11-801(d)(1)(i)"
+  },
+  {
+   "id": "MD-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Maryland residents victimized out of state when the other state's program is unavailable"
+   },
+   "summary": "A Maryland resident hurt in another state can apply here if that state has no program, the victim is ineligible there, or that program has no money.",
+   "quote": "A resident of the State is eligible for an award under this subtitle if the resident becomes a victim in another state other than this State that: (1) does not operate a criminal injuries compensation program; (2) operates a criminal injuries compensation program for which the victim is ineligible",
+   "source_id": "MD-S2",
+   "pinpoint": "Md. Code, Crim. Proc. 11-808(b)"
+  },
+  {
+   "id": "MD-SUBMIT-MAIL",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215"
+   },
+   "summary": "The instructions say to mail, email, or deliver the completed application to the CICB office; this is the office address printed on the application and instruction sheet.",
+   "quote": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet header and Application Instructions"
+  },
+  {
+   "id": "MD-SUBMIT-EMAIL",
+   "category": "submission",
+   "params": {
+    "method": "email",
+    "target": "cicb.info@maryland.gov"
+   },
+   "summary": "The completed application can be emailed to the CICB office at cicb.info@maryland.gov. State law allows claims to be filed electronically under Board procedures.",
+   "quote": "Email: cicb.info@maryland.gov",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet header and Application Instructions"
+  },
+  {
+   "id": "MD-SUBMIT-INPERSON",
+   "category": "submission",
+   "params": {
+    "method": "in_person",
+    "target": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215"
+   },
+   "summary": "The completed application can also be delivered in person to the CICB office in Baltimore. State law lists in person, by mail, or electronically as the ways to file.",
+   "quote": "6776 Reisterstown Rd, Ste. 206, Baltimore, MD 21215",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet header and Application Instructions"
+  },
+  {
+   "id": "MD-DOC-SIGN",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signed authorizations on page 2 of the application; an unsigned application is sent back and not filed."
+   },
+   "summary": "Sign the authorizations on page 2 of the application. Without the signatures the application is returned and not filed.",
+   "quote": "Authorization Signatures on Page 2 of the application (Failure to sign will result in the application being returned and not filed)",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Application Instructions"
+  },
+  {
+   "id": "MD-DOC-POLICE",
+   "category": "required_document",
+   "params": {
+    "document": "police_report",
+    "note": "The 2021 instructions ask for a police report or report number for all claims. Current statute (11-810(b), after HB 575) makes a police report one of several accepted kinds of evidence, so it is not strictly required."
+   },
+   "summary": "The application instructions ask for a police report or police report number for all claims; a report to a judicial authority may also be considered.",
+   "quote": "All claims: Police report or police report number. Report to judicial authority may also be considered.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-BILLS",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "For medical or dental costs: itemized bills."
+   },
+   "summary": "For medical or dental costs, include itemized bills.",
+   "quote": "Medical/Dental: Itemized bills; letter from a doctor or medical documentation relating the injury to the crime and the treatment; treatment plan; & medical insurance.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-MEDICAL",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "For medical or dental costs: a doctor's letter or medical documentation tying the injury and treatment to the crime, plus a treatment plan."
+   },
+   "summary": "For medical or dental costs, include a doctor's letter or medical records linking the injury and treatment to the crime, and a treatment plan.",
+   "quote": "Medical/Dental: Itemized bills; letter from a doctor or medical documentation relating the injury to the crime and the treatment; treatment plan; & medical insurance.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-INSURANCE",
+   "category": "required_document",
+   "params": {
+    "document": "insurance_statement",
+    "note": "Medical insurance information. With no private insurance, CICB requires the claimant to apply for Medicaid."
+   },
+   "summary": "Include medical insurance information. If the claimant has no private insurance, CICB requires an application for Medicaid.",
+   "quote": "& medical insurance. If the claimant has no private insurance, CICB requires the claimant to apply for Medicaid.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-COUNSEL",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "For counseling: a therapist's letter documenting crime-related treatment, plus itemized statements."
+   },
+   "summary": "For counseling, include a letter from the therapist documenting crime-related treatment and itemized statements.",
+   "quote": "Counseling: Letter from a therapist documenting treatment related to crime; itemized statements; receipts if paid out of pocket by claimant.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-RECEIPTS",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Receipts for anything the claimant paid out of pocket (named for counseling; crime scene clean-up also takes receipts)."
+   },
+   "summary": "Include receipts for costs the claimant paid out of pocket.",
+   "quote": "receipts if paid out of pocket by claimant",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-WAGES",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "For lost wages or disability: employer information and W-2 and/or pay stubs."
+   },
+   "summary": "For lost wages or disability, include employer information and W-2s or pay stubs.",
+   "quote": "Lost Wages/Disability: Employer information; W-2 and/or pay stubs; letter from a doctor certifying inability to work.",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  },
+  {
+   "id": "MD-DOC-WORKNOTE",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "For lost wages or disability: a doctor's letter certifying inability to work."
+   },
+   "summary": "For lost wages or disability, include a doctor's letter certifying the inability to work.",
+   "quote": "letter from a doctor certifying inability to work",
+   "source_id": "MD-S9",
+   "pinpoint": "CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "minimum_loss",
+   "collateral_source",
+   "emergency_award",
+   "eligible_crime",
+   "residency",
+   "submission",
+   "required_document"
+  ],
+  "not_found": [
+   "conduct_reduction",
+   "excluded_expense",
+   "expense_cap:relocation",
+   "expense_cap:transportation",
+   "expense_cap:security (separate from the $2,000 property cap)",
+   "processing_time"
+  ],
+  "notes": "conduct_reduction: the 2024 Victim Compensation Reform Act (Ch. 705, HB 575, MD-S12, Section 1 effective July 1, 2025) struck the old contributory-conduct reduction and the provocation bar from 11-810; the current 11-801 to 11-819 text has no conduct reduction. The program page (MD-S8) and 2021 application (MD-S9) still describe contributory conduct as a ground for ineligibility, so no rule was written. excluded_expense: the only exclusion list found is in the 2021 application instructions, and most of it (property loss, lock changes, relocation, child care, mileage) is contradicted by current statute, so it was not used. No dollar caps were found for relocation or transportation. Exam insurance billing: the statute (11-1007) does not mention insurance, but COMAR 10.12.02.05A(2)-(3) (MD-S13) bars billing the victim, family, or private insurance for any difference and requires providers to accept state payment in full, so insurance_billing is prohibited in MD-EXAM-5. processing_time: no saved source states a time for a decision or payment; 11-809(b)(2) only requires the Board to notify the claimant within 10 days after receiving a claim, which is an acknowledgment, not a decision, so no rule was written."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is from the Maryland General Assembly site, which reflects HB 575 (2024 Ch. 705). Per Sections 3 and 4 of Ch. 705 (MD-S12), Section 1 (the 11-801 to 11-819 amendments, including the struck 48-hour report, cooperation, and contributory-conduct rules and the new caps) took effect July 1, 2025; only Section 2 took effect July 1, 2024. Claims tied to crimes or decisions before July 1, 2025 may have been handled under the old rules. Several agency materials are out of date and statutes win: (1) Filing deadline: statute 11-809 says 4 years; the 2021 application (MD-S9) says three years. (2) Police report: the old 48-hour reporting and full-cooperation requirements were struck by HB 575 (MD-S12); current 11-810(b) makes a police report one of several accepted kinds of evidence. The program page (MD-S8) and the application still say to report within 48 hours and list a police report for all claims, so a survivor may still be asked for one in practice. (3) Emergency award: statute 11-813 says up to $10,000; COMAR 12.01 (MD-S11) still says $2,000 per claim and asks for a police report for an emergency award. (4) Covered expenses: statute now covers one-time relocation, child care for care visits, travel to care, and property repair or replacement including locks; the 2021 application lists these as not covered. (5) Phone: OVC directory and the application list 410-585-3010 for CICB; the program page lists 410-697-9338 under the CICB address. The application also names the agency the Governor's Office of Crime Prevention and Policy; the website domain is gocpp.maryland.gov. MD-CAP-5 maps lost earnings to the disability-related cap because 11-811(a) pays lost earnings under the workers' compensation disability schedule (two-thirds of average wage). (6) Exam regulation: COMAR 10.12.02 (MD-S13) still names the Maryland Department of Health as payer and was last amended in 2008; the statute now names GOCPP, and the SARU page (MD-S10) says SARU operates under COMAR 10.12.02. COMAR 10.12.02.03B says a forensic exam is performed within 120 hours with a police report or property-held number, while statute 11-1007(c)(1) covers exams within 15 days; the statute wins, and SARU FAQ says the exam is covered without a police report. (7) Counseling caps: the $10,000 per claimant / $20,000 per incident counseling cap in 11-811(b)(6) applies only to household family members of an injured victim, so it is recorded as MD-COV-10 (covered_expense with applies_to) rather than an expense_cap, to keep it from capping the victim's own counseling at $10,000. The victim's own counseling falls under the $45,000 cap in MD-CAP-3. (8) How to file: the linked application (MD-S9, rev. Nov 2021, still the English application linked from the program page on Oct 3 2026) is a fillable PDF with 135 AcroForm fields. Its instruction sheet says to mail, email, or deliver the completed application to the CICB office, which gives the mail, email, and in-person rules; statute 11-809(b)(1) (MD-S3) also allows filing in person, by mail, or electronically, and COMAR 12.01 (MD-S11) still says in person or by regular mail. The application header lists a fax number, (410) 764-3815, but no source says applications may be faxed, so no fax rule was written. There is no online submission portal; the 'fillable Online Application' in the instructions is the fillable PDF. Address conflict: the application prints Ste. 206, while the current program page footer (MD-S8) lists Suite 209 at the same street address with phone 410-697-9338; the submission rules use the application's address because that is the document that gives the filing instruction, and a survivor may want to confirm the suite by phone. Required documents come from the instruction sheet's Benefits & Required Documentation list; the police report item predates HB 575 (see note 2). The application does not ask for a photo ID, proof of residency, or the forensic exam record."
 }

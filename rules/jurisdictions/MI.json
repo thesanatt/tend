@@ -9,7 +9,12 @@
     "application_pdf_url": "https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/Applications/Crime-Victim-Compensation-Application---English.pdf?rev=0ba8540cd7e044029ce8276b307f3821&hash=C16A211782AB6F2789FB6CA95ACF0E55",
     "phone": "877-251-7373",
     "phone_source_id": "MI-S9",
-    "statute_citation": "MCL 18.351 to 18.368"
+    "statute_citation": "MCL 18.351 to 18.368",
+    "application_form": {
+      "source_id": "MI-S15",
+      "fillable": true,
+      "field_count": 202
+    }
   },
   "sources": [
     {
@@ -181,6 +186,26 @@
       "raw_path": "rules/sources/MI/MI-S17.html",
       "text_path": "rules/sources/MI/MI-S17.txt",
       "sha256": "0407ab1eff62b6a8d3479c573405d23574a8c032d94ce0b41fd9fc7fc406c01e"
+    },
+    {
+      "id": "MI-S18",
+      "title": "Crime Victim Services Compensation Application Checklist (English, Revised 02/2025)",
+      "url": "https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/Checklists/2025-Application-Checklist_English.pdf?rev=a4c3f38061b14f5c849c3ebf316fb763&hash=9F45102448FF3A9C7D36F8FCE7690354",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:36:26Z",
+      "raw_path": "rules/sources/MI/MI-S18.pdf",
+      "text_path": "rules/sources/MI/MI-S18.txt",
+      "sha256": "4fcac60241668ef4157fe37c5129272519957e8dfd3d0f6e089b3c3e6e3d26f8"
+    },
+    {
+      "id": "MI-S19",
+      "title": "Crime Victim Services Compensation Application Reference Guide (English, Revised 02/2025)",
+      "url": "https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/Guides/Application-Reference-Guide_English.pdf?rev=1ab53615e98e4eb5b582a8b15ddf66ee&hash=8846D16768CE5B18B0A7997594B5517E",
+      "kind": "agency_pdf",
+      "retrieved_at": "2026-10-03T19:36:27Z",
+      "raw_path": "rules/sources/MI/MI-S19.pdf",
+      "text_path": "rules/sources/MI/MI-S19.txt",
+      "sha256": "9d78afbc2a88c32efe2880d16f0db922c157bbf296a951b3b10e3d4c7865e8e1"
     }
   ],
   "rules": [
@@ -739,6 +764,423 @@
       "quote": "to a resident of this state or that poses a reasonably perceived or actual threat of injury or death to a resident of this state within a state that does not have a victim compensation program eligible for funding from the victims of crime act of 1984",
       "source_id": "MI-S1",
       "pinpoint": "MCL 18.351(c)(ii)"
+    },
+    {
+      "id": "MI-SUBMIT-1",
+      "category": "submission",
+      "params": {
+        "method": "email",
+        "target": "MDHHS-MichiganCrimeVictim@Michigan.gov"
+      },
+      "summary": "Email the completed application to the program; the program asks for electronic submission by email when possible.",
+      "quote": "Email completed applications to MDHHS-MichiganCrimeVictim@Michigan.gov or fax them to 517-335-2439.",
+      "source_id": "MI-S13",
+      "pinpoint": "Applying for Compensation, How do I apply?"
+    },
+    {
+      "id": "MI-SUBMIT-2",
+      "category": "submission",
+      "params": {
+        "method": "fax",
+        "target": "517-335-2439"
+      },
+      "summary": "The completed application can be faxed to the program at 517-335-2439.",
+      "quote": "Email completed applications to MDHHS-MichiganCrimeVictim@Michigan.gov or fax them to 517-335-2439.",
+      "source_id": "MI-S13",
+      "pinpoint": "Applying for Compensation, How do I apply?"
+    },
+    {
+      "id": "MI-SUBMIT-3",
+      "category": "submission",
+      "params": {
+        "method": "mail",
+        "target": "Michigan Department of Health and Human Services Division of Victim Services Crime Victim Services Commission Grand Tower, Suite 1113 235 South Grand Avenue, PO Box 30037 Lansing MI 48909"
+      },
+      "summary": "The application can still be mailed to the Crime Victim Services Commission at PO Box 30037 in Lansing.",
+      "quote": "Applications can still be submitted via mail to: Michigan Department of Health and Human Services Division of Victim Services Crime Victim Services Commission Grand Tower, Suite 1113 235 South Grand Avenue, PO Box 30037 Lansing MI 48909",
+      "source_id": "MI-S13",
+      "pinpoint": "Applying for Compensation, How do I apply?"
+    },
+    {
+      "id": "MI-DOC-1",
+      "category": "required_document",
+      "params": {
+        "document": "police_report",
+        "note": "Only if you have it; a sexual assault forensic exam may be used in lieu of a police report."
+      },
+      "summary": "Include a copy of the police report if you have one.",
+      "quote": "Submit a copy of the police report if you have it.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, For All Applications, item 2"
+    },
+    {
+      "id": "MI-DOC-2",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Social Security number (if you have one) and date of birth on the application."
+      },
+      "summary": "Include your Social Security number, if you have one, and your date of birth.",
+      "quote": "Please include your Social Security number (if you have one) and date of birth.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, For All Applications, item 1"
+    },
+    {
+      "id": "MI-DOC-3",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Written explanation of the delay, only if filing more than 5 years after the crime."
+      },
+      "summary": "If you file more than 5 years after the crime, include a written explanation of why.",
+      "quote": "If you are filing more than 5 years after the crime occurred, include a written explanation as to why you didn't apply within 5 years from the date of the crime.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, For All Applications, item 3"
+    },
+    {
+      "id": "MI-DOC-4",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Letter of Appearance, only if an attorney represents you."
+      },
+      "summary": "An attorney is not required; if one represents you, the attorney must file a Letter of Appearance with the application.",
+      "quote": "If an attorney represents you in this claim, the attorney MUST file a Letter of Appearance with this application.",
+      "source_id": "MI-S15",
+      "pinpoint": "DCH-0560, Authorizations and Agreements"
+    },
+    {
+      "id": "MI-DOC-5",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "itemized_bill"
+      },
+      "summary": "For medical, dental, equipment, remedial treatment, or counseling costs, include itemized copies of all bills.",
+      "quote": "Submit itemized copies of all bills, plus copies of any paid receipts.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 1"
+    },
+    {
+      "id": "MI-DOC-6",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "receipts"
+      },
+      "summary": "For medical, dental, equipment, remedial treatment, or counseling costs, include copies of any paid receipts.",
+      "quote": "Submit itemized copies of all bills, plus copies of any paid receipts.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 1"
+    },
+    {
+      "id": "MI-DOC-7",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Explanation of Benefits from insurance, Medicaid, or Medicare, if applicable."
+      },
+      "summary": "Send bills to insurance, Medicaid, or Medicare first if applicable, then include the Explanation of Benefits showing partial payment or denial.",
+      "quote": "All bills should be submitted to your insurance, Medicaid, or Medicare carrier first, if applicable; then, provide copies of the Explanation of Benefits showing partial payment or rejection of coverage.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 2"
+    },
+    {
+      "id": "MI-DOC-8",
+      "category": "required_document",
+      "expense": "prescription",
+      "params": {
+        "document": "other",
+        "note": "Copy of the prescription, itemized bill or estimate, and receipt for medication or replacement medical equipment."
+      },
+      "summary": "For medication or replacement equipment like glasses or dentures, include the prescription, the itemized bill or estimate, and the receipt if already paid.",
+      "quote": "If you have injuries that require medication or replacement of medical equipment such as glasses, dentures, etc., send a copy of the prescription, the itemized bill or itemized estimate, and copy of the receipt if you have already paid.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 3"
+    },
+    {
+      "id": "MI-DOC-9",
+      "category": "required_document",
+      "expense": "medical",
+      "params": {
+        "document": "other",
+        "note": "Itemized estimate from the provider for a procedure that needs preauthorization."
+      },
+      "summary": "For a future procedure that needs preauthorization, include an itemized estimate from the provider.",
+      "quote": "If you are applying for a procedure that has not taken place yet, and you need a preauthorization, please provide an itemized estimate from the provider for the procedure.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 4"
+    },
+    {
+      "id": "MI-DOC-10",
+      "category": "required_document",
+      "expense": "counseling",
+      "params": {
+        "document": "other",
+        "note": "Mental health provider contact information: name, phone, address, email, and fax if available."
+      },
+      "summary": "For counseling, include your mental health provider's name, phone number, address, email, and fax number if available.",
+      "quote": "If you are applying for counseling, provide your mental health provider's contact information, including name, phone number, address, email address, and fax number, if available.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 6"
+    },
+    {
+      "id": "MI-DOC-11",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Pay stubs from just before the injury, if not self-employed."
+      },
+      "summary": "For lost earnings, if not self-employed, include 2 or 3 pay stubs from just before the injury showing gross pay, net pay, and tax deductions.",
+      "quote": "If you are applying for loss of earnings and are NOT self-employed, provide copies of 2 or 3 pay stubs paid just before the date of injury showing gross pay, net pay, and tax deductions.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Loss of Earnings or Support, item 1"
+    },
+    {
+      "id": "MI-DOC-12",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "wage_verification",
+        "note": "Most recent federal and state tax return with Schedule C, if self-employed."
+      },
+      "summary": "For lost earnings, if self-employed, include your most recent federal and state income tax return with Schedule C.",
+      "quote": "If you are applying for loss of earnings and ARE self-employed, provide a copy of the most recent Federal and State Income Tax Return including Schedule C.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Loss of Earnings or Support, item 2"
+    },
+    {
+      "id": "MI-DOC-13",
+      "category": "required_document",
+      "expense": "lost_wages",
+      "params": {
+        "document": "medical_records",
+        "note": "Written disability statement from your physician with the specific dates off work."
+      },
+      "summary": "For lost earnings, include a written statement from your physician verifying the disability and the dates you were off work.",
+      "quote": "If you are applying for loss of earnings, submit a written disability statement from your physician verifying your disability and specific dates off work.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Loss of Earnings or Support, item 3"
+    },
+    {
+      "id": "MI-DOC-14",
+      "category": "required_document",
+      "expense": "relocation",
+      "params": {
+        "document": "other",
+        "note": "Signed lease in the victim's or claimant's name showing the landlord's name, address, and phone."
+      },
+      "summary": "For relocation, include a signed lease in your name that shows the landlord's name, address, and phone number.",
+      "quote": "Submit a signed copy of the lease with the victim's or claimant's name on the lease. The lease must show the name, address, and phone number of the landlord or property owner.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 1"
+    },
+    {
+      "id": "MI-DOC-15",
+      "category": "required_document",
+      "expense": "relocation",
+      "params": {
+        "document": "other",
+        "note": "Written utility start-up estimate in the victim's or claimant's name."
+      },
+      "summary": "For relocation, include a written estimate from the utility provider to start utilities, in your name.",
+      "quote": "Submit a written estimate from utility provider(s) to start utilities. Victim's or claimant's name must be on the estimate or invoice.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 2"
+    },
+    {
+      "id": "MI-DOC-16",
+      "category": "required_document",
+      "expense": "relocation",
+      "params": {
+        "document": "other",
+        "note": "Written estimate or invoice for moving services in the victim's or claimant's name."
+      },
+      "summary": "For relocation, include a written estimate or invoice for moving services, in your name.",
+      "quote": "Submit a written estimate or invoice for moving services. Victim's or claimant's name must be on the estimate or invoice.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 3"
+    },
+    {
+      "id": "MI-DOC-17",
+      "category": "required_document",
+      "expense": "temporary_housing",
+      "params": {
+        "document": "other",
+        "note": "Written lease or agreement for temporary lodging in the victim's or claimant's name."
+      },
+      "summary": "For temporary lodging, include the written lease or lodging agreement, in your name.",
+      "quote": "Submit a written lease or agreement for temporary lodging. Victim's or claimant's name must be on the lease or agreement.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 4"
+    },
+    {
+      "id": "MI-DOC-18",
+      "category": "required_document",
+      "expense": "relocation",
+      "params": {
+        "document": "receipts",
+        "note": "Receipts for any relocation costs already paid."
+      },
+      "summary": "If you already paid relocation costs, include the receipts.",
+      "quote": "If you have made any payments out-of-pocket for your relocation expenses, please submit receipt(s) to verify your payment(s).",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 5"
+    },
+    {
+      "id": "MI-DOC-19",
+      "category": "required_document",
+      "expense": "security",
+      "params": {
+        "document": "other",
+        "note": "Landlord's name and contact information, if the residence is a rental."
+      },
+      "summary": "For residential security at a rental, include the landlord's name and contact information; the landlord's authorization may be requested.",
+      "quote": "If your residence is a rental, please provide the landlord's name and contact information.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Residential Security, item 1"
+    },
+    {
+      "id": "MI-DOC-20",
+      "category": "required_document",
+      "expense": "security",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Homeowner's or renter's insurance policy coverage, if applicable."
+      },
+      "summary": "For residential security, include your homeowner's or renter's insurance coverage, if you have it.",
+      "quote": "Submit the homeowner's or renter's insurance policy coverage, if applicable.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Residential Security, item 2"
+    },
+    {
+      "id": "MI-DOC-21",
+      "category": "required_document",
+      "expense": "security",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Itemized costs, installation fees, and receipts showing payment."
+      },
+      "summary": "For residential security, include an itemization of costs and installation fees, plus receipts if you paid.",
+      "quote": "Submit itemization of costs, installation fees, and receipt(s) showing payment, if applicable.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Residential Security, item 3"
+    },
+    {
+      "id": "MI-DOC-22",
+      "category": "required_document",
+      "expense": "clothing_bedding",
+      "params": {
+        "document": "other",
+        "note": "Verification of items held as evidence."
+      },
+      "summary": "For replacement of items held as evidence, such as clothing or bedding, include verification that they were held as evidence.",
+      "quote": "Submit verification of items held as evidence in this crime.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Replacement Costs, item 1"
+    },
+    {
+      "id": "MI-DOC-23",
+      "category": "required_document",
+      "expense": "clothing_bedding",
+      "params": {
+        "document": "receipts",
+        "note": "Itemized receipts or replacement estimates for items held as evidence."
+      },
+      "summary": "For items held as evidence, include itemized receipts or estimates for replacing them.",
+      "quote": "Submit itemized receipt(s) for the items held as evidence and/or estimate(s) for the replacement of the items held as evidence.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Replacement Costs, item 2"
+    },
+    {
+      "id": "MI-DOC-24",
+      "category": "required_document",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Itemized invoice or estimate for clean-up, plus receipts if paid."
+      },
+      "summary": "For crime scene clean-up, include an itemized invoice or estimate, and receipts if you paid.",
+      "quote": "Submit an itemized invoice or estimate for clean-up. If you made payment, please submit receipt(s) to verify.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Crime Scene Clean-Up, item 1"
+    },
+    {
+      "id": "MI-DOC-25",
+      "category": "required_document",
+      "expense": "crime_scene_cleanup",
+      "params": {
+        "document": "insurance_statement",
+        "note": "Homeowner's or renter's insurance determination, if applicable."
+      },
+      "summary": "For crime scene clean-up, include the homeowner's or renter's insurance determination, if applicable.",
+      "quote": "Submit the homeowner's or renter's insurance determination, if applicable.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Crime Scene Clean-Up, item 2"
+    },
+    {
+      "id": "MI-DOC-26",
+      "category": "required_document",
+      "expense": "funeral",
+      "params": {
+        "document": "itemized_bill",
+        "note": "Itemized funeral home and/or cemetery bills, plus paid receipts."
+      },
+      "summary": "For funeral or burial costs, include itemized funeral home or cemetery bills and any paid receipts.",
+      "quote": "Submit an itemized copy of the funeral home and/or cemetery bill(s), plus copies of any paid receipts.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Funeral/Burial Benefits, item 1"
+    },
+    {
+      "id": "MI-DOC-27",
+      "category": "required_document",
+      "expense": "funeral",
+      "params": {
+        "document": "other",
+        "note": "Written statement from anyone else who paid toward the funeral, authorizing reimbursement to you."
+      },
+      "summary": "If someone else paid toward the funeral and lets you be reimbursed, include their written statement authorizing it.",
+      "quote": "If somebody other than you made a payment toward the funeral costs, and they allow you to be reimbursed for their payment, provide a written statement from that person authorizing you to be reimbursed for that payment.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Funeral/Burial Benefits, item 2"
+    },
+    {
+      "id": "MI-DOC-28",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Loss of support: Social Security Survivor's Benefit Statement."
+      },
+      "summary": "For loss of support, include the Social Security Survivor's Benefit Statement for you and your dependents.",
+      "quote": "If you are applying for loss of support, provide the Social Security Survivor's Benefit Statement for you and/or your dependents.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Loss of Earnings or Support, item 4"
+    },
+    {
+      "id": "MI-DOC-29",
+      "category": "required_document",
+      "params": {
+        "document": "other",
+        "note": "Loss of support: court order for child support, if applicable."
+      },
+      "summary": "For loss of support, include the court order for child support, if there is one.",
+      "quote": "If you are applying for loss of support, provide a copy of the Court Order for Child Support, if applicable.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Loss of Earnings or Support, item 5"
+    },
+    {
+      "id": "MI-DOC-30",
+      "category": "required_document",
+      "params": {
+        "document": "wage_verification",
+        "note": "Loss of support: the victim's most recent federal and state tax returns and W-2 forms."
+      },
+      "summary": "For loss of support, include the victim's most recent federal and state tax returns and W-2 forms.",
+      "quote": "If you are applying for loss of support, provide a copy of the victim's most recent Federal and State Income Tax Returns and W-2 forms.",
+      "source_id": "MI-S18",
+      "pinpoint": "Application Checklist, Loss of Earnings or Support, item 6"
     }
   ],
   "coverage": {
@@ -756,15 +1198,18 @@
       "conduct_reduction",
       "emergency_award",
       "eligible_crime",
-      "residency"
+      "residency",
+      "submission",
+      "required_document"
     ],
     "not_found": [
       "reporting_requirement.within_days",
       "expense_cap.medical (no separate medical cap found; medical is limited only by the $45,000 aggregate)",
-      "administrative rules setting caps or rates (none saved)"
+      "administrative rules setting caps or rates (none saved)",
+      "processing_time"
     ],
-    "notes": "No statutory time limit for reporting to police was found in MCL 18.360 or the program pages saved here, so within_days is left out. Michigan administrative rules were not searched or saved; all caps come from MCL 18.361, 18.359, and 18.355a. Counseling has two hourly rates (therapist/counselor vs psychologist/physician), recorded as separate expense_cap rules."
+    "notes": "No statutory time limit for reporting to police was found in MCL 18.360 or the program pages saved here, so within_days is left out. Michigan administrative rules were not searched or saved; all caps come from MCL 18.361, 18.359, and 18.355a. Counseling has two hourly rates (therapist/counselor vs psychologist/physician), recorded as separate expense_cap rules. No processing time is stated in the saved program pages, application, checklist, or reference guide; the checklist only says timely submission of documents may reduce processing time, so no processing_time rule was added."
   },
   "confidence": "high",
-  "researcher_notes": "Statute text is from legislature.mi.gov (current through 2022 PA 77 and 78, effective Aug. 12, 2023). The MDHHS SAFE Response page says that for injuries other than the forensic exam, a victim 'would have to' report to police to get compensation, while MCL 18.355a(10) says a forensic exam satisfies prompt reporting and cooperation for payments under section 6, and the MDHHS Do I Qualify page says an exam may be used in lieu of a police report. The statute wins; Tend should rely on MI-REPORT-1. MCL 18.355a(10) also says a survivor cannot be required to participate in the criminal justice system or cooperate with law enforcement to receive a forensic exam. The minimum-loss waiver for criminal sexual conduct is discretionary ('may waive'). Security cap is per residence and crime scene cleanup cap is per crime scene, so params.per uses 'residence' and 'crime_scene', which are not in the schema's per list. The FAQ and brochure say the program does not cover pain and suffering; the forensic exam payment to providers is capped at $1,200 (with up to $700 of that for facility and exam fees) and is separate from the victim's own compensation claim. The federal OVC directory lists the compensation office line as 517-241-7373; the victims-only toll-free line 877-251-7373 is on the MDHHS program page. Reviewer: the saved sources do not say whether the $45,000 aggregate cap and the 2022 PA 77 caps apply to crimes that happened before Aug. 12, 2023 (the agency page says the limit was recently raised from $25,000). MI-CAP-4 (agency table) matches the statutory 35-session and 20-family-session limits in MCL 18.361(6)."
+  "researcher_notes": "Statute text is from legislature.mi.gov (current through 2022 PA 77 and 78, effective Aug. 12, 2023). The MDHHS SAFE Response page says that for injuries other than the forensic exam, a victim 'would have to' report to police to get compensation, while MCL 18.355a(10) says a forensic exam satisfies prompt reporting and cooperation for payments under section 6, and the MDHHS Do I Qualify page says an exam may be used in lieu of a police report. The statute wins; Tend should rely on MI-REPORT-1. MCL 18.355a(10) also says a survivor cannot be required to participate in the criminal justice system or cooperate with law enforcement to receive a forensic exam. The minimum-loss waiver for criminal sexual conduct is discretionary ('may waive'). Security cap is per residence and crime scene cleanup cap is per crime scene, so params.per uses 'residence' and 'crime_scene', which are not in the schema's per list. The FAQ and brochure say the program does not cover pain and suffering; the forensic exam payment to providers is capped at $1,200 (with up to $700 of that for facility and exam fees) and is separate from the victim's own compensation claim. The federal OVC directory lists the compensation office line as 517-241-7373; the victims-only toll-free line 877-251-7373 is on the MDHHS program page. Reviewer: the saved sources do not say whether the $45,000 aggregate cap and the 2022 PA 77 caps apply to crimes that happened before Aug. 12, 2023 (the agency page says the limit was recently raised from $25,000). MI-CAP-4 (agency table) matches the statutory 35-session and 20-family-session limits in MCL 18.361(6). Filing: the Applying for Compensation page says applications should be submitted electronically when possible, by email (MDHHS-MichiganCrimeVictim@Michigan.gov) or fax (517-335-2439), and can still be mailed; there is no online portal and no in-person drop-off is stated. The application PDF (DCH-0560, Rev. 1-26, MI-S15) is fillable with 202 AcroForm fields and says the previous edition may be used. Required documents come from the English Application Checklist (Revised 02/2025, MI-S18); several apply only to specific benefits (relocation, lost earnings, funeral, loss of support), so each required_document rule carries an expense or note saying when it applies. The checklist also lists two cost estimates and a prescription for rehabilitative equipment if disabled by the injury; that item was not added as a separate rule."
 }

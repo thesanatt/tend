@@ -9,7 +9,12 @@
   "application_pdf_url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/English%20Victims%20Compensation%20Application.pdf",
   "phone": "800-750-1213 (Vermont only) or 802-241-1250",
   "phone_source_id": "VT-S7",
-  "statute_citation": "13 V.S.A. §§ 5351 to 5358a; 32 V.S.A. § 1407; Code Vt. R. 80-220-001"
+  "statute_citation": "13 V.S.A. §§ 5351 to 5358a; 32 V.S.A. § 1407; Code Vt. R. 80-220-001",
+  "application_form": {
+   "source_id": "VT-S8",
+   "fillable": true,
+   "field_count": 180
+  }
  },
  "sources": [
   {
@@ -181,6 +186,16 @@
    "raw_path": "rules/sources/VT/VT-S17.html",
    "text_path": "rules/sources/VT/VT-S17.txt",
    "sha256": "5316155f1ca9a497c42c8caa273dd14fcfb85f448b63ccda4e3bf3bfc24d6a75"
+  },
+  {
+   "id": "VT-S18",
+   "title": "Vermont Victims Compensation online application portal (ccvcvt.org), linked from the CCVS Application & Forms page",
+   "url": "https://ccvcvt.org/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T19:42:43Z",
+   "raw_path": "rules/sources/VT/VT-S18.html",
+   "text_path": "rules/sources/VT/VT-S18.txt",
+   "sha256": "b0b58794f6c8e755d90b02d2968f5472d4f8bd771046c1c254858820882824b8"
   }
  ],
  "rules": [
@@ -607,6 +622,117 @@
    "source_id": "VT-S6",
    "pinpoint": "CCVS Sexual Assault Program page, Who is eligible?",
    "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=Victims%20of%20sexual%20assault%20are,the%20crime%20happened%20in%20Vermont."
+  },
+  {
+   "id": "VT-SUBMIT-1",
+   "category": "submission",
+   "params": {
+    "method": "mail",
+    "target": "Victims Compensation Program\n58 South Main Street, Suite One\nWaterbury, Vermont 05676-1599"
+   },
+   "summary": "Mail the paper application (taped or stapled shut, or in an envelope) and any crime-related bills to the Victims Compensation Program address printed on the first page of the application.",
+   "quote": "Victims Compensation Program\n58 South Main Street, Suite One\nWaterbury, Vermont 05676-1599",
+   "source_id": "VT-S8",
+   "pinpoint": "Application for Vermont Victims Compensation, cover page; Application Instructions item 4"
+  },
+  {
+   "id": "VT-SUBMIT-2",
+   "category": "submission",
+   "params": {
+    "method": "online",
+    "target": "https://ccvcvt.org/"
+   },
+   "summary": "The application can be filed online; the Application & Forms page's ONLINE Victims Compensation Application link goes to ccvcvt.org, where the applicant signs in or creates an account.",
+   "quote": "The application is also available and can be downloaded in other languages, as well as in a fillable PDF version if you prefer to print and mail your application to us. ONLINE Victims Compensation Application",
+   "source_id": "VT-S7",
+   "pinpoint": "CCVS Application & Forms page",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/application-forms#:~:text=The%20application%20is%20also%20available,us.%20ONLINE%20Victims%20Compensation%20Application"
+  },
+  {
+   "id": "VT-DOC-1",
+   "category": "required_document",
+   "params": {
+    "document": "itemized_bill",
+    "note": "Send any outstanding crime-related bills with the application, and send later bills as they arrive."
+   },
+   "summary": "Outstanding crime-related bills should be sent in with the application.",
+   "quote": "If there are outstanding crime related bills, please send them with the application.",
+   "source_id": "VT-S3",
+   "pinpoint": "Victims Compensation FAQ, What happens when an application is received?",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/frequently-asked-questions#:~:text=If%20there%20are%20outstanding%20crime,send%20them%20with%20the%20application."
+  },
+  {
+   "id": "VT-DOC-2",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Signatures and dates in three places on the application: authorization to obtain information, repayment/subrogation agreement, and certification."
+   },
+   "summary": "The application must be signed and dated in three places (authorization, repayment agreement, certification) to be eligible; missing signatures delay a claim.",
+   "quote": "You must sign and date in the three (3) places that follow to be eligible for Victims\nCompensation.",
+   "source_id": "VT-S8",
+   "pinpoint": "Application for Vermont Victims Compensation, page 6"
+  },
+  {
+   "id": "VT-DOC-3",
+   "category": "required_document",
+   "params": {
+    "document": "wage_verification",
+    "note": "Self-employed victims claiming lost wages: prior or current tax returns, 1099s, Schedule C, W-2s, or other proof of income."
+   },
+   "summary": "For self-employed victims, lost wages are figured from net income shown on tax returns, 1099 forms, Schedule C, W-2s, or other proof of income.",
+   "quote": "For victims who are self-employed, the value of actual wages lost shall be\ndetermined according to net income as reported on one or more of the\nfollowing:\na. the previous year's and/or current Federal and State Income Tax\nreturns;\nb. the previous year's and/or current Federal 1099 forms;\nc. the previous year's and/or current Schedule C;\nd. W-2s, if applicable;\ne. other proof of income at the time of the loss.",
+   "source_id": "VT-S11",
+   "pinpoint": "CCVS Policy for Reimbursement of Lost Wages, item 3"
+  },
+  {
+   "id": "VT-DOC-4",
+   "category": "required_document",
+   "params": {
+    "document": "medical_records",
+    "note": "Lost wages beyond two weeks: a Physician's Report or a mental health provider statement on the disability and return-to-work date."
+   },
+   "summary": "To be paid for more than two weeks of lost wages, the victim must submit a Physician's Report or a mental health provider's statement saying when they can return to work.",
+   "quote": "eligible for reimbursement of more than two weeks lost wages, a victim must\nsubmit his/her Physician's Report, or a statement from his/her mental health\nprovider which states the nature of the disability and indicates when the victim\nwill be able to return to work.",
+   "source_id": "VT-S11",
+   "pinpoint": "CCVS Policy for Reimbursement of Lost Wages, item 4b"
+  },
+  {
+   "id": "VT-DOC-5",
+   "category": "required_document",
+   "params": {
+    "document": "counseling_statement",
+    "note": "The counselor submits a current Mental Health Treatment Plan; up to four sessions can be paid before it arrives."
+   },
+   "summary": "Counseling is paid only after the treatment provider submits a current Mental Health Treatment Plan.",
+   "quote": "To be eligible for payment of counseling expenses, the treatment\nprovider must submit a current Mental Health Treatment Plan",
+   "source_id": "VT-S9",
+   "pinpoint": "CCVS Victims Compensation Mental Health Policy, section 2, Treatment Plans"
+  },
+  {
+   "id": "VT-DOC-6",
+   "category": "required_document",
+   "params": {
+    "document": "receipts",
+    "note": "Prepaid security deposit: landlord's receipt and a signed copy of the lease."
+   },
+   "summary": "A security deposit the victim already paid is reimbursed after the victim submits the landlord's receipt and a signed copy of the lease.",
+   "quote": "we will\nreimburse the victim for the security deposit upon the victim's\nsubmission of a landlord's receipt and a signed copy of the lease.",
+   "source_id": "VT-S13",
+   "pinpoint": "CCVS Policy for Housing and Relocation, Security Deposits"
+  },
+  {
+   "id": "VT-DOC-7",
+   "category": "required_document",
+   "params": {
+    "document": "other",
+    "note": "Sexual Assault Program: the Sexual Assault Billing Form, filled out and signed with the SANE nurse at the hospital, opens the claim; no separate application."
+   },
+   "summary": "For the Sexual Assault Program, the signed Sexual Assault Billing Form completed at the exam serves as the application.",
+   "quote": "The signed Sexual Assault Billing Form serves as the application to open a claim",
+   "source_id": "VT-S6",
+   "pinpoint": "CCVS Sexual Assault Program page, How to access the Program?",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=The%20signed%20Sexual%20Assault%20Billing,application%20to%20open%20a%20claim"
   }
  ],
  "coverage": {
@@ -623,16 +749,19 @@
    "filing_deadline",
    "reporting_requirement",
    "residency",
-   "total_cap"
+   "total_cap",
+   "submission",
+   "required_document"
   ],
   "not_found": [
    "minimum_loss",
    "expense_cap for security",
    "expense_cap for medical (no dollar cap; uninsured providers paid 60 percent of billed charges)",
-   "emergency_award amount"
+   "emergency_award amount",
+   "processing_time"
   ],
-  "notes": "No minimum loss was found in the statute, the Board rule, or the program pages. No dollar cap for security expenses was found. The emergency advance comes from the Board's administrative rule; no amount is set there."
+  "notes": "No minimum loss was found in the statute, the Board rule, or the program pages. No dollar cap for security expenses was found. The emergency advance comes from the Board's administrative rule; no amount is set there. No processing time is stated; the FAQ says approval time depends on how long it takes to verify the losses."
  },
  "confidence": "high",
- "researcher_notes": "Vermont runs two paths: Victims Compensation under 13 V.S.A. ch. 167 (police report concluding a crime occurred is required by 13 V.S.A. 5353(a)(1)), and the CCVS Sexual Assault Program under 32 V.S.A. 1407, which pays exam costs and follow-up counseling with no police report, only a report to a medical provider. The CCVS Application & Forms page says applicants do not have to provide a police report; I read that as not having to attach a copy (the claims specialist gathers it), not as waiving the statutory report requirement. Exam billing: 1407(c) requires providers to bill the survivor's insurance first, so insurance_billing is 'allowed' (in fact required); the survivor owes nothing because the Fund pays cost-sharing and providers cannot balance bill uninsured survivors. Filing deadline: the statute ties the deadline to the prosecution limitation period; 13 V.S.A. 4501(a) has no limit for sexual assault and aggravated sexual assault, but other sex offenses in 4501(b)-(e) have limits, so VT-DEADLINE-2 only covers the crimes it lists. Counseling and lost-wage figures are CCVS policies with effective dates: counseling $100/session applies to services from August 12, 2024; lost wages $750/week applies to claims filed on or after 9/8/2025 (older claims $500/week). The Board administrative rule (Code Vt. R. 80-220-001, via Cornell LII) lists older internal caps (mental health $3,000, lost wages $1,500, temporary living $1,500/month) that conflict with the current CCVS policies; I did not encode those caps and only used the rule for the emergency advance and transportation-for-treatment provisions. Relocation caps are stated in the policy without a per-claim unit; the policy says relocation is generally paid no more than once in 12 months. Reviewer: VT-TRAVEL-1's $2,000 cap applies only to travel to court proceedings, Parole Board hearings, and pre-sentence investigations in non-homicide cases (plus $2,000 more per separately tried defendant); it is not a cap on travel to medical or counseling treatment (VT-TRAVEL-2). The Board rule (VT-S16) is an old version (it lists a Montpelier address and a 7-digit phone) and is used only for the emergency advance and treatment transportation."
+ "researcher_notes": "Vermont runs two paths: Victims Compensation under 13 V.S.A. ch. 167 (police report concluding a crime occurred is required by 13 V.S.A. 5353(a)(1)), and the CCVS Sexual Assault Program under 32 V.S.A. 1407, which pays exam costs and follow-up counseling with no police report, only a report to a medical provider. The CCVS Application & Forms page says applicants do not have to provide a police report; I read that as not having to attach a copy (the claims specialist gathers it), not as waiving the statutory report requirement. Exam billing: 1407(c) requires providers to bill the survivor's insurance first, so insurance_billing is 'allowed' (in fact required); the survivor owes nothing because the Fund pays cost-sharing and providers cannot balance bill uninsured survivors. Filing deadline: the statute ties the deadline to the prosecution limitation period; 13 V.S.A. 4501(a) has no limit for sexual assault and aggravated sexual assault, but other sex offenses in 4501(b)-(e) have limits, so VT-DEADLINE-2 only covers the crimes it lists. Counseling and lost-wage figures are CCVS policies with effective dates: counseling $100/session applies to services from August 12, 2024; lost wages $750/week applies to claims filed on or after 9/8/2025 (older claims $500/week). The Board administrative rule (Code Vt. R. 80-220-001, via Cornell LII) lists older internal caps (mental health $3,000, lost wages $1,500, temporary living $1,500/month) that conflict with the current CCVS policies; I did not encode those caps and only used the rule for the emergency advance and transportation-for-treatment provisions. Relocation caps are stated in the policy without a per-claim unit; the policy says relocation is generally paid no more than once in 12 months. Reviewer: VT-TRAVEL-1's $2,000 cap applies only to travel to court proceedings, Parole Board hearings, and pre-sentence investigations in non-homicide cases (plus $2,000 more per separately tried defendant); it is not a cap on travel to medical or counseling treatment (VT-TRAVEL-2). The Board rule (VT-S16) is an old version (it lists a Montpelier address and a 7-digit phone) and is used only for the emergency advance and treatment transportation. How to file: the English application (VT-S8, last modified 8/13/2024, the version linked from the Application & Forms page) is a fillable PDF with 180 AcroForm fields. It can be mailed or filed online at ccvcvt.org (VT-S18). The application's cover page lists 58 South Main Street, Suite One, Waterbury, Vermont 05676-1599, but the online portal and the 2026 policy letterheads list 60 South Main Street, Suite 1, Waterbury, VT 05676(-1599); the mail rule keeps the application's address verbatim, and Tend should show the newer one alongside it. A fax number (802-241-1253, Victims Compensation only) is printed on the application and policies, but no source says the application can be faxed, so I did not add a fax submission rule. The Application & Forms page says applicants do not have to provide a police report, so police_report is not a required document. The Sexual Assault Program path (exam and counseling, no police report) does not use the compensation application; the signed Sexual Assault Billing Form from the SANE visit opens the claim."
 }

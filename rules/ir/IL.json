@@ -10,9 +10,14 @@
   "application_pdf_url": "https://illinoisattorneygeneral.gov/Page-Attachments/CVApplicationEnglish.pdf",
   "phone": "800-228-3368",
   "phone_source_id": "IL-S3",
-  "statute_citation": "740 ILCS 45/1 et seq. (Crime Victims Compensation Act); exam billing: 410 ILCS 70/7 and 70/7.5 (Sexual Assault Survivors Emergency Treatment Act)"
+  "statute_citation": "740 ILCS 45/1 et seq. (Crime Victims Compensation Act); exam billing: 410 ILCS 70/7 and 70/7.5 (Sexual Assault Survivors Emergency Treatment Act)",
+  "application_form": {
+   "source_id": "IL-S5",
+   "fillable": true,
+   "field_count": 297
+  }
  },
- "source_sha256": "47d4b16beea2eddd53e9a26679e4a253e3f139c7fb1244a272c6eb4da4598a6a",
+ "source_sha256": "d8b7a145d9674cdf54f21b3c414ecf8ee886d1ac636fa2c3f94b26f83c08c64b",
  "rules": [
   {
    "id": "IL-EXAM-1",
@@ -260,6 +265,56 @@
    "id": "IL-RES-2",
    "kind": "info",
    "category": "residency"
+  },
+  {
+   "id": "IL-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IL-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IL-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IL-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-PROTECT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-GUARDIAN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-RESIDENCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-USEFORCE",
+   "kind": "info",
+   "category": "required_document"
   }
  ],
  "skipped": [
