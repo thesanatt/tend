@@ -6,7 +6,7 @@ import pytest
 from pydantic import ValidationError
 
 from tend_api.models import ClaimInput, ConfirmRequest, Item, ProposeRequest, ScanRequest
-from tend_api.money import assert_integer_cents, canonical_json, format_cents, matches_cents, parse_cents
+from tend_api.money import assert_integer_cents, canonical_json, dollars_match_cents, format_cents, parse_cents
 
 
 @pytest.mark.parametrize(
@@ -59,16 +59,18 @@ def test_integer_cents_guard_rejects_floats_bools_strings(bad):
     "value,cents,ok",
     [
         (118, 11800, True),
-        (11800, 11800, True),
         (118.0, 11800, True),
         ("1.15", 115, True),
+        (443.0, 44300, True),
+        (11800, 11800, False),  # cents written where dollars belong is exactly the bug a read-back must catch
         (117.99, 11800, False),
+        (1.005, 100, False),
         (True, 100, False),
         (None, 100, False),
     ],
 )
-def test_matches_cents_is_exact(value, cents, ok):
-    assert matches_cents(value, cents) is ok
+def test_dollars_match_cents_is_exact(value, cents, ok):
+    assert dollars_match_cents(value, cents) is ok
 
 
 def test_canonical_json_is_stable_and_rejects_nan():

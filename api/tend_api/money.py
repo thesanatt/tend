@@ -54,15 +54,14 @@ def _check_cents_value(value: Any, path: str) -> None:
         raise ValueError(f"{path} must be integer cents, got {value!r}")
 
 
-def matches_cents(value: Any, cents: int) -> bool:
-    """Exact comparison of a bank's bare number against integer cents, read as cents or as dollars."""
+def dollars_match_cents(value: Any, cents: int) -> bool:
+    """Nessie's raw records hold dollars as a JSON number; compare exactly, never through a float."""
     if isinstance(value, bool) or value is None:
         return False
     try:
-        amount = Decimal(str(value))
+        return Decimal(str(value)) * 100 == cents
     except InvalidOperation:
         return False
-    return amount == cents or amount * 100 == cents
 
 
 def canonical_json(obj: Any) -> bytes:

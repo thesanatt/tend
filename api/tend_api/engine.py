@@ -17,7 +17,9 @@ from typing import Any, Protocol
 
 from .rules import RulesStore
 
-BUILD_HINT = "cmake -S engine -B engine/build -G Ninja && cmake --build engine/build"
+BUILD_HINT = "make -C engine && make -C engine laws"
+# Engine error codes that mean this image or VM cannot serve the claim, so another engine should.
+UNAVAILABLE_CODES = {"bad_image", "vm_trap"}
 
 
 class EngineError(Exception):
@@ -72,6 +74,9 @@ class NativeEngine:
             lib.tend_version.restype = ctypes.c_char_p
             lib.tend_free.argtypes = [ctypes.c_void_p]
             lib.tend_free.restype = None
+            if hasattr(lib, "tend_inspect_json"):
+                lib.tend_inspect_json.argtypes = [ctypes.c_char_p, ctypes.c_size_t]
+                lib.tend_inspect_json.restype = ctypes.c_void_p
             self._lib = lib
             return lib
 
@@ -133,19 +138,27 @@ class NativeEngine:
             if os.path.exists(tmp):
                 os.unlink(tmp)
 
+    # The C ABI is reentrant with no global state, so calls need no lock.
     def evaluate(self, payload: dict[str, Any]) -> dict[str, Any]:
         lib = self._library()
         image, _ = self.law_image(payload["jurisdiction"])
         request = json.dumps(payload, separators=(",", ":")).encode("utf-8")
-        with self._lock:
-            text = self._take(lib, lib.tend_eval_json(image, len(image), request))
-        return _parse_result(text)
+        return _parse_result(self._take(lib, lib.tend_eval_json(image, len(image), request)))
 
     def disasm(self, st: str) -> str:
         lib = self._library()
         image, _ = self.law_image(st)
-        with self._lock:
-            return self._take(lib, lib.tend_disasm(image, len(image)))
+        listing = self._take(lib, lib.tend_disasm(image, len(image)))
+        if listing.startswith("error: "):
+            raise EngineUnavailable(f"the native engine could not read the {st} law image ({listing[7:].strip()})")
+        return listing
+
+    def inspect(self, st: str) -> dict[str, Any] | None:
+        lib = self._library()
+        if not hasattr(lib, "tend_inspect_json"):
+            return None
+        image, _ = self.law_image(st)
+        return _parse_result(self._take(lib, lib.tend_inspect_json(image, len(image))))
 
     def status(self) -> dict[str, Any]:
         try:
@@ -169,8 +182,14 @@ def _parse_result(text: str | bytes) -> dict[str, Any]:
         raise EngineError(f"engine returned invalid JSON: {exc}") from exc
     if not isinstance(result, dict):
         raise EngineError("engine returned a non-object result")
-    if "error" in result and "lines" not in result:
-        raise EngineError(str(result["error"]))
+    error = result.get("error") if "lines" not in result else None
+    if error is not None:
+        code = error.get("code") if isinstance(error, dict) else None
+        message = error.get("message", "") if isinstance(error, dict) else str(error)
+        detail = f"{code}: {message}" if code else message
+        if code in UNAVAILABLE_CODES:
+            raise EngineUnavailable(f"the native engine could not run this claim ({detail})")
+        raise EngineError(detail)
     return result
 
 
@@ -195,7 +214,7 @@ class ReferenceEngine:
         if law is None:
             raise EngineError(f"no verified rules for {payload['jurisdiction']}")
         try:
-            result = call_reference(fn, law, payload)
+            result = call_reference(fn, law, payload, law_sha256=self.rules.file_sha256(payload["jurisdiction"]))
         except ValueError as exc:
             raise EngineError(f"reference engine rejected the input: {exc}") from exc
         if isinstance(result, dict):
@@ -233,19 +252,18 @@ def load_reference(refengine_dir: Path) -> Callable[..., Any]:
 _LAW_PARAM_WORDS = ("law", "rule", "verified", "jurisdiction_doc", "spec")
 
 
-def call_reference(fn: Callable[..., Any], law: dict[str, Any], payload: dict[str, Any]) -> Any:
+def call_reference(fn: Callable[..., Any], law: dict[str, Any], payload: dict[str, Any], law_sha256: str | None = None) -> Any:
     # Accepts evaluate(law, input), evaluate(input, law), or evaluate(input) that loads rules itself.
-    positional = [
-        p
-        for p in inspect.signature(fn).parameters.values()
-        if p.kind in (inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD)
-    ]
+    params = inspect.signature(fn).parameters
+    positional = [p for p in params.values() if p.kind in (inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD)]
     required = [p for p in positional if p.default is inspect.Parameter.empty]
+    # tend_ref labels its output with the rules file's sha256 when given one, instead of hashing canonical JSON.
+    kwargs = {"law_sha256": law_sha256} if law_sha256 and "law_sha256" in params else {}
     if len(required) >= 2:
         if any(word in required[0].name.lower() for word in _LAW_PARAM_WORDS):
-            return fn(law, payload)
-        return fn(payload, law)
-    return fn(payload)
+            return fn(law, payload, **kwargs)
+        return fn(payload, law, **kwargs)
+    return fn(payload, **kwargs)
 
 
 class EngineRouter:

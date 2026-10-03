@@ -78,15 +78,39 @@ def test_native_engine_through_ctypes(native_settings, clock):
     asm = client.get("/api/jurisdictions/MI/asm").json()
     assert asm["engine_version"] == "fake-1.0"
     assert asm["listing"].startswith("; fake listing for 36 bytes")
+    assert asm["inspect"] == {"magic": "TLAW", "bytes": 36}
     assert client.get("/api/jurisdictions/MI/asm", params={"format": "text"}).text.endswith("HALT\n")
     assert client.get("/api/health").json()["engines"]["native"]["available"] is True
 
 
-def test_native_engine_error_is_422_not_a_silent_fallback(native_settings, clock):
+def test_native_bad_input_is_422_not_a_silent_fallback(native_settings, clock):
     client = client_for(make_services(native_settings, clock))
     r = client.post("/api/claim", json=ONE_ITEM)
     assert r.status_code == 422
-    assert "only evaluates empty claims" in r.json()["detail"]
+    assert r.json()["detail"] == "bad_input: fake engine only evaluates empty claims"
+
+
+def test_unreadable_law_image_falls_back_to_reference(native_settings, clock):
+    # Fresh by its embedded hash, but the engine rejects it: the claim still gets an answer, from the reference.
+    image = native_settings.law_dirs[0] / "MI.tlaw"
+    image.write_bytes(b"XXXX" + image.read_bytes()[4:])
+    client = client_for(make_services(native_settings, clock))
+    r = client.post("/api/claim", json=EMPTY_CLAIM)
+    assert r.status_code == 200
+    assert r.headers["X-Tend-Engine"] == "reference"
+    assert client.post("/api/claim", params={"engine": "native"}, json=EMPTY_CLAIM).status_code == 503
+    assert "bad magic" in client.get("/api/jurisdictions/MI/asm").json()["detail"]
+
+
+def test_reference_gets_the_rules_file_hash():
+    seen = {}
+
+    def evaluate(rules, engine_input, *, law_sha256=None):
+        seen["law_sha256"] = law_sha256
+        return {}
+
+    call_reference(evaluate, {"rules": []}, {"items": []}, law_sha256="abc")
+    assert seen == {"law_sha256": "abc"}
 
 
 def test_stale_law_image_falls_back_to_reference(native_settings, clock):

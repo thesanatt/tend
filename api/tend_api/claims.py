@@ -8,7 +8,9 @@ from typing import Any
 from .bill import (
     INSURANCE_MENTION,
     BillRefused,
+    BillSource,
     balance_checks,
+    document_check,
     extract_bill,
     find_bill,
     nessie_bill_check,
@@ -19,7 +21,7 @@ from .errors import TendError
 from .models import BillAuditRequest, ClaimInput, Context, Item
 from .money import assert_integer_cents, format_cents
 from .rules import RulesStore, citation
-from .scan import load_snapshot
+from .scan import load_snapshot, persona_info
 from .storage import Repository
 
 HOLD_MESSAGE = "Hold this line. Ask billing to remove it first."
@@ -168,18 +170,24 @@ class ClaimService:
         doc = self._require_jurisdiction(req.st)
         snapshot = load_snapshot(self.seed_dir, req.persona_id) if req.persona_id else None
         if req.bill_text is not None:
-            raw, fmt = req.bill_text.encode("utf-8"), "text"
+            source = BillSource(req.bill_text.encode("utf-8"), "text")
         else:
-            raw, fmt = find_bill(self.seed_dir, req.bill_id, req.persona_id, snapshot)
-        bill = extract_bill(raw, fmt)
+            source = find_bill(self.seed_dir, req.bill_id, req.persona_id, snapshot)
+        bill = extract_bill(source.raw, source.format)
         checks = balance_checks(bill)
+        if source.document is not None:
+            bill.nessie_bill_id = bill.nessie_bill_id or source.document.get("bill_id")
+            bill.statement_date = bill.statement_date or source.document.get("statement_date")
+            checks.append(document_check(bill, source.document))
+            if not checks[-1]["ok"]:
+                raise BillRefused("This file is not the bill recorded for this person.", {"checks": checks})
         nessie_check = nessie_bill_check(bill, snapshot)
         if nessie_check is not None:
             checks.append(nessie_check)
             if not nessie_check["ok"]:
                 raise BillRefused("The bill does not match the bill on record in the bank.", {"checks": checks})
 
-        persona_context = dict((snapshot or {}).get("context") or {})
+        persona_context = persona_info(snapshot)["context"] if snapshot else {}
         incident = req.incident_date or parse_date(persona_context.get("incident_date"))
         if incident is None:
             raise ClaimError("incident_date is required to audit a bill.", 422)
@@ -221,6 +229,7 @@ class ClaimService:
                     "date": line.date.isoformat(),
                     "description": line.description,
                     "amount_cents": line.amount_cents,
+                    "columns_cents": line.columns_cents,
                     "expense": line.expense,
                     "matched_on": line.match,
                     "status": result.get("status"),
@@ -250,7 +259,7 @@ class ClaimService:
                 flags.append(flag)
 
         held_cents = sum(h["amount_cents"] for h in holds)
-        due = bill.amount_due_cents if bill.amount_due_cents is not None else bill.total_cents
+        due = bill.due_cents
         scan_id = self._register_bill_evidence(req, bill)
         result = {
             "bill": {
@@ -272,7 +281,10 @@ class ClaimService:
             "flags": flags,
             "held_cents": held_cents,
             "payable_cents": max(0, (due or 0) - held_cents),
+            # In a claim these lines stand in for the single bank bill they itemize.
+            "replaces_item_id": f"nessie:{bill.nessie_bill_id}" if bill.nessie_bill_id else None,
             "engine_items": payload["items"],
+            "engine_context": payload["context"],
             "engine_output": output,
             "scan_id": scan_id,
         }

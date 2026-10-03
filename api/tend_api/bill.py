@@ -9,16 +9,21 @@ from pathlib import Path
 from typing import Any
 
 from .errors import TendError
-from .money import MONEY_TOKEN, matches_cents, parse_cents, sha256_hex
+from .money import MONEY_TOKEN, dollars_match_cents, parse_cents, sha256_hex
 
 BILL_DIRS = ("bills", "fixtures", "documents", "")
 BILL_EXTS = (".json", ".pdf", ".txt")
 
-_TRAILING_AMOUNT = re.compile(rf"(?P<amount>{MONEY_TOKEN.pattern})\s*$")
-_LEADING_DATE = re.compile(r"^\s*(?:(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})|(?P<m2>\d{1,2})/(?P<d2>\d{1,2})/(?P<y2>\d{2,4}))\b")
-_META = re.compile(r"^\s*(?P<key>provider|facility|statement date|bill id|bill|account|account number)\s*[:#]\s*(?P<value>.+?)\s*$", re.I)
+# A bill row: optional line number, a date, a description, then one or more money columns ending the line.
+_ROW_START = re.compile(r"^\s*(?:\d{1,3}\s+)?(?:(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})|(?P<m2>\d{1,2})/(?P<d2>\d{1,2})/(?P<y2>\d{2,4}))\b")
+_TRAILING_AMOUNT = re.compile(rf"(?:{MONEY_TOKEN.pattern})\s*$")
+_META = re.compile(
+    r"(?:^|\s{2,})(?P<key>provider|facility|statement date|bill id|account number|account)\s*[:#]\s*(?P<value>\S.*?)\s*$", re.I
+)
+_FICTIONAL = re.compile(r"\bfictional\b|\bnot a real\b", re.I)
+_BANNER = re.compile(r"^\W*fictional demo|\bnot a real\b", re.I)  # a whole line about the document, never the provider name
 _DUE = re.compile(r"amount due|balance due|total due|you owe|patient responsibility|please pay", re.I)
-_TOTAL = re.compile(r"\btotal\b", re.I)
+_TOTAL = re.compile(r"\btotals?\b", re.I)
 _ADJUSTMENT = re.compile(r"insurance|payment|paid|adjust|discount|credit|write.?off", re.I)
 
 # First match wins. Hospital pharmacy and supply charges are medical care on a hospital bill.
@@ -51,7 +56,8 @@ class BillLine:
     line_no: int
     date: dt.date
     description: str
-    amount_cents: int
+    amount_cents: int  # what the patient owes on this line: the last money column
+    columns_cents: list[int] = field(default_factory=list)
     item_id: str = ""
     expense: str = "unknown"
     match: str | None = None
@@ -65,7 +71,7 @@ class Bill:
     provider: str | None = None
     statement_date: str | None = None
     bill_id: str | None = None
-    fictional: bool = True
+    fictional: bool = False
     nessie_bill_id: str | None = None
     total_cents: int | None = None
     amount_due_cents: int | None = None
@@ -74,6 +80,17 @@ class Bill:
     @property
     def lines_sum_cents(self) -> int:
         return sum(line.amount_cents for line in self.lines)
+
+    @property
+    def due_cents(self) -> int | None:
+        return self.amount_due_cents if self.amount_due_cents is not None else self.total_cents
+
+
+@dataclass
+class BillSource:
+    raw: bytes
+    format: str
+    document: dict[str, Any] | None = None  # the persona snapshot's record of this file, when it has one
 
 
 def match_expense(description: str) -> tuple[str, str | None]:
@@ -101,40 +118,43 @@ def parse_text_bill(text: str, sha256: str, fmt: str = "text") -> Bill:
         line = raw.strip()
         if not line:
             continue
-        meta = _META.match(line)
-        if meta and not _TRAILING_AMOUNT.search(line):
-            key, value = meta.group("key").lower(), meta.group("value")
-            if key in ("provider", "facility"):
-                bill.provider = value
-            elif key == "statement date":
-                bill.statement_date = value
-            elif key in ("bill id", "bill"):
-                bill.bill_id = value
+        if _FICTIONAL.search(line):
+            bill.fictional = True
+        amounts = list(MONEY_TOKEN.finditer(line)) if _TRAILING_AMOUNT.search(line) else []
+        if not amounts:
+            meta = _META.search(line)
+            if meta:
+                key, value = meta.group("key").lower(), meta.group("value")
+                if key in ("provider", "facility"):
+                    bill.provider = value
+                elif key == "statement date":
+                    bill.statement_date = value
+                elif key == "bill id":
+                    bill.bill_id = value
+            elif title is None and not _BANNER.search(line):
+                title = re.split(r"\s{2,}", line)[0]
             continue
-        amount_m = _TRAILING_AMOUNT.search(line)
-        date_m = _LEADING_DATE.match(line)
-        if amount_m and date_m:
-            description = re.sub(r"\s{2,}", "  ", line[date_m.end() : amount_m.start()]).strip(" .\t-")
+        row = _ROW_START.match(line)
+        if row and amounts[0].start() > row.end():
             try:
-                when = _parse_date(date_m)
+                when = _parse_date(row)
             except ValueError as exc:
                 raise BillRefused(f"bad date on bill line: {line!r}") from exc
-            cents = parse_cents(amount_m.group("amount"))
-            if cents < 0:  # a dated credit, e.g. a payment received, reduces what is due
-                bill.adjustments.append({"label": description, "amount_cents": -cents})
+            description = re.sub(r"\s{2,}", " ", line[row.end() : amounts[0].start()]).strip(" .\t-")
+            columns = [parse_cents(a.group(0)) for a in amounts]
+            if columns[-1] < 0:  # a dated credit, e.g. a payment received, reduces what is due
+                bill.adjustments.append({"label": description, "amount_cents": -columns[-1]})
                 continue
-            bill.lines.append(BillLine(line_no=len(bill.lines) + 1, date=when, description=description, amount_cents=cents))
-        elif amount_m:
-            label = line[: amount_m.start()].strip(" .:\t")
-            cents = parse_cents(amount_m.group("amount"))
-            if _DUE.search(label):
-                dues.append(cents)
-            elif _TOTAL.search(label):
-                totals.append(cents)
-            elif _ADJUSTMENT.search(label):
-                bill.adjustments.append({"label": label, "amount_cents": abs(cents)})
-        elif title is None:
-            title = line
+            bill.lines.append(BillLine(len(bill.lines) + 1, when, description, columns[-1], columns))
+            continue
+        label = line[: amounts[0].start()].strip(" .:\t")
+        cents = parse_cents(amounts[-1].group(0))
+        if _DUE.search(label):
+            dues.append(cents)
+        elif _TOTAL.search(label):
+            totals.append(cents)
+        elif _ADJUSTMENT.search(label):
+            bill.adjustments.append({"label": label, "amount_cents": abs(cents)})
     bill.provider = bill.provider or title
     bill.total_cents = totals[-1] if totals else None
     bill.amount_due_cents = dues[-1] if dues else None
@@ -148,9 +168,7 @@ def parse_json_bill(data: dict[str, Any], sha256: str) -> Bill:
         cents = raw.get("amount_cents")
         if isinstance(cents, bool) or not isinstance(cents, int):
             raise BillRefused(f"bill line {i} amount_cents must be integer cents")
-        lines.append(
-            BillLine(line_no=i, date=dt.date.fromisoformat(raw["date"]), description=str(raw.get("description", "")), amount_cents=cents)
-        )
+        lines.append(BillLine(i, dt.date.fromisoformat(raw["date"]), str(raw.get("description", "")), cents, [cents]))
     for key in ("total_cents", "amount_due_cents"):
         value = data.get(key)
         if value is not None and (isinstance(value, bool) or not isinstance(value, int)):
@@ -162,7 +180,7 @@ def parse_json_bill(data: dict[str, Any], sha256: str) -> Bill:
         provider=data.get("provider"),
         statement_date=data.get("statement_date"),
         bill_id=data.get("bill_id"),
-        fictional=bool(data.get("fictional", True)),
+        fictional=bool(data.get("fictional", False)),
         nessie_bill_id=data.get("nessie_bill_id"),
         total_cents=data.get("total_cents"),
         amount_due_cents=data.get("amount_due_cents"),
@@ -229,59 +247,90 @@ def balance_checks(bill: Bill) -> list[dict[str, Any]]:
         )
     else:
         raise BillRefused("This bill does not state a total, so its lines cannot be checked.", {"lines_sum_cents": lines_sum})
-    failed = [c for c in checks if not c["ok"]]
-    if failed:
+    if not all(c["ok"] for c in checks):
         raise BillRefused("The bill's lines do not add up to its total, so Tend will not audit it.", {"checks": checks})
     return checks
+
+
+def document_check(bill: Bill, document: dict[str, Any]) -> dict[str, Any]:
+    """The file must be the exact one the persona snapshot recorded, with the same total."""
+    expected = document.get("sha256")
+    total = document.get("total_cents")
+    ok = (expected is None or expected == bill.sha256) and (total is None or total == bill.due_cents)
+    return {
+        "name": "matches_snapshot_document",
+        "ok": ok,
+        "sha256": bill.sha256,
+        "expected_sha256": expected,
+        "expected_total_cents": total,
+    }
 
 
 def nessie_bill_check(bill: Bill, snapshot: dict[str, Any] | None) -> dict[str, Any] | None:
     if not bill.nessie_bill_id or not snapshot:
         return None
-    record = next((b for b in snapshot.get("bills") or [] if b.get("_id") == bill.nessie_bill_id), None)
+    record = next((b for b in snapshot.get("bills") or [] if bill.nessie_bill_id in (b.get("id"), b.get("_id"))), None)
     if record is None:
         return {"name": "matches_nessie_bill", "ok": False, "nessie_bill_id": bill.nessie_bill_id, "reason": "bill not in snapshot"}
-    due = bill.amount_due_cents if bill.amount_due_cents is not None else bill.total_cents
+    due = bill.due_cents
     for key in ("amount_cents", "payment_amount_cents"):
         if key in record:
             ok = due is not None and record[key] == due and not isinstance(record[key], bool)
             return {"name": "matches_nessie_bill", "ok": ok, "nessie_bill_id": bill.nessie_bill_id}
-    ok = due is not None and matches_cents(record.get("payment_amount"), due)
+    ok = due is not None and dollars_match_cents(record.get("payment_amount"), due)
     return {"name": "matches_nessie_bill", "ok": ok, "nessie_bill_id": bill.nessie_bill_id}
 
 
-def find_bill(seed_dir: Path, bill_id: str | None, persona_id: str | None, snapshot: dict[str, Any] | None) -> tuple[bytes, str]:
-    """An explicit bill_id wins, then the persona's own itemized_bill, then a bill file named after the persona."""
+def snapshot_documents(snapshot: dict[str, Any] | None) -> list[dict[str, Any]]:
+    snapshot = snapshot or {}
+    docs = list((snapshot.get("meta") or {}).get("documents") or snapshot.get("documents") or [])
+    legacy = snapshot.get("itemized_bill")
+    if isinstance(legacy, str):
+        docs.append({"kind": "itemized_bill", "path": legacy})
+    return [d for d in docs if isinstance(d, dict) and d.get("kind", "itemized_bill") == "itemized_bill"]
+
+
+def find_bill(seed_dir: Path, bill_id: str | None, persona_id: str | None, snapshot: dict[str, Any] | None) -> BillSource:
+    """An explicit bill_id wins, then the persona's own itemized bill, then a bill file named after the persona."""
     if bill_id:
         found = _find_named(seed_dir, bill_id)
         if found is None:
             raise BillRefused(f"No itemized bill named {bill_id!r} under {seed_dir}.", status_code=404)
         return found
-    ref = (snapshot or {}).get("itemized_bill")
-    if isinstance(ref, dict):
-        return json.dumps(ref).encode("utf-8"), "json"
-    if isinstance(ref, str):
-        candidate = (seed_dir / ref).resolve()
-        if candidate.is_file() and seed_dir.resolve() in candidate.parents:
-            return candidate.read_bytes(), _format_of(candidate)
-        found = _find_named(seed_dir, Path(ref).stem)
-        if found is not None:
-            return found
+    inline = (snapshot or {}).get("itemized_bill")
+    if isinstance(inline, dict):
+        return BillSource(json.dumps(inline).encode("utf-8"), "json")
+    for doc in snapshot_documents(snapshot):
+        path = _resolve_inside(seed_dir, str(doc.get("path", "")))
+        if path is not None:
+            return BillSource(path.read_bytes(), _format_of(path), doc)
     if persona_id:
         for prefix in (persona_id, persona_id.split("-")[0]):
             for sub in BILL_DIRS[:3]:
                 matches = sorted(p for p in (seed_dir / sub).glob(f"{prefix}*") if p.suffix in BILL_EXTS and p.is_file())
                 if matches:
-                    return matches[0].read_bytes(), _format_of(matches[0])
+                    return BillSource(matches[0].read_bytes(), _format_of(matches[0]))
     raise BillRefused(f"No itemized bill found for {persona_id!r} under {seed_dir}.", status_code=404)
 
 
-def _find_named(seed_dir: Path, name: str) -> tuple[bytes, str] | None:
+def _resolve_inside(seed_dir: Path, ref: str) -> Path | None:
+    # Snapshot paths may be relative to seed/ or to the repo root ("seed/bills/x.pdf"); never leave seed_dir.
+    if not ref:
+        return None
+    root = seed_dir.resolve()
+    for candidate in (seed_dir / ref, seed_dir.parent / ref, seed_dir / "bills" / Path(ref).name):
+        path = candidate.resolve()
+        if path.is_file() and root in path.parents:
+            return path
+    return None
+
+
+def _find_named(seed_dir: Path, name: str) -> BillSource | None:
     for sub in BILL_DIRS:
         for ext in BILL_EXTS:
             path = seed_dir / sub / f"{name}{ext}"
             if path.is_file():
-                return path.read_bytes(), _format_of(path)
+                return BillSource(path.read_bytes(), _format_of(path))
     return None
 
 

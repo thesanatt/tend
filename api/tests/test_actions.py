@@ -144,8 +144,21 @@ def test_held_line_cannot_be_paid(client):
 
 
 class FailingBank(DryRunBank):
-    def withdraw(self, account_id, amount_cents, description):
-        raise BankError("Nessie returned 502")
+    def withdraw(self, account_id, amount_cents, description, on_date):
+        raise BankError("Nessie POST /accounts/x/withdrawals -> 400: invalid account")
+
+
+class SilentBank(DryRunBank):
+    """No answer comes back. With landed=True the write happened anyway."""
+
+    def __init__(self, landed):
+        super().__init__()
+        self.landed = landed
+
+    def withdraw(self, account_id, amount_cents, description, on_date):
+        if self.landed:
+            super().withdraw(account_id, amount_cents, description, on_date)
+        raise BankError("read timed out", maybe_applied=True)
 
 
 class ShortReadBank(DryRunBank):
@@ -155,15 +168,31 @@ class ShortReadBank(DryRunBank):
         return record
 
 
-def test_bank_failure_is_reported_honestly_and_logged(settings, clock):
+def test_refused_payment_moves_no_money_and_is_logged(settings, clock):
     client = client_for(make_services(settings, clock, banks={"dry_run": FailingBank()}))
     action = propose(client)
     r = confirm(client, action)
     assert r.status_code == 502
-    assert "did not confirm" in r.json()["detail"] and action["action_id"] in r.json()["detail"]
+    assert "no money moved" in r.json()["detail"]
     assert client.get(f"/api/actions/{action['action_id']}").json()["status"] == "failed"
     assert [row["event"] for row in client.get("/api/audit").json()["rows"]][-1] == "failed"
     assert confirm(client, action).status_code == 409
+
+
+def test_unanswered_payment_is_never_called_safe(settings, clock):
+    client = client_for(make_services(settings, clock, banks={"dry_run": SilentBank(landed=False)}))
+    action = propose(client)
+    r = confirm(client, action)
+    assert r.status_code == 502
+    assert "may have gone through" in r.json()["detail"] and action["action_id"] in r.json()["detail"]
+    assert client.get(f"/api/actions/{action['action_id']}").json()["status"] == "unverified"
+
+
+def test_unanswered_payment_that_landed_is_found_by_its_label(settings, clock):
+    client = client_for(make_services(settings, clock, banks={"dry_run": SilentBank(landed=True)}))
+    done = confirm(client, propose(client))
+    assert done.status_code == 200
+    assert done.json()["status"] == "executed" and done.json()["readback"]["ok"] is True
 
 
 def test_readback_mismatch_is_flagged_unverified(settings, clock):
@@ -178,10 +207,10 @@ class SlowBank(DryRunBank):
         super().__init__()
         self.calls = 0
 
-    def withdraw(self, account_id, amount_cents, description):
+    def withdraw(self, account_id, amount_cents, description, on_date):
         self.calls += 1
         time.sleep(0.05)
-        return super().withdraw(account_id, amount_cents, description)
+        return super().withdraw(account_id, amount_cents, description, on_date)
 
 
 def test_concurrent_confirms_execute_exactly_once(settings, clock):
@@ -208,44 +237,93 @@ def test_concurrent_confirms_execute_exactly_once(settings, clock):
     assert bank.calls == 1
 
 
+@dataclasses.dataclass(frozen=True)
+class Txn:
+    id: str
+    kind: str
+    account_id: str
+    date: str
+    amount_cents: int
+    status: str
+    description: str
+
+
 class FakeNessieClient:
-    """Mimics Nessie's envelope and whole-dollar amounts."""
+    """Same calls as tend_api.nessie.NessieClient. Nessie itself keeps whole dollars."""
 
-    def __init__(self):
-        self.created = {}
+    def __init__(self, reported_account=None):
+        self.stored = {}
+        self.reported_account = reported_account
 
-    def create_withdrawal(self, account_id, amount_cents, description):
-        wid = f"nessie-w-{len(self.created) + 1}"
-        self.created[wid] = {
+    def create_withdrawal(self, account_id, *, amount_cents, date, description, status="completed", medium="balance"):
+        if amount_cents % 100:
+            raise ValueError("Nessie stores whole dollars")
+        wid = f"nessie-w-{len(self.stored) + 1}"
+        self.stored[wid] = {
             "_id": wid,
             "payer_id": account_id,
+            "transaction_date": str(date),
             "amount": amount_cents // 100,
             "description": description,
-            "status": "pending",
-            "medium": "balance",
-            "type": "withdrawal",
+            "status": status,
         }
-        return {"code": 201, "message": "Created withdrawal", "objectCreated": self.created[wid]}
+        return self.get_txn("withdrawal", wid, account_id)
 
-    def get_withdrawal(self, withdrawal_id):
-        return dict(self.created[withdrawal_id])
+    def get_txn(self, kind, txn_id, account_id=None):
+        raw = self.stored[txn_id]
+        return Txn(
+            raw["_id"],
+            kind,
+            account_id or self.reported_account or raw["payer_id"],
+            raw["transaction_date"],
+            raw["amount"] * 100,
+            raw["status"],
+            raw["description"],
+        )
+
+    def find_txns(self, account_id, kind, marker):
+        return [
+            self.get_txn(kind, wid) for wid, raw in self.stored.items() if raw["payer_id"] == account_id and marker in raw["description"]
+        ]
+
+
+def live_client(settings, clock, nessie):
+    live = dataclasses.replace(settings, bank_mode="nessie")
+    return client_for(make_services(live, clock, banks={"dry_run": DryRunBank(), "nessie": NessieBank(nessie)}))
 
 
 def test_live_mode_writes_through_the_nessie_client(settings, clock):
     nessie = FakeNessieClient()
-    live = dataclasses.replace(settings, bank_mode="nessie")
-    client = client_for(make_services(live, clock, banks={"dry_run": DryRunBank(), "nessie": NessieBank(nessie)}))
+    client = live_client(settings, clock, nessie)
     action = propose(client)
     assert action["dry_run"] is False
     done = confirm(client, action).json()
     assert done["status"] == "executed" and done["withdrawal_id"] == "nessie-w-1"
-    assert nessie.created["nessie-w-1"]["description"].startswith(f"Tend {action['action_id']}")
+    assert done["readback"]["checks"] == {"id": True, "tagged_with_action": True, "account": True, "amount": True}
+    stored = nessie.stored["nessie-w-1"]
+    assert stored["amount"] == 118 and stored["transaction_date"] == "2026-10-03"
+    assert stored["description"].startswith(f"Tend {action['action_id']}")
     assert client.get("/api/audit").json()["rows"][-1]["data"]["bank"] == "nessie"
 
     rehearsal = propose(client, dry_run=True)
     assert rehearsal["dry_run"] is True
     assert confirm(client, rehearsal).json()["withdrawal_id"].startswith("dryrun-")
-    assert len(nessie.created) == 1
+    assert len(nessie.stored) == 1
+
+
+def test_live_readback_checks_the_bank_record_not_an_echo(settings, clock):
+    client = live_client(settings, clock, FakeNessieClient(reported_account="acct-someone-else"))
+    done = confirm(client, propose(client)).json()
+    assert done["status"] == "unverified"
+    assert done["readback"]["checks"]["account"] is False
+
+
+def test_live_payments_must_be_whole_dollars(settings, clock):
+    client = live_client(settings, clock, FakeNessieClient())
+    r = client.post("/api/actions/propose", json={**PAYMENT, "amount_cents": 11850})
+    assert r.status_code == 422
+    assert "whole dollars" in r.json()["detail"]
+    assert client.post("/api/actions/propose", json={**PAYMENT, "amount_cents": 11850, "dry_run": True}).status_code == 200
 
 
 def test_dry_run_server_never_writes_live(client):

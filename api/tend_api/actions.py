@@ -7,7 +7,7 @@ import secrets
 from typing import Any
 
 from .bank import Bank, BankError, check_readback
-from .clock import Clock, iso, parse_iso
+from .clock import Clock, iso, local_today, parse_iso
 from .errors import TendError
 from .models import ConfirmRequest, ProposeRequest
 from .money import canonical_json
@@ -40,6 +40,9 @@ class ActionService:
             self._check_claim_line(req.claim_id, req.item_id)
         # A request can ask for a dry run on a live server, never a live write on a dry-run server.
         dry_run = bool(req.dry_run) or self.default_mode == "dry_run"
+        bank = self.banks["dry_run" if dry_run else "nessie"]
+        if bank.whole_dollars and req.amount_cents % 100:
+            raise ActionError("Nessie stores whole dollars, so a live payment has to be a whole-dollar amount.", 422)
         action_id = f"act_{secrets.token_hex(10)}"
         code = f"{secrets.randbelow(1_000_000):06d}"
         now = self.clock()
@@ -148,17 +151,13 @@ class ActionService:
         action_id = action["action_id"]
         description = f"Tend {action_id} to {action['payee']}"[:120]
         try:
-            withdrawal_id = bank.withdraw(action["from_account"], action["amount_cents"], description)
+            withdrawal_id = bank.withdraw(action["from_account"], action["amount_cents"], description, local_today(self.clock()))
         except BankError as exc:
-            at = iso(self.clock())
-            self.repo.transition_action(action_id, "executing", "failed", {"finished_at": at, "error": str(exc)})
-            self.repo.append_audit("failed", action_id, {"error": str(exc)[:300], "dry_run": action["dry_run"]}, at)
-            # A timeout can land after the bank accepted the write, so say what is known and how to check it.
-            raise ActionError(
-                f"The bank did not confirm this payment ({exc}). Check the account before trying again; "
-                f"any withdrawal Tend made is labeled {action_id}.",
-                502,
-            ) from exc
+            # A write can land even when no answer came back; the action id in the description finds it.
+            found = bank.find_withdrawal(action["from_account"], action_id) if exc.maybe_applied else None
+            if found is None:
+                raise self._record_failure(action, exc) from exc
+            withdrawal_id = found
 
         try:
             readback = check_readback(
@@ -198,6 +197,22 @@ class ActionService:
             "readback": readback,
             "audit": {"seq": row["seq"], "hash": row["hash"], "prev_hash": row["prev_hash"]},
         }
+
+    def _record_failure(self, action: dict[str, Any], exc: BankError) -> ActionError:
+        action_id = action["action_id"]
+        status = "unverified" if exc.maybe_applied else "failed"
+        at = iso(self.clock())
+        self.repo.transition_action(action_id, "executing", status, {"finished_at": at, "error": str(exc)})
+        self.repo.append_audit(
+            status, action_id, {"error": str(exc)[:300], "maybe_applied": exc.maybe_applied, "dry_run": action["dry_run"]}, at
+        )
+        if exc.maybe_applied:
+            return ActionError(
+                f"The bank did not answer, so this payment may have gone through ({exc}). "
+                f"Check the account before trying again; Tend labeled it {action_id}.",
+                502,
+            )
+        return ActionError(f"The bank refused this payment, so no money moved: {exc}", 502)
 
     def view(self, action_id: str) -> dict[str, Any]:
         action = self.repo.get_action(action_id)

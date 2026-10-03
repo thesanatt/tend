@@ -15,7 +15,7 @@ from .errors import TendError
 from .models import AgentConfirmRequest, AgentPayRequest, ConfirmRequest, ProposeRequest
 from .money import format_cents, parse_cents
 from .rules import RulesStore, citation, rule_expense
-from .scan import ScanError, load_snapshot
+from .scan import ScanError, account_ids, load_snapshot
 from .share import ShareService
 from .storage import Repository
 
@@ -236,7 +236,7 @@ class AgentService:
         if not scan or not scan.get("persona_id"):
             return
         try:
-            accounts = {a.get("_id") for a in load_snapshot(self.seed_dir, scan["persona_id"]).get("accounts") or []}
+            accounts = account_ids(load_snapshot(self.seed_dir, scan["persona_id"]))
         except ScanError:
             return
         if accounts and account_id not in accounts:

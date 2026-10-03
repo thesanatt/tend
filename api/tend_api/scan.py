@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import dataclasses
+import importlib
 import json
 import secrets
 from collections import Counter
 from collections.abc import Callable
 from pathlib import Path
+from types import ModuleType
 from typing import Any
 
 from pydantic import ValidationError
 
+from .bill import snapshot_documents
 from .clock import Clock, iso, local_today, parse_date
 from .errors import TendError
 from .models import Item, ScanRequest
@@ -17,6 +20,7 @@ from .storage import Repository
 
 Classifier = Callable[[list[dict[str, Any]], str], list[Any]]
 DEFAULT_LABEL = "Fictional demo data. Bank records come from Capital One's Nessie sandbox, a mock bank."
+MOCK_BANK_LABEL = "Bank records come from Capital One's Nessie sandbox, a mock bank."
 TRANSACTION_KINDS = ("purchases", "bills", "withdrawals", "transfers", "deposits")
 
 
@@ -44,28 +48,99 @@ def find_customer_snapshot(seed_dir: Path, customer_id: str) -> tuple[str, dict[
     return None
 
 
+def _id(record: dict[str, Any]) -> Any:
+    return record.get("id") or record.get("_id")
+
+
+def persona_info(snap: dict[str, Any]) -> dict[str, Any]:
+    """Persona fields live under meta in tend-bank-snapshot/1 and at the top level in older fixtures."""
+    meta = snap.get("meta") or {}
+    context = {**(meta.get("demo_inputs") or {}), **(snap.get("context") or {})}
+    return {
+        "persona_id": meta.get("persona_id") or snap.get("persona_id"),
+        "fictional": meta.get("fictional", snap.get("fictional")),
+        "display_name": meta.get("display_name") or snap.get("display_name"),
+        "label": meta.get("notice") or snap.get("label"),
+        "context": context,
+    }
+
+
+def account_ids(snap: dict[str, Any]) -> set[str]:
+    return {str(_id(a)) for a in snap.get("accounts") or [] if _id(a)}
+
+
 def transactions_from_snapshot(snap: dict[str, Any]) -> list[dict[str, Any]]:
+    merchants = {_id(m): m for m in snap.get("merchants") or [] if isinstance(m, dict)}
     if isinstance(snap.get("transactions"), list):
-        return [dict(t) for t in snap["transactions"]]
-    merchants = {m.get("_id"): m for m in snap.get("merchants") or [] if isinstance(m, dict)}
-    out = []
-    for kind in TRANSACTION_KINDS:
-        for record in snap.get(kind) or []:
-            txn = dict(record)
-            txn.setdefault("kind", kind[:-1])
-            merchant = merchants.get(txn.get("merchant_id"))
-            if merchant and "merchant" not in txn:
-                txn["merchant"] = merchant
-            out.append(txn)
-    return out
+        records = [dict(t) for t in snap["transactions"]] + [{**b, "kind": "bill"} for b in snap.get("bills") or []]
+    else:
+        records = [{**r, "kind": r.get("kind", kind[:-1])} for kind in TRANSACTION_KINDS for r in snap.get(kind) or []]
+    for txn in records:
+        merchant = merchants.get(txn.get("merchant_id"))
+        if merchant and "merchant" not in txn:
+            txn["merchant"] = merchant
+    return records
+
+
+def _classify_module() -> ModuleType:
+    try:
+        return importlib.import_module("tend_api.classify")
+    except ImportError as exc:
+        raise ScanError(f"The classifier is not installed (tend_api.classify): {exc}", 503) from exc
 
 
 def default_classifier() -> Classifier:
+    module = _classify_module()
+    if not hasattr(module, "classify_transactions"):
+        raise ScanError("tend_api.classify has no classify_transactions(transactions, st)", 503)
+    return module.classify_transactions
+
+
+def items_from_classifications(snap: dict[str, Any], results: dict[str, Any]) -> list[dict[str, Any]]:
+    """Engine items from classify_snapshot's {nessie id: Classification}. Only candidates become items."""
+    service_dates = {d.get("bill_id"): d.get("service_date") for d in snapshot_documents(snap) if d.get("bill_id")}
+    items = []
+    for txn in transactions_from_snapshot(snap):
+        ref = _id(txn)
+        result = results.get(ref)
+        if result is None:
+            continue
+        r = result.to_dict() if hasattr(result, "to_dict") else dict(result)
+        if not r.get("candidate"):
+            continue
+        is_bill = txn.get("kind") == "bill"
+        merchant = (txn.get("merchant") or {}).get("name")
+        description = txn.get("payee") if is_bill else " ".join(filter(None, [merchant, txn.get("description")]))
+        items.append(
+            {
+                "item_id": f"nessie:{ref}",
+                # A Nessie bill's own dates are bookkeeping; the itemized bill says when care happened.
+                "date": (service_dates.get(ref) if is_bill else None) or txn.get("date") or txn.get("creation_date"),
+                "amount_cents": txn.get("amount_cents"),
+                "expense": r.get("expense", "unknown"),
+                "confirmed": bool(r.get("confirmed")),
+                "is_bill": is_bill,
+                # Each counseling charge is one session, so per-session caps can apply.
+                "units": 1 if r.get("expense") == "counseling" and not is_bill else 0,
+                "description": (description or "")[:200],
+                "confidence": r.get("confidence"),
+                "reason": r.get("reason"),
+                "method": r.get("method"),
+                "linked_item_ids": [f"nessie:{x}" for x in r.get("linked_refs") or []],
+            }
+        )
+    return items
+
+
+def classify_with_snapshot(module: ModuleType, snap: dict[str, Any]) -> dict[str, Any]:
+    from tend_api.nessie import BankSnapshot
+
     try:
-        from tend_api.classify import classify_transactions
-    except ImportError as exc:
-        raise ScanError(f"The classifier is not installed (tend_api.classify): {exc}", 503) from exc
-    return classify_transactions
+        bank = BankSnapshot.from_dict(snap)
+    except (ValueError, KeyError, TypeError) as exc:
+        raise ScanError(f"This snapshot is not in the format the classifier reads: {exc}", 502) from exc
+    anchors = [(d["service_date"], d["bill_id"], "medical") for d in snapshot_documents(snap) if d.get("service_date") and d.get("bill_id")]
+    return module.classify_snapshot(bank, extra_anchors=anchors)
 
 
 def _as_dict(raw: Any) -> dict[str, Any]:
@@ -116,10 +191,15 @@ class ScanService:
         self.live_scan = live_scan
         self.nessie_client_factory = nessie_client_factory
 
-    def classifier(self) -> Classifier:
-        if self._classifier is None:
-            self._classifier = default_classifier()
-        return self._classifier
+    def classify(self, snap: dict[str, Any], st: str) -> list[Any]:
+        if self._classifier is not None:
+            return list(self._classifier(transactions_from_snapshot(snap), st))
+        module = _classify_module()
+        if hasattr(module, "classify_transactions"):
+            return list(module.classify_transactions(transactions_from_snapshot(snap), st))
+        if hasattr(module, "classify_snapshot"):
+            return items_from_classifications(snap, classify_with_snapshot(module, snap))
+        raise ScanError("tend_api.classify has neither classify_transactions nor classify_snapshot", 503)
 
     def snapshot_for(self, req: ScanRequest) -> tuple[str | None, dict[str, Any]]:
         if req.persona_id:
@@ -136,6 +216,8 @@ class ScanService:
             snap = client.snapshot(req.customer_id)
         except Exception as exc:
             raise ScanError(f"Nessie did not answer the scan: {exc}", 502) from exc
+        if hasattr(snap, "to_dict"):
+            snap = snap.to_dict()
         if not isinstance(snap, dict):
             raise ScanError("Nessie returned an unexpected snapshot.", 502)
         snap.setdefault("fictional", False)
@@ -143,7 +225,8 @@ class ScanService:
 
     def scan(self, req: ScanRequest) -> dict[str, Any]:
         persona_id, snap = self.snapshot_for(req)
-        context = dict(snap.get("context") or {})
+        info = persona_info(snap)
+        context = info["context"]
         incident_date = req.incident_date or parse_date(context.get("incident_date"))
         if incident_date is None:
             raise ScanError("incident_date is required (the persona snapshot does not set one).", 422)
@@ -151,15 +234,15 @@ class ScanService:
         as_of = parse_date(context.get("as_of_date")) or local_today(now)
 
         transactions = transactions_from_snapshot(snap)
-        items, rows = normalize_items(list(self.classifier()(transactions, req.st)))
+        items, rows = normalize_items(self.classify(snap, req.st))
         forensic_exam = context.get("forensic_exam")
         if not isinstance(forensic_exam, bool):
             forensic_exam = any(i.expense == "forensic_exam" for i in items)
         police = context.get("police_report") if context.get("police_report") in ("yes", "no", "unknown") else "unknown"
 
         scan_id = f"scan_{secrets.token_hex(10)}"
-        fictional = bool(snap.get("fictional", persona_id is not None))
-        display_name = snap.get("display_name") if fictional else None
+        fictional = bool(info["fictional"] if info["fictional"] is not None else persona_id is not None)
+        display_name = info["display_name"] if fictional else None
         self.repo.save_scan(
             {
                 "scan_id": scan_id,
@@ -172,15 +255,21 @@ class ScanService:
             },
             [{"item_id": i.item_id, "amount_cents": i.amount_cents, "date": i.date.isoformat(), "source": "nessie"} for i in items],
         )
+        documents = [
+            {k: d.get(k) for k in ("kind", "bill_id", "statement_date", "service_date", "due_date", "total_cents")}
+            for d in snapshot_documents(snap)
+            if d.get("bill_id")
+        ]
         return {
             "scan_id": scan_id,
             "persona_id": persona_id,
             "customer_id": req.customer_id,
             "fictional": fictional,
-            "label": snap.get("label")
-            or (DEFAULT_LABEL if fictional else "Bank records come from Capital One's Nessie sandbox, a mock bank."),
+            "label": info["label"] or (DEFAULT_LABEL if fictional else MOCK_BANK_LABEL),
             "display_name": display_name,
             "st": req.st,
+            "accounts": sorted(account_ids(snap)),
+            "documents": documents,
             "counts": {
                 "transactions": len(transactions),
                 "items": len(items),
@@ -205,4 +294,4 @@ def _nessie_client() -> Any:
         from tend_api.nessie import NessieClient
     except ImportError as exc:
         raise ScanError(f"The Nessie client is not installed (tend_api.nessie): {exc}", 503) from exc
-    return NessieClient()
+    return NessieClient.from_env() if hasattr(NessieClient, "from_env") else NessieClient()

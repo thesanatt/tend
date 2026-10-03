@@ -45,5 +45,6 @@ def disassembly(st: StatePath, svc: ServicesDep, format: Literal["json", "text"]
         "image_sha256": sha256_hex(image),
         "image_bytes": len(image),
         "rules_sha256": svc.rules.file_sha256(st),
+        "inspect": native.inspect(st),
         "listing": listing,
     }
