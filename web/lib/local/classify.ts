@@ -387,9 +387,11 @@ async function askCloud(
   answers: Answers,
   report: ClassifyReport,
   opts: ClassifyOptions,
+  canCount: (key: string) => boolean,
 ) {
   const started = Date.now();
-  const keys = [...pending.keys()].filter((k) => !answers.has(k));
+  const keys = [...pending.keys()].filter((k) => !answers.has(k) && canCount(k));
+  if (!keys.length) return;
   for (let start = 0; start < keys.length; start += CLOUD_BATCH) {
     const batch = keys.slice(start, start + CLOUD_BATCH);
     const refs = new Map(batch.map((key, i) => [`t${i + 1}`, key]));
@@ -445,13 +447,21 @@ export async function classifyDetailed(
     else if (!pending.has(contentKey(f))) pending.set(contentKey(f), f);
   }
 
-  // 2. Gemini Nano on this device, when it is ready. 3. Cloud Gemini, only with consent.
+  // 2. Gemini Nano on this device, when it is ready. 3. Cloud Gemini, only with consent, and only
+  // for rows from the date it happened on: earlier costs can never count, so they stay here.
   const answers: Answers = new Map();
   if (pending.size && opts.deviceAi !== false) {
     report.device.status = await deviceAiStatus("text");
     if (report.device.status === "available") await askDevice(pending, answers, report, opts);
   }
-  if (pending.size > answers.size && opts.cloudConsent === true) await askCloud(pending, answers, report, opts);
+  if (pending.size > answers.size && opts.cloudConsent === true) {
+    const lastSeen = new Map<string, string>();
+    txns.forEach((t, i) => {
+      const key = contentKey(facts[i]);
+      if (pending.has(key) && t.date > (lastSeen.get(key) ?? "")) lastSeen.set(key, t.date);
+    });
+    await askCloud(pending, answers, report, opts, (key) => (lastSeen.get(key) ?? "") >= ctx.incident_date);
+  }
 
   const modelSource = new Map<string, Source>();
   let results = facts.map((f) => {

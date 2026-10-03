@@ -499,6 +499,31 @@ describe("cloud Gemini only with consent", () => {
     expect(sent.description.length).toBe(2 * CLOUD_LIMITS.description);
   });
 
+  it("sends only rows from the date it happened on, since earlier costs can never count", async () => {
+    const fetch = okFetch();
+    const rows = [
+      txn("ODD SHOP EARLY", 1000, { date: "2026-05-01" }),
+      txn("ODD SHOP BOTH", 1100, { date: "2026-05-02" }),
+      txn("ODD SHOP BOTH", 1100, { date: "2026-07-02" }),
+      txn("ODD SHOP ON THE DAY", 1200, { date: "2026-06-14" }),
+    ];
+    const report = await classifyDetailed(rows, ctx, { cloudConsent: true, deviceAi: false, fetch: asFetch(fetch) });
+    const sent = JSON.parse(String(fetch.mock.calls[0][1].body)) as { txns: { description: string }[] };
+    expect(sent.txns.map((t) => t.description)).toEqual(["ODD SHOP BOTH", "ODD SHOP ON THE DAY"]);
+    expect(report.all.map((c) => c.method)).toEqual(["unresolved", "model", "model", "model"]);
+  });
+
+  it("does not call the cloud at all when only earlier rows are unsorted", async () => {
+    const fetch = okFetch();
+    const report = await classifyDetailed([txn("ODD SHOP EARLY", 1000, { date: "2026-05-01" })], ctx, {
+      cloudConsent: true,
+      deviceAi: false,
+      fetch: asFetch(fetch),
+    });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(report.cloud.used).toBe(false);
+  });
+
   it("says so when the server has no cloud model and sorts nothing", async () => {
     // What POST /api/ai/classify answers when cloud AI is off on the server: rules only.
     const fetch = vi.fn(async (_url: string, init: RequestInit) => {

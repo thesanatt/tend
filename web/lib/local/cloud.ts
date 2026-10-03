@@ -1,8 +1,8 @@
 // Cloud Gemini, only after the survivor says yes on a consent screen (docs/PRIVACY.md, item 3).
-// Classification sends, for rows the rules and the device could not sort, only kind, merchant,
-// category, and description under short refs: never amounts, dates, account numbers, or record
-// ids, and scrubForCloud takes those out of the text too. A bill goes as the file itself,
-// because reading it is the point.
+// Classification sends, for rows from the date it happened on that the rules and the device could
+// not sort, only kind, merchant, category, and description under short refs: never amounts,
+// dates, account numbers, or record ids, and scrubForCloud takes those out of the text too. A
+// bill goes as the file itself, because reading it is the point.
 import { isPdf } from "./pdf";
 
 export interface ModelRow {
