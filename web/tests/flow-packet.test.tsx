@@ -172,10 +172,10 @@ describe("pause and resume", () => {
     expect(services.vault.isUnlocked()).toBe(false);
 
     fireEvent.change(screen.getByLabelText("Passcode"), { target: { value: "wrong-code" } });
-    fireEvent.click(screen.getByRole("button", { name: "Unlock" }));
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
     expect(await screen.findByText("That passcode did not work. Try again.")).toBeTruthy();
     fireEvent.change(screen.getByLabelText("Passcode"), { target: { value: "garden-42" } });
-    fireEvent.click(screen.getByRole("button", { name: "Unlock" }));
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
     expect(await screen.findByText("You can likely apply in Michigan.")).toBeTruthy();
     expect((screen.getByLabelText("Which state did it happen in?") as HTMLSelectElement).value).toBe("MI");
   });

@@ -1,0 +1,953 @@
+; tend law image AL, Alabama
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 c5d5c095f55d50ab79e9bd1f047d12394779af8712e6326216e23ea20467fb5b
+; image sha256  4e7213d57f4c7a3d0b8cf03ab9be76a7891602f0f9fa58473e7ac0db8748b178
+; 58 rules, 27 sources, 32 proofs, 6 ints, 378 strings
+; item program: 456 instructions, 1635 bytes, max stack 2
+; aggregate program: 191 instructions, 586 bytes, max stack 3, 6 loops
+
+.rules
+    R0    AL-EXAM-1             exam_no_bill  -                                             Ala. Code 15-23-121(a)(1)a
+    R1    AL-EXAM-2             exam_no_bill  -                                             Ala. Code 15-23-121(a)(1)b
+    R2    AL-EXAM-3             exam_no_bill  -                                             Ala. Admin. Code r. 262-X-11-.01(3)(c)1
+    R3    AL-EXAM-4             exam_payment  -                                             Ala. Code 15-23-5(24)
+    R4    AL-EXAM-5             exam_payment  -                                             Ala. Admin. Code r. 262-X-11-.01(3)(c)
+    R5    AL-EXAM-6             exam_payment  -                                             Ala. Admin. Code r. 262-X-11-.01(6)(b)
+    R6    AL-EXAM-7             exam_payment  -                                             Ala. Admin. Code r. 262-X-11-.01(4)(c)3
+    R7    AL-CAP-1              total_cap     -                                             Ala. Admin. Code r. 262-X-4-.04(1)
+    R8    AL-CAP-COUNS          expense_cap   counseling            per claim               Ala. Admin. Code r. 262-X-4-.07(4)(c)
+    R9    AL-CAP-WAGES          expense_cap   lost_wages            per week                Ala. Admin. Code r. 262-X-4-.04(12)(a)
+    R10   AL-WAGES-SA           covered       lost_wages                                    Ala. Admin. Code r. 262-X-4-.04(28)
+    R11   AL-CAP-RELO           expense_cap   relocation            per claim               Ala. Admin. Code r. 262-X-4-.04(14)(c)
+    R12   AL-CAP-TRAVEL         expense_cap   transportation        per claim               Ala. Admin. Code r. 262-X-4-.04(15)(a)
+    R13   AL-COV-TRAVEL-MED     covered       transportation                                Ala. Admin. Code r. 262-X-4-.04(15)(a)
+    R14   AL-COV-MED            covered       medical                                       Ala. Code 15-23-3(6)
+    R15   AL-COV-MED-OOP        covered       medical                                       Ala. Admin. Code r. 262-X-4-.04(3)
+    R16   AL-COV-HIV            covered       prescription                                  Ala. Admin. Code r. 262-X-11-.01(10)(a)1
+    R17   AL-COV-SEC            covered       security                                      Ala. Admin. Code r. 262-X-4-.04(16)1
+    R18   AL-CAP-GLASSES        expense_cap   other                 per claim               Ala. Admin. Code r. 262-X-4-.04(16)2
+    R19   AL-EXCL-PROP          excluded      property_replacement                          Ala. Admin. Code r. 262-X-4-.04(16)
+    R20   AL-EXCL-PROP-2        excluded      -                                             ACVCC Compensation page
+    R21   AL-EXCL-PAIN          excluded      -                                             ACVCC Compensation page
+    R22   AL-EXCL-LEGAL         excluded      legal                                         Ala. Admin. Code r. 262-X-4-.04(17)(b)
+    R23   AL-DEADLINE-1         deadline      -                                             Ala. Code 15-23-12(a)(1)
+    R24   AL-REPORT-1           reporting     -                                             Ala. Code 15-23-12(a)(4)
+    R25   AL-REPORT-2           reporting     -                                             Ala. Admin. Code r. 262-X-4-.02(2)
+    R26   AL-COLL-1             collateral    -                                             Ala. Admin. Code r. 262-X-4-.02(6)
+    R27   AL-COLL-2             collateral    -                                             Ala. Code 15-23-12(b)
+    R28   AL-CONDUCT-1          info          -                     conduct_reduction       Ala. Code 15-23-12(b)
+    R29   AL-CONDUCT-2          info          -                     conduct_reduction       Ala. Code 15-23-12(c)
+    R30   AL-EMERG-1            info          -                     emergency_award         Ala. Admin. Code r. 262-X-4-.05
+    R31   AL-CRIME-1            info          -                     eligible_crime          ACVCC brochure, Sexual Assault Victimization
+    R32   AL-CRIME-2            info          -                     eligible_crime          Ala. Code 15-23-13
+    R33   AL-RES-1              info          -                     residency               Ala. Code 15-23-3(2)a
+    R34   AL-RES-2              info          -                     residency               Ala. Code 15-23-3(2)b
+    R35   AL-RES-3              info          -                     residency               Ala. Admin. Code r. 262-X-4-.02(11)
+    R36   AL-SUBMIT-1           info          -                     submission              Compensation page, How Do I File A Claim?
+    R37   AL-SUBMIT-2           info          -                     submission              Application, Claim Authorization page, submission box
+    R38   AL-SUBMIT-3           info          -                     submission              Application, Claim Authorization page, submission box
+    R39   AL-DOC-1              info          -                     required_document       Ala. Admin. Code r. 262-X-4-.02(10)
+    R40   AL-DOC-2              info          -                     required_document       Application, Section 1 note
+    R41   AL-DOC-3              info          -                     required_document       Application, Section 5 (Crime Information)
+    R42   AL-DOC-4              info          -                     required_document       Application, Section 6 (Compensation Request)
+    R43   AL-DOC-5              info          -                     required_document       Application, Patient Authorization for Use and Disclosure of Protected Health Information
+    R44   AL-DOC-6              info          -                     required_document       Application Form page, Additional Requirements
+    R45   AL-DOC-7              info          -                     required_document       Application Form page, Additional Requirements
+    R46   AL-DOC-8              info          -                     required_document       Application, Claim Authorization page, signature note
+    R47   AL-DOC-9              info          -                     required_document       Application, Section 3 (Claimant Information)
+    R48   AL-DOC-10             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(8)
+    R49   AL-DOC-11             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(8)
+    R50   AL-DOC-12             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(28)
+    R51   AL-DOC-13             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(a)
+    R52   AL-DOC-14             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(b)
+    R53   AL-DOC-15             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(c)
+    R54   AL-DOC-16             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(14)(a)
+    R55   AL-DOC-17             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(14)(b)
+    R56   AL-REC-1              info          -                     record_confidentiality  Ala. Code 15-23-4(k)
+    R57   AL-CAP-COUNS-MINOR    skipped       -                     expense_cap             Ala. Admin. Code r. 262-X-4-.07(4)(c)  ; expense_cap without amount or expense
+
+.tags   cash=bit0, pain_suffering=bit1
+
+.sources
+    S0    AL-S1       sha256 690abef45a3a9967  https://acvcc.alabama.gov/victims/who-is-eligible/
+    S1    AL-S2       sha256 e3a58d7ff5161471  https://acvcc.alabama.gov/victims/what-is-covered/
+    S2    AL-S3       sha256 d3062be4e77eb3f8  https://acvcc.alabama.gov/victims/collateral-sources/
+    S3    AL-S5       sha256 bcdd14bc8c16d08c  https://acvcc.alabama.gov/victims/compesation/
+    S4    AL-S8       sha256 a761b698478ed232  https://acvcc.alabama.gov/wp-content/uploads/2025/10/english-application-2026-06-01.pdf
+    S5    AL-S9       sha256 31db0ca72f4e549b  https://acvcc.alabama.gov/victims/application-form/
+    S6    AL-S10      sha256 2e066574fa04f123  https://acvcc.alabama.gov/victims/forms/
+    S7    AL-S11      sha256 d9f07e0cb13a1c44  https://acvcc.alabama.gov/wp-content/uploads/2024/10/sexual-assault-payment-program-2024-12-02.pdf
+    S8    AL-S12      sha256 1459598822b1b721  https://acvcc.alabama.gov/wp-content/uploads/2024/06/ACVCC-Sexual-Assault-Victimization.pdf
+    S9    AL-S13      sha256 2550a1691b94bc5d  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-15/
+    S10   AL-S14      sha256 b92ffeed7b5b1407  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-3/
+    S11   AL-S15      sha256 442dd54372333ef1  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-8/
+    S12   AL-S16      sha256 3aad5609e03fb282  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-12/
+    S13   AL-S17      sha256 54bd828c84004a90  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-13/
+    S14   AL-S18      sha256 b492a3b746b816f8  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-14/
+    S15   AL-S19      sha256 a06e66bb09fa4b85  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-23/
+    S16   AL-S20      sha256 6682a6c1c3868628  https://law.justia.com/codes/alabama/title-15/chapter-23/article-5/section-15-23-121/
+    S17   AL-S21      sha256 07cb2b0d1a21aa9d  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-5/
+    S18   AL-S22      sha256 1e741377312e5f75  https://acvcc.alabama.gov/wp-content/uploads/2024/11/ACVCC-Administrative-Code.pdf
+    S19   AL-S25      sha256 c1654eb40e765a26  https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04
+    S20   AL-S26      sha256 4ebccc971e84dffb  https://admincode.legislature.state.al.us/administrative-code/262-X-4-.07
+    S21   AL-S27      sha256 c344ed775956bf22  https://admincode.legislature.state.al.us/administrative-code/262-X-4-.05
+    S22   AL-S28      sha256 a89faea9e9bea5cf  https://admincode.legislature.state.al.us/administrative-code/262-X-11-.01
+    S23   AL-S29      sha256 334c367c8778cc0d  https://admincode.legislature.state.al.us/administrative-code/262-X-4-.02
+    S24   AL-S30      sha256 ed4d5f99f35d387a  https://admincode.legislature.state.al.us/administrative-code/262-X-1-.01
+    S25   AL-S31      sha256 ea8360cd5dfe7f9b  https://admincode.legislature.state.al.us/administrative-code/262-X-2-.05
+    S26   AL-S32      sha256 7759be79ba969201  https://law.justia.com/codes/alabama/title-15/chapter-23/article-1/section-15-23-4/
+
+.proofs
+    P0    ()
+    P1    (AL-EXAM-1, AL-EXAM-2, AL-EXAM-3, AL-EXAM-4, AL-EXAM-5, AL-EXAM-6, AL-EXAM-7)
+    P2    (AL-EXCL-PROP-2)
+    P3    (AL-EXCL-PAIN)
+    P4    (AL-EXCL-PROP-2, AL-EXCL-PAIN)
+    P5    (AL-COV-MED, AL-COV-MED-OOP)
+    P6    (AL-COV-MED, AL-COV-MED-OOP, AL-COLL-1, AL-COLL-2)
+    P7    (AL-CAP-COUNS)
+    P8    (AL-CAP-COUNS, AL-COLL-1, AL-COLL-2)
+    P9    (AL-CAP-WAGES, AL-WAGES-SA)
+    P10   (AL-CAP-WAGES, AL-WAGES-SA, AL-COLL-1, AL-COLL-2)
+    P11   (AL-CAP-TRAVEL, AL-COV-TRAVEL-MED)
+    P12   (AL-CAP-TRAVEL, AL-COV-TRAVEL-MED, AL-COLL-1, AL-COLL-2)
+    P13   (AL-CAP-RELO)
+    P14   (AL-CAP-RELO, AL-COLL-1, AL-COLL-2)
+    P15   (AL-COV-SEC)
+    P16   (AL-COV-SEC, AL-COLL-1, AL-COLL-2)
+    P17   (AL-EXCL-PROP, AL-EXCL-PROP-2)
+    P18   (AL-EXCL-PROP, AL-EXCL-PAIN)
+    P19   (AL-EXCL-PROP, AL-EXCL-PROP-2, AL-EXCL-PAIN)
+    P20   (AL-EXCL-PROP)
+    P21   (AL-COV-HIV)
+    P22   (AL-COV-HIV, AL-COLL-1, AL-COLL-2)
+    P23   (AL-EXCL-PROP-2, AL-EXCL-LEGAL)
+    P24   (AL-EXCL-PAIN, AL-EXCL-LEGAL)
+    P25   (AL-EXCL-PROP-2, AL-EXCL-PAIN, AL-EXCL-LEGAL)
+    P26   (AL-EXCL-LEGAL)
+    P27   (AL-CAP-GLASSES)
+    P28   (AL-CAP-GLASSES, AL-COLL-1, AL-COLL-2)
+    P29   (AL-DEADLINE-1)
+    P30   (AL-REPORT-1, AL-REPORT-2)
+    P31   (AL-COLL-1, AL-COLL-2, AL-CONDUCT-1, AL-CONDUCT-2, AL-EMERG-1, AL-CRIME-1, AL-CRIME-2, AL-RES-1, AL-RES-2, AL-RES-3, AL-SUBMIT-1, AL-SUBMIT-2, AL-SUBMIT-3, AL-DOC-1, AL-DOC-2, AL-DOC-3, AL-DOC-4, AL-DOC-5, AL-DOC-6, AL-DOC-7, AL-DOC-8, AL-DOC-9, AL-DOC-10, AL-DOC-11, AL-DOC-12, AL-DOC-13, AL-DOC-14, AL-DOC-15, AL-DOC-16, AL-DOC-17, AL-REC-1)
+
+.ints
+    K0    40000         ; $400.00
+    K1    625000        ; $6,250.00
+    K2    100000        ; $1,000.00
+    K3    300000        ; $3,000.00
+    K4    35000         ; $350.00
+    K5    1500000       ; $15,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L42
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L10
+                        case lost_wages            -> L18
+                        case transportation        -> L26
+                        case relocation            -> L34
+                        case temporary_housing     -> L42
+                        case security              -> L49
+                        case crime_scene_cleanup   -> L42
+                        case childcare             -> L42
+                        case property_replacement  -> L57
+                        case clothing_bedding      -> L42
+                        case prescription          -> L64
+                        case dental                -> L42
+                        case funeral               -> L42
+                        case legal                 -> L72
+                        case tuition               -> L42
+                        case other                 -> L79
+                        case unknown               -> L42
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; AL-EXAM-1  Ala. Code 15-23-121(a)(1)a  "Not to be prevented from, or charged for, receiving a medical..."
+              ; AL-EXAM-2  Ala. Code 15-23-121(a)(1)b  "For the purposes of this subdivision, a health care provider may..."
+              ; AL-EXAM-3  Ala. Admin. Code r. 262-X-11-.01(3)(c)1  "A hospital, medical clinic, or SANE facility should not bill the..."
+              ; AL-EXAM-4  Ala. Code 15-23-5(24)  "Provide for the cost of forensic medical examinations for the..."
+              ; AL-EXAM-5  Ala. Admin. Code r. 262-X-11-.01(3)(c)  "Any collateral source available for the payment of a sexual..."
+              ; AL-EXAM-6  Ala. Admin. Code r. 262-X-11-.01(6)(b)  "Expenses that are ineligible pursuant to the Commission’s..."
+              ; AL-EXAM-7  Ala. Admin. Code r. 262-X-11-.01(4)(c)3  "The Commission will provide reimbursement for “Jane Doe”..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; AL-EXAM-1, AL-EXAM-2, AL-EXAM-3, AL-EXAM-4, AL-EXAM-5, AL-EXAM-6, AL-EXAM-7
+  007b        ret
+              ; AL-COV-MED  Ala. Code 15-23-3(6)  "Charges incurred for needed products, services, and..."
+              ; AL-COV-MED-OOP  Ala. Admin. Code r. 262-X-4-.04(3)  "When the claimant has already paid out-of-pocket for medical..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldi      tags
+  009c        push     2
+  00a1        and
+  00a2        jz       L4
+  00a7        ldr      r0
+  00a9        push     2
+  00ae        or
+  00af        str      r0
+  00b1  L4:   ldr      r0
+  00b3        switch   4, default L8
+                        case 0                     -> L8
+                        case 1                     -> L5
+                        case 2                     -> L6
+                        case 3                     -> L7
+  00c9  L5:   push     0
+  00ce        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  00d2        ret
+  00d3  L6:   push     0
+  00d8        decide   excluded, P3                 ; AL-EXCL-PAIN
+  00dc        ret
+  00dd  L7:   push     0
+  00e2        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  00e6        ret
+  00e7  L8:   ldi      confirmed
+  00e9        jnz      L9
+  00ee        push     0
+  00f3        decide   needs_confirmation, P5       ; AL-COV-MED, AL-COV-MED-OOP
+  00f7        ret
+  00f8  L9:   ldi      amount_cents
+  00fa        decide   eligible, P6                 ; AL-COV-MED, AL-COV-MED-OOP, AL-COLL-1, AL-COLL-2
+  00fe        lda
+  00ff        ldi      insurance_paid_cents
+  0101        subs
+  0102        push     0
+  0107        max
+  0108        seta     collateral, R26              ; AL-COLL-1
+  010c        ret
+              ; AL-CAP-COUNS  Ala. Admin. Code r. 262-X-4-.07(4)(c)  "Reimbursement for therapy expenses shall not exceed $6,250, or..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  010d  L10:  push     0
+  0112        str      r0
+  0114        ldi      tags
+  0116        push     1
+  011b        and
+  011c        jz       L11
+  0121        ldr      r0
+  0123        push     1
+  0128        or
+  0129        str      r0
+  012b  L11:  ldi      tags
+  012d        push     2
+  0132        and
+  0133        jz       L12
+  0138        ldr      r0
+  013a        push     2
+  013f        or
+  0140        str      r0
+  0142  L12:  ldr      r0
+  0144        switch   4, default L16
+                        case 0                     -> L16
+                        case 1                     -> L13
+                        case 2                     -> L14
+                        case 3                     -> L15
+  015a  L13:  push     0
+  015f        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  0163        ret
+  0164  L14:  push     0
+  0169        decide   excluded, P3                 ; AL-EXCL-PAIN
+  016d        ret
+  016e  L15:  push     0
+  0173        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  0177        ret
+  0178  L16:  ldi      confirmed
+  017a        jnz      L17
+  017f        push     0
+  0184        decide   needs_confirmation, P7       ; AL-CAP-COUNS
+  0188        ret
+  0189  L17:  ldi      amount_cents
+  018b        decide   eligible, P8                 ; AL-CAP-COUNS, AL-COLL-1, AL-COLL-2
+  018f        lda
+  0190        ldi      insurance_paid_cents
+  0192        subs
+  0193        push     0
+  0198        max
+  0199        seta     collateral, R26              ; AL-COLL-1
+  019d        ret
+              ; AL-CAP-WAGES  Ala. Admin. Code r. 262-X-4-.04(12)(a)  "For incidents of criminally injurious conduct occurring on or..."
+              ; AL-WAGES-SA  Ala. Admin. Code r. 262-X-4-.04(28)  "A victim of sexual assault may be granted compensation for..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  019e  L18:  push     0
+  01a3        str      r0
+  01a5        ldi      tags
+  01a7        push     1
+  01ac        and
+  01ad        jz       L19
+  01b2        ldr      r0
+  01b4        push     1
+  01b9        or
+  01ba        str      r0
+  01bc  L19:  ldi      tags
+  01be        push     2
+  01c3        and
+  01c4        jz       L20
+  01c9        ldr      r0
+  01cb        push     2
+  01d0        or
+  01d1        str      r0
+  01d3  L20:  ldr      r0
+  01d5        switch   4, default L24
+                        case 0                     -> L24
+                        case 1                     -> L21
+                        case 2                     -> L22
+                        case 3                     -> L23
+  01eb  L21:  push     0
+  01f0        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  01f4        ret
+  01f5  L22:  push     0
+  01fa        decide   excluded, P3                 ; AL-EXCL-PAIN
+  01fe        ret
+  01ff  L23:  push     0
+  0204        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  0208        ret
+  0209  L24:  ldi      confirmed
+  020b        jnz      L25
+  0210        push     0
+  0215        decide   needs_confirmation, P9       ; AL-CAP-WAGES, AL-WAGES-SA
+  0219        ret
+  021a  L25:  ldi      amount_cents
+  021c        decide   eligible, P10                ; AL-CAP-WAGES, AL-WAGES-SA, AL-COLL-1, AL-COLL-2
+  0220        lda
+  0221        ldi      insurance_paid_cents
+  0223        subs
+  0224        push     0
+  0229        max
+  022a        seta     collateral, R26              ; AL-COLL-1
+  022e        ret
+              ; AL-CAP-TRAVEL  Ala. Admin. Code r. 262-X-4-.04(15)(a)  "The maximum award for travel expenses is $3,000."
+              ; AL-COV-TRAVEL-MED  Ala. Admin. Code r. 262-X-4-.04(15)(a)  "Travel may be allowed for medical and psychological treatment..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  022f  L26:  push     0
+  0234        str      r0
+  0236        ldi      tags
+  0238        push     1
+  023d        and
+  023e        jz       L27
+  0243        ldr      r0
+  0245        push     1
+  024a        or
+  024b        str      r0
+  024d  L27:  ldi      tags
+  024f        push     2
+  0254        and
+  0255        jz       L28
+  025a        ldr      r0
+  025c        push     2
+  0261        or
+  0262        str      r0
+  0264  L28:  ldr      r0
+  0266        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  027c  L29:  push     0
+  0281        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  0285        ret
+  0286  L30:  push     0
+  028b        decide   excluded, P3                 ; AL-EXCL-PAIN
+  028f        ret
+  0290  L31:  push     0
+  0295        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  0299        ret
+  029a  L32:  ldi      confirmed
+  029c        jnz      L33
+  02a1        push     0
+  02a6        decide   needs_confirmation, P11      ; AL-CAP-TRAVEL, AL-COV-TRAVEL-MED
+  02aa        ret
+  02ab  L33:  ldi      amount_cents
+  02ad        decide   eligible, P12                ; AL-CAP-TRAVEL, AL-COV-TRAVEL-MED, AL-COLL-1, AL-COLL-2
+  02b1        lda
+  02b2        ldi      insurance_paid_cents
+  02b4        subs
+  02b5        push     0
+  02ba        max
+  02bb        seta     collateral, R26              ; AL-COLL-1
+  02bf        ret
+              ; AL-CAP-RELO  Ala. Admin. Code r. 262-X-4-.04(14)(c)  "Moving and temporary relocation expenses may not exceed a..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  02c0  L34:  push     0
+  02c5        str      r0
+  02c7        ldi      tags
+  02c9        push     1
+  02ce        and
+  02cf        jz       L35
+  02d4        ldr      r0
+  02d6        push     1
+  02db        or
+  02dc        str      r0
+  02de  L35:  ldi      tags
+  02e0        push     2
+  02e5        and
+  02e6        jz       L36
+  02eb        ldr      r0
+  02ed        push     2
+  02f2        or
+  02f3        str      r0
+  02f5  L36:  ldr      r0
+  02f7        switch   4, default L40
+                        case 0                     -> L40
+                        case 1                     -> L37
+                        case 2                     -> L38
+                        case 3                     -> L39
+  030d  L37:  push     0
+  0312        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  0316        ret
+  0317  L38:  push     0
+  031c        decide   excluded, P3                 ; AL-EXCL-PAIN
+  0320        ret
+  0321  L39:  push     0
+  0326        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  032a        ret
+  032b  L40:  ldi      confirmed
+  032d        jnz      L41
+  0332        push     0
+  0337        decide   needs_confirmation, P13      ; AL-CAP-RELO
+  033b        ret
+  033c  L41:  ldi      amount_cents
+  033e        decide   eligible, P14                ; AL-CAP-RELO, AL-COLL-1, AL-COLL-2
+  0342        lda
+  0343        ldi      insurance_paid_cents
+  0345        subs
+  0346        push     0
+  034b        max
+  034c        seta     collateral, R26              ; AL-COLL-1
+  0350        ret
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+  0351  L42:  push     0
+  0356        str      r0
+  0358        ldi      tags
+  035a        push     1
+  035f        and
+  0360        jz       L43
+  0365        ldr      r0
+  0367        push     1
+  036c        or
+  036d        str      r0
+  036f  L43:  ldi      tags
+  0371        push     2
+  0376        and
+  0377        jz       L44
+  037c        ldr      r0
+  037e        push     2
+  0383        or
+  0384        str      r0
+  0386  L44:  ldr      r0
+  0388        switch   4, default L48
+                        case 0                     -> L48
+                        case 1                     -> L45
+                        case 2                     -> L46
+                        case 3                     -> L47
+  039e  L45:  push     0
+  03a3        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  03a7        ret
+  03a8  L46:  push     0
+  03ad        decide   excluded, P3                 ; AL-EXCL-PAIN
+  03b1        ret
+  03b2  L47:  push     0
+  03b7        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  03bb        ret
+  03bc  L48:  push     0
+  03c1        decide   unknown_rule, P0             ; (none)
+  03c5        ret
+              ; AL-COV-SEC  Ala. Admin. Code r. 262-X-4-.04(16)1  "Security enhancement. Windows and locks for real property owned..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  03c6  L49:  push     0
+  03cb        str      r0
+  03cd        ldi      tags
+  03cf        push     1
+  03d4        and
+  03d5        jz       L50
+  03da        ldr      r0
+  03dc        push     1
+  03e1        or
+  03e2        str      r0
+  03e4  L50:  ldi      tags
+  03e6        push     2
+  03eb        and
+  03ec        jz       L51
+  03f1        ldr      r0
+  03f3        push     2
+  03f8        or
+  03f9        str      r0
+  03fb  L51:  ldr      r0
+  03fd        switch   4, default L55
+                        case 0                     -> L55
+                        case 1                     -> L52
+                        case 2                     -> L53
+                        case 3                     -> L54
+  0413  L52:  push     0
+  0418        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  041c        ret
+  041d  L53:  push     0
+  0422        decide   excluded, P3                 ; AL-EXCL-PAIN
+  0426        ret
+  0427  L54:  push     0
+  042c        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  0430        ret
+  0431  L55:  ldi      confirmed
+  0433        jnz      L56
+  0438        push     0
+  043d        decide   needs_confirmation, P15      ; AL-COV-SEC
+  0441        ret
+  0442  L56:  ldi      amount_cents
+  0444        decide   eligible, P16                ; AL-COV-SEC, AL-COLL-1, AL-COLL-2
+  0448        lda
+  0449        ldi      insurance_paid_cents
+  044b        subs
+  044c        push     0
+  0451        max
+  0452        seta     collateral, R26              ; AL-COLL-1
+  0456        ret
+              ; AL-EXCL-PROP  Ala. Admin. Code r. 262-X-4-.04(16)  "The Commission does not provide property reimbursement or..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+  0457  L57:  push     0
+  045c        str      r0
+  045e        ldi      tags
+  0460        push     1
+  0465        and
+  0466        jz       L58
+  046b        ldr      r0
+  046d        push     1
+  0472        or
+  0473        str      r0
+  0475  L58:  ldi      tags
+  0477        push     2
+  047c        and
+  047d        jz       L59
+  0482        ldr      r0
+  0484        push     2
+  0489        or
+  048a        str      r0
+  048c  L59:  ldr      r0
+  048e        switch   4, default L63
+                        case 0                     -> L63
+                        case 1                     -> L60
+                        case 2                     -> L61
+                        case 3                     -> L62
+  04a4  L60:  push     0
+  04a9        decide   excluded, P17                ; AL-EXCL-PROP, AL-EXCL-PROP-2
+  04ad        ret
+  04ae  L61:  push     0
+  04b3        decide   excluded, P18                ; AL-EXCL-PROP, AL-EXCL-PAIN
+  04b7        ret
+  04b8  L62:  push     0
+  04bd        decide   excluded, P19                ; AL-EXCL-PROP, AL-EXCL-PROP-2, AL-EXCL-PAIN
+  04c1        ret
+  04c2  L63:  push     0
+  04c7        decide   excluded, P20                ; AL-EXCL-PROP
+  04cb        ret
+              ; AL-COV-HIV  Ala. Admin. Code r. 262-X-11-.01(10)(a)1  "If it is determined that a victim of sexual violence is at risk..."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  04cc  L64:  push     0
+  04d1        str      r0
+  04d3        ldi      tags
+  04d5        push     1
+  04da        and
+  04db        jz       L65
+  04e0        ldr      r0
+  04e2        push     1
+  04e7        or
+  04e8        str      r0
+  04ea  L65:  ldi      tags
+  04ec        push     2
+  04f1        and
+  04f2        jz       L66
+  04f7        ldr      r0
+  04f9        push     2
+  04fe        or
+  04ff        str      r0
+  0501  L66:  ldr      r0
+  0503        switch   4, default L70
+                        case 0                     -> L70
+                        case 1                     -> L67
+                        case 2                     -> L68
+                        case 3                     -> L69
+  0519  L67:  push     0
+  051e        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  0522        ret
+  0523  L68:  push     0
+  0528        decide   excluded, P3                 ; AL-EXCL-PAIN
+  052c        ret
+  052d  L69:  push     0
+  0532        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  0536        ret
+  0537  L70:  ldi      confirmed
+  0539        jnz      L71
+  053e        push     0
+  0543        decide   needs_confirmation, P21      ; AL-COV-HIV
+  0547        ret
+  0548  L71:  ldi      amount_cents
+  054a        decide   eligible, P22                ; AL-COV-HIV, AL-COLL-1, AL-COLL-2
+  054e        lda
+  054f        ldi      insurance_paid_cents
+  0551        subs
+  0552        push     0
+  0557        max
+  0558        seta     collateral, R26              ; AL-COLL-1
+  055c        ret
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-EXCL-LEGAL  Ala. Admin. Code r. 262-X-4-.04(17)(b)  "All legal fees shall be excluded from payment except legal fees..."
+  055d  L72:  push     0
+  0562        str      r0
+  0564        ldi      tags
+  0566        push     1
+  056b        and
+  056c        jz       L73
+  0571        ldr      r0
+  0573        push     1
+  0578        or
+  0579        str      r0
+  057b  L73:  ldi      tags
+  057d        push     2
+  0582        and
+  0583        jz       L74
+  0588        ldr      r0
+  058a        push     2
+  058f        or
+  0590        str      r0
+  0592  L74:  ldr      r0
+  0594        switch   4, default L78
+                        case 0                     -> L78
+                        case 1                     -> L75
+                        case 2                     -> L76
+                        case 3                     -> L77
+  05aa  L75:  push     0
+  05af        decide   excluded, P23                ; AL-EXCL-PROP-2, AL-EXCL-LEGAL
+  05b3        ret
+  05b4  L76:  push     0
+  05b9        decide   excluded, P24                ; AL-EXCL-PAIN, AL-EXCL-LEGAL
+  05bd        ret
+  05be  L77:  push     0
+  05c3        decide   excluded, P25                ; AL-EXCL-PROP-2, AL-EXCL-PAIN, AL-EXCL-LEGAL
+  05c7        ret
+  05c8  L78:  push     0
+  05cd        decide   excluded, P26                ; AL-EXCL-LEGAL
+  05d1        ret
+              ; AL-CAP-GLASSES  Ala. Admin. Code r. 262-X-4-.04(16)2  "The maximum award for damaged prescription eyeglasses is $350."
+              ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
+              ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+  05d2  L79:  push     0
+  05d7        str      r0
+  05d9        ldi      tags
+  05db        push     1
+  05e0        and
+  05e1        jz       L80
+  05e6        ldr      r0
+  05e8        push     1
+  05ed        or
+  05ee        str      r0
+  05f0  L80:  ldi      tags
+  05f2        push     2
+  05f7        and
+  05f8        jz       L81
+  05fd        ldr      r0
+  05ff        push     2
+  0604        or
+  0605        str      r0
+  0607  L81:  ldr      r0
+  0609        switch   4, default L85
+                        case 0                     -> L85
+                        case 1                     -> L82
+                        case 2                     -> L83
+                        case 3                     -> L84
+  061f  L82:  push     0
+  0624        decide   excluded, P2                 ; AL-EXCL-PROP-2
+  0628        ret
+  0629  L83:  push     0
+  062e        decide   excluded, P3                 ; AL-EXCL-PAIN
+  0632        ret
+  0633  L84:  push     0
+  0638        decide   excluded, P4                 ; AL-EXCL-PROP-2, AL-EXCL-PAIN
+  063c        ret
+  063d  L85:  ldi      confirmed
+  063f        jnz      L86
+  0644        push     0
+  0649        decide   needs_confirmation, P27      ; AL-CAP-GLASSES
+  064d        ret
+  064e  L86:  ldi      amount_cents
+  0650        decide   eligible, P28                ; AL-CAP-GLASSES, AL-COLL-1, AL-COLL-2
+  0654        lda
+  0655        ldi      insurance_paid_cents
+  0657        subs
+  0658        push     0
+  065d        max
+  065e        seta     collateral, R26              ; AL-COLL-1
+  0662        ret
+
+.aggregate
+              ; AL-CAP-WAGES  Ala. Admin. Code r. 262-X-4-.04(12)(a)  "For incidents of criminally injurious conduct occurring on or..."
+  0000        push     26
+  0005        str      r3
+  0007        each     lost_wages, L4
+  000d  L0:   ldi      units
+  000f        jz       L2
+  0014        ldi      units
+  0016        ldr      r3
+  0018        min
+  0019        str      r4
+  001b        ldr      r3
+  001d        ldr      r4
+  001f        subs
+  0020        str      r3
+  0022        ldk      K0                           ; $400.00
+  0025        ldr      r4
+  0027        muls
+  0028        dup
+  0029        lda
+  002a        lt
+  002b        jz       L1
+  0030        cap      unit_cap, R9                 ; AL-CAP-WAGES
+  0034        jmp      L3
+  0039  L1:   pop
+  003a        jmp      L3
+  003f  L2:   flag     R9                           ; rate_unverified AL-CAP-WAGES
+  0042  L3:   next     L0
+              ; AL-CAP-COUNS  Ala. Admin. Code r. 262-X-4-.07(4)(c)  "Reimbursement for therapy expenses shall not exceed $6,250, or..."
+  0047  L4:   push     0
+  004c        str      r0
+  004e        push     0
+  0053        str      r1
+  0055        each     counseling, L9
+  005b  L5:   ldr      r1
+  005d        jnz      L7
+  0062        ldr      r0
+  0064        lda
+  0065        adds
+  0066        ldk      K1                           ; $6,250.00
+  0069        gt
+  006a        jz       L6
+  006f        ldk      K1                           ; $6,250.00
+  0072        ldr      r0
+  0074        subs
+  0075        cap      expense_cap, R8              ; AL-CAP-COUNS
+  0079        push     1
+  007e        str      r1
+  0080  L6:   ldr      r0
+  0082        lda
+  0083        adds
+  0084        str      r0
+  0086        jmp      L8
+  008b  L7:   push     0
+  0090        cap      expense_cap, R8              ; AL-CAP-COUNS
+  0094  L8:   next     L5
+              ; AL-CAP-RELO  Ala. Admin. Code r. 262-X-4-.04(14)(c)  "Moving and temporary relocation expenses may not exceed a..."
+  0099  L9:   push     0
+  009e        str      r0
+  00a0        push     0
+  00a5        str      r1
+  00a7        each     relocation, L14
+  00ad  L10:  ldr      r1
+  00af        jnz      L12
+  00b4        ldr      r0
+  00b6        lda
+  00b7        adds
+  00b8        ldk      K2                           ; $1,000.00
+  00bb        gt
+  00bc        jz       L11
+  00c1        ldk      K2                           ; $1,000.00
+  00c4        ldr      r0
+  00c6        subs
+  00c7        cap      expense_cap, R11             ; AL-CAP-RELO
+  00cb        push     1
+  00d0        str      r1
+  00d2  L11:  ldr      r0
+  00d4        lda
+  00d5        adds
+  00d6        str      r0
+  00d8        jmp      L13
+  00dd  L12:  push     0
+  00e2        cap      expense_cap, R11             ; AL-CAP-RELO
+  00e6  L13:  next     L10
+              ; AL-CAP-TRAVEL  Ala. Admin. Code r. 262-X-4-.04(15)(a)  "The maximum award for travel expenses is $3,000."
+  00eb  L14:  push     0
+  00f0        str      r0
+  00f2        push     0
+  00f7        str      r1
+  00f9        each     transportation, L19
+  00ff  L15:  ldr      r1
+  0101        jnz      L17
+  0106        ldr      r0
+  0108        lda
+  0109        adds
+  010a        ldk      K3                           ; $3,000.00
+  010d        gt
+  010e        jz       L16
+  0113        ldk      K3                           ; $3,000.00
+  0116        ldr      r0
+  0118        subs
+  0119        cap      expense_cap, R12             ; AL-CAP-TRAVEL
+  011d        push     1
+  0122        str      r1
+  0124  L16:  ldr      r0
+  0126        lda
+  0127        adds
+  0128        str      r0
+  012a        jmp      L18
+  012f  L17:  push     0
+  0134        cap      expense_cap, R12             ; AL-CAP-TRAVEL
+  0138  L18:  next     L15
+              ; AL-CAP-GLASSES  Ala. Admin. Code r. 262-X-4-.04(16)2  "The maximum award for damaged prescription eyeglasses is $350."
+  013d  L19:  push     0
+  0142        str      r0
+  0144        push     0
+  0149        str      r1
+  014b        each     other, L24
+  0151  L20:  ldr      r1
+  0153        jnz      L22
+  0158        ldr      r0
+  015a        lda
+  015b        adds
+  015c        ldk      K4                           ; $350.00
+  015f        gt
+  0160        jz       L21
+  0165        ldk      K4                           ; $350.00
+  0168        ldr      r0
+  016a        subs
+  016b        cap      expense_cap, R18             ; AL-CAP-GLASSES
+  016f        push     1
+  0174        str      r1
+  0176  L21:  ldr      r0
+  0178        lda
+  0179        adds
+  017a        str      r0
+  017c        jmp      L23
+  0181  L22:  push     0
+  0186        cap      expense_cap, R18             ; AL-CAP-GLASSES
+  018a  L23:  next     L20
+              ; AL-CAP-1  Ala. Admin. Code r. 262-X-4-.04(1)  "(1) Compensation payable to a victim or claimant sustaining..."
+  018f  L24:  push     0
+  0194        str      r0
+  0196        push     0
+  019b        str      r1
+  019d        each     all, L29
+  01a3  L25:  ldr      r1
+  01a5        jnz      L27
+  01aa        ldr      r0
+  01ac        lda
+  01ad        adds
+  01ae        ldk      K5                           ; $15,000.00
+  01b1        gt
+  01b2        jz       L26
+  01b7        ldk      K5                           ; $15,000.00
+  01ba        ldr      r0
+  01bc        subs
+  01bd        cap      total_cap, R7                ; AL-CAP-1
+  01c1        push     1
+  01c6        str      r1
+  01c8  L26:  ldr      r0
+  01ca        lda
+  01cb        adds
+  01cc        str      r0
+  01ce        jmp      L28
+  01d3  L27:  push     0
+  01d8        cap      total_cap, R7                ; AL-CAP-1
+  01dc  L28:  next     L25
+  01e1  L29:  push     0                            ; met
+  01e6        check    minimum_loss, P0             ; (none)
+              ; AL-DEADLINE-1  Ala. Code 15-23-12(a)(1)  "A claim has been filed with the commission later than one year..."
+  01ea        ldx      incident_date
+  01ec        push     365
+  01f1        adds
+  01f2        dup
+  01f3        setdate
+  01f4        ldx      as_of_date
+  01f6        ge
+  01f7        jz       L30
+  01fc        push     0
+  0201        jmp      L31
+  0206  L30:  push     1                            ; late
+  020b  L31:  check    deadline, P29                ; AL-DEADLINE-1
+              ; AL-REPORT-1  Ala. Code 15-23-12(a)(4)  "The criminally injurious conduct resulting in injury or death..."
+              ; AL-REPORT-2  Ala. Admin. Code r. 262-X-4-.02(2)  "Good cause includes, but is not limited to the minority..."
+  020f        ldx      police_report
+  0211        push     1                            ; yes
+  0216        eq
+  0217        jnz      L33
+  021c        ldx      police_report
+  021e        push     0                            ; no
+  0223        eq
+  0224        jnz      L32
+  0229        push     3
+  022e        jmp      L34
+  0233  L32:  push     1
+  0238        jmp      L34
+  023d  L33:  push     0                            ; satisfied
+  0242  L34:  check    reporting, P30               ; AL-REPORT-1, AL-REPORT-2
+              ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
+              ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
+              ; AL-CONDUCT-1  Ala. Code 15-23-12(b)  "or to the extent that the degree of responsibility for the cause..."
+              ; AL-CONDUCT-2  Ala. Code 15-23-12(c)  "The commission, upon finding that the claimant or victim has not..."
+              ; AL-EMERG-1  Ala. Admin. Code r. 262-X-4-.05  "The amount of such emergency award shall not exceed one thousand..."
+              ; AL-CRIME-1  ACVCC brochure, Sexual Assault Victimization  "The Alabama Crime Victims Compensation Commission can assist you..."
+              ; AL-CRIME-2  Ala. Code 15-23-13  "an award may be made whether or not any person is prosecuted or..."
+              ; AL-RES-1  Ala. Code 15-23-3(2)a  "An act occurring or attempted within the geographical boundaries..."
+              ; AL-RES-2  Ala. Code 15-23-3(2)b  "provided however, the citizen at the time such act was committed..."
+              ; AL-RES-3  Ala. Admin. Code r. 262-X-4-.02(11)  "A person must be a U.S. citizen, a person who is legally present..."
+              ; AL-SUBMIT-1  Compensation page, How Do I File A Claim?  "The completed application can be returned by: FAX: (334)290-4455..."
+              ; AL-SUBMIT-2  Application, Claim Authorization page, submission box  "Please download the completed application and email it to..."
+              ; AL-SUBMIT-3  Application, Claim Authorization page, submission box  "Please download the completed application and email it to..."
+              ; AL-DOC-1  Ala. Admin. Code r. 262-X-4-.02(10)  "The claimant must submit an application that has been signed by..."
+              ; AL-DOC-2  Application, Section 1 note  "You must submit proof of US citizenship or that you are an alien..."
+              ; AL-DOC-3  Application, Section 5 (Crime Information)  "Complete this section and, if one is available, provide a copy..."
+              ; AL-DOC-4  Application, Section 6 (Compensation Request)  "Provide any corresponding and directly related bills/receipts."
+              ; AL-DOC-5  Application, Patient Authorization for Use and Disclosure of Protected Health Information  "Either the patient (victim) or their representative must sign..."
+              ; AL-DOC-6  Application Form page, Additional Requirements  "The claim must be filed within one (1) year of the incident, or..."
+              ; AL-DOC-7  Application Form page, Additional Requirements  "The crime must be reported to the proper law enforcement agency..."
+              ; AL-DOC-8  Application, Claim Authorization page, signature note  "The claimant (if other than victim) must be the person legally..."
+              ; AL-DOC-9  Application, Section 3 (Claimant Information)  "If the victim is 19 or older, but is incapacitated, you will..."
+              ; AL-DOC-10  Ala. Admin. Code r. 262-X-4-.04(8)  "Lost wages shall be verified by obtaining written documentation..."
+              ; AL-DOC-11  Ala. Admin. Code r. 262-X-4-.04(8)  "A tax transcript from the IRS is required if the person seeking..."
+              ; AL-DOC-12  Ala. Admin. Code r. 262-X-4-.04(28)  "A victim of sexual assault may be granted compensation for..."
+              ; AL-DOC-13  Ala. Admin. Code r. 262-X-4-.07(2)(a)  "ACVCC must receive a letter from the clinician certifying that..."
+              ; AL-DOC-14  Ala. Admin. Code r. 262-X-4-.07(2)(b)  "Quarterly updates from the clinician certifying that the..."
+              ; AL-DOC-15  Ala. Admin. Code r. 262-X-4-.07(2)(c)  "The clinician must provide an itemized bill for treatment..."
+              ; AL-DOC-16  Ala. Admin. Code r. 262-X-4-.04(14)(a)  "Written estimates and/or receipts are required for payment of..."
+              ; AL-DOC-17  Ala. Admin. Code r. 262-X-4-.04(14)(b)  "A copy of the hotel bill, credit card receipt, or other..."
+              ; AL-REC-1  Ala. Code 15-23-4(k)  "The commission may not disclose the names and addresses of..."
+  0246        info     P31                          ; AL-COLL-1, AL-COLL-2, AL-CONDUCT-1, AL-CONDUCT-2, AL-EMERG-1, AL-CRIME-1, AL-CRIME-2, AL-RES-1, AL-RES-2, AL-RES-3, AL-SUBMIT-1, AL-SUBMIT-2, AL-SUBMIT-3, AL-DOC-1, AL-DOC-2, AL-DOC-3, AL-DOC-4, AL-DOC-5, AL-DOC-6, AL-DOC-7, AL-DOC-8, AL-DOC-9, AL-DOC-10, AL-DOC-11, AL-DOC-12, AL-DOC-13, AL-DOC-14, AL-DOC-15, AL-DOC-16, AL-DOC-17, AL-REC-1
+  0249        ret
+

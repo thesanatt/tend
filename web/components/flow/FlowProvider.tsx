@@ -63,7 +63,7 @@ interface Flow {
   allowServer(): void;
   logSent(event: Omit<SentEvent, "at">): void;
   save(opts: { passkey?: boolean; passphrase?: string }): Promise<void>;
-  unlock(opts: { passkey?: boolean; passphrase?: string }): Promise<boolean>;
+  openSaved(opts: { passkey?: boolean; passphrase?: string }): Promise<boolean>;
   lockNow(idle?: boolean): void;
   forget(): Promise<void>;
   endSession(): void;
@@ -352,7 +352,7 @@ export function FlowProvider({
         setVaultStatus("open");
       },
 
-      async unlock(opts) {
+      async openSaved(opts) {
         const ok = await services.vault.unlock(opts);
         if (!ok) return false;
         const saved = await services.vault.get<unknown>(VAULT_KEY);

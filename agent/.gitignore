@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+# uAgents key-value store and logs, written next to wherever the agent runs
+*_data.json
+uagents_core.log
+.env

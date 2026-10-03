@@ -1,0 +1,311 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "WY",
+ "source_sha256": "9a00800ffac187eba86824241df7d01d985150dfa184b1f3086751dd44d83759",
+ "ir_sha256": "b48d1bf8e3c0eb0aec96c726020f30484ef2756de342e4b80bf098aea2ec5cec",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "WY-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WY-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WY-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WY-EXAM-6",
+   "kind": "covered",
+   "expense": "forensic_exam"
+  },
+  {
+   "id": "WY-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WY-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "WY-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 8500,
+   "per": "unit",
+   "unit": "hour"
+  },
+  {
+   "id": "WY-CAP-3",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 450000,
+   "per": "claim"
+  },
+  {
+   "id": "WY-CAP-4",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 120000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "WY-CAP-9"
+   ]
+  },
+  {
+   "id": "WY-CAP-5",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "WY-CAP-6",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "WY-CAP-7",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 700000,
+   "per": "claim"
+  },
+  {
+   "id": "WY-CAP-8",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 30000,
+   "per": "claim"
+  },
+  {
+   "id": "WY-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WY-COV-2",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WY-COV-3",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "WY-COV-4",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "WY-COV-5",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WY-COV-6",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WY-COV-7",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WY-COV-8",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WY-COV-9",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "WY-COV-10",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "WY-COV-11",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "WY-EXC-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "WY-EXC-2",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "WY-EXC-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WY-EXC-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WY-DEAD-1",
+   "kind": "deadline",
+   "days": 365,
+   "from": "crime"
+  },
+  {
+   "id": "WY-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WY-REP-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "WY-COL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "WY-COL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "WY-COL-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "WY-CON-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WY-CON-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WY-EMER-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "WY-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WY-ELIG-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WY-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "WY-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "WY-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WY-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WY-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "WY-EXAM-2",
+   "category": "exam_no_bill",
+   "reason": "applies_to \"exams reported to law enforcement\""
+  },
+  {
+   "id": "WY-REP-2",
+   "category": "reporting_requirement",
+   "reason": "applies_to \"mental health counseling only\""
+  },
+  {
+   "id": "WY-CAP-9",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of WY-CAP-4"
+  }
+ ]
+}

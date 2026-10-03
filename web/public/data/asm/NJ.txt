@@ -1,0 +1,1299 @@
+; tend law image NJ, New Jersey
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 d2ef5124e4b5144f017ce0ae9a5fba06a98351690d9ec247676abe65d880a969
+; image sha256  2e9b46596a9cd44baf58180b10ad74181e7e9ea30d4938b54cff909db0d29775
+; 54 rules, 17 sources, 36 proofs, 9 ints, 294 strings
+; item program: 650 instructions, 2271 bytes, max stack 2
+; aggregate program: 313 instructions, 961 bytes, max stack 3, 11 loops
+
+.rules
+    R0    NJ-EXAM-1             exam_no_bill  -                                             N.J.S.A. 52:4B-52(k)
+    R1    NJ-EXAM-2             exam_no_bill  -                                             NJ OAG, Sexual Assault Victims page (Forensic Nurse Examiner section)
+    R2    NJ-EXAM-3             exam_no_bill  -                                             AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam, Non-Participating Examination Facilities
+    R3    NJ-CAP-1              total_cap     -                                             N.J.S.A. 52:4B-18
+    R4    NJ-COUNSEL-1          expense_cap   counseling            per claim               N.J.A.C. 13:75-4.4(b)
+    R5    NJ-WAGES-1            expense_cap   lost_wages            per week                N.J.A.C. 13:75-4.5(h)
+    R6    NJ-RELOC-1            expense_cap   relocation            per claim               N.J.A.C. 13:75-4.7(d)
+    R7    NJ-SEC-1              expense_cap   security              per claim               N.J.A.C. 13:75-4.7(d)2
+    R8    NJ-TRANS-1            expense_cap   transportation        per day                 N.J.A.C. 13:75-4.8(a)
+    R9    NJ-TRANS-2            info          -                     excluded_expense        N.J.A.C. 13:75-4.8(a)1
+    R10   NJ-CHILD-1            expense_cap   childcare             per claim               N.J.A.C. 13:75-4.11(a)2
+    R11   NJ-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               N.J.A.C. 13:75-4.12(f)
+    R12   NJ-LEGAL-1            expense_cap   legal                 per claim               N.J.A.C. 13:75-4.10(b)
+    R13   NJ-FUNERAL-1          expense_cap   funeral               per claim               N.J.A.C. 13:75-4.9
+    R14   NJ-DOMHELP-1          expense_cap   other                 per claim               N.J.A.C. 13:75-4.11(b)2
+    R15   NJ-COV-MED            covered       medical                                       N.J.A.C. 13:75-4.1(a)1
+    R16   NJ-COV-WAGES          covered       lost_wages                                    N.J.A.C. 13:75-4.1(a)1
+    R17   NJ-COV-COUNSEL        covered       counseling                                    VCCO Application, Section 5 (Services Requested)
+    R18   NJ-COV-DENTAL         covered       dental                                        VCCO Application, Section 5 (Services Requested)
+    R19   NJ-COV-RX             covered       prescription                                  VCCO Application, Section 5 (Services Requested)
+    R20   NJ-COV-CLOTH          covered       clothing_bedding                              N.J.A.C. 13:75-4.12(d)1
+    R21   NJ-EXCL-PROP          excluded      -                                             N.J.A.C. 13:75-4.1(f)
+    R22   NJ-EXCL-PAIN          excluded      -                                             N.J.A.C. 13:75-4.1(e)
+    R23   NJ-FILE-1             deadline      -                                             N.J.S.A. 52:4B-18
+    R24   NJ-FILE-2             deadline      -                                             N.J.S.A. 52:4B-18
+    R25   NJ-FILE-3             deadline      -                                             N.J.A.C. 13:75-3.1(a)3
+    R26   NJ-REPORT-1           reporting     -                                             N.J.S.A. 52:4B-18
+    R27   NJ-REPORT-2           reporting     -                                             N.J.A.C. 13:75-3.1(b)
+    R28   NJ-REPORT-3           reporting     -                                             AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam
+    R29   NJ-MINLOSS-1          info          -                     minimum_loss            NJ VCCO Eligibility page, Preconditions for Eligibility
+    R30   NJ-COLL-1             collateral    -                                             NJ VCCO Eligibility page, Moneys from other Sources
+    R31   NJ-COLL-2             collateral    -                                             N.J.A.C. 13:75-9.1(a)
+    R32   NJ-CONDUCT-1          info          -                     conduct_reduction       N.J.S.A. 52:4B-18
+    R33   NJ-CONDUCT-2          info          -                     conduct_reduction       N.J.A.C. 13:75-4.1(c)1
+    R34   NJ-EMERG-1            info          -                     emergency_award         N.J.S.A. 52:4B-10.1(a)
+    R35   NJ-EMERG-2            info          -                     emergency_award         N.J.A.C. 13:75-5.1(c)
+    R36   NJ-CRIME-1            info          -                     eligible_crime          N.J.S.A. 52:4B-11b.(9) (amended through P.L.2023, c.101)
+    R37   NJ-RES-1              info          -                     residency               NJ VCCO Eligibility page, Preconditions for Eligibility
+    R38   NJ-SUB-1              info          -                     submission              NJ VCCO Contact page, applications and submission of documents
+    R39   NJ-SUB-2              info          -                     submission              NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II sidebar
+    R40   NJ-SUB-3              info          -                     submission              NJ VCCO Contact page, applications and submission of documents
+    R41   NJ-DOC-1              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 4
+    R42   NJ-DOC-2              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
+    R43   NJ-DOC-3              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 7
+    R44   NJ-DOC-4              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
+    R45   NJ-DOC-5              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
+    R46   NJ-DOC-6              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
+    R47   NJ-DOC-7              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
+    R48   NJ-DOC-8              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 15
+    R49   NJ-TIME-1             info          -                     processing_time         N.J.A.C. 13:75-4.2(c)
+    R50   NJ-TIME-2             info          -                     processing_time         NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
+    R51   NJ-ACP-1              info          -                     address_confidentiality N.J.S.A. 47:4-2
+    R52   NJ-REC-1              info          -                     record_confidentiality  N.J.A.C. 13:75-1.6(b)
+    R53   NJ-WAGES-2            skipped       -                     expense_cap             N.J.A.C. 13:75-4.5(e)  ; expense_cap without amount or expense
+
+.tags   phone=bit0, pain_suffering=bit1
+
+.sources
+    S0    NJ-S1       sha256 8472f8e6f260ae06  https://www.njoag.gov/vcco/
+    S1    NJ-S2       sha256 93fc46f2834d0138  https://www.njoag.gov/vcco/vcco-eligibility/
+    S2    NJ-S3       sha256 773b98bdf679f520  https://www.njoag.gov/vcco/vcco-benefits/
+    S3    NJ-S4       sha256 e76b19c5640cb094  https://www.njoag.gov/wp-content/uploads/2024/02/VCCO-2024-0215_FAQs.pdf
+    S4    NJ-S6       sha256 d306c1a702ef8b37  https://www.njoag.gov/vcco/vcco-contact-us/
+    S5    NJ-S8       sha256 f897b2655522ecb7  https://nj.gov/oag/njvictims/pdfs/2020-08-01_Statute.pdf
+    S6    NJ-S9       sha256 1627f7f5ccf426f3  https://www.nj.gov/oag/njvictims/admincode/Administrative-Code.pdf
+    S7    NJ-S10      sha256 8192d2d16774fa97  https://law.justia.com/codes/new-jersey/title-52/section-52-4b-18/
+    S8    NJ-S11      sha256 75a876e5dd860b79  https://www.njoag.gov/end-sexual-assault/
+    S9    NJ-S13      sha256 dfcbecd812ca047c  http://www.nj.gov/oag/newsreleases18/AG-SART-Standards.pdf
+    S10   NJ-S14      sha256 c3a0b5dcf8503f72  https://law.justia.com/codes/new-jersey/title-52/section-52-4b-52/
+    S11   NJ-S16      sha256 3486cc828dc6125e  https://www.nj.gov/oag/njvictims/pdfs/VCCO-Application-Instructions.pdf
+    S12   NJ-S18      sha256 7be92ccae6e6b947  https://law.justia.com/codes/new-jersey/title-52/section-52-4b-11/
+    S13   NJ-S19      sha256 f793d944b093d042  https://www.njoag.gov/vcco/vcco-paper-application/
+    S14   NJ-S20      sha256 2695364dae840504  https://www.nj.gov/dcf/divisions-offices/dow/acp.shtml
+    S15   NJ-S21      sha256 63253bc5001aee64  https://www.law.cornell.edu/regulations/new-jersey/N-J-A-C-3A-71-3-1
+    S16   NJ-S22      sha256 cdaefa241b09919f  https://law.justia.com/codes/new-jersey/title-47/section-47-4-2/
+
+.proofs
+    P0    ()
+    P1    (NJ-EXAM-1, NJ-EXAM-2, NJ-EXAM-3)
+    P2    (NJ-EXCL-PROP)
+    P3    (NJ-EXCL-PAIN)
+    P4    (NJ-EXCL-PROP, NJ-EXCL-PAIN)
+    P5    (NJ-COV-MED)
+    P6    (NJ-COV-MED, NJ-COLL-1, NJ-COLL-2)
+    P7    (NJ-COUNSEL-1, NJ-COV-COUNSEL)
+    P8    (NJ-COUNSEL-1, NJ-COV-COUNSEL, NJ-COLL-1, NJ-COLL-2)
+    P9    (NJ-WAGES-1, NJ-COV-WAGES)
+    P10   (NJ-WAGES-1, NJ-COV-WAGES, NJ-COLL-1, NJ-COLL-2)
+    P11   (NJ-TRANS-1)
+    P12   (NJ-TRANS-1, NJ-COLL-1, NJ-COLL-2)
+    P13   (NJ-RELOC-1)
+    P14   (NJ-RELOC-1, NJ-COLL-1, NJ-COLL-2)
+    P15   (NJ-SEC-1)
+    P16   (NJ-SEC-1, NJ-COLL-1, NJ-COLL-2)
+    P17   (NJ-CLEAN-1)
+    P18   (NJ-CLEAN-1, NJ-COLL-1, NJ-COLL-2)
+    P19   (NJ-CHILD-1)
+    P20   (NJ-CHILD-1, NJ-COLL-1, NJ-COLL-2)
+    P21   (NJ-COV-CLOTH)
+    P22   (NJ-COV-CLOTH, NJ-COLL-1, NJ-COLL-2)
+    P23   (NJ-COV-RX)
+    P24   (NJ-COV-RX, NJ-COLL-1, NJ-COLL-2)
+    P25   (NJ-COV-DENTAL)
+    P26   (NJ-COV-DENTAL, NJ-COLL-1, NJ-COLL-2)
+    P27   (NJ-FUNERAL-1)
+    P28   (NJ-FUNERAL-1, NJ-COLL-1, NJ-COLL-2)
+    P29   (NJ-LEGAL-1)
+    P30   (NJ-LEGAL-1, NJ-COLL-1, NJ-COLL-2)
+    P31   (NJ-DOMHELP-1)
+    P32   (NJ-DOMHELP-1, NJ-COLL-1, NJ-COLL-2)
+    P33   (NJ-FILE-1, NJ-FILE-2, NJ-FILE-3)
+    P34   (NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3)
+    P35   (NJ-TRANS-2, NJ-MINLOSS-1, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1)
+
+.ints
+    K0    60000         ; $600.00
+    K1    1000          ; $10.00
+    K2    2000000       ; $20,000.00
+    K3    300000        ; $3,000.00
+    K4    650000        ; $6,500.00
+    K5    400000        ; $4,000.00
+    K6    1000000       ; $10,000.00
+    K7    750000        ; $7,500.00
+    K8    2500000       ; $25,000.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L42
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L10
+                        case lost_wages            -> L18
+                        case transportation        -> L26
+                        case relocation            -> L34
+                        case temporary_housing     -> L42
+                        case security              -> L49
+                        case crime_scene_cleanup   -> L57
+                        case childcare             -> L65
+                        case property_replacement  -> L42
+                        case clothing_bedding      -> L73
+                        case prescription          -> L81
+                        case dental                -> L89
+                        case funeral               -> L97
+                        case legal                 -> L105
+                        case tuition               -> L42
+                        case other                 -> L113
+                        case unknown               -> L42
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; NJ-EXAM-1  N.J.S.A. 52:4B-52(k)  "Develop and implement procedures to ensure that victims of..."
+              ; NJ-EXAM-2  NJ OAG, Sexual Assault Victims page (Forensic Nurse Examiner section)  "The medical-forensic exam is free and a victim of sexual assault..."
+              ; NJ-EXAM-3  AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam, Non-Participating Examination Facilities  "Victims shall not be charged for the medical forensic exam..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; NJ-EXAM-1, NJ-EXAM-2, NJ-EXAM-3
+  007b        ret
+              ; NJ-COV-MED  N.J.A.C. 13:75-4.1(a)1  "Reimbursable expenses include those unreimbursed and..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  007c  L2:   push     0
+  0081        str      r0
+  0083        ldi      tags
+  0085        push     1
+  008a        and
+  008b        jz       L3
+  0090        ldr      r0
+  0092        push     1
+  0097        or
+  0098        str      r0
+  009a  L3:   ldi      tags
+  009c        push     2
+  00a1        and
+  00a2        jz       L4
+  00a7        ldr      r0
+  00a9        push     2
+  00ae        or
+  00af        str      r0
+  00b1  L4:   ldr      r0
+  00b3        switch   4, default L8
+                        case 0                     -> L8
+                        case 1                     -> L5
+                        case 2                     -> L6
+                        case 3                     -> L7
+  00c9  L5:   push     0
+  00ce        decide   excluded, P2                 ; NJ-EXCL-PROP
+  00d2        ret
+  00d3  L6:   push     0
+  00d8        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  00dc        ret
+  00dd  L7:   push     0
+  00e2        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  00e6        ret
+  00e7  L8:   ldi      confirmed
+  00e9        jnz      L9
+  00ee        push     0
+  00f3        decide   needs_confirmation, P5       ; NJ-COV-MED
+  00f7        ret
+  00f8  L9:   ldi      amount_cents
+  00fa        decide   eligible, P6                 ; NJ-COV-MED, NJ-COLL-1, NJ-COLL-2
+  00fe        lda
+  00ff        ldi      insurance_paid_cents
+  0101        subs
+  0102        push     0
+  0107        max
+  0108        seta     collateral, R30              ; NJ-COLL-1
+  010c        ret
+              ; NJ-COUNSEL-1  N.J.A.C. 13:75-4.4(b)  "(b) Except for cases determined to be catastrophic in nature..."
+              ; NJ-COV-COUNSEL  VCCO Application, Section 5 (Services Requested)  "Counseling: Mental health counseling expenses related to the..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  010d  L10:  push     0
+  0112        str      r0
+  0114        ldi      tags
+  0116        push     1
+  011b        and
+  011c        jz       L11
+  0121        ldr      r0
+  0123        push     1
+  0128        or
+  0129        str      r0
+  012b  L11:  ldi      tags
+  012d        push     2
+  0132        and
+  0133        jz       L12
+  0138        ldr      r0
+  013a        push     2
+  013f        or
+  0140        str      r0
+  0142  L12:  ldr      r0
+  0144        switch   4, default L16
+                        case 0                     -> L16
+                        case 1                     -> L13
+                        case 2                     -> L14
+                        case 3                     -> L15
+  015a  L13:  push     0
+  015f        decide   excluded, P2                 ; NJ-EXCL-PROP
+  0163        ret
+  0164  L14:  push     0
+  0169        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  016d        ret
+  016e  L15:  push     0
+  0173        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0177        ret
+  0178  L16:  ldi      confirmed
+  017a        jnz      L17
+  017f        push     0
+  0184        decide   needs_confirmation, P7       ; NJ-COUNSEL-1, NJ-COV-COUNSEL
+  0188        ret
+  0189  L17:  ldi      amount_cents
+  018b        decide   eligible, P8                 ; NJ-COUNSEL-1, NJ-COV-COUNSEL, NJ-COLL-1, NJ-COLL-2
+  018f        lda
+  0190        ldi      insurance_paid_cents
+  0192        subs
+  0193        push     0
+  0198        max
+  0199        seta     collateral, R30              ; NJ-COLL-1
+  019d        ret
+              ; NJ-WAGES-1  N.J.A.C. 13:75-4.5(h)  "(h) The weekly maximum reimbursement for loss of earnings or..."
+              ; NJ-COV-WAGES  N.J.A.C. 13:75-4.1(a)1  "Reimbursable expenses include those unreimbursed and..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  019e  L18:  push     0
+  01a3        str      r0
+  01a5        ldi      tags
+  01a7        push     1
+  01ac        and
+  01ad        jz       L19
+  01b2        ldr      r0
+  01b4        push     1
+  01b9        or
+  01ba        str      r0
+  01bc  L19:  ldi      tags
+  01be        push     2
+  01c3        and
+  01c4        jz       L20
+  01c9        ldr      r0
+  01cb        push     2
+  01d0        or
+  01d1        str      r0
+  01d3  L20:  ldr      r0
+  01d5        switch   4, default L24
+                        case 0                     -> L24
+                        case 1                     -> L21
+                        case 2                     -> L22
+                        case 3                     -> L23
+  01eb  L21:  push     0
+  01f0        decide   excluded, P2                 ; NJ-EXCL-PROP
+  01f4        ret
+  01f5  L22:  push     0
+  01fa        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  01fe        ret
+  01ff  L23:  push     0
+  0204        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0208        ret
+  0209  L24:  ldi      confirmed
+  020b        jnz      L25
+  0210        push     0
+  0215        decide   needs_confirmation, P9       ; NJ-WAGES-1, NJ-COV-WAGES
+  0219        ret
+  021a  L25:  ldi      amount_cents
+  021c        decide   eligible, P10                ; NJ-WAGES-1, NJ-COV-WAGES, NJ-COLL-1, NJ-COLL-2
+  0220        lda
+  0221        ldi      insurance_paid_cents
+  0223        subs
+  0224        push     0
+  0229        max
+  022a        seta     collateral, R30              ; NJ-COLL-1
+  022e        ret
+              ; NJ-TRANS-1  N.J.A.C. 13:75-4.8(a)  "(a) Maximum reimbursement for transportation expenses incurred..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  022f  L26:  push     0
+  0234        str      r0
+  0236        ldi      tags
+  0238        push     1
+  023d        and
+  023e        jz       L27
+  0243        ldr      r0
+  0245        push     1
+  024a        or
+  024b        str      r0
+  024d  L27:  ldi      tags
+  024f        push     2
+  0254        and
+  0255        jz       L28
+  025a        ldr      r0
+  025c        push     2
+  0261        or
+  0262        str      r0
+  0264  L28:  ldr      r0
+  0266        switch   4, default L32
+                        case 0                     -> L32
+                        case 1                     -> L29
+                        case 2                     -> L30
+                        case 3                     -> L31
+  027c  L29:  push     0
+  0281        decide   excluded, P2                 ; NJ-EXCL-PROP
+  0285        ret
+  0286  L30:  push     0
+  028b        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  028f        ret
+  0290  L31:  push     0
+  0295        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0299        ret
+  029a  L32:  ldi      confirmed
+  029c        jnz      L33
+  02a1        push     0
+  02a6        decide   needs_confirmation, P11      ; NJ-TRANS-1
+  02aa        ret
+  02ab  L33:  ldi      amount_cents
+  02ad        decide   eligible, P12                ; NJ-TRANS-1, NJ-COLL-1, NJ-COLL-2
+  02b1        lda
+  02b2        ldi      insurance_paid_cents
+  02b4        subs
+  02b5        push     0
+  02ba        max
+  02bb        seta     collateral, R30              ; NJ-COLL-1
+  02bf        ret
+              ; NJ-RELOC-1  N.J.A.C. 13:75-4.7(d)  "(d) Maximum reimbursement for moving expenses shall be $ 3,000."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  02c0  L34:  push     0
+  02c5        str      r0
+  02c7        ldi      tags
+  02c9        push     1
+  02ce        and
+  02cf        jz       L35
+  02d4        ldr      r0
+  02d6        push     1
+  02db        or
+  02dc        str      r0
+  02de  L35:  ldi      tags
+  02e0        push     2
+  02e5        and
+  02e6        jz       L36
+  02eb        ldr      r0
+  02ed        push     2
+  02f2        or
+  02f3        str      r0
+  02f5  L36:  ldr      r0
+  02f7        switch   4, default L40
+                        case 0                     -> L40
+                        case 1                     -> L37
+                        case 2                     -> L38
+                        case 3                     -> L39
+  030d  L37:  push     0
+  0312        decide   excluded, P2                 ; NJ-EXCL-PROP
+  0316        ret
+  0317  L38:  push     0
+  031c        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  0320        ret
+  0321  L39:  push     0
+  0326        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  032a        ret
+  032b  L40:  ldi      confirmed
+  032d        jnz      L41
+  0332        push     0
+  0337        decide   needs_confirmation, P13      ; NJ-RELOC-1
+  033b        ret
+  033c  L41:  ldi      amount_cents
+  033e        decide   eligible, P14                ; NJ-RELOC-1, NJ-COLL-1, NJ-COLL-2
+  0342        lda
+  0343        ldi      insurance_paid_cents
+  0345        subs
+  0346        push     0
+  034b        max
+  034c        seta     collateral, R30              ; NJ-COLL-1
+  0350        ret
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+  0351  L42:  push     0
+  0356        str      r0
+  0358        ldi      tags
+  035a        push     1
+  035f        and
+  0360        jz       L43
+  0365        ldr      r0
+  0367        push     1
+  036c        or
+  036d        str      r0
+  036f  L43:  ldi      tags
+  0371        push     2
+  0376        and
+  0377        jz       L44
+  037c        ldr      r0
+  037e        push     2
+  0383        or
+  0384        str      r0
+  0386  L44:  ldr      r0
+  0388        switch   4, default L48
+                        case 0                     -> L48
+                        case 1                     -> L45
+                        case 2                     -> L46
+                        case 3                     -> L47
+  039e  L45:  push     0
+  03a3        decide   excluded, P2                 ; NJ-EXCL-PROP
+  03a7        ret
+  03a8  L46:  push     0
+  03ad        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  03b1        ret
+  03b2  L47:  push     0
+  03b7        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  03bb        ret
+  03bc  L48:  push     0
+  03c1        decide   unknown_rule, P0             ; (none)
+  03c5        ret
+              ; NJ-SEC-1  N.J.A.C. 13:75-4.7(d)2  "In the event a victim is unable to relocate due to home..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  03c6  L49:  push     0
+  03cb        str      r0
+  03cd        ldi      tags
+  03cf        push     1
+  03d4        and
+  03d5        jz       L50
+  03da        ldr      r0
+  03dc        push     1
+  03e1        or
+  03e2        str      r0
+  03e4  L50:  ldi      tags
+  03e6        push     2
+  03eb        and
+  03ec        jz       L51
+  03f1        ldr      r0
+  03f3        push     2
+  03f8        or
+  03f9        str      r0
+  03fb  L51:  ldr      r0
+  03fd        switch   4, default L55
+                        case 0                     -> L55
+                        case 1                     -> L52
+                        case 2                     -> L53
+                        case 3                     -> L54
+  0413  L52:  push     0
+  0418        decide   excluded, P2                 ; NJ-EXCL-PROP
+  041c        ret
+  041d  L53:  push     0
+  0422        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  0426        ret
+  0427  L54:  push     0
+  042c        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0430        ret
+  0431  L55:  ldi      confirmed
+  0433        jnz      L56
+  0438        push     0
+  043d        decide   needs_confirmation, P15      ; NJ-SEC-1
+  0441        ret
+  0442  L56:  ldi      amount_cents
+  0444        decide   eligible, P16                ; NJ-SEC-1, NJ-COLL-1, NJ-COLL-2
+  0448        lda
+  0449        ldi      insurance_paid_cents
+  044b        subs
+  044c        push     0
+  0451        max
+  0452        seta     collateral, R30              ; NJ-COLL-1
+  0456        ret
+              ; NJ-CLEAN-1  N.J.A.C. 13:75-4.12(f)  "(f) An award of compensation for crime scene clean-up shall not..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  0457  L57:  push     0
+  045c        str      r0
+  045e        ldi      tags
+  0460        push     1
+  0465        and
+  0466        jz       L58
+  046b        ldr      r0
+  046d        push     1
+  0472        or
+  0473        str      r0
+  0475  L58:  ldi      tags
+  0477        push     2
+  047c        and
+  047d        jz       L59
+  0482        ldr      r0
+  0484        push     2
+  0489        or
+  048a        str      r0
+  048c  L59:  ldr      r0
+  048e        switch   4, default L63
+                        case 0                     -> L63
+                        case 1                     -> L60
+                        case 2                     -> L61
+                        case 3                     -> L62
+  04a4  L60:  push     0
+  04a9        decide   excluded, P2                 ; NJ-EXCL-PROP
+  04ad        ret
+  04ae  L61:  push     0
+  04b3        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  04b7        ret
+  04b8  L62:  push     0
+  04bd        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  04c1        ret
+  04c2  L63:  ldi      confirmed
+  04c4        jnz      L64
+  04c9        push     0
+  04ce        decide   needs_confirmation, P17      ; NJ-CLEAN-1
+  04d2        ret
+  04d3  L64:  ldi      amount_cents
+  04d5        decide   eligible, P18                ; NJ-CLEAN-1, NJ-COLL-1, NJ-COLL-2
+  04d9        lda
+  04da        ldi      insurance_paid_cents
+  04dc        subs
+  04dd        push     0
+  04e2        max
+  04e3        seta     collateral, R30              ; NJ-COLL-1
+  04e7        ret
+              ; NJ-CHILD-1  N.J.A.C. 13:75-4.11(a)2  "2. Except for cases determined to be catastrophic in nature..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  04e8  L65:  push     0
+  04ed        str      r0
+  04ef        ldi      tags
+  04f1        push     1
+  04f6        and
+  04f7        jz       L66
+  04fc        ldr      r0
+  04fe        push     1
+  0503        or
+  0504        str      r0
+  0506  L66:  ldi      tags
+  0508        push     2
+  050d        and
+  050e        jz       L67
+  0513        ldr      r0
+  0515        push     2
+  051a        or
+  051b        str      r0
+  051d  L67:  ldr      r0
+  051f        switch   4, default L71
+                        case 0                     -> L71
+                        case 1                     -> L68
+                        case 2                     -> L69
+                        case 3                     -> L70
+  0535  L68:  push     0
+  053a        decide   excluded, P2                 ; NJ-EXCL-PROP
+  053e        ret
+  053f  L69:  push     0
+  0544        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  0548        ret
+  0549  L70:  push     0
+  054e        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0552        ret
+  0553  L71:  ldi      confirmed
+  0555        jnz      L72
+  055a        push     0
+  055f        decide   needs_confirmation, P19      ; NJ-CHILD-1
+  0563        ret
+  0564  L72:  ldi      amount_cents
+  0566        decide   eligible, P20                ; NJ-CHILD-1, NJ-COLL-1, NJ-COLL-2
+  056a        lda
+  056b        ldi      insurance_paid_cents
+  056d        subs
+  056e        push     0
+  0573        max
+  0574        seta     collateral, R30              ; NJ-COLL-1
+  0578        ret
+              ; NJ-COV-CLOTH  N.J.A.C. 13:75-4.12(d)1  "The Office may award compensation for the reasonable replacement..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  0579  L73:  push     0
+  057e        str      r0
+  0580        ldi      tags
+  0582        push     1
+  0587        and
+  0588        jz       L74
+  058d        ldr      r0
+  058f        push     1
+  0594        or
+  0595        str      r0
+  0597  L74:  ldi      tags
+  0599        push     2
+  059e        and
+  059f        jz       L75
+  05a4        ldr      r0
+  05a6        push     2
+  05ab        or
+  05ac        str      r0
+  05ae  L75:  ldr      r0
+  05b0        switch   4, default L79
+                        case 0                     -> L79
+                        case 1                     -> L76
+                        case 2                     -> L77
+                        case 3                     -> L78
+  05c6  L76:  push     0
+  05cb        decide   excluded, P2                 ; NJ-EXCL-PROP
+  05cf        ret
+  05d0  L77:  push     0
+  05d5        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  05d9        ret
+  05da  L78:  push     0
+  05df        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  05e3        ret
+  05e4  L79:  ldi      confirmed
+  05e6        jnz      L80
+  05eb        push     0
+  05f0        decide   needs_confirmation, P21      ; NJ-COV-CLOTH
+  05f4        ret
+  05f5  L80:  ldi      amount_cents
+  05f7        decide   eligible, P22                ; NJ-COV-CLOTH, NJ-COLL-1, NJ-COLL-2
+  05fb        lda
+  05fc        ldi      insurance_paid_cents
+  05fe        subs
+  05ff        push     0
+  0604        max
+  0605        seta     collateral, R30              ; NJ-COLL-1
+  0609        ret
+              ; NJ-COV-RX  VCCO Application, Section 5 (Services Requested)  "Prescription: Prescription expenses directly related to a crime..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  060a  L81:  push     0
+  060f        str      r0
+  0611        ldi      tags
+  0613        push     1
+  0618        and
+  0619        jz       L82
+  061e        ldr      r0
+  0620        push     1
+  0625        or
+  0626        str      r0
+  0628  L82:  ldi      tags
+  062a        push     2
+  062f        and
+  0630        jz       L83
+  0635        ldr      r0
+  0637        push     2
+  063c        or
+  063d        str      r0
+  063f  L83:  ldr      r0
+  0641        switch   4, default L87
+                        case 0                     -> L87
+                        case 1                     -> L84
+                        case 2                     -> L85
+                        case 3                     -> L86
+  0657  L84:  push     0
+  065c        decide   excluded, P2                 ; NJ-EXCL-PROP
+  0660        ret
+  0661  L85:  push     0
+  0666        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  066a        ret
+  066b  L86:  push     0
+  0670        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0674        ret
+  0675  L87:  ldi      confirmed
+  0677        jnz      L88
+  067c        push     0
+  0681        decide   needs_confirmation, P23      ; NJ-COV-RX
+  0685        ret
+  0686  L88:  ldi      amount_cents
+  0688        decide   eligible, P24                ; NJ-COV-RX, NJ-COLL-1, NJ-COLL-2
+  068c        lda
+  068d        ldi      insurance_paid_cents
+  068f        subs
+  0690        push     0
+  0695        max
+  0696        seta     collateral, R30              ; NJ-COLL-1
+  069a        ret
+              ; NJ-COV-DENTAL  VCCO Application, Section 5 (Services Requested)  "Dental: Dental expenses directly related to a crime related..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  069b  L89:  push     0
+  06a0        str      r0
+  06a2        ldi      tags
+  06a4        push     1
+  06a9        and
+  06aa        jz       L90
+  06af        ldr      r0
+  06b1        push     1
+  06b6        or
+  06b7        str      r0
+  06b9  L90:  ldi      tags
+  06bb        push     2
+  06c0        and
+  06c1        jz       L91
+  06c6        ldr      r0
+  06c8        push     2
+  06cd        or
+  06ce        str      r0
+  06d0  L91:  ldr      r0
+  06d2        switch   4, default L95
+                        case 0                     -> L95
+                        case 1                     -> L92
+                        case 2                     -> L93
+                        case 3                     -> L94
+  06e8  L92:  push     0
+  06ed        decide   excluded, P2                 ; NJ-EXCL-PROP
+  06f1        ret
+  06f2  L93:  push     0
+  06f7        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  06fb        ret
+  06fc  L94:  push     0
+  0701        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0705        ret
+  0706  L95:  ldi      confirmed
+  0708        jnz      L96
+  070d        push     0
+  0712        decide   needs_confirmation, P25      ; NJ-COV-DENTAL
+  0716        ret
+  0717  L96:  ldi      amount_cents
+  0719        decide   eligible, P26                ; NJ-COV-DENTAL, NJ-COLL-1, NJ-COLL-2
+  071d        lda
+  071e        ldi      insurance_paid_cents
+  0720        subs
+  0721        push     0
+  0726        max
+  0727        seta     collateral, R30              ; NJ-COLL-1
+  072b        ret
+              ; NJ-FUNERAL-1  N.J.A.C. 13:75-4.9  "In claims involving the death of a victim, the maximum..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  072c  L97:  push     0
+  0731        str      r0
+  0733        ldi      tags
+  0735        push     1
+  073a        and
+  073b        jz       L98
+  0740        ldr      r0
+  0742        push     1
+  0747        or
+  0748        str      r0
+  074a  L98:  ldi      tags
+  074c        push     2
+  0751        and
+  0752        jz       L99
+  0757        ldr      r0
+  0759        push     2
+  075e        or
+  075f        str      r0
+  0761  L99:  ldr      r0
+  0763        switch   4, default L103
+                        case 0                     -> L103
+                        case 1                     -> L100
+                        case 2                     -> L101
+                        case 3                     -> L102
+  0779  L100: push     0
+  077e        decide   excluded, P2                 ; NJ-EXCL-PROP
+  0782        ret
+  0783  L101: push     0
+  0788        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  078c        ret
+  078d  L102: push     0
+  0792        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0796        ret
+  0797  L103: ldi      confirmed
+  0799        jnz      L104
+  079e        push     0
+  07a3        decide   needs_confirmation, P27      ; NJ-FUNERAL-1
+  07a7        ret
+  07a8  L104: ldi      amount_cents
+  07aa        decide   eligible, P28                ; NJ-FUNERAL-1, NJ-COLL-1, NJ-COLL-2
+  07ae        lda
+  07af        ldi      insurance_paid_cents
+  07b1        subs
+  07b2        push     0
+  07b7        max
+  07b8        seta     collateral, R30              ; NJ-COLL-1
+  07bc        ret
+              ; NJ-LEGAL-1  N.J.A.C. 13:75-4.10(b)  "(b) The Office may allow payment of an attorney fee, including..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  07bd  L105: push     0
+  07c2        str      r0
+  07c4        ldi      tags
+  07c6        push     1
+  07cb        and
+  07cc        jz       L106
+  07d1        ldr      r0
+  07d3        push     1
+  07d8        or
+  07d9        str      r0
+  07db  L106: ldi      tags
+  07dd        push     2
+  07e2        and
+  07e3        jz       L107
+  07e8        ldr      r0
+  07ea        push     2
+  07ef        or
+  07f0        str      r0
+  07f2  L107: ldr      r0
+  07f4        switch   4, default L111
+                        case 0                     -> L111
+                        case 1                     -> L108
+                        case 2                     -> L109
+                        case 3                     -> L110
+  080a  L108: push     0
+  080f        decide   excluded, P2                 ; NJ-EXCL-PROP
+  0813        ret
+  0814  L109: push     0
+  0819        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  081d        ret
+  081e  L110: push     0
+  0823        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  0827        ret
+  0828  L111: ldi      confirmed
+  082a        jnz      L112
+  082f        push     0
+  0834        decide   needs_confirmation, P29      ; NJ-LEGAL-1
+  0838        ret
+  0839  L112: ldi      amount_cents
+  083b        decide   eligible, P30                ; NJ-LEGAL-1, NJ-COLL-1, NJ-COLL-2
+  083f        lda
+  0840        ldi      insurance_paid_cents
+  0842        subs
+  0843        push     0
+  0848        max
+  0849        seta     collateral, R30              ; NJ-COLL-1
+  084d        ret
+              ; NJ-DOMHELP-1  N.J.A.C. 13:75-4.11(b)2  "Except for cases determined to be catastrophic in nature, the..."
+              ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
+              ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+  084e  L113: push     0
+  0853        str      r0
+  0855        ldi      tags
+  0857        push     1
+  085c        and
+  085d        jz       L114
+  0862        ldr      r0
+  0864        push     1
+  0869        or
+  086a        str      r0
+  086c  L114: ldi      tags
+  086e        push     2
+  0873        and
+  0874        jz       L115
+  0879        ldr      r0
+  087b        push     2
+  0880        or
+  0881        str      r0
+  0883  L115: ldr      r0
+  0885        switch   4, default L119
+                        case 0                     -> L119
+                        case 1                     -> L116
+                        case 2                     -> L117
+                        case 3                     -> L118
+  089b  L116: push     0
+  08a0        decide   excluded, P2                 ; NJ-EXCL-PROP
+  08a4        ret
+  08a5  L117: push     0
+  08aa        decide   excluded, P3                 ; NJ-EXCL-PAIN
+  08ae        ret
+  08af  L118: push     0
+  08b4        decide   excluded, P4                 ; NJ-EXCL-PROP, NJ-EXCL-PAIN
+  08b8        ret
+  08b9  L119: ldi      confirmed
+  08bb        jnz      L120
+  08c0        push     0
+  08c5        decide   needs_confirmation, P31      ; NJ-DOMHELP-1
+  08c9        ret
+  08ca  L120: ldi      amount_cents
+  08cc        decide   eligible, P32                ; NJ-DOMHELP-1, NJ-COLL-1, NJ-COLL-2
+  08d0        lda
+  08d1        ldi      insurance_paid_cents
+  08d3        subs
+  08d4        push     0
+  08d9        max
+  08da        seta     collateral, R30              ; NJ-COLL-1
+  08de        ret
+
+.aggregate
+              ; NJ-WAGES-1  N.J.A.C. 13:75-4.5(h)  "(h) The weekly maximum reimbursement for loss of earnings or..."
+  0000        each     lost_wages, L4
+  0006  L0:   ldi      units
+  0008        jz       L2
+  000d        ldk      K0                           ; $600.00
+  0010        ldi      units
+  0012        muls
+  0013        dup
+  0014        lda
+  0015        lt
+  0016        jz       L1
+  001b        cap      unit_cap, R5                 ; NJ-WAGES-1
+  001f        jmp      L3
+  0024  L1:   pop
+  0025        jmp      L3
+  002a  L2:   flag     R5                           ; rate_unverified NJ-WAGES-1
+  002d  L3:   next     L0
+              ; NJ-TRANS-1  N.J.A.C. 13:75-4.8(a)  "(a) Maximum reimbursement for transportation expenses incurred..."
+  0032  L4:   each     transportation, L9
+  0038  L5:   ldi      units
+  003a        jz       L7
+  003f        ldk      K1                           ; $10.00
+  0042        ldi      units
+  0044        muls
+  0045        dup
+  0046        lda
+  0047        lt
+  0048        jz       L6
+  004d        cap      unit_cap, R8                 ; NJ-TRANS-1
+  0051        jmp      L8
+  0056  L6:   pop
+  0057        jmp      L8
+  005c  L7:   flag     R8                           ; rate_unverified NJ-TRANS-1
+  005f  L8:   next     L5
+              ; NJ-COUNSEL-1  N.J.A.C. 13:75-4.4(b)  "(b) Except for cases determined to be catastrophic in nature..."
+  0064  L9:   push     0
+  0069        str      r0
+  006b        push     0
+  0070        str      r1
+  0072        each     counseling, L14
+  0078  L10:  ldr      r1
+  007a        jnz      L12
+  007f        ldr      r0
+  0081        lda
+  0082        adds
+  0083        ldk      K2                           ; $20,000.00
+  0086        gt
+  0087        jz       L11
+  008c        ldk      K2                           ; $20,000.00
+  008f        ldr      r0
+  0091        subs
+  0092        cap      expense_cap, R4              ; NJ-COUNSEL-1
+  0096        push     1
+  009b        str      r1
+  009d  L11:  ldr      r0
+  009f        lda
+  00a0        adds
+  00a1        str      r0
+  00a3        jmp      L13
+  00a8  L12:  push     0
+  00ad        cap      expense_cap, R4              ; NJ-COUNSEL-1
+  00b1  L13:  next     L10
+              ; NJ-RELOC-1  N.J.A.C. 13:75-4.7(d)  "(d) Maximum reimbursement for moving expenses shall be $ 3,000."
+  00b6  L14:  push     0
+  00bb        str      r0
+  00bd        push     0
+  00c2        str      r1
+  00c4        each     relocation, L19
+  00ca  L15:  ldr      r1
+  00cc        jnz      L17
+  00d1        ldr      r0
+  00d3        lda
+  00d4        adds
+  00d5        ldk      K3                           ; $3,000.00
+  00d8        gt
+  00d9        jz       L16
+  00de        ldk      K3                           ; $3,000.00
+  00e1        ldr      r0
+  00e3        subs
+  00e4        cap      expense_cap, R6              ; NJ-RELOC-1
+  00e8        push     1
+  00ed        str      r1
+  00ef  L16:  ldr      r0
+  00f1        lda
+  00f2        adds
+  00f3        str      r0
+  00f5        jmp      L18
+  00fa  L17:  push     0
+  00ff        cap      expense_cap, R6              ; NJ-RELOC-1
+  0103  L18:  next     L15
+              ; NJ-SEC-1  N.J.A.C. 13:75-4.7(d)2  "In the event a victim is unable to relocate due to home..."
+  0108  L19:  push     0
+  010d        str      r0
+  010f        push     0
+  0114        str      r1
+  0116        each     security, L24
+  011c  L20:  ldr      r1
+  011e        jnz      L22
+  0123        ldr      r0
+  0125        lda
+  0126        adds
+  0127        ldk      K3                           ; $3,000.00
+  012a        gt
+  012b        jz       L21
+  0130        ldk      K3                           ; $3,000.00
+  0133        ldr      r0
+  0135        subs
+  0136        cap      expense_cap, R7              ; NJ-SEC-1
+  013a        push     1
+  013f        str      r1
+  0141  L21:  ldr      r0
+  0143        lda
+  0144        adds
+  0145        str      r0
+  0147        jmp      L23
+  014c  L22:  push     0
+  0151        cap      expense_cap, R7              ; NJ-SEC-1
+  0155  L23:  next     L20
+              ; NJ-CHILD-1  N.J.A.C. 13:75-4.11(a)2  "2. Except for cases determined to be catastrophic in nature..."
+  015a  L24:  push     0
+  015f        str      r0
+  0161        push     0
+  0166        str      r1
+  0168        each     childcare, L29
+  016e  L25:  ldr      r1
+  0170        jnz      L27
+  0175        ldr      r0
+  0177        lda
+  0178        adds
+  0179        ldk      K4                           ; $6,500.00
+  017c        gt
+  017d        jz       L26
+  0182        ldk      K4                           ; $6,500.00
+  0185        ldr      r0
+  0187        subs
+  0188        cap      expense_cap, R10             ; NJ-CHILD-1
+  018c        push     1
+  0191        str      r1
+  0193  L26:  ldr      r0
+  0195        lda
+  0196        adds
+  0197        str      r0
+  0199        jmp      L28
+  019e  L27:  push     0
+  01a3        cap      expense_cap, R10             ; NJ-CHILD-1
+  01a7  L28:  next     L25
+              ; NJ-CLEAN-1  N.J.A.C. 13:75-4.12(f)  "(f) An award of compensation for crime scene clean-up shall not..."
+  01ac  L29:  push     0
+  01b1        str      r0
+  01b3        push     0
+  01b8        str      r1
+  01ba        each     crime_scene_cleanup, L34
+  01c0  L30:  ldr      r1
+  01c2        jnz      L32
+  01c7        ldr      r0
+  01c9        lda
+  01ca        adds
+  01cb        ldk      K5                           ; $4,000.00
+  01ce        gt
+  01cf        jz       L31
+  01d4        ldk      K5                           ; $4,000.00
+  01d7        ldr      r0
+  01d9        subs
+  01da        cap      expense_cap, R11             ; NJ-CLEAN-1
+  01de        push     1
+  01e3        str      r1
+  01e5  L31:  ldr      r0
+  01e7        lda
+  01e8        adds
+  01e9        str      r0
+  01eb        jmp      L33
+  01f0  L32:  push     0
+  01f5        cap      expense_cap, R11             ; NJ-CLEAN-1
+  01f9  L33:  next     L30
+              ; NJ-LEGAL-1  N.J.A.C. 13:75-4.10(b)  "(b) The Office may allow payment of an attorney fee, including..."
+  01fe  L34:  push     0
+  0203        str      r0
+  0205        push     0
+  020a        str      r1
+  020c        each     legal, L39
+  0212  L35:  ldr      r1
+  0214        jnz      L37
+  0219        ldr      r0
+  021b        lda
+  021c        adds
+  021d        ldk      K6                           ; $10,000.00
+  0220        gt
+  0221        jz       L36
+  0226        ldk      K6                           ; $10,000.00
+  0229        ldr      r0
+  022b        subs
+  022c        cap      expense_cap, R12             ; NJ-LEGAL-1
+  0230        push     1
+  0235        str      r1
+  0237  L36:  ldr      r0
+  0239        lda
+  023a        adds
+  023b        str      r0
+  023d        jmp      L38
+  0242  L37:  push     0
+  0247        cap      expense_cap, R12             ; NJ-LEGAL-1
+  024b  L38:  next     L35
+              ; NJ-FUNERAL-1  N.J.A.C. 13:75-4.9  "In claims involving the death of a victim, the maximum..."
+  0250  L39:  push     0
+  0255        str      r0
+  0257        push     0
+  025c        str      r1
+  025e        each     funeral, L44
+  0264  L40:  ldr      r1
+  0266        jnz      L42
+  026b        ldr      r0
+  026d        lda
+  026e        adds
+  026f        ldk      K7                           ; $7,500.00
+  0272        gt
+  0273        jz       L41
+  0278        ldk      K7                           ; $7,500.00
+  027b        ldr      r0
+  027d        subs
+  027e        cap      expense_cap, R13             ; NJ-FUNERAL-1
+  0282        push     1
+  0287        str      r1
+  0289  L41:  ldr      r0
+  028b        lda
+  028c        adds
+  028d        str      r0
+  028f        jmp      L43
+  0294  L42:  push     0
+  0299        cap      expense_cap, R13             ; NJ-FUNERAL-1
+  029d  L43:  next     L40
+              ; NJ-DOMHELP-1  N.J.A.C. 13:75-4.11(b)2  "Except for cases determined to be catastrophic in nature, the..."
+  02a2  L44:  push     0
+  02a7        str      r0
+  02a9        push     0
+  02ae        str      r1
+  02b0        each     other, L49
+  02b6  L45:  ldr      r1
+  02b8        jnz      L47
+  02bd        ldr      r0
+  02bf        lda
+  02c0        adds
+  02c1        ldk      K4                           ; $6,500.00
+  02c4        gt
+  02c5        jz       L46
+  02ca        ldk      K4                           ; $6,500.00
+  02cd        ldr      r0
+  02cf        subs
+  02d0        cap      expense_cap, R14             ; NJ-DOMHELP-1
+  02d4        push     1
+  02d9        str      r1
+  02db  L46:  ldr      r0
+  02dd        lda
+  02de        adds
+  02df        str      r0
+  02e1        jmp      L48
+  02e6  L47:  push     0
+  02eb        cap      expense_cap, R14             ; NJ-DOMHELP-1
+  02ef  L48:  next     L45
+              ; NJ-CAP-1  N.J.S.A. 52:4B-18  "compensation shall not be awarded under P.L.1971, c.317..."
+  02f4  L49:  push     0
+  02f9        str      r0
+  02fb        push     0
+  0300        str      r1
+  0302        each     all, L54
+  0308  L50:  ldr      r1
+  030a        jnz      L52
+  030f        ldr      r0
+  0311        lda
+  0312        adds
+  0313        ldk      K8                           ; $25,000.00
+  0316        gt
+  0317        jz       L51
+  031c        ldk      K8                           ; $25,000.00
+  031f        ldr      r0
+  0321        subs
+  0322        cap      total_cap, R3                ; NJ-CAP-1
+  0326        push     1
+  032b        str      r1
+  032d  L51:  ldr      r0
+  032f        lda
+  0330        adds
+  0331        str      r0
+  0333        jmp      L53
+  0338  L52:  push     0
+  033d        cap      total_cap, R3                ; NJ-CAP-1
+  0341  L53:  next     L50
+  0346  L54:  push     0                            ; met
+  034b        check    minimum_loss, P0             ; (none)
+              ; NJ-FILE-1  N.J.S.A. 52:4B-18  "unless the application has been made within five years after the..."
+  034f        ldx      incident_date
+  0351        push     1826
+  0356        adds
+              ; NJ-FILE-2  N.J.S.A. 52:4B-18  "If the victim is under 18 years of age, the five-year limit on..."
+  0357        ldx      incident_date
+  0359        push     1826
+  035e        adds
+  035f        max
+              ; NJ-FILE-3  N.J.A.C. 13:75-3.1(a)3  "In the case of child sexual abuse, defined as an act of sexual..."
+  0360        ldx      incident_date
+  0362        push     1826
+  0367        adds
+  0368        max
+  0369        dup
+  036a        setdate
+  036b        ldx      as_of_date
+  036d        ge
+  036e        jz       L55
+  0373        push     0
+  0378        jmp      L56
+  037d  L55:  push     1                            ; late
+  0382  L56:  check    deadline, P33                ; NJ-FILE-1, NJ-FILE-2, NJ-FILE-3
+              ; NJ-REPORT-1  N.J.S.A. 52:4B-18  "which had been reported to the police or other appropriate law..."
+              ; NJ-REPORT-2  N.J.A.C. 13:75-3.1(b)  "The Office reserves the right to, upon determination that good..."
+              ; NJ-REPORT-3  AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam  "Victims shall be informed that VCCO benefits are only eligible..."
+  0386        ldx      police_report
+  0388        push     1                            ; yes
+  038d        eq
+  038e        jnz      L58
+  0393        ldx      police_report
+  0395        push     0                            ; no
+  039a        eq
+  039b        jnz      L57
+  03a0        push     3
+  03a5        jmp      L59
+  03aa  L57:  push     1
+  03af        jmp      L59
+  03b4  L58:  push     0                            ; satisfied
+  03b9  L59:  check    reporting, P34               ; NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3
+              ; NJ-TRANS-2  N.J.A.C. 13:75-4.8(a)1  "All non-medically related transportation costs are excluded..."
+              ; NJ-MINLOSS-1  NJ VCCO Eligibility page, Preconditions for Eligibility  "There are no minimum loss requirements for incidents occurring..."
+              ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
+              ; NJ-COLL-2  N.J.A.C. 13:75-9.1(a)  "(a) In determining the amount of compensation to be awarded, the..."
+              ; NJ-CONDUCT-1  N.J.S.A. 52:4B-18  "In determining the amount of an award, the office shall..."
+              ; NJ-CONDUCT-2  N.J.A.C. 13:75-4.1(c)1  "Where an award is to be limited or reduced due to contribution..."
+              ; NJ-EMERG-1  N.J.S.A. 52:4B-10.1(a)  "The Victims of Crime Compensation Office may make one or more..."
+              ; NJ-EMERG-2  N.J.A.C. 13:75-5.1(c)  "(c) The maximum amount of any emergency award shall not exceed $..."
+              ; NJ-CRIME-1  N.J.S.A. 52:4B-11b.(9) (amended through P.L.2023, c.101)  "(9) aggravated sexual assault, sexual assault, aggravated..."
+              ; NJ-RES-1  NJ VCCO Eligibility page, Preconditions for Eligibility  "The crime must occur in New Jersey, although you need not be a..."
+              ; NJ-SUB-1  NJ VCCO Contact page, applications and submission of documents  "For applications and submission of documents, you may: File..."
+              ; NJ-SUB-2  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II sidebar  "Mail all applications to Newark office at: VCCO 50 Park Place..."
+              ; NJ-SUB-3  NJ VCCO Contact page, applications and submission of documents  "Fax: 973-648-3937"
+              ; NJ-DOC-1  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 4  "Attach a copy of the incident report. If you don't have one..."
+              ; NJ-DOC-2  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II  "Include copies of as much related information (i.e. copies of..."
+              ; NJ-DOC-3  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 7  "If you already have itemized bills, please send copies with your..."
+              ; NJ-DOC-4  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II  "Include copies of as much related information (i.e. copies of..."
+              ; NJ-DOC-5  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)  "If available, please supply your pay stubs from the week before..."
+              ; NJ-DOC-6  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)  "If available, please supply your pay stubs from the week before..."
+              ; NJ-DOC-7  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)  "If you are self-employed, you must supply copies of your income..."
+              ; NJ-DOC-8  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 15  "This authorization is necessary to obtain information from your..."
+              ; NJ-TIME-1  N.J.A.C. 13:75-4.2(c)  "The Office will make its determination regarding the application..."
+              ; NJ-TIME-2  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II  "the turn around time for processing a claim is 3 months of..."
+              ; NJ-ACP-1  N.J.S.A. 47:4-2  "to enable interagency cooperation with the Director of the..."
+              ; NJ-REC-1  N.J.A.C. 13:75-1.6(b)  "The files maintained by the Office that relate directly to the..."
+  03bd        info     P35                          ; NJ-TRANS-2, NJ-MINLOSS-1, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1
+  03c0        ret
+

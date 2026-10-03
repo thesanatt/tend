@@ -1,0 +1,180 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "WV",
+ "source_sha256": "853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a",
+ "ir_sha256": "1c8d1c4c7400316e3bacf36f0cb8ad37e3bb2235117392b5cbe820352dbf5da5",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "WV-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "WV-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WV-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "WV-EXAM-4",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "WV-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "WV-CAP-2",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 450000,
+   "per": "claim"
+  },
+  {
+   "id": "WV-CAP-3",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
+   "id": "WV-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "WV-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "WV-COV-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "WV-COV-4",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WV-COV-5",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "WV-COV-6",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "WV-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "WV-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WV-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "WV-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "WV-REP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "WV-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "WV-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WV-COND-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "WV-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "WV-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "WV-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WV-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "WV-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "WV-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "WV-TIME-2",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "WV-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "WV-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

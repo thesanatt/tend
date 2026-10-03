@@ -72,7 +72,7 @@ export function Steps() {
 // start over without it, or delete it.
 function Resume({ onSkip }: { onSkip: () => void }) {
   const { t } = useI18n();
-  const { unlock, forget, services, vault } = useFlow();
+  const { openSaved, forget, services, vault } = useFlow();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -82,10 +82,10 @@ function Resume({ onSkip }: { onSkip: () => void }) {
     setBusy(true);
     setError(null);
     try {
-      const ok = await unlock(opts);
+      const ok = await openSaved(opts);
       if (!ok) setError(opts.passkey ? t.vault.passkeyFailed : t.vault.wrong);
     } catch (err) {
-      setError(t.vault.unlockFailed((err as Error).message));
+      setError(t.vault.openFailed((err as Error).message));
     } finally {
       setBusy(false);
     }
@@ -104,7 +104,7 @@ function Resume({ onSkip }: { onSkip: () => void }) {
       {services.passkeySupported() ? (
         <div className="btn-row">
           <button type="button" className="btn btn-primary" disabled={busy} onClick={() => open({ passkey: true })}>
-            {t.vault.unlockPasskey}
+            {t.vault.openPasskey}
           </button>
         </div>
       ) : null}
@@ -123,7 +123,7 @@ function Resume({ onSkip }: { onSkip: () => void }) {
             aria-describedby={error ? "resume-error" : undefined}
           />
           <button type="submit" className="btn btn-secondary" disabled={busy || !code}>
-            {t.vault.unlock}
+            {t.vault.open}
           </button>
         </div>
       </form>

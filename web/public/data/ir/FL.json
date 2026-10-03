@@ -1,0 +1,275 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "FL",
+ "source_sha256": "dcfe24d4d301a829fe50d8d1ba0eb88378ccebd6ac8241db07011a131f9935e6",
+ "ir_sha256": "16975d7a9d57fdc760df081cfb46d32d255a695b39b0b319081afc196e62c514",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "FL-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "FL-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "FL-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "FL-EXAM-4",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "FL-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 1500000
+  },
+  {
+   "id": "FL-CAP-2",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "FL-CAP-4",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 1000000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "FL-CAP-3",
+    "FL-CAP-8"
+   ]
+  },
+  {
+   "id": "FL-CAP-5",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "FL-CAP-6",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "FL-CAP-7",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "FL-COV-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "FL-COV-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "FL-COV-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "FL-COV-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "FL-COV-5",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "FL-COV-6",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "FL-EXC-1",
+   "kind": "excluded",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "FL-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "FL-DEADLINE-3",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "FL-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "FL-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "FL-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "FL-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "FL-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "FL-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "FL-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "FL-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "FL-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "FL-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "FL-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "FL-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "FL-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "FL-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "FL-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "FL-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "FL-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "FL-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "FL-CAP-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of FL-CAP-4"
+  },
+  {
+   "id": "FL-CAP-8",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of FL-CAP-4"
+  }
+ ]
+}

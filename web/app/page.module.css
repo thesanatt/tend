@@ -1,13 +1,25 @@
 .home {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-8);
   padding-top: var(--space-7);
 }
 
 .intro {
   display: grid;
-  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
   max-width: 46rem;
+}
+
+.count {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.count strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
 .forYou {

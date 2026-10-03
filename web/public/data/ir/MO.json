@@ -1,0 +1,218 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "MO",
+ "source_sha256": "7ebc1144d4f9bbc9b1a5dd577ddce33b87192057cfd62ffdfcd32f9a8025eb32",
+ "ir_sha256": "220a862d401f887ebc2cfb02157aca8a5afb94750cab45b219e8c6c4e67354d6",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "MO-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "MO-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MO-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "MO-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "MO-WAGE-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 40000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "MO-WAGE-2",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "MO-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "MO-COUN-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "MO-DENT-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "MO-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "MO-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "vehicle"
+   ]
+  },
+  {
+   "id": "MO-EXCL-2",
+   "kind": "excluded",
+   "expense": "relocation"
+  },
+  {
+   "id": "MO-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MO-EXCL-4",
+   "kind": "excluded",
+   "expense": "tuition"
+  },
+  {
+   "id": "MO-EXCL-5",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "MO-DEAD-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "MO-REP-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "MO-REP-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "MO-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "MO-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "MO-COND-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "MO-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "MO-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MO-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MO-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "MO-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MO-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "MO-DOC-APP",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-BILLS-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-RX",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-WAGES-SELF",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-INSURANCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-MEDREC",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-FUNERAL",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-DOC-SUPPORT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "MO-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "MO-REC-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

@@ -21,8 +21,8 @@ const sources = [
 const BANNED = new RegExp(
   `[${[0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d].map((c) => String.fromCharCode(c)).join("")}]`,
 );
-// "unlock" is not here on purpose: the vault is literally unlocked with Touch ID or a passcode.
-const HYPE = /\b(elevate|empower|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
+const HYPE =
+  /\b(elevate|empower|unlock|seamless(ly)?|cutting-edge|robust|journey|revolutionize|supercharge|game-?changer)\b/i;
 
 describe("user-facing copy", () => {
   it("has no em dashes, en dashes, or curly quotes in source", () => {
@@ -30,9 +30,20 @@ describe("user-facing copy", () => {
     expect(bad.map((f) => path.relative(web, f))).toEqual([]);
   });
 
+  // Code names such as Vault.unlock() are not copy; a lowercase name right before "(" is a call or
+  // a method, so it is dropped before the check.
+  const prose = (text: string) => text.replace(/\b[a-z]\w*\(/g, "(");
+
   it("avoids hype words", () => {
-    const bad = sources.filter((f) => HYPE.test(readFileSync(f, "utf8")));
+    const bad = sources.filter((f) => HYPE.test(prose(readFileSync(f, "utf8"))));
     expect(bad.map((f) => path.relative(web, f))).toEqual([]);
+  });
+
+  it("still catches hype words in copy while skipping method names", () => {
+    expect(HYPE.test(prose("unlock(opts: { passphrase?: string }): Promise<boolean>;"))).toBe(false);
+    expect(HYPE.test(prose("vault.unlock({ passkey: true })"))).toBe(false);
+    expect(HYPE.test(prose("<p>Unlock your money journey</p>"))).toBe(true);
+    expect(HYPE.test(prose("Tap to unlock (Touch ID)"))).toBe(true);
   });
 
   it("says the program decides wherever an amount is shown as askable", () => {

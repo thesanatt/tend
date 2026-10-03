@@ -1,0 +1,326 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "AK",
+ "source_sha256": "2849e46f17a18c0fc91d9474145cab264be08c3be1491fde4674448bae38f1dd",
+ "ir_sha256": "d254a2f08775717e7dc7cc7ef0aca0871df805e7560710e99e8ef2fce1ef84ea",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "AK-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AK-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "AK-ELIG-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "AK-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "AK-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 4000000
+  },
+  {
+   "id": "AK-DEADLINE-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "AK-DEADLINE-2",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "AK-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 5
+  },
+  {
+   "id": "AK-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AK-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "AK-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "AK-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "AK-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AK-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AK-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "AK-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "AK-COUNSEL-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 20000,
+   "per": "unit",
+   "unit": "session",
+   "count_limit": 24
+  },
+  {
+   "id": "AK-WAGES-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "AK-WAGES-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "AK-RELOC-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 750000,
+   "per": "claim"
+  },
+  {
+   "id": "AK-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "AK-HOUSING-1",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 22500,
+   "per": "unit",
+   "unit": "day",
+   "count_limit": 5
+  },
+  {
+   "id": "AK-TRANS-2",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 5000,
+   "per": "unit",
+   "unit": "day"
+  },
+  {
+   "id": "AK-SEC-2",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 400000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "AK-SEC-1"
+   ]
+  },
+  {
+   "id": "AK-PHONE-1",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "AK-PHONE-2",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "AK-EVID-1",
+   "kind": "expense_cap",
+   "expense": "clothing_bedding",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "AK-CLEAN-1",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 700000,
+   "per": "claim"
+  },
+  {
+   "id": "AK-RENT-1",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 400000,
+   "per": "claim",
+   "alt_rule_ids": [
+    "AK-MED-1"
+   ]
+  },
+  {
+   "id": "AK-COV-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "AK-COV-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "AK-COV-3",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "AK-COV-4",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "AK-COV-5",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "AK-COV-6",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "AK-COV-7",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "AK-CHILD-1",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "AK-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "AK-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-SUBMIT-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-SUBMIT-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "AK-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "AK-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "AK-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "AK-MED-1",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of AK-RENT-1"
+  },
+  {
+   "id": "AK-SEC-1",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of AK-SEC-2"
+  }
+ ]
+}

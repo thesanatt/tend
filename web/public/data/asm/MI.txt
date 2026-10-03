@@ -1,0 +1,771 @@
+; tend law image MI, Michigan
+; format 1.1, compiled by tendc 1.1.0
+; source sha256 3dcdc6b4b2ad99b860267e12a539c1a74ac7d8027232bfbee2755b2b134fda68
+; image sha256  f637945577b85907e2a39db22ba4e7075c77e3bdfa5dacb52bd68057ad6c1fd7
+; 83 rules, 23 sources, 33 proofs, 7 ints, 471 strings
+; item program: 207 instructions, 662 bytes, max stack 2
+; aggregate program: 252 instructions, 779 bytes, max stack 3, 9 loops
+
+.rules
+    R0    MI-EXAM-1             exam_no_bill  -                                             MCL 18.355a(2)
+    R1    MI-EXAM-2             exam_no_bill  -                                             MCL 18.355a(3)(a)
+    R2    MI-EXAM-3             exam_payment  -                                             MCL 18.355a(7)
+    R3    MI-EXAM-4             exam_payment  -                                             MDHHS SAFE Response page
+    R4    MI-EXAM-5             exam_payment  -                                             MCL 18.355a(4)
+    R5    MI-CAP-1              total_cap     -                                             MCL 18.361(1)
+    R6    MI-CAP-3              expense_cap   counseling            per session             MCL 18.361(6)
+    R7    MI-CAP-5              expense_cap   lost_wages            per week                MCL 18.361(4)
+    R8    MI-CAP-6              expense_cap   relocation            per claim               MCL 18.361(2)(c)
+    R9    MI-CAP-8              expense_cap   transportation        per claim               MCL 18.361(2)(e)(ii)
+    R10   MI-CAP-9              expense_cap   security              per claim               MCL 18.361(2)(f)
+    R11   MI-CAP-10             expense_cap   clothing_bedding      per claim               MCL 18.361(2)(j)
+    R12   MI-CAP-11             expense_cap   crime_scene_cleanup   per claim               MCL 18.361(2)(i)
+    R13   MI-COV-1              covered       medical                                       MCL 18.361(2)(a)
+    R14   MI-COV-2              covered       counseling                                    MCL 18.361(2)(b)
+    R15   MI-COV-3              covered       lost_wages                                    MCL 18.361(4)
+    R16   MI-COV-4              covered       relocation                                    MCL 18.361(2)(c)
+    R17   MI-COV-5              covered       temporary_housing                             MCL 18.361(2)(c)(iii)
+    R18   MI-COV-6              covered       relocation                                    MCL 18.361(2)(c)(i)
+    R19   MI-COV-7              covered       transportation                                MCL 18.361(2)(e)
+    R20   MI-COV-8              covered       childcare                                     MCL 18.361(2)(d)
+    R21   MI-COV-9              covered       dental                                        MDHHS What Costs May Be Covered, Costs that May Be Covered
+    R22   MI-COV-10             covered       other                                         MDHHS What Costs May Be Covered, Costs that May Be Covered
+    R23   MI-EXCL-1             excluded      property_replacement                          MDHHS What Costs May Be Covered, Costs that are NOT Covered
+    R24   MI-EXCL-2             info          -                     excluded_expense        MDHHS What Costs May Be Covered, Costs that are NOT Covered
+    R25   MI-EXCL-3             info          -                     excluded_expense        MDHHS What Costs May Be Covered, Costs that are NOT Covered
+    R26   MI-EXCL-4             info          -                     excluded_expense        MDHHS What Costs May Be Covered, Costs that are NOT Covered
+    R27   MI-FILE-1             deadline      -                                             MCL 18.355(2)
+    R28   MI-FILE-2             deadline      -                                             MCL 18.355(2)(a)
+    R29   MI-FILE-3             info          -                     filing_deadline         MCL 18.355(3)
+    R30   MI-REPORT-1           reporting     -                                             MCL 18.355a(10)
+    R31   MI-REPORT-2           reporting     -                                             MCL 18.360(c)
+    R32   MI-REPORT-3           reporting     -                                             MDHHS Do I Qualify?, Eligibility Requirements
+    R33   MI-MIN-1              minimum_loss  -                                             MCL 18.354(3)
+    R34   MI-COLL-1             collateral    -                                             MCL 18.361(7)
+    R35   MI-COLL-2             collateral    -                                             MDHHS FAQ, What is Crime Victim Compensation?
+    R36   MI-COLL-3             collateral    -                                             MDHHS FAQ, Do I qualify if I have insurance?
+    R37   MI-CONDUCT-1          info          -                     conduct_reduction       MCL 18.361(8)
+    R38   MI-CONDUCT-2          info          -                     conduct_reduction       MCL 18.356(2)
+    R39   MI-EMERG-1            info          -                     emergency_award         MCL 18.359(2)
+    R40   MI-ELIG-1             info          -                     eligible_crime          MDHHS Do I Qualify?, Who is considered a victim?
+    R41   MI-ELIG-2             info          -                     eligible_crime          MCL 18.351(i)
+    R42   MI-RES-1              info          -                     residency               MDHHS FAQ, Do I need to be a U.S. citizen or have a Social Security Number in order to qualify?
+    R43   MI-RES-2              info          -                     residency               MDHHS FAQ, What if the crime occurred on Tribal land or another state?
+    R44   MI-RES-3              info          -                     residency               MCL 18.351(c)(ii)
+    R45   MI-SUBMIT-1           info          -                     submission              Applying for Compensation, How do I apply?
+    R46   MI-SUBMIT-2           info          -                     submission              Applying for Compensation, How do I apply?
+    R47   MI-SUBMIT-3           info          -                     submission              Applying for Compensation, How do I apply?
+    R48   MI-DOC-1              info          -                     required_document       Application Checklist, For All Applications, item 2
+    R49   MI-DOC-2              info          -                     required_document       Application Checklist, For All Applications, item 1
+    R50   MI-DOC-3              info          -                     required_document       Application Checklist, For All Applications, item 3
+    R51   MI-DOC-4              info          -                     required_document       DCH-0560, Authorizations and Agreements
+    R52   MI-DOC-5              info          -                     required_document       Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 1
+    R53   MI-DOC-6              info          -                     required_document       Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 1
+    R54   MI-DOC-7              info          -                     required_document       Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 2
+    R55   MI-DOC-8              info          -                     required_document       Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 3
+    R56   MI-DOC-9              info          -                     required_document       Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 4
+    R57   MI-DOC-10             info          -                     required_document       Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 6
+    R58   MI-DOC-11             info          -                     required_document       Application Checklist, Loss of Earnings or Support, item 1
+    R59   MI-DOC-12             info          -                     required_document       Application Checklist, Loss of Earnings or Support, item 2
+    R60   MI-DOC-13             info          -                     required_document       Application Checklist, Loss of Earnings or Support, item 3
+    R61   MI-DOC-14             info          -                     required_document       Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 1
+    R62   MI-DOC-15             info          -                     required_document       Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 2
+    R63   MI-DOC-16             info          -                     required_document       Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 3
+    R64   MI-DOC-17             info          -                     required_document       Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 4
+    R65   MI-DOC-18             info          -                     required_document       Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 5
+    R66   MI-DOC-19             info          -                     required_document       Application Checklist, Residential Security, item 1
+    R67   MI-DOC-20             info          -                     required_document       Application Checklist, Residential Security, item 2
+    R68   MI-DOC-21             info          -                     required_document       Application Checklist, Residential Security, item 3
+    R69   MI-DOC-22             info          -                     required_document       Application Checklist, Replacement Costs, item 1
+    R70   MI-DOC-23             info          -                     required_document       Application Checklist, Replacement Costs, item 2
+    R71   MI-DOC-24             info          -                     required_document       Application Checklist, Crime Scene Clean-Up, item 1
+    R72   MI-DOC-25             info          -                     required_document       Application Checklist, Crime Scene Clean-Up, item 2
+    R73   MI-DOC-26             info          -                     required_document       Application Checklist, Funeral/Burial Benefits, item 1
+    R74   MI-DOC-27             info          -                     required_document       Application Checklist, Funeral/Burial Benefits, item 2
+    R75   MI-DOC-28             info          -                     required_document       Application Checklist, Loss of Earnings or Support, item 4
+    R76   MI-DOC-29             info          -                     required_document       Application Checklist, Loss of Earnings or Support, item 5
+    R77   MI-DOC-30             info          -                     required_document       Application Checklist, Loss of Earnings or Support, item 6
+    R78   MI-ACP-1              info          -                     address_confidentiality ACP Applicants page, program description
+    R79   MI-RECCONF-1          info          -                     record_confidentiality  MCL 18.363
+    R80   MI-CAP-2              skipped       -                     expense_cap             MCL 18.361(6)  ; less generous duplicate of MI-CAP-3
+    R81   MI-CAP-4              skipped       -                     expense_cap             MDHHS award limits table, Psychological Counseling  ; less generous duplicate of MI-CAP-3
+    R82   MI-CAP-7              skipped       -                     expense_cap             MCL 18.361(2)(e)(i)  ; less generous duplicate of MI-CAP-8
+
+.tags   phone=bit0, purse=bit1
+
+.sources
+    S0    MI-S1       sha256 2f19f18874342d94  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-351
+    S1    MI-S2       sha256 d0afb50e0149aa68  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-354
+    S2    MI-S3       sha256 ee55a274d51755be  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355
+    S3    MI-S4       sha256 abbcefc231cd3f06  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a
+    S4    MI-S5       sha256 86cc2cf50dbfa48a  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-356
+    S5    MI-S6       sha256 6b07d8b58bcda80a  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361
+    S6    MI-S7       sha256 041a46feec741dc1  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-359
+    S7    MI-S8       sha256 17897cc403eeae0c  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-360
+    S8    MI-S9       sha256 9e5407f20e6991ac  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation
+    S9    MI-S10      sha256 ac04443fd9bc9f73  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify
+    S10   MI-S11      sha256 c5c06677b5043a55  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims
+    S11   MI-S12      sha256 c8313a8db33505b9  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/frequently-asked-questions
+    S12   MI-S13      sha256 30ff62d3dd28161d  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation
+    S13   MI-S14      sha256 8d2adffea560a14e  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/downloadable-materials
+    S14   MI-S15      sha256 6fa0accc275a0eae  https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/Applications/Crime-Victim-Compensation-Application---English.pdf?rev=0ba8540cd7e044029ce8276b307f3821&hash=C16A211782AB6F2789FB6CA95ACF0E55
+    S15   MI-S16      sha256 d55946d15496e9e6  https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/2023-Brochure-and-Poster/English/2023_MDHHS_CrimeVictims_Brochure_85x14_31.pdf?rev=cbb41f4bdfe14241b7e6c2abcb89218b
+    S16   MI-S17      sha256 0407ab1eff62b6a8  https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe
+    S17   MI-S18      sha256 4fcac60241668ef4  https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/Checklists/2025-Application-Checklist_English.pdf?rev=a4c3f38061b14f5c849c3ebf316fb763&hash=9F45102448FF3A9C7D36F8FCE7690354
+    S18   MI-S19      sha256 9d78afbc2a88c32e  https://www.michigan.gov/mdhhs/-/media/Project/Websites/mdhhs/Division-of-Victim-Services/Crime-Victim-Compensation/Guides/Application-Reference-Guide_English.pdf?rev=1ab53615e98e4eb5b582a8b15ddf66ee&hash=8846D16768CE5B18B0A7997594B5517E
+    S19   MI-S20      sha256 9911a3cafeeff558  https://www.michigan.gov/ag/initiatives/address-confidentiality-program
+    S20   MI-S21      sha256 1e30777c0e48ef4d  https://www.michigan.gov/ag/initiatives/address-confidentiality-program/acp-applicants
+    S21   MI-S22      sha256 2d90109e5959114f  https://legislature.mi.gov/Laws/MCL?objectName=mcl-780-855
+    S22   MI-S23      sha256 684787b6cd67da84  https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-363
+
+.proofs
+    P0    ()
+    P1    (MI-EXAM-1, MI-EXAM-2, MI-EXAM-3, MI-EXAM-4, MI-EXAM-5)
+    P2    (MI-COV-1)
+    P3    (MI-COV-1, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P4    (MI-CAP-2, MI-CAP-4)
+    P5    (MI-CAP-3, MI-COV-2)
+    P6    (MI-CAP-3, MI-COV-2, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P7    (MI-CAP-5, MI-COV-3)
+    P8    (MI-CAP-5, MI-COV-3, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P9    (MI-CAP-7)
+    P10   (MI-CAP-8, MI-COV-7)
+    P11   (MI-CAP-8, MI-COV-7, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P12   (MI-CAP-6, MI-COV-4, MI-COV-6)
+    P13   (MI-CAP-6, MI-COV-4, MI-COV-6, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P14   (MI-COV-5)
+    P15   (MI-COV-5, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P16   (MI-CAP-9)
+    P17   (MI-CAP-9, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P18   (MI-CAP-11)
+    P19   (MI-CAP-11, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P20   (MI-COV-8)
+    P21   (MI-COV-8, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P22   (MI-EXCL-1)
+    P23   (MI-CAP-10)
+    P24   (MI-CAP-10, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P25   (MI-COV-9)
+    P26   (MI-COV-9, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P27   (MI-COV-10)
+    P28   (MI-COV-10, MI-COLL-1, MI-COLL-2, MI-COLL-3)
+    P29   (MI-MIN-1)
+    P30   (MI-FILE-1, MI-FILE-2)
+    P31   (MI-REPORT-1, MI-REPORT-2, MI-REPORT-3)
+    P32   (MI-EXCL-2, MI-EXCL-3, MI-EXCL-4, MI-FILE-3, MI-COLL-1, MI-COLL-2, MI-COLL-3, MI-CONDUCT-1, MI-CONDUCT-2, MI-EMERG-1, MI-ELIG-1, MI-ELIG-2, MI-RES-1, MI-RES-2, MI-RES-3, MI-SUBMIT-1, MI-SUBMIT-2, MI-SUBMIT-3, MI-DOC-1, MI-DOC-2, MI-DOC-3, MI-DOC-4, MI-DOC-5, MI-DOC-6, MI-DOC-7, MI-DOC-8, MI-DOC-9, MI-DOC-10, MI-DOC-11, MI-DOC-12, MI-DOC-13, MI-DOC-14, MI-DOC-15, MI-DOC-16, MI-DOC-17, MI-DOC-18, MI-DOC-19, MI-DOC-20, MI-DOC-21, MI-DOC-22, MI-DOC-23, MI-DOC-24, MI-DOC-25, MI-DOC-26, MI-DOC-27, MI-DOC-28, MI-DOC-29, MI-DOC-30, MI-ACP-1, MI-RECCONF-1)
+
+.ints
+    K0    12500         ; $125.00
+    K1    100000        ; $1,000.00
+    K2    380000        ; $3,800.00
+    K3    500000        ; $5,000.00
+    K4    25000         ; $250.00
+    K5    4500000       ; $45,000.00
+    K6    20000         ; $200.00
+
+.item
+  0000        ldi      date
+  0002        ldx      incident_date
+  0004        lt
+  0005        jnz      L0
+  000a        ldi      date
+  000c        ldx      as_of_date
+  000e        gt
+  000f        jnz      L0
+  0014        ldi      expense
+  0016        switch   19, default L26
+                        case medical               -> L2
+                        case forensic_exam         -> L1
+                        case counseling            -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L12
+                        case security              -> L14
+                        case crime_scene_cleanup   -> L16
+                        case childcare             -> L18
+                        case property_replacement  -> L20
+                        case clothing_bedding      -> L24
+                        case prescription          -> L26
+                        case dental                -> L27
+                        case funeral               -> L26
+                        case legal                 -> L26
+                        case tuition               -> L26
+                        case other                 -> L29
+                        case unknown               -> L26
+  0068  L0:   push     0
+  006d        decide   out_of_window, P0            ; (none)
+  0071        ret
+              ; MI-EXAM-1  MCL 18.355a(2)  "A health care provider shall not submit a bill for any portion..."
+              ; MI-EXAM-2  MCL 18.355a(3)(a)  "Advise the victim, orally and in writing, that a claim shall not..."
+              ; MI-EXAM-3  MCL 18.355a(7)  "The commission shall pay a health care provider not more than..."
+              ; MI-EXAM-4  MDHHS SAFE Response page  "If a victim believes submitting a claim to their insurance..."
+              ; MI-EXAM-5  MCL 18.355a(4)  "A health care provider may seek payment from 1 or both of the..."
+  0072  L1:   push     0
+  0077        decide   held, P1                     ; MI-EXAM-1, MI-EXAM-2, MI-EXAM-3, MI-EXAM-4, MI-EXAM-5
+  007b        ret
+              ; MI-COV-1  MCL 18.361(2)(a)  "(a) Medical care for the victim or intervenor."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  007c  L2:   ldi      confirmed
+  007e        jnz      L3
+  0083        push     0
+  0088        decide   needs_confirmation, P2       ; MI-COV-1
+  008c        ret
+  008d  L3:   ldi      amount_cents
+  008f        decide   eligible, P3                 ; MI-COV-1, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  0093        lda
+  0094        ldi      insurance_paid_cents
+  0096        subs
+  0097        push     0
+  009c        max
+  009d        seta     collateral, R34              ; MI-COLL-1
+  00a1        ret
+              ; MI-CAP-3  MCL 18.361(6)  "except that the maximum hourly reimbursement rate must not..."
+              ; MI-COV-2  MCL 18.361(2)(b)  "(b) Subject to subsection (6), psychological or grief counseling..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  00a2  L4:   alts     P4                           ; MI-CAP-2, MI-CAP-4
+  00a5        ldi      confirmed
+  00a7        jnz      L5
+  00ac        push     0
+  00b1        decide   needs_confirmation, P5       ; MI-CAP-3, MI-COV-2
+  00b5        ret
+  00b6  L5:   ldi      amount_cents
+  00b8        decide   eligible, P6                 ; MI-CAP-3, MI-COV-2, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  00bc        lda
+  00bd        ldi      insurance_paid_cents
+  00bf        subs
+  00c0        push     0
+  00c5        max
+  00c6        seta     collateral, R34              ; MI-COLL-1
+  00ca        ret
+              ; MI-CAP-5  MCL 18.361(4)  "An award must not exceed $1,000.00 for each week of lost..."
+              ; MI-COV-3  MCL 18.361(4)  "A claimant may be awarded for loss of earnings under this..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  00cb  L6:   ldi      confirmed
+  00cd        jnz      L7
+  00d2        push     0
+  00d7        decide   needs_confirmation, P7       ; MI-CAP-5, MI-COV-3
+  00db        ret
+  00dc  L7:   ldi      amount_cents
+  00de        decide   eligible, P8                 ; MI-CAP-5, MI-COV-3, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  00e2        lda
+  00e3        ldi      insurance_paid_cents
+  00e5        subs
+  00e6        push     0
+  00eb        max
+  00ec        seta     collateral, R34              ; MI-COLL-1
+  00f0        ret
+              ; MI-CAP-8  MCL 18.361(2)(e)(ii)  "(ii) If the expense is for travel that meets 1 or more of the..."
+              ; MI-COV-7  MCL 18.361(2)(e)  "(e) Transportation expenses for the purpose of an individual..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  00f1  L8:   alts     P9                           ; MI-CAP-7
+  00f4        ldi      confirmed
+  00f6        jnz      L9
+  00fb        push     0
+  0100        decide   needs_confirmation, P10      ; MI-CAP-8, MI-COV-7
+  0104        ret
+  0105  L9:   ldi      amount_cents
+  0107        decide   eligible, P11                ; MI-CAP-8, MI-COV-7, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  010b        lda
+  010c        ldi      insurance_paid_cents
+  010e        subs
+  010f        push     0
+  0114        max
+  0115        seta     collateral, R34              ; MI-COLL-1
+  0119        ret
+              ; MI-CAP-6  MCL 18.361(2)(c)  "An award for expenses under this subdivision may not exceed..."
+              ; MI-COV-4  MCL 18.361(2)(c)  "An award for expenses under this subdivision may be made only if..."
+              ; MI-COV-6  MCL 18.361(2)(c)(i)  "(i) The first month of rent, a security deposit, and the costs..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  011a  L10:  ldi      confirmed
+  011c        jnz      L11
+  0121        push     0
+  0126        decide   needs_confirmation, P12      ; MI-CAP-6, MI-COV-4, MI-COV-6
+  012a        ret
+  012b  L11:  ldi      amount_cents
+  012d        decide   eligible, P13                ; MI-CAP-6, MI-COV-4, MI-COV-6, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  0131        lda
+  0132        ldi      insurance_paid_cents
+  0134        subs
+  0135        push     0
+  013a        max
+  013b        seta     collateral, R34              ; MI-COLL-1
+  013f        ret
+              ; MI-COV-5  MCL 18.361(2)(c)(iii)  "(iii) Costs for temporary lodging for not more than 30 days."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  0140  L12:  ldi      confirmed
+  0142        jnz      L13
+  0147        push     0
+  014c        decide   needs_confirmation, P14      ; MI-COV-5
+  0150        ret
+  0151  L13:  ldi      amount_cents
+  0153        decide   eligible, P15                ; MI-COV-5, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  0157        lda
+  0158        ldi      insurance_paid_cents
+  015a        subs
+  015b        push     0
+  0160        max
+  0161        seta     collateral, R34              ; MI-COLL-1
+  0165        ret
+              ; MI-CAP-9  MCL 18.361(2)(f)  "(f) Reasonable costs of not more than $1,000.00 per residence..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  0166  L14:  ldi      confirmed
+  0168        jnz      L15
+  016d        push     0
+  0172        decide   needs_confirmation, P16      ; MI-CAP-9
+  0176        ret
+  0177  L15:  ldi      amount_cents
+  0179        decide   eligible, P17                ; MI-CAP-9, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  017d        lda
+  017e        ldi      insurance_paid_cents
+  0180        subs
+  0181        push     0
+  0186        max
+  0187        seta     collateral, R34              ; MI-COLL-1
+  018b        ret
+              ; MI-CAP-11  MCL 18.361(2)(i)  "the crime scene cleanup services resulting from a crime for that..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  018c  L16:  ldi      confirmed
+  018e        jnz      L17
+  0193        push     0
+  0198        decide   needs_confirmation, P18      ; MI-CAP-11
+  019c        ret
+  019d  L17:  ldi      amount_cents
+  019f        decide   eligible, P19                ; MI-CAP-11, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  01a3        lda
+  01a4        ldi      insurance_paid_cents
+  01a6        subs
+  01a7        push     0
+  01ac        max
+  01ad        seta     collateral, R34              ; MI-COLL-1
+  01b1        ret
+              ; MI-COV-8  MCL 18.361(2)(d)  "(d) Replacement services for homemaking tasks, child care, and..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  01b2  L18:  ldi      confirmed
+  01b4        jnz      L19
+  01b9        push     0
+  01be        decide   needs_confirmation, P20      ; MI-COV-8
+  01c2        ret
+  01c3  L19:  ldi      amount_cents
+  01c5        decide   eligible, P21                ; MI-COV-8, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  01c9        lda
+  01ca        ldi      insurance_paid_cents
+  01cc        subs
+  01cd        push     0
+  01d2        max
+  01d3        seta     collateral, R34              ; MI-COLL-1
+  01d7        ret
+              ; MI-EXCL-1  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Damage, repair or loss to some personal property or vehicle..."
+  01d8  L20:  push     0
+  01dd        str      r0
+  01df        ldi      tags
+  01e1        push     3
+  01e6        and
+  01e7        jz       L21
+  01ec        ldr      r0
+  01ee        push     1
+  01f3        or
+  01f4        str      r0
+  01f6  L21:  ldr      r0
+  01f8        switch   2, default L23
+                        case 0                     -> L23
+                        case 1                     -> L22
+  0206  L22:  push     0
+  020b        decide   excluded, P22                ; MI-EXCL-1
+  020f        ret
+  0210  L23:  push     0
+  0215        decide   unknown_rule, P0             ; (none)
+  0219        ret
+              ; MI-CAP-10  MCL 18.361(2)(j)  "(j) Replacement costs of not more than $250.00 for clothing or..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  021a  L24:  ldi      confirmed
+  021c        jnz      L25
+  0221        push     0
+  0226        decide   needs_confirmation, P23      ; MI-CAP-10
+  022a        ret
+  022b  L25:  ldi      amount_cents
+  022d        decide   eligible, P24                ; MI-CAP-10, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  0231        lda
+  0232        ldi      insurance_paid_cents
+  0234        subs
+  0235        push     0
+  023a        max
+  023b        seta     collateral, R34              ; MI-COLL-1
+  023f        ret
+  0240  L26:  push     0
+  0245        decide   unknown_rule, P0             ; (none)
+  0249        ret
+              ; MI-COV-9  MDHHS What Costs May Be Covered, Costs that May Be Covered  "Reasonable and necessary medical, dental, optical, counseling..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  024a  L27:  ldi      confirmed
+  024c        jnz      L28
+  0251        push     0
+  0256        decide   needs_confirmation, P25      ; MI-COV-9
+  025a        ret
+  025b  L28:  ldi      amount_cents
+  025d        decide   eligible, P26                ; MI-COV-9, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  0261        lda
+  0262        ldi      insurance_paid_cents
+  0264        subs
+  0265        push     0
+  026a        max
+  026b        seta     collateral, R34              ; MI-COLL-1
+  026f        ret
+              ; MI-COV-10  MDHHS What Costs May Be Covered, Costs that May Be Covered  "Eyeglasses, hearing aids, dentures, prosthetic devices, or other..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+  0270  L29:  ldi      confirmed
+  0272        jnz      L30
+  0277        push     0
+  027c        decide   needs_confirmation, P27      ; MI-COV-10
+  0280        ret
+  0281  L30:  ldi      amount_cents
+  0283        decide   eligible, P28                ; MI-COV-10, MI-COLL-1, MI-COLL-2, MI-COLL-3
+  0287        lda
+  0288        ldi      insurance_paid_cents
+  028a        subs
+  028b        push     0
+  0290        max
+  0291        seta     collateral, R34              ; MI-COLL-1
+  0295        ret
+
+.aggregate
+              ; MI-CAP-3  MCL 18.361(6)  "except that the maximum hourly reimbursement rate must not..."
+  0000        each     counseling, L4
+  0006  L0:   ldi      units
+  0008        jz       L2
+  000d        ldk      K0                           ; $125.00
+  0010        ldi      units
+  0012        muls
+  0013        dup
+  0014        lda
+  0015        lt
+  0016        jz       L1
+  001b        cap      unit_cap, R6                 ; MI-CAP-3
+  001f        jmp      L3
+  0024  L1:   pop
+  0025        jmp      L3
+  002a  L2:   flag     R6                           ; rate_unverified MI-CAP-3
+  002d  L3:   next     L0
+              ; MI-CAP-5  MCL 18.361(4)  "An award must not exceed $1,000.00 for each week of lost..."
+  0032  L4:   each     lost_wages, L9
+  0038  L5:   ldi      units
+  003a        jz       L7
+  003f        ldk      K1                           ; $1,000.00
+  0042        ldi      units
+  0044        muls
+  0045        dup
+  0046        lda
+  0047        lt
+  0048        jz       L6
+  004d        cap      unit_cap, R7                 ; MI-CAP-5
+  0051        jmp      L8
+  0056  L6:   pop
+  0057        jmp      L8
+  005c  L7:   flag     R7                           ; rate_unverified MI-CAP-5
+  005f  L8:   next     L5
+              ; MI-CAP-6  MCL 18.361(2)(c)  "An award for expenses under this subdivision may not exceed..."
+  0064  L9:   push     0
+  0069        str      r0
+  006b        push     0
+  0070        str      r1
+  0072        each     relocation, L14
+  0078  L10:  ldr      r1
+  007a        jnz      L12
+  007f        ldr      r0
+  0081        lda
+  0082        adds
+  0083        ldk      K2                           ; $3,800.00
+  0086        gt
+  0087        jz       L11
+  008c        ldk      K2                           ; $3,800.00
+  008f        ldr      r0
+  0091        subs
+  0092        cap      expense_cap, R8              ; MI-CAP-6
+  0096        push     1
+  009b        str      r1
+  009d  L11:  ldr      r0
+  009f        lda
+  00a0        adds
+  00a1        str      r0
+  00a3        jmp      L13
+  00a8  L12:  push     0
+  00ad        cap      expense_cap, R8              ; MI-CAP-6
+  00b1  L13:  next     L10
+              ; MI-CAP-8  MCL 18.361(2)(e)(ii)  "(ii) If the expense is for travel that meets 1 or more of the..."
+  00b6  L14:  push     0
+  00bb        str      r0
+  00bd        push     0
+  00c2        str      r1
+  00c4        each     transportation, L19
+  00ca  L15:  ldr      r1
+  00cc        jnz      L17
+  00d1        ldr      r0
+  00d3        lda
+  00d4        adds
+  00d5        ldk      K3                           ; $5,000.00
+  00d8        gt
+  00d9        jz       L16
+  00de        ldk      K3                           ; $5,000.00
+  00e1        ldr      r0
+  00e3        subs
+  00e4        cap      expense_cap, R9              ; MI-CAP-8
+  00e8        push     1
+  00ed        str      r1
+  00ef  L16:  ldr      r0
+  00f1        lda
+  00f2        adds
+  00f3        str      r0
+  00f5        jmp      L18
+  00fa  L17:  push     0
+  00ff        cap      expense_cap, R9              ; MI-CAP-8
+  0103  L18:  next     L15
+              ; MI-CAP-9  MCL 18.361(2)(f)  "(f) Reasonable costs of not more than $1,000.00 per residence..."
+  0108  L19:  push     0
+  010d        str      r0
+  010f        push     0
+  0114        str      r1
+  0116        each     security, L24
+  011c  L20:  ldr      r1
+  011e        jnz      L22
+  0123        ldr      r0
+  0125        lda
+  0126        adds
+  0127        ldk      K1                           ; $1,000.00
+  012a        gt
+  012b        jz       L21
+  0130        ldk      K1                           ; $1,000.00
+  0133        ldr      r0
+  0135        subs
+  0136        cap      expense_cap, R10             ; MI-CAP-9
+  013a        push     1
+  013f        str      r1
+  0141  L21:  ldr      r0
+  0143        lda
+  0144        adds
+  0145        str      r0
+  0147        jmp      L23
+  014c  L22:  push     0
+  0151        cap      expense_cap, R10             ; MI-CAP-9
+  0155  L23:  next     L20
+              ; MI-CAP-10  MCL 18.361(2)(j)  "(j) Replacement costs of not more than $250.00 for clothing or..."
+  015a  L24:  push     0
+  015f        str      r0
+  0161        push     0
+  0166        str      r1
+  0168        each     clothing_bedding, L29
+  016e  L25:  ldr      r1
+  0170        jnz      L27
+  0175        ldr      r0
+  0177        lda
+  0178        adds
+  0179        ldk      K4                           ; $250.00
+  017c        gt
+  017d        jz       L26
+  0182        ldk      K4                           ; $250.00
+  0185        ldr      r0
+  0187        subs
+  0188        cap      expense_cap, R11             ; MI-CAP-10
+  018c        push     1
+  0191        str      r1
+  0193  L26:  ldr      r0
+  0195        lda
+  0196        adds
+  0197        str      r0
+  0199        jmp      L28
+  019e  L27:  push     0
+  01a3        cap      expense_cap, R11             ; MI-CAP-10
+  01a7  L28:  next     L25
+              ; MI-CAP-11  MCL 18.361(2)(i)  "the crime scene cleanup services resulting from a crime for that..."
+  01ac  L29:  push     0
+  01b1        str      r0
+  01b3        push     0
+  01b8        str      r1
+  01ba        each     crime_scene_cleanup, L34
+  01c0  L30:  ldr      r1
+  01c2        jnz      L32
+  01c7        ldr      r0
+  01c9        lda
+  01ca        adds
+  01cb        ldk      K3                           ; $5,000.00
+  01ce        gt
+  01cf        jz       L31
+  01d4        ldk      K3                           ; $5,000.00
+  01d7        ldr      r0
+  01d9        subs
+  01da        cap      expense_cap, R12             ; MI-CAP-11
+  01de        push     1
+  01e3        str      r1
+  01e5  L31:  ldr      r0
+  01e7        lda
+  01e8        adds
+  01e9        str      r0
+  01eb        jmp      L33
+  01f0  L32:  push     0
+  01f5        cap      expense_cap, R12             ; MI-CAP-11
+  01f9  L33:  next     L30
+              ; MI-CAP-1  MCL 18.361(1)  "The aggregate award under this act must not exceed $45,000.00..."
+  01fe  L34:  push     0
+  0203        str      r0
+  0205        push     0
+  020a        str      r1
+  020c        each     all, L39
+  0212  L35:  ldr      r1
+  0214        jnz      L37
+  0219        ldr      r0
+  021b        lda
+  021c        adds
+  021d        ldk      K5                           ; $45,000.00
+  0220        gt
+  0221        jz       L36
+  0226        ldk      K5                           ; $45,000.00
+  0229        ldr      r0
+  022b        subs
+  022c        cap      total_cap, R5                ; MI-CAP-1
+  0230        push     1
+  0235        str      r1
+  0237  L36:  ldr      r0
+  0239        lda
+  023a        adds
+  023b        str      r0
+  023d        jmp      L38
+  0242  L37:  push     0
+  0247        cap      total_cap, R5                ; MI-CAP-1
+  024b  L38:  next     L35
+  0250  L39:  push     0
+  0255        str      r0
+  0257        each     all, L41
+  025d  L40:  ldr      r0
+  025f        lda
+  0260        adds
+  0261        str      r0
+  0263        next     L40
+  0268  L41:  push     0
+  026d        str      r2
+              ; MI-MIN-1  MCL 18.354(3)  "An award must not be made on a claim unless the claimant has..."
+  026f        ldr      r0
+  0271        ldk      K6                           ; $200.00
+  0274        lt
+  0275        jz       L44
+  027a        ldx      forensic_exam
+  027c        jz       L42
+  0281        push     2
+  0286        jmp      L43
+  028b  L42:  push     3
+  0290  L43:  ldr      r2
+  0292        max
+  0293        str      r2
+  0295  L44:  ldr      r2
+  0297        check    minimum_loss, P29            ; MI-MIN-1
+              ; MI-FILE-1  MCL 18.355(2)  "a claim must be filed by the claimant not later than 5 years..."
+  029b        ldx      incident_date
+  029d        push     1826
+  02a2        adds
+              ; MI-FILE-2  MCL 18.355(2)(a)  "a claim based on the crime of criminal sexual conduct in the..."
+  02a3        ldx      incident_date
+  02a5        push     1826
+  02aa        adds
+  02ab        max
+  02ac        dup
+  02ad        setdate
+  02ae        ldx      as_of_date
+  02b0        ge
+  02b1        jz       L45
+  02b6        push     0
+  02bb        jmp      L46
+  02c0  L45:  push     1                            ; late
+  02c5  L46:  check    deadline, P30                ; MI-FILE-1, MI-FILE-2
+              ; MI-REPORT-1  MCL 18.355a(10)  "For payments authorized under this section or for payments made..."
+              ; MI-REPORT-2  MCL 18.360(c)  "(c) Police records show that the crime was reported to the..."
+              ; MI-REPORT-3  MDHHS Do I Qualify?, Eligibility Requirements  "The crime must be reported to law enforcement (waivers may..."
+  02c9        ldx      police_report
+  02cb        push     1                            ; yes
+  02d0        eq
+  02d1        jnz      L48
+  02d6        ldx      forensic_exam
+  02d8        jnz      L48
+  02dd        ldx      police_report
+  02df        push     0                            ; no
+  02e4        eq
+  02e5        jnz      L47
+  02ea        push     3
+  02ef        jmp      L49
+  02f4  L47:  push     1
+  02f9        jmp      L49
+  02fe  L48:  push     0                            ; satisfied
+  0303  L49:  check    reporting, P31               ; MI-REPORT-1, MI-REPORT-2, MI-REPORT-3
+              ; MI-EXCL-2  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Pain, suffering, or emotional distress damages."
+              ; MI-EXCL-3  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Costs of participating in a trial."
+              ; MI-EXCL-4  MDHHS What Costs May Be Covered, Costs that are NOT Covered  "Expenses paid by other sources (public or private health..."
+              ; MI-FILE-3  MCL 18.355(3)  "Upon petition by the claimant and for good cause shown, the..."
+              ; MI-COLL-1  MCL 18.361(7)  "An award must be reduced by the amount of 1 or more of the..."
+              ; MI-COLL-2  MDHHS FAQ, What is Crime Victim Compensation?  "Please note that Crime Victim Compensation is the payer of last..."
+              ; MI-COLL-3  MDHHS FAQ, Do I qualify if I have insurance?  "Yes, you may still qualify for Crime Victim Compensation if you..."
+              ; MI-CONDUCT-1  MCL 18.361(8)  "the commission shall determine whether the victim's misconduct..."
+              ; MI-CONDUCT-2  MCL 18.356(2)  "In the event of determination of willful noncooperation by the..."
+              ; MI-EMERG-1  MCL 18.359(2)  "The amount of an emergency award under this section must not..."
+              ; MI-ELIG-1  MDHHS Do I Qualify?, Who is considered a victim?  "The following individuals may be considered a victim and qualify..."
+              ; MI-ELIG-2  MCL 18.351(i)  ""Personal injury" means either of the following injuries: (i)..."
+              ; MI-RES-1  MDHHS FAQ, Do I need to be a U.S. citizen or have a Social Security Number in order to qualify?  "No. You do not have to be a legal resident of the United States..."
+              ; MI-RES-2  MDHHS FAQ, What if the crime occurred on Tribal land or another state?  "However, if the crime occurs in another state, then you must..."
+              ; MI-RES-3  MCL 18.351(c)(ii)  "to a resident of this state or that poses a reasonably perceived..."
+              ; MI-SUBMIT-1  Applying for Compensation, How do I apply?  "Email completed applications to MDHHS-MichiganCrimeVictim@Michig..."
+              ; MI-SUBMIT-2  Applying for Compensation, How do I apply?  "Email completed applications to MDHHS-MichiganCrimeVictim@Michig..."
+              ; MI-SUBMIT-3  Applying for Compensation, How do I apply?  "Applications can still be submitted via mail to: Michigan..."
+              ; MI-DOC-1  Application Checklist, For All Applications, item 2  "Submit a copy of the police report if you have it."
+              ; MI-DOC-2  Application Checklist, For All Applications, item 1  "Please include your Social Security number (if you have one) and..."
+              ; MI-DOC-3  Application Checklist, For All Applications, item 3  "If you are filing more than 5 years after the crime occurred..."
+              ; MI-DOC-4  DCH-0560, Authorizations and Agreements  "If an attorney represents you in this claim, the attorney MUST..."
+              ; MI-DOC-5  Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 1  "Submit itemized copies of all bills, plus copies of any paid..."
+              ; MI-DOC-6  Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 1  "Submit itemized copies of all bills, plus copies of any paid..."
+              ; MI-DOC-7  Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 2  "All bills should be submitted to your insurance, Medicaid, or..."
+              ; MI-DOC-8  Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 3  "If you have injuries that require medication or replacement of..."
+              ; MI-DOC-9  Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 4  "If you are applying for a procedure that has not taken place..."
+              ; MI-DOC-10  Application Checklist, Medical, Dental, Equipment, Nonmedical Remedial Treatment, and/or Counseling, item 6  "If you are applying for counseling, provide your mental health..."
+              ; MI-DOC-11  Application Checklist, Loss of Earnings or Support, item 1  "If you are applying for loss of earnings and are NOT..."
+              ; MI-DOC-12  Application Checklist, Loss of Earnings or Support, item 2  "If you are applying for loss of earnings and ARE self-employed..."
+              ; MI-DOC-13  Application Checklist, Loss of Earnings or Support, item 3  "If you are applying for loss of earnings, submit a written..."
+              ; MI-DOC-14  Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 1  "Submit a signed copy of the lease with the victim's or..."
+              ; MI-DOC-15  Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 2  "Submit a written estimate from utility provider(s) to start..."
+              ; MI-DOC-16  Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 3  "Submit a written estimate or invoice for moving services...."
+              ; MI-DOC-17  Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 4  "Submit a written lease or agreement for temporary lodging...."
+              ; MI-DOC-18  Application Checklist, Relocation (Temporary) or Relocation (Permanent), item 5  "If you have made any payments out-of-pocket for your relocation..."
+              ; MI-DOC-19  Application Checklist, Residential Security, item 1  "If your residence is a rental, please provide the landlord's..."
+              ; MI-DOC-20  Application Checklist, Residential Security, item 2  "Submit the homeowner's or renter's insurance policy coverage, if..."
+              ; MI-DOC-21  Application Checklist, Residential Security, item 3  "Submit itemization of costs, installation fees, and receipt(s)..."
+              ; MI-DOC-22  Application Checklist, Replacement Costs, item 1  "Submit verification of items held as evidence in this crime."
+              ; MI-DOC-23  Application Checklist, Replacement Costs, item 2  "Submit itemized receipt(s) for the items held as evidence and/or..."
+              ; MI-DOC-24  Application Checklist, Crime Scene Clean-Up, item 1  "Submit an itemized invoice or estimate for clean-up. If you made..."
+              ; MI-DOC-25  Application Checklist, Crime Scene Clean-Up, item 2  "Submit the homeowner's or renter's insurance determination, if..."
+              ; MI-DOC-26  Application Checklist, Funeral/Burial Benefits, item 1  "Submit an itemized copy of the funeral home and/or cemetery..."
+              ; MI-DOC-27  Application Checklist, Funeral/Burial Benefits, item 2  "If somebody other than you made a payment toward the funeral..."
+              ; MI-DOC-28  Application Checklist, Loss of Earnings or Support, item 4  "If you are applying for loss of support, provide the Social..."
+              ; MI-DOC-29  Application Checklist, Loss of Earnings or Support, item 5  "If you are applying for loss of support, provide a copy of the..."
+              ; MI-DOC-30  Application Checklist, Loss of Earnings or Support, item 6  "If you are applying for loss of support, provide a copy of the..."
+              ; MI-ACP-1  ACP Applicants page, program description  "The Program (ACP) was created to conceal the addresses of..."
+              ; MI-RECCONF-1  MCL 18.363  "The record of a proceeding before the commission is a public..."
+  0307        info     P32                          ; MI-EXCL-2, MI-EXCL-3, MI-EXCL-4, MI-FILE-3, MI-COLL-1, MI-COLL-2, MI-COLL-3, MI-CONDUCT-1, MI-CONDUCT-2, MI-EMERG-1, MI-ELIG-1, MI-ELIG-2, MI-RES-1, MI-RES-2, MI-RES-3, MI-SUBMIT-1, MI-SUBMIT-2, MI-SUBMIT-3, MI-DOC-1, MI-DOC-2, MI-DOC-3, MI-DOC-4, MI-DOC-5, MI-DOC-6, MI-DOC-7, MI-DOC-8, MI-DOC-9, MI-DOC-10, MI-DOC-11, MI-DOC-12, MI-DOC-13, MI-DOC-14, MI-DOC-15, MI-DOC-16, MI-DOC-17, MI-DOC-18, MI-DOC-19, MI-DOC-20, MI-DOC-21, MI-DOC-22, MI-DOC-23, MI-DOC-24, MI-DOC-25, MI-DOC-26, MI-DOC-27, MI-DOC-28, MI-DOC-29, MI-DOC-30, MI-ACP-1, MI-RECCONF-1
+  030a        ret
+

@@ -1,0 +1,286 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "GA",
+ "source_sha256": "b55212cc7a08dd9af9055b33c04fe5774c33941dd135fa694ca23e605acc91b8",
+ "ir_sha256": "60a4673c1380f4a904de0674f935e241e5feb171ad29208e95494ef722e93b46",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "GA-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "GA-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "GA-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "GA-EXAM-4",
+   "kind": "expense_cap",
+   "expense": "forensic_exam",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "GA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "GA-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "GA-CAP-MED",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 1500000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-COUNS",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-CAP-CLEAN",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "GA-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "GA-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "GA-COV-RX",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "GA-COV-COUNS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "GA-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "GA-COV-CLEAN",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "GA-EXCL-PROP",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "GA-EXCL-LEGAL",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "GA-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "GA-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "GA-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "GA-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "GA-REPORT-3",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "medical_provider",
+    "other"
+   ]
+  },
+  {
+   "id": "GA-COLLAT-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "GA-COLLAT-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "GA-COLLAT-3",
+   "kind": "collateral"
+  },
+  {
+   "id": "GA-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "GA-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "GA-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "GA-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "GA-CRIME-3",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "GA-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "GA-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "GA-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "GA-SUBMIT-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "GA-DOC-APP",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-EXAM",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-RX",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-RELEASE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-COUNS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-WAGES-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-WAGES-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-WORK",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-W9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-DOC-DEATH",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "GA-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "GA-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "GA-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

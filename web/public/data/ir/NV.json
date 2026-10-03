@@ -1,0 +1,367 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "NV",
+ "source_sha256": "94391c3018caf9d981b4667df9fdd0f1108a9080fdd2736105d362400dec509f",
+ "ir_sha256": "d464925c2dff743591535b87cd87cfb77418e6e4429f53db242926642b05cc79",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "NV-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NV-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NV-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "NV-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "NV-EXAM-5",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "NV-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "NV-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 3500000
+  },
+  {
+   "id": "NV-CAP-MED",
+   "kind": "expense_cap",
+   "expense": "medical",
+   "cap_cents": 3500000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-DENTAL",
+   "kind": "expense_cap",
+   "expense": "dental",
+   "cap_cents": 3500000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-COUNSEL",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-WAGE-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 35000,
+   "per": "unit",
+   "unit": "week",
+   "count_limit": 52
+  },
+  {
+   "id": "NV-CAP-WAGE-2",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 1820000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-WAGE-3",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 7000,
+   "per": "unit",
+   "unit": "day",
+   "count_limit": 10
+  },
+  {
+   "id": "NV-CAP-RELOC",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-LODGING",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-SECURITY",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-CHILDCARE",
+   "kind": "expense_cap",
+   "expense": "childcare",
+   "cap_cents": 250000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-RX",
+   "kind": "expense_cap",
+   "expense": "prescription",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-CLEANUP",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "NV-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "NV-COV-COUNSEL",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "NV-COV-WAGES",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "NV-COV-RELOC",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "NV-COV-SECURITY",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "NV-COV-CHILDCARE",
+   "kind": "covered",
+   "expense": "childcare"
+  },
+  {
+   "id": "NV-COV-RX",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NV-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "NV-COV-HIV",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "NV-COV-TRAVEL",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "NV-COV-CLEANUP",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "NV-COV-FUNERAL",
+   "kind": "covered",
+   "expense": "funeral"
+  },
+  {
+   "id": "NV-EXCL-PROPERTY",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "cash"
+   ]
+  },
+  {
+   "id": "NV-EXCL-PAIN",
+   "kind": "excluded",
+   "tags": [
+    "cash",
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "NV-EXCL-MILEAGE",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NV-EXCL-OTHER",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "NV-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1800,
+   "from": "crime"
+  },
+  {
+   "id": "NV-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "NV-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "NV-REPORT-1",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "advocate",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "NV-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "NV-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam"
+   ]
+  },
+  {
+   "id": "NV-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "NV-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "NV-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NV-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "NV-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NV-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NV-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NV-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NV-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "NV-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NV-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NV-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "NV-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "NV-PROC-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "NV-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NV-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

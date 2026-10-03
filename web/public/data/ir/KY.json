@@ -1,0 +1,266 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "KY",
+ "source_sha256": "9d8a7a76fe2dee8bb1ccb9b68818f1eb0664d1d6523f047401e57083d7ae3a3a",
+ "ir_sha256": "e3eb8f0dd5215a22eb15fc2cc08c4f93fe8afc67efc8b107422aa32bebd0bab7",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "KY-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-3",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-4",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "KY-EXAM-PAY-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "KY-CAP-TOTAL",
+   "kind": "total_cap",
+   "cap_cents": 5000000
+  },
+  {
+   "id": "KY-CAP-WAGES",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 50000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "KY-CAP-RELOCATION",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-HOUSING",
+   "kind": "expense_cap",
+   "expense": "temporary_housing",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-SECURITY",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 150000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-CLEANUP",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-CAP-FUNERAL",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "KY-COV-COUNSELING",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "KY-COV-MEDICAL",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "KY-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "KY-COV-SEIZED",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "KY-COV-GLASSES",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "KY-COV-WELLNESS",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "KY-COV-COURT",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "KY-COV-LUMPSUM",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "KY-EXCL-PROPERTY",
+   "kind": "excluded",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "KY-EXCL-PAIN",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "KY-COLLATERAL",
+   "kind": "collateral"
+  },
+  {
+   "id": "KY-CONDUCT",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "KY-EMERGENCY",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "KY-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "KY-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "KY-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KY-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KY-RES-3",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "KY-SUB-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-2",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-3",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-4",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-SUB-5",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "KY-DOC-1",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-2",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-3",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-4",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-5",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-6",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-7",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-8",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-9",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-10",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-DOC-11",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "KY-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "KY-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "KY-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": []
+}

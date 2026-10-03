@@ -1,0 +1,234 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "TN",
+ "source_sha256": "f8c8f2645393c59b6918469db05b6ddc8e11185140ba2187926b8ae4f1883d24",
+ "ir_sha256": "30546cd8351e67c646e0a1eb475d3d8986c701560e0778558ba831841c104d71",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "TN-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TN-EXAM-2",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "TN-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "TN-EXAM-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "TN-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "TN-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 3410000
+  },
+  {
+   "id": "TN-PAIN-1",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "TN-PAIN-2",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TN-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "TN-MOVE-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "TN-CLEAN-1",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "TN-CLEAN-2",
+   "kind": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-TRAVEL-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 125000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-TRAVEL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TN-FUN-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 600000,
+   "per": "claim"
+  },
+  {
+   "id": "TN-PROP-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone"
+   ]
+  },
+  {
+   "id": "TN-PROP-2",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
+   "id": "TN-EXCL-1",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TN-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "TN-FILE-1",
+   "kind": "deadline",
+   "days": 730,
+   "from": "crime"
+  },
+  {
+   "id": "TN-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [],
+   "within_days": 15
+  },
+  {
+   "id": "TN-REPORT-2",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "TN-MIN-1",
+   "kind": "minimum_loss",
+   "waiver": "other",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 10000
+  },
+  {
+   "id": "TN-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "TN-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "TN-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "TN-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "TN-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "TN-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "TN-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-DOC-DEATH",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-DOC-PROOF",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-DOC-WAGES",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-DOC-EMPLOYER",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "TN-TIME-1",
+   "kind": "info",
+   "category": "processing_time"
+  },
+  {
+   "id": "TN-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "TN-RECORDS-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "TN-COUNS-1",
+   "category": "expense_cap",
+   "reason": "applies_to \"family members and others listed in 29-13-105(a)(3), (a)(6), (a)(7), not the victim\""
+  },
+  {
+   "id": "TN-COUNS-2",
+   "category": "covered_expense",
+   "reason": "applies_to \"sibling or non-offending custodial parent of a victim under 18\""
+  }
+ ]
+}

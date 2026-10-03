@@ -1,0 +1,327 @@
+{
+ "ir_version": 2,
+ "jurisdiction": "IL",
+ "source_sha256": "25ec26f6bb3249da3636545e7b6dd8baabe355bd7ec45977d5a66c16489b6f69",
+ "ir_sha256": "76fab264248e86138f55253e8fc440feb34b9253a7511763fed4e75aa8be6ce6",
+ "fresh": true,
+ "rules": [
+  {
+   "id": "IL-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "IL-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IL-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IL-EXAM-4",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IL-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IL-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IL-EXAM-7",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "IL-WAGE-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 240000,
+   "per": "unit",
+   "unit": "month"
+  },
+  {
+   "id": "IL-LEGAL-1",
+   "kind": "expense_cap",
+   "expense": "legal",
+   "cap_cents": 350000,
+   "per": "claim"
+  },
+  {
+   "id": "IL-FUNERAL-1",
+   "kind": "expense_cap",
+   "expense": "funeral",
+   "cap_cents": 1000000,
+   "per": "claim"
+  },
+  {
+   "id": "IL-TOW-1",
+   "kind": "expense_cap",
+   "expense": "other",
+   "cap_cents": 100000,
+   "per": "claim"
+  },
+  {
+   "id": "IL-COV-MED",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "IL-COV-COUNS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "IL-COV-TRANS",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
+   "id": "IL-COV-RELO",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "IL-COV-SEC",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "IL-COV-CLOTH",
+   "kind": "covered",
+   "expense": "clothing_bedding"
+  },
+  {
+   "id": "IL-COV-CLEAN",
+   "kind": "covered",
+   "expense": "crime_scene_cleanup"
+  },
+  {
+   "id": "IL-COV-TUIT",
+   "kind": "covered",
+   "expense": "tuition"
+  },
+  {
+   "id": "IL-COV-PROS",
+   "kind": "covered",
+   "expense": "other"
+  },
+  {
+   "id": "IL-COV-DENTAL",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "IL-EXCL-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "pain_suffering",
+    "phone"
+   ]
+  },
+  {
+   "id": "IL-EXCL-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "IL-EXCL-3",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "IL-EXCL-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "IL-DEAD-1",
+   "kind": "deadline",
+   "days": 1826,
+   "from": "crime"
+  },
+  {
+   "id": "IL-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "IL-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ],
+   "within_days": 7
+  },
+  {
+   "id": "IL-REPORT-2",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "IL-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider"
+   ]
+  },
+  {
+   "id": "IL-REPORT-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "forensic_exam",
+    "medical_provider",
+    "other",
+    "protective_order"
+   ]
+  },
+  {
+   "id": "IL-REPORT-5",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": [
+    "other"
+   ]
+  },
+  {
+   "id": "IL-COLL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "IL-COLL-2",
+   "kind": "collateral"
+  },
+  {
+   "id": "IL-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IL-CONDUCT-2",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IL-CONDUCT-3",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IL-CONDUCT-4",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "IL-EMERG-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "IL-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "IL-CRIME-2",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "IL-RES-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "IL-RES-2",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "IL-SUBMIT-ONLINE",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IL-SUBMIT-EMAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IL-SUBMIT-MAIL",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "IL-DOC-POLICE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-PROTECT",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-BILLS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-RECEIPTS",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-GUARDIAN",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-RESIDENCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-DOC-USEFORCE",
+   "kind": "info",
+   "category": "required_document"
+  },
+  {
+   "id": "IL-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "IL-RECCONF-1",
+   "kind": "info",
+   "category": "record_confidentiality"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "IL-CAP-1",
+   "category": "total_cap",
+   "reason": "applies_to \"crimes committed on or after august 7, 2022\""
+  },
+  {
+   "id": "IL-CAP-2",
+   "category": "total_cap",
+   "reason": "applies_to \"crimes committed on or after august 7, 1998 and before august 7, 2022\""
+  }
+ ]
+}
