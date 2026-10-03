@@ -18,7 +18,8 @@ rejects. A rule exists only if its `quote` is a verbatim substring of a saved of
     "application_pdf_url": "https://...pdf or null",
     "phone": "877-251-7373",
     "phone_source_id": "MI-S3",
-    "statute_citation": "MCL 18.351 to 18.368"
+    "statute_citation": "MCL 18.351 to 18.368",
+    "application_form": {"source_id": "MI-S12", "fillable": true, "field_count": 202}
   },
   "sources": [
     {
@@ -72,6 +73,9 @@ rejects. A rule exists only if its `quote` is a verbatim substring of a saved of
 | `emergency_award` | emergency or advance award exists | optional `amount_cents` |
 | `eligible_crime` | sexual assault (or similar) is a covered crime | none |
 | `residency` | who can apply (residents, crimes in state, out-of-state victims) | `rule` (text) |
+| `submission` | how to file: one rule per method | `method` (mail, online, email, fax, in_person), `target` (the address, URL, email, or fax number exactly as written) |
+| `required_document` | a document the program asks applicants to include or provide | `document` (photo_id, itemized_bill, receipts, police_report, exam_record, wage_verification, medical_records, insurance_statement, counseling_statement, proof_of_residency, other), optional `note` |
+| `processing_time` | stated time for a decision or payment | `days` (or `weeks`/`months`) |
 
 ## Expense types (`expense`)
 
