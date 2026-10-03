@@ -87,13 +87,17 @@ export default function NationalGarden({ initial }: { initial: JurisdictionSumma
                   className={styles.tile}
                   style={{ gridRow: row + 1, gridColumn: col + 1 }}
                   aria-pressed={selected === st}
-                  aria-label={`${name}: ${rules} rules verified, ${stageLabel(rules).toLowerCase()}`}
                   onMouseEnter={() => setSelected(st)}
                   onFocus={() => setSelected(st)}
                   onClick={() => setSelected(st)}
                 >
                   <Plant stage={lawStage(rules)} growth={lawGrowth(rules)} seedKey={st} className={styles.tilePlant} />
+                  {/* The visible abbreviation stays in the accessible name, so voice control can say "MI". */}
                   <span className={styles.abbr}>{st}</span>
+                  <span className="visually-hidden">
+                    {" "}
+                    {name}, {rules} rules verified, {stageLabel(rules).toLowerCase()}
+                  </span>
                 </button>
               );
             })}
