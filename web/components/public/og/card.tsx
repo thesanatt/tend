@@ -19,7 +19,7 @@ const C = {
   petal: "#FBF8F2",
 };
 
-// ASCII subsets of OFL fonts (components/public/og/fonts, licenses alongside). Satori needs TTF.
+// Latin subsets of OFL fonts (components/public/og/fonts, licenses and a README alongside). Satori needs TTF.
 export async function cardFonts() {
   const dir = path.join(process.cwd(), "components", "public", "og", "fonts");
   const [serif, sans, sansBold] = await Promise.all([
