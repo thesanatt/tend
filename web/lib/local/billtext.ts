@@ -27,7 +27,10 @@ const SPLITLINES = /\r\n|[\n\r\v\f\x1c\x1d\x1e\x85\u2028\u2029]/;
 export const EXPENSE_PATTERNS: [string, RegExp][] = [
   [
     "forensic_exam",
-    pyRegex(String.raw`forensic|sexual assault (?:medical )?exam|\bSANE\b|\bSAFE\b exam|evidence (?:collection|kit)|rape kit`, "i"),
+    pyRegex(
+      String.raw`forensic|sexual assault (?:medical )?exam|\bSANE\b|\bSAFE\b exam|evidence (?:collection|kit)|rape kit`,
+      "i",
+    ),
   ],
   ["counseling", pyRegex("counsel|therap|psych|behavioral health", "i")],
   ["dental", pyRegex(String.raw`dental|dentist|\btooth\b|\bteeth\b`, "i")],
@@ -137,7 +140,13 @@ export function parseTextBill(text: string): TextBill {
         bill.adjustments.push({ label: description, amount_cents: -owed });
         continue;
       }
-      bill.lines.push({ line_no: bill.lines.length + 1, date: when, description, amount_cents: owed, columns_cents: columns });
+      bill.lines.push({
+        line_no: bill.lines.length + 1,
+        date: when,
+        description,
+        amount_cents: owed,
+        columns_cents: columns,
+      });
       continue;
     }
     const label = pyStripChars(line.slice(0, first), " .:\t");
@@ -165,7 +174,10 @@ export function balanceChecks(bill: TextBill): BalanceCheck[] {
   if (bill.total_cents !== null) {
     checks.push({ name: "lines_equal_total", ok: linesSum === bill.total_cents });
     if (bill.amount_due_cents !== null)
-      checks.push({ name: "total_less_adjustments_equals_due", ok: bill.total_cents - adjustments === bill.amount_due_cents });
+      checks.push({
+        name: "total_less_adjustments_equals_due",
+        ok: bill.total_cents - adjustments === bill.amount_due_cents,
+      });
   } else if (bill.amount_due_cents !== null) {
     checks.push({ name: "lines_less_adjustments_equal_due", ok: linesSum - adjustments === bill.amount_due_cents });
   } else {
@@ -173,4 +185,3 @@ export function balanceChecks(bill: TextBill): BalanceCheck[] {
   }
   return checks;
 }
-

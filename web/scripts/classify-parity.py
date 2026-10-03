@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "api"))
 
 from tend_api import classify as C  # noqa: E402
-from tend_api.bill import extract_bill, service_date  # noqa: E402
+from tend_api.bill import BillRefused, extract_bill, service_date  # noqa: E402
 from tend_api.nessie import BankSnapshot, Txn  # noqa: E402
 from tend_api.scan import items_from_classifications  # noqa: E402
 
@@ -49,21 +49,29 @@ def offline(cache_path: Path | None) -> C.Classifier:
     return C.Classifier(cache=C.ClassificationCache(cache_path), use_model=False)
 
 
-def run(snapshot: BankSnapshot, cache_path: Path | None) -> dict:
+def run(snapshot: BankSnapshot, cache_path: Path | None, base: dict | None = None) -> dict:
+    """Every record's classification and the engine items. With base, only the records whose
+    answer differs from base are written (results_delta); the test lays them over base."""
     results = C.classify_snapshot(snapshot, offline(cache_path))
     data = snapshot.to_dict()
     items = items_from_classifications(data, results)
     keep = ("item_id", "date", "amount_cents", "expense", "confirmed", "is_bill", "units", "description",
             "confidence", "reason", "method", "linked_item_ids")
-    return {"results": {ref: plain(c) for ref, c in sorted(results.items())},
-            "items": [{k: i.get(k) for k in keep} for i in items]}
+    full = {ref: plain(c) for ref, c in sorted(results.items())}
+    out = {"items": [{k: i.get(k) for k in keep} for i in items]}
+    if base is None:
+        out["results"] = full
+    else:
+        out["results_delta"] = {ref: r for ref, r in full.items() if base.get(ref) != r}
+        out["count"] = len(full)
+    return out
 
 
 def ride_merchant(snapshot: BankSnapshot) -> str:
     return next(m.id for m in snapshot.merchants if m.name == "Wayfare Rides")
 
 
-def scenarios(snapshot: BankSnapshot) -> list[dict]:
+def scenarios(snapshot: BankSnapshot, base: dict) -> list[dict]:
     """Small edits of a persona that exercise the set-aside and ride-link paths."""
     checking = snapshot.account_by_type("Checking").id
     rides = ride_merchant(snapshot)
@@ -81,7 +89,7 @@ def scenarios(snapshot: BankSnapshot) -> list[dict]:
         edited = replace(snapshot, txns=[*snapshot.txns, *add],
                          meta={**snapshot.meta, "documents": []} if drop_docs else copy.deepcopy(snapshot.meta))
         out.append({"name": name, "add_transactions": [t.__dict__ for t in add], "drop_documents": drop_docs,
-                    **run(edited, None)})
+                    **run(edited, None, base)})
     return out
 
 
@@ -198,7 +206,10 @@ REASON_CASES = [
 
 
 def bill_reference(path: Path) -> dict:
-    bill = extract_bill(path.read_bytes(), "pdf")
+    try:
+        bill = extract_bill(path.read_bytes(), "pdf")
+    except BillRefused as exc:
+        return {"file": rel(path), "sha256": sha(path), "refused": str(exc)}
     return {
         "file": rel(path),
         "sha256": sha(path),
@@ -222,13 +233,14 @@ def main() -> None:
     personas = []
     for path in SNAPSHOTS:
         snapshot = BankSnapshot.load(path)
+        rules_only = run(snapshot, None)
         personas.append({
             "persona_id": path.stem,
             "file": rel(path),
             "sha256": sha(path),
-            "rules_only": run(snapshot, None),
-            "with_cache": run(snapshot, cache_copy),
-            "scenarios": scenarios(snapshot),
+            "rules_only": rules_only,
+            "with_cache": run(snapshot, cache_copy, rules_only["results"]),
+            "scenarios": scenarios(snapshot, rules_only["results"]),
         })
     facts = []
     for f in FACT_CASES:
@@ -248,7 +260,7 @@ def main() -> None:
         "bills": [bill_reference(p) for p in BILL_PDFS],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(body, indent=1, ensure_ascii=True) + "\n")
+    OUT.write_text(json.dumps(body, separators=(",", ":"), ensure_ascii=True) + "\n")
     print(f"wrote {rel(OUT)}: {len(personas)} personas, {len(facts)} fact cases, "
           f"{len(REASON_CASES)} reason cases, {len(body['bills'])} bills")
 

@@ -79,7 +79,11 @@ export function parseOfx(text: string): StatementResult {
       const out = amount.negative ? amount.cents : -amount.cents;
       const name = (leaf(t.body, "NAME") ?? leaf(t.body, "PAYEE") ?? "").replace(/\s+/g, " ");
       const memo = (leaf(t.body, "MEMO") ?? "").replace(/\s+/g, " ");
-      const description = [name, memo && !name.toLowerCase().includes(memo.toLowerCase()) ? memo : ""].filter(Boolean).join(" ");
+      // NAME is the payee (often cut short); MEMO may repeat it or add detail.
+      const lowName = name.toLowerCase();
+      const lowMemo = memo.toLowerCase();
+      const description =
+        !memo || lowName.includes(lowMemo) ? name : !name || lowMemo.includes(lowName) ? memo : `${name} ${memo}`;
       const trntype = (leaf(t.body, "TRNTYPE") ?? "").toUpperCase();
       const fitid = leaf(t.body, "FITID");
       const key = fitid ? `${acct}|${fitid}` : `${acct}|${date}|${out}|${description.toLowerCase()}`;

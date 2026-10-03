@@ -1,6 +1,15 @@
 // Types for the on-device layer. They extend the shared contracts (lib/contracts.ts) with what a
 // parser or model could tell beyond them; every extra field is optional for callers.
-import type { BillLine, BillReading, ClassifiedItem, DeviceAi, StatementTxn } from "../contracts";
+import type {
+  BillLine,
+  BillReader,
+  BillReading,
+  ClassifiedItem,
+  Classifier,
+  DeviceAi,
+  StatementParser,
+  StatementTxn,
+} from "../contracts";
 import type { Classification } from "./rules";
 
 export type TxnKind = "purchase" | "withdrawal" | "deposit" | "transfer" | "bill";
@@ -39,6 +48,8 @@ export interface ClassifyOptions {
   deviceAi?: boolean;
   // Infer lost pay from paychecks that dropped after the date (default true).
   payDips?: boolean;
+  // Time limit for each on-device prompt (default 5000 ms).
+  deviceTimeoutMs?: number;
   // Care days that are not bank rows, such as an itemized bill's service date.
   anchors?: { date: string; ref: string; expense: string }[];
   signal?: AbortSignal;
@@ -85,4 +96,27 @@ export interface LocalBillReading extends BillReading {
   fictional: boolean;
   checks: { name: string; ok: boolean }[];
   warnings: string[];
+}
+
+// The shared contracts, widened: Blob as well as File, and the richer results above.
+export interface LocalStatementParser extends StatementParser {
+  parse(file: File | Blob): Promise<StatementResult>;
+  parseText(text: string): StatementResult;
+  parseBytes(bytes: Uint8Array): Promise<StatementResult>;
+  fromNessie(body: unknown): NessieResult;
+  fetchNessie(
+    persona: string,
+    opts?: { fetch?: typeof fetch; signal?: AbortSignal; timeoutMs?: number },
+  ): Promise<NessieResult>;
+}
+
+export interface LocalClassifier extends Classifier {
+  classify(txns: StatementTxn[], ctx: ClassifyContext, opts?: ClassifyOptions): Promise<LocalClassifiedItem[]>;
+  classifyDetailed(txns: StatementTxn[], ctx: ClassifyContext, opts?: ClassifyOptions): Promise<ClassifyReport>;
+  // Loads the on-device model ahead of time. Never downloads.
+  prewarm(): Promise<DeviceAi>;
+}
+
+export interface LocalBillReader extends BillReader {
+  read(file: File | Blob, opts?: { signal?: AbortSignal }): Promise<LocalBillReading>;
 }

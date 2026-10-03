@@ -13,7 +13,15 @@ import { FakeLanguageModel, install, rowsOf, uninstall } from "./fake-lm";
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
 
-type Plain = { expense: string; candidate: boolean; confidence: number; method: string; reason: string; confirmed: boolean; linked_refs: string[] };
+type Plain = {
+  expense: string;
+  candidate: boolean;
+  confidence: number;
+  method: string;
+  reason: string;
+  confirmed: boolean;
+  linked_refs: string[];
+};
 
 const plain = (c: Classification): Plain => ({
   expense: c.expense,
@@ -26,7 +34,20 @@ const plain = (c: Classification): Plain => ({
   linked_refs: c.linked_refs.map((r) => r.replace(/^nessie:/, "")),
 });
 
-const ITEM_KEYS = ["item_id", "date", "amount_cents", "expense", "confirmed", "is_bill", "units", "description", "confidence", "reason", "method", "linked_item_ids"] as const;
+const ITEM_KEYS = [
+  "item_id",
+  "date",
+  "amount_cents",
+  "expense",
+  "confirmed",
+  "is_bill",
+  "units",
+  "description",
+  "confidence",
+  "reason",
+  "method",
+  "linked_item_ids",
+] as const;
 
 function pick(item: Record<string, unknown>) {
   return Object.fromEntries(ITEM_KEYS.map((k) => [k, item[k]]));
@@ -58,7 +79,11 @@ function modelFromCache() {
     answer: (input) => {
       const results = rowsOf(input).map((row) => {
         const hit = parity.model_answers.find(
-          (a) => a.kind === row.kind && a.merchant === row.merchant && a.category === row.category && a.description === row.description.toLowerCase(),
+          (a) =>
+            a.kind === row.kind &&
+            a.merchant === row.merchant &&
+            a.category === row.category &&
+            a.description === row.description.toLowerCase(),
         );
         return { ref: row.ref, expense: hit?.expense ?? "unknown", reason: hit?.reason ?? "" };
       });
@@ -83,10 +108,21 @@ describe.each(parity.personas)("$persona_id", (p) => {
     return classifyDetailed(txns, ctx, { deviceAi: withModel, payDips: false });
   }
 
-  function expectSame(report: Awaited<ReturnType<typeof run>>, expected: { results: Record<string, Plain>; items: Record<string, unknown>[] }) {
+  type Expected = {
+    results?: Record<string, Plain>;
+    results_delta?: Record<string, Plain>;
+    count?: number;
+    items: Record<string, unknown>[];
+  };
+  const base = p.rules_only.results as unknown as Record<string, Plain>;
+
+  // Runs other than the first store only the records whose answer differs from the rules-only run.
+  function expectSame(report: Awaited<ReturnType<typeof run>>, expected: Expected) {
+    const want = expected.results ?? { ...base, ...expected.results_delta };
     const got = Object.fromEntries(report.all.map((c) => [c.ref.replace(/^nessie:/, ""), plain(c)]));
-    expect(Object.keys(got).sort()).toEqual(Object.keys(expected.results).sort());
-    for (const [ref, want] of Object.entries(expected.results)) expect({ ref, ...got[ref] }).toEqual({ ref, ...want });
+    expect(Object.keys(got).sort()).toEqual(Object.keys(want).sort());
+    if (expected.count !== undefined) expect(report.all).toHaveLength(expected.count);
+    for (const [ref, w] of Object.entries(want)) expect({ ref, ...got[ref] }).toEqual({ ref, ...w });
     expect(report.items.map((i) => pick(i as unknown as Record<string, unknown>))).toEqual(expected.items.map(pick));
   }
 
@@ -100,7 +136,12 @@ describe.each(parity.personas)("$persona_id", (p) => {
     const report = await run(snapshot, true);
     expectSame(report, p.with_cache as never);
     expect(report.counts.device_ai).toBe(4);
-    expect(report.items.filter((i) => i.source === "device_ai").map((i) => i.expense).sort()).toEqual(["clothing_bedding", "security"]);
+    expect(
+      report.items
+        .filter((i) => i.source === "device_ai")
+        .map((i) => i.expense)
+        .sort(),
+    ).toEqual(["clothing_bedding", "security"]);
   });
 
   it.each(p.scenarios.map((s) => [s.name, s] as const))("scenario %s", async (_, s) => {

@@ -54,7 +54,9 @@ export function fromNessieRelay(body: unknown): NessieResult {
   const merchants = new Map<string, Obj>();
   for (const m of pickList("merchants")) if (isObj(m)) merchants.set(idOf(m), m);
 
-  const docList = (Array.isArray(meta.documents) ? meta.documents : Array.isArray(root.documents) ? root.documents : []) as unknown[];
+  const docList = (
+    Array.isArray(meta.documents) ? meta.documents : Array.isArray(root.documents) ? root.documents : []
+  ) as unknown[];
   const docs = new Map<string, Doc>();
   for (const d of docList) {
     if (!isObj(d) || !str(d.bill_id)) continue;
@@ -94,7 +96,8 @@ export function fromNessieRelay(body: unknown): NessieResult {
     const doc = kind === "bill" ? docs.get(id) : undefined;
     const rawDate =
       kind === "bill"
-        ? (doc?.service_date ?? (str(r.date) || str(r.creation_date) || str(r.payment_date) || str(r.upcoming_payment_date)))
+        ? (doc?.service_date ??
+          (str(r.date) || str(r.creation_date) || str(r.payment_date) || str(r.upcoming_payment_date)))
         : str(r.date) || str(r.purchase_date) || str(r.transaction_date) || str(r.creation_date);
     const date = parseDate(rawDate);
     if (!date) {
@@ -108,7 +111,10 @@ export function fromNessieRelay(body: unknown): NessieResult {
     }
     const merchantRef = r.merchant;
     const merchant = isObj(merchantRef) ? merchantRef : merchants.get(str(r.merchant_id));
-    const merchantName = kind === "bill" ? str(r.payee) : str(merchant?.name) || str(r.merchant_name) || (typeof merchantRef === "string" ? merchantRef : "");
+    const merchantName =
+      kind === "bill"
+        ? str(r.payee)
+        : str(merchant?.name) || str(r.merchant_name) || (typeof merchantRef === "string" ? merchantRef : "");
     const category = kind === "bill" ? "" : str(merchant?.category) || str(r.merchant_category);
     // Deposits, and transfers into this person's other account when listed from it, are money in.
     const payee = str(r.payee_account_id);

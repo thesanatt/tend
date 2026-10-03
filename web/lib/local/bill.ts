@@ -2,14 +2,14 @@
 // (billtext.ts); a photo, or a PDF that is only a picture, goes to Gemini Nano's image input when
 // it is ready. Either way the bill is "ok" only when its lines add up to its own total; otherwise
 // it is "unreliable" and the survivor sees the original instead of numbers Tend is unsure of.
-import type { BillReader, Source } from "../contracts";
+import type { Source } from "../contracts";
 import type { ItemExpense } from "../types";
 import { parseAmount, parseDate } from "./amounts";
 import { balanceChecks, BillReadError, matchExpense, parseTextBill, type TextBill } from "./billtext";
 import { baseSession, deviceAiStatus, promptJson } from "./deviceai";
 import { sha256Hex } from "./hash";
 import { isPdf, linesToText, openPdf, pdfLines } from "./pdf";
-import type { LocalBillLine, LocalBillReading } from "./types";
+import type { LocalBillLine, LocalBillReader, LocalBillReading } from "./types";
 
 export const IMAGE_TIMEOUT_MS = 60_000;
 
@@ -72,8 +72,12 @@ function reading(
   }));
   const checks = lines.length ? balanceChecks(bill) : [{ name: "has_lines", ok: false }];
   const sumsMatch = lines.length > 0 && checks.every((c) => c.ok);
-  const dates = bill.lines.map((l) => l.date).filter(Boolean).sort();
-  if (!sumsMatch && lines.length) warnings.push("The lines on this bill do not add up to its total, so Tend will not use its numbers.");
+  const dates = bill.lines
+    .map((l) => l.date)
+    .filter(Boolean)
+    .sort();
+  if (!sumsMatch && lines.length)
+    warnings.push("The lines on this bill do not add up to its total, so Tend will not use its numbers.");
   return {
     status: sumsMatch ? "ok" : "unreliable",
     provider: bill.provider,
@@ -108,7 +112,12 @@ function emptyBill(): TextBill {
   };
 }
 
-function unreadable(sha: string, format: LocalBillReading["format"], source: Source, warning: string): LocalBillReading {
+function unreadable(
+  sha: string,
+  format: LocalBillReading["format"],
+  source: Source,
+  warning: string,
+): LocalBillReading {
   return reading(emptyBill(), sha, format, source, [warning]);
 }
 
@@ -129,10 +138,20 @@ function centsFromModel(text: unknown): number | null {
   return a ? (a.negative ? -a.cents : a.cents) : null;
 }
 
-async function fromImage(image: Blob, sha: string, format: LocalBillReading["format"], signal?: AbortSignal): Promise<LocalBillReading> {
+async function fromImage(
+  image: Blob,
+  sha: string,
+  format: LocalBillReading["format"],
+  signal?: AbortSignal,
+): Promise<LocalBillReading> {
   const status = await deviceAiStatus("image");
   if (status !== "available")
-    return unreadable(sha, format, "rule", "Reading a photo needs the on-device model, which is not ready in this browser.");
+    return unreadable(
+      sha,
+      format,
+      "rule",
+      "Reading a photo needs the on-device model, which is not ready in this browser.",
+    );
   let answer: {
     provider?: string;
     statement_date?: string;
@@ -144,7 +163,15 @@ async function fromImage(image: Blob, sha: string, format: LocalBillReading["for
     const base = await baseSession(BILL_SYSTEM_PROMPT, "image");
     answer = (await promptJson(
       base,
-      [{ role: "user", content: [{ type: "text", value: BILL_INSTRUCTIONS }, { type: "image", value: image }] }],
+      [
+        {
+          role: "user",
+          content: [
+            { type: "text", value: BILL_INSTRUCTIONS },
+            { type: "image", value: image },
+          ],
+        },
+      ],
       BILL_SCHEMA,
       IMAGE_TIMEOUT_MS,
       signal,
@@ -205,7 +232,10 @@ async function renderFirstPage(bytes: Uint8Array): Promise<Blob | null> {
   }
 }
 
-export async function readBill(file: Blob & { name?: string }, opts: { signal?: AbortSignal } = {}): Promise<LocalBillReading> {
+export async function readBill(
+  file: Blob & { name?: string },
+  opts: { signal?: AbortSignal } = {},
+): Promise<LocalBillReading> {
   const bytes = new Uint8Array(await file.arrayBuffer());
   const sha = await sha256Hex(bytes);
   if (isPdf(bytes)) {
@@ -217,13 +247,19 @@ export async function readBill(file: Blob & { name?: string }, opts: { signal?: 
     }
     if (text.trim()) return fromText(text, sha, "pdf");
     const page = await renderFirstPage(bytes).catch(() => null);
-    if (!page) return unreadable(sha, "pdf", "rule", "This PDF is a picture with no text, and it could not be read on this device.");
+    if (!page)
+      return unreadable(
+        sha,
+        "pdf",
+        "rule",
+        "This PDF is a picture with no text, and it could not be read on this device.",
+      );
     return fromImage(page, sha, "pdf", opts.signal);
   }
   if (isImage(file, bytes)) return fromImage(file, sha, "image", opts.signal);
   return fromText(new TextDecoder().decode(bytes), sha, "text");
 }
 
-export const billReader: BillReader & { read(file: File | Blob, opts?: { signal?: AbortSignal }): Promise<LocalBillReading> } = {
-  read: (file: File | Blob, opts?: { signal?: AbortSignal }) => readBill(file, opts),
+export const billReader: LocalBillReader = {
+  read: (file, opts) => readBill(file, opts),
 };

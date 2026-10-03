@@ -82,16 +82,70 @@ export const normHeader = (h: string) =>
 
 // For each role, header names from most to least preferred.
 const ROLES = {
-  date: ["transaction date", "trans date", "date", "transaction posted date", "posted date", "post date", "posting date", "date posted", "effective date", "value date", "booking date"],
-  description: ["description", "transaction description", "payee", "merchant name", "merchant", "name", "payee name", "original description", "transaction details", "narrative", "memo", "details"],
+  date: [
+    "transaction date",
+    "trans date",
+    "date",
+    "transaction posted date",
+    "posted date",
+    "post date",
+    "posting date",
+    "date posted",
+    "effective date",
+    "value date",
+    "booking date",
+  ],
+  description: [
+    "description",
+    "transaction description",
+    "payee",
+    "merchant name",
+    "merchant",
+    "name",
+    "payee name",
+    "original description",
+    "transaction details",
+    "narrative",
+    "memo",
+    "details",
+  ],
   amount: ["amount", "transaction amount", "amount usd", "net amount"],
-  debit: ["debit", "debits", "debit amount", "amount debit", "withdrawal", "withdrawals", "withdrawal amount", "money out", "paid out", "outflow", "charges", "charge", "spent"],
-  credit: ["credit", "credits", "credit amount", "amount credit", "deposit", "deposits", "deposit amount", "money in", "paid in", "inflow", "payments", "payment", "received"],
+  debit: [
+    "debit",
+    "debits",
+    "debit amount",
+    "amount debit",
+    "withdrawal",
+    "withdrawals",
+    "withdrawal amount",
+    "money out",
+    "paid out",
+    "outflow",
+    "charges",
+    "charge",
+    "spent",
+  ],
+  credit: [
+    "credit",
+    "credits",
+    "credit amount",
+    "amount credit",
+    "deposit",
+    "deposits",
+    "deposit amount",
+    "money in",
+    "paid in",
+    "inflow",
+    "payments",
+    "payment",
+    "received",
+  ],
   type: ["transaction type", "type", "debit credit", "debit or credit", "dr cr", "cr dr", "details"],
   category: ["category", "transaction category", "merchant category"],
   memo: ["memo", "extended details", "notes", "note"],
   reference: ["reference number", "transaction id", "reference", "ref"],
   status: ["status"],
+  account: ["account number", "card no", "card number", "account"],
 } as const;
 type Role = keyof typeof ROLES;
 type Columns = Partial<Record<Role, number>>;
@@ -100,7 +154,19 @@ function assignColumns(headers: string[]): Columns {
   const used = new Set<number>();
   const cols: Columns = {};
   // Order matters: a column can play one role, and description wins "details" before type does.
-  for (const role of ["date", "amount", "debit", "credit", "description", "type", "category", "memo", "reference", "status"] as Role[]) {
+  for (const role of [
+    "date",
+    "amount",
+    "debit",
+    "credit",
+    "description",
+    "type",
+    "category",
+    "memo",
+    "reference",
+    "status",
+    "account",
+  ] as Role[]) {
     for (const name of ROLES[role]) {
       const i = headers.findIndex((h, idx) => h === name && !used.has(idx));
       if (i !== -1) {
@@ -116,15 +182,21 @@ function assignColumns(headers: string[]): Columns {
 const has = (headers: string[], names: string[]) => names.every((n) => headers.includes(n));
 
 function layoutFor(h: string[], cols: Columns): string {
-  if (has(h, ["transaction date", "posted date", "card no", "description", "debit", "credit"])) return "capital_one_card";
-  if (has(h, ["account number", "transaction description", "transaction date", "transaction type", "transaction amount"]))
+  if (has(h, ["transaction date", "posted date", "card no", "description", "debit", "credit"]))
+    return "capital_one_card";
+  if (
+    has(h, ["account number", "transaction description", "transaction date", "transaction type", "transaction amount"])
+  )
     return "capital_one_360";
   if (has(h, ["transaction date", "post date", "description", "type", "amount"])) return "chase_card";
   if (has(h, ["details", "posting date", "description", "amount", "type"])) return "chase_checking";
   if (has(h, ["date", "description", "amount", "running bal"])) return "boa_checking";
   if (has(h, ["posted date", "reference number", "payee", "amount"])) return "boa_card";
   if (has(h, ["status", "date", "description", "debit", "credit"])) return "citi";
-  if (has(h, ["date", "description", "amount"]) && ["card member", "extended details", "appears on your statement as"].some((n) => h.includes(n)))
+  if (
+    has(h, ["date", "description", "amount"]) &&
+    ["card member", "extended details", "appears on your statement as"].some((n) => h.includes(n))
+  )
     return "amex";
   if (cols.debit !== undefined || cols.credit !== undefined) return "generic_debit_credit";
   return "generic_amount";
@@ -136,12 +208,13 @@ const POSITIVE_IS_OUT = new Set(["amex"]);
 const TYPE_OUT = /^(debit|dr|withdrawal|sale|purchase|fee|charge|check|atm|pos)$/i;
 const TYPE_IN = /^(credit|cr|deposit|refund|return|payment|interest|dslip)$/i;
 const INCOME_WORDS = /payroll|direct dep|salary|\bdeposit\b|refund|interest paid|payment thank you|thank you/i;
-const BALANCE_LINE = /\b(beginning|ending|opening|closing|previous|new) balance\b|\btotal (credits|debits|deposits|withdrawals)\b/i;
+const BALANCE_LINE =
+  /\b(beginning|ending|opening|closing|previous|new) balance\b|\btotal (credits|debits|deposits|withdrawals)\b/i;
 
 // Money moved between the person's own accounts, or paid to their own card. A payment to a person
 // or a business (Zelle, Venmo, autopay to a provider) stays a purchase so the rules can read it.
 const OWN_TRANSFER =
-  /\b(online|mobile|internal|funds|account|acct)\s+transfer\b|\btransfer\s+(to|from)\s+(sav|savings|chk|checking|share|acct|account|x+\d+|\*+\d+)|\bsave to\b|\bmove to (checking|savings)\b|\b(credit card|card|crcard|credit crd)\s*(autopay|payment|pmt)\b|\bpayment thank you\b/i;
+  /\b(online|mobile|internal|funds|account|acct)\s+transfer\b|\b(transfer|xfer|withdrawal)\s+(to|from)\s+(\S+\s+){0,3}(sav|savings|chk|checking|share|acct|account|x+\d+|\*+\d+)\b|\bsave to\b|\bmove to (checking|savings)\b|\b(credit card|card|crcard|credit crd)\s*(autopay|payment|pmt)\b|\bpayment thank you\b/i;
 const ATM = /\batm\b|\bcash withdrawal\b/i;
 
 export function kindFor(description: string, cents: number): TxnKind {
@@ -162,6 +235,7 @@ interface Draft {
   category?: string;
   status?: string;
   reference?: string;
+  account?: string;
   amount: ParsedAmount | null;
   debit: ParsedAmount | null;
   credit: ParsedAmount | null;
@@ -202,7 +276,8 @@ function headerless(rows: Row[]): { cols: Columns; layout: string } | null {
     }
   }
   if (description === -1) return null;
-  const wells = width === 5 && date === 0 && amount === 1 && description === 4 && frac(2, (v) => v.trim() === "*") >= 0.5;
+  const wells =
+    width === 5 && date === 0 && amount === 1 && description === 4 && frac(2, (v) => v.trim() === "*") >= 0.5;
   return { cols: { date, amount, description }, layout: wells ? "wells_fargo" : "generic_amount" };
 }
 
@@ -235,6 +310,8 @@ export function parseCsv(text: string): StatementResult {
     data = rows;
   }
 
+  const skipped: { line: number; why: string }[] = [];
+  const skip = (line: number, why: string) => skipped.push({ line, why });
   const order: DateOrder = detectDateOrder(data.map((r) => r.cells[cols.date!] ?? "").filter(Boolean));
   const cell = (r: Row, role: Role) => (cols[role] === undefined ? "" : (r.cells[cols[role]!] ?? ""));
   const drafts: Draft[] = [];
@@ -249,13 +326,17 @@ export function parseCsv(text: string): StatementResult {
     const date = parseDate(rawDate, order);
     if (!date) {
       // A header repeated mid-file, or a footer note, is not worth a warning.
-      if (normHeader(rawDate) && Object.values(ROLES).some((names) => (names as readonly string[]).includes(normHeader(rawDate)))) continue;
-      warnings.push(`Line ${r.line} skipped: no date Tend could read.`);
+      if (
+        normHeader(rawDate) &&
+        Object.values(ROLES).some((names) => (names as readonly string[]).includes(normHeader(rawDate)))
+      )
+        continue;
+      skip(r.line, "no date Tend could read");
       continue;
     }
     if (!anyMoney) {
       const rawMoney = [cell(r, "amount"), cell(r, "debit"), cell(r, "credit")].join("").trim();
-      warnings.push(rawMoney ? `Line ${r.line} skipped: the amount could not be read.` : `Line ${r.line} skipped: no amount.`);
+      skip(r.line, rawMoney ? "the amount could not be read" : "no amount");
       continue;
     }
     drafts.push({
@@ -265,6 +346,7 @@ export function parseCsv(text: string): StatementResult {
       category: clean(cell(r, "category")) || undefined,
       status: clean(cell(r, "status")) || undefined,
       reference: clean(cell(r, "reference")) || undefined,
+      account: clean(cell(r, "account")) || undefined,
       amount,
       debit,
       credit,
@@ -298,17 +380,25 @@ export function parseCsv(text: string): StatementResult {
       out = TYPE_OUT.test(d.type) ? d.amount.cents : -d.amount.cents;
     } else if (d.amount) {
       const signed = d.amount.negative ? -d.amount.cents : d.amount.cents;
-      out = d.amount.marker === "cr" ? -d.amount.cents : d.amount.marker === "dr" ? d.amount.cents : negativeOut ? -signed : signed;
+      out =
+        d.amount.marker === "cr"
+          ? -d.amount.cents
+          : d.amount.marker === "dr"
+            ? d.amount.cents
+            : negativeOut
+              ? -signed
+              : signed;
     } else out = null;
     if (out === null) {
-      warnings.push(`Line ${d.line} skipped: the amount could not be read.`);
+      skip(d.line, "the amount could not be read");
       continue;
     }
     if (out === 0) {
-      warnings.push(`Line ${d.line} skipped: the amount is zero.`);
+      skip(d.line, "the amount is zero");
       continue;
     }
-    const key = [d.date, out, d.description.toLowerCase(), d.reference ?? ""].join("|");
+    // The same content gives the same id, so an overlapping second upload is not counted twice.
+    const key = [d.date, out, d.description.toLowerCase(), d.reference ?? "", d.account ?? ""].join("|");
     const n = (seen.get(key) ?? 0) + 1;
     seen.set(key, n);
     txns.push({
@@ -323,6 +413,7 @@ export function parseCsv(text: string): StatementResult {
       line: d.line,
     });
   }
+  warnings.unshift(...skipped.sort((a, b) => a.line - b.line).map((w) => `Line ${w.line} skipped: ${w.why}.`));
   if (!txns.length && !warnings.length) warnings.push("No transactions were found in this file.");
   return { txns, warnings, format: "csv", layout };
 }

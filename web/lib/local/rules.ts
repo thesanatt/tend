@@ -83,7 +83,12 @@ export const KEYWORD_RULES: readonly Rule[] = [
     0.85,
     "Deposit or move-in cost for a new home",
   ),
-  rule(String.raw`\btruck rental\b|\bmoving (truck|van|company|services?)\b|\bmovers\b`, "relocation", 0.85, "Moving cost"),
+  rule(
+    String.raw`\btruck rental\b|\bmoving (truck|van|company|services?)\b|\bmovers\b`,
+    "relocation",
+    0.85,
+    "Moving cost",
+  ),
   rule(
     String.raw`\blocksmith|\brekey|\bdeadbolt|\block (&|and) (safe|key)\b|\balarm (system|install)|\bsecurity camera`,
     "security",
@@ -116,7 +121,12 @@ export const KEYWORD_RULES: readonly Rule[] = [
     0.85,
     "Replaces a phone or other personal property",
   ),
-  rule(String.raw`\bbedding\b|\bcomforter\b|\bduvet\b|\bapparel\b|\bclothing\b`, "clothing_bedding", 0.7, "Clothing or bedding"),
+  rule(
+    String.raw`\bbedding\b|\bcomforter\b|\bduvet\b|\bapparel\b|\bclothing\b`,
+    "clothing_bedding",
+    0.7,
+    "Clothing or bedding",
+  ),
   rule(
     String.raw`\brideshare\b|\brides?\b|\btaxi\b|\bcab\b|\btransit\b|\bbus fare\b|\bparking\b`,
     "transportation",
@@ -155,19 +165,56 @@ export function stripTags(description: string): string {
 }
 
 function made(f: TxnFacts, expense: string | null, confidence: number, method: string, reason: string): Classification {
-  if (expense === null) return { ref: f.ref, expense: UNKNOWN, candidate: false, confidence, method, reason, confirmed: false, linked_refs: [] };
+  if (expense === null)
+    return {
+      ref: f.ref,
+      expense: UNKNOWN,
+      candidate: false,
+      confidence,
+      method,
+      reason,
+      confirmed: false,
+      linked_refs: [],
+    };
   if (expense === "transportation") {
     // A ride is only a recovery cost when it is travel to care; linkCareRides decides.
     return { ref: f.ref, expense, candidate: false, confidence, method, reason, confirmed: false, linked_refs: [] };
   }
-  return { ref: f.ref, expense, candidate: true, confidence, method, reason, confirmed: confidence >= CONFIRM_AT, linked_refs: [] };
+  return {
+    ref: f.ref,
+    expense,
+    candidate: true,
+    confidence,
+    method,
+    reason,
+    confirmed: confidence >= CONFIRM_AT,
+    linked_refs: [],
+  };
 }
 
 export function classifyDeterministic(f: TxnFacts): Classification | null {
   if (f.kind === "deposit")
-    return { ref: f.ref, expense: UNKNOWN, candidate: false, confidence: 0.95, method: "income", reason: "Money coming in, not a cost", confirmed: false, linked_refs: [] };
+    return {
+      ref: f.ref,
+      expense: UNKNOWN,
+      candidate: false,
+      confidence: 0.95,
+      method: "income",
+      reason: "Money coming in, not a cost",
+      confirmed: false,
+      linked_refs: [],
+    };
   if (f.kind === "transfer")
-    return { ref: f.ref, expense: UNKNOWN, candidate: false, confidence: 0.95, method: "transfer", reason: "Money moved between accounts", confirmed: false, linked_refs: [] };
+    return {
+      ref: f.ref,
+      expense: UNKNOWN,
+      candidate: false,
+      confidence: 0.95,
+      method: "transfer",
+      reason: "Money moved between accounts",
+      confirmed: false,
+      linked_refs: [],
+    };
   const exam = KEYWORD_RULES[0];
   if (exam.pattern.test(norm(f.description))) {
     // Checked before the registry: an exam line on a hospital bill is not plain "medical".
@@ -213,7 +260,11 @@ const COVERAGE_TALK = pyRegex(String.raw`\b(cover(ed|s|age)?|eligib\w*|qualif\w*
 // word on coverage, which only the law engine decides.
 export function cleanReason(text: string | null | undefined, label: string): string {
   let t = (text ?? "").replace(DASH, ", ");
-  t = t.replace(/\u2018/g, "'").replace(/\u2019/g, "'").replace(/\u201c/g, '"').replace(/\u201d/g, '"');
+  t = t
+    .replace(/\u2018/g, "'")
+    .replace(/\u2019/g, "'")
+    .replace(/\u201c/g, '"')
+    .replace(/\u201d/g, '"');
   const words = pySplit(t).filter((w) => !MONEYISH.test(w));
   const out = pyStripChars(words.slice(0, MAX_REASON_WORDS).join(" "), " ,;:-.");
   if (!out || COVERAGE_TALK.test(out))
@@ -260,7 +311,11 @@ export interface Anchor {
 // A ride counts only as travel to care: same day as a confident care charge. Extra anchors are
 // care that is not a bank row, such as the service date on an itemized bill. Links are inferences,
 // so they always come back unconfirmed.
-export function linkCareRides(facts: TxnFacts[], results: Classification[], extraAnchors: Anchor[] = []): Classification[] {
+export function linkCareRides(
+  facts: TxnFacts[],
+  results: Classification[],
+  extraAnchors: Anchor[] = [],
+): Classification[] {
   const byRef = new Map(results.map((r) => [r.ref, r]));
   const anchors = new Map<string, { ref: string; expense: string }[]>();
   const push = (date: string, ref: string, expense: string) => {
@@ -304,5 +359,11 @@ export function setAside(r: Classification, reason: string): Classification {
 
 // The rows the model is asked about, keyed so each distinct content is sent once.
 export function contentKey(f: TxnFacts): string {
-  return JSON.stringify([PROMPT_VERSION, f.kind, norm(f.merchant_name), norm(f.merchant_category), norm(f.description)]);
+  return JSON.stringify([
+    PROMPT_VERSION,
+    f.kind,
+    norm(f.merchant_name),
+    norm(f.merchant_category),
+    norm(f.description),
+  ]);
 }

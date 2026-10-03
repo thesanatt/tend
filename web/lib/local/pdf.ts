@@ -86,7 +86,11 @@ export function groupLines(items: RawItem[], page: number): PdfLine[] {
   const glyphs = items
     .filter((i) => i.str.trim() !== "")
     // Rotated text is a watermark or a margin note, not a statement row.
-    .filter((i) => Math.abs(i.transform[1]) < 0.01 * Math.abs(i.transform[0] || 1) && Math.abs(i.transform[2]) < 0.01 * Math.abs(i.transform[3] || 1))
+    .filter(
+      (i) =>
+        Math.abs(i.transform[1]) < 0.01 * Math.abs(i.transform[0] || 1) &&
+        Math.abs(i.transform[2]) < 0.01 * Math.abs(i.transform[3] || 1),
+    )
     .map((i) => {
       const size = Math.abs(i.transform[3]) || i.height || 10;
       return { text: i.str, x: i.transform[4], x2: i.transform[4] + i.width, y: i.transform[5], size };

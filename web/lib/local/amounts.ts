@@ -17,7 +17,8 @@ function cents(whole: string, frac: string): number | null {
 // money.py parse_cents: throws on anything that is not a money amount.
 export function parseCents(text: string): number {
   const m = PY_MONEY.exec(text.trim());
-  if (!m || Boolean(m.groups!.open) !== Boolean(m.groups!.close)) throw new Error(`not a money amount: ${JSON.stringify(text)}`);
+  if (!m || Boolean(m.groups!.open) !== Boolean(m.groups!.close))
+    throw new Error(`not a money amount: ${JSON.stringify(text)}`);
   const value = cents(m.groups!.whole, m.groups!.frac ?? "");
   if (value === null) throw new Error(`amount too large: ${JSON.stringify(text)}`);
   return m.groups!.neg || m.groups!.open ? -value : value;
@@ -65,6 +66,7 @@ export function parseAmount(raw: string | null | undefined): ParsedAmount | null
   }
   if (s.startsWith("$")) s = s.slice(1).trim();
   if (s.startsWith("-")) {
+    if (explicit) return null; // two signs, as in "--5"
     negative = !negative;
     explicit = true;
     s = s.slice(1).trim();
@@ -83,14 +85,39 @@ export function signedCents(raw: string | null | undefined): number | null {
 }
 
 const MONTHS: Record<string, number> = {
-  jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, sept: 9, oct: 10, nov: 11, dec: 12,
+  jan: 1,
+  feb: 2,
+  mar: 3,
+  apr: 4,
+  may: 5,
+  jun: 6,
+  jul: 7,
+  aug: 8,
+  sep: 9,
+  sept: 9,
+  oct: 10,
+  nov: 11,
+  dec: 12,
 };
 
 export function monthNumber(name: string): number | null {
   const key = name.toLowerCase().replace(/\.$/, "");
   if (MONTHS[key]) return MONTHS[key];
   const short = key.slice(0, 3);
-  const full = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+  const full = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
   return full.includes(key) ? MONTHS[short] : null;
 }
 

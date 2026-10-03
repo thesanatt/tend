@@ -26,7 +26,10 @@ export interface LmApi {
 export type Modality = "text" | "image";
 
 const IO: Record<Modality, object> = {
-  text: { expectedInputs: [{ type: "text", languages: ["en"] }], expectedOutputs: [{ type: "text", languages: ["en"] }] },
+  text: {
+    expectedInputs: [{ type: "text", languages: ["en"] }],
+    expectedOutputs: [{ type: "text", languages: ["en"] }],
+  },
   image: {
     expectedInputs: [{ type: "text", languages: ["en"] }, { type: "image" }],
     expectedOutputs: [{ type: "text", languages: ["en"] }],
@@ -132,7 +135,10 @@ export function baseSession(system: string, modality: Modality = "text", createT
     // Aborting a create() signal after the session exists would destroy it, so the time limit
     // only ever aborts a creation that is still running.
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(new DeviceAiTimeout("on-device model took too long to start")), createTimeoutMs);
+    const timer = setTimeout(
+      () => controller.abort(new DeviceAiTimeout("on-device model took too long to start")),
+      createTimeoutMs,
+    );
     pending = createLowTemperature(lm, {
       ...IO[modality],
       initialPrompts: [{ role: "system", content: system }],

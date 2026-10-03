@@ -7,7 +7,24 @@ import { fnv64 } from "./hash";
 import type { LocalClassifiedItem, LocalTxn } from "./types";
 
 const PAY_WORDS = /payroll|direct dep|dir dep|salary|wages|paycheck|\bpay\b/i;
-const NOISE = new Set(["ppd", "ccd", "web", "ach", "id", "co", "entry", "descr", "dir", "dep", "direct", "deposit", "payroll", "pay", "inc", "llc"]);
+const NOISE = new Set([
+  "ppd",
+  "ccd",
+  "web",
+  "ach",
+  "id",
+  "co",
+  "entry",
+  "descr",
+  "dir",
+  "dep",
+  "direct",
+  "deposit",
+  "payroll",
+  "pay",
+  "inc",
+  "llc",
+]);
 
 export const PAY_DIP_REASON = "Paycheck lower than your usual pay";
 export const PAY_GAP_REASON = "No paycheck when one usually came";
@@ -50,7 +67,10 @@ function payrollGroups(txns: LocalTxn[]): Map<string, Check[]> {
     const named = list.some((c) => PAY_WORDS.test(c.txn.description));
     const gaps = list.slice(1).map((c, i) => daysBetween(list[i].txn.date, c.txn.date));
     const gap = gaps.length ? median(gaps) : 0;
-    const regular = gaps.length >= 3 && [7, 14, 15, 30].some((g) => Math.abs(gap - g) <= 2) && gaps.filter((x) => Math.abs(x - gap) <= 3).length >= gaps.length * 0.75;
+    const regular =
+      gaps.length >= 3 &&
+      [7, 14, 15, 30].some((g) => Math.abs(gap - g) <= 2) &&
+      gaps.filter((x) => Math.abs(x - gap) <= 3).length >= gaps.length * 0.75;
     if (!(named && list.length >= 3) && !(regular && list.length >= 4)) groups.delete(key);
   }
   return groups;

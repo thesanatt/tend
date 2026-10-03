@@ -17,10 +17,13 @@ const TRAILING = new RegExp(`(?:^|\\s)(${AMOUNT})\\s*$`, "i");
 
 const SKIP_ROW =
   /\b(beginning|ending|opening|closing|previous|new|daily|average|available)\s+(ledger\s+)?balance\b|\bbalance (forward|brought forward)\b|\b(sub)?totals?\b/i;
-const SECTION_IN = /\b(deposits?|additions|credits|incoming|interest (paid|earned)|refunds?)\b|\bpayments?,? (and|&) (other )?credits\b/i;
-const SECTION_OUT = /\b(withdrawals?|debits|purchases?|checks? paid|fees|charges|outgoing|payments? (sent|made)|card transactions|atm)\b/i;
+const SECTION_IN =
+  /\b(deposits?|additions|credits|incoming|interest (paid|earned)|refunds?)\b|\bpayments?,? (and|&) (other )?credits\b/i;
+const SECTION_OUT =
+  /\b(withdrawals?|debits|purchases?|checks? paid|fees|charges|outgoing|payments? (sent|made)|card transactions|atm)\b/i;
 const SENTENCE = /\b(are|is|was|were|your|our|you|will|may|please|if|call)\b|\.$/i;
-const INCOME_WORDS = /payroll|direct dep|dir dep|salary|\bdeposit\b|refund|interest paid|payment thank you|thank you|\breturn\b/i;
+const INCOME_WORDS =
+  /payroll|direct dep|dir dep|salary|\bdeposit\b|refund|interest paid|payment thank you|thank you|\breturn\b/i;
 const CARD_DOC = /credit card|card account|minimum payment|credit limit|new balance/i;
 const FOOTER = /^page \d+|\bmember fdic\b|^continued\b/i;
 
@@ -44,9 +47,15 @@ interface Period {
 function findPeriod(text: string): Period {
   const num = /(\d{1,2}\/\d{1,2}\/\d{2,4})\s*(?:-|\u2013|to|through|thru)\s*(\d{1,2}\/\d{1,2}\/\d{2,4})/i.exec(text);
   if (num) return { start: parseDate(num[1]), end: parseDate(num[2]) };
-  const named = new RegExp(`(${MONTH}\\s+\\d{1,2},?\\s+\\d{4})\\s*(?:-|\\u2013|to|through|thru)\\s*(${MONTH}\\s+\\d{1,2},?\\s+\\d{4})`, "i").exec(text);
+  const named = new RegExp(
+    `(${MONTH}\\s+\\d{1,2},?\\s+\\d{4})\\s*(?:-|\\u2013|to|through|thru)\\s*(${MONTH}\\s+\\d{1,2},?\\s+\\d{4})`,
+    "i",
+  ).exec(text);
   if (named) return { start: parseDate(named[1]), end: parseDate(named[2]) };
-  const closing = new RegExp(`(?:statement|closing) (?:closing )?date:?\\s*(\\d{1,2}/\\d{1,2}/\\d{2,4}|${MONTH}\\s+\\d{1,2},?\\s+\\d{4})`, "i").exec(text);
+  const closing = new RegExp(
+    `(?:statement|closing) (?:closing )?date:?\\s*(\\d{1,2}/\\d{1,2}/\\d{2,4}|${MONTH}\\s+\\d{1,2},?\\s+\\d{4})`,
+    "i",
+  ).exec(text);
   if (closing) return { start: null, end: parseDate(closing[1]) };
   return { start: null, end: null };
 }
@@ -187,7 +196,16 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
       // Indented text right under a row, with no date and no amount, continues its description.
       const first = line.segments[0];
       const near = last && last.page === line.page && Math.abs(last.y - line.y) < 24;
-      if (last && near && !tokens.length && first && first.x > last.x + 8 && last.extra < 2 && t.length <= 80 && !FOOTER.test(t)) {
+      if (
+        last &&
+        near &&
+        !tokens.length &&
+        first &&
+        first.x > last.x + 8 &&
+        last.extra < 2 &&
+        t.length <= 80 &&
+        !FOOTER.test(t)
+      ) {
         last.txn.description = `${last.txn.description} ${t.replace(/\s+/g, " ").trim()}`;
         last.extra++;
         last.y = line.y;
@@ -232,7 +250,9 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
       if (first.amount) pick = { amount: first.amount, column: null };
     }
     if (!pick || !pick.amount.cents) {
-      warnings.push(pick ? `Line ${lineNo} skipped: the amount is zero.` : `Line ${lineNo} skipped: the amount could not be read.`);
+      warnings.push(
+        pick ? `Line ${lineNo} skipped: the amount is zero.` : `Line ${lineNo} skipped: the amount could not be read.`,
+      );
       continue;
     }
 
@@ -244,6 +264,8 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
     else if (section) direction = section;
     else if (a.explicit && a.negative) direction = card ? "in" : "out";
     else if (a.explicit) direction = card ? "out" : "in";
+    else if (card)
+      direction = INCOME_WORDS.test(description) ? "in" : "out"; // card charges print unsigned
     else {
       direction = INCOME_WORDS.test(description) ? "in" : "out";
       guessed++;
@@ -271,7 +293,8 @@ export function parseStatementLines(lines: PdfLine[]): StatementResult {
     warnings.push(
       `${guessed} amount${guessed === 1 ? " had" : "s had"} no sign or section, so Tend read ${guessed === 1 ? "it" : "them"} as money spent unless the words said otherwise.`,
     );
-  if (!txns.length) warnings.push("No transactions were found in this PDF. The CSV or OFX download from your bank may work better.");
+  if (!txns.length)
+    warnings.push("No transactions were found in this PDF. The CSV or OFX download from your bank may work better.");
   return { txns, warnings, format: "pdf", layout: sawHeader ? "pdf_table" : "pdf_lines" };
 }
 
@@ -280,7 +303,9 @@ export async function parsePdfStatement(bytes: Uint8Array): Promise<StatementRes
   if (!lines.length) {
     return {
       txns: [],
-      warnings: ["This PDF has no text Tend can read on this device. The CSV or OFX download from your bank will work."],
+      warnings: [
+        "This PDF has no text Tend can read on this device. The CSV or OFX download from your bank will work.",
+      ],
       format: "pdf",
       layout: "unknown",
     };

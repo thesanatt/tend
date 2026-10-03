@@ -1,11 +1,10 @@
 // Reads a bank statement file on the device: CSV, OFX or QFX, or PDF. Nothing is uploaded.
-import type { StatementParser } from "../contracts";
 import { parseCsv } from "./csv";
 import { fetchNessie, fromNessieRelay } from "./nessie";
 import { looksLikeOfx, parseOfx } from "./ofx";
 import { isPdf } from "./pdf";
 import { parsePdfStatement } from "./statement-pdf";
-import type { StatementResult } from "./types";
+import type { LocalStatementParser, StatementResult } from "./types";
 
 export const MAX_STATEMENT_BYTES = 25 * 1024 * 1024;
 
@@ -22,7 +21,12 @@ export function parseStatementText(text: string): StatementResult {
 
 export async function parseStatementBytes(bytes: Uint8Array): Promise<StatementResult> {
   if (bytes.byteLength > MAX_STATEMENT_BYTES)
-    return { txns: [], warnings: ["This file is too large to read. Try one month at a time."], format: "csv", layout: "unknown" };
+    return {
+      txns: [],
+      warnings: ["This file is too large to read. Try one month at a time."],
+      format: "csv",
+      layout: "unknown",
+    };
   if (isPdf(bytes)) {
     try {
       return await parsePdfStatement(bytes);
@@ -33,13 +37,7 @@ export async function parseStatementBytes(bytes: Uint8Array): Promise<StatementR
   return parseStatementText(decodeText(bytes));
 }
 
-export const statementParser: StatementParser & {
-  parse(file: File | Blob): Promise<StatementResult>;
-  parseText: typeof parseStatementText;
-  parseBytes: typeof parseStatementBytes;
-  fromNessie: typeof fromNessieRelay;
-  fetchNessie: typeof fetchNessie;
-} = {
+export const statementParser: LocalStatementParser = {
   async parse(file) {
     return parseStatementBytes(new Uint8Array(await file.arrayBuffer()));
   },

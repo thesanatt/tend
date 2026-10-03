@@ -3,7 +3,7 @@
 // caller passes the survivor's consent. Then rides are linked to same-day care and lost pay is
 // inferred from paychecks. Models only pick a label from a fixed list and never see amounts;
 // eligibility, caps and totals belong to the law engine.
-import type { Classifier, DeviceAi, Source, StatementTxn, Unit } from "../contracts";
+import type { Source, StatementTxn, Unit } from "../contracts";
 import { isIsoDay } from "../dates";
 import type { ItemExpense } from "../types";
 import { cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
@@ -28,7 +28,14 @@ import {
   type FactKind,
   type TxnFacts,
 } from "./rules";
-import type { ClassifyContext, ClassifyOptions, ClassifyReport, LocalClassifiedItem, LocalTxn } from "./types";
+import type {
+  ClassifyContext,
+  ClassifyOptions,
+  ClassifyReport,
+  LocalClassifiedItem,
+  LocalClassifier,
+  LocalTxn,
+} from "./types";
 
 export const DEVICE_BATCH = 6;
 export const DEVICE_TIMEOUT_MS = 5000;
@@ -153,12 +160,24 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
 }
 
 function modelRow(ref: string, f: TxnFacts): ModelRow {
-  return { ref, kind: f.kind, merchant: f.merchant_name, category: f.merchant_category, description: stripTags(f.description) };
+  return {
+    ref,
+    kind: f.kind,
+    merchant: f.merchant_name,
+    category: f.merchant_category,
+    description: stripTags(f.description),
+  };
 }
 
 type Answers = Map<string, { expense: string; reason: string; model: string; source: Source }>;
 
-function takeAnswers(answers: ModelAnswer[], refs: Map<string, string>, into: Answers, model: string, source: Source): number {
+function takeAnswers(
+  answers: ModelAnswer[],
+  refs: Map<string, string>,
+  into: Answers,
+  model: string,
+  source: Source,
+): number {
   let n = 0;
   for (const a of answers) {
     const key = refs.get(String(a?.ref));
@@ -169,7 +188,13 @@ function takeAnswers(answers: ModelAnswer[], refs: Map<string, string>, into: An
   return n;
 }
 
-async function askDevice(pending: Map<string, TxnFacts>, answers: Answers, report: ClassifyReport, signal?: AbortSignal) {
+async function askDevice(
+  pending: Map<string, TxnFacts>,
+  answers: Answers,
+  report: ClassifyReport,
+  opts: ClassifyOptions,
+) {
+  const signal = opts.signal;
   const started = Date.now();
   let base;
   try {
@@ -188,13 +213,18 @@ async function askDevice(pending: Map<string, TxnFacts>, answers: Answers, repor
     const prompt = `Sort each of these bank transactions. Answer with one result per ref.\n${JSON.stringify(rows)}`;
     report.device.batches++;
     try {
-      const out = (await promptJson(base, prompt, responseSchema([...refs.keys()]), DEVICE_TIMEOUT_MS, signal)) as {
+      const timeout = opts.deviceTimeoutMs ?? DEVICE_TIMEOUT_MS;
+      const out = (await promptJson(base, prompt, responseSchema([...refs.keys()]), timeout, signal)) as {
         results?: ModelAnswer[];
       };
       takeAnswers(Array.isArray(out?.results) ? out.results : [], refs, answers, DEVICE_MODEL, "device_ai");
       timeouts = 0;
     } catch (err) {
-      report.device.errors.push(err instanceof DeviceAiTimeout ? `batch ${report.device.batches}: timed out` : `batch ${report.device.batches}: ${(err as Error).message}`);
+      report.device.errors.push(
+        err instanceof DeviceAiTimeout
+          ? `batch ${report.device.batches}: timed out`
+          : `batch ${report.device.batches}: ${(err as Error).message}`,
+      );
       if (err instanceof DeviceAiTimeout) {
         // Two slow batches in a row means the device is busy; leave the rest for review or cloud.
         if (++timeouts >= 2) break;
@@ -208,7 +238,12 @@ async function askDevice(pending: Map<string, TxnFacts>, answers: Answers, repor
   report.device.ms += Date.now() - started;
 }
 
-async function askCloud(pending: Map<string, TxnFacts>, answers: Answers, report: ClassifyReport, opts: ClassifyOptions) {
+async function askCloud(
+  pending: Map<string, TxnFacts>,
+  answers: Answers,
+  report: ClassifyReport,
+  opts: ClassifyOptions,
+) {
   const started = Date.now();
   const keys = [...pending.keys()].filter((k) => !answers.has(k));
   for (let start = 0; start < keys.length; start += CLOUD_BATCH) {
@@ -217,7 +252,11 @@ async function askCloud(pending: Map<string, TxnFacts>, answers: Answers, report
     const rows = [...refs].map(([ref, key]) => modelRow(ref, pending.get(key)!));
     report.cloud.batches++;
     try {
-      const { answers: got, model } = await cloudClassify(rows, { fetch: opts.fetch, signal: opts.signal, promptVersion: PROMPT_VERSION });
+      const { answers: got, model } = await cloudClassify(rows, {
+        fetch: opts.fetch,
+        signal: opts.signal,
+        promptVersion: PROMPT_VERSION,
+      });
       takeAnswers(got, refs, answers, model ?? "cloud", "cloud_ai");
     } catch (err) {
       report.cloud.errors.push((err as Error).message);
@@ -269,7 +308,7 @@ export async function classifyDetailed(
   const answers: Answers = new Map();
   if (pending.size && opts.deviceAi !== false) {
     report.device.status = await deviceAiStatus("text");
-    if (report.device.status === "available") await askDevice(pending, answers, report, opts.signal);
+    if (report.device.status === "available") await askDevice(pending, answers, report, opts);
   }
   if (pending.size > answers.size && opts.cloudConsent === true) await askCloud(pending, answers, report, opts);
 
@@ -320,21 +359,18 @@ export async function classifyDetailed(
   report.counts.items = report.items.length;
   if (report.device.errors.length && report.device.used)
     report.warnings.push("The on-device model could not sort some rows, so they are left for you to check.");
-  if (report.cloud.errors.length) report.warnings.push("Cloud sorting did not answer, so some rows are left for you to check.");
+  if (report.cloud.errors.length)
+    report.warnings.push("Cloud sorting did not answer, so some rows are left for you to check.");
   return report;
 }
 
-export const classifier: Classifier & {
-  classify(txns: StatementTxn[], ctx: ClassifyContext, opts?: ClassifyOptions): Promise<LocalClassifiedItem[]>;
-  classifyDetailed: typeof classifyDetailed;
-  prewarm(): Promise<DeviceAi>;
-} = {
+export const classifier: LocalClassifier = {
   deviceAi: () => deviceAiStatus("text"),
   async classify(txns: StatementTxn[], ctx: ClassifyContext, opts?: ClassifyOptions) {
     return (await classifyDetailed(txns, ctx, opts)).items;
   },
   classifyDetailed,
-  // Loads the on-device model ahead of time (the first load can take several seconds). Never downloads.
+  // The first load of the model can take several seconds, so a screen can start it early.
   async prewarm() {
     const status = await deviceAiStatus("text");
     if (status === "available") await baseSession(SYSTEM_PROMPT, "text").catch(() => undefined);
