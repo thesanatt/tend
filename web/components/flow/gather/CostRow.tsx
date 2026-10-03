@@ -109,7 +109,8 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
         ) : null}
       </div>
 
-      {!readOnly && kind === "inferred" && (answer === undefined || answer === "unsure") && status !== "declined" ? (
+      {/* Asked only when a yes would count: a cost the law leaves out gets its rule, not a question. */}
+      {!readOnly && kind === "inferred" && (answer === undefined || answer === "unsure") && status === "needs_confirmation" ? (
         <div role="group" aria-labelledby={qid} className={styles.question}>
           <p id={qid} className={styles.qText}>
             {t.question[item.expense as ItemExpense] ?? t.question.other}

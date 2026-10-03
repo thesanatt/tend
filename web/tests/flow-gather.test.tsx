@@ -71,6 +71,8 @@ describe("Gather", () => {
     const notCovered = screen.getByRole("region", { name: "Not covered" });
     expect(within(notCovered).getByText("Brightline Wireless - new phone")).toBeTruthy();
     expect(within(notCovered).getByRole("button", { name: /show the law for Brightline Wireless/ })).toBeTruthy();
+    // A yes would not change what the law says, so these lines ask nothing.
+    expect(within(notCovered).queryAllByRole("group")).toHaveLength(0);
   });
 
   it("unchecking a direct match takes it out of the total, one tap", async () => {

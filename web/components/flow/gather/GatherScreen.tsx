@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Money from "@/components/Money";
 import { useI18n } from "@/lib/i18n";
 import type { ItemExpense } from "@/lib/types";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
-import { beforeDate, buildRows, groupRows, notCovered, questions, type GroupView } from "../claim";
+import { beforeDate, buildRows, groupRows, notCovered, questions, type GroupView, type Row } from "../claim";
 import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
 import type { YesNoUnsure } from "../state";
@@ -18,6 +18,60 @@ const SHOW = 4;
 
 // One kind of cost. A long group with nothing left to answer folds to its first lines; a group with
 // questions always shows every line, so "Yes to all" never confirms something out of sight.
+function Bed({
+  id,
+  title,
+  total,
+  lead,
+  batch,
+  rows: all,
+  law,
+  onAnswer,
+}: {
+  id: string;
+  title: string;
+  total?: string;
+  lead?: string;
+  batch?: ReactNode;
+  rows: Row[];
+  law: LawIndex;
+  onAnswer: (ids: string[], value: YesNoUnsure | null) => void;
+}) {
+  const { t } = useI18n();
+  const [expanded, setExpanded] = useState(false);
+  const open = all.some((r) => r.status === "needs_confirmation" && r.answer === undefined);
+  const folded = !open && !expanded && all.length > SHOW + 1;
+  const rows = folded ? all.slice(0, SHOW) : all;
+  const listId = `rows-${id}`;
+
+  return (
+    <section className={styles.bed} aria-labelledby={`g-${id}`}>
+      <header className={styles.bedHead}>
+        <h3 id={`g-${id}`}>{title}</h3>
+        {total ? <p className={styles.bedTotal}>{total}</p> : null}
+      </header>
+      {lead ? <p className={styles.foundLead}>{lead}</p> : null}
+      {batch}
+      <ol className={styles.rows} id={listId}>
+        {rows.map((row) => (
+          <CostRow key={row.item.item_id} row={row} law={law} onAnswer={onAnswer} />
+        ))}
+      </ol>
+      {all.length > SHOW + 1 && !open ? (
+        <button
+          type="button"
+          className={`link-button ${styles.more}`}
+          aria-expanded={!folded}
+          aria-controls={listId}
+          onClick={() => setExpanded(folded)}
+        >
+          {folded ? t.gather.showAll(all.length) : t.gather.showFewer}
+        </button>
+      ) : null}
+    </section>
+  );
+}
+
 function GroupBed({
   view: g,
   law,
@@ -28,49 +82,31 @@ function GroupBed({
   onAnswer: (ids: string[], value: YesNoUnsure | null) => void;
 }) {
   const { t, f } = useI18n();
-  const [expanded, setExpanded] = useState(false);
-  const open = g.rows.some((r) => r.status === "needs_confirmation" && r.answer === undefined);
-  const folded = !open && !expanded && g.rows.length > SHOW + 1;
-  const rows = folded ? g.rows.slice(0, SHOW) : g.rows;
-  const listId = `rows-${g.group}`;
-
   return (
-    <section className={styles.bed} aria-labelledby={`g-${g.group}`}>
-      <header className={styles.bedHead}>
-        <h3 id={`g-${g.group}`}>{t.group[g.group]}</h3>
-        <p className={styles.bedTotal}>
-          {g.allowedCents > 0
-            ? t.gather.counted(f.money(g.allowedCents))
-            : g.heldCents > 0
-              ? t.gather.heldAmount(f.money(g.heldCents))
-              : t.gather.nothingYet}
-        </p>
-      </header>
-      {g.batch ? (
-        <div className={styles.batch}>
-          <button type="button" className="btn btn-secondary" onClick={() => onAnswer(g.batch!.ids, "yes")}>
-            {t.gather.confirmAll((t.nouns[g.batch.expense as ItemExpense] ?? t.nouns.other)(g.batch.ids.length))}
-          </button>
-          <p className="meta">{t.gather.confirmAllNote}</p>
-        </div>
-      ) : null}
-      <ol className={styles.rows} id={listId}>
-        {rows.map((row) => (
-          <CostRow key={row.item.item_id} row={row} law={law} onAnswer={onAnswer} />
-        ))}
-      </ol>
-      {g.rows.length > SHOW + 1 && !open ? (
-        <button
-          type="button"
-          className={`link-button ${styles.more}`}
-          aria-expanded={!folded}
-          aria-controls={listId}
-          onClick={() => setExpanded(folded)}
-        >
-          {folded ? t.gather.showAll(g.rows.length) : t.gather.showFewer}
-        </button>
-      ) : null}
-    </section>
+    <Bed
+      id={g.group}
+      title={t.group[g.group]}
+      total={
+        g.allowedCents > 0
+          ? t.gather.counted(f.money(g.allowedCents))
+          : g.heldCents > 0
+            ? t.gather.heldAmount(f.money(g.heldCents))
+            : t.gather.nothingYet
+      }
+      batch={
+        g.batch ? (
+          <div className={styles.batch}>
+            <button type="button" className="btn btn-secondary" onClick={() => onAnswer(g.batch!.ids, "yes")}>
+              {t.gather.confirmAll((t.nouns[g.batch.expense as ItemExpense] ?? t.nouns.other)(g.batch.ids.length))}
+            </button>
+            <p className="meta">{t.gather.confirmAllNote}</p>
+          </div>
+        ) : null
+      }
+      rows={g.rows}
+      law={law}
+      onAnswer={onAnswer}
+    />
   );
 }
 
@@ -172,17 +208,14 @@ export default function GatherScreen() {
             ))}
 
             {left.length ? (
-              <section className={styles.bed} aria-labelledby="not-covered">
-                <header className={styles.bedHead}>
-                  <h3 id="not-covered">{t.gather.notCoveredTitle}</h3>
-                </header>
-                <p className={styles.foundLead}>{t.gather.notCoveredLead}</p>
-                <ol className={styles.rows}>
-                  {left.map((row) => (
-                    <CostRow key={row.item.item_id} row={row} law={law} onAnswer={answer} />
-                  ))}
-                </ol>
-              </section>
+              <Bed
+                id="not-covered"
+                title={t.gather.notCoveredTitle}
+                lead={t.gather.notCoveredLead}
+                rows={left}
+                law={law}
+                onAnswer={answer}
+              />
             ) : null}
 
             {early.length ? <p className={styles.note}>{t.gather.beforeDate(early.length)}</p> : null}
