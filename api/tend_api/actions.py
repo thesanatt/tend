@@ -44,19 +44,44 @@ class ActionService:
         code = f"{secrets.randbelow(1_000_000):06d}"
         now = self.clock()
         expires_at = iso(now + CODE_TTL)
-        self.repo.insert_action({
-            "action_id": action_id, "status": "proposed", "amount_cents": req.amount_cents,
-            "from_account": req.from_account, "payee": req.payee, "claim_id": req.claim_id, "item_id": req.item_id,
-            "code_mac": code_mac(self.secret, action_id, req.amount_cents, req.from_account, req.payee, code),
-            "dry_run": dry_run, "created_at": iso(now), "expires_at": expires_at,
-        })
-        self.repo.append_audit("proposed", action_id, {
-            "amount_cents": req.amount_cents, "from": req.from_account, "payee": req.payee,
-            "claim_id": req.claim_id, "item_id": req.item_id, "dry_run": dry_run, "expires_at": expires_at,
-        }, iso(now))
+        self.repo.insert_action(
+            {
+                "action_id": action_id,
+                "status": "proposed",
+                "amount_cents": req.amount_cents,
+                "from_account": req.from_account,
+                "payee": req.payee,
+                "claim_id": req.claim_id,
+                "item_id": req.item_id,
+                "code_mac": code_mac(self.secret, action_id, req.amount_cents, req.from_account, req.payee, code),
+                "dry_run": dry_run,
+                "created_at": iso(now),
+                "expires_at": expires_at,
+            }
+        )
+        self.repo.append_audit(
+            "proposed",
+            action_id,
+            {
+                "amount_cents": req.amount_cents,
+                "from": req.from_account,
+                "payee": req.payee,
+                "claim_id": req.claim_id,
+                "item_id": req.item_id,
+                "dry_run": dry_run,
+                "expires_at": expires_at,
+            },
+            iso(now),
+        )
         return {
-            "action_id": action_id, "status": "proposed", "amount_cents": req.amount_cents, "from": req.from_account,
-            "payee": req.payee, "confirm_code": code, "expires_at": expires_at, "dry_run": dry_run,
+            "action_id": action_id,
+            "status": "proposed",
+            "amount_cents": req.amount_cents,
+            "from": req.from_account,
+            "payee": req.payee,
+            "confirm_code": code,
+            "expires_at": expires_at,
+            "dry_run": dry_run,
         }
 
     def _check_claim_line(self, claim_id: str, item_id: str | None) -> None:
@@ -83,7 +108,9 @@ class ActionService:
                 self.repo.append_audit("expired", action["action_id"], {}, iso(now))
             raise ActionError("This confirm code expired. Propose the payment again to get a new code.", 410)
 
-        expected = code_mac(self.secret, action["action_id"], action["amount_cents"], action["from_account"], action["payee"], req.confirm_code)
+        expected = code_mac(
+            self.secret, action["action_id"], action["amount_cents"], action["from_account"], action["payee"], req.confirm_code
+        )
         if not hmac.compare_digest(expected, action["code_mac"]):
             attempts = self.repo.count_failed_attempt(action["action_id"], MAX_ATTEMPTS)
             self.repo.append_audit("code_rejected", action["action_id"], {"attempts": attempts}, iso(now))
@@ -93,16 +120,20 @@ class ActionService:
             raise ActionError("That code does not match this action.", 403)
 
         mismatched = [
-            name for name, sent, stored in (
+            name
+            for name, sent, stored in (
                 ("amount_cents", req.amount_cents, action["amount_cents"]),
                 ("from", req.from_account, action["from_account"]),
                 ("payee", req.payee, action["payee"]),
-            ) if sent is not None and sent != stored
+            )
+            if sent is not None and sent != stored
         ]
         if mismatched:
             raise ActionError(f"The confirmation does not match the proposed action ({', '.join(mismatched)}).", 409)
 
-        if not self.repo.transition_action(action["action_id"], "proposed", "executing", {"confirmed_at": iso(now)}, not_expired_at=iso(now)):
+        if not self.repo.transition_action(
+            action["action_id"], "proposed", "executing", {"confirmed_at": iso(now)}, not_expired_at=iso(now)
+        ):
             raise ActionError("This action was already confirmed or has expired.", 409)
         self.repo.append_audit("confirmed", action["action_id"], {"amount_cents": action["amount_cents"]}, iso(now))
         return self._execute(action)
@@ -121,21 +152,40 @@ class ActionService:
 
         try:
             readback = check_readback(
-                bank.read_withdrawal(withdrawal_id), withdrawal_id=withdrawal_id, account_id=action["from_account"],
-                amount_cents=action["amount_cents"], action_id=action_id,
+                bank.read_withdrawal(withdrawal_id),
+                withdrawal_id=withdrawal_id,
+                account_id=action["from_account"],
+                amount_cents=action["amount_cents"],
+                action_id=action_id,
             )
         except BankError as exc:
             readback = {"ok": False, "error": str(exc)}
         status = "executed" if readback["ok"] else "unverified"
         at = iso(self.clock())
         self.repo.transition_action(action_id, "executing", status, {"finished_at": at, "nessie_id": withdrawal_id, "readback": readback})
-        row = self.repo.append_audit(status, action_id, {
-            "amount_cents": action["amount_cents"], "from": action["from_account"], "payee": action["payee"],
-            "withdrawal_id": withdrawal_id, "readback_ok": readback["ok"], "dry_run": action["dry_run"], "bank": bank.mode,
-        }, at)
+        row = self.repo.append_audit(
+            status,
+            action_id,
+            {
+                "amount_cents": action["amount_cents"],
+                "from": action["from_account"],
+                "payee": action["payee"],
+                "withdrawal_id": withdrawal_id,
+                "readback_ok": readback["ok"],
+                "dry_run": action["dry_run"],
+                "bank": bank.mode,
+            },
+            at,
+        )
         return {
-            "action_id": action_id, "status": status, "amount_cents": action["amount_cents"], "from": action["from_account"],
-            "payee": action["payee"], "dry_run": action["dry_run"], "withdrawal_id": withdrawal_id, "readback": readback,
+            "action_id": action_id,
+            "status": status,
+            "amount_cents": action["amount_cents"],
+            "from": action["from_account"],
+            "payee": action["payee"],
+            "dry_run": action["dry_run"],
+            "withdrawal_id": withdrawal_id,
+            "readback": readback,
             "audit": {"seq": row["seq"], "hash": row["hash"], "prev_hash": row["prev_hash"]},
         }
 
@@ -145,7 +195,5 @@ class ActionService:
             raise ActionError("No action with that id.", 404)
         action.pop("code_mac", None)
         action["from"] = action.pop("from_account")
-        action["audit"] = [
-            {k: row[k] for k in ("seq", "ts", "event", "hash", "prev_hash")} for row in self.repo.audit_rows(action_id)
-        ]
+        action["audit"] = [{k: row[k] for k in ("seq", "ts", "event", "hash", "prev_hash")} for row in self.repo.audit_rows(action_id)]
         return action

@@ -30,7 +30,9 @@ class Repository(Protocol):
     def insert_action(self, action: dict[str, Any]) -> None: ...
     def get_action(self, action_id: str) -> dict[str, Any] | None: ...
     def count_failed_attempt(self, action_id: str, lock_at: int) -> int: ...
-    def transition_action(self, action_id: str, from_status: str, to_status: str, fields: dict[str, Any], not_expired_at: str | None = None) -> bool: ...
+    def transition_action(
+        self, action_id: str, from_status: str, to_status: str, fields: dict[str, Any], not_expired_at: str | None = None
+    ) -> bool: ...
 
     def append_audit(self, event: str, action_id: str | None, data: dict[str, Any], ts: str) -> dict[str, Any]: ...
     def audit_rows(self, action_id: str | None = None) -> list[dict[str, Any]]: ...
@@ -182,7 +184,15 @@ class SQLiteRepository:
         with self._tx() as c:
             c.execute(
                 "INSERT INTO scans (scan_id, persona_id, customer_id, jurisdiction, fictional, display_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (scan["scan_id"], scan.get("persona_id"), scan.get("customer_id"), scan["jurisdiction"], int(scan["fictional"]), scan.get("display_name"), scan["created_at"]),
+                (
+                    scan["scan_id"],
+                    scan.get("persona_id"),
+                    scan.get("customer_id"),
+                    scan["jurisdiction"],
+                    int(scan["fictional"]),
+                    scan.get("display_name"),
+                    scan["created_at"],
+                ),
             )
             self._insert_evidence(c, scan["scan_id"], evidence)
 
@@ -216,9 +226,17 @@ class SQLiteRepository:
                 "INSERT INTO claims (claim_id, jurisdiction, scan_id, persona_id, fictional, display_name, engine, input_json, output_json, refused_json, created_at)"
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
-                    claim["claim_id"], claim["jurisdiction"], claim.get("scan_id"), claim.get("persona_id"), int(claim["fictional"]),
-                    claim.get("display_name"), claim["engine"], json.dumps(claim["input"]), json.dumps(claim["output"]),
-                    json.dumps(claim["refused"]), claim["created_at"],
+                    claim["claim_id"],
+                    claim["jurisdiction"],
+                    claim.get("scan_id"),
+                    claim.get("persona_id"),
+                    int(claim["fictional"]),
+                    claim.get("display_name"),
+                    claim["engine"],
+                    json.dumps(claim["input"]),
+                    json.dumps(claim["output"]),
+                    json.dumps(claim["refused"]),
+                    claim["created_at"],
                 ),
             )
 
@@ -227,10 +245,17 @@ class SQLiteRepository:
         if row is None:
             return None
         return {
-            "claim_id": row["claim_id"], "jurisdiction": row["jurisdiction"], "scan_id": row["scan_id"],
-            "persona_id": row["persona_id"], "fictional": bool(row["fictional"]), "display_name": row["display_name"],
-            "engine": row["engine"], "input": json.loads(row["input_json"]), "output": json.loads(row["output_json"]),
-            "refused": json.loads(row["refused_json"]), "created_at": row["created_at"],
+            "claim_id": row["claim_id"],
+            "jurisdiction": row["jurisdiction"],
+            "scan_id": row["scan_id"],
+            "persona_id": row["persona_id"],
+            "fictional": bool(row["fictional"]),
+            "display_name": row["display_name"],
+            "engine": row["engine"],
+            "input": json.loads(row["input_json"]),
+            "output": json.loads(row["output_json"]),
+            "refused": json.loads(row["refused_json"]),
+            "created_at": row["created_at"],
         }
 
     # actions: every state change is a compare-and-set on status
@@ -241,9 +266,17 @@ class SQLiteRepository:
                 "INSERT INTO actions (action_id, status, amount_cents, from_account, payee, claim_id, item_id, code_mac, dry_run, created_at, expires_at)"
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
-                    action["action_id"], action["status"], action["amount_cents"], action["from_account"], action["payee"],
-                    action.get("claim_id"), action.get("item_id"), action["code_mac"], int(action["dry_run"]),
-                    action["created_at"], action["expires_at"],
+                    action["action_id"],
+                    action["status"],
+                    action["amount_cents"],
+                    action["from_account"],
+                    action["payee"],
+                    action.get("claim_id"),
+                    action.get("item_id"),
+                    action["code_mac"],
+                    int(action["dry_run"]),
+                    action["created_at"],
+                    action["expires_at"],
                 ),
             )
 
@@ -310,8 +343,18 @@ class SQLiteRepository:
         out = []
         for r in rows:
             body = json.loads(r["body"])
-            out.append({"seq": r["seq"], "ts": r["ts"], "event": r["event"], "action_id": r["action_id"],
-                        "data": body.get("data"), "prev_hash": r["prev_hash"], "hash": r["hash"], "body": body})
+            out.append(
+                {
+                    "seq": r["seq"],
+                    "ts": r["ts"],
+                    "event": r["event"],
+                    "action_id": r["action_id"],
+                    "data": body.get("data"),
+                    "prev_hash": r["prev_hash"],
+                    "hash": r["hash"],
+                    "body": body,
+                }
+            )
         return out
 
     # shares: only the sha256 of a token is stored
@@ -328,6 +371,4 @@ class SQLiteRepository:
 
     def revoke_share(self, token_hash: str, at: str) -> bool:
         with self._tx() as c:
-            return c.execute(
-                "UPDATE shares SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL", (at, token_hash)
-            ).rowcount == 1
+            return c.execute("UPDATE shares SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL", (at, token_hash)).rowcount == 1

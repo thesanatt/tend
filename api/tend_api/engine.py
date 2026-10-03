@@ -122,7 +122,10 @@ class NativeEngine:
         fd, tmp = tempfile.mkstemp(dir=out.parent, suffix=".tlaw.tmp")
         os.close(fd)
         try:
-            proc = subprocess.run([str(self.tendc), str(rules_path), "-o", tmp], capture_output=True, text=True, timeout=60)
+            try:
+                proc = subprocess.run([str(self.tendc), str(rules_path), "-o", tmp], capture_output=True, text=True, timeout=60)
+            except (OSError, subprocess.TimeoutExpired) as exc:
+                raise EngineUnavailable(f"could not run tendc: {exc}") from exc
             if proc.returncode != 0:
                 raise EngineUnavailable(f"tendc failed on {rules_path.name}: {(proc.stderr or proc.stdout).strip()[:500]}")
             os.replace(tmp, out)
@@ -131,16 +134,16 @@ class NativeEngine:
                 os.unlink(tmp)
 
     def evaluate(self, payload: dict[str, Any]) -> dict[str, Any]:
-        image, _ = self.law_image(payload["jurisdiction"])
         lib = self._library()
+        image, _ = self.law_image(payload["jurisdiction"])
         request = json.dumps(payload, separators=(",", ":")).encode("utf-8")
         with self._lock:
             text = self._take(lib, lib.tend_eval_json(image, len(image), request))
         return _parse_result(text)
 
     def disasm(self, st: str) -> str:
-        image, _ = self.law_image(st)
         lib = self._library()
+        image, _ = self.law_image(st)
         with self._lock:
             return self._take(lib, lib.tend_disasm(image, len(image)))
 
@@ -233,7 +236,8 @@ _LAW_PARAM_WORDS = ("law", "rule", "verified", "jurisdiction_doc", "spec")
 def call_reference(fn: Callable[..., Any], law: dict[str, Any], payload: dict[str, Any]) -> Any:
     # Accepts evaluate(law, input), evaluate(input, law), or evaluate(input) that loads rules itself.
     positional = [
-        p for p in inspect.signature(fn).parameters.values()
+        p
+        for p in inspect.signature(fn).parameters.values()
         if p.kind in (inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD)
     ]
     required = [p for p in positional if p.default is inspect.Parameter.empty]

@@ -92,14 +92,22 @@ class ClaimService:
             raise ClaimError(str(exc), 422) from exc
         validate_output(output, payload)
         claim_id = f"clm_{secrets.token_hex(10)}"
-        self.repo.save_claim({
-            "claim_id": claim_id, "jurisdiction": claim.jurisdiction, "scan_id": scan_id,
-            "persona_id": scan["persona_id"] if scan else None, "fictional": bool(scan and scan["fictional"]),
-            "display_name": scan["display_name"] if scan else None, "engine": engine,
-            "input": payload, "output": output, "refused": refused, "created_at": iso(self.clock()),
-        })
-        response = {**output, "claim_id": claim_id, "refused": refused,
-                    "evidence": {"checked": scan_id is not None, "scan_id": scan_id}}
+        self.repo.save_claim(
+            {
+                "claim_id": claim_id,
+                "jurisdiction": claim.jurisdiction,
+                "scan_id": scan_id,
+                "persona_id": scan["persona_id"] if scan else None,
+                "fictional": bool(scan and scan["fictional"]),
+                "display_name": scan["display_name"] if scan else None,
+                "engine": engine,
+                "input": payload,
+                "output": output,
+                "refused": refused,
+                "created_at": iso(self.clock()),
+            }
+        )
+        response = {**output, "claim_id": claim_id, "refused": refused, "evidence": {"checked": scan_id is not None, "scan_id": scan_id}}
         return response, engine
 
     def get(self, claim_id: str) -> dict[str, Any]:
@@ -118,7 +126,7 @@ class ClaimService:
         def cite(ids: list[str]) -> list[dict[str, Any]]:
             return [citation(rules[r], sources) for r in ids if r in rules]
 
-        items ={i["item_id"]: i for i in claim["input"]["items"]}
+        items = {i["item_id"]: i for i in claim["input"]["items"]}
         output = claim["output"]
         lines = []
         for ln in output.get("lines", []):
@@ -126,20 +134,33 @@ class ClaimService:
             ids = list(ln.get("rule_ids") or [])
             if ln.get("cap_rule_id") and ln["cap_rule_id"] not in ids:
                 ids.append(ln["cap_rule_id"])
-            lines.append({
-                **ln, "date": item.get("date"), "description": item.get("description", ""),
-                "amount_cents": item.get("amount_cents"), "is_bill": item.get("is_bill", False), "citations": cite(ids),
-            })
-        checks = {
-            name: {**check, "citations": cite(check.get("rule_ids") or [])}
-            for name, check in (output.get("checks") or {}).items()
-        }
+            lines.append(
+                {
+                    **ln,
+                    "date": item.get("date"),
+                    "description": item.get("description", ""),
+                    "amount_cents": item.get("amount_cents"),
+                    "is_bill": item.get("is_bill", False),
+                    "citations": cite(ids),
+                }
+            )
+        checks = {name: {**check, "citations": cite(check.get("rule_ids") or [])} for name, check in (output.get("checks") or {}).items()}
         return {
-            "claim_id": claim["claim_id"], "jurisdiction": st, "name": doc.get("name"), "program": doc.get("program", {}),
-            "fictional": claim["fictional"], "display_name": claim.get("display_name"), "engine": claim["engine"],
-            "created_at": claim["created_at"], "context": claim["input"].get("context", {}),
-            "law_image_sha256": output.get("law_image_sha256"), "rules_sha256": self.rules.file_sha256(st),
-            "totals": output.get("totals", {}), "checks": checks, "lines": lines, "refused": claim.get("refused", []),
+            "claim_id": claim["claim_id"],
+            "jurisdiction": st,
+            "name": doc.get("name"),
+            "program": doc.get("program", {}),
+            "fictional": claim["fictional"],
+            "display_name": claim.get("display_name"),
+            "engine": claim["engine"],
+            "created_at": claim["created_at"],
+            "context": claim["input"].get("context", {}),
+            "law_image_sha256": output.get("law_image_sha256"),
+            "rules_sha256": self.rules.file_sha256(st),
+            "totals": output.get("totals", {}),
+            "checks": checks,
+            "lines": lines,
+            "refused": claim.get("refused", []),
             "info": cite(output.get("info_rule_ids") or []),
         }
 
@@ -169,8 +190,15 @@ class ClaimService:
             forensic_exam=any(line.expense == "forensic_exam" for line in bill.lines) or persona_context.get("forensic_exam") is True,
         )
         items = [
-            Item(item_id=line.item_id, date=line.date, amount_cents=line.amount_cents, expense=line.expense,
-                 confirmed=False, is_bill=True, description=line.description[:200])
+            Item(
+                item_id=line.item_id,
+                date=line.date,
+                amount_cents=line.amount_cents,
+                expense=line.expense,
+                confirmed=False,
+                is_bill=True,
+                description=line.description[:200],
+            )
             for line in bill.lines
         ]
         payload = ClaimInput(jurisdiction=req.st, context=context, items=items).model_dump(mode="json")
@@ -186,20 +214,37 @@ class ClaimService:
         lines, holds, flags = [], [], []
         for line in bill.lines:
             result = by_item.get(line.item_id, {})
-            lines.append({
-                "line_no": line.line_no, "item_id": line.item_id, "date": line.date.isoformat(), "description": line.description,
-                "amount_cents": line.amount_cents, "expense": line.expense, "matched_on": line.match,
-                "status": result.get("status"), "rule_ids": result.get("rule_ids", []),
-            })
+            lines.append(
+                {
+                    "line_no": line.line_no,
+                    "item_id": line.item_id,
+                    "date": line.date.isoformat(),
+                    "description": line.description,
+                    "amount_cents": line.amount_cents,
+                    "expense": line.expense,
+                    "matched_on": line.match,
+                    "status": result.get("status"),
+                    "rule_ids": result.get("rule_ids", []),
+                }
+            )
             if result.get("status") != "held":
                 continue
             held_rules = [rules[r] for r in result.get("rule_ids", []) if r in rules]
-            holds.append({
-                "item_id": line.item_id, "line_no": line.line_no, "description": line.description,
-                "amount_cents": line.amount_cents, "message": HOLD_MESSAGE,
-                "citations": [citation(r, sources) for r in held_rules],
-                "payers": [r["params"]["payer"] for r in held_rules if r.get("category") == "exam_payment" and (r.get("params") or {}).get("payer")],
-            })
+            holds.append(
+                {
+                    "item_id": line.item_id,
+                    "line_no": line.line_no,
+                    "description": line.description,
+                    "amount_cents": line.amount_cents,
+                    "message": HOLD_MESSAGE,
+                    "citations": [citation(r, sources) for r in held_rules],
+                    "payers": [
+                        r["params"]["payer"]
+                        for r in held_rules
+                        if r.get("category") == "exam_payment" and (r.get("params") or {}).get("payer")
+                    ],
+                }
+            )
             flag = consent_flag(line.item_id, line.description, doc, sources)
             if flag:
                 flags.append(flag)
@@ -209,10 +254,17 @@ class ClaimService:
         scan_id = self._register_bill_evidence(req, bill)
         result = {
             "bill": {
-                "bill_id": bill.bill_id or req.bill_id, "provider": bill.provider, "statement_date": bill.statement_date,
-                "fictional": bill.fictional, "format": bill.format, "sha256": bill.sha256, "nessie_bill_id": bill.nessie_bill_id,
-                "total_cents": bill.total_cents, "amount_due_cents": bill.amount_due_cents,
-                "lines_sum_cents": bill.lines_sum_cents, "adjustments": bill.adjustments,
+                "bill_id": bill.bill_id or req.bill_id,
+                "provider": bill.provider,
+                "statement_date": bill.statement_date,
+                "fictional": bill.fictional,
+                "format": bill.format,
+                "sha256": bill.sha256,
+                "nessie_bill_id": bill.nessie_bill_id,
+                "total_cents": bill.total_cents,
+                "amount_due_cents": bill.amount_due_cents,
+                "lines_sum_cents": bill.lines_sum_cents,
+                "adjustments": bill.adjustments,
             },
             "checks": checks,
             "lines": lines,
@@ -227,15 +279,28 @@ class ClaimService:
         return result, engine
 
     def _register_bill_evidence(self, req: BillAuditRequest, bill: Any) -> str:
-        evidence = [{"item_id": line.item_id, "amount_cents": line.amount_cents, "date": line.date.isoformat(), "source": "bill"} for line in bill.lines]
+        evidence = [
+            {"item_id": line.item_id, "amount_cents": line.amount_cents, "date": line.date.isoformat(), "source": "bill"}
+            for line in bill.lines
+        ]
         if req.scan_id is not None:
             if self.repo.get_scan(req.scan_id) is None:
                 raise ClaimError(f"scan {req.scan_id} not found", 404)
             self.repo.add_evidence(req.scan_id, evidence)
             return req.scan_id
         scan_id = f"scan_{secrets.token_hex(10)}"
-        self.repo.save_scan({"scan_id": scan_id, "persona_id": req.persona_id, "customer_id": None, "jurisdiction": req.st,
-                             "fictional": bill.fictional, "display_name": None, "created_at": iso(self.clock())}, evidence)
+        self.repo.save_scan(
+            {
+                "scan_id": scan_id,
+                "persona_id": req.persona_id,
+                "customer_id": None,
+                "jurisdiction": req.st,
+                "fictional": bill.fictional,
+                "display_name": None,
+                "created_at": iso(self.clock()),
+            },
+            evidence,
+        )
         return scan_id
 
 
@@ -243,16 +308,26 @@ def consent_flag(item_id: str, description: str, doc: dict[str, Any], sources: d
     """A held exam line that mentions insurance (a deductible, a co-pay) raises the separate consent-to-bill-insurance rule."""
     if not INSURANCE_MENTION.search(description):
         return None
-    exam_rules = [r for r in doc.get("rules", []) if r.get("category") == "exam_no_bill"
-                  and (r.get("params") or {}).get("insurance_billing") in ("consent_required", "prohibited")]
+    exam_rules = [
+        r
+        for r in doc.get("rules", [])
+        if r.get("category") == "exam_no_bill" and (r.get("params") or {}).get("insurance_billing") in ("consent_required", "prohibited")
+    ]
     consent = [r for r in exam_rules if re.search(r"consent", r.get("quote", ""), re.I)] or exam_rules
     if not consent:
         return None
     mode = consent[0]["params"]["insurance_billing"]
-    message = ("This line shows insurance was billed for the exam. That needs your express written consent."
-               if mode == "consent_required" else "This line shows insurance was billed for the exam, which this state does not allow.")
-    return {"item_id": item_id, "kind": "insurance_billed_for_exam", "message": message,
-            "citations": [citation(r, sources) for r in consent]}
+    message = (
+        "This line shows insurance was billed for the exam. That needs your express written consent."
+        if mode == "consent_required"
+        else "This line shows insurance was billed for the exam, which this state does not allow."
+    )
+    return {
+        "item_id": item_id,
+        "kind": "insurance_billed_for_exam",
+        "message": message,
+        "citations": [citation(r, sources) for r in consent],
+    }
 
 
 def _police(value: Any) -> str:

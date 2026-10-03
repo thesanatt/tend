@@ -1,4 +1,5 @@
 """Test double for refengine's tend_ref.evaluate. Follows docs/SPEC.md closely enough for API tests."""
+
 import datetime as dt
 
 INFO = ("collateral_source", "conduct_reduction", "emergency_award", "eligible_crime", "residency")
@@ -28,8 +29,16 @@ def evaluate(law, payload):
     for it in sorted(payload["items"], key=lambda i: (i["date"], i["item_id"])):
         d = dt.date.fromisoformat(it["date"])
         expense = it["expense"]
-        line = {"item_id": it["item_id"], "expense": expense, "status": None, "requested_cents": it["amount_cents"],
-                "allowed_cents": 0, "rule_ids": [], "cap_rule_id": None, "flags": []}
+        line = {
+            "item_id": it["item_id"],
+            "expense": expense,
+            "status": None,
+            "requested_cents": it["amount_cents"],
+            "allowed_cents": 0,
+            "rule_ids": [],
+            "cap_rule_id": None,
+            "flags": [],
+        }
         if d < incident or d > as_of:
             line["status"] = "out_of_window"
         elif expense == "forensic_exam" and (no_bill or payment):
@@ -98,11 +107,17 @@ def evaluate(law, payload):
 
     deadline_rules = [r for r in cat("filing_deadline") if (r.get("params") or {}).get("years") or (r.get("params") or {}).get("days")]
     if deadline_rules:
+
         def end(r):
             p = r["params"]
             return _add_years(incident, p["years"]) if p.get("years") else incident + dt.timedelta(days=p["days"])
+
         last = max(end(r) for r in deadline_rules)
-        deadline = {"status": "ok" if as_of <= last else "late", "deadline_date": last.isoformat(), "rule_ids": [r["id"] for r in deadline_rules]}
+        deadline = {
+            "status": "ok" if as_of <= last else "late",
+            "deadline_date": last.isoformat(),
+            "rule_ids": [r["id"] for r in deadline_rules],
+        }
     else:
         deadline = {"status": "unknown", "deadline_date": None, "rule_ids": []}
 
@@ -119,7 +134,9 @@ def evaluate(law, payload):
     reporting_rules = cat("reporting_requirement")
     reporting = {"status": "unknown", "rule_ids": [r["id"] for r in reporting_rules]}
     if reporting_rules:
-        alternative = ctx.get("forensic_exam") and any("forensic_exam" in ((r.get("params") or {}).get("alternatives") or []) for r in reporting_rules)
+        alternative = ctx.get("forensic_exam") and any(
+            "forensic_exam" in ((r.get("params") or {}).get("alternatives") or []) for r in reporting_rules
+        )
         if ctx.get("police_report") == "yes" or alternative:
             reporting["status"] = "satisfied"
         elif ctx.get("police_report") == "no":

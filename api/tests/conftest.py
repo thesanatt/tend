@@ -64,5 +64,3 @@ def native_settings(settings: Settings, fake_libtend: Path) -> Settings:
     laws.mkdir(parents=True, exist_ok=True)
     (laws / "MI.tlaw").write_bytes(law_image())
     return dataclasses.replace(settings, engine_lib=fake_libtend)
-
-

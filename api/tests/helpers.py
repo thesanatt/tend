@@ -38,8 +38,12 @@ class FakeClock:
 
 
 CLASSIFY_KEYWORDS = (
-    ("counsel", "counseling"), ("ride", "transportation"), ("lock", "security"),
-    ("phone", "property_replacement"), ("pharmacy", "prescription"), ("hospital", "medical"),
+    ("counsel", "counseling"),
+    ("ride", "transportation"),
+    ("lock", "security"),
+    ("phone", "property_replacement"),
+    ("pharmacy", "prescription"),
+    ("hospital", "medical"),
 )
 
 
@@ -53,18 +57,20 @@ def fake_classifier(transactions: list[dict[str, Any]], st: str) -> list[dict[st
         match = next(((key, expense) for key, expense in CLASSIFY_KEYWORDS if key in text), None)
         if match is None:
             continue
-        items.append({
-            "item_id": f"nessie:{t['_id']}",
-            "date": t.get("purchase_date") or t.get("transaction_date") or t.get("creation_date"),
-            "amount_cents": t.get("amount_cents", t.get("payment_amount_cents")),
-            "expense": match[1],
-            "confirmed": False,
-            "is_bill": t.get("kind") == "bill",
-            "units": 1 if match[1] == "counseling" else 0,
-            "description": name or text,
-            "confidence": 0.9,
-            "reason": f"merchant name mentions {match[0]}",
-        })
+        items.append(
+            {
+                "item_id": f"nessie:{t['_id']}",
+                "date": t.get("purchase_date") or t.get("transaction_date") or t.get("creation_date"),
+                "amount_cents": t.get("amount_cents", t.get("payment_amount_cents")),
+                "expense": match[1],
+                "confirmed": False,
+                "is_bill": t.get("kind") == "bill",
+                "units": 1 if match[1] == "counseling" else 0,
+                "description": name or text,
+                "confidence": 0.9,
+                "reason": f"merchant name mentions {match[0]}",
+            }
+        )
     return items
 
 

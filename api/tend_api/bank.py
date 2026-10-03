@@ -31,8 +31,13 @@ class DryRunBank:
         withdrawal_id = f"dryrun-{uuid.uuid4().hex}"
         with self._lock:
             self._records[withdrawal_id] = {
-                "_id": withdrawal_id, "type": "withdrawal", "payer_id": account_id, "medium": "balance",
-                "status": "completed", "amount_cents": amount_cents, "description": description,
+                "_id": withdrawal_id,
+                "type": "withdrawal",
+                "payer_id": account_id,
+                "medium": "balance",
+                "status": "completed",
+                "amount_cents": amount_cents,
+                "description": description,
             }
         return withdrawal_id
 

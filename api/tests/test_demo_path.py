@@ -1,4 +1,5 @@
 """The demo path end to end: scan, audit the bill, claim, pay the $118, packet, share."""
+
 from __future__ import annotations
 
 import io
@@ -31,10 +32,15 @@ def test_demo_path(client):
     assert statuses[exam] == "held"
     assert statuses["nessie:p-0004"] == "excluded"  # the phone
 
-    proposed = client.post("/api/actions/propose", json={
-        "from": "acct-checking-0001", "payee": "Riverbend General Hospital (fictional)", "amount_cents": audit["payable_cents"],
-        "claim_id": claim["claim_id"],
-    }).json()
+    proposed = client.post(
+        "/api/actions/propose",
+        json={
+            "from": "acct-checking-0001",
+            "payee": "Riverbend General Hospital (fictional)",
+            "amount_cents": audit["payable_cents"],
+            "claim_id": claim["claim_id"],
+        },
+    ).json()
     done = client.post("/api/actions/confirm", json={"action_id": proposed["action_id"], "confirm_code": proposed["confirm_code"]})
     assert done.status_code == 200, done.text
     assert done.json()["status"] == "executed"

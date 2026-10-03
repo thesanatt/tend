@@ -100,8 +100,15 @@ def normalize_items(raw_items: list[Any]) -> tuple[list[Item], list[dict[str, An
 
 
 class ScanService:
-    def __init__(self, repo: Repository, seed_dir: Path, clock: Clock, classifier: Classifier | None = None,
-                 live_scan: bool = False, nessie_client_factory: Callable[[], Any] | None = None):
+    def __init__(
+        self,
+        repo: Repository,
+        seed_dir: Path,
+        clock: Clock,
+        classifier: Classifier | None = None,
+        live_scan: bool = False,
+        nessie_client_factory: Callable[[], Any] | None = None,
+    ):
         self.repo = repo
         self.seed_dir = seed_dir
         self.clock = clock
@@ -149,8 +156,15 @@ class ScanService:
         fictional = bool(snap.get("fictional", persona_id is not None))
         display_name = snap.get("display_name") if fictional else None
         self.repo.save_scan(
-            {"scan_id": scan_id, "persona_id": persona_id, "customer_id": req.customer_id, "jurisdiction": req.st,
-             "fictional": fictional, "display_name": display_name, "created_at": iso(now)},
+            {
+                "scan_id": scan_id,
+                "persona_id": persona_id,
+                "customer_id": req.customer_id,
+                "jurisdiction": req.st,
+                "fictional": fictional,
+                "display_name": display_name,
+                "created_at": iso(now),
+            },
             [{"item_id": i.item_id, "amount_cents": i.amount_cents, "date": i.date.isoformat(), "source": "nessie"} for i in items],
         )
         return {
@@ -158,7 +172,8 @@ class ScanService:
             "persona_id": persona_id,
             "customer_id": req.customer_id,
             "fictional": fictional,
-            "label": snap.get("label") or (DEFAULT_LABEL if fictional else "Bank records come from Capital One's Nessie sandbox, a mock bank."),
+            "label": snap.get("label")
+            or (DEFAULT_LABEL if fictional else "Bank records come from Capital One's Nessie sandbox, a mock bank."),
             "display_name": display_name,
             "st": req.st,
             "counts": {
@@ -170,8 +185,10 @@ class ScanService:
             "engine_input": {
                 "jurisdiction": req.st,
                 "context": {
-                    "incident_date": incident_date.isoformat(), "as_of_date": as_of.isoformat(),
-                    "police_report": police, "forensic_exam": forensic_exam,
+                    "incident_date": incident_date.isoformat(),
+                    "as_of_date": as_of.isoformat(),
+                    "police_report": police,
+                    "forensic_exam": forensic_exam,
                 },
                 "items": [i.model_dump(mode="json") for i in items],
             },

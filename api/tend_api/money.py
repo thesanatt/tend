@@ -7,9 +7,7 @@ from decimal import Decimal, InvalidOperation
 from typing import Any
 
 # "$1,171.75", "325.00", "(12.50)", "-12.50", "$443". Cents must be exactly two digits when present.
-_MONEY = re.compile(
-    r"^(?P<open>\()?\s*(?P<neg>-)?\s*\$?\s*(?P<whole>\d{1,3}(?:,\d{3})+|\d+)(?:\.(?P<frac>\d{2}))?\s*(?P<close>\))?$"
-)
+_MONEY = re.compile(r"^(?P<open>\()?\s*(?P<neg>-)?\s*\$?\s*(?P<whole>\d{1,3}(?:,\d{3})+|\d+)(?:\.(?P<frac>\d{2}))?\s*(?P<close>\))?$")
 MONEY_TOKEN = re.compile(r"\(?-?\$?\s?(?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2}\)?|\(?-?\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)\)?")
 
 

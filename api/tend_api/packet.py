@@ -80,33 +80,74 @@ def still_needed(view: dict[str, Any], rules_doc: dict[str, Any]) -> list[dict[s
     counted = sorted({ln["expense"] for ln in lines if ln.get("status") in ("eligible", "needs_confirmation")})
     for expense in counted:
         if expense in DOCS_BY_EXPENSE:
-            needed.append({"document": DOCS_BY_EXPENSE[expense], "why": f"You are asking for {expense.replace('_', ' ')} costs.", "rule_ids": []})
+            needed.append(
+                {"document": DOCS_BY_EXPENSE[expense], "why": f"You are asking for {expense.replace('_', ' ')} costs.", "rule_ids": []}
+            )
     collateral = [r["id"] for r in rules_doc.get("rules", []) if r.get("category") == "collateral_source"]
     if collateral and INSURABLE & set(counted):
-        needed.append({"document": "Insurance statements (explanation of benefits) for those bills, or a note that you have no insurance",
-                       "why": "The program pays after insurance and other sources.", "rule_ids": collateral[:1]})
+        needed.append(
+            {
+                "document": "Insurance statements (explanation of benefits) for those bills, or a note that you have no insurance",
+                "why": "The program pays after insurance and other sources.",
+                "rule_ids": collateral[:1],
+            }
+        )
     reporting = (view.get("checks") or {}).get("reporting", {})
     status = reporting.get("status")
     if status == "satisfied" and view.get("context", {}).get("police_report") != "yes":
-        needed.append({"document": "Proof that you had a forensic exam (the hospital can provide it)",
-                       "why": "Here the exam stands in for a police report.", "rule_ids": reporting.get("rule_ids", [])})
+        needed.append(
+            {
+                "document": "Proof that you had a forensic exam (the hospital can provide it)",
+                "why": "Here the exam stands in for a police report.",
+                "rule_ids": reporting.get("rule_ids", []),
+            }
+        )
     elif status == "satisfied":
-        needed.append({"document": "The police report number", "why": "The program checks police records.", "rule_ids": reporting.get("rule_ids", [])})
+        needed.append(
+            {"document": "The police report number", "why": "The program checks police records.", "rule_ids": reporting.get("rule_ids", [])}
+        )
     elif status == "required":
-        needed.append({"document": "A police report, or proof of an allowed alternative", "why": "This program requires a report.", "rule_ids": reporting.get("rule_ids", [])})
+        needed.append(
+            {
+                "document": "A police report, or proof of an allowed alternative",
+                "why": "This program requires a report.",
+                "rule_ids": reporting.get("rule_ids", []),
+            }
+        )
     elif status == "unknown" and reporting.get("rule_ids"):
-        needed.append({"document": "Ask a Navigator whether you need a police report", "why": "Tend could not tell from what you shared.", "rule_ids": reporting.get("rule_ids", [])})
+        needed.append(
+            {
+                "document": "Ask a Navigator whether you need a police report",
+                "why": "Tend could not tell from what you shared.",
+                "rule_ids": reporting.get("rule_ids", []),
+            }
+        )
     if any(ln.get("status") == "held" for ln in lines):
-        needed.append({"document": "A copy of the bill with the held line marked, to send back to billing",
-                       "why": "The law says you should not have been billed for it.", "rule_ids": []})
+        needed.append(
+            {
+                "document": "A copy of the bill with the held line marked, to send back to billing",
+                "why": "The law says you should not have been billed for it.",
+                "rule_ids": [],
+            }
+        )
     waiting = sum(1 for ln in lines if ln.get("status") == "needs_confirmation")
     if waiting:
-        needed.append({"document": f"Your yes on {waiting} more {'line' if waiting == 1 else 'lines'} in Tend",
-                       "why": "Tend does not count a line until you confirm it.", "rule_ids": []})
+        needed.append(
+            {
+                "document": f"Your yes on {waiting} more {'line' if waiting == 1 else 'lines'} in Tend",
+                "why": "Tend does not count a line until you confirm it.",
+                "rule_ids": [],
+            }
+        )
     deadline = (view.get("checks") or {}).get("deadline", {})
     if deadline.get("status") == "late":
-        needed.append({"document": "A short written reason for filing late", "why": "The Commission can extend the deadline for good cause.",
-                       "rule_ids": deadline.get("rule_ids", [])})
+        needed.append(
+            {
+                "document": "A short written reason for filing late",
+                "why": "The Commission can extend the deadline for good cause.",
+                "rule_ids": deadline.get("rule_ids", []),
+            }
+        )
     needed.append({"document": "Your signature on the application", "why": "Tend never signs or files for you.", "rule_ids": []})
     return needed
 
@@ -118,7 +159,9 @@ def _styles() -> dict[str, ParagraphStyle]:
         "small": ParagraphStyle("small", parent=base, fontSize=8, leading=10.5, textColor=MUTED),
         "quote": ParagraphStyle("quote", parent=base, fontSize=8.5, leading=11.5, leftIndent=8, textColor=INK),
         "title": ParagraphStyle("title", parent=base, fontName="Helvetica-Bold", fontSize=17, leading=21),
-        "h2": ParagraphStyle("h2", parent=base, fontName="Helvetica-Bold", fontSize=11.5, leading=15, spaceBefore=14, spaceAfter=5, keepWithNext=1),
+        "h2": ParagraphStyle(
+            "h2", parent=base, fontName="Helvetica-Bold", fontSize=11.5, leading=15, spaceBefore=14, spaceAfter=5, keepWithNext=1
+        ),
         "big": ParagraphStyle("big", parent=base, fontName="Helvetica-Bold", fontSize=20, leading=24, textColor=GREEN),
         "cell": ParagraphStyle("cell", parent=base, fontSize=8.5, leading=11),
         "cellb": ParagraphStyle("cellb", parent=base, fontName="Helvetica-Bold", fontSize=8.5, leading=11),
@@ -134,9 +177,13 @@ def _natural(source_id: str) -> tuple[str, int]:
 def _quote_lines(citations: list[dict[str, Any]], st: dict[str, ParagraphStyle]) -> list[Paragraph]:
     out = []
     for c in citations:
-        out.append(Paragraph(
-            f"<b>{_text(c['rule_id'])}</b>, {_text(c.get('pinpoint'))}: \"{_text(c.get('quote'))}\" "
-            f"<font color='#5b665f'>Source {_text(c.get('source_id'))}.</font>", st["quote"]))
+        out.append(
+            Paragraph(
+                f'<b>{_text(c["rule_id"])}</b>, {_text(c.get("pinpoint"))}: "{_text(c.get("quote"))}" '
+                f"<font color='#5b665f'>Source {_text(c.get('source_id'))}.</font>",
+                st["quote"],
+            )
+        )
     return out
 
 
@@ -147,13 +194,23 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
     program = view.get("program") or {}
     story: list[Any] = []
 
-    story.append(Paragraph(f"Claim packet: {_text(view.get('name') or view['jurisdiction'])} {_text(program.get('program_name') or 'crime victim compensation')}", st["title"]))
+    story.append(
+        Paragraph(
+            f"Claim packet: {_text(view.get('name') or view['jurisdiction'])} {_text(program.get('program_name') or 'crime victim compensation')}",
+            st["title"],
+        )
+    )
     who = f" for {_text(view['display_name'])}" if view.get("display_name") else ""
     day = generated_at.astimezone(PROGRAM_TZ)
     story.append(Paragraph(f"Prepared{who} with Tend on {day:%B} {day.day}, {day.year}. Claim {_text(view['claim_id'])}.", st["small"]))
     if view.get("fictional"):
         story.append(Spacer(1, 6))
-        story.append(Paragraph("Demo packet. The person and every record in it are fictional. Bank records come from Capital One's Nessie sandbox, a mock bank.", st["banner"]))
+        story.append(
+            Paragraph(
+                "Demo packet. The person and every record in it are fictional. Bank records come from Capital One's Nessie sandbox, a mock bank.",
+                st["banner"],
+            )
+        )
     story.append(Spacer(1, 12))
     story.append(Paragraph("Amount you can ask for", st["small"]))
     story.append(Paragraph(format_cents(totals.get("allowed_cents", 0)), st["big"]))
@@ -177,30 +234,53 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
             label = CHECK_LABEL.get(name, {}).get(check.get("status"), check.get("status"))
             detail = f" (by {check['deadline_date']})" if check.get("deadline_date") else ""
             cites = ", ".join(f"{c['rule_id']} {c.get('pinpoint') or ''}".strip() for c in check.get("citations", []))
-            rows.append([Paragraph(CHECK_TITLE.get(name, name), st["cellb"]), Paragraph(_text(f"{label}{detail}"), st["cell"]),
-                         Paragraph(_text(cites or "No rule found"), st["small"])])
+            rows.append(
+                [
+                    Paragraph(CHECK_TITLE.get(name, name), st["cellb"]),
+                    Paragraph(_text(f"{label}{detail}"), st["cell"]),
+                    Paragraph(_text(cites or "No rule found"), st["small"]),
+                ]
+            )
         table = Table(rows, colWidths=[1.3 * inch, 2.2 * inch, 3.5 * inch])
-        table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LINEBELOW", (0, 0), (-1, -1), 0.4, LINE),
-                                   ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]))
+        table.setStyle(
+            TableStyle(
+                [
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("LINEBELOW", (0, 0), (-1, -1), 0.4, LINE),
+                    ("TOPPADDING", (0, 0), (-1, -1), 4),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+                ]
+            )
+        )
         story.append(table)
 
     story.append(Paragraph("Every line, with the law behind it", st["h2"]))
     header = [Paragraph(h, st["cellb"]) for h in ("Date", "What", "Amount", "Status", "Can ask for")]
     data: list[list[Any]] = [header]
-    style = [("VALIGN", (0, 0), (-1, -1), "TOP"), ("LINEBELOW", (0, 0), (-1, 0), 0.8, INK),
-             ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3)]
+    style = [
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LINEBELOW", (0, 0), (-1, 0), 0.8, INK),
+        ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+    ]
     for ln in lines:
         status = ln.get("status", "")
         color = {"held": "#9a4a2c", "eligible": "#2f6b4f"}.get(status, "#5b665f")
-        data.append([
-            Paragraph(_text(ln.get("date")), st["cell"]),
-            Paragraph(f"<b>{_text(ln.get('expense', '').replace('_', ' '))}</b><br/>{_text(ln.get('description'))}", st["cell"]),
-            Paragraph(format_cents(ln.get("requested_cents", ln.get("amount_cents") or 0)), st["cell"]),
-            Paragraph(f"<font color='{color}'>{_text(STATUS_LABEL.get(status, status))}</font>", st["cell"]),
-            Paragraph(format_cents(ln.get("allowed_cents", 0)), st["cell"]),
-        ])
-        proof = [Paragraph(f"Transaction <b>{_text(ln['item_id'])}</b>"
-                           + (f". Flags: {_text(', '.join(ln['flags']))}" if ln.get("flags") else ""), st["small"])]
+        data.append(
+            [
+                Paragraph(_text(ln.get("date")), st["cell"]),
+                Paragraph(f"<b>{_text(ln.get('expense', '').replace('_', ' '))}</b><br/>{_text(ln.get('description'))}", st["cell"]),
+                Paragraph(format_cents(ln.get("requested_cents", ln.get("amount_cents") or 0)), st["cell"]),
+                Paragraph(f"<font color='{color}'>{_text(STATUS_LABEL.get(status, status))}</font>", st["cell"]),
+                Paragraph(format_cents(ln.get("allowed_cents", 0)), st["cell"]),
+            ]
+        )
+        proof = [
+            Paragraph(
+                f"Transaction <b>{_text(ln['item_id'])}</b>" + (f". Flags: {_text(', '.join(ln['flags']))}" if ln.get("flags") else ""),
+                st["small"],
+            )
+        ]
         proof += _quote_lines(ln.get("citations", []), st) or [Paragraph("No rule names this expense.", st["small"])]
         data.append([proof, "", "", "", ""])
         row = len(data) - 1
@@ -213,9 +293,14 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
     if holds:
         story.append(Paragraph("Held lines", st["h2"]))
         for ln in holds:
-            block = [Paragraph(f"<b>{format_cents(ln.get('amount_cents') or 0)}</b> {_text(ln.get('description'))} "
-                               f"<font color='#5b665f'>(transaction {_text(ln['item_id'])})</font>", st["base"]),
-                     Paragraph("<font color='#9a4a2c'>Hold this line. Ask billing to remove it first.</font>", st["base"])]
+            block = [
+                Paragraph(
+                    f"<b>{format_cents(ln.get('amount_cents') or 0)}</b> {_text(ln.get('description'))} "
+                    f"<font color='#5b665f'>(transaction {_text(ln['item_id'])})</font>",
+                    st["base"],
+                ),
+                Paragraph("<font color='#9a4a2c'>Hold this line. Ask billing to remove it first.</font>", st["base"]),
+            ]
             block += _quote_lines([c for c in ln.get("citations", []) if c.get("category") == "exam_no_bill"], st)
             payers = [c for c in ln.get("citations", []) if c.get("category") == "exam_payment"]
             if payers:
@@ -234,7 +319,11 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
             "out_of_window": "Dated before the incident or after this packet was made.",
         }
         for ln in left_out:
-            story.append(Paragraph(f"{format_cents(ln.get('amount_cents') or 0)} {_text(ln.get('description'))}: {reasons[ln['status']]}", st["base"]))
+            story.append(
+                Paragraph(
+                    f"{format_cents(ln.get('amount_cents') or 0)} {_text(ln.get('description'))}: {reasons[ln['status']]}", st["base"]
+                )
+            )
         for r in refused:
             story.append(Paragraph(f"{format_cents(r['amount_cents'])} ({_text(r['item_id'])}): {_text(r['reason'])}", st["base"]))
 
@@ -248,8 +337,11 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
     spec = FORM_SPECS.get(view["jurisdiction"])
     if spec:
         name_filled = bool(application_values(spec, view).get(spec.name_fields[0]))
-        filled = ("your name, the costs you are asking for, and the dates of service" if name_filled
-                  else "the costs you are asking for and the dates of service")
+        filled = (
+            "your name, the costs you are asking for, and the dates of service"
+            if name_filled
+            else "the costs you are asking for and the dates of service"
+        )
         story.append(Paragraph("Only you write this", st["h2"]))
         story.append(Paragraph(f"Tend filled in {filled} on the state's application. It left these blank on purpose:", st["base"]))
         for item in spec.only_you:
@@ -259,8 +351,11 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
     contact = [program.get("program_name"), program.get("agency")]
     if program.get("phone"):
         contact.append(f"Phone {program['phone']} (from source {program.get('phone_source_id') or 'on file'})")
-    contact += [program.get("website"), program.get("apply_url") and f"How to apply: {program['apply_url']}",
-                program.get("statute_citation") and f"Law: {program['statute_citation']}"]
+    contact += [
+        program.get("website"),
+        program.get("apply_url") and f"How to apply: {program['apply_url']}",
+        program.get("statute_citation") and f"Law: {program['statute_citation']}",
+    ]
     for entry in filter(None, contact):
         story.append(Paragraph(_text(entry), st["base"]))
 
@@ -273,13 +368,22 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
             cited[c["source_id"]] = c
     if cited:
         story.append(Paragraph("Sources", st["h2"]))
-        story.append(Paragraph("Each quote above is copied word for word from a saved copy of these pages. The sha256 identifies that exact copy.", st["small"]))
+        story.append(
+            Paragraph(
+                "Each quote above is copied word for word from a saved copy of these pages. The sha256 identifies that exact copy.",
+                st["small"],
+            )
+        )
         rows = [[Paragraph(h, st["cellb"]) for h in ("Source", "Where", "Saved copy")]]
         for sid in sorted(cited, key=_natural):
             c = cited[sid]
-            rows.append([Paragraph(_text(sid), st["cell"]),
-                         Paragraph(f"{_text(c.get('source_title'))}<br/><font color='#5b665f'>{_text(c.get('source_url'))}</font>", st["cell"]),
-                         Paragraph(f"{_text(c.get('retrieved_at'))}<br/><font size='6.5'>{_text(c.get('source_sha256'))}</font>", st["small"])])
+            rows.append(
+                [
+                    Paragraph(_text(sid), st["cell"]),
+                    Paragraph(f"{_text(c.get('source_title'))}<br/><font color='#5b665f'>{_text(c.get('source_url'))}</font>", st["cell"]),
+                    Paragraph(f"{_text(c.get('retrieved_at'))}<br/><font size='6.5'>{_text(c.get('source_sha256'))}</font>", st["small"]),
+                ]
+            )
         src_table = Table(rows, colWidths=[0.7 * inch, 3.7 * inch, 2.6 * inch], repeatRows=1)
         src_table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LINEBELOW", (0, 0), (-1, -1), 0.4, LINE)]))
         story.append(src_table)
@@ -295,8 +399,17 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
         canvas.restoreState()
 
     buf = io.BytesIO()
-    doc = SimpleDocTemplate(buf, pagesize=letter, leftMargin=0.75 * inch, rightMargin=0.75 * inch, topMargin=0.7 * inch,
-                            bottomMargin=0.8 * inch, title="Tend claim packet", author="Tend", subject=f"Claim {view['claim_id']}")
+    doc = SimpleDocTemplate(
+        buf,
+        pagesize=letter,
+        leftMargin=0.75 * inch,
+        rightMargin=0.75 * inch,
+        topMargin=0.7 * inch,
+        bottomMargin=0.8 * inch,
+        title="Tend claim packet",
+        author="Tend",
+        subject=f"Claim {view['claim_id']}",
+    )
     doc.build(story, onFirstPage=on_page, onLaterPages=on_page)
     return buf.getvalue()
 
