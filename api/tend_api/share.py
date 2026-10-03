@@ -27,13 +27,13 @@ class ShareError(TendError):
     pass
 
 
-def b64decode_any(text: str) -> bytes:
+def b64decode_any(text: str, what: str = "ciphertext") -> bytes:
     """Standard or URL-safe base64, padded or not."""
     clean = text.strip().replace("-", "+").replace("_", "/")
     try:
         return base64.b64decode(clean + "=" * (-len(clean) % 4), validate=True)
     except (binascii.Error, ValueError) as exc:
-        raise ShareError("The ciphertext is not valid base64.", 422) from exc
+        raise ShareError(f"The {what} is not valid base64.", 422) from exc
 
 
 def b64encode(data: bytes) -> str:
@@ -48,7 +48,7 @@ class ShareService:
 
     def seal(self, req: ShareCreate) -> dict[str, Any]:
         ciphertext = b64decode_any(req.ciphertext)
-        iv = b64decode_any(req.iv)
+        iv = b64decode_any(req.iv, "IV")
         if len(ciphertext) > MAX_SHARE_BYTES:
             raise ShareError("This packet is too large to share. The limit is 2 MB.", 413)
         if len(iv) not in IV_BYTES:

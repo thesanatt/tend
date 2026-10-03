@@ -196,7 +196,7 @@ class CloudAI:
 
     def read_bill(self, req: AiBillRequest) -> dict[str, Any]:
         self._consent(req.consent)
-        data = b64decode_any(req.file)
+        data = b64decode_any(req.file, "file")
         if len(data) > MAX_BILL_BYTES:
             raise AiError("This file is too large. The limit is 10 MB.", 413)
         sha = sha256_hex(data)

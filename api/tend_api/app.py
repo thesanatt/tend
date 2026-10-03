@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import logging
-from collections.abc import Awaitable, Callable
+from collections.abc import AsyncIterator, Awaitable, Callable
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -34,12 +35,19 @@ def quiet_access_log() -> None:
 
 
 def create_app(settings: Settings | None = None, services: Services | None = None) -> FastAPI:
+    owns_services = services is None
     if services is None:
         if settings is None:
             load_env_file()
             settings = Settings.from_env()
         services = build_services(settings)
     quiet_access_log()
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+        yield
+        if owns_services:  # the database pool belongs to this app; services passed in belong to the caller
+            services.repo.close()
 
     app = FastAPI(
         title="Tend API",
@@ -48,6 +56,7 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
         docs_url="/api/docs",
         openapi_url="/api/openapi.json",
         redoc_url=None,
+        lifespan=lifespan,
     )
     app.state.services = services
     app.add_middleware(
