@@ -3,7 +3,7 @@
 import Citation from "@/components/Citation";
 import { describeSpan, formatDay, todayIso } from "@/lib/dates";
 import { formatCents } from "@/lib/money";
-import { checkCopy, DEADLINE, MINIMUM_LOSS, REPORTING } from "@/lib/status";
+import { checkCopy, DEADLINE, MINIMUM_LOSS, reportingCopy } from "@/lib/status";
 import type { EngineChecks, PoliceReport } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 import styles from "./claim.module.css";
@@ -79,7 +79,7 @@ export default function Checks({ checks, law, policeReport }: ChecksProps) {
     {
       key: "reporting",
       title: "Reporting to police",
-      copy: checkCopy(REPORTING, checks.reporting.status),
+      copy: reportingCopy(checks.reporting),
       text: reportingText(checks.reporting, law, policeReport),
       ruleIds: checks.reporting.rule_ids,
     },

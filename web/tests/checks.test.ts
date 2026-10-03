@@ -4,7 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { deadlineText, minimumText, reportingText } from "@/components/claim/Checks";
 import { engineErrorText } from "@/lib/engine/wasm";
-import { checkCopy, MINIMUM_LOSS, REPORTING } from "@/lib/status";
+import { checkCopy, MINIMUM_LOSS, REPORTING, reportingCopy } from "@/lib/status";
 import type { Jurisdiction } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 
@@ -26,6 +26,8 @@ describe("claim check copy", () => {
     const text = reportingText({ status: "satisfied", rule_ids: [] }, index("MI"), "no");
     expect(text).toMatch(/no police report rule/);
     expect(text).not.toMatch(/forensic exam/);
+    expect(reportingCopy({ status: "satisfied", rule_ids: [] }).label).toBe("No rule found");
+    expect(reportingCopy({ status: "satisfied", rule_ids: ["MI-REPORT-1"] }).label).toBe("Satisfied");
   });
 
   it("says a months-based deadline could not be dated instead of saying none exists", () => {

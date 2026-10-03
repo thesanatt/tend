@@ -73,6 +73,13 @@ export function checkCopy(table: CheckCopy, status: string) {
   return table[status] ?? { label: status.replace(/_/g, " "), tone: "neutral" as const };
 }
 
+// With no reporting rule the engines say "satisfied"; the label should not suggest a rule was met.
+export function reportingCopy(c: EngineChecks["reporting"]) {
+  return c.status === "satisfied" && !c.rule_ids.length
+    ? { label: "No rule found", tone: "neutral" as const }
+    : checkCopy(REPORTING, c.status);
+}
+
 export type CheckKey = keyof EngineChecks;
 
 // Flags look like "rate_unverified:MI-CAP-9".

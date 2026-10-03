@@ -7,7 +7,7 @@ import { BACKEND_LABEL } from "@/lib/engine";
 import { expenseLabel } from "@/lib/expenses";
 import { formatCents } from "@/lib/money";
 import { useSession, type Session } from "@/lib/session";
-import { checkCopy, DEADLINE, MINIMUM_LOSS, REPORTING } from "@/lib/status";
+import { checkCopy, DEADLINE, MINIMUM_LOSS, reportingCopy } from "@/lib/status";
 import type { Rule } from "@/lib/types";
 import { useLaw } from "@/lib/useLaw";
 import styles from "./packet.module.css";
@@ -105,8 +105,7 @@ function PacketView({ session }: { session: Session }) {
             <div>
               <dt>Reporting</dt>
               <dd>
-                {checkCopy(REPORTING, checks.reporting.status).label} (
-                {checks.reporting.rule_ids.join(", ") || "no rule"})
+                {reportingCopy(checks.reporting).label} ({checks.reporting.rule_ids.join(", ") || "no rule"})
               </dd>
             </div>
             <div>
