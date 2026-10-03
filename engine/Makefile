@@ -115,9 +115,10 @@ wasm:
 # The WASM build against the native engine on the difftest's claims (2,000 per
 # jurisdiction by default), byte for byte, using the shipped law images.
 PARITY_N ?= 2000
+PYTHON ?= uv run --project ../refengine --python 3.12 python
 wasm-parity: all
 	rm -rf build/wasm-corpus
-	python3 ../refengine/difftest.py --n $(PARITY_N) --ir-dir $(IR) --verified-dir $(VERIFIED) --corpus build/wasm-corpus
+	$(PYTHON) ../refengine/difftest.py --n $(PARITY_N) --ir-dir $(IR) --verified-dir $(VERIFIED) --corpus build/wasm-corpus
 	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/wasm_parity.mjs build/wasm-corpus ../web/public/engine
 
 clean:
