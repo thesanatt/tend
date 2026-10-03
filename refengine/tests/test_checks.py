@@ -203,6 +203,19 @@ def test_info_rules_are_listed_in_file_order():
     assert run()["info_rule_ids"] == ["ZZ-COLL-1", "ZZ-CONDUCT-1", "ZZ-EMERG-1", "ZZ-ELIG-1", "ZZ-RES-1"]
 
 
+def test_categories_no_step_uses_are_ignored():
+    # submission, required_document, and processing_time describe how to file; the SPEC uses
+    # none of them in a decision or in info_rule_ids.
+    rules = add_rule(zz(), "ZZ-SUB-1", "submission", method="mail", target="PO Box 1")
+    rules = add_rule(rules, "ZZ-DOC-1", "required_document", document="receipts")
+    rules = add_rule(rules, "ZZ-TIME-1", "processing_time", days=90)
+    items = [item("a", "medical", 50_000), item("b", "counseling", 9_000, units=1)]
+    out, plain = run(*items, rules=rules), run(*items)
+    out.pop("law_image_sha256")
+    plain.pop("law_image_sha256")
+    assert out == plain
+
+
 def test_conduct_rule_never_changes_an_amount():
     items = [item("a", "medical", 50_000), item("b", "counseling", 9_000, units=1)]
     with_conduct = run(*items)

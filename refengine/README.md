@@ -100,7 +100,9 @@ The C++ engine makes the same choices; difftest holds both to them.
     has `required: true` (missing counts as true), and no rule lists an alternative other than
     `forensic_exam`; otherwise `unknown`. A string `alternatives` counts as the exam when it contains
     `forensic_exam` and as another alternative unless it is empty or exactly `forensic_exam`.
-14. A check's `rule_ids` lists every rule of its category in file order.
+14. A check's `rule_ids` lists every rule of its category in file order. Categories no step uses
+    (`submission`, `required_document`, `processing_time`) are ignored, and only the five SPEC
+    categories go in `info_rule_ids`.
 15. Input: strict `YYYY-MM-DD` dates; money and units are integers from 0 to 2^53 - 1 (no floats, no
     booleans); unique `item_id`s; the input's jurisdiction must equal the rules' or be absent.
     Missing or null optional fields default to `confirmed: false`, `insurance_paid_cents: 0`,
