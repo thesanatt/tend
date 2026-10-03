@@ -56,7 +56,8 @@ def test_bare_string_create_recovers_the_id_by_listing():
 
 def test_single_object_paths_are_the_inconsistent_ones(client, fake):
     _, checking, savings, merchant = make_world(client)
-    p = client.create_purchase(checking.id, merchant_id=merchant.id, amount_cents=5_00, date="2026-05-01", description="x")
+    p = client.create_purchase(checking.id, merchant_id=merchant.id, amount_cents=5_00, date="2026-05-01",
+                               description="x")
     d = client.create_deposit(checking.id, amount_cents=5_00, date="2026-05-01", description="x")
     w = client.create_withdrawal(checking.id, amount_cents=5_00, date="2026-05-01", description="x")
     t = client.create_transfer(checking.id, payee_account_id=savings.id, amount_cents=5_00, date="2026-05-01",
@@ -134,7 +135,10 @@ def test_writes_validate_before_sending(client, fake):
     _, checking, _, merchant = make_world(client)
     before = len(fake.requests)
     with pytest.raises(ValueError):
-        client.create_purchase(checking.id, merchant_id=merchant.id, amount_cents=5_00, date="not-a-date", description="x")
+        client.create_purchase(checking.id, merchant_id=merchant.id, amount_cents=5_00, date="not-a-date",
+                               description="x")
+    with pytest.raises(ValueError):
+        client.create_deposit(checking.id, amount_cents=5_00, date="2026-W24-7", description="x")
     with pytest.raises(ValueError):
         client.create_purchase(checking.id, merchant_id="", amount_cents=5_00, date="2026-05-01", description="x")
     with pytest.raises(ValueError):

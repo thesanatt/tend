@@ -5,6 +5,7 @@ import pytest
 from history import ACCOUNTS, MERCHANTS, build_history
 from personas import PERSONAS
 from seeder import Seeder, labels_for, take_snapshot, verify_against_plan
+from tend_api.nessie import NessieListCorrupt
 
 QUIET = {"log": lambda message: None}
 
@@ -67,7 +68,7 @@ def test_unusable_bill_is_replaced(client, fake, seeded):
     del fake.records["bill"][bill_id][1]["recurring_date"]
     del fake.records["bill"][bill_id][1]["upcoming_payment_date"]
     fake.records["bill"][bill_id][1]["payment_date"] = "2026-10-20"
-    with pytest.raises(Exception):
+    with pytest.raises(NessieListCorrupt):
         client.list_bills(manifest["accounts"]["checking"])  # the broken bill poisons the list
     # The seeder can only repair what it can list, so it needs the bad record gone first.
     client.delete_bill(bill_id)

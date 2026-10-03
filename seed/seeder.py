@@ -21,9 +21,9 @@ import os
 import sys
 import time
 from collections import Counter
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable
 
 SEED_DIR = Path(__file__).resolve().parent
 REPO = SEED_DIR.parent
@@ -43,6 +43,8 @@ NOTICE = ("Fictional demo data on Capital One's Nessie mock bank. No real person
 
 
 def load_env() -> Path | None:
+    # The project .env wins over the shell: a stale GEMINI_API_KEY exported in a shell profile
+    # once shadowed the working key here and every model call failed with "API key not valid".
     explicit = os.environ.get("TEND_ENV_FILE")
     for candidate in ([Path(explicit)] if explicit else [p / ".env" for p in SEED_DIR.parents]):
         if candidate.is_file():
@@ -50,7 +52,7 @@ def load_env() -> Path | None:
                 line = line.strip()
                 if line and not line.startswith("#") and "=" in line:
                     key, value = line.split("=", 1)
-                    os.environ.setdefault(key.strip(), value.strip().strip("'\""))
+                    os.environ[key.strip()] = value.strip().strip("'\"")
             return candidate
     return None
 
@@ -377,10 +379,10 @@ def main(argv: list[str] | None = None) -> int:
             if args.command in ("seed", "reset"):
                 write_manifest(Seeder(client, persona).run())
             snapshot = take_snapshot(client, persona)
-            checking = snapshot.account_by_type("Checking")
+            balance = snapshot.balance_cents(snapshot.account_by_type("Checking").id)
             bill = snapshot.bills[0]
-            print(f"{pid}: snapshot has {len(snapshot.txns)} records; checking {money(snapshot.balance_cents(checking.id))}"
-                  f" computed; bill {bill.status} {money(bill.amount_cents)}")
+            print(f"{pid}: snapshot has {len(snapshot.txns)} records; checking {money(balance)} computed; "
+                  f"bill {bill.status} {money(bill.amount_cents)}")
     return 0
 
 

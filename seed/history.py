@@ -173,7 +173,7 @@ def build_history() -> list[PlannedTxn]:
         rows.append({"account": account, "kind": kind, "date": day.isoformat(), "amount_cents": dollars * 100,
                      "description": description, "merchant": merchant, "payee_account": payee, "label": label})
 
-    for day, dollars in zip(paydays(), PAYCHECKS):
+    for day, dollars in zip(paydays(), PAYCHECKS, strict=True):
         add("checking", "deposit", day, dollars, f"{EMPLOYER} payroll", label="payroll")
         if day < INCIDENT_DATE:
             add("checking", "transfer", day, 40, "Save to Cushion", payee="cushion", label="savings_transfer")

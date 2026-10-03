@@ -9,11 +9,12 @@ from __future__ import annotations
 import json
 import os
 import re
+from collections.abc import Callable, Iterable
 from dataclasses import asdict, dataclass, field, replace
 from datetime import date as _date
 from decimal import Decimal
 from pathlib import Path
-from typing import Any, Callable, Iterable, Literal
+from typing import Any, Literal
 
 import httpx
 
@@ -37,6 +38,7 @@ _DATE_FIELD = {"purchase": "purchase_date", "deposit": "transaction_date",
                "withdrawal": "transaction_date", "transfer": "transaction_date"}
 
 _PAYEE_TAG = re.compile(r"\s*\[payee:([0-9A-Za-z-]+)\]")
+_ISO_DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
 class NessieError(RuntimeError):
@@ -178,10 +180,12 @@ def _bill_amount(amount_cents: int) -> int | float:
 
 
 def _iso(day: str | _date) -> str:
+    # Nessie stores "not-a-date" without complaint, and fromisoformat alone also takes forms
+    # like "2026-W24-7", so the exact shape is checked first.
     text = day.isoformat() if isinstance(day, _date) else str(day)
-    _date.fromisoformat(text)  # Nessie stores "not-a-date" without complaint
-    if len(text) != 10:
+    if not _ISO_DAY.fullmatch(text):
         raise ValueError(f"expected YYYY-MM-DD, got {text!r}")
+    _date.fromisoformat(text)
     return text
 
 
@@ -302,13 +306,14 @@ class NessieClient:
         self._http = httpx.Client(timeout=timeout, transport=transport)
 
     @classmethod
-    def from_env(cls, **kwargs: Any) -> "NessieClient":
-        return cls(os.environ.get("NESSIE_API_KEY", ""), os.environ.get("NESSIE_BASE_URL") or DEFAULT_BASE_URL, **kwargs)
+    def from_env(cls, **kwargs: Any) -> NessieClient:
+        base_url = os.environ.get("NESSIE_BASE_URL") or DEFAULT_BASE_URL
+        return cls(os.environ.get("NESSIE_API_KEY", ""), base_url, **kwargs)
 
     def close(self) -> None:
         self._http.close()
 
-    def __enter__(self) -> "NessieClient":
+    def __enter__(self) -> NessieClient:
         return self
 
     def __exit__(self, *exc: Any) -> None:
@@ -557,7 +562,7 @@ class NessieClient:
 
     # whole-customer reads
 
-    def snapshot(self, customer_id: str, meta: dict | None = None) -> "BankSnapshot":
+    def snapshot(self, customer_id: str, meta: dict | None = None) -> BankSnapshot:
         customer = self.get_customer(customer_id)
         accounts = sorted(self.list_accounts(customer_id), key=lambda a: (a.type, a.nickname, a.id))
         txns = sorted((t for a in accounts for t in self.account_txns(a.id)), key=lambda t: (t.date, t.kind, t.id))
@@ -610,7 +615,7 @@ class BankSnapshot:
         }
 
     @classmethod
-    def from_dict(cls, data: dict) -> "BankSnapshot":
+    def from_dict(cls, data: dict) -> BankSnapshot:
         if data.get("format") != SNAPSHOT_FORMAT:
             raise ValueError(f"unsupported snapshot format {data.get('format')!r}")
 
@@ -635,7 +640,7 @@ class BankSnapshot:
         tmp.replace(path)
 
     @classmethod
-    def load(cls, path: str | Path) -> "BankSnapshot":
+    def load(cls, path: str | Path) -> BankSnapshot:
         return cls.from_dict(json.loads(Path(path).read_text()))
 
 

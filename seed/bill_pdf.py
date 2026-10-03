@@ -57,8 +57,8 @@ def write_bill_pdf(persona: Persona, bill: PlannedBill, path: Path) -> str:
     pdf.rect(left, height - 74, right - left, 30, stroke=0, fill=1)
     pdf.setFillColor(INK)
     pdf.setFont("Helvetica-Bold", 9)
-    pdf.drawString(left + 10, height - 63,
-                   "FICTIONAL DEMO DOCUMENT. Not a real bill, patient, or hospital. Made for the Tend demo at MHacks 2026.")
+    pdf.drawString(left + 10, height - 63, "FICTIONAL DEMO DOCUMENT. Not a real bill, patient, or hospital. "
+                                           "Made for the Tend demo at MHacks 2026.")
 
     hosp = hospital_address(persona)
     y = height - 112
@@ -66,7 +66,8 @@ def write_bill_pdf(persona: Persona, bill: PlannedBill, path: Path) -> str:
     pdf.drawString(left, y, bill.payee)
     pdf.setFont("Helvetica", 9.5)
     pdf.setFillColor(MUTED)
-    pdf.drawString(left, y - 16, f"{hosp['street_number']} {hosp['street_name']}, {hosp['city']}, {hosp['state']} {hosp['zip']}")
+    pdf.drawString(left, y - 16, f"{hosp['street_number']} {hosp['street_name']}, "
+                                 f"{hosp['city']}, {hosp['state']} {hosp['zip']}")
     pdf.drawString(left, y - 29, f"Patient Financial Services ({persona.area_code}) 555-0142")
 
     pdf.setFillColor(INK)
@@ -94,7 +95,7 @@ def write_bill_pdf(persona: Persona, bill: PlannedBill, path: Path) -> str:
 
     def row(values: list[str], ypos: float, bold: bool = False) -> None:
         pdf.setFont("Helvetica-Bold" if bold else "Helvetica", 9)
-        for (_, x, align), text in zip(cols, values):
+        for (_, x, align), text in zip(cols, values, strict=True):
             if align == "r":
                 pdf.drawRightString(x, ypos, text)
             else:
@@ -119,7 +120,8 @@ def write_bill_pdf(persona: Persona, bill: PlannedBill, path: Path) -> str:
     pdf.drawString(left, y, f"Amount due by {us_date(bill.payment_date)}: {money(bill.amount_cents)}")
     pdf.setFont("Helvetica", 9)
     pdf.setFillColor(MUTED)
-    pdf.drawString(left, y - 18, "Charges are listed by line. Insurance payments and adjustments are applied before the amount you owe.")
+    pdf.drawString(left, y - 18, "Charges are listed by line. Insurance payments and adjustments are applied "
+                                 "before the amount you owe.")
     pdf.drawString(left, 54, "Every name, number, and address on this page is invented for a demo.")
     pdf.showPage()
     pdf.save()

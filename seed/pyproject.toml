@@ -18,3 +18,4 @@ package = false
 [tool.pytest.ini_options]
 pythonpath = [".", "../api"]
 testpaths = ["tests"]
+markers = ["live: reads the real Nessie API; skipped unless TEND_LIVE=1"]

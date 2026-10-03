@@ -12,9 +12,9 @@ import json
 import os
 import re
 import threading
+from collections.abc import Callable, Iterable, Sequence
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
-from typing import Callable, Iterable, Sequence
 
 from .nessie import BankSnapshot
 
@@ -31,7 +31,7 @@ FALLBACK_MODEL = "gemini-3.5-flash-lite"
 MODEL_TIMEOUT_S = 10
 MODEL_BATCH = 25
 MODEL_CONFIDENCE = 0.6  # self-reported model confidence is not calibrated, so it is not asked for
-PROMPT_VERSION = "classify-v1"
+PROMPT_VERSION = "classify-v3"  # bump when the prompt changes; old cache entries are then ignored
 MAX_REASON_WORDS = 19
 CONFIRM_AT = 0.85
 
@@ -115,9 +115,10 @@ KEYWORD_RULES: tuple[_Rule, ...] = (
     _rule(r"\btuition\b", "tuition", 0.85, "Tuition"),
     _rule(r"\bnew (phone|laptop)\b|\bphone replacement\b|\bdevice purchase\b", "property_replacement", 0.85,
           "Replaces a phone or other personal property"),
-    _rule(r"\bbedding\b|\bcomforter\b|\bduvet\b|\bapparel\b|\bclothing\b", "clothing_bedding", 0.7, "Clothing or bedding"),
+    _rule(r"\bbedding\b|\bcomforter\b|\bduvet\b|\bapparel\b|\bclothing\b", "clothing_bedding", 0.7,
+          "Clothing or bedding"),
     _rule(r"\brideshare\b|\brides?\b|\btaxi\b|\bcab\b|\btransit\b|\bbus fare\b|\bparking\b", "transportation", 0.8,
-          "Ride or transit fare; counts only as travel to care"),
+          "Ride or transit fare"),
     _rule(r"\bgrocer(y|ies)\b|\bsupermarket\b|\bcoffee\b|\bcafe\b|\brestaurant\b|\btakeout\b|\bstreaming\b|"
           r"\bsubscription\b|\bmonthly plan\b|\batm\b", None, 0.9, "Everyday spending"),
 )
@@ -165,20 +166,36 @@ def classify_deterministic(facts: TxnFacts) -> Classification | None:
     return None
 
 
-def clean_reason(text: str) -> str:
-    """Model reasons are shown to people: under 20 words, no numbers, no dashes used as punctuation."""
-    text = re.sub(r"\s*[–—]\s*", ", ", text or "")
-    text = text.replace("‘", "'").replace("’", "'").replace("“", '"').replace("”", '"')
-    words = [w for w in text.split() if not re.search(r"[0-9$€£]", w)]
-    out = " ".join(words[:MAX_REASON_WORDS]).strip(" ,;:-")
-    return out or "Suggested by the model"
+LABEL_TEXT = {
+    "medical": "medical care", "forensic_exam": "a forensic exam", "counseling": "counseling",
+    "lost_wages": "lost pay", "transportation": "a ride or fare", "relocation": "a moving cost",
+    "temporary_housing": "short-term lodging", "security": "home security", "crime_scene_cleanup": "cleanup",
+    "childcare": "child care", "property_replacement": "replacement property",
+    "clothing_bedding": "clothing or bedding", "prescription": "a prescription", "dental": "dental care",
+    "funeral": "a funeral cost", "legal": "legal help", "tuition": "tuition", "other": "a prescribed device",
+    UNKNOWN: "ordinary spending",
+}
+_COVERAGE_TALK = re.compile(r"\b(cover(ed|s|age)?|eligib\w*|qualif\w*|reimburs\w*|compensab\w*)\b", re.IGNORECASE)
+
+
+def clean_reason(text: str, label: str) -> str:
+    """Model reasons are shown to people: under 20 words, no numbers, no dashes as punctuation,
+    and no word on coverage, which only the law engine decides."""
+    text = re.sub(r"\s*[\u2013\u2014]\s*", ", ", text or "")
+    text = text.replace("\u2018", "'").replace("\u2019", "'").replace("\u201c", '"').replace("\u201d", '"')
+    words = [w for w in text.split() if not re.search(r"[0-9$\u20ac\u00a3]", w)]
+    out = " ".join(words[:MAX_REASON_WORDS]).strip(" ,;:-.")
+    if not out or _COVERAGE_TALK.search(out):
+        return f"Looks like {LABEL_TEXT.get(label, 'ordinary spending')}"
+    return out[0].upper() + out[1:]
 
 
 SYSTEM_PROMPT = """You sort bank transactions for a tool that helps crime survivors find costs their state's
 victim compensation program may cover. For each transaction choose the one expense type it most likely is.
 Choose "unknown" for ordinary spending (food, household basics, entertainment) and whenever you cannot tell.
 Judge only from the merchant, its category, and the description. Do not mention amounts or numbers.
-Give a plain reason under 20 words.
+Give a plain reason under 20 words that says what the purchase is. Never say whether it is covered,
+eligible, or reimbursable; the program's rules decide that, not you.
 
 Expense types:
 medical: hospital, clinic, doctor, ambulance, or lab charges
@@ -193,7 +210,7 @@ crime_scene_cleanup: cleaning a home or vehicle after a crime
 childcare: child care or babysitting
 property_replacement: replacing personal property such as a phone, laptop, or purse
 clothing_bedding: replacement clothing, sheets, pillows, or other bedding
-prescription: prescription medicine
+prescription: prescription medicine (over-the-counter items are not prescriptions)
 dental: dentist or dental care
 funeral: funeral or burial
 legal: attorney or legal services
@@ -333,9 +350,12 @@ class Classifier:
         for start in range(0, len(items), MODEL_BATCH):
             batch = items[start:start + MODEL_BATCH]
             refs = {f"t{i + 1}": key for i, (key, _) in enumerate(batch)}
-            rows = [{"ref": ref, "kind": pending[key].kind, "merchant": pending[key].merchant_name,
-                     "category": pending[key].merchant_category, "description": _TAG.sub("", pending[key].description).strip()}
-                    for ref, key in refs.items()]
+            # Short refs instead of Nessie ids, and no amounts: the model sees only what a label needs.
+            rows = []
+            for ref, key in refs.items():
+                f = pending[key]
+                rows.append({"ref": ref, "kind": f.kind, "merchant": f.merchant_name, "category": f.merchant_category,
+                             "description": _TAG.sub("", f.description).strip()})
             try:
                 answer, model_name = self.model(rows)
             except Exception as exc:  # the scan must finish even when the model is down
@@ -347,16 +367,17 @@ class Classifier:
                 if key is None or label not in MODEL_LABELS:
                     continue
                 f = pending[key]
-                self.cache.put(key, {"expense": label, "reason": clean_reason(str(item.get("reason", ""))),
+                self.cache.put(key, {"expense": label, "reason": clean_reason(str(item.get("reason", "")), label),
                                      "model": model_name, "kind": f.kind, "merchant": f.merchant_name,
                                      "category": f.merchant_category, "description": _norm(f.description)})
 
     @staticmethod
     def _from_entry(f: TxnFacts, entry: dict, cached: bool) -> Classification:
-        expense = entry["expense"]
-        candidate = expense != UNKNOWN
-        return Classification(f.ref, expense, candidate and expense != "transportation", MODEL_CONFIDENCE, "model",
-                              entry["reason"], False, model=entry.get("model"), cached=cached)
+        expense = entry["expense"] if entry.get("expense") in MODEL_LABELS else UNKNOWN
+        candidate = expense not in (UNKNOWN, "transportation")  # rides wait for link_care_rides
+        reason = clean_reason(entry.get("reason", ""), expense)  # again on read, in case the file was edited
+        return Classification(f.ref, expense, candidate, MODEL_CONFIDENCE, "model", reason, False,
+                              model=entry.get("model"), cached=cached)
 
 
 def link_care_rides(facts: Sequence[TxnFacts], results: Sequence[Classification],
@@ -395,7 +416,8 @@ def facts_from_snapshot(snapshot: BankSnapshot) -> list[TxnFacts]:
     facts = []
     for t in snapshot.txns:
         m = snapshot.merchant(t.merchant_id)
-        facts.append(TxnFacts(t.id, t.kind, m.name if m else "", m.category if m else "", t.display_description, t.date))
+        name, category = (m.name, m.category) if m else ("", "")
+        facts.append(TxnFacts(t.id, t.kind, name, category, t.display_description, t.date))
     for b in snapshot.bills:
         # A Nessie bill has no service date (creation_date is when it was entered), so it is not
         # a link anchor; pass the itemized bill's service date through extra_anchors instead.

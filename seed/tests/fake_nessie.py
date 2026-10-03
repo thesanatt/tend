@@ -21,6 +21,7 @@ SINGLE = {"purchase": "purchase", "deposits": "deposit", "withdrawal": "withdraw
           "transfers": "transfer", "bills": "bill"}
 CREATED = {"purchase": "Purchase created", "deposit": "Deposit created", "withdrawal": "Withdrawal created",
            "transfer": "Transfer created", "bill": "Bill created"}
+DELETED = {"purchase": "Purchase deleted", "withdrawal": "Withdrawal deleted", "bill": "Bill deleted"}
 ALLOWED = {
     "purchase": {"merchant_id", "medium", "purchase_date", "amount", "status", "description"},
     "deposit": {"medium", "transaction_date", "status", "amount", "description"},
@@ -33,7 +34,8 @@ REQUIRED = {"purchase": ("merchant_id",), "deposit": ("medium", "transaction_dat
             "transfer": ("transaction_date", "status", "amount", "description"),
             "bill": ("status", "payee", "payment_amount")}
 # Fields a stored record must have or its list read fails (the "poisoned list" quirk).
-READ_REQUIRED = {"purchase": ("purchase_date", "status"), "bill": ("payment_date", "recurring_date", "upcoming_payment_date")}
+READ_REQUIRED = {"purchase": ("purchase_date", "status"),
+                 "bill": ("payment_date", "recurring_date", "upcoming_payment_date")}
 UPDATABLE = {"purchase": {"description", "amount", "purchase_date", "medium", "payer_id"},
              "bill": {"status", "payee", "nickname", "payment_date", "recurring_date", "payment_amount"},
              "deposit": {"medium", "transaction_date", "status", "amount", "description"},
@@ -159,7 +161,8 @@ class FakeNessie:
         extra = set(body) - ALLOWED[kind]
         if extra:
             lines = "".join(f"\n{f}\n  extra fields not permitted (type=value_error.extra)" for f in sorted(extra))
-            raise _Fail(400, f"{len(extra)} validation error{'s' if len(extra) > 1 else ''} for {kind.title()}Create{lines}")
+            plural = "s" if len(extra) > 1 else ""
+            raise _Fail(400, f"{len(extra)} validation error{plural} for {kind.title()}Create{lines}")
         missing = [f for f in REQUIRED[kind] if f not in body]
         if missing:
             raise _Fail(400, f"1 validation error for {kind.title()}Create\n{missing[0]}\n  field required")
@@ -186,8 +189,8 @@ class FakeNessie:
     def single_route(self, kind: str, method: str, oid: str, body: dict | None) -> httpx.Response:
         entry = self.records[kind].get(oid)
         if method == "DELETE":
-            self.records[kind].pop(oid, None)
-            return _ok({"purchase": "Purchase deleted", "withdrawal": "Withdrawal deleted", "bill": "Bill deleted"}.get(kind, ""))
+            self.records[kind].pop(oid, None)  # 200 whether or not it existed
+            return _ok(DELETED.get(kind, ""))
         if entry is None:
             raise _Fail(404, f"{kind.title()} with this id does not exist")
         if method == "GET":
@@ -195,7 +198,8 @@ class FakeNessie:
         if method == "PUT":
             extra = set(body) - UPDATABLE[kind]
             if extra:
-                raise _Fail(400, f"1 validation error for {kind.title()}Update\n{sorted(extra)[0]}\n  extra fields not permitted")
+                field = sorted(extra)[0]
+                raise _Fail(400, f"1 validation error for {kind.title()}Update\n{field}\n  extra fields not permitted")
             entry[1].update(body)
             return httpx.Response(202, json={"code": 202, "message": f"Accepted {kind} update",
                                              "objectUpdated": copy.deepcopy(entry[1])})
