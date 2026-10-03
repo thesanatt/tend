@@ -76,7 +76,8 @@ Bank relay (stateless, not logged)
 - `GET /bank/{persona}/transactions?from=&to=&account=checking|cushion`: `txns` are StatementTxn rows
   (web/lib/contracts.ts: `id` as `nessie:<id>`, `date`, `amount_cents` with money out positive, `description`,
   `merchant`, `origin: "nessie"`, plus `kind` and `category`). Also `account`, `bills` (pending bills, with
-  `document_path` when itemized), `source: live | snapshot`, `fictional`, `notice`.
+  `document_path` and `service_date` when itemized), `documents` (the itemized bills' records, where web/lib/local
+  reads the service date it counts a same-day ride against), `source: live | snapshot`, `fictional`, `notice`.
 - `GET /bank/{persona}/bills/{bill_id}/document`: the itemized bill, checked against the snapshot's sha256.
 
 Payments

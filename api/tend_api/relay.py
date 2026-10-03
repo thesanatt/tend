@@ -89,10 +89,18 @@ class BankRelay:
                 "status": b.status,
                 "due_date": b.payment_date,
                 "itemized": b.id in documents,
+                "service_date": documents[b.id].get("service_date") if b.id in documents else None,
                 "document_path": f"/api/bank/{persona_id}/bills/{b.id}/document" if b.id in documents else None,
             }
             for b in snapshot.bills
             if b.account_id == acct.id and b.status != "cancelled"
+        ]
+        # The itemized bills' records, as a snapshot names them: web/lib/local reads service_date from here and
+        # counts a ride that day as travel to care, the same anchor /scan uses.
+        itemized = [
+            {k: documents[b["bill_id"]].get(k) for k in ("kind", "bill_id", "statement_date", "service_date", "due_date", "total_cents")}
+            for b in bills
+            if b["itemized"]
         ]
         number = acct.account_number or ""
         return {
@@ -106,6 +114,7 @@ class BankRelay:
             "count": len(rows),
             "txns": rows,
             "bills": bills,
+            "documents": itemized,
         }
 
     def bill_document(self, persona_id: str, bill_id: str) -> tuple[bytes, str]:

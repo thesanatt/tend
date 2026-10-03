@@ -41,6 +41,25 @@ def test_bills_point_to_their_itemized_document(client):
     assert client.get("/api/bank/rowan-mi/bills/b-unknown/document").status_code == 404
 
 
+def test_itemized_bills_carry_their_service_date(client):
+    # web/lib/local reads documents[].service_date (by bill_id) and counts a ride that day as travel to care,
+    # the same anchor /scan takes from the snapshot. Without it the device and the scan disagree on rides.
+    data = client.get("/api/bank/rowan-mi/transactions").json()
+    [bill] = data["bills"]
+    assert bill["service_date"] == "2026-06-14"
+    assert data["documents"] == [
+        {
+            "kind": "itemized_bill",
+            "bill_id": "b-riverbend-0001",
+            "statement_date": "2026-07-02",
+            "service_date": "2026-06-14",
+            "due_date": "2026-08-01",
+            "total_cents": 44300,
+        }
+    ]
+    assert client.get("/api/bank/rowan-mi/transactions", params={"account": "cushion"}).json()["documents"] == []
+
+
 def test_a_tampered_bill_document_is_not_served(settings, clock, tmp_path):
     seed = tmp_path / "seed"
     shutil.copytree(FIXTURES / "seed", seed)
