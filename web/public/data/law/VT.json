@@ -1,0 +1,638 @@
+{
+ "jurisdiction": "VT",
+ "name": "Vermont",
+ "program": {
+  "program_name": "Vermont Victims Compensation Program",
+  "agency": "Vermont Center for Crime Victim Services (Victims Compensation Board)",
+  "website": "https://www.ccvs.vermont.gov/victims-compensation",
+  "apply_url": "https://www.ccvs.vermont.gov/victims-compensation/application-forms",
+  "application_pdf_url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/English%20Victims%20Compensation%20Application.pdf",
+  "phone": "800-750-1213 (Vermont only) or 802-241-1250",
+  "phone_source_id": "VT-S7",
+  "statute_citation": "13 V.S.A. §§ 5351 to 5358a; 32 V.S.A. § 1407; Code Vt. R. 80-220-001"
+ },
+ "sources": [
+  {
+   "id": "VT-S1",
+   "title": "13 V.S.A. chapter 167 (Crime Victims), full text incl. subchapter 1, Compensation to Victims of Crime",
+   "url": "https://legislature.vermont.gov/statutes/fullchapter/13/167",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:15Z",
+   "raw_path": "rules/sources/VT/VT-S1.html",
+   "text_path": "rules/sources/VT/VT-S1.txt",
+   "sha256": "1158c5b01b333bf7215a99cf74d56284a70a5b8e7ac5bda7bcbeddcb8353072f"
+  },
+  {
+   "id": "VT-S2",
+   "title": "Vermont CCVS, Victims Compensation page",
+   "url": "https://www.ccvs.vermont.gov/victims-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:41Z",
+   "raw_path": "rules/sources/VT/VT-S2.html",
+   "text_path": "rules/sources/VT/VT-S2.txt",
+   "sha256": "085db58166547df596d62f60324eab4ad36cb0d4c202afabbf9e3e17cab6744a"
+  },
+  {
+   "id": "VT-S3",
+   "title": "Vermont CCVS, Victims Compensation FAQ",
+   "url": "https://www.ccvs.vermont.gov/victims-compensation/frequently-asked-questions",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:41Z",
+   "raw_path": "rules/sources/VT/VT-S3.html",
+   "text_path": "rules/sources/VT/VT-S3.txt",
+   "sha256": "5f2b48af2a393a8efd1b334caf175326560299c416422cda07217debf46dcebb"
+  },
+  {
+   "id": "VT-S4",
+   "title": "Vermont CCVS, Victims Compensation Eligibility",
+   "url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:42Z",
+   "raw_path": "rules/sources/VT/VT-S4.html",
+   "text_path": "rules/sources/VT/VT-S4.txt",
+   "sha256": "e5c2a8416cd490343eb899eaec07bc6a5c5ea0a993febec43348edb0829dc5bc"
+  },
+  {
+   "id": "VT-S5",
+   "title": "Vermont CCVS, Victims Compensation Policies index",
+   "url": "https://www.ccvs.vermont.gov/victims-compensation/policies",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:43Z",
+   "raw_path": "rules/sources/VT/VT-S5.html",
+   "text_path": "rules/sources/VT/VT-S5.txt",
+   "sha256": "8ac8c06878bf1c2449ade2adb36de6218aeb76b1f0633b3a751cb0b4e5c4e5ab"
+  },
+  {
+   "id": "VT-S6",
+   "title": "Vermont CCVS, Sexual Assault Program",
+   "url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:43Z",
+   "raw_path": "rules/sources/VT/VT-S6.html",
+   "text_path": "rules/sources/VT/VT-S6.txt",
+   "sha256": "c7d5c4b3b4ae5f91f819a0b56fa862d5e008474906d279ce1a4a14b92a6a6f53"
+  },
+  {
+   "id": "VT-S7",
+   "title": "Vermont CCVS, Application & Forms",
+   "url": "https://www.ccvs.vermont.gov/victims-compensation/application-forms",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:44Z",
+   "raw_path": "rules/sources/VT/VT-S7.html",
+   "text_path": "rules/sources/VT/VT-S7.txt",
+   "sha256": "d3e07387e2672d17441a6ebf2e7e1b83192d97e34ef533c4885d042a37cbfa60"
+  },
+  {
+   "id": "VT-S8",
+   "title": "Application for Vermont Victims Compensation (English)",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/English%20Victims%20Compensation%20Application.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:51:53Z",
+   "raw_path": "rules/sources/VT/VT-S8.pdf",
+   "text_path": "rules/sources/VT/VT-S8.txt",
+   "sha256": "9ae6d1137a62e1b2c36f42ac72fc17a9d47f8efef80997271e61891455092f84"
+  },
+  {
+   "id": "VT-S9",
+   "title": "CCVS Victims Compensation Mental Health Policy (amended 8/12/2024)",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Mental%20Health%20Policy%203.24.26.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:54Z",
+   "raw_path": "rules/sources/VT/VT-S9.pdf",
+   "text_path": "rules/sources/VT/VT-S9.txt",
+   "sha256": "c6aaccc57a8f885ee683c820c73aa887a4a1e290da566153ff0b3cbe792e863b"
+  },
+  {
+   "id": "VT-S10",
+   "title": "CCVS Sexual Assault Program Mental Health Policy (updated 08/12/2024)",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Sexual%20Assault%20Program%20Mental%20Health%20Policy%203.23.26.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:54Z",
+   "raw_path": "rules/sources/VT/VT-S10.pdf",
+   "text_path": "rules/sources/VT/VT-S10.txt",
+   "sha256": "6cc7193fccc9d52d3cfd203d48d6b87db0a83622c10d14ba9cfa000cb28773e6"
+  },
+  {
+   "id": "VT-S11",
+   "title": "CCVS Policy for Reimbursement of Lost Wages (amended 9/8/2025)",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Lost%20Wage%20Policy%203.24.26.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:55Z",
+   "raw_path": "rules/sources/VT/VT-S11.pdf",
+   "text_path": "rules/sources/VT/VT-S11.txt",
+   "sha256": "e605004c84b9eba72923472bbb5625c3dff41f740a5a15436a24e599f8a3426e"
+  },
+  {
+   "id": "VT-S12",
+   "title": "CCVS Policy for Reimbursement of Travel Expenses",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/POLICY%20FOR%20REIMBURSEMENT%20OF%20TRAVEL%20EXPENSES%203.24.26.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:55Z",
+   "raw_path": "rules/sources/VT/VT-S12.pdf",
+   "text_path": "rules/sources/VT/VT-S12.txt",
+   "sha256": "5ec2c155814651093b8a04048a08e1e1abdc6d124cdfe6be549560665ca75797"
+  },
+  {
+   "id": "VT-S13",
+   "title": "CCVS Policy for Housing and Relocation",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Housing%20and%20Relocation%20Policy%203.24.26.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:56Z",
+   "raw_path": "rules/sources/VT/VT-S13.pdf",
+   "text_path": "rules/sources/VT/VT-S13.txt",
+   "sha256": "e94582f4a15a41a72cdeb08399ec03c5687c8764c588cda35982bf98ffc07178"
+  },
+  {
+   "id": "VT-S14",
+   "title": "CCVS Provider Payment Policy",
+   "url": "https://www.ccvs.vermont.gov/sites/ccvs/files/documents/Payment%20Policy%20for%20Health%20Care%20Providers%203.24.26.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:56Z",
+   "raw_path": "rules/sources/VT/VT-S14.pdf",
+   "text_path": "rules/sources/VT/VT-S14.txt",
+   "sha256": "a6c5bb17bf0b443e4951f355b155e8cb0171fefa874cab60f5323a41b5fe99fd"
+  },
+  {
+   "id": "VT-S15",
+   "title": "32 V.S.A. § 1407, Costs to be borne by the State",
+   "url": "https://legislature.vermont.gov/statutes/section/32/017/01407",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:10Z",
+   "raw_path": "rules/sources/VT/VT-S15.html",
+   "text_path": "rules/sources/VT/VT-S15.txt",
+   "sha256": "a14f82c6f9107822295fcb64d5093c29788e43682cbb2a4609c6eed73085600f"
+  },
+  {
+   "id": "VT-S16",
+   "title": "Code Vt. R. 80-220-001, Victims Compensation Board rules (via Cornell LII)",
+   "url": "https://www.law.cornell.edu/regulations/vermont/80-001-Code-Vt-R-80-220-001-X",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:52:40Z",
+   "raw_path": "rules/sources/VT/VT-S16.html",
+   "text_path": "rules/sources/VT/VT-S16.txt",
+   "sha256": "b1f12d100f5660290a368c0050b15066901fb02f8db128b6d93db04dc41da4d5"
+  },
+  {
+   "id": "VT-S17",
+   "title": "13 V.S.A. § 4501, Limitation of prosecutions for certain crimes",
+   "url": "https://legislature.vermont.gov/statutes/section/13/151/04501",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:58Z",
+   "raw_path": "rules/sources/VT/VT-S17.html",
+   "text_path": "rules/sources/VT/VT-S17.txt",
+   "sha256": "5316155f1ca9a497c42c8caa273dd14fcfb85f448b63ccda4e3bf3bfc24d6a75"
+  }
+ ],
+ "rules": [
+  {
+   "id": "VT-EXAM-1",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "State of Vermont, paid from the Victims' Compensation Fund, for whatever the survivor's health coverage does not pay"
+   },
+   "summary": "The State pays for a sexual assault exam when the survivor has no health coverage or coverage does not pay the whole cost, even if the survivor gets the exam before police or a prosecutor ask for one.",
+   "quote": "The State shall also bear the costs of sexual assault examinations, as defined in 8 V.S.A. § 4083, administered to victims in cases of alleged sexual assault where the victim obtains such an examination prior to receiving such a request if the victim does not have health coverage or the victim's health coverage does not cover the entire cost of the examination.",
+   "source_id": "VT-S15",
+   "pinpoint": "32 V.S.A. § 1407(b)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/32/017/01407#:~:text=The%20State%20shall%20also%20bear,entire%20cost%20of%20the%20examination."
+  },
+  {
+   "id": "VT-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "If the survivor's health coverage leaves a co-payment, coinsurance, deductible, or other cost-sharing for the exam, the Fund pays that share directly to the provider, so the survivor does not owe it.",
+   "quote": "If the victim's health coverage does not cover all of the medical care provided pursuant to this section and the victim would otherwise be responsible for any co-payment, coinsurance, deductible, or other cost-sharing, the Fund shall pay the victim's share directly to the health care facility or provider.",
+   "source_id": "VT-S15",
+   "pinpoint": "32 V.S.A. § 1407(c)(2)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/32/017/01407#:~:text=If%20the%20victim%27s%20health%20coverage,health%20care%20facility%20or%20provider."
+  },
+  {
+   "id": "VT-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "Providers must bill the survivor's health plan, Medicaid, or Medicare for the exam first. If the survivor is uninsured or the plan denies the claim, the Fund pays Vermont providers 60 percent of billed charges and the provider may not bill the survivor for the balance.",
+   "quote": "Health care facilities and health care providers shall bill the victim's health insurance plan, Medicaid, Medicare, or another health benefit plan, as applicable, for the services described in subsection (b) of this section. If the victim does not have health coverage or if the victim's health benefit plan denies the claim, the Fund shall reimburse health care facilities and health care providers located in Vermont as defined in 18 V.S.A. § 9402 at 60 percent of the billed charges for these claims, and the health care provider or facility shall not bill any balance to the crime victim.",
+   "source_id": "VT-S15",
+   "pinpoint": "32 V.S.A. § 1407(c)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/32/017/01407#:~:text=Health%20care%20facilities%20and%20health,balance%20to%20the%20crime%20victim."
+  },
+  {
+   "id": "VT-EXAM-4",
+   "category": "covered_expense",
+   "expense": "forensic_exam",
+   "params": {
+    "expense": "forensic_exam"
+   },
+   "summary": "Through the CCVS Sexual Assault Program, the initial sexual assault medical exam is covered, including evidence collection, STI and HIV screening and prophylaxis, pregnancy testing, and treatment of related injuries.",
+   "quote": "Resources are available to pay for the initial sexual assault medical examination to include: collection of evidence STI (sexually transmitted infections) and HIV screening prophylaxis pregnancy testing treatment of related injuries",
+   "source_id": "VT-S6",
+   "pinpoint": "CCVS Sexual Assault Program page, What is covered?",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=Resources%20are%20available%20to%20pay,testing%20treatment%20of%20related%20injuries"
+  },
+  {
+   "id": "VT-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 1000000
+   },
+   "summary": "An approved claim can receive up to $10,000 in total, equal to the crime-related losses not paid by other sources.",
+   "quote": "the Board shall authorize cash payments, not to exceed $10,000.00, to or on behalf of the applicant, equal to the unreimbursed pecuniary loss directly resulting from the injury or death of the victim.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5356(a)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=the%20Board%20shall%20authorize%20cash,or%20death%20of%20the%20victim."
+  },
+  {
+   "id": "VT-COUNSEL-1",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 10000,
+    "per": "session"
+   },
+   "summary": "Victims Compensation pays at most $100 for a one-hour individual or family counseling session, prorated for shorter sessions.",
+   "quote": "One-hour individual or family sessions will be paid at a maximum of $100.00 per session.",
+   "source_id": "VT-S9",
+   "pinpoint": "CCVS Mental Health Policy, Guidelines 1 (Fee Schedule)"
+  },
+  {
+   "id": "VT-COUNSEL-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 10000,
+    "per": "session"
+   },
+   "summary": "The Sexual Assault Program pays at most $100 for a one-hour individual counseling session.",
+   "quote": "One-hour individual sessions will be paid at a maximum of $100.00 per session.",
+   "source_id": "VT-S10",
+   "pinpoint": "CCVS Sexual Assault Program Mental Health Policy, Guidelines & Fee Schedule"
+  },
+  {
+   "id": "VT-COUNSEL-3",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "After a sexual assault exam, the Sexual Assault Program can pay for up to 20 sessions of mental health counseling.",
+   "quote": "The Sexual Assault Program can consider payment of up to 20 sessions of mental health counseling after a victim has obtained a medical sexual assault examination.",
+   "source_id": "VT-S10",
+   "pinpoint": "CCVS Sexual Assault Program Mental Health Policy, Introduction"
+  },
+  {
+   "id": "VT-COUNSEL-4",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Covered medical costs include individual or family psychological, psychiatric, or mental health counseling, and replacing eyeglasses, hearing aids, dentures, or prosthetic devices taken, lost, or destroyed during the crime.",
+   "quote": "Medical or medically related expenses may include, but are not limited to, the costs of individual or family psychological, psychiatric, or mental health counseling and the costs of replacing or repairing eyeglasses, hearing aids, dentures, or any prosthetic devices that were taken, lost, or destroyed during the commission of the crime.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5351(5)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=Medical%20or%20medically%20related%20expenses,the%20commission%20of%20the%20crime."
+  },
+  {
+   "id": "VT-WAGES-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 75000,
+    "per": "week",
+    "count_limit": 12
+   },
+   "summary": "For claims filed on or after 9/8/2025, lost wages are reimbursed up to $750 per week, for no more than 12 weeks per claim.",
+   "quote": "5b) For Compensation claim filed on or after 9/8/2025: the Victims Compensation Program will reimburse lost wages not to exceed a maximum reimbursement of $750.00 per week per claim, and for not longer than 12 weeks per claim.",
+   "source_id": "VT-S11",
+   "pinpoint": "CCVS Policy for Reimbursement of Lost Wages, para. 5b"
+  },
+  {
+   "id": "VT-WAGES-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost wages are paid at 85% of the victim's gross wages at the time of the loss.",
+   "quote": "lost wages will be paid at 85% of the victim's gross wages at the time of the loss.",
+   "source_id": "VT-S11",
+   "pinpoint": "CCVS Policy for Reimbursement of Lost Wages, para. 2"
+  },
+  {
+   "id": "VT-RELOC-1",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Relocation costs such as rental trucks, movers, transportation, and up to three months of storage are capped at $1,500 in total.",
+   "quote": "Relocation costs could include the following: rental trucks, moving companies, transportation costs, storage fees not to exceed three months. Total relocation costs not to exceed $1,500.",
+   "source_id": "VT-S13",
+   "pinpoint": "CCVS Policy for Housing and Relocation, Relocation Costs"
+  },
+  {
+   "id": "VT-RELOC-2",
+   "category": "expense_cap",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 10000,
+    "per": "day",
+    "count_limit": 7
+   },
+   "summary": "Emergency housing is paid at up to $100 per night, for no more than 7 nights.",
+   "quote": "Emergency housing will be paid at a maximum of $100.00 per night, for not more than 7 nights.",
+   "source_id": "VT-S13",
+   "pinpoint": "CCVS Policy for Housing and Relocation, Emergency Housing"
+  },
+  {
+   "id": "VT-RELOC-3",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "The program can help with relocation when the victim's safety is at risk or the victim is displaced by the crime, generally no more than once in a 12-month period.",
+   "quote": "The Victims Compensation Program will generally pay relocation costs no more than once in a 12-month period.",
+   "source_id": "VT-S13",
+   "pinpoint": "CCVS Policy for Housing and Relocation, introduction"
+  },
+  {
+   "id": "VT-TRAVEL-1",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "In non-homicide cases, travel to attend criminal court proceedings, Parole Board hearings, and pre-sentence investigations is capped at $2,000 per claim.",
+   "quote": "For all non-homicide criminal cases there is a $2,000.00 travel expense cap per claim for the eligible victim to attend criminal court proceedings, Parole Board hearings, and to participate in pre-sentence investigations.",
+   "source_id": "VT-S12",
+   "pinpoint": "CCVS Policy for Reimbursement of Travel Expenses"
+  },
+  {
+   "id": "VT-TRAVEL-2",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Transportation for medical or mental health treatment can be paid as a medically related expense.",
+   "quote": "-transportation for medical/mental health treatment.",
+   "source_id": "VT-S16",
+   "pinpoint": "Code Vt. R. 80-220-001, Section 5356(B)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/vermont/80-001-Code-Vt-R-80-220-001-X#:~:text=%2Dtransportation%20for%20medical%2Fmental%20health%20treatment."
+  },
+  {
+   "id": "VT-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "For uninsured victims who do not qualify for hospital assistance, Medicaid, or Medicare, the Board may pay providers 60 percent of billed charges, and the provider may not bill the victim for the balance.",
+   "quote": "The Board may reimburse health care facilities and health care providers as defined in 18 V.S.A. § 9402 at 60 percent of the billed charges for compensation claims for uninsured crime victims who do not qualify for the hospital's patient assistance program, Medicaid, or Medicare. The health care facility or health care provider shall not bill any balance to the uninsured crime victim.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5356(c)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=The%20Board%20may%20reimburse%20health,to%20the%20uninsured%20crime%20victim."
+  },
+  {
+   "id": "VT-MED-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Pecuniary loss covers medical or medically related expenses, lost wages, and other expenses the Board finds became necessary as a direct result of the crime.",
+   "quote": "\"Pecuniary loss\" means, in the case of a victim, the amount of medical or medically related expenses, loss of wages, and any other expenses that the Board feels became necessary as a direct result of the crime.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5351(5)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%22Pecuniary%20loss%22%20means%2C%20in%20the,direct%20result%20of%20the%20crime."
+  },
+  {
+   "id": "VT-SEC-1",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Safety and security expenses are listed among the costs the program may pay.",
+   "quote": "Safety/security",
+   "source_id": "VT-S4",
+   "pinpoint": "CCVS Eligibility page, Expenses the Victims Compensation Program may pay for",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Safety%2Fsecurity"
+  },
+  {
+   "id": "VT-EXCL-1",
+   "category": "excluded_expense",
+   "params": {
+    "item": "lost, stolen, or damaged property, except medically necessary items"
+   },
+   "summary": "Lost, stolen, or damaged property is not paid, except medically necessary items.",
+   "quote": "Expenses for lost, stolen or damaged property (except medically necessary items due to a qualifying crime)",
+   "source_id": "VT-S4",
+   "pinpoint": "CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Expenses%20for%20lost%2C%20stolen%20or,due%20to%20a%20qualifying%20crime%29"
+  },
+  {
+   "id": "VT-EXCL-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering"
+   },
+   "summary": "Damages for pain and suffering are not paid.",
+   "quote": "Damages for pain and suffering",
+   "source_id": "VT-S4",
+   "pinpoint": "CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Damages%20for%20pain%20and%20suffering"
+  },
+  {
+   "id": "VT-EXCL-3",
+   "category": "excluded_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal"
+   },
+   "summary": "Attorney fees are not paid.",
+   "quote": "Attorney fees",
+   "source_id": "VT-S4",
+   "pinpoint": "CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Attorney%20fees"
+  },
+  {
+   "id": "VT-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime",
+    "extension": "The Board may extend the time for good cause shown."
+   },
+   "summary": "An application is denied if it is not filed within the time allowed for starting a prosecution of the crime, but the Board may extend the time for good cause.",
+   "quote": "(1) The application was not made within the period of time permitted for commencing prosecution of the crime. The Board may extend the time for filing for good cause shown.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5355(b)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%281%29%20The%20application%20was%20not,filing%20for%20good%20cause%20shown."
+  },
+  {
+   "id": "VT-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "Prosecution of sexual assault and aggravated sexual assault can begin at any time, so the prosecution period that sets the compensation filing limit does not run out for those crimes.",
+   "quote": "(a) Prosecutions for aggravated sexual assault, aggravated sexual assault of a child, sexual assault, sexual exploitation of a minor as defined in subsection 3258(c) of this title, human trafficking, aggravated human trafficking, murder, manslaughter, arson causing death, and kidnapping may be commenced at any time after the commission of the offense.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/13/151/04501#:~:text=%28a%29%20Prosecutions%20for%20aggravated%20sexual,the%20commission%20of%20the%20offense."
+  },
+  {
+   "id": "VT-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "For Victims Compensation, a law enforcement official must have filed a report concluding that a crime was committed that caused the injury.",
+   "quote": "(1) a law enforcement official has filed a report concluding that a crime was committed which resulted in the injury or death of the victim",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5353(a)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%281%29%20a%20law%20enforcement%20official,or%20death%20of%20the%20victim"
+  },
+  {
+   "id": "VT-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "medical_provider"
+    ]
+   },
+   "summary": "The separate CCVS Sexual Assault Program does not require a police report. The assault only has to be reported to a medical provider.",
+   "quote": "The victim does not have to report the crime to the police to be eligible , only to a medical provider .",
+   "source_id": "VT-S6",
+   "pinpoint": "CCVS Sexual Assault Program page, Who is eligible?",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=The%20victim%20does%20not%20have,to%20a%20medical%20provider%20."
+  },
+  {
+   "id": "VT-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays only losses not covered by medical, hospitalization, or disability insurance or workers' compensation.",
+   "quote": "(A) that is not covered by medical, hospitalization, or disability insurance or workers' compensation",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5351(6)(A)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%28A%29%20that%20is%20not%20covered,disability%20insurance%20or%20workers%27%20compensation"
+  },
+  {
+   "id": "VT-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Insurance must be billed before the program pays.",
+   "quote": "Does insurance or other sources of payment have to be used? Yes. Insurance must be billed first.",
+   "source_id": "VT-S3",
+   "pinpoint": "CCVS Victims Compensation FAQ",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/frequently-asked-questions#:~:text=Does%20insurance%20or%20other%20sources,Insurance%20must%20be%20billed%20first."
+  },
+  {
+   "id": "VT-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "An application is denied if the victim broke a Vermont criminal law that caused or contributed to the victim's injuries.",
+   "quote": "(2) The victim violated a criminal law of this State that caused or contributed to the victim's injuries or death.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5355(b)(2)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%282%29%20The%20victim%20violated%20a,the%20victim%27s%20injuries%20or%20death."
+  },
+  {
+   "id": "VT-EMERG-1",
+   "category": "emergency_award",
+   "params": {},
+   "summary": "While a claim is pending, the Board rules allow an emergency advance to help a victim stay healthy or safe and avoid financial hardship. Any advance is deducted from the final award.",
+   "quote": "A) Emergency Advance can be made during the period of time a claim is pending approval by the full Board where such grants could help a victim maintain a reasonable level of health or safety for herself/himself or dependents and prevent financial hardship.",
+   "source_id": "VT-S16",
+   "pinpoint": "Code Vt. R. 80-220-001, Section 5356(A)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/vermont/80-001-Code-Vt-R-80-220-001-X#:~:text=A%29%20Emergency%20Advance%20can%20be,dependents%20and%20prevent%20financial%20hardship."
+  },
+  {
+   "id": "VT-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault is listed among the crimes that may qualify for compensation.",
+   "quote": "Robbery Sexual Assault Stalking",
+   "source_id": "VT-S4",
+   "pinpoint": "CCVS Eligibility page, Types of crimes that may qualify",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Robbery%20Sexual%20Assault%20Stalking"
+  },
+  {
+   "id": "VT-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Injury includes bodily harm, pregnancy, or emotional harm resulting from the crime.",
+   "quote": "\"Injury\" means actual bodily harm or pregnancy, or emotional harm resulting from the crime.",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5351(4)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%22Injury%22%20means%20actual%20bodily%20harm,harm%20resulting%20from%20the%20crime."
+  },
+  {
+   "id": "VT-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime committed in Vermont (any victim), or a Vermont resident victimized in a state without an eligible compensation program"
+   },
+   "summary": "The crime must have happened in Vermont, or the victim is a Vermont resident and the state where it happened has no eligible compensation program.",
+   "quote": "(2) the crime was committed in this State; or (3) the victim is a Vermont resident, the state in which the crime occurred does not have an eligible crime Victims Compensation Program and the applicant would have been eligible for compensation under this chapter if the crime had been committed in this State;",
+   "source_id": "VT-S1",
+   "pinpoint": "13 V.S.A. § 5353(a)(2)-(3)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%282%29%20the%20crime%20was%20committed,been%20committed%20in%20this%20State%3B"
+  },
+  {
+   "id": "VT-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Sexual Assault Program: assault happened in Vermont"
+   },
+   "summary": "The Sexual Assault Program covers sexual assaults that happened in Vermont.",
+   "quote": "Victims of sexual assault are eligible if the crime happened in Vermont.",
+   "source_id": "VT-S6",
+   "pinpoint": "CCVS Sexual Assault Program page, Who is eligible?",
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=Victims%20of%20sexual%20assault%20are,the%20crime%20happened%20in%20Vermont."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "expense_cap for security",
+   "expense_cap for medical (no dollar cap; uninsured providers paid 60 percent of billed charges)",
+   "emergency_award amount"
+  ],
+  "notes": "No minimum loss was found in the statute, the Board rule, or the program pages. No dollar cap for security expenses was found. The emergency advance comes from the Board's administrative rule; no amount is set there."
+ },
+ "confidence": "high",
+ "researcher_notes": "Vermont runs two paths: Victims Compensation under 13 V.S.A. ch. 167 (police report concluding a crime occurred is required by 13 V.S.A. 5353(a)(1)), and the CCVS Sexual Assault Program under 32 V.S.A. 1407, which pays exam costs and follow-up counseling with no police report, only a report to a medical provider. The CCVS Application & Forms page says applicants do not have to provide a police report; I read that as not having to attach a copy (the claims specialist gathers it), not as waiving the statutory report requirement. Exam billing: 1407(c) requires providers to bill the survivor's insurance first, so insurance_billing is 'allowed' (in fact required); the survivor owes nothing because the Fund pays cost-sharing and providers cannot balance bill uninsured survivors. Filing deadline: the statute ties the deadline to the prosecution limitation period; 13 V.S.A. 4501(a) has no limit for sexual assault and aggravated sexual assault, but other sex offenses in 4501(b)-(e) have limits, so VT-DEADLINE-2 only covers the crimes it lists. Counseling and lost-wage figures are CCVS policies with effective dates: counseling $100/session applies to services from August 12, 2024; lost wages $750/week applies to claims filed on or after 9/8/2025 (older claims $500/week). The Board administrative rule (Code Vt. R. 80-220-001, via Cornell LII) lists older internal caps (mental health $3,000, lost wages $1,500, temporary living $1,500/month) that conflict with the current CCVS policies; I did not encode those caps and only used the rule for the emergency advance and transportation-for-treatment provisions. Relocation caps are stated in the policy without a per-claim unit; the policy says relocation is generally paid no more than once in 12 months. Reviewer: VT-TRAVEL-1's $2,000 cap applies only to travel to court proceedings, Parole Board hearings, and pre-sentence investigations in non-homicide cases (plus $2,000 more per separately tried defendant); it is not a cap on travel to medical or counseling treatment (VT-TRAVEL-2). The Board rule (VT-S16) is an old version (it lists a Montpelier address and a 7-digit phone) and is used only for the emergency advance and treatment transportation."
+}

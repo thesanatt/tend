@@ -1,0 +1,789 @@
+{
+ "jurisdiction": "NY",
+ "name": "New York",
+ "program": {
+  "program_name": "Victim Compensation",
+  "agency": "New York State Office of Victim Services (OVS)",
+  "website": "https://ovs.ny.gov/victim-compensation",
+  "apply_url": "https://ovscompass.ovs.ny.gov/ovs/applicant/signIn",
+  "application_pdf_url": "https://ovs.ny.gov/system/files/documents/2026/02/fillable-ovs-compensation-application-02.12.26.pdf",
+  "phone": "1-800-247-8035",
+  "phone_source_id": "NY-S1",
+  "statute_citation": "N.Y. Executive Law Article 22 (sections 620 to 635); 9 NYCRR Part 525; Public Health Law 2805-i"
+ },
+ "sources": [
+  {
+   "id": "NY-S1",
+   "title": "OVS Victim Compensation page",
+   "url": "https://ovs.ny.gov/victim-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:18Z",
+   "raw_path": "rules/sources/NY/NY-S1.html",
+   "text_path": "rules/sources/NY/NY-S1.txt",
+   "sha256": "d3113b06d6cc128dbe585f92178056176a873a9fd1e287d9f524441f9baf2c2e"
+  },
+  {
+   "id": "NY-S4",
+   "title": "OVS Victim Compensation Claim Application (English, fillable PDF)",
+   "url": "https://ovs.ny.gov/system/files/documents/2026/02/fillable-ovs-compensation-application-02.12.26.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:47:36Z",
+   "raw_path": "rules/sources/NY/NY-S4.pdf",
+   "text_path": "rules/sources/NY/NY-S4.txt",
+   "sha256": "2367920434fa7224851caa29adbdda2d8826b18a0735d624cfc797ab5b5b026f"
+  },
+  {
+   "id": "NY-S7",
+   "title": "OVS Compensation Program Updates for Victims and Survivors",
+   "url": "https://ovs.ny.gov/compensation-program-updates-victims-and-survivors",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:47Z",
+   "raw_path": "rules/sources/NY/NY-S7.html",
+   "text_path": "rules/sources/NY/NY-S7.txt",
+   "sha256": "da892a2efe8cbf074f799e78863dc77feba100a5d2874d7a1c4a8aef16dca63f"
+  },
+  {
+   "id": "NY-S8",
+   "title": "OVS Forensic Rape Exam (FRE) Direct Reimbursement Program",
+   "url": "https://ovs.ny.gov/FRE",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:47Z",
+   "raw_path": "rules/sources/NY/NY-S8.html",
+   "text_path": "rules/sources/NY/NY-S8.txt",
+   "sha256": "1269e97f6f61f2bf2687d7e9c2633a3426a24fe3982aea97a7645a8d87cfa886"
+  },
+  {
+   "id": "NY-S9",
+   "title": "N.Y. Executive Law 631 (Awards)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/631",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:54Z",
+   "raw_path": "rules/sources/NY/NY-S9.html",
+   "text_path": "rules/sources/NY/NY-S9.txt",
+   "sha256": "8b2ef1b51e06ccddf63f04da40f705cb835296f912f459333ad069df44038b2c"
+  },
+  {
+   "id": "NY-S10",
+   "title": "N.Y. Executive Law 625 (Filing of claims)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/625",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:08Z",
+   "raw_path": "rules/sources/NY/NY-S10.html",
+   "text_path": "rules/sources/NY/NY-S10.txt",
+   "sha256": "5a30a72b565342ea779d1941190f6b58e971066030252359e6848e835447d853"
+  },
+  {
+   "id": "NY-S12",
+   "title": "N.Y. Executive Law 630 (Emergency awards)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/630",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:17Z",
+   "raw_path": "rules/sources/NY/NY-S12.html",
+   "text_path": "rules/sources/NY/NY-S12.txt",
+   "sha256": "f968b9ace748ce068973cb7f56745e703c2e5152e74ff054b921f32264d59545"
+  },
+  {
+   "id": "NY-S13",
+   "title": "N.Y. Executive Law 626 (Out-of-pocket loss; definition)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/626",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:22Z",
+   "raw_path": "rules/sources/NY/NY-S13.html",
+   "text_path": "rules/sources/NY/NY-S13.txt",
+   "sha256": "47096a179069b0ce6c7b846fb58c48946a3c149ea9059a490769be93533e64af"
+  },
+  {
+   "id": "NY-S14",
+   "title": "N.Y. Executive Law 621 (Definitions)",
+   "url": "https://www.nysenate.gov/legislation/laws/EXC/621",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:28Z",
+   "raw_path": "rules/sources/NY/NY-S14.html",
+   "text_path": "rules/sources/NY/NY-S14.txt",
+   "sha256": "e2069dffbdb9ea45a76d8af338f6269a887d7aaa187c4cd0ab101dd45431c984"
+  },
+  {
+   "id": "NY-S15",
+   "title": "N.Y. Public Health Law 2805-i (Treatment of sexual offense victims)",
+   "url": "https://www.nysenate.gov/legislation/laws/PBH/2805-I",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:48:50Z",
+   "raw_path": "rules/sources/NY/NY-S15.html",
+   "text_path": "rules/sources/NY/NY-S15.txt",
+   "sha256": "c1bbf845c73816fe7508d1bb2aeb4f7a359ed88b6971b3020077cc13dbf1d867"
+  },
+  {
+   "id": "NY-S17",
+   "title": "9 NYCRR 525.12 (Manner of payment; awards), via Cornell LII",
+   "url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:49:05Z",
+   "raw_path": "rules/sources/NY/NY-S17.html",
+   "text_path": "rules/sources/NY/NY-S17.txt",
+   "sha256": "d3e111781aec29254e0d944da2f422e424f0384b55906076a43ff3a364c36ed9"
+  },
+  {
+   "id": "NY-S18",
+   "title": "9 NYCRR 525.3 (Definitions), via Cornell LII",
+   "url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.3",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:49:11Z",
+   "raw_path": "rules/sources/NY/NY-S18.html",
+   "text_path": "rules/sources/NY/NY-S18.txt",
+   "sha256": "5cf03029553f17382c79b1aa9572cf8d98ca15443704a23f673b5d9510e81314"
+  },
+  {
+   "id": "NY-S19",
+   "title": "OVS Forensic Rape Exam Direct Reimbursement Program Provider Billing Manual (March 2026, Version 2.0)",
+   "url": "https://ovs.ny.gov/fre-provider-billing-manual",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:54:57Z",
+   "raw_path": "rules/sources/NY/NY-S19.pdf",
+   "text_path": "rules/sources/NY/NY-S19.txt",
+   "sha256": "b50ccec6da4c39b335e5693a32ac1c310a0094ac4241c0bfed26a51c28e69b3c"
+  }
+ ],
+ "rules": [
+  {
+   "id": "NY-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "The provider must accept the OVS exam fee as payment in full and may not bill the survivor for the forensic exam services.",
+   "quote": "The hospital, sexual assault examiner program, or licensed health care provider must accept this fee as payment in full for these specified services. No additional billing of the survivor for said services is permissible.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(13)(b)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=The%20hospital%2C%20sexual%20assault%20examiner,for%20said%20services%20is%20permissible."
+  },
+  {
+   "id": "NY-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "Private insurance can be used for the exam only if the survivor chooses to assign it, and then the survivor owes no deductible, coinsurance, or balance bill.",
+   "quote": "A sexual assault survivor may voluntarily assign any private insurance benefits to which they are entitled for the healthcare forensic examination, in which case the hospital or healthcare provider may not charge the office; provided, however, in the event the sexual assault survivor assigns any private health insurance benefit, such coverage shall not be subject to annual deductibles or coinsurance or balance billing by the hospital, sexual assault examiner program or licensed health care provider.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(13)(b)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=A%20sexual%20assault%20survivor%20may,or%20licensed%20health%20care%20provider."
+  },
+  {
+   "id": "NY-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "Hospitals must make sure survivors are not billed for forensic exams and must tell them, orally and in writing, they can decline to give insurance information and have OVS pay instead.",
+   "quote": "ensuring sexual assault survivors are not billed for sexual assault forensic exams and are notified orally and in writing of the option to decline to provide private health insurance information and have the office of victim services reimburse the hospital for the exam",
+   "source_id": "NY-S15",
+   "pinpoint": "N.Y. Pub. Health Law 2805-i(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/PBH/2805-I#:~:text=ensuring%20sexual%20assault%20survivors%20are,the%20hospital%20for%20the%20exam"
+  },
+  {
+   "id": "NY-EXAM-6",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "A provider that accepts OVS payment for the exam takes it as payment in full and may not bill the survivor for the difference between its charges and what OVS paid.",
+   "quote": "The billing provider may not bill victims/survivors or their guardians for the difference between charged amounts and the amount reimbursed by OVS.",
+   "source_id": "NY-S19",
+   "pinpoint": "OVS FRE Provider Billing Manual (March 2026), III.c Reimbursement Rates"
+  },
+  {
+   "id": "NY-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "New York State Office of Victim Services (direct reimbursement to the provider)"
+   },
+   "summary": "The hospital or provider gives sexual assault survivors exam services free of charge and bills the Office of Victim Services directly.",
+   "quote": "such hospital, sexual assault examiner program, or licensed healthcare provider shall provide such services to the person without charge and shall bill the office directly.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(13)(a)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=such%20hospital%2C%20sexual%20assault%20examiner,shall%20bill%20the%20office%20directly."
+  },
+  {
+   "id": "NY-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "New York State Office of Victim Services"
+   },
+   "summary": "OVS pays the medical provider directly for the exam when the survivor has no private insurance or chooses not to use it.",
+   "quote": "OVS can directly reimburse medical providers for forensic rape exams when sexual assault survivors do not have private health insurance or choose not to use their insurance.",
+   "source_id": "NY-S8",
+   "pinpoint": "OVS Forensic Rape Exam Direct Reimbursement Program page",
+   "fragment_url": "https://ovs.ny.gov/FRE#:~:text=OVS%20can%20directly%20reimburse%20medical,not%20to%20use%20their%20insurance."
+  },
+  {
+   "id": "NY-EXAM-7",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "OVS pays only for exam-related services; unrelated care goes to insurance first, then a compensation claim"
+   },
+   "summary": "OVS direct payment covers only services and medicines related to the forensic exam. Unrelated care in the same visit is not paid under the exam claim; it goes to the survivor's insurance first, then can be submitted to OVS as a regular compensation claim.",
+   "quote": "Only services and pharmaceuticals that are related to the forensic rape exam may be reimbursed under an FRE claim.",
+   "source_id": "NY-S19",
+   "pinpoint": "OVS FRE Provider Billing Manual (March 2026), III Reimbursement"
+  },
+  {
+   "id": "NY-COVER-1",
+   "category": "covered_expense",
+   "expense": "forensic_exam",
+   "params": {},
+   "summary": "Out-of-pocket costs a sex offense victim (Penal Law article 130) incurs for a hospital or medical exam tied to the investigation or prosecution are covered.",
+   "quote": "an award shall include out-of-pocket expenses, including indebtedness reasonably incurred by the victim of a sex offense or the person responsible for the victim of such sex offense, as such sex offense is defined in article one hundred thirty of the penal law, for a hospital or medical examination in connection with the investigation or prosecution of any such offense.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(7)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=an%20award%20shall%20include%20out%2Dof%2Dpocket,prosecution%20of%20any%20such%20offense."
+  },
+  {
+   "id": "NY-COVER-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {},
+   "summary": "Unreimbursed medical care and other necessary services caused by the injury count as out-of-pocket loss.",
+   "quote": "Out-of-pocket loss shall mean unreimbursed and unreimbursable expenses or indebtedness reasonably incurred for medical care or other services necessary as a result of the injury upon which such claim is based",
+   "source_id": "NY-S13",
+   "pinpoint": "N.Y. Exec. Law 626(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/626#:~:text=Out%2Dof%2Dpocket%20loss%20shall%20mean%20unreimbursed,which%20such%20claim%20is%20based"
+  },
+  {
+   "id": "NY-COVER-3",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {},
+   "summary": "Counseling is covered for physically injured crime victims and their spouse, children, or stepchildren (sex offense victims are presumed physically injured).",
+   "quote": "Such expenses or indebtedness shall include the cost of counseling for the eligible spouse, domestic partner, grandparents, parents, stepparents, guardians, brothers, sisters, stepbrothers, stepsisters, children, stepchildren or grandchildren of a homicide victim, and crime victims who have sustained a personal physical injury as the direct result of a crime and the spouse, children or stepchildren of such physically injured victim.",
+   "source_id": "NY-S13",
+   "pinpoint": "N.Y. Exec. Law 626(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/626#:~:text=Such%20expenses%20or%20indebtedness%20shall,of%20such%20physically%20injured%20victim."
+  },
+  {
+   "id": "NY-COVER-4",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {},
+   "summary": "Reasonable travel to crime-related medical care is covered, with receipts for fares or the federal mileage rate for driving yourself.",
+   "quote": "medical expenses shall also include the reasonable transportation expenses incurred for necessary, causally related medical care which may include, but are not limited to, reasonable airplane, cab, bus or train fare, with receipts, or if a claimant has provided his or her own transportation, the federally recognized mileage reimbursement rate at the time the expense was incurred",
+   "source_id": "NY-S18",
+   "pinpoint": "9 NYCRR 525.3(d)(2)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.3#:~:text=medical%20expenses%20shall%20also%20include,time%20the%20expense%20was%20incurred"
+  },
+  {
+   "id": "NY-COVER-5",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {},
+   "summary": "Reasonable transportation to necessary court appearances in the prosecution is covered.",
+   "quote": "an award shall include reasonable transportation expenses incurred for necessary court appearances in connection with the prosecution of such crimes upon which the claim is based.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(10)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=an%20award%20shall%20include%20reasonable,which%20the%20claim%20is%20based."
+  },
+  {
+   "id": "NY-COVER-6",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {},
+   "summary": "New or enhanced security devices can be covered when a physician, counselor, or the district attorney states the claimant's health is in imminent danger without the device.",
+   "quote": "In order for the costs associated with new or enhanced security devices, beyond those which, pursuant to the Executive Law are repaired or replaced under subdivision 2 of section 631, or are awarded under subdivision 12 of section 631 , to be compensable, the office shall require a statement from the claimant's physician or counselor, or the district attorney handling the victim's case, indicating that without the aid of such a device the claimant's health is in imminent danger.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(g)(3)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=In%20order%20for%20the%20costs,health%20is%20in%20imminent%20danger."
+  },
+  {
+   "id": "NY-COVER-7",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {},
+   "summary": "Relocation costs are covered when moving is necessary for the victim's health or safety.",
+   "quote": "\"Relocation expenses\" shall mean the cost of relocating a crime victim, when relocation is necessary for the health or safety of the victim.",
+   "source_id": "NY-S14",
+   "pinpoint": "N.Y. Exec. Law 621(23)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/621#:~:text=%22Relocation%20expenses%22%20shall%20mean%20the,or%20safety%20of%20the%20victim."
+  },
+  {
+   "id": "NY-CAP-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 3000000,
+    "per": "claim"
+   },
+   "summary": "Lost earnings or support are capped at $30,000.",
+   "quote": "loss of earnings or support resulting from such injury not to exceed thirty thousand dollars",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(2)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=loss%20of%20earnings%20or%20support,to%20exceed%20thirty%20thousand%20dollars"
+  },
+  {
+   "id": "NY-CAP-2",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 60000,
+    "per": "week"
+   },
+   "summary": "Lost earnings or support are paid at no more than $600 per week.",
+   "quote": "no such award shall exceed six hundred dollars for each week of lost earnings or support.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(3)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=no%20such%20award%20shall%20exceed,of%20lost%20earnings%20or%20support."
+  },
+  {
+   "id": "NY-CAP-3",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Relocation expenses are capped at $2,500.",
+   "quote": "reasonable relocation expenses not exceeding twenty-five hundred dollars",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(2)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=reasonable%20relocation%20expenses%20not%20exceeding%20twenty%2Dfive%20hundred%20dollars"
+  },
+  {
+   "id": "NY-CAP-4",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 250000,
+    "per": "claim",
+    "scope": "employment_related_only"
+   },
+   "summary": "Employment-related transportation (extra cost of getting to work because of crime injuries) is capped at $2,500. Medical and court travel are not under this cap.",
+   "quote": "reasonable employment-related transportation expenses, not exceeding twenty-five hundred dollars",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(2)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=reasonable%20employment%2Drelated%20transportation%20expenses%2C%20not%20exceeding%20twenty%2Dfive%20hundred%20dollars"
+  },
+  {
+   "id": "NY-CAP-5",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleanup and securing a crime scene (for example repairing doors, windows, and locks) are capped at $2,500.",
+   "quote": "the costs of crime scene cleanup and securing of a crime scene not exceeding twenty-five hundred dollars",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(2)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=the%20costs%20of%20crime%20scene,not%20exceeding%20twenty%2Dfive%20hundred%20dollars"
+  },
+  {
+   "id": "NY-CAP-6",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Repair or replacement of essential personal property is capped at $2,500, with cash losses limited to $100.",
+   "quote": "Any award made for the cost of repair or replacement of essential personal property, including cash losses of essential personal property, shall be limited to an amount of twenty-five hundred dollars, except that all cash losses of essential personal property shall be limited to the amount of one hundred dollars.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(9)(a)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=Any%20award%20made%20for%20the,amount%20of%20one%20hundred%20dollars."
+  },
+  {
+   "id": "NY-CAP-7",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 150000,
+    "per": "item",
+    "item": "items related to the victim's ability to communicate"
+   },
+   "summary": "Essential property related to the victim's ability to communicate is paid at the receipted amount, up to $1,500 per item.",
+   "quote": "All awards made pursuant to Executive Law article 22 and this Part related to a victim's ability to communicate shall be limited to the receipted amount, in an amount not exceeding one-thousand five-hundred dollars per item.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(n)(3)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=All%20awards%20made%20pursuant%20to,one%2Dthousand%20five%2Dhundred%20dollars%20per%20item."
+  },
+  {
+   "id": "NY-CAP-13",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 250000,
+    "per": "item",
+    "item": "items for the safe operation of the victim's personal means of transportation"
+   },
+   "summary": "Essential property related to safely operating the victim's own means of transportation is paid at the receipted amount, up to $2,500 per item.",
+   "quote": "All awards made pursuant to Executive Law article 22 and this Part related to a victim's safe operation of their personal means of transportation shall be limited to the receipted amount, in an amount not exceeding two-thousand five-hundred dollars per item.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(n)(4)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=All%20awards%20made%20pursuant%20to,two%2Dthousand%20five%2Dhundred%20dollars%20per%20item."
+  },
+  {
+   "id": "NY-CAP-14",
+   "category": "expense_cap",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "amount_cents": 1000000,
+    "per": "claim",
+    "item": "medically necessary life-sustaining equipment"
+   },
+   "summary": "Medically necessary life-sustaining equipment lost or damaged in the crime has its own cap of $10,000 instead of the general essential property cap.",
+   "quote": "In the case of medically necessary life-sustaining equipment which was lost or damaged as the direct result of a crime, the award shall be limited to the amount of ten thousand dollars.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(9)(a)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=In%20the%20case%20of%20medically,amount%20of%20ten%20thousand%20dollars."
+  },
+  {
+   "id": "NY-CAP-8",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 50000,
+    "per": "item",
+    "item": "outerwear, suits and footwear"
+   },
+   "summary": "Outerwear, suits, and footwear are paid at the receipted amount, up to $500 per item.",
+   "quote": "Items of outerwear, suits and footwear shall be the receipted amount, in an amount not exceeding five-hundred dollars per item.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(n)(1)(i)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=Items%20of%20outerwear%2C%20suits%20and,exceeding%20five%2Dhundred%20dollars%20per%20item."
+  },
+  {
+   "id": "NY-CAP-9",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 10000,
+    "per": "item",
+    "item": "clothing other than outerwear, suits and footwear"
+   },
+   "summary": "Other clothing is paid at the receipted amount, up to $100 per item.",
+   "quote": "All other items of clothing shall be the receipted amount, in an amount not exceeding one-hundred dollars per item.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(n)(1)(ii)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=All%20other%20items%20of%20clothing,exceeding%20one%2Dhundred%20dollars%20per%20item."
+  },
+  {
+   "id": "NY-CAP-10",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 200000,
+    "per": "claim",
+    "item": "mattress and platform or box spring"
+   },
+   "summary": "A mattress and platform or box spring are paid at the receipted amount, up to $2,000.",
+   "quote": "Mattress and platform or box spring shall be the receipted amount, in an amount not exceeding two-thousand dollars.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(n)(2)(i)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=Mattress%20and%20platform%20or%20box,amount%20not%20exceeding%20two%2Dthousand%20dollars."
+  },
+  {
+   "id": "NY-CAP-11",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 50000,
+    "per": "claim",
+    "item": "bedding other than mattress and box spring"
+   },
+   "summary": "Other bedding is paid at the receipted amount, up to $500 in total.",
+   "quote": "All other items of bedding shall be the receipted amount, in a cumulative amount not exceeding five-hundred dollars.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(n)(2)(ii)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=All%20other%20items%20of%20bedding,amount%20not%20exceeding%20five%2Dhundred%20dollars."
+  },
+  {
+   "id": "NY-CAP-12",
+   "category": "expense_cap",
+   "expense": "legal",
+   "params": {
+    "expense": "legal",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Attorney fees for representation before OVS or on judicial review are capped at $1,000.",
+   "quote": "the cost of reasonable attorneys' fees for representation before the office and/or before the appellate division upon judicial review not to exceed one thousand dollars.",
+   "source_id": "NY-S13",
+   "pinpoint": "N.Y. Exec. Law 626(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/626#:~:text=the%20cost%20of%20reasonable%20attorneys%27,to%20exceed%20one%20thousand%20dollars."
+  },
+  {
+   "id": "NY-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "security",
+   "params": {
+    "item": "periodic monitoring or maintenance charges for security devices"
+   },
+   "summary": "For security devices, only the device and installation are covered; monitoring and maintenance fees are not.",
+   "quote": "Compensable costs shall be limited to the devices themselves and their installation, and shall not include the periodic service charges for monitoring or maintaining any such devices.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(g)(3)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=Compensable%20costs%20shall%20be%20limited,or%20maintaining%20any%20such%20devices."
+  },
+  {
+   "id": "NY-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "item": "meals during travel"
+   },
+   "summary": "Meals during travel for medical care are not reimbursed as transportation.",
+   "quote": "Meals shall not be considered a related transportation expense.",
+   "source_id": "NY-S18",
+   "pinpoint": "9 NYCRR 525.3(d)(2)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.3#:~:text=Meals%20shall%20not%20be%20considered%20a%20related%20transportation%20expense."
+  },
+  {
+   "id": "NY-EXCL-3",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "item": "purchase, lease or rental of a vehicle"
+   },
+   "summary": "Employment-related transportation does not cover buying, leasing, or renting a vehicle.",
+   "quote": "Such costs shall not include the purchase, lease or rental of a vehicle.",
+   "source_id": "NY-S14",
+   "pinpoint": "N.Y. Exec. Law 621(25) (employment-related transportation)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/621#:~:text=Such%20costs%20shall%20not%20include,or%20rental%20of%20a%20vehicle."
+  },
+  {
+   "id": "NY-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "Runs from the crime or its discovery; OVS may extend for good cause, and must extend if the claimant got no notice of the program and did not know they were eligible."
+   },
+   "summary": "File within 3 years of the crime or its discovery; OVS may extend this for good cause.",
+   "quote": "A claim must be filed by the claimant not later than three years after the occurrence or discovery of the crime upon which such claim is based, three years after a court finds a lawsuit to be frivolous, or not later than three years after the death of the victim, provided, however, that upon good cause shown, the office may extend the time for filing.",
+   "source_id": "NY-S10",
+   "pinpoint": "N.Y. Exec. Law 625(2)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/625#:~:text=A%20claim%20must%20be%20filed,extend%20the%20time%20for%20filing."
+  },
+  {
+   "id": "NY-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "good reasons, including not knowing compensation existed or not knowing you may be eligible"
+   },
+   "summary": "Even after 3 years, OVS can waive the deadline for good reasons, such as not knowing the program existed or not knowing you were eligible.",
+   "quote": "Please keep in mind that even if it has been more than three years, OVS has the ability to waive this requirement if the claimant or victim/survivor can show they had good reasons for not filing a claim within that timeframe. Good reasons can include, but are not limited to not knowing that victim compensation existed, or not knowing that they may be eligible for compensation.",
+   "source_id": "NY-S7",
+   "pinpoint": "OVS Compensation Program Updates for Victims and Survivors, Timely Filing",
+   "fragment_url": "https://ovs.ny.gov/compensation-program-updates-victims-and-survivors#:~:text=Please%20keep%20in%20mind%20that,may%20be%20eligible%20for%20compensation."
+  },
+  {
+   "id": "NY-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "forensic_exam",
+     "other"
+    ]
+   },
+   "summary": "A police report is not required: the crime must have been reported, but records of a support agency for survivors of crime (such as a forensic exam facility or protective services agency) can show this instead of police records. No fixed reporting window appears in the statute.",
+   "quote": "the records of a support agency for survivors of crime or the records of a criminal justice agency show that such crime was reported.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(1)(a)(iii)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=the%20records%20of%20a%20support,that%20such%20crime%20was%20reported."
+  },
+  {
+   "id": "NY-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "A medical facility that provides forensic exams for rape and sexual assault counts as a support agency, so its records can stand in for a police report.",
+   "quote": "any medical facility established under the laws of the state that provides a forensic physical examination for victims of rape and sexual assault",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(1)(c)(i)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=any%20medical%20facility%20established%20under,of%20rape%20and%20sexual%20assault"
+  },
+  {
+   "id": "NY-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "other"
+    ]
+   },
+   "summary": "For sex offenses, a family court also counts as a support agency.",
+   "quote": "in cases involving any sex offense or family offense a support agency for survivors of crime shall also include a family court",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(1)(c)(ii)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=in%20cases%20involving%20any%20sex,also%20include%20a%20family%20court"
+  },
+  {
+   "id": "NY-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "advocate",
+     "medical_provider"
+    ]
+   },
+   "summary": "Since December 31, 2025, a victim service provider or a medical or mental health professional can fill out a Crime Verification Form instead of a police report.",
+   "quote": "Starting December 31, 2025, instead of filing a report with law enforcement, you can go to a local victim service provider , or a medical or mental health professional, and tell them that you or a loved one experienced a crime. The provider can fill out a short form to tell OVS about the crime.",
+   "source_id": "NY-S7",
+   "pinpoint": "OVS Compensation Program Updates for Victims and Survivors, Reporting a Crime",
+   "fragment_url": "https://ovs.ny.gov/compensation-program-updates-victims-and-survivors#:~:text=Starting%20December%2031%2C%202025%2C%20instead,tell%20OVS%20about%20the%20crime."
+  },
+  {
+   "id": "NY-REPORT-5",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "protective_order",
+     "advocate",
+     "medical_provider"
+    ]
+   },
+   "summary": "Under the statute, when the victim cannot report to or cooperate with police because of age, physical or psychological state, cultural or language barriers, or another health or safety concern, a court that issued a restraining or protective order, a contracted victim services provider, or a licensed medical or mental health provider also counts as a support agency.",
+   "quote": "in cases where a physically injured claimant and/or victim is unable to report to or otherwise cooperate with a criminal justice agency because of the victim's age, physical condition, psychological state, cultural or linguistic barriers, or any other health or safety concern that jeopardizes the victim's wellbeing, a support agency for survivors of crime shall also include: (A) a court which issued a temporary or permanent restraining order or protective order against the party or parties alleged to have committed the crime against the victim, or (B) a \"victim services provider\"",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(1)(c)(iii)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=in%20cases%20where%20a%20physically,%28B%29%20a%20%22victim%20services%20provider%22"
+  },
+  {
+   "id": "NY-COLLAT-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Awards are reduced by payments from the offender, mandated insurance, public funds, the claimant's own insurance, and any emergency award.",
+   "quote": "Any award made pursuant to this article shall be reduced by the amount of any payments received or to be received by the claimant as a result of the injury (a) from or on behalf of the person who committed the crime, (b) under insurance programs mandated by law, (c) from public funds, (d) under any contract of insurance wherein the claimant is the insured or beneficiary, (e) as an emergency award pursuant to section six hundred thirty of this article.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(4)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=Any%20award%20made%20pursuant%20to,hundred%20thirty%20of%20this%20article."
+  },
+  {
+   "id": "NY-COLLAT-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "OVS pays last: insurance or benefit plans must be billed first. The forensic exam is an exception (see the exam rules).",
+   "quote": "OVS is the payer of last resort and can only consider your out-of-pocket loss. OVS can only process payments for crime-related expenses. You must bill your insurance company or benefits plan before OVS can pay.",
+   "source_id": "NY-S4",
+   "pinpoint": "OVS Claim Application, Reminder"
+  },
+  {
+   "id": "NY-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "OVS considers whether the victim's own conduct contributed to the injury and can reduce or deny the award on that basis.",
+   "quote": "the office shall determine whether, because of such victim's conduct, the victim of such crime contributed to the infliction of such victim's injury, and the office shall reduce the amount of the award or reject the claim altogether, in accordance with such determination.",
+   "source_id": "NY-S9",
+   "pinpoint": "N.Y. Exec. Law 631(5)(a)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/631#:~:text=the%20office%20shall%20determine%20whether%2C,in%20accordance%20with%20such%20determination."
+  },
+  {
+   "id": "NY-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "Being a victim of sexual assault is a mitigating factor, and OVS may then make the award with no conduct reduction.",
+   "quote": "However, when considering conduct contributing the office shall examine the following mitigating factors: the victim was a minor, a victim of human trafficking, a sex worker, or a victim of sexual assault. If any such mitigating factors are found in the investigation of the claim pursuant to subdivision (b) of section 525.5 of this part, the office may make an award without reduction for conduct contributing.",
+   "source_id": "NY-S17",
+   "pinpoint": "9 NYCRR 525.12(m)(3)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/new-york/9-NYCRR-525.12#:~:text=However%2C%20when%20considering%20conduct%20contributing,without%20reduction%20for%20conduct%20contributing."
+  },
+  {
+   "id": "NY-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 250000
+   },
+   "summary": "When an award is likely and waiting would cause undue hardship, OVS can make emergency awards totaling up to $2,500, which are later deducted from the final award.",
+   "quote": "the office may make one or more emergency awards to the claimant pending a final decision of the office or payment of an award in the case, provided, however, that the total amount of such emergency awards shall not exceed twenty-five hundred dollars.",
+   "source_id": "NY-S12",
+   "pinpoint": "N.Y. Exec. Law 630(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/630#:~:text=the%20office%20may%20make%20one,not%20exceed%20twenty%2Dfive%20hundred%20dollars."
+  },
+  {
+   "id": "NY-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Victims of sex offenses under Penal Law article 130 are presumed to have suffered physical injury, which is the usual gateway to compensation.",
+   "quote": "For the purposes of this subdivision, the victim of a sex offense as defined in article one hundred thirty of the penal law is presumed to have suffered physical injury.",
+   "source_id": "NY-S13",
+   "pinpoint": "N.Y. Exec. Law 626(1)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/626#:~:text=For%20the%20purposes%20of%20this,to%20have%20suffered%20physical%20injury."
+  },
+  {
+   "id": "NY-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime committed in New York State"
+   },
+   "summary": "Acts committed in New York count as crimes for compensation whether or not anyone was arrested, charged, or prosecuted, and whether or not the claimant dealt with police.",
+   "quote": "an act committed in New York state which would, if committed by a mentally competent criminally responsible adult, who has no legal exemption or defense, constitute a crime as defined in and proscribed by law, regardless of whether any suspect was arrested, charged, apprehended or prosecuted for the commission of the act or whether the claimant has interacted with a criminal justice agency investigating such act",
+   "source_id": "NY-S14",
+   "pinpoint": "N.Y. Exec. Law 621(3)(a)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/621#:~:text=an%20act%20committed%20in%20New,justice%20agency%20investigating%20such%20act"
+  },
+  {
+   "id": "NY-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "New York residents victimized in a state without an eligible compensation program"
+   },
+   "summary": "A New York resident hurt by a crime in another state can apply only if that state has no eligible compensation program.",
+   "quote": "an act committed outside the state of New York against a resident of the state of New York which would be compensable had it occurred within the state of New York and which occurred in a state which does not have an eligible crime victim compensation program",
+   "source_id": "NY-S14",
+   "pinpoint": "N.Y. Exec. Law 621(3)(b)",
+   "fragment_url": "https://www.nysenate.gov/legislation/laws/EXC/621#:~:text=an%20act%20committed%20outside%20the,eligible%20crime%20victim%20compensation%20program"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "emergency_award",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency"
+  ],
+  "not_found": [
+   "total_cap",
+   "expense_cap:counseling",
+   "expense_cap:medical",
+   "expense_cap:security",
+   "minimum_loss"
+  ],
+  "notes": "total_cap: Article 22 sets no overall maximum award; it caps specific categories (lost earnings, relocation, property, etc.) and medical and counseling costs have no dollar cap in the statute. I did not record a total cap rather than infer one. Counseling rates: no per-session counseling fee cap was found in Executive Law 631 or in 9 NYCRR 525.3 or 525.12; 525.12(g)(4) lets OVS require proof that counseling is crime-related when a claim is filed more than one year after counseling began. minimum_loss: no minimum out-of-pocket loss requirement was found in the statute sections read. Security: covered for new or enhanced devices with a physician, counselor, or DA statement (525.12(g)(3)); no dollar cap found apart from the $2,500 crime scene securing cap. Financial difficulty: Exec. Law 631(6)(a) requires a finding of financial difficulty except for emergency awards and awards under ten thousand dollars (not a schema category). Reporting: the old one-week police reporting rule is no longer in Exec. Law 631(1); the current text accepts records of a support agency for survivors of crime. OVS pages say the Crime Verification Form is accepted only for claims filed on or after December 31, 2025. Reviewer additions: 9 NYCRR 525.12(h)(9) (LII text, last amended 2022) says direct-reimbursement exam expenses must relate to services within 120 hours of the incident, waived for a child victim or for good cause, and no kit reimbursement past 120 hours; the current Exec. Law 631(13) and the March 2026 OVS provider billing manual do not state this window, so it is not encoded as a rule. The per-item clothing, bedding, communication and transportation-item limits in 525.12(n)(1)-(4) do not apply when OVS finds the property is related to the victim's health or safety (525.12(n)(6)); the $2,500 statutory property cap still applies. The protective-order, victim services provider, and medical or mental health provider alternatives in Exec. Law 631(1)(c)(iii) are conditioned in the statute on the victim being unable to report to or cooperate with police for health or safety reasons; the OVS update page (NY-S7) describes the Crime Verification Form without that condition."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text is from the NY Senate Open Legislation site (fetched via Chrome). 9 NYCRR text is from Cornell LII because the official Westlaw NYCRR site is script-heavy; LII shows the 525.12 amendment history through Oct 12, 2022, and its funeral cap ($6,000) is older than the current statute ($12,000 in Exec. Law 631(2)), so for any conflict the statute wins. Effective dates from OVS update pages: three-year filing deadline and Crime Verification Form alternative to police reports apply starting December 31, 2025; filing deadline previously shorter. Exec. Law 631(13)(b) also sets provider reimbursement ceilings for the exam ($800 / $1,200 / $2,500); these are provider rates, not survivor-facing, so I did not encode them. The OVS FRE page says claims received on or after February 3, 2026 are paid by a new OVS fee schedule. PHL 2805-i(1) has two versions of the no-billing paragraph (lettered (d) until May 9, 2027 and (g) after); the quoted text is identical in both. Expense caps with per='item' (clothing, communication items) are per-item limits from 9 NYCRR 525.12(n); per='item' is outside the schema's listed values but is what the regulation says. A phone would most plausibly fall under 'ability to communicate', but the regulation does not name phones. Essential personal property awards for adults generally require a physical injury; sex offense victims are presumed physically injured under Exec. Law 626(1). The older OVS FAQ page and 2022 guideline PDFs state superseded rules (one-week reporting, one-year filing, $500 property cap), so I did not use them."
+}

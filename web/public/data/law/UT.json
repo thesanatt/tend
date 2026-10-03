@@ -1,0 +1,640 @@
+{
+ "jurisdiction": "UT",
+ "name": "Utah",
+ "program": {
+  "program_name": "Crime Victim Reparations (Victim Compensation)",
+  "agency": "Utah Office for Victims of Crime (UOVC)",
+  "website": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/",
+  "apply_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/",
+  "application_pdf_url": "https://crimevictim.utah.gov/wp-content/uploads/UOVC-Application-English.pdf",
+  "phone": "801-238-2360",
+  "phone_source_id": "UT-S3",
+  "statute_citation": "Utah Code 75E-5-101 to 75E-5-314 (formerly 63M-7-501 to 63M-7-525); Utah Admin. Code R270-1"
+ },
+ "sources": [
+  {
+   "id": "UT-S1",
+   "title": "Utah Office for Victims of Crime, Victim Compensation page",
+   "url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:42Z",
+   "raw_path": "rules/sources/UT/UT-S1.html",
+   "text_path": "rules/sources/UT/UT-S1.txt",
+   "sha256": "2a1f9a288debddcff685bacccb58084a9fdeae9ed50b995acd46ccb751c6c8c4"
+  },
+  {
+   "id": "UT-S2",
+   "title": "Utah Office for Victims of Crime, Victim FAQs",
+   "url": "https://crimevictim.utah.gov/help-for-victims/victim-faqs/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:42Z",
+   "raw_path": "rules/sources/UT/UT-S2.html",
+   "text_path": "rules/sources/UT/UT-S2.txt",
+   "sha256": "462fab28b353f9d327220fb135ab50b3c4dbbc7582406315789da71273181d2a"
+  },
+  {
+   "id": "UT-S3",
+   "title": "Utah Office for Victims of Crime, Apply for Compensation (application process and eligibility)",
+   "url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:42Z",
+   "raw_path": "rules/sources/UT/UT-S3.html",
+   "text_path": "rules/sources/UT/UT-S3.txt",
+   "sha256": "c4cf62d870c3b73326fadba24db3d896a58d211067606fe6230765fb0dd66f14"
+  },
+  {
+   "id": "UT-S4",
+   "title": "Utah Office for Victims of Crime, Sexual Assault Services Providers billing page",
+   "url": "https://crimevictim.utah.gov/billing/sexual-assault-services-providers/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:50:43Z",
+   "raw_path": "rules/sources/UT/UT-S4.html",
+   "text_path": "rules/sources/UT/UT-S4.txt",
+   "sha256": "391005d922e1b67afb3e0576154e5c2adea272a3ed4bddb9dadf497faca9551a"
+  },
+  {
+   "id": "UT-S5",
+   "title": "Application for the Crime Victim Reparations Program (English)",
+   "url": "https://crimevictim.utah.gov/wp-content/uploads/UOVC-Application-English.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:50:50Z",
+   "raw_path": "rules/sources/UT/UT-S5.pdf",
+   "text_path": "rules/sources/UT/UT-S5.txt",
+   "sha256": "6c739b957c678d03310b0a38124f7cd3493e5ca70ce05f17dc19244d86e39338"
+  },
+  {
+   "id": "UT-S6",
+   "title": "UOVC Code R (sexual assault exam) payment table, dates of service from January 5, 2023",
+   "url": "https://crimevictim.utah.gov/wp-content/uploads/Code-R-table-2023-01-05-1.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:50:50Z",
+   "raw_path": "rules/sources/UT/UT-S6.pdf",
+   "text_path": "rules/sources/UT/UT-S6.txt",
+   "sha256": "d293e1b0dbbd82fbefb6f2b09d00d704e4da319380f9527c6044b6f2098a0f01"
+  },
+  {
+   "id": "UT-S7",
+   "title": "Utah Code Title 75E, Chapter 5, Office for Victims of Crime (effective 7/1/2026)",
+   "url": "https://le.utah.gov/xcode/Title75E/Chapter5/C75E-5_2026050620260701.pdf",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:01Z",
+   "raw_path": "rules/sources/UT/UT-S7.pdf",
+   "text_path": "rules/sources/UT/UT-S7.txt",
+   "sha256": "e7a956330e9f366f50dbe0c9c9e2fed56b7a16139bea76f991282f8a51d9a4b9"
+  },
+  {
+   "id": "UT-S8",
+   "title": "Utah Admin. Code R270-1, Award and Reparation Standards (effective 12/08/2023)",
+   "url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:51:19Z",
+   "raw_path": "rules/sources/UT/UT-S8.html",
+   "text_path": "rules/sources/UT/UT-S8.txt",
+   "sha256": "a5d1217daca9fcc43dc6d1a99933226d5f7e0357ed6341d0dc876ecae67efef6"
+  }
+ ],
+ "rules": [
+  {
+   "id": "UT-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "A survivor may not be charged for a medical forensic sexual assault exam, and does not have to take part in the criminal justice system or cooperate with police or prosecutors to get one.",
+   "quote": "A victim may not be: (a) charged for a medical forensic sexual assault examination; or (b) required to participate in the criminal justice system or cooperate with law enforcement or prosecuting attorneys as a condition of being provided a medical forensic sexual assault examination.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-24(6)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=A%20victim%20may%20not%20be%3A,medical%20forensic%20sexual%20assault%20examination."
+  },
+  {
+   "id": "UT-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "allowed"
+   },
+   "summary": "An exam provider that accepts payment from the Utah Office for Victims of Crime must take it as payment in full and may not try to collect more from the patient.",
+   "quote": "A sexual assault exam service provider who accepts payment from UOVC agrees to accept that payment as payment in full on behalf of the patient and may not attempt to collect additional payment from the patient.",
+   "source_id": "UT-S4",
+   "pinpoint": "UOVC Sexual Assault Services Providers billing page, Payment in Full Requirement",
+   "fragment_url": "https://crimevictim.utah.gov/billing/sexual-assault-services-providers/#:~:text=A%20sexual%20assault%20exam%20service,additional%20payment%20from%20the%20patient."
+  },
+  {
+   "id": "UT-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Utah Office for Victims of Crime"
+   },
+   "summary": "The Utah Office for Victims of Crime may pay the examiner up to $1,250 for a complete medical forensic sexual assault exam with photo documentation; this limit covers the examiner's fee only, and the exam room, lab tests, and medications are paid separately.",
+   "quote": "The office may pay a medical service provider who performs a medical forensic sexual assault examination: (a) up to $1,250 for a complete medical forensic sexual assault examination with photo documentation",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-24(1)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20pay%20a,assault%20examination%20with%20photo%20documentation"
+  },
+  {
+   "id": "UT-EXAM-5",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "The office may pay the full cost of medications the exam provider gives the survivor during the exam, such as emergency contraception and medication to treat or prevent sexually transmitted infections.",
+   "quote": "the full cost of any medications the medical service provider gives directly to a victim during a medical forensic sexual assault examination such as: (i) the morning after pill or high dose oral contraceptives for the prevention of pregnancy; and (ii) medication for the treatment and prevention of sexually transmitted diseases.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-24(1)(b)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=the%20full%20cost%20of%20any,prevention%20of%20sexually%20transmitted%20diseases."
+  },
+  {
+   "id": "UT-EXAM-6",
+   "category": "collateral_source",
+   "expense": "forensic_exam",
+   "params": {},
+   "summary": "Sexual assault service providers must bill all available insurance or other payment sources before submitting claims to the Utah Office for Victims of Crime.",
+   "quote": "Providers must bill all available insurance or other payment sources before submitting claims to UOVC.",
+   "source_id": "UT-S4",
+   "pinpoint": "UOVC Sexual Assault Services Providers billing page, Reminder",
+   "fragment_url": "https://crimevictim.utah.gov/billing/sexual-assault-services-providers/#:~:text=Providers%20must%20bill%20all%20available,before%20submitting%20claims%20to%20UOVC."
+  },
+  {
+   "id": "UT-EXAM-7",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Utah Office for Victims of Crime (exam facility fees)"
+   },
+   "summary": "The office may also pay the facility where the exam is done 50% of the exam room fee, up to $350, plus the PEHP rate or 50% of the fee for the history and physical, specimen collection, STD and pregnancy testing, and STD treatment.",
+   "quote": "50% of the fee for the use of an examination room to perform a medical forensic sexual assault examination up to a maximum payment of $350",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-24(2)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=50%25%20of%20the%20fee%20for,a%20maximum%20payment%20of%20%24350"
+  },
+  {
+   "id": "UT-EXCL-1",
+   "category": "excluded_expense",
+   "params": {
+    "item": "over-the-counter at-home sexual assault evidence kits and testing of them"
+   },
+   "summary": "The office does not reimburse any cost of an over-the-counter at-home sexual assault evidence kit, including the kit and any testing of it.",
+   "quote": "The office may not provide any reimbursement for any costs associated with an over-the-counter sexual assault evidence kit that is available to the public for at home collection of evidence, including the cost of the kit and the cost of any testing performed on the kit.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-24(7)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20not%20provide,testing%20performed%20on%20the%20kit."
+  },
+  {
+   "id": "UT-TOTAL-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000
+   },
+   "summary": "A compensation award may not exceed $25,000, including any award for a secondary victim, except for medical expenses from serious or substantial bodily injury.",
+   "quote": "Except as provided in Subsection (4)(b), a compensation award may not exceed $25,000 including any compensation award for a secondary victim.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(4)(a)"
+  },
+  {
+   "id": "UT-CAP-1",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "amount_cents": 5000000,
+    "per": "claim"
+   },
+   "summary": "An award for medical expenses from serious bodily injury or substantial bodily injury may not exceed $50,000.",
+   "quote": "A compensation award for medical expenses resulting from serious bodily injury or substantial bodily injury may not exceed $50,000.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(4)(b)"
+  },
+  {
+   "id": "UT-CAP-2",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "per": "claim",
+    "count_limit": 25
+   },
+   "summary": "A primary victim can get up to 25 outpatient mental health counseling sessions, individual or group; more can be authorized with justification and extenuating circumstances.",
+   "quote": "a primary victim of a crime is eligible for a total of 25 outpatient mental health counseling sessions, including either individual or group counseling session;",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-5(1)(a)(i)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=a%20primary%20victim%20of%20a,individual%20or%20group%20counseling%20session%3B"
+  },
+  {
+   "id": "UT-CAP-3",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "per": "week",
+    "count_limit": 12
+   },
+   "summary": "Lost earnings can be reimbursed for up to 12 weeks of work loss, not exceeding the weekly workers' compensation maximum in effect at the time.",
+   "quote": "The office may reimburse victims for a loss of earnings for up to a maximum of 12 weeks work loss, at an amount not to exceed the maximum allowed per week by Worker's Compensation guidelines in effect at the time of work loss.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-10(2)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20reimburse%20victims,the%20time%20of%20work%20loss."
+  },
+  {
+   "id": "UT-CAP-4",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "The office may pay up to $2,000 for reasonable and necessary costs to secure a safe living situation after the crime, such as moving or keeping up rent.",
+   "quote": "the office may pay up to $2,000 for any reasonable and necessary cost for a victim to secure a safe living situation after a crime has occurred.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-11(1)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=the%20office%20may%20pay%20up,after%20a%20crime%20has%20occurred."
+  },
+  {
+   "id": "UT-CAP-5",
+   "category": "expense_cap",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "The office may pay up to $1,000 for reasonable and necessary travel to court, meetings with police or prosecutors, and medical, mental health, or other crime-related appointments.",
+   "quote": "the office may pay up to $1,000 for the reasonable and necessary costs for a victim to travel to and from:",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-12(1)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=the%20office%20may%20pay%20up,to%20travel%20to%20and%20from%3A"
+  },
+  {
+   "id": "UT-CAP-6",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Up to $1,500 may be allowed for other essential personal property such as burglar alarms, door locks, crime scene cleanup, and repair of walls and broken windows.",
+   "quote": "The reparations officer may allow up to $1,500 for other essential personal property such as burglar alarms, door locks, crime scene cleanup, repair of walls and broken windows.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-16(3)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20reparations%20officer%20may%20allow,of%20walls%20and%20broken%20windows."
+  },
+  {
+   "id": "UT-CAP-7",
+   "category": "expense_cap",
+   "expense": "other",
+   "params": {
+    "expense": "other",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Up to $5,000 may be allowed for medically necessary items such as eyeglasses, hearing aids, and wheelchairs.",
+   "quote": "The reparations officer may allow up to $5,000 for medically necessary items such as eyeglasses, hearing aids, and wheelchairs.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-16(2)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20reparations%20officer%20may%20allow,eyeglasses%2C%20hearing%20aids%2C%20and%20wheelchairs."
+  },
+  {
+   "id": "UT-CAP-8",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 1400000,
+    "per": "claim"
+   },
+   "summary": "The office may pay up to $14,000 for reasonable and necessary funeral and burial expenses of a victim.",
+   "quote": "up to $14,000 for any reasonable and necessary expense related to the funeral and burial of a victim;",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-3(1)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=up%20to%20%2414%2C000%20for%20any,and%20burial%20of%20a%20victim%3B"
+  },
+  {
+   "id": "UT-COV-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Inpatient and outpatient medical treatment and physical therapy are allowable expenses, subject to the office's rules.",
+   "quote": "inpatient and outpatient medical treatment and physical therapy, subject to rules made by the office",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(1)(d)(ii)"
+  },
+  {
+   "id": "UT-COV-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "When there is no other payment source, the office may pay medical services at the PEHP fee schedule rate, or 50% of billed charges if PEHP has no fee schedule for that service.",
+   "quote": "if the victim does not have any collateral source to pay for medical services the office may pay: (1) the rate established by the PEHP fee schedule for medical services; or (2) 50% of the billed charges for medical services if PEHP does not have a fee schedule established for a medical service.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-21",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=if%20the%20victim%20does%20not,established%20for%20a%20medical%20service."
+  },
+  {
+   "id": "UT-COV-3",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Medical services under the rule include dental services.",
+   "quote": "medical services include dental services",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-2(2)(b)(i)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=medical%20services%20include%20dental%20services"
+  },
+  {
+   "id": "UT-COV-4",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling is covered when it is in a mental health treatment plan approved by a compensation specialist before any payment is made.",
+   "quote": "mental health counseling that: (A) is set forth in a mental health treatment plan that is approved before any payment is made by a compensation specialist",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(1)(d)(iii)"
+  },
+  {
+   "id": "UT-COV-5",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Lost past and future earnings from death or disability caused by the injury are covered at up to 66-2/3% of gross weekly wages or the state workers' compensation maximum.",
+   "quote": "actual loss of past earnings and anticipated loss of future earnings because of a death or disability resulting from the personal injury at a rate not to exceed 66-2/3% of the individual's weekly gross salary or wages or the maximum amount allowed under the state workers' compensation statute;",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(1)(d)(iv)"
+  },
+  {
+   "id": "UT-COV-6",
+   "category": "covered_expense",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare"
+   },
+   "summary": "Care of minor children so the victim or the victim's spouse (not both) can keep working is covered, at a weekly per-child rate set by rule.",
+   "quote": "care of minor children enabling a victim or spouse of a victim, but not both, to continue gainful employment at a rate per child per week as determined under rules established by the office",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(1)(d)(v)"
+  },
+  {
+   "id": "UT-COV-7",
+   "category": "covered_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement"
+   },
+   "summary": "Personal property necessary and essential to the victim's health or safety is covered, as defined by the office's rules.",
+   "quote": "personal property necessary and essential to the health or safety of the victim as defined by rules made by the office",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(1)(d)(viii)"
+  },
+  {
+   "id": "UT-COV-8",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "A survivor who becomes pregnant from the sexual assault can be covered for related health care during the pregnancy, and for the survivor and the child for one year after the child is born.",
+   "quote": "for a victim of sexual assault who becomes pregnant from the sexual assault, health care: (A) for the victim during the duration of the victim's pregnancy if the health care is related to or resulting from the sexual assault or the pregnancy; and (B) for the victim and the victim's child for one year after the day on which the victim's child is born.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(1)(d)(x)"
+  },
+  {
+   "id": "UT-COV-9",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Prescription or over-the-counter medications used with medical treatment are considered while the victim is being treated by the physician.",
+   "quote": "The office shall only consider reimbursement of prescription or over-the-counter medications used in conjunction with medical treatment while the victim is being treated by the physician.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-19(2)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20shall%20only%20consider,being%20treated%20by%20the%20physician."
+  },
+  {
+   "id": "UT-COV-10",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "As part of an award, the office pays for an abortion that is permitted under Utah's abortion law (Title 76, Chapter 7, Part 3) when the award requirements are met.",
+   "quote": "As part of a reparations award, the office shall pay expenses for an abortion that is permitted pursuant to Title 76, Chapter 7, Part 3 if the requirements of Section 63M-7-511 have been met.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-8",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=As%20part%20of%20a%20reparations,Section%2063M%2D7%2D511%20have%20been%20met."
+  },
+  {
+   "id": "UT-EXCL-2",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain, suffering, and other noneconomic harm"
+   },
+   "summary": "Economic loss does not include noneconomic detriment, which the chapter defines as pain, suffering, inconvenience, physical impairment, and other nonpecuniary damage.",
+   "quote": "\"Economic loss\" does not include noneconomic detriment.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-101(18)(c)"
+  },
+  {
+   "id": "UT-EXCL-3",
+   "category": "excluded_expense",
+   "params": {
+    "item": "interest, finance, or collection fees"
+   },
+   "summary": "The office does not pay interest, finance, or collection fees.",
+   "quote": "The office may not pay: (a) interest, finance, or collection fees",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-28(4)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20not%20pay%3A,interest%2C%20finance%2C%20or%20collection%20fees"
+  },
+  {
+   "id": "UT-EXCL-4",
+   "category": "excluded_expense",
+   "params": {
+    "item": "wilderness programs"
+   },
+   "summary": "The office does not pay for wilderness programs.",
+   "quote": "The office may not pay for wilderness programs.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-5(5)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20not%20pay%20for%20wilderness%20programs."
+  },
+  {
+   "id": "UT-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "advocate"
+    ]
+   },
+   "summary": "In general the crime must be reported to a law enforcement officer or another federal or state investigative agency; sexual assault survivors have an advocate questionnaire alternative.",
+   "quote": "the criminally injurious conduct is reported to a law enforcement officer, in the law enforcement officer's capacity as a law enforcement officer, or another federal or state investigative agency;",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-305(1)(d)"
+  },
+  {
+   "id": "UT-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "advocate"
+    ]
+   },
+   "summary": "A sexual assault survivor does not have to report to police or cooperate with police and prosecutors to be eligible if the survivor gets help from a victim advocate or advocacy services provider who completes the office's questionnaire about the assault.",
+   "quote": "a victim of sexual assault is not required to report the sexual assault to a law enforcement officer or another federal or state investigative agency or cooperate with the appropriate law enforcement agencies and prosecuting attorneys to be eligible for a compensation award under this section if: (i) the victim seeks assistance from an advocacy services provider, a criminal justice system victim advocate, or a nongovernment organization victim advocate; and (ii) the advocacy services provider, the criminal justice system victim advocate, or the nongovernment organization victim advocate completes a questionnaire, provided by the office, regarding the sexual assault.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-305(3)(a)"
+  },
+  {
+   "id": "UT-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "advocate"
+    ]
+   },
+   "summary": "The program says that in sexual assault cases a sexual assault victim service provider can complete a questionnaire in place of a police report.",
+   "quote": "In cases of sexual assault, a questionnaire can be completed by a sexual assault victim service provider in place of a police report.",
+   "source_id": "UT-S3",
+   "pinpoint": "UOVC Apply for Compensation page, Eligibility",
+   "fragment_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/#:~:text=In%20cases%20of%20sexual%20assault%2C,place%20of%20a%20police%20report."
+  },
+  {
+   "id": "UT-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "If the victim has medical insurance or another collateral source, the office pays only the remaining portion the victim owes after every other source has paid.",
+   "quote": "If a victim has medical insurance or another collateral source to pay for services, the office may only pay up to the remaining portion of the bill that the victim is obligated to pay after each other collateral source has paid.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-28(5)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=If%20a%20victim%20has%20medical,other%20collateral%20source%20has%20paid."
+  },
+  {
+   "id": "UT-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "A reparations officer may waive the insurance-first requirement if using the other source would likely compromise the victim's safety, quality or continuation of care, or access to services.",
+   "quote": "A reparations officer may waive the requirement in Subsection (5)(a) if: (i) it appears likely that compliance would compromise a victim's; (A) safety; (B) quality or continuation of care; or (C) access to services due to distance, lack or transportation or other relevant circumstances;",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-28(5)(b)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=A%20reparations%20officer%20may%20waive,transportation%20or%20other%20relevant%20circumstances%3B"
+  },
+  {
+   "id": "UT-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The office may reduce or deny an award if the loss could be recouped from other sources, including collateral sources, or if the claim is unreasonable because of the claimant's misconduct.",
+   "quote": "The office may reduce or deny a compensation award otherwise payable to a claimant if: (i) the economic loss upon which the claim is based has been or could be recouped from other persons, including collateral sources; (ii) the compensation specialist considers the compensation claim unreasonable because of the misconduct of the claimant;",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(2)(a)"
+  },
+  {
+   "id": "UT-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "In deciding misconduct, reparations officers may not consider any behavior committed, or perceived to have been committed, by the victim of any sex crime, or behavior under duress, threat, exploitation, or coercion.",
+   "quote": "When determining whether the victim engaged in misconduct, reparations officers shall not consider: (a) any behavior or action of any victim that is committed by the victim while under the duress or experience of threat, exploitation, coercion or any circumstance absent the victim's own willful desire to participate; or (b) any behavior or action committed or perceived to have been committed by the victim of any sex crime.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-22(3)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=When%20determining%20whether%20the%20victim,victim%20of%20any%20sex%20crime."
+  },
+  {
+   "id": "UT-EMERG-1",
+   "category": "emergency_award",
+   "params": {},
+   "summary": "If a claimant will suffer financial hardship without an emergency award and a final award appears likely, the office may pay an amount that is later deducted from the final award.",
+   "quote": "If a compensation specialist determines that a claimant will suffer financial hardship unless an emergency compensation award is made, and a final compensation award appears likely, the office may pay an amount to the claimant, to be deducted from the final compensation award",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-309(3)(a)"
+  },
+  {
+   "id": "UT-EMERG-2",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 100000
+   },
+   "summary": "The office may make emergency awards of up to $1,000.",
+   "quote": "the office may make emergency reparations awards up to $1,000.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-9(1)(a)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=the%20office%20may%20make%20emergency%20reparations%20awards%20up%20to%20%241%2C000."
+  },
+  {
+   "id": "UT-ELIG-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "A victim is someone who suffers bodily or psychological injury or death as a direct result of criminally injurious conduct.",
+   "quote": "\"Victim\" means an individual who suffers bodily or psychological injury or death as a direct result of: (i) criminally injurious conduct",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-101(47)(a)"
+  },
+  {
+   "id": "UT-ELIG-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "The program lists sex crimes and child physical or sexual abuse among the crimes eligible for compensation.",
+   "quote": "Crimes that are eligible for compensation include: Aggravated Robbery Assault Domestic Violence Bigamy Child Physical or Sexual Abuse DUI with Injury or Death Elder Abuse Home Invasion Homicide Human Trafficking (Sex or Labor) Kidnapping and Unlawful Detention Protective Order Violations Sex Crimes Stalking",
+   "source_id": "UT-S3",
+   "pinpoint": "UOVC Apply for Compensation page, Eligibility",
+   "fragment_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/#:~:text=Crimes%20that%20are%20eligible%20for,Order%20Violations%20Sex%20Crimes%20Stalking"
+  },
+  {
+   "id": "UT-ELIG-3",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "An award can be made whether or not anyone is arrested, prosecuted, or convicted.",
+   "quote": "A compensation award may be made to a victim regardless of whether any individual is arrested, prosecuted, or convicted of the criminally injurious conduct giving rise to a compensation claim.",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-305(2)"
+  },
+  {
+   "id": "UT-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes that occurred in Utah; Utah residents injured in a state, territory, or country with no crime victims' compensation program."
+   },
+   "summary": "The crime must have occurred in Utah, or the victim must be a Utah resident hurt in a place that has no crime victims' compensation program.",
+   "quote": "the criminally injurious conduct occurred in Utah; or (ii) the victim is a Utah resident who suffers injury or death as a result of criminally injurious conduct inflicted in a state, territory, or country that does not provide a crime victims' compensation program;",
+   "source_id": "UT-S7",
+   "pinpoint": "Utah Code 75E-5-305(1)(b)"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency"
+  ],
+  "not_found": [
+   "filing_deadline",
+   "minimum_loss"
+  ],
+  "notes": "No filing deadline appears in Utah Code 75E-5 (effective 7/1/2026), in R270-1, on the program pages, or on the application; the closest rules are R270-1-23 (a claim expires three years after the date of application, extendable for extenuating circumstances) and R270-1-24(5) (exam reimbursement requests are due within one year of the exam), neither of which is a deadline for a victim to apply. R270-1-9(1)(b) says no time limit is required for filing an emergency claim. No minimum loss amount was found. No rule names phones or other ordinary property as excluded; the statute covers only personal property necessary and essential to health or safety (75E-5-309(1)(d)(viii)), and the program page says property crimes are not eligible crimes. Neither the statute nor R270-1-24 says whether the survivor's own insurance may be billed for the exam; the UOVC sexual assault provider billing page says providers must bill all available insurance before billing UOVC, so insurance_billing is left unspecified."
+ },
+ "confidence": "medium",
+ "researcher_notes": "Utah recodified the Crime Victim Reparations Act from Title 63M, Chapter 7, Part 5 into Title 75E, Chapter 5 (Chapter 291, 2026 General Session, effective 7/1/2026). R270-1 (effective 12/08/2023, continuation notice March 6, 2026) still cites the old 63M-7 section numbers, and the application PDF still cites 63M-7-519 and 63M-7-510. The rule-based caps (relocation $2,000, transportation $1,000, essential property $1,500/$5,000, emergency $1,000, 25 counseling sessions, 12 weeks lost earnings) come from R270-1 and the board may approve more in extenuating circumstances. The UOVC Code R payment table (UT-S6) lists $625 for an exam and $1250 with photo documentation for dates of service from January 5, 2023; R270-1-24 sets the $1,250 maximum with photo documentation. 75E-5-313(2) also bars medical providers from debt collection while a claim is pending (summarized on the FAQ, UT-S2). Phone 801-238-2360 matches the OVC directory; toll free 1-800-621-7444 is on the application. Online application: https://newclaim.crimevictim.utah.gov/ . Reviewer: R270-1-24(1)(a)'s $1,250 is the examiner fee only (the Code R table, UT-S6, lists $625 without photo documentation), and the facility is paid separately under R270-1-24(2), so it is recorded as exam_payment, not as a survivor-facing expense cap. insurance_billing is set to allowed because the UOVC provider billing page (UT-S4) requires providers to bill all available insurance before UOVC; neither the statute nor R270-1-24 addresses it directly. R270-1-24(3) conditions provider reimbursement on the provider reporting the exam to law enforcement and collecting evidence only with the victim's permission; this is a provider condition, not a survivor reporting requirement. R270-1-8 (abortion) cites 63M-7-511, now 75E-5-309, and is limited to abortions permitted under Title 76, Chapter 7, Part 3. 75E-5-313(1)(b) lets a medical provider (not the exam provider, which R270-1-24(6) covers) collect from the victim up to the office's rate if the office cannot pay in full."
+}

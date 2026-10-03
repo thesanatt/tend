@@ -1,0 +1,689 @@
+{
+ "jurisdiction": "MA",
+ "name": "Massachusetts",
+ "program": {
+  "program_name": "Victim Compensation Program (Massachusetts Victims of Violent Crime Compensation)",
+  "agency": "Massachusetts Office for Victim Assistance (MOVA)",
+  "website": "https://www.mass.gov/massachusetts-victims-of-violent-crime-compensation",
+  "apply_url": "https://www.mass.gov/info-details/applying-for-victims-of-violent-crime-assistance",
+  "application_pdf_url": "https://www.mass.gov/doc/victim-compensation-application-english/download",
+  "phone": "617-586-1340",
+  "phone_source_id": "MA-S1",
+  "statute_citation": "M.G.L. c. 258C, ss. 1 to 14; 124 CMR 2.00"
+ },
+ "sources": [
+  {
+   "id": "MA-S1",
+   "title": "Mass.gov, Massachusetts Victims of Violent Crime Compensation (MOVA program page)",
+   "url": "https://www.mass.gov/massachusetts-victims-of-violent-crime-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:37Z",
+   "raw_path": "rules/sources/MA/MA-S1.html",
+   "text_path": "rules/sources/MA/MA-S1.txt",
+   "sha256": "cc3f5397ac8d1aacefba14c351bf799de4877a914324912beea926381f268724"
+  },
+  {
+   "id": "MA-S2",
+   "title": "Mass.gov, Applying for Victims of Violent Crime Assistance (MOVA)",
+   "url": "https://www.mass.gov/info-details/applying-for-victims-of-violent-crime-assistance",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:52:13Z",
+   "raw_path": "rules/sources/MA/MA-S2.html",
+   "text_path": "rules/sources/MA/MA-S2.txt",
+   "sha256": "13b7627fa7e15d7da63e2f8dc04072f44d571d10e873f7b86ac4b3576b132a8e"
+  },
+  {
+   "id": "MA-S4",
+   "title": "MOVA Application for Victim Compensation (English)",
+   "url": "https://www.mass.gov/doc/victim-compensation-application-english/download",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:52:14Z",
+   "raw_path": "rules/sources/MA/MA-S4.pdf",
+   "text_path": "rules/sources/MA/MA-S4.txt",
+   "sha256": "046f0367724c6f059239d9c9b53d132938c87f957fe467dac9ba2a6d07e3b1fd"
+  },
+  {
+   "id": "MA-S5",
+   "title": "M.G.L. c. 258C, s. 1, Definitions",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section1",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:15Z",
+   "raw_path": "rules/sources/MA/MA-S5.html",
+   "text_path": "rules/sources/MA/MA-S5.txt",
+   "sha256": "3f095c5a964e4cde6308cb7d12da30b3cad2ce380f471bf960054bc9fa863f39"
+  },
+  {
+   "id": "MA-S6",
+   "title": "M.G.L. c. 258C, s. 2, Eligibility for compensation",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:15Z",
+   "raw_path": "rules/sources/MA/MA-S6.html",
+   "text_path": "rules/sources/MA/MA-S6.txt",
+   "sha256": "3d281e593d2162c8e3becf213d74306d13bd62b5248fb17d265a190b894f3563"
+  },
+  {
+   "id": "MA-S7",
+   "title": "M.G.L. c. 258C, s. 3, Maximum award; compensable expenses",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:16Z",
+   "raw_path": "rules/sources/MA/MA-S7.html",
+   "text_path": "rules/sources/MA/MA-S7.txt",
+   "sha256": "2219ba9e8043e699d356cbe87db413da14859b3f0f236498263bc206c2c5d6f9"
+  },
+  {
+   "id": "MA-S9",
+   "title": "M.G.L. c. 258C, s. 5, Filing and proof of claims",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section5",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:17Z",
+   "raw_path": "rules/sources/MA/MA-S9.html",
+   "text_path": "rules/sources/MA/MA-S9.txt",
+   "sha256": "f027bfe8924268e2ece66ddd53f3110664da09c444ecfe5b022e485a01761c66"
+  },
+  {
+   "id": "MA-S10",
+   "title": "M.G.L. c. 258C, s. 10, Amounts received by claimant from other sources; offset",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section10",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:52:37Z",
+   "raw_path": "rules/sources/MA/MA-S10.html",
+   "text_path": "rules/sources/MA/MA-S10.txt",
+   "sha256": "3feeab2d7542e0b8934b013faac7bdcf8d0c42199aaef0c7355a62ad5e739227"
+  },
+  {
+   "id": "MA-S11",
+   "title": "124 CMR 2.00, Compensation for Victims of Violent Crimes (MOVA; effective 8/4/25, Mass. Register #1564)",
+   "url": "https://www.mass.gov/doc/124-cmr-2-compensation-for-victims-of-violent-crimes/download",
+   "kind": "regulation",
+   "retrieved_at": "2026-10-03T18:52:51Z",
+   "raw_path": "rules/sources/MA/MA-S11.pdf",
+   "text_path": "rules/sources/MA/MA-S11.txt",
+   "sha256": "17629898a091ca94592bc11865191b6f4960f774ed88fc7a3e3eeed4c351cb80"
+  },
+  {
+   "id": "MA-S12",
+   "title": "Coverage and Billing Procedures for Sexual Assault Exams in Massachusetts (MHA/AGO/EOHHS/EOPSS guidance, approved December 2018)",
+   "url": "https://www.mass.gov/doc/coverage-and-billing-procedures-for-sexual-assault-exams-in-massachusetts/download",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:53:11Z",
+   "raw_path": "rules/sources/MA/MA-S12.pdf",
+   "text_path": "rules/sources/MA/MA-S12.txt",
+   "sha256": "046e09c1ed7e6eca44d82b98b8dbbedaf1d204047e92147cd4a8a3e16d271350"
+  },
+  {
+   "id": "MA-S13",
+   "title": "Mass.gov DPH, MA SANE Protocol Section X: Victim Compensation",
+   "url": "https://www.mass.gov/info-details/section-x-victim-compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:53:12Z",
+   "raw_path": "rules/sources/MA/MA-S13.html",
+   "text_path": "rules/sources/MA/MA-S13.txt",
+   "sha256": "7c7aaddf4756d9704e9188b346d3fb6ddfe4909caedd4ef8d30fcd5b57f21a34"
+  },
+  {
+   "id": "MA-S14",
+   "title": "Information on the Massachusetts Sexual Assault Evidence Collection Kit (survivor brochure)",
+   "url": "https://www.mass.gov/doc/information-on-the-massachusetts-sexual-assault-evidence-collection-kit/download",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:53:12Z",
+   "raw_path": "rules/sources/MA/MA-S14.pdf",
+   "text_path": "rules/sources/MA/MA-S14.txt",
+   "sha256": "828fdedaae1e4a16fd6bcf70ad3c521392f5911bffde85566a04355ea25c092b"
+  },
+  {
+   "id": "MA-S15",
+   "title": "Attachment B, Forensic Sexual Assault Medical Examination Contact Form (rev. 3/23)",
+   "url": "https://www.mass.gov/doc/attachment-b-forensic-sexual-assault-medical-examination-contact-form/download",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:53:24Z",
+   "raw_path": "rules/sources/MA/MA-S15.pdf",
+   "text_path": "rules/sources/MA/MA-S15.txt",
+   "sha256": "d0da3cb978f901c8961f42bdf32354dc454e5355704c87b27f923a4def924add"
+  }
+ ],
+ "rules": [
+  {
+   "id": "MA-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "Hospitals may not bill sexual assault exam patients for co-payments or other costs tied to their own health insurance; those amounts go to the state victim compensation program instead.",
+   "quote": "Hospitals may not bill patients for any co-payments or other patient-incurred costs related to their primary health insurance and those should be submitted to the VCAD.",
+   "source_id": "MA-S13",
+   "pinpoint": "MA SANE Protocol, Section X (Victim compensation)",
+   "fragment_url": "https://www.mass.gov/info-details/section-x-victim-compensation#:~:text=Hospitals%20may%20not%20bill%20patients,be%20submitted%20to%20the%20VCAD."
+  },
+  {
+   "id": "MA-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "The patient's own health insurance is used for the exam only if the patient opts in; otherwise the hospital bills the victim compensation program directly.",
+   "quote": "While a patient’s primary health care can be used if the patient affirmatively opts in, direct billing to VCAD should be implemented for patients who have privacy/confidentiality or other concerns about their primary health insurance being billed.",
+   "source_id": "MA-S13",
+   "pinpoint": "MA SANE Protocol, Section X (Victim compensation)",
+   "fragment_url": "https://www.mass.gov/info-details/section-x-victim-compensation#:~:text=While%20a%20patient%E2%80%99s%20primary%20health,primary%20health%20insurance%20being%20billed."
+  },
+  {
+   "id": "MA-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "State guidance says a survivor who receives a forensic exam should not get a bill, including a co-pay, for the exam or the related hospital visit.",
+   "quote": "In Massachusetts, survivors of sexual violence who receive a forensic exam should not receive a bill (including co-pay) for the exam and/or hospital visit related to the assault.",
+   "source_id": "MA-S14",
+   "pinpoint": "MSAECK survivor brochure, Payment of Related Expenses"
+  },
+  {
+   "id": "MA-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "Covered emergency department exam expenses, including co-payments, co-insurance and deductibles, should never be billed to the survivor.",
+   "quote": "The expenses outlined below, including the applicable co-payment, co-insurance, and/or deductible, should never be billed to the survivor.",
+   "source_id": "MA-S12",
+   "pinpoint": "Coverage and Billing Procedures for Sexual Assault Exams in Massachusetts (2018), If a Sexual Assault Forensic Exam is Administered"
+  },
+  {
+   "id": "MA-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Massachusetts Office for Victim Assistance (victim compensation program), billed directly by the provider"
+   },
+   "summary": "Medical care given in response to a sexual assault report, including the forensic exam and surrounding medical care, is compensable, and providers may bill the program directly. The same section says ambulance, inpatient care after the kit, and follow-up visits may not be covered through direct billing; the survivor can still claim those through their own application.",
+   "quote": "Expenses incurred for medical care in response to reports in accordance with 124 CMR 2.04 and 2.05(1)(d), including the provision of forensic sexual assault examinations and/or surrounding medical care shall be compensable.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(15)"
+  },
+  {
+   "id": "MA-EXAM-6",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Massachusetts Office for Victim Assistance (victim compensation program)"
+   },
+   "summary": "Exam payments do not count toward the survivor's maximum award for other crime-related expenses.",
+   "quote": "To ensure compliance with 28 CFR § 90.13 requiring states to provide forensic sexual assault examinations without cost to the victim, compensation paid in this section will not be considered toward the maximum award for victim's other related claims.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(15)(g)"
+  },
+  {
+   "id": "MA-EXAM-7",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false
+   },
+   "summary": "Victim compensation can cover the forensic exam and other emergency department costs whether or not the survivor reports to police.",
+   "quote": "Victim’s Compensation may be used to cover the cost of forensic exam/evidence collection and other emergency department expenses whether or not they choose to report their assault to police.",
+   "source_id": "MA-S13",
+   "pinpoint": "MA SANE Protocol, Section X (Direct billing process)",
+   "fragment_url": "https://www.mass.gov/info-details/section-x-victim-compensation#:~:text=Victim%E2%80%99s%20Compensation%20may%20be%20used,report%20their%20assault%20to%20police."
+  },
+  {
+   "id": "MA-EXAM-8",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "A survivor does not have to have a forensic exam for sexual assault medical expenses to be eligible under this section.",
+   "quote": "Victims are not required to receive a forensic sexual assault examination for expenses to be deemed eligible under this section.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(15)(b)"
+  },
+  {
+   "id": "MA-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000
+   },
+   "summary": "The maximum award is $25,000 per claimant, or $50,000 for a catastrophic injury.",
+   "quote": "The maximum award for compensation to a claimant pursuant to this chapter shall be $25,000; provided, however, that the maximum award for compensation to a claimant with a catastrophic injury pursuant to this chapter shall be $50,000.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(a)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=The%20maximum%20award%20for%20compensation,this%20chapter%20shall%20be%20%2450%2C000."
+  },
+  {
+   "id": "MA-CAP-2",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 300000,
+    "per": "claim"
+   },
+   "summary": "A victim, or a family member living with the victim, can be compensated for security measures up to $3,000.",
+   "quote": "A victim or a family member residing with the victim at the time a crime is committed, shall be eligible for compensation for the costs associated with the implementation of security measures; provided, however, that the maximum compensable amount shall not exceed $3,000.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(I)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=A%20victim%20or%20a%20family,amount%20shall%20not%20exceed%20%243%2C000."
+  },
+  {
+   "id": "MA-CAP-3",
+   "category": "expense_cap",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding",
+    "amount_cents": 25000,
+    "per": "claim"
+   },
+   "summary": "Clothing and bedding seized as evidence or ruined by the investigation can be replaced up to $250.",
+   "quote": "A victim shall be eligible for compensation for the reasonable replacement costs of clothing and bedding seized as evidence or rendered unusable as the result of a criminal investigation that is the direct result of a crime; provided, however, that the maximum compensable amount shall not exceed $250.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(H)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=A%20victim%20shall%20be%20eligible,amount%20shall%20not%20exceed%20%24250."
+  },
+  {
+   "id": "MA-CAP-4",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Professional crime scene cleanup at a private residence or a victim's vehicle is capped at $1,500.",
+   "quote": "Expenses incurred for professional crime scene cleanup services necessary as the direct result of the commission of a crime at a private residence or in a motor vehicle that is owned or leased by a victim, family member or other dependent shall be compensable in accordance with this chapter; provided, however, that the maximum amount of compensation shall not exceed $1,500.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(G)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=Expenses%20incurred%20for%20professional%20crime,compensation%20shall%20not%20exceed%20%241%2C500."
+  },
+  {
+   "id": "MA-CAP-5",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 1300000,
+    "per": "claim"
+   },
+   "summary": "Funeral and burial expenses are capped at $13,000.",
+   "quote": "The maximum award or compensation for funeral and burial expenses shall be $13,000.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(1)(A)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=The%20maximum%20award%20or%20compensation,burial%20expenses%20shall%20be%20%2413%2C000."
+  },
+  {
+   "id": "MA-CAP-6",
+   "category": "expense_cap",
+   "expense": "legal",
+   "params": {
+    "expense": "legal",
+    "amount_cents": 7500,
+    "per": "hour"
+   },
+   "summary": "If an attorney helps with the claim, fees are paid at no more than $75 per hour, capped at 15% of the award, and come out of the award rather than on top of it.",
+   "quote": "Attorneys shall be compensated at a rate of no more than $75 per hour. In no event shall an attorney's fee award exceed 15% of the total award for compensation.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(10)(b)"
+  },
+  {
+   "id": "MA-COV-1",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "A victim, or a parent or guardian of a minor victim, can be compensated for reasonable mental health counseling obtained because of the crime.",
+   "quote": "A victim, parent or legal guardian of a victim who is a minor in accordance with section 4 or, where death results from the crime, the dependents and family members of the victim, shall be eligible for compensation for reasonable mental health counseling obtained as a result of the crime.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(C)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=A%20victim%2C%20parent%20or%20legal,a%20result%20of%20the%20crime."
+  },
+  {
+   "id": "MA-COV-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Physician, dental, ambulance and other medically necessary services caused by the crime are covered when the claimant shows an out-of-pocket loss or a legal liability to pay.",
+   "quote": "Expenses incurred for physician, dental, ambulance, or other medically necessary services or prosthetic devices as the direct result of injury to the victim shall be compensable in accordance with this chapter; provided however, that when claiming compensation for such expenses, the claimant must demonstrate an out-of-pocket loss or legal liability for payment of such expenses.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(B)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=Expenses%20incurred%20for%20physician%2C%20dental%2C,for%20payment%20of%20such%20expenses."
+  },
+  {
+   "id": "MA-COV-3",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "A victim who was employed, or had a real job offer, can be compensated for lost earnings while medically disabled from work because of the crime, based on net earnings.",
+   "quote": "If the victim was employed or had received a bona fide employment offer at the time of the crime, the victim shall be eligible for compensation for loss of actual earnings due to disability from work as the result of injuries caused by the crime.",
+   "source_id": "MA-S7",
+   "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(D)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=If%20the%20victim%20was%20employed,injuries%20caused%20by%20the%20crime."
+  },
+  {
+   "id": "MA-COV-4",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Medical and dental expenses, including equipment, supplies and medications, are listed as covered to the extent insurance or other funds do not pay.",
+   "quote": "Medical and dental expenses (including equipment, supplies and medications)",
+   "source_id": "MA-S2",
+   "pinpoint": "MOVA, Applying for Victims of Violent Crime Assistance, What expenses are covered?",
+   "fragment_url": "https://www.mass.gov/info-details/applying-for-victims-of-violent-crime-assistance#:~:text=Medical%20and%20dental%20expenses%20%28including%20equipment%2C%20supplies%20and%20medications%29"
+  },
+  {
+   "id": "MA-COV-5",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Dental care is part of compensable medical care.",
+   "quote": "\"Medical care'', the medical, psychological, surgical, dental, optometric, chiropractic, podiatric and hospital care provided to a victim including, but not limited to, medicines, medical, dental and surgical supplies, crutches, artificial members and appliances and training in the use of artificial members and appliances.",
+   "source_id": "MA-S5",
+   "pinpoint": "M.G.L. c. 258C, s. 1 (\"Medical care\")",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section1#:~:text=%22Medical%20care%27%27%2C%20the%20medical%2C%20psychological%2C,of%20artificial%20members%20and%20appliances."
+  },
+  {
+   "id": "MA-COV-6",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Transportation to medical care is covered only for ambulance, chair car, dial-a-ride, taxi or rideshare costs.",
+   "quote": "Compensation for transportation costs incurred while obtaining medical care is limited to costs incurred for emergency and non-emergency ambulance service, chair car service, dial-a-ride, taxi, or ridesharing service obtained.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(4)(b)"
+  },
+  {
+   "id": "MA-COV-7",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Security measures can include doors, locks, exterior windows, security systems and reprogramming security codes.",
+   "quote": "Security measures may include but are not limited to, external and internal doors and locks, exterior windows and locks, security systems, and reprogramming security codes.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(13)(b)"
+  },
+  {
+   "id": "MA-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "item": "Property losses, pain and suffering, and all other losses not listed as covered"
+   },
+   "summary": "The program page lists property losses, pain and suffering, and all other losses outside the covered list as not covered. The only property-type item on the covered list is replacement of clothing and bedding taken as evidence or ruined by the investigation.",
+   "quote": "Property losses, compensation for pain and suffering, and all other losses",
+   "source_id": "MA-S2",
+   "pinpoint": "MOVA, Applying for Victims of Violent Crime Assistance, What expenses are not covered?",
+   "fragment_url": "https://www.mass.gov/info-details/applying-for-victims-of-violent-crime-assistance#:~:text=Property%20losses%2C%20compensation%20for%20pain,suffering%2C%20and%20all%20other%20losses"
+  },
+  {
+   "id": "MA-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "item": "Public transportation, and mileage or parking when private transportation is used"
+   },
+   "summary": "Bus or train fares, and mileage or parking for a personal car, are not reimbursed for trips to medical or mental health care.",
+   "quote": "It does not include compensation for public transportation, or mileage or parking when private transportation is used.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(4)(b)"
+  },
+  {
+   "id": "MA-EXCL-3",
+   "category": "excluded_expense",
+   "expense": "counseling",
+   "params": {
+    "item": "Missed or cancelled counseling appointments, non-therapeutic court appearances and consultations, photocopying and report writing"
+   },
+   "summary": "Counseling compensation may be denied for missed or cancelled appointments and for non-therapeutic court or investigative work by the provider.",
+   "quote": "Compensation for mental health counseling may be denied for expenses incurred in the following instances: 1. missed or cancelled appointments; 2. non-therapeutic testimonial court appearances by a health care provider; 3. non-therapeutic investigatory consultations; 4. photocopying and report writing;",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.06(5)(f)"
+  },
+  {
+   "id": "MA-DEAD-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime"
+   },
+   "summary": "A claim must be filed within three years of the date of the crime.",
+   "quote": "A claim for compensation under this chapter shall be filed within three years of the date of the crime.",
+   "source_id": "MA-S9",
+   "pinpoint": "M.G.L. c. 258C, s. 5(a)(1)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section5#:~:text=A%20claim%20for%20compensation%20under,the%20date%20of%20the%20crime."
+  },
+  {
+   "id": "MA-DEAD-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "age_18",
+    "extension": "Applies when the victim was a minor at the time of the crime; does not apply to claims based on the death of a minor victim."
+   },
+   "summary": "If the victim was a minor, the three-year filing period does not start until the victim turns 18.",
+   "quote": "The three-year filing period shall not commence until the victim reaches the age of 18.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(7)(a)"
+  },
+  {
+   "id": "MA-DEAD-3",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "discovery",
+    "extension": "Only if the crime resulted in a criminal complaint, indictment, or other judicial or administrative probable cause determination."
+   },
+   "summary": "If the claimant did not discover the crime until more than three years after it happened, the period starts at discovery, but only if there was a criminal complaint, indictment or other probable cause finding.",
+   "quote": "If the claimant did not discover the act which constitutes a crime until more than three years after the crime was committed, the filing period shall not commence until the claimant discovered, or reasonably should have discovered, the act which constitutes a crime; provided, however, that in such cases, the crime for which the claimant seeks compensation must have resulted in the issuance of a criminal complaint or indictment, or any other judicial or administrative determination of probable cause that an act constituting a crime has occurred.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(7)(c)"
+  },
+  {
+   "id": "MA-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "within_days": 5
+   },
+   "summary": "The crime must be reported within five days unless the agency finds good cause for the delay. Victims under 18 are not held to the five-day limit.",
+   "quote": "Except in the case where the agency finds such report to have been delayed for good cause, such report shall have been made within five days after the occurrence of such crime; provided, however, that a claimant who was a victim under 18 years of age shall not be required to file such report within 5 days.",
+   "source_id": "MA-S6",
+   "pinpoint": "M.G.L. c. 258C, s. 2(b)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=Except%20in%20the%20case%20where,such%20report%20within%205%20days."
+  },
+  {
+   "id": "MA-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "medical_provider"
+    ]
+   },
+   "summary": "A Provider Sexual Crime Report filed by a medical provider counts as a report to law enforcement.",
+   "quote": "Reports to local law enforcement, via a Provider Sexual Crime Report (PSCR), in accordance with M.G.L. c. 112, § 12A½, shall constitute a report to law enforcement authorities.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(4)(d)"
+  },
+  {
+   "id": "MA-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [
+     "protective_order",
+     "other"
+    ]
+   },
+   "summary": "Applying to a court for a restraining or harassment prevention order with a supporting affidavit, or applying for a criminal complaint, counts as a report to law enforcement.",
+   "quote": "The reporting of a crime to a court through a citizen application for a restraining order under M.G.L. c. 209A, and M.G.L. c. 258E, accompanied by an affidavit in support of the application for protection, or through a citizen application for a criminal complaint, shall constitute a report to law enforcement authorities.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(4)(c)"
+  },
+  {
+   "id": "MA-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "Telling a rape crisis center, private security, or the agency itself does not count as a report to law enforcement.",
+   "quote": "Reports to private security personnel, rape crisis centers, or the Agency do not constitute reports to law enforcement authorities.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(4)(e)"
+  },
+  {
+   "id": "MA-REPORT-5",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true
+   },
+   "summary": "Good cause for a late report includes physical or psychological incapacity, or reasonable fear for the safety of the victim or others.",
+   "quote": "Good cause for delay shall include delay caused by physical or psychological incapacity which prevented the making of a report; or by (c) reasonable fear of safety for themselves or others.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(5)(b)-(c)"
+  },
+  {
+   "id": "MA-REPORT-6",
+   "category": "reporting_requirement",
+   "expense": null,
+   "params": {
+    "required": true,
+    "alternatives": [
+     "other"
+    ]
+   },
+   "summary": "For a minor victim, a report to the Department of Children and Families under the state's mandated child abuse reporting law counts as a report for compensation purposes.",
+   "quote": "Crimes involving minor victims may be reported to the Department of Children and Families pursuant to the reporting requirements of M.G.L. c. 119, § 51A.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(4)(b)"
+  },
+  {
+   "id": "MA-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program pays only for losses not covered by insurance, public benefits, restitution, civil suits or institutional gifts.",
+   "quote": "No compensation shall be awarded or paid unless the out-of-pocket expenses or legal liability of the claimant for services rendered as the result of the crime exceeds any and all of the amounts received, applied for, or to be applied for as the result of the crime from any of the following or any combination of the following:",
+   "source_id": "MA-S10",
+   "pinpoint": "M.G.L. c. 258C, s. 10",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section10#:~:text=No%20compensation%20shall%20be%20awarded,any%20combination%20of%20the%20following%3A"
+  },
+  {
+   "id": "MA-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Crowdfunding raised for a victim does not have to be reported and is not treated as a source that must be used first.",
+   "quote": "Claimants have no obligation to notify the Agency of crowd funding dollars raised on their behalf, as this funding will not be considered as a source of payment that must be exhausted",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.08(2)(g)"
+  },
+  {
+   "id": "MA-COND-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "An award may be reduced or denied to the extent the victim's conduct provoked or contributed to the injuries.",
+   "quote": "To the extent that the victim's acts or conduct provoked or contributed to the injuries, the agency may reduce or deny an award to the claimant or claimants in accordance with regulations enacted pursuant to section four.",
+   "source_id": "MA-S6",
+   "pinpoint": "M.G.L. c. 258C, s. 2(e)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=To%20the%20extent%20that%20the,enacted%20pursuant%20to%20section%20four."
+  },
+  {
+   "id": "MA-COND-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The regulations say sexual assault is, in general, not a circumstance that warrants reducing or denying an award for contributory conduct.",
+   "quote": "Circumstances that, in general, do not warrant the denial or reduction of an award based on contributory conduct include: 1. acts of negligence or poor judgment such as entering a motor vehicle operated by an intoxicated person; 2. crimes in which the victim is a victim of sexual assault;",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.07(1)(b)"
+  },
+  {
+   "id": "MA-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Victim compensation is available to crime victims, including sexual assault survivors.",
+   "quote": "Financial compensation from the Victim Compensation and Assistance Division (VCAD) of the Massachusetts Office for Victim Assistance (MOVA) is available to victims of crime, including sexual assault survivors.",
+   "source_id": "MA-S13",
+   "pinpoint": "MA SANE Protocol, Section X (Victim compensation)",
+   "fragment_url": "https://www.mass.gov/info-details/section-x-victim-compensation#:~:text=Financial%20compensation%20from%20the%20Victim,crime%2C%20including%20sexual%20assault%20survivors."
+  },
+  {
+   "id": "MA-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "A compensable crime must involve force, intimidation or violence, or the threat of it, by the offender against the victim.",
+   "quote": "provided, however, that such act involves the application of force, intimidation or violence or the threat of force, intimidation or violence by the offender upon the victim.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.03 (Crime)"
+  },
+  {
+   "id": "MA-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crimes committed in Massachusetts (any victim), plus terrorism abroad against a Massachusetts resident"
+   },
+   "summary": "The program covers crimes that happen in Massachusetts, and acts of terrorism outside the United States against a Massachusetts resident.",
+   "quote": "Crime shall apply to an act occurring within the commonwealth, and to an act of terrorism, as defined in 18 USC section 2331, occurring outside the United States or territories against a resident of the commonwealth.",
+   "source_id": "MA-S5",
+   "pinpoint": "M.G.L. c. 258C, s. 1 (\"Crime\")",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section1#:~:text=Crime%20shall%20apply%20to%20an,a%20resident%20of%20the%20commonwealth."
+  },
+  {
+   "id": "MA-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "A Massachusetts resident harmed in another state may apply only if that state has no compensation program the resident is eligible for"
+   },
+   "summary": "A Massachusetts resident victimized in another state is covered only when that state has no compensation program the resident would qualify for.",
+   "quote": "The word \"crime\" shall also apply to an act which occurs against a resident of the Commonwealth in a state which does not have a crime victim compensation program for which a resident of the Commonwealth would be eligible.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.03 (Crime)"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "collateral_source",
+   "conduct_reduction",
+   "covered_expense",
+   "eligible_crime",
+   "exam_no_bill",
+   "exam_payment",
+   "excluded_expense",
+   "expense_cap",
+   "filing_deadline",
+   "reporting_requirement",
+   "residency",
+   "total_cap"
+  ],
+  "not_found": [
+   "minimum_loss",
+   "emergency_award",
+   "expense_cap:counseling",
+   "expense_cap:lost_wages",
+   "expense_cap:relocation",
+   "expense_cap:transportation",
+   "expense_cap:medical",
+   "covered_expense:relocation",
+   "covered_expense:temporary_housing",
+   "covered_expense:childcare"
+  ],
+  "notes": "No minimum loss and no emergency or advance award appear in M.G.L. c. 258C or 124 CMR 2.00. Counseling, lost wages and medical have no separate dollar caps; they fall under the $25,000 total cap (124 CMR 2.06(5)(a) only allows the agency to ask for updated verification after six months or 30 sessions, which is not a cap). Relocation, temporary housing and childcare are not listed as compensable in the statute, the regulations, or the program page; the program page says other losses are not covered, so they are treated as not found rather than recorded as a rule."
+ },
+ "confidence": "high",
+ "researcher_notes": "Administration moved from the Attorney General's Victim Compensation and Assistance Division to MOVA effective July 1, 2025 (St. 2025, c. 9); the statute pages show both versions and the quotes use the text effective July 1, 2025. 124 CMR 2.00 (effective 8/4/25, Mass. Register #1564) replaces the AG's former 940 CMR rules; a scanned 'emergency regulations' PDF linked from the program page had no extractable text and was not used. The exam billing guidance (MA-S12, 2018) and the SAECK brochure (MA-S14) still name the AG's office and an older 617-727-2200 number; current contact is MOVA at 617-586-1340. Exam rules come from regulation 124 CMR 2.06(15) and state agency guidance; I found no Massachusetts statute that by itself bars billing the survivor for the exam. Under the 2018 guidance, direct hospital billing applies to ED care when the assault occurred in Massachusetts and a kit was administered; ambulance, inpatient and follow-up care go through the survivor's own application. The DPH SANE page says patients who decline the kit must report to police within five days and attach the report. Claimants must also cooperate with law enforcement unless they have a reasonable excuse (c. 258C s. 2(c)); 124 CMR 2.05(6)(b) says the physical or psychological impact of the crime or reasonable fear for safety can be a reasonable excuse. M.G.L. c. 258C s. 14 and 124 CMR 2.10 bar health care providers with notice of a claim from debt collection while it is pending. The regulation's internal cross-references in 2.05 are misnumbered (subsections start at (4)); pinpoints use the numbering as printed. Reviewer note: 124 CMR 2.05(7)(b) adds a further minor-victim extension (if a criminal complaint or indictment issues after the victim turns 18, the filing period starts on that date); no schema 'from' value fits it, so it is recorded here and not as a rule. 124 CMR 2.05(5)(a) also counts a report as timely if made within five days of when the crime was discovered or reasonably should have been discovered."
+}

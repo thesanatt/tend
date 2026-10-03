@@ -1,0 +1,20 @@
+.note {
+  display: grid;
+  gap: var(--space-4);
+  max-width: var(--measure);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink);
+  border-radius: var(--radius-1);
+  background: var(--paper-raised);
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-3);
+  color: var(--ink-2);
+}

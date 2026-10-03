@@ -1,0 +1,374 @@
+/* Tend design tokens. web/DESIGN.md documents each one for Figma. */
+:root {
+  color-scheme: light;
+
+  --paper: #f6f2e9;
+  --paper-raised: #fbf8f2;
+  --paper-sunk: #ece6da;
+  --ink: #1c1b18;
+  --ink-2: #4a463e;
+  --ink-3: #6a655b;
+  --line: #d8d1c3;
+  --line-strong: #857e70;
+  --green: #1f5136;
+  --green-strong: #163d28;
+  --green-tint: #e2eadf;
+  --clay: #9b4e33;
+  --clay-tint: #f2e2d8;
+  --on-green: #f6f2e9;
+  --leaf-fill: #e2eadf;
+  --petal-fill: #fbf8f2;
+  --scrim: rgb(28 27 24 / 0.38);
+  --shadow-sheet: 0 -1px 0 var(--line), 0 -18px 40px rgb(28 27 24 / 0.1);
+
+  /* --ff-* come from next/font in app/layout.tsx */
+  --font-serif: var(--ff-serif, "Source Serif 4"), Georgia, serif;
+  --font-sans: var(--ff-sans, "Atkinson Hyperlegible Next"), system-ui, sans-serif;
+  --font-mono: var(--ff-mono, "Atkinson Hyperlegible Mono"), ui-monospace, monospace;
+
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 1.625rem;
+  --text-2xl: clamp(1.75rem, 1.45rem + 1.1vw, 2.125rem);
+  --text-3xl: clamp(2.25rem, 1.65rem + 2.4vw, 3.25rem);
+  --text-display: clamp(2.75rem, 1.9rem + 3.8vw, 4.5rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-1: 4px;
+  --radius-2: 8px;
+  --measure: 40rem;
+  --page: 72rem;
+  --gutter: clamp(16px, 4vw, 40px);
+  --tap: 48px;
+
+  --dur-1: 160ms;
+  --dur-2: 320ms;
+  --dur-3: 640ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #141412;
+    --paper-raised: #1c1c19;
+    --paper-sunk: #22221e;
+    --ink: #ece7dc;
+    --ink-2: #beb8ab;
+    --ink-3: #989284;
+    --line: #36352f;
+    --line-strong: #77726a;
+    --green: #8cc4a0;
+    --green-strong: #a9d6b8;
+    --green-tint: #1d2c22;
+    --clay: #da9677;
+    --clay-tint: #36241c;
+    --on-green: #10140f;
+    --leaf-fill: #1d2c22;
+    --petal-fill: #1c1c19;
+    --scrim: rgb(0 0 0 / 0.55);
+    --shadow-sheet: 0 -1px 0 var(--line), 0 -18px 40px rgb(0 0 0 / 0.4);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  flex: 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-3xl);
+  line-height: 1.06;
+  font-weight: 560;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--green);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--green-tint);
+  color: var(--ink);
+}
+
+blockquote {
+  margin: 0;
+}
+
+mark {
+  background: var(--green-tint);
+  color: inherit;
+  padding: 0 0.1em;
+}
+
+code,
+kbd,
+pre,
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+kbd {
+  font-size: 0.85em;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-1);
+  padding: 0 0.35em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: var(--space-6) 0;
+}
+
+.page {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.meta {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-1);
+}
+
+.skip:focus {
+  top: var(--space-4);
+}
+
+/* Set by Exit this page: the screen goes blank before the neutral page loads. */
+html[data-exiting] body {
+  visibility: hidden;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  padding: 0 var(--space-5);
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font: 600 var(--text-sm) / 1.2 var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--on-green);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--green-strong);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--green-tint);
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--ink-2);
+  border-color: var(--line-strong);
+}
+
+.btn-quiet:hover:not(:disabled) {
+  background: var(--paper-sunk);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--green);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Form controls */
+input[type="text"],
+input[type="date"],
+input[type="tel"],
+input[type="number"],
+select {
+  font: inherit;
+  color: inherit;
+  min-height: var(--tap);
+  width: 100%;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-1);
+  background: var(--paper-raised);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--green);
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  flex: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

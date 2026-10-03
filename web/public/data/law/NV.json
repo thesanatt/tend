@@ -1,0 +1,781 @@
+{
+ "jurisdiction": "NV",
+ "name": "Nevada",
+ "program": {
+  "program_name": "Victims of Crime Program (VOCP)",
+  "agency": "Nevada Department of Human Services, Division of Child and Family Services",
+  "website": "https://www.voc.nv.gov/",
+  "apply_url": "https://www.voc.nv.gov/victim-assistance/voc-application-instructions/",
+  "application_pdf_url": "https://www.voc.nv.gov/siteassets/content/forms/voc-application_english.pdf",
+  "phone": "702-486-2740",
+  "phone_source_id": "NV-S3",
+  "statute_citation": "NRS 217.010 to 217.270; sexual assault exams and county treatment: NRS 217.280 to 217.350"
+ },
+ "sources": [
+  {
+   "id": "NV-S1",
+   "title": "Nevada VOCP Eligibility Criteria page",
+   "url": "https://www.voc.nv.gov/victim-assistance/eligibility-criteria/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:02Z",
+   "raw_path": "rules/sources/NV/NV-S1.html",
+   "text_path": "rules/sources/NV/NV-S1.txt",
+   "sha256": "e54c37dacfa5f460c5f2c23550da43cb3d7c938fcc35f314fd9f6c98bf67cdd0"
+  },
+  {
+   "id": "NV-S2",
+   "title": "Nevada VOCP Benefits and Covered Expenses page",
+   "url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:02Z",
+   "raw_path": "rules/sources/NV/NV-S2.html",
+   "text_path": "rules/sources/NV/NV-S2.txt",
+   "sha256": "c7d1dadc3593158896f0e41aecd0bb90e9af1bb495d9be85dc3bff473ef72a5c"
+  },
+  {
+   "id": "NV-S3",
+   "title": "Nevada VOCP Application and Instructions page",
+   "url": "https://www.voc.nv.gov/victim-assistance/voc-application-instructions/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:02Z",
+   "raw_path": "rules/sources/NV/NV-S3.html",
+   "text_path": "rules/sources/NV/NV-S3.txt",
+   "sha256": "2b28289a599fe3a665011dcc8d9f9d00acb30b46d6a015544c9dd730e5eb64fd"
+  },
+  {
+   "id": "NV-S4",
+   "title": "Nevada VOCP Application for Victim of Crime Compensation (English, revised 7/30/2026)",
+   "url": "https://www.voc.nv.gov/siteassets/content/forms/voc-application_english.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:51:10Z",
+   "raw_path": "rules/sources/NV/NV-S4.pdf",
+   "text_path": "rules/sources/NV/NV-S4.txt",
+   "sha256": "ff383c2d91af359f71bc12d7ec73004c62ab763d5584291c8db7305e56334a80"
+  },
+  {
+   "id": "NV-S5",
+   "title": "NRS Chapter 217 (Aid to Certain Victims of Crime), Rev. 4/15/2026",
+   "url": "https://www.leg.state.nv.us/nrs/NRS-217.html",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:51:11Z",
+   "raw_path": "rules/sources/NV/NV-S5.html",
+   "text_path": "rules/sources/NV/NV-S5.txt",
+   "sha256": "cd4879b253375231fa8b03b42f25c0a5dddadeb57faf31e0f7046b2f205d53c2"
+  },
+  {
+   "id": "NV-S6",
+   "title": "Nevada VOCP Coverage Limits for Service Providers page",
+   "url": "https://www.voc.nv.gov/service-providers/coverage-limits/",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:51:53Z",
+   "raw_path": "rules/sources/NV/NV-S6.html",
+   "text_path": "rules/sources/NV/NV-S6.txt",
+   "sha256": "954fb0c24a8234128e3ea51f75c94e2df69df452fcd782a49cbabe1044ac2a15"
+  },
+  {
+   "id": "NV-S7",
+   "title": "Nevada State Plan for Services for Victims of Crime (VOCP policies, July 1, 2020)",
+   "url": "https://www.voc.nv.gov/uploadedFiles/vocnvgov/content/Advocates/State_Plan_for_Victim_Services.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:51:53Z",
+   "raw_path": "rules/sources/NV/NV-S7.pdf",
+   "text_path": "rules/sources/NV/NV-S7.txt",
+   "sha256": "3995918abf6be9bff9998195784807a65ce1ab9d57678729b5f1e1207de5dab1"
+  },
+  {
+   "id": "NV-S9",
+   "title": "Nevada VOCP Application for Victim of Crime Compensation Instructions and form (2026)",
+   "url": "https://www.voc.nv.gov/siteassets/content/home/voc-forms-2026/enenglish1.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:51:54Z",
+   "raw_path": "rules/sources/NV/NV-S9.pdf",
+   "text_path": "rules/sources/NV/NV-S9.txt",
+   "sha256": "62a1f937f964c2348668de2791c6c2fe4c9b65d2ee680baeb77f6eecbc04a5f7"
+  }
+ ],
+ "rules": [
+  {
+   "id": "NV-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "The costs of a sexual assault forensic medical exam must not be charged directly to the survivor. The statute does not say whether the survivor's insurance may be billed.",
+   "quote": "Any costs incurred pursuant to subsection 2 must not be charged directly to the victim of sexual assault.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.300(4)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=Any%20costs%20incurred%20pursuant%20to,the%20victim%20of%20sexual%20assault."
+  },
+  {
+   "id": "NV-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "State Fund for the Compensation of Victims of Crime; the county where the offense happened pays any remainder if the Fund is short"
+   },
+   "summary": "A medical provider's costs for the forensic exam are paid from the state Fund for the Compensation of Victims of Crime. If the Fund does not have enough money, the county where the assault happened pays the rest.",
+   "quote": "any costs incurred by a medical provider for the forensic medical examination of the victim must be paid out of the Fund for the Compensation of Victims of Crime, unless there is not sufficient money in the Fund to pay such costs. If there is not sufficient money in the Fund to pay such costs, the county in whose jurisdiction the offense was committed shall pay any remaining costs.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.300(2)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=any%20costs%20incurred%20by%20a,shall%20pay%20any%20remaining%20costs."
+  },
+  {
+   "id": "NV-EXAM-3",
+   "category": "exam_payment",
+   "expense": "medical",
+   "params": {
+    "payer": "County where the sexual assault was committed (medical care for physical injuries within 72 hours)"
+   },
+   "summary": "The county where the assault happened pays for medical care for physical injuries from the assault that is given within 72 hours after the survivor first arrives for treatment.",
+   "quote": "The county in whose jurisdiction a sexual assault is committed shall pay any costs incurred for medical care for any physical injuries resulting from the sexual assault which is provided to the victim not later than 72 hours after the victim first arrives for treatment.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.300(1)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=The%20county%20in%20whose%20jurisdiction,victim%20first%20arrives%20for%20treatment."
+  },
+  {
+   "id": "NV-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "medical",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "Those county-paid costs for initial medical care of physical injuries must not be charged directly to the survivor; they are charged to the county.",
+   "quote": "Any costs incurred pursuant to subsection 1: (a) Must not be charged directly to the victim of sexual assault.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.300(3)(a)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=Any%20costs%20incurred%20pursuant%20to,the%20victim%20of%20sexual%20assault."
+  },
+  {
+   "id": "NV-EXAM-5",
+   "category": "reporting_requirement",
+   "expense": "forensic_exam",
+   "params": {
+    "required": false
+   },
+   "summary": "A survivor does not have to report to police to get a forensic medical exam paid for under this section.",
+   "quote": "The filing of a report with the appropriate law enforcement agency must not be a prerequisite to qualify for a forensic medical examination pursuant to this section.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.300(5)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=The%20filing%20of%20a%20report,examination%20pursuant%20to%20this%20section."
+  },
+  {
+   "id": "NV-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 3500000
+   },
+   "summary": "The program says each individual benefit has its own limit and no claim may exceed $35,000.",
+   "quote": "There are limits on individual benefits and no claim may exceed $35,000.",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=There%20are%20limits%20on%20individual,no%20claim%20may%20exceed%20%2435%2C000."
+  },
+  {
+   "id": "NV-CAP-2",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 3500000
+   },
+   "summary": "Program policy sets the claim limit at $35,000 per approved claim; the VOCP Coordinator can extend it only for catastrophic injuries.",
+   "quote": "The claim limit established by these policies is $35,000 per approved claim except in cases of catastrophic injuries, where limits may be extended upon approval of the VOCP Coordinator.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 500.12(A)"
+  },
+  {
+   "id": "NV-CAP-MED",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "amount_cents": 3500000,
+    "per": "claim"
+   },
+   "summary": "Medical and medically related expenses caused by the crime can be paid up to $35,000 (inside the same $35,000 claim limit).",
+   "quote": "The Victims of Crime Program may pay up to $35,000 for medical and medically related expenses caused by a crime",
+   "source_id": "NV-S6",
+   "pinpoint": "Coverage Limits for Service Providers: Medical Service Providers",
+   "fragment_url": "https://www.voc.nv.gov/service-providers/coverage-limits/#:~:text=The%20Victims%20of%20Crime%20Program,expenses%20caused%20by%20a%20crime"
+  },
+  {
+   "id": "NV-CAP-DENTAL",
+   "category": "expense_cap",
+   "expense": "dental",
+   "params": {
+    "expense": "dental",
+    "amount_cents": 3500000,
+    "per": "claim"
+   },
+   "summary": "Dental treatment for crime injuries can be paid up to $35,000 (inside the same $35,000 claim limit).",
+   "quote": "The VOCP may pay up to $35,000 for treatment of dental, myofacial, temporomandibular, and other conditions and injuries caused by a crime",
+   "source_id": "NV-S6",
+   "pinpoint": "Coverage Limits for Service Providers: Dental Service Providers",
+   "fragment_url": "https://www.voc.nv.gov/service-providers/coverage-limits/#:~:text=The%20VOCP%20may%20pay%20up,injuries%20caused%20by%20a%20crime"
+  },
+  {
+   "id": "NV-CAP-COUNSEL",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Mental health counseling is paid up to $5,000.",
+   "quote": "The VOCP pays up to $5,000 in mental health counseling for qualified victims.",
+   "source_id": "NV-S6",
+   "pinpoint": "Coverage Limits for Service Providers: Mental Health Providers",
+   "fragment_url": "https://www.voc.nv.gov/service-providers/coverage-limits/#:~:text=The%20VOCP%20pays%20up%20to,health%20counseling%20for%20qualified%20victims."
+  },
+  {
+   "id": "NV-CAP-WAGE-1",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 35000,
+    "per": "week",
+    "count_limit": 52
+   },
+   "summary": "Lost earnings can be paid at up to 100 percent of gross pay, capped at $350 per week for up to 52 weeks.",
+   "quote": "Loss of earnings may be paid at up to 100 percent of the victim's gross pay, up to a maximum of $350 per week, not to exceed 52 weeks, or up to a maximum of $18,200.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.8(B)"
+  },
+  {
+   "id": "NV-CAP-WAGE-2",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 1820000,
+    "per": "claim"
+   },
+   "summary": "Total lost earnings are capped at $18,200.",
+   "quote": "Loss of earnings may be paid at up to 100 percent of the victim's gross pay, up to a maximum of $350 per week, not to exceed 52 weeks, or up to a maximum of $18,200.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.8(B)"
+  },
+  {
+   "id": "NV-CAP-WAGE-3",
+   "category": "expense_cap",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "amount_cents": 7000,
+    "per": "day",
+    "count_limit": 10
+   },
+   "summary": "Short work absences (up to 10 working days) can be paid at $70 a day, up to $700.",
+   "quote": "A Compensation Officer may approve lost wage or income reimbursement claims for temporary crime disabilities or work interruptions lasting up to ten (10) working days, or up to $700 at the rate of $70/day.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.7(A)"
+  },
+  {
+   "id": "NV-CAP-RELOC",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "All relocation expenses together are capped at $2,500 per claim.",
+   "quote": "The total amount for all relocation expenses cannot exceed $2,500 per claim",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.9(E)"
+  },
+  {
+   "id": "NV-CAP-LODGING",
+   "category": "expense_cap",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 50000,
+    "per": "claim"
+   },
+   "summary": "Within the relocation limit, temporary lodging is capped at $500.",
+   "quote": "Temporary lodging expenses of no more than $500",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.9(E)(3)"
+  },
+  {
+   "id": "NV-CAP-SECURITY",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 150000,
+    "per": "claim"
+   },
+   "summary": "Repairing or improving home security for the survivor's safety can be reimbursed up to $1,500.",
+   "quote": "A victim may be eligible to receive reimbursement of up to $1,500 for repairing or improving residential security when necessary for the victim's personal safety and related to the crime for which the victim is approved.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.11(A)"
+  },
+  {
+   "id": "NV-CAP-CHILDCARE",
+   "category": "expense_cap",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare",
+    "amount_cents": 250000,
+    "per": "claim"
+   },
+   "summary": "Childcare caused by the crime is capped at $2,500 per crime for all children together.",
+   "quote": "The total benefit available for all affected children, per crime, may not exceed $2,500.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.12(A)"
+  },
+  {
+   "id": "NV-CAP-RX",
+   "category": "expense_cap",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription",
+    "amount_cents": 600000,
+    "per": "claim"
+   },
+   "summary": "Prescription medication can be reimbursed up to $6,000 during the period program policy allows for crime-related prescriptions; the period can be extended with medical documentation.",
+   "quote": "The VOCP may reimburse up to a maximum of $6,000 for prescription medication during this time.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.5(A)"
+  },
+  {
+   "id": "NV-CAP-CLEANUP",
+   "category": "expense_cap",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Crime scene cleanup is paid up to $5,000.",
+   "quote": "The VOCP pays up to $5,000 in Crime Scene Cleanup costs for qualified victims.",
+   "source_id": "NV-S6",
+   "pinpoint": "Coverage Limits for Service Providers: Crime Scene Cleanup Providers",
+   "fragment_url": "https://www.voc.nv.gov/service-providers/coverage-limits/#:~:text=The%20VOCP%20pays%20up%20to,Cleanup%20costs%20for%20qualified%20victims."
+  },
+  {
+   "id": "NV-CAP-FUNERAL",
+   "category": "expense_cap",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Funeral and burial expenses for a deceased victim are paid up to $5,000.",
+   "quote": "The VOCP pays up to $5,000 for a deceased victim",
+   "source_id": "NV-S6",
+   "pinpoint": "Coverage Limits for Service Providers: Funeral and Burial Service Providers",
+   "fragment_url": "https://www.voc.nv.gov/service-providers/coverage-limits/#:~:text=The%20VOCP%20pays%20up%20to%20%245%2C000%20for%20a%20deceased%20victim"
+  },
+  {
+   "id": "NV-COV-MED",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "By statute the program can pay medical expenses and psychological counseling reasonably incurred because of the injury.",
+   "quote": "Medical expenses, expenses for psychological counseling and nonmedical remedial care and treatment rendered in accordance with a religious method of healing that are actually and reasonably incurred as a result of the personal injury or death of the victim",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.200(1)(a)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=Medical%20expenses%2C%20expenses%20for%20psychological,or%20death%20of%20the%20victim"
+  },
+  {
+   "id": "NV-COV-COUNSEL",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Mental health counseling is available on every approved claim.",
+   "quote": "Mental Health counseling benefits are available for all approved claims.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.6(A)"
+  },
+  {
+   "id": "NV-COV-WAGES",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "By statute the program can pay lost earnings caused by the victim's total or partial incapacity, for no longer than 52 weeks.",
+   "quote": "Loss of earnings or support that is reasonably incurred as a result of the total or partial incapacity of the victim for not longer than 52 weeks",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.200(1)(b)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=Loss%20of%20earnings%20or%20support,not%20longer%20than%2052%20weeks"
+  },
+  {
+   "id": "NV-COV-RELOC",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation"
+   },
+   "summary": "Emergency shelter and relocation costs are listed as covered.",
+   "quote": "Emergency Shelter and Relocation costs",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Emergency%20Shelter%20and%20Relocation%20costs"
+  },
+  {
+   "id": "NV-COV-SECURITY",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security"
+   },
+   "summary": "Home security repair is listed as covered.",
+   "quote": "Home Security Repair",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Home%20Security%20Repair"
+  },
+  {
+   "id": "NV-COV-CHILDCARE",
+   "category": "covered_expense",
+   "expense": "childcare",
+   "params": {
+    "expense": "childcare"
+   },
+   "summary": "Childcare costs caused by the crime are listed as covered.",
+   "quote": "Childcare costs incurred because of the crime",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Childcare%20costs%20incurred%20because%20of%20the%20crime"
+  },
+  {
+   "id": "NV-COV-RX",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Prescription medication, mental health counseling, and medical and dental treatment are listed as covered.",
+   "quote": "Medical and Dental treatment Medically necessary equipment (e.g., wheelchair) Mental Health Counseling Prescription Medication",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Medical%20and%20Dental%20treatment%20Medically,Mental%20Health%20Counseling%20Prescription%20Medication"
+  },
+  {
+   "id": "NV-COV-DENTAL",
+   "category": "covered_expense",
+   "expense": "dental",
+   "params": {
+    "expense": "dental"
+   },
+   "summary": "Medical and dental treatment are listed as covered.",
+   "quote": "Medical and Dental treatment",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Medical%20and%20Dental%20treatment"
+  },
+  {
+   "id": "NV-COV-HIV",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "In sexual assault claims the program may pay for medically recommended HIV prevention medication or HPV vaccination, within benefit limits.",
+   "quote": "The VOCP may pay for medically recommended HIV preventive prescription treatments or HPV vaccinations in sexual assault claims, subject to benefit limits.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.5(C)"
+  },
+  {
+   "id": "NV-COV-TRAVEL",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Survivors who must travel for medical treatment or counseling may submit travel receipts (gas, transit, hotel, meals) for possible reimbursement.",
+   "quote": "Applicants who are required to travel for medical treatment or counseling may submit their travel",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.13(A)"
+  },
+  {
+   "id": "NV-COV-CLEANUP",
+   "category": "covered_expense",
+   "expense": "crime_scene_cleanup",
+   "params": {
+    "expense": "crime_scene_cleanup"
+   },
+   "summary": "Crime scene cleanup is listed as a covered expense.",
+   "quote": "Crime scene cleanup",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Crime%20scene%20cleanup"
+  },
+  {
+   "id": "NV-COV-FUNERAL",
+   "category": "covered_expense",
+   "expense": "funeral",
+   "params": {
+    "expense": "funeral"
+   },
+   "summary": "By statute the program can pay funeral expenses reasonably incurred because of the victim's death.",
+   "quote": "Funeral expenses that are actually and reasonably incurred as a result of the death of the victim",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.200(1)(d)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=Funeral%20expenses%20that%20are%20actually,the%20death%20of%20the%20victim"
+  },
+  {
+   "id": "NV-EXCL-PROPERTY",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "item": "lost or stolen property or cash, and property damage"
+   },
+   "summary": "Lost or stolen property or cash and property damage are not covered. Narrow exceptions appear elsewhere in program text: medically necessary items such as eyeglasses or dentures lost, stolen or broken in the crime can be paid as medical expenses, and the current application instructions list limited property damage for qualifying hate crimes.",
+   "quote": "Lost or stolen property or cash Property damage",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Lost%20or%20stolen%20property%20or%20cash%20Property%20damage"
+  },
+  {
+   "id": "NV-EXCL-PAIN",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering; no cash award or settlement"
+   },
+   "summary": "The program does not pay for property loss or pain and suffering, and there is no cash award or settlement.",
+   "quote": "The VOCP does not reimburse expenses or pay for property loss or pain and suffering. There is no cash payment, award or settlement.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 500.11(D)"
+  },
+  {
+   "id": "NV-EXCL-MILEAGE",
+   "category": "excluded_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "item": "mileage"
+   },
+   "summary": "Mileage is not reimbursed (receipted travel costs may still be considered).",
+   "quote": "Mileage reimbursement will not be paid by the VOCP.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.13(A)"
+  },
+  {
+   "id": "NV-EXCL-OTHER",
+   "category": "excluded_expense",
+   "params": {
+    "item": "expenses payable by insurance or any other source"
+   },
+   "summary": "Expenses that insurance or any other source will pay are not covered.",
+   "quote": "Any expense payable by insurance or any other source",
+   "source_id": "NV-S2",
+   "pinpoint": "VOCP Benefits and Covered Expenses page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/voc-benefits-expenses/#:~:text=Any%20expense%20payable%20by%20insurance%20or%20any%20other%20source"
+  },
+  {
+   "id": "NV-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "months": 60,
+    "from": "crime",
+    "extension": "good_cause"
+   },
+   "summary": "Apply no later than 60 months after the injury. The Director or a designee may waive the deadline for good cause.",
+   "quote": "(a) Except as otherwise provided in paragraph (b), not later than 60 months after the injury or death for which compensation is claimed",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.100(1)(a)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=%28a%29%20Except%20as%20otherwise%20provided,for%20which%20compensation%20is%20claimed"
+  },
+  {
+   "id": "NV-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "months": 60,
+    "from": "age_21",
+    "extension": "good_cause"
+   },
+   "summary": "If the survivor was a minor when injured, the deadline is 60 months after turning 21.",
+   "quote": "(b) If the applicant was a minor at the time of the injury, not later than 60 months after the applicant reaches 21 years of age.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.100(1)(b)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=%28b%29%20If%20the%20applicant%20was,reaches%2021%20years%20of%20age."
+  },
+  {
+   "id": "NV-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "extension": "good_cause"
+   },
+   "summary": "The filing deadline can be waived for good cause.",
+   "quote": "The Director or a person designated by the Director may waive the limitation on time described in subsection 1 for good cause shown.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.100(2)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=The%20Director%20or%20a%20person,1%20for%20good%20cause%20shown."
+  },
+  {
+   "id": "NV-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "protective_order",
+     "advocate",
+     "medical_provider",
+     "other"
+    ]
+   },
+   "summary": "Eligibility can be shown with documents other than a police report, such as a protective order, court testimony, a government record, a record from a victim services organization, or an affidavit from a qualified third party (the statute lists licensed clinicians and victim advocates).",
+   "quote": "(b) A police report, investigative report or complaint which the victim filed with a law enforcement agency; (c) A copy of an order for protection; (d) A transcript of testimony given under oath or affirmation in a civil or criminal proceeding; (e) A record of a governmental entity; (f) A record from an organization which provides services to victims of crime; (g) An affidavit of a qualified third party; or (h) Other documentary evidence deemed sufficient by the Director.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.100(5)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=%28b%29%20A%20police%20report%2C%20investigative,deemed%20sufficient%20by%20the%20Director."
+  },
+  {
+   "id": "NV-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false
+   },
+   "summary": "The program's current application instructions say law enforcement reports are not required for eligibility. The same document's eligibility list still says the crime was reported to law enforcement or another appropriate authority, and its form accepts advocate statements, medical or counseling records, protective orders, professional statements and other official records as proof.",
+   "quote": "I understand that law enforcement reports are not required for eligibility.",
+   "source_id": "NV-S9",
+   "pinpoint": "Application Instructions, Authorization 1: Law Enforcement Reports"
+  },
+  {
+   "id": "NV-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "Program policy lets a claim be approved without a police report when a sexual assault survivor had a forensic exam, as long as there is enough documentation that a crime happened.",
+   "quote": "when a sexual assault victim submits to a forensic examination but does not file a law enforcement report, the Compensation Officer may approve the claim without a crime report as long as there is sufficient documentation that a crime was committed against the applicant.",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 300.12(C)(1)"
+  },
+  {
+   "id": "NV-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Money received or likely to be received from the offender, insurance, an employer, or public programs is subtracted from the survivor's total expenses.",
+   "quote": "The compensation officer shall deduct the amounts that the applicant has received or is likely to receive from those sources from the applicant's total expenses.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.180(3)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=The%20compensation%20officer%20shall%20deduct,from%20the%20applicant%27s%20total%20expenses."
+  },
+  {
+   "id": "NV-COLL-2",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "The program is the payer of last resort and considers insurance, restitution, and other payments before deciding an award.",
+   "quote": "The Victims Compensation Program is the payer of last resort. This means we must consider payments from other sources, such as insurance or restitution, before determining your award.",
+   "source_id": "NV-S9",
+   "pinpoint": "Application Instructions, Important to Know"
+  },
+  {
+   "id": "NV-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "In general, compensation is awarded unless the injury was substantially caused or provoked by the victim's own wrongful act.",
+   "quote": "the compensation officer shall award compensation unless the injury or death of the victim was substantially attributable to a wrongful act of the victim or substantially provoked by the victim.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.180(1)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=the%20compensation%20officer%20shall%20award,substantially%20provoked%20by%20the%20victim."
+  },
+  {
+   "id": "NV-CONDUCT-2",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "In sexual assault cases the compensation officer may not consider the victim's behavior at all when deciding the claim.",
+   "quote": "If the case involves a victim of domestic violence, sexual assault, facilitating sex trafficking or sex trafficking, the compensation officer shall not consider the wrongful act, provocation or any other behavior of the victim that directly or indirectly contributed to the injury or death of the victim.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.180(2)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=If%20the%20case%20involves%20a,or%20death%20of%20the%20victim."
+  },
+  {
+   "id": "NV-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual assault (including spousal rape) is a qualifying crime under program policy.",
+   "quote": "Sexual Assault or Spousal Rape: NRS 200.366",
+   "source_id": "NV-S7",
+   "pinpoint": "Nevada State Plan for Services for Victims of Crime 200.2(A)"
+  },
+  {
+   "id": "NV-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "The program's eligibility page lists sexual assault among the crimes it can help with.",
+   "quote": "The VOCP can help victims for crimes such as: Assault/Battery Child abuse Domestic violence Drunk driving Elder abuse Homicide Physical abuse Sexual assault",
+   "source_id": "NV-S1",
+   "pinpoint": "Eligibility Criteria page",
+   "fragment_url": "https://www.voc.nv.gov/victim-assistance/eligibility-criteria/#:~:text=The%20VOCP%20can%20help%20victims,Homicide%20Physical%20abuse%20Sexual%20assault"
+  },
+  {
+   "id": "NV-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime in Nevada: residents and nonresidents may apply on the same terms."
+   },
+   "summary": "A victim of a crime in Nevada who does not live in Nevada can apply the same way a resident can.",
+   "quote": "A victim of a crime that occurred in this State who is not a resident of this State may apply to the Director for compensation in the same manner as a resident of this State.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.102(2)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=A%20victim%20of%20a%20crime,a%20resident%20of%20this%20State."
+  },
+  {
+   "id": "NV-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Nevada residents hurt in another state may apply only if that state has no program or they are ineligible there."
+   },
+   "summary": "A Nevada resident victimized in another state can apply to Nevada if that state has no compensation program or the resident is not eligible under it.",
+   "quote": "A resident who is a victim of a crime that occurred in a state other than the State of Nevada may apply to the Director for compensation if: (a) The state in which the crime occurred does not have a program for compensating victims of crime for their injuries; or (b) The resident is ineligible to receive compensation under the program of the other state.",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.102(1)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=A%20resident%20who%20is%20a,program%20of%20the%20other%20state."
+  },
+  {
+   "id": "NV-RES-3",
+   "category": "residency",
+   "params": {
+    "rule": "Citizenship and immigration status do not matter."
+   },
+   "summary": "A person harmed by a covered act counts as a victim whether or not they are a Nevada resident, a U.S. citizen, or lawfully in the U.S.",
+   "quote": "The term includes any person who was harmed by an act listed in subsection 1, regardless of whether: (a) The person is a resident of this State, a citizen of the United States or is lawfully entitled to reside in the United States;",
+   "source_id": "NV-S5",
+   "pinpoint": "NRS 217.070(2)(a)",
+   "fragment_url": "https://www.leg.state.nv.us/nrs/NRS-217.html#:~:text=The%20term%20includes%20any%20person,reside%20in%20the%20United%20States%3B"
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_no_bill",
+   "exam_payment",
+   "total_cap",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "eligible_crime",
+   "residency"
+  ],
+  "not_found": [
+   "minimum_loss (no minimum out-of-pocket loss found in NRS 217 or the State Plan)",
+   "emergency_award (none; the program says it is not an emergency funded program and the application says it does not provide emergency or immediate financial assistance)",
+   "exam_no_bill.insurance_billing (NRS 217.300 bars charging the survivor directly but says nothing on billing the survivor's insurance)",
+   "expense_cap:transportation (mileage is not paid; receipted travel is discretionary with only a $50 meal per diem)",
+   "reporting_requirement.within_days (the current statute sets no police-reporting deadline for compensation)"
+  ],
+  "notes": "Statute wins over older agency text. Filing deadline: NRS 217.100 (Rev. 4/15/2026, amended 2025) gives 60 months, or 60 months after age 21 for minors; the eligibility page (NV-S1) still says two years and the 2020 State Plan (NV-S7 300.2) says 24 months, so those are not used. Police reports: NRS 217.100(5) lets eligibility be shown by other documents and the 2026 instructions (NV-S9) say reports are not required, but the eligibility page (NV-S1, 5-day report rule), the application page (NV-S3), the 7/30/2026 application form (NV-S4), and the 2020 State Plan 200.1 and 300.12(A) still describe a police report requirement; that conflict is recorded here and the statute is followed. The rule caps for wages, relocation, lodging, security, childcare, and prescriptions come from the July 1, 2020 State Plan, which the program's Regulations page links as current; it says benefit levels may change at any time. Counseling ($5,000), medical and dental ($35,000), and cleanup ($5,000) come from the current coverage-limits page. NV-S9 says counseling and crime-scene cleanup may be covered beyond the $35,000 total. Reviewer additions: the 7/30/2026 application form (NV-S4) asks for a reason only when the crime occurred more than five years ago, which matches the 60-month statute. NRS 217.210, which the 7/30/2026 form still cites for police reports, does not appear in the Rev. 4/15/2026 chapter text. The 2026 instructions (NV-S9) list the crime being reported to law enforcement or another appropriate authority as an eligibility condition while also saying law enforcement reports are not required, so a survivor may still be asked for some official record. The coverage-limits page also caps chiropractic and physical therapy at $5,000 and medical equipment and supplies at $2,500; those fit no single expense type and are not encoded."
+ },
+ "confidence": "medium",
+ "researcher_notes": "Main source conflicts: (1) filing deadline 60 months in NRS 217.100 vs two years/24 months on the eligibility page and in the 2020 State Plan; (2) police report required on older agency pages and the 7/30/2026 application form vs not required under NRS 217.100(5) and the 2026 application instructions. Other things a reviewer should know but that fit no category: NRS 217.220(4) lets the officer deny an award if the applicant will not suffer serious financial hardship, without counting the home, one vehicle, or savings up to one year's salary; NRS 217.245 says a provider that accepts VOCP payment takes it as payment in full and may not bill the victim further. NRS 217.310 to 217.340 separately let a sexual assault survivor (and spouse) apply to the county for medical and counseling treatment up to $1,000, with its own 60-day application or 3-day report timing; that county benefit is not encoded as a VOCP rule. The 2020 State Plan 400.15 limit of $1,000 for a sexual assault exam in rural counties predates the 2025 amendment of NRS 217.300 that pays exams from the Fund, so it is not encoded. Counseling hourly rates on the coverage-limits page ($125 psychiatrist down to $45 intern) are provider rates and are not encoded. The OVC directory (ovc.ojp.gov/states/nevada) lists the program at voc.nv.gov, phone 702-486-2740; it was read but not saved as a source. The NAC Chapter 217 was checked and only covers fictitious addresses, so it was not saved. Reviewer: NV-S7 kind changed from regulation to agency_pdf because the State Plan is program policy under NRS 217.094, not an administrative code. filing_deadline uses months (60) and from: age_21 because the statute counts in months and from age 21; the schema lists only years/days and age_18, so the engine must handle these values."
+}

@@ -1,0 +1,199 @@
+.bed {
+  border-top: 1.5px solid var(--ink);
+  padding-top: var(--space-3);
+}
+
+.bedHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-bottom: var(--space-2);
+}
+
+.bedHead h2 {
+  font-size: var(--text-xl);
+}
+
+.bedTotal {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  grid-template-areas: "date main amount";
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-4) var(--space-2);
+  margin-inline: calc(var(--space-2) * -1);
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-1);
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.row[data-status="held"] {
+  background: linear-gradient(to right, var(--clay-tint), transparent 75%);
+  box-shadow: inset 3px 0 0 var(--clay);
+}
+
+.changed {
+  animation: settle 1.2s var(--ease);
+}
+
+@keyframes settle {
+  from {
+    background-color: var(--green-tint);
+  }
+}
+
+.date {
+  grid-area: date;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  padding-top: 4px;
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.desc {
+  overflow-wrap: anywhere;
+}
+
+.units {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-4);
+  min-height: 32px;
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.question {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper-raised);
+}
+
+.qText {
+  flex: 1 1 13rem;
+  font-weight: 700;
+}
+
+.answers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.answers button {
+  min-height: 44px;
+  min-width: 76px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 var(--text-sm) / 1 var(--font-sans);
+  cursor: pointer;
+}
+
+.answers button:hover {
+  border-color: var(--green);
+}
+
+.answers button[aria-pressed="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--on-green);
+}
+
+.after {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+  margin-top: var(--space-2);
+}
+
+.amount {
+  grid-area: amount;
+  display: grid;
+  justify-items: end;
+  align-content: start;
+  gap: 2px;
+  white-space: nowrap;
+  padding-top: 1px;
+}
+
+.counted {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.was {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.heldAmount {
+  color: var(--clay);
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--ink-3);
+}
+
+.amountNote {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.row[data-status="held"] .amountNote {
+  color: var(--clay);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "date date"
+      "main amount";
+  }
+
+  .date {
+    padding-top: 0;
+  }
+}

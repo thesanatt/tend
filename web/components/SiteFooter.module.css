@@ -1,0 +1,21 @@
+.footer {
+  margin-top: var(--space-9);
+  border-top: 1px solid var(--line);
+  background: var(--paper-sunk);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-6) var(--space-7);
+}
+
+.help {
+  font-weight: 700;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+}

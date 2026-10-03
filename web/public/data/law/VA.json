@@ -1,0 +1,671 @@
+{
+ "jurisdiction": "VA",
+ "name": "Virginia",
+ "program": {
+  "program_name": "Virginia Victims Fund (Criminal Injuries Compensation Fund)",
+  "agency": "Virginia Workers' Compensation Commission",
+  "website": "https://vvf.virginia.gov",
+  "apply_url": "https://vvf.virginia.gov/forms/vvf-claim-form",
+  "application_pdf_url": "https://vvf.virginia.gov/sites/default/files/Forms/VVF-Claim-Form-English-08122025.pdf",
+  "phone": "800-552-4007",
+  "phone_source_id": "VA-S15",
+  "statute_citation": "Va. Code §§ 19.2-368.1 to 19.2-368.18; exam payment § 19.2-165.1"
+ },
+ "sources": [
+  {
+   "id": "VA-S1",
+   "title": "Va. Code § 19.2-368.2 (Definitions)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.2/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:26Z",
+   "raw_path": "rules/sources/VA/VA-S1.html",
+   "text_path": "rules/sources/VA/VA-S1.txt",
+   "sha256": "43553de7885496145c32481bdd90b14f71940d98be56fadf9257d8f9272a1083"
+  },
+  {
+   "id": "VA-S2",
+   "title": "Va. Code § 19.2-368.4 (Persons eligible for awards)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.4/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:28Z",
+   "raw_path": "rules/sources/VA/VA-S2.html",
+   "text_path": "rules/sources/VA/VA-S2.txt",
+   "sha256": "572297a5539a58d7c2e6cd54823fecf66db36d198ba1653556e9eeb3a9236182"
+  },
+  {
+   "id": "VA-S3",
+   "title": "Va. Code § 19.2-368.5 (Filing of claims)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.5/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:29Z",
+   "raw_path": "rules/sources/VA/VA-S3.html",
+   "text_path": "rules/sources/VA/VA-S3.txt",
+   "sha256": "ab64413dc8b3b601bde215b7efb9e6a468f35eba719283c6d5214f79c765ae0e"
+  },
+  {
+   "id": "VA-S4",
+   "title": "Va. Code § 19.2-368.9 (Emergency awards)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.9/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:30Z",
+   "raw_path": "rules/sources/VA/VA-S4.html",
+   "text_path": "rules/sources/VA/VA-S4.txt",
+   "sha256": "9e33ac9776a291123caddef4bcaa110edb4365754b20e4a11028beb64210caa4"
+  },
+  {
+   "id": "VA-S5",
+   "title": "Va. Code § 19.2-368.10 (When awards to be made; reporting crime to law enforcement)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.10/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:31Z",
+   "raw_path": "rules/sources/VA/VA-S5.html",
+   "text_path": "rules/sources/VA/VA-S5.txt",
+   "sha256": "d4d8517cfd545d701c2781c990813fc8b34885510eebf8cc737b90012fcbe410"
+  },
+  {
+   "id": "VA-S6",
+   "title": "Va. Code § 19.2-368.11:1 (Amount of award)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:31Z",
+   "raw_path": "rules/sources/VA/VA-S6.html",
+   "text_path": "rules/sources/VA/VA-S6.txt",
+   "sha256": "6bdbdee65f59983e5052025fa2beaecd3f8285a46c5d9303ac3a7963af164fc3"
+  },
+  {
+   "id": "VA-S7",
+   "title": "Va. Code § 19.2-368.12 (Awards; apportionment; reductions)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.12/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:32Z",
+   "raw_path": "rules/sources/VA/VA-S7.html",
+   "text_path": "rules/sources/VA/VA-S7.txt",
+   "sha256": "db1d120e1af58781e3e54182751b91495d3d063d3d7fff74d1d90f98b1c256d8"
+  },
+  {
+   "id": "VA-S8",
+   "title": "Va. Code § 19.2-368.5:2 (Stay of debt collection by health care providers)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.5:2/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:33Z",
+   "raw_path": "rules/sources/VA/VA-S8.html",
+   "text_path": "rules/sources/VA/VA-S8.txt",
+   "sha256": "69cd4cee8479c1edaa7aadae1c8a07c15eabd433a1d6c9071087b3a1d3d804b2"
+  },
+  {
+   "id": "VA-S9",
+   "title": "Va. Code § 19.2-165.1 (Payment of medical fees in certain criminal cases)",
+   "url": "https://law.lis.virginia.gov/vacode/title19.2/chapter1.2/section19.2-165.1/",
+   "kind": "statute",
+   "retrieved_at": "2026-10-03T18:47:54Z",
+   "raw_path": "rules/sources/VA/VA-S9.html",
+   "text_path": "rules/sources/VA/VA-S9.txt",
+   "sha256": "d36f2ac805b9b67fa5871cf67c1ac6bb47e202a2614b28f106f02167ae812557"
+  },
+  {
+   "id": "VA-S10",
+   "title": "Virginia Victims Fund: SAFE Payment Program page",
+   "url": "https://vvf.virginia.gov/safe-payment-program",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:54Z",
+   "raw_path": "rules/sources/VA/VA-S10.html",
+   "text_path": "rules/sources/VA/VA-S10.txt",
+   "sha256": "6611070319d1e675291d35c754789e2223228cec9c07acc5fd34b664d481ad17"
+  },
+  {
+   "id": "VA-S11",
+   "title": "Virginia Victims Fund claim form (English, 08/12/2025)",
+   "url": "https://vvf.virginia.gov/sites/default/files/Forms/VVF-Claim-Form-English-08122025.pdf",
+   "kind": "application_form",
+   "retrieved_at": "2026-10-03T18:48:32Z",
+   "raw_path": "rules/sources/VA/VA-S11.pdf",
+   "text_path": "rules/sources/VA/VA-S11.txt",
+   "sha256": "72c8c9ff3cc21379c059d131f9f0718a0e162955c6af3677769dda72ffcfbb5c"
+  },
+  {
+   "id": "VA-S12",
+   "title": "Virginia Victims Fund: Eligibility page",
+   "url": "https://vvf.virginia.gov/eligibility",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:47:59Z",
+   "raw_path": "rules/sources/VA/VA-S12.html",
+   "text_path": "rules/sources/VA/VA-S12.txt",
+   "sha256": "bcc02268d4ef1cf7d8ff02f3c9459dde1ca47c86630d85fcfbdd2d9d7770ee46"
+  },
+  {
+   "id": "VA-S13",
+   "title": "Virginia Victims Fund: How Compensation Works",
+   "url": "https://vvf.virginia.gov/compensation",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:00Z",
+   "raw_path": "rules/sources/VA/VA-S13.html",
+   "text_path": "rules/sources/VA/VA-S13.txt",
+   "sha256": "16c4727e7264406840d819c2c0856c88dc8c9b1095560a51ddc9be8957bf1073"
+  },
+  {
+   "id": "VA-S14",
+   "title": "Policies of the Virginia Victims Fund (revised September 2025)",
+   "url": "https://vvf.virginia.gov/sites/default/files/Documents/VVF-Policies.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:33Z",
+   "raw_path": "rules/sources/VA/VA-S14.pdf",
+   "text_path": "rules/sources/VA/VA-S14.txt",
+   "sha256": "af1898e5eea1191161245908ea36abe62b3f13c09aa599c4c4d84847144bf224"
+  },
+  {
+   "id": "VA-S15",
+   "title": "Virginia Victims Fund: Contact Us",
+   "url": "https://vvf.virginia.gov/contact",
+   "kind": "agency_page",
+   "retrieved_at": "2026-10-03T18:48:05Z",
+   "raw_path": "rules/sources/VA/VA-S15.html",
+   "text_path": "rules/sources/VA/VA-S15.txt",
+   "sha256": "ccd63ce8f9514dc9f59385ac76a09b09dd0bcf16a7694b950ba62d9bbd4d1736"
+  },
+  {
+   "id": "VA-S16",
+   "title": "SAFE Payment Program Procedures and Guidelines (2026)",
+   "url": "https://vvf.virginia.gov/sites/default/files/Documents/SAFE-Procedures-and-Guidelinesf-2026.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:34Z",
+   "raw_path": "rules/sources/VA/VA-S16.pdf",
+   "text_path": "rules/sources/VA/VA-S16.txt",
+   "sha256": "0558d93c4dbad126ad73542cd56e54704acc5f28f23ab0b6200207fec0bd3713"
+  },
+  {
+   "id": "VA-S17",
+   "title": "Notice to Sexual Assault Patients (SAFE Payment Program)",
+   "url": "https://vvf.virginia.gov/sites/default/files/Forms/Notice-to-Sexual-Assault-Patients_0.pdf",
+   "kind": "agency_pdf",
+   "retrieved_at": "2026-10-03T18:48:34Z",
+   "raw_path": "rules/sources/VA/VA-S17.pdf",
+   "text_path": "rules/sources/VA/VA-S17.txt",
+   "sha256": "343ce3b2debde268eb546159d9e6fc7c205e45c0e348e6a26b8cf139572eea75"
+  }
+ ],
+ "rules": [
+  {
+   "id": "VA-EXAM-1",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Criminal Injuries Compensation Fund (Virginia Victims Fund SAFE Payment Program)"
+   },
+   "summary": "The state's Criminal Injuries Compensation Fund pays for physical evidence recovery kit (PERK) exams for sexual assault victims.",
+   "quote": "the Criminal Injuries Compensation Fund shall pay for physical evidence recovery kit examinations conducted on victims of sexual assault",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(F)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=the%20Criminal%20Injuries%20Compensation%20Fund,on%20victims%20of%20sexual%20assault"
+  },
+  {
+   "id": "VA-EXAM-2",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "the Commonwealth, through the Criminal Injuries Compensation Fund"
+   },
+   "summary": "Exam evidence-gathering fees are paid by the Commonwealth, and the survivor does not have to cooperate with police or the criminal case to get the exam.",
+   "quote": "shall be paid by the Commonwealth pursuant to subsection F of § 19.2-368.11:1 . Such victims shall not be required to participate in the criminal justice system or cooperate with law-enforcement authorities in order to be provided with such medical exams.",
+   "source_id": "VA-S9",
+   "pinpoint": "Va. Code § 19.2-165.1(B)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter1.2/section19.2-165.1/#:~:text=shall%20be%20paid%20by%20the,provided%20with%20such%20medical%20exams."
+  },
+  {
+   "id": "VA-EXAM-3",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "Survivors have the right to evidence collection at no cost to them.",
+   "quote": "You have the right to seek evidence collection at no cost to you;",
+   "source_id": "VA-S17",
+   "pinpoint": "VVF Notice to Sexual Assault Patients"
+  },
+  {
+   "id": "VA-EXAM-4",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "unspecified"
+   },
+   "summary": "Patients should be billed only for expenses the SAFE Payment Program does not cover; a patient billed by mistake for the exam can seek reimbursement from the program.",
+   "quote": "Patients should only receive bills from providers for expenses considered ineligible for payment by the SAFE Payment Program.",
+   "source_id": "VA-S16",
+   "pinpoint": "SAFE Payment Program Procedures and Guidelines, Eligibility Criteria 3(b)"
+  },
+  {
+   "id": "VA-EXAM-5",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "params": {
+    "insurance_billing": "consent_required"
+   },
+   "summary": "Billing the survivor's private health insurance first is not required unless the patient asks for it. Federally funded insurance (Medicaid, Medicare, Tricare) must be billed first, and the program pays the eligible remaining patient responsibility.",
+   "quote": "If the patient is covered by a federally funded insurance such as Medicaid, Medicare, Tricare, etc., insurance must be billed primary. Billing private health insurance primary is not required unless requested by the patient. The SAFE Payment Program will pay any eligible remaining patient responsibility.",
+   "source_id": "VA-S10",
+   "pinpoint": "VVF SAFE Payment Program page, Submit a SAFE claim",
+   "fragment_url": "https://vvf.virginia.gov/safe-payment-program#:~:text=If%20the%20patient%20is%20covered,any%20eligible%20remaining%20patient%20responsibility."
+  },
+  {
+   "id": "VA-EXAM-6",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams"
+   },
+   "summary": "Non-acute exams (more than 120 hours after the crime) and chronic sexual abuse cases need authorization from a law enforcement officer or prosecutor to be paid.",
+   "quote": "Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
+   "source_id": "VA-S10",
+   "pinpoint": "VVF SAFE Payment Program page, Eligibility Requirements",
+   "fragment_url": "https://vvf.virginia.gov/safe-payment-program#:~:text=Medical%20forensic%20examinations%20for%20non%2Dacute,for%20payment%20per%20%C2%A719.2%2D165.1%20%28A%29."
+  },
+  {
+   "id": "VA-EXAM-7",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Criminal Injuries Compensation Fund"
+   },
+   "summary": "What the Fund pays for a PERK exam does not count against the survivor's maximum award.",
+   "quote": "Funds paid for physical evidence recovery kit or anonymous trace evidence collection kit collection shall not be offset against the Fund's maximum allowable award as provided in subsection H.",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(F)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=Funds%20paid%20for%20physical%20evidence,as%20provided%20in%20subsection%20H."
+  },
+  {
+   "id": "VA-CAP-1",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 3500000
+   },
+   "summary": "Total payments on a claim, after collateral sources are subtracted, cannot exceed $35,000.",
+   "quote": "payments for injury or death to a victim of crime, to the victim's dependents or to others entitled to payment for covered expenses, after being reduced as provided in subsection G, shall not exceed $35,000 in the aggregate.",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(H)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=payments%20for%20injury%20or%20death,exceed%20%2435%2C000%20in%20the%20aggregate."
+  },
+  {
+   "id": "VA-MIN-1",
+   "category": "minimum_loss",
+   "params": {
+    "amount_cents": 10000
+   },
+   "summary": "A claim must have a minimum value of $100 to qualify for an award.",
+   "quote": "To qualify for an award under this chapter, a claim must have a minimum value of $100",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(H)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=To%20qualify%20for%20an%20award,a%20minimum%20value%20of%20%24100"
+  },
+  {
+   "id": "VA-WAGE-1",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages"
+   },
+   "summary": "Total loss of earnings from crime-caused incapacity is paid weekly at 66-2/3 percent of the victim's average weekly wages.",
+   "quote": "at a weekly compensation rate equal to 66-2 /3 percent of the victim's average weekly wages",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(A)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=at%20a%20weekly%20compensation%20rate,the%20victim%27s%20average%20weekly%20wages"
+  },
+  {
+   "id": "VA-MOVE-1",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 200000,
+    "per": "claim"
+   },
+   "summary": "Reasonable and necessary moving expenses are covered up to $2,000.",
+   "quote": "reasonable and necessary moving expenses, not to exceed $2,000, incurred by a victim or survivors",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(E)(vi)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=reasonable%20and%20necessary%20moving%20expenses%2C,by%20a%20victim%20or%20survivors"
+  },
+  {
+   "id": "VA-SEC-1",
+   "category": "expense_cap",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "amount_cents": 100000,
+    "per": "claim"
+   },
+   "summary": "Home security purchase and installation is covered up to $1,000, and the system should be installed within 30 days after the crime.",
+   "quote": "Home Security: Reimbursement of the purchase and installation of home security measures. This expense is based on an immediate need for safety; therefore, the system should be installed within thirty (30) days after the crime. (up to $1,000)",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Home%20Security%3A%20Reimbursement%20of%20the,the%20crime.%20%28up%20to%20%241%2C000%29"
+  },
+  {
+   "id": "VA-HOUSE-1",
+   "category": "covered_expense",
+   "expense": "temporary_housing",
+   "params": {
+    "expense": "temporary_housing"
+   },
+   "summary": "Temporary lodging is covered only in limited situations where staying in the home would risk the victim's safety; it must start right after the crime and cannot exceed 30 days.",
+   "quote": "Temporary Lodging: Limited situations only, when the physical safety of the victim would be risked by staying in the dwelling where the crime occurred. Receipts must be in the victim’s name. Temporary lodging must begin immediately following the crime and must not exceed 30 days.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Temporary%20Lodging%3A%20Limited%20situations%20only%2C,must%20not%20exceed%2030%20days."
+  },
+  {
+   "id": "VA-MED-1",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Unreimbursed medical expenses, or debt reasonably incurred for medical expenses, are covered.",
+   "quote": "unreimbursed medical expenses or indebtedness reasonably incurred for medical expenses",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(E)(i)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=unreimbursed%20medical%20expenses%20or%20indebtedness%20reasonably%20incurred%20for%20medical%20expenses"
+  },
+  {
+   "id": "VA-MED-2",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical"
+   },
+   "summary": "Expenses attributable to a pregnancy resulting from forcible rape are covered.",
+   "quote": "expenses attributable to pregnancy resulting from forcible rape",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(E)(iv)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=expenses%20attributable%20to%20pregnancy%20resulting%20from%20forcible%20rape"
+  },
+  {
+   "id": "VA-RX-1",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "Prescriptions for crime-related injuries or conditions may be reimbursed with receipts.",
+   "quote": "Prescriptions for treatment of injuries/conditions caused by the crime may be reimbursed.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Prescriptions%20for%20treatment%20of%20injuries%2Fconditions,the%20crime%20may%20be%20reimbursed."
+  },
+  {
+   "id": "VA-RX-2",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "When a provider decides HIV prevention medication is needed, the SAFE Payment Program pays for the full 28-day course.",
+   "quote": "The full course (28-day supply) of HIV preventative medication",
+   "source_id": "VA-S10",
+   "pinpoint": "VVF SAFE Payment Program page, HIV Prevention",
+   "fragment_url": "https://vvf.virginia.gov/safe-payment-program#:~:text=The%20full%20course%20%2828%2Dday%20supply%29%20of%20HIV%20preventative%20medication"
+  },
+  {
+   "id": "VA-COUNSEL-1",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling"
+   },
+   "summary": "Counseling is an eligible expense for direct victims.",
+   "quote": "Counseling For direct victims",
+   "source_id": "VA-S13",
+   "pinpoint": "VVF How Compensation Works, Eligible Expenses",
+   "fragment_url": "https://vvf.virginia.gov/compensation#:~:text=Counseling%20For%20direct%20victims"
+  },
+  {
+   "id": "VA-TRANS-1",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation"
+   },
+   "summary": "Mileage to and from medical treatment, investigations and court is reimbursed for minor victims only.",
+   "quote": "Mileage - Minor Victims Only: Reimbursement for mileage to/from medical treatment, criminal investigations and court proceedings. (Minor victims only.)",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Mileage%20%2D%20Minor%20Victims%20Only%3A,court%20proceedings.%20%28Minor%20victims%20only.%29"
+  },
+  {
+   "id": "VA-CLOTH-1",
+   "category": "covered_expense",
+   "expense": "clothing_bedding",
+   "params": {
+    "expense": "clothing_bedding"
+   },
+   "summary": "When clothing or bedding is taken as evidence, the fund may pay for replacements.",
+   "quote": "When clothing or bedding are taken as evidence, VVF may pay for the purchase of a replacement.",
+   "source_id": "VA-S13",
+   "pinpoint": "VVF How Compensation Works, Non-Eligible Expenses",
+   "fragment_url": "https://vvf.virginia.gov/compensation#:~:text=When%20clothing%20or%20bedding%20are,the%20purchase%20of%20a%20replacement."
+  },
+  {
+   "id": "VA-EXCL-1",
+   "category": "excluded_expense",
+   "expense": "property_replacement",
+   "params": {
+    "item": "replacement of stolen vehicles, cellphones, money, or other personal property"
+   },
+   "summary": "The fund does not replace stolen vehicles, cellphones, money, or other personal property.",
+   "quote": "Replacement of stolen vehicles, cellphones, money, or other personal property",
+   "source_id": "VA-S13",
+   "pinpoint": "VVF How Compensation Works, Non-Eligible Expenses",
+   "fragment_url": "https://vvf.virginia.gov/compensation#:~:text=Replacement%20of%20stolen%20vehicles%2C%20cellphones%2C%20money%2C%20or%20other%20personal%20property"
+  },
+  {
+   "id": "VA-EXCL-2",
+   "category": "excluded_expense",
+   "expense": "legal",
+   "params": {
+    "item": "attorneys' fees"
+   },
+   "summary": "The program cannot award attorneys' fees.",
+   "quote": "The Commission lacks authority to award attorneys’ fees.",
+   "source_id": "VA-S14",
+   "pinpoint": "VVF Policies, Criteria for an Award (E)"
+  },
+  {
+   "id": "VA-EXCL-3",
+   "category": "excluded_expense",
+   "params": {
+    "item": "pain and suffering"
+   },
+   "summary": "The fund cannot pay for pain and suffering.",
+   "quote": "The Fund cannot consider payment for pain and suffering and non-eligible property damage.",
+   "source_id": "VA-S13",
+   "pinpoint": "VVF How Compensation Works, Payer of Last Resort",
+   "fragment_url": "https://vvf.virginia.gov/compensation#:~:text=The%20Fund%20cannot%20consider%20payment,suffering%20and%20non%2Deligible%20property%20damage."
+  },
+  {
+   "id": "VA-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "extension": "For good cause shown, the Commission may extend the time for filing."
+   },
+   "summary": "A claim must be filed within three years after the crime; the Commission may extend this for good cause.",
+   "quote": "A claim shall be filed by the claimant not later than three years after the occurrence of the crime upon which such claim is based",
+   "source_id": "VA-S3",
+   "pinpoint": "Va. Code § 19.2-368.5(B)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.5/#:~:text=A%20claim%20shall%20be%20filed,which%20such%20claim%20is%20based"
+  },
+  {
+   "id": "VA-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime"
+   },
+   "summary": "The program applies the three-year deadline to crimes committed on or after July 1, 2025.",
+   "quote": "Crimes committed on and after July 1, 2025 The deadline to file a claim is three years from the crime.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Crimes%20committed%20on%20and%20after,three%20years%20from%20the%20crime."
+  },
+  {
+   "id": "VA-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "crime",
+    "extension": "good cause shown, with a written explanation of the delayed filing"
+   },
+   "summary": "For crimes committed July 1, 2001 through June 30, 2025, the deadline is one year from the crime, extendable for good cause with a written explanation.",
+   "quote": "Crimes committed on July 1, 2001 through June 30, 2025 The deadline to file a claim is one year from the crime. This deadline may be extended for good cause shown if the the claimants file a written explanation of the delayed filing.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Crimes%20committed%20on%20July%201%2C,explanation%20of%20the%20delayed%20filing."
+  },
+  {
+   "id": "VA-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {
+    "years": 10,
+    "from": "age_18",
+    "extension": "No time limit where the sexual abuse of a minor was a felony."
+   },
+   "summary": "For sexual abuse of a minor, the claim may be filed up to 10 years after the victim's eighteenth birthday; where the conduct was a felony, there is no time bar.",
+   "quote": "in cases involving claims of sexual abuse of a minor, the claim shall be filed within 10 years after the minor's eighteenth birthday, except for in cases involving claims of sexual abuse of a minor where the conduct constitutes a felony, the passage of time shall not be a barrier to when the victim can file a claim.",
+   "source_id": "VA-S3",
+   "pinpoint": "Va. Code § 19.2-368.5(B)(iii)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.5/#:~:text=in%20cases%20involving%20claims%20of,victim%20can%20file%20a%20claim."
+  },
+  {
+   "id": "VA-REPORT-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false
+   },
+   "summary": "The requirement that police or court records show the crime was promptly reported does not apply to claims of sexual abuse (which the statute defines to include rape, sodomy, object sexual penetration and sexual battery).",
+   "quote": "The provisions of this subdivision shall not apply to claims of sexual abuse.",
+   "source_id": "VA-S5",
+   "pinpoint": "Va. Code § 19.2-368.10(3)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.10/#:~:text=The%20provisions%20of%20this%20subdivision,to%20claims%20of%20sexual%20abuse."
+  },
+  {
+   "id": "VA-REPORT-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [
+     "forensic_exam"
+    ]
+   },
+   "summary": "Anyone who submits to and completes a PERK exam is considered to have met the program's reporting requirements.",
+   "quote": "Any individual that submits to and completes any such examination shall be considered to have met the reporting requirements of this chapter.",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(F)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=Any%20individual%20that%20submits%20to,reporting%20requirements%20of%20this%20chapter."
+  },
+  {
+   "id": "VA-COLL-1",
+   "category": "collateral_source",
+   "params": {},
+   "summary": "Awards are reduced by payments from the offender or any other public or private source, such as insurance.",
+   "quote": "Any claim made pursuant to this chapter shall be reduced by the amount of any payments received or to be received as a result of the injury from or on behalf of the person who committed the crime or from any other public or private source",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(G)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=Any%20claim%20made%20pursuant%20to,other%20public%20or%20private%20source"
+  },
+  {
+   "id": "VA-CONDUCT-1",
+   "category": "conduct_reduction",
+   "params": {},
+   "summary": "The award may be reduced or denied if the victim's conduct contributed to the injury.",
+   "quote": "the Commission shall determine whether, because of his conduct, the victim of such crime contributed to the infliction of his injury, and the Commission shall reduce the amount of the award or reject the claim altogether, in accordance with such determination",
+   "source_id": "VA-S7",
+   "pinpoint": "Va. Code § 19.2-368.12(C)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.12/#:~:text=the%20Commission%20shall%20determine%20whether%2C,in%20accordance%20with%20such%20determination"
+  },
+  {
+   "id": "VA-EMERG-1",
+   "category": "emergency_award",
+   "params": {
+    "amount_cents": 300000
+   },
+   "summary": "If an award is probable and waiting would cause undue hardship, the program may make an emergency award of up to $3,000, deducted from the final award.",
+   "quote": "the amount of such emergency award shall not exceed $3,000",
+   "source_id": "VA-S4",
+   "pinpoint": "Va. Code § 19.2-368.9",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.9/#:~:text=the%20amount%20of%20such%20emergency%20award%20shall%20not%20exceed%20%243%2C000"
+  },
+  {
+   "id": "VA-CRIME-1",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "Sexual abuse covers rape, sodomy, object sexual penetration and sexual battery.",
+   "quote": "\"Sexual abuse\" means sexual abuse as defined in subdivision 6 of § 18.2-67.10 and acts constituting rape, sodomy, object sexual penetration or sexual battery as defined in Article 7 (§ 18.2-61 et seq.) of Chapter 4 of Title 18.2.",
+   "source_id": "VA-S1",
+   "pinpoint": "Va. Code § 19.2-368.2",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.2/#:~:text=%22Sexual%20abuse%22%20means%20sexual%20abuse,Chapter%204%20of%20Title%2018.2."
+  },
+  {
+   "id": "VA-CRIME-2",
+   "category": "eligible_crime",
+   "params": {},
+   "summary": "The program lists sexual abuse of minors and adults as an eligible crime, requiring physical injury for misdemeanors or emotional injury for felonies.",
+   "quote": "Sexual Abuse (minors and adults) (must result in physical injury for misdemeanors or emotional injury for felonies) Rape, sodomy, object sexual penetration Sexual battery",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #1: Crime Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Sexual%20Abuse%20%28minors%20and%20adults%29,object%20sexual%20penetration%20Sexual%20battery"
+  },
+  {
+   "id": "VA-RES-1",
+   "category": "residency",
+   "params": {
+    "rule": "Crime must occur in Virginia; Virginia residency or U.S. citizenship is not required for crimes in Virginia."
+   },
+   "summary": "For a crime committed in Virginia, the victim does not need to be a Virginia resident or a U.S. citizen.",
+   "quote": "As long as the crime was committed in Virginia, there is no requirement that the victim be a Virginia resident or United States citizen to be eligible for an award under the Act.",
+   "source_id": "VA-S14",
+   "pinpoint": "VVF Policies, Criteria for an Award (H)"
+  },
+  {
+   "id": "VA-RES-2",
+   "category": "residency",
+   "params": {
+    "rule": "Virginia residents hurt by a crime outside Virginia can apply only if that place has no eligible VOCA compensation program and does not compensate nonresidents."
+   },
+   "summary": "A Virginia resident hurt by a crime outside Virginia can qualify only if they would be eligible had it happened in Virginia and the place where it happened has no eligible compensation program that pays nonresidents.",
+   "quote": "A resident of Virginia who is the victim of a crime occurring outside Virginia and any other person as defined in subsection A who is injured as a result of a crime occurring outside Virginia shall be eligible for an award pursuant to this chapter if (i) the person would be eligible for benefits had the crime occurred in Virginia and (ii) the state, country or territory in which the crime occurred does not have a crime victims' compensation program deemed eligible pursuant to the provisions of the federal Victims of Crime Act and does not compensate nonresidents.",
+   "source_id": "VA-S2",
+   "pinpoint": "Va. Code § 19.2-368.4(C)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.4/#:~:text=A%20resident%20of%20Virginia%20who,and%20does%20not%20compensate%20nonresidents."
+  }
+ ],
+ "coverage": {
+  "found": [
+   "exam_payment",
+   "exam_no_bill",
+   "total_cap",
+   "minimum_loss",
+   "expense_cap",
+   "covered_expense",
+   "excluded_expense",
+   "filing_deadline",
+   "reporting_requirement",
+   "collateral_source",
+   "conduct_reduction",
+   "emergency_award",
+   "eligible_crime",
+   "residency"
+  ],
+  "not_found": [
+   "expense_cap counseling for direct victims (no dollar cap found in statute or program pages)",
+   "expense_cap medical (no separate cap found; only the $35,000 total)",
+   "expense_cap transportation (mileage covered only for minor victims; no rate found)",
+   "expense_cap temporary_housing dollar amount (only a 30-day limit found)",
+   "administrative code rules setting caps (none found; caps are in statute and VVF policy)",
+   "expense_cap lost_wages (the statute sets no maximum weekly amount for total loss of earnings; the $600 per week figure limits actual earnings plus partial-loss compensation combined, so it was not recorded as a cap)"
+  ],
+  "notes": "Exam payment is the SAFE Payment Program run by the Virginia Victims Fund under Va. Code § 19.2-368.11:1(F) and § 19.2-165.1(B). The claimant/victim FAQ page (vvf.virginia.gov/claimant-victim-faqs) could not be saved by the fetch tool and was not used. The VVF Policies PDF (Sept 2025) references an Available Benefits section that is not in the published PDF."
+ },
+ "confidence": "high",
+ "researcher_notes": "Statute text retrieved Oct 3 2026 reflects 2025 and 2026 amendments: total cap $35,000 (§ 19.2-368.11:1(H)) and a three-year filing deadline (§ 19.2-368.5(B)). VVF pages say the three-year deadline applies to crimes on or after July 1, 2025 and that caps follow the policy in effect on the date of the crime, so older crimes may fall under a one-year deadline and older caps. Disagreement: the statute caps survivor counseling for family of homicide victims at $3,500 per claim (§ 19.2-368.11:1(E)(v)), while the VVF eligibility page and claim form list grief counseling up to $5,000; neither cap applies to direct sexual assault victims, so no counseling cap was recorded. Disagreement: the VVF Policies PDF says only victims of child sexual assault are exempt from prompt reporting, but the current § 19.2-368.10(3) says the reporting subdivision does not apply to claims of sexual abuse, which § 19.2-368.2 defines to include adult rape, sodomy, object sexual penetration and sexual battery; the statute controls. For other crimes, prompt reporting is judged from police records, the victim's situation, and any permanent protective order (§ 19.2-368.10(3)); the claim form says crimes between July 1, 1998 and June 30, 2025 used a 120-hour reporting standard with good cause. Once a claim is filed, notified health care providers must stop debt collection until a decision (§ 19.2-368.5:2). SAFE provider reimbursement rates (60% of eligible charges for acute exams, $1,500 non-acute, $1,000 follow-up) are payments to providers, not survivor caps, and were not recorded as rules. Lost wages for direct victims are paid at two-thirds of average weekly wage; the $600 weekly figure applies to partial loss of earnings combined with actual earnings. Reviewer: removed the $600 per week lost_wages expense_cap because it limits combined earnings plus partial-loss compensation, not the benefit itself, and would understate total-loss benefits; the statute text is § 19.2-368.11:1(B). VVF says caps follow the policy in effect on the date of the crime, so older crimes may fall under different caps that are not recorded here."
+}

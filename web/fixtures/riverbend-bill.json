@@ -1,0 +1,39 @@
+{
+  "bill_id": "rgh-2026-0614",
+  "provider": "Riverbend General Hospital",
+  "statement_date": "2026-07-02",
+  "service_date": "2026-06-14",
+  "account_ref": "RG-448120",
+  "total_cents": 171900,
+  "lines": [
+    {
+      "line_no": 1,
+      "item_id": "rcpt:9c41e2a7:1",
+      "description": "Emergency department visit",
+      "amount_cents": 118000,
+      "expense": "medical"
+    },
+    {
+      "line_no": 2,
+      "item_id": "rcpt:9c41e2a7:2",
+      "description": "Lab tests",
+      "amount_cents": 21400,
+      "expense": "medical"
+    },
+    {
+      "line_no": 3,
+      "item_id": "rcpt:9c41e2a7:3",
+      "description": "Forensic exam, deductible applied",
+      "amount_cents": 32500,
+      "expense": "forensic_exam"
+    }
+  ],
+  "lines_sum_cents": 171900,
+  "holds": [
+    {
+      "item_id": "rcpt:9c41e2a7:3",
+      "amount_cents": 32500,
+      "rule_ids": ["MI-EXAM-1", "MI-EXAM-2", "MI-EXAM-3", "MI-EXAM-4", "MI-EXAM-5"]
+    }
+  ]
+}
