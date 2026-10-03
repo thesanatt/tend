@@ -61,13 +61,16 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
         ) : (
           <p className={styles.rowDesc}>{item.description}</p>
         )}
+        {/* A bill line's reason already says which bill it is from. */}
         <p className={styles.rowReason}>
-          <span className={styles.rowDateInline}>
-            {item.origin === "bill" ? t.gather.onTheBill : f.date(item.date, "short")}
-            {" · "}
-          </span>
+          {item.origin !== "bill" ? (
+            <span className={styles.rowDateInline}>
+              {f.date(item.date, "short")}
+              {" · "}
+            </span>
+          ) : null}
           {reason ? `${reason.trim().replace(/([^.!?])$/, "$1.")} ` : ""}
-          <span className={styles.rowFrom}>{from}</span>
+          {item.origin !== "bill" ? <span className={styles.rowFrom}>{from}</span> : null}
         </p>
         <div className={styles.rowTags}>
           <StatusMark status={status} />

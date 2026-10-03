@@ -123,6 +123,7 @@ export const en = {
     lock: "Lock now",
     sheetTitle: "Save your progress",
     sheetLead: "Tend keeps your progress in this browser, locked. Only you can open it. Nothing is sent anywhere.",
+    replaces: "This replaces the progress you saved before.",
     passkey: "Lock with Touch ID or screen lock",
     passkeyHint: "Your device asks for your fingerprint, face, or screen lock.",
     orPasscode: "Or use a passcode",

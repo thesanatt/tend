@@ -110,6 +110,7 @@ export const es: Dict = {
     sheetTitle: "Guarda tu progreso",
     sheetLead:
       "Tend guarda tu progreso en este navegador, protegido. Solo tú puedes abrirlo. No se envía nada a ningún lugar.",
+    replaces: "Esto reemplaza el progreso que guardaste antes.",
     passkey: "Proteger con Touch ID o bloqueo de pantalla",
     passkeyHint: "Tu dispositivo te pedirá tu huella, tu cara o tu bloqueo de pantalla.",
     orPasscode: "O usa un código",
@@ -427,7 +428,7 @@ export const es: Dict = {
     theProvider: "el proveedor",
     from: { statement: "De tu estado de cuenta.", bank: "Del banco de demostración.", bill: "De una factura." },
     onTheBill: "Factura",
-    capped: (from: string) => `Limitado desde ${from}`,
+    capped: (from: string) => `Reducido de ${from}`,
     rateUnverified: "La ley fija una tarifa para esto. El programa la aplicará.",
     examAsMedical:
       "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",

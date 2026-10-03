@@ -12,7 +12,7 @@ export const MIN_PASSCODE = 6;
 // passkey) or a passcode. Nothing is sent anywhere.
 export default function SaveSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const { save, services } = useFlow();
+  const { save, services, vault } = useFlow();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState<"passkey" | "passcode" | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +42,7 @@ export default function SaveSheet({ open, onClose }: { open: boolean; onClose: (
   return (
     <FlowSheet open={open} onClose={onClose} title={t.vault.sheetTitle}>
       <p>{t.vault.sheetLead}</p>
+      {vault.status === "locked" ? <p className={styles.note}>{t.vault.replaces}</p> : null}
       {services.passkeySupported() ? (
         <div className={styles.stack}>
           <button type="button" className="btn btn-primary" disabled={busy !== null} onClick={() => run("passkey")}>
