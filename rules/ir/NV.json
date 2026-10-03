@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "NV",
  "name": "Nevada",
  "program": {
@@ -224,8 +224,8 @@
   },
   {
    "id": "NV-EXCL-MILEAGE",
-   "kind": "excluded",
-   "expense": "transportation"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "NV-EXCL-OTHER",
@@ -240,9 +240,8 @@
   },
   {
    "id": "NV-DEADLINE-2",
-   "kind": "deadline",
-   "days": 1800,
-   "from": "age_21"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "NV-DEADLINE-3",

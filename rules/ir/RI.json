@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "RI",
  "name": "Rhode Island",
  "program": {
@@ -46,9 +46,8 @@
   },
   {
    "id": "RI-DEADLINE-2",
-   "kind": "deadline",
-   "days": 1095,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "RI-DEADLINE-3",
@@ -169,8 +168,8 @@
   },
   {
    "id": "RI-EXCL-1",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "RI-EXCL-2",

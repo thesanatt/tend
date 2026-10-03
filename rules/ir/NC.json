@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "NC",
  "name": "North Carolina",
  "program": {
@@ -92,8 +92,8 @@
   },
   {
    "id": "NC-EXCL-2",
-   "kind": "excluded",
-   "expense": "transportation"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "NC-EXCL-3",
@@ -109,8 +109,8 @@
   },
   {
    "id": "NC-EXCL-5",
-   "kind": "excluded",
-   "expense": "legal"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "NC-REPL-1",

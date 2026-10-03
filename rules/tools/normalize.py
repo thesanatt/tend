@@ -111,6 +111,9 @@ def normalize(st: str) -> dict:
                 out.append({"id": r["id"], "kind": "info", "category": cat})
         elif cat == "excluded_expense":
             tags = tags_for(p.get("item", "")) if p.get("item") else []
+            if expense and p.get("item") and not tags:
+                out.append({"id": r["id"], "kind": "info", "category": cat})
+                continue
             if expense or tags:
                 ir = {"id": r["id"], "kind": "excluded"}
                 if expense:
@@ -122,8 +125,9 @@ def normalize(st: str) -> dict:
                 out.append({"id": r["id"], "kind": "info", "category": cat})
         elif cat == "filing_deadline":
             days = deadline_days(p)
-            if days:
-                out.append({"id": r["id"], "kind": "deadline", "days": days, "from": p.get("from", "crime")})
+            start = str(p.get("from") or "crime").lower()
+            if days and start in ("crime", "incident", "discovery", "injury", "offense", "report"):
+                out.append({"id": r["id"], "kind": "deadline", "days": days, "from": start})
             else:
                 out.append({"id": r["id"], "kind": "info", "category": cat})
         elif cat == "reporting_requirement":
@@ -140,7 +144,10 @@ def normalize(st: str) -> dict:
                 ir["cap_cents"] = int(p["amount_cents"])
             if p.get("days_lost"):
                 ir["days_lost"] = int(p["days_lost"])
-            if "cap_cents" not in ir and "days_lost" not in ir:
+            if "cap_cents" not in ir and "days_lost" not in ir and "no minimum" in r.get("quote", "").lower():
+                ir["cap_cents"] = 0
+                out.append(ir)
+            elif "cap_cents" not in ir and "days_lost" not in ir:
                 out.append({"id": r["id"], "kind": "info", "category": cat})
             else:
                 out.append(ir)
@@ -169,7 +176,7 @@ def normalize(st: str) -> dict:
                 continue
         final.append(ir)
     return {
-        "ir_version": 1,
+        "ir_version": 2,
         "jurisdiction": st,
         "name": data["name"],
         "program": data.get("program", {}),

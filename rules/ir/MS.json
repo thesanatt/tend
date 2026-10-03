@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "MS",
  "name": "Mississippi",
  "program": {
@@ -164,13 +164,13 @@
   },
   {
    "id": "MS-EXCL-PROP",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MS-EXCL-LEGAL",
-   "kind": "excluded",
-   "expense": "legal"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MS-EXCL-PAIN",

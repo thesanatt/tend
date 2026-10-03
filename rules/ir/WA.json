@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "WA",
  "name": "Washington",
  "program": {
@@ -92,8 +92,8 @@
   },
   {
    "id": "WA-EXC-WAGES",
-   "kind": "excluded",
-   "expense": "lost_wages"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "WA-COV-COUNSELING",
@@ -142,8 +142,8 @@
   },
   {
    "id": "WA-EXC-PROPERTY",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "WA-EXC-CLEANUP",
@@ -152,8 +152,8 @@
   },
   {
    "id": "WA-EXC-MEDICAID",
-   "kind": "excluded",
-   "expense": "medical"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "WA-DEADLINE-1",
@@ -174,9 +174,8 @@
   },
   {
    "id": "WA-DEADLINE-4",
-   "kind": "deadline",
-   "days": 730,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WA-DEADLINE-5",

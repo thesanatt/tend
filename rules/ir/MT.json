@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "MT",
  "name": "Montana",
  "program": {
@@ -94,8 +94,8 @@
   },
   {
    "id": "MT-EXC-1",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MT-EXC-2",
@@ -126,8 +126,8 @@
   },
   {
    "id": "MT-EXC-7",
-   "kind": "excluded",
-   "expense": "lost_wages"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MT-EXC-8",
@@ -142,9 +142,8 @@
   },
   {
    "id": "MT-DEAD-2",
-   "kind": "deadline",
-   "days": 365,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "MT-REP-1",

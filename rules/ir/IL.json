@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "IL",
  "name": "Illinois",
  "program": {
@@ -137,8 +137,8 @@
   },
   {
    "id": "IL-EXCL-2",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "IL-EXCL-3",
@@ -147,8 +147,8 @@
   },
   {
    "id": "IL-EXCL-4",
-   "kind": "excluded",
-   "expense": "counseling"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "IL-DEAD-1",
@@ -158,9 +158,8 @@
   },
   {
    "id": "IL-DEAD-2",
-   "kind": "deadline",
-   "days": 1095,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "IL-REPORT-1",

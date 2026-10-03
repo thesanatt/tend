@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "NJ",
  "name": "New Jersey",
  "program": {
@@ -165,9 +165,8 @@
   },
   {
    "id": "NJ-FILE-2",
-   "kind": "deadline",
-   "days": 1826,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "NJ-FILE-3",
@@ -195,8 +194,10 @@
   },
   {
    "id": "NJ-MINLOSS-1",
-   "kind": "info",
-   "category": "minimum_loss"
+   "kind": "minimum_loss",
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
+   "cap_cents": 0
   },
   {
    "id": "NJ-COLL-1",

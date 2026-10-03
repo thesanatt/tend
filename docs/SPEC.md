@@ -225,3 +225,36 @@ Engine semantics changes from v1.0:
 - Reporting status: satisfied if police_report == yes, or forensic_exam is true and ANY reporting
   rule lists forensic_exam; required if some rule has required=true and nothing satisfies it;
   not_required if every rule has required=false; else unknown.
+
+## v1.2: semantic fixes from the wave-1 reviews (normative; both engines must match exactly)
+
+IR version 2 (rules/tools/normalize.py) changes:
+- An excluded rule that names an expense AND a narrowing item becomes `info` when the item text maps
+  to no tag. One excluded item never removes a whole category.
+- Deadlines are decision rules only when counted from the crime, incident, discovery, injury,
+  offense, or police report. A deadline counted from the report is computed from the incident date
+  (the earliest it could start) and the line gets the flag `deadline_from_report`, which the UI
+  explains as "measured from the date it happened; the law counts from your report, so you may have
+  longer." Deadlines counted from an 18th or 21st birthday are `info` (Tend never asks for age).
+- A minimum_loss rule with no threshold whose quote says there is no minimum compiles to
+  `cap_cents: 0` (always met).
+
+Engine semantics changes:
+1. Typed units. Items carry `unit` ("session", "week", "hour", "mile", "day", "month", "item", or
+   null) next to `units`. A per-unit cap applies only when `cap.unit == item.unit` and `units > 0`:
+   allowed = min(allowed, cap_cents * units). Otherwise the cap is not applied and the line gets the
+   flag `rate_unverified:<rule_id>`. `count_limit` caps the total units counted for that rule across
+   the claim, in item order.
+2. Held exams. An exam line is `held` only when an `exam_no_bill` rule exists; its proof is every
+   exam_no_bill rule, then every exam_payment rule. Without exam_no_bill, the exam line is treated
+   as `medical`, and exam_payment rules are listed in info.
+3. Minimum loss. Tend serves sexual assault survivors, so the waiver check no longer depends on
+   forensic_exam. With total allowed below cap_cents: `waived` if waiver == automatic and
+   waiver_for_sexual_assault; `may_be_waived` if discretionary and waiver_for_sexual_assault;
+   otherwise `not_met`. A rule with days_lost is also `met` when the claim's lost_wages items have
+   unit week and sum(units) * 5 >= days_lost, or unit day and sum(units) >= days_lost.
+4. Input validation (both engines reject identically): duplicate item_id, any integer outside
+   [-(2^53-1), 2^53-1], amount_cents < 0, unknown expense or unit strings. Errors use the shape
+   {"error": {"code": "bad_input", "message": "..."}}.
+5. The trace vocabulary, flag formats, and every open choice listed in engine/FORMAT.md section 4
+   are normative; refengine/README.md must point to them rather than restate them.

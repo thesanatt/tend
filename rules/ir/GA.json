@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "GA",
  "name": "Georgia",
  "program": {
@@ -126,8 +126,8 @@
   },
   {
    "id": "GA-EXCL-LEGAL",
-   "kind": "excluded",
-   "expense": "legal"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "GA-DEADLINE-1",
@@ -137,9 +137,8 @@
   },
   {
    "id": "GA-DEADLINE-2",
-   "kind": "deadline",
-   "days": 1095,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "GA-REPORT-1",

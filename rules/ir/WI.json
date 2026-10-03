@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "WI",
  "name": "Wisconsin",
  "program": {
@@ -124,13 +124,13 @@
   },
   {
    "id": "WI-EXCL-2",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "WI-EXCL-3",
-   "kind": "excluded",
-   "expense": "transportation"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "WI-EXCL-4",
@@ -141,8 +141,8 @@
   },
   {
    "id": "WI-EXCL-5",
-   "kind": "excluded",
-   "expense": "counseling"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "WI-DEADLINE-1",

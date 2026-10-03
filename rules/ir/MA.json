@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "MA",
  "name": "Massachusetts",
  "program": {
@@ -140,13 +140,13 @@
   },
   {
    "id": "MA-EXCL-2",
-   "kind": "excluded",
-   "expense": "transportation"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MA-EXCL-3",
-   "kind": "excluded",
-   "expense": "counseling"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MA-DEAD-1",
@@ -156,9 +156,8 @@
   },
   {
    "id": "MA-DEAD-2",
-   "kind": "deadline",
-   "days": 1095,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "MA-DEAD-3",

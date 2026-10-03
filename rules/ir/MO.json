@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "MO",
  "name": "Missouri",
  "program": {
@@ -87,8 +87,8 @@
   },
   {
    "id": "MO-EXCL-3",
-   "kind": "excluded",
-   "expense": "other"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MO-EXCL-4",
@@ -97,8 +97,8 @@
   },
   {
    "id": "MO-EXCL-5",
-   "kind": "excluded",
-   "expense": "clothing_bedding"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MO-DEAD-1",

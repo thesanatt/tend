@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "VA",
  "name": "Virginia",
  "program": {
@@ -130,8 +130,8 @@
   },
   {
    "id": "VA-EXCL-2",
-   "kind": "excluded",
-   "expense": "legal"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "VA-EXCL-3",
@@ -160,9 +160,8 @@
   },
   {
    "id": "VA-DEADLINE-4",
-   "kind": "deadline",
-   "days": 3652,
-   "from": "age_18"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "VA-REPORT-1",

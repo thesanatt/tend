@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "TN",
  "name": "Tennessee",
  "program": {
@@ -94,8 +94,8 @@
   },
   {
    "id": "TN-TRAVEL-2",
-   "kind": "excluded",
-   "expense": "transportation"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "TN-FUN-1",
@@ -119,13 +119,13 @@
   },
   {
    "id": "TN-EXCL-1",
-   "kind": "excluded",
-   "expense": "other"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "TN-EXCL-2",
-   "kind": "excluded",
-   "expense": "other"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "TN-FILE-1",

@@ -1,5 +1,5 @@
 {
- "ir_version": 1,
+ "ir_version": 2,
  "jurisdiction": "AK",
  "name": "Alaska",
  "program": {
@@ -119,8 +119,8 @@
   },
   {
    "id": "AK-WAGES-2",
-   "kind": "excluded",
-   "expense": "lost_wages"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "AK-RELOC-1",
@@ -241,8 +241,8 @@
   },
   {
    "id": "AK-EXCL-1",
-   "kind": "excluded",
-   "expense": "property_replacement"
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "AK-SUBMIT-1",
