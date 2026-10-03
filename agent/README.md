@@ -204,7 +204,7 @@ nothing moves.
 cd agent && uv run pytest
 ```
 
-164 tests, offline, about 2 seconds. The API is mocked with real captures for the fictional persona
+165 tests, offline, about 2 seconds. The API is mocked with real captures for the fictional persona
 (`tests/fixtures`), and the mock enforces the API's payment rules. They cover parsing (states, dates, exam and
 report answers, codes), cited answers and "I don't know", every card against the uagents_core card schemas,
 the full demo and payment flow (no confirm without the typed code, wrong, expired, locked, cancelled, stale

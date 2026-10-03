@@ -187,7 +187,7 @@ _CANCEL = re.compile(r"\b(?:cancel\w*|never ?mind|don'?t pay|do not pay|abort)\b
 _CANCEL_SHORT = re.compile(r"^\s*(?:stop|no thanks|quit|exit)\b", re.I)  # only as a short reply, not inside a question
 _BILL_WORDS = re.compile(r"\b(?:bill|rest|balance|remaining)\b", re.I)
 _YES = re.compile(
-    r"^\s*(?:yes|yeah|yep|yup|sure|ok(?:ay)?|count (?:them|it|these|all)|go ahead|do it|please do|confirm(?:ed)?|approve\w*|y)\b",
+    r"^\s*(?:yes|yeah|yep|yup|sure|ok(?:ay)?|count (?:them|it|these|all)|go ahead|do it|please do|confirm(?:ed)?|approve\w*|continue|y)\b",
     re.I,
 )
 _NO = re.compile(r"^\s*(?:no|nope|not now|skip|later|n)\b", re.I)

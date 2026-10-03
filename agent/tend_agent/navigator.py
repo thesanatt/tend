@@ -295,6 +295,8 @@ class Navigator:
                 return [Reply(self._type_code_hint(pending))], "pay_remind"
 
         elif find_confirm_code(text):
+            if s.pop("pending_expired", False):
+                return [Reply("That code has expired, so nothing moved. Say **pay the bill** for a new code.")], "pay_stale"
             return [Reply("There is no payment waiting, so nothing moved. In the demo, say **pay the bill** for a new code.")], "pay_stale"
 
         link = find_link_code(text)
@@ -565,6 +567,7 @@ class Navigator:
                 at = dt.datetime.fromisoformat(expires.replace("Z", "+00:00"))
                 if at <= dt.datetime.now(dt.UTC):
                     s.pop("pending", None)
+                    s["pending_expired"] = True
                     return None
             except ValueError:
                 pass

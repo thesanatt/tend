@@ -272,7 +272,15 @@ def test_pending_payment_expires_locally(chat, fake):
     chat.say("demo")
     chat.say("pay the bill")
     chat.state["pending"]["expires_at"] = "2020-01-01T00:00:00Z"
-    assert chat.say(CODE).intent == "pay_stale" and fake.bodies("/api/actions/confirm") == []
+    turn = chat.say(CODE)
+    assert turn.intent == "pay_stale" and "expired" in text_of(turn) and fake.bodies("/api/actions/confirm") == []
+    assert "no payment waiting" in text_of(chat.say(CODE))
+
+
+def test_continue_during_a_payment_only_reminds(chat, fake):
+    chat.say("demo")
+    chat.say("pay the bill")
+    assert chat.say("continue").intent == "pay_remind" and fake.bodies("/api/actions/confirm") == []
 
 
 def test_skip_counting(chat, fake):
