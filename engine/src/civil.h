@@ -44,8 +44,4 @@ bool parse_date(std::string_view s, int64_t& day);
 // Writes exactly 10 chars; days outside 0001-01-01..9999-12-31 are clamped.
 void format_date(int64_t day, char out[10]);
 
-// Calendar-year addition. Feb 29 lands on Feb 28 in a non-leap target year;
-// results are clamped to the supported range.
-int64_t add_years(int64_t day, int64_t years);
-
 }  // namespace tend

@@ -37,19 +37,5 @@ void format_date(int64_t day, char out[10]) {
   out[9] = char('0' + d % 10);
 }
 
-int64_t add_years(int64_t day, int64_t years) {
-  if (day < kMinDay) day = kMinDay;
-  if (day > kMaxDay) day = kMaxDay;
-  if (years > 10000) return kMaxDay;
-  if (years < -10000) return kMinDay;
-  int64_t y;
-  unsigned m, d;
-  civil_from_days(day, y, m, d);
-  y += years;
-  if (y > 9999) return kMaxDay;
-  if (y < 1) return kMinDay;
-  if (m == 2 && d == 29 && !is_leap(y)) d = 28;
-  return days_from_civil(y, m, d);
-}
 
 }  // namespace tend

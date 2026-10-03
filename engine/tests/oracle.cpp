@@ -19,7 +19,6 @@ const std::set<std::string> kRuleExpenses = {
     "medical", "forensic_exam", "counseling", "lost_wages", "transportation", "relocation",
     "temporary_housing", "security", "crime_scene_cleanup", "childcare", "property_replacement",
     "clothing_bedding", "prescription", "dental", "funeral", "legal", "tuition", "other"};
-const std::set<std::string> kUnitPers = {"week", "session", "hour", "mile", "day"};
 
 int64_t sadd(int64_t a, int64_t b) {
   __int128 r = __int128(a) + b;
@@ -37,8 +36,7 @@ int64_t smul(int64_t a, int64_t b) {
 int64_t day_of(const std::string& s) {
   int y = std::stoi(s.substr(0, 4));
   unsigned m = unsigned(std::stoi(s.substr(5, 2))), d = unsigned(std::stoi(s.substr(8, 2)));
-  chr::year_month_day ymd{chr::year(y), chr::month(m), chr::day(d)};
-  return chr::sys_days(ymd).time_since_epoch().count();
+  return chr::sys_days(chr::year_month_day{chr::year(y), chr::month(m), chr::day(d)}).time_since_epoch().count();
 }
 
 std::string date_str(int64_t n) {
@@ -48,24 +46,25 @@ std::string date_str(int64_t n) {
   return buf;
 }
 
-int64_t plus_years(int64_t n, int64_t years) {
-  chr::year_month_day ymd{chr::sys_days(chr::days(n))};
-  chr::year_month_day out{ymd.year() + chr::years(years), ymd.month(), ymd.day()};
-  if (!out.ok()) out = chr::year_month_day{chr::year_month_day_last{out.year(), chr::month_day_last{out.month()}}};
-  return chr::sys_days(out).time_since_epoch().count();
-}
-
 struct Rule {
-  std::string id, category, expense;
-  json params;
+  std::string id, kind, expense;
+  json r;
   std::optional<int64_t> num(const char* k) const {
-    auto it = params.find(k);
-    if (it == params.end() || !it->is_number_integer()) return std::nullopt;
+    auto it = r.find(k);
+    if (it == r.end() || !it->is_number_integer()) return std::nullopt;
     return it->get<int64_t>();
   }
-  std::string per() const {
-    auto it = params.find("per");
-    return it == params.end() || it->is_null() ? "claim" : it->get<std::string>();
+  std::vector<std::string> list(const char* k) const {
+    std::vector<std::string> out;
+    auto it = r.find(k);
+    if (it != r.end() && it->is_array()) {
+      for (const auto& x : *it) out.push_back(x.get<std::string>());
+    }
+    return out;
+  }
+  bool flag(const char* k, bool fallback) const {
+    auto it = r.find(k);
+    return it == r.end() || it->is_null() ? fallback : it->get<bool>();
   }
 };
 
@@ -73,23 +72,10 @@ struct Line {
   std::string id, expense, status = "unknown_rule";
   int64_t date = 0, amount = 0, insurance = 0, units = 0, allowed = 0;
   bool confirmed = false;
-  std::vector<std::string> rule_ids, flags;
+  std::set<std::string> tags;
+  std::vector<std::string> rule_ids, alts, flags;
   std::optional<std::string> cap;
 };
-
-bool contains(const json& v, const std::string& needle, bool substring_for_strings) {
-  if (v.is_array()) {
-    for (const auto& x : v) {
-      if (x.is_string() && x.get<std::string>() == needle) return true;
-    }
-    return false;
-  }
-  if (v.is_string()) {
-    std::string s = v.get<std::string>();
-    return substring_for_strings ? s.find(needle) != std::string::npos : s == needle;
-  }
-  return false;
-}
 
 }  // namespace
 
@@ -98,12 +84,12 @@ json evaluate(const json& law, const json& input) {
   for (const auto& r : law["rules"]) {
     Rule x;
     x.id = r["id"];
-    x.category = r["category"];
-    x.params = r.contains("params") && r["params"].is_object() ? r["params"] : json::object();
-    if (r.contains("expense") && r["expense"].is_string() && !r["expense"].get<std::string>().empty())
-      x.expense = r["expense"];
-    else if (x.params.contains("expense") && x.params["expense"].is_string())
-      x.expense = x.params["expense"];
+    x.kind = r["kind"];
+    std::string category = r.contains("category") && r["category"].is_string() ? r["category"].get<std::string>() : "";
+    if (x.kind == "info" && category == "collateral_source") x.kind = "collateral";
+    if (x.kind == "info" && category == "exam_payment") x.kind = "exam_payment";
+    x.expense = r.contains("expense") && r["expense"].is_string() ? r["expense"].get<std::string>() : "";
+    x.r = r;
     rules.push_back(x);
   }
   auto ids_of = [&](auto pred) {
@@ -131,6 +117,9 @@ json evaluate(const json& law, const json& input) {
       l.confirmed = it.contains("confirmed") && it["confirmed"].is_boolean() && it["confirmed"].get<bool>();
       l.insurance = it.contains("insurance_paid_cents") && it["insurance_paid_cents"].is_number_integer() ? it["insurance_paid_cents"].get<int64_t>() : 0;
       l.units = it.contains("units") && it["units"].is_number_integer() ? it["units"].get<int64_t>() : 0;
+      if (it.contains("tags") && it["tags"].is_array()) {
+        for (const auto& t : it["tags"]) l.tags.insert(t.get<std::string>());
+      }
       lines.push_back(l);
     }
   }
@@ -144,9 +133,9 @@ json evaluate(const json& law, const json& input) {
   };
   auto first = [](const std::vector<std::string>& v) -> json { return v.empty() ? json(nullptr) : json(v[0]); };
 
-  std::vector<std::string> exam = ids_of([](const Rule& r) { return r.category == "exam_no_bill"; });
-  for (auto& id : ids_of([](const Rule& r) { return r.category == "exam_payment"; })) exam.push_back(id);
-  std::vector<std::string> collateral = ids_of([](const Rule& r) { return r.category == "collateral_source"; });
+  std::vector<std::string> exam = ids_of([](const Rule& r) { return r.kind == "exam_no_bill"; });
+  for (auto& id : ids_of([](const Rule& r) { return r.kind == "exam_payment"; })) exam.push_back(id);
+  std::vector<std::string> collateral = ids_of([](const Rule& r) { return r.kind == "collateral"; });
 
   // Steps 1-6.
   for (Line& l : lines) {
@@ -165,20 +154,31 @@ json evaluate(const json& law, const json& input) {
       l.expense = "medical";
     }
     const std::string e = l.expense;
-    auto excl = ids_of([&](const Rule& r) { return r.category == "excluded_expense" && r.expense == e; });
+    auto excl = ids_of([&](const Rule& r) {
+      if (r.kind != "excluded" || (!r.expense.empty() && r.expense != e)) return false;
+      std::vector<std::string> tags = r.list("tags");
+      if (tags.empty()) return true;
+      for (const auto& t : tags) {
+        if (l.tags.count(t)) return true;
+      }
+      return false;
+    });
     if (!excl.empty()) {
       l.status = "excluded";
       l.rule_ids = excl;
       tr(l.status, l.id, first(excl), 0);
       continue;
     }
-    auto cov = ids_of([&](const Rule& r) {
-      return (r.category == "covered_expense" || r.category == "expense_cap") && r.expense == e && e != "unknown";
-    });
+    auto cov = ids_of([&](const Rule& r) { return (r.kind == "covered" || r.kind == "expense_cap") && r.expense == e; });
     if (cov.empty()) {
       l.status = "unknown_rule";
       tr(l.status, l.id, nullptr, 0);
       continue;
+    }
+    for (const Rule& r : rules) {
+      if (r.kind == "expense_cap" && r.expense == e) {
+        for (const auto& a : r.list("alt_rule_ids")) l.alts.push_back(a);
+      }
     }
     if (!l.confirmed) {
       l.status = "needs_confirmation";
@@ -226,27 +226,25 @@ json evaluate(const json& law, const json& input) {
     }
   };
 
-  // Step 7a: per-unit caps and caps per something unmeasurable, in rule order.
+  // Step 7a: per-unit caps with optional count limits.
   for (const Rule& r : rules) {
-    if (r.category != "expense_cap" || r.expense.empty() || !r.num("amount_cents")) continue;
-    int64_t cap = *r.num("amount_cents");
-    std::string per = r.per();
-    if (kUnitPers.count(per)) {
-      for (Line* l : eligible(r.expense)) {
-        if (l->units > 0) {
-          int64_t v = smul(cap, l->units);
-          if (v < l->allowed) {
-            tr("unit_cap", l->id, r.id, ssub(v, l->allowed));
-            l->allowed = v;
-            l->cap = r.id;
-          }
-        } else {
-          l->flags.push_back("rate_unverified:" + r.id);
-          tr("rate_unverified", l->id, r.id, 0);
+    if (r.kind != "expense_cap" || r.r["per"] != "unit") continue;
+    int64_t cap = *r.num("cap_cents");
+    std::optional<int64_t> remaining = r.num("count_limit");
+    for (Line* l : eligible(r.expense)) {
+      if (l->units > 0) {
+        int64_t counted = l->units;
+        if (remaining) {
+          counted = std::min(l->units, *remaining);
+          *remaining = ssub(*remaining, counted);
         }
-      }
-    } else if (per != "claim") {
-      for (Line* l : eligible(r.expense)) {
+        int64_t v = smul(cap, counted);
+        if (v < l->allowed) {
+          tr("unit_cap", l->id, r.id, ssub(v, l->allowed));
+          l->allowed = v;
+          l->cap = r.id;
+        }
+      } else {
         l->flags.push_back("rate_unverified:" + r.id);
         tr("rate_unverified", l->id, r.id, 0);
       }
@@ -254,49 +252,46 @@ json evaluate(const json& law, const json& input) {
   }
   // Step 7b: per-claim caps.
   for (const Rule& r : rules) {
-    if (r.category != "expense_cap" || r.expense.empty() || !r.num("amount_cents") || r.per() != "claim") continue;
-    walk(eligible(r.expense), *r.num("amount_cents"), r.id, "expense_cap");
+    if (r.kind == "expense_cap" && r.r["per"] == "claim") walk(eligible(r.expense), *r.num("cap_cents"), r.id, "expense_cap");
   }
   // Step 8.
   const Rule* total = nullptr;
   for (const Rule& r : rules) {
-    if (r.category == "total_cap" && r.num("amount_cents") && (!total || *r.num("amount_cents") < *total->num("amount_cents")))
-      total = &r;
+    if (r.kind == "total_cap" && (!total || *r.num("cap_cents") < *total->num("cap_cents"))) total = &r;
   }
-  if (total) walk(eligible(""), *total->num("amount_cents"), total->id, "total_cap");
+  if (total) walk(eligible(""), *total->num("cap_cents"), total->id, "total_cap");
 
   int64_t allowed_total = 0;
   for (Line* l : eligible("")) allowed_total = sadd(allowed_total, l->allowed);
 
-  // Step 9.
   json checks = json::object();
+  // Step 9.
   {
-    auto all = ids_of([](const Rule& r) { return r.category == "minimum_loss"; });
-    std::string status = "met";
-    bool any_amount = false;
-    int worst = 0;  // 0 met, 1 waived, 2 not_met
+    auto all = ids_of([](const Rule& r) { return r.kind == "minimum_loss"; });
+    const char* names[] = {"met", "waived", "may_be_waived", "not_met"};
+    bool any_cap = false;
+    int worst = 0;
     for (const Rule& r : rules) {
-      if (r.category != "minimum_loss" || !r.num("amount_cents")) continue;
-      any_amount = true;
-      if (allowed_total < *r.num("amount_cents")) {
-        bool waived = exam_ctx && r.params.contains("waived_for") && contains(r.params["waived_for"], "sexual_assault", true);
-        worst = std::max(worst, waived ? 1 : 2);
+      if (r.kind != "minimum_loss" || !r.num("cap_cents")) continue;
+      any_cap = true;
+      if (allowed_total < *r.num("cap_cents")) {
+        int s = 3;
+        if (r.flag("waiver_for_sexual_assault", false) && exam_ctx) s = r.r.value("waiver", "") == "automatic" ? 1 : 2;
+        worst = std::max(worst, s);
       }
     }
-    if (!all.empty()) status = !any_amount ? "unknown" : worst == 0 ? "met" : worst == 1 ? "waived" : "not_met";
+    std::string status = all.empty() ? "met" : !any_cap ? "unknown" : names[worst];
     tr("minimum_loss", nullptr, first(all), 0);
     checks["minimum_loss"] = {{"status", status}, {"rule_ids", all}};
   }
   // Step 10.
   {
-    auto all = ids_of([](const Rule& r) { return r.category == "filing_deadline"; });
+    auto all = ids_of([](const Rule& r) { return r.kind == "deadline"; });
     std::optional<int64_t> best;
     for (const Rule& r : rules) {
-      if (r.category != "filing_deadline") continue;
-      std::optional<int64_t> d;
-      if (r.num("years")) d = plus_years(incident, *r.num("years"));
-      else if (r.num("days")) d = incident + *r.num("days");
-      if (d && (!best || *d > *best)) best = d;
+      if (r.kind != "deadline") continue;
+      int64_t d = incident + *r.num("days");
+      if (!best || d > *best) best = d;
     }
     tr("deadline", nullptr, first(all), 0);
     checks["deadline"] = {{"status", !best ? "unknown" : as_of <= *best ? "ok" : "late"},
@@ -305,36 +300,22 @@ json evaluate(const json& law, const json& input) {
   }
   // Step 11.
   {
-    auto all = ids_of([](const Rule& r) { return r.category == "reporting_requirement"; });
-    std::string status = "satisfied";
-    if (!all.empty()) {
-      bool alt_exam = false, alt_other = false, required = false;
-      for (const Rule& r : rules) {
-        if (r.category != "reporting_requirement") continue;
-        bool req = !r.params.contains("required") || r.params["required"].is_null() || r.params["required"].get<bool>();
-        required = required || req;
-        if (r.params.contains("alternatives")) {
-          const json& a = r.params["alternatives"];
-          alt_exam = alt_exam || contains(a, "forensic_exam", true);
-          if (a.is_array()) {
-            for (const auto& x : a) alt_other = alt_other || !(x.is_string() && x.get<std::string>() == "forensic_exam");
-          } else if (a.is_string()) {
-            alt_other = alt_other || (!a.get<std::string>().empty() && a.get<std::string>() != "forensic_exam");
-          }
-        }
-      }
-      if (police == "yes" || (exam_ctx && alt_exam)) status = "satisfied";
-      else if (police == "no" && required && !alt_other) status = "required";
-      else status = "unknown";
+    auto all = ids_of([](const Rule& r) { return r.kind == "reporting"; });
+    bool alt_exam = false, required = false;
+    for (const Rule& r : rules) {
+      if (r.kind != "reporting") continue;
+      required = required || r.flag("required", true);
+      for (const auto& a : r.list("alternatives")) alt_exam = alt_exam || a == "forensic_exam";
     }
+    std::string status;
+    if (police == "yes" || (exam_ctx && alt_exam)) status = "satisfied";
+    else if (required) status = police == "no" ? "required" : "unknown";
+    else status = "not_required";
     tr("reporting", nullptr, first(all), 0);
     checks["reporting"] = {{"status", status}, {"rule_ids", all}};
   }
   // Step 12.
-  auto info = ids_of([](const Rule& r) {
-    return r.category == "collateral_source" || r.category == "conduct_reduction" || r.category == "emergency_award" ||
-           r.category == "eligible_crime" || r.category == "residency";
-  });
+  auto info = ids_of([](const Rule& r) { return r.kind == "info" || r.kind == "collateral"; });
 
   json out_lines = json::array();
   int64_t req_total = 0, held = 0;
@@ -347,6 +328,7 @@ json evaluate(const json& law, const json& input) {
                          {"allowed_cents", l.allowed},
                          {"rule_ids", l.rule_ids},
                          {"cap_rule_id", l.cap ? json(*l.cap) : json(nullptr)},
+                         {"alt_cap_rule_ids", l.alts},
                          {"flags", l.flags}});
     if (l.status == "eligible") {
       req_total = sadd(req_total, l.amount);

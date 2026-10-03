@@ -54,6 +54,7 @@ class Loader {
   bool proofs(Span s);
   bool program(Span s, int which, Program& prog);
   bool verify(int which, Program& prog);
+  bool tags(Span s);
   bool annos(Span s);
   bool meta(Span s);
   bool str_ok(uint32_t i, bool optional) const {
@@ -65,13 +66,13 @@ class Loader {
   Law& law_;
   std::string& err_;
   uint32_t section_count_ = 0;
-  Span strs_, ints_, srcs_, rule_, prof_, item_, aggr_, anno_, meta_;
+  Span strs_, ints_, srcs_, rule_, prof_, item_, aggr_, tags_, anno_, meta_;
 };
 
 bool Loader::run(uint32_t flags) {
   return header(flags) && sections() && strings(strs_) && ints(ints_) && sources(srcs_) &&
          rules(rule_) && proofs(prof_) && program(item_, 0, law_.item) &&
-         program(aggr_, 1, law_.aggr) && annos(anno_) && meta(meta_);
+         program(aggr_, 1, law_.aggr) && tags(tags_) && annos(anno_) && meta(meta_);
 }
 
 bool Loader::header(uint32_t flags) {
@@ -80,7 +81,8 @@ bool Loader::header(uint32_t flags) {
   if (std::memcmp(d_, kMagic, 4) != 0) return fail("bad magic (not a .tlaw image)");
   law_.major = rd16(d_ + 4);
   law_.minor = rd16(d_ + 6);
-  if (law_.major != kFormatMajor || law_.minor > kFormatMinor)
+  // 1.0 images predate the law IR and cannot be read as 1.1.
+  if (law_.major != kFormatMajor || law_.minor != kFormatMinor)
     return fail("unsupported format version " + std::to_string(law_.major) + "." +
                 std::to_string(law_.minor));
   if (rd32(d_ + 8) != kHeaderSize) return fail("bad header size");
@@ -135,6 +137,7 @@ bool Loader::sections() {
       case kTagAggr: slot = &aggr_; break;
       case kTagAnno: slot = &anno_; break;
       case kTagMeta: slot = &meta_; break;
+      case kTagTags: slot = &tags_; break;
       default: return fail("unknown section tag");
     }
     if (slot->present) return fail("duplicate section");
@@ -206,7 +209,7 @@ bool Loader::rules(Span s) {
   for (uint32_t i = 0; i < count; i++) {
     const uint8_t* r = s.p + 4 + size_t(i) * kRuleRecordSize;
     Rule& rule = law_.rules[i];
-    rule.category = r[0];
+    rule.kind = r[0];
     rule.expense = r[1];
     rule.per = r[2];
     rule.id = rd32(r + 4);
@@ -215,15 +218,17 @@ bool Loader::rules(Span s) {
     rule.summary = rd32(r + 16);
     rule.fragment = rd32(r + 20);
     rule.source = rd32(r + 24);
-    rule.per_text = rd32(r + 28);
+    rule.category = rd32(r + 28);
+    rule.aux = rd32(r + 32);
     std::string where = "RULE: rule " + std::to_string(i);
-    if (rule.category >= CAT_COUNT) return fail(where + " has an unknown category");
+    if (rule.kind >= K_COUNT) return fail(where + " has an unknown kind");
     if (rule.expense != kNoExpense && rule.expense >= kRuleExpenseCount)
       return fail(where + " has an unknown expense");
     if (rule.per >= PER_COUNT) return fail(where + " has an unknown per");
     if (r[3] != 0) return fail(where + " has reserved bits set");
     if (!str_ok(rule.id, false) || !str_ok(rule.pinpoint, false) || !str_ok(rule.quote, false) ||
-        !str_ok(rule.summary, true) || !str_ok(rule.fragment, true) || !str_ok(rule.per_text, true))
+        !str_ok(rule.summary, true) || !str_ok(rule.fragment, true) || !str_ok(rule.category, true) ||
+        !str_ok(rule.aux, true))
       return fail(where + " has a bad string reference");
     if (rule.source != kNone && rule.source >= law_.sources.size())
       return fail(where + " references a missing source");
@@ -321,6 +326,7 @@ bool Loader::program(Span s, int which, Program& prog) {
       case OP_DECIDE: ok = in.a < ST_COUNT && in.b < nproofs; break;
       case OP_SETEXP: ok = in.a < EXP_COUNT; break;
       case OP_SETA: ok = in.a == TR_COLLATERAL && in.b < nrules; break;
+      case OP_ALTS: ok = in.b < nproofs; break;
       case OP_EACH: ok = in.a < EXP_COUNT || in.a == kSelectAll; break;
       case OP_CAP:
         ok = (in.a == TR_UNIT_CAP || in.a == TR_EXPENSE_CAP || in.a == TR_TOTAL_CAP) && in.b < nrules;
@@ -498,6 +504,21 @@ bool Loader::verify(int which, Program& prog) {
     }
   }
   prog.max_depth = max_depth;
+  return true;
+}
+
+bool Loader::tags(Span s) {
+  if (!s.present) return true;
+  if (s.n < 4) return fail("TAGS too small");
+  uint32_t count = rd32(s.p);
+  if (count > kMaxTags || uint64_t(4) + uint64_t(count) * 4 != s.n) return fail("TAGS: size mismatch");
+  std::unordered_set<std::string_view> seen;
+  for (uint32_t i = 0; i < count; i++) {
+    uint32_t k = rd32(s.p + 4 + i * 4);
+    if (!str_ok(k, false) || law_.strings[k].empty()) return fail("TAGS: bad string reference");
+    if (!seen.insert(law_.strings[k]).second) return fail("TAGS: duplicate tag");
+    law_.tags.push_back(law_.strings[k]);
+  }
   return true;
 }
 

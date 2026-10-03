@@ -1,5 +1,5 @@
-// Random jurisdictions and claims: compiler + VM must agree with the oracle on
-// every field of every output, including the trace.
+// Random law IR and claims: compiler + VM must agree with the oracle on every
+// field of every output, including the trace.
 #include <climits>
 #include <cstdio>
 #include <string>
@@ -30,14 +30,14 @@ struct Rng {
   }
 };
 
-const std::vector<std::string> kCategories = {
-    "exam_no_bill", "exam_payment",    "total_cap",       "expense_cap",       "covered_expense",
-    "excluded_expense", "filing_deadline", "reporting_requirement", "minimum_loss", "collateral_source",
-    "conduct_reduction", "emergency_award", "eligible_crime", "residency"};
+const std::vector<std::string> kKinds = {"exam_no_bill", "exam_payment", "total_cap", "expense_cap", "expense_cap",
+                                         "covered",      "covered",      "excluded",  "excluded",    "deadline",
+                                         "reporting",    "minimum_loss", "collateral", "info"};
 // A small set so rules and items collide often.
 const std::vector<std::string> kExpenses = {"medical", "forensic_exam", "counseling", "lost_wages", "transportation",
                                             "relocation", "security", "property_replacement", "dental", "other"};
-const std::vector<std::string> kPers = {"claim", "claim", "week", "session", "hour", "mile", "day", "residence", "month", "item"};
+const std::vector<std::string> kUnits = {"session", "week", "hour", "mile", "day", "month", "item"};
+const std::vector<std::string> kTags = {"phone", "purse", "cash", "pain_suffering"};
 const std::vector<std::string> kAlternatives = {"forensic_exam", "protective_order", "advocate", "medical_provider", "other"};
 
 std::string date_of(int64_t day) {
@@ -57,68 +57,85 @@ int64_t money(Rng& r) {
   }
 }
 
+json tag_list(Rng& r, int pct) {
+  json t = json::array();
+  for (const auto& tag : kTags) {
+    if (r.chance(pct)) t.push_back(tag);
+  }
+  return t;
+}
+
 json random_law(Rng& r) {
-  json rules = json::array();
+  json rules = json::array(), skipped = json::array();
   int n = int(r.range(0, 32));
+  int tagged = 0;  // the compiler allows at most 6 tagged exclusions per expense
   for (int i = 0; i < n; i++) {
-    std::string cat = r.pick(kCategories);
-    json rule = {{"id", "R-" + std::to_string(i)}, {"category", cat}, {"quote", "q"}, {"pinpoint", "p"}, {"source_id", "T-S1"}};
-    json p = json::object();
-    if (r.chance(70)) {
-      std::string e = r.pick(kExpenses);
-      if (r.chance(50)) rule["expense"] = e;
-      else p["expense"] = e;
-    }
-    if (cat == "total_cap" || cat == "emergency_award") {
-      if (r.chance(85)) p["amount_cents"] = money(r);
-    } else if (cat == "expense_cap") {
-      if (r.chance(80)) p["amount_cents"] = money(r);
-      if (r.chance(85)) p["per"] = r.pick(kPers);
-      else if (r.chance(30)) p["per"] = nullptr;
-      if (r.chance(10)) p["count_limit"] = r.range(1, 40);
-    } else if (cat == "filing_deadline") {
-      if (r.chance(55)) p["years"] = r.range(0, 12);
-      if (r.chance(35)) p["days"] = r.range(0, 1200);
-      p["from"] = r.pick(std::vector<std::string>{"crime", "discovery", "report", "age_18"});
-    } else if (cat == "minimum_loss") {
-      if (r.chance(70)) p["amount_cents"] = r.range(0, 30000);
-      if (r.chance(30)) p["days_lost"] = r.range(1, 14);
-      switch (r.next() % 5) {
-        case 0: p["waived_for"] = {"sexual_assault"}; break;
-        case 1: p["waived_for"] = "victims of sexual_assault"; break;
-        case 2: p["waived_for"] = {"forensic_exam", "dire hardship"}; break;
-        case 3: p["waived_for"] = nullptr; break;
-        default: break;
+    std::string kind = r.pick(kKinds);
+    std::string id = "R-" + std::to_string(i);
+    json rule = {{"id", id}, {"kind", kind}};
+    if (kind == "total_cap") {
+      rule["cap_cents"] = money(r);
+    } else if (kind == "expense_cap") {
+      rule["expense"] = r.pick(kExpenses);
+      rule["cap_cents"] = money(r);
+      if (r.chance(35)) {
+        rule["per"] = "unit";
+        rule["unit"] = r.pick(kUnits);
+        if (r.chance(40)) rule["count_limit"] = r.range(0, 12);
+      } else {
+        rule["per"] = "claim";
       }
-    } else if (cat == "reporting_requirement") {
-      switch (r.next() % 4) {
-        case 0: p["required"] = true; break;
-        case 1: p["required"] = false; break;
-        case 2: p["required"] = nullptr; break;
-        default: break;
-      }
-      if (r.chance(15)) {
-        p["alternatives"] = r.chance(50) ? "forensic_exam" : "an advocate letter";
-      } else if (r.chance(75)) {
+      if (r.chance(20)) {
         json alts = json::array();
-        for (const auto& a : kAlternatives) {
-          if (r.chance(30)) alts.push_back(a);
+        int k = int(r.range(1, 2));
+        for (int j = 0; j < k; j++) {
+          std::string alt = id + "-ALT" + std::to_string(j);
+          alts.push_back(alt);
+          skipped.push_back({{"id", alt}, {"category", "expense_cap"}, {"reason", "less generous duplicate of " + id}});
         }
-        p["alternatives"] = alts;
+        rule["alt_rule_ids"] = alts;
       }
-      if (r.chance(30)) p["within_days"] = r.range(1, 30);
+    } else if (kind == "covered") {
+      rule["expense"] = r.pick(kExpenses);
+    } else if (kind == "excluded") {
+      bool with_expense = r.chance(70) || tagged >= 6;
+      if (with_expense) rule["expense"] = r.pick(kExpenses);
+      json tags = tag_list(r, 30);
+      if (!with_expense && tags.empty()) tags.push_back(r.pick(kTags));
+      if (!tags.empty() && tagged < 6 && r.chance(with_expense ? 50 : 100)) {
+        rule["tags"] = tags;
+        tagged++;
+      }
+    } else if (kind == "deadline") {
+      rule["days"] = r.range(0, 4000);
+      rule["from"] = r.pick(std::vector<std::string>{"crime", "discovery", "report", "age_18"});
+    } else if (kind == "reporting") {
+      if (r.chance(85)) rule["required"] = r.chance(60);
+      json alts = json::array();
+      for (const auto& a : kAlternatives) {
+        if (r.chance(25)) alts.push_back(a);
+      }
+      rule["alternatives"] = alts;
+      if (r.chance(30)) rule["within_days"] = r.range(1, 30);
+    } else if (kind == "minimum_loss") {
+      if (r.chance(80)) rule["cap_cents"] = r.range(0, 30000);
+      if (r.chance(30)) rule["days_lost"] = r.range(1, 14);
+      rule["waiver"] = r.pick(std::vector<std::string>{"none", "other", "discretionary", "automatic"});
+      rule["waiver_for_sexual_assault"] = r.chance(50);
+    } else if (kind == "info") {
+      rule["category"] = r.pick(std::vector<std::string>{"residency", "conduct_reduction", "submission", "excluded_expense"});
     }
-    rule["params"] = p;
     rules.push_back(rule);
   }
-  return th::law(rules);
+  if (r.chance(30)) skipped.push_back({{"id", "R-SKIP"}, {"category", "expense_cap"}, {"reason", "applies_to family"}});
+  return th::law(rules, "ZZ", skipped);
 }
 
 json random_claim(Rng& r) {
   int64_t base;
   tend::parse_date("2026-06-14", base);
   int64_t incident = base + r.range(-800, 400);
-  int64_t as_of = incident + r.range(-30, 2500);
+  int64_t as_of = incident + r.range(-30, 4500);
   json ctx = {{"incident_date", date_of(incident)}, {"as_of_date", date_of(as_of)}};
   switch (r.next() % 4) {
     case 0: ctx["police_report"] = "yes"; break;
@@ -141,6 +158,11 @@ json random_claim(Rng& r) {
     if (r.chance(30)) it["insurance_paid_cents"] = r.chance(5) ? INT64_MAX : r.range(0, amount < 2000000 ? amount + amount / 5 : 2000000);
     if (r.chance(50)) it["units"] = r.chance(3) ? INT64_MAX / 3 : r.range(0, 12);
     if (r.chance(50)) it["is_bill"] = r.chance(50);
+    if (r.chance(40)) {
+      json tags = tag_list(r, 30);
+      if (r.chance(20)) tags.push_back("unheard-of");
+      it["tags"] = tags;
+    }
     items.push_back(it);
   }
   return {{"jurisdiction", "ZZ"}, {"context", ctx}, {"items", items}};

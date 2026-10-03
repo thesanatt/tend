@@ -81,23 +81,14 @@ TEST_CASE("day numbers round trip through formatting") {
   CHECK(std::string(buf, 10) == "9999-12-31");
 }
 
-static std::string plus_years(const char* date, int64_t years) {
-  int64_t d;
-  REQUIRE(parse_date(date, d));
-  char buf[10];
-  format_date(add_years(d, years), buf);
-  return std::string(buf, 10);
-}
-
-TEST_CASE("calendar year addition") {
-  CHECK(plus_years("2026-06-14", 5) == "2031-06-14");
-  CHECK(plus_years("2024-02-29", 1) == "2025-02-28");
-  CHECK(plus_years("2024-02-29", 4) == "2028-02-29");
-  CHECK(plus_years("2023-03-01", 1) == "2024-03-01");
-  CHECK(plus_years("2026-12-31", 0) == "2026-12-31");
-  CHECK(plus_years("9998-06-01", 5) == "9999-12-31");
-  CHECK(plus_years("2026-06-14", -3000) == "0001-01-01");
-  CHECK(plus_years("2026-06-14", INT64_MAX) == "9999-12-31");
+TEST_CASE("day arithmetic matches the calendar") {
+  int64_t a, b;
+  REQUIRE(parse_date("2026-06-14", a));
+  REQUIRE(parse_date("2031-06-14", b));
+  CHECK(b - a == 1826);  // five years with one leap day, as the IR counts them
+  REQUIRE(parse_date("2028-03-01", b));
+  REQUIRE(parse_date("2028-02-28", a));
+  CHECK(b - a == 2);
 }
 
 TEST_CASE("money formatting") {

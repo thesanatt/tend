@@ -279,7 +279,7 @@ static void run_compile(const Bytes& in) {
   std::string s(in.begin(), in.end());
   tend::CompileResult res;
   std::string err;
-  if (!tend::compile_law(s, res, err)) return;
+  if (!tend::compile_law(s, "", res, err)) return;
   tend::Law law;
   if (!tend::load_law(res.image.data(), res.image.size(), law, err))
     property_failure("compiled image failed verification: " + err);
@@ -370,7 +370,7 @@ int main(int argc, char** argv) {
     compile.corpus.push_back(text);
     tend::CompileResult res;
     std::string err;
-    if (tend::compile_law(std::string(text.begin(), text.end()), res, err)) {
+    if (tend::compile_law(std::string(text.begin(), text.end()), "", res, err)) {
       if (g_law.empty()) g_law = res.image;
       image.corpus.push_back(res.image);
       resealed.corpus.push_back(res.image);

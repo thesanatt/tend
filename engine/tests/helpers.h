@@ -26,13 +26,27 @@ inline std::string env_or(const char* name, const std::string& fallback) {
   return v && *v ? v : fallback;
 }
 
-inline std::vector<uint8_t> compile(const json& law, std::vector<std::string>* warnings = nullptr) {
+inline const std::string kFixtureIr = "tests/fixtures/ir/ZZ.json";
+inline const std::string kFixtureVerified = "tests/fixtures/verified/ZZ.json";
+inline const std::string kFixtureClaim = "tests/fixtures/ZZ_claim.json";
+
+// Compiles a law IR document without a verified file (no quotes needed).
+inline std::vector<uint8_t> compile(const json& ir, std::vector<std::string>* notes = nullptr) {
   tend::CompileResult res;
   std::string err;
-  bool ok = tend::compile_law(law.dump(), res, err);
+  bool ok = tend::compile_law(ir.dump(), "", res, err);
   INFO("compile error: " << err);
   REQUIRE(ok);
-  if (warnings) *warnings = res.warnings;
+  if (notes) *notes = res.notes;
+  return res.image;
+}
+
+inline std::vector<uint8_t> compile_fixture() {
+  tend::CompileResult res;
+  std::string err;
+  bool ok = tend::compile_law(read_text(kFixtureIr), read_text(kFixtureVerified), res, err);
+  INFO("compile error: " << err);
+  REQUIRE(ok);
   return res.image;
 }
 
@@ -48,30 +62,17 @@ inline json eval(const std::vector<uint8_t>& img, const json& input) {
   return json::parse(eval_raw(img, input.dump()));
 }
 
-inline json run(const json& law, const json& input) { return eval(compile(law), input); }
+inline json run(const json& ir, const json& input) { return eval(compile(ir), input); }
 
-// Builders for small hand-written jurisdictions and claims.
-inline json rule(const std::string& id, const std::string& category, const std::string& expense = "",
-                 json params = json::object()) {
-  json r = {{"id", id},
-            {"category", category},
-            {"params", params},
-            {"summary", "test rule"},
-            {"quote", "Quote for " + id + "."},
-            {"source_id", "T-S1"},
-            {"pinpoint", "Test Code " + id}};
-  if (!expense.empty()) r["expense"] = expense;
+// One IR rule: {"id", "kind", ...fields}.
+inline json ir(const std::string& id, const std::string& kind, json fields = json::object()) {
+  json r = {{"id", id}, {"kind", kind}};
+  for (auto& [k, v] : fields.items()) r[k] = v;
   return r;
 }
 
-inline json law(const std::vector<json>& rules, const std::string& st = "ZZ") {
-  return {{"jurisdiction", st},
-          {"name", "Test"},
-          {"sources", json::array({{{"id", "T-S1"},
-                                    {"url", "https://example.org/t"},
-                                    {"title", "Test source"},
-                                    {"sha256", std::string(64, 'a')}}})},
-          {"rules", rules}};
+inline json law(const std::vector<json>& rules, const std::string& st = "ZZ", json skipped = json::array()) {
+  return {{"ir_version", 1}, {"jurisdiction", st}, {"name", "Test"}, {"rules", rules}, {"skipped", skipped}};
 }
 
 inline json item(const std::string& id, const std::string& date, int64_t amount, const std::string& expense,

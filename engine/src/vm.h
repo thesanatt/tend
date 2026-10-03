@@ -16,7 +16,7 @@ struct Context {
 };
 
 struct Item {
-  int64_t field[IF_COUNT] = {0, 0, EXP_UNKNOWN, 0, 0, 0, 0};
+  int64_t field[IF_COUNT] = {0, 0, EXP_UNKNOWN, 0, 0, 0, 0, 0};
   std::string_view id;
 };
 
@@ -24,6 +24,7 @@ struct Line {
   int64_t requested = 0;
   int64_t allowed = 0;
   uint32_t proof = 0;
+  uint32_t alt_proof = 0;  // alternate cap rules for this line's expense
   int32_t cap_rule = -1;
   uint8_t status = ST_UNKNOWN_RULE;
   uint8_t expense = EXP_UNKNOWN;

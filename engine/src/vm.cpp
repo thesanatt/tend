@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <utility>
 
-#include "civil.h"
 
 namespace tend {
 
@@ -104,9 +103,13 @@ bool exec(Machine& m, const Program& prog, uint32_t start_line, std::string& err
         --sp;
         sp[-1] = std::max(sp[-1], sp[0]);
         break;
-      case OP_ADDY:
+      case OP_AND:
         --sp;
-        sp[-1] = add_years(sp[-1], sp[0]);
+        sp[-1] = sp[-1] & sp[0];
+        break;
+      case OP_OR:
+        --sp;
+        sp[-1] = sp[-1] | sp[0];
         break;
       case OP_EQ:
         --sp;
@@ -156,6 +159,7 @@ bool exec(Machine& m, const Program& prog, uint32_t start_line, std::string& err
         break;
       }
       case OP_SETEXP: m.ev.lines[li].expense = in.a; break;
+      case OP_ALTS: m.ev.lines[li].alt_proof = in.b; break;
       case OP_SETA: {
         Line& line = m.ev.lines[li];
         int64_t v = *--sp;

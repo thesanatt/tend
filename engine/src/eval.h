@@ -21,7 +21,9 @@ struct Input {
   std::vector<std::unique_ptr<char[]>> arena;  // decoded item ids that had escapes
 };
 
-bool parse_input(const char* json, size_t len, Input& in, std::string& err);
+// Item tags are mapped to bits through the law's tag table; tags the law
+// never mentions cannot change an outcome and are dropped.
+bool parse_input(const char* json, size_t len, const Law& law, Input& in, std::string& err);
 
 // Renders the output document. `items` and `ev.lines` are in processing order.
 void render_output(const Law& law, const std::vector<Item>& items, const Evaluation& ev, OutBuf& out);

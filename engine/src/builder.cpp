@@ -147,6 +147,15 @@ void ImageBuilder::meta(std::string_view key, std::string_view value) {
 
 void ImageBuilder::set_source_sha256(const uint8_t sha[32]) { std::memcpy(source_sha_, sha, 32); }
 
+uint8_t ImageBuilder::tag(std::string_view name) {
+  uint32_t s = str(name);
+  for (size_t i = 0; i < tags_.size(); i++) {
+    if (tags_[i] == s) return uint8_t(i);
+  }
+  tags_.push_back(s);
+  return uint8_t(tags_.size() - 1);
+}
+
 std::vector<uint8_t> ImageBuilder::build(const std::vector<uint8_t>& item,
                                          const std::vector<uint8_t>& aggr) const {
   struct Section {
@@ -192,7 +201,7 @@ std::vector<uint8_t> ImageBuilder::build(const std::vector<uint8_t>& item,
     std::vector<uint8_t> d;
     put32(d, uint32_t(rules_.size()));
     for (const auto& r : rules_) {
-      d.push_back(r.category);
+      d.push_back(r.kind);
       d.push_back(r.expense);
       d.push_back(r.per);
       d.push_back(0);
@@ -202,7 +211,8 @@ std::vector<uint8_t> ImageBuilder::build(const std::vector<uint8_t>& item,
       put32(d, r.summary);
       put32(d, r.fragment);
       put32(d, r.source);
-      put32(d, r.per_text);
+      put32(d, r.category);
+      put32(d, r.aux);
     }
     secs.push_back({kTagRule, std::move(d)});
   }
@@ -225,6 +235,12 @@ std::vector<uint8_t> ImageBuilder::build(const std::vector<uint8_t>& item,
   }
   secs.push_back({kTagItem, item});
   secs.push_back({kTagAggr, aggr});
+  {
+    std::vector<uint8_t> d;
+    put32(d, uint32_t(tags_.size()));
+    for (uint32_t t : tags_) put32(d, t);
+    secs.push_back({kTagTags, std::move(d)});
+  }
   {
     std::vector<AnnoRec> sorted = annos_;
     std::stable_sort(sorted.begin(), sorted.end(), [](const AnnoRec& a, const AnnoRec& b) {

@@ -20,7 +20,7 @@ std::string load_error(const std::vector<uint8_t>& img, uint32_t flags = LOAD_DE
 }
 
 std::vector<uint8_t> zz_image() {
-  static std::vector<uint8_t> img = th::compile(json::parse(th::read_text("tests/fixtures/ZZ.json")));
+  static std::vector<uint8_t> img = th::compile_fixture();
   return img;
 }
 
@@ -83,7 +83,7 @@ std::vector<uint8_t> image_of(const std::vector<uint8_t>& item, const std::vecto
   ImageBuilder b;
   b.set_jurisdiction("ZZ");
   RuleRecord r;
-  r.category = CAT_COVERED_EXPENSE;
+  r.kind = K_COVERED;
   r.expense = EXP_MEDICAL;
   r.id = b.str("T-1");
   r.pinpoint = b.str("Test 1");
@@ -114,8 +114,9 @@ TEST_CASE("loader rejects bad headers") {
   CHECK_FALSE(load_law(nullptr, 100, law, err));
 
   CHECK(mutated([](auto& i) { i[0] = 'X'; }).find("bad magic") != std::string::npos);
-  CHECK(mutated([](auto& i) { put16(i, 4, 2); }).find("unsupported format version 2.0") != std::string::npos);
-  CHECK(mutated([](auto& i) { put16(i, 6, 1); }).find("unsupported format version 1.1") != std::string::npos);
+  CHECK(mutated([](auto& i) { put16(i, 4, 2); }).find("unsupported format version 2.1") != std::string::npos);
+  CHECK(mutated([](auto& i) { put16(i, 6, 2); }).find("unsupported format version 1.2") != std::string::npos);
+  CHECK(mutated([](auto& i) { put16(i, 6, 0); }).find("unsupported format version 1.0") != std::string::npos);
   CHECK(mutated([](auto& i) { put32(i, 8, 65); }).find("bad header size") != std::string::npos);
   CHECK(mutated([](auto& i) { put32(i, 12, uint32_t(i.size() + 8)); }).find("total size") != std::string::npos);
   CHECK(mutated([](auto& i) { i[16] = 'z'; }).find("bad jurisdiction") != std::string::npos);
@@ -188,9 +189,11 @@ TEST_CASE("loader rejects bad pools and tables") {
   CHECK(mutated([](auto& i) { put32(i, section(i, kTagSrcs) + 4, 99999); }).find("SRCS") != std::string::npos);
 
   auto rule_at = [](std::vector<uint8_t>& i, int n) { return section(i, kTagRule) + 4 + uint32_t(n) * kRuleRecordSize; };
-  CHECK(mutated([&](auto& i) { i[rule_at(i, 0)] = 99; }).find("unknown category") != std::string::npos);
+  CHECK(mutated([&](auto& i) { i[rule_at(i, 0)] = K_COUNT; }).find("unknown kind") != std::string::npos);
   CHECK(mutated([&](auto& i) { i[rule_at(i, 0) + 1] = 18; }).find("unknown expense") != std::string::npos);
-  CHECK(mutated([&](auto& i) { i[rule_at(i, 0) + 2] = 8; }).find("unknown per") != std::string::npos);
+  CHECK(mutated([&](auto& i) { i[rule_at(i, 0) + 2] = PER_COUNT; }).find("unknown per") != std::string::npos);
+  CHECK(mutated([&](auto& i) { put32(i, rule_at(i, 0) + 28, 999999); }).find("bad string reference") != std::string::npos);
+  CHECK(mutated([&](auto& i) { put32(i, rule_at(i, 0) + 32, 999999); }).find("bad string reference") != std::string::npos);
   CHECK(mutated([&](auto& i) { i[rule_at(i, 0) + 3] = 1; }).find("reserved bits") != std::string::npos);
   CHECK(mutated([&](auto& i) { put32(i, rule_at(i, 0) + 4, 999999); }).find("bad string reference") !=
         std::string::npos);
@@ -209,6 +212,21 @@ TEST_CASE("loader rejects bad pools and tables") {
           put16(i, p + 8 + (lists + 1) * 4, 999);
         }).find("missing rule") != std::string::npos);
   CHECK(mutated([&](auto& i) { put32(i, section(i, kTagProf), 0); }).find("PROF") != std::string::npos);
+}
+
+TEST_CASE("loader checks the tag table") {
+  std::vector<uint8_t> img = zz_image();
+  Law law;
+  std::string err;
+  REQUIRE(load_law(img.data(), img.size(), law, err));
+  REQUIRE(law.tags.size() == 3);
+  CHECK(law.tags[0] == "phone");
+  CHECK(mutated([](auto& i) { put32(i, section(i, kTagTags), 32); }).find("TAGS: size mismatch") != std::string::npos);
+  CHECK(mutated([](auto& i) { put32(i, section(i, kTagTags) + 4, 999999); }).find("TAGS: bad string reference") != std::string::npos);
+  CHECK(mutated([](auto& i) {
+          uint32_t t = section(i, kTagTags);
+          put32(i, t + 8, get32(i, t + 4));
+        }).find("TAGS: duplicate tag") != std::string::npos);
 }
 
 TEST_CASE("loader rejects bad annotations and metadata") {
@@ -323,6 +341,12 @@ TEST_CASE("verifier checks every operand range") {
   CHECK(item_with({OP_LDX, CX_COUNT, OP_POP}).find(bad) != std::string::npos);
   CHECK(item_with({OP_LDI, IF_COUNT, OP_POP}).find(bad) != std::string::npos);
   CHECK(item_with({OP_SETEXP, EXP_COUNT}).find(bad) != std::string::npos);
+  CHECK(item_with({OP_ALTS, 2, 0}).find(bad) != std::string::npos);
+  CHECK(item_with({OP_ALTS, 1, 0}).empty());
+  CHECK(aggr_error([](Assembler& a) {
+          a.u16op(OP_ALTS, 1);
+          a.op(OP_RET);
+        }).find("not allowed in this program") != std::string::npos);
   CHECK(item_error([](Assembler& a) {
           a.push(0);
           a.u8u16(OP_DECIDE, ST_COUNT, 0);

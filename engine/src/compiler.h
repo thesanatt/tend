@@ -1,4 +1,4 @@
-// tendc: verified jurisdiction JSON (rules/SCHEMA.md) -> .tlaw image.
+// tendc: law IR (docs/SPEC.md v1.1, rules/ir/ST.json) -> .tlaw image.
 #pragma once
 
 #include <cstdint>
@@ -9,11 +9,15 @@ namespace tend {
 
 struct CompileResult {
   std::vector<uint8_t> image;
-  std::vector<std::string> warnings;  // rules the engine lists but cannot compute
+  std::vector<std::string> notes;  // what the compiler set aside or could not attach
 };
 
-// `json_bytes` is the verified file exactly as stored; its sha256 goes in the
-// image header. Output is deterministic: same bytes in, same image out.
-bool compile_law(const std::string& json_bytes, CompileResult& out, std::string& err);
+// `ir_bytes` decides the semantics. `verified_bytes` (rules/verified/ST.json)
+// supplies quotes, pinpoints, and sources for the constant pool; its sha256
+// must equal the IR's source_sha256, which goes in the image header. With no
+// verified file the image still runs but carries no quotes.
+// Output is deterministic: the same inputs always give the same bytes.
+bool compile_law(const std::string& ir_bytes, const std::string& verified_bytes, CompileResult& out,
+                 std::string& err);
 
 }  // namespace tend

@@ -22,7 +22,8 @@ constexpr std::array<OpInfo, 256> make_op_table() {
   t[OP_MULS] = {"muls", OPD_NONE, 2, 1, IN_BOTH};
   t[OP_MIN] = {"min", OPD_NONE, 2, 1, IN_BOTH};
   t[OP_MAX] = {"max", OPD_NONE, 2, 1, IN_BOTH};
-  t[OP_ADDY] = {"addy", OPD_NONE, 2, 1, IN_BOTH};
+  t[OP_AND] = {"and", OPD_NONE, 2, 1, IN_BOTH};
+  t[OP_OR] = {"or", OPD_NONE, 2, 1, IN_BOTH};
   t[OP_EQ] = {"eq", OPD_NONE, 2, 1, IN_BOTH};
   t[OP_NE] = {"ne", OPD_NONE, 2, 1, IN_BOTH};
   t[OP_LT] = {"lt", OPD_NONE, 2, 1, IN_BOTH};
@@ -37,6 +38,7 @@ constexpr std::array<OpInfo, 256> make_op_table() {
   t[OP_DECIDE] = {"decide", OPD_U8_U16, 1, 0, IN_ITEM};
   t[OP_SETEXP] = {"setexp", OPD_U8, 0, 0, IN_ITEM};
   t[OP_SETA] = {"seta", OPD_U8_U16, 1, 0, IN_ITEM};
+  t[OP_ALTS] = {"alts", OPD_U16, 0, 0, IN_ITEM};
   t[OP_EACH] = {"each", OPD_U8_U32, 0, 0, IN_AGGR};
   t[OP_NEXT] = {"next", OPD_U32, 0, 0, IN_AGGR};
   t[OP_CAP] = {"cap", OPD_U8_U16, 1, 0, IN_AGGR | AGGR_LOOP_ONLY};
@@ -49,11 +51,9 @@ constexpr std::array<OpInfo, 256> make_op_table() {
 
 constexpr std::array<OpInfo, 256> kOps = make_op_table();
 
-constexpr std::string_view kCategories[CAT_COUNT] = {
-    "exam_no_bill",     "exam_payment",          "total_cap",         "expense_cap",
-    "covered_expense",  "excluded_expense",      "filing_deadline",   "reporting_requirement",
-    "minimum_loss",     "collateral_source",     "conduct_reduction", "emergency_award",
-    "eligible_crime",   "residency"};
+constexpr std::string_view kKinds[K_COUNT] = {"exam_no_bill", "exam_payment", "total_cap",    "expense_cap",
+                                              "covered",      "excluded",     "deadline",     "reporting",
+                                              "minimum_loss", "collateral",   "info",         "skipped"};
 
 constexpr std::string_view kExpenses[EXP_COUNT] = {
     "medical",  "forensic_exam",       "counseling",   "lost_wages",       "transportation",
@@ -61,8 +61,7 @@ constexpr std::string_view kExpenses[EXP_COUNT] = {
     "property_replacement", "clothing_bedding", "prescription", "dental", "funeral",
     "legal",    "tuition",             "other",        "unknown"};
 
-constexpr std::string_view kPers[PER_COUNT] = {"none", "claim", "week", "session",
-                                               "hour", "mile",  "day",  "other"};
+constexpr std::string_view kPers[PER_COUNT] = {"none", "claim", "unit"};
 
 constexpr std::string_view kStatuses[ST_COUNT] = {"out_of_window", "held",
                                                   "excluded",      "unknown_rule",
@@ -75,13 +74,12 @@ constexpr std::string_view kTraceOps[TR_COUNT] = {
 
 constexpr std::string_view kCheckKinds[CK_COUNT] = {"deadline", "minimum_loss", "reporting"};
 constexpr std::string_view kDeadline[DL_COUNT] = {"ok", "late", "unknown"};
-constexpr std::string_view kMinLoss[ML_COUNT] = {"met", "waived", "not_met", "unknown"};
-constexpr std::string_view kReport[RP_COUNT] = {"satisfied", "required", "unknown"};
+constexpr std::string_view kMinLoss[ML_COUNT] = {"met", "waived", "may_be_waived", "not_met", "unknown"};
+constexpr std::string_view kReport[RP_COUNT] = {"satisfied", "required", "not_required", "unknown"};
 constexpr std::string_view kCtx[CX_COUNT] = {"incident_date", "as_of_date", "police_report",
                                              "forensic_exam"};
-constexpr std::string_view kItemFields[IF_COUNT] = {"date",     "amount_cents",         "expense",
-                                                    "confirmed", "insurance_paid_cents", "is_bill",
-                                                    "units"};
+constexpr std::string_view kItemFields[IF_COUNT] = {"date",      "amount_cents",         "expense", "confirmed",
+                                                    "insurance_paid_cents", "is_bill", "units",   "tags"};
 
 std::string_view pick(const std::string_view* table, size_t n, size_t i) {
   return i < n ? table[i] : std::string_view("?");
@@ -91,7 +89,7 @@ std::string_view pick(const std::string_view* table, size_t n, size_t i) {
 
 const OpInfo& op_info(uint8_t op) { return kOps[op]; }
 
-std::string_view category_name(uint8_t c) { return pick(kCategories, CAT_COUNT, c); }
+std::string_view kind_name(uint8_t k) { return pick(kKinds, K_COUNT, k); }
 std::string_view expense_name(uint8_t e) { return pick(kExpenses, EXP_COUNT, e); }
 std::string_view per_name(uint8_t p) { return pick(kPers, PER_COUNT, p); }
 std::string_view status_name(uint8_t s) { return pick(kStatuses, ST_COUNT, s); }
@@ -118,9 +116,9 @@ std::string_view check_status_name(uint8_t kind, uint8_t status) {
   }
 }
 
-bool parse_category(std::string_view s, uint8_t& out) {
-  for (uint8_t i = 0; i < CAT_COUNT; i++) {
-    if (kCategories[i] == s) {
+bool parse_kind(std::string_view s, uint8_t& out) {
+  for (uint8_t i = 0; i < K_SKIPPED; i++) {
+    if (kKinds[i] == s) {
       out = i;
       return true;
     }
@@ -136,17 +134,6 @@ bool parse_expense(std::string_view s, uint8_t& out) {
     }
   }
   return false;
-}
-
-bool parse_per(std::string_view s, uint8_t& out) {
-  for (uint8_t i = PER_CLAIM; i < PER_OTHER; i++) {
-    if (kPers[i] == s) {
-      out = i;
-      return true;
-    }
-  }
-  out = PER_OTHER;
-  return !s.empty();
 }
 
 }  // namespace tend

@@ -44,11 +44,11 @@ class Assembler {
 };
 
 struct RuleRecord {
-  uint8_t category = 0;
+  uint8_t kind = 0;
   uint8_t expense = kNoExpense;
   uint8_t per = PER_NONE;
   uint32_t id = kNone, pinpoint = kNone, quote = kNone, summary = kNone, fragment = kNone,
-           source = kNone, per_text = kNone;
+           source = kNone, category = kNone, aux = kNone;
 };
 
 struct SourceRecord {
@@ -68,6 +68,9 @@ class ImageBuilder {
   uint16_t proof(const std::vector<uint16_t>& rules);  // proof 0 is always the empty list
   void anno(uint8_t program, uint32_t pc, uint32_t rule);
   void meta(std::string_view key, std::string_view value);
+  // Bit index for an item tag, adding it on first use.
+  uint8_t tag(std::string_view name);
+  size_t tag_count() const { return tags_.size(); }
   void set_jurisdiction(std::string_view code) { jurisdiction_ = std::string(code); }
   void set_source_sha256(const uint8_t sha[32]);
 
@@ -94,6 +97,7 @@ class ImageBuilder {
   };
   std::vector<AnnoRec> annos_;
   std::vector<std::pair<uint32_t, uint32_t>> meta_;
+  std::vector<uint32_t> tags_;
 };
 
 // Recomputes the trailer checksum after a test or fuzzer edits image bytes.

@@ -80,17 +80,26 @@ class Lister {
     line(".rules");
     for (size_t i = 0; i < law_.rules.size(); i++) {
       const Rule& r = law_.rules[i];
-      std::string per;
-      if (r.per != PER_NONE) {
-        per = "per " + (r.per == PER_OTHER && r.per_text != kNone ? std::string(law_.str(r.per_text))
-                                                                  : std::string(per_name(r.per)));
-      }
-      line("    " + pad("R" + std::to_string(i), 6) + pad(std::string(law_.str(r.id)), 22) +
-           pad(std::string(category_name(r.category)), 23) +
-           pad(r.expense == kNoExpense ? "-" : std::string(expense_name(r.expense)), 22) +
-           pad(per, 16) + std::string(law_.str(r.pinpoint)));
+      std::string detail;
+      if (r.per == PER_CLAIM) detail = "per claim";
+      else if (r.per == PER_UNIT) detail = "per " + std::string(law_.str(r.aux));
+      else if (r.kind == K_INFO || r.kind == K_SKIPPED) detail = std::string(law_.str(r.category));
+      std::string text = "    " + pad("R" + std::to_string(i), 6) + pad(std::string(law_.str(r.id)), 22) +
+                         pad(std::string(kind_name(r.kind)), 14) +
+                         pad(r.expense == kNoExpense ? "-" : std::string(expense_name(r.expense)), 22) +
+                         pad(detail, 24) + std::string(law_.str(r.pinpoint));
+      if (r.kind == K_SKIPPED && r.aux != kNone) text += "  ; " + std::string(law_.str(r.aux));
+      line(text);
     }
     line("");
+    if (!law_.tags.empty()) {
+      std::string t = ".tags   ";
+      for (size_t i = 0; i < law_.tags.size(); i++) {
+        t += (i ? ", " : "") + std::string(law_.tags[i]) + "=bit" + std::to_string(i);
+      }
+      line(t);
+      line("");
+    }
     line(".sources");
     for (size_t i = 0; i < law_.sources.size(); i++) {
       const Source& s = law_.sources[i];
@@ -159,8 +168,9 @@ class Lister {
       if (!comment.empty()) text = pad(text, 52) + "; " + comment;
       line(text);
       if (in.op == OP_SWITCH) {
+        bool on_expense = i > 0 && p.code[i - 1].op == OP_LDI && p.code[i - 1].a == IF_EXPENSE;
         for (uint32_t k = 0; k < in.a; k++) {
-          std::string name = k < EXP_COUNT ? std::string(expense_name(uint8_t(k))) : std::to_string(k);
+          std::string name = on_expense && k < EXP_COUNT ? std::string(expense_name(uint8_t(k))) : std::to_string(k);
           line("                        case " + pad(name, 22) + "-> " +
                label(labels, p.table[uint32_t(in.c) + 1 + k]));
         }
@@ -224,6 +234,7 @@ class Lister {
         comment = proof_text(law_, in.b);
         break;
       case OP_INFO:
+      case OP_ALTS:
         operands = "P" + std::to_string(in.b);
         comment = proof_text(law_, in.b);
         break;
@@ -279,15 +290,22 @@ void inspect_json(const Law& law, OutBuf& out) {
     if (i) out.put(',');
     out.put("{\"id\":");
     out.put_json_string(law.str(r.id));
+    out.put(",\"kind\":");
+    out.put_json_string(kind_name(r.kind));
     out.put(",\"category\":");
-    out.put_json_string(category_name(r.category));
+    str_or_null(r.category);
     out.put(",\"expense\":");
     if (r.expense == kNoExpense) out.put("null");
     else out.put_json_string(expense_name(r.expense));
     out.put(",\"per\":");
     if (r.per == PER_NONE) out.put("null");
-    else if (r.per == PER_OTHER && r.per_text != kNone) out.put_json_string(law.str(r.per_text));
     else out.put_json_string(per_name(r.per));
+    out.put(",\"unit\":");
+    if (r.per == PER_UNIT) str_or_null(r.aux);
+    else out.put("null");
+    out.put(",\"skip_reason\":");
+    if (r.kind == K_SKIPPED) str_or_null(r.aux);
+    else out.put("null");
     out.put(",\"pinpoint\":");
     out.put_json_string(law.str(r.pinpoint));
     out.put(",\"quote\":");
@@ -326,6 +344,11 @@ void inspect_json(const Law& law, OutBuf& out) {
     out.put_i64(p.loops);
     out.put('}');
   };
+  out.put("],\"tags\":[");
+  for (size_t i = 0; i < law.tags.size(); i++) {
+    if (i) out.put(',');
+    out.put_json_string(law.tags[i]);
+  }
   out.put("],\"programs\":{\"item\":");
   prog(law.item);
   out.put(",\"aggregate\":");

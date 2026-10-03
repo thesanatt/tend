@@ -11,8 +11,8 @@ namespace {
 
 class InputParser {
  public:
-  InputParser(const char* json, size_t len, Input& in, std::string& err)
-      : r_(json, len), in_(in), err_(err) {}
+  InputParser(const char* json, size_t len, const Law& law, Input& in, std::string& err)
+      : r_(json, len), law_(law), in_(in), err_(err) {}
 
   bool run() {
     if (!r_.begin_object()) return json_error();
@@ -175,6 +175,8 @@ class InputParser {
           continue;
         }
         if (!cents_field(base + ".insurance_paid_cents", it.field[IF_INSURANCE_PAID])) return false;
+      } else if (key == "tags") {
+        if (!tags_field(base + ".tags", it.field[IF_TAGS])) return false;
       } else if (key == "units") {
         if (is_null()) {
           if (!r_.skip()) return json_error();
@@ -193,7 +195,23 @@ class InputParser {
     return true;
   }
 
+  bool tags_field(const std::string& path, int64_t& mask) {
+    mask = 0;
+    if (is_null()) return r_.skip() || json_error();
+    if (!r_.begin_array()) return field_error(path, "expected a list of strings");
+    int k;
+    while ((k = r_.next_element()) == 1) {
+      std::string_view s;
+      if (!r_.read_string(s)) return field_error(path, "expected a list of strings");
+      for (size_t i = 0; i < law_.tags.size(); i++) {
+        if (law_.tags[i] == s) mask |= int64_t(1) << i;
+      }
+    }
+    return k == 0 || json_error();
+  }
+
   JsonReader r_;
+  const Law& law_;
   Input& in_;
   std::string& err_;
 };
@@ -235,8 +253,8 @@ const std::string& checked(const std::vector<std::string>& v, size_t i) {
 
 }  // namespace
 
-bool parse_input(const char* json, size_t len, Input& in, std::string& err) {
-  InputParser p(json, len, in, err);
+bool parse_input(const char* json, size_t len, const Law& law, Input& in, std::string& err) {
+  InputParser p(json, len, law, in, err);
   return p.run();
 }
 
@@ -289,6 +307,8 @@ void render_output(const Law& law, const std::vector<Item>& items, const Evaluat
     out.put(f.proof_array[l.proof]);
     out.put(",\"cap_rule_id\":");
     out.put(l.cap_rule < 0 ? std::string_view("null") : std::string_view(f.rule_id[size_t(l.cap_rule)]));
+    out.put(",\"alt_cap_rule_ids\":");
+    out.put(f.proof_array[l.alt_proof]);
     out.put(",\"flags\":[");
     for (uint32_t k = flag_start[i]; k < flag_start[i + 1]; k++) {
       if (k != flag_start[i]) out.put(',');
@@ -377,7 +397,7 @@ bool evaluate_to_json(const uint8_t* img, size_t img_len, const char* json, size
     return false;
   }
   Input in;
-  if (!json || !parse_input(json, json_len, in, err)) {
+  if (!json || !parse_input(json, json_len, law, in, err)) {
     render_error("bad_input", json ? err : "no input", out);
     return false;
   }

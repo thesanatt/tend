@@ -4,13 +4,14 @@
 #   make test-san     the same tests under AddressSanitizer + UBSan
 #   make fuzz FUZZ_SECONDS=300
 #   make bench        1M-item benchmark
-#   make laws RULES=../rules/verified   compile every verified jurisdiction
+#   make laws         compile every jurisdiction in IR (rules/ir + rules/verified) to build/laws
 #   make wasm         Emscripten build into ../web/public/engine/
 
 BUILD ?= build
 OPT ?= -O2
 SANFLAGS ?=
-RULES ?= ../rules/verified
+IR ?= ../rules/ir
+VERIFIED ?= ../rules/verified
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
@@ -34,6 +35,9 @@ OBJ := $(BUILD)/obj
 RUNTIME_OBJS := $(RUNTIME_SRCS:%.cpp=$(OBJ)/%.o)
 COMPILER_OBJS := $(COMPILER_SRCS:%.cpp=$(OBJ)/%.o)
 TEST_OBJS := $(TEST_SRCS:%.cpp=$(OBJ)/%.o)
+
+FIXTURE_IR := tests/fixtures/ir/ZZ.json
+FIXTURE_CLAIM := tests/fixtures/ZZ_claim.json
 
 .PHONY: all test test-san fuzz bench laws wasm clean
 
@@ -67,7 +71,7 @@ $(BUILD)/tend_tests: $(TEST_OBJS) $(BUILD)/libtendc.a $(BUILD)/libtend.a
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 test: $(BUILD)/tend_tests $(BUILD)/tendc $(BUILD)/tendvm $(BUILD)/tdis
-	TEND_RULES_DIR=$(RULES) TEND_BUILD_DIR=$(BUILD) ./$(BUILD)/tend_tests
+	TEND_IR_DIR=$(IR) TEND_RULES_DIR=$(VERIFIED) TEND_BUILD_DIR=$(BUILD) ./$(BUILD)/tend_tests
 
 test-san:
 	$(MAKE) BUILD=build/san OPT="-O1 -g -fno-omit-frame-pointer" \
@@ -80,7 +84,7 @@ FUZZ_DIR := build/fuzz
 FUZZ_FLAGS := -std=c++20 -O1 -g -fno-omit-frame-pointer -Iinclude -Isrc -Ithird_party \
               -fsanitize=address,undefined -fno-sanitize-recover=all
 FUZZ_LIB_OBJS := $(RUNTIME_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o) $(COMPILER_SRCS:%.cpp=$(FUZZ_DIR)/obj/%.o)
-FUZZ_SEED_DIR := $(if $(wildcard $(RULES)/*.json),--seed-json-dir $(RULES))
+FUZZ_SEED_DIR := $(if $(wildcard $(IR)/*.json),--seed-json-dir $(IR))
 
 $(FUZZ_DIR)/obj/%.o: %.cpp
 	@mkdir -p $(dir $@)
@@ -92,20 +96,15 @@ $(FUZZ_DIR)/tend_fuzz: fuzz/fuzz.cpp $(FUZZ_LIB_OBJS)
 
 fuzz: $(FUZZ_DIR)/tend_fuzz
 	./$(FUZZ_DIR)/tend_fuzz --seconds $(FUZZ_SECONDS) --corpus $(FUZZ_DIR)/corpus \
-	  --seed-json tests/fixtures/ZZ.json --seed-input tests/fixtures/ZZ_claim.json $(FUZZ_SEED_DIR)
+	  --seed-json $(FIXTURE_IR) --seed-input $(FIXTURE_CLAIM) $(FUZZ_SEED_DIR)
 
 bench: $(BUILD)/tendc $(BUILD)/tendvm
 	@mkdir -p $(BUILD)/laws
-	./$(BUILD)/tendc --quiet tests/fixtures/ZZ.json -o $(BUILD)/laws/ZZ.tlaw
+	./$(BUILD)/tendc --quiet $(FIXTURE_IR) -o $(BUILD)/laws/ZZ.tlaw
 	./$(BUILD)/tendvm bench --law $(BUILD)/laws/ZZ.tlaw --items 1000000 --runs 5
 
 laws: $(BUILD)/tendc
-	@mkdir -p $(BUILD)/laws
-	@for f in $(RULES)/*.json; do \
-	  st=$$(basename $$f .json); \
-	  ./$(BUILD)/tendc --quiet $$f -o $(BUILD)/laws/$$st.tlaw || exit 1; \
-	done
-	@ls $(BUILD)/laws
+	./scripts/build_laws.sh $(IR) $(VERIFIED) $(BUILD)/laws
 
 wasm:
 	./scripts/build_wasm.sh

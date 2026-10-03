@@ -1,0 +1,222 @@
+{
+ "ir_version": 1,
+ "jurisdiction": "ZZ",
+ "name": "Zedland (fictional test jurisdiction)",
+ "program": {
+  "program_name": "Zedland Crime Victim Compensation (fictional)",
+  "agency": "Zedland Victim Services Board (fictional)",
+  "website": "https://example.org/zedland",
+  "apply_url": "https://example.org/zedland/apply",
+  "application_pdf_url": null,
+  "phone": "555-0100",
+  "phone_source_id": "ZZ-S2",
+  "statute_citation": "ZC 4-101 to 4-140 (fictional)"
+ },
+ "source_sha256": "2aaf3744efd7e7a79d3bfae2d80f1e0ae706277bd5dff3a847daa7fd1cbe3800",
+ "rules": [
+  {
+   "id": "ZZ-EXAM-1",
+   "kind": "exam_no_bill"
+  },
+  {
+   "id": "ZZ-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ZZ-TOTAL-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "ZZ-TOTAL-2",
+   "kind": "total_cap",
+   "cap_cents": 4000000
+  },
+  {
+   "id": "ZZ-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "ZZ-COUNSEL-1",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "ZZ-COUNSEL-CAP-1",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 9000,
+   "per": "unit",
+   "unit": "session",
+   "count_limit": 3,
+   "alt_rule_ids": [
+    "ZZ-COUNSEL-CAP-3"
+   ]
+  },
+  {
+   "id": "ZZ-COUNSEL-CAP-2",
+   "kind": "expense_cap",
+   "expense": "counseling",
+   "cap_cents": 300000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-WAGES-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "ZZ-WAGES-CAP-1",
+   "kind": "expense_cap",
+   "expense": "lost_wages",
+   "cap_cents": 60000,
+   "per": "unit",
+   "unit": "week"
+  },
+  {
+   "id": "ZZ-TRANSPORT-CAP-1",
+   "kind": "expense_cap",
+   "expense": "transportation",
+   "cap_cents": 50,
+   "per": "unit",
+   "unit": "mile"
+  },
+  {
+   "id": "ZZ-RELOC-CAP-1",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 200000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-SECURITY-CAP-1",
+   "kind": "expense_cap",
+   "expense": "security",
+   "cap_cents": 40000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-DENTAL-1",
+   "kind": "covered",
+   "expense": "dental"
+  },
+  {
+   "id": "ZZ-PROPERTY-1",
+   "kind": "excluded",
+   "expense": "property_replacement",
+   "tags": [
+    "phone",
+    "purse"
+   ]
+  },
+  {
+   "id": "ZZ-PROPERTY-CAP-1",
+   "kind": "expense_cap",
+   "expense": "property_replacement",
+   "cap_cents": 50000,
+   "per": "claim"
+  },
+  {
+   "id": "ZZ-PAIN-1",
+   "kind": "excluded",
+   "tags": [
+    "pain_suffering"
+   ]
+  },
+  {
+   "id": "ZZ-TUITION-1",
+   "kind": "excluded",
+   "expense": "tuition"
+  },
+  {
+   "id": "ZZ-DEADLINE-1",
+   "kind": "deadline",
+   "days": 1095,
+   "from": "crime"
+  },
+  {
+   "id": "ZZ-DEADLINE-2",
+   "kind": "deadline",
+   "days": 400,
+   "from": "discovery"
+  },
+  {
+   "id": "ZZ-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "ZZ-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": [
+    "forensic_exam"
+   ],
+   "within_days": 5
+  },
+  {
+   "id": "ZZ-MINLOSS-1",
+   "kind": "minimum_loss",
+   "waiver": "automatic",
+   "waiver_for_sexual_assault": true,
+   "cap_cents": 10000
+  },
+  {
+   "id": "ZZ-COLLATERAL-1",
+   "kind": "collateral"
+  },
+  {
+   "id": "ZZ-CONDUCT-1",
+   "kind": "info",
+   "category": "conduct_reduction"
+  },
+  {
+   "id": "ZZ-EMERGENCY-1",
+   "kind": "info",
+   "category": "emergency_award"
+  },
+  {
+   "id": "ZZ-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "ZZ-RESIDENCY-1",
+   "kind": "info",
+   "category": "residency"
+  },
+  {
+   "id": "ZZ-SUBMIT-1",
+   "kind": "info",
+   "category": "submission"
+  },
+  {
+   "id": "ZZ-RX-1",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
+   "id": "ZZ-CHILDCARE-1",
+   "kind": "covered",
+   "expense": "childcare"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "ZZ-COUNSEL-FAMILY-1",
+   "category": "expense_cap",
+   "reason": "applies_to \"family members of the victim\""
+  },
+  {
+   "id": "ZZ-DENTAL-CAP-1",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "ZZ-COUNSEL-CAP-3",
+   "category": "expense_cap",
+   "reason": "less generous duplicate of ZZ-COUNSEL-CAP-1"
+  }
+ ]
+}

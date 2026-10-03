@@ -33,10 +33,12 @@ struct Program {
 };
 
 struct Rule {
-  uint8_t category;
+  uint8_t kind;
   uint8_t expense;  // kNoExpense if the rule names none
   uint8_t per;
-  uint32_t id, pinpoint, quote, summary, fragment, source, per_text;  // kNone when absent
+  // String indices, kNone when absent. `category` is the verified category;
+  // `aux` is the unit of a unit cap or the reason a rule was skipped.
+  uint32_t id, pinpoint, quote, summary, fragment, source, category, aux;
 };
 
 struct Source {
@@ -63,6 +65,7 @@ struct Law {
   std::vector<uint16_t> proof_refs;
   std::vector<int32_t> proof_first;  // first rule of each proof, or -1
   Program item, aggr;
+  std::vector<std::string_view> tags;  // item tag i sets bit i of IF_TAGS
   std::vector<Anno> annos;
   std::vector<std::pair<uint32_t, uint32_t>> meta;
 
