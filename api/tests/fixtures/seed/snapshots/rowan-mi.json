@@ -1,0 +1,56 @@
+{
+ "format": "tend-bank-snapshot/1",
+ "meta": {
+  "persona_id": "rowan-mi",
+  "display_name": "Rowan Example",
+  "jurisdiction": "MI",
+  "state_name": "Michigan",
+  "fictional": true,
+  "notice": "Fictional demo persona. Bank records come from Capital One's Nessie sandbox, a mock bank.",
+  "demo_inputs": {"incident_date": "2026-06-14", "as_of_date": "2026-10-03"},
+  "account_keys": {"checking": "acct-checking-0001", "cushion": "acct-cushion-0001"},
+  "documents": [
+   {
+    "kind": "itemized_bill",
+    "bill_id": "b-riverbend-0001",
+    "path": "seed/bills/riverbend-2026-06.txt",
+    "sha256": "78b2822b61b8ea679b7dbe7dfa318466d7a35d8ce75ba1e27a1fde699cebbf25",
+    "statement_date": "2026-07-02",
+    "service_date": "2026-06-14",
+    "due_date": "2026-08-01",
+    "total_cents": 44300,
+    "fictional": true
+   }
+  ]
+ },
+ "customer": {"id": "cust-rowan-0001", "first_name": "Rowan", "last_name": "Example", "address": null},
+ "accounts": [
+  {"id": "acct-checking-0001", "customer_id": "cust-rowan-0001", "type": "Checking", "nickname": "Checking", "opening_balance_cents": 285000, "rewards": 0, "account_number": "2472790158700011"},
+  {"id": "acct-cushion-0001", "customer_id": "cust-rowan-0001", "type": "Savings", "nickname": "Cushion", "opening_balance_cents": 90000, "rewards": 0, "account_number": "1264973167958936"}
+ ],
+ "merchants": [
+  {"id": "m-grocer", "name": "Corner Grocer (fictional)", "category": "food", "address": null},
+  {"id": "m-counsel", "name": "Northside Counseling (fictional)", "category": "health care", "address": null},
+  {"id": "m-ride", "name": "CityRide (fictional)", "category": "transport", "address": null},
+  {"id": "m-lock", "name": "Lakeside Locksmith (fictional)", "category": "home", "address": null},
+  {"id": "m-phone", "name": "PhoneMart (fictional)", "category": "electronics", "address": null},
+  {"id": "m-pharm", "name": "Elm Street Pharmacy (fictional)", "category": "pharmacy", "address": null}
+ ],
+ "transactions": [
+  {"id": "p-0001", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-02", "amount_cents": 5410, "status": "completed", "description": "groceries", "medium": "balance", "merchant_id": "m-grocer", "payee_account_id": null},
+  {"id": "d-0001", "kind": "deposit", "account_id": "acct-checking-0001", "date": "2026-06-05", "amount_cents": 41200, "status": "completed", "description": "payroll", "medium": "balance", "merchant_id": null, "payee_account_id": null},
+  {"id": "p-0002", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-15", "amount_cents": 2450, "status": "completed", "description": "pharmacy", "medium": "balance", "merchant_id": "m-pharm", "payee_account_id": null},
+  {"id": "p-0003", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-16", "amount_cents": 18900, "status": "completed", "description": "lock change", "medium": "balance", "merchant_id": "m-lock", "payee_account_id": null},
+  {"id": "p-0004", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-18", "amount_cents": 29900, "status": "completed", "description": "new phone", "medium": "balance", "merchant_id": "m-phone", "payee_account_id": null},
+  {"id": "p-0005", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-20", "amount_cents": 15000, "status": "completed", "description": "counseling session", "medium": "balance", "merchant_id": "m-counsel", "payee_account_id": null},
+  {"id": "p-0006", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-20", "amount_cents": 1200, "status": "completed", "description": "ride", "medium": "balance", "merchant_id": "m-ride", "payee_account_id": null},
+  {"id": "p-0007", "kind": "purchase", "account_id": "acct-checking-0001", "date": "2026-06-27", "amount_cents": 15000, "status": "completed", "description": "counseling session", "medium": "balance", "merchant_id": "m-counsel", "payee_account_id": null}
+ ],
+ "bills": [
+  {"id": "b-riverbend-0001", "account_id": "acct-checking-0001", "payee": "Riverbend General Hospital (fictional)", "nickname": "Riverbend General statement", "status": "pending", "amount_cents": 44300, "payment_date": "2026-08-01", "recurring_date": null, "upcoming_payment_date": "2026-08-01", "creation_date": "2026-07-02"}
+ ],
+ "balances": {
+  "acct-checking-0001": {"opening_cents": 285000, "computed_cents": 228540},
+  "acct-cushion-0001": {"opening_cents": 90000, "computed_cents": 90000}
+ }
+}
