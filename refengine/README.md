@@ -25,8 +25,8 @@ quotes and pinpoints for display.
 
 ```sh
 cd refengine && uv sync && cd ..
-uv run --project refengine python -m tend_ref eval --ir rules/ir/MI.json --input claim.json
 uv run --project refengine python -m tend_ref gen --ir rules/ir/MI.json --seed 1 --index 0 > claim.json
+uv run --project refengine python -m tend_ref eval --ir rules/ir/MI.json --input claim.json
 uv run --project refengine python -m tend_ref check --ir rules/ir/MI.json
 ```
 

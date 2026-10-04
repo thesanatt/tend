@@ -50,7 +50,7 @@ tendvm bench --law build/laws/MI.tlaw [--items 1000000] [--runs 5]
 ```
 
 `tendc` refuses stale IR (its `source_sha256` no longer matches the verified file): rerun
-`python3 rules/tools/normalize.py` first. It also refuses IR version 1.
+`uv run --python 3.12 rules/tools/normalize.py` first. It also refuses IR version 1.
 
 ## C ABI (include/tend/tend.h)
 
