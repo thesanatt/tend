@@ -178,9 +178,10 @@ this plan's API does not break storage down further.
 | `tests/test_neon_law.py`, which makes a branch, publishes into it, checks it, and deletes it | 13 to 15 s |
 
 **Tests.** `uv run pytest` (offline: SQLite stands in for the branches) and
-`TEND_NEON_TEST=1 uv run pytest -k "neon or live"` (31 tests on Neon, about 65 s). The live run reads
-production only as `tend_reader`, and proves the publish path and the role limits on a throwaway
-branch that Neon deletes within an hour even if the run dies.
+`TEND_NEON_TEST=1 uv run pytest -k "neon or live"` (32 tests on Neon, about 70 s). The live run reads
+production only as `tend_reader`, proves the publish path and the role limits on a throwaway branch
+that Neon deletes within an hour even if the run dies, and runs a sealed share and the demo's $118.00
+payment through the whole API as `tend_app` in a throwaway schema.
 
 ## Running it
 
