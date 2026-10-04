@@ -1,10 +1,10 @@
 ; tend law image NJ, New Jersey
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 d2ef5124e4b5144f017ce0ae9a5fba06a98351690d9ec247676abe65d880a969
-; image sha256  26d1f43ce2fcef72325fc16bc52d6ee21b385c2cdc1080d8d2c2c2721f70e71a
+; image sha256  81f2dc0373dd309ffe787d8ef2faad8a82463eabfd9555bfaae89b181485b7cf
 ; 54 rules, 17 sources, 37 proofs, 10 ints, 296 strings
 ; item program: 650 instructions, 2271 bytes, max stack 2
-; aggregate program: 339 instructions, 1039 bytes, max stack 3, 12 loops
+; aggregate program: 340 instructions, 1041 bytes, max stack 3, 12 loops
 
 .rules
     R0    NJ-EXAM-1             exam_no_bill  -                                             N.J.S.A. 52:4B-52(k)
@@ -1279,25 +1279,26 @@
   03bc        jz       L58
   03c1        push     0
   03c6        jmp      L59
-  03cb  L58:  push     1                            ; late
-  03d0  L59:  check    deadline, P34                ; NJ-FILE-1, NJ-FILE-3
+  03cb  L58:  push     1
+  03d0  L59:  note     deadline_from_discovery
+  03d2        check    deadline, P34                ; NJ-FILE-1, NJ-FILE-3
               ; NJ-REPORT-1  N.J.S.A. 52:4B-18  "which had been reported to the police or other appropriate law..."
               ; NJ-REPORT-2  N.J.A.C. 13:75-3.1(b)  "The Office reserves the right to, upon determination that good..."
               ; NJ-REPORT-3  AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam  "Victims shall be informed that VCCO benefits are only eligible..."
-  03d4        ldx      police_report
-  03d6        push     1                            ; yes
-  03db        eq
-  03dc        jnz      L61
-  03e1        ldx      police_report
-  03e3        push     0                            ; no
-  03e8        eq
-  03e9        jnz      L60
-  03ee        push     3
-  03f3        jmp      L62
-  03f8  L60:  push     1
-  03fd        jmp      L62
-  0402  L61:  push     0                            ; satisfied
-  0407  L62:  check    reporting, P35               ; NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3
+  03d6        ldx      police_report
+  03d8        push     1                            ; yes
+  03dd        eq
+  03de        jnz      L61
+  03e3        ldx      police_report
+  03e5        push     0                            ; no
+  03ea        eq
+  03eb        jnz      L60
+  03f0        push     3
+  03f5        jmp      L62
+  03fa  L60:  push     1
+  03ff        jmp      L62
+  0404  L61:  push     0                            ; satisfied
+  0409  L62:  check    reporting, P35               ; NJ-REPORT-1, NJ-REPORT-2, NJ-REPORT-3
               ; NJ-TRANS-2  N.J.A.C. 13:75-4.8(a)1  "All non-medically related transportation costs are excluded..."
               ; NJ-FILE-2  N.J.S.A. 52:4B-18  "If the victim is under 18 years of age, the five-year limit on..."
               ; NJ-COLL-1  NJ VCCO Eligibility page, Moneys from other Sources  "The Victims of Crime Compensation Office (VCCO) is the payer of..."
@@ -1323,6 +1324,6 @@
               ; NJ-TIME-2  NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II  "the turn around time for processing a claim is 3 months of..."
               ; NJ-ACP-1  N.J.S.A. 47:4-2  "to enable interagency cooperation with the Director of the..."
               ; NJ-REC-1  N.J.A.C. 13:75-1.6(b)  "The files maintained by the Office that relate directly to the..."
-  040b        info     P36                          ; NJ-TRANS-2, NJ-FILE-2, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1
-  040e        ret
+  040d        info     P36                          ; NJ-TRANS-2, NJ-FILE-2, NJ-COLL-1, NJ-COLL-2, NJ-CONDUCT-1, NJ-CONDUCT-2, NJ-EMERG-1, NJ-EMERG-2, NJ-CRIME-1, NJ-RES-1, NJ-SUB-1, NJ-SUB-2, NJ-SUB-3, NJ-DOC-1, NJ-DOC-2, NJ-DOC-3, NJ-DOC-4, NJ-DOC-5, NJ-DOC-6, NJ-DOC-7, NJ-DOC-8, NJ-TIME-1, NJ-TIME-2, NJ-ACP-1, NJ-REC-1
+  0410        ret
 

@@ -1,10 +1,10 @@
 ; tend law image AZ, Arizona
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 60ab6e078f58b7e21045d2ede23450a41e58aea39ee91adcf109fe74d28add4d
-; image sha256  ef433632ab60b9be0894d1e5a411f01c0e3e6fc30982192cff5f7431717ba407
+; image sha256  96a91fcee1f955a39a9dce72f978e9ea0f2190818bf1abdc6b7bacce98733d01
 ; 53 rules, 13 sources, 18 proofs, 4 ints, 277 strings
 ; item program: 106 instructions, 372 bytes, max stack 2
-; aggregate program: 165 instructions, 515 bytes, max stack 2, 5 loops
+; aggregate program: 166 instructions, 517 bytes, max stack 2, 5 loops
 
 .rules
     R0    AZ-EXAM-1             exam_payment  -                                             A.R.S. 13-1414(A)
@@ -405,24 +405,25 @@
   01b0        jz       L25
   01b5        push     0
   01ba        jmp      L26
-  01bf  L25:  push     1                            ; late
-  01c4  L26:  check    deadline, P15                ; AZ-DEAD-1
+  01bf  L25:  push     1
+  01c4  L26:  note     deadline_from_discovery
+  01c6        check    deadline, P15                ; AZ-DEAD-1
               ; AZ-REP-1  A.A.C. R10-4-106(A)(4)  "The criminally injurious conduct was reported to an appropriate..."
               ; AZ-REP-2  A.A.C. R10-4-106(B)  "The Board shall extend the time limits under subsections (A)(4)..."
-  01c8        ldx      police_report
-  01ca        push     1                            ; yes
-  01cf        eq
-  01d0        jnz      L28
-  01d5        ldx      police_report
-  01d7        push     0                            ; no
-  01dc        eq
-  01dd        jnz      L27
-  01e2        push     3
-  01e7        jmp      L29
-  01ec  L27:  push     1
-  01f1        jmp      L29
-  01f6  L28:  push     0                            ; satisfied
-  01fb  L29:  check    reporting, P16               ; AZ-REP-1, AZ-REP-2
+  01ca        ldx      police_report
+  01cc        push     1                            ; yes
+  01d1        eq
+  01d2        jnz      L28
+  01d7        ldx      police_report
+  01d9        push     0                            ; no
+  01de        eq
+  01df        jnz      L27
+  01e4        push     3
+  01e9        jmp      L29
+  01ee  L27:  push     1
+  01f3        jmp      L29
+  01f8  L28:  push     0                            ; satisfied
+  01fd  L29:  check    reporting, P16               ; AZ-REP-1, AZ-REP-2
               ; AZ-EXC-1  ACJC Victim Compensation brochure  "The Program cannot consider claims for: • Attorney Fees •..."
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
               ; AZ-COND-1  A.A.C. R10-4-108(G)  "The Board shall deny or reduce a compensation award under..."
@@ -455,6 +456,6 @@
               ; AZ-DOC-8  A.A.C. R10-4-107(E)(3)  "Any documentation required by the operational unit to fully..."
               ; AZ-TIME-1  A.A.C. R10-4-108(A)  "The Board shall make a decision within 60 days after the..."
               ; AZ-ACP-1  Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169  "The Arizona Address Confidentiality Program (ACP) is a program..."
-  01ff        info     P17                          ; AZ-EXC-1, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1
-  0202        ret
+  0201        info     P17                          ; AZ-EXC-1, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1
+  0204        ret
 

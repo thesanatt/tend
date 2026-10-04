@@ -1,10 +1,10 @@
 ; tend law image ME, Maine
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561
-; image sha256  acd9c63afff42d7698f54693682057a56ccd1762e0b56c2946e3ec0b53383508
+; image sha256  559f168712e079add6ee56ef2b6080c91cbc4306ef3e0d9a32eeadd019d1c6f4
 ; 45 rules, 14 sources, 26 proofs, 2 ints, 269 strings
 ; item program: 177 instructions, 580 bytes, max stack 2
-; aggregate program: 88 instructions, 278 bytes, max stack 3, 2 loops
+; aggregate program: 89 instructions, 280 bytes, max stack 3, 2 loops
 
 .rules
     R0    ME-EXAM-1             exam_no_bill  -                                             5 M.R.S. 3360-M(3)
@@ -405,26 +405,27 @@
   00c3        jz       L10
   00c8        push     0
   00cd        jmp      L11
-  00d2  L10:  push     1                            ; late
-  00d7  L11:  check    deadline, P23                ; ME-DEAD-1, ME-DEAD-2
+  00d2  L10:  push     1
+  00d7  L11:  note     deadline_from_discovery
+  00d9        check    deadline, P23                ; ME-DEAD-1, ME-DEAD-2
               ; ME-EXAM-3  5 M.R.S. 3360-M(3)  "The victim is not required to report the offense to a law..."
               ; ME-REP-1  5 M.R.S. 3360-C(1)(A)  "A. The crime was reported to a law enforcement officer within 5..."
               ; ME-REP-2  5 M.R.S. 3360-C(1)  "an unrestricted report of sexual assault made to the Maine..."
               ; ME-REP-3  Maine AG SAFE page, Notice to sexual assault victims  "If you need help with these expenses, you may file a Victims'..."
-  00db        ldx      police_report
-  00dd        push     1                            ; yes
-  00e2        eq
-  00e3        jnz      L13
-  00e8        ldx      police_report
-  00ea        push     0                            ; no
-  00ef        eq
-  00f0        jnz      L12
-  00f5        push     3
-  00fa        jmp      L14
-  00ff  L12:  push     1
-  0104        jmp      L14
-  0109  L13:  push     0                            ; satisfied
-  010e  L14:  check    reporting, P24               ; ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3
+  00dd        ldx      police_report
+  00df        push     1                            ; yes
+  00e4        eq
+  00e5        jnz      L13
+  00ea        ldx      police_report
+  00ec        push     0                            ; no
+  00f1        eq
+  00f2        jnz      L12
+  00f7        push     3
+  00fc        jmp      L14
+  0101  L12:  push     1
+  0106        jmp      L14
+  010b  L13:  push     0                            ; satisfied
+  0110  L14:  check    reporting, P24               ; ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3
               ; ME-EXCL-2  Maine AG Program Law and History, What Is an Eligible Expense?  "No property losses are covered other than replacement costs of..."
               ; ME-DEAD-3  5 M.R.S. 3360-C(3)  "The board may waive the time requirements of subsection 1 for..."
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
@@ -445,6 +446,6 @@
               ; ME-DOC-COUNSEL  AG Mental Health Counseling Guidelines  "Your case cannot go before the Board without the completed..."
               ; ME-ACP-1  5 M.R.S. 90-B(2)  "The Address Confidentiality Program is established to protect..."
               ; ME-RECCONF-1  5 M.R.S. 3360-D(4)  "All records and information obtained by or in the possession of..."
-  0112        info     P25                          ; ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1
-  0115        ret
+  0114        info     P25                          ; ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1
+  0117        ret
 

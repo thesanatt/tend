@@ -2,7 +2,7 @@
  "ir_version": 2,
  "jurisdiction": "TX",
  "source_sha256": "e3ef520f93df5b01a54d8f81390efb457f3d54bac1a1f39620478677fc61b530",
- "ir_sha256": "0fa8f1aae7b1860360ae430c62059966e6db0992c1f8eb361eae6b8f3e69c72c",
+ "ir_sha256": "fab884d079abf18ae35f244159095a0baf1e68da0022beeacad840e78ff713bb",
  "fresh": true,
  "rules": [
   {
@@ -15,10 +15,8 @@
   },
   {
    "id": "TX-EXAM-3",
-   "kind": "expense_cap",
-   "expense": "medical",
-   "cap_cents": 2500000,
-   "per": "claim"
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "TX-EXAM-4",
