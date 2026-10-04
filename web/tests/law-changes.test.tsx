@@ -137,5 +137,35 @@ describe("/law/changes with the live service", () => {
     const view = await loadChanges({});
     expect(view.source).toBe("saved");
     expect(view.summary).not.toBeNull();
+    expect(view.liveFailed).toBe(true);
+    expect(await page({})).toContain("The live service did not answer just now.");
+  });
+
+  it("does not claim the live service failed when this site has none", async () => {
+    vi.stubEnv("TEND_API_URL", "");
+    const html = await page({});
+    expect(html).toContain("This is the comparison saved on");
+    expect(html).not.toContain("did not answer");
+  });
+
+  it("sends the Vercel protection bypass header the API project needs, only when it is set", async () => {
+    vi.stubEnv("TEND_API_URL", "http://api.test");
+    vi.stubEnv("TEND_API_BYPASS", "bypass-secret");
+    const fetchMock = vi.fn(async (_url: string, _init?: RequestInit) => new Response("down", { status: 401 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await loadChanges({});
+    const headers = fetchMock.mock.calls[0][1]?.headers as Record<string, string>;
+    expect(headers["x-vercel-protection-bypass"]).toBe("bypass-secret");
+    vi.stubEnv("TEND_API_BYPASS", "");
+    fetchMock.mockClear();
+    await loadChanges({});
+    expect(fetchMock.mock.calls[0][1]?.headers).not.toHaveProperty("x-vercel-protection-bypass");
+  });
+
+  it("does not show raw commit messages, and says the program decides", async () => {
+    vi.stubEnv("TEND_API_URL", "");
+    const html = await page({});
+    for (const v of versions) expect(html).not.toContain(v.subject);
+    expect(html).toContain("the program decides every claim");
   });
 });

@@ -442,7 +442,6 @@ export function VersionList({
                 ? (versionNote(notes[v.name]) ?? "Compare it with the version before to see what changed.")
                 : "The first version: every program's rules, with the law engine's reading of each."}
             </p>
-            <p className="meta">Change note: {v.subject}</p>
             {prev ? (
               <p>
                 <Link href={compareHref(prev.name, v.name, st)}>Compare with the version before</Link>

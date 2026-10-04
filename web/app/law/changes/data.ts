@@ -106,6 +106,8 @@ const saved = SNAPSHOT as unknown as Snapshot;
 
 export interface ChangesView {
   source: "live" | "saved";
+  // Saved only: true when the live service is set up but did not answer, false when this site has no live service.
+  liveFailed: boolean;
   savedAt: string | null;
   // When the API compared the two branches (a comparison can be kept for a while, since versions never change).
   comparedAt: string | null;
@@ -121,12 +123,23 @@ export interface ChangesView {
   notes: Record<string, AllStatesDiff>;
 }
 
+export function apiConfigured(): boolean {
+  return Boolean(process.env.TEND_API_URL?.trim());
+}
+
+// On Vercel the API project is behind Vercel Authentication; the web project's /api proxy sends this same bypass
+// header (web/vercel.json, docs/DEPLOY.md), and so must this server-side read, or every answer is a 401.
+export function apiHeaders(): Record<string, string> {
+  const bypass = process.env.TEND_API_BYPASS?.trim();
+  return { accept: "application/json", ...(bypass ? { "x-vercel-protection-bypass": bypass } : {}) };
+}
+
 async function api<T>(path: string): Promise<T | null> {
-  const base = process.env.TEND_API_URL?.replace(/\/$/, "");
+  const base = process.env.TEND_API_URL?.trim().replace(/\/$/, "");
   if (!base) return null;
   try {
     const res = await fetch(`${base}/api${path}`, {
-      headers: { accept: "application/json" },
+      headers: apiHeaders(),
       signal: AbortSignal.timeout(9000),
       // A published version never changes, so a comparison can be kept a while; the list of versions is checked again.
       next: { revalidate: path.startsWith("/law/versions") ? 60 : 3600 },
@@ -185,6 +198,7 @@ export async function loadChanges(q: { st?: string; from?: string; to?: string }
     if (diff) {
       return {
         source: "live",
+        liveFailed: false,
         savedAt: null,
         comparedAt: diff.compared_at ?? null,
         versions: listing.versions,
@@ -203,6 +217,7 @@ export async function loadChanges(q: { st?: string; from?: string; to?: string }
   const state = q.st && pair ? (pair.states[q.st] ?? unchangedState(from, to, q.st)) : null;
   return {
     source: "saved",
+    liveFailed: apiConfigured(),
     savedAt: saved.saved_at,
     comparedAt: null,
     versions: saved.versions,

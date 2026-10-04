@@ -66,14 +66,24 @@ newest corpus commit as a new child branch.
 - A published version never changes, so the API keeps what it read in memory.
 - `web/app/law/changes` is the public page. With `TEND_API_URL` set it asks the API and says when the
   branches were compared; otherwise it uses `snapshot.json`, written from the same branches by
-  `law_versions.py snapshot`, and says it is a saved copy.
+  `law_versions.py snapshot`, and says it is a saved copy. On Vercel the API project sits behind Vercel
+  Authentication, so the page sends `x-vercel-protection-bypass: $TEND_API_BYPASS` with its reads, the
+  same header the web project's `/api` proxy sends. Without it every live read is a 401.
+- When the database does not answer, the law endpoints return a plain 503, and the log names only the
+  error class.
 
 ### Claims and packets name their version
 
 `POST /api/claim` returns `law_version` (and the `X-Tend-Law-Version` header): the newest published
 version whose files for that state match, by sha256, the files the server evaluated with, or `null`
 when the rules are not a published version. `POST /api/packet` prints the same in a "Which law this
-used" paragraph, with the rules file and law image hashes.
+used" paragraph, with the rules file and law image hashes (the law image only when there is one; the
+reference engine without a compiled image labels its output with the rules file's hash).
+
+Claims did not need the database before versions existed, so the lookup never holds one up: a claim
+waits at most 2 s for the version index, a slower read keeps going in the background and serves the
+next claim, and after a failed read the lookup is skipped for 30 s. In those cases `law_version` is
+`null` and the packet names the rules by their hashes alone.
 
 ## Search over the law's own words
 

@@ -42,7 +42,8 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
         <p className="lead">
           Tend keeps every version of the verified rules. A version is a saved copy of all {view.to.jurisdictions}{" "}
           programs&apos; rules at one moment, kept as its own database branch, so it cannot change once it is published.
-          Compare two versions to see what changed, with the exact quotes.
+          Compare two versions to see what changed, with the exact quotes. Tend explains what each state&apos;s rules
+          say. It is not legal advice, and the program decides every claim.
         </p>
       </header>
 
@@ -87,7 +88,7 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
       <p className={styles.where}>
         {view.source === "live"
           ? `Compared from the two versions' database branches${view.comparedAt ? ` at ${when(view.comparedAt)}` : ""}: ${view.from.name} (${when(view.from.committed_at)}) and ${view.to.name} (${when(view.to.committed_at)}).`
-          : `This is the comparison saved on ${when(view.savedAt ?? "")}, read from the same branches. The live service did not answer just now.`}
+          : `This is the comparison saved on ${when(view.savedAt ?? "")}, read from the same branches.${view.liveFailed ? " The live service did not answer just now." : ""}`}
       </p>
 
       {view.unavailable ? (
