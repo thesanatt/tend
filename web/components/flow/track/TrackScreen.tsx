@@ -146,7 +146,10 @@ export default function TrackScreen() {
             ? deadline.late
               ? t.check.deadlineLate(f.date(deadline.date))
               : t.check.deadlineDate(f.date(deadline.date))
-            : t.track.deadlineAsk}
+            : summary
+              ? t.track.deadlineAsk
+              : // The law and the claim are still loading; "ask the program" would be wrong for a moment.
+                t.engine.computing}
         </strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
         {/* The same note as Check: a deadline the law counts from the report may be later than this. */}
