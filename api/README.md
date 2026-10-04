@@ -88,7 +88,7 @@ Bank relay (stateless, not logged)
   (`hidden_count`), never shown. Fictional personas only (403 otherwise).
 - `POST /bank/{persona}/payout` `{st, amount_cents}`, demo only: a Nessie deposit from the state's program into the
   persona's checking account for the amount the device computed as claimable, in whole dollars, read back. The
-  same request again returns the same deposit; another amount gets 409 until `DELETE /bank/{persona}/payout`.
+  same request again returns the same deposit; another amount replaces it (`replaced` lists the old ids); `DELETE /bank/{persona}/payout` removes it.
 
 Payments
 - `POST /actions/propose` `{from, payee, amount_cents, kind?: "pay_bill", bill_id?, item_ids?, dry_run?}` returns
@@ -98,7 +98,7 @@ Payments
   `payable_cents`, which already subtracts any credit the bill prints (a payment made earlier); some of the lines
   take their own amounts. Live writes must be whole dollars, from a persona account.
   A plain payment of exactly what a demo bill has left to pay, to that bill's payee, from its account, is tied to the
-  bill the same way (`kind: "pay_bill"` in the answer); exactly the whole bill, held line and all, is refused (409).
+  bill the same way (`kind: "pay_bill"` in the answer); exactly the whole bill, held line and all, is refused (409), and so is any amount that adds up to the held line, alone or with other lines (after the rest is paid, that is what the bill still shows).
   Lines Tend already paid are refused (409), here and again at confirm.
 - `POST /actions/confirm` `{action_id, confirm_code}`: Nessie withdrawal described as `Payment to <payee> [tend:<action id>]`,
   plus `[bill:<bill id>#<lines>]` for a bill, read back and compared, then logged. For a bill, the bill is then updated

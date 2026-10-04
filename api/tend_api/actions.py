@@ -215,6 +215,14 @@ class ActionService:
                     f"so Tend will not pay it. The rest of the bill is {format_cents(facts.payable_cents)}.",
                     409,
                 )
+            if req.amount_cents in facts.amounts_with_held():
+                # The held line by itself, or with other lines: after the rest is paid, what Nessie's bill still
+                # shows is exactly this amount, and a plain payment must not be a way around the hold.
+                raise ActionError(
+                    f"This amount would pay the {facts.hold_note() or 'held line'} on this bill. The law says you should not "
+                    f"be billed for it, so Tend will not pay it. Ask billing to remove it.",
+                    409,
+                )
         return None, []
 
     def _refuse_if_paid(self, bank: Bank, account_id: str, facts: BillFacts, item_ids: list[str]) -> None:
@@ -494,12 +502,16 @@ class ActionService:
         stored = action.get("readback") or {}
         readback = {"ok": stored.get("ok") is True, "checks": stored.get("checks") or {}, "status": stored.get("status")}
         rows = [r for r in self.repo.audit_rows(action["action_id"]) if r["event"] in ("executed", "unverified")]
+        try:
+            facts = self._facts(action)  # so the answer again cites the held line's statute, as the first did
+        except Exception:
+            facts = None
         return self._result(
             action,
             action.get("withdrawal_id"),
             readback,
             stored.get("bill"),
-            None,
+            facts,
             rows[-1] if rows else None,
             action.get("finished_at"),
             replayed=True,

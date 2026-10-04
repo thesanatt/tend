@@ -5,7 +5,7 @@ computed as claimable. Tend writes one deposit to Capital One's Nessie mock bank
 program (named in the description, because a Nessie deposit has no payer field), into the persona's
 checking account, and reads it back. It shows a future event and promises nothing: the program decides
 what it pays, and when. Only fictional demo personas; whole dollars only, because Nessie truncates
-anything else; one demo payment per account until it is undone or the demo is reset. Nothing about it is
+anything else; one demo payment per account: the same request again is the same deposit, and a new amount replaces it. Nothing about it is
 stored on Tend's server.
 """
 
@@ -105,21 +105,28 @@ class Payouts:
             existing = bank.tagged_deposits(account.id, MARKER)
         except BankError as exc:
             raise PayoutError(f"The bank did not answer, so nothing was deposited. ({exc})", 502) from exc
-        if existing:
-            same = [d for d in existing if tag in str(d.get("description") or "") and record_cents(d) == cents]
-            if not same:
-                other = existing[0]
-                raise PayoutError(
-                    f"A demo payment of {format_cents(record_cents(other) or 0)} is already in this account "
-                    f"(deposit {other.get('id') or other.get('_id')}). Undo it first.",
-                    409,
-                )
+        same = [d for d in existing if tag in str(d.get("description") or "") and record_cents(d) == cents]
+        replaced: list[str] = []
+        if same:
             deposit_id, replayed = str(same[0].get("id") or same[0].get("_id")), True
         else:
+            # One demo payment per account. An earlier one for another amount (a device that was cleared without
+            # its undo, or a claim that changed since) is replaced, so the demo never gets stuck behind it.
+            try:
+                for old in existing:
+                    old_id = str(old.get("id") or old.get("_id"))
+                    bank.delete_deposit(old_id)
+                    replaced.append(old_id)
+            except BankError as exc:
+                raise PayoutError(f"The bank did not remove the earlier demo deposit, so nothing new was deposited. ({exc})", 502) from exc
             deposit_id, replayed = self._deposit(bank, account.id, cents, payout_description(program_name(law), req.st), tag), False
         readback = self._readback(bank, account.id, deposit_id, cents, tag)
         record = readback.pop("record", {})
-        return self._result(snapshot, law, req, account, bank, deposit_id, cents, readback, record, replayed)
+        out = self._result(snapshot, law, req, account, bank, deposit_id, cents, readback, record, replayed)
+        if replaced:
+            out["replaced"] = replaced
+            out["message"] = out["message"].replace(" It is fictional.", " It replaces an earlier demo deposit. It is fictional.", 1)
+        return out
 
     def _deposit(self, bank: Bank, account_id: str, cents: int, description: str, tag: str) -> str:
         try:

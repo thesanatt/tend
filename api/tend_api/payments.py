@@ -95,6 +95,17 @@ class BillFacts:
     def payable_item_ids(self) -> list[str]:
         return [ln.item_id for ln in self.lines if ln.status != "held"]
 
+    def amounts_with_held(self, max_lines: int = 16) -> set[int]:
+        """Every amount a set of this bill's lines adds up to when at least one of them is held."""
+        if not self.held:
+            return set()
+        if len(self.lines) > max_lines:
+            return {ln.amount_cents for ln in self.held} | {self.held_cents, self.total_cents}
+        sums: set[tuple[int, bool]] = {(0, False)}
+        for ln in self.lines:
+            sums |= {(s + ln.amount_cents, has or ln.status == "held") for s, has in sums}
+        return {s for s, has in sums if has}
+
     def line_numbers(self, item_ids: Iterable[str]) -> tuple[int, ...]:
         wanted = set(item_ids)
         return tuple(sorted(ln.line_no for ln in self.lines if ln.item_id in wanted and isinstance(ln.line_no, int)))

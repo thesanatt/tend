@@ -95,6 +95,22 @@ def test_paying_the_whole_bill_is_refused_because_of_the_held_line(client):
     assert HOLD in r.json()["detail"] and "The rest of the bill is $118.00." in r.json()["detail"]
 
 
+@pytest.mark.parametrize("amount", [32500, 40000, 36800])
+def test_a_plain_payment_of_the_held_line_is_refused(client, services, amount):
+    # The held exam line by itself, or with another line: never paid, whether or not the rest was paid first.
+    r = client.post("/api/actions/propose", json={**PLAIN, "amount_cents": amount})
+    assert r.status_code == 409, r.text
+    assert f"would pay the {HOLD} on this bill" in r.json()["detail"]
+    assert bill_withdrawals(services) == []
+
+
+def test_after_the_rest_is_paid_what_the_bill_still_shows_cannot_be_paid(client, services):
+    assert confirm(client, propose(client)).json()["bill"]["amount_cents"] == 32500
+    r = client.post("/api/actions/propose", json={**PLAIN, "amount_cents": 32500})
+    assert r.status_code == 409 and HOLD in r.json()["detail"]
+    assert len(bill_withdrawals(services)) == 1
+
+
 def test_a_bills_lines_are_never_paid_twice(client, services):
     first = confirm(client, propose(client)).json()
     assert first["status"] == "done"
@@ -161,6 +177,7 @@ def test_a_confirm_sent_again_gets_the_first_result(client, services):
     assert body["replayed"] is True and body["status"] == "done"
     assert (body["withdrawal_id"], body["audit_id"], body["bill"]) == (first["withdrawal_id"], first["audit_id"], first["bill"])
     assert body["message"].startswith("Paid $118.00 earlier. Nothing moved this time.")
+    assert f"now shows $325.00 left: the {HOLD}. Tend will not pay it." in body["message"]
     assert len(bill_withdrawals(services)) == 1
     assert [r["event"] for r in client.get("/api/audit").json()["rows"]] == ["confirmed", "executed"]
     assert confirm(client, p, code=wrong(p["confirm_code"])).status_code == 409

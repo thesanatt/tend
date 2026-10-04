@@ -76,12 +76,19 @@ def test_the_same_demo_payment_again_is_the_same_deposit(client):
     assert again["deposit_id"] == first["deposit_id"] and again["replayed"] is True
 
 
-def test_a_different_amount_waits_for_an_undo(client):
+def test_a_different_amount_replaces_the_earlier_demo_deposit(client, services):
+    # A device cleared without its undo must not leave the demo stuck behind the old deposit.
     first = client.post(URL, json={"st": "MI", "amount_cents": 400800}).json()
     other = client.post(URL, json={"st": "MI", "amount_cents": 120000})
-    assert other.status_code == 409 and first["deposit_id"] in other.json()["detail"]
+    assert other.status_code == 200, other.text
+    body = other.json()
+    assert body["replaced"] == [first["deposit_id"]] and body["deposit_id"] != first["deposit_id"]
+    assert body["read_back_matches"] is True and "It replaces an earlier demo deposit." in body["message"]
+    bank = services.actions.banks["dry_run"]
+    [left] = bank.tagged_deposits(body["account"]["id"], "[tend:payout")
+    assert (left["id"], left["amount_cents"]) == (body["deposit_id"], 120000)
     undone = client.delete(URL).json()
-    assert undone["deleted"] == [first["deposit_id"]] and undone["message"] == "Removed the demo deposit."
+    assert undone["deleted"] == [body["deposit_id"]] and undone["message"] == "Removed the demo deposit."
     assert client.post(URL, json={"st": "MI", "amount_cents": 120000}).status_code == 200
     assert client.delete(URL).json()["deleted"] and client.delete(URL).json() == {
         "deleted": [],
