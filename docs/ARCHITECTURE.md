@@ -1,6 +1,6 @@
 # Tend: architecture
 
-How the parts fit, where each one runs, and what crosses each boundary. docs/SPEC.md is the
+How the parts fit, where each one runs, and what crosses each boundary. docs/SPEC.md (v1.3) is the
 contract, docs/PRIVACY.md is the privacy contract, and engine/FORMAT.md is the normative engine
 spec. This page points into them instead of restating them.
 
@@ -34,6 +34,8 @@ spec. This page points into them instead of restating them.
  a packet they share             -> sealed in the browser, POST /api/shares -->|  ciphertext + expiry
  cloud AI, only after a yes      -> POST /api/ai/classify, /api/ai/bill  ---->|  Gemini, nothing stored
 ```
+
+Once loaded, the left side keeps working with the network off (see "Offline mode" below).
 
 | Folder | What it is | Runs where |
 |---|---|---|
@@ -74,7 +76,13 @@ payment (amount, account, payee), a sealed share (ciphertext), cloud AI (only af
 API returns 403 without `consent: true`), and the demo bank relay (holds the Nessie key, keeps no
 log lines for those paths). The privacy line under the header
 (`web/components/flow/PrivacyLine.tsx`) says "On this device. Nothing has left it." until one of
-these happens.
+these happens. It is built from `web/lib/netlog.ts`, which watches every `fetch` the page makes and
+reports each request that carries something off the device, including anything the flow did not
+expect, so the line cannot miss a send.
+
+Cloud AI has its own consent screen (`web/components/flow/CloudConsent.tsx`). It names what would
+leave (for sorting: merchant, category, and description, never amounts or dates; for a bill: the
+file), starts at no, and saying no keeps the built-in rules working.
 
 **There is no field for what happened.** No table, request model, or form field takes a
 narrative, a location, or an accused person's name. The state form's crime-detail, offender,
@@ -113,8 +121,12 @@ researcher writes rules/jurisdictions/ST.json (id, category, params, summary, qu
 4. **Normalize.** `rules/tools/normalize.py` turns 51 different legal styles into one IR: caps per
    claim or per unit, deadlines in days with their anchor, reporting rules with alternatives,
    excluded items mapped to tags. Rules for someone other than the survivor, or with a unit it
-   cannot read, go to `skipped` with the reason. The corpus today: 1,331 decision rules, 1,187
-   information rules, 60 set aside. The IR records the sha256 of the verified file it came from.
+   cannot read, go to `skipped` with the reason. Deadlines keep their anchor: 12 jurisdictions
+   (AZ, CA, IA, MA, MD, ME, MN, MO, NJ, NY, PA, SC) have one that can count from discovery. A cap
+   whose own quote describes an expedited approval, an emergency payment, or an initial award
+   becomes information, because it is not the program's limit on the survivor's cost. The corpus
+   today: 1,327 decision rules, 1,189 information rules, 62 set aside. The IR records the sha256 of
+   the verified file it came from.
 
 Where the pipeline cannot decide, it says so instead of guessing. A rule whose exact effect the
 engine cannot apply is shown, with its quote, and not counted.
@@ -125,11 +137,11 @@ engine cannot apply is shown, with its quote, and not counted.
 verified file for quotes, pinpoints, and sources. It refuses stale IR (the IR's `source_sha256` no
 longer matches the verified file). The same inputs always give the same bytes: the Michigan image
 built on Linux with GCC 13 on Oct 4 had the same sha256 as the one shipped from macOS
-(`54f9809e...`, 51,812 bytes).
+(51,812 bytes; the sha256 is in `web/public/engine/laws/index.json`).
 
 The image (engine/FORMAT.md section 1):
 
-- **Header**, 64 bytes: magic `TLAW`, format 1.2, header size, total size, jurisdiction code,
+- **Header**, 64 bytes: magic `TLAW`, format 1.3, header size, total size, jurisdiction code,
   sha256 of the verified JSON, section count, flags.
 - **Sections**, 8-byte aligned: `STRS` (string pool), `INTS` (money in cents), `SRCS` (sources
   with their sha256), `RULE` (36-byte rule records in proof order), `PROF` (proof lists), `ITEM`
@@ -166,6 +178,18 @@ uses a `switch`.
 
 Money is integer cents end to end. Adding a jurisdiction is new data, never new code.
 
+**SPEC v1.3** (tend 1.3.0, tlaw 1.3) changed three things the VM and its callers do:
+
+- A deadline that can count from discovery is dated from the incident (the earliest it could
+  start) and the deadline check gets the flag `deadline_from_discovery`, after
+  `deadline_from_report` when both apply. Every reader shows a flagged `late` as "The usual
+  deadline was ..." with a note that it may count from a later date, never as plainly late.
+- `as_of_date` is today in the state's own time zone, the westernmost where a state spans several
+  (`api/tend_api/clock.py` and `web/lib/stateTime.ts` share one table), so a late night never
+  counts a deadline a day early.
+- The loader reads only tlaw 1.3 images, so an older image that cannot raise the new flag is
+  refused rather than misread.
+
 The C ABI (`engine/include/tend/tend.h`) is the same natively and in WASM: `tend_eval_json`,
 `tend_disasm`, `tend_inspect_json`, `tend_version`, `tend_free`. It keeps no global state, so it
 is safe from several threads.
@@ -173,7 +197,7 @@ is safe from several threads.
 ## The WASM build
 
 `make -C engine wasm` (`engine/scripts/build_wasm.sh`, Emscripten, `-O3 -fno-exceptions`) writes
-`web/public/engine/tend.js`, `tend.wasm` (183,398 bytes on main), the wrapper `tend_engine.mjs`,
+`web/public/engine/tend.js`, `tend.wasm` (183,762 bytes), the wrapper `tend_engine.mjs`,
 all 51 `laws/ST.tlaw`, and `laws/index.json` with each image's sha256. These are committed, so the
 web app runs without Emscripten installed.
 
@@ -184,6 +208,21 @@ checked.
 
 `make -C engine test` fails when any shipped image is not byte-identical to a fresh `tendc` build,
 so a rules change cannot ship with a stale image.
+
+## Offline mode
+
+A production build registers a service worker, `web/public/sw.js`, from
+`web/components/flow/offline.ts` on the first visit. It saves public files only: the flow's pages
+and their page data, `tend.js` and `tend.wasm`, every state's compiled law image, verified rules
+and law summary, and Michigan's form. It never caches anyone's answers and never touches `/api/*`.
+When everything is saved, `<html data-offline="ready">` is set and the footer says "Saved on this
+device, so the steps work without internet."
+
+With the network off, Check, reading a statement or a bill, the claim, the packet and letters, and
+the vault still work, and so does a reload. A payment, a share link, or cloud AI needs the
+network: offline it says so, sends nothing, and offers to try again. `VERSION` in `sw.js` must
+change whenever the engine or the law images change, so a phone never mixes an engine with images
+from another release. `scripts/dev.sh --prod` is the local mode that registers the worker.
 
 ## The reference engine and differential testing
 
@@ -250,7 +289,7 @@ about law or money; they call the API. Addresses are in agent/README.md.
 
 ## Deployment
 
-docs/DEPLOY.md is the runbook. Two Vercel projects serve one origin, `youreowed.tech`:
+docs/DEPLOY.md is the runbook. Two Vercel projects serve one origin, https://youreowed.tech (live):
 
 - `tend-web` (Next.js) serves the pages, the WASM engine, and the 51 law images, and proxies
   `/api/*` to the API with a bypass header (`web/vercel.json`). The CSP allows no other origin.
@@ -258,4 +297,9 @@ docs/DEPLOY.md is the runbook. Two Vercel projects serve one origin, `youreowed.
   Authentication. On Linux it has no `libtend`, so it answers `/api/claim` with the reference
   engine (`X-Tend-Engine: reference`) and the shipped law images' hashes.
 
-Production deploys are staged; `vercel promote` is the approval step.
+Production deploys are staged; `vercel promote` is the approval step. In production, confirmed
+payments are written to Nessie (`TEND_BANK=nessie`), and Neon Postgres holds the corpus, shares,
+and the audit log.
+
+For local work, `scripts/dev.sh` starts the API (SQLite, dry-run bank), the web app, and the agent
+in one command; `--prod` serves the production build with the offline worker.
