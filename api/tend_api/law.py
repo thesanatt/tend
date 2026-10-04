@@ -19,7 +19,8 @@ import threading
 import time
 from collections import Counter, OrderedDict
 from collections.abc import Callable
-from typing import Any
+from concurrent.futures import ThreadPoolExecutor
+from typing import Any, TypeVar
 
 from .db import Repository, corpus_sha256
 from .errors import TendError
@@ -27,6 +28,8 @@ from .money import canonical_json
 
 BranchOpener = Callable[[dict[str, Any]], Repository]
 FileHashes = Callable[[str], dict[str, str | None] | None]
+T = TypeVar("T")
+U = TypeVar("U")
 
 # What changed about a rule, in three plain groups, plus its saved source copy.
 KINDS: dict[str, tuple[str, ...]] = {
@@ -324,6 +327,13 @@ class LawService:
                 self._cache.popitem(last=False)
         return value
 
+    @staticmethod
+    def _both(first: Callable[[], T], second: Callable[[], U]) -> tuple[T, U]:
+        """Runs two branch reads at once. Each waits on its own compute (which may be waking up), so this halves the time."""
+        with ThreadPoolExecutor(max_workers=2, thread_name_prefix="law-branch") as pool:
+            a, b = pool.submit(first), pool.submit(second)
+            return a.result(), b.result()
+
     def _state_row(self, version: dict[str, Any], st: str) -> dict[str, Any] | None:
         key = (version["name"], st)
         with self._lock:
@@ -376,10 +386,19 @@ class LawService:
                 result = {**diff_state([], [], [], []), "state": []}
                 read = "index"
             else:
-                rules_a, sources_a = self._read(frm, st) if a else ([], [])
-                rules_b, sources_b = self._read(to, st) if b else ([], [])
+
+                def side(
+                    version: dict[str, Any], present: bool
+                ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any] | None]:
+                    if not present:
+                        return [], [], None
+                    rules, sources = self._read(version, st)
+                    return rules, sources, self._state_row(version, st)
+
+                # The two branches are separate computes: read them at the same time.
+                (rules_a, sources_a, row_a), (rules_b, sources_b, row_b) = self._both(lambda: side(frm, bool(a)), lambda: side(to, bool(b)))
                 result = diff_state(rules_a, rules_b, sources_a, sources_b)
-                result["state"] = diff_jurisdiction(self._state_row(frm, st) if a else None, self._state_row(to, st) if b else None)
+                result["state"] = diff_jurisdiction(row_a, row_b)
                 read = "branches"
             files = {
                 side: ({"verified_sha256": f["verified_sha256"], "ir_sha256": f["ir_sha256"], "rule_count": f["rule_count"]} if f else None)
@@ -402,8 +421,7 @@ class LawService:
         moved = [s for s in states if not same(s)]
         by_state: dict[str, tuple[list[dict[str, Any]], ...]] = {}
         if moved:
-            rules_a, sources_a = self._read(frm, None)
-            rules_b, sources_b = self._read(to, None)
+            (rules_a, sources_a), (rules_b, sources_b) = self._both(lambda: self._read(frm, None), lambda: self._read(to, None))
             for s in moved:
                 by_state[s] = (
                     [r for r in rules_a if r["st"] == s],
