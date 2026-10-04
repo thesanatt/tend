@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
+import copy
 import time
 from collections.abc import Callable
 from typing import Any
@@ -33,7 +34,7 @@ class MemorySessions:
         if hit is None or self.now() - hit[0] > self.ttl_s:
             self._data.pop(key, None)
             return {}
-        return dict(hit[1])
+        return copy.deepcopy(hit[1])
 
     def put(self, key: str, state: dict[str, Any]) -> None:
         if state:
@@ -71,7 +72,7 @@ class StorageSessions:
         if not isinstance(raw, dict) or self.now() - float(raw.get("at") or 0) > self.ttl_s:
             return {}
         state = raw.get("state")
-        return dict(state) if isinstance(state, dict) else {}
+        return copy.deepcopy(state) if isinstance(state, dict) else {}
 
     def put(self, key: str, state: dict[str, Any]) -> None:
         index = self._index()

@@ -58,7 +58,7 @@ from .states import state_name
 CONFIRM_OUTCOMES = {403: "wrong_code", 410: "expired", 423: "locked", 404: "not_found"}
 STATUS_OUTCOMES = {
     "proposed": "waiting",
-    "executing": "waiting",
+    "executing": "in_progress",
     "done": "done",
     "unverified": "unverified",
     "failed": "bank_error",
@@ -182,6 +182,8 @@ class BankDesk:
                 return PayResultReply(request_id=req.request_id, outcome=CONFIRM_OUTCOMES[exc.status], text=exc.message, status=exc.status)
             if exc.status == 502:
                 return PayResultReply(request_id=req.request_id, outcome="bank_error", text=exc.message, status=502)
+            if exc.status == 0:  # the code may have reached the API before the answer was lost: never call it failed
+                return PayResultReply(request_id=req.request_id, outcome="unknown", text=exc.message, status=0)
             raise
         book = await self._book(req.demo.st)
         return PayResultReply(
@@ -235,7 +237,7 @@ class BankDesk:
             )
         packet = {
             "st": demo.st,
-            "created_at": self._now().isoformat().replace("+00:00", "Z"),
+            "created_at": self._now().replace(microsecond=0).isoformat().replace("+00:00", "Z"),
             "input": full,
             "output": claim,
             "notes": notes,

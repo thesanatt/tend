@@ -85,6 +85,11 @@ CONFIRM_UNSURE = (
     "I sent your code, but the Bank and Packet agent didn't answer in time, so I can't tell yet whether the payment went "
     "through. The code works once, so nothing can be paid twice. Say **check the payment** in a minute."
 )
+SERVER_UNSURE = (
+    "Your code went to Tend's server, but its answer didn't come back, so I can't tell yet whether the payment went "
+    "through. The code works once, so nothing can be paid twice. Say **check the payment** in a minute."
+)
+IN_PROGRESS = "The payment is still going through. Say **check the payment** in a minute."
 QUESTION_START = re.compile(r"^\s*(?:can|could|does|do|is|are|will|would|what|how|who|which|when|where|if)\b", re.I)
 COVERAGE_Q = re.compile(r"\b(?:which|what) (?:states|jurisdictions)\b|\ball (?:the )?states\b|\b50 states\b", re.I)
 _BILL_ONLY = re.compile(r"\b(?:bill|balance|rest|it|now|payment)\b", re.I)
@@ -446,6 +451,8 @@ class _Talk:
         demo = self.s["demo"]
         if demo.get("stage") == "scanned":
             return [Reply("Count the costs first: say **yes** to count them for the demo claim.")]
+        if demo.get("stage") == "skipped":
+            return [Reply("The demo costs were not counted. Say **demo** to start again, then **yes** to count them.")]
         if demo.get("paid_cents"):
             return [Reply("The demo bill is already paid. Say **share with an advocate** for the locked link, or **demo** to start over.")]
         reply = await self.bank(PayProposeRequest(request_id=self.nav.new_id(), demo=self.demo_ref()), allow=("nothing_to_pay",))
@@ -490,11 +497,10 @@ class _Talk:
             return [Reply("There is no payment to check in this chat.")]
         action_id = pending["action_id"]
         reply = await self.bank(PayStatusRequest(request_id=self.nav.new_id(), action_id=action_id, demo=self.demo_ref()))
-        if reply.outcome == "waiting" and pending and not pending.get("unsure"):
-            return [Reply(type_code_hint(pending))]
         if reply.outcome == "waiting":
-            self.s.pop("pending", None)
-            return [Reply("The bank has not recorded that payment, so nothing moved. Say **pay the bill** for a new code.")]
+            # The API never took the code (it was lost on the way), so nothing moved and the code still works.
+            pending["unsure"] = False
+            return [Reply("Nothing has moved yet. " + type_code_hint(pending))]
         return self.after_payment(reply)
 
     def after_payment(self, reply: Any) -> list[Reply]:
@@ -508,6 +514,10 @@ class _Talk:
             return [Reply(text, card=card, card_id=str(uuid.uuid4()))]
         if reply.outcome == "wrong_code":
             return [Reply("That code does not match. Nothing moved. Check the code on the review card and type it again.")]
+        if reply.outcome in ("unknown", "in_progress"):
+            if self.s.get("pending"):
+                self.s["pending"]["unsure"] = True
+            return [Reply(SERVER_UNSURE if reply.outcome == "unknown" else IN_PROGRESS)]
         self.s.pop("pending", None)
         lead = {
             "expired": "That code expired. Nothing moved. Say **pay the bill** for a new code.",

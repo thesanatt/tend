@@ -41,6 +41,7 @@ class FakeTend:
     shares: dict[str, dict[str, Any]] = field(default_factory=dict)
     fail_once: set[str] = field(default_factory=set)  # paths that answer 503 the next time they are called
     fail_always: dict[str, int] = field(default_factory=dict)  # path -> status, every time
+    lose_answer: set[str] = field(default_factory=set)  # paths whose next answer is lost after the work is done
 
     # ------------------------------------------------------------ helpers for tests
 
@@ -72,6 +73,9 @@ class FakeTend:
             status, data = self.route(request.method, path, body)
         except KeyError as exc:  # a missing field in a request body is the agent's bug
             status, data = 422, {"detail": f"missing {exc}"}
+        if path in self.lose_answer:  # the API did the work, but its answer never came back
+            self.lose_answer.discard(path)
+            raise httpx.ReadTimeout("the answer never came back", request=request)
         return httpx.Response(status, json=data)
 
     def route(self, method: str, path: str, body: Any) -> tuple[int, Any]:

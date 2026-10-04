@@ -296,6 +296,29 @@ def test_continue_during_a_payment_only_reminds(chat, fake):
     assert chat.say("continue").intent == "pay_remind" and fake.bodies("/api/actions/confirm") == []
 
 
+def test_a_confirm_whose_answer_is_lost_is_never_called_failed(chat, fake):
+    to_payment(chat)
+    fake.lose_answer.add("/api/actions/confirm")  # the API takes the code and pays, then its answer is lost
+    turn = chat.say(CODE)
+    assert "can't tell yet whether the payment went through" in text_of(turn) and "no money moved" not in text_of(turn).lower()
+    assert chat.state["pending"]["unsure"] is True
+    turn = chat.say("check the payment")
+    assert turn.intent == "pay_status" and "**Done.** Paid $118.00" in text_of(turn) and "pending" not in chat.state
+    assert len(fake.bodies("/api/actions/confirm")) == 1
+
+
+def test_status_while_the_bank_is_still_working_and_after_a_lost_code(chat, fake):
+    to_payment(chat)
+    action_id = chat.state["pending"]["action_id"]
+    chat.state["pending"]["unsure"] = True
+    fake.actions[action_id]["status"] = "executing"
+    assert "still going through" in text_of(chat.say("check the payment")) and chat.state["pending"]["unsure"] is True
+    fake.actions[action_id]["status"] = "proposed"  # the code never reached the API
+    turn = chat.say("did it go through?")
+    assert "Nothing has moved yet" in text_of(turn) and chat.state["pending"]["unsure"] is False
+    assert chat.say(CODE).intent == "pay_confirm" and chat.state["demo"]["paid_cents"] == 11800
+
+
 def test_skip_counting(chat, fake):
     chat.say("demo")
     turn = chat.say("not now")
