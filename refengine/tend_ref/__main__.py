@@ -22,7 +22,7 @@ from .law import LawError, load_law
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m tend_ref",
-                                     description="Tend law engine, Python reference implementation (SPEC v1.2).")
+                                     description="Tend law engine, Python reference implementation (SPEC v1.3).")
     sub = parser.add_subparsers(dest="command", required=True)
 
     def law_args(p):

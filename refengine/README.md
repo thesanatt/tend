@@ -1,6 +1,6 @@
 # refengine
 
-A plain Python implementation of the Tend law engine (docs/SPEC.md v1.2), written to be read and
+A plain Python implementation of the Tend law engine (docs/SPEC.md v1.3), written to be read and
 checked by eye. It reads the same law IR as the C++ compiler (`rules/ir/ST.json`, IR version 2)
 and must produce the same result document for the same claim, byte for byte, trace included.
 `difftest.py` checks that on random claims. The API falls back to this package when the native
