@@ -142,6 +142,13 @@ UNIT_WORDS = {
 }
 
 
+# The sentence after a deadline the engines flag deadline_from_discovery (docs/SPEC.md v1.3): it is dated from the
+# incident, the earliest discovery can be, so the true date may be later and a late may not be late. The web's words.
+DISCOVERY_NOTE = (
+    "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
+)
+
+
 def money(cents: int) -> str:
     """$1,234.56 from integer cents."""
     if not isinstance(cents, int) or isinstance(cents, bool):
@@ -855,6 +862,19 @@ def report_note(book: RuleBook | None) -> str:
     return f"{lead} In one case {book.name}'s law counts from the police report instead ({cite_link(cite(rule, book.sources))}): {clean(rule.get('summary'))}"
 
 
+def deadline_notes(flags: Any, book: RuleBook | None) -> str:
+    """The sentences after a deadline for its flags, each after a space, in flag order; "" when there are none. A
+    deadline counted from the report or from discovery is dated from the incident (docs/SPEC.md v1.3), so a late with
+    either flag is never shown as plainly late."""
+    have = {str(f) for f in flags or []}
+    out = ""
+    if "deadline_from_report" in have:
+        out += " " + report_note(book)
+    if "deadline_from_discovery" in have:
+        out += " " + DISCOVERY_NOTE
+    return out
+
+
 def _unknown(book: RuleBook, about: str) -> Answer:
     contact = program_line(book.doc.get("program"), book.name)
     text = f"{NOT_IN_RULES} I found no verified {book.name} rule about {about}, so I won't guess."
@@ -1035,9 +1055,7 @@ def deadline_section(check: dict[str, Any], book: RuleBook | None, *, have_date:
         head = "**Deadline:** I could not work out the exact day from the verified rules. Read the rule below, or ask the program."
     else:
         head = "**Deadline:** counted from the date it happened. Tell me the date (only the date) for the exact day."
-    flags = check.get("flags") or []
-    if any("deadline_from_report" in str(f) for f in flags):
-        head += " " + report_note(book)
+    head += deadline_notes(check.get("flags"), book)
     return head + ("\n" + cite_block(main) if main else "")
 
 
@@ -1138,11 +1156,13 @@ def render_check(
 ) -> str:
     deadline = data.get("deadline") or {}
     late = deadline.get("status") == "late"
-    opener = (
-        f"**{name}: the usual deadline has passed, but ask the program about more time.**"
-        if late
-        else f"**You can likely apply in {name}.** The program decides."
-    )
+    if late and "deadline_from_discovery" in (deadline.get("flags") or []):
+        # Counted from discovery, a late may not be late (docs/SPEC.md v1.3).
+        opener = f"**{name}: the usual deadline has passed, but you may have more time. Ask the program.**"
+    elif late:
+        opener = f"**{name}: the usual deadline has passed, but ask the program about more time.**"
+    else:
+        opener = f"**You can likely apply in {name}.** The program decides."
     told = []
     if incident_date:
         told.append(f"date {long_date(incident_date)}")
@@ -2030,9 +2050,7 @@ def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None,
         text = f"The usual deadline was {long_date(date)}{link}. Some programs allow more time for a good reason, so it is worth calling."
     else:
         text = f"Apply by {long_date(date)}{link}."
-    if any("deadline_from_report" in str(f) for f in flags or []):
-        text += " " + report_note(book)
-    return text
+    return text + deadline_notes(flags, book)
 
 
 def payment_body(demo: dict[str, Any]) -> dict[str, Any]:

@@ -114,9 +114,11 @@ TEST_CASE("loader rejects bad headers") {
   CHECK_FALSE(load_law(nullptr, 100, law, err));
 
   CHECK(mutated([](auto& i) { i[0] = 'X'; }).find("bad magic") != std::string::npos);
-  CHECK(mutated([](auto& i) { put16(i, 4, 2); }).find("unsupported format version 2.2") != std::string::npos);
-  CHECK(mutated([](auto& i) { put16(i, 6, 3); }).find("unsupported format version 1.3") != std::string::npos);
-  // 1.1 images carry SPEC v1.1 semantics (no typed units), so they are refused, not misread.
+  CHECK(mutated([](auto& i) { put16(i, 4, 2); }).find("unsupported format version 2.3") != std::string::npos);
+  CHECK(mutated([](auto& i) { put16(i, 6, 4); }).find("unsupported format version 1.4") != std::string::npos);
+  // Older images carry older semantics (1.2: no discovery note, so a discovery-dated deadline
+  // would read as plainly late; 1.1: no typed units), so they are refused, not misread.
+  CHECK(mutated([](auto& i) { put16(i, 6, 2); }).find("unsupported format version 1.2") != std::string::npos);
   CHECK(mutated([](auto& i) { put16(i, 6, 1); }).find("unsupported format version 1.1") != std::string::npos);
   CHECK(mutated([](auto& i) { put16(i, 6, 0); }).find("unsupported format version 1.0") != std::string::npos);
   CHECK(mutated([](auto& i) { put32(i, 8, 65); }).find("bad header size") != std::string::npos);
@@ -417,6 +419,10 @@ TEST_CASE("verifier checks every operand range") {
         }).find(bad) != std::string::npos);
   CHECK(aggr_error([](Assembler& a) {
           a.u8op(OP_NOTE, CN_DEADLINE_FROM_REPORT);
+          a.op(OP_RET);
+        }).empty());
+  CHECK(aggr_error([](Assembler& a) {
+          a.u8op(OP_NOTE, CN_DEADLINE_FROM_DISCOVERY);
           a.op(OP_RET);
         }).empty());
   CHECK(item_with({OP_NOTE, CN_DEADLINE_FROM_REPORT}).find("not allowed in this program") != std::string::npos);

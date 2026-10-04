@@ -1,10 +1,10 @@
 ; tend law image ZZ, Zedland (fictional test jurisdiction)
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 9c880106e3fd50a5377314b8335f891191d3e80c5e1b9c8120699ca99dfb5e23
-; image sha256  291b758b56b0f50e94d5d7cf9ff32a820564a809e3f2840f9c0bc9b69f86fd6b
+; image sha256  34de50de3d245acb6ce48be920af3be53915bc4eca23ab435d4f46beff86a980
 ; 36 rules, 2 sources, 32 proofs, 9 ints, 183 strings
 ; item program: 357 instructions, 1250 bytes, max stack 2
-; aggregate program: 307 instructions, 925 bytes, max stack 3, 10 loops
+; aggregate program: 308 instructions, 927 bytes, max stack 3, 10 loops
 
 .rules
     R0    ZZ-EXAM-1             exam_no_bill  -                                             ZC 4-110(2)
@@ -842,24 +842,25 @@
   034b        jmp      L49
   0350  L48:  push     1
   0355  L49:  note     deadline_from_report
-  0357        check    deadline, P29                ; ZZ-DEADLINE-1, ZZ-DEADLINE-2, ZZ-DEADLINE-4
+  0357        note     deadline_from_discovery
+  0359        check    deadline, P29                ; ZZ-DEADLINE-1, ZZ-DEADLINE-2, ZZ-DEADLINE-4
               ; ZZ-REPORT-1  ZC 4-131  "The crime shall be reported to law enforcement within 5 days..."
-  035b        ldx      police_report
-  035d        push     1                            ; yes
-  0362        eq
-  0363        jnz      L51
-  0368        ldx      forensic_exam
-  036a        jnz      L51
-  036f        ldx      police_report
-  0371        push     0                            ; no
-  0376        eq
-  0377        jnz      L50
-  037c        push     3
-  0381        jmp      L52
-  0386  L50:  push     1
-  038b        jmp      L52
-  0390  L51:  push     0                            ; satisfied
-  0395  L52:  check    reporting, P30               ; ZZ-REPORT-1
+  035d        ldx      police_report
+  035f        push     1                            ; yes
+  0364        eq
+  0365        jnz      L51
+  036a        ldx      forensic_exam
+  036c        jnz      L51
+  0371        ldx      police_report
+  0373        push     0                            ; no
+  0378        eq
+  0379        jnz      L50
+  037e        push     3
+  0383        jmp      L52
+  0388  L50:  push     1
+  038d        jmp      L52
+  0392  L51:  push     0                            ; satisfied
+  0397  L52:  check    reporting, P30               ; ZZ-REPORT-1
               ; ZZ-DEADLINE-3  ZC 4-130(3)  "The board may extend the filing period for good cause."
               ; ZZ-COLLATERAL-1  ZC 4-133  "An award shall be reduced by any amount paid by insurance or..."
               ; ZZ-CONDUCT-1  ZC 4-134  "The board may reduce an award for the victim's contributory..."
@@ -867,6 +868,6 @@
               ; ZZ-CRIME-1  ZC 4-102(5)  "Sexual assault is a compensable crime."
               ; ZZ-RESIDENCY-1  ZC 4-103  "A victim of a crime committed in Zedland may apply regardless of..."
               ; ZZ-SUBMIT-1  Program Guide, How to apply  "Mail the completed application to the Victim Services Board, 1..."
-  0399        info     P31                          ; ZZ-DEADLINE-3, ZZ-COLLATERAL-1, ZZ-CONDUCT-1, ZZ-EMERGENCY-1, ZZ-CRIME-1, ZZ-RESIDENCY-1, ZZ-SUBMIT-1
-  039c        ret
+  039b        info     P31                          ; ZZ-DEADLINE-3, ZZ-COLLATERAL-1, ZZ-CONDUCT-1, ZZ-EMERGENCY-1, ZZ-CRIME-1, ZZ-RESIDENCY-1, ZZ-SUBMIT-1
+  039e        ret
 

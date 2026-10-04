@@ -6,10 +6,11 @@ import pytest
 from helpers import confirm_all, scan_rowan
 from pypdf import PdfReader
 
+from tend_api.agent import DISCOVERY_NOTE
 from tend_api.config import API_DIR
 from tend_api.forms import FORBIDDEN, MI, FormGuardError, application_values, fill_application, filled_fields, guard
 from tend_api.models import ClaimInput
-from tend_api.packet import still_needed
+from tend_api.packet import build_summary, still_needed
 
 MI_FORM = API_DIR / "forms" / "MI" / "application.pdf"
 
@@ -174,3 +175,19 @@ def test_expense_labels_read_as_words():
 
     assert expense_label("clothing_bedding") == "Clothing and bedding"
     assert expense_label("lost_wages") == "Lost wages"
+
+
+@pytest.mark.parametrize(
+    "flags",
+    [[], ["deadline_from_discovery"], ["deadline_from_report"], ["deadline_from_report", "deadline_from_discovery"]],
+)
+def test_a_late_deadline_that_may_count_from_discovery_is_not_shown_as_plainly_late(client, services, flags):
+    # docs/SPEC.md v1.3: a late with either flag is explained, never "Past the filing deadline".
+    body, _ = make_claim(client)
+    view = view_of(services, body)
+    view["checks"]["deadline"] = {**view["checks"]["deadline"], "status": "late", "deadline_date": "2025-06-14", "flags": flags}
+    text = " ".join(pdf_text(build_summary(view, services.rules.get("MI"), services.clock())).split())
+    assert ("Past the filing deadline" in text) == (not flags)
+    assert ("but you may have more time" in text) == bool(flags)
+    assert (" ".join(DISCOVERY_NOTE.split()) in text) == ("deadline_from_discovery" in flags)
+    assert ("The law counts from your report" in text) == ("deadline_from_report" in flags)

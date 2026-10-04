@@ -49,7 +49,7 @@ void check_golden(const std::string& path, const std::string& actual) {
 
 }  // namespace
 
-TEST_CASE("tend_version") { CHECK(std::string(tend_version()) == "tend 1.2.0 (tlaw 1.2)"); }
+TEST_CASE("tend_version") { CHECK(std::string(tend_version()) == "tend 1.3.0 (tlaw 1.3)"); }
 
 TEST_CASE("golden: ZZ claim output and listing") {
   std::vector<uint8_t> img = th::compile_fixture();
@@ -108,9 +108,9 @@ TEST_CASE("tend_inspect_json exposes the rule table") {
   json info = inspect(th::compile_fixture());
   json ir = json::parse(th::read_text(th::kFixtureIr));
   CHECK(info["jurisdiction"] == "ZZ");
-  CHECK(info["format"] == "1.2");
+  CHECK(info["format"] == "1.3");
   CHECK(info["meta"]["name"] == "Zedland (fictional test jurisdiction)");
-  CHECK(info["meta"]["compiler"] == "tendc 1.2.0");
+  CHECK(info["meta"]["compiler"] == "tendc 1.3.0");
   REQUIRE(info["rules"].size() == ir["rules"].size() + ir["skipped"].size());
   const json& exam = info["rules"][0];
   CHECK(exam["id"] == "ZZ-EXAM-1");

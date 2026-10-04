@@ -1,10 +1,10 @@
 ; tend law image SC, South Carolina
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 7dacdf2f17b6b2a7d6bdcd2424aa2eb105f503a15f96c228e6116d02e6e39976
-; image sha256  77095184c2f6d0dced07a2c9848b29c76c7a476a1e819a211f25334c5f820be7
+; image sha256  433f9cb8ce7d66f104f481d95f1dcbdb21dd7c37180774d3e1b8a928e09388b1
 ; 52 rules, 14 sources, 22 proofs, 2 ints, 284 strings
 ; item program: 130 instructions, 458 bytes, max stack 2
-; aggregate program: 85 instructions, 264 bytes, max stack 2, 2 loops
+; aggregate program: 86 instructions, 266 bytes, max stack 2, 2 loops
 
 .rules
     R0    SC-EXAM-1             exam_no_bill  -                                             S.C. Code 16-3-1350(A)
@@ -33,7 +33,7 @@
     R23   SC-EXCL-4             info          -                     excluded_expense        DCVC FAQs, What doesn't DCVC pay?
     R24   SC-EXCL-5             info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
     R25   SC-EXCL-6             excluded      other                                         DCVC FAQs, What doesn't DCVC pay?
-    R26   SC-DEAD-1             deadline      -                     from crime              S.C. Code 16-3-1230(B), (C)
+    R26   SC-DEAD-1             deadline      -                     from discovery          S.C. Code 16-3-1230(B), (C)
     R27   SC-REPORT-1           reporting     -                                             S.C. Code 16-3-1170(A)(3), (B)
     R28   SC-REPORT-2           reporting     -                                             DCVC sexual assault brochure, Sexual Assault Program
     R29   SC-REPORT-3           reporting     -                                             DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria
@@ -365,27 +365,28 @@
   00ae        jz       L9
   00b3        push     0
   00b8        jmp      L10
-  00bd  L9:   push     1                            ; late
-  00c2  L10:  check    deadline, P19                ; SC-DEAD-1
+  00bd  L9:   push     1
+  00c2  L10:  note     deadline_from_discovery
+  00c4        check    deadline, P19                ; SC-DEAD-1
               ; SC-REPORT-1  S.C. Code 16-3-1170(A)(3), (B)  "For the purposes of subsection (A)(3), a crime reported more..."
               ; SC-REPORT-2  DCVC sexual assault brochure, Sexual Assault Program  "Please Note: Law enforcement will be involved as the crime..."
               ; SC-REPORT-3  DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria  "DCVC received a Compensation Application with "Anonymous"..."
-  00c6        ldx      police_report
-  00c8        push     1                            ; yes
-  00cd        eq
-  00ce        jnz      L12
-  00d3        ldx      forensic_exam
-  00d5        jnz      L12
-  00da        ldx      police_report
-  00dc        push     0                            ; no
-  00e1        eq
-  00e2        jnz      L11
-  00e7        push     3
-  00ec        jmp      L13
-  00f1  L11:  push     1
-  00f6        jmp      L13
-  00fb  L12:  push     0                            ; satisfied
-  0100  L13:  check    reporting, P20               ; SC-REPORT-1, SC-REPORT-2, SC-REPORT-3
+  00c8        ldx      police_report
+  00ca        push     1                            ; yes
+  00cf        eq
+  00d0        jnz      L12
+  00d5        ldx      forensic_exam
+  00d7        jnz      L12
+  00dc        ldx      police_report
+  00de        push     0                            ; no
+  00e3        eq
+  00e4        jnz      L11
+  00e9        push     3
+  00ee        jmp      L13
+  00f3  L11:  push     1
+  00f8        jmp      L13
+  00fd  L12:  push     0                            ; satisfied
+  0102  L13:  check    reporting, P20               ; SC-REPORT-1, SC-REPORT-2, SC-REPORT-3
               ; SC-EXCL-1  DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination  "Any fees beyond the actual collection of evidence during a..."
               ; SC-TRANS-2  DCVC Payments and Reimbursements At A Glance, Non-covered Expenses  "Mileage for court appearances"
               ; SC-TRANS-3  DCVC Payments and Reimbursements At A Glance, Non-covered Expenses  "Public transportation"
@@ -413,6 +414,6 @@
               ; SC-DOC-8  FAQ, resident victimized in another country  "The victim may apply to DCVC for eligibility consideration as..."
               ; SC-ACP-1  S.C. Code 16-25-130(B)  "The address confidentiality program is established to protect..."
               ; SC-RECCONF-1  S.C. Code 16-3-1240  "The records, papers, files, and communications of the board, its..."
-  0104        info     P21                          ; SC-EXCL-1, SC-TRANS-2, SC-TRANS-3, SC-HOUSE-1, SC-PROP-2, SC-PROP-3, SC-EXCL-3, SC-EXCL-4, SC-EXCL-5, SC-COLL-1, SC-COLL-2, SC-COLL-3, SC-CONDUCT-1, SC-EMERG-1, SC-CRIME-1, SC-RES-1, SC-SUBMIT-1, SC-DOC-1, SC-DOC-2, SC-DOC-3, SC-DOC-4, SC-DOC-5, SC-DOC-6, SC-DOC-7, SC-DOC-8, SC-ACP-1, SC-RECCONF-1
-  0107        ret
+  0106        info     P21                          ; SC-EXCL-1, SC-TRANS-2, SC-TRANS-3, SC-HOUSE-1, SC-PROP-2, SC-PROP-3, SC-EXCL-3, SC-EXCL-4, SC-EXCL-5, SC-COLL-1, SC-COLL-2, SC-COLL-3, SC-CONDUCT-1, SC-EMERG-1, SC-CRIME-1, SC-RES-1, SC-SUBMIT-1, SC-DOC-1, SC-DOC-2, SC-DOC-3, SC-DOC-4, SC-DOC-5, SC-DOC-6, SC-DOC-7, SC-DOC-8, SC-ACP-1, SC-RECCONF-1
+  0109        ret
 

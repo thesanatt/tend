@@ -1,10 +1,10 @@
 ; tend law image CA, California
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 2d7d1307f1a948cea8af46d94c8d999bfe48b8ee6bbfc66a11afa3ed79329497
-; image sha256  4a600165857807fa19b2d40dd2a6b3f9982038bdd6563193ac5517bc5e325b8f
+; image sha256  1f924b3ff7645d3bb7dfd4d2cae6b554917cbd6f6d7d61a20a9eed483b6726de
 ; 39 rules, 18 sources, 19 proofs, 5 ints, 263 strings
 ; item program: 209 instructions, 757 bytes, max stack 2
-; aggregate program: 156 instructions, 486 bytes, max stack 3, 5 loops
+; aggregate program: 157 instructions, 488 bytes, max stack 3, 5 loops
 
 .rules
     R0    CA-EXAM-1             exam_no_bill  -                                             Cal. Penal Code 13823.95(a)
@@ -20,7 +20,7 @@
     R10   CA-EXCL-1             info          -                     excluded_expense        CalVCB, What Is Covered, Non-eligible expenses
     R11   CA-EXCL-2             excluded      -                                             CalVCB, What Is Covered, Non-eligible expenses
     R12   CA-EXCL-3             info          -                     excluded_expense        Cal. Gov. Code 13957.7(a)
-    R13   CA-DEADLINE-1         deadline      -                     from crime              Cal. Gov. Code 13953(a)
+    R13   CA-DEADLINE-1         deadline      -                     from discovery          Cal. Gov. Code 13953(a)
     R14   CA-REPORT-1           reporting     -                                             Cal. Gov. Code 13956(b)(3)
     R15   CA-REPORT-2           reporting     -                                             Cal. Code Regs. tit. 2, 649.49(a)(4)-(5)
     R16   CA-REPORT-3           reporting     -                                             Cal. Gov. Code 13956(b)(1)
@@ -512,21 +512,22 @@
   01a3        jz       L25
   01a8        push     0
   01ad        jmp      L26
-  01b2  L25:  push     1                            ; late
-  01b7  L26:  check    deadline, P16                ; CA-DEADLINE-1
+  01b2  L25:  push     1
+  01b7  L26:  note     deadline_from_discovery
+  01b9        check    deadline, P16                ; CA-DEADLINE-1
               ; CA-REPORT-1  Cal. Gov. Code 13956(b)(3)  "An application for a claim based on a sexual assault shall not..."
               ; CA-REPORT-2  Cal. Code Regs. tit. 2, 649.49(a)(4)-(5)  "A letter or other written statement from a sexual assault..."
               ; CA-REPORT-3  Cal. Gov. Code 13956(b)(1)  "Lack of cooperation shall also not be found solely because a..."
-  01bb        ldx      police_report
-  01bd        push     1                            ; yes
-  01c2        eq
-  01c3        jnz      L27
-  01c8        ldx      forensic_exam
-  01ca        jnz      L27
-  01cf        push     2
-  01d4        jmp      L28
-  01d9  L27:  push     0                            ; satisfied
-  01de  L28:  check    reporting, P17               ; CA-REPORT-1, CA-REPORT-2, CA-REPORT-3
+  01bd        ldx      police_report
+  01bf        push     1                            ; yes
+  01c4        eq
+  01c5        jnz      L27
+  01ca        ldx      forensic_exam
+  01cc        jnz      L27
+  01d1        push     2
+  01d6        jmp      L28
+  01db  L27:  push     0                            ; satisfied
+  01e0  L28:  check    reporting, P17               ; CA-REPORT-1, CA-REPORT-2, CA-REPORT-3
               ; CA-EXCL-1  CalVCB, What Is Covered, Non-eligible expenses  "Personal property losses, except for medically necessary items..."
               ; CA-EXCL-3  Cal. Gov. Code 13957.7(a)  "No reimbursement may be made for any expense that is submitted..."
               ; CA-COLLATERAL-1  CalVCB, What Is Covered, Payor of last resort  "CalVCB is a payor of last resort. This means CalVCB pays only..."
@@ -550,6 +551,6 @@
               ; CA-TIME-2  Form VCGCB-VCP-005 (Rev. 10/2017), Section 4, Emergency Award Request  "Qualifying emergency awards are generally paid within 30..."
               ; CA-ACP-1  Secretary of State, Safe at Home page, 'What is the Safe at Home program?'  "Safe at Home offers a substitute mailing address to receive..."
               ; CA-RECORDS-1  CalVCB Confidentiality page, 'Your claim is confidential'  "The information you share with CalVCB is strictly confidential."
-  01e2        info     P18                          ; CA-EXCL-1, CA-EXCL-3, CA-COLLATERAL-1, CA-CONDUCT-1, CA-EMERGENCY-1, CA-CRIME-1, CA-CRIME-2, CA-RESIDENCY-1, CA-SUBMIT-MAIL, CA-SUBMIT-INPERSON, CA-SUBMIT-ONLINE, CA-DOC-BILLS, CA-DOC-INSURANCE, CA-DOC-POLICE, CA-DOC-RECEIPTS, CA-DOC-WAGES, CA-DOC-DISABILITY, CA-DOC-MEDICAL, CA-DOC-COUNSEL, CA-TIME-1, CA-TIME-2, CA-ACP-1, CA-RECORDS-1
-  01e5        ret
+  01e4        info     P18                          ; CA-EXCL-1, CA-EXCL-3, CA-COLLATERAL-1, CA-CONDUCT-1, CA-EMERGENCY-1, CA-CRIME-1, CA-CRIME-2, CA-RESIDENCY-1, CA-SUBMIT-MAIL, CA-SUBMIT-INPERSON, CA-SUBMIT-ONLINE, CA-DOC-BILLS, CA-DOC-INSURANCE, CA-DOC-POLICE, CA-DOC-RECEIPTS, CA-DOC-WAGES, CA-DOC-DISABILITY, CA-DOC-MEDICAL, CA-DOC-COUNSEL, CA-TIME-1, CA-TIME-2, CA-ACP-1, CA-RECORDS-1
+  01e7        ret
 

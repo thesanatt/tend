@@ -19,7 +19,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from .bill import BillRefused, load_document, snapshot_documents, verify_bill
-from .clock import Clock, local_today, parse_date
+from .clock import Clock, parse_date, state_today
 from .errors import TendError
 from .models import Item, ScanRequest
 from .money import canonical_json, sha256_hex
@@ -309,7 +309,7 @@ class ScanService:
         incident_date = req.incident_date or parse_date(context.get("incident_date"))
         if incident_date is None:
             raise ScanError("incident_date is required (the persona snapshot does not set one).", 422)
-        as_of = parse_date(context.get("as_of_date")) or local_today(self.clock())
+        as_of = parse_date(context.get("as_of_date")) or state_today(self.clock(), req.st)
 
         transactions = transactions_from_snapshot(snap)
         bill_rows, replaced, bill_errors = itemized_bill_items(self.seed_dir, snap)

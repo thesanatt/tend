@@ -2,7 +2,7 @@
  "ir_version": 2,
  "jurisdiction": "NV",
  "source_sha256": "94391c3018caf9d981b4667df9fdd0f1108a9080fdd2736105d362400dec509f",
- "ir_sha256": "d464925c2dff743591535b87cd87cfb77418e6e4429f53db242926642b05cc79",
+ "ir_sha256": "d15bf8e2399338c6b13f2ed56cc0a0b5fde29f582f5d91c6380da7551cb149d8",
  "fresh": true,
  "rules": [
   {
@@ -76,12 +76,8 @@
   },
   {
    "id": "NV-CAP-WAGE-3",
-   "kind": "expense_cap",
-   "expense": "lost_wages",
-   "cap_cents": 7000,
-   "per": "unit",
-   "unit": "day",
-   "count_limit": 10
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "NV-CAP-RELOC",

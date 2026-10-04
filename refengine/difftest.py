@@ -334,7 +334,7 @@ def check_claim(law: Law, engine: Engine | None, image: bytes, law_path: str, ra
 
 
 def feature_counts(law: Law, doc: dict, ref: dict) -> Counter:
-    """SPEC v1.2 paths this claim took, so a run can show it reached each one."""
+    """SPEC v1.2 and v1.3 paths this claim took, so a run can show it reached each one."""
     c = Counter()
     items = {it["item_id"]: it for it in doc["items"]}
     lines = {line["item_id"]: line for line in ref["lines"]}
@@ -356,8 +356,13 @@ def feature_counts(law: Law, doc: dict, ref: dict) -> Counter:
             c["exam treated as medical"] += 1
         if line["status"] == "excluded" and any(law.by_id[r].tags for r in line["rule_ids"]):
             c["excluded by tag"] += 1
-    if ref["checks"]["deadline"]["flags"]:
+    deadline = ref["checks"]["deadline"]
+    if "deadline_from_report" in deadline["flags"]:
         c["deadline from report"] += 1
+    if "deadline_from_discovery" in deadline["flags"]:
+        c["deadline from discovery"] += 1
+        if deadline["status"] == "late":
+            c["late deadline flagged from discovery"] += 1
     if any(r.kind == "exam_payment" for r in law.rules) and not law.exam_no_bill:
         c["exam payment listed as info"] += 1
     for rule in law.minimum_loss:
@@ -691,7 +696,7 @@ def main(argv: list[str] | None = None) -> int:
         print("never reached in this run: " + ", ".join(never))
     print("checks seen: " + ", ".join(f"{k} {v}" for k, v in sorted(checks.items())))
     print("flags seen: " + ", ".join(f"{k} {v}" for k, v in sorted(flags.items())))
-    print("v1.2 paths seen: " + ", ".join(f"{k} {v}" for k, v in sorted(features.items())))
+    print("v1.2 and v1.3 paths seen: " + ", ".join(f"{k} {v}" for k, v in sorted(features.items())))
     claims = sum(r.claims for r in results)
     malformed = sum(r.malformed for r in results)
     identical = sum(r.byte_identical for r in results)

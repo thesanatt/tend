@@ -97,10 +97,10 @@ def test_the_most_severe_rule_wins(statuses, combined):
 
 # 10. Deadline (ZZ-DEAD-1: 3 years from the crime; ZZ-DEAD-2: 180 days from discovery; ZZ-DEAD-5: 2 years from the report)
 
-def test_latest_deadline_wins_and_report_anchors_are_flagged():
+def test_latest_deadline_wins_and_report_and_discovery_anchors_are_flagged():
     d = checks()["deadline"]
     assert d == {"status": "ok", "deadline_date": "2029-06-13", "rule_ids": ["ZZ-DEAD-1", "ZZ-DEAD-2", "ZZ-DEAD-5"],
-                 "flags": ["deadline_from_report"]}
+                 "flags": ["deadline_from_report", "deadline_from_discovery"]}
 
 
 def test_deadline_boundaries():
@@ -116,8 +116,29 @@ def test_report_anchored_deadline_is_dated_from_the_incident():
     assert (d["status"], d["flags"]) == ("late", ["deadline_from_report"])  # a later report could leave time
 
 
+def test_discovery_anchored_deadline_is_dated_from_the_incident():
+    # SPEC v1.3: discovery is never earlier than the incident, so the date shown is the earliest the
+    # deadline can be, and a late status carries the flag (the UI never says plainly late).
+    ir = law([rule("T-D", "deadline", days=730, **{"from": "discovery"})])
+    d = checks(rules=ir)["deadline"]
+    assert (d["deadline_date"], d["flags"]) == ("2028-06-13", ["deadline_from_discovery"])
+    d = checks(rules=ir, as_of="2030-01-01")["deadline"]
+    assert (d["status"], d["flags"]) == ("late", ["deadline_from_discovery"])  # a later discovery could leave time
+
+
+def test_both_flags_come_in_note_order_whatever_the_rule_order():
+    report = rule("T-R", "deadline", days=30, **{"from": "report"})
+    found = rule("T-F", "deadline", days=30, **{"from": "discovery"})
+    for rules in ([report, found], [found, report]):
+        assert checks(rules=law(rules))["deadline"]["flags"] == ["deadline_from_report", "deadline_from_discovery"]
+    # A discovery rule shorter than the date shown still earns the flag: discovery can come much later.
+    d = checks(rules=law([rule("T-C", "deadline", days=1095), rule("T-F", "deadline", days=60, **{"from": "discovery"})]),
+               as_of="2030-01-01")["deadline"]
+    assert (d["status"], d["deadline_date"], d["flags"]) == ("late", "2029-06-13", ["deadline_from_discovery"])
+
+
 def test_other_anchors_are_not_flagged():
-    for anchor in ("crime", "incident", "discovery", "injury", "offense"):
+    for anchor in ("crime", "incident", "injury", "offense"):
         ir = law([rule("T-D", "deadline", days=30, **{"from": anchor})])
         assert checks(rules=ir)["deadline"]["flags"] == []
     assert checks(rules=law([rule("T-D", "deadline", days=30)]))["deadline"]["flags"] == []

@@ -1,10 +1,10 @@
 ; tend law image MN, Minnesota
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 57f177bbc5710e337e75e436fea9481fc808c1c9b04cdb1498a538f41c0c7a54
-; image sha256  894d011f5abb7559461109371c8f81d1d7ff80412bb1fe9d62ed2758240d8248
+; image sha256  c3227f7d63c1c0e0ea0b7d976af7fcb680be1c9be3797a3b1f57995cdb0d047c
 ; 56 rules, 15 sources, 28 proofs, 7 ints, 315 strings
 ; item program: 161 instructions, 544 bytes, max stack 2
-; aggregate program: 210 instructions, 644 bytes, max stack 3, 7 loops
+; aggregate program: 211 instructions, 646 bytes, max stack 3, 7 loops
 
 .rules
     R0    MN-EXAM-1             exam_no_bill  -                                             Minn. Stat. 609.35(b)
@@ -30,7 +30,7 @@
     R20   MN-EXC-LEGAL          excluded      legal                                         CVRB training slides (10/4/2025), slide 33
     R21   MN-EXC-TUITION        excluded      tuition                                       Minn. R. 3050.3200, subp. 8
     R22   MN-EXC-LEAVE          info          -                     excluded_expense        Minn. R. 3050.3200, subp. 4
-    R23   MN-DEADLINE-1         deadline      -                     from crime              Minn. Stat. 611A.53, subd. 2(5)
+    R23   MN-DEADLINE-1         deadline      -                     from discovery          Minn. Stat. 611A.53, subd. 2(5)
     R24   MN-DEADLINE-2         deadline      -                     from report             Minn. Stat. 611A.53, subd. 2
     R25   MN-REPORT-1           reporting     -                                             Minn. Stat. 611A.53, subd. 2(1)
     R26   MN-REPORT-2           reporting     -                                             Financial Help brochure (9/24), eligibility requirements
@@ -547,24 +547,25 @@
   0239        jmp      L34
   023e  L33:  push     1
   0243  L34:  note     deadline_from_report
-  0245        check    deadline, P25                ; MN-DEADLINE-1, MN-DEADLINE-2
+  0245        note     deadline_from_discovery
+  0247        check    deadline, P25                ; MN-DEADLINE-1, MN-DEADLINE-2
               ; MN-REPORT-1  Minn. Stat. 611A.53, subd. 2(1)  "the crime was not reported to the police within 30 days of its..."
               ; MN-REPORT-2  Financial Help brochure (9/24), eligibility requirements  "Crime must have been reported to police within 30 days (no time..."
               ; MN-REPORT-3  Minn. Stat. 611A.53, subd. 2(2)  "Cooperation is determined through law enforcement reports..."
-  0249        ldx      police_report
-  024b        push     1                            ; yes
-  0250        eq
-  0251        jnz      L36
-  0256        ldx      police_report
-  0258        push     0                            ; no
-  025d        eq
-  025e        jnz      L35
-  0263        push     3
-  0268        jmp      L37
-  026d  L35:  push     1
-  0272        jmp      L37
-  0277  L36:  push     0                            ; satisfied
-  027c  L37:  check    reporting, P26               ; MN-REPORT-1, MN-REPORT-2, MN-REPORT-3
+  024b        ldx      police_report
+  024d        push     1                            ; yes
+  0252        eq
+  0253        jnz      L36
+  0258        ldx      police_report
+  025a        push     0                            ; no
+  025f        eq
+  0260        jnz      L35
+  0265        push     3
+  026a        jmp      L37
+  026f  L35:  push     1
+  0274        jmp      L37
+  0279  L36:  push     0                            ; satisfied
+  027e  L37:  check    reporting, P26               ; MN-REPORT-1, MN-REPORT-2, MN-REPORT-3
               ; MN-EXC-LEAVE  Minn. R. 3050.3200, subp. 4  "The board must not pay for lost wages covered by a claimant's..."
               ; MN-COLL-1  Minn. Stat. 611A.54(1)  "reimbursement shall be reduced to the extent that economic loss..."
               ; MN-COLL-2  Minn. Stat. 611A.52, subd. 5  "The term does not include a life insurance contract or benefits..."
@@ -591,6 +592,6 @@
               ; MN-DOC-MILEAGE  CVRB training slides (10/4/2025), slide 39, Application Instructions  "A mileage form will be sent to claimant after receipt of..."
               ; MN-ACP-1  Secretary of State, Safe at Home page, program description  "Safe at Home is a statewide address confidentiality program..."
               ; MN-RECORDS-1  Minn. Stat. 611A.57, subd. 6  "Following the payment, denial, withdrawal, or abandonment of a..."
-  0280        info     P27                          ; MN-EXC-LEAVE, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1
-  0283        ret
+  0282        info     P27                          ; MN-EXC-LEAVE, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1
+  0285        ret
 

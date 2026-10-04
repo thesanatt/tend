@@ -1,10 +1,10 @@
 ; tend law image PA, Pennsylvania
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 cce617988cd5dd33fb3ea12d7f077595f82747ee58e26ac0ac97a66ec39eb61a
-; image sha256  7c2eb55bec0cb80eab2742ffb1f55a960f310ff21a4f2c0590a361fc11872900
+; image sha256  90024169d2c259bfa3c4220f218f0deb32cd6b8c98ac116a5511f0cbe27fc10d
 ; 59 rules, 15 sources, 29 proofs, 8 ints, 315 strings
 ; item program: 437 instructions, 1552 bytes, max stack 2
-; aggregate program: 283 instructions, 873 bytes, max stack 3, 10 loops
+; aggregate program: 284 instructions, 875 bytes, max stack 3, 10 loops
 
 .rules
     R0    PA-EXAM-1             exam_no_bill  -                                             18 P.S. 11.707(h)(2)
@@ -952,28 +952,29 @@
   030f        jz       L48
   0314        push     0
   0319        jmp      L49
-  031e  L48:  push     1                            ; late
-  0323  L49:  check    deadline, P26                ; PA-DEADLINE-1
+  031e  L48:  push     1
+  0323  L49:  note     deadline_from_discovery
+  0325        check    deadline, P26                ; PA-DEADLINE-1
               ; PA-REPORT-1  18 P.S. 11.707(a)(3)  "The crime was promptly reported to the proper authorities."
               ; PA-REPORT-2  18 P.S. 11.707(a.2)  "may satisfy the eligibility requirement under subsection (a)(3)..."
               ; PA-REPORT-3  VCAP Protocol and Billing Procedures for FREs, introduction  "Effective for crimes occurring on or after 9/8/2022, a forensic..."
               ; PA-REPORT-4  PA.gov VCAP page, Sexual Assault Counseling Claims  "A direct victim of sexual abuse which occurred in Pennsylvania..."
-  0327        ldx      police_report
-  0329        push     1                            ; yes
-  032e        eq
-  032f        jnz      L51
-  0334        ldx      forensic_exam
-  0336        jnz      L51
-  033b        ldx      police_report
-  033d        push     0                            ; no
-  0342        eq
-  0343        jnz      L50
-  0348        push     3
-  034d        jmp      L52
-  0352  L50:  push     1
-  0357        jmp      L52
-  035c  L51:  push     0                            ; satisfied
-  0361  L52:  check    reporting, P27               ; PA-REPORT-1, PA-REPORT-2, PA-REPORT-3, PA-REPORT-4
+  0329        ldx      police_report
+  032b        push     1                            ; yes
+  0330        eq
+  0331        jnz      L51
+  0336        ldx      forensic_exam
+  0338        jnz      L51
+  033d        ldx      police_report
+  033f        push     0                            ; no
+  0344        eq
+  0345        jnz      L50
+  034a        push     3
+  034f        jmp      L52
+  0354  L50:  push     1
+  0359        jmp      L52
+  035e  L51:  push     0                            ; satisfied
+  0363  L52:  check    reporting, P27               ; PA-REPORT-1, PA-REPORT-2, PA-REPORT-3, PA-REPORT-4
               ; PA-COLL-1  18 P.S. 11.707(e)  "an award made under this chapter shall be reduced by the amount..."
               ; PA-COND-1  18 P.S. 11.707(f)(1)  "The Office of Victims' Services may reduce the amount or deny..."
               ; PA-COND-2  18 P.S. 11.707(f)(2)  "If the crime involved is rape or sexual assault, the conduct of..."
@@ -997,6 +998,6 @@
               ; PA-TIME-2  VCAP Claim Process flyer (11/2023)  "Payments owed to the victim/claimant that total $5,000.00 or..."
               ; PA-ACP-1  OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)  "The ACP can provide you with an alternate mailing address to..."
               ; PA-RECCONF-1  18 P.S. 11.709(a)  "All reports, records or other information obtained or produced..."
-  0365        info     P28                          ; PA-COLL-1, PA-COND-1, PA-COND-2, PA-EMERG-1, PA-CRIME-1, PA-RES-1, PA-RES-2, PA-SUBMIT-1, PA-SUBMIT-2, PA-SUBMIT-3, PA-DOC-1, PA-DOC-2, PA-DOC-3, PA-DOC-4, PA-DOC-5, PA-DOC-6, PA-DOC-7, PA-DOC-8, PA-DOC-9, PA-TIME-1, PA-TIME-2, PA-ACP-1, PA-RECCONF-1
-  0368        ret
+  0367        info     P28                          ; PA-COLL-1, PA-COND-1, PA-COND-2, PA-EMERG-1, PA-CRIME-1, PA-RES-1, PA-RES-2, PA-SUBMIT-1, PA-SUBMIT-2, PA-SUBMIT-3, PA-DOC-1, PA-DOC-2, PA-DOC-3, PA-DOC-4, PA-DOC-5, PA-DOC-6, PA-DOC-7, PA-DOC-8, PA-DOC-9, PA-TIME-1, PA-TIME-2, PA-ACP-1, PA-RECCONF-1
+  036a        ret
 

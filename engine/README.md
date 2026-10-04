@@ -1,7 +1,7 @@
 # engine/: the Tend law engine
 
 A small compiler and virtual machine for crime victim compensation law. `tendc` turns one
-jurisdiction's law IR (version 2, docs/SPEC.md v1.2) into a `.tlaw` image; `libtend` verifies the
+jurisdiction's law IR (version 2, docs/SPEC.md v1.3) into a `.tlaw` image; `libtend` verifies the
 image byte by byte and runs a claim through its bytecode; every allowed dollar comes back with
 the rules (and so the quotes) that justify it. The same C++ runs natively and as WebAssembly in
 the browser.
@@ -55,7 +55,7 @@ tendvm bench --law build/laws/MI.tlaw [--items 1000000] [--runs 5]
 ## C ABI (include/tend/tend.h)
 
 ```c
-const char* tend_version(void);                                    /* "tend 1.2.0 (tlaw 1.2)" */
+const char* tend_version(void);                                    /* "tend 1.3.0 (tlaw 1.3)" */
 char* tend_eval_json(const uint8_t* img, size_t img_len, const char* input_json);
 char* tend_disasm(const uint8_t* img, size_t img_len);
 char* tend_inspect_json(const uint8_t* img, size_t img_len);

@@ -10,7 +10,7 @@ from collections import defaultdict
 from typing import Any
 
 from .fmt import cite_block, cite_link, expense_label, long_date, money, plural
-from .knowledge import RuleBook, cap_phrase, cite, report_note
+from .knowledge import RuleBook, cap_phrase, cite, deadline_notes
 
 DEMO_PERSONAS = {"MI": "rowan-mi", "NY": "rowan-ny", "CA": "rowan-ca", "TX": "rowan-tx"}
 FICTIONAL = "Fictional person and data on Capital One's Nessie mock bank. No real person, account, or hospital."
@@ -213,9 +213,7 @@ def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None,
         text = f"The usual deadline was {long_date(date)}{link}. Some programs allow more time for a good reason, so it is worth calling."
     else:
         text = f"Apply by {long_date(date)}{link}."
-    if any("deadline_from_report" in str(f) for f in flags or []):
-        text += " " + report_note(book)
-    return text
+    return text + deadline_notes(flags, book)
 
 
 def payment_body(demo: dict[str, Any]) -> dict[str, Any]:

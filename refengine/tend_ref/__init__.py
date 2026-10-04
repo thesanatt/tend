@@ -1,4 +1,4 @@
-"""Python reference implementation of the Tend law engine (docs/SPEC.md v1.2, law IR version 2)."""
+"""Python reference implementation of the Tend law engine (docs/SPEC.md v1.3, law IR version 2)."""
 
 from .claim import EngineInputError, InvalidJson
 from .engine import STATUSES, evaluate, evaluate_json

@@ -21,7 +21,15 @@ export interface CoveredCost {
 }
 
 export type DeadlineFact =
-  | { kind: "date"; date: string; late: boolean; fromReport: boolean; canExtend: boolean; ruleIds: string[] }
+  | {
+      kind: "date";
+      date: string;
+      late: boolean;
+      fromReport: boolean;
+      fromDiscovery: boolean;
+      canExtend: boolean;
+      ruleIds: string[];
+    }
   | { kind: "span"; years: number | null; months: number | null; days: number | null; ruleIds: string[] }
   | { kind: "unknown"; ruleIds: string[] }
   | { kind: "none" };
@@ -187,6 +195,7 @@ export function buildCheckSummary(
         date: d.deadline_date,
         late: d.status === "late",
         fromReport: flags.includes("deadline_from_report"),
+        fromDiscovery: flags.includes("deadline_from_discovery"),
         canExtend,
         ruleIds: d.rule_ids,
       };

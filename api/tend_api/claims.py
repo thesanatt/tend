@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from .bill import INSURANCE_MENTION, find_bill, service_date, snapshot_documents, verify_bill
-from .clock import Clock, local_today, parse_date
+from .clock import Clock, parse_date, state_today
 from .engine import EngineError, EngineRouter
 from .errors import TendError
 from .models import BillAuditRequest, ClaimInput, Context, Item
@@ -184,7 +184,7 @@ class ClaimService:
             raise ClaimError("incident_date is required to audit a bill.", 422)
         context = Context(
             incident_date=incident,
-            as_of_date=req.as_of_date or parse_date(persona_context.get("as_of_date")) or local_today(self.clock()),
+            as_of_date=req.as_of_date or parse_date(persona_context.get("as_of_date")) or state_today(self.clock(), st),
             police_report=req.police_report or _police(persona_context.get("police_report")),
             forensic_exam=any(line.expense == "forensic_exam" for line in bill.lines) or persona_context.get("forensic_exam") is True,
         )

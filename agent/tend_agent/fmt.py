@@ -39,6 +39,13 @@ UNIT_WORDS = {
 }
 
 
+# The sentence after a deadline the engines flag deadline_from_discovery (docs/SPEC.md v1.3): it is dated from the
+# incident, the earliest discovery can be, so the true date may be later and a late may not be late. The web's words.
+DISCOVERY_NOTE = (
+    "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
+)
+
+
 def money(cents: int) -> str:
     """$1,234.56 from integer cents."""
     if not isinstance(cents, int) or isinstance(cents, bool):

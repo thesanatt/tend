@@ -15,11 +15,11 @@ import {
   type Dispatch,
   type ReactNode,
 } from "react";
-import { todayIso } from "@/lib/dates";
 import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
 import type { StatementTxn } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
 import { installNetLog, onNetSend } from "@/lib/netlog";
+import { stateToday } from "@/lib/stateTime";
 import type { EngineInput } from "@/lib/types";
 import { buildEngineInput, countingDate, knowsDate, offered } from "./claim";
 import { defaultServices, type FlowServices } from "./services";
@@ -138,7 +138,13 @@ export function FlowProvider({
   const [idleLocked, setIdleLocked] = useState(false);
   const [methods, setMethods] = useState<VaultMethods | null>(null);
   const [passkey, setPasskey] = useState<boolean | null>(null);
-  const [today] = useState(() => fixedToday ?? todayIso());
+  const [openedAt] = useState(() => new Date());
+  // Today in the chosen state's own time, the engine's as_of_date (docs/SPEC.md v1.3), so a late night
+  // somewhere else never counts a deadline a day early. The device's date until a state is chosen.
+  const today = useMemo(
+    () => fixedToday ?? stateToday(state.check.st, openedAt),
+    [fixedToday, state.check.st, openedAt],
+  );
   const previews = useRef(new Map<string, string>());
   // The files read this session, in memory only, so the survivor can say yes to cloud AI for one of
   // them without choosing it again. Never stored; cleared with everything else on lock and exit.

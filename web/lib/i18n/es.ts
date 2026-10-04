@@ -248,6 +248,8 @@ export const es: Dict = {
     deadlineAsk: "Pregunta al programa. Algunos hacen excepciones.",
     deadlineFromReport:
       "Esta fecha se cuenta desde el día en que pasó. La ley la cuenta desde tu denuncia, así que podrías tener más tiempo.",
+    deadlineFromDiscovery:
+      "Este plazo puede contarse desde que se descubrió el delito, y eso puede ser después de la fecha en que pasó. El programa decide.",
     deadlineSpan: (span: string) => `Tienes ${span} desde la fecha en que pasó para presentar la solicitud.`,
     deadlineSpanNote: "Agrega la fecha arriba para ver el día exacto.",
     deadlineUnknown:

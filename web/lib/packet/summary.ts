@@ -4,6 +4,7 @@
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay, localDay } from "../dates";
 import { expenseLabel, expenseRank } from "../expenses";
+import { en } from "../i18n/en";
 import { formatCents } from "../money";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, LineStatus, Rule } from "../types";
 import { METHOD_LABEL, privacyNotes } from "./filing";
@@ -103,6 +104,8 @@ class Writer {
   }
 }
 
+const DISCOVERY_NOTE = en.check.deadlineFromDiscovery;
+
 function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
   const { law, pdf } = w;
   const { deadline, reporting, minimum_loss } = output.checks;
@@ -168,12 +171,14 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     pdf.rule("line", 0.4);
     pdf.space(6);
   }
-  const fromReport = (output.checks.deadline as { flags?: string[] }).flags?.includes("deadline_from_report");
-  if (fromReport) {
+  // A deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3).
+  const flags = output.checks.deadline.flags ?? [];
+  if (flags.includes("deadline_from_report")) {
     w.small(
       "The deadline is measured from the date it happened. The law counts from your report, so you may have longer.",
     );
   }
+  if (flags.includes("deadline_from_discovery")) w.small(DISCOVERY_NOTE);
 }
 
 interface Group {

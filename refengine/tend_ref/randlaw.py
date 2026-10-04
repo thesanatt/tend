@@ -97,6 +97,11 @@ def random_law(rng: random.Random, code: str) -> dict:
             rule["category"] = rng.choice(("residency", "conduct_reduction", "submission", "excluded_expense",
                                            "collateral_source", "exam_payment", "filing_deadline"))
         rules.append(rule)
+    if rng.random() < 0.2:
+        # Periods counted from the report and from discovery in one law, in either rule order, so both
+        # deadline flags (always in note order) get compared.
+        for anchor in rng.sample(("report", "discovery"), 2):
+            rules.append({"id": f"{code}-DL-{anchor}", "kind": "deadline", "days": rng.randint(0, 4000), "from": anchor})
     if rng.random() < 0.3:
         skipped.append({"id": f"{code}-SKIP", "category": "expense_cap", "reason": "applies_to family"})
     return {"ir_version": 2, "jurisdiction": code, "name": f"Random law {code} (fictional)", "rules": rules,
