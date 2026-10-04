@@ -1,0 +1,3029 @@
+{
+ "format": "tend-nessie-cassette/1",
+ "note": "Real answers from Capital One's Nessie mock bank for the fictional persona rowan-mi, recorded by seed/record_cassettes.py. The API key is not recorded.",
+ "context": {
+  "persona": "rowan-mi",
+  "now": "2026-10-04T15:30:00+00:00",
+  "action_hex": "c0ffee0123456789abcd",
+  "checking": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+  "bill_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4"
+ },
+ "exchanges": [
+  {
+   "method": "GET",
+   "path": "/customers/27b3870f-0f5a-429d-8640-54aba63d9f81",
+   "body": null,
+   "status": 200,
+   "response": {
+    "last_name": "Hale",
+    "first_name": "Rowan",
+    "_id": "27b3870f-0f5a-429d-8640-54aba63d9f81",
+    "address": {
+     "street_number": "214",
+     "city": "Ann Arbor",
+     "state": "MI",
+     "street_name": "Alder Row",
+     "zip": "48104"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/customers/27b3870f-0f5a-429d-8640-54aba63d9f81/accounts",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "0721872b-b41d-4bd7-a34f-d0121718f978",
+     "type": "Savings",
+     "nickname": "Cushion",
+     "rewards": 0,
+     "balance": 900,
+     "account_number": "1264973167958936",
+     "customer_id": "27b3870f-0f5a-429d-8640-54aba63d9f81"
+    },
+    {
+     "_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "type": "Checking",
+     "nickname": "Checking",
+     "rewards": 0,
+     "balance": 2850,
+     "account_number": "2472790158700011",
+     "customer_id": "27b3870f-0f5a-429d-8640-54aba63d9f81"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/0721872b-b41d-4bd7-a34f-d0121718f978/deposits",
+   "body": null,
+   "status": 200,
+   "response": []
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/withdrawals",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "13d9a6de-dcdd-4de9-ac11-ba87da76c2a5",
+     "type": "withdrawal",
+     "transaction_date": "2026-09-05",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "205db3cf-1905-403e-a23e-a28b2a1c0214",
+     "type": "withdrawal",
+     "transaction_date": "2026-08-01",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "7ce64ff8-bd32-429e-9fc9-d05f344be821",
+     "type": "withdrawal",
+     "transaction_date": "2026-07-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "a150145e-e736-4d94-9a44-915a7c7bd4c4",
+     "type": "withdrawal",
+     "transaction_date": "2026-05-02",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "d21a84f0-9e43-44ba-9d2d-e68e2f99bbc7",
+     "type": "withdrawal",
+     "transaction_date": "2026-04-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fb343c7f-5064-44a0-99a6-cd5f07ac371b",
+     "type": "withdrawal",
+     "transaction_date": "2026-06-06",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fc5913f8-01f6-4532-9602-2f555fdc1701",
+     "type": "withdrawal",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 118,
+     "description": "Payment to Riverbend General Hospital [tend:act_c0ffee0123456789abcd] [bill:c1398337-ac9d-4216-a449-ab7ac2a9e9b4#1,3]"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/0721872b-b41d-4bd7-a34f-d0121718f978/withdrawals",
+   "body": null,
+   "status": 200,
+   "response": []
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/transfers",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "id": "3eb966eb-b15c-45bd-9802-3f3640e95d04",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 40,
+     "description": "Save to Cushion [payee:0721872b-b41d-4bd7-a34f-d0121718f978]"
+    },
+    {
+     "id": "4ccd67de-b382-48ae-9ada-c3be78ed4bb3",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 40,
+     "description": "Save to Cushion [payee:0721872b-b41d-4bd7-a34f-d0121718f978]"
+    },
+    {
+     "id": "54356274-6c12-49c5-9e65-d8d42eab19ad",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 40,
+     "description": "Save to Cushion [payee:0721872b-b41d-4bd7-a34f-d0121718f978]"
+    },
+    {
+     "id": "68d46242-2925-4780-bbe1-6f3ba102ffed",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 40,
+     "description": "Save to Cushion [payee:0721872b-b41d-4bd7-a34f-d0121718f978]"
+    },
+    {
+     "id": "68ddd4d6-cc1f-44e7-b991-65a5037abae3",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 40,
+     "description": "Save to Cushion [payee:0721872b-b41d-4bd7-a34f-d0121718f978]"
+    },
+    {
+     "id": "a5226e0b-466c-4891-9a51-0a3b3d4b4f0b",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 40,
+     "description": "Save to Cushion [payee:0721872b-b41d-4bd7-a34f-d0121718f978]"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/0721872b-b41d-4bd7-a34f-d0121718f978/transfers",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "id": "3d9626f5-3120-4a41-8d86-5b0618c8b155",
+     "transaction_date": "2026-08-03",
+     "status": "completed",
+     "amount": 250,
+     "description": "Move to checking [payee:8ff7e76a-0d1a-4327-b13d-4a8ffa529434]"
+    },
+    {
+     "id": "c20f3838-4506-4735-87ff-82725dbff01b",
+     "transaction_date": "2026-07-02",
+     "status": "completed",
+     "amount": 300,
+     "description": "Move to checking [payee:8ff7e76a-0d1a-4327-b13d-4a8ffa529434]"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/0721872b-b41d-4bd7-a34f-d0121718f978/purchases",
+   "body": null,
+   "status": 200,
+   "response": []
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "f581cc53-0cff-4cc3-a892-6437c6bb8b96",
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/0721872b-b41d-4bd7-a34f-d0121718f978/bills",
+   "body": null,
+   "status": 200,
+   "response": []
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/bills",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+     "status": "pending",
+     "payee": "Riverbend General Hospital",
+     "nickname": "Riverbend General statement: $325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay.",
+     "creation_date": "2026-10-03",
+     "payment_date": "2026-10-20",
+     "recurring_date": 20,
+     "upcoming_payment_date": "2026-10-20",
+     "payment_amount": 325.0,
+     "account_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/merchants",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "016ca98f-5942-4b70-9a99-29d7be486a10",
+     "name": "Copper Kettle Coffee",
+     "category": "coffee shop",
+     "address": {
+      "street_number": "137",
+      "street_name": "Caldera St",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5776,
+      "lng": -121.5194
+     }
+    },
+    {
+     "_id": "019452ad-5517-453f-832c-7d767fd32f2d",
+     "name": "Elm Court Apartments",
+     "category": "property management",
+     "address": {
+      "street_number": "544",
+      "street_name": "Bluestem Ln",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2632,
+      "lng": -97.7131
+     }
+    },
+    {
+     "_id": "03fcb072-f843-4ee4-b3fc-6c60f4dc54c4",
+     "name": "Two Rivers Truck Rental",
+     "category": "truck rental",
+     "address": {
+      "street_number": "507",
+      "street_name": "Sumner Pl",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1366,
+      "lng": -77.5838
+     }
+    },
+    {
+     "_id": "04f5344d-387b-40ab-8613-655449dda934",
+     "name": "Keyline Lock & Safe",
+     "category": "home services",
+     "address": {
+      "street_number": "396",
+      "street_name": "Pennfield Ave",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1766,
+      "lng": -77.5988
+     }
+    },
+    {
+     "_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "name": "Wayfare Rides",
+     "category": "rideshare",
+     "address": {
+      "street_number": "211",
+      "street_name": "Wexley Ave",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2648,
+      "lng": -83.758
+     }
+    },
+    {
+     "_id": "09e1760c-df6a-4862-91f9-b25231721b32",
+     "name": "Linen & Loom",
+     "category": "home goods",
+     "address": {
+      "street_number": "470",
+      "street_name": "Quarry Bend Rd",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2888,
+      "lng": -83.723
+     }
+    },
+    {
+     "_id": "0d23f4b6-633e-48db-9af5-969524aa2da0",
+     "name": "Northside Hardware",
+     "category": "hardware",
+     "address": {
+      "street_number": "433",
+      "street_name": "Saltgrass Ct",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5736,
+      "lng": -121.4794
+     }
+    },
+    {
+     "_id": "13fa71f9-0464-45c7-928d-f1e02f271fd4",
+     "name": "Clearwater Counseling Group",
+     "category": "health care",
+     "address": {
+      "street_number": "322",
+      "street_name": "Caldera St",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5696,
+      "lng": -121.4944
+     }
+    },
+    {
+     "_id": "197b3227-8744-4509-86ed-4067ff13e32a",
+     "name": "Linen & Loom",
+     "category": "home goods",
+     "address": {
+      "street_number": "470",
+      "street_name": "Brackett Ln",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1646,
+      "lng": -77.5888
+     }
+    },
+    {
+     "_id": "21e1eaf3-f714-4caa-9011-475c12361bee",
+     "name": "Lumen Streaming",
+     "category": "entertainment",
+     "address": {
+      "street_number": "248",
+      "street_name": "Saltgrass Ct",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5816,
+      "lng": -121.5044
+     }
+    },
+    {
+     "_id": "287eaf96-6775-415a-b978-9e18ea9eca5d",
+     "name": "Juniper Noodle House",
+     "category": "restaurant",
+     "address": {
+      "street_number": "174",
+      "street_name": "Gilder St",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1686,
+      "lng": -77.6288
+     }
+    },
+    {
+     "_id": "28c68afa-e7e2-414c-8494-8f1dd15f46ed",
+     "name": "Northside Hardware",
+     "category": "hardware",
+     "address": {
+      "street_number": "433",
+      "street_name": "Kestrel Way",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1486,
+      "lng": -77.5938
+     }
+    },
+    {
+     "_id": "2cc0f8bf-c9d3-4c5d-aafe-559169b00d91",
+     "name": "Brightline Wireless",
+     "category": "telecom",
+     "address": {
+      "street_number": "285",
+      "street_name": "Mesquite Bend",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2832,
+      "lng": -97.7481
+     }
+    },
+    {
+     "_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "name": "Lumen Streaming",
+     "category": "entertainment",
+     "address": {
+      "street_number": "248",
+      "street_name": "Orchard Spur",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2808,
+      "lng": -83.753
+     }
+    },
+    {
+     "_id": "2f5dc0d2-3608-4396-975f-198816376ef0",
+     "name": "Brightline Wireless",
+     "category": "telecom",
+     "address": {
+      "street_number": "285",
+      "street_name": "Brackett Ln",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1726,
+      "lng": -77.6138
+     }
+    },
+    {
+     "_id": "301f4ffe-d617-4df8-8429-463698031dbb",
+     "name": "Northside Hardware",
+     "category": "hardware",
+     "address": {
+      "street_number": "433",
+      "street_name": "Orchard Spur",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2728,
+      "lng": -83.728
+     }
+    },
+    {
+     "_id": "371115bd-5d5f-4662-a5ee-dc6a1cd448f2",
+     "name": "Brightline Wireless",
+     "category": "telecom",
+     "address": {
+      "street_number": "285",
+      "street_name": "Arroyo Bend",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5976,
+      "lng": -121.4994
+     }
+    },
+    {
+     "_id": "4a627b80-8bea-465e-bcf5-5e3e98bf85a0",
+     "name": "Elm Court Apartments",
+     "category": "property management",
+     "address": {
+      "street_number": "544",
+      "street_name": "Tamarack St",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2768,
+      "lng": -83.713
+     }
+    },
+    {
+     "_id": "4d84d1d4-4220-411e-af58-e5dc75a67e09",
+     "name": "Unused probe merchant",
+     "category": "unused",
+     "address": {
+      "street_number": "1",
+      "street_name": "Main St",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.28,
+      "lng": -83.74
+     }
+    },
+    {
+     "_id": "5138e80d-a720-417a-9629-5f03957c1e05",
+     "name": "Wayfare Rides",
+     "category": "rideshare",
+     "address": {
+      "street_number": "211",
+      "street_name": "Tule Ave",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5656,
+      "lng": -121.5094
+     }
+    },
+    {
+     "_id": "52b53896-f6c6-43af-84c2-2162e9fc4317",
+     "name": "Two Rivers Truck Rental",
+     "category": "truck rental",
+     "address": {
+      "street_number": "507",
+      "street_name": "Hollis Ct",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2608,
+      "lng": -83.718
+     }
+    },
+    {
+     "_id": "58b1b830-8672-42ba-af2e-e6fcc12e1114",
+     "name": "Hearthstone Pharmacy",
+     "category": "pharmacy",
+     "address": {
+      "street_number": "359",
+      "street_name": "Bluestem Ln",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2712,
+      "lng": -97.7381
+     }
+    },
+    {
+     "_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "name": "Brightline Wireless",
+     "category": "telecom",
+     "address": {
+      "street_number": "285",
+      "street_name": "Quarry Bend Rd",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2968,
+      "lng": -83.748
+     }
+    },
+    {
+     "_id": "62ee1d27-803a-4334-a7d4-e3082cd9aa3c",
+     "name": "Lumen Streaming",
+     "category": "entertainment",
+     "address": {
+      "street_number": "248",
+      "street_name": "Limestone Ct",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2672,
+      "lng": -97.7531
+     }
+    },
+    {
+     "_id": "637c2026-cc97-422c-99a5-eb006cd5d2ca",
+     "name": "Juniper Noodle House",
+     "category": "restaurant",
+     "address": {
+      "street_number": "174",
+      "street_name": "Mission Fig Ln",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5936,
+      "lng": -121.5144
+     }
+    },
+    {
+     "_id": "638664be-7b51-48a8-a143-e736b5e4db67",
+     "name": "Two Rivers Truck Rental",
+     "category": "truck rental",
+     "address": {
+      "street_number": "507",
+      "street_name": "Caliche Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2472,
+      "lng": -97.7181
+     }
+    },
+    {
+     "_id": "6645eea6-deaa-4f8f-96cf-b7d61af39841",
+     "name": "Juniper Noodle House",
+     "category": "restaurant",
+     "address": {
+      "street_number": "174",
+      "street_name": "Bluestem Ln",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2792,
+      "lng": -97.7631
+     }
+    },
+    {
+     "_id": "69cda044-f51d-45bf-8911-d8e80bebe50b",
+     "name": "Hearthstone Pharmacy",
+     "category": "pharmacy",
+     "address": {
+      "street_number": "359",
+      "street_name": "Mission Fig Ln",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5856,
+      "lng": -121.4894
+     }
+    },
+    {
+     "_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "name": "Larkfield Market",
+     "category": "groceries",
+     "address": {
+      "street_number": "100",
+      "street_name": "Quarry Bend Rd",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2608,
+      "lng": -83.773
+     }
+    },
+    {
+     "_id": "78284106-9a4e-4c5e-83a6-05c1553ac389",
+     "name": "Lumen Streaming",
+     "category": "entertainment",
+     "address": {
+      "street_number": "248",
+      "street_name": "Kestrel Way",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1566,
+      "lng": -77.6188
+     }
+    },
+    {
+     "_id": "7bfc8fc3-5fa3-4551-ad02-5707f7997b71",
+     "name": "Northside Hardware",
+     "category": "hardware",
+     "address": {
+      "street_number": "433",
+      "street_name": "Limestone Ct",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2592,
+      "lng": -97.7281
+     }
+    },
+    {
+     "_id": "7d696154-f212-47fe-b204-9f9175bcef49",
+     "name": "Elm Court Apartments",
+     "category": "property management",
+     "address": {
+      "street_number": "544",
+      "street_name": "Gilder St",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1526,
+      "lng": -77.5788
+     }
+    },
+    {
+     "_id": "80d73615-fe75-41ed-809f-0c633071c8ce",
+     "name": "Larkfield Market",
+     "category": "groceries",
+     "address": {
+      "street_number": "100",
+      "street_name": "Arroyo Bend",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5616,
+      "lng": -121.5244
+     }
+    },
+    {
+     "_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "name": "Juniper Noodle House",
+     "category": "restaurant",
+     "address": {
+      "street_number": "174",
+      "street_name": "Tamarack St",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2928,
+      "lng": -83.763
+     }
+    },
+    {
+     "_id": "95947594-955c-412b-97f4-ab470a7984ee",
+     "name": "Larkfield Market",
+     "category": "groceries",
+     "address": {
+      "street_number": "100",
+      "street_name": "Mesquite Bend",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2472,
+      "lng": -97.7731
+     }
+    },
+    {
+     "_id": "9ea30776-34be-4f51-baae-dc0d89e76d85",
+     "name": "Linen & Loom",
+     "category": "home goods",
+     "address": {
+      "street_number": "470",
+      "street_name": "Mesquite Bend",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2752,
+      "lng": -97.7231
+     }
+    },
+    {
+     "_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "name": "Clearwater Counseling Group",
+     "category": "health care",
+     "address": {
+      "street_number": "322",
+      "street_name": "Hollis Ct",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2688,
+      "lng": -83.743
+     }
+    },
+    {
+     "_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "name": "Copper Kettle Coffee",
+     "category": "coffee shop",
+     "address": {
+      "street_number": "137",
+      "street_name": "Hollis Ct",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2768,
+      "lng": -83.768
+     }
+    },
+    {
+     "_id": "ae9801b8-12cb-4cf7-b746-02a8f7197ed0",
+     "name": "Keyline Lock & Safe",
+     "category": "home services",
+     "address": {
+      "street_number": "396",
+      "street_name": "Tule Ave",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.6016,
+      "lng": -121.4844
+     }
+    },
+    {
+     "_id": "b029b1de-13e6-4ad4-a288-3c8c0f355ea7",
+     "name": "Wayfare Rides",
+     "category": "rideshare",
+     "address": {
+      "street_number": "211",
+      "street_name": "Pennfield Ave",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1406,
+      "lng": -77.6238
+     }
+    },
+    {
+     "_id": "b264f187-d921-4dad-933a-64ddcce94a74",
+     "name": "Keyline Lock & Safe",
+     "category": "home services",
+     "address": {
+      "street_number": "396",
+      "street_name": "Wexley Ave",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.3008,
+      "lng": -83.733
+     }
+    },
+    {
+     "_id": "b3d2577f-613f-47ec-9b04-5a60279d48ad",
+     "name": "Copper Kettle Coffee",
+     "category": "coffee shop",
+     "address": {
+      "street_number": "137",
+      "street_name": "Sumner Pl",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1526,
+      "lng": -77.6338
+     }
+    },
+    {
+     "_id": "b9208c2a-eb3b-4152-be71-a7a375ca2782",
+     "name": "Hearthstone Pharmacy",
+     "category": "pharmacy",
+     "address": {
+      "street_number": "359",
+      "street_name": "Tamarack St",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48104"
+     },
+     "geocode": {
+      "lat": 42.2848,
+      "lng": -83.738
+     }
+    },
+    {
+     "_id": "c19deea8-b8dc-4ce3-b3c1-4fa1cd9b0a5b",
+     "name": "Clearwater Counseling Group",
+     "category": "health care",
+     "address": {
+      "street_number": "322",
+      "street_name": "Caliche Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2552,
+      "lng": -97.7431
+     }
+    },
+    {
+     "_id": "c82f192a-ad23-43d7-baf2-1cd8ba045241",
+     "name": "Copper Kettle Coffee",
+     "category": "coffee shop",
+     "address": {
+      "street_number": "137",
+      "street_name": "Caliche Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2632,
+      "lng": -97.7681
+     }
+    },
+    {
+     "_id": "d0b26362-ba11-4b19-8f73-bcb653c3dbc1",
+     "name": "Two Rivers Truck Rental",
+     "category": "truck rental",
+     "address": {
+      "street_number": "507",
+      "street_name": "Caldera St",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5616,
+      "lng": -121.4694
+     }
+    },
+    {
+     "_id": "d34497de-6a44-482c-989f-32875ac66c81",
+     "name": "Clearwater Counseling Group",
+     "category": "health care",
+     "address": {
+      "street_number": "322",
+      "street_name": "Sumner Pl",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1446,
+      "lng": -77.6088
+     }
+    },
+    {
+     "_id": "d83497dd-88c1-4d6a-bc8e-4449327c0794",
+     "name": "Hearthstone Pharmacy",
+     "category": "pharmacy",
+     "address": {
+      "street_number": "359",
+      "street_name": "Gilder St",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1606,
+      "lng": -77.6038
+     }
+    },
+    {
+     "_id": "e684aa3f-00c1-4c27-a84b-c1d5e262e3fe",
+     "name": "Keyline Lock & Safe",
+     "category": "home services",
+     "address": {
+      "street_number": "396",
+      "street_name": "Lantana Ave",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2872,
+      "lng": -97.7331
+     }
+    },
+    {
+     "_id": "e800f540-f2d5-4482-889b-2955d50dc8f1",
+     "name": "Wayfare Rides",
+     "category": "rideshare",
+     "address": {
+      "street_number": "211",
+      "street_name": "Lantana Ave",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704"
+     },
+     "geocode": {
+      "lat": 30.2512,
+      "lng": -97.7581
+     }
+    },
+    {
+     "_id": "e9980a3e-7a04-4426-851f-a84f6f57e827",
+     "name": "Linen & Loom",
+     "category": "home goods",
+     "address": {
+      "street_number": "470",
+      "street_name": "Arroyo Bend",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5896,
+      "lng": -121.4744
+     }
+    },
+    {
+     "_id": "f3f0761c-6f0d-44b6-9dba-70c3e721e314",
+     "name": "Elm Court Apartments",
+     "category": "property management",
+     "address": {
+      "street_number": "544",
+      "street_name": "Mission Fig Ln",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95816"
+     },
+     "geocode": {
+      "lat": 38.5776,
+      "lng": -121.4644
+     }
+    },
+    {
+     "_id": "fd885c52-1261-4747-8820-885790b79e0a",
+     "name": "Larkfield Market",
+     "category": "groceries",
+     "address": {
+      "street_number": "100",
+      "street_name": "Brackett Ln",
+      "city": "Rochester",
+      "state": "NY",
+      "zip": "14607"
+     },
+     "geocode": {
+      "lat": 43.1366,
+      "lng": -77.6388
+     }
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/purchases",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "0172a1ef-0947-4bb9-88ab-074039d65d70",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-22",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly plan"
+    },
+    {
+     "_id": "01c185d5-28cc-452a-a96b-155de4c8e53f",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-17",
+     "amount": 23,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "01e65fe4-87b9-491d-a1a6-343dab90acf5",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-25",
+     "amount": 7,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "021b6eda-2233-477f-9b4e-7dcef1b40654",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-11",
+     "amount": 21,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "02c61176-b77b-4a54-8b1a-f293b0918711",
+     "type": "merchant",
+     "merchant_id": "52b53896-f6c6-43af-84c2-2162e9fc4317",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-18",
+     "amount": 189,
+     "status": "completed",
+     "medium": "balance",
+     "description": "10 ft truck, 1 day"
+    },
+    {
+     "_id": "03fdaf37-6342-4059-831c-d7b257e6f254",
+     "type": "merchant",
+     "merchant_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly subscription"
+    },
+    {
+     "_id": "05117b10-42f9-48e1-a7df-5b563876305a",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-14",
+     "amount": 4,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "05583586-b78b-443b-9ed3-62e996664251",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-12",
+     "amount": 15,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "05e9da8d-3bc0-4c96-909d-1e1a67d652b6",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-28",
+     "amount": 7,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "0b5d06fe-773c-467f-b1c1-4bb0d4946caa",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-18",
+     "amount": 22,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "0d366dac-ff9a-4e40-b30f-cf252b6dee90",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-29",
+     "amount": 18,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "0e2b9d96-fe83-4f5d-aac9-e0642ce8e8b6",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-20",
+     "amount": 18,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "0f84896e-9276-44e2-867a-7ae52296520e",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-09",
+     "amount": 8,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "100c9919-0510-4dff-8760-c1b4d756f512",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-01",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "106fb460-3309-4787-b693-2d19508f9520",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-01",
+     "amount": 16,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "1496945b-6583-4200-b616-a0ca4aa7bc1b",
+     "type": "merchant",
+     "merchant_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly subscription"
+    },
+    {
+     "_id": "1a9753e9-1ab6-40fb-ab20-816471504f39",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-19",
+     "amount": 68,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "1edd0b2f-0f3e-40dc-bf82-791c5fe27750",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-06",
+     "amount": 5,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "1f8e6d38-2c49-4681-9bf5-17c7ae939cb0",
+     "type": "merchant",
+     "merchant_id": "b9208c2a-eb3b-4152-be71-a7a375ca2782",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-15",
+     "amount": 25,
+     "status": "completed",
+     "medium": "balance",
+     "description": "Rx copay"
+    },
+    {
+     "_id": "1ffa6e9c-704e-4266-b57e-da4f5d81f82a",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-11",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "2234a6e9-065b-4cb1-8f4b-26c8bfb8d6a4",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-27",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "228b6215-28bd-4494-93d0-8486783fbcfb",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-12",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "25648441-02b1-4a66-9877-7ee813c30dc6",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-19",
+     "amount": 68,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "259b425f-2b2e-4ee9-b8fe-8b9c01b8899c",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-29",
+     "amount": 35,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "25abfaac-53e7-4dfb-92f4-15fffd372a89",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-01",
+     "amount": 5,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "25e11844-30c5-4764-91ce-c4ada43e29ab",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-10",
+     "amount": 17,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "267dbf14-076e-44ba-b77b-23ffa6b4caba",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-09",
+     "amount": 48,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "269ced10-fa12-418c-bd7b-507800ba9ac4",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-02",
+     "amount": 7,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "26a2b52d-5df0-49df-a2d7-88fae85e1efc",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-05",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "2a875d3e-db06-407b-8525-635058442e8c",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-21",
+     "amount": 18,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "2c216d16-e9e3-4427-8e36-351f631c0baf",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-19",
+     "amount": 74,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "30fda95b-7e4e-42ba-b080-897e28e171e8",
+     "type": "merchant",
+     "merchant_id": "b9208c2a-eb3b-4152-be71-a7a375ca2782",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-24",
+     "amount": 15,
+     "status": "completed",
+     "medium": "balance",
+     "description": "Rx copay"
+    },
+    {
+     "_id": "30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-02",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "3114e23d-7a5d-44a3-bc9a-c7c520d40115",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-04",
+     "amount": 7,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "32e95f84-4984-44f4-92f1-158023e384f9",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-22",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly plan"
+    },
+    {
+     "_id": "332aa20b-1094-49fa-b778-bec4774799ad",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-26",
+     "amount": 20,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "33db30d7-61f6-4024-a7ff-e0be95d5a058",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-04",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "380703dc-8b04-4c4e-90e2-2f55bf151a52",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-19",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "39513b96-6227-4f6d-8199-345d996b03ff",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-16",
+     "amount": 5,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "3a5e0607-146a-410e-9719-d6f5e3de185c",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-22",
+     "amount": 64,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "3c52d682-09a4-46ae-895b-4ded37242d56",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-14",
+     "amount": 18,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "3d5c3751-ad7f-4733-a84d-24fe0ff9159d",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-21",
+     "amount": 6,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "42db175b-a89e-4a17-9e98-39153fc395a3",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-13",
+     "amount": 4,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-16",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "45bf7328-af80-49f9-8bfd-2c65f89e7142",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-15",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "4623e11b-ee72-4965-b5fe-1647ef427382",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-17",
+     "amount": 44,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "48a4e72d-fc30-4f31-9347-0f953241ce41",
+     "type": "merchant",
+     "merchant_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly subscription"
+    },
+    {
+     "_id": "495ceaf8-9363-42dd-8de4-b7f5c5d39f73",
+     "type": "merchant",
+     "merchant_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly subscription"
+    },
+    {
+     "_id": "498bdece-4174-4ddf-a52e-9690dfe5df0c",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-20",
+     "amount": 299,
+     "status": "completed",
+     "medium": "balance",
+     "description": "new phone"
+    },
+    {
+     "_id": "49ede496-a981-4388-9d7a-13c87fcd74b4",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-09",
+     "amount": 8,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "4bb52dc6-5a98-448f-b0c6-4ad21fd605dc",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-24",
+     "amount": 8,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "4f47a837-9637-4dc1-85af-d8419730d337",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-21",
+     "amount": 63,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "50bfd35a-26f1-48ff-8272-dbd101da5f42",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-18",
+     "amount": 15,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "50ca40ff-51d2-4608-89a9-25bd52bf211c",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-06",
+     "amount": 18,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "52f6340b-d302-4772-9d17-fd81e9ba7635",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-07",
+     "amount": 61,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "59bf6971-e1ea-46fa-962d-c0b271e8b77b",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-28",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-29",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "5a8e9855-6017-441b-b826-5e6afa8abace",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-23",
+     "amount": 17,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "5b0794ea-b8c7-40c0-95fe-9a0dc9c9aa2e",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-26",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "5b25752f-a378-4468-ba5f-5866f88537e8",
+     "type": "merchant",
+     "merchant_id": "301f4ffe-d617-4df8-8429-463698031dbb",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-18",
+     "amount": 64,
+     "status": "completed",
+     "medium": "balance",
+     "description": "door chain, motion sensor light"
+    },
+    {
+     "_id": "5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-09",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "5d48b9ac-a4bf-4cdf-945d-381c5544af48",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-08",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "61b389a5-d523-413b-a3be-0fdc2b8bbcaa",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-16",
+     "amount": 56,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "63417952-4fc2-4313-ad1b-9fb48b73ee23",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-22",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "639df4f6-10c4-4382-82bd-f7e339992c32",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-26",
+     "amount": 25,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "64e02e65-f538-4080-b63a-0d7a3a960068",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-24",
+     "amount": 17,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "6505c0ec-6cfd-411c-a739-5c3cce96333a",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-23",
+     "amount": 50,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "65cec4b2-e8a1-4a89-b13f-7a672ee2ca4e",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-03",
+     "amount": 29,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "6648135c-7e89-45ed-a674-8c86f9aa0124",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-17",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "67f32faa-392d-467f-b2a0-5089ea1e6511",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-31",
+     "amount": 21,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "6922a2de-83d4-49e7-b25f-041e1e62cbbe",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-22",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly plan"
+    },
+    {
+     "_id": "70a8a08f-16b9-422e-9d8c-3fe70b86646f",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-27",
+     "amount": 49,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "70b313c4-6043-4b76-81ce-222d3206849d",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-24",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "70bec4b3-ac79-4bad-808a-cf7ccf1816c9",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-08",
+     "amount": 54,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "715a6bbd-9382-4119-8820-f52e14756658",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-30",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "7189661b-ce43-46da-9d3b-5853eb9fed3c",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-15",
+     "amount": 63,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "72a94d59-91db-4a1b-a1b7-5546fa5873f5",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-01",
+     "amount": 19,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "74bfbee9-84a7-4574-b547-b2b1d1045917",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-25",
+     "amount": 18,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "74e3c9f9-cba5-48d2-a2fb-9b003328045c",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-08",
+     "amount": 73,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "76e5b353-0dda-4b79-8415-a47ae3c3633b",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-27",
+     "amount": 20,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "777c7653-0820-4eb8-a54d-3ce9abbd8b7c",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-22",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "777e04fe-570d-45a8-871c-1b9c4ed8985b",
+     "type": "merchant",
+     "merchant_id": "09e1760c-df6a-4862-91f9-b25231721b32",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-16",
+     "amount": 96,
+     "status": "completed",
+     "medium": "balance",
+     "description": "sheet set, pillows"
+    },
+    {
+     "_id": "7989892b-0a1a-47c1-9c41-9299e1841aa0",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-30",
+     "amount": 5,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "7a22c79f-0ec8-4902-9bbc-e99b588c3541",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-30",
+     "amount": 56,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "7b8a3282-6655-4d32-99e0-48da34363cde",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-24",
+     "amount": 24,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "7bf55c50-68b7-42fa-8614-b55efa7efb04",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-12",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "7c912fa7-582a-4d72-aa92-28e31c12742d",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-03",
+     "amount": 24,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "7e74b749-2e6b-4f95-9224-b346f06ccce8",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-05",
+     "amount": 51,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "82a60a56-3821-4aed-81ac-a5fee7c6e65b",
+     "type": "merchant",
+     "merchant_id": "b9208c2a-eb3b-4152-be71-a7a375ca2782",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-29",
+     "amount": 15,
+     "status": "completed",
+     "medium": "balance",
+     "description": "Rx copay"
+    },
+    {
+     "_id": "8310f5c6-f5ef-46aa-a2b1-d59eeb0c92cc",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-06",
+     "amount": 21,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "8462c13e-5aa9-4da3-b3fa-711b31a94aa2",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-22",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly plan"
+    },
+    {
+     "_id": "86f1455a-df66-4b8b-b769-29807520ba84",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-30",
+     "amount": 20,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "892923e0-2a15-4269-b568-0d80651be3ac",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-10",
+     "amount": 58,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "8c1b61a7-27ab-474b-9028-30ac8ac5fd9b",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-29",
+     "amount": 16,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "8d674eb0-99e7-4978-8b9b-4be796f68609",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "8fd6f89f-ab12-453d-873c-32b8a9762835",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-11",
+     "amount": 8,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "938724c9-1def-422d-9ab0-359ea3d875f4",
+     "type": "merchant",
+     "merchant_id": "4a627b80-8bea-465e-bcf5-5e3e98bf85a0",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-15",
+     "amount": 650,
+     "status": "completed",
+     "medium": "balance",
+     "description": "security deposit"
+    },
+    {
+     "_id": "943aaa11-65fd-4521-9d8c-a2c37c0468bd",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-12",
+     "amount": 23,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "959913bc-2a02-438f-b663-3707648bb1bc",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-12",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "95a277ab-5cec-4754-8df7-8fe04ee93a9f",
+     "type": "merchant",
+     "merchant_id": "b9208c2a-eb3b-4152-be71-a7a375ca2782",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-27",
+     "amount": 15,
+     "status": "completed",
+     "medium": "balance",
+     "description": "Rx copay"
+    },
+    {
+     "_id": "99c877a5-cc9c-4871-ab83-955310dc2ae8",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-18",
+     "amount": 23,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "9a219ecb-5393-4583-91b4-a23b18b14f74",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-05",
+     "amount": 6,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "9aeb6bb1-e2a0-4670-8d98-302a15c47852",
+     "type": "merchant",
+     "merchant_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly subscription"
+    },
+    {
+     "_id": "9eef18d3-8ef0-4542-8471-7578df7d39a7",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-22",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly plan"
+    },
+    {
+     "_id": "9f667f98-42c8-4b01-a63c-5a78106de27d",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-10",
+     "amount": 69,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "a3e4a776-50d9-42b5-a442-8b31b4913aff",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-26",
+     "amount": 35,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "a4a3bace-6b35-428b-986c-8e925350cff8",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-26",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "a792c04c-5ce5-44c8-bf63-8472af5d70d9",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-17",
+     "amount": 19,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "aa0bd6dc-0cdc-42bc-bf2b-557a0a60823e",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-30",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "aa4aad2e-203f-4176-81ac-0ef746e2df39",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-02",
+     "amount": 20,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "aa8a9a60-611d-40bf-bea1-d656029963ee",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-17",
+     "amount": 61,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "ab3421f0-51f0-448d-a92e-300555c69d01",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-01",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "acba0957-2ab4-4780-abc6-5083875206be",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-08",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "ad034c13-9173-4ad8-b79b-bb463300d4e6",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-17",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "adf2f2d0-ea2c-45b6-8012-1ce12284fd1e",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-07",
+     "amount": 8,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "af00a615-fbf8-40a2-a5fb-61c21f6157fd",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-23",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "b103f531-9ee2-4909-b663-a13f33420ea2",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-05",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "b3f7c579-bb2d-4546-b9d9-63f22f371388",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-24",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "b40f3898-d933-401a-ad91-c6eb4cf66881",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-25",
+     "amount": 4,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "b56725de-b73f-4bd4-8a30-190604744e86",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-16",
+     "amount": 24,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "b7973cc0-f97b-422b-bd36-80547b45e1dc",
+     "type": "merchant",
+     "merchant_id": "301f4ffe-d617-4df8-8429-463698031dbb",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-10",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "light bulbs, tape"
+    },
+    {
+     "_id": "b7fb5724-f9a8-4b02-9d09-88b627984aa8",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-27",
+     "amount": 16,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "b8938122-79ee-42c5-b370-0d99987a754b",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-18",
+     "amount": 11,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "ba859b62-8083-4b8b-ac52-9b5040817b9f",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-27",
+     "amount": 37,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-19",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "bb6b7ad0-194e-41dd-8938-f30d54593c4e",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-07",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "bc3cf3f1-6c2f-4356-bff7-9493fc6f215e",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-24",
+     "amount": 16,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "bc6e8f6a-4859-4a2b-8031-b6c3dfc4b997",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-16",
+     "amount": 9,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "bd000038-ddad-41d1-b587-e011f8717848",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-25",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "bd0e2af1-8e25-49d7-918f-a918fa44fe0e",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-12",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "be7baf87-3bdd-48b9-a1a5-458749bcb94d",
+     "type": "merchant",
+     "merchant_id": "b264f187-d921-4dad-933a-64ddcce94a74",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-16",
+     "amount": 185,
+     "status": "completed",
+     "medium": "balance",
+     "description": "rekey and deadbolt install"
+    },
+    {
+     "_id": "bed64114-bde9-4155-95ff-93294fa4486e",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-20",
+     "amount": 30,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "bf1bc3ed-766c-4cd0-8685-525e84cbe663",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-03",
+     "amount": 72,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "c09aacae-bd64-4008-8c9b-40bd393aa00e",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-23",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "c0f6822f-01a2-44e5-ba4a-f3256d90bb2b",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-13",
+     "amount": 25,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "c2a16227-71d4-449f-a3d6-c90e878bc2ff",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-16",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "c2ca5d4b-c8df-45df-bd09-227a878c1924",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-09",
+     "amount": 54,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "c8c6c544-2918-4e24-9961-858b2ae88be1",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-13",
+     "amount": 4,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "c8e89395-c31d-4b9f-83eb-f963379fcfec",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-05",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "c9034976-d4ad-439f-8bf9-6d47c271e938",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-12",
+     "amount": 21,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "c9960f1b-eb6d-48b6-9d1f-82c3ecf53ab2",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-11",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "cf2df602-8588-4409-9cb4-57a2ac7d34bb",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-13",
+     "amount": 17,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "cfaf384b-facd-41d3-842d-fddc340bf123",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-28",
+     "amount": 40,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "d2ed4222-9f5f-473a-abd8-b00c6d3b9d3b",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-20",
+     "amount": 8,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "d434e6ed-df25-4ace-a51e-157da42d7c1c",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-15",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "d44be75a-ace9-4e99-a2d7-c7f8467e63fb",
+     "type": "merchant",
+     "merchant_id": "2da80808-5e63-4f1d-931a-f6efbfec0e0e",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-09",
+     "amount": 12,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly subscription"
+    },
+    {
+     "_id": "d48ef757-013f-4b2d-bea6-a7defe50687b",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-18",
+     "amount": 5,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "d6202d54-3040-4bd2-984e-4ab0c653b753",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-26",
+     "amount": 11,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "d9a6ccd4-197e-493c-ac3d-cc232f859e16",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-13",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "dad49cc5-9fdb-45f3-8e38-c377cee8192a",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-10",
+     "amount": 20,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "dc8df49d-e975-40ff-9f74-4bc5a40c7565",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-29",
+     "amount": 13,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "e0e85f43-7ace-4078-8889-32bcd3cd62ed",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-24",
+     "amount": 43,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "e210bbe5-465d-40ae-a7e8-18eafc69cb11",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-20",
+     "amount": 6,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "e52a9742-cb93-48a2-9115-60f21def53ed",
+     "type": "merchant",
+     "merchant_id": "5c624acf-8303-4f9f-b19f-73920560749d",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-22",
+     "amount": 45,
+     "status": "completed",
+     "medium": "balance",
+     "description": "monthly plan"
+    },
+    {
+     "_id": "e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+     "type": "merchant",
+     "merchant_id": "a11e93d7-8a14-4516-9717-ef76fb23658a",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-23",
+     "amount": 150,
+     "status": "completed",
+     "medium": "balance",
+     "description": "session"
+    },
+    {
+     "_id": "eac66944-55fd-44d8-b568-ca47cd2a447e",
+     "type": "merchant",
+     "merchant_id": "8b25c908-abc2-47ac-9860-a233cee10f19",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-08-22",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "takeout"
+    },
+    {
+     "_id": "ed5a387d-cd31-476d-abbe-91573a114113",
+     "type": "merchant",
+     "merchant_id": "a716209e-5c04-47ca-ba2f-089080f3f329",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-09-22",
+     "amount": 6,
+     "status": "completed",
+     "medium": "balance",
+     "description": "coffee"
+    },
+    {
+     "_id": "efbab974-c6d5-42b1-a23b-c048ba05bd66",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-05-13",
+     "amount": 60,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "f3a61f67-cc7f-4e06-8481-7bccaa6a8423",
+     "type": "merchant",
+     "merchant_id": "085c34b4-bf2b-4936-91db-3b06ff706700",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-06",
+     "amount": 14,
+     "status": "completed",
+     "medium": "balance",
+     "description": "trip"
+    },
+    {
+     "_id": "f696cd45-2a91-4f7e-86f2-8a12efd1890b",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-07-05",
+     "amount": 63,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "fb245a65-260f-4f3e-88cd-94d178fee669",
+     "type": "merchant",
+     "merchant_id": "6ecb1196-1578-464d-8d5a-89391976e3d3",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-06-24",
+     "amount": 66,
+     "status": "completed",
+     "medium": "balance",
+     "description": "groceries"
+    },
+    {
+     "_id": "fb39c428-7268-49c0-a275-a7f609dc5e35",
+     "type": "merchant",
+     "merchant_id": "b9208c2a-eb3b-4152-be71-a7a375ca2782",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "purchase_date": "2026-04-20",
+     "amount": 11,
+     "status": "completed",
+     "medium": "balance",
+     "description": "allergy relief"
+    }
+   ]
+  }
+ ]
+}

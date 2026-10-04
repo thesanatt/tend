@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import BankActivity from "@/components/bank/BankActivity";
+import PayoutDemo, { DemoPaidNote, isDemoPaid } from "@/components/bank/PayoutDemo";
 import Money from "@/components/Money";
 import Plant from "@/components/Plant";
 import { addDays } from "@/lib/dates";
@@ -89,6 +91,8 @@ function NextStep({ plant, t }: { plant: PlantView; t: Dict }) {
       </button>
     );
   }
+  // A bloom from the demo of the program paying says so; its undo is on the demo itself.
+  if (isDemoPaid(state, id)) return <DemoPaidNote className={styles.plantHint} />;
   return (
     <p className={styles.plantHint}>
       {t.track.paidOn(life.paid_at ? f.date(life.paid_at, "short") : "")}{" "}
@@ -217,6 +221,8 @@ export default function TrackScreen() {
         })}
       </div>
 
+      <PayoutDemo />
+
       {held.length ? (
         <aside className={styles.heldAside} aria-label={t.track.heldLabel}>
           <svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true">
@@ -252,6 +258,8 @@ export default function TrackScreen() {
           {t.track.remindButton}
         </button>
       </section>
+
+      <BankActivity />
     </div>
   );
 }

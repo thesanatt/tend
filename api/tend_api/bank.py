@@ -23,16 +23,29 @@ class Bank(Protocol):
     def withdraw(self, account_id: str, amount_cents: int, description: str, on_date: dt.date) -> str: ...
     def read_withdrawal(self, withdrawal_id: str) -> dict[str, Any]: ...
     def find_withdrawal(self, account_id: str, marker: str) -> str | None: ...
+    # Every withdrawal on the account whose description carries the marker. Raises BankError when the bank
+    # cannot be read, because a payment that cannot check for an earlier one must not go ahead.
+    def tagged_withdrawals(self, account_id: str, marker: str) -> list[dict[str, Any]]: ...
+    def read_bill(self, bill_id: str) -> dict[str, Any] | None: ...
+    def update_bill(
+        self, bill_id: str, *, amount_cents: int, status: str, nickname: str, payment_date: dt.date | None = None
+    ) -> dict[str, Any]: ...
+    def deposit(self, account_id: str, amount_cents: int, description: str, on_date: dt.date) -> str: ...
+    def tagged_deposits(self, account_id: str, marker: str) -> list[dict[str, Any]]: ...
+    def read_deposit(self, deposit_id: str) -> dict[str, Any]: ...
+    def delete_deposit(self, deposit_id: str) -> None: ...
 
 
 class DryRunBank:
-    """Records withdrawals in memory and reads them back the same way the Nessie path does."""
+    """Records withdrawals, deposits, and bill changes in memory and reads them back the same way the Nessie path does."""
 
     mode = "dry_run"
     whole_dollars = False
 
     def __init__(self) -> None:
         self._records: dict[str, dict[str, Any]] = {}
+        self._deposits: dict[str, dict[str, Any]] = {}
+        self._bills: dict[str, dict[str, Any]] = {}
         self._lock = threading.Lock()
 
     def withdraw(self, account_id: str, amount_cents: int, description: str, on_date: dt.date) -> str:
@@ -60,12 +73,68 @@ class DryRunBank:
         with self._lock:
             return next((r["id"] for r in self._records.values() if r["account_id"] == account_id and marker in r["description"]), None)
 
+    def tagged_withdrawals(self, account_id: str, marker: str) -> list[dict[str, Any]]:
+        with self._lock:
+            return [dict(r) for r in self._records.values() if r["account_id"] == account_id and marker in r["description"]]
+
+    def read_bill(self, bill_id: str) -> dict[str, Any] | None:
+        with self._lock:
+            bill = self._bills.get(bill_id)
+        return dict(bill) if bill else None
+
+    def update_bill(
+        self, bill_id: str, *, amount_cents: int, status: str, nickname: str, payment_date: dt.date | None = None
+    ) -> dict[str, Any]:
+        with self._lock:
+            bill = self._bills.setdefault(bill_id, {"id": bill_id})
+            bill.update({"amount_cents": amount_cents, "status": status, "nickname": nickname})
+            if payment_date is not None:
+                bill["payment_date"] = payment_date.isoformat()
+            return dict(bill)
+
+    def deposit(self, account_id: str, amount_cents: int, description: str, on_date: dt.date) -> str:
+        deposit_id = f"dryrun-d-{uuid.uuid4().hex}"
+        with self._lock:
+            self._deposits[deposit_id] = {
+                "id": deposit_id,
+                "kind": "deposit",
+                "account_id": account_id,
+                "date": on_date.isoformat(),
+                "status": "completed",
+                "amount_cents": amount_cents,
+                "description": description,
+            }
+        return deposit_id
+
+    def tagged_deposits(self, account_id: str, marker: str) -> list[dict[str, Any]]:
+        with self._lock:
+            return [dict(r) for r in self._deposits.values() if r["account_id"] == account_id and marker in r["description"]]
+
+    def read_deposit(self, deposit_id: str) -> dict[str, Any]:
+        with self._lock:
+            record = self._deposits.get(deposit_id)
+        if record is None:
+            raise BankError(f"deposit {deposit_id} not found")
+        return dict(record)
+
+    def delete_deposit(self, deposit_id: str) -> None:
+        with self._lock:
+            self._deposits.pop(deposit_id, None)
+
+    def records(self, account_ids: set[str]) -> list[dict[str, Any]]:
+        """What a dry run wrote for these accounts, for the bank activity panel. Never sent to Nessie."""
+        with self._lock:
+            rows = [dict(r) for r in (*self._records.values(), *self._deposits.values()) if r["account_id"] in account_ids]
+            bills = [dict(b) for b in self._bills.values()]
+        return sorted(rows, key=lambda r: (r["date"], r["id"])) + [{**b, "kind": "bill"} for b in bills]
+
 
 class NessieBank:
     """Live writes through tend_api.nessie.NessieClient.
 
     Uses create_withdrawal(account_id, *, amount_cents, date, description), get_txn("withdrawal", id),
     and find_txns(account_id, "withdrawal", marker). Older clients with get_withdrawal(id) also work.
+    Bill payments also use get_bill and update_bill; the demo payout uses create_deposit and delete_txn.
     """
 
     mode = "nessie"
@@ -85,6 +154,9 @@ class NessieBank:
             except Exception as exc:
                 raise BankError(f"Nessie client could not start: {exc}") from exc
         return self._client
+
+    def calls(self) -> list[Any]:
+        return list(getattr(self._client, "calls", None) or [])
 
     def withdraw(self, account_id: str, amount_cents: int, description: str, on_date: dt.date) -> str:
         client = self.client()
@@ -115,6 +187,65 @@ class NessieBank:
         except Exception:
             return None
         return str(as_record(found[0]).get("id")) if len(found) == 1 else None
+
+    def _tagged(self, account_id: str, kind: str, marker: str) -> list[dict[str, Any]]:
+        client = self.client()
+        try:
+            found = client.find_txns(account_id, kind, marker)
+        except Exception as exc:
+            raise BankError(f"Nessie could not list the {kind}s: {exc}") from exc
+        return [r for r in map(as_record, found) if r.get("status") != "cancelled"]
+
+    def tagged_withdrawals(self, account_id: str, marker: str) -> list[dict[str, Any]]:
+        return self._tagged(account_id, "withdrawal", marker)
+
+    def read_bill(self, bill_id: str) -> dict[str, Any] | None:
+        client = self.client()
+        try:
+            bill = client.get_bill(bill_id)
+        except Exception as exc:
+            if type(exc).__name__ == "NessieNotFound":
+                return None
+            raise BankError(f"Nessie could not read the bill: {exc}") from exc
+        return as_record(bill)
+
+    def update_bill(
+        self, bill_id: str, *, amount_cents: int, status: str, nickname: str, payment_date: dt.date | None = None
+    ) -> dict[str, Any]:
+        client = self.client()
+        try:
+            bill = client.update_bill(bill_id, status=status, amount_cents=amount_cents, nickname=nickname, payment_date=payment_date)
+        except Exception as exc:
+            raise BankError(f"Nessie did not take the bill update: {exc}", maybe_applied=_maybe_applied(exc)) from exc
+        return as_record(bill)
+
+    def deposit(self, account_id: str, amount_cents: int, description: str, on_date: dt.date) -> str:
+        client = self.client()
+        try:
+            created = client.create_deposit(account_id, amount_cents=amount_cents, date=on_date, description=description)
+        except Exception as exc:
+            raise BankError(f"Nessie deposit failed: {exc}", maybe_applied=_maybe_applied(exc)) from exc
+        deposit_id = as_record(created).get("id") or as_record(created).get("_id")
+        if not deposit_id:
+            raise BankError("Nessie did not return a deposit id", maybe_applied=True)
+        return str(deposit_id)
+
+    def tagged_deposits(self, account_id: str, marker: str) -> list[dict[str, Any]]:
+        return self._tagged(account_id, "deposit", marker)
+
+    def read_deposit(self, deposit_id: str) -> dict[str, Any]:
+        client = self.client()
+        try:
+            return as_record(client.get_txn("deposit", deposit_id))
+        except Exception as exc:
+            raise BankError(f"Nessie read-back failed: {exc}") from exc
+
+    def delete_deposit(self, deposit_id: str) -> None:
+        client = self.client()
+        try:
+            client.delete_txn("deposit", deposit_id)
+        except Exception as exc:
+            raise BankError(f"Nessie did not delete the deposit: {exc}") from exc
 
 
 def _maybe_applied(exc: BaseException) -> bool:
@@ -151,6 +282,17 @@ def check_readback(record: dict[str, Any], *, withdrawal_id: str, account_id: st
         "status": record.get("status"),
         "description": record.get("description"),
     }
+
+
+def record_cents(record: dict[str, Any]) -> int | None:
+    """A record's amount in cents, whether it is Tend's shape (amount_cents) or Nessie's (dollars)."""
+    value = record.get("amount_cents")
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value
+    raw = record.get("amount")
+    if isinstance(raw, int) and not isinstance(raw, bool):
+        return raw * 100
+    return None
 
 
 def _amount_matches(record: dict[str, Any], amount_cents: int) -> bool | None:

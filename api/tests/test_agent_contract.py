@@ -82,5 +82,7 @@ def test_the_agents_demo_scan_audit_claim_and_payment(client):
     result = done.json()
     assert result["message"].startswith("Paid $") and result["nessie_id"] and result["read_back_matches"] is True
     assert result["audit_id"].startswith("aud_")
+    # The agent clears its pending payment after the first answer, so it never sends this. A confirm that is sent
+    # again (a lost answer) gets the first result back and moves nothing.
     again = client.post("/api/actions/confirm", json={"action_id": p["action_id"], "confirm_code": p["confirm_code"]})
-    assert again.status_code == 409  # a terminal status the agent clears its pending payment on
+    assert again.status_code == 200 and again.json()["replayed"] is True and again.json()["nessie_id"] == result["nessie_id"]

@@ -44,6 +44,19 @@ class BankRelay:
             raise RelayError(f"No demo persona named {persona_id!r}.", 404)
         return load_persona_snapshot(persona_id, self.snapshot_dir)
 
+    def saved(self, persona_id: str) -> BankSnapshot:
+        """The committed snapshot of a demo persona: what the demo starts from, and the list of its ids."""
+        return self._saved(persona_id)
+
+    def live_client(self) -> Any | None:
+        """A fresh Nessie client when the relay reads live, else None. The caller closes it."""
+        if not self.live:
+            return None
+        try:
+            return self.client_factory()
+        except Exception:  # no key or no client: the snapshot is the honest answer
+            return None
+
     def read(self, persona_id: str) -> tuple[BankSnapshot, str]:
         """The persona's bank and where it came from: "live" (Nessie) or "snapshot"."""
         saved = self._saved(persona_id)

@@ -1,0 +1,270 @@
+/* The demo bank pieces of Track. Tokens come from app/globals.css (web/DESIGN.md). Nothing animates. */
+
+.tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-1);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ink-2);
+  vertical-align: 3px;
+}
+
+.problem {
+  font-weight: 700;
+  border-left: 3px solid var(--ink);
+  padding-left: var(--space-3);
+}
+
+/* The program's demo payment: a content note, ink bar on the left, one action. */
+.payout {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  max-width: var(--measure);
+  padding: var(--space-4) var(--space-5);
+  border-left: 3px solid var(--ink);
+  background: var(--paper-raised);
+}
+
+.payoutTitle {
+  font-size: var(--text-xl);
+}
+
+.payoutResult {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.payoutDone {
+  font-weight: 700;
+}
+
+/* Bank records */
+.activity {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.activityHead {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  max-width: var(--measure);
+}
+
+.records {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-2);
+  background: var(--paper-raised);
+}
+
+.cardTitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.id {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+.id code {
+  color: var(--ink-2);
+}
+
+.sum {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.sum th {
+  text-align: left;
+  font-weight: 400;
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.sum td {
+  text-align: right;
+  padding: var(--space-2) 0;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.sum tbody tr + tr {
+  border-top: 1px solid var(--line);
+}
+
+.sum tfoot tr {
+  border-top: 1.5px solid var(--ink);
+}
+
+.sum tfoot th,
+.sum tfoot td {
+  font-weight: 700;
+}
+
+.sub {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.signed {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.check[data-ok] svg {
+  color: var(--green);
+}
+
+.bankSays {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+/* Held bills only get clay (web/DESIGN.md). */
+.held {
+  padding: var(--space-2) var(--space-3);
+  border-left: 4px solid var(--clay);
+  background: var(--clay-tint);
+  font-size: var(--text-sm);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.date {
+  font-family: var(--font-mono);
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  padding-top: 2px;
+}
+
+.what {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.mark {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--green);
+}
+
+.rid {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+.amount {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.more {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-3);
+}
+
+.more > summary,
+.kind > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.kind {
+  margin-left: var(--space-4);
+}
+
+.calls {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+}
+
+.calls code {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 520px) {
+  .payout {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .date {
+    grid-column: 1 / -1;
+  }
+
+  .kind {
+    margin-left: 0;
+  }
+}

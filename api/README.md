@@ -80,6 +80,15 @@ Bank relay (stateless, not logged)
   `document_path` and `service_date` when itemized), `documents` (the itemized bills' records, where web/lib/local
   reads the service date it counts a same-day ride against), `source: live | snapshot`, `fictional`, `notice`.
 - `GET /bank/{persona}/bills/{bill_id}/document`: the itemized bill, checked against the snapshot's sha256.
+- `GET /bank/{persona}/activity`: the bank activity panel (web/components/bank). Every Nessie record Tend read or
+  wrote, with its id; each account's balance computed term by term (opening, deposits, purchases, withdrawals,
+  transfers out and in) next to Nessie's frozen balance field; each bill against the itemized total, the payments
+  that paid it, and the line still held; and `calls`, the Nessie requests behind the view. Only fictional demo data:
+  records in the committed snapshot or in Tend's own formats. Anything else on the account is counted
+  (`hidden_count`), never shown. Fictional personas only (403 otherwise).
+- `POST /bank/{persona}/payout` `{st, amount_cents}`, demo only: a Nessie deposit from the state's program into the
+  persona's checking account for the amount the device computed as claimable, in whole dollars, read back. The
+  same request again returns the same deposit; another amount replaces it (`replaced` lists the old ids); `DELETE /bank/{persona}/payout` removes it.
 
 Payments
 - `POST /actions/propose` `{from, payee, amount_cents, kind?: "pay_bill", bill_id?, item_ids?, dry_run?}` returns
@@ -88,8 +97,15 @@ Payments
   leaving out `item_ids` pays every line that is not held. Paying every line that is not held takes the audit's
   `payable_cents`, which already subtracts any credit the bill prints (a payment made earlier); some of the lines
   take their own amounts. Live writes must be whole dollars, from a persona account.
+  A plain payment of exactly what a demo bill has left to pay, to that bill's payee, from its account, is tied to the
+  bill the same way (`kind: "pay_bill"` in the answer); exactly the whole bill, held line and all, is refused (409), and so is any amount that adds up to the held line, alone or with other lines (after the rest is paid, that is what the bill still shows).
+  Lines Tend already paid are refused (409), here and again at confirm.
 - `POST /actions/confirm` `{action_id, confirm_code}`: Nessie withdrawal described as `Payment to <payee> [tend:<action id>]`,
-  read back and compared, then logged. Wrong codes lock the action after five tries.
+  plus `[bill:<bill id>#<lines>]` for a bill, read back and compared, then logged. For a bill, the bill is then updated
+  with a PUT and read back (`bill` in the answer): what is left, still pending, its nickname naming the held rule
+  (`$325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay.`). Wrong codes lock the action after five tries.
+  Idempotent: the same confirm again returns the first result (`replayed: true`) and moves nothing; for a payment
+  whose answer never came back, it looks for the withdrawal by its label first. tend_api/payments.py has the rules.
 - `GET /actions/{action_id}`, `GET /audit` (rows plus the chain recomputed).
 
 Sealed shares
