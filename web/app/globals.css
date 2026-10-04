@@ -180,6 +180,8 @@ mark {
   background: var(--green-tint);
   color: inherit;
   padding: 0 0.1em;
+  /* Quoted law can hold a long email or URL; let it wrap on a small phone. */
+  overflow-wrap: anywhere;
 }
 
 code,
