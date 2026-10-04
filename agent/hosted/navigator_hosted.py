@@ -631,16 +631,24 @@ class Incoming:
         return not self.text.strip() and self.selection is None and not self.cancelled
 
 
+# A review card's "No" can come back as the approve selection with "approved": false.
+_REJECT_OF = {"count_costs": "skip_costs", "pay_approve": "pay_cancel"}
+
+
 def selection_from_text(text: str) -> dict[str, Any] | None:
-    """Direct @mentions deliver a card click as a JSON object in the text."""
-    s = text.strip()
+    """Direct @mentions deliver a card click as a JSON object in the text, after the agent's @address."""
+    s = re.sub(r"^(?:@\S+\s+)+", "", text.strip())
     if not (s.startswith("{") and s.endswith("}")):
         return None
     try:
         value = json.loads(s)
     except ValueError:
         return None
-    return value if isinstance(value, dict) else None
+    if not isinstance(value, dict):
+        return None
+    if value.get("approved") is False and value.get("action") in _REJECT_OF:
+        value = {**value, "action": _REJECT_OF[value["action"]]}
+    return value
 
 
 # ======================================================================== knowledge.py
