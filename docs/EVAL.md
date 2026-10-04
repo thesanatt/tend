@@ -5,7 +5,7 @@ M4 Max laptop shared with other work.
 
 ## Engines
 
-Tend has two independent implementations of the law engine in docs/SPEC.md v1.2: the C++ compiler
+Tend has two independent implementations of the law engine in docs/SPEC.md v1.3: the C++ compiler
 and VM (engine/, which also runs in the browser as WebAssembly) and a Python reference
 (refengine/). Both read the same law IR (rules/ir, version 2) and must return the same result
 document, byte for byte, for every well-formed claim. engine/FORMAT.md sections 4 and 5 settle
@@ -14,42 +14,51 @@ implementation (engine/tests/oracle.cpp) that shares no code with the compiler o
 
 ### Results
 
+SPEC v1.3 (the wave-2 engine review: deadlines counted from discovery, caps that are not the
+program's limit, as_of_date in the state's own time) changed the engines and 11 law IR files, so
+every run below was repeated on tend 1.3.0 with the 51 rebuilt images, except fuzzing, where a
+shorter v1.3 run is added to the v1.2 numbers.
+
 | check | result |
 |---|---|
-| C++ test suite (`make test`) | 70 test cases, 27,376 assertions, all pass |
+| C++ test suite (`make test`) | 70 test cases, 27,403 assertions, all pass |
 | the same under AddressSanitizer and UBSan (`make test-san`) | 70 of 70 pass |
 | C++ VM vs the C++ oracle, random laws | 6,000 evaluations (1,500 random laws x 4 claims), 0 differences |
 | C++ VM vs the C++ oracle, real laws | 612 evaluations (51 jurisdictions x 12 scenarios), 0 differences |
 | shipped law images (`make test`) | all 51 in web/public/engine/laws byte-identical to a fresh `tendc` build, each listed in laws/index.json with matching hashes |
-| Python reference tests (`uv run pytest`) | 470 tests, all pass |
+| Python reference tests (`uv run pytest`) | 586 tests, all pass (114 of them check the law IR normalize.py makes) |
 | validation messages, reference and C++ | 72 claim cases give byte-identical results; 15 non-JSON texts refused by both |
 | laws refused, reference and `tendc` | 51 broken laws refused by both with the same message; 7 edge cases accepted by both |
 | hand-computed golden claim (18 lines, 40 trace entries) | the C++ engine wrote the expected file; the reference matches it byte for byte |
 | difftest, reference vs C++ (`difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`) | **121,000 claims, 0 mismatches** |
 | WASM vs native (`make wasm-parity`) | **106,000 of 106,000 claims byte-identical**; all 51 shipped law images are the ones tested |
-| fuzzing under ASan and UBSan (`make fuzz`) | 1,276,000 executions in 420 s at the build, then 2,517,704 in 660 s (two runs, 5,726 edges) at the review; no crashes, no property violations |
+| fuzzing under ASan and UBSan (`make fuzz`) | 1,276,000 executions in 420 s at the build, then 2,517,704 in 660 s (two runs, 5,726 edges) at the review; no crashes, no property violations. At v1.3, 580,048 executions in 180 s (5,564 edges), no crashes |
 
 ### The difftest in detail
 
 - 121,000 claims: 2,000 for each of the 51 jurisdictions (102,000), 2,000 for each of the two
   synthetic fixtures (4,000), and 50 for each of 300 random laws (15,000).
-- 119,544 claims were well-formed JSON; for every one, the two engines returned identical bytes.
-  3,852 claims were refused as `bad_input` and 61 as `jurisdiction_mismatch`, by both engines, with
-  identical messages. 1,456 of the refused claims were not JSON at all (broken on purpose); for
+- 119,600 claims were well-formed JSON; for every one, the two engines returned identical bytes.
+  3,810 claims were refused as `bad_input` and 69 as `jurisdiction_mismatch`, by both engines, with
+  identical messages. 1,400 of the refused claims were not JSON at all (broken on purpose); for
   those only the error code is compared, because the C++ message gives a byte offset.
-- 3,000 broken or random laws: 1,204 accepted by both engines, 1,796 refused by both with the same
+- 3,000 broken or random laws: 1,175 accepted by both engines, 1,825 refused by both with the same
   message, 0 disagreements.
-- Decisions reached: 317,455 eligible, 171,600 unknown_rule, 96,360 out_of_window, 78,980
-  excluded, 78,960 needs_confirmation, 28,050 held; 90,337 insurance deductions, 11,968 per-unit
-  cuts, 41,023 rate_unverified flags, 18,793 per-claim cap cuts, 11,378 total cap cuts.
-- SPEC v1.2 paths reached: 11,884 unit caps applied, 14,906 lines flagged because they counted a
-  different unit, 25,790 flagged for no unit or no units, 1,061 lines cut to 0 after a count limit
-  ran out, 13,866 claims with a report-anchored deadline flag, 2,652 exams treated as medical
-  where no exam_no_bill rule exists, 59,300 lines excluded by tag, 208 minimum losses met by
-  lost-wage days alone.
-- Checks reached: deadline ok 55,617, late 46,526, unknown 14,944; minimum loss met 98,573,
-  not_met 10,457, unknown 6,207, may_be_waived 1,498, waived 352; reporting satisfied 57,357,
-  required 24,824, unknown 22,493, not_required 12,413.
+- Decisions reached: 317,609 eligible, 173,241 unknown_rule, 94,910 out_of_window, 79,045
+  excluded, 79,070 needs_confirmation, 28,214 held; 90,176 insurance deductions, 11,786 per-unit
+  cuts, 38,971 rate_unverified flags, 18,712 per-claim cap cuts, 11,473 total cap cuts.
+- SPEC v1.2 and v1.3 paths reached: 11,696 unit caps applied, 13,474 lines flagged because they
+  counted a different unit, 25,181 flagged for no unit or no units, 932 lines cut to 0 after a
+  count limit ran out, 16,039 claims with a report-anchored deadline flag, 29,694 with a
+  discovery-anchored one (11,332 of them late, so flagged rather than plainly late), 2,776 exams
+  treated as medical where no exam_no_bill rule exists, 59,243 lines excluded by tag, 210 minimum
+  losses met by lost-wage days alone.
+- Checks reached: deadline ok 56,565, late 46,635, unknown 13,921; minimum loss met 98,658,
+  not_met 10,394, unknown 6,230, may_be_waived 1,489, waived 350; reporting satisfied 57,424,
+  required 24,728, unknown 22,499, not_required 12,470.
+- The generators were extended for v1.3: random laws sometimes count deadlines from both the
+  report and discovery, in either rule order, and claims put the as-of date on both sides of the
+  latest deadline, so both flags (always in note order) and late, flagged deadlines are compared.
 - The harness catches planted bugs: an engine that ignores typed units fails 77 of 150 ZZ claims, one
   that changes an error message fails 4 of 150, and one that formats the same document differently
   fails 59 of 60 (`tests/test_difftest.py` keeps these checks).
@@ -118,6 +127,7 @@ uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 3
 - The claims are synthetic, aimed at each law's own numbers. Real bank histories look different.
 - 5,632 of 22,204 edges is 25%: the count includes the JSON library and code the fuzz targets
   never call, so it is not a coverage figure for the engine alone.
-- Deadlines counted from discovery (6 rules, in AZ, MA, MD, ME, NJ, and PA) are dated from the
-  incident, like those counted from a report, but SPEC v1.2 defines a flag only for the report. For
-  those states a `late` deadline may not be late.
+- Deadlines counted from discovery (12 rules in AZ, CA, IA, MA, MD, ME, MN, MO, NJ, NY, PA, and SC)
+  are dated from the incident and flagged (SPEC v1.3). Periods that start at other later events
+  Tend does not ask about (DNA or kit results in KS, MD, and OK, an 18th or 21st birthday) are not
+  flagged; their rules carry the words, and the program decides.
