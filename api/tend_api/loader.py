@@ -36,7 +36,8 @@ def main(argv: list[str] | None = None) -> int:
 
     load_env_file()
     settings = Settings.from_env()
-    url = args.db or settings.database_url
+    # The corpus is written by the owner (DATABASE_URL); the API's own role cannot change it (docs/NEON.md).
+    url = args.db or settings.migrate_url or settings.database_url
     migrate_url = None if args.db else settings.migrate_url
     started = time.monotonic()
     repo = open_repository(url, schema=args.schema or settings.db_schema, migrate_url=migrate_url, migrate=False)

@@ -17,10 +17,16 @@ from .base import (
     ACTION_FIELDS,
     FINAL_STATUSES,
     GENESIS_HASH,
+    MARK_CLOSE,
+    MARK_OPEN,
+    VERSION_COLUMNS,
+    VERSION_KEYS,
     MigrationError,
     ShareState,
     audit_body,
     check_applied,
+    fts5_query,
+    marks,
     migration_files,
 )
 from .corpus import CATEGORIES, CorpusBundle, image_rows, jurisdiction_row, rule_rows, source_rows
@@ -283,6 +289,68 @@ class SQLiteRepository:
             " ORDER BY compiled_at DESC, image_sha256",
             (st,),
         )
+
+    # quote search and law versions
+
+    def law_search(self, q: str, st: str | None, limit: int) -> list[dict[str, Any]]:
+        match = fts5_query(q, "quote")
+        if match is None:
+            return []
+        rows = self._all(
+            "SELECT r.st, r.id AS rule_id, r.quote, r.pinpoint, r.source_id, r.fragment_url,"
+            " -bm25(rules_fts, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0) AS rank, highlight(rules_fts, 4, ?, ?) AS marked"
+            " FROM rules_fts JOIN rules r ON r.id = rules_fts.rule_id"
+            " WHERE rules_fts MATCH ? AND (? IS NULL OR r.st = ?) ORDER BY rank DESC, r.st, r.ord LIMIT ?",
+            (MARK_OPEN, MARK_CLOSE, match, st, st, limit),
+        )
+        for r in rows:
+            r["rank"] = round(float(r["rank"]), 6)
+            r["marks"] = marks(r["quote"], r.pop("marked") or "")
+        return rows
+
+    def corpus_rules(self, st: str | None) -> list[dict[str, Any]]:
+        rows = self._all(
+            f"SELECT {RULE_COLUMNS}, r.skipped_reason, s.title AS source_title, s.url AS source_url, s.sha256 AS source_sha256"
+            " FROM rules r JOIN sources s ON s.st = r.st AND s.id = r.source_id WHERE (? IS NULL OR r.st = ?) ORDER BY r.st, r.ord",
+            (st, st),
+        )
+        for r in rows:
+            r["params"] = json.loads(r["params"] or "{}")
+            r["ir"] = json.loads(r["ir"]) if r.get("ir") else None
+        return rows
+
+    def corpus_sources(self, st: str | None) -> list[dict[str, Any]]:
+        return self._all(
+            "SELECT st, id, title, url, kind, sha256, retrieved_at FROM sources WHERE (? IS NULL OR st = ?) ORDER BY st, id", (st, st)
+        )
+
+    def law_versions(self) -> list[dict[str, Any]]:
+        return self._all(f"SELECT {VERSION_COLUMNS} FROM law_versions ORDER BY seq")
+
+    def law_version_files(self, version: str | None = None, st: str | None = None) -> list[dict[str, Any]]:
+        return self._all(
+            "SELECT version, st, verified_sha256, ir_sha256, rule_count FROM law_version_files"
+            " WHERE (? IS NULL OR version = ?) AND (? IS NULL OR st = ?) ORDER BY version, st",
+            (version, version, st, st),
+        )
+
+    def register_law_version(self, version: dict[str, Any], files: list[dict[str, Any]]) -> bool:
+        with self._tx() as c:
+            row = c.execute("SELECT corpus_sha256 FROM law_versions WHERE name = ?", (version["name"],)).fetchone()
+            if row is not None:
+                if row["corpus_sha256"] != version["corpus_sha256"]:
+                    raise ValueError(f"{version['name']} is already published with a different corpus")
+                return False
+            values = {**version, "load_ms": version.get("load_ms"), "published_at": version.get("published_at") or iso(utcnow())}
+            c.execute(
+                f"INSERT INTO law_versions ({VERSION_COLUMNS}) VALUES ({', '.join('?' * len(VERSION_KEYS))})",
+                tuple(values[k] for k in VERSION_KEYS),
+            )
+            c.executemany(
+                "INSERT INTO law_version_files (version, st, verified_sha256, ir_sha256, rule_count) VALUES (?, ?, ?, ?, ?)",
+                [(version["name"], f["st"], f["verified_sha256"], f["ir_sha256"], f["rule_count"]) for f in files],
+            )
+        return True
 
     # sealed shares
 

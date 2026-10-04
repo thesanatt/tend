@@ -164,3 +164,14 @@ def rule_rows(b: CorpusBundle) -> list[dict[str, Any]]:
 
 def image_rows(b: CorpusBundle) -> list[dict[str, Any]]:
     return [{"st": b.st, "verified_sha256": b.verified_sha256, "ir_sha256": b.ir_sha256, **img} for img in b.images]
+
+
+def corpus_sha256(hashes: dict[str, dict[str, str | None]]) -> str:
+    """The identity of a whole corpus: sha256 of the sorted [st, verified sha256, IR sha256] list. The same
+    files give the same hash whether they are read from disk, from git, or from a database's jurisdictions table."""
+    listing = [[st, hashes[st].get("verified_sha256"), hashes[st].get("ir_sha256")] for st in sorted(hashes)]
+    return hashlib.sha256(json.dumps(listing, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def bundle_hashes(bundles: Iterable[CorpusBundle]) -> dict[str, dict[str, str | None]]:
+    return {b.st: b.key for b in bundles}

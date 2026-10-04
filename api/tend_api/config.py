@@ -49,15 +49,17 @@ def _lib_name() -> str:
 
 def database_from_env() -> tuple[str, str | None]:
     """(url the app uses, url migrations use). TEND_DB picks: a SQLite path, ":memory:", a postgres URL,
-    or "neon", which is also the default whenever DATABASE_URL_POOLED or DATABASE_URL is set."""
+    or "neon", which is also the default whenever DATABASE_URL_APP, DATABASE_URL_POOLED, or DATABASE_URL is set.
+    DATABASE_URL_APP is the least-privilege tend_app role (docs/NEON.md); DATABASE_URL stays the owner, for migrations."""
     choice = os.environ.get("TEND_DB", "").strip()
+    app = os.environ.get("DATABASE_URL_APP", "").strip()
     pooled = os.environ.get("DATABASE_URL_POOLED", "").strip()
     direct = os.environ.get("DATABASE_URL", "").strip()
     if choice.startswith(("postgres://", "postgresql://")):
         return choice, direct or None
     if choice in ("", "neon", "postgres"):
-        if pooled or direct:
-            return pooled or direct, direct or None
+        if app or pooled or direct:
+            return app or pooled or direct, direct or None
         if choice:
             raise ValueError(f"TEND_DB={choice} needs DATABASE_URL or DATABASE_URL_POOLED")
         return str(DEFAULT_SQLITE), None
@@ -76,6 +78,8 @@ class Settings:
     cache_dir: Path
     database_url: str  # postgresql://... (Neon) or a SQLite path; ":memory:" for throwaway runs
     migrate_url: str | None = None  # Neon's direct endpoint for migrations; the pooled one serves requests
+    reader_url: str | None = None  # the SELECT-only tend_reader role for public corpus reads and law branches (Neon)
+    migrate: bool = True  # TEND_MIGRATE=0: start without running migrations (a deploy whose role cannot run DDL)
     db_schema: str = "public"
     bank_mode: str = "dry_run"  # "dry_run" or "nessie"; live writes only when set explicitly
     relay_live: bool = False  # the bank relay reads live Nessie, falling back to the snapshot
@@ -108,6 +112,8 @@ class Settings:
             cache_dir=_path("TEND_CACHE_DIR", API_DIR / ".cache"),
             database_url=database_url,
             migrate_url=migrate_url,
+            reader_url=(os.environ.get("DATABASE_URL_READER", "").strip() or None) if database_url.startswith("postgres") else None,
+            migrate=_flag("TEND_MIGRATE", default=True),
             db_schema=os.environ.get("TEND_DB_SCHEMA", "public").strip() or "public",
             bank_mode=bank_mode,
             relay_live=_flag("TEND_RELAY_LIVE", default=bool(os.environ.get("NESSIE_API_KEY"))),
