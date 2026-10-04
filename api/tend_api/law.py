@@ -14,6 +14,7 @@ source at that quote.
 from __future__ import annotations
 
 import hashlib
+import re
 import threading
 import time
 from collections import OrderedDict
@@ -129,7 +130,11 @@ def diff_jurisdiction(before: dict[str, Any] | None, after: dict[str, Any] | Non
         return []
     out = [{"field": f, "before": before.get(f), "after": after.get(f)} for f in STATE_FIELDS if not _same(before.get(f), after.get(f))]
     pa, pb = before.get("program") or {}, after.get("program") or {}
-    out += [{"field": f"program.{k}", "before": pa.get(k), "after": pb.get(k)} for k in sorted(set(pa) | set(pb)) if not _same(pa.get(k), pb.get(k))]
+    out += [
+        {"field": f"program.{k}", "before": pa.get(k), "after": pb.get(k)}
+        for k in sorted(set(pa) | set(pb))
+        if not _same(pa.get(k), pb.get(k))
+    ]
     return out
 
 
@@ -435,15 +440,31 @@ class LawService:
                 searched = self.current_name()
             except Exception:
                 searched = None
+        state = st.upper() if st else None
+        matched = "all"
         try:
-            rows = repo.law_search(q, st.upper() if st else None, limit)
+            rows = repo.law_search(q, state, limit)
+            words = re.findall(r"[^\W_]+", q)
+            # No quote has every word: try any of them, and say so, rather than show nothing. Not when the person used
+            # the search syntax ("a phrase", -word, or), since they asked for exactly that.
+            if not rows and len(words) > 1 and not re.search(r'["-]|\bor\b', q, re.IGNORECASE):
+                rows = repo.law_search(" or ".join(words), state, limit)
+                matched = "any"
         except LawError:
             raise
         except Exception as exc:
             if version:
                 raise LawError(f"Could not search {version} just now. Try again in a moment.", 502) from exc
             raise
-        return {"q": q, "st": st.upper() if st else None, "version": searched, "backend": repo.backend, "count": len(rows), "results": rows}
+        return {
+            "q": q,
+            "st": state,
+            "version": searched,
+            "backend": repo.backend,
+            "matched": matched,
+            "count": len(rows),
+            "results": rows,
+        }
 
 
 def _ms(started: float) -> int:

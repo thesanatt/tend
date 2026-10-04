@@ -52,9 +52,7 @@ def prepare_root(conn: psycopg.Connection, env: dict[str, str]) -> list[str]:
     two roles exist with production's passwords (so the API reads every branch with one URL)."""
     done = []
     for version, _, digest in migration_files("postgres"):
-        conn.execute(
-            "INSERT INTO schema_migrations (version, sha256) VALUES (%s, %s) ON CONFLICT (version) DO NOTHING", (version, digest)
-        )
+        conn.execute("INSERT INTO schema_migrations (version, sha256) VALUES (%s, %s) ON CONFLICT (version) DO NOTHING", (version, digest))
     present = existing_roles(conn)
     for role, key in ((READER, "DATABASE_URL_READER"), (APP, "DATABASE_URL_APP")):
         password = url_password(env[key]) if key in env else None
@@ -121,9 +119,7 @@ def publish(args: argparse.Namespace) -> int:
             print(f"{name}: branch {branch_id} exists from an earlier run; loading it")
         else:
             branch = (
-                neon.create_branch(name, parent["branch_id"])
-                if parent
-                else neon.create_branch(name, prod_branch["id"], schema_only=True)
+                neon.create_branch(name, parent["branch_id"]) if parent else neon.create_branch(name, prod_branch["id"], schema_only=True)
             )
             created_s = time.monotonic() - started
             branch_id, host = branch.id, branch.host
