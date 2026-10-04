@@ -274,6 +274,19 @@ export function findReplaced(state: FlowState, reading: BillReading): string | n
   return match?.item_id ?? null;
 }
 
+// Every itemized bill that explains no bank bill yet takes the first one it matches, in the order
+// the bills were added.
+export function linkBills(state: FlowState): FlowState {
+  if (!state.bills.some((b) => !b.replaces && b.reading.status === "ok")) return state;
+  let next = state;
+  for (const bill of state.bills) {
+    if (bill.replaces || bill.reading.status !== "ok") continue;
+    const replaces = findReplaced(next, bill.reading);
+    if (replaces) next = { ...next, bills: next.bills.map((b) => (b.id === bill.id ? { ...b, replaces } : b)) };
+  }
+  return next;
+}
+
 export function reducer(state: FlowState, action: Action): FlowState {
   switch (action.type) {
     case "check": {
@@ -283,12 +296,14 @@ export function reducer(state: FlowState, action: Action): FlowState {
       return { ...state, check };
     }
     case "addSource":
-      return {
+      // A bank bill can arrive after the itemized bill that explains it (the bill was added first),
+      // so bills are matched again; otherwise its dollars would count twice.
+      return linkBills({
         ...state,
         sources: [...state.sources.filter((s) => s.id !== action.source.id), action.source],
         items: mergeItems(state.items, action.items),
         account: action.account ?? state.account,
-      };
+      });
     case "addBill": {
       if (state.bills.some((b) => b.id === action.bill.id)) return state;
       const replaces = action.bill.replaces ?? findReplaced(state, action.bill.reading);

@@ -115,7 +115,7 @@ function FilePick({
 
 export default function AddRecords() {
   const { t, f } = useI18n();
-  const { state, services, today, readStatement, connectBank, readBill, canReread, cloudSort } = useFlow();
+  const { state, services, today, readStatement, connectBank, readBill, canReread, cloudSort, refining } = useFlow();
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
   const [deviceAi, setDeviceAi] = useState<DeviceAi | null>(null);
@@ -144,7 +144,14 @@ export default function AddRecords() {
     let live = true;
     services.classifier
       .deviceAi()
-      .then((a) => live && setDeviceAi(a))
+      .then((a) => {
+        if (!live) return;
+        setDeviceAi(a);
+        // Starting the on-device model takes seconds, so it starts while the survivor picks a file.
+        // It never downloads anything (lib/local/classify.ts prewarm).
+        if (a === "available")
+          (services.classifier as { prewarm?: () => Promise<unknown> }).prewarm?.().catch(() => {});
+      })
       .catch(() => live && setDeviceAi("unavailable"));
     return () => {
       live = false;
@@ -251,11 +258,7 @@ export default function AddRecords() {
         {busy ? <p className="meta">{t.gather.readingLong}</p> : null}
         {cloudNote ? <p className="meta">{cloudNote}</p> : null}
       </div>
-      <CloudConsent
-        ask={ask?.ask ?? null}
-        onNo={() => setAsk(null)}
-        onYes={() => ask && sortWithCloud(ask.source)}
-      />
+      <CloudConsent ask={ask?.ask ?? null} onNo={() => setAsk(null)} onYes={() => ask && sortWithCloud(ask.source)} />
       {error ? (
         <p role="alert" className={styles.problem}>
           {error}
@@ -266,7 +269,8 @@ export default function AddRecords() {
         <ul className={styles.readList} aria-label={t.gather.readListLabel}>
           {state.sources.map((s) => {
             // Without on-device AI, rows the rules could not sort may go to cloud AI, per file, after a yes.
-            const unsorted = deviceAi && deviceAi !== "available" && canReread(s.id) ? unsortedRows(state, s.id, today) : 0;
+            const unsorted =
+              deviceAi && deviceAi !== "available" && canReread(s.id) ? unsortedRows(state, s.id, today) : 0;
             return (
               <li key={s.id}>
                 {s.kind === "bank"
@@ -277,6 +281,11 @@ export default function AddRecords() {
                   <span className="meta"> {t.gather.warnings(skippedRows(s.warnings))}</span>
                 ) : null}
                 {s.already ? <span className={`meta ${styles.already}`}>{t.gather.already(s.already)}</span> : null}
+                {refining.includes(s.id) ? (
+                  <span className={`meta ${styles.already}`} role="status">
+                    {t.gather.deviceAiSorting}
+                  </span>
+                ) : null}
                 {unsorted ? (
                   <span className={styles.aiOffer}>
                     <span className="meta">{t.cloud.offer(unsorted)}</span>

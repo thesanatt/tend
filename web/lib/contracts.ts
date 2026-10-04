@@ -30,13 +30,14 @@ export interface ClassifiedItem extends EngineItem {
 }
 export type DeviceAi = "available" | "downloadable" | "downloading" | "unavailable";
 // cloudConsent: the survivor said yes on the consent screen to sending what lib/local/cloud.ts
-// describes (docs/PRIVACY.md item 3). Without it nothing goes to cloud AI.
+// describes (docs/PRIVACY.md item 3). Without it nothing goes to cloud AI. deviceAi: false sorts
+// with the rules alone (a fast first reading; the model can follow).
 export interface Classifier {
   deviceAi(): Promise<DeviceAi>;
   classify(
     txns: StatementTxn[],
     ctx: { st: string; incident_date: string },
-    opts?: { cloudConsent?: boolean },
+    opts?: { cloudConsent?: boolean; deviceAi?: boolean },
   ): Promise<ClassifiedItem[]>;
 }
 

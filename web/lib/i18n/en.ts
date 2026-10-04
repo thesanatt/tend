@@ -445,6 +445,7 @@ export const en = {
     deviceAiAddNote:
       "It downloads once, from your browser's maker. Then it sorts costs on this device. Nothing about you is sent.",
     deviceAiProgress: (pct: number) => `On-device AI is downloading: ${pct}%.`,
+    deviceAiSorting: "On-device AI is sorting the rows the rules could not. You can start on the rest now.",
     readListLabel: "Records read",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transaction", "transactions")} read, ${plural(found, "possible cost", "possible costs")}.`,
@@ -602,7 +603,8 @@ export const en = {
     bankUnsure:
       "The bank did not give a clear answer, so this payment may have gone through. Check the account before you try again.",
     confirmFailed: "The payment did not go through. Nothing was sent.",
-    offline: "You are offline, so this did not reach the bank. Nothing was sent. Connect to the internet and try again.",
+    offline:
+      "You are offline, so this did not reach the bank. Nothing was sent. Connect to the internet and try again.",
     retry: "Try again",
     noteDone: (amount: string, payee: string) => `The bank recorded ${amount} to ${payee}. Tend read the record back.`,
     noteDryRun: (amount: string, payee: string) =>
@@ -700,7 +702,8 @@ export const en = {
       `For the ${n} rows Tend could not sort, from the date it happened on: the kind of transaction, the merchant, its category, and the description. Tend first takes out card and reference numbers, dates, amounts, phone numbers, emails, and the name in a payment app line.`,
     whatBill: "This bill file, as it is: the picture or the PDF.",
     whoTitle: "Who gets it",
-    whoRows: "Tend's server, which asks Google's Gemini to pick a kind of cost for each row. Tend's server keeps no copy.",
+    whoRows:
+      "Tend's server, which asks Google's Gemini to pick a kind of cost for each row. Tend's server keeps no copy.",
     whoBill: "Tend's server, which asks Google's Gemini to copy its lines and amounts. Tend's server keeps no copy.",
     stayTitle: "What stays here",
     stayRows: "The amounts, the dates, your other transactions, your answers, and anything about you.",

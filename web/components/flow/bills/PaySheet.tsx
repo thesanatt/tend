@@ -54,7 +54,12 @@ type Phase = "review" | "proposing" | "ready" | "confirming" | "done" | "error" 
 
 // The flow's own sentence for a payment result, in the survivor's language. The bank service's
 // English note is kept only as a detail under it.
-export function resultNote(r: Pick<ActionResult, "status" | "amount_cents"> & { dry_run?: boolean }, payee: string, t: Dict, f: Formatters): string | null {
+export function resultNote(
+  r: Pick<ActionResult, "status" | "amount_cents"> & { dry_run?: boolean },
+  payee: string,
+  t: Dict,
+  f: Formatters,
+): string | null {
   if (r.status !== "done") return null;
   return r.dry_run ? t.pay.noteDryRun(f.money(r.amount_cents), payee) : t.pay.noteDone(f.money(r.amount_cents), payee);
 }

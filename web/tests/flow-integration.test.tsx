@@ -12,7 +12,14 @@ import AddRecords from "@/components/flow/gather/AddRecords";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import { demoBankTxns, ROWAN_ACCOUNT, sampleStatementCsv } from "@/components/flow/samples";
 import { ROWAN_ROWS } from "@/components/flow/samples/rowan";
-import { initialState, reducer, type Action, type BillRecord, type FlowItem, type FlowState } from "@/components/flow/state";
+import {
+  initialState,
+  reducer,
+  type Action,
+  type BillRecord,
+  type FlowItem,
+  type FlowState,
+} from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
 import { DICTS, I18nProvider } from "@/lib/i18n";
@@ -21,7 +28,16 @@ import { mockEngineOutput } from "@/lib/mocks/engine";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import { classifyRequest, installNetLog, netSends, onNetSend, resetNetLogForTests } from "@/lib/netlog";
 import { buildLetters, LawBook, stillNeeded } from "@/lib/packet";
-import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices, TODAY } from "./helpers/flow";
+import {
+  MI_CHECK,
+  MI_LAW,
+  michiganOutput,
+  renderFlow,
+  stateFrom,
+  stubLawFetch,
+  testServices,
+  TODAY,
+} from "./helpers/flow";
 
 const { en, es } = DICTS;
 
@@ -110,7 +126,9 @@ describe("a CSV and an OFX of the same month", () => {
     expect(second.found).toBe(0);
     expect(box.flow!.state.items.length).toBe(before);
     const input = buildEngineInput(box.flow!.state, TODAY)!;
-    const keys = input.items.map((i) => `${i.date}|${i.amount_cents}|${i.description.toLowerCase().replace(/[^a-z]/g, "")}`);
+    const keys = input.items.map(
+      (i) => `${i.date}|${i.amount_cents}|${i.description.toLowerCase().replace(/[^a-z]/g, "")}`,
+    );
     expect(new Set(keys).size).toBe(keys.length);
   });
 });
@@ -133,12 +151,24 @@ describe("rows the rules cannot sort", () => {
     confidence: 0,
     origin: "statement",
   });
-  const source = { id: "stmt:abc", kind: "statement" as const, label: "s.csv", read: 2, found: 2, warnings: [], sample: true };
+  const source = {
+    id: "stmt:abc",
+    kind: "statement" as const,
+    label: "s.csv",
+    read: 2,
+    found: 2,
+    warnings: [],
+    sample: true,
+  };
 
   it("are not offered, or sent to the engine, when they are from before the date", () => {
     const state = stateFrom([
       MI_CHECK,
-      { type: "addSource", source, items: [unsorted("stmt:abc:1", "2026-04-20"), unsorted("stmt:abc:2", "2026-06-20")] },
+      {
+        type: "addSource",
+        source,
+        items: [unsorted("stmt:abc:1", "2026-04-20"), unsorted("stmt:abc:2", "2026-06-20")],
+      },
     ]);
     expect(offered(state, state.items[0], TODAY)).toBe(false);
     expect(buildRows(state, null).map((r) => r.item.item_id)).toEqual(["stmt:abc:2"]);
@@ -188,7 +218,14 @@ const billLines: FlowItem[] = SAMPLE_BILL_READING.lines.map((l, i) => ({
   bill_id: "bill-abc",
   line_no: i + 1,
 }));
-const bill: BillRecord = { id: "bill-abc", label: "riverbend.pdf", reading: SAMPLE_BILL_READING, replaces: null, choice: null, sample: true };
+const bill: BillRecord = {
+  id: "bill-abc",
+  label: "riverbend.pdf",
+  reading: SAMPLE_BILL_READING,
+  replaces: null,
+  choice: null,
+  sample: true,
+};
 const bank: Action = {
   type: "addSource",
   source: { id: "bank", kind: "bank", label: "Checking", read: 0, found: 0, warnings: [], sample: true },
@@ -272,10 +309,13 @@ describe("the net log behind the privacy line", () => {
   it("reports a send with what it carried, and nothing when the device is offline", async () => {
     const fake = vi.fn(async (url: string) =>
       url === "/api/actions/propose"
-        ? new Response(JSON.stringify({ action_id: "act-9", amount_cents: 11800, payee: "Riverbend General Hospital" }), {
-            status: 200,
-            headers: { "content-type": "application/json" },
-          })
+        ? new Response(
+            JSON.stringify({ action_id: "act-9", amount_cents: 11800, payee: "Riverbend General Hospital" }),
+            {
+              status: 200,
+              headers: { "content-type": "application/json" },
+            },
+          )
         : new Response("{}", { status: 200, headers: { "content-type": "application/json" } }),
     );
     vi.stubGlobal("fetch", fake);
@@ -389,7 +429,11 @@ describe("the payment result", () => {
         at: "2026-10-03T17:00:00Z",
       })),
     });
-    renderFlow(<BillsScreen />, { services, initial: stateFrom([MI_CHECK, { type: "addBill", bill, items: billLines }, bank], "es"), lang: "es" });
+    renderFlow(<BillsScreen />, {
+      services,
+      initial: stateFrom([MI_CHECK, { type: "addBill", bill, items: billLines }, bank], "es"),
+      lang: "es",
+    });
     fireEvent.click(await screen.findByRole("button", { name: /^Pagar \$118\.00/ }));
     const dialog = await screen.findByRole("dialog");
     fireEvent.click(within(dialog).getByRole("button", { name: es.pay.getCode }));
@@ -399,6 +443,41 @@ describe("the payment result", () => {
     const note = within(dialog).getByText(/Nessie recorded it/);
     expect(note.closest("details")).toBeTruthy();
     expect(note.getAttribute("lang")).toBe("en");
+  });
+});
+
+describe("with on-device AI ready", () => {
+  it("shows the rules' reading at once, then on-device AI sorts the rest in the background", async () => {
+    let release!: () => void;
+    const modelDone = new Promise<void>((resolve) => (release = resolve));
+    const classify = vi.fn(async (txns, ctx, opts?: { deviceAi?: boolean }) => {
+      const items = await classifier.classify(txns, ctx, { deviceAi: false });
+      if (opts?.deviceAi === false) return items;
+      await modelDone; // the model is slow
+      return items.map((i) =>
+        i.expense === "unknown" && i.description.includes("Linen")
+          ? { ...i, expense: "clothing_bedding" as const, source: "device_ai" as const, reason: "Bedding" }
+          : i,
+      );
+    });
+    const services = testServices({ statementParser, classifier: { deviceAi: async () => "available", classify } });
+    const box = captureFlow(services, stateFrom([MI_CHECK]));
+    const csv = new File([sampleStatementCsv()], "rowan.csv", { type: "text/csv" });
+    await act(async () => {
+      await box.flow!.readStatement(csv);
+    });
+    // The reading is back before the model answers.
+    expect(classify.mock.calls[0][2]).toEqual({ deviceAi: false });
+    const linen = () => box.flow!.state.items.find((i) => i.description.includes("Linen"))!;
+    expect(linen().expense).toBe("unknown");
+    expect(box.flow!.refining).toHaveLength(1);
+    await act(async () => {
+      release();
+      await modelDone;
+    });
+    await waitFor(() => expect(linen().expense).toBe("clothing_bedding"));
+    expect(box.flow!.refining).toEqual([]);
+    expect(linen().source).toBe("device_ai");
   });
 });
 
@@ -454,7 +533,10 @@ describe("Track", () => {
       evaluate: vi.fn(async (input) => {
         const out = michiganOutput(input);
         return {
-          output: { ...out, checks: { ...out.checks, deadline: { ...out.checks.deadline, flags: ["deadline_from_report"] } } },
+          output: {
+            ...out,
+            checks: { ...out.checks, deadline: { ...out.checks.deadline, flags: ["deadline_from_report"] } },
+          },
           backend: "wasm" as const,
           detail: "test",
         };

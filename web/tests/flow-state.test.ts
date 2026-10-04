@@ -284,6 +284,28 @@ describe("bills", () => {
     expect(buildRows(s, null).find((r) => r.item.item_id === bankBill.item_id)?.status).toBe("replaced");
   });
 
+  it("matches the bank bill that arrives after its itemized bill, so the order does not matter", () => {
+    const bill: BillRecord = {
+      id: "bill-x",
+      label: "b.pdf",
+      reading: reading(44300),
+      replaces: null,
+      choice: null,
+      sample: true,
+    };
+    let s = reducer(withCheck(), { type: "addBill", bill, items: billItemsFor("bill-x") });
+    expect(s.bills[0].replaces).toBeNull();
+    s = reducer(s, {
+      type: "addSource",
+      source: { id: "bank", kind: "bank", label: "Checking", read: 1, found: 1, warnings: [], sample: true },
+      items: [bankBill],
+    });
+    expect(s.bills[0].replaces).toBe(bankBill.item_id);
+    const ids = buildEngineInput(s, TODAY)!.items.map((i) => i.item_id);
+    expect(ids).not.toContain(bankBill.item_id);
+    expect(ids).toHaveLength(3);
+  });
+
   it("does not replace a bank bill with a different total", () => {
     let s = reducer(withCheck(), {
       type: "addSource",

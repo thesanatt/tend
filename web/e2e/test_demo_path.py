@@ -18,6 +18,10 @@ from conftest import BASE_URL, Stack, record
 from playwright.sync_api import Browser, BrowserContext, Page, Request, expect
 
 BILL, HELD, REST = "$443.00", "$325.00", "$118.00"
+# What Rowan can ask for once the statement, the bill, and the bank are read and no question is
+# answered yet (questions are guesses and count only after a yes). The bank adds nothing new: its
+# rows were in the statement, and its pending hospital bill is the itemized bill.
+TOTAL = "$3,142.00"
 QUIET = "On this device. Nothing has left it."
 # Words that are Rowan's transactions and bill lines. None may leave the device.
 PRIVATE = [
@@ -89,6 +93,7 @@ def gather(page: Page, test: str, bank: bool = True) -> None:
             expect(records_read(page)).to_contain_text("already here from another record")
     # Moves between Rowan's own accounts are never costs.
     expect(page.get_by_text("Move to checking")).to_have_count(0)
+    expect(page.get_by_label("Your claim so far")).to_contain_text(TOTAL)
 
 
 def bills(page: Page, test: str) -> None:
@@ -138,6 +143,7 @@ def packet(page: Page, test: str) -> dict[str, bytes]:
         expect(page.get_by_role("heading", name="Your packet", level=1)).to_be_visible()
         expect(page.get_by_role("link", name="Download the filled form")).to_be_visible()
     expect(page.get_by_text(f"Separate from this: {HELD} on a bill you should not pay.")).to_be_visible()
+    expect(page.locator("[class*=packetTotal]")).to_contain_text(TOTAL)
     expect(page.get_by_text("The program decides.").first).to_be_visible()
     for name, label in (("form", "Download the filled form"), ("summary", "Download the summary (PDF)")):
         with page.expect_download() as info:

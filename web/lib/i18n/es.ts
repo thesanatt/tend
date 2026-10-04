@@ -76,7 +76,8 @@ export const es: Dict = {
     partCloudRows: "filas para que la IA en la nube las clasifique",
     partCloudBill: (n: number) =>
       n === 1 ? "una factura para que la IA en la nube la lea" : `${n} facturas para que la IA en la nube las lea`,
-    partOther: (n: number) => (n === 1 ? "una solicitud que Tend no esperaba" : `${n} solicitudes que Tend no esperaba`),
+    partOther: (n: number) =>
+      n === 1 ? "una solicitud que Tend no esperaba" : `${n} solicitudes que Tend no esperaba`,
     eventPaymentDry: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}, al servidor de Tend. Fue una prueba, así que no se envió al banco.`,
     eventCloudRows: (when: string) =>
@@ -427,6 +428,8 @@ export const es: Dict = {
     deviceAiAddNote:
       "Se descarga una vez, del fabricante de tu navegador. Después clasifica gastos en este dispositivo. No se envía nada sobre ti.",
     deviceAiProgress: (pct: number) => `La IA en el dispositivo se está descargando: ${pct}%.`,
+    deviceAiSorting:
+      "La IA en el dispositivo está clasificando las filas que las reglas no pudieron. Ya puedes empezar con lo demás.",
     readListLabel: "Registros leídos",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transacción leída", "transacciones leídas")}, ${plural(found, "posible gasto", "posibles gastos")}.`,
@@ -676,8 +679,10 @@ export const es: Dict = {
       other: "Tend no pudo crear el enlace.",
     },
     revokeFailed: "Tend no pudo desactivar el enlace. Inténtalo de nuevo en un minuto.",
-    offline: "No tienes conexión. Un enlace para compartir necesita internet. No se envió nada. Conéctate e inténtalo de nuevo.",
-    revokeOffline: "No tienes conexión, así que el enlace todavía no se pudo desactivar. Conéctate e inténtalo de nuevo.",
+    offline:
+      "No tienes conexión. Un enlace para compartir necesita internet. No se envió nada. Conéctate e inténtalo de nuevo.",
+    revokeOffline:
+      "No tienes conexión, así que el enlace todavía no se pudo desactivar. Conéctate e inténtalo de nuevo.",
   },
 
   cloud: {
@@ -686,7 +691,8 @@ export const es: Dict = {
         ? "1 fila no se pudo clasificar en este dispositivo."
         : `${n} filas no se pudieron clasificar en este dispositivo.`,
     offerButton: "Preguntar a la IA en la nube",
-    billOffer: "Este navegador no tiene IA en el dispositivo para leer fotos. La IA en la nube puede intentarlo, si dices que sí.",
+    billOffer:
+      "Este navegador no tiene IA en el dispositivo para leer fotos. La IA en la nube puede intentarlo, si dices que sí.",
     billOfferButton: "Leerla con IA en la nube",
     titleRows: "¿Clasificar estas filas con IA en la nube?",
     titleBill: "¿Leer esta factura con IA en la nube?",
@@ -712,7 +718,8 @@ export const es: Dict = {
         : `La IA en la nube clasificó ${n} filas. Son suposiciones, así que cada una espera tu sí.`,
     noneSorted: "La IA en la nube no clasificó ninguna de estas filas. Puedes revisar cada una tú.",
     failed: "La IA en la nube no respondió. No cambió nada.",
-    billFailed: "La IA en la nube tampoco pudo leer bien esta factura. Igual puedes enviar el original con tu solicitud.",
+    billFailed:
+      "La IA en la nube tampoco pudo leer bien esta factura. Igual puedes enviar el original con tu solicitud.",
     offline: "No tienes conexión, así que no se envió nada a la IA en la nube. Conéctate e inténtalo de nuevo.",
   },
 
