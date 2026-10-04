@@ -29,7 +29,10 @@ then our server cannot read it.
    Gemini per file, with a clear consent screen naming exactly what is sent. Default is off; the
    deterministic rules still work without it.
 4. **Bank connection (demo).** Fetching transactions from the bank passes through a relay that
-   holds the API key, keeps no logs, and stores nothing. Statement upload avoids even that.
+   holds the API key, keeps no logs, and stores nothing. Statement upload avoids even that. In
+   Track, with the demo bank only: the demo of the program paying sends the claim's total for the
+   fictional account, and the bank records panel asks for that account's records. Each happens
+   only when tapped, and the privacy line shows it.
 
 ## What our server holds
 

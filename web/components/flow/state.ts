@@ -76,12 +76,15 @@ export interface ShareRecord {
 }
 
 // What left the device, and only because the survivor acted (docs/PRIVACY.md).
-export type SentKind = "payment" | "share" | "bank" | "server_engine";
+// "payment_setup": asking the bank service for a confirm code sends the amount, account, and payee,
+// even if the survivor then stops.
+export type SentKind = "payment" | "payment_setup" | "share" | "bank" | "server_engine";
 export interface SentEvent {
   kind: SentKind;
   at: string;
   amount_cents?: number;
   to?: string;
+  action_id?: string;
 }
 
 export interface FlowState {
@@ -272,7 +275,8 @@ export function reducer(state: FlowState, action: Action): FlowState {
     case "lang":
       return { ...state, lang: action.lang };
     case "restore":
-      return action.state;
+      // Saved data from an earlier build may lack newer fields; start those empty.
+      return { ...initialState(action.state.lang), ...action.state };
     case "reset":
       return initialState(action.lang);
   }

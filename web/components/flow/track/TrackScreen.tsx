@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import BankActivity from "@/components/bank/BankActivity";
+import PayoutDemo, { DemoPaidNote, isDemoPaid } from "@/components/bank/PayoutDemo";
 import Money from "@/components/Money";
 import Plant from "@/components/Plant";
 import { addDays } from "@/lib/dates";
@@ -8,6 +10,7 @@ import { moneyGrowth } from "@/lib/garden";
 import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
 import { buildCheckSummary } from "../checkSummary";
+import { useSetAside } from "../useSetAside";
 import { GROUPS, groupOf, knowsDate, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
@@ -88,6 +91,8 @@ function NextStep({ plant, t }: { plant: PlantView; t: Dict }) {
       </button>
     );
   }
+  // A bloom from the demo of the program paying says so; its undo is on the demo itself.
+  if (isDemoPaid(state, id)) return <DemoPaidNote className={styles.plantHint} />;
   return (
     <p className={styles.plantHint}>
       {t.track.paidOn(life.paid_at ? f.date(life.paid_at, "short") : "")}{" "}
@@ -107,11 +112,13 @@ export default function TrackScreen() {
   const { t, f } = useI18n();
   const { state, claim, today } = useFlow();
   const law = useLaw(state.check.st || null);
+  const setAside = useSetAside(state.check.st || null);
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
   const all = plants(state, output).map((p) =>
     p.stage === "sprout" && p.item.origin === "bill" ? { ...p, stage: "leaf" as const } : p,
   );
-  const summary = law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today)) : null;
+  const summary =
+    law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today), setAside) : null;
   const deadline = summary?.deadline.kind === "date" ? summary.deadline : null;
   const held = output?.lines.filter((l) => l.status === "held") ?? [];
   const paidCents = all.filter((p) => p.stage === "bloom").reduce((s, p) => s + p.line.allowed_cents, 0);
@@ -214,6 +221,8 @@ export default function TrackScreen() {
         })}
       </div>
 
+      <PayoutDemo />
+
       {held.length ? (
         <aside className={styles.heldAside} aria-label={t.track.heldLabel}>
           <svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true">
@@ -249,6 +258,8 @@ export default function TrackScreen() {
           {t.track.remindButton}
         </button>
       </section>
+
+      <BankActivity />
     </div>
   );
 }

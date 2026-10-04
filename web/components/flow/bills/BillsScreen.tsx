@@ -47,6 +47,21 @@ export function fallbackHoldLetter(
   };
 }
 
+// Who a payment goes to. The bill's provider, as the bank stores it (printable, at most 80 characters).
+// Without a provider it is a plain "Billing office": the file name could say anything, and the payee
+// leaves the device.
+export const PAYEE_FALLBACK = "Billing office";
+export function payeeFor(bill: Pick<BillRecord, "reading">): string {
+  const name = [...(bill.reading.provider ?? "")]
+    .filter((ch) => ch >= " " && ch !== "\u007f")
+    .join("")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 80)
+    .trim();
+  return name || PAYEE_FALLBACK;
+}
+
 function Unreliable({ bill }: { bill: BillRecord }) {
   const { t } = useI18n();
   const { preview } = useFlow();
@@ -86,6 +101,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
   const items = billItems(state, bill);
   const lines = new Map(output?.lines.map((l) => [l.item_id, l]));
   const provider = bill.reading.provider ?? bill.label;
+  const payee = payeeFor(bill);
   const pk = usePacket(sheet === "letter");
   const noBill = law.byCategory("exam_no_bill")[0];
   const payRule = law.byCategory("exam_payment").find((r) => typeof r.params?.payer === "string");
@@ -246,7 +262,11 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                     </ul>
                   ) : null}
                   {lastTry && lastTry.status !== "done" ? (
-                    <p className={styles.note}>{t.bills.notSent(f.money(lastTry.amount_cents))}</p>
+                    <p className={styles.note}>
+                      {lastTry.status === "unverified"
+                        ? t.bills.unverified(f.money(lastTry.amount_cents))
+                        : t.bills.notSent(f.money(lastTry.amount_cents))}
+                    </p>
                   ) : null}
                   <div className="btn-row">
                     <button
@@ -293,7 +313,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
           billId={bill.id}
           itemIds={plan.rest.map((i) => i.item_id)}
           amountCents={plan.restCents}
-          payee={provider}
+          payee={payee}
           account={state.account}
           forText={plan.rest.map((i) => i.description).join(", ")}
           notPaidText={plan.held.length ? t.pay.notPaidText(heldText) : null}

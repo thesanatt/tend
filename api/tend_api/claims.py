@@ -299,14 +299,45 @@ class ClaimService:
         if persona_id is None:
             return None
         audit, _ = self.audit_bill(BillAuditRequest(persona_id=persona_id, bill_id=bill_id))
+        snapshot = load_snapshot(self.seed_dir, persona_id)
+        bank_bill = next((b for b in snapshot.get("bills") or [] if bill_id in (b.get("id"), b.get("_id"))), {})
+        st = (audit.get("engine_output") or {}).get("jurisdiction")
+        rules = self.rules.rules_by_id(st) if st else {}
+        held_rules = {r for ln in audit["lines"] if ln["status"] == "held" for r in ln.get("rule_ids") or []}
         return {
             "bill_id": bill_id,
             "persona_id": persona_id,
-            "accounts": account_ids(load_snapshot(self.seed_dir, persona_id)),
+            "accounts": account_ids(snapshot),
             "payee": audit["provider"],
-            "lines": [{"item_id": ln["item_id"], "amount_cents": ln["amount_cents"], "status": ln["status"]} for ln in audit["lines"]],
+            "lines": [
+                {
+                    "item_id": ln["item_id"],
+                    "amount_cents": ln["amount_cents"],
+                    "status": ln["status"],
+                    "line_no": ln.get("line_no"),
+                    "rule_ids": ln.get("rule_ids") or [],
+                }
+                for ln in audit["lines"]
+            ],
             "payable_cents": audit["payable_cents"],
+            # For tying a payment to the bank's own bill record (tend_api.payments).
+            "total_cents": audit["total_cents"],
+            "account_id": bank_bill.get("account_id"),
+            "nickname": bank_bill.get("nickname"),
+            "pinpoints": {r: rules[r].get("pinpoint") for r in sorted(held_rules) if r in rules and rules[r].get("pinpoint")},
         }
+
+    def bills_for_account(self, account_id: str) -> list[dict[str, Any]]:
+        """The demo bills on one account that Tend can itemize, so a plain payment of exactly what one of them
+        has left to pay can be tied to it. Read from the persona snapshots; nothing is looked up live."""
+        found = []
+        for persona_id, snap in list_snapshots(self.seed_dir):
+            itemized = {d.get("bill_id") for d in snapshot_documents(snap) if d.get("bill_id")}
+            for bill in snap.get("bills") or []:
+                bill_id = bill.get("id") or bill.get("_id")
+                if bill_id in itemized and bill.get("account_id") == account_id and bill.get("status") != "cancelled":
+                    found.append({"bill_id": bill_id, "payee": bill.get("payee") or "", "persona_id": persona_id})
+        return found
 
 
 def consent_flag(item_id: str, description: str, doc: dict[str, Any], sources: dict[str, dict[str, Any]]) -> dict[str, Any] | None:

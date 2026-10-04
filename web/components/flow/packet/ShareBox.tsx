@@ -9,6 +9,11 @@ import styles from "../flow.module.css";
 
 const HOURS = [24, 72, 168] as const;
 
+export function expired(expiresAt: string, now = Date.now()): boolean {
+  const at = Date.parse(expiresAt);
+  return Number.isFinite(at) && at <= now;
+}
+
 // Share with an advocate: the packet is sealed in this browser, and only the link opens it.
 export default function ShareBox({ input, output }: { input: EngineInput; output: EngineOutput }) {
   const { t, f } = useI18n();
@@ -18,7 +23,8 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
-  const active = state.shares.filter((s) => !s.revoked);
+  // A link past its expiry opens nothing, so it is not offered for copying.
+  const active = state.shares.filter((s) => !s.revoked && !expired(s.expires_at));
 
   async function make() {
     setBusy(true);
@@ -84,6 +90,7 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
         </div>
       ))}
       {state.shares.some((s) => s.revoked) ? <p className="meta">{t.share.revoked}</p> : null}
+      {state.shares.some((s) => !s.revoked && expired(s.expires_at)) ? <p className="meta">{t.share.lapsed}</p> : null}
 
       {!active.length ? (
         <>

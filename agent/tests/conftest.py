@@ -13,15 +13,29 @@ sys.path.insert(0, str(Path(__file__).parent))
 from fake_api import FakeTend  # noqa: E402
 
 from tend_agent.api import TendApi  # noqa: E402
-from tend_agent.config import Settings  # noqa: E402
+from tend_agent.bank import BankDesk  # noqa: E402
+from tend_agent.desks import LocalDesks  # noqa: E402
+from tend_agent.law import LawDesk  # noqa: E402
 from tend_agent.navigator import Navigator, Turn  # noqa: E402
 from tend_agent.parse import Incoming  # noqa: E402
+from tend_agent.settings import Settings  # noqa: E402
 
 TODAY = dt.date(2026, 10, 3)
+SITE = "https://youreowed.tech"
 
 
 def run(coro: Any) -> Any:
     return asyncio.run(coro)
+
+
+def settings(**kw: Any) -> Settings:
+    return Settings(**{"api_url": "http://tend.test", "app_url": SITE, **kw})
+
+
+def desks_for(fake: FakeTend, s: Settings | None = None) -> tuple[LocalDesks, TendApi]:
+    s = s or settings()
+    api = TendApi(s.api_url, transport=fake.transport(), retry_delay_s=0)
+    return LocalDesks(LawDesk(api, s), BankDesk(api, s)), api
 
 
 class Chat:
@@ -46,9 +60,10 @@ def fake() -> FakeTend:
 
 @pytest.fixture
 def make_chat(fake: FakeTend):
-    def _make(f: FakeTend | None = None, **settings: Any) -> Chat:
-        api = TendApi("http://tend.test", transport=(f or fake).transport())
-        return Chat(Navigator(api, Settings(api_url="http://tend.test", **settings), today=lambda: TODAY))
+    def _make(f: FakeTend | None = None, **kw: Any) -> Chat:
+        s = settings(**kw)
+        desks, _ = desks_for(f or fake, s)
+        return Chat(Navigator(desks, s, today=lambda: TODAY))
 
     return _make
 

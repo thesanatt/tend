@@ -1,0 +1,40 @@
+# Uploads for the tend-api Vercel project, which deploys from the repository root (docs/DEPLOY.md).
+# An allowlist: what the API reads at runtime goes up. Never .env, never the 192 MB of source snapshots in
+# rules/sources, never the web app's code (it is the tend-web project, deployed from web/).
+/*
+!/vercel.json
+!/requirements.txt
+!/api
+!/rules
+!/seed
+!/refengine
+!/web
+
+# api/ and seed/ go up whole, so a new folder the API reads (migrations, fixtures) ships without an edit here.
+api/tests
+api/.venv
+api/.cache
+api/.data
+seed/tests
+seed/.venv
+
+rules/*
+!rules/verified
+!rules/ir
+
+refengine/*
+!refengine/tend_ref
+
+# The compiled law images, so the API labels its answers with the same image hash as the device.
+web/*
+!web/public
+web/public/*
+!web/public/engine
+web/public/engine/*
+!web/public/engine/laws
+
+**/.env*
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/.DS_Store

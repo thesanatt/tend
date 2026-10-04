@@ -1,30 +1,25 @@
-"""Client for the Tend API. The agent never decides law or money itself; it asks the API.
+"""Client for the Tend API. The agents never decide law or money themselves; they ask the API, which runs the
+law engine over the verified rules and holds the payment rules.
 
-/api/agent/answer and /api/agent/check are found through the API's OpenAPI document, so the agent adapts to
-their field names. When the API does not have them yet, callers fall back to endpoints that exist today.
+Reads retry once when the server is waking up (a dropped connection, 502, 503, or 504). Writes never retry here:
+a payment proposal, a confirmation, or a share is sent once, and the Bank+Packet agent decides what a failure means.
 """
 
 from __future__ import annotations
 
+import asyncio
+import logging
 import time
-from dataclasses import dataclass, field
 from typing import Any
 
 import httpx
 
-OPENAPI_TTL_S = 300.0
-DOC_TTL_S = 600.0
+# httpx logs every request URL at INFO, and a Check's or a share's URL is nobody's business. Keep them out of logs.
+for _name in ("httpx", "httpcore"):
+    logging.getLogger(_name).setLevel(logging.WARNING)
 
-ANSWER_FIELDS = {
-    "question": ("question", "q", "text", "query", "message", "prompt"),
-    "st": ("st", "state", "jurisdiction", "code"),
-}
-CHECK_FIELDS = {
-    "st": ("st", "state", "jurisdiction", "code"),
-    "incident_date": ("incident_date", "date", "happened_on", "incident"),
-    "forensic_exam": ("forensic_exam", "exam", "had_exam"),
-    "police_report": ("police_report", "report", "reported"),
-}
+DOC_TTL_S = 600.0
+RETRY_STATUSES = {502, 503, 504}
 _NOT_FOUND = {"Not Found", "Method Not Allowed"}
 
 
@@ -34,11 +29,6 @@ class ApiError(Exception):
         self.status = status
         self.message = message
         self.route_missing = route_missing
-
-
-class RouteMissing(ApiError):
-    def __init__(self, path: str):
-        super().__init__(404, f"{path} is not on this API yet", route_missing=True)
 
 
 def _detail(r: httpx.Response) -> str:
@@ -58,30 +48,6 @@ def _detail(r: httpx.Response) -> str:
     return r.reason_phrase
 
 
-@dataclass
-class Plan:
-    method: str
-    path: str
-    body_fields: list[str] = field(default_factory=list)
-    query_fields: list[str] = field(default_factory=list)
-    path_fields: list[str] = field(default_factory=list)
-
-
-def _pick(fields: list[str], names: tuple[str, ...]) -> str | None:
-    return next((n for n in names if n in fields), None)
-
-
-def _shape(values: dict[str, Any], synonyms: dict[str, tuple[str, ...]], fields: list[str]) -> dict[str, Any]:
-    out: dict[str, Any] = {}
-    for key, value in values.items():
-        if value is None:
-            continue
-        name = _pick(fields, synonyms.get(key, (key,)))
-        if name is not None:
-            out[name] = value
-    return out
-
-
 class TendApi:
     def __init__(
         self,
@@ -91,14 +57,15 @@ class TendApi:
         agent_key: str = "",
         transport: httpx.AsyncBaseTransport | None = None,
         now: Any = time.monotonic,
+        retry_delay_s: float = 0.5,
     ):
-        headers = {"User-Agent": "tend-navigator/0.1"}
+        headers = {"User-Agent": "tend-navigator/0.2"}
         if agent_key:
             headers["X-Agent-Key"] = agent_key
         self.base_url = base_url.rstrip("/")
         self._client = httpx.AsyncClient(base_url=self.base_url, timeout=timeout, headers=headers, transport=transport)
         self._now = now
-        self._openapi: tuple[float, dict[str, Any] | None] | None = None
+        self._retry_delay_s = retry_delay_s
         self._docs: dict[str, tuple[float, Any]] = {}
 
     async def aclose(self) -> None:
@@ -106,7 +73,7 @@ class TendApi:
 
     # ------------------------------------------------------------ plumbing
 
-    async def _request(self, method: str, path: str, **kw: Any) -> Any:
+    async def _once(self, method: str, path: str, **kw: Any) -> Any:
         try:
             r = await self._client.request(method, path, **kw)
         except httpx.TimeoutException as exc:
@@ -121,6 +88,15 @@ class TendApi:
         except ValueError as exc:
             raise ApiError(r.status_code, "Tend's server sent a reply I could not read.") from exc
 
+    async def _request(self, method: str, path: str, *, retry: bool = False, **kw: Any) -> Any:
+        try:
+            return await self._once(method, path, **kw)
+        except ApiError as exc:
+            if not retry or not (exc.status == 0 or exc.status in RETRY_STATUSES):
+                raise
+        await asyncio.sleep(self._retry_delay_s)
+        return await self._once(method, path, **kw)
+
     async def _cached(self, key: str, loader: Any) -> Any:
         hit = self._docs.get(key)
         if hit and self._now() - hit[0] < DOC_TTL_S:
@@ -129,94 +105,42 @@ class TendApi:
         self._docs[key] = (self._now(), value)
         return value
 
-    async def openapi(self) -> dict[str, Any] | None:
-        if self._openapi and self._now() - self._openapi[0] < OPENAPI_TTL_S:
-            return self._openapi[1]
-        try:
-            doc = await self._request("GET", "/api/openapi.json")
-            doc = doc if isinstance(doc, dict) and isinstance(doc.get("paths"), dict) else None
-        except ApiError:
-            doc = None
-        self._openapi = (self._now(), doc)
-        return doc
-
-    async def plan(self, base: str) -> Plan | None:
-        """How to call a route, read from OpenAPI. None if the route is not there. Raises nothing."""
-        doc = await self.openapi()
-        if doc is None:
-            return Plan("POST", base, list(_all_names()), [], [])  # unknown API: try the obvious shape
-        paths = doc["paths"]
-        candidates = [p for p in paths if p == base or (p.startswith(base + "/{") and p.count("/") == base.count("/") + 1)]
-        if not candidates:
-            return None
-        path = candidates[0]
-        ops = paths[path]
-        method = "post" if "post" in ops else "get" if "get" in ops else next(iter(ops), "post")
-        op = ops.get(method, {})
-        params = op.get("parameters", [])
-        return Plan(
-            method=method.upper(),
-            path=path,
-            body_fields=_body_fields(doc, op),
-            query_fields=[p["name"] for p in params if p.get("in") == "query"],
-            path_fields=[p["name"] for p in params if p.get("in") == "path"],
-        )
-
-    async def _flexible(self, base: str, values: dict[str, Any], synonyms: dict[str, tuple[str, ...]]) -> Any:
-        plan = await self.plan(base)
-        if plan is None:
-            raise RouteMissing(base)
-        path = plan.path
-        for name in plan.path_fields:
-            key = next((k for k, names in synonyms.items() if name in names), None)
-            if key is None or values.get(key) is None:
-                raise RouteMissing(base)
-            path = path.replace("{" + name + "}", str(values[key]))
-        rest = {k: v for k, v in values.items() if not any(n in plan.path_fields for n in synonyms.get(k, ()))}
-        try:
-            if plan.method == "GET":
-                query = _shape(rest, synonyms, plan.query_fields)
-                return await self._request("GET", path, params={k: _query_value(v) for k, v in query.items()})
-            return await self._request(plan.method, path, json=_shape(rest, synonyms, plan.body_fields))
-        except ApiError as exc:
-            if exc.route_missing:
-                raise RouteMissing(base) from exc
-            raise
-
-    # ------------------------------------------------------------ law questions and Checks
+    # ------------------------------------------------------------ the public law corpus
 
     async def answer(self, question: str, st: str | None) -> dict[str, Any]:
-        return await self._flexible("/api/agent/answer", {"question": question, "st": st}, ANSWER_FIELDS)
+        body: dict[str, Any] = {"question": question}
+        if st:
+            body["st"] = st
+        return await self._request("POST", "/api/agent/answer", retry=True, json=body)
 
     async def check(self, st: str, incident_date: str | None, forensic_exam: bool | None, police_report: str) -> dict[str, Any]:
-        values = {"st": st, "incident_date": incident_date, "forensic_exam": forensic_exam, "police_report": police_report}
-        return await self._flexible("/api/agent/check", values, CHECK_FIELDS)
-
-    async def checklist(self, st: str, incident_date: str | None, forensic_exam: bool | None, police_report: str) -> dict[str, Any]:
-        params: dict[str, str] = {"police_report": police_report}
+        body: dict[str, Any] = {"st": st, "police_report": police_report}
         if incident_date:
-            params["incident_date"] = incident_date
+            body["incident_date"] = incident_date
         if forensic_exam is not None:
-            params["forensic_exam"] = "true" if forensic_exam else "false"
-        return await self._request("GET", f"/api/agent/checklist/{st}", params=params)
+            body["forensic_exam"] = forensic_exam
+        return await self._request("POST", "/api/agent/check", retry=True, json=body)
 
     async def jurisdiction(self, st: str) -> dict[str, Any]:
-        return await self._cached(f"j:{st}", lambda: self._request("GET", f"/api/jurisdictions/{st}"))
+        return await self._cached(f"j:{st}", lambda: self._request("GET", f"/api/jurisdictions/{st}", retry=True))
 
     async def jurisdictions(self) -> list[dict[str, Any]]:
-        data = await self._cached("j:*", lambda: self._request("GET", "/api/jurisdictions"))
+        data = await self._cached("j:*", lambda: self._request("GET", "/api/jurisdictions", retry=True))
         return list(data.get("jurisdictions", [])) if isinstance(data, dict) else []
 
     # ------------------------------------------------------------ the fictional demo claim
 
     async def scan(self, persona_id: str, st: str) -> dict[str, Any]:
-        return await self._request("POST", "/api/scan", json={"persona_id": persona_id, "st": st})
+        return await self._request("POST", "/api/scan", retry=True, json={"persona_id": persona_id, "st": st})
 
     async def audit_bill(self, bill_id: str, persona_id: str, scan_id: str) -> dict[str, Any]:
-        return await self._request("POST", "/api/bill/audit", json={"bill_id": bill_id, "persona_id": persona_id, "scan_id": scan_id})
+        body = {"bill_id": bill_id, "persona_id": persona_id, "scan_id": scan_id}
+        return await self._request("POST", "/api/bill/audit", retry=True, json=body)
 
     async def claim(self, engine_input: dict[str, Any], scan_id: str) -> dict[str, Any]:
-        return await self._request("POST", "/api/claim", params={"scan_id": scan_id}, json=engine_input)
+        return await self._request("POST", "/api/claim", retry=True, params={"scan_id": scan_id}, json=engine_input)
+
+    # ------------------------------------------------------------ payments and shares (sent once)
 
     async def propose(self, body: dict[str, Any]) -> dict[str, Any]:
         return await self._request("POST", "/api/actions/propose", json=body)
@@ -224,30 +148,9 @@ class TendApi:
     async def confirm(self, action_id: str, confirm_code: str) -> dict[str, Any]:
         return await self._request("POST", "/api/actions/confirm", json={"action_id": action_id, "confirm_code": confirm_code})
 
-    # ------------------------------------------------------------ a packet someone linked from the Tend app
+    async def action(self, action_id: str) -> dict[str, Any]:
+        return await self._request("GET", f"/api/actions/{action_id}", retry=True)
 
-    async def redeem(self, link_code: str) -> dict[str, Any]:
-        return await self._request("POST", "/api/agent/redeem", json={"link_code": link_code})
-
-    async def linked_claim(self, token: str) -> dict[str, Any]:
-        return await self._request("GET", "/api/agent/claim", headers={"Authorization": f"Bearer {token}"})
-
-
-def _all_names() -> set[str]:
-    return {n for names in (*ANSWER_FIELDS.values(), *CHECK_FIELDS.values()) for n in names[:1]}
-
-
-def _query_value(v: Any) -> Any:
-    return ("true" if v else "false") if isinstance(v, bool) else v
-
-
-def _body_fields(doc: dict[str, Any], op: dict[str, Any]) -> list[str]:
-    content = (op.get("requestBody") or {}).get("content") or {}
-    schema = (content.get("application/json") or {}).get("schema") or {}
-    seen: set[str] = set()
-    while "$ref" in schema and schema["$ref"] not in seen:
-        seen.add(schema["$ref"])
-        name = schema["$ref"].rsplit("/", 1)[-1]
-        schema = ((doc.get("components") or {}).get("schemas") or {}).get(name) or {}
-    props = schema.get("properties") or {}
-    return list(props.keys())
+    async def seal_share(self, ciphertext: str, iv: str, *, hours: int, once: bool = False) -> dict[str, Any]:
+        body = {"ciphertext": ciphertext, "iv": iv, "alg": "AES-256-GCM", "expires_hours": hours, "once": once}
+        return await self._request("POST", "/api/shares", json=body)

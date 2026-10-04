@@ -27,7 +27,7 @@ _ALIASES = {
 # They count only right after "in", "for", "state", or "check". "LA" usually means the city, so it never counts.
 _AMBIGUOUS = {"OK", "HI", "ID", "IN", "ME", "OR", "AL", "MD", "PA", "CT", "MS", "VA", "MA", "DE", "CO"}
 _NAME_ONLY = {"LA"}
-_CONTEXT = re.compile(r"\b(?:in|for|state|st|of|check|about)\s*$", re.I)
+_STATE_CONTEXT = re.compile(r"\b(?:in|for|state|st|of|check|about)\s*$", re.I)
 
 _NAME_PATTERNS: list[tuple[re.Pattern[str], str]] = sorted(
     [(re.compile(rf"(?<![\w.]){re.escape(k)}(?![\w])"), v) for k, v in _ALIASES.items()]
@@ -61,7 +61,7 @@ def find_states(text: str) -> list[str]:
             code = m.group(1)
             if code not in STATES or code in _NAME_ONLY or any(m.start() < e and s < m.end() for s, e in taken):
                 continue
-            if code in _AMBIGUOUS and not _CONTEXT.search(text[: m.start()]):
+            if code in _AMBIGUOUS and not _STATE_CONTEXT.search(text[: m.start()]):
                 continue
             found.append((m.start(), code))
     # A message that is only a code ("mi", "check oh"). "ok" or "hi" alone is a reply, not a state.

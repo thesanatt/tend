@@ -3,7 +3,8 @@ from __future__ import annotations
 import os
 import stat
 
-from tend_agent.config import Settings, ensure_seed, find_env_file, inspector_url, load_env
+from tend_agent.config import ensure_seed, find_env_file, inspector_url, load_env, seeds_from
+from tend_agent.settings import PUBLIC_SITE, Settings
 
 
 def test_seed_is_created_once_appended_and_never_printed(tmp_path, monkeypatch, capsys):
@@ -21,15 +22,33 @@ def test_seed_is_created_once_appended_and_never_printed(tmp_path, monkeypatch, 
 
 def test_env_file_wins_over_the_shell(tmp_path, monkeypatch):
     env = tmp_path / ".env"
-    env.write_text("GEMINI_API_KEY=from-file\nTEND_API_URL=http://api.test/\n")
+    env.write_text("GEMINI_API_KEY=from-file\nTEND_API_URL=http://api.test/\nTEND_SUBAGENT_MAILBOX=1\n")
     monkeypatch.setenv("GEMINI_API_KEY", "stale-shell-value")
     monkeypatch.setenv("TEND_ENV_FILE", str(env))
     assert find_env_file() == env
     assert load_env() == env
     assert os.environ["GEMINI_API_KEY"] == "from-file"
-    assert Settings.from_env().api_url == "http://api.test"
+    s = Settings.from_env()
+    assert s.api_url == "http://api.test" and s.subagent_mailbox is True and s.share_origin == "http://api.test"
     monkeypatch.setenv("TEND_ENV_FILE", "")
     assert find_env_file() is None
+
+
+def test_sub_agent_seeds_are_derived_and_stable():
+    a, b = seeds_from("seed-one"), seeds_from("seed-one")
+    assert a == b and a.navigator == "seed-one"
+    assert len({a.navigator, a.law, a.bank}) == 3 and "seed-one" not in a.law + a.bank
+    assert seeds_from("seed-two").law != a.law
+
+
+def test_share_links_open_on_the_web_app_when_it_is_set():
+    assert Settings(api_url="http://127.0.0.1:8000", app_url=PUBLIC_SITE).share_origin == "https://youreowed.tech"
+
+
+def test_the_check_points_at_the_web_app_only_when_there_is_one():
+    assert Settings(api_url="https://youreowed.tech/").app_origin == "https://youreowed.tech"  # same origin in production
+    assert Settings(api_url="http://127.0.0.1:8000").app_origin == ""  # a local API has no web page to point at
+    assert Settings(api_url="http://127.0.0.1:8000", app_url="http://localhost:3000/").app_origin == "http://localhost:3000"
 
 
 def test_inspector_url():

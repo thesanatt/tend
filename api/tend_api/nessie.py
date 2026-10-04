@@ -10,6 +10,8 @@ import json
 import logging
 import os
 import re
+import threading
+import time
 from collections.abc import Callable, Iterable
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, field
@@ -42,8 +44,32 @@ _DATE_FIELD = {"purchase": "purchase_date", "deposit": "transaction_date",
 _PAYEE_TAG = re.compile(r"\s*\[payee:([0-9A-Za-z-]+)\]")
 _ANY_TAG = re.compile(r"\s*\[[a-z_]+:[^\]]*\]", re.IGNORECASE)  # [payee:...], [tend:<action id>], ...
 _TEND_TAG = re.compile(r"\[tend:([^\]]+)\]", re.IGNORECASE)
+# A withdrawal that pays a bill names it, and the bill lines it pays: [bill:<bill id>#1,3].
+_BILL_TAG = re.compile(r"\[bill:([0-9A-Za-z-]+)(?:#([0-9]+(?:,[0-9]+)*))?\]")
 _ISO_DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 _KEY_PARAM = re.compile(r"([?&]key=)[^&\s\"']+")
+MAX_CALLS = 500
+
+
+def bill_tag(bill_id: str, lines: Iterable[int] = ()) -> str:
+    """The tag a bill payment carries. No line numbers means every line of the bill that was payable."""
+    if not re.fullmatch(r"[0-9A-Za-z-]+", bill_id or ""):
+        raise ValueError(f"not a bill id: {bill_id!r}")
+    numbers = sorted({int(n) for n in lines})
+    return f"[bill:{bill_id}#{','.join(map(str, numbers))}]" if numbers else f"[bill:{bill_id}]"
+
+
+def parse_bill_tag(description: str) -> tuple[str, tuple[int, ...]] | None:
+    m = _BILL_TAG.search(description or "")
+    if not m:
+        return None
+    return m.group(1), tuple(int(n) for n in m.group(2).split(",")) if m.group(2) else ()
+
+
+def tend_tag(description: str) -> str | None:
+    """The action id (or demo marker) in a record Tend wrote: [tend:act_...] or [tend:payout-MI]."""
+    m = _TEND_TAG.search(description or "")
+    return m.group(1) if m else None
 
 
 class _RedactKey(logging.Filter):
@@ -148,6 +174,25 @@ class Txn:
     @property
     def display_description(self) -> str:
         return _ANY_TAG.sub("", self.description).strip()
+
+    @property
+    def tend_action(self) -> str | None:
+        return tend_tag(self.description)
+
+    @property
+    def bill_ref(self) -> tuple[str, tuple[int, ...]] | None:
+        return parse_bill_tag(self.description)
+
+
+@dataclass(frozen=True)
+class NessieCall:
+    """One request this client made: what a judge sees in the bank activity panel. Never the key."""
+
+    method: str
+    path: str
+    status: int | None  # None: no answer came back
+    ms: int
+    count: int | None = None  # records in a list answer
 
 
 @dataclass(frozen=True)
@@ -326,6 +371,9 @@ class NessieClient:
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
         self._http = httpx.Client(timeout=timeout, transport=transport)
+        # Every request in order, so a reader can show the real API calls behind a page.
+        self.calls: list[NessieCall] = []
+        self._calls_lock = threading.Lock()
 
     @classmethod
     def from_env(cls, **kwargs: Any) -> NessieClient:
@@ -341,7 +389,28 @@ class NessieClient:
     def __exit__(self, *exc: Any) -> None:
         self.close()
 
+    def _log_call(self, method: str, path: str, status: int | None, started: float, count: int | None) -> None:
+        call = NessieCall(method, path, status, round((time.perf_counter() - started) * 1000), count)
+        with self._calls_lock:
+            self.calls.append(call)
+            if len(self.calls) > MAX_CALLS:
+                del self.calls[: len(self.calls) - MAX_CALLS]
+
     def _request(self, method: str, path: str, body: dict | None = None, *, missing_is_empty: bool = False) -> Any:
+        started = time.perf_counter()
+        status: int | None = None
+        count: int | None = None
+        try:
+            data, status = self._send(method, path, body)
+            if isinstance(data, list):
+                count = len(data)
+            if status == 404 and missing_is_empty:
+                count = 0
+            return self._answer(method, path, status, data, missing_is_empty)
+        finally:
+            self._log_call(method, path, status, started, count)
+
+    def _send(self, method: str, path: str, body: dict | None) -> tuple[Any, int]:
         # GETs get one retry on 5xx or a transport error. Writes are never retried: Nessie has
         # no idempotency keys, so a blind retry can move money twice.
         attempts = 2 if method == "GET" else 1
@@ -363,7 +432,9 @@ class NessieClient:
             data = resp.json()
         except ValueError:
             data = resp.text
-        status = resp.status_code
+        return data, resp.status_code
+
+    def _answer(self, method: str, path: str, status: int, data: Any, missing_is_empty: bool) -> Any:
         if status < 400:
             return data
         if status == 404 and missing_is_empty:

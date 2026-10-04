@@ -15,6 +15,7 @@ from .config import Settings, load_env_file
 from .deps import ENGINE_HEADER, LAW_VERSION_HEADER
 from .engine import EngineError, EngineUnavailable
 from .errors import TendError
+from .redact import PublicErrors, path_roots, secret_values
 from .routers import actions, agent, ai, bank, bill, claims, jurisdictions, law, packet, rules, scan, shares, system
 from .services import Services, build_services
 from .sweep import sweep_forever
@@ -133,6 +134,8 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
     app.state.services = services
     # Innermost, so a 413 from it still passes through CORS and the private headers below.
     app.add_middleware(BodyLimit, limit=MAX_BODY_BYTES)
+    if services.settings.deployed:  # a public deployment's error messages name no file paths (docs/DEPLOY.md)
+        app.add_middleware(PublicErrors, roots=path_roots(services.settings), secrets=secret_values(services.settings))
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(services.settings.cors_origins),

@@ -1,21 +1,34 @@
-"""Settings and secrets. The repo .env wins over the shell (the shell may export stale keys)."""
+"""Local settings and secrets. The repo .env wins over the shell (the shell may export stale keys).
+
+AGENT_SEED fixes the Navigator's address. The Law and Bank+Packet agents' seeds are derived from it, so all three
+addresses stay the same on every run and no new secret is needed. No seed is ever printed or logged.
+"""
 
 from __future__ import annotations
 
+import hashlib
 import os
 import secrets
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import quote
 
+from .settings import Settings
+
 AGENT_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = AGENT_DIR.parent
 AGENT_NAME = "Tend Navigator"
+LAW_NAME = "Tend Law"
+BANK_NAME = "Tend Bank and Packet"
 DESCRIPTION = (
-    "Cited answers about crime victim compensation for sexual assault survivors in all 50 states and DC, "
-    "a 2-minute eligibility Check, and a walkthrough of a fictional demo claim with a confirm-coded mock payment. "
-    "No account, no name, no story."
+    "Cited answers about crime victim compensation for sexual assault survivors in all 50 states and DC, a 2-minute "
+    "eligibility Check, and a fictional demo claim run end to end: a bill line held under the law, a mock payment "
+    "approved with a typed code, and an encrypted link for an advocate. No account, no name, no story."
 )
+LAW_DESCRIPTION = "Tend's Law agent: cited answers and Checks from verified crime victim compensation rules for 50 states and DC."
+BANK_DESCRIPTION = "Tend's Bank and Packet agent: runs Tend's fictional demo claim on a mock bank and seals packets for advocates."
+
+__all__ = ["Settings", "Seeds", "addresses_from", "ensure_seed", "find_env_file", "inspector_url", "load_env", "seeds_from"]
 
 
 def find_env_file() -> Path | None:
@@ -59,29 +72,29 @@ def ensure_seed(env_path: Path | None) -> bool:
     return True
 
 
+@dataclass(frozen=True)
+class Seeds:
+    navigator: str
+    law: str
+    bank: str
+
+
+def seeds_from(seed: str) -> Seeds:
+    """The Navigator keeps AGENT_SEED itself; each sub-agent gets a seed derived from it with its own label."""
+
+    def derive(label: str) -> str:
+        return hashlib.sha256(f"tend-agent/{label}/{seed}".encode()).hexdigest()
+
+    return Seeds(navigator=seed, law=derive("law"), bank=derive("bank"))
+
+
+def addresses_from(seeds: Seeds) -> dict[str, str]:
+    """Each agent's address, computed from its seed the way uAgents does, without starting anything."""
+    from uagents_core.identity import Identity
+
+    return {name: Identity.from_seed(getattr(seeds, name), 0).address for name in ("navigator", "law", "bank")}
+
+
 def inspector_url(address: str, port: int, agentverse: str = "https://agentverse.ai") -> str:
     # Same link uAgents logs at startup; opening it lets you connect the mailbox on Agentverse.
     return f"{agentverse}/inspect/?uri={quote(f'http://127.0.0.1:{port}')}&address={address}"
-
-
-@dataclass(frozen=True)
-class Settings:
-    api_url: str = "http://127.0.0.1:8000"
-    port: int = 8001
-    handle: str | None = None
-    app_url: str = ""  # public web app, for "open this in Tend" links
-    demo_persona: str = "rowan-mi"
-    agent_key: str = ""
-    timeout_s: float = 30.0
-
-    @classmethod
-    def from_env(cls) -> Settings:
-        return cls(
-            api_url=os.environ.get("TEND_API_URL", cls.api_url).rstrip("/"),
-            port=int(os.environ.get("AGENT_PORT", cls.port)),
-            handle=os.environ.get("AGENT_HANDLE") or None,
-            app_url=os.environ.get("TEND_PUBLIC_URL", "").rstrip("/"),
-            demo_persona=os.environ.get("TEND_DEMO_PERSONA", cls.demo_persona),
-            agent_key=os.environ.get("TEND_AGENT_KEY", ""),
-            timeout_s=float(os.environ.get("TEND_API_TIMEOUT", cls.timeout_s)),
-        )

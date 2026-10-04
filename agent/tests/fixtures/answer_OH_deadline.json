@@ -1,0 +1,85 @@
+{
+ "st": "OH",
+ "name": "Ohio",
+ "question": "What is the deadline to apply in Ohio?",
+ "backend": "sqlite",
+ "contact": {
+  "phone": "614-466-5610",
+  "website": "https://www.ohioattorneygeneral.gov/Individuals-and-Families/Victims/Apply-for-Victims-Compensation",
+  "apply_url": "https://cvonlinecompensationapp.ohioattorneygeneral.gov/",
+  "source": {
+   "id": "OH-S9",
+   "title": "Ohio Attorney General, Application for Crime Victim Compensation (with program overview)",
+   "url": "https://www.ohioattorneygeneral.gov/Files/Individuals-and-Families/Victims/Crime-Victim-Comp-Form.aspx",
+   "sha256": "ccc7b36c04638cd4e68bfc4c945bade312a5a206553c89164c5e3149d7d13de2"
+  }
+ },
+ "answered": true,
+ "answer": "Apply within three years of the crime. The statute points to ORC 2743.60 for exceptions: claimants who were minors or young adults at the time get extra time, and the Attorney General may accept a late claim at any time for good cause shown.",
+ "points": [
+  {
+   "text": "Apply within three years of the crime. The statute points to ORC 2743.60 for exceptions: claimants who were minors or young adults at the time get extra time, and the Attorney General may accept a late claim at any time for good cause shown.",
+   "rule_id": "OH-DEADLINE-1",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "Apply within three years of the crime. The statute points to ORC 2743.60 for exceptions: claimants who were minors or young adults at the time get extra time, and the Attorney General may accept a late claim at any time for good cause shown.",
+   "quote": "All applications for an award of reparations may be filed at any time within three years after the occurrence of the criminally injurious conduct, except as provided in divisions (A)(2)(b) to (d) of section 2743.60 of the Revised Code.",
+   "pinpoint": "ORC 2743.56(B); ORC 2743.60(A)(2)(d)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.56#:~:text=All%20applications%20for%20an%20award,2743.60%20of%20the%20Revised%20Code.",
+   "source_id": "OH-S4",
+   "source_title": "ORC 2743.56 (application for award)",
+   "source_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.56",
+   "source_sha256": "8cb560d4722f4aaced2e00af0b4d686e4923cafbde74c3ac93692d3bf348db65"
+  },
+  {
+   "text": "If the claimant was under twenty-one when the crime happened, the claim is not time-barred until after the claimant's twenty-fourth birthday.",
+   "rule_id": "OH-DEADLINE-2",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "If the claimant was under twenty-one when the crime happened, the claim is not time-barred until after the claimant's twenty-fourth birthday.",
+   "quote": "If the claimant was under twenty-one years of age at the time of the criminally injurious conduct, the claim is not barred under division (A)(2)(a) of this section until after the claimant's twenty-fourth birthday.",
+   "pinpoint": "ORC 2743.60(A)(2)(b)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=If%20the%20claimant%20was%20under,after%20the%20claimant%27s%20twenty%2Dfourth%20birthday.",
+   "source_id": "OH-S3",
+   "source_title": "ORC 2743.60 (denial or reduction of award)",
+   "source_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60",
+   "source_sha256": "2bac7b2d21814c35d38e61e987a49bba7a56c0a60047ec1ba7689712992f0108"
+  }
+ ],
+ "citations": [
+  {
+   "rule_id": "OH-DEADLINE-1",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": null,
+   "quote": "All applications for an award of reparations may be filed at any time within three years after the occurrence of the criminally injurious conduct, except as provided in divisions (A)(2)(b) to (d) of section 2743.60 of the Revised Code.",
+   "pinpoint": "ORC 2743.56(B); ORC 2743.60(A)(2)(d)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.56#:~:text=All%20applications%20for%20an%20award,2743.60%20of%20the%20Revised%20Code.",
+   "source_id": "OH-S4",
+   "source_title": "ORC 2743.56 (application for award)",
+   "source_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.56",
+   "source_sha256": "8cb560d4722f4aaced2e00af0b4d686e4923cafbde74c3ac93692d3bf348db65"
+  },
+  {
+   "rule_id": "OH-DEADLINE-2",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "If the claimant was under twenty-one when the crime happened, the claim is not time-barred until after the claimant's twenty-fourth birthday.",
+   "quote": "If the claimant was under twenty-one years of age at the time of the criminally injurious conduct, the claim is not barred under division (A)(2)(a) of this section until after the claimant's twenty-fourth birthday.",
+   "pinpoint": "ORC 2743.60(A)(2)(b)",
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=If%20the%20claimant%20was%20under,after%20the%20claimant%27s%20twenty%2Dfourth%20birthday.",
+   "source_id": "OH-S3",
+   "source_title": "ORC 2743.60 (denial or reduction of award)",
+   "source_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60",
+   "source_sha256": "2bac7b2d21814c35d38e61e987a49bba7a56c0a60047ec1ba7689712992f0108"
+  }
+ ],
+ "intents": {
+  "categories": [
+   "filing_deadline"
+  ],
+  "expenses": [],
+  "tags": []
+ },
+ "note": "From Ohio's verified rules. Rules can have exceptions. The program decides."
+}

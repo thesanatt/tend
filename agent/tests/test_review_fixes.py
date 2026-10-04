@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-import copy
 import json
 
 import pytest
 from conftest import text_of
-from fake_api import FakeTend, load
+from fake_api import load
 
 from tend_agent.check import deadline_section, total_section
-from tend_agent.demo import render_claim, render_linked
+from tend_agent.demo import render_claim
 from tend_agent.knowledge import RuleBook, answer_from_rules
 from tend_agent.parse import story_kind
 
@@ -30,34 +29,38 @@ from tend_agent.parse import story_kind
         ("Can my partner apply?", None),
         ("What if they were drunk?", None),
         ("Does Michigan cover counseling for sexual assault survivors?", None),
+        ("My name is Jane Roe, does Michigan cover counseling?", "identity"),
+        ("I live at 12 Elm St in Ann Arbor, can I get moving costs?", "identity"),
+        ("email me at jr@example.com about Ohio", "identity"),
+        ("call 734-555-0199 if Ohio covers it", "identity"),
+        ("check Michigan 2026-06-14, had an exam", None),  # a date is not a phone number
+        ("I live in Ohio, does Michigan cover moving?", None),
+        ("482913", None),  # a confirm code
     ],
 )
 def test_story_kind(text, kind):
     assert story_kind(text) == kind
 
 
-def test_short_story_with_a_state_never_reaches_the_answer_route(make_chat):
-    f = FakeTend(answer_fields=("question", "st"))
-    turn = make_chat(f).say("Ohio, he raped me")
-    sent = json.dumps(f.calls)
+def test_short_story_with_a_state_never_reaches_the_answer_route(chat, fake):
+    turn = chat.say("Ohio, he raped me")
+    sent = json.dumps(fake.calls)
     assert "raped" not in sent
     out = text_of(turn)
     assert out.startswith("You don't need to tell me what happened") and "800-656-4673" in out
 
 
-def test_question_about_a_partner_is_guarded_without_a_lecture(make_chat):
-    f = FakeTend(answer_fields=("question", "st"))
-    turn = make_chat(f).say("Can my boyfriend get counseling covered in Michigan too?")
-    assert "boyfriend" not in json.dumps(f.calls)
-    assert not text_of(turn).startswith("You don't need to tell me")
+def test_question_about_a_partner_is_guarded_without_a_lecture(chat, fake):
+    turn = chat.say("Can my boyfriend get counseling covered in Michigan too?")
+    assert "boyfriend" not in json.dumps(fake.calls)
+    assert "You don't need to tell me" not in text_of(turn)
 
 
 def test_date_in_it_happened_on_is_not_a_story(chat, fake):
     turn = chat.say("check Michigan, it happened on June 14 2026, had an exam")
     assert turn.intent == "check"
     assert not text_of(turn).startswith("You don't need to tell me")
-    call = next(c for c in fake.calls if c["path"] == "/api/agent/checklist/MI")
-    assert call["params"]["incident_date"] == "2026-06-14"
+    assert fake.bodies("/api/agent/check")[0]["incident_date"] == "2026-06-14"
 
 
 # ---------------------------------------------------------------- pay with nothing to pay
@@ -74,25 +77,26 @@ def test_pay_the_bill_without_a_demo_says_there_is_no_bill(chat, fake):
 
 def test_count_works_again_after_the_claim_call_fails(chat, fake):
     chat.say("demo")
-    fake.fail_once.add("/api/claim")
+    fake.fail_always["/api/claim"] = 503  # the client retries a read once, so fail both tries
     turn = chat.say("yes")
     assert turn.intent == "api_error" and "no money moved" in text_of(turn)
+    del fake.fail_always["/api/claim"]
     turn = chat.say("yes")
-    assert turn.intent == "count" and "can ask for: $2,760.00" in text_of(turn)
+    assert turn.intent == "count" and "can ask for: $4,008.00" in text_of(turn)
 
 
 # ---------------------------------------------------------------- deadline wording
 
 
 def test_check_with_a_date_but_no_exact_deadline_does_not_ask_for_the_date_again(chat, fake):
-    cites = load("checklist_MI.json")["deadline"]["citations"]
-    fake.checklist_patch = {"deadline": {"status": "unknown", "deadline_date": None, "citations": cites}}
+    cites = load("check_MI.json")["deadline"]["citations"]
+    fake.check_patch = {"deadline": {"status": "unknown", "deadline_date": None, "citations": cites}}
     out = text_of(chat.say("check Michigan, 2026-06-14, had an exam"))
     assert "Tell me the date" not in out and "could not work out the exact day" in out
 
 
 def test_check_with_no_deadline_rule_says_so(chat, fake):
-    fake.checklist_patch = {"deadline": {"status": "unknown", "deadline_date": None, "citations": []}}
+    fake.check_patch = {"deadline": {"status": "unknown", "deadline_date": None, "citations": []}}
     out = text_of(chat.say("check Michigan, 2026-06-14"))
     assert "could not find a verified filing deadline for Michigan" in out
 
@@ -111,19 +115,6 @@ def test_late_deadline_in_the_demo_claim_is_not_apply_by():
     assert "Apply by June 14, 2021" not in out and "The usual deadline was June 14, 2021" in out
 
 
-def test_late_deadline_in_a_linked_claim_is_not_apply_by(chat, fake):
-    summary = load("linked_summary.json")
-    late = copy.deepcopy(summary["checks"])
-    late["deadline"].update(status="late", deadline_date="2021-06-14")
-    out = render_linked({**summary, "checks": late})
-    assert "Apply by" not in out and "The usual deadline was June 14, 2021" in out
-
-
-def test_linked_claim_lists_the_largest_costs_first():
-    out = render_linked(load("linked_summary.json"))
-    assert out.index("Counseling") < out.index("Clothing and bedding")
-
-
 # ---------------------------------------------------------------- police report wording in the demo
 
 
@@ -138,7 +129,7 @@ def test_demo_reporting_line_matches_what_was_said_about_the_report():
 
 def test_demo_state_keeps_the_report_answer_not_the_text(chat):
     chat.say("demo")
-    assert chat.state["demo"]["police_report"] == "unknown"
+    assert chat.state["demo"]["ref"]["police_report"] == "unknown"
 
 
 # ---------------------------------------------------------------- total caps
@@ -169,3 +160,12 @@ def test_total_cap_limited_to_cases_lists_each_case():
     assert "$45,000 for crimes committed on or after August 7, 2022" in out and "$27,000 for crimes committed before" in out
     answer = answer_from_rules(book.doc, "what is the most I can get?").text
     assert "depends on the case" in answer and "$27,000" in answer
+
+
+def test_a_name_or_address_never_reaches_the_api(chat, fake):
+    # Review fix: a question that carried a name and a street address went to /api/agent/answer word for word.
+    turn = chat.say("My name is Jane Roe and I live at 12 Elm St, can I get therapy paid in Michigan?")
+    sent = json.dumps(fake.calls)
+    assert "Jane" not in sent and "Elm" not in sent
+    assert text_of(turn).startswith("You don't need to tell me your name, where you live, or how to reach you")
+    assert "$125" in text_of(turn)  # still answered, from the topic alone

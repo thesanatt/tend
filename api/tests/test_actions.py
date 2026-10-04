@@ -15,7 +15,9 @@ from tend_api.bank import BankError, DryRunBank, NessieBank
 from tend_api.db import verify_chain
 from tend_api.models import ConfirmRequest, ProposeRequest
 
-PAYEE = "Riverbend General Hospital (fictional)"
+# A plain payment: no demo bill has this payee, so nothing ties it to a bill (tests/test_bill_payments.py covers that).
+PAYEE = "Lakeshore Urgent Care (fictional)"
+BILL_PAYEE = "Riverbend General Hospital (fictional)"
 PAYMENT = {"from": CHECKING, "payee": PAYEE, "amount_cents": 11800}
 MISSING_ACTION = "act_" + "0" * 20
 
@@ -51,9 +53,13 @@ def test_propose_then_confirm_executes_once(client):
     assert done["readback"]["checks"] == {"id": True, "tagged_with_action": True, "account": True, "amount": True}
     assert done["readback"]["description"].endswith(f"[tend:{action['action_id']}]")
 
+    # The same confirm again (a lost answer, a double tap) gets the first result back and moves nothing.
     again = confirm(client, action)
-    assert again.status_code == 409
-    assert "works once" in again.json()["detail"]
+    assert again.status_code == 200, again.text
+    assert again.json()["replayed"] is True and again.json()["withdrawal_id"] == done["withdrawal_id"]
+    assert again.json()["audit_id"] == done["audit_id"]
+    wrong_again = confirm(client, action, code=wrong(action["confirm_code"]))
+    assert wrong_again.status_code == 409 and "works once" in wrong_again.json()["detail"]
 
     # The log holds confirmed payments only: a proposal that never gets its yes leaves no row.
     events = [row["event"] for row in client.get("/api/audit").json()["rows"]]
@@ -150,9 +156,9 @@ def test_finished_payment_keeps_no_payee_name(services, client):
     confirm(client, action)
     row = services.repo.get_action(action["action_id"])
     assert row["payee"] is None and row["status"] == "done"
-    assert PAYEE not in str(row) and "Riverbend" not in str(row["readback"])
+    assert PAYEE not in str(row) and "Lakeshore" not in str(row["readback"])
     assert all(
-        "Riverbend" not in r["body"] if isinstance(r["body"], str) else "Riverbend" not in str(r["body"])
+        "Lakeshore" not in r["body"] if isinstance(r["body"], str) else "Lakeshore" not in str(r["body"])
         for r in services.repo.audit_rows()
     )
 
@@ -181,7 +187,7 @@ def pay_bill(client, lines, **over):
         "item_ids": [ln["item_id"] for ln in lines],
         "amount_cents": sum(ln["amount_cents"] for ln in lines),
         "from_account_id": CHECKING,
-        "payee": PAYEE,
+        "payee": BILL_PAYEE,
     }
     return client.post("/api/actions/propose", json={**body, **over})
 
@@ -199,13 +205,13 @@ def test_paying_bill_lines_records_what_was_paid(client):
 
 def test_paying_a_bill_without_naming_lines_pays_what_is_not_held(client):
     proposal = client.post(
-        "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 11800, "from": CHECKING, "payee": PAYEE}
+        "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 11800, "from": CHECKING, "payee": BILL_PAYEE}
     )
     assert proposal.status_code == 200, proposal.text
     audit, payable, _ = bill_audit(client)
     assert proposal.json()["item_ids"] == [ln["item_id"] for ln in payable]
     whole = client.post(
-        "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 44300, "from": CHECKING, "payee": PAYEE}
+        "/api/actions/propose", json={"kind": "pay_bill", "bill_id": BILL_ID, "amount_cents": 44300, "from": CHECKING, "payee": BILL_PAYEE}
     )
     assert whole.status_code == 409 and "$118.00" in whole.json()["detail"]
 
@@ -232,7 +238,7 @@ def test_the_payable_amount_the_audit_shows_can_be_paid_when_the_bill_prints_a_c
 
     audit = client.post("/api/bill/audit", json={"bill_id": BILL_ID, "persona_id": "rowan-mi"}).json()
     assert audit["adjustments"] and audit["payable_cents"] == 9800 and audit["held_cents"] == 32500
-    body = {"kind": "pay_bill", "bill_id": BILL_ID, "from": CHECKING, "payee": PAYEE, "amount_cents": audit["payable_cents"]}
+    body = {"kind": "pay_bill", "bill_id": BILL_ID, "from": CHECKING, "payee": BILL_PAYEE, "amount_cents": audit["payable_cents"]}
     assert client.post("/api/actions/propose", json=body).status_code == 200  # every line that is not held
     named = client.post("/api/actions/propose", json={**body, "item_ids": audit["payable_item_ids"]})
     assert named.status_code == 200, named.text
@@ -358,7 +364,8 @@ def test_concurrent_confirms_execute_exactly_once(settings, clock):
     def attempt():
         barrier.wait()
         try:
-            outcomes.append(services.actions.confirm(request)["status"])
+            result = services.actions.confirm(request)
+            outcomes.append(result["status"] + (":replayed" if result["replayed"] else ""))
         except Exception as exc:  # noqa: BLE001
             outcomes.append(f"{type(exc).__name__}:{getattr(exc, 'status_code', '')}")
 
@@ -367,7 +374,9 @@ def test_concurrent_confirms_execute_exactly_once(settings, clock):
         t.start()
     for t in threads:
         t.join()
-    assert sorted(outcomes) == ["ActionError:409"] * 3 + ["done"]
+    # One confirm pays. The others, depending on when they arrive, hear "being sent now" or get the same result back.
+    assert outcomes.count("done") == 1
+    assert set(outcomes) - {"done"} <= {"ActionError:409", "done:replayed"}
     assert bank.calls == 1
 
 

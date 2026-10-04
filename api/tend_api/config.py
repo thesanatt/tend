@@ -90,6 +90,10 @@ class Settings:
     ir_dir: Path | None = None  # rules/ir, the law IR both engines read (SPEC v1.1)
     gemini_api_key: str = ""  # cloud AI, only when a request carries consent: true; empty turns it off
     autoload_corpus: bool = True  # SQLite only: load rules/verified into the database at startup when empty
+    # A public deployment (TEND_DEPLOYED, on by default when VERCEL is set): health and error messages leave out
+    # file paths, and /audit returns the chain head, its length, and counts instead of every payment.
+    deployed: bool = False
+    audit_rows: bool = False  # TEND_AUDIT_ROWS: a deployed /audit lists every row anyway, for a demo
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -123,4 +127,6 @@ class Settings:
             secret_hex=os.environ.get("TEND_SECRET", ""),
             ir_dir=_path("TEND_IR_DIR", REPO_ROOT / "rules" / "ir"),
             gemini_api_key=os.environ.get("GEMINI_API_KEY", "").strip() if _flag("TEND_CLOUD_AI", default=True) else "",
+            deployed=_flag("TEND_DEPLOYED", default=bool(os.environ.get("VERCEL"))),
+            audit_rows=_flag("TEND_AUDIT_ROWS"),
         )
