@@ -54,13 +54,6 @@
    "unit": "hour"
   },
   {
-   "id": "WY-CAP-3",
-   "kind": "expense_cap",
-   "expense": "counseling",
-   "cap_cents": 450000,
-   "per": "claim"
-  },
-  {
    "id": "WY-CAP-4",
    "kind": "expense_cap",
    "expense": "relocation",
@@ -310,6 +303,11 @@
    "id": "WY-EXAM-2",
    "category": "exam_no_bill",
    "reason": "applies_to \"exams reported to law enforcement\""
+  },
+  {
+   "id": "WY-CAP-3",
+   "category": "expense_cap",
+   "reason": "applies_to \"associated_victims\""
   },
   {
    "id": "WY-REP-2",

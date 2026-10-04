@@ -49,13 +49,6 @@
    "cap_cents": 2500000
   },
   {
-   "id": "MT-CAP-2",
-   "kind": "expense_cap",
-   "expense": "counseling",
-   "cap_cents": 500000,
-   "per": "claim"
-  },
-  {
    "id": "MT-CAP-3",
    "kind": "expense_cap",
    "expense": "funeral",
@@ -225,5 +218,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "MT-CAP-2",
+   "category": "expense_cap",
+   "reason": "applies_to \"secondary_victims\""
+  }
+ ]
 }
