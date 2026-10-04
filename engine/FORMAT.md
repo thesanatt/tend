@@ -3,7 +3,7 @@
 This is the normative description of the engine: the image layout, the instruction set and its
 verifier, the assembly syntax `tdis` prints, the exact semantics the compiler emits (section 4),
 and the input and output documents (section 5). Sections 4 and 5 settle every choice docs/SPEC.md
-v1.2 leaves open; the Python reference (refengine/) follows them and must produce the same output
+v1.3 leaves open; the Python reference (refengine/) follows them and must produce the same output
 document, byte for byte, for the same law IR and claim.
 
 ```
@@ -15,7 +15,7 @@ rules/verified/ST.json --normalize.py--> rules/ir/ST.json --tendc--> ST.tlaw --l
 IR's `source_sha256` must equal the sha256 of the verified file, or `tendc` refuses ("stale IR").
 Same inputs always give the same image bytes.
 
-## 1. Image layout (format 1.2)
+## 1. Image layout (format 1.3)
 
 All integers are little-endian. Strings are UTF-8 and referenced by index into the string pool.
 `NONE` is `0xFFFFFFFF`.
@@ -26,7 +26,7 @@ All integers are little-endian. Strings are UTF-8 and referenced by index into t
 |---|---|---|
 | 0 | 4 | magic `TLAW` |
 | 4 | 2 | format major = 1 |
-| 6 | 2 | format minor = 2 |
+| 6 | 2 | format minor = 3 |
 | 8 | 4 | header size = 64 |
 | 12 | 4 | total image size in bytes, trailer included |
 | 16 | 8 | jurisdiction code, `[A-Z0-9]{1,8}`, NUL padded |
@@ -34,8 +34,9 @@ All integers are little-endian. Strings are UTF-8 and referenced by index into t
 | 56 | 4 | section count (1 to 16) |
 | 60 | 4 | flags, must be 0 |
 
-The loader reads only format 1.2. Each minor version changed what the compiler emits (1.1: the
-law IR; 1.2: typed units, notes, SPEC v1.2), so an older image is refused, never misread.
+The loader reads only format 1.3. Each minor version changed what the compiler emits (1.1: the
+law IR; 1.2: typed units, notes, SPEC v1.2; 1.3: the `deadline_from_discovery` note, SPEC v1.3), so
+an older image is refused, never misread: a 1.2 image cannot flag a deadline counted from discovery.
 
 The section table follows: one 12-byte entry per section, `{u32 tag, u32 offset, u32 size}`.
 Sections start on 8-byte boundaries, lie between the table and the trailer, and never overlap.
@@ -139,7 +140,7 @@ Context fields (`ldx`): `incident_date`, `as_of_date`, `police_report` (0 no, 1 
 | 44 | `check` | u8 kind, u16 proof | 1 -> 0 | aggregate | set a check's status (popped) and rules, trace |
 | 45 | `setdate` | | 1 -> 0 | aggregate | set the deadline date (days) |
 | 46 | `info` | u16 proof | | aggregate | set `info_rule_ids` |
-| 47 | `note` | u8 note | | aggregate | attach a note to its check: 0 `deadline_from_report` (deadline) |
+| 47 | `note` | u8 note | | aggregate | attach a note to its check: 0 `deadline_from_report`, 1 `deadline_from_discovery` (both deadline) |
 
 Jump targets are byte offsets inside the program. Statuses: `decide` 0 out_of_window, 1 held,
 2 excluded, 3 unknown_rule, 4 needs_confirmation, 5 eligible. `check` kinds: 0 deadline
@@ -202,7 +203,8 @@ count limit (from the ZZ test fixture):
   0055  L3:   next     L0
   ...
   0355  L49:  note     deadline_from_report
-  0357        check    deadline, P29                ; ZZ-DEADLINE-1, ZZ-DEADLINE-2, ZZ-DEADLINE-4
+  0357        note     deadline_from_discovery
+  0359        check    deadline, P29                ; ZZ-DEADLINE-1, ZZ-DEADLINE-2, ZZ-DEADLINE-4
 ```
 
 Columns: byte offset (hex), label, mnemonic, operands, comment. Operands use `R<n>` for rules,
@@ -211,7 +213,7 @@ Columns: byte offset (hex), label, mnemonic, operands, comment. Operands use `R<
 Every rule block starts with one comment line per rule: id, pinpoint, and the start of its quote.
 `switch` cases print on their own lines.
 
-## 4. Semantics as compiled (SPEC v1.2, law IR version 2)
+## 4. Semantics as compiled (SPEC v1.3, law IR version 2)
 
 This section is normative for both engines. Items are processed in order of (date, item_id),
 comparing item_id by bytes (UTF-8 byte order is code point order; ids are unique, so the order is
@@ -269,13 +271,15 @@ identical rules. The first matching step decides the line.
    claim does not show the days, but they may exist). The check takes the most severe status:
    not_met over may_be_waived over unknown over waived over met. No rule gives `met`.
    `forensic_exam` plays no part. rule_ids = every minimum_loss rule.
-10. Deadline: incident_date + days for each `deadline` rule, whatever it counts from (a
-    report-anchored period is dated from the incident, the earliest the report can be); the
-    latest date wins; `ok` when as_of_date <= that date, else `late`; `unknown` with a null date
-    when there is no rule. The date prints clamped to 0001-01-01..9999-12-31; the comparison uses
-    the unclamped day. `flags` is `["deadline_from_report"]` when any deadline rule counts from
-    the report (the true deadline may be later than the date shown, and a `late` may not be),
-    else `[]`. rule_ids = every deadline rule.
+10. Deadline: incident_date + days for each `deadline` rule, whatever it counts from (a period
+    counted from the report or from discovery is dated from the incident, the earliest either can
+    be); the latest date wins; `ok` when as_of_date <= that date, else `late`; `unknown` with a
+    null date when there is no rule. The date prints clamped to 0001-01-01..9999-12-31; the
+    comparison uses the unclamped day. `flags` lists, in this order, `deadline_from_report` when
+    any deadline rule counts from the report and `deadline_from_discovery` when any counts from
+    discovery, whatever the rule order and whichever rule sets the date; else `[]`. Either flag
+    means the true deadline may be later than the date shown, so a `late` may not be late, and
+    no reader may show it as plainly late (SPEC v1.3). rule_ids = every deadline rule.
 11. Reporting: `satisfied` when police_report is yes, or forensic_exam is true and any reporting
     rule lists `forensic_exam`; otherwise, when some rule has required = true (missing means
     true), `required` if police_report is no and `unknown` if it is unknown; `not_required` when
@@ -391,7 +395,7 @@ Keys appear in this order and the JSON is compact (no spaces, UTF-8 kept, only `
 control characters escaped, as `\b \f \n \r \t` or lowercase `\u00xx`). `totals.requested_cents`
 and `allowed_cents` sum eligible lines; `held_cents` sums held lines; `by_expense` sums allowed
 per expense over eligible lines, keys in alphabetical order, zeros kept. A line's `flags` are in
-the order raised (rule order).
+the order raised (rule order); `checks.deadline.flags` are in note order (step 10).
 
 `trace` is the VM's log in execution order: one entry per item decision (op = the status, rule =
 the first proof rule or null, delta = the allowed amount it set), a `collateral` entry when the

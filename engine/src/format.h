@@ -9,7 +9,7 @@ namespace tend {
 
 constexpr char kMagic[4] = {'T', 'L', 'A', 'W'};
 constexpr uint16_t kFormatMajor = 1;
-constexpr uint16_t kFormatMinor = 2;
+constexpr uint16_t kFormatMinor = 3;
 constexpr uint32_t kHeaderSize = 64;
 constexpr uint32_t kSectionEntrySize = 12;
 constexpr uint32_t kTrailerSize = 32;
@@ -133,7 +133,7 @@ enum DeadlineStatus : uint8_t { DL_OK, DL_LATE, DL_UNKNOWN, DL_COUNT };
 // Ordered by severity: combining several rules keeps the largest.
 enum MinLossStatus : uint8_t { ML_MET, ML_WAIVED, ML_UNKNOWN, ML_MAY_BE_WAIVED, ML_NOT_MET, ML_COUNT };
 // Notes a program can attach to a check (OP_NOTE); each belongs to one check.
-enum CheckNote : uint8_t { CN_DEADLINE_FROM_REPORT, CN_COUNT };
+enum CheckNote : uint8_t { CN_DEADLINE_FROM_REPORT, CN_DEADLINE_FROM_DISCOVERY, CN_COUNT };
 enum ReportStatus : uint8_t { RP_SATISFIED, RP_REQUIRED, RP_NOT_REQUIRED, RP_UNKNOWN, RP_COUNT };
 
 enum CtxField : uint8_t { CX_INCIDENT_DATE, CX_AS_OF_DATE, CX_POLICE_REPORT, CX_FORENSIC_EXAM, CX_COUNT };

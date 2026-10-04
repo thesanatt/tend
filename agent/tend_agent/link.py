@@ -48,8 +48,14 @@ class AgentLink:
         try:
             while tries < self.attempts:
                 tries += 1
-                status = await ctx.send(address, request, timeout=max(1, int(timeout)))
-                if getattr(status, "status", None) == DeliveryStatus.FAILED:
+                try:
+                    status = await ctx.send(address, request, timeout=max(1, int(timeout)))
+                    failed = getattr(status, "status", None) == DeliveryStatus.FAILED
+                except Exception:  # noqa: BLE001
+                    # The address could not be resolved (uagents raises when its Almanac lookup fails, for example
+                    # with no route to the ledger), so nothing was sent: the same as a failed delivery.
+                    failed = True
+                if failed:
                     if fut.done():
                         break
                     await asyncio.sleep(self.retry_pause_s)

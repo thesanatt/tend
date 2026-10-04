@@ -110,9 +110,11 @@ turns labels into ClassifiedItems (web/lib/contracts.ts):
 
 - a counseling charge is one session: `unit: "session"`, `units: 1`
 - a paycheck that came in at least $20 and a tenth under the usual one, after the date it
-  happened, is lost pay: `expense: "lost_wages"`, the shortfall as the amount, `unit: "week"`,
-  and the pay period in weeks as `units` (biweekly checks are 2). The usual amount is the median
-  of at least three checks before the date.
+  happened, is lost pay: `expense: "lost_wages"`, the shortfall as the amount, `unit: "day"`,
+  and as `units` the workdays it probably stands for: the shortfall's share of the usual check
+  times the workdays in the pay period (5 a week), rounded, never more than the period. Rowan's
+  $176 dip on a biweekly $412 check is 4 days. It is an estimate, so it starts unconfirmed. The
+  usual amount is the median of at least three checks before the date.
 - a ride has no unit; short-term lodging counts days (`unit: "day"`, nights read from the text
   when they are there)
 - a replaced phone, purse, or other property is tagged with the normalizer's own keyword table,

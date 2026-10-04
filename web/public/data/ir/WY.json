@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WY",
- "source_sha256": "9a00800ffac187eba86824241df7d01d985150dfa184b1f3086751dd44d83759",
- "ir_sha256": "b48d1bf8e3c0eb0aec96c726020f30484ef2756de342e4b80bf098aea2ec5cec",
+ "source_sha256": "047a61a66c768f24553908d6abaa5d2832ee3428a3925e31a0f1c261a9cbd338",
+ "ir_sha256": "82f486605b9115e4fc755571c01ecbdc4548ef3d15b93de39ff22bab40522917",
  "fresh": true,
  "rules": [
   {
@@ -38,13 +38,6 @@
    "cap_cents": 8500,
    "per": "unit",
    "unit": "hour"
-  },
-  {
-   "id": "WY-CAP-3",
-   "kind": "expense_cap",
-   "expense": "counseling",
-   "cap_cents": 450000,
-   "per": "claim"
   },
   {
    "id": "WY-CAP-4",
@@ -296,6 +289,11 @@
    "id": "WY-EXAM-2",
    "category": "exam_no_bill",
    "reason": "applies_to \"exams reported to law enforcement\""
+  },
+  {
+   "id": "WY-CAP-3",
+   "category": "expense_cap",
+   "reason": "applies_to \"associated_victims\""
   },
   {
    "id": "WY-REP-2",

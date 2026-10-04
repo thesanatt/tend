@@ -82,7 +82,8 @@ bool Loader::header(uint32_t flags) {
   law_.major = rd16(d_ + 4);
   law_.minor = rd16(d_ + 6);
   // Each minor version changed the semantics the compiler emits (1.1: law IR,
-  // 1.2: typed units, notes, SPEC v1.2), so only the current one is read.
+  // 1.2: typed units, notes, SPEC v1.2; 1.3: the discovery note, SPEC v1.3), so
+  // only the current one is read.
   if (law_.major != kFormatMajor || law_.minor != kFormatMinor)
     return fail("unsupported format version " + std::to_string(law_.major) + "." +
                 std::to_string(law_.minor));

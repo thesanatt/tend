@@ -1,4 +1,4 @@
-"""Reference implementation of the Tend law engine (docs/SPEC.md v1.2, law IR version 2).
+"""Reference implementation of the Tend law engine (docs/SPEC.md v1.3, law IR version 2).
 
 A plain reading of the SPEC, written to be checked by eye: the per-item decision (steps 1-6),
 then the aggregate phase (steps 7-12). Where the SPEC leaves a choice open, this follows
@@ -21,6 +21,8 @@ from .law import RULE_EXPENSES, Law, Rule
 INT64_MAX = 2**63 - 1
 INT64_MIN = -(2**63)
 STATUSES = ("out_of_window", "held", "excluded", "unknown_rule", "needs_confirmation", "eligible")
+# Deadline flags in note order: a period counted from either anchor is dated from the incident.
+DEADLINE_FLAGS = (("report", "deadline_from_report"), ("discovery", "deadline_from_discovery"))
 # Combining several minimum loss rules keeps the most severe status.
 MINIMUM_LOSS_SEVERITY = ("met", "waived", "unknown", "may_be_waived", "not_met")
 _EPOCH = date(1970, 1, 1).toordinal()
@@ -189,8 +191,7 @@ class _Run:
         status, day = self.deadline()  # 10
         deadline = self.check("deadline", law.deadlines, status)
         deadline = {"status": deadline["status"], "deadline_date": None if day is None else format_day(day),
-                    "rule_ids": deadline["rule_ids"],
-                    "flags": ["deadline_from_report"] if any(r.anchor == "report" for r in law.deadlines) else []}
+                    "rule_ids": deadline["rule_ids"], "flags": deadline_flags(law)}
         reporting = self.check("reporting", law.reporting, self.reporting())  # 11
         return {
             "jurisdiction": law.jurisdiction,
@@ -234,8 +235,8 @@ class _Run:
         return MINIMUM_LOSS_SEVERITY[worst]
 
     def deadline(self) -> tuple[str, int | None]:
-        # Every period runs from the incident date (a report-anchored one from the earliest the
-        # report can be); the latest date wins.
+        # Every period runs from the incident date (one counted from the report or from discovery
+        # runs from the earliest either can be, and is flagged); the latest date wins.
         if not self.law.deadlines:
             return "unknown", None
         latest = max(sadd(self.ctx.incident_date, r.days) for r in self.law.deadlines)
@@ -248,6 +249,11 @@ class _Run:
         if any(r.required for r in rules):
             return "required" if ctx.police_report == "no" else "unknown"
         return "not_required"
+
+
+def deadline_flags(law: Law) -> list[str]:
+    """checks.deadline.flags: one flag per anchor that can start later than the incident."""
+    return [flag for anchor, flag in DEADLINE_FLAGS if any(r.anchor == anchor for r in law.deadlines)]
 
 
 def _sort_key(it: Item):

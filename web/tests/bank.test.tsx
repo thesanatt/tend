@@ -382,6 +382,9 @@ describe("the bank records panel", () => {
     expect(screen.getByText("On this device, except what you chose to send: a request to the bank.")).toBeTruthy();
     fireEvent.click(within(panel).getByRole("button", { name: "Read them again" }));
     await waitFor(() => expect(calls(fetch, "/activity")).toHaveLength(2));
+    // The panel's own report and the net log's are one send in the list, not two or three.
+    fireEvent.click(screen.getByRole("button", { name: /What stays here/ }));
+    expect(await screen.findAllByText(/a request to the bank for your transactions\./)).toHaveLength(1);
   });
 
   it("says so when Tend is not connected to the demo bank", async () => {

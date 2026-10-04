@@ -1,10 +1,10 @@
 ; tend law image NY, New York
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 d11f0846735bb38cbd6f80f7466000d16c07307695d87a44893b7bac390bb6c8
-; image sha256  1a43e0b8d8ffebd262fdbd52f83d45bf820c91b94a8144ba17c961f9fcd81349
-; 59 rules, 18 sources, 28 proofs, 7 ints, 349 strings
+; image sha256  440498dadf0011365fa1a266e35002602e0ba9e20adc5506f763d9ca37b834d7
+; 59 rules, 18 sources, 28 proofs, 7 ints, 350 strings
 ; item program: 176 instructions, 576 bytes, max stack 2
-; aggregate program: 258 instructions, 797 bytes, max stack 3, 9 loops
+; aggregate program: 259 instructions, 799 bytes, max stack 3, 9 loops
 
 .rules
     R0    NY-EXAM-1             exam_no_bill  -                                             N.Y. Exec. Law 631(13)(b)
@@ -34,7 +34,7 @@
     R24   NY-EXCL-1             info          -                     excluded_expense        9 NYCRR 525.12(g)(3)
     R25   NY-EXCL-2             info          -                     excluded_expense        9 NYCRR 525.3(d)(2)
     R26   NY-EXCL-3             excluded      transportation                                N.Y. Exec. Law 621(25) (employment-related transportation)
-    R27   NY-DEADLINE-1         deadline      -                     from crime              N.Y. Exec. Law 625(2)
+    R27   NY-DEADLINE-1         deadline      -                     from discovery          N.Y. Exec. Law 625(2)
     R28   NY-DEADLINE-2         deadline      -                     from crime              OVS Compensation Program Updates for Victims and Survivors, Timely Filing
     R29   NY-REPORT-1           reporting     -                                             N.Y. Exec. Law 631(1)(a)(iii)
     R30   NY-REPORT-2           reporting     -                                             N.Y. Exec. Law 631(1)(c)(i)
@@ -626,23 +626,24 @@
   02da        jz       L45
   02df        push     0
   02e4        jmp      L46
-  02e9  L45:  push     1                            ; late
-  02ee  L46:  check    deadline, P25                ; NY-DEADLINE-1, NY-DEADLINE-2
+  02e9  L45:  push     1
+  02ee  L46:  note     deadline_from_discovery
+  02f0        check    deadline, P25                ; NY-DEADLINE-1, NY-DEADLINE-2
               ; NY-REPORT-1  N.Y. Exec. Law 631(1)(a)(iii)  "the records of a support agency for survivors of crime or the..."
               ; NY-REPORT-2  N.Y. Exec. Law 631(1)(c)(i)  "any medical facility established under the laws of the state..."
               ; NY-REPORT-3  N.Y. Exec. Law 631(1)(c)(ii)  "in cases involving any sex offense or family offense a support..."
               ; NY-REPORT-4  OVS Compensation Program Updates for Victims and Survivors, Reporting a Crime  "Starting December 31, 2025, instead of filing a report with law..."
               ; NY-REPORT-5  N.Y. Exec. Law 631(1)(c)(iii)  "in cases where a physically injured claimant and/or victim is..."
-  02f2        ldx      police_report
-  02f4        push     1                            ; yes
-  02f9        eq
-  02fa        jnz      L47
-  02ff        ldx      forensic_exam
-  0301        jnz      L47
-  0306        push     2
-  030b        jmp      L48
-  0310  L47:  push     0                            ; satisfied
-  0315  L48:  check    reporting, P26               ; NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5
+  02f4        ldx      police_report
+  02f6        push     1                            ; yes
+  02fb        eq
+  02fc        jnz      L47
+  0301        ldx      forensic_exam
+  0303        jnz      L47
+  0308        push     2
+  030d        jmp      L48
+  0312  L47:  push     0                            ; satisfied
+  0317  L48:  check    reporting, P26               ; NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5
               ; NY-CAP-4  N.Y. Exec. Law 631(2)  "reasonable employment-related transportation expenses, not..."
               ; NY-EXCL-1  9 NYCRR 525.12(g)(3)  "Compensable costs shall be limited to the devices themselves and..."
               ; NY-EXCL-2  9 NYCRR 525.3(d)(2)  "Meals shall not be considered a related transportation expense."
@@ -667,6 +668,6 @@
               ; NY-DOC-8  OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability  "If the victim has coverage through either Worker's Compensation..."
               ; NY-ACP-1  N.Y. Exec. Law 108 (preamble)  "There is created in the office of the secretary of state a..."
               ; NY-REC-1  N.Y. Exec. Law 633(1)  "Records maintained by the office and proceedings by the office..."
-  0319        info     P27                          ; NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1
-  031c        ret
+  031b        info     P27                          ; NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1
+  031e        ret
 

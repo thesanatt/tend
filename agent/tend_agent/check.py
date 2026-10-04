@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .fmt import cite_block, cite_link, clean, expense_label, long_date, money_short, program_line
-from .knowledge import RuleBook, cite, report_note, total_caps
+from .knowledge import RuleBook, cite, deadline_notes, total_caps
 
 ALTERNATIVES = {
     "forensic_exam": "a forensic exam",
@@ -80,9 +80,7 @@ def deadline_section(check: dict[str, Any], book: RuleBook | None, *, have_date:
         head = "**Deadline:** I could not work out the exact day from the verified rules. Read the rule below, or ask the program."
     else:
         head = "**Deadline:** counted from the date it happened. Tell me the date (only the date) for the exact day."
-    flags = check.get("flags") or []
-    if any("deadline_from_report" in str(f) for f in flags):
-        head += " " + report_note(book)
+    head += deadline_notes(check.get("flags"), book)
     return head + ("\n" + cite_block(main) if main else "")
 
 
@@ -183,11 +181,13 @@ def render_check(
 ) -> str:
     deadline = data.get("deadline") or {}
     late = deadline.get("status") == "late"
-    opener = (
-        f"**{name}: the usual deadline has passed, but ask the program about more time.**"
-        if late
-        else f"**You can likely apply in {name}.** The program decides."
-    )
+    if late and "deadline_from_discovery" in (deadline.get("flags") or []):
+        # Counted from discovery, a late may not be late (docs/SPEC.md v1.3).
+        opener = f"**{name}: the usual deadline has passed, but you may have more time. Ask the program.**"
+    elif late:
+        opener = f"**{name}: the usual deadline has passed, but ask the program about more time.**"
+    else:
+        opener = f"**You can likely apply in {name}.** The program decides."
     told = []
     if incident_date:
         told.append(f"date {long_date(incident_date)}")

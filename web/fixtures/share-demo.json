@@ -12,40 +12,581 @@
     },
     "items": [
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a102",
-        "date": "2026-06-02",
-        "amount_cents": 1460,
-        "expense": "transportation",
-        "confirmed": false,
+        "item_id": "nessie:1f8e6d38-2c49-4681-9bf5-17c7ae939cb0",
+        "date": "2026-06-15",
+        "amount_cents": 2500,
+        "expense": "prescription",
+        "confirmed": true,
         "insurance_paid_cents": 0,
         "is_bill": false,
         "units": 0,
-        "description": "MetroRide trip"
+        "description": "Hearthstone Pharmacy Rx copay",
+        "unit": null,
+        "tags": []
       },
       {
-        "item_id": "rcpt:9c41e2a7:1",
+        "item_id": "nessie:777e04fe-570d-45a8-871c-1b9c4ed8985b",
+        "date": "2026-06-16",
+        "amount_cents": 9600,
+        "expense": "clothing_bedding",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Linen & Loom sheet set, pillows",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:be7baf87-3bdd-48b9-a1a5-458749bcb94d",
+        "date": "2026-06-16",
+        "amount_cents": 18500,
+        "expense": "security",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Keyline Lock & Safe rekey and deadbolt install",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
+        "date": "2026-06-17",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:ad034c13-9173-4ad8-b79b-bb463300d4e6",
+        "date": "2026-06-17",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:5b25752f-a378-4468-ba5f-5866f88537e8",
+        "date": "2026-06-18",
+        "amount_cents": 6400,
+        "expense": "security",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Northside Hardware door chain, motion sensor light",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:498bdece-4174-4ddf-a52e-9690dfe5df0c",
+        "date": "2026-06-20",
+        "amount_cents": 29900,
+        "expense": "property_replacement",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Brightline Wireless new phone",
+        "unit": null,
+        "tags": [
+          "phone"
+        ]
+      },
+      {
+        "item_id": "nessie:70b313c4-6043-4b76-81ce-222d3206849d",
+        "date": "2026-06-24",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:b3f7c579-bb2d-4546-b9d9-63f22f371388",
+        "date": "2026-06-24",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+        "date": "2026-06-26",
+        "amount_cents": 17600,
+        "expense": "lost_wages",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 4,
+        "description": "Fernway Books payroll",
+        "unit": "day",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:82a60a56-3821-4aed-81ac-a5fee7c6e65b",
+        "date": "2026-06-29",
+        "amount_cents": 1500,
+        "expense": "prescription",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Hearthstone Pharmacy Rx copay",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:100c9919-0510-4dff-8760-c1b4d756f512",
+        "date": "2026-07-01",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:ab3421f0-51f0-448d-a92e-300555c69d01",
+        "date": "2026-07-01",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:5d48b9ac-a4bf-4cdf-945d-381c5544af48",
+        "date": "2026-07-08",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:acba0957-2ab4-4780-abc6-5083875206be",
+        "date": "2026-07-08",
+        "amount_cents": 1400,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:9ad655d6-74b4-47db-a262-9cd065e481bb",
+        "date": "2026-07-10",
+        "amount_cents": 17600,
+        "expense": "lost_wages",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 4,
+        "description": "Fernway Books payroll",
+        "unit": "day",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:45bf7328-af80-49f9-8bfd-2c65f89e7142",
+        "date": "2026-07-15",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:938724c9-1def-422d-9ab0-359ea3d875f4",
+        "date": "2026-07-15",
+        "amount_cents": 65000,
+        "expense": "relocation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Elm Court Apartments security deposit",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:d434e6ed-df25-4ace-a51e-157da42d7c1c",
+        "date": "2026-07-15",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:02c61176-b77b-4a54-8b1a-f293b0918711",
+        "date": "2026-07-18",
+        "amount_cents": 18900,
+        "expense": "relocation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Two Rivers Truck Rental 10 ft truck, 1 day",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:63417952-4fc2-4313-ad1b-9fb48b73ee23",
+        "date": "2026-07-22",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:01b13003-c082-4d5b-a5df-df2523f9f2ee",
+        "date": "2026-07-24",
+        "amount_cents": 17600,
+        "expense": "lost_wages",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 4,
+        "description": "Fernway Books payroll",
+        "unit": "day",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:95a277ab-5cec-4754-8df7-8fe04ee93a9f",
+        "date": "2026-07-27",
+        "amount_cents": 1500,
+        "expense": "prescription",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Hearthstone Pharmacy Rx copay",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+        "date": "2026-07-29",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:dc8df49d-e975-40ff-9f74-4bc5a40c7565",
+        "date": "2026-07-29",
+        "amount_cents": 1300,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:26a2b52d-5df0-49df-a2d7-88fae85e1efc",
+        "date": "2026-08-05",
+        "amount_cents": 1300,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:c8e89395-c31d-4b9f-83eb-f963379fcfec",
+        "date": "2026-08-05",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:7bf55c50-68b7-42fa-8614-b55efa7efb04",
+        "date": "2026-08-12",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:bd0e2af1-8e25-49d7-918f-a918fa44fe0e",
+        "date": "2026-08-12",
+        "amount_cents": 1300,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:380703dc-8b04-4c4e-90e2-2f55bf151a52",
+        "date": "2026-08-19",
+        "amount_cents": 1300,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+        "date": "2026-08-19",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:30fda95b-7e4e-42ba-b080-897e28e171e8",
+        "date": "2026-08-24",
+        "amount_cents": 1500,
+        "expense": "prescription",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Hearthstone Pharmacy Rx copay",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:5b0794ea-b8c7-40c0-95fe-9a0dc9c9aa2e",
+        "date": "2026-08-26",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:a4a3bace-6b35-428b-986c-8e925350cff8",
+        "date": "2026-08-26",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+        "date": "2026-09-02",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+        "date": "2026-09-09",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:8d674eb0-99e7-4978-8b9b-4be796f68609",
+        "date": "2026-09-09",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+        "date": "2026-09-16",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:c2a16227-71d4-449f-a3d6-c90e878bc2ff",
+        "date": "2026-09-16",
+        "amount_cents": 1400,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:c09aacae-bd64-4008-8c9b-40bd393aa00e",
+        "date": "2026-09-23",
+        "amount_cents": 1200,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "nessie:e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+        "date": "2026-09-23",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:715a6bbd-9382-4119-8820-f52e14756658",
+        "date": "2026-09-30",
+        "amount_cents": 15000,
+        "expense": "counseling",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 1,
+        "description": "Clearwater Counseling Group session",
+        "unit": "session",
+        "tags": []
+      },
+      {
+        "item_id": "nessie:aa0bd6dc-0cdc-42bc-bf2b-557a0a60823e",
+        "date": "2026-09-30",
+        "amount_cents": 1400,
+        "expense": "transportation",
+        "confirmed": true,
+        "insurance_paid_cents": 0,
+        "is_bill": false,
+        "units": 0,
+        "description": "Wayfare Rides trip",
+        "unit": null,
+        "tags": []
+      },
+      {
+        "item_id": "bill:231c5c86178943f9:1",
         "date": "2026-06-14",
-        "amount_cents": 118000,
+        "amount_cents": 7500,
         "expense": "medical",
         "confirmed": true,
         "insurance_paid_cents": 0,
         "is_bill": true,
         "units": 0,
-        "description": "Riverbend General Hospital - emergency department visit"
+        "description": "Riverbend General Hospital - Emergency department visit, copay",
+        "unit": null,
+        "tags": []
       },
       {
-        "item_id": "rcpt:9c41e2a7:2",
-        "date": "2026-06-14",
-        "amount_cents": 21400,
-        "expense": "medical",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": true,
-        "units": 0,
-        "description": "Riverbend General Hospital - lab tests"
-      },
-      {
-        "item_id": "rcpt:9c41e2a7:3",
+        "item_id": "bill:231c5c86178943f9:2",
         "date": "2026-06-14",
         "amount_cents": 32500,
         "expense": "forensic_exam",
@@ -53,157 +594,35 @@
         "insurance_paid_cents": 0,
         "is_bill": true,
         "units": 0,
-        "description": "Riverbend General Hospital - forensic exam, deductible applied"
+        "description": "Riverbend General Hospital - Medical forensic exam, deductible applied",
+        "unit": null,
+        "tags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1a0",
+        "item_id": "bill:231c5c86178943f9:3",
         "date": "2026-06-14",
-        "amount_cents": 2340,
-        "expense": "transportation",
+        "amount_cents": 4300,
+        "expense": "medical",
         "confirmed": true,
         "insurance_paid_cents": 0,
-        "is_bill": false,
+        "is_bill": true,
         "units": 0,
-        "description": "MetroRide trip"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1b3",
-        "date": "2026-06-15",
-        "amount_cents": 3620,
-        "expense": "prescription",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 0,
-        "description": "Corner Drug pharmacy"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1c7",
-        "date": "2026-06-17",
-        "amount_cents": 64999,
-        "expense": "property_replacement",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 0,
-        "description": "Northgate Mobile - replacement phone"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1d2",
-        "date": "2026-06-18",
-        "amount_cents": 18900,
-        "expense": "security",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 0,
-        "description": "Keystone Lock and Key - lock change"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1e9",
-        "date": "2026-06-24",
-        "amount_cents": 4000,
-        "expense": "counseling",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 1,
-        "description": "Northside Counseling - session copay"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1f4",
-        "date": "2026-06-24",
-        "amount_cents": 1875,
-        "expense": "transportation",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 0,
-        "description": "MetroRide trip"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a20b",
-        "date": "2026-06-26",
-        "amount_cents": 145000,
-        "expense": "lost_wages",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 2,
-        "description": "Paychecks for 2 weeks were $0 (usually $725 a week)"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a21c",
-        "date": "2026-07-01",
-        "amount_cents": 4000,
-        "expense": "counseling",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 1,
-        "description": "Northside Counseling - session copay"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a22d",
-        "date": "2026-07-01",
-        "amount_cents": 1910,
-        "expense": "transportation",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 0,
-        "description": "MetroRide trip"
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a23e",
-        "date": "2026-07-08",
-        "amount_cents": 4000,
-        "expense": "counseling",
-        "confirmed": true,
-        "insurance_paid_cents": 0,
-        "is_bill": false,
-        "units": 1,
-        "description": "Northside Counseling - session copay"
+        "description": "Riverbend General Hospital - Laboratory services, coinsurance",
+        "unit": null,
+        "tags": []
       }
     ]
   },
   "output": {
     "jurisdiction": "MI",
-    "law_image_sha256": "3dcdc6b4b2ad99b860267e12a539c1a74ac7d8027232bfbee2755b2b134fda68",
+    "law_image_sha256": "6f51413c4d5be862fbe9aa6ca73409d3e30c55ccec32b9832f80edf44e0313ac",
     "lines": [
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a102",
-        "expense": "transportation",
-        "status": "out_of_window",
-        "requested_cents": 1460,
-        "allowed_cents": 0,
-        "rule_ids": [],
-        "cap_rule_id": null,
-        "flags": []
-      },
-      {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1a0",
-        "expense": "transportation",
-        "status": "eligible",
-        "requested_cents": 2340,
-        "allowed_cents": 2340,
-        "rule_ids": [
-          "MI-CAP-7",
-          "MI-CAP-8",
-          "MI-COV-7",
-          "MI-COLL-1",
-          "MI-COLL-2",
-          "MI-COLL-3"
-        ],
-        "cap_rule_id": null,
-        "flags": []
-      },
-      {
-        "item_id": "rcpt:9c41e2a7:1",
+        "item_id": "bill:231c5c86178943f9:1",
         "expense": "medical",
         "status": "eligible",
-        "requested_cents": 118000,
-        "allowed_cents": 118000,
+        "requested_cents": 7500,
+        "allowed_cents": 7500,
         "rule_ids": [
           "MI-COV-1",
           "MI-COLL-1",
@@ -211,25 +630,11 @@
           "MI-COLL-3"
         ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
         "flags": []
       },
       {
-        "item_id": "rcpt:9c41e2a7:2",
-        "expense": "medical",
-        "status": "eligible",
-        "requested_cents": 21400,
-        "allowed_cents": 21400,
-        "rule_ids": [
-          "MI-COV-1",
-          "MI-COLL-1",
-          "MI-COLL-2",
-          "MI-COLL-3"
-        ],
-        "cap_rule_id": null,
-        "flags": []
-      },
-      {
-        "item_id": "rcpt:9c41e2a7:3",
+        "item_id": "bill:231c5c86178943f9:2",
         "expense": "forensic_exam",
         "status": "held",
         "requested_cents": 32500,
@@ -242,36 +647,58 @@
           "MI-EXAM-5"
         ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1b3",
+        "item_id": "bill:231c5c86178943f9:3",
+        "expense": "medical",
+        "status": "eligible",
+        "requested_cents": 4300,
+        "allowed_cents": 4300,
+        "rule_ids": [
+          "MI-COV-1",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:1f8e6d38-2c49-4681-9bf5-17c7ae939cb0",
         "expense": "prescription",
         "status": "unknown_rule",
-        "requested_cents": 3620,
+        "requested_cents": 2500,
         "allowed_cents": 0,
         "rule_ids": [],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1c7",
-        "expense": "property_replacement",
-        "status": "excluded",
-        "requested_cents": 64999,
-        "allowed_cents": 0,
+        "item_id": "nessie:777e04fe-570d-45a8-871c-1b9c4ed8985b",
+        "expense": "clothing_bedding",
+        "status": "eligible",
+        "requested_cents": 9600,
+        "allowed_cents": 9600,
         "rule_ids": [
-          "MI-EXCL-1"
+          "MI-CAP-10",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
         ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1d2",
+        "item_id": "nessie:be7baf87-3bdd-48b9-a1a5-458749bcb94d",
         "expense": "security",
         "status": "eligible",
-        "requested_cents": 18900,
-        "allowed_cents": 18900,
+        "requested_cents": 18500,
+        "allowed_cents": 18500,
         "rule_ids": [
           "MI-CAP-9",
           "MI-COLL-1",
@@ -279,36 +706,36 @@
           "MI-COLL-3"
         ],
         "cap_rule_id": null,
-        "flags": [
-          "rate_unverified:MI-CAP-9"
-        ]
+        "alt_cap_rule_ids": [],
+        "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1e9",
+        "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
         "expense": "counseling",
         "status": "eligible",
-        "requested_cents": 4000,
-        "allowed_cents": 4000,
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
         "rule_ids": [
-          "MI-CAP-2",
           "MI-CAP-3",
-          "MI-CAP-4",
           "MI-COV-2",
           "MI-COLL-1",
           "MI-COLL-2",
           "MI-COLL-3"
         ],
-        "cap_rule_id": null,
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1f4",
+        "item_id": "nessie:ad034c13-9173-4ad8-b79b-bb463300d4e6",
         "expense": "transportation",
         "status": "eligible",
-        "requested_cents": 1875,
-        "allowed_cents": 1875,
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
         "rule_ids": [
-          "MI-CAP-7",
           "MI-CAP-8",
           "MI-COV-7",
           "MI-COLL-1",
@@ -316,14 +743,85 @@
           "MI-COLL-3"
         ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a20b",
+        "item_id": "nessie:5b25752f-a378-4468-ba5f-5866f88537e8",
+        "expense": "security",
+        "status": "eligible",
+        "requested_cents": 6400,
+        "allowed_cents": 6400,
+        "rule_ids": [
+          "MI-CAP-9",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:498bdece-4174-4ddf-a52e-9690dfe5df0c",
+        "expense": "property_replacement",
+        "status": "excluded",
+        "requested_cents": 29900,
+        "allowed_cents": 0,
+        "rule_ids": [
+          "MI-EXCL-1"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:70b313c4-6043-4b76-81ce-222d3206849d",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:b3f7c579-bb2d-4546-b9d9-63f22f371388",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
         "expense": "lost_wages",
         "status": "eligible",
-        "requested_cents": 145000,
-        "allowed_cents": 145000,
+        "requested_cents": 17600,
+        "allowed_cents": 17600,
         "rule_ids": [
           "MI-CAP-5",
           "MI-COV-3",
@@ -332,34 +830,49 @@
           "MI-COLL-3"
         ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": [
+          "rate_unverified:MI-CAP-5"
+        ]
+      },
+      {
+        "item_id": "nessie:82a60a56-3821-4aed-81ac-a5fee7c6e65b",
+        "expense": "prescription",
+        "status": "unknown_rule",
+        "requested_cents": 1500,
+        "allowed_cents": 0,
+        "rule_ids": [],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a21c",
+        "item_id": "nessie:100c9919-0510-4dff-8760-c1b4d756f512",
         "expense": "counseling",
         "status": "eligible",
-        "requested_cents": 4000,
-        "allowed_cents": 4000,
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
         "rule_ids": [
-          "MI-CAP-2",
           "MI-CAP-3",
-          "MI-CAP-4",
           "MI-COV-2",
           "MI-COLL-1",
           "MI-COLL-2",
           "MI-COLL-3"
         ],
-        "cap_rule_id": null,
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a22d",
+        "item_id": "nessie:ab3421f0-51f0-448d-a92e-300555c69d01",
         "expense": "transportation",
         "status": "eligible",
-        "requested_cents": 1910,
-        "allowed_cents": 1910,
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
         "rule_ids": [
-          "MI-CAP-7",
           "MI-CAP-8",
           "MI-COV-7",
           "MI-COLL-1",
@@ -367,37 +880,589 @@
           "MI-COLL-3"
         ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
         "flags": []
       },
       {
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a23e",
+        "item_id": "nessie:5d48b9ac-a4bf-4cdf-945d-381c5544af48",
         "expense": "counseling",
         "status": "eligible",
-        "requested_cents": 4000,
-        "allowed_cents": 4000,
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
         "rule_ids": [
-          "MI-CAP-2",
           "MI-CAP-3",
-          "MI-CAP-4",
           "MI-COV-2",
           "MI-COLL-1",
           "MI-COLL-2",
           "MI-COLL-3"
         ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:acba0957-2ab4-4780-abc6-5083875206be",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1400,
+        "allowed_cents": 1400,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
         "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:9ad655d6-74b4-47db-a262-9cd065e481bb",
+        "expense": "lost_wages",
+        "status": "eligible",
+        "requested_cents": 17600,
+        "allowed_cents": 17600,
+        "rule_ids": [
+          "MI-CAP-5",
+          "MI-COV-3",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": [
+          "rate_unverified:MI-CAP-5"
+        ]
+      },
+      {
+        "item_id": "nessie:45bf7328-af80-49f9-8bfd-2c65f89e7142",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:938724c9-1def-422d-9ab0-359ea3d875f4",
+        "expense": "relocation",
+        "status": "eligible",
+        "requested_cents": 65000,
+        "allowed_cents": 65000,
+        "rule_ids": [
+          "MI-CAP-6",
+          "MI-COV-4",
+          "MI-COV-6",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:d434e6ed-df25-4ace-a51e-157da42d7c1c",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:02c61176-b77b-4a54-8b1a-f293b0918711",
+        "expense": "relocation",
+        "status": "eligible",
+        "requested_cents": 18900,
+        "allowed_cents": 18900,
+        "rule_ids": [
+          "MI-CAP-6",
+          "MI-COV-4",
+          "MI-COV-6",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:63417952-4fc2-4313-ad1b-9fb48b73ee23",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:01b13003-c082-4d5b-a5df-df2523f9f2ee",
+        "expense": "lost_wages",
+        "status": "eligible",
+        "requested_cents": 17600,
+        "allowed_cents": 17600,
+        "rule_ids": [
+          "MI-CAP-5",
+          "MI-COV-3",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": [
+          "rate_unverified:MI-CAP-5"
+        ]
+      },
+      {
+        "item_id": "nessie:95a277ab-5cec-4754-8df7-8fe04ee93a9f",
+        "expense": "prescription",
+        "status": "unknown_rule",
+        "requested_cents": 1500,
+        "allowed_cents": 0,
+        "rule_ids": [],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:dc8df49d-e975-40ff-9f74-4bc5a40c7565",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1300,
+        "allowed_cents": 1300,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:26a2b52d-5df0-49df-a2d7-88fae85e1efc",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1300,
+        "allowed_cents": 1300,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:c8e89395-c31d-4b9f-83eb-f963379fcfec",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:7bf55c50-68b7-42fa-8614-b55efa7efb04",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:bd0e2af1-8e25-49d7-918f-a918fa44fe0e",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1300,
+        "allowed_cents": 1300,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:380703dc-8b04-4c4e-90e2-2f55bf151a52",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1300,
+        "allowed_cents": 1300,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:30fda95b-7e4e-42ba-b080-897e28e171e8",
+        "expense": "prescription",
+        "status": "unknown_rule",
+        "requested_cents": 1500,
+        "allowed_cents": 0,
+        "rule_ids": [],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:5b0794ea-b8c7-40c0-95fe-9a0dc9c9aa2e",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:a4a3bace-6b35-428b-986c-8e925350cff8",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:8d674eb0-99e7-4978-8b9b-4be796f68609",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:c2a16227-71d4-449f-a3d6-c90e878bc2ff",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1400,
+        "allowed_cents": 1400,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:c09aacae-bd64-4008-8c9b-40bd393aa00e",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1200,
+        "allowed_cents": 1200,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:715a6bbd-9382-4119-8820-f52e14756658",
+        "expense": "counseling",
+        "status": "eligible",
+        "requested_cents": 15000,
+        "allowed_cents": 12500,
+        "rule_ids": [
+          "MI-CAP-3",
+          "MI-COV-2",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": "MI-CAP-3",
+        "alt_cap_rule_ids": [
+          "MI-CAP-2",
+          "MI-CAP-4"
+        ],
+        "flags": []
+      },
+      {
+        "item_id": "nessie:aa0bd6dc-0cdc-42bc-bf2b-557a0a60823e",
+        "expense": "transportation",
+        "status": "eligible",
+        "requested_cents": 1400,
+        "allowed_cents": 1400,
+        "rule_ids": [
+          "MI-CAP-8",
+          "MI-COV-7",
+          "MI-COLL-1",
+          "MI-COLL-2",
+          "MI-COLL-3"
+        ],
+        "cap_rule_id": null,
+        "alt_cap_rule_ids": [
+          "MI-CAP-7"
+        ],
         "flags": []
       }
     ],
     "totals": {
-      "requested_cents": 321425,
-      "allowed_cents": 321425,
+      "requested_cents": 440800,
+      "allowed_cents": 400800,
       "held_cents": 32500,
       "by_expense": {
-        "counseling": 12000,
-        "lost_wages": 145000,
-        "medical": 139400,
-        "security": 18900,
-        "transportation": 6125
+        "clothing_bedding": 9600,
+        "counseling": 200000,
+        "lost_wages": 52800,
+        "medical": 11800,
+        "relocation": 83900,
+        "security": 24900,
+        "transportation": 17800
       }
     },
     "checks": {
@@ -406,8 +1471,10 @@
         "deadline_date": "2031-06-14",
         "rule_ids": [
           "MI-FILE-1",
-          "MI-FILE-2",
-          "MI-FILE-3"
+          "MI-FILE-2"
+        ],
+        "flags": [
+          "deadline_from_report"
         ]
       },
       "minimum_loss": {
@@ -426,6 +1493,10 @@
       }
     },
     "info_rule_ids": [
+      "MI-EXCL-2",
+      "MI-EXCL-3",
+      "MI-EXCL-4",
+      "MI-FILE-3",
       "MI-COLL-1",
       "MI-COLL-2",
       "MI-COLL-3",
@@ -436,97 +1507,432 @@
       "MI-ELIG-2",
       "MI-RES-1",
       "MI-RES-2",
-      "MI-RES-3"
+      "MI-RES-3",
+      "MI-SUBMIT-1",
+      "MI-SUBMIT-2",
+      "MI-SUBMIT-3",
+      "MI-DOC-1",
+      "MI-DOC-2",
+      "MI-DOC-3",
+      "MI-DOC-4",
+      "MI-DOC-5",
+      "MI-DOC-6",
+      "MI-DOC-7",
+      "MI-DOC-8",
+      "MI-DOC-9",
+      "MI-DOC-10",
+      "MI-DOC-11",
+      "MI-DOC-12",
+      "MI-DOC-13",
+      "MI-DOC-14",
+      "MI-DOC-15",
+      "MI-DOC-16",
+      "MI-DOC-17",
+      "MI-DOC-18",
+      "MI-DOC-19",
+      "MI-DOC-20",
+      "MI-DOC-21",
+      "MI-DOC-22",
+      "MI-DOC-23",
+      "MI-DOC-24",
+      "MI-DOC-25",
+      "MI-DOC-26",
+      "MI-DOC-27",
+      "MI-DOC-28",
+      "MI-DOC-29",
+      "MI-DOC-30",
+      "MI-ACP-1",
+      "MI-RECCONF-1"
     ],
     "trace": [
       {
-        "op": "out_of_window",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a102",
-        "rule_id": null,
-        "delta_cents": 0
-      },
-      {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1a0",
-        "rule_id": "MI-CAP-7",
-        "delta_cents": 2340
-      },
-      {
-        "op": "eligible",
-        "item_id": "rcpt:9c41e2a7:1",
+        "item_id": "bill:231c5c86178943f9:1",
         "rule_id": "MI-COV-1",
-        "delta_cents": 118000
-      },
-      {
-        "op": "eligible",
-        "item_id": "rcpt:9c41e2a7:2",
-        "rule_id": "MI-COV-1",
-        "delta_cents": 21400
+        "delta_cents": 7500
       },
       {
         "op": "held",
-        "item_id": "rcpt:9c41e2a7:3",
+        "item_id": "bill:231c5c86178943f9:2",
         "rule_id": "MI-EXAM-1",
         "delta_cents": 0
       },
       {
+        "op": "eligible",
+        "item_id": "bill:231c5c86178943f9:3",
+        "rule_id": "MI-COV-1",
+        "delta_cents": 4300
+      },
+      {
         "op": "unknown_rule",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1b3",
+        "item_id": "nessie:1f8e6d38-2c49-4681-9bf5-17c7ae939cb0",
         "rule_id": null,
         "delta_cents": 0
       },
       {
+        "op": "eligible",
+        "item_id": "nessie:777e04fe-570d-45a8-871c-1b9c4ed8985b",
+        "rule_id": "MI-CAP-10",
+        "delta_cents": 9600
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:be7baf87-3bdd-48b9-a1a5-458749bcb94d",
+        "rule_id": "MI-CAP-9",
+        "delta_cents": 18500
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:ad034c13-9173-4ad8-b79b-bb463300d4e6",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:5b25752f-a378-4468-ba5f-5866f88537e8",
+        "rule_id": "MI-CAP-9",
+        "delta_cents": 6400
+      },
+      {
         "op": "excluded",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1c7",
+        "item_id": "nessie:498bdece-4174-4ddf-a52e-9690dfe5df0c",
         "rule_id": "MI-EXCL-1",
         "delta_cents": 0
       },
       {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1d2",
-        "rule_id": "MI-CAP-9",
+        "item_id": "nessie:70b313c4-6043-4b76-81ce-222d3206849d",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:b3f7c579-bb2d-4546-b9d9-63f22f371388",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+        "rule_id": "MI-CAP-5",
+        "delta_cents": 17600
+      },
+      {
+        "op": "unknown_rule",
+        "item_id": "nessie:82a60a56-3821-4aed-81ac-a5fee7c6e65b",
+        "rule_id": null,
+        "delta_cents": 0
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:100c9919-0510-4dff-8760-c1b4d756f512",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:ab3421f0-51f0-448d-a92e-300555c69d01",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:5d48b9ac-a4bf-4cdf-945d-381c5544af48",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:acba0957-2ab4-4780-abc6-5083875206be",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1400
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:9ad655d6-74b4-47db-a262-9cd065e481bb",
+        "rule_id": "MI-CAP-5",
+        "delta_cents": 17600
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:45bf7328-af80-49f9-8bfd-2c65f89e7142",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:938724c9-1def-422d-9ab0-359ea3d875f4",
+        "rule_id": "MI-CAP-6",
+        "delta_cents": 65000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:d434e6ed-df25-4ace-a51e-157da42d7c1c",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:02c61176-b77b-4a54-8b1a-f293b0918711",
+        "rule_id": "MI-CAP-6",
         "delta_cents": 18900
       },
       {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1e9",
-        "rule_id": "MI-CAP-2",
-        "delta_cents": 4000
+        "item_id": "nessie:63417952-4fc2-4313-ad1b-9fb48b73ee23",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
       },
       {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1f4",
-        "rule_id": "MI-CAP-7",
-        "delta_cents": 1875
-      },
-      {
-        "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a20b",
+        "item_id": "nessie:01b13003-c082-4d5b-a5df-df2523f9f2ee",
         "rule_id": "MI-CAP-5",
-        "delta_cents": 145000
+        "delta_cents": 17600
+      },
+      {
+        "op": "unknown_rule",
+        "item_id": "nessie:95a277ab-5cec-4754-8df7-8fe04ee93a9f",
+        "rule_id": null,
+        "delta_cents": 0
       },
       {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a21c",
-        "rule_id": "MI-CAP-2",
-        "delta_cents": 4000
+        "item_id": "nessie:5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
       },
       {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a22d",
-        "rule_id": "MI-CAP-7",
-        "delta_cents": 1910
+        "item_id": "nessie:dc8df49d-e975-40ff-9f74-4bc5a40c7565",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1300
       },
       {
         "op": "eligible",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a23e",
-        "rule_id": "MI-CAP-2",
-        "delta_cents": 4000
+        "item_id": "nessie:26a2b52d-5df0-49df-a2d7-88fae85e1efc",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1300
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:c8e89395-c31d-4b9f-83eb-f963379fcfec",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:7bf55c50-68b7-42fa-8614-b55efa7efb04",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:bd0e2af1-8e25-49d7-918f-a918fa44fe0e",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1300
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:380703dc-8b04-4c4e-90e2-2f55bf151a52",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1300
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "unknown_rule",
+        "item_id": "nessie:30fda95b-7e4e-42ba-b080-897e28e171e8",
+        "rule_id": null,
+        "delta_cents": 0
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:5b0794ea-b8c7-40c0-95fe-9a0dc9c9aa2e",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:a4a3bace-6b35-428b-986c-8e925350cff8",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:8d674eb0-99e7-4978-8b9b-4be796f68609",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:c2a16227-71d4-449f-a3d6-c90e878bc2ff",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1400
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:c09aacae-bd64-4008-8c9b-40bd393aa00e",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1200
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:715a6bbd-9382-4119-8820-f52e14756658",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": 15000
+      },
+      {
+        "op": "eligible",
+        "item_id": "nessie:aa0bd6dc-0cdc-42bc-bf2b-557a0a60823e",
+        "rule_id": "MI-CAP-8",
+        "delta_cents": 1400
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:70b313c4-6043-4b76-81ce-222d3206849d",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:100c9919-0510-4dff-8760-c1b4d756f512",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:5d48b9ac-a4bf-4cdf-945d-381c5544af48",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:d434e6ed-df25-4ace-a51e-157da42d7c1c",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:63417952-4fc2-4313-ad1b-9fb48b73ee23",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:c8e89395-c31d-4b9f-83eb-f963379fcfec",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:7bf55c50-68b7-42fa-8614-b55efa7efb04",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:a4a3bace-6b35-428b-986c-8e925350cff8",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
+      },
+      {
+        "op": "unit_cap",
+        "item_id": "nessie:715a6bbd-9382-4119-8820-f52e14756658",
+        "rule_id": "MI-CAP-3",
+        "delta_cents": -2500
       },
       {
         "op": "rate_unverified",
-        "item_id": "nessie:66a1f0c2e4b0a7d1c3f5a1d2",
-        "rule_id": "MI-CAP-9",
+        "item_id": "nessie:9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+        "rule_id": "MI-CAP-5",
+        "delta_cents": 0
+      },
+      {
+        "op": "rate_unverified",
+        "item_id": "nessie:9ad655d6-74b4-47db-a262-9cd065e481bb",
+        "rule_id": "MI-CAP-5",
+        "delta_cents": 0
+      },
+      {
+        "op": "rate_unverified",
+        "item_id": "nessie:01b13003-c082-4d5b-a5df-df2523f9f2ee",
+        "rule_id": "MI-CAP-5",
         "delta_cents": 0
       },
       {
@@ -549,5 +1955,5 @@
       }
     ]
   },
-  "engine": "preview"
+  "engine": "wasm"
 }

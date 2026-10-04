@@ -73,6 +73,7 @@ export default function CheckSummaryView({
                 <p className={styles.factNote}>{d.canExtend ? t.check.deadlineExtend : t.check.deadlineAsk}</p>
               )}
               {d.fromReport ? <p className={styles.factNote}>{t.check.deadlineFromReport}</p> : null}
+              {d.fromDiscovery ? <p className={styles.factNote}>{t.check.deadlineFromDiscovery}</p> : null}
             </>
           ) : d.kind === "span" ? (
             <>

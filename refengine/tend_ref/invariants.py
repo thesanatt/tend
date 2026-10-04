@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from .claim import read_claim
-from .engine import INT64_MAX, MINIMUM_LOSS_SEVERITY, STATUSES, format_day
+from .engine import DEADLINE_FLAGS, INT64_MAX, MINIMUM_LOSS_SEVERITY, STATUSES, format_day
 from .law import Law
 
 DEADLINE_STATUSES = {"ok", "late", "unknown"}
@@ -155,8 +155,8 @@ def _check(law: Law, engine_input: dict, out: dict, err) -> None:
             err(f"deadline_date {deadline['deadline_date']} is not the latest period from the incident")
         if deadline["status"] != ("ok" if ctx.as_of_date <= latest else "late"):
             err(f"deadline status {deadline['status']} disagrees with the date")
-    report_anchored = any(r.anchor == "report" for r in law.deadlines)
-    if deadline["flags"] != (["deadline_from_report"] if report_anchored else []):
+    anchors = {r.anchor for r in law.deadlines}
+    if deadline["flags"] != [flag for anchor, flag in DEADLINE_FLAGS if anchor in anchors]:
         err(f"deadline flags {deadline['flags']}")
     if checks["minimum_loss"]["status"] not in MINIMUM_LOSS_SEVERITY:
         err(f"minimum_loss status {checks['minimum_loss']['status']!r}")

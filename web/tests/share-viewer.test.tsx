@@ -74,7 +74,7 @@ describe("the advocate viewer", () => {
     expect(screen.getByText(/Tend's server keeps only a locked copy it cannot read/)).toBeTruthy();
     expect(screen.getByText(/This link opens one time only/)).toBeTruthy();
     expect(screen.getByText("Amount they can ask for. The program decides.")).toBeTruthy();
-    expect(screen.getAllByText("$1,394.00").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("$3,142.00").length).toBeGreaterThan(0);
     expect(screen.getByText("Fictional demo claim for the walkthrough")).toBeTruthy();
     // Read-only: no yes / no answers to give.
     expect(screen.queryByRole("button", { name: "Yes" })).toBeNull();

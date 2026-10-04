@@ -13,7 +13,7 @@ import re
 from typing import Any
 
 from .actions import ActionService
-from .clock import Clock, local_today
+from .clock import Clock, state_today
 from .engine import EngineError, EngineRouter, EngineUnavailable, LawIR
 from .errors import TendError
 from .models import AgentCheckRequest, AgentConfirmRequest, AgentPayRequest, ConfirmRequest, ProposeRequest
@@ -24,6 +24,10 @@ from .scan import ScanService
 
 CONFIRM_PHRASE = re.compile(r"^\s*confirm\s+\$?(?P<amount>\d[\d,]*(?:\.\d{2})?)\s*$", re.I | re.A)
 NOTE = "Rules can have exceptions. The program decides."
+# checks.deadline.flags deadline_from_discovery (docs/SPEC.md v1.3): the same words as the web's Check.
+DISCOVERY_NOTE = (
+    "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
+)
 
 LABELS = {
     "medical": "Medical care",
@@ -190,7 +194,7 @@ class AgentService:
             "jurisdiction": st,
             "context": {
                 "incident_date": incident_date.isoformat(),
-                "as_of_date": local_today(self.clock()).isoformat(),
+                "as_of_date": state_today(self.clock(), st).isoformat(),
                 "police_report": police,
                 "forensic_exam": exam,
             },
@@ -247,11 +251,15 @@ class AgentService:
             text = f"Apply by {long_date(found['deadline_date'])}."
             if "deadline_from_report" in flags:
                 text += " That date is measured from the day it happened. The law counts from your report, so you may have longer."
+            if "deadline_from_discovery" in flags:
+                text += f" {DISCOVERY_NOTE}"
             deadline = sentence(text, found.get("rule_ids") or deadline_ids, status="ok", deadline_date=found["deadline_date"], flags=flags)
         elif found.get("status") == "late":
             text = f"The usual deadline was {long_date(found['deadline_date'])}. Ask the program about exceptions."
             if "deadline_from_report" in flags:
                 text += " That date is measured from the day it happened. The law counts from your report, so you may still have time."
+            if "deadline_from_discovery" in flags:
+                text += f" {DISCOVERY_NOTE}"
             deadline = sentence(
                 text,
                 found.get("rule_ids") or deadline_ids,
@@ -271,6 +279,9 @@ class AgentService:
                 if any(r.get("from") == "report" for r in dated) and "deadline_from_report" not in flags:
                     text += " The law counts from your report, so you may have longer."
                     flags.append("deadline_from_report")
+                if any(r.get("from") == "discovery" for r in dated) and "deadline_from_discovery" not in flags:
+                    text += f" {DISCOVERY_NOTE}"
+                    flags.append("deadline_from_discovery")
             deadline = sentence(text, deadline_ids, status="unknown", deadline_date=None, flags=flags)
 
         # police report

@@ -109,7 +109,10 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
   const { check } = state;
 
   useEffect(() => {
-    if (demo && !check.st) dispatch({ type: "check", patch: { ...DEMO_CHECK } });
+    // The link is read here, on the device, so the page itself is the same for everyone and can be
+    // saved for offline use (public/sw.js).
+    const fromLink = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("demo") === "rowan";
+    if ((demo || fromLink) && !check.st) dispatch({ type: "check", patch: { ...DEMO_CHECK } });
     // Only on arrival: a demo link fills in empty answers, never ones already given.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [demo]);

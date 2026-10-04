@@ -270,3 +270,45 @@ engines read them this way, and engine/FORMAT.md sections 4 and 5 give the full 
 - The integer bounds apply to the integers the engine reads (amount_cents, insurance_paid_cents,
   units), and all three must be >= 0. A known key written twice in one object is bad_input.
 - `count_limit` counts only units on lines the cap applies to (matching unit, units > 0).
+
+## v1.3: fixes from the wave-2 engine review (normative; both engines must match exactly)
+
+Changelog: discovery-dated deadlines are flagged, caps that are not the program's limit are no
+longer applied, and as_of_date is counted in the state's own time. Law images move to format 1.3
+and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the detail.
+
+1. Deadlines counted from discovery. A deadline rule with `from: "discovery"` is dated from the
+   incident date (the earliest the crime can be discovered), like one counted from the report, and
+   `checks.deadline.flags` gets `deadline_from_discovery`. The flags come in a fixed order,
+   `deadline_from_report` then `deadline_from_discovery`, each present when any deadline rule counts
+   from that anchor. The status vocabulary does not change: a `late` with either flag is the
+   softened late, which every reader explains and never shows as plainly late. The Check says "The
+   usual deadline was ..." and adds "This deadline may count from when the crime was discovered,
+   which can be later than the date it happened. The program decides." The readers are the web's
+   Check and Track screens, the shared claim an advocate opens, the PDF summary the web builds and
+   the one the API builds, the API's agent check, and the agent (agent/tend_agent). A `late` with
+   no flag is still shown as past the deadline.
+2. normalize.py carries the anchor. Rules the researchers dated from discovery keep it (AZ-DEAD-1,
+   MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
+   own quote lets the period start at discovery ("after the occurrence or discovery of the crime",
+   "whichever is later") are anchored at discovery in the IR, with the words that say so named in
+   normalize.py (CA-DEADLINE-1, IA-DEADLINE-1, MN-DEADLINE-1, MO-DEAD-1, NY-DEADLINE-1, SC-DEAD-1).
+   Twelve jurisdictions carry the flag: AZ, CA, IA, MA, MD, ME, MN, MO, NJ, NY, PA, SC.
+3. Caps that are not the program's limit on the survivor's cost. A cap whose own quote describes an
+   expedited approval, an emergency payment made apart from the award, or an initial award is not
+   applied: NV-CAP-WAGE-3 (a Compensation Officer may approve 10 working days at $70 a day) and
+   TX-EXAM-3 (the Attorney General's emergency medical care payment) become `info`, and
+   AK-COUNSEL-1 keeps its $200 a session rate without the 24-session initial award. A rule whose
+   `applies_to` names secondary, associated, or derivative victims is set aside, as family members
+   and parents already were (MT-CAP-2, WY-CAP-3).
+4. as_of_date is today in the state's own time zone. Where a state spans several, the westernmost,
+   whose date turns last (America/Adak for Alaska, America/Menominee for Michigan, America/Denver
+   for Texas), so a late night anywhere in the state never counts a deadline a day early. The API
+   (api/tend_api/clock.py) and the web's engine input (web/lib/stateTime.ts) share one table. Before,
+   the API used Detroit time for every state and the web used the device's time. The web also keeps
+   the device's own date when the state is on that date right now (between its westernmost and its
+   easternmost zone's dates, the eastern table in web/lib/stateTime.ts), so just after midnight in
+   Detroit, Houston, or Anchorage today's date is not "in the future" and today's bills are not out
+   of the window. The API has no device date and uses the westernmost date.
+5. Law images are format 1.3: `note` 1 is `deadline_from_discovery`. The engines read only 1.3
+   images, so a 1.2 image, which cannot raise the flag, is refused rather than misread.

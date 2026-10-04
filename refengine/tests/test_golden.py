@@ -101,7 +101,7 @@ def test_totals_and_checks_match_the_hand_computation():
                                             "relocation": 0}}
     assert out["checks"] == {
         "deadline": {"status": "ok", "deadline_date": "2029-06-13", "rule_ids": ["ZZ-DEAD-1", "ZZ-DEAD-2", "ZZ-DEAD-5"],
-                     "flags": ["deadline_from_report"]},
+                     "flags": ["deadline_from_report", "deadline_from_discovery"]},
         "minimum_loss": {"status": "met", "rule_ids": ["ZZ-MIN-1", "ZZ-MIN-2"]},  # $25,000, and 6 weeks = 30 days
         "reporting": {"status": "satisfied", "rule_ids": ["ZZ-REPORT-1", "ZZ-REPORT-2"]},  # the exam counts
     }

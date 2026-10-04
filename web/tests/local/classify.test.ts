@@ -645,10 +645,12 @@ describe("the demo persona on the device", () => {
     expect(by("counseling").every((i) => i.unit === "session" && i.units === 1 && i.confirmed)).toBe(true);
     expect(by("transportation")).toHaveLength(14);
     expect(by("transportation").every((i) => !i.confirmed && i.method === "link")).toBe(true);
+    // Estimated workdays, not the whole two-week period (SPEC v1.2 days_lost would read 2 weeks as 10 days).
+    const dip = "Paycheck was $236, $176 below your usual $412, about 4 workdays. This is an estimate";
     expect(by("lost_wages").map((i) => [i.date, i.amount_cents, i.unit, i.units, i.confirmed, i.reason])).toEqual([
-      ["2026-06-26", 17600, "week", 2, false, "Paycheck was $236, $176 below your usual $412"],
-      ["2026-07-10", 17600, "week", 2, false, "Paycheck was $236, $176 below your usual $412"],
-      ["2026-07-24", 17600, "week", 2, false, "Paycheck was $236, $176 below your usual $412"],
+      ["2026-06-26", 17600, "day", 4, false, dip],
+      ["2026-07-10", 17600, "day", 4, false, dip],
+      ["2026-07-24", 17600, "day", 4, false, dip],
     ]);
     // Lost pay sits on the short deposit's own record, as the API's wage gaps do.
     for (const item of by("lost_wages")) {

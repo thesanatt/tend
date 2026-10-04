@@ -1,10 +1,10 @@
 ; tend law image MD, Maryland
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 a9697257fb43c68132cd4fde765e08356d52dd3953007ba7756317411868d43c
-; image sha256  42ed384bd16e5eaa64e2aa4ef966559fea5f8679709cdd644fdbf5aa02d11a06
+; image sha256  90e523e6c2245d312632cc6bf9f1283cfe09b93c84a31b4a5677cd37cd57aea2
 ; 49 rules, 16 sources, 24 proofs, 5 ints, 293 strings
 ; item program: 145 instructions, 476 bytes, max stack 2
-; aggregate program: 208 instructions, 632 bytes, max stack 3, 7 loops
+; aggregate program: 209 instructions, 634 bytes, max stack 3, 7 loops
 
 .rules
     R0    MD-EXAM-1             exam_no_bill  -                                             Md. Code, Crim. Proc. 11-1007(b)(1)
@@ -518,18 +518,19 @@
   023c        jz       L33
   0241        push     0
   0246        jmp      L34
-  024b  L33:  push     1                            ; late
-  0250  L34:  check    deadline, P21                ; MD-DEADLINE-1, MD-DEADLINE-2
+  024b  L33:  push     1
+  0250  L34:  note     deadline_from_discovery
+  0252        check    deadline, P21                ; MD-DEADLINE-1, MD-DEADLINE-2
               ; MD-REPORT-1  Md. Code, Crim. Proc. 11-810(b)  "The Board shall accept as evidence: (1) a report produced by a..."
               ; MD-REPORT-2  Md. Code, Crim. Proc. 11-801(g)(3)  "an advocate or victim service provider from a domestic violence..."
-  0254        ldx      police_report
-  0256        push     1                            ; yes
-  025b        eq
-  025c        jnz      L35
-  0261        push     2
-  0266        jmp      L36
-  026b  L35:  push     0                            ; satisfied
-  0270  L36:  check    reporting, P22               ; MD-REPORT-1, MD-REPORT-2
+  0256        ldx      police_report
+  0258        push     1                            ; yes
+  025d        eq
+  025e        jnz      L35
+  0263        push     2
+  0268        jmp      L36
+  026d  L35:  push     0                            ; satisfied
+  0272  L36:  check    reporting, P22               ; MD-REPORT-1, MD-REPORT-2
               ; MD-DEADLINE-3  Md. Code, Crim. Proc. 11-809(a)(4)  "A claimant may file a claim at any time if the Board determines..."
               ; MD-COLL-1  Md. Code, Crim. Proc. 11-811(c)  "An award made under this subtitle shall be reduced by the amount..."
               ; MD-COLL-2  Application instruction sheet, Benefits and Required Documentation  "If the claimant has no private insurance, CICB requires the..."
@@ -552,6 +553,6 @@
               ; MD-DOC-WAGES  CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation  "Lost Wages/Disability: Employer information; W-2 and/or pay..."
               ; MD-DOC-WORKNOTE  CICB Application with instructions (Rev. November, 2021), Instruction Sheet, Benefits & Required Documentation  "letter from a doctor certifying inability to work"
               ; MD-ACP-1  Md. Code, State Gov't 7-303  "The Secretary of State shall establish and administer an Address..."
-  0274        info     P23                          ; MD-DEADLINE-3, MD-COLL-1, MD-COLL-2, MD-EMERG-1, MD-EMERG-2, MD-CRIME-1, MD-CRIME-2, MD-RES-1, MD-RES-2, MD-SUBMIT-MAIL, MD-SUBMIT-EMAIL, MD-SUBMIT-INPERSON, MD-DOC-SIGN, MD-DOC-POLICE, MD-DOC-BILLS, MD-DOC-MEDICAL, MD-DOC-INSURANCE, MD-DOC-COUNSEL, MD-DOC-RECEIPTS, MD-DOC-WAGES, MD-DOC-WORKNOTE, MD-ACP-1
-  0277        ret
+  0276        info     P23                          ; MD-DEADLINE-3, MD-COLL-1, MD-COLL-2, MD-EMERG-1, MD-EMERG-2, MD-CRIME-1, MD-CRIME-2, MD-RES-1, MD-RES-2, MD-SUBMIT-MAIL, MD-SUBMIT-EMAIL, MD-SUBMIT-INPERSON, MD-DOC-SIGN, MD-DOC-POLICE, MD-DOC-BILLS, MD-DOC-MEDICAL, MD-DOC-INSURANCE, MD-DOC-COUNSEL, MD-DOC-RECEIPTS, MD-DOC-WAGES, MD-DOC-WORKNOTE, MD-ACP-1
+  0279        ret
 

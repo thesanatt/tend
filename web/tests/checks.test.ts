@@ -4,7 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { deadlineText, minimumText, reportingText } from "@/components/claim/Checks";
 import { engineErrorText } from "@/lib/engine/wasm";
-import { checkCopy, MINIMUM_LOSS, REPORTING, reportingCopy } from "@/lib/status";
+import { checkCopy, deadlineCopy, MINIMUM_LOSS, REPORTING, reportingCopy } from "@/lib/status";
 import type { Jurisdiction } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 
@@ -35,6 +35,31 @@ describe("claim check copy", () => {
     const ids = hi.byCategory("filing_deadline").map((r) => r.id);
     expect(deadlineText({ status: "unknown", deadline_date: null, rule_ids: ids })).toMatch(/could not turn/);
     expect(deadlineText({ status: "unknown", deadline_date: null, rule_ids: [] })).toMatch(/no filing deadline/);
+  });
+
+  it("never shows a deadline that may count from discovery or the report as plainly late (SPEC v1.3)", () => {
+    const late = (flags: string[]) => ({
+      status: "late" as const,
+      deadline_date: "2025-06-14",
+      rule_ids: ["X-1"],
+      flags,
+    });
+    const discovery = late(["deadline_from_discovery"]);
+    expect(deadlineCopy(discovery)).toEqual({ label: "May have more time", tone: "neutral" });
+    expect(deadlineText(discovery)).toMatch(
+      /^The usual deadline was .*may count from when the crime was discovered.*The program decides\.$/,
+    );
+    expect(deadlineCopy(late(["deadline_from_report"])).label).toBe("May have more time");
+    expect(deadlineText(late(["deadline_from_report"]))).toMatch(/counts from your report/);
+    // An ordinary deadline counted from the incident is still plainly late.
+    for (const plain of [late([]), { status: "late" as const, deadline_date: "2025-06-14", rule_ids: ["X-1"] }]) {
+      expect(deadlineCopy(plain)).toEqual({ label: "Past the deadline", tone: "warn" });
+      expect(deadlineText(plain)).not.toMatch(/discovered|report/);
+    }
+    // On time, the note still says the date may be later.
+    const ok = { ...discovery, status: "ok" as const, deadline_date: "2099-06-14" };
+    expect(deadlineCopy(ok)).toEqual({ label: "On time", tone: "good" });
+    expect(deadlineText(ok, "2026-10-04")).toMatch(/may count from when the crime was discovered/);
   });
 
   it("names the waiver the law allows when the minimum is not met", () => {

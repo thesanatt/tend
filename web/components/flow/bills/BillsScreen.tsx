@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Money from "@/components/Money";
-import type { Letter } from "@/lib/contracts";
+import type { DeviceAi, Letter } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
+import { offline } from "@/lib/netlog";
 import type { Rule } from "@/lib/types";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import { billItems, billPlan } from "../claim";
 import Cite from "../Cite";
+import CloudConsent, { type CloudAsk } from "../CloudConsent";
 import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
 import LawQuote from "../LawQuote";
@@ -62,17 +64,73 @@ export function payeeFor(bill: Pick<BillRecord, "reading">): string {
   return name || PAYEE_FALLBACK;
 }
 
+// A picture of a bill (or a PDF that is only a picture) that this device could not read can go to
+// cloud AI, after a yes. A bill with text whose lines do not add up cannot be fixed by a model.
+export function pictureBill(bill: Pick<BillRecord, "reading">): boolean {
+  const format = (bill.reading as { format?: string }).format;
+  return bill.reading.lines.length === 0 && (format === "image" || format === "pdf");
+}
+
 function Unreliable({ bill }: { bill: BillRecord }) {
   const { t } = useI18n();
-  const { preview } = useFlow();
+  const { preview, services, canReread, cloudReadBill } = useFlow();
+  const [deviceAi, setDeviceAi] = useState<DeviceAi | null>(null);
+  const [ask, setAsk] = useState<CloudAsk | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
+  useEffect(() => {
+    let live = true;
+    services.classifier
+      .deviceAi()
+      .then((a) => live && setDeviceAi(a))
+      .catch(() => live && setDeviceAi("unavailable"));
+    return () => {
+      live = false;
+    };
+  }, [services]);
   const url = preview(bill.id);
   const isPdf = /\.pdf$/i.test(bill.label);
+  const canAsk = deviceAi !== null && deviceAi !== "available" && pictureBill(bill) && canReread(bill.id);
+
+  async function readWithCloud() {
+    setAsk(null);
+    setBusy(true);
+    setNote(null);
+    try {
+      const next = await cloudReadBill(bill.id);
+      if (!next || next.reading.status !== "ok") setNote(offline() ? t.cloud.offline : t.cloud.billFailed);
+    } catch {
+      setNote(offline() ? t.cloud.offline : t.cloud.billFailed);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <article className={styles.billCard} aria-labelledby={`bill-${bill.id}`}>
       <h2 id={`bill-${bill.id}`} className={styles.billTitle}>
         {t.bills.unreliableTitle}
       </h2>
       <p>{t.bills.unreliableBody}</p>
+      {canAsk ? (
+        <div className={styles.aiOffer}>
+          <p className="meta">{t.cloud.billOffer}</p>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            disabled={busy}
+            onClick={() => setAsk({ kind: "bill", label: bill.label })}
+          >
+            {busy ? t.cloud.working : t.cloud.billOfferButton}
+          </button>
+        </div>
+      ) : null}
+      {note ? (
+        <p role="status" className="meta">
+          {note}
+        </p>
+      ) : null}
+      <CloudConsent ask={ask} onNo={() => setAsk(null)} onYes={readWithCloud} />
       {url ? (
         isPdf ? (
           <p>

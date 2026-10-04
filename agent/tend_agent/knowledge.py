@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from .fmt import UNIT_WORDS, cite_block, cite_link, clean, expense_label, money_short, plural, program_line
+from .fmt import DISCOVERY_NOTE, UNIT_WORDS, cite_block, cite_link, clean, expense_label, money_short, plural, program_line
 from .parse import find_expense, find_topics
 
 CLAIM_PERS = {"claim", "residence", "crime_scene", None, ""}
@@ -219,6 +219,19 @@ def report_note(book: RuleBook | None) -> str:
         return f"{lead} The law counts from the police report, so you may have longer."
     rule = from_report[0]
     return f"{lead} In one case {book.name}'s law counts from the police report instead ({cite_link(cite(rule, book.sources))}): {clean(rule.get('summary'))}"
+
+
+def deadline_notes(flags: Any, book: RuleBook | None) -> str:
+    """The sentences after a deadline for its flags, each after a space, in flag order; "" when there are none. A
+    deadline counted from the report or from discovery is dated from the incident (docs/SPEC.md v1.3), so a late with
+    either flag is never shown as plainly late."""
+    have = {str(f) for f in flags or []}
+    out = ""
+    if "deadline_from_report" in have:
+        out += " " + report_note(book)
+    if "deadline_from_discovery" in have:
+        out += " " + DISCOVERY_NOTE
+    return out
 
 
 def _unknown(book: RuleBook, about: str) -> Answer:

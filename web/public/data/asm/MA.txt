@@ -1,10 +1,10 @@
 ; tend law image MA, Massachusetts
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 0be711d80cbbfe9d51d405ec14235474d8aaf4537159540ebef6438dd58306e0
-; image sha256  659c4eb3de5786cec01dce3e645d7b68ca60e011d509194840038555c8d499e7
+; image sha256  8d4ef3276c373f07d5fa5b7b4029b309fb9845b991902bc159b3937547c1a894
 ; 52 rules, 15 sources, 28 proofs, 6 ints, 297 strings
 ; item program: 191 instructions, 618 bytes, max stack 2
-; aggregate program: 191 instructions, 593 bytes, max stack 3, 6 loops
+; aggregate program: 192 instructions, 595 bytes, max stack 3, 6 loops
 
 .rules
     R0    MA-EXAM-1             exam_no_bill  -                                             MA SANE Protocol, Section X (Victim compensation)
@@ -555,8 +555,9 @@
   01fe        jz       L30
   0203        push     0
   0208        jmp      L31
-  020d  L30:  push     1                            ; late
-  0212  L31:  check    deadline, P25                ; MA-DEAD-1, MA-DEAD-3
+  020d  L30:  push     1
+  0212  L31:  note     deadline_from_discovery
+  0214        check    deadline, P25                ; MA-DEAD-1, MA-DEAD-3
               ; MA-EXAM-7  MA SANE Protocol, Section X (Direct billing process)  "Victim’s Compensation may be used to cover the cost of..."
               ; MA-REPORT-1  M.G.L. c. 258C, s. 2(b)  "Except in the case where the agency finds such report to have..."
               ; MA-REPORT-2  124 CMR 2.05(4)(d)  "Reports to local law enforcement, via a Provider Sexual Crime..."
@@ -564,20 +565,20 @@
               ; MA-REPORT-4  124 CMR 2.05(4)(e)  "Reports to private security personnel, rape crisis centers, or..."
               ; MA-REPORT-5  124 CMR 2.05(5)(b)-(c)  "Good cause for delay shall include delay caused by physical or..."
               ; MA-REPORT-6  124 CMR 2.05(4)(b)  "Crimes involving minor victims may be reported to the Department..."
-  0216        ldx      police_report
-  0218        push     1                            ; yes
-  021d        eq
-  021e        jnz      L33
-  0223        ldx      police_report
-  0225        push     0                            ; no
-  022a        eq
-  022b        jnz      L32
-  0230        push     3
-  0235        jmp      L34
-  023a  L32:  push     1
-  023f        jmp      L34
-  0244  L33:  push     0                            ; satisfied
-  0249  L34:  check    reporting, P26               ; MA-EXAM-7, MA-REPORT-1, MA-REPORT-2, MA-REPORT-3, MA-REPORT-4, MA-REPORT-5, MA-REPORT-6
+  0218        ldx      police_report
+  021a        push     1                            ; yes
+  021f        eq
+  0220        jnz      L33
+  0225        ldx      police_report
+  0227        push     0                            ; no
+  022c        eq
+  022d        jnz      L32
+  0232        push     3
+  0237        jmp      L34
+  023c  L32:  push     1
+  0241        jmp      L34
+  0246  L33:  push     0                            ; satisfied
+  024b  L34:  check    reporting, P26               ; MA-EXAM-7, MA-REPORT-1, MA-REPORT-2, MA-REPORT-3, MA-REPORT-4, MA-REPORT-5, MA-REPORT-6
               ; MA-EXCL-2  124 CMR 2.06(4)(b)  "It does not include compensation for public transportation, or..."
               ; MA-EXCL-3  124 CMR 2.06(5)(f)  "Compensation for mental health counseling may be denied for..."
               ; MA-DEAD-2  124 CMR 2.05(7)(a)  "The three-year filing period shall not commence until the victim..."
@@ -600,6 +601,6 @@
               ; MA-TIME-1  Mass.gov, Applying for Victims of Violent Crime Assistance, 'To apply'  "In general, you will receive a decision 4 to 6 months later."
               ; MA-ACP-1  Secretary of the Commonwealth, Address Confidentiality Program page, introduction  "The Address Confidentiality Program (ACP) protects survivors of..."
               ; MA-RECORDS-1  124 CMR 2.09, Confidentiality of Records  "All information received, obtained or maintained by the Agency..."
-  024d        info     P27                          ; MA-EXCL-2, MA-EXCL-3, MA-DEAD-2, MA-COLL-1, MA-COLL-2, MA-COND-1, MA-COND-2, MA-CRIME-1, MA-CRIME-2, MA-RES-1, MA-RES-2, MA-SUB-1, MA-SUB-2, MA-SUB-3, MA-DOC-1, MA-DOC-2, MA-DOC-3, MA-DOC-4, MA-DOC-5, MA-TIME-1, MA-ACP-1, MA-RECORDS-1
-  0250        ret
+  024f        info     P27                          ; MA-EXCL-2, MA-EXCL-3, MA-DEAD-2, MA-COLL-1, MA-COLL-2, MA-COND-1, MA-COND-2, MA-CRIME-1, MA-CRIME-2, MA-RES-1, MA-RES-2, MA-SUB-1, MA-SUB-2, MA-SUB-3, MA-DOC-1, MA-DOC-2, MA-DOC-3, MA-DOC-4, MA-DOC-5, MA-TIME-1, MA-ACP-1, MA-RECORDS-1
+  0252        ret
 

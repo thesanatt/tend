@@ -7,6 +7,8 @@ import type { ChecklistItem, FilingRoute, Letter, LetterKind } from "@/lib/contr
 import type { EngineOutput } from "@/lib/types";
 import { useI18n, useSummary, type Dict } from "@/lib/i18n";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
+import { localDay } from "@/lib/dates";
+import { paidLines } from "../claim";
 import Cite from "../Cite";
 import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
@@ -135,6 +137,7 @@ export default function PacketScreen() {
 
   const eligible = output?.lines.filter((l) => l.status === "eligible" && l.allowed_cents > 0) ?? [];
   const items = new Map(state.items.map((i) => [i.item_id, i]));
+  const paid = paidLines(state);
   const program = law.law?.program;
   const have = (c: ChecklistItem) => state.have[`${c.document}:${c.rule_id}`] ?? c.have_it;
 
@@ -228,6 +231,11 @@ export default function PacketScreen() {
                             {t.expense[l.expense]}
                             {it && it.origin !== "bill" ? `, ${f.date(it.date, "short")}` : ""}
                           </span>
+                          {paid.has(l.item_id) ? (
+                            <span className={styles.sub}>
+                              {t.packet.paidNote(f.date(localDay(paid.get(l.item_id)!.at)), paid.get(l.item_id)!.to)}
+                            </span>
+                          ) : null}
                           {/* The law sits under its cost, so two columns fit a narrow phone. */}
                           <Cite
                             ruleIds={[...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]}
@@ -307,7 +315,7 @@ export default function PacketScreen() {
               ))}
               {program?.phone ? (
                 <li>
-                  <span className={styles.method}>{t.methods.phone}</span>
+                  <span className={styles.method}>{t.packet.questionsPhone}</span>
                   <a href={`tel:${program.phone.replace(/[^\d+]/g, "")}`}>{program.phone}</a>
                 </li>
               ) : null}

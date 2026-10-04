@@ -34,6 +34,7 @@ const plain = (c: Classification): Plain => ({
   linked_refs: c.linked_refs.map((r) => r.replace(/^nessie:/, "")),
 });
 
+// SPEC v1.2 item shape included: a typed unit, how many, and tags.
 const ITEM_KEYS = [
   "item_id",
   "date",
@@ -42,6 +43,8 @@ const ITEM_KEYS = [
   "confirmed",
   "is_bill",
   "units",
+  "unit",
+  "tags",
   "description",
   "confidence",
   "reason",
@@ -101,11 +104,12 @@ describe.each(parity.personas)("$persona_id", (p) => {
     expect(createHash("sha256").update(raw).digest("hex")).toBe(p.sha256);
   });
 
+  // Lost pay from short paychecks is part of the API's v1.2 classification, so it runs here too.
   async function run(snap: unknown, withModel: boolean) {
     if (withModel) install(modelFromCache());
     const { txns, warnings } = fromNessieRelay(snap);
     expect(warnings).toEqual([]);
-    return classifyDetailed(txns, ctx, { deviceAi: withModel, payDips: false });
+    return classifyDetailed(txns, ctx, { deviceAi: withModel });
   }
 
   type Expected = {

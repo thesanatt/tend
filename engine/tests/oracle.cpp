@@ -308,13 +308,17 @@ json evaluate(const json& law, const json& input) {
       int64_t d = incident + *r.num("days");
       if (!best || d > *best) best = d;
     }
-    bool from_report = false;
+    bool from_report = false, from_discovery = false;
     for (const Rule& r : rules) {
-      if (r.kind == "deadline" && r.r.value("from", "crime") == "report") from_report = true;
+      if (r.kind != "deadline") continue;
+      std::string from = r.r.value("from", "crime");
+      from_report = from_report || from == "report";
+      from_discovery = from_discovery || from == "discovery";
     }
     tr("deadline", nullptr, first(all), 0);
     json flags = json::array();
     if (from_report) flags.push_back("deadline_from_report");
+    if (from_discovery) flags.push_back("deadline_from_discovery");
     checks["deadline"] = {{"status", !best ? "unknown" : as_of <= *best ? "ok" : "late"},
                           {"deadline_date", best ? json(date_str(*best)) : json(nullptr)},
                           {"rule_ids", all},

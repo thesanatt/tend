@@ -1,3 +1,4 @@
+import { en } from "./i18n/en";
 import type { EngineChecks, LineStatus } from "./types";
 
 export interface StatusCopy {
@@ -53,6 +54,22 @@ export const DEADLINE: CheckCopy = {
   late: { label: "Past the deadline", tone: "warn" },
   unknown: { label: "Ask the program", tone: "neutral" },
 };
+
+// A deadline counted from the report or from discovery is dated from the incident, so the true date may
+// be later and a late may not be late (docs/SPEC.md v1.3): never shown as plainly late.
+export function deadlineNotes(c: Pick<EngineChecks["deadline"], "flags">): string[] {
+  const flags = c.flags ?? [];
+  const notes: string[] = [];
+  if (flags.includes("deadline_from_report")) notes.push(en.check.deadlineFromReport);
+  if (flags.includes("deadline_from_discovery")) notes.push(en.check.deadlineFromDiscovery);
+  return notes;
+}
+
+export function deadlineCopy(c: EngineChecks["deadline"]) {
+  return c.status === "late" && deadlineNotes(c).length
+    ? { label: "May have more time", tone: "neutral" as const }
+    : checkCopy(DEADLINE, c.status);
+}
 
 export const MINIMUM_LOSS: CheckCopy = {
   met: { label: "Met", tone: "good" },

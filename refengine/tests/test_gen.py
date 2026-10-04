@@ -59,7 +59,10 @@ def test_generator_reaches_every_status_cap_check_and_flag():
             out = evaluate(law, data)
             ops.update(t["op"] for t in out["trace"])
             checks.update(f"{name}:{c['status']}" for name, c in out["checks"].items())
-            paths.update(out["checks"]["deadline"]["flags"])
+            deadline = out["checks"]["deadline"]
+            paths.update(deadline["flags"])
+            paths["both_deadline_flags"] += len(deadline["flags"]) == 2
+            paths["late_from_discovery"] += deadline["status"] == "late" and "deadline_from_discovery" in deadline["flags"]
             items = {it["item_id"]: it for it in data["items"]}
             for line in out["lines"]:
                 it = items[line["item_id"]]
@@ -76,7 +79,8 @@ def test_generator_reaches_every_status_cap_check_and_flag():
                   "minimum_loss:waived", "minimum_loss:may_be_waived", "minimum_loss:unknown", "reporting:satisfied",
                   "reporting:required", "reporting:not_required", "reporting:unknown"):
         assert checks[check] > 0, check
-    for path in ("deadline_from_report", "exam_as_medical", "unit_mismatch", "unit_missing"):
+    for path in ("deadline_from_report", "deadline_from_discovery", "both_deadline_flags", "late_from_discovery",
+                 "exam_as_medical", "unit_mismatch", "unit_missing"):
         assert paths[path] > 0, path
 
 

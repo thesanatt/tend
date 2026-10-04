@@ -3,8 +3,8 @@
 Each claim is aimed at the law it runs against: amounts land under, on, and over its caps; items
 count the units its per-unit caps measure (and sometimes other units, or none); count limits get
 used up; tags hit its exclusions; lost-wage days and totals land on both sides of its minimum
-loss rules; and the as-of date sits on both sides of every filing deadline, report-anchored ones
-included. A slice of claims is then broken on purpose (bad values, repeated keys, malformed
+loss rules; and the as-of date sits on both sides of every filing deadline, ones counted from the
+report or from discovery included. A slice of claims is then broken on purpose (bad values, repeated keys, malformed
 text) so the two engines are compared on the inputs they refuse too. Descriptions are generic
 and fictional.
 """
@@ -222,8 +222,9 @@ def _incident_date(rng: random.Random) -> date:
 def _as_of_date(rng: random.Random, incident: date, law: Law) -> date:
     r = rng.random()
     if r < 0.25 and law.deadlines:
-        # On, just before, or just after a deadline (report-anchored ones are dated from the incident).
-        rule = rng.choice(law.deadlines)
+        # On, just before, or just after a deadline: any one, or the latest, which decides ok or late.
+        # Periods counted from the report or from discovery are dated from the incident too.
+        rule = rng.choice(law.deadlines) if rng.random() < 0.5 else max(law.deadlines, key=lambda d: d.days)
         try:
             return incident + timedelta(days=rule.days + rng.choice((-1, 0, 0, 1)))
         except OverflowError:

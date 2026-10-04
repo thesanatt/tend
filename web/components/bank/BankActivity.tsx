@@ -308,7 +308,7 @@ export default function BankActivity({ api = bankApi }: { api?: BankApi }) {
         return;
       }
       // Recorded once the request leaves the device, whatever the bank answers.
-      if (!state.sent.some((e) => e.kind === "bank")) logSent({ kind: "bank" });
+      if (!state.sent.some((e) => e.kind === "bank")) logSent({ kind: "bank", ref: "bank" });
       const data = await api.activity(persona);
       setView({ status: "ready", data });
     } catch (e) {

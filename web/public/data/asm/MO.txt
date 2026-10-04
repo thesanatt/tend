@@ -1,10 +1,10 @@
 ; tend law image MO, Missouri
-; format 1.2, compiled by tendc 1.2.0
+; format 1.3, compiled by tendc 1.3.0
 ; source sha256 7ebc1144d4f9bbc9b1a5dd577ddce33b87192057cfd62ffdfcd32f9a8025eb32
-; image sha256  183dd4f9d7fbeb5d12d5c37125431e1320f208fbc7d4884bb040f7f240140176
+; image sha256  c006a7f089e6813538e89fd7504f913b8786ebb72a85dec946c6fea285e7c4b6
 ; 39 rules, 20 sources, 20 proofs, 3 ints, 251 strings
 ; item program: 127 instructions, 448 bytes, max stack 2
-; aggregate program: 108 instructions, 345 bytes, max stack 3, 3 loops
+; aggregate program: 109 instructions, 347 bytes, max stack 3, 3 loops
 
 .rules
     R0    MO-EXAM-1             exam_no_bill  -                                             Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section
@@ -22,7 +22,7 @@
     R12   MO-EXCL-3             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
     R13   MO-EXCL-4             excluded      tuition                                       CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
     R14   MO-EXCL-5             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R15   MO-DEAD-1             deadline      -                     from crime              RSMo 595.025.2
+    R15   MO-DEAD-1             deadline      -                     from discovery          RSMo 595.025.2
     R16   MO-REP-1              reporting     -                                             RSMo 595.030.1
     R17   MO-REP-2              reporting     -                                             RSMo 595.030.1
     R18   MO-COLL-1             collateral    -                                             RSMo 595.035.2
@@ -365,26 +365,27 @@
   00ff        jz       L15
   0104        push     0
   0109        jmp      L16
-  010e  L15:  push     1                            ; late
-  0113  L16:  check    deadline, P17                ; MO-DEAD-1
+  010e  L15:  push     1
+  0113  L16:  note     deadline_from_discovery
+  0115        check    deadline, P17                ; MO-DEAD-1
               ; MO-REP-1  RSMo 595.030.1  "In the case of a sexual offense, filing a report of the offense..."
               ; MO-REP-2  RSMo 595.030.1  "In lieu of other records the claimant may provide a sworn..."
-  0117        ldx      police_report
-  0119        push     1                            ; yes
-  011e        eq
-  011f        jnz      L18
-  0124        ldx      forensic_exam
-  0126        jnz      L18
-  012b        ldx      police_report
-  012d        push     0                            ; no
-  0132        eq
-  0133        jnz      L17
-  0138        push     3
-  013d        jmp      L19
-  0142  L17:  push     1
-  0147        jmp      L19
-  014c  L18:  push     0                            ; satisfied
-  0151  L19:  check    reporting, P18               ; MO-REP-1, MO-REP-2
+  0119        ldx      police_report
+  011b        push     1                            ; yes
+  0120        eq
+  0121        jnz      L18
+  0126        ldx      forensic_exam
+  0128        jnz      L18
+  012d        ldx      police_report
+  012f        push     0                            ; no
+  0134        eq
+  0135        jnz      L17
+  013a        push     3
+  013f        jmp      L19
+  0144  L17:  push     1
+  0149        jmp      L19
+  014e  L18:  push     0                            ; satisfied
+  0153  L19:  check    reporting, P18               ; MO-REP-1, MO-REP-2
               ; MO-EXCL-3  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Rent/Mortgage/Utilities"
               ; MO-EXCL-5  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Food/Clothing Costs"
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
@@ -408,6 +409,6 @@
               ; MO-DOC-SUPPORT  CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims  "If you are applying for loss of support, please provide a copy..."
               ; MO-ACP-1  RSMo 589.663 (preamble)  "There is created in the office of the secretary of state a..."
               ; MO-REC-1  RSMo 595.037.1(2)  "A claim in which the offense allegedly perpetrated against the..."
-  0155        info     P19                          ; MO-EXCL-3, MO-EXCL-5, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1
-  0158        ret
+  0157        info     P19                          ; MO-EXCL-3, MO-EXCL-5, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1
+  015a        ret
 

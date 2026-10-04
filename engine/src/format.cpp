@@ -83,8 +83,8 @@ constexpr std::string_view kItemFields[IF_COUNT] = {"date",    "amount_cents", "
                                                     "is_bill", "units",        "tags",    "unit"};
 constexpr std::string_view kUnits[UNIT_COUNT] = {"", "session", "week", "hour", "mile", "day", "month", "item"};
 constexpr std::string_view kAnchors[FROM_COUNT] = {"crime", "incident", "discovery", "injury", "offense", "report"};
-constexpr std::string_view kNotes[CN_COUNT] = {"deadline_from_report"};
-constexpr uint8_t kNoteCheck[CN_COUNT] = {CK_DEADLINE};
+constexpr std::string_view kNotes[CN_COUNT] = {"deadline_from_report", "deadline_from_discovery"};
+constexpr uint8_t kNoteCheck[CN_COUNT] = {CK_DEADLINE, CK_DEADLINE};
 
 std::string_view pick(const std::string_view* table, size_t n, size_t i) {
   return i < n ? table[i] : std::string_view("?");

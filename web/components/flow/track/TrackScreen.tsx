@@ -5,13 +5,13 @@ import BankActivity from "@/components/bank/BankActivity";
 import PayoutDemo, { DemoPaidNote, isDemoPaid } from "@/components/bank/PayoutDemo";
 import Money from "@/components/Money";
 import Plant from "@/components/Plant";
-import { addDays } from "@/lib/dates";
+import { addDays, localDay } from "@/lib/dates";
 import { moneyGrowth } from "@/lib/garden";
 import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
 import { buildCheckSummary } from "../checkSummary";
 import { useSetAside } from "../useSetAside";
-import { GROUPS, groupOf, knowsDate, plants, type PlantView, type Stage } from "../claim";
+import { GROUPS, groupOf, knowsDate, paidLines, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
 
@@ -71,10 +71,12 @@ function NextStep({ plant, t }: { plant: PlantView; t: Dict }) {
     );
   }
   if (plant.stage === "leaf") {
+    const paid = paidLines(state).get(id);
     return (
       <p className={styles.plantHint}>
         {life.doc ? <span className={styles.docName}>{t.track.attached(life.doc)}</span> : null}
         {plant.item.origin === "bill" && !life.doc ? <span className={styles.billDoc}>{t.track.billIsDoc}</span> : null}
+        {paid ? <span className={styles.billDoc}>{t.track.youPaid(f.date(localDay(paid.at), "short"))}</span> : null}
         {t.track.budsWhen}
       </p>
     );
@@ -142,15 +144,25 @@ export default function TrackScreen() {
         <p className="lead">{t.track.lead}</p>
       </header>
 
-      <p className={styles.deadlineBar} data-late={deadline?.late || undefined}>
+      {/* A late deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3):
+          it is explained, never shown as plainly late. */}
+      <p
+        className={styles.deadlineBar}
+        data-late={(deadline?.late && !deadline.fromReport && !deadline.fromDiscovery) || undefined}
+      >
         <strong>
           {deadline
             ? deadline.late
               ? t.check.deadlineLate(f.date(deadline.date))
               : t.check.deadlineDate(f.date(deadline.date))
-            : t.track.deadlineAsk}
+            : summary
+              ? t.track.deadlineAsk
+              : // The law and the claim are still loading; "ask the program" would be wrong for a moment.
+                t.engine.computing}
         </strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
+        {deadline?.fromReport ? <span className={styles.deadlineNote}>{t.check.deadlineFromReport}</span> : null}
+        {deadline?.fromDiscovery ? <span className={styles.deadlineNote}>{t.check.deadlineFromDiscovery}</span> : null}
       </p>
 
       <p className={styles.tallyLine}>

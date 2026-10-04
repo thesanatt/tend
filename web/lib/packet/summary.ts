@@ -1,9 +1,10 @@
 // The cited summary PDF: every line with its amount, transaction, rule pinpoint, verbatim quote,
 // and link; held lines with the exam billing law; the totals; what is still needed; where to
 // file; and the protections that keep the survivor's address and file private.
-import type { ChecklistItem, FilingRoute, Letter } from "../contracts";
-import { formatDay, isIsoDay } from "../dates";
+import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
+import { formatDay, isIsoDay, localDay } from "../dates";
 import { expenseLabel, expenseRank } from "../expenses";
+import { en } from "../i18n/en";
 import { formatCents } from "../money";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, LineStatus, Rule } from "../types";
 import { METHOD_LABEL, privacyNotes } from "./filing";
@@ -19,6 +20,17 @@ export interface SummaryInput {
   filing: FilingRoute[];
   letters: Letter[];
   form: FormSpec | null;
+  // Bill providers and payments made through Tend, by item id (lib/contracts.ts PacketLineInfo).
+  lines?: Record<string, PacketLineInfo>;
+}
+
+// "Paid on October 3, 2026 from Checking 0011 to Riverbend General Hospital, through Tend."
+export function paidNote(paid: NonNullable<PacketLineInfo["paid"]>): string {
+  const day = localDay(paid.at);
+  const when = isIsoDay(day) ? ` on ${formatDay(day)}` : "";
+  const from = paid.from.trim() ? ` from ${paid.from.trim()}` : "";
+  const to = paid.to.trim() ? ` to ${paid.to.trim()}` : "";
+  return `You paid this${when}${from}${to}, through Tend. It is money you spent, not an unpaid bill.`;
 }
 
 const ORDER: LineStatus[] = ["eligible", "held", "needs_confirmation", "excluded", "unknown_rule", "out_of_window"];
@@ -92,6 +104,8 @@ class Writer {
   }
 }
 
+const DISCOVERY_NOTE = en.check.deadlineFromDiscovery;
+
 function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
   const { law, pdf } = w;
   const { deadline, reporting, minimum_loss } = output.checks;
@@ -157,12 +171,14 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     pdf.rule("line", 0.4);
     pdf.space(6);
   }
-  const fromReport = (output.checks.deadline as { flags?: string[] }).flags?.includes("deadline_from_report");
-  if (fromReport) {
+  // A deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3).
+  const flags = output.checks.deadline.flags ?? [];
+  if (flags.includes("deadline_from_report")) {
     w.small(
       "The deadline is measured from the date it happened. The law counts from your report, so you may have longer.",
     );
   }
+  if (flags.includes("deadline_from_discovery")) w.small(DISCOVERY_NOTE);
 }
 
 interface Group {
@@ -195,8 +211,9 @@ function groupRules(law: LawBook, lines: EngineLine[]): Rule[] {
   return ids.map((id) => law.rule(id)).filter((r): r is Rule => !!r);
 }
 
-function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined): string[] {
+function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined, info?: PacketLineInfo): string[] {
   const notes: string[] = [];
+  if (info?.paid) notes.push(paidNote(info.paid));
   const pin = (id: string) => law.rule(id)?.pinpoint ?? id;
   // The engine subtracts insurance (step 6) only under a collateral source rule, and never below
   // zero, so the note shows what was taken off, not what the insurer paid in total.
@@ -228,7 +245,7 @@ function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined)
   return notes;
 }
 
-function linesSection(w: Writer, input: EngineInput, output: EngineOutput) {
+function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info: Record<string, PacketLineInfo> = {}) {
   const { law, pdf } = w;
   const items = new Map(input.items.map((i) => [i.item_id, i]));
   w.h2("Every cost and the law behind it");
@@ -307,7 +324,7 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput) {
     header();
     for (const line of g.lines) {
       const item = items.get(line.item_id);
-      const notes = lineNotes(law, line, item);
+      const notes = lineNotes(law, line, item, info[line.item_id]);
       if (!shared && line.rule_ids.length) {
         notes.unshift(`Rules: ${line.rule_ids.map((id) => law.rule(id)?.pinpoint ?? id).join("; ")}`);
       }
@@ -580,7 +597,7 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
   w.p(parts.join(" "), "ink2");
 
   checksSection(w, input, output);
-  linesSection(w, input, output);
+  linesSection(w, input, output, s.lines);
   neededSection(w, output, s.stillNeeded, s.form);
   filingSection(w, s.filing);
   privacySection(w);

@@ -2,7 +2,7 @@
  "ir_version": 2,
  "jurisdiction": "MT",
  "source_sha256": "4bd25991fd25c229b72d87000aa0ea36a5320ff21fbff1e3a0601a3dff6b0bac",
- "ir_sha256": "de720c6bc74ca78f4dfdb85bd63b0953134271821703f3a199ffbbf23f25dba6",
+ "ir_sha256": "62c41f4c84155f11624fed0449b23e052c8c9310e952a438bd2b263294cbd2b5",
  "fresh": true,
  "rules": [
   {
@@ -33,13 +33,6 @@
    "id": "MT-CAP-1",
    "kind": "total_cap",
    "cap_cents": 2500000
-  },
-  {
-   "id": "MT-CAP-2",
-   "kind": "expense_cap",
-   "expense": "counseling",
-   "cap_cents": 500000,
-   "per": "claim"
   },
   {
    "id": "MT-CAP-3",
@@ -211,5 +204,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "MT-CAP-2",
+   "category": "expense_cap",
+   "reason": "applies_to \"secondary_victims\""
+  }
+ ]
 }

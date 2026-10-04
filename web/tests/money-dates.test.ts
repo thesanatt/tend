@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addDays, addYears, describeSpan, formatDay, isIsoDay, todayIso } from "@/lib/dates";
+import { addDays, addYears, describeSpan, formatDay, isIsoDay, localDay, todayIso } from "@/lib/dates";
 import { assertCents, formatCents, formatCentsShort, parseDollars, sumCents } from "@/lib/money";
 
 describe("money", () => {
@@ -58,5 +58,22 @@ describe("dates", () => {
     expect(formatDay("2026-06-14")).toBe("June 14, 2026");
     expect(formatDay("2026-06-14", "short")).toBe("Jun 14");
     expect(todayIso(new Date(2026, 9, 3, 23, 59))).toBe("2026-10-03");
+  });
+});
+
+describe("a payment's day", () => {
+  it("is the day on this device, not the UTC day of the timestamp", () => {
+    const before = process.env.TZ;
+    process.env.TZ = "America/Detroit";
+    try {
+      // 9:20 PM in Michigan on October 3 is already October 4 in UTC.
+      expect(localDay("2026-10-04T01:20:00Z")).toBe("2026-10-03");
+      expect(localDay("2026-10-04T16:30:00.000Z")).toBe("2026-10-04");
+      expect(localDay("2026-10-03")).toBe("2026-10-03");
+      expect(localDay("not a time")).toBe("not a time");
+    } finally {
+      if (before === undefined) delete process.env.TZ;
+      else process.env.TZ = before;
+    }
   });
 });

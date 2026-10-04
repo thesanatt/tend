@@ -1,4 +1,4 @@
-"""Compile verified jurisdiction files into the canonical law IR both engines read (docs/SPEC.md v1.1).
+"""Compile verified jurisdiction files into the canonical law IR both engines read (docs/SPEC.md v1.1 to v1.3).
 
 usage: python3 rules/tools/normalize.py [ST ...]   (default: every file in rules/verified)
 writes rules/ir/ST.json and prints a one-line summary per jurisdiction.
@@ -11,6 +11,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 VICTIM_WORDS = ("victim", "claimant", "survivor", "applicant")
+# People other than the survivor, even when the words sit next to "victim": "secondary victims",
+# "associated victims" (WY), "derivative victims", "family members of the victim".
+OTHER_PERSON_WORDS = ("family", "parent", "secondary", "associated", "derivative")
 PER_CLAIM = {"claim", "residence", "crime_scene", "incident", "lifetime"}
 PER_UNIT = {"week", "session", "hour", "mile", "day", "month", "item"}
 TAG_WORDS = [
@@ -24,13 +27,56 @@ TAG_WORDS = [
 SA_WORDS = ("sexual", "forensic", "criminal sexual conduct", "sexual_assault", "forensic_exam")
 INFO_CATEGORIES = {"conduct_reduction", "emergency_award", "eligible_crime", "residency", "submission", "required_document", "processing_time", "address_confidentiality", "record_confidentiality"}
 
+# Deadlines the researcher dated from the crime whose own quote also lets the period start at
+# discovery ("after the occurrence or discovery of the crime", "whichever is later"). Discovery is
+# never before the crime, so these count from discovery: the engines date them from the incident
+# (the earliest discovery can be) and flag deadline_from_discovery, so a late date is never shown as
+# plainly late (docs/SPEC.md v1.3). The words must still be in the quote, or normalize stops.
+DISCOVERY_ALTERNATIVES = {
+    "CA-DEADLINE-1": "could have discovered that an injury or death had been sustained as a direct result of crime, whichever is later",
+    "IA-DEADLINE-1": "the date of the crime, the discovery of the crime",
+    "MN-DEADLINE-1": "within three years of the time when the injury or death is reasonably discoverable",
+    "MO-DEAD-1": "the occurrence of the crime or the discovery of the crime",
+    "NY-DEADLINE-1": "three years after the occurrence or discovery of the crime",
+    # Discovery by law enforcement that the occurrence was a crime; the latest event starts the 180 days.
+    "SC-DEAD-1": "the discovery by the law enforcement agency that the occurrence was the result of crime",
+}
+# Deadline quotes that speak of discovery for a different period than the rule's own (reviewed).
+DISCOVERY_ELSEWHERE = {
+    "ME-DEAD-1": "its 3 years run from the injury; the 60 days from discovery in the same quote are ME-DEAD-2",
+}
+
+# Caps whose own quote describes something other than the program's limit on the survivor's cost:
+# an expedited approval, an emergency payment made apart from the award, or an initial award.
+# "info" lists the rule without applying it; "no_count_limit" keeps the rate but not the count.
+# The words must still be in the quote, or normalize stops.
+NOT_PROGRAM_CAPS = {
+    # Work interruption claims (State Plan 400.7): a Compensation Officer may approve up to 10
+    # working days, $700 at $70 a day, on their own. Longer absences are paid under 400.8, which
+    # NV-CAP-WAGE-1 and -2 carry ($350 a week, 52 weeks, $18,200). As a cap it cut a 15-day claim to $700.
+    "NV-CAP-WAGE-3": ("info", "A Compensation Officer may approve lost wage or income reimbursement claims"),
+    # Emergency medical care (art. 56A.305): the Attorney General's own payment for care given at the
+    # exam, made apart from the award. It is not a limit on the survivor's medical costs, which only
+    # the $50,000 total (TX-CAP-1) limits.
+    "TX-EXAM-3": ("info", "A payment made under Subsection (a) may not exceed $25,000."),
+    # An initial award: more therapy is considered with a treatment plan (the same page, "If
+    # Requesting Additional Therapy Above Initial Award"). The $200 a session rate stays.
+    "AK-COUNSEL-1": ("no_count_limit", "Initial maximum award is 24 sessions."),
+}
+
+
+def quote_says(rule: dict, words: str) -> None:
+    if words not in rule.get("quote", ""):
+        raise ValueError(f"{rule['id']}: the quote no longer says {words!r}; review this rule in rules/tools/normalize.py")
+
 
 def applies_to_someone_else(params: dict) -> str | None:
     who = params.get("applies_to")
     if not who:
         return None
     text = json.dumps(who).lower()
-    return None if any(w in text for w in VICTIM_WORDS) and "family" not in text and "parent" not in text else text
+    names_survivor = any(w in text for w in VICTIM_WORDS) and not any(w in text for w in OTHER_PERSON_WORDS)
+    return None if names_survivor else text
 
 
 def tags_for(item: str) -> list[str]:
@@ -80,6 +126,12 @@ def normalize(st: str) -> dict:
         if p.get("scope") and cat in ("reporting_requirement", "expense_cap"):
             out.append({"id": r["id"], "kind": "info", "category": cat})
             continue
+        how = NOT_PROGRAM_CAPS.get(r["id"])
+        if how:
+            quote_says(r, how[1])
+            if how[0] == "info":
+                out.append({"id": r["id"], "kind": "info", "category": cat})
+                continue
         if cat == "exam_no_bill":
             out.append({"id": r["id"], "kind": "exam_no_bill"})
         elif cat == "exam_payment":
@@ -101,7 +153,7 @@ def normalize(st: str) -> dict:
             else:
                 skip(r, f"unknown per '{per}'")
                 continue
-            if p.get("count_limit"):
+            if p.get("count_limit") and not (how and how[0] == "no_count_limit"):
                 ir["count_limit"] = int(p["count_limit"])
             out.append(ir)
         elif cat == "covered_expense":
@@ -126,6 +178,9 @@ def normalize(st: str) -> dict:
         elif cat == "filing_deadline":
             days = deadline_days(p)
             start = str(p.get("from") or "crime").lower()
+            if r["id"] in DISCOVERY_ALTERNATIVES:
+                quote_says(r, DISCOVERY_ALTERNATIVES[r["id"]])
+                start = "discovery"
             if days and start in ("crime", "incident", "discovery", "injury", "offense", "report"):
                 out.append({"id": r["id"], "kind": "deadline", "days": days, "from": start})
             else:
