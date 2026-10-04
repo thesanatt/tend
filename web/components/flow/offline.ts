@@ -5,7 +5,32 @@
 // only). Then it tells the worker which files this page loaded before the worker was in charge, and
 // loads the PDF reader once, so a statement or a bill can still be read offline. When all of that is
 // saved, <html data-offline="ready"> says so (the end-to-end tests wait for it).
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
+
+// Whether this device has what it needs to run the flow offline, and whether it is offline now.
+// The footer says both, so the presenter (and the survivor) can see it.
+let ready = false;
+const watchers = new Set<() => void>();
+function markReady() {
+  ready = true;
+  for (const fn of watchers) fn();
+}
+function subscribe(fn: () => void) {
+  watchers.add(fn);
+  window.addEventListener("online", fn);
+  window.addEventListener("offline", fn);
+  return () => {
+    watchers.delete(fn);
+    window.removeEventListener("online", fn);
+    window.removeEventListener("offline", fn);
+  };
+}
+export type OfflineStatus = "online" | "ready" | "offline";
+const snapshot = (): OfflineStatus => (navigator.onLine === false ? "offline" : ready ? "ready" : "online");
+
+export function useOfflineStatus(): OfflineStatus {
+  return useSyncExternalStore(subscribe, snapshot, () => "online");
+}
 
 export const SW_URL = "/sw.js";
 // Every step, so moving between them works offline without a reload (a reload would clear what is
@@ -60,7 +85,10 @@ async function prepare(signal: { cancelled: boolean }, router: () => RouterLike 
   });
   reg.active.postMessage({ type: "tend-files", urls });
   await answered;
-  if (!signal.cancelled) document.documentElement.dataset.offline = "ready";
+  if (!signal.cancelled) {
+    document.documentElement.dataset.offline = "ready";
+    markReady();
+  }
 }
 
 export function useOfflineReady(router?: RouterLike): void {

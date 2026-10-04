@@ -2,12 +2,14 @@
 
 import { useI18n } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
+import { useOfflineStatus } from "./offline";
 import styles from "./shell.module.css";
 
 export default function AppFooter() {
   const { t } = useI18n();
   const { claim } = useFlow();
   const backend = claim.evaluation?.backend;
+  const offline = useOfflineStatus();
   return (
     <footer className={`${styles.footer} no-print`}>
       <div className={`page ${styles.footerInner}`}>
@@ -19,6 +21,11 @@ export default function AppFooter() {
         {backend ? (
           <p className="meta" title={claim.evaluation?.detail}>
             {backend === "wasm" ? t.engine.onDevice : t.engine.onServer}
+          </p>
+        ) : null}
+        {offline !== "online" ? (
+          <p className="meta" role="status">
+            {offline === "offline" ? t.engine.offlineNow : t.engine.offlineReady}
           </p>
         ) : null}
       </div>

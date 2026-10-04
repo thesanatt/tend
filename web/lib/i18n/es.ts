@@ -99,6 +99,9 @@ export const es: Dict = {
   engine: {
     onDevice: "Cálculo de la ley: en este dispositivo (WebAssembly)",
     onServer: "Cálculo de la ley: en el servidor de Tend, con tu permiso",
+    offlineReady: "Guardado en este dispositivo, así que los pasos funcionan sin internet.",
+    offlineNow:
+      "No tienes conexión. Todos los pasos siguen funcionando aquí. Los pagos y los enlaces para compartir esperan a que haya internet.",
     computing: "Revisando la ley en este dispositivo",
     error: "Tend no pudo revisar la ley en este momento.",
     consentTitle: "¿Revisar en el servidor de Tend?",

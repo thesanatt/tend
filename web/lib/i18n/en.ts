@@ -122,6 +122,8 @@ export const en = {
   engine: {
     onDevice: "Law math: on this device (WebAssembly)",
     onServer: "Law math: on Tend's server, with your OK",
+    offlineReady: "Saved on this device, so the steps work without internet.",
+    offlineNow: "You are offline. Every step still works here. Payments and share links wait for the internet.",
     computing: "Checking the law on this device",
     error: "Tend could not check the law right now.",
     consentTitle: "Check on Tend's server instead?",

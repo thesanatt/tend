@@ -204,6 +204,7 @@ def test_offline_survivor_path(stack: Stack, browser: Browser) -> None:
         with step("offline", "First visit, saved for offline"):
             page.goto("/check?demo=rowan")
             expect(page.locator("html[data-offline=ready]")).to_have_count(1, timeout=90_000)
+        expect(page.get_by_text("Saved on this device, so the steps work without internet.")).to_be_visible()
 
         stack.stop_web()
         stack.stop_api()
@@ -214,6 +215,7 @@ def test_offline_survivor_path(stack: Stack, browser: Browser) -> None:
                 expect(page.get_by_text("File by June 14, 2031.")).to_be_visible()
             assert page.evaluate("navigator.onLine") is False
             expect(page.get_by_text("Law math: on this device (WebAssembly)")).to_be_visible()
+            expect(page.get_by_text("You are offline. Every step still works here.", exact=False)).to_be_visible()
 
             gather(page, "offline")
             bills(page, "offline")
