@@ -599,6 +599,9 @@ export const en = {
     wholeDollars:
       "The demo bank only takes whole-dollar payments, so Tend can't pay this amount from here. You can leave it unpaid and claim it.",
     notDemoAccount: "The bank here only takes payments from the demo account. Nothing was sent.",
+    alreadyPaid:
+      "The bank already shows a payment from Tend for these lines of this bill, so nothing was sent this time. Your bank records show it.",
+    billRefused: "This amount does not match what is still payable on the bank's copy of this bill. Nothing was sent.",
     codeWrong: "That code does not match. Check the six digits and try again.",
     codeExpired: "This code has expired or was already used. Get a new code to try again.",
     codeLocked: "Too many wrong codes, so this one is locked. Get a new code to try again.",

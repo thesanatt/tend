@@ -38,6 +38,9 @@ export function classifyRequest(method: string, url: URL, origin: string): NetKi
   const m = method.toUpperCase();
   if (url.origin !== origin) return m === "GET" && url.protocol === "data:" ? null : "other";
   const p = url.pathname;
+  // The program's demo payout on Track (components/bank/PayoutDemo) reports itself as a payment
+  // before it goes, whatever the bank answers; undoing it sends only the persona's id.
+  if (/^\/api\/bank\/[^/]+\/payout$/.test(p) && (m === "POST" || m === "DELETE")) return null;
   if (m === "GET" || m === "HEAD") return p.startsWith("/api/bank/") ? "bank" : null;
   if (m === "DELETE" && p.startsWith("/api/shares/")) return null; // stopping a link sends only its id
   if (m !== "POST") return "other";

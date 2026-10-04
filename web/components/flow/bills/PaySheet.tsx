@@ -75,14 +75,20 @@ export function proposeProblem(e: unknown, t: Dict): string {
   const status = statusOf(e);
   if (status === 422) return t.pay.wholeDollars;
   if (status === 403) return t.pay.notDemoAccount;
+  // The bank's copy of the bill refused it: already paid by Tend, or an amount that would touch a held line.
+  if (status === 409) return alreadyPaid(e) ? t.pay.alreadyPaid : t.pay.billRefused;
   return t.pay.prepareFailed;
 }
+
+// The API's one refusal that means "this was paid before" (api/tend_api/payments.py already_paid_message).
+const alreadyPaid = (e: unknown) => /^Tend already paid /.test((e as Error | null)?.message ?? "");
 
 // Why a confirm failed, and what the sheet can offer next.
 export function confirmProblem(e: unknown, t: Dict): { text: string; phase: "ready" | "dead" | "unsure" } {
   const status = statusOf(e);
   // A wrong code: the demo answers 400, the API 403. The same code can be typed again.
   if (status === 400 || status === 403) return { text: t.pay.codeWrong, phase: "ready" };
+  if (status === 409 && alreadyPaid(e)) return { text: t.pay.alreadyPaid, phase: "dead" };
   if (status === 410 || status === 409) return { text: t.pay.codeExpired, phase: "dead" };
   if (status === 423) return { text: t.pay.codeLocked, phase: "dead" };
   // Any other refusal from the service came before the bank was asked.

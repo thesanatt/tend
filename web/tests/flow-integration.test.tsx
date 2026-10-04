@@ -302,6 +302,10 @@ describe("the net log behind the privacy line", () => {
     expect(classifyRequest("POST", u("/api/ai/bill"), origin)).toBe("cloud_bill");
     expect(classifyRequest("POST", u("/api/claim"), origin)).toBe("server_engine");
     expect(classifyRequest("DELETE", u("/api/shares/abc12345"), origin)).toBeNull();
+    // Track's demo payout reports itself (components/bank/PayoutDemo), so it is not counted twice.
+    expect(classifyRequest("POST", u("/api/bank/rowan-mi/payout"), origin)).toBeNull();
+    expect(classifyRequest("DELETE", u("/api/bank/rowan-mi/payout"), origin)).toBeNull();
+    expect(classifyRequest("POST", u("/api/bank/rowan-mi/other"), origin)).toBe("other");
     expect(classifyRequest("POST", u("/somewhere"), origin)).toBe("other");
     expect(classifyRequest("GET", new URL("https://tracker.example/pixel"), origin)).toBe("other");
   });

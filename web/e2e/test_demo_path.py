@@ -196,6 +196,21 @@ def test_demo_path(stack: Stack, browser: Browser) -> None:
     finally:
         context.close()
 
+    # The same bill from a second device: the bank's copy already has Tend's payment, so nothing moves.
+    context, page = new_page(browser)
+    try:
+        check(page, "second device")
+        gather(page, "second device")
+        bills(page, "second device")
+        with step("second device", "Pay $118 again: refused"):
+            page.get_by_role("button", name=re.compile(rf"^Pay \{REST} now from Checking 0011")).click()
+            sheet = page.get_by_role("dialog")
+            sheet.get_by_role("button", name="Get a code").click()
+            expect(sheet.get_by_text("The bank already shows a payment from Tend for these lines of this bill", exact=False)).to_be_visible()
+        expect(sheet.get_by_label("Confirmation code")).to_have_count(0)
+    finally:
+        context.close()
+
 
 def test_offline_survivor_path(stack: Stack, browser: Browser) -> None:
     """After one online visit the survivor path runs with both servers stopped and the network off."""
@@ -311,8 +326,10 @@ def test_nothing_private_leaves(stack: Stack, browser: Browser) -> None:
 
 @pytest.fixture(autouse=True)
 def _servers_up(stack: Stack) -> None:
-    # A test that failed while offline may have left a server down.
-    if stack.api is None or stack.api.poll() is not None:
-        stack.start_api()
+    # Each test starts from a fresh API, so its dry-run bank has no earlier payment of Rowan's bill
+    # (the way seed/reset_demo.py puts the Nessie bank back before a live demo). This also brings back
+    # a server a test that failed while offline left down.
+    stack.stop_api()
+    stack.start_api()
     if stack.web is None or stack.web.poll() is not None:
         stack.start_web()

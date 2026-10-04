@@ -589,6 +589,9 @@ export const es: Dict = {
     wholeDollars:
       "El banco de prueba solo acepta pagos en dólares enteros, así que Tend no puede pagar este monto desde aquí. Puedes dejarlo sin pagar y reclamarlo.",
     notDemoAccount: "El banco aquí solo acepta pagos desde la cuenta de prueba. No se envió nada.",
+    alreadyPaid:
+      "El banco ya muestra un pago de Tend para estas líneas de esta factura, así que esta vez no se envió nada. Tus registros del banco lo muestran.",
+    billRefused: "Este monto no coincide con lo que aún se puede pagar en la copia del banco de esta factura. No se envió nada.",
     codeWrong: "Ese código no coincide. Revisa los seis dígitos e inténtalo de nuevo.",
     codeExpired: "Este código venció o ya se usó. Pide otro código para intentarlo de nuevo.",
     codeLocked:
