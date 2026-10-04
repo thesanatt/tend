@@ -42,8 +42,9 @@ TEND_API_URL=https://youreowed.tech TEND_PUBLIC_URL=https://youreowed.tech ./run
    `uagents_core`, `httpx`, `pycryptodome` (or `cryptography`), and the standard library.
 6. Check the two lines near the top: `TEND_API_URL` and `TEND_PUBLIC_URL`, both `https://youreowed.tech`. Change them
    only if the API lives somewhere else.
-7. Save, then start the agent (the **Start** button, also on **My Agents** with the agent selected). The log shows
-   `Starting agent with address: agent1...`. Copy that address into the table in [README.md](README.md).
+7. Save, then start the agent (the **Start** button, also on **My Agents** with the agent selected). The **Agent
+   Logs** panel shows `Starting agent with address: agent1...`. Copy that address into the table in
+   [README.md](README.md). The editor also takes several files (**+ New File**), but this one file is all it needs.
 8. Rename the agent to **Tend Navigator (always on)**, paste [PROFILE.md](PROFILE.md) into its README, and add the
    keywords at the end of that file.
 9. Try it: on the agent's page use the chat button, or in [ASI:One](https://asi1.ai) type

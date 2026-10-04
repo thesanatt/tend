@@ -177,7 +177,7 @@ def test_the_whole_loop_in_one_chat_through_three_agents():
         assert packet["output"]["totals"]["held_cents"] == 32500
         assert len(w.acks) >= 7  # the Navigator acknowledged every message
 
-        # Every API call came from the sub-agents: the Navigator itself never touched the API.
+        # The Check, the payment, and the share all reached the API (through the Law and Bank+Packet agents).
         paths = w.fake.paths()
         assert "/api/agent/check" in paths and "/api/actions/confirm" in paths and "/api/shares" in paths
 

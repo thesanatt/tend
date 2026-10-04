@@ -70,9 +70,12 @@ Hotline (800-656-4673).
 - Message text is never stored or logged. Logs hold the kind of turn only, like `turn intent=answer replies=1 cards=0`,
   and the helpers log the kind of request only.
 - Session state holds ids, amounts, a state code, and the topic of an open question, for at most two quiet hours. Check
-  answers are dropped as soon as the Check runs. The confirm code is shown once and never kept.
-- The share key is made by the Bank and Packet agent for one link, goes only into the link it hands back, and is not
-  kept. Tend's server stores the ciphertext and an expiry (3 days).
+  answers are dropped as soon as the Check runs. The confirm code is shown once and is never part of the session.
+- Each helper keeps its answer to a request for 90 seconds, in memory, so a retry gets the same answer instead of a
+  second proposal or link. A proposal's code and a link's key sit in that memory for those 90 seconds at most and are
+  never written anywhere.
+- The share key is made by the Bank and Packet agent for one link and goes only into the link it hands back. Tend's
+  server stores the ciphertext and an expiry (3 days).
 
 ## Example chat
 
@@ -227,7 +230,7 @@ before sealing it.
 cd agent && uv run pytest
 ```
 
-Offline, with the API mocked from real captures of this branch's API for the fictional persona and the public corpus
+244 tests, about 18 seconds. Offline, with the API mocked from real captures of this branch's API for the fictional persona and the public corpus
 (`tests/fixtures`, refreshed by `scripts/capture_fixtures.py`); the mock enforces the API's payment rules. They cover
 three real uAgents and an ASI:One stand-in completing the whole loop over the Chat Protocol, a helper that never
 answers (plain fallback), a slow confirmation (never reported as failed, then "check the payment"), helpers refusing
