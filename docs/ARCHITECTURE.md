@@ -183,7 +183,7 @@ Money is integer cents end to end. Adding a jurisdiction is new data, never new 
 - A deadline that can count from discovery is dated from the incident (the earliest it could
   start) and the deadline check gets the flag `deadline_from_discovery`, after
   `deadline_from_report` when both apply. Every reader shows a flagged `late` as "The usual
-  deadline was ..." with a note that it may count from a later date, never as plainly late.
+  deadline was ..." with a note saying it may count from a later date, never as plainly late.
 - `as_of_date` is today in the state's own time zone, the westernmost where a state spans several
   (`api/tend_api/clock.py` and `web/lib/stateTime.ts` share one table), so a late night never
   counts a deadline a day early.
