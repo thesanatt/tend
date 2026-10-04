@@ -6,8 +6,10 @@
 // answers, and it never touches /api/*: a payment, a share, or the bank always goes to the network
 // and fails plainly when there is none.
 //
-// Bump VERSION when this file changes; the old caches are removed when the new one takes over.
-const VERSION = "tend-offline-v2";
+// Bump VERSION when this file changes, and whenever the engine (tend.wasm) or the law images change, so a
+// phone never mixes an engine with images from another release (tend 1.3.0 reads only tlaw 1.3 images and
+// refuses older ones). The old caches are removed when the new one takes over.
+const VERSION = "tend-offline-v3";
 const SHELL = ["/check", "/gather", "/gather/bills", "/packet", "/track", "/share"];
 const CORE = [
   "/engine/tend.js",
