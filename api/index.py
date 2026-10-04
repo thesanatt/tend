@@ -7,9 +7,16 @@ ones a read-only serverless bundle needs.
 
 from __future__ import annotations
 
+import logging
 import os
 import sys
 from pathlib import Path
+
+# Vercel keeps every INFO line a function logs, and httpx logs each outgoing request at INFO: the bank relay's
+# reads (which customer, which accounts) would be kept there. The relay keeps no logs (docs/PRIVACY.md), so these
+# libraries may only log warnings here.
+for _name in ("httpx", "httpcore", "google_genai"):
+    logging.getLogger(_name).setLevel(logging.WARNING)
 
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:

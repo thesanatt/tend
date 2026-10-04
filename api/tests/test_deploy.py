@@ -5,6 +5,7 @@ from __future__ import annotations
 import dataclasses
 import importlib.util
 import json
+import logging
 import os
 import re
 import sys
@@ -153,6 +154,8 @@ def test_vercel_entry_serves_the_app_deployed(monkeypatch):
     monkeypatch.setenv("TEND_DB", ":memory:")
     monkeypatch.setenv("TEND_RULES_DIR", str(Path(__file__).parent / "fixtures" / "rules"))
     monkeypatch.delitem(sys.modules, "tend_api.main", raising=False)
+    quiet = ("httpx", "httpcore", "google_genai")
+    levels = {name: logging.getLogger(name).level for name in quiet}
     spec = importlib.util.spec_from_file_location("vercel_index", API_DIR / "index.py")
     module = importlib.util.module_from_spec(spec)
     try:
@@ -164,11 +167,15 @@ def test_vercel_entry_serves_the_app_deployed(monkeypatch):
         laws = REPO_ROOT / "web" / "public" / "engine" / "laws"
         if laws.is_dir():
             assert settings.law_dirs == (laws,)
+        # Vercel keeps INFO logs; the bank relay's outgoing requests must not be among them.
+        assert all(logging.getLogger(name).level == logging.WARNING for name in quiet)
         with TestClient(module.app) as c:
             assert c.get("/api/health").status_code == 200
     finally:
         for key in keys:
             os.environ.pop(key, None)
+        for name, level in levels.items():
+            logging.getLogger(name).setLevel(level)
         if hasattr(module, "app"):
             module.app.state.services.repo.close()
         sys.modules.pop("tend_api.main", None)  # the next import builds its own app
