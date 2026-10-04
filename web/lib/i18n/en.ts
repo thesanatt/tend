@@ -254,6 +254,8 @@ export const en = {
     deadlineAsk: "Ask the program. Some make exceptions.",
     deadlineFromReport:
       "This date counts from the day it happened. The law counts from your report, so you may have longer.",
+    deadlineFromDiscovery:
+      "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides.",
     deadlineSpan: (span: string) => `You have ${span} from the date it happened to apply.`,
     deadlineSpanNote: "Add the date above to see the exact day.",
     deadlineUnknown: "Tend could not turn this state's deadline into a date. Read the rule, or ask the program.",
