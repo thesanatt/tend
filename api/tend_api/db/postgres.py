@@ -19,6 +19,7 @@ import time
 import weakref
 from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Any
 
 import psycopg
@@ -54,6 +55,31 @@ FINISHED_KEEP = dt.timedelta(days=1)
 FRESH_S = 30.0  # a pooled connection used this recently is trusted without a round trip to check it
 # ts_headline wraps each matched word in the base module's marks, which marks() turns into offsets.
 HEADLINE = f"HighlightAll=true, StartSel={MARK_OPEN}, StopSel={MARK_CLOSE}"
+
+# The law version index and quote search. Idempotent DDL kept out of the numbered migrations on purpose: API code
+# from before them refuses a database whose schema_migrations lists a version it does not know, and every API build
+# shares the one production database. Created here where missing, never recorded (docs/NEON.md).
+ENSURE_SQL = tuple((p.stem, p.read_text(encoding="utf-8")) for p in sorted((Path(__file__).parent / "ensure").glob("*.sql")))
+
+
+def law_schema_missing(conn: psycopg.Connection, schema: str) -> list[str]:
+    row = conn.execute(
+        "SELECT to_regclass(%s) IS NOT NULL AS law_versions, EXISTS (SELECT 1 FROM pg_attribute WHERE attrelid = to_regclass(%s)"
+        " AND attname = 'quote_search' AND NOT attisdropped) AS quote_search",
+        (f"{schema}.law_versions", f"{schema}.rules"),
+    ).fetchone()
+    present = dict(row) if isinstance(row, dict) else {"law_versions": row[0], "quote_search": row[1]}
+    return [name for name, _ in ENSURE_SQL if not present.get(name)]
+
+
+def ensure_law_schema(conn: psycopg.Connection, schema: str) -> list[str]:
+    """Creates whatever of the law objects is missing in this schema (the connection's search_path must name it).
+    Returns what it created."""
+    missing = law_schema_missing(conn, schema)
+    for name, text in ENSURE_SQL:
+        if name in missing:
+            conn.execute(text)
+    return missing
 
 
 def _plain(row: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -152,22 +178,27 @@ class PostgresRepository:
 
     # schema
 
-    def pending_migrations(self) -> list[str] | None:
-        """The migrations still to run, read without any DDL, so a role that cannot create tables can still start
-        the app when nothing is pending. None when this schema has never been migrated."""
+    def _bookkeeping(self) -> tuple[list[str] | None, list[str]]:
+        """(migrations still to run, or None when this schema was never migrated; law objects still missing), read
+        without any DDL, so a role that cannot create tables can still start the app when nothing is due."""
         files = migration_files("postgres")
         with psycopg.connect(self.migrate_url, row_factory=dict_row, prepare_threshold=None, connect_timeout=15, autocommit=True) as conn:
             table = conn.execute("SELECT to_regclass(%s) AS t", (f"{self.schema}.schema_migrations",)).fetchone()["t"]
             if table is None:
-                return None
+                return None, [name for name, _ in ENSURE_SQL]
             applied = {
                 r["version"]: r["sha256"]
                 for r in conn.execute(sql.SQL("SELECT version, sha256 FROM {}.schema_migrations").format(sql.Identifier(self.schema)))
             }
-        return [v for v, _, _ in check_applied(applied, files)]
+            missing = law_schema_missing(conn, self.schema)
+        return [v for v, _, _ in check_applied(applied, files)], missing
+
+    def pending_migrations(self) -> list[str] | None:
+        return self._bookkeeping()[0]
 
     def migrate(self) -> list[str]:
-        if self.pending_migrations() == []:
+        pending_now, missing = self._bookkeeping()
+        if pending_now == [] and not missing:
             return []
         files = migration_files("postgres")
         try:
@@ -186,7 +217,8 @@ class PostgresRepository:
                     for version, text, digest in pending:
                         conn.execute(text)
                         conn.execute("INSERT INTO schema_migrations (version, sha256) VALUES (%s, %s)", (version, digest))
-                    if pending:
+                    created = ensure_law_schema(conn, self.schema)
+                    if pending or created:
                         # New tables get each role's rights in the same transaction (a no-op where the roles do not exist).
                         apply_grants(conn, self.schema)
         except psycopg.errors.InsufficientPrivilege as exc:
@@ -194,7 +226,7 @@ class PostgresRepository:
                 "migrations are pending and this role cannot run them; run `uv run python -m tend_api.loader` with the owner's"
                 " DATABASE_URL first"
             ) from exc
-        return [v for v, _, _ in pending]
+        return [v for v, _, _ in pending] + created
 
     def drop_schema(self) -> None:
         """Only for test schemas: removes everything a test run made."""

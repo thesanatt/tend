@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import Any
 
 import psycopg
-from neonenv import REPO, apply_ahead, bundles_at, commit_info, corpus_commits, load_env, url_password
+from neonenv import REPO, bundles_at, commit_info, corpus_commits, ensure_law_tables, load_env, url_password
 
 from tend_api.db import bundle_hashes, corpus_sha256
 from tend_api.db.base import migration_files
@@ -81,9 +81,9 @@ def publish(args: argparse.Namespace) -> int:
     env = load_env()
     neon = NeonAPI(env.get("NEON_API_KEY", ""), env.get("NEON_PROJECT_ID", ""))
     prod_branch = neon.default_branch()
-    ahead = apply_ahead(env["DATABASE_URL"])
-    if ahead:
-        print(f"production: created {', '.join(ahead)} (not recorded, so older API code keeps starting)")
+    created = ensure_law_tables(env["DATABASE_URL"])
+    if created:
+        print(f"production: created {', '.join(created)}")
     prod = PostgresRepository(env["DATABASE_URL"], migrate=False)
     published = {v["name"]: v for v in prod.law_versions()}
     wanted = [c.strip() for c in (args.commits.split(",") if args.commits else DEFAULT_COMMITS) if c.strip()]

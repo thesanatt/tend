@@ -79,7 +79,7 @@ used" paragraph, with the rules file and law image hashes.
 
 `GET /api/law/search?q=&st=&version=` searches the verbatim quotes only, never Tend's summaries.
 
-- `rules.quote_search` is a generated `tsvector` over the quote, with a GIN index (`0005_quote_search.sql`).
+- `rules.quote_search` is a generated `tsvector` over the quote, with a GIN index (`db/ensure/quote_search.sql`).
 - `websearch_to_tsquery` reads what someone types (`"a phrase"`, `or`, `-word`) and never raises on it.
 - `ts_headline` marks the matched words; the API turns the marks into `[start, end)` offsets.
 - When no quote has every word, the API searches for any of them and says `"matched": "any"`.
@@ -197,10 +197,11 @@ uv run python ../scripts/neon/measure.py                   # the numbers above
 `NEON_API_KEY` is a project-scoped key named `tend-hackathon`; it can manage only the `tend` project,
 and only the scripts use it. The API never holds it.
 
-### Migrations ahead of the bookkeeping
+### Why the law tables are not numbered migrations
 
-`0004_law_versions.sql` and `0005_quote_search.sql` are idempotent, and the scripts applied them to
-production without recording them in `schema_migrations`. The API code before this change refuses to
-start against a database that lists a migration it does not know, so production keeps listing
-0001 to 0003 until the API from this change runs once with the owner's `DATABASE_URL` (or
-`uv run python -m tend_api.loader`). That run finds the tables already there and records both.
+Every API build, old and new, shares the one production database, and an API build refuses to start
+against a database whose `schema_migrations` lists a version it does not know. So the law version
+index and quote search live in `api/tend_api/db/ensure/` instead of `db/migrations/`: idempotent SQL
+that `migrate()` and the scripts run only where something is missing, and never record. Production
+still lists 0001 to 0003, so an API build from before this change keeps starting, and a new build's
+startup check finds nothing to do and runs no DDL.

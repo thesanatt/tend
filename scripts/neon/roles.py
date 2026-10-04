@@ -16,7 +16,7 @@ import argparse
 import sys
 
 import psycopg
-from neonenv import AHEAD, append_env, apply_ahead, load_env, replace_env
+from neonenv import append_env, ensure_law_tables, load_env, replace_env
 
 from tend_api.db.roles import APP, READER, apply_grants, ensure_role, existing_roles, new_password, privilege_matrix, role_url
 
@@ -35,9 +35,9 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit("DATABASE_URL (the owner) is needed")
 
     if not args.check:
-        # The new tables first, so the grants name them (0004 the law version index, 0005 quote search).
-        ahead = apply_ahead(owner)
-        print(f"tables for law versions and quote search: {'created now' if ahead else 'already there'} ({', '.join(AHEAD)})")
+        # The law version index and quote search first, so the grants name them.
+        created = ensure_law_tables(owner)
+        print(f"law version index and quote search: {'created ' + ', '.join(created) if created else 'already there'}")
         with psycopg.connect(owner, connect_timeout=20, autocommit=True) as conn:
             present = existing_roles(conn)
             for role in (READER, APP):

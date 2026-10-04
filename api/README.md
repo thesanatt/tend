@@ -150,10 +150,10 @@ Agent (the Fetch.ai agent in ASI:One)
 - `0002_shares`: `sealed_shares` (id, ciphertext, iv, size, once, created_at, expires_at, opened_at). No keys.
 - `0003_payments`: `pending_actions` (the code is stored only as a MAC; the payee is cleared when the action finishes,
   leaving a keyed hash), `audit_log`, and `meta` (the fallback secret).
-- `0004_law_versions`: `law_versions` and `law_version_files`, the index of the Neon branches that each hold one
-  version of the corpus (SQLite has the same tables, empty unless a test fills them).
-- `0005_quote_search` (Postgres): `rules.quote_search`, a generated tsvector over the quote alone, with a GIN index.
-  0004 and 0005 are idempotent; docs/NEON.md says why they were applied to Neon before being recorded.
+- `db/ensure/law_versions.sql`: `law_versions` and `law_version_files`, the index of the Neon branches that each
+  hold one version of the corpus. `db/ensure/quote_search.sql`: `rules.quote_search`, a generated tsvector over the
+  quote alone, with a GIN index. Idempotent and never recorded in `schema_migrations`, so API builds from before
+  them keep starting against the shared database (docs/NEON.md). SQLite has the same index as migration `0004`.
 
 The audit log is append-only and hash-chained: each row's hash is the sha256 of its canonical JSON body, and the
 body names the previous row's hash. In Neon, triggers refuse updates, deletes, and truncation, and an insert must

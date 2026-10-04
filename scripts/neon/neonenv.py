@@ -85,29 +85,22 @@ def export_corpus(sha: str, dest: Path) -> tuple[Path, Path | None]:
     return dest / "rules" / "verified", ir if ir.is_dir() else None
 
 
-AHEAD = ("0004_law_versions", "0005_quote_search")
-
-
-def apply_ahead(owner_url: str) -> list[str]:
-    """Runs this branch's new migrations on a database without recording them in schema_migrations. Code that
-    predates them refuses to start against a database that lists migrations it does not know, so production keeps
-    its bookkeeping until the API from this branch migrates it with the owner URL. Both files are idempotent."""
+def ensure_law_tables(owner_url: str) -> list[str]:
+    """The law version index and quote search on production's public schema, where missing (api/tend_api/db/ensure:
+    idempotent, never recorded as migrations, so older API builds sharing the database keep starting). Returns what
+    was created; grants follow in the same transaction."""
     import psycopg
 
-    from tend_api.db.base import migration_files
+    from tend_api.db.postgres import ensure_law_schema
+    from tend_api.db.roles import apply_grants
 
-    files = {version: text for version, text, _ in migration_files("postgres")}
     with psycopg.connect(owner_url, connect_timeout=20, autocommit=True) as conn:
-        recorded = {r[0] for r in conn.execute("SELECT version FROM public.schema_migrations").fetchall()}
-        made = conn.execute(
-            "SELECT to_regclass('public.law_versions') IS NOT NULL AND EXISTS (SELECT 1 FROM pg_attribute"
-            " WHERE attrelid = 'public.rules'::regclass AND attname = 'quote_search')"
-        ).fetchone()[0]
-        todo = [] if made else [v for v in AHEAD if v not in recorded]
         with conn.transaction():
-            for version in todo:
-                conn.execute(files[version])
-    return todo
+            conn.execute("SET LOCAL search_path TO public")
+            created = ensure_law_schema(conn, "public")
+            if created:
+                apply_grants(conn, "public")
+    return created
 
 
 def bundles_at(sha: str) -> list[Any]:

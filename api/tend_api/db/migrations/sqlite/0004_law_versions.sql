@@ -1,6 +1,6 @@
--- SQLite twin of postgres/0004_law_versions.sql. Law versions live in Neon branches; offline, this
--- registry stays empty unless a test fills it. Quote search uses the quote column of rules_fts, so
--- there is no twin of postgres/0005.
+-- SQLite twin of db/ensure/law_versions.sql (a numbered migration here: SQLite files are local, so no
+-- other build shares them). Law versions live in Neon branches; offline, this registry stays empty
+-- unless a test fills it. Quote search uses the quote column of rules_fts.
 
 CREATE TABLE law_versions (
     name TEXT PRIMARY KEY,

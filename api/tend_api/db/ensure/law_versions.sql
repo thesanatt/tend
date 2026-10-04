@@ -5,8 +5,9 @@
 -- API reads a version's rules from its branch and diffs two of them. A published branch is never
 -- loaded again; a new corpus gets a new branch.
 --
--- IF NOT EXISTS: scripts/neon applies this ahead of the API's bookkeeping, so code that predates it keeps
--- starting; the API records it the first time it migrates with the owner's URL.
+-- Not a numbered migration: the files in db/ensure are idempotent and run wherever they are missing
+-- (postgres.py ensure_law_schema), and are never recorded in schema_migrations. API builds from before
+-- them refuse a database that lists a migration they do not know, and they share this database.
 
 CREATE TABLE IF NOT EXISTS law_versions (
     name text PRIMARY KEY CHECK (name ~ '^law-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9a-f]{7,12}$'),
