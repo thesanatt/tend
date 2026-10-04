@@ -21,7 +21,7 @@ from helpers import CHECKING, make_services
 from tend_api.app import create_app
 from tend_api.config import API_DIR, REPO_ROOT, Settings
 from tend_api.errors import TendError
-from tend_api.redact import PublicErrors, redact_paths
+from tend_api.redact import PublicErrors, redact_paths, redact_secrets, secret_values
 
 
 @pytest.fixture
@@ -116,6 +116,40 @@ def test_public_errors_cleans_every_json_error_and_nothing_else():
     with TestClient(app) as c:
         assert c.get("/refused").json() == {"detail": "No itemized bill found for 'rowan-mi' under seed."}
         assert c.get("/fine").json() == {"path": str(seed)}
+
+
+def test_public_errors_never_repeat_a_credential(monkeypatch, settings):
+    """A library error can quote the request URL back (Nessie's key rides in ?key=) or a value it was given."""
+    monkeypatch.setenv("NESSIE_API_KEY", "nessie-key-0123456789")
+    deployed = dataclasses.replace(settings, gemini_api_key="gemini-key-abcdefgh", secret_hex="ab" * 32)
+    secrets = secret_values(deployed)
+    assert {"nessie-key-0123456789", "gemini-key-abcdefgh", "ab" * 32} <= set(secrets)
+    assert ":memory:" not in secrets and "" not in secrets
+
+    url = "https://api.nessieisreal.com/accounts/abc/withdrawals?key=0f9e8d7c6b5a&x=1"
+    assert redact_secrets(f"Client error for url '{url}'") == (
+        "Client error for url 'https://api.nessieisreal.com/accounts/abc/withdrawals?key=[hidden]&x=1'"
+    )
+    assert redact_secrets(["model said gemini-key-abcdefgh"], secrets) == ["model said [hidden]"]
+    assert redact_secrets("MCL 18.355a(2) keeps the $325.00 line held") == "MCL 18.355a(2) keeps the $325.00 line held"
+
+    app = FastAPI()
+
+    @app.get("/leaky")
+    def leaky() -> None:
+        raise TendError(f"Nessie refused: GET {url} with nessie-key-0123456789", 502)
+
+    @app.exception_handler(TendError)
+    async def tend_error(_, exc: TendError) -> JSONResponse:
+        return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
+    app.add_middleware(PublicErrors, secrets=secrets)
+    with TestClient(app) as c:
+        r = c.get("/leaky")
+    assert r.status_code == 502
+    assert "0f9e8d7c6b5a" not in r.text and "nessie-key-0123456789" not in r.text
+    assert r.json()["detail"].startswith("Nessie refused: GET https://api.nessieisreal.com/accounts/abc/withdrawals?key=[hidden]")
+    assert int(r.headers["content-length"]) == len(r.content)
 
 
 def pay(c: TestClient) -> None:

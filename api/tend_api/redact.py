@@ -9,6 +9,7 @@ a system root is cut to its last part.
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections.abc import Iterable
 from pathlib import Path
@@ -25,6 +26,40 @@ _SYSTEM_PATH = re.compile(
     r"(?:/[^\s/'\"(),:;]+)+"
 )
 _END = r"(/|(?=$|[\s'\"(),:;]))"  # a root ends at a slash or where the path ends, never inside a longer name
+# A credential in a URL's query (Nessie takes its key as ?key=). Error text that quotes a request URL keeps the URL
+# and loses the value.
+_QUERY_SECRET = re.compile(r"([?&](?:key|api_key|apikey|token|secret|password)=)[^&\s'\"#)]+", re.IGNORECASE)
+HIDDEN = "[hidden]"
+
+
+def secret_values(settings: Settings) -> tuple[str, ...]:
+    """The values a public error must never repeat: API keys, the code secret, and the database addresses."""
+    values = (
+        os.environ.get("NESSIE_API_KEY", ""),
+        settings.gemini_api_key,
+        settings.secret_hex,
+        settings.database_url if "://" in settings.database_url else "",
+        settings.migrate_url or "",
+    )
+    return tuple(sorted({v.strip() for v in values if len(v.strip()) >= 8}, key=len, reverse=True))
+
+
+def redact_secrets(value: Any, secrets: Iterable[str] = ()) -> Any:
+    """The same value with credentials taken out of every string: the given values, and any ?key= in a URL."""
+    known = tuple(secrets)
+
+    def walk(v: Any) -> Any:
+        if isinstance(v, str):
+            for secret in known:
+                v = v.replace(secret, HIDDEN)
+            return _QUERY_SECRET.sub(r"\1" + HIDDEN, v)
+        if isinstance(v, list | tuple):
+            return [walk(x) for x in v]
+        if isinstance(v, dict):
+            return {k: walk(x) for k, x in v.items()}
+        return v
+
+    return walk(value)
 
 
 def path_roots(settings: Settings) -> tuple[Path, ...]:
@@ -70,13 +105,14 @@ def redact_paths(value: Any, roots: Iterable[Path] = ()) -> Any:
 
 
 class PublicErrors:
-    """In a public deployment, a JSON error body (status 400 and up) has local paths taken out before it is sent.
-    Every error the API raises passes through here, so a message written for a developer cannot show this
-    server's file layout to the public."""
+    """In a public deployment, a JSON error body (status 400 and up) has local paths and credentials taken out
+    before it is sent. Every error the API raises passes through here, so a message written for a developer
+    cannot show this server's file layout, or a key a library quoted back, to the public."""
 
-    def __init__(self, app: ASGIApp, roots: tuple[Path, ...] = ()) -> None:
+    def __init__(self, app: ASGIApp, roots: tuple[Path, ...] = (), secrets: tuple[str, ...] = ()) -> None:
         self.app = app
         self.roots = roots
+        self.secrets = secrets
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if scope["type"] != "http":
@@ -98,7 +134,8 @@ class PublicErrors:
                     return
                 body = b"".join(chunks)
                 try:
-                    body = json.dumps(redact_paths(json.loads(body), self.roots), ensure_ascii=False).encode("utf-8")
+                    clean = redact_secrets(redact_paths(json.loads(body), self.roots), self.secrets)
+                    body = json.dumps(clean, ensure_ascii=False).encode("utf-8")
                 except ValueError:  # not JSON after all: send it as it was
                     pass
                 headers = [(k, v) for k, v in held.get("headers", []) if k.lower() != b"content-length"]
