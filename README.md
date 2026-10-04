@@ -17,36 +17,43 @@ rules say, with the quote, and the program decides.
 Rowan Hale is a fictional person in Michigan with a fictional checking account on Capital One's
 Nessie mock bank. Every name, merchant, and dollar below is made up.
 
-1. **Check.** Rowan answers four questions: state, the date it happened (June 14, 2026), forensic
-   exam yes, police report no. No name, no story. Tend answers on the device, each sentence with
-   its citation: apply by June 14, 2031; the exam counts in place of a police report
-   (MCL 18.355a(10)); up to $45,000 (MCL 18.361(1)).
-2. **Gather.** Rowan adds the demo bank (190 records over six months) and the itemized Riverbend
-   General Hospital bill. Tend reads both in the browser and proposes costs in groups:
-   16 counseling sessions, 14 rides to care, prescriptions, three short paychecks, moving costs,
-   and home security.
-   Direct matches start checked; anything inferred asks "Was this ride to care? Yes / No / Not sure".
-3. **The bill.** The $443.00 bill has three lines. The $325.00 forensic exam line is held:
-   MCL 18.355a(2) says "A health care provider shall not submit a bill for any portion of the costs
-   of a sexual assault medical forensic examination to the victim". Tend says "Don't pay this
-   line" and writes a letter to the billing office that quotes that law.
-4. **Pay the rest, on purpose.** The other $118.00 can be paid from Checking. The server issues a
-   6-digit code; nothing moves until Rowan types it. The API refuses any payment that includes the
-   held line, writes the withdrawal to Nessie, reads it back, and appends a row to a hash-chained
-   audit log.
+1. **Check** (`/check?demo=rowan`). Four questions: state, the date it happened (June 14, 2026),
+   forensic exam yes, police report no. No name, no story. The answer is computed on the device,
+   each sentence with its citation: file by June 14, 2031 (MCL 18.355(2)); the exam counts in
+   place of a police report (MCL 18.355a(10)); counseling up to $125 a session; a $45,000 total
+   limit (MCL 18.361(1)).
+2. **Gather.** "Use the demo bank account" adds Rowan's 190 fictional records (a copy ships with
+   the app, so reading it sends nothing), and "Use a sample bill" adds the itemized Riverbend
+   General Hospital bill. Tend reads both in the browser and groups the costs: 16 counseling
+   sessions, moving and home security, then questions for what it inferred: "Was this ride to
+   care?" for 14 rides on counseling days, and "Did you miss this work?" for three paychecks
+   $176 short. Prescription copays and a new phone are shown as not counted, with the reason.
+3. **The bill.** The $443.00 bill has three lines, and they add up. The $325.00 forensic exam
+   line is held: MCL 18.355a(2) says "A health care provider shall not submit a bill for any
+   portion of the costs of a sexual assault medical forensic examination to the victim". Tend
+   says "Don't pay this line" and writes a letter to the billing office that quotes that law and
+   MCL 18.355a(7), which names who pays instead.
+4. **Pay the rest, on purpose.** "Pay $118.00 now from Checking 0011", then "Get a code". The
+   server issues a 6-digit code; nothing moves until Rowan types it. The API refuses any amount
+   that includes the held line, writes the withdrawal to Nessie (a dry run on a local API), reads
+   it back, updates the bill to show only the held $325.00, and appends a row to a hash-chained
+   audit log. The line under the header changes from "On this device. Nothing has left it." to
+   "On this device, except what you chose to send: a payment."
 5. **Packet.** Built on the device: Michigan's own application with safe fields only (name,
-   signature, SSN, and anything about what happened stay blank), a cited summary of every line,
-   a "still needed" checklist from Michigan's rules, letters, and where to file. The total reads
-   "Amount you can ask for: $4,008.00. The program decides."
+   signature, SSN, and anything about what happened stay blank), a cited summary PDF, a "still
+   needed" list in Michigan's own words, letters, and where to file. It reads "Amount you can ask
+   for: $3,848.00. The program decides. It comes from 38 costs the law covers." That is with the
+   rules alone. When a model sorts the two lines the rules cannot (sheets, $96; a door chain and
+   motion light, $64), as in the agent run, the total is $4,008.00.
 6. **Share.** "Make a share link" encrypts the packet in the browser (AES-256-GCM). The server
    stores only ciphertext and an expiry; the key is in the link after `#`, which browsers never
-   send to a server. An advocate opens it in their own browser.
-7. **Track.** The garden: one plant per cost, growing from sprout (confirmed) to leaf (document
-   attached), bud (filed), and bloom (paid). Held bills never grow a plant. The deadline stays in
-   view.
+   send to a server. The advocate's browser opens a read-only view of the same claim.
+7. **Track.** The garden: one plant per cost (38 here), growing from sprout (confirmed) to leaf
+   (document attached), bud (filed), and bloom (paid). The held $325.00 never grows a plant. The
+   deadline stays in view.
 
-The same claim runs through ASI:One with three Fetch.ai agents (agent/REHEARSAL.md is a full
-transcript: 46 costs, $4,008.00, $325.00 held).
+These steps were walked in Chromium on Oct 4, 2026 against a local API. The same claim also runs
+through ASI:One with three Fetch.ai agents (agent/REHEARSAL.md is a full transcript).
 
 ## How it works
 
@@ -125,8 +132,8 @@ Each number comes from the command next to it. Reproduced Oct 4, 2026 on Linux u
 
 1. The claim, the statement, the bills, and the answers stay on the device. There is no account.
 2. Saved progress is AES-256-GCM in IndexedDB, opened with Touch ID (passkey PRF) or a passphrase.
-3. Data leaves only on a tap: a payment you confirm, a sealed share, cloud AI you agree to, demo bank reads.
-4. The server holds the public law corpus, share ciphertext, and a hash-chained payment log with no names.
+3. Data leaves only on a tap: a confirmed payment, a sealed share, cloud AI after a yes, demo bank reads.
+4. The server holds the public law corpus, share ciphertext, and a hash-chained payment log.
 5. No field anywhere stores what happened, where, or who. Quick exit: corner button or Esc twice.
 
 The full contract and threat model: [docs/PRIVACY.md](docs/PRIVACY.md).

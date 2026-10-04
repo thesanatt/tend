@@ -113,6 +113,7 @@ model picks starts confirmed.
 | What | Command | Result | When |
 |---|---|---|---|
 | The whole agent loop: question, Check, demo claim, held exam line, $118.00 paid with a code, sealed share opened with its key | API on SQLite (`cd api && uv run python -m tend_api.loader && uv run uvicorn tend_api.main:app --port 8000`), then `cd agent && uv run python scripts/rehearse.py` | whole chat 4.0 s; the opened share reads MI, 46 costs, $4,008.00 the program can be asked for, $325.00 held (dry-run bank) | reproduced Oct 4 (agent/REHEARSAL.md has the Oct 3 run: 3.9 s) |
+| The web flow in a browser: Check, demo bank, sample bill, all questions answered yes, the $118.00 payment with its code, packet, share link opened in a second tab, garden | `next dev` with `TEND_API_URL` pointing at the local API, driven by Playwright in headless Chromium (no Gemini Nano) | $325.00 held under MCL 18.355a(2); $118.00 paid (dry run, read back); "Amount you can ask for: $3,848.00" from 38 costs; the advocate's tab opened the same claim; the privacy line named the payment and the share | reproduced Oct 4 |
 | Corpus load into SQLite | `cd api && uv run python -m tend_api.loader` | 19 categories, 51 jurisdictions, 824 sources, 2,578 rules, 51 law images in 0.5 s | reproduced Oct 4 |
 | `POST /api/claim` with Rowan's fixture, native engine | `curl -H 'content-type: application/json' --data @web/fixtures/rowan-mi.input.json localhost:8000/api/claim` | 3.4 to 4.8 ms over 3 requests, `X-Tend-Engine: native` | reproduced Oct 4 |
 | Demo reset against live Nessie | `cd seed && uv run python reset_demo.py` | 2.6 s | recorded Oct 3 (seed/README.md); needs a Nessie key |
@@ -128,7 +129,10 @@ model picks starts confirmed.
 - The difftest claims are synthetic, aimed at each law's numbers. Real bank histories look
   different.
 - The classifier numbers come from fictional data built for the demo. There is no accuracy number
-  for Gemini Nano in the repository yet.
+  for Gemini Nano in the repository yet. The demo total depends on it: with the rules alone the web
+  flow counts $3,848.00, and the agent run counts $4,008.00, because the server classifier sorts
+  the sheets ($96) and the door chain and light ($64) from cached `gemini-3.5-flash-lite` answers
+  (`seed/cache/classify_cache.json`).
 - Only Michigan's application is pre-filled (`web/lib/packet/specs.ts:85`). For other states the
   packet links the program's blank form, or says Tend did not find one. No test checks that a
   program will accept a packet. The program decides.
