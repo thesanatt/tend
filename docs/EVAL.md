@@ -1,123 +1,136 @@
 # Tend: evaluation
 
-What was measured, how, and what the numbers do not show. All runs on Oct 3, 2026, on an Apple
-M4 Max laptop shared with other work.
+Every number Tend claims, the command that produces it, and what it does not show.
 
-## Engines
+Two kinds of numbers appear here, and each row says which:
 
-Tend has two independent implementations of the law engine in docs/SPEC.md v1.2: the C++ compiler
-and VM (engine/, which also runs in the browser as WebAssembly) and a Python reference
-(refengine/). Both read the same law IR (rules/ir, version 2) and must return the same result
-document, byte for byte, for every well-formed claim. engine/FORMAT.md sections 4 and 5 settle
-every choice the SPEC leaves open; both engines follow them. The C++ tests add a third, plain
-implementation (engine/tests/oracle.cpp) that shares no code with the compiler or the VM.
+- **Reproduced Oct 4, 2026** from `main` at `5832f8f`, in a Linux container: 4 vCPUs of an Intel
+  Xeon at 2.1 GHz (a shared VM), GCC 13.3, Node 22.22, Python 3.12.3, uv 0.8.17.
+- **Recorded Oct 3, 2026** by the author on an Apple M4 Max laptop, quoted from the file named.
+  These could not be rerun here, and the reason is given.
 
-### Results
+Engine detail (the difftest breakdown, fuzzing, the review pass) is in
+[engine/EVAL.md](../engine/EVAL.md). Throughput detail is in [engine/BENCH.md](../engine/BENCH.md).
+Neon detail is in [NEON.md](NEON.md).
 
-| check | result |
-|---|---|
-| C++ test suite (`make test`) | 70 test cases, 27,376 assertions, all pass |
-| the same under AddressSanitizer and UBSan (`make test-san`) | 70 of 70 pass |
-| C++ VM vs the C++ oracle, random laws | 6,000 evaluations (1,500 random laws x 4 claims), 0 differences |
-| C++ VM vs the C++ oracle, real laws | 612 evaluations (51 jurisdictions x 12 scenarios), 0 differences |
-| shipped law images (`make test`) | all 51 in web/public/engine/laws byte-identical to a fresh `tendc` build, each listed in laws/index.json with matching hashes |
-| Python reference tests (`uv run pytest`) | 470 tests, all pass |
-| validation messages, reference and C++ | 72 claim cases give byte-identical results; 15 non-JSON texts refused by both |
-| laws refused, reference and `tendc` | 51 broken laws refused by both with the same message; 7 edge cases accepted by both |
-| hand-computed golden claim (18 lines, 40 trace entries) | the C++ engine wrote the expected file; the reference matches it byte for byte |
-| difftest, reference vs C++ (`difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`) | **121,000 claims, 0 mismatches** |
-| WASM vs native (`make wasm-parity`) | **106,000 of 106,000 claims byte-identical**; all 51 shipped law images are the ones tested |
-| fuzzing under ASan and UBSan (`make fuzz`) | 1,276,000 executions in 420 s at the build, then 2,517,704 in 660 s (two runs, 5,726 edges) at the review; no crashes, no property violations |
+## Test suites
 
-### The difftest in detail
+| Suite | Command | Result | When |
+|---|---|---|---|
+| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,376 assertions, all pass (1 min 18 s with the build) | reproduced Oct 4 |
+| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass | reproduced Oct 4 |
+| VM vs the independent C++ oracle, random laws | inside `make test` | 6,000 evaluations (1,500 random laws x 4 claims), 0 differences | reproduced Oct 4 |
+| VM vs oracle, real laws | inside `make test` | 51 jurisdictions x 12 scenarios, 0 differences | reproduced Oct 4 |
+| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build | reproduced Oct 4 |
+| Python reference engine | `cd refengine && uv run pytest` | 470 passed | reproduced Oct 4 |
+| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,544 well-formed claims byte-identical; 3,000 random or broken laws, 0 disagreements (59.6 s) | reproduced Oct 4 |
+| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws; all 51 shipped images checked (24.4 s in Node) | reproduced Oct 4 |
+| Fuzzing under ASan and UBSan | `make -C engine fuzz FUZZ_SECONDS=420` | 1,276,000 executions in 420 s, then 2,517,704 in 660 s; no crashes, no property violations | recorded Oct 3 ([engine/EVAL.md](../engine/EVAL.md)); not built here, see below |
+| API | `cd api && uv run pytest` | 395 tests: 373 passed, 22 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL) | reproduced Oct 4 |
+| API on Neon | `TEND_NEON_TEST=1 uv run pytest -k "neon or live"` | 32 tests, about 70 s | recorded Oct 3 ([NEON.md](NEON.md)); needs a Neon URL |
+| Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
+| Seed (fictional bank) | `cd seed && uv run pytest` | 166 tests: 161 passed, 5 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | reproduced Oct 4 |
+| Agents | `cd agent && uv run pytest` | 259 tests: 258 passed, 1 failed (see below) | reproduced Oct 4 |
+| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | reproduced Oct 4 |
+| Web tests | `cd web && npx vitest run` | 40 files, 1,182 tests: 1,178 passed, 4 failed (see below) | reproduced Oct 4 |
+| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,578 rules, 824 sources); no file changed | reproduced Oct 4 |
+| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | reproduced Oct 4 |
+| Law image is reproducible | `engine/build/tendc rules/ir/MI.json -o MI.tlaw` | 51,812 bytes, sha256 `54f9809e...`, the same bytes as the image built on macOS and shipped | reproduced Oct 4 |
 
-- 121,000 claims: 2,000 for each of the 51 jurisdictions (102,000), 2,000 for each of the two
-  synthetic fixtures (4,000), and 50 for each of 300 random laws (15,000).
-- 119,544 claims were well-formed JSON; for every one, the two engines returned identical bytes.
-  3,852 claims were refused as `bad_input` and 61 as `jurisdiction_mismatch`, by both engines, with
-  identical messages. 1,456 of the refused claims were not JSON at all (broken on purpose); for
-  those only the error code is compared, because the C++ message gives a byte offset.
-- 3,000 broken or random laws: 1,204 accepted by both engines, 1,796 refused by both with the same
-  message, 0 disagreements.
-- Decisions reached: 317,455 eligible, 171,600 unknown_rule, 96,360 out_of_window, 78,980
-  excluded, 78,960 needs_confirmation, 28,050 held; 90,337 insurance deductions, 11,968 per-unit
-  cuts, 41,023 rate_unverified flags, 18,793 per-claim cap cuts, 11,378 total cap cuts.
-- SPEC v1.2 paths reached: 11,884 unit caps applied, 14,906 lines flagged because they counted a
-  different unit, 25,790 flagged for no unit or no units, 1,061 lines cut to 0 after a count limit
-  ran out, 13,866 claims with a report-anchored deadline flag, 2,652 exams treated as medical
-  where no exam_no_bill rule exists, 59,300 lines excluded by tag, 208 minimum losses met by
-  lost-wage days alone.
-- Checks reached: deadline ok 55,617, late 46,526, unknown 14,944; minimum loss met 98,573,
-  not_met 10,457, unknown 6,207, may_be_waived 1,498, waived 352; reporting satisfied 57,357,
-  required 24,824, unknown 22,493, not_required 12,413.
-- The harness catches planted bugs: an engine that ignores typed units fails 77 of 150 ZZ claims, one
-  that changes an error message fails 4 of 150, and one that formats the same document differently
-  fails 59 of 60 (`tests/test_difftest.py` keeps these checks).
+### What failed, and why
 
-### Fuzzing
+- **Web, 4 tests** (`web/tests/local/classify-parity.test.ts:101`, one per persona). The test
+  checks that each seed snapshot still has the sha256 recorded in
+  `web/tests/local/fixtures/classify-parity.json`. Commit `b536bca` re-read the four snapshots from
+  live Nessie (same 190 records, new history fingerprint) after that fixture was written, so the
+  recorded hashes are stale. The parity tests themselves, which compare the TypeScript classifier
+  with the Python one on those snapshots, pass. The fix is to rewrite the four hashes in the
+  fixture.
+- **Agents, 1 test** (`test_a_sub_agent_that_never_answers_gets_a_clear_fallback`). It points the
+  Navigator at an address nobody runs. uagents then asks the Almanac contract on the Fetch.ai
+  testnet where that address lives, and this container cannot reach the ledger, so the resolver
+  raises `ValueError: Almanac contract not found for testnet` before the timeout path runs. The
+  Navigator answers with its generic "Something went wrong on my side" message instead of the
+  expected "The Law agent isn't answering right now". The 258 other tests, including the full
+  three-agent loop, pass. agent/README.md reports 259 passing on the author's machine.
+- **Fuzzer, not built.** `engine/fuzz/fuzz.cpp` needs clang's SanitizerCoverage runtime and
+  headers (`sanitizer/common_interface_defs.h`). This container's clang 18 ships without
+  compiler-rt, and GCC has no `trace-pc-guard`. The numbers above are quoted from
+  engine/EVAL.md.
 
-The coverage-guided fuzzer (engine/fuzz/fuzz.cpp, SanitizerCoverage with its own driver because
-Apple clang ships no libFuzzer) ran 420 s under ASan and UBSan at about 3,000 executions per
-second: 319,000 each on raw law images, images with a fixed checksum (to reach the bytecode
-verifier), claim JSON against a valid law, and law IR through the compiler. It reached 5,632 of
-22,204 instrumented edges and found no crash and no broken property (every result valid JSON, no
-VM trap from a compiled law or a valid image).
+## Engines in one paragraph
 
-### Throughput (engine/BENCH.md has the details)
+Three implementations of SPEC v1.2 must agree byte for byte: the C++ compiler and VM (native and
+WASM), the Python reference (`refengine/`), and a plain C++ oracle used only in tests
+(`engine/tests/oracle.cpp`). The difftest aims claims at each law's own numbers: dates around the
+window, amounts around each cap, typed units, tags, insurance, unconfirmed lines, and broken JSON.
+On Oct 4 it reached every status and check in the SPEC (eligible 317,455; held 28,050; per-unit
+cuts 11,968; total cap cuts 11,378; deadline late 46,526; minimum loss may_be_waived 1,498; and
+the rest in engine/EVAL.md), with the same per-status tallies as the Oct 3 run. A harness test
+(`refengine/tests/test_difftest.py`) plants bugs and checks the difftest catches them.
 
-| | result |
-|---|---|
-| VM, 1M-item Michigan claim, single thread | 14.1M items/s with the trace (71 ms) |
-| JSON in to JSON out, 1M items | 1.86M items/s (536 ms; 207 MB in, 424 MB out) |
-| WASM in Node, 1M items | 0.73M items/s |
-| one survivor-size claim | 0.16 ms through the C ABI, 0.11 ms in the Python reference, 0.12 ms in WASM |
+## Throughput
 
-Against the SPEC v1.1 engine on the same machine, back to back: parsing is 12% slower (it now
-checks integer ranges, expense and unit strings, and repeated keys) and the VM 10% slower (typed
-unit checks), 7% end to end. Run again at the review, with the machine less busy, the same MI
-claim gave 16.2M items/s with the trace and 2.09M items/s JSON in to JSON out.
+`tendvm bench` on a synthetic 1,000,000-item claim, single thread, best of 5
+(`make -C engine bench` for the ZZ fixture; the MI line in [engine/BENCH.md](../engine/BENCH.md)).
 
-### Review
+| Law | Machine | VM, trace on | VM, trace off | JSON in -> JSON out |
+|---|---|---|---|---|
+| MI | M4 Max, Apple clang 21 (recorded Oct 3) | 14.1M items/s | 16.0M items/s | 1.86M items/s |
+| MI | Xeon VM, GCC 13 (reproduced Oct 4) | 4.71M items/s | 6.66M items/s | 0.68M items/s |
+| ZZ | M4 Max (recorded Oct 3) | 12.4M items/s | 13.4M items/s | 1.85M items/s |
+| ZZ | Xeon VM (reproduced Oct 4) | 3.78M items/s | 5.24M items/s | 0.62M items/s |
 
-A second pass re-ran every check above on this branch merged with main. The difftest, WASM parity,
-validation, law, and golden results came out the same, down to the per-status tallies of the
-difftest; the C++ counts above include the one test case the review added. It also ran a difftest
-ten times larger with a new seed (`--n 20000 --seed 7 --random-laws 2000 --ir-fuzz 20000`):
-1,160,000 claims, 1,146,481 of them well-formed and byte-identical in both engines, 0 mismatches,
-and 20,000 broken or random laws with 0 disagreements. One Michigan claim (a held exam bill,
-counseling in sessions and without units, two weeks of wages with insurance, a phone, an
-unconfirmed ride, and a cost from before the incident) was worked line by line against the SPEC;
-both engines gave that answer.
+The VM ran the same 31,353,844 instructions for MI on both machines. The gap is the machine: a
+shared 2.1 GHz VM against a laptop core. On the VM, parsing 207 MB of claim JSON took 0.72 s of
+the 1.46 s end to end. A survivor's claim is tens of lines: 0.16 ms through the C ABI and 0.12 ms
+in WASM on the M4 Max (engine/BENCH.md).
 
-What the review changed:
+## Sorting costs (the classifier)
 
-- main had redacted keys from saved source pages for AZ, ID, and WY. That changed those verified
-  files (source hashes only, no rule), so the three shipped law images no longer matched them.
-  They were rebuilt, and `make test` now fails whenever an image in web/public/engine/laws is not
-  what `tendc` builds from the current rules.
-- A fresh `uv run --project refengine` picked Python 3.14 on this machine; refengine now pins 3.12.
-- FORMAT.md section 5 now says what null means for every input key (a required key sent as null
-  is the wrong type, not a missing key), with four new validation cases run through both engines.
+The classifier runs rules first (a merchant registry and keyword rules), then links rides to care
+days and pay dips to lost wages, and asks a model only for what is left. On the device the model
+is Gemini Nano through Chrome's Prompt API (`web/lib/local/deviceai.ts`), constrained to a fixed
+list of labels. A model may never set `forensic_exam` or `lost_wages` (`web/lib/local/classify.ts:262`):
+its exam label becomes `medical` and its lost-wage label becomes `unknown`. In Chrome 154 it
+labeled a phone bill payment as lost wages (commit `e202549`), which is why.
 
-### Reproduce
+| Check | Command | Result | When |
+|---|---|---|---|
+| Server classifier vs the plan's own labels, 4 personas | `cd seed && uv run python seeder.py classify all --no-model` | 190 of 190 for each persona: 87 keyword, 64 registry, 14 ride links, 11 income, 8 transfers, 3 pay dips, 4 from the committed model cache | reproduced Oct 4 |
+| TypeScript port vs the Python classifier | `npx vitest run tests/local/classify-parity.test.ts` | label parity passes on all 4 snapshots (the 4 hash checks fail, above) | reproduced Oct 4 |
+| Gemini Nano on held-out rows | `measureDeviceClassifier` (`web/lib/local/measure.ts`) in Chrome, with `web/tests/local/fixtures/device-eval.json` and `device-eval-b.json` (32 fictional rows each, no rule matches them) | no result is committed | not reproducible here: needs Chrome with the built-in model |
+| Gemini Nano reading a bill photo | in Chrome 154 | the seed bill photo read correctly 3 of 3 times; a bill whose lines do not add up stays "couldn't read reliably" | recorded Oct 3, commit `aaef95c` message only |
 
-```sh
-make -C engine test test-san wasm-parity
-make -C engine fuzz FUZZ_SECONDS=420
-cd refengine && uv run pytest && cd ..
-uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000
-```
+The 190 of 190 is not an accuracy figure. The history and its labels come from the same plan
+(`seed/history.py`), with merchants the rules were written for. It shows the rules, ride links,
+and pay-dip inference do what the plan says, on fictional data. Real statements will have
+merchants no rule knows, which is where the model and the survivor's yes or no come in. Nothing a
+model picks starts confirmed.
 
-### What these numbers do not show
+## End to end
 
-- Agreement shows the two engines read FORMAT.md the same way. It does not show that FORMAT.md
-  reads the law correctly; that rests on the verified corpus (every rule quotes its source) and on
-  the hand-computed golden claims.
-- Both engines and the oracle were written by the same team from the same SPEC, so a misreading
-  shared by all three would not show up as a mismatch.
-- The claims are synthetic, aimed at each law's own numbers. Real bank histories look different.
-- 5,632 of 22,204 edges is 25%: the count includes the JSON library and code the fuzz targets
-  never call, so it is not a coverage figure for the engine alone.
-- Deadlines counted from discovery (6 rules, in AZ, MA, MD, ME, NJ, and PA) are dated from the
-  incident, like those counted from a report, but SPEC v1.2 defines a flag only for the report. For
-  those states a `late` deadline may not be late.
+| What | Command | Result | When |
+|---|---|---|---|
+| The whole agent loop: question, Check, demo claim, held exam line, $118.00 paid with a code, sealed share opened with its key | API on SQLite (`cd api && uv run python -m tend_api.loader && uv run uvicorn tend_api.main:app --port 8000`), then `cd agent && uv run python scripts/rehearse.py` | whole chat 4.0 s; the opened share reads MI, 46 costs, $4,008.00 the program can be asked for, $325.00 held (dry-run bank) | reproduced Oct 4 (agent/REHEARSAL.md has the Oct 3 run: 3.9 s) |
+| Corpus load into SQLite | `cd api && uv run python -m tend_api.loader` | 19 categories, 51 jurisdictions, 824 sources, 2,578 rules, 51 law images in 0.5 s | reproduced Oct 4 |
+| `POST /api/claim` with Rowan's fixture, native engine | `curl -H 'content-type: application/json' --data @web/fixtures/rowan-mi.input.json localhost:8000/api/claim` | 3.4 to 4.8 ms over 3 requests, `X-Tend-Engine: native` | reproduced Oct 4 |
+| Demo reset against live Nessie | `cd seed && uv run python reset_demo.py` | 2.6 s | recorded Oct 3 (seed/README.md); needs a Nessie key |
+| Deployed API | `vercel curl /api/health` | first request after a deploy 0.44 s; warm 0.08 to 0.15 s; live Nessie relay read 0.64 s | recorded Oct 3 (DEPLOY.md); this container cannot reach `youreowed.tech` |
+| Neon | `uv run python ../scripts/neon/measure.py` | quote search 0.30 ms on the server, 36 to 42 ms from a laptop; a two-branch diff 0.48 to 0.55 s | recorded Oct 3 (NEON.md) |
+| Web production build | `cd web && npx next build` | compiled, 170 static pages, 24.8 s | reproduced Oct 4 |
+
+## What these numbers do not show
+
+- Agreement between engines shows they read engine/FORMAT.md the same way. It does not show that
+  FORMAT.md reads the law correctly. That rests on the verified quotes and the hand-computed golden
+  claims, and all three engines were written from one spec by one author.
+- The difftest claims are synthetic, aimed at each law's numbers. Real bank histories look
+  different.
+- The classifier numbers come from fictional data built for the demo. There is no accuracy number
+  for Gemini Nano in the repository yet.
+- Only Michigan's application is pre-filled (`web/lib/packet/specs.ts:85`). For other states the
+  packet links the program's blank form, or says Tend did not find one. No test checks that a
+  program will accept a packet. The program decides.
+- Deadlines counted from discovery (AZ, MA, MD, ME, NJ, PA) are dated from the incident in SPEC
+  v1.2, with no flag, so a `late` there may not be late. engine/EVAL.md says the same.

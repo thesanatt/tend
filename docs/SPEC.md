@@ -29,7 +29,7 @@ api/          FastAPI service (Python 3.12, uv): Nessie, classification, claims,
 web/          Next.js (TypeScript) app; runs the WASM engine on device
 agent/        Fetch.ai uAgent (Chat Protocol) that drives the same API from ASI:One
 seed/         fictional Nessie worlds (personas) and fixtures
-docs/         SPEC.md (this), ARCHITECTURE.md, EVAL.md, devpost.md
+docs/         SPEC.md (this), ARCHITECTURE.md, EVAL.md, JUDGES.md, DEVPOST.md
 ```
 
 ## Law engine semantics (normative; C++ VM and Python reference must agree exactly)
