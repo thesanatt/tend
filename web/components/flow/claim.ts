@@ -21,7 +21,7 @@ export function replacedIds(bills: BillRecord[]): Set<string> {
 }
 
 // A date counts only when it is a real calendar day, not in the future, and not marked Not sure.
-export function knowsDate(state: FlowState, asOf?: string): boolean {
+export function knowsDate(state: Pick<FlowState, "check">, asOf?: string): boolean {
   const { date, dateUnsure } = state.check;
   return !dateUnsure && isIsoDay(date) && (asOf === undefined || date <= asOf);
 }
@@ -38,11 +38,35 @@ export function countingDate(state: FlowState, asOf: string): string {
 // could not be money is left out here rather than sent.
 const sendable = (it: FlowItem) => Number.isSafeInteger(it.amount_cents) && it.amount_cents >= 0 && isIsoDay(it.date);
 
+// A row the rules (and any model) could not sort, dated before the day it happened, can never
+// count: it is ordinary spending from before. Gather does not ask about it, and the engine never
+// sees it. With no date given, nothing is "before", so every row is still offered.
+export function offered(state: Pick<FlowState, "check">, item: FlowItem, asOf?: string): boolean {
+  if (item.expense !== "unknown") return true;
+  return !(knowsDate(state, asOf) && item.date < state.check.date);
+}
+
+// Lines paid through Tend (a confirmed payment that went through): money already spent, by whom.
+export interface PaidLine {
+  at: string;
+  from: string;
+  to: string;
+}
+export function paidLines(state: Pick<FlowState, "payments">): Map<string, PaidLine> {
+  const out = new Map<string, PaidLine>();
+  for (const p of state.payments) {
+    if (p.status !== "done") continue;
+    for (const id of p.item_ids) out.set(id, { at: p.at, from: p.from, to: p.payee });
+  }
+  return out;
+}
+
 export function buildEngineInput(state: FlowState, asOf: string): EngineInput | null {
   if (!state.check.st) return null;
   const replaced = replacedIds(state.bills);
+  const paid = paidLines(state);
   const items = state.items
-    .filter((it) => !replaced.has(it.item_id) && sendable(it))
+    .filter((it) => !replaced.has(it.item_id) && sendable(it) && offered(state, it, asOf))
     .filter((it) => effectiveAnswer(state, it) !== "no")
     .map((it) => ({
       item_id: it.item_id,
@@ -51,7 +75,9 @@ export function buildEngineInput(state: FlowState, asOf: string): EngineInput | 
       expense: it.expense,
       confirmed: effectiveAnswer(state, it) === "yes",
       insurance_paid_cents: it.insurance_paid_cents ?? 0,
-      is_bill: it.is_bill,
+      // A bill line paid through Tend is money already spent, no longer an unpaid bill. The amount
+      // stays the same, so the claim does too.
+      is_bill: it.is_bill && !paid.has(it.item_id),
       units: it.units ?? 0,
       unit: it.unit ?? null,
       tags: it.tags ?? [],
@@ -109,7 +135,8 @@ export interface Row {
 export function buildRows(state: FlowState, output: EngineOutput | null): Row[] {
   const lines = new Map(output?.lines.map((l) => [l.item_id, l]));
   const replaced = replacedIds(state.bills);
-  return [...state.items]
+  return state.items
+    .filter((item) => offered(state, item))
     .sort((a, b) => (a.date === b.date ? a.item_id.localeCompare(b.item_id) : a.date < b.date ? -1 : 1))
     .map((item) => {
       const answer = effectiveAnswer(state, item);

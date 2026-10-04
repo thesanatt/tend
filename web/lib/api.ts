@@ -1,18 +1,14 @@
 // Client for the Tend API (docs/SPEC.md, prefix /api). next.config.ts proxies /api/* to TEND_API_URL.
 // One probe decides the mode: "live" talks to the API and surfaces its errors; "fixtures" serves
 // web/fixtures and never pretends that money moved.
-import { addDays, todayIso } from "./dates";
 import { assertCents } from "./money";
 import type {
   ActionProposal,
   ActionResult,
-  BillAudit,
   EngineInput,
   EngineOutput,
   Jurisdiction,
   JurisdictionSummary,
-  ScanResult,
-  ShareLink,
   ShareView,
 } from "./types";
 
@@ -58,7 +54,12 @@ export function dataMode(): Promise<DataMode> {
   if (process.env.NEXT_PUBLIC_TEND_API === "0") return Promise.resolve("fixtures");
   modePromise ??= request<unknown>("/api/jurisdictions", {}, 2500)
     .then((body) => (normalizeSummaries(body).length ? ("live" as const) : ("fixtures" as const)))
-    .catch(() => "fixtures" as const);
+    .catch((err) => {
+      // No network, or a server error, says nothing about whether this site has an API, so the next
+      // call asks again instead of staying in fixtures mode for the rest of the visit.
+      if (!(err instanceof ApiError) || err.status >= 500) modePromise = null;
+      return "fixtures" as const;
+    });
   return modePromise;
 }
 
@@ -141,24 +142,6 @@ export async function fetchAsmFixture(st: string): Promise<string | null> {
   return fixture.listing.join("\n");
 }
 
-export interface ScanRequest {
-  persona_id: string;
-  st: string;
-  incident_date: string;
-}
-
-export async function scan(req: ScanRequest): Promise<ScanResult> {
-  if ((await dataMode()) === "live") return post<ScanResult>("/api/scan", req);
-  const fixture = (await import("@/fixtures/rowan-mi.scan.json")).default as ScanResult;
-  return { ...structuredClone(fixture), st: req.st, incident_date: req.incident_date, as_of_date: todayIso() };
-}
-
-export async function auditBill(billId: string, personaId: string): Promise<BillAudit> {
-  if ((await dataMode()) === "live")
-    return post<BillAudit>("/api/bill/audit", { bill_id: billId, persona_id: personaId });
-  return structuredClone((await import("@/fixtures/riverbend-bill.json")).default as BillAudit);
-}
-
 export async function claimFromApi(input: EngineInput): Promise<{ output: EngineOutput; engine: string } | null> {
   if ((await dataMode()) !== "live") return null;
   const res = await fetch("/api/claim", {
@@ -227,27 +210,10 @@ export async function confirmPayment(actionId: string, code: string): Promise<Ac
   };
 }
 
-export async function createShare(input: EngineInput, output: EngineOutput): Promise<ShareLink & { demo: boolean }> {
-  if ((await dataMode()) === "live") {
-    const s = await post<Partial<ShareLink> & { token: string; expires_at: string }>("/api/share", { input, output });
-    return { token: s.token, url: s.url ?? `/share/${s.token}`, expires_at: s.expires_at, demo: false };
-  }
-  return { token: "demo", url: "/share/demo", expires_at: `${addDays(todayIso(), 7)}T23:59:00Z`, demo: true };
-}
-
+// /share/demo: the fictional advocate view that ships with the app. Real links are end-to-end
+// encrypted (/share#<id>.<key>, lib/share); the server cannot read them, so there is nothing to fetch
+// here by token.
 export async function fetchShare(token: string): Promise<ShareView | null> {
-  if ((await dataMode()) === "live") {
-    try {
-      return await request<ShareView>(`/api/share/${encodeURIComponent(token)}`);
-    } catch (e) {
-      if (e instanceof ApiError && (e.status === 404 || e.status === 410)) return null;
-      throw e;
-    }
-  }
   if (token !== "demo") return null;
   return structuredClone((await import("@/fixtures/share-demo.json")).default as unknown as ShareView);
-}
-
-export function packetUrl(claimId: string | undefined, mode: DataMode): string | null {
-  return mode === "live" && claimId ? `/api/packet/${encodeURIComponent(claimId)}.pdf` : null;
 }

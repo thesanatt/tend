@@ -74,6 +74,9 @@ describe("Packet", () => {
     expect(screen.getByRole("link", { name: "MDHHS-MichiganCrimeVictim@Michigan.gov" }).getAttribute("href")).toBe(
       "mailto:MDHHS-MichiganCrimeVictim@Michigan.gov",
     );
+    // Michigan's rules name email, fax, and mail; the program's phone line is for questions.
+    expect(screen.getByText("Questions, by phone")).toBeTruthy();
+    expect(screen.queryByText("By phone")).toBeNull();
     expect(services.evaluate).toHaveBeenCalled();
   });
 

@@ -1181,6 +1181,27 @@
   overflow-wrap: anywhere;
 }
 
+/* The cloud AI consent screen: what leaves, who gets it, what stays. */
+.consentList {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-4);
+}
+
+.consentList dt {
+  font-weight: 700;
+}
+
+.consentList dd {
+  margin: var(--space-1) 0 0;
+}
+
+.aiOffer {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
 .termAmount {
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
@@ -1226,6 +1247,19 @@
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
   font-weight: 600;
+}
+
+/* The bank service's own note, in English, one tap away under the flow's sentence. */
+.serviceNote {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.serviceNote summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 /* ---------- Packet ---------- */
@@ -1447,6 +1481,13 @@
 
 .deadlineBar[data-late] {
   border-left-color: var(--ink);
+}
+
+.deadlineNote {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
 }
 
 .tallyLine {

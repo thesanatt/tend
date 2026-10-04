@@ -1,39 +1,45 @@
 {
-  "bill_id": "rgh-2026-0614",
+  "bill_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
   "provider": "Riverbend General Hospital",
-  "statement_date": "2026-07-02",
+  "statement_date": "09/20/2026",
   "service_date": "2026-06-14",
-  "account_ref": "RG-448120",
-  "total_cents": 171900,
+  "account_ref": "RGH-369968",
+  "total_cents": 44300,
   "lines": [
     {
       "line_no": 1,
-      "item_id": "rcpt:9c41e2a7:1",
-      "description": "Emergency department visit",
-      "amount_cents": 118000,
+      "item_id": "bill:231c5c86178943f9:1",
+      "description": "Emergency department visit, copay",
+      "amount_cents": 7500,
       "expense": "medical"
     },
     {
       "line_no": 2,
-      "item_id": "rcpt:9c41e2a7:2",
-      "description": "Lab tests",
-      "amount_cents": 21400,
-      "expense": "medical"
+      "item_id": "bill:231c5c86178943f9:2",
+      "description": "Medical forensic exam, deductible applied",
+      "amount_cents": 32500,
+      "expense": "forensic_exam"
     },
     {
       "line_no": 3,
-      "item_id": "rcpt:9c41e2a7:3",
-      "description": "Forensic exam, deductible applied",
-      "amount_cents": 32500,
-      "expense": "forensic_exam"
+      "item_id": "bill:231c5c86178943f9:3",
+      "description": "Laboratory services, coinsurance",
+      "amount_cents": 4300,
+      "expense": "medical"
     }
   ],
-  "lines_sum_cents": 171900,
+  "lines_sum_cents": 44300,
   "holds": [
     {
-      "item_id": "rcpt:9c41e2a7:3",
+      "item_id": "bill:231c5c86178943f9:2",
       "amount_cents": 32500,
-      "rule_ids": ["MI-EXAM-1", "MI-EXAM-2", "MI-EXAM-3", "MI-EXAM-4", "MI-EXAM-5"]
+      "rule_ids": [
+        "MI-EXAM-1",
+        "MI-EXAM-2",
+        "MI-EXAM-3",
+        "MI-EXAM-4",
+        "MI-EXAM-5"
+      ]
     }
   ]
 }

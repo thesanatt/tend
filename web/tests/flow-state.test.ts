@@ -221,15 +221,29 @@ describe("the same account read twice", () => {
     expect(fresh.map((i) => i.item_id)).toEqual(["nessie:r-9"]);
   });
 
-  it("keeps costs that differ in day, amount, kind, or merchant", () => {
-    const gathered = [ride("stmt:abc:csv:7", { merchant: "Wayfare Rides" })];
+  it("keeps costs that differ in day, amount, description, or merchant", () => {
+    const gathered = [ride("stmt:abc:csv:7", { merchant: "Wayfare Rides", description: "Wayfare Rides trip" })];
     const other = [
-      ride("nessie:a", { origin: "bank", date: "2026-06-18" }),
-      ride("nessie:b", { origin: "bank", amount_cents: 1300 }),
-      ride("nessie:c", { origin: "bank", expense: "prescription" }),
-      ride("nessie:d", { origin: "bank", merchant: "Larkfield Cab Co" }),
+      ride("nessie:a", { origin: "bank", date: "2026-06-18", description: "Wayfare Rides trip" }),
+      ride("nessie:b", { origin: "bank", amount_cents: 1300, description: "Wayfare Rides trip" }),
+      ride("nessie:c", { origin: "bank", description: "Larkfield Market groceries" }),
+      ride("nessie:d", { origin: "bank", merchant: "Larkfield Cab Co", description: "Wayfare Rides trip" }),
     ];
     expect(newCosts(gathered, other)).toEqual({ fresh: other, already: 0 });
+  });
+
+  it("one transaction written two ways (a CSV and an OFX) counts once, even when the formats sorted it differently", () => {
+    const gathered = [ride("stmt:abc:csv:7", { description: "Hearthstone Pharmacy - Rx copay", expense: "prescription" })];
+    const fromOfx = [ride("stmt:def:ofx:1", { description: "HEARTHSTONE PHARMACY RX COPAY 4821", expense: "unknown" })];
+    expect(newCosts(gathered, fromOfx)).toEqual({ fresh: [], already: 1 });
+  });
+
+  it("a description with nothing to compare falls back to the kind of cost", () => {
+    const gathered = [ride("stmt:abc:csv:7", { description: "POS DEBIT 4821" })];
+    expect(newCosts(gathered, [ride("stmt:def:ofx:1", { description: "Wayfare Rides trip" })]).already).toBe(1);
+    expect(
+      newCosts(gathered, [ride("stmt:def:ofx:2", { description: "Wayfare Rides trip", expense: "medical" })]).already,
+    ).toBe(0);
   });
 
   it("never folds costs inside one record, or bill lines, into each other", () => {
@@ -268,6 +282,28 @@ describe("bills", () => {
     expect(ids).not.toContain(bankBill.item_id);
     expect(ids).toHaveLength(3);
     expect(buildRows(s, null).find((r) => r.item.item_id === bankBill.item_id)?.status).toBe("replaced");
+  });
+
+  it("matches the bank bill that arrives after its itemized bill, so the order does not matter", () => {
+    const bill: BillRecord = {
+      id: "bill-x",
+      label: "b.pdf",
+      reading: reading(44300),
+      replaces: null,
+      choice: null,
+      sample: true,
+    };
+    let s = reducer(withCheck(), { type: "addBill", bill, items: billItemsFor("bill-x") });
+    expect(s.bills[0].replaces).toBeNull();
+    s = reducer(s, {
+      type: "addSource",
+      source: { id: "bank", kind: "bank", label: "Checking", read: 1, found: 1, warnings: [], sample: true },
+      items: [bankBill],
+    });
+    expect(s.bills[0].replaces).toBe(bankBill.item_id);
+    const ids = buildEngineInput(s, TODAY)!.items.map((i) => i.item_id);
+    expect(ids).not.toContain(bankBill.item_id);
+    expect(ids).toHaveLength(3);
   });
 
   it("does not replace a bank bill with a different total", () => {

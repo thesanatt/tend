@@ -23,7 +23,7 @@ AS_OF_DATE = date(2026, 10, 3)
 EMPLOYER = "Fernway Books"
 # Biweekly pay: steady before the incident, three short checks after it, then back to normal.
 PAYCHECKS = (412, 398, 419, 412, 406, 412, 236, 236, 236, 404, 412, 397, 418, 412)
-SHORT_PAY = 236  # each short check is $176 under the usual $412: two weeks of lost pay apiece
+SHORT_PAY = 236  # each short check is $176 under the usual $412: about 4 workdays of lost pay apiece
 
 
 @dataclass(frozen=True)
@@ -128,7 +128,7 @@ RIVERBEND_BILL = PlannedBill(
 # None means ordinary spending, income, or money moving between Rowan's own accounts.
 EXPECTED: dict[str, tuple[str | None, bool]] = {
     "payroll": (None, False),
-    "short_payroll": ("lost_wages", True),  # SPEC v1.2: the dip is offered as lost pay, in weeks
+    "short_payroll": ("lost_wages", True),  # SPEC v1.2: the dip is offered as lost pay, in estimated days
     "savings_transfer": (None, False),
     "atm": (None, False),
     "groceries": (None, False),

@@ -6,6 +6,10 @@
 // before the date; a dip is at least $20 and a tenth of usual). Grouping also joins descriptions
 // that differ only by digits, and regular unlabeled deposits count as pay; missed checks are
 // found on the device only.
+// Each line counts workdays (SPEC v1.2 days_lost), as an estimate: the shortfall's share of the
+// usual check times the workdays in the pay period (5 a week), rounded half up, never more than
+// the period. A $176 dip on a $412 biweekly check is about 4 days, not the 10 a whole period
+// would claim. classify.py estimated_days does the same integer math.
 import { addDays, daysBetween } from "../dates";
 import { fnv64 } from "./hash";
 import type { LocalClassifiedItem, LocalTxn } from "./types";
@@ -14,7 +18,25 @@ const PAY_WORDS = /payroll|salary|paycheck|direct dep|dir dep|\bwages?\b|\bpay\b
 const NOISE = new Set(["ppd", "ccd", "web", "ach", "id", "co", "entry", "descr", "dir", "dep", "direct", "deposit"]);
 export const GAP_MIN_CENTS = 2000;
 export const MIN_USUAL_CHECKS = 3;
-export const PAY_GAP_REASON = "No paycheck when one usually came";
+export const WORKDAYS_PER_WEEK = 5;
+
+const workdays = (n: number) => (n === 1 ? "1 workday" : `${n} workdays`);
+
+// classify.py estimated_days: round half up in integers, never more than the period.
+export function estimatedDays(gapCents: number, usualCents: number, periodDays: number): number {
+  if (usualCents <= 0 || periodDays <= 0) return 0;
+  return Math.min(periodDays, Math.floor((2 * gapCents * periodDays + usualCents) / (2 * usualCents)));
+}
+
+// classify.py gap_classification's reason, word for word.
+export function dipReason(paidCents: number, gapCents: number, usualCents: number, days: number): string {
+  return `Paycheck was ${dollars(paidCents)}, ${dollars(gapCents)} below your usual ${dollars(usualCents)}, about ${workdays(days)}. This is an estimate`;
+}
+
+// A check that never came stands for the whole pay period.
+export function payGapReason(days: number): string {
+  return `No paycheck when one usually came, about ${workdays(days)}. This is an estimate`;
+}
 
 function payerKey(description: string): string {
   return description
@@ -94,20 +116,23 @@ export function inferPay(txns: LocalTxn[], incidentDate: string): PayInference {
     const gaps = spacing(checks);
     const gap = gaps.length ? medianLow(gaps) : 7;
     const weeks = Math.max(1, Math.round(gap / 7));
+    const period = weeks * WORKDAYS_PER_WEEK;
     const base = { expense: "lost_wages" as const, confirmed: false, insurance_paid_cents: 0, is_bill: false };
-    const shape = { unit: "week" as const, units: weeks, tags: [], source: "rule" as const, method: "inference" };
+    const shape = { unit: "day" as const, tags: [], source: "rule" as const, method: "inference" };
 
     for (const c of checks) {
       const short = usual - c.cents;
       if (c.txn.date < incidentDate || short < GAP_MIN_CENTS || short * 10 < usual) continue;
+      const days = estimatedDays(short, usual, period);
       dips.set(c.txn.id, {
         item_id: c.txn.id,
         date: c.txn.date,
         amount_cents: short,
         ...base,
         ...shape,
+        units: days,
         description: [c.txn.merchant, c.txn.description].filter(Boolean).join(" ").replace(/\s+/g, " ").slice(0, 200),
-        reason: `Paycheck was ${dollars(c.cents)}, ${dollars(short)} below your usual ${dollars(usual)}`,
+        reason: dipReason(c.cents, short, usual, days),
         confidence: 0.6,
         linked_item_ids: [],
       });
@@ -136,8 +161,9 @@ export function inferPay(txns: LocalTxn[], incidentDate: string): PayInference {
         amount_cents: usual,
         ...base,
         ...shape,
+        units: period,
         description: `${payer}: no paycheck near this date`.slice(0, 200),
-        reason: PAY_GAP_REASON,
+        reason: payGapReason(period),
         confidence: 0.5,
         linked_item_ids: [],
       });

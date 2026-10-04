@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useI18n, type Dict, type Formatters } from "@/lib/i18n";
-import type { AccountRef, ActionProposal } from "@/lib/types";
+import { offline } from "@/lib/netlog";
+import type { AccountRef, ActionProposal, ActionResult } from "@/lib/types";
 import FlowSheet from "../FlowSheet";
 import { useFlow } from "../FlowProvider";
 import { accountLabel } from "../services";
@@ -48,7 +49,20 @@ export function proposalProblem(
 // review: only what is on this device. Nothing is sent until the survivor asks for a code.
 // dead: the code can no longer be used (expired, used, locked); a new one can be asked for.
 // unsure: the bank may have taken it; no new code is offered, so nothing is paid twice.
-type Phase = "review" | "proposing" | "ready" | "confirming" | "done" | "error" | "dead" | "unsure";
+// offline: the device has no network, so the request never left; the same step can be tried again.
+type Phase = "review" | "proposing" | "ready" | "confirming" | "done" | "error" | "dead" | "unsure" | "offline";
+
+// The flow's own sentence for a payment result, in the survivor's language. The bank service's
+// English note is kept only as a detail under it.
+export function resultNote(
+  r: Pick<ActionResult, "status" | "amount_cents"> & { dry_run?: boolean },
+  payee: string,
+  t: Dict,
+  f: Formatters,
+): string | null {
+  if (r.status !== "done") return null;
+  return r.dry_run ? t.pay.noteDryRun(f.money(r.amount_cents), payee) : t.pay.noteDone(f.money(r.amount_cents), payee);
+}
 
 const statusOf = (e: unknown): number | undefined => {
   const s = (e as { status?: unknown } | null)?.status;
@@ -61,14 +75,20 @@ export function proposeProblem(e: unknown, t: Dict): string {
   const status = statusOf(e);
   if (status === 422) return t.pay.wholeDollars;
   if (status === 403) return t.pay.notDemoAccount;
+  // The bank's copy of the bill refused it: already paid by Tend, or an amount that would touch a held line.
+  if (status === 409) return alreadyPaid(e) ? t.pay.alreadyPaid : t.pay.billRefused;
   return t.pay.prepareFailed;
 }
+
+// The API's one refusal that means "this was paid before" (api/tend_api/payments.py already_paid_message).
+const alreadyPaid = (e: unknown) => /^Tend already paid /.test((e as Error | null)?.message ?? "");
 
 // Why a confirm failed, and what the sheet can offer next.
 export function confirmProblem(e: unknown, t: Dict): { text: string; phase: "ready" | "dead" | "unsure" } {
   const status = statusOf(e);
   // A wrong code: the demo answers 400, the API 403. The same code can be typed again.
   if (status === 400 || status === 403) return { text: t.pay.codeWrong, phase: "ready" };
+  if (status === 409 && alreadyPaid(e)) return { text: t.pay.alreadyPaid, phase: "dead" };
   if (status === 410 || status === 409) return { text: t.pay.codeExpired, phase: "dead" };
   if (status === 423) return { text: t.pay.codeLocked, phase: "dead" };
   // Any other refusal from the service came before the bank was asked.
@@ -88,6 +108,8 @@ export default function PaySheet(props: PaySheetProps) {
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<PaymentRecord | null>(null);
+  // Which step a "Try again" repeats after the device was offline.
+  const [retryStep, setRetryStep] = useState<"code" | "pay">("code");
   const latest = useRef(props);
   const attempt = useRef(0);
   useEffect(() => {
@@ -122,7 +144,13 @@ export default function PaySheet(props: PaySheetProps) {
       if (id !== attempt.current) return;
       // The service now holds the amount, account, and payee, whatever happens next.
       if (!next.demo) {
-        logSent({ kind: "payment_setup", amount_cents: next.amount_cents, to: next.payee, action_id: next.action_id });
+        logSent({
+          kind: "payment_setup",
+          amount_cents: next.amount_cents,
+          to: next.payee,
+          action_id: next.action_id,
+          ref: `setup:${next.action_id}`,
+        });
       }
       const problem = proposalProblem(next, p.amountCents, p.payee, t, f, p.account);
       if (problem) {
@@ -134,6 +162,13 @@ export default function PaySheet(props: PaySheetProps) {
       setPhase("ready");
     } catch (e) {
       if (id !== attempt.current) return;
+      // No network at all: nothing left the device, and the same step can simply be tried again.
+      if (offline()) {
+        setError(t.pay.offline);
+        setRetryStep("code");
+        setPhase("offline");
+        return;
+      }
       setError(proposeProblem(e, t));
       setPhase("error");
     }
@@ -144,7 +179,7 @@ export default function PaySheet(props: PaySheetProps) {
     setPhase("confirming");
     setError(null);
     try {
-      const r = await services.confirm(proposal.action_id, code);
+      const r = (await services.confirm(proposal.action_id, code)) as ActionResult & { dry_run?: boolean };
       const from = fromLabel(proposal.from, latest.current.account);
       const record: PaymentRecord = {
         action_id: r.action_id,
@@ -158,6 +193,7 @@ export default function PaySheet(props: PaySheetProps) {
         nessie_id: r.nessie_id ?? null,
         read_back_matches: r.read_back_matches ?? null,
         demo: proposal.demo,
+        ...(typeof r.dry_run === "boolean" ? { dry_run: r.dry_run } : {}),
         at: r.at,
       };
       setResult(record);
@@ -166,9 +202,23 @@ export default function PaySheet(props: PaySheetProps) {
       if (r.status === "done") dispatch({ type: "billChoice", billId: record.bill_id, choice: "pay" });
       // "unverified" reached the bank too, even though its record does not match.
       if (!proposal.demo && (r.status === "done" || r.status === "unverified")) {
-        logSent({ kind: "payment", amount_cents: r.amount_cents, to: proposal.payee, action_id: proposal.action_id });
+        logSent({
+          kind: "payment",
+          amount_cents: r.amount_cents,
+          to: proposal.payee,
+          action_id: proposal.action_id,
+          ref: `pay:${proposal.action_id}`,
+          ...(typeof r.dry_run === "boolean" ? { dry_run: r.dry_run } : {}),
+        });
       }
     } catch (e) {
+      // Offline: the confirm never left, so the code still works once the network is back.
+      if (offline()) {
+        setError(t.pay.offline);
+        setRetryStep("pay");
+        setPhase("offline");
+        return;
+      }
       const next = confirmProblem(e, t);
       setError(next.text);
       setPhase(next.phase);
@@ -178,6 +228,7 @@ export default function PaySheet(props: PaySheetProps) {
           amount_cents: proposal.amount_cents,
           to: proposal.payee,
           action_id: proposal.action_id,
+          ref: `pay:${proposal.action_id}`,
         });
         dispatch({
           type: "payment",
@@ -199,8 +250,21 @@ export default function PaySheet(props: PaySheetProps) {
 
   const sent = result?.status === "done";
   const unverified = result?.status === "unverified";
+  const showCode = Boolean(
+    proposal && (phase === "ready" || phase === "confirming" || (phase === "offline" && retryStep === "pay")),
+  );
+  const note = result ? resultNote(result, result.payee, t, f) : null;
   const footer =
-    phase === "done" || phase === "unsure" ? (
+    phase === "offline" ? (
+      <div className="btn-row">
+        <button type="button" className="btn btn-primary" onClick={retryStep === "pay" ? confirm : getCode}>
+          {t.pay.retry}
+        </button>
+        <button type="button" className="btn btn-quiet" onClick={onClose}>
+          {t.common.cancel}
+        </button>
+      </div>
+    ) : phase === "done" || phase === "unsure" ? (
       <div className="btn-row">
         <button type="button" className="btn btn-primary" onClick={onClose}>
           {t.common.done}
@@ -269,13 +333,13 @@ export default function PaySheet(props: PaySheetProps) {
         </>
       ) : null}
 
-      {phase === "error" || phase === "dead" || phase === "unsure" ? (
+      {phase === "error" || phase === "dead" || phase === "unsure" || (phase === "offline" && !showCode) ? (
         <p role="alert" className={styles.problem}>
           {error}
         </p>
       ) : null}
 
-      {proposal && (phase === "ready" || phase === "confirming") ? (
+      {proposal && showCode ? (
         <>
           <dl className={styles.terms}>
             <div>
@@ -348,8 +412,15 @@ export default function PaySheet(props: PaySheetProps) {
                 ? t.pay.resultUnverified
                 : t.pay.resultNotSent}
           </p>
-          {/* The bank service writes its note in English. */}
-          {result.demo ? <p>{t.pay.demoResult}</p> : result.message ? <p lang="en">{result.message}</p> : null}
+          {/* The flow says what happened in the survivor's language; the bank service's own note is
+              in English, so it stays one tap away as a detail. */}
+          {result.demo ? <p>{t.pay.demoResult}</p> : note ? <p>{note}</p> : null}
+          {!result.demo && result.message ? (
+            <details className={styles.serviceNote}>
+              <summary>{t.pay.serviceNote}</summary>
+              <p lang="en">{result.message}</p>
+            </details>
+          ) : null}
           <dl className={styles.terms}>
             <div>
               <dt>{t.pay.from}</dt>

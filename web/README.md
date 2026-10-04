@@ -3,12 +3,60 @@
 Next.js (App Router, TypeScript) front end for Tend. It runs on its own with built-in fixtures, and
 uses the API and the WebAssembly engine when they are present.
 
+## Run
+
+Everything at once, from the repo root (the API, this app, and the Fetch.ai agent when it is there):
+
+```sh
+scripts/dev.sh              # API + web (next dev) + agent; prints the URLs
+scripts/dev.sh --prod       # the web app as a production build: the only mode with the offline worker
+scripts/dev.sh --no-agent   # without the agent
+```
+
+It uses API_PORT 8000 and WEB_PORT 3000, or the next free ports, a local SQLite database
+(`TEND_DB=neon` uses Neon from the repo `.env`), and a dry-run bank (`TEND_BANK=nessie` writes confirmed
+payments to Capital One's Nessie sandbox). Open `http://localhost:<port>/check?demo=rowan`.
+
+Tend pays a bill's lines once. With `TEND_BANK=nessie`, run `cd seed && uv run python reset_demo.py` between
+rehearsals; otherwise the next $118.00 payment of Rowan's bill says Tend already paid it and nothing moves.
+The dry-run bank forgets its payments when the API restarts.
+
+Just this app:
+
 ```sh
 npm install
 npm run dev            # http://localhost:3000
 npm test               # vitest
 npm run lint && npm run typecheck && npm run build
 ```
+
+End-to-end tests (Playwright for Python through uv, Chromium), one command from anywhere:
+
+```sh
+web/e2e/run.sh                    # builds, starts the API and the app, runs the demo path, offline, privacy
+E2E_SKIP_BUILD=1 web/e2e/run.sh   # reuse the last e2e build
+web/e2e/run.sh -k offline         # pytest options pass through
+```
+
+The API there runs in memory, with a dry-run bank and without the repo `.env`, so a run writes nothing to
+Neon or Nessie and calls no model. The tests drive the judges' path (Check, Gather, the held exam line and
+letter, the $118 payment with its code, the packet, a share link the advocate opens, Track), then the
+survivor path with both servers stopped and the browser offline, then check that no request carried
+transaction text, a bill line, or the share key. Step timings print at the end.
+
+## Offline (airplane mode)
+
+In a production build the flow registers `public/sw.js` on its first visit. It saves the flow's pages and
+their page data, the WebAssembly engine, every state's compiled law image, verified rules and law
+summary, and Michigan's form (public files only, never anyone's answers), then sets
+`<html data-offline="ready">`. After that, Check, reading a statement or a bill, the claim, the packet and
+letters, and the vault work with the network off, and a reload works too. A payment or a share link needs
+the network: offline it says so, sends nothing, and offers Try again. The worker never touches `/api/*`.
+Bump `VERSION` in `sw.js` when it changes. `NEXT_PUBLIC_TEND_SW=1` turns it on in `next dev`.
+
+The privacy line comes from what actually left: `lib/netlog.ts` watches every `fetch` the page makes and
+reports each request that carries something off the device (a payment, a share, the bank, the server
+engine, cloud AI, or anything unexpected), so the line cannot miss a send.
 
 ## Screens
 
@@ -62,11 +110,13 @@ account that ships with the app, and a payment walks through the same confirm sh
 
 The survivor flow calls the API only for what the survivor sends: `POST /api/actions/propose
 {from_account_id, payee, amount_cents}` and `POST /api/actions/confirm {action_id, confirm_code}` for a
-payment, `POST /api/claim <engine input>` after they agree to check on the server, and a sealed share
-through `lib/share` (`POST /api/shares`, or the API's `POST /api/share` with `ciphertext` and `nonce`;
-`DELETE` stops a link). The key stays in the link's `#fragment`. The law and advocate pages also use
-`GET /api/jurisdictions`, `GET /api/jurisdictions/{st}/asm`, and `GET /api/share/{token}`.
-Response shapes are in `lib/types.ts`; examples are in `fixtures/`.
+payment, `POST /api/claim <engine input>` after they agree to check on the server, a sealed share
+through `lib/share` (`POST /api/shares` with the ciphertext only; `DELETE` stops a link), and, only after
+a yes on the cloud AI consent screen, `POST /api/ai/classify` or `POST /api/ai/bill` for one file. The
+share key stays in the link's `#fragment`. The law and advocate pages also use `GET /api/jurisdictions`,
+`GET /api/jurisdictions/{st}`, `GET /api/jurisdictions/{st}/asm`, and `GET /api/shares/{id}`.
+Response shapes are in `lib/types.ts`; examples are in `fixtures/` (Rowan from the seed, made by
+`uv run --project api python web/scripts/scan-fixtures.py` and `npm run fixtures`).
 
 ## Data
 

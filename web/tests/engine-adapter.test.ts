@@ -36,7 +36,7 @@ beforeEach(() => resetDataModeForTests());
 afterEach(() => vi.unstubAllGlobals());
 
 describe("engine adapter", () => {
-  it("strips scan extras so engines see only SPEC fields", () => {
+  it("strips scan extras so engines see only SPEC fields (v1.2: with unit and tags)", () => {
     const clean = toEngineInput(input);
     for (const it of clean.items) {
       expect(Object.keys(it).sort()).toEqual(
@@ -49,10 +49,14 @@ describe("engine adapter", () => {
           "insurance_paid_cents",
           "is_bill",
           "item_id",
+          "tags",
+          "unit",
           "units",
         ].sort(),
       );
     }
+    // The scan's display fields (merchant, reason, source, confidence, bill_id) stay behind.
+    expect(JSON.stringify(clean)).not.toMatch(/"(merchant|reason|source|confidence|bill_id)"/);
   });
 
   it("passes the v1.2 unit and tags through when the caller has them", () => {
