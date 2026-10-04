@@ -59,7 +59,7 @@ def build_navigator(
         "port": settings.port,
         "mailbox": True,
         "publish_agent_details": True,
-        "readme_path": str(AGENT_DIR / "AGENTVERSE.md"),
+        "readme_path": str(AGENT_DIR / "PROFILE.md"),
         "description": DESCRIPTION,
         "handle": settings.handle,
         # Required: a turn waits for the sub-agents' replies, which arrive as messages to this same agent.
@@ -236,13 +236,21 @@ async def run_team(team: Team, settings: Settings) -> None:
 
 
 def startup_lines(address: str, addresses: dict[str, str], settings: Settings, api_status: str = "", *, running: bool = True) -> list[str]:
-    return [
+    lines = [
         f"{AGENT_NAME} is running." if running else AGENT_NAME,
-        f"  Address:   {address}",
-        f"  Inspector: {inspector_url(address, settings.port)}",
+        f"  Address:    {address}",
+        f"  Inspector:  {inspector_url(address, settings.port)}",
         f"  Law agent:  {addresses.get('law', '')}",
         f"  Bank agent: {addresses.get('bank', '')}",
-        f"  Tend API:  {settings.api_url}" + (f" ({api_status})" if api_status else ""),
+        f"  Tend API:   {settings.api_url}" + (f" ({api_status})" if api_status else ""),
         f"  Share links open at: {settings.share_origin}/share",
-        "  To list it on Agentverse: open the Inspector link, click Connect, and choose Mailbox.",
     ]
+    if settings.subagent_mailbox:
+        lines.append(f"  Law Inspector:  {inspector_url(addresses.get('law', ''), settings.port + 1)}")
+        lines.append(f"  Bank Inspector: {inspector_url(addresses.get('bank', ''), settings.port + 2)}")
+    if any(host in settings.api_url for host in ("127.0.0.1", "localhost")) and not settings.app_url:
+        lines.append(
+            "  Set TEND_PUBLIC_URL to the web app that serves this API (like http://localhost:3000), or share links will not open."
+        )
+    lines.append("  To list it on Agentverse: open the Inspector link, click Connect, and choose Mailbox.")
+    return lines

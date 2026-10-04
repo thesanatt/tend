@@ -29,7 +29,7 @@ from uagents_core.contrib.protocols.chat.cards import create_card_response_conte
 
 from tend_agent.agents import build_team, start_sub_agents
 from tend_agent.api import TendApi
-from tend_agent.config import seeds_from
+from tend_agent.config import addresses_from, seeds_from
 from tend_agent.messages import LawAnswerRequest, LawReply
 from tend_agent.navigator import Navigator
 from tend_agent.share import open_sealed
@@ -225,3 +225,23 @@ def test_sub_agents_take_requests_from_the_navigator_only():
         assert "/api/agent/answer" not in w.fake.paths()
 
     world(scenario)
+
+
+def test_the_team_as_run_sh_builds_it():
+    loop = asyncio.new_event_loop()  # built, never run
+    try:
+        st = settings(port=8091)
+        seeds = seeds_from("tend-navigator-test-seed-not-a-secret")
+        team = build_team(st, seeds, loop=loop)
+        again = build_team(st, seeds, loop=loop)
+    finally:
+        loop.close()
+    nav = team.navigator
+    expected = addresses_from(seeds)
+    assert nav.address == again.navigator.address == expected["navigator"]
+    assert team.link.addresses == {"law": team.law.address, "bank": team.bank.address} == {"law": expected["law"], "bank": expected["bank"]}
+    assert nav.name == "Tend Navigator" and nav._use_mailbox  # noqa: SLF001
+    assert not team.law._use_mailbox and not team.bank._use_mailbox  # noqa: SLF001 - in-process unless asked
+    assert nav._message_history is None  # noqa: SLF001 - no copy of message text kept for the Inspector
+    assert "innovationlab" in (nav._readme or "") and "hackathon" in (nav._readme or "")  # noqa: SLF001
+    assert Protocol(spec=chat_protocol_spec).digest in nav.protocols

@@ -9,6 +9,8 @@ When every attempt times out, the caller gets DeskDown and tells the person in p
 from __future__ import annotations
 
 import asyncio
+import time
+from collections.abc import Callable
 from typing import Any
 
 from uagents_core.types import DeliveryStatus
@@ -29,6 +31,9 @@ class AgentLink:
         self.timeouts = dict(timeouts or {})
         self.attempts = max(1, attempts)
         self.retry_pause_s = retry_pause_s
+        # Called after each answered call with (desk, request, reply, seconds, attempts). The rehearsal uses it to show
+        # which agent did each step; it sees only the typed messages, which carry no message text.
+        self.observer: Callable[[str, Any, Any, float, int], None] | None = None
         self._pending: dict[str, tuple[str, asyncio.Future[Any]]] = {}
 
     async def call(self, ctx: Any, desk: str, request: Any) -> Any:
@@ -38,21 +43,28 @@ class AgentLink:
         fut: asyncio.Future[Any] = asyncio.get_running_loop().create_future()
         self._pending[request.request_id] = (desk, fut)
         timeout = float(self.timeouts.get(desk, 20.0))
+        started = time.monotonic()
+        tries = 0
         try:
-            for _ in range(self.attempts):
+            while tries < self.attempts:
+                tries += 1
                 status = await ctx.send(address, request, timeout=max(1, int(timeout)))
                 if getattr(status, "status", None) == DeliveryStatus.FAILED:
                     if fut.done():
-                        return fut.result()
+                        break
                     await asyncio.sleep(self.retry_pause_s)
                     continue
                 try:
-                    return await asyncio.wait_for(asyncio.shield(fut), timeout)
+                    await asyncio.wait_for(asyncio.shield(fut), timeout)
+                    break
                 except TimeoutError:
                     continue
-            if fut.done():
-                return fut.result()
-            raise DeskDown(desk)
+            if not fut.done():
+                raise DeskDown(desk)
+            reply = fut.result()
+            if self.observer is not None:
+                self.observer(desk, request, reply, time.monotonic() - started, tries)
+            return reply
         finally:
             self._pending.pop(request.request_id, None)
             if not fut.done():

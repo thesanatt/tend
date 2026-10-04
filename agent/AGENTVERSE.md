@@ -1,53 +1,62 @@
-# Tend Navigator: crime victim compensation help for sexual assault survivors
+# Tend Navigator on Agentverse
 
-![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
-![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
-![tag:domain/legal-aid](https://img.shields.io/badge/legal--aid-2E7D32)
+There are two ways to run the Navigator for ASI:One. Both run the same conversation code and call the same Tend API.
 
-Every US state and DC has a crime victim compensation program that can repay costs like counseling, medical
-bills, rides to care, lost wages, and moving. Most survivors never hear about it, or give up on the forms. Tend
-Navigator answers questions about any state's program with the law quoted and linked, runs a 2-minute eligibility
-Check, and walks through a fictional claim end to end. It is built for survivors and the advocates who help them.
+| | Local team (mailbox) | Always on (hosted) |
+|---|---|---|
+| What runs | three uAgents in one process: Navigator, Law, Bank and Packet | one Agentverse-hosted agent with the Law and Bank and Packet desks inside it |
+| Address | `agent1qdrzjgcqsm9n7l4jx5lgjrg5syxz9qqf02xqpt6ux4mvkc8flrlw2vqezts` (from `AGENT_SEED`) | a new address that Agentverse assigns when you create it |
+| Needs | a laptop running `./run.sh` | nothing; Agentverse runs it |
+| Code | `agent/tend_agent` | `agent/hosted/navigator_hosted.py`, built from the same modules |
+| Session state | in memory | in the agent's Agentverse storage (ids and amounts only, two hours) |
 
-## What you can ask
+Agentverse hosts one agent per file, which is why the hosted twin carries both desks in its own process.
 
-- "What is the deadline to apply in Ohio?"
-- "Does Michigan cover counseling, and is there a limit?"
-- "Do I need a police report in Texas if I had a forensic exam?"
-- "Run a check: Michigan, June 14 2026, had an exam, not reported."
-- "Show me the demo claim." Then "pay the bill", then type the code it shows.
+## 1. The local team (already registered)
 
-## What it does
+The Navigator above is registered on Agentverse through its mailbox and shows as "ASI Available". Start it with:
 
-- **Cited answers.** Every answer comes from Tend's verified rules for 51 jurisdictions. Each rule is a verbatim
-  quote from an official statute, regulation, or program page, with a pinpoint (like MCL 18.355a(2)) and a link
-  that opens at the quoted text. When no rule supports an answer, it says "I don't know" and gives the program's
-  phone number.
-- **Check.** State, date it happened (only the date), forensic exam yes / no / not sure, police report yes / no /
-  not yet. It returns the filing deadline as a date, whether a police report is needed and what counts instead,
-  the forensic exam billing protection, covered costs with their limits, the most you can ask for, and how to reach
-  the program. It says "You can likely apply", never "you qualify". The program decides.
-- **Demo claim.** A fictional person on Capital One's Nessie mock bank. The agent shows the costs Tend found,
-  counts them under the state's law after you say yes, flags the forensic exam line the law says should never be
-  billed, and offers to pay the rest of the hospital bill. The payment happens only after you type the one-time
-  code the server issues. It is checked against the bank record and written to a hash-chained audit log.
-- **Interactive cards** in ASI:One: a Check form, a review card before any payment, and a box for the code.
+```
+cd agent && ./run.sh
+```
 
-## Privacy
+On every start it publishes [PROFILE.md](PROFILE.md) as its README on Agentverse. Run only one copy at a time: two
+processes on the same mailbox take each other's messages.
 
-No account, no name, no story. The agent never asks what happened, where, or who, and it does not need to know.
-If someone starts to describe it, the agent says it does not need that and does not pass the message on. Message
-text is never stored or logged. Short session details (like a pending payment id) live in memory for at most two
-hours.
+For the live demo, point it at the deployed API so share links open on any phone:
 
-## Limits
+```
+TEND_API_URL=https://youreowed.tech TEND_PUBLIC_URL=https://youreowed.tech ./run.sh
+```
 
-- Information, not legal advice. Rules can have exceptions, and the program makes every decision.
-- It does not file claims. Bank data in the demo is fictional and the bank is a mock.
-- Answers cover crime victim compensation only, and only what the verified rules say.
+## 2. Always on: paste the hosted agent
 
-## Keywords
+1. Rebuild the file from the current code (the tests fail if it is stale): `cd agent && uv run python scripts/build_hosted.py`.
+2. Open [agentverse.ai](https://agentverse.ai), sign in, and go to **My Agents**.
+3. Click **Launch an Agent**, then **Generate Agent** (the hosted option, "Hosted and ready to run"). Describe it in one
+   line, for example "Tend Navigator, always on". Agentverse creates a starter agent; its code is replaced next.
+4. Open the new agent and its **Build** tab. In the editor, open the main file (`agent.py`), select everything, and
+   delete it.
+5. Paste the whole of `agent/hosted/navigator_hosted.py`. It starts with `"""Tend Navigator, as an Agentverse-hosted
+   agent (always on).` and ends with `agent.run()`. It uses only imports Agentverse allows: `uagents`,
+   `uagents_core`, `httpx`, `pycryptodome` (or `cryptography`), and the standard library.
+6. Check the two lines near the top: `TEND_API_URL` and `TEND_PUBLIC_URL`, both `https://youreowed.tech`. Change them
+   only if the API lives somewhere else.
+7. Save, then start the agent (the **Start** button, also on **My Agents** with the agent selected). The log shows
+   `Starting agent with address: agent1...`. Copy that address into the table in [README.md](README.md).
+8. Rename the agent to **Tend Navigator (always on)**, paste [PROFILE.md](PROFILE.md) into its README, and add the
+   keywords at the end of that file.
+9. Try it: on the agent's page use the chat button, or in [ASI:One](https://asi1.ai) type
+   `@<handle or address> What is the deadline to apply in Ohio?`, then `show me the demo claim`.
 
-crime victim compensation, victim compensation fund, sexual assault, survivor, forensic exam, SANE exam, rape kit
-bill, police report requirement, filing deadline, counseling reimbursement, lost wages, relocation, advocate,
-legal aid, all 50 states, DC
+When the code changes, rebuild (step 1) and paste again (steps 4 to 7).
+
+## 3. Optional: list the Law and Bank and Packet agents too
+
+They work without being listed: the Navigator reaches them inside its own process. To make them visible on
+Agentverse (and reachable from another machine), start the team with `TEND_SUBAGENT_MAILBOX=1 ./run.sh`, open each
+agent's Inspector link (ports 8002 and 8003; `./run.sh --address` prints the addresses), click **Connect**, and choose
+**Mailbox**. Their addresses come from `AGENT_SEED` and never change:
+
+- Tend Law: `agent1qg6ss7gv4przxvm2a0dvxrd83yrh2tq34szsh0jj3nufs7zkjkrjgyt2dwz`
+- Tend Bank and Packet: `agent1q2lrzg2q8k0908g82arxcqdqn8jkxhr6jll79cvr9r4pfwpcwk0wjfvtwqs`

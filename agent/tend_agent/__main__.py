@@ -11,7 +11,7 @@ import json
 import os
 import sys
 
-from .config import AGENT_NAME, BANK_NAME, LAW_NAME, ensure_seed, inspector_url, load_env, seeds_from
+from .config import AGENT_NAME, BANK_NAME, LAW_NAME, addresses_from, ensure_seed, inspector_url, load_env, seeds_from
 from .settings import Settings
 
 
@@ -79,15 +79,17 @@ def main(argv: list[str] | None = None) -> int:
 
     from .agents import build_team, run_team, startup_lines
 
+    seeds = seeds_from(os.environ["AGENT_SEED"])
+    overrides = {k: v for k, v in (("law", os.environ.get("TEND_LAW_ADDRESS")), ("bank", os.environ.get("TEND_BANK_ADDRESS"))) if v}
+    if args.address:
+        found = {**addresses_from(seeds), **overrides}
+        print("\n".join(startup_lines(found["navigator"], found, settings, running=False)))
+        print(f"{LAW_NAME}: {found['law']}\n{BANK_NAME}: {found['bank']}")
+        return 0
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    overrides = {k: v for k, v in (("law", os.environ.get("TEND_LAW_ADDRESS")), ("bank", os.environ.get("TEND_BANK_ADDRESS"))) if v}
-    team = build_team(settings, seeds_from(os.environ["AGENT_SEED"]), addresses=overrides, loop=loop)
-    if args.address:
-        print("\n".join(startup_lines(team.navigator.address, team.link.addresses, settings, running=False)))
-        print(f"{LAW_NAME}: {team.law.address}\n{BANK_NAME}: {team.bank.address}")
-        loop.close()
-        return 0
+    extra = {"agentverse": os.environ["TEND_AGENTVERSE_URL"]} if os.environ.get("TEND_AGENTVERSE_URL") else {}
+    team = build_team(settings, seeds, addresses=overrides, loop=loop, **extra)
     print(f"{AGENT_NAME}: {team.navigator.address}\nInspector: {inspector_url(team.navigator.address, settings.port)}", flush=True)
     try:
         loop.run_until_complete(run_team(team, settings))

@@ -65,7 +65,7 @@ STATUS_OUTCOMES = {
     "expired": "expired",
     "locked": "locked",
 }
-SHOWN_DOCUMENTS = 6
+SHOWN_DOCUMENTS = 5
 
 
 def _utc_now() -> dt.datetime:

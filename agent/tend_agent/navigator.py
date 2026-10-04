@@ -14,8 +14,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from . import cards
-from .cards import Card
+from .cards import Card, check_form, code_form, count_costs_card, next_steps_card, payment_card, share_card, welcome_card
 from .demo import FICTIONAL_SHORT
 from .desks import DESK_NAMES, DeskDown
 from .fmt import long_date, money
@@ -150,7 +149,7 @@ class Navigator:
         return Turn(replies, s, intent)
 
     def welcome(self) -> Reply:
-        return Reply(WELCOME + (f"\n\n{TEAM}" if self.team else ""), card=cards.welcome_card(), card_id=str(uuid.uuid4()))
+        return Reply(WELCOME + (f"\n\n{TEAM}" if self.team else ""), card=welcome_card(), card_id=str(uuid.uuid4()))
 
 
 def down_text(desk: str) -> str:
@@ -226,7 +225,7 @@ class _Talk:
             code = find_confirm_code(text)
             if code:
                 return await self.confirm(code), "pay_confirm"
-            if wants_payment_status(text) and pending.get("unsure"):
+            if wants_payment_status(text):
                 return await self.payment_status(), "pay_status"
             if wants_cancel(text) or says_no(text):
                 return self.cancel_payment(), "pay_cancel"
@@ -247,6 +246,10 @@ class _Talk:
         if wants_demo(text):
             return await self.start_demo(find_state(text)), "demo"
         if wants_payment_status(text):
+            if demo and demo.get("paid_cents"):
+                return [
+                    Reply(f"The demo payment went through: {money(demo['paid_cents'])} to the hospital, from the mock bank.")
+                ], "pay_status"
             return [Reply("There is no payment to check in this chat.")], "pay_none"
         if demo and stage == "scanned":
             if says_yes(text):
@@ -287,7 +290,7 @@ class _Talk:
                 return await self.check(st, fields, future=bool(found and found.future)), "check"
             s["awaiting"] = {"kind": "check", **fields}
             return [
-                Reply("Which state? Pick it on the card, or type the name.", card=cards.check_form(), card_id=str(uuid.uuid4()))
+                Reply("Which state? Pick it on the card, or type the name.", card=check_form(), card_id=str(uuid.uuid4()))
             ], "check_form"
 
         if awaiting.get("kind") == "question" and st and not topics and not expense:
@@ -313,7 +316,7 @@ class _Talk:
         pending = self.live_pending()
         if action == "check_form":
             s["awaiting"] = {"kind": "check"}
-            card = cards.check_form(s.get("st"))
+            card = check_form(s.get("st"))
             return [
                 Reply('Fill in what you know. Every answer except the state can be "not sure".', card=card, card_id=str(uuid.uuid4()))
             ], "check_form"
@@ -321,7 +324,7 @@ class _Talk:
             st = str(sel.get("st") or "").upper()
             if st not in STATES:
                 s["awaiting"] = {"kind": "check"}
-                return [Reply("Pick a state first.", card=cards.check_form(), card_id=str(uuid.uuid4()))], "check_form"
+                return [Reply("Pick a state first.", card=check_form(), card_id=str(uuid.uuid4()))], "check_form"
             raw_date = str(sel.get("incident_date") or "").strip()
             date = parse_iso_date(raw_date)
             if raw_date and date is None:
@@ -347,9 +350,9 @@ class _Talk:
                 s["demo"]["stage"] = "skipped"
             return [Reply("OK. Nothing was counted. Say **demo** any time to start over.", end_session=True)], "skip"
         if action == "pay":
-            if s.get("demo") and s["demo"].get("stage") in ("counted", "shared"):
+            if s.get("demo"):
                 return await self.propose(), "pay_propose"
-            return [Reply("Count the demo claim first. Say **demo** to start.")], "stale"
+            return [Reply("There is no bill to pay in this chat yet. Say **demo** to start.")], "pay_none"
         if action == "share":
             if s.get("demo"):
                 return await self.share(), "share"
@@ -365,7 +368,7 @@ class _Talk:
             return [
                 Reply(
                     "Type the 6-digit code from the review card, here or in this box. Only you can approve the payment.",
-                    card=cards.code_form(pending["action_id"], pending["amount_cents"]),
+                    card=code_form(pending["action_id"], pending["amount_cents"]),
                     card_id=str(uuid.uuid4()),
                 )
             ], "pay_code_form"
@@ -409,7 +412,7 @@ class _Talk:
         self.s["demo"] = {"ref": ref, "stage": "scanned"}
         self.s.pop("pending", None)
         bill = {"lines": ref["bill_lines"], "total_cents": ref["bill_total_cents"]} if ref.get("bill_lines") else None
-        card = cards.count_costs_card([g.model_dump() for g in reply.groups], bill, scan_id=ref["scan_id"])
+        card = count_costs_card([g.model_dump() for g in reply.groups], bill, scan_id=ref["scan_id"])
         text = reply.text + "\n\nNothing counts until the survivor says yes. Count these for the demo claim? Say **yes** or **not now**."
         return [Reply(text, card=card, card_id=str(uuid.uuid4()))]
 
@@ -425,11 +428,9 @@ class _Talk:
                 "**Letter to the billing office.** Copy it, fill in the [brackets], and send it. It asks billing to "
                 f"remove the exam line and quotes the law:\n\n```\n{reply.letter.rstrip()}\n```"
             )
-            replies.append(
-                Reply(f"{letter}\n\n{nxt}", card=cards.next_steps_card(ref["payable_cents"], paid=False), card_id=str(uuid.uuid4()))
-            )
+            replies.append(Reply(f"{letter}\n\n{nxt}", card=next_steps_card(ref["payable_cents"], paid=False), card_id=str(uuid.uuid4())))
         else:
-            replies.append(Reply(nxt, card=cards.next_steps_card(ref["payable_cents"], paid=False), card_id=str(uuid.uuid4())))
+            replies.append(Reply(nxt, card=next_steps_card(ref["payable_cents"], paid=False), card_id=str(uuid.uuid4())))
         return replies
 
     def next_step_text(self, ref: dict[str, Any], *, paid: bool) -> str:
@@ -471,7 +472,7 @@ class _Talk:
             f"Here is the payment to review. **Nothing moves until you type the code.** To pay {money(reply.amount_cents)}, "
             f"type **{reply.confirm_code}** here. To stop, say cancel. The code works once and ends in 10 minutes. {FICTIONAL_SHORT}"
         )
-        return [Reply(narration, card=cards.payment_card(view), card_id=card_id)]
+        return [Reply(narration, card=payment_card(view), card_id=card_id)]
 
     async def confirm(self, code: str) -> list[Reply]:
         pending = self.s["pending"]
@@ -503,7 +504,7 @@ class _Talk:
             demo["paid_cents"] = reply.amount_cents
             demo["stage"] = "paid" if demo.get("stage") != "shared" else "shared"
             text = f"{reply.text}\n\n{self.next_step_text(demo.get('ref') or {}, paid=True)}"
-            card = cards.next_steps_card(0, paid=True)
+            card = next_steps_card(0, paid=True)
             return [Reply(text, card=card, card_id=str(uuid.uuid4()))]
         if reply.outcome == "wrong_code":
             return [Reply("That code does not match. Nothing moved. Check the code on the review card and type it again.")]
@@ -528,7 +529,7 @@ class _Talk:
         reply = await self.bank(req)
         demo["stage"] = "shared"
         expires = long_date(reply.expires_at) if reply.expires_at else "when it expires"
-        card = cards.share_card(expires, reply.still_needed)
+        card = share_card(expires, reply.still_needed)
         return [Reply(reply.text, card=card, card_id=str(uuid.uuid4()), end_session=True)]
 
     # ------------------------------------------------------------ payments waiting for a code

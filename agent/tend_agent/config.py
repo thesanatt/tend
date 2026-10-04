@@ -28,7 +28,7 @@ DESCRIPTION = (
 LAW_DESCRIPTION = "Tend's Law agent: cited answers and Checks from verified crime victim compensation rules for 50 states and DC."
 BANK_DESCRIPTION = "Tend's Bank and Packet agent: runs Tend's fictional demo claim on a mock bank and seals packets for advocates."
 
-__all__ = ["Settings", "Seeds", "ensure_seed", "find_env_file", "inspector_url", "load_env", "seeds_from"]
+__all__ = ["Settings", "Seeds", "addresses_from", "ensure_seed", "find_env_file", "inspector_url", "load_env", "seeds_from"]
 
 
 def find_env_file() -> Path | None:
@@ -86,6 +86,13 @@ def seeds_from(seed: str) -> Seeds:
         return hashlib.sha256(f"tend-agent/{label}/{seed}".encode()).hexdigest()
 
     return Seeds(navigator=seed, law=derive("law"), bank=derive("bank"))
+
+
+def addresses_from(seeds: Seeds) -> dict[str, str]:
+    """Each agent's address, computed from its seed the way uAgents does, without starting anything."""
+    from uagents_core.identity import Identity
+
+    return {name: Identity.from_seed(getattr(seeds, name), 0).address for name in ("navigator", "law", "bank")}
 
 
 def inspector_url(address: str, port: int, agentverse: str = "https://agentverse.ai") -> str:

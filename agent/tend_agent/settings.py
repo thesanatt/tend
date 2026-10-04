@@ -34,7 +34,7 @@ class Settings:
         return (self.app_url or self.api_url).rstrip("/")
 
     @classmethod
-    def from_env(cls) -> Settings:
+    def from_env(cls) -> "Settings":  # noqa: UP037 - quoted: the hosted build evaluates annotations eagerly
         env = os.environ
         return cls(
             api_url=env.get("TEND_API_URL", cls.api_url).rstrip("/"),

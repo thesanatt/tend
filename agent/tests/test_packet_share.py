@@ -100,7 +100,7 @@ def test_the_letter_quotes_the_law_and_leaves_names_blank():
     assert 'Michigan law says I should not be billed for this exam:\n\n"A health care provider shall not submit a bill' in letter
     assert "(MCL 18.355a(2))" in letter and "The law names who pays for the exam instead" in letter and "(MCL 18.355a(7))" in letter
     assert "[Your name]" in letter and "[account number]" in letter and "Rowan" not in letter
-    assert not any(ch in letter for ch in "—–’“”")
+    assert not any(ch in letter for ch in "\u2014\u2013\u2019\u201c\u201d")
 
 
 def test_no_exam_rules_means_no_letter():
