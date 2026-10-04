@@ -40,7 +40,7 @@ April 1 to October 2, 2026. The demo incident date is 2026-06-14.
 cd seed && uv run python reset_demo.py
 ```
 
-One command puts Rowan's bank back at the demo start. It deletes what a demo run
+One command puts Rowan's bank back at the demo start (2.6 s on Oct 3). It deletes what a demo run
 wrote to Nessie (the $118 payment tagged `[tend:<action>] [bill:<id>#1,3]`, the program's demo deposit
 tagged `[tend:payout-MI]`), puts the Riverbend bill back to $443.00 pending under the same id, and then
 reads the bank again and compares it with `snapshots/rowan-mi.json`. It prints what it undid and
