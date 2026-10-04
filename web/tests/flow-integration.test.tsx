@@ -260,6 +260,24 @@ describe("a bill paid through Tend", () => {
     expect([...paidLines(state).keys()].sort()).toEqual([billLines[0].item_id, billLines[2].item_id].sort());
   });
 
+  it("Track says the day it was paid on this device, and that the program has not paid yet", async () => {
+    const before = process.env.TZ;
+    process.env.TZ = "America/Detroit";
+    try {
+      // 9:20 PM on October 3 in Michigan, already October 4 in UTC.
+      const late = { ...paid, record: { ...(paid as Extract<Action, { type: "payment" }>).record, at: "2026-10-04T01:20:00Z" } };
+      const s = stateFrom([MI_CHECK, { type: "addBill", bill, items: billLines }, bank, late as Action]);
+      renderFlow(<TrackScreen />, { initial: s });
+      expect(await screen.findAllByText(en.track.youPaid("Oct 3"))).toHaveLength(2);
+      expect(screen.queryByText(en.track.youPaid("Oct 4"))).toBeNull();
+      expect(screen.getByText(en.track.nothingPaid, { exact: false })).toBeTruthy();
+      expect(en.track.nothingPaid.startsWith(en.common.programDecides)).toBe(true);
+    } finally {
+      if (before === undefined) delete process.env.TZ;
+      else process.env.TZ = before;
+    }
+  });
+
   it("tells the packet who sent the bill and who paid which line", () => {
     const info = packetLineInfo(state);
     expect(info[billLines[1].item_id]).toEqual({ provider: "Riverbend General Hospital" });

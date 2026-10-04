@@ -7,6 +7,7 @@ import type { ChecklistItem, FilingRoute, Letter, LetterKind } from "@/lib/contr
 import type { EngineOutput } from "@/lib/types";
 import { useI18n, useSummary, type Dict } from "@/lib/i18n";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
+import { localDay } from "@/lib/dates";
 import { paidLines } from "../claim";
 import Cite from "../Cite";
 import EngineNotice from "../EngineNotice";
@@ -232,7 +233,7 @@ export default function PacketScreen() {
                           </span>
                           {paid.has(l.item_id) ? (
                             <span className={styles.sub}>
-                              {t.packet.paidNote(f.date(paid.get(l.item_id)!.at.slice(0, 10)), paid.get(l.item_id)!.to)}
+                              {t.packet.paidNote(f.date(localDay(paid.get(l.item_id)!.at)), paid.get(l.item_id)!.to)}
                             </span>
                           ) : null}
                           {/* The law sits under its cost, so two columns fit a narrow phone. */}

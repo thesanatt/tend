@@ -2,7 +2,7 @@
 // and link; held lines with the exam billing law; the totals; what is still needed; where to
 // file; and the protections that keep the survivor's address and file private.
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
-import { formatDay, isIsoDay } from "../dates";
+import { formatDay, isIsoDay, localDay } from "../dates";
 import { expenseLabel, expenseRank } from "../expenses";
 import { formatCents } from "../money";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, LineStatus, Rule } from "../types";
@@ -25,7 +25,7 @@ export interface SummaryInput {
 
 // "Paid on October 3, 2026 from Checking 0011 to Riverbend General Hospital, through Tend."
 export function paidNote(paid: NonNullable<PacketLineInfo["paid"]>): string {
-  const day = paid.at.slice(0, 10);
+  const day = localDay(paid.at);
   const when = isIsoDay(day) ? ` on ${formatDay(day)}` : "";
   const from = paid.from.trim() ? ` from ${paid.from.trim()}` : "";
   const to = paid.to.trim() ? ` to ${paid.to.trim()}` : "";

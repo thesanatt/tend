@@ -755,8 +755,8 @@ export const en = {
     lead: "One plant for each cost the program can pay. It grows as your claim moves.",
     deadlineAsk: "Ask the program for the filing deadline.",
     tally: (n: number, amount: string) => `${plural(n, "plant", "plants")} for ${amount}.`,
-    paidSoFar: (amount: string) => `In bloom: ${amount}.`,
-    nothingPaid: "Nothing paid yet.",
+    paidSoFar: (amount: string) => `The program decides. In bloom, paid by the program: ${amount}.`,
+    nothingPaid: "The program decides. It has not paid any of it yet.",
     legendLabel: "How a plant grows",
     stage: { sprout: "Sprout", leaf: "Leaf", bud: "Bud", bloom: "Bloom" } satisfies Record<Stage, string>,
     when: {

@@ -757,8 +757,8 @@ export const es: Dict = {
     lead: "Una planta por cada gasto que el programa puede pagar. Crece a medida que avanza tu solicitud.",
     deadlineAsk: "Pregunta al programa cuál es el plazo para presentar la solicitud.",
     tally: (n: number, amount: string) => `${plural(n, "planta", "plantas")} por ${amount}.`,
-    paidSoFar: (amount: string) => `En flor: ${amount}.`,
-    nothingPaid: "Nada pagado todavía.",
+    paidSoFar: (amount: string) => `El programa decide. En flor, pagado por el programa: ${amount}.`,
+    nothingPaid: "El programa decide. Todavía no ha pagado nada.",
     legendLabel: "Cómo crece una planta",
     stage: { sprout: "Brote", leaf: "Hoja", bud: "Capullo", bloom: "Flor" },
     when: {
