@@ -9,6 +9,7 @@ even if the run dies, and the run deletes it when it ends. Nothing here is regis
 
 from __future__ import annotations
 
+import base64
 import copy
 import dataclasses
 import datetime as dt
@@ -18,9 +19,11 @@ import os
 import secrets
 
 import pytest
-from helpers import REPO, claim_body, client_for, make_services
+from fastapi.testclient import TestClient
+from helpers import CHECKING, REPO, claim_body, client_for, from_b64url, make_services
 from test_repository import neon_env
 
+from tend_api.app import create_app
 from tend_api.db import CorpusBundle, bundle_hashes, corpus_sha256, read_bundles
 from tend_api.db.neon import NeonAPI, with_host
 from tend_api.db.postgres import PostgresRepository
@@ -197,3 +200,55 @@ def test_publishing_a_version_into_a_branch(env, production, throwaway):
     finally:
         law.close()
         index.close()
+
+
+def test_shares_and_payments_work_as_the_least_privilege_roles(env, settings, clock):
+    """A sealed share and the money path through the whole API as tend_app (writes) and tend_reader (corpus reads), in
+    a throwaway schema that the owner migrates, grants, loads, and drops after."""
+    schema = f"tend_test_{secrets.token_hex(4)}"
+    owner = PostgresRepository(env["DATABASE_URL"], schema=schema)  # the owner migrates; the grants follow
+    live = dataclasses.replace(
+        settings,
+        rules_dir=REPO / "rules" / "verified",
+        ir_dir=REPO / "rules" / "ir",
+        database_url=env["DATABASE_URL_APP"],
+        reader_url=env["DATABASE_URL_READER"],
+        migrate_url=env["DATABASE_URL"],
+        db_schema=schema,
+        autoload_corpus=False,
+    )
+    services = None
+    try:
+        assert owner.load_corpus(read_bundles(REPO / "rules" / "verified", REPO / "rules" / "ir", ["MI"]))["loaded"] == ["MI"]
+        services = make_services(live, clock, reference_evaluate=None)
+        assert services.repo.split_roles is True and services.repo.migrate() == []  # nothing left for the app role to do
+        client = TestClient(create_app(services=services))
+        found = client.get("/api/rules/search", params={"q": "therapy sessions", "st": "MI"}).json()  # tend_reader
+        assert found["backend"] == "postgres" and found["results"]
+        assert client.get("/api/law/search", params={"q": "forensic", "st": "MI"}).json()["count"] > 0
+
+        raw = os.urandom(512)
+        ciphertext = base64.urlsafe_b64encode(raw).decode().rstrip("=")
+        share = client.post("/api/shares", json={"ciphertext": ciphertext, "iv": base64.b64encode(os.urandom(12)).decode(), "once": True})
+        assert share.status_code == 201, share.text
+        assert from_b64url(client.get(share.json()["api_path"]).json()["ciphertext"]) == raw
+        assert client.get(share.json()["api_path"]).status_code == 410
+
+        proposal = client.post(
+            "/api/actions/propose", json={"from": CHECKING, "payee": "Riverbend General Hospital", "amount_cents": 11800}
+        )
+        assert proposal.status_code == 200, proposal.text
+        body = proposal.json()
+        done = client.post("/api/actions/confirm", json={"action_id": body["action_id"], "confirm_code": body["confirm_code"]}).json()
+        assert done["status"] == "done" and done["audit"]["seq"] == 2
+        log = client.get("/api/audit").json()
+        assert log["chain"]["ok"] is True and log["chain"]["rows"] == 2 and "Riverbend" not in str(log)
+        with pytest.raises(Exception, match="permission denied"):  # the app role cannot rewrite the log, trigger or not
+            with services.repo._tx() as c:
+                c.execute("UPDATE audit_log SET event = event")
+    finally:
+        if services is not None:
+            services.law.close()
+            services.repo.close()
+        owner.drop_schema()
+        owner.close()
