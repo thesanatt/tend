@@ -180,10 +180,14 @@ class BankDesk:
                 return await self._status(PayStatusRequest(request_id=req.request_id, action_id=req.action_id, demo=req.demo))
             if exc.status in CONFIRM_OUTCOMES:
                 return PayResultReply(request_id=req.request_id, outcome=CONFIRM_OUTCOMES[exc.status], text=exc.message, status=exc.status)
-            if exc.status == 502:
-                return PayResultReply(request_id=req.request_id, outcome="bank_error", text=exc.message, status=502)
-            if exc.status == 0:  # the code may have reached the API before the answer was lost: never call it failed
-                return PayResultReply(request_id=req.request_id, outcome="unknown", text=exc.message, status=0)
+            if exc.status == 502:  # the bank refused (nothing moved) or did not answer (it may have moved): ask the API which
+                status = await self._status(PayStatusRequest(request_id=req.request_id, action_id=req.action_id, demo=req.demo))
+                if status.outcome == "bank_error":
+                    return PayResultReply(request_id=req.request_id, outcome="bank_error", text=exc.message, status=502)
+                return status
+            if exc.status == 0 or exc.status >= 500:
+                # The code may have reached the API, or the API failed partway through: never call it failed.
+                return PayResultReply(request_id=req.request_id, outcome="unknown", text=exc.message, status=exc.status)
             raise
         book = await self._book(req.demo.st)
         return PayResultReply(
@@ -202,6 +206,9 @@ class BankDesk:
         rows = action.get("audit") or []
         audit_id = f"aud_{int(rows[-1]['seq']):06d}" if rows and isinstance(rows[-1].get("seq"), int) else None
         text = ""
+        if outcome == "unverified" and not action.get("withdrawal_id"):
+            # The bank never answered, so there is no record to read back: the money may or may not have moved.
+            outcome = "maybe"
         if outcome in ("done", "unverified"):
             payee = action.get("payee") or req.demo.provider or "the hospital"
             result = {

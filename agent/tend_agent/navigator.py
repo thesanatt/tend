@@ -94,6 +94,10 @@ SERVER_UNSURE = (
     "through. The code works once, so nothing can be paid twice. Say **check the payment** in a minute."
 )
 IN_PROGRESS = "The payment is still going through. Say **check the payment** in a minute."
+MAYBE_PAID = (
+    "The bank didn't answer, so this payment may have gone through. In a real account, check it before paying again. "
+    "I won't set up another payment for this bill in this chat."
+)
 STILL_UNSURE = (
     "I can't tell yet whether the last payment went through, so I won't start anything new or cancel it. "
     "Say **check the payment** first, so nothing is paid twice."
@@ -467,6 +471,8 @@ class _Talk:
             return [Reply("The demo bill is already paid. Say **share with an advocate** for the locked link, or **demo** to start over.")]
         if self.unsure():
             return [Reply(STILL_UNSURE)]
+        if demo.get("maybe_paid_cents"):
+            return [Reply(MAYBE_PAID + " Say **share with an advocate** for the locked link.")]
         reply = await self.bank(PayProposeRequest(request_id=self.nav.new_id(), demo=self.demo_ref()), allow=("nothing_to_pay",))
         if not reply.ok:
             return [Reply(reply.text)]
@@ -526,6 +532,10 @@ class _Talk:
             return [Reply(text, card=card, card_id=str(uuid.uuid4()))]
         if reply.outcome == "wrong_code":
             return [Reply("That code does not match. Nothing moved. Check the code on the review card and type it again.")]
+        if reply.outcome == "maybe":
+            self.s.pop("pending", None)
+            demo["maybe_paid_cents"] = reply.amount_cents
+            return [Reply(f"{MAYBE_PAID}\n\n{self.next_step_text(demo.get('ref') or {}, paid=True)}")]
         if reply.outcome in ("unknown", "in_progress"):
             if self.s.get("pending"):
                 self.s["pending"]["unsure"] = True

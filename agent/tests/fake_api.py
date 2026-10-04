@@ -42,6 +42,7 @@ class FakeTend:
     fail_once: set[str] = field(default_factory=set)  # paths that answer 503 the next time they are called
     fail_always: dict[str, int] = field(default_factory=dict)  # path -> status, every time
     lose_answer: set[str] = field(default_factory=set)  # paths whose next answer is lost after the work is done
+    bank_outcome: str | None = None  # refused | maybe (no answer from the bank) | crash (the API fails mid-payment)
 
     # ------------------------------------------------------------ helpers for tests
 
@@ -189,6 +190,15 @@ class FakeTend:
                 action["status"] = "locked"
                 return 423, {"detail": "Too many wrong codes. This action is locked; propose it again."}
             return 403, {"detail": "That code does not match this action."}
+        if self.bank_outcome == "refused":
+            action["status"] = "failed"
+            return 502, {"detail": "The bank refused this payment, so no money moved: insufficient funds"}
+        if self.bank_outcome == "maybe":
+            action["status"] = "unverified"
+            return 502, {"detail": "The bank did not answer, so this payment may have gone through (timeout). Check the account."}
+        if self.bank_outcome == "crash":
+            action["status"] = "executing"
+            return 500, {"detail": "Internal Server Error"}
         action["status"] = "done"
         amount = action["body"]["amount_cents"]
         return 200, {

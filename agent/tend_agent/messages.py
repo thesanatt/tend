@@ -146,7 +146,7 @@ class PayStatusRequest(Model):
 class PayResultReply(Model):
     request_id: str
     ok: bool = True
-    # done | unverified | wrong_code | expired | locked | finished | waiting | not_found | bank_error
+    # done | unverified | maybe | unknown | in_progress | wrong_code | expired | locked | waiting | not_found | bank_error
     outcome: str = ""
     text: str = ""
     amount_cents: int = 0

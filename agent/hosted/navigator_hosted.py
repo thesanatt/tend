@@ -1700,7 +1700,7 @@ class PayStatusRequest(Model):
 class PayResultReply(Model):
     request_id: str
     ok: bool = True
-    # done | unverified | wrong_code | expired | locked | finished | waiting | not_found | bank_error
+    # done | unverified | maybe | unknown | in_progress | wrong_code | expired | locked | waiting | not_found | bank_error
     outcome: str = ""
     text: str = ""
     amount_cents: int = 0
@@ -2855,10 +2855,14 @@ class BankDesk:
                 return await self._status(PayStatusRequest(request_id=req.request_id, action_id=req.action_id, demo=req.demo))
             if exc.status in CONFIRM_OUTCOMES:
                 return PayResultReply(request_id=req.request_id, outcome=CONFIRM_OUTCOMES[exc.status], text=exc.message, status=exc.status)
-            if exc.status == 502:
-                return PayResultReply(request_id=req.request_id, outcome="bank_error", text=exc.message, status=502)
-            if exc.status == 0:  # the code may have reached the API before the answer was lost: never call it failed
-                return PayResultReply(request_id=req.request_id, outcome="unknown", text=exc.message, status=0)
+            if exc.status == 502:  # the bank refused (nothing moved) or did not answer (it may have moved): ask the API which
+                status = await self._status(PayStatusRequest(request_id=req.request_id, action_id=req.action_id, demo=req.demo))
+                if status.outcome == "bank_error":
+                    return PayResultReply(request_id=req.request_id, outcome="bank_error", text=exc.message, status=502)
+                return status
+            if exc.status == 0 or exc.status >= 500:
+                # The code may have reached the API, or the API failed partway through: never call it failed.
+                return PayResultReply(request_id=req.request_id, outcome="unknown", text=exc.message, status=exc.status)
             raise
         book = await self._book(req.demo.st)
         return PayResultReply(
@@ -2877,6 +2881,9 @@ class BankDesk:
         rows = action.get("audit") or []
         audit_id = f"aud_{int(rows[-1]['seq']):06d}" if rows and isinstance(rows[-1].get("seq"), int) else None
         text = ""
+        if outcome == "unverified" and not action.get("withdrawal_id"):
+            # The bank never answered, so there is no record to read back: the money may or may not have moved.
+            outcome = "maybe"
         if outcome in ("done", "unverified"):
             payee = action.get("payee") or req.demo.provider or "the hospital"
             result = {
@@ -3120,6 +3127,10 @@ SERVER_UNSURE = (
     "through. The code works once, so nothing can be paid twice. Say **check the payment** in a minute."
 )
 IN_PROGRESS = "The payment is still going through. Say **check the payment** in a minute."
+MAYBE_PAID = (
+    "The bank didn't answer, so this payment may have gone through. In a real account, check it before paying again. "
+    "I won't set up another payment for this bill in this chat."
+)
 STILL_UNSURE = (
     "I can't tell yet whether the last payment went through, so I won't start anything new or cancel it. "
     "Say **check the payment** first, so nothing is paid twice."
@@ -3493,6 +3504,8 @@ class _Talk:
             return [Reply("The demo bill is already paid. Say **share with an advocate** for the locked link, or **demo** to start over.")]
         if self.unsure():
             return [Reply(STILL_UNSURE)]
+        if demo.get("maybe_paid_cents"):
+            return [Reply(MAYBE_PAID + " Say **share with an advocate** for the locked link.")]
         reply = await self.bank(PayProposeRequest(request_id=self.nav.new_id(), demo=self.demo_ref()), allow=("nothing_to_pay",))
         if not reply.ok:
             return [Reply(reply.text)]
@@ -3552,6 +3565,10 @@ class _Talk:
             return [Reply(text, card=card, card_id=str(uuid.uuid4()))]
         if reply.outcome == "wrong_code":
             return [Reply("That code does not match. Nothing moved. Check the code on the review card and type it again.")]
+        if reply.outcome == "maybe":
+            self.s.pop("pending", None)
+            demo["maybe_paid_cents"] = reply.amount_cents
+            return [Reply(f"{MAYBE_PAID}\n\n{self.next_step_text(demo.get('ref') or {}, paid=True)}")]
         if reply.outcome in ("unknown", "in_progress"):
             if self.s.get("pending"):
                 self.s["pending"]["unsure"] = True

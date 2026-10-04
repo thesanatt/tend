@@ -443,3 +443,36 @@ def test_report_note_for_a_state_whose_main_deadline_counts_from_the_report():
     }
     assert report_note(RuleBook(nd)).endswith("The law counts from the police report, so you may have longer.")
     assert "ask the program" in report_note(None)
+
+
+def test_a_bank_that_refuses_says_nothing_moved_and_allows_a_new_code(make_chat):
+    f = FakeTend(bank_outcome="refused")
+    chat = make_chat(f)
+    to_payment(chat)
+    turn = chat.say(CODE)
+    assert "refused this payment, so no money moved" in text_of(turn) and "pending" not in chat.state
+    f.bank_outcome = None
+    assert chat.say("pay the bill").intent == "pay_propose" and "pending" in chat.state
+
+
+def test_a_bank_that_does_not_answer_is_never_called_paid_or_failed(make_chat):
+    # Review fix: a 502 "may have gone through" let the person pay again at once.
+    f = FakeTend(bank_outcome="maybe")
+    chat = make_chat(f)
+    to_payment(chat)
+    said = text_of(chat.say(CODE))
+    assert "may have gone through" in said and "Done" not in said and "no money moved" not in said.lower()
+    f.bank_outcome = None
+    said = text_of(chat.say("pay the bill"))
+    assert "may have gone through" in said and len(f.bodies("/api/actions/propose")) == 1
+
+
+def test_an_api_crash_during_a_confirmation_is_unsure_not_failed(make_chat):
+    # Review fix: a 500 after the code was taken used to read "Nothing was saved and no money moved."
+    f = FakeTend(bank_outcome="crash")
+    chat = make_chat(f)
+    to_payment(chat)
+    said = text_of(chat.say(CODE))
+    assert "can't tell yet whether the payment went through" in said and "no money moved" not in said.lower()
+    assert chat.state["pending"]["unsure"] is True
+    assert "still going through" in text_of(chat.say("check the payment"))
