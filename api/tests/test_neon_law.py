@@ -241,6 +241,10 @@ def test_shares_and_payments_work_as_the_least_privilege_roles(env, settings, cl
         body = proposal.json()
         done = client.post("/api/actions/confirm", json={"action_id": body["action_id"], "confirm_code": body["confirm_code"]}).json()
         assert done["status"] == "done" and done["audit"]["seq"] == 2
+        # A replayed confirm (a double tap, a retry after a dropped answer) moves no money twice, as tend_app too.
+        again = client.post("/api/actions/confirm", json={"action_id": body["action_id"], "confirm_code": body["confirm_code"]})
+        assert again.status_code < 500, again.text
+        assert again.status_code >= 400 or again.json().get("audit", {}).get("seq") == 2
         log = client.get("/api/audit").json()
         assert log["chain"]["ok"] is True and log["chain"]["rows"] == 2 and "Riverbend" not in str(log)
         with pytest.raises(Exception, match="permission denied"):  # the app role cannot rewrite the log, trigger or not
