@@ -302,6 +302,10 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    whose date turns last (America/Adak for Alaska, America/Menominee for Michigan, America/Denver
    for Texas), so a late night anywhere in the state never counts a deadline a day early. The API
    (api/tend_api/clock.py) and the web's engine input (web/lib/stateTime.ts) share one table. Before,
-   the API used Detroit time for every state and the web used the device's time.
+   the API used Detroit time for every state and the web used the device's time. The web also keeps
+   the device's own date when the state is on that date right now (between its westernmost and its
+   easternmost zone's dates, the eastern table in web/lib/stateTime.ts), so just after midnight in
+   Detroit, Houston, or Anchorage today's date is not "in the future" and today's bills are not out
+   of the window. The API has no device date and uses the westernmost date.
 5. Law images are format 1.3: `note` 1 is `deadline_from_discovery`. The engines read only 1.3
    images, so a 1.2 image, which cannot raise the flag, is refused rather than misread.

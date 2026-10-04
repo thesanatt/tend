@@ -1,7 +1,9 @@
-// Today in a state's own time: the law engine's as_of_date (docs/SPEC.md v1.3). Where a state spans
-// several zones, the westernmost one, whose date turns last, so a late night anywhere in the state never
-// counts a filing deadline a day early. api/tend_api/clock.py holds the same table, and
-// api/tests/test_state_time.py keeps the two equal.
+// Today in a state's own time: the law engine's as_of_date (docs/SPEC.md v1.3). The state's westernmost
+// zone, whose date turns last, so a late night anywhere in the state never counts a filing deadline a
+// day early. A device whose own date is one the state is on right now keeps it: just after midnight in
+// Detroit, Michigan's Central time counties are still on yesterday, but a survivor in Detroit can enter
+// today's date and today's bills. api/tend_api/clock.py holds the same westernmost table, and
+// api/tests/test_state_time.py keeps the two equal and checks the eastern one below.
 import { todayIso } from "./dates";
 
 export const STATE_TIME_ZONES: Record<string, string> = {
@@ -58,6 +60,25 @@ export const STATE_TIME_ZONES: Record<string, string> = {
   WY: "America/Denver",
 };
 
+// For the states that span several zones, the one whose date turns first. Every other state has one.
+export const STATE_EAST_TIME_ZONES: Record<string, string> = {
+  AK: "America/Anchorage",
+  AZ: "America/Denver", // the Navajo Nation keeps daylight time
+  FL: "America/New_York",
+  ID: "America/Boise",
+  IN: "America/Indiana/Indianapolis",
+  KS: "America/Chicago",
+  KY: "America/Kentucky/Louisville",
+  MI: "America/Detroit",
+  ND: "America/Chicago",
+  NE: "America/Chicago",
+  NV: "America/Denver", // West Wendover
+  OR: "America/Boise",
+  SD: "America/Chicago",
+  TN: "America/New_York",
+  TX: "America/Chicago",
+};
+
 // Standard time offsets in hours, for a browser that cannot name the zone. Standard time is never
 // ahead of the local clock, so this can only count a deadline late, never early.
 export const STANDARD_OFFSET_HOURS: Record<string, number> = {
@@ -71,7 +92,7 @@ export const STANDARD_OFFSET_HOURS: Record<string, number> = {
   "Pacific/Honolulu": -10,
 };
 
-function dayIn(zone: string, now: Date): string {
+function zoneDay(zone: string, now: Date): string | null {
   try {
     const parts = new Intl.DateTimeFormat("en-US", {
       timeZone: zone,
@@ -83,13 +104,28 @@ function dayIn(zone: string, now: Date): string {
     const day = `${part("year")}-${part("month")}-${part("day")}`;
     if (/^\d{4}-\d{2}-\d{2}$/.test(day)) return day;
   } catch {
-    // An unknown zone name: fall through to standard time.
+    // An unknown zone name.
   }
-  return new Date(now.getTime() + STANDARD_OFFSET_HOURS[zone] * 3_600_000).toISOString().slice(0, 10);
+  return null;
 }
 
-// The device's own date until a state is chosen, or for anything that is not one of the 51.
-export function stateToday(st: string | null | undefined, now: Date = new Date()): string {
-  const zone = STATE_TIME_ZONES[(st ?? "").toUpperCase()];
-  return zone ? dayIn(zone, now) : todayIso(now);
+function dayIn(zone: string, now: Date): string {
+  // A zone the browser cannot name: standard time.
+  return (
+    zoneDay(zone, now) ?? new Date(now.getTime() + STANDARD_OFFSET_HOURS[zone] * 3_600_000).toISOString().slice(0, 10)
+  );
+}
+
+// The device's own date until a state is chosen, or for anything that is not one of the 51. For a
+// state, the device's date when the state is on that date right now, else the westernmost date.
+// `device` is the device's date, given only by tests.
+export function stateToday(st: string | null | undefined, now: Date = new Date(), device = todayIso(now)): string {
+  const code = (st ?? "").toUpperCase();
+  const zone = STATE_TIME_ZONES[code];
+  if (!zone) return device;
+  const west = dayIn(zone, now);
+  const eastZone = STATE_EAST_TIME_ZONES[code];
+  // Without the eastern zone, only the westernmost date is known to be one the state is on.
+  const east = eastZone ? (zoneDay(eastZone, now) ?? west) : west;
+  return device >= west && device <= east ? device : west;
 }

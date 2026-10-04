@@ -110,14 +110,36 @@ def test_without_the_zone_database_standard_time_is_used(monkeypatch):
             assert state_today(moment, st) <= moment.astimezone(real).date(), (st, moment)
 
 
-def test_the_web_uses_the_same_zones():
+def _web_table(name: str) -> dict[str, str]:
     source = REPO / "web" / "lib" / "stateTime.ts"
     if not source.is_file():
         pytest.skip("no web/ checkout")
-    pairs = dict(re.findall(r'^\s*([A-Z]{2}): "([A-Za-z_/]+)"', source.read_text(encoding="utf-8"), re.M))
-    assert pairs == STATE_TIME_ZONES
-    offsets = dict(re.findall(r'^\s*"([A-Za-z_/]+)": (-?\d+),', source.read_text(encoding="utf-8"), re.M))
+    text = source.read_text(encoding="utf-8")
+    block = re.search(rf"export const {name}: Record<string, (?:string|number)> = \{{(.*?)\n\}};", text, re.S)
+    assert block, name
+    return dict(re.findall(r'^\s*"?([A-Za-z_/]+)"?: "?([-A-Za-z_/0-9]+)"?,', block.group(1), re.M))
+
+
+def test_the_web_uses_the_same_zones():
+    assert _web_table("STATE_TIME_ZONES") == STATE_TIME_ZONES
+    offsets = _web_table("STANDARD_OFFSET_HOURS")
     assert {k: int(v) for k, v in offsets.items()} == STANDARD_OFFSET_HOURS
+
+
+@pytest.mark.parametrize("st", sorted(ALL_ZONES))
+def test_the_webs_eastern_zone_is_never_behind_any_part_of_the_state(st):
+    # The web keeps the device's date when it lies between the state's westernmost and easternmost
+    # dates, so a survivor just after midnight in Detroit, Houston, or Anchorage can enter today.
+    east_table = _web_table("STATE_EAST_TIME_ZONES")
+    assert sorted(east_table) == sorted(ALL_ZONES)
+    east = ZoneInfo(east_table[st])
+    assert east_table[st] in ALL_ZONES[st]
+    others = [ZoneInfo(z) for z in ALL_ZONES[st]]
+    t = dt.datetime(2026, 1, 1, tzinfo=dt.UTC)
+    while t.year == 2026:
+        mine = t.astimezone(east).date()
+        assert all(mine >= t.astimezone(z).date() for z in others), (st, t)
+        t += dt.timedelta(hours=1)
 
 
 def test_the_agent_check_asks_the_engine_with_the_states_date(settings, clock):
