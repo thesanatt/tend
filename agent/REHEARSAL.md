@@ -1,6 +1,6 @@
 # Rehearsal: the whole loop in one chat
 
-Produced by `agent/scripts/rehearse.py` on 2026-10-03 20:52 EDT against the Tend API at `http://127.0.0.1:8731`. Three uAgents (Navigator, Law, Bank and Packet) and a stand-in for ASI:One talked over the Agent Chat Protocol and the agents' typed messages. The person is fictional and so is every number from the bank. The share link's key is cut from this file (`KEY`).
+Produced by `agent/scripts/rehearse.py` on 2026-10-03 21:08 EDT against the Tend API at `http://127.0.0.1:8791`. Three uAgents (Navigator, Law, Bank and Packet) and a stand-in for ASI:One talked over the Agent Chat Protocol and the agents' typed messages. The person is fictional and so is every number from the bank. The share link's key is cut from this file (`KEY`).
 
 ---
 
@@ -34,7 +34,7 @@ Apply within three years of the crime. The statute points to ORC 2743.60 for exc
 If the claimant was under twenty-one when the crime happened, the claim is not time-barred until after the claimant's twenty-fourth birthday. ([ORC 2743.60(A)(2)(b)](https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=If%20the%20claimant%20was%20under,after%20the%20claimant%27s%20twenty%2Dfourth%20birthday.))
 > "If the claimant was under twenty-one years of age at the time of the criminally injurious conduct, the claim is not barred under division (A)(2)(a) of this section until after the claimant's twenty-fourth birthday."
 
-_Behind the scenes: Navigator asked the Law agent (LawAnswerRequest), answered in 0.08 s._
+_Behind the scenes: Navigator asked the Law agent (LawAnswerRequest), answered in 0.04 s._
 
 ---
 
@@ -58,7 +58,7 @@ _Behind the scenes: Navigator asked the Law agent (LawAnswerRequest), answered i
 
 _Based on: Michigan, date June 14, 2026, had an exam, not reported yet. These answers are not saved._
 
-**Deadline:** apply by **June 14, 2031**. This is measured from the date it happened. The law counts from your report, so you may have longer.
+**Deadline:** apply by **June 14, 2031**. This is measured from the date it happened. In one case Michigan's law counts from the police report instead ([MCL 18.355(2)(a)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20based%20on%20the,delay%20in%20reporting%20the%20crime.)): For criminal sexual conduct (first through third degree) where police records show the victim was under 18, a claim may be filed within 5 years after the crime was reported, if reported before age 28 or later with good cause for the delay.
 A claim must be filed within 5 years after the crime. ([MCL 18.355(2)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20must%20be%20filed,which%20the%20claim%20is%20based))
 > "a claim must be filed by the claimant not later than 5 years after the occurrence of the crime upon which the claim is based"
 
@@ -105,7 +105,7 @@ Nothing counts until the survivor says yes. Count these for the demo claim? Say 
 
 > Review card: **Count these costs for the demo claim?** | Counseling: 16 charges, $2,400.00; Moving: 2 charges, $839.00; Lost wages: 3 charges, $528.00; Replacing property: 1 charge, $299.00; Locks and home security: 2 charges, $249.00; Rides and travel to care: 14 charges, $178.00; Clothing and bedding: 1 charge, $96.00; Prescriptions: 4 charges, $70.00; Hospital bill (itemized): 3 lines, $443.00; Data: Fictional person on Capital One's Nessie mock bank | buttons: Yes, count them, Not now
 
-_Behind the scenes: Navigator asked the Bank and Packet agent (DemoStartRequest), answered in 0.03 s._
+_Behind the scenes: Navigator asked the Bank and Packet agent (DemoStartRequest), answered in 0.02 s._
 
 ---
 
@@ -134,7 +134,7 @@ Not included:
 A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim. ([MCL 18.355a(2)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket%20expense.))
 > "A health care provider shall not submit a bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other out-of-pocket expense."
 
-Apply by June 14, 2031 ([MCL 18.355(2)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20must%20be%20filed,which%20the%20claim%20is%20based)). This is measured from the date it happened. The law counts from your report, so you may have longer. The forensic exam counts in place of a police report.
+Apply by June 14, 2031 ([MCL 18.355(2)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20must%20be%20filed,which%20the%20claim%20is%20based)). This is measured from the date it happened. In one case Michigan's law counts from the police report instead ([MCL 18.355(2)(a)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20based%20on%20the,delay%20in%20reporting%20the%20crime.)): For criminal sexual conduct (first through third degree) where police records show the victim was under 18, a claim may be filed within 5 years after the crime was reported, if reported before age 28 or later with good cause for the delay. The forensic exam counts in place of a police report.
 
 **Tend Navigator:**
 
@@ -171,7 +171,7 @@ The rest of the hospital bill is **$118.00**. Want to pay it from Checking endin
 
 > Detail card: **What next?** | Held by law: The forensic exam line stays unpaid; Data: Fictional, on a mock bank | buttons: Pay the $118.00 left on the bill, Make a locked link for an advocate
 
-_Behind the scenes: Navigator asked the Bank and Packet agent (DemoCountRequest), answered in 0.02 s._
+_Behind the scenes: Navigator asked the Bank and Packet agent (DemoCountRequest), answered in 0.03 s._
 
 ---
 
@@ -179,22 +179,22 @@ _Behind the scenes: Navigator asked the Bank and Packet agent (DemoCountRequest)
 
 **Tend Navigator:**
 
-Here is the payment to review. **Nothing moves until you type the code.** To pay $118.00, type **345045** here. To stop, say cancel. The code works once and ends in 10 minutes. (Fictional demo data on a mock bank.)
+Here is the payment to review. **Nothing moves until you type the code.** To pay $118.00, type **300318** here. To stop, say cancel. The code works once and ends in 10 minutes. (Fictional demo data on a mock bank.)
 
-> Review card: **Review: pay $118.00** | Pay to: Riverbend General Hospital (fictional); Amount: $118.00; From: Checking ending 0011 (Nessie mock bank); Pays: 2 lines of the itemized bill; Not paid: Forensic exam line, $325.00 (held by law); Confirm code: 345045; Code ends: in 10 minutes, works once; Bank: Dry run: recorded and read back, not sent | buttons: Continue, Cancel
+> Review card: **Review: pay $118.00** | Pay to: Riverbend General Hospital (fictional); Amount: $118.00; From: Checking ending 0011 (Nessie mock bank); Pays: 2 lines of the itemized bill; Not paid: Forensic exam line, $325.00 (held by law); Confirm code: 300318; Code ends: in 10 minutes, works once; Bank: Dry run: recorded and read back, not sent | buttons: Continue, Cancel
 
-_Behind the scenes: Navigator asked the Bank and Packet agent (PayProposeRequest), answered in 0.02 s._
+_Behind the scenes: Navigator asked the Bank and Packet agent (PayProposeRequest), answered in 0.01 s._
 
 ---
 
-**You:** 345045
+**You:** 300318
 
 **Tend Navigator:**
 
 **Done.** Paid $118.00 to Riverbend General Hospital. Dry run: Tend recorded it and read it back, but did not send it to the bank.
 
-- Bank record: dryrun-c273d202ac064f5ba84d9836ee4fb3dd. Tend read it back and it matches what you approved.
-- Audit log: aud_000010, in a hash chain with no names in it.
+- Bank record: dryrun-f1dc7d168c224afa83433eb0fa0374b3. Tend read it back and it matches what you approved.
+- Audit log: aud_000004, in a hash chain with no names in it.
 
 The forensic exam line, $325.00, stays unpaid. The law says the hospital should not bill it ([MCL 18.355a(2)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket%20expense.)).
 
@@ -212,7 +212,7 @@ _Behind the scenes: Navigator asked the Bank and Packet agent (PayConfirmRequest
 
 **Here is a locked link for an advocate.** It opens the claim in their browser, with the key in the link. Tend's server keeps only a copy it cannot read. It stops working October 7, 2026.
 
-https://youreowed.tech/share#YxVEbcj2IONENcVCEv84Jw.KEY
+https://youreowed.tech/share#bPPTJpZWek0n9Qxu_Z3CWA.KEY
 
 **In the packet:**
 - Michigan's own application with safe fields only. Name, signature, Social Security number, and anything about what happened stay blank for the survivor to fill in.
@@ -236,7 +236,7 @@ https://youreowed.tech/share#YxVEbcj2IONENcVCEv84Jw.KEY
 
 > Detail card: **Locked link for an advocate** | Opens: In the advocate's browser, with the key in the link; Tend's server: Keeps a locked copy it cannot read; Link stops working: October 7, 2026; Still needed: 20 documents; Left blank: Name, signature, Social Security number, and anything about what happened | buttons: Run a Check
 
-_Behind the scenes: Navigator asked the Bank and Packet agent (PacketShareRequest), answered in 0.06 s._
+_Behind the scenes: Navigator asked the Bank and Packet agent (PacketShareRequest), answered in 0.04 s._
 
 ---
 
