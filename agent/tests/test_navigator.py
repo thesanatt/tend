@@ -124,6 +124,8 @@ def test_check_by_text(chat, fake):
     assert "apply by **June 14, 2031**" in text and "MCL 18.355(2)" in text
     assert "forensic exam counts in place of a police report" in text and "MCL 18.355a(10)" in text
     assert f"open Tend on your own device: {SITE}/mi" in text and "say **show me the demo claim**" in text
+    cap = next(line for line in text.splitlines() if line.startswith("**Most you can ask for:**"))
+    assert "$45,000 in total" in cap and cap.endswith("The program decides.")  # every amount to ask for says so
     assert fake.bodies("/api/agent/check") == [{"st": "MI", "police_report": "no", "incident_date": "2026-06-14", "forensic_exam": True}]
     assert "2026-06-14" not in json.dumps(chat.state)  # the date is not kept
 

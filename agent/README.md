@@ -123,13 +123,13 @@ against a local Tend API (dry-run bank). The full transcript, with every card an
 > **You:** pay the bill
 >
 > **Tend Navigator:** Here is the payment to review. **Nothing moves until you type the code.** To pay $118.00, type
-> **812660** here. [...] _[Review card: pay $118.00 to Riverbend General Hospital (fictional), Not paid: Forensic
+> **345045** here. [...] _[Review card: pay $118.00 to Riverbend General Hospital (fictional), Not paid: Forensic
 > exam line, $325.00 (held by law), Confirm code, Continue / Cancel]_
 
-> **You:** 812660
+> **You:** 345045
 >
 > **Tend Navigator:** **Done.** Paid $118.00 to Riverbend General Hospital. Dry run: Tend recorded it and read it
-> back, but did not send it to the bank. Bank record: dryrun-15aa[...]. Audit log: aud_000008, in a hash chain with no
+> back, but did not send it to the bank. Bank record: dryrun-c273[...]. Audit log: aud_000010, in a hash chain with no
 > names in it. The forensic exam line, $325.00, stays unpaid. [...]
 
 > **You** click **Make a locked link for an advocate**.
