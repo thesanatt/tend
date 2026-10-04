@@ -15,6 +15,7 @@ import {
   bankApi,
   demoPaid,
   demoPersona,
+  offline,
   PAYOUT_DONE,
   PAYOUT_PREFIX,
   PAYOUT_UNDONE,
@@ -60,9 +61,11 @@ export default function PayoutDemo({ api = bankApi }: { api?: BankApi }) {
     setBusy("pay");
     setError(null);
     try {
-      const live = (await api.mode()) === "live";
+      // With Wi-Fi off the cached mode still says live; offline, nothing is sent and the plants bloom here.
+      const live = !offline() && (await api.mode()) === "live";
+      // The privacy line records the request once it leaves the device, whatever the bank answers.
+      if (live) logSent({ kind: "payment", amount_cents: amount, to: s.payout.to });
       const result = live ? await api.payout(persona, { st: state.check.st, amount_cents: amount }) : null;
-      if (result) logSent({ kind: "payment", amount_cents: result.amount_cents, to: s.payout.to });
       const ids = garden.filter((p) => !state.life[p.item.item_id]?.paid_at).map((p) => p.item.item_id);
       dispatch({ type: "life", ids, patch: { paid_at: today } });
       dispatch({

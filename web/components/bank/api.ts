@@ -15,6 +15,9 @@ export function demoPersona(state: Pick<FlowState, "account" | "sources">): stri
   return DEMO_PERSONAS[state.account.id] ?? null;
 }
 
+// Wi-Fi off: the cached data mode still says live, so the bank pieces ask the browser first.
+export const offline = () => typeof navigator !== "undefined" && navigator.onLine === false;
+
 // A demo payment is kept in the flow's payment list, so it saves and locks with everything else.
 export const PAYOUT_PREFIX = "payout:";
 export const PAYOUT_DONE = "demo_payout";

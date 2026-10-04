@@ -10,7 +10,7 @@ import PrivacyLine from "@/components/flow/PrivacyLine";
 import { ROWAN_ACCOUNT } from "@/components/flow/samples";
 import type { Action, FlowItem } from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
-import { resetDataModeForTests } from "@/lib/api";
+import { dataMode, resetDataModeForTests } from "@/lib/api";
 import { MI_BYTES, MI_CHECK, renderFlow, stateFrom } from "./helpers/flow";
 
 vi.mock("next/navigation", () => ({
@@ -230,6 +230,7 @@ beforeEach(() => resetDataModeForTests());
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
 });
 
 describe("who sees the demo bank", () => {
@@ -306,6 +307,34 @@ describe("the program's demo payment", () => {
     expect(calls(fetch, "/payout", "POST")).toHaveLength(0);
   });
 
+  it("with Wi-Fi off after the API was reached, sends nothing and blooms the plants here", async () => {
+    const fetch = stubFetch(true, (url) => (url === "/api/bank/rowan-mi/payout" ? json(PAYOUT) : undefined));
+    renderFlow(<TrackScreen />, { initial: stateFrom(fromBank) });
+    await screen.findAllByRole("img", { name: /^Sprout: / });
+    await dataMode(); // the mode is cached as live, as it is mid-demo
+    vi.spyOn(navigator, "onLine", "get").mockReturnValue(false);
+    fireEvent.click(screen.getByRole("button", { name: /when the program pays \(demo\)/ }));
+    expect(await screen.findByText(/Tend is not connected to the demo bank, so nothing was recorded\./)).toBeTruthy();
+    expect(screen.getAllByRole("img", { name: /^Bloom: / })).toHaveLength(2);
+    expect(calls(fetch, "/payout", "POST")).toHaveLength(0);
+  });
+
+  it("records the request on the privacy line even when the bank refuses it", async () => {
+    stubFetch(true, (url) =>
+      url === "/api/bank/rowan-mi/payout" ? json({ detail: "The bank did not answer." }, 502) : undefined,
+    );
+    renderFlow(
+      <>
+        <PrivacyLine />
+        <TrackScreen />
+      </>,
+      { initial: stateFrom(fromBank) },
+    );
+    fireEvent.click(await screen.findByRole("button", { name: /when the program pays \(demo\)/ }));
+    await screen.findByRole("alert");
+    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+  });
+
   it("says why when the bank refuses, and nothing blooms", async () => {
     stubFetch(true, (url) =>
       url === "/api/bank/rowan-mi/payout"
@@ -360,6 +389,16 @@ describe("the bank records panel", () => {
     renderFlow(<TrackScreen />, { initial: stateFrom(fromBank) });
     fireEvent.click(await screen.findByRole("button", { name: "Show the bank records" }));
     expect(await screen.findByText(/Tend is not connected to the demo bank here/)).toBeTruthy();
+  });
+
+  it("with Wi-Fi off, reads nothing and says there is nothing to show", async () => {
+    const fetch = stubFetch(true, (url) => (url === "/api/bank/rowan-mi/activity" ? json(ACTIVITY) : undefined));
+    renderFlow(<TrackScreen />, { initial: stateFrom(fromBank) });
+    await dataMode();
+    vi.spyOn(navigator, "onLine", "get").mockReturnValue(false);
+    fireEvent.click(await screen.findByRole("button", { name: "Show the bank records" }));
+    expect(await screen.findByText(/Tend is not connected to the demo bank here/)).toBeTruthy();
+    expect(calls(fetch, "/activity")).toHaveLength(0);
   });
 
   it("shows nothing from an answer that is not fictional demo data", async () => {

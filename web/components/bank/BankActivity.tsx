@@ -12,6 +12,7 @@ import { useI18n } from "@/lib/i18n";
 import {
   bankApi,
   demoPersona,
+  offline,
   type Activity,
   type ActivityAccount,
   type ActivityBill,
@@ -302,12 +303,13 @@ export default function BankActivity({ api = bankApi }: { api?: BankApi }) {
     if (!persona) return;
     setView({ status: "loading" });
     try {
-      if ((await api.mode()) !== "live") {
+      if (offline() || (await api.mode()) !== "live") {
         setView({ status: "local" });
         return;
       }
-      const data = await api.activity(persona);
+      // Recorded once the request leaves the device, whatever the bank answers.
       if (!state.sent.some((e) => e.kind === "bank")) logSent({ kind: "bank" });
+      const data = await api.activity(persona);
       setView({ status: "ready", data });
     } catch (e) {
       setView({ status: "error", error: (e as Error).message });
