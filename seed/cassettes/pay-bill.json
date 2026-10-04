@@ -1,0 +1,411 @@
+{
+ "format": "tend-nessie-cassette/1",
+ "note": "Real answers from Capital One's Nessie mock bank for the fictional persona rowan-mi, recorded by seed/record_cassettes.py. The API key is not recorded.",
+ "context": {
+  "persona": "rowan-mi",
+  "now": "2026-10-04T15:30:00+00:00",
+  "action_hex": "c0ffee0123456789abcd",
+  "checking": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+  "bill_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+  "message": "Paid $118.00 to Riverbend General Hospital. Nessie recorded it as withdrawal fc5913f8-01f6-4532-9602-2f555fdc1701. The bill in Nessie now shows $325.00 left: the $325.00 held under MCL 18.355a(2) (MI-EXAM-1). Tend will not pay it."
+ },
+ "exchanges": [
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/withdrawals",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "13d9a6de-dcdd-4de9-ac11-ba87da76c2a5",
+     "type": "withdrawal",
+     "transaction_date": "2026-09-05",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "205db3cf-1905-403e-a23e-a28b2a1c0214",
+     "type": "withdrawal",
+     "transaction_date": "2026-08-01",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "7ce64ff8-bd32-429e-9fc9-d05f344be821",
+     "type": "withdrawal",
+     "transaction_date": "2026-07-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "a150145e-e736-4d94-9a44-915a7c7bd4c4",
+     "type": "withdrawal",
+     "transaction_date": "2026-05-02",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "d21a84f0-9e43-44ba-9d2d-e68e2f99bbc7",
+     "type": "withdrawal",
+     "transaction_date": "2026-04-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fb343c7f-5064-44a0-99a6-cd5f07ac371b",
+     "type": "withdrawal",
+     "transaction_date": "2026-06-06",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/withdrawals",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "13d9a6de-dcdd-4de9-ac11-ba87da76c2a5",
+     "type": "withdrawal",
+     "transaction_date": "2026-09-05",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "205db3cf-1905-403e-a23e-a28b2a1c0214",
+     "type": "withdrawal",
+     "transaction_date": "2026-08-01",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "7ce64ff8-bd32-429e-9fc9-d05f344be821",
+     "type": "withdrawal",
+     "transaction_date": "2026-07-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "a150145e-e736-4d94-9a44-915a7c7bd4c4",
+     "type": "withdrawal",
+     "transaction_date": "2026-05-02",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "d21a84f0-9e43-44ba-9d2d-e68e2f99bbc7",
+     "type": "withdrawal",
+     "transaction_date": "2026-04-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fb343c7f-5064-44a0-99a6-cd5f07ac371b",
+     "type": "withdrawal",
+     "transaction_date": "2026-06-06",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    }
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/withdrawals",
+   "body": {
+    "medium": "balance",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "amount": 118,
+    "description": "Payment to Riverbend General Hospital [tend:act_c0ffee0123456789abcd] [bill:c1398337-ac9d-4216-a449-ab7ac2a9e9b4#1,3]"
+   },
+   "status": 201,
+   "response": {
+    "code": 201,
+    "message": "Withdrawal created",
+    "objectCreated": {
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 118,
+     "description": "Payment to Riverbend General Hospital [tend:act_c0ffee0123456789abcd] [bill:c1398337-ac9d-4216-a449-ab7ac2a9e9b4#1,3]",
+     "_id": "fc5913f8-01f6-4532-9602-2f555fdc1701",
+     "creation_date": "2026-10-04",
+     "type": "withdrawal",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/withdrawal/fc5913f8-01f6-4532-9602-2f555fdc1701",
+   "body": null,
+   "status": 200,
+   "response": {
+    "_id": "fc5913f8-01f6-4532-9602-2f555fdc1701",
+    "type": "withdrawal",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+    "medium": "balance",
+    "amount": 118,
+    "description": "Payment to Riverbend General Hospital [tend:act_c0ffee0123456789abcd] [bill:c1398337-ac9d-4216-a449-ab7ac2a9e9b4#1,3]"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/withdrawals",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "13d9a6de-dcdd-4de9-ac11-ba87da76c2a5",
+     "type": "withdrawal",
+     "transaction_date": "2026-09-05",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "205db3cf-1905-403e-a23e-a28b2a1c0214",
+     "type": "withdrawal",
+     "transaction_date": "2026-08-01",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "7ce64ff8-bd32-429e-9fc9-d05f344be821",
+     "type": "withdrawal",
+     "transaction_date": "2026-07-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "a150145e-e736-4d94-9a44-915a7c7bd4c4",
+     "type": "withdrawal",
+     "transaction_date": "2026-05-02",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "d21a84f0-9e43-44ba-9d2d-e68e2f99bbc7",
+     "type": "withdrawal",
+     "transaction_date": "2026-04-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fb343c7f-5064-44a0-99a6-cd5f07ac371b",
+     "type": "withdrawal",
+     "transaction_date": "2026-06-06",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fc5913f8-01f6-4532-9602-2f555fdc1701",
+     "type": "withdrawal",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 118,
+     "description": "Payment to Riverbend General Hospital [tend:act_c0ffee0123456789abcd] [bill:c1398337-ac9d-4216-a449-ab7ac2a9e9b4#1,3]"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/bills/c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+   "body": null,
+   "status": 200,
+   "response": {
+    "_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+    "status": "pending",
+    "payee": "Riverbend General Hospital",
+    "nickname": "Riverbend General statement",
+    "creation_date": "2026-10-03",
+    "payment_date": "2026-10-20",
+    "recurring_date": 20,
+    "upcoming_payment_date": "2026-10-20",
+    "payment_amount": 443.0,
+    "account_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434"
+   }
+  },
+  {
+   "method": "PUT",
+   "path": "/bills/c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+   "body": {
+    "status": "pending",
+    "payment_amount": 325,
+    "nickname": "Riverbend General statement: $325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay."
+   },
+   "status": 202,
+   "response": {
+    "code": 202,
+    "message": "Accepted bill update",
+    "objectUpdated": {
+     "payment_amount": 325,
+     "payment_date": "2026-10-20",
+     "status": "pending",
+     "creation_date": "2026-10-03",
+     "payee": "Riverbend General Hospital",
+     "upcoming_payment_date": "2026-10-20",
+     "nickname": "Riverbend General statement: $325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay.",
+     "_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+     "account_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "recurring_date": 20
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/bills/c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+   "body": null,
+   "status": 200,
+   "response": {
+    "_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+    "status": "pending",
+    "payee": "Riverbend General Hospital",
+    "nickname": "Riverbend General statement: $325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay.",
+    "creation_date": "2026-10-03",
+    "payment_date": "2026-10-20",
+    "recurring_date": 20,
+    "upcoming_payment_date": "2026-10-20",
+    "payment_amount": 325.0,
+    "account_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/withdrawals",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "13d9a6de-dcdd-4de9-ac11-ba87da76c2a5",
+     "type": "withdrawal",
+     "transaction_date": "2026-09-05",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "205db3cf-1905-403e-a23e-a28b2a1c0214",
+     "type": "withdrawal",
+     "transaction_date": "2026-08-01",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "7ce64ff8-bd32-429e-9fc9-d05f344be821",
+     "type": "withdrawal",
+     "transaction_date": "2026-07-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "a150145e-e736-4d94-9a44-915a7c7bd4c4",
+     "type": "withdrawal",
+     "transaction_date": "2026-05-02",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 40,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "d21a84f0-9e43-44ba-9d2d-e68e2f99bbc7",
+     "type": "withdrawal",
+     "transaction_date": "2026-04-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fb343c7f-5064-44a0-99a6-cd5f07ac371b",
+     "type": "withdrawal",
+     "transaction_date": "2026-06-06",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 60,
+     "description": "ATM withdrawal"
+    },
+    {
+     "_id": "fc5913f8-01f6-4532-9602-2f555fdc1701",
+     "type": "withdrawal",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "payer_id": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+     "medium": "balance",
+     "amount": 118,
+     "description": "Payment to Riverbend General Hospital [tend:act_c0ffee0123456789abcd] [bill:c1398337-ac9d-4216-a449-ab7ac2a9e9b4#1,3]"
+    }
+   ]
+  }
+ ]
+}

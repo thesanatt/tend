@@ -1,0 +1,1000 @@
+{
+ "format": "tend-nessie-cassette/1",
+ "note": "Real answers from Capital One's Nessie mock bank for the fictional persona rowan-mi, recorded by seed/record_cassettes.py. The API key is not recorded.",
+ "context": {
+  "persona": "rowan-mi",
+  "now": "2026-10-04T15:30:00+00:00",
+  "action_hex": "c0ffee0123456789abcd",
+  "checking": "8ff7e76a-0d1a-4327-b13d-4a8ffa529434",
+  "bill_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+  "message": "Demo: Nessie recorded a deposit of $4,008.00 from Michigan Crime Victim Compensation into Checking 0011 (deposit f581cc53-0cff-4cc3-a892-6437c6bb8b96). It is fictional. The program decides what it pays, and when."
+ },
+ "exchanges": [
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    }
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": {
+    "medium": "balance",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "amount": 4008,
+    "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+   },
+   "status": 201,
+   "response": {
+    "code": 201,
+    "message": "Deposit created",
+    "objectCreated": {
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]",
+     "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+     "creation_date": "2026-10-04"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/deposits/52603dd7-8bbd-4612-8286-84d0938da69d",
+   "body": null,
+   "status": 200,
+   "response": {
+    "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+    "medium": "balance",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "amount": 4008,
+    "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/deposits/52603dd7-8bbd-4612-8286-84d0938da69d",
+   "body": null,
+   "status": 200,
+   "response": {
+    "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+    "medium": "balance",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "amount": 4008,
+    "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    }
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "52603dd7-8bbd-4612-8286-84d0938da69d",
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    }
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/deposits/52603dd7-8bbd-4612-8286-84d0938da69d",
+   "body": null,
+   "status": 200,
+   "response": ""
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/0721872b-b41d-4bd7-a34f-d0121718f978/deposits",
+   "body": null,
+   "status": 200,
+   "response": []
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    }
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": {
+    "medium": "balance",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "amount": 4008,
+    "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+   },
+   "status": 201,
+   "response": {
+    "code": 201,
+    "message": "Deposit created",
+    "objectCreated": {
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]",
+     "_id": "f581cc53-0cff-4cc3-a892-6437c6bb8b96",
+     "creation_date": "2026-10-04"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/deposits/f581cc53-0cff-4cc3-a892-6437c6bb8b96",
+   "body": null,
+   "status": 200,
+   "response": {
+    "_id": "f581cc53-0cff-4cc3-a892-6437c6bb8b96",
+    "medium": "balance",
+    "transaction_date": "2026-10-04",
+    "status": "completed",
+    "amount": 4008,
+    "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/accounts/8ff7e76a-0d1a-4327-b13d-4a8ffa529434/deposits",
+   "body": null,
+   "status": 200,
+   "response": [
+    {
+     "_id": "01b13003-c082-4d5b-a5df-df2523f9f2ee",
+     "medium": "balance",
+     "transaction_date": "2026-07-24",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "1ae46bdf-3e9b-43ff-91a4-cf3779967f35",
+     "medium": "balance",
+     "transaction_date": "2026-08-21",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "7c5d2c9a-b218-4b66-935f-7285288cfb2b",
+     "medium": "balance",
+     "transaction_date": "2026-06-12",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "86802522-cfd5-4537-ab66-53c0e7b66aab",
+     "medium": "balance",
+     "transaction_date": "2026-04-03",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "8c68e14a-72b1-4d5f-a843-576fe795abab",
+     "medium": "balance",
+     "transaction_date": "2026-08-07",
+     "status": "completed",
+     "amount": 404,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "91076e7f-b0a0-40a9-902e-f74f3983210b",
+     "medium": "balance",
+     "transaction_date": "2026-05-01",
+     "status": "completed",
+     "amount": 419,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+     "medium": "balance",
+     "transaction_date": "2026-06-26",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "9ad655d6-74b4-47db-a262-9cd065e481bb",
+     "medium": "balance",
+     "transaction_date": "2026-07-10",
+     "status": "completed",
+     "amount": 236,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "bcb03191-f91c-4ca8-bcb6-f186ced5330f",
+     "medium": "balance",
+     "transaction_date": "2026-09-04",
+     "status": "completed",
+     "amount": 397,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "be819930-0d0c-4c68-a92a-c2c8e2beb773",
+     "medium": "balance",
+     "transaction_date": "2026-04-17",
+     "status": "completed",
+     "amount": 398,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "cc134774-428d-4b50-b62b-1de45d73426c",
+     "medium": "balance",
+     "transaction_date": "2026-05-29",
+     "status": "completed",
+     "amount": 406,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e2266b70-4864-440d-bd0f-2fea866a8a10",
+     "medium": "balance",
+     "transaction_date": "2026-09-18",
+     "status": "completed",
+     "amount": 418,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "e5df8b29-06ca-4ac5-a1ed-65ced498557b",
+     "medium": "balance",
+     "transaction_date": "2026-05-15",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "ee63eb2c-f5c2-4848-a694-e0239abac27c",
+     "medium": "balance",
+     "transaction_date": "2026-10-02",
+     "status": "completed",
+     "amount": 412,
+     "description": "Fernway Books payroll"
+    },
+    {
+     "_id": "f581cc53-0cff-4cc3-a892-6437c6bb8b96",
+     "medium": "balance",
+     "transaction_date": "2026-10-04",
+     "status": "completed",
+     "amount": 4008,
+     "description": "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+    }
+   ]
+  }
+ ]
+}

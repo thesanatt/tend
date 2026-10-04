@@ -1,11 +1,13 @@
-"""A mocked Tend API for the agent tests. Responses are real captures for the fictional demo persona
-(tests/fixtures), and the payment endpoints follow the API's rules: one code, single use, 5 tries, 10 minutes."""
+"""A mocked Tend API for the agent tests. Responses are real captures from the API on this branch for the fictional
+demo persona and the public corpus (tests/fixtures, refreshed by scripts/capture_fixtures.py). The payment endpoints
+follow the API's rules: one code, single use, 5 tries, 10 minutes. Shares keep only what the API keeps: ciphertext."""
 
 from __future__ import annotations
 
 import copy
 import datetime as dt
 import json
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -16,28 +18,31 @@ from tend_agent.states import STATES
 
 FIXTURES = Path(__file__).parent / "fixtures"
 CODE = "482913"
-LINK_CODE = "W7MZ-EPHM"
+PROVIDER = "Riverbend General Hospital"
 
 
 def load(name: str) -> Any:
     return json.loads((FIXTURES / name).read_text())
 
 
+def money(cents: int) -> str:
+    return f"${cents // 100:,}.{cents % 100:02d}"
+
+
 @dataclass
 class FakeTend:
-    """Set answer_fields / check_fields to add /api/agent/answer and /api/agent/check to the OpenAPI document,
-    with those request field names (the agent must discover them)."""
-
-    answer_fields: tuple[str, ...] | None = None
-    check_fields: tuple[str, ...] | None = None
-    answer_reply: dict[str, Any] | None = None
     down: bool = False
+    answer_missing: bool = False  # the API has no /api/agent/answer route
+    answer_reply: dict[str, Any] | None = None
+    check_patch: dict[str, Any] = field(default_factory=dict)  # merged into the Check reply
     now: dt.datetime = field(default_factory=lambda: dt.datetime.now(dt.UTC))
     calls: list[dict[str, Any]] = field(default_factory=list)
     actions: dict[str, dict[str, Any]] = field(default_factory=dict)
+    shares: dict[str, dict[str, Any]] = field(default_factory=dict)
     fail_once: set[str] = field(default_factory=set)  # paths that answer 503 the next time they are called
-    checklist_patch: dict[str, Any] = field(default_factory=dict)  # merged into the checklist reply
-    summary_patch: dict[str, Any] = field(default_factory=dict)  # merged into the linked claim summary
+    fail_always: dict[str, int] = field(default_factory=dict)  # path -> status, every time
+    lose_answer: set[str] = field(default_factory=set)  # paths whose next answer is lost after the work is done
+    bank_outcome: str | None = None  # refused | maybe (no answer from the bank) | crash (the API fails mid-payment)
 
     # ------------------------------------------------------------ helpers for tests
 
@@ -52,28 +57,6 @@ class FakeTend:
 
     # ------------------------------------------------------------ the API
 
-    def openapi(self) -> dict[str, Any]:
-        paths: dict[str, Any] = {
-            "/api/jurisdictions": {"get": {}},
-            "/api/jurisdictions/{st}": {"get": {"parameters": [{"name": "st", "in": "path"}]}},
-            "/api/agent/checklist/{st}": {"get": {"parameters": [{"name": "st", "in": "path"}]}},
-            "/api/scan": {"post": {}},
-            "/api/claim": {"post": {}},
-            "/api/actions/propose": {"post": {}},
-            "/api/actions/confirm": {"post": {}},
-        }
-        schemas: dict[str, Any] = {}
-        for base, fields, name in (
-            ("/api/agent/answer", self.answer_fields, "AnswerRequest"),
-            ("/api/agent/check", self.check_fields, "CheckRequest"),
-        ):
-            if fields is None:
-                continue
-            schemas[name] = {"type": "object", "properties": {f: {"type": "string"} for f in fields}}
-            body = {"content": {"application/json": {"schema": {"$ref": f"#/components/schemas/{name}"}}}}
-            paths[base] = {"post": {"requestBody": body}}
-        return {"openapi": "3.1.0", "paths": paths, "components": {"schemas": schemas}}
-
     def handle(self, request: httpx.Request) -> httpx.Response:
         if self.down:
             raise httpx.ConnectError("connection refused", request=request)
@@ -82,24 +65,27 @@ class FakeTend:
         self.calls.append(
             {"method": request.method, "path": path, "json": body, "params": dict(request.url.params), "headers": dict(request.headers)}
         )
+        if path in self.fail_always:
+            return httpx.Response(self.fail_always[path], json={"detail": "Service Unavailable"})
         if path in self.fail_once:
             self.fail_once.discard(path)
             return httpx.Response(503, json={"detail": "Service Unavailable"})
         try:
-            status, data = self.route(request.method, path, body, request)
+            status, data = self.route(request.method, path, body)
         except KeyError as exc:  # a missing field in a request body is the agent's bug
             status, data = 422, {"detail": f"missing {exc}"}
+        if path in self.lose_answer:  # the API did the work, but its answer never came back
+            self.lose_answer.discard(path)
+            raise httpx.ReadTimeout("the answer never came back", request=request)
         return httpx.Response(status, json=data)
 
-    def route(self, method: str, path: str, body: Any, request: httpx.Request) -> tuple[int, Any]:
-        if path == "/api/openapi.json":
-            return 200, self.openapi()
+    def route(self, method: str, path: str, body: Any) -> tuple[int, Any]:
         if path == "/api/jurisdictions":
-            return 200, {"jurisdictions": [{"jurisdiction": c, "name": n} for c, n in STATES.items()]}
+            return 200, load("jurisdictions.json")
         if path.startswith("/api/jurisdictions/"):
             st = path.rsplit("/", 1)[-1].upper()
-            if st == "MI":
-                return 200, load("MI.json")
+            if st in ("MI", "OH"):
+                return 200, load(f"{st}.json")
             if st in STATES:
                 return 200, {
                     "jurisdiction": st,
@@ -109,20 +95,18 @@ class FakeTend:
                     "sources": [],
                 }
             return 404, {"detail": f"No verified rules for {st}."}
-        if path.startswith("/api/agent/checklist/"):
-            data = load("checklist_MI.json")
-            st = path.rsplit("/", 1)[-1].upper()
-            data["jurisdiction"], data["name"] = st, STATES.get(st, st)
-            data.update(copy.deepcopy(self.checklist_patch))
+        if path == "/api/agent/answer":
+            if self.answer_missing:
+                return 404, {"detail": "Not Found"}
+            return 200, self.answer(body)
+        if path == "/api/agent/check" and method == "POST":
+            exam = body.get("forensic_exam")
+            data = load("check_MI.json" if exam is True else "check_MI_noexam.json" if exam is False else "check_MI_unsure.json")
+            st = body["st"]
+            data["st"], data["name"] = st, STATES.get(st, st)
+            data["inputs"] = {k: body.get(k) for k in ("incident_date", "forensic_exam", "police_report")}
+            data.update(copy.deepcopy(self.check_patch))
             return 200, data
-        if path == "/api/agent/answer" and self.answer_fields is not None:
-            return 200, self.answer_reply or {
-                "answer": "Michigan does not let a provider bill you for a forensic exam.",
-                "known": True,
-                "citations": [c for c in load("checklist_MI.json")["exam_billing"]["protection"]],
-            }
-        if path == "/api/agent/check" and self.check_fields is not None:
-            return 200, load("checklist_MI.json")
         if path == "/api/scan" and method == "POST":
             scan = load("scan_rowan_mi.json")
             scan["st"] = body["st"]
@@ -133,26 +117,38 @@ class FakeTend:
         if path == "/api/claim":
             for item in body["items"]:
                 if item.get("description") or item.get("confirmed") is not True:
-                    return 422, {"detail": "the agent sent text or an unconfirmed item"}
-            return 200, load("claim_rowan_mi.json")
+                    return 422, {"detail": "the agent sent bill or merchant text, or an unconfirmed item"}
+            claim = load("claim_rowan_mi.json")
+            claim["jurisdiction"] = body["jurisdiction"]
+            return 200, claim
         if path == "/api/actions/propose":
             return self.propose(body)
         if path == "/api/actions/confirm":
             return self.confirm(body)
-        if path == "/api/agent/redeem":
-            if body.get("link_code", "").replace(" ", "-").upper() == LINK_CODE:
-                return 200, {
-                    "agent_token": "tok-1",
-                    "claim_id": "clm_1",
-                    "packet_path": "/api/share/abc/packet.pdf",
-                    "share_path": "/share/abc",
-                }
-            return 404, {"detail": "That link code is not valid, was already used, or has expired. Ask Tend for a new one."}
-        if path == "/api/agent/claim":
-            if request.headers.get("authorization") == "Bearer tok-1":
-                return 200, {**load("linked_summary.json"), **copy.deepcopy(self.summary_patch)}
-            return 401, {"detail": "This agent session is not valid or has expired."}
+        if path.startswith("/api/actions/") and method == "GET":
+            return self.action_view(path.rsplit("/", 1)[-1])
+        if path == "/api/shares" and method == "POST":
+            return self.seal(body)
+        if path.startswith("/api/shares/") and method == "GET":
+            share = self.shares.get(path.rsplit("/", 1)[-1])
+            return (200, share) if share else (404, {"detail": "This link is not valid. It may have been deleted."})
         return 404, {"detail": "Not Found"}
+
+    def answer(self, body: dict[str, Any]) -> dict[str, Any]:
+        if self.answer_reply is not None:
+            return copy.deepcopy(self.answer_reply)
+        q, st = body["question"].lower(), body.get("st")
+        if st == "MI" and re.search(r"\bexam|\bkit\b|bill me|billed", q):
+            return load("answer_MI_exam.json")
+        if st == "MI" and re.search(r"counsel|therap", q):
+            return load("answer_MI_counseling.json")
+        if st == "MI" and re.search(r"deadline|how long", q):
+            return load("answer_MI_deadline.json")
+        if st == "OH" and re.search(r"deadline|how long", q):
+            return load("answer_OH_deadline.json")
+        refusal = load("answer_MI_unknown.json")
+        refusal.update(st=st, name=STATES.get(st or "", st), question=body["question"])
+        return refusal
 
     def propose(self, body: dict[str, Any]) -> tuple[int, Any]:
         audit = load("audit_rowan_mi.json")
@@ -186,6 +182,7 @@ class FakeTend:
         if action["status"] != "proposed":
             return 409, {"detail": f"This action is already {action['status']}. Each confirm code works once."}
         if action["expires"] <= self.now:
+            action["status"] = "expired"
             return 410, {"detail": "This confirm code expired. Propose the payment again to get a new code."}
         if body["confirm_code"] != action["code"]:
             action["attempts"] += 1
@@ -193,6 +190,15 @@ class FakeTend:
                 action["status"] = "locked"
                 return 423, {"detail": "Too many wrong codes. This action is locked; propose it again."}
             return 403, {"detail": "That code does not match this action."}
+        if self.bank_outcome == "refused":
+            action["status"] = "failed"
+            return 502, {"detail": "The bank refused this payment, so no money moved: insufficient funds"}
+        if self.bank_outcome == "maybe":
+            action["status"] = "unverified"
+            return 502, {"detail": "The bank did not answer, so this payment may have gone through (timeout). Check the account."}
+        if self.bank_outcome == "crash":
+            action["status"] = "executing"
+            return 500, {"detail": "Internal Server Error"}
         action["status"] = "done"
         amount = action["body"]["amount_cents"]
         return 200, {
@@ -203,5 +209,41 @@ class FakeTend:
             "nessie_id": "dryrun-0001",
             "read_back_matches": True,
             "audit_id": "aud_000004",
-            "message": f"Paid ${amount // 100}.{amount % 100:02d} to Riverbend General Hospital. Dry run: Tend recorded it and read it back, but did not send it to the bank.",
+            "message": f"Paid {money(amount)} to {PROVIDER}. Dry run: Tend recorded it and read it back, but did not send it to the bank.",
+        }
+
+    def action_view(self, action_id: str) -> tuple[int, Any]:
+        action = self.actions.get(action_id)
+        if action is None:
+            return 404, {"detail": "No action with that id."}
+        done = action["status"] == "done"
+        return 200, {
+            "action_id": action_id,
+            "status": action["status"],
+            "amount_cents": action["body"]["amount_cents"],
+            "payee": None if done else action["body"]["payee"],  # the API forgets the payee once a payment finishes
+            "dry_run": True,
+            "withdrawal_id": "dryrun-0001" if done else None,
+            "readback": {"ok": True} if done else None,
+            "audit": [{"seq": 3, "event": "confirmed"}, {"seq": 4, "event": "executed"}] if done else [],
+        }
+
+    def seal(self, body: dict[str, Any]) -> tuple[int, Any]:
+        if set(body) - {"ciphertext", "iv", "alg", "expires_hours", "once"}:
+            return 422, {"detail": "extra fields"}
+        share_id = f"shr{len(self.shares) + 1:013d}"
+        expires = self.now + dt.timedelta(hours=int(body.get("expires_hours", 72)))
+        self.shares[share_id] = {
+            "id": share_id,
+            "alg": "AES-256-GCM",
+            "ciphertext": body["ciphertext"],
+            "iv": body["iv"],
+            "expires_at": expires.isoformat().replace("+00:00", "Z"),
+            "once": bool(body.get("once")),
+        }
+        return 201, {
+            "id": share_id,
+            "expires_at": self.shares[share_id]["expires_at"],
+            "once": bool(body.get("once")),
+            "api_path": f"/api/shares/{share_id}",
         }

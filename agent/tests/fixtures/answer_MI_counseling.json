@@ -1,0 +1,117 @@
+{
+ "st": "MI",
+ "name": "Michigan",
+ "question": "Does Michigan cover counseling, and is there a limit?",
+ "backend": "sqlite",
+ "contact": {
+  "phone": "877-251-7373",
+  "website": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+  "apply_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation",
+  "source": {
+   "id": "MI-S9",
+   "title": "MDHHS Crime Victim Compensation (program home)",
+   "url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+   "sha256": "9e5407f20e6991acad57c4b856f98b574c58e0035fbb462b085d1fafde761466"
+  }
+ },
+ "answered": true,
+ "answer": "Psychological counseling is covered, subject to the session and rate limits.",
+ "points": [
+  {
+   "text": "Psychological counseling is covered, subject to the session and rate limits.",
+   "rule_id": "MI-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "summary": "Psychological counseling is covered, subject to the session and rate limits.",
+   "quote": "(b) Subject to subsection (6), psychological or grief counseling for an individual listed in section 4(1)(a), (b), (c), (e), (f), or (g).",
+   "pinpoint": "MCL 18.361(2)(b)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28b%29%20Subject%20to%20subsection%20%286%29%2C,%28c%29%2C%20%28e%29%2C%20%28f%29%2C%20or%20%28g%29.",
+   "source_id": "MI-S6",
+   "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361",
+   "source_sha256": "6b07d8b58bcda80a2342d8c3a4f7eff9715b7960e567bc8f7626786fb5208f36"
+  },
+  {
+   "text": "Counseling with a licensed psychologist or physician is reimbursed at up to $125 per hourly session.",
+   "rule_id": "MI-CAP-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "summary": "Counseling with a licensed psychologist or physician is reimbursed at up to $125 per hourly session.",
+   "quote": "except that the maximum hourly reimbursement rate must not exceed $125.00 per hourly session for a psychologist or physician licensed to practice in this state.",
+   "pinpoint": "MCL 18.361(6)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=except%20that%20the%20maximum%20hourly,to%20practice%20in%20this%20state.",
+   "source_id": "MI-S6",
+   "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361",
+   "source_sha256": "6b07d8b58bcda80a2342d8c3a4f7eff9715b7960e567bc8f7626786fb5208f36"
+  },
+  {
+   "text": "Counseling is limited to 35 sessions per person plus up to 20 family sessions, at $80 per hour for a therapist or counselor and $125 per hour for a psychologist or physician.",
+   "rule_id": "MI-CAP-4",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "summary": "Counseling is limited to 35 sessions per person plus up to 20 family sessions, at $80 per hour for a therapist or counselor and $125 per hour for a psychologist or physician.",
+   "quote": "35 sessions, 20 family sessions $80/hour for a therapist/counselor $125/hour for a psychologist/physician",
+   "pinpoint": "MDHHS award limits table, Psychological Counseling",
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=35%20sessions%2C%2020%20family%20sessions,therapist%2Fcounselor%20%24125%2Fhour%20for%20a%20psychologist%2Fphysician",
+   "source_id": "MI-S11",
+   "source_title": "MDHHS: What Costs May Be Covered for Crime Victims?",
+   "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims",
+   "source_sha256": "c5c06677b5043a55d2665561c8c552aed0ff64ab09420f71f1aab4f5b98370e3"
+  }
+ ],
+ "citations": [
+  {
+   "rule_id": "MI-COV-2",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "summary": null,
+   "quote": "(b) Subject to subsection (6), psychological or grief counseling for an individual listed in section 4(1)(a), (b), (c), (e), (f), or (g).",
+   "pinpoint": "MCL 18.361(2)(b)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28b%29%20Subject%20to%20subsection%20%286%29%2C,%28c%29%2C%20%28e%29%2C%20%28f%29%2C%20or%20%28g%29.",
+   "source_id": "MI-S6",
+   "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361",
+   "source_sha256": "6b07d8b58bcda80a2342d8c3a4f7eff9715b7960e567bc8f7626786fb5208f36"
+  },
+  {
+   "rule_id": "MI-CAP-3",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "summary": "Counseling with a licensed psychologist or physician is reimbursed at up to $125 per hourly session.",
+   "quote": "except that the maximum hourly reimbursement rate must not exceed $125.00 per hourly session for a psychologist or physician licensed to practice in this state.",
+   "pinpoint": "MCL 18.361(6)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=except%20that%20the%20maximum%20hourly,to%20practice%20in%20this%20state.",
+   "source_id": "MI-S6",
+   "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361",
+   "source_sha256": "6b07d8b58bcda80a2342d8c3a4f7eff9715b7960e567bc8f7626786fb5208f36"
+  },
+  {
+   "rule_id": "MI-CAP-4",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "summary": "Counseling is limited to 35 sessions per person plus up to 20 family sessions, at $80 per hour for a therapist or counselor and $125 per hour for a psychologist or physician.",
+   "quote": "35 sessions, 20 family sessions $80/hour for a therapist/counselor $125/hour for a psychologist/physician",
+   "pinpoint": "MDHHS award limits table, Psychological Counseling",
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=35%20sessions%2C%2020%20family%20sessions,therapist%2Fcounselor%20%24125%2Fhour%20for%20a%20psychologist%2Fphysician",
+   "source_id": "MI-S11",
+   "source_title": "MDHHS: What Costs May Be Covered for Crime Victims?",
+   "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims",
+   "source_sha256": "c5c06677b5043a55d2665561c8c552aed0ff64ab09420f71f1aab4f5b98370e3"
+  }
+ ],
+ "intents": {
+  "categories": [
+   "covered_expense",
+   "excluded_expense",
+   "expense_cap",
+   "total_cap"
+  ],
+  "expenses": [
+   "counseling"
+  ],
+  "tags": []
+ },
+ "note": "From Michigan's verified rules. Rules can have exceptions. The program decides."
+}

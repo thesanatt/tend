@@ -34,20 +34,48 @@ April 1 to October 2, 2026. The demo incident date is 2026-06-14.
   deductible applied $325, lab coinsurance $43.
 - Computed checking balance at the end: $803. Nessie's own balance field stays at $2,850.
 
+## Before every rehearsal
+
+```
+cd seed && uv run python reset_demo.py
+```
+
+One command puts Rowan's bank back at the demo start (2.6 s on Oct 3). It deletes what a demo run
+wrote to Nessie (the $118 payment tagged `[tend:<action>] [bill:<id>#1,3]`, the program's demo deposit
+tagged `[tend:payout-MI]`), puts the Riverbend bill back to $443.00 pending under the same id, and then
+reads the bank again and compares it with `snapshots/rowan-mi.json`. It prints what it undid and
+`rowan-mi: at the demo start ... bill pending $443.00, computed balances: Checking $803.00, Cushion $590.00`,
+and exits 0. `--check` only lists what a reset would undo. `--persona all` does all four. It writes no
+file in the repository. If records ever had to be recreated with new ids, it says so and exits 1,
+because the snapshot and the web's sample would need regenerating.
+
+Then clear the browser side too: Exit this page, or Delete saved progress.
+
 ## Commands
 
 Run from `seed/` (Python 3.12, uv):
 
 ```
 uv sync
+uv run python reset_demo.py             # the demo start, checked against the snapshot (see above)
 uv run python seeder.py plan            # what will be seeded; no network
 uv run python seeder.py seed all        # create or converge in Nessie, then refresh snapshots
-uv run python seeder.py reset rowan-mi  # undo demo writes such as the $118 payment (about 2 s)
+uv run python seeder.py reset rowan-mi  # converge and rewrite the snapshot (reset_demo.py writes nothing)
 uv run python seeder.py snapshot all    # re-read live Nessie into snapshots/ (read-only)
 uv run python seeder.py classify all    # score classification against the plan's labels
 uv run python seeder.py items all       # write classified/: the statement's ClassifiedItems; offline
 uv run pytest                           # offline; TEND_LIVE=1 also checks live Nessie
 ```
+
+## Recorded Nessie answers
+
+`cassettes/` holds what the demo sent to live Nessie and what Nessie answered, recorded on Oct 3 by
+`cd api && uv run python ../seed/record_cassettes.py` (it resets rowan-mi before and after, and checks
+the key is in no file). `pay-bill.json` is the $118 payment and the bill update, `payout.json` the demo
+deposit, `activity.json` the bank activity read-out, `reset.json` the reset undoing all of it.
+`api/tests/test_nessie_recorded.py` and `tests/test_cassettes.py` replay them with no network: every
+request must match a recorded one exactly (path and body), so a second payment would fail the test.
+Re-record after changing what Tend sends to Nessie.
 
 Snapshots were last read from live Nessie on Oct 3 at about 5:25 PM Detroit time: 190 records per
 persona, checking computed at $803, the bill pending at $443, the same records as the plan.
@@ -118,5 +146,6 @@ ids are `nessie:<id>`.
 ## Files
 
 - `personas.py`, `history.py` (the plan and its ground-truth labels), `seeder.py`, `bill_pdf.py`
-- `snapshots/`, `classified/`, `bills/`, `cache/classify_cache.json` (the model's answers): committed
+- `reset_demo.py` (the rehearsal reset), `record_cassettes.py` (records `cassettes/`)
+- `snapshots/`, `classified/`, `bills/`, `cassettes/`, `cache/classify_cache.json` (the model's answers): committed
 - `.manifest/`: Nessie ids from the last seed, gitignored
