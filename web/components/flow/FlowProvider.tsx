@@ -356,7 +356,8 @@ export function FlowProvider({
         const reading = await services.billReader.read(file);
         const s = stateRef.current;
         const ok = reading.status === "ok" && reading.sums_match && reading.lines.length > 0;
-        const date = s.check.date && !s.check.dateUnsure ? s.check.date : today;
+        // A date the Check step would not count (a typo in the future) does not date the bill either.
+        const date = knowsDate(s, today) ? s.check.date : today;
         const items: FlowItem[] = ok
           ? reading.lines.map((line, i) => ({
               item_id: `bill:${sha}:${line.line_id}`,

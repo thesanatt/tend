@@ -9,6 +9,7 @@ import STATES from "@/lib/states.json";
 import { useLaw } from "@/lib/useLaw";
 import { knowsDate } from "../claim";
 import { buildCheckSummary } from "../checkSummary";
+import { useSetAside } from "../useSetAside";
 import EngineNotice from "../EngineNotice";
 import FlowSheet from "../FlowSheet";
 import { useFlow } from "../FlowProvider";
@@ -113,6 +114,7 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [demo]);
   const law = useLaw(check.st || null);
+  const setAside = useSetAside(check.st || null);
   const [saveOpen, setSaveOpen] = useState(false);
   const [notToday, setNotToday] = useState(false);
   const [announce, setAnnounce] = useState("");
@@ -120,7 +122,8 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
   const dateProblem =
     check.date && !isIsoDay(check.date) ? t.check.dateBad : check.date > today ? t.check.dateFuture : null;
   const output = claim.evaluation && claim.evaluation.output.jurisdiction === check.st ? claim.evaluation.output : null;
-  const summary = law.law && check.st ? buildCheckSummary(law.law, output, check, knowsDate(state, today)) : null;
+  const summary =
+    law.law && check.st ? buildCheckSummary(law.law, output, check, knowsDate(state, today), setAside) : null;
   const deadlineSentence =
     summary?.deadline.kind === "date" ? t.check.notTodayDeadline(summary.name, f.date(summary.deadline.date)) : null;
 

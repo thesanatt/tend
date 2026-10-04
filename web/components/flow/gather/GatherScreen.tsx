@@ -39,7 +39,12 @@ function Bed({
 }) {
   const { t } = useI18n();
   const [expanded, setExpanded] = useState(false);
-  const open = all.some((r) => r.status === "needs_confirmation" && r.answer === undefined);
+  // A line still being checked may be a question a moment later, and "Yes to all" already counts it.
+  const open = all.some(
+    (r) =>
+      r.answer === undefined &&
+      (r.status === "needs_confirmation" || (r.status === "checking" && r.kind === "inferred")),
+  );
   const folded = !open && !expanded && all.length > SHOW + 1;
   const rows = folded ? all.slice(0, SHOW) : all;
   const listId = `rows-${id}`;

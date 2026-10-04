@@ -8,6 +8,7 @@ import { moneyGrowth } from "@/lib/garden";
 import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
 import { buildCheckSummary } from "../checkSummary";
+import { useSetAside } from "../useSetAside";
 import { GROUPS, groupOf, knowsDate, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
@@ -107,11 +108,13 @@ export default function TrackScreen() {
   const { t, f } = useI18n();
   const { state, claim, today } = useFlow();
   const law = useLaw(state.check.st || null);
+  const setAside = useSetAside(state.check.st || null);
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
   const all = plants(state, output).map((p) =>
     p.stage === "sprout" && p.item.origin === "bill" ? { ...p, stage: "leaf" as const } : p,
   );
-  const summary = law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today)) : null;
+  const summary =
+    law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today), setAside) : null;
   const deadline = summary?.deadline.kind === "date" ? summary.deadline : null;
   const held = output?.lines.filter((l) => l.status === "held") ?? [];
   const paidCents = all.filter((p) => p.stage === "bloom").reduce((s, p) => s + p.line.allowed_cents, 0);

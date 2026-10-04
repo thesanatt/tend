@@ -88,11 +88,14 @@ export const en = {
     partShare: (n: number) => (n === 1 ? "a locked share link" : `${n} locked share links`),
     partBank: "a request to the bank",
     partServer: "your claim, to check the law on Tend's server",
+    partSetup: (n: number) => (n === 1 ? "a payment you started" : `${n} payments you started`),
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: a payment of ${amount} to ${to}. It went to the bank.`,
     eventShare: (when: string) =>
       `${when}: a share link. The packet was locked on this device first, so the server holds only locked data.`,
     eventBank: (when: string) => `${when}: a request to the bank for your transactions.`,
+    eventSetup: (amount: string, to: string, when: string) =>
+      `${when}: the amount ${amount} and the payee ${to}, to get a confirmation code. No money moved.`,
     eventServer: (when: string) =>
       `${when}: your answers and costs, to Tend's server to check the law, because this browser could not run the law engine.`,
     more: "What stays here",
@@ -271,6 +274,8 @@ export const en = {
     coveredTitle: "What the program can pay for",
     coveredNone: "Tend found no list of covered costs in the verified rules. Ask the program.",
     totalCap: (amount: string) => `In total, up to ${amount}`,
+    totalCapDepends: (amounts: string) =>
+      `In total, up to ${amounts}, depending on your case. The rule says when each one applies`,
     privateTitle: "Staying private with the state",
     acp: (name: string) => `${name} gives survivors a substitute address to use on government forms.`,
     acpMaybe: (name: string) =>
@@ -514,6 +519,8 @@ export const en = {
     paid: (amount: string, payee: string, when: string) => `You paid ${amount} to ${payee} (${when}).`,
     eitherWay: "Both choices are fine. The program can pay you back for these, whether you pay now or not:",
     notSent: (amount: string) => `The payment of ${amount} was not sent.`,
+    unverified: (amount: string) =>
+      `The payment of ${amount} may have gone through. Check the account before you pay again.`,
     payNow: (amount: string, account: string) => (account ? `Pay ${amount} now from ${account}` : `Pay ${amount} now`),
     leaveUnpaid: "Leave unpaid and claim it",
     payNeedsBank: "To pay from here, add the demo bank account on the Gather step.",
@@ -541,6 +548,10 @@ export const en = {
   pay: {
     title: "Pay the rest of this bill",
     preparing: "Getting the payment ready",
+    reviewNote:
+      "Next, Tend asks for a one-time code. When Tend is connected to the bank, this sends the amount, the account, and the payee. Nothing else, and no money moves yet.",
+    getCode: "Get a code",
+    newCode: "Get a new code",
     amount: "Amount",
     from: "From",
     to: "To",
@@ -557,6 +568,8 @@ export const en = {
     resultTitle: "Payment result",
     resultPaid: (amount: string) => `Paid ${amount}.`,
     resultNotSent: "Nothing was sent.",
+    resultUnverified:
+      "Sent, but the bank's record does not match what you approved. Check the account before you try again.",
     demoResult: "Demo mode: Tend is not connected to the bank, so no money moved.",
     bankRecord: "Bank record",
     readBack: "Checked with the bank",
@@ -566,10 +579,16 @@ export const en = {
       `The payment service proposed ${proposed}, but the bill shows ${expected}. Nothing was sent.`,
     payeeMismatch: (payee: string) => `The payment service named a different payee (${payee}). Nothing was sent.`,
     accountMismatch: "The payment service named a different account to pay from. Nothing was sent.",
-    prepareFailed: (msg: string) => `Tend could not get this payment ready: ${msg}`,
+    prepareFailed: "Tend could not get this payment ready. Nothing was sent.",
+    wholeDollars:
+      "The demo bank only takes whole-dollar payments, so Tend can't pay this amount from here. You can leave it unpaid and claim it.",
+    notDemoAccount: "The bank here only takes payments from the demo account. Nothing was sent.",
     codeWrong: "That code does not match. Check the six digits and try again.",
-    codeExpired: "This code has expired or was already used. Close this and start again for a new one.",
-    confirmFailed: (msg: string) => `The payment did not go through: ${msg}`,
+    codeExpired: "This code has expired or was already used. Get a new code to try again.",
+    codeLocked: "Too many wrong codes, so this one is locked. Get a new code to try again.",
+    bankUnsure:
+      "The bank did not give a clear answer, so this payment may have gone through. Check the account before you try again.",
+    confirmFailed: "The payment did not go through. Nothing was sent.",
   },
 
   packet: {
@@ -628,6 +647,7 @@ export const en = {
     copy: "Copy the link",
     revoke: "Stop this link",
     revoked: "A link you stopped no longer works.",
+    lapsed: "An earlier link has expired. You can make a new one.",
     expiryLabel: "The link works for",
     hours: { 24: "1 day", 72: "3 days", 168: "7 days" } as Record<24 | 72 | 168, string>,
     once: "Let it open only once",

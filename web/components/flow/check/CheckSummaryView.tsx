@@ -145,6 +145,16 @@ export default function CheckSummaryView({
                   <Cite ruleIds={s.totalCap.ruleIds} law={law} subject={t.check.subjectTotal} />
                 </li>
               ) : null}
+              {!s.totalCap && s.totalCapsDepend.length ? (
+                <li className={styles.coveredTotal}>
+                  <span>{t.check.totalCapDepends(f.or(s.totalCapsDepend.map((c) => f.moneyShort(c.cents))))}</span>
+                  <Cite
+                    ruleIds={s.totalCapsDepend.flatMap((c) => c.ruleIds)}
+                    law={law}
+                    subject={t.check.subjectTotal}
+                  />
+                </li>
+              ) : null}
             </ul>
           ) : (
             <p className={styles.factNote}>{t.check.coveredNone}</p>
