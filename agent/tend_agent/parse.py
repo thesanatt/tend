@@ -349,11 +349,24 @@ _CONTEXT = re.compile(
 )
 
 
+# Details that identify a person: a name, a home address, an email, a phone number, a Social Security number.
+_IDENTITY = re.compile(
+    r"\bmy (?:full |real |legal )?name(?:'s| is)\b|\bi(?:'m| am) (?:called|named)\b|\bcall me [A-Z]|"
+    r"\bi live (?:at|on)\b|\bmy (?:home )?address\b|\bmy (?:birthday|date of birth|dob)\b|"
+    r"\b\d{1,5} [A-Za-z]+(?: [A-Za-z]+)? (?:st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|ln|lane|ct|court)\b|"
+    r"[\w.+-]+@[\w-]+\.[\w.]+|\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b|\b\d{3}-\d{2}-\d{4}\b",
+    re.I,
+)
+
+
 def story_kind(text: str) -> str | None:
-    """'act' when someone describes what was done to them, 'context' when a longer message names who or where,
-    else None. Either way the message is not passed on."""
+    """'act' when someone describes what was done to them, 'identity' when a message carries a name, an address,
+    or a way to reach someone, 'context' when a longer message names who or where, else None. Either way the
+    message is not passed on."""
     if _ACT.search(text):
         return "act"
+    if _IDENTITY.search(text):
+        return "identity"
     if len(text) > 40 and _CONTEXT.search(text):
         return "context"
     return None

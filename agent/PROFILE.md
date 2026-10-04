@@ -42,7 +42,8 @@ survivors and the advocates who help them.
 ## Privacy
 
 No account, no name, no story. The agent never asks what happened, where, or who, and it does not need to know. If
-someone starts to describe it, the agent says it does not need that and does not pass the message on. It never
+someone starts to describe it, or types a name, an address, or a phone number, the agent says it does not need that
+and does not pass the message on. It never
 receives a survivor's own claim or share links: it works on the public law corpus and the fictional demo only.
 Message text is never stored or logged. Short session details (like a pending payment id) last at most two hours.
 

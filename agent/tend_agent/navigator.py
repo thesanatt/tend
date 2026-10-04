@@ -77,6 +77,10 @@ STORY_NOTE = (
     "You don't need to tell me what happened, where, or who, and I didn't pass that message on. "
     "I only need the state, and for a Check, the date."
 )
+ID_NOTE = (
+    "You don't need to tell me your name, where you live, or how to reach you, and I didn't pass that message on. "
+    "I only need the state, and for a Check, the date."
+)
 HOTLINE = "If you want to talk with someone now, the National Sexual Assault Hotline is free and open all day and night: 800-656-4673."
 TROUBLE = (
     "I can't reach Tend's server right now, so I can't look that up. Nothing was saved and no money moved. Please try again in a minute."
@@ -153,7 +157,7 @@ class Navigator:
             replies, intent = [Reply(down_text(exc.desk))], f"{exc.desk}_down"
         except Failure as exc:
             replies, intent = [Reply(trouble_text(exc.reply))], "api_error"
-        if first and replies and intent != "welcome" and not replies[0].text.startswith(STORY_NOTE):
+        if first and replies and intent != "welcome" and not replies[0].text.startswith((STORY_NOTE, ID_NOTE)):
             replies[0].text = f"{FIRST_NOTE}\n\n{replies[0].text}"
         return Turn(replies, s, intent)
 
@@ -220,9 +224,9 @@ class _Talk:
         kind = story_kind(text)
         replies, intent = await self.route_text(text, kind is not None)
         # A plain question that names a partner ("Can my partner apply?") is guarded without a note.
-        note = kind == "act" or (kind == "context" and not QUESTION_START.match(text))
-        if note and replies and not replies[0].text.startswith(STORY_NOTE):
-            lead = STORY_NOTE + (f" {HOTLINE}" if kind == "act" else "")
+        note = kind in ("act", "identity") or (kind == "context" and not QUESTION_START.match(text))
+        if note and replies and not replies[0].text.startswith((STORY_NOTE, ID_NOTE)):
+            lead = ID_NOTE if kind == "identity" else STORY_NOTE + (f" {HOTLINE}" if kind == "act" else "")
             replies[0].text = f"{lead}\n\n{replies[0].text}"
         return replies, intent
 
@@ -595,4 +599,4 @@ def type_code_hint(pending: dict[str, Any]) -> str:
     )
 
 
-__all__ = ["Navigator", "Reply", "Turn", "Failure", "WELCOME", "STORY_NOTE", "FIRST_NOTE"]
+__all__ = ["Navigator", "Reply", "Turn", "Failure", "WELCOME", "STORY_NOTE", "ID_NOTE", "FIRST_NOTE"]

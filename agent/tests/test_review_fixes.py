@@ -29,6 +29,13 @@ from tend_agent.parse import story_kind
         ("Can my partner apply?", None),
         ("What if they were drunk?", None),
         ("Does Michigan cover counseling for sexual assault survivors?", None),
+        ("My name is Jane Roe, does Michigan cover counseling?", "identity"),
+        ("I live at 12 Elm St in Ann Arbor, can I get moving costs?", "identity"),
+        ("email me at jr@example.com about Ohio", "identity"),
+        ("call 734-555-0199 if Ohio covers it", "identity"),
+        ("check Michigan 2026-06-14, had an exam", None),  # a date is not a phone number
+        ("I live in Ohio, does Michigan cover moving?", None),
+        ("482913", None),  # a confirm code
     ],
 )
 def test_story_kind(text, kind):
@@ -153,3 +160,12 @@ def test_total_cap_limited_to_cases_lists_each_case():
     assert "$45,000 for crimes committed on or after August 7, 2022" in out and "$27,000 for crimes committed before" in out
     answer = answer_from_rules(book.doc, "what is the most I can get?").text
     assert "depends on the case" in answer and "$27,000" in answer
+
+
+def test_a_name_or_address_never_reaches_the_api(chat, fake):
+    # Review fix: a question that carried a name and a street address went to /api/agent/answer word for word.
+    turn = chat.say("My name is Jane Roe and I live at 12 Elm St, can I get therapy paid in Michigan?")
+    sent = json.dumps(fake.calls)
+    assert "Jane" not in sent and "Elm" not in sent
+    assert text_of(turn).startswith("You don't need to tell me your name, where you live, or how to reach you")
+    assert "$125" in text_of(turn)  # still answered, from the topic alone

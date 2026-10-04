@@ -65,7 +65,7 @@ The agents never receive a survivor's own claim, bank data, or share links. They
 fictional demo person only. The Navigator never asks for a name, what happened, where, or who, and says so in its
 first message. If a message starts to describe what happened, the Navigator says it does not need that, does not pass
 the message on, and answers from the topic alone ("counseling"); a described act also gets the National Sexual Assault
-Hotline (800-656-4673).
+Hotline (800-656-4673). A message with a name, a street address, an email, or a phone number is handled the same way.
 
 - Message text is never stored or logged. Logs hold the kind of turn only, like `turn intent=answer replies=1 cards=0`,
   and the helpers log the kind of request only.
