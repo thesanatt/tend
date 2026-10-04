@@ -33,6 +33,14 @@ class Settings:
         """Where an advocate opens a share link. The web app and the API share one origin in production."""
         return (self.app_url or self.api_url).rstrip("/")
 
+    @property
+    def app_origin(self) -> str:
+        """The web app to point people at after a Check: TEND_PUBLIC_URL, or the API's origin unless it is local."""
+        if self.app_url:
+            return self.app_url.rstrip("/")
+        local = any(host in self.api_url for host in ("127.0.0.1", "localhost"))
+        return "" if local else self.api_url.rstrip("/")
+
     @classmethod
     def from_env(cls) -> "Settings":  # noqa: UP037 - quoted: the hosted build evaluates annotations eagerly
         env = os.environ

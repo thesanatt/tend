@@ -230,7 +230,7 @@ before sealing it.
 cd agent && uv run pytest
 ```
 
-244 tests, about 18 seconds. Offline, with the API mocked from real captures of this branch's API for the fictional persona and the public corpus
+245 tests, about 18 seconds. Offline, with the API mocked from real captures of this branch's API for the fictional persona and the public corpus
 (`tests/fixtures`, refreshed by `scripts/capture_fixtures.py`); the mock enforces the API's payment rules. They cover
 three real uAgents and an ASI:One stand-in completing the whole loop over the Chat Protocol, a helper that never
 answers (plain fallback), a slow confirmation (never reported as failed, then "check the payment"), helpers refusing

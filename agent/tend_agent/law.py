@@ -182,7 +182,8 @@ class LawDesk:
         if not looks_like_check(data):
             raise ApiError(502, "Tend's server sent a Check I could not read.")
         book = await self._book(req.st)
-        app = f"{self.settings.app_url}/{req.st.lower()}" if self.settings.app_url else ""
+        origin = self.settings.app_origin
+        app = f"{origin}/{req.st.lower()}" if origin else ""
         text = render_check(
             data,
             book,

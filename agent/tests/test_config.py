@@ -45,5 +45,11 @@ def test_share_links_open_on_the_web_app_when_it_is_set():
     assert Settings(api_url="http://127.0.0.1:8000", app_url=PUBLIC_SITE).share_origin == "https://youreowed.tech"
 
 
+def test_the_check_points_at_the_web_app_only_when_there_is_one():
+    assert Settings(api_url="https://youreowed.tech/").app_origin == "https://youreowed.tech"  # same origin in production
+    assert Settings(api_url="http://127.0.0.1:8000").app_origin == ""  # a local API has no web page to point at
+    assert Settings(api_url="http://127.0.0.1:8000", app_url="http://localhost:3000/").app_origin == "http://localhost:3000"
+
+
 def test_inspector_url():
     assert inspector_url("agent1qabc", 8001) == "https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8001&address=agent1qabc"
