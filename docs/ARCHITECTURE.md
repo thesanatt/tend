@@ -216,7 +216,7 @@ spec itself.
 | Payments | `POST /api/actions/propose`, `POST /api/actions/confirm`, `GET /api/audit` | 6-digit code, 10 minutes, locks after 5 wrong tries, held lines refused, read back from Nessie, logged |
 | Shares | `POST /api/shares`, `GET`/`DELETE /api/shares/{id}` | ciphertext at most 2 MB, 1 to 168 hours, open-once option |
 | Bank relay | `GET /api/bank/{persona}/...` | fictional personas only (403 otherwise) |
-| Cloud AI | `POST /api/ai/classify`, `POST /api/ai/bill` | 403 without `consent: true`; the model never sees amounts or ids |
+| Cloud AI | `POST /api/ai/classify`, `POST /api/ai/bill` | 403 without `consent: true`; sorting sends no amounts or ids; a bill photo goes as the file; nothing stored |
 | Agent | `POST /api/agent/answer`, `/agent/check`, `/agent/pay`, `/agent/confirm` | used by the Fetch.ai agents |
 
 Storage is one repository interface with two backends: Neon Postgres in production and SQLite

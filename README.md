@@ -104,7 +104,7 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 | Rowan Hale, Riverbend General Hospital, every merchant and dollar | Fictional, made for the demo (`seed/`); every snapshot says so |
 | The bank | Capital One's Nessie, a mock bank API. Payments are mock money. Tend computes balances from records, because Nessie's balance field never changes |
 | Gemini Nano | Runs in Chrome on the device through the Prompt API, when the browser has it. Without it, the rules alone sort costs |
-| Cloud Gemini | Only after an explicit yes: the API refuses without `consent: true` (403). The model never sees amounts or record ids |
+| Cloud Gemini | Only after an explicit yes: the API refuses without `consent: true` (403). Sorting sends merchant, category, and description only, never amounts or record ids; a bill photo is sent as the file |
 | Filing | Tend files nothing. The survivor sends the packet |
 
 ## Numbers
