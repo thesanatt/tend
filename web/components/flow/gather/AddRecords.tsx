@@ -12,6 +12,20 @@ import { sampleBillFile, sampleStatementFile } from "../samples";
 import { recordOf, type FlowState } from "../state";
 import styles from "../flow.module.css";
 
+// How many rows a reader left out. Its other notes ("Read negative amounts as money spent.") are
+// not skipped rows; "3 cancelled records were left out." counts 3.
+export function skippedRows(warnings: string[]): number {
+  let n = 0;
+  for (const w of warnings) {
+    if (/^(Line|Record|Page \d+, line) \d+ skipped\b/.test(w)) n += 1;
+    else {
+      const m = /^(\d+) cancelled records? (?:was|were) left out/.exec(w);
+      if (m) n += Number(m[1]);
+    }
+  }
+  return n;
+}
+
 // Rows of one record that nothing on this device could sort, and that could still count: these are
 // what cloud AI would be asked about, after a yes.
 export function unsortedRows(state: FlowState, sourceId: string, today: string): number {
@@ -259,7 +273,9 @@ export default function AddRecords() {
                   ? t.gather.bankRead(s.read, s.found)
                   : t.gather.statementRead(s.label, s.read, s.found)}
                 {s.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}
-                {s.warnings.length ? <span className="meta"> {t.gather.warnings(s.warnings.length)}</span> : null}
+                {skippedRows(s.warnings) ? (
+                  <span className="meta"> {t.gather.warnings(skippedRows(s.warnings))}</span>
+                ) : null}
                 {s.already ? <span className={`meta ${styles.already}`}>{t.gather.already(s.already)}</span> : null}
                 {unsorted ? (
                   <span className={styles.aiOffer}>

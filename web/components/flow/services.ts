@@ -68,7 +68,10 @@ export function accountLabel(a: AccountRef): string {
 }
 
 async function propose(req: PaymentRequest): Promise<ActionProposal & { demo: boolean }> {
-  if ((await dataMode()) === "live") {
+  // A build made with the API always pays through it, even when a probe could not reach it: an
+  // offline device then hears "offline", never a demo that pretends to pay. Only a build without
+  // any API walks through the demo steps, which send nothing.
+  if (process.env.NEXT_PUBLIC_TEND_API === "1" || (await dataMode()) === "live") {
     // A plain transfer to the payee; the bill's lines were read on this device, not by the server.
     const res = await fetch("/api/actions/propose", {
       method: "POST",
