@@ -126,6 +126,19 @@ back it lists the collection and matches on what it sent. Updates (`PUT`) answer
 - 20 sequential POSTs took 1.29 s in total (55 to 81 ms each), with no 429s.
 - Some GETs take about 1.2 s now and then. `/enterprise/deposits` did not answer within 15 s.
 
+## Paying a bill (checked Oct 3, about 8 PM, on a throwaway account and then on rowan-mi)
+
+- There is no route that pays a bill. Tend pays one with a withdrawal and then a `PUT /bills/{id}`.
+- `PUT /bills/{id}` with `payment_amount`, `nickname`, and `status` answers `202 {code, message, objectUpdated}`.
+  An int stays an int (`325`), `upcoming_payment_date` and `recurring_date` survive, and a 79-character
+  nickname was kept whole. A later `GET /bills/{id}` shows the same values.
+- So after the $118 payment the Riverbend bill reads `pending`, `325`, nickname
+  `Riverbend General statement: $325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay.`
+- A description holding `[tend:act_...] [bill:<id>#1,3]` is stored and read back unchanged.
+- `GET /deposits/{id}` has no account field, so Tend checks a deposit's account by finding its id in
+  `GET /accounts/{id}/deposits`.
+- Nessie's own date for `creation_date` was already Oct 4 at 8 PM Detroit time: it runs on UTC.
+
 ## How the client handles all this
 
 - Takes cents, writes whole dollars, and refuses anything Nessie would truncate.
@@ -137,3 +150,7 @@ back it lists the collection and matches on what it sent. Updates (`PUT`) answer
   because Nessie has no idempotency keys; a write that times out raises with `maybe_applied=True`,
   and `find_txns(account, kind, marker)` checks whether it landed.
 - Computes balances from records and keeps the payee of a transfer in its description.
+- Keeps a log of every call it made (`client.calls`: method, path, status, milliseconds, list size; never
+  the key), which the bank activity panel shows.
+- Ties a bill payment to its bill in the withdrawal's description, `[bill:<id>#<lines>]`, and uses that tag
+  as the idempotency key Nessie does not have: lines already paid are never paid again.
