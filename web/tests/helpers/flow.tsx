@@ -92,7 +92,8 @@ export function testServices(over: Partial<FlowServices> = {}): TestServices {
       demo: false,
     })),
     confirm: vi.fn(async (actionId: string, code: string) => {
-      if (code !== "123456") throw new ApiError("That code does not match.", 400);
+      // The API answers a wrong code with 403 (api/tend_api/actions.py).
+      if (code !== "123456") throw new ApiError("That code does not match this action.", 403);
       return {
         action_id: actionId,
         status: "done",

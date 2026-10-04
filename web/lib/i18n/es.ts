@@ -63,11 +63,14 @@ export const es: Dict = {
     partShare: (n: number) => (n === 1 ? "un enlace protegido" : `${n} enlaces protegidos`),
     partBank: "una consulta al banco",
     partServer: "tu solicitud, para revisar la ley en el servidor de Tend",
+    partSetup: (n: number) => (n === 1 ? "un pago que empezaste" : `${n} pagos que empezaste`),
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}. Se envió al banco.`,
     eventShare: (when: string) =>
       `${when}: un enlace para compartir. El paquete se protegió primero en este dispositivo, así que el servidor solo guarda datos cifrados.`,
     eventBank: (when: string) => `${when}: una consulta al banco para ver tus transacciones.`,
+    eventSetup: (amount: string, to: string, when: string) =>
+      `${when}: el monto ${amount} y el destinatario ${to}, para recibir un código de confirmación. No se movió dinero.`,
     eventServer: (when: string) =>
       `${when}: tus respuestas y gastos, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley.`,
     more: "Qué se queda aquí",
@@ -249,6 +252,8 @@ export const es: Dict = {
     coveredTitle: "Lo que el programa puede pagar",
     coveredNone: "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
     totalCap: (amount: string) => `En total, hasta ${amount}`,
+    totalCapDepends: (amounts: string) =>
+      `En total, hasta ${amounts}, según su caso. La regla dice cuándo se aplica cada uno`,
     privateTitle: "Tu privacidad ante el estado",
     acp: (name: string) => `${name} da a sobrevivientes una dirección sustituta para usar en formularios del gobierno.`,
     acpMaybe: (name: string) =>
@@ -497,6 +502,8 @@ export const es: Dict = {
     paid: (amount: string, payee: string, when: string) => `Pagaste ${amount} a ${payee} (${when}).`,
     eitherWay: "Las dos opciones están bien. El programa te puede reembolsar estos gastos, los pagues ahora o no:",
     notSent: (amount: string) => `El pago de ${amount} no se envió.`,
+    unverified: (amount: string) =>
+      `El pago de ${amount} pudo haberse hecho. Revisa la cuenta antes de pagar otra vez.`,
     payNow: (amount: string, account: string) =>
       account ? `Pagar ${amount} ahora desde ${account}` : `Pagar ${amount} ahora`,
     leaveUnpaid: "Dejarlo sin pagar e incluirlo en la solicitud",
@@ -525,6 +532,10 @@ export const es: Dict = {
   pay: {
     title: "Pagar el resto de esta factura",
     preparing: "Preparando el pago",
+    reviewNote:
+      "Ahora Tend pide un código de un solo uso. Si Tend está conectado al banco, esto envía el monto, la cuenta y el destinatario. Nada más, y todavía no se mueve dinero.",
+    getCode: "Recibir un código",
+    newCode: "Recibir otro código",
     amount: "Monto",
     from: "Desde",
     to: "Para",
@@ -543,6 +554,8 @@ export const es: Dict = {
     resultTitle: "Resultado del pago",
     resultPaid: (amount: string) => `Pagado: ${amount}.`,
     resultNotSent: "No se envió nada.",
+    resultUnverified:
+      "Se envió, pero el registro del banco no coincide con lo que aprobaste. Revisa la cuenta antes de intentarlo de nuevo.",
     demoResult: "Modo de demostración: Tend no está conectado al banco, así que no se movió dinero.",
     bankRecord: "Registro del banco",
     readBack: "Verificado con el banco",
@@ -552,10 +565,17 @@ export const es: Dict = {
       `El servicio de pago propuso ${proposed}, pero la factura muestra ${expected}. No se envió nada.`,
     payeeMismatch: (payee: string) => `El servicio de pago indicó otro destinatario (${payee}). No se envió nada.`,
     accountMismatch: "El servicio de pago indicó otra cuenta para pagar. No se envió nada.",
-    prepareFailed: (msg: string) => `Tend no pudo preparar este pago: ${msg}`,
+    prepareFailed: "Tend no pudo preparar este pago. No se envió nada.",
+    wholeDollars:
+      "El banco de prueba solo acepta pagos en dólares enteros, así que Tend no puede pagar este monto desde aquí. Puedes dejarlo sin pagar y reclamarlo.",
+    notDemoAccount: "El banco aquí solo acepta pagos desde la cuenta de prueba. No se envió nada.",
     codeWrong: "Ese código no coincide. Revisa los seis dígitos e inténtalo de nuevo.",
-    codeExpired: "Este código venció o ya se usó. Cierra esto y empieza de nuevo para recibir otro.",
-    confirmFailed: (msg: string) => `El pago no se completó: ${msg}`,
+    codeExpired: "Este código venció o ya se usó. Pide otro código para intentarlo de nuevo.",
+    codeLocked:
+      "Hubo demasiados códigos incorrectos, así que este se bloqueó. Pide otro código para intentarlo de nuevo.",
+    bankUnsure:
+      "El banco no dio una respuesta clara, así que este pago pudo haberse hecho. Revisa la cuenta antes de intentarlo de nuevo.",
+    confirmFailed: "El pago no se completó. No se envió nada.",
   },
 
   packet: {
@@ -615,6 +635,7 @@ export const es: Dict = {
     copy: "Copiar el enlace",
     revoke: "Desactivar este enlace",
     revoked: "Un enlace que desactivaste ya no funciona.",
+    lapsed: "Un enlace anterior ya venció. Puedes crear uno nuevo.",
     expiryLabel: "El enlace funciona por",
     hours: { 24: "1 día", 72: "3 días", 168: "7 días" },
     once: "Que se abra una sola vez",

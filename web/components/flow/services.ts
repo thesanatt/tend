@@ -1,6 +1,6 @@
 // Everything the flow calls outside React, behind one interface so tests can swap in mocks.
 // The defaults import the real local-first modules by the paths in lib/contracts.ts.
-import { confirmPayment, dataMode, proposePayment } from "@/lib/api";
+import { ApiError, confirmPayment, dataMode, proposePayment } from "@/lib/api";
 import type {
   BillReader,
   Classifier,
@@ -73,7 +73,9 @@ async function propose(req: PaymentRequest): Promise<ActionProposal & { demo: bo
       signal: AbortSignal.timeout(15000),
     });
     const body = await res.json().catch(() => null);
-    if (!res.ok || !body) throw new Error(typeof body?.detail === "string" ? body.detail : `${res.status}`);
+    // The status says what went wrong (422 whole dollars, 403 not a demo account); the screen words it.
+    if (!res.ok || !body)
+      throw new ApiError(typeof body?.detail === "string" ? body.detail : `${res.status}`, res.status);
     return { ...(body as ActionProposal), demo: false };
   }
   return proposePayment(

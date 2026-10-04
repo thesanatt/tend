@@ -21,8 +21,6 @@ interface PaySheetProps {
   notPaidText: string | null;
 }
 
-type Phase = "proposing" | "ready" | "confirming" | "done" | "error";
-
 // The service names the account by id or by label; the survivor sees the label they know.
 export function fromLabel(from: ActionProposal["from"], account: AccountRef): string {
   if (typeof from !== "string") return accountLabel(from);
@@ -47,55 +45,99 @@ export function proposalProblem(
   return null;
 }
 
+// review: only what is on this device. Nothing is sent until the survivor asks for a code.
+// dead: the code can no longer be used (expired, used, locked); a new one can be asked for.
+// unsure: the bank may have taken it; no new code is offered, so nothing is paid twice.
+type Phase = "review" | "proposing" | "ready" | "confirming" | "done" | "error" | "dead" | "unsure";
+
+const statusOf = (e: unknown): number | undefined => {
+  const s = (e as { status?: unknown } | null)?.status;
+  return typeof s === "number" ? s : undefined;
+};
+
+// Why a proposal failed, in the survivor's language. The service answers in English, so its text is
+// never shown as is.
+export function proposeProblem(e: unknown, t: Dict): string {
+  const status = statusOf(e);
+  if (status === 422) return t.pay.wholeDollars;
+  if (status === 403) return t.pay.notDemoAccount;
+  return t.pay.prepareFailed;
+}
+
+// Why a confirm failed, and what the sheet can offer next.
+export function confirmProblem(e: unknown, t: Dict): { text: string; phase: "ready" | "dead" | "unsure" } {
+  const status = statusOf(e);
+  // A wrong code: the demo answers 400, the API 403. The same code can be typed again.
+  if (status === 400 || status === 403) return { text: t.pay.codeWrong, phase: "ready" };
+  if (status === 410 || status === 409) return { text: t.pay.codeExpired, phase: "dead" };
+  if (status === 423) return { text: t.pay.codeLocked, phase: "dead" };
+  // Any other refusal from the service came before the bank was asked.
+  if (status !== undefined && status >= 400 && status < 500) return { text: t.pay.confirmFailed, phase: "dead" };
+  // A bank error or no answer at all: the payment may have gone through.
+  return { text: t.pay.bankUnsure, phase: "unsure" };
+}
+
 // Money moves only after the survivor sees the exact amount, account, and payee, and types the
-// six-digit code. A payment the bank takes is the first thing that changes the privacy line.
+// six-digit code. Asking for the code is the first thing that can leave the device, so it waits for a tap.
 export default function PaySheet(props: PaySheetProps) {
   const { open, onClose, itemIds, amountCents, forText, notPaidText } = props;
   const { t, f } = useI18n();
   const { services, dispatch, logSent } = useFlow();
-  const [phase, setPhase] = useState<Phase>("proposing");
+  const [phase, setPhase] = useState<Phase>("review");
   const [proposal, setProposal] = useState<(ActionProposal & { demo: boolean }) | null>(null);
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<PaymentRecord | null>(null);
   const latest = useRef(props);
+  const attempt = useRef(0);
   useEffect(() => {
     latest.current = props;
   });
 
   useEffect(() => {
     if (!open) return;
-    let live = true;
-    const p = latest.current;
+    attempt.current += 1;
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPhase("proposing");
+    setPhase("review");
+    setProposal(null);
     setCode("");
     setError(null);
     setResult(null);
-    services
-      .propose({ bill_id: p.billId, amount_cents: p.amountCents, from: p.account, payee: p.payee })
-      .then((proposal) => {
-        if (!live) return;
-        const problem = proposalProblem(proposal, p.amountCents, p.payee, t, f, p.account);
-        if (problem) {
-          setError(problem);
-          setPhase("error");
-          return;
-        }
-        setProposal(proposal);
-        setPhase("ready");
-      })
-      .catch((e: Error) => {
-        if (!live) return;
-        setError(t.pay.prepareFailed(e.message));
-        setPhase("error");
-      });
-    return () => {
-      live = false;
-    };
-    // A proposal is made once per opening, from the props at that moment.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  async function getCode() {
+    const id = ++attempt.current;
+    const p = latest.current;
+    setPhase("proposing");
+    setProposal(null);
+    setCode("");
+    setError(null);
+    try {
+      const next = await services.propose({
+        bill_id: p.billId,
+        amount_cents: p.amountCents,
+        from: p.account,
+        payee: p.payee,
+      });
+      if (id !== attempt.current) return;
+      // The service now holds the amount, account, and payee, whatever happens next.
+      if (!next.demo) {
+        logSent({ kind: "payment_setup", amount_cents: next.amount_cents, to: next.payee, action_id: next.action_id });
+      }
+      const problem = proposalProblem(next, p.amountCents, p.payee, t, f, p.account);
+      if (problem) {
+        setError(problem);
+        setPhase("error");
+        return;
+      }
+      setProposal(next);
+      setPhase("ready");
+    } catch (e) {
+      if (id !== attempt.current) return;
+      setError(proposeProblem(e, t));
+      setPhase("error");
+    }
+  }
 
   async function confirm() {
     if (!proposal || code.length !== 6) return;
@@ -121,30 +163,56 @@ export default function PaySheet(props: PaySheetProps) {
       setResult(record);
       setPhase("done");
       dispatch({ type: "payment", record });
-      if (r.status === "done") {
-        dispatch({ type: "billChoice", billId: record.bill_id, choice: "pay" });
-        if (!proposal.demo) logSent({ kind: "payment", amount_cents: r.amount_cents, to: proposal.payee });
+      if (r.status === "done") dispatch({ type: "billChoice", billId: record.bill_id, choice: "pay" });
+      // "unverified" reached the bank too, even though its record does not match.
+      if (!proposal.demo && (r.status === "done" || r.status === "unverified")) {
+        logSent({ kind: "payment", amount_cents: r.amount_cents, to: proposal.payee, action_id: proposal.action_id });
       }
     } catch (e) {
-      // The bank side answers in English; the survivor reads it in their language.
-      const status = (e as { status?: number }).status;
-      setError(
-        status === 400
-          ? t.pay.codeWrong
-          : status === 410
-            ? t.pay.codeExpired
-            : t.pay.confirmFailed((e as Error).message),
-      );
-      setPhase("ready");
+      const next = confirmProblem(e, t);
+      setError(next.text);
+      setPhase(next.phase);
+      if (next.phase === "unsure" && !proposal.demo) {
+        logSent({
+          kind: "payment",
+          amount_cents: proposal.amount_cents,
+          to: proposal.payee,
+          action_id: proposal.action_id,
+        });
+        dispatch({
+          type: "payment",
+          record: {
+            action_id: proposal.action_id,
+            bill_id: latest.current.billId,
+            item_ids: itemIds,
+            amount_cents: proposal.amount_cents,
+            payee: proposal.payee,
+            from: fromLabel(proposal.from, latest.current.account),
+            status: "unverified",
+            demo: false,
+            at: new Date().toISOString(),
+          },
+        });
+      }
     }
   }
 
   const sent = result?.status === "done";
+  const unverified = result?.status === "unverified";
   const footer =
-    phase === "done" ? (
+    phase === "done" || phase === "unsure" ? (
       <div className="btn-row">
         <button type="button" className="btn btn-primary" onClick={onClose}>
           {t.common.done}
+        </button>
+      </div>
+    ) : phase === "review" || phase === "proposing" || phase === "dead" ? (
+      <div className="btn-row">
+        <button type="button" className="btn btn-primary" disabled={phase === "proposing"} onClick={getCode}>
+          {phase === "proposing" ? t.pay.preparing : phase === "dead" ? t.pay.newCode : t.pay.getCode}
+        </button>
+        <button type="button" className="btn btn-quiet" onClick={onClose}>
+          {t.common.cancel}
         </button>
       </div>
     ) : (
@@ -171,7 +239,37 @@ export default function PaySheet(props: PaySheetProps) {
         </p>
       ) : null}
 
-      {phase === "error" ? (
+      {phase === "review" ? (
+        <>
+          <dl className={styles.terms}>
+            <div>
+              <dt>{t.pay.amount}</dt>
+              <dd className={styles.termAmount}>{f.money(amountCents)}</dd>
+            </div>
+            <div>
+              <dt>{t.pay.from}</dt>
+              <dd>{accountLabel(props.account)}</dd>
+            </div>
+            <div>
+              <dt>{t.pay.to}</dt>
+              <dd>{props.payee}</dd>
+            </div>
+            <div>
+              <dt>{t.pay.forLabel}</dt>
+              <dd>{forText}</dd>
+            </div>
+            {notPaidText ? (
+              <div>
+                <dt>{t.pay.notPaid}</dt>
+                <dd>{notPaidText}</dd>
+              </div>
+            ) : null}
+          </dl>
+          <p className={styles.demoNote}>{t.pay.reviewNote}</p>
+        </>
+      ) : null}
+
+      {phase === "error" || phase === "dead" || phase === "unsure" ? (
         <p role="alert" className={styles.problem}>
           {error}
         </p>
@@ -244,9 +342,14 @@ export default function PaySheet(props: PaySheetProps) {
       {phase === "done" && result ? (
         <div className={styles.result} role="status">
           <p className={styles.resultTitle}>
-            {sent ? t.pay.resultPaid(f.money(result.amount_cents)) : t.pay.resultNotSent}
+            {sent
+              ? t.pay.resultPaid(f.money(result.amount_cents))
+              : unverified
+                ? t.pay.resultUnverified
+                : t.pay.resultNotSent}
           </p>
-          {result.demo ? <p>{t.pay.demoResult}</p> : result.message ? <p>{result.message}</p> : null}
+          {/* The bank service writes its note in English. */}
+          {result.demo ? <p>{t.pay.demoResult}</p> : result.message ? <p lang="en">{result.message}</p> : null}
           <dl className={styles.terms}>
             <div>
               <dt>{t.pay.from}</dt>
