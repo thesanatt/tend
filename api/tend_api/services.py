@@ -84,7 +84,17 @@ def build_services(
     claims = ClaimService(rules, engines, settings.seed_dir, clock)
     scans = ScanService(settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory)
     sweeps = SweepSchedule()
-    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, claims.bill_review, scans.persona_accounts, sweeps)
+    actions = ActionService(
+        repo,
+        banks,
+        settings.bank_mode,
+        secret,
+        clock,
+        claims.bill_review,
+        scans.persona_accounts,
+        sweeps,
+        bill_index=claims.bills_for_account,
+    )
     rulebook = Rulebook(repo, rules, ir)
     if settings.autoload_corpus:
         autoload(rulebook, repo)
