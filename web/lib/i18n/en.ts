@@ -654,6 +654,8 @@ export const en = {
     template: "Template",
     neededNone: "Tend found no document list for this state. Ask the program what to send.",
     fileTitle: "Where and how to file",
+    // The program's phone line answers questions; the state's rules name the ways to file.
+    questionsPhone: "Questions, by phone",
     fileNone: "Tend found no filing address in the verified rules. Call the program.",
     shareTitle: "Share with an advocate",
     shareBody:

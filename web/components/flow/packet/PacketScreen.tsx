@@ -315,7 +315,7 @@ export default function PacketScreen() {
               ))}
               {program?.phone ? (
                 <li>
-                  <span className={styles.method}>{t.methods.phone}</span>
+                  <span className={styles.method}>{t.packet.questionsPhone}</span>
                   <a href={`tel:${program.phone.replace(/[^\d+]/g, "")}`}>{program.phone}</a>
                 </li>
               ) : null}

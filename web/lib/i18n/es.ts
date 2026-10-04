@@ -646,6 +646,7 @@ export const es: Dict = {
     template: "Modelo",
     neededNone: "Tend no encontró una lista de documentos para este estado. Pregunta al programa qué enviar.",
     fileTitle: "Dónde y cómo presentar la solicitud",
+    questionsPhone: "Preguntas, por teléfono",
     fileNone:
       "Tend no encontró una dirección para presentar la solicitud en las reglas verificadas. Llama al programa.",
     shareTitle: "Compartir con una persona de apoyo",
