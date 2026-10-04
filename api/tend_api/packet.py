@@ -318,9 +318,12 @@ def _law_used(view: dict[str, Any], st: dict[str, Any]) -> list[Any]:
             f" {when.year} ({_text(version['short_sha'])}), kept unchanged as Neon branch {_text(version['branch_id'])}."
         )
     else:
-        lead = "Checked against rules that are not a published law version."
+        # No published version matched, or the version index did not answer in time: the hashes still name the rules.
+        lead = "Checked against the verified rules with the hashes below."
     hashes = f"Rules file SHA-256 {_text(view.get('rules_sha256'))}."
-    if view.get("law_image_sha256"):
+    # Without a compiled image the reference engine labels its output with the rules file's own hash; that is not a
+    # law image, so it is not printed as one.
+    if view.get("law_image_sha256") and view["law_image_sha256"] != view.get("rules_sha256"):
         hashes += f" Law image SHA-256 {_text(view['law_image_sha256'])}."
     return [Paragraph("Which law this used", st["h2"]), Paragraph(lead, st["base"]), Paragraph(hashes, st["small"])]
 

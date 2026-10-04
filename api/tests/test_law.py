@@ -296,6 +296,87 @@ def test_the_newest_version_with_the_same_files_is_named(world):
     assert services.repo.register_law_version(row, files) is False
 
 
+def test_a_slow_or_down_version_index_never_holds_up_a_claim(world, monkeypatch):
+    import threading
+    import time as _time
+
+    import tend_api.law as law
+
+    services = world["services"]
+    monkeypatch.setattr(law, "CLAIM_WAIT_S", 0.2)
+    gate = threading.Event()
+    real = services.repo.law_versions
+    calls = []
+
+    def slow():
+        calls.append(1)
+        gate.wait(5)
+        return real()
+
+    monkeypatch.setattr(services.repo, "law_versions", slow)
+    services.law.refresh()
+    started = _time.monotonic()
+    assert services.law.version_for("MI") is None  # gave up waiting; the read keeps going
+    assert _time.monotonic() - started < 1.5
+    started = _time.monotonic()
+    assert services.law.version_for("MI") is None  # the next claim does not wait for the same read again
+    assert _time.monotonic() - started < 0.1
+    gate.set()
+    for _ in range(50):  # the background read fills the cache for the next claim
+        if services.law.version_for("MI") is not None:
+            break
+        _time.sleep(0.05)
+    assert services.law.version_for("MI")["name"] == A and len(calls) == 1
+
+    def down():
+        calls.append(1)
+        raise RuntimeError("neon unreachable")
+
+    monkeypatch.setattr(services.repo, "law_versions", down)
+    services.law.refresh()
+    calls.clear()
+    assert services.law.version_for("MI") is None
+    assert services.law.version_for("MI") is None
+    assert len(calls) == 1  # after a failure the lookup waits CLAIM_RETRY_S before trying again
+
+
+def test_a_database_that_does_not_answer_is_a_plain_503(law_client, world, monkeypatch, caplog):
+    import psycopg
+
+    def down(*_a, **_k):
+        raise psycopg.OperationalError("couldn't get a connection after 30.00 sec")
+
+    services = world["services"]
+    monkeypatch.setattr(services.repo, "law_versions", down)
+    monkeypatch.setattr(services.repo, "law_search", down)
+    services.law.refresh()
+    for path in ("/api/law/versions", "/api/law/diff?st=MI", "/api/law/search?q=secret+words&st=MI"):
+        r = law_client.get(path)
+        assert r.status_code == 503, (path, r.text)
+        assert r.json()["detail"] == "The law versions could not be read just now. Try again in a moment."
+    assert "secret words" not in caplog.text and "secret+words" not in caplog.text
+
+
+def test_a_packet_never_prints_the_rules_hash_as_a_law_image(client):
+    from pypdf import PdfReader
+
+    pdf = client.post("/api/packet", json=claim_body())
+    assert pdf.status_code == 200, pdf.text
+    text = " ".join(" ".join(page.extract_text() or "" for page in PdfReader(io.BytesIO(pdf.content)).pages).split())
+    assert "Checked against the verified rules with the hashes below." in text
+    assert "not a published law version" not in text
+
+    from tend_api.packet import _law_used, _styles
+
+    def paragraph(view):
+        return " ".join(p.getPlainText() for p in _law_used(view, _styles()))
+
+    same = paragraph({"rules_sha256": "a" * 64, "law_image_sha256": "a" * 64, "law_version": None})
+    assert "Law image" not in same and same.count("a" * 64) == 1  # the reference engine's label is the rules hash
+    both = paragraph({"rules_sha256": "a" * 64, "law_image_sha256": "b" * 64, "law_version": None})
+    assert f"Law image SHA-256 {'b' * 64}." in both
+
+
 # roles, URLs, and settings
 
 
@@ -316,13 +397,13 @@ def test_grants_give_each_role_only_its_part():
 
 
 def test_branch_and_role_urls():
-    pooled = "postgresql://neondb_owner:p%40ss@ep-polished-bird-b4g6xd7r-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require"
+    pooled = "postgresql://neondb_owner:p%40ss@ep-sample-host-a1b2c3d4-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require"
     direct = pooled.replace("-pooler", "")
-    host = "ep-bitter-forest-b47zhh0e.c-6.us-east-2.aws.neon.tech"
-    assert with_host(pooled, host) == pooled.replace("ep-polished-bird-b4g6xd7r-pooler", "ep-bitter-forest-b47zhh0e-pooler")
-    assert with_host(direct, host) == direct.replace("ep-polished-bird-b4g6xd7r", "ep-bitter-forest-b47zhh0e")
+    host = "ep-other-host-e5f6g7h8.c-6.us-east-2.aws.neon.tech"
+    assert with_host(pooled, host) == pooled.replace("ep-sample-host-a1b2c3d4-pooler", "ep-other-host-e5f6g7h8-pooler")
+    assert with_host(direct, host) == direct.replace("ep-sample-host-a1b2c3d4", "ep-other-host-e5f6g7h8")
     reader = role_url(pooled, "tend_reader", "a/b+c")
-    assert reader.startswith("postgresql://tend_reader:a%2Fb%2Bc@ep-polished-bird-b4g6xd7r-pooler.") and reader.endswith("?sslmode=require")
+    assert reader.startswith("postgresql://tend_reader:a%2Fb%2Bc@ep-sample-host-a1b2c3d4-pooler.") and reader.endswith("?sslmode=require")
 
 
 def test_settings_prefer_the_app_role_and_keep_the_owner_for_migrations(monkeypatch):

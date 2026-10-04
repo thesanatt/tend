@@ -19,7 +19,8 @@ import threading
 import time
 from collections import Counter, OrderedDict
 from collections.abc import Callable
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
 from typing import Any, TypeVar
 
 from .db import Repository, corpus_sha256
@@ -52,6 +53,11 @@ PUBLIC_RULE = (
     "skipped_reason",
 )
 REGISTRY_TTL_S = 60.0
+# A claim or packet names its law version only when the index answers quickly. Claims never needed the database
+# before versions existed, so a slow or unreachable Neon must not hold them up: wait this long at most, and after a
+# failed read, skip the lookup for a while instead of trying (and waiting) on every claim.
+CLAIM_WAIT_S = 2.0
+CLAIM_RETRY_S = 30.0
 
 
 class LawError(TendError):
@@ -198,9 +204,16 @@ class LawService:
         self._checked: set[str] = set()
         self._rows: dict[tuple[str, str], dict[str, Any] | None] = {}
         self._cache: OrderedDict[tuple[str, str | None], tuple[list[dict[str, Any]], list[dict[str, Any]]]] = OrderedDict()
+        self._lookup: Future[Any] | None = None
+        self._lookup_failed_at: float | None = None
+        self._lookup_started = 0.0
+        self._lookups: ThreadPoolExecutor | None = None
 
     def close(self) -> None:
         with self._lock:
+            if self._lookups is not None:
+                self._lookups.shutdown(wait=False, cancel_futures=True)
+                self._lookups = None
             for repo in self._branches.values():
                 repo.close()
             self._branches.clear()
@@ -257,15 +270,43 @@ class LawService:
             hashes = self.file_hashes(st) if self.file_hashes else None
         if not hashes:
             return None
-        try:
-            versions, files = self._registry()
-        except Exception:  # a claim must not fail because the index cannot be read
+        index = self._index_for_claim()
+        if index is None:  # a claim must not fail, or wait long, because the index cannot be read
             return None
+        versions, files = index
         for v in reversed(versions):
             f = files.get(v["name"], {}).get(st)
             if f and f["verified_sha256"] == hashes.get("verified_sha256") and f["ir_sha256"] == hashes.get("ir_sha256"):
                 return v
         return None
+
+    def _index_for_claim(self) -> tuple[list[dict[str, Any]], dict[str, dict[str, dict[str, Any]]]] | None:
+        """The version index, or None when it is not readable within CLAIM_WAIT_S. A read that takes longer keeps going
+        in the background and fills the cache for the next claim."""
+        with self._lock:
+            if self._index is not None and time.monotonic() - self._index[0] < REGISTRY_TTL_S:
+                return self._index[1], self._index[2]
+            if self._lookup_failed_at is not None and time.monotonic() - self._lookup_failed_at < CLAIM_RETRY_S:
+                return None
+            if self._lookup is None or self._lookup.done():
+                if self._lookups is None:
+                    self._lookups = ThreadPoolExecutor(max_workers=1, thread_name_prefix="law-index")
+                self._lookup = self._lookups.submit(self._registry)
+                self._lookup_started = time.monotonic()
+            lookup = self._lookup
+            # One claim waits for a slow read; the claims after it do not wait for the same read again.
+            wait = max(0.0, CLAIM_WAIT_S - (time.monotonic() - self._lookup_started))
+        try:
+            index = lookup.result(timeout=wait)
+        except FutureTimeout:
+            return None
+        except Exception:
+            with self._lock:
+                self._lookup_failed_at = time.monotonic()
+            return None
+        with self._lock:
+            self._lookup_failed_at = None
+        return index
 
     def listing(self, st: str | None = None) -> dict[str, Any]:
         versions, files = self._registry()
