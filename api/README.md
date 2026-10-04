@@ -124,7 +124,9 @@ Agent (the Fetch.ai agent in ASI:One)
   `headline`, `deadline`, `reporting` (and `reporting_if_exam` when the exam answer is "not sure"), `covered`
   ("Counseling, up to $125 a session"), `total_cap`, `minimum_loss`, `exam` (also as `exam_billing`:
   `protection` and `who_pays`), `not_covered`, `privacy`, `program`. When any deadline counts from the police
-  report, `deadline.flags` holds `deadline_from_report` and the text says the survivor may have longer.
+  report, `deadline.flags` holds `deadline_from_report` and the text says the survivor may have longer; when any
+  counts from discovery, `deadline_from_discovery` and the text says so (docs/SPEC.md v1.3). The engine is asked
+  with today's date in the state's own time zone (`clock.state_today`), never Detroit's.
 - `tests/test_agent_contract.py` replays the requests the agent on main sends; run it after changing these routes.
 - `POST /agent/pay` `{persona_id | from, account?, payee, amount_cents, bill_id?, item_ids?}` returns the proposal plus
   `confirm_phrase` ("confirm 118.00") and `ask_user`. `POST /agent/confirm` `{action_id, confirm_code, typed}` moves
