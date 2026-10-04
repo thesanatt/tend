@@ -6,7 +6,9 @@ import dataclasses
 import importlib.util
 import json
 import os
+import re
 import sys
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -170,3 +172,32 @@ def test_vercel_entry_serves_the_app_deployed(monkeypatch):
         if hasattr(module, "app"):
             module.app.state.services.repo.close()
         sys.modules.pop("tend_api.main", None)  # the next import builds its own app
+
+
+def test_vercel_requirements_match_the_api_lock():
+    """Vercel installs the API from requirements.txt at the repository root. It must pin what api/uv.lock pins.
+    Regenerate: uv export --project api --frozen --no-dev --no-hashes --no-emit-project --format requirements-txt -o requirements.txt"""
+    lock = tomllib.loads((API_DIR / "uv.lock").read_text())
+    locked = {p["name"]: p["version"] for p in lock["package"] if "version" in p}
+    pins: dict[str, str] = {}
+    for line in (REPO_ROOT / "requirements.txt").read_text().splitlines():
+        spec = line.split(";", 1)[0].strip()
+        if spec and not spec.startswith("#"):
+            name, _, version = spec.partition("==")
+            pins[name.strip().lower()] = version.strip()
+    stale = {name: (version, locked.get(name)) for name, version in pins.items() if locked.get(name) != version}
+    assert pins and not stale, f"requirements.txt is out of date with api/uv.lock: {stale}"
+    deps = tomllib.loads((API_DIR / "pyproject.toml").read_text())["project"]["dependencies"]
+    direct = {re.split(r"[\[<>=!~ ]", dep, maxsplit=1)[0].lower() for dep in deps}
+    assert direct <= set(pins), f"requirements.txt is missing {sorted(direct - set(pins))}"
+
+
+def test_vercel_uploads_only_what_the_api_reads():
+    """The root .vercelignore is an allowlist: never .env, never rules/sources, never the web app's code."""
+    rules = (REPO_ROOT / ".vercelignore").read_text().splitlines()
+    allowed = {r[1:] for r in rules if r.startswith("!")}
+    assert "/*" in rules and "**/.env*" in rules
+    assert {"/api", "/rules", "/seed", "/refengine", "/requirements.txt", "/vercel.json"} <= allowed
+    assert not any(a.startswith(("rules/sources", "/rules/sources", "web/app", "web/components", "web/lib")) for a in allowed)
+    config = json.loads((REPO_ROOT / "vercel.json").read_text())
+    assert config["framework"] == "fastapi" and "api/index.py" in config["functions"]
