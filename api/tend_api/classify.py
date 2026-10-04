@@ -5,8 +5,9 @@ Gemini for whatever is left, then a pass that links rides to same-day care, then
 reads lost pay from paychecks that dipped after the date it happened. The model only picks a
 label from a fixed list; it never sees or returns an amount, and its picks always start
 unconfirmed, as do rides linked to care and pay gaps. Each label also carries the SPEC v1.2
-shape of its item: a typed unit (a counseling charge is one session, a pay gap counts weeks,
-lodging counts days, a ride has no unit) and tags (a replaced phone is tagged "phone").
+shape of its item: a typed unit (a counseling charge is one session, a pay gap counts the workdays
+it probably stands for, lodging counts days, a ride has no unit) and tags (a replaced phone is
+tagged "phone").
 Eligibility, caps and totals belong to the law engine, not to this module.
 """
 from __future__ import annotations
@@ -499,6 +500,9 @@ GAP_MIN_TENTHS = 1  # ... and at least a tenth of the usual check
 MIN_USUAL_CHECKS = 3  # checks before the date that set what "usual" means
 
 
+WORKDAYS_PER_WEEK = 5
+
+
 @dataclass(frozen=True)
 class WageGap:
     ref: str  # the deposit that came in short
@@ -506,7 +510,18 @@ class WageGap:
     paid_cents: int
     usual_cents: int
     gap_cents: int
-    weeks: int  # the pay period, in weeks
+    period_days: int  # workdays in the pay period: 5 for each week between checks
+    days: int  # workdays the shortfall probably stands for; an estimate, never above period_days
+
+
+def estimated_days(gap_cents: int, usual_cents: int, period_days: int) -> int:
+    """Workdays a short check stands for: the shortfall's share of a usual check, times the workdays in
+    the pay period, rounded half up in integer math (so the device's port rounds the same way), and
+    never more than the whole period. SPEC v1.2 counts lost-wage days for the minimum loss check, so a
+    $176 dip on a $412 biweekly check is about 4 days, not the 10 that 2 weeks would read as."""
+    if usual_cents <= 0 or period_days <= 0:
+        return 0
+    return min(period_days, (2 * gap_cents * period_days + usual_cents) // (2 * usual_cents))
 
 
 def wage_gaps(deposits: Iterable[tuple[str, str, int, str]], incident_date: str | None) -> dict[str, WageGap]:
@@ -528,10 +543,11 @@ def wage_gaps(deposits: Iterable[tuple[str, str, int, str]], incident_date: str 
         days = [_date.fromisoformat(day) for day, _, _ in rows]
         spacing = [(b - a).days for a, b in zip(days, days[1:], strict=False) if (b - a).days > 0]
         weeks = max(1, round(statistics.median_low(spacing) / 7)) if spacing else 1
+        period = weeks * WORKDAYS_PER_WEEK
         for day, ref, cents in rows:
             gap = usual - cents
             if day >= incident_date and gap >= GAP_MIN_CENTS and gap * 10 >= usual * GAP_MIN_TENTHS:
-                out[ref] = WageGap(ref, day, cents, usual, gap, weeks)
+                out[ref] = WageGap(ref, day, cents, usual, gap, period, estimated_days(gap, usual, period))
     return out
 
 
@@ -539,9 +555,15 @@ def _dollars(cents: int) -> str:
     return f"${cents // 100:,}" if cents % 100 == 0 else f"${cents // 100:,}.{cents % 100:02d}"
 
 
+def _workdays(n: int) -> str:
+    return "1 workday" if n == 1 else f"{n} workdays"
+
+
 def gap_classification(gap: WageGap) -> Classification:
-    reason = f"Paycheck was {_dollars(gap.paid_cents)}, {_dollars(gap.gap_cents)} below your usual {_dollars(gap.usual_cents)}"
-    return Classification(gap.ref, "lost_wages", True, 0.6, "inference", reason, False, unit="week", units=gap.weeks)
+    # The days are a guess from the paycheck alone, so the reason says so and the line starts unconfirmed.
+    reason = (f"Paycheck was {_dollars(gap.paid_cents)}, {_dollars(gap.gap_cents)} below your usual "
+              f"{_dollars(gap.usual_cents)}, about {_workdays(gap.days)}. This is an estimate")
+    return Classification(gap.ref, "lost_wages", True, 0.6, "inference", reason, False, unit="day", units=gap.days)
 
 
 def snapshot_incident_date(snapshot: BankSnapshot) -> str | None:

@@ -132,8 +132,10 @@ def test_pay_that_dipped_becomes_lost_wages(settings, clock):
     ]
     data = client.post("/api/ai/classify", json={"consent": True, "incident_date": "2026-06-14", "txns": rows}).json()
     [gap] = data["items"]
-    assert (gap["item_id"], gap["expense"], gap["amount_cents"], gap["unit"], gap["units"]) == ("csv:p4", "lost_wages", 17_600, "week", 2)
+    # $176 short of $412 over a two-week period (10 workdays) is about 4 days, estimated and unconfirmed.
+    assert (gap["item_id"], gap["expense"], gap["amount_cents"], gap["unit"], gap["units"]) == ("csv:p4", "lost_wages", 17_600, "day", 4)
     assert gap["confirmed"] is False and "$236" in gap["reason"] and "$412" in gap["reason"]
+    assert "about 4 workdays" in gap["reason"] and "estimate" in gap["reason"]
 
 
 def test_a_text_bill_that_adds_up_never_reaches_the_model(settings, clock):

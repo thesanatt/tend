@@ -519,14 +519,21 @@ export async function classifyDetailed(
   });
   report.all = results;
 
+  const spent: LocalClassifiedItem[] = [];
+  const bills: LocalClassifiedItem[] = [];
   for (const r of results) {
     const source = sourceOf(r, modelSource);
     if (r.method === "unresolved") report.counts.unresolved++;
     else if (source === "rule") report.counts.rule++;
     else report.counts[source === "cloud_ai" ? "cloud_ai" : "device_ai"]++;
     const item = pay.dips.get(r.ref) ?? toItem(byRef.get(r.ref)!, r, source);
-    if (item) report.items.push(item);
+    if (item) (item.is_bill ? bills : spent).push(item);
   }
+  // classify.py snapshot_items' order: transactions by (date, id), then bills as listed.
+  spent.sort((a, b) =>
+    a.date !== b.date ? (a.date < b.date ? -1 : 1) : a.item_id < b.item_id ? -1 : a.item_id > b.item_id ? 1 : 0,
+  );
+  report.items.push(...spent, ...bills);
   const missed = pay.missed.filter((m: LocalClassifiedItem) => !ids.has(m.item_id));
   report.items.push(...missed);
   report.counts.pay_dips = pay.dips.size + missed.length;

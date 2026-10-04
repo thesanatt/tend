@@ -52,11 +52,13 @@ def test_the_new_phone_is_tagged_so_an_exclusion_can_name_it(rowan_items):
     assert phone["tags"] == ["phone"] and phone["amount_cents"] == 299_00
 
 
-def test_short_paychecks_become_lost_wages_in_weeks(rowan_items):
+def test_short_paychecks_become_lost_wages_in_estimated_days(rowan_items):
+    # $176 short of a biweekly $412 is about 4 of the period's 10 workdays (SPEC v1.2 days_lost), not 2 weeks.
     gaps = [i for i in rowan_items if i["expense"] == "lost_wages"]
     assert [(i["date"], i["amount_cents"], i["unit"], i["units"]) for i in gaps] == [
-        ("2026-06-26", 176_00, "week", 2), ("2026-07-10", 176_00, "week", 2), ("2026-07-24", 176_00, "week", 2)]
+        ("2026-06-26", 176_00, "day", 4), ("2026-07-10", 176_00, "day", 4), ("2026-07-24", 176_00, "day", 4)]
     assert all(not i["confirmed"] and i["source"] == "rule" and "$236" in i["reason"] for i in gaps)
+    assert all("estimate" in i["reason"] for i in gaps)
     assert (412_00 - SHORT_PAY * 100) * 3 == sum(i["amount_cents"] for i in gaps)
 
 
@@ -105,7 +107,8 @@ def test_wage_gaps_need_a_date_a_usual_amount_and_a_real_dip():
            ("d4", "2026-06-12", 412_00), ("d5", "2026-06-26", 236_00), ("d6", "2026-07-10", 400_00)]
     deposits = [(ref, day, cents, "Fernway Books payroll") for ref, day, cents in pay]
     gaps = wage_gaps(deposits, "2026-06-14")
-    assert list(gaps) == ["d5"] and (gaps["d5"].gap_cents, gaps["d5"].weeks, gaps["d5"].usual_cents) == (176_00, 2, 412_00)
+    assert list(gaps) == ["d5"] and (gaps["d5"].gap_cents, gaps["d5"].days, gaps["d5"].usual_cents) == (176_00, 4, 412_00)
+    assert gaps["d5"].period_days == 10
     assert wage_gaps(deposits, None) == {}  # no date, no inference
     assert wage_gaps(deposits[3:], "2026-06-14") == {}  # one check before the date is not a usual amount
     gifts = [(ref, day, cents, "Transfer from Mom") for ref, day, cents in pay]
