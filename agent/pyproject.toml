@@ -1,13 +1,14 @@
 [project]
 name = "tend-agent"
-version = "0.1.0"
-description = "Tend Navigator: a Fetch.ai uAgent on the Agent Chat Protocol for crime victim compensation questions, Checks, and a confirm-coded demo payment"
+version = "0.2.0"
+description = "Tend Navigator and its Law and Bank+Packet agents: Fetch.ai uAgents on the Agent Chat Protocol for crime victim compensation answers, Checks, and a fictional demo claim run end to end"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "uagents==0.25.5",       # 0.26 breaks the chat and mailbox APIs this agent uses
     "uagents-core==0.4.11",  # ships the Interactive Card models and helpers
     "httpx>=0.28.1,<0.29",
     "python-dotenv>=1.0",
+    "pycryptodome>=3.20",    # AES-256-GCM for sealed share links; already locked through cosmpy, allowed on Agentverse
 ]
 
 [dependency-groups]

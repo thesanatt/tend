@@ -10,7 +10,6 @@ from tend_agent.parse import (
     find_date,
     find_exam,
     find_expense,
-    find_link_code,
     find_report,
     find_topics,
     is_greeting,
@@ -23,6 +22,8 @@ from tend_agent.parse import (
     wants_check,
     wants_demo,
     wants_pay,
+    wants_payment_status,
+    wants_share,
 )
 from tend_agent.states import STATES, find_state, find_states
 
@@ -148,12 +149,6 @@ def test_confirm_code_not_found(text):
     assert find_confirm_code(text) is None
 
 
-def test_link_code():
-    assert find_link_code("link w7mz-ephm") == "W7MZ-EPHM"
-    assert find_link_code("Link code: W7MZ EPHM") == "W7MZ-EPHM"
-    assert find_link_code("link IOIO-1111") is None  # those letters and digits are never used
-
-
 @pytest.mark.parametrize(
     "fn, text, expected",
     [
@@ -182,6 +177,15 @@ def test_link_code():
         (wants_pay, "can you pay the bill?", True),
         (says_yes, "OK, what about Ohio?", False),
         (says_no, "No, what about counseling?", False),
+        (wants_share, "share with an advocate", True),
+        (wants_share, "make the link for my advocate", True),
+        (wants_share, "send the packet", True),
+        (wants_share, "Can I share this with my advocate?", True),
+        (wants_share, "Can an advocate help me apply in Ohio?", False),
+        (wants_share, "What is a link to the program website?", False),
+        (wants_payment_status, "check the payment", True),
+        (wants_payment_status, "did it go through?", True),
+        (wants_payment_status, "check Michigan", False),
     ],
 )
 def test_intents(fn, text, expected):
