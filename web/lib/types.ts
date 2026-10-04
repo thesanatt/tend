@@ -75,6 +75,8 @@ export interface DeadlineCheck {
   status: "ok" | "late" | "unknown";
   deadline_date: string | null;
   rule_ids: string[];
+  // deadline_from_report, then deadline_from_discovery (docs/SPEC.md v1.3). Missing before SPEC v1.2.
+  flags?: string[];
 }
 
 export interface MinimumLossCheck {

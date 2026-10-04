@@ -39,6 +39,22 @@ UNIT_WORDS = {
 }
 
 
+# checks.deadline.flags (docs/SPEC.md v1.3): a deadline counted from the report or from discovery is dated
+# from the incident, so the true date may be later and a late may not be late. The discovery note is the web's.
+DEADLINE_NOTES = {
+    "deadline_from_report": "This is measured from the date it happened. The law counts from your report, so you may have longer.",
+    "deadline_from_discovery": (
+        "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
+    ),
+}
+
+
+def deadline_notes(flags: Any) -> str:
+    """The notes for a deadline's flags, each after a space, in flag order; "" when there are none."""
+    have = {str(f) for f in flags or []}
+    return "".join(f" {text}" for flag, text in DEADLINE_NOTES.items() if flag in have)
+
+
 def money(cents: int) -> str:
     """$1,234.56 from integer cents."""
     if not isinstance(cents, int) or isinstance(cents, bool):

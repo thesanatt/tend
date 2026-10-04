@@ -3,7 +3,7 @@
 import Citation from "@/components/Citation";
 import { describeSpan, formatDay, todayIso } from "@/lib/dates";
 import { formatCents } from "@/lib/money";
-import { checkCopy, DEADLINE, MINIMUM_LOSS, reportingCopy } from "@/lib/status";
+import { checkCopy, deadlineCopy, deadlineNotes, MINIMUM_LOSS, reportingCopy } from "@/lib/status";
 import type { EngineChecks, PoliceReport } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 import styles from "./claim.module.css";
@@ -15,11 +15,14 @@ interface ChecksProps {
 }
 
 export function deadlineText(c: EngineChecks["deadline"], today = todayIso()): string {
+  const notes = deadlineNotes(c)
+    .map((n) => ` ${n}`)
+    .join("");
   if (c.status === "ok" && c.deadline_date) {
-    return `File by ${formatDay(c.deadline_date)}. That is ${describeSpan(today, c.deadline_date)} from today.`;
+    return `File by ${formatDay(c.deadline_date)}. That is ${describeSpan(today, c.deadline_date)} from today.${notes}`;
   }
   if (c.status === "late" && c.deadline_date) {
-    return `The usual deadline was ${formatDay(c.deadline_date)}. Many programs extend it for good cause, so it is still worth asking.`;
+    return `The usual deadline was ${formatDay(c.deadline_date)}. Many programs extend it for good cause, so it is still worth asking.${notes}`;
   }
   // Rules counted in months or from a later event (age 18, a report) cannot be dated from the incident.
   if (c.rule_ids.length)
@@ -72,7 +75,7 @@ export default function Checks({ checks, law, policeReport }: ChecksProps) {
     {
       key: "deadline",
       title: "Deadline",
-      copy: checkCopy(DEADLINE, checks.deadline.status),
+      copy: deadlineCopy(checks.deadline),
       text: deadlineText(checks.deadline),
       ruleIds: checks.deadline.rule_ids,
     },

@@ -19,6 +19,7 @@ from reportlab.platypus import (
     TableStyle,
 )
 
+from .agent import DISCOVERY_NOTE
 from .claims import consent_flag
 from .clock import PROGRAM_TZ
 from .forms import FORM_SPECS, application_values, fill_application
@@ -43,6 +44,12 @@ CHECK_LABEL = {
     "deadline": {"ok": "On time", "late": "Past the filing deadline", "unknown": "Unknown"},
     "minimum_loss": {"met": "Met", "not_met": "Not met yet", "waived": "Waived", "may_be_waived": "Can be waived", "unknown": "Unknown"},
     "reporting": {"satisfied": "Satisfied", "required": "Police report needed", "not_required": "Not required", "unknown": "Unknown"},
+}
+# A late deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3): it
+# says so with its notes, never "Past the filing deadline".
+DEADLINE_NOTES = {
+    "deadline_from_report": "Measured from the date it happened. The law counts from your report, so you may have longer.",
+    "deadline_from_discovery": DISCOVERY_NOTE,
 }
 CHECK_TITLE = {"deadline": "Filing deadline", "minimum_loss": "Minimum loss", "reporting": "Police report"}
 DOCS_BY_EXPENSE = {
@@ -353,6 +360,11 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
                 continue
             label = CHECK_LABEL.get(name, {}).get(check.get("status"), check.get("status"))
             detail = f" (by {check['deadline_date']})" if check.get("deadline_date") else ""
+            notes = [DEADLINE_NOTES[f] for f in check.get("flags") or [] if name == "deadline" and f in DEADLINE_NOTES]
+            if notes and check.get("status") == "late" and check.get("deadline_date"):
+                label, detail = f"The usual deadline was {check['deadline_date']}, but you may have more time", ""
+            if notes:
+                detail += ". " + " ".join(notes)
             cites = ", ".join(f"{c['rule_id']} {c.get('pinpoint') or ''}".strip() for c in check.get("citations", []))
             rows.append(
                 [

@@ -387,6 +387,30 @@ describe("review fixes: the summary says only what the rules support", () => {
     expect(text).not.toMatch(/^Met\.$/m);
   });
 
+  it("explains a deadline that may count from the report or from discovery (SPEC v1.3)", async () => {
+    const late = (flags: string[]): EngineOutput => {
+      const output = rowanOutput();
+      output.checks = {
+        ...output.checks,
+        deadline: { status: "late", deadline_date: "2025-06-14", rule_ids: output.checks.deadline.rule_ids, flags },
+      };
+      return output;
+    };
+    const discovery =
+      "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides.";
+    const report = "The law counts from your report, so you may have longer.";
+    const both = (
+      await builderFor(webLaw).build("MI", rowanInput(), late(["deadline_from_report", "deadline_from_discovery"]))
+    ).transcript.join("\n");
+    expect(both).toContain(discovery);
+    expect(both).toContain(report);
+    // An ordinary late deadline carries neither note.
+    const plain = (await builderFor(webLaw).build("MI", rowanInput(), late([]))).transcript.join("\n");
+    expect(plain).toContain("The usual deadline was");
+    expect(plain).not.toContain(discovery);
+    expect(plain).not.toContain(report);
+  });
+
   it("shows the insurance actually taken off, and both notes when a cap also applies", async () => {
     const input = rowanInput();
     const output = rowanOutput();

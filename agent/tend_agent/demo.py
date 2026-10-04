@@ -8,7 +8,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any
 
-from .fmt import cite_block, cite_link, expense_label, long_date, money, plural
+from .fmt import cite_block, cite_link, deadline_notes, expense_label, long_date, money, plural
 from .knowledge import RuleBook, cap_phrase, cite
 
 DEMO_PERSONAS = {"MI": "rowan-mi", "NY": "rowan-ny", "CA": "rowan-ca", "TX": "rowan-tx"}
@@ -189,9 +189,7 @@ def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None)
         text = f"The usual deadline was {long_date(date)}{link}. Some programs allow more time for a good reason, so it is worth calling."
     else:
         text = f"Apply by {long_date(date)}{link}."
-    if any("deadline_from_report" in str(f) for f in flags or []):
-        text += " This is measured from the date it happened. The law counts from your report, so you may have longer."
-    return text
+    return text + deadline_notes(flags)
 
 
 def payment_body(demo: dict[str, Any]) -> dict[str, Any]:
@@ -262,7 +260,8 @@ def render_linked(summary: dict[str, Any], app_url: str = "", packet_url: str = 
         out.append(f"{plural(waiting, 'line')} still wait for a yes in the app.")
     deadline = (summary.get("checks") or {}).get("deadline") or {}
     rule = (deadline.get("rules") or [None])[0]
-    sentence = deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), f" ({cite_link(rule)})" if rule else "")
+    link = f" ({cite_link(rule)})" if rule else ""
+    sentence = deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), link, deadline.get("flags"))
     if sentence:
         out.append(sentence)
     if packet_url:

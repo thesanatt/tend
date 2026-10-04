@@ -4,6 +4,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CheckScreen from "@/components/flow/check/CheckScreen";
+import TrackScreen from "@/components/flow/track/TrackScreen";
 import { buildCheckSummary } from "@/components/flow/checkSummary";
 import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
 import { EMPTY_CHECK } from "@/components/flow/state";
@@ -235,6 +236,26 @@ describe("a deadline that may count from discovery", () => {
       // Late, but never plainly late: the usual-deadline wording and the note come together.
       expect(screen.getByText(dict.check.deadlineLate(formatters(lang).date("2025-06-14")))).toBeTruthy();
       expect(screen.queryByText(dict.check.deadlineFromReport)).toBeNull();
+    });
+  }
+
+  for (const flags of [["deadline_from_discovery"], []]) {
+    it(`is ${flags.length ? "explained" : "plainly late"} on the Track screen (${flags.join() || "no flags"})`, async () => {
+      const evaluate = vi.fn(async (input: EngineInput) => {
+        const out = michiganOutput(input);
+        const deadline = { ...out.checks.deadline, status: "late" as const, deadline_date: "2025-06-14", flags };
+        return { output: { ...out, checks: { ...out.checks, deadline } }, backend: "wasm" as const, detail: "test" };
+      });
+      renderFlow(<TrackScreen />, { services: testServices({ evaluate }), initial: stateFrom([MI_CHECK]) });
+      const lead = await screen.findByText(en.check.deadlineLate(formatters("en").date("2025-06-14")));
+      const bar = lead.closest("p")!;
+      if (flags.length) {
+        expect(bar.textContent).toContain(en.check.deadlineFromDiscovery);
+        expect(bar.hasAttribute("data-late")).toBe(false);
+      } else {
+        expect(bar.textContent).not.toContain(en.check.deadlineFromDiscovery);
+        expect(bar.hasAttribute("data-late")).toBe(true);
+      }
     });
   }
 

@@ -9,7 +9,7 @@ import pytest
 from conftest import text_of
 from fake_api import FakeTend, load
 
-from tend_agent.check import deadline_section, total_section
+from tend_agent.check import deadline_section, render_check, total_section
 from tend_agent.demo import render_claim, render_linked
 from tend_agent.knowledge import RuleBook, answer_from_rules
 from tend_agent.parse import story_kind
@@ -169,3 +169,32 @@ def test_total_cap_limited_to_cases_lists_each_case():
     assert "$45,000 for crimes committed on or after August 7, 2022" in out and "$27,000 for crimes committed before" in out
     answer = answer_from_rules(book.doc, "what is the most I can get?").text
     assert "depends on the case" in answer and "$27,000" in answer
+
+
+DISCOVERY = "This deadline may count from when the crime was discovered, which can be later than the date it happened."
+
+
+@pytest.mark.parametrize("flags", [["deadline_from_discovery"], ["deadline_from_report", "deadline_from_discovery"], []])
+def test_a_late_deadline_that_may_count_from_discovery_is_explained(flags):
+    # docs/SPEC.md v1.3: a late with either flag is never shown as plainly late, and an ordinary one still is.
+    check = {"status": "late", "deadline_date": "2021-06-14", "flags": flags, "citations": [{"rule_id": "X-1", "pinpoint": "Sec. 1"}]}
+    for out in (
+        deadline_section(check, None, have_date=True),
+        render_linked({**load("linked_summary.json"), "checks": {**load("linked_summary.json")["checks"], "deadline": check}}),
+    ):
+        assert "The usual deadline was" in out or "the usual deadline was" in out
+        assert (DISCOVERY in out) == ("deadline_from_discovery" in flags)
+        assert ("counts from your report" in out) == ("deadline_from_report" in flags)
+    claim = load("claim_rowan_mi.json")
+    claim["checks"]["deadline"] = {"status": "late", "deadline_date": "2021-06-14", "rule_ids": ["MI-FILE-1"], "flags": flags}
+    out = render_claim(claim, RuleBook(load("MI.json")), {"police_report": "unknown", "payable_cents": 0}, "Rowan Hale")
+    assert (DISCOVERY in out) == ("deadline_from_discovery" in flags)
+
+
+@pytest.mark.parametrize("flags", [["deadline_from_discovery"], []])
+def test_the_check_opener_softens_a_late_deadline_that_may_count_from_discovery(flags):
+    data = {"deadline": {"status": "late", "deadline_date": "2021-06-14", "flags": flags, "citations": []}}
+    out = render_check(data, None, st="NY", name="New York", incident_date="2018-01-02", exam=None, report="unknown")
+    opener = out.split("\n")[0]
+    assert ("you may have more time" in opener) == bool(flags)
+    assert (DISCOVERY in out) == bool(flags)

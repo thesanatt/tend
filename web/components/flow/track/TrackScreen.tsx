@@ -135,7 +135,12 @@ export default function TrackScreen() {
         <p className="lead">{t.track.lead}</p>
       </header>
 
-      <p className={styles.deadlineBar} data-late={deadline?.late || undefined}>
+      {/* A late deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3):
+          it is explained, never shown as plainly late. */}
+      <p
+        className={styles.deadlineBar}
+        data-late={(deadline?.late && !deadline.fromReport && !deadline.fromDiscovery) || undefined}
+      >
         <strong>
           {deadline
             ? deadline.late
@@ -144,6 +149,8 @@ export default function TrackScreen() {
             : t.track.deadlineAsk}
         </strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
+        {deadline?.fromReport ? <span> {t.check.deadlineFromReport}</span> : null}
+        {deadline?.fromDiscovery ? <span> {t.check.deadlineFromDiscovery}</span> : null}
       </p>
 
       <p className={styles.tallyLine}>
