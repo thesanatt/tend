@@ -37,6 +37,9 @@ no line at all. pypdf's warnings, which quote bytes from a damaged file, are swi
 |---|---|---|
 | `TEND_DB` | Neon when `DATABASE_URL_POOLED` or `DATABASE_URL` is set, else `api/.data/tend.sqlite3` | `neon`, a postgres URL, a SQLite path, or `:memory:`. Requests use the pooled URL; migrations use `DATABASE_URL`. |
 | `TEND_DB_SCHEMA` | `public` | Postgres schema. Tests use their own. |
+| `DATABASE_URL_APP` | unset | The least-privilege `tend_app` role (docs/NEON.md). When set, requests use it; `DATABASE_URL` stays the owner, for migrations only. |
+| `DATABASE_URL_READER` | unset | The SELECT-only `tend_reader` role for public corpus reads and for reading published law branches. |
+| `TEND_MIGRATE` | on | Off starts the API without running migrations, for a deploy that holds only the two role URLs. |
 | `TEND_BANK` | `dry_run` | `dry_run` records confirmed payments in memory and reads them back; `nessie` writes them to Nessie. |
 | `TEND_RELAY_LIVE` | on when `NESSIE_API_KEY` is set | The bank relay reads live Nessie and falls back to the snapshot. |
 | `TEND_CLOUD_AI` | on | Off turns `/api/ai/*` down to the deterministic rules even with `GEMINI_API_KEY` set. |
@@ -58,6 +61,14 @@ Public corpus
   pinpoint) and `ts_rank_cd`; SQLite uses FTS5 with the porter stemmer. Both feed the same ranking, which adds the
   question's intents (deadline, police report, an expense). Each result carries the quote, pinpoint, fragment link,
   and the source's sha256.
+
+Law versions, each a Neon branch (docs/NEON.md)
+- `GET /law/versions?st=`: the published versions, oldest first, with `current` (the one production has loaded).
+- `GET /law/diff?from=&to=&st=`: rules added, removed, and changed between two versions, with quotes and source links,
+  read from both branches as `tend_reader`; without `st`, counts per state. An unchanged state is answered from the index.
+- `GET /law/search?q=&st=&version=&limit=`: full-text search over the verbatim quotes only (GIN index on a generated
+  tsvector, `websearch_to_tsquery`, `ts_headline` offsets in `marks`). Falls back to any word, and says `matched: any`.
+- `POST /claim` and `POST /packet` name the version they were checked against (`law_version`, `X-Tend-Law-Version`).
 
 Claims, evaluated and returned
 - `POST /claim`: SPEC v1.2 engine input in, engine output out, header `X-Tend-Engine: native | reference`. Native
@@ -148,13 +159,17 @@ Agent (the Fetch.ai agent in ASI:One)
 
 ## Storage
 
-`tend_api/db`: one Repository protocol, two backends, three migrations each (`db/migrations/{postgres,sqlite}`):
+`tend_api/db`: one Repository protocol, two backends, migrations in `db/migrations/{postgres,sqlite}`:
 
 - `0001_corpus`: `categories`, `jurisdictions`, `sources` (metadata and sha256, no text), `rules` (quote, pinpoint,
   fragment link, category, expense, params, the IR form, a generated `tsvector` with a GIN index), `law_images`.
 - `0002_shares`: `sealed_shares` (id, ciphertext, iv, size, once, created_at, expires_at, opened_at). No keys.
 - `0003_payments`: `pending_actions` (the code is stored only as a MAC; the payee is cleared when the action finishes,
   leaving a keyed hash), `audit_log`, and `meta` (the fallback secret).
+- `db/ensure/law_versions.sql`: `law_versions` and `law_version_files`, the index of the Neon branches that each
+  hold one version of the corpus. `db/ensure/quote_search.sql`: `rules.quote_search`, a generated tsvector over the
+  quote alone, with a GIN index. Idempotent and never recorded in `schema_migrations`, so API builds from before
+  them keep starting against the shared database (docs/NEON.md). SQLite has the same index as migration `0004`.
 
 The audit log is append-only and hash-chained: each row's hash is the sha256 of its canonical JSON body, and the
 body names the previous row's hash. In Neon, triggers refuse updates, deletes, and truncation, and an insert must

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .base import GENESIS_HASH, MAX_SHARE_BYTES, MigrationError, Repository, audit_hash, verify_chain
-from .corpus import CATEGORIES, CorpusBundle, read_bundle, read_bundles
+from .corpus import CATEGORIES, CorpusBundle, bundle_hashes, corpus_sha256, read_bundle, read_bundles
 
 __all__ = [
     "CATEGORIES",
@@ -13,6 +13,8 @@ __all__ = [
     "MigrationError",
     "Repository",
     "audit_hash",
+    "bundle_hashes",
+    "corpus_sha256",
     "describe_url",
     "is_postgres",
     "open_repository",
@@ -38,11 +40,14 @@ def describe_url(url: str) -> str:
     return f"sqlite ({sqlite_path(url)})"
 
 
-def open_repository(url: str, *, schema: str = "public", migrate_url: str | None = None, migrate: bool = True) -> Repository:
+def open_repository(
+    url: str, *, schema: str = "public", migrate_url: str | None = None, migrate: bool = True, reader_url: str | None = None
+) -> Repository:
+    """reader_url: a read-only role for the public corpus (Neon only). Shares and payments always use url."""
     if is_postgres(url):
         from .postgres import PostgresRepository
 
-        return PostgresRepository(url, schema=schema, migrate_url=migrate_url, migrate=migrate)
+        return PostgresRepository(url, schema=schema, migrate_url=migrate_url, migrate=migrate, reader_url=reader_url)
     from .sqlite import SQLiteRepository
 
     return SQLiteRepository(sqlite_path(url), migrate=migrate)

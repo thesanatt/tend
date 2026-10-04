@@ -118,6 +118,20 @@ def test_public_errors_cleans_every_json_error_and_nothing_else():
         assert c.get("/fine").json() == {"path": str(seed)}
 
 
+def test_public_errors_never_repeat_a_role_password_on_any_branch(settings):
+    """The law branches are opened with the reader's password on another host, so the password is a secret alone."""
+    deployed = dataclasses.replace(
+        settings,
+        database_url="postgresql://tend_app:app%2Fpass-0123456789@ep-a-pooler.neon.tech/db",
+        migrate_url="postgresql://owner:owner-pass-0123456789@ep-a.neon.tech/db",
+        reader_url="postgresql://tend_reader:reader-pass-0123456789@ep-a-pooler.neon.tech/db",
+    )
+    secrets = secret_values(deployed)
+    assert {"app/pass-0123456789", "owner-pass-0123456789", "reader-pass-0123456789", deployed.reader_url} <= set(secrets)
+    branch = "postgresql://tend_reader:reader-pass-0123456789@ep-law-branch-pooler.neon.tech/db"
+    assert "reader-pass" not in redact_secrets(f"could not connect to {branch}", secrets)
+
+
 def test_public_errors_never_repeat_a_credential(monkeypatch, settings):
     """A library error can quote the request URL back (Nessie's key rides in ?key=) or a value it was given."""
     monkeypatch.setenv("NESSIE_API_KEY", "nessie-key-0123456789")

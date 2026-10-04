@@ -7,6 +7,7 @@ from fastapi import Depends, Path, Query, Request
 from .services import Services
 
 ENGINE_HEADER = "X-Tend-Engine"
+LAW_VERSION_HEADER = "X-Tend-Law-Version"
 
 
 def get_services(request: Request) -> Services:

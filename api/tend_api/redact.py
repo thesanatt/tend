@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import urllib.parse
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
@@ -40,8 +41,21 @@ def secret_values(settings: Settings) -> tuple[str, ...]:
         settings.secret_hex,
         settings.database_url if "://" in settings.database_url else "",
         settings.migrate_url or "",
+        settings.reader_url or "",
+        # Each role's password on its own: the law branches are reached with the same role on another host
+        # (law.neon_opener), so a branch's URL is not one of the strings above.
+        *(_password(u) for u in (settings.database_url, settings.migrate_url, settings.reader_url)),
     )
     return tuple(sorted({v.strip() for v in values if len(v.strip()) >= 8}, key=len, reverse=True))
+
+
+def _password(url: str | None) -> str:
+    if not url or "://" not in url:
+        return ""
+    try:
+        return urllib.parse.unquote(urllib.parse.urlsplit(url).password or "")
+    except ValueError:
+        return ""
 
 
 def redact_secrets(value: Any, secrets: Iterable[str] = ()) -> Any:
