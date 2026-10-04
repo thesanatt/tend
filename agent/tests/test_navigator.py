@@ -393,3 +393,53 @@ def test_api_down_says_so_and_moves_nothing(make_chat):
 def test_coverage_and_thanks(chat):
     assert "51 jurisdictions" in text_of(chat.say("which states do you cover?"))
     assert chat.say("thanks").intent == "thanks"
+
+
+def test_while_a_payment_is_unsure_nothing_new_starts_and_nothing_says_no_money_moved(chat, fake):
+    # Review fix: after a lost answer the old code allowed a second payment (the Pay button, a new demo, or cancel
+    # then pay) and told the person "Cancelled. No money moved." although the first payment had gone through.
+    to_payment(chat)
+    fake.lose_answer.add("/api/actions/confirm")
+    chat.say(CODE)
+    assert chat.state["pending"]["unsure"] is True
+    scans = len(fake.bodies("/api/scan"))
+    for turn in (
+        chat.say(selection={"action": "pay"}),
+        chat.say("pay the bill"),
+        chat.say("show me the demo claim"),
+        chat.say(selection={"action": "demo"}),
+        chat.say("cancel"),
+        chat.say(selection={"action": "pay_cancel"}),
+        chat.say(cancelled=True),
+    ):
+        said = text_of(turn)
+        assert "can't tell yet whether the last payment went through" in said and "no money moved" not in said.lower()
+    assert chat.state["pending"]["unsure"] is True
+    assert len(fake.bodies("/api/actions/propose")) == 1 and len(fake.bodies("/api/scan")) == scans
+    turn = chat.say("check the payment")
+    assert "**Done.** Paid $118.00" in text_of(turn) and "pending" not in chat.state
+    assert sum(a["status"] == "done" for a in fake.actions.values()) == 1
+
+
+def test_a_deadline_that_counts_from_a_report_only_for_children_says_so(chat, fake):
+    # Review fix: MI counts from the report only when police records show the victim was under 18 (MCL 18.355(2)(a)).
+    # The Check and the demo claim used to tell everyone "The law counts from your report, so you may have longer."
+    check = text_of(chat.say("check Michigan, June 14 2026, had an exam, not reported"))
+    chat.say("demo")
+    claim = text_of(chat.say("yes"))
+    for said in (check, claim):
+        assert "counts from your report" not in said
+        assert "In one case Michigan's law counts from the police report instead ([MCL 18.355(2)(a)]" in said
+        assert "victim was under 18" in said
+
+
+def test_report_note_for_a_state_whose_main_deadline_counts_from_the_report():
+    from tend_agent.knowledge import RuleBook, report_note
+
+    nd = {
+        "jurisdiction": "ND",
+        "name": "North Dakota",
+        "rules": [{"id": "ND-1", "category": "filing_deadline", "params": {"years": 1, "from": "report"}}],
+    }
+    assert report_note(RuleBook(nd)).endswith("The law counts from the police report, so you may have longer.")
+    assert "ask the program" in report_note(None)

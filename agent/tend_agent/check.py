@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .fmt import cite_block, cite_link, clean, expense_label, long_date, money_short, program_line
-from .knowledge import RuleBook, cite, total_caps
+from .knowledge import RuleBook, cite, report_note, total_caps
 
 ALTERNATIVES = {
     "forensic_exam": "a forensic exam",
@@ -82,7 +82,7 @@ def deadline_section(check: dict[str, Any], book: RuleBook | None, *, have_date:
         head = "**Deadline:** counted from the date it happened. Tell me the date (only the date) for the exact day."
     flags = check.get("flags") or []
     if any("deadline_from_report" in str(f) for f in flags):
-        head += " This is measured from the date it happened. The law counts from your report, so you may have longer."
+        head += " " + report_note(book)
     return head + ("\n" + cite_block(main) if main else "")
 
 

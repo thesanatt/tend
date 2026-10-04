@@ -90,6 +90,10 @@ SERVER_UNSURE = (
     "through. The code works once, so nothing can be paid twice. Say **check the payment** in a minute."
 )
 IN_PROGRESS = "The payment is still going through. Say **check the payment** in a minute."
+STILL_UNSURE = (
+    "I can't tell yet whether the last payment went through, so I won't start anything new or cancel it. "
+    "Say **check the payment** first, so nothing is paid twice."
+)
 QUESTION_START = re.compile(r"^\s*(?:can|could|does|do|is|are|will|would|what|how|who|which|when|where|if)\b", re.I)
 COVERAGE_Q = re.compile(r"\b(?:which|what) (?:states|jurisdictions)\b|\ball (?:the )?states\b|\b50 states\b", re.I)
 _BILL_ONLY = re.compile(r"\b(?:bill|balance|rest|it|now|payment)\b", re.I)
@@ -412,6 +416,8 @@ class _Talk:
     # ------------------------------------------------------------ the Bank and Packet agent: the fictional demo
 
     async def start_demo(self, st: str | None) -> list[Reply]:
+        if self.unsure():
+            return [Reply(STILL_UNSURE)]
         reply = await self.bank(DemoStartRequest(request_id=self.nav.new_id(), st=st))
         ref = reply.demo.model_dump()
         self.s["demo"] = {"ref": ref, "stage": "scanned"}
@@ -455,6 +461,8 @@ class _Talk:
             return [Reply("The demo costs were not counted. Say **demo** to start again, then **yes** to count them.")]
         if demo.get("paid_cents"):
             return [Reply("The demo bill is already paid. Say **share with an advocate** for the locked link, or **demo** to start over.")]
+        if self.unsure():
+            return [Reply(STILL_UNSURE)]
         reply = await self.bank(PayProposeRequest(request_id=self.nav.new_id(), demo=self.demo_ref()), allow=("nothing_to_pay",))
         if not reply.ok:
             return [Reply(reply.text)]
@@ -544,13 +552,21 @@ class _Talk:
 
     # ------------------------------------------------------------ payments waiting for a code
 
+    def unsure(self) -> bool:
+        """True while a code went to the server and no answer said whether the payment went through."""
+        return bool((self.s.get("pending") or {}).get("unsure"))
+
     def cancel_payment(self) -> list[Reply]:
+        if self.unsure():  # the code already went out: saying "no money moved" could be false
+            return [Reply(STILL_UNSURE)]
         self.s.pop("pending", None)
         return [Reply("Cancelled. No money moved. The code will not work from this chat.", end_session=True)]
 
     def cancel_all(self) -> list[Reply]:
-        had_payment = self.s.pop("pending", None) is not None
         self.s.pop("awaiting", None)
+        if self.unsure():
+            return [Reply(STILL_UNSURE)]
+        had_payment = self.s.pop("pending", None) is not None
         return [Reply("Cancelled. No money moved." if had_payment else "OK. Nothing was changed.", end_session=True)]
 
     def live_pending(self) -> dict[str, Any] | None:
@@ -571,6 +587,8 @@ class _Talk:
 
 
 def type_code_hint(pending: dict[str, Any]) -> str:
+    if pending.get("unsure"):
+        return STILL_UNSURE
     return (
         f"To pay {money(pending['amount_cents'])}, type the 6-digit code from the review card. "
         "That step makes sure a person approves every payment. Say cancel to stop."

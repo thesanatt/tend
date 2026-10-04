@@ -10,7 +10,7 @@ from collections import defaultdict
 from typing import Any
 
 from .fmt import cite_block, cite_link, expense_label, long_date, money, plural
-from .knowledge import RuleBook, cap_phrase, cite
+from .knowledge import RuleBook, cap_phrase, cite, report_note
 
 DEMO_PERSONAS = {"MI": "rowan-mi", "NY": "rowan-ny", "CA": "rowan-ca", "TX": "rowan-tx"}
 FICTIONAL = "Fictional person and data on Capital One's Nessie mock bank. No real person, account, or hospital."
@@ -192,7 +192,7 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
     deadline = checks.get("deadline") or {}
     rid = next((r for r in deadline.get("rule_ids") or [] if r in book.by_id), None)
     link = f" ({cite_link(cite(book.by_id[rid], book.sources))})" if rid else ""
-    facts.append(deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), link, deadline.get("flags")))
+    facts.append(deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), link, deadline.get("flags"), book))
     reporting = (checks.get("reporting") or {}).get("status")
     if reporting == "satisfied":
         reported = demo.get("police_report") == "yes"
@@ -205,7 +205,7 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
     return "\n\n".join(out)
 
 
-def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None) -> str:
+def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None, book: RuleBook | None = None) -> str:
     """The filing deadline in one sentence. A late date is never shown as "apply by"."""
     if not date or status not in ("ok", "late"):
         return ""
@@ -214,7 +214,7 @@ def deadline_sentence(status: Any, date: Any, link: str = "", flags: Any = None)
     else:
         text = f"Apply by {long_date(date)}{link}."
     if any("deadline_from_report" in str(f) for f in flags or []):
-        text += " This is measured from the date it happened. The law counts from your report, so you may have longer."
+        text += " " + report_note(book)
     return text
 
 

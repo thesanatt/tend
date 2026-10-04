@@ -199,6 +199,28 @@ def _blocks(cites: list[dict[str, Any]]) -> str:
 NOT_IN_RULES = "That's not in the rules I have."
 
 
+def _dated(rule: dict[str, Any]) -> bool:
+    params = rule.get("params") or {}
+    return any(isinstance(params.get(k), int) for k in ("years", "months", "days"))
+
+
+def report_note(book: RuleBook | None) -> str:
+    """The sentence after a deadline the engine flags as counting from the police report. In some states that is the
+    main rule (Washington, North Dakota). In others it is one narrow case, usually a survivor who was a child, while
+    the main deadline counts from the crime (Michigan, Kansas, Minnesota, Mississippi). Then the note names that case
+    and cites it, instead of telling an adult they may have longer."""
+    lead = "This is measured from the date it happened."
+    rules = book.of("filing_deadline") if book is not None else []
+    from_report = [r for r in rules if (r.get("params") or {}).get("from") == "report"]
+    main_from_crime = any((r.get("params") or {}).get("from") == "crime" and _dated(r) for r in rules)
+    if book is None or not from_report:
+        return f"{lead} In some cases the law counts from the police report instead, so ask the program."
+    if not main_from_crime:
+        return f"{lead} The law counts from the police report, so you may have longer."
+    rule = from_report[0]
+    return f"{lead} In one case {book.name}'s law counts from the police report instead ({cite_link(cite(rule, book.sources))}): {clean(rule.get('summary'))}"
+
+
 def _unknown(book: RuleBook, about: str) -> Answer:
     contact = program_line(book.doc.get("program"), book.name)
     text = f"{NOT_IN_RULES} I found no verified {book.name} rule about {about}, so I won't guess."
