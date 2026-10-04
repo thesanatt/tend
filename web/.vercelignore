@@ -7,3 +7,7 @@ coverage
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+# Test output (end-to-end screenshots and traces) and stray keys never go up either.
+test-results
+playwright-report
+*.pem

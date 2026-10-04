@@ -90,4 +90,15 @@ describe("the /api proxy", () => {
     expect(bypass.args).toBe("${TEND_API_BYPASS}");
     expect(bypass.env).toEqual(["TEND_API_BYPASS"]);
   });
+
+  it("never uploads local env files, keys, or test output from web/", () => {
+    const lines = readFileSync(path.join(__dirname, "..", ".vercelignore"), "utf8")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter((l) => l && !l.startsWith("#"));
+    for (const rule of [".env*", "*.pem", "node_modules", ".next", "test-results", "playwright-report"]) {
+      expect(lines).toContain(rule);
+    }
+    expect(lines.some((l) => l.startsWith("!"))).toBe(false);
+  });
 });

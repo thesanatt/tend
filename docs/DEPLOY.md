@@ -99,7 +99,11 @@ a new web preview. To open a preview in a browser, sign in to Vercel, or use a s
 ## Going live (Sanat's approval)
 
 1. Make sure `main` has everything, the suites pass, and Neon's public schema is current:
-   `cd api && uv run python -m tend_api.loader`
+   `make -C engine && make -C engine laws && cd api && uv run python -m tend_api.loader`.
+   The loader records each state's law image hash only when the native engine is built, and only a build
+   from current `main` gives the hash the device reports (`/api/jurisdictions/MI/images` should list
+   `54f9809e...`). Without the engine it still loads the rules and leaves the recorded hashes alone. The
+   preview schema was loaded without it, so its `/images` lists are empty; nothing in the app reads them.
 2. API, from the repository root:
    ```
    vercel deploy --prod --yes                                   # staged: serves nothing yet
@@ -122,6 +126,10 @@ a new web preview. To open a preview in a browser, sign in to Vercel, or use a s
    ```
 5. Check from outside: `curl -sI https://youreowed.tech/mi` (200 and the `content-security-policy` header),
    `curl -s https://youreowed.tech/api/health` (`"bank": "nessie"`), then open `youreowed.tech/mi` on a phone.
+   Then rehearse the Wi-Fi-off moment on the real domain: open `/check?demo=rowan` online, wait for the page
+   to settle, turn Wi-Fi off, and walk Gather, the bill, and Packet. Without a service worker (`web/public/sw.js`)
+   any step whose page was not already fetched fails to load; on the Oct 3 preview, Check to Gather worked offline
+   and Gather to the bill did not.
 6. Point the Fetch.ai agent at the same origin: `TEND_API_URL=https://youreowed.tech`.
 
 With staging on, every later `--prod` deploy waits for `vercel promote` too. To let `--prod` go live directly:
@@ -147,6 +155,13 @@ when the API's routes changed with the web. To take the site off the domain enti
 - Vercel refuses request bodies over 4.5 MB before the API sees them (the API itself allows 16 MB). A cloud AI
   bill photo over about 3.3 MB (base64 adds a third) gets a 413; shares (2 MB cap) fit.
 - A function call may run 60 s (`vercel.json`); the Gemini calls time out at 10 s.
+- The API has no sign-in, and a proposal returns its own confirm code, so anyone who finds `youreowed.tech` can
+  make live Nessie payments from the demo personas' accounts (only those accounts; mock money). That can change
+  Rowan's balance and ledger between rehearsal and the table. If it happens, a Vercel Firewall rate limit on
+  `POST /api/actions/*` (dashboard, tend-web, Firewall) or switching Production to `TEND_BANK=dry_run` and
+  redeploying contains it.
+- Every JSON error a deployed API sends has local paths and credentials taken out: the API keys, `TEND_SECRET`,
+  the database addresses, and any `?key=` in a quoted URL become `[hidden]`.
 - Vercel's own request log keeps the method, path, and status of every function call, so a share id
   (`/api/shares/<id>`) and the demo persona in `/api/bank/rowan-mi/...` appear there even though the API's own
   access log drops those lines. A share id alone opens nothing: the key stays in the link's fragment.

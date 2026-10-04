@@ -3,8 +3,8 @@
 usage, from the repository root once `vercel link` has linked it to tend-api and web/ to tend-web:
   uv run --project api python scripts/vercel/env.py api preview
   uv run --project api python scripts/vercel/env.py api production
-  uv run --project api python scripts/vercel/env.py web preview --api-url https://tend-api-<id>-thesanatts-projects.vercel.app
-  uv run --project api python scripts/vercel/env.py web production --api-url https://tend-api-thesanatts-projects.vercel.app
+  uv run --project api python scripts/vercel/env.py web preview --api-url https://<tend-api preview>.vercel.app
+  uv run --project api python scripts/vercel/env.py web production --api-url https://tend-api-pi.vercel.app
 
 Keys come from the .env file (TEND_ENV_FILE, or the nearest .env above the repository). TEND_SECRET is made
 fresh only when that environment has none, so pending confirm codes survive a rerun. The API's protection
