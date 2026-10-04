@@ -7,7 +7,8 @@ the rules (and so the quotes) that justify it. The same C++ runs natively and as
 the browser.
 
 FORMAT.md is the specification (image layout, instruction set, verifier, semantics, input and
-output documents). BENCH.md has the performance numbers; docs/EVAL.md has the test results.
+output documents). BENCH.md has the performance numbers; EVAL.md has the engine test results, and
+docs/EVAL.md the whole project's.
 
 ## Build and test
 
