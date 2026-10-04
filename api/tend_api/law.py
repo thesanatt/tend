@@ -17,7 +17,7 @@ import hashlib
 import re
 import threading
 import time
-from collections import OrderedDict
+from collections import Counter, OrderedDict
 from collections.abc import Callable
 from typing import Any
 
@@ -394,6 +394,7 @@ class LawService:
                 "read": read,
                 "files": files,
                 **result,
+                "compared_at": _now(),
                 "ms": _ms(started),
             }
 
@@ -412,8 +413,18 @@ class LawService:
                 )
         rows = []
         totals = dict.fromkeys(("added", "removed", "changed", "sources_added", "sources_removed", "sources_changed"), 0)
+        categories: dict[str, Counter[str]] = {"added": Counter(), "removed": Counter(), "changed": Counter()}
+        kinds: Counter[str] = Counter()
         for s in states:
-            counts = diff_state(*by_state[s])["counts"] if s in by_state else dict.fromkeys(totals, 0)
+            if s in by_state:
+                d = diff_state(*by_state[s])
+                counts = d["counts"]
+                categories["added"].update(r["category"] for r in d["added"])
+                categories["removed"].update(r["category"] for r in d["removed"])
+                categories["changed"].update(c["rule"]["category"] for c in d["changed"])
+                kinds.update(k for c in d["changed"] for k in c["kinds"])
+            else:
+                counts = dict.fromkeys(totals, 0)
             for k, n in counts.items():
                 totals[k] += n
             rows.append({"st": s, "unchanged": not any(counts.values()), "files_changed": s in by_state, **counts})
@@ -423,7 +434,12 @@ class LawService:
             "read": "branches" if moved else "index",
             "states": rows,
             "changed_states": sum(1 for r in rows if not r["unchanged"]),
+            "files_changed_states": len(moved),
             "totals": totals,
+            # What kinds of rules moved, most first, and what kind of change touched the changed ones.
+            "by_category": {k: dict(c.most_common()) for k, c in categories.items()},
+            "changed_kinds": dict(kinds.most_common()),
+            "compared_at": _now(),
             "ms": _ms(started),
         }
 
@@ -469,3 +485,7 @@ class LawService:
 
 def _ms(started: float) -> int:
     return round((time.monotonic() - started) * 1000)
+
+
+def _now() -> str:
+    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

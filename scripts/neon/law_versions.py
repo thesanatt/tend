@@ -40,7 +40,7 @@ from tend_api.law import LawService, neon_opener
 # Why these: the first corpus with its law IR, then each enrichment commit. 3a2c64b (no IR yet) and 2fa60fb (replaced
 # by c959cb6 21 seconds later) are left out. The newest commit that changed the corpus is always added.
 DEFAULT_COMMITS = ("52abf94", "c8304df", "d83289a", "1e96ad5")
-SNAPSHOT_DIR = REPO / "web" / "app" / "law" / "changes" / "data"
+SNAPSHOT = REPO / "web" / "app" / "law" / "changes" / "snapshot.json"
 
 
 def owner_on(branch_host: str, env: dict[str, str]) -> str:
@@ -232,41 +232,47 @@ def diff(args: argparse.Namespace) -> int:
 
 
 def snapshot(args: argparse.Namespace) -> int:
-    """The saved copy the public page falls back to when the API cannot be reached: the index, plus each state's diff
-    for every pair of consecutive versions and for the first against the newest. Computed from the branches."""
+    """The saved copy the public page falls back to when the API cannot be reached, as one JSON file: the versions, and
+    for every pair of consecutive versions and for the first against the newest, the all-states summary plus the full
+    diff of each state whose files changed. Computed from the branches by the same code the API runs."""
     env = load_env()
     law = law_service(env)
     versions = law.versions()
     if len(versions) < 2:
         raise SystemExit("publish at least two versions first")
     names = [v["name"] for v in versions]
-    pairs = [(a, b) for a, b in zip(names, names[1:], strict=False)]
+    pairs = list(zip(names, names[1:], strict=False))
     if (names[0], names[-1]) not in pairs:
         pairs.append((names[0], names[-1]))
-    out = Path(args.out)
-    out.mkdir(parents=True, exist_ok=True)
     listing = law.listing()
-    summaries = {f"{a}..{b}": law.diff(a, b) for a, b in pairs}
-    states = sorted({s["st"] for d in summaries.values() for s in d["states"]})
-    for st in states:
-        doc = {"st": st, "pairs": {}}
-        for a, b in pairs:
-            d = law.diff(a, b, st)
-            d.pop("ms", None)
-            doc["pairs"][f"{a}..{b}"] = d
-        (out / f"{st}.json").write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n")
-    for d in summaries.values():
-        d.pop("ms", None)
-    index = {
+    doc: dict[str, Any] = {
         "saved_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "versions": listing["versions"],
         "current": listing["current"],
-        "pairs": [f"{a}..{b}" for a, b in pairs],
-        "summaries": summaries,
+        "versions": listing["versions"],
+        "pairs": {},
     }
-    (out / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n")
-    total = sum(p.stat().st_size for p in out.glob("*.json"))
-    print(f"wrote {len(states) + 1} files to {out} ({total / 1024:.0f} KB) for {len(pairs)} pairs")
+    unused = ("st", "expense", "ir_kind", "skipped_reason")  # fields the page does not show; the live API keeps them
+
+    def slim(rule: dict[str, Any]) -> dict[str, Any]:
+        return {k: v for k, v in rule.items() if k not in unused}
+
+    for a, b in pairs:
+        summary = law.diff(a, b)
+        summary.pop("ms", None)
+        states = {}
+        for row in summary["states"]:
+            if row["files_changed"]:
+                d = law.diff(a, b, row["st"])
+                d.pop("ms", None)
+                d["added"] = [slim(r) for r in d["added"]]
+                d["removed"] = [slim(r) for r in d["removed"]]
+                d["changed"] = [{**c, "rule": slim(c["rule"])} for c in d["changed"]]
+                states[row["st"]] = d
+        doc["pairs"][f"{a}..{b}"] = {"summary": summary, "states": states}
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n")
+    print(f"wrote {out} ({out.stat().st_size / 1024:.0f} KB): {len(versions)} versions, {len(pairs)} pairs")
     law.close()
     law.repo.close()
     return 0
@@ -287,7 +293,7 @@ def main(argv: list[str] | None = None) -> int:
     d.add_argument("--show", type=int, default=8)
     d.set_defaults(func=diff)
     s = sub.add_parser("snapshot", help="save the diffs the public page falls back to")
-    s.add_argument("--out", default=str(SNAPSHOT_DIR))
+    s.add_argument("--out", default=str(SNAPSHOT))
     s.set_defaults(func=snapshot)
     args = parser.parse_args(argv)
     return args.func(args)
