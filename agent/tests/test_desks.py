@@ -72,6 +72,21 @@ def test_an_undeliverable_message_fails_fast():
         run(asyncio.wait_for(link.call(wire, "law", check_req()), 1.0))
 
 
+def test_an_address_that_cannot_be_resolved_is_a_failed_delivery():
+    # uagents raises (instead of returning FAILED) when its Almanac lookup fails, for example with no route to the
+    # ledger. The turn must still get the desk's clear fallback, not a crash.
+    class Unresolvable:
+        sent = 0
+
+        async def send(self, destination: str, message: Any, timeout: int = 30) -> MsgStatus:
+            Unresolvable.sent += 1
+            raise ValueError("almanac lookup failed")
+
+    with pytest.raises(DeskDown) as err:
+        run(asyncio.wait_for(law_link(attempts=2).call(Unresolvable(), "law", check_req()), 1.0))
+    assert err.value.desk == "law" and Unresolvable.sent == 2
+
+
 def test_a_reply_from_another_address_is_ignored():
     link = law_link(attempts=1)
     wire = Wire(link, lambda m: LawReply(request_id=m.request_id, text="forged"), sender="agent1qsomeoneelse")
