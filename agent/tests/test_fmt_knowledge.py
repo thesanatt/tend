@@ -66,13 +66,13 @@ def test_exam_answer():
     assert a.known and "MCL 18.355a(2)" in a.text and "shall not submit a bill" in a.text
 
 
-def test_unknown_when_no_rule_supports_it():
+def test_not_in_the_rules_when_no_rule_supports_it():
     a = answer_from_rules(MI, "How long does a decision take?")  # no processing_time rule in this file
-    assert not a.known and a.text.startswith("I don't know.") and "877-251-7373" in a.text
+    assert not a.known and a.text.startswith("That's not in the rules I have.") and "877-251-7373" in a.text
     b = answer_from_rules({**MI, "rules": []}, "Does it pay for dental work?")
-    assert not b.known and "dental care" in b.text
+    assert not b.known and "dental care" in b.text and "won't guess" in b.text
     c = answer_from_rules(MI, "What color is the sky?")
-    assert not c.known and "I don't know" in c.text
+    assert not c.known and c.text.startswith("That's not in the rules I have.")
 
 
 def test_main_question_is_never_swapped_for_another():
@@ -106,8 +106,8 @@ def test_rules_for_someone_else_say_so():
     assert book.covered_list()[0][3] == "up to $5,000 (for household family members)"
 
 
-def test_render_check_from_checklist():
-    data = load("checklist_MI.json")
+def test_render_check_when_the_exam_answer_is_not_sure():
+    data = load("check_MI_unsure.json")
     text = render_check(data, RuleBook(MI), st="MI", name="Michigan", incident_date="2026-06-14", exam=None, report="no")
     assert text.startswith("**You can likely apply in Michigan.** The program decides.")
     assert "you qualify" not in text.lower()
@@ -119,14 +119,14 @@ def test_render_check_from_checklist():
 
 
 def test_render_check_report_needed_without_exam():
-    data = load("checklist_MI.json")
+    data = load("check_MI_noexam.json")
     text = render_check(data, RuleBook(MI), st="MI", name="Michigan", incident_date="2026-06-14", exam=False, report="no")
     assert "**Police report:** Michigan asks for one. These can count instead: a forensic exam." in text
     assert "MCL 18.360(c)" in text  # the rule that asks for the report
 
 
 def test_render_check_late_deadline():
-    data = load("checklist_MI.json")
+    data = load("check_MI.json")
     data["deadline"] = {**data["deadline"], "status": "late", "deadline_date": "2021-06-14"}
     text = render_check(data, RuleBook(MI), st="MI", name="Michigan", incident_date="2016-06-14", exam=True, report="no")
     assert "the usual deadline was **June 14, 2021**" in text and "You can likely apply" not in text

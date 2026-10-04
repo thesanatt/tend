@@ -39,20 +39,11 @@ UNIT_WORDS = {
 }
 
 
-# checks.deadline.flags (docs/SPEC.md v1.3): a deadline counted from the report or from discovery is dated
-# from the incident, so the true date may be later and a late may not be late. The discovery note is the web's.
-DEADLINE_NOTES = {
-    "deadline_from_report": "This is measured from the date it happened. The law counts from your report, so you may have longer.",
-    "deadline_from_discovery": (
-        "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
-    ),
-}
-
-
-def deadline_notes(flags: Any) -> str:
-    """The notes for a deadline's flags, each after a space, in flag order; "" when there are none."""
-    have = {str(f) for f in flags or []}
-    return "".join(f" {text}" for flag, text in DEADLINE_NOTES.items() if flag in have)
+# The sentence after a deadline the engines flag deadline_from_discovery (docs/SPEC.md v1.3): it is dated from the
+# incident, the earliest discovery can be, so the true date may be later and a late may not be late. The web's words.
+DISCOVERY_NOTE = (
+    "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
+)
 
 
 def money(cents: int) -> str:

@@ -2,12 +2,18 @@
 
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import { offline } from "@/lib/netlog";
 import type { EngineInput, EngineOutput } from "@/lib/types";
 import { useFlow } from "../FlowProvider";
 import { shareProblem } from "../problems";
 import styles from "../flow.module.css";
 
 const HOURS = [24, 72, 168] as const;
+
+export function expired(expiresAt: string, now = Date.now()): boolean {
+  const at = Date.parse(expiresAt);
+  return Number.isFinite(at) && at <= now;
+}
 
 // Share with an advocate: the packet is sealed in this browser, and only the link opens it.
 export default function ShareBox({ input, output }: { input: EngineInput; output: EngineOutput }) {
@@ -18,7 +24,8 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
-  const active = state.shares.filter((s) => !s.revoked);
+  // A link past its expiry opens nothing, so it is not offered for copying.
+  const active = state.shares.filter((s) => !s.revoked && !expired(s.expires_at));
 
   async function make() {
     setBusy(true);
@@ -32,9 +39,10 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
       // The server's expiry when it gives one; the one asked for otherwise.
       const expires_at = sealed.expires_at ?? new Date(Date.now() + hours * 3_600_000).toISOString();
       dispatch({ type: "share", record: { id: sealed.id, url: sealed.url, expires_at, once, revoked: false } });
-      logSent({ kind: "share" });
+      logSent({ kind: "share", ref: `share:${sealed.id}` });
     } catch (err) {
-      setError(shareProblem(err, t));
+      // Offline, the locked packet never left; the button stays so the survivor can try again.
+      setError(offline() ? t.share.offline : shareProblem(err, t));
     } finally {
       setBusy(false);
     }
@@ -46,7 +54,7 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
       await services.share.revoke(id);
       dispatch({ type: "revokeShare", id });
     } catch {
-      setError(t.share.revokeFailed);
+      setError(offline() ? t.share.revokeOffline : t.share.revokeFailed);
     }
   }
 
@@ -84,6 +92,7 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
         </div>
       ))}
       {state.shares.some((s) => s.revoked) ? <p className="meta">{t.share.revoked}</p> : null}
+      {state.shares.some((s) => !s.revoked && expired(s.expires_at)) ? <p className="meta">{t.share.lapsed}</p> : null}
 
       {!active.length ? (
         <>

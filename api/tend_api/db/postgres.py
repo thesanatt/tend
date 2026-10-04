@@ -4,6 +4,9 @@ The app talks to Neon's pooled endpoint (PgBouncer in transaction mode), so ever
 one transaction, session state is never relied on, and prepared statements are off. Migrations run
 over the direct endpoint when one is configured. A non-public schema keeps a test run apart from
 the real tables; it is set with SET LOCAL inside each transaction.
+
+With a reader_url, public corpus reads go through a second pool as a role that can only SELECT the
+corpus (docs/NEON.md, roles.py); shares and payments keep the app's role.
 """
 
 from __future__ import annotations
@@ -16,6 +19,7 @@ import time
 import weakref
 from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Any
 
 import psycopg
@@ -25,8 +29,22 @@ from psycopg.types.json import Jsonb
 from psycopg_pool import ConnectionPool
 
 from ..clock import iso, parse_iso
-from .base import ACTION_FIELDS, FINAL_STATUSES, GENESIS_HASH, ShareState, audit_body, check_applied, migration_files
+from .base import (
+    ACTION_FIELDS,
+    FINAL_STATUSES,
+    GENESIS_HASH,
+    MARK_CLOSE,
+    MARK_OPEN,
+    VERSION_COLUMNS,
+    MigrationError,
+    ShareState,
+    audit_body,
+    check_applied,
+    marks,
+    migration_files,
+)
 from .corpus import CATEGORIES, CorpusBundle, image_rows, jurisdiction_row, rule_rows, source_rows
+from .roles import apply_grants
 
 _SCHEMA = re.compile(r"^[a-z_][a-z0-9_]{0,62}$")
 RULE_COLUMNS = (
@@ -35,6 +53,33 @@ RULE_COLUMNS = (
 )
 FINISHED_KEEP = dt.timedelta(days=1)
 FRESH_S = 30.0  # a pooled connection used this recently is trusted without a round trip to check it
+# ts_headline wraps each matched word in the base module's marks, which marks() turns into offsets.
+HEADLINE = f"HighlightAll=true, StartSel={MARK_OPEN}, StopSel={MARK_CLOSE}"
+
+# The law version index and quote search. Idempotent DDL kept out of the numbered migrations on purpose: API code
+# from before them refuses a database whose schema_migrations lists a version it does not know, and every API build
+# shares the one production database. Created here where missing, never recorded (docs/NEON.md).
+ENSURE_SQL = tuple((p.stem, p.read_text(encoding="utf-8")) for p in sorted((Path(__file__).parent / "ensure").glob("*.sql")))
+
+
+def law_schema_missing(conn: psycopg.Connection, schema: str) -> list[str]:
+    row = conn.execute(
+        "SELECT to_regclass(%s) IS NOT NULL AS law_versions, EXISTS (SELECT 1 FROM pg_attribute WHERE attrelid = to_regclass(%s)"
+        " AND attname = 'quote_search' AND NOT attisdropped) AS quote_search",
+        (f"{schema}.law_versions", f"{schema}.rules"),
+    ).fetchone()
+    present = dict(row) if isinstance(row, dict) else {"law_versions": row[0], "quote_search": row[1]}
+    return [name for name, _ in ENSURE_SQL if not present.get(name)]
+
+
+def ensure_law_schema(conn: psycopg.Connection, schema: str) -> list[str]:
+    """Creates whatever of the law objects is missing in this schema (the connection's search_path must name it).
+    Returns what it created."""
+    missing = law_schema_missing(conn, schema)
+    for name, text in ENSURE_SQL:
+        if name in missing:
+            conn.execute(text)
+    return missing
 
 
 def _plain(row: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -51,26 +96,45 @@ def _ts(value: str | None) -> dt.datetime | None:
 class PostgresRepository:
     backend = "postgres"
 
-    def __init__(self, url: str, *, schema: str = "public", migrate: bool = True, migrate_url: str | None = None, pool_size: int = 4):
+    def __init__(
+        self,
+        url: str,
+        *,
+        schema: str = "public",
+        migrate: bool = True,
+        migrate_url: str | None = None,
+        pool_size: int = 4,
+        reader_url: str | None = None,
+    ):
         if not _SCHEMA.match(schema):
             raise ValueError(f"not a safe schema name: {schema!r}")
         self.schema = schema
         self.migrate_url = migrate_url or url
         self._used: weakref.WeakKeyDictionary[psycopg.Connection, float] = weakref.WeakKeyDictionary()
-        self._pool = ConnectionPool(
+        self._pool = self._make_pool(url, pool_size, "tend")
+        # Public corpus reads go through a role that can only SELECT the corpus, when one is configured.
+        self._reader = self._make_pool(reader_url, pool_size, "tend-reader") if reader_url and reader_url != url else None
+        if migrate:
+            self.migrate()
+
+    def _make_pool(self, url: str, size: int, name: str) -> ConnectionPool:
+        return ConnectionPool(
             url,
             min_size=0,
-            max_size=pool_size,
+            max_size=size,
             # Autocommit: a read is one round trip; writes open their own transaction explicitly.
             kwargs={"row_factory": dict_row, "prepare_threshold": None, "connect_timeout": 15, "autocommit": True},
             check=self._check,
             max_idle=120,
             timeout=30,
             open=True,
-            name="tend",
+            name=name,
         )
-        if migrate:
-            self.migrate()
+
+    @property
+    def split_roles(self) -> bool:
+        """True when corpus reads use their own read-only role."""
+        return self._reader is not None
 
     def _check(self, conn: psycopg.Connection) -> None:
         # Neon drops idle connections when its compute sleeps; one quiet for a while is checked before use.
@@ -78,8 +142,8 @@ class PostgresRepository:
             ConnectionPool.check_connection(conn)
 
     @contextmanager
-    def _tx(self) -> Iterator[psycopg.Connection]:
-        with self._pool.connection() as conn:
+    def _tx(self, pool: ConnectionPool | None = None) -> Iterator[psycopg.Connection]:
+        with (pool or self._pool).connection() as conn:
             try:
                 with conn.transaction():
                     if self.schema != "public":
@@ -88,43 +152,81 @@ class PostgresRepository:
             finally:
                 self._used[conn] = time.monotonic()
 
-    def _all(self, query: str, args: dict[str, Any] | tuple[Any, ...] = ()) -> list[dict[str, Any]]:
+    def _all(self, query: str, args: dict[str, Any] | tuple[Any, ...] = (), *, read: bool = False) -> list[dict[str, Any]]:
+        pool = self._reader if read and self._reader is not None else self._pool
         if self.schema != "public":  # a test schema is set per transaction
-            with self._tx() as c:
+            with self._tx(pool) as c:
                 return [_plain(r) for r in c.execute(query, args).fetchall()]
-        with self._pool.connection() as conn:
+        with pool.connection() as conn:
             try:
                 return [_plain(r) for r in conn.execute(query, args).fetchall()]
             finally:
                 self._used[conn] = time.monotonic()
 
-    def _one(self, query: str, args: dict[str, Any] | tuple[Any, ...] = ()) -> dict[str, Any] | None:
-        rows = self._all(query, args)
+    def _one(self, query: str, args: dict[str, Any] | tuple[Any, ...] = (), *, read: bool = False) -> dict[str, Any] | None:
+        rows = self._all(query, args, read=read)
         return rows[0] if rows else None
+
+    def _read(self, query: str, args: dict[str, Any] | tuple[Any, ...] = ()) -> list[dict[str, Any]]:
+        """A public corpus read: through the read-only role when there is one."""
+        return self._all(query, args, read=True)
 
     def close(self) -> None:
         self._pool.close()
+        if self._reader is not None:
+            self._reader.close()
 
     # schema
 
-    def migrate(self) -> list[str]:
+    def _bookkeeping(self) -> tuple[list[str] | None, list[str]]:
+        """(migrations still to run, or None when this schema was never migrated; law objects still missing), read
+        without any DDL, so a role that cannot create tables can still start the app when nothing is due."""
         files = migration_files("postgres")
-        with psycopg.connect(self.migrate_url, row_factory=dict_row, prepare_threshold=None, connect_timeout=15) as conn:
-            with conn.transaction():
-                conn.execute(sql.SQL("CREATE SCHEMA IF NOT EXISTS {}").format(sql.Identifier(self.schema)))
-                conn.execute(sql.SQL("SET LOCAL search_path TO {}").format(sql.Identifier(self.schema)))
-                # One migrator at a time per schema; the lock ends with the transaction.
-                conn.execute("SELECT pg_advisory_xact_lock(hashtext(%s))", (f"{self.schema}:migrate",))
-                conn.execute(
-                    "CREATE TABLE IF NOT EXISTS schema_migrations"
-                    " (version text PRIMARY KEY, sha256 text NOT NULL, applied_at timestamptz NOT NULL DEFAULT now())"
-                )
-                applied = {r["version"]: r["sha256"] for r in conn.execute("SELECT version, sha256 FROM schema_migrations")}
-                pending = check_applied(applied, files)
-                for version, text, digest in pending:
-                    conn.execute(text)
-                    conn.execute("INSERT INTO schema_migrations (version, sha256) VALUES (%s, %s)", (version, digest))
-        return [v for v, _, _ in pending]
+        with psycopg.connect(self.migrate_url, row_factory=dict_row, prepare_threshold=None, connect_timeout=15, autocommit=True) as conn:
+            table = conn.execute("SELECT to_regclass(%s) AS t", (f"{self.schema}.schema_migrations",)).fetchone()["t"]
+            if table is None:
+                return None, [name for name, _ in ENSURE_SQL]
+            applied = {
+                r["version"]: r["sha256"]
+                for r in conn.execute(sql.SQL("SELECT version, sha256 FROM {}.schema_migrations").format(sql.Identifier(self.schema)))
+            }
+            missing = law_schema_missing(conn, self.schema)
+        return [v for v, _, _ in check_applied(applied, files)], missing
+
+    def pending_migrations(self) -> list[str] | None:
+        return self._bookkeeping()[0]
+
+    def migrate(self) -> list[str]:
+        pending_now, missing = self._bookkeeping()
+        if pending_now == [] and not missing:
+            return []
+        files = migration_files("postgres")
+        try:
+            with psycopg.connect(self.migrate_url, row_factory=dict_row, prepare_threshold=None, connect_timeout=15) as conn:
+                with conn.transaction():
+                    conn.execute(sql.SQL("CREATE SCHEMA IF NOT EXISTS {}").format(sql.Identifier(self.schema)))
+                    conn.execute(sql.SQL("SET LOCAL search_path TO {}").format(sql.Identifier(self.schema)))
+                    # One migrator at a time per schema; the lock ends with the transaction.
+                    conn.execute("SELECT pg_advisory_xact_lock(hashtext(%s))", (f"{self.schema}:migrate",))
+                    conn.execute(
+                        "CREATE TABLE IF NOT EXISTS schema_migrations"
+                        " (version text PRIMARY KEY, sha256 text NOT NULL, applied_at timestamptz NOT NULL DEFAULT now())"
+                    )
+                    applied = {r["version"]: r["sha256"] for r in conn.execute("SELECT version, sha256 FROM schema_migrations")}
+                    pending = check_applied(applied, files)
+                    for version, text, digest in pending:
+                        conn.execute(text)
+                        conn.execute("INSERT INTO schema_migrations (version, sha256) VALUES (%s, %s)", (version, digest))
+                    created = ensure_law_schema(conn, self.schema)
+                    if pending or created:
+                        # New tables get each role's rights in the same transaction (a no-op where the roles do not exist).
+                        apply_grants(conn, self.schema)
+        except psycopg.errors.InsufficientPrivilege as exc:
+            raise MigrationError(
+                "migrations are pending and this role cannot run them; run `uv run python -m tend_api.loader` with the owner's"
+                " DATABASE_URL first"
+            ) from exc
+        return [v for v, _, _ in pending] + created
 
     def drop_schema(self) -> None:
         """Only for test schemas: removes everything a test run made."""
@@ -210,16 +312,17 @@ class PostgresRepository:
         row = self._one(
             "SELECT (SELECT count(*) FROM categories) AS categories, (SELECT count(*) FROM jurisdictions) AS jurisdictions,"
             " (SELECT count(*) FROM sources) AS sources, (SELECT count(*) FROM rules) AS rules,"
-            " (SELECT count(*) FROM law_images) AS law_images"
+            " (SELECT count(*) FROM law_images) AS law_images",
+            read=True,
         )
         return {k: int(v) for k, v in row.items()}
 
     def corpus_hashes(self) -> dict[str, dict[str, str | None]]:
-        rows = self._all("SELECT st, verified_sha256, ir_sha256 FROM jurisdictions ORDER BY st")
+        rows = self._read("SELECT st, verified_sha256, ir_sha256 FROM jurisdictions ORDER BY st")
         return {r["st"]: {"verified_sha256": r["verified_sha256"], "ir_sha256": r["ir_sha256"]} for r in rows}
 
     def jurisdiction(self, st: str) -> dict[str, Any] | None:
-        return self._one("SELECT * FROM jurisdictions WHERE st = %s", (st,))
+        return self._one("SELECT * FROM jurisdictions WHERE st = %s", (st,), read=True)
 
     @staticmethod
     def _rule(row: dict[str, Any]) -> dict[str, Any]:
@@ -230,7 +333,7 @@ class PostgresRepository:
     def search_rules(self, terms: list[str], st: str | None, limit: int) -> list[dict[str, Any]]:
         if not terms:
             return []
-        rows = self._all(
+        rows = self._read(
             f"SELECT {RULE_COLUMNS}, ts_rank_cd(r.search, q.query, 32) AS score"
             " FROM rules r JOIN sources s ON s.st = r.st AND s.id = r.source_id"
             " CROSS JOIN to_tsquery('english', %(tsq)s) AS q(query)"
@@ -244,7 +347,7 @@ class PostgresRepository:
         cats, exps = sorted(set(categories)), sorted(set(expenses))
         if not cats and not exps:
             return []
-        rows = self._all(
+        rows = self._read(
             f"SELECT {RULE_COLUMNS}, 0.0 AS score FROM rules r JOIN sources s ON s.st = r.st AND s.id = r.source_id"
             " WHERE r.st = %(st)s AND (r.category = ANY(%(cats)s) OR r.expense = ANY(%(exps)s)) ORDER BY r.ord",
             {"st": st, "cats": cats, "exps": exps},
@@ -252,14 +355,85 @@ class PostgresRepository:
         return [self._rule(r) for r in rows]
 
     def source(self, st: str, source_id: str) -> dict[str, Any] | None:
-        return self._one("SELECT * FROM sources WHERE st = %s AND id = %s", (st, source_id))
+        return self._one("SELECT * FROM sources WHERE st = %s AND id = %s", (st, source_id), read=True)
 
     def law_images(self, st: str) -> list[dict[str, Any]]:
-        return self._all(
+        return self._read(
             "SELECT st, image_sha256, engine_version, verified_sha256, ir_sha256, bytes, compiled_at FROM law_images WHERE st = %s"
             " ORDER BY compiled_at DESC, image_sha256",
             (st,),
         )
+
+    # quote search and law versions
+
+    def law_search(self, q: str, st: str | None, limit: int) -> list[dict[str, Any]]:
+        """websearch_to_tsquery reads what someone types ("quoted phrases", or, -word) and never raises on it; the
+        GIN index on quote_search finds the rules; ts_headline marks the matched words for the page to highlight."""
+        rows = self._read(
+            "SELECT r.st, r.id AS rule_id, r.quote, r.pinpoint, r.source_id, r.fragment_url,"
+            " ts_rank_cd(r.quote_search, q.query, 32) AS rank, ts_headline('english', r.quote, q.query, %(opts)s) AS marked"
+            " FROM rules r CROSS JOIN websearch_to_tsquery('english', %(q)s) AS q(query)"
+            " WHERE r.quote_search @@ q.query AND (%(st)s::text IS NULL OR r.st = %(st)s)"
+            " ORDER BY rank DESC, r.st, r.ord LIMIT %(limit)s",
+            {"q": q, "st": st, "limit": limit, "opts": HEADLINE},
+        )
+        for r in rows:
+            r["rank"] = round(float(r["rank"]), 6)
+            r["marks"] = marks(r["quote"], r.pop("marked") or "")
+        return rows
+
+    def corpus_rules(self, st: str | None) -> list[dict[str, Any]]:
+        return self._read(
+            "SELECT r.st, r.id, r.ord, r.category, r.expense, r.params, r.summary, r.quote, r.pinpoint, r.source_id, r.fragment_url,"
+            " r.ir, r.ir_kind, r.skipped_reason, s.title AS source_title, s.url AS source_url, s.sha256 AS source_sha256"
+            " FROM rules r JOIN sources s ON s.st = r.st AND s.id = r.source_id"
+            " WHERE (%(st)s::text IS NULL OR r.st = %(st)s) ORDER BY r.st, r.ord",
+            {"st": st},
+        )
+
+    def corpus_sources(self, st: str | None) -> list[dict[str, Any]]:
+        return self._read(
+            "SELECT st, id, title, url, kind, sha256, retrieved_at FROM sources WHERE (%(st)s::text IS NULL OR st = %(st)s) ORDER BY st, id",
+            {"st": st},
+        )
+
+    def law_versions(self) -> list[dict[str, Any]]:
+        return self._read(f"SELECT {VERSION_COLUMNS} FROM law_versions ORDER BY seq")
+
+    def law_version_files(self, version: str | None = None, st: str | None = None) -> list[dict[str, Any]]:
+        return self._read(
+            "SELECT version, st, verified_sha256, ir_sha256, rule_count FROM law_version_files"
+            " WHERE (%(v)s::text IS NULL OR version = %(v)s) AND (%(st)s::text IS NULL OR st = %(st)s) ORDER BY version, st",
+            {"v": version, "st": st},
+        )
+
+    def register_law_version(self, version: dict[str, Any], files: list[dict[str, Any]]) -> bool:
+        """Adds a published version to the index. False when it is already there with the same corpus; a name that
+        is already taken by a different corpus is refused, since a published version never changes."""
+        with self._tx() as c:
+            row = c.execute("SELECT corpus_sha256 FROM law_versions WHERE name = %s FOR UPDATE", (version["name"],)).fetchone()
+            if row is not None:
+                if row["corpus_sha256"] != version["corpus_sha256"]:
+                    raise ValueError(f"{version['name']} is already published with a different corpus")
+                return False
+            c.execute(
+                f"INSERT INTO law_versions ({VERSION_COLUMNS}) VALUES (%(name)s, %(seq)s, %(git_sha)s, %(committed_at)s, %(subject)s,"
+                " %(parent)s, %(branch_id)s, %(endpoint_host)s, %(corpus_sha256)s, %(jurisdictions)s, %(rules)s, %(sources)s,"
+                " %(load_ms)s, coalesce(%(published_at)s, now()))",
+                {
+                    **version,
+                    "committed_at": _ts(version["committed_at"]),
+                    "published_at": _ts(version.get("published_at")),
+                    "load_ms": version.get("load_ms"),
+                },
+            )
+            with c.cursor() as cur:
+                cur.executemany(
+                    "INSERT INTO law_version_files (version, st, verified_sha256, ir_sha256, rule_count)"
+                    " VALUES (%(version)s, %(st)s, %(verified_sha256)s, %(ir_sha256)s, %(rule_count)s)",
+                    [{**f, "version": version["name"]} for f in files],
+                )
+        return True
 
     # sealed shares
 

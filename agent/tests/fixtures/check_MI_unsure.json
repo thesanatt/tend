@@ -1,0 +1,690 @@
+{
+ "st": "MI",
+ "name": "Michigan",
+ "inputs": {
+  "incident_date": "2026-06-14",
+  "forensic_exam": null,
+  "police_report": "no"
+ },
+ "headline": {
+  "text": "You can likely apply in Michigan.",
+  "rule_ids": [
+   "MI-ELIG-1",
+   "MI-ELIG-2"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-ELIG-1",
+    "summary": "Sexual assault victims are listed as eligible for crime victim compensation.",
+    "pinpoint": "MDHHS Do I Qualify?, Who is considered a victim?",
+    "quote": "The following individuals may be considered a victim and qualify for crime victim compensation: A person who was physically, emotionally, psychologically, or mentally injured as the direct result of a crime. A sexual assault victim.",
+    "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify#:~:text=The%20following%20individuals%20may%20be,crime.%20A%20sexual%20assault%20victim.",
+    "source_title": "MDHHS Crime Victim Compensation: Do I Qualify?",
+    "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify"
+   },
+   {
+    "rule_id": "MI-ELIG-2",
+    "summary": "Personal injury includes bodily harm (including pregnancy) and psychological, mental, or emotional injury from a perceived or actual threat.",
+    "pinpoint": "MCL 18.351(i)",
+    "quote": "\"Personal injury\" means either of the following injuries: (i) Actual bodily harm, including pregnancy or death. (ii) Psychological, mental, or emotional injury resulting from a reasonably perceived or actual threat of injury or death.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-351#:~:text=%22Personal%20injury%22%20means%20either%20of,threat%20of%20injury%20or%20death.",
+    "source_title": "MCL 18.351 (definitions)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-351"
+   }
+  ]
+ },
+ "deadline": {
+  "text": "Apply by June 14, 2031. That date is measured from the day it happened. The law counts from your report, so you may have longer.",
+  "rule_ids": [
+   "MI-FILE-1",
+   "MI-FILE-2"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-FILE-1",
+    "summary": "A claim must be filed within 5 years after the crime.",
+    "pinpoint": "MCL 18.355(2)",
+    "quote": "a claim must be filed by the claimant not later than 5 years after the occurrence of the crime upon which the claim is based",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20must%20be%20filed,which%20the%20claim%20is%20based",
+    "source_title": "MCL 18.355 (filing a claim; deadline)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355"
+   },
+   {
+    "rule_id": "MI-FILE-2",
+    "summary": "For criminal sexual conduct (first through third degree) where police records show the victim was under 18, a claim may be filed within 5 years after the crime was reported, if reported before age 28 or later with good cause for the delay.",
+    "pinpoint": "MCL 18.355(2)(a)",
+    "quote": "a claim based on the crime of criminal sexual conduct in the first, second, or third degree may be filed by a claimant not later than 5 years after the crime was reported: (i) Police records show the victim of the crime was less than 18 years of age at the time of the occurrence and the victim reported the crime before attaining 28 years of age. (ii) Police records show the victim of the crime was less than 18 years of age at the time of the occurrence, the victim reported the crime after attaining 28 years of age, and the claimant shows that there was good cause for the delay in reporting the crime.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20based%20on%20the,delay%20in%20reporting%20the%20crime.",
+    "source_title": "MCL 18.355 (filing a claim; deadline)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355"
+   }
+  ],
+  "status": "ok",
+  "deadline_date": "2031-06-14",
+  "flags": [
+   "deadline_from_report"
+  ]
+ },
+ "reporting": {
+  "text": "Michigan asks for a police report. These can count instead: a forensic exam.",
+  "rule_ids": [
+   "MI-REPORT-1",
+   "MI-REPORT-2",
+   "MI-REPORT-3"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-REPORT-1",
+    "summary": "For sexual assault, having a sexual assault forensic exam satisfies the prompt police-reporting and cooperation requirements for compensation.",
+    "pinpoint": "MCL 18.355a(10)",
+    "quote": "For payments authorized under this section or for payments made to victims under section 6, administration to the victim of a sexual assault medical forensic examination satisfies the requirements for prompt law enforcement reporting and victim cooperation under sections 6 and 10.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=For%20payments%20authorized%20under%20this,under%20sections%206%20and%2010.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-REPORT-2",
+    "summary": "In general, police records must show the crime was reported to the proper authorities.",
+    "pinpoint": "MCL 18.360(c)",
+    "quote": "(c) Police records show that the crime was reported to the proper authorities.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-360#:~:text=%28c%29%20Police%20records%20show%20that,reported%20to%20the%20proper%20authorities.",
+    "source_title": "MCL 18.360 (verification of facts; police report)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-360"
+   },
+   {
+    "rule_id": "MI-REPORT-3",
+    "summary": "The program says a sexual assault forensic exam may be used in place of a police report.",
+    "pinpoint": "MDHHS Do I Qualify?, Eligibility Requirements",
+    "quote": "The crime must be reported to law enforcement (waivers may apply). If the crime was a sexual assault, then a sexual assault forensic exam may be used in lieu of reporting to police.",
+    "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify#:~:text=The%20crime%20must%20be%20reported,lieu%20of%20reporting%20to%20police.",
+    "source_title": "MDHHS Crime Victim Compensation: Do I Qualify?",
+    "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify"
+   }
+  ],
+  "status": "required",
+  "alternatives": [
+   "forensic_exam"
+  ],
+  "assumes_exam": false
+ },
+ "reporting_if_exam": {
+  "text": "Your forensic exam counts in place of a police report.",
+  "rule_ids": [
+   "MI-REPORT-1",
+   "MI-REPORT-2",
+   "MI-REPORT-3"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-REPORT-1",
+    "summary": "For sexual assault, having a sexual assault forensic exam satisfies the prompt police-reporting and cooperation requirements for compensation.",
+    "pinpoint": "MCL 18.355a(10)",
+    "quote": "For payments authorized under this section or for payments made to victims under section 6, administration to the victim of a sexual assault medical forensic examination satisfies the requirements for prompt law enforcement reporting and victim cooperation under sections 6 and 10.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=For%20payments%20authorized%20under%20this,under%20sections%206%20and%2010.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-REPORT-2",
+    "summary": "In general, police records must show the crime was reported to the proper authorities.",
+    "pinpoint": "MCL 18.360(c)",
+    "quote": "(c) Police records show that the crime was reported to the proper authorities.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-360#:~:text=%28c%29%20Police%20records%20show%20that,reported%20to%20the%20proper%20authorities.",
+    "source_title": "MCL 18.360 (verification of facts; police report)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-360"
+   },
+   {
+    "rule_id": "MI-REPORT-3",
+    "summary": "The program says a sexual assault forensic exam may be used in place of a police report.",
+    "pinpoint": "MDHHS Do I Qualify?, Eligibility Requirements",
+    "quote": "The crime must be reported to law enforcement (waivers may apply). If the crime was a sexual assault, then a sexual assault forensic exam may be used in lieu of reporting to police.",
+    "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify#:~:text=The%20crime%20must%20be%20reported,lieu%20of%20reporting%20to%20police.",
+    "source_title": "MDHHS Crime Victim Compensation: Do I Qualify?",
+    "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify"
+   }
+  ],
+  "status": "satisfied",
+  "alternatives": [
+   "forensic_exam"
+  ],
+  "assumes_exam": true
+ },
+ "covered": [
+  {
+   "text": "Medical care",
+   "rule_ids": [
+    "MI-COV-1"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-COV-1",
+     "summary": "Unreimbursed medical care for the victim is covered.",
+     "pinpoint": "MCL 18.361(2)(a)",
+     "quote": "(a) Medical care for the victim or intervenor.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28a%29%20Medical%20care%20for%20the%20victim%20or%20intervenor.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "medical",
+   "label": "Medical care",
+   "cap_cents": null
+  },
+  {
+   "text": "Counseling, up to $125 a session",
+   "rule_ids": [
+    "MI-CAP-3",
+    "MI-CAP-2",
+    "MI-CAP-4",
+    "MI-COV-2"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-3",
+     "summary": "Counseling with a licensed psychologist or physician is reimbursed at up to $125 per hourly session.",
+     "pinpoint": "MCL 18.361(6)",
+     "quote": "except that the maximum hourly reimbursement rate must not exceed $125.00 per hourly session for a psychologist or physician licensed to practice in this state.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=except%20that%20the%20maximum%20hourly,to%20practice%20in%20this%20state.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-CAP-2",
+     "summary": "Counseling with a licensed or registered therapist or counselor is reimbursed at up to $80 per hourly session.",
+     "pinpoint": "MCL 18.361(6)",
+     "quote": "The maximum hourly reimbursement rate must not exceed $80.00 per hourly session for a therapist or counselor licensed or registered to practice in this state",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=The%20maximum%20hourly%20reimbursement%20rate,to%20practice%20in%20this%20state",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-CAP-4",
+     "summary": "Counseling is limited to 35 sessions per person plus up to 20 family sessions, at $80 per hour for a therapist or counselor and $125 per hour for a psychologist or physician.",
+     "pinpoint": "MDHHS award limits table, Psychological Counseling",
+     "quote": "35 sessions, 20 family sessions $80/hour for a therapist/counselor $125/hour for a psychologist/physician",
+     "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=35%20sessions%2C%2020%20family%20sessions,therapist%2Fcounselor%20%24125%2Fhour%20for%20a%20psychologist%2Fphysician",
+     "source_title": "MDHHS: What Costs May Be Covered for Crime Victims?",
+     "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims"
+    },
+    {
+     "rule_id": "MI-COV-2",
+     "summary": "Psychological counseling is covered, subject to the session and rate limits.",
+     "pinpoint": "MCL 18.361(2)(b)",
+     "quote": "(b) Subject to subsection (6), psychological or grief counseling for an individual listed in section 4(1)(a), (b), (c), (e), (f), or (g).",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28b%29%20Subject%20to%20subsection%20%286%29%2C,%28c%29%2C%20%28e%29%2C%20%28f%29%2C%20or%20%28g%29.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "counseling",
+   "label": "Counseling",
+   "cap_cents": 12500
+  },
+  {
+   "text": "Dental care",
+   "rule_ids": [
+    "MI-COV-9"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-COV-9",
+     "summary": "Reasonable and necessary medical, dental, optical, and counseling costs are covered.",
+     "pinpoint": "MDHHS What Costs May Be Covered, Costs that May Be Covered",
+     "quote": "Reasonable and necessary medical, dental, optical, counseling, and non-medical remedial treatment.",
+     "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=Reasonable%20and%20necessary%20medical%2C%20dental%2C,counseling%2C%20and%20non%2Dmedical%20remedial%20treatment.",
+     "source_title": "MDHHS: What Costs May Be Covered for Crime Victims?",
+     "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims"
+    }
+   ],
+   "expense": "dental",
+   "label": "Dental care",
+   "cap_cents": null
+  },
+  {
+   "text": "Rides and travel to care, up to $5,000",
+   "rule_ids": [
+    "MI-CAP-8",
+    "MI-CAP-7",
+    "MI-COV-7"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-8",
+     "summary": "Transportation is capped at $5,000 in total per claimant when the trip is at least 50 miles each way to care that is not available within 50 miles of home.",
+     "pinpoint": "MCL 18.361(2)(e)(ii)",
+     "quote": "(ii) If the expense is for travel that meets 1 or more of the following, $5,000.00: (A) If the travel is a distance of not less than 50 miles from the claimant's residence each way and is to and from a health care provider, mental health professional as that term is defined in section 100b of the mental health code, 1974 PA 258, MCL 330.1100b, or health facility or agency that renders a specific treatment or care that is not available within 50 miles of the claimant's residence.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28ii%29%20If%20the%20expense%20is,miles%20of%20the%20claimant%27s%20residence.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-CAP-7",
+     "summary": "Transportation for trips of 50 miles or less each way is capped at $1,000 in total per claimant.",
+     "pinpoint": "MCL 18.361(2)(e)(i)",
+     "quote": "(i) If the expense is for travel of a distance of not more than 50 miles each way from the claimant's residence, $1,000.00.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28i%29%20If%20the%20expense%20is,from%20the%20claimant%27s%20residence%2C%20%241%2C000.00.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-COV-7",
+     "summary": "Transportation is covered to reach victim services, medical care, or mental health care.",
+     "pinpoint": "MCL 18.361(2)(e)",
+     "quote": "(e) Transportation expenses for the purpose of an individual listed in section 4(1)(a), or if the victim or intervenor is deceased, for a person listed in section 4(1)(b), (e), or (f), to access services from a victim services organization, medical care, or mental health care, or to attend the funeral of a victim or intervenor.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28e%29%20Transportation%20expenses%20for%20the,of%20a%20victim%20or%20intervenor.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "transportation",
+   "label": "Rides and travel to care",
+   "cap_cents": 500000
+  },
+  {
+   "text": "Lost pay, up to $1,000 a week",
+   "rule_ids": [
+    "MI-CAP-5",
+    "MI-COV-3"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-5",
+     "summary": "Lost earnings are paid at the actual loss, up to $1,000 for each week.",
+     "pinpoint": "MCL 18.361(4)",
+     "quote": "An award must not exceed $1,000.00 for each week of lost earnings.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=An%20award%20must%20not%20exceed,each%20week%20of%20lost%20earnings.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-COV-3",
+     "summary": "Lost wages are covered, including time off work to seek medical care, recover, get counseling, or get help from a victim services organization.",
+     "pinpoint": "MCL 18.361(4)",
+     "quote": "A claimant may be awarded for loss of earnings under this subsection for lost wages as a result of the crime",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=A%20claimant%20may%20be%20awarded,a%20result%20of%20the%20crime",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "lost_wages",
+   "label": "Lost pay",
+   "cap_cents": 100000
+  },
+  {
+   "text": "Moving, up to $3,800",
+   "rule_ids": [
+    "MI-CAP-6",
+    "MI-COV-4",
+    "MI-COV-6"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-6",
+     "summary": "Relocation expenses are capped at $3,800 per claimant.",
+     "pinpoint": "MCL 18.361(2)(c)",
+     "quote": "An award for expenses under this subdivision may not exceed $3,800.00 per claimant.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=An%20award%20for%20expenses%20under,not%20exceed%20%243%2C800.00%20per%20claimant.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-COV-4",
+     "summary": "Temporary or permanent relocation is covered when the move protects the survivor's safety or emotional or financial well-being, and generally must happen within 1 year of the crime or of a new threat unless good cause is shown.",
+     "pinpoint": "MCL 18.361(2)(c)",
+     "quote": "An award for expenses under this subdivision may be made only if the claimant is relocating to protect the claimant's physical safety or emotional or financial well-being as a result of the crime and, unless good cause is shown, is relocating within 1 year of the date the crime occurred, or of the date the claimant is threatened by a change in circumstance or by an indicator of danger.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=An%20award%20for%20expenses%20under,by%20an%20indicator%20of%20danger.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    },
+    {
+     "rule_id": "MI-COV-6",
+     "summary": "Relocation can include the first month of rent, a security deposit, and the cost of starting utilities at the new home.",
+     "pinpoint": "MCL 18.361(2)(c)(i)",
+     "quote": "(i) The first month of rent, a security deposit, and the costs to start utilities in the dwelling unit to which the claimant relocates.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28i%29%20The%20first%20month%20of,to%20which%20the%20claimant%20relocates.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "relocation",
+   "label": "Moving",
+   "cap_cents": 380000
+  },
+  {
+   "text": "Short-term housing",
+   "rule_ids": [
+    "MI-COV-5"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-COV-5",
+     "summary": "As part of relocation, temporary lodging is covered for up to 30 days.",
+     "pinpoint": "MCL 18.361(2)(c)(iii)",
+     "quote": "(iii) Costs for temporary lodging for not more than 30 days.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28iii%29%20Costs%20for%20temporary%20lodging,not%20more%20than%2030%20days.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "temporary_housing",
+   "label": "Short-term housing",
+   "cap_cents": null
+  },
+  {
+   "text": "Locks and home security, up to $1,000",
+   "rule_ids": [
+    "MI-CAP-9"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-9",
+     "summary": "Residential security (security systems, window or lock repair or replacement, added locks) is covered up to $1,000 per residence.",
+     "pinpoint": "MCL 18.361(2)(f)",
+     "quote": "(f) Reasonable costs of not more than $1,000.00 per residence for installing, increasing, or replacing residential security, which may include installing a home security device or system; replacing or repairing windows or locks; or increasing the number of locks",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28f%29%20Reasonable%20costs%20of%20not,increasing%20the%20number%20of%20locks",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "security",
+   "label": "Locks and home security",
+   "cap_cents": 100000
+  },
+  {
+   "text": "Child care",
+   "rule_ids": [
+    "MI-COV-8"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-COV-8",
+     "summary": "Replacement services such as child care and homemaking are covered when the survivor cannot do them because of the injury or while attending victim services.",
+     "pinpoint": "MCL 18.361(2)(d)",
+     "quote": "(d) Replacement services for homemaking tasks, child care, and other services previously performed by an individual listed in section 4(1)(a), (b), (e), or (f), that, because of the victim's injury, or the claimant's attendance at a victim services organization to receive services related to the crime, must temporarily or permanently be performed by another person.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28d%29%20Replacement%20services%20for%20homemaking,be%20performed%20by%20another%20person.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "childcare",
+   "label": "Child care",
+   "cap_cents": null
+  },
+  {
+   "text": "Clothing and bedding, up to $250",
+   "rule_ids": [
+    "MI-CAP-10"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-10",
+     "summary": "Clothing or bedding held as evidence can be replaced up to $250.",
+     "pinpoint": "MCL 18.361(2)(j)",
+     "quote": "(j) Replacement costs of not more than $250.00 for clothing or bedding of an individual listed in section 4(1)(a), (b), (e), or (f), that is held as evidence of a crime.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=%28j%29%20Replacement%20costs%20of%20not,as%20evidence%20of%20a%20crime.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "clothing_bedding",
+   "label": "Clothing and bedding",
+   "cap_cents": 25000
+  },
+  {
+   "text": "Cleanup, up to $5,000",
+   "rule_ids": [
+    "MI-CAP-11"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-CAP-11",
+     "summary": "Crime scene cleanup at a home or vehicle is covered up to $5,000 per crime scene.",
+     "pinpoint": "MCL 18.361(2)(i)",
+     "quote": "the crime scene cleanup services resulting from a crime for that residence or vehicle after crime scene cleanup is permitted by the investigating law enforcement agency, in an amount not to exceed $5,000.00 per crime scene.",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=the%20crime%20scene%20cleanup%20services,exceed%20%245%2C000.00%20per%20crime%20scene.",
+     "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+    }
+   ],
+   "expense": "crime_scene_cleanup",
+   "label": "Cleanup",
+   "cap_cents": 500000
+  },
+  {
+   "text": "Other costs",
+   "rule_ids": [
+    "MI-COV-10"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-COV-10",
+     "summary": "Eyeglasses, hearing aids, dentures, and other prescription devices are covered if damaged during or needed because of the crime.",
+     "pinpoint": "MDHHS What Costs May Be Covered, Costs that May Be Covered",
+     "quote": "Eyeglasses, hearing aids, dentures, prosthetic devices, or other prescription devices, if damaged during or needed because of the crime.",
+     "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=Eyeglasses%2C%20hearing%20aids%2C%20dentures%2C%20prosthetic,needed%20because%20of%20the%20crime.",
+     "source_title": "MDHHS: What Costs May Be Covered for Crime Victims?",
+     "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims"
+    }
+   ],
+   "expense": "other",
+   "label": "Other costs",
+   "cap_cents": null
+  }
+ ],
+ "total_cap": {
+  "text": "Up to $45,000 in all.",
+  "rule_ids": [
+   "MI-CAP-1"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-CAP-1",
+    "summary": "The total award cannot exceed $45,000 per claimant.",
+    "pinpoint": "MCL 18.361(1)",
+    "quote": "The aggregate award under this act must not exceed $45,000.00 per claimant.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=The%20aggregate%20award%20under%20this,not%20exceed%20%2445%2C000.00%20per%20claimant.",
+    "source_title": "MCL 18.361 (amount of award; caps; reductions)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361"
+   }
+  ],
+  "cap_cents": 4500000
+ },
+ "minimum_loss": {
+  "text": "The program asks for at least $200 in costs or 5 days of missed work. It can be waived for sexual assault survivors.",
+  "rule_ids": [
+   "MI-MIN-1"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-MIN-1",
+    "summary": "A claim needs at least $200 in out-of-pocket loss or at least 5 days of lost earnings or support; the commission may waive this for victims of criminal sexual conduct in the first, second, or third degree.",
+    "pinpoint": "MCL 18.354(3)",
+    "quote": "An award must not be made on a claim unless the claimant has incurred an out-of-pocket loss of not less than $200.00, or has lost at least 5 days' earnings or support, but the commission may waive the limitations of this subsection if a claimant is retired by reason of age or disability. If the claimant is a victim of criminal sexual conduct in the first, second, or third degree, the commission may waive the limitations of this subsection.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-354#:~:text=An%20award%20must%20not%20be,the%20limitations%20of%20this%20subsection.",
+    "source_title": "MCL 18.354 (eligibility; minimum loss)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-354"
+   }
+  ]
+ },
+ "exam": {
+  "text": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
+  "rule_ids": [
+   "MI-EXAM-1",
+   "MI-EXAM-2",
+   "MI-EXAM-3",
+   "MI-EXAM-4",
+   "MI-EXAM-5"
+  ],
+  "citations": [
+   {
+    "rule_id": "MI-EXAM-1",
+    "summary": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
+    "pinpoint": "MCL 18.355a(2)",
+    "quote": "A health care provider shall not submit a bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other out-of-pocket expense.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket%20expense.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-EXAM-2",
+    "summary": "The provider must tell the survivor, orally and in writing, that the exam will not be billed to their insurance without their express written consent, and they may decline for privacy or safety reasons.",
+    "pinpoint": "MCL 18.355a(3)(a)",
+    "quote": "Advise the victim, orally and in writing, that a claim shall not be submitted to his or her insurance carrier without his or her express written consent, and that he or she may decline to consent if he or she believes that submitting a claim to the insurance carrier would substantially interfere with his or her personal privacy or safety.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=Advise%20the%20victim%2C%20orally%20and,her%20personal%20privacy%20or%20safety.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-EXAM-3",
+    "summary": "The Crime Victim Services Commission pays the provider up to $1,200 for a sexual assault forensic exam.",
+    "pinpoint": "MCL 18.355a(7)",
+    "quote": "The commission shall pay a health care provider not more than $1,200.00 for the cost of performing a sexual assault medical forensic examination",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=The%20commission%20shall%20pay%20a,sexual%20assault%20medical%20forensic%20examination",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-EXAM-4",
+    "summary": "If billing insurance would threaten the survivor's privacy or safety, the provider can bill SAFE Response for the exam instead.",
+    "pinpoint": "MDHHS SAFE Response page",
+    "quote": "If a victim believes submitting a claim to their insurance carrier would substantially interfere with his or her personal privacy or safety, the doctor or nurse can bill SAFE Response for the forensic examination.",
+    "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe#:~:text=If%20a%20victim%20believes%20submitting,Response%20for%20the%20forensic%20examination.",
+    "source_title": "MDHHS SAFE Response (sexual assault forensic exam payment)",
+    "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe"
+   },
+   {
+    "rule_id": "MI-EXAM-5",
+    "summary": "If the victim's insurance does not pay or is not available, the provider can seek payment from the commission or another entity, but never from the victim.",
+    "pinpoint": "MCL 18.355a(4)",
+    "quote": "A health care provider may seek payment from 1 or both of the following if reimbursement cannot be obtained from the victim's insurance or insurance is unavailable: (a) The commission under this section. (b) From another entity other than the victim.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20may,entity%20other%20than%20the%20victim.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   }
+  ]
+ },
+ "exam_billing": {
+  "protection": [
+   {
+    "rule_id": "MI-EXAM-1",
+    "summary": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
+    "pinpoint": "MCL 18.355a(2)",
+    "quote": "A health care provider shall not submit a bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other out-of-pocket expense.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket%20expense.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-EXAM-2",
+    "summary": "The provider must tell the survivor, orally and in writing, that the exam will not be billed to their insurance without their express written consent, and they may decline for privacy or safety reasons.",
+    "pinpoint": "MCL 18.355a(3)(a)",
+    "quote": "Advise the victim, orally and in writing, that a claim shall not be submitted to his or her insurance carrier without his or her express written consent, and that he or she may decline to consent if he or she believes that submitting a claim to the insurance carrier would substantially interfere with his or her personal privacy or safety.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=Advise%20the%20victim%2C%20orally%20and,her%20personal%20privacy%20or%20safety.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   }
+  ],
+  "who_pays": [
+   {
+    "rule_id": "MI-EXAM-3",
+    "summary": "The Crime Victim Services Commission pays the provider up to $1,200 for a sexual assault forensic exam.",
+    "pinpoint": "MCL 18.355a(7)",
+    "quote": "The commission shall pay a health care provider not more than $1,200.00 for the cost of performing a sexual assault medical forensic examination",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=The%20commission%20shall%20pay%20a,sexual%20assault%20medical%20forensic%20examination",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   },
+   {
+    "rule_id": "MI-EXAM-4",
+    "summary": "If billing insurance would threaten the survivor's privacy or safety, the provider can bill SAFE Response for the exam instead.",
+    "pinpoint": "MDHHS SAFE Response page",
+    "quote": "If a victim believes submitting a claim to their insurance carrier would substantially interfere with his or her personal privacy or safety, the doctor or nurse can bill SAFE Response for the forensic examination.",
+    "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe#:~:text=If%20a%20victim%20believes%20submitting,Response%20for%20the%20forensic%20examination.",
+    "source_title": "MDHHS SAFE Response (sexual assault forensic exam payment)",
+    "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe"
+   },
+   {
+    "rule_id": "MI-EXAM-5",
+    "summary": "If the victim's insurance does not pay or is not available, the provider can seek payment from the commission or another entity, but never from the victim.",
+    "pinpoint": "MCL 18.355a(4)",
+    "quote": "A health care provider may seek payment from 1 or both of the following if reimbursement cannot be obtained from the victim's insurance or insurance is unavailable: (a) The commission under this section. (b) From another entity other than the victim.",
+    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20may,entity%20other%20than%20the%20victim.",
+    "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+    "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a"
+   }
+  ]
+ },
+ "not_covered": [
+  {
+   "text": "Damage to or loss of some personal property or a vehicle, such as a purse or cell phone, is not covered.",
+   "rule_ids": [
+    "MI-EXCL-1"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-EXCL-1",
+     "summary": "Damage to or loss of some personal property or a vehicle, such as a purse or cell phone, is not covered.",
+     "pinpoint": "MDHHS What Costs May Be Covered, Costs that are NOT Covered",
+     "quote": "Damage, repair or loss to some personal property or vehicle, such as a purse or cell phone.",
+     "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=Damage%2C%20repair%20or%20loss%20to,a%20purse%20or%20cell%20phone.",
+     "source_title": "MDHHS: What Costs May Be Covered for Crime Victims?",
+     "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims"
+    }
+   ]
+  }
+ ],
+ "privacy": [
+  {
+   "text": "Michigan's Address Confidentiality Program, run by the Department of Attorney General, gives victims of sexual assault, domestic violence, stalking, and human trafficking a designated substitute address to use instead of their real one on public records, plus free mail forwarding. Applicants must be planning to move and must apply with a certified application assistant or victim advocate.",
+   "rule_ids": [
+    "MI-ACP-1"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-ACP-1",
+     "summary": "Michigan's Address Confidentiality Program, run by the Department of Attorney General, gives victims of sexual assault, domestic violence, stalking, and human trafficking a designated substitute address to use instead of their real one on public records, plus free mail forwarding. Applicants must be planning to move and must apply with a certified application assistant or victim advocate.",
+     "pinpoint": "ACP Applicants page, program description",
+     "quote": "The Program (ACP) was created to conceal the addresses of victims of stalking, domestic violence, sexual assault, human trafficking, and of individuals at risk of being threatened or physically harmed from being located by their perpetrators through public records. ACP provides victims with a designated (substitute) address that can be used instead of their real address.",
+     "fragment_url": "https://www.michigan.gov/ag/initiatives/address-confidentiality-program/acp-applicants#:~:text=The%20Program%20%28ACP%29%20was%20created,instead%20of%20their%20real%20address.",
+     "source_title": "Michigan Department of Attorney General: ACP Applicants",
+     "source_url": "https://www.michigan.gov/ag/initiatives/address-confidentiality-program/acp-applicants"
+    }
+   ],
+   "category": "address_confidentiality"
+  },
+  {
+   "text": "A claimant's file and testimony before the Crime Victim Services Commission are exempt from disclosure under Michigan's Freedom of Information Act, and records the commission obtains that other laws keep confidential stay confidential.",
+   "rule_ids": [
+    "MI-RECCONF-1"
+   ],
+   "citations": [
+    {
+     "rule_id": "MI-RECCONF-1",
+     "summary": "A claimant's file and testimony before the Crime Victim Services Commission are exempt from disclosure under Michigan's Freedom of Information Act, and records the commission obtains that other laws keep confidential stay confidential.",
+     "pinpoint": "MCL 18.363",
+     "quote": "The record of a proceeding before the commission is a public record, except that a claimant's file and his or her testimony before the commission is exempt from disclosure under the freedom of information act",
+     "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-363#:~:text=The%20record%20of%20a%20proceeding,the%20freedom%20of%20information%20act",
+     "source_title": "MCL 18.363 (record of proceeding; claimant's file exempt from FOIA; confidentiality)",
+     "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-363"
+    }
+   ],
+   "category": "record_confidentiality"
+  }
+ ],
+ "program": {
+  "program_name": "Crime Victim Compensation",
+  "agency": "Michigan Department of Health and Human Services, Division of Victim Services, Crime Victim Services Commission",
+  "phone": "877-251-7373",
+  "website": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+  "apply_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation",
+  "source": {
+   "id": "MI-S9",
+   "title": "MDHHS Crime Victim Compensation (program home)",
+   "url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+   "sha256": "9e5407f20e6991acad57c4b856f98b574c58e0035fbb462b085d1fafde761466"
+  }
+ },
+ "engine": "reference",
+ "law_ir": true,
+ "note": "Rules can have exceptions. The program decides."
+}

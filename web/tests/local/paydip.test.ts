@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { addDays } from "@/lib/dates";
-import { dollars, inferPay, inferPayDips, medianLow, PAY_GAP_REASON } from "@/lib/local/paydip";
+import { dollars, estimatedDays, inferPay, inferPayDips, medianLow, payGapReason } from "@/lib/local/paydip";
 import type { LocalTxn } from "@/lib/local/types";
 
 // Paychecks as money in (negative), every `gap` days from `start`; null is a check that never came.
@@ -42,10 +42,24 @@ describe("helpers shared with classify.py", () => {
     expect(dollars(23650)).toBe("$236.50");
     expect(dollars(123456700)).toBe("$1,234,567");
   });
+
+  // The same table as api/tests/test_wage_days.py.
+  it.each([
+    [17600, 41200, 10, 4],
+    [41200, 41200, 10, 10],
+    [50000, 41200, 10, 10],
+    [2060, 41200, 5, 0],
+    [4120, 41200, 5, 1],
+    [12360, 41200, 5, 2],
+    [0, 41200, 10, 0],
+    [17600, 0, 10, 0],
+  ])("estimated_days(%i, %i, %i) is %i", (gap, usual, period, days) => {
+    expect(estimatedDays(gap, usual, period)).toBe(days);
+  });
 });
 
 describe("lost pay from paychecks", () => {
-  it("a short check becomes lost pay on that deposit's own id, unconfirmed, for its weeks", () => {
+  it("a short check becomes lost pay on that deposit's own id, unconfirmed, in estimated workdays", () => {
     const txns = checks("FERNWAY BOOKS PAYROLL", "2026-05-01", 14, [41200, 39800, 41900, 23600, 41200]);
     const items = inferPayDips(txns, "2026-06-01");
     expect(items).toHaveLength(1);
@@ -54,12 +68,13 @@ describe("lost pay from paychecks", () => {
       date: "2026-06-12",
       amount_cents: 41200 - 23600,
       expense: "lost_wages",
-      unit: "week",
-      units: 2,
+      // $176 of a $412 biweekly check is about 4 of its 10 workdays, never the whole period.
+      unit: "day",
+      units: 4,
       confirmed: false,
       source: "rule",
       method: "inference",
-      reason: "Paycheck was $236, $176 below your usual $412",
+      reason: "Paycheck was $236, $176 below your usual $412, about 4 workdays. This is an estimate",
       is_bill: false,
       tags: [],
       description: "FERNWAY BOOKS PAYROLL",
@@ -79,10 +94,11 @@ describe("lost pay from paychecks", () => {
       spend("2026-07-31"),
     ];
     const items = inferPayDips(txns, "2026-05-20");
-    expect(items.map((i) => [i.date, i.amount_cents, i.reason, i.confirmed, i.units])).toEqual([
-      ["2026-06-12", 50000, PAY_GAP_REASON, false, 2],
-      ["2026-06-26", 50000, PAY_GAP_REASON, false, 2],
+    expect(items.map((i) => [i.date, i.amount_cents, i.reason, i.confirmed, i.unit, i.units])).toEqual([
+      ["2026-06-12", 50000, payGapReason(10), false, "day", 10],
+      ["2026-06-26", 50000, payGapReason(10), false, "day", 10],
     ]);
+    expect(payGapReason(10)).toBe("No paycheck when one usually came, about 10 workdays. This is an estimate");
     expect(items[0].item_id).toMatch(/^paygap:[0-9a-f]{16}:2026-06-12$/);
   });
 
@@ -115,10 +131,10 @@ describe("lost pay from paychecks", () => {
     expect(inferPayDips(three, "2026-06-01")).toHaveLength(1);
   });
 
-  it("monthly pay counts four weeks a check", () => {
+  it("monthly pay has four weeks of workdays a check, and half a check is half of them", () => {
     const txns = checks("CITY SALARY", "2026-01-30", 30, [300000, 300000, 300000, 300000, 150000]);
     const [item] = inferPayDips(txns, "2026-05-01");
-    expect(item).toMatchObject({ units: 4, amount_cents: 150000 });
+    expect(item).toMatchObject({ unit: "day", units: 10, amount_cents: 150000 });
   });
 
   it("descriptions that differ only by digits are one payer", () => {

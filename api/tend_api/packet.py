@@ -314,6 +314,27 @@ def _lines_table(group: list[dict[str, Any]], st: dict[str, ParagraphStyle]) -> 
     return table
 
 
+def _law_used(view: dict[str, Any], st: dict[str, Any]) -> list[Any]:
+    """Which law the claim was checked against: the published law version (a Neon branch), and the hashes of the rules
+    file and the compiled law image, so anyone can check the same rules later."""
+    version = view.get("law_version")
+    if version:
+        when = dt.datetime.fromisoformat(str(version["committed_at"]).replace("Z", "+00:00")).astimezone(PROGRAM_TZ)
+        lead = (
+            f"Checked against law version {_text(version['name'])}: the verified rules as committed on {when:%B} {when.day},"
+            f" {when.year} ({_text(version['short_sha'])}), kept unchanged as Neon branch {_text(version['branch_id'])}."
+        )
+    else:
+        # No published version matched, or the version index did not answer in time: the hashes still name the rules.
+        lead = "Checked against the verified rules with the hashes below."
+    hashes = f"Rules file SHA-256 {_text(view.get('rules_sha256'))}."
+    # Without a compiled image the reference engine labels its output with the rules file's own hash; that is not a
+    # law image, so it is not printed as one.
+    if view.get("law_image_sha256") and view["law_image_sha256"] != view.get("rules_sha256"):
+        hashes += f" Law image SHA-256 {_text(view['law_image_sha256'])}."
+    return [Paragraph("Which law this used", st["h2"]), Paragraph(lead, st["base"]), Paragraph(hashes, st["small"])]
+
+
 def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at: dt.datetime) -> bytes:
     st = _styles()
     totals = view.get("totals", {})
@@ -463,6 +484,8 @@ def build_summary(view: dict[str, Any], rules_doc: dict[str, Any], generated_at:
         src_table = Table(rows, colWidths=[0.7 * inch, 3.7 * inch, 2.6 * inch], repeatRows=1)
         src_table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LINEBELOW", (0, 0), (-1, -1), 0.4, LINE)]))
         story.append(src_table)
+
+    story += _law_used(view, st)
 
     footer = f"Tend claim {view['claim_id']}. Rules can have exceptions. The program decides."
 

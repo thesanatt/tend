@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { buildCheckSummary, type CheckSummary } from "@/components/flow/checkSummary";
+import { buildCheckSummary, setAsideIds, type CheckSummary } from "@/components/flow/checkSummary";
 import { EMPTY_CHECK, type CheckAnswers } from "@/components/flow/state";
 import type { EngineOutput, Jurisdiction } from "@/lib/types";
 
@@ -142,5 +142,61 @@ describe("Check summary in every jurisdiction", () => {
     for (const id of s.records) expect(byId.get(id)!.category).toBe("record_confidentiality");
     for (const id of s.acp?.ruleIds ?? []) expect(byId.get(id)!.category).toBe("address_confidentiality");
     expect(s.name).toBe(law.name);
+  });
+});
+
+// docs/SPEC.md v1.1: rules whose applies_to names someone other than the survivor are set aside by the
+// IR, and the engine never applies them. Check must not show them as the survivor's limits.
+describe("rules the law IR sets aside", () => {
+  const irDir = path.join(web, "public/data/ir");
+  const aside = (st: string) => setAsideIds(JSON.parse(readFileSync(path.join(irDir, `${st}.json`), "utf8")));
+  const summary = (st: string) => {
+    const law = load(st);
+    return buildCheckSummary(law, output(law), { ...answers, st }, true, aside(st));
+  };
+
+  it("keeps only rules skipped for applies_to, not lower duplicates or caps without an amount", () => {
+    const ids = setAsideIds({
+      skipped: [
+        { id: "A", reason: 'applies_to "household family members"' },
+        { id: "B", reason: "less generous duplicate of C" },
+        { id: "D", reason: "expense_cap without amount or expense" },
+      ],
+    });
+    expect([...ids]).toEqual(["A"]);
+  });
+
+  it("Connecticut: the $5,000 limit for emotional harm only is not shown as the total", () => {
+    const s = summary("CT");
+    expect(s.totalCap).toBeNull();
+    expect(s.totalCapsDepend.map((c) => c.cents)).toEqual([1500000, 500000]);
+  });
+
+  it("Illinois: the older date range's $27,000 is not the total for a crime this year", () => {
+    const s = summary("IL");
+    expect(s.totalCap).toBeNull();
+    expect(s.totalCapsDepend).toEqual([
+      { cents: 4500000, ruleIds: ["IL-CAP-1"] },
+      { cents: 2700000, ruleIds: ["IL-CAP-2"] },
+    ]);
+    // Without the IR (it failed to load), the old reading stays: the smallest total.
+    expect(buildCheckSummary(load("IL"), output(load("IL")), { ...answers, st: "IL" }, true).totalCap?.cents).toBe(
+      2700000,
+    );
+  });
+
+  it("Idaho and Maryland: a family member's limits and costs are not the survivor's", () => {
+    const id = summary("ID");
+    expect(id.covered.flatMap((c) => c.ruleIds)).not.toContain("ID-CAP-3");
+    const md = summary("MD");
+    expect(md.covered.flatMap((c) => c.ruleIds)).not.toContain("MD-COV-10");
+    expect(md.covered.flatMap((c) => c.ruleIds)).not.toContain("MD-COV-11");
+  });
+
+  it.each(STATES)("%s: no cost or total limit cites a set-aside rule", (st) => {
+    const s = summary(st);
+    const ids = aside(st);
+    const shown = [...s.covered.flatMap((c) => c.ruleIds), ...(s.totalCap?.ruleIds ?? [])];
+    expect(shown.filter((id) => ids.has(id))).toEqual([]);
   });
 });

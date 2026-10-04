@@ -12,20 +12,33 @@ import styles from "./shell.module.css";
 export function privacyText(sent: SentEvent[], t: Dict, f: Formatters): string {
   if (!sent.length) return t.privacy.quiet;
   const count = (k: SentEvent["kind"]) => sent.filter((e) => e.kind === k).length;
+  // A payment that went ahead is said once, as a payment; one that stopped after the code is its own part.
+  const paidIds = new Set(sent.filter((e) => e.kind === "payment" && e.action_id).map((e) => e.action_id));
+  const started = sent.filter((e) => e.kind === "payment_setup" && !paidIds.has(e.action_id)).length;
   const parts = [
     count("payment") ? t.privacy.partPayment(count("payment")) : null,
+    started ? t.privacy.partSetup(started) : null,
     count("share") ? t.privacy.partShare(count("share")) : null,
     count("bank") ? t.privacy.partBank : null,
     count("server_engine") ? t.privacy.partServer : null,
+    count("cloud_rows") ? t.privacy.partCloudRows : null,
+    count("cloud_bill") ? t.privacy.partCloudBill(count("cloud_bill")) : null,
+    count("other") ? t.privacy.partOther(count("other")) : null,
   ].filter((p): p is string => Boolean(p));
   return t.privacy.sent(f.and(parts));
 }
 
 export function sentLine(e: SentEvent, t: Dict, f: Formatters): string {
   const when = f.time(e.at);
-  if (e.kind === "payment") return t.privacy.eventPayment(f.money(e.amount_cents ?? 0), e.to ?? "", when);
+  const amount = f.money(e.amount_cents ?? 0);
+  if (e.kind === "payment")
+    return e.dry_run ? t.privacy.eventPaymentDry(amount, e.to ?? "", when) : t.privacy.eventPayment(amount, e.to ?? "", when);
+  if (e.kind === "payment_setup") return t.privacy.eventSetup(amount, e.to ?? "", when);
   if (e.kind === "share") return t.privacy.eventShare(when);
   if (e.kind === "bank") return t.privacy.eventBank(when);
+  if (e.kind === "cloud_rows") return t.privacy.eventCloudRows(when);
+  if (e.kind === "cloud_bill") return t.privacy.eventCloudBill(when);
+  if (e.kind === "other") return t.privacy.eventOther(e.path ?? "", when);
   return t.privacy.eventServer(when);
 }
 

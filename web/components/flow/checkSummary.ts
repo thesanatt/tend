@@ -52,6 +52,9 @@ export interface CheckSummary {
   examPayer: { payer: string | null; ruleIds: string[] };
   covered: CoveredCost[];
   totalCap: { cents: number; ruleIds: string[] } | null;
+  // Total limits that hold only for some claims (a date range, a kind of harm). The engine applies none
+  // of them, so the survivor sees each amount and the rule says when it holds.
+  totalCapsDepend: { cents: number; ruleIds: string[] }[];
   program: {
     name: string;
     agency: string;
@@ -106,10 +109,18 @@ const list = (v: unknown): string[] =>
 
 const WHOLE: Per[] = ["claim", "residence", "scene"];
 
-function covered(law: Jurisdiction): CoveredCost[] {
+// Rules the law IR sets aside because they are about someone else (docs/SPEC.md v1.1: applies_to naming
+// anyone other than the victim): a family member's costs, an older crime date range, emotional harm
+// only. The engine never applies them, so Check does not show them as the survivor's limits.
+export function setAsideIds(ir: { skipped?: { id: string; reason: string }[] } | null | undefined): Set<string> {
+  return new Set((ir?.skipped ?? []).filter((s) => /^applies_to\b/.test(s.reason)).map((s) => s.id));
+}
+
+function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
   const ruleIds = new Map<string, string[]>();
   const caps = new Map<string, { cents: number | null; per: Per; countLimit: number | null }[]>();
   for (const r of law.rules) {
+    if (setAside.has(r.id)) continue;
     const expense = ruleExpense(r);
     if (!expense || !LIST_ORDER.includes(expense as ItemExpense)) continue;
     if (r.category !== "covered_expense" && r.category !== "expense_cap") continue;
@@ -167,6 +178,7 @@ export function buildCheckSummary(
   output: EngineOutput | null,
   check: CheckAnswers,
   knowsDate: boolean,
+  setAside: Set<string> = new Set(),
 ): CheckSummary {
   const byCat = (c: string) => law.rules.filter((r) => r.category === c);
   const byId = new Map(law.rules.map((r) => [r.id, r]));
@@ -213,10 +225,12 @@ export function buildCheckSummary(
     altRuleIds,
   };
 
-  const totals = byCat("total_cap")
+  const allTotals = byCat("total_cap")
     .map((x) => ({ id: x.id, cents: num(x.params?.amount_cents) }))
     .filter((x): x is { id: string; cents: number } => x.cents !== null);
+  const totals = allTotals.filter((x) => !setAside.has(x.id));
   const smallest = totals.length ? Math.min(...totals.map((x) => x.cents)) : null;
+  const depend = totals.length ? [] : allTotals.filter((x) => setAside.has(x.id));
 
   const acpRule =
     byCat("address_confidentiality").find((x) => x.params?.covers_sexual_assault === true) ??
@@ -234,11 +248,14 @@ export function buildCheckSummary(
       payer: (payerRule?.params?.payer as string | undefined) ?? null,
       ruleIds: byCat("exam_payment").map((x) => x.id),
     },
-    covered: covered(law),
+    covered: covered(law, setAside),
     totalCap:
       smallest === null
         ? null
         : { cents: smallest, ruleIds: totals.filter((x) => x.cents === smallest).map((x) => x.id) },
+    totalCapsDepend: [...new Set(depend.map((x) => x.cents))]
+      .sort((a, b) => b - a)
+      .map((cents) => ({ cents, ruleIds: depend.filter((x) => x.cents === cents).map((x) => x.id) })),
     program: {
       name: law.program.program_name,
       agency: law.program.agency,

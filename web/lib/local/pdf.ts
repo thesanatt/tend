@@ -19,20 +19,17 @@ let loading: Promise<Pdfjs> | null = null;
 
 // pdf.js parses on this thread through its "fake worker", which works with any bundler and needs
 // no worker file served from public/. Statements and bills are a few pages, so this is quick.
+// Browsers get the legacy build too: the modern one calls APIs only the newest browsers have
+// (Map.prototype.getOrInsertComputed, Math.sumPrecise, Uint8Array.fromBase64), so on many phones a
+// bill or statement PDF would not open at all. The legacy build carries polyfills for them.
 async function loadPdfjs(): Promise<Pdfjs> {
   const g = globalThis as { pdfjsWorker?: unknown };
-  if (typeof window === "undefined") {
-    // Node (tests, scripts): the modern build needs browser-only APIs, so use the legacy one.
-    const [lib, worker] = await Promise.all([
-      import("pdfjs-dist/legacy/build/pdf.mjs"),
-      import("pdfjs-dist/legacy/build/pdf.worker.mjs"),
-    ]);
-    g.pdfjsWorker ??= worker;
-    return lib as unknown as Pdfjs;
-  }
-  const [lib, worker] = await Promise.all([import("pdfjs-dist"), import("pdfjs-dist/build/pdf.worker.mjs")]);
+  const [lib, worker] = await Promise.all([
+    import("pdfjs-dist/legacy/build/pdf.mjs"),
+    import("pdfjs-dist/legacy/build/pdf.worker.mjs"),
+  ]);
   g.pdfjsWorker ??= worker;
-  return lib;
+  return lib as unknown as Pdfjs;
 }
 
 export function pdfjs(): Promise<Pdfjs> {

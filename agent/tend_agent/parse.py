@@ -146,18 +146,12 @@ _CODE_ONLY = re.compile(
     re.I,
 )
 _CODE_WORD = re.compile(r"\b(?:code|confirm\w*)\b\D{0,20}?(\d{3})[\s-]?(\d{3})(?!\d)", re.I)
-_LINK = re.compile(r"\blink(?:\s+code)?\s*[:#]?\s*([2-9A-HJKMNP-Z]{4})[\s-]?([2-9A-HJKMNP-Z]{4})\b", re.I)
 
 
 def find_confirm_code(text: str) -> str | None:
     """A 6-digit code the person typed: the whole message, or right after "code" or "confirm"."""
     m = _CODE_ONLY.match(text) or _CODE_WORD.search(text)
     return m.group(1) + m.group(2) if m else None
-
-
-def find_link_code(text: str) -> str | None:
-    m = _LINK.search(text)
-    return f"{m.group(1)}-{m.group(2)}".upper() if m else None
 
 
 # ---------------------------------------------------------------- what the person wants
@@ -191,6 +185,15 @@ _YES = re.compile(
     re.I,
 )
 _NO = re.compile(r"^\s*(?:no|nope|not now|skip|later|n)\b", re.I)
+_SHARE = re.compile(
+    r"\bshare\b|\blink for (?:an |the |my )?advocate\b|\b(?:the|my|this) packet\b|"
+    r"\b(?:make|build|create|send|give me|get)\b[^.?!]{0,30}\b(?:link|packet)\b",
+    re.I,
+)
+_STATUS = re.compile(
+    r"\b(?:check|status of|what happened to)\b[^.?!]{0,20}\bpayment\b|\bpayment status\b|\b(?:did|has) (?:it|the payment) go(?:ne)? through\b",
+    re.I,
+)
 _PROSE_APPROVE = re.compile(r"\b(?:user|they|she|he)\s+(?:has\s+)?(?:approved|confirmed|accepted|clicked|chose|selected|picked)\b", re.I)
 _PROSE_REJECT = re.compile(r"\b(?:user|they|she|he)\s+(?:has\s+)?(?:rejected|declined|cancel+ed|dismissed)\b", re.I)
 
@@ -212,6 +215,18 @@ def wants_pay(text: str) -> bool:
 
 def wants_check(text: str) -> bool:
     return bool(_CHECK.search(text))
+
+
+def wants_share(text: str) -> bool:
+    """Requests like "share with an advocate", "make the link", or "send the packet". A question counts only when
+    it says share."""
+    if "?" in text and not re.search(r"\bshare\b", text, re.I):
+        return False
+    return bool(_SHARE.search(text))
+
+
+def wants_payment_status(text: str) -> bool:
+    return bool(_STATUS.search(text))
 
 
 def asks_eligibility(text: str) -> bool:
@@ -334,11 +349,24 @@ _CONTEXT = re.compile(
 )
 
 
+# Details that identify a person: a name, a home address, an email, a phone number, a Social Security number.
+_IDENTITY = re.compile(
+    r"\bmy (?:full |real |legal )?name(?:'s| is)\b|\bi(?:'m| am) (?:called|named)\b|\bcall me [A-Z]|"
+    r"\bi live (?:at|on)\b|\bmy (?:home )?address\b|\bmy (?:birthday|date of birth|dob)\b|"
+    r"\b\d{1,5} [A-Za-z]+(?: [A-Za-z]+)? (?:st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|ln|lane|ct|court)\b|"
+    r"[\w.+-]+@[\w-]+\.[\w.]+|\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b|\b\d{3}-\d{2}-\d{4}\b",
+    re.I,
+)
+
+
 def story_kind(text: str) -> str | None:
-    """'act' when someone describes what was done to them, 'context' when a longer message names who or where,
-    else None. Either way the message is not passed on."""
+    """'act' when someone describes what was done to them, 'identity' when a message carries a name, an address,
+    or a way to reach someone, 'context' when a longer message names who or where, else None. Either way the
+    message is not passed on."""
     if _ACT.search(text):
         return "act"
+    if _IDENTITY.search(text):
+        return "identity"
     if len(text) > 40 and _CONTEXT.search(text):
         return "context"
     return None

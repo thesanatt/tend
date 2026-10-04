@@ -24,6 +24,14 @@ export function todayIso(now: Date = new Date()): string {
   return `${y}-${m}-${d}`;
 }
 
+// The calendar day on this device of a moment such as "2026-10-04T01:20:00Z" (a payment's time, in UTC),
+// so a payment made at 9 PM in Michigan is that day, not the next. An ISO day is returned as is.
+export function localDay(stamp: string): string {
+  if (isIsoDay(stamp)) return stamp;
+  const d = new Date(stamp);
+  return Number.isNaN(d.getTime()) ? stamp.slice(0, 10) : todayIso(d);
+}
+
 // Calendar years; Feb 29 lands on Feb 28 in a non-leap year.
 export function addYears(iso: string, years: number): string {
   const d = toDate(iso);

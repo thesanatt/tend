@@ -212,6 +212,11 @@ describe("bill triage", () => {
     expect(
       within(dialog).getByText(/Medical forensic exam, deductible applied, \$325\.00\. It stays held\./),
     ).toBeTruthy();
+    // Opening the sheet sends nothing; asking for the code does.
+    expect(services.propose).not.toHaveBeenCalled();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Get a code" }));
+    await within(dialog).findByLabelText("Confirmation code");
+    expect(screen.getByText("On this device, except what you chose to send: a payment you started.")).toBeTruthy();
     expect(services.propose).toHaveBeenCalledWith(
       expect.objectContaining({ amount_cents: 11800, payee: "Riverbend General Hospital", from: ROWAN_ACCOUNT }),
     );
@@ -224,7 +229,7 @@ describe("bill triage", () => {
     expect(
       await within(dialog).findByText("That code does not match. Check the six digits and try again."),
     ).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
+    expect(screen.getByText("On this device, except what you chose to send: a payment you started.")).toBeTruthy();
 
     fireEvent.change(code, { target: { value: "123456" } });
     fireEvent.click(payButton);
@@ -260,7 +265,9 @@ describe("bill triage", () => {
     );
     fireEvent.click(await screen.findByRole("button", { name: "Pay $118.00 now from Checking 0011" }));
     const dialog = await screen.findByRole("dialog");
-    expect(within(dialog).getByText(/Demo mode: Tend is not connected to the bank/)).toBeTruthy();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Get a code" }));
+    expect(await within(dialog).findByText(/Demo mode: Tend is not connected to the bank/)).toBeTruthy();
+    expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
     fireEvent.change(within(dialog).getByLabelText("Confirmation code"), { target: { value: "123456" } });
     fireEvent.click(within(dialog).getByRole("button", { name: "Pay $118.00" }));
     expect(await within(dialog).findByText("Nothing was sent.")).toBeTruthy();
@@ -282,6 +289,7 @@ describe("bill triage", () => {
     renderFlow(<BillsScreen />, { services, initial: stateFrom([...withBill, withBank]) });
     fireEvent.click(await screen.findByRole("button", { name: "Pay $118.00 now from Checking 0011" }));
     const dialog = await screen.findByRole("dialog");
+    fireEvent.click(within(dialog).getByRole("button", { name: "Get a code" }));
     expect(
       await within(dialog).findByText(
         "The payment service proposed $443.00, but the bill shows $118.00. Nothing was sent.",

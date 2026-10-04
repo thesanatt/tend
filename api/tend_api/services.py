@@ -13,8 +13,9 @@ from .claims import ClaimService
 from .classify import ModelFn
 from .clock import Clock, utcnow
 from .config import Settings
-from .db import Repository, open_repository
+from .db import Repository, is_postgres, open_repository
 from .engine import EngineError, EngineRouter, EngineUnavailable, LawIR, NativeEngine, ReferenceEngine
+from .law import LawService, disk_hashes, neon_opener
 from .money import sha256_hex
 from .relay import BankRelay
 from .rulebook import ImageFn, Rulebook
@@ -43,6 +44,7 @@ class Services:
     rulebook: Rulebook
     agent: AgentService
     sweeps: SweepSchedule
+    law: LawService | None = None  # law versions (Neon branches), diffs, and quote search
 
 
 def law_image_info(native: NativeEngine, problems: list[str] | None = None) -> ImageFn:
@@ -75,7 +77,13 @@ def build_services(
     bill_model: BillModel | None = None,
 ) -> Services:
     rules = RulesStore(settings.rules_dir)
-    repo = repo or open_repository(settings.database_url, schema=settings.db_schema, migrate_url=settings.migrate_url)
+    repo = repo or open_repository(
+        settings.database_url,
+        schema=settings.db_schema,
+        migrate_url=settings.migrate_url,
+        reader_url=settings.reader_url,
+        migrate=settings.migrate,
+    )
     secret = bytes.fromhex(settings.secret_hex) if settings.secret_hex else repo.secret()
     ir = LawIR(settings.ir_dir, rules)
     native = NativeEngine(settings.engine_lib, settings.law_dirs, settings.tendc, rules, settings.cache_dir, ir)
@@ -84,7 +92,17 @@ def build_services(
     claims = ClaimService(rules, engines, settings.seed_dir, clock)
     scans = ScanService(settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory)
     sweeps = SweepSchedule()
-    actions = ActionService(repo, banks, settings.bank_mode, secret, clock, claims.bill_review, scans.persona_accounts, sweeps)
+    actions = ActionService(
+        repo,
+        banks,
+        settings.bank_mode,
+        secret,
+        clock,
+        claims.bill_review,
+        scans.persona_accounts,
+        sweeps,
+        bill_index=claims.bills_for_account,
+    )
     rulebook = Rulebook(repo, rules, ir)
     if settings.autoload_corpus:
         autoload(rulebook, repo)
@@ -104,6 +122,11 @@ def build_services(
         rulebook=rulebook,
         agent=AgentService(rules, ir, engines, rulebook, actions, scans, clock),
         sweeps=sweeps,
+        law=LawService(
+            repo,
+            neon_opener(settings.reader_url or settings.database_url) if is_postgres(settings.database_url) else None,
+            disk_hashes(rules, ir),
+        ),
     )
 
 

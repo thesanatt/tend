@@ -12,10 +12,11 @@ from fastapi.responses import JSONResponse
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from .config import Settings, load_env_file
-from .deps import ENGINE_HEADER
+from .deps import ENGINE_HEADER, LAW_VERSION_HEADER
 from .engine import EngineError, EngineUnavailable
 from .errors import TendError
-from .routers import actions, agent, ai, bank, bill, claims, jurisdictions, packet, rules, scan, shares, system
+from .redact import PublicErrors, path_roots, secret_values
+from .routers import actions, agent, ai, bank, bill, claims, jurisdictions, law, packet, rules, scan, shares, system
 from .services import Services, build_services
 from .sweep import sweep_forever
 
@@ -24,7 +25,16 @@ TOO_LARGE = "That request is too large."
 # Requests whose very path is private: a share's id, a bank relay read, a cloud AI call, a search typed
 # in someone's own words. Their access-log lines are dropped so the server keeps no record that they
 # happened (docs/PRIVACY.md).
-QUIET_PREFIXES = ("/api/shares", "/api/bank/", "/api/ai/", "/api/claim", "/api/packet", "/api/agent/", "/api/rules/search")
+QUIET_PREFIXES = (
+    "/api/shares",
+    "/api/bank/",
+    "/api/ai/",
+    "/api/claim",
+    "/api/packet",
+    "/api/agent/",
+    "/api/rules/search",
+    "/api/law/search",
+)
 
 
 class QuietPaths(logging.Filter):
@@ -108,6 +118,8 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
             with contextlib.suppress(asyncio.CancelledError):
                 await sweeper
             if owns_services:  # the database pool belongs to this app; services passed in belong to the caller
+                if services.law is not None:
+                    services.law.close()
                 services.repo.close()
 
     app = FastAPI(
@@ -122,12 +134,14 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
     app.state.services = services
     # Innermost, so a 413 from it still passes through CORS and the private headers below.
     app.add_middleware(BodyLimit, limit=MAX_BODY_BYTES)
+    if services.settings.deployed:  # a public deployment's error messages name no file paths (docs/DEPLOY.md)
+        app.add_middleware(PublicErrors, roots=path_roots(services.settings), secrets=secret_values(services.settings))
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(services.settings.cors_origins),
         allow_methods=["GET", "POST", "DELETE"],
         allow_headers=["Content-Type", "Authorization"],
-        expose_headers=[ENGINE_HEADER, "Content-Disposition"],
+        expose_headers=[ENGINE_HEADER, LAW_VERSION_HEADER, "Content-Disposition"],
     )
 
     @app.middleware("http")
@@ -154,6 +168,6 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
     async def engine_error(_: Request, exc: EngineError) -> JSONResponse:
         return JSONResponse(status_code=422, content={"detail": str(exc)})
 
-    for module in (system, jurisdictions, rules, claims, scan, bill, bank, actions, shares, ai, agent, packet):
+    for module in (system, jurisdictions, rules, claims, scan, bill, bank, actions, shares, ai, agent, packet, law):
         app.include_router(module.router, prefix="/api")
     return app

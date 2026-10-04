@@ -1,0 +1,143 @@
+{
+ "st": "MI",
+ "name": "Michigan",
+ "question": "Can the hospital in Michigan bill me for the forensic exam?",
+ "backend": "sqlite",
+ "contact": {
+  "phone": "877-251-7373",
+  "website": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+  "apply_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation",
+  "source": {
+   "id": "MI-S9",
+   "title": "MDHHS Crime Victim Compensation (program home)",
+   "url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+   "sha256": "9e5407f20e6991acad57c4b856f98b574c58e0035fbb462b085d1fafde761466"
+  }
+ },
+ "answered": true,
+ "answer": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
+ "points": [
+  {
+   "text": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
+   "rule_id": "MI-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "summary": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
+   "quote": "A health care provider shall not submit a bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other out-of-pocket expense.",
+   "pinpoint": "MCL 18.355a(2)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket%20expense.",
+   "source_id": "MI-S4",
+   "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a",
+   "source_sha256": "abbcefc231cd3f06cf4a47ba1df6d8fc5b8382d815b57ef161ac4bd7c6501711"
+  },
+  {
+   "text": "If billing insurance would threaten the survivor's privacy or safety, the provider can bill SAFE Response for the exam instead.",
+   "rule_id": "MI-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "summary": "If billing insurance would threaten the survivor's privacy or safety, the provider can bill SAFE Response for the exam instead.",
+   "quote": "If a victim believes submitting a claim to their insurance carrier would substantially interfere with his or her personal privacy or safety, the doctor or nurse can bill SAFE Response for the forensic examination.",
+   "pinpoint": "MDHHS SAFE Response page",
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe#:~:text=If%20a%20victim%20believes%20submitting,Response%20for%20the%20forensic%20examination.",
+   "source_id": "MI-S17",
+   "source_title": "MDHHS SAFE Response (sexual assault forensic exam payment)",
+   "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe",
+   "source_sha256": "0407ab1eff62b6a8d3479c573405d23574a8c032d94ce0b41fd9fc7fc406c01e"
+  },
+  {
+   "text": "The provider must tell the survivor, orally and in writing, that the exam will not be billed to their insurance without their express written consent, and they may decline for privacy or safety reasons.",
+   "rule_id": "MI-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "summary": "The provider must tell the survivor, orally and in writing, that the exam will not be billed to their insurance without their express written consent, and they may decline for privacy or safety reasons.",
+   "quote": "Advise the victim, orally and in writing, that a claim shall not be submitted to his or her insurance carrier without his or her express written consent, and that he or she may decline to consent if he or she believes that submitting a claim to the insurance carrier would substantially interfere with his or her personal privacy or safety.",
+   "pinpoint": "MCL 18.355a(3)(a)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=Advise%20the%20victim%2C%20orally%20and,her%20personal%20privacy%20or%20safety.",
+   "source_id": "MI-S4",
+   "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a",
+   "source_sha256": "abbcefc231cd3f06cf4a47ba1df6d8fc5b8382d815b57ef161ac4bd7c6501711"
+  },
+  {
+   "text": "The Crime Victim Services Commission pays the provider up to $1,200 for a sexual assault forensic exam.",
+   "rule_id": "MI-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "summary": "The Crime Victim Services Commission pays the provider up to $1,200 for a sexual assault forensic exam.",
+   "quote": "The commission shall pay a health care provider not more than $1,200.00 for the cost of performing a sexual assault medical forensic examination",
+   "pinpoint": "MCL 18.355a(7)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=The%20commission%20shall%20pay%20a,sexual%20assault%20medical%20forensic%20examination",
+   "source_id": "MI-S4",
+   "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a",
+   "source_sha256": "abbcefc231cd3f06cf4a47ba1df6d8fc5b8382d815b57ef161ac4bd7c6501711"
+  }
+ ],
+ "citations": [
+  {
+   "rule_id": "MI-EXAM-1",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "summary": null,
+   "quote": "A health care provider shall not submit a bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other out-of-pocket expense.",
+   "pinpoint": "MCL 18.355a(2)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket%20expense.",
+   "source_id": "MI-S4",
+   "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a",
+   "source_sha256": "abbcefc231cd3f06cf4a47ba1df6d8fc5b8382d815b57ef161ac4bd7c6501711"
+  },
+  {
+   "rule_id": "MI-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "summary": "If billing insurance would threaten the survivor's privacy or safety, the provider can bill SAFE Response for the exam instead.",
+   "quote": "If a victim believes submitting a claim to their insurance carrier would substantially interfere with his or her personal privacy or safety, the doctor or nurse can bill SAFE Response for the forensic examination.",
+   "pinpoint": "MDHHS SAFE Response page",
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe#:~:text=If%20a%20victim%20believes%20submitting,Response%20for%20the%20forensic%20examination.",
+   "source_id": "MI-S17",
+   "source_title": "MDHHS SAFE Response (sexual assault forensic exam payment)",
+   "source_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe",
+   "source_sha256": "0407ab1eff62b6a8d3479c573405d23574a8c032d94ce0b41fd9fc7fc406c01e"
+  },
+  {
+   "rule_id": "MI-EXAM-2",
+   "category": "exam_no_bill",
+   "expense": "forensic_exam",
+   "summary": "The provider must tell the survivor, orally and in writing, that the exam will not be billed to their insurance without their express written consent, and they may decline for privacy or safety reasons.",
+   "quote": "Advise the victim, orally and in writing, that a claim shall not be submitted to his or her insurance carrier without his or her express written consent, and that he or she may decline to consent if he or she believes that submitting a claim to the insurance carrier would substantially interfere with his or her personal privacy or safety.",
+   "pinpoint": "MCL 18.355a(3)(a)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=Advise%20the%20victim%2C%20orally%20and,her%20personal%20privacy%20or%20safety.",
+   "source_id": "MI-S4",
+   "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a",
+   "source_sha256": "abbcefc231cd3f06cf4a47ba1df6d8fc5b8382d815b57ef161ac4bd7c6501711"
+  },
+  {
+   "rule_id": "MI-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "summary": "The Crime Victim Services Commission pays the provider up to $1,200 for a sexual assault forensic exam.",
+   "quote": "The commission shall pay a health care provider not more than $1,200.00 for the cost of performing a sexual assault medical forensic examination",
+   "pinpoint": "MCL 18.355a(7)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=The%20commission%20shall%20pay%20a,sexual%20assault%20medical%20forensic%20examination",
+   "source_id": "MI-S4",
+   "source_title": "MCL 18.355a (sexual assault medical forensic examination)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a",
+   "source_sha256": "abbcefc231cd3f06cf4a47ba1df6d8fc5b8382d815b57ef161ac4bd7c6501711"
+  }
+ ],
+ "intents": {
+  "categories": [
+   "exam_no_bill",
+   "exam_payment"
+  ],
+  "expenses": [
+   "forensic_exam",
+   "medical"
+  ],
+  "tags": []
+ },
+ "note": "From Michigan's verified rules. Rules can have exceptions. The program decides."
+}

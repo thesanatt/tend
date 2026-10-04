@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "${TEND_API_URL}/api/$1",
+      "env": ["TEND_API_URL"],
+      "transforms": [
+        {
+          "type": "request.headers",
+          "op": "set",
+          "target": { "key": "x-vercel-protection-bypass" },
+          "args": "${TEND_API_BYPASS}",
+          "env": ["TEND_API_BYPASS"]
+        }
+      ]
+    }
+  ]
+}

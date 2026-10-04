@@ -1,7 +1,7 @@
 // "Still needed": the state's required_document rules that fit the costs in this claim. Each item
 // keeps its rule id and verbatim quote. Which rules fit is decided by fixed keyword tables over the
 // rule's note, pinpoint, and quote, so the same claim always gets the same list.
-import type { ChecklistItem } from "../contracts";
+import type { ChecklistItem, PacketLineInfo } from "../contracts";
 import type { EngineInput, EngineOutput, Expense, Rule } from "../types";
 import { param, type LawBook } from "./law";
 
@@ -171,8 +171,14 @@ export function scopeApplies(scope: DocScope, input: EngineInput, output: Engine
 }
 
 // Itemized bills are on hand when every cost the document covers came from a bill Tend read line
-// by line (those carry the bill's own ids, not a bank record's).
-function itemizedOnHand(scope: DocScope, input: EngineInput, output: EngineOutput): boolean {
+// by line (those carry the bill's own ids, not a bank record's). A line already paid through Tend
+// is no longer an unpaid bill, but it still came from that itemized bill.
+function itemizedOnHand(
+  scope: DocScope,
+  input: EngineInput,
+  output: EngineOutput,
+  lines: Record<string, PacketLineInfo> = {},
+): boolean {
   const items = new Map(input.items.map((i) => [i.item_id, i]));
   const covered = output.lines.filter(
     (l) =>
@@ -183,7 +189,7 @@ function itemizedOnHand(scope: DocScope, input: EngineInput, output: EngineOutpu
     covered.length > 0 &&
     covered.every((l) => {
       const item = items.get(l.item_id);
-      return !!item && item.is_bill && !item.item_id.startsWith("nessie:");
+      return !!item && (item.is_bill || !!lines[item.item_id]?.paid) && !item.item_id.startsWith("nessie:");
     })
   );
 }
@@ -198,6 +204,7 @@ export function stillNeeded(
   input: EngineInput,
   output: EngineOutput,
   have: Record<string, boolean> = {},
+  lines: Record<string, PacketLineInfo> = {},
 ): ChecklistItem[] {
   return law
     .byCategory("required_document")
@@ -211,7 +218,7 @@ export function stillNeeded(
         document: sentence(typeof note === "string" && note.trim() ? note : (LABEL[type] ?? LABEL.other)),
         rule_id: r.id,
         quote: r.quote,
-        have_it: known ?? (type === "itemized_bill" && itemizedOnHand(scope, input, output)),
+        have_it: known ?? (type === "itemized_bill" && itemizedOnHand(scope, input, output, lines)),
       };
     });
 }

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 import { hasProgress, useFlow } from "./FlowProvider";
 import { openProblem } from "./problems";
+import { useOfflineReady } from "./offline";
 import SaveSheet from "./SaveSheet";
 import styles from "./flow.module.css";
 
@@ -198,6 +199,9 @@ export default function FlowFrame({ children }: { children: ReactNode }) {
   }, [vault.status]);
   const locked = vault.status === "locked" && !hasProgress(state) && !skipped;
   useFocusHeadingOnStep();
+  // After one visit the flow also works with the network off (public/sw.js).
+  const router = useRouter();
+  useOfflineReady(router ?? undefined);
 
   return (
     <div className="page">

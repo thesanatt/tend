@@ -1,7 +1,7 @@
 """Cited answers built only from a state's verified rules (GET /api/jurisdictions/{st}).
 
-Used when the API has no /api/agent/answer. Every sentence points at a rule with a verbatim quote, and when no
-rule covers the question the answer says so instead of guessing.
+Used when the API's /api/agent/answer is missing or fails. Every sentence points at a rule with a verbatim quote,
+and when no rule covers the question the answer says it is not in the rules instead of guessing.
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from .fmt import UNIT_WORDS, cite_block, cite_link, clean, expense_label, money_short, plural, program_line
+from .fmt import DISCOVERY_NOTE, UNIT_WORDS, cite_block, cite_link, clean, expense_label, money_short, plural, program_line
 from .parse import find_expense, find_topics
 
 CLAIM_PERS = {"claim", "residence", "crime_scene", None, ""}
@@ -196,11 +196,49 @@ def _blocks(cites: list[dict[str, Any]]) -> str:
     return text
 
 
+NOT_IN_RULES = "That's not in the rules I have."
+
+
+def _dated(rule: dict[str, Any]) -> bool:
+    params = rule.get("params") or {}
+    return any(isinstance(params.get(k), int) for k in ("years", "months", "days"))
+
+
+def report_note(book: RuleBook | None) -> str:
+    """The sentence after a deadline the engine flags as counting from the police report. In some states that is the
+    main rule (Washington, North Dakota). In others it is one narrow case, usually a survivor who was a child, while
+    the main deadline counts from the crime (Michigan, Kansas, Minnesota, Mississippi). Then the note names that case
+    and cites it, instead of telling an adult they may have longer."""
+    lead = "This is measured from the date it happened."
+    rules = book.of("filing_deadline") if book is not None else []
+    from_report = [r for r in rules if (r.get("params") or {}).get("from") == "report"]
+    main_from_crime = any((r.get("params") or {}).get("from") == "crime" and _dated(r) for r in rules)
+    if book is None or not from_report:
+        return f"{lead} In some cases the law counts from the police report instead, so ask the program."
+    if not main_from_crime:
+        return f"{lead} The law counts from the police report, so you may have longer."
+    rule = from_report[0]
+    return f"{lead} In one case {book.name}'s law counts from the police report instead ({cite_link(cite(rule, book.sources))}): {clean(rule.get('summary'))}"
+
+
+def deadline_notes(flags: Any, book: RuleBook | None) -> str:
+    """The sentences after a deadline for its flags, each after a space, in flag order; "" when there are none. A
+    deadline counted from the report or from discovery is dated from the incident (docs/SPEC.md v1.3), so a late with
+    either flag is never shown as plainly late."""
+    have = {str(f) for f in flags or []}
+    out = ""
+    if "deadline_from_report" in have:
+        out += " " + report_note(book)
+    if "deadline_from_discovery" in have:
+        out += " " + DISCOVERY_NOTE
+    return out
+
+
 def _unknown(book: RuleBook, about: str) -> Answer:
     contact = program_line(book.doc.get("program"), book.name)
-    text = f"I don't know. I could not find a verified rule in {book.name} about {about}."
+    text = f"{NOT_IN_RULES} I found no verified {book.name} rule about {about}, so I won't guess."
     if contact:
-        text += f" The program can answer this: {contact}."
+        text += f" The program can answer it: {contact}."
     return Answer(book.st, False, text)
 
 
@@ -292,6 +330,6 @@ def answer_from_rules(doc: dict[str, Any], question: str = "", *, topics: list[s
     return Answer(
         book.st,
         False,
-        f"I don't know how to answer that from the verified rules for {book.name}. I can answer questions about the deadline, "
-        "police reports, forensic exam bills, what costs are covered, limits, documents, how to apply, and privacy.",
+        f"{NOT_IN_RULES} I won't guess about {book.name}. I can answer questions about the deadline, police reports, "
+        "forensic exam bills, what costs are covered, limits, documents, how to apply, and privacy.",
     )

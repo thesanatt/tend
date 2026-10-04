@@ -81,6 +81,10 @@ class Seeder:
     log: Callable[[str], None] = print
     history: list[PlannedTxn] = field(default_factory=build_history)
     stats: Stats = field(default_factory=Stats)
+    # Bill ids the committed snapshot (and the web's sample) already point at; kept over any other copy.
+    known_bill_ids: frozenset[str] = frozenset()
+    # What a run changed, in words, for reset_demo.py to print.
+    changes: list[str] = field(default_factory=list)
 
     def run(self) -> dict:
         started = time.monotonic()
@@ -179,9 +183,11 @@ class Seeder:
                 for leftover in (t for group in pool.values() for t in group):
                     self.client.delete_txn(kind, leftover.id)
                     self.stats.deleted += 1
+                    self.changes.append(f"deleted {kind} {leftover.id} {money(leftover.amount_cents)} {leftover.description!r}")
                 for p in missing:
                     records[p.key] = self._create(p, account, accounts, merchants).id
                     self.stats.created += 1
+                    self.changes.append(f"created {kind} {records[p.key]} {money(p.amount_cents)} {p.description!r} (new id)")
         return records
 
     def _create(self, p: PlannedTxn, account: Account, accounts: dict[str, Account],
@@ -199,26 +205,36 @@ class Seeder:
 
     def _bill(self, accounts: dict[str, Account]) -> Bill:
         plan = RIVERBEND_BILL
-        keep = None
+        candidates = []
         for key, account in accounts.items():
             for bill in self.client.list_bills(account.id):
                 usable = bill.recurring_date == plan.recurring_date and bill.upcoming_payment_date
-                planned = key == plan.account and (bill.payee, bill.nickname) == (plan.payee, plan.nickname)
-                if keep is None and usable and planned:
-                    keep = bill
-                else:
-                    self.client.delete_bill(bill.id)
-                    self.stats.deleted += 1
+                # Matched by payee, not nickname: a demo payment writes the held amount into the nickname,
+                # and the bill must keep its id through a reset (snapshots and the web's sample name it).
+                planned = key == plan.account and bill.payee == plan.payee and usable
+                candidates.append((not planned, bill.id not in self.known_bill_ids, bill.nickname != plan.nickname, bill))
+        candidates.sort(key=lambda c: c[:3])
+        keep = candidates[0][3] if candidates and not candidates[0][0] else None
+        for *_, bill in candidates:
+            if bill is not keep:
+                self.client.delete_bill(bill.id)
+                self.stats.deleted += 1
+                self.changes.append(f"deleted bill {bill.id} {money(bill.amount_cents)} to {bill.payee!r}")
         if keep is None:
             self.stats.created += 1
-            return self.client.create_bill(accounts[plan.account].id, payee=plan.payee, nickname=plan.nickname,
-                                           amount_cents=plan.amount_cents, payment_date=plan.payment_date,
-                                           recurring_date=plan.recurring_date, status=plan.status)
-        if (keep.status, keep.amount_cents, keep.payment_date) != (plan.status, plan.amount_cents, plan.payment_date):
-            # Restores the bill after a demo payment marked it paid or changed the amount.
+            created = self.client.create_bill(accounts[plan.account].id, payee=plan.payee, nickname=plan.nickname,
+                                              amount_cents=plan.amount_cents, payment_date=plan.payment_date,
+                                              recurring_date=plan.recurring_date, status=plan.status)
+            self.changes.append(f"created bill {created.id} {money(plan.amount_cents)} (new id)")
+            return created
+        planned = (plan.status, plan.amount_cents, plan.payment_date, plan.nickname)
+        if (keep.status, keep.amount_cents, keep.payment_date, keep.nickname) != planned:
+            # Restores the bill after a demo payment left only the held amount on it, or marked it paid.
             self.stats.updated += 1
+            self.changes.append(f"restored bill {keep.id}: {keep.status} {money(keep.amount_cents)} -> "
+                                f"{plan.status} {money(plan.amount_cents)}, nickname {plan.nickname!r}")
             return self.client.update_bill(keep.id, status=plan.status, amount_cents=plan.amount_cents,
-                                           payment_date=plan.payment_date)
+                                           payment_date=plan.payment_date, nickname=plan.nickname)
         self.stats.kept += 1
         return keep
 

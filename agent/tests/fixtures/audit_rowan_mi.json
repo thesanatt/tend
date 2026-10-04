@@ -1,5 +1,6 @@
 {
  "bill_id": "c1398337-ac9d-4216-a449-ab7ac2a9e9b4",
+ "persona_id": "rowan-mi",
  "provider": "Riverbend General Hospital",
  "statement_date": "09/20/2026",
  "service_date": "2026-06-14",
@@ -88,7 +89,7 @@
     "MI-EXAM-4",
     "MI-EXAM-5"
    ],
-   "message": "Hold this line. Ask billing to remove it first.",
+   "message": "Don't pay this line. Ask billing to remove it first.",
    "citations": [
     {
      "rule_id": "MI-EXAM-1",
@@ -165,6 +166,10 @@
  ],
  "held_cents": 32500,
  "payable_cents": 11800,
+ "payable_item_ids": [
+  "bill:231c5c86178943f9:1",
+  "bill:231c5c86178943f9:3"
+ ],
  "flags": [
   {
    "item_id": "bill:231c5c86178943f9:2",
@@ -232,6 +237,7 @@
    "insurance_paid_cents": 0,
    "is_bill": true,
    "units": 0,
+   "unit": null,
    "description": "Emergency department visit, copay",
    "tags": []
   },
@@ -244,6 +250,7 @@
    "insurance_paid_cents": 0,
    "is_bill": true,
    "units": 0,
+   "unit": null,
    "description": "Medical forensic exam, deductible applied",
    "tags": []
   },
@@ -256,6 +263,7 @@
    "insurance_paid_cents": 0,
    "is_bill": true,
    "units": 0,
+   "unit": null,
    "description": "Laboratory services, coinsurance",
    "tags": []
   }
@@ -283,6 +291,7 @@
      "MI-COLL-3"
     ],
     "cap_rule_id": null,
+    "alt_cap_rule_ids": [],
     "flags": []
    },
    {
@@ -299,6 +308,7 @@
      "MI-EXAM-5"
     ],
     "cap_rule_id": null,
+    "alt_cap_rule_ids": [],
     "flags": []
    },
    {
@@ -314,6 +324,7 @@
      "MI-COLL-3"
     ],
     "cap_rule_id": null,
+    "alt_cap_rule_ids": [],
     "flags": []
    }
   ],
@@ -331,12 +342,14 @@
     "deadline_date": "2031-06-14",
     "rule_ids": [
      "MI-FILE-1",
-     "MI-FILE-2",
-     "MI-FILE-3"
+     "MI-FILE-2"
+    ],
+    "flags": [
+     "deadline_from_report"
     ]
    },
    "minimum_loss": {
-    "status": "not_met",
+    "status": "may_be_waived",
     "rule_ids": [
      "MI-MIN-1"
     ]
@@ -351,6 +364,10 @@
    }
   },
   "info_rule_ids": [
+   "MI-EXCL-2",
+   "MI-EXCL-3",
+   "MI-EXCL-4",
+   "MI-FILE-3",
    "MI-COLL-1",
    "MI-COLL-2",
    "MI-COLL-3",
@@ -361,7 +378,42 @@
    "MI-ELIG-2",
    "MI-RES-1",
    "MI-RES-2",
-   "MI-RES-3"
+   "MI-RES-3",
+   "MI-SUBMIT-1",
+   "MI-SUBMIT-2",
+   "MI-SUBMIT-3",
+   "MI-DOC-1",
+   "MI-DOC-2",
+   "MI-DOC-3",
+   "MI-DOC-4",
+   "MI-DOC-5",
+   "MI-DOC-6",
+   "MI-DOC-7",
+   "MI-DOC-8",
+   "MI-DOC-9",
+   "MI-DOC-10",
+   "MI-DOC-11",
+   "MI-DOC-12",
+   "MI-DOC-13",
+   "MI-DOC-14",
+   "MI-DOC-15",
+   "MI-DOC-16",
+   "MI-DOC-17",
+   "MI-DOC-18",
+   "MI-DOC-19",
+   "MI-DOC-20",
+   "MI-DOC-21",
+   "MI-DOC-22",
+   "MI-DOC-23",
+   "MI-DOC-24",
+   "MI-DOC-25",
+   "MI-DOC-26",
+   "MI-DOC-27",
+   "MI-DOC-28",
+   "MI-DOC-29",
+   "MI-DOC-30",
+   "MI-ACP-1",
+   "MI-RECCONF-1"
   ],
   "trace": [
    {
@@ -401,6 +453,5 @@
     "delta_cents": 0
    }
   ]
- },
- "scan_id": "scan_00427bb323a5e8eb756c"
+ }
 }

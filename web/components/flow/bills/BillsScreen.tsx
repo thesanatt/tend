@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Money from "@/components/Money";
-import type { Letter } from "@/lib/contracts";
+import type { DeviceAi, Letter } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
+import { offline } from "@/lib/netlog";
 import type { Rule } from "@/lib/types";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import { billItems, billPlan } from "../claim";
 import Cite from "../Cite";
+import CloudConsent, { type CloudAsk } from "../CloudConsent";
 import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
 import LawQuote from "../LawQuote";
@@ -47,17 +49,88 @@ export function fallbackHoldLetter(
   };
 }
 
+// Who a payment goes to. The bill's provider, as the bank stores it (printable, at most 80 characters).
+// Without a provider it is a plain "Billing office": the file name could say anything, and the payee
+// leaves the device.
+export const PAYEE_FALLBACK = "Billing office";
+export function payeeFor(bill: Pick<BillRecord, "reading">): string {
+  const name = [...(bill.reading.provider ?? "")]
+    .filter((ch) => ch >= " " && ch !== "\u007f")
+    .join("")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 80)
+    .trim();
+  return name || PAYEE_FALLBACK;
+}
+
+// A picture of a bill (or a PDF that is only a picture) that this device could not read can go to
+// cloud AI, after a yes. A bill with text whose lines do not add up cannot be fixed by a model.
+export function pictureBill(bill: Pick<BillRecord, "reading">): boolean {
+  const format = (bill.reading as { format?: string }).format;
+  return bill.reading.lines.length === 0 && (format === "image" || format === "pdf");
+}
+
 function Unreliable({ bill }: { bill: BillRecord }) {
   const { t } = useI18n();
-  const { preview } = useFlow();
+  const { preview, services, canReread, cloudReadBill } = useFlow();
+  const [deviceAi, setDeviceAi] = useState<DeviceAi | null>(null);
+  const [ask, setAsk] = useState<CloudAsk | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
+  useEffect(() => {
+    let live = true;
+    services.classifier
+      .deviceAi()
+      .then((a) => live && setDeviceAi(a))
+      .catch(() => live && setDeviceAi("unavailable"));
+    return () => {
+      live = false;
+    };
+  }, [services]);
   const url = preview(bill.id);
   const isPdf = /\.pdf$/i.test(bill.label);
+  const canAsk = deviceAi !== null && deviceAi !== "available" && pictureBill(bill) && canReread(bill.id);
+
+  async function readWithCloud() {
+    setAsk(null);
+    setBusy(true);
+    setNote(null);
+    try {
+      const next = await cloudReadBill(bill.id);
+      if (!next || next.reading.status !== "ok") setNote(offline() ? t.cloud.offline : t.cloud.billFailed);
+    } catch {
+      setNote(offline() ? t.cloud.offline : t.cloud.billFailed);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <article className={styles.billCard} aria-labelledby={`bill-${bill.id}`}>
       <h2 id={`bill-${bill.id}`} className={styles.billTitle}>
         {t.bills.unreliableTitle}
       </h2>
       <p>{t.bills.unreliableBody}</p>
+      {canAsk ? (
+        <div className={styles.aiOffer}>
+          <p className="meta">{t.cloud.billOffer}</p>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            disabled={busy}
+            onClick={() => setAsk({ kind: "bill", label: bill.label })}
+          >
+            {busy ? t.cloud.working : t.cloud.billOfferButton}
+          </button>
+        </div>
+      ) : null}
+      {note ? (
+        <p role="status" className="meta">
+          {note}
+        </p>
+      ) : null}
+      <CloudConsent ask={ask} onNo={() => setAsk(null)} onYes={readWithCloud} />
       {url ? (
         isPdf ? (
           <p>
@@ -86,6 +159,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
   const items = billItems(state, bill);
   const lines = new Map(output?.lines.map((l) => [l.item_id, l]));
   const provider = bill.reading.provider ?? bill.label;
+  const payee = payeeFor(bill);
   const pk = usePacket(sheet === "letter");
   const noBill = law.byCategory("exam_no_bill")[0];
   const payRule = law.byCategory("exam_payment").find((r) => typeof r.params?.payer === "string");
@@ -246,7 +320,11 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                     </ul>
                   ) : null}
                   {lastTry && lastTry.status !== "done" ? (
-                    <p className={styles.note}>{t.bills.notSent(f.money(lastTry.amount_cents))}</p>
+                    <p className={styles.note}>
+                      {lastTry.status === "unverified"
+                        ? t.bills.unverified(f.money(lastTry.amount_cents))
+                        : t.bills.notSent(f.money(lastTry.amount_cents))}
+                    </p>
                   ) : null}
                   <div className="btn-row">
                     <button
@@ -293,7 +371,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
           billId={bill.id}
           itemIds={plan.rest.map((i) => i.item_id)}
           amountCents={plan.restCents}
-          payee={provider}
+          payee={payee}
           account={state.account}
           forText={plan.rest.map((i) => i.description).join(", ")}
           notPaidText={plan.held.length ? t.pay.notPaidText(heldText) : null}

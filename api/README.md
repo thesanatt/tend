@@ -37,6 +37,9 @@ no line at all. pypdf's warnings, which quote bytes from a damaged file, are swi
 |---|---|---|
 | `TEND_DB` | Neon when `DATABASE_URL_POOLED` or `DATABASE_URL` is set, else `api/.data/tend.sqlite3` | `neon`, a postgres URL, a SQLite path, or `:memory:`. Requests use the pooled URL; migrations use `DATABASE_URL`. |
 | `TEND_DB_SCHEMA` | `public` | Postgres schema. Tests use their own. |
+| `DATABASE_URL_APP` | unset | The least-privilege `tend_app` role (docs/NEON.md). When set, requests use it; `DATABASE_URL` stays the owner, for migrations only. |
+| `DATABASE_URL_READER` | unset | The SELECT-only `tend_reader` role for public corpus reads and for reading published law branches. |
+| `TEND_MIGRATE` | on | Off starts the API without running migrations, for a deploy that holds only the two role URLs. |
 | `TEND_BANK` | `dry_run` | `dry_run` records confirmed payments in memory and reads them back; `nessie` writes them to Nessie. |
 | `TEND_RELAY_LIVE` | on when `NESSIE_API_KEY` is set | The bank relay reads live Nessie and falls back to the snapshot. |
 | `TEND_CLOUD_AI` | on | Off turns `/api/ai/*` down to the deterministic rules even with `GEMINI_API_KEY` set. |
@@ -59,6 +62,14 @@ Public corpus
   question's intents (deadline, police report, an expense). Each result carries the quote, pinpoint, fragment link,
   and the source's sha256.
 
+Law versions, each a Neon branch (docs/NEON.md)
+- `GET /law/versions?st=`: the published versions, oldest first, with `current` (the one production has loaded).
+- `GET /law/diff?from=&to=&st=`: rules added, removed, and changed between two versions, with quotes and source links,
+  read from both branches as `tend_reader`; without `st`, counts per state. An unchanged state is answered from the index.
+- `GET /law/search?q=&st=&version=&limit=`: full-text search over the verbatim quotes only (GIN index on a generated
+  tsvector, `websearch_to_tsquery`, `ts_headline` offsets in `marks`). Falls back to any word, and says `matched: any`.
+- `POST /claim` and `POST /packet` name the version they were checked against (`law_version`, `X-Tend-Law-Version`).
+
 Claims, evaluated and returned
 - `POST /claim`: SPEC v1.2 engine input in, engine output out, header `X-Tend-Engine: native | reference`. Native
   is the C++ engine through ctypes; the reference reads `rules/ir` when it can and the verified file otherwise.
@@ -80,6 +91,15 @@ Bank relay (stateless, not logged)
   `document_path` and `service_date` when itemized), `documents` (the itemized bills' records, where web/lib/local
   reads the service date it counts a same-day ride against), `source: live | snapshot`, `fictional`, `notice`.
 - `GET /bank/{persona}/bills/{bill_id}/document`: the itemized bill, checked against the snapshot's sha256.
+- `GET /bank/{persona}/activity`: the bank activity panel (web/components/bank). Every Nessie record Tend read or
+  wrote, with its id; each account's balance computed term by term (opening, deposits, purchases, withdrawals,
+  transfers out and in) next to Nessie's frozen balance field; each bill against the itemized total, the payments
+  that paid it, and the line still held; and `calls`, the Nessie requests behind the view. Only fictional demo data:
+  records in the committed snapshot or in Tend's own formats. Anything else on the account is counted
+  (`hidden_count`), never shown. Fictional personas only (403 otherwise).
+- `POST /bank/{persona}/payout` `{st, amount_cents}`, demo only: a Nessie deposit from the state's program into the
+  persona's checking account for the amount the device computed as claimable, in whole dollars, read back. The
+  same request again returns the same deposit; another amount replaces it (`replaced` lists the old ids); `DELETE /bank/{persona}/payout` removes it.
 
 Payments
 - `POST /actions/propose` `{from, payee, amount_cents, kind?: "pay_bill", bill_id?, item_ids?, dry_run?}` returns
@@ -88,8 +108,15 @@ Payments
   leaving out `item_ids` pays every line that is not held. Paying every line that is not held takes the audit's
   `payable_cents`, which already subtracts any credit the bill prints (a payment made earlier); some of the lines
   take their own amounts. Live writes must be whole dollars, from a persona account.
+  A plain payment of exactly what a demo bill has left to pay, to that bill's payee, from its account, is tied to the
+  bill the same way (`kind: "pay_bill"` in the answer); exactly the whole bill, held line and all, is refused (409), and so is any amount that adds up to the held line, alone or with other lines (after the rest is paid, that is what the bill still shows).
+  Lines Tend already paid are refused (409), here and again at confirm.
 - `POST /actions/confirm` `{action_id, confirm_code}`: Nessie withdrawal described as `Payment to <payee> [tend:<action id>]`,
-  read back and compared, then logged. Wrong codes lock the action after five tries.
+  plus `[bill:<bill id>#<lines>]` for a bill, read back and compared, then logged. For a bill, the bill is then updated
+  with a PUT and read back (`bill` in the answer): what is left, still pending, its nickname naming the held rule
+  (`$325.00 held under MCL 18.355a(2) (MI-EXAM-1). Do not pay.`). Wrong codes lock the action after five tries.
+  Idempotent: the same confirm again returns the first result (`replayed: true`) and moves nothing; for a payment
+  whose answer never came back, it looks for the withdrawal by its label first. tend_api/payments.py has the rules.
 - `GET /actions/{action_id}`, `GET /audit` (rows plus the chain recomputed).
 
 Sealed shares
@@ -135,13 +162,17 @@ Agent (the Fetch.ai agent in ASI:One)
 
 ## Storage
 
-`tend_api/db`: one Repository protocol, two backends, three migrations each (`db/migrations/{postgres,sqlite}`):
+`tend_api/db`: one Repository protocol, two backends, migrations in `db/migrations/{postgres,sqlite}`:
 
 - `0001_corpus`: `categories`, `jurisdictions`, `sources` (metadata and sha256, no text), `rules` (quote, pinpoint,
   fragment link, category, expense, params, the IR form, a generated `tsvector` with a GIN index), `law_images`.
 - `0002_shares`: `sealed_shares` (id, ciphertext, iv, size, once, created_at, expires_at, opened_at). No keys.
 - `0003_payments`: `pending_actions` (the code is stored only as a MAC; the payee is cleared when the action finishes,
   leaving a keyed hash), `audit_log`, and `meta` (the fallback secret).
+- `db/ensure/law_versions.sql`: `law_versions` and `law_version_files`, the index of the Neon branches that each
+  hold one version of the corpus. `db/ensure/quote_search.sql`: `rules.quote_search`, a generated tsvector over the
+  quote alone, with a GIN index. Idempotent and never recorded in `schema_migrations`, so API builds from before
+  them keep starting against the shared database (docs/NEON.md). SQLite has the same index as migration `0004`.
 
 The audit log is append-only and hash-chained: each row's hash is the sha256 of its canonical JSON body, and the
 body names the previous row's hash. In Neon, triggers refuse updates, deletes, and truncation, and an insert must

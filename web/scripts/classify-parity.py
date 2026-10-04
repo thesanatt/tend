@@ -1,8 +1,9 @@
 """Reference outputs for the on-device classifier and bill reader (web/lib/local).
 
-Runs the Python classifier (api/tend_api/classify.py) and bill parser (api/tend_api/bill.py) on the
-fictional seed snapshots, bill PDFs and a table of edge cases, and writes what they answered to
-web/tests/local/fixtures/classify-parity.json. The TypeScript port must give the same answers.
+Runs the Python classifier (api/tend_api/classify.py, SPEC v1.2) and bill parser (api/tend_api/bill.py)
+on the fictional seed snapshots, bill PDFs and a table of edge cases, and writes what they answered to
+web/tests/local/fixtures/classify-parity.json. The TypeScript port must give the same answers,
+including the lost pay read from short paychecks after the incident date (estimated workdays).
 
 usage (from the repo root):
     uv run --project api python web/scripts/classify-parity.py
@@ -24,7 +25,6 @@ sys.path.insert(0, str(ROOT / "api"))
 from tend_api import classify as C  # noqa: E402
 from tend_api.bill import BillRefused, extract_bill, service_date  # noqa: E402
 from tend_api.nessie import BankSnapshot, Txn  # noqa: E402
-from tend_api.scan import items_from_classifications  # noqa: E402
 
 OUT = ROOT / "web" / "tests" / "local" / "fixtures" / "classify-parity.json"
 SNAPSHOTS = sorted((ROOT / "seed" / "snapshots").glob("*.json"))
@@ -49,14 +49,28 @@ def offline(cache_path: Path | None) -> C.Classifier:
     return C.Classifier(cache=C.ClassificationCache(cache_path), use_model=False)
 
 
+ITEM_KEYS = ("item_id", "date", "amount_cents", "expense", "confirmed", "is_bill", "units", "unit", "tags",
+             "description", "confidence", "reason", "method", "linked_item_ids")
+
+
+def snapshot_engine_items(snapshot: BankSnapshot, results: dict[str, C.Classification], incident: str | None) -> list[dict]:
+    """The scan's items (api/tend_api/scan.py items_from_snapshot): classify.snapshot_items plus the
+    method and links each label came from."""
+    out = []
+    for item in C.snapshot_items(snapshot, results, incident):
+        r = results[item["item_id"].removeprefix("nessie:")]
+        out.append({**item, "method": r.method, "linked_item_ids": [f"nessie:{x}" for x in r.linked_refs]})
+    return out
+
+
 def run(snapshot: BankSnapshot, cache_path: Path | None, base: dict | None = None) -> dict:
-    """Every record's classification and the engine items. With base, only the records whose
-    answer differs from base are written (results_delta); the test lays them over base."""
-    results = C.classify_snapshot(snapshot, offline(cache_path))
-    data = snapshot.to_dict()
-    items = items_from_classifications(data, results)
-    keep = ("item_id", "date", "amount_cents", "expense", "confirmed", "is_bill", "units", "description",
-            "confidence", "reason", "method", "linked_item_ids")
+    """Every record's classification and the engine items, pay gaps after the snapshot's incident
+    date included. With base, only the records whose answer differs from base are written
+    (results_delta); the test lays them over base."""
+    incident = C.snapshot_incident_date(snapshot)
+    results = C.classify_snapshot(snapshot, offline(cache_path), incident_date=incident)
+    items = snapshot_engine_items(snapshot, results, incident)
+    keep = ITEM_KEYS
     full = {ref: plain(c) for ref, c in sorted(results.items())}
     out = {"items": [{k: i.get(k) for k in keep} for i in items]}
     if base is None:

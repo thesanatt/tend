@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from .fmt import cite_block, cite_link, clean, deadline_notes, expense_label, long_date, money_short, program_line
-from .knowledge import RuleBook, cite, total_caps
+from .fmt import cite_block, cite_link, clean, expense_label, long_date, money_short, program_line
+from .knowledge import RuleBook, cite, deadline_notes, total_caps
 
 ALTERNATIVES = {
     "forensic_exam": "a forensic exam",
@@ -80,7 +80,7 @@ def deadline_section(check: dict[str, Any], book: RuleBook | None, *, have_date:
         head = "**Deadline:** I could not work out the exact day from the verified rules. Read the rule below, or ask the program."
     else:
         head = "**Deadline:** counted from the date it happened. Tell me the date (only the date) for the exact day."
-    head += deadline_notes(check.get("flags"))
+    head += deadline_notes(check.get("flags"), book)
     return head + ("\n" + cite_block(main) if main else "")
 
 
@@ -147,14 +147,15 @@ def total_section(book: RuleBook | None) -> str:
         return ""
     if len(shown) == 1 and not shown[0][1]:
         rule = shown[0][0]
-        return f"**Most you can ask for:** {money_short(rule['params']['amount_cents'])} in total ({cite_link(cite(rule, book.sources))})."
+        amount = money_short(rule["params"]["amount_cents"])
+        return f"**Most you can ask for:** {amount} in total ({cite_link(cite(rule, book.sources))}). The program decides."
     cases = "; ".join(
         f"{money_short(r['params']['amount_cents'])} for {who} ({cite_link(cite(r, book.sources))})"
         if who
         else f"{money_short(r['params']['amount_cents'])} ({cite_link(cite(r, book.sources))})"
         for r, who in shown
     )
-    return f"**Most you can ask for:** it depends on the case: {cases}."
+    return f"**Most you can ask for:** it depends on the case: {cases}. The program decides."
 
 
 def sentences_section(data: dict[str, Any]) -> str:
@@ -180,8 +181,8 @@ def render_check(
 ) -> str:
     deadline = data.get("deadline") or {}
     late = deadline.get("status") == "late"
-    if late and deadline_notes(deadline.get("flags")):
-        # Counted from the report or from discovery, a late may not be late (docs/SPEC.md v1.3).
+    if late and "deadline_from_discovery" in (deadline.get("flags") or []):
+        # Counted from discovery, a late may not be late (docs/SPEC.md v1.3).
         opener = f"**{name}: the usual deadline has passed, but you may have more time. Ask the program.**"
     elif late:
         opener = f"**{name}: the usual deadline has passed, but ask the program about more time.**"
@@ -200,13 +201,15 @@ def render_check(
         parts.append(deadline_section(deadline, book, have_date=bool(incident_date), name=name))
     if data.get("reporting"):
         parts.append(reporting_section(data["reporting"], data.get("reporting_if_exam"), exam=exam, report=report, book=book, name=name))
-    for section in (exam_section(data.get("exam_billing"), book), covered_section(data, book), total_section(book)):
+    total = total_section(book)
+    for section in (exam_section(data.get("exam_billing"), book), covered_section(data, book), total):
         if section:
             parts.append(section)
     program = program_line(data.get("program") or (book.doc.get("program") if book else None), name)
     if program:
         parts.append(f"**Program:** {program}.")
-    tail = "Rules can have exceptions. The program decides."
+    # Every amount someone can ask for carries "The program decides." Said once, next to the amount when there is one.
+    tail = "Rules can have exceptions." if total else "Rules can have exceptions. The program decides."
     if app_url:
         tail += f" To find costs the program can repay, open Tend on your own device: {app_url}"
     parts.append(tail)

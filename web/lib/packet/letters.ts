@@ -1,6 +1,6 @@
 // Letters the survivor can send, written in their voice with the law quoted. Names, dates, and
 // account numbers stay as [placeholders]: Tend never knows them and never fills them in.
-import type { Letter, LetterKind } from "../contracts";
+import type { Letter, LetterKind, PacketLineInfo } from "../contracts";
 import { formatDay } from "../dates";
 import { formatCents } from "../money";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, Expense, Rule } from "../types";
@@ -69,7 +69,29 @@ export function billKey(itemId: string): string {
   return itemId.startsWith("nessie:") || cut <= 0 ? itemId : itemId.slice(0, cut);
 }
 
-export function billingHold(law: LawBook, held: EngineLine[], items: Map<string, EngineItem>): Letter | null {
+// The bill's provider, as the survivor's own bill names it: printable, one line, short. Without one
+// the letter keeps a [placeholder].
+export function providerName(held: EngineLine[], lines: Record<string, PacketLineInfo> = {}): string | null {
+  for (const l of held) {
+    const raw = lines[l.item_id]?.provider ?? "";
+    const name = [...raw]
+      .filter((ch) => ch >= " " && ch !== "\u007f")
+      .join("")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 80)
+      .trim();
+    if (name) return name;
+  }
+  return null;
+}
+
+export function billingHold(
+  law: LawBook,
+  held: EngineLine[],
+  items: Map<string, EngineItem>,
+  lines: Record<string, PacketLineInfo> = {},
+): Letter | null {
   const ids = new Set(held.flatMap((l) => l.rule_ids));
   const pick = (rules: Rule[]) => {
     const cited = rules.filter((r) => ids.has(r.id));
@@ -83,12 +105,13 @@ export function billingHold(law: LawBook, held: EngineLine[], items: Map<string,
   const charges = held.length
     ? held.map((l) => itemLine(items.get(l.item_id), l)).join("\n")
     : "    [Exam charge, date of service]: [amount]";
+  const provider = providerName(held, lines) ?? "[hospital or clinic name]";
   return letter(
     "billing_hold",
     "Letter to the billing office: remove the exam charge",
     [
       "[Date]",
-      "To: Billing office, [hospital or clinic name]\nAbout: Account [account number]",
+      `To: Billing office, ${provider}\nAbout: Account [account number]`,
       `I am writing about ${held.length > 1 ? "these charges" : "this charge"} on my account for a sexual assault forensic exam:\n\n${charges}`,
       why.length
         ? `${law.name} law says I should not be billed for this exam:\n\n${why.map(cite).join("\n\n")}`
@@ -194,9 +217,10 @@ export function buildLetters(
   law: LawBook,
   input: EngineInput,
   output: EngineOutput,
-  opts: { all?: boolean } = {},
+  opts: { all?: boolean; lines?: Record<string, PacketLineInfo> } = {},
 ): Letter[] {
   const items = new Map(input.items.map((i) => [i.item_id, i]));
+  const info = opts.lines ?? {};
   const open = claimed(output);
   const out: Letter[] = [];
 
@@ -204,23 +228,24 @@ export function buildLetters(
   const bills = new Map<string, EngineLine[]>();
   for (const l of held) bills.set(billKey(l.item_id), [...(bills.get(billKey(l.item_id)) ?? []), l]);
   for (const group of bills.values()) {
-    const l = billingHold(law, group, items);
+    const l = billingHold(law, group, items, info);
     if (l) out.push(l);
   }
   if (!held.length && opts.all) {
-    const l = billingHold(law, [], items);
+    const l = billingHold(law, [], items, info);
     if (l) out.push(l);
   }
 
   if (opts.all || open.some((l) => l.expense === "lost_wages")) out.push(employerWages(law, input, output));
   if (opts.all || open.some((l) => l.expense === "counseling")) out.push(providerStatement(law, input, output));
 
-  // Care paid at the counter or seen only as a bank charge has no itemized bill yet.
+  // Care paid at the counter or seen only as a bank charge has no itemized bill yet. A line of an
+  // itemized bill that was then paid through Tend still has its bill.
   const unitemized = open.filter((l) => {
     const item = items.get(l.item_id);
     return (
       (l.expense === "medical" || l.expense === "dental") &&
-      (!item || item.item_id.startsWith("nessie:") || !item.is_bill)
+      (!item || item.item_id.startsWith("nessie:") || (!item.is_bill && !info[item.item_id]?.paid))
     );
   });
   if (opts.all || unitemized.length) out.push(itemizedBillRequest(law, input, output, unitemized, items));
