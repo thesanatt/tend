@@ -1,0 +1,52 @@
+.sources {
+  max-width: 46rem;
+  padding-block: 32px 64px;
+}
+
+.lead {
+  color: var(--ink-2);
+  font-size: 1.125rem;
+  margin: 0 0 32px;
+}
+
+.group {
+  margin-block: 40px 0;
+}
+
+.group h2 {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 8px;
+  margin: 0 0 8px;
+}
+
+.claim {
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.claim h3 {
+  font-family: var(--font-body, inherit);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.quote {
+  background: var(--green-tint);
+  border-left: 3px solid var(--green);
+  margin: 8px 0;
+  padding: 8px 12px;
+}
+
+.where {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  margin: 6px 0 0;
+}
+
+.note {
+  border-left: 3px solid var(--ink);
+  color: var(--ink-2);
+  margin-top: 40px;
+  padding: 8px 14px;
+}
