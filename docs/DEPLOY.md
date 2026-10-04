@@ -32,9 +32,11 @@ time; nothing secret is in the repository or in any page bundle.
   (`X-Tend-Engine: reference`). The function carries `web/public/engine/laws/*.tlaw`, so its answers name the
   same `law_image_sha256` as the engine on the device (Michigan: `54f9809e...`). `/api/jurisdictions/{st}/asm`
   answers 503; the law pages ship their own listings.
-- **Bundle.** `.vercelignore` at the root is an allowlist: `api/`, `rules/verified`, `rules/ir`,
-  `seed/{snapshots,bills,cache}`, `refengine/tend_ref`, the law images, `vercel.json`, `requirements.txt`. Never
-  `.env`, never the 192 MB in `rules/sources`. The upload is 231 files, 5.8 MB.
+- **Bundle.** `.vercelignore` at the root is an allowlist. `api/` and `seed/` go up whole, minus tests, virtual
+  environments, caches, and the local SQLite file, so a new folder the API reads ships without an edit. From
+  `rules/` only `verified` and `ir`, from `refengine/` only `tend_ref`, from `web/` only the law images. Never
+  `.env`, never the 192 MB in `rules/sources`. If a route ever needs the source text, allow
+  `rules/sources/**/*.txt` (14 MB), never the HTML or PDFs.
 - **Dependencies.** Vercel installs from `requirements.txt` at the root, exported from `api/uv.lock`.
   `api/tests/test_deploy.py` fails when the two disagree. After changing API dependencies:
   `uv export --project api --frozen --no-dev --no-hashes --no-emit-project --format requirements-txt -o requirements.txt`

@@ -205,6 +205,7 @@ def test_vercel_uploads_only_what_the_api_reads():
     allowed = {r[1:] for r in rules if r.startswith("!")}
     assert "/*" in rules and "**/.env*" in rules
     assert {"/api", "/rules", "/seed", "/refengine", "/requirements.txt", "/vercel.json"} <= allowed
+    assert {"api/tests", "api/.venv", "api/.data", "rules/*"} <= set(rules)  # local data and the snapshots stay home
     assert not any(a.startswith(("rules/sources", "/rules/sources", "web/app", "web/components", "web/lib")) for a in allowed)
     config = json.loads((REPO_ROOT / "vercel.json").read_text())
     assert config["framework"] == "fastapi" and "api/index.py" in config["functions"]
