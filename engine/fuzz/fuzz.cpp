@@ -188,7 +188,7 @@ static void mutate_json(nlohmann::json& doc, Rng& r) {
       std::string(300, 'x'),
       // SPEC v1.2: typed units, deadline anchors, waivers, and the edges of the integer range.
       "hour", "day", "mile", "item", "fortnight", "unit", "report", "crime", "discovery", "age_18", "automatic",
-      "discretionary", "days_lost", "count_limit", "deadline_from_report", "pain_suffering", "phone",
+      "discretionary", "days_lost", "count_limit", "deadline_from_report", "deadline_from_discovery", "pain_suffering", "phone",
       9007199254740991LL, 9007199254740992LL, -9007199254740991LL, -9007199254740992LL, 4000000, 4000001, 1000001,
       json::array({"phone", "cash"}), json::array({json::array({json::array()})})};
   std::vector<json::json_pointer> paths;

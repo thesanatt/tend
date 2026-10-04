@@ -440,7 +440,7 @@ TEST_CASE("step 9: minimum loss uses the total after caps") {
   CHECK(run(r, claim({item("m", "2026-06-20", 6000, "medical")}))["checks"]["minimum_loss"]["status"] == "not_met");
 }
 
-TEST_CASE("step 10: filing deadline in days, the longest wins, report anchors flagged") {
+TEST_CASE("step 10: filing deadline in days, the longest wins, report and discovery anchors flagged") {
   auto deadline = [](const std::vector<json>& rules, json ctx = json::object()) {
     return run(law(rules), claim({}, ctx))["checks"]["deadline"];
   };
@@ -456,6 +456,7 @@ TEST_CASE("step 10: filing deadline in days, the longest wins, report anchors fl
   d = deadline({short_one, three, ir("T-DX", "info", {{"category", "filing_deadline"}})});
   CHECK(d["deadline_date"] == "2029-06-13");
   CHECK(d["rule_ids"] == ids({"T-D400", "T-D3"}));
+  CHECK(d["flags"] == ids({"deadline_from_discovery"}));
   CHECK(deadline({three}, {{"as_of_date", "2029-06-13"}})["status"] == "ok");
   CHECK(deadline({three}, {{"as_of_date", "2029-06-14"}})["status"] == "late");
   d = deadline({});
@@ -473,6 +474,23 @@ TEST_CASE("step 10: filing deadline in days, the longest wins, report anchors fl
   CHECK(d["status"] == "late");
   CHECK(d["deadline_date"] == "2029-06-13");
   CHECK(d["flags"] == ids({"deadline_from_report"}));  // a later report could still leave time
+
+  // Counted from discovery (SPEC v1.3): dated from the incident, the earliest the crime can be
+  // discovered, and flagged, so a `late` is never shown as plainly late.
+  d = deadline({short_one}, {{"as_of_date", "2027-07-20"}});
+  CHECK(d["status"] == "late");
+  CHECK(d["deadline_date"] == "2027-07-19");
+  CHECK(d["flags"] == ids({"deadline_from_discovery"}));
+  CHECK(deadline({short_one}, {{"as_of_date", "2027-07-19"}})["status"] == "ok");
+  // Both anchors: both flags, in note order (report first), whatever the rule order.
+  d = deadline({short_one, report});
+  CHECK(d["flags"] == ids({"deadline_from_report", "deadline_from_discovery"}));
+  CHECK(deadline({report, short_one})["flags"] == ids({"deadline_from_report", "deadline_from_discovery"}));
+  // The flag follows any rule counted from discovery, even one shorter than the date shown.
+  d = deadline({three, short_one}, {{"as_of_date", "2030-01-01"}});
+  CHECK(d["status"] == "late");
+  CHECK(d["deadline_date"] == "2029-06-13");
+  CHECK(d["flags"] == ids({"deadline_from_discovery"}));
   for (const char* from : {"incident", "injury", "offense"}) {
     CHECK(deadline({ir("T-DF", "deadline", {{"days", 10}, {"from", from}})})["flags"] == json::array());
   }

@@ -713,11 +713,12 @@ void Compiler::deadline(Assembler& a) {
     a.u8u16(OP_CHECK, CK_DEADLINE, 0);
     return;
   }
-  bool from_report = false;
+  bool from_report = false, from_discovery = false;
   for (size_t i = 0; i < all.size(); i++) {
     const IRule& r = rules_[all[i]];
     anno(1, a, {r.index});
     from_report = from_report || r.anchor == FROM_REPORT;
+    from_discovery = from_discovery || r.anchor == FROM_DISCOVERY;
     a.u8op(OP_LDX, CX_INCIDENT_DATE);
     a.push(int32_t(r.days));
     a.op(OP_ADDS);
@@ -734,9 +735,11 @@ void Compiler::deadline(Assembler& a) {
   a.bind(late);
   a.push(DL_LATE);
   a.bind(done);
-  // A deadline counted from the police report is dated from the incident (the
-  // earliest the report can be), so the survivor may have longer.
+  // A deadline counted from the police report, or from when the crime was
+  // discovered, is dated from the incident (the earliest either can be), so the
+  // survivor may have longer and a `late` may not be late.
   if (from_report) a.u8op(OP_NOTE, CN_DEADLINE_FROM_REPORT);
+  if (from_discovery) a.u8op(OP_NOTE, CN_DEADLINE_FROM_DISCOVERY);
   a.u8u16(OP_CHECK, CK_DEADLINE, b_.proof(all));
 }
 
