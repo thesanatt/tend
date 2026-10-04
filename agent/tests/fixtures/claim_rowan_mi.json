@@ -15,6 +15,7 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -31,6 +32,7 @@
     "MI-EXAM-5"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -46,6 +48,7 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -56,6 +59,7 @@
    "allowed_cents": 0,
    "rule_ids": [],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -71,6 +75,7 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -86,26 +91,27 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
-   "flags": [
-    "rate_unverified:MI-CAP-9"
-   ]
+   "alt_cap_rule_ids": [],
+   "flags": []
   },
   {
    "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -115,7 +121,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -123,6 +128,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -138,9 +146,8 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
-   "flags": [
-    "rate_unverified:MI-CAP-9"
-   ]
+   "alt_cap_rule_ids": [],
+   "flags": []
   },
   {
    "item_id": "nessie:498bdece-4174-4ddf-a52e-9690dfe5df0c",
@@ -152,6 +159,7 @@
     "MI-EXCL-1"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -159,17 +167,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -179,7 +189,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -187,6 +196,26 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
+   "flags": []
+  },
+  {
+   "item_id": "nessie:9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+   "expense": "lost_wages",
+   "status": "eligible",
+   "requested_cents": 17600,
+   "allowed_cents": 17600,
+   "rule_ids": [
+    "MI-CAP-5",
+    "MI-COV-3",
+    "MI-COLL-1",
+    "MI-COLL-2",
+    "MI-COLL-3"
+   ],
+   "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -197,6 +226,7 @@
    "allowed_cents": 0,
    "rule_ids": [],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -204,17 +234,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -224,7 +256,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -232,6 +263,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -239,17 +273,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -259,7 +295,6 @@
    "requested_cents": 1400,
    "allowed_cents": 1400,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -267,6 +302,26 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
+   "flags": []
+  },
+  {
+   "item_id": "nessie:9ad655d6-74b4-47db-a262-9cd065e481bb",
+   "expense": "lost_wages",
+   "status": "eligible",
+   "requested_cents": 17600,
+   "allowed_cents": 17600,
+   "rule_ids": [
+    "MI-CAP-5",
+    "MI-COV-3",
+    "MI-COLL-1",
+    "MI-COLL-2",
+    "MI-COLL-3"
+   ],
+   "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -276,7 +331,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -284,6 +338,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -301,6 +358,7 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -308,17 +366,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -336,6 +396,7 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -343,17 +404,36 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
+   "flags": []
+  },
+  {
+   "item_id": "nessie:01b13003-c082-4d5b-a5df-df2523f9f2ee",
+   "expense": "lost_wages",
+   "status": "eligible",
+   "requested_cents": 17600,
+   "allowed_cents": 17600,
+   "rule_ids": [
+    "MI-CAP-5",
+    "MI-COV-3",
+    "MI-COLL-1",
+    "MI-COLL-2",
+    "MI-COLL-3"
+   ],
+   "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -364,6 +444,7 @@
    "allowed_cents": 0,
    "rule_ids": [],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -371,17 +452,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -391,7 +474,6 @@
    "requested_cents": 1300,
    "allowed_cents": 1300,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -399,6 +481,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -408,7 +493,6 @@
    "requested_cents": 1300,
    "allowed_cents": 1300,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -416,6 +500,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -423,17 +510,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -441,17 +530,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -461,7 +552,6 @@
    "requested_cents": 1300,
    "allowed_cents": 1300,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -469,6 +559,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -478,7 +571,6 @@
    "requested_cents": 1300,
    "allowed_cents": 1300,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -486,6 +578,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -493,17 +588,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -514,6 +611,7 @@
    "allowed_cents": 0,
    "rule_ids": [],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [],
    "flags": []
   },
   {
@@ -523,7 +621,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -531,6 +628,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -538,17 +638,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -556,17 +658,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -574,17 +678,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -594,7 +700,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -602,6 +707,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -609,17 +717,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -629,7 +739,6 @@
    "requested_cents": 1400,
    "allowed_cents": 1400,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -637,6 +746,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -646,7 +758,6 @@
    "requested_cents": 1200,
    "allowed_cents": 1200,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -654,6 +765,9 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   },
   {
@@ -661,17 +775,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -679,17 +795,19 @@
    "expense": "counseling",
    "status": "eligible",
    "requested_cents": 15000,
-   "allowed_cents": 8000,
+   "allowed_cents": 12500,
    "rule_ids": [
-    "MI-CAP-2",
     "MI-CAP-3",
-    "MI-CAP-4",
     "MI-COV-2",
     "MI-COLL-1",
     "MI-COLL-2",
     "MI-COLL-3"
    ],
-   "cap_rule_id": "MI-CAP-2",
+   "cap_rule_id": "MI-CAP-3",
+   "alt_cap_rule_ids": [
+    "MI-CAP-2",
+    "MI-CAP-4"
+   ],
    "flags": []
   },
   {
@@ -699,7 +817,6 @@
    "requested_cents": 1400,
    "allowed_cents": 1400,
    "rule_ids": [
-    "MI-CAP-7",
     "MI-CAP-8",
     "MI-COV-7",
     "MI-COLL-1",
@@ -707,16 +824,20 @@
     "MI-COLL-3"
    ],
    "cap_rule_id": null,
+   "alt_cap_rule_ids": [
+    "MI-CAP-7"
+   ],
    "flags": []
   }
  ],
  "totals": {
-  "requested_cents": 388000,
-  "allowed_cents": 276000,
+  "requested_cents": 440800,
+  "allowed_cents": 400800,
   "held_cents": 32500,
   "by_expense": {
    "clothing_bedding": 9600,
-   "counseling": 128000,
+   "counseling": 200000,
+   "lost_wages": 52800,
    "medical": 11800,
    "relocation": 83900,
    "security": 24900,
@@ -729,8 +850,10 @@
    "deadline_date": "2031-06-14",
    "rule_ids": [
     "MI-FILE-1",
-    "MI-FILE-2",
-    "MI-FILE-3"
+    "MI-FILE-2"
+   ],
+   "flags": [
+    "deadline_from_report"
    ]
   },
   "minimum_loss": {
@@ -749,6 +872,10 @@
   }
  },
  "info_rule_ids": [
+  "MI-EXCL-2",
+  "MI-EXCL-3",
+  "MI-EXCL-4",
+  "MI-FILE-3",
   "MI-COLL-1",
   "MI-COLL-2",
   "MI-COLL-3",
@@ -759,12 +886,433 @@
   "MI-ELIG-2",
   "MI-RES-1",
   "MI-RES-2",
-  "MI-RES-3"
+  "MI-RES-3",
+  "MI-SUBMIT-1",
+  "MI-SUBMIT-2",
+  "MI-SUBMIT-3",
+  "MI-DOC-1",
+  "MI-DOC-2",
+  "MI-DOC-3",
+  "MI-DOC-4",
+  "MI-DOC-5",
+  "MI-DOC-6",
+  "MI-DOC-7",
+  "MI-DOC-8",
+  "MI-DOC-9",
+  "MI-DOC-10",
+  "MI-DOC-11",
+  "MI-DOC-12",
+  "MI-DOC-13",
+  "MI-DOC-14",
+  "MI-DOC-15",
+  "MI-DOC-16",
+  "MI-DOC-17",
+  "MI-DOC-18",
+  "MI-DOC-19",
+  "MI-DOC-20",
+  "MI-DOC-21",
+  "MI-DOC-22",
+  "MI-DOC-23",
+  "MI-DOC-24",
+  "MI-DOC-25",
+  "MI-DOC-26",
+  "MI-DOC-27",
+  "MI-DOC-28",
+  "MI-DOC-29",
+  "MI-DOC-30",
+  "MI-ACP-1",
+  "MI-RECCONF-1"
  ],
- "claim_id": "clm_4640481c42a0abc946d7",
- "refused": [],
- "evidence": {
-  "checked": true,
-  "scan_id": "scan_00427bb323a5e8eb756c"
- }
+ "trace": [
+  {
+   "op": "eligible",
+   "item_id": "bill:231c5c86178943f9:1",
+   "rule_id": "MI-COV-1",
+   "delta_cents": 7500
+  },
+  {
+   "op": "held",
+   "item_id": "bill:231c5c86178943f9:2",
+   "rule_id": "MI-EXAM-1",
+   "delta_cents": 0
+  },
+  {
+   "op": "eligible",
+   "item_id": "bill:231c5c86178943f9:3",
+   "rule_id": "MI-COV-1",
+   "delta_cents": 4300
+  },
+  {
+   "op": "unknown_rule",
+   "item_id": "nessie:1f8e6d38-2c49-4681-9bf5-17c7ae939cb0",
+   "rule_id": null,
+   "delta_cents": 0
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:777e04fe-570d-45a8-871c-1b9c4ed8985b",
+   "rule_id": "MI-CAP-10",
+   "delta_cents": 9600
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:be7baf87-3bdd-48b9-a1a5-458749bcb94d",
+   "rule_id": "MI-CAP-9",
+   "delta_cents": 18500
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:ad034c13-9173-4ad8-b79b-bb463300d4e6",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:5b25752f-a378-4468-ba5f-5866f88537e8",
+   "rule_id": "MI-CAP-9",
+   "delta_cents": 6400
+  },
+  {
+   "op": "excluded",
+   "item_id": "nessie:498bdece-4174-4ddf-a52e-9690dfe5df0c",
+   "rule_id": "MI-EXCL-1",
+   "delta_cents": 0
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:70b313c4-6043-4b76-81ce-222d3206849d",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:b3f7c579-bb2d-4546-b9d9-63f22f371388",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:9606baa2-71f1-4fbf-a88f-1ee68f93bdb3",
+   "rule_id": "MI-CAP-5",
+   "delta_cents": 17600
+  },
+  {
+   "op": "unknown_rule",
+   "item_id": "nessie:82a60a56-3821-4aed-81ac-a5fee7c6e65b",
+   "rule_id": null,
+   "delta_cents": 0
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:100c9919-0510-4dff-8760-c1b4d756f512",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:ab3421f0-51f0-448d-a92e-300555c69d01",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:5d48b9ac-a4bf-4cdf-945d-381c5544af48",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:acba0957-2ab4-4780-abc6-5083875206be",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1400
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:9ad655d6-74b4-47db-a262-9cd065e481bb",
+   "rule_id": "MI-CAP-5",
+   "delta_cents": 17600
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:45bf7328-af80-49f9-8bfd-2c65f89e7142",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:938724c9-1def-422d-9ab0-359ea3d875f4",
+   "rule_id": "MI-CAP-6",
+   "delta_cents": 65000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:d434e6ed-df25-4ace-a51e-157da42d7c1c",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:02c61176-b77b-4a54-8b1a-f293b0918711",
+   "rule_id": "MI-CAP-6",
+   "delta_cents": 18900
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:63417952-4fc2-4313-ad1b-9fb48b73ee23",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:01b13003-c082-4d5b-a5df-df2523f9f2ee",
+   "rule_id": "MI-CAP-5",
+   "delta_cents": 17600
+  },
+  {
+   "op": "unknown_rule",
+   "item_id": "nessie:95a277ab-5cec-4754-8df7-8fe04ee93a9f",
+   "rule_id": null,
+   "delta_cents": 0
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:dc8df49d-e975-40ff-9f74-4bc5a40c7565",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1300
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:26a2b52d-5df0-49df-a2d7-88fae85e1efc",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1300
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:c8e89395-c31d-4b9f-83eb-f963379fcfec",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:7bf55c50-68b7-42fa-8614-b55efa7efb04",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:bd0e2af1-8e25-49d7-918f-a918fa44fe0e",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1300
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:380703dc-8b04-4c4e-90e2-2f55bf151a52",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1300
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "unknown_rule",
+   "item_id": "nessie:30fda95b-7e4e-42ba-b080-897e28e171e8",
+   "rule_id": null,
+   "delta_cents": 0
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:5b0794ea-b8c7-40c0-95fe-9a0dc9c9aa2e",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:a4a3bace-6b35-428b-986c-8e925350cff8",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:8d674eb0-99e7-4978-8b9b-4be796f68609",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:c2a16227-71d4-449f-a3d6-c90e878bc2ff",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1400
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:c09aacae-bd64-4008-8c9b-40bd393aa00e",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1200
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:715a6bbd-9382-4119-8820-f52e14756658",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": 15000
+  },
+  {
+   "op": "eligible",
+   "item_id": "nessie:aa0bd6dc-0cdc-42bc-bf2b-557a0a60823e",
+   "rule_id": "MI-CAP-8",
+   "delta_cents": 1400
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:6648135c-7e89-45ed-a674-8c86f9aa0124",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:70b313c4-6043-4b76-81ce-222d3206849d",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:100c9919-0510-4dff-8760-c1b4d756f512",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:5d48b9ac-a4bf-4cdf-945d-381c5544af48",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:d434e6ed-df25-4ace-a51e-157da42d7c1c",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:63417952-4fc2-4313-ad1b-9fb48b73ee23",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:5a4dd2c7-035a-4e9f-863b-002dfebf282f",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:c8e89395-c31d-4b9f-83eb-f963379fcfec",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:7bf55c50-68b7-42fa-8614-b55efa7efb04",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:bb5c5ffe-71b7-4a3b-bab3-70ddea96cc10",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:a4a3bace-6b35-428b-986c-8e925350cff8",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:30fe1a5b-e3d8-4894-abb6-e55ce69bd911",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:5b488a0d-384f-4902-96cc-685fd2ba1d9e",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:4583e5a0-f6ac-4bec-83e1-d5b4173f95a3",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:e6266921-7eda-4782-a549-4cbdfdb9dc2d",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "unit_cap",
+   "item_id": "nessie:715a6bbd-9382-4119-8820-f52e14756658",
+   "rule_id": "MI-CAP-3",
+   "delta_cents": -2500
+  },
+  {
+   "op": "minimum_loss",
+   "item_id": null,
+   "rule_id": "MI-MIN-1",
+   "delta_cents": 0
+  },
+  {
+   "op": "deadline",
+   "item_id": null,
+   "rule_id": "MI-FILE-1",
+   "delta_cents": 0
+  },
+  {
+   "op": "reporting",
+   "item_id": null,
+   "rule_id": "MI-REPORT-1",
+   "delta_cents": 0
+  }
+ ]
 }

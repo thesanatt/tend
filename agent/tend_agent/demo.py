@@ -1,6 +1,7 @@
-"""The fictional demo claim: what the scan found, what the law counts, the held exam line, and the bill payment.
+"""The fictional demo claim, in words: what the scan found, what the law counts, the held exam line, the payment.
 
-Only ids, amounts, and expense types are kept between messages. Merchant names and bill text stay on the API.
+The Bank+Packet agent builds these from the API's answers. Only ids, amounts, and expense types travel back to the
+Navigator between messages; merchant names and bill text stay with the API.
 """
 
 from __future__ import annotations
@@ -14,6 +15,7 @@ from .knowledge import RuleBook, cap_phrase, cite
 DEMO_PERSONAS = {"MI": "rowan-mi", "NY": "rowan-ny", "CA": "rowan-ca", "TX": "rowan-tx"}
 FICTIONAL = "Fictional person and data on Capital One's Nessie mock bank. No real person, account, or hospital."
 FICTIONAL_SHORT = "(Fictional demo data on a mock bank.)"
+ENGINE_FIELDS = ("item_id", "date", "amount_cents", "expense", "confirmed", "insurance_paid_cents", "is_bill", "units", "unit", "tags")
 
 
 def persona_for(st: str | None, default: str) -> tuple[str, str]:
@@ -43,8 +45,8 @@ def bill_summary(audit: dict[str, Any] | None) -> dict[str, Any] | None:
     return {"lines": len(audit.get("lines") or []), "total_cents": int(audit.get("total_cents") or 0)}
 
 
-def demo_state(scan: dict[str, Any], audit: dict[str, Any] | None, persona_id: str) -> dict[str, Any]:
-    """What the agent remembers between messages: ids and amounts only."""
+def demo_ref(scan: dict[str, Any], audit: dict[str, Any] | None, persona_id: str) -> dict[str, Any]:
+    """What the Navigator keeps between messages: ids and amounts only (messages.DemoRef)."""
     holds = {h["item_id"] for h in (audit or {}).get("holds") or []}
     pay_lines = [ln for ln in (audit or {}).get("lines") or [] if ln.get("item_id") not in holds]
     account = scan.get("account") or {}
@@ -52,46 +54,73 @@ def demo_state(scan: dict[str, Any], audit: dict[str, Any] | None, persona_id: s
         "persona_id": persona_id,
         "st": scan.get("st"),
         "scan_id": scan.get("scan_id"),
-        "account_id": account.get("id"),
+        "who": scan.get("display_name") or "the demo person",
+        "account_id": account.get("id") or "",
         "account_label": f"{account.get('nickname') or 'Checking'} ending {account.get('mask') or '----'}",
+        "incident_date": scan.get("incident_date"),
         "bill_id": (audit or {}).get("bill_id"),
         "provider": (audit or {}).get("provider"),
         "pay_item_ids": [ln["item_id"] for ln in pay_lines],
+        "bill_lines": len((audit or {}).get("lines") or []),
+        "bill_total_cents": int((audit or {}).get("total_cents") or 0),
         "payable_cents": int((audit or {}).get("payable_cents") or 0),
         "held_cents": int((audit or {}).get("held_cents") or 0),
         "police_report": ((scan.get("engine_input") or {}).get("context") or {}).get("police_report"),
-        "claim_id": None,
-        "paid": False,
     }
 
 
-def confirmed_input(scan: dict[str, Any], audit: dict[str, Any] | None) -> dict[str, Any]:
-    """The engine input after the person said yes to every cost. Bill lines come from the audited bill."""
+def confirmed_input(scan: dict[str, Any], audit: dict[str, Any] | None, *, keep_text: bool = False) -> dict[str, Any]:
+    """The engine input after the person said yes to every cost. Bill lines come from the audited bill.
+
+    Without keep_text, items carry only what the engine reads (no merchant or bill text), which is what goes to
+    /api/claim. With keep_text, the descriptions stay, for the packet that is sealed before it leaves."""
     base = scan["engine_input"]
     items = [dict(i, confirmed=True) for i in base["items"] if not i.get("is_bill")]
     if audit and audit.get("engine_items"):
         items += [dict(i, confirmed=True) for i in audit["engine_items"]]
     else:
         items += [dict(i, confirmed=True) for i in base["items"] if i.get("is_bill")]
-    return {**base, "items": items}
+    keep = (*ENGINE_FIELDS, "description") if keep_text else ENGINE_FIELDS
+    cleaned = []
+    for i in items:
+        item = {k: i[k] for k in keep if k in i}
+        if keep_text and not isinstance(item.get("description"), str):
+            item.pop("description", None)
+        cleaned.append(item)
+    return {**base, "items": cleaned}
+
+
+def held_lines(audit: dict[str, Any] | None) -> list[dict[str, Any]]:
+    """The bill lines the law engine held, with what the billing letter quotes: description, date, amount, rules."""
+    if not audit:
+        return []
+    dates = {ln.get("item_id"): ln.get("date") for ln in audit.get("lines") or []}
+    return [
+        {
+            "item_id": h.get("item_id"),
+            "description": h.get("description") or "",
+            "date": dates.get(h.get("item_id")),
+            "amount_cents": int(h.get("amount_cents") or 0),
+            "rule_ids": list(h.get("rule_ids") or []),
+        }
+        for h in audit.get("holds") or []
+    ]
 
 
 def render_scan(scan: dict[str, Any], audit: dict[str, Any] | None, name: str) -> str:
     who = scan.get("display_name") or "the demo person"
-    lines = [
-        f"**Demo: {who}, {name}.** {FICTIONAL}",
+    head = (
+        f"**Demo: {who}, {name}.** {FICTIONAL}\n"
         f"Tend read {plural(int(scan.get('read_count') or 0), 'bank record')} and found these possible costs since "
-        f"{long_date(scan.get('incident_date'))}:",
-    ]
-    for g in groups(scan):
-        lines.append(f"- {expense_label(g['expense'])}: {plural(g['count'], 'charge')}, {money(g['cents'])}")
+        f"{long_date(scan.get('incident_date'))}:"
+    )
+    rows = [f"- {expense_label(g['expense'])}: {plural(g['count'], 'charge')}, {money(g['cents'])}" for g in groups(scan)]
     bill = bill_summary(audit)
     if bill:
-        lines.append(
+        rows.append(
             f"- Hospital bill (itemized): {plural(bill['lines'], 'line')}, {money(bill['total_cents'])}. The lines add up to the total."
         )
-    lines.append("Nothing counts until the survivor says yes. Count these for the demo claim? Say **yes** or **not now**.")
-    return "\n".join(lines[:2]) + "\n\n" + "\n".join(lines[2:-1]) + "\n\n" + lines[-1]
+    return head + "\n\n" + "\n".join(rows)
 
 
 def _cap_note(line: dict[str, Any], book: RuleBook) -> str:
@@ -139,7 +168,7 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
                 rid = next((r for r in these[0].get("rule_ids") or [] if r in book.by_id), None)
                 why = f"not covered ({cite_link(cite(book.by_id[rid], book.sources))})" if rid else "not covered"
             elif status == "unknown_rule":
-                why = "no verified rule covers this yet, so ask a Navigator"
+                why = "no verified rule covers this yet, so ask the program"
             elif status == "out_of_window":
                 why = "outside the dates that count"
             else:
@@ -153,8 +182,9 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
         cents = sum(int(x.get("requested_cents") or 0) for x in held)
         rid = next((r for r in held[0].get("rule_ids") or [] if (book.by_id.get(r) or {}).get("category") == "exam_no_bill"), None)
         block = cite_block(cite(book.by_id[rid], book.sources)) if rid else ""
+        bill = f" of the {money(demo['bill_total_cents'])} hospital bill" if demo.get("bill_total_cents") else " on the hospital bill"
         out.append(
-            f"**Don't pay this line:** forensic exam, {money(cents)} on the hospital bill. The law says the survivor should not be billed.\n{block}".strip()
+            f"**Don't pay this line:** the forensic exam, {money(cents)}{bill}. The law says the survivor should not be billed for it.\n{block}".strip()
         )
 
     checks = claim.get("checks") or {}
@@ -172,12 +202,6 @@ def render_claim(claim: dict[str, Any], book: RuleBook, demo: dict[str, Any], wh
     facts = [f for f in facts if f]
     if facts:
         out.append(" ".join(facts))
-
-    if demo.get("payable_cents") and not demo.get("paid"):
-        out.append(
-            f"The rest of the hospital bill is **{money(demo['payable_cents'])}**. Want to pay it from "
-            f"{demo['account_label']} (mock bank)? Say **pay the bill**. Nothing moves until you type a code."
-        )
     return "\n\n".join(out)
 
 
@@ -230,44 +254,9 @@ def render_paid(result: dict[str, Any], demo: dict[str, Any], book: RuleBook | N
     if facts:
         out.append("\n".join(facts))
     if demo.get("held_cents"):
-        rule = next((r for r in book.of("exam_no_bill")), None) if book else None
+        rule = next(iter(book.of("exam_no_bill")), None) if book else None
         link = f" ({cite_link(cite(rule, book.sources))})" if rule and book else ""
         out.append(
             f"The forensic exam line, {money(demo['held_cents'])}, stays unpaid. The law says the hospital should not bill it{link}."
         )
-    return "\n\n".join(out)
-
-
-def render_linked(summary: dict[str, Any], app_url: str = "", packet_url: str = "") -> str:
-    """A claim someone linked from the Tend app: totals and rules only, no bill text or descriptions."""
-    out = [f"**Amount you can ask for: {money(int(summary.get('amount_you_can_ask_for_cents') or 0))}. The program decides.**"]
-    if summary.get("fictional"):
-        out.append(f"_{FICTIONAL}_")
-    rows = []
-    by_amount = sorted(summary.get("by_expense") or [], key=lambda e: -int(e.get("allowed_cents") or 0))
-    for e in by_amount:
-        rule = (e.get("rules") or [None])[0]
-        link = f" ({cite_link(rule)})" if rule else ""
-        rows.append(
-            f"- {expense_label(e.get('expense'))}: {money(int(e.get('allowed_cents') or 0))} ({plural(int(e.get('lines') or 0), 'line')}){link}"
-        )
-    if rows:
-        out.append("What counts:\n" + "\n".join(rows))
-    for h in summary.get("held") or []:
-        rule = (h.get("rules") or [None])[0]
-        block = cite_block(rule) if rule else ""
-        out.append(f"**Don't pay this line:** {money(int(h.get('amount_cents') or 0))}. {h.get('message') or ''}\n{block}".strip())
-    waiting = int(summary.get("waiting_for_confirmation") or 0)
-    if waiting:
-        out.append(f"{plural(waiting, 'line')} still wait for a yes in the app.")
-    deadline = (summary.get("checks") or {}).get("deadline") or {}
-    rule = (deadline.get("rules") or [None])[0]
-    sentence = deadline_sentence(deadline.get("status"), deadline.get("deadline_date"), f" ({cite_link(rule)})" if rule else "")
-    if sentence:
-        out.append(sentence)
-    if packet_url:
-        out.append(f"Packet (PDF, link expires): {packet_url}")
-    program = summary.get("program") or {}
-    if program.get("phone"):
-        out.append(f"Program phone: {program['phone']}.")
     return "\n\n".join(out)

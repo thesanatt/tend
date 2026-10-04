@@ -1,7 +1,7 @@
 """Cited answers built only from a state's verified rules (GET /api/jurisdictions/{st}).
 
-Used when the API has no /api/agent/answer. Every sentence points at a rule with a verbatim quote, and when no
-rule covers the question the answer says so instead of guessing.
+Used when the API's /api/agent/answer is missing or fails. Every sentence points at a rule with a verbatim quote,
+and when no rule covers the question the answer says it is not in the rules instead of guessing.
 """
 
 from __future__ import annotations
@@ -196,11 +196,14 @@ def _blocks(cites: list[dict[str, Any]]) -> str:
     return text
 
 
+NOT_IN_RULES = "That's not in the rules I have."
+
+
 def _unknown(book: RuleBook, about: str) -> Answer:
     contact = program_line(book.doc.get("program"), book.name)
-    text = f"I don't know. I could not find a verified rule in {book.name} about {about}."
+    text = f"{NOT_IN_RULES} I found no verified {book.name} rule about {about}, so I won't guess."
     if contact:
-        text += f" The program can answer this: {contact}."
+        text += f" The program can answer it: {contact}."
     return Answer(book.st, False, text)
 
 
@@ -292,6 +295,6 @@ def answer_from_rules(doc: dict[str, Any], question: str = "", *, topics: list[s
     return Answer(
         book.st,
         False,
-        f"I don't know how to answer that from the verified rules for {book.name}. I can answer questions about the deadline, "
-        "police reports, forensic exam bills, what costs are covered, limits, documents, how to apply, and privacy.",
+        f"{NOT_IN_RULES} I won't guess about {book.name}. I can answer questions about the deadline, police reports, "
+        "forensic exam bills, what costs are covered, limits, documents, how to apply, and privacy.",
     )

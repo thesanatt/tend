@@ -1,0 +1,112 @@
+{
+ "st": "MI",
+ "name": "Michigan",
+ "question": "What is the deadline to apply in Michigan?",
+ "backend": "sqlite",
+ "contact": {
+  "phone": "877-251-7373",
+  "website": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+  "apply_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation",
+  "source": {
+   "id": "MI-S9",
+   "title": "MDHHS Crime Victim Compensation (program home)",
+   "url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation",
+   "sha256": "9e5407f20e6991acad57c4b856f98b574c58e0035fbb462b085d1fafde761466"
+  }
+ },
+ "answered": true,
+ "answer": "The commission may extend the filing deadline for good cause if the claimant asks.",
+ "points": [
+  {
+   "text": "The commission may extend the filing deadline for good cause if the claimant asks.",
+   "rule_id": "MI-FILE-3",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "The commission may extend the filing deadline for good cause if the claimant asks.",
+   "quote": "Upon petition by the claimant and for good cause shown, the commission may extend the period in which a claim may be filed under subsection (2).",
+   "pinpoint": "MCL 18.355(3)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=Upon%20petition%20by%20the%20claimant,be%20filed%20under%20subsection%20%282%29.",
+   "source_id": "MI-S3",
+   "source_title": "MCL 18.355 (filing a claim; deadline)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355",
+   "source_sha256": "ee55a274d51755bec3a052c8fc2dd2002e3c1bbb83db753386490dc562b45600"
+  },
+  {
+   "text": "A claim must be filed within 5 years after the crime.",
+   "rule_id": "MI-FILE-1",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "A claim must be filed within 5 years after the crime.",
+   "quote": "a claim must be filed by the claimant not later than 5 years after the occurrence of the crime upon which the claim is based",
+   "pinpoint": "MCL 18.355(2)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20must%20be%20filed,which%20the%20claim%20is%20based",
+   "source_id": "MI-S3",
+   "source_title": "MCL 18.355 (filing a claim; deadline)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355",
+   "source_sha256": "ee55a274d51755bec3a052c8fc2dd2002e3c1bbb83db753386490dc562b45600"
+  },
+  {
+   "text": "For criminal sexual conduct (first through third degree) where police records show the victim was under 18, a claim may be filed within 5 years after the crime was reported, if reported before age 28 or later with good cause for the delay.",
+   "rule_id": "MI-FILE-2",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "For criminal sexual conduct (first through third degree) where police records show the victim was under 18, a claim may be filed within 5 years after the crime was reported, if reported before age 28 or later with good cause for the delay.",
+   "quote": "a claim based on the crime of criminal sexual conduct in the first, second, or third degree may be filed by a claimant not later than 5 years after the crime was reported: (i) Police records show the victim of the crime was less than 18 years of age at the time of the occurrence and the victim reported the crime before attaining 28 years of age. (ii) Police records show the victim of the crime was less than 18 years of age at the time of the occurrence, the victim reported the crime after attaining 28 years of age, and the claimant shows that there was good cause for the delay in reporting the crime.",
+   "pinpoint": "MCL 18.355(2)(a)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20based%20on%20the,delay%20in%20reporting%20the%20crime.",
+   "source_id": "MI-S3",
+   "source_title": "MCL 18.355 (filing a claim; deadline)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355",
+   "source_sha256": "ee55a274d51755bec3a052c8fc2dd2002e3c1bbb83db753386490dc562b45600"
+  }
+ ],
+ "citations": [
+  {
+   "rule_id": "MI-FILE-3",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": null,
+   "quote": "Upon petition by the claimant and for good cause shown, the commission may extend the period in which a claim may be filed under subsection (2).",
+   "pinpoint": "MCL 18.355(3)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=Upon%20petition%20by%20the%20claimant,be%20filed%20under%20subsection%20%282%29.",
+   "source_id": "MI-S3",
+   "source_title": "MCL 18.355 (filing a claim; deadline)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355",
+   "source_sha256": "ee55a274d51755bec3a052c8fc2dd2002e3c1bbb83db753386490dc562b45600"
+  },
+  {
+   "rule_id": "MI-FILE-1",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "A claim must be filed within 5 years after the crime.",
+   "quote": "a claim must be filed by the claimant not later than 5 years after the occurrence of the crime upon which the claim is based",
+   "pinpoint": "MCL 18.355(2)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20must%20be%20filed,which%20the%20claim%20is%20based",
+   "source_id": "MI-S3",
+   "source_title": "MCL 18.355 (filing a claim; deadline)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355",
+   "source_sha256": "ee55a274d51755bec3a052c8fc2dd2002e3c1bbb83db753386490dc562b45600"
+  },
+  {
+   "rule_id": "MI-FILE-2",
+   "category": "filing_deadline",
+   "expense": null,
+   "summary": "For criminal sexual conduct (first through third degree) where police records show the victim was under 18, a claim may be filed within 5 years after the crime was reported, if reported before age 28 or later with good cause for the delay.",
+   "quote": "a claim based on the crime of criminal sexual conduct in the first, second, or third degree may be filed by a claimant not later than 5 years after the crime was reported: (i) Police records show the victim of the crime was less than 18 years of age at the time of the occurrence and the victim reported the crime before attaining 28 years of age. (ii) Police records show the victim of the crime was less than 18 years of age at the time of the occurrence, the victim reported the crime after attaining 28 years of age, and the claimant shows that there was good cause for the delay in reporting the crime.",
+   "pinpoint": "MCL 18.355(2)(a)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355#:~:text=a%20claim%20based%20on%20the,delay%20in%20reporting%20the%20crime.",
+   "source_id": "MI-S3",
+   "source_title": "MCL 18.355 (filing a claim; deadline)",
+   "source_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355",
+   "source_sha256": "ee55a274d51755bec3a052c8fc2dd2002e3c1bbb83db753386490dc562b45600"
+  }
+ ],
+ "intents": {
+  "categories": [
+   "filing_deadline"
+  ],
+  "expenses": [],
+  "tags": []
+ },
+ "note": "From Michigan's verified rules. Rules can have exceptions. The program decides."
+}

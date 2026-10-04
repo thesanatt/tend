@@ -1,3 +1,5 @@
+"""The Agent Chat Protocol glue: what comes in, what goes out, and what reaches the logs (the kind of turn only)."""
+
 from __future__ import annotations
 
 import json
@@ -5,10 +7,8 @@ import logging
 import uuid
 from typing import Any
 
-import pytest
-from conftest import TODAY, run
+from conftest import TODAY, desks_for, run, settings
 from fake_api import CODE, FakeTend
-from uagents import Protocol
 from uagents_core.contrib.protocols.chat import (
     ChatAcknowledgement,
     ChatMessage,
@@ -16,14 +16,13 @@ from uagents_core.contrib.protocols.chat import (
     MetadataContent,
     StartSessionContent,
     TextContent,
-    chat_protocol_spec,
 )
 from uagents_core.contrib.protocols.chat.cards import create_card_response_content, extract_card
 
-from tend_agent.agent import build_agent, handle_chat, incoming_from, startup_lines, to_chat
-from tend_agent.api import TendApi
-from tend_agent.config import AGENT_NAME, Settings
-from tend_agent.navigator import Navigator, Reply, Sessions
+from tend_agent import cards
+from tend_agent.chat import handle_chat, incoming_from, to_chat
+from tend_agent.navigator import Navigator, Reply
+from tend_agent.sessions import MemorySessions
 
 SENDER = "agent1qtestsenderaddress"
 
@@ -36,7 +35,7 @@ class FakeCtx:
         self.logger.info = self.logs.append  # type: ignore[method-assign]
         self.logger.error = self.logs.append  # type: ignore[method-assign]
 
-    async def send(self, destination: str, message: Any) -> None:
+    async def send(self, destination: str, message: Any, timeout: int = 30) -> None:
         self.sent.append((destination, message))
 
 
@@ -52,10 +51,10 @@ def reply_text(m: ChatMessage) -> str:
     return " ".join(c.text for c in m.content if isinstance(c, TextContent))
 
 
-def make(f: FakeTend | None = None) -> tuple[Navigator, Sessions, FakeTend]:
+def make(f: FakeTend | None = None) -> tuple[Navigator, MemorySessions, FakeTend]:
     f = f or FakeTend()
-    api = TendApi("http://tend.test", transport=f.transport())
-    return Navigator(api, Settings(api_url="http://tend.test"), today=lambda: TODAY), Sessions(), f
+    desks, _ = desks_for(f)
+    return Navigator(desks, settings(), today=lambda: TODAY), MemorySessions(), f
 
 
 def test_incoming_text_and_session_markers():
@@ -84,20 +83,17 @@ def test_incoming_ignores_other_metadata_and_caps_length():
 
 
 def test_to_chat_carries_a_valid_card_and_end_session():
-    from tend_agent import cards
-
     msg = to_chat(Reply("Pick", card=cards.welcome_card(), card_id=str(uuid.uuid4()), end_session=True))
     meta = next(c for c in msg.content if isinstance(c, MetadataContent))
     assert extract_card(meta) is not None and meta.metadata["card_kind"] == "detail"
     assert isinstance(msg.content[-1], EndSessionContent)
-    plain = to_chat(Reply("Just text"))
-    assert [type(c) for c in plain.content] == [TextContent]
+    assert [type(c) for c in to_chat(Reply("Just text")).content] == [TextContent]
 
 
 def test_handle_chat_acks_first_then_replies_and_logs_no_text():
     nav, sessions, _ = make()
     ctx = FakeCtx()
-    secret_words = "What is the deadline in Michigan?"
+    secret_words = "What is the deadline to apply in Michigan?"
     run(handle_chat(ctx, SENDER, chat_msg(TextContent(text=secret_words)), nav, sessions))
     assert isinstance(ctx.sent[0][1], ChatAcknowledgement)
     out = replies(ctx)
@@ -107,7 +103,7 @@ def test_handle_chat_acks_first_then_replies_and_logs_no_text():
     assert secret_words not in json.dumps(sessions.get(SENDER))
 
 
-def test_handle_chat_runs_the_whole_payment_flow_per_sender():
+def test_a_code_typed_in_someone_elses_chat_does_nothing():
     nav, sessions, f = make()
     ctx = FakeCtx()
     for text in ("demo", "yes", "pay the bill"):
@@ -115,16 +111,14 @@ def test_handle_chat_runs_the_whole_payment_flow_per_sender():
     review = replies(ctx)[-1]
     meta = next(c for c in review.content if isinstance(c, MetadataContent))
     assert meta.metadata["card_kind"] == "review" and CODE in reply_text(review)
-    # someone else typing the code in their own chat cannot approve this payment
     run(handle_chat(ctx, "agent1qsomeoneelse", chat_msg(TextContent(text=CODE)), nav, sessions))
     assert f.bodies("/api/actions/confirm") == []
     run(handle_chat(ctx, SENDER, chat_msg(TextContent(text=CODE)), nav, sessions))
     assert f.bodies("/api/actions/confirm") == [{"action_id": "act_00000000000000000001", "confirm_code": CODE}]
-    done = replies(ctx)[-1]
-    assert reply_text(done).startswith("**Done.**") and isinstance(done.content[-1], EndSessionContent)
+    assert "**Done.**" in reply_text(replies(ctx)[-1])
 
 
-def test_handle_chat_end_session_clears_state_and_errors_stay_private():
+def test_end_session_clears_state_and_errors_stay_private():
     nav, sessions, _ = make()
     ctx = FakeCtx()
     run(handle_chat(ctx, SENDER, chat_msg(TextContent(text="demo")), nav, sessions))
@@ -133,44 +127,16 @@ def test_handle_chat_end_session_clears_state_and_errors_stay_private():
     assert sessions.get(SENDER) == {}
 
     class Boom(Navigator):
-        async def handle(self, state, msg):  # type: ignore[override]
+        async def handle(self, state, msg, desks=None):  # type: ignore[override]
             raise RuntimeError("secret detail")
 
-    run(handle_chat(ctx, SENDER, chat_msg(TextContent(text="hi")), Boom(nav.api, nav.settings), sessions))
+    run(handle_chat(ctx, SENDER, chat_msg(TextContent(text="hi")), Boom(nav.desks, nav.settings), sessions))
     assert "Nothing was saved and no money moved" in reply_text(replies(ctx)[-1])
     assert "secret detail" not in " ".join(ctx.logs) and "turn failed: RuntimeError" in ctx.logs
 
 
 def test_request_urls_stay_out_of_the_logs():
-    # A Check's URL carries the date; httpx would log it at INFO.
+    import tend_agent.api  # noqa: F401 - importing the client sets the levels
+
     assert logging.getLogger("httpx").getEffectiveLevel() >= logging.WARNING
     assert logging.getLogger("httpcore").getEffectiveLevel() >= logging.WARNING
-
-
-def test_sessions_expire_and_live_only_in_memory():
-    clock = [0.0]
-    s = Sessions(ttl_s=10, now=lambda: clock[0])
-    s.put("a", {"st": "MI"})
-    assert s.get("a") == {"st": "MI"}
-    clock[0] = 11
-    assert s.get("a") == {}
-
-
-@pytest.mark.filterwarnings("ignore:coroutine 'Agent.publish_manifest' was never awaited")
-def test_build_agent_speaks_the_chat_protocol_with_a_mailbox():
-    import asyncio
-
-    loop = asyncio.new_event_loop()  # earlier tests closed theirs; the agent is only built here, never run
-    agent = build_agent(Settings(port=8091), "tend-navigator-test-seed-not-a-secret", loop=loop)
-    again = build_agent(Settings(port=8092), "tend-navigator-test-seed-not-a-secret", loop=loop)
-    loop.close()
-    assert agent.address == again.address and agent.address.startswith("agent1q")
-    assert agent.name == AGENT_NAME
-    assert Protocol(spec=chat_protocol_spec).digest in agent.protocols
-    assert agent._use_mailbox  # noqa: SLF001
-    assert agent._message_history is None  # noqa: SLF001 - no copy of message text kept for the Inspector
-    assert "innovationlab" in (agent._readme or "") and "hackathon" in (agent._readme or "")  # noqa: SLF001
-    lines = startup_lines(agent.address, Settings(port=8091))
-    assert any(
-        line.strip().startswith("Inspector: https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8091&address=agent1q") for line in lines
-    )

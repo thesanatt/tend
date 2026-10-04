@@ -1,6 +1,6 @@
-"""python -m tend_agent            run the agent (mailbox, for ASI:One)
-python -m tend_agent --address  print the name, address, and Inspector link, then exit
-python -m tend_agent --chat     talk to the same Navigator in this terminal (no Agentverse), one message per line
+"""python -m tend_agent            run the three agents: the Navigator (Agentverse mailbox), Law, and Bank+Packet
+python -m tend_agent --address  print each agent's name and address and the Inspector link, then exit
+python -m tend_agent --chat     talk to the same conversation in this terminal (all three desks in-process, no uAgents)
 """
 
 from __future__ import annotations
@@ -8,13 +8,15 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import sys
 
-from .config import AGENT_NAME, Settings, ensure_seed, inspector_url, load_env
+from .config import AGENT_NAME, BANK_NAME, LAW_NAME, ensure_seed, inspector_url, load_env, seeds_from
+from .settings import Settings
 
 
 def _card_text(card: object) -> str:
-    data = card.model_dump(exclude_none=True)  # type: ignore[attr-defined]
+    data = card.payload  # type: ignore[attr-defined]
     lines = [f"  [card] {data.get('title', '')}"]
     for row in data.get("summary_rows", []):
         lines.append(f"    {row['label']}: {row['value']}")
@@ -29,11 +31,14 @@ def _card_text(card: object) -> str:
 
 async def _console(settings: Settings) -> None:
     from .api import TendApi
+    from .bank import BankDesk
+    from .desks import LocalDesks
+    from .law import LawDesk
     from .navigator import Navigator
     from .parse import Incoming, selection_from_text
 
     api = TendApi(settings.api_url, timeout=settings.timeout_s, agent_key=settings.agent_key)
-    nav = Navigator(api, settings)
+    nav = Navigator(LocalDesks(LawDesk(api, settings), BankDesk(api, settings)), settings)
     state: dict = {}
     print(f"{AGENT_NAME} console. Tend API: {settings.api_url}. Type a message; JSON is treated as a card click.", flush=True)
     try:
@@ -57,9 +62,9 @@ async def _console(settings: Settings) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="tend_agent", description=f"{AGENT_NAME}, a Fetch.ai uAgent for Tend")
-    parser.add_argument("--address", action="store_true", help="print the agent address and Inspector link, then exit")
-    parser.add_argument("--chat", action="store_true", help="talk to the Navigator in this terminal (no Agentverse)")
+    parser = argparse.ArgumentParser(prog="tend_agent", description=f"{AGENT_NAME} and its two helper agents, for Tend")
+    parser.add_argument("--address", action="store_true", help="print the agents' addresses and the Inspector link, then exit")
+    parser.add_argument("--chat", action="store_true", help="talk to the conversation in this terminal (no Agentverse)")
     args = parser.parse_args(argv)
 
     env_path = load_env()
@@ -72,16 +77,24 @@ def main(argv: list[str] | None = None) -> int:
         asyncio.run(_console(settings))
         return 0
 
-    import os
+    from .agents import build_team, run_team, startup_lines
 
-    from .agent import build_agent, startup_lines
-
-    agent = build_agent(settings, os.environ["AGENT_SEED"])
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    overrides = {k: v for k, v in (("law", os.environ.get("TEND_LAW_ADDRESS")), ("bank", os.environ.get("TEND_BANK_ADDRESS"))) if v}
+    team = build_team(settings, seeds_from(os.environ["AGENT_SEED"]), addresses=overrides, loop=loop)
     if args.address:
-        print("\n".join(startup_lines(agent.address, settings, running=False)))
+        print("\n".join(startup_lines(team.navigator.address, team.link.addresses, settings, running=False)))
+        print(f"{LAW_NAME}: {team.law.address}\n{BANK_NAME}: {team.bank.address}")
+        loop.close()
         return 0
-    print(f"{AGENT_NAME}: {agent.address}\nInspector: {inspector_url(agent.address, settings.port)}", flush=True)
-    agent.run()
+    print(f"{AGENT_NAME}: {team.navigator.address}\nInspector: {inspector_url(team.navigator.address, settings.port)}", flush=True)
+    try:
+        loop.run_until_complete(run_team(team, settings))
+    except KeyboardInterrupt:
+        pass
+    finally:
+        loop.close()
     return 0
 
 
