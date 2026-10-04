@@ -78,7 +78,7 @@ describe("Rowan's Michigan packet", () => {
       }
     }
     expect(text).toContain(TOTAL_LINE);
-    expect(text).toContain("$1,394.00");
+    expect(text).toContain("$3,142.00");
     expect(text).toContain("Held. Do not pay this.");
   });
 
@@ -87,7 +87,7 @@ describe("Rowan's Michigan packet", () => {
     const text = await pdfText((await bytesOf(p.summaryPdf))!);
     expect(text).toContain("Amount you can ask for. The program decides.");
     expect(text).toContain("A health care provider shall not submit a bill for any portion of the costs");
-    expect(text).toContain("rcpt:9c41e2a7:3");
+    expect(text).toContain("bill:231c5c86178943f9:2");
     expect(text).toContain("MCL 18.355a(2)");
   });
 
@@ -126,10 +126,17 @@ describe("Rowan's Michigan packet", () => {
     expect(filled).toEqual(p.formFilled);
     expect(filled.length).toBeGreaterThan(0);
     for (const name of filled) expect(allowed.has(name)).toBe(true);
-    expect(filled).toEqual(["Medical Expenses", "SECTION 6  Compensation Benefits"]);
+    // Counted: counseling, the bill's care lines, the move, and the lock change.
+    expect(filled).toEqual([
+      "Medical Expenses",
+      "Psychological Counseling",
+      "Relocation Permanent",
+      "Residential Security",
+      "SECTION 6  Compensation Benefits",
+    ]);
     const doc = await PDFDocument.load(form);
     expect(doc.getForm().getTextField("SECTION 6  Compensation Benefits").getText()).toBe(
-      "Itemized list attached: 2 costs, $1,394.00",
+      "Itemized list attached: 21 costs, $3,142.00",
     );
     // Signature, SSN, crime details, offender, and location stay blank.
     for (const name of MI_FORM.never) expect(filled).not.toContain(name);
@@ -390,11 +397,12 @@ describe("review fixes: the summary says only what the rules support", () => {
   it("shows the insurance actually taken off, and both notes when a cap also applies", async () => {
     const input = rowanInput();
     const output = rowanOutput();
-    const er = "rcpt:9c41e2a7:1";
-    const lab = "rcpt:9c41e2a7:2";
+    // Rowan's Riverbend lines: the $75.00 emergency visit and the $43.00 lab charge.
+    const er = "bill:231c5c86178943f9:1";
+    const lab = "bill:231c5c86178943f9:3";
     input.items = input.items.map((i) =>
       i.item_id === er
-        ? { ...i, insurance_paid_cents: 150000 }
+        ? { ...i, insurance_paid_cents: 15000 }
         : i.item_id === lab
           ? { ...i, insurance_paid_cents: 4000 }
           : i,
@@ -403,14 +411,17 @@ describe("review fixes: the summary says only what the rules support", () => {
       l.item_id === er
         ? { ...l, allowed_cents: 0 }
         : l.item_id === lab
-          ? { ...l, allowed_cents: 10000, cap_rule_id: "MI-CAP-1" }
+          ? { ...l, allowed_cents: 300, cap_rule_id: "MI-CAP-1" }
           : l,
     );
-    output.totals = { ...output.totals, allowed_cents: 10000 };
+    output.totals = {
+      ...output.totals,
+      allowed_cents: output.lines.filter((l) => l.status === "eligible").reduce((s, l) => s + l.allowed_cents, 0),
+    };
     const text = (await builderFor(webLaw).build("MI", input, output)).transcript.join("\n");
-    // $1,500 paid by insurance on a $1,180 bill takes off $1,180, not $1,500.
-    expect(text).toContain("Less $1,180.00 that insurance paid.");
-    expect(text).not.toContain("$1,500.00");
+    // $150 paid by insurance on a $75 charge takes off $75, not $150.
+    expect(text).toContain("Less $75.00 that insurance paid.");
+    expect(text).not.toContain("Less $150.00");
     expect(text).toContain("Less $40.00 that insurance paid.");
     expect(text).toContain(`Cut to the limit in ${new LawBook(webLaw("MI")).rule("MI-CAP-1")!.pinpoint}.`);
   });
