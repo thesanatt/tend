@@ -4,6 +4,7 @@ import { ApiError, confirmPayment, dataMode, proposePayment } from "@/lib/api";
 import type {
   BillReader,
   Classifier,
+  DeviceAi,
   PacketBuilder,
   Share,
   StatementParser,
@@ -11,7 +12,7 @@ import type {
   Vault,
 } from "@/lib/contracts";
 import { evaluateClaim, type Evaluation } from "@/lib/engine";
-import { billReader, classifier, releaseDeviceAi, statementParser } from "@/lib/local";
+import { billReader, classifier, releaseDeviceAi, startModelDownload, statementParser } from "@/lib/local";
 import { packetBuilder } from "@/lib/packet";
 import { share } from "@/lib/share";
 import type { AccountRef, ActionProposal, ActionResult, EngineInput } from "@/lib/types";
@@ -57,6 +58,9 @@ export interface FlowServices {
   passkeySupported(): Promise<boolean>;
   // Closes any on-device AI sessions (Quick exit). Optional: not every reader keeps one open.
   releaseDeviceAi?(): void;
+  // Starts the one-time on-device model download. Must be called straight from a tap: Chrome
+  // downloads only with user activation, so nothing may be awaited before it.
+  startDeviceAi?(onProgress?: (loaded: number) => void): Promise<DeviceAi>;
 }
 
 export function accountLabel(a: AccountRef): string {
@@ -118,4 +122,5 @@ export const defaultServices: FlowServices = {
       // Leaving the page matters more than closing a model session.
     }
   },
+  startDeviceAi: (onProgress) => startModelDownload(onProgress),
 };

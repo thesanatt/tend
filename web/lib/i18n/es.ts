@@ -73,6 +73,16 @@ export const es: Dict = {
       `${when}: el monto ${amount} y el destinatario ${to}, para recibir un código de confirmación. No se movió dinero.`,
     eventServer: (when: string) =>
       `${when}: tus respuestas y gastos, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley.`,
+    partCloudRows: "filas para que la IA en la nube las clasifique",
+    partCloudBill: (n: number) =>
+      n === 1 ? "una factura para que la IA en la nube la lea" : `${n} facturas para que la IA en la nube las lea`,
+    partOther: (n: number) => (n === 1 ? "una solicitud que Tend no esperaba" : `${n} solicitudes que Tend no esperaba`),
+    eventPaymentDry: (amount: string, to: string, when: string) =>
+      `${when}: un pago de ${amount} a ${to}, al servidor de Tend. Fue una prueba, así que no se envió al banco.`,
+    eventCloudRows: (when: string) =>
+      `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el comercio, su categoría y la descripción. Sin montos ni fechas.`,
+    eventCloudBill: (when: string) => `${when}: un archivo de factura, a la IA en la nube, porque dijiste que sí.`,
+    eventOther: (path: string, when: string) => `${when}: una solicitud a ${path}.`,
     more: "Qué se queda aquí",
     sheetTitle: "Qué se queda en este dispositivo",
     facts: [
@@ -413,6 +423,10 @@ export const es: Dict = {
       unavailable:
         "Este navegador no tiene IA en el dispositivo, así que Tend clasifica los gastos con sus reglas. Tú confirmas cada uno.",
     },
+    deviceAiAdd: "Agregar IA en el dispositivo",
+    deviceAiAddNote:
+      "Se descarga una vez, del fabricante de tu navegador. Después clasifica gastos en este dispositivo. No se envía nada sobre ti.",
+    deviceAiProgress: (pct: number) => `La IA en el dispositivo se está descargando: ${pct}%.`,
     readListLabel: "Registros leídos",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transacción leída", "transacciones leídas")}, ${plural(found, "posible gasto", "posibles gastos")}.`,
@@ -576,6 +590,14 @@ export const es: Dict = {
     bankUnsure:
       "El banco no dio una respuesta clara, así que este pago pudo haberse hecho. Revisa la cuenta antes de intentarlo de nuevo.",
     confirmFailed: "El pago no se completó. No se envió nada.",
+    offline:
+      "No tienes conexión, así que esto no llegó al banco. No se envió nada. Conéctate a internet e inténtalo de nuevo.",
+    retry: "Intentar de nuevo",
+    noteDone: (amount: string, payee: string) =>
+      `El banco registró ${amount} a ${payee}. Tend volvió a leer el registro.`,
+    noteDryRun: (amount: string, payee: string) =>
+      `Tend registró ${amount} a ${payee} y lo volvió a leer. Fue una prueba, así que no se envió nada al banco.`,
+    serviceNote: "La nota del servicio del banco, en inglés",
   },
 
   packet: {
@@ -626,6 +648,7 @@ export const es: Dict = {
     sentButton: "Envié mi solicitud",
     sentDone: (date: string) => `Marcaste tu solicitud como enviada el ${date}.`,
     toTrack: "Ver tu jardín",
+    paidNote: (date: string, payee: string) => `Pagaste esto a ${payee} el ${date}, con Tend.`,
   },
 
   share: {
@@ -653,6 +676,44 @@ export const es: Dict = {
       other: "Tend no pudo crear el enlace.",
     },
     revokeFailed: "Tend no pudo desactivar el enlace. Inténtalo de nuevo en un minuto.",
+    offline: "No tienes conexión. Un enlace para compartir necesita internet. No se envió nada. Conéctate e inténtalo de nuevo.",
+    revokeOffline: "No tienes conexión, así que el enlace todavía no se pudo desactivar. Conéctate e inténtalo de nuevo.",
+  },
+
+  cloud: {
+    offer: (n: number) =>
+      n === 1
+        ? "1 fila no se pudo clasificar en este dispositivo."
+        : `${n} filas no se pudieron clasificar en este dispositivo.`,
+    offerButton: "Preguntar a la IA en la nube",
+    billOffer: "Este navegador no tiene IA en el dispositivo para leer fotos. La IA en la nube puede intentarlo, si dices que sí.",
+    billOfferButton: "Leerla con IA en la nube",
+    titleRows: "¿Clasificar estas filas con IA en la nube?",
+    titleBill: "¿Leer esta factura con IA en la nube?",
+    whatTitle: "Qué sale de este dispositivo",
+    whatRows: (n: number) =>
+      `De las ${n} filas que Tend no pudo clasificar, desde la fecha en que pasó: el tipo de transacción, el comercio, su categoría y la descripción. Antes, Tend quita los números de tarjeta y de referencia, las fechas, los montos, los teléfonos, los correos y el nombre en una línea de una app de pagos.`,
+    whatBill: "Este archivo de factura, tal como está: la foto o el PDF.",
+    whoTitle: "Quién lo recibe",
+    whoRows:
+      "El servidor de Tend, que le pide a Gemini de Google elegir un tipo de gasto para cada fila. El servidor de Tend no guarda una copia.",
+    whoBill:
+      "El servidor de Tend, que le pide a Gemini de Google copiar sus líneas y montos. El servidor de Tend no guarda una copia.",
+    stayTitle: "Qué se queda aquí",
+    stayRows: "Los montos, las fechas, tus otras transacciones, tus respuestas y todo lo que sea sobre ti.",
+    stayBill: "Tus otros archivos, tus respuestas y todo lo que sea sobre ti.",
+    yes: "Sí, enviarlo",
+    no: "No, dejarlo aquí",
+    noNote: "Decir que no está bien. Las reglas de Tend siguen funcionando, y puedes revisar cada fila tú.",
+    working: "Preguntando a la IA en la nube",
+    sorted: (n: number) =>
+      n === 1
+        ? "La IA en la nube clasificó 1 fila. Es una suposición, así que espera tu sí."
+        : `La IA en la nube clasificó ${n} filas. Son suposiciones, así que cada una espera tu sí.`,
+    noneSorted: "La IA en la nube no clasificó ninguna de estas filas. Puedes revisar cada una tú.",
+    failed: "La IA en la nube no respondió. No cambió nada.",
+    billFailed: "La IA en la nube tampoco pudo leer bien esta factura. Igual puedes enviar el original con tu solicitud.",
+    offline: "No tienes conexión, así que no se envió nada a la IA en la nube. Conéctate e inténtalo de nuevo.",
   },
 
   docs: {
@@ -701,6 +762,7 @@ export const es: Dict = {
     budsWhen: "Da un capullo cuando marques tu solicitud como enviada.",
     markPaid: "El programa pagó esto",
     paidOn: (date: string) => `Pagado el ${date}.`,
+    youPaid: (date: string) => `Lo pagaste con Tend el ${date}.`,
     plantLabel: (stage: string, what: string, amount: string) => `${stage}: ${what}, ${amount}`,
     heldLabel: "Facturas retenidas",
     held: (amount: string) =>

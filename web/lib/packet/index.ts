@@ -5,7 +5,7 @@
 //   stillNeeded the state's required documents that fit this claim
 //   filing      where and how to send it
 // Nothing here reads the clock or random numbers: the same claim always gives the same bytes.
-import type { Letter, Packet, PacketBuilder } from "../contracts";
+import type { Letter, Packet, PacketBuilder, PacketOptions } from "../contracts";
 import { isIsoDay } from "../dates";
 import { assertCents } from "../money";
 import type { EngineInput, EngineOutput } from "../types";
@@ -42,7 +42,7 @@ export interface PacketDeps {
   loadForm?: (spec: FormSpec) => Promise<Uint8Array | null>;
 }
 
-export interface BuildOptions {
+export interface BuildOptions extends PacketOptions {
   // What the survivor already has, by rule id or document type (e.g. { photo_id: true }).
   have?: Record<string, boolean>;
   // Every letter kind the state's rules support, not only the ones this claim calls for.
@@ -131,9 +131,9 @@ export function createPacketBuilder(deps: PacketDeps = {}): TendPacketBuilder {
       const code = st.toUpperCase();
       validate(code, input, output);
       const law = new LawBook(await loadLaw(code));
-      const needed = stillNeeded(law, input, output, opts.have);
+      const needed = stillNeeded(law, input, output, opts.have, opts.lines);
       const filing = filingRoutes(law);
-      const letters = buildLetters(law, input, output, { all: opts.allLetters });
+      const letters = buildLetters(law, input, output, { all: opts.allLetters, lines: opts.lines });
       const notes: string[] = [];
 
       let formPdf: Blob | null = null;
@@ -162,6 +162,7 @@ export function createPacketBuilder(deps: PacketDeps = {}): TendPacketBuilder {
         filing,
         letters,
         form: formPdf ? spec : null,
+        lines: opts.lines,
       });
       return {
         summaryPdf: pdfBlob(summary.bytes),

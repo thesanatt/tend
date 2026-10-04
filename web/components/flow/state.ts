@@ -64,6 +64,8 @@ export interface PaymentRecord {
   nessie_id?: string | null;
   read_back_matches?: boolean | null;
   demo: boolean;
+  // The server recorded it without sending it to the bank (TEND_BANK=dry_run).
+  dry_run?: boolean;
   at: string;
 }
 
@@ -75,16 +77,31 @@ export interface ShareRecord {
   revoked: boolean;
 }
 
-// What left the device, and only because the survivor acted (docs/PRIVACY.md).
+// What left the device, and only because the survivor acted (docs/PRIVACY.md). lib/netlog sees every
+// request the page makes, so this list also holds sends no screen announced ("other").
 // "payment_setup": asking the bank service for a confirm code sends the amount, account, and payee,
 // even if the survivor then stops.
-export type SentKind = "payment" | "payment_setup" | "share" | "bank" | "server_engine";
+export type SentKind =
+  | "payment"
+  | "payment_setup"
+  | "share"
+  | "bank"
+  | "server_engine"
+  | "cloud_rows"
+  | "cloud_bill"
+  | "other";
 export interface SentEvent {
   kind: SentKind;
   at: string;
   amount_cents?: number;
   to?: string;
   action_id?: string;
+  // The same send reported twice (by a screen and by lib/netlog) is kept once.
+  ref?: string;
+  // A payment the server recorded without sending it to the bank.
+  dry_run?: boolean;
+  // Where an unexpected request went.
+  path?: string;
 }
 
 export interface FlowState {
@@ -131,6 +148,11 @@ export type Action =
   | { type: "check"; patch: Partial<CheckAnswers> }
   | { type: "addSource"; source: SourceRecord; items: FlowItem[]; account?: AccountRef | null }
   | { type: "addBill"; bill: BillRecord; items: FlowItem[] }
+  // A second reading of a record, after the survivor agreed to cloud AI: rows still unsorted take
+  // the new label, and costs the new labels add (a ride to newly sorted care) join.
+  | { type: "resort"; items: FlowItem[] }
+  // A bill read again (with cloud AI) replaces its earlier, unreliable reading.
+  | { type: "rereadBill"; bill: BillRecord; items: FlowItem[] }
   | { type: "answer"; ids: string[]; value: YesNoUnsure | null }
   | { type: "billChoice"; billId: string; choice: BillRecord["choice"] }
   | { type: "life"; ids: string[]; patch: Partial<LineLife> | null }
@@ -165,12 +187,60 @@ export function recordOf(item: FlowItem): string {
 
 const merchantKey = (m: string | undefined) => (m ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
-// The same account can arrive twice: a statement and the demo bank, or two statements that overlap.
-// A cost from another record with the same day, amount, and kind (and the same merchant, when both
-// name one) is the same cost, so it is left out. Each gathered cost can stand for one new one only,
-// so two real charges on one day still count twice.
+// Words a bank adds to a description that say nothing about who was paid.
+const NOISE = new Set([
+  "pos",
+  "debit",
+  "credit",
+  "card",
+  "purchase",
+  "payment",
+  "ach",
+  "web",
+  "ppd",
+  "ccd",
+  "online",
+  "recurring",
+  "checkcard",
+  "visa",
+  "the",
+  "and",
+  "for",
+  "from",
+]);
+
+// The words of a cost's description, as a CSV, an OFX, a PDF, or the bank writes it: lowercase
+// letters only, bracket tags and short or noise words dropped.
+export function descriptionWords(text: string): Set<string> {
+  const words = text
+    .toLowerCase()
+    .replace(/\[[^\]]*\]/g, " ")
+    .split(/[^a-z]+/)
+    .filter((w) => w.length >= 3 && !NOISE.has(w));
+  return new Set(words);
+}
+
+// Two readings of one bank transaction: the same day and amount, from different records, with
+// descriptions that share a word (the same payee written two ways, such as "Wayfare Rides - trip" in
+// a CSV and "WAYFARE RIDES TRIP ANN ARBOR" in an OFX). When one side has no words to compare, the
+// kind of cost decides. Merchants, when both name one, must agree.
+export function sameCost(a: FlowItem, b: FlowItem): boolean {
+  if (a.date !== b.date || a.amount_cents !== b.amount_cents || recordOf(a) === recordOf(b)) return false;
+  if (a.merchant && b.merchant && merchantKey(a.merchant) !== merchantKey(b.merchant)) return false;
+  const wa = descriptionWords(a.description);
+  const wb = descriptionWords(b.description);
+  if (!wa.size || !wb.size) return a.expense === b.expense;
+  for (const w of wa) if (wb.has(w)) return true;
+  return false;
+}
+
+// The same account can arrive twice: a statement and the demo bank, or a CSV and an OFX of the same
+// month. A cost another record already holds (sameCost: day, amount, and description) is left out,
+// even when the two formats sorted it differently: the first reading wins. Each gathered cost can
+// stand for one new one only, so two real charges on one day still count twice, and costs inside
+// one record are never folded together.
 export function newCosts(existing: FlowItem[], incoming: FlowItem[]): { fresh: FlowItem[]; already: number } {
-  const key = (i: FlowItem) => `${i.date}|${i.amount_cents}|${i.expense}`;
+  const key = (i: FlowItem) => `${i.date}|${i.amount_cents}`;
   const open = new Map<string, FlowItem[]>();
   for (const it of existing) {
     if (it.origin === "bill") continue;
@@ -182,12 +252,8 @@ export function newCosts(existing: FlowItem[], incoming: FlowItem[]): { fresh: F
   for (const it of incoming) {
     if (ids.has(it.item_id)) continue;
     const pool = open.get(key(it)) ?? [];
-    const at = pool.findIndex(
-      (e) =>
-        recordOf(e) !== recordOf(it) &&
-        (!e.merchant || !it.merchant || merchantKey(e.merchant) === merchantKey(it.merchant)),
-    );
-    if (it.origin !== "bill" && at >= 0) {
+    const at = it.origin === "bill" ? -1 : pool.findIndex((e) => sameCost(e, it));
+    if (at >= 0) {
       pool.splice(at, 1);
       already += 1;
       continue;
@@ -232,6 +298,26 @@ export function reducer(state: FlowState, action: Action): FlowState {
         items: mergeItems(state.items, action.items),
       };
     }
+    case "resort": {
+      const byId = new Map(action.items.map((i) => [i.item_id, i]));
+      const items = state.items.map((it) => {
+        const next = byId.get(it.item_id);
+        return next && it.expense === "unknown" && next.expense !== "unknown" ? next : it;
+      });
+      return { ...state, items: mergeItems(items, action.items) };
+    }
+    case "rereadBill": {
+      if (!state.bills.some((b) => b.id === action.bill.id)) return state;
+      const replaces = action.bill.replaces ?? findReplaced(state, action.bill.reading);
+      return {
+        ...state,
+        bills: state.bills.map((b) => (b.id === action.bill.id ? { ...action.bill, replaces } : b)),
+        items: mergeItems(
+          state.items.filter((i) => !(i.origin === "bill" && i.bill_id === action.bill.id)),
+          action.items,
+        ),
+      };
+    }
     case "answer": {
       const answers = { ...state.answers };
       for (const id of action.ids) {
@@ -266,8 +352,19 @@ export function reducer(state: FlowState, action: Action): FlowState {
       return { ...state, shares: state.shares.map((s) => (s.id === action.id ? { ...s, revoked: true } : s)) };
     case "have":
       return { ...state, have: { ...state.have, [action.key]: action.value } };
-    case "sent":
-      return { ...state, sent: [...state.sent, action.event] };
+    case "sent": {
+      // One send seen twice (the screen that made it, and lib/netlog) stays one event; the second
+      // report only fills in what the first did not know.
+      const ref = action.event.ref;
+      const at = ref ? state.sent.findIndex((e) => e.ref === ref) : -1;
+      if (at < 0) return { ...state, sent: [...state.sent, action.event] };
+      const first = state.sent[at];
+      const merged = { ...first };
+      for (const [k, v] of Object.entries(action.event) as [keyof SentEvent, unknown][]) {
+        if (merged[k] === undefined && v !== undefined) (merged as Record<string, unknown>)[k] = v;
+      }
+      return { ...state, sent: state.sent.map((e, i) => (i === at ? merged : e)) };
+    }
     case "serverConsent":
       return { ...state, serverConsent: true };
     case "filed":

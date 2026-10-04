@@ -9,7 +9,7 @@ import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
 import { buildCheckSummary } from "../checkSummary";
 import { useSetAside } from "../useSetAside";
-import { GROUPS, groupOf, knowsDate, plants, type PlantView, type Stage } from "../claim";
+import { GROUPS, groupOf, knowsDate, paidLines, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
 
@@ -69,10 +69,12 @@ function NextStep({ plant, t }: { plant: PlantView; t: Dict }) {
     );
   }
   if (plant.stage === "leaf") {
+    const paid = paidLines(state).get(id);
     return (
       <p className={styles.plantHint}>
         {life.doc ? <span className={styles.docName}>{t.track.attached(life.doc)}</span> : null}
         {plant.item.origin === "bill" && !life.doc ? <span className={styles.billDoc}>{t.track.billIsDoc}</span> : null}
+        {paid ? <span className={styles.billDoc}>{t.track.youPaid(f.date(paid.at.slice(0, 10), "short"))}</span> : null}
         {t.track.budsWhen}
       </p>
     );
@@ -147,6 +149,8 @@ export default function TrackScreen() {
             : t.track.deadlineAsk}
         </strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
+        {/* The same note as Check: a deadline the law counts from the report may be later than this. */}
+        {deadline?.fromReport ? <span className={styles.deadlineNote}>{t.check.deadlineFromReport}</span> : null}
       </p>
 
       <p className={styles.tallyLine}>

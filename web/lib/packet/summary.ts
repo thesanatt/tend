@@ -1,7 +1,7 @@
 // The cited summary PDF: every line with its amount, transaction, rule pinpoint, verbatim quote,
 // and link; held lines with the exam billing law; the totals; what is still needed; where to
 // file; and the protections that keep the survivor's address and file private.
-import type { ChecklistItem, FilingRoute, Letter } from "../contracts";
+import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay } from "../dates";
 import { expenseLabel, expenseRank } from "../expenses";
 import { formatCents } from "../money";
@@ -19,6 +19,17 @@ export interface SummaryInput {
   filing: FilingRoute[];
   letters: Letter[];
   form: FormSpec | null;
+  // Bill providers and payments made through Tend, by item id (lib/contracts.ts PacketLineInfo).
+  lines?: Record<string, PacketLineInfo>;
+}
+
+// "Paid on October 3, 2026 from Checking 0011 to Riverbend General Hospital, through Tend."
+export function paidNote(paid: NonNullable<PacketLineInfo["paid"]>): string {
+  const day = paid.at.slice(0, 10);
+  const when = isIsoDay(day) ? ` on ${formatDay(day)}` : "";
+  const from = paid.from.trim() ? ` from ${paid.from.trim()}` : "";
+  const to = paid.to.trim() ? ` to ${paid.to.trim()}` : "";
+  return `You paid this${when}${from}${to}, through Tend. It is money you spent, not an unpaid bill.`;
 }
 
 const ORDER: LineStatus[] = ["eligible", "held", "needs_confirmation", "excluded", "unknown_rule", "out_of_window"];
@@ -195,8 +206,9 @@ function groupRules(law: LawBook, lines: EngineLine[]): Rule[] {
   return ids.map((id) => law.rule(id)).filter((r): r is Rule => !!r);
 }
 
-function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined): string[] {
+function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined, info?: PacketLineInfo): string[] {
   const notes: string[] = [];
+  if (info?.paid) notes.push(paidNote(info.paid));
   const pin = (id: string) => law.rule(id)?.pinpoint ?? id;
   // The engine subtracts insurance (step 6) only under a collateral source rule, and never below
   // zero, so the note shows what was taken off, not what the insurer paid in total.
@@ -228,7 +240,7 @@ function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined)
   return notes;
 }
 
-function linesSection(w: Writer, input: EngineInput, output: EngineOutput) {
+function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info: Record<string, PacketLineInfo> = {}) {
   const { law, pdf } = w;
   const items = new Map(input.items.map((i) => [i.item_id, i]));
   w.h2("Every cost and the law behind it");
@@ -307,7 +319,7 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput) {
     header();
     for (const line of g.lines) {
       const item = items.get(line.item_id);
-      const notes = lineNotes(law, line, item);
+      const notes = lineNotes(law, line, item, info[line.item_id]);
       if (!shared && line.rule_ids.length) {
         notes.unshift(`Rules: ${line.rule_ids.map((id) => law.rule(id)?.pinpoint ?? id).join("; ")}`);
       }
@@ -580,7 +592,7 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
   w.p(parts.join(" "), "ink2");
 
   checksSection(w, input, output);
-  linesSection(w, input, output);
+  linesSection(w, input, output, s.lines);
   neededSection(w, output, s.stillNeeded, s.form);
   filingSection(w, s.filing);
   privacySection(w);

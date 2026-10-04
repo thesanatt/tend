@@ -29,9 +29,15 @@ export interface ClassifiedItem extends EngineItem {
   confidence: number; // 0..1
 }
 export type DeviceAi = "available" | "downloadable" | "downloading" | "unavailable";
+// cloudConsent: the survivor said yes on the consent screen to sending what lib/local/cloud.ts
+// describes (docs/PRIVACY.md item 3). Without it nothing goes to cloud AI.
 export interface Classifier {
   deviceAi(): Promise<DeviceAi>;
-  classify(txns: StatementTxn[], ctx: { st: string; incident_date: string }): Promise<ClassifiedItem[]>;
+  classify(
+    txns: StatementTxn[],
+    ctx: { st: string; incident_date: string },
+    opts?: { cloudConsent?: boolean },
+  ): Promise<ClassifiedItem[]>;
 }
 
 // lib/local/bill: read a bill photo or PDF on the device.
@@ -50,7 +56,7 @@ export interface BillReading {
   source: Source;
 }
 export interface BillReader {
-  read(file: File): Promise<BillReading>;
+  read(file: File, opts?: { cloudConsent?: boolean }): Promise<BillReading>;
 }
 
 // lib/vault: encrypted storage on the device. The key exists only in memory while unlocked.
@@ -105,6 +111,15 @@ export interface Packet {
   stillNeeded: ChecklistItem[];
   filing: FilingRoute[];
 }
+// What the device knows about a line beyond the engine input, for the packet's words: who sent the
+// bill it is on, and whether the survivor already paid it through Tend.
+export interface PacketLineInfo {
+  provider?: string;
+  paid?: { at: string; from: string; to: string };
+}
+export interface PacketOptions {
+  lines?: Record<string, PacketLineInfo>;
+}
 export interface PacketBuilder {
-  build(st: string, input: EngineInput, output: EngineOutput): Promise<Packet>;
+  build(st: string, input: EngineInput, output: EngineOutput, opts?: PacketOptions): Promise<Packet>;
 }

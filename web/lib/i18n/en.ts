@@ -98,6 +98,15 @@ export const en = {
       `${when}: the amount ${amount} and the payee ${to}, to get a confirmation code. No money moved.`,
     eventServer: (when: string) =>
       `${when}: your answers and costs, to Tend's server to check the law, because this browser could not run the law engine.`,
+    partCloudRows: "rows for cloud AI to sort",
+    partCloudBill: (n: number) => (n === 1 ? "a bill for cloud AI to read" : `${n} bills for cloud AI to read`),
+    partOther: (n: number) => (n === 1 ? "a request Tend did not expect" : `${n} requests Tend did not expect`),
+    eventPaymentDry: (amount: string, to: string, when: string) =>
+      `${when}: a payment of ${amount} to ${to}, to Tend's server. It was a dry run, so it did not go to the bank.`,
+    eventCloudRows: (when: string) =>
+      `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the merchant, its category, and the description. No amounts or dates.`,
+    eventCloudBill: (when: string) => `${when}: a bill file, to cloud AI, because you said yes.`,
+    eventOther: (path: string, when: string) => `${when}: a request to ${path}.`,
     more: "What stays here",
     sheetTitle: "What stays on this device",
     facts: [
@@ -432,6 +441,10 @@ export const en = {
       unavailable:
         "This browser has no on-device AI, so Tend sorts costs with its built-in rules. You confirm each one.",
     } satisfies Record<DeviceAi, string>,
+    deviceAiAdd: "Add on-device AI",
+    deviceAiAddNote:
+      "It downloads once, from your browser's maker. Then it sorts costs on this device. Nothing about you is sent.",
+    deviceAiProgress: (pct: number) => `On-device AI is downloading: ${pct}%.`,
     readListLabel: "Records read",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transaction", "transactions")} read, ${plural(found, "possible cost", "possible costs")}.`,
@@ -589,6 +602,12 @@ export const en = {
     bankUnsure:
       "The bank did not give a clear answer, so this payment may have gone through. Check the account before you try again.",
     confirmFailed: "The payment did not go through. Nothing was sent.",
+    offline: "You are offline, so this did not reach the bank. Nothing was sent. Connect to the internet and try again.",
+    retry: "Try again",
+    noteDone: (amount: string, payee: string) => `The bank recorded ${amount} to ${payee}. Tend read the record back.`,
+    noteDryRun: (amount: string, payee: string) =>
+      `Tend recorded ${amount} to ${payee} and read it back. This was a dry run, so nothing went to the bank.`,
+    serviceNote: "The bank service's own note",
   },
 
   packet: {
@@ -638,6 +657,7 @@ export const en = {
     sentButton: "I sent my claim",
     sentDone: (date: string) => `You marked your claim as sent on ${date}.`,
     toTrack: "See your garden",
+    paidNote: (date: string, payee: string) => `You paid this to ${payee} on ${date}, through Tend.`,
   },
 
   share: {
@@ -663,6 +683,40 @@ export const en = {
       other: "Tend could not make the link.",
     } as Record<ShareCode, string>,
     revokeFailed: "Tend could not stop the link. Try again in a minute.",
+    offline: "You are offline. A share link needs the internet. Nothing was sent. Connect and try again.",
+    revokeOffline: "You are offline, so the link could not be stopped yet. Connect and try again.",
+  },
+
+  cloud: {
+    offer: (n: number) =>
+      n === 1 ? "1 row could not be sorted on this device." : `${n} rows could not be sorted on this device.`,
+    offerButton: "Ask cloud AI about them",
+    billOffer: "This browser has no on-device AI to read pictures. Cloud AI can try, if you say yes.",
+    billOfferButton: "Read it with cloud AI",
+    titleRows: "Sort these rows with cloud AI?",
+    titleBill: "Read this bill with cloud AI?",
+    whatTitle: "What leaves this device",
+    whatRows: (n: number) =>
+      `For the ${n} rows Tend could not sort, from the date it happened on: the kind of transaction, the merchant, its category, and the description. Tend first takes out card and reference numbers, dates, amounts, phone numbers, emails, and the name in a payment app line.`,
+    whatBill: "This bill file, as it is: the picture or the PDF.",
+    whoTitle: "Who gets it",
+    whoRows: "Tend's server, which asks Google's Gemini to pick a kind of cost for each row. Tend's server keeps no copy.",
+    whoBill: "Tend's server, which asks Google's Gemini to copy its lines and amounts. Tend's server keeps no copy.",
+    stayTitle: "What stays here",
+    stayRows: "The amounts, the dates, your other transactions, your answers, and anything about you.",
+    stayBill: "Your other files, your answers, and anything about you.",
+    yes: "Yes, send it",
+    no: "No, keep it here",
+    noNote: "No is fine. Tend's built-in rules still work, and you can check each row yourself.",
+    working: "Asking cloud AI",
+    sorted: (n: number) =>
+      n === 1
+        ? "Cloud AI sorted 1 row. It is a guess, so it waits for your yes."
+        : `Cloud AI sorted ${n} rows. They are guesses, so each one waits for your yes.`,
+    noneSorted: "Cloud AI did not sort any of these rows. You can check each one yourself.",
+    failed: "Cloud AI did not answer. Nothing changed.",
+    billFailed: "Cloud AI could not read this bill reliably either. You can still send the original with your claim.",
+    offline: "You are offline, so nothing went to cloud AI. Connect and try again.",
   },
 
   docs: {
@@ -711,6 +765,7 @@ export const en = {
     budsWhen: "It buds when you mark your claim as sent.",
     markPaid: "The program paid this",
     paidOn: (date: string) => `Paid ${date}.`,
+    youPaid: (date: string) => `You paid it through Tend on ${date}.`,
     plantLabel: (stage: string, what: string, amount: string) => `${stage}: ${what}, ${amount}`,
     heldLabel: "Held bills",
     held: (amount: string) =>
