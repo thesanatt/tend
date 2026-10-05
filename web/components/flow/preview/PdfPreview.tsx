@@ -33,6 +33,9 @@ export default function PdfPreview({ file, kind }: { file: File; kind: "statemen
   const [page, setPage] = useState(1);
   const [width, setWidth] = useState(0);
   const [failed, setFailed] = useState(false);
+  // The draw in progress. pdf.js lets one render use a canvas at a time, and a cancelled render lets
+  // go of it only when it settles, so each draw waits for the one before (quick taps on Next).
+  const drawing = useRef<Promise<void>>(Promise.resolve());
 
   useEffect(() => {
     let live = true;
@@ -80,11 +83,11 @@ export default function PdfPreview({ file, kind }: { file: File; kind: "statemen
     let live = true;
     let task: ReturnType<Awaited<ReturnType<PdfDoc["getPage"]>>["render"]> | null = null;
     let current: Awaited<ReturnType<PdfDoc["getPage"]>> | null = null;
-    doc
-      .getPage(page)
+    drawing.current = drawing.current
+      .then(() => (live ? doc.getPage(page) : null))
       .then((p) => {
         current = p;
-        if (!live) return;
+        if (!p || !live) return;
         const base = p.getViewport({ scale: 1 });
         const size = pageSize(base.width, base.height, width, window.devicePixelRatio);
         el.width = size.width;

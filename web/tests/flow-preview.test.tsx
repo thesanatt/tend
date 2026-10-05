@@ -34,9 +34,11 @@ interface Drawn {
   transform?: number[];
 }
 
-// A letter-size document of `pages` pages that records what it was asked to draw.
-function fakePdf(pages: number) {
+// A letter-size document of `pages` pages that records what it was asked to draw. With `slow`, each
+// draw takes a moment and holds the canvas until it settles, cancelled or not, as pdf.js does.
+function fakePdf(pages: number, { slow = false } = {}) {
   const drawn: Drawn[] = [];
+  const busy = { now: 0, most: 0 };
   const cleanups = vi.fn();
   const destroy = vi.fn(async () => {});
   const doc = {
@@ -45,13 +47,29 @@ function fakePdf(pages: number) {
       getViewport: ({ scale }: { scale: number }) => ({ width: 612 * scale, height: 792 * scale, scale }),
       render: ({ canvas, transform }: { canvas: HTMLCanvasElement; transform?: number[] }) => {
         drawn.push({ page: n, width: canvas.width, height: canvas.height, transform });
-        return { promise: Promise.resolve(), cancel: vi.fn() };
+        if (!slow) return { promise: Promise.resolve(), cancel: vi.fn() };
+        busy.now += 1;
+        busy.most = Math.max(busy.most, busy.now);
+        let cancelled = false;
+        const promise = new Promise<void>((resolve, reject) =>
+          setTimeout(() => {
+            busy.now -= 1;
+            if (cancelled) reject(Object.assign(new Error("cancelled"), { name: "RenderingCancelledException" }));
+            else resolve();
+          }, 20),
+        );
+        return {
+          promise,
+          cancel: () => {
+            cancelled = true;
+          },
+        };
       },
       cleanup: cleanups,
     })),
   };
   pdf.open.mockImplementation(async () => ({ promise: Promise.resolve(doc), destroy }));
-  return { drawn, destroy, cleanups, doc };
+  return { drawn, destroy, cleanups, doc, busy };
 }
 
 const QUIET = "On this device. Nothing has left it.";
@@ -146,6 +164,28 @@ describe("PDF preview", () => {
     fireEvent.click(within(sheet).getByRole("button", { name: "Close" }));
     await waitFor(() => expect(destroy).toHaveBeenCalledTimes(1));
     expect(heldCount()).toBe(0);
+  });
+
+  it("draws one page at a time when Next is tapped quickly, and ends on the last page asked for", async () => {
+    const { drawn, busy } = fakePdf(5, { slow: true });
+    gather();
+    fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
+    expect(await screen.findByText(/190 transactions read/)).toBeTruthy();
+    openAddMore();
+    fireEvent.click(screen.getByRole("button", { name: "Preview sample-statement-fictional.pdf" }));
+    const sheet = await screen.findByRole("dialog");
+    const next = await within(sheet).findByRole("button", { name: "Next page" });
+    // Each tap lands while the page before is still being drawn.
+    for (let i = 0; i < 3; i++) {
+      await waitFor(() => expect(busy.now).toBe(1));
+      fireEvent.click(next);
+      await waitFor(() => expect(drawn).toHaveLength(i + 2));
+    }
+    expect(within(sheet).getByText("Page 4 of 5")).toBeTruthy();
+    await waitFor(() => expect(drawn.at(-1)?.page).toBe(4));
+    await waitFor(() => expect(busy.now).toBe(0));
+    expect(busy.most).toBe(1);
+    expect(within(sheet).queryByText("Tend could not show a preview of this file.")).toBeNull();
   });
 
   it("shows a one-page bill without page buttons, named for the bill", async () => {
