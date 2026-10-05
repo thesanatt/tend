@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import TourNote from "@/components/tour/TourNote";
 import { useI18n } from "@/lib/i18n";
 import { hasProgress, useFlow } from "./FlowProvider";
 import { openProblem } from "./problems";
@@ -206,6 +207,7 @@ export default function FlowFrame({ children }: { children: ReactNode }) {
   return (
     <div className="page">
       <Steps />
+      <TourNote />
       {vault.status === "checking" ? (
         <p className="meta" style={{ paddingBlock: "var(--space-7)" }}>
           {t.common.loading}
