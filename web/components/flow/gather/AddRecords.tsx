@@ -8,6 +8,7 @@ import { offline } from "@/lib/netlog";
 import { offered } from "../claim";
 import CloudConsent, { type CloudAsk } from "../CloudConsent";
 import { useFlow } from "../FlowProvider";
+import DocPreview, { type PreviewTarget } from "../preview/DocPreview";
 import { sampleBillFile, sampleStatementFile } from "../samples";
 import { recordOf, type FlowState } from "../state";
 import styles from "../flow.module.css";
@@ -113,6 +114,19 @@ function FilePick({
   );
 }
 
+// Opens a record's preview; shown only while its file or rows are still in memory this session.
+function PreviewButton({ target, onOpen }: { target: PreviewTarget; onOpen: (target: PreviewTarget) => void }) {
+  const { t } = useI18n();
+  const { previewDoc } = useFlow();
+  if (!previewDoc(target.id)) return null;
+  return (
+    <button type="button" className={`link-button ${styles.previewButton}`} onClick={() => onOpen(target)}>
+      {t.preview.open}
+      <span className="visually-hidden"> {target.name}</span>
+    </button>
+  );
+}
+
 export default function AddRecords() {
   const { t, f } = useI18n();
   const { state, services, today, readStatement, connectBank, readBill, canReread, cloudSort, refining } = useFlow();
@@ -122,6 +136,7 @@ export default function AddRecords() {
   // Cloud AI: which record the consent screen is about, and what happened after a yes.
   const [ask, setAsk] = useState<{ source: string; ask: CloudAsk } | null>(null);
   const [cloudNote, setCloudNote] = useState<string | null>(null);
+  const [previewing, setPreviewing] = useState<PreviewTarget | null>(null);
   const bankUsed = state.sources.some((s) => s.kind === "bank");
   const hasStatement = state.sources.some((s) => s.kind === "statement");
 
@@ -278,6 +293,10 @@ export default function AddRecords() {
                   ? t.gather.bankRead(s.read, s.found)
                   : t.gather.statementRead(s.label, s.read, s.found)}
                 {s.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}
+                <PreviewButton
+                  target={{ id: s.id, name: s.kind === "bank" ? t.preview.bankTitle(s.label) : s.label, kind: s.kind }}
+                  onOpen={setPreviewing}
+                />
                 {skippedRows(s.warnings) ? (
                   <span className="meta"> {t.gather.warnings(skippedRows(s.warnings))}</span>
                 ) : null}
@@ -314,10 +333,12 @@ export default function AddRecords() {
                 : t.gather.billUnreliable(b.label)}
               {b.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}{" "}
               <Link href="/gather/bills">{t.gather.seeBill}</Link>
+              <PreviewButton target={{ id: b.id, name: b.label, kind: "bill" }} onOpen={setPreviewing} />
             </li>
           ))}
         </ul>
       ) : null}
+      <DocPreview target={previewing} onClose={() => setPreviewing(null)} />
     </section>
   );
 }

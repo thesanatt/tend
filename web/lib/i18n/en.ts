@@ -505,6 +505,30 @@ export const en = {
     notCounted: "Not counted",
   },
 
+  preview: {
+    open: "Preview",
+    stays: "This preview stays on your device.",
+    opening: "Opening on this device",
+    failed: "Tend could not show a preview of this file.",
+    bankTitle: (label: string) => `Demo bank (${label})`,
+    page: (n: number, total: number) => `Page ${n} of ${total}`,
+    pageLabel: (n: number, total: number, kind: "statement" | "bill") =>
+      `Page ${n} of ${total} of the ${kind === "bill" ? "bill" : "statement"}`,
+    pages: "Pages",
+    previous: "Previous page",
+    next: "Next page",
+    rowCount: (name: string, n: number) => `${name}: ${plural(n, "row", "rows")}.`,
+    showing: (shown: number, total: number) =>
+      shown < total ? `Showing ${shown} of ${total} rows` : total === 1 ? "Showing 1 row" : `Showing all ${total} rows`,
+    noRows: "Tend found no rows in this file.",
+    caption: (name: string) => `The first rows of ${name}`,
+    tableLabel: "Rows from the file. Scroll sideways to see every column.",
+    dateCol: "Date",
+    descriptionCol: "Description",
+    amountCol: "Amount",
+    imageAlt: (name: string) => `The photo you added: ${name}`,
+  },
+
   bills: {
     back: "Back to your costs",
     title: "Your bills",

@@ -54,6 +54,13 @@ export interface ClaimView {
 }
 
 export type VaultStatus = "checking" | "none" | "locked" | "open";
+
+// What a record's preview shows: the file the survivor chose (or a sample), and the rows Tend read
+// from it. In memory only, for this session.
+export interface PreviewSource {
+  file?: File;
+  rows?: StatementTxn[];
+}
 export type VaultMethods = { passphrase: boolean; passkey: boolean };
 
 interface VaultView {
@@ -86,6 +93,10 @@ interface Flow {
   // After the survivor's yes: read an unreliable bill again with cloud AI.
   cloudReadBill(billId: string): Promise<BillRecord | null>;
   preview(billId: string): string | null;
+  // A record's file and rows for its preview, while they are still in memory.
+  previewDoc(id: string): PreviewSource | null;
+  // Exit this page: revoke the object URLs and drop the files and rows held in memory.
+  releaseFiles(): void;
   allowServer(): void;
   logSent(event: Omit<SentEvent, "at"> & { at?: string }): void;
   save(opts: { passkey?: boolean; passphrase?: string }): Promise<void>;
@@ -149,6 +160,8 @@ export function FlowProvider({
   // The files read this session, in memory only, so the survivor can say yes to cloud AI for one of
   // them without choosing it again. Never stored; cleared with everything else on lock and exit.
   const files = useRef(new Map<string, File>());
+  // Each record's file and rows for its preview; never stored, cleared with the files.
+  const docs = useRef(new Map<string, PreviewSource>());
   // How to read a record's rows again (the parsed rows stay in memory only, like the files).
   const rereads = useRef(new Map<string, (opts: SortOptions) => Promise<FlowItem[]>>());
   const [refining, setRefining] = useState<string[]>([]);
@@ -256,6 +269,7 @@ export function FlowProvider({
       }
       previews.current.clear();
       files.current.clear();
+      docs.current.clear();
       rereads.current.clear();
       dispatch({ type: "reset", lang: stateRef.current.lang });
       setIdleLocked(idle);
@@ -451,6 +465,7 @@ export function FlowProvider({
         const items = await statementCosts(txns, sha, fast ? { deviceAi: false } : undefined);
         const id = `stmt:${sha}`;
         rereads.current.set(id, (opts) => statementCosts(txns, sha, opts));
+        docs.current.set(id, { file, rows: txns });
         const { fresh, already } = newCosts(stateRef.current.items, items);
         const source: SourceRecord = {
           id,
@@ -472,6 +487,7 @@ export function FlowProvider({
         const { fast } = await firstPass();
         const items = await bankCosts(txns, billIds, fast ? { deviceAi: false } : undefined);
         rereads.current.set("bank", (opts) => bankCosts(txns, billIds, opts));
+        docs.current.set("bank", { rows: txns });
         const { fresh, already } = newCosts(stateRef.current.items, items);
         const source: SourceRecord = {
           id: "bank",
@@ -495,6 +511,7 @@ export function FlowProvider({
         if (existing) return existing;
         const { bill, items } = await billFrom(file, sha, sample, false);
         files.current.set(id, file);
+        docs.current.set(id, { file });
         if (typeof URL.createObjectURL === "function") previews.current.set(id, URL.createObjectURL(file));
         dispatch({ type: "addBill", bill, items });
         return bill;
@@ -521,6 +538,18 @@ export function FlowProvider({
       },
 
       preview: (billId) => previews.current.get(billId) ?? null,
+
+      previewDoc: (id) => docs.current.get(id) ?? null,
+
+      releaseFiles() {
+        if (typeof URL.revokeObjectURL === "function") {
+          for (const url of previews.current.values()) URL.revokeObjectURL(url);
+        }
+        previews.current.clear();
+        files.current.clear();
+        docs.current.clear();
+        rereads.current.clear();
+      },
 
       allowServer() {
         dispatch({ type: "serverConsent" });
@@ -554,6 +583,7 @@ export function FlowProvider({
       async forget() {
         await services.vault.destroy();
         files.current.clear();
+        docs.current.clear();
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
         setIdleLocked(false);
@@ -563,6 +593,7 @@ export function FlowProvider({
       endSession() {
         if (services.vault.isUnlocked()) services.vault.lock();
         files.current.clear();
+        docs.current.clear();
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
         setVaultStatus((v) => (v === "open" ? "locked" : v));

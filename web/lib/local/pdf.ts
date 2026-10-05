@@ -59,6 +59,14 @@ export async function openPdf(bytes: Uint8Array) {
   return lib.getDocument({ data: bytes.slice(), disableFontFace: true, useSystemFonts: false, verbosity: 0 }).promise;
 }
 
+// For showing pages rather than reading them. Fonts the file does not carry are drawn with the
+// device's own; pdf.js is given no URL for font, color, or image data, so it fetches nothing. Returns
+// the loading task, so a preview closed before the file opens can still destroy it.
+export async function openPdfView(bytes: Uint8Array) {
+  const lib = await pdfjs();
+  return lib.getDocument({ data: bytes.slice(), useSystemFonts: true, verbosity: 0 });
+}
+
 export async function pdfLines(bytes: Uint8Array, maxPages = 20): Promise<{ lines: PdfLine[]; pages: number }> {
   const doc = await openPdf(bytes);
   const lines: PdfLine[] = [];

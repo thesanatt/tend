@@ -491,6 +491,34 @@ export const es: Dict = {
     notCounted: "No se incluye",
   },
 
+  preview: {
+    open: "Vista previa",
+    stays: "Esta vista previa se queda en tu dispositivo.",
+    opening: "Abriendo en este dispositivo",
+    failed: "Tend no pudo mostrar una vista previa de este archivo.",
+    bankTitle: (label: string) => `Banco de demostración (${label})`,
+    page: (n: number, total: number) => `Página ${n} de ${total}`,
+    pageLabel: (n: number, total: number, kind: "statement" | "bill") =>
+      `Página ${n} de ${total} ${kind === "bill" ? "de la factura" : "del estado de cuenta"}`,
+    pages: "Páginas",
+    previous: "Página anterior",
+    next: "Página siguiente",
+    rowCount: (name: string, n: number) => `${name}: ${plural(n, "fila", "filas")}.`,
+    showing: (shown: number, total: number) =>
+      shown < total
+        ? `Mostrando ${shown} de ${total} filas`
+        : total === 1
+          ? "Mostrando 1 fila"
+          : `Mostrando las ${total} filas`,
+    noRows: "Tend no encontró filas en este archivo.",
+    caption: (name: string) => `Las primeras filas de ${name}`,
+    tableLabel: "Filas del archivo. Desliza hacia el lado para ver todas las columnas.",
+    dateCol: "Fecha",
+    descriptionCol: "Descripción",
+    amountCol: "Monto",
+    imageAlt: (name: string) => `La foto que agregaste: ${name}`,
+  },
+
   bills: {
     back: "Volver a tus gastos",
     title: "Tus facturas",
