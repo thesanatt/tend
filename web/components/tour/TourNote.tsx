@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
-import { boldParts, exitTour, startTourFromUrl, TOUR_NOTES, TOUR_STEPS, tourStep, useTourMode } from "./tour";
+import { boldParts, TOUR_NOTES, TOUR_STEPS, tourStep } from "./tour";
+import { exitTour, startTourFromUrl, useTourMode } from "./useTour";
 import styles from "./tour.module.css";
 
 function Text({ text }: { text: string }) {

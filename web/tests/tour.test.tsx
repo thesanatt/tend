@@ -7,7 +7,6 @@ import { leaveNow, navigation } from "@/components/QuickExit";
 import TourNote from "@/components/tour/TourNote";
 import {
   boldParts,
-  exitTour,
   TOUR_NOTES,
   TOUR_START,
   TOUR_STEPS,
@@ -16,6 +15,7 @@ import {
   tourStep,
   type TourStep,
 } from "@/components/tour/tour";
+import { exitTour } from "@/components/tour/useTour";
 import { TOUR_KEY } from "@/lib/keys";
 import { MI_CHECK, renderFlow, stateFrom, stubLawFetch } from "./helpers/flow";
 
