@@ -82,6 +82,14 @@ const nextConfig: NextConfig = {
       },
       // A service worker must update as soon as a new one ships.
       { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache" }] },
+      {
+        // Fictional sample documents opened in the browser's own PDF viewer, which needs to embed the file.
+        source: "/samples/:file*",
+        headers: [
+          { key: "Content-Security-Policy", value: "default-src 'self'; object-src 'self'; script-src 'none'; frame-ancestors 'none'" },
+          { key: "Cache-Control", value: revalidate },
+        ],
+      },
     ];
   },
 };

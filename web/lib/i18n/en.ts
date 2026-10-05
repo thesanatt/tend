@@ -424,6 +424,7 @@ export const en = {
     statementBody: "A CSV, OFX, or PDF file from your bank's website. Tend reads it on this device.",
     statementButton: "Upload a statement",
     statementSample: "Use a sample statement",
+    statementSee: "See the sample statement (PDF)",
     bankTitle: "Demo bank",
     bankBody:
       "Rowan's fictional checking account at Capital One's Nessie mock bank. Payments you confirm go to Nessie. No real money moves.",
@@ -433,6 +434,7 @@ export const en = {
     billBody: "A photo or PDF of an itemized bill. Tend reads the lines on this device. They must add up to the total.",
     billButton: "Add a bill",
     billSample: "Use a sample bill",
+    billSee: "See the sample bill (PDF)",
     samplesNote: "Samples belong to Rowan, a fictional person. Try them to see how Tend works.",
     reading: "Reading",
     readingLong: "Reading on this device",

@@ -206,6 +206,9 @@ export default function AddRecords() {
             >
               {t.gather.statementSample}
             </button>
+            <a className="link-button" href="/samples/rowan-statement-FICTIONAL.pdf" target="_blank" rel="noreferrer">
+              {t.gather.statementSee}
+            </a>
           </div>
         </li>
 
@@ -247,6 +250,9 @@ export default function AddRecords() {
             >
               {t.gather.billSample}
             </button>
+            <a className="link-button" href="/samples/riverbend-bill-FICTIONAL.pdf" target="_blank" rel="noreferrer">
+              {t.gather.billSee}
+            </a>
           </div>
         </li>
       </ol>

@@ -404,6 +404,7 @@ export const es: Dict = {
     statementBody: "Un archivo CSV, OFX o PDF del sitio web de tu banco. Tend lo lee en este dispositivo.",
     statementButton: "Subir un estado de cuenta",
     statementSample: "Usar un estado de cuenta de muestra",
+    statementSee: "Ver el estado de cuenta de muestra (PDF)",
     bankTitle: "Banco de demostración",
     bankBody:
       "La cuenta de cheques ficticia de Rowan en Nessie, el banco de prueba de Capital One. Los pagos que confirmes van a Nessie. No se mueve dinero real.",
@@ -414,6 +415,7 @@ export const es: Dict = {
       "Una foto o un PDF de una factura detallada. Tend lee las líneas en este dispositivo. Deben sumar el total.",
     billButton: "Agregar una factura",
     billSample: "Usar una factura de muestra",
+    billSee: "Ver la factura de muestra (PDF)",
     samplesNote: "Las muestras son de Rowan, una persona ficticia. Pruébalas para ver cómo funciona Tend.",
     reading: "Leyendo",
     readingLong: "Leyendo en este dispositivo",
