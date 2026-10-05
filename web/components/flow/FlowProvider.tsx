@@ -54,6 +54,7 @@ export interface ClaimView {
 }
 
 export type VaultStatus = "checking" | "none" | "locked" | "open";
+export type VaultMethods = { passphrase: boolean; passkey: boolean };
 
 // What a record's preview shows: the file the survivor chose (or a sample), and the rows Tend read
 // from it. In memory only, for this session.
@@ -61,7 +62,6 @@ export interface PreviewSource {
   file?: File;
   rows?: StatementTxn[];
 }
-export type VaultMethods = { passphrase: boolean; passkey: boolean };
 
 interface VaultView {
   status: VaultStatus;
