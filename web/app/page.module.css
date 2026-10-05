@@ -5,6 +5,43 @@
   padding-top: var(--space-7);
 }
 
+/* The visitor intro: one calm panel above everything else. */
+.visitor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4) var(--space-7);
+  padding: var(--space-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-2);
+}
+
+.visitorText {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 44rem;
+}
+
+.visitorText p {
+  margin: 0;
+}
+
+.visitorWhat {
+  font-size: var(--text-lg);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.visitorProof {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.visitorActions {
+  justify-content: flex-end;
+}
+
 .intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -33,6 +70,16 @@
 .forYouBody {
   display: grid;
   gap: var(--space-5);
+}
+
+@media (max-width: 900px) {
+  .visitor {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visitorActions {
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 760px) {
