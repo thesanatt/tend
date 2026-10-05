@@ -230,6 +230,17 @@
     left: 50%;
     transform: translateX(-50%) rotate(135deg);
   }
+
+  /* Stacked, the build steps read as a numbered list instead of a row of chevrons. */
+  .buildSteps {
+    flex-direction: column;
+    list-style: decimal;
+    padding-left: var(--space-5);
+  }
+
+  .buildSteps li:not(:last-child)::after {
+    content: none;
+  }
 }
 
 @media (max-width: 520px) {
