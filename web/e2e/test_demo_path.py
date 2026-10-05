@@ -75,10 +75,10 @@ def gather(page: Page, test: str, bank: bool = True) -> None:
     with step(test, "Gather: open"):
         page.get_by_role("link", name="Find my costs").click()
         expect(page.get_by_role("heading", name="Gather your costs", level=1)).to_be_visible()
-    with step(test, "Gather: sample statement (CSV, on device)"):
+    with step(test, "Gather: sample statement (PDF, on device)"):
         page.get_by_role("button", name="Use a sample statement").click()
         open_add_more(page)
-        expect(records_read(page)).to_contain_text("sample-statement-fictional.csv: 190 transactions read")
+        expect(records_read(page)).to_contain_text("sample-statement-fictional.pdf: 190 transactions read")
     with step(test, "Gather: Riverbend bill (PDF, on device)"):
         open_add_more(page)
         page.get_by_role("button", name="Use a sample bill").click()

@@ -55,7 +55,7 @@ describe("Gather", () => {
     renderFlow(<GatherScreen />, { initial: stateFrom([MI_CHECK]) });
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
     expect(await screen.findByText("What Tend found")).toBeTruthy();
-    expect(screen.getByText(/sample-statement-fictional\.csv: 190 transactions read/)).toBeTruthy();
+    expect(screen.getByText(/sample-statement-fictional\.pdf: 190 transactions read/)).toBeTruthy();
     await settled();
     const groups = screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     expect(groups).toEqual(expect.arrayContaining(["Counseling", "Getting there", "Home", "Work", "Not covered"]));

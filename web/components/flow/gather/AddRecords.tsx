@@ -170,8 +170,9 @@ export default function AddRecords() {
     }
   }
 
-  const statement = (file: File, sample = false) =>
+  const statement = (pick: File | (() => Promise<File>), sample = false) =>
     run("statement", async () => {
+      const file = typeof pick === "function" ? await pick() : pick;
       const source = await readStatement(file, sample);
       if (!source.read) setError(t.gather.unsupported);
     });
@@ -202,7 +203,7 @@ export default function AddRecords() {
               type="button"
               className="link-button"
               disabled={busy !== null || hasStatement}
-              onClick={() => statement(sampleStatementFile(), true)}
+              onClick={() => statement(sampleStatementFile, true)}
             >
               {t.gather.statementSample}
             </button>

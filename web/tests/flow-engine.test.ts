@@ -20,8 +20,8 @@ const image = path.join(web, "public/engine/laws/MI.tlaw");
 const haveEngine = existsSync(image) && existsSync(path.join(web, "public/engine/tend_engine.mjs"));
 
 describe("sample files", () => {
-  it("the sample statement is a plain bank export of Rowan's fictional account", async () => {
-    const { txns, warnings } = await mockStatementParser.parse(sampleStatementFile());
+  it("the sample statement is a bank-style PDF of Rowan's fictional account", async () => {
+    const { txns, warnings } = await mockStatementParser.parse(await sampleStatementFile());
     expect(warnings).toEqual([]);
     expect(txns).toHaveLength(190);
     expect(txns.every((t) => Number.isSafeInteger(t.amount_cents))).toBe(true);
@@ -51,7 +51,7 @@ describe("sample files", () => {
 });
 
 async function flowInput(): Promise<EngineInput> {
-  const { txns } = await mockStatementParser.parse(sampleStatementFile());
+  const { txns } = await mockStatementParser.parse(await sampleStatementFile());
   const classified = await mockClassifier.classify(txns, { st: "MI", incident_date: "2026-06-14" });
   const items: FlowItem[] = classified.map((c) => ({ ...c, item_id: `stmt:x:${c.item_id}`, origin: "statement" }));
   let s = reducer(initialState(), {

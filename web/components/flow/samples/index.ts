@@ -9,11 +9,10 @@ import {
   SAMPLE_BILL_BASE64,
   SAMPLE_BILL_NAME,
 } from "./rowan";
+import { OUT_KINDS as OUT, sampleStatementPdf } from "./statement-pdf";
 
-export const SAMPLE_STATEMENT_NAME = "sample-statement-fictional.csv";
-export { ROWAN_ACCOUNT, SAMPLE_BILL_NAME };
-
-const OUT = new Set(["purchase", "withdrawal", "transfer", "bill"]);
+export const SAMPLE_STATEMENT_NAME = "sample-statement-fictional.pdf";
+export { ROWAN_ACCOUNT, SAMPLE_BILL_NAME, sampleStatementPdf };
 
 function usDate(iso: string): string {
   const [y, m, d] = iso.split("-");
@@ -28,7 +27,8 @@ function dollars(cents: number): string {
 
 const csvCell = (s: string) => (/[",]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
 
-// A plain bank export: money out is negative, as most banks write it.
+// The same account as a plain bank export: money out is negative, as most banks write it. Tests read
+// it next to the PDF to check that both give the same transactions.
 export function sampleStatementCsv(): string {
   let balance = ROWAN_OPENING_CENTS;
   const lines = ["Date,Description,Amount,Balance"];
@@ -41,8 +41,9 @@ export function sampleStatementCsv(): string {
   return lines.join("\n") + "\n";
 }
 
-export function sampleStatementFile(): File {
-  return new File([sampleStatementCsv()], SAMPLE_STATEMENT_NAME, { type: "text/csv" });
+// The sample statement the survivor sees: a bank-style PDF, read by the same on-device reader as theirs.
+export async function sampleStatementFile(): Promise<File> {
+  return new File([(await sampleStatementPdf()) as BlobPart], SAMPLE_STATEMENT_NAME, { type: "application/pdf" });
 }
 
 function base64Bytes(b64: string): Uint8Array {
