@@ -136,13 +136,12 @@ export default function PdfPreview({ file, kind }: { file: File; kind: "statemen
           {t.preview.opening}
         </p>
       )}
-      <div ref={box} className={styles.pageBox}>
+      <div ref={box} className={styles.pageBox} hidden={!doc}>
         <canvas
           ref={canvas}
           className={styles.page}
           role="img"
           aria-label={doc ? t.preview.pageLabel(page, pages, kind) : undefined}
-          hidden={!doc}
         />
       </div>
     </div>

@@ -507,6 +507,7 @@ export const en = {
 
   preview: {
     open: "Preview",
+    openNamed: (name: string) => `Preview ${name}`,
     stays: "This preview stays on your device.",
     opening: "Opening on this device",
     failed: "Tend could not show a preview of this file.",

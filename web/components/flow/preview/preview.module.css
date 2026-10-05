@@ -58,17 +58,19 @@
   }
 }
 
+/* The frame is on the box, so the canvas's width is exactly the width it was drawn for. */
 .pageBox {
   min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-1);
 }
 
-/* Fills the sheet's width; the backing store carries the device pixels (PdfPreview.tsx). */
+/* Fills the box; the backing store carries the device pixels (PdfPreview.tsx). */
 .page {
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-1);
 }
 
 .table {

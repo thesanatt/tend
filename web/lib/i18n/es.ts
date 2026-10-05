@@ -493,6 +493,7 @@ export const es: Dict = {
 
   preview: {
     open: "Vista previa",
+    openNamed: (name: string) => `Vista previa de ${name}`,
     stays: "Esta vista previa se queda en tu dispositivo.",
     opening: "Abriendo en este dispositivo",
     failed: "Tend no pudo mostrar una vista previa de este archivo.",

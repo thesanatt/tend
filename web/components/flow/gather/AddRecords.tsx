@@ -120,9 +120,14 @@ function PreviewButton({ target, onOpen }: { target: PreviewTarget; onOpen: (tar
   const { previewDoc } = useFlow();
   if (!previewDoc(target.id)) return null;
   return (
-    <button type="button" className={`link-button ${styles.previewButton}`} onClick={() => onOpen(target)}>
+    // The name starts with the visible word, so voice control finds it by what it says.
+    <button
+      type="button"
+      className={`link-button ${styles.previewButton}`}
+      aria-label={t.preview.openNamed(target.name)}
+      onClick={() => onOpen(target)}
+    >
       {t.preview.open}
-      <span className="visually-hidden"> {target.name}</span>
     </button>
   );
 }
