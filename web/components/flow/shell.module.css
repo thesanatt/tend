@@ -262,7 +262,8 @@
     gap: 0 var(--space-4);
   }
 
+  /* Keep the language switch on the left of the second row, clear of the fixed Exit this page button. */
   .lang {
-    margin-left: auto;
+    margin-left: 0;
   }
 }
