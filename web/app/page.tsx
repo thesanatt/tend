@@ -2,6 +2,7 @@ import Link from "next/link";
 import { allStates, loadCorpus } from "@/components/public/data";
 import LawGarden from "@/components/public/LawGarden";
 import StateFinder from "@/components/public/StateFinder";
+import { TOUR_START } from "@/components/tour/tour";
 import styles from "./page.module.css";
 
 // Counts come from public/data/jurisdictions.json when the site is built (scripts/sync-rules.mjs).
@@ -10,6 +11,28 @@ export default function Home() {
   const all = corpus.verified === corpus.programs;
   return (
     <div className={`page ${styles.home}`}>
+      {/* For visitors who have never heard of crime victim compensation: what this is, in two minutes. */}
+      <section className={styles.visitor} aria-label="About Tend">
+        <div className={styles.visitorText}>
+          <p className={styles.visitorWhat}>
+            Tend helps sexual assault survivors claim the crime victim compensation their state already owes them,
+            without giving up their name.
+          </p>
+          <p className={styles.visitorProof}>
+            Built solo in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
+          </p>
+          <p className="meta">All people and money in the demo are fictional.</p>
+        </div>
+        <div className={`btn-row ${styles.visitorActions}`}>
+          <Link href={TOUR_START} className="btn btn-primary">
+            Take the 2-minute tour
+          </Link>
+          <Link href="/how-it-works" className="btn btn-secondary">
+            How it works
+          </Link>
+        </div>
+      </section>
+
       <section className={styles.intro}>
         <h1>Every state has money set aside to pay survivors back.</h1>
         <p className="lead">
