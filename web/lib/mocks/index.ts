@@ -78,6 +78,14 @@ function cents(text: string): number | null {
 export const mockStatementParser: StatementParser = {
   async parse(file) {
     const name = (file as File).name ?? "statement";
+    // A PDF statement (the sample is one) goes through the real on-device reader: a line parser is
+    // not something a thin mock can stand in for.
+    const start = await fileBytes(file.slice(0, 1024));
+    if (new TextDecoder("latin1").decode(start).includes("%PDF-")) {
+      const { parseStatementBytes } = await import("../local/statement");
+      const { txns, warnings } = await parseStatementBytes(await fileBytes(file));
+      return { txns, warnings };
+    }
     if (!/\.csv$/i.test(name) && !/^date,/i.test((await fileText(file)).slice(0, 5))) {
       return { txns: [], warnings: [`unsupported:${name}`] };
     }

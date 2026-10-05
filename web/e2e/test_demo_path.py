@@ -71,14 +71,47 @@ def check(page: Page, test: str) -> None:
     expect(page.get_by_text("Law math: on this device (WebAssembly)")).to_be_visible()
 
 
+# Dark pixels on the preview's canvas, so a page that drew nothing (a font that never loaded) fails.
+INKED = """c => {
+  const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+  let n = 0;
+  for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 0 && d[i] < 128) n++;
+  return n;
+}"""
+
+
+def preview_statement(page: Page, test: str) -> None:
+    """The statement's own pages, drawn on the device: nothing is sent and the privacy line stays put."""
+    with step(test, "Gather: preview the statement (on device)"):
+        open_add_more(page)
+        page.get_by_role("button", name="Preview sample-statement-fictional.pdf").click()
+        sheet = page.get_by_role("dialog")
+        expect(sheet.get_by_role("heading", name="sample-statement-fictional.pdf")).to_be_visible()
+        expect(sheet.get_by_text("Page 1 of 5")).to_be_visible()
+        canvas = sheet.get_by_role("img", name="Page 1 of 5 of the statement")
+        expect(canvas).to_be_visible()
+        page.wait_for_function(f"() => ({INKED})(document.querySelector('dialog[open] canvas')) > 1000")
+    expect(sheet.get_by_text("This preview stays on your device.")).to_be_visible()
+    # Crisp text: the canvas carries the device's pixels across the sheet's width.
+    size = canvas.evaluate("c => [c.width, c.clientWidth, devicePixelRatio]")
+    assert abs(size[0] - size[1] * size[2]) <= size[2] * 2, size
+    sheet.get_by_role("button", name="Next page").click()
+    expect(sheet.get_by_text("Page 2 of 5")).to_be_visible()
+    expect(sheet.get_by_role("img", name="Page 2 of 5 of the statement")).to_be_visible()
+    expect(privacy_line(page)).to_have_text(QUIET)
+    sheet.get_by_role("button", name="Close").click()
+    expect(page.get_by_role("dialog")).to_have_count(0)
+
+
 def gather(page: Page, test: str, bank: bool = True) -> None:
     with step(test, "Gather: open"):
         page.get_by_role("link", name="Find my costs").click()
         expect(page.get_by_role("heading", name="Gather your costs", level=1)).to_be_visible()
-    with step(test, "Gather: sample statement (CSV, on device)"):
+    with step(test, "Gather: sample statement (PDF, on device)"):
         page.get_by_role("button", name="Use a sample statement").click()
         open_add_more(page)
-        expect(records_read(page)).to_contain_text("sample-statement-fictional.csv: 190 transactions read")
+        expect(records_read(page)).to_contain_text("sample-statement-fictional.pdf: 190 transactions read")
+    preview_statement(page, test)
     with step(test, "Gather: Riverbend bill (PDF, on device)"):
         open_add_more(page)
         page.get_by_role("button", name="Use a sample bill").click()

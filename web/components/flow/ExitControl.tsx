@@ -4,10 +4,12 @@ import { useEffect, useRef } from "react";
 import { DOUBLE_PRESS_MS, leaveNow, onPageShow } from "@/components/QuickExit";
 import { useI18n } from "@/lib/i18n";
 import { useOptionalFlow } from "./FlowProvider";
+import { releasePreviews } from "./preview/release";
 import styles from "./shell.module.css";
 
 // Exit this page: the corner button, Esc twice, and a copy inside every sheet. It locks the vault,
-// closes any on-device AI session, blanks the screen, clears the tab, and replaces the history entry
+// closes any on-device AI session, releases open previews and the files held in memory, blanks the
+// screen, clears the tab, and replaces the history entry
 // (components/QuickExit.tsx).
 export function ExitControl({ inline = false }: { inline?: boolean }) {
   const { t } = useI18n();
@@ -17,6 +19,8 @@ export function ExitControl({ inline = false }: { inline?: boolean }) {
     try {
       flow?.services.vault.lock();
       flow?.services.releaseDeviceAi?.();
+      releasePreviews();
+      flow?.releaseFiles();
     } finally {
       leaveNow();
     }

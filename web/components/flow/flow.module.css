@@ -591,6 +591,14 @@
   display: block;
 }
 
+/* Preview, after a record in the list: a full tap target without breaking the line's flow. */
+.previewButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-left: var(--space-3);
+}
+
 .addMore {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);

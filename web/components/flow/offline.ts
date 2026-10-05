@@ -3,8 +3,9 @@
 // Gets the survivor flow ready to run with the network off. In a production build it registers
 // public/sw.js, which saves the flow's pages, the law engine, and every state's law (public files
 // only). Then it tells the worker which files this page loaded before the worker was in charge, and
-// loads the PDF reader once, so a statement or a bill can still be read offline. When all of that is
-// saved, <html data-offline="ready"> says so (the end-to-end tests wait for it).
+// loads the PDF reader and writer once, so a statement or a bill (or the sample statement) can still
+// be read offline. When all of that is saved, <html data-offline="ready"> says so (the end-to-end
+// tests wait for it).
 import { useEffect, useRef, useSyncExternalStore } from "react";
 
 // Whether this device has what it needs to run the flow offline, and whether it is offline now.
@@ -65,8 +66,10 @@ async function prepare(signal: { cancelled: boolean }, router: () => RouterLike 
   } catch {
     // A step that cannot be fetched now loads the usual way later.
   }
-  // Load the PDF reader now, through the worker, so it is saved for later.
+  // Load the PDF reader now, through the worker, so it is saved for later; and pdf-lib, which builds
+  // the sample statement (and fills the packet), so "Use a sample statement" works offline too.
   await import("@/lib/local/pdf").then((m) => m.pdfjs()).catch(() => undefined);
+  await import("pdf-lib").catch(() => undefined);
   // Files only: scripts, styles, fonts, the engine, the law. A step's page data (?_rsc=) is not
   // here, because fetched again without Next's headers it would come back as a web page.
   const urls = performance
