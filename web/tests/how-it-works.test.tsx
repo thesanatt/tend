@@ -271,3 +271,11 @@ describe("Design for safety on /how-it-works", () => {
     expect(document.body.textContent).toContain("The program decides.");
   });
 });
+
+// The retired chat agents are gone from the repo, so the page must not send a reader looking for them.
+describe("the retired agents", () => {
+  it("are not named or linked anywhere on the page", () => {
+    expect(document.body.textContent).not.toMatch(/Fetch\.ai|ASI:One|Agentverse/i);
+    expect(document.querySelector('a[href*="asi1.ai"]')).toBeNull();
+  });
+});

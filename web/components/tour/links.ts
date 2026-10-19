@@ -8,5 +8,4 @@ export const LINKS = {
   eval: `${REPO}/blob/main/docs/EVAL.md`,
   privacy: `${REPO}/blob/main/docs/PRIVACY.md`,
   figma: "https://www.figma.com/design/kPZUqX0ptO138LzG1ah9hk",
-  agent: "https://asi1.ai/shared-chat/4212c9b9-2ac0-4094-9ce1-b8dae41a8276",
 } as const;

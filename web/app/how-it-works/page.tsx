@@ -402,9 +402,7 @@ export default function HowItWorks() {
           </div>
           <div>
             <dt>Sponsors</dt>
-            <dd>
-              Capital One Nessie (the bank), Fetch.ai (three agents on ASI:One), Neon, Google Gemini, Figma, and .tech.
-            </dd>
+            <dd>Capital One Nessie (the bank), Neon, Google Gemini, Figma, and .tech.</dd>
           </div>
         </dl>
       </section>
@@ -438,9 +436,6 @@ export default function HowItWorks() {
           </li>
           <li>
             <a href={LINKS.figma}>Figma design system</a>
-          </li>
-          <li>
-            <a href={LINKS.agent}>The ASI:One agent chat</a>, the same claim through three Fetch.ai agents
           </li>
         </ul>
         <p className={styles.small}>
