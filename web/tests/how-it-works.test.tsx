@@ -1,15 +1,18 @@
 // @vitest-environment jsdom
 // How it works, as a reporter reads it: Design for safety comes first, every protection links to a file
-// that exists in this repo, and each number in the copy is still the number in the code.
+// that exists in this repo, and each number and limit in the copy is still what the code does.
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HowItWorks from "@/app/how-it-works/page";
-import { DOUBLE_PRESS_MS, EXIT_URL } from "@/components/QuickExit";
+import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/QuickExit";
 import { LINKS } from "@/components/tour/links";
+import { fetchLaw } from "@/lib/api";
+import { LEFT_KEY, TOUR_KEY } from "@/lib/keys";
+import { classifyRequest } from "@/lib/netlog";
 import { MAX_EXPIRES_HOURS } from "@/lib/share";
-import { MIN_PASSPHRASE } from "@/lib/vault";
+import { createVault, memoryStore, MIN_PASSPHRASE } from "@/lib/vault";
 import { PBKDF2_ITERATIONS } from "@/lib/vault/crypto";
 import { DEFAULT_IDLE_MS } from "@/lib/vault/idle";
 
@@ -50,6 +53,8 @@ describe("Design for safety on /how-it-works", () => {
       .map((h) => h.textContent);
     expect(h3).toEqual([...GUARDS, "What Tend cannot stop"]);
     expect(text()).toContain("Malware on the device, or someone watching the screen.");
+    // Check asks which state it happened in, so the copy cannot say no field asks where.
+    expect(text()).toContain("Beyond the state, no field anywhere asks where it happened");
     expect(within(section).getByRole("link", { name: "docs/PRIVACY.md" }).getAttribute("href")).toBe(LINKS.privacy);
   });
 
@@ -68,10 +73,69 @@ describe("Design for safety on /how-it-works", () => {
   it("says what Exit this page does, and what it leaves behind", () => {
     expect(EXIT_URL).toBe("https://www.google.com/search?q=weather");
     expect(DOUBLE_PRESS_MS).toBe(1000);
-    const exit = guard("Exit this page").textContent!;
+    const exit = guard("Exit this page").textContent!.replace(/\s+/g, " ");
     expect(exit).toContain("swaps the page for a Google search for the weather");
     expect(exit).toContain("twice within a second");
+    expect(exit).toContain("keeping only a flag that marks the exit");
     expect(exit).toContain("Back can still reach an earlier Tend page in the same tab.");
+    expect(exit).toContain("Other tabs stay open too");
+
+    // The tab's storage is left holding the one flag and nothing else.
+    const replace = navigation.replace;
+    navigation.replace = vi.fn();
+    sessionStorage.setItem(TOUR_KEY, "1");
+    try {
+      leaveNow();
+      expect(Array.from({ length: sessionStorage.length }, (_, i) => sessionStorage.key(i))).toEqual([LEFT_KEY]);
+    } finally {
+      navigation.replace = replace;
+      sessionStorage.clear();
+      delete document.documentElement.dataset.exiting;
+    }
+  });
+
+  it("says what the privacy line counts, and what a law file can show", async () => {
+    const origin = "https://youreowed.tech";
+    const kind = (method: string, p: string) => classifyRequest(method, new URL(p, origin), origin);
+    expect(kind("GET", "/data/law/MI.json")).toBeNull();
+    expect(kind("GET", "/engine/laws/MI.tlaw")).toBeNull();
+    expect(kind("POST", "/api/claim")).toBe("server_engine");
+    expect(kind("POST", "/api/shares")).toBe("share");
+    // Each state's law is its own file, so the address asked for names the state.
+    const asked: string[] = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        asked.push(String(url));
+        return new Response("", { status: 404 });
+      }),
+    );
+    try {
+      await fetchLaw("wy");
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    expect(asked).toEqual(["/data/law/WY.json"]);
+    const device = guard("On this device").textContent!.replace(/\s+/g, " ");
+    expect(device).toContain("Loading pages and public law files does not change it.");
+    expect(device).toContain("can show which state was picked");
+  });
+
+  it("says when saved progress locks, and that switching away is not one of those times", async () => {
+    const activity = new EventTarget();
+    const exit = new EventTarget();
+    const vault = createVault({ store: memoryStore(), iterations: 1000, activity, exit });
+    await vault.create({ passphrase: "maple river 42" });
+    activity.dispatchEvent(new Event("visibilitychange"));
+    expect(vault.isUnlocked()).toBe(true);
+    exit.dispatchEvent(new Event("pagehide"));
+    expect(vault.isUnlocked()).toBe(false);
+    const idle = readFileSync(path.join(web, "lib/vault/idle.ts"), "utf8");
+    expect(idle).toContain('const EVENTS = ["pointerdown", "keydown", "touchstart", "wheel"] as const;');
+    const saved = guard("Saved progress").textContent!.replace(/\s+/g, " ");
+    expect(saved).toContain("without a tap, key press, or scroll");
+    expect(saved).toContain("Switching to another app or tab does not lock it");
+    expect(saved).toContain("can see that saved progress exists, though not what it holds");
   });
 
   it("matches the vault and share numbers in the code", () => {
@@ -81,7 +145,7 @@ describe("Design for safety on /how-it-works", () => {
     expect(MAX_EXPIRES_HOURS).toBe(7 * 24);
     const box = readFileSync(path.join(web, "components/flow/packet/ShareBox.tsx"), "utf8");
     expect(box).toContain("const HOURS = [24, 72, 168] as const;");
-    expect(text()).toContain("PBKDF2-SHA-256 600,000 times");
+    expect(text()).toContain("PBKDF2-SHA-256 with 600,000 iterations");
     expect(text()).toContain("locks after five minutes");
     expect(text()).toContain("as short as six characters");
     expect(text()).toContain("one, three, or seven days");

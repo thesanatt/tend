@@ -121,12 +121,14 @@ export default function HowItWorks() {
               <p>
                 The button sits in the top right corner of every page, with a copy inside every panel that opens.
                 Pressing <kbd>Esc</kbd> twice within a second does the same. Tend blanks the screen and locks any saved
-                progress. It clears the tab&apos;s storage and swaps the page for a Google search for the weather.
+                progress. It clears the tab&apos;s storage, keeping only a flag that marks the exit, and swaps the page
+                for a Google search for the weather.
               </p>
               <p>
                 Exit replaces only the page that was open. Back can still reach an earlier Tend page in the same tab.
-                That page opens without the person&apos;s answers, but it shows Tend was in use, and the browser&apos;s
-                history still lists the visit.
+                That page opens without the person&apos;s answers, and if the browser kept a copy in memory, the flag
+                hides that copy and reloads the page. Even so, the page shows Tend was in use, and the browser&apos;s
+                history lists the visit. Other tabs stay open too, such as a bill opened in its own tab.
               </p>
               <See files={["web/components/QuickExit.tsx", "web/components/flow/ExitControl.tsx", "docs/UX.md"]} />
             </div>
@@ -136,7 +138,8 @@ export default function HowItWorks() {
             <div className={styles.guardBody}>
               <p>
                 Check asks four things: the state, the date, whether there was a medical forensic exam, and whether it
-                has been reported to police. No field anywhere asks what happened, where, or who.
+                has been reported to police. Beyond the state, no field anywhere asks where it happened, and none asks
+                what happened or who did it.
               </p>
               <p>
                 Michigan&apos;s application is the only state form Tend fills so far. It checks only the boxes for kinds
@@ -152,18 +155,28 @@ export default function HowItWorks() {
             <div className={styles.guardBody}>
               <p>
                 The law runs in the browser as WebAssembly, and bank statements and bills are read there too. There is
-                no account and no analytics. The site&apos;s security policy blocks scripts from other sites and any
-                request the page tries to send elsewhere.
+                no account and no analytics. The site&apos;s security policy blocks scripts from other sites and stops
+                the page from sending requests to them in the background.
               </p>
               <p>
-                Nothing leaves the device until the person taps for it. Cloud AI runs only after a yes on a screen that
-                names what would be sent. So does checking the law on Tend&apos;s server, which is offered only when a
-                browser cannot run WebAssembly. A line at the top of every page starts as &quot;On this device. Nothing
-                has left it.&quot; The page builds that line from the requests it actually makes, so it changes as soon
-                as anything goes.
+                Answers, costs, and files stay on the device until the person taps to send something. Cloud AI runs only
+                after a yes on a screen that names what would be sent. So does checking the law on Tend&apos;s server,
+                which is offered only when the law engine cannot run in the browser.
+              </p>
+              <p>
+                A line at the top of every page starts as &quot;On this device. Nothing has left it.&quot; The page
+                builds that line from the requests it actually makes, and it changes when any of the person&apos;s data
+                is sent. Loading pages and public law files does not change it. Those requests still reach Tend&apos;s
+                web host, and the law file a browser asks for can show which state was picked.
               </p>
               <See
-                files={["web/lib/engine/index.ts", "web/lib/local/index.ts", "web/lib/netlog.ts", "web/next.config.ts"]}
+                files={[
+                  "web/lib/engine/index.ts",
+                  "web/lib/local/index.ts",
+                  "web/lib/api.ts",
+                  "web/lib/netlog.ts",
+                  "web/next.config.ts",
+                ]}
               />
             </div>
           </li>
@@ -174,12 +187,18 @@ export default function HowItWorks() {
                 Saving is optional. Until then, progress is held only in the page&apos;s memory and is gone when the tab
                 closes or reloads. Saved progress is encrypted with <span className={styles.term}>AES-256-GCM</span> in
                 the browser&apos;s own storage. It opens with a passkey, such as Touch ID or the phone&apos;s screen
-                lock, or with a passcode run through <span className={styles.term}>PBKDF2-SHA-256</span> 600,000 times.
+                lock, or with a passcode. A passcode is turned into a key by{" "}
+                <span className={styles.term}>PBKDF2-SHA-256</span> with 600,000 iterations.
               </p>
               <p>
-                The unlocked key is held only in memory. The vault locks after five minutes without a tap or a key
-                press, and whenever the page is left. A passcode can be as short as six characters, and Tend cannot
-                reset a forgotten one.
+                The unlocked key is held only in memory. The vault locks after five minutes without a tap, key press, or
+                scroll. Closing or reloading the tab locks it too, as does going to another site. Switching to another
+                app or tab does not lock it, though the five-minute clock keeps running.
+              </p>
+              <p>
+                A passcode can be as short as six characters, and Tend cannot reset a forgotten one. Anyone who opens
+                Check or another step in that browser later can see that saved progress exists, though not what it
+                holds.
               </p>
               <See
                 files={[
@@ -187,6 +206,7 @@ export default function HowItWorks() {
                   "web/lib/vault/index.ts",
                   "web/lib/vault/idle.ts",
                   "web/components/flow/FlowProvider.tsx",
+                  "web/components/flow/FlowFrame.tsx",
                 ]}
               />
             </div>
