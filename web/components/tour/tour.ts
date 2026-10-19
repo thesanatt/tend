@@ -22,8 +22,9 @@ export function tourStep(path: string): TourStep | null {
   return null;
 }
 
-// Each note: what is happening, why it matters, and exactly what to click next. Button names are
-// written between ** so they render in bold and match the screen word for word.
+// Each note: what is happening, why it matters, and exactly what to click next (tap, on a touch
+// screen: forPointer). Button names are written between ** so they render in bold and match the
+// screen word for word.
 export interface TourNoteCopy {
   title: string;
   what: string;
@@ -66,6 +67,11 @@ export const TOUR_NOTES: Record<TourStep, TourNoteCopy> = {
     link: { href: TOUR_SUMMARY, label: "What you just saw" },
   },
 };
+
+// The notes are written for a mouse. On a touch screen they say tap instead.
+export function forPointer(text: string, mouse: boolean): string {
+  return mouse ? text : text.replace(/\bClick\b/g, "Tap").replace(/\bclick\b/g, "tap");
+}
 
 // "Click **Find my costs**." as text and bold parts, for rendering and for tests.
 export function boldParts(text: string): { text: string; bold: boolean }[] {

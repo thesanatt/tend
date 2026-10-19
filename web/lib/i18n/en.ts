@@ -83,7 +83,11 @@ export const en = {
   },
 
   privacy: {
-    quiet: "On this device. Nothing has left it.",
+    // Vouches only for this page: a reload, or a tab the browser reopens, is a new page.
+    quiet: "On this device. Nothing has left it since this page opened.",
+    // Shown until the page has read what this tab sent before a reload, while saved progress is locked
+    // or being checked, and once this page has put a new claim on screen (FlowProvider.restarted).
+    here: "On this device.",
     sent: (parts: string) => `On this device, except what you chose to send: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),
     partShare: (n: number) => (n === 1 ? "a locked share link" : `${n} locked share links`),
@@ -108,6 +112,8 @@ export const en = {
       `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the merchant, its category, and the description. No amounts or dates.`,
     eventCloudBill: (when: string) => `${when}: a bill file, to cloud AI, because you said yes.`,
     eventOther: (path: string, when: string) => `${when}: a request to ${path}.`,
+    eventKept: (what: string, when: string) =>
+      `${when}: ${what}. After a reload, this list keeps only what was sent and when.`,
     more: "What stays here",
     sheetTitle: "What stays on this device",
     facts: [
@@ -117,7 +123,7 @@ export const en = {
       "If you save, your progress is locked with Touch ID or a passcode. Exit this page, or press Esc twice, to leave fast.",
     ],
     sentTitle: "What you sent",
-    sentNone: "Nothing yet.",
+    sentNone: "Nothing since this page opened.",
   },
 
   engine: {
@@ -809,6 +815,8 @@ export const en = {
     title: "Your garden",
     lead: "One plant for each cost the program can pay. It grows as your claim moves.",
     deadlineAsk: "Ask the program for the filing deadline.",
+    // The bar that repeats a late deadline counted from the report or from discovery (docs/SPEC.md v1.3).
+    deadlineMayBeLater: "You may have more time.",
     tally: (n: number, amount: string) => `${plural(n, "plant", "plants")} for ${amount}.`,
     paidSoFar: (amount: string) => `The program decides. In bloom, paid by the program: ${amount}.`,
     nothingPaid: "The program decides. It has not paid any of it yet.",

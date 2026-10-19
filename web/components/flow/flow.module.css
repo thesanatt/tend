@@ -1263,11 +1263,35 @@
   color: var(--ink-2);
 }
 
+/* A flex summary loses the browser's marker, so it draws its own triangle, which turns when open. */
 .serviceNote summary {
   cursor: pointer;
   min-height: 44px;
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.serviceNote summary::-webkit-details-marker {
+  display: none;
+}
+
+.serviceNote summary::before {
+  content: "";
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 6px solid currentColor;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.serviceNote[open] summary::before {
+  transform: rotate(90deg);
 }
 
 /* ---------- Packet ---------- */
@@ -1496,6 +1520,45 @@
   margin-top: var(--space-1);
   font-size: var(--text-sm);
   color: var(--ink-2);
+}
+
+/* Once the deadline's box scrolls away, a slim bar along the bottom repeats it. The top right corner
+   belongs to Exit this page, which is wider in Spanish, so the bar stays clear of it in any language. */
+.deadlineStuck {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 50;
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
+}
+
+.deadlineStuckInner {
+  display: flex;
+  align-items: center;
+  min-height: var(--deadline-stuck);
+  padding-block: var(--space-2);
+}
+
+.deadlineStuckInner p {
+  padding-left: var(--space-3);
+  border-left: 4px solid var(--green);
+  font-size: var(--text-sm);
+  line-height: 1.35;
+}
+
+.deadlineStuck[data-late] .deadlineStuckInner p {
+  border-left-color: var(--ink);
+}
+
+/* The end of the page, and keyboard focus, can always scroll clear of the bar, even when a long
+   deadline sentence wraps to two lines. */
+:global(html):has(.deadlineStuck) {
+  --deadline-stuck: 56px;
+  scroll-padding-bottom: calc(var(--deadline-stuck) + var(--space-4));
+}
+
+:global(body):has(.deadlineStuck) {
+  padding-bottom: calc(var(--deadline-stuck) + var(--space-4));
 }
 
 .tallyLine {

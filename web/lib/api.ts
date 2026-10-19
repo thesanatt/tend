@@ -124,6 +124,10 @@ export function fetchLaw(st: string): Promise<{ law: Jurisdiction; sha256: strin
   return pending;
 }
 
+export function resetLawCacheForTests() {
+  laws.clear();
+}
+
 export async function fetchAsmFromApi(st: string): Promise<string | null> {
   if ((await dataMode()) !== "live") return null;
   const res = await fetch(`/api/jurisdictions/${st}/asm`).catch(() => null);

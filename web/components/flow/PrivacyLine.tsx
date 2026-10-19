@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useI18n, type Dict, type Formatters } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
 import FlowSheet from "./FlowSheet";
+import { useKeptSends, withKept } from "./keptSends";
 import type { SentEvent } from "./state";
 import styles from "./shell.module.css";
 
@@ -30,6 +31,16 @@ export function privacyText(sent: SentEvent[], t: Dict, f: Formatters): string {
 
 export function sentLine(e: SentEvent, t: Dict, f: Formatters): string {
   const when = f.time(e.at);
+  // From before a reload only the kind and the time are known, so no amount, payee, or address.
+  if (e.kept && (e.kind === "payment" || e.kind === "payment_setup" || e.kind === "other")) {
+    const what =
+      e.kind === "payment"
+        ? t.privacy.partPayment(1)
+        : e.kind === "payment_setup"
+          ? t.privacy.partSetup(1)
+          : t.privacy.partOther(1);
+    return t.privacy.eventKept(what, when);
+  }
   const amount = f.money(e.amount_cents ?? 0);
   if (e.kind === "payment")
     return e.dry_run ? t.privacy.eventPaymentDry(amount, e.to ?? "", when) : t.privacy.eventPayment(amount, e.to ?? "", when);
@@ -59,12 +70,22 @@ function Shield() {
 
 export default function PrivacyLine() {
   const { t, f } = useI18n();
-  const { state } = useFlow();
+  const { state, vault, restarted } = useFlow();
   const [open, setOpen] = useState(false);
-  const text = privacyText(state.sent, t, f);
+  // What this claim sent, and what this tab sent before a reload. Behind the lock, and while Tend
+  // checks for one, the tab's sends stay out, so the next person at a shared device does not learn
+  // that a payment or a share link went out, or when.
+  const hidden = vault.status === "locked" || vault.status === "checking";
+  const kept = useKeptSends();
+  const sent = withKept(state.sent, hidden ? [] : (kept ?? []));
+  // Before the page can read the tab's memory (the server's HTML, then hydration), behind the lock,
+  // and once this page has put a new claim on screen, whose line no longer names what the page sent
+  // before, it says only what is always true, never that nothing left since the page opened.
+  const quiet = (kept === null || hidden || restarted) && !sent.length;
+  const text = quiet ? t.privacy.here : privacyText(sent, t, f);
 
   return (
-    <div className={styles.privacy} data-sent={state.sent.length > 0 || undefined}>
+    <div className={styles.privacy} data-sent={sent.length > 0 || undefined}>
       <div className={`page ${styles.privacyInner}`}>
         <Shield />
         <p role="status" className={styles.privacyText}>
@@ -91,18 +112,21 @@ export default function PrivacyLine() {
             <li key={fact}>{fact}</li>
           ))}
         </ul>
-        <section className={styles.sentList} aria-labelledby="sent-title">
-          <h3 id="sent-title">{t.privacy.sentTitle}</h3>
-          {state.sent.length ? (
-            <ol>
-              {state.sent.map((e, i) => (
-                <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
-              ))}
-            </ol>
-          ) : (
-            <p>{t.privacy.sentNone}</p>
-          )}
-        </section>
+        {/* "Nothing since this page opened." only where it is known to be true. */}
+        {quiet ? null : (
+          <section className={styles.sentList} aria-labelledby="sent-title">
+            <h3 id="sent-title">{t.privacy.sentTitle}</h3>
+            {sent.length ? (
+              <ol>
+                {sent.map((e, i) => (
+                  <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
+                ))}
+              </ol>
+            ) : (
+              <p>{t.privacy.sentNone}</p>
+            )}
+          </section>
+        )}
       </FlowSheet>
     </div>
   );

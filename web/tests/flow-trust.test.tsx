@@ -180,7 +180,7 @@ describe("sealed share links", () => {
       </>,
       { services: testServices({ share }), initial: stateFrom(gathered) },
     );
-    expect(await screen.findByText("On this device. Nothing has left it.")).toBeTruthy();
+    expect(await screen.findByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
     await screen.findByText("$294.00");
     fireEvent.click(screen.getByRole("button", { name: "Make a share link" }));
     const link = (await screen.findByLabelText("Share this link with your advocate:")) as HTMLInputElement;
@@ -221,7 +221,7 @@ describe("sealed share links", () => {
         "Para compartir hace falta el servidor de Tend, y ahora no está conectado. No se creó ningún enlace.",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("En este dispositivo. No ha salido nada.")).toBeTruthy();
+    expect(screen.getByText("En este dispositivo. No ha salido nada desde que se abrió esta página.")).toBeTruthy();
   });
 });
 

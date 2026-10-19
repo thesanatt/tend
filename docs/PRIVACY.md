@@ -50,7 +50,24 @@ blank for the survivor to fill in.
 ## Shared-device safety
 
 - Quick exit (corner button or Esc twice) replaces the page and drops the in-memory key.
-- The vault locks on exit and after inactivity; nothing readable stays on disk.
+- The vault locks on exit and after inactivity; what it holds stays encrypted on disk.
+- Until something is sent, the privacy line says "On this device. Nothing has left it since this
+  page opened." It vouches only for the page on screen: a reload, or a tab the browser reopens,
+  is a new page.
+- So that a reload does not hide a send, the line keeps, for this tab only, the kind of each thing
+  sent and when, in sessionStorage. It holds no amounts, payees, ids, or keys. The browser writes
+  sessionStorage to its profile folder, so these kinds and times can sit on the device's disk,
+  unencrypted, until the browser clears them. Only a reload keeps the list. Any other load starts
+  it over, including a closed tab the browser reopens (which gets its sessionStorage back) and a
+  Back the browser's page cache does not serve; the line then leaves out what the tab sent before.
+  Quick exit clears it with the rest of the tab. Deleting saved progress, saving over it, and Close
+  Tend on a claim that was never saved clear it too.
+- While saved progress is locked, the line says only "On this device." Sends made after Start over
+  without it, while saved progress stays locked, are not kept for the tab, so opening that progress
+  never names them to its owner as theirs. After Lock now, Close Tend, or Delete, the line also says
+  only "On this device." until something new is sent or the page loads again, because what the page
+  sent before is no longer on the line. So once saved progress locks, or the survivor exits or ends
+  the claim, the next person at the device cannot read from the line what was sent or when.
 - Neutral tab title, no notifications, no analytics, no third-party scripts in the survivor flow.
 
 ## Threat model, honestly

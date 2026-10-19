@@ -9,6 +9,7 @@ import type { EngineOutput } from "@/lib/types";
 import { useI18n, useSummary, type Dict } from "@/lib/i18n";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import { localDay } from "@/lib/dates";
+import STATES from "@/lib/states.json";
 import { paidLines } from "../claim";
 import Cite from "../Cite";
 import EngineNotice from "../EngineNotice";
@@ -140,6 +141,8 @@ export default function PacketScreen() {
   const items = new Map(state.items.map((i) => [i.item_id, i]));
   const paid = paidLines(state);
   const program = law.law?.program;
+  // The state is known before its law loads, so the form's sentence never reads "'s own form".
+  const stateName = law.law?.name ?? STATES.find((s) => s.st === state.check.st)?.name ?? state.check.st;
   const have = (c: ChecklistItem) => state.have[`${c.document}:${c.rule_id}`] ?? c.have_it;
 
   return (
@@ -181,7 +184,7 @@ export default function PacketScreen() {
       <ol className={styles.packetParts}>
         <li className={styles.part} aria-labelledby="part-form">
           <h2 id="part-form">{t.packet.formTitle}</h2>
-          <p>{t.packet.formBody(law.law?.name ?? "")}</p>
+          <p>{t.packet.formBody(stateName)}</p>
           <p className={styles.onlyYou}>{t.packet.onlyYou}</p>
           {formUrl ? (
             <a href={formUrl} download={`${state.check.st}-application.pdf`} className="btn btn-primary">

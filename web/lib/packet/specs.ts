@@ -108,9 +108,60 @@ export function guard(spec: FormSpec, names: Iterable<string>): void {
   if (bad.length) throw new FormGuardError(bad.sort());
 }
 
-// Demo data comes from Capital One's Nessie sandbox; its records carry "nessie:" ids.
+// Demo data, known by its records, whatever order it was added in. The demo bank is Capital One's
+// Nessie sandbox ("nessie:" ids). The sample statement and the sample bill are fixed fictional
+// files, so their records carry the files' SHA-256 (components/flow/samples); the statement's
+// costs can stand in for the bank's, and the sample bill replaces the bank's bill, so "nessie:"
+// alone missed a demo. tests/demo-packet.test.tsx checks each prefix against its file.
+export type DemoSource = "bank" | "statement" | "bill";
+
+const DEMO_RECORDS: [prefix: string, source: DemoSource][] = [
+  ["nessie:", "bank"],
+  // As Tend builds it in the browser, and the copy at /samples/rowan-statement-FICTIONAL.pdf.
+  ["stmt:7c46e7d79e:", "statement"],
+  ["stmt:526438764d:", "statement"],
+  // Lines are "bill:231c5c86178943f9:<n>"; progress saved before that fix has "bill:231c5c8617:bill:...".
+  ["bill:231c5c8617", "bill"],
+];
+
+const DEMO_NAME: Record<DemoSource, string> = {
+  bank: "the demo bank",
+  statement: "the sample statement",
+  bill: "the sample bill",
+};
+
+export function demoSource(itemId: string): DemoSource | null {
+  return DEMO_RECORDS.find(([prefix]) => itemId.startsWith(prefix))?.[1] ?? null;
+}
+
 export function isDemo(input: EngineInput): boolean {
-  return input.items.some((i) => i.item_id.startsWith("nessie:"));
+  return input.items.some((i) => demoSource(i.item_id) !== null);
+}
+
+// What a packet with demo data says about it, or null for one without. paid: a line was paid through
+// Tend, which only the demo bank can do. known: the built-in demo link, all demo whatever its ids.
+export function demoNote(input: EngineInput, opts: { paid?: boolean; known?: boolean } = {}): string | null {
+  const demo = input.items.filter((i) => demoSource(i.item_id) !== null);
+  // The survivor's own records with every demo bank cost unchecked can still hold a bill paid from
+  // the demo bank's account.
+  if (!demo.length && !opts.known) {
+    return opts.paid
+      ? "A payment in this packet came from an account at the demo bank, Capital One's Nessie, a mock bank, so no real money moved."
+      : null;
+  }
+  const sources = [...new Set(demo.map((i) => demoSource(i.item_id)!))];
+  const nessie =
+    sources.includes("bank") || opts.paid
+      ? " The demo bank is Capital One's Nessie, a mock bank, so no real money moved."
+      : "";
+  if (opts.known || demo.length === input.items.length) {
+    return `Demo packet. The person and every record in it are made up.${nessie}`;
+  }
+  const names = sources.map((s) => DEMO_NAME[s]);
+  const from = names.length < 3 ? names.join(" and ") : `${names.slice(0, -1).join(", ")}, and ${names.at(-1)}`;
+  return `Part of this packet is demo data. ${demo.length} of ${input.items.length} costs come from ${from}, which ${
+    names.length === 1 ? "is" : "are"
+  } made up. Do not send those costs to the program.${nessie}`;
 }
 
 export const TOTAL_LINE = "Amount you can ask for. The program decides.";

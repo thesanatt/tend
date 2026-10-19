@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import type { ReactNode } from "react";
 import { vi } from "vitest";
-import { FlowProvider } from "@/components/flow/FlowProvider";
+import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
 import { accountLabel, type FlowServices } from "@/components/flow/services";
 import { demoBankTxns, ROWAN_ACCOUNT } from "@/components/flow/samples";
 import { initialState, reducer, type Action, type FlowState } from "@/components/flow/state";
@@ -134,6 +134,23 @@ export function stubLawFetch() {
   });
   vi.stubGlobal("fetch", fn);
   return fn;
+}
+
+// The flow as a value, for driving the provider's readers directly.
+export function captureFlow(services: FlowServices = testServices(), initial?: FlowState) {
+  const box: { flow: ReturnType<typeof useFlow> | null } = { flow: null };
+  function Grab() {
+    box.flow = useFlow();
+    return null;
+  }
+  render(
+    <I18nProvider initial="en">
+      <FlowProvider services={services} today={TODAY} initial={initial}>
+        <Grab />
+      </FlowProvider>
+    </I18nProvider>,
+  );
+  return box;
 }
 
 export function renderFlow(

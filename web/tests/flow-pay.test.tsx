@@ -197,7 +197,7 @@ describe("payment errors, worded by status and never in the service's English", 
     });
     const { dialog } = await openWithCode(services);
     expect(await within(dialog).findByText(en.pay.wholeDollars)).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
+    expect(screen.getByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
   });
 
   it("stopping after the code still says what left, in the privacy sheet too", async () => {

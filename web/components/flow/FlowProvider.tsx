@@ -14,6 +14,7 @@ import {
   useState,
   type Dispatch,
   type ReactNode,
+  type SetStateAction,
 } from "react";
 import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
 import type { StatementTxn } from "@/lib/contracts";
@@ -22,6 +23,7 @@ import { installNetLog, onNetSend } from "@/lib/netlog";
 import { stateToday } from "@/lib/stateTime";
 import type { EngineInput } from "@/lib/types";
 import { buildEngineInput, countingDate, knowsDate, offered } from "./claim";
+import { forgetKeptSends, keepSend } from "./keptSends";
 import { defaultServices, type FlowServices } from "./services";
 import {
   findReplaced,
@@ -80,6 +82,10 @@ interface Flow {
   input: EngineInput | null;
   claim: ClaimView;
   vault: VaultView;
+  // True once this page has put a new claim on screen (Lock now, the quiet-time lock, Close Tend,
+  // Delete). What the page sent before may be off the privacy line then, so the line stops saying
+  // that nothing left since the page opened. Never stored: a new page starts false.
+  restarted: boolean;
   readStatement(file: File, sample?: boolean): Promise<SourceRecord>;
   connectBank(): Promise<SourceRecord>;
   readBill(file: File, sample?: boolean): Promise<BillRecord>;
@@ -123,6 +129,13 @@ export function rawFinder(txns: StatementTxn[]): (itemId: string) => StatementTx
   return (itemId) => byKey.get(itemId) ?? byKey.get(itemId.split(":").slice(0, 2).join(":"));
 }
 
+// A bill line's item id. Tend's readers already name each line "bill:<sha256 prefix>:<line>", the id
+// the server gives it (lib/local/billtext.ts); prefixing that again printed every record twice in the
+// packet. A reader that only numbers its lines gets this file's hash in front.
+export function billLineId(sha: string, lineId: string): string {
+  return lineId.startsWith("bill:") ? lineId : `bill:${sha}:${lineId}`;
+}
+
 async function fileSha(file: Blob): Promise<string> {
   const bytes = new Uint8Array(
     typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer(),
@@ -145,10 +158,11 @@ export function FlowProvider({
   const { lang, setLang } = useI18n();
   const [state, dispatch] = useReducer(reducer, initial ?? initialState(lang));
   const [claim, setClaim] = useState<ClaimView>({ status: "idle", evaluation: null, error: null });
-  const [vaultStatus, setVaultStatus] = useState<VaultStatus>("checking");
+  const [vaultStatus, setVaultState] = useState<VaultStatus>("checking");
   const [idleLocked, setIdleLocked] = useState(false);
   const [methods, setMethods] = useState<VaultMethods | null>(null);
   const [passkey, setPasskey] = useState<boolean | null>(null);
+  const [restarted, setRestarted] = useState(false);
   const [openedAt] = useState(() => new Date());
   // Today in the chosen state's own time, the engine's as_of_date (docs/SPEC.md v1.3), so a late night
   // somewhere else never counts a deadline a day early. The device's date until a state is chosen.
@@ -170,6 +184,13 @@ export function FlowProvider({
   useEffect(() => {
     stateRef.current = state;
   });
+  // logSent reads the vault's status here. It changes as the status is set, not after the render
+  // that shows it: lib/netlog reports a send when its answer arrives, which can fall in between.
+  const vaultRef = useRef<VaultStatus>("checking");
+  const setVaultStatus = useCallback((next: SetStateAction<VaultStatus>) => {
+    vaultRef.current = typeof next === "function" ? next(vaultRef.current) : next;
+    setVaultState(vaultRef.current);
+  }, []);
 
   // The language travels with the saved state.
   useEffect(() => {
@@ -180,7 +201,12 @@ export function FlowProvider({
   const inputKey = useMemo(() => (input ? JSON.stringify(input) : ""), [input]);
 
   const logSent = useCallback((event: Omit<SentEvent, "at"> & { at?: string }) => {
-    dispatch({ type: "sent", event: { ...event, at: event.at ?? new Date().toISOString() } });
+    const sent = { ...event, at: event.at ?? new Date().toISOString() };
+    dispatch({ type: "sent", event: sent });
+    // The tab keeps the kind and the time, so a reload cannot hide a send from the privacy line. Not
+    // while saved progress is locked (Start over without it) or still being checked: the line hides
+    // the tab's list then, and opening that progress would name these sends to its owner as theirs.
+    if (vaultRef.current === "none" || vaultRef.current === "open") keepSend(sent);
   }, []);
 
   // Every request the page makes passes lib/netlog, so the privacy line hears about each send,
@@ -249,7 +275,7 @@ export function FlowProvider({
       live = false;
       window.removeEventListener("pagehide", onHide);
     };
-  }, [services]);
+  }, [services, setVaultStatus]);
 
   useEffect(() => {
     if (vaultStatus !== "open") return;
@@ -272,10 +298,11 @@ export function FlowProvider({
       docs.current.clear();
       rereads.current.clear();
       dispatch({ type: "reset", lang: stateRef.current.lang });
+      setRestarted(true);
       setIdleLocked(idle);
       setVaultStatus("locked");
     },
-    [services],
+    [services, setVaultStatus],
   );
 
   // A page brought back from the browser's back cache had its vault locked on the way out.
@@ -422,7 +449,7 @@ export function FlowProvider({
       const date = knowsDate(s, today) ? s.check.date : today;
       const items: FlowItem[] = ok
         ? reading.lines.map((line, i) => ({
-            item_id: `bill:${sha}:${line.line_id}`,
+            item_id: billLineId(sha, line.line_id),
             date,
             amount_cents: line.amount_cents,
             expense: line.expense,
@@ -461,6 +488,7 @@ export function FlowProvider({
       input,
       claim,
       vault: { status: vaultStatus, idleLocked, methods, passkey },
+      restarted,
 
       async readStatement(file, sample = false) {
         const sha = shortHash(await fileSha(file));
@@ -564,6 +592,9 @@ export function FlowProvider({
       logSent,
 
       async save(opts) {
+        // Saving over locked progress puts a new claim in its place, so the tab forgets what it sent
+        // before, as when that progress is deleted.
+        if (vaultStatus === "locked") forgetKeptSends();
         if (await services.vault.exists()) await services.vault.destroy();
         await services.vault.create(opts);
         await services.vault.set(VAULT_KEY, stateRef.current);
@@ -587,21 +618,30 @@ export function FlowProvider({
       lockNow,
 
       async forget() {
+        // Deleting locked progress needs no passcode, so the tab forgets what it sent first: whoever
+        // deletes it learns nothing from the line.
+        forgetKeptSends();
         await services.vault.destroy();
         files.current.clear();
         docs.current.clear();
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
+        setRestarted(true);
         setIdleLocked(false);
         setVaultStatus("none");
       },
 
       endSession() {
+        // Close Tend. Open saved progress locks, and what the tab sent waits behind the lock as after
+        // Lock now. A claim never saved ends here ("Nothing stays on this device unless you save
+        // it"), so the tab forgets its sends, as Exit this page does.
+        if (vaultStatus !== "open") forgetKeptSends();
         if (services.vault.isUnlocked()) services.vault.lock();
         files.current.clear();
         docs.current.clear();
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
+        setRestarted(true);
         setVaultStatus((v) => (v === "open" ? "locked" : v));
       },
     };
@@ -615,9 +655,11 @@ export function FlowProvider({
     idleLocked,
     methods,
     passkey,
+    restarted,
     logSent,
     lockNow,
     setLang,
+    setVaultStatus,
     refining,
   ]);
 

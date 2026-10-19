@@ -7,6 +7,7 @@ import { leaveNow, navigation } from "@/components/QuickExit";
 import TourNote from "@/components/tour/TourNote";
 import {
   boldParts,
+  forPointer,
   TOUR_NOTES,
   TOUR_START,
   TOUR_STEPS,
@@ -120,6 +121,36 @@ describe("tour mode", () => {
       expect([...container.querySelectorAll("strong")].map((s) => s.textContent)).toEqual(expected[step]);
       unmount();
     }
+  });
+
+  it("says tap on a touch screen and click with a mouse", () => {
+    sessionStorage.setItem(TOUR_KEY, "1");
+    const pointer = (mouse: boolean) =>
+      vi.stubGlobal(
+        "matchMedia",
+        vi.fn((query: string) => ({
+          matches: query === "(hover: hover) and (pointer: fine)" ? mouse : false,
+          media: query,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+        })),
+      );
+    for (const mouse of [false, true]) {
+      pointer(mouse);
+      for (const step of TOUR_STEPS) {
+        at(PATHS[step]);
+        const { unmount } = renderFlow(<TourNote />);
+        const text = note()!.textContent!;
+        if (mouse) expect(text).not.toMatch(/\btap\b/i);
+        else expect(text).not.toMatch(/\bclick\b/i);
+        if (step === "check") expect(text).toContain(mouse ? "Click Find my costs." : "Tap Find my costs.");
+        unmount();
+      }
+    }
+    // The bold button names never change.
+    expect(forPointer("Open **Add another record** and click **Use a sample bill**.", false)).toBe(
+      "Open **Add another record** and tap **Use a sample bill**.",
+    );
   });
 
   it("says the facts each step is about", () => {

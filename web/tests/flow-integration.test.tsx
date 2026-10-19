@@ -3,32 +3,29 @@
 // rules cannot sort from before the date, the demo bank's own kinds, bills paid through Tend, the
 // net log behind the privacy line, offline payments, cloud AI consent, and Track's deadline note.
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import BillsScreen from "@/components/flow/bills/BillsScreen";
 import { buildEngineInput, buildRows, offered, paidLines } from "@/components/flow/claim";
 import CloudConsent from "@/components/flow/CloudConsent";
-import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
+import { billLineId } from "@/components/flow/FlowProvider";
 import AddRecords from "@/components/flow/gather/AddRecords";
 import PrivacyLine from "@/components/flow/PrivacyLine";
-import { demoBankTxns, ROWAN_ACCOUNT, sampleStatementCsv } from "@/components/flow/samples";
+import { demoBankTxns, ROWAN_ACCOUNT, sampleBillFile, sampleStatementCsv } from "@/components/flow/samples";
 import { ROWAN_ROWS } from "@/components/flow/samples/rowan";
-import {
-  initialState,
-  reducer,
-  type Action,
-  type BillRecord,
-  type FlowItem,
-  type FlowState,
-} from "@/components/flow/state";
+import { initialState, reducer, type Action, type BillRecord, type FlowItem } from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
 import { DICTS, I18nProvider } from "@/lib/i18n";
-import { classifier, statementParser } from "@/lib/local";
+import { billReader, classifier, statementParser } from "@/lib/local";
+import { pdfLines } from "@/lib/local/pdf";
 import { mockEngineOutput } from "@/lib/mocks/engine";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import { classifyRequest, installNetLog, netSends, onNetSend, resetNetLogForTests } from "@/lib/netlog";
-import { buildLetters, LawBook, stillNeeded } from "@/lib/packet";
+import { buildLetters, createPacketBuilder, LawBook, stillNeeded } from "@/lib/packet";
 import {
+  captureFlow,
   MI_CHECK,
   MI_LAW,
   michiganOutput,
@@ -86,23 +83,6 @@ function rowanOfx(): string {
     ...trns,
     "</BANKTRANLIST></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>",
   ].join("\n");
-}
-
-// The flow as a value, for driving the provider's readers directly.
-function captureFlow(services = testServices(), initial?: FlowState) {
-  const box: { flow: ReturnType<typeof useFlow> | null } = { flow: null };
-  function Grab() {
-    box.flow = useFlow();
-    return null;
-  }
-  render(
-    <I18nProvider initial="en">
-      <FlowProvider services={services} today={TODAY} initial={initial}>
-        <Grab />
-      </FlowProvider>
-    </I18nProvider>,
-  );
-  return box;
 }
 
 describe("a CSV and an OFX of the same month", () => {
@@ -170,6 +150,31 @@ describe("the sample statement and the demo bank, one account", () => {
     // Two rows from before the date that nothing could sort were never offered, so they are not
     // counted as already here either.
     expect(stmt).toMatchObject({ read: 190, found: 0, already: 43 });
+  });
+});
+
+describe("a bill read on this device", () => {
+  it("keeps the reader's line ids, so the packet names each record once", async () => {
+    const box = captureFlow(testServices({ billReader }), stateFrom([MI_CHECK]));
+    await act(async () => {
+      await box.flow!.readBill(sampleBillFile(), true);
+    });
+    // The id the server gives the same line: "bill:<first 16 of the file's sha256>:<line>".
+    const ids = box.flow!.state.items.map((i) => i.item_id);
+    expect(ids).toEqual(["bill:231c5c86178943f9:1", "bill:231c5c86178943f9:2", "bill:231c5c86178943f9:3"]);
+
+    const input = buildEngineInput(box.flow!.state, TODAY)!;
+    const builder = createPacketBuilder({ loadLaw: async () => MI_LAW, loadForm: async () => null });
+    const packet = await builder.build("MI", input, michiganOutput(input));
+    // What the PDF itself prints under each cost (grouped by status, so in another order).
+    const { lines } = await pdfLines(new Uint8Array(await packet.summaryPdf.arrayBuffer()));
+    const records = lines.map((l) => l.text).filter((t) => t.startsWith("Record bill:"));
+    expect(records.sort()).toEqual(ids.map((id) => `Record ${id}`));
+  });
+
+  it("puts the file's hash in front of a reader's bare line numbers", () => {
+    expect(billLineId("231c5c8617", "bill:231c5c86178943f9:2")).toBe("bill:231c5c86178943f9:2");
+    expect(billLineId("abc", "2")).toBe("bill:abc:2");
   });
 });
 
@@ -404,7 +409,7 @@ describe("the net log behind the privacy line", () => {
       vi.fn(async () => new Response("{}", { status: 200, headers: { "content-type": "application/json" } })),
     );
     renderFlow(<PrivacyLine />, { initial: stateFrom([MI_CHECK]) });
-    expect(screen.getByText(en.privacy.quiet)).toBeTruthy();
+    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
     await act(async () => {
       await fetch("/api/ai/classify", { method: "POST", body: "{}" });
     });
@@ -505,6 +510,20 @@ describe("the payment result", () => {
     const note = within(dialog).getByText(/Nessie recorded it/);
     expect(note.closest("details")).toBeTruthy();
     expect(note.getAttribute("lang")).toBe("en");
+  });
+
+  it("shows the bank service's note as something to open, with a disclosure triangle", () => {
+    // jsdom draws no CSS, so this reads the rules. A flex summary has no browser marker of its own.
+    const css = readFileSync(path.resolve(import.meta.dirname, "../components/flow/flow.module.css"), "utf8");
+    const rule = (selector: string) => {
+      const at = css.indexOf(`${selector} {`);
+      return at < 0 ? "" : css.slice(at, css.indexOf("}", at));
+    };
+    expect(rule(".serviceNote summary")).toMatch(/display: flex/);
+    expect(rule(".serviceNote summary")).toMatch(/list-style: none/);
+    expect(rule(".serviceNote summary::-webkit-details-marker")).toMatch(/display: none/);
+    expect(rule(".serviceNote summary::before")).toMatch(/content: "";[\s\S]*border-left: 6px solid currentColor/);
+    expect(rule(".serviceNote[open] summary::before")).toMatch(/transform: rotate\(90deg\)/);
   });
 });
 
@@ -612,6 +631,86 @@ describe("Track", () => {
     renderFlow(<TrackScreen />, { initial: stateFrom([MI_CHECK]) });
     await screen.findByText(/File by|Ask the program/);
     expect(screen.queryByText(en.check.deadlineFromReport)).toBeNull();
+  });
+
+  it("keeps the deadline in view once a long garden scrolls its box away", async () => {
+    let report: ((entry: { isIntersecting: boolean; boundingClientRect: { top: number } }) => void) | null = null;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: (entries: unknown[]) => void) {
+          report = (entry) => cb([entry]);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const { container } = renderFlow(<TrackScreen />, { initial: stateFrom([MI_CHECK]) });
+    const due = (await screen.findByText(/^File by /)).textContent!;
+    const bar = () => container.querySelector("[class*=deadlineStuck][aria-hidden=true]");
+    expect(bar()).toBeNull();
+    // The box goes up out of sight: the bar repeats it, for the eye only.
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: -620 } }));
+    expect(bar()?.textContent).toBe(due);
+    expect(bar()?.classList.contains("no-print")).toBe(true);
+    // Below the screen is not past it; back in view, the bar goes.
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: 2400 } }));
+    expect(bar()).toBeNull();
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: -620 } }));
+    act(() => report!({ isIntersecting: true, boundingClientRect: { top: 40 } }));
+    expect(bar()).toBeNull();
+  });
+
+  // The bar drops the box's long notes, so a late date that may count from the report or from
+  // discovery would read as plainly late there without a short form of them (docs/SPEC.md v1.3).
+  it.each([
+    [["deadline_from_discovery"], "The usual deadline was June 14, 2025. You may have more time.", false],
+    [["deadline_from_report"], "The usual deadline was June 14, 2025. You may have more time.", false],
+    [[], "The usual deadline was June 14, 2025.", true],
+  ])("keeps a late deadline's caveat in the bar (flags %j)", async (flags, text, plainlyLate) => {
+    let report: ((entry: { isIntersecting: boolean; boundingClientRect: { top: number } }) => void) | null = null;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: (entries: unknown[]) => void) {
+          report = (entry) => cb([entry]);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const services = testServices({
+      evaluate: vi.fn(async (input) => {
+        const out = michiganOutput(input);
+        const deadline = { ...out.checks.deadline, status: "late" as const, deadline_date: "2025-06-14", flags };
+        return { output: { ...out, checks: { ...out.checks, deadline } }, backend: "wasm" as const, detail: "test" };
+      }),
+    });
+    const { container } = renderFlow(<TrackScreen />, { services, initial: stateFrom([MI_CHECK]) });
+    await screen.findByText("The usual deadline was June 14, 2025.");
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: -620 } }));
+    const bar = container.querySelector("[class*=deadlineStuck][aria-hidden=true]");
+    expect(bar?.textContent).toBe(text);
+    expect(bar?.hasAttribute("data-late")).toBe(plainlyLate);
+  });
+
+  // Exit this page is fixed in the top right corner and is about 46 px wider in Spanish, so a bar across
+  // the top ran under it; along the bottom it never meets the button.
+  it("puts that bar along the bottom, clear of Exit this page, with room to scroll past it", () => {
+    const read = (file: string) => readFileSync(path.resolve(import.meta.dirname, "../components", file), "utf8");
+    const rule = (css: string, selector: string) => {
+      const at = css.indexOf(`${selector} {`);
+      return at < 0 ? "" : css.slice(at, css.indexOf("}", at));
+    };
+    const flow = read("flow/flow.module.css");
+    const shell = read("flow/shell.module.css");
+    const z = (r: string) => Number(/z-index: (\d+)/.exec(r)?.[1]);
+    expect(rule(shell, ".exitWrap")).toMatch(/position: fixed;\s+top: /);
+    expect(rule(flow, ".deadlineStuck")).toMatch(/position: fixed;\s+inset: auto 0 0;/);
+    expect(z(rule(flow, ".deadlineStuck"))).toBeLessThan(z(rule(shell, ".exitWrap")));
+    // The end of the page and keyboard focus can scroll above it.
+    expect(rule(flow, ":global(html):has(.deadlineStuck)")).toMatch(/scroll-padding-bottom: /);
+    expect(rule(flow, ":global(body):has(.deadlineStuck)")).toMatch(/padding-bottom: /);
   });
 });
 

@@ -11,7 +11,7 @@ import type { EngineInput, EngineItem, EngineLine, EngineOutput, LineStatus, Rul
 import { METHOD_LABEL, privacyNotes } from "./filing";
 import { param, type LawBook } from "./law";
 import { CONTENT_W, MARGIN, Pdf, type ColorKey, type Run } from "./pdf";
-import { isDemo, TOTAL_LINE, type FormSpec } from "./specs";
+import { demoNote, TOTAL_LINE, type FormSpec } from "./specs";
 
 export interface SummaryInput {
   law: LawBook;
@@ -572,13 +572,10 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
     { text: "______________" },
   ]);
   w.small("Tend never saves your name. Write it here and on the application yourself.");
-  if (isDemo(input)) {
+  const demo = demoNote(input, { paid: Object.values(s.lines ?? {}).some((l) => l.paid) });
+  if (demo) {
     pdf.space(2);
-    w.p(
-      "Demo packet. The person and every record in it are made up. Bank records come from Capital One's Nessie, a mock bank, so no real money exists here.",
-      "clay",
-      8.5,
-    );
+    w.p(demo, "clay", 8.5);
   }
 
   // Totals

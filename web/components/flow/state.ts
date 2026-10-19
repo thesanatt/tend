@@ -103,6 +103,8 @@ export interface SentEvent {
   dry_run?: boolean;
   // Where an unexpected request went.
   path?: string;
+  // Only the kind and the time, which this tab kept from before a reload (keptSends.ts).
+  kept?: boolean;
 }
 
 export interface FlowState {

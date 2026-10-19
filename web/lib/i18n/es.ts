@@ -57,7 +57,8 @@ export const es: Dict = {
   },
 
   privacy: {
-    quiet: "En este dispositivo. No ha salido nada.",
+    quiet: "En este dispositivo. No ha salido nada desde que se abrió esta página.",
+    here: "En este dispositivo.",
     sent: (parts: string) => `En este dispositivo, salvo lo que decidiste enviar: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "un pago" : `${n} pagos`),
     partShare: (n: number) => (n === 1 ? "un enlace protegido" : `${n} enlaces protegidos`),
@@ -84,6 +85,8 @@ export const es: Dict = {
       `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el comercio, su categoría y la descripción. Sin montos ni fechas.`,
     eventCloudBill: (when: string) => `${when}: un archivo de factura, a la IA en la nube, porque dijiste que sí.`,
     eventOther: (path: string, when: string) => `${when}: una solicitud a ${path}.`,
+    eventKept: (what: string, when: string) =>
+      `${when}: ${what}. Después de recargar la página, esta lista solo guarda qué se envió y cuándo.`,
     more: "Qué se queda aquí",
     sheetTitle: "Qué se queda en este dispositivo",
     facts: [
@@ -93,7 +96,7 @@ export const es: Dict = {
       "Si guardas, tu progreso queda protegido con Touch ID o un código. Usa Salir de esta página, o presiona Esc dos veces, para salir rápido.",
     ],
     sentTitle: "Lo que enviaste",
-    sentNone: "Nada todavía.",
+    sentNone: "Nada desde que se abrió esta página.",
   },
 
   engine: {
@@ -810,6 +813,7 @@ export const es: Dict = {
     title: "Tu jardín",
     lead: "Una planta por cada gasto que el programa puede pagar. Crece a medida que avanza tu solicitud.",
     deadlineAsk: "Pregunta al programa cuál es el plazo para presentar la solicitud.",
+    deadlineMayBeLater: "Podrías tener más tiempo.",
     tally: (n: number, amount: string) => `${plural(n, "planta", "plantas")} por ${amount}.`,
     paidSoFar: (amount: string) => `El programa decide. En flor, pagado por el programa: ${amount}.`,
     nothingPaid: "El programa decide. Todavía no ha pagado nada.",
