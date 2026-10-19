@@ -7,28 +7,23 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import BillsScreen from "@/components/flow/bills/BillsScreen";
 import { buildEngineInput, buildRows, offered, paidLines } from "@/components/flow/claim";
 import CloudConsent from "@/components/flow/CloudConsent";
-import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
+import { billLineId } from "@/components/flow/FlowProvider";
 import AddRecords from "@/components/flow/gather/AddRecords";
 import PrivacyLine from "@/components/flow/PrivacyLine";
-import { demoBankTxns, ROWAN_ACCOUNT, sampleStatementCsv } from "@/components/flow/samples";
+import { demoBankTxns, ROWAN_ACCOUNT, sampleBillFile, sampleStatementCsv } from "@/components/flow/samples";
 import { ROWAN_ROWS } from "@/components/flow/samples/rowan";
-import {
-  initialState,
-  reducer,
-  type Action,
-  type BillRecord,
-  type FlowItem,
-  type FlowState,
-} from "@/components/flow/state";
+import { initialState, reducer, type Action, type BillRecord, type FlowItem } from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
 import { DICTS, I18nProvider } from "@/lib/i18n";
-import { classifier, statementParser } from "@/lib/local";
+import { billReader, classifier, statementParser } from "@/lib/local";
+import { pdfLines } from "@/lib/local/pdf";
 import { mockEngineOutput } from "@/lib/mocks/engine";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import { classifyRequest, installNetLog, netSends, onNetSend, resetNetLogForTests } from "@/lib/netlog";
-import { buildLetters, LawBook, stillNeeded } from "@/lib/packet";
+import { buildLetters, createPacketBuilder, LawBook, stillNeeded } from "@/lib/packet";
 import {
+  captureFlow,
   MI_CHECK,
   MI_LAW,
   michiganOutput,
@@ -88,23 +83,6 @@ function rowanOfx(): string {
   ].join("\n");
 }
 
-// The flow as a value, for driving the provider's readers directly.
-function captureFlow(services = testServices(), initial?: FlowState) {
-  const box: { flow: ReturnType<typeof useFlow> | null } = { flow: null };
-  function Grab() {
-    box.flow = useFlow();
-    return null;
-  }
-  render(
-    <I18nProvider initial="en">
-      <FlowProvider services={services} today={TODAY} initial={initial}>
-        <Grab />
-      </FlowProvider>
-    </I18nProvider>,
-  );
-  return box;
-}
-
 describe("a CSV and an OFX of the same month", () => {
   it("count every cost once, on the real parsers and classifier", async () => {
     const services = testServices({ statementParser, classifier });
@@ -130,6 +108,31 @@ describe("a CSV and an OFX of the same month", () => {
       (i) => `${i.date}|${i.amount_cents}|${i.description.toLowerCase().replace(/[^a-z]/g, "")}`,
     );
     expect(new Set(keys).size).toBe(keys.length);
+  });
+});
+
+describe("a bill read on this device", () => {
+  it("keeps the reader's line ids, so the packet names each record once", async () => {
+    const box = captureFlow(testServices({ billReader }), stateFrom([MI_CHECK]));
+    await act(async () => {
+      await box.flow!.readBill(sampleBillFile(), true);
+    });
+    // The id the server gives the same line: "bill:<first 16 of the file's sha256>:<line>".
+    const ids = box.flow!.state.items.map((i) => i.item_id);
+    expect(ids).toEqual(["bill:231c5c86178943f9:1", "bill:231c5c86178943f9:2", "bill:231c5c86178943f9:3"]);
+
+    const input = buildEngineInput(box.flow!.state, TODAY)!;
+    const builder = createPacketBuilder({ loadLaw: async () => MI_LAW, loadForm: async () => null });
+    const packet = await builder.build("MI", input, michiganOutput(input));
+    // What the PDF itself prints under each cost (grouped by status, so in another order).
+    const { lines } = await pdfLines(new Uint8Array(await packet.summaryPdf.arrayBuffer()));
+    const records = lines.map((l) => l.text).filter((t) => t.startsWith("Record bill:"));
+    expect(records.sort()).toEqual(ids.map((id) => `Record ${id}`));
+  });
+
+  it("puts the file's hash in front of a reader's bare line numbers", () => {
+    expect(billLineId("231c5c8617", "bill:231c5c86178943f9:2")).toBe("bill:231c5c86178943f9:2");
+    expect(billLineId("abc", "2")).toBe("bill:abc:2");
   });
 });
 

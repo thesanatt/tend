@@ -123,6 +123,13 @@ export function rawFinder(txns: StatementTxn[]): (itemId: string) => StatementTx
   return (itemId) => byKey.get(itemId) ?? byKey.get(itemId.split(":").slice(0, 2).join(":"));
 }
 
+// A bill line's item id. Tend's readers already name each line "bill:<sha256 prefix>:<line>", the id
+// the server gives it (lib/local/billtext.ts); prefixing that again printed every record twice in the
+// packet. A reader that only numbers its lines gets this file's hash in front.
+export function billLineId(sha: string, lineId: string): string {
+  return lineId.startsWith("bill:") ? lineId : `bill:${sha}:${lineId}`;
+}
+
 async function fileSha(file: Blob): Promise<string> {
   const bytes = new Uint8Array(
     typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer(),
@@ -418,7 +425,7 @@ export function FlowProvider({
       const date = knowsDate(s, today) ? s.check.date : today;
       const items: FlowItem[] = ok
         ? reading.lines.map((line, i) => ({
-            item_id: `bill:${sha}:${line.line_id}`,
+            item_id: billLineId(sha, line.line_id),
             date,
             amount_cents: line.amount_cents,
             expense: line.expense,
