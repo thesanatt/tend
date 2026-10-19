@@ -121,21 +121,24 @@ export interface CardProps {
   address: string;
   // Pinpoints behind the two clauses, when they are short enough to print.
   pinpoints: string[];
+  // What the clauses rest on: "law", "law and program pages" or "program pages" (cardSources in
+  // ../summary.ts). A clause that rests partly on a program page is not called law.
+  sourceLabel?: string;
 }
 
 // The card's sentence is Tend's plain wording of the cited rules, not a quote, so the small print
 // names the pinpoints when they fit and otherwise points to the page that cites them.
-export function cardSourceLine(name: string, pinpoints: string[]): string {
+export function cardSourceLine(name: string, pinpoints: string[], label = "law"): string {
   const cites = pinpoints.join(" and ");
   return cites && cites.length <= 64
-    ? `From ${name} law: ${cites}. The program decides.`
-    : `From ${name} law, with citations on the page. The program decides.`;
+    ? `From ${name} ${label}: ${cites}. The program decides.`
+    : `From ${name} ${label}, with citations on the page. The program decides.`;
 }
 
-export function Card({ summary, rules, address, pinpoints }: CardProps) {
+export function Card({ summary, rules, address, pinpoints, sourceLabel }: CardProps) {
   const lead = `If you're Jane Doe in ${summary.place}:`;
   const body = `${summary.share.clauses.map((c) => c.text).join(", and ")}.`;
-  const sourceLine = cardSourceLine(summary.name, pinpoints);
+  const sourceLine = cardSourceLine(summary.name, pinpoints, sourceLabel);
 
   return (
     <div

@@ -2,6 +2,9 @@
 // Every sentence a reader sees carries the ids of the rules (or, for the program phone, the
 // source) it came from. Templated sentences use rule params, which verify.py checks against the
 // quote; everything else is the rule's own plain summary. Tend's own notes are marked "note".
+// A templated sentence says no more than the rules it cites: a condition, scope, exception or
+// extension in a cited rule's params is carried into the sentence. No templated sentence says
+// "never", and the exam tile says "$0" only where every exam rule behind it is unconditional.
 import { expenseRank } from "@/lib/expenses";
 import { formatCentsShort } from "@/lib/money";
 import type { Jurisdiction, Rule } from "@/lib/types";
@@ -57,6 +60,10 @@ export interface StateSummary {
   share: { text: string; clauses: ShareClause[] };
 }
 
+// Optional per-state notes in Tend's own voice, keyed by section id (jurisdiction file field
+// "page_notes"). They are shown first in their section, styled as notes, with no citation.
+type PageNotes = Partial<Record<string, string>>;
+
 // Literal names for each kind of cost. The ledger's labels ("Rides to care") say more than some
 // rules do, for example a rule that covers travel to court.
 const EXPENSE_LABEL: Record<string, string> = {
@@ -76,7 +83,7 @@ const EXPENSE_LABEL: Record<string, string> = {
   dental: "Dental care",
   funeral: "Funeral costs",
   legal: "Legal help",
-  tuition: "School costs",
+  tuition: "Lost tuition",
 };
 
 export function expenseName(expense: string): string {
@@ -86,7 +93,7 @@ export function expenseName(expense: string): string {
 const ALTERNATIVE_PHRASE: Record<string, string> = {
   forensic_exam: "a forensic exam",
   protective_order: "a protective order",
-  medical_provider: "medical or counseling records",
+  medical_provider: "medical records",
   advocate: "an advocate's statement",
 };
 const ALTERNATIVE_ORDER = ["forensic_exam", "protective_order", "medical_provider", "advocate"];
@@ -100,6 +107,12 @@ const METHOD_LABEL: Record<string, string> = {
 const METHOD_ORDER = ["online", "email", "mail", "fax", "in_person"];
 // Deadlines counted from these start on the day it happened.
 const FROM_INCIDENT = new Set(["crime", "incident", "injury", "offense", "occurrence"]);
+// Source kinds that are law; everything else is a program page or form.
+const LAW_KINDS = new Set(["statute", "regulation"]);
+// The share line's limit, the same as web/tests/public-summary.test.ts.
+export const SHARE_WORD_LIMIT = 32;
+// The card's report clause where every award needs a police report and no record replaces it.
+export const ASKS_FOR_REPORT = "the program asks for a police report";
 
 export function placeName(st: string, name: string): string {
   return st === "DC" ? "DC" : name;
@@ -133,6 +146,19 @@ function num(r: Rule, key: string): number | null {
   return typeof v === "number" && Number.isFinite(v) ? v : null;
 }
 
+// A plain-text param (condition, scope, exception, extension, exam_condition, item), or null.
+function phrase(r: Rule, key: string): string | null {
+  const v = params(r)[key];
+  return typeof v === "string" && v.trim() ? v.trim() : null;
+}
+
+// The one value every rule that has the param shares; null when none has it, "mixed" when they differ.
+function shared(rules: Rule[], key: string): { value: string | null; rules: Rule[]; mixed: boolean } {
+  const withIt = rules.filter((r) => phrase(r, key));
+  const values = [...new Set(withIt.map((r) => phrase(r, key)!))];
+  return { value: values.length === 1 ? values[0] : null, rules: withIt, mixed: values.length > 1 };
+}
+
 // "a, b, and c"
 export function joinWords(words: string[], conj = "and"): string {
   if (words.length <= 1) return words.join("");
@@ -149,6 +175,10 @@ function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+function wordCount(text: string): number {
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
 // Durations as the law states them; whole years read better than "60 months".
 export function duration(r: Rule): { text: string; days: number } | null {
   const years = num(r, "years");
@@ -160,6 +190,17 @@ export function duration(r: Rule): { text: string; days: number } | null {
     return months % 12 === 0 ? asYears(months / 12) : { text: plural(months, ["month", "months"]), days: months * 30 };
   }
   if (days && days > 0) return { text: plural(days, ["day", "days"]), days };
+  return null;
+}
+
+// A reporting window as written: within_hours, within_days or within_months.
+function reportWindow(r: Rule): string | null {
+  const h = num(r, "within_hours");
+  const d = num(r, "within_days");
+  const m = num(r, "within_months");
+  if (h) return plural(h, ["hour", "hours"]);
+  if (d) return plural(d, ["day", "days"]);
+  if (m) return plural(m, ["month", "months"]);
   return null;
 }
 
@@ -187,13 +228,19 @@ class Corpus {
 
   // Set aside by the normalizer because it is about someone or something other than the survivor's claim.
   setAside(r: Rule): boolean {
-    if (this.ir) return this.skipped.has(r.id) && !this.lowerLimit(r);
+    if (this.ir) return this.skipped.has(r.id) && !this.lowerLimit(r) && !this.amountless(r);
     return Boolean(params(r).applies_to);
   }
 
   // A cap the normalizer kept beside a more generous one for the same cost.
   lowerLimit(r: Rule): boolean {
     return /^less generous duplicate of /.test(this.skipped.get(r.id) ?? "");
+  }
+
+  // A limit with no dollar amount (a session or week count, a share of the award). The engine never
+  // applies it; the page shows it under its cost's row.
+  amountless(r: Rule): boolean {
+    return r.category === "expense_cap" && !num(r, "amount_cents") && Boolean(expenseOf(r)) && !params(r).applies_to;
   }
 
   // Whole-category exclusions the engine applies (an excluded rule with no narrowing tags).
@@ -218,25 +265,54 @@ function summaryFacts(rules: Rule[], keyPrefix: string): Fact[] {
 
 function totalSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
   const all = c.of("total_cap").filter((r) => num(r, "amount_cents"));
+  // Total caps with no amount (NV-CAP-3: some services can be paid beyond the limit) and total caps
+  // set aside as someone else's or a special case (TN-CAP-2, WY-CAP-10) are shown in their own words.
+  const noAmount = c.of("total_cap").filter((r) => !num(r, "amount_cents"));
   const decision = all.filter((r) => c.irRule(r.id)?.kind === "total_cap" || (!c.irRule(r.id) && !c.setAside(r)));
-  if (!decision.length) return { facts: summaryFacts(all, "total"), key: null, clause: null };
+  if (!decision.length) return { facts: summaryFacts([...all, ...noAmount], "total"), key: null, clause: null };
   // The engine applies the smallest total cap (docs/SPEC.md step 8).
   const min = Math.min(...decision.map((r) => num(r, "amount_cents")!));
   const lead = decision.filter((r) => num(r, "amount_cents") === min);
+  const exc = lead.map((r) => ({ r, t: phrase(r, "exception") })).find((x) => x.t);
+  const cond = lead.map((r) => ({ r, t: phrase(r, "condition") })).find((x) => x.t);
+  // Payments the law keeps outside the total (MA-EXAM-6, VA-EXAM-7).
+  const outside = c.rules.filter((r) => params(r).outside_total_cap === true && !c.setAside(r));
   const rest = all.filter((r) => !lead.includes(r));
-  const cites = lead.map((r) => r.id);
+  // The rule whose quote holds the exception or condition is cited first, so the card prints it.
+  const first = [exc?.r, cond?.r].filter((r): r is Rule => Boolean(r));
+  const cites = [...new Set([...first, ...lead].map((r) => r.id))];
+  const hedged = Boolean(exc) || outside.length > 0;
+  const line =
+    hedged || cond
+      ? `The most the program can pay in total is ${money(min)}${cond ? `, ${cond.t}` : ""}${exc ? `, ${exc.t}` : ""}.`
+      : `The most the program can pay for all costs together is ${money(min)}.`;
+  const facts: Fact[] = [{ key: "total", text: line, cites, kind: "law" }];
+  if (outside.length) {
+    const names = [
+      ...new Set(
+        outside.map((r) =>
+          (expenseOf(r) ?? "forensic_exam") === "forensic_exam"
+            ? "the forensic exam"
+            : expenseName(expenseOf(r)!).toLowerCase(),
+        ),
+      ),
+    ];
+    facts.push({
+      key: "total-outside",
+      text: `Payments for ${joinWords(names)} do not count toward this limit.`,
+      cites: outside.map((r) => r.id),
+      kind: "law",
+    });
+  }
+  facts.push(...summaryFacts(rest, "total"), ...summaryFacts(noAmount, "total-over"));
+  const small = `the most you can ask for in total${cond ? `, ${cond.t}` : ""}${exc ? ", except in some cases" : ""}`;
   return {
-    facts: [
-      {
-        key: "total",
-        text: `The most the program can pay for all costs together is ${money(min)}.`,
-        cites,
-        kind: "law",
-      },
-      ...summaryFacts(rest, "total"),
-    ],
-    key: { id: "total", big: money(min), small: "the most you can ask for in total", cites },
-    clause: { id: "total", text: `you can ask for up to ${money(min)}`, cites },
+    facts,
+    key: { id: "total", big: money(min), small, cites },
+    // A dated or conditioned total does not fit the card; the covered clause takes its place.
+    clause: cond
+      ? null
+      : { id: "total", text: `you can ask for up to ${money(min)}${exc ? ", or more in some cases" : ""}`, cites },
   };
 }
 
@@ -244,38 +320,96 @@ interface CoveredRow {
   expense: string;
   label: string;
   covered: Rule[];
-  // Limits with an amount. Each is shown with its own summary, because a limit often holds only
+  // Limits on the cost. Each is shown with its own summary, because a limit often holds only
   // for one kind of provider or trip (a peer counselor's hourly rate is not a therapist's).
   caps: Rule[];
+  // True when the label or the row's first details come from the rules' scope or item, so the row
+  // is narrower than its cost type and the card never names it.
+  scoped: boolean;
+  scopeDetails: { text: string; cite: string }[];
 }
 
 function coveredRows(c: Corpus): CoveredRow[] {
   const rows = new Map<string, CoveredRow>();
   const others: CoveredRow[] = [];
   const active = (r: Rule) => !c.setAside(r);
+  const caps = c.of("expense_cap").filter((r) => !c.setAside(r));
 
   for (const r of c.of("covered_expense").filter(active)) {
     const e = expenseOf(r);
     if (!e || e === "forensic_exam") continue;
-    const item = typeof params(r).item === "string" ? String(params(r).item) : "";
+    const item = phrase(r, "item");
     if (e === "other") {
-      // "Other" only says something when the rule names the item.
-      if (item) others.push({ expense: e, label: capitalize(item), covered: [r], caps: [] });
+      // "Other" only says something when the rule names the item. Its limits are the "other"
+      // caps that name the same item.
+      if (item) {
+        others.push({
+          expense: e,
+          label: capitalize(item),
+          covered: [r],
+          caps: caps.filter(
+            (x) => expenseOf(x) === "other" && phrase(x, "item") === item && (num(x, "amount_cents") ?? 0) > 0,
+          ),
+          scoped: true,
+          // A scope on a named "other" cost (TN-PAIN-1: rape and other sexual crimes) shows as the rule's own words.
+          scopeDetails: phrase(r, "scope") ? [{ text: sentence(r.summary), cite: r.id }] : [],
+        });
+      }
       continue;
     }
-    const row = rows.get(e) ?? { expense: e, label: expenseName(e), covered: [], caps: [] };
+    const row = rows.get(e) ?? {
+      expense: e,
+      label: expenseName(e),
+      covered: [],
+      caps: [],
+      scoped: false,
+      scopeDetails: [],
+    };
     row.covered.push(r);
     rows.set(e, row);
   }
 
-  const caps = c.of("expense_cap").filter((r) => !c.setAside(r));
   for (const e of new Set(caps.map(expenseOf).filter((x): x is string => Boolean(x)))) {
     if (e === "forensic_exam" || e === "other") continue;
     const mine = caps.filter((r) => expenseOf(r) === e && (num(r, "amount_cents") ?? 0) > 0);
-    const row = rows.get(e) ?? { expense: e, label: expenseName(e), covered: [], caps: [] };
+    const row = rows.get(e) ?? {
+      expense: e,
+      label: expenseName(e),
+      covered: [],
+      caps: [],
+      scoped: false,
+      scopeDetails: [],
+    };
     row.caps = mine;
     // A cap with an amount names the cost as payable, the same way the engine reads it.
     if (row.covered.length || row.caps.length) rows.set(e, row);
+  }
+  // A limit with no amount joins a row that already exists; it never makes a cost payable.
+  for (const r of caps.filter((x) => c.amountless(x))) {
+    const row = rows.get(expenseOf(r)!);
+    if (row && !row.caps.includes(r)) row.caps.push(r);
+  }
+
+  for (const row of rows.values()) {
+    const scopes = row.covered.map((r) => ({ r, s: phrase(r, "scope") }));
+    if (row.covered.length && scopes.every((x) => x.s)) {
+      const distinct = [...new Set(scopes.map((x) => x.s!))];
+      row.scoped = true;
+      // One scope names the row. Several keep the cost's name, and each rule's own summary says what it covers.
+      if (distinct.length === 1) row.label = capitalize(distinct[0]);
+      else row.scopeDetails = row.covered.map((r) => ({ text: sentence(r.summary), cite: r.id }));
+    } else if (scopes.some((x) => x.s)) {
+      // A row with a general rule and narrower ones keeps the cost's name, and each narrower rule's own
+      // summary shows under it (GA-6: counseling paid only from a licensed or certified professional).
+      row.scopeDetails = scopes.filter((x) => x.s).map(({ r }) => ({ text: sentence(r.summary), cite: r.id }));
+    } else if (!row.covered.length) {
+      // A row made only by limits takes its name from them when they all name one item (OH-CAP-4).
+      const items = [...new Set(row.caps.map((r) => phrase(r, "item")))];
+      if (items.length === 1 && items[0]) {
+        row.label = capitalize(items[0]);
+        row.scoped = true;
+      }
+    }
   }
 
   return [...rows.values()]
@@ -286,151 +420,272 @@ function coveredRows(c: Corpus): CoveredRow[] {
 
 function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[] } {
   const rows = coveredRows(c);
-  const facts: Fact[] = rows.map((row) => ({
-    key: `covered-${row.expense}-${row.covered[0]?.id ?? row.caps[0]?.id}`,
-    label: row.label,
-    text: "",
-    cites: [...row.covered, ...row.caps].map((r) => r.id),
-    kind: "law",
-    details: row.caps.length ? row.caps.map((r) => ({ text: sentence(r.summary), cite: r.id })) : undefined,
-  }));
+  const facts: Fact[] = rows.map((row) => {
+    // Covered rules marked detail: true show their own summary under the row (IN-COV-1: paid at 75%).
+    const own = row.covered
+      .filter((r) => params(r).detail === true)
+      .map((r) => ({ text: sentence(r.summary), cite: r.id }));
+    const details = [...row.scopeDetails, ...own, ...row.caps.map((r) => ({ text: sentence(r.summary), cite: r.id }))];
+    return {
+      key: `covered-${row.expense}-${row.covered[0]?.id ?? row.caps[0]?.id}`,
+      label: row.label,
+      text: "",
+      cites: [...row.covered, ...row.caps].map((r) => r.id),
+      kind: "law" as const,
+      details: details.length ? details : undefined,
+    };
+  });
   return { facts, rows };
 }
 
 function coveredClause(rows: CoveredRow[]): ShareClause | null {
-  // Two costs keep the card's one sentence short enough to read at a glance.
-  const pick = rows.filter((r) => r.expense !== "other" && r.covered.length).slice(0, 2);
+  // Two costs keep the card's one sentence short enough to read at a glance. A row narrowed by a
+  // scope or item is never named on the card, because its bare cost name would say more.
+  const pick = rows.filter((r) => r.expense !== "other" && r.covered.length && !r.scoped).slice(0, 2);
   if (!pick.length) return null;
   return {
     id: "covered",
     text: `you can ask to be paid back for costs like ${joinWords(pick.map((r) => r.label.toLowerCase()))}`,
-    cites: pick.flatMap((r) => r.covered.map((x) => x.id)),
+    // The row's limits are cited first: in Iowa they hold the general grants (Iowa Code 915.86(1) for
+    // medical care, 915.86(15) for travel), while its covered rules are narrower (IA-1).
+    cites: [
+      ...new Set(pick.flatMap((r) => [...r.caps.filter((x) => num(x, "amount_cents")), ...r.covered].map((x) => x.id))),
+    ],
   };
 }
+
+// One line on insurance, from the first value any no-bill rule carries in this order. "It" is the
+// exam the line above names, with its scope and condition. The consent line names private health
+// insurance: where a consent rule says which coverage it means, it means private insurance (New
+// Hampshire bills Medicaid and Medicare with no choice; New York). The bar names private insurance
+// only when every rule behind it does (Mississippi R. 602(3)).
+const INSURANCE_LINE: [string, string][] = [
+  ["prohibited", "the provider should not bill your {insurance} for it either"],
+  ["consent_required", "your private health insurance can be billed for it only if you agree"],
+  ["required", "if you have health insurance, it should be billed first"],
+  ["allowed", "the provider may bill your insurance for it, but not you"],
+];
 
 function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
   const noBill = c.of("exam_no_bill").filter((r) => !c.setAside(r));
   // A no-bill rule the normalizer set aside holds only for some survivors (Wyoming's covers exams reported to
-  // police), so it is shown in its own words and never as "you should not get a bill".
+  // police), so it is shown in its own words and never as the headline.
   const narrow = c.of("exam_no_bill").filter((r) => c.setAside(r));
   const payment = c.of("exam_payment").filter((r) => !c.setAside(r));
   const coveredExam = c.of("covered_expense").filter((r) => expenseOf(r) === "forensic_exam" && !c.setAside(r));
+  const examCaps = c.of("expense_cap").filter((r) => expenseOf(r) === "forensic_exam" && !c.setAside(r));
   const facts: Fact[] = [];
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;
 
-  if (noBill.length) {
-    const cites = noBill.map((r) => r.id);
+  // The headline says no more than every no-bill rule. A scope narrows what the exam covers (Texas:
+  // the forensic part and the kit); a condition narrows who or when (Alaska: 16 or older). A
+  // condition may sit on a payment rule (Maryland's 15-day window), which is then cited first.
+  const scope = shared(noBill, "scope");
+  const cond = shared([...noBill, ...payment], "condition");
+  const headline = noBill.length > 0 && !scope.mixed && !cond.mixed;
+
+  if (headline) {
+    const s = scope.value;
+    const k = cond.value ? ` ${cond.value}` : "";
+    const cites = [...new Set([...cond.rules, ...noBill].map((r) => r.id))];
+    // A no-bill rule that carries the condition, or is marked detail, shows its own summary under the
+    // headline, because the plain condition leaves out its waivers (Arkansas: minors, good cause).
+    const details = noBill
+      .filter((r) => cond.rules.includes(r) || params(r).detail === true)
+      .map((r) => ({ text: sentence(r.summary), cite: r.id }));
     facts.push({
       key: "exam-no-bill",
-      text: "You should not get a bill for a sexual assault forensic exam.",
+      text: `You should not have to pay for ${s ?? "a sexual assault forensic exam"}${k}.`,
       cites,
       kind: "law",
+      details: details.length ? details : undefined,
     });
-    key = { id: "exam", big: money(0), small: "what a forensic exam should cost you", cites };
-    clause = { id: "exam", text: "you should never get a bill for a forensic exam", cites };
+    key =
+      s || cond.value
+        ? { id: "exam", big: "Forensic exam", small: `you should not have to pay for ${s ?? "it"}${k}`, cites }
+        : { id: "exam", big: money(0), small: "what the forensic exam itself should cost you", cites };
+    clause = { id: "exam", text: `you should not have to pay for ${s ?? "a forensic exam"}${k}`, cites };
 
-    const by = (v: string) => noBill.filter((r) => params(r).insurance_billing === v).map((r) => r.id);
-    const insurance: [string, string][] = [
-      ["prohibited", "The provider should not bill your insurance for it either."],
-      ["consent_required", "The provider can bill your insurance for it only if you agree."],
-      ["allowed", "The provider may bill your insurance, but not you."],
-    ];
-    for (const [value, text] of insurance) {
-      const ids = by(value);
-      if (ids.length) {
-        facts.push({ key: `exam-insurance-${value}`, text, cites: ids, kind: "law" });
-        break;
-      }
+    for (const [value, line] of INSURANCE_LINE) {
+      const rules = noBill.filter((r) => params(r).insurance_billing === value);
+      if (!rules.length) continue;
+      const text = line.replace(
+        "{insurance}",
+        rules.every((r) => /\bprivate\b/i.test(r.quote)) ? "private health insurance" : "insurance",
+      );
+      // A bar or consent rule that holds only under its own condition starts the line with it
+      // (Wisconsin 949.26(2)(b) binds a provider that asks the SAFE Fund to pay).
+      const lc = value === "prohibited" || value === "consent_required" ? shared(rules, "condition") : null;
+      facts.push({
+        key: `exam-insurance-${value}`,
+        text: sentence(lc?.value ? `${capitalize(lc.value)}, ${text}` : capitalize(text)),
+        cites: [...new Set([...(lc?.rules ?? []), ...rules].map((r) => r.id))],
+        kind: "law",
+      });
+      break;
     }
+  } else {
+    facts.push(...summaryFacts(noBill, "exam-no-bill"));
   }
   facts.push(
     ...summaryFacts(narrow, "exam-no-bill"),
     ...summaryFacts(payment, "exam-payment"),
     ...summaryFacts(coveredExam, "exam-covered"),
+    ...summaryFacts(examCaps, "exam-cap"),
   );
   return { facts, key, clause };
 }
 
+// Conduct rules about cooperating with police or the program belong next to the report rules.
+function cooperationRules(c: Corpus): Rule[] {
+  return c.of("conduct_reduction").filter((r) => !c.setAside(r) && /cooperat/i.test(`${r.quote} ${r.summary}`));
+}
+
 function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
   const rules = c.of("reporting_requirement").filter((r) => !c.setAside(r));
-  if (!rules.length) return { facts: [], key: null, clause: null };
-  const required = rules.filter((r) => params(r).required === true);
+  const coop = cooperationRules(c);
+  if (!rules.length && !coop.length) return { facts: [], key: null, clause: null };
+  // The rules that answer "does the compensation program need a police report": not a rule about
+  // something narrower (scope: cooperation, another program, a source that disagrees with the
+  // statute) and not a waiver for the forensic exam alone (expense forensic_exam).
+  const main = rules.filter((r) => !phrase(r, "scope") && expenseOf(r) !== "forensic_exam");
+  const required = main.filter((r) => params(r).required === true);
   // An exam counts with confidence only where the law that sets the requirement names it.
   const examInRequired = required.filter((r) => list(r, "alternatives").includes("forensic_exam"));
-  const facts = summaryFacts(rules, "report");
-  let key: KeyFact;
-  let clause: ShareClause | null = null;
-
-  if (!required.length) {
-    const others = rules.some((r) => list(r, "alternatives").length);
-    // "Not required" alone overstates a rule like KS-REP-1 (a report within 72 hours OR an exam
-    // within 7 days), which the corpus marks required: false because an alternative exists. When
-    // the rules name alternatives, the page says a report is not the only way, which holds for both.
-    key = {
-      id: "report",
-      big: "Police report",
-      small: others ? "not the only record that counts" : "not required to apply",
-      cites: rules.map((r) => r.id),
-    };
-  } else if (examInRequired.length) {
-    const cites = examInRequired.map((r) => r.id);
-    key = { id: "report", big: "Exam can count", small: "in place of a police report", cites };
-    clause = { id: "report", text: "a forensic exam can count instead of a police report", cites };
-  } else {
-    const within = required
-      .map((r) => {
-        const d = num(r, "within_days");
-        const h = num(r, "within_hours");
-        return h ? { text: plural(h, ["hour", "hours"]), r } : d ? { text: plural(d, ["day", "days"]), r } : null;
-      })
-      .filter((x): x is { text: string; r: Rule } => x !== null);
-    key = {
-      id: "report",
-      big: "Police report",
-      small: within.length ? `the program asks for one within ${within[0].text}` : "the program asks for one",
-      cites: within.length ? [within[0].r.id] : required.map((r) => r.id),
-    };
-  }
-
+  // The exam's own limit ("done within 120 hours of the assault"). Two different limits cannot be
+  // said as one, so the tile then says only that other records count, and the card leaves it out.
+  const ec = shared(examInRequired, "exam_condition");
+  const reqWithAlts = required.filter((r) => list(r, "alternatives").length);
+  const waivers = main.filter((r) => params(r).required === false && list(r, "alternatives").length);
+  // A criminal charge the exam cannot replace (West Virginia 14-2A-18).
+  const charge = rules.filter((r) => params(r).charge_required === true);
   // One plain line before the rules themselves, from params only. Two examples at most keep it
   // short; the rules below list every one.
-  const alts = ALTERNATIVE_ORDER.filter((a) => rules.some((r) => list(r, "alternatives").includes(a)));
-  const altRules = rules.filter((r) => list(r, "alternatives").some((a) => alts.includes(a)));
+  const alts = ALTERNATIVE_ORDER.filter((a) => main.some((r) => list(r, "alternatives").includes(a)));
+  const altRules = main.filter((r) => list(r, "alternatives").some((a) => alts.includes(a)));
   const like = joinWords(
     alts.slice(0, 2).map((a) => ALTERNATIVE_PHRASE[a]),
     "or",
   );
+  const facts = [...summaryFacts(rules, "report"), ...summaryFacts(coop, "report-coop")];
+  let key: KeyFact | null = null;
+  let clause: ShareClause | null = null;
   let lead: Fact | null = null;
-  if (!required.length) {
+  const askLead = (cites: Rule[]): Fact => ({
+    key: "report-lead",
+    text: `The program asks for a police report. The rules below say when other records can count instead, like ${like}.`,
+    cites: [...new Set(cites.map((r) => r.id))],
+    kind: "law",
+  });
+
+  if (!main.length) {
+    // Only narrower rules: each shows in its own words.
+  } else if (!required.length) {
+    // "Not required" alone overstates a rule like KS-REP-1 (a report within 72 hours OR an exam
+    // within 7 days), which the corpus marks required: false because an alternative exists. When
+    // the rules name alternatives, the page says a report is not the only way, which holds for both.
+    // A rule that names other records and sets a window keeps the window on the tile and the lead
+    // (Kansas 74-7305: a report within 72 hours, an exam within 7 days, or good cause; KS-0).
+    const altWin = altRules.map((r) => reportWindow(r)).find((w) => w) ?? null;
+    key = {
+      id: "report",
+      big: "Police report",
+      small: alts.length
+        ? `not the only record that counts${altWin ? ", but time limits apply" : ""}`
+        : "not required to apply",
+      cites: main.map((r) => r.id),
+    };
     lead = {
       key: "report-lead",
       text: alts.length
-        ? `A police report is not the only way to qualify. Other records can count, like ${like}.`
+        ? `A police report${altWin ? ` within ${altWin}` : ""} is not the only way to qualify. The rules below say which other records can count and when, like ${like}.`
         : "A police report is not required.",
-      cites: rules.map((r) => r.id),
+      cites: main.map((r) => r.id),
       kind: "law",
     };
-  } else if (alts.length) {
+  } else if (examInRequired.length && charge.length) {
+    const r0 = examInRequired[0];
+    const win = reportWindow(r0);
+    const exc = phrase(r0, "exception");
+    const cites = [...examInRequired, ...charge].map((r) => r.id);
+    key = {
+      id: "report",
+      big: "Report or exam",
+      small: `${win ? `within ${win}` : "the program asks for one"}${exc ? `, ${exc}` : ""}; a criminal charge is generally needed too`,
+      cites,
+    };
     lead = {
       key: "report-lead",
-      text: `The program asks for a police report. The rules below say when other records can count instead, like ${like}.`,
-      cites: [...new Set([...required, ...altRules].map((r) => r.id))],
+      text: "The program asks for a police report, and generally for a criminal charge to be filed. The rules below say when a forensic exam can count for the report, and when no charge is needed.",
+      cites: [...new Set([...required, ...charge].map((r) => r.id))],
       kind: "law",
     };
+  } else if (examInRequired.length && !ec.mixed) {
+    // A rule stored as a waiver whose own words make the exam count (Illinois 6.1(b-1)) is cited before
+    // the required rule, so the card and the tile point to the text that says so (IL-0).
+    const inLieu = waivers.filter((r) => list(r, "alternatives").includes("forensic_exam"));
+    const cites = [...new Set([...ec.rules, ...inLieu, ...examInRequired].map((r) => r.id))];
+    key = {
+      id: "report",
+      big: "Exam can count",
+      small: `in place of a police report${ec.value ? `, if it was ${ec.value}` : ""}`,
+      cites,
+    };
+    clause = {
+      id: "report",
+      text: `a forensic exam${ec.value ? ` ${ec.value}` : ""} can count instead of a police report`,
+      cites,
+    };
+    lead = askLead([...required, ...altRules]);
+  } else if (reqWithAlts.length) {
+    // A required rule that names its own other records (Utah's advocate questionnaire).
+    const timedReq = required.some((r) => reportWindow(r));
+    key = {
+      id: "report",
+      big: "Police report",
+      small: `not the only record that counts${timedReq ? ", but time limits apply" : ""}`,
+      cites: [...new Set([...waivers, ...reqWithAlts].map((r) => r.id))],
+    };
+    lead = askLead([...required, ...altRules]);
   } else {
-    lead = {
-      key: "report-lead",
-      text: "The program asks that the crime be reported to police.",
-      cites: required.map((r) => r.id),
-      kind: "law",
+    // Every award needs a report: the card says so in place of an exam or deadline clause.
+    const timed = required.map((r) => ({ r, w: reportWindow(r) })).find((x) => x.w);
+    // Every required rule's exception, the timed rule's first (Arizona: counted from discovery, then the
+    // Board's good-cause extension in R10-4-106(B); New Jersey: discovery, then good cause).
+    const excRules = [...(timed ? [timed.r] : []), ...required.filter((r) => r !== timed?.r)].filter((r) =>
+      phrase(r, "exception"),
+    );
+    const exc = [...new Set(excRules.map((r) => phrase(r, "exception")!))].join(", ") || null;
+    const cites = [...new Set([...(timed ? [timed.r] : required), ...excRules].map((r) => r.id))];
+    key = {
+      id: "report",
+      big: "Police report",
+      small: `the program asks for one${timed ? ` within ${timed.w}` : ""}${exc ? `, ${exc}` : ""}`,
+      cites,
     };
+    clause = { id: "report", text: ASKS_FOR_REPORT, cites };
+    lead = alts.length
+      ? askLead([...required, ...altRules])
+      : {
+          key: "report-lead",
+          text: "The program asks that the crime be reported to police.",
+          cites: required.map((r) => r.id),
+          kind: "law",
+        };
   }
-  return { facts: [lead, ...facts], key, clause };
+  return { facts: lead ? [lead, ...facts] : facts, key, clause };
 }
 
 function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
-  const rules = c.of("filing_deadline").filter((r) => !c.setAside(r));
+  // A deadline counted from a trip is for one travel request, not for the application. It shows last
+  // and never makes the application's deadline read as having exceptions (WA-COV-TRANSPORT-3).
+  const perTrip = (r: Rule) => params(r).from === "trip";
+  const rules = c.of("filing_deadline").filter((r) => !c.setAside(r) && !perTrip(r));
+  const trips = c.of("filing_deadline").filter((r) => !c.setAside(r) && perTrip(r));
+  // Deadline rules the normalizer set aside hold for some survivors only (Mississippi: child sexual abuse,
+  // counted from the report). They show in their own words after the others (MS-4).
+  const narrow = c.of("filing_deadline").filter((r) => c.setAside(r));
   const timed = rules
     .map((r) => ({ r, d: duration(r), from: String(params(r).from ?? "") }))
     .filter((x) => x.d !== null);
@@ -447,21 +702,37 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
   let clause: ShareClause | null = null;
   if (primary) {
     const cites = [primary.r.id];
+    const others = [...rules.filter((r) => r !== primary.r), ...narrow];
+    const below = [...others, ...trips];
+    const cond = phrase(primary.r, "condition");
+    // An extension from the rule's own quote: a clause ("or later if the board finds good cause")
+    // joins the sentence; a sentence (New Mexico's minors) follows it.
+    const ext = phrase(primary.r, "extension");
+    const extClause = ext && /^[a-z]/.test(ext) ? ext : null;
+    const extSentence = ext && !extClause ? sentence(ext) : null;
+    const more = below.length ? (ext ? " The rules below say more." : " The rules below cover other cases.") : "";
     facts.push({
       key: "deadline",
-      text: `Apply within ${primary.d!.text} of the date it happened.`,
+      text: `Apply within ${primary.d!.text} of the date it happened${cond ? `, ${cond}` : ""}${extClause ? `, ${extClause}` : ""}.${extSentence ? ` ${extSentence}` : ""}${more}`,
       cites,
       kind: "law",
     });
-    key = { id: "deadline", big: primary.d!.text, small: "to apply, from the date it happened", cites };
-    clause = { id: "deadline", text: `you have ${primary.d!.text} to apply`, cites };
+    const hedge = Boolean(ext) || others.length > 0;
+    key = {
+      id: "deadline",
+      big: primary.d!.text,
+      small: `to apply, from the date it happened${cond ? `, ${cond}` : ""}${hedge ? ", with exceptions" : ""}`,
+      cites,
+    };
+    clause = {
+      id: "deadline",
+      text: `you have ${primary.d!.text} to apply${cond ? ` ${cond}` : ""}${hedge ? ", or more in some cases" : ""}`,
+      cites,
+    };
+    facts.push(...summaryFacts(below, "deadline"));
+  } else {
+    facts.push(...summaryFacts([...rules, ...narrow, ...trips], "deadline"));
   }
-  facts.push(
-    ...summaryFacts(
-      rules.filter((r) => r !== primary?.r),
-      "deadline",
-    ),
-  );
   return { facts, key, clause };
 }
 
@@ -485,14 +756,28 @@ function contactFacts(law: Jurisdiction, c: Corpus): { phone: Fact | null; facts
       r,
       method: String(params(r).method ?? ""),
       target: plainMarks(String(params(r).target ?? "").trim()),
+      // Who may use this way to file (Virginia's WebFile is for trained advocates).
+      cond: phrase(r, "condition"),
     }))
-    .filter((x) => METHOD_LABEL[x.method] && x.target)
-    .sort((a, b) => METHOD_ORDER.indexOf(a.method) - METHOD_ORDER.indexOf(b.method));
-  for (const { r, method, target } of submissions) {
+    // A mail target with no digit is not an address a survivor can mail to.
+    .filter((x) => METHOD_LABEL[x.method] && x.target && (x.method !== "mail" || /\d/.test(x.target)))
+    .sort(
+      (a, b) =>
+        Number(Boolean(a.cond)) - Number(Boolean(b.cond)) ||
+        METHOD_ORDER.indexOf(a.method) - METHOD_ORDER.indexOf(b.method),
+    );
+  for (const { r, method, target, cond } of submissions) {
     let href: string | undefined;
     if (method === "online" && /^https?:\/\//i.test(target)) href = target;
     if (method === "email" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) href = `mailto:${target}`;
-    facts.push({ key: `apply-${r.id}`, label: METHOD_LABEL[method], text: target, cites: [r.id], kind: "law", href });
+    facts.push({
+      key: `apply-${r.id}`,
+      label: METHOD_LABEL[method],
+      text: cond ? `${target} (${cond})` : target,
+      cites: [r.id],
+      kind: "law",
+      href,
+    });
   }
 
   // The phone is shown only with the saved page it came from.
@@ -512,10 +797,19 @@ function contactFacts(law: Jurisdiction, c: Corpus): { phone: Fact | null; facts
   return { phone, facts };
 }
 
+// The privacy section's title says only what its rules cover.
+function privacyTitle(acp: boolean, records: boolean): string {
+  if (acp && records) return "Keeping your name and address private";
+  if (acp) return "Keeping your address private";
+  if (records) return "Keeping your claim records private";
+  return "Keeping your name and address private";
+}
+
 export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): StateSummary {
   const c = new Corpus(law, ir);
   const st = law.jurisdiction;
   const place = placeName(st, law.name);
+  const pageNotes = ((law as unknown as { page_notes?: PageNotes }).page_notes ?? {}) as PageNotes;
 
   const total = totalSection(c);
   const covered = coveredSection(c);
@@ -524,47 +818,91 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
   const deadline = deadlineSection(c);
   const contact = contactFacts(law, c);
   const excluded = c.of("excluded_expense").filter((r) => !c.setAside(r));
-  const privacy = [...c.of("address_confidentiality"), ...c.of("record_confidentiality")];
+  const acp = c.of("address_confidentiality");
+  const records = [...c.of("record_confidentiality"), ...c.of("record_public")];
+  const privacy = [...acp, ...records];
   const urgent = c.of("emergency_award").filter((r) => !c.setAside(r));
   const before = [
     ...c.of("residency"),
     ...c.of("collateral_source"),
     ...c.of("minimum_loss").filter((r) => !c.setAside(r)),
+    ...c.of("financial_need").filter((r) => !c.setAside(r)),
   ];
 
   // Tend's own notes say what it could not verify. They carry no citation and are styled apart.
   const note = (key: string, text: string): Fact[] => [{ key, text, cites: [], kind: "note" }];
+  const withNote = (id: string, facts: Fact[]): Fact[] =>
+    pageNotes[id] ? [...note(`${id}-note`, pageNotes[id]!), ...facts] : facts;
+  const privacyNotes: Fact[] = [];
+  if (acp.length && !records.length)
+    privacyNotes.push(
+      ...note(
+        "privacy-records-none",
+        `Tend has not verified a law that keeps compensation records private in ${law.name}.`,
+      ),
+    );
+  if (!acp.length && records.length)
+    privacyNotes.push(
+      ...note("privacy-address-none", `Tend has not verified an address confidentiality program for ${law.name}.`),
+    );
+  // A cost that is the only one some survivors can get (Florida: counseling for adults who were not
+  // physically hurt) is said right under the total, citing its rule.
+  const only: Fact[] = c
+    .of("covered_expense")
+    .filter((r) => !c.setAside(r) && phrase(r, "only_benefit_if") && expenseOf(r))
+    .map((r) => ({
+      key: `costs-only-${r.id}`,
+      text: `${capitalize(phrase(r, "only_benefit_if")!)}, ${expenseName(expenseOf(r)!).toLowerCase()} is the only cost the program can pay.`,
+      cites: [r.id],
+      kind: "law" as const,
+    }));
   const all: Section[] = [
-    { id: "costs", title: "What the program can pay for", nav: "Costs", facts: [...total.facts, ...covered.facts] },
+    {
+      id: "costs",
+      title: "What the program can pay for",
+      nav: "Costs",
+      facts: withNote("costs", [...total.facts, ...only, ...covered.facts]),
+    },
     {
       id: "not-covered",
       title: "What it does not pay for",
       nav: "Not covered",
       facts: summaryFacts(excluded, "excluded"),
     },
-    { id: "exam", title: "The forensic exam", nav: "Exam", facts: exam.facts },
-    { id: "police", title: "Police report", nav: "Police report", facts: report.facts },
+    { id: "exam", title: "The forensic exam", nav: "Exam", facts: withNote("exam", exam.facts) },
+    { id: "police", title: "Police report", nav: "Police report", facts: withNote("police", report.facts) },
     {
       id: "deadline",
       title: "Deadline to apply",
       nav: "Deadline",
-      facts: deadline.facts.length
-        ? deadline.facts
-        : note(
-            "deadline-none",
-            `Tend has not verified a filing deadline for ${law.name}. Ask the program before you wait.`,
-          ),
+      facts: withNote(
+        "deadline",
+        deadline.facts.length
+          ? deadline.facts
+          : note(
+              "deadline-none",
+              `Tend has not verified a filing deadline for ${law.name}. Ask the program before you wait.`,
+            ),
+      ),
     },
     {
       id: "privacy",
-      title: "Keeping your name and address private",
+      title: privacyTitle(acp.length > 0, records.length > 0),
       nav: "Privacy",
-      facts: privacy.length
-        ? summaryFacts(privacy, "privacy")
-        : note("privacy-none", `Tend has not verified an address or records privacy law for ${law.name} yet.`),
+      facts: withNote(
+        "privacy",
+        privacy.length
+          ? [...summaryFacts(privacy, "privacy"), ...privacyNotes]
+          : note("privacy-none", `Tend has not verified an address or records privacy law for ${law.name} yet.`),
+      ),
     },
     { id: "apply", title: "How to apply", nav: "How to apply", facts: contact.facts },
-    { id: "urgent", title: "If you need money soon", nav: "Urgent money", facts: summaryFacts(urgent, "urgent") },
+    {
+      id: "urgent",
+      title: "If you need money soon",
+      nav: "Urgent money",
+      facts: withNote("urgent", summaryFacts(urgent, "urgent")),
+    },
     {
       id: "before",
       title: "Good to know before you apply",
@@ -576,11 +914,19 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
 
   const keyFacts = [total.key, deadline.key, report.key, exam.key].filter((k): k is KeyFact => k !== null);
 
-  // "If you're Jane Doe in Michigan: <money>, and <one protection>."
+  // "If you're Jane Doe in Michigan: <money>, and <one protection>." Where every award needs a
+  // police report, the protection clause says so. Otherwise the first protection clause that keeps
+  // the sentence within the word limit is used: an exam that counts for the report, then the exam
+  // itself, then the deadline. A clause is never cut down to fit; it is left out instead.
   const first = total.clause ?? coveredClause(covered.rows);
-  const second = report.clause ?? exam.clause ?? deadline.clause;
-  const clauses = [first, second].filter((x): x is ShareClause => x !== null);
-  const text = `If you're Jane Doe in ${place}: ${clauses.map((x) => x.text).join(", and ")}.`;
+  const head = `If you're Jane Doe in ${place}:`;
+  const sentenceOf = (cl: ShareClause[]) => `${head} ${cl.map((x) => x.text).join(", and ")}.`;
+  const firstOnly = first ? [first] : [];
+  const candidates = [report.clause, exam.clause, deadline.clause].filter((x): x is ShareClause => x !== null);
+  const gate = report.clause?.text === ASKS_FOR_REPORT ? report.clause : null;
+  const second = gate ?? candidates.find((x) => wordCount(sentenceOf([...firstOnly, x])) <= SHARE_WORD_LIMIT) ?? null;
+  const clauses = [...firstOnly, ...(second ? [second] : [])];
+  const text = sentenceOf(clauses);
 
   return {
     st,
@@ -602,4 +948,18 @@ export function citedIds(summary: StateSummary): Set<string> {
   for (const k of summary.keyFacts) k.cites.forEach((id) => ids.add(id));
   for (const c of summary.share.clauses) c.cites.forEach((id) => ids.add(id));
   return ids;
+}
+
+// What the card's small print names (web/app/[st]/card.png/route.tsx passes it to cardSourceLine in
+// web/components/public/og/card.tsx): the first pinpoint of each clause, and whether the clauses
+// rest on law, on program pages, or on both, judged from every rule each clause cites.
+export function cardSources(law: Jurisdiction, clauses: ShareClause[]): { pinpoints: string[]; label: string } {
+  const byId = new Map(law.rules.map((r) => [r.id, r]));
+  const kinds = new Map(law.sources.map((s) => [s.id, s.kind]));
+  const isLaw = clauses
+    .flatMap((c) => c.cites)
+    .map((id) => LAW_KINDS.has(kinds.get(byId.get(id)?.source_id ?? "") ?? ""));
+  const label = isLaw.every(Boolean) ? "law" : isLaw.some(Boolean) ? "law and program pages" : "program pages";
+  const pinpoints = [...new Set(clauses.map((c) => byId.get(c.cites[0])?.pinpoint).filter((p): p is string => !!p))];
+  return { pinpoints, label };
 }
