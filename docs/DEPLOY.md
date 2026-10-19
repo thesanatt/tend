@@ -16,7 +16,7 @@ time; nothing secret is in the repository or in any page bundle.
 
 - `tend-api` uses Vercel Authentication on **all** deployments, production included. The API has no public
   address of its own: it answers the web proxy (which carries the bypass secret), `vercel curl`, and team
-  members signed in to Vercel. The Fetch.ai agent must use `TEND_API_URL=https://youreowed.tech`.
+  members signed in to Vercel.
 - `tend-web` uses the default (everything except custom domains): previews need a Vercel login or the bypass,
   and `youreowed.tech` is public once it is attached.
 - Production is staged on both projects (`autoAssignCustomDomains: false`). `vercel deploy --prod` builds a
@@ -140,7 +140,6 @@ a new web preview. To open a preview in a browser, sign in to Vercel, or use a s
    To see the demo bank put itself back, pay the $118.00 from `/check?demo=rowan`, wait 21 minutes, and tap
    **Get a code** in another browser. It should give a code, and the API's function log should have no "demo
    reset left rowan-mi alone" or "demo reset for rowan-mi did not finish" warning.
-6. Point the Fetch.ai agent at the same origin: `TEND_API_URL=https://youreowed.tech`.
 
 With staging on, every later `--prod` deploy waits for `vercel promote` too. To let `--prod` go live directly:
 `vercel api /v9/projects/tend-web -X PATCH -F autoAssignCustomDomains=true` (and the same for `tend-api`).

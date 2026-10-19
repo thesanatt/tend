@@ -32,7 +32,7 @@ With more time:
   engine does with it, the saved sources with their sha256, and the compiled bytecode listing.
 - **The total.** $3,848.00 is with the rules alone. Two lines the rules cannot sort (sheets, a door
   chain) go to Gemini Nano when Chrome has it, or to cloud AI only after a yes on its consent
-  screen. With them, as in the agent run, the total is $4,008.00.
+  screen. With them, the total is $4,008.00.
 
 ## 5 minutes: check the claims
 
@@ -59,10 +59,11 @@ run from the root unless it says `cd`. All of them work offline with no keys.
 | 16 | A model only suggests a label; it can never mark a forensic exam or lost pay | `web/lib/local/classify.ts:262` | `web/tests/local/classify.test.ts`: "never takes a forensic exam or lost pay from a model" | `cd web && npx vitest run tests/local/classify.test.ts` |
 | 17 | Money is integer cents everywhere | `api/tend_api/money.py`, engine/FORMAT.md section 5 | `api/tests/test_money_models.py::test_integer_cents_guard_rejects_floats_bools_strings` | `cd api && uv run pytest tests/test_money_models.py` |
 | 18 | Each version of the law is a Neon branch, and two versions can be compared rule by rule | `scripts/neon/law_versions.py`, `api/tend_api/law.py` | `api/tests/test_law.py::test_a_state_diff_reads_both_branches` (offline, SQLite stands in for branches); `test_neon_law.py` on real Neon | `cd api && uv run pytest tests/test_law.py` |
-| 19 | The agent never passes on a message that describes what happened | `agent/tend_agent/parse.py` (`story_kind`, line 362), `agent/tend_agent/navigator.py` | `agent/tests/test_navigator.py::test_story_is_never_passed_on`, `agent/tests/test_parse.py::test_story_guard` | `cd agent && uv run pytest tests/test_navigator.py tests/test_parse.py` |
-| 20 | The whole loop works through three Fetch.ai agents: Check, held exam line, $118.00 paid with a typed code, sealed share opened with its key | `agent/tend_agent/` | `agent/scripts/rehearse.py` (writes agent/REHEARSAL.md; 4.0 s on Oct 4, tend 1.2.0) | start the API (README.md, "Run it"), then `cd agent && uv run python scripts/rehearse.py` |
-| 21 | The survivor path works offline, sends nothing private, and the payment waits for the network | `web/public/sw.js`, `web/components/flow/offline.ts`, `web/lib/netlog.ts` | `web/e2e/test_demo_path.py`: `test_offline_survivor_path`, `test_nothing_private_leaves` | `web/e2e/run.sh` (Playwright in Chromium, about 1 to 2 minutes with the build) |
-| 22 | A deadline that can count from discovery is flagged, never shown as plainly late | `engine/src/compiler.cpp:716`, `refengine/tend_ref/engine.py` | difftest (29,916 claims with `deadline_from_discovery`, 0 mismatches); `web/tests/checks.test.ts`: "never shows a deadline that may count from discovery or the report as plainly late" | `make -C engine test`; `cd web && npx vitest run tests/checks.test.ts` |
+| 19 | The survivor path works offline, sends nothing private, and the payment waits for the network | `web/public/sw.js`, `web/components/flow/offline.ts`, `web/lib/netlog.ts` | `web/e2e/test_demo_path.py`: `test_offline_survivor_path`, `test_nothing_private_leaves` | `web/e2e/run.sh` (Playwright in Chromium, about 1 to 2 minutes with the build) |
+| 20 | A deadline that can count from discovery is flagged, never shown as plainly late | `engine/src/compiler.cpp:716`, `refengine/tend_ref/engine.py` | difftest (29,916 claims with `deadline_from_discovery`, 0 mismatches); `web/tests/checks.test.ts`: "never shows a deadline that may count from discovery or the report as plainly late" | `make -C engine test`; `cd web && npx vitest run tests/checks.test.ts` |
+
+The three chat agents from the MHacks build are retired, so their two claims are gone from this list.
+The code as judged, with their tests, is commit 5d1f7bd.
 
 ## What Tend does not claim
 
