@@ -95,18 +95,19 @@ such as Touch ID or with a passcode).
 The survivor's data leaves the device only when they tap to send it, and the line under the header
 says what went:
 
-- **A payment.** Get a code sends the amount, the account, and the payee to Tend's server; nothing
-  moves until the 6-digit code is typed. In the demo the payment goes to Nessie, in mock money.
-- **A share link.** The packet is encrypted in the browser. The key stays in the link after `#`,
+- A payment: tapping Get a code sends the amount, the account, and the payee to Tend's server,
+  and nothing moves until the 6-digit code is typed. In the demo the payment goes to Nessie, in
+  mock money.
+- A share link: the packet is encrypted in the browser, and the key stays in the link after `#`,
   which browsers do not send to servers, so Tend's server holds only ciphertext.
-- **Cloud AI, after a yes on a consent screen.** Rows Tend could not sort, or a bill it could not
+- Cloud AI, after a yes on a consent screen: rows Tend could not sort, or a bill it could not
   read, go through Tend's server to Google's Gemini. Tend uses Gemini's free tier, whose terms let
   Google keep what is sent, use it to improve its products, and have people review it. Tend's
   server keeps no copy. In this prototype, don't send a real bill to cloud AI.
-- **A check on Tend's server, after a yes,** offered only when the browser cannot run the law
-  engine. It sends the state, the date, the answers, and each cost not said no to, with its
-  description from the statement or bill.
-- **The demo bank in Track,** with the fictional account only: its records and a demo payout.
+- A check on Tend's server, after a yes, offered only when the browser cannot run the law engine:
+  it sends the state, the date, the answers, and each cost not said no to, with its description
+  from the statement or bill.
+- The demo bank in Track, with the fictional account only: its records and a demo payout.
 
 One answer shows without a send: picking a state loads that state's public law files, so the host
 can tell which state was picked. Tend runs no analytics and no third-party scripts, but Vercel,
