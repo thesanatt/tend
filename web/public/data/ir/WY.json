@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WY",
- "source_sha256": "047a61a66c768f24553908d6abaa5d2832ee3428a3925e31a0f1c261a9cbd338",
- "ir_sha256": "82f486605b9115e4fc755571c01ecbdc4548ef3d15b93de39ff22bab40522917",
+ "source_sha256": "5b106892831491c470af16f5b64632f2948ef049945edd86315590a1025505d2",
+ "ir_sha256": "02730fe406fed10d50e3125b8cf7f96168f9968de2dd7aaaa5236cbcc7fe174e",
  "fresh": true,
  "rules": [
   {
@@ -171,6 +171,11 @@
    "alternatives": []
   },
   {
+   "id": "WY-REP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "WY-REP-3",
    "kind": "reporting",
    "required": true,
@@ -294,11 +299,6 @@
    "id": "WY-CAP-3",
    "category": "expense_cap",
    "reason": "applies_to \"associated_victims\""
-  },
-  {
-   "id": "WY-REP-2",
-   "category": "reporting_requirement",
-   "reason": "applies_to \"mental health counseling only\""
   },
   {
    "id": "WY-CAP-9",

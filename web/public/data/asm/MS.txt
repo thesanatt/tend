@@ -1,8 +1,8 @@
 ; tend law image MS, Mississippi
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 706056643c418206090ef1e852768f8d9a9d851a7cf0694568df0a0a20f58408
-; image sha256  8181e4c080386319aeda3dc9f68ddb4f33f779bf272883cc6f8e6dd7f19cf10f
-; 63 rules, 11 sources, 28 proofs, 8 ints, 324 strings
+; source sha256 1a851a0768f1f7ab7148eeec2e44636423f448f5baac70e41e9103b5bbf924a7
+; image sha256  627d2c7e1c1b5f4689e2963cec44533455802dc235ed70a8f719121ee07cffe3
+; 63 rules, 11 sources, 28 proofs, 8 ints, 323 strings
 ; item program: 191 instructions, 618 bytes, max stack 2
 ; aggregate program: 332 instructions, 1015 bytes, max stack 3, 11 loops
 
@@ -38,38 +38,38 @@
     R28   MS-DEADLINE-1         deadline      -                     from crime              Miss. Code Ann. 99-41-17(1)(b)
     R29   MS-REPORT-1           reporting     -                                             Miss. Code Ann. 99-41-17(1)(e)
     R30   MS-REPORT-2           reporting     -                                             3 Miss. Admin. Code Pt. 1, R. 202(4)(c)
-    R31   MS-COLLAT-1           collateral    -                                             Miss. Code Ann. 99-41-17(2)(a)
-    R32   MS-COLLAT-2           collateral    -                                             Application, General Eligibility Guidelines
-    R33   MS-CONDUCT-1          info          -                     conduct_reduction       Miss. Code Ann. 99-41-17(2)(b)
-    R34   MS-CONDUCT-2          info          -                     conduct_reduction       Miss. Code Ann. 99-41-17(3)
-    R35   MS-CONDUCT-3          info          -                     conduct_reduction       3 Miss. Admin. Code Pt. 1, R. 207(4)
-    R36   MS-EMERG-1            info          -                     emergency_award         3 Miss. Admin. Code Pt. 1, R. 403(1)-(2)
-    R37   MS-CRIME-1            info          -                     eligible_crime          Victim Compensation brochure (2025), Eligibility
-    R38   MS-CRIME-2            info          -                     eligible_crime          Application, Who May Be Eligible
-    R39   MS-RES-1              info          -                     residency               Miss. Code Ann. 99-41-5(d)
-    R40   MS-RES-2              info          -                     residency               3 Miss. Admin. Code Pt. 1, R. 602(1)(a)
-    R41   MS-SUBMIT-ONLINE      info          -                     submission              Bureau of Victim Assistance page, Victim Compensation section
-    R42   MS-SUBMIT-MAIL        info          -                     submission              Application (rev. 12.9.2025), Instructions
-    R43   MS-SUBMIT-FAX         info          -                     submission              Victim Compensation brochure (2025), How to Apply
-    R44   MS-DOC-SIGNED         info          -                     required_document       Application (rev. 12.9.2025), page 1
-    R45   MS-DOC-BILLS          info          -                     required_document       Application (rev. 12.9.2025), Instructions
-    R46   MS-DOC-MEDSTMT        info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 301(2)(a)
-    R47   MS-DOC-RECEIPTS       info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 301(5)
-    R48   MS-DOC-INSURANCE      info          -                     required_document       Application (rev. 12.9.2025), Section F
-    R49   MS-DOC-WAGES          info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 303(4)(a)
-    R50   MS-DOC-TAXRETURN      info          -                     required_document       Application (rev. 12.9.2025), Section D
-    R51   MS-DOC-DISABILITY     info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 303(4)(b)
-    R52   MS-DOC-COUNSELING     info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 302(3)(b)
-    R53   MS-DOC-TRAVEL         info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 301(7)(h)
-    R54   MS-PROCESS-1          info          -                     processing_time         Victim Compensation FAQ, What Happens After I Mail in my Application?
-    R55   MS-ACP-1              info          -                     address_confidentiality Miss. Admin. Code Title 3, Part 1, Chapter 07, Rules 700 and 703; statutory basis Miss. Code Ann. 99-47-1
-    R56   MS-RECCONF-1          info          -                     record_confidentiality  Miss. Code Ann. 99-41-31
-    R57   MS-CAP-TRANS          skipped       -                     expense_cap             3 Miss. Admin. Code Pt. 1, R. 301(11)(f)  ; applies_to "travel to medical and mental health counseling appointments"
-    R58   MS-CAP-COURT          skipped       -                     expense_cap             3 Miss. Admin. Code Pt. 1, R. 309(8)(e)  ; applies_to "travel to criminal justice proceedings"
-    R59   MS-COV-TRANS          skipped       -                     covered_expense         3 Miss. Admin. Code Pt. 1, R. 301(7)(c)  ; applies_to "medical and counseling appointments at least 45 miles one way"
-    R60   MS-COV-COURT          skipped       -                     covered_expense         3 Miss. Admin. Code Pt. 1, R. 300(2)(k)  ; applies_to "travel to criminal justice proceedings"
-    R61   MS-DEADLINE-2         skipped       -                     filing_deadline         Miss. Code Ann. 99-41-17(1)(b)  ; applies_to "child sexual abuse"
-    R62   MS-REPORT-3           skipped       -                     reporting_requirement   AG Sexual Assault Examination Payment Policy, Sec. II, Note  ; applies_to "forensic_exam_payment_only"
+    R31   MS-REPORT-3           reporting     -                                             AG Sexual Assault Examination Payment Policy, Sec. II, Note
+    R32   MS-COLLAT-1           collateral    -                                             Miss. Code Ann. 99-41-17(2)(a)
+    R33   MS-COLLAT-2           collateral    -                                             Application, General Eligibility Guidelines
+    R34   MS-CONDUCT-1          info          -                     conduct_reduction       Miss. Code Ann. 99-41-17(2)(b)
+    R35   MS-CONDUCT-2          info          -                     conduct_reduction       Miss. Code Ann. 99-41-17(3)
+    R36   MS-CONDUCT-3          info          -                     conduct_reduction       3 Miss. Admin. Code Pt. 1, R. 207(4)
+    R37   MS-EMERG-1            info          -                     emergency_award         3 Miss. Admin. Code Pt. 1, R. 403(1)-(2)
+    R38   MS-CRIME-1            info          -                     eligible_crime          Victim Compensation brochure (2025), Eligibility
+    R39   MS-CRIME-2            info          -                     eligible_crime          Application, Who May Be Eligible
+    R40   MS-RES-1              info          -                     residency               Miss. Code Ann. 99-41-5(d)
+    R41   MS-RES-2              exam_payment  -                                             3 Miss. Admin. Code Pt. 1, R. 602(1)(a)
+    R42   MS-SUBMIT-ONLINE      info          -                     submission              Bureau of Victim Assistance page, Victim Compensation section
+    R43   MS-SUBMIT-MAIL        info          -                     submission              Application (rev. 12.9.2025), Instructions
+    R44   MS-SUBMIT-FAX         info          -                     submission              Victim Compensation brochure (2025), How to Apply
+    R45   MS-DOC-SIGNED         info          -                     required_document       Application (rev. 12.9.2025), page 1
+    R46   MS-DOC-BILLS          info          -                     required_document       Application (rev. 12.9.2025), Instructions
+    R47   MS-DOC-MEDSTMT        info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 301(2)(a)
+    R48   MS-DOC-RECEIPTS       info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 301(5)
+    R49   MS-DOC-INSURANCE      info          -                     required_document       Application (rev. 12.9.2025), Section F
+    R50   MS-DOC-WAGES          info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 303(4)(a)
+    R51   MS-DOC-TAXRETURN      info          -                     required_document       Application (rev. 12.9.2025), Section D
+    R52   MS-DOC-DISABILITY     info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 303(4)(b)
+    R53   MS-DOC-COUNSELING     info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 302(3)(b)
+    R54   MS-DOC-TRAVEL         info          -                     required_document       3 Miss. Admin. Code Pt. 1, R. 301(7)(h)
+    R55   MS-PROCESS-1          info          -                     processing_time         Victim Compensation FAQ, What Happens After I Mail in my Application?
+    R56   MS-ACP-1              info          -                     address_confidentiality Miss. Admin. Code Title 3, Part 1, Chapter 07, Rules 700 and 703; statutory basis Miss. Code Ann. 99-47-1
+    R57   MS-RECCONF-1          info          -                     record_confidentiality  Miss. Code Ann. 99-41-31
+    R58   MS-CAP-TRANS          skipped       -                     expense_cap             3 Miss. Admin. Code Pt. 1, R. 301(11)(f)  ; applies_to "travel to medical and mental health counseling appointments"
+    R59   MS-CAP-COURT          skipped       -                     expense_cap             3 Miss. Admin. Code Pt. 1, R. 309(8)(e)  ; applies_to "travel to criminal justice proceedings"
+    R60   MS-COV-TRANS          skipped       -                     covered_expense         3 Miss. Admin. Code Pt. 1, R. 301(7)(c)  ; applies_to "medical and counseling appointments at least 45 miles one way"
+    R61   MS-COV-COURT          skipped       -                     covered_expense         3 Miss. Admin. Code Pt. 1, R. 300(2)(k)  ; applies_to "travel to criminal justice proceedings"
+    R62   MS-DEADLINE-2         skipped       -                     filing_deadline         Miss. Code Ann. 99-41-17(1)(b)  ; applies_to "child sexual abuse"
 
 .tags   pain_suffering=bit0
 
@@ -88,7 +88,7 @@
 
 .proofs
     P0    ()
-    P1    (MS-EXAM-1, MS-EXAM-2, MS-EXAM-3, MS-EXAM-4)
+    P1    (MS-EXAM-1, MS-EXAM-2, MS-EXAM-3, MS-EXAM-4, MS-RES-2)
     P2    (MS-CAP-MED, MS-COV-MED)
     P3    (MS-CAP-MED, MS-COV-MED, MS-COLLAT-1, MS-COLLAT-2)
     P4    (MS-CAP-COUNS, MS-COV-COUNS)
@@ -113,8 +113,8 @@
     P23   (MS-CAP-TUITION, MS-COV-TUITION, MS-COLLAT-1, MS-COLLAT-2)
     P24   (MS-EXCL-PAIN)
     P25   (MS-DEADLINE-1)
-    P26   (MS-REPORT-1, MS-REPORT-2)
-    P27   (MS-EXCL-PROP, MS-EXCL-LEGAL, MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-RES-2, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1)
+    P26   (MS-REPORT-1, MS-REPORT-2, MS-REPORT-3)
+    P27   (MS-EXCL-PROP, MS-EXCL-LEGAL, MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1)
 
 .ints
     K0    60000         ; $600.00
@@ -163,8 +163,9 @@
               ; MS-EXAM-2  3 Miss. Admin. Code Pt. 1, R. 602(3)  "The victim’s private insurance should not be billed for the..."
               ; MS-EXAM-3  Miss. Code Ann. 99-37-25(1)(a)  "The Division of Victim Compensation shall pay for the medical..."
               ; MS-EXAM-4  3 Miss. Admin. Code Pt. 1, R. 604(5)  "Payment made to the provider by the Office of the Attorney..."
+              ; MS-RES-2  3 Miss. Admin. Code Pt. 1, R. 602(1)(a)  "The crime must have occurred in Mississippi."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; MS-EXAM-1, MS-EXAM-2, MS-EXAM-3, MS-EXAM-4
+  0077        decide   held, P1                     ; MS-EXAM-1, MS-EXAM-2, MS-EXAM-3, MS-EXAM-4, MS-RES-2
   007b        ret
               ; MS-CAP-MED  Miss. Code Ann. 99-41-5(a)(i)  "medical care, rehabilitation, rehabilitative occupational..."
               ; MS-COV-MED  3 Miss. Admin. Code Pt. 1, R. 300(2)(a)  "Medical – reasonable charges incurred for reasonably needed..."
@@ -182,7 +183,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R31              ; MS-COLLAT-1
+  009d        seta     collateral, R32              ; MS-COLLAT-1
   00a1        ret
               ; MS-CAP-COUNS  Miss. Code Ann. 99-41-5(a)(ii)  "Mental health counseling and care not to exceed Three Thousand..."
               ; MS-COV-COUNS  3 Miss. Admin. Code Pt. 1, R. 300(2)(b)  "Mental Health Services – reasonable charges incurred for..."
@@ -200,7 +201,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R31              ; MS-COLLAT-1
+  00c3        seta     collateral, R32              ; MS-COLLAT-1
   00c7        ret
               ; MS-CAP-WAGES  Miss. Code Ann. 99-41-23(1)  "Compensation for work loss may not exceed Six Hundred Dollars..."
               ; MS-COV-WAGES  3 Miss. Admin. Code Pt. 1, R. 303(1)(a)  "Lost wages may be eligible for work missed by the victim during..."
@@ -218,7 +219,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R31              ; MS-COLLAT-1
+  00e9        seta     collateral, R32              ; MS-COLLAT-1
   00ed        ret
   00ee  L8:   push     0
   00f3        decide   unknown_rule, P0             ; (none)
@@ -239,7 +240,7 @@
   0112        subs
   0113        push     0
   0118        max
-  0119        seta     collateral, R31              ; MS-COLLAT-1
+  0119        seta     collateral, R32              ; MS-COLLAT-1
   011d        ret
               ; MS-CAP-HOUSING  3 Miss. Admin. Code Pt. 1, R. 306(11)(a)  "Compensation for temporary housing assistance may not exceed..."
               ; MS-COV-HOUSING  3 Miss. Admin. Code Pt. 1, R. 300(2)(h)  "Temporary Housing – reasonable costs for temporary housing for..."
@@ -257,7 +258,7 @@
   0138        subs
   0139        push     0
   013e        max
-  013f        seta     collateral, R31              ; MS-COLLAT-1
+  013f        seta     collateral, R32              ; MS-COLLAT-1
   0143        ret
               ; MS-CAP-SECURITY  3 Miss. Admin. Code Pt. 1, R. 310(7)  "Compensation for repair and/or replacement costs may not exceed..."
               ; MS-COV-SECURITY  3 Miss. Admin. Code Pt. 1, R. 300(2)(l)  "Repair and/or Replacement Costs – reasonable costs for..."
@@ -275,7 +276,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R31              ; MS-COLLAT-1
+  0165        seta     collateral, R32              ; MS-COLLAT-1
   0169        ret
               ; MS-CAP-CLEAN  3 Miss. Admin. Code Pt. 1, R. 308(7)(e)  "Compensation for crime scene cleanup may not exceed One Thousand..."
               ; MS-COV-CLEAN  3 Miss. Admin. Code Pt. 1, R. 300(2)(j)  "Crime Scene Cleanup – reasonable and necessary cost of..."
@@ -293,7 +294,7 @@
   0184        subs
   0185        push     0
   018a        max
-  018b        seta     collateral, R31              ; MS-COLLAT-1
+  018b        seta     collateral, R32              ; MS-COLLAT-1
   018f        ret
               ; MS-COV-RX  3 Miss. Admin. Code Pt. 1, R. 301(1)  "Some examples of medical expenses include, but are not limited..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -310,7 +311,7 @@
   01aa        subs
   01ab        push     0
   01b0        max
-  01b1        seta     collateral, R31              ; MS-COLLAT-1
+  01b1        seta     collateral, R32              ; MS-COLLAT-1
   01b5        ret
               ; MS-COV-DENTAL  3 Miss. Admin. Code Pt. 1, R. 301(3)  "dental care and services may be eligible if treatment is..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -327,7 +328,7 @@
   01d0        subs
   01d1        push     0
   01d6        max
-  01d7        seta     collateral, R31              ; MS-COLLAT-1
+  01d7        seta     collateral, R32              ; MS-COLLAT-1
   01db        ret
               ; MS-CAP-FUNERAL  Miss. Code Ann. 99-41-5(a)(iii)  "Expenses related to funeral, cremation or burial, but not to..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -344,7 +345,7 @@
   01f6        subs
   01f7        push     0
   01fc        max
-  01fd        seta     collateral, R31              ; MS-COLLAT-1
+  01fd        seta     collateral, R32              ; MS-COLLAT-1
   0201        ret
               ; MS-CAP-TUITION  3 Miss. Admin. Code Pt. 1, R. 312(5)(e)  "Compensation for tuition loss may not exceed Two Thousand..."
               ; MS-COV-TUITION  3 Miss. Admin. Code Pt. 1, R. 300(2)(n)  "Tuition Loss – Tuition reimbursement for a victim/claimant..."
@@ -362,7 +363,7 @@
   021c        subs
   021d        push     0
   0222        max
-  0223        seta     collateral, R31              ; MS-COLLAT-1
+  0223        seta     collateral, R32              ; MS-COLLAT-1
   0227        ret
               ; MS-EXCL-PAIN  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
   0228  L25:  push     0
@@ -717,6 +718,7 @@
   03b8  L56:  check    deadline, P25                ; MS-DEADLINE-1
               ; MS-REPORT-1  Miss. Code Ann. 99-41-17(1)(e)  "Unless the criminally injurious conduct resulting in injury or..."
               ; MS-REPORT-2  3 Miss. Admin. Code Pt. 1, R. 202(4)(c)  "The psychological state and any compelling health or safety..."
+              ; MS-REPORT-3  AG Sexual Assault Examination Payment Policy, Sec. II, Note  "It is not a requirement for the sexual assault to be reported to..."
   03bc        ldx      police_report
   03be        push     1                            ; yes
   03c3        eq
@@ -730,7 +732,7 @@
   03e0  L57:  push     1
   03e5        jmp      L59
   03ea  L58:  push     0                            ; satisfied
-  03ef  L59:  check    reporting, P26               ; MS-REPORT-1, MS-REPORT-2
+  03ef  L59:  check    reporting, P26               ; MS-REPORT-1, MS-REPORT-2, MS-REPORT-3
               ; MS-EXCL-PROP  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
               ; MS-EXCL-LEGAL  3 Miss. Admin. Code Pt. 1, R. 314(1)  "Ineligible expenses include, but are not limited to, damaged or..."
               ; MS-COLLAT-1  Miss. Code Ann. 99-41-17(2)(a)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -742,7 +744,6 @@
               ; MS-CRIME-1  Victim Compensation brochure (2025), Eligibility  "Types of crime include: assault, hit & run, homicide, sexual..."
               ; MS-CRIME-2  Application, Who May Be Eligible  "assault, burglary, child physical abuse, child sexual abuse..."
               ; MS-RES-1  Miss. Code Ann. 99-41-5(d)  "an act occurring or attempted within the geographical boundaries..."
-              ; MS-RES-2  3 Miss. Admin. Code Pt. 1, R. 602(1)(a)  "The crime must have occurred in Mississippi."
               ; MS-SUBMIT-ONLINE  Bureau of Victim Assistance page, Victim Compensation section  "Complete the Crime Victim Compensation (CVC) Application online..."
               ; MS-SUBMIT-MAIL  Application (rev. 12.9.2025), Instructions  "Fill out the form completely (please print), attach any required..."
               ; MS-SUBMIT-FAX  Victim Compensation brochure (2025), How to Apply  "print the form found online and mail or fax it using the..."
@@ -759,6 +760,6 @@
               ; MS-PROCESS-1  Victim Compensation FAQ, What Happens After I Mail in my Application?  "A decision about whether the victim or claimant is eligible is..."
               ; MS-ACP-1  Miss. Admin. Code Title 3, Part 1, Chapter 07, Rules 700 and 703; statutory basis Miss. Code Ann. 99-47-1  "The Address Confidentiality Program helps victims keep their..."
               ; MS-RECCONF-1  Miss. Code Ann. 99-41-31  "The records, papers, files and communications of the division..."
-  03f3        info     P27                          ; MS-EXCL-PROP, MS-EXCL-LEGAL, MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-RES-2, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1
+  03f3        info     P27                          ; MS-EXCL-PROP, MS-EXCL-LEGAL, MS-COLLAT-1, MS-COLLAT-2, MS-CONDUCT-1, MS-CONDUCT-2, MS-CONDUCT-3, MS-EMERG-1, MS-CRIME-1, MS-CRIME-2, MS-RES-1, MS-SUBMIT-ONLINE, MS-SUBMIT-MAIL, MS-SUBMIT-FAX, MS-DOC-SIGNED, MS-DOC-BILLS, MS-DOC-MEDSTMT, MS-DOC-RECEIPTS, MS-DOC-INSURANCE, MS-DOC-WAGES, MS-DOC-TAXRETURN, MS-DOC-DISABILITY, MS-DOC-COUNSELING, MS-DOC-TRAVEL, MS-PROCESS-1, MS-ACP-1, MS-RECCONF-1
   03f6        ret
 

@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "KS",
- "source_sha256": "c2651dca2238df54a9bbb393caa43b949979de3d35988554ed147d11e14fa534",
- "ir_sha256": "3e9177c3579344f463c803eb6b5742210b48e1e77cf0d182cddf8f28a3d1e289",
+ "source_sha256": "9dc1a299469deec2d497f3a1f226586782cc5df9ee25111558a69394a8d08865",
+ "ir_sha256": "cbb8d640b40d00900b5ed14f784336ff90487e39c5ee539a29ec953fc1dd14c5",
  "fresh": true,
  "rules": [
   {
@@ -136,7 +136,8 @@
    "alternatives": [
     "forensic_exam",
     "other"
-   ]
+   ],
+   "within_days": 3
   },
   {
    "id": "KS-REP-2",

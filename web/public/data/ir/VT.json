@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "VT",
- "source_sha256": "8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66",
- "ir_sha256": "3e71cd7b35a8d2a5e4271b7441e6a7da364818c31431290360bbd9c9b55c994f",
+ "source_sha256": "c2cc7e935594370ef6861aa10ad3477a92b412cace830b07bb07ea1bbce8b169",
+ "ir_sha256": "d3f6e29fe81ae9bc08765d5b71f44a7ffae27b235acb9d2dd0c3bb2d8106436d",
  "fresh": true,
  "rules": [
   {
@@ -145,11 +145,8 @@
   },
   {
    "id": "VT-REPORT-2",
-   "kind": "reporting",
-   "required": false,
-   "alternatives": [
-    "medical_provider"
-   ]
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "VT-COLL-1",

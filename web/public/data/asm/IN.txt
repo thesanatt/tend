@@ -1,7 +1,7 @@
 ; tend law image IN, Indiana
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 66ecfc7fc55f5ca7c9ae979a1ea3e2beb2a1f05ffa778e78aab9178de3c8b719
-; image sha256  7f8438a121b700a253ef91ca1f7404600961afdb4e6d48465078ec6217b16234
+; source sha256 024db990440601565ed34aa30210f7bc862d14e87ac190b93b1d2895e48efdd6
+; image sha256  b85730219af1802870df5159355d2f6f6599041d6b79b6ad726fb3ded25f897e
 ; 47 rules, 25 sources, 26 proofs, 5 ints, 329 strings
 ; item program: 181 instructions, 608 bytes, max stack 2
 ; aggregate program: 158 instructions, 489 bytes, max stack 2, 5 loops
@@ -480,7 +480,7 @@
   0169        ldk      K4                           ; $100.00
   016c        ge
   016d        jnz      L22
-  0172        push     3
+  0172        push     4
   0177        ldr      r2
   0179        max
   017a        str      r2

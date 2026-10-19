@@ -1,9 +1,9 @@
 ; tend law image NH, New Hampshire
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 e8fb64c36bfa3e41318dc1f176896e53e693ebaf430a908008cf15c398ecd9c5
-; image sha256  14d72685ef29693ead46a65c1a6b4537d63fe47309329d9122c1105e0394daea
-; 62 rules, 8 sources, 27 proofs, 7 ints, 345 strings
-; item program: 435 instructions, 1546 bytes, max stack 2
+; source sha256 0eb7796dff126dc654fd40847baf98444ea2e279ae539e1873cec3777582823a
+; image sha256  02e7ddc66cb499da352e34167a641ddd45a92172521ee917560094791c8c37af
+; 62 rules, 8 sources, 25 proofs, 7 ints, 345 strings
+; item program: 392 instructions, 1401 bytes, max stack 2
 ; aggregate program: 207 instructions, 640 bytes, max stack 3, 7 loops
 
 .rules
@@ -31,7 +31,7 @@
     R21   NH-COV-7              covered       relocation                                    N.H. Admin. Rules Jus 605.07(a)(2)b.
     R22   NH-COV-8              covered       security                                      N.H. Admin. Rules Jus 605.10(c)(1)-(3)
     R23   NH-COV-9              covered       transportation                                N.H. Admin. Rules Jus 605.03(d)(5)
-    R24   NH-COV-10             covered       temporary_housing                             N.H. Admin. Rules Jus 605.09(d)(3)
+    R24   NH-COV-10             info          -                     emergency_award         N.H. Admin. Rules Jus 605.09(d)(3)
     R25   NH-COV-11             covered       relocation                                    N.H. Admin. Rules Jus 605.07(d)(8)
     R26   NH-COV-12             covered       prescription                                  N.H. Admin. Rules Jus 605.13(f)
     R27   NH-COV-13             covered       medical                                       N.H. Admin. Rules Jus 605.03(d)(4)
@@ -98,18 +98,16 @@
     P12   (NH-CAP-6, NH-COV-9, NH-COL-1, NH-COL-2)
     P13   (NH-CAP-4, NH-COV-7, NH-COV-11)
     P14   (NH-CAP-4, NH-COV-7, NH-COV-11, NH-COL-1, NH-COL-2)
-    P15   (NH-COV-10)
-    P16   (NH-COV-10, NH-COL-1, NH-COL-2)
-    P17   (NH-CAP-5, NH-COV-8)
-    P18   (NH-CAP-5, NH-COV-8, NH-COL-1, NH-COL-2)
-    P19   (NH-COV-3, NH-COV-12)
-    P20   (NH-COV-3, NH-COV-12, NH-COL-1, NH-COL-2)
-    P21   (NH-COV-2)
-    P22   (NH-COV-2, NH-COL-1, NH-COL-2)
-    P23   (NH-MIN-1)
-    P24   (NH-DEAD-1)
-    P25   (NH-REP-1, NH-REP-2)
-    P26   (NH-EXC-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-REC-1)
+    P15   (NH-CAP-5, NH-COV-8)
+    P16   (NH-CAP-5, NH-COV-8, NH-COL-1, NH-COL-2)
+    P17   (NH-COV-3, NH-COV-12)
+    P18   (NH-COV-3, NH-COV-12, NH-COL-1, NH-COL-2)
+    P19   (NH-COV-2)
+    P20   (NH-COV-2, NH-COL-1, NH-COL-2)
+    P21   (NH-MIN-1)
+    P22   (NH-DEAD-1)
+    P23   (NH-REP-1, NH-REP-2)
+    P24   (NH-COV-10, NH-EXC-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-REC-1)
 
 .ints
     K0    7500          ; $75.00
@@ -130,7 +128,7 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L58
+  0016        switch   19, default L42
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L10
@@ -138,18 +136,18 @@
                         case transportation        -> L26
                         case relocation            -> L34
                         case temporary_housing     -> L42
-                        case security              -> L50
-                        case crime_scene_cleanup   -> L58
-                        case childcare             -> L58
-                        case property_replacement  -> L58
-                        case clothing_bedding      -> L58
-                        case prescription          -> L65
-                        case dental                -> L73
-                        case funeral               -> L58
-                        case legal                 -> L58
-                        case tuition               -> L58
-                        case other                 -> L58
-                        case unknown               -> L58
+                        case security              -> L49
+                        case crime_scene_cleanup   -> L42
+                        case childcare             -> L42
+                        case property_replacement  -> L42
+                        case clothing_bedding      -> L42
+                        case prescription          -> L57
+                        case dental                -> L65
+                        case funeral               -> L42
+                        case legal                 -> L42
+                        case tuition               -> L42
+                        case other                 -> L42
+                        case unknown               -> L42
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -432,11 +430,8 @@
   034b        max
   034c        seta     collateral, R35              ; NH-COL-1
   0350        ret
-              ; NH-COV-10  N.H. Admin. Rules Jus 605.09(d)(3)  "The cost of shelter for the victim and the victim's family"
               ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
               ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
-              ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
-              ; NH-COL-2  RSA 21-M:8-h, V  "If expenses paid through the victims' assistance program fund..."
   0351  L42:  push     0
   0356        str      r0
   0358        ldi      tags
@@ -470,113 +465,116 @@
   03b2  L47:  push     0
   03b7        decide   excluded, P4                 ; NH-EXC-1, NH-EXC-2
   03bb        ret
-  03bc  L48:  ldi      confirmed
-  03be        jnz      L49
-  03c3        push     0
-  03c8        decide   needs_confirmation, P15      ; NH-COV-10
-  03cc        ret
-  03cd  L49:  ldi      amount_cents
-  03cf        decide   eligible, P16                ; NH-COV-10, NH-COL-1, NH-COL-2
-  03d3        lda
-  03d4        ldi      insurance_paid_cents
-  03d6        subs
-  03d7        push     0
-  03dc        max
-  03dd        seta     collateral, R35              ; NH-COL-1
-  03e1        ret
+  03bc  L48:  push     0
+  03c1        decide   unknown_rule, P0             ; (none)
+  03c5        ret
               ; NH-CAP-5  N.H. Admin. Rules Jus 605.10(c)(5)  "Safety and security expenses shall be capped at $3,000."
               ; NH-COV-8  N.H. Admin. Rules Jus 605.10(c)(1)-(3)  "Installation costs of a residential monitoring system; (2) Up to..."
               ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
               ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
               ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
               ; NH-COL-2  RSA 21-M:8-h, V  "If expenses paid through the victims' assistance program fund..."
-  03e2  L50:  push     0
-  03e7        str      r0
-  03e9        ldi      tags
-  03eb        push     1
-  03f0        and
-  03f1        jz       L51
-  03f6        ldr      r0
-  03f8        push     1
-  03fd        or
-  03fe        str      r0
-  0400  L51:  ldi      tags
-  0402        push     2
-  0407        and
-  0408        jz       L52
-  040d        ldr      r0
-  040f        push     2
-  0414        or
-  0415        str      r0
-  0417  L52:  ldr      r0
-  0419        switch   4, default L56
-                        case 0                     -> L56
-                        case 1                     -> L53
-                        case 2                     -> L54
-                        case 3                     -> L55
-  042f  L53:  push     0
-  0434        decide   excluded, P2                 ; NH-EXC-1
-  0438        ret
-  0439  L54:  push     0
-  043e        decide   excluded, P3                 ; NH-EXC-2
-  0442        ret
-  0443  L55:  push     0
-  0448        decide   excluded, P4                 ; NH-EXC-1, NH-EXC-2
-  044c        ret
-  044d  L56:  ldi      confirmed
-  044f        jnz      L57
-  0454        push     0
-  0459        decide   needs_confirmation, P17      ; NH-CAP-5, NH-COV-8
-  045d        ret
-  045e  L57:  ldi      amount_cents
-  0460        decide   eligible, P18                ; NH-CAP-5, NH-COV-8, NH-COL-1, NH-COL-2
-  0464        lda
-  0465        ldi      insurance_paid_cents
-  0467        subs
-  0468        push     0
-  046d        max
-  046e        seta     collateral, R35              ; NH-COL-1
-  0472        ret
-              ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
-              ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
-  0473  L58:  push     0
-  0478        str      r0
-  047a        ldi      tags
-  047c        push     1
-  0481        and
-  0482        jz       L59
-  0487        ldr      r0
-  0489        push     1
-  048e        or
-  048f        str      r0
-  0491  L59:  ldi      tags
-  0493        push     2
-  0498        and
-  0499        jz       L60
-  049e        ldr      r0
-  04a0        push     2
-  04a5        or
-  04a6        str      r0
-  04a8  L60:  ldr      r0
-  04aa        switch   4, default L64
-                        case 0                     -> L64
-                        case 1                     -> L61
-                        case 2                     -> L62
-                        case 3                     -> L63
-  04c0  L61:  push     0
-  04c5        decide   excluded, P2                 ; NH-EXC-1
-  04c9        ret
-  04ca  L62:  push     0
-  04cf        decide   excluded, P3                 ; NH-EXC-2
-  04d3        ret
-  04d4  L63:  push     0
-  04d9        decide   excluded, P4                 ; NH-EXC-1, NH-EXC-2
-  04dd        ret
-  04de  L64:  push     0
-  04e3        decide   unknown_rule, P0             ; (none)
-  04e7        ret
+  03c6  L49:  push     0
+  03cb        str      r0
+  03cd        ldi      tags
+  03cf        push     1
+  03d4        and
+  03d5        jz       L50
+  03da        ldr      r0
+  03dc        push     1
+  03e1        or
+  03e2        str      r0
+  03e4  L50:  ldi      tags
+  03e6        push     2
+  03eb        and
+  03ec        jz       L51
+  03f1        ldr      r0
+  03f3        push     2
+  03f8        or
+  03f9        str      r0
+  03fb  L51:  ldr      r0
+  03fd        switch   4, default L55
+                        case 0                     -> L55
+                        case 1                     -> L52
+                        case 2                     -> L53
+                        case 3                     -> L54
+  0413  L52:  push     0
+  0418        decide   excluded, P2                 ; NH-EXC-1
+  041c        ret
+  041d  L53:  push     0
+  0422        decide   excluded, P3                 ; NH-EXC-2
+  0426        ret
+  0427  L54:  push     0
+  042c        decide   excluded, P4                 ; NH-EXC-1, NH-EXC-2
+  0430        ret
+  0431  L55:  ldi      confirmed
+  0433        jnz      L56
+  0438        push     0
+  043d        decide   needs_confirmation, P15      ; NH-CAP-5, NH-COV-8
+  0441        ret
+  0442  L56:  ldi      amount_cents
+  0444        decide   eligible, P16                ; NH-CAP-5, NH-COV-8, NH-COL-1, NH-COL-2
+  0448        lda
+  0449        ldi      insurance_paid_cents
+  044b        subs
+  044c        push     0
+  0451        max
+  0452        seta     collateral, R35              ; NH-COL-1
+  0456        ret
               ; NH-COV-3  N.H. Admin. Rules Jus 605.03(d)(2)  "The portion of the cost of all prescription medications..."
               ; NH-COV-12  N.H. Admin. Rules Jus 605.13(f)  "If it is determined by the examining health care provider that..."
+              ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
+              ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
+              ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
+              ; NH-COL-2  RSA 21-M:8-h, V  "If expenses paid through the victims' assistance program fund..."
+  0457  L57:  push     0
+  045c        str      r0
+  045e        ldi      tags
+  0460        push     1
+  0465        and
+  0466        jz       L58
+  046b        ldr      r0
+  046d        push     1
+  0472        or
+  0473        str      r0
+  0475  L58:  ldi      tags
+  0477        push     2
+  047c        and
+  047d        jz       L59
+  0482        ldr      r0
+  0484        push     2
+  0489        or
+  048a        str      r0
+  048c  L59:  ldr      r0
+  048e        switch   4, default L63
+                        case 0                     -> L63
+                        case 1                     -> L60
+                        case 2                     -> L61
+                        case 3                     -> L62
+  04a4  L60:  push     0
+  04a9        decide   excluded, P2                 ; NH-EXC-1
+  04ad        ret
+  04ae  L61:  push     0
+  04b3        decide   excluded, P3                 ; NH-EXC-2
+  04b7        ret
+  04b8  L62:  push     0
+  04bd        decide   excluded, P4                 ; NH-EXC-1, NH-EXC-2
+  04c1        ret
+  04c2  L63:  ldi      confirmed
+  04c4        jnz      L64
+  04c9        push     0
+  04ce        decide   needs_confirmation, P17      ; NH-COV-3, NH-COV-12
+  04d2        ret
+  04d3  L64:  ldi      amount_cents
+  04d5        decide   eligible, P18                ; NH-COV-3, NH-COV-12, NH-COL-1, NH-COL-2
+  04d9        lda
+  04da        ldi      insurance_paid_cents
+  04dc        subs
+  04dd        push     0
+  04e2        max
+  04e3        seta     collateral, R35              ; NH-COL-1
+  04e7        ret
+              ; NH-COV-2  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "Medical and dental care;"
               ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
               ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
               ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
@@ -617,10 +615,10 @@
   0553  L71:  ldi      confirmed
   0555        jnz      L72
   055a        push     0
-  055f        decide   needs_confirmation, P19      ; NH-COV-3, NH-COV-12
+  055f        decide   needs_confirmation, P19      ; NH-COV-2
   0563        ret
   0564  L72:  ldi      amount_cents
-  0566        decide   eligible, P20                ; NH-COV-3, NH-COV-12, NH-COL-1, NH-COL-2
+  0566        decide   eligible, P20                ; NH-COV-2, NH-COL-1, NH-COL-2
   056a        lda
   056b        ldi      insurance_paid_cents
   056d        subs
@@ -628,58 +626,6 @@
   0573        max
   0574        seta     collateral, R35              ; NH-COL-1
   0578        ret
-              ; NH-COV-2  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "Medical and dental care;"
-              ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
-              ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
-              ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
-              ; NH-COL-2  RSA 21-M:8-h, V  "If expenses paid through the victims' assistance program fund..."
-  0579  L73:  push     0
-  057e        str      r0
-  0580        ldi      tags
-  0582        push     1
-  0587        and
-  0588        jz       L74
-  058d        ldr      r0
-  058f        push     1
-  0594        or
-  0595        str      r0
-  0597  L74:  ldi      tags
-  0599        push     2
-  059e        and
-  059f        jz       L75
-  05a4        ldr      r0
-  05a6        push     2
-  05ab        or
-  05ac        str      r0
-  05ae  L75:  ldr      r0
-  05b0        switch   4, default L79
-                        case 0                     -> L79
-                        case 1                     -> L76
-                        case 2                     -> L77
-                        case 3                     -> L78
-  05c6  L76:  push     0
-  05cb        decide   excluded, P2                 ; NH-EXC-1
-  05cf        ret
-  05d0  L77:  push     0
-  05d5        decide   excluded, P3                 ; NH-EXC-2
-  05d9        ret
-  05da  L78:  push     0
-  05df        decide   excluded, P4                 ; NH-EXC-1, NH-EXC-2
-  05e3        ret
-  05e4  L79:  ldi      confirmed
-  05e6        jnz      L80
-  05eb        push     0
-  05f0        decide   needs_confirmation, P21      ; NH-COV-2
-  05f4        ret
-  05f5  L80:  ldi      amount_cents
-  05f7        decide   eligible, P22                ; NH-COV-2, NH-COL-1, NH-COL-2
-  05fb        lda
-  05fc        ldi      insurance_paid_cents
-  05fe        subs
-  05ff        push     0
-  0604        max
-  0605        seta     collateral, R35              ; NH-COL-1
-  0609        ret
 
 .aggregate
               ; NH-CAP-3  N.H. Admin. Rules Jus 604.08(c)(3)  "I will accept the NH Victims' Compensation Program's..."
@@ -866,7 +812,7 @@
   0210        max
   0211        str      r2
   0213  L32:  ldr      r2
-  0215        check    minimum_loss, P23            ; NH-MIN-1
+  0215        check    minimum_loss, P21            ; NH-MIN-1
               ; NH-DEAD-1  RSA 21-M:8-h, II  "The claimant, guardian ad litem or child advocate, or parent may..."
   0219        ldx      incident_date
   021b        push     730
@@ -879,7 +825,7 @@
   022b        push     0
   0230        jmp      L34
   0235  L33:  push     1                            ; late
-  023a  L34:  check    deadline, P24                ; NH-DEAD-1
+  023a  L34:  check    deadline, P22                ; NH-DEAD-1
               ; NH-REP-1  N.H. Admin. Rules Jus 605.02(c)  "The crime was not reported within 5 days of the crime unless..."
               ; NH-REP-2  N.H. Admin. Rules Jus 605.13(h)  "A victim who has sought medical treatment pursuant to (a) and..."
   023e        ldx      police_report
@@ -897,7 +843,8 @@
   0269  L35:  push     1
   026e        jmp      L37
   0273  L36:  push     0                            ; satisfied
-  0278  L37:  check    reporting, P25               ; NH-REP-1, NH-REP-2
+  0278  L37:  check    reporting, P23               ; NH-REP-1, NH-REP-2
+              ; NH-COV-10  N.H. Admin. Rules Jus 605.09(d)(3)  "The cost of shelter for the victim and the victim's family"
               ; NH-EXC-3  N.H. Admin. Rules Jus 605.03(e)(2)  "The commission shall not award compensation for hospital care..."
               ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
               ; NH-COL-2  RSA 21-M:8-h, V  "If expenses paid through the victims' assistance program fund..."
@@ -926,6 +873,6 @@
               ; NH-PROC-2  Jus 603.03(f)  "In no case shall placement on the agenda result in the passage..."
               ; NH-ACP-1  DOJ ACP page, FAQ: What are the eligibility guidelines?  "Any adult person, a parent or guardian acting on behalf of a..."
               ; NH-REC-1  Jus 603.02(i)  "All information received, obtained, or maintained by the program..."
-  027c        info     P26                          ; NH-EXC-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-REC-1
+  027c        info     P24                          ; NH-COV-10, NH-EXC-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-REC-1
   027f        ret
 

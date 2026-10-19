@@ -1,7 +1,7 @@
 ; tend law image VA, Virginia
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 14ab5946eb7ddc4551e8c3bcf22d707ef6446cd1cb5594cd5f6a84abedb809e9
-; image sha256  f812be4b57105ea8282e8a7c5f2b5330cd68a66cc7144b922d8ed0ec60c6fcad
+; source sha256 5e72866a493dd8707fc3119c9cb008b9d4d35662a29a0461f940a118eabc3f66
+; image sha256  3b9f893a920d787326193356bf4ab7b785db7308838ca8993105d19fa11dbcc6
 ; 54 rules, 21 sources, 27 proofs, 4 ints, 333 strings
 ; item program: 327 instructions, 1153 bytes, max stack 2
 ; aggregate program: 133 instructions, 402 bytes, max stack 3, 4 loops
@@ -11,7 +11,7 @@
     R1    VA-EXAM-2             exam_payment  -                                             Va. Code § 19.2-165.1(B)
     R2    VA-EXAM-3             exam_no_bill  -                                             VVF Notice to Sexual Assault Patients
     R3    VA-EXAM-4             exam_no_bill  -                                             SAFE Payment Program Procedures and Guidelines, Eligibility Criteria 3(b)
-    R4    VA-EXAM-5             exam_no_bill  -                                             VVF SAFE Payment Program page, Submit a SAFE claim
+    R4    VA-EXAM-5             exam_payment  -                                             VVF SAFE Payment Program page, Submit a SAFE claim
     R5    VA-EXAM-6             exam_payment  -                                             VVF SAFE Payment Program page, Eligibility Requirements
     R6    VA-EXAM-7             exam_payment  -                                             Va. Code § 19.2-368.11:1(F)
     R7    VA-CAP-1              total_cap     -                                             Va. Code § 19.2-368.11:1(H)
@@ -89,7 +89,7 @@
 
 .proofs
     P0    ()
-    P1    (VA-EXAM-3, VA-EXAM-4, VA-EXAM-5, VA-EXAM-1, VA-EXAM-2, VA-EXAM-6, VA-EXAM-7)
+    P1    (VA-EXAM-3, VA-EXAM-4, VA-EXAM-1, VA-EXAM-2, VA-EXAM-5, VA-EXAM-6, VA-EXAM-7)
     P2    (VA-EXCL-3)
     P3    (VA-MED-1, VA-MED-2)
     P4    (VA-MED-1, VA-MED-2, VA-COLL-1)
@@ -157,13 +157,13 @@
   0071        ret
               ; VA-EXAM-3  VVF Notice to Sexual Assault Patients  "You have the right to seek evidence collection at no cost to..."
               ; VA-EXAM-4  SAFE Payment Program Procedures and Guidelines, Eligibility Criteria 3(b)  "Patients should only receive bills from providers for expenses..."
-              ; VA-EXAM-5  VVF SAFE Payment Program page, Submit a SAFE claim  "If the patient is covered by a federally funded insurance such..."
               ; VA-EXAM-1  Va. Code § 19.2-368.11:1(F)  "the Criminal Injuries Compensation Fund shall pay for physical..."
               ; VA-EXAM-2  Va. Code § 19.2-165.1(B)  "shall be paid by the Commonwealth pursuant to subsection F of §..."
+              ; VA-EXAM-5  VVF SAFE Payment Program page, Submit a SAFE claim  "If the patient is covered by a federally funded insurance such..."
               ; VA-EXAM-6  VVF SAFE Payment Program page, Eligibility Requirements  "Medical forensic examinations for non-acute (more than 120 hours..."
               ; VA-EXAM-7  Va. Code § 19.2-368.11:1(F)  "Funds paid for physical evidence recovery kit or anonymous trace..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; VA-EXAM-3, VA-EXAM-4, VA-EXAM-5, VA-EXAM-1, VA-EXAM-2, VA-EXAM-6, VA-EXAM-7
+  0077        decide   held, P1                     ; VA-EXAM-3, VA-EXAM-4, VA-EXAM-1, VA-EXAM-2, VA-EXAM-5, VA-EXAM-6, VA-EXAM-7
   007b        ret
               ; VA-MED-1  Va. Code § 19.2-368.11:1(E)(i)  "unreimbursed medical expenses or indebtedness reasonably..."
               ; VA-MED-2  Va. Code § 19.2-368.11:1(E)(iv)  "expenses attributable to pregnancy resulting from forcible rape"

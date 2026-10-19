@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "LA",
- "source_sha256": "8b26225a92270c86fe715b0502d499d4d18867d341fe314661ff5c7b48236990",
- "ir_sha256": "a81882f4a4f797dc977fa14abe25fd3df358d8bec2b2be137bed57420b5ca066",
+ "source_sha256": "e2228c03c6cf77a52bf0c1049835049de0e3bbacdbcaa1deaaf2e5d5a475e8f2",
+ "ir_sha256": "edc943e1333b3a3a31841310b89b999ccd00b9cacf8a116823b5aef3b2b5ca44",
  "fresh": true,
  "rules": [
   {
@@ -49,7 +49,6 @@
    "required": false,
    "alternatives": [
     "forensic_exam",
-    "medical_provider",
     "other"
    ]
   },
@@ -177,11 +176,6 @@
    "category": "submission"
   },
   {
-   "id": "LA-SUBMIT-3",
-   "kind": "info",
-   "category": "submission"
-  },
-  {
    "id": "LA-DOC-SIGN",
    "kind": "info",
    "category": "required_document"
@@ -263,6 +257,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "LA-SUBMIT-3",
+   "category": "submission",
+   "reason": "applies_to \"cases other than adult sexual offenses, which go straight to the board office\""
+  },
   {
    "id": "LA-COUNS-3",
    "category": "expense_cap",

@@ -194,7 +194,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "collecting the evidence kit"
    },
    "summary": "A health care provider may not charge the survivor, directly or indirectly, for the costs of collecting a sexual assault examination kit. The statute does not say whether the survivor's insurance may be billed.",
    "quote": "No costs incurred by a health care provider for the collection of a sexual assault examination kit shall be charged directly or indirectly to the survivor of the sexual assault.",
@@ -232,7 +233,8 @@
    "id": "NM-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2000000
+    "amount_cents": 2000000,
+    "exception": "or up to $30,000 more if an injury leaves you fully disabled for life"
    },
    "summary": "The maximum award is $20,000 per victim. The commission may add up to $30,000 more for extraordinary losses when the injury is catastrophic and causes permanent total disability.",
    "quote": "No award of reparation shall be in excess of twenty thousand dollars ($20,000) per victim, except that the commission may award up to an additional thirty thousand dollars ($30,000) for extraordinary pecuniary losses, if the personal injury to a victim is catastrophic and results in a permanent total disability.",
@@ -277,7 +279,8 @@
    "params": {
     "expense": "other",
     "amount_cents": 35000,
-    "per": "claim"
+    "per": "claim",
+    "item": "eyeglasses or contact lenses"
    },
    "summary": "Replacement of eyeglasses or contact lenses damaged in the crime is capped at $350.",
    "quote": "Awards for eyeglasses or contact lenses shall not exceed three hundred fifty dollars ($350.00).",
@@ -292,7 +295,8 @@
    "params": {
     "expense": "other",
     "amount_cents": 300000,
-    "per": "claim"
+    "per": "claim",
+    "item": "Native American medicine man treatment"
    },
    "summary": "Native American medicine man treatment fees can be considered, up to $3,000 per application unless the board approves more in advance.",
    "quote": "In all cases of medicine man care, the commission board shall only approve up to $3,000.00 per application unless prior approval has been granted by the commission board for additional treatment.",
@@ -357,7 +361,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "gas for trips over 30 miles one way to a health provider"
    },
    "summary": "Gas to get to a health provider can be reimbursed at 20 cents per mile when the trip is over 30 miles one way from home.",
    "quote": "Gas expenses to transport the victim to a health provider may be considered if the travel is over thirty miles one way from the victim's residence. This travel shall be verified by the health provider's billing and reports for the travel requested. The gas will be reimbursed at the rate of twenty cents per mile.",
@@ -407,7 +412,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "gas for trips over 30 miles one way from home, at 20 cents a mile"
    },
    "summary": "Gas to travel to a law enforcement agency on official business about the incident can be reimbursed at 20 cents per mile when the trip is more than 30 miles one way.",
    "quote": "The distance traveled shall be more than thirty miles one way from the victim's residence and the gas will be reimbursed at the rate of twenty cents per mile.",
@@ -471,9 +477,9 @@
    "params": {
     "years": 2,
     "from": "crime",
-    "extension": "Statutory exception for minor victims of criminal sexual penetration, criminal sexual contact of a minor, or child abuse. The CVRC FAQ also says some exceptions may be allowed for good cause."
+    "extension": "The statute makes an exception for minors hurt by child abuse or some sex crimes, but does not say what deadline applies to them."
    },
-   "summary": "Apply within two years after the injury. Minors who are victims of criminal sexual penetration, criminal sexual contact of a minor, or child abuse are excepted from this limit.",
+   "summary": "Apply within two years after the injury. The statute makes an exception for minors who were victims of child abuse or abandonment, criminal sexual penetration, or criminal sexual contact of a minor. It does not say what deadline applies to them instead.",
    "quote": "An application for reparation shall be made within two years after the injury or death, except for minors who are victims of criminal activity under the provisions of Section 30-6-1 NMSA 1978, regarding abandonment or abuse of a child, Section 30-9-11 NMSA 1978, regarding criminal sexual penetration, or Section 30-9-13 NMSA 1978, regarding criminal sexual contact of a minor.",
    "source_id": "NM-S8",
    "pinpoint": "NMSA 1978, Section 31-22-14(A)",

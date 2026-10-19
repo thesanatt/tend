@@ -1,7 +1,7 @@
 ; tend law image ND, North Dakota
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418
-; image sha256  5faaec6ee8560be86137cc052284761d9783c64da486b0a39ff024a55b67c01b
+; source sha256 70660ad8dd85afed8d291c9b62f9875c8ae701b7fd46ad94178dde8b307091fd
+; image sha256  7a1336b0d142163ef3f951050d8c0e96cbb369a372dcc5ac40ba08ce83d4096a
 ; 58 rules, 11 sources, 23 proofs, 5 ints, 291 strings
 ; item program: 135 instructions, 451 bytes, max stack 2
 ; aggregate program: 269 instructions, 832 bytes, max stack 3, 9 loops
@@ -31,8 +31,8 @@
     R21   ND-EXCL-ATTY          excluded      legal                                         N.D.C.C. 54-23.4-11
     R22   ND-DEADLINE-1         deadline      -                     from report             N.D.C.C. 54-23.4-06(2)
     R23   ND-REPORT-1           reporting     -                                             N.D.C.C. 54-23.4-06(4)
-    R24   ND-REPORT-GOODCAUSE   reporting     -                                             N.D. Admin. Code 94-03-03-01(2)(a)
-    R25   ND-REPORT-GOODCAUSE-2 reporting     -                                             N.D. Admin. Code 94-03-03-01(2)(b)
+    R24   ND-REPORT-GOODCAUSE   info          -                     reporting_requirement   N.D. Admin. Code 94-03-03-01(2)(a)
+    R25   ND-REPORT-GOODCAUSE-2 info          -                     reporting_requirement   N.D. Admin. Code 94-03-03-01(2)(b)
     R26   ND-REPORT-CHILD       reporting     -                                             N.D.C.C. 54-23.4-06(4)
     R27   ND-COLLATERAL-1       collateral    -                                             N.D.C.C. 54-23.4-06(6)(a)
     R28   ND-COLLATERAL-2       collateral    -                                             N.D. Admin. Code 94-03-03-06(1)
@@ -101,8 +101,8 @@
     P18   (ND-CAP-REPLACE, ND-COV-DEPCARE)
     P19   (ND-CAP-REPLACE, ND-COV-DEPCARE, ND-COLLATERAL-1, ND-COLLATERAL-2)
     P20   (ND-DEADLINE-1)
-    P21   (ND-REPORT-1, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-REPORT-CHILD)
-    P22   (ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1)
+    P21   (ND-REPORT-1, ND-REPORT-CHILD)
+    P22   (ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1)
 
 .ints
     K0    30000         ; $300.00
@@ -566,8 +566,6 @@
   02ff  L46:  note     deadline_from_report
   0301        check    deadline, P20                ; ND-DEADLINE-1
               ; ND-REPORT-1  N.D.C.C. 54-23.4-06(4)  "Compensation may not be awarded unless the criminally injurious..."
-              ; ND-REPORT-GOODCAUSE  N.D. Admin. Code 94-03-03-01(2)(a)  "Evidence, including medical records or verifiable reports from..."
-              ; ND-REPORT-GOODCAUSE-2  N.D. Admin. Code 94-03-03-01(2)(b)  "Law enforcement substantiates there was a fear of retaliation."
               ; ND-REPORT-CHILD  N.D.C.C. 54-23.4-06(4)  "In the case of child abuse or sexual molestation of a child, the..."
   0305        ldx      police_report
   0307        push     1                            ; yes
@@ -582,10 +580,12 @@
   0329  L47:  push     1
   032e        jmp      L49
   0333  L48:  push     0                            ; satisfied
-  0338  L49:  check    reporting, P21               ; ND-REPORT-1, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-REPORT-CHILD
+  0338  L49:  check    reporting, P21               ; ND-REPORT-1, ND-REPORT-CHILD
               ; ND-EXCL-PROPERTY  N.D. Admin. Code 94-03-03-04(5)  "Claims for property loss or damage."
               ; ND-EXCL-NONECON  N.D.C.C. 54-23.4-01(7)  "Noneconomic detriment is not loss."
               ; ND-EXCL-FEES  N.D. Admin. Code 94-03-03-08(2)(g)  "The division may not pay compensation for interest, finance, or..."
+              ; ND-REPORT-GOODCAUSE  N.D. Admin. Code 94-03-03-01(2)(a)  "Evidence, including medical records or verifiable reports from..."
+              ; ND-REPORT-GOODCAUSE-2  N.D. Admin. Code 94-03-03-01(2)(b)  "Law enforcement substantiates there was a fear of retaliation."
               ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
               ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
               ; ND-CONDUCT-1  N.D.C.C. 54-23.4-06(6)(b)  "To the extent the division deems reasonable because of the..."
@@ -615,6 +615,6 @@
               ; ND-DOC-15  N.D. Admin. Code 94-03-03-06 (collateral sources)  "Before payment is made from the division, either the provider or..."
               ; ND-DOC-16  Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement  "The DOCR may, however, require that you authorize disclosure of..."
               ; ND-REC-1  N.D.C.C. 54-23.4-17  "All other records of the division concerning the application for..."
-  033c        info     P22                          ; ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1
+  033c        info     P22                          ; ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1
   033f        ret
 

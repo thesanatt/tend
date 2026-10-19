@@ -1,7 +1,7 @@
 ; tend law image VT, Vermont
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66
-; image sha256  a2ce60901b146ac13bfd22542559b1d762e245e4e44fd22810fe235ebcc3ca06
+; source sha256 c2cc7e935594370ef6861aa10ad3477a92b412cace830b07bb07ea1bbce8b169
+; image sha256  9b54e432fcf51ce4d98ce64781c704c8e0003b3ae56bcc0fe0f69a19688c4954
 ; 45 rules, 20 sources, 22 proofs, 5 ints, 293 strings
 ; item program: 256 instructions, 917 bytes, max stack 2
 ; aggregate program: 187 instructions, 572 bytes, max stack 3, 6 loops
@@ -31,7 +31,7 @@
     R21   VT-DEADLINE-1         info          -                     filing_deadline         13 V.S.A. § 5355(b)(1)
     R22   VT-DEADLINE-2         info          -                     filing_deadline         13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)
     R23   VT-REPORT-1           reporting     -                                             13 V.S.A. § 5353(a)(1)
-    R24   VT-REPORT-2           reporting     -                                             CCVS Sexual Assault Program page, Who is eligible?
+    R24   VT-REPORT-2           info          -                     reporting_requirement   CCVS Sexual Assault Program page, Who is eligible?
     R25   VT-COLL-1             collateral    -                                             13 V.S.A. § 5351(6)(A)
     R26   VT-COLL-2             collateral    -                                             CCVS Victims Compensation FAQ
     R27   VT-CONDUCT-1          info          -                     conduct_reduction       13 V.S.A. § 5355(b)(2)
@@ -98,8 +98,8 @@
     P17   (VT-SEC-1, VT-COLL-1, VT-COLL-2)
     P18   (VT-EXCL-2, VT-EXCL-3)
     P19   (VT-EXCL-3)
-    P20   (VT-REPORT-1, VT-REPORT-2)
-    P21   (VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1)
+    P20   (VT-REPORT-1)
+    P21   (VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-REPORT-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1)
 
 .ints
     K0    10000         ; $100.00
@@ -622,7 +622,6 @@
   01f8        push     2                            ; unknown
   01fd        check    deadline, P0                 ; (none)
               ; VT-REPORT-1  13 V.S.A. § 5353(a)(1)  "(1) a law enforcement official has filed a report concluding..."
-              ; VT-REPORT-2  CCVS Sexual Assault Program page, Who is eligible?  "The victim does not have to report the crime to the police to be..."
   0201        ldx      police_report
   0203        push     1                            ; yes
   0208        eq
@@ -636,10 +635,11 @@
   0225  L30:  push     1
   022a        jmp      L32
   022f  L31:  push     0                            ; satisfied
-  0234  L32:  check    reporting, P20               ; VT-REPORT-1, VT-REPORT-2
+  0234  L32:  check    reporting, P20               ; VT-REPORT-1
               ; VT-EXCL-1  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Expenses for lost, stolen or damaged property (except medically..."
               ; VT-DEADLINE-1  13 V.S.A. § 5355(b)(1)  "(1) The application was not made within the period of time..."
               ; VT-DEADLINE-2  13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)  "(a) Prosecutions for aggravated sexual assault, aggravated..."
+              ; VT-REPORT-2  CCVS Sexual Assault Program page, Who is eligible?  "The victim does not have to report the crime to the police to be..."
               ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
               ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
               ; VT-CONDUCT-1  13 V.S.A. § 5355(b)(2)  "(2) The victim violated a criminal law of this State that caused..."
@@ -659,6 +659,6 @@
               ; VT-DOC-7  CCVS Sexual Assault Program page, How to access the Program?  "The signed Sexual Assault Billing Form serves as the application..."
               ; VT-ACP-1  Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160  "Safe at Home provides an address confidentiality service and a..."
               ; VT-REC-1  13 V.S.A. § 5358a(a)  "(a) All documents reviewed by the Victims Compensation Board for..."
-  0238        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
+  0238        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-REPORT-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
   023b        ret
 

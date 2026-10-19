@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NH",
- "source_sha256": "e8fb64c36bfa3e41318dc1f176896e53e693ebaf430a908008cf15c398ecd9c5",
- "ir_sha256": "daa8054916a7e3ba3f262a2ed4f5788be4dc8e582ca847208ddf8cf8e2e6f9c7",
+ "source_sha256": "0eb7796dff126dc654fd40847baf98444ea2e279ae539e1873cec3777582823a",
+ "ir_sha256": "3bb286ef0407478a3140365a0e084d5d750084203bf62445f0d694db3b964c77",
  "fresh": true,
  "rules": [
   {
@@ -130,8 +130,8 @@
   },
   {
    "id": "NH-COV-10",
-   "kind": "covered",
-   "expense": "temporary_housing"
+   "kind": "info",
+   "category": "emergency_award"
   },
   {
    "id": "NH-COV-11",
@@ -177,9 +177,7 @@
    "id": "NH-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "forensic_exam"
-   ],
+   "alternatives": [],
    "within_days": 5
   },
   {

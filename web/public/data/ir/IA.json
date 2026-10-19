@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "IA",
- "source_sha256": "b32cb0ab99cd81eb5d98653c4381f27fa7d310bd9792d57f29b6689973030a32",
- "ir_sha256": "6e1977fb88b2a63e4e62618f9719b20fc4898f2c975c69de6a46de9c0abc92ce",
+ "source_sha256": "aec4eeaa156eb15a98291c5c1ebdaa6268711977956434848cacd10558c2eb88",
+ "ir_sha256": "27c8a34e7f60346de1e718b395e1fb368778c486254ecb47cf4ccc90b298b519",
  "fresh": true,
  "rules": [
   {
@@ -186,18 +186,14 @@
    "id": "IA-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "IA-REPORT-2",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "advocate",
-    "forensic_exam",
-    "medical_provider",
-    "other"
-   ]
+   "alternatives": []
   },
   {
    "id": "IA-COLL-1",

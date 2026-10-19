@@ -192,7 +192,8 @@
    "expense": "forensic_exam",
    "params": {
     "required": false,
-    "alternatives": []
+    "alternatives": [],
+    "expense": "forensic_exam"
    },
    "summary": "The survivor does not have to report the assault to law enforcement to get the forensic exam paid for. This applies to the exam payment only; a regular compensation claim still needs a report.",
    "quote": "The victim is not required to report the offense to a law enforcement agency.",
@@ -218,7 +219,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Victims' Compensation Board, only when a sexual assault evidence collection kit is used"
+    "payer": "Victims' Compensation Board, only when a sexual assault evidence collection kit is used",
+    "condition": "if an evidence kit is used"
    },
    "summary": "Direct billing to the Victims' Compensation Board applies only when the exam is done with a sexual assault forensic examination kit. If no kit is used, the provider bills the usual way.",
    "quote": "This direct billing and payment process is to be used only when a forensic examination is performed using a sexual assault forensic examination kit. If a kit is not used, use your customary billing procedures.",
@@ -254,7 +256,9 @@
    "id": "ME-MED-1",
    "category": "covered_expense",
    "expense": "medical",
-   "params": {},
+   "params": {
+    "detail": true
+   },
    "summary": "Medical costs, including equipment, supplies and medications, are covered, usually limited to 75% of actual charges.",
    "quote": "Medical (including equipment, supplies and medications) limited to 75% of actual charges in most cases",
    "source_id": "ME-S1",
@@ -320,7 +324,9 @@
    "id": "ME-TRANS-1",
    "category": "covered_expense",
    "expense": "transportation",
-   "params": {},
+   "params": {
+    "applies_to": "a claimant or family member who provides or obtains care for a minor or incapacitated victim"
+   },
    "summary": "Travel expenses are listed only for a claimant or family member providing or obtaining care for a minor or incapacitated victim.",
    "quote": "travel expenses and loss of income of a claimant or family member for providing or obtaining care for the personal injury of a minor or incapacitated victim",
    "source_id": "ME-S6",
@@ -391,9 +397,9 @@
    "category": "excluded_expense",
    "expense": "property_replacement",
    "params": {
-    "item": "property losses, pain and suffering, and other losses not medically related"
+    "item": "property losses and pain and suffering"
    },
-   "summary": "The program does not cover property losses (a stolen or broken phone, for example), pain and suffering, or other losses that are not medically related.",
+   "summary": "The program does not pay for property losses or for pain and suffering.",
    "quote": "Expenses NOT covered: property losses, compensation for pain and suffering, and other losses not medically related.",
    "source_id": "ME-S1",
    "pinpoint": "Maine AG Victims' Compensation page, What Expenses Are Covered?",
@@ -418,7 +424,7 @@
    "params": {
     "years": 3,
     "from": "crime",
-    "extension": "or 60 days from discovery if later; board may waive for good cause and must waive for child victims"
+    "extension": "or within 60 days after the injury or loss is discovered, if that is later"
    },
    "summary": "The claim must be filed within 3 years of the injury or loss, or within 60 days of discovering it, whichever is later.",
    "quote": "B. The claim was filed with the board within 3 years of the occurrence of the injury or compensable loss, or within 60 days of the discovery of injury or compensable loss, whichever is later.",
@@ -457,7 +463,8 @@
    "params": {
     "required": true,
     "within_days": 5,
-    "alternatives": []
+    "alternatives": [],
+    "exception": "counted from the crime, the injury, or when either was discovered"
    },
    "summary": "For a compensation claim, the crime must be reported to law enforcement within 5 days of the crime, its discovery, or the resulting injury. The board can waive the time limit for good cause and must waive it for a child.",
    "quote": "A. The crime was reported to a law enforcement officer within 5 days of the occurrence or discovery of the crime or of the resultant injury",
@@ -470,9 +477,7 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": [
-     "other"
-    ]
+    "alternatives": []
    },
    "summary": "For current or former Maine National Guard members, an unrestricted sexual assault report to the Guard counts as a report to law enforcement.",
    "quote": "an unrestricted report of sexual assault made to the Maine National Guard by a current or former member of the Maine National Guard is a crime reported to a law enforcement officer",
@@ -517,7 +522,7 @@
    "id": "ME-COND-2",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "Compensation may not be paid to a claimant who does not fully cooperate with the board or with reasonable requests of law enforcement or prosecutors (information only).",
+   "summary": "Compensation may not be paid to a claimant who does not fully cooperate with the board or with reasonable requests of law enforcement or prosecutors.",
    "quote": "A. To any claimant who does not fully cooperate with the board or with the reasonable requests of law enforcement officers or prosecution authorities",
    "source_id": "ME-S8",
    "pinpoint": "5 M.R.S. 3360-C(2)(A)",

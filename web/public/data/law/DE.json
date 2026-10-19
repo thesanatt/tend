@@ -114,9 +114,9 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
-   "summary": "Hospitals and health care professionals must give sexual offense forensic medical exams free of charge, and the survivor pays no out-of-pocket cost and does not have to file a compensation application for the exam. The provider bills the patient's insurance first.",
+   "summary": "A survivor of a sexual offense pays nothing out of pocket for the forensic medical exam and does not have to file an application with the program for it.",
    "quote": "The victim of the sexual offense shall not pay any out-of-pocket costs associated with the forensic medical examination and shall not be required to file an application with the Agency.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9023(d)",
@@ -127,7 +127,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "Hospitals and health care professionals must provide forensic medical exams free of charge to sexual offense victims.",
    "quote": "Hospitals and health-care professionals shall provide forensic medical examinations free of charge to the victims of sexual offenses.",
@@ -142,7 +142,7 @@
    "params": {
     "payer": "Patient's insurance first (including Medicaid and Medicare), then the Victims' Compensation Fund for any uncovered cost"
    },
-   "summary": "The provider must bill the patient's insurance (including Medicaid and Medicare) first; whatever insurance does not cover can be billed to the Victims' Compensation Fund, not the survivor.",
+   "summary": "The provider must first seek payment from the patient's insurance, including Medicaid and Medicare, if available. If there is no insurance, or it does not cover the full cost, the provider may seek payment from the Victims' Compensation Fund.",
    "quote": "Any hospital or health-care professional performing a forensic medical examination shall seek reimbursement for the examination from the patient's insurance carrier, including Medicaid and Medicare, if available. If insurance is unavailable, or does not cover the full costs of the forensic medical examination, the service provider may seek reimbursement from the Victims' Compensation Fund.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9023(c)",
@@ -152,7 +152,8 @@
    "id": "DE-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2500000
+    "amount_cents": 2500000,
+    "exception": "or up to $50,000 if you are left fully and permanently disabled"
    },
    "summary": "Total compensation is capped at $25,000, or up to $50,000 for victims who are permanently and totally disabled.",
    "quote": "Compensation may not be awarded under the chapter to a claimant in a total amount in excess of $25,000; provided, however, that the Agency may award compensation to victims who are permanently and totally disabled in an amount not to exceed $50,000.",
@@ -307,7 +308,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "replacing items seized as evidence"
    },
    "summary": "Replacing items seized as evidence is covered; this is separate from the general bar on property loss.",
    "quote": "k. The cost to change locks and replace items seized as evidence.",
@@ -320,7 +322,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "the deposit plus up to 2 months of care by a state-approved or licensed day care provider"
    },
    "summary": "Child care is covered, limited to the deposit plus 2 months of care by a state-approved or licensed provider.",
    "quote": "l. Child care not to exceed the deposit plus 2 months of care by a state-approved or licensed day care provider.",
@@ -411,7 +414,7 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "Agency may grant an extension or waive the deadline when the circumstances make it unreasonable; claims from child sexual assault or abuse may not be barred by a statute of limitations (§ 9009(12))"
+    "extension": "unless the program gives you more time"
    },
    "summary": "The claim must be filed within 1 year after the injury, unless the Agency grants an extension or finds the deadline unreasonable in the circumstances.",
    "quote": "Where the claim has not been filed within 1 year after the personal injury on which the claim in based, unless an extension is granted by the Agency or the Agency, in its discretion, determines that the circumstances render this requirement unreasonable.",

@@ -1,8 +1,8 @@
 ; tend law image LA, Louisiana
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 8b26225a92270c86fe715b0502d499d4d18867d341fe314661ff5c7b48236990
-; image sha256  ccca9e337b9d5cc0390b07db25d2350155d9751f749a1ddb04a1fe91907f5c91
-; 49 rules, 12 sources, 26 proofs, 4 ints, 268 strings
+; source sha256 e2228c03c6cf77a52bf0c1049835049de0e3bbacdbcaa1deaaf2e5d5a475e8f2
+; image sha256  0d3b4b4fe655cad7782b1a91af7b171edeb863d2e1f7df54825b1326785afb1e
+; 49 rules, 12 sources, 26 proofs, 4 ints, 269 strings
 ; item program: 167 instructions, 555 bytes, max stack 2
 ; aggregate program: 156 instructions, 486 bytes, max stack 3, 5 loops
 
@@ -38,23 +38,23 @@
     R28   LA-EXCL-2             excluded      legal                                         LAC 22:XIII.503(B)(1)
     R29   LA-SUBMIT-1           info          -                     submission              LCLE CVC program page, For More Information
     R30   LA-SUBMIT-2           info          -                     submission              LAC 22:XIII.303(A)(1)
-    R31   LA-SUBMIT-3           info          -                     submission              Application instructions page (form revised Feb 19, 2025)
-    R32   LA-DOC-SIGN           info          -                     required_document       Application instructions, eligibility only item 1(b)
-    R33   LA-DOC-REASONABLE     info          -                     required_document       Application instructions, eligibility only item 5
-    R34   LA-DOC-POLICE         info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(a)
-    R35   LA-DOC-COURT          info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(b)
-    R36   LA-DOC-HEALTH         info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(c)
-    R37   LA-DOC-EXAM           info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(d)
-    R38   LA-DOC-BILLS          info          -                     required_document       LAC 22:XIII.303(A)(4)
-    R39   LA-DOC-BILLS-2        info          -                     required_document       LAC 22:XIII.303(A)(5)
-    R40   LA-DOC-CLAIMFORMS     info          -                     required_document       LAC 22:XIII.501(B)(1)
-    R41   LA-DOC-WAGES          info          -                     required_document       LAC 22:XIII.503(D)(3)(b)
-    R42   LA-DOC-DISABILITY     info          -                     required_document       LAC 22:XIII.503(D)(2)
-    R43   LA-DOC-NEWS           info          -                     required_document       Application instructions, eligibility only item 4
-    R44   LA-DOC-LATE           info          -                     required_document       Application form page 1
-    R45   LA-TIME-1             info          -                     processing_time         LCLE CVC program page, How the Application is Reviewed
-    R46   LA-ACP-1              info          -                     address_confidentiality Secretary of State, Address Confidentiality Program page, program description and How to apply
-    R47   LA-RECCONF-1          info          -                     record_confidentiality  La. R.S. 46:1844(W)(1)(a)
+    R31   LA-DOC-SIGN           info          -                     required_document       Application instructions, eligibility only item 1(b)
+    R32   LA-DOC-REASONABLE     info          -                     required_document       Application instructions, eligibility only item 5
+    R33   LA-DOC-POLICE         info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(a)
+    R34   LA-DOC-COURT          info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(b)
+    R35   LA-DOC-HEALTH         info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(c)
+    R36   LA-DOC-EXAM           info          -                     required_document       Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(d)
+    R37   LA-DOC-BILLS          info          -                     required_document       LAC 22:XIII.303(A)(4)
+    R38   LA-DOC-BILLS-2        info          -                     required_document       LAC 22:XIII.303(A)(5)
+    R39   LA-DOC-CLAIMFORMS     info          -                     required_document       LAC 22:XIII.501(B)(1)
+    R40   LA-DOC-WAGES          info          -                     required_document       LAC 22:XIII.503(D)(3)(b)
+    R41   LA-DOC-DISABILITY     info          -                     required_document       LAC 22:XIII.503(D)(2)
+    R42   LA-DOC-NEWS           info          -                     required_document       Application instructions, eligibility only item 4
+    R43   LA-DOC-LATE           info          -                     required_document       Application form page 1
+    R44   LA-TIME-1             info          -                     processing_time         LCLE CVC program page, How the Application is Reviewed
+    R45   LA-ACP-1              info          -                     address_confidentiality Secretary of State, Address Confidentiality Program page, program description and How to apply
+    R46   LA-RECCONF-1          info          -                     record_confidentiality  La. R.S. 46:1844(W)(1)(a)
+    R47   LA-SUBMIT-3           skipped       -                     submission              Application instructions page (form revised Feb 19, 2025)  ; applies_to "cases other than adult sexual offenses, which go straight to the board office"
     R48   LA-COUNS-3            skipped       -                     expense_cap             LAC 22:XIII.503(I)(6)(a)(iii)(b)  ; less generous duplicate of LA-COUNS-2
 
 .tags   phone=bit0
@@ -99,7 +99,7 @@
     P22   (LA-EXCL-2)
     P23   (LA-DEADLINE-1)
     P24   (LA-REPORT-1, LA-REPORT-2)
-    P25   (LA-EMERG-1, LA-COLL-1, LA-COLL-2, LA-CONDUCT-1, LA-CONDUCT-2, LA-CRIME-1, LA-RES-1, LA-SUBMIT-1, LA-SUBMIT-2, LA-SUBMIT-3, LA-DOC-SIGN, LA-DOC-REASONABLE, LA-DOC-POLICE, LA-DOC-COURT, LA-DOC-HEALTH, LA-DOC-EXAM, LA-DOC-BILLS, LA-DOC-BILLS-2, LA-DOC-CLAIMFORMS, LA-DOC-WAGES, LA-DOC-DISABILITY, LA-DOC-NEWS, LA-DOC-LATE, LA-TIME-1, LA-ACP-1, LA-RECCONF-1)
+    P25   (LA-EMERG-1, LA-COLL-1, LA-COLL-2, LA-CONDUCT-1, LA-CONDUCT-2, LA-CRIME-1, LA-RES-1, LA-SUBMIT-1, LA-SUBMIT-2, LA-DOC-SIGN, LA-DOC-REASONABLE, LA-DOC-POLICE, LA-DOC-COURT, LA-DOC-HEALTH, LA-DOC-EXAM, LA-DOC-BILLS, LA-DOC-BILLS-2, LA-DOC-CLAIMFORMS, LA-DOC-WAGES, LA-DOC-DISABILITY, LA-DOC-NEWS, LA-DOC-LATE, LA-TIME-1, LA-ACP-1, LA-RECCONF-1)
 
 .ints
     K0    11000         ; $110.00
@@ -505,7 +505,6 @@
               ; LA-RES-1  LCLE CVC program page, Residency  "The crime must occur in Louisiana or the crime must involve a..."
               ; LA-SUBMIT-1  LCLE CVC program page, For More Information  "Or Write to: Crime Victims’ Compensation Louisiana Commission..."
               ; LA-SUBMIT-2  LAC 22:XIII.303(A)(1)  "Applications involving an adult victim of a sexually-oriented..."
-              ; LA-SUBMIT-3  Application instructions page (form revised Feb 19, 2025)  "Please mail the original application, along with the Claim..."
               ; LA-DOC-SIGN  Application instructions, eligibility only item 1(b)  "The claimant MUST sign the application."
               ; LA-DOC-REASONABLE  Application instructions, eligibility only item 5  "Crime Victims Reparations applications shall be valid only if..."
               ; LA-DOC-POLICE  Resume Digest of Act 684 on La. R.S. 46:1806(A)(2)(a)  "A report from law enforcement, rather than a police report."
@@ -522,6 +521,6 @@
               ; LA-TIME-1  LCLE CVC program page, How the Application is Reviewed  "A decision about whether the victim or claimant is eligible is..."
               ; LA-ACP-1  Secretary of State, Address Confidentiality Program page, program description and How to apply  "The ACP provides relocated victims of abuse, sexual assault or..."
               ; LA-RECCONF-1  La. R.S. 46:1844(W)(1)(a)  "all public officials and officers and public agencies, including..."
-  01e2        info     P25                          ; LA-EMERG-1, LA-COLL-1, LA-COLL-2, LA-CONDUCT-1, LA-CONDUCT-2, LA-CRIME-1, LA-RES-1, LA-SUBMIT-1, LA-SUBMIT-2, LA-SUBMIT-3, LA-DOC-SIGN, LA-DOC-REASONABLE, LA-DOC-POLICE, LA-DOC-COURT, LA-DOC-HEALTH, LA-DOC-EXAM, LA-DOC-BILLS, LA-DOC-BILLS-2, LA-DOC-CLAIMFORMS, LA-DOC-WAGES, LA-DOC-DISABILITY, LA-DOC-NEWS, LA-DOC-LATE, LA-TIME-1, LA-ACP-1, LA-RECCONF-1
+  01e2        info     P25                          ; LA-EMERG-1, LA-COLL-1, LA-COLL-2, LA-CONDUCT-1, LA-CONDUCT-2, LA-CRIME-1, LA-RES-1, LA-SUBMIT-1, LA-SUBMIT-2, LA-DOC-SIGN, LA-DOC-REASONABLE, LA-DOC-POLICE, LA-DOC-COURT, LA-DOC-HEALTH, LA-DOC-EXAM, LA-DOC-BILLS, LA-DOC-BILLS-2, LA-DOC-CLAIMFORMS, LA-DOC-WAGES, LA-DOC-DISABILITY, LA-DOC-NEWS, LA-DOC-LATE, LA-TIME-1, LA-ACP-1, LA-RECCONF-1
   01e5        ret
 

@@ -234,7 +234,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "the forensic part of an exam or the evidence kit"
    },
    "summary": "A sexual assault survivor cannot be made to pay for the forensic part of the exam or the evidence kit. The statute does not say whether the survivor's insurance may be billed for it.",
    "quote": "A victim of a sexual assault may not be required to pay for: (1) the forensic portion of the forensic medical examination; or (2) the evidence collection kit.",
@@ -264,7 +265,7 @@
     "amount_cents": 2500000,
     "per": "claim"
    },
-   "summary": "Emergency Medical Care (EMC): the Attorney General pays for medical care given during a sexual assault forensic exam, and prescribed related follow-up care, at medical fee guideline rates, up to $25,000. The program's medical care page treats this as separate from the general award cap.",
+   "summary": "Emergency Medical Care (EMC): the Attorney General pays for medical care given during a sexual assault forensic exam, at medical fee guideline rates, up to $25,000. The program's medical care page treats this as separate from the general award cap.",
    "quote": "The attorney general shall make a payment under Subsection (a) in accordance with the medical fee guidelines prescribed by Subtitle A, Title 5, Labor Code. A payment made under Subsection (a) may not exceed $25,000.",
    "source_id": "TX-S15",
    "pinpoint": "Tex. Code Crim. Proc. art. 56A.305(b)",
@@ -275,7 +276,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "the forensic part of an exam or the evidence kit"
    },
    "summary": "The program's emergency medical care page says victims cannot be billed for the forensic costs of a sexual assault exam.",
    "quote": "Note: Victims cannot be billed for forensic costs of the exam.",
@@ -287,7 +289,8 @@
    "id": "TX-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 5000000
+    "amount_cents": 5000000,
+    "exception": "or more in some cases"
    },
    "summary": "Awards for one victim and everyone claiming because of that victim's injury may not exceed $50,000 in total.",
    "quote": "Except as otherwise provided by this article, awards payable to a victim and any other claimant sustaining pecuniary loss because of injury or death of that victim may not exceed $50,000 in the aggregate.",
@@ -330,7 +333,8 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "scope": "moving costs and rent, for sexual assault only if it happened in your home"
    },
    "summary": "A victim of sexual assault who was assaulted in their own home can be compensated for relocation costs and housing rent; other victims can qualify when the move is needed for health or safety.",
    "quote": "A victim of stalking, family violence, or trafficking of persons, a victim of sexual assault who is assaulted in the victim's place of residence, or a child who is a victim of a murder attempt in the child's place of residence may receive compensation for the following expenses: (1) relocation expenses, including expenses for rental deposit, utility connections, expenses relating to moving belongings, motor vehicle mileage expenses, temporary or emergency lodging, and for an out-of-state move, expenses for transportation, lodging, and meals; and (2) housing rental expenses.",
@@ -358,9 +362,10 @@
    "category": "covered_expense",
    "expense": "temporary_housing",
    "params": {
-    "expense": "temporary_housing"
+    "expense": "temporary_housing",
+    "scope": "emergency or temporary lodging for up to 14 days"
    },
-   "summary": "For victims who qualify for relocation help (for sexual assault, only when the assault happened in the victim's home), emergency or temporary lodging is covered for up to 14 days.",
+   "summary": "Emergency or temporary lodging can be paid for up to 14 days, as part of help with moving.",
    "quote": "Emergency or temporary lodging (up to 14 days)",
    "source_id": "TX-S9",
    "pinpoint": "OAG Rent and Relocation Reimbursement page",
@@ -371,7 +376,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips over 20 miles one way to medical or mental health care, court, or a victim's funeral"
    },
    "summary": "Travel is reimbursed when the one-way trip to medical or mental health care, court, or a victim's funeral is over 20 miles.",
    "quote": "Travel over 20 miles one way for medical or mental health care, court proceedings, or a victim's funeral",
@@ -466,7 +472,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing, bedding, or property taken as evidence or ruined by the investigation"
    },
    "summary": "Clothing, bedding, or other property of the victim that police took as evidence or that the investigation made unusable can be replaced.",
    "quote": "reasonable replacement costs for clothing, bedding, or property of the victim seized as evidence or rendered unusable as a result of the criminal investigation;",
@@ -531,7 +538,7 @@
    "params": {
     "years": 3,
     "from": "crime",
-    "extension": "good cause"
+    "extension": "or later if you show good cause for the delay"
    },
    "summary": "Apply within 3 years of the crime; the program can accept a late application for good cause.",
    "quote": "You're applying within 3 years of the crime (unless good cause can be shown for the delay).",
@@ -556,9 +563,7 @@
    "category": "reporting_requirement",
    "params": {
     "required": false,
-    "alternatives": [
-     "forensic_exam"
-    ]
+    "scope": "Emergency Medical Care only (medical care at a sexual assault exam), not the full compensation claim"
    },
    "summary": "For Emergency Medical Care compensation (medical care given during a sexual assault exam), no police report is needed. This exception does not cover the full compensation claim.",
    "quote": "Special rules apply for sexual assault Emergency Medical Care (EMC): reporting to law enforcement is not required.",
@@ -791,7 +796,7 @@
    "id": "TX-RECORDS-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "A compensation application and the records the Attorney General keeps on it are not subject to disclosure under the Public Information Act, and are shielded from discovery and subpoena except in the cases the statute lists, such as a court order or the claimant's consent.",
+   "summary": "Texas law keeps your compensation application and the Attorney General's records on it private, with some exceptions. Once compensation is awarded, the name of the victim or claimant and the amount are public under Gov. Code 552.132(c). A court order, your consent, or a subpoena in a criminal case can also open some records.",
    "quote": "An application for compensation under this chapter and any information, document, summary, or other record provided to or received, maintained, or created by the attorney general under this chapter, including a report released to the attorney general under Article 56B.054 (f), is: (1)  except as provided by Section 552.132 (c), Government Code, not subject to disclosure under Chapter 552 of that code; and (2)  except as provided by Subsection (c), not subject to disclosure, discovery, subpoena, or other means of legal compulsion for release.",
    "source_id": "TX-S1",
    "pinpoint": "Tex. Code Crim. Proc. art. 56B.058(b)",

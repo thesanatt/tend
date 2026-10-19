@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AR",
- "source_sha256": "3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6",
- "ir_sha256": "c85d24b9fbda6f6707bbad498fd5aa4c2a27a396091b5f76cadf1f07ae85ebba",
+ "source_sha256": "417f5845fe312adcc8a1c511cc74061cfa4e217a088a58619be31138210b3254",
+ "ir_sha256": "708a7d7a9cee94b2c17058be8f1f52ba02c42a6eb2eb9043c9f5925a75a13340",
  "fresh": true,
  "rules": [
   {
@@ -11,7 +11,7 @@
   },
   {
    "id": "AR-EXAM-2",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
   },
   {
    "id": "AR-EXAM-3",
@@ -86,7 +86,8 @@
    "id": "AR-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "AR-REPORT-2",

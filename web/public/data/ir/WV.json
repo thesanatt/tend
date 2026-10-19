@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WV",
- "source_sha256": "853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a",
- "ir_sha256": "1c8d1c4c7400316e3bacf36f0cb8ad37e3bb2235117392b5cbe820352dbf5da5",
+ "source_sha256": "a7f6e76c89f3c42abb12010bf549dee2c3f98871ac0d92ceaa97fe8225ebfcd1",
+ "ir_sha256": "c4738bccd92fa237b264a86083ce491400101a90387a946e8aa44d7e7140333b",
  "fresh": true,
  "rules": [
   {
@@ -94,7 +94,8 @@
    "required": true,
    "alternatives": [
     "forensic_exam"
-   ]
+   ],
+   "within_days": 4
   },
   {
    "id": "WV-REP-2",

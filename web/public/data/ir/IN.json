@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "IN",
- "source_sha256": "66ecfc7fc55f5ca7c9ae979a1ea3e2beb2a1f05ffa778e78aab9178de3c8b719",
- "ir_sha256": "ad0d975a62671594dbb8b4b36d73b97b855240862a080200aae4ee2ce40e06ee",
+ "source_sha256": "024db990440601565ed34aa30210f7bc862d14e87ac190b93b1d2895e48efdd6",
+ "ir_sha256": "f1df1fe3a77c04ae6b109269399cd04c0c2a0fb7c63f30764127b56efc0c4ccc",
  "fresh": true,
  "rules": [
   {
@@ -155,8 +155,8 @@
   {
    "id": "IN-MIN-1",
    "kind": "minimum_loss",
-   "waiver": "discretionary",
-   "waiver_for_sexual_assault": true,
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
    "cap_cents": 10000
   },
   {

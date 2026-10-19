@@ -1,16 +1,12 @@
 {
  "ir_version": 2,
  "jurisdiction": "MT",
- "source_sha256": "4bd25991fd25c229b72d87000aa0ea36a5320ff21fbff1e3a0601a3dff6b0bac",
- "ir_sha256": "62c41f4c84155f11624fed0449b23e052c8c9310e952a438bd2b263294cbd2b5",
+ "source_sha256": "7c38bffec2fdc656e549e0552c064eb40b77295f37946cc9731de12fba163e58",
+ "ir_sha256": "1daf06dacd7e6fe981cb28ab6723a4cbf35c36cd91a66770bb5e58ea4883bf15",
  "fresh": true,
  "rules": [
   {
    "id": "MT-EXAM-1",
-   "kind": "exam_no_bill"
-  },
-  {
-   "id": "MT-EXAM-2",
    "kind": "exam_no_bill"
   },
   {
@@ -205,6 +201,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "MT-EXAM-2",
+   "category": "exam_no_bill",
+   "reason": "applies_to \"exams paid by the state exam fund for cases not reported to police\""
+  },
   {
    "id": "MT-CAP-2",
    "category": "expense_cap",

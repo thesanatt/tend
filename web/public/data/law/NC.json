@@ -172,7 +172,8 @@
    "id": "NC-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 4500000
+    "amount_cents": 4500000,
+    "condition": "not counting funeral, cremation, and burial costs"
    },
    "summary": "Total compensation for one victim's injury is capped at $45,000, not counting allowable funeral, cremation, and burial expenses.",
    "quote": "Compensation payable to a victim and to all other claimants sustaining economic loss because of injury to, or the death of, that victim may not exceed forty-five thousand dollars ($45,000) in the aggregate in addition to allowable funeral, cremation, and burial expenses.",
@@ -385,7 +386,9 @@
    "id": "NC-REPORT-1",
    "category": "reporting_requirement",
    "params": {
-    "required": true
+    "required": true,
+    "within_months": 6,
+    "exception": "or later with good cause"
    },
    "summary": "The crime must be reported to law enforcement within six months unless there was good cause for the delay.",
    "quote": "The criminally injurious conduct was not reported to a law enforcement officer or agency within six months of its occurrence, and there was no good cause for the delay.",
@@ -427,7 +430,7 @@
    "id": "NC-COND-2",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "A claim may be denied or reduced if the claimant or victim, without good cause, did not fully cooperate with law enforcement or the prosecution.",
+   "summary": "A claim can be denied or an award cut if the claimant or victim did not fully cooperate with police or the prosecution, unless there was good cause. A claim already decided can also be looked at again for this.",
    "quote": "A claim may be denied, an award of compensation may be reduced, and a claim that has already been decided may be reconsidered upon finding that the claimant or victim, without good cause, has not fully cooperated with appropriate law enforcement agencies or in the prosecution of criminal cases with regard to the criminally injurious conduct that is the basis for the award.",
    "source_id": "NC-S3",
    "pinpoint": "N.C. Gen. Stat. 15B-11(c)",

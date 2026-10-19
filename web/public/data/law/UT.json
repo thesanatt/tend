@@ -194,7 +194,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "A survivor may not be charged for a medical forensic sexual assault exam, and does not have to take part in the criminal justice system or cooperate with police or prosecutors to get one.",
    "quote": "A victim may not be: (a) charged for a medical forensic sexual assault examination; or (b) required to participate in the criminal justice system or cooperate with law enforcement or prosecuting attorneys as a condition of being provided a medical forensic sexual assault examination.",
@@ -207,7 +207,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "An exam provider that accepts payment from the Utah Office for Victims of Crime must take it as payment in full and may not try to collect more from the patient.",
    "quote": "A sexual assault exam service provider who accepts payment from UOVC agrees to accept that payment as payment in full on behalf of the patient and may not attempt to collect additional payment from the patient.",
@@ -281,7 +281,8 @@
    "id": "UT-TOTAL-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2500000
+    "amount_cents": 2500000,
+    "exception": "or more in some cases"
    },
    "summary": "A compensation award may not exceed $25,000, including any award for a secondary victim, except for medical expenses from serious or substantial bodily injury.",
    "quote": "Except as provided in Subsection (4)(b), a compensation award may not exceed $25,000 including any compensation award for a secondary victim.",
@@ -311,7 +312,7 @@
     "per": "claim",
     "count_limit": 25
    },
-   "summary": "A primary victim can get up to 25 outpatient mental health counseling sessions, individual or group; more can be authorized with justification and extenuating circumstances.",
+   "summary": "A primary victim can get up to 25 outpatient mental health counseling sessions, individual or group. The reparations officer can approve more if the counselor sends enough documentation to justify them and extenuating circumstances call for them.",
    "quote": "a primary victim of a crime is eligible for a total of 25 outpatient mental health counseling sessions, including either individual or group counseling session;",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-5(1)(a)(i)",
@@ -382,7 +383,7 @@
    "category": "expense_cap",
    "expense": "other",
    "params": {
-    "expense": "other",
+    "expense": "property_replacement",
     "amount_cents": 500000,
     "per": "claim"
    },
@@ -452,7 +453,7 @@
    "params": {
     "expense": "counseling"
    },
-   "summary": "Mental health counseling is covered when it is in a mental health treatment plan approved by a compensation specialist before any payment is made.",
+   "summary": "Mental health counseling can be covered, but a compensation specialist must approve a mental health treatment plan for it before any payment is made.",
    "quote": "mental health counseling that: (A) is set forth in a mental health treatment plan that is approved before any payment is made by a compensation specialist",
    "source_id": "UT-S7",
    "pinpoint": "Utah Code 75E-5-309(1)(d)(iii)"
@@ -474,7 +475,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "child care so you or your spouse can keep working"
    },
    "summary": "Care of minor children so the victim or the victim's spouse (not both) can keep working is covered, at a weekly per-child rate set by rule.",
    "quote": "care of minor children enabling a victim or spouse of a victim, but not both, to continue gainful employment at a rate per child per week as determined under rules established by the office",
@@ -486,7 +488,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "personal property needed for your health or safety"
    },
    "summary": "Personal property necessary and essential to the victim's health or safety is covered, as defined by the office's rules.",
    "quote": "personal property necessary and essential to the health or safety of the victim as defined by rules made by the office",
@@ -537,7 +540,7 @@
    "params": {
     "item": "pain, suffering, and other noneconomic harm"
    },
-   "summary": "Economic loss does not include noneconomic detriment, which the chapter defines as pain, suffering, inconvenience, physical impairment, and other nonpecuniary damage.",
+   "summary": "The program does not pay for harm that is not a money loss, such as pain and suffering.",
    "quote": "\"Economic loss\" does not include noneconomic detriment.",
    "source_id": "UT-S7",
    "pinpoint": "Utah Code 75E-5-101(18)(c)"
@@ -874,7 +877,7 @@
     "covers_sexual_assault": true,
     "enroll": "In order to apply for the Safe at Home Program, a victim must meet with a Certified Safe at Home Program Assistant. Safe at Home Program Assistants are victim advocates and others who work with victims that have gone through a certification training. They will complete the application with the victim and submit it to Safe at Home on behalf of the victim. Safe at Home cannot accept applications directly from an individual. That individual must work with a Program Assistant."
    },
-   "summary": "Utah's Safe at Home Program gives survivors of sexual assault, domestic violence, stalking, human trafficking, and abuse who fear for their safety a legal substitute address and free mail forwarding, and state and local government agencies must accept that substitute address. Survivors apply through a certified program assistant, not directly.",
+   "summary": "Utah's Safe at Home Program is for survivors living in Utah, including survivors of sexual assault, abuse, child abuse, domestic violence, stalking, and human trafficking, who are afraid they will be in physical danger if the perpetrator knows where they live. It gives them a substitute address and mail forwarding. You apply through a certified program assistant, not on your own.",
    "quote": "Utah’s Safe at Home Program is available to survivors of abuse, child abuse, domestic violence, stalking, human trafficking, and sexual assault who are afraid that they will be in physical danger if their perpetrator knows where they live. The program will provide a substitute address and mail forwarding for survivors living in Utah.",
    "source_id": "UT-S11",
    "pinpoint": "Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)",
@@ -884,7 +887,7 @@
    "id": "UT-RECCONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Records the Utah Office for Victims of Crime holds about a claimant's eligibility (the claim, correspondence on approval, denial, or payment, supporting documents, medical or mental health treatment plans, and police reports) are confidential records that can be released only as the compensation statute allows, overriding the state open records act: to the claimant, to whoever submitted the record, or for fraud or subrogation actions.",
+   "summary": "Records the Utah Office for Victims of Crime keeps about a claim, including restitution records, can be shared only as this law allows, whatever the state open records law says.",
    "quote": "Notwithstanding Title 63G, Chapter 2, Government Records Access and Management Act, a confidential record, a public restitution record, and a nonpublic restitution record may only be disclosed as provided in this section.",
    "source_id": "UT-S7",
    "pinpoint": "Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)"

@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "TX",
- "source_sha256": "e3ef520f93df5b01a54d8f81390efb457f3d54bac1a1f39620478677fc61b530",
- "ir_sha256": "fab884d079abf18ae35f244159095a0baf1e68da0022beeacad840e78ff713bb",
+ "source_sha256": "8d8af719a9c0d658659bd07b97a66b2ad42d4bfad73102518a82f47b95e1aea3",
+ "ir_sha256": "b7794c3730205ad12cb318512a36eeaedd3a505b7a339c8e8009dd6e7be4b757",
  "fresh": true,
  "rules": [
   {
@@ -133,11 +133,8 @@
   },
   {
    "id": "TX-REPORT-2",
-   "kind": "reporting",
-   "required": false,
-   "alternatives": [
-    "forensic_exam"
-   ]
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "TX-COLLAT-1",

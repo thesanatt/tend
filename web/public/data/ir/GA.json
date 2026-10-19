@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "GA",
- "source_sha256": "b55212cc7a08dd9af9055b33c04fe5774c33941dd135fa694ca23e605acc91b8",
- "ir_sha256": "60a4673c1380f4a904de0674f935e241e5feb171ad29208e95494ef722e93b46",
+ "source_sha256": "b34eccdde4648179bf1d4c4606c4ab8a87737e85522a3826a0245595fd7ee639",
+ "ir_sha256": "fb3cdc3855059a190ee7e701acb813a99e49d2d4e9e4ac5578dea69f0af1a954",
  "fresh": true,
  "rules": [
   {
@@ -12,10 +12,6 @@
   {
    "id": "GA-EXAM-2",
    "kind": "exam_payment"
-  },
-  {
-   "id": "GA-EXAM-3",
-   "kind": "exam_no_bill"
   },
   {
    "id": "GA-EXAM-4",
@@ -282,5 +278,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "GA-EXAM-3",
+   "category": "exam_no_bill",
+   "reason": "applies_to \"exam costs above the $1,000 limit\""
+  }
+ ]
 }

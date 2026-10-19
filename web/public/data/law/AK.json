@@ -124,7 +124,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "insurance_billing": "unspecified",
+    "condition": "if you are 16 or older"
    },
    "summary": "Police, a hospital, or anyone else may not make a sexual assault survivor age 16 or older pay for the evidence exam, directly or through their health insurance.",
    "quote": "A law enforcement agency, health care facility, or other entity may not require a victim of sexual assault under AS 11.41.410 — 11.41.425 who is 16 years of age or older to pay, directly or indirectly, through health insurance or any other means, for the costs of examination of the victim necessary for (1) collecting evidence using the sexual assault examination kit under AS 18.68.010 or otherwise; or (2) determining whether a sexual assault has occurred.",
@@ -139,7 +140,7 @@
    "params": {
     "insurance_billing": "unspecified"
    },
-   "summary": "The Alaska Department of Law tells survivors that sexual assault exams are provided at no cost to them. This page does not address insurance billing; AK-EXAM-1 (the statute) does.",
+   "summary": "The Alaska Department of Law's victims' rights handbook says sexual assault exams are provided at no cost to victims, and cites AS 18.68.040.",
    "quote": "Victims of sexual assaults should obtain sexual assault examinations as soon as possible after the crime has occurred. These exams are provided at no cost to victims [AS 18.68.040].",
    "source_id": "AK-S6",
    "pinpoint": "Alaska Department of Law, Victims' Rights Handbook, Crimes of Sexual Assault",
@@ -211,9 +212,10 @@
    "params": {
     "required": true,
     "within_days": 5,
-    "alternatives": []
+    "alternatives": [],
+    "exception": "or, if you could not reasonably report that soon, within 5 days of when you could"
    },
-   "summary": "The crime must be reported to police within five days, or within five days of when a report could reasonably have been made. The statute lists no alternative to a police report for sexual assault.",
+   "summary": "The crime must be reported to police within five days. If it could not reasonably be reported that soon, it must be reported within five days of when it reasonably could be. The statute lists no alternative to a police report for sexual assault.",
    "quote": "the personal injury or death was the result of an incident or offense listed in AS 18.67.101 that had been reported to the police within five days of its occurrence or, if the incident or offense could not reasonably have been reported within that period, within five days of the time when a report could reasonably have been made",
    "source_id": "AK-S1",
    "pinpoint": "AS 18.67.130(a)(2)",
@@ -226,7 +228,7 @@
     "required": true,
     "alternatives": []
    },
-   "summary": "The board may also look at whether the applicant cooperated with police and prosecutors where appropriate.",
+   "summary": "The board can pay only if it finds that the applicant cooperated with police and prosecutors when that was appropriate.",
    "quote": "in the discretion of the board, the applicant has cooperated with law enforcement and prosecution officials to further prosecution of the offender if appropriate",
    "source_id": "AK-S1",
    "pinpoint": "AS 18.67.130(a)(3)",
@@ -236,8 +238,9 @@
    "id": "AK-REPORT-3",
    "category": "reporting_requirement",
    "params": {
-    "required": true,
-    "alternatives": []
+    "required": false,
+    "alternatives": [],
+    "scope": "prosecution or conviction, not the police report"
    },
    "summary": "An award can be made even if no one is prosecuted or convicted.",
    "quote": "An order may be made under this section whether or not a person is prosecuted or convicted of an offense arising out of the act that caused the injury or death involved in the application.",
@@ -369,7 +372,7 @@
    "params": {
     "expense": "relocation"
    },
-   "summary": "Relocation is covered when the survivor's health or safety is at risk because of the crime.",
+   "summary": "Moving costs can be paid only in some cases, for example when the crime may put your health or safety at risk.",
    "quote": "Relocation may only be eligible specific instances, such as when an individuals health or safety may be at risk as a direct result of the crime.",
    "source_id": "AK-S5",
    "pinpoint": "VCCB Application and Forms, Relocation",
@@ -466,7 +469,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "a cell phone that was damaged or taken as evidence"
    },
    "summary": "A cell phone that was damaged or taken as evidence can be covered.",
    "quote": "Cell phone (damaged or taken for evidence)",

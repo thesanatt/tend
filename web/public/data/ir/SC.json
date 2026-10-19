@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "SC",
- "source_sha256": "7dacdf2f17b6b2a7d6bdcd2424aa2eb105f503a15f96c228e6116d02e6e39976",
- "ir_sha256": "f1e12c801ba6995e2370328b889bf6e8d339007d44dd902de11c4484981ac10e",
+ "source_sha256": "d86d64c15caa024d00917bd3224c0b9e6813e178a0342b097bdf49dd2b5b45b5",
+ "ir_sha256": "80c32b5d6504754defbb4a6d14cf1b71f2b147d215cc1d0a3bcc4a5e1c7a8d35",
  "fresh": true,
  "rules": [
   {
@@ -142,7 +142,8 @@
    "id": "SC-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 2
   },
   {
    "id": "SC-REPORT-2",
