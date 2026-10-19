@@ -175,7 +175,11 @@ def test_the_redacted_pages_are_counted_where_the_sha256_is_described(files, doc
     # Their sha256 was recorded again after the redaction, so "recorded when it was saved" needs the exception.
     noted = [s["source_id"] for s in doc["sources"] if s["note"] and "redacted" in s["note"]]
     assert doc["metadata"]["counts"]["sources_redacted"] == len(noted)
-    assert f"For the {len(noted)} pages whose `note` says so, it was recorded again" in files["README.md"].decode("ascii")
+    readme = files["README.md"].decode("ascii")
+    assert f"For the {len(noted)} pages whose `note` says so, it was recorded again" in readme
+    # git shows the keys removed hours after the pages were saved, so the README does not repeat the notes' "before publishing".
+    assert f"- {len(noted)} saved pages have a `note` about third-party API keys" in readme
+    assert "redacted after the page was saved" in readme and "before publishing" not in readme
 
 
 def test_copies_from_sites_that_republish_state_law_are_counted_and_described(files, doc):

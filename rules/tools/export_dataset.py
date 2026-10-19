@@ -378,7 +378,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
             reasons[f"`{why}`"] += 1
     if dupes["higher"]:
         sys.exit("a cap set aside as a duplicate is more generous than the cap kept: check rules/ir")
-    notes = Counter(s["note"] for s in sources if s["note"])
+    # The README's limitation tells the API key story, so a note that is about something else needs words of its own.
+    if any("API keys" not in s["note"] for s in sources if redacted(s)):
+        sys.exit("a redacted page's note is not about API keys: review the README's note on redacted pages")
+    other_notes = [s for s in sources if s["note"] and not redacted(s)]
     missing = set(FORM_TEXT + SHORT_PAGES) - {s["source_id"] for s in sources if s["format"] == "html"}
     if missing:
         sys.exit(f"FORM_TEXT or SHORT_PAGES names what is not an HTML source here: {sorted(missing)}")
@@ -528,9 +531,9 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "",
         "`params` holds what `rules/SCHEMA.md` asks for in each category (the table above). Researchers also",
         "added keys the schema does not define where it had no field; their meaning is in the rule's quote.",
-        "`normalize.py` reads three of them: `applies_to` (a rule that applies to someone other than the",
-        "survivor is set aside), `scope` (a reporting rule or cap with a scope becomes information), and",
-        "`within_hours` (turned into days, rounded up).",
+        "`normalize.py` reads three of them: `applies_to` (a rule whose `applies_to` does not name the survivor",
+        "is set aside; see engine_use), `scope` (a reporting rule or a cap on one expense with a scope becomes",
+        "information), and `within_hours` (turned into days, rounded up).",
         f"`verify.py` checks that the numbers in {series(f'`{k}`' for k in VERIFY_NUMBER_KEYS)} appear in the quote.",
         f"In this release every integer value in `params` does, including the keys `verify.py` does not check ({series(f'`{k}`' for k in sorted(integer_keys - set(VERIFY_NUMBER_KEYS)))}).",
         "Numbers written inside text values, such as section numbers in a `note` or `extension`, are not checked.",
@@ -766,10 +769,19 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "- A sha256 shows that the saved copy has not changed since its sha256 was recorded. It cannot show what",
         "  the live page says today, and a live page can differ byte for byte even when its text is the same.",
         *(
-            [f"- {n(sum(notes.values()))} saved pages carry the same `note`: \"{next(iter(notes))}\""]
-            if len(notes) == 1
-            else [f"- {n(sum(notes.values()))} saved pages carry a `note` about the saved copy. Read it before comparing that copy with the live page."]
-            if notes
+            [
+                f"- {n(c['sources_redacted'])} saved pages have a `note` about third-party API keys embedded in the",
+                "  page. The keys were redacted after the page was saved, so their sha256 is of the redacted copy.",
+            ]
+            if c["sources_redacted"]
+            else []
+        ),
+        *(
+            [
+                f"- {n(len(other_notes))} {'other ' if c['sources_redacted'] else ''}saved {'page carries' if len(other_notes) == 1 else 'pages carry'} a `note` about the saved copy. Read it before",
+                "  comparing that copy with the live page.",
+            ]
+            if other_notes
             else []
         ),
         "- Quotes are matched against the text extracted from each saved file (`text_path`). Text the",

@@ -136,9 +136,9 @@ Meanings and params as `rules/SCHEMA.md` defines them.
 
 `params` holds what `rules/SCHEMA.md` asks for in each category (the table above). Researchers also
 added keys the schema does not define where it had no field; their meaning is in the rule's quote.
-`normalize.py` reads three of them: `applies_to` (a rule that applies to someone other than the
-survivor is set aside), `scope` (a reporting rule or cap with a scope becomes information), and
-`within_hours` (turned into days, rounded up).
+`normalize.py` reads three of them: `applies_to` (a rule whose `applies_to` does not name the survivor
+is set aside; see engine_use), `scope` (a reporting rule or a cap on one expense with a scope becomes
+information), and `within_hours` (turned into days, rounded up).
 `verify.py` checks that the numbers in `amount_cents`, `years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost` appear in the quote.
 In this release every integer value in `params` does, including the keys `verify.py` does not check (`hours_per_week`, `min_days`, `min_months`, and `within_hours`).
 Numbers written inside text values, such as section numbers in a `note` or `extension`, are not checked.
@@ -383,7 +383,8 @@ such as the Python 3.9.6 that macOS runs as `/usr/bin/python3`.
   The 234 rules that quote these copies match the copies, so check the state's own code before relying on one.
 - A sha256 shows that the saved copy has not changed since its sha256 was recorded. It cannot show what
   the live page says today, and a live page can differ byte for byte even when its text is the same.
-- 13 saved pages carry the same `note`: "Third-party API keys embedded in the page were redacted before publishing; sha256 is of the redacted file."
+- 13 saved pages have a `note` about third-party API keys embedded in the
+  page. The keys were redacted after the page was saved, so their sha256 is of the redacted copy.
 - Quotes are matched against the text extracted from each saved file (`text_path`). Text the
   extraction missed could not be quoted.
 - Coverage gaps are gaps in Tend's research, not findings about the law. When a category is missing
