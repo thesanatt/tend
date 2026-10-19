@@ -60,7 +60,7 @@ export function siteCardAlt(page: SitePage): string {
 
 // Open Graph and Twitter tags for one of these pages; the URLs resolve against metadataBase
 // (app/layout.tsx). The root layout and the survivor flow set none, so a link copied from the flow
-// does not announce what it is.
+// gets no card. Its title is "Tend" and its description neutral (components/flow/meta.ts).
 export function sitePreview(page: SitePage): Pick<Metadata, "openGraph" | "twitter"> {
   const { path, heading, sentence } = text(page);
   const title = heading ?? "Tend";

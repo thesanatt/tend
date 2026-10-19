@@ -23,8 +23,10 @@ const mono = Atkinson_Hyperlegible_Mono({
   fallback: ["ui-monospace", "monospace"],
 });
 
-// The tab says only "Tend" on survivor pages (docs/UX.md, Always on). Link previews are set page by
-// page on the public pages only, never here, so a link copied from the survivor flow shows none.
+// The tab says only "Tend" on survivor pages (docs/UX.md, Always on). Open Graph and Twitter cards are set
+// page by page on public pages, never here, so flow and share links get no card. Some apps unfurl a link from
+// its title and description alone, so those pages also swap this description for a neutral one
+// (components/flow/meta.ts).
 export const metadata: Metadata = {
   metadataBase: siteUrl(),
   title: { default: "Tend", template: "%s | Tend" },

@@ -1,5 +1,5 @@
 // The share card renders through next/og to a 1200 x 630 PNG for every jurisdiction, and the site's own
-// public pages get link cards of their own. Nothing in the survivor flow announces what it is.
+// public pages get link cards of their own. Survivor flow and share links get no card and a neutral description.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
@@ -13,6 +13,7 @@ import * as sourcesCard from "@/app/sources/card.png/route";
 import { metadata as sourcesMeta } from "@/app/sources/page";
 import * as tourCard from "@/app/tour/card.png/route";
 import { metadata as tourMeta } from "@/app/tour/page";
+import { NEUTRAL_DESCRIPTION } from "@/components/flow/meta";
 import { bodySize, cardSourceLine } from "@/components/public/og/card";
 import { sentenceSize, siteCardAddress, siteCardAlt } from "@/components/public/og/siteCard";
 
@@ -185,8 +186,8 @@ describe("link cards for the site's own pages", () => {
 });
 
 // These import the real layouts, which load the whole survivor flow on first import.
-describe("pages without a link preview", { timeout: 60_000 }, () => {
-  it("sets only the base URL in the root layout, so no page inherits a preview", async () => {
+describe("pages without a link card", { timeout: 60_000 }, () => {
+  it("sets the base URL but no card in the root layout, so no page inherits one", async () => {
     const { metadata } = await import("@/app/layout");
     expect(String(metadata.metadataBase)).toBe("https://youreowed.tech/");
     expect(metadata.title).toEqual({ default: "Tend", template: "%s | Tend" });
@@ -194,18 +195,26 @@ describe("pages without a link preview", { timeout: 60_000 }, () => {
     expect(metadata.twitter).toBeUndefined();
   });
 
-  it("gives the survivor flow and share links none, so a pasted link does not say what it is", async () => {
-    expect(Object.keys(await import("@/app/(flow)/layout"))).toEqual(["default"]);
+  it("gives the survivor flow and share links no card and a neutral description", async () => {
+    expect(NEUTRAL_DESCRIPTION).not.toMatch(/crime|victim|compensation|assault|survivor|claim|law/i);
+    const flow = await import("@/app/(flow)/layout");
+    expect(Object.keys(flow).sort()).toEqual(["default", "metadata"]);
+    expect(flow.metadata).toEqual({ description: NEUTRAL_DESCRIPTION });
     for (const page of [await import("@/app/share/page"), await import("@/app/share/[token]/page")]) {
-      expect(page.metadata.openGraph).toBeUndefined();
-      expect(page.metadata.twitter).toBeUndefined();
+      expect(page.metadata).toEqual({
+        title: "Shared claim",
+        description: NEUTRAL_DESCRIPTION,
+        robots: { index: false, follow: false },
+      });
     }
     const sources = [...files(path.join(web, "app", "(flow)")), ...files(path.join(web, "app", "share"))];
     expect(sources.length).toBeGreaterThan(10);
     for (const file of sources) {
-      expect(readFileSync(file, "utf8"), path.relative(web, file)).not.toMatch(
-        /openGraph|twitter|generateMetadata|card\.png/,
-      );
+      const name = path.relative(web, file);
+      const text = readFileSync(file, "utf8");
+      expect(text, name).not.toMatch(/openGraph|twitter|generateMetadata|card\.png/);
+      // A flow page with metadata of its own could replace the layout's description.
+      if (name.includes("(flow)") && !name.endsWith("layout.tsx")) expect(text, name).not.toMatch(/\bmetadata\b/);
     }
   });
 });
