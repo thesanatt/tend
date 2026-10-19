@@ -189,7 +189,48 @@ describe("home page", () => {
     expect(prize.getAttribute("href")).toBe(LINKS.devpost);
     expect(intro.textContent).not.toMatch(/24 hours|1st place|solo/i);
   });
+
+  it("tells a survivor that Tend files nothing, that it is a prototype, and where to check", () => {
+    render(Home());
+    const forYou = screen.getByRole("region", { name: "If you are here for yourself" });
+    const text = forYou.textContent!.replace(/\s+/g, " ");
+    expect(text).toContain("Tend files nothing: you send the claim to the program yourself.");
+    expect(text).toContain("No money moves unless you say yes.");
+    expect(text).not.toMatch(/Nothing is filed|never been sent/);
+    const note = within(forYou).getByText(/^Tend is a prototype\./);
+    const start = within(forYou).getByRole("link", { name: "Start a check" });
+    expect(note.compareDocumentPosition(start) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    // "The program's phone number is on your state's page": the page shows a phone only with its saved source.
+    const synced = list().filter((j) => j.rules > 0);
+    expect(synced).toHaveLength(51);
+    for (const { st } of synced) {
+      const law = JSON.parse(readFileSync(path.join(web, `public/data/law/${st}.json`), "utf8")) as Jurisdiction;
+      expect(law.program.phone, st).toBeTruthy();
+      expect(
+        law.sources.some((s) => s.id === law.program.phone_source_id),
+        st,
+      ).toBe(true);
+    }
+  });
+
+  // The engine holds an exam charge only where it applies a no-bill rule, so "in most states" needs a majority.
+  it("says most states, not all, hold a forensic exam charge", () => {
+    render(Home());
+    expect(document.body.textContent).toContain("In most states it can also hold a forensic exam charge on a bill");
+    const holds = list().filter(({ st }) => {
+      const ir = JSON.parse(readFileSync(path.join(web, `public/data/ir/${st}.json`), "utf8")) as {
+        rules: { kind: string }[];
+      };
+      return ir.rules.some((r) => r.kind === "exam_no_bill");
+    });
+    expect(holds.length).toBeGreaterThan(51 / 2);
+    expect(holds.length).toBeLessThan(51);
+  });
 });
+
+function list(): { st: string; rules: number }[] {
+  return JSON.parse(readFileSync(path.join(web, "public/data/jurisdictions.json"), "utf8"));
+}
 
 describe("share buttons", () => {
   const props = {

@@ -72,6 +72,13 @@
   gap: var(--space-5);
 }
 
+/* A content note: an ink bar on the left and a plain statement (DESIGN.md). */
+.prototype {
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--ink);
+  color: var(--ink-2);
+}
+
 /* A text link with a 44px touch target, beside a 48px button. */
 .demoLink {
   display: inline-flex;

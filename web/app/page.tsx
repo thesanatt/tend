@@ -65,13 +65,20 @@ export default function Home() {
         <h2 id="for-you">If you are here for yourself</h2>
         <div className={styles.forYouBody}>
           <p>
-            Stay Jane Doe. Tend needs no account, no name, and no story. Your state&apos;s page shows what the law
-            covers, the deadline, and who to call, without asking you anything.
+            Stay Jane Doe. Tend needs no account, and it never asks your name. Your state&apos;s page shows what its law
+            covers and who to call, without asking you anything. It shows the filing deadline too, when Tend has
+            verified one.
           </p>
+          {/* Most states, not all: the engine holds an exam charge only where it applies a no-bill rule. */}
           <p>
-            When you are ready, Tend can look through your bank records for costs your program covers, hold a bill you
-            should never have been sent, and build a claim where every dollar points to the law. It never asks what
-            happened. Nothing is filed and no money moves unless you say yes.
+            When you are ready, Tend can look through your bank records for costs your program covers and build a claim
+            where every dollar points to the law. In most states it can also hold a forensic exam charge on a bill,
+            because the state&apos;s rules say you should not be billed for it. It never asks what happened.
+          </p>
+          <p>Tend files nothing: you send the claim to the program yourself. No money moves unless you say yes.</p>
+          <p className={styles.prototype}>
+            Tend is a prototype. Check what it tells you with your state&apos;s program before you rely on it. The
+            program&apos;s phone number is on your state&apos;s page.
           </p>
           <div className="btn-row">
             <Link href="/start" className="btn btn-primary">
