@@ -367,6 +367,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         sys.exit(f"categories or expense types missing from rules/SCHEMA.md: {unknown}")
     by_kind = Counter(r["source_kind"] for r in rules)
     cat_states = {k: len({r["jurisdiction"] for r in rules if r["category"] == k}) for k in cats}
+    # The table counts set-aside rules too, so a jurisdiction whose every rule of a category is set aside
+    # is counted there though the engine uses none of them. The note under the table names each one.
+    in_use = {k: {r["jurisdiction"] for r in rules if r["category"] == k and r["engine_use"] != "set_aside"} for k in cats}
+    aside_only = {k: v for k in cats if (v := sorted({r["jurisdiction"] for r in rules if r["category"] == k} - in_use[k]))}
     by_expense = Counter(r["expense"] for r in rules if r["expense"])
     amount = {r["rule_id"]: r["params"].get("amount_cents") for r in rules}
     reasons, dupes = Counter(), Counter()
@@ -525,6 +529,16 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         *table(
             ["`category`", "Meaning", "Params (rules/SCHEMA.md)", "Rules", "Jurisdictions"],
             [(f"`{k}`", meaning, params, n(c["rules_by_category"].get(k, 0)), cat_states[k]) for k, (meaning, params) in cats.items()],
+        ),
+        "",
+        "The Rules and Jurisdictions columns include rules that are set aside (see engine_use).",
+        *(
+            [
+                "In " + series(f"{series(v)} for `{k}`" for k, v in aside_only.items())
+                + ", every rule of the category is set aside, so the engine uses none of them there.",
+            ]
+            if aside_only
+            else []
         ),
         "",
         "#### Expense types",

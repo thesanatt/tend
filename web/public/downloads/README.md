@@ -108,6 +108,9 @@ Meanings and params as `rules/SCHEMA.md` defines them.
 | `address_confidentiality` | the state's address confidentiality program (substitute address for survivors on government records and forms) | `program_name`, `agency`, `covers_sexual_assault` (bool), `enroll` (how, as written) | 49 | 48 |
 | `record_confidentiality` | the compensation program's records or claims are confidential by law | none | 48 | 48 |
 
+The Rules and Jurisdictions columns include rules that are set aside (see engine_use).
+In WY for `exam_no_bill`, CT and IL for `total_cap`, and SC for `expense_cap`, every rule of the category is set aside, so the engine uses none of them there.
+
 #### Expense types
 
 | `expense` | Rules |

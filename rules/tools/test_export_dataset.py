@@ -396,3 +396,20 @@ def test_the_checksum_command_passes_on_a_partial_download(files, tmp_path):
     (tmp_path / X.RULES_CSV).write_bytes(files[X.RULES_CSV].replace(b"decision", b"decisi0n", 1))
     for cmd in tools:
         assert subprocess.run(cmd.split(), cwd=tmp_path, capture_output=True, check=False).returncode != 0, cmd
+
+
+def test_the_category_table_names_where_every_rule_of_a_category_is_set_aside(files, doc):
+    # The table counts set-aside rules, so a jurisdiction the engine uses no rule of a category from must be named.
+    uses = {}
+    for r in doc["rules"]:
+        uses.setdefault(r["category"], {}).setdefault(r["jurisdiction"], set()).add(r["engine_use"])
+    aside_only = {k: sorted(st for st, u in by_st.items() if u == {"set_aside"}) for k, by_st in uses.items()}
+    aside_only = {k: v for k, v in aside_only.items() if v}
+    print(f"\nevery rule set aside: {aside_only}")
+    note = files["README.md"].decode("ascii").split("#### Categories", 1)[1].split("#### Expense types", 1)[0]
+    assert "The Rules and Jurisdictions columns include rules that are set aside (see engine_use)." in note
+    named = [line for line in note.splitlines() if "every rule of the category is set aside" in line]
+    assert len(named) == (1 if aside_only else 0)
+    for k in uses:
+        part = f"{X.series(aside_only[k])} for `{k}`" if k in aside_only else f"`{k}`"
+        assert (part in "".join(named)) == (k in aside_only), k
