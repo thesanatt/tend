@@ -4,13 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
-import { boldParts, TOUR_NOTES, TOUR_STEPS, tourStep } from "./tour";
-import { exitTour, startTourFromUrl, useTourMode } from "./useTour";
+import { boldParts, forPointer, TOUR_NOTES, TOUR_STEPS, tourStep } from "./tour";
+import { exitTour, startTourFromUrl, useMousePointer, useTourMode } from "./useTour";
 import styles from "./tour.module.css";
 
 function Text({ text }: { text: string }) {
+  const mouse = useMousePointer();
   return (
-    <>{boldParts(text).map((p, i) => (p.bold ? <strong key={i}>{p.text}</strong> : <span key={i}>{p.text}</span>))}</>
+    <>
+      {boldParts(forPointer(text, mouse)).map((p, i) =>
+        p.bold ? <strong key={i}>{p.text}</strong> : <span key={i}>{p.text}</span>,
+      )}
+    </>
   );
 }
 

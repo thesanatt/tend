@@ -59,3 +59,21 @@ export function exitTour() {
 export function useTourMode(): boolean {
   return useSyncExternalStore(subscribe, read, () => false);
 }
+
+// A mouse or trackpad, the same test that shows the Esc hint beside Exit this page. Phones and
+// tablets answer no.
+const MOUSE = "(hover: hover) and (pointer: fine)";
+
+function watchPointer(onChange: () => void) {
+  const query = typeof window.matchMedia === "function" ? window.matchMedia(MOUSE) : null;
+  query?.addEventListener("change", onChange);
+  return () => query?.removeEventListener("change", onChange);
+}
+
+export function useMousePointer(): boolean {
+  return useSyncExternalStore(
+    watchPointer,
+    () => (typeof window.matchMedia === "function" ? window.matchMedia(MOUSE).matches : true),
+    () => true,
+  );
+}
