@@ -15,6 +15,7 @@ import {
 } from "@/components/public/LawParts";
 import styles from "@/components/public/law.module.css";
 import SourceNote from "@/components/public/SourceNote";
+import { LINKS } from "@/components/tour/links";
 import { LAW_STAGES, lawGrowth, lawStage } from "@/lib/garden";
 import STATES from "@/lib/states.json";
 import type { Rule } from "@/lib/types";
@@ -154,7 +155,13 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           </li>
           <li>
             The compiler turns the IR into bytecode. The listing below is that bytecode, with each block commented with
-            the rule it came from. The same image runs on the server and in the browser.
+            the rule it came from.
+          </li>
+          <li>
+            When you check a claim, your browser runs this compiled law in WebAssembly. If a check goes to the server
+            behind this site instead, the Python reference engine answers it from the same IR. In tests, the reference
+            matched the C++ engine byte for byte on 119,600 claims, and the WebAssembly build matched the native build
+            on 106,000 of 106,000 (<a href={LINKS.eval}>docs/EVAL.md</a>).
           </li>
         </ol>
       </section>

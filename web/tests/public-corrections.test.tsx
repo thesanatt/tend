@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 // Each state's two pages say when Tend saved their sources and give a public way to report an error.
-// Also here: the GitHub issue form that link opens, and /law/mi in lowercase.
+// Also here: the GitHub issue form that link opens, /law/mi in lowercase, and what /law/MI says about
+// where the engine runs.
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -219,5 +220,20 @@ describe("the issue form (.github/ISSUE_TEMPLATE/law-error.yml)", () => {
 
   it("is plain ASCII", () => {
     expect(raw).toMatch(/^[\x09\x0a\x20-\x7e]*$/);
+  });
+});
+
+describe("where /law/MI says the engine runs", () => {
+  it("names the Python reference on the server, with numbers docs/EVAL.md records", async () => {
+    const d = await parse(LawPage({ params: Promise.resolve({ st: "MI" }) }));
+    const steps = words(d.querySelector('section[aria-labelledby="h-check"]'));
+    expect(steps).not.toContain("The same image runs on the server");
+    expect(steps).toContain("When you check a claim, your browser runs this compiled law in WebAssembly.");
+    expect(steps).toContain("the Python reference engine answers it from the same IR");
+    const evalMd = readFileSync(path.join(repo, "docs/EVAL.md"), "utf8");
+    expect(evalMd).toContain("119,600 well-formed claims byte-identical");
+    expect(evalMd).toContain("106,000 of 106,000 claims byte-identical");
+    expect(steps).toContain("byte for byte on 119,600 claims");
+    expect(steps).toContain("on 106,000 of 106,000");
   });
 });
