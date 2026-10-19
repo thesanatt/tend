@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 
 const MCL_18_355A_2 =
   "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket";
+const USC_34_10449 =
+  "https://www.govinfo.gov/content/pkg/USCODE-2024-title34/html/USCODE-2024-title34-subtitleI-chap101-subchapXIX-sec10449.htm";
 const REPO = "https://github.com/thesanatt/tend";
 
 export default function Sources() {
@@ -52,11 +54,21 @@ export default function Sources() {
         </div>
 
         <div className={styles.claim}>
-          <h3>In 49 of 51 jurisdictions, the rules say a survivor should not be billed for the forensic exam.</h3>
+          <h3>
+            In 49 of 51 jurisdictions, Tend&apos;s verified rules say a survivor should not be billed for the forensic
+            exam.
+          </h3>
           <p className={styles.where}>
             Counted from Tend&apos;s verified rules (category exam_no_bill), each a word-for-word quote of its source.
-            Rhode Island and Wyoming have no such rule in the library. See any state&apos;s{" "}
-            <Link href="/law/MI">How Tend decides</Link> page for the rule and its quote.
+            See any state&apos;s <Link href="/law/MI">How Tend decides</Link> page for the rule and its quote.
+          </p>
+          <p className={styles.where}>
+            Two are not counted. <Link href="/law/WY#WY-EXAM-2">Wyoming&apos;s rule</Link> covers only survivors who
+            report to police, so Tend does not apply it to every exam. For Rhode Island, Tend&apos;s verified rules
+            don&apos;t yet include an exam-billing rule. Federal law ties a state&apos;s STOP grant money to making
+            these exams free to the survivor, whether or not they report (
+            <a href={USC_34_10449}>34 U.S.C. 10449</a>), so both are more likely gaps in Tend&apos;s sources than in
+            the states&apos; law.
           </p>
         </div>
 
