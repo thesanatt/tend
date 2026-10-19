@@ -269,12 +269,18 @@ export default function Sources() {
           <p className={styles.where}>
             A separate Python engine, written from the same spec, checks the C++ engine. On the 119,600 claims that are
             valid JSON, both return the same bytes. The other 1,400 are broken on purpose, and both refuse them with the
-            same error code (the messages differ). Build the engine with <code>make -C engine</code>, then rerun from
-            the repo root:{" "}
+            same error code (the messages differ). To rerun it, build the engine, then run the test from the repo root.
+            It takes about a minute.
+          </p>
+          <pre className={styles.command} tabIndex={0} aria-label="Commands that rerun the engine test">
             <code>
-              uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000
-            </code>{" "}
-            (about a minute). Every test count is in <a href={`${REPO}/blob/main/docs/EVAL.md`}>docs/EVAL.md</a>.
+              {
+                "make -C engine\nuv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000"
+              }
+            </code>
+          </pre>
+          <p className={styles.where}>
+            Every test count is in <a href={`${REPO}/blob/main/docs/EVAL.md`}>docs/EVAL.md</a>.
           </p>
         </div>
 

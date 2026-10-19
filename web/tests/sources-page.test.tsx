@@ -195,11 +195,12 @@ describe("Tend's own numbers", () => {
     expect(evalMd).toContain("119,600 claims were well-formed JSON");
     expect(evalMd).toContain("1,400 of the refused claims were not JSON at all");
     const block = claim("121,000 test claims, 0 mismatches between the two law engines.");
-    expect(block).toContain(
-      "uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000",
-    );
-    expect(block).toContain("Build the engine with make -C engine");
     expect(block).toContain("On the 119,600 claims that are valid JSON, both return the same bytes.");
+    const commands = screen.getByLabelText("Commands that rerun the engine test").textContent!.split("\n");
+    expect(commands).toEqual([
+      "make -C engine",
+      "uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000",
+    ]);
   });
 
   it("reads the engine size from the file and says the compiler is not in it", () => {
