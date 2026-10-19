@@ -58,7 +58,7 @@ describe("security headers", () => {
     expect(header(all, "/engine/:file*.wasm", "Content-Type")).toBe("application/wasm");
     expect(header(all, "/engine/:file*.mjs", "Content-Type")).toMatch(/^text\/javascript/);
     expect(header(all, "/engine/laws/:file*.tlaw", "Content-Type")).toBe("application/octet-stream");
-    for (const source of ["/engine/:path*", "/data/:path*", "/forms/:path*"]) {
+    for (const source of ["/engine/:path*", "/data/:path+", "/forms/:path*"]) {
       expect(header(all, source, "Cache-Control")).toMatch(/max-age=\d+, stale-while-revalidate=\d+/);
       expect(header(all, source, "Cache-Control")).not.toContain("immutable");
     }
