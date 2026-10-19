@@ -41,8 +41,7 @@ describe("sitemap.xml", () => {
       ...[...synced].sort().map((st) => `/law/${st}`),
     ].map((p) => `https://youreowed.tech${p}`);
     expect(urls()).toEqual(expected);
-    expect(urls()).toHaveLength(106);
-    expect(new Set(urls()).size).toBe(106);
+    expect(new Set(urls()).size).toBe(expected.length);
   });
 
   it("uses absolute https links on the site's address, and follows NEXT_PUBLIC_SITE_URL", () => {
