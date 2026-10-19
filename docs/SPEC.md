@@ -25,7 +25,7 @@ rules/        verified corpus: SCHEMA.md, tools/, jurisdictions/ST.json, sources
 engine/       C++20 law engine: compiler (tendc), VM (libtend), disassembler (tdis), CLI (tendvm),
               tests, fuzz, bench, wasm build
 refengine/    Python reference implementation of the same semantics + differential tests
-api/          FastAPI service (Python 3.12, uv): Nessie, classification, claims, packet, actions, share, agent API
+api/          FastAPI service (Python 3.12, uv): Nessie, classification, claims, packet, actions, share
 web/          Next.js (TypeScript) app; runs the WASM engine on device
 seed/         fictional Nessie worlds (personas) and fixtures
 docs/         SPEC.md (this), ARCHITECTURE.md, EVAL.md, JUDGES.md, DEVPOST.md
@@ -150,7 +150,6 @@ the same decisions in the same order, so traces can be diffed.
 - `POST /bill/audit` -> extracted bill lines (sum must equal the bill total) and holds.
 - `POST /actions/propose` -> {action_id, amount_cents, from, payee, confirm_code, expires_at}; `POST /actions/confirm` {action_id, confirm_code} -> Nessie write, read-back, audit row. Single use; integer cents.
 - `GET /packet/{claim_id}.pdf`; `POST /share` -> expiring read-only link; `GET /share/{token}`.
-- Agent endpoints mirror these for the Fetch.ai agent.
 
 ## Nessie (mock bank) facts every component must respect
 
@@ -284,9 +283,8 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    softened late, which every reader explains and never shows as plainly late. The Check says "The
    usual deadline was ..." and adds "This deadline may count from when the crime was discovered,
    which can be later than the date it happened. The program decides." The readers are the web's
-   Check and Track screens, the shared claim an advocate opens, the PDF summary the web builds and
-   the one the API builds, and the API's agent check. A `late` with no flag is still shown as past
-   the deadline.
+   Check and Track screens, the shared claim an advocate opens, and the PDF summary the web builds
+   and the one the API builds. A `late` with no flag is still shown as past the deadline.
 2. normalize.py carries the anchor. Rules the researchers dated from discovery keep it (AZ-DEAD-1,
    MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
    own quote lets the period start at discovery ("after the occurrence or discovery of the crime",

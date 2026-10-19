@@ -34,10 +34,6 @@ def test_routes_are_the_local_first_set(client):
         "/api/shares/{share_id}",
         "/api/ai/classify",
         "/api/ai/bill",
-        "/api/agent/answer",
-        "/api/agent/check",
-        "/api/agent/pay",
-        "/api/agent/confirm",
         "/api/packet",
     ):
         assert path in paths, path
@@ -47,9 +43,6 @@ def test_routes_are_the_local_first_set(client):
         "/api/share/{token}",
         "/api/claims/{claim_id}",
         "/api/packet/{claim_id}.pdf",
-        "/api/agent/link",
-        "/api/agent/redeem",
-        "/api/agent/claim",
     ):
         assert gone not in paths, gone
 
@@ -93,11 +86,11 @@ def test_a_chunked_body_over_the_limit_is_refused(client):
     assert r.status_code == 413 and r.json()["detail"] == "That request is too large."
     assert r.headers["cache-control"] == "no-store"
     small = client.post(
-        "/api/agent/answer",
-        content=iter([b'{"question": "How long do I have', b' to apply?", "st": "MI"}']),
+        "/api/claim",
+        content=iter([b'{"jurisdiction": "MI", "context": {"incident_date": "2026-06-14",', b' "as_of_date": "2026-10-03"}, "items": []}']),
         headers={"content-type": "application/json"},
     )
-    assert small.status_code == 200 and small.json()["answered"] is True
+    assert small.status_code == 200 and small.json()["lines"] == []
 
 
 def test_health_reports_database_corpus_engines_and_bank(client):
@@ -126,7 +119,6 @@ def test_access_log_drops_private_paths():
         "/api/bank/rowan-mi/transactions?from=2026-06-01",
         "/api/ai/classify",
         "/api/claim",
-        "/api/agent/answer",
         "/api/rules/search?q=can+my+boss+find+out&st=MI",  # a search is typed in someone's own words
     ):
         assert quiet.filter(record(path)) is False, path

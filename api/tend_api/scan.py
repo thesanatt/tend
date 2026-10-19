@@ -1,8 +1,8 @@
 """Scan a demo persona's bank into claim items, on the server. Nothing is stored.
 
 In the local-first flow the device classifies its own statement (web/lib/local/classify) and this
-endpoint is the server-side twin for demo personas, for the agent, and for parity checks. Every
-item is SPEC v1.2 shaped (typed unit and tags), and anything inferred starts unconfirmed.
+endpoint is the server-side twin for demo personas and for parity checks. Every item is SPEC v1.2
+shaped (typed unit and tags), and anything inferred starts unconfirmed.
 """
 
 from __future__ import annotations
@@ -207,8 +207,8 @@ def items_from_snapshot(module: ModuleType, snap: dict[str, Any], incident_date:
 
 
 def scan_reference(engine_input: dict[str, Any]) -> str:
-    """A label for one scan, derived from what it found. Clients written for the first API send it back
-    with a bill audit; nothing is stored under it or looked up by it."""
+    """A label for one scan, derived from what it found. A client may send it back with a bill audit;
+    nothing is stored under it or looked up by it."""
     return "scan_" + sha256_hex(canonical_json(engine_input))[:20]
 
 
@@ -263,12 +263,6 @@ class ScanService:
         for _, snap in list_snapshots(self.seed_dir):
             accounts |= account_ids(snap)
         return accounts
-
-    def persona_account(self, persona_id: str, key: str = "checking") -> dict[str, Any]:
-        account = primary_account(load_snapshot(self.seed_dir, persona_id), key)
-        if account is None:
-            raise ScanError(f"{persona_id} has no {key} account.", 404)
-        return account
 
     def classify(self, snap: dict[str, Any], st: str, incident_date: str | None) -> list[Any]:
         if self._classifier is not None:

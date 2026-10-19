@@ -82,10 +82,6 @@ def test_the_api_on_neon(neon):
     # Postgres full-text search, weighted by heading, summary, quote, and pinpoint.
     found = client.get("/api/rules/search", params={"q": "therapy sessions", "st": "MI"}).json()
     assert found["backend"] == "postgres" and found["results"][0]["expense"] == "counseling"
-    answer = client.post("/api/agent/answer", json={"question": "Can the hospital bill me for the rape kit?", "st": "MI"}).json()
-    assert answer["answered"] is True and "MI-EXAM-1" in {p["rule_id"] for p in answer["points"]}
-    refused = client.post("/api/agent/answer", json={"question": "Can I get money for my dog's vet bills?", "st": "NY"}).json()
-    assert refused["answered"] is False
 
     # A sealed share: only ciphertext reaches Neon, and an open-once share loses it on the first read.
     raw = os.urandom(1024)

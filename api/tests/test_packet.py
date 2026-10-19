@@ -6,11 +6,10 @@ import pytest
 from helpers import confirm_all, scan_rowan
 from pypdf import PdfReader
 
-from tend_api.agent import DISCOVERY_NOTE
 from tend_api.config import API_DIR
 from tend_api.forms import FORBIDDEN, MI, FormGuardError, application_values, fill_application, filled_fields, guard
 from tend_api.models import ClaimInput
-from tend_api.packet import build_summary, still_needed
+from tend_api.packet import DISCOVERY_NOTE, build_summary, still_needed
 
 MI_FORM = API_DIR / "forms" / "MI" / "application.pdf"
 

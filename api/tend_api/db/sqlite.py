@@ -280,9 +280,6 @@ class SQLiteRepository:
         )
         return [self._rule(r) for r in rows]
 
-    def source(self, st: str, source_id: str) -> dict[str, Any] | None:
-        return self._one("SELECT * FROM sources WHERE st = ? AND id = ?", (st, source_id))
-
     def law_images(self, st: str) -> list[dict[str, Any]]:
         return self._all(
             "SELECT st, image_sha256, engine_version, verified_sha256, ir_sha256, bytes, compiled_at FROM law_images WHERE st = ?"

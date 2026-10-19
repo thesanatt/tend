@@ -1,8 +1,8 @@
-"""The public law corpus as the API serves it: full-text search, and cited answers that refuse.
+"""The public law corpus as the API serves it: full-text search, and the database kept in step with
+rules/verified and rules/ir.
 
-Answers are assembled, not written: each point is a verified rule's own plain summary next to its
-verbatim quote, pinpoint, and a link that opens the source at that quote. When no rule supports an
-answer, the answer says so and points to the program instead of guessing.
+Each search result is a verified rule's own plain summary next to its verbatim quote, pinpoint, and a
+link that opens the source at that quote.
 """
 
 from __future__ import annotations
@@ -16,10 +16,7 @@ from .db import Repository, read_bundles
 from .engine import LawIR
 from .errors import TendError
 from .rules import RulesStore
-from .search import Query, citation, parse_query, rank, supported
-
-NOTE = "From {name}'s verified rules. Rules can have exceptions. The program decides."
-DC_NAMES = ("district of columbia", "washington dc", "washington d c", "d c")
+from .search import Query, citation, parse_query, rank
 
 
 class RulebookError(TendError):
@@ -35,11 +32,8 @@ class Rulebook:
         self.rules = rules
         self.ir = ir
         self.images = images
-        self._names: list[tuple[str, str]] | None = None
-        # Jurisdiction rows and sources change only when the corpus is loaded, so they are kept in memory
-        # until then: an answer costs two queries instead of four.
+        # Jurisdiction rows change only when the corpus is loaded, so they are kept in memory until then.
         self._rows: dict[str, dict[str, Any] | None] = {}
-        self._sources: dict[tuple[str, str], dict[str, Any] | None] = {}
 
     def jurisdiction(self, st: str) -> dict[str, Any] | None:
         if st not in self._rows:
@@ -48,12 +42,6 @@ class Rulebook:
                 return None  # not cached: the loader may fill it in a moment
             self._rows[st] = row
         return self._rows[st]
-
-    def source(self, st: str, source_id: str) -> dict[str, Any] | None:
-        key = (st, source_id)
-        if key not in self._sources:
-            self._sources[key] = self.repo.source(st, source_id)
-        return self._sources[key]
 
     # keeping the database in step with rules/verified and rules/ir
 
@@ -75,7 +63,6 @@ class Rulebook:
         bundles = read_bundles(self.rules.rules_dir, self.ir.ir_dir, states, self.images)
         result = self.repo.load_corpus(bundles, force=force)
         self._rows.clear()
-        self._sources.clear()
         return result
 
     def ensure_loaded(self) -> dict[str, Any] | None:
@@ -118,80 +105,4 @@ class Rulebook:
             "count": len(ranked),
             "intents": {"categories": sorted(query.categories), "expenses": sorted(query.expenses), "tags": sorted(query.tags)},
             "results": [{**citation(r), "st": r["st"], "score": r["rank"]} for r in ranked],
-        }
-
-    # answers
-
-    def state_names(self) -> list[tuple[str, str]]:
-        if self._names is None:
-            names = [(str((self.rules.get(st) or {}).get("name") or "").lower(), st) for st in self.rules.codes()]
-            names += [(n, "DC") for n in DC_NAMES if "DC" in self.rules.codes()]
-            self._names = sorted((n for n in names if n[0]), key=lambda n: -len(n[0]))
-        return self._names
-
-    def detect_state(self, text: str) -> str | None:
-        low = " " + re.sub(r"[^a-z]+", " ", text.lower()) + " "
-        for name, st in self.state_names():
-            if f" {name} " in low:
-                return st
-        return None
-
-    def _contact(self, st: str, program: dict[str, Any]) -> dict[str, Any]:
-        source = self.source(st, program.get("phone_source_id") or "") if program.get("phone_source_id") else None
-        return {
-            "phone": program.get("phone"),
-            "website": program.get("website"),
-            "apply_url": program.get("apply_url"),
-            "source": {k: source.get(k) for k in ("id", "title", "url", "sha256")} if source else None,
-        }
-
-    def answer(self, question: str, st: str | None = None) -> dict[str, Any]:
-        st = st or self.detect_state(question)
-        if st is None:
-            return {
-                "answered": False,
-                "reason": "no_state",
-                "question": question,
-                "message": "Which state? Tend answers from one state's verified rules at a time.",
-            }
-        row = self._require(st)
-        name, program = row["name"], row.get("program") or {}
-        place = f"the {name}" if name.startswith("District of") else name
-        contact = self._contact(st, program)
-        query = self._query(question, st)
-        hits = self.repo.search_rules(query.terms, st, 30)
-        intent = self.repo.rules_where(st, query.categories, query.expenses)
-        picked = supported(query, rank(query, hits, intent))
-        base = {"st": st, "name": name, "question": question, "backend": self.repo.backend, "contact": contact}
-        if not picked and query.contact and contact["phone"]:
-            return {
-                **base,
-                "answered": True,
-                "answer": f"You can call {place}'s program at {contact['phone']}.",
-                "points": [],
-                "citations": [],
-                "note": NOTE.format(name=place),
-            }
-        if not picked:
-            call = f" The program can answer it: {contact['phone']}." if contact["phone"] else ""
-            return {
-                **base,
-                "answered": False,
-                "reason": "no_rule",
-                "message": f"I could not find a verified {name} rule about that, so I will not guess.{call}",
-                "citations": [],
-            }
-        points = [{"text": r.get("summary") or "", **citation(r)} for r in picked]
-        # The same rules as plain citations, the shape the Fetch.ai agent quotes from. It prints the answer and
-        # then each citation's summary and quote, so the first one leaves out the summary the answer already says.
-        citations = [citation(r) for r in picked]
-        citations[0] = {**citations[0], "summary": None}
-        return {
-            **base,
-            "answered": True,
-            "answer": points[0]["text"],
-            "points": points,
-            "citations": citations,
-            "intents": {"categories": sorted(query.categories), "expenses": sorted(query.expenses), "tags": sorted(query.tags)},
-            "note": NOTE.format(name=place),
         }

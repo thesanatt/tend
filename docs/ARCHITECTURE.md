@@ -43,7 +43,7 @@ Once loaded, the left side keeps working with the network off (see "Offline mode
 | `engine/` | C++20 compiler (`tendc`), VM (`libtend`), disassembler (`tdis`), CLI (`tendvm`), fuzzer, WASM build | device (WASM), server and CLI (native) |
 | `refengine/` | Python reference engine and the differential test | tests; API fallback |
 | `web/` | Next.js app: the survivor flow, public state pages, "How Tend decides" | device |
-| `api/` | FastAPI: public corpus, payments, sealed shares, bank relay, opt-in cloud AI, agent routes | Vercel function |
+| `api/` | FastAPI: public corpus, payments, sealed shares, bank relay, opt-in cloud AI | Vercel function |
 | `seed/` | the fictional Nessie world: four Rowan personas, snapshots, the itemized bill, recorded Nessie answers | build and rehearsal |
 | `scripts/` | Neon law branches and roles (`scripts/neon`), Vercel settings (`scripts/vercel`) | operator |
 | `design/figma/` | generator scripts that build the Figma file through the Plugin API | operator |
@@ -258,7 +258,6 @@ spec itself.
 | Shares | `POST /api/shares`, `GET`/`DELETE /api/shares/{id}` | ciphertext at most 2 MB, 1 to 168 hours, open-once option |
 | Bank relay | `GET /api/bank/{persona}/...` | fictional personas only (403 otherwise) |
 | Cloud AI | `POST /api/ai/classify`, `POST /api/ai/bill` | 403 without `consent: true`; sorting sends no amounts or ids; a bill photo goes as the file; nothing stored |
-| Agent | `POST /api/agent/answer`, `/agent/check`, `/agent/pay`, `/agent/confirm` | used by the Fetch.ai agents |
 
 Storage is one repository interface with two backends: Neon Postgres in production and SQLite
 offline (`api/tend_api/db`). The test suite runs entirely on SQLite with no keys and no network.
