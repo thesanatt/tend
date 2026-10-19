@@ -227,12 +227,14 @@ a.ruleId,
   color: var(--ink-2);
 }
 
+/* Some quotes hold a whole web or email address; let it wrap inside the card, not run past it. */
 .quote {
   border-left: 3px solid var(--green);
   padding: var(--space-1) 0 var(--space-1) var(--space-4);
   font-family: var(--font-serif);
   font-size: var(--text-md);
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .quote mark {
