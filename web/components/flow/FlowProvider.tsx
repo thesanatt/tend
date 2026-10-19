@@ -180,8 +180,10 @@ export function FlowProvider({
   const [refining, setRefining] = useState<string[]>([]);
   const run = useRef(0);
   const stateRef = useRef(state);
+  const vaultRef = useRef(vaultStatus);
   useEffect(() => {
     stateRef.current = state;
+    vaultRef.current = vaultStatus;
   });
 
   // The language travels with the saved state.
@@ -195,8 +197,10 @@ export function FlowProvider({
   const logSent = useCallback((event: Omit<SentEvent, "at"> & { at?: string }) => {
     const sent = { ...event, at: event.at ?? new Date().toISOString() };
     dispatch({ type: "sent", event: sent });
-    // The tab keeps the kind and the time, so a reload cannot hide a send from the privacy line.
-    keepSend(sent);
+    // The tab keeps the kind and the time, so a reload cannot hide a send from the privacy line. Not
+    // while saved progress is locked (Start over without it) or still being checked: the line hides
+    // the tab's list then, and opening that progress would name these sends to its owner as theirs.
+    if (vaultRef.current === "none" || vaultRef.current === "open") keepSend(sent);
   }, []);
 
   // Every request the page makes passes lib/netlog, so the privacy line hears about each send,

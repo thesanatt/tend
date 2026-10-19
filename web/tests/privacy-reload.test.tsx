@@ -261,6 +261,37 @@ describe("the privacy line behind the lock", () => {
     expect(line()).toBe(named);
   });
 
+  it("does not keep what is sent after Start over without it, so the owner never sees it as theirs", async () => {
+    const services = testServices();
+    const flow = (await page("en", undefined, services)).flow!;
+    await act(async () => flow.save({ passphrase }));
+    act(() => flow.lockNow());
+
+    // Someone else at the device starts over without the locked progress and shares a packet. Their
+    // own line names it; the tab does not keep it.
+    act(() => flow.logSent({ kind: "share", ref: "share:s9" }));
+    expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
+    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+
+    // A reload, then the owner opens their progress: nothing of the other person's share.
+    cleanup();
+    const again = (await page("en", undefined, services)).flow!;
+    expect(line()).toBe("On this device.");
+    await act(async () => {
+      expect(await again.openSaved({ passphrase })).toBe(true);
+    });
+    expect(line()).toBe(QUIET);
+  });
+
+  it("keeps nothing sent before it knows whether there is saved progress", () => {
+    const services = testServices();
+    services.vault.exists = () => new Promise<boolean>(() => {});
+    const flow = mount("en", undefined, services).flow!;
+    act(() => flow.logSent({ kind: "share", ref: "share:s10" }));
+    expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
+    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+  });
+
   it("names none of the tab's sends before it knows whether there is saved progress", () => {
     keepSend({ kind: "payment", at: "2026-10-03T17:00:00.000Z" });
     const services = testServices();

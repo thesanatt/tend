@@ -62,8 +62,9 @@ Tend, or Delete it says only "On this device." until the next send or page load.
 kind and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the
 line stays true after a reload. Only a reload keeps them: any other load, such as a closed tab the browser
 reopens with its sessionStorage, starts the list over. The line leaves them out while saved progress is
-locked. Exit this page, Close Tend on a claim never saved, and deleting or saving over locked progress clear
-them.
+locked, and the tab keeps nothing sent then (Start over without it), so the owner never sees another
+person's sends as theirs. Exit this page, Close Tend on a claim never saved, and deleting or saving over
+locked progress clear them.
 
 ## Screens
 

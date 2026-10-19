@@ -60,11 +60,12 @@ blank for the survivor to fill in.
   sessionStorage back) and a Back the browser's page cache does not serve; the line then names
   only what that page sent. Quick exit clears it with the rest of the tab. Deleting saved progress,
   saving over it, and Close Tend on a claim that was never saved clear it too.
-- While saved progress is locked, the line says only "On this device." After Lock now, Close Tend,
-  or Delete, it says the same until something new is sent or the page loads again, because what
-  the page sent before is no longer on the line. So once saved progress locks, or the survivor
-  exits or ends the claim, the next person at the device cannot read from the line what was sent
-  or when.
+- While saved progress is locked, the line says only "On this device." Sends made after Start over
+  without it, while saved progress stays locked, are not kept for the tab, so opening that progress
+  never names them to its owner as theirs. After Lock now, Close Tend, or Delete, the line also says
+  only "On this device." until something new is sent or the page loads again, because what the page
+  sent before is no longer on the line. So once saved progress locks, or the survivor exits or ends
+  the claim, the next person at the device cannot read from the line what was sent or when.
 - Neutral tab title, no notifications, no analytics, no third-party scripts in the survivor flow.
 
 ## Threat model, honestly
