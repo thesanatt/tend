@@ -80,6 +80,34 @@ describe("the advocate viewer", () => {
     expect(screen.queryByRole("button", { name: "Yes" })).toBeNull();
   });
 
+  it("cites a ride to the rule that covers rides to care, then both trip-length limits", async () => {
+    window.location.hash = link();
+    const meta: ShareMeta = { id: "x", expires_at: "2026-10-10T16:20:00Z", once: false, created_at: null };
+    const { client: c } = client(async () => ({ packet: packet(), meta }));
+    render(<OpenShare client={c} />);
+    const cites = await screen.findAllByRole("button", { name: /show the law for Wayfare Rides/ });
+    // Not MCL 18.361(2)(e)(ii), the $5,000 limit for trips of 50 miles or more.
+    await waitFor(() => expect(cites[0].textContent).toMatch(/^MCL 18\.361\(2\)\(e\) \+2:/));
+    // jsdom has no modal dialogs, so the sheet opens as a plain open dialog.
+    const proto = HTMLDialogElement.prototype as { showModal?: () => void };
+    const showModal = proto.showModal;
+    proto.showModal = function (this: HTMLDialogElement) {
+      this.setAttribute("open", "");
+    };
+    try {
+      fireEvent.click(cites[0]);
+      await waitFor(() => expect(document.querySelector("dialog[open]")).not.toBeNull());
+      const sheet = document.querySelector("dialog[open]")!;
+      const law = webLaw("MI");
+      for (const id of ["MI-COV-7", "MI-CAP-7", "MI-CAP-8"]) {
+        expect(sheet.textContent).toContain(law.rules.find((r) => r.id === id)!.quote);
+      }
+      expect(sheet.textContent).toContain("The law sets more than one limit for this kind of cost.");
+    } finally {
+      proto.showModal = showModal;
+    }
+  });
+
   it("explains a link with no key, and a link that no longer works", async () => {
     const { client: none } = client(async () => {
       throw new Error("not called");

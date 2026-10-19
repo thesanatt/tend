@@ -267,6 +267,7 @@ export const es: Dict = {
     examNoBillNote: "Si te llega una, agrégala en el siguiente paso. Tend retiene esa línea y te da una carta.",
     coveredTitle: "Lo que el programa puede pagar",
     coveredNone: "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
+    capDepends: "según tu caso",
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     totalCapDepends: (amounts: string) =>
       `En total, hasta ${amounts}, según su caso. La regla dice cuándo se aplica cada uno`,
@@ -482,6 +483,8 @@ export const es: Dict = {
     onTheBill: "Factura",
     capped: (from: string) => `Reducido de ${from}`,
     rateUnverified: "La ley fija una tarifa para esto. El programa la aplicará.",
+    severalLimits:
+      "La ley pone más de un límite para este tipo de gasto. Cada regla dice cuándo se aplica. Tend usa el más alto, y el programa decide cuál corresponde.",
     examAsMedical: "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
     heldLine: "No pagues esta línea. La ley dice que no te la deben cobrar.",
     include: "Incluir esto",

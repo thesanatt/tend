@@ -82,6 +82,20 @@ describe("Rowan's Michigan packet", () => {
     expect(text).toContain("Held. Do not pay this.");
   });
 
+  it("quotes the rule that covers rides first, then both trip-length limits, and says the program picks", async () => {
+    const p = await build();
+    const text = p.transcript.join("\n");
+    const book = new LawBook(law("MI"));
+    const at = (id: string) => text.indexOf(`"${book.rule(id)!.quote.trim()}"`);
+    // MI-CAP-7: $1,000 for trips of 50 miles or less each way; MI-CAP-8: $5,000 for longer trips.
+    expect(at("MI-COV-7")).toBeGreaterThan(-1);
+    expect(at("MI-COV-7")).toBeLessThan(at("MI-CAP-7"));
+    expect(at("MI-CAP-7")).toBeLessThan(at("MI-CAP-8"));
+    expect(text).toContain(
+      "The law sets more than one limit for this kind of cost. Each rule says when it applies. Tend uses the highest, and the program decides which one fits.",
+    );
+  });
+
   it("puts that text in the PDF itself, not just the transcript", async () => {
     const p = await build();
     const text = await pdfText((await bytesOf(p.summaryPdf))!);

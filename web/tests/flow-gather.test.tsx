@@ -8,7 +8,8 @@ import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
-import { MI_CHECK, MI_LAW, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
+import type { EngineInput } from "@/lib/types";
+import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 // Reading the five-page sample PDF takes well over a second when the whole suite runs in parallel.
 const PDF_READ = { timeout: 10_000 };
@@ -301,5 +302,70 @@ describe("bill triage", () => {
     ).toBeTruthy();
     expect(within(dialog).queryByLabelText("Confirmation code")).toBeNull();
     expect(services.confirm).not.toHaveBeenCalled();
+  });
+});
+
+// Two of Rowan's costs from the demo bank: a $12 ride on a counseling day and the sheets an AI sorted.
+// Both are guesses, so both wait for a yes.
+const guess = (item_id: string, date: string, cents: number, expense: FlowItem["expense"], description: string) =>
+  ({
+    item_id,
+    date,
+    amount_cents: cents,
+    expense,
+    confirmed: false,
+    insurance_paid_cents: 0,
+    is_bill: false,
+    units: 0,
+    unit: null,
+    tags: [],
+    description,
+    source: "rule",
+    reason: "",
+    confidence: 0.6,
+    origin: "bank",
+  }) satisfies FlowItem;
+const ride = guess("nessie:r-1", "2026-06-17", 1200, "transportation", "Wayfare Rides - trip");
+const sheets = guess("nessie:r-2", "2026-06-16", 9600, "clothing_bedding", "Linen & Loom - sheet set, pillows");
+const withGuesses: Action[] = [
+  MI_CHECK,
+  {
+    type: "addSource",
+    source: { id: "bank", kind: "bank", label: "Checking", read: 2, found: 2, warnings: [], sample: true },
+    items: [ride, sheets],
+  },
+];
+// A ride's proof as the engine gives it (fixtures/rowan-mi.output.json): the $5,000 limit it counts
+// with, the rule that covers rides, and the $1,000 limit for trips of 50 miles or less beside them.
+const realProof = () =>
+  testServices({
+    evaluate: vi.fn(async (input: EngineInput) => {
+      const out = michiganOutput(input);
+      const lines = out.lines.map((l) =>
+        l.expense === "transportation"
+          ? { ...l, rule_ids: ["MI-CAP-8", "MI-COV-7"], alt_cap_rule_ids: ["MI-CAP-7"] }
+          : l,
+      );
+      return { output: { ...out, lines }, backend: "wasm" as const, detail: "test" };
+    }),
+  });
+const quote = (id: string) => MI_LAW.rules.find((r) => r.id === id)!.quote;
+
+describe("the law behind each cost", () => {
+  it("cites a local ride to the rule that covers rides to care, then both trip-length limits", async () => {
+    renderFlow(<GatherScreen />, { services: realProof(), initial: stateFrom(withGuesses) });
+    const cite = await screen.findByRole("button", { name: /show the law for Wayfare Rides - trip/ });
+    // Not MCL 18.361(2)(e)(ii), the $5,000 limit for trips of 50 miles or more.
+    expect(cite.textContent).toMatch(/^MCL 18\.361\(2\)\(e\) \+2:/);
+    fireEvent.click(cite);
+    const sheet = await screen.findByRole("dialog");
+    for (const id of ["MI-COV-7", "MI-CAP-7", "MI-CAP-8"]) expect(within(sheet).getByText(quote(id))).toBeTruthy();
+    const order = ["MI-COV-7", "MI-CAP-7", "MI-CAP-8"].map((id) => sheet.textContent!.indexOf(quote(id)));
+    expect(order).toEqual([...order].sort((a, b) => a - b));
+    expect(
+      within(sheet).getByText(
+        /The law sets more than one limit for this kind of cost\. Each rule says when it applies\. Tend uses the highest, and the program decides which one fits\./,
+      ),
+    ).toBeTruthy();
   });
 });

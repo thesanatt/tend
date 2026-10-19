@@ -1,6 +1,7 @@
 // The cited summary PDF: every line with its amount, transaction, rule pinpoint, verbatim quote,
 // and link; held lines with the exam billing law; the totals; what is still needed; where to
 // file; and the protections that keep the survivor's address and file private.
+import { citedRuleIds, severalLimits } from "../cite";
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay, localDay } from "../dates";
 import { expenseLabel, expenseRank } from "../expenses";
@@ -200,11 +201,13 @@ function groupsOf(output: EngineOutput): Group[] {
   );
 }
 
+// Each line's rules in citation order (lib/cite.ts): what covers the cost, every limit, the rest.
+const cited = (law: LawBook, line: EngineLine) => citedRuleIds(line, (id) => law.rule(id), law.law.rules);
+
 function groupRules(law: LawBook, lines: EngineLine[]): Rule[] {
   const ids: string[] = [];
   for (const l of lines) {
-    const alt = (l as EngineLine & { alt_cap_rule_ids?: string[] }).alt_cap_rule_ids ?? [];
-    for (const id of [...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : []), ...alt]) {
+    for (const id of [...cited(law, l), ...(l.cap_rule_id ? [l.cap_rule_id] : [])]) {
       if (!ids.includes(id)) ids.push(id);
     }
   }
@@ -294,6 +297,7 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
     } else {
       if (g.status === "needs_confirmation") w.p("Tend found these but does not count them until you say yes.", "ink2");
       if (g.status === "excluded") w.p("The law says the program does not pay for this kind of cost.", "ink2");
+      if (g.lines.some(severalLimits)) w.small(en.gather.severalLimits, "ink2");
       for (const r of rules) w.quote(r);
     }
 
@@ -326,7 +330,8 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
       const item = items.get(line.item_id);
       const notes = lineNotes(law, line, item, info[line.item_id]);
       if (!shared && line.rule_ids.length) {
-        notes.unshift(`Rules: ${line.rule_ids.map((id) => law.rule(id)?.pinpoint ?? id).join("; ")}`);
+        const pins = cited(law, line).map((id) => law.rule(id)?.pinpoint ?? id);
+        notes.unshift(`Rules: ${pins.join("; ")}`);
       }
       const desc: Run[] = [{ text: item?.description?.trim() || expenseLabel(line.expense) }];
       const record: Run[] = [{ text: `Record ${line.item_id}`, font: "mono", color: "ink3" }];

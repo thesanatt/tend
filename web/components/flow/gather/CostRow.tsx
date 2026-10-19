@@ -1,6 +1,7 @@
 "use client";
 
 import Money from "@/components/Money";
+import { citedRuleIds, severalLimits } from "@/lib/cite";
 import { useJustChanged } from "@/lib/hooks";
 import { useI18n, useSummary } from "@/lib/i18n";
 import type { ItemExpense } from "@/lib/types";
@@ -35,7 +36,8 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       ? t.gather.reasonBill(item.line_no ?? 0, item.merchant ?? t.gather.theProvider)
       : classifierReason.text;
   const from = t.gather.from[item.origin];
-  const explain = t.statusExplain[status];
+  const explain =
+    line && severalLimits(line) ? `${t.statusExplain[status]} ${t.gather.severalLimits}` : t.statusExplain[status];
 
   return (
     <li className={`${styles.row} ${changed ? styles.changed : ""}`} data-status={status} id={`row-${qid}`}>
@@ -77,7 +79,7 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
           <StatusMark status={status} />
           {line && line.rule_ids.length ? (
             <Cite
-              ruleIds={line.rule_ids}
+              ruleIds={citedRuleIds(line, law.rule, law.law?.rules)}
               law={law}
               subject={subject}
               explain={explain}

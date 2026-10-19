@@ -61,6 +61,9 @@ export interface EngineLine {
   allowed_cents: number;
   rule_ids: string[];
   cap_rule_id: string | null;
+  // The other limits the law sets on this kind of cost; the engine counts with the highest
+  // (engine/FORMAT.md section 4, step 6). Missing before SPEC v1.1.
+  alt_cap_rule_ids?: string[];
   flags: string[];
 }
 

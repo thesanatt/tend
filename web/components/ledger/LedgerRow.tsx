@@ -3,13 +3,15 @@
 import Citation from "@/components/Citation";
 import Money from "@/components/Money";
 import StatusTag from "@/components/StatusTag";
+import { citedRuleIds, severalLimits } from "@/lib/cite";
 import { formatDay } from "@/lib/dates";
 import { expenseQuestion, unitLabel } from "@/lib/expenses";
 import { useJustChanged } from "@/lib/hooks";
+import { en } from "@/lib/i18n/en";
 import type { Row } from "@/lib/ledger";
 import { formatCents } from "@/lib/money";
 import type { Answer } from "@/lib/ledger";
-import { parseFlag } from "@/lib/status";
+import { parseFlag, statusCopy } from "@/lib/status";
 import type { LawIndex } from "@/lib/useLaw";
 import styles from "./ledger.module.css";
 
@@ -70,7 +72,13 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
             <StatusTag status={status} />
           )}
           {line && status !== "declined" ? (
-            <Citation ruleIds={line.rule_ids} status={status} law={law} subject={subject} />
+            <Citation
+              ruleIds={citedRuleIds(line, law.rule, law.law?.rules)}
+              status={status}
+              law={law}
+              subject={subject}
+              explain={severalLimits(line) ? `${statusCopy(status).explain} ${en.gather.severalLimits}` : undefined}
+            />
           ) : null}
         </div>
 

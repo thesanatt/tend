@@ -286,6 +286,7 @@ export const en = {
     examNoBillNote: "If one comes, add it in the next step. Tend holds that line and gives you a letter.",
     coveredTitle: "What the program can pay for",
     coveredNone: "Tend found no list of covered costs in the verified rules. Ask the program.",
+    capDepends: "depending on your case",
     totalCap: (amount: string) => `In total, up to ${amount}`,
     totalCapDepends: (amounts: string) =>
       `In total, up to ${amounts}, depending on your case. The rule says when each one applies`,
@@ -497,6 +498,8 @@ export const en = {
     onTheBill: "Bill",
     capped: (from: string) => `Limited from ${from}`,
     rateUnverified: "The law sets a rate for this. The program will apply it.",
+    severalLimits:
+      "The law sets more than one limit for this kind of cost. Each rule says when it applies. Tend uses the highest, and the program decides which one fits.",
     examAsMedical: "This state has no separate exam rule, so Tend counts it as medical care.",
     heldLine: "Don't pay this line. The law says you should not be billed for it.",
     include: "Count this",

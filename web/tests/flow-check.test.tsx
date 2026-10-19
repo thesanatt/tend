@@ -66,7 +66,16 @@ describe("Check", () => {
     expect(await screen.findByText("File by June 14, 2031.")).toBeTruthy();
     expect(screen.getByText("That is 4 years, 8 months from today.")).toBeTruthy();
     expect(screen.getByText("Your forensic exam counts in place of a police report here.")).toBeTruthy();
-    expect(screen.getByText("Counseling, up to $125 a session, for up to 35 sessions")).toBeTruthy();
+    // $125 is the rate for a psychologist or physician and $80 for a counselor (MCL 18.361(6)).
+    expect(
+      screen.getByText("Counseling, up to $125 a session, depending on your case, for up to 35 sessions"),
+    ).toBeTruthy();
+    // $5,000 is only for trips of 50 miles or more to care not available closer; rides of 50 miles or
+    // less have a $1,000 limit. The citation leads with the rule that covers rides to care.
+    expect(screen.getByText("Rides to care, up to $5,000 in total, depending on your case")).toBeTruthy();
+    expect(screen.getByRole("button", { name: /show the law for Rides to care/ }).textContent).toMatch(
+      /^MCL 18\.361\(2\)\(e\) \+2/,
+    );
     expect(screen.getByText("In total, up to $45,000")).toBeTruthy();
     expect(
       screen.getByText(
