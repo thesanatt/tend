@@ -1,10 +1,11 @@
 # Tend: system spec (the contract every component builds to)
 
-Tend helps a sexual assault survivor recover what their state's crime victim compensation
-program already promises. It reads their (mock, Capital One Nessie) bank history, finds costs
+Tend helps a sexual assault survivor apply for what their state's crime victim compensation
+program can pay. It reads their (mock, Capital One Nessie) bank history, finds costs
 the law covers, holds bills the law says they should never have been sent, and assembles a
 claim where every dollar points to a transaction and a verbatim quote of the law.
-Nothing is filed and no money moves without the survivor's explicit yes.
+Tend files nothing; the survivor sends the claim. No money moves without the survivor's explicit
+yes.
 
 Design rules that override everything below:
 1. The model proposes; code decides. Gemini may suggest an expense category. Only the law
@@ -15,8 +16,12 @@ Design rules that override everything below:
 5. Demo data is fictional and labeled as such. Nessie is a mock bank and the UI says so.
 6. Local-first and encrypted (docs/PRIVACY.md is normative): the WebAssembly engine, statement parsing,
    on-device Gemini Nano classification and bill reading, form filling, and the encrypted vault all run
-   in the browser. Only confirmed payments, end-to-end encrypted shares, and opt-in cloud AI leave the
-   device. The native engine serves bank-scale batch use and the API's server-side fallback.
+   in the browser. Only what docs/PRIVACY.md lists leaves the device, each after the survivor taps: a
+   payment being set up or confirmed, an end-to-end encrypted share, opt-in cloud AI, a check on Tend's
+   server when this browser cannot run the engine (after a yes), and, with the fictional demo bank
+   only, Track's bank records and payout demo. The native engine serves bank-scale batch use and an
+   API where it is built; the deployed API has no native build and answers with the Python reference
+   engine.
 
 ## Repository layout
 
@@ -28,7 +33,8 @@ refengine/    Python reference implementation of the same semantics + differenti
 api/          FastAPI service (Python 3.12, uv): Nessie, classification, claims, packet, actions, share
 web/          Next.js (TypeScript) app; runs the WASM engine on device
 seed/         fictional Nessie worlds (personas) and fixtures
-docs/         SPEC.md (this), ARCHITECTURE.md, EVAL.md, JUDGES.md, DEVPOST.md
+docs/         SPEC.md (this), ARCHITECTURE.md, PRIVACY.md, UX.md, EVAL.md, SOURCES.md, DEPLOY.md,
+              NEON.md, JUDGES.md, DEVPOST.md
 ```
 
 ## Law engine semantics (normative; C++ VM and Python reference must agree exactly)
@@ -149,7 +155,11 @@ the same decisions in the same order, so traces can be diffed.
 - `POST /claim` engine input -> engine output (native engine; falls back to refengine and says so in a header).
 - `POST /bill/audit` -> extracted bill lines (sum must equal the bill total) and holds.
 - `POST /actions/propose` -> {action_id, amount_cents, from, payee, confirm_code, expires_at}; `POST /actions/confirm` {action_id, confirm_code} -> Nessie write, read-back, audit row. Single use; integer cents.
-- `GET /packet/{claim_id}.pdf`; `POST /share` -> expiring read-only link; `GET /share/{token}`.
+- `POST /packet` engine input -> the cited packet PDF; nothing is kept. `POST /shares`
+  {ciphertext, iv, expires_hours 1 to 168 (default 72), once} -> 201 {id, expires_at, once, ...};
+  `GET /shares/{id}` -> the ciphertext and IV (410 once it expires, or after an open-once share's
+  first read); `DELETE /shares/{id}` -> 204, and the link stops working. The full list is in
+  api/README.md.
 
 ## Nessie (mock bank) facts every component must respect
 
@@ -170,7 +180,9 @@ The verified corpus is faithful to 51 different legal systems, so its params var
 end, `rules/tools/normalize.py`, turns each `rules/verified/ST.json` into a canonical
 `rules/ir/ST.json`. Both engines read ONLY the IR: the C++ compiler `tendc` compiles IR to a .tlaw
 image, and the Python reference interprets IR directly. Differential tests therefore compare two
-independent back ends on identical input.
+back ends on identical input.
+
+<!-- TODO(Sanat): this line used to say "independent back ends". Who wrote each engine is yours to state. -->
 
 IR shape (all money in integer cents, all durations in days):
 
@@ -285,7 +297,7 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    which can be later than the date it happened. The program decides." The readers are the web's
    Check and Track screens, the shared claim an advocate opens, and the PDF summary the web builds
    and the one the API builds. A `late` with no flag is still shown as past the deadline.
-2. normalize.py carries the anchor. Rules the researchers dated from discovery keep it (AZ-DEAD-1,
+2. normalize.py carries the anchor. Rules already dated from discovery in their files keep it (AZ-DEAD-1,
    MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
    own quote lets the period start at discovery ("after the occurrence or discovery of the crime",
    "whichever is later") are anchored at discovery in the IR, with the words that say so named in

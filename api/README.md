@@ -3,8 +3,9 @@
 FastAPI service for Tend, built to docs/PRIVACY.md. The survivor's claim lives on their device. This
 server holds three things: the public law corpus, the ciphertext of shared packets, and an
 append-only, hash-chained log of confirmed payments. A payment waiting for its confirm code is the
-only other state, and it lasts ten minutes. Claims, scans, bills, and plaintext shares are never
-stored. Money is integer cents everywhere.
+only other state: the code works once, for ten minutes, the payee is cleared when the payment ends or
+a sweep finds the code expired, and the row is deleted a day or more after the code expires. Claims,
+scans, bills, and plaintext shares are never stored. Money is integer cents everywhere.
 
 ## Run
 
@@ -63,12 +64,15 @@ Public corpus
   and the source's sha256.
 
 Law versions, each a Neon branch (docs/NEON.md)
-- `GET /law/versions?st=`: the published versions, oldest first, with `current` (the one production has loaded).
+- `GET /law/versions?st=`: the published versions, oldest first, with `current` (the one production has loaded, or
+  null when the loaded rules are not a published version, as on Oct 19, 2026; docs/NEON.md).
 - `GET /law/diff?from=&to=&st=`: rules added, removed, and changed between two versions, with quotes and source links,
-  read from both branches as `tend_reader`; without `st`, counts per state. An unchanged state is answered from the index.
+  read from both branches as `tend_reader` when `DATABASE_URL_READER` is set; without `st`, counts per state. An
+  unchanged state is answered from the index.
 - `GET /law/search?q=&st=&version=&limit=`: full-text search over the verbatim quotes only (GIN index on a generated
   tsvector, `websearch_to_tsquery`, `ts_headline` offsets in `marks`). Falls back to any word, and says `matched: any`.
-- `POST /claim` and `POST /packet` name the version they were checked against (`law_version`, `X-Tend-Law-Version`).
+- `POST /claim` and `POST /packet` name the version they were checked against (`law_version`, `X-Tend-Law-Version`)
+  when the state's files match a published version, and null otherwise.
 
 Claims, evaluated and returned
 - `POST /claim`: SPEC v1.2 engine input in, engine output out, header `X-Tend-Engine: native | reference`. Native
@@ -136,13 +140,18 @@ Sealed shares
   same transaction; a second read gets 410.
 - `DELETE /shares/{id}`: 204. Expired shares, and the payee of expired proposals, are swept on every new share
   or payment, and by the app within a minute of expiring. It checks once a minute but queries only when something
-  it stored has come due, so an idle server lets Neon's compute suspend.
+  it stored has come due, so an idle server lets Neon's compute suspend. A proposal's row is deleted at the first
+  sweep a day or more after its code expired.
 
-Cloud AI, only with `consent: true` (403 otherwise; nothing logged or stored)
+Cloud AI, only with `consent: true` (403 for false, 422 when it is missing). Tend logs and stores nothing, but what
+reaches Gemini is under Google's terms for its free tier, which let Google keep it, use it to improve its products, and
+have people review it (docs/PRIVACY.md, item 3).
 - `POST /ai/classify` `{consent, st?, incident_date?, txns: [{id, description, merchant?, category?, date?, amount_cents?, kind?}]}`:
   rules first, then `gemini-3.8-flash` (low thinking, 10 s, one try) with `gemini-3.5-flash-lite` as the fallback,
-  output constrained to the expense enum. The model sees merchant, category, and description, never an amount or
-  id. Returns `labels` (one per row) and `items` (ClassifiedItems for rows with a date and an amount).
+  output constrained to the expense enum. The model sees each row's kind, merchant, category, and description,
+  never its amount, date, or id. The API removes only Tend's own tags from the description; the web app first tries to
+  take dates, amounts, and similar details out of it (web/lib/local/cloud.ts), which is best effort. Returns `labels`
+  (one per row) and `items` (ClassifiedItems for rows with a date and an amount).
 - `POST /ai/bill` `{consent, file (base64, 10 MB), mime}`: a PDF or text file with a text layer is read by code and
   never sent; a photo or scan goes to the model, which copies lines as printed. Code parses every amount and
   checks the lines against the amount due: `status: ok | unreliable`, `lines` (`line_id`, `description`,
@@ -170,11 +179,12 @@ even against a direct insert. SQLite checks the links in a trigger and Python ch
 Migrations are checksummed; editing one that already ran is refused. A SQLite file from the first API, which kept
 claims, loses those tables on upgrade.
 
-The loader on Neon (Oct 3): 19 categories, 51 jurisdictions, 824 sources, 2,578 rules, 0 law images; 12.3 s the
-first time, 1.5 s when nothing changed (2.1 s on a rerun at 7:30 PM). The engine build in this checkout (tend 1.1.0)
-refuses IR v2, so image hashes wait for the v1.2 engine: rerun the loader after it lands. Run against the tend 1.2.0
-build into a scratch SQLite file, the same command recorded 51 images (MI: `54f9809e...`, 51,812 bytes). Rules for
-AZ, ID, and WY changed on main after this corpus was loaded, so `/api/health` lists them as stale until the next run.
+The first load on Neon (Oct 3) wrote 19 categories, 51 jurisdictions, 824 sources, and 2,578 rules in 12.3 s. A
+rerun with nothing changed took 1.5 s (2.1 s at 7:30 PM). It recorded no law images, because the engine build at the
+time (tend 1.1.0) refused IR v2. On Oct 19, 2026, `/api/health` on youreowed.tech reported the same corpus, 102 law
+images, and no stale states. Each jurisdiction has two images: a tend 1.3.0 one compiled Oct 4, the same file as
+`web/public/engine/laws/<ST>.tlaw` on Oct 19 (Michigan: `6f51413c...`, 51,812 bytes), and an older tend 1.2.0 one
+compiled Oct 3 (Michigan: `54f9809e...`).
 
 ## What the API expects from the other parts
 
