@@ -10,6 +10,10 @@ import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import { MI_CHECK, MI_LAW, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
+// Reading the five-page sample PDF takes well over a second when the whole suite runs in parallel.
+const PDF_READ = { timeout: 10_000 };
+vi.setConfig({ testTimeout: 20_000 });
+
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
   usePathname: () => "/gather",
@@ -54,7 +58,7 @@ describe("Gather", () => {
   it("reads a statement, groups the costs, and confirms a group in one tap", async () => {
     renderFlow(<GatherScreen />, { initial: stateFrom([MI_CHECK]) });
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    expect(await screen.findByText("What Tend found")).toBeTruthy();
+    expect(await screen.findByText("What Tend found", {}, PDF_READ)).toBeTruthy();
     expect(screen.getByText(/sample-statement-fictional\.pdf: 190 transactions read/)).toBeTruthy();
     await settled();
     const groups = screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
@@ -90,7 +94,7 @@ describe("Gather", () => {
   it("unchecking a direct match takes it out of the total, one tap", async () => {
     renderFlow(<GatherScreen />, { initial: stateFrom([MI_CHECK]) });
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    await screen.findByText("What Tend found");
+    await screen.findByText("What Tend found", {}, PDF_READ);
     await settled();
     const before = figure();
     const box = within(screen.getByRole("region", { name: "Counseling" })).getAllByRole("checkbox")[0];

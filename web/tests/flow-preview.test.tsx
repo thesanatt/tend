@@ -22,6 +22,10 @@ vi.mock("next/navigation", () => ({
 
 // pdf.js stands in for the preview only; reading the statement still uses the real lib/local/pdf.
 const pdf = vi.hoisted(() => ({ open: vi.fn() }));
+
+// Reading the five-page sample PDF takes well over a second when the whole suite runs in parallel.
+const PDF_READ = { timeout: 10_000 };
+vi.setConfig({ testTimeout: 20_000 });
 vi.mock("@/lib/local/pdf", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/local/pdf")>()),
   openPdfView: pdf.open,
@@ -124,7 +128,7 @@ describe("PDF preview", () => {
     const { drawn, destroy, cleanups } = fakePdf(5);
     gather();
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    expect(await screen.findByText(/sample-statement-fictional\.pdf: 190 transactions read/)).toBeTruthy();
+    expect(await screen.findByText(/sample-statement-fictional\.pdf: 190 transactions read/, {}, PDF_READ)).toBeTruthy();
     openAddMore();
     const fetchesBefore = fetchMock.mock.calls.length;
 
@@ -170,7 +174,7 @@ describe("PDF preview", () => {
     const { drawn, busy } = fakePdf(5, { slow: true });
     gather();
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    expect(await screen.findByText(/190 transactions read/)).toBeTruthy();
+    expect(await screen.findByText(/190 transactions read/, {}, PDF_READ)).toBeTruthy();
     openAddMore();
     fireEvent.click(screen.getByRole("button", { name: "Preview sample-statement-fictional.pdf" }));
     const sheet = await screen.findByRole("dialog");
@@ -205,7 +209,7 @@ describe("PDF preview", () => {
     pdf.open.mockRejectedValue(new Error("bad file"));
     gather();
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    expect(await screen.findByText(/190 transactions read/)).toBeTruthy();
+    expect(await screen.findByText(/190 transactions read/, {}, PDF_READ)).toBeTruthy();
     openAddMore();
     fireEvent.click(screen.getByRole("button", { name: "Preview sample-statement-fictional.pdf" }));
     expect(await screen.findByText("Tend could not show a preview of this file.")).toBeTruthy();
@@ -365,7 +369,7 @@ describe("quick exit with a preview open", () => {
     const { destroy } = fakePdf(5);
     gather();
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    expect(await screen.findByText(/190 transactions read/)).toBeTruthy();
+    expect(await screen.findByText(/190 transactions read/, {}, PDF_READ)).toBeTruthy();
     openAddMore();
     fireEvent.click(screen.getByRole("button", { name: "Preview sample-statement-fictional.pdf" }));
     const sheet = await screen.findByRole("dialog");

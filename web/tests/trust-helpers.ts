@@ -146,7 +146,10 @@ export function fakeShareServer(routes: "primary" | "legacy" | "none" = "primary
       const b = JSON.parse(body ?? "{}");
       const token = `tok_${String(++n).padStart(28, "0")}`;
       const once = kind === "primary" ? b.once : b.open_once;
-      const expires_at = "2026-10-10T16:20:00Z";
+      // Like the API: the link stops working the requested number of hours from now. A fixed date here
+      // made every share look expired once the calendar passed it.
+      const hours = Number(kind === "primary" ? b.expires_hours : b.ttl_hours) || 72;
+      const expires_at = new Date(Date.now() + hours * 3_600_000).toISOString().replace(/\.\d{3}Z$/, "Z");
       shares.set(token, {
         ciphertext: b.ciphertext,
         iv: kind === "primary" ? b.iv : b.nonce,

@@ -41,7 +41,8 @@ describe("sealed share links", () => {
 
     const opened = await share.openWithMeta(sealed.url);
     expect(opened.packet).toEqual(packet());
-    expect(opened.meta).toMatchObject({ id: sealed.id, once: false, expires_at: "2026-10-10T16:20:00Z" });
+    expect(opened.meta).toMatchObject({ id: sealed.id, once: false, expires_at: sealed.expires_at });
+    expect(Date.parse(sealed.expires_at!) - Date.now()).toBeGreaterThan(71 * 3_600_000);
     await share.revoke(sealed.id);
 
     expect(server.calls.map((c) => `${c.method} ${c.url}`)).toEqual([
