@@ -9,7 +9,7 @@ import Money from "@/components/Money";
 import { formatDay, formatTimestamp } from "@/lib/dates";
 import { buildRows, groupBeds } from "@/lib/ledger";
 import type { BuiltPacket, TendPacketBuilder } from "@/lib/packet";
-import { FORM_SPECS, isDemo } from "@/lib/packet/specs";
+import { demoNote, FORM_SPECS } from "@/lib/packet/specs";
 import STATES from "@/lib/states.json";
 import type { EngineInput, EngineOutput } from "@/lib/types";
 import { useLaw } from "@/lib/useLaw";
@@ -137,7 +137,7 @@ export default function SharedClaim({
   const rows = buildRows(input.items, {}, output);
   const beds = groupBeds(rows, output);
   const name = STATES.find((s) => s.st === input.jurisdiction)?.name ?? input.jurisdiction;
-  const fictional = demo || isDemo(input);
+  const demoText = demoNote(input, { known: demo });
 
   return (
     <div className={styles.share}>
@@ -157,7 +157,7 @@ export default function SharedClaim({
             This link opens one time only. It will not open again, so download the summary if you need to keep it.
           </p>
         ) : null}
-        {fictional ? <p>This claim uses fictional demo data from Capital One&apos;s Nessie, a mock bank.</p> : null}
+        {demoText ? <p>{demoText}</p> : null}
       </div>
       {expired ? (
         <p className={styles.expired}>This link has expired. Ask the person who shared it for a new one.</p>
