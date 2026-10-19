@@ -33,6 +33,11 @@ function readJson<T>(file: string): T | null {
   }
 }
 
+// A state's public page exists only when its verified rules were synced (app/[st]/page.tsx).
+export function hasLaw(st: string): boolean {
+  return existsSync(path.join(DATA, "law", `${st}.json`));
+}
+
 export function loadLaw(st: string): { law: Jurisdiction; sha256: string } | null {
   const file = path.join(DATA, "law", `${st}.json`);
   if (!existsSync(file)) return null;
@@ -77,12 +82,5 @@ export function loadCorpus(): Corpus {
   };
 }
 
-// Where the share card points. Set NEXT_PUBLIC_SITE_URL when deploying; docs/UX.md names youreowed.tech.
-export function siteUrl(): URL {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL || "https://youreowed.tech";
-  try {
-    return new URL(raw);
-  } catch {
-    return new URL("https://youreowed.tech");
-  }
-}
+// Also here for the state pages, which import the rest of this file anyway.
+export { siteUrl } from "./site";
