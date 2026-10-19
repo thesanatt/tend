@@ -19,11 +19,9 @@ Both URLs are live. A phone or a laptop both work. To run it locally instead: `s
 | 48 to 56 | **Build my packet**, then **Make a share link** | Michigan's own form with safe fields only, a cited summary PDF, "Still needed" in the program's words, and "Amount you can ask for: $3,848.00. The program decides." The link's key is after `#`; open it in another browser for the advocate's view |
 | 56 to 60 | **See your garden** | One plant per cost, the deadline in view. The held line grows nothing |
 
-If someone paid the $118.00 on the live demo account in the last 20 minutes, the payment sheet says
-the bank already shows a payment from Tend for those lines, and nothing moves. Once that payment is
-20 minutes old, the next **Get a code** first puts the fictional account back at the demo start
-(their payment deleted, the bill back to $443.00 pending), so the payment goes through.
-`cd seed && uv run python reset_demo.py` does the same at once.
+If the payment sheet says the bank already shows a payment from Tend for those lines, someone
+already paid the $118.00 on the live demo account, and nothing moves. `cd seed && uv run python
+reset_demo.py` puts the account back.
 
 With more time:
 
@@ -52,7 +50,7 @@ run from the root unless it says `cd`. All of them work offline with no keys.
 | 7 | The claim never leaves the device unless the survivor says yes | `web/lib/engine/index.ts` | `web/tests/engine-adapter.test.ts`: "never sends the claim to the server without the survivor's yes" | `cd web && npm ci && npx vitest run tests/engine-adapter.test.ts` |
 | 8 | A forensic exam line is held when the state has an exam no-bill rule | engine item program (engine/FORMAT.md section 4) | `engine/tests/test_semantics.cpp`: "step 2: forensic exams are held only when an exam_no_bill rule exists" | `make -C engine test` |
 | 9 | The held line cannot be paid, through any route | `api/tend_api/actions.py` | `api/tests/test_actions.py::test_held_bill_line_cannot_be_paid` | `cd api && uv run pytest tests/test_actions.py -k held` |
-| 10 | Money moves only after a 6-digit code: once, within 10 minutes, locked after 5 wrong tries, never stored in the clear | `api/tend_api/actions.py:49`, `:126`, `:241` | `test_actions.py`: `test_wrong_code_is_rejected_then_locks_after_five`, `test_code_expires_after_ten_minutes`, `test_code_is_never_stored_or_logged`, `test_concurrent_confirms_execute_exactly_once` | `cd api && uv run pytest tests/test_actions.py` |
+| 10 | Money moves only after a 6-digit code: once, within 10 minutes, locked after 5 wrong tries, never stored in the clear | `api/tend_api/actions.py:53`, `:132`, `:253` | `test_actions.py`: `test_wrong_code_is_rejected_then_locks_after_five`, `test_code_expires_after_ten_minutes`, `test_code_is_never_stored_or_logged`, `test_concurrent_confirms_execute_exactly_once` | `cd api && uv run pytest tests/test_actions.py` |
 | 11 | The payment log is append-only and hash-chained, with no names | `api/tend_api/db/migrations/postgres/0003_payments.sql` (triggers), `api/tend_api/actions.py` | `test_actions.py::test_audit_table_is_append_only_and_extends_only_its_head`, `::test_verify_chain_detects_tampering`; `test_privacy.py::test_audit_log_holds_no_names` | `cd api && uv run pytest tests/test_actions.py tests/test_privacy.py` |
 | 12 | A shared packet is encrypted in the browser; the server sees only ciphertext; the key never leaves the link | `web/lib/share/index.ts` | `web/tests/share.test.ts`: "seals, opens to the same packet, and never sends the key"; `api/tests/test_privacy.py::test_sealed_share_returns_exactly_the_ciphertext` | `cd web && npx vitest run tests/share.test.ts` |
 | 13 | Saved progress is encrypted (AES-256-GCM, PBKDF2-SHA-256 with 600,000 iterations, or a passkey) | `web/lib/vault/crypto.ts:5` | `web/tests/vault.test.ts`: "round-trips records and keeps only ciphertext in storage", "uses PBKDF2 with 600,000 iterations and a random salt by default" | `cd web && npx vitest run tests/vault.test.ts` |
