@@ -254,10 +254,11 @@ export default function DataPage() {
             <strong>Verified.</strong> <a href={`${LINKS.repo}/blob/main/rules/tools/verify.py`}>verify.py</a> accepts a
             rule only if its quote appears word for word in the saved text, after both are normalized the same way
             (Unicode, quote marks, dashes, and spacing). It also accepts a match that differs only in capital letters,
-            with a warning; no rule in version {data.metadata.version} needed that. The amounts, counts, and lengths of
-            time in its details must appear in the quote, and so must every number in its summary other than 0 and 1.
-            The saved file&apos;s {SHA256} must still match. The dataset&apos;s own tests run the quote and {SHA256}{" "}
-            checks again on every rule in these files.
+            with a warning; no rule in version {data.metadata.version} needed that. The numbers in eight of its detail
+            fields, which hold amounts, counts, and lengths of time, must appear in the quote, and so must every number
+            in its summary other than 0 and 1. The saved file&apos;s {SHA256} must still match. The dataset&apos;s own
+            tests run the quote and {SHA256} checks again on every rule in these files. They also check that every
+            detail that is a whole number appears in the rule&apos;s quote, including fields verify.py does not check.
           </li>
           <li>
             <strong>Sorted for the engine.</strong>{" "}

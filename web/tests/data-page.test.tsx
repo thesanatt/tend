@@ -168,6 +168,13 @@ describe("/data", () => {
     );
   });
 
+  it("counts the detail fields verify.py checks from verify.py itself", () => {
+    const verify = readFileSync(path.join(web, "..", "rules/tools/verify.py"), "utf8");
+    const keys = /^NUMERIC_PARAMS = \{(.+)\}$/m.exec(verify)![1].split(",");
+    expect(keys).toHaveLength(8);
+    expect(doc.querySelector("#method ~ ol")!.textContent).toContain("The numbers in eight of its detail fields");
+  });
+
   it("keeps the citation and license marked as not decided, with no DOI", () => {
     const box = doc.querySelector("#cite ~ div")!;
     expect(box.textContent).toContain("Not decided yet");
