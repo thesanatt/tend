@@ -368,4 +368,25 @@ describe("the law behind each cost", () => {
       ),
     ).toBeTruthy();
   });
+
+  it("asks whether replaced bedding was kept as evidence, the condition its rule sets", async () => {
+    renderFlow(<GatherScreen />, { services: realProof(), initial: stateFrom(withGuesses) });
+    expect(
+      await screen.findByRole("group", { name: /^Did this replace clothing or bedding kept as evidence\?/ }),
+    ).toBeTruthy();
+    const cite = screen.getByRole("button", { name: /show the law for Linen & Loom/ });
+    expect(cite.textContent).toMatch(/^MCL 18\.361\(2\)\(j\):/);
+    fireEvent.click(cite);
+    expect(within(await screen.findByRole("dialog")).getByText(quote("MI-CAP-10"))).toBeTruthy();
+    expect(quote("MI-CAP-10")).toContain("that is held as evidence of a crime");
+  });
+
+  it("asks the same in Spanish", async () => {
+    renderFlow(<GatherScreen />, { services: realProof(), initial: stateFrom(withGuesses, "es"), lang: "es" });
+    expect(
+      await screen.findByRole("group", {
+        name: /^¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia\?/,
+      }),
+    ).toBeTruthy();
+  });
 });

@@ -373,7 +373,9 @@ export const en = {
     crime_scene_cleanup: "Was this cleanup you needed afterward?",
     childcare: "Was this child care while you got care or recovered?",
     property_replacement: "Did this replace something you lost?",
-    clothing_bedding: "Did this replace clothing or bedding?",
+    // Michigan (MCL 18.361(2)(j)) and most states that pay for clothing or bedding pay only when it
+    // was kept as evidence, so a yes has to say that, not just that it was bedding.
+    clothing_bedding: "Did this replace clothing or bedding kept as evidence?",
     prescription: "Was this medicine you needed afterward?",
     dental: "Was this dental care you needed afterward?",
     funeral: "Was this a funeral cost?",

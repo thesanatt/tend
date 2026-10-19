@@ -354,7 +354,7 @@ export const es: Dict = {
     crime_scene_cleanup: "¿Fue una limpieza que necesitaste después?",
     childcare: "¿Fue cuidado de niños mientras recibías atención o te recuperabas?",
     property_replacement: "¿Esto reemplazó algo que perdiste?",
-    clothing_bedding: "¿Esto reemplazó ropa o ropa de cama?",
+    clothing_bedding: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia?",
     prescription: "¿Fue un medicamento que necesitaste después?",
     dental: "¿Fue atención dental que necesitaste después?",
     funeral: "¿Fue un gasto funerario?",
