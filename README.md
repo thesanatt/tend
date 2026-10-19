@@ -38,7 +38,7 @@ decides.
 
 | Part | Real or demo |
 |---|---|
-| The law | Real. 2,578 rules for all 51 jurisdictions, each quoting one of 824 saved sources word for word: statutes, regulations, and program pages and documents, each saved with its sha256. 120 of the sources are copies of state law from Justia or Cornell's Legal Information Institute, which reprint the law but are not the official code. A quote check proves the words are in the source, not that Tend reads them right |
+| The law | Real. 2,578 rules for all 51 jurisdictions, each quoting one of 824 saved sources word for word: statutes, regulations, and program pages and documents, each saved with its sha256. 120 of the sources are copies of state law from Justia or Cornell's Legal Information Institute, which reprint the law but are not the official code. A quote check proves the words are in the source, not that Tend reads them right <!-- measured: 2026-10-19 --> |
 | Rowan Hale, Riverbend General Hospital, every merchant and dollar | Fictional, made for the demo (`seed/`). Every snapshot says so |
 | The bank | Capital One's Nessie, a mock bank for developers. On youreowed.tech a confirmed payment is a real write to Nessie, in mock money. No real money moves |
 | Users | None known. Tend is a prototype, and the site runs no analytics, so it does not count visitors |
@@ -224,7 +224,7 @@ row says otherwise.
   birthday) are not flagged; their rules carry the words.
 - The sources were saved on October 3, 2026, and laws change. Each version of the corpus can be
   published as a Neon branch, but nothing re-fetches sources on a schedule. 120 of the 824 are
-  Justia or Cornell copies of state law rather than the state's own text.
+  Justia or Cornell copies of state law rather than the state's own text. <!-- measured: 2026-10-19 -->
 - The classifier was measured only on fictional data. There is no committed accuracy number for
   Gemini Nano. Without it, the rules alone sort costs, more lines wait for a yes or no, and cloud
   AI is offered behind a consent screen.
