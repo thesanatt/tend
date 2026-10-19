@@ -77,10 +77,10 @@ describe("share card image", () => {
 
 const web = path.resolve(import.meta.dirname, "..");
 
-function files(dir: string): string[] {
+function files(dir: string, match = /\.tsx?$/): string[] {
   return readdirSync(dir).flatMap((name) => {
     const p = path.join(dir, name);
-    return statSync(p).isDirectory() ? files(p) : /\.tsx?$/.test(name) ? [p] : [];
+    return statSync(p).isDirectory() ? files(p, match) : match.test(name) ? [p] : [];
   });
 }
 
@@ -195,6 +195,13 @@ describe("pages without a link card", { timeout: 60_000 }, () => {
     expect(metadata.twitter).toBeUndefined();
   });
 
+  // Next applies an opengraph-image or twitter-image file to its own segment and every segment below it, so one
+  // in app/ would put a card on every flow and share page. Public pages get theirs from card.png routes instead.
+  it("has no file-based preview image a flow or share page could inherit", () => {
+    const images = files(path.join(web, "app"), /^(opengraph|twitter)-image\./);
+    expect(images.map((f) => path.relative(web, f))).toEqual([]);
+  });
+
   it("gives the survivor flow and share links no card and a neutral description", async () => {
     expect(NEUTRAL_DESCRIPTION).not.toMatch(/crime|victim|compensation|assault|survivor|claim|law/i);
     const flow = await import("@/app/(flow)/layout");
@@ -213,8 +220,12 @@ describe("pages without a link card", { timeout: 60_000 }, () => {
       const name = path.relative(web, file);
       const text = readFileSync(file, "utf8");
       expect(text, name).not.toMatch(/openGraph|twitter|generateMetadata|card\.png/);
-      // A flow page with metadata of its own could replace the layout's description.
-      if (name.includes("(flow)") && !name.endsWith("layout.tsx")) expect(text, name).not.toMatch(/\bmetadata\b/);
+      // A flow page or nested layout with metadata of its own could replace the layout's description.
+      if (name.includes("(flow)") && name !== path.join("app", "(flow)", "layout.tsx"))
+        expect(text, name).not.toMatch(/\bmetadata\b/);
+      // Share pages sit outside the flow layout, so one without this line would show the root description.
+      if (name.startsWith(path.join("app", "share")) && path.basename(name) === "page.tsx")
+        expect(text, name).toContain("description: NEUTRAL_DESCRIPTION");
     }
   });
 });
