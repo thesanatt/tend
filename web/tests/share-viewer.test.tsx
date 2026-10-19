@@ -2,6 +2,8 @@
 // The advocate viewer at /share#<id>.<key>: opens once per link, shows the claim read-only, and
 // builds the cited summary in the browser.
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { StrictMode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import OpenShare from "@/app/share/OpenShare";
@@ -153,5 +155,40 @@ describe("the advocate viewer", () => {
     const alert = await screen.findByRole("alert");
     expect(alert.textContent).toContain("The PDF could not be made in this browser.");
     expect(alert.textContent).not.toContain("getForm");
+  });
+
+  it("speaks to the advocate about the survivor: they and their, never you and your", async () => {
+    window.location.hash = link();
+    const meta: ShareMeta = { id: "x", expires_at: null, once: false, created_at: null };
+    const { client: c } = client(async () => ({ packet: packet(), meta }));
+    render(<OpenShare client={c} />);
+    // Once the law loads, every citation names its law; their sheets are in the page, closed.
+    const cites = await screen.findAllByRole("button", { name: /^MCL / }, { timeout: 15_000 });
+    expect(cites.length).toBeGreaterThan(40);
+    // A rule's quote and plain summary are law data, changed only through rules/tools/verify.py; this
+    // checks Tend's own words around them.
+    let text = document.body.textContent!;
+    for (const rule of webLaw("MI").rules) {
+      for (const own of [rule.quote, rule.summary]) if (own) text = text.split(own).join(" ");
+    }
+    for (const sentence of [
+      "Their forensic exam counts in place of a police report here.",
+      "The law counts from their report, so they may have longer.",
+      "Their costs are at or over the program's minimum of $200.00.",
+      "The law says they should not be billed for this, so it should not be paid.",
+      "It is not counted until they say yes.",
+      "It counts toward the amount they can ask for.",
+    ]) {
+      expect(text).toContain(sentence);
+    }
+    expect(text).toContain("They should not be billed for the exam");
+    // Nothing here speaks to the survivor. ("You" would be the advocate, and nothing on this claim needs it.)
+    expect(text.match(/[^.]*\b(you|your)\b[^.]*/gi) ?? []).toEqual([]);
+    // The whole claim with its 60-odd citations takes a while to draw when the suite runs in parallel.
+  }, 20_000);
+
+  it("gives every citation a 44 px target", () => {
+    const css = readFileSync(path.resolve(import.meta.dirname, "../components/Citation.module.css"), "utf8");
+    expect(css).toMatch(/\.cite \{[^}]*min-height: 44px;/);
   });
 });

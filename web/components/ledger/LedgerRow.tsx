@@ -65,7 +65,7 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
           {status === "checking" ? (
             <span className="meta">Checking the law</span>
           ) : status === "declined" ? (
-            <StatusTag status="declined" label="You said not related" />
+            <StatusTag status="declined" label="They said not related" />
           ) : (
             <StatusTag status={status} />
           )}

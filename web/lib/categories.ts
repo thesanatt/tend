@@ -48,3 +48,16 @@ export const CATEGORY_ORDER: RuleCategory[] = [
 export function categoryLabel(c: string): string {
   return CATEGORY_LABEL[c as RuleCategory] ?? c.replace(/_/g, " ");
 }
+
+// The labels that speak to the survivor, said about them instead, for the read-only claim an
+// advocate opens from a share link (app/share).
+const ABOUT_THEM: Partial<Record<RuleCategory, string>> = {
+  exam_no_bill: "They should not be billed for the exam",
+  residency: "Where they live and where it happened",
+  address_confidentiality: "Keeping their address private",
+  record_confidentiality: "Their claim records are confidential",
+};
+
+export function categoryLabelAboutThem(c: string): string {
+  return ABOUT_THEM[c as RuleCategory] ?? categoryLabel(c);
+}

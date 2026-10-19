@@ -3,8 +3,9 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { deadlineText, minimumText, reportingText } from "@/components/claim/Checks";
+import { CATEGORY_LABEL, categoryLabelAboutThem } from "@/lib/categories";
 import { engineErrorText } from "@/lib/engine/wasm";
-import { checkCopy, deadlineCopy, MINIMUM_LOSS, REPORTING, reportingCopy } from "@/lib/status";
+import { checkCopy, DEADLINE, deadlineCopy, MINIMUM_LOSS, REPORTING, reportingCopy, STATUS } from "@/lib/status";
 import type { Jurisdiction } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 
@@ -50,7 +51,7 @@ describe("claim check copy", () => {
       /^The usual deadline was .*may count from when the crime was discovered.*The program decides\.$/,
     );
     expect(deadlineCopy(late(["deadline_from_report"])).label).toBe("May have more time");
-    expect(deadlineText(late(["deadline_from_report"]))).toMatch(/counts from your report/);
+    expect(deadlineText(late(["deadline_from_report"]))).toMatch(/counts from their report, so they may have longer/);
     // An ordinary deadline counted from the incident is still plainly late.
     for (const plain of [late([]), { status: "late" as const, deadline_date: "2025-06-14", rule_ids: ["X-1"] }]) {
       expect(deadlineCopy(plain)).toEqual({ label: "Past the deadline", tone: "warn" });
@@ -68,6 +69,40 @@ describe("claim check copy", () => {
     expect(text).toMatch(/\$200\.00/);
     expect(text).toMatch(/criminal sexual conduct/);
     expect(minimumText({ status: "may_be_waived", rule_ids: ["MI-MIN-1"] }, mi)).toMatch(/can waive/);
+  });
+
+  // This copy is only for the read-only claim an advocate opens (app/share): "you" there is the
+  // advocate, so every status speaks about the survivor instead of to them.
+  it("speaks about the survivor, never to them, in every status", () => {
+    const mi = index("MI");
+    const texts = [
+      reportingText({ status: "satisfied", rule_ids: ["MI-REPORT-1"] }, mi, "yes"),
+      reportingText({ status: "satisfied", rule_ids: ["MI-REPORT-1"] }, mi, "no"),
+      reportingText({ status: "satisfied", rule_ids: [] }, mi, "no"),
+      reportingText({ status: "required", rule_ids: ["MI-REPORT-2"] }, mi, "no"),
+      reportingText({ status: "not_required", rule_ids: ["MI-REPORT-2"] }, mi, "no"),
+      reportingText({ status: "unknown", rule_ids: ["MI-REPORT-1"] }, mi, "unknown"),
+      reportingText({ status: "unknown", rule_ids: ["MI-REPORT-2"] }, mi, "unknown"),
+      ...(["met", "waived", "may_be_waived", "not_met", "unknown"] as const).map((status) =>
+        minimumText({ status, rule_ids: ["MI-MIN-1"] }, mi),
+      ),
+      minimumText({ status: "met", rule_ids: [] }, mi),
+      deadlineText({ status: "ok", deadline_date: "2031-06-14", rule_ids: ["X-1"], flags: ["deadline_from_report"] }),
+      deadlineText({
+        status: "late",
+        deadline_date: "2025-06-14",
+        rule_ids: ["X-1"],
+        flags: ["deadline_from_discovery"],
+      }),
+      deadlineText({ status: "unknown", deadline_date: null, rule_ids: ["X-1"] }),
+      ...[DEADLINE, MINIMUM_LOSS, REPORTING].flatMap((table) => Object.values(table).map((c) => c.label)),
+      ...Object.values(STATUS).flatMap((c) => [c.label, c.explain, c.sheetTitle]),
+      ...Object.keys(CATEGORY_LABEL).map(categoryLabelAboutThem),
+    ];
+    expect(texts.filter((t) => /\b(you|your|yours|yourself)\b/i.test(t))).toEqual([]);
+    expect(reportingText({ status: "required", rule_ids: ["MI-REPORT-2"] }, mi, "no")).toBe(
+      "This program asks for a police report. Reporting is still their choice.",
+    );
   });
 
   it("has labels for the v1.1 statuses", () => {

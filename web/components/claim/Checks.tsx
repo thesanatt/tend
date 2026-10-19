@@ -34,16 +34,15 @@ export function reportingText(c: EngineChecks["reporting"], law: LawIndex, polic
   if (c.status === "satisfied") {
     if (!c.rule_ids.length) return "Tend found no police report rule in this state's verified rules.";
     return police === "yes"
-      ? "You said it was reported, which meets this rule."
-      : "Your forensic exam counts in place of a police report here.";
+      ? "They said it was reported, which meets this rule."
+      : "Their forensic exam counts in place of a police report here.";
   }
-  if (c.status === "required")
-    return "This program asks for a police report. An advocate can help with this step if you want it.";
+  if (c.status === "required") return "This program asks for a police report. Reporting is still their choice.";
   if (c.status === "not_required") return "This program does not require a police report.";
   const alt = c.rule_ids.some((id) => (law.rule(id)?.params?.alternatives ?? []).length > 0);
   return alt
-    ? "This depends on your answers. Some ways other than a police report count here."
-    : "This depends on whether it was reported. You do not have to say.";
+    ? "This depends on their answers. Some ways other than a police report count here."
+    : "This depends on whether it was reported. They do not have to say.";
 }
 
 function waiverText(waivedFor: unknown): string | null {
@@ -59,7 +58,7 @@ export function minimumText(c: EngineChecks["minimum_loss"], law: LawIndex): str
   const min = typeof amount === "number" ? formatCents(amount) : null;
   const waiver = rules.map((r) => waiverText(r.params?.waived_for)).find((w) => w);
   if (c.status === "met")
-    return min ? `Your costs are at or over the program's minimum of ${min}.` : "No minimum loss rule applies.";
+    return min ? `Their costs are at or over the program's minimum of ${min}.` : "No minimum loss rule applies.";
   if (c.status === "waived") return "The minimum loss rule is waived here for survivors of sexual assault.";
   if (c.status === "may_be_waived")
     return `The costs so far are under the program's minimum${min ? ` of ${min}` : ""}, and the program can waive it for survivors of sexual assault.`;
@@ -67,7 +66,7 @@ export function minimumText(c: EngineChecks["minimum_loss"], law: LawIndex): str
     const base = `The program's minimum is ${min ?? "not stated"}. The costs so far are under it.`;
     return waiver ? `${base} The law lets the program waive it for: ${waiver}. Ask whether that applies.` : base;
   }
-  return "The minimum here is counted in days of work missed. Ask the program how it applies to you.";
+  return "The minimum here is counted in days of work missed. Ask the program how it applies to them.";
 }
 
 export default function Checks({ checks, law, policeReport }: ChecksProps) {

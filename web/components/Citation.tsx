@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { categoryLabel } from "@/lib/categories";
+import { categoryLabelAboutThem } from "@/lib/categories";
 import { statusCopy } from "@/lib/status";
 import type { LawIndex } from "@/lib/useLaw";
 import type { Rule } from "@/lib/types";
@@ -61,7 +61,7 @@ export default function Citation({ ruleIds, status, law, subject, explain, title
         ) : null}
         {groupByCategory(rules).map(([category, group]) => (
           <section key={category} className={styles.group}>
-            <h3 className={styles.groupTitle}>{categoryLabel(category)}</h3>
+            <h3 className={styles.groupTitle}>{categoryLabelAboutThem(category)}</h3>
             {group.map((r) => (
               <RuleCard key={r.id} rule={r} source={law.source(r.source_id)} />
             ))}

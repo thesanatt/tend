@@ -1,3 +1,5 @@
+// Copy for the read-only claim an advocate opens from a share link (app/share): it speaks to the
+// advocate about the survivor, so the survivor is "they".
 import { en } from "./i18n/en";
 import type { EngineChecks, LineStatus } from "./types";
 
@@ -11,13 +13,13 @@ export interface StatusCopy {
 export const STATUS: Record<LineStatus, StatusCopy> = {
   eligible: {
     label: "Eligible",
-    explain: "The law names this kind of cost. It counts toward the amount you can ask for.",
+    explain: "The law names this kind of cost. It counts toward the amount they can ask for.",
     sheetTitle: "Why this can be claimed",
   },
   held: {
     label: "Held",
     explain:
-      "The law says you should not be billed for this. Do not pay it. Tend routes it to the exam payment program.",
+      "The law says they should not be billed for this, so it should not be paid. Tend routes it to the exam payment program.",
     sheetTitle: "Why this bill is held",
   },
   excluded: {
@@ -27,18 +29,18 @@ export const STATUS: Record<LineStatus, StatusCopy> = {
   },
   needs_confirmation: {
     label: "Needs confirmation",
-    explain: "Tend guessed what this is. It is not counted until you say yes.",
+    explain: "Tend guessed what this is. It is not counted until they say yes.",
     sheetTitle: "The rule that would apply",
   },
   unknown_rule: {
     label: "Not included",
     explain:
-      "None of this state's verified rules name this kind of cost, so Tend leaves it out. An advocate or the program can tell you if it is covered.",
+      "None of this state's verified rules name this kind of cost, so Tend leaves it out. The program can say whether it is covered.",
     sheetTitle: "Why this is not included",
   },
   out_of_window: {
     label: "Before the date",
-    explain: "This happened before the date you gave, so it is not counted.",
+    explain: "This happened before the date they gave, so it is not counted.",
     sheetTitle: "Why this is not counted",
   },
 };
@@ -55,12 +57,16 @@ export const DEADLINE: CheckCopy = {
   unknown: { label: "Ask the program", tone: "neutral" },
 };
 
+// The flow's en.check.deadlineFromReport, about the survivor instead of to them.
+const FROM_REPORT =
+  "This date counts from the day it happened. The law counts from their report, so they may have longer.";
+
 // A deadline counted from the report or from discovery is dated from the incident, so the true date may
 // be later and a late may not be late (docs/SPEC.md v1.3): never shown as plainly late.
 export function deadlineNotes(c: Pick<EngineChecks["deadline"], "flags">): string[] {
   const flags = c.flags ?? [];
   const notes: string[] = [];
-  if (flags.includes("deadline_from_report")) notes.push(en.check.deadlineFromReport);
+  if (flags.includes("deadline_from_report")) notes.push(FROM_REPORT);
   if (flags.includes("deadline_from_discovery")) notes.push(en.check.deadlineFromDiscovery);
   return notes;
 }
@@ -82,7 +88,7 @@ export const MINIMUM_LOSS: CheckCopy = {
 export const REPORTING: CheckCopy = {
   satisfied: { label: "Satisfied", tone: "good" },
   required: { label: "A police report is required", tone: "warn" },
-  unknown: { label: "Depends on your answers", tone: "neutral" },
+  unknown: { label: "Depends on their answers", tone: "neutral" },
   not_required: { label: "No police report needed", tone: "good" },
 };
 
