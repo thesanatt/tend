@@ -77,10 +77,6 @@ class RulesStore:
         }
 
 
-def rule_expense(rule: dict[str, Any]) -> str | None:
-    return rule.get("expense") or (rule.get("params") or {}).get("expense")
-
-
 def citation(rule: dict[str, Any], sources: dict[str, dict[str, Any]]) -> dict[str, Any]:
     """The proof for one rule: what the packet, share view, and audit show next to a dollar."""
     source = sources.get(rule.get("source_id", ""), {})

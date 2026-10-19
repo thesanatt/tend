@@ -88,15 +88,14 @@ def account_ids(snap: dict[str, Any]) -> set[str]:
     return {str(_id(a)) for a in snap.get("accounts") or [] if _id(a)}
 
 
-def primary_account(snap: dict[str, Any], key: str = "checking") -> dict[str, Any] | None:
-    """The account payments come from: the persona's checking account unless another is named."""
+def primary_account(snap: dict[str, Any]) -> dict[str, Any] | None:
+    """The account payments come from: the persona's checking account."""
     accounts = snap.get("accounts") or []
-    wanted = ((snap.get("meta") or {}).get("account_keys") or {}).get(key)
-    kind = {"checking": "checking", "cushion": "savings", "savings": "savings"}.get(key, key)
+    wanted = ((snap.get("meta") or {}).get("account_keys") or {}).get("checking")
     pick = (
         next((a for a in accounts if wanted and _id(a) == wanted), None)
-        or next((a for a in accounts if str(a.get("type", "")).lower() == kind), None)
-        or (accounts[0] if accounts and key == "checking" else None)
+        or next((a for a in accounts if str(a.get("type", "")).lower() == "checking"), None)
+        or (accounts[0] if accounts else None)
     )
     if pick is None:
         return None
