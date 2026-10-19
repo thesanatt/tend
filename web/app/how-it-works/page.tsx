@@ -179,10 +179,10 @@ export default function HowItWorks() {
                 name. Tend asks once, and that yes covers later checks.
               </p>
               <p>
-                A line at the top of every page starts as &quot;On this device. Nothing has left it.&quot; The page
-                builds that line from the requests it actually makes, and it changes when any of the person&apos;s data
-                is sent. Loading pages and public law files does not change it. Those requests still reach Tend&apos;s
-                web host, and the law file a browser asks for can show which state was picked.
+                A line at the top of every page starts as &quot;On this device. Nothing has left it since this page
+                opened.&quot; The page builds that line from the requests it actually makes. It changes when any of the
+                person&apos;s data is sent. Loading pages and public law files does not change it. Those requests still
+                reach Tend&apos;s web host, and the law file a browser asks for can show which state was picked.
               </p>
               <See
                 files={[

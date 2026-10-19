@@ -12,6 +12,7 @@ import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/Qu
 import { LINKS } from "@/components/tour/links";
 import { fetchLaw } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
+import { en } from "@/lib/i18n/en";
 import { LEFT_KEY, TOUR_KEY } from "@/lib/keys";
 import { classifier, parseStatementText } from "@/lib/local";
 import { classifyRequest } from "@/lib/netlog";
@@ -136,6 +137,8 @@ describe("Design for safety on /how-it-works", () => {
     }
     expect(asked).toEqual(["/data/law/WY.json"]);
     const device = guard("On this device").textContent!.replace(/\s+/g, " ");
+    // The line's own words, as the flow shows them.
+    expect(device).toContain(`starts as "${en.privacy.quiet}"`);
     expect(device).toContain("every answer except the state stay on the device");
     expect(device).toContain("Loading pages and public law files does not change it.");
     expect(device).toContain("can show which state was picked");
