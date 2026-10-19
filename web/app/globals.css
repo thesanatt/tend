@@ -51,6 +51,8 @@
   --page: 72rem;
   --gutter: clamp(16px, 4vw, 40px);
   --tap: 48px;
+  /* The bar at the top that holds the brand and Exit this page (components/flow/shell.module.css) */
+  --bar: 64px;
 
   --dur-1: 160ms;
   --dur-2: 320ms;
@@ -91,6 +93,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Links to a heading, and focus moving up the page, stop below the top bar instead of under it. */
+  scroll-padding-top: calc(var(--bar) + var(--space-4));
 }
 
 body {
@@ -103,6 +107,8 @@ body {
   font-family: var(--font-sans);
   font-size: var(--text-md);
   line-height: 1.6;
+  /* A URL or email address in quoted law or a source note wraps on a phone instead of widening the page. */
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

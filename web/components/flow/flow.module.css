@@ -361,7 +361,7 @@
   border-radius: var(--radius-2);
   background: var(--paper-raised);
   position: sticky;
-  top: var(--space-4);
+  top: calc(var(--bar) + var(--space-4));
 }
 
 .summaryEmpty {
@@ -643,7 +643,7 @@
 .tally {
   grid-area: tally;
   position: sticky;
-  top: var(--space-4);
+  top: calc(var(--bar) + var(--space-4));
   display: grid;
   gap: var(--space-5);
   padding: var(--space-5);

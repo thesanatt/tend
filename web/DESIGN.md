@@ -53,7 +53,11 @@ Prose amounts use the body face; amounts in tables and ledgers use the mono face
 Spacing steps on a 4px base: `4, 8, 12, 16, 24, 32, 48, 64, 96` (`space-1` to `space-9`).
 Radii: `4px` for fields and tags, `6px` for buttons, `8px` for panels. No drop shadows except on
 sheets. Reading measure `40rem`; page width `72rem`; side gutter 16px on phones up to 40px.
-Touch targets are at least 44px, buttons 48px.
+Touch targets are at least 44px, buttons 48px. The top bar is 64px (`bar`): it holds the brand and Exit
+this page and stays put while the page scrolls under it, so anything that sticks to the top of the page
+sits below it. The nav moves into the bar from 62.5em wide, and with a mouse the Esc hint shows beside
+Exit from 35em. That is 1000px and 560px at the default text size, and never narrower. Because they're in
+em, both widths follow the text size a reader picks in the browser.
 
 ## Motion
 
@@ -65,8 +69,9 @@ its stage rises, a sheet slides in when opened. Nothing animates on page load. U
 ## Components
 
 - **Buttons.** Primary: green fill, paper text. Secondary: green outline. Quiet: ink-3 outline.
-- **Exit this page.** Ink fill, fixed top right on every screen, repeated inside every sheet. Esc
-  twice does the same. It blanks the page, clears the tab's storage, and replaces the history entry.
+- **Exit this page.** Ink fill, top right in the top bar on every screen, so it never covers a heading
+  or a button. Repeated inside every sheet. Esc twice does the same. It blanks the page, clears the
+  tab's storage, and replaces the history entry.
 - **Status tags.** Eligible: filled circle, green. Held: filled square, clay. Excluded: struck circle.
   Needs confirmation: dashed circle, ink. Not included: open circle, ink-3.
 - **Citation.** The pinpoint (for example `MCL 18.355a(2)`) as an underlined button. It opens a sheet
@@ -83,7 +88,8 @@ Line drawings in `green` with `green-tint` leaves on a 40 x 56 viewBox, ground l
 is seeded by its key, so a state or a cost always grows the same way.
 
 - **Law garden** (one per state, on an 11 x 8 tile map of the country): seed (no verified rules),
-  sprouting (1 to 14 rules), leafing (15 to 24), budding (25 to 34), in bloom (35 or more).
+  sprouting (1 to 14 rules), leafing (15 to 24), budding (25 to 34), in bloom (35 or more). Each tile
+  is a 44px target, so on a phone the map scrolls sideways and the List view shows every program at once.
 - **Your garden** (one per cost that can bring money back): sprout when you confirm it, leaf when a
   receipt is attached, bud when the claim is filed, bloom when the program pays. Height follows the
   amount on a log scale. Held bills never grow a plant; they show as a clay note.

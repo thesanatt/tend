@@ -33,6 +33,11 @@ function readJson<T>(file: string): T | null {
   }
 }
 
+// A state's public page exists only when its verified rules were synced (app/[st]/page.tsx).
+export function hasLaw(st: string): boolean {
+  return existsSync(path.join(DATA, "law", `${st}.json`));
+}
+
 export function loadLaw(st: string): { law: Jurisdiction; sha256: string } | null {
   const file = path.join(DATA, "law", `${st}.json`);
   if (!existsSync(file)) return null;
