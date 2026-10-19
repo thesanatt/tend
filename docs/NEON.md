@@ -19,7 +19,7 @@ each version of the law becomes its own Neon branch, and the numbers we measured
 Never in Neon in readable form: claims, scans, bill files, statements, the survivor's name, or
 anything about what happened (a shared packet is there only as ciphertext). Payments are the one
 exception. The payee, the provider named on the bill, stays in `pending_actions` until the payment
-finishes or a sweep finds its code expired. The row itself, with the amount, the account, and for a
+finishes or locks, or a sweep finds its code expired. The row itself, with the amount, the account, and for a
 demo bill the bill's id and totals, is deleted at the first sweep a day or more after the code
 expires. The audit log keeps amounts, ids, and keyed hashes permanently, never a name.
 
@@ -154,9 +154,9 @@ The API uses `DATABASE_URL_APP` when it is set (otherwise the old pooled URL), s
 through `DATABASE_URL_READER`, and runs migrations only with the owner's `DATABASE_URL`. A deploy that
 holds only the two role URLs sets `TEND_MIGRATE=0`; migrations then run from the loader.
 
-The two roles exist and pass all 28 checks in roles.py. Production (tend-api) does not use them
-yet. It is set up with the owner's URLs, so today it serves requests as `neondb_owner`, runs its
-startup migration check as the owner, and reads law branches as the owner. Moving it to
+The two roles exist and pass all 28 checks in roles.py. Production (tend-api) did not use them as
+of Oct 19, 2026. It is set up with the owner's URLs, so it serves requests as `neondb_owner`, runs
+its startup migration check as the owner, and reads law branches as the owner. Moving it to
 `DATABASE_URL_APP` and `DATABASE_URL_READER` is the next step, and it is Sanat's call (an
 environment change and a redeploy).
 
