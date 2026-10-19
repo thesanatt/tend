@@ -125,6 +125,19 @@ describe("Check", () => {
     expect(screen.queryByText(/^Clothing and bedding/)).toBeNull();
   });
 
+  // N.J.A.C. 13:75-4.12(d)1 pays for bedding and clothing as part of a crime scene clean-up award.
+  it("names New Jersey's clothing line as part of cleanup", async () => {
+    renderFlow(<CheckScreen />, {
+      initial: stateFrom([{ type: "check", patch: { st: "NJ", date: "2026-06-14", exam: "yes", police: "not_yet" } }]),
+    });
+    expect(await screen.findByText("Clothing and bedding replaced as part of cleanup")).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: /show the law for Clothing and bedding replaced as part of cleanup/ })
+        .textContent,
+    ).toMatch(/^N\.J\.A\.C\. 13:75-4\.12\(d\)1/);
+    expect(screen.queryByText(/^Clothing and bedding$/)).toBeNull();
+  });
+
   it("with Not sure for the date, gives the length of time from the rule, never a made-up date", async () => {
     renderFlow(<CheckScreen />, { initial: stateFrom([MI_CHECK, { type: "check", patch: { dateUnsure: true } }]) });
     expect(await screen.findByText("You have 5 years from the date it happened to apply.")).toBeTruthy();

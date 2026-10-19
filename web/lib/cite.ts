@@ -41,13 +41,16 @@ export function severalLimits(line: Pick<EngineLine, "alt_cap_rule_ids">): boole
 // pinpoints name, and Texas's limit cites the seized-as-evidence article only by number.
 // Massachusetts, Texas, and Louisiana also pay for what the investigation made unusable. Ohio pays
 // only for clothing removed to check for or treat injuries (ORC 2743.51(T)(1)), and Washington for
-// clothing or footwear lost or damaged in emergency treatment (RCW 7.68.074). The sentences Tend
-// quotes for New Jersey and New York set no condition. A yes is what counts the cost, so the question
-// and the Check name the condition only when every rule that pays for it sets one, and name bedding
-// only when one of those rules does.
-export type ClothingCondition = "evidence" | "investigation" | "evidenceClothing" | "removedForCare" | "emergencyCare";
+// clothing or footwear lost or damaged in emergency treatment (RCW 7.68.074). New Jersey pays for
+// clothing and bedding only as part of crime scene clean-up (N.J.A.C. 13:75-4.12(d)), as Tend's
+// summary says; the sentences Tend quotes for New York set no condition. A yes is what counts the
+// cost, so the question and the Check name the condition only when every rule that pays for it sets
+// one, and name bedding only when one of those rules does.
+export type ClothingCondition =
+  "evidence" | "investigation" | "evidenceClothing" | "removedForCare" | "emergencyCare" | "cleanup";
 
 const EVIDENCE = /\bevidence\b|\bevidentiary\b|\bseized\b/i;
+const CLEANUP = /\bclean-?\s?up\b/i;
 const UNUSABLE = /\bunusable\b/i;
 const BEDDING = /\bbedding\b/i;
 const CARE = /\bmedical\b|\btreat(ed|ment)?\b/i;
@@ -69,6 +72,9 @@ export function clothingCondition(ids: readonly string[], rule: Lookup): Clothin
     if (pays.some((r) => says(r, UNUSABLE))) return "investigation";
     return bedding ? "evidence" : "evidenceClothing";
   }
+  // After the evidence check on purpose: Connecticut's rules name cleanup too, but pay only for
+  // clothes and bedding held as evidence.
+  if (all(CLEANUP)) return "cleanup";
   // The medical care rules (Ohio's and Washington's) name clothing only.
   if (bedding || !all(CARE)) return null;
   return all(REMOVED) ? "removedForCare" : all(EMERGENCY) ? "emergencyCare" : null;

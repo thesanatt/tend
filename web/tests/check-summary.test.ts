@@ -263,7 +263,9 @@ describe("rules the law IR sets aside", () => {
 // also pay for what the investigation made unusable; OH-COV-5 pays for "items of clothing removed from
 // a victim in order to make an assessment of possible physical harm or to treat physical harm", and
 // WA-COV-CLOTHING for "clothing or footwear" lost or damaged "in the course of emergency medical
-// treatment"; the sentences quoted for NJ and NY set no condition.
+// treatment"; NJ-COV-CLOTH's quote is a clause of the crime scene clean-up section (N.J.A.C.
+// 13:75-4.12(d)1), and its summary says so ("As part of crime scene clean-up"); the sentences quoted
+// for NY set no condition.
 describe("clothing and bedding on the Check", () => {
   const irDir = path.join(web, "public/data/ir");
   const summary = (st: string) => {
@@ -288,7 +290,7 @@ describe("clothing and bedding on the Check", () => {
     TX: "investigation",
     OH: "removedForCare",
     WA: "emergencyCare",
-    NJ: null,
+    NJ: "cleanup",
     NY: null,
   };
 

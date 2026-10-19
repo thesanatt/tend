@@ -295,6 +295,7 @@ export const en = {
       evidenceClothing: "Clothing kept as evidence",
       removedForCare: "Clothing removed to check for or treat injuries",
       emergencyCare: "Clothing and footwear lost or damaged during emergency treatment for injuries",
+      cleanup: "Clothing and bedding replaced as part of cleanup",
     } satisfies Record<ClothingCondition, string>,
     totalCap: (amount: string) => `In total, up to ${amount}`,
     totalCapDepends: (amounts: string) =>
@@ -517,6 +518,7 @@ export const en = {
       evidenceClothing: "Did this replace clothing kept as evidence?",
       removedForCare: "Did this replace clothing removed to check for or treat injuries?",
       emergencyCare: "Did this replace clothing or footwear lost or damaged during emergency treatment for injuries?",
+      cleanup: "Did this replace clothing or bedding as part of cleanup you needed afterward?",
     } satisfies Record<ClothingCondition, string>,
     examAsMedical: "This state has no separate exam rule, so Tend counts it as medical care.",
     heldLine: "Don't pay this line. The law says you should not be billed for it.",

@@ -119,8 +119,12 @@ describe("the condition a state's clothing and bedding rules set", () => {
     expect(clothingCondition(["WA-COV-CLOTHING"], lookup(lawOf("WA")))).toBe("emergencyCare");
   });
 
-  it("New Jersey sets no condition, so nothing is named", () => {
-    expect(clothingCondition(["NJ-COV-CLOTH"], lookup(nj))).toBeNull();
+  it("New Jersey pays for clothing and bedding only as part of crime scene clean-up", () => {
+    // NJ-COV-CLOTH quotes N.J.A.C. 13:75-4.12(d)1, a clause of the crime scene clean-up section, and
+    // Tend's summary says so: "As part of crime scene clean-up, the Office may pay ...".
+    expect(clothingCondition(["NJ-COV-CLOTH"], lookup(nj))).toBe("cleanup");
+    // Connecticut's rules name cleanup too, but pay only for clothes and bedding held as evidence.
+    expect(clothingCondition(["CT-CAP-4", "CT-COV-8"], lookup(lawOf("CT")))).toBe("evidence");
   });
 
   it("names a condition only when every rule that pays for the cost sets one", () => {

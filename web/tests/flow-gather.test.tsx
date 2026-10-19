@@ -413,12 +413,30 @@ const clothingProof = (ruleIds: string[]) =>
   });
 
 describe("the clothing question in other states", () => {
-  // NJ-COV-CLOTH: "The Office may award compensation for the reasonable replacement value of bedding
-  // and clothing". The sentence sets no condition, so a yes must not need one.
-  it("asks New Jersey only whether it replaced clothing or bedding", async () => {
+  // NJ-COV-CLOTH quotes a clause of New Jersey's crime scene clean-up section (N.J.A.C. 13:75-4.12(d)1).
+  // Asked only "clothing or bedding?", a yes would count clothes the hospital kept, with no cleanup.
+  it("asks New Jersey whether it replaced clothing or bedding as part of cleanup", async () => {
     renderFlow(<GatherScreen />, { services: clothingProof(["NJ-COV-CLOTH"]), initial: stateFrom(sheetsIn("NJ")) });
-    expect(await screen.findByRole("group", { name: /^Did this replace clothing or bedding\?/ })).toBeTruthy();
+    expect(
+      await screen.findByRole("group", {
+        name: /^Did this replace clothing or bedding as part of cleanup you needed afterward\?/,
+      }),
+    ).toBeTruthy();
+    expect(screen.queryByRole("group", { name: /^Did this replace clothing or bedding\?/ })).toBeNull();
     expect(screen.queryByText(/kept as evidence/)).toBeNull();
+  });
+
+  it("asks New Jersey the same in Spanish", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["NJ-COV-CLOTH"]),
+      initial: stateFrom(sheetsIn("NJ"), "es"),
+      lang: "es",
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^¿Esto reemplazó ropa o ropa de cama como parte de una limpieza que necesitaste después\?/,
+      }),
+    ).toBeTruthy();
   });
 
   // OH-COV-5 pays only for clothing removed to assess or treat injuries. Asked only "clothing or
