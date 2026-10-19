@@ -129,6 +129,13 @@ describe("/data", () => {
     }
   });
 
+  it("describes how the rules were made without saying who made them", () => {
+    // Who drafted and reviewed the rules is Sanat's to say (a TODO in the page source and the README).
+    expect(doc.body.textContent).not.toMatch(/researcher/i);
+    const quoted = [...doc.querySelectorAll("#method ~ ol > li")].find((li) => li.textContent!.startsWith("Quoted."))!;
+    expect(quoted.textContent).toContain("Each rule's quote was copied from the saved text, never paraphrased");
+  });
+
   it("shows one real rule column by column, quote and all", () => {
     const mi = JSON.parse(readFileSync(path.join(web, "public/data/law/MI.json"), "utf8")) as Jurisdiction;
     const rule = mi.rules.find((r) => r.id === "MI-EXAM-1")!;

@@ -374,3 +374,8 @@ def test_readme_is_ascii_and_keeps_the_placeholders_marked(files):
     for name in (X.JSON_FILE, X.RULES_CSV, X.SOURCES_CSV, X.JURISDICTIONS_CSV):
         assert f"| {len(files[name]):,} |" in readme
     assert "solo" not in readme.lower()
+    # Who drafted and reviewed the rules is Sanat's to say. The README describes the process the repo shows
+    # and names no one, so "researcher" appears only in the column name.
+    step = readme.split("## Methodology", 1)[1].split("\n3. Verify.", 1)[0]
+    assert f"\n   > {X.AUTHORSHIP_TODO}\n" in step
+    assert "researcher" not in readme.replace("researcher_notes", "").lower()

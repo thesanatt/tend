@@ -246,9 +246,10 @@ export default function DataPage() {
             <strong>Saved.</strong> Each page or PDF was saved with the text extracted from it and the {SHA256} of the
             saved file.
           </li>
+          {/* TODO(Sanat): say who drafted the rules and how they were reviewed. This step describes only the process. */}
           <li>
-            <strong>Quoted.</strong> For each rule, a researcher copied the quote from the saved text, never
-            paraphrased, and recorded its category, details, plain summary, and pinpoint citation.
+            <strong>Quoted.</strong> Each rule&apos;s quote was copied from the saved text, never paraphrased, and
+            recorded with its category, details, plain summary, and pinpoint citation.
           </li>
           <li>
             <strong>Verified.</strong> <a href={`${LINKS.repo}/blob/main/rules/tools/verify.py`}>verify.py</a> accepts a

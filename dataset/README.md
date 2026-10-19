@@ -67,7 +67,7 @@ In the JSON, `params` is an object and an empty cell is `null`; otherwise the co
 | `jurisdiction_name` | text | The jurisdiction's name. |
 | `category` | text | What the rule is about. One of the categories in the table below. |
 | `expense` | text or empty | The expense type the rule is about, one of the expense types below: the rule's own `expense` field, or `params.expense` when that is the only one (`verify.py` and `normalize.py` read it the same way). Empty when the rule is not about one expense type. |
-| `params` | JSON object | The rule's details as the researcher recorded them. See Params below. Money is in cents: `4500000` is $45,000. |
+| `params` | JSON object | The rule's details, as written in `rules/verified/ST.json`. See Params below. Money is in cents: `4500000` is $45,000. |
 | `summary` | text | Tend's plain-language reading of the quote. Not a quote, and not the law's words. |
 | `quote` | text | The words of the source, exactly as stored in the rule, line breaks included. See Methodology for how it was checked. |
 | `pinpoint` | text | Where in the source the quote is: a section, subsection, or page, for example `MCL 18.355a(2)`. |
@@ -134,8 +134,8 @@ Meanings and params as `rules/SCHEMA.md` defines them.
 
 #### Params
 
-`params` holds what `rules/SCHEMA.md` asks for in each category (the table above). Researchers also
-added keys the schema does not define where it had no field; their meaning is in the rule's quote.
+`params` holds what `rules/SCHEMA.md` asks for in each category (the table above). Some rules also
+have keys the schema does not define, where it had no field; their meaning is in the rule's quote.
 `normalize.py` reads three of them: `applies_to` (a rule whose `applies_to` does not name the survivor
 is set aside; see engine_use), `scope` (a reporting rule or a cap on one expense with a scope becomes
 information), and `within_hours` (turned into days, rounded up).
@@ -313,12 +313,15 @@ How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the 
    extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and falls
    back to a real Chrome tab when a site serves a challenge page.
    For 8 pages the saved text is not what it extracts; see the end of this section.
-2. Write the rule. A researcher writes the rule in `rules/jurisdictions/ST.json`: its category,
-   params, a plain summary, the quote, copied from the saved text and never paraphrased, and a pinpoint
-   citation. `rules/SCHEMA.md` tells researchers to prefer statutes and regulations, to use agency
-   pages and PDFs when they state the rule more plainly or the statute is unavailable, to let statutes
-   win when sources disagree and record the disagreement in `researcher_notes`, and never to name
-   people, describe specific crimes, or cite case law.
+2. Write the rule. Each rule is written in `rules/jurisdictions/ST.json`: its category, params, a
+   plain summary, the quote, copied from the saved text and never paraphrased, and a pinpoint
+   citation. `rules/SCHEMA.md` says to prefer statutes and regulations, to use agency pages and PDFs
+   when they state the rule more plainly or the statute is unavailable, to let statutes win when
+   sources disagree and record the disagreement in `researcher_notes`, and never to name people,
+   describe specific crimes, or cite case law.
+
+   > **TODO (Sanat): placeholder.** Say who drafted the rules and how they were reviewed.
+
 3. Verify. `rules/tools/verify.py` accepts a rule only if three things hold:
    - Its quote is a substring of the saved source's text after both are normalized the same way:
      Unicode NFKC, soft hyphens removed, curly quotes made straight, en and em dashes made hyphens,
