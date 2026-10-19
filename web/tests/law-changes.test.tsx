@@ -1,5 +1,7 @@
 // /law/changes: two law versions compared. Live, the API reads both versions' Neon branches; otherwise the page
 // falls back to the saved comparison in app/law/changes/snapshot.json and says so.
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { loadChanges, pickPair, type VersionRef } from "@/app/law/changes/data";
@@ -7,6 +9,7 @@ import LawChanges from "@/app/law/changes/page";
 import { versionNote } from "@/app/law/changes/parts";
 import SNAPSHOT from "@/app/law/changes/snapshot.json";
 
+const web = path.resolve(import.meta.dirname, "..");
 const versions = SNAPSHOT.versions as unknown as VersionRef[];
 const names = versions.map((v) => v.name);
 const [first, second, third] = names;
@@ -78,7 +81,7 @@ describe("/law/changes without the live service", () => {
     const html = await page({ from: first, to: newest });
     expect(html).toMatch(/\d+ programs changed/);
     expect(html).toContain(`/law/changes?from=${first}&amp;to=${newest}&amp;st=MI`);
-    expect(html).toContain("In use now");
+    expect(html).toContain("In use when saved");
   });
 
   it("says when a comparison needs the live service", async () => {
@@ -167,5 +170,60 @@ describe("/law/changes with the live service", () => {
     const html = await page({});
     for (const v of versions) expect(html).not.toContain(v.subject);
     expect(html).toContain("the program decides every claim");
+  });
+});
+
+// Which version is in use is a fact about the server right now. Only the live service knows it; the saved copy knows
+// only which version was in use when it was saved (Oct 4, 2026). Commit 4737814 changed the IR for 11 states after the
+// newest published version, so today the live service marks none.
+describe("which version is in use", () => {
+  function live(current: string | null) {
+    vi.stubEnv("TEND_API_URL", "http://api.test");
+    const pair = SNAPSHOT.pairs[`${names[names.length - 2]}..${newest}` as keyof typeof SNAPSHOT.pairs];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        const body = url.includes("/api/law/versions") ? { versions, current } : pair.summary;
+        return new Response(JSON.stringify(body), { status: 200, headers: { "content-type": "application/json" } });
+      }),
+    );
+  }
+
+  it("says none is in use when the live service marks none, and why", async () => {
+    live(null);
+    const html = await page({});
+    expect(html).toContain(
+      "None is marked in use: the law on Tend&#x27;s server has changed since the newest version, and that change is not published yet.",
+    );
+    expect(html).not.toMatch(/In use now|in use now\)/);
+  });
+
+  it("marks the live service's version as in use now, and says what that means", async () => {
+    live(newest);
+    const html = await page({});
+    expect(html).toContain("In use now");
+    expect(html).toContain("The one marked in use now matches the law loaded on Tend&#x27;s server.");
+  });
+
+  it("never calls a version in use now from the saved copy", async () => {
+    vi.stubEnv("TEND_API_URL", "");
+    const html = await page({});
+    expect(html).not.toContain("In use now");
+    expect(html).toContain("The one marked was in use when this copy was saved.");
+    expect(html).toContain(`${SNAPSHOT.current} (in use when saved)`);
+  });
+
+  it("says what a packet names, and that publishing is a separate step", async () => {
+    vi.stubEnv("TEND_API_URL", "");
+    const html = await page({});
+    expect(html).toContain("A claim packet names the SHA-256 of the law image it was checked against");
+    expect(html).toContain(
+      "Publishing is a separate step, so a change can run on Tend&#x27;s server before it is published.",
+    );
+    expect(html).not.toMatch(/keeps every version|cannot change once|names the version it was checked against/);
+    // The packet's summary PDF names the image, not a version.
+    const summary = readFileSync(path.join(web, "lib/packet/summary.ts"), "utf8");
+    expect(summary).toContain("Law image SHA-256 ${output.law_image_sha256}");
+    expect(summary).not.toMatch(/law_version/);
   });
 });
