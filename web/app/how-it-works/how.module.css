@@ -80,7 +80,8 @@
   color: var(--ink-3);
 }
 
-/* File paths are long; on a phone they break anywhere rather than push the page sideways. */
+/* A path wraps at its slashes (See puts a <wbr> after each). A name too long for the line still breaks
+   rather than push the page sideways. */
 .see a {
   overflow-wrap: anywhere;
 }

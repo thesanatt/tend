@@ -27,7 +27,8 @@ function engineKb(): number | null {
 const n = (x: number) => x.toLocaleString("en-US");
 
 // Each safety claim names the files that make it true, so a reader can check it on GitHub.
-// tests/how-it-works.test.tsx keeps the numbers in this copy matched to the code.
+// tests/how-it-works.test.tsx keeps the numbers in this copy matched to the code. A path can break
+// after any slash, so a phone wraps it between folders instead of inside a file name.
 function See({ files }: { files: string[] }) {
   const last = files.length - 1;
   return (
@@ -37,7 +38,7 @@ function See({ files }: { files: string[] }) {
         <Fragment key={file}>
           {i === 0 ? "" : i < last ? ", " : last > 1 ? ", and " : " and "}
           <a href={`${LINKS.repo}/blob/main/${file}`}>
-            <code>{file}</code>
+            <code>{file.split("/").flatMap((part, j) => (j ? ["/", <wbr key={j} />, part] : [part]))}</code>
           </a>
         </Fragment>
       ))}
@@ -166,8 +167,14 @@ export default function HowItWorks() {
               </p>
               <p>
                 Costs, files, and every answer except the state stay on the device until the person taps to send
-                something. Cloud AI runs only after a yes on a screen that names what would be sent. So does checking
-                the law on Tend&apos;s server, which is offered only when the law engine cannot run in the browser.
+                something. Cloud AI runs only after a yes on a screen that names what would be sent.
+              </p>
+              <p>
+                Checking the law on Tend&apos;s server also waits for a yes, and is offered only when the law engine
+                cannot run in the browser. It sends the state, the date, the answers, and every cost the person has not
+                left out. That includes bank rows Tend could not sort, which can be ordinary spending. Each goes with
+                its amount, its date, and the bank&apos;s or bill&apos;s description, which can include a person&apos;s
+                name. Tend asks once, and that yes covers later checks.
               </p>
               <p>
                 A line at the top of every page starts as &quot;On this device. Nothing has left it.&quot; The page
@@ -178,6 +185,7 @@ export default function HowItWorks() {
               <See
                 files={[
                   "web/lib/engine/index.ts",
+                  "web/components/flow/claim.ts",
                   "web/lib/local/index.ts",
                   "web/lib/api.ts",
                   "web/lib/netlog.ts",
@@ -227,9 +235,10 @@ export default function HowItWorks() {
                 a server.
               </p>
               <p>
-                A link expires after one, three, or seven days. Until then, anyone holding the whole link can open it.
-                The survivor can stop it sooner on the Packet step, during the same visit or after opening saved
-                progress. Tend shows no stop button for a link from a visit that was never saved.
+                A link expires after one, three, or seven days. Until then, anyone holding the whole link can open it,
+                unless it was set to open once and has already been opened. The survivor can stop it sooner on the
+                Packet step, during the same visit or after opening saved progress. Tend shows no stop button for a link
+                from a visit that was never saved.
               </p>
               <See
                 files={["web/lib/share/index.ts", "web/components/flow/packet/ShareBox.tsx", "api/tend_api/share.py"]}

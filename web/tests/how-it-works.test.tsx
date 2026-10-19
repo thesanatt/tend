@@ -6,11 +6,14 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HowItWorks from "@/app/how-it-works/page";
-import { initialState, reducer } from "@/components/flow/state";
+import { buildEngineInput } from "@/components/flow/claim";
+import { initialState, reducer, type FlowItem, type SourceRecord } from "@/components/flow/state";
 import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/QuickExit";
 import { LINKS } from "@/components/tour/links";
 import { fetchLaw } from "@/lib/api";
+import { toEngineInput } from "@/lib/engine";
 import { LEFT_KEY, TOUR_KEY } from "@/lib/keys";
+import { classifier, parseStatementText } from "@/lib/local";
 import { classifyRequest } from "@/lib/netlog";
 import { MAX_EXPIRES_HOURS } from "@/lib/share";
 import { createVault, memoryStore, MIN_PASSPHRASE } from "@/lib/vault";
@@ -80,6 +83,8 @@ describe("Design for safety on /how-it-works", () => {
         const file = a.getAttribute("href")!.slice(BLOB.length);
         expect(a.textContent).toBe(file);
         expect(existsSync(path.join(repo, file)), file).toBe(true);
+        // A phone wraps the path at a slash, never inside a file name.
+        expect(a.querySelectorAll("wbr").length, file).toBe(file.split("/").length - 1);
       }
     }
   });
@@ -136,6 +141,52 @@ describe("Design for safety on /how-it-works", () => {
     expect(device).toContain("can show which state was picked");
   });
 
+  it("says what checking the law on Tend's server sends, and that one yes covers later checks", async () => {
+    // Read with the rules alone: the hospital is sorted, the Zelle row is not, and the diner is left out.
+    const { txns } = parseStatementText(
+      [
+        "Date,Description,Amount",
+        "2026-06-02,RIVERBEND GENERAL HOSPITAL ER,-412.00",
+        "2026-06-04,ZELLE TO JORDAN SMITH,-80.00",
+        "2026-06-06,BLUE HERON DINER,-9.40",
+      ].join("\n"),
+    );
+    const read = await classifier.classify(txns, { st: "MI", incident_date: "2026-06-01" }, { deviceAi: false });
+    const items: FlowItem[] = read.map((it) => ({ ...it, origin: "statement" }));
+    const row = (words: string) => items.find((it) => it.description === words)!;
+    expect(row("ZELLE TO JORDAN SMITH").expense).toBe("unknown");
+    const diner = row("BLUE HERON DINER").item_id;
+    const source: SourceRecord = {
+      id: "s",
+      kind: "statement",
+      label: "s.csv",
+      read: 3,
+      found: 3,
+      warnings: [],
+      sample: false,
+    };
+    let s = reducer(initialState(), { type: "check", patch: { st: "MI", date: "2026-06-01" } });
+    s = reducer(s, { type: "addSource", source, items });
+    s = reducer(s, { type: "answer", ids: [diner], value: "no" });
+    // The body POST /api/claim carries (tests/engine-adapter.test.ts): the unsorted row goes too,
+    // unanswered, with the name in its words.
+    const body = toEngineInput(buildEngineInput(s, "2026-10-19")!);
+    expect(body.items.map((it) => [it.description, it.confirmed])).toEqual([
+      ["RIVERBEND GENERAL HOSPITAL ER", true],
+      ["ZELLE TO JORDAN SMITH", false],
+    ]);
+    // The yes stays in the flow state and every later check passes it on, so Tend does not ask again.
+    const provider = readFileSync(path.join(web, "components/flow/FlowProvider.tsx"), "utf8");
+    expect(provider).toContain(".evaluate(input, { allowApi: state.serverConsent })");
+    const yes = reducer(s, { type: "serverConsent" });
+    expect(reducer(yes, { type: "answer", ids: [diner], value: null }).serverConsent).toBe(true);
+    const device = guard("On this device").textContent!.replace(/\s+/g, " ");
+    expect(device).toContain("every cost the person has not left out");
+    expect(device).toContain("That includes bank rows Tend could not sort");
+    expect(device).toContain("which can include a person's name");
+    expect(device).toContain("Tend asks once, and that yes covers later checks.");
+  });
+
   it("says when saved progress locks, and that switching away is not one of those times", async () => {
     const activity = new EventTarget();
     const exit = new EventTarget();
@@ -169,6 +220,10 @@ describe("Design for safety on /how-it-works", () => {
     const share = guard("Sharing with an advocate").textContent!.replace(/\s+/g, " ");
     expect(share).toContain("on the Packet step, during the same visit or after opening saved progress");
     expect(share).toContain("no stop button for a link from a visit that was never saved");
+    // An open-once link is gone after its first read.
+    const api = readFileSync(path.join(repo, "api/tend_api/share.py"), "utf8");
+    expect(api).toContain('raise ShareError("This link could be opened once, and it has been.", 410)');
+    expect(share).toContain("unless it was set to open once and has already been opened");
   });
 
   it("matches the vault and share numbers in the code", () => {
