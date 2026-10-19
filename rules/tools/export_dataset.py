@@ -157,6 +157,19 @@ def redacted(source: dict) -> bool:
     return "redacted" in (source["note"] or "")
 
 
+def justia_years(sources: list) -> list:
+    """The year of the code each saved Justia copy shows, from the citation line Justia puts on the page."""
+    years = set()
+    for s in sources:
+        if site(s) == "law.justia.com":
+            text = (ROOT / s["text_path"]).read_text(encoding="utf-8", errors="ignore")
+            m = re.search(r"Universal Citation: .{0,80}?\((\d{4})\)", text, re.DOTALL)
+            if not m:
+                sys.exit(f"{s['source_id']}: no code year on the Justia copy: review the README's note on Justia")
+            years.add(m[1])
+    return sorted(years)
+
+
 def metadata(jurisdictions: list, sources: list, rules: list) -> dict:
     retrieved = sorted(s["retrieved_at"] for s in sources)
     copies = {s["source_id"] for s in sources if site(s) in REPUBLISHERS}
@@ -167,7 +180,7 @@ def metadata(jurisdictions: list, sources: list, rules: list) -> dict:
         "homepage": SITE,
         "repository": REPO,
         "generated_by": "rules/tools/export_dataset.py, from rules/verified and rules/ir",
-        "current_as_of": {"first_retrieved_at": retrieved[0], "last_retrieved_at": retrieved[-1]},
+        "current_as_of": {"first_retrieved_at": retrieved[0], "last_retrieved_at": retrieved[-1], "justia_code_years": justia_years(sources)},
         "counts": {
             "jurisdictions": len(jurisdictions),
             "sources": len(sources),
@@ -273,28 +286,20 @@ def kinds(sources: list) -> str:
     return series(f"{m} {words.get(k, k)}{'' if m == 1 else 's'}" for k, m in sorted(Counter(s["kind"] for s in sources).items()))
 
 
-def republished(sources: list, rules: list) -> list:
+def republished(sources: list, rules: list, years: list) -> list:
     """The README's limitation on sources saved from REPUBLISHERS, read from the saved copies."""
     by_site = {k: [s for s in sources if site(s) == k] for k in REPUBLISHERS}
     by_site = {k: v for k, v in by_site.items() if v}
     if not by_site:
         return []
-    years = set()
     for k, copies in by_site.items():
         for s in copies:
-            text = (ROOT / s["text_path"]).read_text(encoding="utf-8", errors="ignore")
-            if CURRENCY_NOTES[k] not in text:
+            if CURRENCY_NOTES[k] not in (ROOT / s["text_path"]).read_text(encoding="utf-8", errors="ignore"):
                 sys.exit(f"{s['source_id']} no longer says {CURRENCY_NOTES[k]!r}: review the README's note on {REPUBLISHERS[k]}")
-            if k == "law.justia.com":
-                # Justia's own citation line names the year of the code the page shows.
-                m = re.search(r"Universal Citation: .{0,80}?\((\d{4})\)", text, re.DOTALL)
-                if not m:
-                    sys.exit(f"{s['source_id']}: no code year on the Justia copy: review the README's note on Justia")
-                years.add(m[1])
     ids = {s["source_id"] for copies in by_site.values() for s in copies}
     said = []
     if "law.justia.com" in by_site:
-        said.append(f"Each saved Justia page shows its state's {series(sorted(years), 'or')} code and says it may not be the most recent version.")
+        said.append(f"Each saved Justia page shows its state's {series(years, 'or')} code and says it may not be the most recent version.")
     if "www.law.cornell.edu" in by_site:
         said.append("Each saved Cornell page says state regulations are updated there quarterly.")
     return [
@@ -671,9 +676,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         f"### `{JSON_FILE}`",
         "",
         "One object with four keys. `metadata` has `name`, `version`, `description`, `homepage`, `repository`,",
-        "`generated_by`, `current_as_of` (the first and last `retrieved_at` of the sources), `counts`, `license`,",
-        "and `not_legal_advice`. It has no timestamp of its own. `jurisdictions`, `sources`, and `rules` are",
-        "arrays with the columns described above.",
+        "`generated_by`, `current_as_of` (the first and last `retrieved_at` of the sources, and in",
+        "`justia_code_years` the year of the code the saved Justia copies show), `counts`, `license`, and",
+        "`not_legal_advice`. It has no timestamp of its own. `jurisdictions`, `sources`, and `rules` are arrays",
+        "with the columns described above.",
         "",
         "## Methodology",
         "",
@@ -736,7 +742,7 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "- Summaries are Tend's plain-language readings, not the law. Rely on the quote and the source.",
         f"- The data is current as of the dates the sources were saved ({day(first)}" + ("" if first[:10] == last[:10] else f" to {day(last)}") + "). Laws and program",
         "  pages change, and nothing re-fetches the sources on a schedule.",
-        *republished(sources, rules),
+        *republished(sources, rules, meta["current_as_of"]["justia_code_years"]),
         "- A sha256 shows that the saved copy has not changed since its sha256 was recorded. It cannot show what",
         "  the live page says today, and a live page can differ byte for byte even when its text is the same.",
         *(

@@ -174,6 +174,8 @@ def test_copies_from_sites_that_republish_state_law_are_counted_and_described(fi
         assert X.CURRENCY_NOTES[host] in text, s["source_id"]
         if host == "law.justia.com":
             years.add(re.search(r"Universal Citation: .{0,80}?\((\d{4})\)", text, re.DOTALL)[1])
+    print(f"Justia copies show the code of: {sorted(years)}")
+    assert doc["metadata"]["current_as_of"]["justia_code_years"] == sorted(years)
     assert f"Each saved Justia page shows its state's {X.series(sorted(years), 'or')} code" in readme
 
 

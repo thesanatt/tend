@@ -33,7 +33,7 @@ decides.
 
 | File | What it holds | Bytes |
 |---|---|---|
-| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 3,952,341 |
+| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 3,952,384 |
 | `tend-rules-v1.0.csv` | One row per rule (2,578 rows) | 2,126,975 |
 | `tend-sources-v1.0.csv` | One row per saved source (824 rows) | 307,190 |
 | `tend-jurisdictions-v1.0.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 332,142 |
@@ -300,9 +300,10 @@ the `program` object (with `application_form` inside it), and the `coverage_` co
 ### `tend-rules-v1.0.json`
 
 One object with four keys. `metadata` has `name`, `version`, `description`, `homepage`, `repository`,
-`generated_by`, `current_as_of` (the first and last `retrieved_at` of the sources), `counts`, `license`,
-and `not_legal_advice`. It has no timestamp of its own. `jurisdictions`, `sources`, and `rules` are
-arrays with the columns described above.
+`generated_by`, `current_as_of` (the first and last `retrieved_at` of the sources, and in
+`justia_code_years` the year of the code the saved Justia copies show), `counts`, `license`, and
+`not_legal_advice`. It has no timestamp of its own. `jurisdictions`, `sources`, and `rules` are arrays
+with the columns described above.
 
 ## Methodology
 
