@@ -10,7 +10,7 @@ spec. This page points into them instead of restating them.
                          THE SURVIVOR'S DEVICE (browser)                       |  SERVER (Vercel + Neon)
                                                                                |
  bank statement (CSV, OFX, PDF)  -> web/lib/local/statement.ts, csv.ts,        |
- or demo bank (Nessie relay)        ofx.ts, statement-pdf.ts (pdf.js)          |
+ or demo bank (bundled copy)        ofx.ts, statement-pdf.ts (pdf.js)          |
                                         |                                      |
                                         v                                      |
  sorting into costs              -> web/lib/local/rules.ts (merchant and       |
@@ -30,9 +30,11 @@ spec. This page points into them instead of restating them.
  saved progress                  -> web/lib/vault: AES-256-GCM in IndexedDB    |
                                                                                |
  ------ only when the survivor acts ------------------------------------------+----------------------
- a payment they confirm          -> POST /api/actions/propose, /confirm   ---->|  Nessie write, audit log
+ a payment, set up and confirmed -> POST /api/actions/propose, /confirm ------>|  pending row, Nessie write, audit log
  a packet they share             -> sealed in the browser, POST /api/shares -->|  ciphertext + expiry
- cloud AI, only after a yes      -> POST /api/ai/classify, /api/ai/bill  ---->|  Gemini, nothing stored
+ cloud AI, only after a yes      -> POST /api/ai/classify, /api/ai/bill ------>|  Gemini (Google's terms); no copy kept
+ a law check, only after a yes   -> POST /api/claim -------------------------->|  Python reference engine; nothing kept
+ demo bank records (Track only)  -> GET /api/bank/{persona}/... -------------->|  Nessie relay; nothing kept
 ```
 
 Once loaded, the left side keeps working with the network off (see "Offline mode" below).
@@ -40,7 +42,7 @@ Once loaded, the left side keeps working with the network off (see "Offline mode
 | Folder | What it is | Runs where |
 |---|---|---|
 | `rules/` | verified corpus: 51 jurisdiction files, saved sources, the IR, and the tools that build them | build time |
-| `engine/` | C++20 compiler (`tendc`), VM (`libtend`), disassembler (`tdis`), CLI (`tendvm`), fuzzer, WASM build | device (WASM), server and CLI (native) |
+| `engine/` | C++20 compiler (`tendc`), VM (`libtend`), disassembler (`tdis`), CLI (`tendvm`), fuzzer, WASM build | device (WASM, the VM and loader only), CLI and a local API (native); the deployed API has no native build |
 | `refengine/` | Python reference engine and the differential test | tests; API fallback |
 | `web/` | Next.js app: the survivor flow, public state pages, "How Tend decides" | device |
 | `api/` | FastAPI: public corpus, payments, sealed shares, bank relay, opt-in cloud AI | Vercel function |
@@ -48,8 +50,9 @@ Once loaded, the left side keeps working with the network off (see "Offline mode
 | `scripts/` | Neon law branches and roles (`scripts/neon`), Vercel settings (`scripts/vercel`) | operator |
 | `design/figma/` | generator scripts that build the Figma file through the Plugin API | operator |
 
-The three chat agents from the MHacks build are retired. The code as judged is at the tag
-`v1.0-mhacks` (commit 5d1f7bd).
+The three chat agents from the MHacks build are retired. The code as judged is commit 5d1f7bd.
+
+<!-- TODO(Sanat): once the v1.0-mhacks tag exists on 5d1f7bd (git tag v1.0-mhacks 5d1f7bd, then push it), name it here. -->
 
 ## Trust boundaries
 
@@ -57,12 +60,14 @@ The three chat agents from the MHacks build are retired. The code as judged is a
 exist only in the browser. They are kept in memory, or in the vault if the survivor saves:
 AES-256-GCM in IndexedDB, with the key from a passkey (WebAuthn PRF) or a passphrase
 (PBKDF2-SHA-256, 600,000 iterations, `web/lib/vault/crypto.ts:5`). The vault locks after 5 minutes
-without input and on Exit this page.
+without input, on Exit this page, and when the tab is closed, reloaded, or leaves the site. Files
+downloaded from the packet are ordinary files, outside the vault.
 
 **The server holds three things** (`api/README.md`, `docs/NEON.md`):
 
 1. The public law corpus: 51 jurisdictions, 824 sources (metadata and sha256, no page text),
-   2,578 rules, 51 law image hashes, and the index of law versions.
+   2,578 rules, the sha256 of each compiled law image (102 in production on Oct 19, 2026: a
+   tend 1.3.0 and a tend 1.2.0 image for each jurisdiction), and the index of law versions.
 2. Ciphertext of shared packets with an expiry (`sealed_shares`). The key is in the link's
    fragment (`/share#<id>.<key>`), which browsers do not send to servers.
 3. An append-only, hash-chained audit log of confirmed payments (`audit_log`). Each row's hash
@@ -70,21 +75,36 @@ without input and on Exit this page.
    Postgres, triggers refuse updates, deletes, truncation, and any insert that does not extend
    the head (`api/tend_api/db/migrations/postgres/0003_payments.sql`).
 
-A payment waiting for its code (`pending_actions`) is the only other state. It lasts 10 minutes,
-the code is stored only as an HMAC, and the payee is cleared when the action finishes.
+A payment waiting for its code (`pending_actions`) is the only other state. The code works once,
+for 10 minutes, and is stored only as an HMAC. The payee is cleared when the payment finishes,
+locks, or a confirm or a sweep finds its code expired. The row stays so that a confirm sent again
+gets the first answer, and a sweep deletes it once its code has been expired for a day. Sweeps run
+when a new payment or share arrives, and within about a minute after something comes due while an
+API instance is running, so on a quiet server a row can stay longer. Until then it keeps the
+amount, the demo account id, the bill id and lines, and, for a payment that went through, the
+bank's withdrawal id and the bill's totals.
 
-**What crosses the boundary**, each only on a tap (docs/PRIVACY.md lists them): a confirmed
-payment (amount, account, payee), a sealed share (ciphertext), cloud AI (only after a yes; the
-API returns 403 without `consent: true`), and the demo bank relay (holds the Nessie key, keeps no
-log lines for those paths). The privacy line under the header
-(`web/components/flow/PrivacyLine.tsx`) says "On this device. Nothing has left it since this page
-opened." until one of these happens. It is built from `web/lib/netlog.ts`, which watches every
-`fetch` the page makes and reports each request that carries something off the device, including
-anything the flow did not expect, so the line cannot miss a send.
+**What crosses the boundary**, each only on a tap (docs/PRIVACY.md lists them): a payment, first
+set up (amount, account, payee, at Get a code) and then confirmed; a sealed share (ciphertext); cloud
+AI (only after a yes; the API refuses a request without `consent: true`, with 403 for false and
+422 when it is missing); a law check on the server (only after a yes, when the browser cannot run
+the engine: the claim, with each cost's amount, date, kind, and description); and, in Track with
+the demo bank only, the relay (holds the Nessie key, keeps no log lines for those paths). Loading
+a state's public law files sends nothing the survivor entered, but the file names show the host
+which state was picked. The privacy line under the header (`web/components/flow/PrivacyLine.tsx`)
+says "On this device. Nothing has left it since this page opened." until something is sent. It is
+built from `web/lib/netlog.ts`, which wraps the page's `fetch` and reports each request that
+carries something off the device, including any the flow did not expect and one that was aborted
+or timed out after it went.
 
 Cloud AI has its own consent screen (`web/components/flow/CloudConsent.tsx`). It names what would
-leave (for sorting: merchant, category, and description, never amounts or dates; for a bill: the
-file), starts at no, and saying no keeps the built-in rules working.
+leave, starts at no, and saying no keeps the built-in rules working. For sorting: the kind of
+transaction, the merchant, its category, and the description. The amount and date fields never go.
+From the text, Tend first removes what looks like a date, an amount, a card or reference number, a
+phone number, an email, or the name in a payment app line. That filter is best effort, so a date
+or amount written an unusual way can still get through. For a bill: the file. Both go through
+Tend's server, which keeps no copy, to Gemini on Google's free tier, whose terms let Google keep
+what is sent, use it to improve its products, and have people review it (docs/PRIVACY.md, item 3).
 
 **There is no field for what happened.** No table, request model, or form field takes a
 narrative, a location, or an accused person's name. The state form's crime-detail, offender,
@@ -94,9 +114,9 @@ location, signature, and SSN fields stay blank (`web/lib/packet/forms.ts`, allow
 ## The rules pipeline
 
 ```
-official page or PDF --fetch_source.py--> rules/sources/ST/ST-Sn.{html,pdf} + .txt, sha256
+a source page or PDF --fetch_source.py--> rules/sources/ST/ST-Sn.{html,pdf} + .txt, sha256
                                              |
-researcher writes rules/jurisdictions/ST.json (id, category, params, summary, quote, pinpoint)
+     rules/jurisdictions/ST.json: id, category, params, summary, quote, pinpoint
                                              |
                        verify.py: quote is a verbatim substring of the saved text,
                        every number in params appears in the quote, source sha256 matches
@@ -110,6 +130,9 @@ researcher writes rules/jurisdictions/ST.json (id, category, params, summary, qu
                                              v
                                    rules/ir/ST.json (IR version 2)
 ```
+
+<!-- TODO(Sanat): the diagram used to say "researcher writes" the jurisdiction files. Who drafted the rules, and who
+checked them against the sources, is yours to state. -->
 
 1. **Fetch.** `rules/tools/fetch_source.py ST SOURCE_ID URL` saves the raw bytes, the extracted
    text, and the sha256 of the raw bytes. It tries plain HTTPS first and falls back to a real
@@ -156,7 +179,7 @@ The image (engine/FORMAT.md section 1):
 version, sizes, jurisdiction, or flags are wrong; whose trailer does not match; whose sections are
 unknown, duplicated, misaligned, out of bounds, or overlapping; whose strings are out of bounds or
 not UTF-8; or whose rules, proof lists, tags, or annotations are malformed. Then it runs the
-**bytecode verifier** (`Loader::verify`, `engine/src/image.cpp:381`) on both programs:
+**bytecode verifier** (`Loader::verify`, `engine/src/image.cpp:382`) on both programs:
 
 - every opcode is allowed in its program and every operand is in range;
 - every jump goes forward and lands on an instruction start, except `next`, which closes a loop;
@@ -241,9 +264,10 @@ shares no code with the compiler or VM.
 - `make -C engine fuzz` is a coverage-guided fuzzer under ASan and UBSan on raw images, images
   with a fixed checksum (to reach the verifier), claim JSON, and IR through the compiler.
 
-Numbers are in docs/EVAL.md. The limit: three implementations written from one spec by one author
-can share a misreading. The verified quotes and hand-computed golden claims are the check on the
-spec itself.
+Numbers are in docs/EVAL.md. The limit: three implementations written from one spec can share a
+misreading. The verified quotes and hand-computed golden claims are the check on the spec itself.
+
+<!-- TODO(Sanat): this paragraph used to say "by one author". Who wrote the engines, and with what help, is yours to state. -->
 
 ## The API
 
@@ -257,7 +281,7 @@ spec itself.
 | Payments | `POST /api/actions/propose`, `POST /api/actions/confirm`, `GET /api/audit` | 6-digit code, 10 minutes, locks after 5 wrong tries, held lines refused, read back from Nessie, logged |
 | Shares | `POST /api/shares`, `GET`/`DELETE /api/shares/{id}` | ciphertext at most 2 MB, 1 to 168 hours, open-once option |
 | Bank relay | `GET /api/bank/{persona}/...` | fictional personas only (403 otherwise) |
-| Cloud AI | `POST /api/ai/classify`, `POST /api/ai/bill` | 403 without `consent: true`; sorting sends no amounts or ids; a bill photo goes as the file; nothing stored |
+| Cloud AI | `POST /api/ai/classify`, `POST /api/ai/bill` | refused without `consent: true` (403 for false, 422 when missing); the model sees each row's kind, merchant, category, and description, never its amount, date field, or id; a bill photo goes as the file; Tend stores nothing, and Google's free-tier terms apply to what reaches Gemini |
 
 Storage is one repository interface with two backends: Neon Postgres in production and SQLite
 offline (`api/tend_api/db`). The test suite runs entirely on SQLite with no keys and no network.
@@ -266,10 +290,14 @@ offline (`api/tend_api/db`). The test suite runs entirely on SQLite with no keys
 `law-<date>-<short git sha>` (`scripts/neon/law_versions.py`). The first is schema-only, so no
 share or audit row is ever copied into a law branch; each later one is a child of the one
 before, and only the states whose files changed are written. `POST /api/claim` names the version
-it was checked against (`law_version`), and `GET /api/law/diff` compares two versions rule by rule.
+it was checked against (`law_version`) when that state's files match a published version, and
+`null` otherwise; `GET /api/law/diff` compares two versions rule by rule. On Oct 19, 2026 the live
+`/api/law/versions` reported no current version: commit 4737814 changed the IR for 11 states after
+the newest published one, law-2026-10-03-c959cb6, and that change is not published yet.
 Two least-privilege roles (`scripts/neon/roles.py`): `tend_reader` can only read the corpus, and
 `tend_app` can write shares and pending payments and append to the audit log, never rewrite it.
-docs/NEON.md has the details and measurements.
+They exist and pass their checks, but production does not use them yet: it is set up with the
+owner's database URLs. docs/NEON.md has the details and measurements.
 
 ## Deployment
 
@@ -283,7 +311,7 @@ docs/DEPLOY.md is the runbook. Two Vercel projects serve one origin, https://you
 
 Production deploys are staged; `vercel promote` is the approval step. In production, confirmed
 payments are written to Nessie (`TEND_BANK=nessie`), and Neon Postgres holds the corpus, shares,
-and the audit log.
+payments waiting for a code, and the audit log.
 
 For local work, `scripts/dev.sh` starts the API (SQLite, dry-run bank) and the web app in one
 command; `--prod` serves the production build with the offline worker.
