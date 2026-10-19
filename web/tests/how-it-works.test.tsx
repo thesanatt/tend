@@ -297,3 +297,20 @@ describe("the lead", () => {
     expect(document.body.textContent).not.toMatch(/already owes/i);
   });
 });
+
+// Built at MHacks, but this page and the tour came later. The prize and the last commit before the deadline are links.
+describe("who built it, and when", () => {
+  it("names the event, links the prize and the last commit before the deadline, and calls the rest later work", () => {
+    const small = screen.getByText(/^Built by Sanat Gupta at MHacks 2026 \(Oct 3 to 4\)\./);
+    expect(
+      within(small).getByRole("link", { name: "Winner of Capital One's Best Use of Nessie prize" }),
+    ).toHaveProperty("href", LINKS.devpost);
+    expect(within(small).getByRole("link", { name: "5d1f7bd" }).getAttribute("href")).toBe(
+      `${LINKS.repo}/tree/5d1f7bd`,
+    );
+    expect(small.textContent).toContain(
+      "Every commit after it is later work, including this page and the guided tour.",
+    );
+    expect(document.body.textContent).not.toMatch(/24 hours|1st place|solo/i);
+  });
+});

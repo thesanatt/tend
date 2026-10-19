@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // The public pages as people get them: rendered from the synced corpus, every line cited, and the
 // share and state-finder controls working without any outside service.
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -13,6 +13,7 @@ import LawRefs from "@/components/public/LawRefs";
 import { SITE_CARDS } from "@/components/public/og/siteCard";
 import ShareButtons from "@/components/public/ShareButtons";
 import StateFinder from "@/components/public/StateFinder";
+import { LINKS } from "@/components/tour/links";
 import type { Jurisdiction } from "@/lib/types";
 
 const push = vi.fn();
@@ -177,6 +178,16 @@ describe("home page", () => {
     const intro = screen.getByRole("region", { name: "About Tend" });
     expect(intro.textContent!.replace(/\s+/g, " ")).toContain(SITE_CARDS.home.sentence);
     expect(document.body.textContent).not.toMatch(/already owes|promises/i);
+  });
+
+  // The Devpost page shows "Winner" for the prize but not the place, and most of the site came after the event.
+  it("says when Tend was built and links the prize to a page a reader can check", () => {
+    render(Home());
+    const intro = screen.getByRole("region", { name: "About Tend" });
+    expect(intro.textContent).toContain("Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).");
+    const prize = within(intro).getByRole("link", { name: "Winner of Capital One's Best Use of Nessie prize" });
+    expect(prize.getAttribute("href")).toBe(LINKS.devpost);
+    expect(intro.textContent).not.toMatch(/24 hours|1st place|solo/i);
   });
 });
 

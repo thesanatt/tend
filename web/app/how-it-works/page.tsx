@@ -439,7 +439,10 @@ export default function HowItWorks() {
           </li>
         </ul>
         <p className={styles.small}>
-          Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
+          Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).{" "}
+          <a href={LINKS.devpost}>Winner of Capital One&apos;s Best Use of Nessie prize</a>. The last commit before the
+          submission deadline is <a href={LINKS.judged}>5d1f7bd</a>. Every commit after it is later work, including this
+          page and the guided tour.
         </p>
       </section>
     </div>

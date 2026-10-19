@@ -4,6 +4,7 @@ import { allStates, loadCorpus } from "@/components/public/data";
 import LawGarden from "@/components/public/LawGarden";
 import { sitePreview } from "@/components/public/og/siteCard";
 import StateFinder from "@/components/public/StateFinder";
+import { LINKS } from "@/components/tour/links";
 import { TOUR_START } from "@/components/tour/tour";
 import styles from "./page.module.css";
 
@@ -23,8 +24,11 @@ export default function Home() {
             Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving
             Tend their name.
           </p>
+          {/* The prize links to the Devpost page, the public record a reader can check. It shows "Winner" but not
+              the place, so the line does not claim one. */}
           <p className={styles.visitorProof}>
-            Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
+            Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).{" "}
+            <a href={LINKS.devpost}>Winner of Capital One&apos;s Best Use of Nessie prize</a>.
           </p>
           <p className="meta">All people and money in the demo are fictional.</p>
         </div>
