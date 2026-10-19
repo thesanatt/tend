@@ -24,6 +24,7 @@ import {
 } from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
+import { resetLawCacheForTests } from "@/lib/api";
 import { DICTS, formatters, I18nProvider } from "@/lib/i18n";
 import { billReader, classifier, statementParser } from "@/lib/local";
 import { pdfLines } from "@/lib/local/pdf";
@@ -51,6 +52,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 beforeEach(() => {
+  resetLawCacheForTests();
   stubLawFetch();
 });
 afterEach(() => {
@@ -756,16 +758,20 @@ describe("cloud AI consent", () => {
 });
 
 describe("Track", () => {
+  // Washington's general rule (WA-DEADLINE-1) counts from the report; the engine flags it too.
   it("repeats Check's note when the law counts the deadline from the report", async () => {
-    const state = stateFrom([MI_CHECK]);
+    const state = stateFrom([{ type: "check", patch: { st: "WA", date: "2026-06-14", exam: "yes", police: "yes" } }]);
     const services = testServices({
       evaluate: vi.fn(async (input) => {
         const out = michiganOutput(input);
+        const deadline = {
+          status: "ok" as const,
+          deadline_date: "2031-06-14",
+          rule_ids: ["WA-DEADLINE-1", "WA-DEADLINE-2"],
+          flags: ["deadline_from_report"],
+        };
         return {
-          output: {
-            ...out,
-            checks: { ...out.checks, deadline: { ...out.checks.deadline, flags: ["deadline_from_report"] } },
-          },
+          output: { ...out, jurisdiction: "WA", checks: { ...out.checks, deadline } },
           backend: "wasm" as const,
           detail: "test",
         };
@@ -773,6 +779,7 @@ describe("Track", () => {
     });
     renderFlow(<TrackScreen />, { services, initial: state });
     expect(await screen.findByText(en.check.deadlineFromReport)).toBeTruthy();
+    expect(screen.getByText(en.check.deadlineDate("June 13, 2029"))).toBeTruthy();
   });
 
   it("says nothing extra when the deadline counts from the day it happened", async () => {
@@ -811,11 +818,14 @@ describe("Track", () => {
 
   // The bar drops the box's long notes, so a late date that may count from the report or from
   // discovery would read as plainly late there without a short form of them (docs/SPEC.md v1.3).
+  // Without the law IR, the engine's own date and flags are what the flow has.
   it.each([
     [["deadline_from_discovery"], "The usual deadline was June 14, 2025. You may have more time.", false],
     [["deadline_from_report"], "The usual deadline was June 14, 2025. You may have more time.", false],
     [[], "The usual deadline was June 14, 2025.", true],
   ])("keeps a late deadline's caveat in the bar (flags %j)", async (flags, text, plainlyLate) => {
+    resetLawCacheForTests();
+    stubLawFetch({ ir: false });
     let report: ((entry: { isIntersecting: boolean; boundingClientRect: { top: number } }) => void) | null = null;
     vi.stubGlobal(
       "IntersectionObserver",

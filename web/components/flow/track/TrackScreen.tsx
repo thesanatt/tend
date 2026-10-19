@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import BankActivity from "@/components/bank/BankActivity";
 import PayoutDemo, { DemoPaidNote, isDemoPaid } from "@/components/bank/PayoutDemo";
 import Money from "@/components/Money";
@@ -11,7 +11,7 @@ import { moneyGrowth } from "@/lib/garden";
 import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
 import { buildCheckSummary } from "../checkSummary";
-import { useSetAside } from "../useSetAside";
+import { setAsideOf, useLawIr } from "../useSetAside";
 import { GROUPS, groupOf, knowsDate, paidLines, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
@@ -131,13 +131,16 @@ export default function TrackScreen() {
   const deadlineRef = useRef<HTMLParagraphElement>(null);
   const pastDeadline = useScrolledPast(deadlineRef, Boolean(state.check.st));
   const law = useLaw(state.check.st || null);
-  const setAside = useSetAside(state.check.st || null);
+  const ir = useLawIr(state.check.st || null);
+  const setAside = useMemo(() => setAsideOf(ir), [ir]);
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
   const all = plants(state, output).map((p) =>
     p.stage === "sprout" && p.item.origin === "bill" ? { ...p, stage: "leaf" as const } : p,
   );
   const summary =
-    law.law && output ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today), setAside) : null;
+    law.law && output && ir !== undefined
+      ? buildCheckSummary(law.law, output, state.check, knowsDate(state, today), setAside, { ir, asOf: today })
+      : null;
   const deadline = summary?.deadline.kind === "date" ? summary.deadline : null;
   const held = output?.lines.filter((l) => l.status === "held") ?? [];
   const paidCents = all.filter((p) => p.stage === "bloom").reduce((s, p) => s + p.line.allowed_cents, 0);
@@ -154,7 +157,9 @@ export default function TrackScreen() {
     );
   }
 
-  const late = (deadline?.late && !deadline.fromReport && !deadline.fromDiscovery) || undefined;
+  // Plainly late only when no rule leaves more time: not when the engine's longer date is still ahead,
+  // and not when the shown date counts from a later day than the one given.
+  const late = (deadline?.late && !deadline.open && !deadline.fromReport && !deadline.fromDiscovery) || undefined;
   const due = deadline
     ? deadline.late
       ? t.check.deadlineLate(f.date(deadline.date))
@@ -171,11 +176,17 @@ export default function TrackScreen() {
         <p className="lead">{t.track.lead}</p>
       </header>
 
-      {/* A late deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3):
-          it is explained, never shown as plainly late. */}
+      {/* A passed date that some cases extend, or that counts from the report or from discovery, may not
+          be late (docs/SPEC.md v1.3): it is explained, never shown as plainly late. */}
       <p ref={deadlineRef} className={styles.deadlineBar} data-late={late}>
         <strong>{due}</strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
+        {deadline?.longer && !deadline.late ? (
+          <span className={styles.deadlineNote}>{t.check.deadlineLonger(f.date(deadline.longer))}</span>
+        ) : null}
+        {deadline?.longer && deadline.late && deadline.open ? (
+          <span className={styles.deadlineNote}>{t.check.deadlineLongerAsk(f.date(deadline.longer))}</span>
+        ) : null}
         {deadline?.fromReport ? <span className={styles.deadlineNote}>{t.check.deadlineFromReport}</span> : null}
         {deadline?.fromDiscovery ? <span className={styles.deadlineNote}>{t.check.deadlineFromDiscovery}</span> : null}
       </p>

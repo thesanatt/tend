@@ -284,13 +284,16 @@ export const en = {
     deadlineDate: (date: string) => `File by ${date}.`,
     deadlineLate: (date: string) => `The usual deadline was ${date}.`,
     deadlineLeft: (span: string) => `That is ${span} from today.`,
-    deadlineExtend: "The program can extend it for good cause, so it is still worth asking.",
     deadlineAsk: "Ask the program. Some make exceptions.",
+    // The engine's longest deadline, when it is later than the general one (lib/deadline.ts).
+    deadlineLonger: (date: string) => `Some cases have until ${date}. The rule says when.`,
+    deadlineLongerAsk: (date: string) => `Some cases have until ${date}. Ask the program whether yours is one.`,
     deadlineFromReport:
       "This date counts from the day it happened. The law counts from your report, so you may have longer.",
     deadlineFromDiscovery:
       "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides.",
     deadlineSpan: (span: string) => `You have ${span} from the date it happened to apply.`,
+    deadlineSpanLonger: "Some cases have longer. The rule says when.",
     deadlineSpanNote: "Add the date above to see the exact day.",
     deadlineUnknown: "Tend could not turn this state's deadline into a date. Read the rule, or ask the program.",
     deadlineNone: "Tend found no filing deadline in this state's verified rules. Ask the program.",

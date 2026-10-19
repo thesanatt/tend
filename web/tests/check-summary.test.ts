@@ -4,7 +4,11 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { buildCheckSummary, capText, setAsideIds, type CheckSummary } from "@/components/flow/checkSummary";
+import { buildStateSummary } from "@/components/public/summary";
+import type { IrSummary } from "@/components/public/types";
 import { EMPTY_CHECK, type CheckAnswers } from "@/components/flow/state";
+import { addDays } from "@/lib/dates";
+import { generalDeadlineRule, type LawIr } from "@/lib/deadline";
 import { formatters } from "@/lib/i18n";
 import { en } from "@/lib/i18n/en";
 import { es } from "@/lib/i18n/es";
@@ -65,8 +69,8 @@ describe("Check summary for Michigan", () => {
     expect(s.apply.every((id) => mi.rules.find((r) => r.id === id)?.category === "eligible_crime")).toBe(true);
   });
 
-  it("gives the filing deadline as the engine's date", () => {
-    expect(s.deadline).toMatchObject({ kind: "date", date: "2031-06-14", late: false, canExtend: true });
+  it("without the law IR, gives the filing deadline as the engine's date", () => {
+    expect(s.deadline).toMatchObject({ kind: "date", date: "2031-06-14", late: false, open: true, longer: null });
   });
 
   it("says the exam counts in place of a police report, and which alternatives count", () => {
@@ -138,9 +142,11 @@ describe("Check summary for Michigan", () => {
     expect(unsure.deadline).toMatchObject({ kind: "span", years: 5 });
   });
 
-  it("past the deadline, says so and whether the program can extend it", () => {
+  it("past the deadline, says so", () => {
     const late = buildCheckSummary(mi, output(mi, { status: "late", deadline_date: "2021-06-14" }), answers, true);
-    expect(late.deadline).toMatchObject({ kind: "date", late: true, canExtend: true });
+    expect(late.deadline).toMatchObject({ kind: "date", late: true, open: false });
+    // Nothing says "good cause": several states' extension texts are other start dates, not good cause.
+    expect(JSON.stringify(late.deadline)).not.toMatch(/canExtend/);
   });
 
   it("explains a deadline counted from the report when the engine flags it (SPEC v1.2)", () => {
@@ -308,5 +314,96 @@ describe("clothing and bedding on the Check", () => {
       const named = summary(st).covered.filter((c) => c.expense !== "clothing_bedding" && c.condition !== null);
       expect(named.map((c) => `${st} ${c.expense}`)).toEqual([]);
     }
+  });
+});
+
+// The general deadline leads (lib/deadline.ts); the engine's check stays the longest rule.
+describe("the deadline Check leads with", () => {
+  const irOf = (st: string) =>
+    JSON.parse(readFileSync(path.join(web, "public/data/ir", `${st}.json`), "utf8")) as LawIr;
+  // The engine's deadline check, as docs/SPEC.md step 10 and v1.3 say: the longest rule decides ok or
+  // late, every deadline rule is listed, and a flag names each later start day any rule has.
+  function engineCheck(st: string, incident: string, asOf: string): EngineOutput["checks"]["deadline"] {
+    const rules = irOf(st).rules.filter((r) => r.kind === "deadline" && (r.days ?? 0) > 0);
+    const date = addDays(incident, Math.max(...rules.map((r) => r.days!)));
+    const flags = [
+      ...(rules.some((r) => r.from === "report") ? ["deadline_from_report"] : []),
+      ...(rules.some((r) => r.from === "discovery") ? ["deadline_from_discovery"] : []),
+    ];
+    return { status: asOf <= date ? "ok" : "late", deadline_date: date, rule_ids: rules.map((r) => r.id), flags };
+  }
+  function deadlineIn(st: string, incident = "2026-06-14", asOf = "2026-10-19") {
+    const law = load(st);
+    const out = output(law, engineCheck(st, incident, asOf));
+    return buildCheckSummary(law, out, { ...answers, st, date: incident }, true, new Set(), {
+      ir: irOf(st),
+      asOf,
+    }).deadline;
+  }
+
+  it("Florida: the 3-year rule, with the 5 years good cause can give as a note", () => {
+    expect(deadlineIn("FL")).toMatchObject({
+      kind: "date",
+      date: "2029-06-13",
+      late: false,
+      open: true,
+      longer: "2031-06-14",
+      fromReport: false,
+      fromDiscovery: false,
+    });
+    expect((deadlineIn("FL") as { ruleIds: string[] }).ruleIds[0]).toBe("FL-DEADLINE-1");
+  });
+
+  it("Kansas: the 5-year rule, with the 10 years for a sexually violent crime as a note", () => {
+    expect(deadlineIn("KS")).toMatchObject({ date: "2031-06-14", longer: "2036-06-13", fromReport: false });
+  });
+
+  it("Washington: 3 years counted from the report, with the 5 years good cause can give", () => {
+    expect(deadlineIn("WA")).toMatchObject({ date: "2029-06-13", longer: "2031-06-14", fromReport: true });
+    expect((deadlineIn("WA") as { ruleIds: string[] }).ruleIds[0]).toBe("WA-DEADLINE-1");
+  });
+
+  it("Maine, Virginia, and Michigan keep their date; only a rule's own start day gives a note", () => {
+    expect(deadlineIn("ME")).toMatchObject({ date: "2029-06-13", longer: null, fromDiscovery: true });
+    expect(deadlineIn("VA")).toMatchObject({ date: "2029-06-13", longer: null, fromReport: false });
+    // MI-FILE-2 counts from the report only for a victim under 18, so an adult is not told so.
+    expect(deadlineIn("MI")).toMatchObject({ date: "2031-06-14", longer: null, fromReport: false });
+  });
+
+  it("never says File by a date that has passed, and says when some cases still have time", () => {
+    // Florida, Nov 1, 2023: the 3 years end Oct 31, 2026, so that is the date to file by.
+    expect(deadlineIn("FL", "2023-11-01", "2026-10-19")).toMatchObject({ date: "2026-10-31", late: false });
+    // June 1, 2023: the 3 years ended May 31, 2026; good cause can reach to May 31, 2028.
+    expect(deadlineIn("FL", "2023-06-01", "2026-10-19")).toMatchObject({
+      date: "2026-05-31",
+      late: true,
+      open: true,
+      longer: "2028-05-31",
+    });
+    // Past every rule: plainly late.
+    expect(deadlineIn("FL", "2020-01-01", "2026-10-19")).toMatchObject({ late: true, open: false });
+  });
+
+  it("matches the state page's lead rule in every jurisdiction that has one", () => {
+    let led = 0;
+    for (const st of STATES) {
+      const general = generalDeadlineRule(load(st), irOf(st));
+      const ir = irOf(st) as unknown as IrSummary;
+      const lead = buildStateSummary(load(st), ir).sections.find((x) => x.id === "deadline")?.facts[0];
+      if (lead?.key !== "deadline") continue;
+      led++;
+      expect(general?.rule.id, st).toBe(lead.cites[0]);
+    }
+    expect(led).toBeGreaterThan(40);
+  });
+
+  it("without a date, gives the general rule's length and says some cases have longer", () => {
+    const fl = load("FL");
+    const out = output(fl, engineCheck("FL", "2026-06-14", "2026-10-19"));
+    const span = buildCheckSummary(fl, out, { ...answers, st: "FL", date: "", dateUnsure: true }, false, new Set(), {
+      ir: irOf("FL"),
+      asOf: "2026-10-19",
+    }).deadline;
+    expect(span).toMatchObject({ kind: "span", years: 3, longer: true });
   });
 });

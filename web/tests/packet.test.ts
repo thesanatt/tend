@@ -1,7 +1,7 @@
 // lib/packet: the cited summary for any of the 51 jurisdictions, Michigan's application filled from
 // an allowlist only, the still-needed checklist, filing routes, and the letters.
 import { createHash } from "node:crypto";
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { PDFArray, PDFCheckBox, PDFDict, PDFDocument, PDFHexString, PDFName, PDFString, PDFTextField } from "pdf-lib";
 import { describe, expect, it } from "vitest";
@@ -23,6 +23,7 @@ import {
   TOTAL_LINE,
   type BuiltPacket,
 } from "@/lib/packet";
+import type { LawIr } from "@/lib/deadline";
 import type { EngineInput, EngineOutput, Expense, Jurisdiction } from "@/lib/types";
 import { blankForm, hasVerified, rowanInput, rowanOutput, verifiedLaw, webDir, webLaw } from "./trust-helpers";
 
@@ -517,5 +518,62 @@ describe("the packet's law", () => {
     const fallback = fetchLawLoader(fetchImpl, false, async () => null);
     await expect(fallback("OH")).rejects.toThrow("Tend has no verified rules for OH.");
     expect(asked).toEqual(["/data/law/OH.json", "/api/jurisdictions/OH"]);
+  });
+});
+
+// The summary's deadline row says what Check says (lib/deadline.ts): the general rule leads.
+describe("the summary's filing deadline", () => {
+  const irOf = (st: string) =>
+    JSON.parse(readFileSync(path.join(webDir, "public", "data", "ir", `${st}.json`), "utf8")) as LawIr;
+  const builderWithIr = createPacketBuilder({
+    loadLaw: async (st) => webLaw(st),
+    loadForm: blankForm,
+    loadIr: async (st) => irOf(st),
+  });
+  async function deadlineRow(st: string, incident: string, asOf: string, check: EngineOutput["checks"]["deadline"]) {
+    const input: EngineInput = {
+      ...rowanInput(),
+      jurisdiction: st,
+      context: { ...rowanInput().context, incident_date: incident, as_of_date: asOf },
+    };
+    const output = { ...evaluatePreview(input, webLaw(st), "x"), checks: { ...rowanOutput().checks, deadline: check } };
+    const p = await builderWithIr.build(st, input, output);
+    return pdfText((await bytesOf(p.summaryPdf))!);
+  }
+  const florida = ["FL-DEADLINE-1", "FL-DEADLINE-3"];
+
+  it("leads with Florida's 3 years and says some cases have until the 5 good cause can give", async () => {
+    const text = await deadlineRow("FL", "2026-06-14", "2026-10-19", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: florida,
+      flags: [],
+    });
+    expect(text).toContain("On time. File by June 13, 2029. Some cases have until June 14, 2031. The rule says when.");
+    expect(text).not.toContain("File by June 14, 2031");
+  });
+
+  it("never says File by a date that has passed", async () => {
+    const text = await deadlineRow("FL", "2023-06-01", "2026-10-19", {
+      status: "ok",
+      deadline_date: "2028-05-31",
+      rule_ids: florida,
+      flags: [],
+    });
+    expect(text).toContain(
+      "The usual deadline was May 31, 2026. Some cases have until May 31, 2028. Ask the program whether yours is one.",
+    );
+    expect(text).not.toContain("File by");
+  });
+
+  it("does not tell an adult in Michigan that the law counts from the report", async () => {
+    const text = await deadlineRow("MI", "2026-06-14", "2026-10-19", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: ["MI-FILE-1", "MI-FILE-2"],
+      flags: ["deadline_from_report"],
+    });
+    expect(text).toContain("On time. File by June 14, 2031.");
+    expect(text).not.toContain("The law counts from your report");
   });
 });

@@ -1,6 +1,7 @@
 // Client for the Tend API (docs/SPEC.md, prefix /api). next.config.ts proxies /api/* to TEND_API_URL.
 // One probe decides the mode: "live" talks to the API and surfaces its errors; "fixtures" serves
 // web/fixtures and never pretends that money moved.
+import type { LawIr } from "./deadline";
 import { assertCents } from "./money";
 import type {
   ActionProposal,
@@ -130,8 +131,29 @@ export function fetchLaw(st: string): Promise<{ law: Jurisdiction; sha256: strin
   return pending;
 }
 
+const irs = new Map<string, Promise<LawIr | null>>();
+
+// The law IR the engine compiles (public/data/ir/ST.json, from rules/tools/normalize.py), which dates
+// the general deadline (lib/deadline.ts). One request per state; the offline worker keeps every copy.
+export function fetchLawIr(st: string): Promise<LawIr | null> {
+  const key = st.toUpperCase();
+  let pending = irs.get(key);
+  if (!pending) {
+    pending = fetch(`/data/ir/${key}.json`)
+      .then(async (res) => {
+        if (!res.ok) return null;
+        const ir = (await res.json()) as LawIr;
+        return Array.isArray(ir?.rules) ? ir : null;
+      })
+      .catch(() => null);
+    irs.set(key, pending);
+  }
+  return pending;
+}
+
 export function resetLawCacheForTests() {
   laws.clear();
+  irs.clear();
 }
 
 export async function fetchAsmFromApi(st: string): Promise<string | null> {

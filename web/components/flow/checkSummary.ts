@@ -2,6 +2,7 @@
 // come from the law engine's checks; lists, caps, and contacts come from the verified rules. The
 // component turns this into sentences in the survivor's language.
 import { clothingCondition, type ClothingCondition } from "@/lib/cite";
+import { generalDeadline, generalDeadlineRule, type LawIr } from "@/lib/deadline";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -27,17 +28,29 @@ export interface CoveredCost {
   condition: ClothingCondition | null;
 }
 
+// The date shown is the general deadline (lib/deadline.ts), or the engine's own date when Tend has no
+// general rule or no law IR to date it. The engine's check stays the longest rule, so `open` can be
+// true when the shown date has passed: some cases have until `longer`.
 export type DeadlineFact =
   | {
       kind: "date";
       date: string;
-      late: boolean;
+      late: boolean; // the shown date has passed
+      open: boolean; // the engine's check is still ok
+      longer: string | null;
+      // The rule behind the shown date counts from the report or from discovery.
       fromReport: boolean;
       fromDiscovery: boolean;
-      canExtend: boolean;
       ruleIds: string[];
     }
-  | { kind: "span"; years: number | null; months: number | null; days: number | null; ruleIds: string[] }
+  | {
+      kind: "span";
+      years: number | null;
+      months: number | null;
+      days: number | null;
+      longer: boolean; // another deadline rule allows more time
+      ruleIds: string[];
+    }
   | { kind: "unknown"; ruleIds: string[] }
   | { kind: "none" };
 
@@ -190,12 +203,20 @@ function longestSpan(rules: Rule[]): { years: number | null; months: number | nu
   return best ? { years: best.years, months: best.months, days: best.days } : null;
 }
 
+// The law IR (lib/deadline.ts) and today in the state's time, for the general deadline. Without the
+// IR, the deadline is the engine's own date.
+export interface SummaryContext {
+  ir?: LawIr | null;
+  asOf?: string;
+}
+
 export function buildCheckSummary(
   law: Jurisdiction,
   output: EngineOutput | null,
   check: CheckAnswers,
   knowsDate: boolean,
   setAside: Set<string> = new Set(),
+  { ir = null, asOf }: SummaryContext = {},
 ): CheckSummary {
   const byCat = (c: string) => law.rules.filter((r) => r.category === c);
   const byId = new Map(law.rules.map((r) => [r.id, r]));
@@ -205,20 +226,36 @@ export function buildCheckSummary(
   const deadlineRules = (d?.rule_ids ?? []).map((id) => byId.get(id)).filter((r): r is Rule => Boolean(r));
   if (d && d.rule_ids.length) {
     const flags = (d as { flags?: string[] }).flags ?? [];
-    const canExtend = byCat("filing_deadline").some((r) => typeof r.params?.extension === "string");
     if (knowsDate && d.deadline_date && (d.status === "ok" || d.status === "late")) {
-      deadline = {
-        kind: "date",
-        date: d.deadline_date,
-        late: d.status === "late",
-        fromReport: flags.includes("deadline_from_report"),
-        fromDiscovery: flags.includes("deadline_from_discovery"),
-        canExtend,
-        ruleIds: d.rule_ids,
-      };
+      const general = ir && asOf ? generalDeadline(law, ir, check.date, d) : null;
+      deadline = general
+        ? {
+            kind: "date",
+            date: general.date,
+            late: general.date < asOf!,
+            open: d.status === "ok",
+            longer: general.longer,
+            fromReport: general.fromReport,
+            fromDiscovery: general.fromDiscovery,
+            ruleIds: general.ruleIds,
+          }
+        : {
+            kind: "date",
+            date: d.deadline_date,
+            late: d.status === "late",
+            open: d.status === "ok",
+            longer: null,
+            fromReport: flags.includes("deadline_from_report"),
+            fromDiscovery: flags.includes("deadline_from_discovery"),
+            ruleIds: d.rule_ids,
+          };
     } else {
-      const span = longestSpan(deadlineRules);
-      deadline = span ? { kind: "span", ...span, ruleIds: d.rule_ids } : { kind: "unknown", ruleIds: d.rule_ids };
+      const general = ir ? generalDeadlineRule(law, ir) : null;
+      const span = longestSpan(general ? [general.rule] : deadlineRules);
+      const days = (id: string) => ir?.rules.find((r) => r.id === id && r.kind === "deadline")?.days ?? 0;
+      const longer = Boolean(general && d.rule_ids.some((id) => days(id) > general.days));
+      const ruleIds = general ? [general.rule.id, ...d.rule_ids.filter((id) => id !== general.rule.id)] : d.rule_ids;
+      deadline = span ? { kind: "span", ...span, longer, ruleIds } : { kind: "unknown", ruleIds: d.rule_ids };
     }
   } else if (byCat("filing_deadline").length) {
     deadline = { kind: "unknown", ruleIds: byCat("filing_deadline").map((r) => r.id) };

@@ -8,11 +8,12 @@ import TrackScreen from "@/components/flow/track/TrackScreen";
 import { buildCheckSummary } from "@/components/flow/checkSummary";
 import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
 import { EMPTY_CHECK } from "@/components/flow/state";
+import { resetLawCacheForTests } from "@/lib/api";
 import { formatters, I18nProvider } from "@/lib/i18n";
 import { en } from "@/lib/i18n/en";
 import { es } from "@/lib/i18n/es";
 import { STANDARD_OFFSET_HOURS, STATE_EAST_TIME_ZONES, STATE_TIME_ZONES, stateToday } from "@/lib/stateTime";
-import type { EngineInput } from "@/lib/types";
+import type { EngineInput, EngineOutput } from "@/lib/types";
 import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 vi.mock("next/navigation", () => ({
@@ -193,8 +194,12 @@ describe("just after midnight on a device in the state's eastern zone", () => {
   });
 });
 
+// Without the law IR, the flow shows the engine's own date and reads its flags (the fallback).
 describe("a deadline that may count from discovery", () => {
-  beforeEach(() => stubLawFetch());
+  beforeEach(() => {
+    resetLawCacheForTests();
+    stubLawFetch({ ir: false });
+  });
   afterEach(() => {
     cleanup();
     vi.unstubAllGlobals();
@@ -267,5 +272,71 @@ describe("a deadline that may count from discovery", () => {
     for (const text of [en.check.deadlineFromDiscovery, es.check.deadlineFromDiscovery]) {
       expect(text).not.toMatch(/[–—!]/);
     }
+  });
+});
+
+// With the law IR, the general rule leads (lib/deadline.ts); the engine's check stays the longest rule.
+describe("the general deadline on Check and Track", () => {
+  beforeEach(() => {
+    resetLawCacheForTests();
+    stubLawFetch();
+  });
+  afterEach(() => {
+    cleanup();
+    vi.unstubAllGlobals();
+  });
+
+  const fmt = formatters("en");
+  // The engine's deadline check for a claim in this state, as docs/SPEC.md step 10 makes it.
+  const engine = (st: string, deadline: EngineOutput["checks"]["deadline"]) =>
+    vi.fn(async (input: EngineInput) => {
+      const out = michiganOutput(input);
+      return {
+        output: { ...out, jurisdiction: st, checks: { ...out.checks, deadline } },
+        backend: "wasm" as const,
+        detail: "test",
+      };
+    });
+  const claimIn = (st: string, date: string) =>
+    stateFrom([{ type: "check", patch: { st, date, exam: "yes", police: "not_yet" } }]);
+
+  it("Washington: File by the 3-year date, with the 5 years good cause can give, counted from the report", async () => {
+    const evaluate = engine("WA", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: ["WA-DEADLINE-1", "WA-DEADLINE-2"],
+      flags: ["deadline_from_report"],
+    });
+    renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: claimIn("WA", "2026-06-14") });
+    expect(await screen.findByText(en.check.deadlineDate(fmt.date("2029-06-13")))).toBeTruthy();
+    expect(screen.getByText(en.check.deadlineLonger(fmt.date("2031-06-14")))).toBeTruthy();
+    expect(screen.getByText(en.check.deadlineFromReport)).toBeTruthy();
+  });
+
+  it("Florida: past 3 years but inside good cause's 5, it never says File by and is not plainly late", async () => {
+    const evaluate = engine("FL", {
+      status: "ok",
+      deadline_date: "2028-05-31",
+      rule_ids: ["FL-DEADLINE-1", "FL-DEADLINE-3"],
+      flags: [],
+    });
+    renderFlow(<TrackScreen />, { services: testServices({ evaluate }), initial: claimIn("FL", "2023-06-01") });
+    const lead = await screen.findByText(en.check.deadlineLate(fmt.date("2026-05-31")));
+    const bar = lead.closest("p")!;
+    expect(bar.textContent).toContain(en.check.deadlineLongerAsk(fmt.date("2028-05-31")));
+    expect(bar.textContent).not.toMatch(/File by/);
+    expect(bar.hasAttribute("data-late")).toBe(false);
+  });
+
+  it("Michigan: an adult is not told the law counts from the report (MI-FILE-2 is for minors)", async () => {
+    const evaluate = engine("MI", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: ["MI-FILE-1", "MI-FILE-2"],
+      flags: ["deadline_from_report"],
+    });
+    renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: stateFrom([MI_CHECK]) });
+    expect(await screen.findByText(en.check.deadlineDate(fmt.date("2031-06-14")))).toBeTruthy();
+    expect(screen.queryByText(en.check.deadlineFromReport)).toBeNull();
   });
 });

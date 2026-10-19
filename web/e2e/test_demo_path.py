@@ -204,7 +204,8 @@ def track(page: Page, test: str) -> None:
         expect(page.get_by_role("heading", name="Your garden", level=1)).to_be_visible()
     bar = page.locator("[class*=deadlineBar]")
     expect(bar).to_contain_text("File by June 14, 2031.")
-    expect(bar).to_contain_text("The law counts from your report, so you may have longer.")
+    # MI-FILE-1 counts from the day it happened; the rule counted from a report (MI-FILE-2) is for minors.
+    expect(bar).not_to_contain_text("The law counts from your report")
     expect(page.get_by_text(f"Held: {HELD} on a bill the law says you should not pay.", exact=False)).to_be_visible()
     expect(page.get_by_text("You paid it through Tend").first).to_be_visible()
 

@@ -253,13 +253,16 @@ export const es: Dict = {
     deadlineDate: (date: string) => `Presenta la solicitud a más tardar el ${date}.`,
     deadlineLate: (date: string) => `El plazo normal era el ${date}.`,
     deadlineLeft: (span: string) => `Faltan ${span}.`,
-    deadlineExtend: "El programa puede extenderlo por una causa justificada, así que vale la pena preguntar.",
     deadlineAsk: "Pregunta al programa. Algunos hacen excepciones.",
+    deadlineLonger: (date: string) => `En algunos casos hay plazo hasta el ${date}. La regla dice cuándo.`,
+    deadlineLongerAsk: (date: string) =>
+      `En algunos casos hay plazo hasta el ${date}. Pregunta al programa si el tuyo es uno de ellos.`,
     deadlineFromReport:
       "Esta fecha se cuenta desde el día en que pasó. La ley la cuenta desde tu denuncia, así que podrías tener más tiempo.",
     deadlineFromDiscovery:
       "Este plazo puede contarse desde que se descubrió el delito, y eso puede ser después de la fecha en que pasó. El programa decide.",
     deadlineSpan: (span: string) => `Tienes ${span} desde la fecha en que pasó para presentar la solicitud.`,
+    deadlineSpanLonger: "En algunos casos hay más tiempo. La regla dice cuándo.",
     deadlineSpanNote: "Agrega la fecha arriba para ver el día exacto.",
     deadlineUnknown:
       "Tend no pudo convertir el plazo de este estado en una fecha. Lee la regla o pregunta al programa.",

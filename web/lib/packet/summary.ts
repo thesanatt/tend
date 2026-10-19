@@ -4,6 +4,7 @@
 import { citedRuleIds, severalLimits } from "../cite";
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay, localDay } from "../dates";
+import { generalDeadline, type LawIr } from "../deadline";
 import { expenseLabel, expenseRank } from "../expenses";
 import { en } from "../i18n/en";
 import { formatCents } from "../money";
@@ -23,6 +24,8 @@ export interface SummaryInput {
   form: FormSpec | null;
   // Bill providers and payments made through Tend, by item id (lib/contracts.ts PacketLineInfo).
   lines?: Record<string, PacketLineInfo>;
+  // The state's law IR, which dates the general deadline (lib/deadline.ts).
+  ir?: LawIr | null;
 }
 
 // "Paid on October 3, 2026 from Checking 0011 to Riverbend General Hospital, through Tend."
@@ -106,10 +109,54 @@ class Writer {
 }
 
 const DISCOVERY_NOTE = en.check.deadlineFromDiscovery;
+const LATE_ASK = "Ask the program whether a late claim can still be filed.";
 
-function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
+// The deadline the summary leads with: the general rule's date, as Check shows it (lib/deadline.ts),
+// and the engine's longer date when some cases have one. Without the IR, the engine's own date.
+export function deadlineFacts(
+  law: LawBook,
+  input: EngineInput,
+  output: EngineOutput,
+  ir: LawIr | null,
+): { text: string; ruleIds: string[]; fromReport: boolean; fromDiscovery: boolean } {
+  const d = output.checks.deadline;
+  const flags = d.flags ?? [];
+  const dated = Boolean(d.deadline_date) && (d.status === "ok" || d.status === "late");
+  const general = ir && dated ? generalDeadline(law.law, ir, input.context.incident_date, d) : null;
+  if (!general) {
+    const text =
+      d.status === "ok" && d.deadline_date
+        ? `On time. File by ${formatDay(d.deadline_date)}.`
+        : d.status === "late" && d.deadline_date
+          ? `The usual deadline was ${formatDay(d.deadline_date)}. ${LATE_ASK}`
+          : d.rule_ids.length
+            ? "Tend could not turn this deadline into a date. Read the rule or ask the program."
+            : "Tend found no filing deadline in the verified rules. Ask the program.";
+    return {
+      text,
+      ruleIds: d.rule_ids,
+      fromReport: flags.includes("deadline_from_report"),
+      fromDiscovery: flags.includes("deadline_from_discovery"),
+    };
+  }
+  const day = formatDay(general.date);
+  const text =
+    general.date >= input.context.as_of_date
+      ? `On time. File by ${day}.${general.longer ? ` ${en.check.deadlineLonger(formatDay(general.longer))}` : ""}`
+      : d.status === "ok" && general.longer
+        ? `The usual deadline was ${day}. ${en.check.deadlineLongerAsk(formatDay(general.longer))}`
+        : `The usual deadline was ${day}. ${LATE_ASK}`;
+  return {
+    text,
+    ruleIds: general.ruleIds,
+    fromReport: general.fromReport,
+    fromDiscovery: general.fromDiscovery,
+  };
+}
+
+function checksSection(w: Writer, input: EngineInput, output: EngineOutput, ir: LawIr | null) {
   const { law, pdf } = w;
-  const { deadline, reporting, minimum_loss } = output.checks;
+  const { reporting, minimum_loss } = output.checks;
   w.h2("Checks");
   const cites = (ids: string[]) =>
     ids
@@ -119,14 +166,7 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
       .filter((p, i, all) => all.indexOf(p) === i)
       .join("; ");
 
-  const deadlineText =
-    deadline.status === "ok" && deadline.deadline_date
-      ? `On time. File by ${formatDay(deadline.deadline_date)}.`
-      : deadline.status === "late" && deadline.deadline_date
-        ? `The usual deadline was ${formatDay(deadline.deadline_date)}. Ask the program whether a late claim can still be filed.`
-        : deadline.rule_ids.length
-          ? "Tend could not turn this deadline into a date. Read the rule or ask the program."
-          : "Tend found no filing deadline in the verified rules. Ask the program.";
+  const deadline = deadlineFacts(law, input, output, ir);
   const reportingText =
     reporting.status === "satisfied"
       ? !reporting.rule_ids.length
@@ -149,7 +189,7 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     unknown: "Depends on how many days of work you missed.",
   };
   const rows: [string, string, string][] = [
-    ["Filing deadline", deadlineText, cites(deadline.rule_ids)],
+    ["Filing deadline", deadline.text, cites(deadline.ruleIds)],
     ["Police report", reportingText, cites(reporting.rule_ids)],
     [
       "Minimum loss",
@@ -173,13 +213,12 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     pdf.space(6);
   }
   // A deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3).
-  const flags = output.checks.deadline.flags ?? [];
-  if (flags.includes("deadline_from_report")) {
+  if (deadline.fromReport) {
     w.small(
       "The deadline is measured from the date it happened. The law counts from your report, so you may have longer.",
     );
   }
-  if (flags.includes("deadline_from_discovery")) w.small(DISCOVERY_NOTE);
+  if (deadline.fromDiscovery) w.small(DISCOVERY_NOTE);
 }
 
 interface Group {
@@ -598,7 +637,7 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
     );
   w.p(parts.join(" "), "ink2");
 
-  checksSection(w, input, output);
+  checksSection(w, input, output, s.ir ?? null);
   linesSection(w, input, output, s.lines);
   neededSection(w, output, s.stillNeeded, s.form);
   filingSection(w, s.filing);
