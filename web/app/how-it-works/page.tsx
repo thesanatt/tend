@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
-import { loadCorpus } from "@/components/public/data";
+import { loadCorpus, loadLaw } from "@/components/public/data";
 import { sitePreview } from "@/components/public/og/siteCard";
 import { TOUR_START } from "@/components/tour/tour";
 import { LINKS } from "@/components/tour/links";
+import STATES from "@/lib/states.json";
 import { engineKb, lawKbRange } from "./engine";
 import styles from "./how.module.css";
 
@@ -18,6 +19,18 @@ export const metadata: Metadata = {
 };
 
 const n = (x: number) => x.toLocaleString("en-US");
+
+// Programs with no blank application Tend could link, read from the verified corpus when the site is built.
+// Michigan's is the one Tend fills, so it is not counted either way.
+function formsToLink(): { linked: number; none: string[] } {
+  const others = STATES.filter((s) => s.st !== "MI");
+  const none = others.filter((s) => !loadLaw(s.st)?.law.program.application_pdf_url).map((s) => s.name);
+  return { linked: others.length - none.length, none };
+}
+
+function list(words: string[]): string {
+  return words.length < 3 ? words.join(" and ") : `${words.slice(0, -1).join(", ")}, and ${words.at(-1)}`;
+}
 
 // Each safety claim names the files that make it true, so a reader can check it on GitHub.
 // tests/how-it-works.test.tsx keeps the numbers in this copy matched to the code. A path can break
@@ -44,6 +57,7 @@ export default function HowItWorks() {
   const corpus = loadCorpus();
   const kb = engineKb();
   const laws = lawKbRange();
+  const forms = formsToLink();
 
   const numbers: { figure: string; label: string; means: string }[] = [
     {
@@ -285,7 +299,7 @@ export default function HowItWorks() {
             <h3>Read on the device</h3>
             <p>
               A bank statement (CSV, OFX, or PDF) and an itemized bill, read by parsers in the browser. Nothing is
-              uploaded.
+              uploaded unless you say yes to cloud AI.
             </p>
           </li>
           <li className={styles.box}>
@@ -310,7 +324,10 @@ export default function HowItWorks() {
               4
             </span>
             <h3>Packet</h3>
-            <p>The state&apos;s own form with safe fields only, a cited summary, and letters. The survivor sends it.</p>
+            <p>
+              Michigan&apos;s form with safe fields only (for other states, a link to the program&apos;s form when Tend
+              found one), a cited summary, and letters. The survivor sends it.
+            </p>
           </li>
         </ol>
         <div className={styles.build}>
@@ -402,8 +419,11 @@ export default function HowItWorks() {
             </dd>
           </div>
           <div>
-            <dt>Sponsors</dt>
-            <dd>Capital One Nessie (the bank), Neon, Google Gemini, Figma, and .tech.</dd>
+            <dt>Hackathon tools</dt>
+            <dd>
+              Tend used these at MHacks 2026, where each had a sponsor prize: Capital One&apos;s Nessie (the mock bank),
+              Neon, Google Gemini, Figma, and a .tech domain. The sponsors backed the hackathon, not Tend.
+            </dd>
           </div>
         </dl>
       </section>
@@ -412,9 +432,15 @@ export default function HowItWorks() {
         <h2 id="limits">Limits</h2>
         <ul className={styles.bullets}>
           <li>Tend is not legal advice. Every total says &quot;The program decides.&quot;</li>
-          <li>Only Michigan&apos;s application is pre-filled. Other states get the program&apos;s blank form.</li>
           <li>
-            The engines were written from one spec by one author, so a shared misreading would not show up as a
+            Only Michigan&apos;s application is pre-filled. For {forms.linked} other states, Tend links the
+            program&apos;s blank form.
+            {forms.none.length ? ` For ${list(forms.none)}, it found no form to link.` : ""}
+          </li>
+          {/* TODO(Sanat): "one author" came out after the audit (outsider-docs#3). If you want a line on how Tend
+              was built and who wrote the engines, write it here in your own words. */}
+          <li>
+            The engines were written from one spec, in one project, so a shared misreading would not show up as a
             mismatch.
           </li>
         </ul>

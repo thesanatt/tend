@@ -18,6 +18,7 @@ import { LEFT_KEY, TOUR_KEY } from "@/lib/keys";
 import { classifier, parseStatementText } from "@/lib/local";
 import { classifyRequest } from "@/lib/netlog";
 import { MAX_EXPIRES_HOURS } from "@/lib/share";
+import STATES from "@/lib/states.json";
 import { createVault, memoryStore, MIN_PASSPHRASE } from "@/lib/vault";
 import { PBKDF2_ITERATIONS } from "@/lib/vault/crypto";
 import { DEFAULT_IDLE_MS } from "@/lib/vault/idle";
@@ -335,5 +336,34 @@ describe("the engine", () => {
     expect(stack).toContain("tendc compiles each state's law ahead of time and is not part of the WebAssembly build.");
     expect(stack).toContain("so the Python reference engine runs the law on the server");
     expect(document.body.textContent).not.toMatch(/whole law engine|independent/i);
+  });
+});
+
+describe("what the page says about forms, uploads, and the hackathon", () => {
+  it("names the states with no form to link, read from the corpus", () => {
+    const none = STATES.filter(({ st }) => {
+      const law = JSON.parse(readFileSync(path.join(web, `public/data/law/${st}.json`), "utf8"));
+      return st !== "MI" && !law.program.application_pdf_url;
+    }).map((s) => s.name);
+    expect(none).toEqual(["Maine", "North Dakota", "Tennessee"]);
+    const limits = screen.getByRole("region", { name: "Limits" }).textContent!.replace(/\s+/g, " ");
+    expect(limits).toContain(
+      "Only Michigan's application is pre-filled. For 47 other states, Tend links the program's blank form. For Maine, North Dakota, and Tennessee, it found no form to link.",
+    );
+    expect(limits).not.toMatch(/one author/);
+    const packet = screen.getByRole("heading", { level: 3, name: "Packet" }).closest("li")!;
+    expect(packet.textContent).toContain("a link to the program's form when Tend found one");
+  });
+
+  it("says a file leaves only after a yes to cloud AI, and that the sponsors backed the hackathon", () => {
+    const read = screen.getByRole("heading", { level: 3, name: "Read on the device" }).closest("li")!;
+    expect(read.textContent!.replace(/\s+/g, " ")).toContain("Nothing is uploaded unless you say yes to cloud AI.");
+    const stack = screen.getByRole("region", { name: "The stack" });
+    const terms = within(stack)
+      .getAllByRole("term")
+      .map((t) => t.textContent);
+    expect(terms).toContain("Hackathon tools");
+    expect(terms).not.toContain("Sponsors");
+    expect(stack.textContent).toContain("The sponsors backed the hackathon, not Tend.");
   });
 });
