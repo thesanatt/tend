@@ -336,7 +336,7 @@ How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the 
 5. Export. `rules/tools/export_dataset.py` reads `rules/verified` and `rules/ir` and writes these files.
    It reads no clock, so the same inputs give the same bytes.
 
-Check it yourself, from a clone of the repository:
+Check it yourself on macOS or Linux, from a clone of the repository:
 
 ```sh
 python3 rules/tools/verify.py all                    # every jurisdiction prints PASS

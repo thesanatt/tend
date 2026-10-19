@@ -267,7 +267,7 @@ export default function DataPage() {
           </li>
         </ol>
         <p className={styles.small}>
-          Check it yourself from a clone of the <a href={LINKS.repo}>repository</a>:
+          Check it yourself on macOS or Linux, from a clone of the <a href={LINKS.repo}>repository</a>:
         </p>
         <pre className={styles.code} tabIndex={0} aria-label="Commands that check the dataset">
           <code>
