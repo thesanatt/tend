@@ -19,9 +19,11 @@ Both URLs are live. A phone or a laptop both work. To run it locally instead: `s
 | 48 to 56 | **Build my packet**, then **Make a share link** | Michigan's own form with safe fields only, a cited summary PDF, "Still needed" in the program's words, and "Amount you can ask for: $3,848.00. The program decides." The link's key is after `#`; open it in another browser for the advocate's view |
 | 56 to 60 | **See your garden** | One plant per cost, the deadline in view. The held line grows nothing |
 
-If someone already paid the $118.00 on the live demo account, the payment sheet says the bank
-already shows a payment from Tend for those lines, and nothing moves. `cd seed && uv run python
-reset_demo.py` puts the account back.
+If someone paid the $118.00 on the live demo account in the last 20 minutes, the payment sheet says
+the bank already shows a payment from Tend for those lines, and nothing moves. Once that payment is
+20 minutes old, the next **Get a code** first puts the fictional account back at the demo start
+(their payment deleted, the bill back to $443.00 pending), so the payment goes through.
+`cd seed && uv run python reset_demo.py` does the same at once.
 
 With more time:
 

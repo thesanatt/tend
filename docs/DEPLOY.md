@@ -160,6 +160,27 @@ when the API's routes changed with the web. To take the site off the domain enti
   Rowan's balance and ledger between rehearsal and the table. If it happens, a Vercel Firewall rate limit on
   `POST /api/actions/*` (dashboard, tend-web, Firewall) or switching Production to `TEND_BANK=dry_run` and
   redeploying contains it.
+- The demo account puts itself back. A paid bill line is never paid twice, so after one visitor paid the $118.00,
+  the next one used to hear "already paid". Now, when a proposal finds earlier payments of a demo bill and each was
+  last touched more than 20 minutes ago (twice a code's 10 minutes; its newest audit row, or the end of its date in
+  Detroit when the audit log does not know it), the API first runs `seed/reset_demo.py`'s reset on that persona
+  (`api/tend_api/demo_reset.py`), then looks again. Tend's own payments and demo deposits that old are deleted and
+  the bill goes back to $443.00 pending under its id. A newer payment anywhere on the account means someone may be
+  mid-demo, so nothing is undone. A demo deposit has only a date, so it stays until 20 minutes after that day ends.
+  The tradeoff: someone who paid and opens Track's bank records more than 20 minutes later may find their payment
+  gone, if another visitor proposed one in between. Track's payout demo and bank records never start a reset:
+  nothing there is blocked by an earlier visitor (a new demo deposit replaces an old one), and the bank records are
+  where the visitor who paid looks for their payment.
+- Nothing else on the account is touched. Records Tend did not write stay where they are, and the reset's Nessie
+  client refuses every other write before it is sent. An account that differs from `seed/snapshots/<persona>.json`
+  in other ways (a seeded record missing or changed, an extra account or bill) is not reset at all, and the function
+  log gets a warning; `cd seed && uv run python reset_demo.py` fixes it. One attempt runs at a time per persona
+  across all instances (a Postgres advisory lock; a lock in one process would not cover a second instance), and
+  each write is safe to repeat. An attempt gets 8 s, waiting included; when it does not finish, the visitor gets the
+  old "already paid" answer and the next proposal tries again. In the recorded replay one reset is 52 Nessie reads
+  and 3 writes. It runs only with `TEND_BANK=nessie`, and it adds no audit row. A scheduled reset was the other
+  option: on the Hobby plan Vercel runs a cron job at most once a day, and a GitHub Actions schedule would need the
+  Nessie key as a repository secret.
 - Every JSON error a deployed API sends has local paths and credentials taken out: the API keys, `TEND_SECRET`,
   the database addresses, and any `?key=` in a quoted URL become `[hidden]`.
 - Vercel's own request log keeps the method, path, and status of every function call, so a share id
