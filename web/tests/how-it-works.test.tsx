@@ -9,6 +9,7 @@ import HowItWorks from "@/app/how-it-works/page";
 import { buildEngineInput } from "@/components/flow/claim";
 import { initialState, reducer, type FlowItem, type SourceRecord } from "@/components/flow/state";
 import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/QuickExit";
+import { SITE_CARDS } from "@/components/public/og/siteCard";
 import { LINKS } from "@/components/tour/links";
 import { fetchLaw } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
@@ -286,5 +287,13 @@ describe("the sources", () => {
     expect(document.body.textContent).toContain("saved sources");
     expect(document.body.textContent).toContain("Source saved with sha256");
     expect(document.body.textContent).not.toMatch(/official/i);
+  });
+});
+
+// The lead says what Tend does in the home card's words: survivors apply, and Tend never asks for a name.
+describe("the lead", () => {
+  it("matches the home page's sentence and promises no money", () => {
+    expect(document.body.textContent!.replace(/\s+/g, " ")).toContain(SITE_CARDS.home.sentence);
+    expect(document.body.textContent).not.toMatch(/already owes/i);
   });
 });

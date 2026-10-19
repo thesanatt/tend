@@ -31,7 +31,7 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
           <h2 id="garden-title">The law garden</h2>
           <p>
             One plant for each program. A plant grows as Tend verifies more of that state&apos;s rules, and a rule
-            counts only when its quote matches the saved law word for word. Pick a state to see what it promises.
+            counts only when its quote matches the saved law word for word. Pick a state to see what its law says.
           </p>
         </div>
         <div className={styles.toggle} role="group" aria-label="Show the garden as">
@@ -116,7 +116,7 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
                   {current.rules > 0 ? (
                     <div className={styles.detailLinks}>
                       <Link href={`/${current.st.toLowerCase()}`} className="btn btn-primary">
-                        What {current.st === "DC" ? "DC" : current.name} promises
+                        What {current.st === "DC" ? "DC" : current.name}&apos;s law says
                       </Link>
                       <Link href={`/law/${current.st}`}>How Tend decides</Link>
                     </div>

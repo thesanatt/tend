@@ -91,8 +91,8 @@ export default function HowItWorks() {
       <header className={styles.head}>
         <h1>How Tend works</h1>
         <p className={styles.lead}>
-          Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without
-          giving up their name.
+          Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving Tend
+          their name.
         </p>
         <p>
           Every state and DC has a program that can pay back costs like medical bills, counseling, and lost pay. In

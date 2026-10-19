@@ -44,7 +44,7 @@ export default function StateFinder({ states }: { states: { st: string; name: st
           ))}
         </select>
         <button type="submit" className="btn btn-primary">
-          See what it promises
+          See what its law says
         </button>
       </div>
       {error ? (

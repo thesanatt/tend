@@ -20,8 +20,8 @@ export default function Home() {
       <section className={styles.visitor} aria-label="About Tend">
         <div className={styles.visitorText}>
           <p className={styles.visitorWhat}>
-            Tend helps sexual assault survivors claim the crime victim compensation their state already owes them,
-            without giving up their name.
+            Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving
+            Tend their name.
           </p>
           <p className={styles.visitorProof}>
             Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.

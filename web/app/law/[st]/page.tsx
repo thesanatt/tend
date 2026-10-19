@@ -82,7 +82,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           <SourceNote st={ref.st} sources={law.sources} path={`/law/${ref.st}`} />
           <ul className={styles.links} aria-label="Related pages and data">
             <li>
-              <Link href={`/${lower}`}>What {law.name} promises, in plain words</Link>
+              <Link href={`/${lower}`}>What {ref.st === "DC" ? "DC" : law.name}&apos;s law says, in plain words</Link>
             </li>
             <li>
               <a href={`/data/law/${ref.st}.json`}>Verified rules (JSON)</a>

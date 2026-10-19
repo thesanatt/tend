@@ -10,6 +10,7 @@ import LawPage from "@/app/law/[st]/page";
 import Home from "@/app/page";
 import StatePage, { generateMetadata } from "@/app/[st]/page";
 import LawRefs from "@/components/public/LawRefs";
+import { SITE_CARDS } from "@/components/public/og/siteCard";
 import ShareButtons from "@/components/public/ShareButtons";
 import StateFinder from "@/components/public/StateFinder";
 import type { Jurisdiction } from "@/lib/types";
@@ -108,6 +109,10 @@ describe("law page /law/MI", () => {
     expect(doc.querySelectorAll("article").length).toBe(mi.rules.length);
   });
 
+  it("calls the plain-words page what the law says, not what it promises", () => {
+    expect(page).toContain(">What Michigan&#x27;s law says, in plain words</a>");
+  });
+
   it("lists the set-aside rules with their reasons", () => {
     const doc = new DOMParser().parseFromString(page, "text/html");
     const set = doc.getElementById("set-aside")!;
@@ -163,6 +168,15 @@ describe("home page", () => {
       "/mi",
     );
     expect(screen.getAllByRole("listitem").length).toBeGreaterThan(51);
+  });
+
+  // Nothing is owed until the program says yes, and the state's own form asks for a name, so the intro and its
+  // link card say "apply" and "without giving Tend their name", in the same words.
+  it("says what Tend does in its link card's words, and promises no money", () => {
+    render(Home());
+    const intro = screen.getByRole("region", { name: "About Tend" });
+    expect(intro.textContent!.replace(/\s+/g, " ")).toContain(SITE_CARDS.home.sentence);
+    expect(document.body.textContent).not.toMatch(/already owes|promises/i);
   });
 });
 
@@ -222,12 +236,12 @@ describe("state finder", () => {
         ]}
       />,
     );
-    fireEvent.click(screen.getByRole("button", { name: "See what it promises" }));
+    fireEvent.click(screen.getByRole("button", { name: "See what its law says" }));
     expect(screen.getByRole("alert").textContent).toBe("Choose a state first.");
     expect(push).not.toHaveBeenCalled();
     fireEvent.change(screen.getByLabelText("Find your state"), { target: { value: "NY" } });
     expect(screen.queryByRole("alert")).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "See what it promises" }));
+    fireEvent.click(screen.getByRole("button", { name: "See what its law says" }));
     expect(push).toHaveBeenCalledWith("/ny");
   });
 });
