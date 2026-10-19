@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Source_Serif_4 } from "next/font/google";
 import AppShell from "@/components/flow/AppShell";
+import { siteUrl } from "@/components/public/data";
 import "./globals.css";
 
 // next/font downloads these at build time and serves them from this site; browsers never call Google.
@@ -22,8 +23,10 @@ const mono = Atkinson_Hyperlegible_Mono({
   fallback: ["ui-monospace", "monospace"],
 });
 
-// The tab says only "Tend" on survivor pages (docs/UX.md, Always on).
+// The tab says only "Tend" on survivor pages (docs/UX.md, Always on). Link previews are set page by
+// page on the public pages only, never here, so a link copied from the survivor flow shows none.
 export const metadata: Metadata = {
+  metadataBase: siteUrl(),
   title: { default: "Tend", template: "%s | Tend" },
   description:
     "Tend checks costs against your state's crime victim compensation law and shows the exact sentence behind every dollar.",

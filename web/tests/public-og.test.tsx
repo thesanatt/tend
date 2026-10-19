@@ -1,7 +1,26 @@
-// The share card renders through next/og to a 1200 x 630 PNG for every jurisdiction.
-import { describe, expect, it } from "vitest";
+// The share card renders through next/og to a 1200 x 630 PNG for every jurisdiction, and the site's own
+// public pages get link cards of their own. Nothing in the survivor flow announces what it is.
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import path from "node:path";
+import type { Metadata } from "next";
+import { describe, expect, it, vi } from "vitest";
 import { dynamicParams, generateStaticParams, GET } from "@/app/[st]/card.png/route";
+import * as homeCard from "@/app/card.png/route";
+import * as howCard from "@/app/how-it-works/card.png/route";
+import { metadata as howMeta } from "@/app/how-it-works/page";
+import { metadata as homeMeta } from "@/app/page";
+import * as sourcesCard from "@/app/sources/card.png/route";
+import { metadata as sourcesMeta } from "@/app/sources/page";
+import * as tourCard from "@/app/tour/card.png/route";
+import { metadata as tourMeta } from "@/app/tour/page";
 import { bodySize, cardSourceLine } from "@/components/public/og/card";
+import { sentenceSize, siteCardAddress, siteCardAlt } from "@/components/public/og/siteCard";
+
+// The root layout loads its fonts through the Next.js compiler, which tests do not run.
+vi.mock("next/font/google", () => {
+  const font = () => ({ variable: "", className: "", style: {} });
+  return { Source_Serif_4: font, Atkinson_Hyperlegible_Next: font, Atkinson_Hyperlegible_Mono: font };
+});
 
 function pngSize(bytes: Uint8Array): { width: number; height: number } {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
@@ -52,5 +71,141 @@ describe("share card image", () => {
     const long = cardSourceLine("Kansas", ["K.S.A. 74-7301 through a very long pinpoint", "K.A.R. 20-2-8(a)(1)(B)"]);
     expect(long).toBe("From Kansas law, with citations on the page. The program decides.");
     expect(long).not.toMatch(/quot/i);
+  });
+});
+
+const web = path.resolve(import.meta.dirname, "..");
+
+function files(dir: string): string[] {
+  return readdirSync(dir).flatMap((name) => {
+    const p = path.join(dir, name);
+    return statSync(p).isDirectory() ? files(p) : /\.tsx?$/.test(name) ? [p] : [];
+  });
+}
+
+// Each public page with a link card: its tab title (unchanged) and what a posted link shows.
+const PAGES: {
+  path: string;
+  meta: Metadata;
+  card: { GET: () => Promise<Response>; dynamic: string };
+  image: string;
+  tab?: string;
+  title: string;
+  description: string;
+}[] = [
+  {
+    path: "/",
+    meta: homeMeta,
+    card: homeCard,
+    image: "/card.png",
+    title: "Tend",
+    description:
+      "Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without giving up their name.",
+  },
+  {
+    path: "/how-it-works",
+    meta: howMeta,
+    card: howCard,
+    image: "/how-it-works/card.png",
+    tab: "How it works",
+    title: "How Tend works",
+    description: "Each state's verified law runs on your device, and every dollar points to the sentence behind it.",
+  },
+  {
+    path: "/sources",
+    meta: sourcesMeta,
+    card: sourcesCard,
+    image: "/sources/card.png",
+    tab: "Sources",
+    title: "Sources",
+    description: "Where each number about the problem comes from, and how to rerun Tend's own.",
+  },
+  {
+    path: "/tour",
+    meta: tourMeta,
+    card: tourCard,
+    image: "/tour/card.png",
+    tab: "What you just saw",
+    title: "What you just saw",
+    description: "A 2-minute tour of Tend with Rowan, a fictional survivor in Michigan.",
+  },
+];
+
+describe("link cards for the site's own pages", () => {
+  it.each(PAGES)(
+    "$path has a static 1200 x 630 PNG at $image",
+    async ({ card }) => {
+      expect(card.dynamic).toBe("force-static");
+      const res = await card.GET();
+      expect(res.status).toBe(200);
+      expect(res.headers.get("content-type")).toBe("image/png");
+      const bytes = new Uint8Array(await res.arrayBuffer());
+      expect([...bytes.slice(1, 4)].map((b) => String.fromCharCode(b)).join("")).toBe("PNG");
+      expect(pngSize(bytes)).toEqual({ width: 1200, height: 630 });
+      expect(bytes.length).toBeGreaterThan(20_000);
+    },
+    30_000,
+  );
+
+  it.each(PAGES)("$path keeps its tab title and shows its card when the link is posted", (page) => {
+    expect(page.meta.title).toBe(page.tab);
+    const image = {
+      url: page.image,
+      width: 1200,
+      height: 630,
+      type: "image/png",
+      alt: expect.stringContaining(page.description),
+    };
+    const { title, description } = page;
+    expect(page.meta.openGraph).toEqual({
+      type: "website",
+      siteName: "Tend",
+      title,
+      description,
+      url: page.path,
+      images: [image],
+    });
+    expect(page.meta.twitter).toEqual({ card: "summary_large_image", title, description, images: [image] });
+  });
+
+  it("describes the whole image in its alt text, address and drawing included", () => {
+    expect(siteCardAlt("home")).toBe(
+      "Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without giving up their name. youreowed.tech, with a row of plant drawings from sprout to bloom.",
+    );
+    expect(siteCardAlt("how")).toMatch(
+      /^How Tend works: Each state's .* youreowed\.tech\/how-it-works, with a row of plant drawings/,
+    );
+    expect(siteCardAddress("tour")).toBe("youreowed.tech/tour");
+  });
+
+  it("steps the sentence down a size only past 110 characters", () => {
+    expect(sentenceSize("x".repeat(110))).toBe(54);
+    expect(sentenceSize("x".repeat(133))).toBe(50);
+  });
+});
+
+// These import the real layouts, which load the whole survivor flow on first import.
+describe("pages without a link preview", { timeout: 60_000 }, () => {
+  it("sets only the base URL in the root layout, so no page inherits a preview", async () => {
+    const { metadata } = await import("@/app/layout");
+    expect(String(metadata.metadataBase)).toBe("https://youreowed.tech/");
+    expect(metadata.title).toEqual({ default: "Tend", template: "%s | Tend" });
+    expect(metadata.openGraph).toBeUndefined();
+    expect(metadata.twitter).toBeUndefined();
+  });
+
+  it("gives the survivor flow and share links none, so a pasted link does not say what it is", async () => {
+    expect(Object.keys(await import("@/app/(flow)/layout"))).toEqual(["default"]);
+    for (const page of [await import("@/app/share/page"), await import("@/app/share/[token]/page")]) {
+      expect(page.metadata.openGraph).toBeUndefined();
+      expect(page.metadata.twitter).toBeUndefined();
+    }
+    const sources = [...files(path.join(web, "app", "(flow)")), ...files(path.join(web, "app", "share"))];
+    expect(sources.length).toBeGreaterThan(10);
+    for (const file of sources) {
+      expect(readFileSync(file, "utf8"), path.relative(web, file)).not.toMatch(
+        /openGraph|twitter|generateMetadata|card\.png/,
+      );
+    }
   });
 });

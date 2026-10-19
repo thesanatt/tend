@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { allStates, loadCorpus } from "@/components/public/data";
 import LawGarden from "@/components/public/LawGarden";
+import { sitePreview } from "@/components/public/og/siteCard";
 import StateFinder from "@/components/public/StateFinder";
 import { TOUR_START } from "@/components/tour/tour";
 import styles from "./page.module.css";
+
+// The tab keeps the site's title; a posted link shows the home card (/card.png).
+export const metadata: Metadata = sitePreview("home");
 
 // Counts come from public/data/jurisdictions.json when the site is built (scripts/sync-rules.mjs).
 export default function Home() {

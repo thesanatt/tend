@@ -2,13 +2,13 @@
 // Text comes from buildStateSummary, so the card says only what the verified rules say.
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { lawGrowth, lawStage, leafPath, plantShape } from "@/lib/garden";
+import { lawGrowth, lawStage, leafPath, plantShape, type PlantShape } from "@/lib/garden";
 import type { StateSummary } from "../summary";
 
 export const CARD_SIZE = { width: 1200, height: 630 };
 
 // Light theme tokens from app/globals.css; a card is an image, so it has one look.
-const C = {
+export const C = {
   paper: "#F6F2E9",
   ink: "#1C1B18",
   ink2: "#4A463E",
@@ -43,67 +43,85 @@ export function bodySize(text: string): number {
   return 42;
 }
 
-function CardPlant({ st, rules }: { st: string; rules: number }) {
-  const stage = lawStage(rules);
-  const shape = plantShape(stage === "seed" ? "sprout" : stage, lawGrowth(rules), st);
+// One plant in its 40 x 56 box (lib/garden.ts) as bare SVG elements, because Satori takes no
+// components or fragments inside <svg>. weight thickens the lines of plants drawn smaller than this one.
+export function plantArt(shape: PlantShape, weight = 1) {
   const { top } = shape;
-  return (
-    <svg width="372" height="372" viewBox="-6 0 52 52.5" style={{ position: "absolute", right: 44, bottom: 40 }}>
-      <path d="M-6 52.5H46" stroke={C.lineStrong} strokeWidth="0.35" fill="none" />
-      {shape.stem ? <path d={shape.stem} stroke={C.green} strokeWidth="0.9" strokeLinecap="round" fill="none" /> : null}
-      {shape.leaves.map((leaf, i) => (
-        <g key={i} transform={`translate(${leaf.x} ${leaf.y}) scale(${leaf.side} 1) rotate(${leaf.angle})`}>
-          <path d={leafPath(leaf.length)} fill={C.leaf} stroke={C.green} strokeWidth="0.6" strokeLinejoin="round" />
+  const w = (n: number) => Math.round(n * weight * 100) / 100;
+  return [
+    shape.stem ? (
+      <path key="stem" d={shape.stem} stroke={C.green} strokeWidth={w(0.9)} strokeLinecap="round" fill="none" />
+    ) : null,
+    ...shape.leaves.map((leaf, i) => (
+      <g key={i} transform={`translate(${leaf.x} ${leaf.y}) scale(${leaf.side} 1) rotate(${leaf.angle})`}>
+        <path d={leafPath(leaf.length)} fill={C.leaf} stroke={C.green} strokeWidth={w(0.6)} strokeLinejoin="round" />
+        <path
+          d={`M0.6 0Q${leaf.length * 0.5} ${-leaf.length * 0.06} ${leaf.length * 0.88} 0`}
+          stroke={C.green}
+          strokeWidth={w(0.35)}
+          fill="none"
+        />
+      </g>
+    )),
+    ...(shape.cotyledons
+      ? [
           <path
-            d={`M0.6 0Q${leaf.length * 0.5} ${-leaf.length * 0.06} ${leaf.length * 0.88} 0`}
-            stroke={C.green}
-            strokeWidth="0.35"
-            fill="none"
-          />
-        </g>
-      ))}
-      {shape.cotyledons ? (
-        <>
-          <path
+            key="cotyledon-left"
             d={`M${top.x} ${top.y}c-3-0.5-7.2-2.8-7.6-6.6c3.8-0.6 7.2 2 7.6 6.6z`}
             fill={C.leaf}
             stroke={C.green}
-            strokeWidth="0.6"
-          />
+            strokeWidth={w(0.6)}
+          />,
           <path
+            key="cotyledon-right"
             d={`M${top.x} ${top.y}c3-0.5 7.2-2.8 7.6-6.6c-3.8-0.6-7.2 2-7.6 6.6z`}
             fill={C.leaf}
             stroke={C.green}
-            strokeWidth="0.6"
+            strokeWidth={w(0.6)}
+          />,
+        ]
+      : []),
+    shape.bud ? (
+      <path
+        key="bud"
+        d={`M${top.x} ${top.y + 1}c-4-1.8-4.4-8.6 0-12.6c4.4 4 4 10.8 0 12.6z`}
+        fill={C.green}
+        stroke="none"
+      />
+    ) : null,
+    shape.petals ? (
+      <g key="flower" transform={`translate(${top.x} ${top.y - 5.4})`}>
+        {Array.from({ length: shape.petals }, (_, i) => (
+          <ellipse
+            key={i}
+            cx="0"
+            cy="-5.3"
+            rx="3.2"
+            ry="4.8"
+            transform={`rotate(${(360 / shape.petals) * i + 12})`}
+            fill={C.petal}
+            stroke={C.green}
+            strokeWidth={w(0.6)}
           />
-        </>
-      ) : null}
-      {shape.bud ? (
-        <path d={`M${top.x} ${top.y + 1}c-4-1.8-4.4-8.6 0-12.6c4.4 4 4 10.8 0 12.6z`} fill={C.green} stroke="none" />
-      ) : null}
-      {shape.petals ? (
-        <g transform={`translate(${top.x} ${top.y - 5.4})`}>
-          {Array.from({ length: shape.petals }, (_, i) => (
-            <ellipse
-              key={i}
-              cx="0"
-              cy="-5.3"
-              rx="3.2"
-              ry="4.8"
-              transform={`rotate(${(360 / shape.petals) * i + 12})`}
-              fill={C.petal}
-              stroke={C.green}
-              strokeWidth="0.6"
-            />
-          ))}
-          <circle r="2.7" fill={C.green} />
-        </g>
-      ) : null}
+        ))}
+        <circle r="2.7" fill={C.green} />
+      </g>
+    ) : null,
+  ];
+}
+
+function CardPlant({ st, rules }: { st: string; rules: number }) {
+  const stage = lawStage(rules);
+  const shape = plantShape(stage === "seed" ? "sprout" : stage, lawGrowth(rules), st);
+  return (
+    <svg width="372" height="372" viewBox="-6 0 52 52.5" style={{ position: "absolute", right: 44, bottom: 40 }}>
+      <path d="M-6 52.5H46" stroke={C.lineStrong} strokeWidth="0.35" fill="none" />
+      {plantArt(shape)}
     </svg>
   );
 }
 
-function Mark() {
+export function Mark() {
   return (
     <svg width="40" height="40" viewBox="0 0 24 24">
       <path d="M12 21V11" stroke={C.green} strokeWidth="1.8" strokeLinecap="round" fill="none" />

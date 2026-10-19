@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { sitePreview } from "@/components/public/og/siteCard";
 import styles from "./sources.module.css";
 
 // Where each number about the problem comes from, and how to rerun Tend's own numbers. Static, no tracking.
 export const metadata: Metadata = {
   title: "Sources",
   description: "Where each number Tend cites comes from, with links, and how to rerun Tend's own numbers.",
+  ...sitePreview("sources"),
 };
 
 const MCL_18_355A_2 =
