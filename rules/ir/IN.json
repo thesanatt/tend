@@ -17,7 +17,7 @@
    "field_count": 89
   }
  },
- "source_sha256": "66ecfc7fc55f5ca7c9ae979a1ea3e2beb2a1f05ffa778e78aab9178de3c8b719",
+ "source_sha256": "024db990440601565ed34aa30210f7bc862d14e87ac190b93b1d2895e48efdd6",
  "rules": [
   {
    "id": "IN-EXAM-1",
@@ -169,8 +169,8 @@
   {
    "id": "IN-MIN-1",
    "kind": "minimum_loss",
-   "waiver": "discretionary",
-   "waiver_for_sexual_assault": true,
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
    "cap_cents": 10000
   },
   {

@@ -260,7 +260,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "allowed",
+    "detail": true
    },
    "summary": "The state SAFE program pays first for the sexual assault forensic exam and no forensic fees may be billed to the patient. The program says health insurance may be billed as a secondary payer. SAFE does not cover medical treatment.",
    "quote": "While SAFE is the \"payor of first resort\" for these fees, health insurance carriers may be billed secondary. NO forensic fees may be billed to the patient. However, the SAFE program does not cover any medical treatment that may be required due to the sexual assault.",
@@ -454,7 +455,7 @@
    "params": {
     "years": 2,
     "from": "crime",
-    "extension": "or two years from discovery of the crime"
+    "extension": "or within 2 years of when the crime was discovered"
    },
    "summary": "A claim must be filed within two years after the crime or after the crime was discovered.",
    "quote": "A claim shall be filed not later than two years after the occurrence of the crime or the discovery of the crime upon which it is based.",
@@ -498,7 +499,7 @@
    "id": "MO-COLL-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "The fund is a payor of last resort: awards are reduced by payments from the offender, public or private insurance (not life insurance), and other public or private funds.",
+   "summary": "An award is reduced by payments, benefits, or awards received or to be received because of the injury or death.",
    "quote": "any compensation paid pursuant to sections 595.010 to 595.075 shall be reduced by the amount of any payments, benefits or awards received or to be received as a result of the injury or death",
    "source_id": "MO-S13",
    "pinpoint": "RSMo 595.035.2",

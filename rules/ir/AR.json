@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6",
+ "source_sha256": "417f5845fe312adcc8a1c511cc74061cfa4e217a088a58619be31138210b3254",
  "rules": [
   {
    "id": "AR-EXAM-1",
@@ -25,7 +25,7 @@
   },
   {
    "id": "AR-EXAM-2",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
   },
   {
    "id": "AR-EXAM-3",
@@ -100,7 +100,8 @@
    "id": "AR-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "AR-REPORT-2",

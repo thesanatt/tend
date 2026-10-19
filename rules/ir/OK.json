@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e2fb4c696a03f37663c15226e3e396737d32f87c52c5d29633dcb7fb40d8dbf4",
+ "source_sha256": "16d352ecf83f699d4034623d9d5ab85a9aa59872b66c28d7a4d6a0d120c82462",
  "rules": [
   {
    "id": "OK-EXAM-1",
@@ -40,10 +40,8 @@
   },
   {
    "id": "OK-EXAM-5",
-   "kind": "expense_cap",
-   "expense": "prescription",
-   "cap_cents": 10000,
-   "per": "claim"
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "OK-EXAM-6",
@@ -63,13 +61,8 @@
   },
   {
    "id": "OK-CAP-3",
-   "kind": "expense_cap",
-   "expense": "other",
-   "cap_cents": 2000000,
-   "per": "claim",
-   "alt_rule_ids": [
-    "OK-CAP-4"
-   ]
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "OK-CAP-5",
@@ -314,7 +307,7 @@
   {
    "id": "OK-CAP-4",
    "category": "expense_cap",
-   "reason": "less generous duplicate of OK-CAP-3"
+   "reason": "applies_to \"a caregiver who missed work\""
   }
  ]
 }

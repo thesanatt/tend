@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "8b26225a92270c86fe715b0502d499d4d18867d341fe314661ff5c7b48236990",
+ "source_sha256": "e2228c03c6cf77a52bf0c1049835049de0e3bbacdbcaa1deaaf2e5d5a475e8f2",
  "rules": [
   {
    "id": "LA-EXAM-1",
@@ -63,7 +63,6 @@
    "required": false,
    "alternatives": [
     "forensic_exam",
-    "medical_provider",
     "other"
    ]
   },
@@ -191,11 +190,6 @@
    "category": "submission"
   },
   {
-   "id": "LA-SUBMIT-3",
-   "kind": "info",
-   "category": "submission"
-  },
-  {
    "id": "LA-DOC-SIGN",
    "kind": "info",
    "category": "required_document"
@@ -277,6 +271,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "LA-SUBMIT-3",
+   "category": "submission",
+   "reason": "applies_to \"cases other than adult sexual offenses, which go straight to the board office\""
+  },
   {
    "id": "LA-COUNS-3",
    "category": "expense_cap",

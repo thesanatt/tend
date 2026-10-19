@@ -206,7 +206,7 @@
    "params": {
     "amount_cents": 100000
    },
-   "summary": "The board can make an emergency award of up to $1,000 while an application is pending, if a final award is likely and the claimant would face undue hardship; it is deducted from the final award.",
+   "summary": "While an application is pending, the board can make an emergency award of up to $1,000 if a final award is likely and the claimant would face undue hardship without quick help. The emergency award is taken out of the final award. The claimant must pay back any amount above the final award, or all of it if no final award is made.",
    "quote": "An emergency award shall not exceed one thousand dollars.",
    "source_id": "LA-S14",
    "pinpoint": "La. R.S. 46:1813(B), as amended by Acts 2026, No. 684"
@@ -216,8 +216,7 @@
    "category": "filing_deadline",
    "params": {
     "years": 3,
-    "from": "crime",
-    "extension": "the board may accept a longer period it finds justified by the circumstances"
+    "from": "crime"
    },
    "summary": "Applications must be filed within three years of the date of the crime; this replaced the earlier one-year limit. The board can allow more time when the circumstances justify it.",
    "quote": "Changes the time period for filing from one year to three years and provides this period begins from the date the crime is committed.",
@@ -242,7 +241,6 @@
     "required": false,
     "alternatives": [
      "forensic_exam",
-     "medical_provider",
      "other"
     ]
    },
@@ -409,7 +407,7 @@
     "amount_cents": 500000,
     "per": "claim"
    },
-   "summary": "Relocation reimbursement is limited to $5,000 per household of the claimant.",
+   "summary": "Moving costs are paid only when the claimant must move because of the crime for reasons of imminent danger, personal safety, or a threat of injury, up to $5,000 per household. The board rule says a police or incident report should be sent with the claim to show why the move was needed.",
    "quote": "Reimbursement for relocation expenses is limited up to $5,000 per household of the claimant.",
    "source_id": "LA-S4",
    "pinpoint": "LAC 22:XIII.503(Q)(2)"
@@ -419,7 +417,8 @@
    "category": "covered_expense",
    "expense": "temporary_housing",
    "params": {
-    "expense": "temporary_housing"
+    "expense": "temporary_housing",
+    "scope": "temporary lodging or a move when moving right away is needed for the health and safety of the victim or a household member"
    },
    "summary": "Under the amended statute, temporary lodging or permanent relocation is a covered loss when moving right away is needed for the safety of the victim or a household member.",
    "quote": "Temporary lodging or permanent relocation when immediate relocation is necessary for the health and safety of the victim or the victim's household member.",
@@ -431,7 +430,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips to medical care that is not available nearby, when the doctor certifies it"
    },
    "summary": "Travel beyond the first ambulance ride is paid only when needed medical care is not available locally and the treating physician certifies that; private mileage is paid at the state travel rate.",
    "quote": "Transportation costs other than the initial ambulance services are reimbursable only when required medical care is not locally available. Certification is required by the physician of record that local medical care is unavailable. Allowable private vehicle mileage for out-of-town travel is reimbursed at the rate published in the current state travel regulations.",
@@ -443,7 +443,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing, bedding, or other property taken as evidence or ruined by the investigation or lab tests"
    },
    "summary": "Reasonable replacement of clothing, bedding, or property taken as evidence or ruined by the investigation or lab testing is covered.",
    "quote": "Expenses associated with the collection and securing of crime scene evidence are limited to: a. reasonable replacement costs for clothing; b. bedding; or c. property seized as evidence or rendered unusable as a result of a criminal investigation or lab test.",
@@ -534,7 +535,8 @@
    "params": {
     "method": "mail",
     "target": "you Parish Claim’s Investigator or the CVR Board Office",
-    "note": "Other applicants can send the packet to the sheriff's claim investigator in the parish where the crime happened; adult sexual offense applications go to the board office (LA-SUBMIT-2)."
+    "note": "Other applicants can send the packet to the sheriff's claim investigator in the parish where the crime happened; adult sexual offense applications go to the board office (LA-SUBMIT-2).",
+    "applies_to": "cases other than adult sexual offenses, which go straight to the board office"
    },
    "summary": "The form says to mail the original application, police report, and itemized claims to the parish claim investigator or the board office.",
    "quote": "Please mail the original application, along with the Claim Investigator Review, the complete police report, newspaper articles (if available) and any claims (including claim forms and itemized invoices) to you Parish Claim’s Investigator or the CVR Board Office.",

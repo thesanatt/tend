@@ -17,12 +17,8 @@
    "field_count": 112
   }
  },
- "source_sha256": "fce39036f6be5f4fb752b90045bb1e1936595efc6e32c2b79f25bd0ff8997570",
+ "source_sha256": "6f36e5c09d099c5d650ba24df27222badd169c537d6172301e7efeec6ec422a7",
  "rules": [
-  {
-   "id": "HI-EXAM-1",
-   "kind": "exam_no_bill"
-  },
   {
    "id": "HI-CAP-1",
    "kind": "total_cap",
@@ -50,7 +46,8 @@
    "id": "HI-REPORT-2",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "HI-COLLATERAL-1",
@@ -216,5 +213,11 @@
    "category": "address_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "HI-EXAM-1",
+   "category": "exam_no_bill",
+   "reason": "applies_to \"what police are to do\""
+  }
+ ]
 }

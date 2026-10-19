@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e8fb64c36bfa3e41318dc1f176896e53e693ebaf430a908008cf15c398ecd9c5",
+ "source_sha256": "0eb7796dff126dc654fd40847baf98444ea2e279ae539e1873cec3777582823a",
  "rules": [
   {
    "id": "NH-EXAM-1",
@@ -144,8 +144,8 @@
   },
   {
    "id": "NH-COV-10",
-   "kind": "covered",
-   "expense": "temporary_housing"
+   "kind": "info",
+   "category": "emergency_award"
   },
   {
    "id": "NH-COV-11",
@@ -191,9 +191,7 @@
    "id": "NH-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "forensic_exam"
-   ],
+   "alternatives": [],
    "within_days": 5
   },
   {

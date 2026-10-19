@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a",
+ "source_sha256": "a7f6e76c89f3c42abb12010bf549dee2c3f98871ac0d92ceaa97fe8225ebfcd1",
  "rules": [
   {
    "id": "WV-EXAM-1",
@@ -108,7 +108,8 @@
    "required": true,
    "alternatives": [
     "forensic_exam"
-   ]
+   ],
+   "within_days": 4
   },
   {
    "id": "WV-REP-2",

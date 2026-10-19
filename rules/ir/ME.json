@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561",
+ "source_sha256": "be50aa0c808d94bda4f060af15527016b29d5aa33a4717cd5cbb3606cccbde5e",
  "rules": [
   {
    "id": "ME-EXAM-1",
@@ -80,11 +80,6 @@
    "id": "ME-WAGE-2",
    "kind": "covered",
    "expense": "lost_wages"
-  },
-  {
-   "id": "ME-TRANS-1",
-   "kind": "covered",
-   "expense": "transportation"
   },
   {
    "id": "ME-SEC-1",
@@ -154,9 +149,7 @@
    "id": "ME-REP-2",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "other"
-   ]
+   "alternatives": []
   },
   {
    "id": "ME-REP-3",
@@ -254,5 +247,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "ME-TRANS-1",
+   "category": "covered_expense",
+   "reason": "applies_to \"a claimant or family member who provides or obtains care for a minor or incapacitated victim\""
+  }
+ ]
 }

@@ -254,7 +254,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "insurance_billing": "unspecified"
    },
    "summary": "A survivor cannot be made to pay, directly or indirectly, for a forensic medical exam; the Georgia Crime Victims Emergency Fund pays, whether or not the survivor reports or cooperates with police.",
    "quote": "A victim shall have the right to have a forensic medical examination regardless of whether the victim participates in the criminal justice system or cooperates with law enforcement in pursuing prosecution of the underlying crime. A victim shall not be required to pay, directly or indirectly, for the cost of a forensic medical examination. The cost of a forensic medical examination shall be paid for by the Georgia Crime Victims Emergency Fund, as provided for in Chapter 15 of this title.",
@@ -280,7 +280,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "insurance_billing": "prohibited",
+    "applies_to": "exam costs above the $1,000 limit"
    },
    "summary": "The program says providers may not bill law enforcement or the patient's insurance for exam costs above the $1,000 limit.",
    "quote": "If FME expenses are over $1,000.00, can we bill law enforcement or the patient’s insurance for the difference? No. The maximum allowable amount is $1,000.00 for the collection of evidence for a FME.",
@@ -523,7 +524,7 @@
    "params": {
     "years": 3,
     "from": "crime",
-    "extension": "The board may extend the time for good cause shown."
+    "extension": "or later if the board extends it for good cause"
    },
    "summary": "A claim must be filed within three years of the crime, and the board may extend that for good cause.",
    "quote": "A claim shall be filed by a victim not later than three years after the occurrence of the crime upon which such claim is based or not later than three years after the death of the victim; provided, however, that if such victim was a minor at the time of the commission of the crime, he or she shall have until three years after his or her eighteenth birthday to file such claim; and provided, further, that upon good cause shown, the board may extend the time for filing a claim.",
@@ -591,7 +592,7 @@
    "id": "GA-COLLAT-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "An award may be reduced by payments received from the offender or from other private or public sources such as workers' compensation; gifts from family or charitable donations do not count.",
+   "summary": "By statute, an award may be reduced by payments received from the offender or from other private or public sources, such as workers' compensation, but gifts from family members or charitable donations do not count.",
    "quote": "Any award made pursuant to this chapter may be reduced by or set off by the amount of any payments received or to be received as a result of the injury, serious mental or emotional trauma: (1) From or on behalf of the person who committed the crime; and (2) From any other private or public source, including an award of workers’ compensation pursuant to the laws of this state, provided that private sources shall not include contributions received from family members or persons or private organizations making charitable donations to a claimant.",
    "source_id": "GA-S12",
    "pinpoint": "O.C.G.A. 17-15-8(f)",
@@ -610,7 +611,7 @@
    "id": "GA-COLLAT-3",
    "category": "collateral_source",
    "params": {},
-   "summary": "A sexual assault victim who is not the primary policyholder may opt out of giving insurance information by checking the opt-out box on the application.",
+   "summary": "The application's instructions say that if you are a victim of sexual assault and are not the main policyholder, you may opt out of giving insurance information for this incident.",
    "quote": "If you are not the primary policyholder and are a victim of sexual assault or family violence, you may opt out of providing insurance information for this incident by checking the opt-out box in Section 6 of the application.",
    "source_id": "GA-S10",
    "pinpoint": "Application and Instructions, Please Note"
@@ -881,7 +882,7 @@
     "covers_sexual_assault": true,
     "enroll": "Individuals must complete the application form, complete with a sworn statement."
    },
-   "summary": "Georgia's Safe at Home program, run by the Secretary of State, gives survivors of sexual assault and other eligible people a designated substitute address for public records, forwards their mail, and seals their address on voter rolls.",
+   "summary": "Georgia's Safe at Home program, run by the Secretary of State, helps survivors of sexual assault and others whose safety may be at risk if their home address is made public.",
    "quote": "The Georgia Safe at Home Program is an address confidentiality program that helps survivors of domestic violence, sexual assault, human trafficking, stalking, or other eligible individuals whose safety may be compromised by public disclosure of their residential address.",
    "source_id": "GA-S22",
    "pinpoint": "Program Services; O.C.G.A. 50-18-150 et seq.",

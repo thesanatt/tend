@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418",
+ "source_sha256": "70660ad8dd85afed8d291c9b62f9875c8ae701b7fd46ad94178dde8b307091fd",
  "rules": [
   {
    "id": "ND-EXAM-1",
@@ -158,19 +158,18 @@
    "id": "ND-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 4
   },
   {
    "id": "ND-REPORT-GOODCAUSE",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "ND-REPORT-GOODCAUSE-2",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "ND-REPORT-CHILD",

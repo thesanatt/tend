@@ -194,7 +194,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "applies_to": "what police are to do"
    },
    "summary": "The Attorney General's sexual assault response program page says a primary police role is to make sure victims are offered and given free forensic exams, whether or not they report to police. This is a program role statement, not a statute, and it does not say who pays or whether insurance can be billed.",
    "quote": "The primary roles of the police are to ensure that victims are offered and provided free forensic examinations regardless if a police report is made",
@@ -206,7 +207,8 @@
    "id": "HI-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 1000000
+    "amount_cents": 1000000,
+    "exception": "or more when covered medical costs are over $10,000"
    },
    "summary": "The maximum award is $10,000; if compensable medical expenses exceed $10,000, the award can go up to $20,000 or the actual medical expenses, whichever is lower.",
    "quote": "No compensation shall be awarded under this chapter in an amount in excess of $10,000; provided that, if a case involves compensable medical expenses in excess of $10,000, no compensation shall be awarded in excess of $20,000 or the actual amount of compensable medical expenses, whichever is lower.",
@@ -220,7 +222,7 @@
    "params": {
     "months": 18,
     "from": "crime",
-    "extension": "good_cause"
+    "extension": "or later only if you show good cause"
    },
    "summary": "The application must be filed within eighteen months after the date of injury; the commission may accept a later application for good cause.",
    "quote": "No order for the payment of compensation shall be made under this chapter unless the application has been made within eighteen months after the date of injury, death, or property damage; provided that upon a showing of good cause, the commission may consider applications filed beyond this time period.",
@@ -258,9 +260,11 @@
    "id": "HI-REPORT-2",
    "category": "reporting_requirement",
    "params": {
-    "required": true
+    "required": true,
+    "within_hours": 72,
+    "exception": "or later only if you show good cause"
    },
-   "summary": "The commission's rules define undue delay in reporting to police as 72 hours, and the commission may accept a later police report for good cause.",
+   "summary": "The commission's rules define undue delay in reporting to police as 72 hours, and the commission may consider a later police report if there is good cause.",
    "quote": "\"Undue delay\" means 72 hours, provided that upon a showing of good cause, the commission may consider a police",
    "source_id": "HI-S5",
    "pinpoint": "Haw. Admin. R. 23-605-2 (definition of \"Undue delay\")"
@@ -330,7 +334,7 @@
    "params": {
     "rule": "Any private citizen hurt by a crime within Hawaii's criminal jurisdiction; Hawaii residents hurt in another state by a listed crime; Hawaii residents hurt by terrorism outside the United States."
    },
-   "summary": "Anyone hurt by a covered crime within Hawaii's criminal jurisdiction can apply, and Hawaii residents hurt by a covered crime in another state can also apply.",
+   "summary": "Under the statute, people hurt by a covered crime within Hawaii's criminal jurisdiction can apply. The statute also names Hawaii residents hurt by a covered crime in another state.",
    "quote": "In the event any private citizen is injured or killed by any act or omission of any other person coming within the criminal jurisdiction of the State after June 6, 1967, or any state resident is injured or killed by any act or omission of any other person after July 1, 1989, in another state, which act or omission is within the description of the crimes enumerated in section 351-32",
    "source_id": "HI-S9",
    "pinpoint": "HRS 351-31(a)",
@@ -429,7 +433,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "replacing or renting items taken as evidence"
    },
    "summary": "The reasonable replacement or rental cost of items taken as evidence can be covered as an other monetary loss, with verification. This rule is limited to items taken as evidence; it is not a general property replacement benefit.",
    "quote": "Verification is required to establish other monetary losses and may include, but not limited to: (1) Reasonable cleaning of the crime scene; (2) Reasonable replacement or rental cost for items taken as evidence;",
@@ -526,7 +531,8 @@
    "category": "submission",
    "params": {
     "method": "fax",
-    "target": "(808) 587-1146"
+    "target": "(808) 587-1146",
+    "condition": "you must also send the signed original"
    },
    "summary": "The application form lists a fax number for submitting it: (808) 587-1146. An original signed application must still be sent when filing electronically.",
    "quote": "SUBMIT THE ORIGINALLY SIGNED APPLICATION TO: 1164 Bishop Street, Suite 1530 Honolulu, HI 96813 Fax: (808) 587-1146 Email: cvcc@hawaii.rr.com",
@@ -538,7 +544,8 @@
    "category": "submission",
    "params": {
     "method": "email",
-    "target": "cvcc@hawaii.rr.com"
+    "target": "cvcc@hawaii.rr.com",
+    "condition": "you must also send the signed original"
    },
    "summary": "The application form lists an email address for submitting it: cvcc@hawaii.rr.com. An original signed application must still be sent when filing electronically.",
    "quote": "SUBMIT THE ORIGINALLY SIGNED APPLICATION TO: 1164 Bishop Street, Suite 1530 Honolulu, HI 96813 Fax: (808) 587-1146 Email: cvcc@hawaii.rr.com",

@@ -17,7 +17,7 @@
    "field_count": 138
   }
  },
- "source_sha256": "dcfe24d4d301a829fe50d8d1ba0eb88378ccebd6ac8241db07011a131f9935e6",
+ "source_sha256": "67522772f87b9a4e30e02eb8e6575f52a86eeed3796263d4240dc887f7b239ed",
  "rules": [
   {
    "id": "FL-EXAM-1",
@@ -51,15 +51,19 @@
    "per": "claim"
   },
   {
-   "id": "FL-CAP-4",
+   "id": "FL-CAP-3",
    "kind": "expense_cap",
    "expense": "counseling",
-   "cap_cents": 1000000,
+   "cap_cents": 500000,
    "per": "claim",
    "alt_rule_ids": [
-    "FL-CAP-3",
     "FL-CAP-8"
    ]
+  },
+  {
+   "id": "FL-CAP-4",
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "FL-CAP-5",
@@ -276,14 +280,9 @@
  ],
  "skipped": [
   {
-   "id": "FL-CAP-3",
-   "category": "expense_cap",
-   "reason": "less generous duplicate of FL-CAP-4"
-  },
-  {
    "id": "FL-CAP-8",
    "category": "expense_cap",
-   "reason": "less generous duplicate of FL-CAP-4"
+   "reason": "less generous duplicate of FL-CAP-3"
   }
  ]
 }

@@ -17,7 +17,7 @@
    "field_count": 103
   }
  },
- "source_sha256": "7dacdf2f17b6b2a7d6bdcd2424aa2eb105f503a15f96c228e6116d02e6e39976",
+ "source_sha256": "d86d64c15caa024d00917bd3224c0b9e6813e178a0342b097bdf49dd2b5b45b5",
  "rules": [
   {
    "id": "SC-EXAM-1",
@@ -156,7 +156,8 @@
    "id": "SC-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 2
   },
   {
    "id": "SC-REPORT-2",

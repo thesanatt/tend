@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "21f25a578dc391727b10c37b3ed360bf0d33471f996118ab60c71100dc6ce169",
+ "source_sha256": "cb7a5dee081a436b4ae9053157069be3fabb773b9aac4b57716f6f83839a614c",
  "rules": [
   {
    "id": "SD-EXAM-1",
@@ -49,13 +49,6 @@
    "kind": "expense_cap",
    "expense": "funeral",
    "cap_cents": 800000,
-   "per": "claim"
-  },
-  {
-   "id": "SD-CAP-4",
-   "kind": "expense_cap",
-   "expense": "crime_scene_cleanup",
-   "cap_cents": 150000,
    "per": "claim"
   },
   {
@@ -282,5 +275,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "SD-CAP-4",
+   "category": "expense_cap",
+   "reason": "applies_to \"homicide scene cleanup\""
+  }
+ ]
 }

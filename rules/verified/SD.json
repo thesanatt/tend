@@ -126,7 +126,7 @@
    "params": {
     "payer": "the county where the alleged rape or sexual offense occurred"
    },
-   "summary": "The county where the sexual assault happened pays for the forensic medical exam, including related lab tests, medication given during the exam, and supplies.",
+   "summary": "The county where the sexual assault happened pays for the forensic medical exam.",
    "quote": "The county where an alleged rape or sexual offense occurred shall pay the cost of any forensic medical examination performed on the victim of the alleged rape or sexual offense.",
    "source_id": "SD-S2",
    "pinpoint": "SDCL 22-22-26",
@@ -137,9 +137,10 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "condition": "if the crime was in South Dakota"
    },
-   "summary": "Hospitals and clinics must tell survivors the forensic exam is available at no cost to them, and a survivor does not have to take part in the criminal case or cooperate with police to get the exam. The statute does not say whether the survivor's insurance may be billed.",
+   "summary": "For an exam under section 22-22-26, which has the county where the assault happened pay, hospitals and clinics must tell survivors the exam is available at no cost to them. A survivor does not have to take part in the criminal case or cooperate with police to get the exam. The statute does not say whether the survivor's insurance may be billed.",
    "quote": "Each hospital and clinic that provides a forensic medical examination under § 22-22-26 shall coordinate with the county to establish a payment process by which the county shall pay for the cost of the examination, and to notify any victim of rape or sexual offense of the availability of an examination at no cost to the victim. A victim of rape or sexual offense is not required to participate in the criminal justice system or to cooperate with law enforcement to be provided with a forensic medical examination.",
    "source_id": "SD-S3",
    "pinpoint": "SDCL 22-22-26.2",
@@ -179,7 +180,7 @@
     "amount_cents": 50000,
     "per": "claim"
    },
-   "summary": "Security devices, including digital security cameras, are covered up to $500 including materials and labor; monthly service fees are not. The commission can approve more than this limit on evidence of need, but never above the overall program limit.",
+   "summary": "Security devices are covered up to $500, including materials and labor.",
    "quote": "Payment for security devices may not exceed $500, including materials and labor.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:12",
@@ -194,7 +195,7 @@
     "amount_cents": 800000,
     "per": "claim"
    },
-   "summary": "Basic funeral and burial expenses are capped at $8,000. The commission can approve more than this limit on evidence of need, but never above the overall program limit.",
+   "summary": "Basic funeral and burial expenses are capped at $8,000.",
    "quote": "Payment for basic funeral and burial expenses may not exceed $8,000.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:17",
@@ -207,9 +208,10 @@
    "params": {
     "expense": "crime_scene_cleanup",
     "amount_cents": 150000,
-    "per": "claim"
+    "per": "claim",
+    "applies_to": "homicide scene cleanup"
    },
-   "summary": "Homicide scene cleanup is capped at $1,500. The commission can approve more than this limit on evidence of need, but never above the overall program limit.",
+   "summary": "Homicide scene cleanup is capped at $1,500.",
    "quote": "Payment for homicide scene cleanup may not exceed one thousand five hundred dollars.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:14",
@@ -298,9 +300,10 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage to a hospital or medical facility for a sexual assault exam"
    },
-   "summary": "Mileage is covered for trips such as getting the victim to a hospital or medical facility for a sexual assault exam, treatment, court, and meetings with police.",
+   "summary": "Mileage is covered for getting the victim to a hospital or medical facility for a sexual assault exam.",
    "quote": "Mileage accrued for transporting the victim to a hospital or medical facility for a sexual assault examination",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:05(5)",
@@ -311,7 +314,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage in a private car, paid at the state employee rate"
    },
    "summary": "Mileage is reimbursed at the state employee rate for a privately owned car.",
    "quote": "Mileage is reimbursed at the rate established for state employees in SDCL 3-9-1 , as applicable, for the use of a privately owned automobile.",
@@ -337,7 +341,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing, bedding, and other property used as evidence"
    },
    "summary": "The replacement value of property taken as evidence, including clothing and bedding, is covered if it is not returned.",
    "quote": "\"Personal property losses,\" the replacement value of property, including clothing and bedding, used for evidentiary purposes",
@@ -388,7 +393,7 @@
    "params": {
     "item": "property damaged in the incident"
    },
-   "summary": "Only clothing and bedding kept as evidence is covered; property damaged in the incident is not.",
+   "summary": "Property damaged in the incident is not covered.",
    "quote": "Only clothing and bedding that was collected as evidence, and will not be returned to the claimant, is compensable through the CVC Program. Property damaged in the incident is not eligible for compensation.",
    "source_id": "SD-S7",
    "pinpoint": "Primary Application Instructions, Section IX"
@@ -399,7 +404,7 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "The department may waive the one-year deadline for good cause shown."
+    "extension": "or later if the department waives the deadline for good cause"
    },
    "summary": "The application must be filed within one year after the date of the injury, but the department may waive that for good cause.",
    "quote": "Unless an application for compensation is filed with the department within one year after the date of the personal injury or death and the personal injury or death was the result of a crime which had been reported to a law enforcement officer or agency within five days of its occurrence or, if the crime could not reasonably have been reported within that period, within five days of the date when a report could reasonably have been made. The department may waive the one year application requirement for good cause shown",
@@ -413,7 +418,8 @@
    "params": {
     "required": true,
     "within_days": 5,
-    "alternatives": []
+    "alternatives": [],
+    "exception": "or, if you could not reasonably report that soon, within 5 days of when you could"
    },
    "summary": "The crime must have been reported to law enforcement within 5 days, or within 5 days of when a report could reasonably have been made. No alternative to a police report for sexual assault was found in the statute.",
    "quote": "the personal injury or death was the result of a crime which had been reported to a law enforcement officer or agency within five days of its occurrence or, if the crime could not reasonably have been reported within that period, within five days of the date when a report could reasonably have been made",
@@ -429,7 +435,7 @@
     "within_days": 5,
     "alternatives": []
    },
-   "summary": "If the crime was not reported within 5 days, the application asks for a letter explaining the reason for the delay.",
+   "summary": "If the crime was not reported within 5 days of when it happened, or the victim did not cooperate, the application asks for a letter explaining the late report or the decision not to cooperate.",
    "quote": "If the crime was not reported within 5 days of the date that it occurred or if the victim did not cooperate, please submit a letter explaining the reason for the delay in reporting or decision not to cooperate.",
    "source_id": "SD-S6",
    "pinpoint": "Primary Application, Eligibility"
@@ -450,7 +456,7 @@
    "id": "SD-COLL-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "Awards are reduced by payments from collateral sources such as the offender, insurance, Medicaid, Medicare, workers compensation, or employer wage continuation.",
+   "summary": "Any award is reduced by any payment the victim gets, or will get, from another source because of the crime.",
    "quote": "Any award of victims' compensation made pursuant to this chapter shall be reduced by the amount of any payment received, or to be received, by the victim from any collateral source as a result of the conduct giving rise to the application for compensation.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-22",
@@ -460,7 +466,7 @@
    "id": "SD-COLL-2",
    "category": "collateral_source",
    "params": {},
-   "summary": "Bills for rape exams and related expenses must go to insurance and other collateral sources before the program pays.",
+   "summary": "Before the compensation program pays a bill for a rape exam or related care, the bill must first go to insurance and other sources, including health insurance.",
    "quote": "Bills for rape exams and related expenses must be submitted to collateral sources, including health insurance, before payment may be made under the provisions of this article.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:13",
@@ -482,7 +488,7 @@
    "params": {
     "amount_cents": 100000
    },
-   "summary": "The department may grant an emergency award of up to $1,000 for undue hardship; it is deducted from the final award.",
+   "summary": "An emergency award can be no more than $1,000.",
    "quote": "The amount of an emergency award may not exceed one thousand dollars.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-27",
@@ -730,7 +736,7 @@
    "id": "SD-RECORDS-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Records and reports the compensation department or commission obtains stay confidential if another law or rule already makes them confidential (for example medical or counseling records). The statute does not make the whole claim file confidential.",
+   "summary": "Records and reports the department or commission obtains stay confidential if another law or rule already makes them confidential. The statute does not make the whole claim file confidential.",
    "quote": "Any record or report obtained by the department or commission, the confidentiality of which is protected by any law or administrative rule, shall remain confidential.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-36",

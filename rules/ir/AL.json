@@ -17,7 +17,7 @@
    "field_count": 112
   }
  },
- "source_sha256": "c5d5c095f55d50ab79e9bd1f047d12394779af8712e6326216e23ea20467fb5b",
+ "source_sha256": "f3478a29b80d4d04f92ecbdd06ad134fcfd5b052b1101bd75fd77330869b85b8",
  "rules": [
   {
    "id": "AL-EXAM-1",
@@ -154,7 +154,8 @@
    "id": "AL-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "AL-REPORT-2",
