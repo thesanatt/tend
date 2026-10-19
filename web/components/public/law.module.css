@@ -212,16 +212,29 @@ a.ruleId {
   color: var(--ink-3);
 }
 
+/* Rule permalinks are 44px targets that take no more room than their line (1lh): padding out,
+   negative margin back. The ids keep their small mono look. Positioned, so they paint over the
+   summary below and the padding there still takes the tap. */
+a.ruleId,
+.cite a.pinpoint {
+  position: relative;
+  min-width: 44px;
+  padding-block: calc((44px - 1lh) / 2);
+  margin-block: calc((1lh - 44px) / 2);
+}
+
 .summary {
   color: var(--ink-2);
 }
 
+/* Some quotes hold a whole web or email address; let it wrap inside the card, not run past it. */
 .quote {
   border-left: 3px solid var(--green);
   padding: var(--space-1) 0 var(--space-1) var(--space-4);
   font-family: var(--font-serif);
   font-size: var(--text-md);
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .quote mark {

@@ -32,6 +32,9 @@ time; nothing secret is in the repository or in any page bundle.
   (`X-Tend-Engine: reference`). The function carries `web/public/engine/laws/*.tlaw`, so its answers name the
   same `law_image_sha256` as the engine on the device (Michigan: `54f9809e...`). `/api/jurisdictions/{st}/asm`
   answers 503; the law pages ship their own listings.
+- **Lowercase law links.** `web/proxy.ts` answers a law path whose code has a lowercase letter with a 308 to the
+  same code in capitals (`/law/mi` to `/law/MI`, `/law/dc` to `/law/DC`). The 51 law pages stay static. A redirect in `next.config.ts` cannot do this: its matching ignores
+  case, so it would loop on `/law/MI`.
 - **Bundle.** `.vercelignore` at the root is an allowlist. `api/` and `seed/` go up whole, minus tests, virtual
   environments, caches, and the local SQLite file, so a new folder the API reads ships without an edit. From
   `rules/` only `verified` and `ir`, from `refengine/` only `tend_ref`, from `web/` only the law images. Never

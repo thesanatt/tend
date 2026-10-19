@@ -1,0 +1,34 @@
+/* When the sources were saved, and where to report an error: small, quiet, and next to the facts it covers. */
+
+.note {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+  max-width: 44rem;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+/* The whole block is the link, so the warning is part of what people read before they tap. */
+.report {
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.reportLabel {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.report:hover .reportLabel {
+  text-decoration-thickness: 2px;
+}
+
+.reportNote {
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+}
