@@ -1,16 +1,20 @@
 // @vitest-environment jsdom
 // Each state's two pages say when Tend saved their sources and give a public way to report an error.
-// Also here: the GitHub issue form that link opens.
+// Also here: the GitHub issue form that link opens, and /law/mi in lowercase.
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
+import { unstable_doesMiddlewareMatch } from "next/experimental/testing/server";
+import { NextRequest } from "next/server";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import StatePage from "@/app/[st]/page";
-import LawPage from "@/app/law/[st]/page";
+import LawPage, { generateStaticParams as lawParams } from "@/app/law/[st]/page";
 import { CORRECTIONS_EMAIL, reportErrorUrl } from "@/components/public/corrections";
 import SourceNote from "@/components/public/SourceNote";
+import STATES from "@/lib/states.json";
 import type { Jurisdiction, Source } from "@/lib/types";
+import { config, proxy } from "@/proxy";
 
 // js-yaml comes with ESLint, already a dev dependency. The form is plain YAML.
 const yaml = createRequire(import.meta.url)("js-yaml") as { load(source: string): unknown };
@@ -129,6 +133,44 @@ describe("the note on its own", () => {
     expect(words(mail.parentElement)).toBe(
       "No GitHub account? Email the error to corrections@example.org. Leave out anything about yourself.",
     );
+  });
+});
+
+describe("the lowercase law path", () => {
+  it("sends /law/mi and every other lowercase code to the uppercase page, permanently", () => {
+    for (const { st } of STATES) {
+      const res = proxy(new NextRequest(`https://youreowed.tech/law/${st.toLowerCase()}`));
+      expect(res.status, st).toBe(308);
+      expect(res.headers.get("location"), st).toBe(`https://youreowed.tech/law/${st}`);
+    }
+  });
+
+  it("keeps the query, fixes mixed case, and passes everything else through", () => {
+    expect(proxy(new NextRequest("https://youreowed.tech/law/mi?from=judges")).headers.get("location")).toBe(
+      "https://youreowed.tech/law/MI?from=judges",
+    );
+    expect(proxy(new NextRequest("https://youreowed.tech/law/Mi")).headers.get("location")).toBe(
+      "https://youreowed.tech/law/MI",
+    );
+    for (const url of ["/law/MI", "/law/zz", "/law/changes"]) {
+      const res = proxy(new NextRequest(`https://youreowed.tech${url}`));
+      expect(res.headers.get("location"), url).toBeNull();
+      expect(res.headers.get("x-middleware-next"), url).toBe("1");
+    }
+  });
+
+  it("runs only for a two-letter code with a lowercase letter in it", () => {
+    const runs = (url: string) => unstable_doesMiddlewareMatch({ config, url });
+    expect(runs("/law/mi")).toBe(true);
+    expect(runs("/law/mI")).toBe(true);
+    expect(runs("/law/MI")).toBe(false);
+    expect(runs("/law/changes")).toBe(false);
+    expect(runs("/law/mi/more")).toBe(false);
+    expect(runs("/mi")).toBe(false);
+  });
+
+  it("leaves the law pages built once each, under the uppercase code", () => {
+    expect(lawParams()).toEqual(STATES.map((s) => ({ st: s.st })));
   });
 });
 
