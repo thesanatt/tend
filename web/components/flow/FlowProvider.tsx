@@ -22,6 +22,7 @@ import { installNetLog, onNetSend } from "@/lib/netlog";
 import { stateToday } from "@/lib/stateTime";
 import type { EngineInput } from "@/lib/types";
 import { buildEngineInput, countingDate, knowsDate, offered } from "./claim";
+import { keepSend } from "./keptSends";
 import { defaultServices, type FlowServices } from "./services";
 import {
   findReplaced,
@@ -187,7 +188,10 @@ export function FlowProvider({
   const inputKey = useMemo(() => (input ? JSON.stringify(input) : ""), [input]);
 
   const logSent = useCallback((event: Omit<SentEvent, "at"> & { at?: string }) => {
-    dispatch({ type: "sent", event: { ...event, at: event.at ?? new Date().toISOString() } });
+    const sent = { ...event, at: event.at ?? new Date().toISOString() };
+    dispatch({ type: "sent", event: sent });
+    // The tab keeps the kind and the time, so a reload cannot hide a send from the privacy line.
+    keepSend(sent);
   }, []);
 
   // Every request the page makes passes lib/netlog, so the privacy line hears about each send,

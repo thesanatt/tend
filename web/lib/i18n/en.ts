@@ -83,6 +83,8 @@ export const en = {
 
   privacy: {
     quiet: "On this device. Nothing has left it.",
+    // Shown only until the page has read what this tab sent before a reload.
+    here: "On this device.",
     sent: (parts: string) => `On this device, except what you chose to send: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),
     partShare: (n: number) => (n === 1 ? "a locked share link" : `${n} locked share links`),
@@ -107,6 +109,8 @@ export const en = {
       `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the merchant, its category, and the description. No amounts or dates.`,
     eventCloudBill: (when: string) => `${when}: a bill file, to cloud AI, because you said yes.`,
     eventOther: (path: string, when: string) => `${when}: a request to ${path}.`,
+    eventKept: (what: string, when: string) =>
+      `${when}: ${what}. After a reload, this list keeps only what was sent and when.`,
     more: "What stays here",
     sheetTitle: "What stays on this device",
     facts: [

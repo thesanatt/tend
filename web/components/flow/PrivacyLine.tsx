@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useI18n, type Dict, type Formatters } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
 import FlowSheet from "./FlowSheet";
+import { useKeptSends, withKept } from "./keptSends";
 import type { SentEvent } from "./state";
 import styles from "./shell.module.css";
 
@@ -30,6 +31,16 @@ export function privacyText(sent: SentEvent[], t: Dict, f: Formatters): string {
 
 export function sentLine(e: SentEvent, t: Dict, f: Formatters): string {
   const when = f.time(e.at);
+  // From before a reload only the kind and the time are known, so no amount, payee, or address.
+  if (e.kept && (e.kind === "payment" || e.kind === "payment_setup" || e.kind === "other")) {
+    const what =
+      e.kind === "payment"
+        ? t.privacy.partPayment(1)
+        : e.kind === "payment_setup"
+          ? t.privacy.partSetup(1)
+          : t.privacy.partOther(1);
+    return t.privacy.eventKept(what, when);
+  }
   const amount = f.money(e.amount_cents ?? 0);
   if (e.kind === "payment")
     return e.dry_run ? t.privacy.eventPaymentDry(amount, e.to ?? "", when) : t.privacy.eventPayment(amount, e.to ?? "", when);
@@ -61,10 +72,15 @@ export default function PrivacyLine() {
   const { t, f } = useI18n();
   const { state } = useFlow();
   const [open, setOpen] = useState(false);
-  const text = privacyText(state.sent, t, f);
+  // What this claim sent, and what this tab sent before a reload.
+  const kept = useKeptSends();
+  const sent = withKept(state.sent, kept ?? []);
+  // Until the page can read the tab's memory (the server's HTML, then hydration), it says only what
+  // is always true: a page reloaded after a payment never claims that nothing left.
+  const text = kept === null && !sent.length ? t.privacy.here : privacyText(sent, t, f);
 
   return (
-    <div className={styles.privacy} data-sent={state.sent.length > 0 || undefined}>
+    <div className={styles.privacy} data-sent={sent.length > 0 || undefined}>
       <div className={`page ${styles.privacyInner}`}>
         <Shield />
         <p role="status" className={styles.privacyText}>
@@ -93,9 +109,9 @@ export default function PrivacyLine() {
         </ul>
         <section className={styles.sentList} aria-labelledby="sent-title">
           <h3 id="sent-title">{t.privacy.sentTitle}</h3>
-          {state.sent.length ? (
+          {sent.length ? (
             <ol>
-              {state.sent.map((e, i) => (
+              {sent.map((e, i) => (
                 <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
               ))}
             </ol>
