@@ -55,7 +55,9 @@ Radii: `4px` for fields and tags, `6px` for buttons, `8px` for panels. No drop s
 sheets. Reading measure `40rem`; page width `72rem`; side gutter 16px on phones up to 40px.
 Touch targets are at least 44px, buttons 48px. The top bar is 64px (`bar`): it holds the brand and Exit
 this page and stays put while the page scrolls under it, so anything that sticks to the top of the page
-sits below it.
+sits below it. The nav moves into the bar from 62.5em wide, and with a mouse the Esc hint shows beside
+Exit from 35em. That is 1000px and 560px at the default text size, and never narrower. Because they're in
+em, both widths follow the text size a reader picks in the browser.
 
 ## Motion
 

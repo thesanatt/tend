@@ -2,7 +2,9 @@
 no page scrolls sideways (the List view's hidden words once widened the home page to 493 px), the law
 garden's targets are 44 px and each keeps its whole outline inside the box it scrolls in as Tab moves
 through them, and Exit this page never sits on top of a heading or a button while the page scrolls under
-the top bar. tests/public-layout.test.tsx checks the CSS behind each rule.
+the top bar. With a mouse and the browser's text set from Very small to Very large, Exit and its Esc hint
+stay clear of every link and button in the header. tests/public-layout.test.tsx checks the CSS behind
+each rule.
 """
 from __future__ import annotations
 
@@ -66,6 +68,41 @@ CLIPPED = r"""
   const r = el.getBoundingClientRect();
   const b = box.getBoundingClientRect();
   return Math.max(0, b.left - (r.left - grow), b.top - (r.top - grow), r.right + grow - b.right, r.bottom + grow - b.bottom);
+}
+"""
+
+
+# Chrome's Settings > Appearance > Font size: Very small, Small, Large, and Very large (Medium is 16).
+TEXT_SIZES = [9, 12, 20, 24]
+
+# Each header link and button that Exit this page or its hint sits on, and how far down the brand and
+# Exit reach, which has to stay inside the bar.
+HEADER_CLEAR = r"""
+() => {
+  const bar = parseFloat(getComputedStyle(document.querySelector('header'), '::before').height);
+  const wrap = [...document.querySelectorAll('body > div')].find(
+    (d) => getComputedStyle(d).position === 'fixed' && d.querySelector(':scope > button'));
+  const parts = [...wrap.children].map((c) => c.getBoundingClientRect()).filter((c) => c.width > 0 && c.height > 0);
+  const covered = [];
+  for (const el of document.querySelectorAll('header :is(a[href], button)')) {
+    const r = el.getBoundingClientRect();
+    const at = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    const under = parts.some((c) => Math.min(c.right, r.right) > Math.max(c.left, r.left)
+      && Math.min(c.bottom, r.bottom) > Math.max(c.top, r.top));
+    if (!(at && el.contains(at)) || under) covered.push(el.textContent.trim());
+  }
+  const brand = document.querySelector('header a[href="/"]').getBoundingClientRect();
+  return { covered, bar, lowest: Math.max(brand.bottom, wrap.getBoundingClientRect().bottom) };
+}
+"""
+
+# How far below the bar a focused element's outline starts (negative: that much of it is under the bar).
+RING_TOP = r"""
+(el) => {
+  const cs = getComputedStyle(el);
+  const bar = parseFloat(getComputedStyle(document.querySelector('header'), '::before').height);
+  return { outline: parseFloat(cs.outlineWidth),
+           clear: el.getBoundingClientRect().top - parseFloat(cs.outlineWidth) - parseFloat(cs.outlineOffset) - bar };
 }
 """
 
@@ -162,6 +199,53 @@ def test_a_focused_tile_or_row_keeps_its_outline(stack: Stack, browser: Browser,
         tab_through(page, page.get_by_role("list", name="States and DC").get_by_role("link"), width)
         page.get_by_role("button", name="List").click()
         tab_through(page, page.get_by_role("table").get_by_role("link"), width)
+    finally:
+        page.context.close()
+
+
+@pytest.mark.parametrize("size", TEXT_SIZES)
+@pytest.mark.parametrize("locale", ["en-US", "es-ES"])
+def test_exit_clears_the_header_at_each_text_size(
+    stack: Stack, browser: Browser, locale: str, size: int,  # noqa: ARG001
+) -> None:
+    # A mouse, so the Esc hint shows where it fits. In px, the bar's width switches ignored this setting:
+    # at Large and Very large the nav joined the bar at 1000px under Exit and its hint, and the hint sat
+    # on the brand at 560px. In em alone, at Very small the nav would join the bar at 563px, under the hint.
+    context = browser.new_context(base_url=BASE_URL, viewport={"width": 1280, "height": 800}, locale=locale)
+    page = context.new_page()
+    page.set_default_timeout(30_000)
+    context.new_cdp_session(page).send("Page.setFontSizes", {"fontSizes": {"standard": size, "fixed": 13}})
+    try:
+        for path in ["/", "/check"]:
+            load(page, path)
+            page.wait_for_function(f"document.documentElement.lang === '{locale[:2]}'")
+            assert page.evaluate("getComputedStyle(document.documentElement).fontSize") == f"{size}px"
+            for width in [430, 560, 600, 750, 1000, 1100, 1250, 1500]:
+                page.set_viewport_size({"width": width, "height": 800})
+                seen = page.evaluate(HEADER_CLEAR)
+                assert seen["covered"] == [], (path, width, seen)
+                assert seen["lowest"] <= seen["bar"], (path, width, seen)
+    finally:
+        context.close()
+
+
+@pytest.mark.parametrize("width", [*WIDTHS, 768])
+def test_the_nav_s_focus_ring_clears_the_bar(stack: Stack, browser: Browser, width: int) -> None:  # noqa: ARG001
+    # Below the width where the nav joins the bar, it sits just under the bar at the top of the page.
+    if width < 600:
+        page = phone(browser, width)
+    else:
+        page = browser.new_context(base_url=BASE_URL, viewport={"width": width, "height": 900}).new_page()
+    try:
+        load(page, "/")
+        items = page.locator("header nav").locator("a[href], button")
+        assert items.count() == 3
+        items.first.focus()
+        page.keyboard.press("Shift+Tab")
+        for i in range(items.count()):
+            page.keyboard.press("Tab")
+            ring = items.nth(i).evaluate(RING_TOP)
+            assert ring["outline"] > 0 and ring["clear"] >= 0, (width, items.nth(i).inner_text(), ring)
     finally:
         page.context.close()
 

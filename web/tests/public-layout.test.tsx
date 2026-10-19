@@ -170,6 +170,37 @@ describe("the top bar", () => {
 
     const brand = forClass(shell, "brand").find((r) => !r.media)!.decls;
     expect(centered(brand.top) + 44).toBeLessThanOrEqual(bar);
+    // One line of type keeps the brand 44px tall at Chrome's "Very large" text (24px). With the body's
+    // 1.6 it grew to 62px there and hung 8px below the bar.
+    expect(brand["line-height"]).toBe("1");
+    expect(parseFloat(brand["font-size"]) * 24).toBeLessThanOrEqual(44);
+  });
+
+  it("moves its width switches with the browser's text size, never below their px widths", () => {
+    // In px alone they ignore Chrome's Font size setting: at "Large" and "Very large" the nav joined
+    // the bar at 1000px and sat under Exit this page and its hint. In em alone they would switch early
+    // when the text is set small: at "Very small" the nav would join the bar at 563px, under the hint.
+    // e2e/test_layout.py measures both.
+    const row = forClass(shell, "inner").find((r) => r.decls.position === "fixed")!;
+    const hint = forClass(shell, "exitHint").find((r) => r.decls.display === "block")!;
+    for (const { media } of [row, hint]) {
+      const px = /\(min-width: (\d+)px\)/.exec(media ?? "");
+      const em = /\(min-width: ([\d.]+)em\)/.exec(media ?? "");
+      expect(px && em, media ?? "no @media").toBeTruthy();
+      // the same width at the default 16px
+      expect(Number(em![1]) * 16).toBe(Number(px![1]));
+    }
+  });
+
+  it("starts the nav far enough below the bar that a focus ring shows whole", () => {
+    const globals = parseCss(read("app/globals.css"));
+    const ring = globals.find((r) => r.selector === ":focus-visible")!.decls;
+    const grow = parseFloat(ring.outline) + parseFloat(ring["outline-offset"]);
+    const inner = forClass(shell, "inner").find((r) => !r.media)!.decls;
+    const room = /^calc\(var\(--bar\) \+ var\(--(space-\d)\)\)$/.exec(inner["padding-top"])!;
+    const space = parseFloat(globals.find((r) => r.selector === ":root" && !r.media)!.decls[`--${room[1]}`]);
+    expect(grow).toBe(5);
+    expect(space).toBeGreaterThanOrEqual(grow);
   });
 
   it("keeps links to a heading, and focus, from landing under the bar", () => {

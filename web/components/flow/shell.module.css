@@ -1,6 +1,8 @@
 /* Header. Exit this page and the brand sit in a bar that stays at the top while the page scrolls
-   under it, so the fixed button never lands on a heading or a button. Below 1000px only the brand
-   rides in the bar and the nav scrolls away with the page; from 1000px the whole row fits in it. */
+   under it, so the fixed button never lands on a heading or a button. Below 62.5em (1000px at the
+   default text size) only the brand rides in the bar and the nav scrolls away with the page; from
+   there the whole row fits in it. The width switches are in em so they move with the browser's font
+   size setting, and each keeps its px width as a floor for text set smaller than the default. */
 .header {
   border-bottom: 1px solid var(--line);
 }
@@ -22,8 +24,9 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1) var(--space-6);
-  /* the brand is in the bar, so the nav starts below it */
-  padding-top: var(--bar);
+  /* the brand is in the bar, so the nav starts below it, far enough down that the top of a focus
+     ring (3px plus a 2px gap) isn't drawn under the bar */
+  padding-top: calc(var(--bar) + var(--space-2));
   padding-bottom: var(--space-2);
 }
 
@@ -40,17 +43,21 @@
   text-decoration: none;
   font-family: var(--font-serif);
   font-size: 1.625rem;
+  /* One line of type, so at Chrome's "Very large" text (24px) the box is still 44px tall and inside
+     the bar */
+  line-height: 1;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1000px) and (min-width: 62.5em) {
   .header {
     padding-top: var(--bar);
   }
 
-  /* .inner is also .page, so it stays centered at the page width while fixed. The brand and the
-     Spanish nav end near 560px, left of the exit button and its Spanish hint at 1000px. */
+  /* .inner is also .page, so it stays centered at the page width while fixed. At the switch the brand
+     and the Spanish nav end left of the exit button and its Spanish hint, at each of Chrome's text sizes
+     from 9 to 24px. */
   .inner {
     position: fixed;
     inset: 0 0 auto;
@@ -258,8 +265,9 @@
   border-radius: var(--radius-1);
 }
 
-/* Only where the bar has room for it beside the brand, in either language. */
-@media (hover: hover) and (pointer: fine) and (min-width: 560px) {
+/* Only where the bar has room for it beside the brand, in either language: from 35em (560px at the
+   default text size), and never below 560px. */
+@media (hover: hover) and (pointer: fine) and (min-width: 560px) and (min-width: 35em) {
   .exitHint {
     display: block;
   }

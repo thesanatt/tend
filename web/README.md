@@ -49,7 +49,10 @@ transaction text, a bill line, or the share key. Step timings print at the end.
 and neither does any program's page or law page at 360px. The law garden's map tiles and List links are
 at least 44px each way, and the home page's demo link is at least 44px tall. Tab moves through every tile
 and every List link at those widths and at 1280px, and the box they scroll in never cuts off a focus
-outline. Exit this page never covers a heading or a button anywhere on `/`, `/mi`, or `/check?demo=rowan`.
+outline. Exit this page never covers a heading or a button anywhere on `/`, `/mi`, or `/check?demo=rowan`,
+and a focused nav link's outline shows whole below the top bar. With a mouse and the browser's text size
+at 9, 12, 20, or 24px, in English and Spanish, Exit and its Esc hint cover no link or button in the header
+at eight widths from 430 to 1500px, and the brand and Exit stay inside the bar.
 
 ## Offline (airplane mode)
 
