@@ -62,6 +62,7 @@ async function page(lang: Lang = "en", extra?: ReactNode, services?: TestService
 
 const line = () => screen.getByRole("status").textContent;
 const QUIET = "On this device. Nothing has left it since this page opened.";
+const keptKinds = () => (JSON.parse(sessionStorage.getItem(SENT_KEY) ?? "[]") as { kind: string }[]).map((k) => k.kind);
 
 function pay(flow: ReturnType<typeof useFlow>, id: string) {
   act(() => {
@@ -290,6 +291,34 @@ describe("the privacy line behind the lock", () => {
     act(() => flow.logSent({ kind: "share", ref: "share:s10" }));
     expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
     expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+  });
+
+  // lib/netlog reports a send when its answer comes back, which can fall between the vault's word and
+  // the render that shows it. The tab goes by what the vault said last.
+  it("keeps a send that lands after the vault finds no saved progress, before the screen shows it", async () => {
+    const services = testServices();
+    let answer!: (exists: boolean) => void;
+    services.vault.exists = () => new Promise<boolean>((resolve) => (answer = resolve));
+    const box = mount("en", undefined, services);
+    await act(async () => {
+      answer(false);
+      await Promise.resolve();
+      expect(box.flow!.vault.status).toBe("checking");
+      box.flow!.logSent({ kind: "share", ref: "share:s11" });
+    });
+    expect(box.flow!.vault.status).toBe("none");
+    expect(keptKinds()).toEqual(["share"]);
+  });
+
+  it("keeps nothing that lands after Lock now, before the screen shows the lock", async () => {
+    const services = testServices();
+    const flow = (await page("en", undefined, services)).flow!;
+    await act(async () => flow.save({ passphrase }));
+    act(() => {
+      flow.lockNow();
+      flow.logSent({ kind: "share", ref: "share:s12" });
+    });
+    expect(keptKinds()).toEqual([]);
   });
 
   it("names none of the tab's sends before it knows whether there is saved progress", () => {

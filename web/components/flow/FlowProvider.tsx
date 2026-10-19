@@ -14,6 +14,7 @@ import {
   useState,
   type Dispatch,
   type ReactNode,
+  type SetStateAction,
 } from "react";
 import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
 import type { StatementTxn } from "@/lib/contracts";
@@ -157,7 +158,7 @@ export function FlowProvider({
   const { lang, setLang } = useI18n();
   const [state, dispatch] = useReducer(reducer, initial ?? initialState(lang));
   const [claim, setClaim] = useState<ClaimView>({ status: "idle", evaluation: null, error: null });
-  const [vaultStatus, setVaultStatus] = useState<VaultStatus>("checking");
+  const [vaultStatus, setVaultState] = useState<VaultStatus>("checking");
   const [idleLocked, setIdleLocked] = useState(false);
   const [methods, setMethods] = useState<VaultMethods | null>(null);
   const [passkey, setPasskey] = useState<boolean | null>(null);
@@ -180,11 +181,16 @@ export function FlowProvider({
   const [refining, setRefining] = useState<string[]>([]);
   const run = useRef(0);
   const stateRef = useRef(state);
-  const vaultRef = useRef(vaultStatus);
   useEffect(() => {
     stateRef.current = state;
-    vaultRef.current = vaultStatus;
   });
+  // logSent reads the vault's status here. It changes as the status is set, not after the render
+  // that shows it: lib/netlog reports a send when its answer arrives, which can fall in between.
+  const vaultRef = useRef<VaultStatus>("checking");
+  const setVaultStatus = useCallback((next: SetStateAction<VaultStatus>) => {
+    vaultRef.current = typeof next === "function" ? next(vaultRef.current) : next;
+    setVaultState(vaultRef.current);
+  }, []);
 
   // The language travels with the saved state.
   useEffect(() => {
@@ -269,7 +275,7 @@ export function FlowProvider({
       live = false;
       window.removeEventListener("pagehide", onHide);
     };
-  }, [services]);
+  }, [services, setVaultStatus]);
 
   useEffect(() => {
     if (vaultStatus !== "open") return;
@@ -296,7 +302,7 @@ export function FlowProvider({
       setIdleLocked(idle);
       setVaultStatus("locked");
     },
-    [services],
+    [services, setVaultStatus],
   );
 
   // A page brought back from the browser's back cache had its vault locked on the way out.
@@ -647,6 +653,7 @@ export function FlowProvider({
     logSent,
     lockNow,
     setLang,
+    setVaultStatus,
     refining,
   ]);
 
