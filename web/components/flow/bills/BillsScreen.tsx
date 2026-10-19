@@ -300,7 +300,8 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
           ) : (
             <section className={styles.holdBox} data-none>
               <h3>{t.bills.noHoldTitle}</h3>
-              <p>{noBill ? t.bills.noHoldExam : t.bills.noHoldRule(stateName)}</p>
+              {/* The reason comes from the law's own rules, so a law file that did not load gives none. */}
+              {law.law ? <p>{noBill ? t.bills.noHoldExam : t.bills.noHoldRule(law.law.name)}</p> : null}
             </section>
           )}
 

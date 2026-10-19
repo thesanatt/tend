@@ -9,6 +9,7 @@ import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
 import { resetLawCacheForTests } from "@/lib/api";
+import type { BillReading } from "@/lib/contracts";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import type { Jurisdiction } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
@@ -351,6 +352,55 @@ describe("bill triage while the law loads", () => {
     serve(Promise.resolve(null));
     renderFlow(<BillsScreen />, { initial: stateFrom(withBill) });
     expect(await screen.findByText(held)).toBeTruthy();
+  });
+
+  // An urgent care bill with no exam line: nothing on it is held.
+  const care: BillReading = {
+    status: "ok",
+    provider: "Northside Urgent Care",
+    total_cents: 24000,
+    lines: [
+      { line_id: "1", description: "Urgent care visit", amount_cents: 15000, expense: "medical" },
+      { line_id: "2", description: "X-ray, wrist", amount_cents: 9000, expense: "medical" },
+    ],
+    sums_match: true,
+    source: "rule",
+  };
+  const withCare: Action[] = [
+    MI_CHECK,
+    {
+      type: "addBill",
+      bill: { ...bill, id: "bill-care", label: "care.txt", reading: care, sample: false },
+      items: care.lines.map((l, i) => ({
+        ...billLines[0],
+        item_id: `bill:care:${l.line_id}`,
+        amount_cents: l.amount_cents,
+        expense: l.expense,
+        description: l.description,
+        merchant: "Northside Urgent Care",
+        bill_id: "bill-care",
+        line_no: i + 1,
+      })),
+    },
+  ];
+
+  it("explains a bill with nothing held only from law that loaded", async () => {
+    serve(Promise.resolve(null));
+    renderFlow(<BillsScreen />, { initial: stateFrom(withCare) });
+    // The engine's answer stands without the law's words.
+    expect(await screen.findByRole("heading", { name: "No line on this bill is held" })).toBeTruthy();
+    // Michigan has an exam billing rule; a law file that did not load says nothing about it.
+    expect(MI_LAW.rules.some((r) => r.category === "exam_no_bill")).toBe(true);
+    expect(screen.queryByText(/verified rules have no exam billing rule/)).toBeNull();
+    expect(screen.queryByText(/exam billing rules don't apply/)).toBeNull();
+  });
+
+  it("gives the reason once the law's words are here", async () => {
+    serve(Promise.resolve(new Response(MI_BYTES, { status: 200 })));
+    renderFlow(<BillsScreen />, { initial: stateFrom(withCare) });
+    expect(
+      await screen.findByText("None of its lines is a forensic exam, so the exam billing rules don't apply to it."),
+    ).toBeTruthy();
   });
 });
 
