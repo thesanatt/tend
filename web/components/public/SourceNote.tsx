@@ -6,16 +6,15 @@ import styles from "./SourceNote.module.css";
 
 // When Tend saved a jurisdiction's sources, and the public way to report an error, on /mi and /law/MI.
 // The date is the save, not a later look at the live law, so the note says to ask the program.
+// It does not call the sources official: some saved copies are Justia or Cornell LII reproductions.
 // GitHub shows the poster's username on every issue, so the report link says so.
 export default function SourceNote({
   st,
-  place,
   sources,
   path,
   email = CORRECTIONS_EMAIL,
 }: {
   st: string;
-  place: string;
   sources: Source[];
   path: string;
   email?: string;
@@ -25,8 +24,8 @@ export default function SourceNote({
     <div className={styles.note}>
       {days ? (
         <p>
-          Tend saved copies of {place}&apos;s official sources <Saved {...days} /> and checked every quote against
-          those copies word for word. Laws change, so ask the program before you rely on a date or amount.
+          Tend saved copies of this page&apos;s sources <Saved {...days} /> and checked every quote against those
+          copies word for word. Laws change, so ask the program before you rely on a date or amount.
         </p>
       ) : null}
       <p>

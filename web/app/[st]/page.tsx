@@ -143,7 +143,7 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
             ))}
           </ul>
         ) : null}
-        <SourceNote st={ref.st} place={summary.place} sources={law.sources} path={path} />
+        <SourceNote st={ref.st} sources={law.sources} path={path} />
       </div>
 
       <nav aria-label="On this page" className={styles.toc}>

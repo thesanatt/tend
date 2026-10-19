@@ -79,7 +79,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
             quote, where it was saved from, and what the law engine does with it.
           </p>
           {law.program.statute_citation ? <p className="meta">Statute: {law.program.statute_citation}</p> : null}
-          <SourceNote st={ref.st} place={law.name} sources={law.sources} path={`/law/${ref.st}`} />
+          <SourceNote st={ref.st} sources={law.sources} path={`/law/${ref.st}`} />
           <ul className={styles.links} aria-label="Related pages and data">
             <li>
               <Link href={`/${lower}`}>What {law.name} promises, in plain words</Link>

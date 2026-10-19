@@ -51,8 +51,9 @@ function expectedSaved(sources: Pick<Source, "retrieved_at">[]): string {
     : `between ${say(first, first.slice(0, 4) !== last.slice(0, 4))} and ${say(last, true)}`;
 }
 
-const sentence = (place: string, when: string) =>
-  `Tend saved copies of ${place}'s official sources ${when} and checked every quote against those copies word ` +
+// No place name and no "official": some states' saved copies come from Justia or Cornell LII.
+const sentence = (when: string) =>
+  `Tend saved copies of this page's sources ${when} and checked every quote against those copies word ` +
   `for word. Laws change, so ask the program before you rely on a date or amount.`;
 
 describe("the saved date and the report link on /mi", () => {
@@ -61,7 +62,7 @@ describe("the saved date and the report link on /mi", () => {
     const when = expectedSaved(mi.sources);
     expect(when).toMatch(/^(on|between) [A-Z][a-z]+ \d{1,2}/);
     const line = savedLine(d)!;
-    expect(words(line)).toBe(sentence("Michigan", when));
+    expect(words(line)).toBe(sentence(when));
     const times = [...line.querySelectorAll("time")].map((t) => t.getAttribute("dateTime"));
     const days = mi.sources.map((s) => s.retrieved_at.slice(0, 10)).sort();
     expect(times).toEqual([...new Set([days[0], days[days.length - 1]])]);
@@ -97,8 +98,14 @@ describe("the saved date and the report link on /law/MI", () => {
   it("says when the sources were saved, in the header", async () => {
     const d = await parse(LawPage({ params: Promise.resolve({ st: "MI" }) }));
     const line = savedLine(d)!;
-    expect(words(line)).toBe(sentence("Michigan", expectedSaved(mi.sources)));
+    expect(words(line)).toBe(sentence(expectedSaved(mi.sources)));
     expect(line.closest("header")).not.toBeNull();
+  });
+
+  it("reads the same on /law/DC, with no place name to get wrong", async () => {
+    const dc = JSON.parse(readFileSync(path.join(web, "public/data/law/DC.json"), "utf8")) as Jurisdiction;
+    const d = await parse(LawPage({ params: Promise.resolve({ st: "DC" }) }));
+    expect(words(savedLine(d))).toBe(sentence(expectedSaved(dc.sources)));
   });
 
   it("opens the issue form with Michigan and the law page filled in", async () => {
@@ -114,7 +121,7 @@ describe("the saved date and the report link on /law/MI", () => {
 describe("the note on its own", () => {
   const at = (iso: string): Source => ({ ...mi.sources[0], retrieved_at: iso });
   const line = (sources: Source[], email = "") =>
-    parse(<SourceNote st="MI" place="Michigan" sources={sources} path="/mi" email={email} />);
+    parse(<SourceNote st="MI" sources={sources} path="/mi" email={email} />);
 
   it("names the first and last day when the saves span days or years", async () => {
     const days = [at("2026-10-09T01:00:00Z"), at("2026-10-03T18:47:18Z"), at("2026-10-05T09:00:00Z")];
