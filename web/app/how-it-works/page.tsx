@@ -2,14 +2,15 @@ import { statSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 import { loadCorpus } from "@/components/public/data";
 import { sitePreview } from "@/components/public/og/siteCard";
 import { TOUR_START } from "@/components/tour/tour";
 import { LINKS } from "@/components/tour/links";
 import styles from "./how.module.css";
 
-// For technical visitors: the pipeline, the numbers, what is real, the privacy model, the stack.
-// Static, no tracking. Corpus counts and the engine size are read when the site is built.
+// For visitors checking the work: how Tend keeps a survivor safe, the pipeline, the numbers, what is real,
+// the stack. Static, no tracking. Corpus counts and the engine size are read when the site is built.
 export const metadata: Metadata = {
   title: "How it works",
   description:
@@ -26,6 +27,27 @@ function engineKb(): number | null {
 }
 
 const n = (x: number) => x.toLocaleString("en-US");
+
+// Each safety claim names the files that make it true, so a reader can check it on GitHub.
+// tests/how-it-works.test.tsx keeps the numbers in this copy matched to the code. A path can break
+// after any slash, so a phone wraps it between folders instead of inside a file name.
+function See({ files }: { files: string[] }) {
+  const last = files.length - 1;
+  return (
+    <p className={styles.see}>
+      See{" "}
+      {files.map((file, i) => (
+        <Fragment key={file}>
+          {i === 0 ? "" : i < last ? ", " : last > 1 ? ", and " : " and "}
+          <a href={`${LINKS.repo}/blob/main/${file}`}>
+            <code>{file.split("/").flatMap((part, j) => (j ? ["/", <wbr key={j} />, part] : [part]))}</code>
+          </a>
+        </Fragment>
+      ))}
+      .
+    </p>
+  );
+}
 
 export default function HowItWorks() {
   const corpus = loadCorpus();
@@ -88,6 +110,177 @@ export default function HowItWorks() {
           </a>
         </div>
       </header>
+
+      <section className={styles.section} aria-labelledby="safety">
+        <h2 id="safety">Design for safety</h2>
+        <p className={styles.sectionLead}>
+          A survivor may open Tend on a phone or laptop that someone else can pick up. Each protection below links to
+          the files behind it, so you can check.
+        </p>
+        <ul className={styles.guards}>
+          <li className={styles.guard}>
+            <h3>Exit this page</h3>
+            <div className={styles.guardBody}>
+              <p>
+                The button sits in the top right corner of every page, with a copy inside every panel that opens.
+                Pressing <kbd>Esc</kbd> twice within a second does the same. Tend blanks the screen and locks any saved
+                progress. It clears the tab&apos;s storage, keeping only a flag that marks the exit, and swaps the page
+                for a Google search for the weather.
+              </p>
+              <p>
+                Exit replaces only the page that was open. Back can still reach an earlier Tend page in the same tab.
+                That page opens without the person&apos;s answers, and if the browser kept a copy in memory, the flag
+                hides that copy and reloads the page. Even so, the page shows Tend was in use, and the browser&apos;s
+                history lists the visit. Other tabs stay open too, such as a bill opened in its own tab.
+              </p>
+              <See files={["web/components/QuickExit.tsx", "web/components/flow/ExitControl.tsx", "docs/UX.md"]} />
+            </div>
+          </li>
+          <li className={styles.guard}>
+            <h3>No name, no story</h3>
+            <div className={styles.guardBody}>
+              <p>
+                Check asks four things: the state, the date, whether there was a medical forensic exam, and whether it
+                has been reported to police. Beyond the state, no field anywhere asks where it happened, and none asks
+                what happened or who did it.
+              </p>
+              <p>
+                Michigan&apos;s application is the only state form Tend fills so far. It checks only the boxes for kinds
+                of cost, plus one line noting the attached itemized list and its total. Name, signature, Social Security
+                number, and every question about the crime stay blank. Then Tend reads the saved file back and refuses
+                it if any other field holds a value.
+              </p>
+              <See
+                files={[
+                  "web/components/flow/check/CheckScreen.tsx",
+                  "web/lib/packet/specs.ts",
+                  "web/lib/packet/forms.ts",
+                ]}
+              />
+            </div>
+          </li>
+          <li className={styles.guard}>
+            <h3>On this device</h3>
+            <div className={styles.guardBody}>
+              <p>
+                The law runs in the browser as WebAssembly, and bank statements and bills are read there too. There is
+                no account and no analytics. The site&apos;s security policy blocks scripts from other sites and stops
+                the page from sending requests to them in the background.
+              </p>
+              <p>
+                Costs, files, and every answer except the state stay on the device until the person taps to send
+                something. Cloud AI runs only after a yes on a screen that names what would be sent.
+              </p>
+              <p>
+                Checking the law on Tend&apos;s server also waits for a yes, and is offered only when the law engine
+                cannot run in the browser. It sends the state, the date, the answers, and every cost the person has not
+                left out. That includes bank rows Tend could not sort, which can be ordinary spending. Each goes with
+                its amount, its date, and the bank&apos;s or bill&apos;s description, which can include a person&apos;s
+                name. Tend asks once, and that yes covers later checks.
+              </p>
+              <p>
+                A line at the top of every page starts as &quot;On this device. Nothing has left it.&quot; The page
+                builds that line from the requests it actually makes, and it changes when any of the person&apos;s data
+                is sent. Loading pages and public law files does not change it. Those requests still reach Tend&apos;s
+                web host, and the law file a browser asks for can show which state was picked.
+              </p>
+              <See
+                files={[
+                  "web/lib/engine/index.ts",
+                  "web/components/flow/claim.ts",
+                  "web/lib/local/index.ts",
+                  "web/lib/api.ts",
+                  "web/lib/netlog.ts",
+                  "web/next.config.ts",
+                ]}
+              />
+            </div>
+          </li>
+          <li className={styles.guard}>
+            <h3>Saved progress</h3>
+            <div className={styles.guardBody}>
+              <p>
+                Saving is optional. Until then, progress is held only in the page&apos;s memory and is gone when the tab
+                closes or reloads. Saved progress is encrypted with <span className={styles.term}>AES-256-GCM</span> in
+                the browser&apos;s own storage. It opens with a passkey, such as Touch ID or the phone&apos;s screen
+                lock, or with a passcode. A passcode is turned into a key by{" "}
+                <span className={styles.term}>PBKDF2-SHA-256</span> with 600,000 iterations.
+              </p>
+              <p>
+                The unlocked key is held only in memory. The vault locks after five minutes without a tap, key press, or
+                scroll. Closing or reloading the tab locks it too, as does going to another site. Switching to another
+                app or tab does not lock it, though the five-minute clock keeps running.
+              </p>
+              <p>
+                A passcode can be as short as six characters, and Tend cannot reset a forgotten one. Anyone who opens
+                Check or another step in that browser later can see that saved progress exists, though not what it
+                holds.
+              </p>
+              <See
+                files={[
+                  "web/lib/vault/crypto.ts",
+                  "web/lib/vault/index.ts",
+                  "web/lib/vault/idle.ts",
+                  "web/components/flow/FlowProvider.tsx",
+                  "web/components/flow/FlowFrame.tsx",
+                ]}
+              />
+            </div>
+          </li>
+          <li className={styles.guard}>
+            <h3>Sharing with an advocate</h3>
+            <div className={styles.guardBody}>
+              <p>
+                The browser locks the packet with a new <span className={styles.term}>AES-256-GCM</span> key before
+                anything is sent. Tend&apos;s server gets the locked packet, its expiry, and whether it opens once, but
+                never the key. The key sits after the # in the link, and browsers never send that part of an address to
+                a server.
+              </p>
+              <p>
+                A link expires after one, three, or seven days. Until then, anyone holding the whole link can open it,
+                unless it was set to open once and has already been opened. The survivor can stop it sooner on the
+                Packet step, during the same visit or after opening saved progress. Tend shows no stop button for a link
+                from a visit that was never saved.
+              </p>
+              <See
+                files={["web/lib/share/index.ts", "web/components/flow/packet/ShareBox.tsx", "api/tend_api/share.py"]}
+              />
+            </div>
+          </li>
+          <li className={styles.guard}>
+            <h3>Payments</h3>
+            <div className={styles.guardBody}>
+              <p>
+                In the demo, Tend can pay what is left on a bill from Capital One&apos;s Nessie mock bank, in mock
+                money. Tend shows a 6-digit code, and nothing moves until it is typed back. The code works once, for ten
+                minutes, and five wrong tries lock the payment.
+              </p>
+              <p>
+                The server will not pay a held exam line, alone or together with other lines of the same bill. The code
+                makes paying deliberate. It does not stop someone who is holding the phone.
+              </p>
+              <See files={["api/tend_api/actions.py"]} />
+            </div>
+          </li>
+        </ul>
+        <div className={styles.cannot}>
+          <h3>What Tend cannot stop</h3>
+          <p>Malware on the device, or someone watching the screen.</p>
+          <p>
+            Someone watching the network, such as whoever runs the home Wi-Fi, can still see that Tend&apos;s site was
+            visited, though not what was sent.
+          </p>
+          <p>
+            Anything downloaded from the packet, such as the filled form, is an ordinary file on the device, outside
+            Tend&apos;s lock.
+          </p>
+          <p>
+            The protections above are aimed at someone using the same browser later, a curious server operator, a breach
+            of Tend&apos;s database, and anyone watching the network. The full contract is in{" "}
+            <a href={LINKS.privacy}>docs/PRIVACY.md</a>.
+          </p>
+        </div>
+      </section>
 
       <section className={styles.section} aria-labelledby="pipeline">
         <h2 id="pipeline">The path of a claim</h2>
@@ -181,25 +374,6 @@ export default function HowItWorks() {
             </dd>
           </div>
         </dl>
-      </section>
-
-      <section className={styles.section} aria-labelledby="privacy">
-        <h2 id="privacy">Privacy</h2>
-        <ul className={styles.bullets}>
-          <li>The claim, the statement, the bills, and the answers stay on the device. There is no account.</li>
-          <li>
-            Data leaves only on a tap: a confirmed payment, an encrypted share link, or cloud AI after a yes on a
-            consent screen.
-          </li>
-          <li>
-            Saved progress and shared packets are encrypted in the browser (AES-256-GCM). A share link&apos;s key stays
-            after the #, which browsers never send to a server.
-          </li>
-          <li>No field anywhere stores what happened, where, or who. There are no analytics.</li>
-        </ul>
-        <p className={styles.small}>
-          The full contract and threat model: <a href={LINKS.privacy}>docs/PRIVACY.md</a>.
-        </p>
       </section>
 
       <section className={styles.section} aria-labelledby="stack">

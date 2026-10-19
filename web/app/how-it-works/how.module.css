@@ -38,6 +38,68 @@
   font-size: var(--text-sm);
 }
 
+/* Design for safety: a ledger with each protection on the left and what it does on the right, then a
+   note on what it cannot stop. */
+.guards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  max-width: 60rem;
+}
+
+.guard {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.guard:first-child {
+  padding-top: var(--space-2);
+}
+
+.guard h3 {
+  font-size: var(--text-lg);
+  line-height: 1.25;
+}
+
+.guardBody {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* Like a citation's pinpoint, an algorithm's name reads as one word, so it never breaks at a hyphen. */
+.term {
+  white-space: nowrap;
+}
+
+.see {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+/* A path wraps at its slashes (See puts a <wbr> after each). A name too long for the line still breaks
+   rather than push the page sideways. */
+.see a {
+  overflow-wrap: anywhere;
+}
+
+.cannot {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 46rem;
+  padding: var(--space-4) var(--space-5);
+  border-left: 3px solid var(--ink);
+  background: var(--paper-raised);
+}
+
+.cannot h3 {
+  font-size: var(--text-lg);
+  line-height: 1.25;
+}
+
 /* The diagram: four boxes in a row on wide screens, a column on phones, with a chevron between. */
 .flow {
   list-style: none;
@@ -218,6 +280,10 @@
 }
 
 @media (max-width: 900px) {
+  .guard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .flow {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
