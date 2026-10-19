@@ -480,8 +480,8 @@ export default function HowItWorks() {
         <p className={styles.small}>
           Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).{" "}
           <a href={LINKS.devpost}>Winner of Capital One&apos;s Best Use of Nessie prize</a>. The last commit before the
-          submission deadline is <a href={LINKS.judged}>5d1f7bd</a>. Every commit after it is later work, including this
-          page and the guided tour.
+          submission deadline is <a href={LINKS.atDeadline}>5d1f7bd</a>. Every commit after it is later work, including
+          this page and the guided tour.
         </p>
       </section>
     </div>

@@ -2,7 +2,7 @@
 // so a page and the state pages cannot drift apart when the rules change.
 import { loadIr, loadLaw } from "@/components/public/data";
 import STATES from "@/lib/states.json";
-import type { Jurisdiction, Rule } from "@/lib/types";
+import type { Jurisdiction } from "@/lib/types";
 
 interface StateLaw {
   st: string;
@@ -49,7 +49,7 @@ export function examNoBill(): ExamCount {
 export interface AddressCount {
   counted: string[];
   // A program Tend found, but not one open to sexual assault survivors as such.
-  narrow: { st: string; name: string; rule: Rule }[];
+  narrow: { st: string; name: string }[];
   none: { st: string; name: string }[];
 }
 
@@ -58,7 +58,7 @@ export function addressPrograms(): AddressCount {
   for (const { st, name, law } of corpus()) {
     const rules = law.rules.filter((r) => r.category === "address_confidentiality");
     if (rules.some((r) => r.params?.covers_sexual_assault === true)) out.counted.push(st);
-    else if (rules.length) out.narrow.push({ st, name, rule: rules[0] });
+    else if (rules.length) out.narrow.push({ st, name });
     else out.none.push({ st, name });
   }
   out.narrow.sort(byName);
@@ -87,12 +87,11 @@ export interface Republished {
   cornell: number;
   sources: number;
   rules: number;
-  states: string[];
 }
 
 export function republished(): Republished {
-  const out: Republished = { justia: 0, cornell: 0, sources: 0, rules: 0, states: [] };
-  for (const { st, law } of corpus()) {
+  const out: Republished = { justia: 0, cornell: 0, sources: 0, rules: 0 };
+  for (const { law } of corpus()) {
     const copies = new Set<string>();
     for (const s of law.sources) {
       const who = republisher(s.url);
@@ -104,7 +103,6 @@ export function republished(): Republished {
     if (!copies.size) continue;
     out.sources += copies.size;
     out.rules += law.rules.filter((r) => copies.has(r.source_id)).length;
-    out.states.push(st);
   }
   return out;
 }
