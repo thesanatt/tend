@@ -212,6 +212,15 @@ a.ruleId {
   color: var(--ink-3);
 }
 
+/* Rule permalinks are 44px targets that take no more room than their line (1lh): padding out,
+   negative margin back. The ids keep their small mono look. */
+a.ruleId,
+.cite a.pinpoint {
+  min-width: 44px;
+  padding-block: calc((44px - 1lh) / 2);
+  margin-block: calc((1lh - 44px) / 2);
+}
+
 .summary {
   color: var(--ink-2);
 }
