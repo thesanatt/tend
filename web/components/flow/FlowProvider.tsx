@@ -223,6 +223,7 @@ export function FlowProvider({
         action_id: s.action_id,
         ref: s.ref,
         dry_run: s.dry_run,
+        unsure: s.unsure,
         path: s.kind === "other" ? `${s.method} ${s.path}` : undefined,
       }),
     );

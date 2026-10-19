@@ -241,7 +241,7 @@ def test_demo_path(stack: Stack, browser: Browser) -> None:
             page.get_by_role("button", name=re.compile(rf"^Pay \{REST} now from Checking 0011")).click()
             sheet = page.get_by_role("dialog")
             sheet.get_by_role("button", name="Get a code").click()
-            expect(sheet.get_by_text("The bank already shows a payment from Tend for these lines of this bill", exact=False)).to_be_visible()
+            expect(sheet.get_by_text("The demo bank already shows a payment from Tend for these lines", exact=False)).to_be_visible()
         expect(sheet.get_by_label("Confirmation code")).to_have_count(0)
     finally:
         context.close()

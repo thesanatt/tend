@@ -11,7 +11,7 @@ import { buildEngineInput, buildRows, offered, paidLines } from "@/components/fl
 import CloudConsent from "@/components/flow/CloudConsent";
 import { billLineId } from "@/components/flow/FlowProvider";
 import AddRecords, { unsortedRows } from "@/components/flow/gather/AddRecords";
-import PrivacyLine from "@/components/flow/PrivacyLine";
+import PrivacyLine, { sentLine } from "@/components/flow/PrivacyLine";
 import { demoBankTxns, ROWAN_ACCOUNT, sampleBillFile, sampleStatementCsv } from "@/components/flow/samples";
 import { ROWAN_ROWS } from "@/components/flow/samples/rowan";
 import {
@@ -24,7 +24,7 @@ import {
 } from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
-import { DICTS, I18nProvider } from "@/lib/i18n";
+import { DICTS, formatters, I18nProvider } from "@/lib/i18n";
 import { billReader, classifier, statementParser } from "@/lib/local";
 import { pdfLines } from "@/lib/local/pdf";
 import { mockEngineOutput } from "@/lib/mocks/engine";
@@ -408,6 +408,36 @@ describe("the net log behind the privacy line", () => {
     });
     await expect(fetch("/api/shares", { method: "POST", body: "{}" })).rejects.toThrow();
     expect(netSends()).toHaveLength(1);
+  });
+
+  it("reports no payment when the bank refused it before any money moved, and marks an unclear one", async () => {
+    const answer = (body: object) =>
+      new Response(JSON.stringify(body), { status: 502, headers: { "content-type": "application/json" } });
+    const fake = vi
+      .fn()
+      .mockResolvedValueOnce(
+        answer({ detail: "The bank refused this payment, so no money moved", maybe_applied: false }),
+      )
+      .mockResolvedValueOnce(answer({ detail: "The bank did not answer", maybe_applied: true }))
+      .mockResolvedValueOnce(answer({ detail: "Bad gateway" }));
+    vi.stubGlobal("fetch", fake);
+    installNetLog(window);
+    for (let i = 0; i < 3; i++) await fetch("/api/actions/confirm", { method: "POST", body: `{"action_id":"a${i}"}` });
+    expect(netSends().map((s) => [s.kind, s.action_id, s.unsure])).toEqual([
+      ["payment", "a1", true],
+      ["payment", "a2", true],
+    ]);
+    const unsure = {
+      kind: "payment" as const,
+      at: "2026-10-03T17:00:00Z",
+      amount_cents: 11800,
+      to: "Riverbend",
+      unsure: true,
+    };
+    expect(sentLine(unsure, en, formatters("en"))).toBe(
+      en.privacy.eventPaymentUnsure("$118.00", "Riverbend", formatters("en").time("2026-10-03T17:00:00Z")),
+    );
+    expect(sentLine({ ...unsure, unsure: undefined }, en, formatters("en"))).toMatch(/It went to the bank\.$/);
   });
 
   it("reports a send that failed online with no answer, since it may have arrived", async () => {

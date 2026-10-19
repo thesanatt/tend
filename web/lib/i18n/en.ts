@@ -100,6 +100,8 @@ export const en = {
     partSetup: (n: number) => (n === 1 ? "a payment you started" : `${n} payments you started`),
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: a payment of ${amount} to ${to}. It went to the bank.`,
+    eventPaymentUnsure: (amount: string, to: string, when: string) =>
+      `${when}: your yes to a payment of ${amount} to ${to}, to Tend's server. No clear answer came back, so the payment may have reached the bank.`,
     eventShare: (when: string) =>
       `${when}: a share link. The packet was locked on this device first, so the server holds only locked data.`,
     eventBank: (when: string) => `${when}: a request to the bank for your transactions.`,
@@ -605,8 +607,10 @@ export const en = {
       `${state}'s verified rules have no exam billing rule, so Tend treats an exam line like other medical care.`,
     restTitle: (amount: string) => `The rest: ${amount}`,
     paid: (amount: string, payee: string, when: string) => `You paid ${amount} to ${payee} (${when}).`,
-    eitherWay: "Both choices are fine. The program can pay you back for these, whether you pay now or not:",
+    eitherWay:
+      "Both choices are fine. The law names these costs, so you can ask the program for them whether you pay now or not:",
     notSent: (amount: string) => `The payment of ${amount} was not sent.`,
+    failed: (amount: string) => `The payment of ${amount} did not go through. No money moved.`,
     unverified: (amount: string) =>
       `The payment of ${amount} may have gone through. Check the account before you pay again.`,
     payNow: (amount: string, account: string) => (account ? `Pay ${amount} now from ${account}` : `Pay ${amount} now`),
@@ -671,8 +675,9 @@ export const en = {
     wholeDollars:
       "The demo bank only takes whole-dollar payments, so Tend can't pay this amount from here. You can leave it unpaid and claim it.",
     notDemoAccount: "The bank here only takes payments from the demo account. Nothing was sent.",
+    // Every visitor to the demo pays from the same fictional account, so an earlier payment may not be theirs.
     alreadyPaid:
-      "The bank already shows a payment from Tend for these lines of this bill, so nothing was sent this time. Your bank records show it.",
+      "The demo bank already shows a payment from Tend for these lines, so nothing was sent this time. Everyone who tries the demo pays from this one fictional account, so the earlier payment may be someone else's. You can go on to your packet.",
     billRefused: "This amount does not match what is still payable on the bank's copy of this bill. Nothing was sent.",
     codeWrong: "That code does not match. Check the six digits and try again.",
     codeExpired: "This code has expired or was already used. Get a new code to try again.",
@@ -680,6 +685,7 @@ export const en = {
     bankUnsure:
       "The bank did not give a clear answer, so this payment may have gone through. Check the account before you try again.",
     confirmFailed: "The payment did not go through. Nothing was sent.",
+    bankRefused: "The payment did not go through, and no money moved. Get a new code to try again.",
     offline:
       "You are offline, so this did not reach the bank. Nothing was sent. Connect to the internet and try again.",
     retry: "Try again",

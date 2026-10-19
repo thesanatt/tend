@@ -70,6 +70,8 @@ export const es: Dict = {
     partSetup: (n: number) => (n === 1 ? "un pago que empezaste" : `${n} pagos que empezaste`),
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}. Se envió al banco.`,
+    eventPaymentUnsure: (amount: string, to: string, when: string) =>
+      `${when}: tu sí a un pago de ${amount} a ${to}, al servidor de Tend. No llegó una respuesta clara, así que el pago pudo haber llegado al banco.`,
     eventShare: (when: string) =>
       `${when}: un enlace para compartir. El paquete se protegió primero en este dispositivo, así que el servidor solo guarda datos cifrados.`,
     eventBank: (when: string) => `${when}: una consulta al banco para ver tus transacciones.`,
@@ -581,8 +583,10 @@ export const es: Dict = {
       `Las reglas verificadas de ${state} no tienen una regla sobre el cobro del examen, así que Tend trata una línea de examen como otra atención médica.`,
     restTitle: (amount: string) => `El resto: ${amount}`,
     paid: (amount: string, payee: string, when: string) => `Pagaste ${amount} a ${payee} (${when}).`,
-    eitherWay: "Las dos opciones están bien. El programa te puede reembolsar estos gastos, los pagues ahora o no:",
+    eitherWay:
+      "Las dos opciones están bien. La ley menciona estos gastos, así que puedes pedírselos al programa, los pagues ahora o no:",
     notSent: (amount: string) => `El pago de ${amount} no se envió.`,
+    failed: (amount: string) => `El pago de ${amount} no se hizo. No se movió dinero.`,
     unverified: (amount: string) =>
       `El pago de ${amount} pudo haberse hecho. Revisa la cuenta antes de pagar otra vez.`,
     payNow: (amount: string, account: string) =>
@@ -651,7 +655,7 @@ export const es: Dict = {
       "El banco de prueba solo acepta pagos en dólares enteros, así que Tend no puede pagar este monto desde aquí. Puedes dejarlo sin pagar y reclamarlo.",
     notDemoAccount: "El banco aquí solo acepta pagos desde la cuenta de prueba. No se envió nada.",
     alreadyPaid:
-      "El banco ya muestra un pago de Tend para estas líneas de esta factura, así que esta vez no se envió nada. Tus registros del banco lo muestran.",
+      "El banco de demostración ya muestra un pago de Tend para estas líneas, así que esta vez no se envió nada. Todas las personas que prueban la demostración pagan desde esta misma cuenta ficticia, y el pago anterior puede ser de otra persona. Puedes seguir con tu paquete.",
     billRefused: "Este monto no coincide con lo que aún se puede pagar en la copia del banco de esta factura. No se envió nada.",
     codeWrong: "Ese código no coincide. Revisa los seis dígitos e inténtalo de nuevo.",
     codeExpired: "Este código venció o ya se usó. Pide otro código para intentarlo de nuevo.",
@@ -660,6 +664,7 @@ export const es: Dict = {
     bankUnsure:
       "El banco no dio una respuesta clara, así que este pago pudo haberse hecho. Revisa la cuenta antes de intentarlo de nuevo.",
     confirmFailed: "El pago no se completó. No se envió nada.",
+    bankRefused: "El pago no se completó y no se movió dinero. Pide otro código para intentarlo de nuevo.",
     offline:
       "No tienes conexión, así que esto no llegó al banco. No se envió nada. Conéctate a internet e inténtalo de nuevo.",
     retry: "Intentar de nuevo",

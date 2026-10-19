@@ -45,7 +45,11 @@ export function sentLine(e: SentEvent, t: Dict, f: Formatters): string {
   }
   const amount = f.money(e.amount_cents ?? 0);
   if (e.kind === "payment")
-    return e.dry_run ? t.privacy.eventPaymentDry(amount, e.to ?? "", when) : t.privacy.eventPayment(amount, e.to ?? "", when);
+    return e.dry_run
+      ? t.privacy.eventPaymentDry(amount, e.to ?? "", when)
+      : e.unsure
+        ? t.privacy.eventPaymentUnsure(amount, e.to ?? "", when)
+        : t.privacy.eventPayment(amount, e.to ?? "", when);
   if (e.kind === "payment_setup") return t.privacy.eventSetup(amount, e.to ?? "", when);
   if (e.kind === "share") return t.privacy.eventShare(when);
   if (e.kind === "bank") return t.privacy.eventBank(when);

@@ -15,10 +15,13 @@ import type {
 
 export type DataMode = "live" | "fixtures";
 
+// maybeApplied: the API's word on a failed payment, when it gives one. false means the bank refused
+// it before any money could move; true, or no word, means it may have gone through.
 export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    readonly maybeApplied?: boolean,
   ) {
     super(message);
   }
@@ -37,11 +40,13 @@ async function request<T>(path: string, init: RequestInit = {}, timeoutMs = 1500
   const type = res.headers.get("content-type") ?? "";
   if (!res.ok || !type.includes("json")) {
     let detail = `${res.status} ${res.statusText}`;
+    let maybeApplied: boolean | undefined;
     if (type.includes("json")) {
       const body = await res.json().catch(() => null);
       if (body?.detail) detail = typeof body.detail === "string" ? body.detail : JSON.stringify(body.detail);
+      if (typeof body?.maybe_applied === "boolean") maybeApplied = body.maybe_applied;
     }
-    throw new ApiError(detail, res.status);
+    throw new ApiError(detail, res.status, maybeApplied);
   }
   return (await res.json()) as T;
 }

@@ -101,6 +101,13 @@ describe("payment errors, worded by status and never in the service's English", 
     expect(confirmProblem(new ApiError("already done", 409), en).phase).toBe("dead");
     expect(confirmProblem(new ApiError("locked", 423), en)).toEqual({ text: en.pay.codeLocked, phase: "dead" });
     expect(confirmProblem(new ApiError("bank refused", 502), en)).toEqual({ text: en.pay.bankUnsure, phase: "unsure" });
+    // The API's word that no money moved (maybe_applied false), and its word that it may have.
+    expect(confirmProblem(new ApiError("The bank refused this payment, so no money moved", 502, false), en)).toEqual({
+      text: en.pay.bankRefused,
+      phase: "dead",
+      failed: true,
+    });
+    expect(confirmProblem(new ApiError("may have gone through", 502, true), en).phase).toBe("unsure");
     expect(confirmProblem(new TypeError("Failed to fetch"), en).phase).toBe("unsure");
     expect(proposeProblem(new ApiError("Nessie stores whole dollars", 422), es)).toBe(es.pay.wholeDollars);
     expect(proposeProblem(new ApiError("demo persona", 403), en)).toBe(en.pay.notDemoAccount);
@@ -168,6 +175,24 @@ describe("payment errors, worded by status and never in the service's English", 
     expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
     fireEvent.click(within(dialog).getByRole("button", { name: en.common.done }));
     expect(await screen.findByText(en.bills.unverified("$118.00"))).toBeTruthy();
+  });
+
+  it("a bank refusal with no money moved offers a new code, logs no payment, and says so on the bill", async () => {
+    const services = testServices({
+      confirm: vi.fn(async () => {
+        throw new ApiError("The bank refused this payment, so no money moved: closed account", 502, false);
+      }),
+    });
+    const { dialog } = await openWithCode(services);
+    await within(dialog).findByLabelText(en.pay.codeLabel);
+    typeCode(dialog, "123456");
+    expect(await within(dialog).findByText(en.pay.bankRefused)).toBeTruthy();
+    expect(within(dialog).getByRole("button", { name: en.pay.newCode })).toBeTruthy();
+    // The code request went out; no payment did.
+    expect(screen.getByText("On this device, except: the state you picked and a payment you started.")).toBeTruthy();
+    fireEvent.click(within(dialog).getByRole("button", { name: en.common.cancel }));
+    expect(await screen.findByText(en.bills.failed("$118.00"))).toBeTruthy();
+    expect(screen.queryByText(en.bills.unverified("$118.00"))).toBeNull();
   });
 
   it("an 'unverified' result is not 'Nothing was sent'", async () => {

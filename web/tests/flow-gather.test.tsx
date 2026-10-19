@@ -197,7 +197,9 @@ describe("bill triage", () => {
     expect(screen.getByText(noBill.quote)).toBeTruthy();
     expect(screen.getByRole("heading", { name: "The rest: $118.00" })).toBeTruthy();
     expect(
-      screen.getByText("Both choices are fine. The program can pay you back for these, whether you pay now or not:"),
+      screen.getByText(
+        "Both choices are fine. The law names these costs, so you can ask the program for them whether you pay now or not:",
+      ),
     ).toBeTruthy();
 
     fireEvent.click(screen.getByRole("button", { name: "Get a letter for the billing office" }));

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { ApiError } from "@/lib/api";
 import { useI18n, type Dict, type Formatters } from "@/lib/i18n";
 import { offline } from "@/lib/netlog";
 import type { AccountRef, ActionProposal, ActionResult } from "@/lib/types";
@@ -83,8 +84,12 @@ export function proposeProblem(e: unknown, t: Dict): string {
 // The API's one refusal that means "this was paid before" (api/tend_api/payments.py already_paid_message).
 const alreadyPaid = (e: unknown) => /^Tend already paid /.test((e as Error | null)?.message ?? "");
 
-// Why a confirm failed, and what the sheet can offer next.
-export function confirmProblem(e: unknown, t: Dict): { text: string; phase: "ready" | "dead" | "unsure" } {
+// Why a confirm failed, and what the sheet can offer next. failed: the bank refused it and no money
+// moved, so the try is recorded as failed, not as a payment that may have gone through.
+export function confirmProblem(
+  e: unknown,
+  t: Dict,
+): { text: string; phase: "ready" | "dead" | "unsure"; failed?: boolean } {
   const status = statusOf(e);
   // A wrong code: the demo answers 400, the API 403. The same code can be typed again.
   if (status === 400 || status === 403) return { text: t.pay.codeWrong, phase: "ready" };
@@ -93,7 +98,10 @@ export function confirmProblem(e: unknown, t: Dict): { text: string; phase: "rea
   if (status === 423) return { text: t.pay.codeLocked, phase: "dead" };
   // Any other refusal from the service came before the bank was asked.
   if (status !== undefined && status >= 400 && status < 500) return { text: t.pay.confirmFailed, phase: "dead" };
-  // A bank error or no answer at all: the payment may have gone through.
+  // The API says the bank refused it before any money moved (maybe_applied false).
+  if (status !== undefined && status >= 500 && (e as ApiError | null)?.maybeApplied === false)
+    return { text: t.pay.bankRefused, phase: "dead", failed: true };
+  // A bank error with no such word, or no answer at all: the payment may have gone through.
   return { text: t.pay.bankUnsure, phase: "unsure" };
 }
 
@@ -222,6 +230,17 @@ export default function PaySheet(props: PaySheetProps) {
       const next = confirmProblem(e, t);
       setError(next.text);
       setPhase(next.phase);
+      const record = (status: string): PaymentRecord => ({
+        action_id: proposal.action_id,
+        bill_id: latest.current.billId,
+        item_ids: itemIds,
+        amount_cents: proposal.amount_cents,
+        payee: proposal.payee,
+        from: fromLabel(proposal.from, latest.current.account),
+        status,
+        demo: false,
+        at: new Date().toISOString(),
+      });
       if (next.phase === "unsure" && !proposal.demo) {
         logSent({
           kind: "payment",
@@ -229,21 +248,12 @@ export default function PaySheet(props: PaySheetProps) {
           to: proposal.payee,
           action_id: proposal.action_id,
           ref: `pay:${proposal.action_id}`,
+          unsure: true,
         });
-        dispatch({
-          type: "payment",
-          record: {
-            action_id: proposal.action_id,
-            bill_id: latest.current.billId,
-            item_ids: itemIds,
-            amount_cents: proposal.amount_cents,
-            payee: proposal.payee,
-            from: fromLabel(proposal.from, latest.current.account),
-            status: "unverified",
-            demo: false,
-            at: new Date().toISOString(),
-          },
-        });
+        dispatch({ type: "payment", record: record("unverified") });
+      } else if (next.failed && !proposal.demo) {
+        // No money moved, so nothing is logged as a payment; the bill says this try failed.
+        dispatch({ type: "payment", record: record("failed") });
       }
     }
   }
