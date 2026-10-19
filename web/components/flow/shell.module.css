@@ -1,5 +1,19 @@
-/* Header */
+/* Header. Exit this page and the brand sit in a bar that stays at the top while the page scrolls
+   under it, so the fixed button never lands on a heading or a button. Below 1000px only the brand
+   rides in the bar and the nav scrolls away with the page; from 1000px the whole row fits in it. */
 .header {
+  border-bottom: 1px solid var(--line);
+}
+
+/* The bar itself: paper behind the brand and the exit button, drawn over the page that scrolls under
+   it. The brand shares its layer (50); Exit this page (60) sits above both. */
+.header::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--bar);
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 
@@ -8,13 +22,16 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1) var(--space-6);
-  min-height: 64px;
-  padding-block: var(--space-2);
-  /* room for the fixed Exit this page button */
-  padding-right: max(var(--gutter), 176px);
+  /* the brand is in the bar, so the nav starts below it */
+  padding-top: var(--bar);
+  padding-bottom: var(--space-2);
 }
 
 .brand {
+  position: fixed;
+  top: calc((var(--bar) - 44px) / 2);
+  left: var(--gutter);
+  z-index: 50;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -25,6 +42,27 @@
   font-size: 1.625rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+
+@media (min-width: 1000px) {
+  .header {
+    padding-top: var(--bar);
+  }
+
+  /* .inner is also .page, so it stays centered at the page width while fixed. The brand and the
+     Spanish nav end near 560px, left of the exit button and its Spanish hint at 1000px. */
+  .inner {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    flex-wrap: nowrap;
+    height: var(--bar);
+    padding-block: 0;
+  }
+
+  .brand {
+    position: static;
+  }
 }
 
 .mark {
@@ -177,16 +215,16 @@
   gap: var(--space-2);
 }
 
-/* Exit this page */
+/* Exit this page, centered in the top bar. The hint sits to its left so both stay inside the bar. */
 .exitWrap {
   position: fixed;
-  top: var(--space-3);
+  top: calc((var(--bar) - 44px) / 2);
   right: var(--space-3);
   z-index: 60;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .exit {
@@ -220,7 +258,8 @@
   border-radius: var(--radius-1);
 }
 
-@media (hover: hover) and (pointer: fine) {
+/* Only where the bar has room for it beside the brand, in either language. */
+@media (hover: hover) and (pointer: fine) and (min-width: 560px) {
   .exitHint {
     display: block;
   }
@@ -249,21 +288,8 @@
 }
 
 @media (max-width: 640px) {
-  .inner {
-    padding-right: var(--gutter);
-  }
-
-  .brand {
-    margin-right: 168px;
-  }
-
   .nav {
     width: 100%;
     gap: 0 var(--space-4);
-  }
-
-  /* Keep the language switch on the left of the second row, clear of the fixed Exit this page button. */
-  .lang {
-    margin-left: 0;
   }
 }

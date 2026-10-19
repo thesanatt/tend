@@ -116,7 +116,7 @@
 
 .detail {
   position: sticky;
-  top: 84px;
+  top: calc(var(--bar) + var(--space-5));
   display: grid;
   gap: var(--space-4);
   padding-left: var(--space-6);

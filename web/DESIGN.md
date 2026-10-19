@@ -53,7 +53,9 @@ Prose amounts use the body face; amounts in tables and ledgers use the mono face
 Spacing steps on a 4px base: `4, 8, 12, 16, 24, 32, 48, 64, 96` (`space-1` to `space-9`).
 Radii: `4px` for fields and tags, `6px` for buttons, `8px` for panels. No drop shadows except on
 sheets. Reading measure `40rem`; page width `72rem`; side gutter 16px on phones up to 40px.
-Touch targets are at least 44px, buttons 48px.
+Touch targets are at least 44px, buttons 48px. The top bar is 64px (`bar`): it holds the brand and Exit
+this page and stays put while the page scrolls under it, so anything that sticks to the top of the page
+sits below it.
 
 ## Motion
 
@@ -65,8 +67,9 @@ its stage rises, a sheet slides in when opened. Nothing animates on page load. U
 ## Components
 
 - **Buttons.** Primary: green fill, paper text. Secondary: green outline. Quiet: ink-3 outline.
-- **Exit this page.** Ink fill, fixed top right on every screen, repeated inside every sheet. Esc
-  twice does the same. It blanks the page, clears the tab's storage, and replaces the history entry.
+- **Exit this page.** Ink fill, top right in the top bar on every screen, so it never covers a heading
+  or a button. Repeated inside every sheet. Esc twice does the same. It blanks the page, clears the
+  tab's storage, and replaces the history entry.
 - **Status tags.** Eligible: filled circle, green. Held: filled square, clay. Excluded: struck circle.
   Needs confirmation: dashed circle, ink. Not included: open circle, ink-3.
 - **Citation.** The pinpoint (for example `MCL 18.355a(2)`) as an underlined button. It opens a sheet
