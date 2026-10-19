@@ -70,14 +70,18 @@ function Shield() {
 
 export default function PrivacyLine() {
   const { t, f } = useI18n();
-  const { state } = useFlow();
+  const { state, vault } = useFlow();
   const [open, setOpen] = useState(false);
-  // What this claim sent, and what this tab sent before a reload.
+  // What this claim sent, and what this tab sent before a reload. Behind the lock, and while Tend
+  // checks for one, the tab's sends stay out, so the next person at a shared device does not learn
+  // that a payment or a share link went out, or when.
+  const hidden = vault.status === "locked" || vault.status === "checking";
   const kept = useKeptSends();
-  const sent = withKept(state.sent, kept ?? []);
-  // Until the page can read the tab's memory (the server's HTML, then hydration), it says only what
-  // is always true: a page reloaded after a payment never claims that nothing left.
-  const text = kept === null && !sent.length ? t.privacy.here : privacyText(sent, t, f);
+  const sent = withKept(state.sent, hidden ? [] : (kept ?? []));
+  // Before the page can read the tab's memory (the server's HTML, then hydration), and behind the
+  // lock, it says only what is always true, never that nothing left.
+  const quiet = (kept === null || hidden) && !sent.length;
+  const text = quiet ? t.privacy.here : privacyText(sent, t, f);
 
   return (
     <div className={styles.privacy} data-sent={sent.length > 0 || undefined}>
@@ -107,18 +111,21 @@ export default function PrivacyLine() {
             <li key={fact}>{fact}</li>
           ))}
         </ul>
-        <section className={styles.sentList} aria-labelledby="sent-title">
-          <h3 id="sent-title">{t.privacy.sentTitle}</h3>
-          {sent.length ? (
-            <ol>
-              {sent.map((e, i) => (
-                <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
-              ))}
-            </ol>
-          ) : (
-            <p>{t.privacy.sentNone}</p>
-          )}
-        </section>
+        {/* "Nothing yet." only where it is known to be true. */}
+        {quiet ? null : (
+          <section className={styles.sentList} aria-labelledby="sent-title">
+            <h3 id="sent-title">{t.privacy.sentTitle}</h3>
+            {sent.length ? (
+              <ol>
+                {sent.map((e, i) => (
+                  <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
+                ))}
+              </ol>
+            ) : (
+              <p>{t.privacy.sentNone}</p>
+            )}
+          </section>
+        )}
       </FlowSheet>
     </div>
   );

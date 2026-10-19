@@ -212,7 +212,8 @@ describe("bill triage", () => {
       </>,
       { initial: stateFrom([...withBill, withBank]) },
     );
-    expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
+    // Once Tend knows there is no locked progress, the line says nothing has left.
+    expect(await screen.findByText("On this device. Nothing has left it.")).toBeTruthy();
     fireEvent.click(await screen.findByRole("button", { name: "Pay $118.00 now from Checking 0011" }));
     const dialog = await screen.findByRole("dialog");
     expect(within(dialog).getByText("$118.00")).toBeTruthy();

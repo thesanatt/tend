@@ -54,6 +54,8 @@ blank for the survivor to fill in.
 - The privacy line remembers, for this tab only, the kind of each thing sent and when, in
   sessionStorage, so a reload cannot turn it back to "Nothing has left it." It holds no amounts,
   payees, ids, or keys. Closing the tab ends it, and quick exit clears it with the rest of the tab.
+  While saved progress is locked, the line says only "On this device." The next person at the
+  device cannot read from it what was sent or when.
 - Neutral tab title, no notifications, no analytics, no third-party scripts in the survivor flow.
 
 ## Threat model, honestly

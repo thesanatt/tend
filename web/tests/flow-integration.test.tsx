@@ -369,7 +369,7 @@ describe("the net log behind the privacy line", () => {
       vi.fn(async () => new Response("{}", { status: 200, headers: { "content-type": "application/json" } })),
     );
     renderFlow(<PrivacyLine />, { initial: stateFrom([MI_CHECK]) });
-    expect(screen.getByText(en.privacy.quiet)).toBeTruthy();
+    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
     await act(async () => {
       await fetch("/api/ai/classify", { method: "POST", body: "{}" });
     });
