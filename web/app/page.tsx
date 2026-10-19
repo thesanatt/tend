@@ -42,13 +42,13 @@ export default function Home() {
         <h1>Every state has money set aside to pay survivors back.</h1>
         <p className="lead">
           Crime victim compensation programs can pay for costs like medical bills, counseling, and lost pay after a
-          sexual assault. Tend reads each state&apos;s law and keeps only the rules it can quote word for word from an
-          official source.
+          sexual assault. Tend reads each state&apos;s law and keeps only the rules it can quote word for word from a
+          saved copy of its source.
         </p>
         <StateFinder states={allStates()} />
         <p className={styles.count}>
           <strong>{corpus.rules.toLocaleString("en-US")}</strong> verified rules from{" "}
-          <strong>{corpus.sources.toLocaleString("en-US")}</strong> official sources,{" "}
+          <strong>{corpus.sources.toLocaleString("en-US")}</strong> saved sources,{" "}
           {all
             ? `for all ${corpus.programs} programs in the 50 states and DC.`
             : `for ${corpus.verified} of ${corpus.programs} programs so far.`}

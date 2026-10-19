@@ -279,3 +279,12 @@ describe("the retired agents", () => {
     expect(document.querySelector('a[href*="asi1.ai"]')).toBeNull();
   });
 });
+
+// Some saved copies are Justia or Cornell LII reproductions, as /data says, so this page calls them saved.
+describe("the sources", () => {
+  it("are counted as saved, never as official", () => {
+    expect(document.body.textContent).toContain("saved sources");
+    expect(document.body.textContent).toContain("Source saved with sha256");
+    expect(document.body.textContent).not.toMatch(/official/i);
+  });
+});

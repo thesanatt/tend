@@ -61,7 +61,7 @@ export default function HowItWorks() {
     },
     {
       figure: n(corpus.sources),
-      label: "saved official sources",
+      label: "saved sources",
       means: "Statutes, regulations, and program pages, each saved with a sha256 fingerprint.",
     },
     {
@@ -323,7 +323,7 @@ export default function HowItWorks() {
         <div className={styles.build}>
           <p className={styles.buildLabel}>Before any of this, when the law is built</p>
           <ol className={styles.buildSteps}>
-            <li>Official source, saved with sha256</li>
+            <li>Source saved with sha256</li>
             <li>Quote checked word for word</li>
             <li>Compiled by tendc (C++20) to bytecode</li>
             <li>Checked byte by byte before it runs</li>

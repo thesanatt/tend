@@ -156,7 +156,9 @@ describe("home page", () => {
     const sources = list.reduce((n, j) => n + j.sources, 0).toLocaleString("en-US");
     expect(rules).toBe("2,578");
     expect(sources).toBe("824");
-    expect(document.body.textContent).toContain(`${rules} verified rules from ${sources} official sources`);
+    expect(document.body.textContent).toContain(`${rules} verified rules from ${sources} saved sources`);
+    // Some saved copies are Justia or Cornell LII reproductions, so neither the count nor the garden says official.
+    expect(document.body.textContent).not.toMatch(/official/i);
     expect(screen.getByRole("link", { name: "MI Michigan, 83 rules verified, in bloom" }).getAttribute("href")).toBe(
       "/mi",
     );

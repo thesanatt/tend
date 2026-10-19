@@ -99,7 +99,7 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
                       <dd>{current.rules}</dd>
                     </div>
                     <div>
-                      <dt>Official sources</dt>
+                      <dt>Sources saved</dt>
                       <dd>{current.sources}</dd>
                     </div>
                     <div>
