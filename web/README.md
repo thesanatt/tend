@@ -17,8 +17,9 @@ It uses API_PORT 8000 and WEB_PORT 3000, or the next free ports, a local SQLite 
 payments to Capital One's Nessie sandbox). Open `http://localhost:<port>/check?demo=rowan`.
 
 Tend pays a bill's lines once. With `TEND_BANK=nessie`, run `cd seed && uv run python reset_demo.py` between
-rehearsals; otherwise the next $118.00 payment of Rowan's bill says Tend already paid it and nothing moves.
-The dry-run bank forgets its payments when the API restarts.
+rehearsals. Otherwise the next $118.00 payment of Rowan's bill says Tend already paid it and nothing moves,
+until the API's own reset undoes the earlier payment, no sooner than 20 minutes after the last one
+(docs/DEPLOY.md, Limits worth knowing). The dry-run bank forgets its payments when the API restarts.
 
 Just this app:
 

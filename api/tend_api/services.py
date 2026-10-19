@@ -13,6 +13,7 @@ from .classify import ModelFn
 from .clock import Clock, utcnow
 from .config import Settings
 from .db import Repository, is_postgres, open_repository
+from .demo_reset import DemoReset, nessie_client
 from .engine import EngineError, EngineRouter, EngineUnavailable, LawIR, NativeEngine, ReferenceEngine
 from .law import LawService, disk_hashes, neon_opener
 from .money import sha256_hex
@@ -73,6 +74,7 @@ def build_services(
     relay_client_factory: Callable[[], Any] | None = None,
     classify_model: ModelFn | None = None,
     bill_model: BillModel | None = None,
+    demo_reset_connect: Callable[[float], Any] | None = None,
 ) -> Services:
     rules = RulesStore(settings.rules_dir)
     repo = repo or open_repository(
@@ -90,6 +92,8 @@ def build_services(
     claims = ClaimService(rules, engines, settings.seed_dir, clock)
     scans = ScanService(settings.seed_dir, clock, classifier, settings.live_scan, nessie_client_factory)
     sweeps = SweepSchedule()
+    # Only a live Nessie bank keeps what visitors pay; a dry run never asks Nessie for anything.
+    demo_reset = DemoReset(repo, settings.seed_dir, clock, settings.bank_mode == "nessie", demo_reset_connect or nessie_client)
     actions = ActionService(
         repo,
         banks,
@@ -100,6 +104,7 @@ def build_services(
         scans.persona_accounts,
         sweeps,
         bill_index=claims.bills_for_account,
+        demo_reset=demo_reset,
     )
     rulebook = Rulebook(repo, rules, ir)
     if settings.autoload_corpus:

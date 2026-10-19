@@ -85,6 +85,9 @@ class Seeder:
     known_bill_ids: frozenset[str] = frozenset()
     # What a run changed, in words, for reset_demo.py to print.
     changes: list[str] = field(default_factory=list)
+    # Records off the plan to leave where they are. None deletes them all; the API's own reset keeps everything
+    # but Tend's stale demo writes (api/tend_api/demo_reset.py).
+    keep: Callable[[Txn], bool] | None = None
 
     def run(self) -> dict:
         started = time.monotonic()
@@ -181,6 +184,8 @@ class Seeder:
                     else:
                         missing.append(p)
                 for leftover in (t for group in pool.values() for t in group):
+                    if self.keep is not None and self.keep(leftover):
+                        continue
                     self.client.delete_txn(kind, leftover.id)
                     self.stats.deleted += 1
                     self.changes.append(f"deleted {kind} {leftover.id} {money(leftover.amount_cents)} {leftover.description!r}")

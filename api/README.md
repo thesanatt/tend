@@ -101,7 +101,9 @@ Bank relay (stateless, not logged)
   (`hidden_count`), never shown. Fictional personas only (403 otherwise).
 - `POST /bank/{persona}/payout` `{st, amount_cents}`, demo only: a Nessie deposit from the state's program into the
   persona's checking account for the amount the device computed as claimable, in whole dollars, read back. The
-  same request again returns the same deposit; another amount replaces it (`replaced` lists the old ids); `DELETE /bank/{persona}/payout` removes it.
+  same request again the same day returns the same deposit; another amount, or a deposit from an earlier day, is
+  replaced (`replaced` lists the old ids), so the deposit a visitor sees carries today's date, the date the demo
+  reset counts from. `DELETE /bank/{persona}/payout` removes it.
 
 Payments
 - `POST /actions/propose` `{from, payee, amount_cents, kind?: "pay_bill", bill_id?, item_ids?, dry_run?}` returns
@@ -112,7 +114,11 @@ Payments
   take their own amounts. Live writes must be whole dollars, from a persona account.
   A plain payment of exactly what a demo bill has left to pay, to that bill's payee, from its account, is tied to the
   bill the same way (`kind: "pay_bill"` in the answer); exactly the whole bill, held line and all, is refused (409), and so is any amount that adds up to the held line, alone or with other lines (after the rest is paid, that is what the bill still shows).
-  Lines Tend already paid are refused (409), here and again at confirm.
+  Lines Tend already paid are refused (409), here and again at confirm. With `TEND_BANK=nessie`, when every earlier
+  payment of those lines is a demo payment last touched more than 20 minutes ago, the proposal first deletes Tend's demo
+  writes that old and puts the bill back with seed/reset_demo.py's reset, then looks again (tend_api/demo_reset.py). It
+  skips the reset while a newer Tend payment is on any of the persona's accounts, or when they differ from its snapshot
+  in other ways.
 - `POST /actions/confirm` `{action_id, confirm_code}`: Nessie withdrawal described as `Payment to <payee> [tend:<action id>]`,
   plus `[bill:<bill id>#<lines>]` for a bill, read back and compared, then logged. For a bill, the bill is then updated
   with a PUT and read back (`bill` in the answer): what is left, still pending, its nickname naming the held rule
@@ -180,3 +186,4 @@ AZ, ID, and WY changed on main after this corpus was loaded, so `/api/health` li
   first and the verified file second, and remembers which one it accepts.
 - **Classifier and Nessie client:** `tend_api.classify` and `tend_api.nessie` (shared with `seed/`).
 - **Seed:** `seed/snapshots/<persona>.json` in `tend-bank-snapshot/1`, with `meta.documents` naming each itemized bill.
+  The live demo's own reset imports `seed/reset_demo.py` and the seeder from `seed/`, which deploys with the API.

@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import re
 from collections.abc import Iterable
+from contextlib import AbstractContextManager
 from pathlib import Path
 from typing import Any, Literal, Protocol
 
@@ -131,6 +132,10 @@ class Repository(Protocol):
 
     # housekeeping: expired shares lose their rows, expired proposals lose their payee
     def sweep(self, now: str) -> dict[str, int]: ...
+
+    # One holder at a time for a named job, across every process that shares this database. Yields False when
+    # someone else held it for all of wait_s.
+    def exclusive(self, name: str, wait_s: float) -> AbstractContextManager[bool]: ...
 
 
 def migration_files(dialect: str) -> list[tuple[str, str, str]]:

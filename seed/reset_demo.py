@@ -93,13 +93,17 @@ class Report:
 
 
 def reset(client: NessieClient, persona_id: str, *, check_only: bool = False,
-          snapshot_dir: Path | None = None, log: Callable[[str], None] = lambda _: None) -> Report:
+          snapshot_dir: Path | None = None, log: Callable[[str], None] = lambda _: None,
+          keep: Callable[[Txn], bool] | None = None) -> Report:
+    """keep: records off the plan to leave in place. The API's demo reset (api/tend_api/demo_reset.py) runs this
+    same reset with it, keeping everything but Tend's own stale demo writes; then `after` lists what it kept."""
     started = time.monotonic()
     saved = load_persona_snapshot(persona_id, snapshot_dir)
     before = drift(saved, client.snapshot(saved.customer.id, saved.meta))
     if check_only:
         return Report(persona_id, before, before, seconds=time.monotonic() - started)
-    seeder = Seeder(client, get_persona(persona_id), log=log, known_bill_ids=frozenset(b.id for b in saved.bills))
+    seeder = Seeder(client, get_persona(persona_id), log=log, known_bill_ids=frozenset(b.id for b in saved.bills),
+                    keep=keep)
     seeder.run()
     live = client.snapshot(saved.customer.id, saved.meta)
     bill = live.bills[0] if live.bills else None
