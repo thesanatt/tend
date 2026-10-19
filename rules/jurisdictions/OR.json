@@ -154,7 +154,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "condition": "if Oregon's SAVE Fund pays for it"
       },
       "summary": "A provider that bills the SAVE Fund for a sexual assault medical assessment may not bill the survivor for it, unless the Fund lacks money or declines to pay. The statute does not address billing the survivor's insurance; the SAVE Fund rule does, and it bars billing insurance too.",
       "quote": "A provider who submits a bill under this subsection may not bill the victim for the medical assessment except to the extent that the department is unable to pay the bill due to lack of funds or declines to pay the bill.",
@@ -166,7 +167,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "prohibited"
+        "insurance_billing": "prohibited",
+        "condition": "if Oregon's SAVE Fund pays for it"
       },
       "summary": "A provider that bills the SAVE Fund may not bill the survivor or the survivor's insurance for the exam, evidence collection, or other services given with the exam (exceptions: the Fund lacks money or declines to pay for reasons other than a late or incomplete bill).",
       "quote": "An eligible medical services provider (including subcontractor or other designee) who submits a bill to the Fund under these rules may not bill the victim or the victim's insurance carrier for a medical examination, collection of forensic evidence using the Oregon State Police SAFE Kit, or other services provided in conjunction with the sexual assault exam",
@@ -192,7 +194,7 @@
       "params": {
         "payer": "Oregon Department of Justice, SAVE Fund"
       },
-      "summary": "A survivor can get a SAVE Fund paid medical assessment without reporting the assault to police.",
+      "summary": "You can get the exam and fill out the SAVE Fund form whether or not you report the assault to police.",
       "quote": "A victim may obtain a medical assessment and complete and submit a form under this section regardless of whether the victim reports the sexual assault to a law enforcement agency.",
       "source_id": "OR-S1",
       "pinpoint": "ORS 147.397(8)"
@@ -343,7 +345,9 @@
       "id": "OR-TRANS-RATE",
       "category": "covered_expense",
       "expense": "transportation",
-      "params": {},
+      "params": {
+        "scope": "mileage to medical and mental health treatment"
+      },
       "summary": "Mileage to medical and mental health treatment is reimbursed at 50 cents per mile, up to $3,000.",
       "quote": "Reimbursement of mileage (50¢ per mile) for travel to medical and mental health treatment, up to $3,000.",
       "source_id": "OR-S4",
@@ -443,7 +447,7 @@
       "params": {
         "years": 1,
         "from": "crime",
-        "extension": "good cause shown, at the department's discretion"
+        "extension": "or later if the department gives you more time for good cause"
       },
       "summary": "The application must be filed within one year of the injury, or later if the department allows an extension for good cause.",
       "quote": "Within one year of the date of the injury to the victim; or (B) Within such further extension of time as the department, for good cause shown, allows.",
@@ -485,7 +489,7 @@
           "other"
         ]
       },
-      "summary": "The reporting requirement is also met by a sexual assault medical assessment or other forensic exam, or a health or mental health provider certifying the victim reported to them, or other documentation the department accepts.",
+      "summary": "The reporting requirement is also met by a sexual assault medical assessment or any other forensic exam, by a health provider, tribal health provider, student health provider, or community mental health provider certifying that the victim reported the crime to them, or by other documentation that counts as notice under the department's rules.",
       "quote": "(E) A medical assessment, as defined in ORS 147.395, for sexual assault, or any other forensic exam or medical assessment; (b) A health provider, tribal health provider, student health provider or community mental health provider certifies that the victim reported the crime to the provider; or (c) The victim provides to the department documentation that qualifies as law enforcement notification under the rules of the department.",
       "source_id": "OR-S1",
       "pinpoint": "ORS 147.015(2)(a)(E), (2)(b), (2)(c)"
@@ -535,7 +539,7 @@
       "id": "OR-COLLATERAL-1",
       "category": "collateral_source",
       "params": {},
-      "summary": "The award is reduced by benefits from workers' compensation, government funds, or any other source the victim received or is entitled to.",
+      "summary": "The award is reduced by benefits from workers' compensation, government funds, or any other source that the victim received or is entitled to because of the injury.",
       "quote": "shall deduct the amount of benefits, payments or awards that are payable under the Workers' Compensation Law, from local governmental, state or federal funds or from any source, and that the victim or survivors or dependents of the victim have received or to which the victim or survivors or dependents of the victim are entitled as a result of the death or injury of the victim",
       "source_id": "OR-S1",
       "pinpoint": "ORS 147.125(1)(c)"
@@ -613,7 +617,7 @@
       "params": {
         "rule": "Oregon residents injured in a U.S. state without a reciprocal program"
       },
-      "summary": "An Oregon resident hurt in another U.S. state can apply in Oregon only if that state has no reciprocal compensation program; otherwise the state where the crime happened pays.",
+      "summary": "An Oregon resident hurt in another U.S. state that has no reciprocal crime victims' compensation program can apply in Oregon.",
       "quote": "Who is an Oregon resident killed or injured as a result of a compensable crime perpetrated or attempted against the person in a state, within the United States, without a reciprocal crime victims' compensation program",
       "source_id": "OR-S1",
       "pinpoint": "ORS 147.005(17)(a)(E)"

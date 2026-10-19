@@ -435,9 +435,10 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "replacing items police seized as evidence, up to $500 per item"
    },
-   "summary": "Items seized by police as evidence can be replaced, up to $500 per item.",
+   "summary": "The program can pay back the cost of replacing items that police seized as evidence of the crime, up to $500 per item. This covers items owned by the victim or by the victim's dependent child.",
    "quote": "Reimbursement for the replacement of items owned by the victim and for any child who is the victim's dependent that were seized by law enforcement as evidence of the commission of the crime, not to exceed five hundred dollars ($500) per item;",
    "source_id": "KY-S6",
    "pinpoint": "KRS 49.370(2)(a)4."
@@ -447,7 +448,8 @@
    "category": "covered_expense",
    "expense": "other",
    "params": {
-    "expense": "other"
+    "expense": "other",
+    "item": "replacing eyeglasses or other corrective lenses stolen, destroyed, or damaged during the crime"
    },
    "summary": "Replacing eyeglasses or other corrective lenses stolen, destroyed, or damaged in the crime is covered.",
    "quote": "Replacement of eyeglasses and other corrective lenses stolen, destroyed, or damaged during the crime.",
@@ -459,7 +461,8 @@
    "category": "covered_expense",
    "expense": "other",
    "params": {
-    "expense": "other"
+    "expense": "other",
+    "item": "rehabilitative or wellness practices a healthcare provider recommends, up to $1,000 a year per person for up to 2 years"
    },
    "summary": "Rehabilitative or wellness practices recommended by a healthcare provider are covered up to $1,000 per year per person, for at most 2 years.",
    "quote": "Rehabilitative or wellness practices recommended by a healthcare provider, engaged in by the victim and any juveniles dependent upon the victim due to the crime, not to exceed one thousand dollars ($1,000) per year per person, for a maximum of two (2) years;",
@@ -471,7 +474,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "travel, parking, lodging, and meals to attend criminal court proceedings about the crime"
    },
    "summary": "Travel, parking, lodging, and meals for attending criminal court proceedings related to the crime can be covered for the victim and the victim's caregiver.",
    "quote": "A victim and the victim's caregiver, if applicable, may recover the following types of expenses incurred for purposes of attending criminal court proceedings related to the crime: (1) Travel; (2) Parking; (3) Lodging; (4) Meals;",
@@ -483,9 +487,10 @@
    "category": "covered_expense",
    "expense": "other",
    "params": {
-    "expense": "other"
+    "expense": "other",
+    "item": "a $5,000 lump sum when a claim is filed more than 10 years after the crime because testing or DNA matching of a sexual assault kit was delayed"
    },
-   "summary": "If a claim is filed more than 10 years after the crime because testing or DNA matching of a sexual assault kit was delayed, the victim may collect a $5,000 lump sum for out-of-pocket costs that cannot be proven because of the delay.",
+   "summary": "If a claim is filed more than 10 years after the crime because testing or DNA matching of a sexual assault kit was delayed, the victim may collect a $5,000 lump sum.",
    "quote": "An award may be made for a claim filed more than ten (10) years after the criminally injurious conduct, due to a delay in the testing of or DNA profile matching from a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, in which case the victim may collect a lump sum in the amount of five thousand dollars ($5,000)",
    "source_id": "KY-S6",
    "pinpoint": "KRS 49.370(7)"
@@ -563,9 +568,9 @@
    "id": "KY-RES-1",
    "category": "residency",
    "params": {
-    "rule": "Victims injured by a criminal act in Kentucky"
+    "rule": "Victims who suffer physical or psychological injury from a criminal act in Kentucky"
    },
-   "summary": "A victim is a person injured or killed by a criminal act in Kentucky.",
+   "summary": "A victim is a person who suffers physical or psychological injury, or death, from a criminal act in Kentucky.",
    "quote": "\"Victim\" means a person who suffers personal physical or psychological injury or death from a criminal act in Kentucky as a result of:",
    "source_id": "KY-S1",
    "pinpoint": "KRS 49.280(5)(a)"
@@ -804,7 +809,7 @@
     "covers_sexual_assault": true,
     "enroll": "Applications shall be filed with the Office of the Secretary of State. Applicants may choose to consult with an application assistant for assistance with the application process or apply online directly through the portal designated by the Secretary of State."
    },
-   "summary": "Kentucky's Safe at Home Program, run by the Secretary of State, protects victims of sexual assault, rape, other sexual crimes, domestic violence, human trafficking, and stalking by letting them use a designated address instead of their real one. It also covers their minor children and anyone living with them, and it is free for Kentucky residents who are U.S. citizens.",
+   "summary": "Kentucky's Safe at Home Program is meant to protect victims of sexual assault, rape, other sexual crimes, domestic violence, human trafficking, and stalking. It lets victims, their minor children, and everyone who lives with them use a designated address.",
    "quote": "The Safe at Home Program shall be operated with the intent to protect victims of: (a) Domestic violence; (b) Human trafficking; (c) Stalking; (d) Sexual assault; (e) Rape; and (f) Other sexual crimes as defined by KRS 17.500. The Safe at Home Program shall authorize the use of designated addresses for victims, their minor children, and all other individuals residing with the victim.",
    "source_id": "KY-S25",
    "pinpoint": "KRS 14.302(2)-(3)"
@@ -813,7 +818,7 @@
    "id": "KY-RECCONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Under the Crime Victims Compensation Board's regulation, a claimant's or victim's personally identifiable information must stay secure and confidential, and information that could show whether someone filed a claim may not be disclosed to unauthorized people.",
+   "summary": "In its section on the claim tracking portal, the Board's regulation says a claimant's or victim's personally identifiable information must stay secure and confidential, and information that could show whether someone filed a claim may not be shared with people who are not authorized.",
    "quote": "A claimant or victim's personally identifiable information shall remain secure and confidential. (4) Information that may be used to determine whether an individual filed a claim with the Board shall not be disclosed to unauthorized individuals.",
    "source_id": "KY-S10",
    "pinpoint": "802 KAR 3:010 Section 5(3)-(4)"

@@ -198,7 +198,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "State of Minnesota; providers submit exam costs to the Department of Public Safety Office of Justice Programs"
+    "payer": "State of Minnesota; providers submit exam costs to the Department of Public Safety Office of Justice Programs",
+    "condition": "if the crime was in Minnesota"
    },
    "summary": "The state pays for the exam of a victim of criminal sexual conduct that occurred in Minnesota, including STI tests and treatment and emergency contraception. Providers send the costs to the Office of Justice Programs.",
    "quote": "for the examination of a victim of criminal sexual conduct that occurred in the state shall be paid by the state. These costs include, but are not limited to, the cost of the medical forensic examination, associated tests and treatments relating to sexually transmitted infection, and pregnancy status, including emergency contraception. A hospital, emergency medical facility, or health care provider shall submit the costs for examination and any associated tests and treatment to the Office of Justice Programs for payment.",
@@ -378,7 +379,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage to medical and counseling appointments for the injury from the crime"
    },
    "summary": "Mileage to crime-related medical and counseling appointments is reimbursed at the federal mileage rate.",
    "quote": "The reparations program reimburses mileage to medical and counseling appointments that are related to the injury from the crime. Miles are calculated from your home address to the clinic/hospital address and are paid at the current federal mileage rate.",
@@ -487,9 +489,9 @@
    "params": {
     "years": 3,
     "from": "crime",
-    "extension": "If the claimant was unable to file, three years from when a claim could have been filed; if the injury was not reasonably discoverable, three years from when it became reasonably discoverable."
+    "extension": "or later in some cases"
    },
-   "summary": "A claim must be filed within three years of the victim's injury, with extensions when the claimant was unable to file or the injury was not reasonably discoverable.",
+   "summary": "A claim must be filed within three years of the victim's injury. If the claimant was unable to file in that time, the claim can be made within three years of when a claim could have been filed. If the injury could not reasonably be discovered within three years, the claim can be made within three years of when it could be.",
    "quote": "no claim was filed with the board within three years of victim's injury or death; except that (i) if the claimant was unable to file a claim within that period, then the claim can be made within three years of the time when a claim could have been filed; and (ii) if the victim's injury or death was not reasonably discoverable within three years of the injury or death, then the claim can be made within three years of the time when the injury or death is reasonably discoverable.",
    "source_id": "MN-S2",
    "pinpoint": "Minn. Stat. 611A.53, subd. 2(5)"
@@ -511,10 +513,9 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "within_days": 30,
     "alternatives": []
    },
-   "summary": "The crime must be reported to police within 30 days, but a victim of criminal sexual conduct who reports later is treated as having been unable to report sooner.",
+   "summary": "The crime must be reported to police within 30 days. If it could not reasonably be reported in that time, it must be reported within 30 days of when it could be. A victim of criminal sexual conduct in the first, second, third, or fourth degree who reports after 30 days is treated as having been unable to report within that time.",
    "quote": "the crime was not reported to the police within 30 days of its occurrence or, if it could not reasonably have been reported within that period, within 30 days of the time when a report could reasonably have been made. A victim of criminal sexual conduct in the first, second, third, or fourth degree who does not report the crime within 30 days of its occurrence is deemed to have been unable to have reported it within that period",
    "source_id": "MN-S2",
    "pinpoint": "Minn. Stat. 611A.53, subd. 2(1)"
@@ -826,7 +827,7 @@
    "id": "MN-RECORDS-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Reimbursement claims and their supporting documents and reports are investigative data while the claim is open, and private data on individuals once it is paid, denied, withdrawn, or abandoned; the board may still forward them to local law enforcement for restitution purposes.",
+   "summary": "After a claim is paid, denied, withdrawn, or abandoned, the claim and its supporting documents and reports are private data on individuals.",
    "quote": "Following the payment, denial, withdrawal, or abandonment of a claim, the claim and supporting documents and reports are private data on individuals as defined in section 13.02, subdivision 12",
    "source_id": "MN-S4",
    "pinpoint": "Minn. Stat. 611A.57, subd. 6"

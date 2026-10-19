@@ -196,9 +196,10 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "applies_to": "exams paid by the state exam fund for cases not reported to police"
       },
-      "summary": "When the state exam fund (FREPP) pays, the provider must take that as payment in full and cannot bill the survivor for the rest. Treatment of physical injuries from the assault is not part of the exam payment and may still be billed to the survivor (Crime Victim Compensation may cover it as a medical cost).",
+      "summary": "When the state exam fund (FREPP) pays for an exam, the provider must accept its rate as payment in full for covered services. The provider cannot bill the survivor for the rest or sue the survivor to collect it. Treatment of any physical injuries from the assault may still be billed to the survivor.",
       "quote": "A healthcare provider must accept FREPP’s reimbursement rate as payment in full for covered services and may not submit any remaining balance to the survivor or commence civil actions against the survivor to recover the balance. Treatment of any physical injuries that may have occurred at the time of the sexual assault may still be billed to the survivor.",
       "source_id": "MT-S2",
       "pinpoint": "Montana DOJ, FREPP page"
@@ -222,7 +223,7 @@
       "params": {
         "payer": "Montana Department of Justice (Forensic Rape Examination Payment Program), subject to available funds"
       },
-      "summary": "Otherwise the Montana Department of Justice pays for the exam, as long as appropriated funds are available. This is how exams are paid when the survivor does not report to police.",
+      "summary": "If the local police agency does not have to pay, the Montana Department of Justice pays for the exam, as long as money set aside for it is available.",
       "quote": "The department of justice shall, as long as funds are available from an appropriation made for this purpose, pay for the sexual assault medical forensic examination of a victim of an alleged incident of sexual intercourse without consent, sexual assault, or incest if the cost is not the responsibility of a local law enforcement agency under subsection (1).",
       "source_id": "MT-S11",
       "pinpoint": "MCA 46-15-411(2)(a)"
@@ -440,8 +441,7 @@
       "category": "filing_deadline",
       "params": {
         "years": 1,
-        "from": "crime",
-        "extension": "The office may extend the time for good cause shown (MCA 53-9-125(1)); ARM 23.15.103(2) says there is no good cause once a claim is more than two years past the latest allowed filing date."
+        "from": "crime"
       },
       "summary": "File within 1 year of the crime. The office can extend this for good cause.",
       "quote": "compensation may not be awarded unless the claim is filed with the office within 1 year after the day the criminally injurious conduct occurred causing the injury or death upon which the claim is based.",

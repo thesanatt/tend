@@ -329,7 +329,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage for medically necessary travel"
    },
    "summary": "Mileage for medically necessary travel can be covered, at no more than the state mileage rate.",
    "quote": "Mileage costs may be deemed allowable expenses for medically necessary travel.",
@@ -341,7 +342,8 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "scope": "moving costs, if a law enforcement officer, a prosecutor, or a victim advocate at a law enforcement agency or prosecutor's office recommends the move in writing"
    },
    "summary": "Moving costs can be covered when a law enforcement officer, a prosecutor, or a victim advocate at a law enforcement agency or prosecutor's office recommends the move in writing for reasons related to the crime.",
    "quote": "Moving costs may be deemed allowable expenses if one of the following individuals has recommended the move in writing for reasons related to the crime: (1) A law enforcement officer; (2) a prosecutor; or (3) a victims' advocate working for a law enforcement agency or prosecutor's office.",
@@ -353,7 +355,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing and bedding seized as evidence"
    },
    "summary": "Reasonable costs to replace clothing and bedding seized as evidence are covered.",
    "quote": "Reasonable costs for replacement of clothing and bedding seized as evidence are compensable.",
@@ -400,7 +403,7 @@
    "params": {
     "years": 5,
     "from": "crime",
-    "extension": "Two years from notice of a DNA match to a suspect or of a suspect's identification; the longest applicable limit applies (74-7305(b)(3)); the board may also award if denial would be a severe injustice (74-7305(b)(2)(D))."
+    "extension": "or within 2 years of being told a suspect was identified, through DNA or otherwise"
    },
    "summary": "Most claims must be filed within five years of the injury. If a survivor is told that DNA testing of a sexual assault kit or other evidence matched a suspect, or that a suspect was identified, they have two years from that notice. The longest deadline that applies is the one that counts, and the board can also accept a late claim if denying it would be a severe injustice.",
    "quote": "(A) The claim has been filed with the division within five years after the injury or death upon which the claim is based; (B) in a case where a victim who is notified that DNA testing of a sexual assault kit or other evidence has revealed a DNA profile of a suspected offender who victimized the victim or the victim on whose behalf the claim is made, or is notified of the identification of a suspected offender who victimized the victim or the victim on whose behalf the claim is made, the claim has been filed with the division within two years of such notification",
@@ -426,7 +429,7 @@
     "years": 10,
     "from": "age_18"
    },
-   "summary": "If the survivor of a sexually violent crime was under 18 when it happened, the claim can be filed up to 10 years after they turn 18.",
+   "summary": "If the survivor of a sexually violent crime was under 18 when it happened, the board may accept a claim filed up to 10 years after they turn 18.",
    "quote": "the victim was less than 18 years of age at the time such crime was committed, and the claim has been filed within 10 years after the date the victim turns 18 years of age",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(b)(2)(C)(ii)(b)"
@@ -436,8 +439,7 @@
    "category": "filing_deadline",
    "params": {
     "years": 2,
-    "from": "report",
-    "extension": "If more than one limit applies, the longest one applies (74-7305(b)(3))."
+    "from": "report"
    },
    "summary": "When the victim was under 16 and the crime was a sexually violent crime or certain trafficking or enticement crimes, the claim is due within two years of the report to law enforcement, unless a longer limit also applies.",
    "quote": "Compensation may not be awarded unless an application has been filed with the division within two years of the reporting of the incident to law enforcement officials if the victim was less than 16 years of age",
@@ -452,7 +454,8 @@
     "alternatives": [
      "forensic_exam",
      "other"
-    ]
+    ],
+    "within_hours": 72
    },
    "summary": "To qualify, the crime must be reported to law enforcement within 72 hours, OR the survivor must have had a forensic medical exam within seven days, OR the board must find good cause for missing both.",
    "quote": "Compensation may not be awarded unless: (1) The criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within 72 hours after the occurrence of the criminally injurious conduct; (2) the victim obtained a forensic medical examination within seven days after the occurrence of the criminally injurious conduct; or (3) the board finds there was good cause for the failure to report or obtain an examination within the time limits provided in this subsection.",
@@ -709,7 +712,7 @@
     "covers_sexual_assault": true,
     "enroll": "All victims must go through a certified enrolling assistant to apply to participate in the program. A person seeking enrollment cannot apply directly to the Attorney General's office."
    },
-   "summary": "Kansas's Safe at Home address confidentiality program, run by the Attorney General's Victim Services Division, lets survivors of sexual assault, domestic violence, stalking, and human trafficking use a substitute address on state and local public records and get free forwarding of first-class mail. Survivors apply through a certified enrolling assistant, not directly to the Attorney General.",
+   "summary": "A survivor of sexual assault, domestic violence, stalking or human trafficking who fears for their safety may apply to Kansas's Safe at Home program.",
    "quote": "Anyone who is a victim of domestic violence, sexual assault, trafficking, or stalking and fears for their safety may apply to Safe at Home.",
    "source_id": "KS-S14",
    "pinpoint": "How Safe at Home Works, Eligibility Criteria"
@@ -718,7 +721,7 @@
    "id": "KS-CONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "All records and information given to the Crime Victims Compensation Board and division to process a claim are confidential, and the records gathered to evaluate a claim cannot be obtained through discovery in a civil or criminal case except in narrow, listed situations.",
+   "summary": "All records and information given to the Crime Victims Compensation Board and division to process a claim are confidential, and the records gathered to evaluate a claim cannot be obtained through discovery in a civil or criminal case except in situations the law lists.",
    "quote": "All records and information given to the board and the crime victims compensation division created by K.S.A. 75-773, and amendments thereto, to process a claim on behalf of a crime victim shall be confidential.",
    "source_id": "KS-S13",
    "pinpoint": "K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)"

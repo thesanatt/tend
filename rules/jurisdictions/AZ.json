@@ -158,7 +158,7 @@
    "params": {
     "payer": "County where the offense occurred"
    },
-   "summary": "The county where the offense happened pays the medical or forensic exam costs to collect evidence of a sexual offense.",
+   "summary": "The county where the offense happened pays medical or forensic exam costs to collect evidence of the sexual offenses the statute lists, or of a dangerous crime against children.",
    "quote": "Any medical or forensic interview or examination expenses arising out of the need to secure evidence that a person has been the victim of a dangerous crime against children as defined in section 13-705 or a sexual offense pursuant to section 13-1404, 13-1405, 13-1406 or 13-3212 shall be paid by the county in which the offense occurred",
    "source_id": "AZ-S2",
    "pinpoint": "A.R.S. 13-1414(A)"
@@ -168,7 +168,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "condition": "if the county must pay for it"
    },
    "summary": "A hospital or provider may not send the patient a balance bill for a county-paid forensic exam. The statute does not say whether the patient's insurance may be billed.",
    "quote": "A health care institution or health care provider may not issue, either directly or through its billing company, any additional balance bill to a patient relating to a medical or forensic interview or examination for which the county is required to pay pursuant to section 13-1414.",
@@ -180,7 +181,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "condition": "if the county must pay for it"
    },
    "summary": "A health care institution may not charge the patient intake, consultation, facility, or other fees as part of a county-paid forensic exam.",
    "quote": "A health care institution may not charge an intake, consultation, facility or other fee to a patient as part of a medical or forensic interview or examination for which the county is required to pay pursuant to section 13-1414.",
@@ -222,7 +224,7 @@
     "per": "week",
     "hours_per_week": 40
    },
-   "summary": "Work loss is limited each calendar week to 40 hours at the current minimum wage, within the overall award maximum.",
+   "summary": "Work loss is limited each calendar week to the pay for 40 hours at the current minimum wage.",
    "quote": "are limited to an amount per calendar week equal to 40 hours at the current minimum wage",
    "source_id": "AZ-S3",
    "pinpoint": "A.A.C. R10-4-108(D)(4)(a)"
@@ -310,7 +312,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips to a forensic exam or interview"
    },
    "summary": "Transportation to get a medical forensic exam or forensic interview is covered.",
    "quote": "The victim obtaining a medical forensic examination or participating in a medical forensic interview",
@@ -346,7 +349,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips to respond to a substantiated threat to the victim's safety"
    },
    "summary": "Transportation costs for responding to a substantiated threat to the victim's safety or well-being are covered, within the transportation cap.",
    "quote": "Responding to a substantiated threat to the safety or well-being of the victim or a derivative victim",
@@ -395,8 +399,7 @@
    "category": "filing_deadline",
    "params": {
     "years": 2,
-    "from": "discovery",
-    "extension": "The Board shall extend the deadline for good cause (R10-4-106(B))."
+    "from": "discovery"
    },
    "summary": "The claim must be submitted within two years after the crime is discovered; the Board extends this for good cause.",
    "quote": "A claim, as described in R10-4-107, was submitted to the operational unit within two years after discovery of the criminally injurious conduct.",
@@ -409,7 +412,8 @@
    "params": {
     "required": true,
     "alternatives": [],
-    "within_hours": 72
+    "within_hours": 72,
+    "exception": "counted from when the crime was discovered"
    },
    "summary": "The crime must be reported to law enforcement within 72 hours after discovery. The rules list no alternative to a police report for sexual assault.",
    "quote": "The criminally injurious conduct was reported to an appropriate law enforcement authority within 72 hours after its discovery;",
@@ -422,7 +426,7 @@
    "params": {
     "required": true,
     "alternatives": [],
-    "extension": "good cause"
+    "exception": "or later if the Board finds good cause"
    },
    "summary": "The Board must extend both the reporting time limit and the filing deadline when there is good cause for the delay.",
    "quote": "The Board shall extend the time limits under subsections (A)(4) and (A)(7) if the Board determines there is good cause for a delay.",
@@ -801,7 +805,7 @@
     "covers_sexual_assault": true,
     "enroll": "Applicants do not enroll or apply directly with the Arizona Address Confidentiality Program. Any person interested in applying to the program must meet in person with a registered Application Assistant."
    },
-   "summary": "The Secretary of State's Address Confidentiality Program gives survivors of sexual offenses, domestic violence, and stalking a substitute address and free mail forwarding so the person they fear cannot find them through public records. Eligible applicants include victims of a sexual offense such as rape or sexual assault. Enrollment is only through an in-person meeting with a registered Application Assistant at a victim services agency.",
+   "summary": "Arizona's Address Confidentiality Program, run by the Secretary of State, gives victims of sexual offenses, domestic violence, and stalking a substitute address and confidential mail forwarding. It is meant to help keep them from being found through public records by the person they are trying to stay safe from.",
    "quote": "The Arizona Address Confidentiality Program (ACP) is a program that helps victims of domestic violence, sexual offenses, and/or stalking from being located by the person they are seeking safety from through public records. The program provides a substitute address and confidential mail forwarding services to individuals and families across Arizona.",
    "source_id": "AZ-S13",
    "pinpoint": "Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169"

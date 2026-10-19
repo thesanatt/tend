@@ -176,7 +176,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "insurance_billing": "unspecified"
    },
    "summary": "After the exam program pays, the provider may not send the survivor a bill for any leftover balance.",
    "quote": "A medical provider must not submit any remaining balance to the sexual abuse victim after the sexual abuse examination program has determined payment.",
@@ -247,7 +247,8 @@
    "id": "IA-MED-3",
    "category": "covered_expense",
    "params": {
-    "expense": "medical"
+    "expense": "medical",
+    "detail": true
    },
    "summary": "Glasses, hearing aids, dentures, prosthetics, wheelchairs, and medication taken, lost, or destroyed in the crime can be replaced.",
    "quote": "Compensation may be paid for the replacement of a medical device including but not limited to a sight or hearing device, dentures, a prosthetic device, a wheelchair, and medication that was taken, lost or destroyed during the crime.",
@@ -441,7 +442,8 @@
    "id": "IA-CLOTH-2",
    "category": "covered_expense",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "clothing and bedding held as evidence by law enforcement"
    },
    "summary": "Clothing and bedding held as evidence by police can be paid for.",
    "quote": "Compensation may be paid for clothing and bedding held as evidence by law enforcement.",
@@ -493,7 +495,7 @@
    "params": {
     "expense": "property_replacement"
    },
-   "summary": "Lost or damaged property (for example a phone or other belongings) is not paid, nor are legal fees, phone bills, meals, or pain and suffering.",
+   "summary": "The program does not pay for property loss or repair, legal fees, phone bills, meals, or pain and suffering.",
    "quote": "The program cannot pay for property loss, property repair, legal fees, phone bills, meals, or pain and suffering.",
    "source_id": "IA-S2",
    "pinpoint": "Iowa AG, Crime Victim Compensation Facts page"
@@ -526,7 +528,7 @@
    "params": {
     "item": "care of a newborn child"
    },
-   "summary": "Pregnancy care for the victim is covered, but care for a newborn child is not.",
+   "summary": "The program does not pay for the care of a newborn child.",
    "quote": "Expenses incurred for the care of a newborn child are not compensable.",
    "source_id": "IA-S7",
    "pinpoint": "Iowa Admin. Code r. 61-9.35(1)(f)"
@@ -537,7 +539,7 @@
    "params": {
     "years": 2,
     "from": "crime",
-    "extension": "Two years may run from discovery of the crime; the department may waive the limit for good cause (61 IAC 9.28(2) lists age, physical condition, psychological state, cultural or linguistic barriers, and health or safety reasons)."
+    "extension": "or later if the crime was discovered later or you show good cause"
    },
    "summary": "Apply within two years of the crime or its discovery. The program can waive the deadline for good cause.",
    "quote": "file the application with the department within two years after the date of the crime, the discovery of the crime, or the date of death of the victim. The department may waive the time limitation if good cause is shown.",
@@ -548,7 +550,9 @@
    "id": "IA-REPORT-1",
    "category": "reporting_requirement",
    "params": {
-    "required": true
+    "required": true,
+    "within_hours": 72,
+    "exception": "or within 72 hours of when you reasonably could, and the program may waive this for good cause"
    },
    "summary": "The crime must be reported to police or the sheriff within 72 hours, or within 72 hours of when a report could reasonably be made. The program may waive this for good cause.",
    "quote": "A person is not eligible for compensation unless the crime was reported to the local police department or county sheriff department within seventy-two hours of its occurrence. If the crime cannot reasonably be reported within that time period, the crime shall have been reported within seventy-two hours of the time a report can reasonably be made. The department may waive this requirement if good cause is shown.",
@@ -560,12 +564,7 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": [
-     "forensic_exam",
-     "medical_provider",
-     "advocate",
-     "other"
-    ]
+    "alternatives": []
    },
    "summary": "For sexual abuse, the 72-hour police report rule may be waived for good cause if a forensic exam was done within 72 hours or the survivor told a medical provider, mental health professional, or victim service provider.",
    "quote": "For a victim of sexual abuse, the 72-hour reporting requirement may be waived for good cause if a sexual abuse evidentiary examination was completed within 72 hours of the crime or if the crime was disclosed to another provider including but not limited to a licensed medical provider, a licensed mental health professional, or a designated victim service provider.",
@@ -802,7 +801,7 @@
     "covers_sexual_assault": true,
     "enroll": "Download and complete the application, then mail it to Safe At Home, P.O. Box 959, Des Moines, IA 50304. Questions: safeathome@iowa.gov or 515-725-7233."
    },
-   "summary": "Iowa's Safe at Home program, run by the Secretary of State, gives survivors of sexual assault, domestic violence, trafficking, stalking, and assault a substitute address and mail forwarding so their real address stays off public records. It also offers confidential voter registration and absentee voting.",
+   "summary": "Iowa's Safe at Home program gives participants a substitute address. Its page lists survivors of domestic violence, sexual assault, trafficking, stalking, and assault.",
    "quote": "Safe at Home is an address confidentiality program that provides participants with a substitute address. Who Survivors of domestic violence, sexual assault, trafficking, stalking, and assault.",
    "source_id": "IA-S13",
    "pinpoint": "Safe at Home home page, program description (Who)"
@@ -811,7 +810,7 @@
    "id": "IA-RECCONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Confidential information the compensation program collects to process a claim, such as medical and counseling records that are confidential under Iowa's public records law, stays confidential in the program's hands. Iowa law does not say the claim file as a whole is exempt from public records requests.",
+   "summary": "Records that Iowa's public records law already keeps confidential, and information taken from them, stay confidential when the program gets them.",
    "quote": "Information and records which are confidential under section 22.7 and information or records received from the confidential information or records remain confidential under this section.",
    "source_id": "IA-S6",
    "pinpoint": "Iowa Code 915.90(1)"

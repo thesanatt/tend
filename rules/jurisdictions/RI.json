@@ -215,8 +215,7 @@
       "category": "filing_deadline",
       "params": {
         "years": 3,
-        "from": "crime",
-        "extension": "Minors: the period starts at age 18 (120-RICR-00-00-2.7(A)(1)(a)); if the crime was not discovered until more than a year later, the period starts at discovery, but only if the crime led to a criminal complaint, indictment, criminal information, or other probable cause finding (2.7(A)(1)(b)); late filing may be allowed for unsound mind or good cause (2.7(A)(1)(c)); lack of knowledge of the filing rules is not good cause."
+        "from": "crime"
       },
       "summary": "A claim must be filed within 3 years of the injury.",
       "quote": "Actions for compensation under this chapter shall be commenced within three (3) years after the date of the injury or death",
@@ -255,7 +254,8 @@
         "within_days": 15,
         "alternatives": [
           "forensic_exam"
-        ]
+        ],
+        "exam_condition": "done within 15 days of the crime"
       },
       "summary": "The crime must be reported to police within 15 days, but the office may allow a claim without a police report when a sexual assault survivor had a medical forensic exam within 15 days of the crime.",
       "quote": "no compensation shall be awarded for an injury or death resulting from a crime that was not reported to the appropriate law enforcement authority within fifteen (15) days of its occurrence; provided, that the office shall have the authority to allow a claim that was not reported pursuant to this section when a victim of a sexual assault receives a medical forensic examination within fifteen (15) days of the crime",
@@ -271,7 +271,7 @@
           "protective_order"
         ]
       },
-      "summary": "Applying to a court for a restraining order with a supporting affidavit, or applying for a criminal complaint, counts as a report to law enforcement.",
+      "summary": "Applying to a court for a restraining order under R.I. Gen. Laws 15-15-3 with a supporting affidavit, or applying for a criminal complaint, counts as a report to law enforcement.",
       "quote": "The reporting of a crime to a court through a citizen application for a restraining order under R.I. Gen. Laws § 15-15-3 accompanied by an affidavit in support of the application for protection, or through a citizen application for a criminal complaint, shall constitute a report to law enforcement authorities.",
       "source_id": "RI-S11",
       "pinpoint": "120-RICR-00-00-2.7(A)(2)(c)"
@@ -295,7 +295,7 @@
         "required": true,
         "alternatives": []
       },
-      "summary": "A late police report can be excused for good cause, such as physical or psychological incapacity or reasonable fear of retaliation. Good cause excuses only the delay; a report is still required.",
+      "summary": "A late police report can be excused for good cause, such as being physically or psychologically unable to make a report, or a reasonable fear of retaliation by the offender or others.",
       "quote": "Good cause for delay shall include, but not be limited to, delay caused by physical or psychological incapacity which prevented the making of a report; or by reasonable fear of retaliation by the offender or others.",
       "source_id": "RI-S11",
       "pinpoint": "120-RICR-00-00-2.7(A)(3)(b)"
@@ -327,7 +327,7 @@
       "id": "RI-CONDUCT-1",
       "category": "conduct_reduction",
       "params": {},
-      "summary": "The office may reduce or deny an award if the victim's own behavior contributed to the injury; the same subsection also lets it weigh cooperation with police and violent criminal history.",
+      "summary": "The office may reduce or deny an award if the victim's own behavior, including past behavior, directly or indirectly contributed to the injury, unless the victim was lawfully trying to stop a crime or catch an offender.",
       "quote": "The behavior of the victim, including past behavior, that directly or indirectly contributed to his or her injury or death, unless the injury or death resulted from the victim’s lawful attempt to prevent the commission of a crime or to apprehend an offender. The office may reduce or deny an award based on these circumstances.",
       "source_id": "RI-S2",
       "pinpoint": "R.I. Gen. Laws § 12-25-19(d)(1)(iv)"
@@ -536,7 +536,7 @@
       "params": {
         "rule": "Rhode Island residents injured out of state, only if not entitled to compensation where the crime occurred."
       },
-      "summary": "A Rhode Island resident hurt in another state can apply only if that state's program offers no compensation.",
+      "summary": "A Rhode Island resident hurt in another state can apply here only if they also lived in Rhode Island when it happened and are not entitled to any compensation from the state where it happened.",
       "quote": "Outside the state of Rhode Island to any victim who has his or her residence in the state of Rhode Island and had the residence in the state at the time that the offense occurred, and is not entitled to compensation of any kind from the state, possession, or territory or district of the United States in which the offense occurred",
       "source_id": "RI-S2",
       "pinpoint": "R.I. Gen. Laws § 12-25-19(a)(3)"
@@ -669,7 +669,7 @@
         "covers_sexual_assault": true,
         "enroll": "Click here to download the application. Applications should be sent to: Department of State Attention: ACP PO Box 6888 Providence, RI 02940. Applicants can contact the Department by email, phone, or in-person for help filling out the application."
       },
-      "summary": "Rhode Island's Address Confidentiality Program, run by the Secretary of State's Department of State, gives victims of domestic violence, stalking, sexual assault, trafficking, or abuse who have moved or are about to move a shared Providence PO Box to use as their address on state and local government records, with first-class mail and legal papers forwarded free to their real address. Applicants mail a sworn application to the Department, which can help fill it out.",
+      "summary": "Rhode Island's Address Confidentiality Program, run by the Department of State, helps victims of domestic violence, stalking, sexual assault, trafficking, or abuse who have moved or are about to move. To qualify, you must live in Rhode Island, fear for your own or your children's safety, live or plan to live at an address the person who harmed you does not know, and agree not to give that person the address. You apply by mailing a sworn application to the Department, which can help you fill it out.",
       "quote": "The goal of the Address Confidentiality Program (ACP/Program) is to help victims of domestic violence, stalking, sexual assault, and trafficking and/or abuse as defined by RI Gen. Laws §42-164-2 who have relocated or are about to relocate",
       "source_id": "RI-S17",
       "pinpoint": "ACP page, program description"

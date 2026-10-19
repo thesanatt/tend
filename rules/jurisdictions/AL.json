@@ -332,7 +332,7 @@
       "params": {
         "payer": "Alabama Crime Victims Compensation Commission (Sexual Assault Examination Payment Program), after any collateral source such as insurance"
       },
-      "summary": "The Crime Victims Compensation Commission pays for forensic exams and STI prevention treatment after sexual abuse crimes.",
+      "summary": "State law lets the Commission pay for forensic exams that collect evidence after sexual abuse crimes, and for treatment to prevent sexually transmitted infections.",
       "quote": "Provide for the cost of forensic medical examinations for the purpose of gathering evidence and treatment for preventing sexually transmitted infections in sexual abuse crimes and offenses.",
       "source_id": "AL-S21",
       "pinpoint": "Ala. Code 15-23-5(24)"
@@ -408,7 +408,7 @@
         "per": "claim",
         "count_limit": 15
       },
-      "summary": "When the victim is a minor, individual therapy is limited to 15 sessions (except when the victim is deceased).",
+      "summary": "When the victim is a minor, the person who files the claim is limited to 15 individual therapy sessions, unless the victim has died.",
       "quote": "When the victim is a minor, the claimant shall be limited to 15 individual therapy sessions, unless the victim is deceased.",
       "source_id": "AL-S26",
       "pinpoint": "Ala. Admin. Code r. 262-X-4-.07(4)(c)"
@@ -473,7 +473,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "travel for medical and psychological treatment needed because of the crime"
       },
       "summary": "Travel for medical and psychological treatment needed because of the crime can be covered.",
       "quote": "Travel may be allowed for medical and psychological treatment that is needed as a result of the victimization.",
@@ -521,7 +522,8 @@
       "category": "covered_expense",
       "expense": "security",
       "params": {
-        "expense": "security"
+        "expense": "security",
+        "scope": "windows and locks for a home you own, or rent and must pay to repair"
       },
       "summary": "Listed under the property rule as an allowed item: windows and locks for a home the victim owns, or rents when the victim must pay for repairs.",
       "quote": "Security enhancement. Windows and locks for real property owned by the claimant/victim; and windows and locks for rental property leased by the claimant/victim when the claimant/victim is financially responsible for repair(s) to the leased property.",
@@ -595,7 +597,7 @@
       "params": {
         "years": 1,
         "from": "crime",
-        "extension": "good cause"
+        "extension": "or later if the Commission finds good cause"
       },
       "summary": "The claim must be filed within one year of the injury, unless the Commission finds good cause for filing late.",
       "quote": "A claim has been filed with the commission later than one year after the injury or death upon which the claim is based, unless the commission finds there was good cause for the failure to file within that time.",
@@ -607,7 +609,9 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "alternatives": []
+        "alternatives": [],
+        "within_hours": 72,
+        "exception": "or later if the Commission finds good cause"
       },
       "summary": "The crime has to be reported to law enforcement within 72 hours unless the Commission finds good cause for the delay. No sexual-assault-specific alternative to a police report was found.",
       "quote": "The criminally injurious conduct resulting in injury or death was reported to a law enforcement officer later than 72 hours after its occurrence, unless the commission finds there was good cause for the failure to report within that time.",
@@ -695,9 +699,9 @@
       "id": "AL-RES-1",
       "category": "residency",
       "params": {
-        "rule": "Crimes that happen in Alabama are covered."
+        "rule": "Crimes in Alabama can qualify; the victim does not have to live in Alabama."
       },
-      "summary": "Crimes committed in Alabama are covered regardless of where the victim lives.",
+      "summary": "A crime committed or attempted in Alabama can qualify, wherever the victim lives.",
       "quote": "An act occurring or attempted within the geographical boundaries of this state which results in serious personal injury or death to a victim for which punishment by fine, imprisonment, or death may be imposed.",
       "source_id": "AL-S14",
       "pinpoint": "Ala. Code 15-23-3(2)a"
@@ -708,7 +712,7 @@
       "params": {
         "rule": "Alabama residents victimized in another US state, if they kept a permanent Alabama residence and meet one of the statute's listed conditions."
       },
-      "summary": "Alabama residents hurt by a crime in another US state can qualify if they had a permanent home in Alabama and meet one of the listed conditions (for example, a job in Alabama or full-time student out of state).",
+      "summary": "Citizens of Alabama hurt by a crime in another US state can qualify if they had a permanent home in Alabama and meet one of the listed conditions (for example, a job in Alabama or full-time student out of state).",
       "quote": "provided however, the citizen at the time such act was committed had a permanent place of residence within the geographical boundaries of this state",
       "source_id": "AL-S14",
       "pinpoint": "Ala. Code 15-23-3(2)b"

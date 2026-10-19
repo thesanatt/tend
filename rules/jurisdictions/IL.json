@@ -114,9 +114,9 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "allowed"
+        "insurance_billing": "unspecified"
       },
-      "summary": "A hospital or provider giving a sexual assault medical forensic exam, outpatient treatment, transport, follow-up care, or medication may not bill the survivor for any part of it, including insurance deductibles, co-pays, or denied claims. The survivor's insurance can still be billed, and inpatient services are an exception.",
+      "summary": "A provider may not bill the sexual assault survivor for any part of the costs of the services, transportation, or medications, including insurance deductibles, co-pays, co-insurance, or denied claims.",
       "quote": "shall not: (1) charge or submit a bill for any portion of the costs of the services, transportation, or medications to the sexual assault survivor, including any insurance deductible, co-pay, co-insurance, denial of claim by an insurer, spenddown, or any other out-of-pocket expense",
       "source_id": "IL-S2",
       "pinpoint": "410 ILCS 70/7.5(a)(1)"
@@ -302,7 +302,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips to and from medical and counseling treatment"
       },
       "summary": "Travel to and from medical and counseling appointments is covered.",
       "quote": "transportation expenses to and from medical and counseling treatment facilities",
@@ -326,7 +327,8 @@
       "category": "covered_expense",
       "expense": "security",
       "params": {
-        "expense": "security"
+        "expense": "security",
+        "scope": "locks, doors, or windows needed or damaged because of the crime"
       },
       "summary": "Locks, doors, or windows that are needed or were damaged because of the crime are covered.",
       "quote": "locks, doors, or windows necessary or damaged as a result of the crime",
@@ -338,7 +340,8 @@
       "category": "covered_expense",
       "expense": "clothing_bedding",
       "params": {
-        "expense": "clothing_bedding"
+        "expense": "clothing_bedding",
+        "scope": "replacing clothing and bedding used as evidence"
       },
       "summary": "Replacing clothing and bedding kept as evidence is covered.",
       "quote": "replacement costs for clothing and bedding used as evidence",
@@ -362,7 +365,8 @@
       "category": "covered_expense",
       "expense": "tuition",
       "params": {
-        "expense": "tuition"
+        "expense": "tuition",
+        "scope": "lost tuition, if the crime leaves the victim unable to keep attending school"
       },
       "summary": "Lost tuition is covered when the victim was enrolled in school or college and cannot keep attending because of the crime.",
       "quote": "loss of tuition paid to attend grammar school or high school when the victim had been enrolled as a student prior to the injury, or college or graduate school when the victim had been enrolled as a day or night student prior to the injury when the victim becomes unable to continue attendance at school as a result of the crime of violence",
@@ -449,7 +453,7 @@
       "params": {
         "years": 5,
         "from": "crime",
-        "extension": "or within one year after a criminal charge"
+        "extension": "or within 1 year after someone is charged with the crime"
       },
       "summary": "Apply within 5 years of the crime, or within one year after someone is criminally charged for it.",
       "quote": "Within 5 years of the occurrence of the crime, or within one year after a criminal charge of a person for an offense, upon which the claim is based, the applicant presents an application",
@@ -482,7 +486,7 @@
           "other"
         ]
       },
-      "summary": "For sexual assault and sexual abuse offenses, law enforcement must be notified within 7 days, or later if the applicant shows the notice was timely under the circumstances. A medical visit, evidence collection, a protective order, or a mental health provider evaluation can stand in for the police report.",
+      "summary": "For sexual assault and sexual abuse offenses, law enforcement must be notified within 7 days, or later if the applicant shows the notice was timely under the circumstances.",
       "quote": "For victims of offenses defined in Sections 10-9, 11-1.20, 11-1.30, 11-1.40, 11-1.50, 11-1.60, 12-13, and 12-14 of the Criminal Code of 1961 or the Criminal Code of 2012, the appropriate law enforcement officials were notified within 7 days of the perpetration of the crime allegedly causing death or injury to the victim or, if the notification was made more than 7 days after the perpetration of the crime, the applicant establishes that the notice was timely under the circumstances.",
       "source_id": "IL-S1",
       "pinpoint": "740 ILCS 45/6.1(b) (text in effect before P.A. 104-563, eff. 1-1-27)"
@@ -499,7 +503,7 @@
           "other"
         ]
       },
-      "summary": "Instead of a police report, going to a medical facility for care or sexual assault evidence collection, getting an order of protection or no contact order, or getting an evaluation from a mental health provider counts as notice.",
+      "summary": "Instead of a police report, going to a medical facility for care or sexual assault evidence collection, getting an order of protection or no contact order, or getting an independent medical evaluation from a mental health provider counts as notice.",
       "quote": "If, in lieu of a law enforcement report, the applicant or victim has obtained an order of protection, a civil no contact order, or a stalking no contact order, has presented to a medical facility for medical care or sexual assault evidence collection, has presented to a mental health provider for an independent medical evaluation, or is engaged in a legal proceeding involving a claim that the applicant or victim is a victim of human trafficking or law enforcement use of force, such action shall constitute appropriate notification under this Section.",
       "source_id": "IL-S1",
       "pinpoint": "740 ILCS 45/6.1(b-1) (text in effect before P.A. 104-563, eff. 1-1-27)"
@@ -531,7 +535,7 @@
           "other"
         ]
       },
-      "summary": "The same steps (a protective order, a medical or evidence collection visit, or a mental health evaluation) also count as cooperating with law enforcement.",
+      "summary": "The same steps (an order of protection or no contact order, a medical or evidence collection visit, or an independent medical examination from a mental health provider) also count as cooperating with law enforcement.",
       "quote": "If the applicant or victim has obtained an order of protection, a civil no contact order, or a stalking no contact order, has presented to a medical facility for medical care or sexual assault evidence collection, obtained an independent medical examination from a mental health provider as described in subsection (b-4), has taken any of the actions described in subsection (b-3), or is engaged in a legal proceeding involving a claim that the applicant or victim is a victim of human trafficking, such action shall constitute cooperation under this subsection (c).",
       "source_id": "IL-S1",
       "pinpoint": "740 ILCS 45/6.1(c) (text in effect before P.A. 104-563, eff. 1-1-27)"
@@ -791,7 +795,7 @@
       "id": "IL-RECCONF-1",
       "category": "record_confidentiality",
       "params": {},
-      "summary": "Records the Attorney General's office gets to process a compensation application, including the application, documents, and photographs, are exempt from disclosure under the Freedom of Information Act.",
+      "summary": "Under the Freedom of Information Act, the Attorney General's office does not have to release the records it gets to process a compensation application, such as the application, documents, and photographs.",
       "quote": "Any records obtained by the Attorney General's office to process the application, including but not limited to applications, documents, and photographs, shall be exempt from disclosure by the Attorney General's office under the Freedom of Information Act.",
       "source_id": "IL-S1",
       "pinpoint": "740 ILCS 45/4.2"

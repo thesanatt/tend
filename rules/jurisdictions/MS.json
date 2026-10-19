@@ -314,7 +314,7 @@
         "amount_cents": 100000,
         "per": "claim"
       },
-      "summary": "Repairing or replacing exterior windows, doors, locks or security devices of a home is capped at $1,000.",
+      "summary": "Repair and replacement costs are capped at $1,000.",
       "quote": "Compensation for repair and/or replacement costs may not exceed One Thousand Dollars ($1,000.00).",
       "source_id": "MS-S6",
       "pinpoint": "3 Miss. Admin. Code Pt. 1, R. 310(7)"
@@ -453,7 +453,8 @@
       "expense": "relocation",
       "params": {
         "expense": "relocation",
-        "applies_to": "domestic violence victims in imminent danger"
+        "applies_to": "domestic violence victims in imminent danger",
+        "scope": "moving costs for domestic violence victims in imminent danger"
       },
       "summary": "Relocation costs are covered for domestic violence victims in imminent danger.",
       "quote": "Relocation Assistance – reasonable relocation costs for domestic violence victims in imminent danger.",
@@ -466,7 +467,8 @@
       "expense": "temporary_housing",
       "params": {
         "expense": "temporary_housing",
-        "applies_to": "domestic violence victims in imminent danger"
+        "applies_to": "domestic violence victims in imminent danger",
+        "scope": "temporary housing for domestic violence victims in imminent danger"
       },
       "summary": "Temporary housing is covered for domestic violence victims in imminent danger.",
       "quote": "Temporary Housing – reasonable costs for temporary housing for domestic violence victims in imminent danger.",
@@ -478,7 +480,8 @@
       "category": "covered_expense",
       "expense": "security",
       "params": {
-        "expense": "security"
+        "expense": "security",
+        "scope": "repairing or replacing a home's broken exterior windows, doors, locks, or other security devices"
       },
       "summary": "Repairing or replacing broken exterior windows, doors, locks or security devices of the victim's home is covered.",
       "quote": "Repair and/or Replacement Costs – reasonable costs for victim/claimant to repair and/or replace exterior broken windows, doors, locks or other security devices of a residential dwelling",
@@ -502,7 +505,8 @@
       "category": "covered_expense",
       "expense": "tuition",
       "params": {
-        "expense": "tuition"
+        "expense": "tuition",
+        "scope": "tuition for a term the student could not finish because of the victim's death or a disability caused by the crime"
       },
       "summary": "Tuition that is lost because the victim's death or crime-caused disability kept the student from finishing the term is covered.",
       "quote": "Tuition Loss – Tuition reimbursement for a victim/claimant enrolled as a student at a school, college or university who, due to the victim’s death or disability caused by a violent crime, was unable to complete the semester or term.",
@@ -554,7 +558,7 @@
       "params": {
         "months": 36,
         "from": "crime",
-        "extension": "The director may extend the deadline for good cause by up to 12 more months."
+        "extension": "or up to 12 months later if the director extends it for good cause"
       },
       "summary": "A claim must be filed within 36 months after the crime. For good cause the director may allow up to 12 more months.",
       "quote": "Unless the claim has been filed with the director within thirty-six (36) months after the crime occurred, or in cases of child sexual abuse, within thirty-six (36) months after the crime was reported to law enforcement or the Department of Child Protection Services, but in no event later than the victim’s twenty-fifth birthday. For good cause, the director may extend the time period allowed for filing a claim for an additional period not to exceed twelve (12) months",
@@ -581,7 +585,8 @@
       "params": {
         "required": true,
         "within_hours": 72,
-        "good_cause_exception": true
+        "good_cause_exception": true,
+        "exception": "or later if the program finds good cause for the delay"
       },
       "summary": "For compensation, the crime must be reported to law enforcement within 72 hours, unless there was good cause for not reporting in that time.",
       "quote": "Unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within seventy-two (72) hours after its occurrence or unless it is found that there was good cause for the failure to report within such time",
@@ -605,7 +610,7 @@
       "category": "reporting_requirement",
       "params": {
         "required": false,
-        "applies_to": "forensic_exam_payment_only"
+        "expense": "forensic_exam"
       },
       "summary": "A police report is not needed for the state to pay for the forensic exam itself. This does not remove the reporting rule for a compensation claim.",
       "quote": "It is not a requirement for the sexual assault to be reported to law enforcement for a medical provider to receive reimbursement for the cost of the sexual assault forensic exam.",
@@ -699,9 +704,9 @@
     },
     {
       "id": "MS-RES-2",
-      "category": "residency",
+      "category": "exam_payment",
       "params": {
-        "rule": "For the state to pay a forensic exam bill, the crime must have occurred in Mississippi."
+        "condition": "if the crime was in Mississippi"
       },
       "summary": "The state pays for a forensic exam only when the crime occurred in Mississippi.",
       "quote": "The crime must have occurred in Mississippi.",

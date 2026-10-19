@@ -164,7 +164,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "scope": "the routine forensic exam"
       },
       "summary": "State law says a victim of criminal sexual conduct or child sexual abuse must not bear the cost of the routine medicolegal (forensic) exam.",
       "quote": "The State must ensure that a victim of criminal sexual conduct in any degree, criminal sexual conduct with a minor in any degree, or child sexual abuse must not bear the cost of his or her routine medicolegal exam following the assault.",
@@ -176,7 +177,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "prohibited"
+        "insurance_billing": "prohibited",
+        "scope": "the routine forensic exam"
       },
       "summary": "The program's hospital billing instructions say neither the victim nor the victim's insurance, including Medicaid and Medicare, may be billed for the medicolegal exam.",
       "quote": "Neither the victim nor their insurance, including Medicaid and Medicare, may be billed for the medicolegal examination.",
@@ -190,7 +192,7 @@
       "params": {
         "payer": "South Carolina Department of Crime Victim Compensation (Victim Compensation Fund), billed directly by the health care facility"
       },
-      "summary": "The hospital or licensed health care facility files the exam claim directly with the Department of Crime Victim Compensation, which reimburses the facility from the fund, when the offense happened in South Carolina.",
+      "summary": "The hospital or health care facility may file the exam claim directly with the Department of Crime Victim Compensation if the offense happened in South Carolina.",
       "quote": "may file a claim for reimbursement directly to the Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation if the offense occurred in South Carolina.",
       "source_id": "SC-S1",
       "pinpoint": "S.C. Code 16-3-1350(C)"
@@ -212,9 +214,10 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "condition": "if the crime was in South Carolina"
       },
-      "summary": "The program says a sexual assault victim can ask for a forensic exam at no cost whether or not they involve law enforcement.",
+      "summary": "The program's sexual assault brochure says victims of an assault in South Carolina can ask for a forensic exam at no cost. This holds whether or not they involve police.",
       "quote": "victims of assault in the State of South Carolina may request, at no cost to them, a forensic examination for sexual assault, regardless of their involvement with law enforcement.",
       "source_id": "SC-S9",
       "pinpoint": "DCVC sexual assault brochure, Legislation"
@@ -246,7 +249,8 @@
       "id": "SC-TOTAL-1",
       "category": "total_cap",
       "params": {
-        "amount_cents": 1500000
+        "amount_cents": 1500000,
+        "exception": "or up to $25,000 in extraordinary cases"
       },
       "summary": "Total awards for a victim are capped at $15,000, or up to $25,000 if the advisory board (by a two-thirds vote) and the director agree extraordinary circumstances exist.",
       "quote": "The aggregate of award to and on behalf of victims may not exceed fifteen thousand dollars unless the Crime Victim Advisory Board, by two-thirds vote, and the director concur that extraordinary circumstances exist. In this case, the award may not exceed twenty-five thousand dollars.",
@@ -262,7 +266,7 @@
         "per": "session",
         "count_limit": 40
       },
-      "summary": "Mental health counseling from a licensed professional is covered for the greater of 20 sessions or the sessions in the 180 days after the first session; victims who use up 20 sessions can ask for up to 20 more, for a total of 40.",
+      "summary": "Payment for counseling is limited to 20 sessions or to the sessions in the 180 days after the first one, whichever is more. The board may let victims who use up 20 sessions ask for up to 20 more, 40 in all, if the director recommends it.",
       "quote": "Payment for mental health counseling is limited to the number of sessions during a one hundred eighty-day period beginning on the date of the first counseling session or twenty sessions, whichever is greater. Upon recommendation of the director, the board may allow victims who max out the current benefit of twenty mental health counseling sessions to request up to an additional twenty sessions for a total of forty sessions;",
       "source_id": "SC-S1",
       "pinpoint": "S.C. Code 16-3-1180(A)(1)"
@@ -298,7 +302,7 @@
       "params": {
         "expense": "funeral"
       },
-      "summary": "Funeral and burial costs of a deceased victim are covered for the claimant who took on the debt. The dollar cap differs between the statute and the FAQ, so no cap is encoded.",
+      "summary": "Funeral and burial costs of a deceased victim can be paid to the claimant who took on the debt.",
       "quote": "Funeral/burial of a deceased victim. The claimant must incur the debt for the funeral/burial",
       "source_id": "SC-S2",
       "pinpoint": "SC Attorney General, Crime Victim Compensation program page"
@@ -345,7 +349,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "mileage to medical or mental health treatment only, at least 5 miles one way"
       },
       "summary": "Mileage is covered only for medical or psychological treatment, with a minimum of 5 miles one way.",
       "quote": "Mileage for medical and or psychological treatment only (min. 5 miles one way)",
@@ -511,9 +516,9 @@
       "params": {
         "days": 180,
         "from": "crime",
-        "extension": "good cause, up to four years after the crime, diagnosed manifestation, or death"
+        "extension": "or up to 4 years if you show good cause"
       },
-      "summary": "A claim must be filed within 180 days of the latest qualifying event (usually the crime). For good cause the deadline can be extended, but not past four years after the crime, diagnosed manifestation, or death.",
+      "summary": "A claim must be filed within 180 days. The days count from the latest of these: the crime, the victim's death, the day police learned it was a crime, or, for a crime against a minor, the day a resulting injury was diagnosed. With good cause, the time can be extended, but not past 4 years after the crime, the diagnosis, or the death.",
       "quote": "A claim must be filed by the claimant not later than one hundred eighty days after the latest of the following events: (1) the occurrence of the crime upon which the claim is based; (2) the death of the victim; (3) the discovery by the law enforcement agency that the occurrence was the result of crime; or (4) the manifestation of a mental or physical injury is diagnosed as a result of a crime committed against a minor. (C) Upon good cause shown, the time for filing may be extended for a period not to exceed four years after the occurrence, diagnosed manifestation, or death.",
       "source_id": "SC-S1",
       "pinpoint": "S.C. Code 16-3-1230(B), (C)"
@@ -522,7 +527,9 @@
       "id": "SC-REPORT-1",
       "category": "reporting_requirement",
       "params": {
-        "required": true
+        "required": true,
+        "within_hours": 48,
+        "exception": "or later if special circumstances justify it"
       },
       "summary": "The crime must be reported to the proper authority promptly; a report more than 48 hours after the crime is not prompt unless special circumstances justify the delay.",
       "quote": "For the purposes of subsection (A)(3), a crime reported more than forty-eight hours after its occurrence is not \"promptly reported\", absent a showing of special circumstances or causes which justify the delay.",
@@ -599,7 +606,7 @@
       "id": "SC-COLL-2",
       "category": "collateral_source",
       "params": {},
-      "summary": "Insurance must be billed first. If the victim has insurance and chooses not to use it, the program will not cover the cost.",
+      "summary": "In a compensation claim, insurance must be billed first. If the victim has insurance and chooses not to use it, the program will not cover the cost.",
       "quote": "Payer of Last Resort: Insurance must be filed first if a victim has private or public insurance. DCVC is the payer of last resort. If the victim has insurance, and the victim elects not to use his/her insurance, DCVC will not cover the cost.",
       "source_id": "SC-S6",
       "pinpoint": "DCVC Payments and Reimbursements At A Glance, Payer of Last Resort"
@@ -608,7 +615,7 @@
       "id": "SC-COLL-3",
       "category": "collateral_source",
       "params": {},
-      "summary": "Private or public insurance is used first, and the program can pay deductibles and co-pays if otherwise eligible.",
+      "summary": "In a compensation claim, private or public insurance is used first, and the program can pay deductibles and co-pays if otherwise eligible.",
       "quote": "DCVC is the payer of last resort (Victims' private/public insurance must be used first. DCVC can pay deductibles and co-pays if otherwise eligible)",
       "source_id": "SC-S10",
       "pinpoint": "DCVC compensation brochure, Services DCVC May Consider For Payment"
@@ -770,7 +777,7 @@
         "covers_sexual_assault": true,
         "enroll": "If you are interested in enrolling in the Address Confidentiality Program, please contact the ACP at [email address obfuscated in saved page] or 803-734-4517 to be connected with an Application Assistant in your area. (Statute: Upon the recommendation of an application assistant, an individual, or a parent, guardian, or other appropriate adult for a minor, may apply to the Attorney General for assignation of a designated address.)"
       },
-      "summary": "South Carolina's Address Confidentiality Program, run by the Attorney General, gives victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses a designated substitute address that state and local agencies and courts must use, plus forwarding of first-class, certified, and registered mail. Applicants apply through an application assistant; there is no fee.",
+      "summary": "South Carolina's Address Confidentiality Program, run by the Attorney General, lets victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses apply, with an application assistant's help, for a designated substitute address that state and local agencies and courts must use, plus forwarding of first-class, certified, and registered mail. The program's page says participants must live in South Carolina or plan to move there, and must be adults or a parent or guardian applying for a minor; there is no fee.",
       "quote": "The address confidentiality program is established to protect victims of domestic violence, human trafficking, stalking, harassment, or sexual offenses by authorizing the use of designated addresses for such victims. The program is administered by the Attorney General",
       "source_id": "SC-S14",
       "pinpoint": "S.C. Code 16-25-130(B)"

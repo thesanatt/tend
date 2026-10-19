@@ -218,7 +218,7 @@
    "params": {
     "amount_cents": 1500000
    },
-   "summary": "The maximum award to any victim or dependent is $15,000. A separate catastrophic injury award can add more (see notes).",
+   "summary": "The maximum award to any victim or dependent is $15,000. A separate catastrophic injury award can add more.",
    "quote": "the maximum individual award of compensation paid to any victim or dependent shall not exceed fifteen thousand dollars ($15,000.00).",
    "source_id": "WY-S9",
    "pinpoint": "W.S. 1-40-109(d)"
@@ -414,7 +414,9 @@
    "id": "WY-COV-9",
    "category": "covered_expense",
    "expense": "transportation",
-   "params": {},
+   "params": {
+    "scope": "trips of at least 10 miles outside your home community"
+   },
    "summary": "Travel is covered when a victim has to go at least 10 miles outside their home community for counseling, medical treatment not available locally, or to give a victim impact statement at sentencing. Mileage is paid at the state rate, with no separate cap beyond the total award.",
    "quote": "Expenses incurred when required to travel at least ten (10) miles outside the home community to receive the following services.",
    "source_id": "WY-S2",
@@ -447,7 +449,7 @@
    "params": {
     "item": "cell phones, laptops, tablets and other electronic devices"
    },
-   "summary": "Phones, laptops, tablets, and other electronic devices are not covered, unless good cause is shown.",
+   "summary": "Phones, laptops, tablets, and other elective electronic devices are not covered, unless good cause is shown.",
    "quote": "Cell phones, laptops, tablets, and any other elective electronic devices are not covered under the CVCP, unless good cause is shown for reimbursement.",
    "source_id": "WY-S2",
    "pinpoint": "WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence, Exemptions"
@@ -471,7 +473,7 @@
    "params": {
     "item": "items destroyed or damaged during the crime"
    },
-   "summary": "Items destroyed or damaged during the crime are not eligible for replacement.",
+   "summary": "The benefit that replaces things police took as evidence does not cover things that were damaged or ruined in the crime.",
    "quote": "Items destroyed or damaged during the crime are not eligible.",
    "source_id": "WY-S2",
    "pinpoint": "WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence"
@@ -493,7 +495,7 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "The division may extend the time for good cause shown."
+    "extension": "or later if the division allows more time for good cause"
    },
    "summary": "Apply within 1 year of the injury. The division can allow more time for good cause.",
    "quote": "The application for compensation is filed with the division within one (1) year after the date of the injury to or death of the victim, or within any extension of time the division allows for good cause shown",
@@ -520,7 +522,7 @@
     "alternatives": [
      "protective_order"
     ],
-    "applies_to": "mental health counseling only"
+    "scope": "mental health counseling only"
    },
    "summary": "Program policy also accepts a valid order of protection instead of a police report, but only for mental health counseling claims. An ex parte (temporary) order is not enough.",
    "quote": "A valid Order of Protection (Mental Health Counseling Only). A claim cannot be approved based on an Ex Parte Order of Protection.",
@@ -534,7 +536,7 @@
     "required": true,
     "alternatives": []
    },
-   "summary": "No arrest, prosecution, or conviction is needed. The crime only has to be reported to law enforcement.",
+   "summary": "No arrest, prosecution, or conviction is needed to be eligible.",
    "quote": "No arrest, prosecution, nor conviction is necessary to be eligible.",
    "source_id": "WY-S3",
    "pinpoint": "WY DVS Compensation FAQ, Does There Have To Be An Arrest Or Conviction"
@@ -590,7 +592,7 @@
    "params": {
     "amount_cents": 100000
    },
-   "summary": "The division can make an emergency award of up to $1,000 before a hearing if waiting would cause undue hardship. It is subtracted from the final award.",
+   "summary": "An emergency award can be no more than $1,000.",
    "quote": "The amount of an emergency award to an applicant shall not exceed one thousand dollars ($1,000.00).",
    "source_id": "WY-S12",
    "pinpoint": "W.S. 1-40-111(b)"
@@ -769,7 +771,9 @@
   {
    "id": "WY-RECORDS-1",
    "category": "record_confidentiality",
-   "params": {},
+   "params": {
+    "scope": "only information already covered by a confidentiality privilege under Wyoming law"
+   },
    "summary": "By statute, information in victims' compensation claim files and records that is covered by a confidentiality privilege under Wyoming law stays confidential and is not open to public inspection. It is also shielded from legal process and cannot be used as evidence in any proceeding without the consent of the person who gave it.",
    "quote": "Information contained in the claim files and records of victims, which are subject to any privilege of confidentiality under Wyoming law, shall remain confidential and shall not be open to public inspection. The information shall be immune from legal process and shall not, without the consent of the person furnishing the information, be admitted as evidence or used for any purpose in any action, suit or other judicial, legislative or administrative proceeding.",
    "source_id": "WY-S4",

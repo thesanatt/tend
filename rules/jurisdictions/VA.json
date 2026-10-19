@@ -260,7 +260,7 @@
    "params": {
     "insurance_billing": "unspecified"
    },
-   "summary": "Survivors have the right to evidence collection at no cost to them.",
+   "summary": "Survivors have the right to seek evidence collection at no cost to them.",
    "quote": "You have the right to seek evidence collection at no cost to you;",
    "source_id": "VA-S17",
    "pinpoint": "VVF Notice to Sexual Assault Patients"
@@ -279,12 +279,12 @@
   },
   {
    "id": "VA-EXAM-5",
-   "category": "exam_no_bill",
+   "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "payer": "SAFE Payment Program, after any federally funded insurance such as Medicaid, Medicare or Tricare; billing private insurance first is not required unless the patient asks"
    },
-   "summary": "Billing the survivor's private health insurance first is not required unless the patient asks for it. Federally funded insurance (Medicaid, Medicare, Tricare) must be billed first, and the program pays the eligible remaining patient responsibility.",
+   "summary": "If you have Medicaid, Medicare, Tricare or other federally funded insurance, it must be billed first. Your private health insurance does not have to be billed first unless you ask for that. The program pays any eligible amount still owed.",
    "quote": "If the patient is covered by a federally funded insurance such as Medicaid, Medicare, Tricare, etc., insurance must be billed primary. Billing private health insurance primary is not required unless requested by the patient. The SAFE Payment Program will pay any eligible remaining patient responsibility.",
    "source_id": "VA-S10",
    "pinpoint": "VVF SAFE Payment Program page, Submit a SAFE claim"
@@ -294,7 +294,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams"
+    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams",
+    "condition": "if done within 120 hours of the assault"
    },
    "summary": "Non-acute exams (more than 120 hours after the crime) and chronic sexual abuse cases need authorization from a law enforcement officer or prosecutor to be paid.",
    "quote": "Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
@@ -306,7 +307,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Criminal Injuries Compensation Fund"
+    "payer": "Criminal Injuries Compensation Fund",
+    "outside_total_cap": true
    },
    "summary": "What the Fund pays for a PERK exam does not count against the survivor's maximum award.",
    "quote": "Funds paid for physical evidence recovery kit or anonymous trace evidence collection kit collection shall not be offset against the Fund's maximum allowable award as provided in subsection H.",
@@ -380,9 +382,10 @@
    "category": "covered_expense",
    "expense": "temporary_housing",
    "params": {
-    "expense": "temporary_housing"
+    "expense": "temporary_housing",
+    "scope": "temporary lodging, only if staying in the home where the crime happened is not safe, starting right after the crime, for up to 30 days"
    },
-   "summary": "Temporary lodging is covered only in limited situations where staying in the home would risk the victim's safety; it must start right after the crime and cannot exceed 30 days.",
+   "summary": "Temporary lodging is covered only in limited situations, when staying in the home where the crime happened would put the victim's safety at risk. Receipts must be in the victim's name. The stay must start right after the crime and cannot be longer than 30 days.",
    "quote": "Temporary Lodging: Limited situations only, when the physical safety of the victim would be risked by staying in the dwelling where the crime occurred. Receipts must be in the victim’s name. Temporary lodging must begin immediately following the crime and must not exceed 30 days.",
    "source_id": "VA-S12",
    "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations"
@@ -452,7 +455,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage to and from medical care, police, and court, for minor victims only"
    },
    "summary": "Mileage to and from medical treatment, investigations and court is reimbursed for minor victims only.",
    "quote": "Mileage - Minor Victims Only: Reimbursement for mileage to/from medical treatment, criminal investigations and court proceedings. (Minor victims only.)",
@@ -464,7 +468,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing or bedding taken as evidence"
    },
    "summary": "When clothing or bedding is taken as evidence, the fund may pay for replacements.",
    "quote": "When clothing or bedding are taken as evidence, VVF may pay for the purchase of a replacement.",
@@ -511,8 +516,7 @@
    "category": "filing_deadline",
    "params": {
     "years": 3,
-    "from": "crime",
-    "extension": "For good cause shown, the Commission may extend the time for filing."
+    "from": "crime"
    },
    "summary": "A claim must be filed within three years after the crime; the Commission may extend this for good cause.",
    "quote": "A claim shall be filed by the claimant not later than three years after the occurrence of the crime upon which such claim is based",
@@ -606,7 +610,7 @@
    "params": {
     "amount_cents": 300000
    },
-   "summary": "If an award is probable and waiting would cause undue hardship, the program may make an emergency award of up to $3,000, deducted from the final award.",
+   "summary": "An emergency award can be no more than $3,000.",
    "quote": "the amount of such emergency award shall not exceed $3,000",
    "source_id": "VA-S4",
    "pinpoint": "Va. Code § 19.2-368.9"
@@ -693,9 +697,10 @@
    "params": {
     "method": "online",
     "target": "WebFile",
-    "note": "Only trained Victim/Witness advocates (and medical providers) can use WebFile; a survivor files online by working with a local Victim/Witness program."
+    "note": "Only trained Victim/Witness advocates (and medical providers) can use WebFile; a survivor files online by working with a local Victim/Witness program.",
+    "condition": "for victim advocates with special training"
    },
-   "summary": "There is no public online application: trained Victim/Witness advocates can file the claim electronically through WebFile on the survivor's behalf.",
+   "summary": "WebFile, the program's online claim system, is for victim advocates with special training.",
    "quote": "Victim advocates that have been through specialized training may file via WebFile, the Fund's online claims submission system.",
    "source_id": "VA-S14",
    "pinpoint": "VVF Policies (Sept 2025), Where a Claim Must Be Filed, p. 12"

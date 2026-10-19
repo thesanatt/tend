@@ -431,7 +431,7 @@
       "params": {
         "years": 2,
         "from": "crime",
-        "extension": "The committee may accept a late application for good cause (81-1821(3)). A victim under nineteen at the time of injury may apply on or before their twenty-second birthday (81-1821(2)(c))."
+        "condition": "if you were 19 or older when it happened"
       },
       "summary": "A victim who was 19 or older at the time of the injury must apply within 2 years of the injury.",
       "quote": "For a victim who was nineteen years of age or older at the time of the personal injury or death, within two years after the date of the personal injury or death",
@@ -443,7 +443,8 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "within_days": 5
+        "within_days": 5,
+        "exception": "or, if you could not reasonably report that soon, within 5 days of when you could"
       },
       "summary": "Generally the crime must be reported to police within 5 days, or within 5 days of when a report could reasonably be made.",
       "quote": "The personal injury or death was the result of an incident or offense which had been reported to the police within five days of its occurrence or, if the incident or offense could not reasonably have been reported within that period, within five days of the time when a report could reasonably have been made.",
@@ -454,7 +455,7 @@
       "id": "NE-REP-2",
       "category": "reporting_requirement",
       "params": {
-        "required": false,
+        "required": true,
         "alternatives": [
           "forensic_exam",
           "protective_order",
@@ -720,7 +721,7 @@
         "covers_sexual_assault": true,
         "enroll": "Application for ACP is made in person at one of the designated victim assistance centers located throughout the state. Applications will not be accepted at the Secretary of State’s Office."
       },
-      "summary": "Nebraska's Address Confidentiality Program, run by the Secretary of State, gives eligible victims of abuse, sexual assault or stalking a substitute address for state and local agencies and forwards their mail; you apply in person at a designated victim assistance center, not at the Secretary of State's office.",
+      "summary": "Nebraska's Address Confidentiality Program is for victims of abuse, sexual assault or stalking who fear for their safety, among other conditions.",
       "quote": "To be eligible for ACP, an individual must be (1) a victim of abuse, sexual assault or stalking who fears for his or her safety",
       "source_id": "NE-S23",
       "pinpoint": "Program eligibility"

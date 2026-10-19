@@ -254,7 +254,7 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "consent_required"
+        "insurance_billing": "unspecified"
       },
       "summary": "A health care provider may not bill a sexual assault survivor for any part of a forensic exam, including insurance deductibles, co-pays, or a denied insurance claim.",
       "quote": "A health care provider shall not submit a bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other out-of-pocket expense.",
@@ -292,7 +292,7 @@
       "params": {
         "payer": "SAFE Response (Crime Victim Services Commission)"
       },
-      "summary": "If billing insurance would threaten the survivor's privacy or safety, the provider can bill SAFE Response for the exam instead.",
+      "summary": "If you believe billing your insurance would substantially interfere with your privacy or safety, the doctor or nurse can bill SAFE Response for the exam instead.",
       "quote": "If a victim believes submitting a claim to their insurance carrier would substantially interfere with his or her personal privacy or safety, the doctor or nurse can bill SAFE Response for the forensic examination.",
       "source_id": "MI-S17",
       "pinpoint": "MDHHS SAFE Response page"
@@ -355,7 +355,7 @@
         "per": "session",
         "count_limit": 35
       },
-      "summary": "Counseling is limited to 35 sessions per person plus up to 20 family sessions, at $80 per hour for a therapist or counselor and $125 per hour for a psychologist or physician.",
+      "summary": "The program's award table lists counseling limits of 35 sessions and 20 family sessions, at $80 an hour for a therapist or counselor and $125 an hour for a psychologist or physician.",
       "quote": "35 sessions, 20 family sessions $80/hour for a therapist/counselor $125/hour for a psychologist/physician",
       "source_id": "MI-S11",
       "pinpoint": "MDHHS award limits table, Psychological Counseling"
@@ -521,7 +521,8 @@
       "id": "MI-COV-7",
       "category": "covered_expense",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips to medical care, mental health care, a victim services organization, or a victim's funeral"
       },
       "summary": "Transportation is covered to reach victim services, medical care, or mental health care.",
       "quote": "(e) Transportation expenses for the purpose of an individual listed in section 4(1)(a), or if the victim or intervenor is deceased, for a person listed in section 4(1)(b), (e), or (f), to access services from a victim services organization, medical care, or mental health care, or to attend the funeral of a victim or intervenor.",
@@ -532,7 +533,8 @@
       "id": "MI-COV-8",
       "category": "covered_expense",
       "params": {
-        "expense": "childcare"
+        "expense": "childcare",
+        "scope": "paying someone else for child care or housework you can no longer do because of the injury or while you get victim services"
       },
       "summary": "Replacement services such as child care and homemaking are covered when the survivor cannot do them because of the injury or while attending victim services.",
       "quote": "(d) Replacement services for homemaking tasks, child care, and other services previously performed by an individual listed in section 4(1)(a), (b), (e), or (f), that, because of the victim's injury, or the claimant's attendance at a victim services organization to receive services related to the crime, must temporarily or permanently be performed by another person.",
@@ -612,8 +614,7 @@
       "category": "filing_deadline",
       "params": {
         "years": 5,
-        "from": "crime",
-        "extension": "The commission may extend the deadline for good cause on the claimant's petition (MCL 18.355(3)); for criminal sexual conduct against a minor, police-records-based rules allow filing within 5 years after the crime was reported (MCL 18.355(2)(a))."
+        "from": "crime"
       },
       "summary": "A claim must be filed within 5 years after the crime.",
       "quote": "a claim must be filed by the claimant not later than 5 years after the occurrence of the crime upon which the claim is based",
@@ -738,7 +739,7 @@
       "id": "MI-CONDUCT-2",
       "category": "conduct_reduction",
       "params": {},
-      "summary": "A claim is rejected if the commission finds willful noncooperation with law enforcement or the prosecutor; for sexual assault, a forensic exam satisfies the cooperation requirement (see MI-REPORT-1).",
+      "summary": "The commission must reject a claim if it finds the victim or claimant willfully refused to cooperate.",
       "quote": "In the event of determination of willful noncooperation by the victim or other claimant, the commission shall reject the claim.",
       "source_id": "MI-S5",
       "pinpoint": "MCL 18.356(2)"
@@ -1240,7 +1241,7 @@
       "id": "MI-RECCONF-1",
       "category": "record_confidentiality",
       "params": {},
-      "summary": "A claimant's file and testimony before the Crime Victim Services Commission are exempt from disclosure under Michigan's Freedom of Information Act, and records the commission obtains that other laws keep confidential stay confidential.",
+      "summary": "The record of a proceeding before the Crime Victim Services Commission is a public record. But a claimant's file and testimony before the commission are exempt from disclosure under Michigan's Freedom of Information Act.",
       "quote": "The record of a proceeding before the commission is a public record, except that a claimant's file and his or her testimony before the commission is exempt from disclosure under the freedom of information act",
       "source_id": "MI-S23",
       "pinpoint": "MCL 18.363"

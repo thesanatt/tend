@@ -134,9 +134,10 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified",
+    "condition": "if the provider bills the state SAFE Fund"
    },
-   "summary": "A health care provider that seeks payment from the state SAFE Fund may not bill the survivor (or the survivor's guardian) for any sexual assault forensic exam costs, and may bill insurance only if the survivor authorizes it.",
+   "summary": "A health care provider that asks the state SAFE Fund to pay for a sexual assault forensic exam may not bill the survivor (or the survivor's guardian) for any of the exam costs.",
    "quote": "A health care provider seeking an award under this section may not seek payment for any examination costs from the victim or any guardian of the victim.",
    "source_id": "WI-S1",
    "pinpoint": "Wis. Stat. 949.26(2)(a)"
@@ -146,7 +147,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "consent_required",
+    "condition": "if the provider bills the state SAFE Fund"
    },
    "summary": "A provider seeking a SAFE Fund award may not bill the survivor's insurance or any other payer for exam costs unless the survivor or guardian authorizes it.",
    "quote": "may not seek payment for any examination costs from insurance or another available source of payment unless the victim or any guardian of the victim authorizes the health care provider to seek payment.",
@@ -158,9 +160,10 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified",
+    "condition": "if the provider bills the state SAFE Fund"
    },
-   "summary": "If a survivor gets a bill for a sexual assault nurse exam, the program says to contact the provider and ask them to send the bill to the SAFE Fund instead.",
+   "summary": "The DOJ's SAFE Fund page says the provider may not bill the survivor or family for a sexual assault nurse examiner (SANE) exam. If you get a bill, the page says to contact the provider right away and ask them to send it to the SAFE Fund.",
    "quote": "The health care provider may not bill the victim or the family of the victim for the cost of a SANE exam. Should a victim receive a bill for a SANE exam, they must contact the health care provider immediately and ask them to submit the bill to the SAFE Fund.",
    "source_id": "WI-S7",
    "pinpoint": "Wisconsin DOJ SAFE Fund page"
@@ -172,7 +175,7 @@
    "params": {
     "payer": "Wisconsin Department of Justice SAFE Fund (Wis. Stat. ch. 949 subch. II), paid directly to the health care provider, unless the survivor both authorizes insurance billing and cooperates with law enforcement"
    },
-   "summary": "The Wisconsin Department of Justice pays exam costs directly to the health care provider through the Sexual Assault Forensic Examination (SAFE) Fund. Exam costs cover the evidence exam plus STD testing and prevention, HIV prophylaxis and STD medication given during the exam; the fund does not cover follow-up medical treatment. The fund does not pay if the survivor both authorizes insurance billing and cooperates with police.",
+   "summary": "For a sexual assault that happened in Wisconsin, the Wisconsin Department of Justice pays exam costs directly to the health care provider through the Sexual Assault Forensic Examination (SAFE) Fund. Exam costs are the evidence exam plus testing, prevention and medicine for sexually transmitted diseases (STDs) and medicine to prevent HIV, given or prescribed during the exam. The fund pays only these exam costs, not other medical treatment or follow-up visits. It does not pay if the provider is allowed to bill insurance and the survivor (or a guardian) has reported to police or helped their investigation.",
    "quote": "the department shall make an award under this section to a health care provider who conducts an examination to gather evidence regarding a sex offense to reimburse the health care provider only for the examination costs",
    "source_id": "WI-S1",
    "pinpoint": "Wis. Stat. 949.26(1)"
@@ -195,7 +198,8 @@
    "expense": "forensic_exam",
    "params": {
     "required": false,
-    "alternatives": []
+    "alternatives": [],
+    "expense": "forensic_exam"
    },
    "summary": "For the forensic exam, no police report is needed: the SAFE Fund may not refuse payment because the survivor does not cooperate with law enforcement or because there is no investigation or prosecution.",
    "quote": "The department may not refuse to make an award under this section because the victim or the guardian of the victim does not cooperate with a law enforcement agency regarding the sex offense, or due to lack of an investigation or prosecution of the sex offense.",
@@ -369,7 +373,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "replacing a computer or mobile phone held as evidence"
    },
    "summary": "A phone or computer kept by police as evidence can be partly replaced (see the cap rule).",
    "quote": "Reasonable replacement value of any computer or mobile telephone that is held for evidentiary purposes",
@@ -441,8 +446,7 @@
    "category": "filing_deadline",
    "params": {
     "years": 1,
-    "from": "crime",
-    "extension": "Waivable in the interest of justice (949.08(1)). Adults who were victims as children may apply; for a child victim, eligible expenses up to 1 year before the application can be considered (949.08(1m)(b))."
+    "from": "crime"
    },
    "summary": "Apply within 1 year of the injury. The department may waive this in the interest of justice; if late, attach a written explanation of the delay.",
    "quote": "No order for the payment of an award may be made unless the application was made within 1 year after the date of the personal injury or death",
@@ -457,7 +461,7 @@
     "from": "crime",
     "extension": "waiver request with written statement"
    },
-   "summary": "If more than 1 year has passed, the program still accepts an application with a written statement explaining the delay.",
+   "summary": "If the application is not filed within 1 year, the program asks for a written statement explaining the delay.",
    "quote": "If the application is not filed within 1 year, attach a written statement explaining the reason for the delay.",
    "source_id": "WI-S4",
    "pinpoint": "Wisconsin DOJ CVC FAQs, Applying and Eligibility"
@@ -468,7 +472,8 @@
    "params": {
     "required": true,
     "within_days": 5,
-    "alternatives": []
+    "alternatives": [],
+    "exception": "or, if you could not reasonably report that soon, within 5 days of when you could, and the program can waive this"
    },
    "summary": "For compensation (beyond the exam), the crime must be reported to police within 5 days, or within 5 days of when it could reasonably be reported. The department may waive this in the interest of justice. No sexual-assault-specific alternative to a police report was found.",
    "quote": "the personal injury or death was the result of an incident or offense which had been reported to the police within 5 days of its occurrence or, if the incident or offense could not reasonably have been reported within such period, within 5 days of the time when a report could reasonably have been made. The department may waive the requirements under this subsection in the interest of justice.",
@@ -723,7 +728,7 @@
     "covers_sexual_assault": true,
     "enroll": "Individuals intending to enroll in Safe at Home must first participate in safety planning with an Application Assistant. After creating a safety plan with a designated Application Assistant, an individual may submit an application for enrollment in Safe at Home. A completed application may be faxed to Safe at Home's secure fax at (608) 261-8660 or mailed to Safe at Home, PO BOX 7035, Madison, WI 53707. Do not use email to submit your application."
    },
-   "summary": "Safe at Home, run by the Wisconsin Department of Justice, gives Wisconsin residents who are victims of sexual abuse and other listed abuse a legal substitute address to use in place of their actual address, with free mail forwarding. Applicants first make a safety plan with a designated Application Assistant.",
+   "summary": "Safe at Home, run by the Wisconsin Department of Justice, provides a legal substitute address to victims of domestic abuse, child abuse, sexual abuse, stalking, or trafficking, and to others who fear for their physical safety. To enroll, you first make a safety plan with a designated Application Assistant.",
    "quote": "Safe at Home is an address confidentiality program that provides victims of domestic abuse, child abuse, sexual abuse, stalking, trafficking, or those who simply fear for their physical safety with a legal substitute address",
    "source_id": "WI-S9",
    "pinpoint": "Wisconsin DOJ, Safe at Home Address Confidentiality Program page, program description; Wis. Stat. 165.68"

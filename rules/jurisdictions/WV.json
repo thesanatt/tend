@@ -232,7 +232,8 @@
       "id": "WV-CAP-1",
       "category": "total_cap",
       "params": {
-        "amount_cents": 3500000
+        "amount_cents": 3500000,
+        "exception": "or more in some cases"
       },
       "summary": "For an injury claim, total compensation to the victim and all other claimants may not exceed $35,000.",
       "quote": "Except in the case of death, or as provided in subdivision (2) of this subsection, compensation payable to a victim and to all other claimants sustaining economic loss because of injury to that victim may not exceed $35,000 in the aggregate.",
@@ -285,7 +286,8 @@
       "category": "covered_expense",
       "expense": "counseling",
       "params": {
-        "expense": "counseling"
+        "expense": "counseling",
+        "scope": "mental health counseling by a licensed counselor"
       },
       "summary": "Mental health counseling by a licensed counselor is a reimbursable expense.",
       "quote": "Mental Health Counseling by a Licensed Counselor",
@@ -297,7 +299,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "travel to and from a medical facility"
       },
       "summary": "Reasonable travel to and from a medical facility is an allowable expense.",
       "quote": "Reasonable travel expenses for the transportation of a victim to and from a medical facility.",
@@ -347,7 +350,7 @@
       "params": {
         "item": "damaged or stolen personal property, including money (eyeglasses and dentures excepted)"
       },
-      "summary": "Damaged or stolen personal property (for example a phone) and stolen money are not covered. Eyeglasses and dentures are an exception.",
+      "summary": "Damaged or stolen property, including money, is not covered.",
       "quote": "No. Damaged or stolen property, including money, is NOT recoverable.",
       "source_id": "WV-S11",
       "pinpoint": "Application packet, information page"
@@ -383,7 +386,10 @@
         "required": true,
         "alternatives": [
           "forensic_exam"
-        ]
+        ],
+        "within_hours": 96,
+        "exam_condition": "done within 96 hours of the assault",
+        "exception": "or later with good cause, and minors need neither"
       },
       "summary": "The crime must be reported to law enforcement within 96 hours, but for a sexual offense a forensic medical exam within 96 hours meets the requirement instead. Good cause can excuse a late report or exam, and juvenile victims are exempt.",
       "quote": "The commissioner may not approve an award of compensation if the criminally injurious conduct upon which the claim is based was not reported to a law-enforcement officer or agency or, in the case of sexual offense, the victim did not undergo a forensic medical examination, within 96 hours after the occurrence of the conduct, unless it is determined that good cause existed for the failure to report the conduct or undergo a forensic medical examination within the 96-hour period: Provided , That reporting to a law-enforcement officer or agency or a forensic medical examination is not required if the victim is a juvenile in order for a commissioner to approve an award of compensation",
@@ -395,9 +401,10 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "scope": "filing of a criminal charge, not just a report; exceptions for unknown offender, juvenile claimant, or adult claimant who did not block charges where law enforcement confirms a crime occurred"
+        "scope": "filing of a criminal charge, not just a report; exceptions for unknown offender, juvenile claimant, or adult claimant who did not block charges where law enforcement confirms a crime occurred",
+        "charge_required": true
       },
-      "summary": "Beyond the police report, a criminal charge generally has to be filed. It is not required when the offender is unknown, when the claimant was a juvenile, or when an adult claimant did not cause the lack of charges and law enforcement confirms the evidence supports that a crime occurred. A conviction is not required.",
+      "summary": "Beyond the police report, a criminal charge generally has to be filed. It is not required when the offender is unknown or the claimant was a juvenile. It is also not required for an adult claimant when no charges were filed for reasons other than the claimant's own wish and law enforcement confirms the evidence supports that a crime occurred. A conviction is not required.",
       "quote": "The filing of a criminal charge shall be a prerequisite for receipt of compensation unless it is determined that no charges were filed due to the identity of the perpetrator being unknown: Provided, That no criminal charges need be filed if: (1) The claimant is an adult at the time the conduct giving rise to the claim occurred and no criminal charges were filed for reasons other than the desire of the claimant and a law-enforcement agency confirms that the available evidence supports a finding that a crime occurred; or (2) the claimant was a juvenile at the time the conduct giving rise to the claim occurred.",
       "source_id": "WV-S7",
       "pinpoint": "W. Va. Code 14-2A-18"
@@ -424,7 +431,7 @@
       "id": "WV-COND-2",
       "category": "conduct_reduction",
       "params": {},
-      "summary": "An award may be denied or reduced if the claimant or victim did not fully cooperate with law enforcement or the claim investigator.",
+      "summary": "A commissioner may deny a claim, reduce an award, or reconsider an approved claim if the claimant or victim has not fully cooperated with law enforcement or the claim investigator.",
       "quote": "A commissioner, upon a finding that the claimant or victim has not fully cooperated with appropriate law-enforcement agencies or the claim investigator, may deny a claim, reduce an award of compensation, or reconsider a claim already approved.",
       "source_id": "WV-S3",
       "pinpoint": "W. Va. Code 14-2A-14(d)"
@@ -551,7 +558,7 @@
         "covers_sexual_assault": true,
         "enroll": "Participants do not apply directly to the Address Confidentiality Program. Application is made in person at a local domestic violence, sexual assault or victim service program located throughout the state by an approved application assistant."
       },
-      "summary": "The Secretary of State's Address Confidentiality Program gives victims of sexual assault, domestic violence, stalking and human trafficking a substitute address to use with state and local agencies, plus free first-class mail forwarding. You apply in person through an approved application assistant at a local victim service program.",
+      "summary": "The Secretary of State's Address Confidentiality Program is designed to help victims of sexual assault, domestic violence, stalking and human trafficking deal with government agencies without risking that their home address gets out. You apply in person through an approved application assistant at a local victim service program.",
       "quote": "The West Virginia Address Confidentiality Program (ACP) is a program designed to help victims of domestic violence, sexual assault, stalking and human trafficking do business with government agencies and other entities without risking disclosure of their home address.",
       "source_id": "WV-S16",
       "pinpoint": "WV Secretary of State ACP page; program created by W. Va. Code 48-28A-103(a)"
@@ -560,7 +567,7 @@
       "id": "WV-RECCONF-1",
       "category": "record_confidentiality",
       "params": {},
-      "summary": "Only for a claim filed on behalf of a minor child who is the subject of a civil abuse and neglect petition: the Fund's records and proceedings are confidential and the parties' identities may not be published. No West Virginia statute or rule found makes an adult survivor's compensation claim confidential.",
+      "summary": "For a claim filed on behalf of a minor child who is the subject of a civil abuse and neglect petition, the Fund's records and proceedings are confidential and may not be shared with anyone who is not a necessary participant.",
       "quote": "All crime victims’ compensation fund records and proceedings related to a claim filed on behalf of a minor child who is the subject of a civil abuse and neglect petition are confidential and may not be disclosed to any person who is not a necessary participant in the proceedings.",
       "source_id": "WV-S13",
       "pinpoint": "W. Va. Code 14-2A-11a(b)"

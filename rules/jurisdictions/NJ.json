@@ -501,7 +501,7 @@
       "params": {
         "years": 5,
         "from": "crime",
-        "extension": "good cause for delayed filing"
+        "extension": "or later if the program finds good cause for the delay"
       },
       "summary": "Apply within 5 years of the injury, or later if the Office finds good cause for the delay.",
       "quote": "unless the application has been made within five years after the date of the personal injury or death or after that date upon determination by the office that good cause exists for the delayed filing",
@@ -538,7 +538,9 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "alternatives": []
+        "alternatives": [],
+        "within_months": 9,
+        "exception": "counted from the crime or from when it was reasonably discovered"
       },
       "summary": "The crime must have been reported to police or another law enforcement agency within 9 months of when it happened or was reasonably discovered.",
       "quote": "which had been reported to the police or other appropriate law enforcement agency within nine months after its occurrence or reasonable discovery",
@@ -550,7 +552,8 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "alternatives": []
+        "alternatives": [],
+        "exception": "or later for good cause"
       },
       "summary": "The Office can excuse a late police report for good cause.",
       "quote": "The Office reserves the right to, upon determination that good cause exists for the delayed filing, make an exception to the requirement that the incident be reported to the police within the stated time period.",
@@ -817,7 +820,7 @@
         "covers_sexual_assault": true,
         "enroll": "Each applicant shall complete an application, which may be obtained from a local domestic violence program, sexual violence agency, or other agencies, as designated by the Division on Women. Information about how to contact the aforementioned programs can be obtained by contacting the New Jersey Address Confidentiality Program at 1-877-218-9133."
       },
-      "summary": "New Jersey's Address Confidentiality Program, run by the Division on Women in the Department of Children and Families, gives victims of domestic violence, stalking and sexual assault a substitute mailing address that public agencies must accept, so public records do not reveal where they live.",
+      "summary": "New Jersey's Address Confidentiality Program, run by the Division on Women in the Department of Children and Families, is meant to keep the addresses of victims of domestic violence, stalking and sexual assault confidential. The law lets public agencies accept a program participant's substitute mailing address.",
       "quote": "to enable interagency cooperation with the Director of the Division on Women in the Department of Children and Families in providing address confidentiality for victims of domestic violence, stalking, and sexual assault, and reproductive health service patients and providers, and to enable public agencies to accept a program participant's use of an address designated by the director as a substitute mailing address.",
       "source_id": "NJ-S22",
       "pinpoint": "N.J.S.A. 47:4-2"

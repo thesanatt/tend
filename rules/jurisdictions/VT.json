@@ -236,7 +236,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "If the survivor's health coverage leaves a co-payment, coinsurance, deductible, or other cost-sharing for the exam, the Fund pays that share directly to the provider, so the survivor does not owe it.",
    "quote": "If the victim's health coverage does not cover all of the medical care provided pursuant to this section and the victim would otherwise be responsible for any co-payment, coinsurance, deductible, or other cost-sharing, the Fund shall pay the victim's share directly to the health care facility or provider.",
@@ -248,7 +248,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "required"
    },
    "summary": "Providers must bill the survivor's health plan, Medicaid, or Medicare for the exam first. If the survivor is uninsured or the plan denies the claim, the Fund pays Vermont providers 60 percent of billed charges and the provider may not bill the survivor for the balance.",
    "quote": "Health care facilities and health care providers shall bill the victim's health insurance plan, Medicaid, Medicare, or another health benefit plan, as applicable, for the services described in subsection (b) of this section. If the victim does not have health coverage or if the victim's health benefit plan denies the claim, the Fund shall reimburse health care facilities and health care providers located in Vermont as defined in 18 V.S.A. § 9402 at 60 percent of the billed charges for these claims, and the health care provider or facility shall not bill any balance to the crime victim.",
@@ -533,9 +533,8 @@
    "category": "reporting_requirement",
    "params": {
     "required": false,
-    "alternatives": [
-     "medical_provider"
-    ]
+    "alternatives": [],
+    "scope": "the separate Sexual Assault Program"
    },
    "summary": "The separate CCVS Sexual Assault Program does not require a police report. The assault only has to be reported to a medical provider.",
    "quote": "The victim does not have to report the crime to the police to be eligible , only to a medical provider .",
@@ -564,7 +563,7 @@
    "id": "VT-CONDUCT-1",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "An application is denied if the victim broke a Vermont criminal law that caused or contributed to the victim's injuries.",
+   "summary": "A claim must be denied if the victim broke a Vermont criminal law that caused or helped cause the victim's injuries.",
    "quote": "(2) The victim violated a criminal law of this State that caused or contributed to the victim's injuries or death.",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5355(b)(2)"
@@ -735,7 +734,7 @@
     "covers_sexual_assault": true,
     "enroll": "Ready to apply? Apply Now Find an Applicant Assistant Some applicants find it helpful to use an Applicant Assistant. This is not a requirement to participate in the program."
    },
-   "summary": "The Secretary of State's Safe at Home program gives survivors of sexual assault, domestic violence, stalking, and human trafficking a substitute post office box address and mail forwarding, and lets them use that address on state and local government records so they are harder to locate. Survivors can apply online on the program page, on their own or with help from an Applicant Assistant at a local advocacy agency.",
+   "summary": "The Secretary of State's Safe at Home program offers an address confidentiality service and a protected records service to survivors of sexual assault, domestic violence, stalking, and human trafficking. You can apply online on the program page, on your own or with help from an Applicant Assistant at a local advocacy agency.",
    "quote": "Safe at Home provides an address confidentiality service and a protected records service. The program serves survivors of domestic violence, sexual assault, stalking, human trafficking, providers of legally protected healthcare (reproductive and gender-affirming care), and patients of legally protected healthcare.",
    "source_id": "VT-S19",
    "pinpoint": "Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160"

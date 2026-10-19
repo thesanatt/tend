@@ -194,9 +194,11 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "prohibited"
+        "insurance_billing": "prohibited",
+        "scope": "the exam and tests done to gather evidence",
+        "condition": "if the crime was in Ohio"
       },
-      "summary": "Hospitals may not bill a sexual assault survivor, or the survivor's insurance, for the medical exam and test done to gather evidence. This covers the evidence exam itself, not every service at the same visit; emergency contraception, late adult exams, and treatment of other injuries are handled in the other SAFE exam rules.",
+      "summary": "Hospitals may not bill a survivor of a sex crime under Ohio law, or the survivor's insurance, for the medical exam and tests done to gather evidence. The rule covers only that evidence exam, not other care at the same visit.",
       "quote": "No costs incurred by a hospital or emergency facility in conducting a medical examination and test of any victim of an offense under any provision of sections 2907.02 to 2907.06 of the Revised Code for the purpose of gathering physical evidence for a possible prosecution of a person shall be billed or charged directly or indirectly to the victim or the victim's insurer.",
       "source_id": "OH-S5",
       "pinpoint": "ORC 2907.28(B)"
@@ -242,9 +244,9 @@
       "category": "exam_payment",
       "expense": "forensic_exam",
       "params": {
-        "payer": "Patient or insurer when an adult's last incident was more than 96 hours before the exam, unless the examiner documents why evidence collection was still justified"
+        "payer": "Patient, when an adult's last incident was more than 96 hours before the exam"
       },
-      "summary": "For an adult patient, the SAFE Program pays for evidence collection when the last incident was less than 96 hours before the exam; after 96 hours the procedures are billable to the patient unless the protocol's extenuating circumstances apply.",
+      "summary": "For an adult, the Attorney General's billing instructions list the exam procedures as billable to the patient when the last incident was more than 96 hours before the exam.",
       "quote": "Last incident(s) greater than 96 hours**** - procedures billable to patient",
       "source_id": "OH-S14",
       "pinpoint": "SAFE Reimbursement Instructions, mandated examination components table (18 and over); see item 9"
@@ -291,7 +293,8 @@
       "params": {
         "expense": "counseling",
         "amount_cents": 500000,
-        "per": "claim"
+        "per": "claim",
+        "applies_to": "an immediate family member who lived with a sexual assault victim and needs counseling, not the victim"
       },
       "summary": "An immediate family member living with a sexual assault victim can claim counseling on their own, capped at $5,000; for this kind of claimant counseling is the only payable expense.",
       "quote": "Reparations payable to a victim described in division (L)(2) of section 2743.51 of the Revised Code shall not exceed five thousand dollars.",
@@ -319,7 +322,8 @@
       "params": {
         "expense": "property_replacement",
         "amount_cents": 75000,
-        "per": "claim"
+        "per": "claim",
+        "item": "replacing property police took as evidence"
       },
       "summary": "Replacing property that police took as evidence (such as a phone or clothing) is capped at $750 per claim.",
       "quote": "(U) \"Cost of evidence replacement\" means costs for replacement of property confiscated for evidentiary purposes related to the criminally injurious conduct, not to exceed seven hundred fifty dollars in the aggregate per claim.",
@@ -333,9 +337,10 @@
       "params": {
         "expense": "legal",
         "amount_cents": 100000,
-        "per": "claim"
+        "per": "claim",
+        "item": "lawyer's fees for an order that separates you from the offender"
       },
-      "summary": "Attorney's fees to get a protective, restraining, or custody order that physically separates the victim from the offender are covered up to $1,000, at no more than $100 an hour.",
+      "summary": "Attorney's fees for successfully getting a restraining order, custody order, or other order that physically separates the victim from the offender are covered up to $1,000, at no more than $100 an hour.",
       "quote": "(b) Attorney's fees not exceeding one thousand dollars, at a rate not exceeding one hundred dollars per hour, incurred to successfully obtain a restraining order, custody order, or other order to physically separate a victim from an offender.",
       "source_id": "OH-S1",
       "pinpoint": "ORC 2743.51(F)(5)(b)"
@@ -347,7 +352,8 @@
       "params": {
         "expense": "other",
         "amount_cents": 1500000,
-        "per": "claim"
+        "per": "claim",
+        "applies_to": "a family member with trauma so severe it keeps them from normal daily activities, such as an immediate family member who cares for a dependent sexual assault victim, not the victim"
       },
       "summary": "A family member with trauma so severe it keeps them from normal daily activities, including an immediate family member who is the caretaker of a dependent sexual assault victim, can claim only work loss and counseling, capped at $15,000.",
       "quote": "Reparations payable to a victim described in division (L)(3) of section 2743.51 of the Revised Code shall not exceed fifteen thousand dollars.",
@@ -371,7 +377,8 @@
       "category": "covered_expense",
       "expense": "dental",
       "params": {
-        "expense": "dental"
+        "expense": "dental",
+        "scope": "replacing dentures, hearing aids, eyeglasses, and mobility aids"
       },
       "summary": "Replacement of dentures, retainers, and other dental appliances is an allowable expense, along with hearing aids, mobility aids, and eyeglasses.",
       "quote": "including replacement costs for hearing aids; dentures, retainers, and other dental appliances; canes, walkers, and other mobility tools; and eyeglasses and other corrective lenses",
@@ -407,7 +414,8 @@
       "category": "covered_expense",
       "expense": "clothing_bedding",
       "params": {
-        "expense": "clothing_bedding"
+        "expense": "clothing_bedding",
+        "scope": "replacing clothing removed to check for or treat injuries"
       },
       "summary": "Clothing removed from the victim so injuries could be assessed or treated can be replaced.",
       "quote": "(1) The replacement cost for items of clothing removed from a victim in order to make an assessment of possible physical harm or to treat physical harm;",
@@ -419,7 +427,8 @@
       "category": "covered_expense",
       "expense": "childcare",
       "params": {
-        "expense": "childcare"
+        "expense": "childcare",
+        "scope": "paying someone for child care, housecleaning, or errands the victim would normally do"
       },
       "summary": "Replacement services, meaning paying someone to do what the victim would normally do such as child care, housecleaning, or errands, can be claimed.",
       "quote": "Replacement services (paying someone to do what the victim would normally do such as housecleaning, child care, errands, etc.)",
@@ -454,7 +463,7 @@
       "params": {
         "years": 3,
         "from": "crime",
-        "extension": "good cause shown (ORC 2743.60(A)(2)(d)); younger claimants see OH-DEADLINE-2"
+        "extension": "or later in some cases"
       },
       "summary": "Apply within three years of the crime. The statute points to ORC 2743.60 for exceptions: claimants who were minors or young adults at the time get extra time, and the Attorney General may accept a late claim at any time for good cause shown.",
       "quote": "All applications for an award of reparations may be filed at any time within three years after the occurrence of the criminally injurious conduct, except as provided in divisions (A)(2)(b) to (d) of section 2743.60 of the Revised Code.",
@@ -465,8 +474,7 @@
       "id": "OH-DEADLINE-2",
       "category": "filing_deadline",
       "params": {
-        "from": "crime",
-        "extension": "claimant under 21 at the time of the crime: until the 24th birthday"
+        "from": "crime"
       },
       "summary": "If the claimant was under twenty-one when the crime happened, the claim is not time-barred until after the claimant's twenty-fourth birthday.",
       "quote": "If the claimant was under twenty-one years of age at the time of the criminally injurious conduct, the claim is not barred under division (A)(2)(a) of this section until after the claimant's twenty-fourth birthday.",
@@ -703,7 +711,7 @@
         "covers_sexual_assault": true,
         "enroll": "Participants must apply through a certified Application Assistant. The statute adds that the application is on a form prescribed by the secretary of state, with a notarized statement and the Application Assistant's recommendation."
       },
-      "summary": "Ohio's Safe at Home program, run by the Secretary of State, gives survivors of rape, sexual battery, domestic violence, stalking, or human trafficking a substitute address to use on government records instead of their real one. You apply with a certified Application Assistant at a survivor services organization.",
+      "summary": "Ohio's Safe at Home program, run by the Secretary of State, gives a substitute address to use on government records. To apply, you must fear for your safety, or a household member's, because one of you is a victim of rape, sexual battery, domestic violence, stalking, or human trafficking. You apply with a certified Application Assistant at a survivor services organization.",
       "quote": "The applicant fears for the safety of the applicant, a member of the applicant's household, or the minor, incompetent, or ward on whose behalf the application is made because the applicant, household member, minor, incompetent, or ward is a victim of domestic violence, menacing by stalking, human trafficking, trafficking in persons, rape, or sexual battery.",
       "source_id": "OH-S18",
       "pinpoint": "ORC 111.42(A)(3)"

@@ -174,9 +174,9 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
-   "summary": "The cost of a forensic rape exam and the medications prescribed to the survivor may not be charged to the survivor. Insurance is billed first unless the survivor asks that it not be.",
+   "summary": "The cost of a forensic rape exam and the medications prescribed to the survivor may not be charged to the survivor.",
    "quote": "The cost of a forensic rape examination and the cost of medications prescribed to the direct victim shall not be charged to the victim.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(h)(2)"
@@ -210,7 +210,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "If the program pays the maximum and a balance remains, the provider still may not bill the survivor; the program payment is payment in full.",
    "quote": "No. A health care provider must accept the payment in full for the costs of the forensic rape examination.",
@@ -222,7 +222,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "The provider must file the exam claim within one year of the crime or its discovery; if the provider misses that deadline, the survivor still cannot be billed.",
    "quote": "The claim must be filed by a hospital or other licensed health care provider, within one year of the date of the crime or discovery of the crime. Failure to file within the prescribed time frame will result in non-payment of the claim and the victim cannot be billed for those costs.",
@@ -271,7 +271,8 @@
    "id": "PA-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 3500000
+    "amount_cents": 3500000,
+    "exception": "not counting some costs that are paid on top"
    },
    "summary": "The total award is capped at $35,000, except that counseling, forensic rape exam costs, and crime scene cleanup are paid on top of that cap.",
    "quote": "In no case shall the total amount of an award exceed $35,000 except for payment of the following",
@@ -493,7 +494,8 @@
    "params": {
     "expense": "property_replacement",
     "amount_cents": 100000,
-    "per": "claim"
+    "per": "claim",
+    "item": "replacing medical devices, eyeglasses, and prescription medicine"
    },
    "summary": "Replacing eyeglasses, hearing aids, dental devices, prescription medications and similar health items stolen or damaged in the crime is capped at $1,000, with eyeglass frames limited to $200. This is not a cap on ordinary medical bills.",
    "quote": "OVS will reimburse a claimant for costs for the replacement of each prosthetic device, wheelchair, cane, walker, hearing aid, eyeglasses or other corrective lenses, dental device or prescription medications. Reimbursement will not exceed $1,000 and will be subject to the following limitations: (1)  Two hundred dollars for eyeglass frames.",
@@ -505,7 +507,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "services needed because of the crime, such as child care, cleaning, or laundry"
    },
    "summary": "Services needed because of the crime, such as child care, cleaning, laundry, and meal preparation, can be reimbursed.",
    "quote": "The cost of obtaining services needed as a result of the crime such as laundering, cleaning, child care, administration of medication, food shopping and meal preparation.",
@@ -554,7 +557,7 @@
    "params": {
     "years": 5,
     "from": "discovery",
-    "extension": "Good cause can excuse a late filing (incapacity, victim was a minor, fear of retaliation, crime not readily apparent, other good cause; 18 P.S. 11.702(b)(2)(iii.1)). For a victim under 18 abused by a parent, caretaker, household member or parent's paramour, the period is tolled until age 21 and runs to the later of the criminal limitation period or the standard period. Sexual abuse counseling claims under 18 P.S. 11.701.1 are excepted from this deadline."
+    "extension": "or later in some cases, such as sexual abuse counseling claims, some survivors who were children, or when the program finds good cause"
    },
    "summary": "A claim must be filed within five years after the crime is discovered, under the current law; the program may accept a late claim for good cause. Older crimes had a shorter deadline, so those survivors should call the program.",
    "quote": "a claim must be filed not later than five years after the discovery of the occurrence of the crime upon which the claim is based",
@@ -566,12 +569,9 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": [
-     "protective_order",
-     "forensic_exam"
-    ]
+    "alternatives": []
    },
-   "summary": "The crime must have been promptly reported to the proper authorities; the statute sets no fixed number of hours. A protection order filing (statute) or a forensic rape exam (program policy) also counts.",
+   "summary": "Under the current law, the crime must have been promptly reported to the proper authorities; the law sets no fixed number of hours. Older crimes had a stricter rule, so those survivors should call the program.",
    "quote": "The crime was promptly reported to the proper authorities.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(a)(3)"
@@ -585,7 +585,7 @@
      "protective_order"
     ]
    },
-   "summary": "Filing for a sexual violence or intimidation protection order satisfies the reporting requirement, even without a police report.",
+   "summary": "Starting a court case for a sexual violence or intimidation protection order can meet the reporting requirement without a police report.",
    "quote": "may satisfy the eligibility requirement under subsection (a)(3) for reporting a crime to the proper authorities by commencing an action brought in accordance with 42 Pa.C.S. Ch. 62A (relating to protection of victims of sexual violence or intimidation)",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(a.2)"
@@ -597,9 +597,10 @@
     "required": true,
     "alternatives": [
      "forensic_exam"
-    ]
+    ],
+    "exam_condition": "for a crime on or after September 8, 2022"
    },
-   "summary": "Having a forensic rape exam counts as reporting to the proper authorities, so a survivor who had the exam can file a standard claim without going to police.",
+   "summary": "For crimes on or after 9/8/2022, having a forensic rape exam counts as reporting to the proper authorities, so a survivor who had the exam can file a standard claim without reporting the crime to police.",
    "quote": "Effective for crimes occurring on or after 9/8/2022, a forensic rape exam is considered acceptable for reporting to proper authorities. This change allows victims who have the FRE completed to be eligible for a standard claim without having to report the crime to law enforcement.",
    "source_id": "PA-S10",
    "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
@@ -662,7 +663,7 @@
    "params": {
     "amount_cents": 500000
    },
-   "summary": "An emergency award of up to $5,000 per claim is available for urgent financial need.",
+   "summary": "An emergency award can be no more than $5,000 per claim.",
    "quote": "The total amount of an emergency award will not exceed $5,000 per claim.",
    "source_id": "PA-S3",
    "pinpoint": "37 Pa. Code 411.17(c)"
@@ -874,7 +875,7 @@
     "covers_sexual_assault": true,
     "enroll": "Complete an online ACP application; Visit your local Victim Service Program to complete an ACP Application; Call OVA at 800-563-6399. Online applications are returned to OVA by email (RA-PMOVA-ACPPROGRAM@pa.gov) or mail (Office of Victim Advocate, 1101 S. Front St, Suite 5200, Harrisburg, PA 17112)."
    },
-   "summary": "Pennsylvania's Address Confidentiality Program, run by the Office of Victim Advocate, gives survivors of sexual assault, domestic violence, stalking, human trafficking, or child abduction an alternate mailing address to keep their address out of public records.",
+   "summary": "Pennsylvania's Address Confidentiality Program, run by the Office of Victim Advocate, can give survivors of sexual assault, domestic violence, stalking, human trafficking, or child abduction an alternate mailing address to keep their address out of public records, once the office approves their application.",
    "quote": "The ACP can provide you with an alternate mailing address to keep your address out of public records if you are a victim of domestic violence, sexual assault, stalking, human trafficking, or child abduction.",
    "source_id": "PA-S14",
    "pinpoint": "OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)"

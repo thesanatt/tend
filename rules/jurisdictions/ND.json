@@ -134,7 +134,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "prohibited"
+        "insurance_billing": "prohibited",
+        "condition": "if done within 120 hours of the assault"
       },
       "summary": "When an acute forensic medical exam is done for alleged criminal sexual conduct or domestic violence (within 120 hours unless good cause is shown for the delay), neither the exam nor any preliminary medical screening may be charged to the survivor, directly or through insurance or another third-party payer.",
       "quote": "performed within one hundred twenty hours after the alleged crime unless good cause is shown for the delay in performing the examination. When an acute forensic medical examination is performed, the costs incurred by a health care facility or health care professional for performing the acute forensic medical examination or any preliminary medical screening examination may not be charged, either directly or through a third-party payer, to the alleged victim.",
@@ -443,7 +444,7 @@
       "params": {
         "years": 1,
         "from": "report",
-        "extension": "The division may extend the time for filing in the interests of justice. The admin rule lists a minor applicant, or the applicant's physical and psychological condition substantially contributing to the inability to file on time; attorney error or not knowing about the program does not count (N.D. Admin. Code 94-03-03-02(1))."
+        "extension": "or later if the division finds the interests of justice require it"
       },
       "summary": "File within one year from the date the crime was reported to law enforcement; the program may extend this when the interests of justice require.",
       "quote": "A claim for compensation must be filed within one year from the date the criminally injurious conduct was reported to a law enforcement officer. The division may extend the time for filing if it determines that the interests of justice so require.",
@@ -454,7 +455,9 @@
       "id": "ND-REPORT-1",
       "category": "reporting_requirement",
       "params": {
-        "required": true
+        "required": true,
+        "within_hours": 96,
+        "exception": "or later if the program finds good cause for the delay"
       },
       "summary": "The crime must be reported to law enforcement within ninety-six hours (96 hours) unless the program finds good cause for the delay. No sexual-assault-specific alternative to a police report was found.",
       "quote": "Compensation may not be awarded unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within ninety-six hours after its occurrence or the division finds there was good cause for the failure to report within that time.",
@@ -465,7 +468,8 @@
       "id": "ND-REPORT-GOODCAUSE",
       "category": "reporting_requirement",
       "params": {
-        "required": true
+        "required": true,
+        "scope": "what counts as good cause for a late report"
       },
       "summary": "Good cause for a late report includes evidence, such as medical records or verifiable third-party reports, that reporting on time would have put the applicant's health or safety at risk.",
       "quote": "Evidence, including medical records or verifiable reports from third parties, which substantiate the applicant's health or safety would have been jeopardized if the criminally injurious conduct had been reported in a timely manner.",
@@ -476,7 +480,8 @@
       "id": "ND-REPORT-GOODCAUSE-2",
       "category": "reporting_requirement",
       "params": {
-        "required": true
+        "required": true,
+        "scope": "what counts as good cause for a late report"
       },
       "summary": "Good cause for a late report also includes law enforcement confirming that the victim feared retaliation.",
       "quote": "Law enforcement substantiates there was a fear of retaliation.",
@@ -581,7 +586,7 @@
       "params": {
         "rule": "Covers crimes in North Dakota. A North Dakota resident hurt outside the state has the same rights if the place where the crime happened has no compensation law covering the injury."
       },
-      "summary": "Crimes in North Dakota are covered; a North Dakota resident victimized elsewhere can apply if that place has no crime victims compensation law covering the injury.",
+      "summary": "Crimes in North Dakota are covered. A North Dakota resident hurt by a crime somewhere else has the same rights as for a North Dakota crime if they show that place has no crime victims compensation law covering the injury.",
       "quote": "If a resident of this state is a victim of criminally injurious conduct, but the criminally injurious conduct occurred outside the geographical boundaries of this state, the resident has the same rights under this chapter as if the criminally injurious conduct occurred within this state upon a showing that the state, territory, country, or political subdivision of the country in which the criminally injurious conduct occurred does not have a crime victims compensation law which covers the bodily injury or death of the victim.",
       "source_id": "ND-S1",
       "pinpoint": "N.D.C.C. 54-23.4-06(1)"
@@ -818,7 +823,7 @@
       "id": "ND-REC-1",
       "category": "record_confidentiality",
       "params": {},
-      "summary": "Division records about an application for or award of crime victims compensation are confidential and not open to public disclosure; law enforcement may inspect them for official duties, and a claimant's representative may see the file only with the claimant's signed authorization.",
+      "summary": "Program records about a compensation application or award are confidential and not open to the public. The law lists who may still see them.",
       "quote": "All other records of the division concerning the application for or award of compensation under this chapter are confidential and are not open to public disclosure.",
       "source_id": "ND-S1",
       "pinpoint": "N.D.C.C. 54-23.4-17"
