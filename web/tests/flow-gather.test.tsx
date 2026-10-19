@@ -1,14 +1,18 @@
 // @vitest-environment jsdom
 // Gather and bill triage (docs/UX.md step 2), through the thin mocks of the local modules.
-import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import BillsScreen from "@/components/flow/bills/BillsScreen";
+import Cite from "@/components/flow/Cite";
 import { ROWAN_ACCOUNT } from "@/components/flow/samples";
 import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
+import { resetLawCacheForTests } from "@/lib/api";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
-import { MI_CHECK, MI_LAW, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
+import type { Jurisdiction } from "@/lib/types";
+import type { LawIndex } from "@/lib/useLaw";
+import { MI_BYTES, MI_CHECK, MI_LAW, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 // Reading the five-page sample PDF takes well over a second when the whole suite runs in parallel.
 const PDF_READ = { timeout: 10_000 };
@@ -301,5 +305,85 @@ describe("bill triage", () => {
     ).toBeTruthy();
     expect(within(dialog).queryByLabelText("Confirmation code")).toBeNull();
     expect(services.confirm).not.toHaveBeenCalled();
+  });
+});
+
+// The engine answers at once; Michigan's law file took about 1.5 s on a phone's first visit.
+describe("bill triage while the law loads", () => {
+  afterEach(() => resetLawCacheForTests());
+
+  const serve = (law: Promise<Response | null>) => {
+    resetLawCacheForTests();
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) =>
+        url === "/data/law/MI.json" ? ((await law) ?? new Response("gone", { status: 404 })) : notFound(),
+      ),
+    );
+  };
+  const notFound = () => new Response("not found", { status: 404, headers: { "content-type": "text/html" } });
+  const held = "Medical forensic exam, deductible applied, $325.00. Michigan law says you should not be billed for it.";
+
+  it("says it is still checking, not half a sentence, until the law's words arrive", async () => {
+    let release!: () => void;
+    serve(new Promise((r) => (release = () => r(new Response(MI_BYTES, { status: 200 })))));
+    renderFlow(<BillsScreen />, { initial: stateFrom(withBill) });
+    // The engine has decided: the bill already shows the rest.
+    expect(await screen.findByText("The rest")).toBeTruthy();
+    expect(screen.getByText(/^Checking each line against the law\./)).toBeTruthy();
+    expect(screen.queryByText(/law says you should not be billed for it/)).toBeNull();
+    expect(screen.queryByText(/MI-EXAM-\d/)).toBeNull();
+    expect(screen.queryByText("The program can tell you who pays.")).toBeNull();
+
+    await act(async () => release());
+    expect(await screen.findByText(held)).toBeTruthy();
+    const noBill = MI_LAW.rules.find((r) => r.id === "MI-EXAM-1")!;
+    // The citation names the law, not a rule id.
+    expect(
+      screen.getByRole("button", { name: new RegExp(`^${noBill.pinpoint.replace(/[().]/g, "\\$&")}`) }),
+    ).toBeTruthy();
+    const payer = MI_LAW.rules.find((r) => r.category === "exam_payment" && typeof r.params?.payer === "string");
+    expect(screen.getByText(String(payer!.params!.payer))).toBeTruthy();
+  });
+
+  it("names the state from the list of states when the law cannot load", async () => {
+    serve(Promise.resolve(null));
+    renderFlow(<BillsScreen />, { initial: stateFrom(withBill) });
+    expect(await screen.findByText(held)).toBeTruthy();
+  });
+});
+
+// Every screen's citation chip, not only the bill's: "Why" until the law's words load, then the law.
+describe("a citation while the law loads", () => {
+  const index = (law: Jurisdiction | null, missing = false): LawIndex => ({
+    law,
+    missing,
+    sha256: null,
+    rule: (id) => law?.rules.find((r) => r.id === id),
+    source: (id) => law?.sources.find((s) => s.id === id),
+    byCategory: (c) => law?.rules.filter((r) => r.category === c) ?? [],
+  });
+  const ids = ["MI-EXAM-1", "MI-EXAM-5"];
+  const chip = () => screen.getByRole("button", { name: /show the law for the exam line$/ });
+
+  it("says Why, with no rule id and no count, until the law's words are here", async () => {
+    renderFlow(<Cite ruleIds={ids} law={index(null)} subject="the exam line" />);
+    expect(chip().textContent).toBe("Why: show the law for the exam line");
+    fireEvent.click(chip());
+    expect(await screen.findByText("Loading")).toBeTruthy();
+  });
+
+  it("then names the law", () => {
+    renderFlow(<Cite ruleIds={ids} law={index(MI_LAW)} subject="the exam line" />);
+    const pinpoint = MI_LAW.rules.find((r) => r.id === "MI-EXAM-1")!.pinpoint;
+    expect(chip().textContent).toBe(`${pinpoint} +1: show the law for the exam line`);
+  });
+
+  it("shows the rule ids when the law cannot load, and says they did not load instead of Loading", async () => {
+    renderFlow(<Cite ruleIds={ids} law={index(null, true)} subject="the exam line" />);
+    expect(chip().textContent).toBe("MI-EXAM-1 +1: show the law for the exam line");
+    fireEvent.click(chip());
+    expect(await screen.findByText("Some rules did not load: MI-EXAM-1, MI-EXAM-5")).toBeTruthy();
+    expect(screen.queryByText("Loading")).toBeNull();
   });
 });

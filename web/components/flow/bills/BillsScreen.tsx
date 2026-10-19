@@ -6,6 +6,7 @@ import Money from "@/components/Money";
 import type { DeviceAi, Letter } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
 import { offline } from "@/lib/netlog";
+import STATES from "@/lib/states.json";
 import type { Rule } from "@/lib/types";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import { billItems, billPlan } from "../claim";
@@ -174,6 +175,11 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
   const paid = payments.find((p) => p.status === "done");
   const lastTry = payments.at(-1);
   const program = law.law?.program;
+  // The engine decides before the law's own words load (about a second on a phone). The side waits
+  // for them, so a hold never shows without its state's name, its citation, or who pays. If the law
+  // cannot load, the name comes from the list of states.
+  const ready = plan.decided && (law.law !== null || law.missing === true);
+  const stateName = law.law?.name ?? STATES.find((s) => s.st === state.check.st)?.name ?? state.check.st;
 
   return (
     <article className={styles.billBlock} aria-labelledby={`bill-${bill.id}`}>
@@ -253,7 +259,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
         <p className="meta">{t.bills.adds(items.length)}</p>
       </div>
 
-      {!plan.decided ? (
+      {!ready ? (
         <div className={styles.billSide}>
           <EngineNotice />
           <p role="status">{t.bills.checking}</p>
@@ -265,9 +271,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
               <h3 id={`hold-${bill.id}`}>{t.bills.dontPayTitle}</h3>
               <ul className={styles.heldList}>
                 {plan.held.map((i) => (
-                  <li key={i.item_id}>
-                    {t.bills.dontPayLine(i.description, f.money(i.amount_cents), law.law?.name ?? "")}
-                  </li>
+                  <li key={i.item_id}>{t.bills.dontPayLine(i.description, f.money(i.amount_cents), stateName)}</li>
                 ))}
               </ul>
               {noBill ? <LawQuote rule={noBill} source={law.source(noBill.source_id)} /> : null}
@@ -296,7 +300,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
           ) : (
             <section className={styles.holdBox} data-none>
               <h3>{t.bills.noHoldTitle}</h3>
-              <p>{noBill ? t.bills.noHoldExam : t.bills.noHoldRule(law.law?.name ?? "")}</p>
+              <p>{noBill ? t.bills.noHoldExam : t.bills.noHoldRule(stateName)}</p>
             </section>
           )}
 

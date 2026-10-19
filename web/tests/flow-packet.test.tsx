@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 // Packet and Track (docs/UX.md steps 3 and the garden), and pause and resume through the vault.
-import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CheckScreen from "@/components/flow/check/CheckScreen";
 import FlowFrame from "@/components/flow/FlowFrame";
@@ -9,8 +9,9 @@ import PacketScreen from "@/components/flow/packet/PacketScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, FlowItem } from "@/components/flow/state";
 import TrackScreen, { reminderDate, reminderIcs } from "@/components/flow/track/TrackScreen";
+import { resetLawCacheForTests } from "@/lib/api";
 import type { EngineInput } from "@/lib/types";
-import { MI_CHECK, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
+import { MI_BYTES, MI_CHECK, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
@@ -140,6 +141,31 @@ describe("Packet", () => {
     renderFlow(<PacketScreen />, { initial: stateFrom(gathered) });
     await screen.findByText("$80.00");
     expect(screen.queryByText(/program's minimum/)).toBeNull();
+  });
+
+  // The law's file took about 1.5 s on a phone's first visit; the sentence read "'s own form" meanwhile.
+  it.each([
+    ["en", "Michigan's own form, filled in with safe details only."],
+    ["es", "El formulario propio de Michigan, llenado solo con datos seguros."],
+  ] as const)("names the state in the form's sentence before the law loads (%s)", async (lang, sentence) => {
+    resetLawCacheForTests();
+    let release!: (r: Response) => void;
+    const law = new Promise<Response>((r) => (release = r));
+    const fetch = vi.fn(async (url: string) =>
+      url === "/data/law/MI.json"
+        ? law
+        : new Response("not found", { status: 404, headers: { "content-type": "text/html" } }),
+    );
+    vi.stubGlobal("fetch", fetch);
+    try {
+      renderFlow(<PacketScreen />, { initial: stateFrom(gathered, lang), lang });
+      expect(screen.getByText(sentence)).toBeTruthy();
+      await waitFor(() => expect(fetch).toHaveBeenCalledWith("/data/law/MI.json"));
+      await act(async () => release(new Response(MI_BYTES, { status: 200 })));
+      expect(await screen.findByText(sentence)).toBeTruthy();
+    } finally {
+      resetLawCacheForTests();
+    }
   });
 
   it("marks the claim as sent, which buds every plant", async () => {

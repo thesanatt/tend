@@ -27,8 +27,11 @@ export default function Cite({ ruleIds: given, law, subject, explain, title, ton
   const ruleIds = [...new Set(given)];
   const rules = ruleIds.map((id) => law.rule(id)).filter((r): r is Rule => Boolean(r));
   const first = rules[0];
-  const label = first?.pinpoint ?? ruleIds[0] ?? t.cite.why;
-  const more = Math.max(0, ruleIds.length - 1);
+  // The engine answers before the law's words load. Until they do, the chip says "Why" rather than
+  // a rule id like "MI-EXAM-1 +4"; if they cannot load, the id is all there is to go on.
+  const loading = !law.law && !law.missing;
+  const label = first?.pinpoint ?? (loading ? undefined : ruleIds[0]) ?? t.cite.why;
+  const more = loading ? 0 : Math.max(0, ruleIds.length - 1);
   const missing = ruleIds.filter((id) => !law.rule(id));
 
   return (
@@ -50,8 +53,8 @@ export default function Cite({ ruleIds: given, law, subject, explain, title, ton
             <LawQuote rule={r} source={law.source(r.source_id)} languageNote={false} />
           </section>
         ))}
-        {law.law && missing.length ? <p className="meta">{t.cite.missing(missing.join(", "))}</p> : null}
-        {!law.law && ruleIds.length ? <p className="meta">{t.common.loading}</p> : null}
+        {!loading && missing.length ? <p className="meta">{t.cite.missing(missing.join(", "))}</p> : null}
+        {loading && ruleIds.length ? <p className="meta">{t.common.loading}</p> : null}
         {law.law ? (
           <p className="meta">
             <Link href={`/law/${law.law.jurisdiction}`}>{t.cite.allRules(law.law.name)}</Link>
