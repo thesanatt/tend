@@ -12,8 +12,9 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 from collections import Counter
-from datetime import UTC, date, datetime
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -360,7 +361,7 @@ def test_the_export_is_deterministic(files, doc):
     stamp = date.today().isoformat()
     if stamp not in saved:
         assert stamp not in json.dumps(doc["metadata"]) and stamp not in files["README.md"].decode("ascii")
-    hour = datetime.now(UTC).strftime("%Y-%m-%dT%H")
+    hour = time.strftime("%Y-%m-%dT%H", time.gmtime())
     assert hour not in json.dumps(doc["metadata"]) or hour in {s["retrieved_at"][:13] for s in doc["sources"]}
 
 
