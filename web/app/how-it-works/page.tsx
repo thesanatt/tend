@@ -147,7 +147,13 @@ export default function HowItWorks() {
                 number, and every question about the crime stay blank. Then Tend reads the saved file back and refuses
                 it if any other field holds a value.
               </p>
-              <See files={["web/lib/packet/specs.ts", "web/lib/packet/forms.ts"]} />
+              <See
+                files={[
+                  "web/components/flow/check/CheckScreen.tsx",
+                  "web/lib/packet/specs.ts",
+                  "web/lib/packet/forms.ts",
+                ]}
+              />
             </div>
           </li>
           <li className={styles.guard}>
@@ -159,9 +165,9 @@ export default function HowItWorks() {
                 the page from sending requests to them in the background.
               </p>
               <p>
-                Answers, costs, and files stay on the device until the person taps to send something. Cloud AI runs only
-                after a yes on a screen that names what would be sent. So does checking the law on Tend&apos;s server,
-                which is offered only when the law engine cannot run in the browser.
+                Costs, files, and every answer except the state stay on the device until the person taps to send
+                something. Cloud AI runs only after a yes on a screen that names what would be sent. So does checking
+                the law on Tend&apos;s server, which is offered only when the law engine cannot run in the browser.
               </p>
               <p>
                 A line at the top of every page starts as &quot;On this device. Nothing has left it.&quot; The page
@@ -221,10 +227,13 @@ export default function HowItWorks() {
                 a server.
               </p>
               <p>
-                A link expires after one, three, or seven days, and the survivor can stop it sooner. Until then, anyone
-                holding the whole link can open it.
+                A link expires after one, three, or seven days. Until then, anyone holding the whole link can open it.
+                The survivor can stop it sooner on the Packet step, during the same visit or after opening saved
+                progress. Tend shows no stop button for a link from a visit that was never saved.
               </p>
-              <See files={["web/lib/share/index.ts", "api/tend_api/share.py"]} />
+              <See
+                files={["web/lib/share/index.ts", "web/components/flow/packet/ShareBox.tsx", "api/tend_api/share.py"]}
+              />
             </div>
           </li>
           <li className={styles.guard}>
@@ -236,8 +245,8 @@ export default function HowItWorks() {
                 minutes, and five wrong tries lock the payment.
               </p>
               <p>
-                The server will not pay a held exam line, on its own or inside a larger amount. The code makes paying
-                deliberate. It does not stop someone who is holding the phone.
+                The server will not pay a held exam line, alone or together with other lines of the same bill. The code
+                makes paying deliberate. It does not stop someone who is holding the phone.
               </p>
               <See files={["api/tend_api/actions.py"]} />
             </div>
@@ -246,6 +255,10 @@ export default function HowItWorks() {
         <div className={styles.cannot}>
           <h3>What Tend cannot stop</h3>
           <p>Malware on the device, or someone watching the screen.</p>
+          <p>
+            Someone watching the network, such as whoever runs the home Wi-Fi, can still see that Tend&apos;s site was
+            visited, though not what was sent.
+          </p>
           <p>
             Anything downloaded from the packet, such as the filled form, is an ordinary file on the device, outside
             Tend&apos;s lock.

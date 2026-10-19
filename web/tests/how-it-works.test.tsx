@@ -2,10 +2,11 @@
 // How it works, as a reporter reads it: Design for safety comes first, every protection links to a file
 // that exists in this repo, and each number and limit in the copy is still what the code does.
 import { cleanup, render, screen, within } from "@testing-library/react";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HowItWorks from "@/app/how-it-works/page";
+import { initialState, reducer } from "@/components/flow/state";
 import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/QuickExit";
 import { LINKS } from "@/components/tour/links";
 import { fetchLaw } from "@/lib/api";
@@ -39,6 +40,13 @@ afterEach(() => cleanup());
 const text = () => section.textContent!.replace(/\s+/g, " ");
 const guard = (name: string) => screen.getByRole("heading", { level: 3, name }).closest("li")!;
 
+function files(dir: string): string[] {
+  return readdirSync(dir).flatMap((name) => {
+    const p = path.join(dir, name);
+    return statSync(p).isDirectory() ? files(p) : /\.tsx?$/.test(name) ? [p] : [];
+  });
+}
+
 describe("Design for safety on /how-it-works", () => {
   it("comes right after the header and takes the place of the old Privacy section", () => {
     const h2 = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
@@ -55,6 +63,12 @@ describe("Design for safety on /how-it-works", () => {
     expect(text()).toContain("Malware on the device, or someone watching the screen.");
     // Check asks which state it happened in, so the copy cannot say no field asks where.
     expect(text()).toContain("Beyond the state, no field anywhere asks where it happened");
+    // The four questions are the Check screen's fields, so the item links that screen.
+    const check = `a[href="${BLOB}web/components/flow/check/CheckScreen.tsx"]`;
+    expect(guard("No name, no story").querySelector(check)).not.toBeNull();
+    // HTTPS hides what was sent from the network, but not the site's name.
+    expect(readFileSync(path.join(web, "next.config.ts"), "utf8")).toContain('key: "Strict-Transport-Security"');
+    expect(text()).toContain("can still see that Tend's site was visited, though not what was sent.");
     expect(within(section).getByRole("link", { name: "docs/PRIVACY.md" }).getAttribute("href")).toBe(LINKS.privacy);
   });
 
@@ -117,6 +131,7 @@ describe("Design for safety on /how-it-works", () => {
     }
     expect(asked).toEqual(["/data/law/WY.json"]);
     const device = guard("On this device").textContent!.replace(/\s+/g, " ");
+    expect(device).toContain("every answer except the state stay on the device");
     expect(device).toContain("Loading pages and public law files does not change it.");
     expect(device).toContain("can show which state was picked");
   });
@@ -138,6 +153,24 @@ describe("Design for safety on /how-it-works", () => {
     expect(saved).toContain("can see that saved progress exists, though not what it holds");
   });
 
+  it("says when a share link can be stopped, and when it cannot", () => {
+    // The stop button lists the flow's share records: kept for the visit and in saved progress,
+    // dropped when the visit ends.
+    const record = { id: "s1", url: "/share#s1.k", expires_at: "2026-10-22T00:00:00Z", once: false, revoked: false };
+    const visit = reducer(initialState(), { type: "share", record });
+    expect(visit.shares).toEqual([record]);
+    expect(reducer(visit, { type: "reset", lang: "en" }).shares).toEqual([]);
+    expect(reducer(initialState(), { type: "restore", state: visit }).shares).toEqual([record]);
+    // ShareBox on the Packet step is the only place that stops a link; the /share viewer has none.
+    const stops = ["app", "components", "lib"].flatMap((d) => files(path.join(web, d)));
+    expect(
+      stops.filter((f) => readFileSync(f, "utf8").includes("share.revoke(")).map((f) => path.relative(web, f)),
+    ).toEqual(["components/flow/packet/ShareBox.tsx"]);
+    const share = guard("Sharing with an advocate").textContent!.replace(/\s+/g, " ");
+    expect(share).toContain("on the Packet step, during the same visit or after opening saved progress");
+    expect(share).toContain("no stop button for a link from a visit that was never saved");
+  });
+
   it("matches the vault and share numbers in the code", () => {
     expect(PBKDF2_ITERATIONS).toBe(600_000);
     expect(DEFAULT_IDLE_MS).toBe(5 * 60_000);
@@ -157,10 +190,12 @@ describe("Design for safety on /how-it-works", () => {
     expect(actions).toMatch(/^MAX_ATTEMPTS = 5$/m);
     expect(actions).toContain('code = f"{secrets.randbelow(1_000_000):06d}"');
     expect(actions).toContain("if any(i in held for i in item_ids):");
-    const pay = guard("Payments").textContent!;
+    // A plain payment is refused only when it adds up to bill lines that include the held one.
+    expect(actions).toContain("if req.amount_cents in facts.amounts_with_held():");
+    const pay = guard("Payments").textContent!.replace(/\s+/g, " ");
     expect(pay).toContain("6-digit code");
     expect(pay).toContain("works once, for ten minutes, and five wrong tries lock the payment");
-    expect(pay).toContain("will not pay a held exam line");
+    expect(pay).toContain("will not pay a held exam line, alone or together with other lines of the same bill");
   });
 
   it("keeps the copy plain: ASCII, no dashes for punctuation, no exclamation marks, short sentences", () => {
