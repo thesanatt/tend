@@ -2,7 +2,7 @@
  "metadata": {
   "name": "Tend verified rules",
   "version": "1.0",
-  "description": "The verified rules in Tend's law library, for the crime victim compensation programs of the 50 states and DC. Each rule has a plain-language summary and a verbatim quote from a saved official source, with its pinpoint citation, address, and sha256.",
+  "description": "The verified rules in Tend's law library, for the crime victim compensation programs of the 50 states and DC. Each rule has a plain-language summary and a verbatim quote from a saved source, with its pinpoint citation, address, and sha256.",
   "homepage": "https://youreowed.tech",
   "repository": "https://github.com/thesanatt/tend",
   "generated_by": "rules/tools/export_dataset.py, from rules/verified and rules/ir",
@@ -48,7 +48,13 @@
     "statute": 364
    },
    "rules_with_fragment_url": 1546,
-   "sources_quoted": 617
+   "sources_quoted": 617,
+   "sources_from_republishers": {
+    "law.justia.com": 103,
+    "www.law.cornell.edu": 17
+   },
+   "rules_quoting_republishers": 234,
+   "sources_redacted": 13
   },
   "license": "TODO: not chosen yet",
   "not_legal_advice": "Tend is not legal advice. It shows what each program's own rules say, with the quote. The program decides."

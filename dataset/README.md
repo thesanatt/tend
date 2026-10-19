@@ -2,8 +2,8 @@
 
 Tend's law library as data: the rules of the crime victim compensation programs in the 50 states and
 DC that Tend (https://youreowed.tech) found and verified. Each rule pairs a plain-language summary with a verbatim
-quote from an official source that Tend saved (a statute, a regulation, or a program's own page, PDF,
-or application form), the pinpoint citation, the source's address, and the sha256 of the saved copy.
+quote from a source that Tend saved (a statute, a regulation, or a program's own page, PDF, or
+application form), the pinpoint citation, the source's address, and the sha256 of the saved copy.
 
 Tend is a prototype built by Sanat Gupta at MHacks 2026 to help sexual assault survivors claim crime
 victim compensation. This dataset is made from `rules/verified` and `rules/ir` in https://github.com/thesanatt/tend by
@@ -14,8 +14,8 @@ decides.
 
 ## What is in version 1.0
 
-- 2,578 rules for 51 jurisdictions (the 50 states and DC), quoted from 617 of the 824 official sources Tend saved. The other 207 were saved and fingerprinted too, but no rule quotes them.
-- Current as of the dates the sources were saved: Oct 3, 2026, between 18:47 and 20:02 UTC.
+- 2,578 rules for 51 jurisdictions (the 50 states and DC), quoted from 617 of the 824 sources Tend saved. The other 207 were saved and fingerprinted too, but no rule quotes them.
+- Current as of the dates the sources were saved: Oct 3, 2026, between 18:47 and 20:02 UTC. 120 of them are copies from sites that republish state law, which may lag behind it (see Limitations).
 - 1,327 decision rules, 1,189 information rules, and 62 set aside (see engine_use below).
 - 1,546 rules quote an HTML source and have a link that opens the page at the quote.
 - Rules per jurisdiction: from 33 (West Virginia) to 83 (Michigan). The number shows how much Tend found and quoted, not how generous a state's law is.
@@ -33,7 +33,7 @@ decides.
 
 | File | What it holds | Bytes |
 |---|---|---|
-| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 3,952,188 |
+| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 3,952,341 |
 | `tend-rules-v1.0.csv` | One row per rule (2,578 rows) | 2,126,975 |
 | `tend-sources-v1.0.csv` | One row per saved source (824 rows) | 307,190 |
 | `tend-jurisdictions-v1.0.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 332,142 |
@@ -74,7 +74,7 @@ In the JSON, `params` is an object and an empty cell is `null`; otherwise the co
 | `source_id` | text | The source the quote is from. Matches `source_id` in the sources file. |
 | `source_title` | text | The source's title. |
 | `source_kind` | text | `statute`, `regulation`, `agency_page`, `agency_pdf`, or `application_form`. |
-| `source_url` | URL | Where the source was saved from. |
+| `source_url` | URL | Where the source was saved from. Some are copies on sites that republish state law; see Limitations. |
 | `fragment_url` | URL or empty | `source_url` with a text fragment (`#:~:text=`) that opens the page at the quote, in browsers that support text fragments. Only for HTML sources; empty for PDFs. |
 | `retrieved_at` | timestamp | When the source was saved, in UTC (ISO 8601). |
 | `source_sha256` | hex | The sha256 of the saved source file, 64 hex characters. |
@@ -138,9 +138,10 @@ Meanings and params as `rules/SCHEMA.md` defines them.
 added keys the schema does not define where it had no field; their meaning is in the rule's quote.
 `normalize.py` reads three of them: `applies_to` (a rule that applies to someone other than the
 survivor is set aside), `scope` (a reporting rule or cap with a scope becomes information), and
-`within_hours` (turned into days, rounded up). `verify.py` checks that the numbers in `amount_cents`,
-`years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost` appear in the quote;
-in this release every whole number in `params` does.
+`within_hours` (turned into days, rounded up).
+`verify.py` checks that the numbers in `amount_cents`, `years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost` appear in the quote.
+In this release every integer value in `params` does, including the keys `verify.py` does not check (`hours_per_week`, `min_days`, `min_months`, and `within_hours`).
+Numbers written inside text values, such as section numbers in a `note` or `extension`, are not checked.
 
 | Key | Rules | Types | In rules/SCHEMA.md |
 |---|---|---|---|
@@ -221,8 +222,10 @@ How `normalize.py` decides:
   emergency payment made apart from the award).
 - Set aside: a rule whose `params.applies_to` does not name the survivor (it names family members or
   secondary victims, or a narrower case such as travel to court or crimes from certain dates); a cap
-  with no amount, no expense type, or a unit `normalize.py` cannot read; and a cap that is a less
-  generous duplicate of another cap on the same expense and unit, where the most generous one is kept.
+  with no amount, no expense type, or a unit `normalize.py` cannot read; and a cap that duplicates
+  another cap on the same expense and unit and is no more generous. The most generous cap is kept, the
+  first of them when two are equal; of those set aside, 28 are lower than the cap kept and 3 are equal
+  to it. Their `set_aside_reason` says "less generous duplicate of" either way.
 - Decision: every other rule.
 
 `normalize.py` can also narrow how a decision rule applies. AK-COUNSEL-1, for example, keeps its $200
@@ -230,13 +233,15 @@ a session rate but not its 24-session initial award. `rules/ir` has the engine's
 every rule.
 
 One kind of decision rule can end up as information. Who pays for the exam (`exam_payment`) is cited
-as proof for a held exam line, and the engine holds an exam line only where the IR also has an
-`exam_no_bill` rule. Rhode Island and Wyoming have none in this release, so the engine lists their
-5 `exam_payment` rules (RI-EXAM-1, WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7) as information.
+as proof for a held exam line, and the engine holds an exam line only where the jurisdiction has an
+`exam_no_bill` rule with `engine_use` decision.
+Rhode Island has no `exam_no_bill` rule in this release.
+Wyoming's only `exam_no_bill` rule, WY-EXAM-2, is set aside because it covers only exams reported to law enforcement.
+So the engine lists their 5 `exam_payment` rules (RI-EXAM-1, WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7) as information.
 
 | Reasons for set_aside | Rules |
 |---|---|
-| A less generous duplicate of another cap | 31 |
+| A duplicate of another cap, no more generous | 31 |
 | `params.applies_to` does not name the survivor | 20 |
 | `expense_cap without amount or expense` | 11 |
 
@@ -249,9 +254,9 @@ as proof for a held exam line, and the engine holds an exam line only where the 
 | `title` | text | The source's title. |
 | `kind` | text | `statute`, `regulation`, `agency_page`, `agency_pdf`, or `application_form`. |
 | `format` | text | `html` or `pdf`: the saved file's type, read from its extension the way `verify.py` reads it. |
-| `url` | URL | Where the source was saved from. |
+| `url` | URL | Where the source was saved from. Some are copies on sites that republish state law; see Limitations. |
 | `retrieved_at` | timestamp | When it was saved, in UTC (ISO 8601). |
-| `sha256` | hex | The sha256 of the saved file, recorded when it was saved. `verify.py` checks it on every run. |
+| `sha256` | hex | The sha256 of the saved file, recorded when it was saved. For the 13 pages whose `note` says so, it was recorded again after API keys embedded in the page were redacted. `verify.py` checks it on every run. |
 | `text_sha256` | hex | The sha256 of the text extracted from the saved file, which quotes are matched against. Computed by the export; not recorded when the source was saved. |
 | `raw_path` | path | The saved file in the repository (https://github.com/thesanatt/tend). |
 | `text_path` | path | The extracted text in the repository. |
@@ -276,11 +281,11 @@ the `program` object (with `application_form` inside it), and the `coverage_` co
 | `phone` | text | The program's phone number. |
 | `phone_source_id` | text | The source the phone number was taken from. |
 | `statute_citation` | text | The statute that sets up the program. |
-| `application_form_source_id` | text | The saved copy of the application form. |
-| `application_form_fillable` | boolean | Whether that PDF has fillable fields. |
-| `application_form_field_count` | integer | How many fields it has. |
+| `application_form_source_id` | text or empty | The saved copy of the application form. Empty for ME, ND, and TN, which have none saved. |
+| `application_form_fillable` | boolean | Whether that PDF has fillable fields; `false` when no form is saved. |
+| `application_form_field_count` | integer | How many fields it has; `0` when no form is saved. |
 | `confidence` | text | `high`, `medium`, or `low`, as recorded for the jurisdiction. |
-| `coverage_found` | JSON list of text | Categories the research found for this jurisdiction. |
+| `coverage_found` | JSON list of text | Categories the research found for this jurisdiction. GA, LA, and MS also list some as category:expense, for example `covered_expense:childcare`. |
 | `coverage_not_found` | JSON list of text | What the research looked for and did not find or could not verify, in its own words. |
 | `coverage_notes` | text | Notes on what was and was not found. |
 | `researcher_notes` | text | Anything a reviewer should know, such as where sources disagree. |
@@ -303,9 +308,9 @@ arrays with the columns described above.
 
 How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the repository describe it:
 
-1. Save the source. `rules/tools/fetch_source.py` saves the raw bytes of an official page or PDF, the
-   text extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and
-   falls back to a real Chrome tab when a site serves a challenge page.
+1. Save the source. `rules/tools/fetch_source.py` saves the raw bytes of a page or PDF, the text
+   extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and falls
+   back to a real Chrome tab when a site serves a challenge page.
 2. Write the rule. A researcher writes the rule in `rules/jurisdictions/ST.json`: its category,
    params, a plain summary, the quote, copied from the saved text and never paraphrased, and a pinpoint
    citation. `rules/SCHEMA.md` tells researchers to prefer statutes and regulations, to use agency
@@ -319,7 +324,7 @@ How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the 
    - The numbers in its params and its summary appear in the quote: `amount_cents` (as dollars),
      `years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost`, and every number
      in the summary except 0 and 1. Numbers written as words count: "thirty days" is 30.
-   - The saved source file's sha256 still matches the one recorded when it was saved.
+   - The saved source file's sha256 still matches the one recorded for it.
 
    `verify.py` also accepts a quote that matches only when case is ignored, with a warning. No quote
    in this release needs that: each one matches with its case as written. Passing files go to
@@ -341,6 +346,17 @@ The tests check every quote against its saved source text with `verify.py`'s own
 every sha256 against the saved files, that the CSV and JSON files agree, and that the export gives
 the same bytes each time.
 
+The sha256 recorded for a source covers its raw file, not the extracted text (`text_path`) that quotes
+are matched against. With BeautifulSoup and pdftotext installed, the tests also extract the text again
+from each raw file and look for every quote in it:
+
+```sh
+uv run --with pytest --with beautifulsoup4 pytest rules/tools/test_export_dataset.py
+```
+
+In version 1.0, every quote is found that way too: in all the text BeautifulSoup reads from an
+HTML page, and in what pdftotext 26.04 reads from a PDF.
+
 ## Limitations
 
 - A verbatim quote check proves the words exist in the saved source. It does not prove that Tend's
@@ -349,8 +365,12 @@ the same bytes each time.
 - Summaries are Tend's plain-language readings, not the law. Rely on the quote and the source.
 - The data is current as of the dates the sources were saved (Oct 3, 2026). Laws and program
   pages change, and nothing re-fetches the sources on a schedule.
-- A sha256 shows that the saved copy has not changed since it was saved. It cannot show what the live
-  page says today, and a live page can differ byte for byte even when its text is the same.
+- 120 sources are copies on sites that republish state law, not the state's own publication: 103 statutes from Justia (law.justia.com) and 17 regulations from Cornell's Legal Information Institute (law.cornell.edu).
+  Each saved Justia page shows its state's 2025 code and says it may not be the most recent version.
+  Each saved Cornell page says state regulations are updated there quarterly.
+  The 234 rules that quote these copies match the copies, so check the state's own code before relying on one.
+- A sha256 shows that the saved copy has not changed since its sha256 was recorded. It cannot show what
+  the live page says today, and a live page can differ byte for byte even when its text is the same.
 - 13 saved pages carry the same `note`: "Third-party API keys embedded in the page were redacted before publishing; sha256 is of the redacted file."
 - Quotes are matched against the text extracted from each saved file (`text_path`). Text the
   extraction missed could not be quoted.

@@ -15,6 +15,7 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 VERSION = "1.0"
@@ -36,6 +37,13 @@ JURISDICTION_COLUMNS = ["code", "name", *PROGRAM_KEYS, *(f"application_form_{k}"
 ENGINE_USES = ("decision", "information", "set_aside")
 # Params keys rules/SCHEMA.md gives a fixed list of values for.
 LISTED_PARAMS = ("insurance_billing", "per", "from", "alternatives", "method", "document")
+# The params keys whose numbers verify.py looks for in the quote (its NUMERIC_PARAMS).
+VERIFY_NUMBER_KEYS = ("amount_cents", "years", "months", "weeks", "days", "within_days", "count_limit", "days_lost")
+# Sites that republish state law. A copy saved from one is not the state's own publication.
+REPUBLISHERS = {"law.justia.com": "Justia", "www.law.cornell.edu": "Cornell's Legal Information Institute"}
+# What every saved copy from that site says about how current it is. The README repeats it, so the
+# export stops if a copy stops saying it.
+CURRENCY_NOTES = {"law.justia.com": "may not be the most recent version", "www.law.cornell.edu": "State regulations are updated quarterly"}
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 
@@ -141,12 +149,21 @@ def collect(states: list) -> tuple:
     return jurisdictions, sources, rules
 
 
+def site(source: dict) -> str:
+    return urlsplit(source["url"]).hostname or ""
+
+
+def redacted(source: dict) -> bool:
+    return "redacted" in (source["note"] or "")
+
+
 def metadata(jurisdictions: list, sources: list, rules: list) -> dict:
     retrieved = sorted(s["retrieved_at"] for s in sources)
+    copies = {s["source_id"] for s in sources if site(s) in REPUBLISHERS}
     return {
         "name": NAME,
         "version": VERSION,
-        "description": "The verified rules in Tend's law library, for the crime victim compensation programs of the 50 states and DC. Each rule has a plain-language summary and a verbatim quote from a saved official source, with its pinpoint citation, address, and sha256.",
+        "description": "The verified rules in Tend's law library, for the crime victim compensation programs of the 50 states and DC. Each rule has a plain-language summary and a verbatim quote from a saved source, with its pinpoint citation, address, and sha256.",
         "homepage": SITE,
         "repository": REPO,
         "generated_by": "rules/tools/export_dataset.py, from rules/verified and rules/ir",
@@ -160,6 +177,9 @@ def metadata(jurisdictions: list, sources: list, rules: list) -> dict:
             "sources_by_kind": dict(sorted(Counter(s["kind"] for s in sources).items())),
             "rules_with_fragment_url": sum(bool(r["fragment_url"]) for r in rules),
             "sources_quoted": sum(s["rules"] > 0 for s in sources),
+            "sources_from_republishers": {k: v for k in REPUBLISHERS if (v := sum(site(s) == k for s in sources))},
+            "rules_quoting_republishers": sum(r["source_id"] in copies for r in rules),
+            "sources_redacted": sum(redacted(s) for s in sources),
         },
         "license": "TODO: not chosen yet",
         "not_legal_advice": "Tend is not legal advice. It shows what each program's own rules say, with the quote. The program decides.",
@@ -242,6 +262,60 @@ def table(head: list, rows: list) -> list:
     return out + ["| " + " | ".join(str(c) for c in row) + " |" for row in rows]
 
 
+def series(items: list, last: str = "and") -> str:
+    items = list(items)
+    return f" {last} ".join(items) if len(items) < 3 else ", ".join(items[:-1]) + f", {last} {items[-1]}"
+
+
+def kinds(sources: list) -> str:
+    """'103 statutes', '17 regulations', and so on."""
+    words = {"agency_pdf": "agency PDF", "agency_page": "agency page", "application_form": "application form"}
+    return series(f"{m} {words.get(k, k)}{'' if m == 1 else 's'}" for k, m in sorted(Counter(s["kind"] for s in sources).items()))
+
+
+def republished(sources: list, rules: list) -> list:
+    """The README's limitation on sources saved from REPUBLISHERS, read from the saved copies."""
+    by_site = {k: [s for s in sources if site(s) == k] for k in REPUBLISHERS}
+    by_site = {k: v for k, v in by_site.items() if v}
+    if not by_site:
+        return []
+    years = set()
+    for k, copies in by_site.items():
+        for s in copies:
+            text = (ROOT / s["text_path"]).read_text(encoding="utf-8", errors="ignore")
+            if CURRENCY_NOTES[k] not in text:
+                sys.exit(f"{s['source_id']} no longer says {CURRENCY_NOTES[k]!r}: review the README's note on {REPUBLISHERS[k]}")
+            if k == "law.justia.com":
+                # Justia's own citation line names the year of the code the page shows.
+                m = re.search(r"Universal Citation: .{0,80}?\((\d{4})\)", text, re.DOTALL)
+                if not m:
+                    sys.exit(f"{s['source_id']}: no code year on the Justia copy: review the README's note on Justia")
+                years.add(m[1])
+    ids = {s["source_id"] for copies in by_site.values() for s in copies}
+    said = []
+    if "law.justia.com" in by_site:
+        said.append(f"Each saved Justia page shows its state's {series(sorted(years), 'or')} code and says it may not be the most recent version.")
+    if "www.law.cornell.edu" in by_site:
+        said.append("Each saved Cornell page says state regulations are updated there quarterly.")
+    return [
+        f"- {n(len(ids))} sources are copies on sites that republish state law, not the state's own publication: "
+        + series(f"{kinds(copies)} from {REPUBLISHERS[k]} ({k.removeprefix('www.')})" for k, copies in by_site.items())
+        + ".",
+        *(f"  {line}" for line in said),
+        f"  The {n(sum(r['source_id'] in ids for r in rules))} rules that quote these copies match the copies, so check the state's own code before relying on one.",
+    ]
+
+
+def not_held(rule: dict) -> str:
+    """Why an exam_no_bill rule holds no exam line, as the README says it."""
+    who = rule["params"].get("applies_to")
+    if rule["engine_use"] == "set_aside" and isinstance(who, str):
+        return f"set aside because it covers only {who}"
+    if rule["engine_use"] == "set_aside":
+        return f"set aside ({rule['set_aside_reason']})"
+    return "kept as information"
+
+
 def kind_of(v) -> str:
     if isinstance(v, bool):
         return "boolean"
@@ -279,16 +353,26 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
     by_kind = Counter(r["source_kind"] for r in rules)
     cat_states = {k: len({r["jurisdiction"] for r in rules if r["category"] == k}) for k in cats}
     by_expense = Counter(r["expense"] for r in rules if r["expense"])
-    reasons = Counter()
+    amount = {r["rule_id"]: r["params"].get("amount_cents") for r in rules}
+    reasons, dupes = Counter(), Counter()
     for r in rules:
         why = r["set_aside_reason"]
-        if why and why.startswith("less generous duplicate of"):
-            reasons["A less generous duplicate of another cap"] += 1
+        if why and why.startswith("less generous duplicate of "):
+            reasons["A duplicate of another cap, no more generous"] += 1
+            # normalize.py keeps the first of the most generous caps, so a cap equal to it is set aside too.
+            mine, kept = int(amount[r["rule_id"]]), int(amount[why.rsplit(" ", 1)[1]])
+            dupes["lower" if mine < kept else "equal" if mine == kept else "higher"] += 1
         elif why and why.startswith("applies_to"):
             reasons["`params.applies_to` does not name the survivor"] += 1
         elif why:
             reasons[f"`{why}`"] += 1
+    if dupes["higher"]:
+        sys.exit("a cap set aside as a duplicate is more generous than the cap kept: check rules/ir")
     notes = Counter(s["note"] for s in sources if s["note"])
+    no_form = [j["code"] for j in jurisdictions if not (j["program"].get("application_form") or {}).get("source_id")]
+    paired = sorted(v for j in jurisdictions for v in j["coverage"]["found"] if ":" in v)
+    paired_in = sorted({j["code"] for j in jurisdictions if any(":" in v for v in j["coverage"]["found"])})
+    integer_keys = {k for r in rules for k, v in r["params"].items() if isinstance(v, int) and not isinstance(v, bool)}
     pkeys, ptypes, pvalues = Counter(), {}, {}
     for r in rules:
         for k, v in r["params"].items():
@@ -300,19 +384,31 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
     odd = formula_like(tables)
     unquoted = [s for s in sources if s["rules"] == 0]
     program_sources = {(j["program"].get("application_form") or {}).get("source_id") for j in jurisdictions} | {j["program"].get("phone_source_id") for j in jurisdictions}
-    # Who pays for the exam is proof for a held exam line, and a line is held only where an
-    # exam_no_bill rule is in the IR; without one the engine lists exam_payment rules as information.
+    # Who pays for the exam is proof for a held exam line, and a line is held only where an exam_no_bill
+    # rule is among the IR's rules (not its skipped list); without one the engine lists exam_payment
+    # rules as information.
     holds = {r["jurisdiction"] for r in rules if r["category"] == "exam_no_bill" and r["engine_use"] == "decision"}
     unheld = [r for r in rules if r["category"] == "exam_payment" and r["engine_use"] == "decision" and r["jurisdiction"] not in holds]
-    unheld_names = sorted({r["jurisdiction_name"] for r in unheld})
+    unheld_states = sorted({r["jurisdiction"] for r in unheld})
+    names = {j["code"]: j["name"] for j in jurisdictions}
+    # Each one says what exam_no_bill rules it has, if any, and why none holds the line.
+    why_unheld = []
+    for st in unheld_states:
+        found = [r for r in rules if r["jurisdiction"] == st and r["category"] == "exam_no_bill"]
+        if not found:
+            why_unheld.append(f"{names[st]} has no `exam_no_bill` rule in this release.")
+        elif len(found) == 1:
+            why_unheld.append(f"{names[st]}'s only `exam_no_bill` rule, {found[0]['rule_id']}, is {not_held(found[0])}.")
+        else:
+            why_unheld.append(f"{names[st]} has {len(found)} `exam_no_bill` rules, and none is a decision rule: " + "; ".join(f"{r['rule_id']} is {not_held(r)}" for r in found) + ".")
 
     L = [
         f"# {NAME}, version {VERSION}",
         "",
         "Tend's law library as data: the rules of the crime victim compensation programs in the 50 states and",
         f"DC that Tend ({SITE}) found and verified. Each rule pairs a plain-language summary with a verbatim",
-        "quote from an official source that Tend saved (a statute, a regulation, or a program's own page, PDF,",
-        "or application form), the pinpoint citation, the source's address, and the sha256 of the saved copy.",
+        "quote from a source that Tend saved (a statute, a regulation, or a program's own page, PDF, or",
+        "application form), the pinpoint citation, the source's address, and the sha256 of the saved copy.",
         "",
         "Tend is a prototype built by Sanat Gupta at MHacks 2026 to help sexual assault survivors claim crime",
         f"victim compensation. This dataset is made from `rules/verified` and `rules/ir` in {REPO} by",
@@ -323,8 +419,9 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "",
         f"## What is in version {VERSION}",
         "",
-        f"- {n(c['rules'])} rules for {c['jurisdictions']} jurisdictions{where}, quoted from {n(c['sources_quoted'])} of the {n(c['sources'])} official sources Tend saved. The other {n(len(unquoted))} were saved and fingerprinted too, but no rule quotes them.",
-        f"- Current as of the dates the sources were saved: {saved_between(first, last)}.",
+        f"- {n(c['rules'])} rules for {c['jurisdictions']} jurisdictions{where}, quoted from {n(c['sources_quoted'])} of the {n(c['sources'])} sources Tend saved. The other {n(len(unquoted))} were saved and fingerprinted too, but no rule quotes them.",
+        f"- Current as of the dates the sources were saved: {saved_between(first, last)}."
+        + (f" {n(sum(c['sources_from_republishers'].values()))} of them are copies from sites that republish state law, which may lag behind it (see Limitations)." if c["sources_from_republishers"] else ""),
         f"- {n(uses['decision'])} decision rules, {n(uses['information'])} information rules, and {n(uses['set_aside'])} set aside (see engine_use below).",
         f"- {n(c['rules_with_fragment_url'])} rules quote an HTML source and have a link that opens the page at the quote.",
         f"- Rules per jurisdiction: from {fewest['rules']} ({fewest['name']}) to {most['rules']} ({most['name']}). The number shows how much Tend found and quoted, not how generous a state's law is.",
@@ -389,7 +486,7 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
                 ("`source_id`", "text", "The source the quote is from. Matches `source_id` in the sources file."),
                 ("`source_title`", "text", "The source's title."),
                 ("`source_kind`", "text", "`statute`, `regulation`, `agency_page`, `agency_pdf`, or `application_form`."),
-                ("`source_url`", "URL", "Where the source was saved from."),
+                ("`source_url`", "URL", "Where the source was saved from. Some are copies on sites that republish state law; see Limitations."),
                 ("`fragment_url`", "URL or empty", "`source_url` with a text fragment (`#:~:text=`) that opens the page at the quote, in browsers that support text fragments. Only for HTML sources; empty for PDFs."),
                 ("`retrieved_at`", "timestamp", "When the source was saved, in UTC (ISO 8601)."),
                 ("`source_sha256`", "hex", "The sha256 of the saved source file, 64 hex characters."),
@@ -419,9 +516,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "added keys the schema does not define where it had no field; their meaning is in the rule's quote.",
         "`normalize.py` reads three of them: `applies_to` (a rule that applies to someone other than the",
         "survivor is set aside), `scope` (a reporting rule or cap with a scope becomes information), and",
-        "`within_hours` (turned into days, rounded up). `verify.py` checks that the numbers in `amount_cents`,",
-        "`years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost` appear in the quote;",
-        "in this release every whole number in `params` does.",
+        "`within_hours` (turned into days, rounded up).",
+        f"`verify.py` checks that the numbers in {series(f'`{k}`' for k in VERIFY_NUMBER_KEYS)} appear in the quote.",
+        f"In this release every integer value in `params` does, including the keys `verify.py` does not check ({series(f'`{k}`' for k in sorted(integer_keys - set(VERIFY_NUMBER_KEYS)))}).",
+        "Numbers written inside text values, such as section numbers in a `note` or `extension`, are not checked.",
         "",
         *table(
             ["Key", "Rules", "Types", "In rules/SCHEMA.md"],
@@ -472,8 +570,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "  emergency payment made apart from the award).",
         "- Set aside: a rule whose `params.applies_to` does not name the survivor (it names family members or",
         "  secondary victims, or a narrower case such as travel to court or crimes from certain dates); a cap",
-        "  with no amount, no expense type, or a unit `normalize.py` cannot read; and a cap that is a less",
-        "  generous duplicate of another cap on the same expense and unit, where the most generous one is kept.",
+        "  with no amount, no expense type, or a unit `normalize.py` cannot read; and a cap that duplicates",
+        "  another cap on the same expense and unit and is no more generous. The most generous cap is kept, the",
+        f"  first of them when two are equal; of those set aside, {dupes['lower']} are lower than the cap kept and {dupes['equal']} {'is' if dupes['equal'] == 1 else 'are'} equal",
+        "  to it. Their `set_aside_reason` says \"less generous duplicate of\" either way.",
         "- Decision: every other rule.",
         "",
         "`normalize.py` can also narrow how a decision rule applies. AK-COUNSEL-1, for example, keeps its $200",
@@ -483,9 +583,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         *(
             [
                 "One kind of decision rule can end up as information. Who pays for the exam (`exam_payment`) is cited",
-                "as proof for a held exam line, and the engine holds an exam line only where the IR also has an",
-                f"`exam_no_bill` rule. {' and '.join(unheld_names)} {'has' if len(unheld_names) == 1 else 'have'} none in this release, so the engine lists their",
-                f"{len(unheld)} `exam_payment` {'rule' if len(unheld) == 1 else 'rules'} ({', '.join(r['rule_id'] for r in unheld)}) as information.",
+                "as proof for a held exam line, and the engine holds an exam line only where the jurisdiction has an",
+                "`exam_no_bill` rule with `engine_use` decision.",
+                *why_unheld,
+                f"So the engine lists {'its' if len(unheld_states) == 1 else 'their'} {len(unheld)} `exam_payment` {'rule' if len(unheld) == 1 else 'rules'} ({', '.join(r['rule_id'] for r in unheld)}) as information.",
                 "",
             ]
             if unheld
@@ -503,9 +604,15 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
                 ("`title`", "text", "The source's title."),
                 ("`kind`", "text", "`statute`, `regulation`, `agency_page`, `agency_pdf`, or `application_form`."),
                 ("`format`", "text", "`html` or `pdf`: the saved file's type, read from its extension the way `verify.py` reads it."),
-                ("`url`", "URL", "Where the source was saved from."),
+                ("`url`", "URL", "Where the source was saved from. Some are copies on sites that republish state law; see Limitations."),
                 ("`retrieved_at`", "timestamp", "When it was saved, in UTC (ISO 8601)."),
-                ("`sha256`", "hex", "The sha256 of the saved file, recorded when it was saved. `verify.py` checks it on every run."),
+                (
+                    "`sha256`",
+                    "hex",
+                    "The sha256 of the saved file, recorded when it was saved."
+                    + (f" For the {n(c['sources_redacted'])} pages whose `note` says so, it was recorded again after API keys embedded in the page were redacted." if c["sources_redacted"] else "")
+                    + " `verify.py` checks it on every run.",
+                ),
                 ("`text_sha256`", "hex", "The sha256 of the text extracted from the saved file, which quotes are matched against. Computed by the export; not recorded when the source was saved."),
                 ("`raw_path`", "path", f"The saved file in the repository ({REPO})."),
                 ("`text_path`", "path", "The extracted text in the repository."),
@@ -533,11 +640,21 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
                 ("`phone`", "text", "The program's phone number."),
                 ("`phone_source_id`", "text", "The source the phone number was taken from."),
                 ("`statute_citation`", "text", "The statute that sets up the program."),
-                ("`application_form_source_id`", "text", "The saved copy of the application form."),
-                ("`application_form_fillable`", "boolean", "Whether that PDF has fillable fields."),
-                ("`application_form_field_count`", "integer", "How many fields it has."),
+                (
+                    "`application_form_source_id`",
+                    "text or empty" if no_form else "text",
+                    "The saved copy of the application form."
+                    + (f" Empty for {series(no_form)}, which {'has' if len(no_form) == 1 else 'have'} none saved." if no_form else ""),
+                ),
+                ("`application_form_fillable`", "boolean", "Whether that PDF has fillable fields; `false` when no form is saved."),
+                ("`application_form_field_count`", "integer", "How many fields it has; `0` when no form is saved."),
                 ("`confidence`", "text", "`high`, `medium`, or `low`, as recorded for the jurisdiction."),
-                ("`coverage_found`", "JSON list of text", "Categories the research found for this jurisdiction."),
+                (
+                    "`coverage_found`",
+                    "JSON list of text",
+                    "Categories the research found for this jurisdiction."
+                    + (f" {series(paired_in)} also {'lists' if len(paired_in) == 1 else 'list'} some as category:expense, for example `{paired[0]}`." if paired else ""),
+                ),
                 ("`coverage_not_found`", "JSON list of text", "What the research looked for and did not find or could not verify, in its own words."),
                 ("`coverage_notes`", "text", "Notes on what was and was not found."),
                 ("`researcher_notes`", "text", "Anything a reviewer should know, such as where sources disagree."),
@@ -562,9 +679,9 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "",
         "How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the repository describe it:",
         "",
-        "1. Save the source. `rules/tools/fetch_source.py` saves the raw bytes of an official page or PDF, the",
-        "   text extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and",
-        "   falls back to a real Chrome tab when a site serves a challenge page.",
+        "1. Save the source. `rules/tools/fetch_source.py` saves the raw bytes of a page or PDF, the text",
+        "   extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and falls",
+        "   back to a real Chrome tab when a site serves a challenge page.",
         "2. Write the rule. A researcher writes the rule in `rules/jurisdictions/ST.json`: its category,",
         "   params, a plain summary, the quote, copied from the saved text and never paraphrased, and a pinpoint",
         "   citation. `rules/SCHEMA.md` tells researchers to prefer statutes and regulations, to use agency",
@@ -578,7 +695,7 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "   - The numbers in its params and its summary appear in the quote: `amount_cents` (as dollars),",
         "     `years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost`, and every number",
         "     in the summary except 0 and 1. Numbers written as words count: \"thirty days\" is 30.",
-        "   - The saved source file's sha256 still matches the one recorded when it was saved.",
+        "   - The saved source file's sha256 still matches the one recorded for it.",
         "",
         "   `verify.py` also accepts a quote that matches only when case is ignored, with a warning. No quote",
         "   in this release needs that: each one matches with its case as written. Passing files go to",
@@ -600,6 +717,17 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "every sha256 against the saved files, that the CSV and JSON files agree, and that the export gives",
         "the same bytes each time.",
         "",
+        "The sha256 recorded for a source covers its raw file, not the extracted text (`text_path`) that quotes",
+        "are matched against. With BeautifulSoup and pdftotext installed, the tests also extract the text again",
+        "from each raw file and look for every quote in it:",
+        "",
+        "```sh",
+        "uv run --with pytest --with beautifulsoup4 pytest rules/tools/test_export_dataset.py",
+        "```",
+        "",
+        f"In version {VERSION}, every quote is found that way too: in all the text BeautifulSoup reads from an",
+        "HTML page, and in what pdftotext 26.04 reads from a PDF.",
+        "",
         "## Limitations",
         "",
         "- A verbatim quote check proves the words exist in the saved source. It does not prove that Tend's",
@@ -608,8 +736,9 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "- Summaries are Tend's plain-language readings, not the law. Rely on the quote and the source.",
         f"- The data is current as of the dates the sources were saved ({day(first)}" + ("" if first[:10] == last[:10] else f" to {day(last)}") + "). Laws and program",
         "  pages change, and nothing re-fetches the sources on a schedule.",
-        "- A sha256 shows that the saved copy has not changed since it was saved. It cannot show what the live",
-        "  page says today, and a live page can differ byte for byte even when its text is the same.",
+        *republished(sources, rules),
+        "- A sha256 shows that the saved copy has not changed since its sha256 was recorded. It cannot show what",
+        "  the live page says today, and a live page can differ byte for byte even when its text is the same.",
         *(
             [f"- {n(sum(notes.values()))} saved pages carry the same `note`: \"{next(iter(notes))}\""]
             if len(notes) == 1
