@@ -515,11 +515,26 @@ describe("cloud AI consent", () => {
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).getByText(en.cloud.whatRows(2))).toBeTruthy();
     expect(within(dialog).getByText(en.cloud.whoRows)).toBeTruthy();
+    expect(within(dialog).getByText(en.cloud.googleRows)).toBeTruthy();
     const no = within(dialog).getByRole("button", { name: en.cloud.no });
     expect(document.activeElement === no || no.hasAttribute("autofocus")).toBe(true);
     fireEvent.click(no);
     expect(onNo).toHaveBeenCalled();
     expect(onYes).not.toHaveBeenCalled();
+  });
+
+  // Gemini's free tier lets Google keep and read what is sent, so a bill's consent says so before the yes.
+  it("says what Google may do with a bill before it is sent", () => {
+    render(
+      <I18nProvider initial="en">
+        <CloudConsent ask={{ kind: "bill", label: "bill.jpg" }} onNo={vi.fn()} onYes={vi.fn()} />
+      </I18nProvider>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(en.cloud.googleTitle)).toBeTruthy();
+    expect(within(dialog).getByText(en.cloud.googleBill)).toBeTruthy();
+    expect(en.cloud.googleBill).toMatch(/free Gemini/);
+    expect(en.cloud.googleBill).toMatch(/people at Google read it/);
   });
 
   it("is offered per file only without on-device AI, and a yes re-sorts with consent", async () => {

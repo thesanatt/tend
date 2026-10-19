@@ -1,8 +1,8 @@
 "use client";
 
 // Cloud AI, only after a yes (docs/PRIVACY.md item 3). One screen says exactly what would leave this
-// device, who gets it, and what stays. The answer starts as no: nothing is sent until the survivor
-// taps yes, and saying no keeps Tend's built-in rules working.
+// device, who gets it, what Google may do with it, and what stays. The answer starts as no: nothing
+// is sent until the survivor taps yes, and saying no keeps Tend's built-in rules working.
 import { useI18n } from "@/lib/i18n";
 import FlowSheet from "./FlowSheet";
 import styles from "./flow.module.css";
@@ -46,6 +46,10 @@ export default function CloudConsent({
         <div>
           <dt>{c.whoTitle}</dt>
           <dd>{rows ? c.whoRows : c.whoBill}</dd>
+        </div>
+        <div>
+          <dt>{c.googleTitle}</dt>
+          <dd>{rows ? c.googleRows : c.googleBill}</dd>
         </div>
         <div>
           <dt>{c.stayTitle}</dt>

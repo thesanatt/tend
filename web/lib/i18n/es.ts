@@ -745,6 +745,11 @@ export const es: Dict = {
       "El servidor de Tend, que le pide a Gemini de Google elegir un tipo de gasto para cada fila. El servidor de Tend no guarda una copia.",
     whoBill:
       "El servidor de Tend, que le pide a Gemini de Google copiar sus líneas y montos. El servidor de Tend no guarda una copia.",
+    googleTitle: "Qué puede hacer Google con esto",
+    googleRows:
+      "Tend usa el servicio gratuito de Gemini de Google. Según sus términos, Google puede guardar lo que se envía, usarlo para mejorar sus productos y dejar que personas de Google lo lean. El nombre de un comercio puede mostrar adónde fuiste, como una clínica o una farmacia.",
+    googleBill:
+      "Tend usa el servicio gratuito de Gemini de Google. Según sus términos, Google puede guardar lo que se envía, usarlo para mejorar sus productos y dejar que personas de Google lo lean. Una factura puede mostrar tu nombre, tu dirección y la atención que recibiste. Si no quieres que Google tenga eso, di que no.",
     stayTitle: "Qué se queda aquí",
     stayRows: "Los montos, las fechas, tus otras transacciones, tus respuestas y todo lo que sea sobre ti.",
     stayBill: "Tus otros archivos, tus respuestas y todo lo que sea sobre ti.",
