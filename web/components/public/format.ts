@@ -21,6 +21,18 @@ export function shortDate(iso: string): string {
   );
 }
 
+// "October 3, 2026" (or "October 3" without the year) in UTC, for dates inside a sentence.
+export function longDate(iso: string, withYear = true): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    ...(withYear ? { year: "numeric" } : {}),
+    timeZone: "UTC",
+  }).format(d);
+}
+
 export function count(n: number, one: string, many: string): string {
   return `${n.toLocaleString("en-US")} ${n === 1 ? one : many}`;
 }

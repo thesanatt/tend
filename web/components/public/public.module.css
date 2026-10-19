@@ -74,6 +74,13 @@
   pointer-events: none;
 }
 
+/* The key facts and the note on when their sources were saved, kept together. */
+.glance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
 .keyFacts {
   list-style: none;
   margin: 0;

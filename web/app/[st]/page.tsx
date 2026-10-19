@@ -6,6 +6,7 @@ import { loadIr, loadLaw, siteUrl, stateFromParam } from "@/components/public/da
 import LawRefs from "@/components/public/LawRefs";
 import Linkified from "@/components/public/Linkified";
 import ShareButtons from "@/components/public/ShareButtons";
+import SourceNote from "@/components/public/SourceNote";
 import styles from "@/components/public/public.module.css";
 import { buildStateSummary, type Fact, type KeyFact } from "@/components/public/summary";
 import { lawGrowth, lawStage } from "@/lib/garden";
@@ -127,19 +128,23 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
         </div>
       </header>
 
-      {summary.keyFacts.length ? (
-        <ul className={styles.keyFacts} aria-label="At a glance">
-          {summary.keyFacts.map((k) => (
-            <li key={k.id}>
-              <a className={styles.keyFact} href={`#${KEY_TARGET[k.id]}`}>
-                <span className={styles.keyBig}>{k.big}</span>
-                <span className={styles.keySmall}>{k.small}</span>
-                <span className={styles.keyCite}>{pinpoint(k.cites[0])}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      {/* The saved date sits right under the numbers it qualifies. */}
+      <div className={styles.glance}>
+        {summary.keyFacts.length ? (
+          <ul className={styles.keyFacts} aria-label="At a glance">
+            {summary.keyFacts.map((k) => (
+              <li key={k.id}>
+                <a className={styles.keyFact} href={`#${KEY_TARGET[k.id]}`}>
+                  <span className={styles.keyBig}>{k.big}</span>
+                  <span className={styles.keySmall}>{k.small}</span>
+                  <span className={styles.keyCite}>{pinpoint(k.cites[0])}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <SourceNote st={ref.st} place={summary.place} sources={law.sources} path={path} />
+      </div>
 
       <nav aria-label="On this page" className={styles.toc}>
         <ul>
