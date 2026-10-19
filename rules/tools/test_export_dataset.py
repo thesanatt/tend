@@ -115,6 +115,32 @@ def test_every_quote_is_in_a_fresh_extraction_of_its_raw_file(doc):
     assert [r["rule_id"] for r in doc["rules"] if V.norm(r["quote"]) not in texts[r["source_id"]]] == []
 
 
+def test_fetch_source_gives_the_saved_text_of_every_html_page_but_the_form_pages(doc):
+    # Opt in, as above. What the README says fetch_source.py makes of each saved page, checked with its own functions.
+    bs4 = pytest.importorskip("bs4")
+    # Current Python releases read <title> as plain text, and WA-S4's saved title shows it was read that way.
+    if bs4.BeautifulSoup("<title><i>x</i></title>", "html.parser").title.string != "<i>x</i>":
+        pytest.skip("this Python's HTML parser reads <title> as markup, unlike the one the saved text came from")
+    F = load("fetch_source")
+    differs, refused = [], []
+    for s in doc["sources"]:
+        if s["format"] == "html":
+            raw = (ROOT / s["raw_path"]).read_bytes()
+            if V.norm(F.html_to_text(raw)) != V.norm((ROOT / s["text_path"]).read_text(encoding="utf-8")):
+                differs.append(s["source_id"])
+            if F.looks_blocked(raw, "text/html"):
+                refused.append(s["source_id"])
+    assert sorted(differs) == sorted(X.FORM_TEXT)
+    assert sorted(refused) == sorted(X.FORM_TEXT + X.SHORT_PAGES)
+    by_id = {s["source_id"]: s for s in doc["sources"]}
+    for sid in X.FORM_TEXT:
+        # fetch_source.html_to_text's tags less "form": that gives the saved text.
+        soup = bs4.BeautifulSoup((ROOT / by_id[sid]["raw_path"]).read_bytes(), "html.parser")
+        for tag in soup(["script", "style", "noscript", "svg", "nav", "header", "footer"]):
+            tag.decompose()
+        assert V.norm(soup.get_text(" ", strip=True)) == V.norm((ROOT / by_id[sid]["text_path"]).read_text(encoding="utf-8")), sid
+
+
 def test_every_number_in_params_appears_in_the_quote(files, doc):
     # Stronger than verify.py, which checks only its NUMERIC_PARAMS keys; the README says every integer value holds.
     assert set(X.VERIFY_NUMBER_KEYS) == V.NUMERIC_PARAMS

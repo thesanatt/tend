@@ -312,6 +312,7 @@ How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the 
 1. Save the source. `rules/tools/fetch_source.py` saves the raw bytes of a page or PDF, the text
    extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and falls
    back to a real Chrome tab when a site serves a challenge page.
+   For 8 pages the saved text is not what it extracts; see the end of this section.
 2. Write the rule. A researcher writes the rule in `rules/jurisdictions/ST.json`: its category,
    params, a plain summary, the quote, copied from the saved text and never paraphrased, and a pinpoint
    citation. `rules/SCHEMA.md` tells researchers to prefer statutes and regulations, to use agency
@@ -357,6 +358,16 @@ uv run --with pytest --with beautifulsoup4 pytest rules/tools/test_export_datase
 
 In version 1.0, every quote is found that way too: in all the text BeautifulSoup reads from an
 HTML page, and in what pdftotext 26.04 reads from a PDF.
+
+A second opt-in test runs `fetch_source.py`'s own extraction on each saved HTML page and compares it
+with the saved text, after `verify.py`'s normalization. They match for every HTML source but 8:
+OH-S16, TN-S15, WI-S3, WI-S4, WI-S5, WI-S6, WI-S7, and WI-S9, quoted by 22 rules. Each of these pages holds its text inside a
+`<form>`, which `fetch_source.py` drops, so it finds almost no text and would refuse the page as
+"blocked or empty". Their saved text is what the same extraction gives when it keeps the form, and
+every quote from them is in the raw file, as above. `fetch_source.py` would also refuse WV-S12,
+a short page, though its saved text is what `fetch_source.py` extracts. This test needs a Python whose
+HTML parser reads a page's `<title>` as plain text, as current releases do. It skips on an older one,
+such as the Python 3.9.6 that macOS runs as `/usr/bin/python3`.
 
 ## Limitations
 

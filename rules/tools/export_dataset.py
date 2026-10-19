@@ -44,6 +44,11 @@ REPUBLISHERS = {"law.justia.com": "Justia", "www.law.cornell.edu": "Cornell's Le
 # What every saved copy from that site says about how current it is. The README repeats it, so the
 # export stops if a copy stops saying it.
 CURRENCY_NOTES = {"law.justia.com": "may not be the most recent version", "www.law.cornell.edu": "State regulations are updated quarterly"}
+# HTML pages whose text sits inside a <form>, which fetch_source.py drops, so it would refuse them as
+# "blocked or empty". Their saved text keeps the form. An opt-in test checks both lists with fetch_source.py.
+FORM_TEXT = ("OH-S16", "TN-S15", "WI-S3", "WI-S4", "WI-S5", "WI-S6", "WI-S7", "WI-S9")
+# A page too short for fetch_source.py, which would refuse it too, though its saved text is what it extracts.
+SHORT_PAGES = ("WV-S12",)
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 
@@ -374,6 +379,10 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
     if dupes["higher"]:
         sys.exit("a cap set aside as a duplicate is more generous than the cap kept: check rules/ir")
     notes = Counter(s["note"] for s in sources if s["note"])
+    missing = set(FORM_TEXT + SHORT_PAGES) - {s["source_id"] for s in sources if s["format"] == "html"}
+    if missing:
+        sys.exit(f"FORM_TEXT or SHORT_PAGES names what is not an HTML source here: {sorted(missing)}")
+    form_rules = sum(r["source_id"] in FORM_TEXT for r in rules)
     no_form = [j["code"] for j in jurisdictions if not (j["program"].get("application_form") or {}).get("source_id")]
     paired = sorted(v for j in jurisdictions for v in j["coverage"]["found"] if ":" in v)
     paired_in = sorted({j["code"] for j in jurisdictions if any(":" in v for v in j["coverage"]["found"])})
@@ -688,6 +697,7 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "1. Save the source. `rules/tools/fetch_source.py` saves the raw bytes of a page or PDF, the text",
         "   extracted from it, and the sha256 of the raw bytes. It tries a plain HTTPS request first and falls",
         "   back to a real Chrome tab when a site serves a challenge page.",
+        f"   For {len(FORM_TEXT)} pages the saved text is not what it extracts; see the end of this section.",
         "2. Write the rule. A researcher writes the rule in `rules/jurisdictions/ST.json`: its category,",
         "   params, a plain summary, the quote, copied from the saved text and never paraphrased, and a pinpoint",
         "   citation. `rules/SCHEMA.md` tells researchers to prefer statutes and regulations, to use agency",
@@ -733,6 +743,16 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "",
         f"In version {VERSION}, every quote is found that way too: in all the text BeautifulSoup reads from an",
         "HTML page, and in what pdftotext 26.04 reads from a PDF.",
+        "",
+        "A second opt-in test runs `fetch_source.py`'s own extraction on each saved HTML page and compares it",
+        f"with the saved text, after `verify.py`'s normalization. They match for every HTML source but {len(FORM_TEXT)}:",
+        f"{series(FORM_TEXT)}, quoted by {n(form_rules)} rules. Each of these pages holds its text inside a",
+        "`<form>`, which `fetch_source.py` drops, so it finds almost no text and would refuse the page as",
+        "\"blocked or empty\". Their saved text is what the same extraction gives when it keeps the form, and",
+        f"every quote from them is in the raw file, as above. `fetch_source.py` would also refuse {series(SHORT_PAGES)},",
+        "a short page, though its saved text is what `fetch_source.py` extracts. This test needs a Python whose",
+        "HTML parser reads a page's `<title>` as plain text, as current releases do. It skips on an older one,",
+        "such as the Python 3.9.6 that macOS runs as `/usr/bin/python3`.",
         "",
         "## Limitations",
         "",
