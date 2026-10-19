@@ -17,7 +17,7 @@ import STATES from "@/lib/states.json";
 import type { Jurisdiction, Source } from "@/lib/types";
 import { config, proxy } from "@/proxy";
 
-// js-yaml comes with ESLint, already a dev dependency. The form is plain YAML.
+// js-yaml is a dev dependency with no types of its own, so it is loaded untyped. The form is plain YAML.
 const yaml = createRequire(import.meta.url)("js-yaml") as { load(source: string): unknown };
 
 const web = path.resolve(import.meta.dirname, "..");
