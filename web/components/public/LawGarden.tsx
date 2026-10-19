@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FocusEvent } from "react";
 import Plant from "@/components/Plant";
 import { LAW_STAGES, lawGrowth, lawStage } from "@/lib/garden";
 import STATES from "@/lib/states.json";
@@ -9,6 +9,12 @@ import type { JurisdictionSummary } from "@/lib/types";
 import styles from "./LawGarden.module.css";
 
 const stageLabel = (rules: number) => LAW_STAGES.find((s) => s.stage === lawStage(rules))!.label;
+
+// Chrome scrolls a box to a link the keyboard focuses only when the link is wholly outside it, so a tile
+// or row link part way past the edge would stay cut off. Keyboard focus only: a tap stays put.
+const reveal = (e: FocusEvent<HTMLElement>) => {
+  if (e.target.matches(":focus-visible")) e.target.scrollIntoView({ block: "nearest", inline: "nearest" });
+};
 
 // The national law garden. Each tile opens that state's page; hovering or focusing a tile shows its
 // numbers beside the map. Everything here was counted when the site was built.
@@ -46,7 +52,7 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
       {view === "map" ? (
         <div className={styles.layout}>
           {/* Tiles keep a 44px touch target, so on a phone the map scrolls sideways inside this box. */}
-          <div className={styles.mapScroll}>
+          <div className={styles.mapScroll} onFocus={reveal}>
             <ul className={styles.map} aria-label="States and DC">
               {STATES.map(({ st, name, row, col }) => {
                 const rules = byState.get(st)?.rules ?? 0;
@@ -121,7 +127,7 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
           </aside>
         </div>
       ) : (
-        <div className={styles.tableWrap}>
+        <div className={styles.tableWrap} onFocus={reveal}>
           <table className={styles.table}>
             <caption className="visually-hidden">Verified rules by state</caption>
             <thead>

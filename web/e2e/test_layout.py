@@ -1,8 +1,8 @@
 """The public pages and the shell on a phone, measured in Chromium at 360, 390, and 430 px with touch:
 no page scrolls sideways (the List view's hidden words once widened the home page to 493 px), the law
-garden's targets are 44 px and a focused one keeps its whole outline, and Exit this page never sits on top
-of a heading or a button while the page scrolls under the top bar. tests/public-layout.test.tsx checks
-the CSS behind each rule.
+garden's targets are 44 px and each keeps its whole outline inside the box it scrolls in as Tab moves
+through them, and Exit this page never sits on top of a heading or a button while the page scrolls under
+the top bar. tests/public-layout.test.tsx checks the CSS behind each rule.
 """
 from __future__ import annotations
 
@@ -92,11 +92,17 @@ def fits(page: Page, path: str, width: int) -> None:
     assert page.evaluate(WIDE) == 0, f"{path} at {width}px with every disclosure open"
 
 
-def keyboard_focus(page: Page, locator) -> None:
-    # Focus from the keyboard, so the outline shows the way it does for someone tabbing.
-    locator.focus()
+def tab_through(page: Page, links, width: int) -> None:
+    # Every link in turn, from the keyboard so the outline shows. Chrome scrolls a box to a focused link
+    # only when the link is wholly outside it, so whether one is cut off depends on where the last one
+    # left the box: checking only the map's corners once passed while five tiles in one column were cut off.
+    links.first.focus()
     page.keyboard.press("Shift+Tab")
-    page.keyboard.press("Tab")
+    for i in range(links.count()):
+        page.keyboard.press("Tab")
+        link = links.nth(i)
+        assert link.evaluate("(el) => el === document.activeElement"), f"Tab {i + 1} at {width}px"
+        assert link.evaluate(CLIPPED) == 0, f"{link.inner_text()} at {width}px"
 
 
 @pytest.mark.parametrize("width", WIDTHS)
@@ -153,17 +159,9 @@ def test_a_focused_tile_or_row_keeps_its_outline(stack: Stack, browser: Browser,
         page = browser.new_context(base_url=BASE_URL, viewport={"width": width, "height": 900}).new_page()
     try:
         load(page, "/")
-        tiles = page.get_by_role("list", name="States and DC")
-        # The map's corners: the first and last row, the first and last column.
-        for st in ["AK", "WA", "HI", "ME", "FL"]:
-            tile = tiles.get_by_role("link").filter(has=page.locator(f"span:text-is('{st}')"))
-            keyboard_focus(page, tile)
-            assert tile.evaluate(CLIPPED) == 0, f"{st} at {width}px"
+        tab_through(page, page.get_by_role("list", name="States and DC").get_by_role("link"), width)
         page.get_by_role("button", name="List").click()
-        links = page.get_by_role("table").get_by_role("link")
-        for link in [links.first, links.last]:
-            keyboard_focus(page, link)
-            assert link.evaluate(CLIPPED) == 0, f"{link.inner_text()} at {width}px"
+        tab_through(page, page.get_by_role("table").get_by_role("link"), width)
     finally:
         page.context.close()
 

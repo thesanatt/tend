@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 // Layout rules a phone once broke, checked against the CSS that keeps them: hidden words inside a box
-// that scrolls sideways stay in that box, the garden's targets are 44px, and Exit this page sits in the
-// top bar with nothing sticky under it. jsdom has no layout, so e2e/test_layout.py measures the same
-// rules in Chromium at 360, 390, and 430px.
+// that scrolls sideways stay in that box, the garden's targets are 44px and keep their whole outline when
+// the keyboard scrolls them into view, and Exit this page sits in the top bar with nothing sticky under it.
+// jsdom has no layout, so e2e/test_layout.py measures the same rules in Chromium at 360, 390, and 430px.
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -127,6 +127,19 @@ describe("the law garden on a phone", () => {
     expect(bleed.decls["margin-inline"]).toBe("calc(var(--gutter) * -1)");
     fireEvent.click(screen.getByRole("button", { name: "List" }));
     expect(screen.queryByText(/The map scrolls sideways/)).toBeNull();
+  });
+
+  it("stops a link that focus scrolls into view as far in as its box first showed it", () => {
+    // LawGarden scrolls a keyboard-focused tile or List link to the nearest edge of its box. Stopping
+    // as far in as the box's padding (a cell's, in the table) keeps the focus outline inside. jsdom has
+    // no layout or :focus-visible, so e2e/test_layout.py tabs through every one in Chromium.
+    const map = forClass(garden, "mapScroll");
+    const base = map.find((r) => !r.media)!.decls;
+    expect(base["scroll-padding-inline"]).toBe(base.padding);
+    const bleed = map.find((r) => r.media === "@media (max-width: 547px)")!.decls;
+    expect(bleed["scroll-padding-inline"]).toBe(bleed["padding-inline"]);
+    const cell = garden.find((r) => r.selector.split(",").some((s) => s.trim() === ".table td"))!.decls;
+    expect(forClass(garden, "tableWrap")[0].decls["scroll-padding-inline"]).toBe(cell.padding);
   });
 });
 

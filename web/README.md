@@ -47,8 +47,9 @@ transaction text, a bill line, or the share key. Step timings print at the end.
 `test_layout.py` measures pages on phones (360, 390, and 430px). The home page in its Map and List views,
 `/mi`, `/law/MI`, `/how-it-works`, `/sources`, `/tour`, and `/check?demo=rowan` never scroll sideways,
 and neither does any program's page or law page at 360px. The law garden's map tiles and List links are
-at least 44px each way, and the home page's demo link is at least 44px tall. Exit this page never covers
-a heading or a button anywhere on `/`, `/mi`, or `/check?demo=rowan`.
+at least 44px each way, and the home page's demo link is at least 44px tall. Tab moves through every tile
+and every List link at those widths and at 1280px, and the box they scroll in never cuts off a focus
+outline. Exit this page never covers a heading or a button anywhere on `/`, `/mi`, or `/check?demo=rowan`.
 
 ## Offline (airplane mode)
 
