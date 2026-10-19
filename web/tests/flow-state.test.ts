@@ -408,6 +408,27 @@ describe("groups and questions", () => {
     const rows = buildRows(s, mockEngineOutput(buildEngineInput(s, TODAY)!));
     expect(groupRows(rows).find((g) => g.group === "travel")!.batch).toBeNull();
   });
+
+  // Most states pay for clothing or bedding only when it was kept as evidence, and the batch button
+  // could not say so.
+  it("never batches clothing and bedding, even beside a batch of other home costs", () => {
+    const s = reducer(withCheck(), {
+      type: "addSource",
+      source: { id: "s", kind: "statement", label: "s.csv", read: 5, found: 5, warnings: [], sample: false },
+      items: [
+        item("b1", { expense: "clothing_bedding" }),
+        item("b2", { expense: "clothing_bedding" }),
+        item("b3", { expense: "clothing_bedding" }),
+        item("h1", { expense: "security" }),
+        item("h2", { expense: "security" }),
+      ],
+    });
+    const rows = buildRows(s, mockEngineOutput(buildEngineInput(s, TODAY)!));
+    expect(questions(rows)).toHaveLength(5);
+    expect(groupRows(rows).find((g) => g.group === "home")!.batch).toEqual({ expense: "security", ids: ["h1", "h2"] });
+    const clothesOnly = rows.filter((r) => r.item.expense === "clothing_bedding");
+    expect(groupRows(clothesOnly).find((g) => g.group === "home")!.batch).toBeNull();
+  });
 });
 
 describe("the garden", () => {
