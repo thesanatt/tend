@@ -53,9 +53,10 @@ Then clear the browser side too: Exit this page, or Delete saved progress.
 
 The deployed API runs this same reset on its own (`api/tend_api/demo_reset.py`) when a payment
 proposal finds earlier demo payments of the bill, all more than 20 minutes old. It passes `keep`, so
-only Tend's own writes that old are deleted and everything else stays, and it never creates anything.
-An account that differs from its snapshot in other ways (a seeded record missing or changed, an extra
-account or bill) waits for this command.
+only records in Tend's own formats that old are deleted and everything else stays, and it never creates
+anything. An account that differs from its snapshot in other ways (a seeded record missing or changed,
+an extra account or bill) waits for this command, and, if the command recreates records, for the new
+snapshot to deploy with the API.
 
 ## Commands
 

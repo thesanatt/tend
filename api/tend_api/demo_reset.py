@@ -10,8 +10,8 @@ What it may undo is narrow. Only a fictional persona from the seed snapshots, on
 (TEND_BANK=nessie), and only records in Tend's own words (the withdrawal that paid, the program's demo deposit) last
 touched more than QUIET ago: a payment's newest audit row, or for a record the audit log does not know, the end of its
 date in Detroit. A newer payment anywhere on the account means a visitor may be mid-demo, and then nothing is undone.
-The bill goes back in place, under its id. Records Tend did not write stay, the reset's Nessie client refuses every
-other write, and an account that differs from its snapshot in other ways (a seeded record missing or changed, an extra
+The bill goes back in place, under its id. Every other record stays, the reset's Nessie client refuses every other
+write, and an account that differs from its snapshot in other ways (a seeded record missing or changed, an extra
 account or bill) is left alone for a person to run reset_demo.py.
 
 One attempt at a time per persona, across every instance of the function (a lock in the database), and the attempt
