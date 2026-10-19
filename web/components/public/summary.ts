@@ -309,7 +309,10 @@ function coveredClause(rows: CoveredRow[]): ShareClause | null {
 }
 
 function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
-  const noBill = c.of("exam_no_bill");
+  const noBill = c.of("exam_no_bill").filter((r) => !c.setAside(r));
+  // A no-bill rule the normalizer set aside holds only for some survivors (Wyoming's covers exams reported to
+  // police), so it is shown in its own words and never as "you should not get a bill".
+  const narrow = c.of("exam_no_bill").filter((r) => c.setAside(r));
   const payment = c.of("exam_payment").filter((r) => !c.setAside(r));
   const coveredExam = c.of("covered_expense").filter((r) => expenseOf(r) === "forensic_exam" && !c.setAside(r));
   const facts: Fact[] = [];
@@ -341,7 +344,11 @@ function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: S
       }
     }
   }
-  facts.push(...summaryFacts(payment, "exam-payment"), ...summaryFacts(coveredExam, "exam-covered"));
+  facts.push(
+    ...summaryFacts(narrow, "exam-no-bill"),
+    ...summaryFacts(payment, "exam-payment"),
+    ...summaryFacts(coveredExam, "exam-covered"),
+  );
   return { facts, key, clause };
 }
 

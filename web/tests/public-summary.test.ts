@@ -438,6 +438,42 @@ describe("summary rules on a made-up jurisdiction", () => {
       "The provider should not bill your insurance for it either.",
     ]);
   });
+
+  it("never turns a no-bill rule the normalizer set aside into 'you should not get a bill'", () => {
+    const rules = [
+      rule("ZZ-T1", "total_cap", { amount_cents: 1500000 }),
+      rule("ZZ-D1", "filing_deadline", { years: 1, from: "crime" }),
+      rule("ZZ-E1", "exam_no_bill", { insurance_billing: "consent_required", applies_to: "reported exams" }),
+    ];
+    const ir: IrSummary = {
+      ir_version: 2,
+      jurisdiction: "ZZ",
+      source_sha256: null,
+      ir_sha256: "x",
+      fresh: true,
+      rules: [
+        { id: "ZZ-T1", kind: "total_cap", cap_cents: 1500000 },
+        { id: "ZZ-D1", kind: "deadline" },
+      ],
+      skipped: [{ id: "ZZ-E1", reason: 'applies_to "reported exams"' }],
+    };
+    for (const s of [zz(rules, ir), zz(rules)]) {
+      expect(s.keyFacts.some((k) => k.id === "exam")).toBe(false);
+      expect(s.share.text).toBe("If you're Jane Doe in Zedland: you can ask for up to $15,000, and you have 1 year to apply.");
+      expect(s.sections.find((x) => x.id === "exam")!.facts).toMatchObject([
+        { text: "ZZ-E1 summary.", cites: ["ZZ-E1"], verbatimSummary: true },
+      ]);
+    }
+  });
+
+  it("Wyoming: the exam no-bill policy covers only reported exams, so no page or card says 'never'", () => {
+    const { summary } = built.get("WY")!;
+    expect(summary.share.text).not.toMatch(/forensic exam/);
+    expect(summary.keyFacts.map((k) => k.id)).not.toContain("exam");
+    const exam = summary.sections.find((x) => x.id === "exam")!.facts;
+    expect(exam.map((f) => f.text)).not.toContain("You should not get a bill for a sexual assault forensic exam.");
+    expect(exam[0].cites).toEqual(["WY-EXAM-2"]);
+  });
 });
 
 // Flesch-Kincaid grade with a rough syllable count. The quotes and the researchers' summaries are
