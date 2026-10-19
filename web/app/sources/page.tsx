@@ -12,6 +12,7 @@ const MCL_18_355A_2 =
   "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket";
 const USC_34_10449 =
   "https://www.govinfo.gov/content/pkg/USCODE-2024-title34/html/USCODE-2024-title34-subtitleI-chap101-subchapXIX-sec10449.htm";
+const GAO_24_106036 = "https://www.gao.gov/products/gao-24-106036";
 const REPO = "https://github.com/thesanatt/tend";
 
 export default function Sources() {
@@ -65,10 +66,10 @@ export default function Sources() {
           <p className={styles.where}>
             Two are not counted. <Link href="/law/WY#WY-EXAM-2">Wyoming&apos;s rule</Link> covers only survivors who
             report to police, so Tend does not apply it to every exam. For Rhode Island, Tend&apos;s verified rules
-            don&apos;t yet include an exam-billing rule. Federal law ties a state&apos;s STOP grant money to making
-            these exams free to the survivor, whether or not they report (
-            <a href={USC_34_10449}>34 U.S.C. 10449</a>), so both are more likely gaps in Tend&apos;s sources than in
-            the states&apos; law.
+            don&apos;t include an exam-billing rule. A 2024 federal review found that neither state had a law or policy
+            that explicitly says survivors must not be billed (<a href={GAO_24_106036}>GAO-24-106036</a>, page 12).
+            Both, like every state, certify to the Justice Department that a government entity pays the full cost of
+            these exams, which federal grant law requires (<a href={USC_34_10449}>34 U.S.C. 10449</a>).
           </p>
         </div>
 

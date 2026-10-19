@@ -15,10 +15,11 @@ Where each number comes from. The same list is live at https://youreowed.tech/so
   Counted from the rules the engine applies (kind `exam_no_bill` in `rules/ir/`), each a word-for-word quote of
   its source. Two are not counted. Wyoming's rule (`WY-EXAM-2`) covers only survivors who report to police, so the
   normalizer sets it aside and Tend does not apply it to every exam. For Rhode Island, Tend's verified rules don't
-  yet include an exam-billing rule (`coverage.not_found` in `rules/jurisdictions/RI.json`). Federal law ties a
-  state's STOP grant money to making these exams free to the survivor, whether or not they report
-  ([34 U.S.C. 10449](https://www.govinfo.gov/content/pkg/USCODE-2024-title34/html/USCODE-2024-title34-subtitleI-chap101-subchapXIX-sec10449.htm)),
-  so both are more likely gaps in Tend's sources than in the states' law.
+  include an exam-billing rule (`coverage.not_found` in `rules/jurisdictions/RI.json`). A 2024 federal review found
+  that neither state had a law or policy that explicitly says survivors must not be billed
+  ([GAO-24-106036](https://www.gao.gov/products/gao-24-106036), page 12). Both, like every state, certify to the
+  Justice Department that a government entity pays the full cost of these exams, which federal grant law requires
+  ([34 U.S.C. 10449](https://www.govinfo.gov/content/pkg/USCODE-2024-title34/html/USCODE-2024-title34-subtitleI-chap101-subchapXIX-sec10449.htm)).
 - **Michigan: the hospital may not bill the survivor for the exam.** "A health care provider shall not submit a
   bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the
   sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other
