@@ -40,7 +40,7 @@ export default function SourceNote({
       {email ? (
         <p>
           No GitHub account? Email the error to <a href={`mailto:${email}`}>{email}</a>. Leave out anything about
-          yourself.
+          yourself or anyone&apos;s case.
         </p>
       ) : null}
     </div>

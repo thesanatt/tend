@@ -156,7 +156,7 @@ describe("the note on its own", () => {
     const d = await line(mi.sources, "corrections@example.org");
     const mail = d.querySelector('a[href="mailto:corrections@example.org"]')!;
     expect(words(mail.parentElement)).toBe(
-      "No GitHub account? Email the error to corrections@example.org. Leave out anything about yourself.",
+      "No GitHub account? Email the error to corrections@example.org. Leave out anything about yourself or anyone's case.",
     );
   });
 });
