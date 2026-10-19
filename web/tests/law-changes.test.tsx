@@ -49,7 +49,7 @@ describe("the saved comparison", () => {
     expect(pair).toBeDefined();
     const note = versionNote(pair!.summary as never);
     expect(note).toMatch(
-      /^Added \d+ rules: address confidentiality program \(\d+\), claim records kept confidential \(\d+\)\.$/,
+      /^Added \d+ rules: address confidentiality program \(\d+\), keeping claim records private \(\d+\)\.$/,
     );
   });
 });

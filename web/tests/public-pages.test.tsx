@@ -14,6 +14,7 @@ import { SITE_CARDS } from "@/components/public/og/siteCard";
 import ShareButtons from "@/components/public/ShareButtons";
 import StateFinder from "@/components/public/StateFinder";
 import { LINKS } from "@/components/tour/links";
+import STATES from "@/lib/states.json";
 import type { Jurisdiction } from "@/lib/types";
 
 const push = vi.fn();
@@ -112,6 +113,37 @@ describe("law page /law/MI", () => {
 
   it("calls the plain-words page what the law says, not what it promises", () => {
     expect(page).toContain(">What Michigan&#x27;s law says, in plain words</a>");
+  });
+
+  // Each set-aside reason the normalizer gives today: another person, a case the engine cannot check, nothing to
+  // compute, and a less generous duplicate.
+  it("names every reason a rule can be set aside", () => {
+    const doc = new DOMParser().parseFromString(page, "text/html");
+    const steps = doc.querySelector('section[aria-labelledby="h-check"]')!.textContent!.replace(/\s+/g, " ");
+    expect(steps).toContain(
+      "It sets a rule aside, with a reason, when the rule is about someone other than the survivor, holds only in cases the engine cannot check, has nothing to compute, or sits beside a more generous limit for the same cost.",
+    );
+    const reasons = new Set(
+      STATES.flatMap(({ st }) =>
+        (
+          JSON.parse(readFileSync(path.join(web, `public/data/ir/${st}.json`), "utf8")) as {
+            skipped: { reason: string }[];
+          }
+        ).skipped.map((s) => s.reason.replace(/ .*$/, "")),
+      ),
+    );
+    expect([...reasons].sort()).toEqual(["applies_to", "expense_cap", "less"]);
+  });
+
+  // Indiana's statutes were saved from Justia; Michigan's sources are all its own.
+  it("says when some of a state's text was saved from a site that reprints state law", async () => {
+    const indiana = await html(LawPage({ params: Promise.resolve({ st: "IN" }) }));
+    expect(indiana).toContain(
+      "Some statute or regulation text on this page was saved from Justia, which reprints state law. Check the state&#x27;s own code before you rely on it.",
+    );
+    const fl = await html(LawPage({ params: Promise.resolve({ st: "FL" }) }));
+    expect(fl).toContain("saved from Cornell&#x27;s Legal Information Institute, which reprints state law.");
+    expect(page).not.toContain("reprints state law");
   });
 
   it("lists the set-aside rules with their reasons", () => {
@@ -309,6 +341,8 @@ describe("law references", () => {
     expect(summary.textContent).toBe("Show the law for this line: MCL 18.361(2)(b)and 2 more");
     expect(container.querySelectorAll("mark")).toHaveLength(2);
     expect(container.querySelector('a[href="/law/MI#MI-S9"]')).not.toBeNull();
+    // MI-S9 is the program's web page; other states' phones come from PDFs, forms, or a regulation.
+    expect(container.textContent).toContain("A web page, saved by Tend.");
     expect(container.querySelector('a[href^="https://legislature.mi.gov/"]')!.getAttribute("rel")).toBe(
       "noopener noreferrer",
     );

@@ -69,6 +69,11 @@ export function addressPrograms(): AddressCount {
 // Sites that reprint state law. A saved copy from one of them is not the state's own publication.
 export const REPUBLISHERS = { "law.justia.com": "Justia", "www.law.cornell.edu": "Cornell" } as const;
 
+// "Justia" or "Cornell" for a copy saved from one of them, else null.
+export function republisher(url: string): (typeof REPUBLISHERS)[keyof typeof REPUBLISHERS] | null {
+  return REPUBLISHERS[host(url) as keyof typeof REPUBLISHERS] ?? null;
+}
+
 function host(url: string): string {
   try {
     return new URL(url).hostname;
@@ -90,7 +95,7 @@ export function republished(): Republished {
   for (const { st, law } of corpus()) {
     const copies = new Set<string>();
     for (const s of law.sources) {
-      const who = REPUBLISHERS[host(s.url) as keyof typeof REPUBLISHERS];
+      const who = republisher(s.url);
       if (!who) continue;
       copies.add(s.id);
       if (who === "Justia") out.justia += 1;
