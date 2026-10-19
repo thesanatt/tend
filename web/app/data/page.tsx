@@ -289,8 +289,9 @@ export default function DataPage() {
         <ul className={styles.limits}>
           <li>
             A word-for-word quote proves the words are in the saved source. It does not prove Tend read them correctly.
-            The category, the details, the summary, and what the engine does with a rule are Tend&apos;s reading, and a
-            rule can be misread even when its quote is exact.
+            The category, the details, the summary, the pinpoint citation, and what the engine does with a rule are
+            Tend&apos;s reading, and a rule can be misread even when its quote is exact. verify.py checks only that a
+            rule has a pinpoint citation, not that it points to the right place in the source.
           </li>
           <li>
             The rules are current as of {savedOn}, when the sources were saved. Laws and program pages change, and

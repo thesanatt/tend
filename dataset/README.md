@@ -379,8 +379,9 @@ such as the Python 3.9.6 that macOS runs as `/usr/bin/python3`.
 ## Limitations
 
 - A verbatim quote check proves the words exist in the saved source. It does not prove that Tend's
-  reading of them is right. The category, the params, the summary, and `engine_use` are Tend's
-  interpretation, and a rule can be misread even when its quote is exact.
+  reading of them is right. The category, the params, the summary, the pinpoint, and `engine_use` are
+  Tend's interpretation (`verify.py` checks only that a pinpoint is present), and a rule can be
+  misread even when its quote is exact.
 - Summaries are Tend's plain-language readings, not the law. Rely on the quote and the source.
 - The data is current as of the dates the sources were saved (Oct 3, 2026). Laws and program
   pages change, and nothing re-fetches the sources on a schedule.

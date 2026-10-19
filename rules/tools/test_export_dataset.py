@@ -413,3 +413,12 @@ def test_the_category_table_names_where_every_rule_of_a_category_is_set_aside(fi
     for k in uses:
         part = f"{X.series(aside_only[k])} for `{k}`" if k in aside_only else f"`{k}`"
         assert (part in "".join(named)) == (k in aside_only), k
+
+
+def test_the_limitations_say_the_pinpoint_is_not_checked(files):
+    # verify.py only checks that a rule has a pinpoint, so the README must count it as Tend's reading.
+    checks = [line.strip() for line in (TOOLS / "verify.py").read_text(encoding="utf-8").splitlines() if "pinpoint" in line]
+    assert checks == ['if not r.get("pinpoint"):', 'errors.append(f"{rid}: missing pinpoint citation")']
+    first = " ".join(files["README.md"].decode("ascii").split("## Limitations\n\n- ", 1)[1].split("\n- ", 1)[0].split())
+    assert "the summary, the pinpoint, and `engine_use` are Tend's interpretation" in first
+    assert "(`verify.py` checks only that a pinpoint is present)" in first

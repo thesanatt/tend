@@ -144,6 +144,17 @@ describe("/data", () => {
     expect(quoted.textContent).toContain("Each rule's quote was copied from the saved text, never paraphrased");
   });
 
+  it("counts the pinpoint citation as Tend's reading, which verify.py does not check", () => {
+    const verify = readFileSync(path.join(web, "..", "rules/tools/verify.py"), "utf8");
+    expect(verify.split("\n").filter((line) => line.includes("pinpoint")).map((line) => line.trim())).toEqual([
+      'if not r.get("pinpoint"):',
+      'errors.append(f"{rid}: missing pinpoint citation")',
+    ]);
+    const first = limit("misread")!.split(/\s+/).join(" ");
+    expect(first).toContain("the summary, the pinpoint citation, and what the engine does with a rule are Tend's reading");
+    expect(first).toContain("verify.py checks only that a rule has a pinpoint citation");
+  });
+
   it("shows one real rule column by column, quote and all", () => {
     const mi = JSON.parse(readFileSync(path.join(web, "public/data/law/MI.json"), "utf8")) as Jurisdiction;
     const rule = mi.rules.find((r) => r.id === "MI-EXAM-1")!;
