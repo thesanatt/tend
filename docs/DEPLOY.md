@@ -167,17 +167,18 @@ when the API's routes changed with the web. To take the site off the domain enti
   Rowan's balance and ledger between rehearsal and the table. If it happens, a Vercel Firewall rate limit on
   `POST /api/actions/*` (dashboard, tend-web, Firewall) or switching Production to `TEND_BANK=dry_run` and
   redeploying contains it.
-- The demo account puts itself back. A paid bill line is never paid twice, so after one visitor paid the $118.00,
-  the next one used to hear "already paid". Now, when a proposal finds earlier payments of a demo bill and each was
-  last touched more than 20 minutes ago (twice a code's 10 minutes; its newest audit row, or the end of its date in
-  Detroit when the audit log does not know it), the API first runs `seed/reset_demo.py`'s reset on that persona
-  (`api/tend_api/demo_reset.py`), then looks again. Tend's own payments and demo deposits that old are deleted and
-  the bill goes back to $443.00 pending under its id. A newer payment anywhere on the account means someone may be
-  mid-demo, so nothing is undone. A demo deposit has only a date, so it stays until 20 minutes after that day ends.
-  The tradeoff: someone who paid and opens Track's bank records more than 20 minutes later may find their payment
-  gone, if another visitor proposed one in between. Track's payout demo and bank records never start a reset:
-  nothing there is blocked by an earlier visitor (a new demo deposit replaces an old one), and the bank records are
-  where the visitor who paid looks for their payment.
+- From the first tend-api deploy that includes `api/tend_api/demo_reset.py` (Going live, step 5 checks it), the
+  demo account puts itself back. A paid bill line is never paid twice, so without it, after one visitor pays the
+  $118.00, every later visitor hears "already paid" until someone runs `cd seed && uv run python reset_demo.py`.
+  With it, when a proposal finds earlier payments of a demo bill and each was last touched more than 20 minutes ago
+  (twice a code's 10 minutes; its newest audit row, or the end of its date in Detroit when the audit log does not
+  know it), the API first runs `seed/reset_demo.py`'s reset on that persona, then looks again. Tend's own payments
+  and demo deposits that old are deleted and the bill goes back to $443.00 pending under its id. A newer Tend
+  payment anywhere on the account means someone may be mid-demo, so nothing is undone. A demo deposit has only a
+  date, so it stays until 20 minutes after that day ends. The tradeoff: someone who paid and opens Track's bank
+  records more than 20 minutes later may find their payment gone, if another visitor proposed one in between.
+  Track's payout demo and bank records never start a reset: nothing there is blocked by an earlier visitor (a new
+  demo deposit replaces an old one), and the bank records are where the visitor who paid looks for their payment.
 - Nothing else on the account is touched. Records not in Tend's own formats stay where they are, and the reset's
   Nessie client refuses every other write before it is sent. An account that differs from
   `seed/snapshots/<persona>.json` in other ways (a seeded record missing or changed, an extra account or bill) is
