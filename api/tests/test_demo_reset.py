@@ -205,13 +205,19 @@ def test_a_demo_deposit_from_today_is_kept_and_an_older_one_undone(world, tmp_pa
         assert today.id in {t.id for t in c.list_txns(demo.checking, "deposit")}
 
 
-def no_reset(until: float) -> Any:
-    raise AssertionError("the demo reset must not run")
+class NoReset:
+    def __init__(self) -> None:
+        self.calls: list[float] = []
+
+    def __call__(self, until: float) -> Any:
+        self.calls.append(until)  # DemoReset.run swallows exceptions, so the call is what shows it ran
+        raise AssertionError("the demo reset must not run")
 
 
 def test_a_dry_run_server_never_resets(settings, clock):
     # The fixture world, TEND_BANK=dry_run: payments are kept in memory, and Nessie is never asked for anything.
-    services = make_services(settings, clock, demo_reset_connect=no_reset)
+    hook = NoReset()
+    services = make_services(settings, clock, demo_reset_connect=hook)
     assert services.actions.demo_reset.live is False
     client = client_for(services)
     body = {"from": CHECKING, "payee": "Riverbend General Hospital (fictional)", "amount_cents": 11800}
@@ -220,15 +226,17 @@ def test_a_dry_run_server_never_resets(settings, clock):
     clock.advance(days=3)
     r = client.post("/api/actions/propose", json=body)
     assert r.status_code == 409 and r.json()["detail"].startswith(ALREADY_PAID)
+    assert hook.calls == []
 
 
 def test_a_dry_run_on_a_live_server_never_resets(world, tmp_path):
-    demo = Demo(world, tmp_path, connect=no_reset)
+    hook = NoReset()
+    demo = Demo(world, tmp_path, connect=hook)
     demo.pay(dry_run=True)
     demo.clock.advance(days=3)
     r = demo.propose(dry_run=True)
     assert r.status_code == 409 and r.json()["detail"].startswith(ALREADY_PAID)
-    assert demo.requests() == []
+    assert demo.requests() == [] and hook.calls == []
 
 
 def refusing_deletes(demo: Demo) -> Callable[[float], Any]:
