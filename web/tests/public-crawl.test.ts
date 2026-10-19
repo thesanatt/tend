@@ -12,6 +12,8 @@ import STATES from "@/lib/states.json";
 const web = path.resolve(import.meta.dirname, "..");
 const synced = STATES.map((s) => s.st).filter((st) => existsSync(path.join(web, "public/data/law", `${st}.json`)));
 const urls = () => sitemap().map((e) => e.url);
+// The site's own pages, listed before the programs' pages.
+const SITE = ["/", "/how-it-works", "/sources", "/tour"];
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -31,13 +33,10 @@ describe("robots.txt", () => {
 });
 
 describe("sitemap.xml", () => {
-  it("lists the four site pages, then each program's page and law page", () => {
+  it("lists the site pages, then each program's page and law page", () => {
     expect(synced).toHaveLength(51);
     const expected = [
-      "/",
-      "/how-it-works",
-      "/sources",
-      "/tour",
+      ...SITE,
       ...[...synced].sort().map((st) => `/${st.toLowerCase()}`),
       ...[...synced].sort().map((st) => `/law/${st}`),
     ].map((p) => `https://youreowed.tech${p}`);
@@ -69,12 +68,14 @@ describe("sitemap.xml", () => {
   });
 
   it("lists only pages that are built: the site pages exist and every state is a static param", () => {
-    for (const page of ["page.tsx", "how-it-works/page.tsx", "sources/page.tsx", "tour/page.tsx"])
-      expect(existsSync(path.join(web, "app", page)), page).toBe(true);
+    for (const p of SITE) expect(existsSync(path.join(web, "app", p, "page.tsx")), p).toBe(true);
     const statePages = new Set(statePageParams().map((p) => `/${p.st}`));
     const lawPages = new Set(lawPageParams().map((p) => `/law/${p.st}`));
-    const paths = urls().map((u) => new URL(u).pathname);
-    for (const p of paths.slice(4)) expect(statePages.has(p) || lawPages.has(p), p).toBe(true);
+    const programs = urls()
+      .map((u) => new URL(u).pathname)
+      .filter((p) => !SITE.includes(p));
+    expect(programs).toHaveLength(2 * synced.length);
+    for (const p of programs) expect(statePages.has(p) || lawPages.has(p), p).toBe(true);
   });
 
   it("is written at build time", () => {
