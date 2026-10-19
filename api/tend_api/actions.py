@@ -14,7 +14,8 @@ to that bill's payee, is the same payment, so it is tied to the bill the same wa
 
 Idempotent. A confirm sent again for a finished payment returns the first result and moves nothing.
 One whose answer never came back is looked up in the bank by its label before anything else happens.
-And the lines of a bill are never paid twice, even from two different proposals.
+And the lines of a bill are never paid twice, even from two different proposals. On the live demo, an earlier
+visitor's payment, long finished, is undone first (tend_api.demo_reset), so the next visitor can pay again.
 """
 
 from __future__ import annotations
@@ -26,7 +27,7 @@ import hmac
 import secrets
 import threading
 from collections.abc import Callable, Iterator
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from .bank import Bank, BankError, check_readback
 from .clock import Clock, iso, local_today, parse_iso
@@ -45,6 +46,9 @@ from .payments import (
     withdrawal_description,
 )
 from .sweep import SweepSchedule
+
+if TYPE_CHECKING:
+    from .demo_reset import DemoReset
 
 CODE_TTL = dt.timedelta(minutes=10)
 MAX_ATTEMPTS = 5
@@ -84,6 +88,7 @@ class ActionService:
         live_accounts: Callable[[], set[str]] | None = None,
         sweeps: SweepSchedule | None = None,
         bill_index: BillIndex | None = None,
+        demo_reset: DemoReset | None = None,
     ):
         self.repo = repo
         self.banks = banks
@@ -94,6 +99,7 @@ class ActionService:
         self.live_accounts = live_accounts or set
         self.sweeps = sweeps or SweepSchedule()
         self.bill_index = bill_index or (lambda account_id: [])
+        self.demo_reset = demo_reset
         self._bill_locks: dict[str, threading.Lock] = {}
         self._bill_locks_guard = threading.Lock()
 
@@ -226,13 +232,19 @@ class ActionService:
         return None, []
 
     def _refuse_if_paid(self, bank: Bank, account_id: str, facts: BillFacts, item_ids: list[str]) -> None:
+        prior = self._paid_before(bank, account_id, facts, item_ids)
+        if prior and bank.mode == "nessie" and self.demo_reset is not None and self.demo_reset.after_paid(account_id, prior):
+            # Other visitors' demo payments, all long finished, and the demo account went back to its start. Look again.
+            prior = self._paid_before(bank, account_id, facts, item_ids)
+        if prior:
+            raise ActionError(already_paid_message(prior[0]), 409)
+
+    def _paid_before(self, bank: Bank, account_id: str, facts: BillFacts, item_ids: list[str]) -> list[dict[str, Any]]:
         try:
             records = bank.tagged_withdrawals(account_id, f"[bill:{facts.bill_id}")
         except BankError:
-            return  # confirm checks again before any money moves, and refuses if it still cannot
-        prior = overlapping(records, facts.bill_id, facts.line_numbers(item_ids))
-        if prior:
-            raise ActionError(already_paid_message(prior[0]), 409)
+            return []  # confirm checks again before any money moves, and refuses if it still cannot
+        return overlapping(records, facts.bill_id, facts.line_numbers(item_ids))
 
     # confirm
 

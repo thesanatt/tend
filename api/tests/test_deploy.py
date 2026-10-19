@@ -257,3 +257,12 @@ def test_vercel_uploads_only_what_the_api_reads():
     assert not any(a.startswith(("rules/sources", "/rules/sources", "web/app", "web/components", "web/lib")) for a in allowed)
     config = json.loads((REPO_ROOT / "vercel.json").read_text())
     assert config["framework"] == "fastapi" and "api/index.py" in config["functions"]
+
+
+def test_the_seed_code_the_demo_reset_runs_goes_up_with_the_api():
+    """tend_api.demo_reset imports seed/reset_demo.py and the seeder on Vercel, so seed/ keeps its Python files there."""
+    rules = (REPO_ROOT / ".vercelignore").read_text().splitlines()
+    assert sorted(r for r in rules if r.startswith("seed/")) == ["seed/.venv", "seed/tests"]
+    excluded = json.loads((REPO_ROOT / "vercel.json").read_text())["functions"]["api/index.py"]["excludeFiles"]
+    assert "seed" not in excluded and ".py" not in excluded
+    assert all((REPO_ROOT / "seed" / f"{name}.py").is_file() for name in ("reset_demo", "seeder", "history", "personas", "bill_pdf"))

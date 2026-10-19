@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import secrets
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -230,3 +231,17 @@ def test_audit_log_refuses_edits_deletes_and_forged_rows(repo):
 def test_the_secret_is_made_once(repo):
     first = repo.secret()
     assert len(first) == 32 and repo.secret() == first
+
+
+def test_a_named_job_has_one_holder_at_a_time(repo):
+    def holds(name: str, wait_s: float) -> bool:
+        with repo.exclusive(name, wait_s) as held:
+            return held
+
+    with repo.exclusive("demo_reset:rowan-mi", 1) as held:
+        assert held
+        # Another holder (another thread here; another instance of the function on Neon) waits, then gives up.
+        with ThreadPoolExecutor(1) as pool:
+            assert pool.submit(holds, "demo_reset:rowan-mi", 0.3).result() is False
+            assert pool.submit(holds, "demo_reset:rowan-ny", 0).result() is True
+    assert holds("demo_reset:rowan-mi", 0) is True

@@ -18,6 +18,7 @@ from fastapi.testclient import TestClient
 from tend_api.app import create_app
 from tend_api.bank import DryRunBank, NessieBank
 from tend_api.config import API_DIR, Settings
+from tend_api.demo_reset import Deadline
 from tend_api.nessie import NessieClient
 from tend_api.nessie_cassette import Cassette
 from tend_api.services import build_services
@@ -117,6 +118,37 @@ def test_the_demo_payout_replays(replay):
     deposit = next(ex for ex in cassette.exchanges if ex["method"] == "POST")
     assert deposit["body"]["amount"] == 4008
     assert deposit["body"]["description"] == "Michigan Crime Victim Compensation demo payment (fictional) [tend:payout-MI]"
+
+
+def test_days_later_the_next_proposal_first_sends_the_recorded_reset(tmp_path):
+    """The live demo's own reset (tend_api.demo_reset), against Nessie's recorded answers. The payment and the demo deposit
+    in reset.json are dated Oct 4, so on Oct 19 they are long finished: the proposal finds the payment, the reset reads
+    the bank under its lock, then runs seed/reset_demo.py exactly as recorded, and the proposal looks again."""
+    reset = Cassette.load(CASSETTES / "reset.json")
+    ctx, recorded = reset.context, reset.exchanges
+    withdrawals = [ex for ex in recorded if ex["method"] == "GET" and ex["path"] == f"/accounts/{ctx['checking']}/withdrawals"]
+    first_read = recorded[: next(i for i, ex in enumerate(recorded) if ex["path"] == "/customers")]
+    cassette = Cassette([withdrawals[0], *first_read, *recorded, withdrawals[-1]], ctx)
+    now = dt.datetime(2026, 10, 19, 16, 0, tzinfo=dt.UTC)
+
+    def client(transport=None) -> NessieClient:
+        return NessieClient("test-key", "https://api.nessieisreal.com", transport=transport or cassette.transport())
+
+    services = build_services(
+        settings_for(tmp_path),
+        clock=lambda: now,
+        banks={"dry_run": DryRunBank(), "nessie": NessieBank(client())},
+        relay_client_factory=client,
+        demo_reset_connect=lambda until: client(Deadline(cassette.transport(), until)),
+    )
+    api = TestClient(create_app(services=services))
+    r = api.post("/api/actions/propose", json={"from": ctx["checking"], "payee": "Riverbend General Hospital", "amount_cents": 11800})
+    assert r.status_code == 200, r.text
+    assert r.json()["kind"] == "pay_bill" and r.json()["bill_id"] == ctx["bill_id"] and r.json()["bill"]["lines"] == [1, 3]
+    all_used(cassette)
+    # Every write is the recorded reset's: the deposit and the payment deleted, the bill put back. Nothing created.
+    assert (cassette.count("DELETE"), cassette.count("PUT"), cassette.count("POST")) == (2, 1, 0)
+    assert api.get("/api/audit").json()["rows"] == []
 
 
 def test_the_activity_view_reconciles_nessies_records(replay):

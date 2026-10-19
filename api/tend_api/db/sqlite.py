@@ -49,6 +49,7 @@ class SQLiteRepository:
         self._conn = sqlite3.connect(path, check_same_thread=False, isolation_level=None)
         self._conn.row_factory = sqlite3.Row
         self._lock = threading.RLock()
+        self._jobs: dict[str, threading.Lock] = {}
         with self._lock:
             if path != ":memory:":
                 self._conn.execute("PRAGMA journal_mode=WAL")
@@ -489,3 +490,15 @@ class SQLiteRepository:
                 (*sorted(FINAL_STATUSES), cutoff),
             ).rowcount
         return {"shares": shares, "expired_actions": expired, "dropped_actions": dropped}
+
+    @contextmanager
+    def exclusive(self, name: str, wait_s: float) -> Iterator[bool]:
+        # A SQLite file serves one process (the local API), so a lock in this process is enough.
+        with self._lock:
+            job = self._jobs.setdefault(name, threading.Lock())
+        held = job.acquire(timeout=wait_s) if wait_s > 0 else job.acquire(blocking=False)
+        try:
+            yield held
+        finally:
+            if held:
+                job.release()

@@ -581,3 +581,19 @@ class PostgresRepository:
                 (sorted(FINAL_STATUSES), at - FINISHED_KEEP),
             ).rowcount
         return {"shares": shares, "expired_actions": expired, "dropped_actions": dropped}
+
+    @contextmanager
+    def exclusive(self, name: str, wait_s: float) -> Iterator[bool]:
+        # A transaction-level advisory lock: every instance of the API shares it through the database, and it ends with
+        # the transaction, so a process that goes away mid-job cannot keep it. Each try is its own short transaction;
+        # only the one that gets the lock stays open, so a waiter does not hold a pooled connection while it waits.
+        until = time.monotonic() + wait_s
+        while True:
+            with self._tx() as c:
+                if c.execute("SELECT pg_try_advisory_xact_lock(hashtext(%s)) AS held", (f"{self.schema}:{name}",)).fetchone()["held"]:
+                    yield True
+                    return
+            if time.monotonic() >= until:
+                yield False
+                return
+            time.sleep(0.2)
