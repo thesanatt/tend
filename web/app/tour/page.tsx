@@ -23,7 +23,7 @@ const SAW: { step: string; text: string }[] = [
   },
   {
     step: "Bills",
-    text: "The $325 exam line held under MCL 18.355a(2), with a letter for the billing office. The other $118 paid on purpose, with a typed code.",
+    text: "The $325 exam line held under MCL 18.355a(2), with a letter for the billing office. The other $118 could be paid only with a typed code, and Tend never pays the same lines twice.",
   },
   {
     step: "Packet",
@@ -40,7 +40,9 @@ export default function TourSummary() {
     <div className={`page ${styles.summary}`}>
       <h1>What you just saw</h1>
       <p className={styles.lead}>
-        A survivor in Michigan claimed money the state already owes, without giving a name or saying what happened.
+        Rowan, a fictional survivor in Michigan, built a claim packet without giving Tend a name or saying what
+        happened. Nothing was filed. A survivor adds their own name and signature, sends the claim to the program, and
+        the program decides.
       </p>
       <ol className={styles.saw}>
         {SAW.map((s) => (
@@ -50,8 +52,8 @@ export default function TourSummary() {
         ))}
       </ol>
       <p className={styles.note}>
-        Rowan, the hospital, and every dollar are fictional. The law is real, and every rule quotes it word for word.
-        The bank is Capital One&apos;s Nessie mock bank.
+        The hospital and every dollar are fictional too. The law is real, and every rule quotes a saved copy of it word
+        for word. The bank is Capital One&apos;s Nessie mock bank.
       </p>
       <h2 className={styles.moreTitle}>Read more</h2>
       <ul className={styles.more}>
