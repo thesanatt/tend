@@ -174,7 +174,7 @@ def test_exit_never_covers_a_heading_or_a_button(stack: Stack, browser: Browser,
     try:
         for path in ["/", "/mi", "/check?demo=rowan"]:
             load(page, path)
-            end = min(page.evaluate("document.documentElement.scrollHeight - innerHeight"), 4000)
+            end = page.evaluate("document.documentElement.scrollHeight - innerHeight")
             for y in range(0, end + 1, 40):
                 page.evaluate(f"window.scrollTo(0, {y})")
                 seen = page.evaluate(COVERED)
