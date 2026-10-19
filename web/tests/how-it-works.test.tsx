@@ -367,3 +367,39 @@ describe("what the page says about forms, uploads, and the hackathon", () => {
     expect(stack.textContent).toContain("The sponsors backed the hackathon, not Tend.");
   });
 });
+
+// The safety section also says what it leaves exposed: the passkey, the offline copy, and what the server reads.
+describe("what Design for safety admits", () => {
+  it("says what Google may do with cloud AI, in the consent screen's terms", () => {
+    expect(en.cloud.googleRows).toContain("Tend uses Google's free Gemini service.");
+    expect(en.cloud.googleRows).toContain("use it to improve its products");
+    const device = guard("On this device").textContent!.replace(/\s+/g, " ");
+    expect(device).toContain("It goes through Tend's server to Google's free Gemini service.");
+    expect(device).toContain(
+      "Google's terms let Google keep it, use it to improve its products, and have people read it.",
+    );
+  });
+
+  it("says a passkey named Tend stays in the password manager after saved progress is deleted", () => {
+    const passkey = readFileSync(path.join(web, "lib/vault/passkey.ts"), "utf8");
+    expect(passkey).toContain('rp: { name: "Tend" }');
+    // Nothing asks the password manager to drop the passkey when saved progress is deleted.
+    const vault = files(path.join(web, "lib/vault")).map((f) => readFileSync(f, "utf8"));
+    expect(vault.some((text) => /signalUnknownCredential|signalAllAcceptedCredentials/.test(text))).toBe(false);
+    const saved = guard("Saved progress").textContent!.replace(/\s+/g, " ");
+    expect(saved).toContain("A passkey is saved for this site under the name Tend.");
+    expect(saved).toContain("It stays there after saved progress is deleted.");
+  });
+
+  it("says the offline copy shows Tend was used, and what Tend's server can read", () => {
+    const worker = readFileSync(path.join(web, "public/sw.js"), "utf8");
+    expect(worker).toContain("`/engine/laws/${st}.tlaw`");
+    expect(readFileSync(path.join(web, "components/QuickExit.tsx"), "utf8")).not.toContain("caches");
+    const cannot = screen.getByRole("heading", { level: 3, name: "What Tend cannot stop" }).parentElement!;
+    const words = cannot.textContent!.replace(/\s+/g, " ");
+    expect(words).toContain("the browser keeps an offline copy of Tend's pages and every state's law");
+    expect(words).toContain("Tend's server can read what it is asked to act on while it handles it.");
+    expect(words).toContain("A shared packet is different: it arrives locked.");
+    expect(words).not.toMatch(/curious server operator/);
+  });
+});

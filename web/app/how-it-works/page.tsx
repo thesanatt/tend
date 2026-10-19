@@ -175,7 +175,9 @@ export default function HowItWorks() {
               </p>
               <p>
                 Costs, files, and every answer except the state stay on the device until the person taps to send
-                something. Cloud AI runs only after a yes on a screen that names what would be sent.
+                something. Cloud AI runs only after a yes on a screen that names what would be sent. It goes through
+                Tend&apos;s server to Google&apos;s free Gemini service. Google&apos;s terms let Google keep it, use it
+                to improve its products, and have people read it.
               </p>
               <p>
                 Checking the law on Tend&apos;s server also waits for a yes, and is offered only when the law engine
@@ -221,6 +223,10 @@ export default function HowItWorks() {
                 A passcode can be as short as six characters, and Tend cannot reset a forgotten one. Anyone who opens
                 Check or another step in that browser later can see that saved progress exists, though not what it
                 holds.
+              </p>
+              <p>
+                A passkey is saved for this site under the name Tend. Many devices keep it in their password manager,
+                which can sync it to other devices. It stays there after saved progress is deleted.
               </p>
               <See
                 files={[
@@ -281,9 +287,17 @@ export default function HowItWorks() {
             Tend&apos;s lock.
           </p>
           <p>
-            The protections above are aimed at someone using the same browser later, a curious server operator, a breach
-            of Tend&apos;s database, and anyone watching the network. The full contract is in{" "}
-            <a href={LINKS.privacy}>docs/PRIVACY.md</a>.
+            After someone uses Check or a later step, the browser keeps an offline copy of Tend&apos;s pages and every
+            state&apos;s law. That copy shows Tend was used.
+          </p>
+          <p>
+            Tend&apos;s server can read what it is asked to act on while it handles it. That means a payment, a check of
+            the law, a request to the demo bank, or what goes to cloud AI, which also reaches Google. A shared packet is
+            different: it arrives locked.
+          </p>
+          <p>
+            The protections above are aimed at someone using the same browser later, a breach of Tend&apos;s database,
+            and anyone watching the network. The full contract is in <a href={LINKS.privacy}>docs/PRIVACY.md</a>.
           </p>
         </div>
       </section>
@@ -415,7 +429,7 @@ export default function HowItWorks() {
             <dt>AI</dt>
             <dd>
               Gemini Nano on the device suggests labels for costs the rules miss. The engine decides. Cloud Gemini runs
-              only after a yes.
+              only after a yes, on Google&apos;s free tier.
             </dd>
           </div>
           <div>
