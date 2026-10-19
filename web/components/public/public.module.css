@@ -309,8 +309,10 @@
   gap: var(--space-1) var(--space-3);
 }
 
-/* A 44px target that takes no more room than its line (1lh): padding out, negative margin back. */
+/* A 44px target that takes no more room than its line (1lh): padding out, negative margin back.
+   Positioned, so it paints over the paragraph below and the padding there still takes the tap. */
 .refId {
+  position: relative;
   min-width: 44px;
   padding-block: calc((44px - 1lh) / 2);
   margin-block: calc((1lh - 44px) / 2);
