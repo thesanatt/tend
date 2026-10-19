@@ -117,7 +117,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           <dd>{law.rules.length}</dd>
         </div>
         <div>
-          <dt>Official sources</dt>
+          <dt>Sources saved</dt>
           <dd>{law.sources.length}</dd>
         </div>
         {ir ? (
@@ -142,7 +142,7 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
         <h2 id="h-check">How to check this page</h2>
         <ol>
           <li>
-            Every rule quotes a saved copy of an official page, word for word. The SHA-256 under each source is the
+            Every rule quotes a saved copy of its source, word for word. The SHA-256 under each source is the
             fingerprint of that saved copy, so anyone can confirm the text has not changed.
           </li>
           <li>

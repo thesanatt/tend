@@ -116,6 +116,21 @@ describe("the saved date and the report link on /law/MI", () => {
       `${ISSUES}?template=law-error.yml&jurisdiction=MI&page_url=https%3A%2F%2Fyoureowed.tech%2Flaw%2FMI`,
     );
   });
+
+  // Most of Indiana's statutes were saved from Justia, a copy of the code, so the rest of the page does
+  // not call its sources official either.
+  it("counts Indiana's sources as saved, not official", async () => {
+    const indiana = JSON.parse(readFileSync(path.join(web, "public/data/law/IN.json"), "utf8")) as Jurisdiction;
+    expect(indiana.sources.some((s) => new URL(s.url).hostname === "law.justia.com")).toBe(true);
+    const d = await parse(LawPage({ params: Promise.resolve({ st: "IN" }) }));
+    const labels = [...d.querySelectorAll("dt")];
+    expect(labels.map(words).filter((t) => /official/i.test(t))).toEqual([]);
+    const saved = labels.find((t) => words(t) === "Sources saved")!;
+    expect(words(saved.nextElementSibling)).toBe(String(indiana.sources.length));
+    const steps = words(d.querySelector('section[aria-labelledby="h-check"]'));
+    expect(steps).toContain("Every rule quotes a saved copy of its source, word for word.");
+    expect(steps).not.toMatch(/official/i);
+  });
 });
 
 describe("the note on its own", () => {
