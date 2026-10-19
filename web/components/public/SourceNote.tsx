@@ -6,6 +6,7 @@ import styles from "./SourceNote.module.css";
 
 // When Tend saved a jurisdiction's sources, and the public way to report an error, on /mi and /law/MI.
 // The date is the save, not a later look at the live law, so the note says to ask the program.
+// GitHub shows the poster's username on every issue, so the report link says so.
 export default function SourceNote({
   st,
   place,
@@ -32,8 +33,8 @@ export default function SourceNote({
         <a href={reportErrorUrl(st, new URL(path, siteUrl()).href)} className={styles.report}>
           <span className={styles.reportLabel}>Report an error on this page</span>{" "}
           <span className={styles.reportNote}>
-            Opens a public page on GitHub, where you need an account. Don&apos;t share anything about yourself or
-            anyone&apos;s case there.
+            Opens a public page on GitHub, where you need an account and your username shows on what you post.
+            Don&apos;t share anything about yourself or anyone&apos;s case there.
           </span>
         </a>
       </p>

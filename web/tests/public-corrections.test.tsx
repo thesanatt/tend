@@ -81,6 +81,8 @@ describe("the saved date and the report link on /mi", () => {
     expect([...new URL(href).searchParams.keys()]).toEqual(["template", "jurisdiction", "page_url"]);
     expect(words(links[0])).toContain("Report an error on this page");
     expect(words(links[0])).toContain("Opens a public page on GitHub");
+    // GitHub shows who posted, so leaving a name out of the text does not make a report anonymous.
+    expect(words(links[0])).toContain("your username shows on what you post");
     expect(words(links[0])).toContain("Don't share anything about yourself or anyone's case there.");
   });
 
@@ -212,6 +214,7 @@ describe("the issue form (.github/ISSUE_TEMPLATE/law-error.yml)", () => {
   it("says it is public before any field, and cannot be sent without the privacy box ticked", () => {
     expect(form.body[0].type).toBe("markdown");
     expect(form.body[0].attributes.value).toContain("public page");
+    expect(form.body[0].attributes.value).toContain("with your GitHub username on it");
     expect(byId.privacy).toMatchObject({
       type: "checkboxes",
       attributes: { options: [{ label: "I have not included anything about myself or anyone's case", required: true }] },
