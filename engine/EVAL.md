@@ -6,7 +6,10 @@ project's numbers, including a rerun of these suites on Linux.
 
 ## Engines
 
-Tend has two independent implementations of the law engine in docs/SPEC.md v1.3: the C++ compiler
+<!-- TODO(Sanat): this section used to call the engines "independent" and, below, "written by the same team". Who
+wrote each one is yours to state. -->
+
+Tend has two implementations of the law engine in docs/SPEC.md v1.3: the C++ compiler
 and VM (engine/, which also runs in the browser as WebAssembly) and a Python reference
 (refengine/). Both read the same law IR (rules/ir, version 2) and must return the same result
 document, byte for byte, for every well-formed claim. engine/FORMAT.md sections 4 and 5 settle
@@ -17,8 +20,10 @@ implementation (engine/tests/oracle.cpp) that shares no code with the compiler o
 
 SPEC v1.3 (the wave-2 engine review: deadlines counted from discovery, caps that are not the
 program's limit, as_of_date in the state's own time) changed the engines and 11 law IR files, so
-every run below was repeated on tend 1.3.0 with the 51 rebuilt images, except fuzzing, where a
-shorter v1.3 run is added to the v1.2 numbers.
+every check in the table below was repeated on tend 1.3.0 with the 51 rebuilt images, except
+fuzzing, where a shorter v1.3 run is added to the v1.2 numbers. The throughput numbers, the
+planted-bug counts in the difftest detail, and the review section are from tend 1.2.0, earlier the
+same day.
 
 | check | result |
 |---|---|
@@ -75,6 +80,9 @@ VM trap from a compiled law or a valid image).
 
 ### Throughput (engine/BENCH.md has the details)
 
+Measured on tend 1.2.0 and not rerun on 1.3.0, which adds one flag check to the deadline step and
+does not touch the per-line program.
+
 | | result |
 |---|---|
 | VM, 1M-item Michigan claim, single thread | 14.1M items/s with the trace (71 ms) |
@@ -89,7 +97,8 @@ claim gave 16.2M items/s with the trace and 2.09M items/s JSON in to JSON out.
 
 ### Review
 
-A second pass re-ran every check above on this branch merged with main. The difftest, WASM parity,
+A second pass, on tend 1.2.0 before the v1.3 changes, re-ran every check on this branch merged with
+main. The difftest, WASM parity,
 validation, law, and golden results came out the same, down to the per-status tallies of the
 difftest; the C++ counts above include the one test case the review added. It also ran a difftest
 ten times larger with a new seed (`--n 20000 --seed 7 --random-laws 2000 --ir-fuzz 20000`):
@@ -123,8 +132,8 @@ uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 3
 - Agreement shows the two engines read FORMAT.md the same way. It does not show that FORMAT.md
   reads the law correctly; that rests on the verified corpus (every rule quotes its source) and on
   the hand-computed golden claims.
-- Both engines and the oracle were written by the same team from the same SPEC, so a misreading
-  shared by all three would not show up as a mismatch.
+- Both engines and the oracle were written from the same SPEC, so a misreading shared by all three
+  would not show up as a mismatch.
 - The claims are synthetic, aimed at each law's own numbers. Real bank histories look different.
 - 5,632 of 22,204 edges is 25%: the count includes the JSON library and code the fuzz targets
   never call, so it is not a coverage figure for the engine alone.

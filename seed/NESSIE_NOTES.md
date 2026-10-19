@@ -1,5 +1,8 @@
 # Nessie notes: what the API really does
 
+<!-- TODO(Sanat): this file speaks in the first person ("I checked", "I deleted"). Confirm that fits how the Nessie
+checks were done, or reword those lines yourself. -->
+
 I checked the 2026 Nessie API by hand at https://api.nessieisreal.com with our key on Oct 3, 2026,
 around 3 PM Detroit time. Where this file disagrees with the published spec (OpenAPI 3.0.3 on
 nessieisreal.com), this file wins. `api/tend_api/nessie.py` is built to match it, and

@@ -3,8 +3,9 @@
 A small compiler and virtual machine for crime victim compensation law. `tendc` turns one
 jurisdiction's law IR (version 2, docs/SPEC.md v1.3) into a `.tlaw` image; `libtend` verifies the
 image byte by byte and runs a claim through its bytecode; every allowed dollar comes back with
-the rules (and so the quotes) that justify it. The same C++ runs natively and as WebAssembly in
-the browser.
+the rules (and so the quotes) that justify it. The loader, the verifier, and the VM run natively
+and, built to WebAssembly, in the browser. `tendc` is not in the WebAssembly build: each state's
+law is compiled ahead of time, and the browser gets the finished image.
 
 FORMAT.md is the specification (image layout, instruction set, verifier, semantics, input and
 output documents). BENCH.md has the performance numbers; EVAL.md has the engine test results, and
@@ -102,7 +103,7 @@ include/tend/tend.h   C ABI
 src/                  format, sha256, civil dates, JSON reader/writer, image builder and loader,
                       VM, evaluation, disassembler, C ABI, compiler (the only part using nlohmann/json)
 tools/                tendc, tdis, tendvm
-tests/                doctest suite, an independent oracle, fixtures (fictional jurisdiction ZZ),
+tests/                doctest suite, a plain oracle that shares no engine code, fixtures (fictional jurisdiction ZZ),
                       goldens, wasm_smoke.mjs, wasm_parity.mjs
 fuzz/                 coverage-guided fuzzer
 scripts/              build_laws.sh, build_wasm.sh, laws_index.mjs, run_claim.sh, wasm_bench.mjs

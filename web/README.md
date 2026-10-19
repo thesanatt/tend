@@ -39,10 +39,11 @@ web/e2e/run.sh -k offline         # pytest options pass through
 ```
 
 The API there runs in memory, with a dry-run bank and without the repo `.env`, so a run writes nothing to
-Neon or Nessie and calls no model. The tests drive the judges' path (Check, Gather, the held exam line and
-letter, the $118 payment with its code, the packet, a share link the advocate opens, Track), then the
-survivor path with both servers stopped and the browser offline, then check that no request carried
-transaction text, a bill line, or the share key. Step timings print at the end.
+Neon or Nessie and calls no model. `test_demo_path.py` drives the judges' path (Check, Gather, the held exam
+line and letter, the $118 payment with its code, the packet, a share link the advocate opens, Track), then
+the survivor path with both servers stopped and the browser offline, then checks that no request carried
+transaction text, a bill line, or the share key. `test_tour.py` takes the tour from the home page through
+Track and checks that the Spanish UI shows no tour notes. Step timings print at the end.
 
 `test_layout.py` measures pages on phones (360, 390, and 430px). The home page in its Map and List views,
 `/mi`, `/law/MI`, `/how-it-works`, `/sources`, `/tour`, and `/check?demo=rowan` never scroll sideways,
@@ -64,9 +65,11 @@ letters, and the vault work with the network off, and a reload works too. A paym
 the network: offline it says so, sends nothing, and offers Try again. The worker never touches `/api/*`.
 Bump `VERSION` in `sw.js` when it changes. `NEXT_PUBLIC_TEND_SW=1` turns it on in `next dev`.
 
-The privacy line comes from what actually left: `lib/netlog.ts` watches every `fetch` the page makes and
-reports each request that carries something off the device (a payment, a share, the bank, the server
-engine, cloud AI, or anything unexpected), so the line cannot miss a send. With nothing sent it says
+The privacy line comes from what actually left: `lib/netlog.ts` wraps the page's `fetch` and reports each
+request that carries something off the device (a payment set up or confirmed, a share, the bank, the server
+engine, cloud AI, or anything unexpected), including one that was aborted or timed out after it went. Loading
+pages and public law files is not a send, though the law file a browser asks for shows the host which state
+was picked. With nothing sent it says
 "Nothing has left it since this page opened", which is as far as one page can vouch. After Lock now, Close
 Tend, or Delete it says only "On this device." until the next send or page load. The tab keeps each send's
 kind and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the
@@ -84,7 +87,7 @@ The survivor flow lives in `app/(flow)` and `components/flow` (docs/UX.md). Ever
 | Route            | What it shows                                                                                                                         |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `/`              | The law garden: one plant per state, grown by verified rule count; counts fixed at build                                              |
-| `/[st]`          | A state's public page (`/mi`): what its law promises, every line cited, share card                                                    |
+| `/[st]`          | A state's public page (`/mi`): what its law says, every line cited, share card                                                        |
 | `/[st]/card.png` | The 1200x630 share card for that state (next/og, static PNG made at build)                                                            |
 | `/card.png`      | The 1200x630 link card for `/`; `/how-it-works`, `/sources`, and `/tour` each have one at `<page>/card.png` (static, made at build)   |
 | `/check`         | Check: four questions (Not sure always allowed) and a cited summary                                                                   |
@@ -131,9 +134,12 @@ The survivor flow calls the API only for what the survivor sends: `POST /api/act
 {from_account_id, payee, amount_cents}` and `POST /api/actions/confirm {action_id, confirm_code}` for a
 payment, `POST /api/claim <engine input>` after they agree to check on the server, a sealed share
 through `lib/share` (`POST /api/shares` with the ciphertext only; `DELETE` stops a link), and, only after
-a yes on the cloud AI consent screen, `POST /api/ai/classify` or `POST /api/ai/bill` for one file. The
-share key stays in the link's `#fragment`. The law and advocate pages also use `GET /api/jurisdictions`,
-`GET /api/jurisdictions/{st}`, `GET /api/jurisdictions/{st}/asm`, and `GET /api/shares/{id}`.
+a yes on the cloud AI consent screen, `POST /api/ai/classify` for the rows Tend could not sort (in
+batches) or `POST /api/ai/bill` for one bill. Track, with the demo bank only, calls
+`GET /api/bank/{persona}/activity` and `POST` or `DELETE /api/bank/{persona}/payout` when tapped. The
+share key stays in the link's `#fragment`. With the API connected, Packet asks `GET /api/jurisdictions/{st}`
+for the state's rules first, and the law and advocate pages also use `GET /api/jurisdictions`,
+`GET /api/jurisdictions/{st}/asm`, and `GET /api/shares/{id}`.
 Response shapes are in `lib/types.ts`; examples are in `fixtures/` (Rowan from the seed, made by
 `uv run --project api python web/scripts/scan-fixtures.py` and `npm run fixtures`).
 
@@ -161,10 +167,12 @@ Response shapes are in `lib/types.ts`; examples are in `fixtures/` (Rowan from t
 
 Answers and costs live in memory. Save this puts them in the encrypted vault on the device (`lib/vault`,
 AES-256-GCM in IndexedDB), behind Touch ID (a passkey with PRF) or a passcode; nothing is written in the
-clear. The vault locks itself after 5 minutes without a tap or key, and the screen clears with it.
-Exit this page also closes any on-device AI session. The line under the header says where the data
-is and changes only when something is sent (a confirmed payment, a share link, or, with consent, a
-claim checked on the server). Exit this page (or Esc twice) locks the vault, blanks the screen,
-clears the tab, and replaces the history entry. Tend stores no names and never asks what happened.
+clear. The vault locks itself after 5 minutes without a tap, key, or scroll, and when the page is left,
+and the screen clears with it. Exit this page also closes any on-device AI session. The line under the
+header says where the data is and changes when something is sent: a payment set up or confirmed, a share
+link, a request to the demo bank, cloud AI or a claim checked on the server (each after a yes), or any
+request the flow did not expect. Exit this page (or Esc twice) locks the vault, blanks the screen, clears
+the tab, and replaces the current history entry; earlier Tend pages stay in the browser's history. Tend
+stores no names and never asks what happened.
 Responses send `Referrer-Policy: no-referrer`, so opening a source link does not reveal the page it
 came from.
