@@ -1,5 +1,6 @@
-// The files /press offers from public/press: the fact sheet and the logos. The page shows each file's real
-// size and pixel size, read when the site is built.
+// The files /press offers from public/press: the fact sheet, the logos, and the screenshots. The page shows
+// each file's real size and pixel size, read when the site is built. tests/press.test.tsx checks that every
+// file listed here exists and that nothing in the folder is left off the page.
 // Server components, scripts, and tests only: it reads the file system.
 import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -54,6 +55,56 @@ export const LINK_CARD = {
   file: "tend-social-1280x640.png",
   alt: "Tend's link card: the logo, the sentence about claiming compensation without giving up a name, the address youreowed.tech, and a row of plant drawings from sprout to bloom.",
 };
+
+export interface Shot {
+  file: string;
+  device: "desktop" | "phone";
+  caption: string;
+  alt: string;
+}
+
+// Made by scripts/press-screenshots.py, which keeps the same names. The alt text says what each frame shows
+// without quoting the state page's wording, which comes from the verified rules and can change with them.
+export const SHOT_DIR = "screenshots";
+export const SHOTS: Shot[] = [
+  {
+    file: "tend-home-desktop.png",
+    device: "desktop",
+    caption: "The home page.",
+    alt: "Tend's home page in a desktop browser: the sentence about claiming crime victim compensation without giving up a name, buttons for the 2-minute tour and How it works, and the heading Every state has money set aside to pay survivors back.",
+  },
+  {
+    file: "tend-bill-held-desktop.png",
+    device: "desktop",
+    caption:
+      "The fictional demo bill. Tend holds the $325.00 forensic exam line and quotes the Michigan law behind it.",
+    alt: "A fictional itemized bill from Riverbend General Hospital, $443.00 in three lines. The $325.00 medical forensic exam line is struck through and marked Held. Beside the bill: Don't pay this line, the quote from MCL 18.355a(2), and a button for a letter to the billing office.",
+  },
+  {
+    file: "tend-packet-desktop.png",
+    device: "desktop",
+    caption: "The packet for the fictional demo claim, built in the browser.",
+    alt: "The Your packet screen: the amount the fictional claim can ask for, with The program decides under it, the $325.00 held bill line kept apart, and Michigan's application, filled in with safe details only.",
+  },
+  {
+    file: "tend-mi-phone.png",
+    device: "phone",
+    caption: "Michigan's page: what the law says, in plain words, each line linked to its sentence.",
+    alt: "Michigan's page on a phone: the heading If you're Jane Doe in Michigan, the program's name and phone number, a drawing of a flowering plant, and the first key facts.",
+  },
+  {
+    file: "tend-share-card-phone.png",
+    device: "phone",
+    caption: "Michigan's share card, which anyone can post. It is made only from the verified rules.",
+    alt: "The Share this page section of Michigan's page on a phone: the card's sentence, buttons to copy the link and save the card, and the card itself with its citations.",
+  },
+  {
+    file: "tend-bill-held-phone.png",
+    device: "phone",
+    caption: "The same fictional bill on a phone.",
+    alt: "The fictional Riverbend General Hospital bill on a phone. The $325.00 medical forensic exam line is struck through and marked Held, You should not be billed for this, and the rest comes to $118.00.",
+  },
+];
 
 export function pressFile(name: string): string {
   return path.join(PRESS_DIR, name);
