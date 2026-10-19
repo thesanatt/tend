@@ -407,3 +407,17 @@ describe("the deadline Check leads with", () => {
     expect(span).toMatchObject({ kind: "span", years: 3, longer: true });
   });
 });
+
+describe("the address program line", () => {
+  // South Dakota's only program keeps a voter record private (SD-ACP-1); Arkansas's puts a post office
+  // box on a license; Florida's is for domestic violence, dating violence, and stalking.
+  it.each(["SD", "AR", "FL"])("%s: never promises a substitute address its rule does not give", (st) => {
+    const law = load(st);
+    const s = buildCheckSummary(law, output(law), { ...answers, st }, true);
+    expect(s.acp?.coversSexualAssault).toBe(false);
+    for (const dict of [en, es]) {
+      const line = dict.check.acpMaybe(s.acp!.programName ?? dict.check.acpGeneric);
+      expect(line).not.toMatch(/substitute address|dirección sustituta/);
+    }
+  });
+});

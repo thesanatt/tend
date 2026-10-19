@@ -87,7 +87,10 @@ describe("Check", () => {
         "Address Confidentiality Program (ACP) gives survivors a substitute address to use on government forms.",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("The law keeps your compensation records confidential.")).toBeTruthy();
+    // MI-RECCONF-1 is a public records exemption, not the whole file, so the line says some records.
+    expect(
+      screen.getByText("Some compensation records are kept private. The rule says which ones, and when."),
+    ).toBeTruthy();
     expect(screen.getByRole("link", { name: "877-251-7373" }).getAttribute("href")).toBe("tel:8772517373");
     expect(screen.queryByText(/you qualify/i)).toBeNull();
 
@@ -98,7 +101,7 @@ describe("Check", () => {
       /show the law for Police report rules/,
       /show the law for Counseling/,
       /show the law for Keeping your address private/,
-      /show the law for Confidential records/,
+      /show the law for Keeping claim records private/,
     ]) {
       expect(screen.getByRole("button", { name })).toBeTruthy();
     }

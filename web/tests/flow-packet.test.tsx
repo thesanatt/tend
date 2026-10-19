@@ -10,8 +10,11 @@ import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, FlowItem } from "@/components/flow/state";
 import TrackScreen, { reminderDate, reminderIcs } from "@/components/flow/track/TrackScreen";
 import { resetLawCacheForTests } from "@/lib/api";
+import { DICTS } from "@/lib/i18n";
 import type { EngineInput } from "@/lib/types";
 import { MI_BYTES, MI_CHECK, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
+
+const { en } = DICTS;
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
@@ -135,6 +138,25 @@ describe("Packet", () => {
       ),
     ).toBeTruthy();
     expect(screen.getByRole("button", { name: /show the law for The program's minimum/ })).toBeTruthy();
+  });
+
+  // Only Michigan has a form spec (lib/packet/specs.ts FORM_SPECS), so only Michigan's card says Tend fills it.
+  it("says only Michigan's form is filled; Ohio gets the program's blank form, and Maine a note", async () => {
+    const elsewhere = (st: string): Action[] => [
+      { type: "check", patch: { st, date: "2026-06-14", exam: "yes", police: "not_yet" } },
+      gathered[1],
+    ];
+    renderFlow(<PacketScreen />, { initial: stateFrom(elsewhere("OH")) });
+    expect(await screen.findByText(en.packet.formBlank)).toBeTruthy();
+    expect(en.packet.formBlank).toMatch(/so you fill in all of it/);
+    expect(screen.getByRole("link", { name: new RegExp(`^${en.packet.formBlankLink}`) })).toBeTruthy();
+    expect(screen.queryByText(/filled in with safe details/)).toBeNull();
+    expect(screen.queryByText(en.packet.onlyYou)).toBeNull();
+    cleanup();
+    renderFlow(<PacketScreen />, { initial: stateFrom(elsewhere("ME")) });
+    expect(await screen.findByText(en.packet.formNone)).toBeTruthy();
+    expect(screen.queryByText(/filled in with safe details/)).toBeNull();
+    expect(screen.queryByText(en.packet.onlyYou)).toBeNull();
   });
 
   it("says nothing about the minimum when the claim meets it", async () => {

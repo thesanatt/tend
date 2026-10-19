@@ -577,3 +577,22 @@ describe("the summary's filing deadline", () => {
     expect(text).not.toContain("The law counts from your report");
   });
 });
+
+describe("the summary's privacy section says only what its rules cover", () => {
+  it("does not promise a substitute address from a program that may give none (South Dakota)", async () => {
+    const input: EngineInput = { ...rowanInput(), jurisdiction: "SD" };
+    const output = evaluatePreview(input, webLaw("SD"), "x");
+    const text = (await builderFor(webLaw).build("SD", input, output)).transcript.join("\n");
+    expect(text).not.toContain("It gives you a substitute address");
+    expect(text).toContain("its rule does not name survivors of sexual assault");
+    // Michigan's program covers survivors of sexual assault and keeps its sentence.
+    const mi = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
+    expect(mi).toContain("It gives you a substitute address to use on government records and forms");
+  });
+
+  it("says a records rule may not cover the whole file", async () => {
+    const text = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
+    expect(text).toContain("Michigan has a rule on who can see claim records. It may not cover your whole file.");
+    expect(text).not.toContain("law limits who can see a compensation claim file");
+  });
+});

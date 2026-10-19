@@ -280,7 +280,7 @@ export const en = {
     subjectExam: "Bills for the forensic exam",
     subjectTotal: "The total limit",
     subjectAcp: "Keeping your address private",
-    subjectRecords: "Confidential records",
+    subjectRecords: "Keeping claim records private",
     deadlineDate: (date: string) => `File by ${date}.`,
     deadlineLate: (date: string) => `The usual deadline was ${date}.`,
     deadlineLeft: (span: string) => `That is ${span} from today.`,
@@ -324,10 +324,14 @@ export const en = {
       `In total, up to ${amounts}, depending on your case. The rule says when each one applies`,
     privateTitle: "Staying private with the state",
     acp: (name: string) => `${name} gives survivors a substitute address to use on government forms.`,
+    // A program whose rule does not name sexual assault (covers_sexual_assault false): some give no
+    // substitute address at all, like South Dakota's voter record program.
     acpMaybe: (name: string) =>
-      `${name} gives some people a substitute address for government forms. Ask whether it covers you.`,
+      `${name} covers only some people, and its rule does not name survivors of sexual assault. The rule says who it covers and what it does.`,
     acpGeneric: "This state's address confidentiality program",
-    records: "The law keeps your compensation records confidential.",
+    // Several of these rules cover only some records: a public records exemption, some documents, or all
+    // but the amount awarded.
+    records: "Some compensation records are kept private. The rule says which ones, and when.",
     programTitle: "The program",
     phone: "Phone",
     website: "Website",
@@ -720,7 +724,8 @@ export const en = {
     onlyYou:
       "Only you fill these in: your name, your signature, what happened, who, where, and your Social Security number.",
     formDownload: "Download the filled form",
-    formBlank: "Tend can't fill in this state's form yet. Here is the blank form from the program.",
+    formBlank:
+      "Tend can't fill in this state's form yet, so you fill in all of it. Here is the blank form from the program.",
     formBlankLink: "Open the program's form",
     formNone: "Tend did not find a form for this state. The program can send you one.",
     summaryTitle: "Cited summary",

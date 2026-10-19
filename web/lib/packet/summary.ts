@@ -292,7 +292,7 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
   const items = new Map(input.items.map((i) => [i.item_id, i]));
   w.h2("Every cost and the law behind it");
   w.small(
-    "Costs are grouped by kind and status. Each group quotes the law word for word, with a link to the official page. Each cost shows the record it came from.",
+    "Costs are grouped by kind and status. Each group quotes the law word for word, with a link to its source. Each cost shows the record it came from.",
   );
 
   for (const g of groupsOf(output)) {
@@ -520,14 +520,17 @@ function privacySection(w: Writer) {
   const { law } = w;
   const notes = privacyNotes(law);
   w.h2("Keeping your information private");
-  w.h3([{ text: "A substitute address" }]);
+  w.h3([{ text: "Keeping your address private" }]);
   if (notes.address.length) {
     for (const a of notes.address) {
       const who = a.agency ? `${a.agency} runs` : `${law.name} has`;
+      const program = `${who} ${a.program_name ? `the ${a.program_name}` : "an address confidentiality program"}.`;
+      // A program whose rule does not name sexual assault may give no substitute address at all
+      // (South Dakota's keeps a voter record private), so only its own words are given.
       w.p(
-        `${who} ${a.program_name ? `the ${a.program_name}` : "an address confidentiality program"}. It gives you a substitute address to use on government records and forms, like this application.${
-          a.covers_sexual_assault === true ? " It covers survivors of sexual assault." : ""
-        }`,
+        a.covers_sexual_assault === true
+          ? `${program} It gives you a substitute address to use on government records and forms, like this application. It covers survivors of sexual assault.`
+          : `${program} It covers only some people, and its rule does not name survivors of sexual assault. The exact words say who it covers and what it does:`,
       );
       if (a.enroll) w.p([{ text: "How to sign up: ", font: "bold" }, { text: a.enroll }]);
       w.quote(a.rule);
@@ -540,7 +543,8 @@ function privacySection(w: Writer) {
   }
   w.h3([{ text: "Your claim file" }]);
   if (notes.records.length) {
-    w.p(`${law.name} law limits who can see a compensation claim file. The exact words:`);
+    // Several of these rules cover only some records (MI-RECCONF-1 is a public records exemption).
+    w.p(`${law.name} has a rule on who can see claim records. It may not cover your whole file. The exact words:`);
     for (const r of notes.records) w.quote(r);
   } else {
     w.p(
