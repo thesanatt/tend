@@ -771,6 +771,13 @@ export const en = {
     whoRows:
       "Tend's server, which asks Google's Gemini to pick a kind of cost for each row. Tend's server keeps no copy.",
     whoBill: "Tend's server, which asks Google's Gemini to copy its lines and amounts. Tend's server keeps no copy.",
+    // Tend calls Gemini on Google's free tier. Its terms let Google keep, use, and have people read what is
+    // sent. If the key moves to a paid tier, these lines must change with it.
+    googleTitle: "What Google may do with it",
+    googleRows:
+      "Tend uses Google's free Gemini service. Google's terms let Google keep what is sent, use it to improve its products, and have people at Google read it. A merchant's name can show where you went, like a clinic or a pharmacy.",
+    googleBill:
+      "Tend uses Google's free Gemini service. Google's terms let Google keep what is sent, use it to improve its products, and have people at Google read it. A bill can show your name, your address, and the care you got. If you do not want Google to have that, say no.",
     stayTitle: "What stays here",
     stayRows: "The amounts, the dates, your other transactions, your answers, and anything about you.",
     stayBill: "Your other files, your answers, and anything about you.",

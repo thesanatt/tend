@@ -27,7 +27,11 @@ then our server cannot read it.
    can be revoked, and can be set to open once.
 3. **Cloud AI, only if you ask.** On a phone or browser without on-device AI, Tend offers cloud
    Gemini per file, with a clear consent screen naming exactly what is sent. Default is off; the
-   deterministic rules still work without it.
+   deterministic rules still work without it. Tend calls Gemini on Google's free tier, whose terms
+   let Google keep what is sent, use it to improve its products, and have people review it. Tend's
+   server keeps nothing, but Google's terms apply to what reaches Gemini, and the consent screen says
+   so before the yes. A bill picture can carry a name, an address, and the care someone got, so in
+   this prototype a real bill should not be sent to cloud AI.
 4. **Bank connection (demo).** Fetching transactions from the bank passes through a relay that
    holds the API key, keeps no logs, and stores nothing. Statement upload avoids even that. In
    Track, with the demo bank only: the demo of the program paying sends the claim's total for the
