@@ -83,7 +83,8 @@ export const en = {
 
   privacy: {
     quiet: "On this device. Nothing has left it.",
-    // Shown only until the page has read what this tab sent before a reload.
+    // Shown until the page has read what this tab sent before a reload, and while saved progress is
+    // locked or being checked.
     here: "On this device.",
     sent: (parts: string) => `On this device, except what you chose to send: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),

@@ -22,7 +22,7 @@ import { installNetLog, onNetSend } from "@/lib/netlog";
 import { stateToday } from "@/lib/stateTime";
 import type { EngineInput } from "@/lib/types";
 import { buildEngineInput, countingDate, knowsDate, offered } from "./claim";
-import { keepSend } from "./keptSends";
+import { forgetKeptSends, keepSend } from "./keptSends";
 import { defaultServices, type FlowServices } from "./services";
 import {
   findReplaced,
@@ -569,6 +569,9 @@ export function FlowProvider({
       logSent,
 
       async save(opts) {
+        // Saving over locked progress puts a new claim in its place, so the tab forgets what it sent
+        // before, as when that progress is deleted.
+        if (vaultStatus === "locked") forgetKeptSends();
         if (await services.vault.exists()) await services.vault.destroy();
         await services.vault.create(opts);
         await services.vault.set(VAULT_KEY, stateRef.current);
@@ -592,6 +595,9 @@ export function FlowProvider({
       lockNow,
 
       async forget() {
+        // Deleting locked progress needs no passcode, so the tab forgets what it sent first: whoever
+        // deletes it learns nothing from the line.
+        forgetKeptSends();
         await services.vault.destroy();
         files.current.clear();
         docs.current.clear();
@@ -602,6 +608,10 @@ export function FlowProvider({
       },
 
       endSession() {
+        // Close Tend. Open saved progress locks, and what the tab sent waits behind the lock as after
+        // Lock now. A claim never saved ends here ("Nothing stays on this device unless you save
+        // it"), so the tab forgets its sends, as Exit this page does.
+        if (vaultStatus !== "open") forgetKeptSends();
         if (services.vault.isUnlocked()) services.vault.lock();
         files.current.clear();
         docs.current.clear();

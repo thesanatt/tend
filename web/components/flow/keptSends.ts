@@ -3,7 +3,8 @@
 // The privacy line's memory for this tab. The flow's state lives in memory, so a reload used to turn
 // the line back to "Nothing has left it." even after a payment or a share link. Each send's kind and
 // time go to sessionStorage, never an amount, a payee, an id, or a key. The tab forgets them when it
-// closes, and Exit this page clears them with the rest of the tab (components/QuickExit.tsx).
+// closes, when the claim on this device ends (forgetKeptSends), and when Exit this page clears the
+// rest of the tab (components/QuickExit.tsx).
 import { useSyncExternalStore } from "react";
 import { SENT_KEY } from "@/lib/keys";
 import type { SentEvent, SentKind } from "./state";
@@ -109,8 +110,10 @@ export function withKept(sent: SentEvent[], kept: readonly KeptSend[]): SentEven
   return [...sent, ...extra].sort((a, b) => (a.at < b.at ? -1 : a.at > b.at ? 1 : 0));
 }
 
-// Tests only: a fresh tab.
-export function resetKeptSendsForTests(): void {
+// The claim ended here: Close Tend on a claim never saved, or saved progress deleted or saved over
+// (FlowProvider). As after Exit this page, the next person at the device must not learn from the
+// line what this tab sent, or when.
+export function forgetKeptSends(): void {
   seen.clear();
   started.clear();
   memory = NONE;

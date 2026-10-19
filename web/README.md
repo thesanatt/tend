@@ -58,7 +58,8 @@ The privacy line comes from what actually left: `lib/netlog.ts` watches every `f
 reports each request that carries something off the device (a payment, a share, the bank, the server
 engine, cloud AI, or anything unexpected), so the line cannot miss a send. The tab keeps each send's kind
 and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the line
-stays true after a reload; Exit this page clears it.
+stays true after a reload. The line leaves them out while saved progress is locked. Exit this page, Close Tend
+on a claim never saved, and deleting or saving over locked progress clear them.
 
 ## Screens
 

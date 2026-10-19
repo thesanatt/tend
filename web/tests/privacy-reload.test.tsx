@@ -1,15 +1,17 @@
 // @vitest-environment jsdom
 // The privacy line stays true for the tab. A reload keeps what the tab sent, as the kind and the
 // time only; the page's first HTML never says nothing left before it has looked; saved progress
-// that is locked hides it; Exit this page forgets it all.
+// that is locked hides it; ending the claim here (Close Tend on a claim never saved, deleting or
+// saving over locked progress) and Exit this page forget it.
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ExitControl } from "@/components/flow/ExitControl";
-import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
+import { FlowProvider, useFlow, VAULT_KEY } from "@/components/flow/FlowProvider";
 import { keepSend, withKept } from "@/components/flow/keptSends";
 import PrivacyLine from "@/components/flow/PrivacyLine";
+import type { FlowState } from "@/components/flow/state";
 import { navigation } from "@/components/QuickExit";
 import { I18nProvider, type Lang } from "@/lib/i18n";
 import { SENT_KEY } from "@/lib/keys";
@@ -212,6 +214,119 @@ describe("the privacy line behind the lock", () => {
     services.vault.exists = () => new Promise<boolean>(() => {});
     mount("en", undefined, services);
     expect(line()).toBe("On this device.");
+  });
+});
+
+// Each step reads the flow from the latest render: save, Delete, and Close Tend act on the vault's
+// status as the screen showed it.
+describe("the privacy line when the claim ends here", () => {
+  const passphrase = "garden gate 41";
+  const forgotten = () => {
+    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+    expect(line()).not.toMatch(/payment|share link/);
+  };
+
+  it("forgets what the tab sent when locked progress is deleted, which needs no passcode", async () => {
+    const services = testServices();
+    const box = await page("en", undefined, services);
+    await act(async () => box.flow!.save({ passphrase }));
+    pay(box.flow!, "a1");
+    act(() => box.flow!.logSent({ kind: "share", ref: "share:s1" }));
+    act(() => box.flow!.lockNow());
+
+    await act(async () => box.flow!.forget());
+    forgotten();
+    expect(line()).toBe("On this device. Nothing has left it.");
+    fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
+    expect(within(screen.getByRole("dialog")).queryByText(/this list keeps only|a share link\. The packet/)).toBeNull();
+
+    cleanup();
+    await page("en", undefined, services);
+    forgotten();
+  });
+
+  it("forgets what the tab sent before when someone saves over locked progress, and keeps their own", async () => {
+    const services = testServices();
+    const box = await page("en", undefined, services);
+    await act(async () => box.flow!.save({ passphrase }));
+    pay(box.flow!, "a1");
+    act(() => box.flow!.lockNow());
+
+    // Start over without it, share, then Save this with another passcode.
+    act(() => box.flow!.logSent({ kind: "share", ref: "share:s2" }));
+    await act(async () => box.flow!.save({ passphrase: "another code 77" }));
+    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+    const own = "On this device, except what you chose to send: a locked share link.";
+    expect(line()).toBe(own);
+
+    // A reload locks it; opening the new progress names the share and still not the payment.
+    services.vault.lock();
+    cleanup();
+    const again = await page("en", undefined, services);
+    expect(line()).toBe("On this device.");
+    await act(async () => {
+      expect(await again.flow!.openSaved({ passphrase: "another code 77" })).toBe(true);
+    });
+    expect(line()).toBe(own);
+  });
+
+  it("forgets what the tab sent when Close Tend ends a claim that was never saved", async () => {
+    const box = await page();
+    pay(box.flow!, "a1");
+    act(() => box.flow!.logSent({ kind: "share", ref: "share:s1" }));
+    act(() => box.flow!.endSession());
+    forgotten();
+    expect(line()).toBe("On this device. Nothing has left it.");
+
+    cleanup();
+    await page();
+    forgotten();
+  });
+
+  it("forgets it too on Close Tend after starting over without locked progress", async () => {
+    const services = testServices();
+    const box = await page("en", undefined, services);
+    await act(async () => box.flow!.save({ passphrase }));
+    pay(box.flow!, "a1");
+    // The vault takes each change a quarter second later.
+    await waitFor(() => expect((services.vault.snapshot().get(VAULT_KEY) as FlowState).sent).toHaveLength(2));
+    act(() => box.flow!.lockNow());
+
+    // Someone else starts over without it, shares a packet, and closes Tend.
+    act(() => box.flow!.logSent({ kind: "share", ref: "share:s3" }));
+    act(() => box.flow!.endSession());
+    forgotten();
+    expect(line()).toBe("On this device.");
+
+    // The owner opens it: the line names their payment, from the vault, and not that share.
+    await act(async () => {
+      expect(await box.flow!.openSaved({ passphrase })).toBe(true);
+    });
+    expect(line()).toBe("On this device, except what you chose to send: a payment.");
+  });
+
+  it("keeps the sends of open saved progress behind its lock on Close Tend, and names them once it opens", async () => {
+    const services = testServices();
+    // A payment, then a reload, then a save: the saved claim does not hold the payment, the tab does.
+    pay((await page("en", undefined, services)).flow!, "a1");
+    cleanup();
+    const box = await page("en", undefined, services);
+    await act(async () => box.flow!.save({ passphrase }));
+    const paid = "On this device, except what you chose to send: a payment.";
+    expect(line()).toBe(paid);
+
+    act(() => box.flow!.endSession());
+    expect(box.flow!.vault.status).toBe("locked");
+    expect(line()).toBe("On this device.");
+    expect(JSON.parse(sessionStorage.getItem(SENT_KEY)!).map((k: { kind: string }) => k.kind)).toEqual(["payment"]);
+
+    cleanup();
+    const again = await page("en", undefined, services);
+    expect(line()).toBe("On this device.");
+    await act(async () => {
+      expect(await again.flow!.openSaved({ passphrase })).toBe(true);
+    });
+    expect(line()).toBe(paid);
   });
 });
 
