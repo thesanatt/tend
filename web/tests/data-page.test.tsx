@@ -77,6 +77,17 @@ describe("/data", () => {
     sources: { source_id: string; url: string; kind: string; text_path: string; note: string | null }[];
     rules: { source_id: string }[];
   };
+  const from = (host: string) => released.sources.filter((s) => new URL(s.url).hostname === host);
+  const savedText = (s: { text_path: string }) => readFileSync(path.join(web, "..", s.text_path), "utf8");
+  // Read from the "Universal Citation: ... (2025)" line on each saved Justia page.
+  const justiaYears = () =>
+    [
+      ...new Set(
+        from("law.justia.com").map((s) => /Universal Citation: [\s\S]{0,80}?\((\d{4})\)/.exec(savedText(s))![1]),
+      ),
+    ]
+      .sort()
+      .join(" or ");
 
   it("shows the same counts as the corpus the site is built from", () => {
     const rows = counts();
@@ -97,7 +108,7 @@ describe("/data", () => {
       .sort();
     const [first, last] = [shortDate(saved[0]), shortDate(saved.at(-1)!)];
     expect(rows["Current as of"]).toBe(
-      `${first === last ? first : `${first} to ${last}`}, when the sources were saved`,
+      `${first === last ? first : `${first} to ${last}`}, when the sources were saved; the ${n(from("law.justia.com").length)} statutes copied from Justia show each state's ${justiaYears()} code`,
     );
   });
 
@@ -130,19 +141,20 @@ describe("/data", () => {
   });
 
   it("says which sources are copies from sites that republish state law, counted from their addresses", () => {
-    const from = (host: string) => released.sources.filter((s) => new URL(s.url).hostname === host);
     const [justia, cornell] = [from("law.justia.com"), from("www.law.cornell.edu")];
     const ids = new Set([...justia, ...cornell].map((s) => s.source_id));
     // The page names these two sites and their kinds of source; another site in the export needs its own words.
     expect(new Set(justia.map((s) => s.kind))).toEqual(new Set(["statute"]));
     expect(new Set(cornell.map((s) => s.kind))).toEqual(new Set(["regulation"]));
     // What the page says each saved copy says about how current it is.
-    const saved = (s: { text_path: string }) => readFileSync(path.join(web, "..", s.text_path), "utf8");
-    for (const s of justia) expect(saved(s), s.source_id).toContain("may not be the most recent version");
-    for (const s of cornell) expect(saved(s), s.source_id).toContain("State regulations are updated quarterly");
+    for (const s of justia) expect(savedText(s), s.source_id).toContain("may not be the most recent version");
+    for (const s of cornell) expect(savedText(s), s.source_id).toContain("State regulations are updated quarterly");
     const item = limit("republish state law")!;
     expect(item).toContain(
       `${n(ids.size)} sources are copies on sites that republish state law, not the state's own publication: ${n(justia.length)} statutes from Justia and ${n(cornell.length)} regulations from Cornell's Legal Information Institute.`,
+    );
+    expect(item).toContain(
+      `Justia's pages show each state's ${justiaYears()} code and say it may not be the most recent version`,
     );
     const quoting = released.rules.filter((r) => ids.has(r.source_id)).length;
     expect(item).toContain(`The ${n(quoting)} rules that quote these copies match the copies`);
@@ -152,7 +164,7 @@ describe("/data", () => {
   it("says the SHA-256 of a redacted page is of the redacted copy", () => {
     const redacted = released.sources.filter((s) => s.note?.includes("redacted")).length;
     expect(limit("was recorded")).toBe(
-      `A SHA-256 shows the saved copy has not changed since its SHA-256 was recorded. It cannot show what the live page says today. On ${n(redacted)} saved pages, third-party API keys embedded in the page were redacted before publishing, so their SHA-256 is of the redacted copy.`,
+      `A SHA-256 shows the saved copy has not changed since its SHA-256 was recorded. It cannot show what the live page says today. On ${n(redacted)} saved pages, third-party API keys embedded in the page were redacted after the page was saved, so their SHA-256 is of the redacted copy.`,
     );
   });
 

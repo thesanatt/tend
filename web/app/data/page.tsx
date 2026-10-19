@@ -44,7 +44,7 @@ interface DataRule {
 interface Dataset {
   metadata: {
     version: string;
-    current_as_of: { first_retrieved_at: string; last_retrieved_at: string };
+    current_as_of: { first_retrieved_at: string; last_retrieved_at: string; justia_code_years: string[] };
     counts: {
       jurisdictions: number;
       sources: number;
@@ -126,6 +126,9 @@ export default function DataPage() {
   // Copies saved from sites that republish state law, counted by the export from each source's address.
   const republished = counts.sources_from_republishers;
   const copies = Object.values(republished).reduce((total, count) => total + count, 0);
+  const justia = republished["law.justia.com"] ?? 0;
+  // The year of the code the saved Justia pages show, read by the export from each page's citation line.
+  const codeYears = asOf.justia_code_years.join(" or ");
 
   const files: DownloadFile[] = [
     {
@@ -202,7 +205,10 @@ export default function DataPage() {
           </div>
           <div>
             <dt>Current as of</dt>
-            <dd>{savedOn}, when the sources were saved</dd>
+            <dd>
+              {savedOn}, when the sources were saved
+              {justia > 0 ? `; the ${n(justia)} statutes copied from Justia show each state's ${codeYears} code` : null}
+            </dd>
           </div>
         </dl>
       </section>
@@ -289,11 +295,11 @@ export default function DataPage() {
           {copies > 0 ? (
             <li>
               {n(copies)} sources are copies on sites that republish state law, not the state&apos;s own publication:{" "}
-              {n(republished["law.justia.com"] ?? 0)} statutes from Justia and{" "}
-              {n(republished["www.law.cornell.edu"] ?? 0)} regulations from Cornell&apos;s Legal Information Institute.
-              Justia&apos;s pages say they may not be the most recent version, and Cornell&apos;s say state regulations
-              are updated there quarterly. The {n(counts.rules_quoting_republishers)} rules that quote these copies
-              match the copies, so check the state&apos;s own code before relying on one.
+              {n(justia)} statutes from Justia and {n(republished["www.law.cornell.edu"] ?? 0)} regulations from
+              Cornell&apos;s Legal Information Institute. Justia&apos;s pages show each state&apos;s {codeYears} code
+              and say it may not be the most recent version, and Cornell&apos;s say state regulations are updated there
+              quarterly. The {n(counts.rules_quoting_republishers)} rules that quote these copies match the copies, so
+              check the state&apos;s own code before relying on one.
             </li>
           ) : null}
           <li>
@@ -307,7 +313,7 @@ export default function DataPage() {
               <>
                 {" "}
                 On {n(counts.sources_redacted)} saved pages, third-party API keys embedded in the page were redacted
-                before publishing, so their {SHA256} is of the redacted copy.
+                after the page was saved, so their {SHA256} is of the redacted copy.
               </>
             ) : null}
           </li>
