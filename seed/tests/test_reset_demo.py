@@ -59,6 +59,23 @@ def test_a_demo_run_is_undone_and_every_id_is_kept(client, world):
     assert report.balances == {"Checking": 803_00, "Cushion": 590_00}
 
 
+def test_keep_leaves_those_records_in_place(client, fake, world):
+    # The API's own reset (api/tend_api/demo_reset.py) keeps everything but Tend's stale demo writes.
+    manifest, snapshots = world
+    wrote = demo_run(client, manifest)
+    checking = manifest["accounts"]["checking"]
+    other = client.create_deposit(checking, amount_cents=5_00, date="2026-10-04", description="written with someone else's key")
+    posts = fake.count("POST")
+    report = reset_demo.reset(client, "rowan-mi", snapshot_dir=snapshots, keep=lambda t: t.id in (wrote["deposit"], other.id))
+    assert [c.split(" ")[:2] for c in report.changes] == [["deleted", "withdrawal"], ["restored", "bill"]]
+    kept = {t.id for t in client.list_txns(checking, "deposit")} & {wrote["deposit"], other.id}
+    assert kept == {wrote["deposit"], other.id}
+    assert [line.split(" ")[:2] for line in report.after] == [["extra", "deposit"], ["extra", "deposit"]]
+    assert fake.count("POST") == posts  # nothing was created
+    bill = client.get_bill(wrote["bill"])
+    assert (bill.status, bill.amount_cents, bill.nickname) == ("pending", 443_00, "Riverbend General statement")
+
+
 def test_check_lists_what_a_reset_would_undo_and_writes_nothing(client, fake, world):
     manifest, snapshots = world
     demo_run(client, manifest)
