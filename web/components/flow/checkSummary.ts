@@ -1,6 +1,7 @@
 // The Check summary as data: every fact names the rules behind it. Dates and police-report status
 // come from the law engine's checks; lists, caps, and contacts come from the verified rules. The
 // component turns this into sentences in the survivor's language.
+import { clothingCondition, type ClothingCondition } from "@/lib/cite";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -12,12 +13,18 @@ export interface CapFact {
   per: Per;
   countLimit: number | null;
   countUnit: Per | null;
+  // The law also sets a lower limit of the same kind, and which one fits turns on a fact Tend does
+  // not ask, such as a trip's length or the kind of provider.
+  varies: boolean;
 }
 
 export interface CoveredCost {
   expense: ItemExpense;
   cap: CapFact | null;
   ruleIds: string[];
+  // For clothing and bedding, the condition every rule that pays for it sets, such as kept as
+  // evidence (lib/cite.ts).
+  condition: ClothingCondition | null;
 }
 
 export type DeadlineFact =
@@ -117,14 +124,18 @@ export function setAsideIds(ir: { skipped?: { id: string; reason: string }[] } |
 }
 
 function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
-  const ruleIds = new Map<string, string[]>();
+  // The rule that covers a cost leads its citation, then its limits in the law's order (lib/cite.ts).
+  const byId = new Map(law.rules.map((r) => [r.id, r]));
+  const coverIds = new Map<string, string[]>();
+  const capIds = new Map<string, string[]>();
   const caps = new Map<string, { cents: number | null; per: Per; countLimit: number | null }[]>();
   for (const r of law.rules) {
     if (setAside.has(r.id)) continue;
     const expense = ruleExpense(r);
     if (!expense || !LIST_ORDER.includes(expense as ItemExpense)) continue;
     if (r.category !== "covered_expense" && r.category !== "expense_cap") continue;
-    ruleIds.set(expense, [...(ruleIds.get(expense) ?? []), r.id]);
+    const ids = r.category === "covered_expense" ? coverIds : capIds;
+    ids.set(expense, [...(ids.get(expense) ?? []), r.id]);
     const cents = num(r.params?.amount_cents);
     const countLimit = num(r.params?.count_limit);
     const per = UNIT_PERS[String(r.params?.per ?? "")];
@@ -132,10 +143,14 @@ function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
       caps.set(expense, [...(caps.get(expense) ?? []), { cents, per, countLimit }]);
     }
   }
-  return LIST_ORDER.filter((e) => ruleIds.has(e)).map((expense) => {
+  const ruleIds = (e: string) => [...(coverIds.get(e) ?? []), ...(capIds.get(e) ?? [])];
+  return LIST_ORDER.filter((e) => ruleIds(e).length).map((expense) => {
     // A limit on the whole kind of cost applies to every provider; a rate per session or per week often
     // covers one kind of provider, so it is shown only when there is no overall limit. Among several,
-    // the most generous is shown, as the engine keeps it; the program decides which one applies.
+    // the most generous is shown, as the engine keeps it; the program decides which one applies. With a
+    // lower one of the same kind (Michigan's $1,000 for trips of 50 miles or less, beside $5,000), the
+    // line says so and the citation shows each limit. The lower amount is not listed, because in some
+    // states it is a family member's limit, not the survivor's.
     const all = caps.get(expense) ?? [];
     const priced = all.filter((c): c is { cents: number; per: Per; countLimit: number | null } => c.cents !== null);
     const whole = priced.filter((c) => WHOLE.includes(c.per));
@@ -151,12 +166,14 @@ function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
       )
       .map((c) => c.countLimit as number);
     const countLimit = countUnit && limits.length ? Math.max(...limits) : null;
+    const varies = Boolean(best && pool.some((c) => c.per === best.per && c.cents < best.cents));
     const cap: CapFact | null = best
-      ? { cents: best.cents, per: best.per, countLimit, countUnit }
+      ? { cents: best.cents, per: best.per, countLimit, countUnit, varies }
       : countLimit && countUnit
-        ? { cents: null, per: countUnit, countLimit, countUnit }
+        ? { cents: null, per: countUnit, countLimit, countUnit, varies }
         : null;
-    return { expense, cap, ruleIds: ruleIds.get(expense)! };
+    const condition = expense === "clothing_bedding" ? clothingCondition(ruleIds(expense), (id) => byId.get(id)) : null;
+    return { expense, cap, ruleIds: ruleIds(expense), condition };
   });
 }
 
@@ -282,6 +299,7 @@ export function capText(cost: CoveredCost, t: Dict, f: Formatters): string | nul
   if (!cap) return null;
   const parts = [
     cap.cents !== null ? t.per[cap.per](f.moneyShort(cap.cents)) : null,
+    cap.varies ? t.check.capDepends : null,
     cap.countLimit && cap.countUnit ? t.countLimit(cap.countUnit, cap.countLimit) : null,
   ].filter((p): p is string => Boolean(p));
   return parts.length ? parts.join(", ") : null;

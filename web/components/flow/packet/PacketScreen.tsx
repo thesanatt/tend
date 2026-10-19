@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Money from "@/components/Money";
+import { citedRuleIds, severalLimits } from "@/lib/cite";
 import type { ChecklistItem, FilingRoute, Letter, LetterKind } from "@/lib/contracts";
 import type { EngineOutput } from "@/lib/types";
 import { useI18n, useSummary, type Dict } from "@/lib/i18n";
@@ -238,9 +239,13 @@ export default function PacketScreen() {
                           ) : null}
                           {/* The law sits under its cost, so two columns fit a narrow phone. */}
                           <Cite
-                            ruleIds={[...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]}
+                            ruleIds={[
+                              ...citedRuleIds(l, law.rule, law.law?.rules),
+                              ...(l.cap_rule_id ? [l.cap_rule_id] : []),
+                            ]}
                             law={law}
                             subject={subject}
+                            explain={severalLimits(l) ? t.gather.severalLimits : undefined}
                           />
                         </td>
                         <td className={styles.num}>

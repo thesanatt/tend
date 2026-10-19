@@ -133,6 +133,46 @@ describe("a CSV and an OFX of the same month", () => {
   });
 });
 
+describe("the sample statement and the demo bank, one account", () => {
+  // The bank holds the statement's 190 transactions plus the hospital's pending $443.00 bill. Its
+  // new costs and the costs another record already had are counted the same way, so in either order
+  // they add up to that record's own possible costs: 43 on the statement, 44 in the bank.
+  const statement = () => new File([sampleStatementCsv()], "rowan.csv", { type: "text/csv" });
+
+  it("say what they read, and count each cost once in either order", async () => {
+    let box = captureFlow(testServices({ statementParser, classifier }), stateFrom([MI_CHECK]));
+    let stmt!: Awaited<ReturnType<NonNullable<typeof box.flow>["readStatement"]>>;
+    let bank!: typeof stmt;
+    await act(async () => {
+      stmt = await box.flow!.readStatement(statement());
+    });
+    await act(async () => {
+      bank = await box.flow!.connectBank();
+    });
+    expect(stmt).toMatchObject({ read: 190, found: 43, already: 0 });
+    expect(bank).toMatchObject({ read: 190, bills: 1, found: 1, already: 43 });
+    expect(en.gather.bankRead(bank.read, bank.bills!, bank.found)).toBe(
+      "Demo bank: 190 transactions and 1 bill read, 1 possible cost.",
+    );
+    expect(es.gather.bankRead(bank.read, bank.bills!, bank.found)).toBe(
+      "Banco de demostración: 190 transacciones y 1 factura leídas, 1 posible gasto.",
+    );
+    cleanup();
+
+    box = captureFlow(testServices({ statementParser, classifier }), stateFrom([MI_CHECK]));
+    await act(async () => {
+      bank = await box.flow!.connectBank();
+    });
+    await act(async () => {
+      stmt = await box.flow!.readStatement(statement());
+    });
+    expect(bank).toMatchObject({ read: 190, bills: 1, found: 44, already: 0 });
+    // Two rows from before the date that nothing could sort were never offered, so they are not
+    // counted as already here either.
+    expect(stmt).toMatchObject({ read: 190, found: 0, already: 43 });
+  });
+});
+
 describe("rows the rules cannot sort", () => {
   const unsorted = (id: string, date: string): FlowItem => ({
     item_id: id,

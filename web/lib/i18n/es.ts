@@ -267,6 +267,15 @@ export const es: Dict = {
     examNoBillNote: "Si te llega una, agrégala en el siguiente paso. Tend retiene esa línea y te da una carta.",
     coveredTitle: "Lo que el programa puede pagar",
     coveredNone: "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
+    capDepends: "según tu caso",
+    clothingKept: {
+      evidence: "Ropa y ropa de cama guardadas como evidencia",
+      investigation: "Ropa y ropa de cama guardadas como evidencia o arruinadas por la investigación",
+      evidenceClothing: "Ropa guardada como evidencia",
+      removedForCare: "Ropa que se quitó para revisar si había lesiones o tratarlas",
+      emergencyCare: "Ropa y calzado perdidos o dañados durante la atención de emergencia por lesiones",
+      cleanup: "Ropa y ropa de cama reemplazadas como parte de la limpieza",
+    },
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     totalCapDepends: (amounts: string) =>
       `En total, hasta ${amounts}, según su caso. La regla dice cuándo se aplica cada uno`,
@@ -440,8 +449,8 @@ export const es: Dict = {
     readListLabel: "Registros leídos",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transacción leída", "transacciones leídas")}, ${plural(found, "posible gasto", "posibles gastos")}.`,
-    bankRead: (read: number, found: number) =>
-      `Banco de demostración: ${plural(read, "transacción leída", "transacciones leídas")}, ${plural(found, "posible gasto", "posibles gastos")}.`,
+    bankRead: (read: number, bills: number, found: number) =>
+      `Banco de demostración: ${plural(read, "transacción", "transacciones")}${bills ? ` y ${plural(bills, "factura", "facturas")}` : ""} ${read === 1 && !bills ? "leída" : "leídas"}, ${plural(found, "posible gasto", "posibles gastos")}.`,
     billRead: (provider: string, n: number, total: string) =>
       `${provider}: ${plural(n, "línea", "líneas")} que suman ${total}.`,
     billUnreliable: (label: string) => `${label}: Tend no pudo leerla con seguridad.`,
@@ -482,6 +491,17 @@ export const es: Dict = {
     onTheBill: "Factura",
     capped: (from: string) => `Reducido de ${from}`,
     rateUnverified: "La ley fija una tarifa para esto. El programa la aplicará.",
+    severalLimits:
+      "La ley pone más de un límite para este tipo de gasto. Cada regla dice cuándo se aplica. Tend usa el más alto, y el programa decide cuál corresponde.",
+    clothingKept: {
+      evidence: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia?",
+      investigation: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia o que la investigación arruinó?",
+      evidenceClothing: "¿Esto reemplazó ropa que se guardó como evidencia?",
+      removedForCare: "¿Esto reemplazó ropa que te quitaron para revisar si había lesiones o tratarlas?",
+      emergencyCare:
+        "¿Esto reemplazó ropa o calzado que se perdió o se dañó durante la atención de emergencia por lesiones?",
+      cleanup: "¿Esto reemplazó ropa o ropa de cama como parte de una limpieza que necesitaste después?",
+    },
     examAsMedical: "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
     heldLine: "No pagues esta línea. La ley dice que no te la deben cobrar.",
     include: "Incluir esto",

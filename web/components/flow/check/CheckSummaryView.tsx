@@ -130,13 +130,15 @@ export default function CheckSummaryView({
             <ul className={styles.covered}>
               {s.covered.map((c) => {
                 const cap = capText(c, t, f);
+                // A cost the law pays only on a condition, such as bedding kept as evidence, is named with it.
+                const name = c.condition ? t.check.clothingKept[c.condition] : t.expense[c.expense];
                 return (
                   <li key={c.expense}>
                     <span>
-                      {t.expense[c.expense]}
+                      {name}
                       {cap ? `, ${cap}` : ""}
                     </span>
-                    <Cite ruleIds={c.ruleIds} law={law} subject={t.expense[c.expense]} />
+                    <Cite ruleIds={c.ruleIds} law={law} subject={name} />
                   </li>
                 );
               })}

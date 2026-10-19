@@ -18,10 +18,7 @@ const COPY: Record<ItemExpense, ExpenseCopy> = {
   crime_scene_cleanup: { label: "Cleanup", question: "Was this cleanup after what happened?" },
   childcare: { label: "Child care", question: "Was this child care while you got care or recovered?" },
   property_replacement: { label: "Replaced belongings", question: "Did this replace something you lost?" },
-  clothing_bedding: {
-    label: "Clothing and bedding",
-    question: "Did this replace clothing or bedding kept as evidence?",
-  },
+  clothing_bedding: { label: "Clothing and bedding", question: "Did this replace clothing or bedding?" },
   prescription: { label: "Prescriptions", question: "Was this medicine you needed afterward?" },
   dental: { label: "Dental care", question: "Was this dental care you needed afterward?" },
   funeral: { label: "Funeral costs", question: "Was this a funeral cost?" },

@@ -334,6 +334,10 @@ export function FlowProvider({
       return { st: s.check.st, incident_date: incident };
     };
 
+    // A record's new costs and the ones another record already had are counted the same way: only
+    // costs Gather offers, never unsorted rows from before the date, so the two numbers add up.
+    const countOffered = (items: FlowItem[]) => items.filter((it) => offered(stateRef.current, it, today)).length;
+
     // A statement's costs, read and sorted on this device; cloud AI only with the survivor's yes.
     const statementCosts = async (txns: StatementTxn[], sha: string, opts?: SortOptions) => {
       const ctx = ctxFor(
@@ -466,14 +470,14 @@ export function FlowProvider({
         const id = `stmt:${sha}`;
         rereads.current.set(id, (opts) => statementCosts(txns, sha, opts));
         docs.current.set(id, { file, rows: txns });
-        const { fresh, already } = newCosts(stateRef.current.items, items);
+        const { fresh, repeats } = newCosts(stateRef.current.items, items);
         const source: SourceRecord = {
           id,
           kind: "statement",
           label: file.name,
           read: txns.length,
-          found: fresh.filter((it) => offered(stateRef.current, it, today)).length,
-          already,
+          found: countOffered(fresh),
+          already: countOffered(repeats),
           warnings,
           sample,
         };
@@ -488,14 +492,16 @@ export function FlowProvider({
         const items = await bankCosts(txns, billIds, fast ? { deviceAi: false } : undefined);
         rereads.current.set("bank", (opts) => bankCosts(txns, billIds, opts));
         docs.current.set("bank", { rows: txns });
-        const { fresh, already } = newCosts(stateRef.current.items, items);
+        const { fresh, repeats } = newCosts(stateRef.current.items, items);
+        const bills = txns.filter((t) => billIds.includes(t.id)).length;
         const source: SourceRecord = {
           id: "bank",
           kind: "bank",
           label: account.nickname,
-          read: txns.length,
-          found: fresh.filter((it) => offered(stateRef.current, it, today)).length,
-          already,
+          read: txns.length - bills,
+          bills,
+          found: countOffered(fresh),
+          already: countOffered(repeats),
           warnings: [],
           sample: true,
         };

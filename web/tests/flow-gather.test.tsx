@@ -7,8 +7,11 @@ import { ROWAN_ACCOUNT } from "@/components/flow/samples";
 import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
+import { fetchLaw } from "@/lib/api";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
-import { MI_CHECK, MI_LAW, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
+import { mockEngineOutput } from "@/lib/mocks/engine";
+import type { EngineInput } from "@/lib/types";
+import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 // Reading the five-page sample PDF takes well over a second when the whole suite runs in parallel.
 const PDF_READ = { timeout: 10_000 };
@@ -301,5 +304,208 @@ describe("bill triage", () => {
     ).toBeTruthy();
     expect(within(dialog).queryByLabelText("Confirmation code")).toBeNull();
     expect(services.confirm).not.toHaveBeenCalled();
+  });
+});
+
+// Two of Rowan's costs from the demo bank: a $12 ride on a counseling day and the sheets an AI sorted.
+// Both are guesses, so both wait for a yes.
+const guess = (item_id: string, date: string, cents: number, expense: FlowItem["expense"], description: string) =>
+  ({
+    item_id,
+    date,
+    amount_cents: cents,
+    expense,
+    confirmed: false,
+    insurance_paid_cents: 0,
+    is_bill: false,
+    units: 0,
+    unit: null,
+    tags: [],
+    description,
+    source: "rule",
+    reason: "",
+    confidence: 0.6,
+    origin: "bank",
+  }) satisfies FlowItem;
+const ride = guess("nessie:r-1", "2026-06-17", 1200, "transportation", "Wayfare Rides - trip");
+const sheets = guess("nessie:r-2", "2026-06-16", 9600, "clothing_bedding", "Linen & Loom - sheet set, pillows");
+const withGuesses: Action[] = [
+  MI_CHECK,
+  {
+    type: "addSource",
+    source: { id: "bank", kind: "bank", label: "Checking", read: 2, found: 2, warnings: [], sample: true },
+    items: [ride, sheets],
+  },
+];
+// A ride's proof as the engine gives it (fixtures/rowan-mi.output.json): the $5,000 limit it counts
+// with, the rule that covers rides, and the $1,000 limit for trips of 50 miles or less beside them.
+const realProof = () =>
+  testServices({
+    evaluate: vi.fn(async (input: EngineInput) => {
+      const out = michiganOutput(input);
+      const lines = out.lines.map((l) =>
+        l.expense === "transportation"
+          ? { ...l, rule_ids: ["MI-CAP-8", "MI-COV-7"], alt_cap_rule_ids: ["MI-CAP-7"] }
+          : l,
+      );
+      return { output: { ...out, lines }, backend: "wasm" as const, detail: "test" };
+    }),
+  });
+const quote = (id: string) => MI_LAW.rules.find((r) => r.id === id)!.quote;
+
+describe("the law behind each cost", () => {
+  it("cites a local ride to the rule that covers rides to care, then both trip-length limits", async () => {
+    renderFlow(<GatherScreen />, { services: realProof(), initial: stateFrom(withGuesses) });
+    const cite = await screen.findByRole("button", { name: /show the law for Wayfare Rides - trip/ });
+    // Not MCL 18.361(2)(e)(ii), the $5,000 limit for trips of 50 miles or more.
+    expect(cite.textContent).toMatch(/^MCL 18\.361\(2\)\(e\) \+2:/);
+    fireEvent.click(cite);
+    const sheet = await screen.findByRole("dialog");
+    for (const id of ["MI-COV-7", "MI-CAP-7", "MI-CAP-8"]) expect(within(sheet).getByText(quote(id))).toBeTruthy();
+    const order = ["MI-COV-7", "MI-CAP-7", "MI-CAP-8"].map((id) => sheet.textContent!.indexOf(quote(id)));
+    expect(order).toEqual([...order].sort((a, b) => a - b));
+    expect(
+      within(sheet).getByText(
+        /The law sets more than one limit for this kind of cost\. Each rule says when it applies\. Tend uses the highest, and the program decides which one fits\./,
+      ),
+    ).toBeTruthy();
+  });
+
+  it("asks whether replaced bedding was kept as evidence, the condition its rule sets", async () => {
+    renderFlow(<GatherScreen />, { services: realProof(), initial: stateFrom(withGuesses) });
+    expect(
+      await screen.findByRole("group", { name: /^Did this replace clothing or bedding kept as evidence\?/ }),
+    ).toBeTruthy();
+    const cite = screen.getByRole("button", { name: /show the law for Linen & Loom/ });
+    expect(cite.textContent).toMatch(/^MCL 18\.361\(2\)\(j\):/);
+    fireEvent.click(cite);
+    expect(within(await screen.findByRole("dialog")).getByText(quote("MI-CAP-10"))).toBeTruthy();
+    expect(quote("MI-CAP-10")).toContain("that is held as evidence of a crime");
+  });
+
+  it("asks the same in Spanish", async () => {
+    renderFlow(<GatherScreen />, { services: realProof(), initial: stateFrom(withGuesses, "es"), lang: "es" });
+    expect(
+      await screen.findByRole("group", {
+        name: /^¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia\?/,
+      }),
+    ).toBeTruthy();
+  });
+});
+
+// The same sheets in other states, with the rule ids the engine gives an unconfirmed clothing line
+// there (public/engine/laws/*.tlaw).
+const sheetsIn = (st: string): Action[] => [
+  { type: "check", patch: { st, date: "2026-06-14", exam: "yes", police: "not_yet" } },
+  {
+    type: "addSource",
+    source: { id: "bank", kind: "bank", label: "Checking", read: 1, found: 1, warnings: [], sample: true },
+    items: [sheets],
+  },
+];
+const clothingProof = (ruleIds: string[]) =>
+  testServices({
+    evaluate: vi.fn(async (input: EngineInput) => {
+      const out = mockEngineOutput(input);
+      const lines = out.lines.map((l) => (l.expense === "clothing_bedding" ? { ...l, rule_ids: ruleIds } : l));
+      return { output: { ...out, lines }, backend: "wasm" as const, detail: "test" };
+    }),
+  });
+
+describe("the clothing question in other states", () => {
+  // NJ-COV-CLOTH quotes a clause of New Jersey's crime scene clean-up section (N.J.A.C. 13:75-4.12(d)1).
+  // Asked only "clothing or bedding?", a yes would count clothes the hospital kept, with no cleanup.
+  it("asks New Jersey whether it replaced clothing or bedding as part of cleanup", async () => {
+    renderFlow(<GatherScreen />, { services: clothingProof(["NJ-COV-CLOTH"]), initial: stateFrom(sheetsIn("NJ")) });
+    expect(
+      await screen.findByRole("group", {
+        name: /^Did this replace clothing or bedding as part of cleanup you needed afterward\?/,
+      }),
+    ).toBeTruthy();
+    expect(screen.queryByRole("group", { name: /^Did this replace clothing or bedding\?/ })).toBeNull();
+    expect(screen.queryByText(/kept as evidence/)).toBeNull();
+  });
+
+  it("asks New Jersey the same in Spanish", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["NJ-COV-CLOTH"]),
+      initial: stateFrom(sheetsIn("NJ"), "es"),
+      lang: "es",
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^¿Esto reemplazó ropa o ropa de cama como parte de una limpieza que necesitaste después\?/,
+      }),
+    ).toBeTruthy();
+  });
+
+  // OH-COV-5 pays only for clothing removed to assess or treat injuries. Asked only "clothing or
+  // bedding?", a yes would count these sheets under a sentence about clothes taken off for care.
+  it("asks Ohio whether it replaced clothing removed to check for or treat injuries", async () => {
+    renderFlow(<GatherScreen />, { services: clothingProof(["OH-COV-5"]), initial: stateFrom(sheetsIn("OH")) });
+    expect(
+      await screen.findByRole("group", { name: /^Did this replace clothing removed to check for or treat injuries\?/ }),
+    ).toBeTruthy();
+    expect(screen.queryByRole("group", { name: /^Did this replace clothing or bedding/ })).toBeNull();
+  });
+
+  it("asks Ohio the same in Spanish", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["OH-COV-5"]),
+      initial: stateFrom(sheetsIn("OH"), "es"),
+      lang: "es",
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^¿Esto reemplazó ropa que te quitaron para revisar si había lesiones o tratarlas\?/,
+      }),
+    ).toBeTruthy();
+  });
+
+  it("asks Washington about clothing or footwear lost or damaged in emergency treatment", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["WA-COV-CLOTHING"]),
+      initial: stateFrom(sheetsIn("WA")),
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^Did this replace clothing or footwear lost or damaged during emergency treatment for injuries\?/,
+      }),
+    ).toBeTruthy();
+  });
+
+  it("asks DC about clothing kept as evidence, since its rule names no bedding", async () => {
+    renderFlow(<GatherScreen />, { services: clothingProof(["DC-CAP-8"]), initial: stateFrom(sheetsIn("DC")) });
+    expect(await screen.findByRole("group", { name: /^Did this replace clothing kept as evidence\?/ })).toBeTruthy();
+  });
+
+  it("asks Texas about evidence or the investigation, as both its rules do", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["TX-SEIZED-1", "TX-SEIZED-2"]),
+      initial: stateFrom(sheetsIn("TX")),
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^Did this replace clothing or bedding kept as evidence or ruined by the investigation\?/,
+      }),
+    ).toBeTruthy();
+  });
+
+  // The condition is read from the state's law file, which loads apart from the engine. Without it, a
+  // yes to the plain question would count the cost without the condition, so the row waits.
+  it("holds the question while the state's law has not loaded", async () => {
+    // fetchLaw keeps a failed load for the rest of the visit; no other test in this file loads Wisconsin.
+    const served = stubLawFetch();
+    const requests = vi.fn(async (url: string) =>
+      url === "/data/law/WI.json" ? new Response("not found", { status: 404 }) : served(url),
+    );
+    vi.stubGlobal("fetch", requests);
+    renderFlow(<GatherScreen />, { services: clothingProof(["WI-CAP-3"]), initial: stateFrom(sheetsIn("WI")) });
+    await waitFor(() => expect(document.querySelector('li[data-status="needs_confirmation"]')).not.toBeNull());
+    expect(await fetchLaw("WI")).toBeNull();
+    expect(requests).toHaveBeenCalledWith("/data/law/WI.json");
+    const row = document.querySelector<HTMLElement>('li[data-status="needs_confirmation"]')!;
+    expect(within(row).getByText("Needs your answer")).toBeTruthy();
+    expect(screen.queryByRole("group", { name: /^Did this replace clothing/ })).toBeNull();
   });
 });

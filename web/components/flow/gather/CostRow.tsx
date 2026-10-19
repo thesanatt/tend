@@ -1,6 +1,7 @@
 "use client";
 
 import Money from "@/components/Money";
+import { citedRuleIds, clothingCondition, severalLimits } from "@/lib/cite";
 import { useJustChanged } from "@/lib/hooks";
 import { useI18n, useSummary } from "@/lib/i18n";
 import type { ItemExpense } from "@/lib/types";
@@ -35,7 +36,12 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       ? t.gather.reasonBill(item.line_no ?? 0, item.merchant ?? t.gather.theProvider)
       : classifierReason.text;
   const from = t.gather.from[item.origin];
-  const explain = t.statusExplain[status];
+  const explain =
+    line && severalLimits(line) ? `${t.statusExplain[status]} ${t.gather.severalLimits}` : t.statusExplain[status];
+  const ruleIds = line ? citedRuleIds(line, law.rule, law.law?.rules) : [];
+  const kept = item.expense === "clothing_bedding" ? clothingCondition(ruleIds, law.rule) : null;
+  // The condition comes from the law file; until it loads, a yes could count the cost without it.
+  const asking = item.expense !== "clothing_bedding" || law.law !== null;
 
   return (
     <li className={`${styles.row} ${changed ? styles.changed : ""}`} data-status={status} id={`row-${qid}`}>
@@ -77,7 +83,7 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
           <StatusMark status={status} />
           {line && line.rule_ids.length ? (
             <Cite
-              ruleIds={line.rule_ids}
+              ruleIds={ruleIds}
               law={law}
               subject={subject}
               explain={explain}
@@ -114,10 +120,11 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       {!readOnly &&
       kind === "inferred" &&
       (answer === undefined || answer === "unsure") &&
-      status === "needs_confirmation" ? (
+      status === "needs_confirmation" &&
+      asking ? (
         <div role="group" aria-labelledby={qid} className={styles.question}>
           <p id={qid} className={styles.qText}>
-            {t.question[item.expense as ItemExpense] ?? t.question.other}
+            {kept ? t.gather.clothingKept[kept] : (t.question[item.expense as ItemExpense] ?? t.question.other)}
             <span className="visually-hidden"> {subject}</span>
           </p>
           <div className={styles.answers}>

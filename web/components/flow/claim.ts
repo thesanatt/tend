@@ -172,7 +172,11 @@ export function groupRows(rows: Row[]): GroupView[] {
     const inGroup = rows.filter((r) => r.group === group && SHOWN.includes(r.status));
     const open = inGroup.filter((r) => r.kind === "inferred" && r.answer === undefined && r.status !== "held");
     const byExpense = new Map<string, string[]>();
-    for (const r of open) byExpense.set(r.item.expense, [...(byExpense.get(r.item.expense) ?? []), r.item.item_id]);
+    // Clothing and bedding is answered one line at a time: most states pay for it only when it was
+    // kept as evidence, and only each line's own question says so (lib/cite.ts).
+    for (const r of open)
+      if (r.item.expense !== "clothing_bedding")
+        byExpense.set(r.item.expense, [...(byExpense.get(r.item.expense) ?? []), r.item.item_id]);
     const [expense, ids] = [...byExpense.entries()].sort((a, b) => b[1].length - a[1].length)[0] ?? ["", []];
     return {
       group,

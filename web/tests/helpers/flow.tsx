@@ -1,6 +1,6 @@
 // Renders flow screens with the thin mocks from lib/mocks and Michigan's real verified rules.
 import { render } from "@testing-library/react";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import type { ReactNode } from "react";
 import { vi } from "vitest";
@@ -117,13 +117,21 @@ export const MI_CHECK: Action = {
   patch: { st: "MI", date: "2026-06-14", exam: "yes", police: "not_yet" },
 };
 
-// Serves Michigan's law file; everything else (the API probe) is "not found", so no server exists.
+function lawFile(url: string) {
+  const st = /^\/data\/law\/([A-Z]{2})\.json$/.exec(url)?.[1];
+  const file = st ? path.join(web, "public/data/law", `${st}.json`) : null;
+  return file && existsSync(file) ? readFileSync(file) : null;
+}
+
+// Serves each state's law file, as the site does; everything else (the API probe) is "not found", so
+// no server exists.
 export function stubLawFetch() {
-  const fn = vi.fn(async (url: string) =>
-    url === "/data/law/MI.json"
-      ? new Response(MI_BYTES, { status: 200, headers: { "content-type": "application/json" } })
-      : new Response("not found", { status: 404, headers: { "content-type": "text/html" } }),
-  );
+  const fn = vi.fn(async (url: string) => {
+    const body = lawFile(url);
+    return body
+      ? new Response(body, { status: 200, headers: { "content-type": "application/json" } })
+      : new Response("not found", { status: 404, headers: { "content-type": "text/html" } });
+  });
   vi.stubGlobal("fetch", fn);
   return fn;
 }
