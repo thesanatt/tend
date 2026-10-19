@@ -40,6 +40,8 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
     line && severalLimits(line) ? `${t.statusExplain[status]} ${t.gather.severalLimits}` : t.statusExplain[status];
   const ruleIds = line ? citedRuleIds(line, law.rule, law.law?.rules) : [];
   const kept = item.expense === "clothing_bedding" ? clothingCondition(ruleIds, law.rule) : null;
+  // The condition comes from the law file; until it loads, a yes could count the cost without it.
+  const asking = item.expense !== "clothing_bedding" || law.law !== null;
 
   return (
     <li className={`${styles.row} ${changed ? styles.changed : ""}`} data-status={status} id={`row-${qid}`}>
@@ -118,7 +120,8 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       {!readOnly &&
       kind === "inferred" &&
       (answer === undefined || answer === "unsure") &&
-      status === "needs_confirmation" ? (
+      status === "needs_confirmation" &&
+      asking ? (
         <div role="group" aria-labelledby={qid} className={styles.question}>
           <p id={qid} className={styles.qText}>
             {kept ? t.gather.clothingKept[kept] : (t.question[item.expense as ItemExpense] ?? t.question.other)}

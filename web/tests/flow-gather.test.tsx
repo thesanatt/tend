@@ -7,6 +7,7 @@ import { ROWAN_ACCOUNT } from "@/components/flow/samples";
 import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
+import { fetchLaw } from "@/lib/api";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import { mockEngineOutput } from "@/lib/mocks/engine";
 import type { EngineInput } from "@/lib/types";
@@ -470,5 +471,23 @@ describe("the clothing question in other states", () => {
         name: /^Did this replace clothing or bedding kept as evidence or ruined by the investigation\?/,
       }),
     ).toBeTruthy();
+  });
+
+  // The condition is read from the state's law file, which loads apart from the engine. Without it, a
+  // yes to the plain question would count the cost without the condition, so the row waits.
+  it("holds the question while the state's law has not loaded", async () => {
+    // fetchLaw keeps a failed load for the rest of the visit; no other test in this file loads Wisconsin.
+    const served = stubLawFetch();
+    const requests = vi.fn(async (url: string) =>
+      url === "/data/law/WI.json" ? new Response("not found", { status: 404 }) : served(url),
+    );
+    vi.stubGlobal("fetch", requests);
+    renderFlow(<GatherScreen />, { services: clothingProof(["WI-CAP-3"]), initial: stateFrom(sheetsIn("WI")) });
+    await waitFor(() => expect(document.querySelector('li[data-status="needs_confirmation"]')).not.toBeNull());
+    expect(await fetchLaw("WI")).toBeNull();
+    expect(requests).toHaveBeenCalledWith("/data/law/WI.json");
+    const row = document.querySelector<HTMLElement>('li[data-status="needs_confirmation"]')!;
+    expect(within(row).getByText("Needs your answer")).toBeTruthy();
+    expect(screen.queryByRole("group", { name: /^Did this replace clothing/ })).toBeNull();
   });
 });
