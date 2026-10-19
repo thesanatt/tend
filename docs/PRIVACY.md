@@ -55,9 +55,11 @@ blank for the survivor to fill in.
   page opened." It vouches only for the page on screen: a reload, or a tab the browser reopens,
   is a new page.
 - So that a reload does not hide a send, the line keeps, for this tab only, the kind of each thing
-  sent and when, in sessionStorage. It holds no amounts, payees, ids, or keys. Closing the tab ends
-  it, and quick exit clears it with the rest of the tab. Deleting saved progress, saving over it,
-  and Close Tend on a claim that was never saved clear it too.
+  sent and when, in sessionStorage. It holds no amounts, payees, ids, or keys. Only a reload keeps
+  it. Any other load starts it over, including a closed tab the browser reopens (which gets its
+  sessionStorage back) and a Back the browser's page cache does not serve; the line then names
+  only what that page sent. Quick exit clears it with the rest of the tab. Deleting saved progress,
+  saving over it, and Close Tend on a claim that was never saved clear it too.
 - While saved progress is locked, the line says only "On this device." After Lock now, Close Tend,
   or Delete, it says the same until something new is sent or the page loads again, because what
   the page sent before is no longer on the line. So once saved progress locks, or the survivor

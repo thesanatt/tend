@@ -10,7 +10,7 @@ import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ExitControl } from "@/components/flow/ExitControl";
 import { FlowProvider, useFlow, VAULT_KEY } from "@/components/flow/FlowProvider";
-import { keepSend, withKept } from "@/components/flow/keptSends";
+import { dropUnlessReload, keepSend, withKept } from "@/components/flow/keptSends";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { FlowState } from "@/components/flow/state";
 import { navigation } from "@/components/QuickExit";
@@ -183,6 +183,46 @@ describe("the privacy line after a reload", () => {
     );
     expect(html).toContain("On this device.");
     expect(html).not.toContain("Nothing has left it");
+  });
+});
+
+// Chromium gives a closed tab it reopens (Cmd+Shift+T, History) its sessionStorage back, and that
+// load counts as back_forward. Only a reload may bring the list back.
+describe("the privacy line on a page that is not a reload", () => {
+  const one = JSON.stringify([{ kind: "share", at: "2026-10-03T17:00:00.000Z" }]);
+
+  // The page loading again: a fresh copy of the module, with the browser's navigation type.
+  async function load(type: string) {
+    const spy = vi
+      .spyOn(performance, "getEntriesByType")
+      .mockReturnValue([{ type } as PerformanceNavigationTiming] as unknown as PerformanceEntryList);
+    try {
+      vi.resetModules();
+      await import("@/components/flow/keptSends");
+    } finally {
+      spy.mockRestore();
+    }
+  }
+
+  it("keeps the tab's list only across a reload", async () => {
+    sessionStorage.setItem(SENT_KEY, one);
+    dropUnlessReload("reload");
+    expect(sessionStorage.getItem(SENT_KEY)).toBe(one);
+    for (const type of ["back_forward", "navigate", "prerender", undefined]) {
+      sessionStorage.setItem(SENT_KEY, one);
+      dropUnlessReload(type);
+      expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+    }
+    await page();
+    expect(line()).toBe(QUIET);
+  });
+
+  it("forgets it when the page loads as a reopened tab, and keeps it when the page reloads", async () => {
+    sessionStorage.setItem(SENT_KEY, one);
+    await load("reload");
+    expect(sessionStorage.getItem(SENT_KEY)).toBe(one);
+    await load("back_forward");
+    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
   });
 });
 

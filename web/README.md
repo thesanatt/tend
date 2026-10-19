@@ -60,8 +60,10 @@ engine, cloud AI, or anything unexpected), so the line cannot miss a send. With 
 "Nothing has left it since this page opened", which is as far as one page can vouch. After Lock now, Close
 Tend, or Delete it says only "On this device." until the next send or page load. The tab keeps each send's
 kind and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the
-line stays true after a reload. The line leaves them out while saved progress is locked. Exit this page, Close
-Tend on a claim never saved, and deleting or saving over locked progress clear them.
+line stays true after a reload. Only a reload keeps them: any other load, such as a closed tab the browser
+reopens with its sessionStorage, starts the list over. The line leaves them out while saved progress is
+locked. Exit this page, Close Tend on a claim never saved, and deleting or saving over locked progress clear
+them.
 
 ## Screens
 

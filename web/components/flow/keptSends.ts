@@ -1,10 +1,10 @@
 "use client";
 
-// The privacy line's memory for this tab. The flow's state lives in memory, so a reload used to turn
-// the line back to "Nothing has left it." even after a payment or a share link. Each send's kind and
-// time go to sessionStorage, never an amount, a payee, an id, or a key. The tab forgets them when it
-// closes, when the claim on this device ends (forgetKeptSends), and when Exit this page clears the
-// rest of the tab (components/QuickExit.tsx).
+// The privacy line's memory for this tab. The flow's state lives in memory, so after a reload the line
+// used to leave out a payment or a share link the tab had sent. Each send's kind and time go to
+// sessionStorage, never an amount, a payee, an id, or a key. Only a reload keeps them
+// (dropUnlessReload). The tab also forgets them when the claim on this device ends (forgetKeptSends),
+// and when Exit this page clears the rest of the tab (components/QuickExit.tsx).
 import { useSyncExternalStore } from "react";
 import { SENT_KEY } from "@/lib/keys";
 import type { SentEvent, SentKind } from "./state";
@@ -34,6 +34,31 @@ const listeners = new Set<() => void>();
 // the same send), and when each payment was started, so the payment that follows replaces it.
 const seen = new Set<string>();
 const started = new Map<string, string>();
+
+// A closed tab the browser reopens (Cmd+Shift+T, History) gets its sessionStorage back, and that load
+// counts as back_forward, so whoever reopened it would see what the tab sent. Only a reload carries
+// the list over; any other load, or a browser that cannot say, starts it over, and the line then
+// vouches only for the new page (en.privacy.quiet).
+export function dropUnlessReload(navigationType: string | undefined): void {
+  if (navigationType === "reload") return;
+  try {
+    window.sessionStorage.removeItem(SENT_KEY);
+  } catch {
+    // no storage here
+  }
+}
+
+function navigationType(): string | undefined {
+  try {
+    return (performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined)?.type;
+  } catch {
+    return undefined;
+  }
+}
+
+// Once per page, before the line first reads the list. Steps inside the app and pages the browser's
+// back cache restores do not run modules again.
+if (typeof window !== "undefined") dropUnlessReload(navigationType());
 
 // What was stored is data from the tab: only well-formed entries count.
 function parse(raw: string | null): readonly KeptSend[] {
