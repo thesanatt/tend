@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { resetDataModeForTests } from "@/lib/api";
+import { resetDataModeForTests, serverClaimBody } from "@/lib/api";
 import { EngineUnavailableError, evaluateClaim, toEngineInput } from "@/lib/engine";
 import type { EngineInput, ScanResult } from "@/lib/types";
 
@@ -96,7 +96,30 @@ describe("engine adapter", () => {
     expect(result).toMatchObject({ backend: "api", detail: "refengine" });
     expect(result.output.claim_id).toBe("c-1");
     const [, init] = fetch.mock.calls.find(([u]) => u === "/api/claim")!;
-    expect(JSON.parse(String(init?.body))).toEqual(toEngineInput(input));
+    expect(JSON.parse(String(init?.body))).toEqual(serverClaimBody(toEngineInput(input)));
+  });
+
+  it("sends the server no words from the bank or the bill, only each cost's date, amount, and kind", async () => {
+    const fetch = stubFetch({
+      "/api/jurisdictions": () => json([{ st: "MI", name: "Michigan", rule_count: 48, source_count: 17 }]),
+      "/api/claim": () => json(fixtureOut, { "x-tend-engine": "refengine" }),
+    });
+    await evaluateClaim(input, { allowApi: true });
+    const [, init] = fetch.mock.calls.find(([u]) => u === "/api/claim")!;
+    const body = String(init?.body);
+    const sent = JSON.parse(body) as { items: Record<string, unknown>[] };
+    expect(sent.items).toHaveLength(input.items.length);
+    for (const item of sent.items) expect(item).not.toHaveProperty("description");
+    const words = input.items.map((i) => i.description.trim()).filter((d) => d.length > 3);
+    expect(words.length).toBeGreaterThan(20);
+    expect(words.filter((d) => body.includes(d))).toEqual([]);
+    // Everything an engine reads still goes.
+    expect(sent.items[0]).toMatchObject({
+      item_id: input.items[0].item_id,
+      date: input.items[0].date,
+      amount_cents: input.items[0].amount_cents,
+      expense: input.items[0].expense,
+    });
   });
 
   it("says why when the API engine fails, instead of guessing", async () => {

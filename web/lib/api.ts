@@ -6,6 +6,7 @@ import type {
   ActionProposal,
   ActionResult,
   EngineInput,
+  EngineItem,
   EngineOutput,
   Jurisdiction,
   JurisdictionSummary,
@@ -146,12 +147,27 @@ export async function fetchAsmFixture(st: string): Promise<string | null> {
   return fixture.listing.join("\n");
 }
 
+export type ServerClaimItem = Omit<EngineItem, "description">;
+
+// No engine reads an item's description (docs/SPEC.md), and a bank or bill line can name a person or
+// a clinic, so those words stay on the device. The API's model takes "" when the field is left out.
+export function serverClaimBody(input: EngineInput): Omit<EngineInput, "items"> & { items: ServerClaimItem[] } {
+  return {
+    ...input,
+    items: input.items.map((item) => {
+      const sent: Partial<EngineItem> = { ...item };
+      delete sent.description;
+      return sent as ServerClaimItem;
+    }),
+  };
+}
+
 export async function claimFromApi(input: EngineInput): Promise<{ output: EngineOutput; engine: string } | null> {
   if ((await dataMode()) !== "live") return null;
   const res = await fetch("/api/claim", {
     method: "POST",
     headers: { "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify(input),
+    body: JSON.stringify(serverClaimBody(input)),
     signal: AbortSignal.timeout(15000),
   });
   if (!res.ok) throw new ApiError(`claim failed: ${res.status}`, res.status);

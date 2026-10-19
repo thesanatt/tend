@@ -101,8 +101,9 @@ export const en = {
     eventBank: (when: string) => `${when}: a request to the bank for your transactions.`,
     eventSetup: (amount: string, to: string, when: string) =>
       `${when}: the amount ${amount} and the payee ${to}, to get a confirmation code. No money moved.`,
+    // Every check after the first yes is one more send of the same kind, so the list keeps one line for them.
     eventServer: (when: string) =>
-      `${when}: your answers and costs, to Tend's server to check the law, because this browser could not run the law engine.`,
+      `${when}: your state, the date, your answers, and each cost with its date, amount, and kind, to Tend's server to check the law, because this browser could not run the law engine. They go again each time something changes.`,
     partCloudRows: "rows for cloud AI to sort",
     partCloudBill: (n: number) => (n === 1 ? "a bill for cloud AI to read" : `${n} bills for cloud AI to read`),
     partOther: (n: number) => (n === 1 ? "a request Tend did not expect" : `${n} requests Tend did not expect`),
@@ -134,8 +135,9 @@ export const en = {
     computing: "Checking the law on this device",
     error: "Tend could not check the law right now.",
     consentTitle: "Check on Tend's server instead?",
+    // What lib/api.ts serverClaimBody sends: every cost the engine reads, without the bank or bill words.
     consentBody:
-      "This browser could not run the law engine. Tend can check on its server instead. That sends your state, the date, your answers, and the costs you confirm. No names, and nothing else.",
+      "This browser could not run the law engine. Tend can check on its server instead. That sends your state, the date, your answers, and each cost Tend found that you have not said no to, with its date, amount, and kind. That includes guesses you have not answered and rows Tend could not sort. The words from your bank or bill do not go, so the names in them stay here. It is sent again each time something changes. Tend's server checks it and does not keep it.",
     consentYes: "Check on the server",
     consentNo: "If you would rather not, try again later or on another browser.",
   },

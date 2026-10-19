@@ -73,7 +73,7 @@ export const es: Dict = {
     eventSetup: (amount: string, to: string, when: string) =>
       `${when}: el monto ${amount} y el destinatario ${to}, para recibir un código de confirmación. No se movió dinero.`,
     eventServer: (when: string) =>
-      `${when}: tus respuestas y gastos, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley.`,
+      `${when}: tu estado, la fecha, tus respuestas y cada gasto con su fecha, su monto y su tipo, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley. Se envían otra vez cada vez que algo cambia.`,
     partCloudRows: "filas para que la IA en la nube las clasifique",
     partCloudBill: (n: number) =>
       n === 1 ? "una factura para que la IA en la nube la lea" : `${n} facturas para que la IA en la nube las lea`,
@@ -109,7 +109,7 @@ export const es: Dict = {
     error: "Tend no pudo revisar la ley en este momento.",
     consentTitle: "¿Revisar en el servidor de Tend?",
     consentBody:
-      "Este navegador no pudo usar el motor de la ley. Tend puede revisar en su servidor. Eso envía tu estado, la fecha, tus respuestas y los gastos que confirmes. Sin nombres y nada más.",
+      "Este navegador no pudo usar el motor de la ley. Tend puede revisar en su servidor. Eso envía tu estado, la fecha, tus respuestas y cada gasto que Tend encontró y al que no le dijiste que no, con su fecha, su monto y su tipo. Eso incluye las suposiciones que aún no respondiste y las filas que Tend no pudo clasificar. Las palabras de tu banco o de tu factura no se envían, así que los nombres que aparecen en ellas se quedan aquí. Se envía otra vez cada vez que algo cambia. El servidor de Tend lo revisa y no lo guarda.",
     consentYes: "Revisar en el servidor",
     consentNo: "Si prefieres no hacerlo, intenta más tarde o en otro navegador.",
   },
