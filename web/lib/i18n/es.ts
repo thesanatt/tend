@@ -793,6 +793,7 @@ export const es: Dict = {
     title: "Tu jardín",
     lead: "Una planta por cada gasto que el programa puede pagar. Crece a medida que avanza tu solicitud.",
     deadlineAsk: "Pregunta al programa cuál es el plazo para presentar la solicitud.",
+    deadlineMayBeLater: "Podrías tener más tiempo.",
     tally: (n: number, amount: string) => `${plural(n, "planta", "plantas")} por ${amount}.`,
     paidSoFar: (amount: string) => `El programa decide. En flor, pagado por el programa: ${amount}.`,
     nothingPaid: "El programa decide. Todavía no ha pagado nada.",

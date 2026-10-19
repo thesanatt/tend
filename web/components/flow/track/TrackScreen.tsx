@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import BankActivity from "@/components/bank/BankActivity";
 import PayoutDemo, { DemoPaidNote, isDemoPaid } from "@/components/bank/PayoutDemo";
 import Money from "@/components/Money";
@@ -110,9 +111,25 @@ function NextStep({ plant, t }: { plant: PlantView; t: Dict }) {
   );
 }
 
+// True once the element has scrolled up out of sight.
+function useScrolledPast(ref: RefObject<HTMLElement | null>, on: boolean): boolean {
+  const [past, setPast] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!on || !el || typeof IntersectionObserver !== "function") return;
+    const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting && e.boundingClientRect.top < 0));
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref, on]);
+  return past;
+}
+
 export default function TrackScreen() {
   const { t, f } = useI18n();
   const { state, claim, today } = useFlow();
+  // The deadline stays in view (docs/UX.md): a long garden scrolls its box away, so a slim bar repeats it.
+  const deadlineRef = useRef<HTMLParagraphElement>(null);
+  const pastDeadline = useScrolledPast(deadlineRef, Boolean(state.check.st));
   const law = useLaw(state.check.st || null);
   const setAside = useSetAside(state.check.st || null);
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
@@ -137,6 +154,16 @@ export default function TrackScreen() {
     );
   }
 
+  const late = (deadline?.late && !deadline.fromReport && !deadline.fromDiscovery) || undefined;
+  const due = deadline
+    ? deadline.late
+      ? t.check.deadlineLate(f.date(deadline.date))
+      : t.check.deadlineDate(f.date(deadline.date))
+    : summary
+      ? t.track.deadlineAsk
+      : // The law and the claim are still loading; "ask the program" would be wrong for a moment.
+        t.engine.computing;
+
   return (
     <div className={styles.track}>
       <header className={styles.screenHead}>
@@ -146,24 +173,24 @@ export default function TrackScreen() {
 
       {/* A late deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3):
           it is explained, never shown as plainly late. */}
-      <p
-        className={styles.deadlineBar}
-        data-late={(deadline?.late && !deadline.fromReport && !deadline.fromDiscovery) || undefined}
-      >
-        <strong>
-          {deadline
-            ? deadline.late
-              ? t.check.deadlineLate(f.date(deadline.date))
-              : t.check.deadlineDate(f.date(deadline.date))
-            : summary
-              ? t.track.deadlineAsk
-              : // The law and the claim are still loading; "ask the program" would be wrong for a moment.
-                t.engine.computing}
-        </strong>
+      <p ref={deadlineRef} className={styles.deadlineBar} data-late={late}>
+        <strong>{due}</strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
         {deadline?.fromReport ? <span className={styles.deadlineNote}>{t.check.deadlineFromReport}</span> : null}
         {deadline?.fromDiscovery ? <span className={styles.deadlineNote}>{t.check.deadlineFromDiscovery}</span> : null}
       </p>
+      {/* A copy for the eye only: the box above says it all to a screen reader. A late date that may
+          count from the report or from discovery keeps a short form of its note here too. */}
+      {pastDeadline && summary ? (
+        <div className={`${styles.deadlineStuck} no-print`} data-late={late} aria-hidden="true">
+          <div className={`page ${styles.deadlineStuckInner}`}>
+            <p>
+              <strong>{due}</strong>
+              {deadline?.late && !late ? <span> {t.track.deadlineMayBeLater}</span> : null}
+            </p>
+          </div>
+        </div>
+      ) : null}
 
       <p className={styles.tallyLine}>
         {t.track.tally(all.length, f.money(output?.totals.allowed_cents ?? 0))}{" "}

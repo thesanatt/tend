@@ -789,6 +789,8 @@ export const en = {
     title: "Your garden",
     lead: "One plant for each cost the program can pay. It grows as your claim moves.",
     deadlineAsk: "Ask the program for the filing deadline.",
+    // The bar that repeats a late deadline counted from the report or from discovery (docs/SPEC.md v1.3).
+    deadlineMayBeLater: "You may have more time.",
     tally: (n: number, amount: string) => `${plural(n, "plant", "plants")} for ${amount}.`,
     paidSoFar: (amount: string) => `The program decides. In bloom, paid by the program: ${amount}.`,
     nothingPaid: "The program decides. It has not paid any of it yet.",

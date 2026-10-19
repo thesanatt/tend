@@ -592,6 +592,86 @@ describe("Track", () => {
     await screen.findByText(/File by|Ask the program/);
     expect(screen.queryByText(en.check.deadlineFromReport)).toBeNull();
   });
+
+  it("keeps the deadline in view once a long garden scrolls its box away", async () => {
+    let report: ((entry: { isIntersecting: boolean; boundingClientRect: { top: number } }) => void) | null = null;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: (entries: unknown[]) => void) {
+          report = (entry) => cb([entry]);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const { container } = renderFlow(<TrackScreen />, { initial: stateFrom([MI_CHECK]) });
+    const due = (await screen.findByText(/^File by /)).textContent!;
+    const bar = () => container.querySelector("[class*=deadlineStuck][aria-hidden=true]");
+    expect(bar()).toBeNull();
+    // The box goes up out of sight: the bar repeats it, for the eye only.
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: -620 } }));
+    expect(bar()?.textContent).toBe(due);
+    expect(bar()?.classList.contains("no-print")).toBe(true);
+    // Below the screen is not past it; back in view, the bar goes.
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: 2400 } }));
+    expect(bar()).toBeNull();
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: -620 } }));
+    act(() => report!({ isIntersecting: true, boundingClientRect: { top: 40 } }));
+    expect(bar()).toBeNull();
+  });
+
+  // The bar drops the box's long notes, so a late date that may count from the report or from
+  // discovery would read as plainly late there without a short form of them (docs/SPEC.md v1.3).
+  it.each([
+    [["deadline_from_discovery"], "The usual deadline was June 14, 2025. You may have more time.", false],
+    [["deadline_from_report"], "The usual deadline was June 14, 2025. You may have more time.", false],
+    [[], "The usual deadline was June 14, 2025.", true],
+  ])("keeps a late deadline's caveat in the bar (flags %j)", async (flags, text, plainlyLate) => {
+    let report: ((entry: { isIntersecting: boolean; boundingClientRect: { top: number } }) => void) | null = null;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: (entries: unknown[]) => void) {
+          report = (entry) => cb([entry]);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const services = testServices({
+      evaluate: vi.fn(async (input) => {
+        const out = michiganOutput(input);
+        const deadline = { ...out.checks.deadline, status: "late" as const, deadline_date: "2025-06-14", flags };
+        return { output: { ...out, checks: { ...out.checks, deadline } }, backend: "wasm" as const, detail: "test" };
+      }),
+    });
+    const { container } = renderFlow(<TrackScreen />, { services, initial: stateFrom([MI_CHECK]) });
+    await screen.findByText("The usual deadline was June 14, 2025.");
+    act(() => report!({ isIntersecting: false, boundingClientRect: { top: -620 } }));
+    const bar = container.querySelector("[class*=deadlineStuck][aria-hidden=true]");
+    expect(bar?.textContent).toBe(text);
+    expect(bar?.hasAttribute("data-late")).toBe(plainlyLate);
+  });
+
+  // Exit this page is fixed in the top right corner and is about 46 px wider in Spanish, so a bar across
+  // the top ran under it; along the bottom it never meets the button.
+  it("puts that bar along the bottom, clear of Exit this page, with room to scroll past it", () => {
+    const read = (file: string) => readFileSync(path.resolve(import.meta.dirname, "../components", file), "utf8");
+    const rule = (css: string, selector: string) => {
+      const at = css.indexOf(`${selector} {`);
+      return at < 0 ? "" : css.slice(at, css.indexOf("}", at));
+    };
+    const flow = read("flow/flow.module.css");
+    const shell = read("flow/shell.module.css");
+    const z = (r: string) => Number(/z-index: (\d+)/.exec(r)?.[1]);
+    expect(rule(shell, ".exitWrap")).toMatch(/position: fixed;\s+top: /);
+    expect(rule(flow, ".deadlineStuck")).toMatch(/position: fixed;\s+inset: auto 0 0;/);
+    expect(z(rule(flow, ".deadlineStuck"))).toBeLessThan(z(rule(shell, ".exitWrap")));
+    // The end of the page and keyboard focus can scroll above it.
+    expect(rule(flow, ":global(html):has(.deadlineStuck)")).toMatch(/scroll-padding-bottom: /);
+    expect(rule(flow, ":global(body):has(.deadlineStuck)")).toMatch(/padding-bottom: /);
+  });
 });
 
 // The reducer keeps one event per send, however many places report it.
