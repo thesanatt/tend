@@ -1,5 +1,3 @@
-import { statSync } from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -7,6 +5,7 @@ import { loadCorpus } from "@/components/public/data";
 import { sitePreview } from "@/components/public/og/siteCard";
 import { TOUR_START } from "@/components/tour/tour";
 import { LINKS } from "@/components/tour/links";
+import { engineKb, lawKbRange } from "./engine";
 import styles from "./how.module.css";
 
 // For visitors checking the work: how Tend keeps a survivor safe, the pipeline, the numbers, what is real,
@@ -17,14 +16,6 @@ export const metadata: Metadata = {
     "How Tend reads records on the device, runs each state's verified law in WebAssembly, and cites the exact sentence for every dollar.",
   ...sitePreview("how"),
 };
-
-function engineKb(): number | null {
-  try {
-    return Math.floor(statSync(path.join(process.cwd(), "public/engine/tend.wasm")).size / 1000);
-  } catch {
-    return null;
-  }
-}
 
 const n = (x: number) => x.toLocaleString("en-US");
 
@@ -52,6 +43,7 @@ function See({ files }: { files: string[] }) {
 export default function HowItWorks() {
   const corpus = loadCorpus();
   const kb = engineKb();
+  const laws = lawKbRange();
 
   const numbers: { figure: string; label: string; means: string }[] = [
     {
@@ -73,14 +65,14 @@ export default function HowItWorks() {
       figure: "121,000",
       label: "test claims, 0 mismatches",
       means:
-        "The C++ engine and an independent Python engine must give byte-identical results on random claims and random laws.",
+        "A separate Python engine, written from the same spec, must match the C++ engine byte for byte on every valid random claim, on real and random laws, and refuse the same broken ones.",
     },
     ...(kb
       ? [
           {
             figure: `${kb} KB`,
-            label: "engine",
-            means: "The whole law engine, as WebAssembly. It downloads once and runs in the browser.",
+            label: "law VM",
+            means: `The loader, verifier, and VM that run a state's compiled law, as WebAssembly. It downloads once and runs in the browser.${laws ? ` Each state's law arrives already compiled, as its own ${laws.lo} to ${laws.hi} KB file.` : ""}`,
           },
         ]
       : []),
@@ -302,7 +294,8 @@ export default function HowItWorks() {
             </span>
             <h3>Law engine</h3>
             <p>
-              C++ compiled to WebAssembly. It runs the state&apos;s law, compiled from {n(corpus.rules)} verified rules.
+              A C++ VM, built to WebAssembly, runs the state&apos;s law. The law was compiled ahead of time from that
+              state&apos;s verified rules ({n(corpus.rules)} across all {corpus.programs}).
             </p>
           </li>
           <li className={styles.box}>
@@ -385,12 +378,20 @@ export default function HowItWorks() {
           </div>
           <div>
             <dt>Engine</dt>
-            <dd>A law compiler and bytecode VM in C++20, built to WebAssembly. A Python reference engine checks it.</dd>
+            <dd>
+              A law compiler (tendc) and a bytecode VM, both in C++20. tendc compiles each state&apos;s law ahead of
+              time and is not part of the WebAssembly build. The VM, with the loader and verifier that check a law
+              before it runs, is built to WebAssembly for the browser. A Python reference engine, written from the same
+              spec, checks it.
+            </dd>
           </div>
           <div>
             <dt>Server</dt>
             <dd>
-              FastAPI on Vercel. Neon Postgres holds the public law, encrypted shares, and a hash-chained payment log.
+              FastAPI on Vercel. The C++ engine is not built there, so the Python reference engine runs the law on the
+              server: the bill check before a payment, and a claim the survivor agrees to send when the browser cannot
+              run the VM. Neon Postgres holds the public law, encrypted shares, short-lived payment requests, and a
+              hash-chained payment log.
             </dd>
           </div>
           <div>

@@ -314,3 +314,26 @@ describe("who built it, and when", () => {
     expect(document.body.textContent).not.toMatch(/24 hours|1st place|solo/i);
   });
 });
+
+// A Hackaday reader can check this against engine/scripts/build_wasm.sh: the compiler is not in the WebAssembly.
+describe("the engine", () => {
+  it("says only the runtime is WebAssembly, and how big the engine and each compiled law are", () => {
+    const build = readFileSync(path.join(repo, "engine/scripts/build_wasm.sh"), "utf8");
+    expect(build).toContain("src/vm.cpp");
+    expect(build).not.toContain("compiler.cpp");
+    const wasm = statSync(path.join(web, "public/engine/tend.wasm")).size;
+    const laws = readdirSync(path.join(web, "public/engine/laws"))
+      .filter((f) => f.endsWith(".tlaw"))
+      .map((f) => statSync(path.join(web, "public/engine/laws", f)).size);
+    expect(laws).toHaveLength(51);
+    const lo = Math.floor(Math.min(...laws) / 1000);
+    const hi = Math.ceil(Math.max(...laws) / 1000);
+    const numbers = screen.getByRole("region", { name: "The numbers" }).textContent!.replace(/\s+/g, " ");
+    expect(numbers).toContain(`${Math.floor(wasm / 1000)} KB law VM`);
+    expect(numbers).toContain(`Each state's law arrives already compiled, as its own ${lo} to ${hi} KB file.`);
+    const stack = screen.getByRole("region", { name: "The stack" }).textContent!.replace(/\s+/g, " ");
+    expect(stack).toContain("tendc compiles each state's law ahead of time and is not part of the WebAssembly build.");
+    expect(stack).toContain("so the Python reference engine runs the law on the server");
+    expect(document.body.textContent).not.toMatch(/whole law engine|independent/i);
+  });
+});

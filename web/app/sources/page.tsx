@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { engineKb } from "@/app/how-it-works/engine";
 import { sitePreview } from "@/components/public/og/siteCard";
 import styles from "./sources.module.css";
 
@@ -18,12 +19,13 @@ const GAO_24_106036 = "https://www.gao.gov/products/gao-24-106036";
 const REPO = "https://github.com/thesanatt/tend";
 
 export default function Sources() {
+  const kb = engineKb();
   return (
     <div className={`page ${styles.sources}`}>
       <h1>Sources</h1>
       <p className={styles.lead}>
-        Where each number comes from. Outside facts link to the place that said them. Tend&apos;s own numbers come
-        from its code, and you can rerun them.
+        Where each number comes from. Outside facts link to the place that said them. Tend&apos;s own numbers come from
+        its code, and you can rerun them.
       </p>
 
       <section className={styles.group} aria-labelledby="problem">
@@ -130,18 +132,20 @@ export default function Sources() {
           </p>
         </div>
 
-        <div className={styles.claim}>
-          <h3>The law engine runs in your browser as 183 KB of WebAssembly.</h3>
-          <p className={styles.where}>
-            The file is <a href="/engine/tend.wasm">/engine/tend.wasm</a>; each state&apos;s compiled law is under{" "}
-            <a href="/engine/laws/index.json">/engine/laws</a>.
-          </p>
-        </div>
+        {kb ? (
+          <div className={styles.claim}>
+            <h3>The law VM runs in your browser as {kb} KB of WebAssembly.</h3>
+            <p className={styles.where}>
+              The file is <a href="/engine/tend.wasm">/engine/tend.wasm</a>. The compiler, tendc, is not in it: it
+              builds each state&apos;s law ahead of time, and each compiled law is its own file under{" "}
+              <a href="/engine/laws/index.json">/engine/laws</a>.
+            </p>
+          </div>
+        ) : null}
       </section>
 
       <p className={styles.note}>
-        Tend is not legal advice. It shows what each program&apos;s own rules say, with the quote. The program
-        decides.
+        Tend is not legal advice. It shows what each program&apos;s own rules say, with the quote. The program decides.
       </p>
     </div>
   );
