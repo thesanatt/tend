@@ -82,9 +82,10 @@ export const en = {
   },
 
   privacy: {
-    quiet: "On this device. Nothing has left it.",
-    // Shown until the page has read what this tab sent before a reload, and while saved progress is
-    // locked or being checked.
+    // Vouches only for this page: a reload, or a tab the browser reopens, is a new page.
+    quiet: "On this device. Nothing has left it since this page opened.",
+    // Shown until the page has read what this tab sent before a reload, while saved progress is locked
+    // or being checked, and once this page has put a new claim on screen (FlowProvider.restarted).
     here: "On this device.",
     sent: (parts: string) => `On this device, except what you chose to send: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),
@@ -121,7 +122,7 @@ export const en = {
       "If you save, your progress is locked with Touch ID or a passcode. Exit this page, or press Esc twice, to leave fast.",
     ],
     sentTitle: "What you sent",
-    sentNone: "Nothing yet.",
+    sentNone: "Nothing since this page opened.",
   },
 
   engine: {

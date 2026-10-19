@@ -70,7 +70,7 @@ function Shield() {
 
 export default function PrivacyLine() {
   const { t, f } = useI18n();
-  const { state, vault } = useFlow();
+  const { state, vault, restarted } = useFlow();
   const [open, setOpen] = useState(false);
   // What this claim sent, and what this tab sent before a reload. Behind the lock, and while Tend
   // checks for one, the tab's sends stay out, so the next person at a shared device does not learn
@@ -78,9 +78,10 @@ export default function PrivacyLine() {
   const hidden = vault.status === "locked" || vault.status === "checking";
   const kept = useKeptSends();
   const sent = withKept(state.sent, hidden ? [] : (kept ?? []));
-  // Before the page can read the tab's memory (the server's HTML, then hydration), and behind the
-  // lock, it says only what is always true, never that nothing left.
-  const quiet = (kept === null || hidden) && !sent.length;
+  // Before the page can read the tab's memory (the server's HTML, then hydration), behind the lock,
+  // and once this page has put a new claim on screen, whose line no longer names what the page sent
+  // before, it says only what is always true, never that nothing left since the page opened.
+  const quiet = (kept === null || hidden || restarted) && !sent.length;
   const text = quiet ? t.privacy.here : privacyText(sent, t, f);
 
   return (
@@ -111,7 +112,7 @@ export default function PrivacyLine() {
             <li key={fact}>{fact}</li>
           ))}
         </ul>
-        {/* "Nothing yet." only where it is known to be true. */}
+        {/* "Nothing since this page opened." only where it is known to be true. */}
         {quiet ? null : (
           <section className={styles.sentList} aria-labelledby="sent-title">
             <h3 id="sent-title">{t.privacy.sentTitle}</h3>

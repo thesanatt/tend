@@ -38,8 +38,8 @@ Nessie mock bank. Every name, merchant, and dollar below is made up.
    server issues a 6-digit code; nothing moves until Rowan types it. The API refuses any amount
    that includes the held line, writes the withdrawal to Nessie (on youreowed.tech; a local API
    defaults to a dry run), reads it back, updates the bill to show only the held $325.00, and appends a row to a hash-chained
-   audit log. The line under the header changes from "On this device. Nothing has left it." to
-   "On this device, except what you chose to send: a payment."
+   audit log. The line under the header changes from "On this device. Nothing has left it since
+   this page opened." to "On this device, except what you chose to send: a payment."
 5. **Packet.** Built on the device: Michigan's own application with safe fields only (name,
    signature, SSN, and anything about what happened stay blank), a cited summary PDF, a "still
    needed" list in Michigan's own words, letters, and where to file. It reads "Amount you can ask

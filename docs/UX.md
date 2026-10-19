@@ -72,8 +72,8 @@ bud (filed), bloom (paid). The deadline is always visible. Reminders are opt-in,
 
 ## Always on
 - Local-first and encrypted (docs/PRIVACY.md is the contract). A small persistent line on every
-  screen says what is happening: "On this device. Nothing has left it." It changes only when the
-  survivor sends something (a confirmed payment or an encrypted share).
+  screen says what is happening: "On this device. Nothing has left it since this page opened." It
+  changes only when the survivor sends something (a confirmed payment or an encrypted share).
 - Unlock the saved vault with Touch ID (passkey) or a passphrase.
 - Quick exit: corner button and Esc twice; replaces the page with a neutral one.
 - Neutral tab title ("Tend"). No push notifications. No analytics.

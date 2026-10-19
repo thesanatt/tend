@@ -56,10 +56,12 @@ Bump `VERSION` in `sw.js` when it changes. `NEXT_PUBLIC_TEND_SW=1` turns it on i
 
 The privacy line comes from what actually left: `lib/netlog.ts` watches every `fetch` the page makes and
 reports each request that carries something off the device (a payment, a share, the bank, the server
-engine, cloud AI, or anything unexpected), so the line cannot miss a send. The tab keeps each send's kind
-and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the line
-stays true after a reload. The line leaves them out while saved progress is locked. Exit this page, Close Tend
-on a claim never saved, and deleting or saving over locked progress clear them.
+engine, cloud AI, or anything unexpected), so the line cannot miss a send. With nothing sent it says
+"Nothing has left it since this page opened", which is as far as one page can vouch. After Lock now, Close
+Tend, or Delete it says only "On this device." until the next send or page load. The tab keeps each send's
+kind and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the
+line stays true after a reload. The line leaves them out while saved progress is locked. Exit this page, Close
+Tend on a claim never saved, and deleting or saving over locked progress clear them.
 
 ## Screens
 

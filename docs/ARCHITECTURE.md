@@ -75,10 +75,10 @@ the code is stored only as an HMAC, and the payee is cleared when the action fin
 payment (amount, account, payee), a sealed share (ciphertext), cloud AI (only after a yes; the
 API returns 403 without `consent: true`), and the demo bank relay (holds the Nessie key, keeps no
 log lines for those paths). The privacy line under the header
-(`web/components/flow/PrivacyLine.tsx`) says "On this device. Nothing has left it." until one of
-these happens. It is built from `web/lib/netlog.ts`, which watches every `fetch` the page makes and
-reports each request that carries something off the device, including anything the flow did not
-expect, so the line cannot miss a send.
+(`web/components/flow/PrivacyLine.tsx`) says "On this device. Nothing has left it since this page
+opened." until one of these happens. It is built from `web/lib/netlog.ts`, which watches every
+`fetch` the page makes and reports each request that carries something off the device, including
+anything the flow did not expect, so the line cannot miss a send.
 
 Cloud AI has its own consent screen (`web/components/flow/CloudConsent.tsx`). It names what would
 leave (for sorting: merchant, category, and description, never amounts or dates; for a bill: the

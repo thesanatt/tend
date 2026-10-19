@@ -51,13 +51,18 @@ blank for the survivor to fill in.
 
 - Quick exit (corner button or Esc twice) replaces the page and drops the in-memory key.
 - The vault locks on exit and after inactivity; nothing readable stays on disk.
-- The privacy line remembers, for this tab only, the kind of each thing sent and when, in
-  sessionStorage, so a reload cannot turn it back to "Nothing has left it." It holds no amounts,
-  payees, ids, or keys. Closing the tab ends it, and quick exit clears it with the rest of the tab.
-  While saved progress is locked, the line says only "On this device." Deleting saved progress,
-  saving over it, and Close Tend on a claim that was never saved clear the tab's list too, and the
-  line starts over from there. So once saved progress locks, or the survivor exits or ends the
-  claim, the next person at the device cannot read from the line what was sent or when.
+- Until something is sent, the privacy line says "On this device. Nothing has left it since this
+  page opened." It vouches only for the page on screen: a reload, or a tab the browser reopens,
+  is a new page.
+- So that a reload does not hide a send, the line keeps, for this tab only, the kind of each thing
+  sent and when, in sessionStorage. It holds no amounts, payees, ids, or keys. Closing the tab ends
+  it, and quick exit clears it with the rest of the tab. Deleting saved progress, saving over it,
+  and Close Tend on a claim that was never saved clear it too.
+- While saved progress is locked, the line says only "On this device." After Lock now, Close Tend,
+  or Delete, it says the same until something new is sent or the page loads again, because what
+  the page sent before is no longer on the line. So once saved progress locks, or the survivor
+  exits or ends the claim, the next person at the device cannot read from the line what was sent
+  or when.
 - Neutral tab title, no notifications, no analytics, no third-party scripts in the survivor flow.
 
 ## Threat model, honestly

@@ -81,6 +81,10 @@ interface Flow {
   input: EngineInput | null;
   claim: ClaimView;
   vault: VaultView;
+  // True once this page has put a new claim on screen (Lock now, the quiet-time lock, Close Tend,
+  // Delete). What the page sent before may be off the privacy line then, so the line stops saying
+  // that nothing left since the page opened. Never stored: a new page starts false.
+  restarted: boolean;
   readStatement(file: File, sample?: boolean): Promise<SourceRecord>;
   connectBank(): Promise<SourceRecord>;
   readBill(file: File, sample?: boolean): Promise<BillRecord>;
@@ -157,6 +161,7 @@ export function FlowProvider({
   const [idleLocked, setIdleLocked] = useState(false);
   const [methods, setMethods] = useState<VaultMethods | null>(null);
   const [passkey, setPasskey] = useState<boolean | null>(null);
+  const [restarted, setRestarted] = useState(false);
   const [openedAt] = useState(() => new Date());
   // Today in the chosen state's own time, the engine's as_of_date (docs/SPEC.md v1.3), so a late night
   // somewhere else never counts a deadline a day early. The device's date until a state is chosen.
@@ -283,6 +288,7 @@ export function FlowProvider({
       docs.current.clear();
       rereads.current.clear();
       dispatch({ type: "reset", lang: stateRef.current.lang });
+      setRestarted(true);
       setIdleLocked(idle);
       setVaultStatus("locked");
     },
@@ -468,6 +474,7 @@ export function FlowProvider({
       input,
       claim,
       vault: { status: vaultStatus, idleLocked, methods, passkey },
+      restarted,
 
       async readStatement(file, sample = false) {
         const sha = shortHash(await fileSha(file));
@@ -603,6 +610,7 @@ export function FlowProvider({
         docs.current.clear();
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
+        setRestarted(true);
         setIdleLocked(false);
         setVaultStatus("none");
       },
@@ -617,6 +625,7 @@ export function FlowProvider({
         docs.current.clear();
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
+        setRestarted(true);
         setVaultStatus((v) => (v === "open" ? "locked" : v));
       },
     };
@@ -630,6 +639,7 @@ export function FlowProvider({
     idleLocked,
     methods,
     passkey,
+    restarted,
     logSent,
     lockNow,
     setLang,

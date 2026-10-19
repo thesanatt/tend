@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
-// The privacy line stays true for the tab. A reload keeps what the tab sent, as the kind and the
-// time only; the page's first HTML never says nothing left before it has looked; saved progress
-// that is locked hides it; ending the claim here (Close Tend on a claim never saved, deleting or
-// saving over locked progress) and Exit this page forget it.
+// The privacy line stays true for the tab. It says nothing left only since this page opened; a
+// reload keeps what the tab sent, as the kind and the time only; the page's first HTML never says
+// nothing left before it has looked; saved progress that is locked hides it; ending the claim here
+// (Close Tend on a claim never saved, deleting or saving over locked progress) and Exit this page
+// forget it, and a page that put a new claim on screen stops saying nothing left.
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { renderToString } from "react-dom/server";
@@ -60,6 +61,7 @@ async function page(lang: Lang = "en", extra?: ReactNode, services?: TestService
 }
 
 const line = () => screen.getByRole("status").textContent;
+const QUIET = "On this device. Nothing has left it since this page opened.";
 
 function pay(flow: ReturnType<typeof useFlow>, id: string) {
   act(() => {
@@ -83,7 +85,7 @@ function pay(flow: ReturnType<typeof useFlow>, id: string) {
 describe("the privacy line after a reload", () => {
   it("still says what this tab sent, and keeps only the kind and the time", async () => {
     const flow = (await page()).flow!;
-    expect(line()).toBe("On this device. Nothing has left it.");
+    expect(line()).toBe(QUIET);
     pay(flow, "act_7f3a");
     act(() => flow.logSent({ kind: "share", ref: "share:tok_91c2" }));
     const after = "On this device, except what you chose to send: a payment and a locked share link.";
@@ -158,7 +160,17 @@ describe("the privacy line after a reload", () => {
       JSON.stringify([{ kind: "payment", at: "x", amount_cents: 11800 }, { kind: "wire", at: "y" }, 3, null]),
     );
     await page();
-    expect(line()).toBe("On this device. Nothing has left it.");
+    expect(line()).toBe(QUIET);
+  });
+
+  it("says nothing left only since this page opened, in its sheet too and in Spanish", async () => {
+    await page();
+    expect(line()).toBe(QUIET);
+    fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
+    expect(within(screen.getByRole("dialog")).getByText("Nothing since this page opened.")).toBeTruthy();
+    cleanup();
+    await page("es");
+    expect(line()).toBe("En este dispositivo. No ha salido nada desde que se abrió esta página.");
   });
 
   it("never says nothing left in the page's first HTML, before it can look", () => {
@@ -192,7 +204,9 @@ describe("the privacy line behind the lock", () => {
     fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
     const sheet = within(screen.getByRole("dialog"));
     expect(sheet.queryByRole("heading", { name: "What you sent" })).toBeNull();
-    expect(sheet.queryByText(/Nothing yet|this list keeps only what was sent|a share link\. The packet/)).toBeNull();
+    expect(
+      sheet.queryByText(/Nothing since this page opened|this list keeps only what was sent|a share link\. The packet/),
+    ).toBeNull();
 
     // A reload with saved progress: still locked, still quiet.
     cleanup();
@@ -236,13 +250,17 @@ describe("the privacy line when the claim ends here", () => {
 
     await act(async () => box.flow!.forget());
     forgotten();
-    expect(line()).toBe("On this device. Nothing has left it.");
+    // The payment and the share left from this page, so it does not say that nothing did.
+    expect(line()).toBe("On this device.");
     fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
-    expect(within(screen.getByRole("dialog")).queryByText(/this list keeps only|a share link\. The packet/)).toBeNull();
+    expect(
+      within(screen.getByRole("dialog")).queryByText(/this list keeps only|a share link\. The packet|Nothing since/),
+    ).toBeNull();
 
     cleanup();
     await page("en", undefined, services);
     forgotten();
+    expect(line()).toBe(QUIET);
   });
 
   it("forgets what the tab sent before when someone saves over locked progress, and keeps their own", async () => {
@@ -276,11 +294,40 @@ describe("the privacy line when the claim ends here", () => {
     act(() => box.flow!.logSent({ kind: "share", ref: "share:s1" }));
     act(() => box.flow!.endSession());
     forgotten();
-    expect(line()).toBe("On this device. Nothing has left it.");
+    expect(line()).toBe("On this device.");
 
     cleanup();
     await page();
     forgotten();
+    expect(line()).toBe(QUIET);
+  });
+
+  it("after Close Tend on this page, names what is sent next but never says nothing left", async () => {
+    const box = await page();
+    act(() => box.flow!.endSession());
+    // Nothing was sent, and the line still says only what it can always say: the next person learns
+    // nothing from it about the claim that ended.
+    expect(line()).toBe("On this device.");
+    act(() => box.flow!.logSent({ kind: "share", ref: "share:s4" }));
+    expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
+  });
+
+  it("does not tell the owner nothing left after someone else shared from this page", async () => {
+    const services = testServices();
+    const box = await page("en", undefined, services);
+    await act(async () => box.flow!.save({ passphrase }));
+    act(() => box.flow!.lockNow());
+
+    // Someone else starts over without it, shares a packet, and closes Tend. The owner opens it.
+    act(() => box.flow!.logSent({ kind: "share", ref: "share:s5" }));
+    act(() => box.flow!.endSession());
+    await act(async () => {
+      expect(await box.flow!.openSaved({ passphrase })).toBe(true);
+    });
+    // Not the other person's share, and not "Nothing has left it since this page opened" either.
+    expect(line()).toBe("On this device.");
+    fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
+    expect(within(screen.getByRole("dialog")).queryByText(/a share link\. The packet|Nothing since/)).toBeNull();
   });
 
   it("forgets it too on Close Tend after starting over without locked progress", async () => {

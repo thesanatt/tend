@@ -57,7 +57,7 @@ export const es: Dict = {
   },
 
   privacy: {
-    quiet: "En este dispositivo. No ha salido nada.",
+    quiet: "En este dispositivo. No ha salido nada desde que se abrió esta página.",
     here: "En este dispositivo.",
     sent: (parts: string) => `En este dispositivo, salvo lo que decidiste enviar: ${parts}.`,
     partPayment: (n: number) => (n === 1 ? "un pago" : `${n} pagos`),
@@ -96,7 +96,7 @@ export const es: Dict = {
       "Si guardas, tu progreso queda protegido con Touch ID o un código. Usa Salir de esta página, o presiona Esc dos veces, para salir rápido.",
     ],
     sentTitle: "Lo que enviaste",
-    sentNone: "Nada todavía.",
+    sentNone: "Nada desde que se abrió esta página.",
   },
 
   engine: {

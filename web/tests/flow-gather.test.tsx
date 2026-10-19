@@ -214,7 +214,7 @@ describe("bill triage", () => {
       { initial: stateFrom([...withBill, withBank]) },
     );
     // Once Tend knows there is no locked progress, the line says nothing has left.
-    expect(await screen.findByText("On this device. Nothing has left it.")).toBeTruthy();
+    expect(await screen.findByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
     fireEvent.click(await screen.findByRole("button", { name: "Pay $118.00 now from Checking 0011" }));
     const dialog = await screen.findByRole("dialog");
     expect(within(dialog).getByText("$118.00")).toBeTruthy();
@@ -277,11 +277,11 @@ describe("bill triage", () => {
     const dialog = await screen.findByRole("dialog");
     fireEvent.click(within(dialog).getByRole("button", { name: "Get a code" }));
     expect(await within(dialog).findByText(/Demo mode: Tend is not connected to the bank/)).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
+    expect(screen.getByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
     fireEvent.change(within(dialog).getByLabelText("Confirmation code"), { target: { value: "123456" } });
     fireEvent.click(within(dialog).getByRole("button", { name: "Pay $118.00" }));
     expect(await within(dialog).findByText("Nothing was sent.")).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it.")).toBeTruthy();
+    expect(screen.getByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
   });
 
   it("refuses a proposal whose amount differs from the bill, before any code is asked for", async () => {
