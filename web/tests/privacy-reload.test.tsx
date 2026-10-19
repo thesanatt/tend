@@ -96,8 +96,13 @@ describe("the privacy line after a reload", () => {
     const raw = sessionStorage.getItem(SENT_KEY)!;
     const kept = JSON.parse(raw) as { kind: string; at: string }[];
     expect(kept.map((k) => k.kind)).toEqual(["payment", "share"]);
-    for (const k of kept) expect(Object.keys(k).sort()).toEqual(["at", "kind"]);
-    for (const secret of ["11800", "118", "Riverbend", "act_7f3a", "tok_91c2"]) expect(raw).not.toContain(secret);
+    for (const k of kept) {
+      expect(Object.keys(k).sort()).toEqual(["at", "kind"]);
+      expect(k.at).toMatch(/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/);
+    }
+    // The times are the clock's, and ".118Z" is a time like any other: look past them for the rest.
+    const rest = raw.replace(/"at":"[^"]*"/g, "");
+    for (const secret of ["11800", "118", "Riverbend", "act_7f3a", "tok_91c2"]) expect(rest).not.toContain(secret);
 
     // A reload: the flow starts over in memory, the tab remembers.
     cleanup();
