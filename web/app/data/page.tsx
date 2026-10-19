@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import { shortDate } from "@/components/public/format";
 import { LINKS } from "@/components/tour/links";
 import styles from "./data.module.css";
@@ -104,6 +105,23 @@ const FIELDS: { key: keyof DataRule; what: string }[] = [
 // Browsers break a line after the hyphen; this keeps the name in one piece in running text.
 const SHA256 = <span className={styles.nowrap}>SHA-256</span>;
 
+// The command the README gives. --ignore-missing lets a folder with only some of the files pass.
+const CHECK = "shasum -a 256 -c --ignore-missing SHA256SUMS";
+
+// A command that wraps only at its spaces. Otherwise a phone splits "--ignore-missing" after the "--".
+function Command({ text }: { text: string }) {
+  return (
+    <code>
+      {text.split(" ").map((word, i) => (
+        <Fragment key={i}>
+          {i > 0 ? " " : null}
+          <span className={styles.nowrap}>{word}</span>
+        </Fragment>
+      ))}
+    </code>
+  );
+}
+
 function Value({ rule, field }: { rule: DataRule; field: keyof DataRule }) {
   const v = rule[field];
   if (v === null || v === "") return <span className={styles.empty}>empty</span>;
@@ -172,9 +190,8 @@ export default function DataPage() {
           ))}
         </ul>
         <p className={styles.small}>
-          To check what you saved, put SHA256SUMS in the same folder and run{" "}
-          <code>shasum -a 256 -c --ignore-missing SHA256SUMS</code> there. Without <code>--ignore-missing</code>, each
-          file you did not download is reported as failed.
+          To check what you saved, put SHA256SUMS in the same folder and run <Command text={CHECK} /> there. Without{" "}
+          <Command text="--ignore-missing" />, each file you did not download is reported as failed.
         </p>
       </section>
 

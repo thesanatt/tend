@@ -135,6 +135,13 @@ describe("/data", () => {
     expect(readme).toContain(`\`${command}\` (macOS)`);
     const hint = doc.querySelector("#download ~ p")!;
     expect([...hint.querySelectorAll("code")].map((c) => c.textContent)).toEqual([command, "--ignore-missing"]);
+    // Each word is kept whole, as SHA-256 is, so a phone breaks the command only at its spaces.
+    const nowrap = [...doc.querySelectorAll("span")].find((s) => s.textContent === "SHA-256")!.className;
+    for (const code of hint.querySelectorAll("code")) {
+      const words = [...code.querySelectorAll("span")];
+      expect(words.map((w) => w.textContent)).toEqual(code.textContent!.split(" "));
+      expect(words.every((w) => w.className === nowrap)).toBe(true);
+    }
   });
 
   it("describes how the rules were made without saying who made them", () => {
