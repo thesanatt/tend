@@ -19,7 +19,7 @@ export default function Home() {
             without giving up their name.
           </p>
           <p className={styles.visitorProof}>
-            Built solo in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
+            Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
           </p>
           <p className="meta">All people and money in the demo are fictional.</p>
         </div>

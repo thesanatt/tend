@@ -6,7 +6,7 @@ survivor's device, and cites the state's own law for every dollar.
 
 Live: https://youreowed.tech. Fictional demo: https://youreowed.tech/check?demo=rowan. Michigan's
 public page: https://youreowed.tech/mi.
-Built solo by Sanat Gupta for MHacks 2026. Tend is not legal advice. It shows what each state's
+Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie. Tend is not legal advice. It shows what each state's
 rules say, with the quote, and the program decides.
 
 - Judges: [docs/JUDGES.md](docs/JUDGES.md) has a 60-second tour and a claim-by-claim checklist.
