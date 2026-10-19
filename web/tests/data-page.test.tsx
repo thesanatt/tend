@@ -27,8 +27,13 @@ const n = (x: number) => x.toLocaleString("en-US");
 
 describe("public/downloads", () => {
   it("holds a byte-for-byte copy of every file in dataset/", () => {
-    expect(readdirSync(dataset).sort()).toEqual(FILES);
-    expect(readdirSync(downloads).sort()).toEqual(FILES);
+    // Dotfiles left out: Finder can drop a .DS_Store in either folder (gitignored).
+    const listed = (dir: string) =>
+      readdirSync(dir)
+        .filter((f) => !f.startsWith("."))
+        .sort();
+    expect(listed(dataset)).toEqual(FILES);
+    expect(listed(downloads)).toEqual(FILES);
     for (const name of FILES) {
       expect(readFileSync(path.join(downloads, name)).equals(readFileSync(path.join(dataset, name))), name).toBe(true);
     }
@@ -66,12 +71,18 @@ describe("/data", () => {
         row.querySelector("dd")!.textContent,
       ]),
     );
+  const limit = (words: string) =>
+    [...doc.querySelectorAll("#limits ~ ul > li")].map((li) => li.textContent!).find((text) => text.includes(words));
+  const released = JSON.parse(readFileSync(path.join(downloads, "tend-rules-v1.0.json"), "utf8")) as {
+    sources: { source_id: string; url: string; kind: string; text_path: string; note: string | null }[];
+    rules: { source_id: string }[];
+  };
 
   it("shows the same counts as the corpus the site is built from", () => {
     const rows = counts();
     expect(rows["Rules"]).toBe(n(sum((j) => j.rules)));
     expect(rows["Jurisdictions"]).toBe(`${corpus.length}, the 50 states and DC`);
-    expect(rows["Official sources saved"]).toMatch(
+    expect(rows["Sources saved"]).toMatch(
       new RegExp(`^${n(sum((j) => j.sources))}, of which [\\d,]+ are quoted by a rule$`),
     );
     expect(rows["What the engine does with them"]).toBe(
@@ -116,6 +127,33 @@ describe("/data", () => {
     expect(fields.textContent).toContain(rule.pinpoint);
     expect(fields.querySelector(`a[href="${rule.fragment_url}"]`)).not.toBeNull();
     expect(fields.textContent).toContain(mi.sources.find((s) => s.id === rule.source_id)!.sha256);
+  });
+
+  it("says which sources are copies from sites that republish state law, counted from their addresses", () => {
+    const from = (host: string) => released.sources.filter((s) => new URL(s.url).hostname === host);
+    const [justia, cornell] = [from("law.justia.com"), from("www.law.cornell.edu")];
+    const ids = new Set([...justia, ...cornell].map((s) => s.source_id));
+    // The page names these two sites and their kinds of source; another site in the export needs its own words.
+    expect(new Set(justia.map((s) => s.kind))).toEqual(new Set(["statute"]));
+    expect(new Set(cornell.map((s) => s.kind))).toEqual(new Set(["regulation"]));
+    // What the page says each saved copy says about how current it is.
+    const saved = (s: { text_path: string }) => readFileSync(path.join(web, "..", s.text_path), "utf8");
+    for (const s of justia) expect(saved(s), s.source_id).toContain("may not be the most recent version");
+    for (const s of cornell) expect(saved(s), s.source_id).toContain("State regulations are updated quarterly");
+    const item = limit("republish state law")!;
+    expect(item).toContain(
+      `${n(ids.size)} sources are copies on sites that republish state law, not the state's own publication: ${n(justia.length)} statutes from Justia and ${n(cornell.length)} regulations from Cornell's Legal Information Institute.`,
+    );
+    const quoting = released.rules.filter((r) => ids.has(r.source_id)).length;
+    expect(item).toContain(`The ${n(quoting)} rules that quote these copies match the copies`);
+    expect(doc.body.textContent).not.toMatch(/official/i);
+  });
+
+  it("says the SHA-256 of a redacted page is of the redacted copy", () => {
+    const redacted = released.sources.filter((s) => s.note?.includes("redacted")).length;
+    expect(limit("was recorded")).toBe(
+      `A SHA-256 shows the saved copy has not changed since its SHA-256 was recorded. It cannot show what the live page says today. On ${n(redacted)} saved pages, third-party API keys embedded in the page were redacted before publishing, so their SHA-256 is of the redacted copy.`,
+    );
   });
 
   it("keeps the citation and license marked as not decided, with no DOI", () => {

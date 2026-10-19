@@ -12,7 +12,7 @@ import styles from "./data.module.css";
 export const metadata: Metadata = {
   title: "Rules data",
   description:
-    "Tend's verified rules as JSON and CSV. Each rule quotes its official source word for word, with the source's address and SHA-256.",
+    "Tend's verified rules as JSON and CSV. Each rule quotes its source word for word, with the source's address and SHA-256.",
 };
 
 const VERSION = "1.0";
@@ -51,6 +51,9 @@ interface Dataset {
       rules: number;
       sources_quoted: number;
       rules_by_engine_use: Record<DataRule["engine_use"], number>;
+      sources_from_republishers: Record<string, number>;
+      rules_quoting_republishers: number;
+      sources_redacted: number;
     };
   };
   rules: DataRule[];
@@ -120,6 +123,9 @@ export default function DataPage() {
   const firstDay = shortDate(asOf.first_retrieved_at);
   const lastDay = shortDate(asOf.last_retrieved_at);
   const savedOn = firstDay === lastDay ? firstDay : `${firstDay} to ${lastDay}`;
+  // Copies saved from sites that republish state law, counted by the export from each source's address.
+  const republished = counts.sources_from_republishers;
+  const copies = Object.values(republished).reduce((total, count) => total + count, 0);
 
   const files: DownloadFile[] = [
     {
@@ -140,8 +146,8 @@ export default function DataPage() {
     <div className={`page ${styles.data}`}>
       <h1>The rules, as data</h1>
       <p className={styles.lead}>
-        Every rule Tend has verified, as JSON and CSV. Each rule quotes its official source word for word and says where
-        that source lives, with the {SHA256} of the copy Tend saved. This is version {data.metadata.version}.
+        Every rule Tend has verified, as JSON and CSV. Each rule quotes its source word for word and says where that
+        source lives, with the {SHA256} of the copy Tend saved. This is version {data.metadata.version}.
       </p>
 
       <section className={styles.section} aria-labelledby="download">
@@ -182,7 +188,7 @@ export default function DataPage() {
             </dd>
           </div>
           <div>
-            <dt>Official sources saved</dt>
+            <dt>Sources saved</dt>
             <dd>
               {n(counts.sources)}, of which {n(counts.sources_quoted)} are quoted by a rule
             </dd>
@@ -231,8 +237,8 @@ export default function DataPage() {
         <h2 id="method">How the rules were checked</h2>
         <ol className={styles.steps}>
           <li>
-            <strong>Saved.</strong> Each official page or PDF was saved with the text extracted from it and the {SHA256}{" "}
-            of the saved file.
+            <strong>Saved.</strong> Each page or PDF was saved with the text extracted from it and the {SHA256} of the
+            saved file.
           </li>
           <li>
             <strong>Quoted.</strong> For each rule, a researcher copied the quote from the saved text, never
@@ -241,10 +247,11 @@ export default function DataPage() {
           <li>
             <strong>Verified.</strong> <a href={`${LINKS.repo}/blob/main/rules/tools/verify.py`}>verify.py</a> accepts a
             rule only if its quote appears word for word in the saved text, after both are normalized the same way
-            (Unicode, quote marks, dashes, and spacing). The amounts, counts, and lengths of time in its details must
-            appear in the quote, and so must every number in its summary other than 0 and 1. The saved file&apos;s{" "}
-            {SHA256} must still match. The dataset&apos;s own tests run the quote and {SHA256} checks again on every
-            rule in these files.
+            (Unicode, quote marks, dashes, and spacing). It also accepts a match that differs only in capital letters,
+            with a warning; no rule in version {data.metadata.version} needed that. The amounts, counts, and lengths of
+            time in its details must appear in the quote, and so must every number in its summary other than 0 and 1.
+            The saved file&apos;s {SHA256} must still match. The dataset&apos;s own tests run the quote and {SHA256}{" "}
+            checks again on every rule in these files.
           </li>
           <li>
             <strong>Sorted for the engine.</strong>{" "}
@@ -279,13 +286,30 @@ export default function DataPage() {
             The rules are current as of {savedOn}, when the sources were saved. Laws and program pages change, and
             nothing fetches them again on a schedule yet.
           </li>
+          {copies > 0 ? (
+            <li>
+              {n(copies)} sources are copies on sites that republish state law, not the state&apos;s own publication:{" "}
+              {n(republished["law.justia.com"] ?? 0)} statutes from Justia and{" "}
+              {n(republished["www.law.cornell.edu"] ?? 0)} regulations from Cornell&apos;s Legal Information Institute.
+              Justia&apos;s pages say they may not be the most recent version, and Cornell&apos;s say state regulations
+              are updated there quarterly. The {n(counts.rules_quoting_republishers)} rules that quote these copies
+              match the copies, so check the state&apos;s own code before relying on one.
+            </li>
+          ) : null}
           <li>
             A gap is a gap in Tend&apos;s research, not a finding about the law. When a state has no rule in a category,
             Tend did not find or verify one in the sources it saved.
           </li>
           <li>
-            A {SHA256} shows the saved copy has not changed since it was saved. It cannot show what the live page says
-            today.
+            A {SHA256} shows the saved copy has not changed since its {SHA256} was recorded. It cannot show what the
+            live page says today.
+            {counts.sources_redacted > 0 ? (
+              <>
+                {" "}
+                On {n(counts.sources_redacted)} saved pages, third-party API keys embedded in the page were redacted
+                before publishing, so their {SHA256} is of the redacted copy.
+              </>
+            ) : null}
           </li>
           <li>
             Links that open a page at the quote exist only for HTML sources. They work in browsers that support text
