@@ -4,14 +4,19 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { altCapIds, citedRuleIds, severalLimits } from "@/lib/cite";
+import { altCapIds, citedRuleIds, clothingCondition, severalLimits } from "@/lib/cite";
 import type { EngineLine, EngineOutput, Jurisdiction } from "@/lib/types";
 
 const web = path.resolve(import.meta.dirname, "..");
 const output = JSON.parse(readFileSync(path.join(web, "fixtures/rowan-mi.output.json"), "utf8")) as EngineOutput;
-const law = JSON.parse(readFileSync(path.join(web, "public/data/law/MI.json"), "utf8")) as Jurisdiction;
-const byId = new Map(law.rules.map((r) => [r.id, r]));
-const rule = (id: string) => byId.get(id);
+const lawOf = (st: string) =>
+  JSON.parse(readFileSync(path.join(web, `public/data/law/${st}.json`), "utf8")) as Jurisdiction;
+const law = lawOf("MI");
+const lookup = (...laws: Jurisdiction[]) => {
+  const byId = new Map(laws.flatMap((l) => l.rules.map((r) => [r.id, r] as const)));
+  return (id: string) => byId.get(id);
+};
+const rule = lookup(law);
 const lineOf = (expense: string, status?: string) =>
   output.lines.find((l) => l.expense === expense && (!status || l.status === status))!;
 const cite = (line: Pick<EngineLine, "rule_ids" | "alt_cap_rule_ids">) => citedRuleIds(line, rule, law.rules);
@@ -78,5 +83,31 @@ describe("a cost's citation", () => {
     ]);
     // An id this law does not have stays, after the rules it does.
     expect(cite({ rule_ids: ["ZZ-1", "MI-CAP-8", "MI-COV-7"] })).toEqual(["MI-COV-7", "MI-CAP-8", "ZZ-1"]);
+  });
+});
+
+// What a clothing or bedding question and the Check line name (lib/cite.ts), on each state's own rules.
+describe("the condition a state's clothing and bedding rules set", () => {
+  const nj = lawOf("NJ");
+  const tx = lawOf("TX");
+
+  it("Michigan pays only for what was held as evidence", () => {
+    expect(clothingCondition(["MI-CAP-10"], rule)).toBe("evidence");
+    // A counted line also cites the insurance rules, which say nothing about clothing.
+    expect(clothingCondition(["MI-CAP-10", "MI-COLL-1", "MI-COLL-2", "MI-COLL-3"], rule)).toBe("evidence");
+  });
+
+  it("Texas also pays for what the investigation made unusable", () => {
+    expect(clothingCondition(["TX-SEIZED-1", "TX-SEIZED-2"], lookup(tx))).toBe("investigation");
+  });
+
+  it("New Jersey sets neither, so nothing is named", () => {
+    expect(clothingCondition(["NJ-COV-CLOTH"], lookup(nj))).toBeNull();
+  });
+
+  it("names a condition only when every rule that pays for the cost sets one", () => {
+    expect(clothingCondition([], rule)).toBeNull();
+    expect(clothingCondition(["MI-CAP-10", "NJ-COV-CLOTH"], lookup(law, nj))).toBeNull();
+    expect(clothingCondition(["MI-COLL-1"], rule)).toBeNull();
   });
 });

@@ -268,6 +268,10 @@ export const es: Dict = {
     coveredTitle: "Lo que el programa puede pagar",
     coveredNone: "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
     capDepends: "según tu caso",
+    clothingKept: {
+      evidence: "Ropa y ropa de cama guardadas como evidencia",
+      investigation: "Ropa y ropa de cama guardadas como evidencia o arruinadas por la investigación",
+    },
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     totalCapDepends: (amounts: string) =>
       `En total, hasta ${amounts}, según su caso. La regla dice cuándo se aplica cada uno`,
@@ -354,7 +358,7 @@ export const es: Dict = {
     crime_scene_cleanup: "¿Fue una limpieza que necesitaste después?",
     childcare: "¿Fue cuidado de niños mientras recibías atención o te recuperabas?",
     property_replacement: "¿Esto reemplazó algo que perdiste?",
-    clothing_bedding: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia?",
+    clothing_bedding: "¿Esto reemplazó ropa o ropa de cama?",
     prescription: "¿Fue un medicamento que necesitaste después?",
     dental: "¿Fue atención dental que necesitaste después?",
     funeral: "¿Fue un gasto funerario?",
@@ -485,6 +489,10 @@ export const es: Dict = {
     rateUnverified: "La ley fija una tarifa para esto. El programa la aplicará.",
     severalLimits:
       "La ley pone más de un límite para este tipo de gasto. Cada regla dice cuándo se aplica. Tend usa el más alto, y el programa decide cuál corresponde.",
+    clothingKept: {
+      evidence: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia?",
+      investigation: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia o que la investigación arruinó?",
+    },
     examAsMedical: "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
     heldLine: "No pagues esta línea. La ley dice que no te la deben cobrar.",
     include: "Incluir esto",

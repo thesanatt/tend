@@ -8,6 +8,7 @@ import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
+import { mockEngineOutput } from "@/lib/mocks/engine";
 import type { EngineInput } from "@/lib/types";
 import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
@@ -386,6 +387,59 @@ describe("the law behind each cost", () => {
     expect(
       await screen.findByRole("group", {
         name: /^¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia\?/,
+      }),
+    ).toBeTruthy();
+  });
+});
+
+// The same sheets in other states, with the rule ids the engine gives an unconfirmed clothing line
+// there (public/engine/laws/*.tlaw).
+const sheetsIn = (st: string): Action[] => [
+  { type: "check", patch: { st, date: "2026-06-14", exam: "yes", police: "not_yet" } },
+  {
+    type: "addSource",
+    source: { id: "bank", kind: "bank", label: "Checking", read: 1, found: 1, warnings: [], sample: true },
+    items: [sheets],
+  },
+];
+const clothingProof = (ruleIds: string[]) =>
+  testServices({
+    evaluate: vi.fn(async (input: EngineInput) => {
+      const out = mockEngineOutput(input);
+      const lines = out.lines.map((l) => (l.expense === "clothing_bedding" ? { ...l, rule_ids: ruleIds } : l));
+      return { output: { ...out, lines }, backend: "wasm" as const, detail: "test" };
+    }),
+  });
+
+describe("the clothing question in other states", () => {
+  // OH-COV-5 pays for clothing removed to assess or treat injuries, NJ-COV-CLOTH for bedding and
+  // clothing: neither asks that it was kept as evidence, so a yes must not need that.
+  it.each([
+    ["OH", "OH-COV-5"],
+    ["NJ", "NJ-COV-CLOTH"],
+  ])("asks %s only whether it replaced clothing or bedding", async (st, id) => {
+    renderFlow(<GatherScreen />, { services: clothingProof([id]), initial: stateFrom(sheetsIn(st)) });
+    expect(await screen.findByRole("group", { name: /^Did this replace clothing or bedding\?/ })).toBeTruthy();
+    expect(screen.queryByText(/kept as evidence/)).toBeNull();
+  });
+
+  it("asks Ohio the same in Spanish", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["OH-COV-5"]),
+      initial: stateFrom(sheetsIn("OH"), "es"),
+      lang: "es",
+    });
+    expect(await screen.findByRole("group", { name: /^¿Esto reemplazó ropa o ropa de cama\?/ })).toBeTruthy();
+  });
+
+  it("asks Texas about evidence or the investigation, as both its rules do", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["TX-SEIZED-1", "TX-SEIZED-2"]),
+      initial: stateFrom(sheetsIn("TX")),
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^Did this replace clothing or bedding kept as evidence or ruined by the investigation\?/,
       }),
     ).toBeTruthy();
   });

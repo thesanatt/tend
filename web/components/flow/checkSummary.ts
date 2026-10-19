@@ -1,6 +1,7 @@
 // The Check summary as data: every fact names the rules behind it. Dates and police-report status
 // come from the law engine's checks; lists, caps, and contacts come from the verified rules. The
 // component turns this into sentences in the survivor's language.
+import { clothingCondition, type ClothingCondition } from "@/lib/cite";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -21,6 +22,9 @@ export interface CoveredCost {
   expense: ItemExpense;
   cap: CapFact | null;
   ruleIds: string[];
+  // For clothing and bedding, the condition every rule that pays for it sets, such as kept as
+  // evidence (lib/cite.ts).
+  condition: ClothingCondition | null;
 }
 
 export type DeadlineFact =
@@ -121,6 +125,7 @@ export function setAsideIds(ir: { skipped?: { id: string; reason: string }[] } |
 
 function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
   // The rule that covers a cost leads its citation, then its limits in the law's order (lib/cite.ts).
+  const byId = new Map(law.rules.map((r) => [r.id, r]));
   const coverIds = new Map<string, string[]>();
   const capIds = new Map<string, string[]>();
   const caps = new Map<string, { cents: number | null; per: Per; countLimit: number | null }[]>();
@@ -167,7 +172,8 @@ function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
       : countLimit && countUnit
         ? { cents: null, per: countUnit, countLimit, countUnit, varies }
         : null;
-    return { expense, cap, ruleIds: ruleIds(expense) };
+    const condition = expense === "clothing_bedding" ? clothingCondition(ruleIds(expense), (id) => byId.get(id)) : null;
+    return { expense, cap, ruleIds: ruleIds(expense), condition };
   });
 }
 

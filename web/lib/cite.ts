@@ -33,3 +33,29 @@ export function citedRuleIds(
 export function severalLimits(line: Pick<EngineLine, "alt_cap_rule_ids">): boolean {
   return altCapIds(line).length > 0;
 }
+
+// What a state's clothing and bedding rules ask, read from each rule's quote and Tend's summary of
+// it. Most pay only for what was kept as evidence (Michigan: "held as evidence of a crime", MCL
+// 18.361(2)(j)). Four rules say so only in the summary: Alaska's and Wyoming's quotes sit under a
+// source heading about items taken as evidence, which their pinpoints name, and Texas's limit cites
+// the seized-as-evidence article only by number. Massachusetts, Texas, and Louisiana also pay for
+// what the investigation made unusable. New Jersey, New York, Ohio, and Washington ask neither. A yes
+// is what counts the cost, so the question and the Check name the condition only when every rule
+// that pays for it sets one.
+export type ClothingCondition = "evidence" | "investigation";
+
+const EVIDENCE = /\bevidence\b|\bevidentiary\b|\bseized\b/i;
+const UNUSABLE = /\bunusable\b/i;
+
+export function clothingCondition(ids: readonly string[], rule: Lookup): ClothingCondition | null {
+  const pays = ids
+    .map((id) => rule(id))
+    .filter(
+      (r): r is Rule =>
+        (r?.category === "covered_expense" || r?.category === "expense_cap") &&
+        (r.expense ?? r.params?.expense) === "clothing_bedding",
+    );
+  const says = (r: Rule, words: RegExp) => words.test(r.quote) || words.test(r.summary);
+  if (!pays.length || !pays.every((r) => says(r, EVIDENCE))) return null;
+  return pays.some((r) => says(r, UNUSABLE)) ? "investigation" : "evidence";
+}

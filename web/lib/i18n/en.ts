@@ -1,5 +1,6 @@
 // Every string in the survivor flow, in English. es.ts must match this shape exactly.
 // Plain words, short sentences, grade 6 to 8. Never ask what happened, where, or who.
+import type { ClothingCondition } from "../cite";
 import type { DeviceAi, LetterKind } from "../contracts";
 import type { ItemExpense } from "../types";
 
@@ -287,6 +288,11 @@ export const en = {
     coveredTitle: "What the program can pay for",
     coveredNone: "Tend found no list of covered costs in the verified rules. Ask the program.",
     capDepends: "depending on your case",
+    // Clothing and bedding, named with the condition every rule that pays for it sets (lib/cite.ts).
+    clothingKept: {
+      evidence: "Clothing and bedding kept as evidence",
+      investigation: "Clothing and bedding kept as evidence or ruined by the investigation",
+    } satisfies Record<ClothingCondition, string>,
     totalCap: (amount: string) => `In total, up to ${amount}`,
     totalCapDepends: (amounts: string) =>
       `In total, up to ${amounts}, depending on your case. The rule says when each one applies`,
@@ -373,9 +379,8 @@ export const en = {
     crime_scene_cleanup: "Was this cleanup you needed afterward?",
     childcare: "Was this child care while you got care or recovered?",
     property_replacement: "Did this replace something you lost?",
-    // Michigan (MCL 18.361(2)(j)) and most states that pay for clothing or bedding pay only when it
-    // was kept as evidence, so a yes has to say that, not just that it was bedding.
-    clothing_bedding: "Did this replace clothing or bedding kept as evidence?",
+    // Where every rule that pays for it sets a condition, Gather asks gather.clothingKept instead.
+    clothing_bedding: "Did this replace clothing or bedding?",
     prescription: "Was this medicine you needed afterward?",
     dental: "Was this dental care you needed afterward?",
     funeral: "Was this a funeral cost?",
@@ -502,6 +507,11 @@ export const en = {
     rateUnverified: "The law sets a rate for this. The program will apply it.",
     severalLimits:
       "The law sets more than one limit for this kind of cost. Each rule says when it applies. Tend uses the highest, and the program decides which one fits.",
+    // A yes counts the cost, so the question names what the state's rules ask (lib/cite.ts).
+    clothingKept: {
+      evidence: "Did this replace clothing or bedding kept as evidence?",
+      investigation: "Did this replace clothing or bedding kept as evidence or ruined by the investigation?",
+    } satisfies Record<ClothingCondition, string>,
     examAsMedical: "This state has no separate exam rule, so Tend counts it as medical care.",
     heldLine: "Don't pay this line. The law says you should not be billed for it.",
     include: "Count this",

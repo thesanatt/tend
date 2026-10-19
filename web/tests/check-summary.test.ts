@@ -256,3 +256,52 @@ describe("rules the law IR sets aside", () => {
     expect(shown.filter((id) => ids.has(id))).toEqual([]);
   });
 });
+
+// lib/cite.ts: the Check names clothing and bedding with the condition every rule that pays for it
+// sets. Read by hand from each rule's quote and summary: MI-CAP-10 pays only for what is "held as
+// evidence of a crime"; LA, MA, and TX also pay for what the investigation made unusable; NJ, NY, OH,
+// and WA set neither (OH-COV-5 and WA-COV-CLOTHING are about medical care).
+describe("clothing and bedding on the Check", () => {
+  const irDir = path.join(web, "public/data/ir");
+  const summary = (st: string) => {
+    const law = load(st);
+    const ir = JSON.parse(readFileSync(path.join(irDir, `${st}.json`), "utf8"));
+    return buildCheckSummary(law, output(law), { ...answers, st }, true, setAsideIds(ir));
+  };
+  const CONDITION: Record<string, string | null> = {
+    AK: "evidence",
+    CT: "evidence",
+    DC: "evidence",
+    IA: "evidence",
+    IL: "evidence",
+    KS: "evidence",
+    MI: "evidence",
+    SD: "evidence",
+    VA: "evidence",
+    WI: "evidence",
+    WY: "evidence",
+    LA: "investigation",
+    MA: "investigation",
+    TX: "investigation",
+    NJ: null,
+    NY: null,
+    OH: null,
+    WA: null,
+  };
+
+  it("names the condition each state's rules set, in every state that pays for it", () => {
+    const shown: Record<string, string | null> = {};
+    for (const st of STATES) {
+      const line = summary(st).covered.find((c) => c.expense === "clothing_bedding");
+      if (line) shown[st] = line.condition;
+    }
+    expect(shown).toEqual(CONDITION);
+  });
+
+  it("no other kind of cost carries a condition", () => {
+    for (const st of STATES) {
+      const named = summary(st).covered.filter((c) => c.expense !== "clothing_bedding" && c.condition !== null);
+      expect(named.map((c) => `${st} ${c.expense}`)).toEqual([]);
+    }
+  });
+});

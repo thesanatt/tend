@@ -3,7 +3,7 @@
 import Citation from "@/components/Citation";
 import Money from "@/components/Money";
 import StatusTag from "@/components/StatusTag";
-import { citedRuleIds, severalLimits } from "@/lib/cite";
+import { citedRuleIds, clothingCondition, severalLimits } from "@/lib/cite";
 import { formatDay } from "@/lib/dates";
 import { expenseQuestion, unitLabel } from "@/lib/expenses";
 import { useJustChanged } from "@/lib/hooks";
@@ -50,6 +50,8 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
   const units = unitLabel(item.expense, item.units);
   const capped = line && line.status === "eligible" && line.allowed_cents < line.requested_cents;
   const rateFlags = (line?.flags ?? []).map(parseFlag).filter((f) => f.kind === "rate_unverified" && f.ruleId);
+  const ruleIds = line ? citedRuleIds(line, law.rule, law.law?.rules) : [];
+  const kept = item.expense === "clothing_bedding" ? clothingCondition(ruleIds, law.rule) : null;
 
   return (
     <li className={`${styles.row} ${changed ? styles.changed : ""}`} data-status={status} id={`row-${item.item_id}`}>
@@ -73,7 +75,7 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
           )}
           {line && status !== "declined" ? (
             <Citation
-              ruleIds={citedRuleIds(line, law.rule, law.law?.rules)}
+              ruleIds={ruleIds}
               status={status}
               law={law}
               subject={subject}
@@ -118,7 +120,7 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
           <>
             <div role="group" aria-labelledby={`q-${item.item_id}`} className={styles.question}>
               <p id={`q-${item.item_id}`} className={styles.qText}>
-                {expenseQuestion(item.expense)}
+                {kept ? en.gather.clothingKept[kept] : expenseQuestion(item.expense)}
               </p>
               <div className={styles.answers}>
                 {(

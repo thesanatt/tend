@@ -76,6 +76,11 @@ describe("Check", () => {
     expect(screen.getByRole("button", { name: /show the law for Rides to care/ }).textContent).toMatch(
       /^MCL 18\.361\(2\)\(e\) \+2/,
     );
+    // MI-CAP-10 pays only for clothing or bedding "held as evidence of a crime", so the line says so.
+    expect(screen.getByText("Clothing and bedding kept as evidence, up to $250 in total")).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: /show the law for Clothing and bedding kept as evidence/ }).textContent,
+    ).toMatch(/^MCL 18\.361\(2\)\(j\)/);
     expect(screen.getByText("In total, up to $45,000")).toBeTruthy();
     expect(
       screen.getByText(
@@ -176,6 +181,7 @@ describe("language", () => {
     expect(screen.getByText("En este dispositivo. No ha salido nada.")).toBeTruthy();
     expect(screen.getByText("Presenta la solicitud a más tardar el 14 de junio de 2031.")).toBeTruthy();
     expect(screen.getByText("Probablemente puedes presentar una solicitud en Michigan.")).toBeTruthy();
+    expect(screen.getByText("Ropa y ropa de cama guardadas como evidencia, hasta $250 en total")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: /ver la ley sobre El plazo para presentar la solicitud/ }));
     const quote = MI_LAW.rules.find((r) => r.id === "MI-FILE-1")!.quote;
     const shown = await screen.findByText(quote);
