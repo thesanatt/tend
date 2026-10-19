@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { loadCorpus } from "@/components/public/data";
+import { sitePreview } from "@/components/public/og/siteCard";
 import { TOUR_START } from "@/components/tour/tour";
 import { LINKS } from "@/components/tour/links";
 import styles from "./how.module.css";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
   title: "How it works",
   description:
     "How Tend reads records on the device, runs each state's verified law in WebAssembly, and cites the exact sentence for every dollar.",
+  ...sitePreview("how"),
 };
 
 function engineKb(): number | null {

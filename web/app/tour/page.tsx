@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { sitePreview } from "@/components/public/og/siteCard";
 import { LINKS } from "@/components/tour/links";
 import { TOUR_START } from "@/components/tour/tour";
 import styles from "./tour.module.css";
@@ -8,6 +9,7 @@ import styles from "./tour.module.css";
 export const metadata: Metadata = {
   title: "What you just saw",
   description: "A one-page recap of the Tend tour, with links to how it works, the code, and the sources.",
+  ...sitePreview("tour"),
 };
 
 const SAW: { step: string; text: string }[] = [

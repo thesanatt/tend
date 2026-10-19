@@ -68,6 +68,7 @@ The survivor flow lives in `app/(flow)` and `components/flow` (docs/UX.md). Ever
 | `/`              | The law garden: one plant per state, grown by verified rule count; counts fixed at build                                              |
 | `/[st]`          | A state's public page (`/mi`): what its law promises, every line cited, share card                                                    |
 | `/[st]/card.png` | The 1200x630 share card for that state (next/og, static PNG made at build)                                                            |
+| `/card.png`      | The 1200x630 link card for `/`; `/how-it-works`, `/sources`, and `/tour` each have one at `<page>/card.png` (static, made at build)   |
 | `/check`         | Check: four questions (Not sure always allowed) and a cited summary                                                                   |
 | `/gather`        | Gather: statement upload, demo bank, bills; costs in groups with yes / no                                                             |
 | `/gather/bills`  | Bill triage: held lines with the law and a letter, then pay or claim                                                                  |

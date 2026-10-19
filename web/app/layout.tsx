@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Source_Serif_4 } from "next/font/google";
 import AppShell from "@/components/flow/AppShell";
+import { siteUrl } from "@/components/public/site";
 import "./globals.css";
 
 // next/font downloads these at build time and serves them from this site; browsers never call Google.
@@ -22,8 +23,12 @@ const mono = Atkinson_Hyperlegible_Mono({
   fallback: ["ui-monospace", "monospace"],
 });
 
-// The tab says only "Tend" on survivor pages (docs/UX.md, Always on).
+// The tab says only "Tend" on survivor pages (docs/UX.md, Always on). Open Graph and Twitter cards are set
+// page by page on public pages, never here, so flow and share links get no card. Some apps unfurl a link from
+// its title and description alone, so those pages also swap this description for a neutral one
+// (components/flow/meta.ts).
 export const metadata: Metadata = {
+  metadataBase: siteUrl(),
   title: { default: "Tend", template: "%s | Tend" },
   description:
     "Tend checks costs against your state's crime victim compensation law and shows the exact sentence behind every dollar.",
