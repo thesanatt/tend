@@ -107,6 +107,8 @@ body {
   font-family: var(--font-sans);
   font-size: var(--text-md);
   line-height: 1.6;
+  /* A URL or email address in quoted law or a source note wraps on a phone instead of widening the page. */
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
