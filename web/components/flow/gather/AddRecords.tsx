@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useEffect, useState, type ChangeEvent } from "react";
 import type { DeviceAi } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
+import { personPayment } from "@/lib/local/cloud";
 import { offline } from "@/lib/netlog";
-import { offered } from "../claim";
+import { knowsDate, offered } from "../claim";
 import CloudConsent, { type CloudAsk } from "../CloudConsent";
 import { useFlow } from "../FlowProvider";
 import DocPreview, { type PreviewTarget } from "../preview/DocPreview";
@@ -28,10 +29,15 @@ export function skippedRows(warnings: string[]): number {
 }
 
 // Rows of one record that nothing on this device could sort, and that could still count: these are
-// what cloud AI would be asked about, after a yes.
+// what cloud AI would be asked about, after a yes. Payments to a person never go (lib/local/cloud.ts).
 export function unsortedRows(state: FlowState, sourceId: string, today: string): number {
   return state.items.filter(
-    (it) => it.origin !== "bill" && recordOf(it) === sourceId && it.expense === "unknown" && offered(state, it, today),
+    (it) =>
+      it.origin !== "bill" &&
+      recordOf(it) === sourceId &&
+      it.expense === "unknown" &&
+      offered(state, it, today) &&
+      !personPayment(it.merchant, it.description),
   ).length;
 }
 
@@ -324,7 +330,9 @@ export default function AddRecords() {
                       type="button"
                       className="link-button"
                       disabled={busy !== null}
-                      onClick={() => setAsk({ source: s.id, ask: { kind: "rows", rows: unsorted } })}
+                      onClick={() =>
+                        setAsk({ source: s.id, ask: { kind: "rows", rows: unsorted, dated: knowsDate(state, today) } })
+                      }
                     >
                       {t.cloud.offerButton}
                     </button>

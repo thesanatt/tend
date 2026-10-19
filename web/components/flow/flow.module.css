@@ -1204,6 +1204,14 @@
   margin: var(--space-1) 0 0;
 }
 
+.consentList dd p {
+  margin: 0;
+}
+
+.consentList dd p + p {
+  margin-top: var(--space-2);
+}
+
 .aiOffer {
   display: grid;
   gap: var(--space-2);

@@ -82,7 +82,7 @@ export const es: Dict = {
     eventPaymentDry: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}, al servidor de Tend. Fue una prueba, así que no se envió al banco.`,
     eventCloudRows: (when: string) =>
-      `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el comercio, su categoría y la descripción. Sin montos ni fechas.`,
+      `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el tipo de transacción, el comercio, su categoría y la descripción, después de que Tend intentó quitar las fechas, los montos y otros números.`,
     eventCloudBill: (when: string) => `${when}: un archivo de factura, a la IA en la nube, porque dijiste que sí.`,
     eventOther: (path: string, when: string) => `${when}: una solicitud a ${path}.`,
     eventKept: (what: string, when: string) =>
@@ -761,8 +761,13 @@ export const es: Dict = {
     titleBill: "¿Leer esta factura con IA en la nube?",
     whatTitle: "Qué sale de este dispositivo",
     whatRows: (n: number) =>
-      `De las ${n} filas que Tend no pudo clasificar, desde la fecha en que pasó: el tipo de transacción, el comercio, su categoría y la descripción. Antes, Tend quita los números de tarjeta y de referencia, las fechas, los montos, los teléfonos, los correos y el nombre en una línea de una app de pagos.`,
-    whatBill: "Este archivo de factura, tal como está: la foto o el PDF.",
+      `De ${n === 1 ? "la fila" : `las ${n} filas`} que Tend no pudo clasificar, desde la fecha en que pasó: el tipo de transacción, el comercio, su categoría y la descripción.`,
+    whatRowsUndated: (n: number) =>
+      `De ${n === 1 ? "la fila" : `las ${n} filas`} que Tend no pudo clasificar: el tipo de transacción, el comercio, su categoría y la descripción. No diste una fecha, así que también se envían las filas de antes de lo que pasó. Si sabes la fecha, ponla en Revisar y esas filas se quedan aquí.`,
+    scrub:
+      "Antes, Tend intenta quitar los números de tarjeta y de referencia, las fechas, los montos, los teléfonos y los correos. Busca las formas usuales en que los bancos los escriben, así que uno escrito de otra forma todavía puede enviarse. Un nombre o una ciudad en una fila también puede enviarse, como un nombre en una línea de PayPal.",
+    whatBill:
+      "Este archivo de factura, tal como está: la foto o el PDF completo, con todo lo que tiene impreso, como tu nombre, tu dirección, tus números de cuenta y la atención que recibiste.",
     whoTitle: "Quién lo recibe",
     whoRows:
       "El servidor de Tend, que le pide a Gemini de Google elegir un tipo de gasto para cada fila. El servidor de Tend no guarda una copia.",
@@ -774,8 +779,9 @@ export const es: Dict = {
     googleBill:
       "Tend usa el servicio gratuito de Gemini de Google. Según sus términos, Google puede guardar lo que se envía, usarlo para mejorar sus productos y dejar que personas de Google lo lean. Una factura puede mostrar tu nombre, tu dirección y la atención que recibiste. Si no quieres que Google tenga eso, di que no.",
     stayTitle: "Qué se queda aquí",
-    stayRows: "Los montos, las fechas, tus otras transacciones, tus respuestas y todo lo que sea sobre ti.",
-    stayBill: "Tus otros archivos, tus respuestas y todo lo que sea sobre ti.",
+    stayRows:
+      "El monto y la fecha de cada fila, tus otras transacciones y tus respuestas. Los pagos a una persona por Zelle, Venmo, Cash App o Apple Cash también se quedan aquí.",
+    stayBill: "Tus otros archivos y tus respuestas.",
     yes: "Sí, enviarlo",
     no: "No, dejarlo aquí",
     noNote: "Decir que no está bien. Las reglas de Tend siguen funcionando, y puedes revisar cada fila tú.",

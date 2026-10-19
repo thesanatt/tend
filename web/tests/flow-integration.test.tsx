@@ -10,11 +10,18 @@ import BillsScreen from "@/components/flow/bills/BillsScreen";
 import { buildEngineInput, buildRows, offered, paidLines } from "@/components/flow/claim";
 import CloudConsent from "@/components/flow/CloudConsent";
 import { billLineId } from "@/components/flow/FlowProvider";
-import AddRecords from "@/components/flow/gather/AddRecords";
+import AddRecords, { unsortedRows } from "@/components/flow/gather/AddRecords";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import { demoBankTxns, ROWAN_ACCOUNT, sampleBillFile, sampleStatementCsv } from "@/components/flow/samples";
 import { ROWAN_ROWS } from "@/components/flow/samples/rowan";
-import { initialState, reducer, type Action, type BillRecord, type FlowItem } from "@/components/flow/state";
+import {
+  initialState,
+  reducer,
+  type Action,
+  type BillRecord,
+  type FlowItem,
+  type SourceRecord,
+} from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
 import { DICTS, I18nProvider } from "@/lib/i18n";
@@ -568,11 +575,15 @@ describe("cloud AI consent", () => {
     const onYes = vi.fn();
     render(
       <I18nProvider initial="en">
-        <CloudConsent ask={{ kind: "rows", rows: 2 }} onNo={onNo} onYes={onYes} />
+        <CloudConsent ask={{ kind: "rows", rows: 2, dated: true }} onNo={onNo} onYes={onYes} />
       </I18nProvider>,
     );
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).getByText(en.cloud.whatRows(2))).toBeTruthy();
+    // What the scrub can miss is said before the yes, and payments to a person stay.
+    expect(within(dialog).getByText(en.cloud.scrub)).toBeTruthy();
+    expect(within(dialog).getByText(en.cloud.stayRows)).toBeTruthy();
+    expect(en.cloud.stayRows).toMatch(/Zelle, Venmo, Cash App, or Apple Cash/);
     expect(within(dialog).getByText(en.cloud.whoRows)).toBeTruthy();
     expect(within(dialog).getByText(en.cloud.googleRows)).toBeTruthy();
     const no = within(dialog).getByRole("button", { name: en.cloud.no });
@@ -580,6 +591,33 @@ describe("cloud AI consent", () => {
     fireEvent.click(no);
     expect(onNo).toHaveBeenCalled();
     expect(onYes).not.toHaveBeenCalled();
+  });
+
+  it("says that rows from before the date go too when no date was given", () => {
+    render(
+      <I18nProvider initial="es">
+        <CloudConsent ask={{ kind: "rows", rows: 1, dated: false }} onNo={vi.fn()} onYes={vi.fn()} />
+      </I18nProvider>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(es.cloud.whatRowsUndated(1))).toBeTruthy();
+    expect(within(dialog).queryByText(es.cloud.whatRows(1))).toBeNull();
+    expect(en.cloud.whatRowsUndated(1)).toMatch(/^For the 1 row Tend could not sort:/);
+    expect(en.cloud.whatRowsUndated(4)).toMatch(/^For all 4 rows .* rows from before it happened go too/);
+    expect(en.cloud.whatRows(1)).toMatch(/^For the 1 row Tend could not sort, from the date it happened on/);
+  });
+
+  it("says a bill goes whole, with everything printed on it", () => {
+    render(
+      <I18nProvider initial="en">
+        <CloudConsent ask={{ kind: "bill", label: "bill.jpg" }} onNo={vi.fn()} onYes={vi.fn()} />
+      </I18nProvider>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(en.cloud.whatBill)).toBeTruthy();
+    expect(en.cloud.whatBill).toMatch(/your name, your address, your account numbers/);
+    expect(within(dialog).getByText(en.cloud.stayBill)).toBeTruthy();
+    expect(en.cloud.stayBill).not.toMatch(/anything about you/);
   });
 
   // Gemini's free tier lets Google keep and read what is sent, so a bill's consent says so before the yes.
@@ -619,6 +657,42 @@ describe("cloud AI consent", () => {
     await waitFor(() => expect(classify).toHaveBeenCalledTimes(2));
     expect(classify.mock.calls[1][2]).toEqual({ cloudConsent: true });
     expect(await screen.findByText(en.cloud.sorted(1))).toBeTruthy();
+  });
+
+  it("does not count a payment to a person among the rows it offers to send", () => {
+    const row = (id: string, description: string): FlowItem => ({
+      item_id: `stmt:s:${id}`,
+      date: "2026-06-20",
+      amount_cents: 2000,
+      expense: "unknown",
+      confirmed: false,
+      insurance_paid_cents: 0,
+      is_bill: false,
+      units: 0,
+      unit: null,
+      tags: [],
+      description,
+      source: "rule",
+      reason: "",
+      confidence: 0,
+      origin: "statement",
+    });
+    const source: SourceRecord = {
+      id: "stmt:s",
+      kind: "statement",
+      label: "s.csv",
+      read: 3,
+      found: 3,
+      warnings: [],
+      sample: false,
+    };
+    const items = [
+      row("1", "ODD SHOP"),
+      row("2", "VENMO PAYMENT JANE DOE"),
+      row("3", "APPLE CASH SENT MONEY JANE DOE"),
+    ];
+    const state = reducer(stateFrom([MI_CHECK]), { type: "addSource", source, items });
+    expect(unsortedRows(state, "stmt:s", "2026-10-19")).toBe(1);
   });
 });
 

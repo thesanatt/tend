@@ -110,7 +110,7 @@ export const en = {
     eventPaymentDry: (amount: string, to: string, when: string) =>
       `${when}: a payment of ${amount} to ${to}, to Tend's server. It was a dry run, so it did not go to the bank.`,
     eventCloudRows: (when: string) =>
-      `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the merchant, its category, and the description. No amounts or dates.`,
+      `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the kind of transaction, the merchant, its category, and the description, after Tend tried to take out dates, amounts, and other numbers.`,
     eventCloudBill: (when: string) => `${when}: a bill file, to cloud AI, because you said yes.`,
     eventOther: (path: string, when: string) => `${when}: a request to ${path}.`,
     eventKept: (what: string, when: string) =>
@@ -767,8 +767,15 @@ export const en = {
     titleBill: "Read this bill with cloud AI?",
     whatTitle: "What leaves this device",
     whatRows: (n: number) =>
-      `For the ${n} rows Tend could not sort, from the date it happened on: the kind of transaction, the merchant, its category, and the description. Tend first takes out card and reference numbers, dates, amounts, phone numbers, emails, and the name in a payment app line.`,
-    whatBill: "This bill file, as it is: the picture or the PDF.",
+      `For the ${n === 1 ? "1 row" : `${n} rows`} Tend could not sort, from the date it happened on: the kind of transaction, the merchant, its category, and the description.`,
+    // Without a date, every unsorted row is offered (components/flow/claim.ts offered), older ones too.
+    whatRowsUndated: (n: number) =>
+      `For ${n === 1 ? "the 1 row" : `all ${n} rows`} Tend could not sort: the kind of transaction, the merchant, its category, and the description. You did not give a date, so rows from before it happened go too. If you know the date, adding it in Check keeps those rows here.`,
+    // What lib/local/cloud.ts scrubForCloud can and cannot catch.
+    scrub:
+      "Tend first tries to take out card and reference numbers, dates, amounts, phone numbers, and emails. It looks for the usual ways banks write them, so one written another way can still go. A name or a town in a row can go too, such as a name on a PayPal line.",
+    whatBill:
+      "This bill file, as it is: the picture or the whole PDF, with everything printed on it, such as your name, your address, your account numbers, and the care you got.",
     whoTitle: "Who gets it",
     whoRows:
       "Tend's server, which asks Google's Gemini to pick a kind of cost for each row. Tend's server keeps no copy.",
@@ -781,8 +788,9 @@ export const en = {
     googleBill:
       "Tend uses Google's free Gemini service. Google's terms let Google keep what is sent, use it to improve its products, and have people at Google read it. A bill can show your name, your address, and the care you got. If you do not want Google to have that, say no.",
     stayTitle: "What stays here",
-    stayRows: "The amounts, the dates, your other transactions, your answers, and anything about you.",
-    stayBill: "Your other files, your answers, and anything about you.",
+    stayRows:
+      "Each row's amount and date, your other transactions, and your answers. Payments to a person through Zelle, Venmo, Cash App, or Apple Cash stay here too.",
+    stayBill: "Your other files and your answers.",
     yes: "Yes, send it",
     no: "No, keep it here",
     noNote: "No is fine. Tend's built-in rules still work, and you can check each row yourself.",
