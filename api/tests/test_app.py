@@ -45,6 +45,8 @@ def test_routes_are_the_local_first_set(client):
         "/api/packet/{claim_id}.pdf",
     ):
         assert gone not in paths, gone
+    # The retired chat agents' routes stay gone.
+    assert not [p for p in paths if p.split("/")[2:3] == ["agent"]]
 
 
 def test_cors_exposes_the_engine_header(client):
