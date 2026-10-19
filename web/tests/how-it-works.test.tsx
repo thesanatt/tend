@@ -287,6 +287,10 @@ describe("the sources", () => {
   it("are counted as saved, never as official", () => {
     expect(document.body.textContent).toContain("saved sources");
     expect(document.body.textContent).toContain("Source saved with sha256");
+    // Recounted in tests/sources-page.test.tsx from each saved source's address.
+    expect(document.body.textContent).toContain(
+      "120 are copies of state statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint state law.",
+    );
     expect(document.body.textContent).not.toMatch(/official/i);
   });
 });

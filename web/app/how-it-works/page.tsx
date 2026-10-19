@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
+import { names, republished } from "@/app/sources/counts";
 import { loadCorpus, loadLaw } from "@/components/public/data";
 import { sitePreview } from "@/components/public/og/siteCard";
 import { TOUR_START } from "@/components/tour/tour";
@@ -26,10 +27,6 @@ function formsToLink(): { linked: number; none: string[] } {
   const others = STATES.filter((s) => s.st !== "MI");
   const none = others.filter((s) => !loadLaw(s.st)?.law.program.application_pdf_url).map((s) => s.name);
   return { linked: others.length - none.length, none };
-}
-
-function list(words: string[]): string {
-  return words.length < 3 ? words.join(" and ") : `${words.slice(0, -1).join(", ")}, and ${words.at(-1)}`;
 }
 
 // Each safety claim names the files that make it true, so a reader can check it on GitHub.
@@ -58,6 +55,7 @@ export default function HowItWorks() {
   const kb = engineKb();
   const laws = lawKbRange();
   const forms = formsToLink();
+  const copies = republished();
 
   const numbers: { figure: string; label: string; means: string }[] = [
     {
@@ -68,7 +66,7 @@ export default function HowItWorks() {
     {
       figure: n(corpus.sources),
       label: "saved sources",
-      means: "Statutes, regulations, and program pages, each saved with a sha256 fingerprint.",
+      means: `Statutes, regulations, and program pages, each saved with a sha256 fingerprint.${copies.sources ? ` ${n(copies.sources)} are copies of state statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint state law.` : ""}`,
     },
     {
       figure: n(corpus.rules),
@@ -449,7 +447,7 @@ export default function HowItWorks() {
           <li>
             Only Michigan&apos;s application is pre-filled. For {forms.linked} other states, Tend links the
             program&apos;s blank form.
-            {forms.none.length ? ` For ${list(forms.none)}, it found no form to link.` : ""}
+            {forms.none.length ? ` For ${names(forms.none)}, it found no form to link.` : ""}
           </li>
           {/* TODO(Sanat): "one author" came out after the audit (outsider-docs#3). If you want a line on how Tend
               was built and who wrote the engines, write it here in your own words. */}
