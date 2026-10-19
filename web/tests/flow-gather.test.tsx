@@ -412,15 +412,22 @@ const clothingProof = (ruleIds: string[]) =>
   });
 
 describe("the clothing question in other states", () => {
-  // OH-COV-5 pays for clothing removed to assess or treat injuries, NJ-COV-CLOTH for bedding and
-  // clothing: neither asks that it was kept as evidence, so a yes must not need that.
-  it.each([
-    ["OH", "OH-COV-5"],
-    ["NJ", "NJ-COV-CLOTH"],
-  ])("asks %s only whether it replaced clothing or bedding", async (st, id) => {
-    renderFlow(<GatherScreen />, { services: clothingProof([id]), initial: stateFrom(sheetsIn(st)) });
+  // NJ-COV-CLOTH: "The Office may award compensation for the reasonable replacement value of bedding
+  // and clothing". The sentence sets no condition, so a yes must not need one.
+  it("asks New Jersey only whether it replaced clothing or bedding", async () => {
+    renderFlow(<GatherScreen />, { services: clothingProof(["NJ-COV-CLOTH"]), initial: stateFrom(sheetsIn("NJ")) });
     expect(await screen.findByRole("group", { name: /^Did this replace clothing or bedding\?/ })).toBeTruthy();
     expect(screen.queryByText(/kept as evidence/)).toBeNull();
+  });
+
+  // OH-COV-5 pays only for clothing removed to assess or treat injuries. Asked only "clothing or
+  // bedding?", a yes would count these sheets under a sentence about clothes taken off for care.
+  it("asks Ohio whether it replaced clothing removed to check for or treat injuries", async () => {
+    renderFlow(<GatherScreen />, { services: clothingProof(["OH-COV-5"]), initial: stateFrom(sheetsIn("OH")) });
+    expect(
+      await screen.findByRole("group", { name: /^Did this replace clothing removed to check for or treat injuries\?/ }),
+    ).toBeTruthy();
+    expect(screen.queryByRole("group", { name: /^Did this replace clothing or bedding/ })).toBeNull();
   });
 
   it("asks Ohio the same in Spanish", async () => {
@@ -429,7 +436,28 @@ describe("the clothing question in other states", () => {
       initial: stateFrom(sheetsIn("OH"), "es"),
       lang: "es",
     });
-    expect(await screen.findByRole("group", { name: /^¿Esto reemplazó ropa o ropa de cama\?/ })).toBeTruthy();
+    expect(
+      await screen.findByRole("group", {
+        name: /^¿Esto reemplazó ropa que te quitaron para revisar si había lesiones o tratarlas\?/,
+      }),
+    ).toBeTruthy();
+  });
+
+  it("asks Washington about clothing or footwear lost or damaged in emergency treatment", async () => {
+    renderFlow(<GatherScreen />, {
+      services: clothingProof(["WA-COV-CLOTHING"]),
+      initial: stateFrom(sheetsIn("WA")),
+    });
+    expect(
+      await screen.findByRole("group", {
+        name: /^Did this replace clothing or footwear lost or damaged during emergency treatment for injuries\?/,
+      }),
+    ).toBeTruthy();
+  });
+
+  it("asks DC about clothing kept as evidence, since its rule names no bedding", async () => {
+    renderFlow(<GatherScreen />, { services: clothingProof(["DC-CAP-8"]), initial: stateFrom(sheetsIn("DC")) });
+    expect(await screen.findByRole("group", { name: /^Did this replace clothing kept as evidence\?/ })).toBeTruthy();
   });
 
   it("asks Texas about evidence or the investigation, as both its rules do", async () => {

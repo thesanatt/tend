@@ -271,6 +271,9 @@ export const es: Dict = {
     clothingKept: {
       evidence: "Ropa y ropa de cama guardadas como evidencia",
       investigation: "Ropa y ropa de cama guardadas como evidencia o arruinadas por la investigación",
+      evidenceClothing: "Ropa guardada como evidencia",
+      removedForCare: "Ropa que se quitó para revisar si había lesiones o tratarlas",
+      emergencyCare: "Ropa y calzado perdidos o dañados durante la atención de emergencia por lesiones",
     },
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     totalCapDepends: (amounts: string) =>
@@ -492,6 +495,10 @@ export const es: Dict = {
     clothingKept: {
       evidence: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia?",
       investigation: "¿Esto reemplazó ropa o ropa de cama que se guardó como evidencia o que la investigación arruinó?",
+      evidenceClothing: "¿Esto reemplazó ropa que se guardó como evidencia?",
+      removedForCare: "¿Esto reemplazó ropa que te quitaron para revisar si había lesiones o tratarlas?",
+      emergencyCare:
+        "¿Esto reemplazó ropa o calzado que se perdió o se dañó durante la atención de emergencia por lesiones?",
     },
     examAsMedical: "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
     heldLine: "No pagues esta línea. La ley dice que no te la deben cobrar.",

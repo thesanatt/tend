@@ -101,13 +101,32 @@ describe("the condition a state's clothing and bedding rules set", () => {
     expect(clothingCondition(["TX-SEIZED-1", "TX-SEIZED-2"], lookup(tx))).toBe("investigation");
   });
 
-  it("New Jersey sets neither, so nothing is named", () => {
+  it("names bedding only when a rule that pays for it does", () => {
+    // DC Rule 27: "clothing of a living victim which is held by law enforcement officials for
+    // evidentiary purposes".
+    expect(clothingCondition(["DC-CAP-8"], lookup(lawOf("DC")))).toBe("evidenceClothing");
+    // Iowa's statute caps clothing alone; its rule names bedding too, and both are on the line.
+    const ia = lookup(lawOf("IA"));
+    expect(clothingCondition(["IA-CLOTH-1"], ia)).toBe("evidenceClothing");
+    expect(clothingCondition(["IA-CLOTH-1", "IA-CLOTH-2"], ia)).toBe("evidence");
+  });
+
+  it("Ohio and Washington pay only for clothing that medical care took or ruined", () => {
+    // ORC 2743.51(T)(1): clothing "removed from a victim in order to make an assessment of possible
+    // physical harm or to treat physical harm".
+    expect(clothingCondition(["OH-COV-5"], lookup(lawOf("OH")))).toBe("removedForCare");
+    // RCW 7.68.074: clothing or footwear lost or damaged "in the course of emergency medical treatment".
+    expect(clothingCondition(["WA-COV-CLOTHING"], lookup(lawOf("WA")))).toBe("emergencyCare");
+  });
+
+  it("New Jersey sets no condition, so nothing is named", () => {
     expect(clothingCondition(["NJ-COV-CLOTH"], lookup(nj))).toBeNull();
   });
 
   it("names a condition only when every rule that pays for the cost sets one", () => {
     expect(clothingCondition([], rule)).toBeNull();
     expect(clothingCondition(["MI-CAP-10", "NJ-COV-CLOTH"], lookup(law, nj))).toBeNull();
+    expect(clothingCondition(["OH-COV-5", "WA-COV-CLOTHING"], lookup(lawOf("OH"), lawOf("WA")))).toBeNull();
     expect(clothingCondition(["MI-COLL-1"], rule)).toBeNull();
   });
 });

@@ -259,8 +259,11 @@ describe("rules the law IR sets aside", () => {
 
 // lib/cite.ts: the Check names clothing and bedding with the condition every rule that pays for it
 // sets. Read by hand from each rule's quote and summary: MI-CAP-10 pays only for what is "held as
-// evidence of a crime"; LA, MA, and TX also pay for what the investigation made unusable; NJ, NY, OH,
-// and WA set neither (OH-COV-5 and WA-COV-CLOTHING are about medical care).
+// evidence of a crime"; DC-CAP-8 only for "clothing" held "for evidentiary purposes"; LA, MA, and TX
+// also pay for what the investigation made unusable; OH-COV-5 pays for "items of clothing removed from
+// a victim in order to make an assessment of possible physical harm or to treat physical harm", and
+// WA-COV-CLOTHING for "clothing or footwear" lost or damaged "in the course of emergency medical
+// treatment"; the sentences quoted for NJ and NY set no condition.
 describe("clothing and bedding on the Check", () => {
   const irDir = path.join(web, "public/data/ir");
   const summary = (st: string) => {
@@ -271,7 +274,6 @@ describe("clothing and bedding on the Check", () => {
   const CONDITION: Record<string, string | null> = {
     AK: "evidence",
     CT: "evidence",
-    DC: "evidence",
     IA: "evidence",
     IL: "evidence",
     KS: "evidence",
@@ -280,13 +282,14 @@ describe("clothing and bedding on the Check", () => {
     VA: "evidence",
     WI: "evidence",
     WY: "evidence",
+    DC: "evidenceClothing",
     LA: "investigation",
     MA: "investigation",
     TX: "investigation",
+    OH: "removedForCare",
+    WA: "emergencyCare",
     NJ: null,
     NY: null,
-    OH: null,
-    WA: null,
   };
 
   it("names the condition each state's rules set, in every state that pays for it", () => {

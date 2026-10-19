@@ -36,16 +36,23 @@ export function severalLimits(line: Pick<EngineLine, "alt_cap_rule_ids">): boole
 
 // What a state's clothing and bedding rules ask, read from each rule's quote and Tend's summary of
 // it. Most pay only for what was kept as evidence (Michigan: "held as evidence of a crime", MCL
-// 18.361(2)(j)). Four rules say so only in the summary: Alaska's and Wyoming's quotes sit under a
-// source heading about items taken as evidence, which their pinpoints name, and Texas's limit cites
-// the seized-as-evidence article only by number. Massachusetts, Texas, and Louisiana also pay for
-// what the investigation made unusable. New Jersey, New York, Ohio, and Washington ask neither. A yes
-// is what counts the cost, so the question and the Check name the condition only when every rule
-// that pays for it sets one.
-export type ClothingCondition = "evidence" | "investigation";
+// 18.361(2)(j)), and DC's rule names clothing alone. Four rules say so only in the summary: Alaska's
+// and Wyoming's quotes sit under a source heading about items taken as evidence, which their
+// pinpoints name, and Texas's limit cites the seized-as-evidence article only by number.
+// Massachusetts, Texas, and Louisiana also pay for what the investigation made unusable. Ohio pays
+// only for clothing removed to check for or treat injuries (ORC 2743.51(T)(1)), and Washington for
+// clothing or footwear lost or damaged in emergency treatment (RCW 7.68.074). The sentences Tend
+// quotes for New Jersey and New York set no condition. A yes is what counts the cost, so the question
+// and the Check name the condition only when every rule that pays for it sets one, and name bedding
+// only when one of those rules does.
+export type ClothingCondition = "evidence" | "investigation" | "evidenceClothing" | "removedForCare" | "emergencyCare";
 
 const EVIDENCE = /\bevidence\b|\bevidentiary\b|\bseized\b/i;
 const UNUSABLE = /\bunusable\b/i;
+const BEDDING = /\bbedding\b/i;
+const CARE = /\bmedical\b|\btreat(ed|ment)?\b/i;
+const REMOVED = /\bremoved\b/i;
+const EMERGENCY = /\bemergency\b/i;
 
 export function clothingCondition(ids: readonly string[], rule: Lookup): ClothingCondition | null {
   const pays = ids
@@ -56,6 +63,13 @@ export function clothingCondition(ids: readonly string[], rule: Lookup): Clothin
         (r.expense ?? r.params?.expense) === "clothing_bedding",
     );
   const says = (r: Rule, words: RegExp) => words.test(r.quote) || words.test(r.summary);
-  if (!pays.length || !pays.every((r) => says(r, EVIDENCE))) return null;
-  return pays.some((r) => says(r, UNUSABLE)) ? "investigation" : "evidence";
+  const all = (words: RegExp) => pays.length > 0 && pays.every((r) => says(r, words));
+  const bedding = pays.some((r) => says(r, BEDDING));
+  if (all(EVIDENCE)) {
+    if (pays.some((r) => says(r, UNUSABLE))) return "investigation";
+    return bedding ? "evidence" : "evidenceClothing";
+  }
+  // The medical care rules (Ohio's and Washington's) name clothing only.
+  if (bedding || !all(CARE)) return null;
+  return all(REMOVED) ? "removedForCare" : all(EMERGENCY) ? "emergencyCare" : null;
 }

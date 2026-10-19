@@ -111,6 +111,20 @@ describe("Check", () => {
     expect(screen.getByRole("button", { name: "Not today" })).toBeTruthy();
   });
 
+  // ORC 2743.51(T)(1) pays only for "items of clothing removed from a victim in order to make an
+  // assessment of possible physical harm or to treat physical harm": no bedding, and only that.
+  it("names Ohio's clothing line by what its rule pays for", async () => {
+    renderFlow(<CheckScreen />, {
+      initial: stateFrom([{ type: "check", patch: { st: "OH", date: "2026-06-14", exam: "yes", police: "not_yet" } }]),
+    });
+    expect(await screen.findByText("Clothing removed to check for or treat injuries")).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: /show the law for Clothing removed to check for or treat injuries/ })
+        .textContent,
+    ).toMatch(/^ORC 2743\.51\(T\)\(1\)/);
+    expect(screen.queryByText(/^Clothing and bedding/)).toBeNull();
+  });
+
   it("with Not sure for the date, gives the length of time from the rule, never a made-up date", async () => {
     renderFlow(<CheckScreen />, { initial: stateFrom([MI_CHECK, { type: "check", patch: { dateUnsure: true } }]) });
     expect(await screen.findByText("You have 5 years from the date it happened to apply.")).toBeTruthy();
