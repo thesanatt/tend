@@ -172,11 +172,15 @@ describe("the top bar", () => {
       });
     // Sticks inside its own scrolling box (.traceWrap), not to the page.
     const ownBox = new Set([".trace thead th"]);
-    const sticky = [...files(path.join(web, "app")), ...files(path.join(web, "components"))].flatMap((f) =>
-      parseCss(readFileSync(f, "utf8"))
-        .filter((r) => r.decls.position === "sticky" && !ownBox.has(r.selector))
-        .map((r) => ({ where: `${path.relative(web, f)} ${r.selector}`, top: r.decls.top ?? "" })),
-    );
+    // Every top a sticky selector sets, in any @media. One that sticks only sideways (left) never
+    // reaches the bar.
+    const sticky = [...files(path.join(web, "app")), ...files(path.join(web, "components"))].flatMap((f) => {
+      const rules = parseCss(readFileSync(f, "utf8"));
+      const stuck = new Set(rules.filter((r) => r.decls.position === "sticky").map((r) => r.selector));
+      return rules
+        .filter((r) => stuck.has(r.selector) && !ownBox.has(r.selector) && "top" in r.decls)
+        .map((r) => ({ where: `${path.relative(web, f)} ${r.selector}`, top: r.decls.top }));
+    });
     expect(sticky.length).toBeGreaterThanOrEqual(3);
     for (const { where, top } of sticky) {
       const px = /^(\d+)px$/.exec(top);
