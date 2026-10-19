@@ -27,7 +27,6 @@ engine/       C++20 law engine: compiler (tendc), VM (libtend), disassembler (td
 refengine/    Python reference implementation of the same semantics + differential tests
 api/          FastAPI service (Python 3.12, uv): Nessie, classification, claims, packet, actions, share, agent API
 web/          Next.js (TypeScript) app; runs the WASM engine on device
-agent/        Fetch.ai uAgent (Chat Protocol) that drives the same API from ASI:One
 seed/         fictional Nessie worlds (personas) and fixtures
 docs/         SPEC.md (this), ARCHITECTURE.md, EVAL.md, JUDGES.md, DEVPOST.md
 ```
@@ -286,8 +285,8 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    usual deadline was ..." and adds "This deadline may count from when the crime was discovered,
    which can be later than the date it happened. The program decides." The readers are the web's
    Check and Track screens, the shared claim an advocate opens, the PDF summary the web builds and
-   the one the API builds, the API's agent check, and the agent (agent/tend_agent). A `late` with
-   no flag is still shown as past the deadline.
+   the one the API builds, and the API's agent check. A `late` with no flag is still shown as past
+   the deadline.
 2. normalize.py carries the anchor. Rules the researchers dated from discovery keep it (AZ-DEAD-1,
    MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
    own quote lets the period start at discovery ("after the occurrence or discovery of the crime",

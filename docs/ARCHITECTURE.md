@@ -44,10 +44,12 @@ Once loaded, the left side keeps working with the network off (see "Offline mode
 | `refengine/` | Python reference engine and the differential test | tests; API fallback |
 | `web/` | Next.js app: the survivor flow, public state pages, "How Tend decides" | device |
 | `api/` | FastAPI: public corpus, payments, sealed shares, bank relay, opt-in cloud AI, agent routes | Vercel function |
-| `agent/` | three Fetch.ai uAgents for ASI:One | laptop (mailbox) or Agentverse (hosted) |
 | `seed/` | the fictional Nessie world: four Rowan personas, snapshots, the itemized bill, recorded Nessie answers | build and rehearsal |
 | `scripts/` | Neon law branches and roles (`scripts/neon`), Vercel settings (`scripts/vercel`) | operator |
 | `design/figma/` | generator scripts that build the Figma file through the Plugin API | operator |
+
+The three chat agents from the MHacks build are retired. The code as judged is at the tag
+`v1.0-mhacks` (commit 5d1f7bd).
 
 ## Trust boundaries
 
@@ -270,23 +272,6 @@ Two least-privilege roles (`scripts/neon/roles.py`): `tend_reader` can only read
 `tend_app` can write shares and pending payments and append to the audit log, never rewrite it.
 docs/NEON.md has the details and measurements.
 
-## The agents
-
-`agent/` has three uAgents (`uagents==0.25.5`, Agent Chat Protocol 0.3.0):
-
-- **Tend Navigator** talks with the person in ASI:One and keeps a short session (ids and amounts,
-  two hours at most). It never stores or logs message text, and it never forwards a message that
-  describes what happened or names someone.
-- **Tend Law** answers questions and runs a Check from the verified corpus, through
-  `POST /api/agent/answer` and `/agent/check`. No verified rule means "That's not in the rules I
-  have."
-- **Tend Bank and Packet** runs the fictional demo claim, the payment (the person types the
-  6-digit code), and seals a packet in the web app's share format.
-
-Requests between them carry ids, retries are answered from a 90-second cache so nothing runs
-twice, and replies are accepted only from the agent that was asked. The agents decide nothing
-about law or money; they call the API. Addresses are in agent/README.md.
-
 ## Deployment
 
 docs/DEPLOY.md is the runbook. Two Vercel projects serve one origin, https://youreowed.tech (live):
@@ -301,5 +286,5 @@ Production deploys are staged; `vercel promote` is the approval step. In product
 payments are written to Nessie (`TEND_BANK=nessie`), and Neon Postgres holds the corpus, shares,
 and the audit log.
 
-For local work, `scripts/dev.sh` starts the API (SQLite, dry-run bank), the web app, and the agent
-in one command; `--prod` serves the production build with the offline worker.
+For local work, `scripts/dev.sh` starts the API (SQLite, dry-run bank) and the web app in one
+command; `--prod` serves the production build with the offline worker.
