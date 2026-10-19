@@ -27,9 +27,9 @@ The live run uses throwaway schemas (`tend_test_<random>`) and drops them, excep
 the loaded public corpus against the files on disk.
 
 The access log keeps only the method, the path without its query, and the status: no client address. Requests
-whose path is private (shares, the bank relay, cloud AI, claims, packets, the agent routes, rule search) leave
-no line at all. pypdf's warnings, which quote bytes from a damaged file, are switched off. Request bodies over
-16 MB are refused with 413, including chunked ones with no Content-Length.
+whose path is private (shares, the bank relay, cloud AI, claims, packets, rule search) leave no line at all. pypdf's
+warnings, which quote bytes from a damaged file, are switched off. Request bodies over 16 MB are refused with 413,
+including chunked ones with no Content-Length.
 
 ## Settings
 
@@ -78,8 +78,10 @@ Claims, evaluated and returned
   Items may carry `unit` and `tags`, and a ClassifiedItem's `source`, `reason`, and `confidence` are accepted and
   dropped. Output that does not add up is refused with a 500 rather than shown.
 - `POST /packet?persona_id=`: the cited packet PDF (with the state's form when Tend has it), rendered and returned.
+  A deadline counted from the police report or from discovery (docs/SPEC.md v1.3) gets its note and is never
+  labeled "Past the filing deadline".
 - `POST /scan` `{persona_id | customer_id, st, incident_date?}`: a demo persona's bank as v1.2 items, server-side.
-  `scan_id` is a label made from what the scan found (clients of the first API send it back); nothing is kept.
+  `scan_id` is a label made from what the scan found, which `/bill/audit` accepts back; nothing is kept.
 - `POST /bill/audit` `{persona_id | bill_id, scan_id?}`: a demo persona's itemized bill. Lines must add up and match the
   snapshot's sha256 and the Nessie bill; the engine holds the exam line. Returns `holds`, `payable_cents`, and
   `payable_item_ids`. Survivors' own bills go to `/ai/bill` instead.
@@ -140,25 +142,6 @@ Cloud AI, only with `consent: true` (403 otherwise; nothing logged or stored)
   checks the lines against the amount due: `status: ok | unreliable`, `lines` (`line_id`, `description`,
   `amount_cents`, `expense`), `sums_match`, `source: rule | cloud_ai`. Code's own reading of a line's words wins
   over the model's label; the model's label is used only for a line code cannot place.
-
-Agent (the Fetch.ai agent in ASI:One)
-- `POST /agent/answer` `{question, st?}`: an answer built from verified rule summaries, each point with its quote,
-  pinpoint, fragment link, and source hash; or `answered: false` with the program's phone when no rule supports
-  one. The state can come from the question ("in Ohio"). `citations` lists the same rules in the shape the agent
-  quotes from; the first leaves out its summary, which is the `answer` itself.
-- `POST /agent/check` `{st, incident_date?, forensic_exam?: true | false | null, police_report?: yes | no | not_yet | unknown}`
-  (also `GET /agent/check?st=`): the Check summary from docs/UX.md, every sentence with its rule ids and citations:
-  `headline`, `deadline`, `reporting` (and `reporting_if_exam` when the exam answer is "not sure"), `covered`
-  ("Counseling, up to $125 a session"), `total_cap`, `minimum_loss`, `exam` (also as `exam_billing`:
-  `protection` and `who_pays`), `not_covered`, `privacy`, `program`. When any deadline counts from the police
-  report, `deadline.flags` holds `deadline_from_report` and the text says the survivor may have longer; when any
-  counts from discovery, `deadline_from_discovery` and the text says so (docs/SPEC.md v1.3). The engine is asked
-  with today's date in the state's own time zone (`clock.state_today`), never Detroit's. The packet PDF explains
-  either flag the same way and never labels such a deadline "Past the filing deadline".
-- `tests/test_agent_contract.py` replays the requests the agent on main sends; run it after changing these routes.
-- `POST /agent/pay` `{persona_id | from, account?, payee, amount_cents, bill_id?, item_ids?}` returns the proposal plus
-  `confirm_phrase` ("confirm 118.00") and `ask_user`. `POST /agent/confirm` `{action_id, confirm_code, typed}` moves
-  money only when `typed` names the exact amount. App and agent payments cannot be confirmed through each other.
 
 ## Storage
 

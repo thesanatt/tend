@@ -249,7 +249,8 @@ class ActionService:
         if action is None:
             raise ActionError("No action with that id.", 404)
         if action["channel"] != channel:
-            # An agent-proposed payment needs the survivor's typed approval, which only the agent route checks.
+            # A payment is approved only through the channel that set it up. Rows made by the removed agent
+            # pay route also needed the amount typed back, which this route does not require, so they never pass here.
             raise ActionError(f"This payment was set up through the {action['channel']}; approve it there.", 409)
         now = self.clock()
         if action["status"] in ("done", "unverified", "executing"):

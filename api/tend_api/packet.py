@@ -19,7 +19,6 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-from .agent import DISCOVERY_NOTE
 from .claims import consent_flag
 from .clock import PROGRAM_TZ
 from .forms import FORM_SPECS, application_values, fill_application
@@ -46,7 +45,10 @@ CHECK_LABEL = {
     "reporting": {"satisfied": "Satisfied", "required": "Police report needed", "not_required": "Not required", "unknown": "Unknown"},
 }
 # A late deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3): it
-# says so with its notes, never "Past the filing deadline".
+# says so with its notes, never "Past the filing deadline". The discovery note is the web Check's own words.
+DISCOVERY_NOTE = (
+    "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides."
+)
 DEADLINE_NOTES = {
     "deadline_from_report": "Measured from the date it happened. The law counts from your report, so you may have longer.",
     "deadline_from_discovery": DISCOVERY_NOTE,

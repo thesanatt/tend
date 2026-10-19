@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Starts Tend on this machine with one command: the API (FastAPI on uvicorn), the web app (Next.js),
-# and the Fetch.ai agent when agent/run.sh is there. Prints the URLs. Ctrl+C stops everything.
+# Starts Tend on this machine with one command: the API (FastAPI on uvicorn) and the web app (Next.js).
+# Prints the URLs. Ctrl+C stops everything.
 #
-#   scripts/dev.sh              API + web (next dev, hot reload) + agent
+#   scripts/dev.sh              API + web (next dev, hot reload)
 #   scripts/dev.sh --prod       the web app as a production build, the way Vercel serves it. Only this
 #                               mode registers the offline worker (public/sw.js), so use it to rehearse
 #                               the airplane-mode demo.
-#   scripts/dev.sh --no-agent   skip the agent
 #
 # Settings (environment):
 #   API_PORT, WEB_PORT   default 8000 and 3000; when a port is taken the next free one is used
@@ -15,18 +14,16 @@
 #   TEND_BANK            default dry_run: a confirmed payment is recorded and read back, nothing goes to
 #                        the bank. TEND_BANK=nessie writes it to Capital One's Nessie sandbox (fictional
 #                        demo accounts only).
-# Secrets stay in the repo .env, which the API and the agent read themselves.
+# Secrets stay in the repo .env, which the API reads itself.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MODE="dev"
-AGENT=1
 for arg in "$@"; do
   case "$arg" in
     --prod) MODE="prod" ;;
-    --no-agent) AGENT=0 ;;
     -h | --help)
-      sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     *)
@@ -100,20 +97,6 @@ echo "Starting the web app on ${WEB_URL} (${MODE}) ..."
 ) >"$LOGS/web.log" 2>&1 &
 wait_for "${WEB_URL}/check" web 600
 
-AGENT_LINE="not started (--no-agent)"
-if [ "$AGENT" = 1 ] && [ -x "$ROOT/agent/run.sh" ]; then
-  AGENT_PORT="${AGENT_PORT:-8001}"
-  if busy "$AGENT_PORT"; then
-    # One agent per seed: a second copy would fight the first for the same Agentverse mailbox.
-    AGENT_LINE="port ${AGENT_PORT} is already in use, so it was not started again"
-  else
-    (cd "$ROOT/agent" && TEND_API_URL="$API_URL" AGENT_PORT="$AGENT_PORT" exec ./run.sh) >"$LOGS/agent.log" 2>&1 &
-        AGENT_LINE="starting on port ${AGENT_PORT}; its address and Inspector link are in ${LOGS}/agent.log"
-  fi
-elif [ "$AGENT" = 1 ]; then
-  AGENT_LINE="not here (no agent/run.sh)"
-fi
-
 cat <<EOF
 
 Tend is running.
@@ -121,7 +104,6 @@ Tend is running.
   Public page       ${WEB_URL}/mi
   How Tend decides  ${WEB_URL}/law/MI
   API docs          ${API_URL}/api/docs
-  Agent             ${AGENT_LINE}
   Logs              ${LOGS}/
 Press Ctrl+C to stop.
 EOF

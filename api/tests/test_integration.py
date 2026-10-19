@@ -90,11 +90,12 @@ def test_relay_and_scan_agree_on_rowan(real):
     assert from_relay == from_scan
 
 
-def test_every_jurisdiction_answers_a_check(real):
+def test_every_jurisdiction_evaluates_a_claim(real):
+    context = {"incident_date": "2026-06-14", "as_of_date": "2026-10-03", "forensic_exam": True}
     for st in real.get("/api/health").json()["jurisdictions"]:
-        r = real.post("/api/agent/check", json={"st": st, "incident_date": "2026-06-14", "forensic_exam": True})
+        r = real.post("/api/claim", params={"engine": "reference"}, json={"jurisdiction": st, "context": context, "items": []})
         assert r.status_code == 200, (st, r.text)
-        assert r.json()["law_ir"] is True, st
+    assert real.app.state.services.engines.reference._reads == "ir"  # it read the law IR, not the verified files
 
 
 def native_can_serve(client: TestClient) -> str | None:

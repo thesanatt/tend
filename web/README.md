@@ -5,12 +5,11 @@ uses the API and the WebAssembly engine when they are present.
 
 ## Run
 
-Everything at once, from the repo root (the API, this app, and the Fetch.ai agent when it is there):
+The API and this app at once, from the repo root:
 
 ```sh
-scripts/dev.sh              # API + web (next dev) + agent; prints the URLs
+scripts/dev.sh              # API + web (next dev); prints the URLs
 scripts/dev.sh --prod       # the web app as a production build: the only mode with the offline worker
-scripts/dev.sh --no-agent   # without the agent
 ```
 
 It uses API_PORT 8000 and WEB_PORT 3000, or the next free ports, a local SQLite database

@@ -64,13 +64,11 @@ def test_questions_become_intents(question, categories, expenses):
     q = parse_query(question)
     assert categories <= q.categories and q.expenses == expenses
     assert all(t.isascii() and t.isalnum() for t in q.terms)
-    if "number" in question:
-        assert q.contact is True and "property_replacement" not in q.expenses
 
 
 def test_the_state_name_is_not_a_search_word():
     q = parse_query("How long do I have in Michigan?", drop={"michigan"})
-    assert "michigan" not in q.terms and "michigan" not in q.own
+    assert "michigan" not in q.terms
 
 
 def test_sqlite_follows_rules_on_disk(settings, clock, tmp_path):

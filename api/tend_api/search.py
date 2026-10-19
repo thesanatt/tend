@@ -1,9 +1,9 @@
-"""Find the verified rules that answer a question, or say that none do.
+"""Find the verified rules that match a question.
 
 The database does the full-text part (Postgres tsvector in Neon, FTS5 offline). This module turns
-a plain question into search terms and intents (which categories and expenses it is about), ranks
-the hits the same way on both backends, and decides whether any rule actually supports an answer.
-No model writes the answer: every sentence is a rule's own verified summary, next to its quote.
+a plain question into search terms and intents (which categories and expenses it is about) and ranks
+the hits the same way on both backends. No model is involved: each result is a rule's own verified
+summary, next to its quote.
 """
 
 from __future__ import annotations
@@ -92,26 +92,18 @@ TAG_INTENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bcar\b|\bvehicle\b"), "vehicle"),
     (re.compile(r"pain and suffering"), "pain_suffering"),
 )
-CONTACT = re.compile(r"phone number|\bcall\b|\bcontact\b|\bwebsite\b|\bhotline\b|\breach (them|the program)\b|\bemail address\b")
 COVERAGE_CATEGORIES = frozenset({"covered_expense", "excluded_expense", "expense_cap"})
 # Lists of forms and steps match many questions loosely; they rank last unless asked for.
 QUIET = frozenset({"required_document", "submission", "processing_time"})
-MAX_POINTS = 4
 
 
 @dataclass
 class Query:
     text: str
     terms: list[str]  # content words for full-text search, lowercase ASCII only
-    own: list[str] = field(default_factory=list)  # the question's own content words, before any expansion
     categories: set[str] = field(default_factory=set)
     expenses: set[str] = field(default_factory=set)
     tags: set[str] = field(default_factory=set)
-    contact: bool = False
-
-    @property
-    def has_intent(self) -> bool:
-        return bool(self.categories or self.expenses or self.tags)
 
 
 def _tokens(text: str) -> list[str]:
@@ -125,7 +117,7 @@ def parse_query(text: str, drop: frozenset[str] | set[str] = frozenset()) -> Que
     for tok in _tokens(low):
         if len(tok) >= 3 and tok not in STOPWORDS and tok not in GENERIC and tok not in drop and tok not in terms:
             terms.append(tok)
-    q = Query(text=text, terms=terms[:24], own=list(terms))
+    q = Query(text=text, terms=terms[:24])
     for pattern, cats in CATEGORY_INTENTS:
         if pattern.search(low):
             q.categories |= cats
@@ -141,22 +133,11 @@ def parse_query(text: str, drop: frozenset[str] | set[str] = frozenset()) -> Que
         q.expenses.add("forensic_exam")
     if q.tags:
         q.categories.add("excluded_expense")
-    q.contact = bool(CONTACT.search(low))
     for word in sorted(q.expenses):
         for part in word.split("_"):
             if part not in q.terms and part not in GENERIC:
                 q.terms.append(part)
     return q
-
-
-def _stems(text: str) -> set[str]:
-    return {tok[:5] for tok in _tokens(text)}
-
-
-def term_overlap(query: Query, rule: dict[str, Any]) -> int:
-    """How many of the question's own content words the rule contains (by a crude five-letter stem)."""
-    text = _stems(f"{rule.get('heading', '')} {rule.get('summary', '')} {rule.get('quote', '')}")
-    return len({t[:5] for t in query.own} & text)
 
 
 def rank(query: Query, fts_hits: list[dict[str, Any]], intent_rules: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -186,24 +167,6 @@ def rank(query: Query, fts_hits: list[dict[str, Any]], intent_rules: list[dict[s
         out.append({**rule, "intent": intent, "rank": round(score, 6)})
     out.sort(key=lambda r: (-r["rank"], r["ord"]))
     return out
-
-
-def supported(query: Query, ranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """The rules that answer the question, best first; empty when nothing in the corpus supports an answer."""
-    if not ranked:
-        return []
-    if query.has_intent:
-        fits = [r for r in ranked if r["intent"] > 0.5]
-    else:
-        if not query.own:
-            return []
-        need = 1 if len({t[:5] for t in query.own}) <= 1 else 2
-        fits = [r for r in ranked if r["fts"] > 0 and term_overlap(query, r) >= need]
-    if not fits:
-        return []
-    best = fits[0]["rank"]
-    keep = [r for r in fits if r["rank"] >= max(0.5, best * 0.6)]
-    return keep[:MAX_POINTS]
 
 
 def citation(rule: dict[str, Any]) -> dict[str, Any]:

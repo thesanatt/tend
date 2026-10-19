@@ -113,7 +113,7 @@ def test_rules_by_category_and_sources(repo):
     counseling = repo.rules_where("MI", [], ["counseling"])
     assert counseling and all(r["expense"] == "counseling" for r in counseling)
     assert repo.rules_where("MI", [], []) == []
-    source = repo.source("MI", deadlines[0]["source_id"])
+    source = next(s for s in repo.corpus_sources("MI") if s["id"] == deadlines[0]["source_id"])
     assert source["sha256"] and source["url"].startswith("https://")
 
 

@@ -159,7 +159,7 @@ class BillAuditRequest(Strict):
 
     persona_id: Slug | None = None
     bill_id: Slug | None = None
-    # The label /scan returned, which the Fetch.ai agent sends back. Nothing is stored or looked up by it.
+    # The label /scan returned, which a client may send back. Nothing is stored or looked up by it.
     scan_id: Slug | None = None
     st: StateCode | None = None  # defaults to the persona's jurisdiction
     incident_date: dt.date | None = None
@@ -277,58 +277,3 @@ class AiBillRequest(Strict):
         str, Field(min_length=4, max_length=MAX_BILL_B64, pattern=BASE64, validation_alias=AliasChoices("file", "file_b64", "data"))
     ]
     mime: Annotated[BillMime, Field(validation_alias=AliasChoices("mime", "mime_type", "content_type"))]
-
-
-class AgentAnswerRequest(Strict):
-    question: Annotated[str, Field(min_length=2, max_length=500)]
-    st: StateCode | None = None
-
-    @field_validator("st", mode="before")
-    @classmethod
-    def _upper(cls, v: object) -> object:
-        return _upper_state(v) or None
-
-
-class AgentCheckRequest(Strict):
-    st: StateCode
-    incident_date: dt.date | None = None
-    forensic_exam: StrictBool | None = None  # None: not sure
-    police_report: Literal["yes", "no", "not_yet", "unknown"] = "unknown"
-
-    @field_validator("st", mode="before")
-    @classmethod
-    def _upper(cls, v: object) -> object:
-        return _upper_state(v)
-
-
-class AgentPayRequest(Strict):
-    """A payment the agent sets up. The survivor approves it by typing the amount back."""
-
-    model_config = ConfigDict(extra="forbid", populate_by_name=True)
-
-    persona_id: Slug | None = None  # demo persona whose account pays
-    account: Literal["checking", "cushion"] = "checking"
-    from_account: Annotated[AccountId | None, Field(validation_alias=AliasChoices("from", "from_account"))] = None
-    payee: Annotated[str, Field(min_length=1, max_length=80)]
-    amount_cents: PositiveCents
-    bill_id: Slug | None = None
-    item_ids: Annotated[list[ItemId], Field(max_length=200)] | None = None
-
-    @field_validator("payee")
-    @classmethod
-    def _payee(cls, v: str) -> str:
-        return _clean_payee(v)
-
-    @model_validator(mode="after")
-    def _one_account(self) -> AgentPayRequest:
-        if (self.persona_id is None) == (self.from_account is None):
-            raise ValueError("send persona_id (the demo persona whose account pays) or from (an account id)")
-        if self.item_ids and not self.bill_id:
-            raise ValueError("item_ids name lines of a bill, so bill_id is needed too")
-        return self
-
-
-class AgentConfirmRequest(Strict):
-    action_id: ActionId
-    confirm_code: ConfirmCode
-    typed: Annotated[str, Field(min_length=1, max_length=64, description='what the survivor typed, e.g. "confirm 118.00"')]

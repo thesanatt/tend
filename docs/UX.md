@@ -86,8 +86,9 @@ bud (filed), bloom (paid). The deadline is always visible. Reminders are opt-in,
 ## Separate from the survivor flow
 - "How Tend decides": the verified rules, sources, and the compiled law listing for any state.
   For advocates, judges, and anyone checking the work.
-- Advocate tool (Fetch.ai agent in ASI:One): cited answers about any state's program and a
-  packet walkthrough from a share link.
+- Advocate view: a share link opens a read-only copy of the claim in the advocate's browser, with
+  the amount, the checks, every cost with the law behind it, and the cited summary PDF. The
+  survivor picks when the link expires and whether it opens only once.
 
 ## Not building
 Voice, iMessage, crypto, points or streaks, chatbots in the survivor flow, anything that stores a

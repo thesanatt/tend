@@ -9,7 +9,7 @@ version of the law becomes its own Neon branch, and the numbers we measured.
 
 | What | Tables | Who can touch it | Why it is on a server at all |
 |---|---|---|---|
-| The public law corpus | `categories`, `jurisdictions`, `sources`, `rules`, `law_images` | read: `tend_reader`, `tend_app`; write: the owner (loader) only | Public, verified rules that every page, the agent, and the API cite |
+| The public law corpus | `categories`, `jurisdictions`, `sources`, `rules`, `law_images` | read: `tend_reader`, `tend_app`; write: the owner (loader) only | Public, verified rules that every page and the API cite |
 | The law version index | `law_versions`, `law_version_files` | read: both roles; write: the owner (publish script) | Names every published law branch, so the API can read and compare them |
 | Sealed shares | `sealed_shares` | `tend_app` only | Ciphertext an advocate opens with a key that never reaches the server |
 | Payments waiting for a code | `pending_actions` | `tend_app` only | Ten minutes at most; the code is stored only as a MAC, the payee is cleared after |
@@ -99,7 +99,7 @@ next claim, and after a failed read the lookup is skipped for 30 s. In those cas
 
 The state pages do not get a server-backed search box. docs/PRIVACY.md lists what may leave the
 device, and a typed search is not on it. Adding one would also need the "Nothing has left it" line to
-change after a search. The endpoint serves the Fetch.ai agent instead.
+change after a search. So only someone calling the API directly uses the endpoint.
 
 ## Least privilege
 

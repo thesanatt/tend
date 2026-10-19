@@ -14,7 +14,6 @@ import pytest
 from helpers import REPO, client_for, fake_ref, make_services
 
 from tend_api import clock as clock_module
-from tend_api.agent import DISCOVERY_NOTE
 from tend_api.clock import STANDARD_OFFSET_HOURS, STATE_TIME_ZONES, local_today, state_today
 
 # Every zone a state's land is in (IANA zone.tab, plus the towns that keep a neighbor's time).
@@ -142,7 +141,7 @@ def test_the_webs_eastern_zone_is_never_behind_any_part_of_the_state(st):
         t += dt.timedelta(hours=1)
 
 
-def test_the_agent_check_asks_the_engine_with_the_states_date(settings, clock):
+def test_a_bill_audit_asks_the_engine_with_the_states_date(settings, clock):
     seen = []
 
     def capture(law, payload):
@@ -151,21 +150,8 @@ def test_the_agent_check_asks_the_engine_with_the_states_date(settings, clock):
 
     clock.now = dt.datetime(2026, 10, 4, 4, 30, tzinfo=dt.UTC)  # 12:30 AM in Detroit
     client = client_for(make_services(settings, clock, reference_evaluate=capture))
-    assert client.post("/api/agent/check", json={"st": "MI", "incident_date": "2026-06-14"}).status_code == 200
-    assert client.post("/api/agent/check", json={"st": "WI", "incident_date": "2026-06-14"}).status_code == 200
+    # A bill no persona holds, so the date can only come from the clock.
+    for st in ("MI", "WI"):
+        body = {"st": st, "bill_id": "riverbend-2026-06", "incident_date": "2026-06-14"}
+        assert client.post("/api/bill/audit", json=body).status_code == 200, st
     assert seen and set(seen) == {"2026-10-03"}  # the program's Detroit date would be 2026-10-04
-
-
-@pytest.mark.parametrize("status", ["ok", "late"])
-def test_a_deadline_that_may_count_from_discovery_says_so(settings, clock, status):
-    def flagged(law, payload):  # the engines flag a deadline counted from discovery (engine/FORMAT.md section 4)
-        out = fake_ref.evaluate(law, payload)
-        out["checks"]["deadline"]["flags"] = ["deadline_from_discovery"]
-        return out
-
-    client = client_for(make_services(settings, clock, reference_evaluate=flagged))
-    incident = "2020-01-01" if status == "late" else "2026-06-14"
-    deadline = client.post("/api/agent/check", json={"st": "MI", "incident_date": incident}).json()["deadline"]
-    assert deadline["status"] == status and deadline["flags"] == ["deadline_from_discovery"]
-    assert deadline["text"].endswith(DISCOVERY_NOTE)
-    assert "—" not in deadline["text"] and "!" not in deadline["text"]

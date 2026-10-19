@@ -16,7 +16,7 @@ from .deps import ENGINE_HEADER, LAW_VERSION_HEADER
 from .engine import EngineError, EngineUnavailable
 from .errors import TendError
 from .redact import PublicErrors, path_roots, secret_values
-from .routers import actions, agent, ai, bank, bill, claims, jurisdictions, law, packet, rules, scan, shares, system
+from .routers import actions, ai, bank, bill, claims, jurisdictions, law, packet, rules, scan, shares, system
 from .services import Services, build_services
 from .sweep import sweep_forever
 
@@ -31,7 +31,6 @@ QUIET_PREFIXES = (
     "/api/ai/",
     "/api/claim",
     "/api/packet",
-    "/api/agent/",
     "/api/rules/search",
     "/api/law/search",
 )
@@ -168,6 +167,6 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
     async def engine_error(_: Request, exc: EngineError) -> JSONResponse:
         return JSONResponse(status_code=422, content={"detail": str(exc)})
 
-    for module in (system, jurisdictions, rules, claims, scan, bill, bank, actions, shares, ai, agent, packet, law):
+    for module in (system, jurisdictions, rules, claims, scan, bill, bank, actions, shares, ai, packet, law):
         app.include_router(module.router, prefix="/api")
     return app

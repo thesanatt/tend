@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from typing import Any
 
 from .actions import ActionService
-from .agent import AgentService
 from .ai import BillModel, CloudAI
 from .bank import Bank, DryRunBank, NessieBank
 from .claims import ClaimService
@@ -42,7 +41,6 @@ class Services:
     relay: BankRelay
     ai: CloudAI
     rulebook: Rulebook
-    agent: AgentService
     sweeps: SweepSchedule
     law: LawService | None = None  # law versions (Neon branches), diffs, and quote search
 
@@ -120,7 +118,6 @@ def build_services(
         relay=BankRelay(settings.seed_dir, settings.relay_live, relay_client_factory),
         ai=CloudAI(settings.gemini_api_key, classify_model, bill_model),
         rulebook=rulebook,
-        agent=AgentService(rules, ir, engines, rulebook, actions, scans, clock),
         sweeps=sweeps,
         law=LawService(
             repo,
