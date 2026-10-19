@@ -158,10 +158,10 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
             the rule it came from.
           </li>
           <li>
-            When you check a claim, your browser runs this compiled law in WebAssembly. If a check goes to the server
-            behind this site instead, the Python reference engine answers it from the same IR. In tests, the reference
-            matched the C++ engine byte for byte on 119,600 claims, and the WebAssembly build matched the native build
-            on 106,000 of 106,000 (<a href={LINKS.eval}>docs/EVAL.md</a>).
+            When you check a claim, your browser runs this compiled law in WebAssembly. If your browser cannot run it
+            and you agree to send the check to the server behind this site, the Python reference engine answers it
+            from the same IR. In tests, the reference matched the C++ engine byte for byte on 119,600 claims, and the
+            WebAssembly build matched the native build on 106,000 of 106,000 (<a href={LINKS.eval}>docs/EVAL.md</a>).
           </li>
         </ol>
       </section>

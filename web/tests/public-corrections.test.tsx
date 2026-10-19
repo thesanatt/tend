@@ -239,6 +239,8 @@ describe("where /law/MI says the engine runs", () => {
     const steps = words(d.querySelector('section[aria-labelledby="h-check"]'));
     expect(steps).not.toContain("The same image runs on the server");
     expect(steps).toContain("When you check a claim, your browser runs this compiled law in WebAssembly.");
+    // The server is used only after the person says yes (FlowProvider passes allowApi: serverConsent).
+    expect(steps).toContain("If your browser cannot run it and you agree to send the check to the server");
     expect(steps).toContain("the Python reference engine answers it from the same IR");
     const evalMd = readFileSync(path.join(repo, "docs/EVAL.md"), "utf8");
     expect(evalMd).toContain("119,600 well-formed claims byte-identical");
