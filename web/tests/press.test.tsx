@@ -11,9 +11,11 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import PressPage, { metadata } from "@/app/press/page";
 import { BUILDER, CONTACT, pressFacts, VIDEO, WHY } from "@/app/press/facts";
 import { FACT_SHEET, LINK_CARD, LOGOS, PRESS_DIR, pngSize, SHOT_DIR, SHOTS } from "@/app/press/files";
+import AppFooter from "@/components/flow/AppFooter";
 import { loadCorpus } from "@/components/public/data";
 import { siteCardAlt } from "@/components/public/og/siteCard";
 import { LINKS } from "@/components/tour/links";
+import { renderFlow } from "./helpers/flow";
 
 const web = path.resolve(import.meta.dirname, "..");
 const repo = path.resolve(web, "..");
@@ -249,5 +251,22 @@ describe("/press metadata", () => {
       description: metadata.description,
       images: [image],
     });
+  });
+});
+
+describe("the site footer", () => {
+  it("links the press kit on every page, in English", () => {
+    renderFlow(<AppFooter />);
+    const link = screen.getByRole("link", { name: "Press kit" });
+    expect(link.getAttribute("href")).toBe("/press");
+    expect(link.closest("p")!.textContent).toBe("Press kit for reporters.");
+  });
+
+  it("and in Spanish, where it says the page is in English", () => {
+    renderFlow(<AppFooter />, { lang: "es" });
+    const link = screen.getByRole("link", { name: "Kit de prensa" });
+    expect(link.getAttribute("href")).toBe("/press");
+    expect(link.getAttribute("hreflang")).toBe("en");
+    expect(link.closest("p")!.textContent).toBe("Kit de prensa para periodistas, en ingl\u00e9s.");
   });
 });
