@@ -42,7 +42,9 @@ The API there runs in memory, with a dry-run bank and without the repo `.env`, s
 Neon or Nessie and calls no model. The tests drive the judges' path (Check, Gather, the held exam line and
 letter, the $118 payment with its code, the packet, a share link the advocate opens, Track), then the
 survivor path with both servers stopped and the browser offline, then check that no request carried
-transaction text, a bill line, or the share key. Step timings print at the end.
+transaction text, a bill line, or the share key. `test_layout.py` measures the public pages on phones
+(360, 390, and 430px): nothing scrolls sideways, targets are 44px, and Exit this page never covers a
+heading or a button. Step timings print at the end.
 
 ## Offline (airplane mode)
 

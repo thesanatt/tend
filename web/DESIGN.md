@@ -86,7 +86,8 @@ Line drawings in `green` with `green-tint` leaves on a 40 x 56 viewBox, ground l
 is seeded by its key, so a state or a cost always grows the same way.
 
 - **Law garden** (one per state, on an 11 x 8 tile map of the country): seed (no verified rules),
-  sprouting (1 to 14 rules), leafing (15 to 24), budding (25 to 34), in bloom (35 or more).
+  sprouting (1 to 14 rules), leafing (15 to 24), budding (25 to 34), in bloom (35 or more). Each tile
+  is a 44px target, so on a phone the map scrolls sideways and the List view shows every program at once.
 - **Your garden** (one per cost that can bring money back): sprout when you confirm it, leaf when a
   receipt is attached, bud when the claim is filed, bloom when the program pays. Height follows the
   amount on a log scale. Held bills never grow a plant; they show as a clay note.

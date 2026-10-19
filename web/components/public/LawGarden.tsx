@@ -36,39 +36,47 @@ export default function LawGarden({ jurisdictions }: { jurisdictions: Jurisdicti
             List
           </button>
         </div>
+        {view === "map" ? (
+          <p className={styles.scrollNote}>
+            The map scrolls sideways. List shows all {jurisdictions.length} programs at once.
+          </p>
+        ) : null}
       </div>
 
       {view === "map" ? (
         <div className={styles.layout}>
-          <ul className={styles.map} aria-label="States and DC">
-            {STATES.map(({ st, name, row, col }) => {
-              const rules = byState.get(st)?.rules ?? 0;
-              return (
-                <li key={st} style={{ gridRow: row + 1, gridColumn: col + 1 }}>
-                  <Link
-                    href={`/${st.toLowerCase()}`}
-                    className={styles.tile}
-                    data-selected={selected === st ? "" : undefined}
-                    onMouseEnter={() => setSelected(st)}
-                    onFocus={() => setSelected(st)}
-                  >
-                    <Plant
-                      stage={lawStage(rules)}
-                      growth={lawGrowth(rules)}
-                      seedKey={st}
-                      className={styles.tilePlant}
-                    />
-                    {/* The visible abbreviation stays in the accessible name, so voice control can say "MI". */}
-                    <span className={styles.abbr}>{st}</span>{" "}
-                    {/* The space sits outside the hidden span, so the name reads "MI Michigan", not "MIMichigan". */}
-                    <span className="visually-hidden">
-                      {name}, {rules} rules verified, {stageLabel(rules).toLowerCase()}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          {/* Tiles keep a 44px touch target, so on a phone the map scrolls sideways inside this box. */}
+          <div className={styles.mapScroll}>
+            <ul className={styles.map} aria-label="States and DC">
+              {STATES.map(({ st, name, row, col }) => {
+                const rules = byState.get(st)?.rules ?? 0;
+                return (
+                  <li key={st} style={{ gridRow: row + 1, gridColumn: col + 1 }}>
+                    <Link
+                      href={`/${st.toLowerCase()}`}
+                      className={styles.tile}
+                      data-selected={selected === st ? "" : undefined}
+                      onMouseEnter={() => setSelected(st)}
+                      onFocus={() => setSelected(st)}
+                    >
+                      <Plant
+                        stage={lawStage(rules)}
+                        growth={lawGrowth(rules)}
+                        seedKey={st}
+                        className={styles.tilePlant}
+                      />
+                      {/* The visible abbreviation stays in the accessible name, so voice control can say "MI". */}
+                      <span className={styles.abbr}>{st}</span>{" "}
+                      {/* The space sits outside the hidden span, so the name reads "MI Michigan", not "MIMichigan". */}
+                      <span className="visually-hidden">
+                        {name}, {rules} rules verified, {stageLabel(rules).toLowerCase()}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
           <aside className={styles.detail} aria-label="Selected state">
             {current ? (

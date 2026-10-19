@@ -68,7 +68,9 @@ export default function Home() {
             <Link href="/start" className="btn btn-primary">
               Start a check
             </Link>
-            <Link href="/start?demo=rowan">Or try it with a fictional demo account</Link>
+            <Link href="/start?demo=rowan" className={styles.demoLink}>
+              Or try it with a fictional demo account
+            </Link>
           </div>
         </div>
       </section>

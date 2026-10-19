@@ -48,6 +48,14 @@
   color: var(--paper);
 }
 
+/* Its own line under the toggle, shown only where the map is wider than the screen. */
+.scrollNote {
+  display: none;
+  flex-basis: 100%;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
@@ -55,14 +63,27 @@
   align-items: start;
 }
 
+/* Positioned so the tiles' hidden labels stay inside the scrolling box. A scrolling box clips at its
+   padding, so the padding (taken back by the margin) leaves room for a focused tile's outline. */
+.mapScroll {
+  position: relative;
+  overflow-x: auto;
+  min-width: 0;
+  padding: var(--space-2);
+  margin: calc(var(--space-2) * -1);
+}
+
+/* Every tile is a 44px touch target (web/DESIGN.md). Where eleven of them do not fit, the map scrolls
+   sideways in .mapScroll instead of shrinking. */
 .map {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
+  grid-template-columns: repeat(11, minmax(44px, 1fr));
   grid-template-rows: repeat(8, auto);
   gap: 6px;
+  min-width: min-content;
 }
 
 .map li {
@@ -196,8 +217,14 @@
   flex: none;
 }
 
+/* Positioned for the same reason as .mapScroll: the hidden "for Alabama" words in each row are
+   absolutely positioned, and without this they sit past the table's right edge and widen the page.
+   The bottom padding, taken back by the margin, keeps the last row's focus outline in the box. */
 .tableWrap {
+  position: relative;
   overflow-x: auto;
+  padding-bottom: var(--space-1);
+  margin-bottom: calc(var(--space-1) * -1);
 }
 
 .table {
@@ -224,13 +251,24 @@
   font-weight: 700;
 }
 
+/* 44px touch targets that take no more room than their line (1lh): padding out into the cell, negative
+   margin back, so rows keep their height. */
+.table a {
+  display: inline-block;
+  min-width: 44px;
+  padding-block: calc((44px - 1lh) / 2);
+  margin-block: calc((1lh - 44px) / 2);
+}
+
 .num {
   text-align: right !important;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
-@media (max-width: 860px) {
+/* Beside the detail panel the map needs 544px for 44px tiles, which it has from 960px, or from 980px
+   with a desktop scrollbar. */
+@media (max-width: 980px) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -250,7 +288,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .map {
     gap: 2px;
   }
@@ -258,14 +296,26 @@
   .tile {
     padding: 2px 0;
     border-radius: 4px;
-    min-height: 36px;
   }
 
   .tilePlant {
-    width: 92%;
+    width: 72%;
   }
 
   .abbr {
     font-size: 0.625rem;
+  }
+}
+
+/* Eleven 44px tiles and their gaps take 504px, more than the screen holds below 548px with the
+   gutters. There the map runs to both screen edges and scrolls sideways, and the note says so. */
+@media (max-width: 547px) {
+  .mapScroll {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .scrollNote {
+    display: block;
   }
 }

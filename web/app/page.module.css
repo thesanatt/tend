@@ -72,6 +72,13 @@
   gap: var(--space-5);
 }
 
+/* A text link with a 44px touch target, beside a 48px button. */
+.demoLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 @media (max-width: 900px) {
   .visitor {
     grid-template-columns: minmax(0, 1fr);
