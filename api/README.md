@@ -113,8 +113,10 @@ Payments
   A plain payment of exactly what a demo bill has left to pay, to that bill's payee, from its account, is tied to the
   bill the same way (`kind: "pay_bill"` in the answer); exactly the whole bill, held line and all, is refused (409), and so is any amount that adds up to the held line, alone or with other lines (after the rest is paid, that is what the bill still shows).
   Lines Tend already paid are refused (409), here and again at confirm. With `TEND_BANK=nessie`, when every earlier
-  payment of those lines is a demo payment last touched more than 20 minutes ago, the proposal first puts the persona's
-  account back at the demo start with seed/reset_demo.py's reset, then looks again (tend_api/demo_reset.py).
+  payment of those lines is a demo payment last touched more than 20 minutes ago, the proposal first deletes Tend's demo
+  writes that old and puts the bill back with seed/reset_demo.py's reset, then looks again (tend_api/demo_reset.py). It
+  skips the reset while a newer Tend payment is on any of the persona's accounts, or when they differ from its snapshot
+  in other ways.
 - `POST /actions/confirm` `{action_id, confirm_code}`: Nessie withdrawal described as `Payment to <payee> [tend:<action id>]`,
   plus `[bill:<bill id>#<lines>]` for a bill, read back and compared, then logged. For a bill, the bill is then updated
   with a PUT and read back (`bill` in the answer): what is left, still pending, its nickname naming the held rule
