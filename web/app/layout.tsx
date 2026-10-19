@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Source_Serif_4 } from "next/font/google";
 import AppShell from "@/components/flow/AppShell";
-import { siteUrl } from "@/components/public/data";
+import { siteUrl } from "@/components/public/site";
 import "./globals.css";
 
 // next/font downloads these at build time and serves them from this site; browsers never call Google.

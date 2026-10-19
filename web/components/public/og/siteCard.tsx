@@ -3,7 +3,7 @@
 // line. Satori: flexbox and inline styles only.
 import type { Metadata } from "next";
 import { plantShape, VIEW, type Stage } from "@/lib/garden";
-import { siteUrl } from "../data";
+import { siteUrl } from "../site";
 import { C, CARD_SIZE, Mark, plantArt } from "./card";
 
 export interface SiteCardText {
