@@ -67,6 +67,10 @@ its stage rises, a sheet slides in when opened. Nothing animates on page load. U
 - **Buttons.** Primary: green fill, paper text. Secondary: green outline. Quiet: ink-3 outline.
 - **Exit this page.** Ink fill, fixed top right on every screen, repeated inside every sheet. Esc
   twice does the same. It blanks the page, clears the tab's storage, and replaces the history entry.
+- **Deadline bar.** On Track, once the deadline box scrolls out of view, a slim `paper-raised` bar
+  along the bottom repeats its sentence, with a green rule on its left (ink once the date has
+  plainly passed). The top right corner stays clear for Exit this page, and the page keeps room
+  under the bar for the footer.
 - **Status tags.** Eligible: filled circle, green. Held: filled square, clay. Excluded: struck circle.
   Needs confirmation: dashed circle, ink. Not included: open circle, ink-3.
 - **Citation.** The pinpoint (for example `MCL 18.355a(2)`) as an underlined button. It opens a sheet
