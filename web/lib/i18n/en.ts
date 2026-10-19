@@ -88,7 +88,11 @@ export const en = {
     // Shown until the page has read what this tab sent before a reload, while saved progress is locked
     // or being checked, and once this page has put a new claim on screen (FlowProvider.restarted).
     here: "On this device.",
-    sent: (parts: string) => `On this device, except what you chose to send: ${parts}.`,
+    // Once a state is picked: its law files, named for it, came from Tend's server.
+    quietState: "On this device. Only the state you picked went to Tend's server, to get its law.",
+    sent: (parts: string) => `On this device, except: ${parts}.`,
+    partState: "the state you picked",
+    stateLine: "The state you picked, to Tend's server, to get its law.",
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),
     partShare: (n: number) => (n === 1 ? "a locked share link" : `${n} locked share links`),
     partBank: "a request to the bank",
@@ -100,7 +104,7 @@ export const en = {
       `${when}: a share link. The packet was locked on this device first, so the server holds only locked data.`,
     eventBank: (when: string) => `${when}: a request to the bank for your transactions.`,
     eventSetup: (amount: string, to: string, when: string) =>
-      `${when}: the amount ${amount} and the payee ${to}, to get a confirmation code. No money moved.`,
+      `${when}: the amount ${amount}, the account, and the payee ${to}, to Tend's server to get a confirmation code. No money moved.`,
     // Every check after the first yes is one more send of the same kind, so the list keeps one line for them.
     eventServer: (when: string) =>
       `${when}: your state, the date, your answers, and each cost with its date, amount, and kind, to Tend's server to check the law, because this browser could not run the law engine. They go again each time something changes.`,
@@ -118,8 +122,8 @@ export const en = {
     more: "What stays here",
     sheetTitle: "What stays on this device",
     facts: [
-      "Your answers, your costs, and your files stay in this browser. Tend reads statements and bills here, and the law engine runs here.",
-      "Something leaves only when you choose to send it: a payment you confirm, or a packet you share. A shared packet is locked before it leaves, and the key stays in the link.",
+      "Your answers, your costs, and your files stay in this browser unless you choose to send them. One exception: Tend asks its server for the law of the state you pick, so the server can tell which state it is. Tend reads statements and bills here, and the law engine runs here.",
+      "Anything else leaves only when you choose to send it: a payment you start or confirm, a packet you share, or a request to see the demo bank's records. After a yes, rows or a bill can go to cloud AI, and your claim can go to Tend's server if this browser can't run the law engine. A shared packet is locked before it leaves, and the key stays in the link.",
       "Tend never asks what happened, where, or who.",
       "If you save, your progress is locked with Touch ID or a passcode. Exit this page, or press Esc twice, to leave fast.",
     ],
@@ -131,7 +135,7 @@ export const en = {
     onDevice: "Law math: on this device (WebAssembly)",
     onServer: "Law math: on Tend's server, with your OK",
     offlineReady: "Saved on this device, so the steps work without internet.",
-    offlineNow: "You are offline. Every step still works here. Payments and share links wait for the internet.",
+    offlineNow: "You are offline. Every step still works here. Payments and share links need the internet.",
     computing: "Checking the law on this device",
     error: "Tend could not check the law right now.",
     consentTitle: "Check on Tend's server instead?",
@@ -242,7 +246,7 @@ export const en = {
 
   check: {
     title: "See what your state can pay for",
-    lead: "Four questions. Answer what you can. Not sure is always fine. Your answers stay on this device.",
+    lead: "Four questions. Answer what you can. Not sure is always fine. Tend gets the law for the state you pick from its server, so the server can tell which state it is. Your other answers stay on this device unless you choose to send them.",
     never: "Tend never asks what happened, where, or who.",
     stateLabel: "Which state did it happen in?",
     stateHint: "That state's program handles it, even if you live somewhere else.",

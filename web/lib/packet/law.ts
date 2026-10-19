@@ -1,6 +1,7 @@
 // The verified rules for one jurisdiction, indexed for the packet. Rules come from
 // public/data/law/ST.json (a byte copy of rules/verified/ST.json) or from the API's
 // GET /api/jurisdictions/{st}; both are the same file.
+import { fetchLaw } from "../api";
 import type { Jurisdiction, Rule, Source } from "../types";
 
 export type LawLoader = (st: string) => Promise<Jurisdiction>;
@@ -17,14 +18,20 @@ const isLaw = (v: unknown, st: string): v is Jurisdiction => {
   return !!law && law.jurisdiction === st && Array.isArray(law.rules) && Array.isArray(law.sources) && !!law.program;
 };
 
-// With the API connected (next.config.ts sets NEXT_PUBLIC_TEND_API), its copy comes first: it reads
-// rules/verified directly, so it is never older than the copy synced into public/data.
+// The public copy comes first, from the flow's own read of it (lib/api.ts fetchLaw, in memory once a
+// state is picked), so building the packet asks no server for the state's law again. The API's copy,
+// GET /api/jurisdictions/{st}, is only a fallback.
 export function fetchLawLoader(
   fetchImpl: () => typeof fetch = () => globalThis.fetch,
-  apiFirst: boolean = process.env.NEXT_PUBLIC_TEND_API === "1",
+  apiFirst: boolean = false,
+  shared: ((st: string) => Promise<Jurisdiction | null>) | null = async (st) => (await fetchLaw(st))?.law ?? null,
 ): LawLoader {
   const cache = new Map<string, Promise<Jurisdiction>>();
   async function load(st: string): Promise<Jurisdiction> {
+    if (shared && !apiFirst) {
+      const law = await shared(st).catch(() => null);
+      if (isLaw(law, st)) return law;
+    }
     const urls = [`/data/law/${st}.json`, `/api/jurisdictions/${st}`];
     if (apiFirst) urls.reverse();
     for (const url of urls) {

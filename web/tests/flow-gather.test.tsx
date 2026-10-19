@@ -224,7 +224,9 @@ describe("bill triage", () => {
       { initial: stateFrom([...withBill, withBank]) },
     );
     // Once Tend knows there is no locked progress, the line says nothing has left.
-    expect(await screen.findByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
+    expect(
+      await screen.findByText("On this device. Only the state you picked went to Tend's server, to get its law."),
+    ).toBeTruthy();
     fireEvent.click(await screen.findByRole("button", { name: "Pay $118.00 now from Checking 0011" }));
     const dialog = await screen.findByRole("dialog");
     expect(within(dialog).getByText("$118.00")).toBeTruthy();
@@ -236,7 +238,7 @@ describe("bill triage", () => {
     expect(services.propose).not.toHaveBeenCalled();
     fireEvent.click(within(dialog).getByRole("button", { name: "Get a code" }));
     await within(dialog).findByLabelText("Confirmation code");
-    expect(screen.getByText("On this device, except what you chose to send: a payment you started.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment you started.")).toBeTruthy();
     expect(services.propose).toHaveBeenCalledWith(
       expect.objectContaining({ amount_cents: 11800, payee: "Riverbend General Hospital", from: ROWAN_ACCOUNT }),
     );
@@ -249,13 +251,13 @@ describe("bill triage", () => {
     expect(
       await within(dialog).findByText("That code does not match. Check the six digits and try again."),
     ).toBeTruthy();
-    expect(screen.getByText("On this device, except what you chose to send: a payment you started.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment you started.")).toBeTruthy();
 
     fireEvent.change(code, { target: { value: "123456" } });
     fireEvent.click(payButton);
     expect(await within(dialog).findByText("Paid $118.00.")).toBeTruthy();
     expect(within(dialog).getByText("The bank's record matches this payment.")).toBeTruthy();
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
   });
 
   it("a demo payment sends nothing, so the privacy line stays the same", async () => {
@@ -287,11 +289,15 @@ describe("bill triage", () => {
     const dialog = await screen.findByRole("dialog");
     fireEvent.click(within(dialog).getByRole("button", { name: "Get a code" }));
     expect(await within(dialog).findByText(/Demo mode: Tend is not connected to the bank/)).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
+    expect(
+      screen.getByText("On this device. Only the state you picked went to Tend's server, to get its law."),
+    ).toBeTruthy();
     fireEvent.change(within(dialog).getByLabelText("Confirmation code"), { target: { value: "123456" } });
     fireEvent.click(within(dialog).getByRole("button", { name: "Pay $118.00" }));
     expect(await within(dialog).findByText("Nothing was sent.")).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
+    expect(
+      screen.getByText("On this device. Only the state you picked went to Tend's server, to get its law."),
+    ).toBeTruthy();
   });
 
   it("refuses a proposal whose amount differs from the bill, before any code is asked for", async () => {

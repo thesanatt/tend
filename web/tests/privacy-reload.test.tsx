@@ -61,7 +61,7 @@ async function page(lang: Lang = "en", extra?: ReactNode, services?: TestService
 }
 
 const line = () => screen.getByRole("status").textContent;
-const QUIET = "On this device. Nothing has left it since this page opened.";
+const QUIET = "On this device. Only the state you picked went to Tend's server, to get its law.";
 const keptKinds = () => (JSON.parse(sessionStorage.getItem(SENT_KEY) ?? "[]") as { kind: string }[]).map((k) => k.kind);
 
 function pay(flow: ReturnType<typeof useFlow>, id: string) {
@@ -89,7 +89,7 @@ describe("the privacy line after a reload", () => {
     expect(line()).toBe(QUIET);
     pay(flow, "act_7f3a");
     act(() => flow.logSent({ kind: "share", ref: "share:tok_91c2" }));
-    const after = "On this device, except what you chose to send: a payment and a locked share link.";
+    const after = "On this device, except: the state you picked, a payment, and a locked share link.";
     expect(line()).toBe(after);
 
     // What the tab holds: the kinds and times, never the amount, the payee, or any id.
@@ -121,7 +121,7 @@ describe("the privacy line after a reload", () => {
     pay((await page("es")).flow!, "act_1");
     cleanup();
     await page("es");
-    expect(line()).toBe("En este dispositivo, salvo lo que decidiste enviar: un pago.");
+    expect(line()).toBe("En este dispositivo, salvo: el estado que elegiste y un pago.");
   });
 
   it("keeps a payment that was started and not finished, and says a later one once", async () => {
@@ -131,12 +131,12 @@ describe("the privacy line after a reload", () => {
     );
     cleanup();
     const second = (await page()).flow!;
-    expect(line()).toBe("On this device, except what you chose to send: a payment you started.");
+    expect(line()).toBe("On this device, except: the state you picked and a payment you started.");
     pay(second, "a2");
-    expect(line()).toBe("On this device, except what you chose to send: a payment and a payment you started.");
+    expect(line()).toBe("On this device, except: the state you picked, a payment, and a payment you started.");
     cleanup();
     await page();
-    expect(line()).toBe("On this device, except what you chose to send: a payment and a payment you started.");
+    expect(line()).toBe("On this device, except: the state you picked, a payment, and a payment you started.");
   });
 
   it("counts one send reported twice (by the screen and by the net log) once", async () => {
@@ -173,10 +173,13 @@ describe("the privacy line after a reload", () => {
     await page();
     expect(line()).toBe(QUIET);
     fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
-    expect(within(screen.getByRole("dialog")).getByText("Nothing since this page opened.")).toBeTruthy();
+    // A state is picked, so its law request is the one line the sheet lists.
+    const sheet = within(screen.getByRole("dialog"));
+    expect(sheet.getByText("The state you picked, to Tend's server, to get its law.")).toBeTruthy();
+    expect(sheet.queryByText("Nothing since this page opened.")).toBeNull();
     cleanup();
     await page("es");
-    expect(line()).toBe("En este dispositivo. No ha salido nada desde que se abrió esta página.");
+    expect(line()).toBe("En este dispositivo. Solo el estado que elegiste fue al servidor de Tend, para traer su ley.");
   });
 
   it("never says nothing left in the page's first HTML, before it can look", () => {
@@ -241,7 +244,7 @@ describe("the privacy line behind the lock", () => {
     await act(async () => flow.save({ passphrase }));
     pay(flow, "a1");
     act(() => flow.logSent({ kind: "share", ref: "share:s1" }));
-    const named = "On this device, except what you chose to send: a payment and a locked share link.";
+    const named = "On this device, except: the state you picked, a payment, and a locked share link.";
     expect(line()).toBe(named);
 
     // Lock now; the quiet-time lock takes the same path. The next person at the device learns nothing.
@@ -276,7 +279,7 @@ describe("the privacy line behind the lock", () => {
     // Someone else at the device starts over without the locked progress and shares a packet. Their
     // own line names it; the tab does not keep it.
     act(() => flow.logSent({ kind: "share", ref: "share:s9" }));
-    expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
+    expect(line()).toBe("On this device, except: a locked share link.");
     expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
 
     // A reload, then the owner opens their progress: nothing of the other person's share.
@@ -294,7 +297,7 @@ describe("the privacy line behind the lock", () => {
     services.vault.exists = () => new Promise<boolean>(() => {});
     const flow = mount("en", undefined, services).flow!;
     act(() => flow.logSent({ kind: "share", ref: "share:s10" }));
-    expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
+    expect(line()).toBe("On this device, except: the state you picked and a locked share link.");
     expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
   });
 
@@ -379,7 +382,7 @@ describe("the privacy line when the claim ends here", () => {
     act(() => box.flow!.logSent({ kind: "share", ref: "share:s2" }));
     await act(async () => box.flow!.save({ passphrase: "another code 77" }));
     expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
-    const own = "On this device, except what you chose to send: a locked share link.";
+    const own = "On this device, except: a locked share link.";
     expect(line()).toBe(own);
 
     // A reload locks it; opening the new progress names the share and still not the payment.
@@ -414,7 +417,7 @@ describe("the privacy line when the claim ends here", () => {
     // nothing from it about the claim that ended.
     expect(line()).toBe("On this device.");
     act(() => box.flow!.logSent({ kind: "share", ref: "share:s4" }));
-    expect(line()).toBe("On this device, except what you chose to send: a locked share link.");
+    expect(line()).toBe("On this device, except: a locked share link.");
   });
 
   it("does not tell the owner nothing left after someone else shared from this page", async () => {
@@ -454,7 +457,7 @@ describe("the privacy line when the claim ends here", () => {
     await act(async () => {
       expect(await box.flow!.openSaved({ passphrase })).toBe(true);
     });
-    expect(line()).toBe("On this device, except what you chose to send: a payment.");
+    expect(line()).toBe("On this device, except: the state you picked and a payment.");
   });
 
   it("keeps the sends of open saved progress behind its lock on Close Tend, and names them once it opens", async () => {
@@ -464,7 +467,7 @@ describe("the privacy line when the claim ends here", () => {
     cleanup();
     const box = await page("en", undefined, services);
     await act(async () => box.flow!.save({ passphrase }));
-    const paid = "On this device, except what you chose to send: a payment.";
+    const paid = "On this device, except: the state you picked and a payment.";
     expect(line()).toBe(paid);
 
     act(() => box.flow!.endSession());

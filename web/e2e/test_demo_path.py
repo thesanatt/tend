@@ -22,7 +22,8 @@ BILL, HELD, REST = "$443.00", "$325.00", "$118.00"
 # answered yet (questions are guesses and count only after a yes). The bank adds nothing new: its
 # rows were in the statement, and its pending hospital bill is the itemized bill.
 TOTAL = "$3,142.00"
-QUIET = "On this device. Nothing has left it since this page opened."
+# Every check of the line comes after Rowan's state is picked, and that state's law files name it.
+QUIET = "On this device. Only the state you picked went to Tend's server, to get its law."
 # Words that are Rowan's transactions and bill lines. None may leave the device.
 PRIVATE = [
     "Clearwater Counseling", "Wayfare Rides", "Larkfield Market", "Fernway Books", "Linen & Loom", "Linen &amp; Loom",

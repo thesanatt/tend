@@ -150,7 +150,7 @@ describe("payment errors, worded by status and never in the service's English", 
     expect(services.propose).toHaveBeenCalledTimes(2);
     // Two codes were asked for, one payment went ahead: the line counts each once.
     expect(
-      screen.getByText("On this device, except what you chose to send: a payment and a payment you started."),
+      screen.getByText("On this device, except: the state you picked, a payment, and a payment you started."),
     ).toBeTruthy();
   });
 
@@ -165,7 +165,7 @@ describe("payment errors, worded by status and never in the service's English", 
     typeCode(dialog, "123456");
     expect(await within(dialog).findByText(en.pay.bankUnsure)).toBeTruthy();
     expect(within(dialog).queryByRole("button", { name: en.pay.newCode })).toBeNull();
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
     fireEvent.click(within(dialog).getByRole("button", { name: en.common.done }));
     expect(await screen.findByText(en.bills.unverified("$118.00"))).toBeTruthy();
   });
@@ -186,7 +186,7 @@ describe("payment errors, worded by status and never in the service's English", 
     typeCode(dialog, "123456");
     expect(await within(dialog).findByText(en.pay.resultUnverified)).toBeTruthy();
     expect(within(dialog).queryByText(en.pay.resultNotSent)).toBeNull();
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
   });
 
   it("a cent amount on the live bank (422) explains whole dollars", async () => {
@@ -197,16 +197,22 @@ describe("payment errors, worded by status and never in the service's English", 
     });
     const { dialog } = await openWithCode(services);
     expect(await within(dialog).findByText(en.pay.wholeDollars)).toBeTruthy();
-    expect(screen.getByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
+    expect(
+      screen.getByText("On this device. Only the state you picked went to Tend's server, to get its law."),
+    ).toBeTruthy();
   });
 
   it("stopping after the code still says what left, in the privacy sheet too", async () => {
     const { dialog } = await openWithCode();
     await within(dialog).findByLabelText(en.pay.codeLabel);
     fireEvent.click(within(dialog).getByRole("button", { name: en.common.cancel }));
-    expect(screen.getByText("On this device, except what you chose to send: a payment you started.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment you started.")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: en.privacy.more }));
-    expect(await screen.findByText(/the amount \$118\.00 and the payee Riverbend General Hospital/)).toBeTruthy();
+    expect(
+      await screen.findByText(
+        /the amount \$118\.00, the account, and the payee Riverbend General Hospital, to Tend's server to get a confirmation code/,
+      ),
+    ).toBeTruthy();
   });
 });
 

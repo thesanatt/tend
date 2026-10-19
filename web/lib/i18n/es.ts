@@ -59,7 +59,10 @@ export const es: Dict = {
   privacy: {
     quiet: "En este dispositivo. No ha salido nada desde que se abrió esta página.",
     here: "En este dispositivo.",
-    sent: (parts: string) => `En este dispositivo, salvo lo que decidiste enviar: ${parts}.`,
+    quietState: "En este dispositivo. Solo el estado que elegiste fue al servidor de Tend, para traer su ley.",
+    sent: (parts: string) => `En este dispositivo, salvo: ${parts}.`,
+    partState: "el estado que elegiste",
+    stateLine: "El estado que elegiste, al servidor de Tend, para traer su ley.",
     partPayment: (n: number) => (n === 1 ? "un pago" : `${n} pagos`),
     partShare: (n: number) => (n === 1 ? "un enlace protegido" : `${n} enlaces protegidos`),
     partBank: "una consulta al banco",
@@ -71,7 +74,7 @@ export const es: Dict = {
       `${when}: un enlace para compartir. El paquete se protegió primero en este dispositivo, así que el servidor solo guarda datos cifrados.`,
     eventBank: (when: string) => `${when}: una consulta al banco para ver tus transacciones.`,
     eventSetup: (amount: string, to: string, when: string) =>
-      `${when}: el monto ${amount} y el destinatario ${to}, para recibir un código de confirmación. No se movió dinero.`,
+      `${when}: el monto ${amount}, la cuenta y el destinatario ${to}, al servidor de Tend para recibir un código de confirmación. No se movió dinero.`,
     eventServer: (when: string) =>
       `${when}: tu estado, la fecha, tus respuestas y cada gasto con su fecha, su monto y su tipo, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley. Se envían otra vez cada vez que algo cambia.`,
     partCloudRows: "filas para que la IA en la nube las clasifique",
@@ -90,8 +93,8 @@ export const es: Dict = {
     more: "Qué se queda aquí",
     sheetTitle: "Qué se queda en este dispositivo",
     facts: [
-      "Tus respuestas, tus gastos y tus archivos se quedan en este navegador. Tend lee aquí los estados de cuenta y las facturas, y el motor de la ley funciona aquí.",
-      "Algo sale solo cuando tú decides enviarlo: un pago que confirmas o un paquete que compartes. Un paquete compartido se protege antes de salir, y la clave se queda en el enlace.",
+      "Tus respuestas, tus gastos y tus archivos se quedan en este navegador, a menos que decidas enviarlos. Hay una excepción: Tend le pide a su servidor la ley del estado que elijas, así que el servidor puede saber qué estado es. Tend lee aquí los estados de cuenta y las facturas, y el motor de la ley funciona aquí.",
+      "Todo lo demás sale solo cuando tú decides enviarlo: un pago que empiezas o confirmas, un paquete que compartes o una consulta para ver los registros del banco de demostración. Si dices que sí, unas filas o una factura pueden ir a la IA en la nube, y tu solicitud puede ir al servidor de Tend si este navegador no puede usar el motor de la ley. Un paquete compartido se protege antes de salir, y la clave se queda en el enlace.",
       "Tend nunca pregunta qué pasó, dónde ni quién.",
       "Si guardas, tu progreso queda protegido con Touch ID o un código. Usa Salir de esta página, o presiona Esc dos veces, para salir rápido.",
     ],
@@ -104,7 +107,7 @@ export const es: Dict = {
     onServer: "Cálculo de la ley: en el servidor de Tend, con tu permiso",
     offlineReady: "Guardado en este dispositivo, así que los pasos funcionan sin internet.",
     offlineNow:
-      "No tienes conexión. Todos los pasos siguen funcionando aquí. Los pagos y los enlaces para compartir esperan a que haya internet.",
+      "No tienes conexión. Todos los pasos siguen funcionando aquí. Los pagos y los enlaces para compartir necesitan internet.",
     computing: "Revisando la ley en este dispositivo",
     error: "Tend no pudo revisar la ley en este momento.",
     consentTitle: "¿Revisar en el servidor de Tend?",
@@ -216,7 +219,7 @@ export const es: Dict = {
 
   check: {
     title: "Mira lo que tu estado puede pagar",
-    lead: "Cuatro preguntas. Responde lo que puedas. Siempre puedes decir que no sabes. Tus respuestas se quedan en este dispositivo.",
+    lead: "Cuatro preguntas. Responde lo que puedas. Siempre puedes decir que no sabes. Tend le pide a su servidor la ley del estado que elijas, así que el servidor puede saber qué estado es. Tus otras respuestas se quedan en este dispositivo, a menos que decidas enviarlas.",
     never: "Tend nunca pregunta qué pasó, dónde ni quién.",
     stateLabel: "¿En qué estado pasó?",
     stateHint: "El programa de ese estado se encarga, aunque vivas en otro lugar.",

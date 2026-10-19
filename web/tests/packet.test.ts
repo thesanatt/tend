@@ -9,6 +9,7 @@ import { evaluatePreview } from "./helpers/preview-engine";
 import {
   allowlist,
   createPacketBuilder,
+  fetchLawLoader,
   docScope,
   filledFields,
   fillForm,
@@ -498,5 +499,23 @@ describe("review fixes: the summary says only what the rules support", () => {
     const links = await uriLinks(pdf);
     expect(links.length).toBeGreaterThan(0);
     for (const l of links) expect(l).toMatch(/^(https?:\/\/|mailto:)/);
+  });
+});
+
+describe("the packet's law", () => {
+  it("comes from the flow's own copy first, so building it asks no server for the state's law", async () => {
+    const asked: string[] = [];
+    const fetchImpl = () =>
+      (async (url: string) => {
+        asked.push(url);
+        return new Response("{}", { status: 404 });
+      }) as unknown as typeof fetch;
+    const load = fetchLawLoader(fetchImpl, false, async (st) => (st === "MI" ? webLaw("MI") : null));
+    expect((await load("MI")).jurisdiction).toBe("MI");
+    expect(asked).toEqual([]);
+    // Without that copy, the public file is asked for first and the API only after it.
+    const fallback = fetchLawLoader(fetchImpl, false, async () => null);
+    await expect(fallback("OH")).rejects.toThrow("Tend has no verified rules for OH.");
+    expect(asked).toEqual(["/data/law/OH.json", "/api/jurisdictions/OH"]);
   });
 });

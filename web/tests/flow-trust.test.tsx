@@ -180,12 +180,14 @@ describe("sealed share links", () => {
       </>,
       { services: testServices({ share }), initial: stateFrom(gathered) },
     );
-    expect(await screen.findByText("On this device. Nothing has left it since this page opened.")).toBeTruthy();
+    expect(
+      await screen.findByText("On this device. Only the state you picked went to Tend's server, to get its law."),
+    ).toBeTruthy();
     await screen.findByText("$294.00");
     fireEvent.click(screen.getByRole("button", { name: "Make a share link" }));
     const link = (await screen.findByLabelText("Share this link with your advocate:")) as HTMLInputElement;
     expect(link.value).toMatch(/^https:\/\/tend\.example\/share#[\w-]+\.[\w-]{43}$/);
-    expect(screen.getByText("On this device, except what you chose to send: a locked share link.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a locked share link.")).toBeTruthy();
     expect(screen.getByText(/Stops working/)).toBeTruthy();
 
     const posts = server.calls.filter((c) => c.method === "POST");
@@ -221,7 +223,9 @@ describe("sealed share links", () => {
         "Para compartir hace falta el servidor de Tend, y ahora no está conectado. No se creó ningún enlace.",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("En este dispositivo. No ha salido nada desde que se abrió esta página.")).toBeTruthy();
+    expect(
+      screen.getByText("En este dispositivo. Solo el estado que elegiste fue al servidor de Tend, para traer su ley."),
+    ).toBeTruthy();
   });
 });
 

@@ -410,17 +410,46 @@ describe("the net log behind the privacy line", () => {
     expect(netSends()).toHaveLength(1);
   });
 
+  it("reports a send that failed online with no answer, since it may have arrived", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new TypeError("Failed to fetch");
+      }),
+    );
+    installNetLog(window);
+    const seen: (number | null)[] = [];
+    onNetSend((s) => seen.push(s.status));
+    await expect(fetch("/api/claim", { method: "POST", body: "{}" })).rejects.toThrow(TypeError);
+    expect(netSends().map((s) => [s.kind, s.status])).toEqual([["server_engine", null]]);
+    expect(seen).toEqual([null]);
+  });
+
+  it("says the state's law request once a state is picked, and nothing left before that", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response("{}", { status: 200, headers: { "content-type": "application/json" } })),
+    );
+    renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
+    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
+    cleanup();
+    renderFlow(<PrivacyLine />, { initial: stateFrom([MI_CHECK]) });
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: en.privacy.more }));
+    expect(within(await screen.findByRole("dialog")).getByText(en.privacy.stateLine)).toBeTruthy();
+  });
+
   it("a send no screen announced still shows on the privacy line", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async () => new Response("{}", { status: 200, headers: { "content-type": "application/json" } })),
     );
     renderFlow(<PrivacyLine />, { initial: stateFrom([MI_CHECK]) });
-    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
     await act(async () => {
       await fetch("/api/ai/classify", { method: "POST", body: "{}" });
     });
-    expect(screen.getByText(en.privacy.sent(en.privacy.partCloudRows))).toBeTruthy();
+    expect(screen.getByText(en.privacy.sent(`${en.privacy.partState} and ${en.privacy.partCloudRows}`))).toBeTruthy();
   });
 });
 
@@ -456,7 +485,7 @@ describe("paying while offline", () => {
     goOffline();
     fireEvent.click(within(dialog).getByRole("button", { name: en.pay.getCode }));
     expect(await within(dialog).findByText(en.pay.offline)).toBeTruthy();
-    expect(screen.getByText(en.privacy.quiet)).toBeTruthy();
+    expect(screen.getByText(en.privacy.quietState)).toBeTruthy();
     Object.defineProperty(window.navigator, "onLine", { configurable: true, get: () => true });
     fireEvent.click(within(dialog).getByRole("button", { name: en.pay.retry }));
     expect(await within(dialog).findByLabelText(en.pay.codeLabel)).toBeTruthy();
@@ -485,7 +514,7 @@ describe("paying while offline", () => {
     expect(await within(dialog).findByText(en.pay.offline)).toBeTruthy();
     expect(within(dialog).getByLabelText(en.pay.codeLabel)).toBeTruthy();
     // The code request went out; the payment did not.
-    expect(screen.getByText(en.privacy.sent(en.privacy.partSetup(1)))).toBeTruthy();
+    expect(screen.getByText(en.privacy.sent(`${en.privacy.partState} and ${en.privacy.partSetup(1)}`))).toBeTruthy();
   });
 });
 

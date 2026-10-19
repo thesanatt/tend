@@ -76,7 +76,7 @@ function fakePdf(pages: number, { slow = false } = {}) {
   return { drawn, destroy, cleanups, doc, busy };
 }
 
-const QUIET = "On this device. Nothing has left it since this page opened.";
+const QUIET = "On this device. Only the state you picked went to Tend's server, to get its law.";
 let fetchMock: ReturnType<typeof stubLawFetch>;
 let replace: ReturnType<typeof vi.fn>;
 const originalReplace = navigation.replace;

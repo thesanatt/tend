@@ -279,7 +279,7 @@ describe("the program's demo payment", () => {
     expect(screen.getAllByText("Paid in the demo")).toHaveLength(2);
     const [[, init]] = calls(fetch, "/payout", "POST");
     expect(JSON.parse(String(init?.body))).toEqual({ st: "MI", amount_cents: 8000 });
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
   });
 
   it("undoes the demo payment in the bank and in the garden", async () => {
@@ -332,7 +332,7 @@ describe("the program's demo payment", () => {
     );
     fireEvent.click(await screen.findByRole("button", { name: /when the program pays \(demo\)/ }));
     await screen.findByRole("alert");
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
   });
 
   it("says why when the bank refuses, and nothing blooms", async () => {
@@ -379,7 +379,7 @@ describe("the bank records panel", () => {
     expect(within(panel).getByText("Michigan Crime Victim Compensation, demo payment")).toBeTruthy();
     expect(within(panel).getByText("The API calls behind this view (2)")).toBeTruthy();
     expect(within(panel).getByText(`GET /accounts/${ROWAN_ACCOUNT.id}/purchases`)).toBeTruthy();
-    expect(screen.getByText("On this device, except what you chose to send: a request to the bank.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a request to the bank.")).toBeTruthy();
     fireEvent.click(within(panel).getByRole("button", { name: "Read them again" }));
     await waitFor(() => expect(calls(fetch, "/activity")).toHaveLength(2));
     // The panel's own report and the net log's are one send in the list, not two or three.

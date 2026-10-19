@@ -1,7 +1,8 @@
 // What actually left this page, seen where every request passes: window.fetch. The privacy line
 // is built from these, so it can only say what was really sent (docs/PRIVACY.md). Loading the app
-// and the public law (GETs of pages, scripts, law files, the forms) is not a send. A request that
-// fails before it reaches any network (the device is offline) sent nothing and is not reported.
+// and the public law (GETs of pages, scripts, law files, the forms) is not a send, though a law file
+// is named for its state, which the line says once a state is picked (PrivacyLine). A request that
+// fails while the device is offline sent nothing and is not reported.
 
 export type NetKind =
   | "payment_setup" // the amount, account, and payee, to get a confirm code
@@ -160,10 +161,10 @@ export function installNetLog(target: typeof globalThis = globalThis): void {
       }
       return res;
     } catch (err) {
-      // Offline, or refused before any answer: nothing reached a server. A request that timed out
-      // or was cut off after it went may have arrived, so it is reported.
-      const name = (err as { name?: string })?.name;
-      if (!wasOffline && !offline() && (name === "AbortError" || name === "TimeoutError")) {
+      // Offline: nothing reached a server. Online, a request that failed with no answer (a timeout, a
+      // dropped connection, a TypeError) may have arrived first, so it is reported. A line too many is
+      // the safe mistake.
+      if (!wasOffline && !offline()) {
         const extra = await details(kind, sent, null);
         emit({ ...base, ...extra, status: null, at: new Date().toISOString() });
       }

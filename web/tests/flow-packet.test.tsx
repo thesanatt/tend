@@ -103,7 +103,7 @@ describe("Packet", () => {
     const link = (await screen.findByLabelText("Share this link with your advocate:")) as HTMLInputElement;
     expect(link.value).toMatch(/\/share\/[\w-]+#k=\w+/);
     expect(screen.getByText(/It opens once\./)).toBeTruthy();
-    expect(screen.getByText("On this device, except what you chose to send: a locked share link.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a locked share link.")).toBeTruthy();
     const sealed = [...services.share.sealed.values()][0];
     expect(sealed.st).toBe("MI");
     expect(sealed.input.items).toHaveLength(2);

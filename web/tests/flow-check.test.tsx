@@ -185,7 +185,9 @@ describe("the law engine", () => {
       { services: testServices({ evaluate }), initial: stateFrom([MI_CHECK]) },
     );
     expect(await screen.findByText("Check on Tend's server instead?")).toBeTruthy();
-    expect(screen.getByRole("status", { name: "" }).textContent).toBe("On this device. Nothing has left it since this page opened.");
+    expect(screen.getByRole("status", { name: "" }).textContent).toBe(
+      "On this device. Only the state you picked went to Tend's server, to get its law.",
+    );
     fireEvent.click(screen.getByRole("button", { name: "Check on the server" }));
     await screen.findByText(/your claim, to check the law on Tend's server/);
     expect(evaluate).toHaveBeenLastCalledWith(expect.anything(), { allowApi: true });
@@ -205,7 +207,9 @@ describe("language", () => {
     fireEvent.click(screen.getByRole("button", { name: "Español" }));
     expect(await screen.findByText("Mira lo que tu estado puede pagar")).toBeTruthy();
     expect(document.documentElement.lang).toBe("es");
-    expect(screen.getByText("En este dispositivo. No ha salido nada desde que se abrió esta página.")).toBeTruthy();
+    expect(
+      screen.getByText("En este dispositivo. Solo el estado que elegiste fue al servidor de Tend, para traer su ley."),
+    ).toBeTruthy();
     expect(screen.getByText("Presenta la solicitud a más tardar el 14 de junio de 2031.")).toBeTruthy();
     expect(screen.getByText("Probablemente puedes presentar una solicitud en Michigan.")).toBeTruthy();
     expect(screen.getByText("Ropa y ropa de cama guardadas como evidencia, hasta $250 en total")).toBeTruthy();
