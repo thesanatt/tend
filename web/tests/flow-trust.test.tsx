@@ -8,12 +8,16 @@ import CheckScreen from "@/components/flow/check/CheckScreen";
 import FlowFrame from "@/components/flow/FlowFrame";
 import PacketScreen from "@/components/flow/packet/PacketScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
+import { MIN_PASSCODE } from "@/components/flow/SaveSheet";
 import type { Action, FlowItem } from "@/components/flow/state";
+import { DICTS } from "@/lib/i18n";
 import { createPacketBuilder } from "@/lib/packet";
 import { createShare, parseShareLink } from "@/lib/share";
 import { createVault, memoryStore, type PasskeyProvider } from "@/lib/vault";
 import { MI_CHECK, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 import { blankForm, fakeShareServer, webLaw } from "./trust-helpers";
+
+const { en } = DICTS;
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
@@ -90,6 +94,20 @@ describe("the encrypted vault", () => {
     fireEvent.click(screen.getByRole("button", { name: "Open" }));
     expect(await screen.findByText("You can likely apply in Michigan.")).toBeTruthy();
     expect((screen.getByLabelText("Which state did it happen in?") as HTMLSelectElement).value).toBe("MI");
+  });
+
+  it("says before a save who else can open it, and that a passkey stays in the password list", async () => {
+    const { services } = realVault();
+    renderCheck(services);
+    expect(await screen.findByText("You can likely apply in Michigan.")).toBeTruthy();
+    fireEvent.click(within(screen.getByRole("navigation", { name: "Steps" }).parentElement!).getByRole("button"));
+    const sheet = within(await screen.findByRole("dialog"));
+    expect(sheet.getByText(en.vault.sheetLead)).toBeTruthy();
+    expect(en.vault.sheetLead).toMatch(/anyone who can get into this device can open it/);
+    expect(en.vault.sheetLead).not.toMatch(/Only you can open it/);
+    expect(await sheet.findByText(en.vault.passkeyHint)).toBeTruthy();
+    expect(en.vault.passkeyHint).toMatch(/passkey named Tend .* stays there after you delete your progress here/);
+    expect(sheet.getByText(en.vault.passcodeHint(MIN_PASSCODE))).toBeTruthy();
   });
 
   it("a passkey save opens with the passkey alone", async () => {

@@ -132,14 +132,15 @@ export const es: Dict = {
     lock: "Bloquear ahora",
     sheetTitle: "Guarda tu progreso",
     sheetLead:
-      "Tend guarda tu progreso en este navegador, protegido. Solo tú puedes abrirlo. No se envía nada a ningún lugar.",
+      "Tend guarda tu progreso en este navegador, protegido, y no lo envía a ningún lugar. Si lo proteges con Touch ID o el bloqueo de pantalla, cualquiera que pueda desbloquear este dispositivo puede abrirlo. Si usas un código, cualquiera que lo sepa puede abrirlo.",
     replaces: "Esto reemplaza el progreso que guardaste antes.",
     passkey: "Proteger con Touch ID o bloqueo de pantalla",
-    passkeyHint: "Tu dispositivo te pedirá tu huella, tu cara o tu bloqueo de pantalla.",
+    passkeyHint:
+      "Tu dispositivo te pedirá tu huella, tu cara o tu bloqueo de pantalla. También guarda en su lista de contraseñas una llave de acceso llamada Tend para este sitio. Puede copiarse a tus otros dispositivos y se queda ahí aunque borres tu progreso aquí.",
     orPasscode: "O usa un código",
     passcodeLabel: "Código",
     passcodeHint: (n: number) =>
-      `Al menos ${n} caracteres. Tend no puede recuperarlo, así que elige uno que vayas a recordar.`,
+      `Al menos ${n} caracteres. Tend no puede recuperarlo, así que elige uno que vayas a recordar. Si tu navegador ofrece guardarlo, cualquiera que use este navegador podría rellenarlo.`,
     passcodeShort: (n: number) => `Usa al menos ${n} caracteres.`,
     savePasscode: "Guardar con este código",
     saving: "Guardando",
@@ -304,7 +305,8 @@ export const es: Dict = {
     notTodayBack: "Puedes volver cuando quieras.",
     notTodayDeadline: (name: string, date: string) => `En ${name}, el plazo normal es el ${date}.`,
     notTodaySaved: "Tu progreso guardado sigue protegido en este dispositivo.",
-    notTodayNotSaved: "No se queda nada en este dispositivo a menos que lo guardes.",
+    notTodayNotSaved:
+      "Al cerrar Tend, tus respuestas se borran a menos que las guardes. El historial de tu navegador sigue mostrando este sitio. Una ventana privada no guarda historial.",
   },
 
   per: {

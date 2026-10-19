@@ -163,7 +163,12 @@ describe("Check", () => {
       { initial: stateFrom([MI_CHECK]) },
     );
     fireEvent.click(screen.getByRole("button", { name: "Not today" }));
-    expect(await screen.findByText("Nothing stays on this device unless you save it.")).toBeTruthy();
+    // It says what the browser keeps anyway: its history still lists the site.
+    expect(
+      await screen.findByText(
+        "When you close Tend, your answers are cleared unless you save them. Your browser's history still shows this site. A private window does not keep history.",
+      ),
+    ).toBeTruthy();
     expect(screen.getByText("In Michigan, the usual deadline is June 14, 2031.")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Close Tend" }));
     expect(nav.replace).toHaveBeenCalledWith("/");

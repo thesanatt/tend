@@ -160,13 +160,18 @@ export const en = {
     notSaved: "Not saved yet",
     lock: "Lock now",
     sheetTitle: "Save your progress",
-    sheetLead: "Tend keeps your progress in this browser, locked. Only you can open it. Nothing is sent anywhere.",
+    // Who else can open it: anyone who can get into the device (passkey) or who knows the passcode.
+    sheetLead:
+      "Tend keeps your progress in this browser, locked, and does not send it anywhere. If you lock it with Touch ID or screen lock, anyone who can get into this device can open it. If you use a passcode, anyone who knows the passcode can.",
     replaces: "This replaces the progress you saved before.",
     passkey: "Lock with Touch ID or screen lock",
-    passkeyHint: "Your device asks for your fingerprint, face, or screen lock.",
+    // lib/vault/passkey.ts names the passkey "Tend"; the device's password manager keeps it.
+    passkeyHint:
+      "Your device asks for your fingerprint, face, or screen lock. It also saves a passkey named Tend for this site in its password list. That may copy to your other devices, and it stays there after you delete your progress here.",
     orPasscode: "Or use a passcode",
     passcodeLabel: "Passcode",
-    passcodeHint: (n: number) => `At least ${n} characters. Tend cannot reset it, so pick one you will remember.`,
+    passcodeHint: (n: number) =>
+      `At least ${n} characters. Tend cannot reset it, so pick one you will remember. If your browser offers to save it, anyone who uses this browser may be able to fill it in.`,
     passcodeShort: (n: number) => `Use at least ${n} characters.`,
     savePasscode: "Save with this passcode",
     saving: "Saving",
@@ -331,7 +336,9 @@ export const en = {
     notTodayBack: "You can come back any time.",
     notTodayDeadline: (name: string, date: string) => `In ${name}, the usual deadline is ${date}.`,
     notTodaySaved: "Your saved progress stays locked on this device.",
-    notTodayNotSaved: "Nothing stays on this device unless you save it.",
+    // Exit this page replaces only the current history entry, and the browser keeps its history.
+    notTodayNotSaved:
+      "When you close Tend, your answers are cleared unless you save them. Your browser's history still shows this site. A private window does not keep history.",
   },
 
   per: {

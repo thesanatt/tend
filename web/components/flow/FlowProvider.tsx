@@ -633,8 +633,8 @@ export function FlowProvider({
 
       endSession() {
         // Close Tend. Open saved progress locks, and what the tab sent waits behind the lock as after
-        // Lock now. A claim never saved ends here ("Nothing stays on this device unless you save
-        // it"), so the tab forgets its sends, as Exit this page does.
+        // Lock now. A claim never saved ends here ("your answers are cleared unless you save them"),
+        // so the tab forgets its sends, as Exit this page does.
         if (vaultStatus !== "open") forgetKeptSends();
         if (services.vault.isUnlocked()) services.vault.lock();
         files.current.clear();
