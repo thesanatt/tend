@@ -129,6 +129,14 @@ describe("/data", () => {
     }
   });
 
+  it("gives the README's check command, which passes when only some files were saved", () => {
+    const readme = readFileSync(path.join(downloads, "README.md"), "utf8").split(/\s+/).join(" ");
+    const command = "shasum -a 256 -c --ignore-missing SHA256SUMS";
+    expect(readme).toContain(`\`${command}\` (macOS)`);
+    const hint = doc.querySelector("#download ~ p")!;
+    expect([...hint.querySelectorAll("code")].map((c) => c.textContent)).toEqual([command, "--ignore-missing"]);
+  });
+
   it("describes how the rules were made without saying who made them", () => {
     // Who drafted and reviewed the rules is Sanat's to say (a TODO in the page source and the README).
     expect(doc.body.textContent).not.toMatch(/researcher/i);

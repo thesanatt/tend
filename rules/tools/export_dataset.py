@@ -50,6 +50,10 @@ FORM_TEXT = ("OH-S16", "TN-S15", "WI-S3", "WI-S4", "WI-S5", "WI-S6", "WI-S7", "W
 # A page too short for fetch_source.py, which would refuse it too, though its saved text is what it extracts.
 SHORT_PAGES = ("WV-S12",)
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+# How the README says to check a download. A reader may save only some of the files, and without
+# --ignore-missing each one they skipped fails the check.
+CHECK_MACOS = "shasum -a 256 -c --ignore-missing SHA256SUMS"
+CHECK_LINUX = "sha256sum -c --ignore-missing SHA256SUMS"
 AUTHORSHIP_TODO = "**TODO (Sanat): placeholder.** Say who drafted the rules and how they were reviewed."
 
 
@@ -461,8 +465,9 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
             ],
         ),
         "",
-        "Check a download with `shasum -a 256 -c SHA256SUMS` (macOS) or `sha256sum -c SHA256SUMS` (Linux),",
-        "run in the folder that holds the files.",
+        f"Check a download with `{CHECK_MACOS}` (macOS) or",
+        f"`{CHECK_LINUX}` (Linux), run in the folder that holds the files. Without",
+        "`--ignore-missing`, each file you did not download is reported as FAILED.",
         "",
         "The CSV files are UTF-8 without a byte order mark, comma separated, with one header row and LF line",
         "ends. A field is quoted only when it has to be (RFC 4180 quoting); quotes keep their line breaks, so",

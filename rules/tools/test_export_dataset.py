@@ -379,3 +379,20 @@ def test_readme_is_ascii_and_keeps_the_placeholders_marked(files):
     step = readme.split("## Methodology", 1)[1].split("\n3. Verify.", 1)[0]
     assert f"\n   > {X.AUTHORSHIP_TODO}\n" in step
     assert "researcher" not in readme.replace("researcher_notes", "").lower()
+
+
+def test_the_checksum_command_passes_on_a_partial_download(files, tmp_path):
+    # A reader may save one or two files. The command the README gives must pass for those and fail on a changed one.
+    readme = " ".join(files["README.md"].decode("ascii").split())
+    assert f"`{X.CHECK_MACOS}` (macOS) or `{X.CHECK_LINUX}` (Linux)" in readme
+    tools = [cmd for cmd in (X.CHECK_MACOS, X.CHECK_LINUX) if shutil.which(cmd.split()[0])]
+    if not tools:
+        pytest.skip("neither shasum nor sha256sum is installed")
+    for name in ("SHA256SUMS", X.RULES_CSV):
+        (tmp_path / name).write_bytes(files[name])
+    for cmd in tools:
+        done = subprocess.run(cmd.split(), cwd=tmp_path, capture_output=True, text=True, check=False)
+        assert (done.returncode, done.stdout.strip()) == (0, f"{X.RULES_CSV}: OK"), cmd + "\n" + done.stdout + done.stderr
+    (tmp_path / X.RULES_CSV).write_bytes(files[X.RULES_CSV].replace(b"decision", b"decisi0n", 1))
+    for cmd in tools:
+        assert subprocess.run(cmd.split(), cwd=tmp_path, capture_output=True, check=False).returncode != 0, cmd

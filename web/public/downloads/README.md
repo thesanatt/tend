@@ -40,8 +40,9 @@ decides.
 | `README.md` | This file |  |
 | `SHA256SUMS` | The sha256 of every other file |  |
 
-Check a download with `shasum -a 256 -c SHA256SUMS` (macOS) or `sha256sum -c SHA256SUMS` (Linux),
-run in the folder that holds the files.
+Check a download with `shasum -a 256 -c --ignore-missing SHA256SUMS` (macOS) or
+`sha256sum -c --ignore-missing SHA256SUMS` (Linux), run in the folder that holds the files. Without
+`--ignore-missing`, each file you did not download is reported as FAILED.
 
 The CSV files are UTF-8 without a byte order mark, comma separated, with one header row and LF line
 ends. A field is quoted only when it has to be (RFC 4180 quoting); quotes keep their line breaks, so

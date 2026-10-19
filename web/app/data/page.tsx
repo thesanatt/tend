@@ -172,7 +172,9 @@ export default function DataPage() {
           ))}
         </ul>
         <p className={styles.small}>
-          To check the files, run <code>shasum -a 256 -c SHA256SUMS</code> in the folder you saved them to.
+          To check what you saved, put SHA256SUMS in the same folder and run{" "}
+          <code>shasum -a 256 -c --ignore-missing SHA256SUMS</code> there. Without <code>--ignore-missing</code>, each
+          file you did not download is reported as failed.
         </p>
       </section>
 
