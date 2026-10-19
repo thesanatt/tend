@@ -3,6 +3,8 @@
 // rules cannot sort from before the date, the demo bank's own kinds, bills paid through Tend, the
 // net log behind the privacy line, offline payments, cloud AI consent, and Track's deadline note.
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import BillsScreen from "@/components/flow/bills/BillsScreen";
 import { buildEngineInput, buildRows, offered, paidLines } from "@/components/flow/claim";
@@ -468,6 +470,20 @@ describe("the payment result", () => {
     const note = within(dialog).getByText(/Nessie recorded it/);
     expect(note.closest("details")).toBeTruthy();
     expect(note.getAttribute("lang")).toBe("en");
+  });
+
+  it("shows the bank service's note as something to open, with a disclosure triangle", () => {
+    // jsdom draws no CSS, so this reads the rules. A flex summary has no browser marker of its own.
+    const css = readFileSync(path.resolve(import.meta.dirname, "../components/flow/flow.module.css"), "utf8");
+    const rule = (selector: string) => {
+      const at = css.indexOf(`${selector} {`);
+      return at < 0 ? "" : css.slice(at, css.indexOf("}", at));
+    };
+    expect(rule(".serviceNote summary")).toMatch(/display: flex/);
+    expect(rule(".serviceNote summary")).toMatch(/list-style: none/);
+    expect(rule(".serviceNote summary::-webkit-details-marker")).toMatch(/display: none/);
+    expect(rule(".serviceNote summary::before")).toMatch(/content: "";[\s\S]*border-left: 6px solid currentColor/);
+    expect(rule(".serviceNote[open] summary::before")).toMatch(/transform: rotate\(90deg\)/);
   });
 });
 

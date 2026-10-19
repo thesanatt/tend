@@ -1263,11 +1263,35 @@
   color: var(--ink-2);
 }
 
+/* A flex summary loses the browser's marker, so it draws its own triangle, which turns when open. */
 .serviceNote summary {
   cursor: pointer;
   min-height: 44px;
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.serviceNote summary::-webkit-details-marker {
+  display: none;
+}
+
+.serviceNote summary::before {
+  content: "";
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 6px solid currentColor;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.serviceNote[open] summary::before {
+  transform: rotate(90deg);
 }
 
 /* ---------- Packet ---------- */
