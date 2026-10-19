@@ -9,7 +9,7 @@
 // Bump VERSION when this file changes, and whenever the engine (tend.wasm) or the law images change, so a
 // phone never mixes an engine with images from another release (tend 1.3.0 reads only tlaw 1.3 images and
 // refuses older ones). The old caches are removed when the new one takes over.
-const VERSION = "tend-offline-v4";
+const VERSION = "tend-offline-v5";
 const SHELL = ["/check", "/gather", "/gather/bills", "/packet", "/track", "/share"];
 const CORE = [
   "/engine/tend.js",
@@ -195,8 +195,9 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  // Payments, shares, the bank, and everything else on the server always go to the network.
-  if (url.pathname.startsWith("/api/") || url.pathname === "/sw.js") return;
+  // Payments, shares, the bank, and everything else on the server always go to the network. So do the
+  // dataset downloads: opened directly, one is a page load, and a 4 MB copy has no use offline.
+  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/downloads/") || url.pathname === "/sw.js") return;
 
   if (url.pathname.startsWith("/_next/static/")) {
     event.respondWith(cacheFirst(request));
