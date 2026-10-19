@@ -66,7 +66,8 @@ const nextConfig: NextConfig = {
         ],
       },
       { source: "/engine/:path*", headers: [{ key: "Cache-Control", value: revalidate }] },
-      { source: "/data/:path*", headers: [{ key: "Cache-Control", value: revalidate }] },
+      // ":path+" so the files under /data match but the /data page itself keeps Next's own caching.
+      { source: "/data/:path+", headers: [{ key: "Cache-Control", value: revalidate }] },
       { source: "/forms/:path*", headers: [{ key: "Cache-Control", value: revalidate }] },
       {
         source: "/engine/:file*.wasm",
