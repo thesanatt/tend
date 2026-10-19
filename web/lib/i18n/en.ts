@@ -455,8 +455,9 @@ export const en = {
     readListLabel: "Records read",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transaction", "transactions")} read, ${plural(found, "possible cost", "possible costs")}.`,
-    bankRead: (read: number, found: number) =>
-      `Demo bank: ${plural(read, "transaction", "transactions")} read, ${plural(found, "possible cost", "possible costs")}.`,
+    // A bank's pending bill is not a transaction, so it is counted on its own.
+    bankRead: (read: number, bills: number, found: number) =>
+      `Demo bank: ${plural(read, "transaction", "transactions")}${bills ? ` and ${plural(bills, "bill", "bills")}` : ""} read, ${plural(found, "possible cost", "possible costs")}.`,
     billRead: (provider: string, n: number, total: string) =>
       `${provider}: ${plural(n, "line", "lines")}, adding up to ${total}.`,
     billUnreliable: (label: string) => `${label}: Tend couldn't read this reliably.`,

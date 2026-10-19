@@ -206,7 +206,7 @@ describe("the same account read twice", () => {
   it("a statement and the bank showing the same ride count it once", () => {
     const gathered = [ride("stmt:abc:csv:7")];
     const fromBank = [ride("nessie:rowan-7", { origin: "bank", merchant: "Wayfare Rides" })];
-    expect(newCosts(gathered, fromBank)).toEqual({ fresh: [], already: 1 });
+    expect(newCosts(gathered, fromBank)).toEqual({ fresh: [], repeats: fromBank });
   });
 
   it("two real rides on one day still count twice, each matched once", () => {
@@ -216,8 +216,8 @@ describe("the same account read twice", () => {
       ride("nessie:r-8", { origin: "bank" }),
       ride("nessie:r-9", { origin: "bank" }),
     ];
-    const { fresh, already } = newCosts(gathered, fromBank);
-    expect(already).toBe(2);
+    const { fresh, repeats } = newCosts(gathered, fromBank);
+    expect(repeats.map((i) => i.item_id)).toEqual(["nessie:r-7", "nessie:r-8"]);
     expect(fresh.map((i) => i.item_id)).toEqual(["nessie:r-9"]);
   });
 
@@ -229,26 +229,26 @@ describe("the same account read twice", () => {
       ride("nessie:c", { origin: "bank", description: "Larkfield Market groceries" }),
       ride("nessie:d", { origin: "bank", merchant: "Larkfield Cab Co", description: "Wayfare Rides trip" }),
     ];
-    expect(newCosts(gathered, other)).toEqual({ fresh: other, already: 0 });
+    expect(newCosts(gathered, other)).toEqual({ fresh: other, repeats: [] });
   });
 
   it("one transaction written two ways (a CSV and an OFX) counts once, even when the formats sorted it differently", () => {
     const gathered = [ride("stmt:abc:csv:7", { description: "Hearthstone Pharmacy - Rx copay", expense: "prescription" })];
     const fromOfx = [ride("stmt:def:ofx:1", { description: "HEARTHSTONE PHARMACY RX COPAY 4821", expense: "unknown" })];
-    expect(newCosts(gathered, fromOfx)).toEqual({ fresh: [], already: 1 });
+    expect(newCosts(gathered, fromOfx)).toEqual({ fresh: [], repeats: fromOfx });
   });
 
   it("a description with nothing to compare falls back to the kind of cost", () => {
     const gathered = [ride("stmt:abc:csv:7", { description: "POS DEBIT 4821" })];
-    expect(newCosts(gathered, [ride("stmt:def:ofx:1", { description: "Wayfare Rides trip" })]).already).toBe(1);
+    expect(newCosts(gathered, [ride("stmt:def:ofx:1", { description: "Wayfare Rides trip" })]).repeats).toHaveLength(1);
     expect(
-      newCosts(gathered, [ride("stmt:def:ofx:2", { description: "Wayfare Rides trip", expense: "medical" })]).already,
-    ).toBe(0);
+      newCosts(gathered, [ride("stmt:def:ofx:2", { description: "Wayfare Rides trip", expense: "medical" })]).repeats,
+    ).toHaveLength(0);
   });
 
   it("never folds costs inside one record, or bill lines, into each other", () => {
     const gathered = [ride("stmt:abc:csv:7")];
-    expect(newCosts(gathered, [ride("stmt:abc:csv:9")]).already).toBe(0);
+    expect(newCosts(gathered, [ride("stmt:abc:csv:9")]).repeats).toHaveLength(0);
     const line = ride("bill:def:1", { origin: "bill", is_bill: true });
     expect(newCosts(gathered, [line]).fresh).toEqual([line]);
   });

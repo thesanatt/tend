@@ -301,7 +301,7 @@ export default function AddRecords() {
             return (
               <li key={s.id}>
                 {s.kind === "bank"
-                  ? t.gather.bankRead(s.read, s.found)
+                  ? t.gather.bankRead(s.read, s.bills ?? 0, s.found)
                   : t.gather.statementRead(s.label, s.read, s.found)}
                 {s.sample ? <span className={styles.tag}>{t.common.fictional}</span> : null}
                 <PreviewButton

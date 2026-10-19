@@ -121,9 +121,10 @@ def gather(page: Page, test: str, bank: bool = True) -> None:
         with step(test, "Gather: demo bank (shipped copy)"):
             open_add_more(page)
             page.get_by_role("button", name="Use the demo bank account").click()
-            expect(records_read(page)).to_contain_text("Demo bank: 191 transactions read")
+            # The statement's 190 transactions plus the hospital's pending bill; only the bill is new.
+            expect(records_read(page)).to_contain_text("Demo bank: 190 transactions and 1 bill read, 1 possible cost.")
             # The same account was already read from the statement, so its costs count once.
-            expect(records_read(page)).to_contain_text("already here from another record")
+            expect(records_read(page)).to_contain_text("43 costs were already here from another record")
     # Moves between Rowan's own accounts are never costs.
     expect(page.get_by_text("Move to checking")).to_have_count(0)
     expect(page.get_by_label("Your claim so far")).to_contain_text(TOTAL)

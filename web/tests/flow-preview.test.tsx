@@ -249,7 +249,8 @@ describe("table preview", () => {
   it("shows the demo bank's rows as Tend read them", async () => {
     gather();
     fireEvent.click(screen.getByRole("button", { name: "Use the demo bank account" }));
-    expect(await screen.findByText(/Demo bank: 191 transactions read/)).toBeTruthy();
+    // 190 transactions, as on the statement, plus the hospital's pending bill: 191 rows.
+    expect(await screen.findByText(/Demo bank: 190 transactions and 1 bill read/)).toBeTruthy();
     openAddMore();
     fireEvent.click(screen.getByRole("button", { name: "Preview Demo bank (Checking)" }));
     const sheet = await screen.findByRole("dialog");

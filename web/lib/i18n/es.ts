@@ -440,8 +440,8 @@ export const es: Dict = {
     readListLabel: "Registros leídos",
     statementRead: (label: string, read: number, found: number) =>
       `${label}: ${plural(read, "transacción leída", "transacciones leídas")}, ${plural(found, "posible gasto", "posibles gastos")}.`,
-    bankRead: (read: number, found: number) =>
-      `Banco de demostración: ${plural(read, "transacción leída", "transacciones leídas")}, ${plural(found, "posible gasto", "posibles gastos")}.`,
+    bankRead: (read: number, bills: number, found: number) =>
+      `Banco de demostración: ${plural(read, "transacción", "transacciones")}${bills ? ` y ${plural(bills, "factura", "facturas")}` : ""} ${read === 1 && !bills ? "leída" : "leídas"}, ${plural(found, "posible gasto", "posibles gastos")}.`,
     billRead: (provider: string, n: number, total: string) =>
       `${provider}: ${plural(n, "línea", "líneas")} que suman ${total}.`,
     billUnreliable: (label: string) => `${label}: Tend no pudo leerla con seguridad.`,

@@ -30,6 +30,7 @@ export interface SourceRecord {
   kind: "statement" | "bank";
   label: string;
   read: number; // transactions read
+  bills?: number; // a bank's pending bills, read beside its transactions
   found: number; // costs proposed
   already?: number; // costs another record already had, so they count once
   warnings: string[];
@@ -238,8 +239,9 @@ export function sameCost(a: FlowItem, b: FlowItem): boolean {
 // month. A cost another record already holds (sameCost: day, amount, and description) is left out,
 // even when the two formats sorted it differently: the first reading wins. Each gathered cost can
 // stand for one new one only, so two real charges on one day still count twice, and costs inside
-// one record are never folded together.
-export function newCosts(existing: FlowItem[], incoming: FlowItem[]): { fresh: FlowItem[]; already: number } {
+// one record are never folded together. The left-out costs come back as repeats, so the screen can
+// count them the same way it counts the fresh ones.
+export function newCosts(existing: FlowItem[], incoming: FlowItem[]): { fresh: FlowItem[]; repeats: FlowItem[] } {
   const key = (i: FlowItem) => `${i.date}|${i.amount_cents}`;
   const open = new Map<string, FlowItem[]>();
   for (const it of existing) {
@@ -248,19 +250,19 @@ export function newCosts(existing: FlowItem[], incoming: FlowItem[]): { fresh: F
   }
   const ids = new Set(existing.map((i) => i.item_id));
   const fresh: FlowItem[] = [];
-  let already = 0;
+  const repeats: FlowItem[] = [];
   for (const it of incoming) {
     if (ids.has(it.item_id)) continue;
     const pool = open.get(key(it)) ?? [];
     const at = it.origin === "bill" ? -1 : pool.findIndex((e) => sameCost(e, it));
     if (at >= 0) {
       pool.splice(at, 1);
-      already += 1;
+      repeats.push(it);
       continue;
     }
     fresh.push(it);
   }
-  return { fresh, already };
+  return { fresh, repeats };
 }
 
 // An itemized bill explains a bank bill when the totals match exactly and the bank bill is not
