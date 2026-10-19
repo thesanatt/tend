@@ -142,7 +142,13 @@ export function isDemo(input: EngineInput): boolean {
 // Tend, which only the demo bank can do. known: the built-in demo link, all demo whatever its ids.
 export function demoNote(input: EngineInput, opts: { paid?: boolean; known?: boolean } = {}): string | null {
   const demo = input.items.filter((i) => demoSource(i.item_id) !== null);
-  if (!demo.length && !opts.known) return null;
+  // The survivor's own records with every demo bank cost unchecked can still hold a bill paid from
+  // the demo bank's account.
+  if (!demo.length && !opts.known) {
+    return opts.paid
+      ? "A payment in this packet came from an account at the demo bank, Capital One's Nessie, a mock bank, so no real money moved."
+      : null;
+  }
   const sources = [...new Set(demo.map((i) => demoSource(i.item_id)!))];
   const nessie =
     sources.includes("bank") || opts.paid

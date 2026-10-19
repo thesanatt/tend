@@ -152,6 +152,56 @@ describe("a demo packet", () => {
     expect((await summary(input)).join("\n")).not.toMatch(/demo/i);
   }, 30_000);
 
+  it("says a payment came from the demo bank when no demo record is left in it", async () => {
+    const own = new File([readFileSync(path.join(web, "tests/local/fixtures/csv/chase-checking.csv"))], "mine.csv", {
+      type: "text/csv",
+    });
+    const ownBill = new File([readFileSync(path.join(web, "tests/local/fixtures/bill-lakeside.pdf"))], "lakeside.pdf", {
+      type: "application/pdf",
+    });
+    const box = captureFlow(services(), stateFrom([MI_CHECK]));
+    await act(async () => {
+      await box.flow!.readStatement(own);
+      await box.flow!.readBill(ownBill);
+      // Paying from Tend needs the demo bank's account.
+      await box.flow!.connectBank();
+    });
+    // Every cost from demo data unchecked: the packet holds only the survivor's own records.
+    const demoIds = box.flow!.state.items.filter((i) => demoSource(i.item_id) !== null).map((i) => i.item_id);
+    expect(demoIds.length).toBeGreaterThan(0);
+    act(() => box.flow!.dispatch({ type: "answer", ids: demoIds, value: "no" }));
+    const state = box.flow!.state;
+    const bill = state.bills.find((b) => b.label === "lakeside.pdf")!;
+    const paid = {
+      ...state,
+      payments: [
+        {
+          action_id: "a1",
+          bill_id: bill.id,
+          item_ids: state.items
+            .filter((i) => i.bill_id === bill.id && i.expense !== "forensic_exam")
+            .map((i) => i.item_id),
+          amount_cents: 13500,
+          payee: "Lakeside Medical Center",
+          from: "Checking 0011",
+          status: "done",
+          demo: false,
+          at: "2026-10-03T17:00:00Z",
+        },
+      ],
+    };
+    const input = buildEngineInput(paid, TODAY)!;
+    expect(input.items.some((i) => demoSource(i.item_id) !== null)).toBe(false);
+    expect(demoNote(input)).toBeNull();
+    const transcript = await summary(input, packetLineInfo(paid));
+    expect(transcript.join("\n")).toMatch(
+      /You paid this .*from Checking 0011 to Lakeside Medical Center, through Tend\./,
+    );
+    expect(transcript).toContain(
+      "A payment in this packet came from an account at the demo bank, Capital One's Nessie, a mock bank, so no real money moved.",
+    );
+  }, 30_000);
+
   it("knows the sample files by their hashes, including the copies a visitor can save and add", async () => {
     const statement = sha256(await bytesOf(await sampleStatementFile()));
     const served = sha256(readFileSync(path.join(web, "public/samples/rowan-statement-FICTIONAL.pdf")));
