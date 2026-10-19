@@ -5,8 +5,8 @@ computed as claimable. Tend writes one deposit to Capital One's Nessie mock bank
 program (named in the description, because a Nessie deposit has no payer field), into the persona's
 checking account, and reads it back. It shows a future event and promises nothing: the program decides
 what it pays, and when. Only fictional demo personas; whole dollars only, because Nessie truncates
-anything else; one demo payment per account: the same request again is the same deposit, and a new amount replaces it. Nothing about it is
-stored on Tend's server.
+anything else; one demo payment per account: the same request again the same day is the same deposit, and a new amount
+or a new day replaces it. Nothing about it is stored on Tend's server.
 """
 
 from __future__ import annotations
@@ -105,13 +105,20 @@ class Payouts:
             existing = bank.tagged_deposits(account.id, MARKER)
         except BankError as exc:
             raise PayoutError(f"The bank did not answer, so nothing was deposited. ({exc})", 502) from exc
-        same = [d for d in existing if tag in str(d.get("description") or "") and record_cents(d) == cents]
+        # Only today's: the live demo's reset counts a deposit from its date (tend_api.demo_reset), and may undo an older one.
+        today = local_today(self.clock()).isoformat()
+        same = [
+            d
+            for d in existing
+            if tag in str(d.get("description") or "") and record_cents(d) == cents and (d.get("date") or d.get("transaction_date")) == today
+        ]
         replaced: list[str] = []
         if same:
             deposit_id, replayed = str(same[0].get("id") or same[0].get("_id")), True
         else:
             # One demo payment per account. An earlier one for another amount (a device that was cleared without
-            # its undo, or a claim that changed since) is replaced, so the demo never gets stuck behind it.
+            # its undo, or a claim that changed since) or from an earlier day is replaced, so the demo never gets
+            # stuck behind it.
             try:
                 for old in existing:
                     old_id = str(old.get("id") or old.get("_id"))

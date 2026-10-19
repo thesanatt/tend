@@ -205,6 +205,19 @@ def test_a_demo_deposit_from_today_is_kept_and_an_older_one_undone(world, tmp_pa
         assert today.id in {t.id for t in c.list_txns(demo.checking, "deposit")}
 
 
+def test_a_demo_deposit_shown_today_outlasts_the_next_reset(world, tmp_path):
+    demo = Demo(world, tmp_path)
+    with demo.client() as c:
+        c.create_deposit(demo.checking, amount_cents=4008_00, date="2026-10-18", description=PAYOUT)  # yesterday's visitor
+    demo.pay()
+    demo.clock.advance(minutes=21)
+    # Today's visitor gets a deposit dated today, not yesterday's shown again, so the reset counts it as recent.
+    shown = demo.api.post("/api/bank/rowan-mi/payout", json={"st": "MI", "amount_cents": 4008_00}).json()
+    assert shown["replayed"] is False and shown["date"] == "2026-10-19"
+    assert demo.propose().status_code == 200
+    assert demo.api.delete("/api/bank/rowan-mi/payout").json()["deleted"] == [shown["deposit_id"]]
+
+
 class NoReset:
     def __init__(self) -> None:
         self.calls: list[float] = []

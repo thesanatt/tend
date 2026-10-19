@@ -6,6 +6,7 @@ import dataclasses
 import json
 import shutil
 
+import pytest
 from helpers import CHECKING, client_for, make_services
 
 from tend_api.bank import BankError, DryRunBank, NessieBank
@@ -111,6 +112,20 @@ def test_live_it_is_a_nessie_deposit_in_whole_dollars(settings, clock):
     assert client.post(URL, json={"st": "MI", "amount_cents": 400850}).json()["replayed"] is True
     assert nessie.posts == 1
     assert client.delete(URL).json()["deleted"] == [body["deposit_id"]] and nessie.deposits == {}
+
+
+@pytest.mark.parametrize("mode", ["dry_run", "nessie"])
+def test_a_demo_deposit_from_an_earlier_day_is_made_again_today(settings, clock, mode):
+    # The live demo's reset counts a demo deposit from its date (tend_api.demo_reset). Shown again on a later day, the
+    # old one could be undone under the visitor now looking at it, so it is replaced by one dated today.
+    client = live(settings, clock, FakeDepositClient()) if mode == "nessie" else client_for(make_services(settings, clock))
+    first = client.post(URL, json={"st": "MI", "amount_cents": 400800}).json()
+    clock.advance(days=1)
+    again = client.post(URL, json={"st": "MI", "amount_cents": 400800}).json()
+    assert again["replayed"] is False and again["replaced"] == [first["deposit_id"]] and again["date"] == "2026-10-04"
+    assert "It replaces an earlier demo deposit." in again["message"]
+    # The same day, the same request is still the same deposit.
+    assert client.post(URL, json={"st": "MI", "amount_cents": 400800}).json()["deposit_id"] == again["deposit_id"]
 
 
 class LostAnswerBank(DryRunBank):

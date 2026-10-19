@@ -99,7 +99,9 @@ Bank relay (stateless, not logged)
   (`hidden_count`), never shown. Fictional personas only (403 otherwise).
 - `POST /bank/{persona}/payout` `{st, amount_cents}`, demo only: a Nessie deposit from the state's program into the
   persona's checking account for the amount the device computed as claimable, in whole dollars, read back. The
-  same request again returns the same deposit; another amount replaces it (`replaced` lists the old ids); `DELETE /bank/{persona}/payout` removes it.
+  same request again the same day returns the same deposit; another amount, or a deposit from an earlier day, is
+  replaced (`replaced` lists the old ids), so the deposit a visitor sees carries today's date, the date the demo
+  reset counts from. `DELETE /bank/{persona}/payout` removes it.
 
 Payments
 - `POST /actions/propose` `{from, payee, amount_cents, kind?: "pay_bill", bill_id?, item_ids?, dry_run?}` returns
