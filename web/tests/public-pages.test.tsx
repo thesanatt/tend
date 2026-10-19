@@ -141,6 +141,14 @@ describe("law page /law/MI", () => {
     expect(indiana).toContain(
       "Some statute or regulation text on this page was saved from Justia, which reprints state law. Check the state&#x27;s own code before you rely on it.",
     );
+    // Each source says where it was saved from, so a reader can see which ones are copies.
+    const doc = new DOMParser().parseFromString(indiana, "text/html");
+    const justia = JSON.parse(readFileSync(path.join(web, "public/data/law/IN.json"), "utf8")) as Jurisdiction;
+    const copy = justia.sources.find((s) => new URL(s.url).hostname === "law.justia.com")!;
+    const facts = [...doc.getElementById(copy.id)!.querySelectorAll("dt")].find(
+      (dt) => dt.textContent === "Saved from",
+    )!;
+    expect(facts.nextElementSibling!.textContent).toBe("law.justia.com");
     const fl = await html(LawPage({ params: Promise.resolve({ st: "FL" }) }));
     expect(fl).toContain("saved from Cornell&#x27;s Legal Information Institute, which reprints state law.");
     expect(page).not.toContain("reprints state law");

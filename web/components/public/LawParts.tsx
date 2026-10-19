@@ -160,6 +160,11 @@ export function SourceList({ sources, rules }: { sources: Source[]; rules: Rule[
                 <dt>Kind</dt>
                 <dd>{s.kind.replace(/_/g, " ")}</dd>
               </div>
+              {/* Shows when a statute was saved from a site that reprints state law, such as Justia. */}
+              <div>
+                <dt>Saved from</dt>
+                <dd>{hostOf(s.url)}</dd>
+              </div>
               <div>
                 <dt>Saved</dt>
                 <dd>
