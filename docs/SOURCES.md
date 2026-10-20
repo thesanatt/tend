@@ -49,19 +49,19 @@ Where each number comes from. The same list is live at https://youreowed.tech/so
 
 ## Tend's own numbers
 
-- **2,578 rules from 824 saved sources, for 51 jurisdictions.** `rules/verified/`, checked by
+- **2,728 rules from 824 saved sources, for 51 jurisdictions.** `rules/verified/`, checked by
   `rules/tools/verify.py` (every quote word for word in its saved source; the numbers in eight detail fields, and
   every number in its summary other than 0 and 1, appear in its quote). 120 of the sources are copies of state
   statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint the law but are not
-  the official code. 234 rules, in 18 jurisdictions, quote those copies.
-- **121,000 test claims, 0 mismatches between the C++ engine and the Python reference engine.** On the 119,600
-  that are valid JSON, both return the same bytes; the other 1,400 are broken on purpose, and both refuse them with
+  the official code. 255 rules, in 19 jurisdictions, quote those copies.
+- **121,000 test claims, 0 mismatches between the C++ engine and the Python reference engine.** On the 119,599
+  that are valid JSON, both return the same bytes; the other 1,401 are broken on purpose, and both refuse them with
   the same error code. Build the engine with `make -C engine`, then run, from the repository root:
   `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`
   (about a minute; 2,000 claims for each of the 51 jurisdictions and 2 test laws, plus 50 for each of 300 random
   laws). All counts: [EVAL.md](EVAL.md).
 - **The law engine runs in the browser as 183 KB of WebAssembly.** `web/public/engine/tend.wasm` holds the
   loader, the bytecode verifier, and the VM. The compiler is not in it: each state's law is compiled ahead of
-  time and arrives as its own image of 24 to 52 KB (`web/public/engine/laws/`).
+  time and arrives as its own image of 23 to 55 KB (`web/public/engine/laws/`).
 
 Tend is not legal advice. It shows what each program's own rules say, with the quote. The program decides.

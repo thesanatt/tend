@@ -55,7 +55,7 @@ Try it: **[youreowed.tech](https://youreowed.tech)**. Open /check?demo=rowan, or
 
 ## How I built it
 
-**The law as code.** I saved 824 official sources for 51 jurisdictions and wrote 2,578 rules. A rule gets
+**The law as code.** I saved 824 official sources for 51 jurisdictions and wrote 2,728 rules. A rule gets
 in only if its quote appears word for word in the saved source and every number in it is in the quote.
 
 <!-- TODO(Sanat): authorship, yours to write. Separately, "official sources": 120 of the 824 are Justia or
@@ -71,14 +71,14 @@ decision. The instruction that sets each dollar also records the rule and quote 
 explanation can't drift from the math. The same C++ runs in your browser as 183 KB of WebAssembly.
 
 <!-- TODO(Sanat): the compiler is not in the WebAssembly; the verifier and the VM are, and each state's law
-arrives already compiled, in a file under 52 KB. Suggested: "The same C++ verifier and VM run in your
+arrives already compiled, in a file under 55 KB. Suggested: "The same C++ verifier and VM run in your
 browser as 183 KB of WebAssembly. The compiler runs ahead of time, so each state's law arrives already compiled." -->
 
 **Two engines, zero disagreements.** I wrote a second engine in Python from the same spec. On 121,000
 random claims, the two agree byte for byte.
 
-<!-- TODO(Sanat): authorship, yours to write. Also, byte for byte holds for the 119,600 well-formed claims; the
-other 1,400 are broken on purpose, and both engines refuse them with the same error code. -->
+<!-- TODO(Sanat): authorship, yours to write. Also, byte for byte holds for the 119,599 well-formed claims; the
+other 1,401 are broken on purpose, and both engines refuse them with the same error code. -->
 
 **Private by default.** Statements and bills are read in the browser. Plain rules sort charges first, and
 Gemini Nano, built into Chrome, suggests labels for the rest on the device. Cloud Gemini runs only after

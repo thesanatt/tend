@@ -255,8 +255,8 @@ export default function Sources() {
         <div className={styles.claim}>
           <h3>121,000 test claims, 0 mismatches between the two law engines.</h3>
           <p className={styles.where}>
-            A separate Python engine, written from the same spec, checks the C++ engine. On the 119,600 claims that are
-            valid JSON, both return the same bytes. The other 1,400 are broken on purpose, and both refuse them with the
+            A separate Python engine, written from the same spec, checks the C++ engine. On the 119,599 claims that are
+            valid JSON, both return the same bytes. The other 1,401 are broken on purpose, and both refuse them with the
             same error code (the messages differ). To rerun it, build the engine, then run the test from the repo root.
             It takes about a minute.
           </p>

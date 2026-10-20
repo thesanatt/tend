@@ -68,8 +68,10 @@ downloaded from the packet are ordinary files, outside the vault.
 **The server holds three things** (`api/README.md`, `docs/NEON.md`):
 
 1. The public law corpus: 51 jurisdictions, 824 sources (metadata and sha256, no page text),
-   2,578 rules, the sha256 of each compiled law image (102 in production on Oct 19, 2026: a
-   tend 1.3.0 and a tend 1.2.0 image for each jurisdiction), and the index of law versions.
+   the rules (2,578 in production on Oct 19, 2026; rules/verified now holds 2,728, which reach the
+   server with the next law load), the sha256 of each compiled law image (102 in production on
+   Oct 19, 2026: a tend 1.3.0 and a tend 1.2.0 image for each jurisdiction), and the index of law
+   versions.
 2. Ciphertext of shared packets with an expiry (`sealed_shares`). The key is in the link's
    fragment (`/share#<id>.<key>`), which browsers do not send to servers.
 3. An append-only, hash-chained audit log of confirmed payments (`audit_log`). Each row's hash
@@ -162,7 +164,7 @@ checked them against the sources, is yours to state. -->
    (AZ, CA, IA, MA, MD, ME, MN, MO, NJ, NY, PA, SC) have one that can count from discovery. A cap
    whose own quote describes an expedited approval, an emergency payment, or an initial award
    becomes information, because it is not the program's limit on the survivor's cost. The corpus
-   today: 1,327 decision rules, 1,189 information rules, 62 set aside. The IR records the sha256 of
+   today: 1,360 decision rules, 1,284 information rules, 84 set aside. The IR records the sha256 of
    the verified file it came from.
 
 Where the pipeline cannot decide, it says so instead of guessing. A rule whose exact effect the
@@ -174,7 +176,7 @@ engine cannot apply is shown, with its quote, and not counted.
 verified file for quotes, pinpoints, and sources. It refuses stale IR (the IR's `source_sha256` no
 longer matches the verified file). The same inputs always give the same bytes: the Michigan image
 built on Linux with GCC 13 on Oct 4 had the same sha256 as the one shipped from macOS
-(51,812 bytes; the sha256 is in `web/public/engine/laws/index.json`).
+(51,812 bytes then; `web/public/engine/laws/index.json` lists the current images and their sha256).
 
 The image (engine/FORMAT.md section 1):
 

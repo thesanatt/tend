@@ -42,26 +42,31 @@ same day.
 
 ### The difftest in detail
 
+The tallies below are from a rerun on Oct 20, 2026, on the same laptop, after every rule was checked
+again against its quote. That changed the law data, not the engines. The generator aims claims at
+each law's own numbers, so the tallies moved; the result did not (0 mismatches).
+
 - 121,000 claims: 2,000 for each of the 51 jurisdictions (102,000), 2,000 for each of the two
   synthetic fixtures (4,000), and 50 for each of 300 random laws (15,000).
-- 119,600 claims were well-formed JSON; for every one, the two engines returned identical bytes.
-  3,810 claims were refused as `bad_input` and 69 as `jurisdiction_mismatch`, by both engines, with
-  identical messages. 1,400 of the refused claims were not JSON at all (broken on purpose); for
-  those only the error code is compared, because the C++ message gives a byte offset.
+- 119,599 claims were well-formed JSON; for every one, the two engines returned identical bytes.
+  3,808 claims were refused as `bad_input` and 69 as `jurisdiction_mismatch`, by both engines.
+  1,401 of the refused claims were not JSON at all (broken on purpose); for those only the error
+  code is compared, because the C++ message gives a byte offset. The other refusals came with
+  identical messages.
 - 3,000 broken or random laws: 1,175 accepted by both engines, 1,825 refused by both with the same
   message, 0 disagreements.
-- Decisions reached: 317,609 eligible, 173,241 unknown_rule, 94,910 out_of_window, 79,045
-  excluded, 79,070 needs_confirmation, 28,214 held; 90,176 insurance deductions, 11,786 per-unit
-  cuts, 38,971 rate_unverified flags, 18,712 per-claim cap cuts, 11,473 total cap cuts.
-- SPEC v1.2 and v1.3 paths reached: 11,696 unit caps applied, 13,474 lines flagged because they
-  counted a different unit, 25,181 flagged for no unit or no units, 932 lines cut to 0 after a
+- Decisions reached: 319,019 eligible, 172,518 unknown_rule, 94,905 out_of_window, 79,092
+  excluded, 79,394 needs_confirmation, 27,164 held; 90,626 insurance deductions, 11,786 per-unit
+  cuts, 38,964 rate_unverified flags, 18,519 per-claim cap cuts, 11,473 total cap cuts.
+- SPEC v1.2 and v1.3 paths reached: 11,696 unit caps applied, 13,469 lines flagged because they
+  counted a different unit, 25,179 flagged for no unit or no units, 932 lines cut to 0 after a
   count limit ran out, 16,039 claims with a report-anchored deadline flag, 29,694 with a
-  discovery-anchored one (11,332 of them late, so flagged rather than plainly late), 2,776 exams
-  treated as medical where no exam_no_bill rule exists, 59,243 lines excluded by tag, 210 minimum
+  discovery-anchored one (11,332 of them late, so flagged rather than plainly late), 3,942 exams
+  treated as medical where no exam_no_bill rule exists, 59,291 lines excluded by tag, 210 minimum
   losses met by lost-wage days alone.
-- Checks reached: deadline ok 56,565, late 46,635, unknown 13,921; minimum loss met 98,658,
-  not_met 10,394, unknown 6,230, may_be_waived 1,489, waived 350; reporting satisfied 57,424,
-  required 24,728, unknown 22,499, not_required 12,470.
+- Checks reached: deadline ok 56,563, late 46,639, unknown 13,921; minimum loss met 98,895,
+  not_met 10,667, unknown 6,230, may_be_waived 981, waived 350; reporting satisfied 56,173,
+  required 25,742, unknown 23,368, not_required 11,840.
 - The generators were extended for v1.3: random laws sometimes count deadlines from both the
   report and discovery, in either rule order, and claims put the as-of date on both sides of the
   latest deadline, so both flags (always in note order) and late, flagged deadlines are compared.

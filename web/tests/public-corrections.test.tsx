@@ -258,9 +258,9 @@ describe("where /law/MI says the engine runs", () => {
     expect(steps).toContain("If your browser cannot run it and you agree to send the check to the server");
     expect(steps).toContain("the Python reference engine answers it from the same IR");
     const evalMd = readFileSync(path.join(repo, "docs/EVAL.md"), "utf8");
-    expect(evalMd).toContain("119,600 well-formed claims byte-identical");
+    expect(evalMd).toContain("119,599 well-formed claims byte-identical");
     expect(evalMd).toContain("106,000 of 106,000 claims byte-identical");
-    expect(steps).toContain("byte for byte on 119,600 claims");
+    expect(steps).toContain("byte for byte on 119,599 claims");
     expect(steps).toContain("on 106,000 of 106,000");
   });
 });

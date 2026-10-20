@@ -221,10 +221,10 @@ describe("Tend's own numbers", () => {
     expect(evalMd).toContain(
       "difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`) | **121,000 claims, 0 mismatches**",
     );
-    expect(evalMd).toContain("119,600 claims were well-formed JSON");
-    expect(evalMd).toContain("1,400 of the refused claims were not JSON at all");
+    expect(evalMd).toContain("119,599 claims were well-formed JSON");
+    expect(evalMd).toContain("1,401 of the refused claims were not JSON at all");
     const block = claim("121,000 test claims, 0 mismatches between the two law engines.");
-    expect(block).toContain("On the 119,600 claims that are valid JSON, both return the same bytes.");
+    expect(block).toContain("On the 119,599 claims that are valid JSON, both return the same bytes.");
     const commands = screen.getByLabelText("Commands that rerun the engine test").textContent!.split("\n");
     expect(commands).toEqual([
       "make -C engine",

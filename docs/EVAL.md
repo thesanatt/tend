@@ -2,8 +2,11 @@
 
 Every number Tend claims, the command that produces it, and what it does not show.
 
-Three kinds of numbers appear here, and each row says which:
+Four kinds of numbers appear here, and each row says which:
 
+- **Rerun Oct 20, 2026** on `press-ready-int` at `9dce7e1`, on the same laptop as Oct 19, after
+  merging the rule checks (`press-ready-claims`). That merge changed the law data (rules, IR, and
+  all 51 shipped law images) and `verify.py`, not the engines: 2,578 rules became 2,728.
 - **Rerun Oct 19, 2026** on the integration branch `press-ready-int` at `12508ea`, on an Apple M4
   Max laptop (14 cores): macOS 26.5, Apple clang 21, Node 24.14, Python 3.12.13, uv 0.11.12. The
   law data, the engines, and the shipped law images are the same files as on Oct 4; the web app,
@@ -23,28 +26,28 @@ Neon detail is in [NEON.md](NEON.md).
 
 | Suite | Command | Result | When |
 |---|---|---|---|
-| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build on Oct 4) | rerun Oct 19, the same as Oct 4 |
-| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | rerun Oct 19, the same as Oct 4 |
-| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build, on Linux on Oct 4 and on macOS on Oct 19 | rerun Oct 19 |
+| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build on Oct 4) | rerun Oct 20, the same as Oct 4 |
+| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | rerun Oct 20, the same as Oct 4 |
+| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build: on macOS on Oct 20, the images the rule checks rebuilt; on Linux on Oct 4 and on macOS on Oct 19, the images before them | rerun Oct 20 |
 | C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass | recorded on tend 1.3.0, Oct 3 ([engine/EVAL.md](../engine/EVAL.md)); the Oct 4 container run was on 1.2.0 |
-| Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | rerun Oct 19, the same as Oct 4 |
-| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,600 well-formed claims byte-identical; 3,000 random or broken laws, 0 disagreements (14.5 s on Oct 19; 53.8 s on Oct 4) | rerun Oct 19, the same as Oct 4 |
-| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (14.0 s in Node on Oct 19; 29.0 s on Oct 4) | rerun Oct 19, the same as Oct 4 |
+| Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | rerun Oct 20, the same as Oct 4 |
+| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,599 well-formed claims byte-identical (119,600 before the rule checks: the generator aims claims at each law's own numbers, so new rules change the claims it makes); 3,000 random or broken laws, 0 disagreements (12.7 s on Oct 20; 53.8 s on Oct 4) | rerun Oct 20 |
+| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (14.8 s in Node on Oct 20; 29.0 s on Oct 4) | rerun Oct 20, the same as Oct 4 |
 | Fuzzing under ASan and UBSan | `make -C engine fuzz FUZZ_SECONDS=420` | 1,276,000 then 2,517,704 executions on 1.2; 580,048 in 180 s on 1.3; no crashes | recorded ([engine/EVAL.md](../engine/EVAL.md)); the Oct 4 container's clang had no sanitizer runtime, and it was not rerun on Oct 19 |
-| API | `cd api && uv run pytest` | 436 tests: 413 passed, 23 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL). Oct 4 had 446: the retired agents' endpoints took their tests with them, and the demo account's reset added some | rerun Oct 19 |
+| API | `cd api && uv run pytest` | 436 tests: 413 passed, 23 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL). Oct 4 had 446: the retired agents' endpoints took their tests with them, and the demo account's reset added some | rerun Oct 20 |
 | API on Neon | `TEND_NEON_TEST=1 uv run pytest -k "neon or live"` | 32 tests, about 70 s | recorded Oct 3 ([NEON.md](NEON.md)); needs a Neon URL |
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
-| Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Oct 19 |
-| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Oct 19 |
-| Web unit and screen tests | `cd web && npx vitest run` | 56 files, 1,568 passed (42 files and 1,234 tests on Oct 4) | rerun Oct 19 |
-| Web lint | `cd web && npm run lint` | 0 errors and 19 warnings: 17 in the generated `public/engine/tend.js`, 2 unused parameters in a test | rerun Oct 19 |
-| Web production build | `cd web && npx next build` | builds, with 181 pages made ahead of time | rerun Oct 19 |
-| Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 31 passed (157 s with the build). They are 12 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts | rerun Oct 19; see the note below |
-| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,578 rules, 824 sources); no file changed | rerun Oct 19, the same as Oct 4 |
-| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Oct 19, the same as Oct 4 |
+| Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Oct 20 |
+| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Oct 20 |
+| Web unit and screen tests | `cd web && npx vitest run` | 56 files, 1,840 passed (1,568 on Oct 19, before the rule checks and their tests; 42 files and 1,234 tests on Oct 4) | rerun Oct 20 |
+| Web lint | `cd web && npm run lint` | 0 errors and 19 warnings: 17 in the generated `public/engine/tend.js`, 2 unused parameters in a test | rerun Oct 20 |
+| Web production build | `cd web && npx next build` | builds, with 181 pages made ahead of time | rerun Oct 20 |
+| Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 31 passed (156 s with the build). They are 12 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts | rerun Oct 20; see the note below |
+| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,728 rules, 824 sources; 2,578 before the rule checks); no file changed | rerun Oct 20 |
+| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Oct 20, the same as Oct 4 |
 
-**The e2e note.** On Oct 19 `run.sh` ran with its default Playwright 1.47 and that version's
-Chromium, with no other suite running, and passed 31 of 31 on the first run. On Oct 4 the Linux
+**The e2e note.** On Oct 19 and again on Oct 20 `run.sh` ran with its default Playwright 1.47 and that version's
+Chromium, with no other suite running, and passed 31 of 31 on the first run each time. On Oct 4 the Linux
 container did not have that Chromium build, so it ran with `E2E_PLAYWRIGHT_VERSION=1.56.0` against
 the preinstalled Chromium 141. Its first full run (with the build) failed one test: the first page
 load took longer than its 5-second wait while the other suites were running on the same 4 CPUs.
@@ -57,8 +60,8 @@ WASM), the Python reference (`refengine/`), and a plain C++ oracle used only in 
 (`engine/tests/oracle.cpp`). The difftest aims claims at each law's own numbers: dates around the
 window, amounts around each cap, typed units, tags, insurance, unconfirmed lines, deadlines from
 the report and from discovery, and broken JSON. On the merged branch it reached every status, check,
-and flag in the SPEC (eligible 317,609; held 28,214; per-unit cuts 11,786; total cap cuts 11,473;
-`deadline_from_discovery` on 29,916 claims and `deadline_from_report` on 16,161).
+and flag in the SPEC (eligible 319,019; held 27,164; per-unit cuts 11,786; total cap cuts 11,473;
+`deadline_from_discovery` on 29,916 claims and `deadline_from_report` on 16,161, on Oct 20).
 [engine/EVAL.md](../engine/EVAL.md) has the full breakdown. A harness test
 (`refengine/tests/test_difftest.py`) plants bugs and checks the difftest catches them.
 
@@ -93,7 +96,7 @@ labeled a phone bill payment as lost wages (commit `e202549`), which is why.
 | Check | Command | Result | When |
 |---|---|---|---|
 | Server classifier vs the plan's own labels, 4 personas | `cd seed && uv run python seeder.py classify all --no-model` | 190 of 190 for each persona. The method counts cover the 191 records it reads (the 190 plus the Riverbend bill): 87 keyword, 64 registry, 14 ride links, 11 income, 8 transfers, 3 pay dips, 4 from the committed model cache | rerun Oct 19, the same as Oct 4 |
-| TypeScript port vs the Python classifier, including the lost-pay workday estimate | `npx vitest run tests/local/classify-parity.test.ts` | passes on all 4 snapshots | rerun Oct 19, the same as Oct 4 |
+| TypeScript port vs the Python classifier, including the lost-pay workday estimate | `npx vitest run tests/local/classify-parity.test.ts` | passes on all 4 snapshots | rerun Oct 20, the same as Oct 4 |
 | Gemini Nano on held-out rows | `measureDeviceClassifier` (`web/lib/local/measure.ts`) in Chrome, with `web/tests/local/fixtures/device-eval.json` and `device-eval-b.json` (32 fictional rows each, no rule matches them) | no result is committed | not reproduced: needs Chrome with the built-in model |
 | Gemini Nano reading a bill photo | in Chrome 154 | the seed bill photo read correctly 3 of 3 times; a bill whose lines do not add up stays "couldn't read reliably" | recorded Oct 3, commit `aaef95c` message only |
 
@@ -108,8 +111,8 @@ model picks starts confirmed.
 | What | Command | Result | When |
 |---|---|---|---|
 | The web flow in a browser, every question answered yes: Check, demo bank, sample bill, the $118.00 payment with its code, packet, share link opened in a second tab, garden | `next dev` with `TEND_API_URL` pointing at a local API, driven by Playwright in headless Chromium (no Gemini Nano) | $325.00 held under MCL 18.355a(2); $118.00 paid (dry run, read back); "Amount you can ask for: $3,848.00" from 38 costs; the advocate's tab opened the same claim; the privacy line named the payment, then the share | reproduced Oct 4 |
-| The e2e demo path, online, step by step | `web/e2e/run.sh` (prints the timings) | Check 0.29 s; sample statement read on the device 0.55 s; bill PDF 0.09 s; $118.00 code 0.53 s and confirm 0.13 s; packet built on the device 0.91 s; sealed link 0.15 s; advocate opens it 0.24 s. On Oct 4's Xeon VM: Check 0.46 s, statement 0.48 s, bill 0.59 s, code 0.56 s, confirm 0.18 s, packet 1.0 s, link 0.10 s, advocate 0.34 s | rerun Oct 19 |
-| The e2e offline path | the same | first visit saved for offline 0.50 s; reload with no network 0.16 s; statement 0.31 s and bill 0.08 s read offline; packet 0.05 s; payment and share say they are offline and send nothing; saved progress opens offline after a reload; back online, the $118.00 payment goes through. On Oct 4: first visit 2.2 s, reload 0.34 s, statement 0.48 s, bill 0.21 s, packet 0.17 s | rerun Oct 19 |
+| The e2e demo path, online, step by step | `web/e2e/run.sh` (prints the timings) | Check 0.28 s; sample statement read on the device 0.27 s (0.56 s in the second-device run); bill PDF 0.08 s; $118.00 code 0.53 s and confirm 0.15 s; packet built on the device 0.91 s; sealed link 0.15 s; advocate opens it 0.24 s. On Oct 4's Xeon VM: Check 0.46 s, statement 0.48 s, bill 0.59 s, code 0.56 s, confirm 0.18 s, packet 1.0 s, link 0.10 s, advocate 0.34 s | rerun Oct 20 |
+| The e2e offline path | the same | first visit saved for offline 0.48 s; reload with no network 0.17 s; statement 0.28 s and bill 0.09 s read offline; packet 0.05 s; payment and share say they are offline and send nothing; saved progress opens offline after a reload; back online, the $118.00 payment goes through. On Oct 4: first visit 2.2 s, reload 0.34 s, statement 0.48 s, bill 0.21 s, packet 0.17 s | rerun Oct 20 |
 | Demo reset against live Nessie | `cd seed && uv run python reset_demo.py` | 2.6 s | recorded Oct 3 (seed/README.md); needs a Nessie key |
 | Deployed API | `vercel curl /api/health` | first request after a deploy 0.44 s; warm 0.08 to 0.15 s; live Nessie relay read 0.64 s | recorded Oct 3 (DEPLOY.md); the Oct 4 container could not reach `youreowed.tech`, and the Oct 19 run did not touch the deployment |
 | Neon | `uv run python ../scripts/neon/measure.py` | quote search 0.30 ms on the server, 36 to 42 ms from a laptop; a two-branch diff 0.48 to 0.55 s | recorded Oct 3 (NEON.md) |
