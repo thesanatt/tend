@@ -94,6 +94,20 @@ describe("the saved date and the report link on /mi", () => {
   });
 });
 
+// What /mi says about privacy has to match docs/PRIVACY.md: the host logs each visit with its IP
+// address, and picking a state sends the state to Tend's server.
+describe("what /mi says leaves the device", () => {
+  it("never says the page keeps no record, or that nothing at all leaves", async () => {
+    const d = await parse(StatePage({ params: Promise.resolve({ st: "mi" }) }));
+    const text = words(d.body);
+    expect(text).toContain(
+      "Tend keeps no list of who opens it, though like any website its host logs each visit's IP address.",
+    );
+    expect(text).toContain("the state you pick goes to Tend's server to get its law.");
+    expect(text).not.toMatch(/keeps no record of who opens it|nothing leaves your device unless you send it/);
+  });
+});
+
 describe("the saved date and the report link on /law/MI", () => {
   it("says when the sources were saved, in the header", async () => {
     const d = await parse(LawPage({ params: Promise.resolve({ st: "MI" }) }));
@@ -239,7 +253,9 @@ describe("the issue form (.github/ISSUE_TEMPLATE/law-error.yml)", () => {
     expect(form.body[0].attributes.value).toContain("with your GitHub username on it");
     expect(byId.privacy).toMatchObject({
       type: "checkboxes",
-      attributes: { options: [{ label: "I have not included anything about myself or anyone's case", required: true }] },
+      attributes: {
+        options: [{ label: "I have not included anything about myself or anyone's case", required: true }],
+      },
     });
   });
 

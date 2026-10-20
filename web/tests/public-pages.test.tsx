@@ -261,6 +261,9 @@ describe("home page", () => {
   it("says most states, not all, hold a forensic exam charge", () => {
     render(Home());
     expect(document.body.textContent).toContain("In most states it can also hold a forensic exam charge on a bill");
+    // In 24 states the no-bill rule holds only under a condition (lib/hedge.ts), so no promise here.
+    expect(document.body.textContent).toContain("show you the rule on exam bills, including when it applies.");
+    expect(document.body.textContent).not.toMatch(/because the state.s rules say you should not be billed/);
     const holds = list().filter(({ st }) => {
       const ir = JSON.parse(readFileSync(path.join(web, `public/data/ir/${st}.json`), "utf8")) as {
         rules: { kind: string }[];

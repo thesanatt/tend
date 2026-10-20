@@ -172,9 +172,10 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
         <div className={styles.shareText}>
           <h2 id="h-share">Share this page</h2>
           <p className={styles.shareLine}>{summary.share.text}</p>
+          {/* Vercel logs every request with its IP address (docs/PRIVACY.md, Request logs). */}
           <p>
-            Anyone can post this card. It says nothing about the person who shares it, and this page keeps no record of
-            who opens it.
+            Anyone can post this card. It says nothing about the person who shares it. Tend keeps no list of who opens
+            it, though like any website its host logs each visit&apos;s IP address.
           </p>
           <ShareButtons
             path={path}
@@ -212,8 +213,8 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
       <section className={styles.next} aria-labelledby="h-next">
         <h2 id="h-next">When you are ready</h2>
         <p>
-          Tend can check your own costs against this law on your device. It never asks what happened, and nothing leaves
-          your device unless you send it.
+          Tend can check your own costs against this law on your device. It never asks what happened. Your costs and
+          answers stay on your device unless you send them; the state you pick goes to Tend&apos;s server to get its law.
         </p>
         <div className="btn-row">
           <Link href={`/start?st=${ref.st}`} className="btn btn-primary">
