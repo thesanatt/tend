@@ -42,9 +42,10 @@ Where each number comes from. The same list is live at https://youreowed.tech/so
 ## Tend's own numbers
 
 - **2,578 rules from 824 saved sources, for 51 jurisdictions.** `rules/verified/`, checked by
-  `rules/tools/verify.py` (every quote word for word in its saved source, every number in its quote). 120 of the
-  sources are copies of state statutes and regulations from Justia or Cornell's Legal Information Institute, which
-  reprint the law but are not the official code. 234 rules, in 18 jurisdictions, quote those copies.
+  `rules/tools/verify.py` (every quote word for word in its saved source; the numbers in eight detail fields, and
+  every number in its summary other than 0 and 1, appear in its quote). 120 of the sources are copies of state
+  statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint the law but are not
+  the official code. 234 rules, in 18 jurisdictions, quote those copies.
 - **121,000 test claims, 0 mismatches between the C++ engine and the Python reference engine.** On the 119,600
   that are valid JSON, both return the same bytes; the other 1,400 are broken on purpose, and both refuse them with
   the same error code. Build the engine with `make -C engine`, then run, from the repository root:

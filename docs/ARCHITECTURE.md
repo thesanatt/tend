@@ -119,7 +119,8 @@ a source page or PDF --fetch_source.py--> rules/sources/ST/ST-Sn.{html,pdf} + .t
      rules/jurisdictions/ST.json: id, category, params, summary, quote, pinpoint
                                              |
                        verify.py: quote is a verbatim substring of the saved text,
-                       every number in params appears in the quote, source sha256 matches
+                       numbers in 8 params fields and the summary appear in the quote,
+                       source sha256 matches
                                              |
                                              v
                                 rules/verified/ST.json (+ text-fragment links)
@@ -140,8 +141,12 @@ checked them against the sources, is yours to state. -->
 2. **Write.** A rule copies its quote from the saved `.txt`, never paraphrased
    (`rules/SCHEMA.md` has the 19 categories and 18 expense types).
 3. **Verify.** `python3 rules/tools/verify.py all` passes a rule only if its quote is a verbatim
-   substring of the source text (after Unicode and whitespace normalization), every number in its
-   params and summary appears in the quote, and the source file's sha256 still matches. Passing
+   substring of the source text (after Unicode and whitespace normalization), the numbers in eight
+   of its params fields (`NUMERIC_PARAMS`: `amount_cents`, `years`, `months`, `weeks`, `days`,
+   `within_days`, `count_limit`, `days_lost`) and in its summary (other than 0 and 1) appear in the
+   quote, and the source file's sha256 still matches. It does not check other number fields, such
+   as `within_hours`, `min_days`, and `min_months`; the dataset's tests
+   (`rules/tools/test_export_dataset.py`) check every whole-number param against its quote. Passing
    files go to `rules/verified/`. On Oct 4, 2026 all 51 printed PASS.
 4. **Normalize.** `rules/tools/normalize.py` turns 51 different legal styles into one IR: caps per
    claim or per unit, deadlines in days with their anchor, reporting rules with alternatives,

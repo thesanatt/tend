@@ -47,8 +47,9 @@ decides.
 ## How it works
 
 1. **The law is data.** Each rule quotes a saved source. `rules/tools/verify.py` keeps a rule only
-   if its quote appears word for word in that source, every number in it is in the quote, and the
-   source's sha256 still matches.
+   if its quote appears word for word in that source and the source's sha256 still matches. The
+   numbers in eight of its detail fields (amounts, years, months, weeks, days, counts) must appear
+   in the quote, and so must every number in its summary other than 0 and 1.
 2. **Compiled ahead of time.** A C++20 compiler, `tendc`, turns each state's rules into a law image
    of 24 to 52 KB: bytecode plus the quotes it cites. The loader, a bytecode verifier, and a small VM
    are built to WebAssembly (183 KB) and run that image in the browser. The loader checks every
