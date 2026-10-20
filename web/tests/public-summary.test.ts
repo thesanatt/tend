@@ -1098,6 +1098,51 @@ describe("conditions the fourth review found missing", () => {
   });
 });
 
+// The checker's read of the round 4 pages (round 5 of the fix).
+describe("lines the fifth review found saying more or less than their quotes", () => {
+  const get = (st: string) => built.get(st)!.summary;
+  const section = (st: string, id: string) => get(st).sections.find((s) => s.id === id)?.facts ?? [];
+  const row = (st: string, label: string) => section(st, "costs").find((f) => f.label === label);
+  const quoteOf = (st: string, id: string) => built.get(st)!.law.rules.find((r) => r.id === id)?.quote ?? "";
+
+  it("Virginia says which law applies before the statute's undated 3 years", () => {
+    // The program applies the law in effect on the date of the crime; VA-DEADLINE-3 gives 1 year for
+    // crimes from July 2001 through June 2025.
+    const deadline = section("VA", "deadline");
+    expect(deadline.filter((f) => f.verbatimSummary).map((f) => f.cites[0])).toEqual([
+      "VA-DEADLINE-6",
+      "VA-DEADLINE-1",
+      "VA-DEADLINE-3",
+      "VA-DEADLINE-4",
+      "VA-DEADLINE-5",
+    ]);
+    expect(deadline.find((f) => f.cites[0] === "VA-DEADLINE-1")?.text).toBe(
+      "The current statute says a claim must be filed within three years after the crime.",
+    );
+    for (const f of deadline) expect(f.text).not.toMatch(/Under Virginia law/);
+  });
+
+  it("a cost row's limit prints from the rule whose own quote holds it (South Dakota, Virginia)", () => {
+    // ARSD 67:55:04:19 leaves mental health care and medicine for a mental condition out of the 12 months.
+    expect(row("SD", "Medical care")?.details?.map((d) => d.cite)).toEqual(["SD-CAP-6"]);
+    expect(row("SD", "Medical care")?.details?.[0].text).toMatch(
+      /mental health care .* medicine for a mental condition/,
+    );
+    expect(quoteOf("SD", "SD-CAP-6")).toMatch(/^Except for mental health expenses .* treatment of a mental condition,/);
+    // Va. Code 19.2-368.11:1(A) pays this rate for total loss of earnings; (B) pays partial loss differently.
+    expect(row("VA", "Lost pay")?.details?.map((d) => d.cite)).toEqual(["VA-WAGE-2"]);
+    expect(quoteOf("VA", "VA-WAGE-2")).toMatch(/for total loss of earnings that results directly from incapacity/);
+  });
+
+  it("Florida's older crimes show the good-cause extension right after the kit waiver", () => {
+    const ids = section("FL", "deadline").map((f) => f.cites[0]);
+    expect(ids.indexOf("FL-DEADLINE-7")).toBe(ids.indexOf("FL-DEADLINE-6") + 1);
+    expect(section("FL", "deadline").find((f) => f.cites[0] === "FL-DEADLINE-7")?.text).toBe(
+      "For an older crime, the department may also allow up to 2 years after the crime for other good cause.",
+    );
+  });
+});
+
 // A small made-up jurisdiction for the edges the corpus does not show cleanly.
 function rule(id: string, category: string, params: Record<string, unknown>, summary = `${id} summary`): Rule {
   return {
