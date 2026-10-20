@@ -13,8 +13,8 @@ can see claim records, both cited like every other rule.
 
 ## Share cards (awareness, the biggest barrier)
 Every jurisdiction gets a public page and a share card generated only from verified rules, e.g.
-"If you're Jane Doe in Michigan: you can ask for up to $45,000, and you don't need a police report
-if you had an exam. youreowed.tech/mi". Anyone can post it, so posting it reveals nothing about the
+"If you're Jane Doe in Michigan: you can ask for up to $45,000, and a forensic exam can count
+instead of a police report. youreowed.tech/mi". Anyone can post it, so posting it reveals nothing about the
 person sharing. No tracking on these pages.
 
 ## The three steps
