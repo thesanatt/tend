@@ -1,12 +1,20 @@
 "use client";
 
-import { useI18n } from "@/lib/i18n";
+import Link from "next/link";
+import { useI18n, type Lang } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
 import { useOfflineStatus } from "./offline";
 import styles from "./shell.module.css";
 
+// The press kit's link. Its words stay here so lib/i18n stays as it is, as with components/bank/strings.ts.
+// /press is in English only, so the Spanish says so (the escape keeps this file ASCII).
+const PRESS: Record<Lang, { link: string; after: string }> = {
+  en: { link: "Press kit", after: " for reporters." },
+  es: { link: "Kit de prensa", after: " para periodistas, en ingl\u00e9s." },
+};
+
 export default function AppFooter() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { claim } = useFlow();
   const backend = claim.evaluation?.backend;
   const offline = useOfflineStatus();
@@ -18,6 +26,12 @@ export default function AppFooter() {
           {t.shell.helpAfter}
         </p>
         <p className="meta">{t.shell.demoNote}</p>
+        <p className="meta">
+          <Link href="/press" hrefLang="en">
+            {PRESS[lang].link}
+          </Link>
+          {PRESS[lang].after}
+        </p>
         {backend ? (
           <p className="meta" title={claim.evaluation?.detail}>
             {backend === "wasm" ? t.engine.onDevice : t.engine.onServer}
