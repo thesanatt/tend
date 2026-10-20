@@ -122,16 +122,19 @@ export function pressFacts(): PressFacts {
       {
         id: "rules",
         text: `Tend's law library holds ${n(corpus.rules)} rules from ${n(corpus.sources)} saved sources. A rule gets in only if its quote appears word for word in the saved copy of its source.`,
+        // Not "open data": /data says no license is chosen yet.
         sources: [
-          { label: "The rules as open data", href: "/data" },
+          { label: "The rules as JSON and CSV", href: "/data" },
           { label: "verify.py, the check", href: VERIFY },
         ],
       },
       {
         id: "device",
-        text: `Each state's law runs in the browser, in an engine written in C++ and compiled to ${engineKb()} KB of WebAssembly. Bank statements and bills are read on the device too.`,
+        text: `Each state's law runs in the browser, in an engine written in C++ and compiled to ${engineKb()} KB of WebAssembly. Bank statements and bills are read there too. Only a yes moves the law check to Tend's server, or bills and bank rows to cloud AI.`,
+        // docs/PRIVACY.md covers cloud AI but not the server law check; Design for safety covers both.
         sources: [
           { label: "tend.wasm, the engine itself", href: ENGINE },
+          { label: "Design for safety", href: "/how-it-works#safety" },
           { label: "docs/PRIVACY.md", href: LINKS.privacy },
         ],
       },
@@ -181,7 +184,7 @@ export function pressFacts(): PressFacts {
       },
       {
         label: "AI",
-        text: "Gemini Nano, on the device when Chrome has it, suggests labels for costs the rules miss. The engine decides what counts and how much. Cloud Gemini runs only after a yes on a screen that names what would be sent and what Google may do with it.",
+        text: "Gemini Nano, on the device when Chrome has it, reads photos and scans of bills, and suggests labels for costs the rules miss. The engine decides what counts and how much. Cloud Gemini can do the same, but only after a yes on a screen that names what would be sent and what Google may do with it.",
       },
     ],
     links: [

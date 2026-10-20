@@ -125,6 +125,28 @@ describe("/press", () => {
     expect(text).toContain("It does not show Tend read them correctly.");
   });
 
+  it("says what can leave the device after a yes, and that the AI reads bills too", () => {
+    // With a yes, the law check can run on Tend's server, and a bill or the bank rows Tend could not sort can
+    // go to cloud AI. docs/PRIVACY.md does not describe the server check; Design for safety does.
+    const device = kit.facts.find((f) => f.id === "device")!;
+    expect(device.text).toContain("Tend's server");
+    expect(device.text).toContain("cloud AI");
+    expect(device.sources.map((s) => s.href)).toContain("/how-it-works#safety");
+    // Gemini Nano copies the lines of a bill photo or a scanned PDF, not only labels.
+    const ai = kit.real.find((r) => r.label === "AI")!.text;
+    expect(ai).toContain("reads photos and scans of bills");
+    expect(ai).toContain("Cloud Gemini can do the same, but only after a yes");
+  });
+
+  it("does not call the rules open data, since no license is chosen yet", () => {
+    // /data says "License: not chosen yet." Data with no license is not open data. Revisit once Sanat picks one.
+    expect(document.body.textContent).not.toMatch(/open data/i);
+    expect(kit.facts.find((f) => f.id === "rules")!.sources[0]).toEqual({
+      label: "The rules as JSON and CSV",
+      href: "/data",
+    });
+  });
+
   it("marks what Sanat has yet to write or choose, and writes none of it for him", () => {
     expect(WHY).toBeNull();
     expect(CONTACT).toBeNull();
