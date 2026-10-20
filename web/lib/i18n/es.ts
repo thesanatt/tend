@@ -704,7 +704,8 @@ export const es: Dict = {
     formBlankLink: "Abrir el formulario del programa",
     formNone: "Tend no encontró un formulario para este estado. El programa te puede enviar uno.",
     summaryTitle: "Resumen con citas",
-    summaryBody: "Cada gasto con su monto, el registro de donde viene y las palabras exactas de la ley.",
+    summaryBody:
+      "Cada gasto que cuenta, y cualquier línea de factura que Tend retuvo, con su monto, el registro de donde viene y las palabras exactas de la ley. Los gastos que no cuentan se quedan fuera.",
     summaryDownload: "Descargar el resumen (PDF)",
     summaryShow: (n: number) => (n === 1 ? "Mostrar la línea aquí" : `Mostrar las ${n} líneas aquí`),
     colCost: "Gasto",
@@ -720,7 +721,7 @@ export const es: Dict = {
       "Tend no encontró una dirección para presentar la solicitud en las reglas verificadas. Llama al programa.",
     shareTitle: "Compartir con una persona de apoyo",
     shareBody:
-      "Una persona de apoyo puede leer este paquete sin ver tu cuenta de banco. Se protege en este dispositivo antes de salir, y solo el enlace lo puede abrir.",
+      "Una persona de apoyo ve los gastos que Tend encontró, incluso las suposiciones que aún esperan tu sí y las compras que Tend no pudo clasificar, cada uno con su fecha, su monto y la descripción de tu banco o de la factura. Las filas a las que dijiste que no, tu saldo y el resto de tu cuenta se quedan fuera. Se protege en este dispositivo antes de salir, y solo el enlace lo puede abrir.",
     sentTitle: "Cuando lo envíes",
     sentBody:
       "Tend no presenta nada. Cuando tú envíes tu solicitud al programa, márcalo aquí y tu jardín empieza a dar capullos.",

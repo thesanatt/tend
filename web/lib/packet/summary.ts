@@ -1,6 +1,8 @@
-// The cited summary PDF: every line with its amount, transaction, rule pinpoint, verbatim quote,
-// and link; held lines with the exam billing law; the totals; what is still needed; where to
-// file; and the protections that keep the survivor's address and file private.
+// The cited summary PDF: each cost that counts with its amount, transaction, rule pinpoint, verbatim
+// quote, and link; held lines with the exam billing law; the totals; what is still needed; where to
+// file; and the protections that keep the survivor's address and file private. Costs that do not
+// count (guesses still waiting, rows Tend could not sort, costs the law leaves out) are counted but
+// never itemized: the PDF goes to the program, and their bank words can name a person.
 import { citedRuleIds, severalLimits } from "../cite";
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay, localDay } from "../dates";
@@ -38,6 +40,9 @@ export function paidNote(paid: NonNullable<PacketLineInfo["paid"]>): string {
 }
 
 const ORDER: LineStatus[] = ["eligible", "held", "needs_confirmation", "excluded", "unknown_rule", "out_of_window"];
+// The lines the summary itemizes.
+const PRINTED: LineStatus[] = ["eligible", "held"];
+export const printed = (line: EngineLine) => PRINTED.includes(line.status);
 
 const STATUS_TITLE: Record<LineStatus, string> = {
   eligible: "Counted",
@@ -290,12 +295,20 @@ function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined,
 function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info: Record<string, PacketLineInfo> = {}) {
   const { law, pdf } = w;
   const items = new Map(input.items.map((i) => [i.item_id, i]));
-  w.h2("Every cost and the law behind it");
+  w.h2("Each cost that counts and the law behind it");
   w.small(
-    "Costs are grouped by kind and status. Each group quotes the law word for word, with a link to its source. Each cost shows the record it came from.",
+    "Costs are grouped by kind. Each group quotes the law word for word, with a link to its source. Each cost shows the record it came from.",
   );
+  const left = output.lines.filter((l) => !printed(l)).length;
+  if (left) {
+    // A count only: no description, date, or record id of a cost that does not count.
+    w.small(
+      `Tend left out ${plural(left, "other cost")} that ${left === 1 ? "does" : "do"} not count toward this amount.`,
+      "ink2",
+    );
+  }
 
-  for (const g of groupsOf(output)) {
+  for (const g of groupsOf(output).filter((group) => PRINTED.includes(group.status))) {
     const asked = g.lines.reduce((s, l) => s + l.requested_cents, 0);
     const counted = g.lines.reduce((s, l) => s + l.allowed_cents, 0);
     w.h3([
@@ -323,19 +336,7 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
         w.small(noBill.length ? "Who pays for the exam instead:" : "How the exam is paid for:", "ink2");
         for (const r of payers) w.quote(r, noBill.length ? "line" : "clay");
       }
-    } else if (g.status === "unknown_rule") {
-      w.p(
-        `None of ${law.name}'s verified rules name this kind of cost, so it is left out. An advocate or the program can tell you if it is covered.`,
-        "ink2",
-      );
-    } else if (g.status === "out_of_window") {
-      w.p(
-        `These are dated before ${formatDay(input.context.incident_date)} or after ${formatDay(input.context.as_of_date)}, so they are not counted.`,
-        "ink2",
-      );
     } else {
-      if (g.status === "needs_confirmation") w.p("Tend found these but does not count them until you say yes.", "ink2");
-      if (g.status === "excluded") w.p("The law says the program does not pay for this kind of cost.", "ink2");
       if (g.lines.some(severalLimits)) w.small(en.gather.severalLimits, "ink2");
       for (const r of rules) w.quote(r);
     }
@@ -649,7 +650,7 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
   lettersSection(w, s.letters);
 
   const cited = new Set<string>([
-    ...output.lines.flatMap((l) => [...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]),
+    ...output.lines.filter(printed).flatMap((l) => [...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]),
     ...output.checks.deadline.rule_ids,
     ...output.checks.reporting.rule_ids,
     ...output.checks.minimum_loss.rule_ids,

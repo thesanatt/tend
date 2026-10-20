@@ -63,14 +63,17 @@ describe("Rowan's Michigan packet", () => {
   let built: BuiltPacket;
   const build = async () => (built ??= await builderFor(law).build("MI", rowanInput(), rowanOutput()));
 
-  it("cites every line: amount, transaction, pinpoint, verbatim quote, and link", async () => {
+  it("cites every line that counts or is held: amount, transaction, pinpoint, verbatim quote, and link", async () => {
     const p = await build();
     const pdf = (await bytesOf(p.summaryPdf))!;
     expect(new TextDecoder().decode(pdf.slice(0, 5))).toBe("%PDF-");
     const text = p.transcript.join("\n");
     const book = new LawBook(law("MI"));
     const links = await uriLinks(pdf);
-    for (const line of rowanOutput().lines) {
+    const lines = rowanOutput().lines;
+    const shown = lines.filter((l) => l.status === "eligible" || l.status === "held");
+    expect(shown.length).toBeGreaterThan(10);
+    for (const line of shown) {
       expect(text).toContain(line.item_id);
       for (const id of line.rule_ids) {
         const rule = book.rule(id)!;
@@ -84,8 +87,31 @@ describe("Rowan's Michigan packet", () => {
     expect(text).toContain("Held. Do not pay this.");
   });
 
-  it("quotes the rule that covers rides first, then both trip-length limits, and says the program picks", async () => {
+  // The PDF goes to the program: a guess still waiting for a yes, or a row Tend could not sort, is
+  // counted but never itemized, so its bank words (which can name a person) stay out.
+  it("leaves out the costs that do not count, with no description, date, or record id", async () => {
     const p = await build();
+    const text = p.transcript.join("\n");
+    const pdf = await pdfText((await bytesOf(p.summaryPdf))!);
+    const items = new Map(rowanInput().items.map((i) => [i.item_id, i]));
+    const left = rowanOutput().lines.filter((l) => l.status !== "eligible" && l.status !== "held");
+    expect(left.length).toBeGreaterThan(0);
+    expect(pdf).toContain(`Tend left out ${left.length} other costs that do not count toward this amount.`);
+    for (const line of left) {
+      expect(text).not.toContain(line.item_id);
+      expect(pdf).not.toContain(line.item_id);
+      const words = items.get(line.item_id)?.description.trim();
+      if (words) expect(pdf).not.toContain(words);
+    }
+  });
+
+  it("quotes the rule that covers rides first, then both trip-length limits, and says the program picks", async () => {
+    // Rides are Tend's guesses until the survivor says yes, so they count here.
+    const output = rowanOutput();
+    output.lines = output.lines.map((l) =>
+      l.expense === "transportation" ? { ...l, status: "eligible" as const, allowed_cents: l.requested_cents } : l,
+    );
+    const p = await builderFor(law).build("MI", rowanInput(), output);
     const text = p.transcript.join("\n");
     const book = new LawBook(law("MI"));
     const at = (id: string) => text.indexOf(`"${book.rule(id)!.quote.trim()}"`);
@@ -329,9 +355,13 @@ describe("a packet for each of the 51 jurisdictions", () => {
     expect((await PDFDocument.load(pdf)).getPageCount()).toBeGreaterThan(1);
     const text = p.transcript.join("\n");
     expect(text).toContain(TOTAL_LINE);
-    for (const line of output.lines) expect(text).toContain(line.item_id);
+    const shown = output.lines.filter((l) => l.status === "eligible" || l.status === "held");
+    for (const line of output.lines) {
+      if (shown.includes(line)) expect(text).toContain(line.item_id);
+      else expect(text).not.toContain(line.item_id);
+    }
     const book = new LawBook(law);
-    for (const id of new Set(output.lines.flatMap((l) => l.rule_ids))) {
+    for (const id of new Set(shown.flatMap((l) => l.rule_ids))) {
       expect(text).toContain(`"${book.rule(id)!.quote.trim()}"`);
     }
     expect(p.filing.length).toBeGreaterThan(0);
@@ -351,7 +381,10 @@ describe("a packet for each of the 51 jurisdictions", () => {
 describe("text the standard PDF fonts cannot draw", () => {
   it("is folded instead of failing", async () => {
     const input = rowanInput();
-    input.items[1] = { ...input.items[1], description: "Clínica São Paulo \u{1F49A} 病院 ≥ x" };
+    // A line that counts, so the summary prints its description.
+    const counted = rowanOutput().lines.find((l) => l.status === "eligible")!.item_id;
+    const at = input.items.findIndex((i) => i.item_id === counted);
+    input.items[at] = { ...input.items[at], description: "Clínica São Paulo \u{1F49A} 病院 ≥ x" };
     const p = await builderFor(webLaw).build("MI", input, rowanOutput());
     expect(p.transcript.join("\n")).toContain("Clínica São Paulo");
     expect(await bytesOf(p.summaryPdf)).not.toBeNull();

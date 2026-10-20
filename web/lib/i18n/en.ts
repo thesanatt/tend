@@ -729,7 +729,9 @@ export const en = {
     formBlankLink: "Open the program's form",
     formNone: "Tend did not find a form for this state. The program can send you one.",
     summaryTitle: "Cited summary",
-    summaryBody: "Every cost with its amount, the record it came from, and the exact words of the law.",
+    // lib/packet/summary.ts itemizes only lines that count or are held.
+    summaryBody:
+      "Each cost that counts, and any bill line Tend held, with its amount, the record it came from, and the exact words of the law. Costs that do not count are left out.",
     summaryDownload: "Download the summary (PDF)",
     summaryShow: (n: number) => `Show the ${plural(n, "line", "lines")} here`,
     colCost: "Cost",
@@ -744,8 +746,9 @@ export const en = {
     questionsPhone: "Questions, by phone",
     fileNone: "Tend found no filing address in the verified rules. Call the program.",
     shareTitle: "Share with an advocate",
+    // What ShareBox seals: the claim's engine input, every cost not said no to, with its words.
     shareBody:
-      "An advocate can read this packet without seeing your bank account. It is locked on this device before it leaves, and only the link can open it.",
+      "An advocate sees the costs Tend found, including guesses still waiting for your yes and purchases Tend could not sort, each with its date, amount, and the description from your bank or bill. Rows you said no to, your balance, and the rest of your account stay out. It is locked on this device before it leaves, and only the link can open it.",
     sentTitle: "When you send it",
     sentBody:
       "Tend does not file anything. When you send your claim to the program yourself, mark it here and your garden starts to bud.",
