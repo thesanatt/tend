@@ -45,6 +45,11 @@ export const STATUS: Record<LineStatus, StatusCopy> = {
   },
 };
 
+// A held exam line where the rule has a scope or condition Tend does not ask about (lib/hedge.ts).
+export const HELD_IF_EXPLAIN =
+  "The law may protect them from this bill. Check the rule before it is paid. The program decides.";
+export const HELD_IF_NOTE = "Check the rule first";
+
 export function statusCopy(status: string): StatusCopy {
   return STATUS[status as LineStatus] ?? { label: status, explain: "", sheetTitle: "Rules" };
 }
@@ -58,7 +63,7 @@ export const DEADLINE: CheckCopy = {
 };
 
 // The flow's en.check.deadlineFromReport, about the survivor instead of to them.
-const FROM_REPORT =
+export const FROM_REPORT =
   "This date counts from the day it happened. The law counts from their report, so they may have longer.";
 
 // A deadline counted from the report or from discovery is dated from the incident, so the true date may

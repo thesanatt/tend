@@ -24,6 +24,7 @@ import {
   type BuiltPacket,
 } from "@/lib/packet";
 import type { LawIr } from "@/lib/deadline";
+import { billingHold } from "@/lib/packet/letters";
 import type { EngineInput, EngineOutput, Expense, Jurisdiction } from "@/lib/types";
 import { blankForm, hasVerified, rowanInput, rowanOutput, verifiedLaw, webDir, webLaw } from "./trust-helpers";
 
@@ -368,11 +369,19 @@ describe("a packet for each of the 51 jurisdictions", () => {
     for (const f of p.filing) expect(book.rule(f.rule_id)?.category).toBe("submission");
     expect(p.formPdf === null).toBe(st !== "MI");
     // Held exam lines get a billing letter quoting that state's exam_no_bill rule (or, where a
-    // state has none, the rule naming who pays for the exam).
-    if (output.lines.some((l) => l.status === "held")) {
+    // state has none that holds for the survivor, the rule naming who pays for the exam). Hawaii's and
+    // Wyoming's only no-bill rules are about something else (applies_to), so their letters never quote them.
+    const noBill = book.byCategory("exam_no_bill").filter((r) => !r.params?.applies_to);
+    const payers = book.byCategory("exam_payment").filter((r) => !r.params?.applies_to);
+    if (output.lines.some((l) => l.status === "held") && !noBill.length && !payers.length) {
+      // Hawaii's one exam rule says what police are to do. The engine's law IR sets it aside, so the real
+      // engine holds nothing there; this preview still holds the line, and no letter quotes that rule.
+      expect(p.letters.find((l) => l.kind === "billing_hold")).toBeUndefined();
+    } else if (output.lines.some((l) => l.status === "held")) {
       const hold = p.letters.find((l) => l.kind === "billing_hold")!;
       const first = book.rule(hold.rule_ids[0])!;
-      expect(first.category).toBe(book.byCategory("exam_no_bill").length ? "exam_no_bill" : "exam_payment");
+      expect(first.category).toBe(noBill.length ? "exam_no_bill" : "exam_payment");
+      expect(first.params?.applies_to).toBeFalsy();
       expect(hold.body).toContain(first.quote.trim());
     }
   });
@@ -687,14 +696,70 @@ describe("the summary's privacy section says only what its rules cover", () => {
     },
   );
 
-  it("keeps Michigan's sentence: its program covers survivors of sexual assault", async () => {
+  // Michigan's rule names survivors of sexual assault, which is not the same as covering every one, so
+  // the sentence still sends the survivor to ask.
+  it("Michigan: says its rule names survivors, and still sends the survivor to ask", async () => {
     const mi = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
-    expect(mi).toContain("It gives you a substitute address to use on government records and forms");
+    expect(mi).toContain(
+      "It gives some people a substitute address to use on government records and forms, like this application. Its rule names survivors of sexual assault. Ask the program whether it covers you.",
+    );
+    expect(mi).not.toContain("It gives you a substitute address");
   });
 
   it("says a records rule may not cover the whole file", async () => {
     const text = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
     expect(text).toContain("Michigan has a rule on who can see claim records. It may not cover your whole file.");
     expect(text).not.toContain("law limits who can see a compensation claim file");
+  });
+});
+
+// The billing letter goes out in the survivor's name, so it says no more than the rule it quotes: "law"
+// only for a statute or regulation, never a rule about someone else, and "I should not be billed" only
+// where the rule covers every survivor (lib/hedge.ts).
+describe("the billing letter says no more than its rule", () => {
+  const hold = (st: string) => billingHold(new LawBook(webLaw(st)), [], new Map())!;
+  const quote = (st: string, id: string) =>
+    webLaw(st)
+      .rules.find((r) => r.id === id)!
+      .quote.trim();
+
+  it("Michigan: its statute covers every survivor, so the letter says so", () => {
+    const body = hold("MI").body;
+    expect(body).toContain("Michigan law says I should not be billed for this exam:");
+    expect(body).toContain(quote("MI", "MI-EXAM-1"));
+    expect(body).toContain("Michigan law names who pays for the exam instead:");
+  });
+
+  it("Alaska: quotes the rule with its age condition and does not say she is covered", () => {
+    const body = hold("AK").body;
+    expect(body).toContain("Alaska law says this about billing for this exam:");
+    expect(body).toContain(quote("AK", "AK-EXAM-1"));
+    expect(body).not.toContain("I should not be billed");
+  });
+
+  it("Massachusetts: the rule is a program page, so it is the program that says it, with the place condition", () => {
+    const letter = hold("MA");
+    expect(letter.body).toContain("Massachusetts's program says this about billing for this exam:");
+    expect(letter.body).not.toContain("Massachusetts law says");
+    // MA-EXAM-10 carries "if the crime was in Massachusetts" and is quoted too.
+    expect(letter.rule_ids).toContain("MA-EXAM-10");
+  });
+
+  it("Wyoming: never quotes the policy for exams reported to police (applies_to)", () => {
+    // Wyoming's held exam rests on the rules that name who pays for it.
+    const exam = {
+      item_id: "exam-1",
+      expense: "forensic_exam" as const,
+      status: "held" as const,
+      requested_cents: 32500,
+      allowed_cents: 0,
+      rule_ids: ["WY-EXAM-1"],
+      cap_rule_id: null,
+      flags: [],
+    };
+    const letter = billingHold(new LawBook(webLaw("WY")), [exam], new Map())!;
+    expect(letter.body).toContain("Wyoming law says this about paying for the exam:");
+    expect(letter.rule_ids).not.toContain("WY-EXAM-2");
+    expect(letter.body).not.toContain(quote("WY", "WY-EXAM-2"));
   });
 });

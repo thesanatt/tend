@@ -103,7 +103,7 @@ describe("Check summary for Michigan", () => {
     });
     expect(s.covered.find((c) => c.expense === "medical")!.cap).toBeNull();
     expect(s.covered.some((c) => (c.expense as string) === "forensic_exam")).toBe(false);
-    expect(s.totalCap).toEqual({ cents: 4500000, ruleIds: ["MI-CAP-1"] });
+    expect(s.totalCap).toEqual({ cents: 4500000, ruleIds: ["MI-CAP-1"], hedged: false });
   });
 
   // MI-CAP-7 ($1,000) is for trips of 50 miles or less each way and MI-CAP-8 ($5,000) for longer

@@ -569,10 +569,17 @@ describe("bill triage while the law loads", () => {
     expect(screen.getByText(String(payer!.params!.payer))).toBeTruthy();
   });
 
-  it("names the state from the list of states when the law cannot load", async () => {
+  // Without the law Tend cannot tell whether the rule has a condition, so it never says "don't pay".
+  it("names the state from the list of states when the law cannot load, and asks to check the rule", async () => {
     serve(Promise.resolve(null));
     renderFlow(<BillsScreen />, { initial: stateFrom(withBill) });
-    expect(await screen.findByText(held)).toBeTruthy();
+    expect(
+      await screen.findByText(
+        "Medical forensic exam, deductible applied, $325.00. Michigan's rules protect some survivors from this charge. Read the rule to see if it covers you.",
+      ),
+    ).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Check the rule before you pay this line" })).toBeTruthy();
+    expect(screen.queryByText(held)).toBeNull();
   });
 
   // An urgent care bill with no exam line: nothing on it is held.

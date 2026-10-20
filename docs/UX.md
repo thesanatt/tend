@@ -29,8 +29,20 @@ Four inputs, all optional to answer precisely ("Not sure" is always allowed):
 Output, computed by the engine from verified rules, each sentence carrying its citation:
 - "You can likely apply in {state}." (never "you qualify")
 - filing deadline as a date, with the rule
-- whether a police report is needed, and which alternatives count (exam, protective order, advocate)
-- what is covered, as a short list with caps ("Counseling, up to $125 a session")
+- whether a police report is needed, and which alternatives count (exam, protective order, advocate).
+  Where the exam counts only within a time limit Tend does not ask about, only sometimes, or a criminal
+  charge is also needed, it says "Your forensic exam may count in place of a police report here. The
+  rule below says when." Where no rule requires a report but the rules name the records that count
+  instead, it says "A police report is not the only record that counts here", never "You don't need
+  a police report."
+- the exam: "You should not get a bill for the forensic exam." only where every no-bill rule covers
+  every survivor. Where a rule has a scope or condition (an age, a time window, a crime in the
+  state), "You may not have to pay for the forensic exam. The rule below says when.", followed by
+  the rule's own terms as the state page words them ("You should not have to pay for a sexual
+  assault forensic exam if you are 16 or older.")
+- what is covered, as a short list with caps ("Counseling, up to $125 a session"). The total reads
+  "In total, up to {amount} in most cases" where a rule adds an exception, a condition, or a payment
+  outside the total.
 - the program phone and website, from the verified corpus
 - one button: "Find my costs" (goes to step 2). Also "Save this" and "Not today".
 
@@ -49,9 +61,13 @@ transaction, the amount, and the plain-English reason with the law behind it. Th
 Not covered items are shown, not hidden, with the rule that excludes them.
 
 Bill triage, for each bill:
-- held lines (e.g. a forensic exam the law says cannot be billed): "Don't pay this line." Primary
-  action: a ready-to-send letter to the billing office citing the law; secondary: the exam payment
-  program's contact.
+- held lines (a forensic exam line under the state's exam billing rules): "Don't pay this line." only
+  where the rule covers every survivor and is law (Michigan's MCL 18.355a(2)). Where the rule has a
+  scope or condition Tend cannot check, comes from a program page, or did not load: "Check the rule
+  before you pay this line", the rule's own condition, and "If you are not sure it covers you, ask
+  the program before you pay. The program decides." Primary action: a ready-to-send letter to the
+  billing office that quotes the rule (and says "{State} law" only for a statute or regulation);
+  secondary: the exam payment program's contact.
 - remaining balance: "Pay now from Checking" (confirm code) or "Leave unpaid and claim it". Both
   are fine; the screen says which costs the program can repay either way.
 

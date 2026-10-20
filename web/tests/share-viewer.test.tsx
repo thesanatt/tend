@@ -224,7 +224,7 @@ describe("the advocate viewer", () => {
     ]) {
       expect(text).toContain(sentence);
     }
-    expect(text).toContain("They should not be billed for the exam");
+    expect(text).toContain("Billing them for the forensic exam");
     // Nothing here speaks to the survivor. ("You" would be the advocate, and nothing on this claim needs it.)
     expect(text.match(/[^.]*\b(you|your)\b[^.]*/gi) ?? []).toEqual([]);
     // The whole claim with its 60-odd citations takes a while to draw when the suite runs in parallel.

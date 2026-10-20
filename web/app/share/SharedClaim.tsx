@@ -2,11 +2,13 @@
 
 // The read-only claim an advocate sees: the amount, the checks, every cost with the law behind it,
 // and the cited summary PDF, built in this browser from what was shared.
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Checks from "@/components/claim/Checks";
+import { useLawIr } from "@/components/flow/useSetAside";
 import Bed from "@/components/ledger/Bed";
 import Money from "@/components/Money";
 import { formatDay, formatTimestamp } from "@/lib/dates";
+import { examHold } from "@/lib/hedge";
 import { buildRows, groupBeds } from "@/lib/ledger";
 import type { BuiltPacket, TendPacketBuilder } from "@/lib/packet";
 import { demoNote, FORM_SPECS } from "@/lib/packet/specs";
@@ -135,6 +137,9 @@ export default function SharedClaim({
   builder,
 }: SharedClaimProps) {
   const law = useLaw(input.jurisdiction);
+  // The law IR dates the general deadline, as in the cited summary PDF (lib/deadline.ts).
+  const ir = useLawIr(input.jurisdiction);
+  const plainHold = useMemo(() => examHold(law.law).plain, [law.law]);
   const rows = buildRows(input.items, {}, output);
   const beds = groupBeds(rows, output);
   const name = STATES.find((s) => s.st === input.jurisdiction)?.name ?? input.jurisdiction;
@@ -183,8 +188,10 @@ export default function SharedClaim({
         </p>
         {output.totals.held_cents > 0 ? (
           <p className={styles.held}>
-            Held: <Money cents={output.totals.held_cents} face="inherit" /> on a bill the law says they should not be
-            sent.
+            Held: <Money cents={output.totals.held_cents} face="inherit" />{" "}
+            {plainHold
+              ? "on a bill the law says they should not be sent."
+              : "on a bill the law may protect them from. Check the rule before it is paid."}
           </p>
         ) : null}
       </section>
@@ -200,7 +207,12 @@ export default function SharedClaim({
 
       <section aria-labelledby="share-checks" className={styles.section}>
         <h2 id="share-checks">Checks</h2>
-        <Checks checks={output.checks} law={law} policeReport={input.context.police_report} />
+        <Checks
+          checks={output.checks}
+          law={law}
+          policeReport={input.context.police_report}
+          deadline={{ law: law.law, ir, incident: input.context.incident_date }}
+        />
       </section>
 
       <section aria-labelledby="share-costs" className={styles.section}>

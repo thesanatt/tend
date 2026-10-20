@@ -71,9 +71,12 @@ docs/         SPEC.md (this), ARCHITECTURE.md, PRIVACY.md, UX.md, EVAL.md, SOURC
 Status is decided by the first matching step:
 1. `out_of_window`: date < incident_date, or date > as_of_date. Not related; never counted.
 2. `held`: expense == forensic_exam AND an `exam_no_bill` rule exists. Proof: that rule (plus
-   `exam_payment` if present). The survivor should not pay this; the UI routes them to the exam
-   payment program. If only `exam_payment` exists, also `held` with that rule. If neither exists,
-   the item is treated as expense `medical`.
+   `exam_payment` if present). The UI says not to pay it only where every no-bill rule is
+   unconditional and the first is a statute or regulation. Anywhere else (a `scope` or `condition`
+   in rules/SCHEMA.md, a program page, only an `exam_payment` rule) the engine still holds the line
+   and the UI asks the survivor to check the rule before paying (web/lib/hedge.ts). If only
+   `exam_payment` exists, also `held` with that rule. If neither exists, the item is treated as
+   expense `medical`.
 3. `excluded`: an `excluded_expense` rule names this expense. Proof: that rule.
 4. `unknown_rule`: no `covered_expense` and no `expense_cap` rule names this expense (or expense is
    "unknown"). Shown as "not included; ask a Navigator". Never counted.

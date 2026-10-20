@@ -3,6 +3,7 @@
 import type { Letter, LetterKind, PacketLineInfo } from "../contracts";
 import { formatDay } from "../dates";
 import { formatCents } from "../money";
+import { activeRule, examHold, whoSays } from "../hedge";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, Expense, Rule } from "../types";
 import { docScope, scopeApplies } from "./checklist";
 import { param, type LawBook } from "./law";
@@ -97,9 +98,15 @@ export function billingHold(
     const cited = rules.filter((r) => ids.has(r.id));
     return cited.length ? cited : rules;
   };
-  // The main no-bill rule; the summary quotes the rest.
-  const why = pick(law.byCategory("exam_no_bill")).slice(0, 1);
-  const payers = pick(law.byCategory("exam_payment")).slice(0, 1);
+  // The main no-bill rule, never one about someone else, led by the one that carries the scope or
+  // condition (lib/hedge.ts); the summary quotes the rest.
+  const hold = examHold(law.law);
+  const noBill = hold.lead ? [hold.lead, ...hold.noBill.filter((r) => r !== hold.lead)] : [];
+  const why = pick(noBill).slice(0, 1);
+  const payers = pick(law.byCategory("exam_payment").filter((r) => activeRule(r))).slice(0, 1);
+  // Where the rule holds only under a scope or condition, the letter quotes the rule that sets it too
+  // and does not say the survivor is covered: she checks the rule before she sends it.
+  const terms = hold.plain ? [] : hold.narrowing.filter((r) => !why.includes(r) && !payers.includes(r));
   // Without a no-bill rule, a held exam rests on the rule that names who pays for it.
   if (!why.length && !(held.length && payers.length)) return null;
   const charges = held.length
@@ -114,18 +121,20 @@ export function billingHold(
       `To: Billing office, ${provider}\nAbout: Account [account number]`,
       `I am writing about ${held.length > 1 ? "these charges" : "this charge"} on my account for a sexual assault forensic exam:\n\n${charges}`,
       why.length
-        ? `${law.name} law says I should not be billed for this exam:\n\n${why.map(cite).join("\n\n")}`
-        : `${law.name} law says this about paying for the exam:\n\n${payers.map(cite).join("\n\n")}`,
+        ? hold.plain
+          ? `${whoSays(law.law, why[0])} says I should not be billed for this exam:\n\n${why.map(cite).join("\n\n")}`
+          : `${whoSays(law.law, why[0])} says this about billing for this exam:\n\n${[...why, ...terms].map(cite).join("\n\n")}`
+        : `${whoSays(law.law, payers[0])} says this about paying for the exam:\n\n${[...payers, ...terms].map(cite).join("\n\n")}`,
       why.length
         ? "Please remove the exam charge from my account, stop any collection on it, and send me an updated statement."
         : "Please put this charge on hold while the exam is paid for the way the law describes, and send me an updated statement.",
       why.length && payers.length
-        ? `The law names who pays for the exam instead:\n\n${payers.map(cite).join("\n\n")}`
+        ? `${whoSays(law.law, payers[0])} names who pays for the exam instead:\n\n${payers.map(cite).join("\n\n")}`
         : null,
       "If you have questions, please contact me in writing.",
       SIGN_OFF,
     ],
-    [...why, ...payers],
+    [...why, ...terms, ...payers],
   );
 }
 

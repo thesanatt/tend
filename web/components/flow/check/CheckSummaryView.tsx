@@ -6,6 +6,7 @@ import type { LawIndex } from "@/lib/useLaw";
 import { capText, type CheckSummary } from "../checkSummary";
 import Cite from "../Cite";
 import { useFlow } from "../FlowProvider";
+import RuleTerms from "../RuleTerms";
 import styles from "../flow.module.css";
 
 function host(url: string): string {
@@ -100,7 +101,12 @@ export default function CheckSummaryView({
         <Fact
           cite={
             r.ruleIds.length && r.status !== "none" ? (
-              <Cite ruleIds={r.ruleIds} law={law} subject={t.check.subjectReport} />
+              // The rules that name the other records are cited too, and the ones that limit the exam.
+              <Cite
+                ruleIds={[...new Set([...r.ruleIds, ...r.altRuleIds, ...r.examCountsIf])]}
+                law={law}
+                subject={t.check.subjectReport}
+              />
             ) : null
           }
         >
@@ -108,16 +114,20 @@ export default function CheckSummaryView({
             {r.status === "met_by_report"
               ? t.check.reportByReport
               : r.status === "met_by_exam"
-                ? t.check.reportByExam
+                ? r.examCountsIf.length
+                  ? t.check.reportByExamIf
+                  : t.check.reportByExam
                 : r.status === "required"
                   ? t.check.reportRequired
                   : r.status === "not_required"
-                    ? t.check.reportNotRequired
+                    ? alternatives.length
+                      ? t.check.reportNotOnly
+                      : t.check.reportNotRequired
                     : r.status === "none"
                       ? t.check.reportNone
                       : t.check.reportDepends}
           </p>
-          {alternatives.length && (r.status === "required" || r.status === "depends") ? (
+          {alternatives.length && (r.status === "required" || r.status === "depends" || r.status === "not_required") ? (
             <p className={styles.factNote}>{t.check.reportAlternatives(f.or(alternatives))}</p>
           ) : null}
           {check.police !== "yes" ? <p className={styles.factNote}>{t.check.reportChoice}</p> : null}
@@ -126,8 +136,18 @@ export default function CheckSummaryView({
 
       {s.examNoBill.length && check.exam !== "no" ? (
         <Fact cite={<Cite ruleIds={s.examNoBill} law={law} subject={t.check.subjectExam} tone="held" />}>
-          <p className={styles.factLead}>{t.check.examNoBill}</p>
-          <p className={styles.factNote}>{t.check.examNoBillNote}</p>
+          {s.examConditional ? (
+            <>
+              <p className={styles.factLead}>{t.check.examNoBillIf}</p>
+              {s.examTerms ? <RuleTerms text={s.examTerms} className={styles.factNote} /> : null}
+              <p className={styles.factNote}>{t.check.examNoBillNoteIf}</p>
+            </>
+          ) : (
+            <>
+              <p className={styles.factLead}>{t.check.examNoBill}</p>
+              <p className={styles.factNote}>{t.check.examNoBillNote}</p>
+            </>
+          )}
         </Fact>
       ) : null}
 
@@ -152,7 +172,11 @@ export default function CheckSummaryView({
               })}
               {s.totalCap ? (
                 <li className={styles.coveredTotal}>
-                  <span>{t.check.totalCap(f.moneyShort(s.totalCap.cents))}</span>
+                  <span>
+                    {s.totalCap.hedged
+                      ? t.check.totalCapIf(f.moneyShort(s.totalCap.cents))
+                      : t.check.totalCap(f.moneyShort(s.totalCap.cents))}
+                  </span>
                   <Cite ruleIds={s.totalCap.ruleIds} law={law} subject={t.check.subjectTotal} />
                 </li>
               ) : null}

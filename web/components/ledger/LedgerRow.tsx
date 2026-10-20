@@ -1,17 +1,19 @@
 "use client";
 
+import { useMemo } from "react";
 import Citation from "@/components/Citation";
 import Money from "@/components/Money";
 import StatusTag from "@/components/StatusTag";
 import { citedRuleIds, clothingCondition, severalLimits } from "@/lib/cite";
 import { formatDay } from "@/lib/dates";
 import { expenseQuestion, unitLabel } from "@/lib/expenses";
+import { examHold } from "@/lib/hedge";
 import { useJustChanged } from "@/lib/hooks";
 import { en } from "@/lib/i18n/en";
 import type { Row } from "@/lib/ledger";
 import { formatCents } from "@/lib/money";
 import type { Answer } from "@/lib/ledger";
-import { parseFlag, statusCopy } from "@/lib/status";
+import { HELD_IF_EXPLAIN, HELD_IF_NOTE, parseFlag, statusCopy } from "@/lib/status";
 import type { LawIndex } from "@/lib/useLaw";
 import styles from "./ledger.module.css";
 
@@ -52,6 +54,9 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
   const rateFlags = (line?.flags ?? []).map(parseFlag).filter((f) => f.kind === "rate_unverified" && f.ruleId);
   const ruleIds = line ? citedRuleIds(line, law.rule, law.law?.rules) : [];
   const kept = item.expense === "clothing_bedding" ? clothingCondition(ruleIds, law.rule) : null;
+  // "Do not pay" only where the exam rule covers every survivor (lib/hedge.ts).
+  const plainHold = useMemo(() => examHold(law.law).plain, [law.law]);
+  const explain = status === "held" && !plainHold ? HELD_IF_EXPLAIN : statusCopy(status).explain;
 
   return (
     <li className={`${styles.row} ${changed ? styles.changed : ""}`} data-status={status} id={`row-${item.item_id}`}>
@@ -79,7 +84,13 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
               status={status}
               law={law}
               subject={subject}
-              explain={severalLimits(line) ? `${statusCopy(status).explain} ${en.gather.severalLimits}` : undefined}
+              explain={
+                severalLimits(line)
+                  ? `${explain} ${en.gather.severalLimits}`
+                  : status === "held" && !plainHold
+                    ? explain
+                    : undefined
+              }
             />
           ) : null}
         </div>
@@ -167,7 +178,7 @@ export default function LedgerRow({ row, law, onAnswer, readOnly }: LedgerRowPro
         ) : status === "held" ? (
           <>
             <Money cents={item.amount_cents} struck className={styles.heldAmount} />
-            <span className={styles.amountNote}>Do not pay</span>
+            <span className={styles.amountNote}>{plainHold ? "Do not pay" : HELD_IF_NOTE}</span>
           </>
         ) : status === "declined" ? (
           <Money cents={item.amount_cents} struck className={styles.muted} />

@@ -265,7 +265,8 @@ export const en = {
     dateBad: "Enter a full date.",
     dateFuture: "The date can't be in the future.",
     examLegend: "Did you have a medical forensic exam?",
-    examHint: "In many states the exam should cost you nothing, and it can count in place of a police report.",
+    examHint:
+      "In many states you should not have to pay for the exam, and in some it can count in place of a police report.",
     policeLegend: "Has it been reported to police?",
     policeHint: "You don't need to have reported it to use Tend.",
     summaryEmptyTitle: "Your summary shows here",
@@ -304,14 +305,25 @@ export const en = {
     deadlineNone: "Tend found no filing deadline in this state's verified rules. Ask the program.",
     reportByReport: "You said it was reported. That meets the police report rule.",
     reportByExam: "Your forensic exam counts in place of a police report here.",
+    // The exam counts only within a time limit, only sometimes, or with a criminal charge (lib/hedge.ts).
+    reportByExamIf: "Your forensic exam may count in place of a police report here. The rule below says when.",
     reportRequired: "This program asks for a police report.",
     reportNotRequired: "You don't need a police report.",
+    // Every rule is required: false, but the rules name the other records that count instead (California,
+    // New York), so a survivor with none of them is not covered by "you don't need one".
+    reportNotOnly:
+      "A police report is not the only record that counts here. The rule below says which others count, and when.",
     reportNone: "Tend found no police report rule in this state's verified rules.",
     reportDepends: "Whether you need a police report depends on your answers.",
     reportAlternatives: (list: string) => `These can count instead: ${list}.`,
     reportChoice: "Reporting is always your choice.",
     examNoBill: "You should not get a bill for the forensic exam.",
     examNoBillNote: "If one comes, add it in the next step. Tend holds that line and gives you a letter.",
+    // A no-bill rule with a scope or condition Tend does not ask about (lib/hedge.ts). The rule's own
+    // terms show under it.
+    examNoBillIf: "You may not have to pay for the forensic exam. The rule below says when.",
+    examNoBillNoteIf:
+      "If one comes, add it in the next step. Tend holds that line while you check the rule, and gives you a letter that quotes it.",
     coveredTitle: "What the program can pay for",
     coveredNone: "Tend found no list of covered costs in the verified rules. Ask the program.",
     capDepends: "depending on your case",
@@ -325,10 +337,14 @@ export const en = {
       cleanup: "Clothing and bedding replaced as part of cleanup",
     } satisfies Record<ClothingCondition, string>,
     totalCap: (amount: string) => `In total, up to ${amount}`,
+    // An exception, a condition, or a payment outside the total (lib/hedge.ts).
+    totalCapIf: (amount: string) => `In total, up to ${amount} in most cases. The rule below has the details.`,
     totalCapDepends: (amounts: string) =>
       `In total, up to ${amounts}, depending on your case. The rule says when each one applies`,
     privateTitle: "Staying private with the state",
-    acp: (name: string) => `${name} gives survivors a substitute address to use on government forms.`,
+    // Even a program that names survivors has its own rules for who can enroll.
+    acp: (name: string) =>
+      `${name} gives some people a substitute address for government forms. Ask whether it covers you.`,
     // A program whose rule does not name sexual assault (covers_sexual_assault false): some give no
     // substitute address at all, like South Dakota's voter record program.
     acpMaybe: (name: string) =>
@@ -555,6 +571,11 @@ export const en = {
     } satisfies Record<ClothingCondition, string>,
     examAsMedical: "This state has no separate exam rule, so Tend counts it as medical care.",
     heldLine: "Don't pay this line. The law says you should not be billed for it.",
+    // Where the exam rule has a scope or condition Tend does not ask about (lib/hedge.ts).
+    heldLineIf: "Hold off on paying this line. The law may protect you from it; read the rule.",
+    heldExplainIf: "The law may protect you from this bill. Read the rule before you pay.",
+    heldLabelIf: "Held: check the rule first",
+    dontPayIf: "Check first",
     include: "Count this",
     unsureNote: "That's fine. It stays out of the total until you decide.",
     saidYes: "You said yes.",
@@ -601,14 +622,21 @@ export const en = {
     serviceCol: "Service",
     amountCol: "Amount",
     heldWhy: "You should not be billed for this.",
+    heldWhyIf: "The law may protect you from this charge.",
     total: "Bill total",
     heldTotal: "Held by law. Don't pay",
+    heldTotalIf: "Held while you check the rule",
     rest: "The rest",
     adds: (n: number) => (n === 1 ? "The line adds up to the bill total." : `The ${n} lines add up to the bill total.`),
     checking: "Checking each line against the law. Paying waits until every line is checked.",
     dontPayTitle: "Don't pay this line",
     dontPayLine: (desc: string, amount: string, state: string) =>
       `${desc}, ${amount}. ${state} law says you should not be billed for it.`,
+    // The hold where the rule has a scope or condition, comes from a program page, or did not load.
+    dontPayTitleIf: "Check the rule before you pay this line",
+    dontPayLineIf: (desc: string, amount: string, state: string) =>
+      `${desc}, ${amount}. ${state}'s rules protect some survivors from this charge. Read the rule to see if it covers you.`,
+    heldDecides: "If you are not sure it covers you, ask the program before you pay. The program decides.",
     allRules: (n: number) => `All ${n} rules behind this hold:`,
     letterButton: "Get a letter for the billing office",
     whoPays: "Who pays for the exam instead",
@@ -712,6 +740,7 @@ export const en = {
     lead: "What the program needs, put together on this device.",
     fromCosts: (n: number) => `It comes from ${plural(n, "cost", "costs")} the law covers.`,
     held: (amount: string) => `Separate from this: ${amount} on a bill you should not pay.`,
+    heldIf: (amount: string) => `Separate from this: ${amount} on a bill the law may protect you from.`,
     minimum: {
       not_met: (min: string) =>
         `Your costs so far are under the program's minimum of ${min}. Ask the program before you send.`,
@@ -892,6 +921,8 @@ export const en = {
     heldLabel: "Held bills",
     held: (amount: string) =>
       `Held: ${amount} on a bill the law says you should not pay. Nothing grows from it, because it is not yours to pay.`,
+    heldIf: (amount: string) =>
+      `Held: ${amount} on a bill the law may protect you from. Nothing grows from it while it is held.`,
     remindTitle: "A reminder, if you want one",
     remindBody: (text: string) =>
       `Tend sends no notifications. You can save a plain reminder to your own calendar. It says only "${text}."`,

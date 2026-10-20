@@ -234,7 +234,8 @@ export const es: Dict = {
     dateBad: "Escribe una fecha completa.",
     dateFuture: "La fecha no puede ser en el futuro.",
     examLegend: "¿Te hicieron un examen médico forense?",
-    examHint: "En muchos estados el examen no te debe costar nada, y puede contar en lugar de una denuncia policial.",
+    examHint:
+      "En muchos estados no deberías tener que pagar el examen, y en algunos puede contar en lugar de una denuncia policial.",
     policeLegend: "¿Se denunció a la policía?",
     policeHint: "No necesitas haberlo denunciado para usar Tend.",
     summaryEmptyTitle: "Aquí aparece tu resumen",
@@ -272,14 +273,21 @@ export const es: Dict = {
     deadlineNone: "Tend no encontró un plazo en las reglas verificadas de este estado. Pregunta al programa.",
     reportByReport: "Dijiste que se denunció. Eso cumple la regla de la denuncia policial.",
     reportByExam: "Aquí tu examen forense cuenta en lugar de una denuncia policial.",
+    reportByExamIf:
+      "Aquí tu examen forense puede contar en lugar de una denuncia policial. La regla de abajo dice cuándo.",
     reportRequired: "Este programa pide una denuncia policial.",
     reportNotRequired: "No necesitas una denuncia policial.",
+    reportNotOnly:
+      "Una denuncia policial no es el único registro que cuenta aquí. La regla de abajo dice cuáles otros cuentan y cuándo.",
     reportNone: "Tend no encontró una regla sobre la denuncia policial en las reglas verificadas de este estado.",
     reportDepends: "Si necesitas una denuncia policial depende de tus respuestas.",
     reportAlternatives: (list: string) => `Esto puede contar en su lugar: ${list}.`,
     reportChoice: "Denunciar siempre es tu decisión.",
     examNoBill: "No te deben enviar una factura por el examen forense.",
     examNoBillNote: "Si te llega una, agrégala en el siguiente paso. Tend retiene esa línea y te da una carta.",
+    examNoBillIf: "Puede que no tengas que pagar el examen forense. La regla de abajo dice cuándo.",
+    examNoBillNoteIf:
+      "Si te llega una, agrégala en el siguiente paso. Tend retiene esa línea mientras revisas la regla y te da una carta que la cita.",
     coveredTitle: "Lo que el programa puede pagar",
     coveredNone: "Tend no encontró una lista de gastos cubiertos en las reglas verificadas. Pregunta al programa.",
     capDepends: "según tu caso",
@@ -292,10 +300,13 @@ export const es: Dict = {
       cleanup: "Ropa y ropa de cama reemplazadas como parte de la limpieza",
     },
     totalCap: (amount: string) => `En total, hasta ${amount}`,
+    totalCapIf: (amount: string) =>
+      `En total, hasta ${amount} en la mayoría de los casos. La regla de abajo da los detalles.`,
     totalCapDepends: (amounts: string) =>
       `En total, hasta ${amounts}, según tu caso. La regla dice cuándo se aplica cada uno`,
     privateTitle: "Tu privacidad ante el estado",
-    acp: (name: string) => `${name} da a sobrevivientes una dirección sustituta para usar en formularios del gobierno.`,
+    acp: (name: string) =>
+      `${name} da a algunas personas una dirección sustituta para formularios del gobierno. Pregunta si te incluye.`,
     acpMaybe: (name: string) =>
       `${name} cubre solo a algunas personas, y su regla no menciona a sobrevivientes de agresión sexual. Pregunta al programa si te incluye.`,
     acpGeneric: "El programa de confidencialidad de domicilio de este estado",
@@ -520,6 +531,10 @@ export const es: Dict = {
     },
     examAsMedical: "Este estado no tiene una regla aparte para el examen, así que Tend lo cuenta como atención médica.",
     heldLine: "No pagues esta línea. La ley dice que no te la deben cobrar.",
+    heldLineIf: "Espera antes de pagar esta línea. La ley puede protegerte de ella; lee la regla.",
+    heldExplainIf: "La ley puede protegerte de esta factura. Lee la regla antes de pagar.",
+    heldLabelIf: "Retenido: revisa la regla primero",
+    dontPayIf: "Revisa primero",
     include: "Incluir esto",
     unsureNote: "Está bien. Queda fuera del total hasta que decidas.",
     saidYes: "Dijiste que sí.",
@@ -570,8 +585,10 @@ export const es: Dict = {
     serviceCol: "Servicio",
     amountCol: "Monto",
     heldWhy: "No te deben cobrar esto.",
+    heldWhyIf: "La ley puede protegerte de este cobro.",
     total: "Total de la factura",
     heldTotal: "Retenido por ley. No lo pagues",
+    heldTotalIf: "Retenido mientras revisas la regla",
     rest: "El resto",
     adds: (n: number) =>
       n === 1 ? "La línea suma el total de la factura." : `Las ${n} líneas suman el total de la factura.`,
@@ -579,6 +596,10 @@ export const es: Dict = {
     dontPayTitle: "No pagues esta línea",
     dontPayLine: (desc: string, amount: string, state: string) =>
       `${desc}, ${amount}. La ley de ${state} dice que no te lo deben cobrar.`,
+    dontPayTitleIf: "Revisa la regla antes de pagar esta línea",
+    dontPayLineIf: (desc: string, amount: string, state: string) =>
+      `${desc}, ${amount}. Las reglas de ${state} protegen a algunas sobrevivientes de este cobro. Lee la regla para ver si te cubre.`,
+    heldDecides: "Si no sabes si te cubre, pregunta al programa antes de pagar. El programa decide.",
     allRules: (n: number) => `Las ${n} reglas detrás de esta retención:`,
     letterButton: "Obtener una carta para la oficina de facturación",
     whoPays: "Quién paga el examen en tu lugar",
@@ -662,7 +683,8 @@ export const es: Dict = {
     notDemoAccount: "El banco aquí solo acepta pagos desde la cuenta de prueba. No se envió nada.",
     alreadyPaid:
       "El banco de demostración ya muestra un pago de Tend para estas líneas, así que esta vez no se envió nada. Todas las personas que prueban la demostración pagan desde esta misma cuenta ficticia, y el pago anterior puede ser de otra persona. Puedes seguir con tu paquete.",
-    billRefused: "Este monto no coincide con lo que aún se puede pagar en la copia del banco de esta factura. No se envió nada.",
+    billRefused:
+      "Este monto no coincide con lo que aún se puede pagar en la copia del banco de esta factura. No se envió nada.",
     codeWrong: "Ese código no coincide. Revisa los seis dígitos e inténtalo de nuevo.",
     codeExpired: "Este código venció o ya se usó. Pide otro código para intentarlo de nuevo.",
     codeLocked:
@@ -686,6 +708,7 @@ export const es: Dict = {
     lead: "Lo que el programa necesita, armado en este dispositivo.",
     fromCosts: (n: number) => `Viene de ${plural(n, "gasto", "gastos")} que la ley cubre.`,
     held: (amount: string) => `Aparte de esto: ${amount} en una factura que no debes pagar.`,
+    heldIf: (amount: string) => `Aparte de esto: ${amount} en una factura de la que la ley puede protegerte.`,
     minimum: {
       not_met: (min: string) =>
         `Por ahora tus gastos están por debajo del mínimo del programa, ${min}. Pregúntale al programa antes de enviar.`,
@@ -867,6 +890,8 @@ export const es: Dict = {
     heldLabel: "Facturas retenidas",
     held: (amount: string) =>
       `Retenido: ${amount} en una factura que la ley dice que no debes pagar. No crece nada de ahí, porque no te toca pagarla.`,
+    heldIf: (amount: string) =>
+      `Retenido: ${amount} en una factura de la que la ley puede protegerte. No crece nada de ahí mientras está retenida.`,
     remindTitle: "Un recordatorio, si lo quieres",
     remindBody: (text: string) =>
       `Tend no envía notificaciones. Puedes guardar un recordatorio simple en tu propio calendario. Solo dice "${text}."`,

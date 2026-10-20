@@ -10,6 +10,7 @@ import { beforeDate, buildRows, groupRows, notCovered, questions, type GroupView
 import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
 import type { YesNoUnsure } from "../state";
+import { useExamHold } from "../useSetAside";
 import styles from "../flow.module.css";
 import AddRecords from "./AddRecords";
 import CostRow from "./CostRow";
@@ -134,6 +135,7 @@ export default function GatherScreen() {
   const { t } = useI18n();
   const { state, dispatch, claim } = useFlow();
   const law = useLaw(state.check.st || null);
+  const plainHold = useExamHold(law).plain;
   if (!state.check.st) return <NeedState />;
 
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
@@ -182,7 +184,7 @@ export default function GatherScreen() {
               </div>
               {output && output.totals.held_cents > 0 ? (
                 <div className={styles.heldFact}>
-                  <dt>{t.gather.heldLabel}</dt>
+                  <dt>{plainHold ? t.gather.heldLabel : t.gather.heldLabelIf}</dt>
                   <dd>
                     <Money cents={output.totals.held_cents} />
                     <Link href="/gather/bills">{t.gather.seeBill}</Link>

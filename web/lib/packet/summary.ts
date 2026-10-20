@@ -8,6 +8,7 @@ import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../cont
 import { formatDay, isIsoDay, localDay } from "../dates";
 import { generalDeadline, generalSpan, spanText, type LawIr } from "../deadline";
 import { expenseLabel, expenseRank } from "../expenses";
+import { examCountsIf, examHold, reportAltRules } from "../hedge";
 import { en } from "../i18n/en";
 import { listJoin } from "../i18n/format";
 import { formatCents } from "../money";
@@ -55,6 +56,9 @@ const STATUS_TITLE: Record<LineStatus, string> = {
   unknown_rule: "Not named in the rules",
   out_of_window: "Outside the dates",
 };
+
+// A held line whose rule has a scope or condition the flow cannot check (lib/hedge.ts).
+const HELD_TITLE_IF = "Held. Check the rule before you pay.";
 
 const STATUS_COLOR: Partial<Record<LineStatus, ColorKey>> = { eligible: "green", held: "clay" };
 
@@ -198,12 +202,16 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput, ir: 
         ? "Tend found no police report rule for this state."
         : input.context.police_report === "yes"
           ? "You said it was reported, which meets this rule."
-          : "Your forensic exam counts in place of a police report here."
+          : examCountsIf(law.law).length
+            ? en.check.reportByExamIf
+            : en.check.reportByExam
       : reporting.status === "required"
         ? "This program asks for a police report or another proof it accepts."
         : reporting.status === "not_required"
           ? reporting.rule_ids.length
-            ? "This program does not require a police report."
+            ? reportAltRules(law.law).length
+              ? "A police report is not the only record that counts here. The rule says which others count, and when."
+              : "This program does not require a police report."
             : "Tend found no police report rule for this state. Ask the program."
           : "This depends on whether it was reported. You do not have to say.";
   const minimumText: Record<string, string> = {
@@ -331,10 +339,8 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
   for (const g of groupsOf(output).filter((group) => PRINTED.includes(group.status))) {
     const asked = g.lines.reduce((s, l) => s + l.requested_cents, 0);
     const counted = g.lines.reduce((s, l) => s + l.allowed_cents, 0);
-    w.h3([
-      { text: `${expenseLabel(g.expense)}: ` },
-      { text: STATUS_TITLE[g.status], color: STATUS_COLOR[g.status] ?? "ink" },
-    ]);
+    const title = g.status === "held" && !examHold(law.law).plain ? HELD_TITLE_IF : STATUS_TITLE[g.status];
+    w.h3([{ text: `${expenseLabel(g.expense)}: ` }, { text: title, color: STATUS_COLOR[g.status] ?? "ink" }]);
     const summary =
       g.status === "eligible"
         ? `${plural(g.lines.length, "cost")}, ${formatCents(asked)}. Counted: ${formatCents(counted)}.`
@@ -345,12 +351,20 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
     if (g.status === "held") {
       const noBill = rules.filter((r) => r.category === "exam_no_bill");
       const payers = rules.filter((r) => r.category === "exam_payment");
+      // "Should not be billed" only where the rule covers every survivor; elsewhere the rule's own scope
+      // or condition, as the state page words it (lib/hedge.ts).
+      const hold = examHold(law.law);
       w.p(
-        noBill.length
-          ? "The law says you should not be billed for this exam. It is left out of the amount, and Tend wrote a letter for the billing office."
-          : "The law says how this exam is paid for, so it is left out of the amount. Tend wrote a letter for the billing office.",
+        !noBill.length
+          ? "The law says how this exam is paid for, so it is left out of the amount. Tend wrote a letter for the billing office."
+          : hold.plain
+            ? "The law says you should not be billed for this exam. It is left out of the amount, and Tend wrote a letter for the billing office."
+            : `${en.gather.heldExplainIf} It is left out of the amount while you check, and Tend wrote a letter for the billing office. ${en.common.programDecides}`,
         "clay",
       );
+      if (!hold.plain && hold.terms) w.p(hold.terms, "clay");
+      for (const r of hold.plain ? [] : hold.narrowing.filter((r) => !noBill.includes(r) && !payers.includes(r)))
+        w.quote(r, "clay");
       for (const r of noBill) w.quote(r, "clay");
       if (payers.length) {
         w.small(noBill.length ? "Who pays for the exam instead:" : "How the exam is paid for:", "ink2");
@@ -504,7 +518,11 @@ function neededSection(w: Writer, output: EngineOutput, items: ChecklistItem[], 
     "Only you fill in your Social Security number, what happened, where, and anything about the person who did it.",
   ];
   if (output.lines.some((l) => l.status === "held")) {
-    before.push("Do not pay the held exam charge. Send the billing letter instead.");
+    before.push(
+      examHold(law.law).plain
+        ? "Do not pay the held exam charge. Send the billing letter instead."
+        : "Check the exam billing rule before you pay the held exam charge. If it covers you, send the billing letter instead.",
+    );
   }
   for (const b of before) w.p([{ text: "-  " }, { text: b }]);
   if (form) {
@@ -548,10 +566,11 @@ function privacySection(w: Writer) {
       const program = `${who} ${a.program_name ? `the ${a.program_name}` : "an address confidentiality program"}.`;
       // A program whose rule does not name sexual assault may give no substitute address at all
       // (South Dakota's keeps a voter record private), so only its own words are given. Those words
-      // may not say who it covers (SD-ACP-1, AR-ACP-1), so the survivor is sent to ask.
+      // may not say who it covers (SD-ACP-1, AR-ACP-1), so the survivor is sent to ask. A program that names
+      // survivors can still set its own terms for who enrolls, so she is sent to ask there too.
       w.p(
         a.covers_sexual_assault === true
-          ? `${program} It gives you a substitute address to use on government records and forms, like this application. It covers survivors of sexual assault.`
+          ? `${program} It gives some people a substitute address to use on government records and forms, like this application. Its rule names survivors of sexual assault. Ask the program whether it covers you.`
           : `${program} It covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you. The exact words:`,
       );
       if (a.enroll) w.p([{ text: "How to sign up: ", font: "bold" }, { text: a.enroll }]);
@@ -661,7 +680,11 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
   const parts = [`From ${plural(counted, "counted cost")}.`];
   if (waiting) parts.push(`${plural(waiting, "cost")} ${waiting === 1 ? "is" : "are"} waiting for your yes.`);
   if (output.totals.held_cents > 0) {
-    parts.push(`${formatCents(output.totals.held_cents)} is held: a bill the law says you should not have been sent.`);
+    parts.push(
+      examHold(law.law).plain
+        ? `${formatCents(output.totals.held_cents)} is held: a bill the law says you should not have been sent.`
+        : `${formatCents(output.totals.held_cents)} is held: a bill the law may protect you from.`,
+    );
   }
   if (notCovered)
     parts.push(

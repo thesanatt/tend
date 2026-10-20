@@ -13,8 +13,9 @@ import { SAMPLE_BILL_SHA256 } from "@/components/flow/samples/rowan";
 import { initialState, reducer, type FlowItem } from "@/components/flow/state";
 import { serverClaimBody } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
+import { examHold } from "@/lib/hedge";
 import { mockBillReader, mockClassifier, mockStatementParser } from "@/lib/mocks";
-import type { EngineInput, EngineOutput } from "@/lib/types";
+import type { EngineInput, EngineOutput, Jurisdiction } from "@/lib/types";
 
 const web = path.resolve(import.meta.dirname, "..");
 const image = path.join(web, "public/engine/laws/MI.tlaw");
@@ -151,5 +152,26 @@ describe.skipIf(!haveEngine)("the flow on the real law engine (WebAssembly, Mich
         expect(tend.evaluate(img, serverClaimBody(claim)), st).toEqual(withWords);
       }
     }
+  });
+});
+
+// Rowan Hale is fictional. Her claim on Michigan's real law image gives the totals the e2e demo path
+// checks ($3,142.00 counted, $325.00 held), and Michigan's exam rule covers every survivor, so the flow
+// still says "Don't pay this line" there (lib/hedge.ts).
+describe.skipIf(!haveEngine)("Michigan's demo path (Rowan)", () => {
+  it("reaches the same totals, and its hold stays plain", async () => {
+    const { loadTend } = (await import(pathToFileURL(path.join(web, "public/engine/tend_engine.mjs")).href)) as {
+      loadTend: () => Promise<{ evaluate: (img: Uint8Array, claim: unknown) => EngineOutput & { error?: unknown } }>;
+    };
+    const tend = await loadTend();
+    const read = <T>(p: string) => JSON.parse(readFileSync(path.join(web, p), "utf8")) as T;
+    const out = tend.evaluate(new Uint8Array(readFileSync(image)), read<EngineInput>("fixtures/rowan-mi.input.json"));
+    expect(out.error).toBeUndefined();
+    const fixture = read<EngineOutput & { output?: EngineOutput }>("fixtures/rowan-mi.output.json");
+    expect(out.totals).toEqual((fixture.output ?? fixture).totals);
+    expect(out.totals.allowed_cents).toBe(314200);
+    expect(out.totals.held_cents).toBe(32500);
+    const mi = read<Jurisdiction>("public/data/law/MI.json");
+    expect(examHold(mi).plain).toBe(true);
   });
 });

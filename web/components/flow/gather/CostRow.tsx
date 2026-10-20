@@ -10,6 +10,7 @@ import type { Row } from "../claim";
 import Cite from "../Cite";
 import StatusMark from "../StatusMark";
 import type { YesNoUnsure } from "../state";
+import { useExamHold } from "../useSetAside";
 import styles from "../flow.module.css";
 
 const COUNTABLE: Row["status"][] = ["eligible", "needs_confirmation", "checking", "declined"];
@@ -36,8 +37,10 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
       ? t.gather.reasonBill(item.line_no ?? 0, item.merchant ?? t.gather.theProvider)
       : classifierReason.text;
   const from = t.gather.from[item.origin];
-  const explain =
-    line && severalLimits(line) ? `${t.statusExplain[status]} ${t.gather.severalLimits}` : t.statusExplain[status];
+  // A held exam line is "don't pay" only where the rule covers every survivor (lib/hedge.ts).
+  const plainHold = useExamHold(law).plain;
+  const statusExplain = status === "held" && !plainHold ? t.gather.heldExplainIf : t.statusExplain[status];
+  const explain = line && severalLimits(line) ? `${statusExplain} ${t.gather.severalLimits}` : statusExplain;
   const ruleIds = line ? citedRuleIds(line, law.rule, law.law?.rules) : [];
   const kept = item.expense === "clothing_bedding" ? clothingCondition(ruleIds, law.rule) : null;
   // The condition comes from the law file; until it loads, a yes could count the cost without it.
@@ -103,7 +106,9 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
           <p className={styles.rowNote}>{t.gather.examAsMedical}</p>
         ) : null}
 
-        {status === "held" ? <p className={styles.rowHeld}>{t.gather.heldLine}</p> : null}
+        {status === "held" ? (
+          <p className={styles.rowHeld}>{plainHold ? t.gather.heldLine : t.gather.heldLineIf}</p>
+        ) : null}
 
         {!readOnly && kind === "inferred" && (answer === "yes" || answer === "no") ? (
           <p className={styles.after}>
@@ -153,7 +158,7 @@ export default function CostRow({ row, law, onAnswer, readOnly }: CostRowProps) 
         ) : status === "held" ? (
           <>
             <Money cents={item.amount_cents} struck className={styles.heldAmount} />
-            <span className={styles.amountNote}>{t.gather.dontPay}</span>
+            <span className={styles.amountNote}>{plainHold ? t.gather.dontPay : t.gather.dontPayIf}</span>
           </>
         ) : status === "declined" ? (
           <Money cents={item.amount_cents} struck className={styles.muted} />

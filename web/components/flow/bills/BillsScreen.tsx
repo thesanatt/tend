@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Money from "@/components/Money";
 import type { DeviceAi, Letter } from "@/lib/contracts";
+import { whoSays } from "@/lib/hedge";
 import { useI18n } from "@/lib/i18n";
 import { offline } from "@/lib/netlog";
 import STATES from "@/lib/states.json";
@@ -21,12 +22,15 @@ import type { BillRecord } from "../state";
 import StatusMark from "../StatusMark";
 import { usePacket } from "../usePacket";
 import styles from "../flow.module.css";
+import RuleTerms from "../RuleTerms";
+import { useExamHold } from "../useSetAside";
 import PaySheet from "./PaySheet";
 
 // Used when the packet builder has no billing letter: the same request, quoting the verified rule.
-// It goes to a US billing office, so it is written in English whatever the screen's language.
+// It goes to a US billing office, so it is written in English whatever the screen's language. `who` is
+// "Michigan law", or "Massachusetts's program" when the rule comes from a program page (lib/hedge.ts).
 export function fallbackHoldLetter(
-  stateName: string,
+  who: string,
   provider: string,
   heldText: string,
   noBill: Rule,
@@ -40,7 +44,7 @@ export function fallbackHoldLetter(
       "",
       `I received a bill that includes a charge for a forensic exam: ${heldText}.`,
       "",
-      `${stateName} law, ${noBill.pinpoint}, says: "${noBill.quote}"`,
+      `${who}, ${noBill.pinpoint}, says: "${noBill.quote}"`,
       "",
       `Please remove this charge from my account${payer ? ` and send it to ${payer}` : ""}, and send me a corrected bill.`,
       "",
@@ -162,14 +166,17 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
   const provider = bill.reading.provider ?? bill.label;
   const payee = payeeFor(bill);
   const pk = usePacket(sheet === "letter");
-  const noBill = law.byCategory("exam_no_bill")[0];
+  // The rule a hold quotes skips rules about someone else and leads with the one that carries the
+  // scope or condition. Only a plain hold says not to pay (lib/hedge.ts).
+  const hold = useExamHold(law);
+  const noBill = hold.lead;
   const payRule = law.byCategory("exam_payment").find((r) => typeof r.params?.payer === "string");
   const payer = typeof payRule?.params?.payer === "string" ? payRule.params.payer : null;
   const heldText = plan.held.map((i) => `${i.description}, ${f.money(i.amount_cents)}`).join("; ");
   const letter =
     pk.packet?.letters.find((l) => l.kind === "billing_hold") ??
     ((pk.status === "ready" || pk.status === "error") && noBill
-      ? fallbackHoldLetter(law.law?.name ?? "", provider, heldText, noBill, payer)
+      ? fallbackHoldLetter(law.law ? whoSays(law.law, noBill) : "", provider, heldText, noBill, payer)
       : null);
   const payments = state.payments.filter((p) => p.bill_id === bill.id);
   const paid = payments.find((p) => p.status === "done");
@@ -215,7 +222,9 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                     <span className={styles.service}>{it.description}</span>
                     <span className={styles.lineStatus}>
                       <StatusMark status={status} />
-                      {held ? <span className={styles.heldWhy}>{t.bills.heldWhy}</span> : null}
+                      {held ? (
+                        <span className={styles.heldWhy}>{hold.plain ? t.bills.heldWhy : t.bills.heldWhyIf}</span>
+                      ) : null}
                     </span>
                   </td>
                   <td className={styles.num}>
@@ -237,7 +246,7 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
             {plan.heldCents > 0 ? (
               <tr className={styles.heldTotal}>
                 <th scope="row" colSpan={2}>
-                  {t.bills.heldTotal}
+                  {hold.plain ? t.bills.heldTotal : t.bills.heldTotalIf}
                 </th>
                 <td className={styles.num}>
                   <Money cents={-plan.heldCents} />
@@ -268,13 +277,28 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
         <div className={styles.billSide}>
           {plan.held.length ? (
             <section className={styles.holdBox} aria-labelledby={`hold-${bill.id}`}>
-              <h3 id={`hold-${bill.id}`}>{t.bills.dontPayTitle}</h3>
+              <h3 id={`hold-${bill.id}`}>{hold.plain ? t.bills.dontPayTitle : t.bills.dontPayTitleIf}</h3>
               <ul className={styles.heldList}>
                 {plan.held.map((i) => (
-                  <li key={i.item_id}>{t.bills.dontPayLine(i.description, f.money(i.amount_cents), stateName)}</li>
+                  <li key={i.item_id}>
+                    {(hold.plain ? t.bills.dontPayLine : t.bills.dontPayLineIf)(
+                      i.description,
+                      f.money(i.amount_cents),
+                      stateName,
+                    )}
+                  </li>
                 ))}
               </ul>
+              {!hold.plain && hold.terms ? (
+                <>
+                  <RuleTerms text={hold.terms} />
+                  <p className="meta">
+                    <Cite ruleIds={hold.ruleIds} law={law} subject={t.check.subjectExam} tone="held" />
+                  </p>
+                </>
+              ) : null}
               {noBill ? <LawQuote rule={noBill} source={law.source(noBill.source_id)} /> : null}
+              {!hold.plain ? <p>{t.bills.heldDecides}</p> : null}
               {plan.heldRuleIds.length > 1 ? (
                 <p className="meta">
                   {t.bills.allRules(plan.heldRuleIds.length)}{" "}
@@ -301,7 +325,14 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
             <section className={styles.holdBox} data-none>
               <h3>{t.bills.noHoldTitle}</h3>
               {/* The reason comes from the law's own rules, so a law file that did not load gives none. */}
-              {law.law ? <p>{noBill ? t.bills.noHoldExam : t.bills.noHoldRule(law.law.name)}</p> : null}
+              {/* With either kind of exam rule an exam line is held (docs/SPEC.md step 2). */}
+              {law.law ? (
+                <p>
+                  {law.byCategory("exam_no_bill").length || law.byCategory("exam_payment").length
+                    ? t.bills.noHoldExam
+                    : t.bills.noHoldRule(law.law.name)}
+                </p>
+              ) : null}
             </section>
           )}
 

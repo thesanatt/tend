@@ -2,10 +2,11 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { deadlineText, minimumText, reportingText } from "@/components/claim/Checks";
+import { deadlineCheck, deadlineText, minimumText, reportingText } from "@/components/claim/Checks";
 import { CATEGORY_LABEL, categoryLabelAboutThem } from "@/lib/categories";
 import { engineErrorText } from "@/lib/engine/wasm";
 import { checkCopy, DEADLINE, deadlineCopy, MINIMUM_LOSS, REPORTING, reportingCopy, STATUS } from "@/lib/status";
+import type { LawIr } from "@/lib/deadline";
 import type { Jurisdiction } from "@/lib/types";
 import type { LawIndex } from "@/lib/useLaw";
 
@@ -116,5 +117,53 @@ describe("claim check copy", () => {
     );
     expect(engineErrorText("no items")).toBe("no items");
     expect(engineErrorText({ other: 1 })).toBe('{"other":1}');
+  });
+});
+
+// The advocate's share view leads with the general deadline, as the cited summary PDF does
+// (lib/deadline.ts), and says nothing the rules do not: no program "extends it for good cause".
+describe("the advocate's deadline and report checks", () => {
+  const ir = (st: string) => JSON.parse(readFileSync(path.join(web, "public/data/ir", `${st}.json`), "utf8")) as LawIr;
+  const fl = index("FL");
+  const engine = {
+    status: "ok" as const,
+    deadline_date: "2031-06-14",
+    rule_ids: fl.byCategory("filing_deadline").map((r) => r.id),
+  };
+  const ctx = { law: fl.law, ir: ir("FL"), incident: "2026-06-14" };
+
+  it("Florida: File by the general 3 years, with the 5 years good cause can give as a note", () => {
+    const due = deadlineCheck(engine, "2026-10-04", ctx);
+    expect(due.text).toMatch(
+      /^File by June 13, 2029\. That is .* from today\. Some cases have until June 14, 2031\. The rule says when\.$/,
+    );
+    expect(due.ruleIds[0]).toBe("FL-DEADLINE-1");
+    expect(due.copy).toEqual({ label: "On time", tone: "good" });
+  });
+
+  it("Florida, past the 3 years: never plainly late, and sends them to ask", () => {
+    const due = deadlineCheck(engine, "2030-01-02", ctx);
+    expect(due.text).toBe(
+      "The usual deadline was June 13, 2029. Some cases have until June 14, 2031. Ask the program whether theirs is one.",
+    );
+    expect(due.copy).toEqual({ label: "May have more time", tone: "neutral" });
+  });
+
+  it("never says a program extends a deadline for good cause", () => {
+    const late = { status: "late" as const, deadline_date: "2025-06-14", rule_ids: ["X-1"] };
+    expect(deadlineText(late)).toBe(
+      "The usual deadline was June 14, 2025. Ask the program whether a late claim can still be filed.",
+    );
+    for (const today of ["2026-10-04", "2030-01-02", "2032-01-01"]) {
+      expect(deadlineCheck(engine, today, ctx).text).not.toMatch(/good cause|Many programs/);
+    }
+  });
+
+  it("Connecticut: the exam may count for the report, within the rule's own limit", () => {
+    const text = reportingText({ status: "satisfied", rule_ids: ["CT-REPORT-1"] }, index("CT"), "no");
+    expect(text).toBe("Their forensic exam may count in place of a police report here. The rule says when.");
+    expect(reportingText({ status: "satisfied", rule_ids: ["MI-REPORT-1"] }, index("MI"), "no")).toBe(
+      "Their forensic exam counts in place of a police report here.",
+    );
   });
 });

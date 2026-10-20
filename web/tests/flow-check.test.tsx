@@ -84,7 +84,7 @@ describe("Check", () => {
     expect(screen.getByText("In total, up to $45,000")).toBeTruthy();
     expect(
       screen.getByText(
-        "Address Confidentiality Program (ACP) gives survivors a substitute address to use on government forms.",
+        "Address Confidentiality Program (ACP) gives some people a substitute address for government forms. Ask whether it covers you.",
       ),
     ).toBeTruthy();
     // MI-RECCONF-1 is a public records exemption, not the whole file, so the line says some records.

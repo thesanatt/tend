@@ -3,6 +3,7 @@
 // component turns this into sentences in the survivor's language.
 import { clothingCondition, type ClothingCondition } from "@/lib/cite";
 import { generalDeadline, generalSpan, type LawIr } from "@/lib/deadline";
+import { examCountsIf, examHold, reportAltRules, totalHedgeRules } from "@/lib/hedge";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -62,6 +63,9 @@ export type ReportingFact = {
   withinDays: number | null;
   ruleIds: string[];
   altRuleIds: string[];
+  // The exam counts only within a limit Tend does not ask about, only sometimes, or a criminal charge
+  // is generally needed too (lib/hedge.ts). These rules say when.
+  examCountsIf: string[];
 };
 
 export interface CheckSummary {
@@ -71,9 +75,16 @@ export interface CheckSummary {
   deadline: DeadlineFact;
   reporting: ReportingFact;
   examNoBill: string[];
+  // A no-bill rule has a scope or condition (lib/hedge.ts): the line says "may" and shows the rule's
+  // own terms, in English, as the state page says them. examNoBill then lists the rules that carry
+  // them first.
+  examConditional: boolean;
+  examTerms: string | null;
   examPayer: { payer: string | null; ruleIds: string[] };
   covered: CoveredCost[];
-  totalCap: { cents: number; ruleIds: string[] } | null;
+  // hedged: an exception, a condition or a payment outside the total (lib/hedge.ts), whose rules
+  // follow the lead in ruleIds.
+  totalCap: { cents: number; ruleIds: string[]; hedged: boolean } | null;
   // Total limits that hold only for some claims (a date range, a kind of harm). The engine applies none
   // of them, so the survivor sees each amount and the rule says when it holds.
   totalCapsDepend: { cents: number; ruleIds: string[] }[];
@@ -262,8 +273,11 @@ export function buildCheckSummary(
 
   const reportingRules = byCat("reporting_requirement");
   const r = output?.checks.reporting;
-  const alternatives = [...new Set(reportingRules.flatMap((x) => list(x.params?.alternatives)))];
-  const altRuleIds = reportingRules.filter((x) => list(x.params?.alternatives).length).map((x) => x.id);
+  // Other records only from the rules that set the program's own requirement, not a narrower rule or
+  // a waiver for the exam alone (Wyoming, Texas, Vermont).
+  const altRules = reportAltRules(law, setAside);
+  const alternatives = [...new Set(altRules.flatMap((x) => list(x.params?.alternatives)))];
+  const altRuleIds = altRules.map((x) => x.id);
   const within = reportingRules.map((x) => num(x.params?.within_days)).filter((n): n is number => n !== null);
   let status: ReportingFact["status"] = "depends";
   if (!reportingRules.length || (r && r.status === "satisfied" && !r.rule_ids.length)) status = "none";
@@ -276,6 +290,7 @@ export function buildCheckSummary(
     withinDays: within.length ? Math.min(...within) : null,
     ruleIds: r?.rule_ids.length ? r.rule_ids : reportingRules.map((x) => x.id),
     altRuleIds,
+    examCountsIf: examCountsIf(law, setAside).map((x) => x.id),
   };
 
   const allTotals = byCat("total_cap")
@@ -284,6 +299,9 @@ export function buildCheckSummary(
   const totals = allTotals.filter((x) => !setAside.has(x.id));
   const smallest = totals.length ? Math.min(...totals.map((x) => x.cents)) : null;
   const depend = totals.length ? [] : allTotals.filter((x) => setAside.has(x.id));
+  const leadTotals = totals.filter((x) => x.cents === smallest).map((x) => x.id);
+  const totalHedge = totalHedgeRules(law, leadTotals, setAside).map((x) => x.id);
+  const exam = examHold(law, setAside);
 
   const acpRule =
     byCat("address_confidentiality").find((x) => x.params?.covers_sexual_assault === true) ??
@@ -296,7 +314,9 @@ export function buildCheckSummary(
     apply: byCat("eligible_crime").map((x) => x.id),
     deadline,
     reporting,
-    examNoBill: byCat("exam_no_bill").map((x) => x.id),
+    examNoBill: exam.noBill.length ? exam.ruleIds : [],
+    examConditional: exam.noBill.length > 0 && !exam.plain,
+    examTerms: exam.terms,
     examPayer: {
       payer: (payerRule?.params?.payer as string | undefined) ?? null,
       ruleIds: byCat("exam_payment").map((x) => x.id),
@@ -305,7 +325,11 @@ export function buildCheckSummary(
     totalCap:
       smallest === null
         ? null
-        : { cents: smallest, ruleIds: totals.filter((x) => x.cents === smallest).map((x) => x.id) },
+        : {
+            cents: smallest,
+            ruleIds: [...new Set([...leadTotals, ...totalHedge])],
+            hedged: totalHedge.length > 0,
+          },
     totalCapsDepend: [...new Set(depend.map((x) => x.cents))]
       .sort((a, b) => b - a)
       .map((cents) => ({ cents, ruleIds: depend.filter((x) => x.cents === cents).map((x) => x.id) })),

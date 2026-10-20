@@ -11,7 +11,7 @@ import { moneyGrowth } from "@/lib/garden";
 import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
 import { buildCheckSummary } from "../checkSummary";
-import { setAsideOf, useLawIr } from "../useSetAside";
+import { setAsideOf, useExamHold, useLawIr } from "../useSetAside";
 import { GROUPS, groupOf, knowsDate, paidLines, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
@@ -133,6 +133,7 @@ export default function TrackScreen() {
   const law = useLaw(state.check.st || null);
   const ir = useLawIr(state.check.st || null);
   const setAside = useMemo(() => setAsideOf(ir), [ir]);
+  const plainHold = useExamHold(law).plain;
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
   const all = plants(state, output).map((p) =>
     p.stage === "sprout" && p.item.origin === "bill" ? { ...p, stage: "leaf" as const } : p,
@@ -294,7 +295,7 @@ export default function TrackScreen() {
             <rect x="1.5" y="1.5" width="9" height="9" rx="1" fill="currentColor" />
           </svg>
           <p>
-            {t.track.held(f.money(held.reduce((s, l) => s + l.requested_cents, 0)))}{" "}
+            {(plainHold ? t.track.held : t.track.heldIf)(f.money(held.reduce((s, l) => s + l.requested_cents, 0)))}{" "}
             <Link href="/gather/bills">{t.gather.seeBill}</Link>
           </p>
         </aside>

@@ -17,6 +17,7 @@ import EngineNotice from "../EngineNotice";
 import { useFlow } from "../FlowProvider";
 import LetterSheet from "../LetterSheet";
 import { usePacket } from "../usePacket";
+import { useExamHold } from "../useSetAside";
 import styles from "../flow.module.css";
 import ShareBox from "./ShareBox";
 
@@ -120,6 +121,7 @@ export default function PacketScreen() {
   const { t, f, lang } = useI18n();
   const { state, input, claim, dispatch, today } = useFlow();
   const law = useLaw(state.check.st || null);
+  const plainHold = useExamHold(law).plain;
   const output = claim.evaluation?.output.jurisdiction === state.check.st ? claim.evaluation.output : null;
   const pk = usePacket(Boolean(output));
   const formUrl = useBlobUrl(pk.packet?.formPdf);
@@ -163,7 +165,9 @@ export default function PacketScreen() {
           {t.common.programDecides} {output ? t.packet.fromCosts(eligible.length) : null}
         </p>
         {output && output.totals.held_cents > 0 ? (
-          <p className={styles.heldNote}>{t.packet.held(f.money(output.totals.held_cents))}</p>
+          <p className={styles.heldNote}>
+            {(plainHold ? t.packet.held : t.packet.heldIf)(f.money(output.totals.held_cents))}
+          </p>
         ) : null}
         {output ? <MinimumNote check={output.checks.minimum_loss} law={law} /> : null}
         <EngineNotice />

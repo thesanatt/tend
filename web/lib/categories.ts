@@ -1,7 +1,9 @@
 import type { RuleCategory } from "./types";
 
 export const CATEGORY_LABEL: Record<RuleCategory, string> = {
-  exam_no_bill: "You should not be billed for the exam",
+  // A heading over every no-bill rule, including those with a scope or condition (lib/hedge.ts), so it
+  // names the subject and leaves what the rule says to the rule.
+  exam_no_bill: "Billing you for the forensic exam",
   exam_payment: "Who pays for the exam",
   covered_expense: "Costs the program covers",
   expense_cap: "Limits on a kind of cost",
@@ -52,7 +54,7 @@ export function categoryLabel(c: string): string {
 // The labels that speak to the survivor, said about them instead, for the read-only claim an
 // advocate opens from a share link (app/share).
 const ABOUT_THEM: Partial<Record<RuleCategory, string>> = {
-  exam_no_bill: "They should not be billed for the exam",
+  exam_no_bill: "Billing them for the forensic exam",
   residency: "Where they live and where it happened",
   address_confidentiality: "Keeping their address private",
   record_confidentiality: "Keeping their claim records private",
