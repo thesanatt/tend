@@ -14,29 +14,29 @@ decides.
 
 ## What is in version 1.0
 
-- 2,578 rules for 51 jurisdictions (the 50 states and DC), quoted from 617 of the 824 sources Tend saved. The other 207 were saved and fingerprinted too, but no rule quotes them.
+- 2,728 rules for 51 jurisdictions (the 50 states and DC), quoted from 621 of the 824 sources Tend saved. The other 203 were saved and fingerprinted too, but no rule quotes them.
 - Current as of the dates the sources were saved: Oct 3, 2026, between 18:47 and 20:02 UTC. 120 of them are copies from sites that republish state law, which may lag behind it (see Limitations).
-- 1,327 decision rules, 1,189 information rules, and 62 set aside (see engine_use below).
-- 1,546 rules quote an HTML source and have a link that opens the page at the quote.
-- Rules per jurisdiction: from 33 (West Virginia) to 83 (Michigan). The number shows how much Tend found and quoted, not how generous a state's law is.
+- 1,360 decision rules, 1,284 information rules, and 84 set aside (see engine_use below).
+- 1,651 rules quote an HTML source and have a link that opens the page at the quote.
+- Rules per jurisdiction: from 34 (West Virginia) to 85 (Michigan). The number shows how much Tend found and quoted, not how generous a state's law is.
 - Confidence, as recorded for each jurisdiction: 38 high, 13 medium, 0 low.
 
 | Source kind | Sources | Rules quoting them |
 |---|---|---|
-| agency_page | 241 | 431 |
-| agency_pdf | 92 | 293 |
-| application_form | 57 | 344 |
-| regulation | 70 | 454 |
-| statute | 364 | 1,056 |
+| agency_page | 241 | 452 |
+| agency_pdf | 92 | 307 |
+| application_form | 57 | 345 |
+| regulation | 70 | 488 |
+| statute | 364 | 1,136 |
 
 ## Files
 
 | File | What it holds | Bytes |
 |---|---|---|
-| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 3,952,384 |
-| `tend-rules-v1.0.csv` | One row per rule (2,578 rows) | 2,126,975 |
-| `tend-sources-v1.0.csv` | One row per saved source (824 rows) | 307,190 |
-| `tend-jurisdictions-v1.0.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 332,142 |
+| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 4,166,663 |
+| `tend-rules-v1.0.csv` | One row per rule (2,728 rows) | 2,284,915 |
+| `tend-sources-v1.0.csv` | One row per saved source (824 rows) | 307,194 |
+| `tend-jurisdictions-v1.0.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 332,381 |
 | `README.md` | This file |  |
 | `SHA256SUMS` | The sha256 of every other file |  |
 
@@ -88,53 +88,53 @@ Meanings and params as `rules/SCHEMA.md` defines them.
 
 | `category` | Meaning | Params (rules/SCHEMA.md) | Rules | Jurisdictions |
 |---|---|---|---|---|
-| `exam_no_bill` | survivor may not be billed for a sexual assault forensic exam | `insurance_billing`: prohibited, consent_required, allowed, unspecified | 105 | 50 |
-| `exam_payment` | who pays for the exam (state fund, program, county) | `payer` (text) | 113 | 47 |
-| `total_cap` | maximum total award | `amount_cents` | 55 | 49 |
-| `expense_cap` | cap on one expense type | `expense`, `amount_cents`, `per` (claim, week, session, hour, mile, day), optional `count_limit` | 308 | 49 |
-| `covered_expense` | an expense type is reimbursable | `expense` | 410 | 51 |
-| `excluded_expense` | an expense type is not reimbursable | `expense` or `item` (text) | 174 | 50 |
-| `filing_deadline` | time limit to apply | `years` or `days`, `from` (crime, discovery, report, age_18), optional `extension` | 89 | 48 |
-| `reporting_requirement` | police report rules | `required` (bool), optional `within_days`, `alternatives` (list: forensic_exam, protective_order, advocate, medical_provider, other) | 144 | 50 |
-| `minimum_loss` | minimum out-of-pocket loss to qualify | `amount_cents` and/or `days_lost`, optional `waived_for` | 14 | 13 |
+| `exam_no_bill` | survivor may not be billed for a sexual assault forensic exam | `insurance_billing`: prohibited, consent_required, required, allowed, unspecified; optional `scope`, `condition`, `detail` | 101 | 49 |
+| `exam_payment` | who pays for the exam (state fund, program, county), or who pays for care at the exam visit that the exam payment does not cover | `payer` (text); optional `condition`, `outside_total_cap` | 141 | 47 |
+| `total_cap` | maximum total award | `amount_cents`; optional `exception`, `condition`. A total_cap with no amount states something about the limit (some services can be paid beyond it) and is shown in its own words. A higher tier or an added award (a total_cap with a larger amount, or with none) that carries an `exception` hedges the total line, tile and card, and is cited there instead of being repeated. | 64 | 49 |
+| `expense_cap` | cap on one expense type | `expense`, `amount_cents`, `per` (claim, week, session, hour, mile, day, month, item), optional `count_limit`, `item`, `scope`, `outside_total_cap`. A cap with a `scope` is information only, on the page and in the app's Check. A cap with no amount (a count, a time window, a distance, or another limit on the cost in its own words, such as Texas's subpoenaed court trips) is shown under its cost and never applied. With `outside_total_cap` and no amount it says the cost is paid on top of the total (North Carolina's funeral costs). | 323 | 49 |
+| `covered_expense` | an expense type is reimbursable | `expense`; optional `scope`, `item` (with expense `other`), `detail`, `only_benefit_if`, `total_condition` (with `only_benefit_if`) | 425 | 51 |
+| `excluded_expense` | an expense type is not reimbursable | `expense` or `item` (text) | 181 | 50 |
+| `filing_deadline` | time limit to apply | `years`, `months` or `days`, `from` (crime, incident, injury, offense, occurrence, discovery, report, age_18, age_21, charge, diagnosis, trip), optional `extension`, `condition` | 136 | 49 |
+| `reporting_requirement` | police report rules | `required` (bool), optional `within_days`, `within_hours` or `within_months`, `alternatives` (list: forensic_exam, protective_order, advocate, medical_provider, other), `exception`, `exam_condition`, `scope`, `charge_required` (bool), `expense` (forensic_exam only, for a waiver that covers only the exam), `report_gate` (bool), `waiver_records` (list, as `alternatives`). The last two are read by the state page only. `report_gate` on a required rule whose other records are none an anonymous adult can get on her own (Delaware 9010(a)(5)) makes the share card say the program asks for a police report. `waiver_records` on a required rule names records that let the program waive the report in its discretion (Iowa r. 61-9.29(4)(c)); with forensic_exam, the card says a forensic exam can sometimes count. Where the exam is also among the rule's `alternatives` (Rhode Island 12-25-22(a), which gives the office only "the authority to allow" the claim), the tile and the card say the exam counts in some cases. The engines still read only `required` and `alternatives`. A rule about cooperating with police gets a `scope` and shows in its own words. | 174 | 50 |
+| `minimum_loss` | minimum out-of-pocket loss to qualify | `amount_cents` and/or `days_lost`, optional `waived_for`. With neither, it states a need test in its own words (Kansas financial stress, Florida serious financial hardship) and is information only. | 16 | 15 |
 | `collateral_source` | program pays after insurance and other sources | none | 93 | 51 |
-| `conduct_reduction` | award may be reduced for the victim's conduct (shown as information only; Tend never screens on it) | none | 92 | 50 |
-| `emergency_award` | emergency or advance award exists | optional `amount_cents` | 44 | 40 |
+| `conduct_reduction` | award may be reduced for the victim's conduct (shown as information only; Tend never screens on it). A rule about cooperating with police or the program is shown in the police section. | none | 92 | 50 |
+| `emergency_award` | emergency or advance award exists | optional `amount_cents` | 45 | 40 |
 | `eligible_crime` | sexual assault (or similar) is a covered crime | none | 90 | 51 |
-| `residency` | who can apply (residents, crimes in state, out-of-state victims) | `rule` (text) | 87 | 51 |
-| `submission` | how to file: one rule per method | `method` (mail, online, email, fax, in_person), `target` (the address, URL, email, or fax number exactly as written) | 154 | 51 |
+| `residency` | who can apply (residents, crimes in state, out-of-state victims, and other who-can-apply rules the program states) | `rule` (text) | 86 | 51 |
+| `submission` | how to file: one rule per method | `method` (mail, online, email, fax, in_person), `target` (the address, URL, email, or fax number exactly as written), optional `condition` (who may use this way to file) | 154 | 51 |
 | `required_document` | a document the program asks applicants to include or provide | `document` (photo_id, itemized_bill, receipts, police_report, exam_record, wage_verification, medical_records, insurance_statement, counseling_statement, proof_of_residency, other), optional `note` | 468 | 51 |
 | `processing_time` | stated time for a decision or payment | `days` (or `weeks`/`months`) | 41 | 31 |
-| `address_confidentiality` | the state's address confidentiality program (substitute address for survivors on government records and forms) | `program_name`, `agency`, `covers_sexual_assault` (bool), `enroll` (how, as written) | 49 | 48 |
-| `record_confidentiality` | the compensation program's records or claims are confidential by law | none | 48 | 48 |
+| `address_confidentiality` | the state's address confidentiality program (substitute address for survivors on government records and forms) | `program_name`, `agency`, `covers_sexual_assault` (bool), `enroll` (how, as written) | 50 | 48 |
+| `record_confidentiality` | the compensation program's records or claims are confidential by law, or a program's stated privacy procedure | optional `scope` (only some records are confidential) | 48 | 48 |
 
 The Rules and Jurisdictions columns include rules that are set aside (see engine_use).
-In WY for `exam_no_bill`, CT and IL for `total_cap`, and SC for `expense_cap`, every rule of the category is set aside, so the engine uses none of them there.
+In HI and WY for `exam_no_bill`, CT and IL for `total_cap`, and SC for `expense_cap`, every rule of the category is set aside, so the engine uses none of them there.
 
 #### Expense types
 
 | `expense` | Rules |
 |---|---|
-| `medical` | 114 |
-| `forensic_exam` | 240 |
-| `counseling` | 131 |
-| `lost_wages` | 136 |
-| `transportation` | 83 |
-| `relocation` | 57 |
-| `temporary_housing` | 20 |
-| `security` | 42 |
+| `medical` | 120 |
+| `forensic_exam` | 263 |
+| `counseling` | 136 |
+| `lost_wages` | 138 |
+| `transportation` | 88 |
+| `relocation` | 63 |
+| `temporary_housing` | 21 |
+| `security` | 44 |
 | `crime_scene_cleanup` | 48 |
-| `childcare` | 24 |
-| `property_replacement` | 64 |
+| `childcare` | 25 |
+| `property_replacement` | 66 |
 | `clothing_bedding` | 30 |
-| `prescription` | 32 |
+| `prescription` | 35 |
 | `dental` | 34 |
-| `funeral` | 38 |
-| `legal` | 21 |
+| `funeral` | 39 |
+| `legal` | 22 |
 | `tuition` | 5 |
 | `other` | 42 |
 
-1,417 rules name no expense type.
+1,509 rules name no expense type.
 
 #### Params
 
@@ -144,59 +144,70 @@ have keys the schema does not define, where it had no field; their meaning is in
 is set aside; see engine_use), `scope` (a reporting rule or a cap on one expense with a scope becomes
 information), and `within_hours` (turned into days, rounded up).
 `verify.py` checks that the numbers in `amount_cents`, `years`, `months`, `weeks`, `days`, `within_days`, `count_limit`, and `days_lost` appear in the quote.
-In this release every integer value in `params` does, including the keys `verify.py` does not check (`hours_per_week`, `min_days`, `min_months`, and `within_hours`).
+In this release every integer value in `params` does, including the keys `verify.py` does not check (`hours_per_week`, `min_days`, `min_months`, `within_hours`, and `within_months`).
 Numbers written inside text values, such as section numbers in a `note` or `extension`, are not checked.
 
 | Key | Rules | Types | In rules/SCHEMA.md |
 |---|---|---|---|
-| `expense` | 705 | text | yes |
+| `expense` | 745 | text | yes |
 | `note` | 487 | text | yes |
 | `document` | 468 | text | yes |
-| `amount_cents` | 393 | integer, null | yes |
-| `per` | 308 | text | yes |
-| `item` | 162 | text | yes |
+| `amount_cents` | 400 | integer, null | yes |
+| `per` | 323 | text | yes |
+| `item` | 180 | text | yes |
+| `required` | 174 | boolean | yes |
 | `method` | 154 | text | yes |
 | `target` | 154 | text | yes |
-| `required` | 144 | boolean | yes |
-| `payer` | 113 | text | yes |
-| `insurance_billing` | 105 | text | yes |
-| `alternatives` | 103 | list of text | yes |
-| `rule` | 87 | text | yes |
-| `from` | 84 | text | yes |
-| `extension` | 73 | text | yes |
-| `years` | 68 | integer | yes |
-| `agency` | 49 | text | yes |
-| `covers_sexual_assault` | 49 | boolean | yes |
+| `scope` | 152 | text | yes |
+| `payer` | 138 | text | yes |
+| `alternatives` | 118 | list of text | yes |
+| `insurance_billing` | 101 | text | yes |
+| `from` | 95 | text | yes |
+| `rule` | 86 | text | yes |
+| `years` | 72 | integer | yes |
+| `extension` | 58 | text | yes |
+| `agency` | 50 | text | yes |
+| `covers_sexual_assault` | 50 | boolean | yes |
+| `program_name` | 50 | text | yes |
 | `enroll` | 49 | text | yes |
-| `program_name` | 49 | text | yes |
+| `exception` | 47 | text | yes |
+| `detail` | 44 | boolean | yes |
+| `applies_to` | 34 | text | no |
+| `condition` | 31 | text | yes |
 | `days` | 31 | integer | yes |
-| `applies_to` | 27 | text | no |
 | `count_limit` | 26 | integer | yes |
+| `within_hours` | 16 | integer | yes |
 | `county` | 15 | text | no |
 | `months` | 14 | integer | yes |
-| `within_days` | 14 | integer | yes |
+| `within_days` | 13 | integer | yes |
 | `stage` | 10 | text | no |
-| `waived_for` | 8 | list of text, text | yes |
 | `weeks` | 8 | integer | yes |
-| `scope` | 6 | text | no |
+| `exam_condition` | 7 | text | yes |
+| `waived_for` | 7 | list of text, text | yes |
 | `min_days` | 4 | integer | no |
-| `within_hours` | 4 | integer | no |
 | `basis` | 3 | text | no |
 | `good_cause_exception` | 3 | boolean | no |
 | `min_months` | 3 | integer | no |
+| `outside_total_cap` | 3 | boolean | yes |
+| `within_months` | 3 | integer | yes |
 | `days_lost` | 2 | integer | yes |
+| `waiver_records` | 2 | list of text | yes |
+| `charge_required` | 1 | boolean | yes |
 | `cooperation_required` | 1 | boolean | no |
 | `hours_per_week` | 1 | integer | no |
+| `only_benefit_if` | 1 | text | yes |
+| `report_gate` | 1 | boolean | yes |
+| `total_condition` | 1 | text | yes |
 
 Values found for the keys `rules/SCHEMA.md` gives a fixed list for. Values in the last column are
 not in the schema's list.
 
 | Key | Schema values (rules in this release) | Other values (rules) |
 |---|---|---|
-| `insurance_billing` | prohibited (20), consent_required (22), allowed (15), unspecified (48) | none |
-| `per` | claim (251), week (23), session (10), hour (9), mile (0), day (8) | crime_scene (1), item (4), month (1), residence (1) |
-| `from` | crime (57), discovery (7), report (7), age_18 (11) | age_21 (1), receipt of all required information (1) |
-| `alternatives` | forensic_exam (35), protective_order (20), advocate (12), medical_provider (22), other (28) | none |
+| `insurance_billing` | prohibited (15), consent_required (9), required (1), allowed (5), unspecified (71) | none |
+| `per` | claim (265), week (23), session (10), hour (10), mile (0), day (8), month (1), item (4) | crime_scene (1), residence (1) |
+| `from` | crime (60), incident (0), injury (0), offense (0), occurrence (0), discovery (11), report (7), age_18 (13), age_21 (1), charge (0), diagnosis (1), trip (1) | receipt of all required information (1) |
+| `alternatives` | forensic_exam (29), protective_order (19), advocate (11), medical_provider (17), other (27) | none |
 | `method` | mail (65), online (32), email (23), fax (25), in_person (9) | none |
 | `document` | photo_id (2), itemized_bill (60), receipts (53), police_report (29), exam_record (6), wage_verification (58), medical_records (26), insurance_statement (38), counseling_statement (18), proof_of_residency (2), other (176) | none |
 
@@ -207,9 +218,9 @@ The IR either carries a rule, as a decision or as information, or lists it under
 
 | Value | Rules | Meaning |
 |---|---|---|
-| `decision` | 1,327 | Compiled into the law the engine runs: exam billing and who pays for the exam, total caps, caps on one expense, covered and excluded expenses, filing deadlines, police reporting, minimum loss, and paying after insurance (`collateral_source`). Such a rule can decide a line's status or amount or a check's result, or be cited as proof for one. Where several rules of one kind apply, `docs/SPEC.md` says how they combine; for example, the smallest total cap and the longest deadline are used. |
-| `information` | 1,189 | Shown with its quote. It changes no amount and no status. |
-| `set_aside` | 62 | Not used. `set_aside_reason` says why. |
+| `decision` | 1,360 | Compiled into the law the engine runs: exam billing and who pays for the exam, total caps, caps on one expense, covered and excluded expenses, filing deadlines, police reporting, minimum loss, and paying after insurance (`collateral_source`). Such a rule can decide a line's status or amount or a check's result, or be cited as proof for one. Where several rules of one kind apply, `docs/SPEC.md` says how they combine; for example, the smallest total cap and the longest deadline are used. |
+| `information` | 1,284 | Shown with its quote. It changes no amount and no status. |
+| `set_aside` | 84 | Not used. `set_aside_reason` says why. |
 
 How `normalize.py` decides:
 
@@ -228,7 +239,7 @@ How `normalize.py` decides:
   secondary victims, or a narrower case such as travel to court or crimes from certain dates); a cap
   with no amount, no expense type, or a unit `normalize.py` cannot read; and a cap that duplicates
   another cap on the same expense and unit and is no more generous. The most generous cap is kept, the
-  first of them when two are equal; of those set aside, 28 are lower than the cap kept and 3 are equal
+  first of them when two are equal; of those set aside, 25 are lower than the cap kept and 4 are equal
   to it. Their `set_aside_reason` says "less generous duplicate of" either way.
 - Decision: every other rule.
 
@@ -239,15 +250,17 @@ every rule.
 One kind of decision rule can end up as information. Who pays for the exam (`exam_payment`) is cited
 as proof for a held exam line, and the engine holds an exam line only where the jurisdiction has an
 `exam_no_bill` rule with `engine_use` decision.
+Idaho has no `exam_no_bill` rule in this release.
 Rhode Island has no `exam_no_bill` rule in this release.
 Wyoming's only `exam_no_bill` rule, WY-EXAM-2, is set aside because it covers only exams reported to law enforcement.
-So the engine lists their 5 `exam_payment` rules (RI-EXAM-1, WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7) as information.
+So the engine lists their 12 `exam_payment` rules (ID-EXAM-1, ID-EXAM-2, ID-EXAM-3, ID-EXAM-4, ID-EXAM-5, ID-EXAM-6, RI-EXAM-1, RI-EXAM-2, WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7) as information.
 
 | Reasons for set_aside | Rules |
 |---|---|
-| A duplicate of another cap, no more generous | 31 |
-| `params.applies_to` does not name the survivor | 20 |
-| `expense_cap without amount or expense` | 11 |
+| A duplicate of another cap, no more generous | 29 |
+| `params.applies_to` does not name the survivor | 27 |
+| `expense_cap without amount or expense` | 21 |
+| `total_cap without amount` | 7 |
 
 ### Sources (`tend-sources-v1.0.csv`, and `sources` in the JSON)
 
@@ -265,7 +278,7 @@ So the engine lists their 5 `exam_payment` rules (RI-EXAM-1, WY-EXAM-1, WY-EXAM-
 | `raw_path` | path | The saved file in the repository (https://github.com/thesanatt/tend). |
 | `text_path` | path | The extracted text in the repository. |
 | `note` | text or empty | A note about the saved copy. |
-| `rules` | integer | How many rules quote this source. It is 0 for 207 sources, which were saved but are quoted by no rule; 11 of those are where a program's phone number or application form comes from. |
+| `rules` | integer | How many rules quote this source. It is 0 for 203 sources, which were saved but are quoted by no rule; 11 of those are where a program's phone number or application form comes from. |
 
 ### Jurisdictions (`tend-jurisdictions-v1.0.csv`, and `jurisdictions` in the JSON)
 
@@ -368,7 +381,7 @@ HTML page, and in what pdftotext 26.04 reads from a PDF.
 
 A second opt-in test runs `fetch_source.py`'s own extraction on each saved HTML page and compares it
 with the saved text, after `verify.py`'s normalization. They match for every HTML source but 8:
-OH-S16, TN-S15, WI-S3, WI-S4, WI-S5, WI-S6, WI-S7, and WI-S9, quoted by 22 rules. Each of these pages holds its text inside a
+OH-S16, TN-S15, WI-S3, WI-S4, WI-S5, WI-S6, WI-S7, and WI-S9, quoted by 24 rules. Each of these pages holds its text inside a
 `<form>`, which `fetch_source.py` drops, so it finds almost no text and would refuse the page as
 "blocked or empty". Their saved text is what the same extraction gives when it keeps the form, and
 every quote from them is in the raw file, as above. `fetch_source.py` would also refuse WV-S12,
@@ -388,7 +401,7 @@ such as the Python 3.9.6 that macOS runs as `/usr/bin/python3`.
 - 120 sources are copies on sites that republish state law, not the state's own publication: 103 statutes from Justia (law.justia.com) and 17 regulations from Cornell's Legal Information Institute (law.cornell.edu).
   Each saved Justia page shows its state's 2025 code and says it may not be the most recent version.
   Each saved Cornell page says state regulations are updated there quarterly.
-  The 234 rules that quote these copies match the copies, so check the state's own code before relying on one.
+  The 255 rules that quote these copies match the copies, so check the state's own code before relying on one.
 - A sha256 shows that the saved copy has not changed since its sha256 was recorded. It cannot show what
   the live page says today, and a live page can differ byte for byte even when its text is the same.
 - 13 saved pages have a `note` about third-party API keys embedded in the
