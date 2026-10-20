@@ -295,7 +295,7 @@ export const es: Dict = {
     privateTitle: "Tu privacidad ante el estado",
     acp: (name: string) => `${name} da a sobrevivientes una dirección sustituta para usar en formularios del gobierno.`,
     acpMaybe: (name: string) =>
-      `${name} cubre solo a algunas personas, y su regla no menciona a sobrevivientes de agresión sexual. La regla dice a quién cubre y qué hace.`,
+      `${name} cubre solo a algunas personas, y su regla no menciona a sobrevivientes de agresión sexual. Pregunta al programa si te incluye.`,
     acpGeneric: "El programa de confidencialidad de domicilio de este estado",
     records: "Algunos registros de compensación se mantienen privados. La regla dice cuáles y cuándo.",
     programTitle: "El programa",

@@ -328,7 +328,7 @@ export const en = {
     // A program whose rule does not name sexual assault (covers_sexual_assault false): some give no
     // substitute address at all, like South Dakota's voter record program.
     acpMaybe: (name: string) =>
-      `${name} covers only some people, and its rule does not name survivors of sexual assault. The rule says who it covers and what it does.`,
+      `${name} covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you.`,
     acpGeneric: "This state's address confidentiality program",
     // Several of these rules cover only some records: a public records exemption, some documents, or all
     // but the amount awarded.

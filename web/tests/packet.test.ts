@@ -612,13 +612,24 @@ describe("the summary's filing deadline", () => {
 });
 
 describe("the summary's privacy section says only what its rules cover", () => {
-  it("does not promise a substitute address from a program that may give none (South Dakota)", async () => {
-    const input: EngineInput = { ...rowanInput(), jurisdiction: "SD" };
-    const output = evaluatePreview(input, webLaw("SD"), "x");
-    const text = (await builderFor(webLaw).build("SD", input, output)).transcript.join("\n");
-    expect(text).not.toContain("It gives you a substitute address");
-    expect(text).toContain("its rule does not name survivors of sexual assault");
-    // Michigan's program covers survivors of sexual assault and keeps its sentence.
+  // South Dakota's program keeps a voter record private, Arkansas's puts a post office box on a
+  // license, and Florida's is for relocated victims of domestic violence. The first two quotes do not
+  // say who is covered, so the sentence sends the survivor to ask.
+  it.each(["SD", "AR", "FL"])(
+    "%s: does not promise a substitute address, or that the quote says who it covers",
+    async (st) => {
+      const input: EngineInput = { ...rowanInput(), jurisdiction: st };
+      const output = evaluatePreview(input, webLaw(st), "x");
+      const text = (await builderFor(webLaw).build(st, input, output)).transcript.join("\n");
+      expect(text).not.toContain("It gives you a substitute address");
+      expect(text).toContain(
+        "It covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you.",
+      );
+      expect(text).not.toMatch(/says who it covers/);
+    },
+  );
+
+  it("keeps Michigan's sentence: its program covers survivors of sexual assault", async () => {
     const mi = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
     expect(mi).toContain("It gives you a substitute address to use on government records and forms");
   });

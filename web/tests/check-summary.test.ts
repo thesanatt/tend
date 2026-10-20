@@ -418,6 +418,9 @@ describe("the address program line", () => {
     for (const dict of [en, es]) {
       const line = dict.check.acpMaybe(s.acp!.programName ?? dict.check.acpGeneric);
       expect(line).not.toMatch(/substitute address|direcci.n sustituta/);
+      // SD-ACP-1 and AR-ACP-1 say what the program does, not who it covers, so the line sends the
+      // survivor to ask instead of to the quote.
+      expect(line).not.toMatch(/says who it covers|dice a qui.n cubre/);
     }
   });
 });

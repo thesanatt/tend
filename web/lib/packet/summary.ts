@@ -527,11 +527,12 @@ function privacySection(w: Writer) {
       const who = a.agency ? `${a.agency} runs` : `${law.name} has`;
       const program = `${who} ${a.program_name ? `the ${a.program_name}` : "an address confidentiality program"}.`;
       // A program whose rule does not name sexual assault may give no substitute address at all
-      // (South Dakota's keeps a voter record private), so only its own words are given.
+      // (South Dakota's keeps a voter record private), so only its own words are given. Those words
+      // may not say who it covers (SD-ACP-1, AR-ACP-1), so the survivor is sent to ask.
       w.p(
         a.covers_sexual_assault === true
           ? `${program} It gives you a substitute address to use on government records and forms, like this application. It covers survivors of sexual assault.`
-          : `${program} It covers only some people, and its rule does not name survivors of sexual assault. The exact words say who it covers and what it does:`,
+          : `${program} It covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you. The exact words:`,
       );
       if (a.enroll) w.p([{ text: "How to sign up: ", font: "bold" }, { text: a.enroll }]);
       w.quote(a.rule);
