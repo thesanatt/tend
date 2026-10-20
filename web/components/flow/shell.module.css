@@ -193,6 +193,15 @@
   }
 }
 
+/* The server's HTML says only "On this device." (PrivacyLine), and the longer line that replaces it
+   wraps to two lines on a phone. Two lines of room from the start keep the page under it from
+   jumping. In em, so it follows the text size, like the wrap does. */
+@media (max-width: 33em) {
+  .privacyInner {
+    min-height: calc(2lh + 2 * var(--space-1));
+  }
+}
+
 .facts {
   margin: 0;
   padding-left: var(--space-5);

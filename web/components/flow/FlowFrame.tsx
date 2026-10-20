@@ -209,7 +209,8 @@ export default function FlowFrame({ children }: { children: ReactNode }) {
       <Steps />
       <TourNote />
       {vault.status === "checking" ? (
-        <p className="meta" style={{ paddingBlock: "var(--space-7)" }}>
+        // A screen tall, so the footer starts below the fold and does not jump when the step appears.
+        <p className="meta" style={{ paddingBlock: "var(--space-7)", minHeight: "100vh" }}>
           {t.common.loading}
         </p>
       ) : locked ? (
