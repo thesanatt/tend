@@ -246,6 +246,15 @@
       "pinpoint": "120-RICR-00-00-2.7(A)(1)(a)"
     },
     {
+      "id": "RI-DEADLINE-5",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "If you found out about the crime more than 1 year after it happened, the time to apply starts when you found out, or should have. This applies only if the crime led to a criminal complaint, an indictment or criminal information, or another court finding of probable cause.",
+      "quote": "If the Applicant did not discover the act which constitutes a crime until more than one year after the crime was committed, the filing period shall not commence until the Applicant discovered or, in exercise of reasonable diligence, should have discovered, the act which constitutes a crime, provided, however, that in such cases, the crime for which the Applicant seeks compensation must have resulted in the issuance of a criminal complaint, indictment or criminal information, or other judicial determination of probable cause that an act constituting a crime occurred",
+      "source_id": "RI-S11",
+      "pinpoint": "120-RICR-00-00-2.7(A)(1)(b)"
+    },
+    {
       "id": "RI-DEADLINE-3",
       "category": "filing_deadline",
       "params": {
@@ -275,7 +284,10 @@
         "alternatives": [
           "forensic_exam"
         ],
-        "exam_condition": "done within 15 days of the crime"
+        "exam_condition": "within 15 days of the crime",
+        "waiver_records": [
+          "forensic_exam"
+        ]
       },
       "summary": "The crime must be reported to police within 15 days, but the office may allow a claim without a police report when a sexual assault survivor had a medical forensic exam within 15 days of the crime.",
       "quote": "no compensation shall be awarded for an injury or death resulting from a crime that was not reported to the appropriate law enforcement authority within fifteen (15) days of its occurrence; provided, that the office shall have the authority to allow a claim that was not reported pursuant to this section when a victim of a sexual assault receives a medical forensic examination within fifteen (15) days of the crime",
@@ -494,7 +506,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
       "summary": "Lost earnings for injuries on or after January 1, 2022 are figured at 62% of gross earnings.",
       "quote": "All net earnings for injuries occurring on or after January 1, 2022 are calculated based on 62% of the victim’s gross earnings.",
@@ -526,6 +539,33 @@
       "quote": "The Administrator may issue an award for expenses resulting from the temporary or permanent relocation of a victim",
       "source_id": "RI-S11",
       "pinpoint": "120-RICR-00-00-2.8(A)(12)"
+    },
+    {
+      "id": "RI-RELOC-2",
+      "category": "expense_cap",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation",
+        "amount_cents": 500000,
+        "per": "claim"
+      },
+      "summary": "Emergency relocation is capped at $5,000. Any relocation award is deducted from the final award.",
+      "quote": "Compensation awarded for emergency relocation expenses shall not exceed the sum of five thousand dollars ($5,000.00). Any award for emergency relocation expenses shall be deducted from the final award.",
+      "source_id": "RI-S11",
+      "pinpoint": "120-RICR-00-00-2.8(A)(12)"
+    },
+    {
+      "id": "RI-RELOC-3",
+      "category": "covered_expense",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation",
+        "detail": true
+      },
+      "summary": "To be paid for a move, the crime must have happened in your home. If it did not, you must show the crime makes you reasonably afraid to stay there. You must also need to move right away, reasonably fear living as you did before the crime, or be unable to afford your documented housing costs right after the crime.",
+      "quote": "The crime must have occurred in the victim’s primary place of residence or the Applicant must demonstrate that, as a result of the crime, he or she reasonably fears for his or her continued safety in his or her primary place of residence. (2) An Applicant must have an immediate need to relocate, a reasonable fear to continue to live within the arrangements as established prior to the crime, or, alternatively, immediately following the crime, the Applicant must be unable to afford the documented housing costs.",
+      "source_id": "RI-S11",
+      "pinpoint": "120-RICR-00-00-2.8(A)(12)(a)"
     },
     {
       "id": "RI-SECURITY-1",

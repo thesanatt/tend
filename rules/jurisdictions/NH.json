@@ -328,7 +328,9 @@
       "id": "NH-COV-5",
       "category": "covered_expense",
       "expense": "lost_wages",
-      "params": {},
+      "params": {
+        "detail": true
+      },
       "summary": "Lost wages are covered at up to 75% of pre-crime wages for up to 3 months, counting any workers' compensation or disability benefits.",
       "quote": "The total compensation paid for lost wages shall not exceed 75% of the claimant's pre-crime wages, not to exceed 3 months, including any workers' compensation or disability benefits received.",
       "source_id": "NH-S4",
@@ -348,11 +350,13 @@
       "id": "NH-COV-7",
       "category": "covered_expense",
       "expense": "relocation",
-      "params": {},
-      "summary": "A survivor without a restraining order who asks for relocation money must present a letter from a victim's advocate explaining why there is no protective order.",
-      "quote": "If the claimant does not have a restraining order against the abuser, the claimant shall present a letter from a victim's advocate setting forth the basis for not obtaining a protective order, which may include, among other reasons, safety concerns for the claimant",
+      "params": {
+        "detail": true
+      },
+      "summary": "Relocation is paid only if the offender is a continuing, credible threat to your safety. You also need a police report and a temporary restraining order or other court order. A final restraining order also counts. If you have no restraining order, a letter from a victim's advocate explaining why can count instead.",
+      "quote": "The offender poses a continuing credible threat to the safety of the claimant; (2) There is either: a. A police report and a temporary restraining order or other court order have been issued against the claimant’s abuser or potential abuser or a final restraining order has been issued against the claimant’s abuser or potential abuser; or b. If the claimant does not have a restraining order against the abuser, the claimant shall present a letter from a victim’s advocate setting forth the basis for not obtaining a protective order, which may include, among other reasons, safety concerns for the claimant",
       "source_id": "NH-S4",
-      "pinpoint": "N.H. Admin. Rules Jus 605.07(a)(2)b."
+      "pinpoint": "N.H. Admin. Rules Jus 605.07(a)(1)-(2)"
     },
     {
       "id": "NH-COV-8",
@@ -368,7 +372,9 @@
       "id": "NH-COV-9",
       "category": "covered_expense",
       "expense": "transportation",
-      "params": {},
+      "params": {
+        "detail": true
+      },
       "summary": "Mileage to medical appointments is paid at the Medicaid rate for trips over 10 miles round trip, capped at 100 miles round trip.",
       "quote": "Mileage to and from appointments with licensed health care providers, at the rate used by Medicaid to compensate mileage. Mileage shall be paid for trips over 10 miles round trip and is capped at 100 miles round trip",
       "source_id": "NH-S4",

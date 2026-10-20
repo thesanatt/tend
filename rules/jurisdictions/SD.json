@@ -236,7 +236,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
       "summary": "Lost earnings are paid based on the victim's average monthly earnings for the 6 months before the injury or the monthly minimum wage, whichever is less. The monthly minimum wage is the federal hourly minimum wage times 173.2 hours.",
       "quote": "Loss of earnings, loss of future earnings, and loss of support shall be determined on the basis of the victim's average monthly earnings for the six months immediately preceding the date of injury, or the monthly minimum wage as of the date of the crime underlying the claim, whichever is less. The monthly minimum wage shall be based upon the federal hourly minimum wage in effect as of the date of the crime multiplied by 173.2 hours per month.",
@@ -248,9 +249,10 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
-      "summary": "When the victim is the claimant, lost earnings are limited to the 12 months right after the crime. The victim must have been employed at the time of the crime, and hours paid with sick or annual leave do not count.",
+      "summary": "When the victim is the claimant, lost earnings are paid only for the 12 months right after the crime.",
       "quote": "Payment for lost earnings or loss of future earnings is limited to the following: (1) If the claimant is the victim, the 12-month period immediately following the date of the crime;",
       "source_id": "SD-S8",
       "pinpoint": "ARSD 67:55:04:08(1)"
@@ -296,7 +298,8 @@
       "category": "covered_expense",
       "expense": "medical",
       "params": {
-        "expense": "medical"
+        "expense": "medical",
+        "detail": true
       },
       "summary": "Apart from mental health care, medical services are paid only if provided in the 12 months after the crime, unless the department extends that for good cause.",
       "quote": "payment for medical expenses is limited to those medical services provided during the 12-month period immediately following the date the crime occurred. The department may extend this 12-month period if good cause is shown.",
@@ -355,6 +358,19 @@
       "pinpoint": "SDCL 23A-28B-1(15)"
     },
     {
+      "id": "SD-SEC-3",
+      "category": "covered_expense",
+      "expense": "security",
+      "params": {
+        "expense": "security",
+        "detail": true
+      },
+      "summary": "Security devices can be paid for. This includes digital security cameras.",
+      "quote": "Expenses for security devices , including digital security cameras, are payable.",
+      "source_id": "SD-S8",
+      "pinpoint": "ARSD 67:55:04:12"
+    },
+    {
       "id": "SD-SEC-2",
       "category": "excluded_expense",
       "params": {
@@ -384,7 +400,8 @@
       "category": "covered_expense",
       "expense": "childcare",
       "params": {
-        "expense": "childcare"
+        "expense": "childcare",
+        "detail": true
       },
       "summary": "Child care is covered when the parent cannot care for the child because of crime-related impairment, court, police meetings, or a medical appointment.",
       "quote": "Child care expenses are payable if the parent is unable to care for the child because the parent has sustained physical or emotional impairment as a direct result of a crime, if the parent is required to attend court proceedings or meet with law enforcement, or the parent has a medical appointment.",
@@ -446,7 +463,7 @@
         "alternatives": [],
         "exception": "or, if you could not reasonably report that soon, within 5 days of when you could"
       },
-      "summary": "The crime must have been reported to law enforcement within 5 days, or within 5 days of when a report could reasonably have been made. No alternative to a police report for sexual assault was found in the statute.",
+      "summary": "The crime must have been reported to law enforcement within 5 days. If that was not reasonably possible, it must have been reported within 5 days of when it could have been.",
       "quote": "the personal injury or death was the result of a crime which had been reported to a law enforcement officer or agency within five days of its occurrence or, if the crime could not reasonably have been reported within that period, within five days of the date when a report could reasonably have been made",
       "source_id": "SD-S1",
       "pinpoint": "SDCL 23A-28B-25(1)"
@@ -479,7 +496,7 @@
       "id": "SD-COLL-1",
       "category": "collateral_source",
       "params": {},
-      "summary": "Any award is reduced by money the victim gets, or will get, from other sources because of the crime. These include the offender, insurance, Medicaid or Medicare, workers compensation, and an employer's wage continuation.",
+      "summary": "Any award is reduced by money the victim gets, or will get, because of the crime from the sources the law lists. These include the offender, insurance, Medicaid or Medicare, workers compensation, and an employer's wage continuation.",
       "quote": "Any award of victims' compensation made pursuant to this chapter shall be reduced by the amount of any payment received, or to be received, by the victim from any collateral source as a result of the conduct giving rise to the application for compensation.",
       "source_id": "SD-S1",
       "pinpoint": "SDCL 23A-28B-22"

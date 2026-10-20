@@ -385,8 +385,10 @@
    "id": "WY-COV-5",
    "category": "covered_expense",
    "expense": "counseling",
-   "params": {},
-   "summary": "Losses are paid only if they happen within 24 months of the injury or discovery of the crime. The division can extend this by 12 months for mental health counseling, for a total of 36 months.",
+   "params": {
+    "detail": true
+   },
+   "summary": "The division can extend the 24-month limit by 12 more months for mental health counseling, for 36 months in all.",
    "quote": "However, the division may extend the twenty-four (24) month period to allow compensation for mental health counseling and care occurring within an additional twelve (12) month period for a total of thirty-six (36) months.",
    "source_id": "WY-S9",
    "pinpoint": "W.S. 1-40-109(d)"
@@ -395,7 +397,9 @@
    "id": "WY-COV-6",
    "category": "covered_expense",
    "expense": "counseling",
-   "params": {},
+   "params": {
+    "detail": true
+   },
    "summary": "For counseling to be covered, the first session must be within 1 year of the crime; for juvenile victims reported after the filing period, within 1 year of the report.",
    "quote": "The first counseling session must be within one (1) year of the date of the crime. The first counseling session for juvenile victims (crimes reported past the one year filing requirement) must be within one year of reporting date of the crime.",
    "source_id": "WY-S2",
@@ -405,8 +409,10 @@
    "id": "WY-COV-7",
    "category": "covered_expense",
    "expense": "lost_wages",
-   "params": {},
-   "summary": "Lost wages are paid at no more than the federal minimum wage, for up to 8 hours a day, 40 hours a week, or 173 hours a month, for up to 3 months total. The victim must have been employed at the time of the crime, and sick and vacation leave count as other sources.",
+   "params": {
+    "detail": true
+   },
+   "summary": "Lost wages are paid at no more than the federal minimum wage. The limit is 8 hours a day, 40 hours a week, or 173 hours a month, for up to 3 months in all.",
    "quote": "Maximum amount must not exceed the federal minimum hourly wage for eight (8) hours per day, or forty (40) hours per week, or one hundred seventy-three (173) hours per month up to three (3) months total.",
    "source_id": "WY-S2",
    "pinpoint": "WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Loss of Earnings, Financial Limits"
@@ -501,6 +507,17 @@
    "pinpoint": "WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses, Ineligible Expenses"
   },
   {
+   "id": "WY-EXC-5",
+   "category": "excluded_expense",
+   "params": {
+    "item": "losses more than 24 months after the injury or discovery of the crime"
+   },
+   "summary": "Losses that happen more than 24 months after the injury or the discovery of the crime are not paid.",
+   "quote": "Compensation shall only be awarded for economic losses occurring within a twenty-four (24) month period from the date of the injury or discovery of the crime.",
+   "source_id": "WY-S9",
+   "pinpoint": "W.S. 1-40-109(d)"
+  },
+  {
    "id": "WY-DEAD-1",
    "category": "filing_deadline",
    "params": {
@@ -520,7 +537,7 @@
     "required": true,
     "alternatives": []
    },
-   "summary": "The crime must be reported to law enforcement as soon as practical, and the claimant must cooperate with law enforcement. The statute sets no fixed number of days and lists no alternative to a police report.",
+   "summary": "The crime must be reported to law enforcement as soon as practical. The claimant must also cooperate with law enforcement.",
    "quote": "The appropriate law enforcement authorities were notified of the criminal act allegedly causing the injury to or death of the victim as soon as practical under the circumstance after perpetration of the offense and the claimant cooperates with appropriate law enforcement authorities with respect to the crime for which compensation is sought",
    "source_id": "WY-S10",
    "pinpoint": "W.S. 1-40-106(a)(iv)"

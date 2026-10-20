@@ -349,7 +349,8 @@
       "category": "covered_expense",
       "expense": "relocation",
       "params": {
-        "expense": "relocation"
+        "expense": "relocation",
+        "scope": "moving costs needed for your safety"
       },
       "summary": "Reasonable relocation costs needed for the victim's safety are covered.",
       "quote": "Reasonable relocation expenses for a victim to relocate as necessary to ensure the victim's safety.",
@@ -465,6 +466,15 @@
       "quote": "The applicant has cooperated reasonably with law enforcement officials in the apprehension and prosecution of the assailant, or the board has found good cause exists for the failure to cooperate",
       "source_id": "CO-S4",
       "pinpoint": "C.R.S. 24-4.1-108(1)(c)"
+    },
+    {
+      "id": "CO-DEADLINE-1",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "Property damage claims must be filed within 6 months of the damage, unless the board allows more time for good cause.",
+      "quote": "The application for approval of compensation for property damage under this part 1 is filed with the board within six months of the date of property damage or within such further extension of time as the board, for good cause shown, allows.",
+      "source_id": "CO-S4",
+      "pinpoint": "C.R.S. 24-4.1-108(1.5)(d)"
     },
     {
       "id": "CO-COLL-1",
@@ -634,6 +644,9 @@
       "pinpoint": "C.R.S. 24-4.1-107.5(2)"
     }
   ],
+  "page_notes": {
+    "deadline": "Note: Tend found no time limit in Colorado law for injury claims. The state's 2016 application form still says to apply within one year of the crime. Ask the program in the judicial district where the crime happened before you wait."
+  },
   "coverage": {
     "found": [
       "exam_no_bill",

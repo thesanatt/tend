@@ -296,9 +296,9 @@
    "expense": "forensic_exam",
    "params": {
     "payer": "SAFE Payment Program, for crimes in Virginia when evidence is collected",
-    "condition": "if done within 120 hours of a crime in Virginia"
+    "condition": "if done within 120 hours of a Virginia crime"
    },
-   "summary": "The SAFE Payment Program pays only when the crime happened in Virginia and evidence is collected. You do not have to report to police or help an investigation. An exam more than 120 hours after the crime, or for chronic sexual abuse, needs approval from a law enforcement officer or prosecutor to be paid.",
+   "summary": "The SAFE Payment Program pays only if the crime was in Virginia and evidence is collected.",
    "quote": "The crime occurred within the Commonwealth of Virginia . Collection of evidence took place as outlined in §19.2-165.1 of the Code of Virginia. Patients are not required to report the crime to law enforcement, nor cooperate with an investigation in order to request a Physical Evidence Recovery Kit (PERK) exam or for that exam to be paid per §19.2-165.1 (B). If the patient declines evidence collection, the claim is not eligible for reimbursement. The SAFE Payment Program does not reimburse for consults, only for collection of medical forensic evidence. Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
    "source_id": "VA-S10",
    "pinpoint": "VVF SAFE Payment Program page, Eligibility Requirements"
@@ -355,7 +355,8 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Total loss of earnings from crime-caused incapacity is paid weekly at 66-2/3 percent of the victim's average weekly wages.",
    "quote": "at a weekly compensation rate equal to 66-2 /3 percent of the victim's average weekly wages",
@@ -525,28 +526,29 @@
    "pinpoint": "VVF How Compensation Works, Payer of Last Resort"
   },
   {
+   "id": "VA-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime",
+    "condition": "for a crime on or after July 1, 2025"
+   },
+   "summary": "The program applies the three-year deadline to crimes committed on or after July 1, 2025.",
+   "quote": "Crimes committed on and after July 1, 2025 The deadline to file a claim is three years from the crime.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations"
+  },
+  {
    "id": "VA-DEADLINE-1",
    "category": "filing_deadline",
    "params": {
     "years": 3,
     "from": "crime"
    },
-   "summary": "A claim must be filed within three years after the crime; the Commission may extend this for good cause.",
+   "summary": "Under Virginia law, a claim must be filed within three years after the crime.",
    "quote": "A claim shall be filed by the claimant not later than three years after the occurrence of the crime upon which such claim is based",
    "source_id": "VA-S3",
    "pinpoint": "Va. Code § 19.2-368.5(B)"
-  },
-  {
-   "id": "VA-DEADLINE-2",
-   "category": "filing_deadline",
-   "params": {
-    "years": 3,
-    "from": "crime"
-   },
-   "summary": "The program applies the three-year deadline to crimes committed on or after July 1, 2025.",
-   "quote": "Crimes committed on and after July 1, 2025 The deadline to file a claim is three years from the crime.",
-   "source_id": "VA-S12",
-   "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations"
   },
   {
    "id": "VA-DEADLINE-3",
@@ -573,6 +575,15 @@
    "quote": "in cases involving claims of sexual abuse of a minor, the claim shall be filed within 10 years after the minor's eighteenth birthday, except for in cases involving claims of sexual abuse of a minor where the conduct constitutes a felony, the passage of time shall not be a barrier to when the victim can file a claim.",
    "source_id": "VA-S3",
    "pinpoint": "Va. Code § 19.2-368.5(B)(iii)"
+  },
+  {
+   "id": "VA-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "For a crime on or after July 1, 2001, the Commission may give more time to file for good cause.",
+   "quote": "For good cause shown, the Commission may extend the time for filing for a crime committed on or after July 1, 2001.",
+   "source_id": "VA-S3",
+   "pinpoint": "Va. Code § 19.2-368.5(B)"
   },
   {
    "id": "VA-REPORT-1",

@@ -188,6 +188,16 @@
       "pinpoint": "ORS 147.397(1)"
     },
     {
+      "id": "OR-EXAM-9",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {},
+      "summary": "The SAVE Fund law counts you as a victim only if the sexual assault happened in Oregon.",
+      "quote": "“Victim” means a person who has experienced an incident of sexual assault as defined in ORS 181A.323 that occurred in this state.",
+      "source_id": "OR-S1",
+      "pinpoint": "ORS 147.395(3)"
+    },
+    {
       "id": "OR-EXAM-4",
       "category": "exam_payment",
       "expense": "forensic_exam",
@@ -299,7 +309,9 @@
       "id": "OR-WAGE-RATE",
       "category": "covered_expense",
       "expense": "lost_wages",
-      "params": {},
+      "params": {
+        "detail": true
+      },
       "summary": "Lost earnings are figured at 75% of the victim's documented gross earnings on the date of the crime.",
       "quote": "Compensation for lost earnings under ORS 147.035(2)(b) shall be computed on the basis of 75% of the victim's documented gross earnings on the date of the compensable crime.",
       "source_id": "OR-S10",
@@ -489,7 +501,7 @@
           "other"
         ]
       },
-      "summary": "The reporting requirement is also met by a sexual assault medical assessment or any other forensic exam, by a health provider, tribal health provider, student health provider, or community mental health provider certifying that the victim reported the crime to them, or by other documentation that counts as notice under the department's rules.",
+      "summary": "The report rule can also be met in other ways. A sexual assault medical assessment or any other forensic exam counts. So does a health, tribal health, student health, or community mental health provider certifying that the victim reported the crime to them. So does other documentation that counts as notice under the department's rules.",
       "quote": "(E) A medical assessment, as defined in ORS 147.395, for sexual assault, or any other forensic exam or medical assessment; (b) A health provider, tribal health provider, student health provider or community mental health provider certifies that the victim reported the crime to the provider; or (c) The victim provides to the department documentation that qualifies as law enforcement notification under the rules of the department.",
       "source_id": "OR-S1",
       "pinpoint": "ORS 147.015(2)(a)(E), (2)(b), (2)(c)"
