@@ -63,7 +63,8 @@ when you tap it, and the list below names all five.
 **What loading the law shows.** Choosing a state loads that state's public law files from Tend's
 site: its compiled law, its verified rules, and its law summary, and on the Packet step the API's
 copy of its rules. None of it carries what you entered, and the privacy line does not count it, but
-the file names show Tend's host which state you picked.
+the file names show Tend's host which state you picked, and its request logs can hold that next to
+your IP address (see "Request logs" below).
 
 ## What our server holds
 
@@ -78,9 +79,15 @@ the file names show Tend's host which state you picked.
   id and the bill's id. No names, no descriptions of what happened.
 - Request logs. Tend's API logs only the method, the path without its query, and the status, and
   leaves out private paths (shares, the bank relay, cloud AI, claims, packets) entirely. Vercel,
-  which hosts Tend, keeps its own log of the method, path, and status of each API request, so a
-  share id or the fictional demo persona (such as `/api/bank/rowan-mi/activity`) can appear there.
-  A share id alone opens nothing: the key stays in the link.
+  which hosts Tend, keeps its own request logs, which Tend's code cannot turn off. For every request
+  it serves, including pages, law files, and API calls, they can hold the time, the method, the path
+  with its query, the status, and the visitor's IP address and browser (user agent)
+  ([Vercel's log fields](https://vercel.com/docs/drains/reference/logs)). When a visit starts from a
+  link on another site, they can also hold that page's address, or as much of it as that site lets
+  the browser send (the referrer). Tend's own pages tell the browser to send no referrer. So a share
+  id, the fictional demo persona (such as `/api/bank/rowan-mi/activity`), or the state whose law was
+  loaded can appear there next to an IP address. A share id alone opens nothing: the key stays in
+  the link.
 
 Cleanups run when a new payment or share arrives, and within about a minute after something comes
 due while the API is running, so on a quiet server a row can stay longer than the times above.
@@ -132,9 +139,9 @@ It does not hide that Tend was used. The browser's history lists the site, and E
 replaces only the current page. The offline copy of Tend's public pages, saved progress, packets
 and letters you downloaded, and a passkey named Tend, if you made one, stay on the device, and the
 passkey can sync to your other devices through the password manager. A network observer can see
-that youreowed.tech was visited, and Tend's host can see which state's law was loaded. Anything you
-choose to send for a payment, a check on our server, or cloud AI can be read by our server while it
-is handled (cloud AI also by Google).
+that youreowed.tech was visited, and Tend's host can see each visit's IP address and which state's
+law was loaded. Anything you choose to send for a payment, a check on our server, or cloud AI can be
+read by our server while it is handled (cloud AI also by Google).
 
 Does not protect against: malware on the device, or someone watching the screen. The demo uses
 fictional people and data.

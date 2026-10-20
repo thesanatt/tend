@@ -28,9 +28,10 @@ The live run uses throwaway schemas (`tend_test_<random>`) and drops them, excep
 the loaded public corpus against the files on disk.
 
 The access log keeps only the method, the path without its query, and the status: no client address. Requests
-whose path is private (shares, the bank relay, cloud AI, claims, packets, rule search) leave no line at all. pypdf's
-warnings, which quote bytes from a damaged file, are switched off. Request bodies over 16 MB are refused with 413,
-including chunked ones with no Content-Length.
+whose path is private (shares, the bank relay, cloud AI, claims, packets, rule search) leave no line at all. On
+Vercel, the platform's own request logs are separate and keep those paths, with the visitor's IP address
+(docs/PRIVACY.md, "What our server holds"). pypdf's warnings, which quote bytes from a damaged file, are switched
+off. Request bodies over 16 MB are refused with 413, including chunked ones with no Content-Length.
 
 ## Settings
 

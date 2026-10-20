@@ -198,9 +198,12 @@ when the API's routes changed with the web. To take the site off the domain enti
   would need the Nessie key as a repository secret.
 - Every JSON error a deployed API sends has local paths and credentials taken out: the API keys, `TEND_SECRET`,
   the database addresses, and any `?key=` in a quoted URL become `[hidden]`.
-- Vercel's own request log keeps the method, path, and status of every function call, so a share id
-  (`/api/shares/<id>`) and the demo persona in `/api/bank/rowan-mi/...` appear there even though the API's own
-  access log drops those lines. A share id alone opens nothing: the key stays in the link's fragment.
+- Vercel's own request logs, which Tend's code cannot turn off, cover every request it serves (pages, law files,
+  and API calls) and can hold the time, the method, the path with its query, the status, and the visitor's IP
+  address and user agent ([log fields](https://vercel.com/docs/drains/reference/logs)). So a share id
+  (`/api/shares/<id>`), the demo persona in `/api/bank/rowan-mi/...`, and the state whose law was loaded appear
+  there next to an IP address, even though the API's own access log drops the private paths. A share id alone
+  opens nothing: the key stays in the link's fragment.
 - The CSP allows inline scripts because Next.js puts each prerendered page's data in inline scripts; a nonce
   would make every page render per request and break the offline path. Every script file, connection, frame,
   and font must come from this origin, plugins and framing are refused, and `'wasm-unsafe-eval'` lets the law

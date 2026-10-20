@@ -109,11 +109,12 @@ says what went:
   from the statement or bill.
 - The demo bank in Track, with the fictional account only: its records and a demo payout.
 
-One answer shows without a send: picking a state loads that state's public law files, so the host
-can tell which state was picked. Tend runs no analytics and no third-party scripts, but Vercel,
-which hosts it, logs the method, path, and status of each API request. Tend also does not hide that
-it was used: the browser's history, the offline copy of its pages, and a passkey named Tend, if one
-was made, stay on the device.
+The host sees each visit even without a send. Tend runs no analytics and no third-party scripts,
+but Vercel, which hosts it, keeps request logs Tend cannot turn off: for every page, law file, and
+API call, the path, the status, and the visitor's IP address and browser. Picking a state loads
+that state's public law files, so the host can tell which state was picked. Tend also does not hide
+that it was used: the browser's history, the offline copy of its pages, and a passkey named Tend, if
+one was made, stay on the device.
 
 The full contract and threat model: [docs/PRIVACY.md](docs/PRIVACY.md).
 
