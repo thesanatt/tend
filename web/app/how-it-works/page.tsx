@@ -181,14 +181,15 @@ export default function HowItWorks() {
                 Checking the law on Tend&apos;s server also waits for a yes, and is offered only when the law engine
                 cannot run in the browser. It sends the state, the date, the answers, and every cost the person has not
                 left out. That includes bank rows Tend could not sort, which can be ordinary spending. Each goes with
-                its amount, its date, and the bank&apos;s or bill&apos;s description, which can include a person&apos;s
-                name. Tend asks once, and that yes covers later checks.
+                its amount, its date, and its kind, never the words from the bank or bill. Tend asks once, and that yes
+                covers later checks.
               </p>
               <p>
                 A line at the top of every page starts as &quot;On this device. Nothing has left it since this page
                 opened.&quot; The page builds that line from the requests it actually makes. It changes when any of the
-                person&apos;s data is sent. Loading pages and public law files does not change it. Those requests still
-                reach Tend&apos;s web host, and the law file a browser asks for can show which state was picked.
+                person&apos;s data is sent. Picking a state changes it: the line then says the state went to Tend&apos;s
+                server, because the law files a browser asks for are named for the state. Loading other pages does not
+                change it, though those requests still reach Tend&apos;s web host.
               </p>
               <See
                 files={[

@@ -11,7 +11,7 @@ import { initialState, reducer, type FlowItem, type SourceRecord } from "@/compo
 import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/QuickExit";
 import { SITE_CARDS } from "@/components/public/og/siteCard";
 import { LINKS } from "@/components/tour/links";
-import { fetchLaw } from "@/lib/api";
+import { fetchLaw, serverClaimBody } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
 import { en } from "@/lib/i18n/en";
 import { LEFT_KEY, TOUR_KEY } from "@/lib/keys";
@@ -139,11 +139,13 @@ describe("Design for safety on /how-it-works", () => {
     }
     expect(asked).toEqual(["/data/law/WY.json"]);
     const device = guard("On this device").textContent!.replace(/\s+/g, " ");
-    // The line's own words, as the flow shows them.
+    // The line's own words, as the flow shows them, and its words once a state is picked.
     expect(device).toContain(`starts as "${en.privacy.quiet}"`);
     expect(device).toContain("every answer except the state stay on the device");
-    expect(device).toContain("Loading pages and public law files does not change it.");
-    expect(device).toContain("can show which state was picked");
+    expect(en.privacy.quietState).toContain("Only the state you picked went to Tend's server");
+    expect(device).toContain(
+      "Picking a state changes it: the line then says the state went to Tend's server, because the law files a browser asks for are named for the state.",
+    );
   });
 
   it("says what checking the law on Tend's server sends, and that one yes covers later checks", async () => {
@@ -173,13 +175,15 @@ describe("Design for safety on /how-it-works", () => {
     let s = reducer(initialState(), { type: "check", patch: { st: "MI", date: "2026-06-01" } });
     s = reducer(s, { type: "addSource", source, items });
     s = reducer(s, { type: "answer", ids: [diner], value: "no" });
-    // The body POST /api/claim carries (tests/engine-adapter.test.ts): the unsorted row goes too,
-    // unanswered, with the name in its words.
-    const body = toEngineInput(buildEngineInput(s, "2026-10-19")!);
-    expect(body.items.map((it) => [it.description, it.confirmed])).toEqual([
-      ["RIVERBEND GENERAL HOSPITAL ER", true],
-      ["ZELLE TO JORDAN SMITH", false],
+    // The body POST /api/claim carries (lib/api.ts serverClaimBody, tests/engine-adapter.test.ts): the
+    // unsorted row goes too, unanswered, but without the words that hold the name.
+    const body = serverClaimBody(toEngineInput(buildEngineInput(s, "2026-10-19")!));
+    expect(body.items.map((it) => [it.item_id, it.confirmed])).toEqual([
+      [row("RIVERBEND GENERAL HOSPITAL ER").item_id, true],
+      [row("ZELLE TO JORDAN SMITH").item_id, false],
     ]);
+    expect(body.items.every((it) => !("description" in it))).toBe(true);
+    expect(JSON.stringify(body)).not.toContain("JORDAN");
     // The yes stays in the flow state and every later check passes it on, so Tend does not ask again.
     const provider = readFileSync(path.join(web, "components/flow/FlowProvider.tsx"), "utf8");
     expect(provider).toContain(".evaluate(input, { allowApi: state.serverConsent })");
@@ -188,7 +192,9 @@ describe("Design for safety on /how-it-works", () => {
     const device = guard("On this device").textContent!.replace(/\s+/g, " ");
     expect(device).toContain("every cost the person has not left out");
     expect(device).toContain("That includes bank rows Tend could not sort");
-    expect(device).toContain("which can include a person's name");
+    expect(device).toContain(
+      "Each goes with its amount, its date, and its kind, never the words from the bank or bill.",
+    );
     expect(device).toContain("Tend asks once, and that yes covers later checks.");
   });
 
