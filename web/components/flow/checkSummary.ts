@@ -52,6 +52,9 @@ export type DeadlineFact =
       months: number | null;
       days: number | null;
       longer: boolean; // another deadline rule allows more time
+      // The general rule's own provision counts from the report or from discovery.
+      fromReport: boolean;
+      fromDiscovery: boolean;
       ruleIds: string[];
     }
   | { kind: "unknown"; ruleIds: string[] }
@@ -264,6 +267,8 @@ export function buildCheckSummary(
             months: span.months,
             days: span.days,
             longer: span.longer,
+            fromReport: span.fromReport,
+            fromDiscovery: span.fromDiscovery,
             ruleIds: span.ruleIds,
           }
         : { kind: "unknown", ruleIds: d.rule_ids };

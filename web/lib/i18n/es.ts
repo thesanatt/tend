@@ -267,6 +267,7 @@ export const es: Dict = {
       "Otra regla de este estado cuenta desde un día posterior, como la denuncia o cuando se descubrió. Pregunta al programa si te aplica.",
     deadlineSpan: (span: string) => `Tienes ${span} desde la fecha en que pasó para presentar la solicitud.`,
     deadlineSpanLonger: "En algunos casos hay más tiempo. La regla dice cuándo.",
+    deadlineSpanFromReport: "La ley lo cuenta desde tu denuncia, así que podrías tener más tiempo.",
     deadlineSpanNote: "Agrega la fecha arriba para ver el día exacto.",
     deadlineUnknown:
       "Tend no pudo convertir el plazo de este estado en una fecha. Lee la regla o pregunta al programa.",

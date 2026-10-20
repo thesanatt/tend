@@ -467,7 +467,22 @@ describe("the deadline Check leads with", () => {
       ir: irOf("FL"),
       asOf: "2026-10-19",
     }).deadline;
-    expect(span).toMatchObject({ kind: "span", years: 3, longer: true });
+    expect(span).toMatchObject({ kind: "span", years: 3, longer: true, fromReport: false, fromDiscovery: false });
+  });
+
+  it("without a date, keeps the general rule's own start day: Washington's report, Pennsylvania's discovery", () => {
+    const undated = (st: string) =>
+      buildCheckSummary(
+        load(st),
+        output(load(st), engineCheck(st, "2026-06-14", "2026-10-19")),
+        { ...answers, st, date: "", dateUnsure: true },
+        false,
+        new Set(),
+        { ir: irOf(st), asOf: "2026-10-19" },
+      ).deadline;
+    expect(undated("WA")).toMatchObject({ kind: "span", years: 3, fromReport: true, fromDiscovery: false });
+    expect(undated("PA")).toMatchObject({ kind: "span", fromDiscovery: true });
+    expect(undated("FL")).toMatchObject({ kind: "span", fromReport: false, fromDiscovery: false });
   });
 });
 

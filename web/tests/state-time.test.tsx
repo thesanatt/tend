@@ -313,6 +313,26 @@ describe("the general deadline on Check and Track", () => {
     expect(screen.getByText(en.check.deadlineFromReport)).toBeTruthy();
   });
 
+  it("Washington, no date: the length of time, with the report note that fits no date", async () => {
+    const evaluate = engine("WA", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: ["WA-DEADLINE-1", "WA-DEADLINE-2"],
+      flags: ["deadline_from_report"],
+    });
+    const undated = (lang: "en" | "es") =>
+      stateFrom(
+        [{ type: "check", patch: { st: "WA", date: "", dateUnsure: true, exam: "yes", police: "not_yet" } }],
+        lang,
+      );
+    renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: undated("en") });
+    expect(await screen.findByText(en.check.deadlineSpanFromReport)).toBeTruthy();
+    expect(screen.queryByText(en.check.deadlineFromReport)).toBeNull();
+    cleanup();
+    renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: undated("es"), lang: "es" });
+    expect(await screen.findByText(es.check.deadlineSpanFromReport)).toBeTruthy();
+  });
+
   it("Florida: past 3 years but inside good cause's 5, it never says File by and is not plainly late", async () => {
     const evaluate = engine("FL", {
       status: "ok",

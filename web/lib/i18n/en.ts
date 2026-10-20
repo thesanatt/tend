@@ -300,6 +300,8 @@ export const en = {
       "Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits you.",
     deadlineSpan: (span: string) => `You have ${span} from the date it happened to apply.`,
     deadlineSpanLonger: "Some cases have longer. The rule says when.",
+    // deadlineFromReport for a length of time, with no date to point at.
+    deadlineSpanFromReport: "The law counts this from your report, so you may have longer.",
     deadlineSpanNote: "Add the date above to see the exact day.",
     deadlineUnknown: "Tend could not turn this state's deadline into a date. Read the rule, or ask the program.",
     deadlineNone: "Tend found no filing deadline in this state's verified rules. Ask the program.",

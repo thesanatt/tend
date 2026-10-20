@@ -87,6 +87,8 @@ export default function CheckSummaryView({
             <>
               <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t.units, f.and))}</p>
               {d.longer ? <p className={styles.factNote}>{t.check.deadlineSpanLonger}</p> : null}
+              {d.fromReport ? <p className={styles.factNote}>{t.check.deadlineSpanFromReport}</p> : null}
+              {d.fromDiscovery ? <p className={styles.factNote}>{t.check.deadlineFromDiscovery}</p> : null}
               <p className={styles.factNote}>{t.check.deadlineSpanNote}</p>
             </>
           ) : d.kind === "unknown" ? (
