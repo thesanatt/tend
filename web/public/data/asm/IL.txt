@@ -1,8 +1,8 @@
 ; tend law image IL, Illinois
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 5ae5fdda61156ebee1d513dba501c2c3da008e9b5e26041b9915dbdcc961fa2c
-; image sha256  029eca1d48d68297ca419935d11bf519047eb2e20162d687cad9c5ae8ad2f375
-; 57 rules, 9 sources, 32 proofs, 4 ints, 317 strings
+; source sha256 173ba62abda13a538bbb5da05bdacd2edac4b520d8ce2555485c86cf63881fda
+; image sha256  5049a301f0b5140c6cd753095f58df22f7566b0c387257925cf73a38fd9bd379
+; 58 rules, 9 sources, 32 proofs, 4 ints, 322 strings
 ; item program: 219 instructions, 694 bytes, max stack 2
 ; aggregate program: 135 instructions, 427 bytes, max stack 3, 4 loops
 
@@ -36,34 +36,35 @@
     R26   IL-DEAD-2             info          -                     filing_deadline         740 ILCS 45/6.1(a)
     R27   IL-REPORT-1           reporting     -                                             740 ILCS 45/6.1(b) (text in effect before P.A. 104-563, eff. 1-1-27)
     R28   IL-REPORT-2           reporting     -                                             740 ILCS 45/6.1(b-1) (text in effect before P.A. 104-563, eff. 1-1-27)
-    R29   IL-REPORT-3           reporting     -                                             740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)
-    R30   IL-REPORT-4           reporting     -                                             740 ILCS 45/6.1(c) (text in effect before P.A. 104-563, eff. 1-1-27)
-    R31   IL-REPORT-5           reporting     -                                             740 ILCS 45/6.1(c) (same text before and after P.A. 104-563, eff. 1-1-27)
-    R32   IL-COLL-1             collateral    -                                             740 ILCS 45/10.1(g)
-    R33   IL-COLL-2             collateral    -                                             740 ILCS 45/10.1(g)
-    R34   IL-CONDUCT-1          info          -                     conduct_reduction       740 ILCS 45/10.1(d)
-    R35   IL-CONDUCT-2          info          -                     conduct_reduction       740 ILCS 45/2.5
-    R36   IL-CONDUCT-3          info          -                     conduct_reduction       740 ILCS 45/2.5
-    R37   IL-CONDUCT-4          info          -                     conduct_reduction       740 ILCS 45/10.1(d-2)
-    R38   IL-EMERG-1            info          -                     emergency_award         740 ILCS 45/10.2(a) (text in effect before P.A. 104-563, eff. 1-1-27)
-    R39   IL-CRIME-1            info          -                     eligible_crime          Crime Victims Compensation Program guide, What violent crimes are compensable (citing 740 ILCS 45/2(c))
-    R40   IL-CRIME-2            info          -                     eligible_crime          Crime Victims Compensation FAQ by Sexual Assault Victims, Who is eligible?
-    R41   IL-RES-1              info          -                     residency               740 ILCS 45/2(d)(1)
-    R42   IL-RES-2              info          -                     residency               740 ILCS 45/2(d)(6)
-    R43   IL-SUBMIT-ONLINE      info          -                     submission              FAQ by Sexual Assault Victims (Rev. 01/25), closing paragraph
-    R44   IL-SUBMIT-EMAIL       info          -                     submission              AG Crime Victim Compensation page, Crime Victim Compensation Application section
-    R45   IL-SUBMIT-MAIL        info          -                     submission              Application (Rev. 12/2024), Application Instructions, page 1
-    R46   IL-DOC-POLICE         info          -                     required_document       Application (Rev. 12/2024), Application Instructions, Documents
-    R47   IL-DOC-PROTECT        info          -                     required_document       Application (Rev. 12/2024), Application Instructions, Documents
-    R48   IL-DOC-BILLS          info          -                     required_document       Application (Rev. 12/2024), Section 4, Medical Information & Benefits
-    R49   IL-DOC-RECEIPTS       info          -                     required_document       Compensation guide (Rev. 11/24), What proof of my expenses should I keep?
-    R50   IL-DOC-GUARDIAN       info          -                     required_document       Application (Rev. 12/2024), Section 1
-    R51   IL-DOC-RESIDENCE      info          -                     required_document       Compensation guide (Rev. 11/24), definition of Dwelling
-    R52   IL-DOC-USEFORCE       info          -                     required_document       Application (Rev. 12/2024), Section 2, Use of Force Claims
-    R53   IL-ACP-1              info          -                     address_confidentiality Illinois AG ACP page, opening paragraph; statutory basis 750 ILCS 61/11 and 61/15
-    R54   IL-RECCONF-1          info          -                     record_confidentiality  740 ILCS 45/4.2
-    R55   IL-CAP-1              skipped       -                     total_cap               740 ILCS 45/10.1(f)  ; applies_to "crimes committed on or after august 7, 2022"
-    R56   IL-CAP-2              skipped       -                     total_cap               740 ILCS 45/10.1(f)  ; applies_to "crimes committed on or after august 7, 1998 and before august 7, 2022"
+    R29   IL-REPORT-6           info          -                     reporting_requirement   740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)
+    R30   IL-REPORT-3           reporting     -                                             740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)
+    R31   IL-REPORT-4           reporting     -                                             740 ILCS 45/6.1(c) (text in effect before P.A. 104-563, eff. 1-1-27)
+    R32   IL-REPORT-5           reporting     -                                             740 ILCS 45/6.1(c) (same text before and after P.A. 104-563, eff. 1-1-27)
+    R33   IL-COLL-1             collateral    -                                             740 ILCS 45/10.1(g)
+    R34   IL-COLL-2             collateral    -                                             740 ILCS 45/10.1(g)
+    R35   IL-CONDUCT-1          info          -                     conduct_reduction       740 ILCS 45/10.1(d)
+    R36   IL-CONDUCT-2          info          -                     conduct_reduction       740 ILCS 45/2.5
+    R37   IL-CONDUCT-3          info          -                     conduct_reduction       740 ILCS 45/2.5
+    R38   IL-CONDUCT-4          info          -                     conduct_reduction       740 ILCS 45/10.1(d-2)
+    R39   IL-EMERG-1            info          -                     emergency_award         740 ILCS 45/10.2(a) (text in effect before P.A. 104-563, eff. 1-1-27)
+    R40   IL-CRIME-1            info          -                     eligible_crime          Crime Victims Compensation Program guide, What violent crimes are compensable (citing 740 ILCS 45/2(c))
+    R41   IL-CRIME-2            info          -                     eligible_crime          Crime Victims Compensation FAQ by Sexual Assault Victims, Who is eligible?
+    R42   IL-RES-1              info          -                     residency               740 ILCS 45/2(d)(1)
+    R43   IL-RES-2              info          -                     residency               740 ILCS 45/2(d)(6)
+    R44   IL-SUBMIT-ONLINE      info          -                     submission              FAQ by Sexual Assault Victims (Rev. 01/25), closing paragraph
+    R45   IL-SUBMIT-EMAIL       info          -                     submission              AG Crime Victim Compensation page, Crime Victim Compensation Application section
+    R46   IL-SUBMIT-MAIL        info          -                     submission              Application (Rev. 12/2024), Application Instructions, page 1
+    R47   IL-DOC-POLICE         info          -                     required_document       Application (Rev. 12/2024), Application Instructions, Documents
+    R48   IL-DOC-PROTECT        info          -                     required_document       Application (Rev. 12/2024), Application Instructions, Documents
+    R49   IL-DOC-BILLS          info          -                     required_document       Application (Rev. 12/2024), Section 4, Medical Information & Benefits
+    R50   IL-DOC-RECEIPTS       info          -                     required_document       Compensation guide (Rev. 11/24), What proof of my expenses should I keep?
+    R51   IL-DOC-GUARDIAN       info          -                     required_document       Application (Rev. 12/2024), Section 1
+    R52   IL-DOC-RESIDENCE      info          -                     required_document       Compensation guide (Rev. 11/24), definition of Dwelling
+    R53   IL-DOC-USEFORCE       info          -                     required_document       Application (Rev. 12/2024), Section 2, Use of Force Claims
+    R54   IL-ACP-1              info          -                     address_confidentiality Illinois AG ACP page, opening paragraph; statutory basis 750 ILCS 61/11 and 61/15
+    R55   IL-RECCONF-1          info          -                     record_confidentiality  740 ILCS 45/4.2
+    R56   IL-CAP-1              skipped       -                     total_cap               740 ILCS 45/10.1(f)  ; applies_to "crimes committed on or after august 7, 2022"
+    R57   IL-CAP-2              skipped       -                     total_cap               740 ILCS 45/10.1(f)  ; applies_to "crimes committed on or after august 7, 1998 and before august 7, 2022"
 
 .tags   pain_suffering=bit0, phone=bit1
 
@@ -110,7 +111,7 @@
     P28   (IL-TOW-1, IL-COV-PROS, IL-COLL-1, IL-COLL-2)
     P29   (IL-DEAD-1)
     P30   (IL-REPORT-1, IL-REPORT-2, IL-REPORT-3, IL-REPORT-4, IL-REPORT-5)
-    P31   (IL-EXCL-2, IL-EXCL-3, IL-EXCL-4, IL-DEAD-2, IL-COLL-1, IL-COLL-2, IL-CONDUCT-1, IL-CONDUCT-2, IL-CONDUCT-3, IL-CONDUCT-4, IL-EMERG-1, IL-CRIME-1, IL-CRIME-2, IL-RES-1, IL-RES-2, IL-SUBMIT-ONLINE, IL-SUBMIT-EMAIL, IL-SUBMIT-MAIL, IL-DOC-POLICE, IL-DOC-PROTECT, IL-DOC-BILLS, IL-DOC-RECEIPTS, IL-DOC-GUARDIAN, IL-DOC-RESIDENCE, IL-DOC-USEFORCE, IL-ACP-1, IL-RECCONF-1)
+    P31   (IL-EXCL-2, IL-EXCL-3, IL-EXCL-4, IL-DEAD-2, IL-REPORT-6, IL-COLL-1, IL-COLL-2, IL-CONDUCT-1, IL-CONDUCT-2, IL-CONDUCT-3, IL-CONDUCT-4, IL-EMERG-1, IL-CRIME-1, IL-CRIME-2, IL-RES-1, IL-RES-2, IL-SUBMIT-ONLINE, IL-SUBMIT-EMAIL, IL-SUBMIT-MAIL, IL-DOC-POLICE, IL-DOC-PROTECT, IL-DOC-BILLS, IL-DOC-RECEIPTS, IL-DOC-GUARDIAN, IL-DOC-RESIDENCE, IL-DOC-USEFORCE, IL-ACP-1, IL-RECCONF-1)
 
 .ints
     K0    240000        ; $2,400.00
@@ -176,7 +177,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R32              ; IL-COLL-1
+  009d        seta     collateral, R33              ; IL-COLL-1
   00a1        ret
               ; IL-COV-COUNS  740 ILCS 45/2(h)(1)  "appropriate psychiatric care or psychiatric counseling expenses..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -193,7 +194,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R32              ; IL-COLL-1
+  00c3        seta     collateral, R33              ; IL-COLL-1
   00c7        ret
               ; IL-WAGE-1  740 ILCS 45/2(h)(14)  "loss of earnings and loss of future earnings shall be determined..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -210,7 +211,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R32              ; IL-COLL-1
+  00e9        seta     collateral, R33              ; IL-COLL-1
   00ed        ret
               ; IL-COV-TRANS  740 ILCS 45/2(h)(2)  "transportation expenses to and from medical and counseling..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -227,7 +228,7 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R32              ; IL-COLL-1
+  010f        seta     collateral, R33              ; IL-COLL-1
   0113        ret
               ; IL-COV-RELO  740 ILCS 45/2(h)(7)  "costs associated with temporary lodging or relocation necessary..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -244,7 +245,7 @@
   012e        subs
   012f        push     0
   0134        max
-  0135        seta     collateral, R32              ; IL-COLL-1
+  0135        seta     collateral, R33              ; IL-COLL-1
   0139        ret
   013a  L12:  push     0
   013f        decide   unknown_rule, P0             ; (none)
@@ -264,7 +265,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R32              ; IL-COLL-1
+  0165        seta     collateral, R33              ; IL-COLL-1
   0169        ret
               ; IL-COV-CLEAN  740 ILCS 45/2(h)(10)  "the costs of appropriate crime scene clean-up"
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -281,7 +282,7 @@
   0184        subs
   0185        push     0
   018a        max
-  018b        seta     collateral, R32              ; IL-COLL-1
+  018b        seta     collateral, R33              ; IL-COLL-1
   018f        ret
               ; IL-EXCL-1  740 ILCS 45/2(h)  ""Pecuniary loss" does not include pain and suffering or property..."
   0190  L17:  push     0
@@ -319,7 +320,7 @@
   01ec        subs
   01ed        push     0
   01f2        max
-  01f3        seta     collateral, R32              ; IL-COLL-1
+  01f3        seta     collateral, R33              ; IL-COLL-1
   01f7        ret
               ; IL-COV-DENTAL  Crime Victims Compensation FAQ by Sexual Assault Victims, What types of expenses may the Crime Victims Compensation Program pay?  "Medical, hospital, and dental expenses."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -336,7 +337,7 @@
   0212        subs
   0213        push     0
   0218        max
-  0219        seta     collateral, R32              ; IL-COLL-1
+  0219        seta     collateral, R33              ; IL-COLL-1
   021d        ret
               ; IL-FUNERAL-1  740 ILCS 45/2(h)(16)  "in the case of death, expenses for reasonable funeral, burial..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -353,7 +354,7 @@
   0238        subs
   0239        push     0
   023e        max
-  023f        seta     collateral, R32              ; IL-COLL-1
+  023f        seta     collateral, R33              ; IL-COLL-1
   0243        ret
               ; IL-LEGAL-1  740 ILCS 45/2(h)(19)  "legal fees resulting from proceedings that became necessary..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -370,7 +371,7 @@
   025e        subs
   025f        push     0
   0264        max
-  0265        seta     collateral, R32              ; IL-COLL-1
+  0265        seta     collateral, R33              ; IL-COLL-1
   0269        ret
               ; IL-COV-TUIT  740 ILCS 45/2(h)(13)  "loss of tuition paid to attend grammar school or high school..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
@@ -387,7 +388,7 @@
   0284        subs
   0285        push     0
   028a        max
-  028b        seta     collateral, R32              ; IL-COLL-1
+  028b        seta     collateral, R33              ; IL-COLL-1
   028f        ret
               ; IL-TOW-1  740 ILCS 45/2(h)(4)  "expenses incurred for the towing and storage of a victim's..."
               ; IL-COV-PROS  740 ILCS 45/2(h)(3)  "prosthetic appliances, eyeglasses, and hearing aids necessary or..."
@@ -405,7 +406,7 @@
   02aa        subs
   02ab        push     0
   02b0        max
-  02b1        seta     collateral, R32              ; IL-COLL-1
+  02b1        seta     collateral, R33              ; IL-COLL-1
   02b5        ret
 
 .aggregate
@@ -556,6 +557,7 @@
               ; IL-EXCL-3  Crime Victims Compensation Program guide, Do I get the money for compensation?  "Compensation is not available for expenses that have not been..."
               ; IL-EXCL-4  Crime Victims Compensation FAQ by Sexual Assault Victims, What types of expenses may the Crime Victims Compensation Program pay?  "Services by an unlicensed person working with a licensed person..."
               ; IL-DEAD-2  740 ILCS 45/6.1(a)  "he or she may present the application required by this..."
+              ; IL-REPORT-6  740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)  "For purposes of notification under this Act, a victim who..."
               ; IL-COLL-1  740 ILCS 45/10.1(g)  "Compensation under this Act is a secondary source of..."
               ; IL-COLL-2  740 ILCS 45/10.1(g)  "Crowdfunding resources available to applicants are not..."
               ; IL-CONDUCT-1  740 ILCS 45/10.1(d)  "an award shall be reduced or denied according to the extent to..."
@@ -579,6 +581,6 @@
               ; IL-DOC-USEFORCE  Application (Rev. 12/2024), Section 2, Use of Force Claims  "If yes, please explain and provide documentation for all..."
               ; IL-ACP-1  Illinois AG ACP page, opening paragraph; statutory basis 750 ILCS 61/11 and 61/15  "The Address Confidentiality Program (ACP) provides a substitute..."
               ; IL-RECCONF-1  740 ILCS 45/4.2  "Any records obtained by the Attorney General's office to process..."
-  01a7        info     P31                          ; IL-EXCL-2, IL-EXCL-3, IL-EXCL-4, IL-DEAD-2, IL-COLL-1, IL-COLL-2, IL-CONDUCT-1, IL-CONDUCT-2, IL-CONDUCT-3, IL-CONDUCT-4, IL-EMERG-1, IL-CRIME-1, IL-CRIME-2, IL-RES-1, IL-RES-2, IL-SUBMIT-ONLINE, IL-SUBMIT-EMAIL, IL-SUBMIT-MAIL, IL-DOC-POLICE, IL-DOC-PROTECT, IL-DOC-BILLS, IL-DOC-RECEIPTS, IL-DOC-GUARDIAN, IL-DOC-RESIDENCE, IL-DOC-USEFORCE, IL-ACP-1, IL-RECCONF-1
+  01a7        info     P31                          ; IL-EXCL-2, IL-EXCL-3, IL-EXCL-4, IL-DEAD-2, IL-REPORT-6, IL-COLL-1, IL-COLL-2, IL-CONDUCT-1, IL-CONDUCT-2, IL-CONDUCT-3, IL-CONDUCT-4, IL-EMERG-1, IL-CRIME-1, IL-CRIME-2, IL-RES-1, IL-RES-2, IL-SUBMIT-ONLINE, IL-SUBMIT-EMAIL, IL-SUBMIT-MAIL, IL-DOC-POLICE, IL-DOC-PROTECT, IL-DOC-BILLS, IL-DOC-RECEIPTS, IL-DOC-GUARDIAN, IL-DOC-RESIDENCE, IL-DOC-USEFORCE, IL-ACP-1, IL-RECCONF-1
   01aa        ret
 

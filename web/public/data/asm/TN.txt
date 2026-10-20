@@ -1,9 +1,9 @@
 ; tend law image TN, Tennessee
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 595294f49d672bbfde0d2ba08e4dc69e44996cd3a82b3efd4c8567dcb402052d
-; image sha256  792f3420e39935f8e8d3d403db0cae3610ad40162e9abbc4fc47ba1bce3ee7c9
-; 42 rules, 22 sources, 23 proofs, 5 ints, 286 strings
-; item program: 146 instructions, 494 bytes, max stack 2
+; source sha256 2826002f3defe406c5ecdb4ce1ac32498c0961a513586c5d3dabc48d50ebb5c6
+; image sha256  b2d2433397716a5448c90c78fbd0d562315613b52c8a9392db1480ea74c1ae14
+; 44 rules, 22 sources, 25 proofs, 5 ints, 295 strings
+; item program: 160 instructions, 532 bytes, max stack 2
 ; aggregate program: 183 instructions, 564 bytes, max stack 2, 6 loops
 
 .rules
@@ -15,40 +15,42 @@
     R5    TN-CAP-1              total_cap     -                                             Treasury Maximum Expense Amounts (June 2025); set under T.C.A. 29-13-106(h)
     R6    TN-PAIN-1             covered       other                                         T.C.A. 29-13-106(c)
     R7    TN-PAIN-2             expense_cap   other                 per claim               T.C.A. 29-13-107(3)
-    R8    TN-MED-1              covered       medical                                       T.C.A. 29-13-106(a)(1)
-    R9    TN-WAGE-1             covered       lost_wages                                    T.C.A. 29-13-107(1)
-    R10   TN-MOVE-1             covered       relocation                                    T.C.A. 29-13-106(a)(7)
-    R11   TN-CLEAN-1            covered       crime_scene_cleanup                           T.C.A. 29-13-106(a)(4)
-    R12   TN-CLEAN-2            expense_cap   crime_scene_cleanup   per claim               T.C.A. 29-13-107(5)
-    R13   TN-TRAVEL-1           expense_cap   transportation        per claim               T.C.A. 29-13-106(a)(3)
-    R14   TN-TRAVEL-2           info          -                     excluded_expense        Treasury CIC resource guide, Eligible versus Ineligible
-    R15   TN-FUN-1              expense_cap   funeral               per claim               T.C.A. 29-13-107(4)
-    R16   TN-PROP-1             excluded      property_replacement                          T.C.A. 29-13-106(b)
-    R17   TN-PROP-2             covered       property_replacement                          T.C.A. 29-13-106(a)(8)
-    R18   TN-EXCL-1             info          -                     excluded_expense        Treasury CIC resource guide, Eligible versus Ineligible
-    R19   TN-EXCL-2             info          -                     excluded_expense        Treasury CIC resource guide, Eligible versus Ineligible
-    R20   TN-FILE-1             deadline      -                     from crime              T.C.A. 29-13-108(a)
-    R21   TN-REPORT-1           reporting     -                                             T.C.A. 29-13-108(a)
-    R22   TN-REPORT-2           reporting     -                                             T.C.A. 29-13-103(b)(2)(B)
-    R23   TN-MIN-1              minimum_loss  -                                             T.C.A. 29-13-106(d)
-    R24   TN-COLL-1             collateral    -                                             T.C.A. 29-13-106(f)(1)
-    R25   TN-CONDUCT-1          info          -                     conduct_reduction       T.C.A. 29-13-109(c)
-    R26   TN-EMERG-1            info          -                     emergency_award         T.C.A. 29-13-114(b)
-    R27   TN-CRIME-1            info          -                     eligible_crime          T.C.A. 29-13-104(1)
-    R28   TN-RES-1              info          -                     residency               T.C.A. 29-13-104(4)
-    R29   TN-SUBMIT-ONLINE      info          -                     submission              Resource guide, Apply for Compensation
-    R30   TN-DOC-POLICE         info          -                     required_document       Program page, Frequently Asked Questions
-    R31   TN-DOC-BILLS          info          -                     required_document       Resource guide, Apply for Compensation
-    R32   TN-DOC-RECEIPTS       info          -                     required_document       Resource guide, Apply for Compensation
-    R33   TN-DOC-DEATH          info          -                     required_document       Resource guide, Apply for Compensation
-    R34   TN-DOC-PROOF          info          -                     required_document       T.C.A. 29-13-103(b)(2)(B)(vii)
-    R35   TN-DOC-WAGES          info          -                     required_document       T.C.A. 29-13-103(b)(2)(A)(ii)-(iii)
-    R36   TN-DOC-EMPLOYER       info          -                     required_document       Employer's Statement (RDA-1178), header
-    R37   TN-TIME-1             info          -                     processing_time         T.C.A. 29-13-108(d)
-    R38   TN-ACP-1              info          -                     address_confidentiality Secretary of State, Safe at Home FAQ 'What is the Safe at Home Address Confidentiality Program?'; statute T.C.A. 40-38-601 to 40-38-604 (enroll text from 40-38-604(a))
-    R39   TN-RECORDS-1          info          -                     record_confidentiality  T.C.A. 10-7-504(k)
-    R40   TN-COUNS-1            skipped       -                     expense_cap             T.C.A. 29-13-107(6)  ; applies_to "family members and others listed in 29-13-105(a)(3), (a)(6), (a)(7), not the victim"
-    R41   TN-COUNS-2            skipped       -                     covered_expense         T.C.A. 29-13-105(a)(6)  ; applies_to "sibling or non-offending custodial parent of a victim under 18"
+    R8    TN-COUNS-3            covered       counseling                                    Program page, Eligible (Covered) Expenses Explained: Medical Bills/Mental Health Counseling
+    R9    TN-MED-1              covered       medical                                       T.C.A. 29-13-106(a)(1)
+    R10   TN-WAGE-1             covered       lost_wages                                    T.C.A. 29-13-107(1)
+    R11   TN-MOVE-1             covered       relocation                                    T.C.A. 29-13-106(a)(7)
+    R12   TN-CLEAN-1            covered       crime_scene_cleanup                           T.C.A. 29-13-106(a)(4)
+    R13   TN-CLEAN-2            expense_cap   crime_scene_cleanup   per claim               T.C.A. 29-13-107(5)
+    R14   TN-TRAVEL-1           expense_cap   transportation        per claim               T.C.A. 29-13-106(a)(3)
+    R15   TN-TRAVEL-2           info          -                     excluded_expense        Treasury CIC resource guide, Eligible versus Ineligible
+    R16   TN-FUN-1              expense_cap   funeral               per claim               T.C.A. 29-13-107(4)
+    R17   TN-PROP-1             excluded      property_replacement                          T.C.A. 29-13-106(b)
+    R18   TN-PROP-2             covered       property_replacement                          T.C.A. 29-13-106(a)(8)
+    R19   TN-EXCL-1             info          -                     excluded_expense        Treasury CIC resource guide, Eligible versus Ineligible
+    R20   TN-EXCL-2             info          -                     excluded_expense        Treasury CIC resource guide, Eligible versus Ineligible
+    R21   TN-FILE-1             deadline      -                     from crime              T.C.A. 29-13-108(a)
+    R22   TN-FILE-2             info          -                     filing_deadline         T.C.A. 29-13-108(a)
+    R23   TN-REPORT-1           reporting     -                                             T.C.A. 29-13-108(a)
+    R24   TN-REPORT-2           reporting     -                                             T.C.A. 29-13-103(b)(2)(B)
+    R25   TN-MIN-1              minimum_loss  -                                             T.C.A. 29-13-106(d)
+    R26   TN-COLL-1             collateral    -                                             T.C.A. 29-13-106(f)(1)
+    R27   TN-CONDUCT-1          info          -                     conduct_reduction       T.C.A. 29-13-109(c)
+    R28   TN-EMERG-1            info          -                     emergency_award         T.C.A. 29-13-114(b)
+    R29   TN-CRIME-1            info          -                     eligible_crime          T.C.A. 29-13-104(1)
+    R30   TN-RES-1              info          -                     residency               T.C.A. 29-13-104(4)
+    R31   TN-SUBMIT-ONLINE      info          -                     submission              Resource guide, Apply for Compensation
+    R32   TN-DOC-POLICE         info          -                     required_document       Program page, Frequently Asked Questions
+    R33   TN-DOC-BILLS          info          -                     required_document       Resource guide, Apply for Compensation
+    R34   TN-DOC-RECEIPTS       info          -                     required_document       Resource guide, Apply for Compensation
+    R35   TN-DOC-DEATH          info          -                     required_document       Resource guide, Apply for Compensation
+    R36   TN-DOC-PROOF          info          -                     required_document       T.C.A. 29-13-103(b)(2)(B)(vii)
+    R37   TN-DOC-WAGES          info          -                     required_document       T.C.A. 29-13-103(b)(2)(A)(ii)-(iii)
+    R38   TN-DOC-EMPLOYER       info          -                     required_document       Employer's Statement (RDA-1178), header
+    R39   TN-TIME-1             info          -                     processing_time         T.C.A. 29-13-108(d)
+    R40   TN-ACP-1              info          -                     address_confidentiality Secretary of State, Safe at Home FAQ 'What is the Safe at Home Address Confidentiality Program?'; statute T.C.A. 40-38-601 to 40-38-604 (enroll text from 40-38-604(a))
+    R41   TN-RECORDS-1          info          -                     record_confidentiality  T.C.A. 10-7-504(k)
+    R42   TN-COUNS-1            skipped       -                     expense_cap             T.C.A. 29-13-107(6)  ; applies_to "family members and others listed in 29-13-105(a)(3), (a)(6), (a)(7), not the victim"
+    R43   TN-COUNS-2            skipped       -                     covered_expense         T.C.A. 29-13-105(a)(6)  ; applies_to "sibling or non-offending custodial parent of a victim under 18"
 
 .tags   phone=bit0
 
@@ -81,25 +83,27 @@
     P1    (TN-EXAM-1, TN-EXAM-2, TN-EXAM-3, TN-EXAM-5)
     P2    (TN-MED-1)
     P3    (TN-MED-1, TN-COLL-1)
-    P4    (TN-WAGE-1)
-    P5    (TN-WAGE-1, TN-COLL-1)
-    P6    (TN-TRAVEL-1)
-    P7    (TN-TRAVEL-1, TN-COLL-1)
-    P8    (TN-MOVE-1)
-    P9    (TN-MOVE-1, TN-COLL-1)
-    P10   (TN-CLEAN-1, TN-CLEAN-2)
-    P11   (TN-CLEAN-1, TN-CLEAN-2, TN-COLL-1)
-    P12   (TN-PROP-1)
-    P13   (TN-PROP-2)
-    P14   (TN-PROP-2, TN-COLL-1)
-    P15   (TN-FUN-1)
-    P16   (TN-FUN-1, TN-COLL-1)
-    P17   (TN-PAIN-1, TN-PAIN-2)
-    P18   (TN-PAIN-1, TN-PAIN-2, TN-COLL-1)
-    P19   (TN-MIN-1)
-    P20   (TN-FILE-1)
-    P21   (TN-EXAM-4, TN-REPORT-1, TN-REPORT-2)
-    P22   (TN-TRAVEL-2, TN-EXCL-1, TN-EXCL-2, TN-COLL-1, TN-CONDUCT-1, TN-EMERG-1, TN-CRIME-1, TN-RES-1, TN-SUBMIT-ONLINE, TN-DOC-POLICE, TN-DOC-BILLS, TN-DOC-RECEIPTS, TN-DOC-DEATH, TN-DOC-PROOF, TN-DOC-WAGES, TN-DOC-EMPLOYER, TN-TIME-1, TN-ACP-1, TN-RECORDS-1)
+    P4    (TN-COUNS-3)
+    P5    (TN-COUNS-3, TN-COLL-1)
+    P6    (TN-WAGE-1)
+    P7    (TN-WAGE-1, TN-COLL-1)
+    P8    (TN-TRAVEL-1)
+    P9    (TN-TRAVEL-1, TN-COLL-1)
+    P10   (TN-MOVE-1)
+    P11   (TN-MOVE-1, TN-COLL-1)
+    P12   (TN-CLEAN-1, TN-CLEAN-2)
+    P13   (TN-CLEAN-1, TN-CLEAN-2, TN-COLL-1)
+    P14   (TN-PROP-1)
+    P15   (TN-PROP-2)
+    P16   (TN-PROP-2, TN-COLL-1)
+    P17   (TN-FUN-1)
+    P18   (TN-FUN-1, TN-COLL-1)
+    P19   (TN-PAIN-1, TN-PAIN-2)
+    P20   (TN-PAIN-1, TN-PAIN-2, TN-COLL-1)
+    P21   (TN-MIN-1)
+    P22   (TN-FILE-1)
+    P23   (TN-EXAM-4, TN-REPORT-1, TN-REPORT-2)
+    P24   (TN-TRAVEL-2, TN-EXCL-1, TN-EXCL-2, TN-FILE-2, TN-COLL-1, TN-CONDUCT-1, TN-EMERG-1, TN-CRIME-1, TN-RES-1, TN-SUBMIT-ONLINE, TN-DOC-POLICE, TN-DOC-BILLS, TN-DOC-RECEIPTS, TN-DOC-DEATH, TN-DOC-PROOF, TN-DOC-WAGES, TN-DOC-EMPLOYER, TN-TIME-1, TN-ACP-1, TN-RECORDS-1)
 
 .ints
     K0    300000        ; $3,000.00
@@ -118,26 +122,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L4
+  0016        switch   19, default L12
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L4
-                        case lost_wages            -> L5
-                        case transportation        -> L7
-                        case relocation            -> L9
-                        case temporary_housing     -> L4
-                        case security              -> L4
-                        case crime_scene_cleanup   -> L11
-                        case childcare             -> L4
-                        case property_replacement  -> L13
-                        case clothing_bedding      -> L4
-                        case prescription          -> L4
-                        case dental                -> L4
-                        case funeral               -> L18
-                        case legal                 -> L4
-                        case tuition               -> L4
-                        case other                 -> L20
-                        case unknown               -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L12
+                        case security              -> L12
+                        case crime_scene_cleanup   -> L13
+                        case childcare             -> L12
+                        case property_replacement  -> L15
+                        case clothing_bedding      -> L12
+                        case prescription          -> L12
+                        case dental                -> L12
+                        case funeral               -> L20
+                        case legal                 -> L12
+                        case tuition               -> L12
+                        case other                 -> L22
+                        case unknown               -> L12
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -162,143 +166,159 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R24              ; TN-COLL-1
+  009d        seta     collateral, R26              ; TN-COLL-1
   00a1        ret
-  00a2  L4:   push     0
-  00a7        decide   unknown_rule, P0             ; (none)
-  00ab        ret
+              ; TN-COUNS-3  Program page, Eligible (Covered) Expenses Explained: Medical Bills/Mental Health Counseling  "Any counseling services must be necessary due to the injury and..."
+              ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
+  00a2  L4:   ldi      confirmed
+  00a4        jnz      L5
+  00a9        push     0
+  00ae        decide   needs_confirmation, P4       ; TN-COUNS-3
+  00b2        ret
+  00b3  L5:   ldi      amount_cents
+  00b5        decide   eligible, P5                 ; TN-COUNS-3, TN-COLL-1
+  00b9        lda
+  00ba        ldi      insurance_paid_cents
+  00bc        subs
+  00bd        push     0
+  00c2        max
+  00c3        seta     collateral, R26              ; TN-COLL-1
+  00c7        ret
               ; TN-WAGE-1  T.C.A. 29-13-107(1)  "Any award made for lost wages proximately caused by a violent..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
-  00ac  L5:   ldi      confirmed
-  00ae        jnz      L6
-  00b3        push     0
-  00b8        decide   needs_confirmation, P4       ; TN-WAGE-1
-  00bc        ret
-  00bd  L6:   ldi      amount_cents
-  00bf        decide   eligible, P5                 ; TN-WAGE-1, TN-COLL-1
-  00c3        lda
-  00c4        ldi      insurance_paid_cents
-  00c6        subs
-  00c7        push     0
-  00cc        max
-  00cd        seta     collateral, R24              ; TN-COLL-1
-  00d1        ret
+  00c8  L6:   ldi      confirmed
+  00ca        jnz      L7
+  00cf        push     0
+  00d4        decide   needs_confirmation, P6       ; TN-WAGE-1
+  00d8        ret
+  00d9  L7:   ldi      amount_cents
+  00db        decide   eligible, P7                 ; TN-WAGE-1, TN-COLL-1
+  00df        lda
+  00e0        ldi      insurance_paid_cents
+  00e2        subs
+  00e3        push     0
+  00e8        max
+  00e9        seta     collateral, R26              ; TN-COLL-1
+  00ed        ret
               ; TN-TRAVEL-1  T.C.A. 29-13-106(a)(3)  "Any award made under the preceding sentence to a claimant shall..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
-  00d2  L7:   ldi      confirmed
-  00d4        jnz      L8
-  00d9        push     0
-  00de        decide   needs_confirmation, P6       ; TN-TRAVEL-1
-  00e2        ret
-  00e3  L8:   ldi      amount_cents
-  00e5        decide   eligible, P7                 ; TN-TRAVEL-1, TN-COLL-1
-  00e9        lda
-  00ea        ldi      insurance_paid_cents
-  00ec        subs
-  00ed        push     0
-  00f2        max
-  00f3        seta     collateral, R24              ; TN-COLL-1
-  00f7        ret
+  00ee  L8:   ldi      confirmed
+  00f0        jnz      L9
+  00f5        push     0
+  00fa        decide   needs_confirmation, P8       ; TN-TRAVEL-1
+  00fe        ret
+  00ff  L9:   ldi      amount_cents
+  0101        decide   eligible, P9                 ; TN-TRAVEL-1, TN-COLL-1
+  0105        lda
+  0106        ldi      insurance_paid_cents
+  0108        subs
+  0109        push     0
+  010e        max
+  010f        seta     collateral, R26              ; TN-COLL-1
+  0113        ret
               ; TN-MOVE-1  T.C.A. 29-13-106(a)(7)  "The victim's reasonable moving expenses, storage fees and fees..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
-  00f8  L9:   ldi      confirmed
-  00fa        jnz      L10
-  00ff        push     0
-  0104        decide   needs_confirmation, P8       ; TN-MOVE-1
-  0108        ret
-  0109  L10:  ldi      amount_cents
-  010b        decide   eligible, P9                 ; TN-MOVE-1, TN-COLL-1
-  010f        lda
-  0110        ldi      insurance_paid_cents
-  0112        subs
-  0113        push     0
-  0118        max
-  0119        seta     collateral, R24              ; TN-COLL-1
-  011d        ret
+  0114  L10:  ldi      confirmed
+  0116        jnz      L11
+  011b        push     0
+  0120        decide   needs_confirmation, P10      ; TN-MOVE-1
+  0124        ret
+  0125  L11:  ldi      amount_cents
+  0127        decide   eligible, P11                ; TN-MOVE-1, TN-COLL-1
+  012b        lda
+  012c        ldi      insurance_paid_cents
+  012e        subs
+  012f        push     0
+  0134        max
+  0135        seta     collateral, R26              ; TN-COLL-1
+  0139        ret
+  013a  L12:  push     0
+  013f        decide   unknown_rule, P0             ; (none)
+  0143        ret
               ; TN-CLEAN-1  T.C.A. 29-13-106(a)(4)  "Reasonable out-of-pocket expenses incurred for cleaning..."
               ; TN-CLEAN-2  T.C.A. 29-13-107(5)  "Any award made for expenses under § 29-13-106(a)(4) shall not..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
-  011e  L11:  ldi      confirmed
-  0120        jnz      L12
-  0125        push     0
-  012a        decide   needs_confirmation, P10      ; TN-CLEAN-1, TN-CLEAN-2
-  012e        ret
-  012f  L12:  ldi      amount_cents
-  0131        decide   eligible, P11                ; TN-CLEAN-1, TN-CLEAN-2, TN-COLL-1
-  0135        lda
-  0136        ldi      insurance_paid_cents
-  0138        subs
-  0139        push     0
-  013e        max
-  013f        seta     collateral, R24              ; TN-COLL-1
-  0143        ret
+  0144  L13:  ldi      confirmed
+  0146        jnz      L14
+  014b        push     0
+  0150        decide   needs_confirmation, P12      ; TN-CLEAN-1, TN-CLEAN-2
+  0154        ret
+  0155  L14:  ldi      amount_cents
+  0157        decide   eligible, P13                ; TN-CLEAN-1, TN-CLEAN-2, TN-COLL-1
+  015b        lda
+  015c        ldi      insurance_paid_cents
+  015e        subs
+  015f        push     0
+  0164        max
+  0165        seta     collateral, R26              ; TN-COLL-1
+  0169        ret
               ; TN-PROP-1  T.C.A. 29-13-106(b)  "In no case will any compensation be awarded for any damage to..."
               ; TN-PROP-2  T.C.A. 29-13-106(a)(8)  "Reasonable costs of cleaning, repairing or replacing eyeglasses..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
-  0144  L13:  push     0
-  0149        str      r0
-  014b        ldi      tags
-  014d        push     1
-  0152        and
-  0153        jz       L14
-  0158        ldr      r0
-  015a        push     1
-  015f        or
-  0160        str      r0
-  0162  L14:  ldr      r0
-  0164        switch   2, default L16
-                        case 0                     -> L16
-                        case 1                     -> L15
-  0172  L15:  push     0
-  0177        decide   excluded, P12                ; TN-PROP-1
-  017b        ret
-  017c  L16:  ldi      confirmed
-  017e        jnz      L17
-  0183        push     0
-  0188        decide   needs_confirmation, P13      ; TN-PROP-2
-  018c        ret
-  018d  L17:  ldi      amount_cents
-  018f        decide   eligible, P14                ; TN-PROP-2, TN-COLL-1
-  0193        lda
-  0194        ldi      insurance_paid_cents
-  0196        subs
-  0197        push     0
-  019c        max
-  019d        seta     collateral, R24              ; TN-COLL-1
+  016a  L15:  push     0
+  016f        str      r0
+  0171        ldi      tags
+  0173        push     1
+  0178        and
+  0179        jz       L16
+  017e        ldr      r0
+  0180        push     1
+  0185        or
+  0186        str      r0
+  0188  L16:  ldr      r0
+  018a        switch   2, default L18
+                        case 0                     -> L18
+                        case 1                     -> L17
+  0198  L17:  push     0
+  019d        decide   excluded, P14                ; TN-PROP-1
   01a1        ret
-              ; TN-FUN-1  T.C.A. 29-13-107(4)  "Any award made for funeral and burial expenses shall not exceed..."
-              ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
   01a2  L18:  ldi      confirmed
   01a4        jnz      L19
   01a9        push     0
-  01ae        decide   needs_confirmation, P15      ; TN-FUN-1
+  01ae        decide   needs_confirmation, P15      ; TN-PROP-2
   01b2        ret
   01b3  L19:  ldi      amount_cents
-  01b5        decide   eligible, P16                ; TN-FUN-1, TN-COLL-1
+  01b5        decide   eligible, P16                ; TN-PROP-2, TN-COLL-1
   01b9        lda
   01ba        ldi      insurance_paid_cents
   01bc        subs
   01bd        push     0
   01c2        max
-  01c3        seta     collateral, R24              ; TN-COLL-1
+  01c3        seta     collateral, R26              ; TN-COLL-1
   01c7        ret
-              ; TN-PAIN-1  T.C.A. 29-13-106(c)  "Compensation must not be awarded for any personal injury or loss..."
-              ; TN-PAIN-2  T.C.A. 29-13-107(3)  "Any award based on the pain and suffering experienced by a..."
+              ; TN-FUN-1  T.C.A. 29-13-107(4)  "Any award made for funeral and burial expenses shall not exceed..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
   01c8  L20:  ldi      confirmed
   01ca        jnz      L21
   01cf        push     0
-  01d4        decide   needs_confirmation, P17      ; TN-PAIN-1, TN-PAIN-2
+  01d4        decide   needs_confirmation, P17      ; TN-FUN-1
   01d8        ret
   01d9  L21:  ldi      amount_cents
-  01db        decide   eligible, P18                ; TN-PAIN-1, TN-PAIN-2, TN-COLL-1
+  01db        decide   eligible, P18                ; TN-FUN-1, TN-COLL-1
   01df        lda
   01e0        ldi      insurance_paid_cents
   01e2        subs
   01e3        push     0
   01e8        max
-  01e9        seta     collateral, R24              ; TN-COLL-1
+  01e9        seta     collateral, R26              ; TN-COLL-1
   01ed        ret
+              ; TN-PAIN-1  T.C.A. 29-13-106(c)  "Compensation must not be awarded for any personal injury or loss..."
+              ; TN-PAIN-2  T.C.A. 29-13-107(3)  "Any award based on the pain and suffering experienced by a..."
+              ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
+  01ee  L22:  ldi      confirmed
+  01f0        jnz      L23
+  01f5        push     0
+  01fa        decide   needs_confirmation, P19      ; TN-PAIN-1, TN-PAIN-2
+  01fe        ret
+  01ff  L23:  ldi      amount_cents
+  0201        decide   eligible, P20                ; TN-PAIN-1, TN-PAIN-2, TN-COLL-1
+  0205        lda
+  0206        ldi      insurance_paid_cents
+  0208        subs
+  0209        push     0
+  020e        max
+  020f        seta     collateral, R26              ; TN-COLL-1
+  0213        ret
 
 .aggregate
               ; TN-PAIN-2  T.C.A. 29-13-107(3)  "Any award based on the pain and suffering experienced by a..."
@@ -346,7 +366,7 @@
   007a        ldk      K0                           ; $3,000.00
   007d        ldr      r0
   007f        subs
-  0080        cap      expense_cap, R12             ; TN-CLEAN-2
+  0080        cap      expense_cap, R13             ; TN-CLEAN-2
   0084        push     1
   0089        str      r1
   008b  L6:   ldr      r0
@@ -355,7 +375,7 @@
   008f        str      r0
   0091        jmp      L8
   0096  L7:   push     0
-  009b        cap      expense_cap, R12             ; TN-CLEAN-2
+  009b        cap      expense_cap, R13             ; TN-CLEAN-2
   009f  L8:   next     L5
               ; TN-TRAVEL-1  T.C.A. 29-13-106(a)(3)  "Any award made under the preceding sentence to a claimant shall..."
   00a4  L9:   push     0
@@ -374,7 +394,7 @@
   00cc        ldk      K1                           ; $1,250.00
   00cf        ldr      r0
   00d1        subs
-  00d2        cap      expense_cap, R13             ; TN-TRAVEL-1
+  00d2        cap      expense_cap, R14             ; TN-TRAVEL-1
   00d6        push     1
   00db        str      r1
   00dd  L11:  ldr      r0
@@ -383,7 +403,7 @@
   00e1        str      r0
   00e3        jmp      L13
   00e8  L12:  push     0
-  00ed        cap      expense_cap, R13             ; TN-TRAVEL-1
+  00ed        cap      expense_cap, R14             ; TN-TRAVEL-1
   00f1  L13:  next     L10
               ; TN-FUN-1  T.C.A. 29-13-107(4)  "Any award made for funeral and burial expenses shall not exceed..."
   00f6  L14:  push     0
@@ -402,7 +422,7 @@
   011e        ldk      K2                           ; $6,000.00
   0121        ldr      r0
   0123        subs
-  0124        cap      expense_cap, R15             ; TN-FUN-1
+  0124        cap      expense_cap, R16             ; TN-FUN-1
   0128        push     1
   012d        str      r1
   012f  L16:  ldr      r0
@@ -411,7 +431,7 @@
   0133        str      r0
   0135        jmp      L18
   013a  L17:  push     0
-  013f        cap      expense_cap, R15             ; TN-FUN-1
+  013f        cap      expense_cap, R16             ; TN-FUN-1
   0143  L18:  next     L15
               ; TN-CAP-1  Treasury Maximum Expense Amounts (June 2025); set under T.C.A. 29-13-106(h)  "For crimes occurring on or after July 1, 2025: $34,100"
   0148  L19:  push     0
@@ -462,7 +482,7 @@
   01cb        max
   01cc        str      r2
   01ce  L27:  ldr      r2
-  01d0        check    minimum_loss, P19            ; TN-MIN-1
+  01d0        check    minimum_loss, P21            ; TN-MIN-1
               ; TN-FILE-1  T.C.A. 29-13-108(a)  "A claim for compensation must be filed not later than two (2)..."
   01d4        ldx      incident_date
   01d6        push     730
@@ -475,7 +495,7 @@
   01e6        push     0
   01eb        jmp      L29
   01f0  L28:  push     1                            ; late
-  01f5  L29:  check    deadline, P20                ; TN-FILE-1
+  01f5  L29:  check    deadline, P22                ; TN-FILE-1
               ; TN-EXAM-4  T.C.A. 29-13-118(b)(2)  "the victims shall not be required to report the incident to law..."
               ; TN-REPORT-1  T.C.A. 29-13-108(a)  "A claim cannot be filed until the crime upon which the claim is..."
               ; TN-REPORT-2  T.C.A. 29-13-103(b)(2)(B)  "(vii) Medical records from a healthcare provider, as those terms..."
@@ -492,10 +512,11 @@
   021d  L30:  push     1
   0222        jmp      L32
   0227  L31:  push     0                            ; satisfied
-  022c  L32:  check    reporting, P21               ; TN-EXAM-4, TN-REPORT-1, TN-REPORT-2
+  022c  L32:  check    reporting, P23               ; TN-EXAM-4, TN-REPORT-1, TN-REPORT-2
               ; TN-TRAVEL-2  Treasury CIC resource guide, Eligible versus Ineligible  "Travel to Doctor Appointments"
               ; TN-EXCL-1  Treasury CIC resource guide, Eligible versus Ineligible  "Deposits, Rent and Utility Bills"
               ; TN-EXCL-2  Treasury CIC resource guide, Eligible versus Ineligible  "Cost from Identity Theft or Fraud"
+              ; TN-FILE-2  T.C.A. 29-13-108(a)  "two (2) years after any mental or physical manifestation or..."
               ; TN-COLL-1  T.C.A. 29-13-106(f)(1)  "Any award shall be reduced by the amounts of payment already..."
               ; TN-CONDUCT-1  T.C.A. 29-13-109(c)  "In determining whether to make an award under this section, or..."
               ; TN-EMERG-1  T.C.A. 29-13-114(b)  "The amount of such emergency award shall not exceed five hundred..."
@@ -512,6 +533,6 @@
               ; TN-TIME-1  T.C.A. 29-13-108(d)  "the division shall investigate every claim for compensation and..."
               ; TN-ACP-1  Secretary of State, Safe at Home FAQ 'What is the Safe at Home Address Confidentiality Program?'; statute T.C.A. 40-38-601 to 40-38-604 (enroll text from 40-38-604(a))  "The Safe at Home Address Confidentiality Program is a statewide..."
               ; TN-RECORDS-1  T.C.A. 10-7-504(k)  "The following information regarding victims who apply for..."
-  0230        info     P22                          ; TN-TRAVEL-2, TN-EXCL-1, TN-EXCL-2, TN-COLL-1, TN-CONDUCT-1, TN-EMERG-1, TN-CRIME-1, TN-RES-1, TN-SUBMIT-ONLINE, TN-DOC-POLICE, TN-DOC-BILLS, TN-DOC-RECEIPTS, TN-DOC-DEATH, TN-DOC-PROOF, TN-DOC-WAGES, TN-DOC-EMPLOYER, TN-TIME-1, TN-ACP-1, TN-RECORDS-1
+  0230        info     P24                          ; TN-TRAVEL-2, TN-EXCL-1, TN-EXCL-2, TN-FILE-2, TN-COLL-1, TN-CONDUCT-1, TN-EMERG-1, TN-CRIME-1, TN-RES-1, TN-SUBMIT-ONLINE, TN-DOC-POLICE, TN-DOC-BILLS, TN-DOC-RECEIPTS, TN-DOC-DEATH, TN-DOC-PROOF, TN-DOC-WAGES, TN-DOC-EMPLOYER, TN-TIME-1, TN-ACP-1, TN-RECORDS-1
   0233        ret
 

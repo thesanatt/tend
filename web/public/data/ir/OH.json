@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "OH",
- "source_sha256": "008e844addbdd86f6b08e8297bf374feaf6b9dd843294b1a1f42b6002a97a2c7",
- "ir_sha256": "882f9adce9bc8b76daa66ee678dbf0b40b97110412d6ed70bdafac553ae65e35",
+ "source_sha256": "1c194b5570899bc03492cff1faee013720bb244d4fdce347169abe57d9caf055",
+ "ir_sha256": "6c017f5561134cd4933dd2a24391477a087064820ba3319a4079d21a2504a3e2",
  "fresh": true,
  "rules": [
   {
@@ -125,6 +125,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "OH-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "OH-MIN-1",

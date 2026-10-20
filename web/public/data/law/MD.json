@@ -251,11 +251,23 @@
    "params": {
     "amount_cents": 4500000
    },
-   "summary": "Total compensation is capped at $45,000, including later and supplemental awards. A victim with permanent total disability can get an additional disability award on top of this total.",
+   "summary": "Total compensation is capped at $45,000, including later and supplemental awards.",
    "quote": "a total of $45,000, including any subsequent and supplemental awards",
    "source_id": "MD-S5",
    "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(4)",
    "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-811&enactments=false#:~:text=a%20total%20of%20%2445%2C000%2C%20including%20any%20subsequent%20and%20supplemental%20awards"
+  },
+  {
+   "id": "MD-CAP-8",
+   "category": "total_cap",
+   "params": {
+    "exception": "or up to $25,000 more if the injury leaves you fully disabled for life"
+   },
+   "summary": "If the injury results in permanent total disability, up to $25,000 more can be awarded after a disability-related claim has been awarded to the victim.",
+   "quote": "(ii) if the injury to the victim results in permanent total disability, up to an additional $25,000 after a disability–related claim has been awarded to the victim",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(1)(ii)",
+   "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-811&enactments=false#:~:text=%28ii%29%20if%20the%20injury%20to,been%20awarded%20to%20the%20victim"
   },
   {
    "id": "MD-CAP-2",
@@ -489,11 +501,21 @@
     "from": "discovery",
     "extension": "Child abuse claims can be filed at any time; claims delayed by DNA testing of a sexual assault kit run from notification of the results; the Board can accept late claims for good cause."
    },
-   "summary": "A claim must be filed within 4 years after the crime is discovered (or a later trigger tied to an attempt to reverse a conviction).",
+   "summary": "A claim must be filed within 4 years after the crime is discovered, or later in some cases.",
    "quote": "a claimant shall file a claim within 4 years after the later of: (i) the discovery of the occurrence of the crime or delinquent act or the death of the victim",
    "source_id": "MD-S3",
    "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(1)",
    "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-809&enactments=false#:~:text=a%20claimant%20shall%20file%20a,the%20death%20of%20the%20victim"
+  },
+  {
+   "id": "MD-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "In a case of child abuse, a claim can be filed at any time.",
+   "quote": "In a case of child abuse, a claimant may file a claim at any time.",
+   "source_id": "MD-S3",
+   "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(2)",
+   "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-809&enactments=false#:~:text=In%20a%20case%20of%20child,a%20claim%20at%20any%20time."
   },
   {
    "id": "MD-DEADLINE-2",
@@ -518,7 +540,7 @@
    "quote": "A claimant may file a claim at any time if the Board determines that there was good cause for failure to file a claim within the time limits",
    "source_id": "MD-S3",
    "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(4)",
-   "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-809&enactments=false#:~:text=A%20claimant%20may%20file%20a,claim%20within%20the%20time%20limits"
+   "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-809&enactments=false#:~:text=A%20claimant%20may%20file%20a%20claim%20at%20any%20time%20if,claim%20within%20the%20time%20limits"
   },
   {
    "id": "MD-REPORT-1",
@@ -563,7 +585,7 @@
    "quote": "The Board may make an award only if the claimant, as a result of the injury on which the claim is based, has: (1) incurred at least $100 in unreimbursed and unreimbursable expenses",
    "source_id": "MD-S4",
    "pinpoint": "Md. Code, Crim. Proc. 11-810(d)",
-   "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-810&enactments=false#:~:text=The%20Board%20may%20make%20an,in%20unreimbursed%20and%20unreimbursable%20expenses"
+   "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=11-810&enactments=false#:~:text=The%20Board%20may%20make%20an%20award%20only%20if%20the%20claimant%2C,in%20unreimbursed%20and%20unreimbursable%20expenses"
   },
   {
    "id": "MD-COLL-1",
@@ -810,6 +832,12 @@
    "fragment_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gsg&section=7-303&enactments=false#:~:text=The%20Secretary%20of%20State%20shall,stalking%2C%20harassment%2C%20or%20human%20trafficking."
   }
  ],
+ "page_notes": {
+  "police": "Note: Maryland's law changed on July 1, 2025. The program's 2021 application and its website still say to report the crime within 48 hours. The application also asks for a police report for all claims. This page follows the law in force now. The program may still ask you for a police report.",
+  "deadline": "Note: The program's 2021 application and the Board's older rules still say you have 3 years to apply. The law now says 4 years.",
+  "costs": "Note: The program's 2021 application lists mileage, lock changes, moving, and child care as not covered. The law changed on July 1, 2025, and now lists these costs.",
+  "urgent": "Note: The Board's rules, last changed in 2016, still say an emergency award needs a police report and can be no more than $2,000. The law now allows up to $10,000."
+ },
  "coverage": {
   "found": [
    "exam_no_bill",

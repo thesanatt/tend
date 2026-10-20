@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NJ",
- "source_sha256": "c70dcbc425eac3433159637e055c8a0d9238893d693fc7b105f3a9ce76535dd1",
- "ir_sha256": "e46ddce8b901a95d99db9f52055f9d328230ea53d576f7fc15365c82cb41fc90",
+ "source_sha256": "892c1730d90e4a97f4f75b113d290e19059afd2a67385f384198db4c55298f64",
+ "ir_sha256": "742179462e3893e3cc78d0ad181094b40c6bab2481b6c010c296057d767c2e14",
  "fresh": true,
  "rules": [
   {
@@ -19,6 +19,11 @@
   },
   {
    "id": "NJ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NJ-CAP-2",
    "kind": "total_cap",
    "cap_cents": 2500000
   },

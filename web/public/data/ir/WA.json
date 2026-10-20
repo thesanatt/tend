@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WA",
- "source_sha256": "7fb45794a0db3f9b3727b83986ca6f0ef25665d76cf1419943fa18e775afb9b1",
- "ir_sha256": "8642878c9d5afe4259036aae2c669ca6f45867e160cf2aed28cc7d2cfe6c8e5d",
+ "source_sha256": "7e3fa1efb683d27d842ff3eda32a8fac5eed9622b88a8d55fcacd79593e02e1a",
+ "ir_sha256": "13ea111d697947217e880d13c934277898a503dd0cdfb760ede7d0b32c0ed934",
  "fresh": true,
  "rules": [
   {
@@ -115,6 +115,11 @@
    "id": "WA-COV-CLOTHING",
    "kind": "covered",
    "expense": "clothing_bedding"
+  },
+  {
+   "id": "WA-COV-MEDICATION",
+   "kind": "covered",
+   "expense": "prescription"
   },
   {
    "id": "WA-COV-PEP",

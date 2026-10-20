@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "TX",
- "source_sha256": "8d8af719a9c0d658659bd07b97a66b2ad42d4bfad73102518a82f47b95e1aea3",
- "ir_sha256": "b7794c3730205ad12cb318512a36eeaedd3a505b7a339c8e8009dd6e7be4b757",
+ "source_sha256": "21bedaa5b4b77f833f0386df24ae63d7eb59bb0881dce73eb09f52e277b48964",
+ "ir_sha256": "8e322b38dcc5783d289fe84fc20faf9ef848ad6e94c95ed56877182186e5fdde",
  "fresh": true,
  "rules": [
   {
@@ -41,6 +41,11 @@
    "expense": "relocation"
   },
   {
+   "id": "TX-RELO-4",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
    "id": "TX-RELO-2",
    "kind": "expense_cap",
    "expense": "relocation",
@@ -59,6 +64,11 @@
   },
   {
    "id": "TX-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TX-EXAM-5",
    "kind": "covered",
    "expense": "medical"
   },

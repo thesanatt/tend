@@ -133,6 +133,19 @@
    "fragment_url": "https://sdlegislature.gov/Statutes/22-22-26#:~:text=The%20county%20where%20an%20alleged,alleged%20rape%20or%20sexual%20offense."
   },
   {
+   "id": "SD-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "the county where the alleged rape or sexual offense occurred"
+   },
+   "summary": "The exam cost the county pays includes the provider and facility services for the exam, forensic supplies, scope procedures, lab tests such as STI, HIV, and pregnancy screening, any medication given during the exam, and radiology tied to the exam.",
+   "quote": "The cost of a forensic medical examination includes: (1) Provider, hospital, or clinic services directly related to the examination; (2) Necessary forensic supplies; (3) Scope procedures directly related to the examination, including anoscopy and colposcopy; (4) Laboratory testing directly related to the examination, including drug screening, urinalysis, pregnancy screening, syphilis screening, chlamydia culture, gonorrhea coverage culture, HIV screening, hepatitis B and C screening, herpes culture, and any other sexually transmitted disease testing directly related to the examination; (5) Any medication provided during the examination; and (6) Any radiology service directly related to the examination.",
+   "source_id": "SD-S2",
+   "pinpoint": "SDCL 22-22-26",
+   "fragment_url": "https://sdlegislature.gov/Statutes/22-22-26#:~:text=The%20cost%20of%20a%20forensic,directly%20related%20to%20the%20examination."
+  },
+  {
    "id": "SD-EXAM-2",
    "category": "exam_no_bill",
    "expense": "forensic_exam",
@@ -157,7 +170,7 @@
    "quote": "Reimbursement is not allowed for rape or sexual offense examinations provided under the provisions of SDCL",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:13",
-   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Reimbursement%20is%20not%20allowed%20for,under%20the%20provisions%20of%20SDCL"
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Reimbursement%20is%20not%20allowed%20for%20rape,under%20the%20provisions%20of%20SDCL"
   },
   {
    "id": "SD-CAP-1",
@@ -170,6 +183,16 @@
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-21",
    "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Compensation%20granted%20to%20any%20claimant,not%20exceed%20fifteen%20thousand%20dollars."
+  },
+  {
+   "id": "SD-CAP-5",
+   "category": "total_cap",
+   "params": {},
+   "summary": "Except for an emergency award, the commission may go above the limits on single costs when the claimant shows evidence of need. In no case can payments go above the program's overall limit.",
+   "quote": "With the exception of an emergency award, the commission may deviate from the limits established in this chapter. The claimant must submit evidence to the commission that substantiates the need for the deviation. Based on the evidence submitted, the commission shall determine whether the deviation is warranted. Within 15 days of the commission's decision, the department shall notify the individual in writing. Under no circumstances may payments exceed the program limits established in SDCL 23A-28B-21.",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:20",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=With%20the%20exception%20of%20an,limits%20established%20in%20SDCL%2023A%2D28B%2D21."
   },
   {
    "id": "SD-CAP-2",
@@ -228,7 +251,7 @@
    "quote": "Loss of earnings, loss of future earnings, and loss of support shall be determined on the basis of the victim's average monthly earnings for the six months immediately preceding the date of injury, or the monthly minimum wage as of the date of the crime underlying the claim, whichever is less. The monthly minimum wage shall be based upon the federal hourly minimum wage in effect as of the date of the crime multiplied by 173.2 hours per month.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-20",
-   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Loss%20of%20earnings%2C%20loss%20of,by%20173.2%20hours%20per%20month."
+   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Loss%20of%20earnings%2C%20loss%20of%20future%20earnings%2C%20and,by%20173.2%20hours%20per%20month."
   },
   {
    "id": "SD-WAGE-2",
@@ -294,6 +317,20 @@
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:19",
    "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=payment%20for%20medical%20expenses%20is,if%20good%20cause%20is%20shown."
+  },
+  {
+   "id": "SD-TRANS-3",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "scope": "mileage to treatment, court, or meetings with police"
+   },
+   "summary": "Mileage is covered for the victim's trips to treatment and therapy, to court proceedings, and to meet with law enforcement.",
+   "quote": "Mileage accrued for the victim to obtain treatment and therapy; (3) Mileage accrued for the victim to attend court proceedings; (4) Mileage accrued for the victim to meet with law enforcement",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:05(2)-(4)",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Mileage%20accrued%20for%20the%20victim,to%20meet%20with%20law%20enforcement"
   },
   {
    "id": "SD-TRANS-1",
@@ -425,7 +462,7 @@
    "quote": "the personal injury or death was the result of a crime which had been reported to a law enforcement officer or agency within five days of its occurrence or, if the crime could not reasonably have been reported within that period, within five days of the date when a report could reasonably have been made",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-25(1)",
-   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=the%20personal%20injury%20or%20death,could%20reasonably%20have%20been%20made"
+   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=the%20personal%20injury%20or%20death%20was,could%20reasonably%20have%20been%20made"
   },
   {
    "id": "SD-REPORT-2",
@@ -456,7 +493,7 @@
    "id": "SD-COLL-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "Any award is reduced by any payment the victim gets, or will get, from another source because of the crime.",
+   "summary": "Any award is reduced by any payment the victim gets, or will get, from a collateral source because of the crime.",
    "quote": "Any award of victims' compensation made pursuant to this chapter shall be reduced by the amount of any payment received, or to be received, by the victim from any collateral source as a result of the conduct giving rise to the application for compensation.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-22",

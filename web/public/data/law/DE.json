@@ -384,6 +384,20 @@
    "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=m.%20Reimbursement%20for%20reasonable%20expenses,a%20witness%20for%20the%20prosecution."
   },
   {
+   "id": "DE-COV-11",
+   "category": "covered_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal",
+    "scope": "fees for a lawyer who represents you before the Appeals Board"
+   },
+   "summary": "You do not need a lawyer before the Appeals Board, but if you have one, the Board may award an amount for the lawyer's services.",
+   "quote": "A claimant need not be represented by an attorney before the Appeals Board, but if such person is represented the Appeals Board may award an amount for services rendered.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9013",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20claimant%20need%20not%20be,an%20amount%20for%20services%20rendered."
+  },
+  {
    "id": "DE-EXCL-1",
    "category": "excluded_expense",
    "expense": "property_replacement",
@@ -430,7 +444,8 @@
     "alternatives": [
      "protective_order",
      "other"
-    ]
+    ],
+    "within_hours": 72
    },
    "summary": "The crime must be reported to law enforcement within 72 hours, but this is waived if it was reported to protective services or Family Court, the victim has a protection from abuse order, the victim cooperated with law enforcement or an appropriate government agency in a sexual assault case, or the Agency finds the requirement unreasonable.",
    "quote": "Where the victim has failed to report the crime to a law-enforcement agency within 72 hours of its occurrence. This requirement is waived in any of the following circumstances: a. The crime has been reported to an appropriate governmental agency, such as child or adult protective services or the Family Court. b. The victim can provide a protection from abuse order. c. The victim has cooperated with law enforcement or an appropriate government agency in cases of crimes involving domestic violence, sexual assault or abuse. d. Where the Agency, in its discretion, determines that the circumstances of the crime or the victim render this requirement unreasonable.",
@@ -535,7 +550,7 @@
    "quote": "A person whose domicile is in Delaware and who is the victim or secondary victim of a crime that occurs in another state, possession, or territory of the United States may make an application for compensation if both of the following are true: a. The crimes would be compensable had they occurred in Delaware. b. The placement of the crime occurred in states, possessions, or territories of the United States not having eligible crime victim compensation programs that provide benefits equal to the benefits provided under this chapter.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9009(9)",
-   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20person%20whose%20domicile%20is,benefits%20provided%20under%20this%20chapter."
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20person%20whose%20domicile%20is%20in%20Delaware%20and,benefits%20provided%20under%20this%20chapter."
   },
   {
    "id": "DE-SUB-1",

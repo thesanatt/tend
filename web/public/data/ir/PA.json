@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "PA",
- "source_sha256": "2ed49b0037a6143f7f9279603ca95d4fc76f6472e879a5f68ace362c218a5c97",
- "ir_sha256": "2c4c15cacd44b965b9d7d04c02ecb8c2dfc7f8a75830d63e84d04a76300d47c1",
+ "source_sha256": "4e44eb373c90e8716541789f6ca8c3a65b26bc55dcaa37d71faaf4a2b606aaa5",
+ "ir_sha256": "81ad0f93802844c11d4a4e52936afa07fc9516db95064e852fee6553ca4ecccc",
  "fresh": true,
  "rules": [
   {
@@ -168,6 +168,26 @@
    "kind": "deadline",
    "days": 1826,
    "from": "discovery"
+  },
+  {
+   "id": "PA-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "PA-REPORT-1",

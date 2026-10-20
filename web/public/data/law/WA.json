@@ -494,7 +494,7 @@
    "quote": "Counseling for immediate family members will be covered under the victim's sexual assault claim.",
    "source_id": "WA-S13",
    "pinpoint": "WAC 296-30-080(3)",
-   "fragment_url": "https://app.leg.wa.gov/WAC/default.aspx?cite=296-30-080#:~:text=Counseling%20for%20immediate%20family%20members,the%20victim%27s%20sexual%20assault%20claim."
+   "fragment_url": "https://app.leg.wa.gov/WAC/default.aspx?cite=296-30-080#:~:text=Counseling%20for%20immediate%20family%20members%20will,the%20victim%27s%20sexual%20assault%20claim."
   },
   {
    "id": "WA-COV-MEDICAL",
@@ -565,11 +565,25 @@
    "pinpoint": "RCW 7.68.074"
   },
   {
-   "id": "WA-COV-PEP",
+   "id": "WA-COV-MEDICATION",
    "category": "covered_expense",
    "expense": "prescription",
    "params": {
     "expense": "prescription"
+   },
+   "summary": "The program's page lists medication among the costs it may pay for.",
+   "quote": "What we may pay for Medical/Dental treatment Medication",
+   "source_id": "WA-S16",
+   "pinpoint": "L&I Who Can File and What is Covered, What are the benefits?",
+   "fragment_url": "https://lni.wa.gov/claims/crime-victim-claims/who-can-file-and-what-is-covered#:~:text=What%20we%20may%20pay%20for%20Medical%2FDental%20treatment%20Medication"
+  },
+  {
+   "id": "WA-COV-PEP",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription",
+    "scope": "up to a 28-day supply of HIV prevention medicine (PEP) from a Washington hospital emergency department"
    },
    "summary": "The program covers up to a 28-day supply of HIV post-exposure prophylaxis (PEP) drugs dispensed directly from a Washington hospital emergency department.",
    "quote": "Crime Victims Compensation Programs will cover up to a 28-day supply of post-exposure prophylaxis (PEP) drugs for HIV when dispensed directly from a Washington State hospital emergency department for proper and necessary treatment of a crime victim.",

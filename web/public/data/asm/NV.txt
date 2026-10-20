@@ -1,8 +1,8 @@
 ; tend law image NV, Nevada
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 1693b0122a956fde22586894d56ed7fd8a8d5ce1daa43a33111735fea97eff34
-; image sha256  7a1c9b65c4bf17beea708e48a650e8c9a575f5edc7b1424790a5a1909c71da09
-; 63 rules, 9 sources, 32 proofs, 8 ints, 327 strings
+; source sha256 0b9b499865a05a2ef184fde5dc9463878db83fd1018d77a639448e23755f5701
+; image sha256  8f9dc4572694d13f88dfca1137562acf168395634069554e4191ae339de5d9f0
+; 64 rules, 9 sources, 32 proofs, 8 ints, 333 strings
 ; item program: 414 instructions, 1435 bytes, max stack 2
 ; aggregate program: 382 instructions, 1163 bytes, max stack 3, 13 loops
 
@@ -70,6 +70,7 @@
     R60   NV-PROC-1             info          -                     processing_time         NRS 217.110(2)
     R61   NV-ACP-1              info          -                     address_confidentiality DCFS Confidential Address Program page, 'About the Confidential Address Program'
     R62   NV-RECORDS-1          info          -                     record_confidentiality  NRS 217.105
+    R63   NV-CAP-3              skipped       -                     total_cap               Application Instructions, Expenses That May Be Covered  ; total_cap without amount
 
 .tags   cash=bit0, pain_suffering=bit1
 

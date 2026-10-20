@@ -154,7 +154,7 @@ describe("home page", () => {
     }[];
     const rules = list.reduce((n, j) => n + j.rules, 0).toLocaleString("en-US");
     const sources = list.reduce((n, j) => n + j.sources, 0).toLocaleString("en-US");
-    expect(rules).toBe("2,578");
+    expect(rules).toBe("2,617");
     expect(sources).toBe("824");
     expect(document.body.textContent).toContain(`${rules} verified rules from ${sources} official sources`);
     expect(screen.getByRole("link", { name: "MI Michigan, 83 rules verified, in bloom" }).getAttribute("href")).toBe(

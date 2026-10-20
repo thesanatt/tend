@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NV",
- "source_sha256": "1693b0122a956fde22586894d56ed7fd8a8d5ce1daa43a33111735fea97eff34",
- "ir_sha256": "0246c9125054b9ff871aa9ef3cd19d15035b0d58f5c29907b0f2351e2228564c",
+ "source_sha256": "0b9b499865a05a2ef184fde5dc9463878db83fd1018d77a639448e23755f5701",
+ "ir_sha256": "1956c6d7aa2387a99e9cecc39876735b771db94d5c493a6ac47355a3eb36f1b3",
  "fresh": true,
  "rules": [
   {
@@ -359,5 +359,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NV-CAP-3",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  }
+ ]
 }

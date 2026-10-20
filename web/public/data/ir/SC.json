@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "SC",
- "source_sha256": "d86d64c15caa024d00917bd3224c0b9e6813e178a0342b097bdf49dd2b5b45b5",
- "ir_sha256": "80c32b5d6504754defbb4a6d14cf1b71f2b147d215cc1d0a3bcc4a5e1c7a8d35",
+ "source_sha256": "7734bfbcf9fc309a6fb9f4b8ce1ba46d83377adc3e7e68ef2ea1489589858c21",
+ "ir_sha256": "6cd921fd9e5093b4fb17a7cdd440680e7bc5c926b41f4301cfdb2d0f72c66d7f",
  "fresh": true,
  "rules": [
   {
@@ -43,6 +43,11 @@
    "id": "SC-MED-1",
    "kind": "covered",
    "expense": "medical"
+  },
+  {
+   "id": "SC-COUNS-2",
+   "kind": "covered",
+   "expense": "counseling"
   },
   {
    "id": "SC-DENT-1",

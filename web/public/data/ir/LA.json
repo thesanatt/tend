@@ -1,10 +1,14 @@
 {
  "ir_version": 2,
  "jurisdiction": "LA",
- "source_sha256": "e2228c03c6cf77a52bf0c1049835049de0e3bbacdbcaa1deaaf2e5d5a475e8f2",
- "ir_sha256": "edc943e1333b3a3a31841310b89b999ccd00b9cacf8a116823b5aef3b2b5ca44",
+ "source_sha256": "a2f2ec87b5b23ca80acf462273bffcc42b6576fefa610d5ba07d7c2f2e637126",
+ "ir_sha256": "3f9180c30fa6837f0941ff4454cf6c377229c0cb0432ffae417c47555db8bd24",
  "fresh": true,
  "rules": [
+  {
+   "id": "LA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
   {
    "id": "LA-EXAM-1",
    "kind": "exam_no_bill"
@@ -25,6 +29,11 @@
    "id": "LA-CAP-1",
    "kind": "total_cap",
    "cap_cents": 1500000
+  },
+  {
+   "id": "LA-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 2500000
   },
   {
    "id": "LA-EMERG-1",

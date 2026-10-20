@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MN",
- "source_sha256": "b3db9d950acab36db40196eb396cc7c8fc6da5b22f12bb487d49adfa5c536d63",
- "ir_sha256": "ca14f51880ea648aabb557cb10c693a4567099831ccf73d99e063bad32c7f2fd",
+ "source_sha256": "86f0c768feea20fd1d55fcd500806a43dd671952be6d22e412df97fccdc20c46",
+ "ir_sha256": "128632e343a5bf00f96ca0e81e0b3f259acbfe6801d58c83685771a2ee9928c0",
  "fresh": true,
  "rules": [
   {
@@ -120,6 +120,11 @@
    "id": "MN-EXC-LEGAL",
    "kind": "excluded",
    "expense": "legal"
+  },
+  {
+   "id": "MN-EXC-MOVING",
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MN-EXC-TUITION",

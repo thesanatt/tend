@@ -1,8 +1,8 @@
 ; tend law image NJ, New Jersey
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 c70dcbc425eac3433159637e055c8a0d9238893d693fc7b105f3a9ce76535dd1
-; image sha256  977de336941df96d106b123d0985123af370e7fdf221b5c4119b9758f26cac57
-; 54 rules, 17 sources, 37 proofs, 10 ints, 296 strings
+; source sha256 892c1730d90e4a97f4f75b113d290e19059afd2a67385f384198db4c55298f64
+; image sha256  8e2f65ca136ff548a7f1081b3c0dd03c5505c0caca0a12a51e9ac6835395b5c2
+; 55 rules, 17 sources, 37 proofs, 10 ints, 300 strings
 ; item program: 650 instructions, 2271 bytes, max stack 2
 ; aggregate program: 340 instructions, 1041 bytes, max stack 3, 12 loops
 
@@ -11,56 +11,57 @@
     R1    NJ-EXAM-2             exam_no_bill  -                                             NJ OAG, Sexual Assault Victims page (Forensic Nurse Examiner section)
     R2    NJ-EXAM-3             exam_no_bill  -                                             AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam, Non-Participating Examination Facilities
     R3    NJ-CAP-1              total_cap     -                                             N.J.S.A. 52:4B-18
-    R4    NJ-COUNSEL-1          expense_cap   counseling            per claim               N.J.A.C. 13:75-4.4(b)
-    R5    NJ-WAGES-1            expense_cap   lost_wages            per week                N.J.A.C. 13:75-4.5(h)
-    R6    NJ-RELOC-1            expense_cap   relocation            per claim               N.J.A.C. 13:75-4.7(d)
-    R7    NJ-SEC-1              expense_cap   security              per claim               N.J.A.C. 13:75-4.7(d)2
-    R8    NJ-TRANS-1            expense_cap   transportation        per day                 N.J.A.C. 13:75-4.8(a)
-    R9    NJ-TRANS-2            info          -                     excluded_expense        N.J.A.C. 13:75-4.8(a)1
-    R10   NJ-CHILD-1            expense_cap   childcare             per claim               N.J.A.C. 13:75-4.11(a)2
-    R11   NJ-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               N.J.A.C. 13:75-4.12(f)
-    R12   NJ-LEGAL-1            expense_cap   legal                 per claim               N.J.A.C. 13:75-4.10(b)
-    R13   NJ-FUNERAL-1          expense_cap   funeral               per claim               N.J.A.C. 13:75-4.9
-    R14   NJ-DOMHELP-1          expense_cap   other                 per claim               N.J.A.C. 13:75-4.11(b)2
-    R15   NJ-COV-MED            covered       medical                                       N.J.A.C. 13:75-4.1(a)1
-    R16   NJ-COV-WAGES          covered       lost_wages                                    N.J.A.C. 13:75-4.1(a)1
-    R17   NJ-COV-COUNSEL        covered       counseling                                    VCCO Application, Section 5 (Services Requested)
-    R18   NJ-COV-DENTAL         covered       dental                                        VCCO Application, Section 5 (Services Requested)
-    R19   NJ-COV-RX             covered       prescription                                  VCCO Application, Section 5 (Services Requested)
-    R20   NJ-COV-CLOTH          covered       clothing_bedding                              N.J.A.C. 13:75-4.12(d)1
-    R21   NJ-EXCL-PROP          excluded      -                                             N.J.A.C. 13:75-4.1(f)
-    R22   NJ-EXCL-PAIN          excluded      -                                             N.J.A.C. 13:75-4.1(e)
-    R23   NJ-FILE-1             deadline      -                     from crime              N.J.S.A. 52:4B-18
-    R24   NJ-FILE-2             info          -                     filing_deadline         N.J.S.A. 52:4B-18
-    R25   NJ-FILE-3             deadline      -                     from discovery          N.J.A.C. 13:75-3.1(a)3
-    R26   NJ-REPORT-1           reporting     -                                             N.J.S.A. 52:4B-18
-    R27   NJ-REPORT-2           reporting     -                                             N.J.A.C. 13:75-3.1(b)
-    R28   NJ-REPORT-3           reporting     -                                             AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam
-    R29   NJ-MINLOSS-1          minimum_loss  -                                             NJ VCCO Eligibility page, Preconditions for Eligibility
-    R30   NJ-COLL-1             collateral    -                                             NJ VCCO Eligibility page, Moneys from other Sources
-    R31   NJ-COLL-2             collateral    -                                             N.J.A.C. 13:75-9.1(a)
-    R32   NJ-CONDUCT-1          info          -                     conduct_reduction       N.J.S.A. 52:4B-18
-    R33   NJ-CONDUCT-2          info          -                     conduct_reduction       N.J.A.C. 13:75-4.1(c)1
-    R34   NJ-EMERG-1            info          -                     emergency_award         N.J.S.A. 52:4B-10.1(a)
-    R35   NJ-EMERG-2            info          -                     emergency_award         N.J.A.C. 13:75-5.1(c)
-    R36   NJ-CRIME-1            info          -                     eligible_crime          N.J.S.A. 52:4B-11b.(9) (amended through P.L.2023, c.101)
-    R37   NJ-RES-1              info          -                     residency               NJ VCCO Eligibility page, Preconditions for Eligibility
-    R38   NJ-SUB-1              info          -                     submission              NJ VCCO Contact page, applications and submission of documents
-    R39   NJ-SUB-2              info          -                     submission              NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II sidebar
-    R40   NJ-SUB-3              info          -                     submission              NJ VCCO Contact page, applications and submission of documents
-    R41   NJ-DOC-1              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 4
-    R42   NJ-DOC-2              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
-    R43   NJ-DOC-3              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 7
-    R44   NJ-DOC-4              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
-    R45   NJ-DOC-5              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
-    R46   NJ-DOC-6              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
-    R47   NJ-DOC-7              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
-    R48   NJ-DOC-8              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 15
-    R49   NJ-TIME-1             info          -                     processing_time         N.J.A.C. 13:75-4.2(c)
-    R50   NJ-TIME-2             info          -                     processing_time         NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
-    R51   NJ-ACP-1              info          -                     address_confidentiality N.J.S.A. 47:4-2
-    R52   NJ-REC-1              info          -                     record_confidentiality  N.J.A.C. 13:75-1.6(b)
-    R53   NJ-WAGES-2            skipped       -                     expense_cap             N.J.A.C. 13:75-4.5(e)  ; expense_cap without amount or expense
+    R4    NJ-CAP-2              total_cap     -                                             N.J.A.C. 13:75-4.1(g)
+    R5    NJ-COUNSEL-1          expense_cap   counseling            per claim               N.J.A.C. 13:75-4.4(b)
+    R6    NJ-WAGES-1            expense_cap   lost_wages            per week                N.J.A.C. 13:75-4.5(h)
+    R7    NJ-RELOC-1            expense_cap   relocation            per claim               N.J.A.C. 13:75-4.7(d)
+    R8    NJ-SEC-1              expense_cap   security              per claim               N.J.A.C. 13:75-4.7(d)2
+    R9    NJ-TRANS-1            expense_cap   transportation        per day                 N.J.A.C. 13:75-4.8(a)
+    R10   NJ-TRANS-2            info          -                     excluded_expense        N.J.A.C. 13:75-4.8(a)1
+    R11   NJ-CHILD-1            expense_cap   childcare             per claim               N.J.A.C. 13:75-4.11(a)2
+    R12   NJ-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               N.J.A.C. 13:75-4.12(f)
+    R13   NJ-LEGAL-1            expense_cap   legal                 per claim               N.J.A.C. 13:75-4.10(b)
+    R14   NJ-FUNERAL-1          expense_cap   funeral               per claim               N.J.A.C. 13:75-4.9
+    R15   NJ-DOMHELP-1          expense_cap   other                 per claim               N.J.A.C. 13:75-4.11(b)2
+    R16   NJ-COV-MED            covered       medical                                       N.J.A.C. 13:75-4.1(a)1
+    R17   NJ-COV-WAGES          covered       lost_wages                                    N.J.A.C. 13:75-4.1(a)1
+    R18   NJ-COV-COUNSEL        covered       counseling                                    VCCO Application, Section 5 (Services Requested)
+    R19   NJ-COV-DENTAL         covered       dental                                        VCCO Application, Section 5 (Services Requested)
+    R20   NJ-COV-RX             covered       prescription                                  VCCO Application, Section 5 (Services Requested)
+    R21   NJ-COV-CLOTH          covered       clothing_bedding                              N.J.A.C. 13:75-4.12(d)1
+    R22   NJ-EXCL-PROP          excluded      -                                             N.J.A.C. 13:75-4.1(f)
+    R23   NJ-EXCL-PAIN          excluded      -                                             N.J.A.C. 13:75-4.1(e)
+    R24   NJ-FILE-1             deadline      -                     from crime              N.J.S.A. 52:4B-18
+    R25   NJ-FILE-2             info          -                     filing_deadline         N.J.S.A. 52:4B-18
+    R26   NJ-FILE-3             deadline      -                     from discovery          N.J.A.C. 13:75-3.1(a)3
+    R27   NJ-REPORT-1           reporting     -                                             N.J.S.A. 52:4B-18
+    R28   NJ-REPORT-2           reporting     -                                             N.J.A.C. 13:75-3.1(b)
+    R29   NJ-REPORT-3           reporting     -                                             AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam
+    R30   NJ-MINLOSS-1          minimum_loss  -                                             NJ VCCO Eligibility page, Preconditions for Eligibility
+    R31   NJ-COLL-1             collateral    -                                             NJ VCCO Eligibility page, Moneys from other Sources
+    R32   NJ-COLL-2             collateral    -                                             N.J.A.C. 13:75-9.1(a)
+    R33   NJ-CONDUCT-1          info          -                     conduct_reduction       N.J.S.A. 52:4B-18
+    R34   NJ-CONDUCT-2          info          -                     conduct_reduction       N.J.A.C. 13:75-4.1(c)1
+    R35   NJ-EMERG-1            info          -                     emergency_award         N.J.S.A. 52:4B-10.1(a)
+    R36   NJ-EMERG-2            info          -                     emergency_award         N.J.A.C. 13:75-5.1(c)
+    R37   NJ-CRIME-1            info          -                     eligible_crime          N.J.S.A. 52:4B-11b.(9) (amended through P.L.2023, c.101)
+    R38   NJ-RES-1              info          -                     residency               NJ VCCO Eligibility page, Preconditions for Eligibility
+    R39   NJ-SUB-1              info          -                     submission              NJ VCCO Contact page, applications and submission of documents
+    R40   NJ-SUB-2              info          -                     submission              NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II sidebar
+    R41   NJ-SUB-3              info          -                     submission              NJ VCCO Contact page, applications and submission of documents
+    R42   NJ-DOC-1              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 4
+    R43   NJ-DOC-2              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
+    R44   NJ-DOC-3              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 7
+    R45   NJ-DOC-4              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
+    R46   NJ-DOC-5              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
+    R47   NJ-DOC-6              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
+    R48   NJ-DOC-7              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Section 8 (Lost Wages/Support Information)
+    R49   NJ-DOC-8              info          -                     required_document       NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions, Section 15
+    R50   NJ-TIME-1             info          -                     processing_time         N.J.A.C. 13:75-4.2(c)
+    R51   NJ-TIME-2             info          -                     processing_time         NJ VCCO Claim Application and Instructions (oag.rev.8.25.20), Instructions page II
+    R52   NJ-ACP-1              info          -                     address_confidentiality N.J.S.A. 47:4-2
+    R53   NJ-REC-1              info          -                     record_confidentiality  N.J.A.C. 13:75-1.6(b)
+    R54   NJ-WAGES-2            skipped       -                     expense_cap             N.J.A.C. 13:75-4.5(e)  ; expense_cap without amount or expense
 
 .tags   phone=bit0, pain_suffering=bit1
 
@@ -223,7 +224,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R30              ; NJ-COLL-1
+  0108        seta     collateral, R31              ; NJ-COLL-1
   010c        ret
               ; NJ-COUNSEL-1  N.J.A.C. 13:75-4.4(b)  "(b) Except for cases determined to be catastrophic in nature..."
               ; NJ-COV-COUNSEL  VCCO Application, Section 5 (Services Requested)  "Counseling: Mental health counseling expenses related to the..."
@@ -276,7 +277,7 @@
   0192        subs
   0193        push     0
   0198        max
-  0199        seta     collateral, R30              ; NJ-COLL-1
+  0199        seta     collateral, R31              ; NJ-COLL-1
   019d        ret
               ; NJ-WAGES-1  N.J.A.C. 13:75-4.5(h)  "(h) The weekly maximum reimbursement for loss of earnings or..."
               ; NJ-COV-WAGES  N.J.A.C. 13:75-4.1(a)1  "Reimbursable expenses include those unreimbursed and..."
@@ -329,7 +330,7 @@
   0223        subs
   0224        push     0
   0229        max
-  022a        seta     collateral, R30              ; NJ-COLL-1
+  022a        seta     collateral, R31              ; NJ-COLL-1
   022e        ret
               ; NJ-TRANS-1  N.J.A.C. 13:75-4.8(a)  "(a) Maximum reimbursement for transportation expenses incurred..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -381,7 +382,7 @@
   02b4        subs
   02b5        push     0
   02ba        max
-  02bb        seta     collateral, R30              ; NJ-COLL-1
+  02bb        seta     collateral, R31              ; NJ-COLL-1
   02bf        ret
               ; NJ-RELOC-1  N.J.A.C. 13:75-4.7(d)  "(d) Maximum reimbursement for moving expenses shall be $ 3,000."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -433,7 +434,7 @@
   0345        subs
   0346        push     0
   034b        max
-  034c        seta     collateral, R30              ; NJ-COLL-1
+  034c        seta     collateral, R31              ; NJ-COLL-1
   0350        ret
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
               ; NJ-EXCL-PAIN  N.J.A.C. 13:75-4.1(e)  "(e) In making its award, the Office shall make no allowance for..."
@@ -523,7 +524,7 @@
   044b        subs
   044c        push     0
   0451        max
-  0452        seta     collateral, R30              ; NJ-COLL-1
+  0452        seta     collateral, R31              ; NJ-COLL-1
   0456        ret
               ; NJ-CLEAN-1  N.J.A.C. 13:75-4.12(f)  "(f) An award of compensation for crime scene clean-up shall not..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -575,7 +576,7 @@
   04dc        subs
   04dd        push     0
   04e2        max
-  04e3        seta     collateral, R30              ; NJ-COLL-1
+  04e3        seta     collateral, R31              ; NJ-COLL-1
   04e7        ret
               ; NJ-CHILD-1  N.J.A.C. 13:75-4.11(a)2  "2. Except for cases determined to be catastrophic in nature..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -627,7 +628,7 @@
   056d        subs
   056e        push     0
   0573        max
-  0574        seta     collateral, R30              ; NJ-COLL-1
+  0574        seta     collateral, R31              ; NJ-COLL-1
   0578        ret
               ; NJ-COV-CLOTH  N.J.A.C. 13:75-4.12(d)1  "The Office may award compensation for the reasonable replacement..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -679,7 +680,7 @@
   05fe        subs
   05ff        push     0
   0604        max
-  0605        seta     collateral, R30              ; NJ-COLL-1
+  0605        seta     collateral, R31              ; NJ-COLL-1
   0609        ret
               ; NJ-COV-RX  VCCO Application, Section 5 (Services Requested)  "Prescription: Prescription expenses directly related to a crime..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -731,7 +732,7 @@
   068f        subs
   0690        push     0
   0695        max
-  0696        seta     collateral, R30              ; NJ-COLL-1
+  0696        seta     collateral, R31              ; NJ-COLL-1
   069a        ret
               ; NJ-COV-DENTAL  VCCO Application, Section 5 (Services Requested)  "Dental: Dental expenses directly related to a crime related..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -783,7 +784,7 @@
   0720        subs
   0721        push     0
   0726        max
-  0727        seta     collateral, R30              ; NJ-COLL-1
+  0727        seta     collateral, R31              ; NJ-COLL-1
   072b        ret
               ; NJ-FUNERAL-1  N.J.A.C. 13:75-4.9  "In claims involving the death of a victim, the maximum..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -835,7 +836,7 @@
   07b1        subs
   07b2        push     0
   07b7        max
-  07b8        seta     collateral, R30              ; NJ-COLL-1
+  07b8        seta     collateral, R31              ; NJ-COLL-1
   07bc        ret
               ; NJ-LEGAL-1  N.J.A.C. 13:75-4.10(b)  "(b) The Office may allow payment of an attorney fee, including..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -887,7 +888,7 @@
   0842        subs
   0843        push     0
   0848        max
-  0849        seta     collateral, R30              ; NJ-COLL-1
+  0849        seta     collateral, R31              ; NJ-COLL-1
   084d        ret
               ; NJ-DOMHELP-1  N.J.A.C. 13:75-4.11(b)2  "Except for cases determined to be catastrophic in nature, the..."
               ; NJ-EXCL-PROP  N.J.A.C. 13:75-4.1(f)  "(f) Except as otherwise permitted by this chapter, no..."
@@ -939,7 +940,7 @@
   08d3        subs
   08d4        push     0
   08d9        max
-  08da        seta     collateral, R30              ; NJ-COLL-1
+  08da        seta     collateral, R31              ; NJ-COLL-1
   08de        ret
 
 .aggregate
@@ -960,11 +961,11 @@
   0027        lda
   0028        lt
   0029        jz       L1
-  002e        cap      unit_cap, R5                 ; NJ-WAGES-1
+  002e        cap      unit_cap, R6                 ; NJ-WAGES-1
   0032        jmp      L3
   0037  L1:   pop
   0038        jmp      L3
-  003d  L2:   flag     R5                           ; rate_unverified NJ-WAGES-1
+  003d  L2:   flag     R6                           ; rate_unverified NJ-WAGES-1
   0040  L3:   next     L0
               ; NJ-TRANS-1  N.J.A.C. 13:75-4.8(a)  "(a) Maximum reimbursement for transportation expenses incurred..."
   0045  L4:   each     transportation, L9
@@ -983,11 +984,11 @@
   006c        lda
   006d        lt
   006e        jz       L6
-  0073        cap      unit_cap, R8                 ; NJ-TRANS-1
+  0073        cap      unit_cap, R9                 ; NJ-TRANS-1
   0077        jmp      L8
   007c  L6:   pop
   007d        jmp      L8
-  0082  L7:   flag     R8                           ; rate_unverified NJ-TRANS-1
+  0082  L7:   flag     R9                           ; rate_unverified NJ-TRANS-1
   0085  L8:   next     L5
               ; NJ-COUNSEL-1  N.J.A.C. 13:75-4.4(b)  "(b) Except for cases determined to be catastrophic in nature..."
   008a  L9:   push     0
@@ -1006,7 +1007,7 @@
   00b2        ldk      K2                           ; $20,000.00
   00b5        ldr      r0
   00b7        subs
-  00b8        cap      expense_cap, R4              ; NJ-COUNSEL-1
+  00b8        cap      expense_cap, R5              ; NJ-COUNSEL-1
   00bc        push     1
   00c1        str      r1
   00c3  L11:  ldr      r0
@@ -1015,7 +1016,7 @@
   00c7        str      r0
   00c9        jmp      L13
   00ce  L12:  push     0
-  00d3        cap      expense_cap, R4              ; NJ-COUNSEL-1
+  00d3        cap      expense_cap, R5              ; NJ-COUNSEL-1
   00d7  L13:  next     L10
               ; NJ-RELOC-1  N.J.A.C. 13:75-4.7(d)  "(d) Maximum reimbursement for moving expenses shall be $ 3,000."
   00dc  L14:  push     0
@@ -1034,7 +1035,7 @@
   0104        ldk      K3                           ; $3,000.00
   0107        ldr      r0
   0109        subs
-  010a        cap      expense_cap, R6              ; NJ-RELOC-1
+  010a        cap      expense_cap, R7              ; NJ-RELOC-1
   010e        push     1
   0113        str      r1
   0115  L16:  ldr      r0
@@ -1043,7 +1044,7 @@
   0119        str      r0
   011b        jmp      L18
   0120  L17:  push     0
-  0125        cap      expense_cap, R6              ; NJ-RELOC-1
+  0125        cap      expense_cap, R7              ; NJ-RELOC-1
   0129  L18:  next     L15
               ; NJ-SEC-1  N.J.A.C. 13:75-4.7(d)2  "In the event a victim is unable to relocate due to home..."
   012e  L19:  push     0
@@ -1062,7 +1063,7 @@
   0156        ldk      K3                           ; $3,000.00
   0159        ldr      r0
   015b        subs
-  015c        cap      expense_cap, R7              ; NJ-SEC-1
+  015c        cap      expense_cap, R8              ; NJ-SEC-1
   0160        push     1
   0165        str      r1
   0167  L21:  ldr      r0
@@ -1071,7 +1072,7 @@
   016b        str      r0
   016d        jmp      L23
   0172  L22:  push     0
-  0177        cap      expense_cap, R7              ; NJ-SEC-1
+  0177        cap      expense_cap, R8              ; NJ-SEC-1
   017b  L23:  next     L20
               ; NJ-CHILD-1  N.J.A.C. 13:75-4.11(a)2  "2. Except for cases determined to be catastrophic in nature..."
   0180  L24:  push     0
@@ -1090,7 +1091,7 @@
   01a8        ldk      K4                           ; $6,500.00
   01ab        ldr      r0
   01ad        subs
-  01ae        cap      expense_cap, R10             ; NJ-CHILD-1
+  01ae        cap      expense_cap, R11             ; NJ-CHILD-1
   01b2        push     1
   01b7        str      r1
   01b9  L26:  ldr      r0
@@ -1099,7 +1100,7 @@
   01bd        str      r0
   01bf        jmp      L28
   01c4  L27:  push     0
-  01c9        cap      expense_cap, R10             ; NJ-CHILD-1
+  01c9        cap      expense_cap, R11             ; NJ-CHILD-1
   01cd  L28:  next     L25
               ; NJ-CLEAN-1  N.J.A.C. 13:75-4.12(f)  "(f) An award of compensation for crime scene clean-up shall not..."
   01d2  L29:  push     0
@@ -1118,7 +1119,7 @@
   01fa        ldk      K5                           ; $4,000.00
   01fd        ldr      r0
   01ff        subs
-  0200        cap      expense_cap, R11             ; NJ-CLEAN-1
+  0200        cap      expense_cap, R12             ; NJ-CLEAN-1
   0204        push     1
   0209        str      r1
   020b  L31:  ldr      r0
@@ -1127,7 +1128,7 @@
   020f        str      r0
   0211        jmp      L33
   0216  L32:  push     0
-  021b        cap      expense_cap, R11             ; NJ-CLEAN-1
+  021b        cap      expense_cap, R12             ; NJ-CLEAN-1
   021f  L33:  next     L30
               ; NJ-LEGAL-1  N.J.A.C. 13:75-4.10(b)  "(b) The Office may allow payment of an attorney fee, including..."
   0224  L34:  push     0
@@ -1146,7 +1147,7 @@
   024c        ldk      K6                           ; $10,000.00
   024f        ldr      r0
   0251        subs
-  0252        cap      expense_cap, R12             ; NJ-LEGAL-1
+  0252        cap      expense_cap, R13             ; NJ-LEGAL-1
   0256        push     1
   025b        str      r1
   025d  L36:  ldr      r0
@@ -1155,7 +1156,7 @@
   0261        str      r0
   0263        jmp      L38
   0268  L37:  push     0
-  026d        cap      expense_cap, R12             ; NJ-LEGAL-1
+  026d        cap      expense_cap, R13             ; NJ-LEGAL-1
   0271  L38:  next     L35
               ; NJ-FUNERAL-1  N.J.A.C. 13:75-4.9  "In claims involving the death of a victim, the maximum..."
   0276  L39:  push     0
@@ -1174,7 +1175,7 @@
   029e        ldk      K7                           ; $7,500.00
   02a1        ldr      r0
   02a3        subs
-  02a4        cap      expense_cap, R13             ; NJ-FUNERAL-1
+  02a4        cap      expense_cap, R14             ; NJ-FUNERAL-1
   02a8        push     1
   02ad        str      r1
   02af  L41:  ldr      r0
@@ -1183,7 +1184,7 @@
   02b3        str      r0
   02b5        jmp      L43
   02ba  L42:  push     0
-  02bf        cap      expense_cap, R13             ; NJ-FUNERAL-1
+  02bf        cap      expense_cap, R14             ; NJ-FUNERAL-1
   02c3  L43:  next     L40
               ; NJ-DOMHELP-1  N.J.A.C. 13:75-4.11(b)2  "Except for cases determined to be catastrophic in nature, the..."
   02c8  L44:  push     0
@@ -1202,7 +1203,7 @@
   02f0        ldk      K4                           ; $6,500.00
   02f3        ldr      r0
   02f5        subs
-  02f6        cap      expense_cap, R14             ; NJ-DOMHELP-1
+  02f6        cap      expense_cap, R15             ; NJ-DOMHELP-1
   02fa        push     1
   02ff        str      r1
   0301  L46:  ldr      r0
@@ -1211,7 +1212,7 @@
   0305        str      r0
   0307        jmp      L48
   030c  L47:  push     0
-  0311        cap      expense_cap, R14             ; NJ-DOMHELP-1
+  0311        cap      expense_cap, R15             ; NJ-DOMHELP-1
   0315  L48:  next     L45
               ; NJ-CAP-1  N.J.S.A. 52:4B-18  "compensation shall not be awarded under P.L.1971, c.317..."
   031a  L49:  push     0

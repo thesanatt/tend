@@ -1,10 +1,10 @@
 ; tend law image KS, Kansas
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 9dc1a299469deec2d497f3a1f226586782cc5df9ee25111558a69394a8d08865
-; image sha256  4bbac2f4c7a27fe9b6a7f1957498edae19a8b103b7b357537d60dbecebd2f58d
+; source sha256 48f48cd7eece9c0f2c88bc5be04e80600282308a848d3aef392665424a5880ca
+; image sha256  70ffab4dbcd37e932c4e61bb63eeddf642ed3a650e72706ab83eeadb4b99f521
 ; 46 rules, 15 sources, 25 proofs, 6 ints, 273 strings
 ; item program: 299 instructions, 1062 bytes, max stack 2
-; aggregate program: 187 instructions, 575 bytes, max stack 3, 6 loops
+; aggregate program: 193 instructions, 598 bytes, max stack 3, 6 loops
 
 .rules
     R0    KS-EXAM-1             exam_no_bill  -                                             K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1
@@ -671,13 +671,19 @@
   0214        ldx      police_report
   0216        push     1                            ; yes
   021b        eq
-  021c        jnz      L32
+  021c        jnz      L33
   0221        ldx      forensic_exam
-  0223        jnz      L32
-  0228        push     2
-  022d        jmp      L33
-  0232  L32:  push     0                            ; satisfied
-  0237  L33:  check    reporting, P23               ; KS-REP-1
+  0223        jnz      L33
+  0228        ldx      police_report
+  022a        push     0                            ; no
+  022f        eq
+  0230        jnz      L32
+  0235        push     3
+  023a        jmp      L34
+  023f  L32:  push     1
+  0244        jmp      L34
+  0249  L33:  push     0                            ; satisfied
+  024e  L34:  check    reporting, P23               ; KS-REP-1
               ; KS-EXC-3  K.A.R. 20-2-9(d)  "Meal costs shall not be deemed allowable expenses."
               ; KS-DEAD-3  K.S.A. 74-7305(b)(2)(C)(ii)(b)  "the victim was less than 18 years of age at the time such crime..."
               ; KS-REP-2  K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1  "refusal of the victim to report the alleged offense to law..."
@@ -703,6 +709,6 @@
               ; KS-TIME-1  Application, How to File Your Application for Compensation  "The complete application/investigation process may take..."
               ; KS-ACP-1  How Safe at Home Works, Eligibility Criteria  "Anyone who is a victim of domestic violence, sexual assault..."
               ; KS-CONF-1  K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)  "All records and information given to the board and the crime..."
-  023b        info     P24                          ; KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1
-  023e        ret
+  0252        info     P24                          ; KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1
+  0255        ret
 

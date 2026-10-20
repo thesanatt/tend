@@ -1,8 +1,8 @@
 ; tend law image MT, Montana
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 7c38bffec2fdc656e549e0552c064eb40b77295f37946cc9731de12fba163e58
-; image sha256  e8205577699d928fccc850f2f779b065d9f43c78c68d4b81dfb6250c1e693f0f
-; 41 rules, 16 sources, 26 proofs, 2 ints, 262 strings
+; source sha256 51efc72551e114ec820a26d53eae8f6295eac26747b31f9cf1b778d011419124
+; image sha256  93eef8fc0c8a2e128c6a4ef992b1f4fbc4bf7490c9958bf30413d246f1934383
+; 42 rules, 16 sources, 26 proofs, 2 ints, 266 strings
 ; item program: 280 instructions, 1018 bytes, max stack 2
 ; aggregate program: 84 instructions, 269 bytes, max stack 2, 2 loops
 
@@ -30,24 +30,25 @@
     R20   MT-EXC-8              info          -                     excluded_expense        Montana DOJ, Crime Victim Compensation page, Ineligible Benefits
     R21   MT-DEAD-1             deadline      -                     from crime              MCA 53-9-125(1)
     R22   MT-DEAD-2             info          -                     filing_deadline         MCA 53-9-125(1)
-    R23   MT-REP-1              reporting     -                                             MCA 53-9-125(3)
-    R24   MT-COL-1              collateral    -                                             MCA 53-9-125(5)
-    R25   MT-COL-2              collateral    -                                             Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources
-    R26   MT-CON-1              info          -                     conduct_reduction       MCA 53-9-125(7)
-    R27   MT-CON-2              info          -                     conduct_reduction       MCA 53-9-125(4)
-    R28   MT-EMER-1             info          -                     emergency_award         MCA 53-9-126
-    R29   MT-ELIG-1             info          -                     eligible_crime          Claim Form, Section C, Type of Crime
-    R30   MT-RES-1              info          -                     residency               Montana DOJ, Request a Claim Form page
-    R31   MT-SUB-1              info          -                     submission              Request a Claim Form, How to Request a Claim Form
-    R32   MT-DOC-1              info          -                     required_document       CVC FAQ, Should I send in copies of medical bills along with the application?
-    R33   MT-DOC-2              info          -                     required_document       CVC FAQ, Should I send in copies of medical bills along with the application?
-    R34   MT-DOC-3              info          -                     required_document       Eligible Benefits, Wage Loss
-    R35   MT-DOC-4              info          -                     required_document       Claim Form, Section G signature block
-    R36   MT-PROC-1             info          -                     processing_time         CVC FAQ, How long will it take to receive a decision on compensation benefits?
-    R37   MT-ACP-1              info          -                     address_confidentiality Address Confidentiality Program page, eligibility list
-    R38   MT-CONF-1             info          -                     record_confidentiality  MCA 53-9-107(3)(a)
-    R39   MT-EXAM-2             skipped       -                     exam_no_bill            Montana DOJ, FREPP page  ; applies_to "exams paid by the state exam fund for cases not reported to police"
-    R40   MT-CAP-2              skipped       -                     expense_cap             MCA 53-9-128(9)(e)  ; applies_to "secondary_victims"
+    R23   MT-DEAD-3             info          -                     filing_deadline         MCA 53-9-125(1)
+    R24   MT-REP-1              reporting     -                                             MCA 53-9-125(3)
+    R25   MT-COL-1              collateral    -                                             MCA 53-9-125(5)
+    R26   MT-COL-2              collateral    -                                             Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources
+    R27   MT-CON-1              info          -                     conduct_reduction       MCA 53-9-125(7)
+    R28   MT-CON-2              info          -                     conduct_reduction       MCA 53-9-125(4)
+    R29   MT-EMER-1             info          -                     emergency_award         MCA 53-9-126
+    R30   MT-ELIG-1             info          -                     eligible_crime          Claim Form, Section C, Type of Crime
+    R31   MT-RES-1              info          -                     residency               Montana DOJ, Request a Claim Form page
+    R32   MT-SUB-1              info          -                     submission              Request a Claim Form, How to Request a Claim Form
+    R33   MT-DOC-1              info          -                     required_document       CVC FAQ, Should I send in copies of medical bills along with the application?
+    R34   MT-DOC-2              info          -                     required_document       CVC FAQ, Should I send in copies of medical bills along with the application?
+    R35   MT-DOC-3              info          -                     required_document       Eligible Benefits, Wage Loss
+    R36   MT-DOC-4              info          -                     required_document       Claim Form, Section G signature block
+    R37   MT-PROC-1             info          -                     processing_time         CVC FAQ, How long will it take to receive a decision on compensation benefits?
+    R38   MT-ACP-1              info          -                     address_confidentiality Address Confidentiality Program page, eligibility list
+    R39   MT-CONF-1             info          -                     record_confidentiality  MCA 53-9-107(3)(a)
+    R40   MT-EXAM-2             skipped       -                     exam_no_bill            Montana DOJ, FREPP page  ; applies_to "exams paid by the state exam fund for cases not reported to police"
+    R41   MT-CAP-2              skipped       -                     expense_cap             MCA 53-9-128(9)(e)  ; applies_to "secondary_victims"
 
 .tags   pain_suffering=bit0
 
@@ -95,7 +96,7 @@
     P22   (MT-EXC-5)
     P23   (MT-DEAD-1)
     P24   (MT-REP-1)
-    P25   (MT-EXC-1, MT-EXC-7, MT-EXC-8, MT-DEAD-2, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1)
+    P25   (MT-EXC-1, MT-EXC-7, MT-EXC-8, MT-DEAD-2, MT-DEAD-3, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1)
 
 .ints
     K0    1000000       ; $10,000.00
@@ -175,7 +176,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R24              ; MT-COL-1
+  00d5        seta     collateral, R25              ; MT-COL-1
   00d9        ret
               ; MT-COV-2  Montana DOJ, Crime Victim Compensation page, Mental Health Costs  "Mental health counseling benefits are available for primary and..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
@@ -210,7 +211,7 @@
   012c        subs
   012d        push     0
   0132        max
-  0133        seta     collateral, R24              ; MT-COL-1
+  0133        seta     collateral, R25              ; MT-COL-1
   0137        ret
               ; MT-COV-5  MCA 53-9-128(1)  "A claimant is entitled to weekly compensation benefits when the..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
@@ -245,7 +246,7 @@
   018a        subs
   018b        push     0
   0190        max
-  0191        seta     collateral, R24              ; MT-COL-1
+  0191        seta     collateral, R25              ; MT-COL-1
   0195        ret
               ; MT-COV-6  MCA 53-9-128(9)(c)  "the parent or guardian of a minor who is a victim of criminally..."
               ; MT-EXC-4  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "Non-medical expenses, like clothing, motels , travel expenses..."
@@ -370,7 +371,7 @@
   02f0        subs
   02f1        push     0
   02f6        max
-  02f7        seta     collateral, R24              ; MT-COL-1
+  02f7        seta     collateral, R25              ; MT-COL-1
   02fb        ret
               ; MT-COV-4  Montana DOJ, Crime Victim Compensation page, Medical Costs  "Prescription drugs Ambulance charges Dental treatment"
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
@@ -405,7 +406,7 @@
   034e        subs
   034f        push     0
   0354        max
-  0355        seta     collateral, R24              ; MT-COL-1
+  0355        seta     collateral, R25              ; MT-COL-1
   0359        ret
               ; MT-CAP-3  MCA 53-9-128(4)  "Reasonable funeral and burial expenses of the victim, not..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
@@ -440,7 +441,7 @@
   03ac        subs
   03ad        push     0
   03b2        max
-  03b3        seta     collateral, R24              ; MT-COL-1
+  03b3        seta     collateral, R25              ; MT-COL-1
   03b7        ret
               ; MT-EXC-5  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "Non-medical expenses, like clothing, motels , travel expenses..."
               ; MT-EXC-6  MCA 53-9-128(6)  "Compensation benefits are not payable for pain and suffering..."
@@ -556,6 +557,7 @@
               ; MT-EXC-7  Montana DOJ, Crime Victim Compensation page, Wage Loss  "CVC does not cover missed work due to mental impairment."
               ; MT-EXC-8  Montana DOJ, Crime Victim Compensation page, Ineligible Benefits  "In-patient psychiatric care or chemical dependency counseling"
               ; MT-DEAD-2  MCA 53-9-125(1)  "Compensation in cases involving sexual offenses against minors..."
+              ; MT-DEAD-3  MCA 53-9-125(1)  "The time for filing a claim may be extended by the office for..."
               ; MT-COL-1  MCA 53-9-125(5)  "Compensation otherwise payable to a claimant must be reduced or..."
               ; MT-COL-2  Montana DOJ, Crime Victim Compensation page, Insurance and Collateral Sources  "CVC is a payor of last resort. If you are covered by any kind of..."
               ; MT-CON-1  MCA 53-9-125(7)  "Compensation may be denied or reduced if the victim contributed..."
@@ -571,6 +573,6 @@
               ; MT-PROC-1  CVC FAQ, How long will it take to receive a decision on compensation benefits?  "The goal of the CVC program is to determine eligibility on a..."
               ; MT-ACP-1  Address Confidentiality Program page, eligibility list  "Be a victim of partner or family member assault, sexual assault..."
               ; MT-CONF-1  MCA 53-9-107(3)(a)  "the following public records of the office are exempt from..."
-  0109        info     P25                          ; MT-EXC-1, MT-EXC-7, MT-EXC-8, MT-DEAD-2, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1
+  0109        info     P25                          ; MT-EXC-1, MT-EXC-7, MT-EXC-8, MT-DEAD-2, MT-DEAD-3, MT-COL-1, MT-COL-2, MT-CON-1, MT-CON-2, MT-EMER-1, MT-ELIG-1, MT-RES-1, MT-SUB-1, MT-DOC-1, MT-DOC-2, MT-DOC-3, MT-DOC-4, MT-PROC-1, MT-ACP-1, MT-CONF-1
   010c        ret
 

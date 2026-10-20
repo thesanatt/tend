@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "GA",
- "source_sha256": "b34eccdde4648179bf1d4c4606c4ab8a87737e85522a3826a0245595fd7ee639",
- "ir_sha256": "fb3cdc3855059a190ee7e701acb813a99e49d2d4e9e4ac5578dea69f0af1a954",
+ "source_sha256": "2f8b3d051115ca674b5de886bfc09a3c77dc7f28dfa4421e8d62821abfb7721e",
+ "ir_sha256": "d4d963985641196a6c925fb0bf61f489c93a923b4e19453bc3a5ab2ae595e6ad",
  "fresh": true,
  "rules": [
   {
@@ -85,6 +85,11 @@
   },
   {
    "id": "GA-COV-COUNS",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
+   "id": "GA-COV-COUNS-2",
    "kind": "covered",
    "expense": "counseling"
   },

@@ -1,9 +1,9 @@
 ; tend law image OK, Oklahoma
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 16d352ecf83f699d4034623d9d5ab85a9aa59872b66c28d7a4d6a0d120c82462
-; image sha256  3a0d0917bfe556e1ef7e13cb3917348747149dd8175798ca419a3392c75e8c14
-; 55 rules, 16 sources, 20 proofs, 5 ints, 325 strings
-; item program: 135 instructions, 466 bytes, max stack 2
+; source sha256 7e3cd5d8234fcee97d24500920a3ca6d866ed5ab9b251d792cb0d825ea0bee6d
+; image sha256  47a7a8bc6e370cf30dfc8758b8ec74741388b7c5b10d111a0905c07acf91c349
+; 56 rules, 16 sources, 22 proofs, 5 ints, 327 strings
+; item program: 149 instructions, 504 bytes, max stack 2
 ; aggregate program: 167 instructions, 522 bytes, max stack 2, 5 loops
 
 .rules
@@ -25,43 +25,44 @@
     R15   OK-COV-4              covered       counseling                                    21 O.S. 142.13(H)
     R16   OK-COV-5              covered       transportation                                OCVC home page, eligible expenses
     R17   OK-COV-6              covered       dental                                        OCVC home page, eligible expenses
-    R18   OK-EXCL-1             excluded      property_replacement                          OCVC Fund Eligibility page
-    R19   OK-DEAD-1             deadline      -                     from crime              21 O.S. 142.10(A)(1)
-    R20   OK-DEAD-2             info          -                     filing_deadline         21 O.S. 142.10(A)(1)
-    R21   OK-RPT-1              reporting     -                                             21 O.S. 142.10(A)(4)
-    R22   OK-RPT-2              reporting     -                                             21 O.S. 142.10(C)
-    R23   OK-COLL-1             collateral    -                                             21 O.S. 142.10(B)(1)
-    R24   OK-COND-1             info          -                     conduct_reduction       21 O.S. 142.10(B)(2)
-    R25   OK-EMER-1             info          -                     emergency_award         21 O.S. 142.14
-    R26   OK-ELIG-1             info          -                     eligible_crime          OCVC Fund Eligibility page
-    R27   OK-RES-1              info          -                     residency               21 O.S. 142.3(5)(a)
-    R28   OK-EXAM-7             collateral    -                                             Okla. Admin. Code 185:15-1-6(d)
-    R29   OK-EXAM-8             exam_payment  -                                             DAC Sexual Assault Examination Fund page
-    R30   OK-ELIG-2             info          -                     eligible_crime          21 O.S. 142.20(B)(1)
-    R31   OK-SUBMIT-1           info          -                     submission              VCP Online Access home page, How to Apply
-    R32   OK-SUBMIT-2           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
-    R33   OK-SUBMIT-3           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
-    R34   OK-SUBMIT-4           info          -                     submission              Official Claim Form (Revised June 2019), instructions header
-    R35   OK-DOC-1              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions
-    R36   OK-DOC-2              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section I
-    R37   OK-DOC-3              info          -                     required_document       FAQ, Do I need to submit all bills with the application?
-    R38   OK-DOC-4              info          -                     required_document       Application Process, Payments
-    R39   OK-DOC-5              info          -                     required_document       Application Process, Documentation
-    R40   OK-DOC-6              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Income Loss / Economic Loss
-    R41   OK-DOC-7              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section G
-    R42   OK-DOC-8              info          -                     required_document       Official Claim Form (Revised June 2019), Section G heading
-    R43   OK-DOC-9              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Travel
-    R44   OK-DOC-10             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
-    R45   OK-DOC-11             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
-    R46   OK-DOC-12             info          -                     required_document       Eligible Expenses, Traditional American Indian Services
-    R47   OK-DOC-13             info          -                     required_document       Sexual Assault Examination Fund page
-    R48   OK-TIME-1             info          -                     processing_time         FAQ, How Long is the Process?
-    R49   OK-TIME-2             info          -                     processing_time         Application Process
-    R50   OK-TIME-3             info          -                     processing_time         Application Process, Payments
-    R51   OK-TIME-4             info          -                     processing_time         Sexual Assault Examination Fund page
-    R52   OK-ACP-1              info          -                     address_confidentiality OAG ACP page, program description
-    R53   OK-RECCONF-1          info          -                     record_confidentiality  21 O.S. 142.9(G)
-    R54   OK-CAP-4              skipped       -                     expense_cap             21 O.S. 142.13(K)  ; applies_to "a caregiver who missed work"
+    R18   OK-COV-7              covered       prescription                                  OCVC home page, eligible expenses
+    R19   OK-EXCL-1             excluded      property_replacement                          OCVC Fund Eligibility page
+    R20   OK-DEAD-1             deadline      -                     from crime              21 O.S. 142.10(A)(1)
+    R21   OK-DEAD-2             info          -                     filing_deadline         21 O.S. 142.10(A)(1)
+    R22   OK-RPT-1              reporting     -                                             21 O.S. 142.10(A)(4)
+    R23   OK-RPT-2              reporting     -                                             21 O.S. 142.10(C)
+    R24   OK-COLL-1             collateral    -                                             21 O.S. 142.10(B)(1)
+    R25   OK-COND-1             info          -                     conduct_reduction       21 O.S. 142.10(B)(2)
+    R26   OK-EMER-1             info          -                     emergency_award         21 O.S. 142.14
+    R27   OK-ELIG-1             info          -                     eligible_crime          OCVC Fund Eligibility page
+    R28   OK-RES-1              info          -                     residency               21 O.S. 142.3(5)(a)
+    R29   OK-EXAM-7             collateral    -                                             Okla. Admin. Code 185:15-1-6(d)
+    R30   OK-EXAM-8             exam_payment  -                                             DAC Sexual Assault Examination Fund page
+    R31   OK-ELIG-2             info          -                     eligible_crime          21 O.S. 142.20(B)(1)
+    R32   OK-SUBMIT-1           info          -                     submission              VCP Online Access home page, How to Apply
+    R33   OK-SUBMIT-2           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
+    R34   OK-SUBMIT-3           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
+    R35   OK-SUBMIT-4           info          -                     submission              Official Claim Form (Revised June 2019), instructions header
+    R36   OK-DOC-1              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions
+    R37   OK-DOC-2              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section I
+    R38   OK-DOC-3              info          -                     required_document       FAQ, Do I need to submit all bills with the application?
+    R39   OK-DOC-4              info          -                     required_document       Application Process, Payments
+    R40   OK-DOC-5              info          -                     required_document       Application Process, Documentation
+    R41   OK-DOC-6              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Income Loss / Economic Loss
+    R42   OK-DOC-7              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section G
+    R43   OK-DOC-8              info          -                     required_document       Official Claim Form (Revised June 2019), Section G heading
+    R44   OK-DOC-9              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Travel
+    R45   OK-DOC-10             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
+    R46   OK-DOC-11             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
+    R47   OK-DOC-12             info          -                     required_document       Eligible Expenses, Traditional American Indian Services
+    R48   OK-DOC-13             info          -                     required_document       Sexual Assault Examination Fund page
+    R49   OK-TIME-1             info          -                     processing_time         FAQ, How Long is the Process?
+    R50   OK-TIME-2             info          -                     processing_time         Application Process
+    R51   OK-TIME-3             info          -                     processing_time         Application Process, Payments
+    R52   OK-TIME-4             info          -                     processing_time         Sexual Assault Examination Fund page
+    R53   OK-ACP-1              info          -                     address_confidentiality OAG ACP page, program description
+    R54   OK-RECCONF-1          info          -                     record_confidentiality  21 O.S. 142.9(G)
+    R55   OK-CAP-4              skipped       -                     expense_cap             21 O.S. 142.13(K)  ; applies_to "a caregiver who missed work"
 
 .tags   pain_suffering=bit0
 
@@ -97,13 +98,15 @@
     P10   (OK-CAP-6)
     P11   (OK-CAP-6, OK-COLL-1, OK-EXAM-7)
     P12   (OK-EXCL-1)
-    P13   (OK-COV-6)
-    P14   (OK-COV-6, OK-COLL-1, OK-EXAM-7)
-    P15   (OK-CAP-5)
-    P16   (OK-CAP-5, OK-COLL-1, OK-EXAM-7)
-    P17   (OK-DEAD-1)
-    P18   (OK-RPT-1, OK-RPT-2)
-    P19   (OK-EXAM-5, OK-CAP-3, OK-DEAD-2, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1)
+    P13   (OK-COV-7)
+    P14   (OK-COV-7, OK-COLL-1, OK-EXAM-7)
+    P15   (OK-COV-6)
+    P16   (OK-COV-6, OK-COLL-1, OK-EXAM-7)
+    P17   (OK-CAP-5)
+    P18   (OK-CAP-5, OK-COLL-1, OK-EXAM-7)
+    P19   (OK-DEAD-1)
+    P20   (OK-RPT-1, OK-RPT-2)
+    P21   (OK-EXAM-5, OK-CAP-3, OK-DEAD-2, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1)
 
 .ints
     K0    80000         ; $800.00
@@ -135,9 +138,9 @@
                         case childcare             -> L10
                         case property_replacement  -> L13
                         case clothing_bedding      -> L10
-                        case prescription          -> L10
-                        case dental                -> L17
-                        case funeral               -> L19
+                        case prescription          -> L17
+                        case dental                -> L19
+                        case funeral               -> L21
                         case legal                 -> L10
                         case tuition               -> L10
                         case other                 -> L10
@@ -170,7 +173,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R23              ; OK-COLL-1
+  009d        seta     collateral, R24              ; OK-COLL-1
   00a1        ret
               ; OK-CAP-2  21 O.S. 142.13(H)  "A total not to exceed Three Thousand Dollars ($3,000.00) may be..."
               ; OK-COV-4  21 O.S. 142.13(H)  "Outpatient counseling expenses for a victim of criminally..."
@@ -188,7 +191,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R23              ; OK-COLL-1
+  00c3        seta     collateral, R24              ; OK-COLL-1
   00c7        ret
               ; OK-COV-3  21 O.S. 142.13(A)  "The Crime Victims Compensation Board may compensate for work..."
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -205,7 +208,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R23              ; OK-COLL-1
+  00e9        seta     collateral, R24              ; OK-COLL-1
   00ed        ret
               ; OK-COV-5  OCVC home page, eligible expenses  "Mileage reimbursement for medical, dental, and counseling..."
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -222,7 +225,7 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R23              ; OK-COLL-1
+  010f        seta     collateral, R24              ; OK-COLL-1
   0113        ret
   0114  L10:  push     0
   0119        decide   unknown_rule, P0             ; (none)
@@ -242,7 +245,7 @@
   0138        subs
   0139        push     0
   013e        max
-  013f        seta     collateral, R23              ; OK-COLL-1
+  013f        seta     collateral, R24              ; OK-COLL-1
   0143        ret
               ; OK-EXCL-1  OCVC Fund Eligibility page  "Pain and suffering and personal property are NOT allowable..."
   0144  L13:  push     0
@@ -265,40 +268,57 @@
   017c  L16:  push     0
   0181        decide   unknown_rule, P0             ; (none)
   0185        ret
-              ; OK-COV-6  OCVC home page, eligible expenses  "Medical, dental, and prescriptions"
+              ; OK-COV-7  OCVC home page, eligible expenses  "Medical, dental, and prescriptions"
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; OK-EXAM-7  Okla. Admin. Code 185:15-1-6(d)  "For sexual assault exams performed on adults and children..."
   0186  L17:  ldi      confirmed
   0188        jnz      L18
   018d        push     0
-  0192        decide   needs_confirmation, P13      ; OK-COV-6
+  0192        decide   needs_confirmation, P13      ; OK-COV-7
   0196        ret
   0197  L18:  ldi      amount_cents
-  0199        decide   eligible, P14                ; OK-COV-6, OK-COLL-1, OK-EXAM-7
+  0199        decide   eligible, P14                ; OK-COV-7, OK-COLL-1, OK-EXAM-7
   019d        lda
   019e        ldi      insurance_paid_cents
   01a0        subs
   01a1        push     0
   01a6        max
-  01a7        seta     collateral, R23              ; OK-COLL-1
+  01a7        seta     collateral, R24              ; OK-COLL-1
   01ab        ret
-              ; OK-CAP-5  21 O.S. 142.13(I)  "Reasonable funeral, cremation or burial expenses shall not..."
+              ; OK-COV-6  OCVC home page, eligible expenses  "Medical, dental, and prescriptions"
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; OK-EXAM-7  Okla. Admin. Code 185:15-1-6(d)  "For sexual assault exams performed on adults and children..."
   01ac  L19:  ldi      confirmed
   01ae        jnz      L20
   01b3        push     0
-  01b8        decide   needs_confirmation, P15      ; OK-CAP-5
+  01b8        decide   needs_confirmation, P15      ; OK-COV-6
   01bc        ret
   01bd  L20:  ldi      amount_cents
-  01bf        decide   eligible, P16                ; OK-CAP-5, OK-COLL-1, OK-EXAM-7
+  01bf        decide   eligible, P16                ; OK-COV-6, OK-COLL-1, OK-EXAM-7
   01c3        lda
   01c4        ldi      insurance_paid_cents
   01c6        subs
   01c7        push     0
   01cc        max
-  01cd        seta     collateral, R23              ; OK-COLL-1
+  01cd        seta     collateral, R24              ; OK-COLL-1
   01d1        ret
+              ; OK-CAP-5  21 O.S. 142.13(I)  "Reasonable funeral, cremation or burial expenses shall not..."
+              ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
+              ; OK-EXAM-7  Okla. Admin. Code 185:15-1-6(d)  "For sexual assault exams performed on adults and children..."
+  01d2  L21:  ldi      confirmed
+  01d4        jnz      L22
+  01d9        push     0
+  01de        decide   needs_confirmation, P17      ; OK-CAP-5
+  01e2        ret
+  01e3  L22:  ldi      amount_cents
+  01e5        decide   eligible, P18                ; OK-CAP-5, OK-COLL-1, OK-EXAM-7
+  01e9        lda
+  01ea        ldi      insurance_paid_cents
+  01ec        subs
+  01ed        push     0
+  01f2        max
+  01f3        seta     collateral, R24              ; OK-COLL-1
+  01f7        ret
 
 .aggregate
               ; OK-EXAM-4  21 O.S. 142.20(D)(1)  "in no event shall the Crime Victims Compensation Board pay an..."
@@ -455,7 +475,7 @@
   01b5        push     0
   01ba        jmp      L26
   01bf  L25:  push     1                            ; late
-  01c4  L26:  check    deadline, P17                ; OK-DEAD-1
+  01c4  L26:  check    deadline, P19                ; OK-DEAD-1
               ; OK-RPT-1  21 O.S. 142.10(A)(4)  "such conduct was reported to a law enforcement officer within..."
               ; OK-RPT-2  21 O.S. 142.10(C)  "Victims of sexual assault who undergo a forensic medical..."
   01c8        ldx      police_report
@@ -473,7 +493,7 @@
   01f3  L27:  push     1
   01f8        jmp      L29
   01fd  L28:  push     0                            ; satisfied
-  0202  L29:  check    reporting, P18               ; OK-RPT-1, OK-RPT-2
+  0202  L29:  check    reporting, P20               ; OK-RPT-1, OK-RPT-2
               ; OK-EXAM-5  21 O.S. 142.20(D)(2)  "One Hundred Dollars ($100.00) for medications which are related..."
               ; OK-CAP-3  21 O.S. 142.13(H)  "Inpatient mental health treatment will be reviewed on a..."
               ; OK-DEAD-2  21 O.S. 142.10(A)(1)  "In cases involving sexual assault of an adult eighteen (18)..."
@@ -507,6 +527,6 @@
               ; OK-TIME-4  Sexual Assault Examination Fund page  "Payment is usually made within 30 days of the receipt of the..."
               ; OK-ACP-1  OAG ACP page, program description  "The ACP aids in protecting the physical address of victims of..."
               ; OK-RECCONF-1  21 O.S. 142.9(G)  "All records and information given to the Board to process a..."
-  0206        info     P19                          ; OK-EXAM-5, OK-CAP-3, OK-DEAD-2, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1
+  0206        info     P21                          ; OK-EXAM-5, OK-CAP-3, OK-DEAD-2, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1
   0209        ret
 

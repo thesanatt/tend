@@ -237,10 +237,10 @@
    "params": {
     "payer": "Ohio Attorney General SAFE Program"
    },
-   "summary": "State payment for the forensic exam does not depend on the survivor cooperating with police; an adult who does not want to report can have the exam billed to the SAFE Program under a Jane or John Doe name.",
+   "summary": "Payment for the forensic exam does not depend on the survivor cooperating with police.",
    "quote": "The sexual assault forensic exam and reimbursement is not dependent on the patient cooperating with law enforcement.",
    "source_id": "OH-S14",
-   "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting); Jane/John Doe submission at item 5"
+   "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)"
   },
   {
    "id": "OH-EXAM-5",
@@ -305,7 +305,7 @@
    "quote": "Reparations payable to a victim described in division (L)(2) of section 2743.51 of the Revised Code shall not exceed five thousand dollars.",
    "source_id": "OH-S3",
    "pinpoint": "ORC 2743.60(H); ORC 2743.51(L)(2) and (F)(2)",
-   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=Reparations%20payable%20to%20a%20victim,not%20exceed%20five%20thousand%20dollars."
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=Reparations%20payable%20to%20a%20victim%20described%20in%20division%20%28L%29%282%29,not%20exceed%20five%20thousand%20dollars."
   },
   {
    "id": "OH-CAP-3",
@@ -368,7 +368,7 @@
    "quote": "Reparations payable to a victim described in division (L)(3) of section 2743.51 of the Revised Code shall not exceed fifteen thousand dollars.",
    "source_id": "OH-S3",
    "pinpoint": "ORC 2743.60(H); ORC 2743.51(L)(3)(b) and (F)(3)",
-   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=Reparations%20payable%20to%20a%20victim,not%20exceed%20fifteen%20thousand%20dollars."
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=Reparations%20payable%20to%20a%20victim%20described%20in%20division%20%28L%29%283%29,not%20exceed%20fifteen%20thousand%20dollars."
   },
   {
    "id": "OH-COV-1",
@@ -525,6 +525,18 @@
    "fragment_url": "https://ohiocourtofclaims.gov/crime-victims-compensation/#:~:text=Although%20the%20former%2072%2Dhour%20deadline,must%20File%20a%20police%20report."
   },
   {
+   "id": "OH-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "scope": "what the exam provider must tell police"
+   },
+   "summary": "The Attorney General's billing instructions say Ohio law has health care providers report a sexual assault to police even when the patient does not want to talk to police. If an adult patient stays unnamed, the provider gives police the date, time, and general location of the assault, but not the patient's name or other identifying details.",
+   "quote": "Law enforcement reporting – Ohio Revised Code (ORC) 2921.22 (A) & (B) (see page 7) requires health care providers report a sexual assault to law enforcement whether a patient chooses to speak with law enforcement or not. If the adult patient chooses to remain unnamed, the provider is mandated to provide the date, time, and general location the assault took place, but not the patient’s name or other identifiers.",
+   "source_id": "OH-S14",
+   "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)"
+  },
+  {
    "id": "OH-MIN-1",
    "category": "minimum_loss",
    "params": {
@@ -544,7 +556,7 @@
    "quote": "The attorney general or the court of claims shall reduce an award of reparations or deny a claim for an award of reparations that is otherwise payable to a claimant to the extent that the economic loss upon which the claim is based is recouped from other persons, including collateral sources.",
    "source_id": "OH-S3",
    "pinpoint": "ORC 2743.60(D)",
-   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=The%20attorney%20general%20or%20the,other%20persons%2C%20including%20collateral%20sources."
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=The%20attorney%20general%20or%20the%20court%20of%20claims%20shall%20reduce,other%20persons%2C%20including%20collateral%20sources."
   },
   {
    "id": "OH-COLL-2",
@@ -564,7 +576,7 @@
    "quote": "The attorney general or the court of claims shall reduce an award of reparations or deny a claim for an award of reparations to the extent it is determined to be reasonable because of the contributory misconduct of the claimant or the victim.",
    "source_id": "OH-S3",
    "pinpoint": "ORC 2743.60(E)(1); ORC 2743.51(M)",
-   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=The%20attorney%20general%20or%20the,the%20claimant%20or%20the%20victim."
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=The%20attorney%20general%20or%20the%20court%20of%20claims%20shall%20reduce%20an%20award%20of%20reparations%20or%20deny%20a%20claim%20for%20an%20award%20of%20reparations%20to,the%20claimant%20or%20the%20victim."
   },
   {
    "id": "OH-CONDUCT-2",
@@ -574,7 +586,7 @@
    "quote": "The attorney general or the court of claims, upon a finding that the claimant or victim has not fully cooperated with appropriate law enforcement agencies, may deny a claim or reconsider and reduce an award of reparations.",
    "source_id": "OH-S3",
    "pinpoint": "ORC 2743.60(C)",
-   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=The%20attorney%20general%20or%20the,reduce%20an%20award%20of%20reparations."
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.60#:~:text=The%20attorney%20general%20or%20the%20court%20of%20claims%2C,reduce%20an%20award%20of%20reparations."
   },
   {
    "id": "OH-EMERG-1",
@@ -733,7 +745,7 @@
    "quote": "The attorney general shall make a written finding of fact and decision in accordance with sections 2743.51 to 2743.72 of the Revised Code within one hundred twenty days after receiving the claim application.",
    "source_id": "OH-S17",
    "pinpoint": "ORC 2743.59(E)",
-   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.59#:~:text=The%20attorney%20general%20shall%20make,after%20receiving%20the%20claim%20application."
+   "fragment_url": "https://codes.ohio.gov/ohio-revised-code/section-2743.59#:~:text=The%20attorney%20general%20shall%20make%20a%20written%20finding%20of%20fact%20and%20decision%20in,after%20receiving%20the%20claim%20application."
   },
   {
    "id": "OH-ACP-1",

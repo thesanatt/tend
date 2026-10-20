@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "DE",
- "source_sha256": "7146976c472a60599f38591c05b404774e2f2be27c3330fbef87a7585a1b9ea0",
- "ir_sha256": "2b9b3bc568504d452d0a0b7f88c32815adbf13fa77ce7cf2b7de06d1d2d745da",
+ "source_sha256": "b5c448698e400b0792b66927c59f581ae63264503e3bf24bc88ba77f45cb5f99",
+ "ir_sha256": "ede72f613f86f066ed672f56e972758573dad55e90521b1a8f98ea5134c4b430",
  "fresh": true,
  "rules": [
   {
@@ -115,6 +115,11 @@
    "expense": "other"
   },
   {
+   "id": "DE-COV-11",
+   "kind": "covered",
+   "expense": "legal"
+  },
+  {
    "id": "DE-EXCL-1",
    "kind": "info",
    "category": "excluded_expense"
@@ -139,7 +144,8 @@
    "alternatives": [
     "other",
     "protective_order"
-   ]
+   ],
+   "within_days": 3
   },
   {
    "id": "DE-REPORT-2",

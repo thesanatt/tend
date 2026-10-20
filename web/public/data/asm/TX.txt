@@ -1,8 +1,8 @@
 ; tend law image TX, Texas
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 8d8af719a9c0d658659bd07b97a66b2ad42d4bfad73102518a82f47b95e1aea3
-; image sha256  37fb09f6bb6fb2f3494afe909c917416b9bc3eec68035cc6b232fa10f0e6844a
-; 44 rules, 21 sources, 25 proofs, 6 ints, 285 strings
+; source sha256 21bedaa5b4b77f833f0386df24ae63d7eb59bb0881dce73eb09f52e277b48964
+; image sha256  f9c48711baee85f7355dc043e3917d0249f33a86922ac7716dca97d8b12d3bc8
+; 46 rules, 21 sources, 25 proofs, 6 ints, 294 strings
 ; item program: 159 instructions, 514 bytes, max stack 2
 ; aggregate program: 182 instructions, 571 bytes, max stack 3, 6 loops
 
@@ -14,43 +14,45 @@
     R4    TX-CAP-1              total_cap     -                                             Tex. Code Crim. Proc. art. 56B.106(a)
     R5    TX-WAGES-1            expense_cap   lost_wages            per week                1 Tex. Admin. Code 61.402(h)(5)
     R6    TX-RELO-1             covered       relocation                                    Tex. Code Crim. Proc. art. 56B.106(c)
-    R7    TX-RELO-2             expense_cap   relocation            per claim               Tex. Code Crim. Proc. art. 56B.106(c-3)
-    R8    TX-RELO-3             covered       temporary_housing                             OAG Rent and Relocation Reimbursement page
-    R9    TX-TRAVEL-1           covered       transportation                                OAG Travel Cost Reimbursement page
-    R10   TX-MED-1              covered       medical                                       Tex. Code Crim. Proc. art. 56B.003(10)(A)
-    R11   TX-MED-2              covered       prescription                                  OAG Medical Care Expenses page
-    R12   TX-COUNSEL-2          covered       counseling                                    Tex. Code Crim. Proc. art. 56B.003(10)(A)
-    R13   TX-WAGES-2            covered       lost_wages                                    Tex. Code Crim. Proc. art. 56B.003(10)(B)
-    R14   TX-CHILD-1            expense_cap   childcare             per week                1 Tex. Admin. Code 61.405(b)(6)(B)
-    R15   TX-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               1 Tex. Admin. Code 61.405(d)(2)
-    R16   TX-SEIZED-1           covered       clothing_bedding                              Tex. Code Crim. Proc. art. 56B.003(10)(G)
-    R17   TX-SEIZED-2           expense_cap   clothing_bedding      per claim               1 Tex. Admin. Code 61.405(e)(2)
-    R18   TX-EXCL-1             info          -                     excluded_expense        OAG CVC Covered Costs page, Costs Not Covered
-    R19   TX-EXCL-2             info          -                     excluded_expense        OAG CVC Covered Costs page, Costs Not Covered
-    R20   TX-EXCL-3             info          -                     excluded_expense        OAG Mental Health Care Expenses page
-    R21   TX-DEADLINE-1         deadline      -                     from crime              OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)
-    R22   TX-REPORT-1           reporting     -                                             Tex. Code Crim. Proc. art. 56B.053(a)
-    R23   TX-REPORT-2           info          -                     reporting_requirement   OAG CVC Eligibility page, Basic requirements
-    R24   TX-COLLAT-1           collateral    -                                             Tex. Code Crim. Proc. art. 56B.103(b)
-    R25   TX-CONDUCT-1          info          -                     conduct_reduction       Tex. Code Crim. Proc. art. 56B.107(a)(1)-(2)
-    R26   TX-CONDUCT-2          info          -                     conduct_reduction       Tex. Code Crim. Proc. art. 56B.107(d)
-    R27   TX-EMERG-1            info          -                     emergency_award         Tex. Code Crim. Proc. art. 56B.102(b)
-    R28   TX-CRIME-1            info          -                     eligible_crime          OAG CVC Eligibility page, Covered crimes
-    R29   TX-RES-1              info          -                     residency               Tex. Code Crim. Proc. art. 56B.003(14)(A)
-    R30   TX-SUBMIT-1           info          -                     submission              CVC Application (rev. 10/15), instructions, page 1
-    R31   TX-SUBMIT-2           info          -                     submission              OAG How to Apply page, Step 1
-    R32   TX-DOC-1              info          -                     required_document       CVC Application (rev. 10/15), instructions, page 1
-    R33   TX-DOC-2              info          -                     required_document       CVC Application (rev. 10/15), instructions, page 1
-    R34   TX-DOC-3              info          -                     required_document       OAG Emergency Medical Care page, How to apply
-    R35   TX-DOC-4              info          -                     required_document       OAG Emergency Medical Care page, How to apply
-    R36   TX-DOC-5              info          -                     required_document       OAG Emergency Medical Care page, How to apply
-    R37   TX-DOC-6              info          -                     required_document       CVC Application (rev. 10/15), instructions, page 1
-    R38   TX-DOC-7              info          -                     required_document       OAG Lost Wages page, How to apply
-    R39   TX-DOC-8              info          -                     required_document       OAG Lost Wages page, How to apply
-    R40   TX-DOC-9              info          -                     required_document       OAG Rent and Relocation page, How to apply
-    R41   TX-ACP-1              info          -                     address_confidentiality Tex. Code Crim. Proc. art. 58.052(a), (b)(1)
-    R42   TX-RECORDS-1          info          -                     record_confidentiality  Tex. Code Crim. Proc. art. 56B.058(b)
-    R43   TX-COUNSEL-1          skipped       -                     expense_cap             1 Tex. Admin. Code 61.503(a)(4)  ; expense_cap without amount or expense
+    R7    TX-RELO-4             covered       relocation                                    Tex. Code Crim. Proc. art. 56B.106(c-1)
+    R8    TX-RELO-2             expense_cap   relocation            per claim               Tex. Code Crim. Proc. art. 56B.106(c-3)
+    R9    TX-RELO-3             covered       temporary_housing                             OAG Rent and Relocation Reimbursement page
+    R10   TX-TRAVEL-1           covered       transportation                                OAG Travel Cost Reimbursement page
+    R11   TX-MED-1              covered       medical                                       Tex. Code Crim. Proc. art. 56B.003(10)(A)
+    R12   TX-EXAM-5             covered       medical                                       OAG Emergency Medical Care Compensation page
+    R13   TX-MED-2              covered       prescription                                  OAG Medical Care Expenses page
+    R14   TX-COUNSEL-2          covered       counseling                                    Tex. Code Crim. Proc. art. 56B.003(10)(A)
+    R15   TX-WAGES-2            covered       lost_wages                                    Tex. Code Crim. Proc. art. 56B.003(10)(B)
+    R16   TX-CHILD-1            expense_cap   childcare             per week                1 Tex. Admin. Code 61.405(b)(6)(B)
+    R17   TX-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               1 Tex. Admin. Code 61.405(d)(2)
+    R18   TX-SEIZED-1           covered       clothing_bedding                              Tex. Code Crim. Proc. art. 56B.003(10)(G)
+    R19   TX-SEIZED-2           expense_cap   clothing_bedding      per claim               1 Tex. Admin. Code 61.405(e)(2)
+    R20   TX-EXCL-1             info          -                     excluded_expense        OAG CVC Covered Costs page, Costs Not Covered
+    R21   TX-EXCL-2             info          -                     excluded_expense        OAG CVC Covered Costs page, Costs Not Covered
+    R22   TX-EXCL-3             info          -                     excluded_expense        OAG Mental Health Care Expenses page
+    R23   TX-DEADLINE-1         deadline      -                     from crime              OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)
+    R24   TX-REPORT-1           reporting     -                                             Tex. Code Crim. Proc. art. 56B.053(a)
+    R25   TX-REPORT-2           info          -                     reporting_requirement   OAG CVC Eligibility page, Basic requirements
+    R26   TX-COLLAT-1           collateral    -                                             Tex. Code Crim. Proc. art. 56B.103(b)
+    R27   TX-CONDUCT-1          info          -                     conduct_reduction       Tex. Code Crim. Proc. art. 56B.107(a)(1)-(2)
+    R28   TX-CONDUCT-2          info          -                     conduct_reduction       Tex. Code Crim. Proc. art. 56B.107(d)
+    R29   TX-EMERG-1            info          -                     emergency_award         Tex. Code Crim. Proc. art. 56B.102(b)
+    R30   TX-CRIME-1            info          -                     eligible_crime          OAG CVC Eligibility page, Covered crimes
+    R31   TX-RES-1              info          -                     residency               Tex. Code Crim. Proc. art. 56B.003(14)(A)
+    R32   TX-SUBMIT-1           info          -                     submission              CVC Application (rev. 10/15), instructions, page 1
+    R33   TX-SUBMIT-2           info          -                     submission              OAG How to Apply page, Step 1
+    R34   TX-DOC-1              info          -                     required_document       CVC Application (rev. 10/15), instructions, page 1
+    R35   TX-DOC-2              info          -                     required_document       CVC Application (rev. 10/15), instructions, page 1
+    R36   TX-DOC-3              info          -                     required_document       OAG Emergency Medical Care page, How to apply
+    R37   TX-DOC-4              info          -                     required_document       OAG Emergency Medical Care page, How to apply
+    R38   TX-DOC-5              info          -                     required_document       OAG Emergency Medical Care page, How to apply
+    R39   TX-DOC-6              info          -                     required_document       CVC Application (rev. 10/15), instructions, page 1
+    R40   TX-DOC-7              info          -                     required_document       OAG Lost Wages page, How to apply
+    R41   TX-DOC-8              info          -                     required_document       OAG Lost Wages page, How to apply
+    R42   TX-DOC-9              info          -                     required_document       OAG Rent and Relocation page, How to apply
+    R43   TX-ACP-1              info          -                     address_confidentiality Tex. Code Crim. Proc. art. 58.052(a), (b)(1)
+    R44   TX-RECORDS-1          info          -                     record_confidentiality  Tex. Code Crim. Proc. art. 56B.058(b)
+    R45   TX-COUNSEL-1          skipped       -                     expense_cap             1 Tex. Admin. Code 61.503(a)(4)  ; expense_cap without amount or expense
 
 .sources
     S0    TX-S1       sha256 ed4d5cfb82c2e12f  https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm
@@ -78,16 +80,16 @@
 .proofs
     P0    ()
     P1    (TX-EXAM-1, TX-EXAM-4, TX-EXAM-2)
-    P2    (TX-MED-1)
-    P3    (TX-MED-1, TX-COLLAT-1)
+    P2    (TX-MED-1, TX-EXAM-5)
+    P3    (TX-MED-1, TX-EXAM-5, TX-COLLAT-1)
     P4    (TX-COUNSEL-2)
     P5    (TX-COUNSEL-2, TX-COLLAT-1)
     P6    (TX-WAGES-1, TX-WAGES-2)
     P7    (TX-WAGES-1, TX-WAGES-2, TX-COLLAT-1)
     P8    (TX-TRAVEL-1)
     P9    (TX-TRAVEL-1, TX-COLLAT-1)
-    P10   (TX-RELO-1, TX-RELO-2)
-    P11   (TX-RELO-1, TX-RELO-2, TX-COLLAT-1)
+    P10   (TX-RELO-1, TX-RELO-4, TX-RELO-2)
+    P11   (TX-RELO-1, TX-RELO-4, TX-RELO-2, TX-COLLAT-1)
     P12   (TX-RELO-3)
     P13   (TX-RELO-3, TX-COLLAT-1)
     P14   (TX-CLEAN-1)
@@ -150,20 +152,21 @@
   0077        decide   held, P1                     ; TX-EXAM-1, TX-EXAM-4, TX-EXAM-2
   007b        ret
               ; TX-MED-1  Tex. Code Crim. Proc. art. 56B.003(10)(A)  ""Pecuniary loss" means the amount of the expense reasonably and..."
+              ; TX-EXAM-5  OAG Emergency Medical Care Compensation page  "For medical care sought after August 31, 2025, EMC also covers..."
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
   007c  L2:   ldi      confirmed
   007e        jnz      L3
   0083        push     0
-  0088        decide   needs_confirmation, P2       ; TX-MED-1
+  0088        decide   needs_confirmation, P2       ; TX-MED-1, TX-EXAM-5
   008c        ret
   008d  L3:   ldi      amount_cents
-  008f        decide   eligible, P3                 ; TX-MED-1, TX-COLLAT-1
+  008f        decide   eligible, P3                 ; TX-MED-1, TX-EXAM-5, TX-COLLAT-1
   0093        lda
   0094        ldi      insurance_paid_cents
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R24              ; TX-COLLAT-1
+  009d        seta     collateral, R26              ; TX-COLLAT-1
   00a1        ret
               ; TX-COUNSEL-2  Tex. Code Crim. Proc. art. 56B.003(10)(A)  ""Pecuniary loss" means the amount of the expense reasonably and..."
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
@@ -179,7 +182,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R24              ; TX-COLLAT-1
+  00c3        seta     collateral, R26              ; TX-COLLAT-1
   00c7        ret
               ; TX-WAGES-1  1 Tex. Admin. Code 61.402(h)(5)  "On or after July 15, 2016, the maximum amount of an award for..."
               ; TX-WAGES-2  Tex. Code Crim. Proc. art. 56B.003(10)(B)  "actual loss of past earnings and anticipated loss of future..."
@@ -196,7 +199,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R24              ; TX-COLLAT-1
+  00e9        seta     collateral, R26              ; TX-COLLAT-1
   00ed        ret
               ; TX-TRAVEL-1  OAG Travel Cost Reimbursement page  "Travel over 20 miles one way for medical or mental health care..."
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
@@ -212,24 +215,25 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R24              ; TX-COLLAT-1
+  010f        seta     collateral, R26              ; TX-COLLAT-1
   0113        ret
               ; TX-RELO-1  Tex. Code Crim. Proc. art. 56B.106(c)  "A victim of stalking, family violence, or trafficking of..."
+              ; TX-RELO-4  Tex. Code Crim. Proc. art. 56B.106(c-1)  "A victim other than a victim described by Subsection (c), a..."
               ; TX-RELO-2  Tex. Code Crim. Proc. art. 56B.106(c-3)  "A victim or claimant may not receive more than $5,000 in the..."
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
   0114  L10:  ldi      confirmed
   0116        jnz      L11
   011b        push     0
-  0120        decide   needs_confirmation, P10      ; TX-RELO-1, TX-RELO-2
+  0120        decide   needs_confirmation, P10      ; TX-RELO-1, TX-RELO-4, TX-RELO-2
   0124        ret
   0125  L11:  ldi      amount_cents
-  0127        decide   eligible, P11                ; TX-RELO-1, TX-RELO-2, TX-COLLAT-1
+  0127        decide   eligible, P11                ; TX-RELO-1, TX-RELO-4, TX-RELO-2, TX-COLLAT-1
   012b        lda
   012c        ldi      insurance_paid_cents
   012e        subs
   012f        push     0
   0134        max
-  0135        seta     collateral, R24              ; TX-COLLAT-1
+  0135        seta     collateral, R26              ; TX-COLLAT-1
   0139        ret
               ; TX-RELO-3  OAG Rent and Relocation Reimbursement page  "Emergency or temporary lodging (up to 14 days)"
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
@@ -245,7 +249,7 @@
   0154        subs
   0155        push     0
   015a        max
-  015b        seta     collateral, R24              ; TX-COLLAT-1
+  015b        seta     collateral, R26              ; TX-COLLAT-1
   015f        ret
   0160  L14:  push     0
   0165        decide   unknown_rule, P0             ; (none)
@@ -264,7 +268,7 @@
   0184        subs
   0185        push     0
   018a        max
-  018b        seta     collateral, R24              ; TX-COLLAT-1
+  018b        seta     collateral, R26              ; TX-COLLAT-1
   018f        ret
               ; TX-CHILD-1  1 Tex. Admin. Code 61.405(b)(6)(B)  "On or after July 15, 2016, $300 per week for each child or..."
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
@@ -280,7 +284,7 @@
   01aa        subs
   01ab        push     0
   01b0        max
-  01b1        seta     collateral, R24              ; TX-COLLAT-1
+  01b1        seta     collateral, R26              ; TX-COLLAT-1
   01b5        ret
               ; TX-SEIZED-1  Tex. Code Crim. Proc. art. 56B.003(10)(G)  "reasonable replacement costs for clothing, bedding, or property..."
               ; TX-SEIZED-2  1 Tex. Admin. Code 61.405(e)(2)  "Under Texas Code of Criminal Procedure Article 56.32(a)(9)(G)..."
@@ -297,7 +301,7 @@
   01d0        subs
   01d1        push     0
   01d6        max
-  01d7        seta     collateral, R24              ; TX-COLLAT-1
+  01d7        seta     collateral, R26              ; TX-COLLAT-1
   01db        ret
               ; TX-MED-2  OAG Medical Care Expenses page  "Examples of expenses that can be covered include:..."
               ; TX-COLLAT-1  Tex. Code Crim. Proc. art. 56B.103(b)  "a claimant or victim suffered personal injury or death that..."
@@ -313,7 +317,7 @@
   01f6        subs
   01f7        push     0
   01fc        max
-  01fd        seta     collateral, R24              ; TX-COLLAT-1
+  01fd        seta     collateral, R26              ; TX-COLLAT-1
   0201        ret
 
 .aggregate
@@ -357,11 +361,11 @@
   006c        lda
   006d        lt
   006e        jz       L6
-  0073        cap      unit_cap, R14                ; TX-CHILD-1
+  0073        cap      unit_cap, R16                ; TX-CHILD-1
   0077        jmp      L8
   007c  L6:   pop
   007d        jmp      L8
-  0082  L7:   flag     R14                          ; rate_unverified TX-CHILD-1
+  0082  L7:   flag     R16                          ; rate_unverified TX-CHILD-1
   0085  L8:   next     L5
               ; TX-RELO-2  Tex. Code Crim. Proc. art. 56B.106(c-3)  "A victim or claimant may not receive more than $5,000 in the..."
   008a  L9:   push     0
@@ -380,7 +384,7 @@
   00b2        ldk      K2                           ; $5,000.00
   00b5        ldr      r0
   00b7        subs
-  00b8        cap      expense_cap, R7              ; TX-RELO-2
+  00b8        cap      expense_cap, R8              ; TX-RELO-2
   00bc        push     1
   00c1        str      r1
   00c3  L11:  ldr      r0
@@ -389,7 +393,7 @@
   00c7        str      r0
   00c9        jmp      L13
   00ce  L12:  push     0
-  00d3        cap      expense_cap, R7              ; TX-RELO-2
+  00d3        cap      expense_cap, R8              ; TX-RELO-2
   00d7  L13:  next     L10
               ; TX-CLEAN-1  1 Tex. Admin. Code 61.405(d)(2)  "for criminally injurious conduct that occurs on or after July..."
   00dc  L14:  push     0
@@ -408,7 +412,7 @@
   0104        ldk      K3                           ; $2,250.00
   0107        ldr      r0
   0109        subs
-  010a        cap      expense_cap, R15             ; TX-CLEAN-1
+  010a        cap      expense_cap, R17             ; TX-CLEAN-1
   010e        push     1
   0113        str      r1
   0115  L16:  ldr      r0
@@ -417,7 +421,7 @@
   0119        str      r0
   011b        jmp      L18
   0120  L17:  push     0
-  0125        cap      expense_cap, R15             ; TX-CLEAN-1
+  0125        cap      expense_cap, R17             ; TX-CLEAN-1
   0129  L18:  next     L15
               ; TX-SEIZED-2  1 Tex. Admin. Code 61.405(e)(2)  "Under Texas Code of Criminal Procedure Article 56.32(a)(9)(G)..."
   012e  L19:  push     0
@@ -436,7 +440,7 @@
   0156        ldk      K4                           ; $1,000.00
   0159        ldr      r0
   015b        subs
-  015c        cap      expense_cap, R17             ; TX-SEIZED-2
+  015c        cap      expense_cap, R19             ; TX-SEIZED-2
   0160        push     1
   0165        str      r1
   0167  L21:  ldr      r0
@@ -445,7 +449,7 @@
   016b        str      r0
   016d        jmp      L23
   0172  L22:  push     0
-  0177        cap      expense_cap, R17             ; TX-SEIZED-2
+  0177        cap      expense_cap, R19             ; TX-SEIZED-2
   017b  L23:  next     L20
               ; TX-CAP-1  Tex. Code Crim. Proc. art. 56B.106(a)  "Except as otherwise provided by this article, awards payable to..."
   0180  L24:  push     0

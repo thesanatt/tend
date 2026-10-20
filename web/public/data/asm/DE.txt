@@ -1,8 +1,8 @@
 ; tend law image DE, Delaware
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 7146976c472a60599f38591c05b404774e2f2be27c3330fbef87a7585a1b9ea0
-; image sha256  6ca8349743c31d3bc3f1d99f98dcfaaf90725c6e89806a8b6e16aa599f815abc
-; 46 rules, 9 sources, 33 proofs, 5 ints, 270 strings
+; source sha256 b5c448698e400b0792b66927c59f581ae63264503e3bf24bc88ba77f45cb5f99
+; image sha256  d44f61b735909b68bf6bcb00028b52d887c770b1f32d40e937e7a1e0346b4496
+; 47 rules, 9 sources, 33 proofs, 5 ints, 274 strings
 ; item program: 411 instructions, 1412 bytes, max stack 2
 ; aggregate program: 237 instructions, 728 bytes, max stack 2, 8 loops
 
@@ -27,32 +27,33 @@
     R17   DE-COV-8              covered       dental                                        VCAP page, FAQs: Who can get help?
     R18   DE-COV-9              covered       prescription                                  VCAP page, FAQs: Who can get help?
     R19   DE-COV-10             covered       other                                         11 Del. C. § 9002(10)m.
-    R20   DE-EXCL-1             info          -                     excluded_expense        11 Del. C. § 9002(10)
-    R21   DE-EXCL-2             excluded      -                                             VCAP page, FAQs: Are there any limits?
-    R22   DE-DEAD-1             deadline      -                     from crime              11 Del. C. § 9010(a)(4)
-    R23   DE-REPORT-1           reporting     -                                             11 Del. C. § 9010(a)(5)
-    R24   DE-REPORT-2           reporting     -                                             11 Del. C. § 9010(a)(3)
-    R25   DE-MIN-1              minimum_loss  -                                             11 Del. C. § 9011(b)
-    R26   DE-COLL-1             collateral    -                                             11 Del. C. § 9009(1)
-    R27   DE-COND-1             info          -                     conduct_reduction       11 Del. C. § 9010(c)
-    R28   DE-EMERG-1            info          -                     emergency_award         1 Del. Admin. Code 301-23.0
-    R29   DE-CRIME-1            info          -                     eligible_crime          11 Del. C. § 9002(6)a.
-    R30   DE-CRIME-2            info          -                     eligible_crime          11 Del. C. § 9002(12)
-    R31   DE-RES-1              info          -                     residency               11 Del. C. § 9021(1)
-    R32   DE-RES-2              info          -                     residency               11 Del. C. § 9009(9)
-    R33   DE-SUB-1              info          -                     submission              VCAP brochure (English), How do I file a claim?
-    R34   DE-SUB-2              info          -                     submission              VCAP brochure (English), How do I file a claim?
-    R35   DE-SUB-3              info          -                     submission              VCAP brochure (English), How do I file a claim?
-    R36   DE-DOC-1              info          -                     required_document       11 Del. C. § 9012(a)
-    R37   DE-DOC-2              info          -                     required_document       1 Del. Admin. Code 301-11.1
-    R38   DE-DOC-3              info          -                     required_document       Delaware DOJ VCAP page, FAQs, Are there any limits?
-    R39   DE-DOC-4              info          -                     required_document       1 Del. Admin. Code 301-11.2
-    R40   DE-DOC-5              info          -                     required_document       1 Del. Admin. Code 301-11.3
-    R41   DE-DOC-6              info          -                     required_document       1 Del. Admin. Code 301-11.4
-    R42   DE-DOC-7              info          -                     required_document       1 Del. Admin. Code 301-23.0
-    R43   DE-TIME-1             info          -                     processing_time         VCAP brochure (English), What can I expect next?
-    R44   DE-ACP-1              info          -                     address_confidentiality 11 Del. C. § 9613(1); substitute address under § 9612(a)
-    R45   DE-RECCONF-1          info          -                     record_confidentiality  29 Del. C. § 10002(o)(14) (records not deemed public)
+    R20   DE-COV-11             covered       legal                                         11 Del. C. § 9013
+    R21   DE-EXCL-1             info          -                     excluded_expense        11 Del. C. § 9002(10)
+    R22   DE-EXCL-2             excluded      -                                             VCAP page, FAQs: Are there any limits?
+    R23   DE-DEAD-1             deadline      -                     from crime              11 Del. C. § 9010(a)(4)
+    R24   DE-REPORT-1           reporting     -                                             11 Del. C. § 9010(a)(5)
+    R25   DE-REPORT-2           reporting     -                                             11 Del. C. § 9010(a)(3)
+    R26   DE-MIN-1              minimum_loss  -                                             11 Del. C. § 9011(b)
+    R27   DE-COLL-1             collateral    -                                             11 Del. C. § 9009(1)
+    R28   DE-COND-1             info          -                     conduct_reduction       11 Del. C. § 9010(c)
+    R29   DE-EMERG-1            info          -                     emergency_award         1 Del. Admin. Code 301-23.0
+    R30   DE-CRIME-1            info          -                     eligible_crime          11 Del. C. § 9002(6)a.
+    R31   DE-CRIME-2            info          -                     eligible_crime          11 Del. C. § 9002(12)
+    R32   DE-RES-1              info          -                     residency               11 Del. C. § 9021(1)
+    R33   DE-RES-2              info          -                     residency               11 Del. C. § 9009(9)
+    R34   DE-SUB-1              info          -                     submission              VCAP brochure (English), How do I file a claim?
+    R35   DE-SUB-2              info          -                     submission              VCAP brochure (English), How do I file a claim?
+    R36   DE-SUB-3              info          -                     submission              VCAP brochure (English), How do I file a claim?
+    R37   DE-DOC-1              info          -                     required_document       11 Del. C. § 9012(a)
+    R38   DE-DOC-2              info          -                     required_document       1 Del. Admin. Code 301-11.1
+    R39   DE-DOC-3              info          -                     required_document       Delaware DOJ VCAP page, FAQs, Are there any limits?
+    R40   DE-DOC-4              info          -                     required_document       1 Del. Admin. Code 301-11.2
+    R41   DE-DOC-5              info          -                     required_document       1 Del. Admin. Code 301-11.3
+    R42   DE-DOC-6              info          -                     required_document       1 Del. Admin. Code 301-11.4
+    R43   DE-DOC-7              info          -                     required_document       1 Del. Admin. Code 301-23.0
+    R44   DE-TIME-1             info          -                     processing_time         VCAP brochure (English), What can I expect next?
+    R45   DE-ACP-1              info          -                     address_confidentiality 11 Del. C. § 9613(1); substitute address under § 9612(a)
+    R46   DE-RECCONF-1          info          -                     record_confidentiality  29 Del. C. § 10002(o)(14) (records not deemed public)
 
 .tags   pain_suffering=bit0
 
@@ -93,8 +94,8 @@
     P22   (DE-COV-9, DE-COLL-1)
     P23   (DE-COV-8)
     P24   (DE-COV-8, DE-COLL-1)
-    P25   (DE-CAP-6)
-    P26   (DE-CAP-6, DE-COLL-1)
+    P25   (DE-CAP-6, DE-COV-11)
+    P26   (DE-CAP-6, DE-COV-11, DE-COLL-1)
     P27   (DE-CAP-7, DE-COV-10)
     P28   (DE-CAP-7, DE-COV-10, DE-COLL-1)
     P29   (DE-MIN-1)
@@ -181,7 +182,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R26              ; DE-COLL-1
+  00d5        seta     collateral, R27              ; DE-COLL-1
   00d9        ret
               ; DE-COV-2  11 Del. C. § 9002(10)o.  "o. Psychiatric care and mental health counseling."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -215,7 +216,7 @@
   012c        subs
   012d        push     0
   0132        max
-  0133        seta     collateral, R26              ; DE-COLL-1
+  0133        seta     collateral, R27              ; DE-COLL-1
   0137        ret
               ; DE-COV-3  11 Del. C. § 9002(10)r.  "r. Loss of past or future earnings, including reimbursement for..."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -249,7 +250,7 @@
   018a        subs
   018b        push     0
   0190        max
-  0191        seta     collateral, R26              ; DE-COLL-1
+  0191        seta     collateral, R27              ; DE-COLL-1
   0195        ret
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
   0196  L17:  push     0
@@ -304,7 +305,7 @@
   022a        subs
   022b        push     0
   0230        max
-  0231        seta     collateral, R26              ; DE-COLL-1
+  0231        seta     collateral, R27              ; DE-COLL-1
   0235        ret
               ; DE-CAP-2  11 Del. C. § 9002(10)b.  "b. Temporary housing not to exceed $1,500."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -338,7 +339,7 @@
   0288        subs
   0289        push     0
   028e        max
-  028f        seta     collateral, R26              ; DE-COLL-1
+  028f        seta     collateral, R27              ; DE-COLL-1
   0293        ret
               ; DE-CAP-4  11 Del. C. § 9002(10)d.  "d. Essential personal safety property not to exceed $1,500."
               ; DE-COV-4  11 Del. C. § 9002(10)k.  "k. The cost to change locks and replace items seized as..."
@@ -373,7 +374,7 @@
   02e6        subs
   02e7        push     0
   02ec        max
-  02ed        seta     collateral, R26              ; DE-COLL-1
+  02ed        seta     collateral, R27              ; DE-COLL-1
   02f1        ret
               ; DE-CAP-5  11 Del. C. § 9002(10)a.  "a. Crime scene cleanup not to exceed $1,000."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -407,7 +408,7 @@
   0344        subs
   0345        push     0
   034a        max
-  034b        seta     collateral, R26              ; DE-COLL-1
+  034b        seta     collateral, R27              ; DE-COLL-1
   034f        ret
               ; DE-COV-6  11 Del. C. § 9002(10)l.  "l. Child care not to exceed the deposit plus 2 months of care by..."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -441,7 +442,7 @@
   03a2        subs
   03a3        push     0
   03a8        max
-  03a9        seta     collateral, R26              ; DE-COLL-1
+  03a9        seta     collateral, R27              ; DE-COLL-1
   03ad        ret
               ; DE-COV-5  11 Del. C. § 9002(10)k.  "k. The cost to change locks and replace items seized as..."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -475,7 +476,7 @@
   0400        subs
   0401        push     0
   0406        max
-  0407        seta     collateral, R26              ; DE-COLL-1
+  0407        seta     collateral, R27              ; DE-COLL-1
   040b        ret
               ; DE-COV-9  VCAP page, FAQs: Who can get help?  "Compensation is available for payment of medical and dental..."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -509,7 +510,7 @@
   045e        subs
   045f        push     0
   0464        max
-  0465        seta     collateral, R26              ; DE-COLL-1
+  0465        seta     collateral, R27              ; DE-COLL-1
   0469        ret
               ; DE-COV-8  VCAP page, FAQs: Who can get help?  "Compensation is available for payment of medical and dental..."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
@@ -543,9 +544,10 @@
   04bc        subs
   04bd        push     0
   04c2        max
-  04c3        seta     collateral, R26              ; DE-COLL-1
+  04c3        seta     collateral, R27              ; DE-COLL-1
   04c7        ret
               ; DE-CAP-6  11 Del. C. § 9013  "Such fees shall not exceed $1,000 or 15% of the amount awarded..."
+              ; DE-COV-11  11 Del. C. § 9013  "A claimant need not be represented by an attorney before the..."
               ; DE-EXCL-2  VCAP page, FAQs: Are there any limits?  "You cannot be paid for lost, damaged, or stolen property, or for..."
               ; DE-COLL-1  11 Del. C. § 9009(1)  "If a claim is approved, the award must be the amount of..."
   04c8  L61:  push     0
@@ -568,16 +570,16 @@
   0500  L64:  ldi      confirmed
   0502        jnz      L65
   0507        push     0
-  050c        decide   needs_confirmation, P25      ; DE-CAP-6
+  050c        decide   needs_confirmation, P25      ; DE-CAP-6, DE-COV-11
   0510        ret
   0511  L65:  ldi      amount_cents
-  0513        decide   eligible, P26                ; DE-CAP-6, DE-COLL-1
+  0513        decide   eligible, P26                ; DE-CAP-6, DE-COV-11, DE-COLL-1
   0517        lda
   0518        ldi      insurance_paid_cents
   051a        subs
   051b        push     0
   0520        max
-  0521        seta     collateral, R26              ; DE-COLL-1
+  0521        seta     collateral, R27              ; DE-COLL-1
   0525        ret
               ; DE-CAP-7  11 Del. C. § 9002(10)i.  "i. Loss of support for victims of violence, not to exceed..."
               ; DE-COV-10  11 Del. C. § 9002(10)m.  "m. Reimbursement for reasonable expenses incurred due to..."
@@ -612,7 +614,7 @@
   0578        subs
   0579        push     0
   057e        max
-  057f        seta     collateral, R26              ; DE-COLL-1
+  057f        seta     collateral, R27              ; DE-COLL-1
   0583        ret
 
 .aggregate

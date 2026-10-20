@@ -1,8 +1,8 @@
 ; tend law image IN, Indiana
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 024db990440601565ed34aa30210f7bc862d14e87ac190b93b1d2895e48efdd6
-; image sha256  b85730219af1802870df5159355d2f6f6599041d6b79b6ad726fb3ded25f897e
-; 47 rules, 25 sources, 26 proofs, 5 ints, 329 strings
+; source sha256 6ad595b00a1326580c4eed6b45b73b0ad4a0fe86775e9e1da055a7e4b4a5169a
+; image sha256  94259cb18547a0928f757ce8998969cc9a02701a174fd0930477596b3501a710
+; 49 rules, 25 sources, 26 proofs, 5 ints, 339 strings
 ; item program: 181 instructions, 608 bytes, max stack 2
 ; aggregate program: 158 instructions, 489 bytes, max stack 2, 5 loops
 
@@ -29,31 +29,33 @@
     R19   IN-EXCL-4             excluded      other                                         ICJI program page, Non-eligible expenses
     R20   IN-EXCL-5             info          -                     excluded_expense        IC 5-2-6.1-32(e)
     R21   IN-DEADLINE-1         deadline      -                     from crime              IC 5-2-6.1-16(b)
-    R22   IN-REPORT-1           reporting     -                                             IC 5-2-6.1-17(a)
-    R23   IN-REPORT-2           reporting     -                                             IC 5-2-6.1-17(d)
-    R24   IN-REPORT-3           reporting     -                                             IC 5-2-6.1-20
-    R25   IN-REPORT-4           reporting     -                                             IC 16-21-8-1(a)
-    R26   IN-MIN-1              minimum_loss  -                                             IC 5-2-6.1-21.1(b), (c)
-    R27   IN-COLL-1             collateral    -                                             IC 5-2-6.1-32(a)
-    R28   IN-COND-1             info          -                     conduct_reduction       IC 5-2-6.1-34(b)
-    R29   IN-COND-2             info          -                     conduct_reduction       IC 5-2-6.1-13(c)
-    R30   IN-EMERG-1            info          -                     emergency_award         203 IAC 1-1-9(k)
-    R31   IN-CRIME-1            info          -                     eligible_crime          ICJI program page, Additional eligibility requirements
-    R32   IN-CRIME-2            info          -                     eligible_crime          IC 5-2-6.1-8(1)
-    R33   IN-RES-1              info          -                     residency               IC 5-2-6.1-12(a)(1), (2)
-    R34   IN-SUBMIT-1           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
-    R35   IN-SUBMIT-2           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
-    R36   IN-SUBMIT-3           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
-    R37   IN-DOC-1              info          -                     required_document       203 IAC 1-1-4(1)
-    R38   IN-DOC-2              info          -                     required_document       Non-eligible expenses
-    R39   IN-DOC-3              info          -                     required_document       Non-eligible expenses
-    R40   IN-DOC-4              info          -                     required_document       203 IAC 1-1-4(4)
-    R41   IN-DOC-5              info          -                     required_document       203 IAC 1-1-4(5)
-    R42   IN-DOC-6              info          -                     required_document       Eligible expenses, loss of support
-    R43   IN-DOC-7              info          -                     required_document       State Form 23776, Eligibility Requirements, item 7
-    R44   IN-TIME-1             info          -                     processing_time         IC 5-2-6.1-43(b)
-    R45   IN-ACP-1              info          -                     address_confidentiality Attorney General, Address Confidentiality Program page, opening paragraphs
-    R46   IN-RECORDS-1          info          -                     record_confidentiality  IC 5-2-6.1-11.5
+    R22   IN-DEADLINE-2         info          -                     filing_deadline         IC 5-2-6.1-16(e)
+    R23   IN-DEADLINE-3         info          -                     filing_deadline         IC 5-2-6.1-16(f)
+    R24   IN-REPORT-1           reporting     -                                             IC 5-2-6.1-17(a)
+    R25   IN-REPORT-2           reporting     -                                             IC 5-2-6.1-17(d)
+    R26   IN-REPORT-3           reporting     -                                             IC 5-2-6.1-20
+    R27   IN-REPORT-4           reporting     -                                             IC 16-21-8-1(a)
+    R28   IN-MIN-1              minimum_loss  -                                             IC 5-2-6.1-21.1(b), (c)
+    R29   IN-COLL-1             collateral    -                                             IC 5-2-6.1-32(a)
+    R30   IN-COND-1             info          -                     conduct_reduction       IC 5-2-6.1-34(b)
+    R31   IN-COND-2             info          -                     conduct_reduction       IC 5-2-6.1-13(c)
+    R32   IN-EMERG-1            info          -                     emergency_award         203 IAC 1-1-9(k)
+    R33   IN-CRIME-1            info          -                     eligible_crime          ICJI program page, Additional eligibility requirements
+    R34   IN-CRIME-2            info          -                     eligible_crime          IC 5-2-6.1-8(1)
+    R35   IN-RES-1              info          -                     residency               IC 5-2-6.1-12(a)(1), (2)
+    R36   IN-SUBMIT-1           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
+    R37   IN-SUBMIT-2           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
+    R38   IN-SUBMIT-3           info          -                     submission              Apply for Violent Crime Compensation, File a PDF claim
+    R39   IN-DOC-1              info          -                     required_document       203 IAC 1-1-4(1)
+    R40   IN-DOC-2              info          -                     required_document       Non-eligible expenses
+    R41   IN-DOC-3              info          -                     required_document       Non-eligible expenses
+    R42   IN-DOC-4              info          -                     required_document       203 IAC 1-1-4(4)
+    R43   IN-DOC-5              info          -                     required_document       203 IAC 1-1-4(5)
+    R44   IN-DOC-6              info          -                     required_document       Eligible expenses, loss of support
+    R45   IN-DOC-7              info          -                     required_document       State Form 23776, Eligibility Requirements, item 7
+    R46   IN-TIME-1             info          -                     processing_time         IC 5-2-6.1-43(b)
+    R47   IN-ACP-1              info          -                     address_confidentiality Attorney General, Address Confidentiality Program page, opening paragraphs
+    R48   IN-RECORDS-1          info          -                     record_confidentiality  IC 5-2-6.1-11.5
 
 .tags   cash=bit0, pain_suffering=bit1
 
@@ -110,7 +112,7 @@
     P22   (IN-MIN-1)
     P23   (IN-DEADLINE-1)
     P24   (IN-REPORT-1, IN-REPORT-2, IN-REPORT-3, IN-REPORT-4)
-    P25   (IN-EXCL-2, IN-EXCL-3, IN-EXCL-5, IN-COLL-1, IN-COND-1, IN-COND-2, IN-EMERG-1, IN-CRIME-1, IN-CRIME-2, IN-RES-1, IN-SUBMIT-1, IN-SUBMIT-2, IN-SUBMIT-3, IN-DOC-1, IN-DOC-2, IN-DOC-3, IN-DOC-4, IN-DOC-5, IN-DOC-6, IN-DOC-7, IN-TIME-1, IN-ACP-1, IN-RECORDS-1)
+    P25   (IN-EXCL-2, IN-EXCL-3, IN-EXCL-5, IN-DEADLINE-2, IN-DEADLINE-3, IN-COLL-1, IN-COND-1, IN-COND-2, IN-EMERG-1, IN-CRIME-1, IN-CRIME-2, IN-RES-1, IN-SUBMIT-1, IN-SUBMIT-2, IN-SUBMIT-3, IN-DOC-1, IN-DOC-2, IN-DOC-3, IN-DOC-4, IN-DOC-5, IN-DOC-6, IN-DOC-7, IN-TIME-1, IN-ACP-1, IN-RECORDS-1)
 
 .ints
     K0    300000        ; $3,000.00
@@ -174,7 +176,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R27              ; IN-COLL-1
+  009d        seta     collateral, R29              ; IN-COLL-1
   00a1        ret
               ; IN-CAP-2  IC 5-2-6.1-21.1(d)(7)  "(7) Outpatient mental health counseling, not to exceed three..."
               ; IN-COV-8  IC 5-2-6.1-21.1(i)  "The director may extend the one hundred eighty (180) day..."
@@ -191,7 +193,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R27              ; IN-COLL-1
+  00c3        seta     collateral, R29              ; IN-COLL-1
   00c7        ret
               ; IN-COV-3  IC 5-2-6.1-21.1(d)(2)  "(2) Loss of income: (A) the victim would have earned had the..."
               ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
@@ -207,7 +209,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R27              ; IN-COLL-1
+  00e9        seta     collateral, R29              ; IN-COLL-1
   00ed        ret
   00ee  L8:   push     0
   00f3        decide   unknown_rule, P0             ; (none)
@@ -226,7 +228,7 @@
   0112        subs
   0113        push     0
   0118        max
-  0119        seta     collateral, R27              ; IN-COLL-1
+  0119        seta     collateral, R29              ; IN-COLL-1
   011d        ret
               ; IN-COV-5  IC 5-2-6.1-21.1(d)(9)  "(9) Replacement of windows or door locks."
               ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
@@ -242,7 +244,7 @@
   0138        subs
   0139        push     0
   013e        max
-  013f        seta     collateral, R27              ; IN-COLL-1
+  013f        seta     collateral, R29              ; IN-COLL-1
   0143        ret
               ; IN-COV-6  IC 5-2-6.1-21.1(d)(10)  "(10) Cleanup of the scene of a violent crime."
               ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
@@ -258,7 +260,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R27              ; IN-COLL-1
+  0165        seta     collateral, R29              ; IN-COLL-1
   0169        ret
               ; IN-CAP-3  IC 5-2-6.1-21.1(d)(4)  "(4) Expense incurred for child care, not to exceed one thousand..."
               ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
@@ -274,7 +276,7 @@
   0184        subs
   0185        push     0
   018a        max
-  018b        seta     collateral, R27              ; IN-COLL-1
+  018b        seta     collateral, R29              ; IN-COLL-1
   018f        ret
               ; IN-EXCL-1  ICJI program page, Non-eligible expenses  "Property damage (other than the replacement of windows or door..."
   0190  L17:  push     0
@@ -311,7 +313,7 @@
   01ec        subs
   01ed        push     0
   01f2        max
-  01f3        seta     collateral, R27              ; IN-COLL-1
+  01f3        seta     collateral, R29              ; IN-COLL-1
   01f7        ret
               ; IN-CAP-4  IC 5-2-6.1-21.1(d)(6)  "(6) Expenses incurred for funeral, burial, or cremation of the..."
               ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
@@ -327,7 +329,7 @@
   0212        subs
   0213        push     0
   0218        max
-  0219        seta     collateral, R27              ; IN-COLL-1
+  0219        seta     collateral, R29              ; IN-COLL-1
   021d        ret
               ; IN-EXCL-4  ICJI program page, Non-eligible expenses  "Pain and suffering."
   021e  L25:  push     0
@@ -522,6 +524,8 @@
               ; IN-EXCL-2  ICJI program page, Non-eligible expenses  "Moving, relocation or daily living expenses."
               ; IN-EXCL-3  ICJI program page, Non-eligible expenses  "Rent, utilities, food, travel, or lodging."
               ; IN-EXCL-5  IC 5-2-6.1-32(e)  "The division may not reimburse the claimant for the use of paid..."
+              ; IN-DEADLINE-2  IC 5-2-6.1-16(e)  "(e) An alleged victim of a child sex crime may submit an..."
+              ; IN-DEADLINE-3  IC 5-2-6.1-16(f)  "(f) An alleged victim of a child sex crime described in IC..."
               ; IN-COLL-1  IC 5-2-6.1-32(a)  "Compensation must be further reduced or denied to the extent..."
               ; IN-COND-1  IC 5-2-6.1-34(b)  "If the division finds that the victim contributed to the..."
               ; IN-COND-2  IC 5-2-6.1-13(c)  "Benefits may be awarded to a person described in subsection..."
@@ -542,6 +546,6 @@
               ; IN-TIME-1  IC 5-2-6.1-43(b)  "an award must be paid not more than thirty (30) days after the..."
               ; IN-ACP-1  Attorney General, Address Confidentiality Program page, opening paragraphs  "The ACP is a free program that allows victims of domestic..."
               ; IN-RECORDS-1  IC 5-2-6.1-11.5  "The following are confidential: (1) A claimant's: (A) personal..."
-  01e5        info     P25                          ; IN-EXCL-2, IN-EXCL-3, IN-EXCL-5, IN-COLL-1, IN-COND-1, IN-COND-2, IN-EMERG-1, IN-CRIME-1, IN-CRIME-2, IN-RES-1, IN-SUBMIT-1, IN-SUBMIT-2, IN-SUBMIT-3, IN-DOC-1, IN-DOC-2, IN-DOC-3, IN-DOC-4, IN-DOC-5, IN-DOC-6, IN-DOC-7, IN-TIME-1, IN-ACP-1, IN-RECORDS-1
+  01e5        info     P25                          ; IN-EXCL-2, IN-EXCL-3, IN-EXCL-5, IN-DEADLINE-2, IN-DEADLINE-3, IN-COLL-1, IN-COND-1, IN-COND-2, IN-EMERG-1, IN-CRIME-1, IN-CRIME-2, IN-RES-1, IN-SUBMIT-1, IN-SUBMIT-2, IN-SUBMIT-3, IN-DOC-1, IN-DOC-2, IN-DOC-3, IN-DOC-4, IN-DOC-5, IN-DOC-6, IN-DOC-7, IN-TIME-1, IN-ACP-1, IN-RECORDS-1
   01e8        ret
 

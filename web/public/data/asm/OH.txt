@@ -1,8 +1,8 @@
 ; tend law image OH, Ohio
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 008e844addbdd86f6b08e8297bf374feaf6b9dd843294b1a1f42b6002a97a2c7
-; image sha256  e3307450031bacf5f75bf13817c3926d7fe152c7e6a0fc783bb571d7bfd8ff57
-; 45 rules, 17 sources, 27 proofs, 4 ints, 291 strings
+; source sha256 1c194b5570899bc03492cff1faee013720bb244d4fdce347169abe57d9caf055
+; image sha256  b2eeff6d6ba7fb2f97639e8752feea44834a113e1d3eb4ebc9f522d44de3dc7e
+; 46 rules, 17 sources, 27 proofs, 4 ints, 294 strings
 ; item program: 435 instructions, 1546 bytes, max stack 2
 ; aggregate program: 156 instructions, 482 bytes, max stack 2, 5 loops
 
@@ -10,7 +10,7 @@
     R0    OH-EXAM-1             exam_no_bill  -                                             ORC 2907.28(B)
     R1    OH-EXAM-2             exam_payment  -                                             ORC 2907.28(A)
     R2    OH-EXAM-3             exam_payment  -                                             OAC 109:7-1-02(A)
-    R3    OH-EXAM-4             exam_payment  -                                             SAFE Reimbursement Instructions, item 12 (Law enforcement reporting); Jane/John Doe submission at item 5
+    R3    OH-EXAM-4             exam_payment  -                                             SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)
     R4    OH-EXAM-5             exam_payment  -                                             SAFE Reimbursement Instructions, mandated examination components table (18 and over); see item 9
     R5    OH-EXAM-6             exam_payment  -                                             SAFE Reimbursement Instructions, Billing
     R6    OH-EXAM-7             exam_payment  -                                             OAC 109:7-1-02(B)
@@ -30,28 +30,29 @@
     R20   OH-DEADLINE-2         info          -                     filing_deadline         ORC 2743.60(A)(2)(b)
     R21   OH-REPORT-1           reporting     -                                             ORC 2743.60(A)(1)
     R22   OH-REPORT-2           reporting     -                                             Court of Claims FAQ: Do I need to File a police report in order to qualify for the program?
-    R23   OH-MIN-1              minimum_loss  -                                             ORC 2743.191(B)(1)
-    R24   OH-COLL-1             collateral    -                                             ORC 2743.60(D)
-    R25   OH-COLL-2             collateral    -                                             ORC 2743.60(G)
-    R26   OH-CONDUCT-1          info          -                     conduct_reduction       ORC 2743.60(E)(1); ORC 2743.51(M)
-    R27   OH-CONDUCT-2          info          -                     conduct_reduction       ORC 2743.60(C)
-    R28   OH-EMERG-1            info          -                     emergency_award         ORC 2743.67
-    R29   OH-CRIME-1            info          -                     eligible_crime          ORC 2743.51(C)(1); see ORC 2743.51(L)(2)
-    R30   OH-RES-1              info          -                     residency               ORC 2743.51(A)(1)(a) and (C)(1)
-    R31   OH-RES-2              info          -                     residency               ORC 2743.51(A)(2)(a) and (C)(2)
-    R32   OH-SUBMIT-ONLINE      info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
-    R33   OH-SUBMIT-MAIL        info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
-    R34   OH-SUBMIT-FAX         info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
-    R35   OH-SUBMIT-EMAIL       info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
-    R36   OH-DOC-WAGES          info          -                     required_document       Application, Section 7: Employment Information
-    R37   OH-DOC-INSCARD        info          -                     required_document       Application, Section 6: Insurance and Benefit Information
-    R38   OH-DOC-RELEASE        info          -                     required_document       Application, Section 12: Subrogation, Authorization, and Signature
-    R39   OH-DOC-DEATH          info          -                     required_document       Application, Section 8: Funeral Expenses
-    R40   OH-TIME-1             info          -                     processing_time         ORC 2743.59(E)
-    R41   OH-ACP-1              info          -                     address_confidentiality ORC 111.42(A)(3)
-    R42   OH-RECORDS-1          info          -                     record_confidentiality  ORC 2743.62(A)(2)(a)
-    R43   OH-CAP-2              skipped       -                     expense_cap             ORC 2743.60(H); ORC 2743.51(L)(2) and (F)(2)  ; applies_to "an immediate family member who lived with a sexual assault victim and needs counseling, not the victim"
-    R44   OH-CAP-6              skipped       -                     expense_cap             ORC 2743.60(H); ORC 2743.51(L)(3)(b) and (F)(3)  ; applies_to "a family member with trauma so severe it keeps them from normal daily activities, such as an immediate family member who cares for a dependent sexual assault victim, not the victim"
+    R23   OH-REPORT-3           info          -                     reporting_requirement   SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)
+    R24   OH-MIN-1              minimum_loss  -                                             ORC 2743.191(B)(1)
+    R25   OH-COLL-1             collateral    -                                             ORC 2743.60(D)
+    R26   OH-COLL-2             collateral    -                                             ORC 2743.60(G)
+    R27   OH-CONDUCT-1          info          -                     conduct_reduction       ORC 2743.60(E)(1); ORC 2743.51(M)
+    R28   OH-CONDUCT-2          info          -                     conduct_reduction       ORC 2743.60(C)
+    R29   OH-EMERG-1            info          -                     emergency_award         ORC 2743.67
+    R30   OH-CRIME-1            info          -                     eligible_crime          ORC 2743.51(C)(1); see ORC 2743.51(L)(2)
+    R31   OH-RES-1              info          -                     residency               ORC 2743.51(A)(1)(a) and (C)(1)
+    R32   OH-RES-2              info          -                     residency               ORC 2743.51(A)(2)(a) and (C)(2)
+    R33   OH-SUBMIT-ONLINE      info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
+    R34   OH-SUBMIT-MAIL        info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
+    R35   OH-SUBMIT-FAX         info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
+    R36   OH-SUBMIT-EMAIL       info          -                     submission              AG Apply for Victims Compensation, Two options for filing a claim
+    R37   OH-DOC-WAGES          info          -                     required_document       Application, Section 7: Employment Information
+    R38   OH-DOC-INSCARD        info          -                     required_document       Application, Section 6: Insurance and Benefit Information
+    R39   OH-DOC-RELEASE        info          -                     required_document       Application, Section 12: Subrogation, Authorization, and Signature
+    R40   OH-DOC-DEATH          info          -                     required_document       Application, Section 8: Funeral Expenses
+    R41   OH-TIME-1             info          -                     processing_time         ORC 2743.59(E)
+    R42   OH-ACP-1              info          -                     address_confidentiality ORC 111.42(A)(3)
+    R43   OH-RECORDS-1          info          -                     record_confidentiality  ORC 2743.62(A)(2)(a)
+    R44   OH-CAP-2              skipped       -                     expense_cap             ORC 2743.60(H); ORC 2743.51(L)(2) and (F)(2)  ; applies_to "an immediate family member who lived with a sexual assault victim and needs counseling, not the victim"
+    R45   OH-CAP-6              skipped       -                     expense_cap             ORC 2743.60(H); ORC 2743.51(L)(3)(b) and (F)(3)  ; applies_to "a family member with trauma so severe it keeps them from normal daily activities, such as an immediate family member who cares for a dependent sexual assault victim, not the victim"
 
 .tags   pain_suffering=bit0
 
@@ -101,7 +102,7 @@
     P23   (OH-MIN-1)
     P24   (OH-DEADLINE-1)
     P25   (OH-REPORT-1, OH-REPORT-2)
-    P26   (OH-DEADLINE-2, OH-COLL-1, OH-COLL-2, OH-CONDUCT-1, OH-CONDUCT-2, OH-EMERG-1, OH-CRIME-1, OH-RES-1, OH-RES-2, OH-SUBMIT-ONLINE, OH-SUBMIT-MAIL, OH-SUBMIT-FAX, OH-SUBMIT-EMAIL, OH-DOC-WAGES, OH-DOC-INSCARD, OH-DOC-RELEASE, OH-DOC-DEATH, OH-TIME-1, OH-ACP-1, OH-RECORDS-1)
+    P26   (OH-DEADLINE-2, OH-REPORT-3, OH-COLL-1, OH-COLL-2, OH-CONDUCT-1, OH-CONDUCT-2, OH-EMERG-1, OH-CRIME-1, OH-RES-1, OH-RES-2, OH-SUBMIT-ONLINE, OH-SUBMIT-MAIL, OH-SUBMIT-FAX, OH-SUBMIT-EMAIL, OH-DOC-WAGES, OH-DOC-INSCARD, OH-DOC-RELEASE, OH-DOC-DEATH, OH-TIME-1, OH-ACP-1, OH-RECORDS-1)
 
 .ints
     K0    75000         ; $750.00
@@ -145,7 +146,7 @@
               ; OH-EXAM-1  ORC 2907.28(B)  "No costs incurred by a hospital or emergency facility in..."
               ; OH-EXAM-2  ORC 2907.28(A)  "Any cost incurred by a hospital or emergency medical facility in..."
               ; OH-EXAM-3  OAC 109:7-1-02(A)  "A hospital, children's advocacy center, or other emergency..."
-              ; OH-EXAM-4  SAFE Reimbursement Instructions, item 12 (Law enforcement reporting); Jane/John Doe submission at item 5  "The sexual assault forensic exam and reimbursement is not..."
+              ; OH-EXAM-4  SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)  "The sexual assault forensic exam and reimbursement is not..."
               ; OH-EXAM-5  SAFE Reimbursement Instructions, mandated examination components table (18 and over); see item 9  "Last incident(s) greater than 96 hours**** - procedures billable..."
               ; OH-EXAM-6  SAFE Reimbursement Instructions, Billing  "If an adult/adolescent patient presenting in the emergency..."
               ; OH-EXAM-7  OAC 109:7-1-02(B)  "(B) A hospital, children's advocacy center, or other emergency..."
@@ -202,7 +203,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R24              ; OH-COLL-1
+  0108        seta     collateral, R25              ; OH-COLL-1
   010c        ret
               ; OH-COV-3  Application for Crime Victim Compensation, Section 4  "Counseling expenses for victim"
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -254,7 +255,7 @@
   0192        subs
   0193        push     0
   0198        max
-  0199        seta     collateral, R24              ; OH-COLL-1
+  0199        seta     collateral, R25              ; OH-COLL-1
   019d        ret
               ; OH-COV-4  ORC 2743.51(G)  "(G) "Work loss" means loss of income from work that the injured..."
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -306,7 +307,7 @@
   0223        subs
   0224        push     0
   0229        max
-  022a        seta     collateral, R24              ; OH-COLL-1
+  022a        seta     collateral, R25              ; OH-COLL-1
   022e        ret
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
               ; OH-EXCL-2  ORC 2743.51(E)  "Noneconomic detriment is not economic loss"
@@ -396,7 +397,7 @@
   0329        subs
   032a        push     0
   032f        max
-  0330        seta     collateral, R24              ; OH-COLL-1
+  0330        seta     collateral, R25              ; OH-COLL-1
   0334        ret
               ; OH-COV-6  Application for Crime Victim Compensation, Section 4; see ORC 2743.51(H)  "Replacement services (paying someone to do what the victim would..."
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -448,7 +449,7 @@
   03ba        subs
   03bb        push     0
   03c0        max
-  03c1        seta     collateral, R24              ; OH-COLL-1
+  03c1        seta     collateral, R25              ; OH-COLL-1
   03c5        ret
               ; OH-CAP-4  ORC 2743.51(U)  "(U) "Cost of evidence replacement" means costs for replacement..."
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -500,7 +501,7 @@
   044b        subs
   044c        push     0
   0451        max
-  0452        seta     collateral, R24              ; OH-COLL-1
+  0452        seta     collateral, R25              ; OH-COLL-1
   0456        ret
               ; OH-COV-5  ORC 2743.51(T)(1)  "(1) The replacement cost for items of clothing removed from a..."
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -552,7 +553,7 @@
   04dc        subs
   04dd        push     0
   04e2        max
-  04e3        seta     collateral, R24              ; OH-COLL-1
+  04e3        seta     collateral, R25              ; OH-COLL-1
   04e7        ret
               ; OH-COV-2  ORC 2743.51(F)(1)  "including replacement costs for hearing aids; dentures..."
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -604,7 +605,7 @@
   056d        subs
   056e        push     0
   0573        max
-  0574        seta     collateral, R24              ; OH-COLL-1
+  0574        seta     collateral, R25              ; OH-COLL-1
   0578        ret
               ; OH-CAP-5  ORC 2743.51(F)(5)(b)  "(b) Attorney's fees not exceeding one thousand dollars, at a..."
               ; OH-EXCL-1  Application for Crime Victim Compensation, program overview (Are there limits on compensation?)  "Yes. Compensation cannot be paid for pain and suffering, stolen..."
@@ -656,7 +657,7 @@
   05fe        subs
   05ff        push     0
   0604        max
-  0605        seta     collateral, R24              ; OH-COLL-1
+  0605        seta     collateral, R25              ; OH-COLL-1
   0609        ret
 
 .aggregate
@@ -824,6 +825,7 @@
   01d5  L26:  push     0                            ; satisfied
   01da  L27:  check    reporting, P25               ; OH-REPORT-1, OH-REPORT-2
               ; OH-DEADLINE-2  ORC 2743.60(A)(2)(b)  "If the claimant was under twenty-one years of age at the time of..."
+              ; OH-REPORT-3  SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)  "Law enforcement reporting – Ohio Revised Code (ORC) 2921.22..."
               ; OH-COLL-1  ORC 2743.60(D)  "The attorney general or the court of claims shall reduce an..."
               ; OH-COLL-2  ORC 2743.60(G)  "If a claimant unreasonably fails to present a claim timely to a..."
               ; OH-CONDUCT-1  ORC 2743.60(E)(1); ORC 2743.51(M)  "The attorney general or the court of claims shall reduce an..."
@@ -843,6 +845,6 @@
               ; OH-TIME-1  ORC 2743.59(E)  "The attorney general shall make a written finding of fact and..."
               ; OH-ACP-1  ORC 111.42(A)(3)  "The applicant fears for the safety of the applicant, a member of..."
               ; OH-RECORDS-1  ORC 2743.62(A)(2)(a)  "any record or report that the court of claims or the  attorney..."
-  01de        info     P26                          ; OH-DEADLINE-2, OH-COLL-1, OH-COLL-2, OH-CONDUCT-1, OH-CONDUCT-2, OH-EMERG-1, OH-CRIME-1, OH-RES-1, OH-RES-2, OH-SUBMIT-ONLINE, OH-SUBMIT-MAIL, OH-SUBMIT-FAX, OH-SUBMIT-EMAIL, OH-DOC-WAGES, OH-DOC-INSCARD, OH-DOC-RELEASE, OH-DOC-DEATH, OH-TIME-1, OH-ACP-1, OH-RECORDS-1
+  01de        info     P26                          ; OH-DEADLINE-2, OH-REPORT-3, OH-COLL-1, OH-COLL-2, OH-CONDUCT-1, OH-CONDUCT-2, OH-EMERG-1, OH-CRIME-1, OH-RES-1, OH-RES-2, OH-SUBMIT-ONLINE, OH-SUBMIT-MAIL, OH-SUBMIT-FAX, OH-SUBMIT-EMAIL, OH-DOC-WAGES, OH-DOC-INSCARD, OH-DOC-RELEASE, OH-DOC-DEATH, OH-TIME-1, OH-ACP-1, OH-RECORDS-1
   01e1        ret
 

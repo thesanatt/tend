@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AR",
- "source_sha256": "417f5845fe312adcc8a1c511cc74061cfa4e217a088a58619be31138210b3254",
- "ir_sha256": "708a7d7a9cee94b2c17058be8f1f52ba02c42a6eb2eb9043c9f5925a75a13340",
+ "source_sha256": "1b4b8c306d9dc6faae637bbb024c64f30b0c5be10a22a6fe18e16f16c5ad8103",
+ "ir_sha256": "738f666516f1ad03e4626312bcc4c2022b66ab2e5160d116a90cddf386f7ba97",
  "fresh": true,
  "rules": [
   {
@@ -58,6 +58,11 @@
    "expense": "medical",
    "cap_cents": 1000000,
    "per": "claim"
+  },
+  {
+   "id": "AR-CAP-6",
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "AR-CAP-5",

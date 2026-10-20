@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MT",
- "source_sha256": "7c38bffec2fdc656e549e0552c064eb40b77295f37946cc9731de12fba163e58",
- "ir_sha256": "1daf06dacd7e6fe981cb28ab6723a4cbf35c36cd91a66770bb5e58ea4883bf15",
+ "source_sha256": "51efc72551e114ec820a26d53eae8f6295eac26747b31f9cf1b778d011419124",
+ "ir_sha256": "3d5e75064f489d3d4a82d3aa45e151042ff003b5081493a67adcbe5292bc6fed",
  "fresh": true,
  "rules": [
   {
@@ -121,10 +121,16 @@
    "category": "filing_deadline"
   },
   {
+   "id": "MT-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MT-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "MT-COL-1",
