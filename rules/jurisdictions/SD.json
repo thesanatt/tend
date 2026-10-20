@@ -132,6 +132,18 @@
       "pinpoint": "SDCL 22-22-26"
     },
     {
+      "id": "SD-EXAM-4",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "the county where the alleged rape or sexual offense occurred"
+      },
+      "summary": "The exam cost the county pays includes the provider and facility services for the exam, forensic supplies, scope procedures, lab tests such as STI, HIV, and pregnancy screening, any medication given during the exam, and radiology tied to the exam.",
+      "quote": "The cost of a forensic medical examination includes: (1) Provider, hospital, or clinic services directly related to the examination; (2) Necessary forensic supplies; (3) Scope procedures directly related to the examination, including anoscopy and colposcopy; (4) Laboratory testing directly related to the examination, including drug screening, urinalysis, pregnancy screening, syphilis screening, chlamydia culture, gonorrhea coverage culture, HIV screening, hepatitis B and C screening, herpes culture, and any other sexually transmitted disease testing directly related to the examination; (5) Any medication provided during the examination; and (6) Any radiology service directly related to the examination.",
+      "source_id": "SD-S2",
+      "pinpoint": "SDCL 22-22-26"
+    },
+    {
       "id": "SD-EXAM-2",
       "category": "exam_no_bill",
       "expense": "forensic_exam",
@@ -166,6 +178,15 @@
       "quote": "Compensation granted to any claimant suffering economic loss as the result of injury to or death of any one victim may not exceed fifteen thousand dollars.",
       "source_id": "SD-S1",
       "pinpoint": "SDCL 23A-28B-21"
+    },
+    {
+      "id": "SD-CAP-5",
+      "category": "total_cap",
+      "params": {},
+      "summary": "Except for an emergency award, the commission may go above the limits on single costs when the claimant shows evidence of need. In no case can payments go above the program's overall limit.",
+      "quote": "With the exception of an emergency award, the commission may deviate from the limits established in this chapter. The claimant must submit evidence to the commission that substantiates the need for the deviation. Based on the evidence submitted, the commission shall determine whether the deviation is warranted. Within 15 days of the commission's decision, the department shall notify the individual in writing. Under no circumstances may payments exceed the program limits established in SDCL 23A-28B-21.",
+      "source_id": "SD-S8",
+      "pinpoint": "ARSD 67:55:04:20"
     },
     {
       "id": "SD-CAP-2",
@@ -281,6 +302,19 @@
       "quote": "payment for medical expenses is limited to those medical services provided during the 12-month period immediately following the date the crime occurred. The department may extend this 12-month period if good cause is shown.",
       "source_id": "SD-S8",
       "pinpoint": "ARSD 67:55:04:19"
+    },
+    {
+      "id": "SD-TRANS-3",
+      "category": "covered_expense",
+      "expense": "transportation",
+      "params": {
+        "expense": "transportation",
+        "scope": "mileage to treatment, court, or meetings with police"
+      },
+      "summary": "Mileage is covered for the victim's trips to treatment and therapy, to court proceedings, and to meet with law enforcement.",
+      "quote": "Mileage accrued for the victim to obtain treatment and therapy; (3) Mileage accrued for the victim to attend court proceedings; (4) Mileage accrued for the victim to meet with law enforcement",
+      "source_id": "SD-S8",
+      "pinpoint": "ARSD 67:55:04:05(2)-(4)"
     },
     {
       "id": "SD-TRANS-1",
@@ -433,7 +467,7 @@
       "id": "SD-COLL-1",
       "category": "collateral_source",
       "params": {},
-      "summary": "Any award is reduced by any payment the victim gets, or will get, from another source because of the crime.",
+      "summary": "Any award is reduced by any payment the victim gets, or will get, from a collateral source because of the crime.",
       "quote": "Any award of victims' compensation made pursuant to this chapter shall be reduced by the amount of any payment received, or to be received, by the victim from any collateral source as a result of the conduct giving rise to the application for compensation.",
       "source_id": "SD-S1",
       "pinpoint": "SDCL 23A-28B-22"

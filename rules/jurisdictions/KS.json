@@ -450,12 +450,13 @@
    "id": "KS-REP-1",
    "category": "reporting_requirement",
    "params": {
-    "required": false,
+    "required": true,
     "alternatives": [
      "forensic_exam",
      "other"
     ],
-    "within_hours": 72
+    "within_hours": 72,
+    "exam_condition": "done within seven days"
    },
    "summary": "To qualify, the crime must be reported to law enforcement within 72 hours, OR the survivor must have had a forensic medical exam within seven days, OR the board must find good cause for missing both.",
    "quote": "Compensation may not be awarded unless: (1) The criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within 72 hours after the occurrence of the criminally injurious conduct; (2) the victim obtained a forensic medical examination within seven days after the occurrence of the criminally injurious conduct; or (3) the board finds there was good cause for the failure to report or obtain an examination within the time limits provided in this subsection.",

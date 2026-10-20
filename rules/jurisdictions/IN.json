@@ -321,8 +321,7 @@
       "id": "IN-CAP-1",
       "category": "total_cap",
       "params": {
-        "amount_cents": 1500000,
-        "condition": "and it does not pay the first $100 of a claim"
+        "amount_cents": 1500000
       },
       "summary": "An award may not exceed $15,000 and does not cover the first $100 of the claim.",
       "quote": "(a) An award to a claimant under this chapter: (1) may not exceed fifteen thousand dollars ($15,000); and (2) may not cover the first one hundred dollars ($100) of the claim.",
@@ -538,12 +537,30 @@
       "params": {
         "days": 180,
         "from": "crime",
-        "extension": "or later, up to 2 years after it, if you show good cause"
+        "extension": "or later if the division gives you more time for good cause. In most cases, the division cannot take an application more than 2 years after the crime"
       },
-      "summary": "The application must reach the division within 180 days of the crime; the division may extend this for good cause, but not past 2 years after the crime.",
+      "summary": "The application must reach the division within 180 days of the crime. The division may give more time for good cause, but in most cases it cannot accept an application more than 2 years after the crime.",
       "quote": "the application must be received by the division not more than one hundred eighty (180) days after the date the crime was committed. The division may grant an extension of time for good cause shown by the claimant. However, and except as provided in subsections (e) and (f), the division may not accept an application that is received more than two (2) years after the date the crime was committed.",
       "source_id": "IN-S8",
       "pinpoint": "IC 5-2-6.1-16(b)"
+    },
+    {
+      "id": "IN-DEADLINE-2",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "A victim of a child sex crime can apply until turning 31, or later in some cases.",
+      "quote": "(e) An alleged victim of a child sex crime may submit an application to the division until the victim becomes thirty-one (31) years of age or in accordance with subsection (f).",
+      "source_id": "IN-S8",
+      "pinpoint": "IC 5-2-6.1-16(e)"
+    },
+    {
+      "id": "IN-DEADLINE-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "For some child sex crimes, a victim can also apply within 5 years after the earliest of these: the state first finds DNA evidence or a recording that is enough to charge the offender, or someone confesses.",
+      "quote": "(f) An alleged victim of a child sex crime described in IC 35-41-4-2 (e) which meets the requirements of IC 35-41-4-2 (p) may submit an application to the division not later than five (5) years after the earliest of the date on which: (1) the state first discovers evidence sufficient to charge the offender with the offense through DNA (deoxyribonucleic acid) analysis; (2) the state first becomes aware of the existence of a recording (as defined in IC 35-31.5-2-273 ) that provides evidence sufficient to charge the offender with the offense; or (3) a person confesses to the offense.",
+      "source_id": "IN-S8",
+      "pinpoint": "IC 5-2-6.1-16(f)"
     },
     {
       "id": "IN-REPORT-1",

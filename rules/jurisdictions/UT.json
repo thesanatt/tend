@@ -260,6 +260,18 @@
       "pinpoint": "Utah Admin. Code R270-1-24(2)"
     },
     {
+      "id": "UT-EXAM-8",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Utah Office for Victims of Crime, if the exam provider reports the exam to law enforcement"
+      },
+      "summary": "For the office to pay for the exam, the provider who did it must report the exam to law enforcement, and may collect evidence only with the permission of the victim or the victim's legal guardian.",
+      "quote": "To be eligible for reimbursement of a medical forensic sexual assault examination, the medical service provider who performed the sexual assault forensic examination shall: (a) report the medical forensic sexual assault examination to law enforcement; and (b) only collect evidence with the permission of the victim or the legal guardian of the victim.",
+      "source_id": "UT-S8",
+      "pinpoint": "Utah Admin. Code R270-1-24(3)"
+    },
+    {
       "id": "UT-EXCL-1",
       "category": "excluded_expense",
       "params": {
@@ -842,7 +854,7 @@
         "covers_sexual_assault": true,
         "enroll": "In order to apply for the Safe at Home Program, a victim must meet with a Certified Safe at Home Program Assistant. Safe at Home Program Assistants are victim advocates and others who work with victims that have gone through a certification training. They will complete the application with the victim and submit it to Safe at Home on behalf of the victim. Safe at Home cannot accept applications directly from an individual. That individual must work with a Program Assistant."
       },
-      "summary": "Utah's Safe at Home Program is for survivors living in Utah, including survivors of sexual assault, abuse, child abuse, domestic violence, stalking, and human trafficking, who are afraid they will be in physical danger if the perpetrator knows where they live. It gives them a substitute address and mail forwarding. You apply through a certified program assistant, not on your own.",
+      "summary": "Utah's Safe at Home Program is for survivors of sexual assault, abuse, child abuse, domestic violence, stalking, or human trafficking who live in Utah and are afraid they will be in physical danger if the perpetrator knows where they live. It gives them a substitute address and mail forwarding. You apply through a certified program assistant, not on your own.",
       "quote": "Utah’s Safe at Home Program is available to survivors of abuse, child abuse, domestic violence, stalking, human trafficking, and sexual assault who are afraid that they will be in physical danger if their perpetrator knows where they live. The program will provide a substitute address and mail forwarding for survivors living in Utah.",
       "source_id": "UT-S11",
       "pinpoint": "Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)"

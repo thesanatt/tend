@@ -234,10 +234,10 @@
       "params": {
         "payer": "Ohio Attorney General SAFE Program"
       },
-      "summary": "State payment for the forensic exam does not depend on the survivor cooperating with police; an adult who does not want to report can have the exam billed to the SAFE Program under a Jane or John Doe name.",
+      "summary": "Payment for the forensic exam does not depend on the survivor cooperating with police.",
       "quote": "The sexual assault forensic exam and reimbursement is not dependent on the patient cooperating with law enforcement.",
       "source_id": "OH-S14",
-      "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting); Jane/John Doe submission at item 5"
+      "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)"
     },
     {
       "id": "OH-EXAM-5",
@@ -504,6 +504,18 @@
       "quote": "Although the former 72-hour deadline for filing a police report has been eliminated, the victim must File a police report.",
       "source_id": "OH-S12",
       "pinpoint": "Court of Claims FAQ: Do I need to File a police report in order to qualify for the program?"
+    },
+    {
+      "id": "OH-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "scope": "what the exam provider must tell police"
+      },
+      "summary": "The Attorney General's billing instructions say Ohio law has health care providers report a sexual assault to police even when the patient does not want to talk to police. If an adult patient stays unnamed, the provider gives police the date, time, and general location of the assault, but not the patient's name or other identifying details.",
+      "quote": "Law enforcement reporting – Ohio Revised Code (ORC) 2921.22 (A) & (B) (see page 7) requires health care providers report a sexual assault to law enforcement whether a patient chooses to speak with law enforcement or not. If the adult patient chooses to remain unnamed, the provider is mandated to provide the date, time, and general location the assault took place, but not the patient’s name or other identifiers.",
+      "source_id": "OH-S14",
+      "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)"
     },
     {
       "id": "OH-MIN-1",

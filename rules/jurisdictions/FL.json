@@ -332,7 +332,7 @@
         "amount_cents": 1000000,
         "per": "claim"
       },
-      "summary": "Medical and dental treatment is capped at $10,000, paid to providers at a rate of 50%.",
+      "summary": "Medical and dental treatment is capped at $10,000, paid at a rate of 50%.",
       "quote": "Medical/Dental Treatment $10,000 at a rate of 50%",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -346,7 +346,7 @@
         "amount_cents": 500000,
         "per": "claim"
       },
-      "summary": "Mental health care for an injured adult victim is capped at $5,000, paid to providers at a rate of 50%.",
+      "summary": "Mental health care for an injured adult victim is capped at $5,000, paid at a rate of 50%.",
       "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50%",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -361,7 +361,7 @@
         "per": "claim",
         "scope": "injured minors until age 18"
       },
-      "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid to providers at a rate of 50%.",
+      "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid at a rate of 50%.",
       "quote": "Mental Health Injured Minor (until age 18) $10,000 at a rate of 50%",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -429,7 +429,8 @@
       "expense": "counseling",
       "params": {
         "expense": "counseling",
-        "only_benefit_if": "if you are an adult and were not physically hurt"
+        "only_benefit_if": "if you are an adult and were not physically hurt",
+        "total_condition": "if you were physically hurt"
       },
       "summary": "People who suffered a psychological injury as a direct result of a forcible felony may get mental health care if the law enforcement report names them as a victim of the crime. For adults who were not physically hurt, this is the only benefit.",
       "quote": "Persons who suffered a psychological or psychiatric injury as a direct result of a forcible felony may receive mental health care, when the law enforcement report identifies the individual as a victim of the crime. This is the only benefit available to adult victims who did not suffer a physical injury or death.",

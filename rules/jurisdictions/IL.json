@@ -116,7 +116,7 @@
       "params": {
         "insurance_billing": "unspecified"
       },
-      "summary": "A provider may not bill the sexual assault survivor for any part of the costs of the services, transportation, or medications, including insurance deductibles, co-pays, co-insurance, or denied claims.",
+      "summary": "A hospital or other provider giving a sexual assault survivor a medical forensic exam, medical care and treatment, transportation, follow-up care, or medication may not bill the survivor for any part of those costs, including insurance deductibles, co-pays, co-insurance, or denied claims.",
       "quote": "shall not: (1) charge or submit a bill for any portion of the costs of the services, transportation, or medications to the sexual assault survivor, including any insurance deductible, co-pay, co-insurance, denial of claim by an insurer, spenddown, or any other out-of-pocket expense",
       "source_id": "IL-S2",
       "pinpoint": "410 ILCS 70/7.5(a)(1)"
@@ -468,7 +468,7 @@
         "from": "age_18",
         "extension": "also runs from removal of a legal disability; legal disability includes a PTSD diagnosis"
       },
-      "summary": "A victim who was under 18 or under a legal disability can apply within 3 years after turning 18 or after the disability ends, and a posttraumatic stress disorder diagnosis counts as a legal disability.",
+      "summary": "A victim who was under 18, or under a legal disability, when it happened can apply within 3 years after turning 18 or after the disability is removed. The Act counts a diagnosis of posttraumatic stress disorder as a legal disability.",
       "quote": "he or she may present the application required by this subsection within 3 years after he or she attains the age of 18 years or the disability is removed, as the case may be. Legal disability includes a diagnosis of posttraumatic stress disorder.",
       "source_id": "IL-S1",
       "pinpoint": "740 ILCS 45/6.1(a)"
@@ -509,14 +509,22 @@
       "pinpoint": "740 ILCS 45/6.1(b-1) (text in effect before P.A. 104-563, eff. 1-1-27)"
     },
     {
+      "id": "IL-REPORT-6",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "scope": "what a survivor must tell the medical facility for the visit to count as notice"
+      },
+      "summary": "A survivor who uses a medical facility visit as notice has to give the facility enough information to meet the Act's notice rules.",
+      "quote": "For purposes of notification under this Act, a victim who presents to a medical facility shall provide information sufficient to fulfill the requirements of this Section",
+      "source_id": "IL-S1",
+      "pinpoint": "740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)"
+    },
+    {
       "id": "IL-REPORT-3",
       "category": "reporting_requirement",
       "params": {
-        "required": false,
-        "alternatives": [
-          "forensic_exam",
-          "medical_provider"
-        ]
+        "required": false
       },
       "summary": "A survivor who uses a medical facility visit as notice does not have to name the offender to the medical provider.",
       "quote": "except that the victim shall not be required to identify the offender to the medical provider",

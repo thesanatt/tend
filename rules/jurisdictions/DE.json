@@ -364,6 +364,19 @@
    "pinpoint": "11 Del. C. § 9002(10)m."
   },
   {
+   "id": "DE-COV-11",
+   "category": "covered_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal",
+    "scope": "fees for a lawyer who represents you before the Appeals Board"
+   },
+   "summary": "You do not need a lawyer before the Appeals Board, but if you have one, the Board may award an amount for the lawyer's services.",
+   "quote": "A claimant need not be represented by an attorney before the Appeals Board, but if such person is represented the Appeals Board may award an amount for services rendered.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9013"
+  },
+  {
    "id": "DE-EXCL-1",
    "category": "excluded_expense",
    "expense": "property_replacement",
@@ -407,7 +420,8 @@
     "alternatives": [
      "protective_order",
      "other"
-    ]
+    ],
+    "within_hours": 72
    },
    "summary": "The crime must be reported to law enforcement within 72 hours, but this is waived if it was reported to protective services or Family Court, the victim has a protection from abuse order, the victim cooperated with law enforcement or an appropriate government agency in a sexual assault case, or the Agency finds the requirement unreasonable.",
    "quote": "Where the victim has failed to report the crime to a law-enforcement agency within 72 hours of its occurrence. This requirement is waived in any of the following circumstances: a. The crime has been reported to an appropriate governmental agency, such as child or adult protective services or the Family Court. b. The victim can provide a protection from abuse order. c. The victim has cooperated with law enforcement or an appropriate government agency in cases of crimes involving domestic violence, sexual assault or abuse. d. Where the Agency, in its discretion, determines that the circumstances of the crime or the victim render this requirement unreasonable.",

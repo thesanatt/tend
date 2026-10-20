@@ -61,9 +61,9 @@ rejects. A rule exists only if its `quote` is a verbatim substring of a saved of
 |---|---|---|
 | `exam_no_bill` | survivor may not be billed for a sexual assault forensic exam | `insurance_billing`: prohibited, consent_required, required, allowed, unspecified; optional `scope`, `condition`, `detail` |
 | `exam_payment` | who pays for the exam (state fund, program, county), or who pays for care at the exam visit that the exam payment does not cover | `payer` (text); optional `condition`, `outside_total_cap` |
-| `total_cap` | maximum total award | `amount_cents`; optional `exception`, `condition`. A total_cap with no amount states something about the limit (some services can be paid beyond it) and is shown in its own words. |
+| `total_cap` | maximum total award | `amount_cents`; optional `exception`, `condition`. A total_cap with no amount states something about the limit (some services can be paid beyond it) and is shown in its own words. A higher tier or an added award (a total_cap with a larger amount, or with none) that carries an `exception` hedges the total line, tile and card, and is cited there instead of being repeated. |
 | `expense_cap` | cap on one expense type | `expense`, `amount_cents`, `per` (claim, week, session, hour, mile, day, month, item), optional `count_limit`, `item`, `scope`, `outside_total_cap`. A cap with a `scope` is information only. A cap with a count but no amount is shown under its cost and never applied. |
-| `covered_expense` | an expense type is reimbursable | `expense`; optional `scope`, `item` (with expense `other`), `detail`, `only_benefit_if` |
+| `covered_expense` | an expense type is reimbursable | `expense`; optional `scope`, `item` (with expense `other`), `detail`, `only_benefit_if`, `total_condition` (with `only_benefit_if`) |
 | `excluded_expense` | an expense type is not reimbursable | `expense` or `item` (text) |
 | `filing_deadline` | time limit to apply | `years`, `months` or `days`, `from` (crime, incident, injury, offense, occurrence, discovery, report, age_18, age_21, charge, diagnosis, trip), optional `extension`, `condition` |
 | `reporting_requirement` | police report rules | `required` (bool), optional `within_days`, `within_hours` or `within_months`, `alternatives` (list: forensic_exam, protective_order, advocate, medical_provider, other), `exception`, `exam_condition`, `scope`, `charge_required` (bool), `expense` (forensic_exam only, for a waiver that covers only the exam) |
@@ -115,6 +115,9 @@ join stays at grade 9 or below. Never use "never".
   the assault".
 - `item`: the thing a cap or an "other" cost covers, as a noun phrase.
 - `only_benefit_if`: an "if" clause naming who can get only this cost.
+- `total_condition`: on the rule with `only_benefit_if`, an "if" clause from its quote naming whom the
+  program's total is for, which the total tile and the card add after the amount: "if you were
+  physically hurt".
 - `detail`, `outside_total_cap`, `charge_required`: booleans, described in the table above.
 
 ## Page notes

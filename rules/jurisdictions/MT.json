@@ -443,7 +443,7 @@
         "years": 1,
         "from": "crime"
       },
-      "summary": "File within 1 year of the crime. The office can extend this for good cause.",
+      "summary": "File within 1 year of the crime.",
       "quote": "compensation may not be awarded unless the claim is filed with the office within 1 year after the day the criminally injurious conduct occurred causing the injury or death upon which the claim is based.",
       "source_id": "MT-S8",
       "pinpoint": "MCA 53-9-125(1)"
@@ -462,13 +462,24 @@
       "pinpoint": "MCA 53-9-125(1)"
     },
     {
+      "id": "MT-DEAD-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "The office can give more time to file a claim for good cause.",
+      "quote": "The time for filing a claim may be extended by the office for good cause shown.",
+      "source_id": "MT-S8",
+      "pinpoint": "MCA 53-9-125(1)"
+    },
+    {
       "id": "MT-REP-1",
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "alternatives": []
+        "alternatives": [],
+        "within_hours": 72,
+        "exception": "or later if the office finds good cause or it was a sexual offense against a minor"
       },
-      "summary": "A report to a law enforcement officer is required, made within 72 hours, unless the office finds good cause for the delay or the case is a sexual offense against a minor. Good cause factors in the administrative rules include the reasonableness of the delay and physical or mental incapacity. The statute lists no alternative to a police report for adult survivors. The forensic exam itself does not require a report.",
+      "summary": "A report to a law enforcement officer is required for any award. It must be made within 72 hours, unless the office finds good cause for the delay. The 72-hour limit does not apply to a sexual offense against a minor.",
       "quote": "Compensation may not be awarded unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer. The report must be made within 72 hours after its occurrence, except in a case involving a sexual offense against a minor or when the office finds there was good cause for the failure to report within that time.",
       "source_id": "MT-S8",
       "pinpoint": "MCA 53-9-125(3)"

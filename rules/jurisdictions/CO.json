@@ -243,7 +243,7 @@
       "params": {
         "payer": "Sexual Assault Victim Emergency Payment (SAVE) program, Colorado Division of Criminal Justice"
       },
-      "summary": "The state SAVE program (Division of Criminal Justice) covers medical fees tied to getting the forensic exam, such as ER, lab, prescription, and physician fees, while funds last. It is the payer of last resort.",
+      "summary": "The state SAVE program (Division of Criminal Justice) must cover medical fees tied to getting the forensic exam, such as ER, lab, prescription, and physician fees, as long as funds are available.",
       "quote": "The program must cover medical fees and costs associated with obtaining the medical forensic examination, including but not limited to emergency department fees and costs, laboratory fees, prescription medication, and physician's fees, as long as funds are available.",
       "source_id": "CO-S9",
       "pinpoint": "C.R.S. 18-3-407.7(2)(a)"
@@ -427,6 +427,19 @@
       "quote": "The requirement to notify the appropriate law enforcement officials required by this subsection (1)(b) is satisfied if, as the result of the compensable crime that the application is being submitted for, the victim or applicant provides documentation that a forensic examination was conducted by a licensed or registered nurse or medical provider.",
       "source_id": "CO-S4",
       "pinpoint": "C.R.S. 24-4.1-108(1)(b)"
+    },
+    {
+      "id": "CO-REPORT-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "within_hours": 72,
+        "scope": "property damage claims"
+      },
+      "summary": "For a property damage claim, police must have been told about the crime within 72 hours, unless the board finds good cause for the delay.",
+      "quote": "The appropriate law enforcement officials were notified of the perpetration of the crime causing property damage within seventy-two hours after its perpetration, unless the board finds good cause exists for the failure of notification;",
+      "source_id": "CO-S4",
+      "pinpoint": "C.R.S. 24-4.1-108(1.5)(b)"
     },
     {
       "id": "CO-COLL-1",

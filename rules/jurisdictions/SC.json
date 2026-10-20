@@ -190,7 +190,8 @@
       "category": "exam_payment",
       "expense": "forensic_exam",
       "params": {
-        "payer": "South Carolina Department of Crime Victim Compensation (Victim Compensation Fund), billed directly by the health care facility"
+        "payer": "South Carolina Department of Crime Victim Compensation (Victim Compensation Fund), billed directly by the health care facility",
+        "condition": "if the crime was in South Carolina"
       },
       "summary": "The hospital or health care facility may file the exam claim directly with the Department of Crime Victim Compensation if the offense happened in South Carolina.",
       "quote": "may file a claim for reimbursement directly to the Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation if the offense occurred in South Carolina.",
@@ -215,7 +216,7 @@
       "expense": "forensic_exam",
       "params": {
         "insurance_billing": "unspecified",
-        "condition": "if the crime was in South Carolina"
+        "detail": true
       },
       "summary": "The program's sexual assault brochure says victims of an assault in South Carolina can ask for a forensic exam at no cost. This holds whether or not they involve police.",
       "quote": "victims of assault in the State of South Carolina may request, at no cost to them, a forensic examination for sexual assault, regardless of their involvement with law enforcement.",
@@ -280,6 +281,18 @@
       },
       "summary": "Reasonable and customary charges for medical services, including mental health counseling, needed because of the crime injury are covered when a licensed professional provides them.",
       "quote": "reasonable and customary charges as periodically determined by the board for medical services, including mental health counseling, required and rendered as a direct result of the injury on which the claim is based, as long as these services are rendered by a licensed professional.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1180(A)(1)"
+    },
+    {
+      "id": "SC-COUNS-2",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling"
+      },
+      "summary": "An award can pay for mental health counseling needed because of the crime. A licensed professional must provide it.",
+      "quote": "An award may be made for: (1) reasonable and customary charges as periodically determined by the board for medical services, including mental health counseling, required and rendered as a direct result of the injury on which the claim is based, as long as these services are rendered by a licensed professional.",
       "source_id": "SC-S1",
       "pinpoint": "S.C. Code 16-3-1180(A)(1)"
     },
@@ -516,7 +529,7 @@
       "params": {
         "days": 180,
         "from": "crime",
-        "extension": "or up to 4 years if you show good cause"
+        "extension": "or of a later date in some cases, such as when police learned it was a crime. With good cause, the program can allow up to 4 years after the crime"
       },
       "summary": "A claim must be filed within 180 days. The days count from the latest of these: the crime, the victim's death, the day police learned it was a crime, or, for a crime against a minor, the day a resulting injury was diagnosed. With good cause, the time can be extended, but not past 4 years after the crime, the diagnosis, or the death.",
       "quote": "A claim must be filed by the claimant not later than one hundred eighty days after the latest of the following events: (1) the occurrence of the crime upon which the claim is based; (2) the death of the victim; (3) the discovery by the law enforcement agency that the occurrence was the result of crime; or (4) the manifestation of a mental or physical injury is diagnosed as a result of a crime committed against a minor. (C) Upon good cause shown, the time for filing may be extended for a period not to exceed four years after the occurrence, diagnosed manifestation, or death.",
@@ -792,6 +805,9 @@
       "pinpoint": "S.C. Code 16-3-1240"
     }
   ],
+  "page_notes": {
+    "police": "Note: South Carolina law says an award needs a prompt report that is recorded in police records. The program's sexual assault papers also describe an anonymous way to apply for survivors 18 and older who had a forensic exam. Ask the program whether it applies to you."
+  },
   "coverage": {
     "found": [
       "exam_no_bill",

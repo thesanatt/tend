@@ -545,11 +545,24 @@
       "pinpoint": "RCW 7.68.074"
     },
     {
-      "id": "WA-COV-PEP",
+      "id": "WA-COV-MEDICATION",
       "category": "covered_expense",
       "expense": "prescription",
       "params": {
         "expense": "prescription"
+      },
+      "summary": "The program's page lists medication among the costs it may pay for.",
+      "quote": "What we may pay for Medical/Dental treatment Medication",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, What are the benefits?"
+    },
+    {
+      "id": "WA-COV-PEP",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription",
+        "scope": "up to a 28-day supply of HIV prevention medicine (PEP) from a Washington hospital emergency department"
       },
       "summary": "The program covers up to a 28-day supply of HIV post-exposure prophylaxis (PEP) drugs dispensed directly from a Washington hospital emergency department.",
       "quote": "Crime Victims Compensation Programs will cover up to a 28-day supply of post-exposure prophylaxis (PEP) drugs for HIV when dispensed directly from a Washington State hospital emergency department for proper and necessary treatment of a crime victim.",

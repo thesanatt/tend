@@ -327,12 +327,25 @@
       "expense": "relocation",
       "params": {
         "expense": "relocation",
-        "scope": "moving costs and rent, for sexual assault only if it happened in your home"
+        "scope": "moving costs and rent, if the assault happened in your home"
       },
-      "summary": "A victim of sexual assault who was assaulted in their own home can be compensated for relocation costs and housing rent; other victims can qualify when the move is needed for health or safety.",
+      "summary": "A victim of sexual assault who was assaulted at home can be paid relocation costs and housing rent.",
       "quote": "A victim of stalking, family violence, or trafficking of persons, a victim of sexual assault who is assaulted in the victim's place of residence, or a child who is a victim of a murder attempt in the child's place of residence may receive compensation for the following expenses: (1) relocation expenses, including expenses for rental deposit, utility connections, expenses relating to moving belongings, motor vehicle mileage expenses, temporary or emergency lodging, and for an out-of-state move, expenses for transportation, lodging, and meals; and (2) housing rental expenses.",
       "source_id": "TX-S1",
       "pinpoint": "Tex. Code Crim. Proc. art. 56B.106(c)"
+    },
+    {
+      "id": "TX-RELO-4",
+      "category": "covered_expense",
+      "expense": "relocation",
+      "params": {
+        "expense": "relocation",
+        "scope": "moving costs and rent, if a move is needed for your health or safety"
+      },
+      "summary": "Other victims can be paid moving costs and rent when a move is needed to protect their health or safety.",
+      "quote": "A victim other than a victim described by Subsection (c), a dependent of any victim, a family member of any victim if that family member has previously resided with the victim for a period of not less than two years, or a household member of any victim may receive compensation for the following expenses, if the expenses are necessary to protect the health or safety of the victim, dependent, or family or household member: (1) relocation expenses, including expenses for rental deposit, utility connections, expenses relating to moving belongings, motor vehicle mileage expenses, temporary or emergency lodging, and for an out-of-state move, expenses for transportation, lodging, and meals; and (2) housing rental expenses.",
+      "source_id": "TX-S1",
+      "pinpoint": "Tex. Code Crim. Proc. art. 56B.106(c-1)"
     },
     {
       "id": "TX-RELO-2",
@@ -385,6 +398,19 @@
       "quote": "\"Pecuniary loss\" means the amount of the expense reasonably and necessarily incurred as a result of personal injury or death for: (A) medical, hospital, nursing, or psychiatric care or counseling, or physical therapy;",
       "source_id": "TX-S1",
       "pinpoint": "Tex. Code Crim. Proc. art. 56B.003(10)(A)"
+    },
+    {
+      "id": "TX-EXAM-5",
+      "category": "covered_expense",
+      "expense": "medical",
+      "params": {
+        "expense": "medical",
+        "detail": true
+      },
+      "summary": "For care sought after August 31, 2025, Emergency Medical Care also pays for prescribed care tied to the assault in the 30 days after the exam.",
+      "quote": "For medical care sought after August 31, 2025, EMC also covers any prescribed continuing medical care that is related to the sexual assault and provided to the victim during the 30-day period following the exam.",
+      "source_id": "TX-S11",
+      "pinpoint": "OAG Emergency Medical Care Compensation page"
     },
     {
       "id": "TX-MED-2",

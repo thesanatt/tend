@@ -140,6 +140,18 @@
   ],
   "rules": [
     {
+      "id": "LA-EXAM-5",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "A survivor of a sexually oriented offense cannot be billed, directly or indirectly, for a forensic medical exam.",
+      "quote": "A survivor of a sexually oriented criminal offense shall not be billed directly or indirectly for the performance of any forensic medical exam.",
+      "source_id": "LA-S13",
+      "pinpoint": "La. R.S. 40:1216.1(A)(6)"
+    },
+    {
       "id": "LA-EXAM-1",
       "category": "exam_no_bill",
       "expense": "forensic_exam",
@@ -149,7 +161,7 @@
       "summary": "Louisiana law says a sexual assault survivor cannot be billed, directly or indirectly, for a forensic medical exam. The provider or facility sends the claim to the compensation program instead.",
       "quote": "Under Louisiana law, a victim cannot be billed directly or indirectly for a forensic medical exam.",
       "source_id": "LA-S5",
-      "pinpoint": "LCLE CVC Downloads page, Forensic Medical Examinations (citing La. R.S. 40:1216.1(A)(6))"
+      "pinpoint": "LCLE CVC Downloads page, Forensic Medical Examinations"
     },
     {
       "id": "LA-EXAM-2",
@@ -193,10 +205,22 @@
       "params": {
         "amount_cents": 1500000
       },
-      "summary": "Awards to all claimants for one victim's injury are capped at $15,000 in total. A higher aggregate cap applies when the injury causes a permanent and total disability.",
+      "summary": "Awards to all claimants for one victim's injury are capped at $15,000 in total.",
       "quote": "Fifteen thousand dollars in the aggregate.",
       "source_id": "LA-S14",
       "pinpoint": "La. R.S. 46:1810(1), as amended by Acts 2026, No. 684"
+    },
+    {
+      "id": "LA-CAP-2",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000,
+        "exception": "or up to $25,000 if the crime leaves you fully disabled for life"
+      },
+      "summary": "The board's rule sets a $15,000 limit, except for a victim the crime leaves totally and permanently disabled. For that victim, the board may award up to $25,000, depending on funds, its rule limits, and other payment sources.",
+      "quote": "There will be a $15,000 limit for awards for all victims with the exception of those primary victims who become totally and permanently disabled as a result of the crime. For those awards, the board may, at its discretion, award up to $25,000, depending on availability of funds, its administrative rule limits for certain award benefits, and the extent, if any, of collateral resources.",
+      "source_id": "LA-S4",
+      "pinpoint": "LAC 22:XIII.503(A)(1)"
     },
     {
       "id": "LA-EMERG-1",
@@ -216,10 +240,10 @@
         "years": 3,
         "from": "crime"
       },
-      "summary": "Applications must be filed within three years of the date of the crime; this replaced the earlier one-year limit. The board can allow more time when the circumstances justify it.",
+      "summary": "This law changed the time to apply from one year to three years, counted from the date of the crime.",
       "quote": "Changes the time period for filing from one year to three years and provides this period begins from the date the crime is committed.",
       "source_id": "LA-S15",
-      "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(1); the board extension (\"or within such longer period as the board determines is justified by the circumstances\") is unstruck text in the enrolled Act, LA-S14, 46:1806(A)(1)(a)"
+      "pinpoint": "Resume Digest of Act 684 (HB 969) on La. R.S. 46:1806(A)(1)"
     },
     {
       "id": "LA-REPORT-1",
@@ -729,6 +753,9 @@
       "pinpoint": "La. R.S. 46:1844(W)(1)(a)"
     }
   ],
+  "page_notes": {
+    "deadline": "Note: Act 684 itself also lets the board accept an application filed after 3 years if the board finds the circumstances justify it. Tend's saved copy of the Act cannot be quoted word for word, so the line below cites the Legislature's summary of the Act."
+  },
   "coverage": {
     "found": [
       "collateral_source",
