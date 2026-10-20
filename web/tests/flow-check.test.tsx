@@ -7,8 +7,10 @@ import CheckScreen from "@/components/flow/check/CheckScreen";
 import EngineNotice from "@/components/flow/EngineNotice";
 import { ExitControl } from "@/components/flow/ExitControl";
 import { useFlow } from "@/components/flow/FlowProvider";
+import PrivacyLine from "@/components/flow/PrivacyLine";
 import { EXIT_URL, navigation } from "@/components/QuickExit";
 import { EngineUnavailableError } from "@/lib/engine";
+import { en } from "@/lib/i18n/en";
 import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
 
 const nav = vi.hoisted(() => ({ replace: vi.fn(), path: "/check" }));
@@ -50,7 +52,7 @@ describe("Check", () => {
         .getAllByRole("radio")
         .map((r) => r.parentElement!.textContent),
     ).toEqual(["Yes", "Not yet", "No", "Not sure"]);
-    expect(screen.getByText("Tend never asks what happened, where, or who.")).toBeTruthy();
+    expect(screen.getByText("Tend never asks what happened or who, and asks where only as a state.")).toBeTruthy();
     expect(screen.queryAllByRole("textbox")).toHaveLength(0);
   });
 
@@ -176,6 +178,25 @@ describe("Check", () => {
     fireEvent.click(screen.getByRole("button", { name: "Close Tend" }));
     expect(nav.replace).toHaveBeenCalledWith("/");
     expect(screen.getByTestId("probe").textContent).toBe("empty");
+  });
+});
+
+// The page's own address names the state, and the host logs it, even with no state in Check.
+describe("the privacy line on a state's page", () => {
+  afterEach(() => {
+    nav.path = "/check";
+  });
+
+  it.each(["/mi", "/law/MI"])("on %s, says the state went to Tend's server", async (path) => {
+    nav.path = path;
+    renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
+  });
+
+  it("on a page that names none, says nothing has left", async () => {
+    nav.path = "/sources";
+    renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
+    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
   });
 });
 

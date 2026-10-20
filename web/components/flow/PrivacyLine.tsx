@@ -4,15 +4,22 @@ import { useState } from "react";
 import { useI18n, type Dict, type Formatters } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
 import FlowSheet from "./FlowSheet";
-import { useKeptSends, withKept } from "./keptSends";
+import { useKeptSends } from "./keptSends";
 import type { SentEvent } from "./state";
 import styles from "./shell.module.css";
 
 // The one line on every screen that says where the survivor's data is. It changes when something
-// left the device. Picking a state is one: Tend asks its server for that state's law files, named for
-// the state (lib/api.ts fetchLaw, lib/engine/wasm.ts), so the server can tell which state it is.
-export function privacyText(sent: SentEvent[], t: Dict, f: Formatters, statePicked = false): string {
-  if (!sent.length) return statePicked ? t.privacy.quietState : t.privacy.quiet;
+// left the device. Picking a state is one: Tend asks its server for that state's page and law files,
+// named for the state (lib/netlog stateNamedIn), so the server can tell which state it is. After a
+// reload the tab knows only that something went before (keptSends.ts), never what or when.
+export function privacyText(
+  sent: SentEvent[],
+  t: Dict,
+  f: Formatters,
+  statePicked = false,
+  sentBefore = false,
+): string {
+  if (!sent.length && !sentBefore) return statePicked ? t.privacy.quietState : t.privacy.quiet;
   const count = (k: SentEvent["kind"]) => sent.filter((e) => e.kind === k).length;
   // A payment that went ahead is said once, as a payment; one that stopped after the code is its own part.
   const paidIds = new Set(sent.filter((e) => e.kind === "payment" && e.action_id).map((e) => e.action_id));
@@ -27,22 +34,13 @@ export function privacyText(sent: SentEvent[], t: Dict, f: Formatters, statePick
     count("cloud_rows") ? t.privacy.partCloudRows : null,
     count("cloud_bill") ? t.privacy.partCloudBill(count("cloud_bill")) : null,
     count("other") ? t.privacy.partOther(count("other")) : null,
+    sentBefore ? t.privacy.partBefore : null,
   ].filter((p): p is string => Boolean(p));
   return t.privacy.sent(f.and(parts));
 }
 
 export function sentLine(e: SentEvent, t: Dict, f: Formatters): string {
   const when = f.time(e.at);
-  // From before a reload only the kind and the time are known, so no amount, payee, or address.
-  if (e.kept && (e.kind === "payment" || e.kind === "payment_setup" || e.kind === "other")) {
-    const what =
-      e.kind === "payment"
-        ? t.privacy.partPayment(1)
-        : e.kind === "payment_setup"
-          ? t.privacy.partSetup(1)
-          : t.privacy.partOther(1);
-    return t.privacy.eventKept(what, when);
-  }
   const amount = f.money(e.amount_cents ?? 0);
   if (e.kind === "payment")
     return e.dry_run
@@ -76,20 +74,21 @@ function Shield() {
 
 export default function PrivacyLine() {
   const { t, f } = useI18n();
-  const { state, vault, restarted } = useFlow();
+  const { state, vault, restarted, stateSeen } = useFlow();
   const [open, setOpen] = useState(false);
-  // What this claim sent, and what this tab sent before a reload. Behind the lock, and while Tend
-  // checks for one, the tab's sends stay out, so the next person at a shared device does not learn
-  // that a payment or a share link went out, or when.
+  // What this claim sent, and whether this tab sent anything before a reload. Behind the lock, and
+  // while Tend checks for one, the tab's flags stay out, so the next person at a shared device does
+  // not learn that anything went out.
   const hidden = vault.status === "locked" || vault.status === "checking";
   const kept = useKeptSends();
-  const sent = withKept(state.sent, hidden ? [] : (kept ?? []));
+  const sent = state.sent;
+  const sentBefore = Boolean(!hidden && kept?.sent);
   // Before the page can read the tab's memory (the server's HTML, then hydration), behind the lock,
   // and once this page has put a new claim on screen, whose line no longer names what the page sent
   // before, it says only what is always true, never that nothing left since the page opened.
-  const quiet = (kept === null || hidden || restarted) && !sent.length;
-  const statePicked = Boolean(state.check.st);
-  const text = quiet ? t.privacy.here : privacyText(sent, t, f, statePicked);
+  const quiet = (kept === null || hidden || restarted) && !sent.length && !sentBefore;
+  const statePicked = Boolean(state.check.st) || stateSeen || Boolean(!hidden && kept?.state);
+  const text = quiet ? t.privacy.here : privacyText(sent, t, f, statePicked, sentBefore);
 
   return (
     <div className={styles.privacy} data-sent={sent.length > 0 || undefined}>
@@ -123,9 +122,10 @@ export default function PrivacyLine() {
         {quiet ? null : (
           <section className={styles.sentList} aria-labelledby="sent-title">
             <h3 id="sent-title">{t.privacy.sentTitle}</h3>
-            {sent.length || statePicked ? (
+            {sent.length || statePicked || sentBefore ? (
               <ol>
                 {statePicked ? <li>{t.privacy.stateLine}</li> : null}
+                {sentBefore ? <li>{t.privacy.eventBefore}</li> : null}
                 {sent.map((e, i) => (
                   <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
                 ))}

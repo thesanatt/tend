@@ -120,14 +120,17 @@ export const en = {
       `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the kind of transaction, the merchant, its category, and the description, after Tend tried to take out dates, amounts, and other numbers.`,
     eventCloudBill: (when: string) => `${when}: a bill file, to cloud AI, because you said yes.`,
     eventOther: (path: string, when: string) => `${when}: a request to ${path}.`,
-    eventKept: (what: string, when: string) =>
-      `${when}: ${what}. After a reload, this list keeps only what was sent and when.`,
+    // After a reload the tab knows only that something went (components/flow/keptSends.ts), so the
+    // next person at a shared device does not learn what it was or when.
+    partBefore: "something this tab sent before a reload",
+    eventBefore:
+      "This tab sent something before it was reloaded. Tend keeps no more about it than that. Close the tab to clear it.",
     more: "What stays here",
     sheetTitle: "What stays on this device",
     facts: [
       "Your answers, your costs, and your files stay in this browser unless you choose to send them. One exception: Tend asks its server for the law of the state you pick, so the server can tell which state it is. Tend reads statements and bills here, and the law engine runs here.",
       "Anything else leaves only when you choose to send it: a payment you start or confirm, a packet you share, or a request to see the demo bank's records. After a yes, rows or a bill can go to cloud AI, and your claim can go to Tend's server if this browser can't run the law engine. A shared packet is locked before it leaves, and the key stays in the link.",
-      "Tend never asks what happened, where, or who.",
+      "Tend never asks what happened or who, and asks where only as a state.",
       "If you save, your progress is locked with Touch ID or a passcode. Exit this page, or press Esc twice, to leave fast.",
     ],
     sentTitle: "What you sent",
@@ -255,7 +258,7 @@ export const en = {
   check: {
     title: "See what your state can pay for",
     lead: "Four questions. Answer what you can. Not sure is always fine. Tend gets the law for the state you pick from its server, so the server can tell which state it is. Your other answers stay on this device unless you choose to send them.",
-    never: "Tend never asks what happened, where, or who.",
+    never: "Tend never asks what happened or who, and asks where only as a state.",
     stateLabel: "Which state did it happen in?",
     stateHint: "That state's program handles it, even if you live somewhere else.",
     stateChoose: "Choose a state",

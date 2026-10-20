@@ -64,11 +64,16 @@ state you picked.
    words from your statement or bill are not sent. Tend's server checks the claim with the Python
    reference engine, sends back the answer, and keeps nothing. After that yes, each change is
    checked there too.
-6. **The state you pick.** Choosing a state fetches that state's law files (`/data/law/ST.json`,
-   `/engine/laws/ST.tlaw`, `/data/ir/ST.json`) from Tend's server, so the server can tell which
-   state was picked, and the host's request logs can hold that next to your IP address (see
-   "Request logs" below). Beyond the state, none of these requests carries anything you entered.
-   The privacy line says so.
+6. **The state you pick.** Choosing a state fetches that state's law files (such as
+   `/data/law/ST.json`, `/engine/laws/ST.tlaw`, `/data/ir/ST.json`, and for Michigan's packet
+   `/forms/MI.pdf`) from Tend's server, so the server can tell which state was picked, and the
+   host's request logs can hold that next to your IP address (see "Request logs" below). When a
+   copy is missing, Tend may ask `/api/jurisdictions/ST` instead. Opening a state's own page (`/mi`,
+   `/law/MI`) or a link with `?st=MI`, as "Find your state" on the home page does, names the state
+   the same way. Beyond the state, none of these requests carries anything you entered. The privacy
+   line says so for each of them (`web/lib/netlog.ts` `stateNamedIn`). Next.js also fetches pages
+   that links point to before anyone taps them; those requests name states nobody chose, and the
+   line does not count them.
 
 ## What our server holds
 
@@ -114,25 +119,29 @@ blank for the survivor to fill in.
   manager can see it, and with iCloud Keychain or Google Password Manager it can sync to your other
   devices. Deleting saved progress does not remove it. A passcode the browser saved can be filled
   in by anyone who uses that browser.
-- Until a state is picked or something is sent, the privacy line says "On this device. Nothing has
-  left it since this page opened." Once a state is picked it says "On this device. Only the state
-  you picked went to Tend's server, to get its law.", and the list of what was sent names that
-  request first. The line vouches only for the page on screen: a reload, or a tab the browser
-  reopens, is a new page.
-- So that a reload does not hide a send, the line keeps, for this tab only, the kind of each thing
-  sent and when, in sessionStorage. It holds no amounts, payees, ids, or keys. The browser writes
-  sessionStorage to its profile folder, so these kinds and times can sit on the device's disk,
-  unencrypted, until the browser clears them. Only a reload keeps the list. Any other load starts
-  it over, including a closed tab the browser reopens (which gets its sessionStorage back) and a
-  Back the browser's page cache does not serve; the line then leaves out what the tab sent before.
-  Quick exit clears it with the rest of the tab. Deleting saved progress, saving over it, and Close
-  Tend on a claim that was never saved clear it too.
+- Until a state is picked, a page named for a state is opened, or something is sent, the privacy
+  line says "On this device. Nothing has left it since this page opened." Once a state is picked or
+  its page opened it says "On this device. Only the state you picked went to Tend's server, to get
+  its law.", and the list of what was sent names that request first. The line vouches only for the
+  page on screen: a reload, or a tab the browser reopens, is a new page.
+- So that a reload does not hide a send, the tab keeps two flags in sessionStorage: that something
+  was sent, and that a state was picked. Not what was sent, not when, and not which state. After a
+  reload the line says "On this device, except: something this tab sent before a reload", and its
+  list says only that. The next person at a shared device who reloads the tab learns that
+  something went out, but not that it was a payment or a share link, or when. The browser writes
+  sessionStorage to its profile folder, so the flags can sit on the device's disk until the
+  browser clears them. Only a reload keeps them. Any other load starts them over, including a
+  closed tab the browser reopens (which gets its sessionStorage back) and a Back the browser's page
+  cache does not serve; the line then leaves out what the tab sent before. Quick exit clears them
+  with the rest of the tab. Deleting saved progress, saving over it, and Close Tend on a claim that
+  was never saved clear them too.
 - While saved progress is locked, the line says only "On this device." Sends made after Start over
   without it, while saved progress stays locked, are not kept for the tab, so opening that progress
   never names them to its owner as theirs. After Lock now, Close Tend, or Delete, the line also says
   only "On this device." until something new is sent or the page loads again, because what the page
   sent before is no longer on the line. So once saved progress locks, or the survivor exits or ends
-  the claim, the next person at the device cannot read from the line what was sent or when.
+  the claim, the next person at the device cannot read from the line what was sent or when, and
+  after a reload no one can.
 - Neutral tab title, no notifications, no analytics, no third-party scripts in the survivor flow.
 
 ## Threat model, honestly

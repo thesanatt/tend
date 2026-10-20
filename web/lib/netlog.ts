@@ -1,8 +1,10 @@
 // What actually left this page, seen where every request passes: window.fetch. The privacy line
 // is built from these, so it can only say what was really sent (docs/PRIVACY.md). Loading the app
-// and the public law (GETs of pages, scripts, law files, the forms) is not a send, though a law file
-// is named for its state, which the line says once a state is picked (PrivacyLine). A request that
-// fails while the device is offline sent nothing and is not reported.
+// and the public law (GETs of pages, scripts, law files, the forms) is not a send. A request whose
+// path names a state (a state page, a law file, Michigan's form) still tells the server which state,
+// so it is reported apart, as a state pick (onStateRequest), and the line says so (PrivacyLine). A
+// request that fails while the device is offline sent nothing and is not reported.
+import STATES from "./states.json";
 
 export type NetKind =
   | "payment_setup" // the amount, account, and payee, to get a confirm code
@@ -31,6 +33,54 @@ export interface NetSend {
 }
 
 type Listener = (send: NetSend) => void;
+
+const CODES = new Set(STATES.map((s) => s.st));
+// The paths that carry a state's code: /mi and /law/MI, the law files the flow loads, the form, and
+// the API's copy of the law when a file is missing (lib/api.ts, lib/engine/wasm.ts, lib/packet).
+const STATE_PATHS = [
+  /^\/([a-z]{2})\/?$/i,
+  /^\/law\/([a-z]{2})\/?$/i,
+  /^\/data\/(?:law|ir)\/([a-z]{2})\.json$/i,
+  /^\/engine\/laws\/([a-z]{2})\.tlaw$/i,
+  /^\/forms\/([a-z]{2})\.pdf$/i,
+  /^\/api\/jurisdictions\/([a-z]{2})(?:\/|$)/i,
+];
+
+// The state a same-origin URL names, by its path or by ?st=, or null.
+export function stateNamedIn(url: URL, origin: string): string | null {
+  if (url.origin !== origin) return null;
+  for (const re of STATE_PATHS) {
+    const code = re.exec(url.pathname)?.[1]?.toUpperCase();
+    if (code && CODES.has(code)) return code;
+  }
+  const st = url.searchParams.get("st")?.toUpperCase();
+  return st && CODES.has(st) ? st : null;
+}
+
+// Next fetches the pages that links point to before anyone picks one. Those requests name a state
+// the visitor did not choose, so they are not a pick; opening the page is (FlowProvider).
+function isPrefetch(input: RequestInfo | URL, init?: RequestInit): boolean {
+  const headers = new Headers(init?.headers ?? (input instanceof Request ? input.headers : undefined));
+  return headers.has("next-router-prefetch");
+}
+
+const stateListeners = new Set<() => void>();
+
+// Every request that names a state, with no code: the line needs only to know that one went.
+export function onStateRequest(fn: () => void): () => void {
+  stateListeners.add(fn);
+  return () => stateListeners.delete(fn);
+}
+
+function emitState() {
+  for (const fn of stateListeners) {
+    try {
+      fn();
+    } catch {
+      // as in emit
+    }
+  }
+}
 
 const listeners = new Set<Listener>();
 const sends: NetSend[] = [];
@@ -157,7 +207,10 @@ export function installNetLog(target: typeof globalThis = globalThis): void {
       return real(input, init);
     }
     const kind = classifyRequest(method, url, origin);
-    if (!kind) return real(input, init);
+    if (!kind) {
+      if (stateNamedIn(url, origin) && !isPrefetch(input, init) && !offline()) emitState();
+      return real(input, init);
+    }
     const wasOffline = offline();
     const sent = bodyJson(init?.body);
     const base = {
@@ -198,4 +251,5 @@ export function resetNetLogForTests(): void {
   installed = null;
   sends.length = 0;
   listeners.clear();
+  stateListeners.clear();
 }

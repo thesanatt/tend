@@ -188,8 +188,9 @@ export default function HowItWorks() {
                 A line at the top of every page starts as &quot;On this device. Nothing has left it since this page
                 opened.&quot; The page builds that line from the requests it actually makes. It changes when any of the
                 person&apos;s data is sent. Picking a state changes it: the line then says the state went to Tend&apos;s
-                server, because the law files a browser asks for are named for the state. Loading other pages does not
-                change it, though those requests still reach Tend&apos;s web host.
+                server, because the law files a browser asks for are named for the state. Opening a state&apos;s own
+                page, such as /mi, changes it the same way. Loading other pages does not change it, though those
+                requests still reach Tend&apos;s web host.
               </p>
               <See
                 files={[

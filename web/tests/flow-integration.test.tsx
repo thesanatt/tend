@@ -30,7 +30,15 @@ import { billReader, classifier, statementParser } from "@/lib/local";
 import { pdfLines } from "@/lib/local/pdf";
 import { mockEngineOutput } from "@/lib/mocks/engine";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
-import { classifyRequest, installNetLog, netSends, onNetSend, resetNetLogForTests } from "@/lib/netlog";
+import {
+  classifyRequest,
+  installNetLog,
+  netSends,
+  onNetSend,
+  onStateRequest,
+  resetNetLogForTests,
+  stateNamedIn,
+} from "@/lib/netlog";
 import { buildLetters, createPacketBuilder, LawBook, stillNeeded } from "@/lib/packet";
 import {
   captureFlow,
@@ -469,6 +477,51 @@ describe("the net log behind the privacy line", () => {
     expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: en.privacy.more }));
     expect(within(await screen.findByRole("dialog")).getByText(en.privacy.stateLine)).toBeTruthy();
+  });
+
+  it("knows a request named for a state, by its path or by ?st=", () => {
+    const u = (p: string) => new URL(p, origin);
+    for (const p of [
+      "/mi",
+      "/law/MI",
+      "/data/law/MI.json",
+      "/data/ir/MI.json",
+      "/engine/laws/MI.tlaw",
+      "/forms/MI.pdf",
+      "/api/jurisdictions/MI",
+      "/api/jurisdictions/MI/asm",
+      "/start?st=MI",
+    ]) {
+      expect(stateNamedIn(u(p), origin), p).toBe("MI");
+    }
+    for (const p of ["/", "/check", "/sources", "/law/changes", "/zz", "/data/law/ZZ.json", "/start?st=zz"]) {
+      expect(stateNamedIn(u(p), origin), p).toBeNull();
+    }
+    expect(stateNamedIn(new URL("https://elsewhere.example/mi"), origin)).toBeNull();
+  });
+
+  it("reports a state's request apart from the sends, and not a link Next fetches ahead", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("{}", { status: 200 })));
+    installNetLog(window);
+    let named = 0;
+    onStateRequest(() => named++);
+    await fetch("/mi?_rsc=1", { headers: { "Next-Router-Prefetch": "1", RSC: "1" } });
+    expect(named).toBe(0);
+    await fetch("/mi?_rsc=1", { headers: { RSC: "1" } });
+    await fetch("/data/law/OH.json");
+    expect(named).toBe(2);
+    expect(netSends()).toHaveLength(0);
+  });
+
+  it("says the state went to the server after a state's page loads, with no state in Check", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("{}", { status: 200 })));
+    renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
+    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
+    // "Find your state" on the home page opens /mi, which Next asks the server for by name.
+    await act(async () => {
+      await fetch("/mi?_rsc=abc", { headers: { RSC: "1" } });
+    });
+    expect(screen.getByText(en.privacy.quietState)).toBeTruthy();
   });
 
   it("a send no screen announced still shows on the privacy line", async () => {

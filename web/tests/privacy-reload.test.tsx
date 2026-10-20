@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 // The privacy line stays true for the tab. It says nothing left only since this page opened; a
-// reload keeps what the tab sent, as the kind and the time only; the page's first HTML never says
+// reload keeps only that the tab sent something, never what or when; the page's first HTML never says
 // nothing left before it has looked; saved progress that is locked hides it; ending the claim here
 // (Close Tend on a claim never saved, deleting or saving over locked progress) and Exit this page
 // forget it, and a page that put a new claim on screen stops saying nothing left.
@@ -10,11 +10,12 @@ import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ExitControl } from "@/components/flow/ExitControl";
 import { FlowProvider, useFlow, VAULT_KEY } from "@/components/flow/FlowProvider";
-import { dropUnlessReload, keepSend, withKept } from "@/components/flow/keptSends";
+import { dropUnlessReload, keepSend, reloadKeptForTests } from "@/components/flow/keptSends";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { FlowState } from "@/components/flow/state";
 import { navigation } from "@/components/QuickExit";
 import { I18nProvider, type Lang } from "@/lib/i18n";
+import { en } from "@/lib/i18n/en";
 import { SENT_KEY } from "@/lib/keys";
 import { MI_CHECK, stateFrom, stubLawFetch, testServices, TODAY, type TestServices } from "./helpers/flow";
 
@@ -35,6 +36,8 @@ afterEach(() => {
 // One page of the flow: a fresh provider, as after a reload, with the privacy line and a handle on
 // the flow for sending. Pass the same services to keep the same saved progress across pages.
 function mount(lang: Lang = "en", extra?: ReactNode, services: TestServices = testServices()) {
+  // A new page reads what the tab kept, as the module does when a page loads.
+  reloadKeptForTests();
   const box: { flow: ReturnType<typeof useFlow> | null } = { flow: null };
   function Grab() {
     box.flow = useFlow();
@@ -62,7 +65,8 @@ async function page(lang: Lang = "en", extra?: ReactNode, services?: TestService
 
 const line = () => screen.getByRole("status").textContent;
 const QUIET = "On this device. Only the state you picked went to Tend's server, to get its law.";
-const keptKinds = () => (JSON.parse(sessionStorage.getItem(SENT_KEY) ?? "[]") as { kind: string }[]).map((k) => k.kind);
+const kept = () => JSON.parse(sessionStorage.getItem(SENT_KEY) ?? "{}") as { sent?: true; state?: true };
+const BEFORE = "something this tab sent before a reload";
 
 function pay(flow: ReturnType<typeof useFlow>, id: string) {
   act(() => {
@@ -84,89 +88,78 @@ function pay(flow: ReturnType<typeof useFlow>, id: string) {
 }
 
 describe("the privacy line after a reload", () => {
-  it("still says what this tab sent, and keeps only the kind and the time", async () => {
+  it("still says this tab sent something, and keeps no kind, time, amount, or id", async () => {
     const flow = (await page()).flow!;
     expect(line()).toBe(QUIET);
     pay(flow, "act_7f3a");
     act(() => flow.logSent({ kind: "share", ref: "share:tok_91c2" }));
-    const after = "On this device, except: the state you picked, a payment, and a locked share link.";
-    expect(line()).toBe(after);
+    expect(line()).toBe("On this device, except: the state you picked, a payment, and a locked share link.");
 
-    // What the tab holds: the kinds and times, never the amount, the payee, or any id.
+    // What the tab holds: two flags. Not that it was a payment or a share, and not when.
     const raw = sessionStorage.getItem(SENT_KEY)!;
-    const kept = JSON.parse(raw) as { kind: string; at: string }[];
-    expect(kept.map((k) => k.kind)).toEqual(["payment", "share"]);
-    for (const k of kept) {
-      expect(Object.keys(k).sort()).toEqual(["at", "kind"]);
-      expect(k.at).toMatch(/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/);
+    expect(JSON.parse(raw)).toEqual({ sent: true, state: true });
+    for (const secret of ["payment", "share", "11800", "Riverbend", "act_7f3a", "tok_91c2", "202"]) {
+      expect(raw).not.toContain(secret);
     }
-    // The times are the clock's, and ".118Z" is a time like any other: look past them for the rest.
-    const rest = raw.replace(/"at":"[^"]*"/g, "");
-    for (const secret of ["11800", "118", "Riverbend", "act_7f3a", "tok_91c2"]) expect(rest).not.toContain(secret);
 
-    // A reload: the flow starts over in memory, the tab remembers.
+    // A reload: the flow starts over in memory, and the tab remembers only that something went.
     cleanup();
     await page();
-    expect(line()).toBe(after);
+    expect(line()).toBe(`On this device, except: the state you picked and ${BEFORE}.`);
     fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
     const sheet = within(screen.getByRole("dialog"));
-    expect(
-      sheet.getByText(/: a payment\. After a reload, this list keeps only what was sent and when\.$/),
-    ).toBeTruthy();
-    expect(sheet.getByText(/: a share link\. The packet was locked on this device first/)).toBeTruthy();
-    expect(sheet.queryByText(/\$118\.00|Riverbend/)).toBeNull();
+    expect(sheet.getByText(en.privacy.eventBefore)).toBeTruthy();
+    expect(sheet.queryByText(/: a payment of|: a share link\.|\$118\.00|Riverbend/)).toBeNull();
   });
 
   it("says it in Spanish too", async () => {
     pay((await page("es")).flow!, "act_1");
     cleanup();
     await page("es");
-    expect(line()).toBe("En este dispositivo, salvo: el estado que elegiste y un pago.");
+    expect(line()).toBe(
+      "En este dispositivo, salvo: el estado que elegiste y algo que esta pestaña envió antes de recargarse.",
+    );
   });
 
-  it("keeps a payment that was started and not finished, and says a later one once", async () => {
+  it("keeps a payment that was started and not finished, and names what this page sends", async () => {
     const first = (await page()).flow!;
     act(() =>
       first.logSent({ kind: "payment_setup", amount_cents: 11800, to: "Riverbend", action_id: "a1", ref: "setup:a1" }),
     );
     cleanup();
     const second = (await page()).flow!;
-    expect(line()).toBe("On this device, except: the state you picked and a payment you started.");
+    expect(line()).toBe(`On this device, except: the state you picked and ${BEFORE}.`);
     pay(second, "a2");
-    expect(line()).toBe("On this device, except: the state you picked, a payment, and a payment you started.");
+    expect(line()).toBe(`On this device, except: the state you picked, a payment, and ${BEFORE}.`);
     cleanup();
     await page();
-    expect(line()).toBe("On this device, except: the state you picked, a payment, and a payment you started.");
+    expect(line()).toBe(`On this device, except: the state you picked and ${BEFORE}.`);
   });
 
-  it("counts one send reported twice (by the screen and by the net log) once", async () => {
+  it("keeps one flag however many sends there are", async () => {
     const flow = (await page()).flow!;
     act(() => {
       flow.logSent({ kind: "share", ref: "share:s1", at: "2026-10-03T17:00:00.000Z" });
       flow.logSent({ kind: "share", ref: "share:s1", at: "2026-10-03T17:00:01.000Z" });
+      flow.logSent({ kind: "bank", ref: "bank" });
     });
-    expect(JSON.parse(sessionStorage.getItem(SENT_KEY)!)).toEqual([{ kind: "share", at: "2026-10-03T17:00:00.000Z" }]);
-    expect(
-      withKept(
-        [{ kind: "share", at: "2026-10-03T17:00:00.000Z", ref: "share:s1" }],
-        [
-          { kind: "share", at: "2026-10-03T17:00:00.000Z" },
-          { kind: "bank", at: "2026-10-03T16:00:00.000Z" },
-        ],
-      ),
-    ).toEqual([
-      { kind: "bank", at: "2026-10-03T16:00:00.000Z", kept: true },
-      { kind: "share", at: "2026-10-03T17:00:00.000Z", ref: "share:s1" },
-    ]);
+    expect(JSON.parse(sessionStorage.getItem(SENT_KEY)!)).toEqual({ sent: true, state: true });
   });
 
   it("ignores anything else in its place in storage", async () => {
-    sessionStorage.setItem(
-      SENT_KEY,
-      JSON.stringify([{ kind: "payment", at: "x", amount_cents: 11800 }, { kind: "wire", at: "y" }, 3, null]),
-    );
-    await page();
-    expect(line()).toBe(QUIET);
+    for (const junk of [
+      [{ kind: "payment", at: "x" }],
+      { sent: "yes" },
+      { sent: true, kind: "payment" },
+      { sent: false },
+      3,
+      null,
+    ]) {
+      sessionStorage.setItem(SENT_KEY, JSON.stringify(junk));
+      await page();
+      expect(line(), JSON.stringify(junk)).toBe(QUIET);
+      cleanup();
+    }
   });
 
   it("says nothing left only since this page opened, in its sheet too and in Spanish", async () => {
@@ -198,7 +191,7 @@ describe("the privacy line after a reload", () => {
 // Chromium gives a closed tab it reopens (Cmd+Shift+T, History) its sessionStorage back, and that
 // load counts as back_forward. Only a reload may bring the list back.
 describe("the privacy line on a page that is not a reload", () => {
-  const one = JSON.stringify([{ kind: "share", at: "2026-10-03T17:00:00.000Z" }]);
+  const one = JSON.stringify({ sent: true });
 
   // The page loading again: a fresh copy of the module, with the browser's navigation type.
   async function load(type: string) {
@@ -254,7 +247,9 @@ describe("the privacy line behind the lock", () => {
     const sheet = within(screen.getByRole("dialog"));
     expect(sheet.queryByRole("heading", { name: "What you sent" })).toBeNull();
     expect(
-      sheet.queryByText(/Nothing since this page opened|this list keeps only what was sent|a share link\. The packet/),
+      sheet.queryByText(
+        /Nothing since this page opened|sent something before it was reloaded|a share link\. The packet/,
+      ),
     ).toBeNull();
 
     // A reload with saved progress: still locked, still quiet.
@@ -263,11 +258,12 @@ describe("the privacy line behind the lock", () => {
     expect(again.vault.status).toBe("locked");
     expect(line()).toBe("On this device.");
 
-    // Opening the saved progress brings the whole line back.
+    // Opening the saved progress brings the line back. The payment and the share came after the save,
+    // so the saved claim does not hold them; the tab says only that something went before the reload.
     await act(async () => {
       expect(await again.openSaved({ passphrase })).toBe(true);
     });
-    expect(line()).toBe(named);
+    expect(line()).toBe(`On this device, except: the state you picked and ${BEFORE}.`);
   });
 
   it("does not keep what is sent after Start over without it, so the owner never sees it as theirs", async () => {
@@ -280,7 +276,7 @@ describe("the privacy line behind the lock", () => {
     // own line names it; the tab does not keep it.
     act(() => flow.logSent({ kind: "share", ref: "share:s9" }));
     expect(line()).toBe("On this device, except: a locked share link.");
-    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
+    expect(kept().sent).toBeUndefined();
 
     // A reload, then the owner opens their progress: nothing of the other person's share.
     cleanup();
@@ -315,7 +311,7 @@ describe("the privacy line behind the lock", () => {
       box.flow!.logSent({ kind: "share", ref: "share:s11" });
     });
     expect(box.flow!.vault.status).toBe("none");
-    expect(keptKinds()).toEqual(["share"]);
+    expect(kept().sent).toBe(true);
   });
 
   it("keeps nothing that lands after Lock now, before the screen shows the lock", async () => {
@@ -326,11 +322,11 @@ describe("the privacy line behind the lock", () => {
       flow.lockNow();
       flow.logSent({ kind: "share", ref: "share:s12" });
     });
-    expect(keptKinds()).toEqual([]);
+    expect(kept().sent).toBeUndefined();
   });
 
   it("names none of the tab's sends before it knows whether there is saved progress", () => {
-    keepSend({ kind: "payment", at: "2026-10-03T17:00:00.000Z" });
+    keepSend();
     const services = testServices();
     // The vault has not answered yet, as on a slow phone.
     services.vault.exists = () => new Promise<boolean>(() => {});
@@ -344,8 +340,8 @@ describe("the privacy line behind the lock", () => {
 describe("the privacy line when the claim ends here", () => {
   const passphrase = "garden gate 41";
   const forgotten = () => {
-    expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
-    expect(line()).not.toMatch(/payment|share link/);
+    expect(kept().sent).toBeUndefined();
+    expect(line()).not.toMatch(/payment|share link|before a reload/);
   };
 
   it("forgets what the tab sent when locked progress is deleted, which needs no passcode", async () => {
@@ -362,7 +358,7 @@ describe("the privacy line when the claim ends here", () => {
     expect(line()).toBe("On this device.");
     fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
     expect(
-      within(screen.getByRole("dialog")).queryByText(/this list keeps only|a share link\. The packet|Nothing since/),
+      within(screen.getByRole("dialog")).queryByText(/before it was reloaded|a share link\. The packet|Nothing since/),
     ).toBeNull();
 
     cleanup();
@@ -435,7 +431,9 @@ describe("the privacy line when the claim ends here", () => {
     // Not the other person's share, and not "Nothing has left it since this page opened" either.
     expect(line()).toBe("On this device.");
     fireEvent.click(screen.getByRole("button", { name: "What stays here" }));
-    expect(within(screen.getByRole("dialog")).queryByText(/a share link\. The packet|Nothing since/)).toBeNull();
+    expect(
+      within(screen.getByRole("dialog")).queryByText(/a share link\. The packet|Nothing since|before it was reloaded/),
+    ).toBeNull();
   });
 
   it("forgets it too on Close Tend after starting over without locked progress", async () => {
@@ -467,13 +465,13 @@ describe("the privacy line when the claim ends here", () => {
     cleanup();
     const box = await page("en", undefined, services);
     await act(async () => box.flow!.save({ passphrase }));
-    const paid = "On this device, except: the state you picked and a payment.";
+    const paid = `On this device, except: the state you picked and ${BEFORE}.`;
     expect(line()).toBe(paid);
 
     act(() => box.flow!.endSession());
     expect(box.flow!.vault.status).toBe("locked");
     expect(line()).toBe("On this device.");
-    expect(JSON.parse(sessionStorage.getItem(SENT_KEY)!).map((k: { kind: string }) => k.kind)).toEqual(["payment"]);
+    expect(kept().sent).toBe(true);
 
     cleanup();
     const again = await page("en", undefined, services);
@@ -496,7 +494,7 @@ describe("Exit this page", () => {
       fireEvent.click(screen.getByRole("button", { name: "Exit this page" }));
       expect(replace).toHaveBeenCalledTimes(1);
       expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
-      keepSend({ kind: "share", at: new Date().toISOString(), ref: "share:late" });
+      keepSend();
       expect(sessionStorage.getItem(SENT_KEY)).toBeNull();
     } finally {
       navigation.replace = real;

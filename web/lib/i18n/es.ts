@@ -91,14 +91,15 @@ export const es: Dict = {
       `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el tipo de transacción, el comercio, su categoría y la descripción, después de que Tend intentó quitar las fechas, los montos y otros números.`,
     eventCloudBill: (when: string) => `${when}: un archivo de factura, a la IA en la nube, porque dijiste que sí.`,
     eventOther: (path: string, when: string) => `${when}: una solicitud a ${path}.`,
-    eventKept: (what: string, when: string) =>
-      `${when}: ${what}. Después de recargar la página, esta lista solo guarda qué se envió y cuándo.`,
+    partBefore: "algo que esta pestaña envió antes de recargarse",
+    eventBefore:
+      "Esta pestaña envió algo antes de recargarse. Tend no guarda más que eso. Cierra la pestaña para borrarlo.",
     more: "Qué se queda aquí",
     sheetTitle: "Qué se queda en este dispositivo",
     facts: [
       "Tus respuestas, tus gastos y tus archivos se quedan en este navegador, a menos que decidas enviarlos. Hay una excepción: Tend le pide a su servidor la ley del estado que elijas, así que el servidor puede saber qué estado es. Tend lee aquí los estados de cuenta y las facturas, y el motor de la ley funciona aquí.",
       "Todo lo demás sale solo cuando tú decides enviarlo: un pago que empiezas o confirmas, un paquete que compartes o una consulta para ver los registros del banco de demostración. Si dices que sí, unas filas o una factura pueden ir a la IA en la nube, y tu solicitud puede ir al servidor de Tend si este navegador no puede usar el motor de la ley. Un paquete compartido se protege antes de salir, y la clave se queda en el enlace.",
-      "Tend nunca pregunta qué pasó, dónde ni quién.",
+      "Tend nunca pregunta qué pasó ni quién, y pregunta dónde solo por el estado.",
       "Si guardas, tu progreso queda protegido con Touch ID o un código. Usa Salir de esta página, o presiona Esc dos veces, para salir rápido.",
     ],
     sentTitle: "Lo que enviaste",
@@ -224,7 +225,7 @@ export const es: Dict = {
   check: {
     title: "Mira lo que tu estado puede pagar",
     lead: "Cuatro preguntas. Responde lo que puedas. Siempre puedes decir que no sabes. Tend le pide a su servidor la ley del estado que elijas, así que el servidor puede saber qué estado es. Tus otras respuestas se quedan en este dispositivo, a menos que decidas enviarlas.",
-    never: "Tend nunca pregunta qué pasó, dónde ni quién.",
+    never: "Tend nunca pregunta qué pasó ni quién, y pregunta dónde solo por el estado.",
     stateLabel: "¿En qué estado pasó?",
     stateHint: "El programa de ese estado se encarga, aunque vivas en otro lugar.",
     stateChoose: "Elige un estado",

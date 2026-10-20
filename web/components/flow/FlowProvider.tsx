@@ -16,14 +16,15 @@ import {
   type ReactNode,
   type SetStateAction,
 } from "react";
+import { usePathname } from "next/navigation";
 import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
 import type { StatementTxn } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
-import { installNetLog, onNetSend } from "@/lib/netlog";
+import { installNetLog, onNetSend, onStateRequest, stateNamedIn } from "@/lib/netlog";
 import { stateToday } from "@/lib/stateTime";
 import type { EngineInput } from "@/lib/types";
 import { buildEngineInput, countingDate, knowsDate, offered } from "./claim";
-import { forgetKeptSends, keepSend } from "./keptSends";
+import { forgetKeptSends, keepSend, keepStatePick } from "./keptSends";
 import { defaultServices, type FlowServices } from "./services";
 import {
   findReplaced,
@@ -74,6 +75,9 @@ interface VaultView {
   passkey: boolean | null;
 }
 
+// Any origin will do: only the path is read.
+const ORIGIN = "http://localhost";
+
 interface Flow {
   state: FlowState;
   dispatch: Dispatch<Action>;
@@ -86,6 +90,10 @@ interface Flow {
   // Delete). What the page sent before may be off the privacy line then, so the line stops saying
   // that nothing left since the page opened. Never stored: a new page starts false.
   restarted: boolean;
+  // This page asked Tend's server for something named for a state (lib/netlog stateNamedIn): a state
+  // page, a law file, the form. The server can tell which state, so the privacy line says so even
+  // when no state is set in Check, as after "Find your state" on the home page.
+  stateSeen: boolean;
   readStatement(file: File, sample?: boolean): Promise<SourceRecord>;
   connectBank(): Promise<SourceRecord>;
   readBill(file: File, sample?: boolean): Promise<BillRecord>;
@@ -163,6 +171,7 @@ export function FlowProvider({
   const [methods, setMethods] = useState<VaultMethods | null>(null);
   const [passkey, setPasskey] = useState<boolean | null>(null);
   const [restarted, setRestarted] = useState(false);
+  const [stateSeen, setStateSeen] = useState(false);
   const [openedAt] = useState(() => new Date());
   // Today in the chosen state's own time, the engine's as_of_date (docs/SPEC.md v1.3), so a late night
   // somewhere else never counts a deadline a day early. The device's date until a state is chosen.
@@ -203,11 +212,24 @@ export function FlowProvider({
   const logSent = useCallback((event: Omit<SentEvent, "at"> & { at?: string }) => {
     const sent = { ...event, at: event.at ?? new Date().toISOString() };
     dispatch({ type: "sent", event: sent });
-    // The tab keeps the kind and the time, so a reload cannot hide a send from the privacy line. Not
-    // while saved progress is locked (Start over without it) or still being checked: the line hides
-    // the tab's list then, and opening that progress would name these sends to its owner as theirs.
-    if (vaultRef.current === "none" || vaultRef.current === "open") keepSend(sent);
+    // The tab keeps a flag that something went, so a reload cannot hide a send from the privacy
+    // line. Not while saved progress is locked (Start over without it) or still being checked: the
+    // line hides the tab's flags then, and opening that progress would count these sends as theirs.
+    if (vaultRef.current === "none" || vaultRef.current === "open") keepSend();
   }, []);
+
+  // A state named in a request (lib/netlog onStateRequest). A new claim on screen starts it over
+  // (setRestarted), as Check's state did.
+  useEffect(() => onStateRequest(() => setStateSeen(true)), []);
+  // Opening a page whose address names a state (/mi, /law/MI) is such a request too, including the
+  // first page load and a step Next serves from a copy it fetched ahead.
+  const pathname = usePathname();
+  const pageState = useMemo(() => (pathname ? stateNamedIn(new URL(pathname, ORIGIN), ORIGIN) : null), [pathname]);
+  const anyState = Boolean(state.check.st) || stateSeen || Boolean(pageState);
+  // The tab keeps the flag for a reload, under the same rule as a send.
+  useEffect(() => {
+    if (anyState && (vaultStatus === "none" || vaultStatus === "open")) keepStatePick();
+  }, [anyState, vaultStatus]);
 
   // Every request the page makes passes lib/netlog, so the privacy line hears about each send,
   // including any no screen announced. A screen's own report of the same send is merged by ref.
@@ -300,6 +322,7 @@ export function FlowProvider({
       rereads.current.clear();
       dispatch({ type: "reset", lang: stateRef.current.lang });
       setRestarted(true);
+      setStateSeen(false);
       setIdleLocked(idle);
       setVaultStatus("locked");
     },
@@ -490,6 +513,7 @@ export function FlowProvider({
       claim,
       vault: { status: vaultStatus, idleLocked, methods, passkey },
       restarted,
+      stateSeen: stateSeen || Boolean(pageState),
 
       async readStatement(file, sample = false) {
         const sha = shortHash(await fileSha(file));
@@ -610,6 +634,8 @@ export function FlowProvider({
         if (isFlowState(saved)) {
           dispatch({ type: "restore", state: saved });
           setLang(saved.lang);
+          // The saved claim's own state speaks for it, not one asked for before it opened.
+          setStateSeen(false);
         }
         setIdleLocked(false);
         setVaultStatus("open");
@@ -628,6 +654,7 @@ export function FlowProvider({
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
         setRestarted(true);
+        setStateSeen(false);
         setIdleLocked(false);
         setVaultStatus("none");
       },
@@ -643,6 +670,7 @@ export function FlowProvider({
         rereads.current.clear();
         dispatch({ type: "reset", lang: stateRef.current.lang });
         setRestarted(true);
+        setStateSeen(false);
         setVaultStatus((v) => (v === "open" ? "locked" : v));
       },
     };
@@ -657,6 +685,8 @@ export function FlowProvider({
     methods,
     passkey,
     restarted,
+    stateSeen,
+    pageState,
     logSent,
     lockNow,
     setLang,
