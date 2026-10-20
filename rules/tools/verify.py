@@ -66,12 +66,49 @@ def money_in_quote(cents: int, quote_nums: set) -> bool:
     return dollars in quote_nums or int(dollars) in quote_nums
 
 
-def fragment(url: str, quote_text: str) -> str:
+def _first_word_match(text: str, term: str, start: int = 0) -> int:
+    """Where a browser's text fragment would first find term: case-insensitive (text and term are
+    lowercased by the caller), starting and ending at word boundaries."""
+    i = text.find(term, start)
+    while i >= 0:
+        end = i + len(term)
+        if (i == 0 or not text[i - 1].isalnum()) and (end >= len(text) or not text[end].isalnum()):
+            return i
+        i = text.find(term, i + 1)
+    return -1
+
+
+def fragment(url: str, quote_text: str, page_text: str = "") -> str:
+    """A text-fragment link that highlights the quote itself. The browser highlights from the first
+    match of the start words to the first match of the end words after it, so each term grows a word
+    at a time until its first match is the quote's own start (and end) in the saved page text. When
+    the two terms would meet, the whole quote is the fragment."""
     words = quote_text.split()
     enc = lambda s: quote(s, safe="").replace("-", "%2D")
+    whole = f"{url}#:~:text={enc(quote_text)}"
     if len(words) <= 10:
-        return f"{url}#:~:text={enc(quote_text)}"
-    return f"{url}#:~:text={enc(' '.join(words[:5]))},{enc(' '.join(words[-5:]))}"
+        return whole
+    text = page_text.lower()
+    nw = [norm(w).lower() for w in words]
+    target = " ".join(nw)
+    at = text.find(target)
+    if at < 0:
+        return f"{url}#:~:text={enc(' '.join(words[:5]))},{enc(' '.join(words[-5:]))}"
+    k = 5
+    while k < len(words) and _first_word_match(text, " ".join(nw[:k])) != at:
+        k += 1
+    after_start = at + len(" ".join(nw[:k]))
+    end_at = at + len(target)
+    m = 5
+    while k + m < len(words):
+        term = " ".join(nw[-m:])
+        j = _first_word_match(text, term, after_start)
+        if j >= 0 and j + len(term) == end_at:
+            break
+        m += 1
+    if k + m >= len(words):
+        return whole
+    return f"{url}#:~:text={enc(' '.join(words[:k]))},{enc(' '.join(words[-m:]))}"
 
 
 def check(st: str):
@@ -145,7 +182,7 @@ def check(st: str):
             if n not in qn and n not in (0, 1):
                 errors.append(f"{rid}: summary number {n} is not in the quote")
         if kinds[sid] == "html" and urls[sid]:
-            r["fragment_url"] = fragment(urls[sid], r.get("quote", "").strip())
+            r["fragment_url"] = fragment(urls[sid], r.get("quote", "").strip(), texts[sid])
     return errors, warnings, data
 
 
