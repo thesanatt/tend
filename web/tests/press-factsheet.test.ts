@@ -61,13 +61,13 @@ describe("the fact sheet PDF", () => {
     expect(uris.every((u) => /^(https:\/\/|mailto:)/.test(u))).toBe(true);
   });
 
-  it("leaves out Sanat's words until he writes them, and says the contact is not chosen", async () => {
+  it("leaves out Sanat's words, the video and the contact until he sets them", async () => {
     expect(WHY).toBeNull();
     expect(CONTACT).toBeNull();
     expect(VIDEO).toBeNull();
     const text = (await buildFactSheet()).transcript.join("\n");
     expect(text).not.toContain("In Sanat Gupta's words");
-    expect(text).toContain("Contact: not chosen yet.");
+    expect(text).not.toMatch(/Contact:|Video:|not chosen yet/);
   });
 
   it("keeps room for three sentences from Sanat, a contact address, and a video link", async () => {

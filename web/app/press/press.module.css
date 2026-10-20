@@ -56,6 +56,14 @@
   white-space: nowrap;
 }
 
+/* With large text on a phone, a long name may break anywhere rather than push the page sideways. */
+@media (max-width: 30em) {
+  .nowrap {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
 .source {
   color: var(--ink-3);
   font-size: var(--text-xs);
@@ -256,21 +264,6 @@
   display: block;
   margin-top: var(--space-1);
   white-space: normal;
-}
-
-/* What Sanat has yet to write or choose. */
-.placeholder {
-  display: grid;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border: 1.5px dashed var(--line-strong);
-  border-radius: var(--radius-2);
-}
-
-.placeholderLabel {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--ink-3);
 }
 
 .why {

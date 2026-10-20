@@ -54,16 +54,6 @@ function Sources({ sources }: { sources: PressSource[] }) {
   );
 }
 
-// A dashed box for what Sanat has yet to write or choose.
-function Placeholder({ children }: { children: ReactNode }) {
-  return (
-    <div className={styles.placeholder}>
-      <p className={styles.placeholderLabel}>Placeholder</p>
-      {children}
-    </div>
-  );
-}
-
 // A script's path, linked to the file on GitHub. A phone breaks it only after a slash, never at the hyphen
 // inside a name.
 function Script({ path }: { path: string }) {
@@ -133,18 +123,15 @@ export default function PressPage() {
         <p className="meta">Facts checked {longDate(kit.checked)}.</p>
       </header>
 
-      <section className={styles.section} aria-labelledby="words">
-        <h2 id="words">In Sanat&apos;s words</h2>
-        {kit.why ? (
+      {/* What Sanat has yet to write or choose (fromSanat.ts) is left out, not shown as a placeholder. */}
+      {kit.why ? (
+        <section className={styles.section} aria-labelledby="words">
+          <h2 id="words">In Sanat&apos;s words</h2>
           <blockquote className={styles.why}>
             <p>{kit.why}</p>
           </blockquote>
-        ) : (
-          <Placeholder>
-            <p>Two or three sentences from Sanat Gupta on why he built Tend go here. He has not written them yet.</p>
-          </Placeholder>
-        )}
-      </section>
+        </section>
+      ) : null}
 
       <section className={styles.section} aria-labelledby="facts">
         <h2 id="facts">Key facts</h2>
@@ -246,16 +233,14 @@ export default function PressPage() {
           ))}
         </ul>
 
-        <h3>Video</h3>
         {kit.video ? (
-          <p>
-            <a href={kit.video}>The demo video</a>
-          </p>
-        ) : (
-          <Placeholder>
-            <p>A video of the fictional demo is not published yet.</p>
-          </Placeholder>
-        )}
+          <>
+            <h3>Video</h3>
+            <p>
+              <a href={kit.video}>The demo video</a>
+            </p>
+          </>
+        ) : null}
 
         <p className={styles.small}>
           How these are made: <Script path="web/scripts/press-factsheet.ts" /> prints the fact sheet from the same facts
@@ -266,18 +251,14 @@ export default function PressPage() {
         </p>
       </section>
 
-      <section className={styles.section} aria-labelledby="contact">
-        <h2 id="contact">Contact</h2>
-        {kit.contact ? (
+      {kit.contact ? (
+        <section className={styles.section} aria-labelledby="contact">
+          <h2 id="contact">Contact</h2>
           <p>
             <a href={`mailto:${kit.contact}`}>{kit.contact}</a>
           </p>
-        ) : (
-          <Placeholder>
-            <p>The address for reporters is not chosen yet.</p>
-          </Placeholder>
-        )}
-      </section>
+        </section>
+      ) : null}
 
       <section className={styles.section} aria-labelledby="links">
         <h2 id="links">Links</h2>

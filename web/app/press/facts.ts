@@ -9,21 +9,13 @@ import { statSync } from "node:fs";
 import path from "node:path";
 import { loadCorpus } from "@/components/public/data";
 import { LINKS } from "@/components/tour/links";
+import { CONTACT, VIDEO, WHY } from "./fromSanat";
 
 // The day these facts were last checked against the docs and the data. Change it along with any fact.
 export const CHECKED = "2026-10-20";
 
-// TODO(Sanat): two or three sentences, in your own words, on why you built Tend. Until then /press shows a
-// marked placeholder and the fact sheet leaves it out.
-export const WHY: string | null = null;
-
-// TODO(Sanat): the address reporters should write to. Until then /press and the fact sheet say it is not
-// chosen yet.
-export const CONTACT: string | null = null;
-
-// TODO(Sanat): the demo video's unlisted YouTube link, once it is recorded. It stays a link: the site's
-// security policy allows no frames, so an embed would not load.
-export const VIDEO: string | null = null;
+// WHY, CONTACT and VIDEO are Sanat's to write (fromSanat.ts, with their TODOs).
+export { CONTACT, VIDEO, WHY };
 
 export interface PressSource {
   label: string;
@@ -56,7 +48,8 @@ export interface PressFacts {
   notAdvice: string;
 }
 
-// The line from the press brief, word for word.
+// The press brief's builder line, with the prize as Devpost shows it ("Winner", no place, a sponsor prize,
+// not a track).
 export const BUILDER =
   "Built by Sanat Gupta, a computer science senior at the University of Michigan, at MHacks 2026, where it won Capital One's Best Use of Nessie prize.";
 
@@ -130,8 +123,9 @@ export function pressFacts(): PressFacts {
       },
       {
         id: "device",
-        text: `Each state's law runs in the browser, in an engine written in C++ and compiled to ${engineKb()} KB of WebAssembly. Bank statements and bills are read there too. Only a yes moves the law check to Tend's server, or bills and bank rows to cloud AI.`,
-        // Design for safety and docs/PRIVACY.md both cover cloud AI and the server law check.
+        text: `Each state's law runs in the browser, in a C++ engine compiled to ${engineKb()} KB of WebAssembly. Only a yes sends the law check to Tend's server, or bills and bank rows to cloud AI. The state picked still reaches Tend's server and its host's logs, with the IP address.`,
+        // Design for safety and docs/PRIVACY.md both cover cloud AI and the server law check, and
+        // docs/PRIVACY.md item 6 and Request logs the state's request.
         sources: [
           { label: "tend.wasm, the engine itself", href: ENGINE },
           { label: "Design for safety", href: "/how-it-works#safety" },

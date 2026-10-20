@@ -177,10 +177,13 @@ export async function buildFactSheet(kit: PressFacts = pressFacts()): Promise<Fa
   ];
   const cells: Run[][] = kit.links.filter((l) => LINKS_SHOWN.includes(l.label)).map((l) => link(l.label, l.href));
   if (kit.video) cells.push(link("Video", kit.video));
-  cells.push([
-    { text: "Contact: ", font: "bold" },
-    kit.contact ? { text: kit.contact, link: `mailto:${kit.contact}`, color: "green" } : { text: "not chosen yet." },
-  ]);
+  // No contact line until Sanat chooses one (fromSanat.ts).
+  if (kit.contact) {
+    cells.push([
+      { text: "Contact: ", font: "bold" },
+      { text: kit.contact, link: `mailto:${kit.contact}`, color: "green" },
+    ]);
+  }
   pairs(
     pdf,
     cells.map((cell) => (x: number) => pdf.runs(cell, LINE, x, COLUMN)),

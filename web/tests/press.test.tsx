@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // /press as a reporter reads it: one paragraph on what Tend does, the builder's line word for word, every
-// key fact with a link to its source, the real and demo box, Sanat's words and the contact as marked
-// placeholders, and every file in public/press offered for download at its real size. Every number on the
+// key fact with a link to its source, the real and demo box, no section for what Sanat has yet to write
+// or choose, and every file in public/press offered for download at its real size. Every number on the
 // page is quoted from the docs or counted from the data, so nothing new is claimed here.
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -150,18 +150,17 @@ describe("/press", () => {
     });
   });
 
-  it("marks what Sanat has yet to write or choose, and writes none of it for him", () => {
+  it("leaves out what Sanat has yet to write or choose, and writes none of it for him", () => {
     expect(WHY).toBeNull();
     expect(CONTACT).toBeNull();
     expect(VIDEO).toBeNull();
-    const words = section("In Sanat's words");
-    expect(flat(words)).toContain("Placeholder");
-    expect(flat(words)).toContain("He has not written them yet.");
-    expect(words.querySelector("blockquote")).toBeNull();
-    expect(flat(section("Contact"))).toContain("Placeholder");
-    expect(flat(section("Contact"))).toContain("not chosen yet");
-    expect(section("Contact").querySelector('a[href^="mailto:"]')).toBeNull();
-    expect(flat(section("Files"))).toContain("A video of the fictional demo is not published yet.");
+    const headings = screen.getAllByRole("heading").map((h) => h.textContent);
+    expect(headings).not.toContain("In Sanat's words");
+    expect(headings).not.toContain("Contact");
+    expect(headings).not.toContain("Video");
+    expect(document.body.textContent).not.toMatch(/Placeholder|not chosen yet|not published yet|not written/);
+    expect(document.querySelector("blockquote")).toBeNull();
+    expect(document.querySelector('a[href^="mailto:"]')).toBeNull();
   });
 
   it("offers every file in public/press for download, with its real size", () => {
@@ -283,15 +282,21 @@ describe("/press metadata", () => {
 });
 
 describe("the site footer", () => {
-  it("links the press kit on every page, in English", () => {
+  it("holds the press kit link until Sanat sets a contact address", () => {
+    expect(CONTACT).toBeNull();
     renderFlow(<AppFooter />);
+    expect(screen.queryByRole("link", { name: "Press kit" })).toBeNull();
+  });
+
+  it("then links the press kit on every page, in English", () => {
+    renderFlow(<AppFooter pressLink />);
     const link = screen.getByRole("link", { name: "Press kit" });
     expect(link.getAttribute("href")).toBe("/press");
     expect(link.closest("p")!.textContent).toBe("Press kit for reporters.");
   });
 
   it("and in Spanish, where it says the page is in English", () => {
-    renderFlow(<AppFooter />, { lang: "es" });
+    renderFlow(<AppFooter pressLink />, { lang: "es" });
     const link = screen.getByRole("link", { name: "Kit de prensa" });
     expect(link.getAttribute("href")).toBe("/press");
     expect(link.getAttribute("hreflang")).toBe("en");

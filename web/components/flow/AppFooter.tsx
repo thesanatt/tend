@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { CONTACT } from "@/app/press/fromSanat";
 import { useI18n, type Lang } from "@/lib/i18n";
 import { useFlow } from "./FlowProvider";
 import { useOfflineStatus } from "./offline";
@@ -13,7 +14,9 @@ const PRESS: Record<Lang, { link: string; after: string }> = {
   es: { link: "Kit de prensa", after: " para periodistas, en ingl\u00e9s." },
 };
 
-export default function AppFooter() {
+// The footer holds the link until Sanat sets a contact address: a press kit no reporter can write back
+// from reads as unfinished. /press itself still loads.
+export default function AppFooter({ pressLink = Boolean(CONTACT) }: { pressLink?: boolean }) {
   const { t, lang } = useI18n();
   const { claim } = useFlow();
   const backend = claim.evaluation?.backend;
@@ -26,12 +29,14 @@ export default function AppFooter() {
           {t.shell.helpAfter}
         </p>
         <p className="meta">{t.shell.demoNote}</p>
-        <p className="meta">
-          <Link href="/press" hrefLang="en">
-            {PRESS[lang].link}
-          </Link>
-          {PRESS[lang].after}
-        </p>
+        {pressLink ? (
+          <p className="meta">
+            <Link href="/press" hrefLang="en">
+              {PRESS[lang].link}
+            </Link>
+            {PRESS[lang].after}
+          </p>
+        ) : null}
         {backend ? (
           <p className="meta" title={claim.evaluation?.detail}>
             {backend === "wasm" ? t.engine.onDevice : t.engine.onServer}
